@@ -5,8 +5,7 @@ on:
  
 jobs:
   add_issues:
-    runs-on: ubuntu-latest
-    steps:
+    runs-on: ubuntu-latest 
     env:
       VALUES: ${{ toJSON(secrets) }}
     steps:
