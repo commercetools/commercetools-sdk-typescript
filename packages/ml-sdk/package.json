@@ -1,0 +1,9 @@
+{
+  "name": "@commercetools/ml-sdk",
+  "version": "0.0.0-alpha.0",
+  "description": "This repo contains the public machine learning endpoints for the typescript sdk",
+  "main": "index.js",
+  "repository": "https://github.com/commercetools/commercetools-typescript-sdks/packages/ml-sdk",
+  "author": "Achraf Beniasaad",
+  "license": "MIT"
+}
