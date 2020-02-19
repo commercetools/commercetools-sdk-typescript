@@ -5,5 +5,8 @@
   "main": "index.js",
   "repository": "https://github.com/commercetools/commercetools-typescript-sdks/packages/ml-sdk",
   "author": "Achraf Beniasaad",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^13.7.2"
+  }
 }
