@@ -13,7 +13,7 @@
 */
 
 
-import { ClientResponse, executeRequest, ClientRequest } from './common-types'
+import { ClientRequest, ClientResponse, executeRequest } from './common-types'
 import { buildRelativeUri } from './uri-utils'
 
 export class ApiRequest<O> {

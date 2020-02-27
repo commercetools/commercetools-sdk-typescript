@@ -58,4 +58,4 @@
 // .then(res => res.body.results[0])
 // .then(console.log)
 
-export * from './generated/index'
+export * from './generated/index';

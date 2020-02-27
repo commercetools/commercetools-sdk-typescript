@@ -13,11 +13,7 @@
 */
 
 
-import {
-  executeRequest,
-  ClientResponse,
-  ClientRequest
-} from './common-types';
+import { ClientRequest, ClientResponse, executeRequest } from './common-types';
 
 export type Middleware = (
   request: ClientRequest,

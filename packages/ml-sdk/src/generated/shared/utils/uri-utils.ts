@@ -14,10 +14,7 @@
 
 
 import { stringify } from 'querystring'
-import {
-  VariableMap,
-  ClientRequest,
-} from './common-types'
+import { ClientRequest, VariableMap } from './common-types'
 
 function isDefined<T>(value: T | undefined | null): value is T {
   return typeof value !== 'undefined' && value !== null

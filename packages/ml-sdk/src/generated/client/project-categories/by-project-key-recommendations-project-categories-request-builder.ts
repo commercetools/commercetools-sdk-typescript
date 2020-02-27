@@ -11,9 +11,8 @@
 *                    `Y'
 *
 */
+import { executeRequest } from '../../shared/utils/common-types'
 import { ByProjectKeyRecommendationsProjectCategoriesByProductidRequestBuilder } from './by-project-key-recommendations-project-categories-by-productid-request-builder'
-import { QueryParam, executeRequest } from '../../shared/utils/common-types'
-import { ApiRequest } from '../../shared/utils/requests-utils'
 
 export class ByProjectKeyRecommendationsProjectCategoriesRequestBuilder {
 

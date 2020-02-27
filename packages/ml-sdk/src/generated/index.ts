@@ -13,13 +13,14 @@
 */
 
 //models
-export * from 'models/category-recommendations'
-export * from 'models/general-category-recommendations'
-export * from 'models/image-search'
-export * from 'models/common'
-
 //Root client that is used to access all the endpoints in the API
-export * from 'client/api-root'
-
+export * from './client/api-root'
+export * from './models/category-recommendations'
+export * from './models/common'
+export * from './models/general-category-recommendations'
+export * from './models/image-search'
 //Common package
-export * from 'shared/utils/common-types'
+export * from './shared/utils/common-types'
+export * from './shared/utils/middleware'
+
+

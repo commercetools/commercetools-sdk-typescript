@@ -11,7 +11,7 @@
 *
 */
 
-import { ProductVariant } from './common'
+import { ProductVariant } from './common';
 
 /**
 *	Request format from image search endpoint.

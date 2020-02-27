@@ -11,9 +11,8 @@
 *                    `Y'
 *
 */
-import { ByProjectKeyRequestBuilder } from './by-project-key-request-builder'
-import { QueryParam, executeRequest } from '../shared/utils/common-types'
-import { ApiRequest } from '../shared/utils/requests-utils'
+import { executeRequest } from '../shared/utils/common-types';
+import { ByProjectKeyRequestBuilder } from './by-project-key-request-builder';
 
 export class ApiRoot {
 

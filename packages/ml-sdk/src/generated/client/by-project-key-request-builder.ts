@@ -11,10 +11,9 @@
 *                    `Y'
 *
 */
+import { executeRequest } from '../shared/utils/common-types'
 import { ByProjectKeyImageSearchRequestBuilder } from './image-search/by-project-key-image-search-request-builder'
 import { ByProjectKeyRecommendationsRequestBuilder } from './recommendations/by-project-key-recommendations-request-builder'
-import { QueryParam, executeRequest } from '../shared/utils/common-types'
-import { ApiRequest } from '../shared/utils/requests-utils'
 
 export class ByProjectKeyRequestBuilder {
 
