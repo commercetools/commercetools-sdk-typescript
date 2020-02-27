@@ -2,7 +2,6 @@
     "compilerOptions": {
 		"module": "ESNext",
 		"moduleResolution": "Node",
-		// "target": "CommonJS",
 		"removeComments": false,
 		"outDir": "dist",
 		"baseUrl": "./",
@@ -11,8 +10,8 @@
 			"~/*": ["./src/*"],
 			"models/*": ["./src/generated/models/*"],
 			"client/*": ["./src/generated/client/*"],
-			"shared/*": ["./src/generated/shared/*"],
+			"shared/*": ["./src/generated/shared/*"]
 		}
 	},
-    "include": ["./src/**/*"],
+    "include": ["./src/**/*"]
 }

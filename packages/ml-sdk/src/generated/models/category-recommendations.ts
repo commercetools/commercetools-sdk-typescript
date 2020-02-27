@@ -11,7 +11,7 @@
 *
 */
 
-import { CategoryReference } from 'models/common'
+import { CategoryReference } from './common'
 
 export interface ProjectCategoryRecommendation {
   /**

@@ -11,10 +11,10 @@
 *                    `Y'
 *
 */
-import { ByProjectKeyRecommendationsGeneralCategoriesRequestBuilder } from 'client/general-categories/by-project-key-recommendations-general-categories-request-builder'
-import { ByProjectKeyRecommendationsProjectCategoriesRequestBuilder } from 'client/project-categories/by-project-key-recommendations-project-categories-request-builder'
-import { QueryParam, executeRequest } from 'shared/utils/common-types'
-import { ApiRequest } from 'shared/utils/requests-utils'
+import { ByProjectKeyRecommendationsGeneralCategoriesRequestBuilder } from '../general-categories/by-project-key-recommendations-general-categories-request-builder'
+import { ByProjectKeyRecommendationsProjectCategoriesRequestBuilder } from '../project-categories/by-project-key-recommendations-project-categories-request-builder'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
+import { ApiRequest } from '../../shared/utils/requests-utils'
 
 export class ByProjectKeyRecommendationsRequestBuilder {
 

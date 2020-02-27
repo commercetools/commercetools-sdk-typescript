@@ -11,9 +11,9 @@
 *                    `Y'
 *
 */
-import { ProjectCategoryRecommendationPagedQueryResponse } from 'models/category-recommendations'
-import { QueryParam, executeRequest } from 'shared/utils/common-types'
-import { ApiRequest } from 'shared/utils/requests-utils'
+import { ProjectCategoryRecommendationPagedQueryResponse } from '../../models/category-recommendations'
+import { QueryParam, executeRequest } from '../../shared/utils/common-types'
+import { ApiRequest } from '../../shared/utils/requests-utils'
 
 export class ByProjectKeyRecommendationsProjectCategoriesByProductidRequestBuilder {
 
