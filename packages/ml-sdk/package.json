@@ -1,12 +1,42 @@
 {
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "name": "@commercetools/ml-sdk",
   "version": "0.0.0-alpha.0",
-  "description": "This repo contains the public machine learning endpoints for the typescript sdk",
-  "main": "index.js",
-  "repository": "https://github.com/commercetools/commercetools-typescript-sdks/packages/ml-sdk",
+  "description": "Type script sdk for commercetools ML features",
+  "keywords": [
+    "commercetools",
+    "typescript",
+    "sdk",
+    "ml"
+  ],
+  "homepage": "https://github.com/commercetools/commercetools-typescript-sdks/packages/ml-sdk",
+  "bugs": "https://github.com/commercetools/commercetools-typescript-sdks/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commercetools/commercetools-typescript-sdks.git"
+  },
   "author": "Achraf Beniasaad",
   "license": "MIT",
+
+  "main": "dist/ml-sdk.cjs.js",
+  "module": "dist/ml-sdk.es.js",
+  "browser": "dist/ml-sdk.umd.js",
+  "typings": "dist/index.d.ts",
+  "types": "dist/index.d.ts",
+
   "devDependencies": {
-    "@types/node": "^13.7.2"
+    "@rollup/plugin-typescript": "^3.0.0",
+    "@types/node": "^13.7.2",
+    "microbundle": "^0.12.0-next.8",
+    "rimraf": "^3.0.2",
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3"
+  },
+  "scripts": {
+    "prebuild": "rimraf dist/**",
+    "build":"microbundle"
   }
 }

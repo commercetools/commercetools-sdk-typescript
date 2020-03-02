@@ -1,17 +1,10 @@
 {
     "compilerOptions": {
-		"module": "ESNext",
-		"moduleResolution": "Node",
+		"module": "ES6",
+		"moduleResolution": "node",
 		"removeComments": false,
 		"outDir": "dist",
-		"baseUrl": "./",
-		"declaration": true,
-		"paths": {
-			"~/*": ["./src/*"],
-			"models/*": ["./src/generated/models/*"],
-			"client/*": ["./src/generated/client/*"],
-			"shared/*": ["./src/generated/shared/*"]
-		}
+		"baseUrl": "."
 	},
     "include": ["./src/**/*"]
 }

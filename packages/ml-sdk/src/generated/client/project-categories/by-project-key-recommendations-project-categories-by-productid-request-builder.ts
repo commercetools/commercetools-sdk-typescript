@@ -29,9 +29,7 @@ export class ByProjectKeyRecommendationsProjectCategoriesByProductidRequestBuild
         }
       ) {}
     /**
-    *	Response Representation: PagedQueryResult with a results array of ProjectCategoryrecommendation, 
-    *	sorted by confidence scores in descending order and the meta information of 
-    *	ProjectCategoryrecommendationMeta.
+    *	Response Representation: PagedQueryResult with a results array of ProjectCategoryrecommendation, sorted by confidence scores in descending order and the meta information of ProjectCategoryrecommendationMeta.
     *	
     */
     public get(
