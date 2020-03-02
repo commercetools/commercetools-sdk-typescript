@@ -28,3 +28,4 @@ coverage
 
 # IDE tools
 .idea
+.rts2_cache_cjs

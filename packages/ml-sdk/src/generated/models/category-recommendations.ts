@@ -23,11 +23,7 @@ export interface ProjectCategoryRecommendation {
   */
   readonly confidence: number;
   /**
-  *	Breadcrumb path to the recommended category. This only picks up one language, not all
-  *	available languages for the category. English is prioritized, but if English data 
-  *	is not available, an arbitrary language is selected. Do not use this to identify a 
-  *	category,use the category ID from the category reference instead.
-  *	
+  *	Breadcrumb path to the recommended category. This only picks up one language, not all available languages for the category. English is prioritized, but if English data is not available, an arbitrary language is selected. Do not use this to identify a category,use the category ID from the category reference instead.
   */
   readonly path: string
 }
@@ -41,12 +37,7 @@ export interface ProjectCategoryRecommendationMeta {
   */
   readonly productImageUrl?: string;
   /**
-  *	Top 5 general categories that were used internally to generate 
-  *	the project-specific categories. These category names are not related 
-  *	to the categories defined in the project, but they provide additional 
-  *	information to understand the project-specific categories in the results
-  *	section.
-  *	
+  *	Top 5 general categories that were used internally to generate the project-specific categories. These category names are not related to the categories defined in the project, but they provide additional information to understand the project-specific categories in the results section.
   */
   readonly generalCategoryNames: string[]
 }
