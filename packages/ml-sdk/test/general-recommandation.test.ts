@@ -9,8 +9,8 @@ import fetch from 'node-fetch'
 const projectKey = process.env.CTP_PROJECT_KEY
 const clientId = process.env.CTP_CLIENT_ID
 const clientSecret = process.env.CTP_CLIENT_SECRET
-const authURL = 'https://auth.sphere.io'
-const host = 'https://ml-eu.europe-west1.gcp.commercetools.com'
+const authURL = process.env.CTP_AUTH_URL
+const host = process.env.CTP_ML_API_URL
 
 const authMiddleware = createAuthMiddlewareForClientCredentialsFlow({
   host: authURL,
@@ -54,5 +54,4 @@ test('tests error with async/await', async () => {
 
   expect(resp.statusCode).toEqual(200)
   expect(resp.body.results).toBeDefined()
-  expect(resp.body.results.length).toBeGreaterThan(0)
 })
