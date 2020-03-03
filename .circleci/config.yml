@@ -10,7 +10,7 @@ jobs:
           name: install dependencies
           command: yarn install
       - run:
-          name: tests
+          name: test
           command: yarn test
       - store_artifacts:
           path: test-results.xml
