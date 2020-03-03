@@ -40,7 +40,7 @@ export const mlApiRoot: ApiRoot = new ApiRoot({
   baseUri: host,
 })
 
-test('tests error with async/await', async () => {
+test('test general recommendations nominal scenario', async () => {
   const resp = await mlApiRoot
     .withProjectKey({ projectKey })
     .recommendations()
