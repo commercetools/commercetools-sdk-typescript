@@ -51,6 +51,7 @@ test('tests error with async/await', async () => {
       },
     })
     .execute()
+
   expect(resp.statusCode).toEqual(200)
   expect(resp.body.results).toBeDefined()
   expect(resp.body.results.length).toBeGreaterThan(0)
