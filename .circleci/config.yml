@@ -1,6 +1,6 @@
 version: 2.1 
 jobs:
-  build:
+  build_and_test:
     working_directory: ~/commercetools-typescript-sdk
     docker:
       - image: node:12.16.1
@@ -17,3 +17,8 @@ jobs:
           prefix: tests
       - store_test_results: 
           path: packages/ml-sdk/test-results.xml
+workflows:
+  version: 2
+  validate_spec:
+    jobs:
+      - build_and_test
