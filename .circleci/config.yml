@@ -17,6 +17,15 @@ jobs:
           prefix: tests
       - store_test_results: 
           path: packages/ml-sdk/test-results
+  update_following_spec:
+    working_directory: ~/commercetools-typescript-spec
+    docker:
+      - image: node:12.16.1
+    steps:
+      - checkout
+      - run:
+          name: echo hello
+          command: echo "hello"
 workflows:
   version: 2
   validate_spec:
