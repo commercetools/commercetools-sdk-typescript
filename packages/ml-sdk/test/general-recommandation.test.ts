@@ -52,6 +52,6 @@ test('test general recommendations nominal scenario', async () => {
     })
     .execute()
 
-  expect(resp.statusCode).toEqual(200)
+  expect(resp.statusCode).toEqual(201)
   expect(resp.body.results).toBeDefined()
 })
