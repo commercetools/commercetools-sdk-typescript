@@ -13,10 +13,10 @@ jobs:
           name: test
           command: yarn test
       - store_artifacts:
-          path: packages/ml-sdk/test-results.xml
+          path: packages/ml-sdk/test-results
           prefix: tests
       - store_test_results: 
-          path: packages/ml-sdk/test-results.xml
+          path: packages/ml-sdk/test-results
 workflows:
   version: 2
   validate_spec:
