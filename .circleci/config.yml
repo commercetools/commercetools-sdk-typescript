@@ -1,0 +1,19 @@
+version: 2.1 
+jobs:
+  build:
+    working_directory: ~/commercetools-typescript-sdk
+    docker:
+      - image: node:12.16.1
+    steps:
+      - checkout
+      - run:
+          name: install dependencies
+          command: yarn install
+      - run:
+          name: test
+          command: yarn test
+      - store_artifacts:
+          path: packages/ml-sdk/test-results.xml
+          prefix: tests
+      - store_test_results: 
+          path: packages/ml-sdk/test-results.xml

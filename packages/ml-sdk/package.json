@@ -35,6 +35,7 @@
     "@types/node": "^13.7.2",
     "husky": ">=4",
     "jest": "^25.1.0",
+    "jest-junit": "^10.0.0",
     "lint-staged": ">=10",
     "microbundle": "^0.12.0-next.8",
     "prettier": "^1.19.1",
@@ -47,7 +48,7 @@
     "prebuild": "rimraf dist/**",
     "build": "microbundle",
     "test": "jest",
-    "format":"prettier --write '{src,test}/**/*.{js,ts}'"
+    "format": "prettier --write '{src,test}/**/*.{js,ts}'"
   },
   "husky": {
     "hooks": {
