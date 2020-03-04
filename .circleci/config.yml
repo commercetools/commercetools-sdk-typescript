@@ -1,7 +1,10 @@
+aliases:
+- &ml_ts_sdk ~/commercetools-typescript-sdk
+
 version: 2.1 
 jobs:
   build_and_test:
-    working_directory: ~/commercetools-typescript-sdk
+    working_directory: *ml_ts_sdk
     docker:
       - image: node:12.16.1
     steps:
@@ -17,12 +20,11 @@ jobs:
           prefix: tests
       - store_test_results: 
           path: packages/ml-sdk/test-results
-  update_following_spec:
+  update_ml_sdk_from_spec:
     working_directory: ~/commercetools-typescript-spec
     docker:
       - image: node:12.16.1
     steps:
-      - checkout
       - run:
           name: echo hello
           command: echo "hello"
