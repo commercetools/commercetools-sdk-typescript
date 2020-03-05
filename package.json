@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "bootstrap": "lerna exec yarn install",
+    "format": "lerna run format",
     "build": "lerna run build",
     "test": "lerna run test",
     "pre-commit": "lerna run precommit"
