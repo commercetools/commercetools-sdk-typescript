@@ -11,7 +11,7 @@ rm -rf ${SDK_HOME}/src/generated && rm -rf ml-services-api-reference\
 &&rmf-codegen generate ${ML_API_REF} -o ${SDK_HOME}/src/generated -t typescript_client\
 &&npx tsconfig-replace-paths@0.0.5 --project ${SDK_HOME}/tsconfig-declarations.json -s ${SDK_HOME}/src/generated -o ${SDK_HOME}/src/generated\
 &&find ${SDK_HOME}/src/generated -type f -name "*.ts" | xargs npx organize-imports-cli@0.7.0\
-&&yarn format
+&&yarn format\
 &&git checkout -b ${branch_name}\
 &&git add -u ${SDK_HOME}/src/generated\
 &&git commit -m "new changes coming from api spec"\
