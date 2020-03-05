@@ -27,10 +27,10 @@ jobs:
     steps:
       - run:
           name: Install java
-          command: apt update -n  && apt install openjdk-8-jdk -y
+          command: apt update && apt install default-jre -y
       - run:
           name: test java is working
-          command: java -v
+          command: java -version
 workflows:
   version: 2
   validate_spec:
