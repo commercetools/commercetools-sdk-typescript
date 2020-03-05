@@ -16,6 +16,3 @@ yarn install\
 &&git add -u ${SDK_HOME}/src/generated\
 &&git commit -m "new changes coming from api spec"\
 &&git push --set-upstream origin ${branch_name}
-
-
-
