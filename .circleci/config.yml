@@ -33,6 +33,9 @@ jobs:
           name: Install java
           command: apt update && apt install default-jre -y
       - run:
+          name: install rmf cli
+          command: export VRAP_VERSION=1.0.0-20200304142749 && curl -o- -s https://raw.githubusercontent.com/vrapio/rmf-codegen/master/scripts/install.sh | bash
+      - run:
           name: run update sdk script
           command: bash ./.circleci//update-ml-sdk.sh
 workflows:
