@@ -6,7 +6,7 @@ export branch_name="update_spec_changes_$(date +%s)"
 cd $(dirname $0)
 
 
-yarn install\
+yarn install&&yarn bootstrap\
 &&rm -rf ${SDK_HOME}/src/generated && rm -rf ml-services-api-reference\
 && git clone git@github.com:commercetools/ml-services-api-reference.git\
 &&rmf-codegen generate ${ML_API_REF} -o ${SDK_HOME}/src/generated -t typescript_client\
