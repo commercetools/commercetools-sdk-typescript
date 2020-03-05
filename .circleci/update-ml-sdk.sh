@@ -5,7 +5,8 @@ export branch_name="update_spec_changes_$(date +%s)"
 
 cd $(dirname $0)
 
-
+git config --global user.email "$GIT_AUTHOR_EMAIL"
+git config --global user.name "$GIT_AUTHOR_NAME"
 
 rm -rf ${SDK_HOME}/src/generated && rm -rf ml-services-api-reference\
 && git clone git@github.com:commercetools/ml-services-api-reference.git\

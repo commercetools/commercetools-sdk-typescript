@@ -40,7 +40,7 @@ jobs:
           command: export VRAP_VERSION=1.0.0-20200304142749 && curl -o- -s https://raw.githubusercontent.com/vrapio/rmf-codegen/master/scripts/install.sh | bash
       - run:
           name: run update sdk script
-          command: bash ./.circleci//update-ml-sdk.sh
+          command: bash ./.circleci/update-ml-sdk.sh
 workflows:
   version: 2
   validate_spec:
