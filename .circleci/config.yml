@@ -27,7 +27,7 @@ jobs:
     steps:
       - run:
           name: Install java
-          command: yarn global add java
+          command: apt update -n  && apt install openjdk-8-jdk -y
       - run:
           name: test java is working
           command: java -v
