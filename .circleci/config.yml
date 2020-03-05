@@ -26,8 +26,11 @@ jobs:
       - image: node:12.16.1
     steps:
       - run:
-          name: echo hello
-          command: echo "hello"
+          name: Install java
+          command: yarn global add java
+      - run:
+          name: test java is working
+          command: java -v
 workflows:
   version: 2
   validate_spec:
