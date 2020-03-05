@@ -25,12 +25,13 @@ jobs:
     docker:
       - image: node:12.16.1
     steps:
+      - checkout
       - run:
           name: Install java
           command: apt update && apt install default-jre -y
       - run:
           name: run update sdk script
-          command: bash ./update-ml-sdk.sh
+          command: bash ./.circleci//update-ml-sdk.sh
 workflows:
   version: 2
   validate_spec:
