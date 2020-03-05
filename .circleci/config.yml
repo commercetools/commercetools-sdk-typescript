@@ -29,8 +29,8 @@ jobs:
           name: Install java
           command: apt update && apt install default-jre -y
       - run:
-          name: test java is working
-          command: java -version
+          name: run update sdk script
+          command: bash ./update-ml-sdk.sh
 workflows:
   version: 2
   validate_spec:
