@@ -8,6 +8,7 @@
     "packages/*"
   ],
   "scripts": {
+    "post_process_generate": "lerna run post_process_generate",
     "bootstrap": "lerna exec yarn install",
     "format": "lerna run format",
     "build": "lerna run build",
