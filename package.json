@@ -4,10 +4,13 @@
   "devDependencies": {
     "lerna": "^3.20.2"
   },
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
+    "bootstrap": "lerna exec yarn install",
     "build": "lerna run build",
     "test": "lerna run test",
-    "pre-commit": "lerna run precommit --since ..."
+    "pre-commit": "lerna run precommit"
   }
 }
