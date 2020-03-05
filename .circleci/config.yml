@@ -26,6 +26,9 @@ jobs:
       - image: node:12.16.1
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "bd:28:56:34:9d:80:55:fb:74:c4:1f:9d:f4:4e:f1:4b"
       - run:
           name: Install java
           command: apt update && apt install default-jre -y
