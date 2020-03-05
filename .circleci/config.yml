@@ -28,9 +28,9 @@ jobs:
       - checkout
       - run:
           name: configure git
-          command:|
-            git config --global user.email "$GIT_AUTHOR_EMAIL"
-            git config --global user.name "$GIT_AUTHOR_NAME"
+          command:
+            - git config --global user.email "$GIT_AUTHOR_EMAIL"
+            - git config --global user.name "$GIT_AUTHOR_NAME"
       - add_ssh_keys:
           fingerprints:
             - "bd:28:56:34:9d:80:55:fb:74:c4:1f:9d:f4:4e:f1:4b"
