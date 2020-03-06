@@ -1,48 +1,8 @@
-import { createAuthMiddlewareForClientCredentialsFlow } from '@commercetools/sdk-middleware-auth'
-import { createHttpMiddleware } from '@commercetools/sdk-middleware-http'
-import { createClient } from '@commercetools/sdk-client'
+import { mlApiBuilder } from "./api-helpers"
 
-import { ApiRoot, executeRequest, createExecutorFromMiddlewares } from '../src'
-
-import fetch from 'node-fetch'
-
-const projectKey = process.env.CTP_PROJECT_KEY
-const clientId = process.env.CTP_CLIENT_ID
-const clientSecret = process.env.CTP_CLIENT_SECRET
-const authURL = process.env.CTP_AUTH_URL
-const host = process.env.CTP_ML_API_URL
-
-const authMiddleware = createAuthMiddlewareForClientCredentialsFlow({
-  host: authURL,
-  projectKey,
-  credentials: {
-    clientId,
-    clientSecret,
-  },
-  fetch,
-})
-
-const httpMiddleware = createHttpMiddleware({
-  host,
-  fetch,
-})
-
-const ctpClient = createClient({
-  middlewares: [authMiddleware, httpMiddleware],
-})
-
-const executor: executeRequest = createExecutorFromMiddlewares(
-  ctpClient.execute
-)
-
-export const mlApiRoot: ApiRoot = new ApiRoot({
-  executeRequest: executor,
-  baseUri: host,
-})
 
 test('test general recommendations nominal scenario', async () => {
-  const resp = await mlApiRoot
-    .withProjectKey({ projectKey })
+  const resp = await mlApiBuilder
     .recommendations()
     .generalCategories()
     .get({
@@ -51,7 +11,7 @@ test('test general recommendations nominal scenario', async () => {
       },
     })
     .execute()
-
+    
   expect(resp.statusCode).toEqual(200)
   expect(resp.body.results).toBeDefined()
 })
