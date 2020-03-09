@@ -65,6 +65,6 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts,md}": "prettier --write"
+    "*.{js,ts,md}": "yarn format"
   }
 }

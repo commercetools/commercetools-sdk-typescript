@@ -2,7 +2,11 @@ import { createAuthMiddlewareForClientCredentialsFlow } from '@commercetools/sdk
 import { createHttpMiddleware } from '@commercetools/sdk-middleware-http'
 import { createClient } from '@commercetools/sdk-client'
 
-import { ApiRoot, executeRequest, createExecutorFromMiddlewares } from '../../src'
+import {
+  ApiRoot,
+  executeRequest,
+  createExecutorFromMiddlewares,
+} from '../../src'
 
 import fetch from 'node-fetch'
 import { requireEnvVar } from './test-utils'
@@ -39,7 +43,4 @@ const executor: executeRequest = createExecutorFromMiddlewares(
 export const mlApiBuilder = new ApiRoot({
   executeRequest: executor,
   baseUri: ml_host,
-})
-.withProjectKey({ projectKey })
-
-
+}).withProjectKey({ projectKey })

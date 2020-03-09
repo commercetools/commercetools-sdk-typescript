@@ -1,6 +1,5 @@
 import { mlApiBuilder } from './helpers/api-helpers'
 
-
 test('test general recommendations nominal scenario', async () => {
   const resp = await mlApiBuilder
     .recommendations()
@@ -11,7 +10,7 @@ test('test general recommendations nominal scenario', async () => {
       },
     })
     .execute()
-    
+
   expect(resp.statusCode).toEqual(200)
   expect(resp.body.results).toBeDefined()
 })
