@@ -15,7 +15,7 @@ const projectKey = requireEnvVar('CTP_PROJECT_KEY')
 const clientId = requireEnvVar('CTP_CLIENT_ID')
 const clientSecret = requireEnvVar('CTP_CLIENT_SECRET')
 const authURL = requireEnvVar('CTP_AUTH_URL')
-const ml_host = requireEnvVar('CTP_API_URL')
+const ctp_host = requireEnvVar('CTP_API_URL')
 
 const authMiddleware = createAuthMiddlewareForClientCredentialsFlow({
   host: authURL,
@@ -28,7 +28,7 @@ const authMiddleware = createAuthMiddlewareForClientCredentialsFlow({
 })
 
 const httpMiddleware = createHttpMiddleware({
-  host: ml_host,
+  host: ctp_host,
   fetch,
 })
 
@@ -42,5 +42,5 @@ const executor: executeRequest = createExecutorFromMiddlewares(
 
 export const ctpApiBuilder = new ApiRoot({
   executeRequest: executor,
-  baseUri: ml_host,
+  baseUri: ctp_host,
 }).withProjectKey({ projectKey })
