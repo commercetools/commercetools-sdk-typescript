@@ -1,4 +1,4 @@
-import { mlApiBuilder } from "./api-helpers"
+import { mlApiBuilder } from './api-helpers'
 
 
 test('test general recommendations nominal scenario', async () => {
