@@ -11,6 +11,6 @@ rm -rf ${SDK_HOME}/src/generated && rm -rf ml-services-api-reference\
 &&rmf-codegen generate ${ML_API_REF} -o ${SDK_HOME}/src/generated -t typescript_client\
 &&yarn post_process_generate\
 &&git checkout -b ${branch_name}\
-&&git add -u ${SDK_HOME}/src/generated\
+&&git add ${SDK_HOME}/src/generated\
 &&git commit -m "new changes coming from api spec"\
 &&git push --set-upstream origin ${branch_name}
