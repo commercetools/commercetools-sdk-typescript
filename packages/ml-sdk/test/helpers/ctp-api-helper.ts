@@ -2,15 +2,16 @@ import { createAuthMiddlewareForClientCredentialsFlow } from '@commercetools/sdk
 import { createHttpMiddleware } from '@commercetools/sdk-middleware-http'
 import { createClient } from '@commercetools/sdk-client'
 
-import { ApiRoot, executeRequest, createExecutorFromMiddlewares } from '../src'
+import { ApiRoot, executeRequest, createExecutorFromMiddlewares } from '@commercetools/typescript-sdk'
 
 import fetch from 'node-fetch'
+import { requireEnvVar } from './test-utils'
 
 const projectKey = requireEnvVar('CTP_PROJECT_KEY')
 const clientId = requireEnvVar('CTP_CLIENT_ID')
 const clientSecret = requireEnvVar('CTP_CLIENT_SECRET')
 const authURL = requireEnvVar('CTP_AUTH_URL')
-const ml_host = requireEnvVar('CTP_ML_API_URL')
+const ml_host = requireEnvVar('CTP_API_URL')
 
 const authMiddleware = createAuthMiddlewareForClientCredentialsFlow({
   host: authURL,
@@ -35,15 +36,9 @@ const executor: executeRequest = createExecutorFromMiddlewares(
   ctpClient.execute
 )
 
-export const mlApiBuilder = new ApiRoot({
+export const ctpApiBuilder = new ApiRoot({
   executeRequest: executor,
   baseUri: ml_host,
-}).withProjectKey({ projectKey })
+})
+.withProjectKey({ projectKey })
 
-function requireEnvVar(varName: string): string {
-  const value = process.env[varName]
-  if (value === null || value === undefined) {
-    throw new Error(`environment variable ${varName} not defined`)
-  }
-  return value
-}
