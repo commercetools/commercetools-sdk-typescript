@@ -11,6 +11,7 @@
  *
  */
 import { executeRequest } from '../shared/utils/common-types'
+import { ByProjectKeyImageSearchRequestBuilder } from './image-search/by-project-key-image-search-request-builder'
 import { ByProjectKeyRecommendationsRequestBuilder } from './recommendations/by-project-key-recommendations-request-builder'
 
 export class ByProjectKeyRequestBuilder {
@@ -23,6 +24,19 @@ export class ByProjectKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Search for similar products using an image as search input.
+   *
+   */
+  public imageSearch(): ByProjectKeyImageSearchRequestBuilder {
+    return new ByProjectKeyImageSearchRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
   public recommendations(): ByProjectKeyRecommendationsRequestBuilder {
     return new ByProjectKeyRecommendationsRequestBuilder({
       pathArgs: {
