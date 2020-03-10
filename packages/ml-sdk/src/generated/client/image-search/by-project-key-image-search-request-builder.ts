@@ -10,10 +10,7 @@
  *                    `Y'
  *
  */
-import {
-  ImageSearchRequest,
-  ImageSearchResponse,
-} from '../../models/image-search'
+import { ImageSearchResponse } from '../../models/image-search'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
@@ -37,7 +34,7 @@ export class ByProjectKeyImageSearchRequestBuilder {
       offset?: number | number[]
       [key: string]: QueryParam
     }
-    body: ImageSearchRequest
+    body: Buffer
     headers?: {
       [key: string]: string
     }
