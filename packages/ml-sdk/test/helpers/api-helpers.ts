@@ -2,9 +2,14 @@ import { createAuthMiddlewareForClientCredentialsFlow } from '@commercetools/sdk
 import { createHttpMiddleware } from '@commercetools/sdk-middleware-http'
 import { createClient } from '@commercetools/sdk-client'
 
-import { ApiRoot, executeRequest, createExecutorFromMiddlewares } from '../src'
+import {
+  ApiRoot,
+  executeRequest,
+  createExecutorFromMiddlewares,
+} from '../../src'
 
 import fetch from 'node-fetch'
+import { requireEnvVar } from './test-utils'
 
 const projectKey = requireEnvVar('CTP_PROJECT_KEY')
 const clientId = requireEnvVar('CTP_CLIENT_ID')
@@ -39,11 +44,3 @@ export const mlApiBuilder = new ApiRoot({
   executeRequest: executor,
   baseUri: ml_host,
 }).withProjectKey({ projectKey })
-
-function requireEnvVar(varName: string): string {
-  const value = process.env[varName]
-  if (value === null || value === undefined) {
-    throw new Error(`environment variable ${varName} not defined`)
-  }
-  return value
-}
