@@ -14,19 +14,6 @@
 import { ProductVariant } from './common'
 
 /**
- *	Request format from image search endpoint.
- *
- */
-export interface ImageSearchRequest {
-  /**
-   *	Image file in .png, .jpg, .gif or .bmp format. Optimal dimensions are 224x224px.
-   *	Larger images will be scaled before search so that the largest
-   *	dimension matches 224px.
-   *
-   */
-  readonly image: Buffer
-}
-/**
  *	Response format from image search endpoint.
  *
  */
