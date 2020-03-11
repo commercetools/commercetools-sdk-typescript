@@ -23,7 +23,7 @@
   ],
   "author": "Achraf Beniasaad",
   "license": "MIT",
-  "main": "dist/ml-sdk.es.js",
+  "main": "dist/ml-sdk.js",
   "module": "dist/ml-sdk.es.js",
   "browser": "dist/ml-sdk.umd.js",
   "typings": "dist/src/index.d.ts",
