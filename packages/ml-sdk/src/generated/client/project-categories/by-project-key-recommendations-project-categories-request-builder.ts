@@ -11,7 +11,7 @@
  *
  */
 import { executeRequest } from '../../shared/utils/common-types'
-import { ByProjectKeyRecommendationsProjectCategoriesByProductidRequestBuilder } from './by-project-key-recommendations-project-categories-by-productid-request-builder'
+import { ByProjectKeyRecommendationsProjectCategoriesByProductIdRequestBuilder } from './by-project-key-recommendations-project-categories-by-product-id-request-builder'
 
 export class ByProjectKeyRecommendationsProjectCategoriesRequestBuilder {
   constructor(
@@ -23,10 +23,10 @@ export class ByProjectKeyRecommendationsProjectCategoriesRequestBuilder {
       baseUri?: string
     }
   ) {}
-  public withProductidValue(childPathArgs: {
-    product_id: string
-  }): ByProjectKeyRecommendationsProjectCategoriesByProductidRequestBuilder {
-    return new ByProjectKeyRecommendationsProjectCategoriesByProductidRequestBuilder(
+  public withProductId(childPathArgs: {
+    productId: string
+  }): ByProjectKeyRecommendationsProjectCategoriesByProductIdRequestBuilder {
+    return new ByProjectKeyRecommendationsProjectCategoriesByProductIdRequestBuilder(
       {
         pathArgs: {
           ...this.args.pathArgs,
