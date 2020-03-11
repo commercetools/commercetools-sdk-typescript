@@ -17,4 +17,4 @@ test('test the image search', async () => {
     .execute()
 
   expect(res.statusCode).toEqual(200)
-})
+}, 10000)

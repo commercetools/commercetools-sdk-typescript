@@ -14,12 +14,12 @@ import { ProjectCategoryRecommendationPagedQueryResponse } from '../../models/ca
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
-export class ByProjectKeyRecommendationsProjectCategoriesByProductidRequestBuilder {
+export class ByProjectKeyRecommendationsProjectCategoriesByProductIdRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
         projectKey: string
-        product_id: string
+        productId: string
       }
       executeRequest: executeRequest
       baseUri?: string
@@ -47,7 +47,7 @@ export class ByProjectKeyRecommendationsProjectCategoriesByProductidRequestBuild
         baseUri: this.args.baseUri,
         method: 'GET',
         uriTemplate:
-          '/{projectKey}/recommendations/project-categories/{product_id}',
+          '/{projectKey}/recommendations/project-categories/{productId}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,

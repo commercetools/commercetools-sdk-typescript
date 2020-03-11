@@ -6,8 +6,8 @@ test('test project recommendations', async () => {
     const resp = await mlApiBuilder
       .recommendations()
       .projectCategories()
-      .withProductidValue({
-        product_id: product.id,
+      .withProductId({
+        productId: product.id,
       })
       .get()
       .execute()
