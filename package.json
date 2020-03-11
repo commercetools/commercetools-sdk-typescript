@@ -13,6 +13,7 @@
     "format": "lerna run format",
     "build": "lerna run build",
     "test": "lerna run test",
-    "pre-commit": "lerna run precommit"
+    "pre-commit": "lerna run precommit",
+    "publish": "lerna publish"
   }
 }
