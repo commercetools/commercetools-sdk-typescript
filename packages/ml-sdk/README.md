@@ -1,9 +1,18 @@
-# Typescript SDK for machine learning
+# Typescript SDK for commercetools machine learning API
 
 ## Install 
 
 ```bash
 npm install --save @commercetools/ml-sdk
+```
+
+#### Browser
+
+```html
+<script src="https://unpkg.com/browse/@commercetools/ml-sdk/dist/ml-sdk.umd.js"></script>
+<script>
+  // global: mlSdk
+</script>
 ```
 
 #### Usage example
