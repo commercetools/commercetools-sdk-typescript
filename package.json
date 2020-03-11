@@ -14,6 +14,7 @@
     "build": "lerna run build",
     "test": "lerna run test",
     "pre-commit": "lerna run precommit",
-    "publish": "lerna publish"
+    "check-gh-auth-token": "if [[ -z \"${GITHUB_AUTH}\" ]]; then echo \"Need to set GITHUB_AUTH\" && exit 1; fi",
+    "release": "yarn run check-gh-auth-token && yarn run build && lerna publish --registry=https://registry.npmjs.org/"
   }
 }
