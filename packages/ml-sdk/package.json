@@ -18,6 +18,9 @@
     "type": "git",
     "url": "https://github.com/commercetools/commercetools-typescript-sdks.git"
   },
+  "files": [
+    "dist"
+  ],
   "author": "Achraf Beniasaad",
   "license": "MIT",
   "main": "dist/ml-sdk.cjs.js",
