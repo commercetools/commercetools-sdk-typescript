@@ -10,11 +10,14 @@
   "scripts": {
     "post_process_generate": "lerna run post_process_generate",
     "bootstrap": "lerna exec yarn install",
-    "format": "lerna run format",
+    "format": "prettier --write '**/*.{js,ts,md}'",
     "build": "lerna run build",
     "test": "lerna run test",
     "pre-commit": "lerna run precommit",
     "check-gh-auth-token": "if [[ -z \"${GITHUB_AUTH}\" ]]; then echo \"Need to set GITHUB_AUTH\" && exit 1; fi",
     "release": "yarn run check-gh-auth-token && yarn run build && lerna publish --registry=https://registry.npmjs.org/"
+  },
+  "lint-staged": {
+    "*.{js,ts,md}": "yarn format"
   }
 }

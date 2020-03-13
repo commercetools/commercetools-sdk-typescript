@@ -60,14 +60,28 @@
     "prebuild": "rimraf dist/**",
     "build": "microbundle",
     "test": "jest",
-    "format": "prettier --write '{src,test}/**/*.{js,ts}'"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,ts,md}": "yarn format"
+    "format": "prettier --write '**/*.{js,ts,md}'"
   }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

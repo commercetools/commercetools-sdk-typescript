@@ -7,5 +7,5 @@
 		"baseUrl": ".",
 		"esModuleInterop": true
 	},
-    "include": ["./src/**/*", "./test/**/*"]
+    "include": ["./src/**/*"]
 }
