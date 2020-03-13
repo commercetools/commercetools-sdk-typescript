@@ -2,7 +2,13 @@
   "name": "root",
   "private": true,
   "devDependencies": {
-    "lerna": "^3.20.2"
+    "conventional-changelog-conventionalcommits": "^4.2.3",
+    "lerna": "^3.20.2",
+    "@lerna/bootstrap": "^3.20.0",
+    "@rollup/plugin-typescript": "^3.0.0",
+    "husky": ">=4",
+    "prettier": "^1.19.1",
+    "rimraf": "^3.0.2"
   },
   "workspaces": [
     "packages/*"
