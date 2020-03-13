@@ -10,13 +10,11 @@
     "prettier": "^1.19.1",
     "rimraf": "^3.0.2"
   },
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": ["packages/*"],
   "scripts": {
     "post_process_generate": "lerna run post_process_generate",
     "bootstrap": "lerna exec yarn install",
-    "format": "prettier --write '**/*.{js,ts,md}'",
+    "format": "prettier --write '**/*.{js,ts,json,md}'",
     "build": "lerna run build",
     "test": "lerna run test",
     "pre-commit": "lerna run precommit",
@@ -24,6 +22,6 @@
     "release": "yarn run check-gh-auth-token && yarn run build && lerna publish --registry=https://registry.npmjs.org/"
   },
   "lint-staged": {
-    "*.{js,ts,md}": "yarn format"
+    "*.{js,ts,json,md}": "yarn format"
   }
 }

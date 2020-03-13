@@ -1,11 +1,11 @@
 {
-    "compilerOptions": {
-		"baseUrl": ".",
-		"paths": {
-			"~/*": ["./src/*"],
-			"models/*": ["./src/generated/models/*"],
-			"client/*": ["./src/generated/client/*"],
-			"shared/*": ["./src/generated/shared/*"]
-		}
-	}
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"],
+      "models/*": ["./src/generated/models/*"],
+      "client/*": ["./src/generated/client/*"],
+      "shared/*": ["./src/generated/shared/*"]
+    }
+  }
 }

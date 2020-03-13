@@ -15,6 +15,12 @@
       "options": {
         "parser": "markdown"
       }
+    },
+    {
+      "files": "*.json",
+      "options": {
+        "parser": "json"
+      }
     }
   ]
 }

@@ -6,21 +6,14 @@
   "name": "@commercetools/ml-sdk",
   "version": "0.0.7-alpha.0",
   "description": "Type script sdk for commercetools ML features",
-  "keywords": [
-    "commercetools",
-    "typescript",
-    "sdk",
-    "ml"
-  ],
+  "keywords": ["commercetools", "typescript", "sdk", "ml"],
   "homepage": "https://github.com/commercetools/commercetools-typescript-sdks/packages/ml-sdk",
   "bugs": "https://github.com/commercetools/commercetools-typescript-sdks/issues",
   "repository": {
     "type": "git",
     "url": "https://github.com/commercetools/commercetools-typescript-sdks.git"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "author": "Achraf Beniasaad",
   "license": "MIT",
   "main": "dist/ml-sdk.js",
@@ -54,25 +47,9 @@
     "post_process_generate": "yarn remove_path_alias && yarn organize_imports && yarn format",
     "prebuild": "rimraf dist/**",
     "build": "microbundle",
-    "test": "jest",
-    "format": "prettier --write '**/*.{js,ts,md}'"
+    "test": "jest"
   },
   "dependencies": {
     "commitlint": "^8.3.5"
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
