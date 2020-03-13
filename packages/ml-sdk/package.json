@@ -44,7 +44,7 @@
   "scripts": {
     "remove_path_alias": "tsconfig-replace-paths --project tsconfig-declarations.json -s ./src/generated -o ./src/generated",
     "organize_imports": "find src/generated -type f -name '*.ts' | xargs organize-imports-cli",
-    "post_process_generate": "yarn remove_path_alias && yarn organize_imports && yarn format",
+    "post_process_generate": "yarn remove_path_alias && yarn organize_imports",
     "prebuild": "rimraf dist/**",
     "build": "microbundle",
     "test": "jest"
