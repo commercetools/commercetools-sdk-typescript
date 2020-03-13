@@ -2,11 +2,11 @@
   "name": "root",
   "private": true,
   "devDependencies": {
-    "conventional-changelog-conventionalcommits": "^4.2.3",
-    "lerna": "^3.20.2",
+    "@commitlint/config-conventional": "^8.3.4",
     "@lerna/bootstrap": "^3.20.0",
     "@rollup/plugin-typescript": "^3.0.0",
     "husky": ">=4",
+    "lerna": "^3.20.2",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.2"
   },
