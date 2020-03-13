@@ -12,5 +12,5 @@ rm -rf ${SDK_HOME}/src/generated && rm -rf ml-services-api-reference\
 &&yarn post_process_generate\
 &&git checkout -b ${branch_name}\
 &&git add ${SDK_HOME}/src/generated\
-&&git commit -m "fix: new changes coming from api spec"\
+&&git commit -m "ci: new changes coming from api spec"\
 &&git push --set-upstream origin ${branch_name}
