@@ -2,7 +2,13 @@
   "name": "root",
   "private": true,
   "devDependencies": {
-    "lerna": "^3.20.2"
+    "conventional-changelog-conventionalcommits": "^4.2.3",
+    "lerna": "^3.20.2",
+    "@lerna/bootstrap": "^3.20.0",
+    "@rollup/plugin-typescript": "^3.0.0",
+    "husky": ">=4",
+    "prettier": "^1.19.1",
+    "rimraf": "^3.0.2"
   },
   "workspaces": [
     "packages/*"
@@ -10,11 +16,14 @@
   "scripts": {
     "post_process_generate": "lerna run post_process_generate",
     "bootstrap": "lerna exec yarn install",
-    "format": "lerna run format",
+    "format": "prettier --write '**/*.{js,ts,md}'",
     "build": "lerna run build",
     "test": "lerna run test",
     "pre-commit": "lerna run precommit",
     "check-gh-auth-token": "if [[ -z \"${GITHUB_AUTH}\" ]]; then echo \"Need to set GITHUB_AUTH\" && exit 1; fi",
     "release": "yarn run check-gh-auth-token && yarn run build && lerna publish --registry=https://registry.npmjs.org/"
+  },
+  "lint-staged": {
+    "*.{js,ts,md}": "yarn format"
   }
 }

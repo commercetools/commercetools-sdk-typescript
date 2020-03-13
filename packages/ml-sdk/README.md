@@ -1,6 +1,6 @@
 # Typescript SDK for commercetools machine learning API
 
-## Install 
+## Install
 
 ```bash
 npm install --save @commercetools/ml-sdk
@@ -21,10 +21,7 @@ npm install --save @commercetools/ml-sdk
 import { createAuthMiddlewareForClientCredentialsFlow } from '@commercetools/sdk-middleware-auth'
 import { createHttpMiddleware } from '@commercetools/sdk-middleware-http'
 import { createClient } from '@commercetools/sdk-client'
-import {
-  createApiBuilderFromCtpClient,
-  ApiRoot,
-} from '@commercetools/ml-sdk'
+import { createApiBuilderFromCtpClient, ApiRoot } from '@commercetools/ml-sdk'
 import fetch from 'node-fetch'
 
 const projectKey = 'some_project_key'
@@ -51,33 +48,32 @@ const ctpClient = createClient({
 const apiRoot: ApiRoot = createApiBuilderFromCtpClient(ctpClient)
 
 apiRoot
-    .withProjectKey({ projectKey })
-    .recommendations()
-    .projectCategories()
-    .withProductId({
+  .withProjectKey({ projectKey })
+  .recommendations()
+  .projectCategories()
+  .withProductId({
     productId: product.id,
-    })
-    .get()
-    .execute()
-    .then(x => {
-        /*...*/
-    })
-
+  })
+  .get()
+  .execute()
+  .then(x => {
+    /*...*/
+  })
 
 apiRoot
-    .withProjectKey({ projectKey })
-    .imageSearch()
-    .post({
-      queryArgs: {
-        limit: 20,
-      },
-      body: image,
-      headers: {
-        'Content-Type': 'image/jpeg',
-      },
-    })
-    .execute()
-    .then(x => {
-        /*...*/
-    })
+  .withProjectKey({ projectKey })
+  .imageSearch()
+  .post({
+    queryArgs: {
+      limit: 20,
+    },
+    body: image,
+    headers: {
+      'Content-Type': 'image/jpeg',
+    },
+  })
+  .execute()
+  .then(x => {
+    /*...*/
+  })
 ```

@@ -9,6 +9,12 @@
       "options": {
         "parser": "typescript"
       }
+    },
+    {
+      "files": "*.md",
+      "options": {
+        "parser": "markdown"
+      }
     }
   ]
 }
