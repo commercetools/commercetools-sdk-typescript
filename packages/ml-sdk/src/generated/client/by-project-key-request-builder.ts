@@ -12,6 +12,7 @@
  */
 import { executeRequest } from '../shared/utils/common-types'
 import { ByProjectKeyImageSearchRequestBuilder } from './image-search/by-project-key-image-search-request-builder'
+import { ByProjectKeyMissingDataRequestBuilder } from './missing-data/by-project-key-missing-data-request-builder'
 import { ByProjectKeyRecommendationsRequestBuilder } from './recommendations/by-project-key-recommendations-request-builder'
 
 export class ByProjectKeyRequestBuilder {
@@ -39,6 +40,15 @@ export class ByProjectKeyRequestBuilder {
   }
   public recommendations(): ByProjectKeyRecommendationsRequestBuilder {
     return new ByProjectKeyRecommendationsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public missingData(): ByProjectKeyMissingDataRequestBuilder {
+    return new ByProjectKeyMissingDataRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },

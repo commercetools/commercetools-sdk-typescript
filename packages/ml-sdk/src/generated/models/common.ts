@@ -72,21 +72,6 @@ export type TaskStatusEnum = 'PENDING' | 'SUCCESS'
 /**
  *	Represents a URL path to poll to get the results of an Asynchronous Request.
  */
-export interface TaskStatus {
-  readonly state: TaskStatusEnum
-  /**
-   *	The expiry date of the result. You cannot access the result after the expiry date. Default: 1 day after the result first becomes available. This is only available when the TaskStatus state is SUCCESS.
-   *
-   */
-  readonly expires: string
-  /**
-   *	The response to an asynchronous request. The type depends on the request initiated. Only populated when the status is `SUCCESS`.
-   */
-  readonly result: any
-}
-/**
- *	Represents a URL path to poll to get the results of an Asynchronous Request.
- */
 export interface TaskToken {
   /**
    *	The ID for the task. Used to find the status of the task.

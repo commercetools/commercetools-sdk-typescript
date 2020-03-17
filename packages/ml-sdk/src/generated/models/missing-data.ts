@@ -11,7 +11,11 @@
  *
  */
 
-import { ProductReference, ProductTypeReference } from './common'
+import {
+  ProductReference,
+  ProductTypeReference,
+  TaskStatusEnum,
+} from './common'
 
 export interface AttributeCount {
   /**
@@ -37,21 +41,7 @@ export interface AttributeCoverage {
    */
   readonly values: number
 }
-export interface MissingAttributesVariantLevel {
-  /**
-   *	Number of products scanned.
-   */
-  readonly total: number
-  /**
-   *	Number of products missing attribute names.
-   */
-  readonly missingAttributeNames: number
-  /**
-   *	Number of products missing attribute values.
-   */
-  readonly missingAttributeValues: number
-}
-export interface MissingAttributesProductLevel {
+export interface MissingAttributesDetails {
   /**
    *	Number of products scanned.
    */
@@ -66,8 +56,8 @@ export interface MissingAttributesProductLevel {
   readonly missingAttributeValues: number
 }
 export interface MissingAttributes {
-  readonly productId: ProductReference
-  readonly productTypeId: ProductTypeReference
+  readonly product: ProductReference
+  readonly productType: ProductTypeReference
   /**
    *	ID of a ProductVariant.
    */
@@ -84,8 +74,8 @@ export interface MissingAttributes {
   readonly attributeCoverage?: AttributeCoverage
 }
 export interface MissingAttributesMeta {
-  readonly productLevel: MissingAttributesProductLevel
-  readonly variantLevel: MissingAttributesVariantLevel
+  readonly productLevel: MissingAttributesDetails
+  readonly variantLevel: MissingAttributesDetails
   /**
    *	The IDs of the product types containing the requested `attributeName`.
    */
@@ -142,4 +132,26 @@ export interface MissingAttributesSearchRequest {
    *
    */
   readonly attributeName?: string
+}
+export interface MissingAttributesPagedQueryResult {
+  readonly count: number
+  readonly total: number
+  readonly offset: number
+  readonly results: MissingAttributes[]
+  readonly meta: MissingAttributesMeta
+}
+/**
+ *	Represents a URL path to poll to get the results of an Asynchronous Request.
+ */
+export interface MissingDataTaskStatus {
+  readonly state: TaskStatusEnum
+  /**
+   *	The expiry date of the result. You cannot access the result after the expiry date. Default: 1 day after the result first becomes available. This is only available when the TaskStatus state is `SUCCESS`.
+   *
+   */
+  readonly expires: string
+  /**
+   *	The response to an asynchronous request. The type depends on the request initiated. Only populated when the status is `SUCCESS`.
+   */
+  readonly result: MissingAttributesPagedQueryResult
 }
