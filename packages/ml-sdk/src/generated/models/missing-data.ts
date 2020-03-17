@@ -146,7 +146,7 @@ export interface MissingAttributesPagedQueryResult {
 export interface MissingDataTaskStatus {
   readonly state: TaskStatusEnum
   /**
-   *	The expiry date of the result. You cannot access the result after the expiry date. Default: 1 day after the result first becomes available. This is only available when the TaskStatus state is `SUCCESS`.
+   *	The expiry date of the result. You cannot access the result after the expiry date. Default: 1 day after the result first becomes available. This is only available when the TaskStatus state is SUCCESS.
    *
    */
   readonly expires: string
@@ -154,4 +154,104 @@ export interface MissingDataTaskStatus {
    *	The response to an asynchronous request. The type depends on the request initiated. Only populated when the status is `SUCCESS`.
    */
   readonly result: MissingAttributesPagedQueryResult
+}
+export interface MissingImages {
+  readonly product: ProductReference
+  /**
+   *	ID of the variant
+   */
+  readonly variantId: number
+  /**
+   *	Number of images the variant contains.
+   */
+  readonly imageCount: number
+}
+export interface MissingImagesCount {
+  readonly missingImages: number
+  /**
+   *	Number of products scanned.
+   */
+  readonly total: number
+}
+export interface MissingImagesProductLevel extends MissingImagesCount {
+  /**
+   *	Number of products missing images.
+   */
+  readonly missingImages: number
+  /**
+   *	Number of products scanned.
+   */
+  readonly total: number
+}
+export interface MissingImagesVariantLevel extends MissingImagesCount {
+  /**
+   *	Number of product variants missing images.
+   */
+  readonly missingImages: number
+  /**
+   *	Number of products scanned.
+   */
+  readonly total: number
+}
+export interface MissingImagesMeta {
+  readonly productLevel: MissingImagesProductLevel
+  readonly variantLevel: MissingImagesVariantLevel
+  /**
+   *	The minimum number of images a product variant must have. Anything below this value is considered a product variant with missing images.
+   */
+  readonly threshold: number
+}
+export interface MissingImagesSearchRequest {
+  readonly limit?: number
+  readonly offset?: number
+  /**
+   *	If true, searches data from staged products in addition to published products.
+   */
+  readonly staged?: boolean
+  /**
+   *	Maximum number of products to scan.
+   */
+  readonly productSetLimit?: number
+  /**
+   *	If true, searches all product variants. If false, only searches master variants.
+   */
+  readonly includeVariants?: boolean
+  /**
+   *	If true, uses the median number of images per product variant as a threshold value.
+   */
+  readonly autoThreshold?: boolean
+  /**
+   *	The minimum number of images a product variant must have. Anything below this value is considered a product variant with missing images.
+   */
+  readonly threshold?: number
+  /**
+   *	Filters results by the provided Product IDs. Cannot be applied in combination with any other filter.
+   */
+  readonly productIds?: string[]
+  /**
+   *	Filters results by the provided product type IDs. It cannot be applied in combination with any other filter.
+   */
+  readonly productTypeIds?: string[]
+}
+export interface MissingImagePagedQueryResult {
+  readonly count: number
+  readonly total: number
+  readonly offset: number
+  readonly results: MissingImages[]
+  readonly meta: MissingImagesMeta
+}
+/**
+ *	Represents a URL path to poll to get the results of an Asynchronous Request.
+ */
+export interface MissingImageTaskStatus {
+  readonly state: TaskStatusEnum
+  /**
+   *	The expiry date of the result. You cannot access the result after the expiry date. Default: 1 day after the result first becomes available. This is only available when the TaskStatus state is SUCCESS.
+   *
+   */
+  readonly expires: string
+  /**
+   *	The response to an asynchronous request. The type depends on the request initiated. Only populated when the status is `SUCCESS`.
+   */
+  readonly result: MissingImagePagedQueryResult
 }
