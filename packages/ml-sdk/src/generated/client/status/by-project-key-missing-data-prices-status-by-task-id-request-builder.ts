@@ -10,11 +10,11 @@
  *                    `Y'
  *
  */
-import { MissingImagesTaskStatus } from '../../models/missing-data'
+import { MissingPricesTaskStatus } from '../../models/missing-data'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
-export class ByProjectKeyMissingDataImagesStatusByTaskIdRequestBuilder {
+export class ByProjectKeyMissingDataPricesStatusByTaskIdRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
@@ -29,12 +29,12 @@ export class ByProjectKeyMissingDataImagesStatusByTaskIdRequestBuilder {
     headers?: {
       [key: string]: string
     }
-  }): ApiRequest<MissingImagesTaskStatus> {
-    return new ApiRequest<MissingImagesTaskStatus>(
+  }): ApiRequest<MissingPricesTaskStatus> {
+    return new ApiRequest<MissingPricesTaskStatus>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',
-        uriTemplate: '/{projectKey}/missing-data/images/status/{taskId}',
+        uriTemplate: '/{projectKey}/missing-data/prices/status/{taskId}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,

@@ -13,6 +13,7 @@
 import { executeRequest } from '../../shared/utils/common-types'
 import { ByProjectKeyMissingDataAttributesRequestBuilder } from '../attributes/by-project-key-missing-data-attributes-request-builder'
 import { ByProjectKeyMissingDataImagesRequestBuilder } from '../images/by-project-key-missing-data-images-request-builder'
+import { ByProjectKeyMissingDataPricesRequestBuilder } from '../prices/by-project-key-missing-data-prices-request-builder'
 
 export class ByProjectKeyMissingDataRequestBuilder {
   constructor(
@@ -35,6 +36,15 @@ export class ByProjectKeyMissingDataRequestBuilder {
   }
   public images(): ByProjectKeyMissingDataImagesRequestBuilder {
     return new ByProjectKeyMissingDataImagesRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public prices(): ByProjectKeyMissingDataPricesRequestBuilder {
+    return new ByProjectKeyMissingDataPricesRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },

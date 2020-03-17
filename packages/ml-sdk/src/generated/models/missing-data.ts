@@ -233,7 +233,7 @@ export interface MissingImagesSearchRequest {
    */
   readonly productTypeIds?: string[]
 }
-export interface MissingImagePagedQueryResult {
+export interface MissingImagesPagedQueryResult {
   readonly count: number
   readonly total: number
   readonly offset: number
@@ -243,7 +243,7 @@ export interface MissingImagePagedQueryResult {
 /**
  *	Represents a URL path to poll to get the results of an Asynchronous Request.
  */
-export interface MissingImageTaskStatus {
+export interface MissingImagesTaskStatus {
   readonly state: TaskStatusEnum
   /**
    *	The expiry date of the result. You cannot access the result after the expiry date. Default: 1 day after the result first becomes available. This is only available when the TaskStatus state is SUCCESS.
@@ -253,5 +253,102 @@ export interface MissingImageTaskStatus {
   /**
    *	The response to an asynchronous request. The type depends on the request initiated. Only populated when the status is `SUCCESS`.
    */
-  readonly result: MissingImagePagedQueryResult
+  readonly result: MissingImagesPagedQueryResult
+}
+export interface MissingPrices {
+  readonly product: ProductReference
+  /**
+   *	Id of the `ProductVariant`.
+   */
+  readonly variantId: number
+}
+export interface MissingPricesProductCount {
+  readonly total: number
+  readonly missingPrices: number
+}
+export interface MissingPricesProductLevel extends MissingPricesProductCount {
+  /**
+   *	Number of products scanned.
+   */
+  readonly total: number
+  /**
+   *	Number of products missing prices.
+   */
+  readonly missingPrices: number
+}
+export interface MissingPricesVariantLevel extends MissingPricesProductCount {
+  /**
+   *	Number of product variants scanned.
+   */
+  readonly total: number
+  /**
+   *	Number of product variants missing prices.
+   */
+  readonly missingPrices: number
+}
+export interface MissingPricesMeta {
+  readonly productLevel: MissingPricesProductLevel
+  readonly variantLevel: MissingPricesVariantLevel
+}
+export interface MissingPricesSearchRequest {
+  readonly limit?: number
+  readonly offset?: number
+  /**
+   *	If true, searches data from staged products in addition to published products.
+   */
+  readonly staged?: boolean
+  /**
+   *	Maximum number of products to scan.
+   */
+  readonly productSetLimit?: number
+  /**
+   *	If true, searches all product variants. If false, only searches master variants.
+   */
+  readonly includeVariants?: boolean
+  /**
+   *	If used, only checks if a product variant has a price in the provided currency code.
+   */
+  readonly currencyCode?: string
+  /**
+   *	If true, checks if there are prices for the specified date range and time.
+   */
+  readonly checkDate?: boolean
+  /**
+   *	Starting date of the range to check. If no value is given, checks prices valid at the time the search is initiated.
+   */
+  readonly validFrom?: string
+  /**
+   *	Ending date of the range to check. If no value is given, it is equal to `validFrom`.
+   */
+  readonly validUntil?: string
+  /**
+   *	Filters results by the provided Product IDs. Cannot be applied in combination with the `productTypeIds` filter.
+   */
+  readonly productIds?: string[]
+  /**
+   *	Filters results by the provided product type IDs. Cannot be applied in combination with the `productIds` filter.
+   */
+  readonly productTypeIds?: string[]
+}
+export interface MissingPricesPagedQueryResult {
+  readonly count: number
+  readonly total: number
+  readonly offset: number
+  readonly results: MissingPrices[]
+  readonly meta: MissingPricesMeta
+}
+/**
+ *	Represents a URL path to poll to get the results of an Asynchronous Request.
+ */
+export interface MissingPricesTaskStatus {
+  readonly state: TaskStatusEnum
+  /**
+   *	The expiry date of the result. You cannot access the result after the expiry date. Default: 1 day after the result first becomes available. This is only available when the TaskStatus state is SUCCESS.
+   *
+   */
+  readonly expires: string
+  /**
+   *	The response to an asynchronous request. The type depends on the request initiated. Only populated when the status is `SUCCESS`.
+   */
+  readonly result: MissingPricesPagedQueryResult
 }

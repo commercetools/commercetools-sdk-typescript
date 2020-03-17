@@ -1,5 +1,9 @@
 import { mlApiBuilder } from './helpers/api-helpers'
-import { MissingDataTaskStatus, MissingImageTaskStatus } from '../src'
+import {
+  MissingDataTaskStatus,
+  MissingImagesTaskStatus,
+  MissingPricesTaskStatus,
+} from '../src'
 import { sleep } from './helpers/test-utils'
 
 test('Get async result for missing attributes', async () => {
@@ -46,11 +50,44 @@ test('Get async result for missing images', async () => {
     })
     .execute()
   expect(token.statusCode).toBe(202)
-  var dataStatus: MissingImageTaskStatus = null
+  var dataStatus: MissingImagesTaskStatus = null
   for (var i = 0; i < 10; i++) {
     const resp = await mlApiBuilder
       .missingData()
       .images()
+      .status()
+      .withTaskId({
+        taskId: token.body.taskId,
+      })
+      .get()
+      .execute()
+
+    if (resp.statusCode === 200 && resp.body.state === 'SUCCESS') {
+      dataStatus = resp.body
+      break
+    }
+    await sleep(500)
+  }
+  expect(dataStatus).toBeDefined()
+  expect(dataStatus.state).toBe('SUCCESS')
+}, 10000)
+
+test('Get async result for missing prices', async () => {
+  const token = await mlApiBuilder
+    .missingData()
+    .prices()
+    .post({
+      body: {
+        includeVariants: true,
+      },
+    })
+    .execute()
+  expect(token.statusCode).toBe(202)
+  var dataStatus: MissingPricesTaskStatus = null
+  for (var i = 0; i < 10; i++) {
+    const resp = await mlApiBuilder
+      .missingData()
+      .prices()
       .status()
       .withTaskId({
         taskId: token.body.taskId,
