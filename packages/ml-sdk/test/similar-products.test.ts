@@ -29,8 +29,6 @@ test('Get async result for similar products', async () => {
       .get()
       .execute()
 
-    console.log(JSON.stringify(resp, null, 4))
-
     if (resp.statusCode === 200 && resp.body.state === 'SUCCESS') {
       dataStatus = resp.body
       break
