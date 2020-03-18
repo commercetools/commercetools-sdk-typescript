@@ -11,6 +11,17 @@
  *
  */
 
+export interface LocalizedString {
+  [key: string]: string
+}
+export interface Money {
+  readonly centAmount: number
+  /**
+   *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *
+   */
+  readonly currencyCode: string
+}
 export type ReferenceTypeId =
   | 'cart'
   | 'cart-discount'

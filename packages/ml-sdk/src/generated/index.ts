@@ -19,6 +19,7 @@ export * from './models/common'
 export * from './models/general-category-recommendations'
 export * from './models/image-search'
 export * from './models/missing-data'
+export * from './models/similar-products'
 //Common package
 export * from './shared/utils/common-types'
 export * from './shared/utils/middleware'
