@@ -1,14 +1,12 @@
+import { createClient } from '@commercetools/sdk-client'
 import { createAuthMiddlewareForClientCredentialsFlow } from '@commercetools/sdk-middleware-auth'
 import { createHttpMiddleware } from '@commercetools/sdk-middleware-http'
-import { createClient } from '@commercetools/sdk-client'
-
+import fetch from 'node-fetch'
 import {
   ApiRoot,
-  executeRequest,
   createExecutorFromMiddlewares,
+  executeRequest,
 } from '../../src'
-
-import fetch from 'node-fetch'
 import { requireEnvVar } from './test-utils'
 
 const projectKey = requireEnvVar('CTP_PROJECT_KEY')

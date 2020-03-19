@@ -1,13 +1,11 @@
+import { createClient } from '@commercetools/sdk-client'
 import { createAuthMiddlewareForClientCredentialsFlow } from '@commercetools/sdk-middleware-auth'
 import { createHttpMiddleware } from '@commercetools/sdk-middleware-http'
-import { createClient } from '@commercetools/sdk-client'
-
 import {
   ApiRoot,
-  executeRequest,
   createExecutorFromMiddlewares,
+  executeRequest,
 } from '@commercetools/typescript-sdk'
-
 import fetch from 'node-fetch'
 import { requireEnvVar } from './test-utils'
 
