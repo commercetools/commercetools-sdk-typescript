@@ -1,5 +1,5 @@
-import { mlApiBuilder } from './helpers/api-helpers'
 import * as fs from 'fs'
+import { mlApiBuilder } from './helpers/api-helpers'
 
 test('test the image search', async () => {
   const image = fs.readFileSync('test/resources/example_flower.jpg')

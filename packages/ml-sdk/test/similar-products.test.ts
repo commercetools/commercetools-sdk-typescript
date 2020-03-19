@@ -1,10 +1,5 @@
+import { SimilarProductsTaskStatus } from '../src'
 import { mlApiBuilder } from './helpers/api-helpers'
-import {
-  MissingDataTaskStatus,
-  MissingImagesTaskStatus,
-  MissingPricesTaskStatus,
-  SimilarProductsTaskStatus,
-} from '../src'
 import { sleep } from './helpers/test-utils'
 
 test('Get async result for similar products', async () => {

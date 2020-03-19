@@ -1,7 +1,7 @@
-import { ProductDraft, Product } from '@commercetools/typescript-sdk'
+import { Product, ProductDraft } from '@commercetools/typescript-sdk'
+import { v4 as uuidv4 } from 'uuid'
 import { ctpApiBuilder } from '../helpers/ctp-api-helper'
 import { withProductType } from './product_type_fixtures'
-import { v4 as uuidv4 } from 'uuid'
 
 async function createProduct(product: ProductDraft): Promise<Product> {
   const resp = await ctpApiBuilder
