@@ -12,7 +12,7 @@
   },
   "workspaces": ["packages/*"],
   "scripts": {
-    "post_process_generate": "lerna run post_process_generate && yarn format",
+    "generate": "lerna run generate && yarn format",
     "bootstrap": "lerna exec yarn install",
     "format": "prettier --write '**/*.{js,ts,json,md}'",
     "build": "lerna run build",

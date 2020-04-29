@@ -45,6 +45,8 @@
     "remove_path_alias": "tsconfig-replace-paths --project tsconfig-declarations.json -s ./src/generated -o ./src/generated",
     "organize_imports": "find src/generated -type f -name '*.ts' | xargs organize-imports-cli",
     "post_process_generate": "yarn remove_path_alias && yarn organize_imports",
+    "generate-ts-sdk": "rmf-codegen generate ${ML_API_REF} -o src/generated -t typescript_client",
+    "generate": "yarn generate-ts-sdk && yarn post_process_generate",
     "prebuild": "rimraf dist/**",
     "build": "microbundle",
     "test": "jest"

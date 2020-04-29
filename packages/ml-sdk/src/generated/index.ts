@@ -18,6 +18,7 @@ export * from './models/category-recommendations'
 export * from './models/common'
 export * from './models/general-category-recommendations'
 export * from './models/image-search'
+export * from './models/image-search-config'
 export * from './models/missing-data'
 export * from './models/similar-products'
 //Common package

@@ -13,6 +13,7 @@
 import { ImageSearchResponse } from '../../models/image-search'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
+import { ByProjectKeyImageSearchConfigRequestBuilder } from '../config/by-project-key-image-search-config-request-builder'
 
 export class ByProjectKeyImageSearchRequestBuilder {
   constructor(
@@ -24,6 +25,16 @@ export class ByProjectKeyImageSearchRequestBuilder {
       baseUri?: string
     }
   ) {}
+  public config(): ByProjectKeyImageSearchConfigRequestBuilder {
+    return new ByProjectKeyImageSearchConfigRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+
   /**
    *	Accepts an image file and returns similar products from product catalogue.
    *
