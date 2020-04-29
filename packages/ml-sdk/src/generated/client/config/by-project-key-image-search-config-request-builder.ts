@@ -48,6 +48,9 @@ export class ByProjectKeyImageSearchConfigRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Endpoint to update the image search config.
+   */
   public post(methodArgs: {
     body: ImageSearchConfigRequest
     headers?: {
