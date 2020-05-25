@@ -39,7 +39,8 @@
     "tsconfig-replace-paths": "^0.0.5",
     "tslib": "^1.11.1",
     "typescript": "^3.8.3",
-    "uuid": "^7.0.2"
+    "uuid": "^7.0.2",
+    "commitlint": "^8.3.5"
   },
   "scripts": {
     "remove_path_alias": "tsconfig-replace-paths --project tsconfig-declarations.json -s ./src/generated -o ./src/generated",
@@ -50,8 +51,5 @@
     "prebuild": "rimraf dist/**",
     "build": "microbundle",
     "test": "jest"
-  },
-  "dependencies": {
-    "commitlint": "^8.3.5"
   }
 }
