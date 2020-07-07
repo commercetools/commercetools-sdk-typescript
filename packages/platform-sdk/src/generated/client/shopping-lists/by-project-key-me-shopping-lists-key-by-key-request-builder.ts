@@ -11,7 +11,8 @@
  *
  */
 import { MyShoppingListUpdate } from '../../models/me'
-import { executeRequest } from '../../shared/utils/common-types'
+import { MyShoppingList } from '../../models/shopping-list'
+import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
 export class ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder {
@@ -25,13 +26,46 @@ export class ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Get MyShoppingList by key
+   */
+  public get(methodArgs?: {
+    queryArgs?: {
+      expand?: string | string[]
+      [key: string]: QueryParam
+    }
+    headers?: {
+      [key: string]: string
+    }
+  }): ApiRequest<MyShoppingList> {
+    return new ApiRequest<MyShoppingList>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'GET',
+        uriTemplate: '/{projectKey}/me/shopping-lists/key={key}',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
+      },
+      this.args.executeRequest
+    )
+  }
+  /**
+   *	Update MyShoppingList by key
+   */
   public post(methodArgs: {
+    queryArgs?: {
+      expand?: string | string[]
+      [key: string]: QueryParam
+    }
     body: MyShoppingListUpdate
     headers?: {
       [key: string]: string
     }
-  }): ApiRequest<void> {
-    return new ApiRequest<void>(
+  }): ApiRequest<MyShoppingList> {
+    return new ApiRequest<MyShoppingList>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',
@@ -41,7 +75,35 @@ export class ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder {
           'Content-Type': 'application/json',
           ...methodArgs?.headers,
         },
+        queryParams: methodArgs?.queryArgs,
         body: methodArgs?.body,
+      },
+      this.args.executeRequest
+    )
+  }
+  /**
+   *	Delete MyShoppingList by key
+   */
+  public delete(methodArgs: {
+    queryArgs: {
+      version: number | number[]
+      expand?: string | string[]
+      [key: string]: QueryParam
+    }
+    headers?: {
+      [key: string]: string
+    }
+  }): ApiRequest<MyShoppingList> {
+    return new ApiRequest<MyShoppingList>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'DELETE',
+        uriTemplate: '/{projectKey}/me/shopping-lists/key={key}',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
       },
       this.args.executeRequest
     )

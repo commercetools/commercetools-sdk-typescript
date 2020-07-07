@@ -40,6 +40,7 @@ export type ErrorObject =
   | InvalidOperationError
   | InvalidSubjectError
   | InvalidTokenError
+  | LanguageUsedInStoresError
   | MatchingPriceNotFoundError
   | MissingTaxRateForCountryError
   | NoMatchingProductDiscountFoundError
@@ -49,16 +50,16 @@ export type ErrorObject =
   | RequiredFieldError
   | ResourceNotFoundError
   | ShippingMethodDoesNotMatchCartError
-  | AccessDeniedError
-  | ConcurrentModificationError
-  | DuplicateFieldWithConflictingResourceError
   | DuplicateVariantValuesError
   | DiscountCodeNonApplicableError
-  | DuplicatePriceScopeError
+  | DuplicateAttributeValuesError
+  | DuplicateFieldWithConflictingResourceError
   | DuplicateAttributeValueError
+  | DuplicatePriceScopeError
   | EnumValueIsUsedError
   | DuplicateFieldError
-  | DuplicateAttributeValuesError
+  | ConcurrentModificationError
+  | AccessDeniedError
 export interface AccessDeniedError {
   readonly code: 'access_denied'
   readonly message: string
@@ -187,6 +188,10 @@ export interface InvalidSubjectError {
 }
 export interface InvalidTokenError {
   readonly code: 'invalid_token'
+  readonly message: string
+}
+export interface LanguageUsedInStoresError {
+  readonly code: 'LanguageUsedInStores'
   readonly message: string
 }
 export interface MatchingPriceNotFoundError {

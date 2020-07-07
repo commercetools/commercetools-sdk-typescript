@@ -14,6 +14,12 @@
 import { MessageConfiguration, MessageConfigurationDraft } from './message'
 import { CustomFieldLocalizedEnumValue } from './type'
 
+export interface CartsConfiguration {
+  /**
+   *	if country - no state tax rate fallback should be used when a shipping address state is not explicitly covered in the rates lists of all tax categories of a cart line items. Default value 'false'
+   */
+  readonly countryTaxRateFallbackEnabled?: boolean
+}
 export interface ExternalOAuth {
   readonly url: string
   readonly authorizationHeader: string
@@ -48,6 +54,7 @@ export interface Project {
   readonly messages: MessageConfiguration
   readonly shippingRateInputType?: ShippingRateInputType
   readonly externalOAuth?: ExternalOAuth
+  readonly carts: CartsConfiguration
 }
 export interface ProjectUpdate {
   readonly version: number
@@ -55,6 +62,7 @@ export interface ProjectUpdate {
 }
 export type ProjectUpdateAction =
   | ProjectChangeCountriesAction
+  | ProjectChangeCountryTaxRateFallbackEnabledAction
   | ProjectChangeCurrenciesAction
   | ProjectChangeLanguagesAction
   | ProjectChangeMessagesConfigurationAction
@@ -82,6 +90,13 @@ export interface ProjectChangeCountriesAction {
    *	A two-digit country code as per country code.
    */
   readonly countries: string[]
+}
+export interface ProjectChangeCountryTaxRateFallbackEnabledAction {
+  readonly action: 'changeCountryTaxRateFallbackEnabled'
+  /**
+   *	default value is `false`
+   */
+  readonly countryTaxRateFallbackEnabled: boolean
 }
 export interface ProjectChangeCurrenciesAction {
   readonly action: 'changeCurrencies'

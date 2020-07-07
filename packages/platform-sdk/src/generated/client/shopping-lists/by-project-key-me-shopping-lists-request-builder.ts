@@ -42,7 +42,7 @@ export class ByProjectKeyMeShoppingListsRequestBuilder {
       baseUri: this.args.baseUri,
     })
   }
-  public keyWithKeyValue(childPathArgs: {
+  public withKey(childPathArgs: {
     key: string
   }): ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder {
     return new ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder({
