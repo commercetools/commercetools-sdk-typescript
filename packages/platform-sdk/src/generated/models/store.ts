@@ -11,6 +11,7 @@
  *
  */
 
+import { ChannelReference, ChannelResourceIdentifier } from './channel'
 import {
   BaseResource,
   CreatedBy,
@@ -36,6 +37,10 @@ export interface Store extends BaseResource {
    */
   readonly name?: LocalizedString
   readonly languages?: string[]
+  /**
+   *	Array of References to a Channel with `ProductDistribution` role
+   */
+  readonly distributionChannels: ChannelReference[]
 }
 export interface StoreDraft {
   /**
@@ -49,6 +54,10 @@ export interface StoreDraft {
    */
   readonly name: LocalizedString
   readonly languages?: string[]
+  /**
+   *	Array of ResourceIdentifiers to a Channel with `ProductDistribution` role
+   */
+  readonly distributionChannels?: ChannelResourceIdentifier[]
 }
 export interface StoreKeyReference {
   readonly typeId: 'store'
@@ -75,7 +84,10 @@ export interface StoreUpdate {
   readonly version: number
   readonly actions: StoreUpdateAction[]
 }
-export type StoreUpdateAction = StoreSetLanguagesAction | StoreSetNameAction
+export type StoreUpdateAction =
+  | StoreSetLanguagesAction
+  | StoreSetNameAction
+  | StoresStDistributionChannelsAction
 export interface StoreSetLanguagesAction {
   readonly action: 'setLanguages'
   readonly languages?: string[]
@@ -86,4 +98,8 @@ export interface StoreSetNameAction {
    *	The updated name of the store
    */
   readonly name?: LocalizedString
+}
+export interface StoresStDistributionChannelsAction {
+  readonly action: 'setDistributionChannels'
+  readonly distributionChannels?: ChannelResourceIdentifier[]
 }

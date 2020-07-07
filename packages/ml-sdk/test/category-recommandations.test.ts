@@ -13,4 +13,4 @@ test('test project recommendations', async () => {
       .execute()
     expect(resp.statusCode).toBe(200)
   })
-})
+}, 10000)

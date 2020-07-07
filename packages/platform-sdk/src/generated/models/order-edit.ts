@@ -159,9 +159,9 @@ export interface OrderEditResourceIdentifier {
   readonly key?: string
 }
 export type OrderEditResult =
-  | OrderEditPreviewFailure
   | OrderEditApplied
   | OrderEditNotProcessed
+  | OrderEditPreviewFailure
   | OrderEditPreviewSuccess
 export interface OrderEditApplied {
   readonly type: 'Applied'

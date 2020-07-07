@@ -10,73 +10,38 @@
  *                    `Y'
  *
  */
-import {
-  MyPayment,
-  MyPaymentDraft,
-  MyPaymentPagedQueryResponse,
-} from '../../models/me'
+import { MyPayment, MyPaymentUpdate } from '../../models/me'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-import { ByProjectKeyMePaymentsByIDRequestBuilder } from './by-project-key-me-payments-by-id-request-builder'
-import { ByProjectKeyMePaymentsKeyByKeyRequestBuilder } from './by-project-key-me-payments-key-by-key-request-builder'
 
-export class ByProjectKeyMePaymentsRequestBuilder {
+export class ByProjectKeyMePaymentsKeyByKeyRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
         projectKey: string
+        key: string
       }
       executeRequest: executeRequest
       baseUri?: string
     }
   ) {}
-  public withKey(childPathArgs: {
-    key: string
-  }): ByProjectKeyMePaymentsKeyByKeyRequestBuilder {
-    return new ByProjectKeyMePaymentsKeyByKeyRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-        ...childPathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
-  }
-  public withId(childPathArgs: {
-    ID: string
-  }): ByProjectKeyMePaymentsByIDRequestBuilder {
-    return new ByProjectKeyMePaymentsByIDRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-        ...childPathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
-  }
-
   /**
-   *	Query payments
+   *	Get MyPayment by key
    */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
-      sort?: string | string[]
-      limit?: number | number[]
-      offset?: number | number[]
-      withTotal?: boolean | boolean[]
-      where?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
       [key: string]: string
     }
-  }): ApiRequest<MyPaymentPagedQueryResponse> {
-    return new ApiRequest<MyPaymentPagedQueryResponse>(
+  }): ApiRequest<MyPayment> {
+    return new ApiRequest<MyPayment>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',
-        uriTemplate: '/{projectKey}/me/payments',
+        uriTemplate: '/{projectKey}/me/payments/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
@@ -87,14 +52,14 @@ export class ByProjectKeyMePaymentsRequestBuilder {
     )
   }
   /**
-   *	Create MyPayment
+   *	Update MyPayment by key
    */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
       [key: string]: QueryParam
     }
-    body: MyPaymentDraft
+    body: MyPaymentUpdate
     headers?: {
       [key: string]: string
     }
@@ -103,7 +68,7 @@ export class ByProjectKeyMePaymentsRequestBuilder {
       {
         baseUri: this.args.baseUri,
         method: 'POST',
-        uriTemplate: '/{projectKey}/me/payments',
+        uriTemplate: '/{projectKey}/me/payments/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
           'Content-Type': 'application/json',
@@ -111,6 +76,33 @@ export class ByProjectKeyMePaymentsRequestBuilder {
         },
         queryParams: methodArgs?.queryArgs,
         body: methodArgs?.body,
+      },
+      this.args.executeRequest
+    )
+  }
+  /**
+   *	Delete MyPayment by key
+   */
+  public delete(methodArgs: {
+    queryArgs: {
+      version: number | number[]
+      expand?: string | string[]
+      [key: string]: QueryParam
+    }
+    headers?: {
+      [key: string]: string
+    }
+  }): ApiRequest<MyPayment> {
+    return new ApiRequest<MyPayment>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'DELETE',
+        uriTemplate: '/{projectKey}/me/payments/key={key}',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
       },
       this.args.executeRequest
     )

@@ -81,10 +81,10 @@ export interface ShippingMethodDraft {
   readonly predicate?: string
 }
 export interface ShippingMethodPagedQueryResponse {
-  readonly limit: number
+  readonly limit?: number
   readonly count: number
   readonly total?: number
-  readonly offset: number
+  readonly offset?: number
   readonly results: ShippingMethod[]
 }
 export interface ShippingMethodReference {
@@ -144,8 +144,8 @@ export interface ShippingRateDraft {
   readonly tiers?: ShippingRatePriceTier[]
 }
 export type ShippingRatePriceTier =
-  | CartClassificationTier
   | CartValueTier
+  | CartClassificationTier
   | CartScoreTier
 export interface CartClassificationTier {
   readonly type: 'CartClassification'

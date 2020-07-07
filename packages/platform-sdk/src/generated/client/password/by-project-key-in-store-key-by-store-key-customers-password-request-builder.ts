@@ -13,7 +13,6 @@
 import { Customer, CustomerChangePassword } from '../../models/customer'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-import { ByProjectKeyInStoreKeyByStoreKeyCustomersPasswordResetRequestBuilder } from '../reset/by-project-key-in-store-key-by-store-key-customers-password-reset-request-builder'
 
 export class ByProjectKeyInStoreKeyByStoreKeyCustomersPasswordRequestBuilder {
   constructor(
@@ -26,18 +25,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersPasswordRequestBuilder {
       baseUri?: string
     }
   ) {}
-  public reset(): ByProjectKeyInStoreKeyByStoreKeyCustomersPasswordResetRequestBuilder {
-    return new ByProjectKeyInStoreKeyByStoreKeyCustomersPasswordResetRequestBuilder(
-      {
-        pathArgs: {
-          ...this.args.pathArgs,
-        },
-        executeRequest: this.args.executeRequest,
-        baseUri: this.args.baseUri,
-      }
-    )
-  }
-
   /**
    *	Change a customers password
    */

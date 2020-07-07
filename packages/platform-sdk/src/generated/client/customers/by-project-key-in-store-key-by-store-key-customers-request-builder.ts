@@ -17,10 +17,11 @@ import {
 } from '../../models/customer'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
+import { ByProjectKeyInStoreKeyByStoreKeyCustomersEmailConfirmRequestBuilder } from '../confirm/by-project-key-in-store-key-by-store-key-customers-email-confirm-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCustomersEmailTokenRequestBuilder } from '../email-token/by-project-key-in-store-key-by-store-key-customers-email-token-request-builder'
-import { ByProjectKeyInStoreKeyByStoreKeyCustomersEmailRequestBuilder } from '../email/by-project-key-in-store-key-by-store-key-customers-email-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCustomersPasswordTokenRequestBuilder } from '../password-token/by-project-key-in-store-key-by-store-key-customers-password-token-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCustomersPasswordRequestBuilder } from '../password/by-project-key-in-store-key-by-store-key-customers-password-request-builder'
+import { ByProjectKeyInStoreKeyByStoreKeyCustomersPasswordResetRequestBuilder } from '../reset/by-project-key-in-store-key-by-store-key-customers-password-reset-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder } from './by-project-key-in-store-key-by-store-key-customers-by-id-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCustomersEmailTokenByEmailTokenRequestBuilder } from './by-project-key-in-store-key-by-store-key-customers-email-token-by-email-token-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCustomersKeyByKeyRequestBuilder } from './by-project-key-in-store-key-by-store-key-customers-key-by-key-request-builder'
@@ -83,14 +84,16 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersRequestBuilder {
       }
     )
   }
-  public email(): ByProjectKeyInStoreKeyByStoreKeyCustomersEmailRequestBuilder {
-    return new ByProjectKeyInStoreKeyByStoreKeyCustomersEmailRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
+  public emailConfirm(): ByProjectKeyInStoreKeyByStoreKeyCustomersEmailConfirmRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyCustomersEmailConfirmRequestBuilder(
+      {
+        pathArgs: {
+          ...this.args.pathArgs,
+        },
+        executeRequest: this.args.executeRequest,
+        baseUri: this.args.baseUri,
+      }
+    )
   }
   public password(): ByProjectKeyInStoreKeyByStoreKeyCustomersPasswordRequestBuilder {
     return new ByProjectKeyInStoreKeyByStoreKeyCustomersPasswordRequestBuilder({
@@ -100,6 +103,17 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersRequestBuilder {
       executeRequest: this.args.executeRequest,
       baseUri: this.args.baseUri,
     })
+  }
+  public passwordReset(): ByProjectKeyInStoreKeyByStoreKeyCustomersPasswordResetRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyCustomersPasswordResetRequestBuilder(
+      {
+        pathArgs: {
+          ...this.args.pathArgs,
+        },
+        executeRequest: this.args.executeRequest,
+        baseUri: this.args.baseUri,
+      }
+    )
   }
   /**
    *	The following workflow can be used to reset the customer's password:

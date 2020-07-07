@@ -16,11 +16,10 @@ import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyMeActiveCartRequestBuilder } from '../active-cart/by-project-key-me-active-cart-request-builder'
 import { ByProjectKeyMeCartsRequestBuilder } from '../carts/by-project-key-me-carts-request-builder'
-import { ByProjectKeyMeEmailRequestBuilder } from '../email/by-project-key-me-email-request-builder'
+import { ByProjectKeyMeEmailConfirmRequestBuilder } from '../confirm/by-project-key-me-email-confirm-request-builder'
 import { ByProjectKeyMeLoginRequestBuilder } from '../login/by-project-key-me-login-request-builder'
 import { ByProjectKeyMeOrdersRequestBuilder } from '../orders/by-project-key-me-orders-request-builder'
 import { ByProjectKeyMePasswordRequestBuilder } from '../password/by-project-key-me-password-request-builder'
-import { ByProjectKeyMePaymentRequestBuilder } from '../payment/by-project-key-me-payment-request-builder'
 import { ByProjectKeyMePaymentsRequestBuilder } from '../payments/by-project-key-me-payments-request-builder'
 import { ByProjectKeyMeShoppingListsRequestBuilder } from '../shopping-lists/by-project-key-me-shopping-lists-request-builder'
 import { ByProjectKeyMeSignupRequestBuilder } from '../signup/by-project-key-me-signup-request-builder'
@@ -35,8 +34,8 @@ export class ByProjectKeyMeRequestBuilder {
       baseUri?: string
     }
   ) {}
-  public email(): ByProjectKeyMeEmailRequestBuilder {
-    return new ByProjectKeyMeEmailRequestBuilder({
+  public emailConfirm(): ByProjectKeyMeEmailConfirmRequestBuilder {
+    return new ByProjectKeyMeEmailConfirmRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },
@@ -121,15 +120,6 @@ export class ByProjectKeyMeRequestBuilder {
    */
   public shoppingLists(): ByProjectKeyMeShoppingListsRequestBuilder {
     return new ByProjectKeyMeShoppingListsRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
-  }
-  public payment(): ByProjectKeyMePaymentRequestBuilder {
-    return new ByProjectKeyMePaymentRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },

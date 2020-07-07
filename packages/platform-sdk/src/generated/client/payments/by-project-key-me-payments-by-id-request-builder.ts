@@ -10,8 +10,7 @@
  *                    `Y'
  *
  */
-import { Update } from '../../models/common'
-import { MyPayment } from '../../models/me'
+import { MyPayment, MyPaymentUpdate } from '../../models/me'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
@@ -60,7 +59,7 @@ export class ByProjectKeyMePaymentsByIDRequestBuilder {
       expand?: string | string[]
       [key: string]: QueryParam
     }
-    body: Update
+    body: MyPaymentUpdate
     headers?: {
       [key: string]: string
     }
