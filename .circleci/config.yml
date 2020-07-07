@@ -18,8 +18,13 @@ jobs:
       - store_artifacts:
           path: packages/ml-sdk/test-results
           prefix: tests
+      - store_artifacts:
+          path: packages/platform-sdk/test-results
+          prefix: tests
       - store_test_results: 
           path: packages/ml-sdk/test-results
+      - store_test_results: 
+          path: packages/platform-sdk/test-results
   update_ml_sdk_from_spec:
     working_directory: ~/commercetools-typescript-spec
     docker:
@@ -41,9 +46,6 @@ jobs:
       - run:
           name: install yarn
           command: yarn install && yarn bootstrap
-      - run:
-          name: run update sdk script
-          command: bash ./.circleci/update-ml-sdk.sh
 workflows:
   version: 2
   validate_spec:
