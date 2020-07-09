@@ -109,26 +109,26 @@ export type Message =
   | ReviewCreatedMessage
   | ReviewRatingSetMessage
   | ReviewStateTransitionMessage
-  | CategoryCreatedMessage
-  | CustomerAddressRemovedMessage
-  | CustomerAddressAddedMessage
-  | InventoryEntryQuantitySetMessage
-  | DeliveryRemovedMessage
   | DeliveryItemsUpdatedMessage
-  | LineItemStateTransitionMessage
-  | CustomerAddressChangedMessage
-  | CategorySlugChangedMessage
   | InventoryEntryCreatedMessage
+  | CustomerAddressRemovedMessage
+  | LineItemStateTransitionMessage
+  | CategoryCreatedMessage
   | CustomerCompanyNameSetMessage
-  | CustomerCreatedMessage
-  | CustomerGroupSetMessage
-  | CustomLineItemStateTransitionMessage
-  | CustomerEmailChangedMessage
-  | InventoryEntryDeletedMessage
+  | CustomerAddressAddedMessage
   | CustomerEmailVerifiedMessage
-  | DeliveryAddedMessage
+  | CategorySlugChangedMessage
+  | InventoryEntryDeletedMessage
+  | CustomerCreatedMessage
+  | InventoryEntryQuantitySetMessage
+  | CustomerGroupSetMessage
+  | CustomerAddressChangedMessage
   | DeliveryAddressSetMessage
+  | DeliveryRemovedMessage
+  | CustomLineItemStateTransitionMessage
+  | DeliveryAddedMessage
   | CustomerDateOfBirthSetMessage
+  | CustomerEmailChangedMessage
 export interface CategoryCreatedMessage {
   readonly type: 'CategoryCreated'
   readonly id: string
@@ -1277,26 +1277,26 @@ export type MessagePayload =
   | ReviewCreatedMessagePayload
   | ReviewRatingSetMessagePayload
   | ReviewStateTransitionMessagePayload
-  | CustomerCreatedMessagePayload
-  | DeliveryAddressSetMessagePayload
-  | DeliveryItemsUpdatedMessagePayload
-  | LineItemStateTransitionMessagePayload
-  | CustomerAddressAddedMessagePayload
-  | DeliveryAddedMessagePayload
-  | CustomerAddressChangedMessagePayload
-  | InventoryEntryCreatedMessagePayload
-  | CustomerGroupSetMessagePayload
-  | CustomLineItemStateTransitionMessagePayload
-  | CategoryCreatedMessagePayload
-  | CustomerEmailChangedMessagePayload
-  | CustomerDateOfBirthSetMessagePayload
   | InventoryEntryDeletedMessagePayload
+  | CustomLineItemStateTransitionMessagePayload
   | DeliveryRemovedMessagePayload
-  | InventoryEntryQuantitySetMessagePayload
-  | CustomerAddressRemovedMessagePayload
-  | CustomerEmailVerifiedMessagePayload
+  | LineItemStateTransitionMessagePayload
+  | CustomerAddressChangedMessagePayload
+  | DeliveryItemsUpdatedMessagePayload
   | CategorySlugChangedMessagePayload
+  | CustomerEmailChangedMessagePayload
+  | InventoryEntryCreatedMessagePayload
+  | CustomerAddressAddedMessagePayload
+  | CustomerGroupSetMessagePayload
+  | CategoryCreatedMessagePayload
   | CustomerCompanyNameSetMessagePayload
+  | CustomerEmailVerifiedMessagePayload
+  | CustomerAddressRemovedMessagePayload
+  | DeliveryAddedMessagePayload
+  | CustomerCreatedMessagePayload
+  | CustomerDateOfBirthSetMessagePayload
+  | InventoryEntryQuantitySetMessagePayload
+  | DeliveryAddressSetMessagePayload
 export interface CategoryCreatedMessagePayload {
   readonly type: 'CategoryCreated'
   readonly category: Category
