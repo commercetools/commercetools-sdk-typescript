@@ -31,3 +31,6 @@ coverage
 .rts2_cache_cjs
 
 setupEnv.sh
+
+# editor specific
+*.swp
