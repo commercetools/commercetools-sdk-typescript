@@ -18,8 +18,7 @@
     "build": "lerna run build",
     "test": "lerna run test",
     "pre-commit": "lerna run precommit",
-    "check-gh-auth-token": "if [[ -z \"${GITHUB_AUTH}\" ]]; then echo \"Need to set GITHUB_AUTH\" && exit 1; fi",
-    "release": "echo \"Error! release is locked, please fix the release script to move forward\" && exit 125 #yarn run check-gh-auth-token && yarn run build && lerna publish --registry=https://registry.npmjs.org/"
+    "release": "yarn run build && lerna publish --registry=https://registry.npmjs.org/"
   },
   "lint-staged": {
     "*.{js,ts,json,md}": "yarn format"

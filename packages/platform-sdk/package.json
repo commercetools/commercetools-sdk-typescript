@@ -3,9 +3,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "name": "@commercetools/platform-sdk",
-  "version": "0.0.1-alpha.0",
-  "description": "Type script sdk for commercetools platform",
+  "name": "@commercetools/typescript-sdk",
+  "version": "0.0.21",
+  "description": "Typescript definitions and sdk for commercetools platform",
   "keywords": ["commercetools", "typescript", "sdk"],
   "homepage": "https://github.com/commercetools/commercetools-typescript-sdks/packages/platform-sdk",
   "bugs": "https://github.com/commercetools/commercetools-typescript-sdks/issues",
