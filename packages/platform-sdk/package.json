@@ -7,7 +7,7 @@
   "version": "1.0.0",
   "description": "Typescript definitions and sdk for commercetools platform",
   "keywords": ["commercetools", "typescript", "sdk"],
-  "homepage": "https://github.com/commercetools/commercetools-typescript-sdks/packages/platform-sdk",
+  "homepage": "https://github.com/commercetools/commercetools-typescript-sdks",
   "bugs": "https://github.com/commercetools/commercetools-typescript-sdks/issues",
   "repository": {
     "type": "git",
