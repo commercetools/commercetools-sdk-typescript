@@ -19,8 +19,8 @@
   "main": "dist/ml-sdk.js",
   "module": "dist/ml-sdk.es.js",
   "browser": "dist/ml-sdk.umd.js",
-  "typings": "dist/src/index.d.ts",
-  "types": "dist/src/index.d.ts",
+  "typings": "dist/index.d.ts",
+  "types": "dist/index.d.ts",
   "devDependencies": {
     "@commercetools/sdk-client": "2.1.1",
     "@commercetools/sdk-middleware-auth": "6.0.4",
