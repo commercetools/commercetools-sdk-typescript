@@ -38,9 +38,13 @@ export interface Store extends BaseResource {
   readonly name?: LocalizedString
   readonly languages?: string[]
   /**
-   *	Array of References to a Channel with `ProductDistribution` role
+   *	Set of References to a Channel with `ProductDistribution` role
    */
   readonly distributionChannels: ChannelReference[]
+  /**
+   *	Set of ResourceIdentifiers of Channels with `InventorySupply` role
+   */
+  readonly supplyChannels?: ChannelResourceIdentifier[]
 }
 export interface StoreDraft {
   /**
@@ -55,9 +59,13 @@ export interface StoreDraft {
   readonly name: LocalizedString
   readonly languages?: string[]
   /**
-   *	Array of ResourceIdentifiers to a Channel with `ProductDistribution` role
+   *	Set of ResourceIdentifiers to a Channel with `ProductDistribution` role
    */
   readonly distributionChannels?: ChannelResourceIdentifier[]
+  /**
+   *	Set of ResourceIdentifiers of Channels with `InventorySupply` role
+   */
+  readonly supplyChannels?: ChannelResourceIdentifier[]
 }
 export interface StoreKeyReference {
   readonly typeId: 'store'
@@ -87,7 +95,12 @@ export interface StoreUpdate {
 export type StoreUpdateAction =
   | StoreSetLanguagesAction
   | StoreSetNameAction
-  | StoresStDistributionChannelsAction
+  | StoresAddDistributionChannelsAction
+  | StoresAddSupplyChannelsAction
+  | StoresRemoveDistributionChannelsAction
+  | StoresRemoveSupplyChannelsAction
+  | StoresSetDistributionChannelsAction
+  | StoresSetSupplyChannelsAction
 export interface StoreSetLanguagesAction {
   readonly action: 'setLanguages'
   readonly languages?: string[]
@@ -99,7 +112,27 @@ export interface StoreSetNameAction {
    */
   readonly name?: LocalizedString
 }
-export interface StoresStDistributionChannelsAction {
+export interface StoresAddDistributionChannelsAction {
+  readonly action: 'addDistributionChannel'
+  readonly distributionChannel: ChannelResourceIdentifier
+}
+export interface StoresAddSupplyChannelsAction {
+  readonly action: 'addSupplyChannel'
+  readonly supplyChannel: ChannelResourceIdentifier
+}
+export interface StoresRemoveDistributionChannelsAction {
+  readonly action: 'removeDistributionChannel'
+  readonly distributionChannel: ChannelResourceIdentifier
+}
+export interface StoresRemoveSupplyChannelsAction {
+  readonly action: 'removeSupplyChannel'
+  readonly supplyChannel: ChannelResourceIdentifier
+}
+export interface StoresSetDistributionChannelsAction {
   readonly action: 'setDistributionChannels'
   readonly distributionChannels?: ChannelResourceIdentifier[]
+}
+export interface StoresSetSupplyChannelsAction {
+  readonly action: 'setSupplyChannels'
+  readonly supplyChannels?: ChannelResourceIdentifier[]
 }

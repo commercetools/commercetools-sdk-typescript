@@ -26,7 +26,7 @@ export class ByProjectKeyCustomObjectsByIDRequestBuilder {
     }
   ) {}
   /**
-   *	Get CustomObject by container
+   *	Get CustomObject by ID
    */
   public get(methodArgs?: {
     queryArgs?: {

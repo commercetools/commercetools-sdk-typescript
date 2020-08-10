@@ -317,7 +317,7 @@ export class ByProjectKeyRequestBuilder {
   }
   /**
    *	The commercetools platform allows you to model states of certain objects, such as orders, line items, products,
-   *	reviews, and payments in order to define finite state machines reflecting the business logic you’d like to
+   *	reviews, and payments in order to define finite state machines reflecting the business logic you'd like to
    *	implement.
    *
    */
