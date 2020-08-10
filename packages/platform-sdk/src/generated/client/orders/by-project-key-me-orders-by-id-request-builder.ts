@@ -10,7 +10,6 @@
  *                    `Y'
  *
  */
-import { Update } from '../../models/common'
 import { MyOrder } from '../../models/me'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
@@ -48,35 +47,6 @@ export class ByProjectKeyMeOrdersByIDRequestBuilder {
           ...methodArgs?.headers,
         },
         queryParams: methodArgs?.queryArgs,
-      },
-      this.args.executeRequest
-    )
-  }
-  /**
-   *	Update MyOrder by ID
-   */
-  public post(methodArgs: {
-    queryArgs?: {
-      expand?: string | string[]
-      [key: string]: QueryParam
-    }
-    body: Update
-    headers?: {
-      [key: string]: string
-    }
-  }): ApiRequest<MyOrder> {
-    return new ApiRequest<MyOrder>(
-      {
-        baseUri: this.args.baseUri,
-        method: 'POST',
-        uriTemplate: '/{projectKey}/me/orders/{ID}',
-        pathVariables: this.args.pathArgs,
-        headers: {
-          'Content-Type': 'application/json',
-          ...methodArgs?.headers,
-        },
-        queryParams: methodArgs?.queryArgs,
-        body: methodArgs?.body,
       },
       this.args.executeRequest
     )

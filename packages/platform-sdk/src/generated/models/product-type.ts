@@ -117,19 +117,19 @@ export interface AttributePlainEnumValue {
   readonly label: string
 }
 export type AttributeType =
-  | AttributeEnumType
-  | AttributeTextType
-  | AttributeDateTimeType
-  | AttributeDateType
-  | AttributeNestedType
-  | AttributeLocalizedEnumType
-  | AttributeSetType
   | AttributeBooleanType
-  | AttributeTimeType
-  | AttributeLocalizableTextType
-  | AttributeMoneyType
+  | AttributeNestedType
   | AttributeReferenceType
+  | AttributeEnumType
+  | AttributeDateType
+  | AttributeTextType
+  | AttributeMoneyType
+  | AttributeSetType
   | AttributeNumberType
+  | AttributeLocalizedEnumType
+  | AttributeTimeType
+  | AttributeDateTimeType
+  | AttributeLocalizableTextType
 export interface AttributeBooleanType {
   readonly name: 'boolean'
 }
