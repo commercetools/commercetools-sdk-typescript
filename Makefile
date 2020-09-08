@@ -17,7 +17,6 @@ gen_ml_sdk: generate_ml
 
 verify:
 	yarn run build
-	#yarn run lerna run test
 
 prettify:
 	yarn run format
