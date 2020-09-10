@@ -11,9 +11,9 @@
  *
  */
 import { executeRequest } from '../../shared/utils/common-types'
-import { ByProjectKeyCategoriesImportSinkKeyByImportSinkKeyRequestBuilder } from './by-project-key-categories-import-sink-key-by-import-sink-key-request-builder'
+import { ByProjectKeyProductVariantsImportSinkKeyByImportSinkKeyRequestBuilder } from './by-project-key-product-variants-import-sink-key-by-import-sink-key-request-builder'
 
-export class ByProjectKeyCategoriesRequestBuilder {
+export class ByProjectKeyProductVariantsRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
@@ -25,8 +25,8 @@ export class ByProjectKeyCategoriesRequestBuilder {
   ) {}
   public importSinkKeyWithImportSinkKeyValue(childPathArgs: {
     importSinkKey: string
-  }): ByProjectKeyCategoriesImportSinkKeyByImportSinkKeyRequestBuilder {
-    return new ByProjectKeyCategoriesImportSinkKeyByImportSinkKeyRequestBuilder(
+  }): ByProjectKeyProductVariantsImportSinkKeyByImportSinkKeyRequestBuilder {
+    return new ByProjectKeyProductVariantsImportSinkKeyByImportSinkKeyRequestBuilder(
       {
         pathArgs: {
           ...this.args.pathArgs,

@@ -11,86 +11,277 @@
  *
  */
 
-import { CartReference, CartResourceIdentifier } from './cart'
-import {
-  CartDiscountReference,
-  CartDiscountResourceIdentifier,
-} from './cart-discount'
-import { CategoryReference, CategoryResourceIdentifier } from './category'
-import { ChannelReference, ChannelResourceIdentifier } from './channel'
-import { CustomObjectReference } from './custom-object'
-import { CustomerReference, CustomerResourceIdentifier } from './customer'
-import {
-  CustomerGroupReference,
-  CustomerGroupResourceIdentifier,
-} from './customer-group'
-import {
-  DiscountCodeReference,
-  DiscountCodeResourceIdentifier,
-} from './discount-code'
-import {
-  InventoryEntryReference,
-  InventoryEntryResourceIdentifier,
-} from './inventory'
-import { OrderReference, OrderResourceIdentifier } from './order'
-import { OrderEditReference, OrderEditResourceIdentifier } from './order-edit'
-import { PaymentReference, PaymentResourceIdentifier } from './payment'
-import {
-  FacetResults,
-  ProductReference,
-  ProductResourceIdentifier,
-} from './product'
-import {
-  ProductDiscountReference,
-  ProductDiscountResourceIdentifier,
-} from './product-discount'
-import {
-  ProductTypeReference,
-  ProductTypeResourceIdentifier,
-} from './product-type'
-import { ReviewReference, ReviewResourceIdentifier } from './review'
-import {
-  ShippingMethodReference,
-  ShippingMethodResourceIdentifier,
-} from './shipping-method'
-import {
-  ShoppingListReference,
-  ShoppingListResourceIdentifier,
-} from './shopping-list'
-import { StateReference, StateResourceIdentifier } from './state'
-import {
-  StoreKeyReference,
-  StoreReference,
-  StoreResourceIdentifier,
-} from './store'
-import {
-  TaxCategoryReference,
-  TaxCategoryResourceIdentifier,
-} from './tax-category'
-import {
-  CustomFields,
-  CustomFieldsDraft,
-  TypeReference,
-  TypeResourceIdentifier,
-} from './type'
-import { ZoneReference, ZoneResourceIdentifier } from './zone'
+import { Custom } from './customfields'
 
-export interface PagedQueryResponse {
-  readonly limit: number
-  readonly count: number
-  readonly total?: number
-  readonly offset: number
-  readonly results: BaseResource[]
-  readonly facets?: FacetResults
-  readonly meta?: any
+export interface Asset {
+  /**
+   *	User-defined identifier for the asset.
+   *	Asset keys are unique inside their container (a product variant or a category).
+   *
+   */
+  readonly key: string
+  readonly sources: AssetSource[]
+  readonly name: LocalizedString
+  readonly description?: LocalizedString
+  readonly tags?: string[]
+  /**
+   *	The representation to be sent to the server when creating a resource with custom fields.
+   */
+  readonly custom?: Custom
 }
-export interface Update {
-  readonly version: number
-  readonly actions: UpdateAction[]
+export interface AssetDimensions {
+  readonly w: number
+  readonly h: number
 }
-export interface UpdateAction {
-  readonly action: string
+export interface AssetSource {
+  readonly uri: string
+  readonly key?: string
+  readonly dimensions?: AssetDimensions
+  readonly contentType?: string
 }
+export interface Image {
+  readonly url: string
+  readonly dimensions: AssetDimensions
+  readonly label?: string
+}
+export interface EnumValue {
+  readonly key: string
+  readonly label: string
+}
+export interface LocalizedEnumValue {
+  readonly key: string
+  readonly label: LocalizedString
+}
+export interface LocalizedString {
+  [key: string]: string
+}
+/**
+ *	A representation of the resource to import.
+ *	Import resources are similar to commercetools draft types, but they only support key references.
+ *	In general, import resources are more granular then the normal commercetools resource.
+ *	They are optimized for incremental updates and therefore have a slightly different structure.
+ *
+ */
+export interface ImportResource {
+  readonly key: string
+}
+/**
+ *	References a resource by its key.
+ */
+export type KeyReference =
+  | CartDiscountKeyReference
+  | CategoryKeyReference
+  | ChannelKeyReference
+  | CustomerKeyReference
+  | CustomerGroupKeyReference
+  | PriceKeyReference
+  | ProductKeyReference
+  | ProductDiscountKeyReference
+  | ProductTypeKeyReference
+  | ProductVariantKeyReference
+  | ShippingMethodKeyReference
+  | StateKeyReference
+  | StoreKeyReference
+  | TaxCategoryKeyReference
+  | TypeKeyReference
+/**
+ *	References a cart discount by its key.
+ */
+export interface CartDiscountKeyReference {
+  readonly typeId: 'cart-discount'
+  readonly key: string
+}
+/**
+ *	References a category by its key.
+ */
+export interface CategoryKeyReference {
+  readonly typeId: 'category'
+  readonly key: string
+}
+/**
+ *	References a channel by its key.
+ */
+export interface ChannelKeyReference {
+  readonly typeId: 'channel'
+  readonly key: string
+}
+/**
+ *	References a customer by its key.
+ */
+export interface CustomerKeyReference {
+  readonly typeId: 'customer'
+  readonly key: string
+}
+/**
+ *	References a customer group by its key.
+ */
+export interface CustomerGroupKeyReference {
+  readonly typeId: 'customer-group'
+  readonly key: string
+}
+/**
+ *	References a price by its key.
+ */
+export interface PriceKeyReference {
+  readonly typeId: 'price'
+  readonly key: string
+}
+/**
+ *	References a product by its key.
+ */
+export interface ProductKeyReference {
+  readonly typeId: 'product'
+  readonly key: string
+}
+/**
+ *	References a product discount by its key.
+ */
+export interface ProductDiscountKeyReference {
+  readonly typeId: 'product-discount'
+  readonly key: string
+}
+/**
+ *	References a product type by its key.
+ */
+export interface ProductTypeKeyReference {
+  readonly typeId: 'product-type'
+  readonly key: string
+}
+/**
+ *	References a product variant by its key.
+ */
+export interface ProductVariantKeyReference {
+  readonly typeId: 'product-variant'
+  readonly key: string
+}
+/**
+ *	References a shipping method by its key.
+ */
+export interface ShippingMethodKeyReference {
+  readonly typeId: 'shipping-method'
+  readonly key: string
+}
+/**
+ *	References a state by its key.
+ */
+export interface StateKeyReference {
+  readonly typeId: 'state'
+  readonly key: string
+}
+/**
+ *	References a store by its key.
+ */
+export interface StoreKeyReference {
+  readonly typeId: 'store'
+  readonly key: string
+}
+/**
+ *	References a tax category by its key.
+ */
+export interface TaxCategoryKeyReference {
+  readonly typeId: 'tax-category'
+  readonly key: string
+}
+/**
+ *	References a type by its key.
+ */
+export interface TypeKeyReference {
+  readonly typeId: 'type'
+  readonly key: string
+}
+export type MoneyType = 'centPrecision' | 'highPrecision'
+export type TypedMoney = HighPrecisionMoney | Money
+export interface HighPrecisionMoney {
+  readonly type: 'highPrecision'
+  readonly fractionDigits?: number
+  readonly centAmount: number
+  /**
+   *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *
+   */
+  readonly currencyCode: string
+  readonly preciseAmount: number
+}
+export interface Money {
+  readonly type: 'centPrecision'
+  readonly fractionDigits?: number
+  readonly centAmount: number
+  /**
+   *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *
+   */
+  readonly currencyCode: string
+}
+export interface DiscountedPrice {
+  readonly value: TypedMoney
+  /**
+   *	Reference to a ProductDiscount.
+   */
+  readonly discount: ProductDiscountKeyReference
+}
+/**
+ *	A price tier is selected instead of the default price when a certain quantity of the ProductVariant is added to a cart and ordered.
+ *
+ */
+export interface PriceTier {
+  /**
+   *	The minimum quantity this price tier is valid for.
+   *
+   */
+  readonly minimumQuantity: number
+  /**
+   *	The currency of a price tier is always the same as the currency of the base Price.
+   */
+  readonly value: TypedMoney
+}
+/**
+ *	The type of the import resource.
+ *
+ */
+export type ImportResourceType =
+  | 'category'
+  | 'order'
+  | 'price'
+  | 'product'
+  | 'product-draft'
+  | 'product-type'
+  | 'product-variant'
+  | 'product-variant-patch'
+  | 'customer'
+/**
+ *	The type of the referenced resource.
+ *
+ */
+export type ReferenceType =
+  | 'cart-discount'
+  | 'category'
+  | 'channel'
+  | 'customer'
+  | 'customer-group'
+  | 'price'
+  | 'product'
+  | 'product-discount'
+  | 'product-type'
+  | 'product-variant'
+  | 'shipping-method'
+  | 'state'
+  | 'store'
+  | 'tax-category'
+  | 'type'
+/**
+ *	This enumeration describes the processing state of an import operation.
+ *
+ */
+export type ProcessingState =
+  | 'ValidationFailed'
+  | 'Unresolved'
+  | 'Resolved'
+  | 'WaitForMasterVariant'
+  | 'Imported'
+  | 'Delete'
+  | 'Deleted'
+  | 'Rejected'
+  | 'Skipped'
 export interface Address {
   readonly id?: string
   readonly key?: string
@@ -121,260 +312,4 @@ export interface Address {
   readonly fax?: string
   readonly additionalAddressInfo?: string
   readonly externalId?: string
-}
-export interface Asset {
-  readonly id: string
-  readonly sources: AssetSource[]
-  readonly name: LocalizedString
-  readonly description?: LocalizedString
-  readonly tags?: string[]
-  readonly custom?: CustomFields
-  readonly key?: string
-}
-export interface AssetDimensions {
-  readonly w: number
-  readonly h: number
-}
-export interface AssetDraft {
-  readonly sources: AssetSource[]
-  readonly name: LocalizedString
-  readonly description?: LocalizedString
-  readonly tags?: string[]
-  readonly custom?: CustomFieldsDraft
-  readonly key?: string
-}
-export interface AssetSource {
-  readonly uri: string
-  readonly key?: string
-  readonly dimensions?: AssetDimensions
-  readonly contentType?: string
-}
-export interface BaseResource {
-  readonly id: string
-  readonly version: number
-  readonly createdAt: string
-  readonly lastModifiedAt: string
-}
-export interface ClientLogging {
-  readonly clientId?: string
-  readonly externalUserId?: string
-  readonly customer?: CustomerReference
-  readonly anonymousId?: string
-}
-export interface CreatedBy extends ClientLogging {}
-export interface DiscountedPrice {
-  readonly value: Money
-  readonly discount: ProductDiscountReference
-}
-export type GeoJson = GeoJsonPoint
-export interface GeoJsonPoint {
-  readonly type: 'Point'
-  readonly coordinates: number[]
-}
-export interface Image {
-  readonly url: string
-  readonly dimensions: ImageDimensions
-  readonly label?: string
-}
-export interface ImageDimensions {
-  readonly w: number
-  readonly h: number
-}
-export type KeyReference = StoreKeyReference
-export interface LastModifiedBy extends ClientLogging {}
-export interface LocalizedString {
-  [key: string]: string
-}
-export interface Money {
-  readonly centAmount: number
-  /**
-   *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
-   *
-   */
-  readonly currencyCode: string
-}
-export type MoneyType = 'centPrecision' | 'highPrecision'
-export interface Price {
-  readonly id: string
-  readonly value: TypedMoney
-  /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-   *
-   */
-  readonly country?: string
-  readonly customerGroup?: CustomerGroupReference
-  readonly channel?: ChannelReference
-  readonly validFrom?: string
-  readonly validUntil?: string
-  readonly discounted?: DiscountedPrice
-  readonly custom?: CustomFields
-  readonly tiers?: PriceTier[]
-}
-export interface PriceDraft {
-  readonly value: Money
-  /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-   *
-   */
-  readonly country?: string
-  readonly customerGroup?: CustomerGroupResourceIdentifier
-  readonly channel?: ChannelResourceIdentifier
-  readonly validFrom?: string
-  readonly validUntil?: string
-  readonly custom?: CustomFieldsDraft
-  readonly tiers?: PriceTierDraft[]
-  readonly discounted?: DiscountedPrice
-}
-export interface PriceTier {
-  readonly minimumQuantity: number
-  readonly value: TypedMoney
-}
-export interface PriceTierDraft {
-  readonly minimumQuantity: number
-  readonly value: Money
-}
-export interface QueryPrice {
-  readonly id: string
-  readonly value: Money
-  /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-   *
-   */
-  readonly country?: string
-  readonly customerGroup?: CustomerGroupReference
-  readonly channel?: ChannelReference
-  readonly validFrom?: string
-  readonly validUntil?: string
-  readonly discounted?: DiscountedPrice
-  readonly custom?: CustomFields
-  readonly tiers?: PriceTierDraft[]
-}
-export type Reference =
-  | CustomObjectReference
-  | CustomerGroupReference
-  | CustomerReference
-  | DiscountCodeReference
-  | InventoryEntryReference
-  | OrderEditReference
-  | OrderReference
-  | PaymentReference
-  | ProductDiscountReference
-  | ProductTypeReference
-  | ProductReference
-  | ReviewReference
-  | ShippingMethodReference
-  | ShoppingListReference
-  | StateReference
-  | StoreReference
-  | TaxCategoryReference
-  | TypeReference
-  | ZoneReference
-  | CartReference
-  | CategoryReference
-  | ChannelReference
-  | CartDiscountReference
-export type ReferenceTypeId =
-  | 'cart'
-  | 'cart-discount'
-  | 'category'
-  | 'channel'
-  | 'customer'
-  | 'customer-group'
-  | 'discount-code'
-  | 'key-value-document'
-  | 'payment'
-  | 'product'
-  | 'product-type'
-  | 'product-discount'
-  | 'order'
-  | 'review'
-  | 'shopping-list'
-  | 'shipping-method'
-  | 'state'
-  | 'store'
-  | 'tax-category'
-  | 'type'
-  | 'zone'
-  | 'inventory-entry'
-  | 'order-edit'
-export type ResourceIdentifier =
-  | CustomerGroupResourceIdentifier
-  | CustomerResourceIdentifier
-  | DiscountCodeResourceIdentifier
-  | InventoryEntryResourceIdentifier
-  | OrderEditResourceIdentifier
-  | OrderResourceIdentifier
-  | PaymentResourceIdentifier
-  | ProductDiscountResourceIdentifier
-  | ProductTypeResourceIdentifier
-  | ProductResourceIdentifier
-  | ReviewResourceIdentifier
-  | ShippingMethodResourceIdentifier
-  | ShoppingListResourceIdentifier
-  | StateResourceIdentifier
-  | StoreResourceIdentifier
-  | TaxCategoryResourceIdentifier
-  | TypeResourceIdentifier
-  | ZoneResourceIdentifier
-  | CategoryResourceIdentifier
-  | CartResourceIdentifier
-  | ChannelResourceIdentifier
-  | CartDiscountResourceIdentifier
-export interface ScopedPrice {
-  readonly id: string
-  readonly value: TypedMoney
-  readonly currentValue: TypedMoney
-  /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-   *
-   */
-  readonly country?: string
-  readonly customerGroup?: CustomerGroupReference
-  readonly channel?: ChannelReference
-  readonly validFrom?: string
-  readonly validUntil?: string
-  readonly discounted?: DiscountedPrice
-  readonly custom?: CustomFields
-}
-export type TypedMoney = CentPrecisionMoney | HighPrecisionMoney
-export interface CentPrecisionMoney {
-  readonly type: 'centPrecision'
-  readonly fractionDigits: number
-  readonly centAmount: number
-  /**
-   *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
-   *
-   */
-  readonly currencyCode: string
-}
-export interface HighPrecisionMoney {
-  readonly type: 'highPrecision'
-  readonly fractionDigits: number
-  readonly centAmount: number
-  /**
-   *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
-   *
-   */
-  readonly currencyCode: string
-  readonly preciseAmount: number
-}
-export type TypedMoneyDraft = HighPrecisionMoneyDraft | CentPrecisionMoneyDraft
-export interface CentPrecisionMoneyDraft {
-  readonly type: 'centPrecision'
-  readonly centAmount: number
-  /**
-   *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
-   *
-   */
-  readonly currencyCode: string
-}
-export interface HighPrecisionMoneyDraft {
-  readonly type: 'highPrecision'
-  readonly centAmount: number
-  /**
-   *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
-   *
-   */
-  readonly currencyCode: string
-  readonly preciseAmount: number
 }
