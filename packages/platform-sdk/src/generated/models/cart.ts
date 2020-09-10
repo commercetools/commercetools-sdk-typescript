@@ -242,6 +242,10 @@ export interface CartDraft {
    *	Only the cart's `shippingAddress` is used for this.
    */
   readonly itemShippingAddresses?: Address[]
+  /**
+   *	The code of existing DiscountCodes.
+   */
+  readonly discountCodes?: string[]
 }
 export type CartOrigin = 'Customer' | 'Merchant'
 export interface CartPagedQueryResponse {
@@ -534,6 +538,11 @@ export interface LineItem {
    *	Must be a positive integer.
    */
   readonly quantity: number
+  /**
+   *	When the line item was added to the cart. Optional for backwards
+   *	compatibility reasons only.
+   */
+  readonly addedAt?: string
   readonly state: ItemState[]
   /**
    *	Will be set automatically in the `Platform` TaxMode once the shipping address is set is set.
@@ -569,6 +578,11 @@ export interface LineItemDraft {
    *	Must be a positive integer.
    */
   readonly quantity?: number
+  /**
+   *	When the line item was added to the cart. Optional for backwards
+   *	compatibility reasons only.
+   */
+  readonly addedAt?: string
   /**
    *	By providing supply channel information, you can unique identify
    *	inventory entries that should be reserved.
@@ -644,8 +658,8 @@ export interface ShippingInfo {
 }
 export type ShippingMethodState = 'DoesNotMatchCart' | 'MatchesCart'
 export type ShippingRateInput =
-  | ScoreShippingRateInput
   | ClassificationShippingRateInput
+  | ScoreShippingRateInput
 export interface ClassificationShippingRateInput {
   readonly type: 'Classification'
   readonly key: string
@@ -656,8 +670,8 @@ export interface ScoreShippingRateInput {
   readonly score: number
 }
 export type ShippingRateInputDraft =
-  | ClassificationShippingRateInputDraft
   | ScoreShippingRateInputDraft
+  | ClassificationShippingRateInputDraft
 export interface ClassificationShippingRateInputDraft {
   readonly type: 'Classification'
   readonly key: string

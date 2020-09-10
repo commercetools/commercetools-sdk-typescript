@@ -266,6 +266,11 @@ export interface MyLineItemDraft {
   readonly variantId: number
   readonly quantity: number
   /**
+   *	When the line item was added to the cart. Optional for backwards
+   *	compatibility reasons only.
+   */
+  readonly addedAt?: string
+  /**
    *	By providing supply channel information, you can unique identify
    *	inventory entries that should be reserved.
    *	The provided channel should have the InventorySupply role.
@@ -471,6 +476,7 @@ export interface MyCartAddLineItemAction {
   readonly externalPrice?: Money
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
   readonly shippingDetails?: ItemShippingDetailsDraft
+  readonly addedAt?: string
 }
 export interface MyCartAddPaymentAction {
   readonly action: 'addPayment'

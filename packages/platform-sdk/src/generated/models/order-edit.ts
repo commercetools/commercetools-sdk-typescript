@@ -159,9 +159,9 @@ export interface OrderEditResourceIdentifier {
   readonly key?: string
 }
 export type OrderEditResult =
+  | OrderEditApplied
   | OrderEditPreviewFailure
   | OrderEditPreviewSuccess
-  | OrderEditApplied
   | OrderEditNotProcessed
 export interface OrderEditApplied {
   readonly type: 'Applied'
@@ -271,6 +271,7 @@ export interface StagedOrderAddLineItemAction {
   readonly variantId?: number
   readonly sku?: string
   readonly quantity?: number
+  readonly addedAt?: string
   readonly supplyChannel?: ChannelResourceIdentifier
   readonly externalPrice?: Money
   readonly externalTotalPrice?: ExternalLineItemTotalPrice

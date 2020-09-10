@@ -93,9 +93,9 @@ export interface Subscription extends BaseResource {
 }
 export type SubscriptionDelivery =
   | ResourceUpdatedDelivery
-  | ResourceCreatedDelivery
-  | ResourceDeletedDelivery
   | MessageDelivery
+  | ResourceDeletedDelivery
+  | ResourceCreatedDelivery
 export interface MessageDelivery {
   readonly notificationType: 'Message'
   readonly projectKey: string
