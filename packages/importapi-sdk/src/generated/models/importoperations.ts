@@ -66,7 +66,7 @@ export interface ImportOperation {
   /**
    *	When the import operation expires.
    */
-  readonly expiresAt?: string
+  readonly expiresAt: string
 }
 /**
  *	This type represents a paged import operation result.
@@ -93,7 +93,7 @@ export interface ImportOperationPagedResponse {
  *	This enumeration describes the operation state of a newly created import operation.
  *
  */
-export type ImportOperationState = 'Accepted' | 'ValidationFailed'
+export type ImportOperationState = 'Unresolved' | 'ValidationFailed' | 'Delete'
 /**
  *	The validation status of a created operation.
  *

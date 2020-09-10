@@ -29,10 +29,6 @@ export interface ImportSummary {
 }
 export interface OperationStates {
   /**
-   *	The number of import operations that are in the state `Accepted`.
-   */
-  readonly Accepted: number
-  /**
    *	The number of import operations that are in the state `ValidationFailed`.
    */
   readonly ValidationFailed: number
@@ -52,6 +48,10 @@ export interface OperationStates {
    *	The number of import operations that are in the state `Imported`.
    */
   readonly Imported: number
+  /**
+   *	The number of import operations that are in the state `Delete`.
+   */
+  readonly Delete: number
   /**
    *	The number of import operations that are in the state `Deleted`.
    */

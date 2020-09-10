@@ -273,12 +273,12 @@ export type ReferenceType =
  *
  */
 export type ProcessingState =
-  | 'Accepted'
   | 'ValidationFailed'
   | 'Unresolved'
   | 'Resolved'
   | 'WaitForMasterVariant'
   | 'Imported'
+  | 'Delete'
   | 'Deleted'
   | 'Rejected'
   | 'Skipped'

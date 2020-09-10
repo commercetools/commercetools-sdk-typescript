@@ -10,8 +10,15 @@
  *                    `Y'
  *
  */
-import { executeRequest } from '../../shared/utils/common-types'
-import { ByProjectKeyProductTypesImportSinkKeyByImportSinkKeyRequestBuilder } from './by-project-key-product-types-import-sink-key-by-import-sink-key-request-builder'
+import {
+  ProductType,
+  ProductTypeDraft,
+  ProductTypePagedQueryResponse,
+} from '../../models/product-type'
+import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { ApiRequest } from '../../shared/utils/requests-utils'
+import { ByProjectKeyProductTypesByIDRequestBuilder } from './by-project-key-product-types-by-id-request-builder'
+import { ByProjectKeyProductTypesKeyByKeyRequestBuilder } from './by-project-key-product-types-key-by-key-request-builder'
 
 export class ByProjectKeyProductTypesRequestBuilder {
   constructor(
@@ -23,18 +30,89 @@ export class ByProjectKeyProductTypesRequestBuilder {
       baseUri?: string
     }
   ) {}
-  public importSinkKeyWithImportSinkKeyValue(childPathArgs: {
-    importSinkKey: string
-  }): ByProjectKeyProductTypesImportSinkKeyByImportSinkKeyRequestBuilder {
-    return new ByProjectKeyProductTypesImportSinkKeyByImportSinkKeyRequestBuilder(
+  public withKey(childPathArgs: {
+    key: string
+  }): ByProjectKeyProductTypesKeyByKeyRequestBuilder {
+    return new ByProjectKeyProductTypesKeyByKeyRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+        ...childPathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public withId(childPathArgs: {
+    ID: string
+  }): ByProjectKeyProductTypesByIDRequestBuilder {
+    return new ByProjectKeyProductTypesByIDRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+        ...childPathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+
+  /**
+   *	Query product-types
+   */
+  public get(methodArgs?: {
+    queryArgs?: {
+      expand?: string | string[]
+      sort?: string | string[]
+      limit?: number | number[]
+      offset?: number | number[]
+      withTotal?: boolean | boolean[]
+      where?: string | string[]
+      [key: string]: QueryParam
+    }
+    headers?: {
+      [key: string]: string
+    }
+  }): ApiRequest<ProductTypePagedQueryResponse> {
+    return new ApiRequest<ProductTypePagedQueryResponse>(
       {
-        pathArgs: {
-          ...this.args.pathArgs,
-          ...childPathArgs,
-        },
-        executeRequest: this.args.executeRequest,
         baseUri: this.args.baseUri,
-      }
+        method: 'GET',
+        uriTemplate: '/{projectKey}/product-types',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
+      },
+      this.args.executeRequest
+    )
+  }
+  /**
+   *	Create ProductType
+   */
+  public post(methodArgs: {
+    queryArgs?: {
+      expand?: string | string[]
+      [key: string]: QueryParam
+    }
+    body: ProductTypeDraft
+    headers?: {
+      [key: string]: string
+    }
+  }): ApiRequest<ProductType> {
+    return new ApiRequest<ProductType>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'POST',
+        uriTemplate: '/{projectKey}/product-types',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          'Content-Type': 'application/json',
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
+        body: methodArgs?.body,
+      },
+      this.args.executeRequest
     )
   }
 }

@@ -20,10 +20,13 @@ export class ApiRoot {
   constructor(args: { executeRequest: executeRequest; baseUri?: string }) {
     this.executeRequest = args.executeRequest
     this.baseUri =
-      args.baseUri ?? 'https://import.europe-west1.gcp.commercetools.com'
+      args.baseUri ?? 'https://api.europe-west1.gcp.commercetools.com'
   }
 
-  public withProjectKeyValue(childPathArgs: {
+  /**
+   *	The Project endpoint is used to retrieve certain information from a project.
+   */
+  public withProjectKey(childPathArgs: {
     projectKey: string
   }): ByProjectKeyRequestBuilder {
     return new ByProjectKeyRequestBuilder({
