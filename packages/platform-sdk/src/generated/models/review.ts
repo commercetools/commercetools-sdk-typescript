@@ -80,7 +80,7 @@ export interface ReviewDraft {
   readonly key?: string
   /**
    *	If set, this value must be unique among reviews.
-   *	For example, if you want to have only one review per customer and per product, you can set the value to `customer's id`��+ `product's id`.
+   *	For example, if you want to have only one review per customer and per product, you can set the value to `customer's id` + `product's id`.
    */
   readonly uniquenessValue?: string
   readonly locale?: string

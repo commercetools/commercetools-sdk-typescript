@@ -154,7 +154,7 @@ export class ByProjectKeyRequestBuilder {
     })
   }
   /**
-   *	The commercetools��� platform provides a GraphQL API
+   *	The commercetools™ platform provides a GraphQL API
    */
   public graphql(): ByProjectKeyGraphqlRequestBuilder {
     return new ByProjectKeyGraphqlRequestBuilder({
