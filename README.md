@@ -6,4 +6,4 @@ This repo contains commercetools SDKs.
 
 # Installation
 
-- `npm install --save @commercetools/typescript-sdk`
+- `npm install --save @commercetools/platform-sdk`
