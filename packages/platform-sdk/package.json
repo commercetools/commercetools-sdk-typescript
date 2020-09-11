@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "name": "@commercetools/typescript-sdk",
+  "name": "@commercetools/platform-sdk",
   "version": "1.2.0",
   "description": "Typescript definitions and sdk for commercetools platform",
   "keywords": ["commercetools", "typescript", "sdk"],
