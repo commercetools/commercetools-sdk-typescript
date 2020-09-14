@@ -18,7 +18,7 @@ import {
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyCustomObjectsByContainerByKeyRequestBuilder } from './by-project-key-custom-objects-by-container-by-key-request-builder'
-import { ByProjectKeyCustomObjectsByIDRequestBuilder } from './by-project-key-custom-objects-by-id-request-builder'
+import { ByProjectKeyCustomObjectsByContainerRequestBuilder } from './by-project-key-custom-objects-by-container-request-builder'
 
 export class ByProjectKeyCustomObjectsRequestBuilder {
   constructor(
@@ -43,10 +43,10 @@ export class ByProjectKeyCustomObjectsRequestBuilder {
       baseUri: this.args.baseUri,
     })
   }
-  public withId(childPathArgs: {
-    ID: string
-  }): ByProjectKeyCustomObjectsByIDRequestBuilder {
-    return new ByProjectKeyCustomObjectsByIDRequestBuilder({
+  public withContainer(childPathArgs: {
+    container: string
+  }): ByProjectKeyCustomObjectsByContainerRequestBuilder {
+    return new ByProjectKeyCustomObjectsByContainerRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
         ...childPathArgs,

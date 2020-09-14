@@ -14,19 +14,19 @@ import { CustomObject } from '../../models/custom-object'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
-export class ByProjectKeyCustomObjectsByIDRequestBuilder {
+export class ByProjectKeyCustomObjectsByContainerRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
         projectKey: string
-        ID: string
+        container: string
       }
       executeRequest: executeRequest
       baseUri?: string
     }
   ) {}
   /**
-   *	Get CustomObject by ID
+   *	Get CustomObject by container
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -41,36 +41,7 @@ export class ByProjectKeyCustomObjectsByIDRequestBuilder {
       {
         baseUri: this.args.baseUri,
         method: 'GET',
-        uriTemplate: '/{projectKey}/custom-objects/{ID}',
-        pathVariables: this.args.pathArgs,
-        headers: {
-          ...methodArgs?.headers,
-        },
-        queryParams: methodArgs?.queryArgs,
-      },
-      this.args.executeRequest
-    )
-  }
-  /**
-   *	The version control is optional. If the query contains a version, then it must match the version of the object.
-   *
-   */
-  public delete(methodArgs?: {
-    queryArgs?: {
-      version?: number | number[]
-      dataErasure?: boolean | boolean[]
-      expand?: string | string[]
-      [key: string]: QueryParam
-    }
-    headers?: {
-      [key: string]: string
-    }
-  }): ApiRequest<CustomObject> {
-    return new ApiRequest<CustomObject>(
-      {
-        baseUri: this.args.baseUri,
-        method: 'DELETE',
-        uriTemplate: '/{projectKey}/custom-objects/{ID}',
+        uriTemplate: '/{projectKey}/custom-objects/{container}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
