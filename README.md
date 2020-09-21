@@ -1,8 +1,6 @@
 # commercetools typescript sdks
 
-
 <img src="http://dev.commercetools.com/assets/img/CT-logo.svg" width="550px" alt="CT-logo"></img>
-
 
 ## Introduction
 
@@ -20,11 +18,11 @@ If you have any urgent issues regarding this repository please create a support 
 
 ### SDK
 
-| Package                                                            | Version                                                                                                   |
-| ------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
-| [`importapi-sdk`](/packages/importapi-sdk)                                   | [![platform-sdk Version][platform-sdk-icon]][platform-sdk-version] |
-| [`importapi-sdk`](/packages/importapi-sdk)                                   | [![importapi-sdk Version][importapi-sdk-icon]][importapi-sdk-version] |
-| [`ml-sdk`](/packages/importapi-sdk)                                   | [![ml-sdk Version][ml-sdk-icon]][ml-sdk-version] |
+| Package                                    | Version                                                               |
+| ------------------------------------------ | --------------------------------------------------------------------- |
+| [`importapi-sdk`](/packages/importapi-sdk) | [![platform-sdk Version][platform-sdk-icon]][platform-sdk-version]    |
+| [`importapi-sdk`](/packages/importapi-sdk) | [![importapi-sdk Version][importapi-sdk-icon]][importapi-sdk-version] |
+| [`ml-sdk`](/packages/importapi-sdk)        | [![ml-sdk Version][ml-sdk-icon]][ml-sdk-version]                      |
 
 [platform-sdk-version]: https://www.npmjs.com/package/@commercetools/platform-sdk
 [platform-sdk-icon]: https://img.shields.io/npm/v/@commercetools/platform-sdk.svg?style=flat-square
@@ -32,4 +30,3 @@ If you have any urgent issues regarding this repository please create a support 
 [importapi-sdk-icon]: https://img.shields.io/npm/v/@commercetools/platform-sdk.svg?style=flat-square
 [ml-sdk-version]: https://www.npmjs.com/package/@commercetools/platform-sdk
 [ml-sdk-icon]: https://img.shields.io/npm/v/@commercetools/platform-sdk.svg?style=flat-square
-
