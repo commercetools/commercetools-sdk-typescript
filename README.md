@@ -20,7 +20,7 @@ If you have any urgent issues regarding this repository please create a support 
 
 | Package                                    | Version                                                               |
 | ------------------------------------------ | --------------------------------------------------------------------- |
-| [`importapi-sdk`](/packages/importapi-sdk) | [![platform-sdk Version][platform-sdk-icon]][platform-sdk-version]    |
+| [`platform-sdk`](/packages/importapi-sdk) | [![platform-sdk Version][platform-sdk-icon]][platform-sdk-version]    |
 | [`importapi-sdk`](/packages/importapi-sdk) | [![importapi-sdk Version][importapi-sdk-icon]][importapi-sdk-version] |
 | [`ml-sdk`](/packages/importapi-sdk)        | [![ml-sdk Version][ml-sdk-icon]][ml-sdk-version]                      |
 
