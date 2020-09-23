@@ -92,9 +92,9 @@ export interface Subscription extends BaseResource {
   readonly status: SubscriptionHealthStatus
 }
 export type SubscriptionDelivery =
+  | ResourceCreatedDelivery
   | MessageDelivery
   | ResourceUpdatedDelivery
-  | ResourceCreatedDelivery
   | ResourceDeletedDelivery
 export interface MessageDelivery {
   readonly notificationType: 'Message'

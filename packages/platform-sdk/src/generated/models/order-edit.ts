@@ -160,9 +160,9 @@ export interface OrderEditResourceIdentifier {
 }
 export type OrderEditResult =
   | OrderEditPreviewFailure
-  | OrderEditPreviewSuccess
-  | OrderEditNotProcessed
   | OrderEditApplied
+  | OrderEditNotProcessed
+  | OrderEditPreviewSuccess
 export interface OrderEditApplied {
   readonly type: 'Applied'
   readonly appliedAt: string
@@ -468,6 +468,11 @@ export interface StagedOrderSetLineItemCustomTypeAction {
   readonly lineItemId: string
   readonly type?: TypeResourceIdentifier
   readonly fields?: FieldContainer
+}
+export interface StagedOrderSetLineItemDistributionChannelAction {
+  readonly action: 'setLineItemDistributionChannel'
+  readonly lineItemId: string
+  readonly distributionChannel?: ChannelResourceIdentifier
 }
 export interface StagedOrderSetLineItemPriceAction {
   readonly action: 'setLineItemPrice'

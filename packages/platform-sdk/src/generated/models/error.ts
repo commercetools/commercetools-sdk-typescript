@@ -47,18 +47,19 @@ export type ErrorObject =
   | OutOfStockError
   | PriceChangedError
   | ReferenceExistsError
+  | ReferencedResourceNotFoundError
   | RequiredFieldError
   | ResourceNotFoundError
   | ShippingMethodDoesNotMatchCartError
-  | AccessDeniedError
-  | DuplicateVariantValuesError
-  | EnumValueIsUsedError
-  | ConcurrentModificationError
   | DuplicateAttributeValueError
   | DuplicateAttributeValuesError
-  | DuplicateFieldError
+  | AccessDeniedError
+  | EnumValueIsUsedError
   | DiscountCodeNonApplicableError
+  | DuplicateFieldError
   | DuplicatePriceScopeError
+  | ConcurrentModificationError
+  | DuplicateVariantValuesError
   | DuplicateFieldWithConflictingResourceError
 export interface AccessDeniedError {
   readonly code: 'access_denied'
@@ -231,6 +232,13 @@ export interface ReferenceExistsError {
   readonly code: 'ReferenceExists'
   readonly message: string
   readonly referencedBy?: ReferenceTypeId
+}
+export interface ReferencedResourceNotFoundError {
+  readonly code: 'ReferencedResourceNotFound'
+  readonly message: string
+  readonly typeId: ReferenceTypeId
+  readonly id?: string
+  readonly key?: string
 }
 export interface RequiredFieldError {
   readonly code: 'RequiredField'

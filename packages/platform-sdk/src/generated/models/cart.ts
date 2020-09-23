@@ -309,6 +309,7 @@ export type CartUpdateAction =
   | CartSetDeleteDaysAfterLastModificationAction
   | CartSetLineItemCustomFieldAction
   | CartSetLineItemCustomTypeAction
+  | CartSetLineItemDistributionChannelAction
   | CartSetLineItemPriceAction
   | CartSetLineItemShippingDetailsAction
   | CartSetLineItemTaxAmountAction
@@ -931,6 +932,11 @@ export interface CartSetLineItemCustomTypeAction {
   readonly lineItemId: string
   readonly type?: TypeResourceIdentifier
   readonly fields?: FieldContainer
+}
+export interface CartSetLineItemDistributionChannelAction {
+  readonly action: 'setLineItemDistributionChannel'
+  readonly lineItemId: string
+  readonly distributionChannel?: ChannelResourceIdentifier
 }
 export interface CartSetLineItemPriceAction {
   readonly action: 'setLineItemPrice'

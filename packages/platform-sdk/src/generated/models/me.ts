@@ -172,6 +172,7 @@ export type MyCartUpdateAction =
   | MyCartSetDeleteDaysAfterLastModificationAction
   | MyCartSetLineItemCustomFieldAction
   | MyCartSetLineItemCustomTypeAction
+  | MyCartSetLineItemDistributionChannelAction
   | MyCartSetLineItemShippingDetailsAction
   | MyCartSetLocaleAction
   | MyCartSetShippingAddressAction
@@ -566,6 +567,11 @@ export interface MyCartSetLineItemCustomTypeAction {
   readonly lineItemId: string
   readonly type?: TypeResourceIdentifier
   readonly fields?: FieldContainer
+}
+export interface MyCartSetLineItemDistributionChannelAction {
+  readonly action: 'setLineItemDistributionChannel'
+  readonly lineItemId: string
+  readonly distributionChannel?: ChannelResourceIdentifier
 }
 export interface MyCartSetLineItemShippingDetailsAction {
   readonly action: 'setLineItemShippingDetails'
