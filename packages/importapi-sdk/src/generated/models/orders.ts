@@ -320,11 +320,26 @@ export interface TaxPortion {
   readonly amount: TypedMoney
 }
 export interface TaxedPrice {
+  /**
+   *	Maps to `TaxedPrice.totalNet`.
+   */
   readonly totalNet: Money
+  /**
+   *	Maps to `TaxedPrice.totalGross`.
+   */
   readonly totalGross: Money
+  /**
+   *	Maps to `TaxedPrice.taxPortions`.
+   */
   readonly taxPortions: TaxPortion[]
 }
+/**
+ *	Maps to `Order.orderState`.
+ */
 export type OrderState = 'Open' | 'Confirmed' | 'Complete' | 'Cancelled'
+/**
+ *	Maps to `Order.shipmentState`.
+ */
 export type ShipmentState =
   | 'Shipped'
   | 'Ready'
@@ -332,15 +347,30 @@ export type ShipmentState =
   | 'Delayed'
   | 'Partial'
   | 'Backorder'
+/**
+ *	Maps to `Order.paymentState`.
+ */
 export type PaymentState =
   | 'BalanceDue'
   | 'Failed'
   | 'Pending'
   | 'CreditOwed'
   | 'Paid'
+/**
+ *	Maps to `Order.inventoryMode`.
+ */
 export type InventoryMode = 'TrackOnly' | 'ReserveOnOrder'
+/**
+ *	Maps to `Order.taxRoundingMode`.
+ */
 export type RoundingMode = 'HalfEven' | 'HalfUp' | 'HalfDown'
+/**
+ *	Maps to `Order.taxCalculationMode`.
+ */
 export type TaxCalculationMode = 'LineItemLevel' | 'UnitPriceLevel'
+/**
+ *	Maps to `Order.origin`.
+ */
 export type CartOrigin = 'Customer' | 'Merchant'
 /**
  *	Import representation for an order.
