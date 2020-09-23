@@ -54,7 +54,7 @@ export class ByProjectKeyPricesImportSinkKeyByImportSinkKeyRequestBuilder {
   }
 
   /**
-   *	Creates a new import request for prices
+   *	Creates import request for creating new prices or updating existing ones.
    */
   public post(methodArgs: {
     body: PriceImportRequest

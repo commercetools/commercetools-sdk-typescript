@@ -57,7 +57,7 @@ export class ByProjectKeyProductTypesImportSinkKeyByImportSinkKeyRequestBuilder 
   }
 
   /**
-   *	Creates a new import request for product types
+   *	Creates import request for creating new product types or updating existing ones.
    */
   public post(methodArgs: {
     body: ProductTypeImportRequest

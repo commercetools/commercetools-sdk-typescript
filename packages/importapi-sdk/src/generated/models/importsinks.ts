@@ -18,9 +18,6 @@ import { ImportResourceType } from './common'
  *
  *	It has an unique key and is specific to an import resource type.
  *
- *	If needed you can specify a skip predicate, which allows you skip the import of
- *	operations which meet the conditions of the predicate.
- *
  */
 export interface ImportSink {
   /**

@@ -57,7 +57,7 @@ export class ByProjectKeyProductVariantsImportSinkKeyByImportSinkKeyRequestBuild
   }
 
   /**
-   *	Creates a new import request for product variants
+   *	Creates import request for creating new product variants or updating existing ones.
    */
   public post(methodArgs: {
     body: ProductVariantImportRequest

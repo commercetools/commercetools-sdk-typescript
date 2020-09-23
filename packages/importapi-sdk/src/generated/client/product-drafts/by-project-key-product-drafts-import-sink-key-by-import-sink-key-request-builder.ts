@@ -57,7 +57,7 @@ export class ByProjectKeyProductDraftsImportSinkKeyByImportSinkKeyRequestBuilder
   }
 
   /**
-   *	Creates a new import request for product drafts
+   *	Creates import request for creating new product drafts or updating existing ones.
    *
    */
   public post(methodArgs: {

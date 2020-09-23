@@ -57,7 +57,7 @@ export class ByProjectKeyCategoriesImportSinkKeyByImportSinkKeyRequestBuilder {
   }
 
   /**
-   *	Creates a new import request for a category
+   *	Creates import request for creating new categories or updating existing ones.
    */
   public post(methodArgs: {
     body: CategoryImportRequest
