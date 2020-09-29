@@ -10,69 +10,38 @@
  *                    `Y'
  *
  */
-import { State, StateDraft, StatePagedQueryResponse } from '../../models/state'
+import { State, StateUpdate } from '../../models/state'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-import { ByProjectKeyStatesByIDRequestBuilder } from './by-project-key-states-by-id-request-builder'
-import { ByProjectKeyStatesKeyByKeyRequestBuilder } from './by-project-key-states-key-by-key-request-builder'
 
-export class ByProjectKeyStatesRequestBuilder {
+export class ByProjectKeyStatesKeyByKeyRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
         projectKey: string
+        key: string
       }
       executeRequest: executeRequest
       baseUri?: string
     }
   ) {}
-  public withKey(childPathArgs: {
-    key: string
-  }): ByProjectKeyStatesKeyByKeyRequestBuilder {
-    return new ByProjectKeyStatesKeyByKeyRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-        ...childPathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
-  }
-  public withId(childPathArgs: {
-    ID: string
-  }): ByProjectKeyStatesByIDRequestBuilder {
-    return new ByProjectKeyStatesByIDRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-        ...childPathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
-  }
-
   /**
-   *	Query states
+   *	Get State by Key
    */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
-      sort?: string | string[]
-      limit?: number | number[]
-      offset?: number | number[]
-      withTotal?: boolean | boolean[]
-      where?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
       [key: string]: string
     }
-  }): ApiRequest<StatePagedQueryResponse> {
-    return new ApiRequest<StatePagedQueryResponse>(
+  }): ApiRequest<State> {
+    return new ApiRequest<State>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',
-        uriTemplate: '/{projectKey}/states',
+        uriTemplate: '/{projectKey}/states/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
@@ -83,14 +52,14 @@ export class ByProjectKeyStatesRequestBuilder {
     )
   }
   /**
-   *	Create State
+   *	Update State by Key
    */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
       [key: string]: QueryParam
     }
-    body: StateDraft
+    body: StateUpdate
     headers?: {
       [key: string]: string
     }
@@ -99,7 +68,7 @@ export class ByProjectKeyStatesRequestBuilder {
       {
         baseUri: this.args.baseUri,
         method: 'POST',
-        uriTemplate: '/{projectKey}/states',
+        uriTemplate: '/{projectKey}/states/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
           'Content-Type': 'application/json',
@@ -107,6 +76,33 @@ export class ByProjectKeyStatesRequestBuilder {
         },
         queryParams: methodArgs?.queryArgs,
         body: methodArgs?.body,
+      },
+      this.args.executeRequest
+    )
+  }
+  /**
+   *	Delete State by Key
+   */
+  public delete(methodArgs: {
+    queryArgs: {
+      version: number | number[]
+      expand?: string | string[]
+      [key: string]: QueryParam
+    }
+    headers?: {
+      [key: string]: string
+    }
+  }): ApiRequest<State> {
+    return new ApiRequest<State>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'DELETE',
+        uriTemplate: '/{projectKey}/states/key={key}',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
       },
       this.args.executeRequest
     )
