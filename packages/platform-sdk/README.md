@@ -9,7 +9,7 @@ npm install --save @commercetools/platform-sdk
 #### Browser
 
 ```html
-<script src="https://unpkg.com/@commercetools/platform-sdk/lib/platform-sdk.umd.min.js"></script>
+<script src="https://unpkg.com/@commercetools/platform-sdk/dist/platform-sdk.umd.min.js"></script>
 <script>
   // global: PlatformSdk
 </script>
