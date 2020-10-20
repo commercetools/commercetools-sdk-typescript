@@ -136,4 +136,5 @@ export interface PriceDraftImport {
    *	The tiered prices for this price.
    */
   readonly tiers?: PriceTier[]
+  readonly key?: string
 }
