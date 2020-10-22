@@ -44,7 +44,7 @@ export interface Store extends BaseResource {
   /**
    *	Set of ResourceIdentifiers of Channels with `InventorySupply` role
    */
-  readonly supplyChannels?: ChannelResourceIdentifier[]
+  readonly supplyChannels?: ChannelReference[]
 }
 export interface StoreDraft {
   /**
