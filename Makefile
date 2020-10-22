@@ -41,6 +41,6 @@ generate_ml:
 
 check_pending:
 	git status --porcelain -- ':(exclude)*gen.properties'
-	@echo "::set-env name=CHANGES_PENDING::$(CHANGES_PENDING)"
+	@echo "CHANGES_PENDING=$(CHANGES_PENDING)" >> $GITHUB_ENV
 
 
