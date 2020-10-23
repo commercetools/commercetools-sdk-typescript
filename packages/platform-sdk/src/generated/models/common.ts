@@ -367,6 +367,7 @@ export interface CentPrecisionMoneyDraft {
    *
    */
   readonly currencyCode: string
+  readonly fractionDigits?: number
 }
 export interface HighPrecisionMoneyDraft {
   readonly type: 'highPrecision'
@@ -376,5 +377,6 @@ export interface HighPrecisionMoneyDraft {
    *
    */
   readonly currencyCode: string
+  readonly fractionDigits?: number
   readonly preciseAmount: number
 }
