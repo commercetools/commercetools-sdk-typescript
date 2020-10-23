@@ -601,15 +601,18 @@ export interface MyCustomerAddAddressAction {
 }
 export interface MyCustomerAddBillingAddressIdAction {
   readonly action: 'addBillingAddressId'
-  readonly addressId: string
+  readonly addressId?: string
+  readonly addressKey?: string
 }
 export interface MyCustomerAddShippingAddressIdAction {
   readonly action: 'addShippingAddressId'
-  readonly addressId: string
+  readonly addressId?: string
+  readonly addressKey?: string
 }
 export interface MyCustomerChangeAddressAction {
   readonly action: 'changeAddress'
-  readonly addressId: string
+  readonly addressId?: string
+  readonly addressKey?: string
   readonly address: Address
 }
 export interface MyCustomerChangeEmailAction {
@@ -618,15 +621,18 @@ export interface MyCustomerChangeEmailAction {
 }
 export interface MyCustomerRemoveAddressAction {
   readonly action: 'removeAddress'
-  readonly addressId: string
+  readonly addressId?: string
+  readonly addressKey?: string
 }
 export interface MyCustomerRemoveBillingAddressIdAction {
   readonly action: 'removeBillingAddressId'
-  readonly addressId: string
+  readonly addressId?: string
+  readonly addressKey?: string
 }
 export interface MyCustomerRemoveShippingAddressIdAction {
   readonly action: 'removeShippingAddressId'
-  readonly addressId: string
+  readonly addressId?: string
+  readonly addressKey?: string
 }
 export interface MyCustomerSetCompanyNameAction {
   readonly action: 'setCompanyName'
@@ -649,10 +655,12 @@ export interface MyCustomerSetDateOfBirthAction {
 export interface MyCustomerSetDefaultBillingAddressAction {
   readonly action: 'setDefaultBillingAddress'
   readonly addressId?: string
+  readonly addressKey?: string
 }
 export interface MyCustomerSetDefaultShippingAddressAction {
   readonly action: 'setDefaultShippingAddress'
   readonly addressId?: string
+  readonly addressKey?: string
 }
 export interface MyCustomerSetFirstNameAction {
   readonly action: 'setFirstName'
