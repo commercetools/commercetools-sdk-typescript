@@ -46,21 +46,22 @@ export type ErrorObject =
   | NoMatchingProductDiscountFoundError
   | OutOfStockError
   | PriceChangedError
+  | QueryTimedOutError
   | ReferenceExistsError
   | ReferencedResourceNotFoundError
   | RequiredFieldError
   | ResourceNotFoundError
   | ShippingMethodDoesNotMatchCartError
-  | DuplicateAttributeValueError
-  | DuplicateAttributeValuesError
-  | AccessDeniedError
-  | EnumValueIsUsedError
   | DiscountCodeNonApplicableError
-  | DuplicateFieldError
-  | DuplicatePriceScopeError
-  | ConcurrentModificationError
+  | DuplicateAttributeValueError
   | DuplicateVariantValuesError
+  | ConcurrentModificationError
+  | EnumValueIsUsedError
+  | DuplicateAttributeValuesError
   | DuplicateFieldWithConflictingResourceError
+  | AccessDeniedError
+  | DuplicatePriceScopeError
+  | DuplicateFieldError
 export interface AccessDeniedError {
   readonly code: 'access_denied'
   readonly message: string
@@ -227,6 +228,10 @@ export interface PriceChangedError {
   readonly message: string
   readonly lineItems: string[]
   readonly shipping: boolean
+}
+export interface QueryTimedOutError {
+  readonly code: 'QueryTimedOut'
+  readonly message: string
 }
 export interface ReferenceExistsError {
   readonly code: 'ReferenceExists'
