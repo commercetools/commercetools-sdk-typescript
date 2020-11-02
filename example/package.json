@@ -1,0 +1,23 @@
+{
+  "name": "typescript-sdk-example-app",
+  "version": "1.0.0",
+  "description": "Sample TypeScript Application to test CTP environment setup",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.ts"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@commercetools/api-request-builder": "^5.6.3",
+    "@commercetools/importapi-sdk": "^1.4.0",
+    "@commercetools/platform-sdk": "^1.4.0",
+    "@commercetools/sdk-middleware-correlation-id": "^2.1.4",
+    "@commercetools/sdk-middleware-user-agent": "^2.1.5",
+    "@types/dotenv": "^8.2.0",
+    "@types/node": "^14.14.6",
+    "dotenv": "^8.2.0",
+    "node-cache": "^5.1.2",
+    "uuid": "^8.3.1"
+  }
+}

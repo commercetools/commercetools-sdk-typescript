@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "module": "ES6",
+    "moduleResolution": "node",
+    "removeComments": false,
+    "outDir": "dist",
+    "baseUrl": ".",
+    "esModuleInterop": true
+  },
+  "include": ["./src/**/*", "index.ts", "demoPlatformAPI.ts"]
+}
