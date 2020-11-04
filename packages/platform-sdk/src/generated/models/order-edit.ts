@@ -159,10 +159,10 @@ export interface OrderEditResourceIdentifier {
   readonly key?: string
 }
 export type OrderEditResult =
-  | OrderEditPreviewFailure
-  | OrderEditPreviewSuccess
   | OrderEditApplied
+  | OrderEditPreviewFailure
   | OrderEditNotProcessed
+  | OrderEditPreviewSuccess
 export interface OrderEditApplied {
   readonly type: 'Applied'
   readonly appliedAt: string
@@ -271,6 +271,7 @@ export interface StagedOrderAddLineItemAction {
   readonly variantId?: number
   readonly sku?: string
   readonly quantity?: number
+  readonly addedAt?: string
   readonly supplyChannel?: ChannelResourceIdentifier
   readonly externalPrice?: Money
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
@@ -467,6 +468,11 @@ export interface StagedOrderSetLineItemCustomTypeAction {
   readonly lineItemId: string
   readonly type?: TypeResourceIdentifier
   readonly fields?: FieldContainer
+}
+export interface StagedOrderSetLineItemDistributionChannelAction {
+  readonly action: 'setLineItemDistributionChannel'
+  readonly lineItemId: string
+  readonly distributionChannel?: ChannelResourceIdentifier
 }
 export interface StagedOrderSetLineItemPriceAction {
   readonly action: 'setLineItemPrice'

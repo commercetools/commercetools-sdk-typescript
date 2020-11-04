@@ -242,6 +242,10 @@ export interface CartDraft {
    *	Only the cart's `shippingAddress` is used for this.
    */
   readonly itemShippingAddresses?: Address[]
+  /**
+   *	The code of existing DiscountCodes.
+   */
+  readonly discountCodes?: string[]
 }
 export type CartOrigin = 'Customer' | 'Merchant'
 export interface CartPagedQueryResponse {
@@ -305,6 +309,7 @@ export type CartUpdateAction =
   | CartSetDeleteDaysAfterLastModificationAction
   | CartSetLineItemCustomFieldAction
   | CartSetLineItemCustomTypeAction
+  | CartSetLineItemDistributionChannelAction
   | CartSetLineItemPriceAction
   | CartSetLineItemShippingDetailsAction
   | CartSetLineItemTaxAmountAction
@@ -534,6 +539,11 @@ export interface LineItem {
    *	Must be a positive integer.
    */
   readonly quantity: number
+  /**
+   *	When the line item was added to the cart. Optional for backwards
+   *	compatibility reasons only.
+   */
+  readonly addedAt?: string
   readonly state: ItemState[]
   /**
    *	Will be set automatically in the `Platform` TaxMode once the shipping address is set is set.
@@ -569,6 +579,11 @@ export interface LineItemDraft {
    *	Must be a positive integer.
    */
   readonly quantity?: number
+  /**
+   *	When the line item was added to the cart. Optional for backwards
+   *	compatibility reasons only.
+   */
+  readonly addedAt?: string
   /**
    *	By providing supply channel information, you can unique identify
    *	inventory entries that should be reserved.
@@ -917,6 +932,11 @@ export interface CartSetLineItemCustomTypeAction {
   readonly lineItemId: string
   readonly type?: TypeResourceIdentifier
   readonly fields?: FieldContainer
+}
+export interface CartSetLineItemDistributionChannelAction {
+  readonly action: 'setLineItemDistributionChannel'
+  readonly lineItemId: string
+  readonly distributionChannel?: ChannelResourceIdentifier
 }
 export interface CartSetLineItemPriceAction {
   readonly action: 'setLineItemPrice'

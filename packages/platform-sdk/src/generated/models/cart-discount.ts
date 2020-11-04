@@ -151,8 +151,8 @@ export interface CartDiscountResourceIdentifier {
 export type CartDiscountTarget =
   | MultiBuyCustomLineItemsTarget
   | MultiBuyLineItemsTarget
-  | CartDiscountLineItemsTarget
   | CartDiscountCustomLineItemsTarget
+  | CartDiscountLineItemsTarget
   | CartDiscountShippingCostTarget
 export interface CartDiscountCustomLineItemsTarget {
   readonly type: 'customLineItems'

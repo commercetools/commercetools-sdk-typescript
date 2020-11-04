@@ -1,37 +1,32 @@
-[![CircleCI](https://circleci.com/gh/commercetools/commercetools-typescript-sdks/tree/master.svg?style=svg&circle-token=7a93133a45212d777d0fc3c5a3af660e65bc4881)](https://circleci.com/gh/commercetools/commercetools-typescript-sdks/tree/master)
+# commercetools typescript sdks
 
-# commercetools-typescript-sdks
+<img src="http://dev.commercetools.com/assets/img/CT-logo.svg" width="550px" alt="CT-logo"></img>
 
-This repo contains commercetools SDKs.
+## Introduction
 
-## Requirements
+This repository contains the commercetools platform, import-api and machine learning packages for typescript generated from our api reference.
 
-- Have java (`> 8`) installed in your environment.
-- have [`rm-codegen`](https://github.com/commercetools/rmf-codegen#install-rmf-codegen-cli) cli installed.
+<p align="center">
+  
+</p>
 
-## Building the projects
+## Support
 
-- `yarn install`
-- `yarn build`
+If you have any urgent issues regarding this repository please create a support request over our [official support channel](http://support.commercetools.com).
 
-## Generating the sdks
+## Packages
 
-run `yarn generate` to generate the sdks. (make sure the environement variables are set first)
+### SDK
 
-## Environment variables
+| Package                                    | Version                                                               |
+| ------------------------------------------ | --------------------------------------------------------------------- |
+| [`platform-sdk`](/packages/platform-sdk)   | [![platform-sdk Version][platform-sdk-icon]][platform-sdk-version]    |
+| [`importapi-sdk`](/packages/importapi-sdk) | [![importapi-sdk Version][importapi-sdk-icon]][importapi-sdk-version] |
+| [`ml-sdk`](/packages/ml-sdk)               | [![ml-sdk Version][ml-sdk-icon]][ml-sdk-version]                      |
 
-| Variable name |                                                    Description                                                    |
-| ------------- | :---------------------------------------------------------------------------------------------------------------: |
-| ML_API_REF    | The path to commercetools [machine learning RAML api](https://github.com/commercetools/ml-services-api-reference) |
-| API_RAML_FILE |        The path to commercetools [RAML api](https://github.com/commercetools/commercetools-api-reference)         |
-
-## Test environnement variables
-
-| Variable name     |                                               Description                                                |
-| ----------------- | :------------------------------------------------------------------------------------------------------: |
-| CTP_PROJECT_KEY   |                                        commercetools project key                                         |
-| CTP_CLIENT_ID     |                                              the client id                                               |
-| CTP_CLIENT_SECRET |                                            the client secret                                             |
-| CTP_API_URL       |                              the api url (contains infos about the region)                               |
-| CTP_AUTH_URL      |                              the auth url (contains infos about the region)                              |
-| CTP_ML_API_URL    | the ml api uses a pattern a bit different from the platform, that needs to be used to access ml services |
+[platform-sdk-version]: https://www.npmjs.com/package/@commercetools/platform-sdk
+[platform-sdk-icon]: https://img.shields.io/npm/v/@commercetools/platform-sdk.svg?style=flat-square
+[importapi-sdk-version]: https://www.npmjs.com/package/@commercetools/platform-sdk
+[importapi-sdk-icon]: https://img.shields.io/npm/v/@commercetools/platform-sdk.svg?style=flat-square
+[ml-sdk-version]: https://www.npmjs.com/package/@commercetools/platform-sdk
+[ml-sdk-icon]: https://img.shields.io/npm/v/@commercetools/platform-sdk.svg?style=flat-square

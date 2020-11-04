@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/ml-sdk",
-  "version": "1.1.0",
+  "version": "1.4.0",
   "description": "Type script sdk for commercetools ML features",
   "keywords": ["commercetools", "typescript", "sdk", "ml"],
   "homepage": "https://github.com/commercetools/commercetools-typescript-sdks/packages/ml-sdk",
@@ -21,12 +21,14 @@
   "browser": "dist/ml-sdk.umd.js",
   "typings": "dist/index.d.ts",
   "types": "dist/index.d.ts",
+  "dependencies": {
+    "@commercetools/sdk-client": "^2.1.1",
+    "@commercetools/sdk-middleware-auth": "^6.0.4",
+    "@commercetools/sdk-middleware-http": "^6.0.4",
+    "@commercetools/sdk-middleware-logger": "^2.1.1",
+    "@commercetools/platform-sdk": "^1.4.0"
+  },
   "devDependencies": {
-    "@commercetools/sdk-client": "2.1.1",
-    "@commercetools/sdk-middleware-auth": "6.0.4",
-    "@commercetools/sdk-middleware-http": "6.0.4",
-    "@commercetools/sdk-middleware-logger": "2.1.1",
-    "@commercetools/platform-sdk": "1.4.0",
     "@types/jest": "25.1.3",
     "@types/node": "13.7.2",
     "@types/uuid": "7.0.0",

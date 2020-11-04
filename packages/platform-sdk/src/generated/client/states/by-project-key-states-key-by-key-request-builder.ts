@@ -10,23 +10,23 @@
  *                    `Y'
  *
  */
-import { CustomObject } from '../../models/custom-object'
+import { State, StateUpdate } from '../../models/state'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
-export class ByProjectKeyCustomObjectsByIDRequestBuilder {
+export class ByProjectKeyStatesKeyByKeyRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
         projectKey: string
-        ID: string
+        key: string
       }
       executeRequest: executeRequest
       baseUri?: string
     }
   ) {}
   /**
-   *	Get CustomObject by ID
+   *	Get State by Key
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -36,12 +36,12 @@ export class ByProjectKeyCustomObjectsByIDRequestBuilder {
     headers?: {
       [key: string]: string
     }
-  }): ApiRequest<CustomObject> {
-    return new ApiRequest<CustomObject>(
+  }): ApiRequest<State> {
+    return new ApiRequest<State>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',
-        uriTemplate: '/{projectKey}/custom-objects/{ID}',
+        uriTemplate: '/{projectKey}/states/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
@@ -52,25 +52,52 @@ export class ByProjectKeyCustomObjectsByIDRequestBuilder {
     )
   }
   /**
-   *	The version control is optional. If the query contains a version, then it must match the version of the object.
-   *
+   *	Update State by Key
    */
-  public delete(methodArgs?: {
+  public post(methodArgs: {
     queryArgs?: {
-      version?: number | number[]
-      dataErasure?: boolean | boolean[]
+      expand?: string | string[]
+      [key: string]: QueryParam
+    }
+    body: StateUpdate
+    headers?: {
+      [key: string]: string
+    }
+  }): ApiRequest<State> {
+    return new ApiRequest<State>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'POST',
+        uriTemplate: '/{projectKey}/states/key={key}',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          'Content-Type': 'application/json',
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
+        body: methodArgs?.body,
+      },
+      this.args.executeRequest
+    )
+  }
+  /**
+   *	Delete State by Key
+   */
+  public delete(methodArgs: {
+    queryArgs: {
+      version: number | number[]
       expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
       [key: string]: string
     }
-  }): ApiRequest<CustomObject> {
-    return new ApiRequest<CustomObject>(
+  }): ApiRequest<State> {
+    return new ApiRequest<State>(
       {
         baseUri: this.args.baseUri,
         method: 'DELETE',
-        uriTemplate: '/{projectKey}/custom-objects/{ID}',
+        uriTemplate: '/{projectKey}/states/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,

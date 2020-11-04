@@ -3,15 +3,15 @@
 ## Install
 
 ```bash
-npm install --save @commercetools/typescript-sdk
+npm install --save @commercetools/platform-sdk
 ```
 
 #### Browser
 
 ```html
-<script src="https://unpkg.com/@commercetools/typescript-sdk/lib/typescript-sdk.umd.min.js"></script>
+<script src="https://unpkg.com/@commercetools/platform-sdk/dist/platform-sdk.umd.js"></script>
 <script>
-  // global: TypescriptSdk
+  // global: PlatformSdk
 </script>
 ```
 
@@ -24,7 +24,7 @@ import { createClient } from '@commercetools/sdk-client'
 import {
   createApiBuilderFromCtpClient,
   ApiRoot,
-} from '@commercetools/typescript-sdk'
+} from '@commercetools/platform-sdk'
 import fetch from 'node-fetch'
 
 const projectKey = 'some_project_key'

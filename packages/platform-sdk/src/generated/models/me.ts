@@ -172,6 +172,7 @@ export type MyCartUpdateAction =
   | MyCartSetDeleteDaysAfterLastModificationAction
   | MyCartSetLineItemCustomFieldAction
   | MyCartSetLineItemCustomTypeAction
+  | MyCartSetLineItemDistributionChannelAction
   | MyCartSetLineItemShippingDetailsAction
   | MyCartSetLocaleAction
   | MyCartSetShippingAddressAction
@@ -265,6 +266,11 @@ export interface MyLineItemDraft {
   readonly productId: string
   readonly variantId: number
   readonly quantity: number
+  /**
+   *	When the line item was added to the cart. Optional for backwards
+   *	compatibility reasons only.
+   */
+  readonly addedAt?: string
   /**
    *	By providing supply channel information, you can unique identify
    *	inventory entries that should be reserved.
@@ -471,6 +477,7 @@ export interface MyCartAddLineItemAction {
   readonly externalPrice?: Money
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
   readonly shippingDetails?: ItemShippingDetailsDraft
+  readonly addedAt?: string
 }
 export interface MyCartAddPaymentAction {
   readonly action: 'addPayment'
@@ -561,6 +568,11 @@ export interface MyCartSetLineItemCustomTypeAction {
   readonly type?: TypeResourceIdentifier
   readonly fields?: FieldContainer
 }
+export interface MyCartSetLineItemDistributionChannelAction {
+  readonly action: 'setLineItemDistributionChannel'
+  readonly lineItemId: string
+  readonly distributionChannel?: ChannelResourceIdentifier
+}
 export interface MyCartSetLineItemShippingDetailsAction {
   readonly action: 'setLineItemShippingDetails'
   readonly lineItemId: string
@@ -589,15 +601,18 @@ export interface MyCustomerAddAddressAction {
 }
 export interface MyCustomerAddBillingAddressIdAction {
   readonly action: 'addBillingAddressId'
-  readonly addressId: string
+  readonly addressId?: string
+  readonly addressKey?: string
 }
 export interface MyCustomerAddShippingAddressIdAction {
   readonly action: 'addShippingAddressId'
-  readonly addressId: string
+  readonly addressId?: string
+  readonly addressKey?: string
 }
 export interface MyCustomerChangeAddressAction {
   readonly action: 'changeAddress'
-  readonly addressId: string
+  readonly addressId?: string
+  readonly addressKey?: string
   readonly address: Address
 }
 export interface MyCustomerChangeEmailAction {
@@ -606,15 +621,18 @@ export interface MyCustomerChangeEmailAction {
 }
 export interface MyCustomerRemoveAddressAction {
   readonly action: 'removeAddress'
-  readonly addressId: string
+  readonly addressId?: string
+  readonly addressKey?: string
 }
 export interface MyCustomerRemoveBillingAddressIdAction {
   readonly action: 'removeBillingAddressId'
-  readonly addressId: string
+  readonly addressId?: string
+  readonly addressKey?: string
 }
 export interface MyCustomerRemoveShippingAddressIdAction {
   readonly action: 'removeShippingAddressId'
-  readonly addressId: string
+  readonly addressId?: string
+  readonly addressKey?: string
 }
 export interface MyCustomerSetCompanyNameAction {
   readonly action: 'setCompanyName'
@@ -637,10 +655,12 @@ export interface MyCustomerSetDateOfBirthAction {
 export interface MyCustomerSetDefaultBillingAddressAction {
   readonly action: 'setDefaultBillingAddress'
   readonly addressId?: string
+  readonly addressKey?: string
 }
 export interface MyCustomerSetDefaultShippingAddressAction {
   readonly action: 'setDefaultShippingAddress'
   readonly addressId?: string
+  readonly addressKey?: string
 }
 export interface MyCustomerSetFirstNameAction {
   readonly action: 'setFirstName'

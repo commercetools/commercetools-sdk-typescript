@@ -14,6 +14,7 @@ import { State, StateDraft, StatePagedQueryResponse } from '../../models/state'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyStatesByIDRequestBuilder } from './by-project-key-states-by-id-request-builder'
+import { ByProjectKeyStatesKeyByKeyRequestBuilder } from './by-project-key-states-key-by-key-request-builder'
 
 export class ByProjectKeyStatesRequestBuilder {
   constructor(
@@ -25,6 +26,18 @@ export class ByProjectKeyStatesRequestBuilder {
       baseUri?: string
     }
   ) {}
+  public withKey(childPathArgs: {
+    key: string
+  }): ByProjectKeyStatesKeyByKeyRequestBuilder {
+    return new ByProjectKeyStatesKeyByKeyRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+        ...childPathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
   public withId(childPathArgs: {
     ID: string
   }): ByProjectKeyStatesByIDRequestBuilder {

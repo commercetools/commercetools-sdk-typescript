@@ -1,4 +1,4 @@
-import { ProductType, ProductTypeDraft } from '@commercetools/typescript-sdk'
+import { ProductType, ProductTypeDraft } from '@commercetools/platform-sdk'
 import { ctpApiBuilder } from '../helpers/ctp-api-helper'
 
 async function createProductType(
