@@ -1,4 +1,4 @@
-import { Product, ProductDraft } from '@commercetools/typescript-sdk'
+import { Product, ProductDraft } from '@commercetools/platform-sdk'
 import { v4 as uuidv4 } from 'uuid'
 import { ctpApiBuilder } from '../helpers/ctp-api-helper'
 import { withProductType } from './product_type_fixtures'

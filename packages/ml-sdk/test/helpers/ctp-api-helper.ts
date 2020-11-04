@@ -5,7 +5,7 @@ import {
   ApiRoot,
   createExecutorFromMiddlewares,
   executeRequest,
-} from '@commercetools/typescript-sdk'
+} from '@commercetools/platform-sdk'
 import fetch from 'node-fetch'
 import { requireEnvVar } from './test-utils'
 
