@@ -37,10 +37,6 @@ export interface OperationStates {
    */
   readonly Unresolved: number
   /**
-   *	The number of import operations that are in the state `Resolved`.
-   */
-  readonly Resolved: number
-  /**
    *	The number of import operations that are in the state `WaitForMasterVariant`.
    */
   readonly WaitForMasterVariant: number
@@ -60,8 +56,4 @@ export interface OperationStates {
    *	The number of import operations that are in the state `Rejected`.
    */
   readonly Rejected: number
-  /**
-   *	The number of import operations that are in the state `Skipped`.
-   */
-  readonly Skipped: number
 }

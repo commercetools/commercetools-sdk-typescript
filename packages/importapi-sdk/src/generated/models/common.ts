@@ -275,13 +275,11 @@ export type ReferenceType =
 export type ProcessingState =
   | 'ValidationFailed'
   | 'Unresolved'
-  | 'Resolved'
   | 'WaitForMasterVariant'
   | 'Imported'
   | 'Delete'
   | 'Deleted'
   | 'Rejected'
-  | 'Skipped'
 export interface Address {
   readonly id?: string
   readonly key?: string
