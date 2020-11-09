@@ -20,6 +20,7 @@ import {
   ReferenceTypeId,
 } from './common'
 import { CustomerGroupReference } from './customer-group'
+import { OrderEditPreviewFailure } from './order-edit'
 import { Attribute } from './product'
 
 export interface ErrorByExtension {
@@ -30,7 +31,11 @@ export type ErrorObject =
   | ExtensionBadResponseError
   | ExtensionNoResponseError
   | ExtensionUpdateActionsFailedError
+  | ExternalOAuthFailedError
+  | FeatureRemovedError
+  | GeneralError
   | InsufficientScopeError
+  | InternalConstraintViolatedError
   | InvalidCredentialsError
   | InvalidCurrentPasswordError
   | InvalidFieldError
@@ -42,29 +47,73 @@ export type ErrorObject =
   | InvalidTokenError
   | LanguageUsedInStoresError
   | MatchingPriceNotFoundError
+  | MaxResourceLimitExceededError
   | MissingTaxRateForCountryError
   | NoMatchingProductDiscountFoundError
+  | NotEnabledError
+  | ObjectNotFoundError
   | OutOfStockError
+  | OverCapacityError
+  | PendingOperationError
   | PriceChangedError
+  | QueryComplexityLimitExceededError
   | QueryTimedOutError
   | ReferenceExistsError
   | ReferencedResourceNotFoundError
   | RequiredFieldError
   | ResourceNotFoundError
+  | ResourceSizeLimitExceededError
+  | SearchExecutionFailureError
+  | SearchFacetPathNotFoundError
+  | SemanticErrorError
   | ShippingMethodDoesNotMatchCartError
-  | DiscountCodeNonApplicableError
-  | DuplicateAttributeValueError
-  | DuplicateVariantValuesError
-  | ConcurrentModificationError
-  | EnumValueIsUsedError
+  | SyntaxErrorError
+  | WeakPasswordError
+  | EnumKeyDoesNotExistError
   | DuplicateAttributeValuesError
-  | DuplicateFieldWithConflictingResourceError
+  | EnumValueIsUsedError
+  | AnonymousIdAlreadyInUseError
+  | ConcurrentModificationError
+  | EditPreviewFailedError
+  | EnumValuesMustMatchError
   | AccessDeniedError
-  | DuplicatePriceScopeError
+  | AttributeNameDoesNotExistError
   | DuplicateFieldError
+  | DuplicateFieldWithConflictingResourceError
+  | DuplicateAttributeValueError
+  | DiscountCodeNonApplicableError
+  | DuplicateEnumValuesError
+  | DuplicateVariantValuesError
+  | AttributeDefinitionAlreadyExistsError
+  | DuplicatePriceScopeError
+  | AttributeDefinitionTypeConflictError
+  | EnumKeyAlreadyExistsError
 export interface AccessDeniedError {
   readonly code: 'access_denied'
   readonly message: string
+}
+export interface AnonymousIdAlreadyInUseError {
+  readonly code: 'AnonymousIdAlreadyInUse'
+  readonly message: string
+}
+export interface AttributeDefinitionAlreadyExistsError {
+  readonly code: 'AttributeDefinitionAlreadyExists'
+  readonly message: string
+  readonly conflictingProductTypeId: string
+  readonly conflictingProductTypeName: string
+  readonly conflictingAttributeName: string
+}
+export interface AttributeDefinitionTypeConflictError {
+  readonly code: 'AttributeDefinitionTypeConflict'
+  readonly message: string
+  readonly conflictingProductTypeId: string
+  readonly conflictingProductTypeName: string
+  readonly conflictingAttributeName: string
+}
+export interface AttributeNameDoesNotExistError {
+  readonly code: 'AttributeNameDoesNotExist'
+  readonly message: string
+  readonly invalidAttributeName: string
 }
 export interface ConcurrentModificationError {
   readonly code: 'ConcurrentModification'
@@ -91,6 +140,11 @@ export interface DuplicateAttributeValuesError {
   readonly message: string
   readonly attributes: Attribute[]
 }
+export interface DuplicateEnumValuesError {
+  readonly code: 'DuplicateEnumValues'
+  readonly message: string
+  readonly duplicates: string[]
+}
 export interface DuplicateFieldError {
   readonly code: 'DuplicateField'
   readonly message: string
@@ -115,8 +169,29 @@ export interface DuplicateVariantValuesError {
   readonly message: string
   readonly variantValues: VariantValues
 }
+export interface EditPreviewFailedError {
+  readonly code: 'EditPreviewFailed'
+  readonly message: string
+  readonly result: OrderEditPreviewFailure
+}
+export interface EnumKeyAlreadyExistsError {
+  readonly code: 'EnumKeyAlreadyExists'
+  readonly message: string
+  readonly conflictingEnumKey: string
+  readonly conflictingAttributeName: string
+}
+export interface EnumKeyDoesNotExistError {
+  readonly code: 'EnumKeyDoesNotExist'
+  readonly message: string
+  readonly conflictingEnumKey: string
+  readonly conflictingAttributeName: string
+}
 export interface EnumValueIsUsedError {
   readonly code: 'EnumValueIsUsed'
+  readonly message: string
+}
+export interface EnumValuesMustMatchError {
+  readonly code: 'EnumValuesMustMatch'
   readonly message: string
 }
 export interface ErrorResponse {
@@ -147,8 +222,24 @@ export interface ExtensionUpdateActionsFailedError {
   readonly extensionExtraInfo?: any
   readonly errorByExtension: ErrorByExtension
 }
+export interface ExternalOAuthFailedError {
+  readonly code: 'ExternalOAuthFailed'
+  readonly message: string
+}
+export interface FeatureRemovedError {
+  readonly code: 'FeatureRemoved'
+  readonly message: string
+}
+export interface GeneralError {
+  readonly code: 'General'
+  readonly message: string
+}
 export interface InsufficientScopeError {
   readonly code: 'insufficient_scope'
+  readonly message: string
+}
+export interface InternalConstraintViolatedError {
+  readonly code: 'InternalConstraintViolated'
   readonly message: string
 }
 export interface InvalidCredentialsError {
@@ -206,6 +297,11 @@ export interface MatchingPriceNotFoundError {
   readonly customerGroup?: CustomerGroupReference
   readonly channel?: ChannelReference
 }
+export interface MaxResourceLimitExceededError {
+  readonly code: 'MaxResourceLimitExceeded'
+  readonly message: string
+  readonly exceededResource: ReferenceTypeId
+}
 export interface MissingTaxRateForCountryError {
   readonly code: 'MissingTaxRateForCountry'
   readonly message: string
@@ -217,17 +313,37 @@ export interface NoMatchingProductDiscountFoundError {
   readonly code: 'NoMatchingProductDiscountFound'
   readonly message: string
 }
+export interface NotEnabledError {
+  readonly code: 'NotEnabled'
+  readonly message: string
+}
+export interface ObjectNotFoundError {
+  readonly code: 'ObjectNotFound'
+  readonly message: string
+}
 export interface OutOfStockError {
   readonly code: 'OutOfStock'
   readonly message: string
   readonly lineItems: string[]
   readonly skus: string[]
 }
+export interface OverCapacityError {
+  readonly code: 'OverCapacity'
+  readonly message: string
+}
+export interface PendingOperationError {
+  readonly code: 'PendingOperation'
+  readonly message: string
+}
 export interface PriceChangedError {
   readonly code: 'PriceChanged'
   readonly message: string
   readonly lineItems: string[]
   readonly shipping: boolean
+}
+export interface QueryComplexityLimitExceededError {
+  readonly code: 'QueryComplexityLimitExceeded'
+  readonly message: string
 }
 export interface QueryTimedOutError {
   readonly code: 'QueryTimedOut'
@@ -254,12 +370,36 @@ export interface ResourceNotFoundError {
   readonly code: 'ResourceNotFound'
   readonly message: string
 }
+export interface ResourceSizeLimitExceededError {
+  readonly code: 'ResourceSizeLimitExceeded'
+  readonly message: string
+}
+export interface SearchExecutionFailureError {
+  readonly code: 'SearchExecutionFailure'
+  readonly message: string
+}
+export interface SearchFacetPathNotFoundError {
+  readonly code: 'SearchFacetPathNotFound'
+  readonly message: string
+}
+export interface SemanticErrorError {
+  readonly code: 'SemanticError'
+  readonly message: string
+}
 export interface ShippingMethodDoesNotMatchCartError {
   readonly code: 'ShippingMethodDoesNotMatchCart'
+  readonly message: string
+}
+export interface SyntaxErrorError {
+  readonly code: 'SyntaxError'
   readonly message: string
 }
 export interface VariantValues {
   readonly sku?: string
   readonly prices: PriceDraft[]
   readonly attributes: Attribute[]
+}
+export interface WeakPasswordError {
+  readonly code: 'WeakPassword'
+  readonly message: string
 }

@@ -30,8 +30,8 @@ export type Destination =
   | IronMqDestination
   | SnsDestination
   | SqsDestination
-  | AzureEventGridDestination
   | AzureServiceBusDestination
+  | AzureEventGridDestination
 export interface AzureEventGridDestination {
   readonly type: 'EventGrid'
   readonly uri: string
@@ -92,9 +92,9 @@ export interface Subscription extends BaseResource {
   readonly status: SubscriptionHealthStatus
 }
 export type SubscriptionDelivery =
-  | ResourceCreatedDelivery
   | MessageDelivery
   | ResourceDeletedDelivery
+  | ResourceCreatedDelivery
   | ResourceUpdatedDelivery
 export interface MessageDelivery {
   readonly notificationType: 'Message'

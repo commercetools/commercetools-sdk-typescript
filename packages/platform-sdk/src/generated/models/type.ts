@@ -76,16 +76,16 @@ export interface FieldDefinition {
 export type FieldType =
   | CustomFieldNumberType
   | CustomFieldBooleanType
-  | CustomFieldMoneyType
   | CustomFieldReferenceType
-  | CustomFieldSetType
-  | CustomFieldLocalizedStringType
-  | CustomFieldDateTimeType
   | CustomFieldTimeType
   | CustomFieldLocalizedEnumType
-  | CustomFieldDateType
+  | CustomFieldMoneyType
   | CustomFieldStringType
+  | CustomFieldDateTimeType
+  | CustomFieldDateType
+  | CustomFieldSetType
   | CustomFieldEnumType
+  | CustomFieldLocalizedStringType
 export interface CustomFieldBooleanType {
   readonly name: 'Boolean'
 }
