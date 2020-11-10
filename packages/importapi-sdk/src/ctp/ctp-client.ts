@@ -6,6 +6,6 @@ export function createApiBuilderFromCtpClient(
 ): ApiRoot {
   return new ApiRoot({
     executeRequest: ctpClient.execute,
-    baseUri: baseUri
+    baseUri: baseUri,
   })
 }
