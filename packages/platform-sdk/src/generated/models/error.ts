@@ -11,7 +11,11 @@
  *
  */
 
-import { ChannelReference } from './channel'
+import {
+  ChannelReference,
+  ChannelResourceIdentifier,
+  ChannelRoleEnum,
+} from './channel'
 import {
   LocalizedString,
   Price,
@@ -48,6 +52,7 @@ export type ErrorObject =
   | LanguageUsedInStoresError
   | MatchingPriceNotFoundError
   | MaxResourceLimitExceededError
+  | MissingRoleOnChannelError
   | MissingTaxRateForCountryError
   | NoMatchingProductDiscountFoundError
   | NotEnabledError
@@ -56,6 +61,7 @@ export type ErrorObject =
   | OverCapacityError
   | PendingOperationError
   | PriceChangedError
+  | ProjectNotConfiguredForLanguagesError
   | QueryComplexityLimitExceededError
   | QueryTimedOutError
   | ReferenceExistsError
@@ -69,25 +75,25 @@ export type ErrorObject =
   | ShippingMethodDoesNotMatchCartError
   | SyntaxErrorError
   | WeakPasswordError
-  | EnumKeyDoesNotExistError
-  | DuplicateAttributeValuesError
-  | EnumValueIsUsedError
-  | AnonymousIdAlreadyInUseError
-  | ConcurrentModificationError
   | EditPreviewFailedError
-  | EnumValuesMustMatchError
-  | AccessDeniedError
-  | AttributeNameDoesNotExistError
-  | DuplicateFieldError
-  | DuplicateFieldWithConflictingResourceError
-  | DuplicateAttributeValueError
   | DiscountCodeNonApplicableError
-  | DuplicateEnumValuesError
-  | DuplicateVariantValuesError
-  | AttributeDefinitionAlreadyExistsError
-  | DuplicatePriceScopeError
-  | AttributeDefinitionTypeConflictError
   | EnumKeyAlreadyExistsError
+  | EnumValueIsUsedError
+  | AttributeDefinitionTypeConflictError
+  | DuplicatePriceScopeError
+  | EnumKeyDoesNotExistError
+  | AttributeDefinitionAlreadyExistsError
+  | DuplicateAttributeValuesError
+  | DuplicateEnumValuesError
+  | ConcurrentModificationError
+  | AttributeNameDoesNotExistError
+  | DuplicateAttributeValueError
+  | DuplicateFieldWithConflictingResourceError
+  | AccessDeniedError
+  | DuplicateFieldError
+  | EnumValuesMustMatchError
+  | AnonymousIdAlreadyInUseError
+  | DuplicateVariantValuesError
 export interface AccessDeniedError {
   readonly code: 'access_denied'
   readonly message: string
@@ -302,6 +308,12 @@ export interface MaxResourceLimitExceededError {
   readonly message: string
   readonly exceededResource: ReferenceTypeId
 }
+export interface MissingRoleOnChannelError {
+  readonly code: 'MissingRoleOnChannel'
+  readonly message: string
+  readonly channel?: ChannelResourceIdentifier
+  readonly missingRole: ChannelRoleEnum
+}
 export interface MissingTaxRateForCountryError {
   readonly code: 'MissingTaxRateForCountry'
   readonly message: string
@@ -340,6 +352,11 @@ export interface PriceChangedError {
   readonly message: string
   readonly lineItems: string[]
   readonly shipping: boolean
+}
+export interface ProjectNotConfiguredForLanguagesError {
+  readonly code: 'ProjectNotConfiguredForLanguages'
+  readonly message: string
+  readonly languages?: string[]
 }
 export interface QueryComplexityLimitExceededError {
   readonly code: 'QueryComplexityLimitExceeded'
