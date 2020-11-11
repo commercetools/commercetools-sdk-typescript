@@ -49,6 +49,7 @@ export class ByProjectKeyProductVariantPatchesImportSinkKeyByImportSinkKeyImport
     queryArgs?: {
       limit?: number | number[]
       offset?: number | number[]
+      sort?: string | string[]
       resourceKey?: string | string[]
       state?: ProcessingState | ProcessingState[]
       [key: string]: QueryParam
