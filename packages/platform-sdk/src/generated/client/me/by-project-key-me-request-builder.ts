@@ -157,7 +157,7 @@ export class ByProjectKeyMeRequestBuilder {
     )
   }
   /**
-   *	Create a customer
+   *	Create my customer
    */
   public post(methodArgs: {
     body: Update
@@ -181,7 +181,7 @@ export class ByProjectKeyMeRequestBuilder {
     )
   }
   /**
-   *	Delete a Customer
+   *	Delete my Customer
    */
   public delete(methodArgs: {
     queryArgs: {

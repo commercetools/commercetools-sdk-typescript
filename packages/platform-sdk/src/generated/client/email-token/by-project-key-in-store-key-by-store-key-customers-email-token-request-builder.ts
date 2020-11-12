@@ -26,7 +26,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersEmailTokenRequestBuilder {
     }
   ) {}
   /**
-   *	Create a Token for verifying the Customer's Email
+   *	Create a Token for verifying the Customer's Email in store
    */
   public post(methodArgs: {
     body: CustomerCreateEmailToken

@@ -26,7 +26,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyLoginRequestBuilder {
     }
   ) {}
   /**
-   *	Authenticate Customer (Sign In)
+   *	Authenticate Customer (Sign In) in store
    */
   public post(methodArgs: {
     body: CustomerSignin
