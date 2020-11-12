@@ -1077,7 +1077,7 @@ export interface ProductPublishedMessage {
   readonly resource: Reference
   readonly resourceVersion: number
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
-  readonly removedImageUrls: any[]
+  readonly removedImageUrls: string[]
   readonly productProjection: ProductProjection
   readonly scope: ProductPublishScope
 }
@@ -1602,7 +1602,7 @@ export interface ProductPriceExternalDiscountSetMessagePayload {
 }
 export interface ProductPublishedMessagePayload {
   readonly type: 'ProductPublished'
-  readonly removedImageUrls: any[]
+  readonly removedImageUrls: string[]
   readonly productProjection: ProductProjection
   readonly scope: ProductPublishScope
 }
