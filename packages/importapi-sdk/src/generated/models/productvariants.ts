@@ -408,7 +408,7 @@ export interface ProductVariantImport extends ImportResource {
    *
    *	Each attribute referenced must be defined
    *	in an already existing product type in the commercetools project, or the import
-   *	operation state is set to `Unresolved`.
+   *	operation state is set to `ValidationFailed`.
    *
    */
   readonly attributes?: Attribute[]
