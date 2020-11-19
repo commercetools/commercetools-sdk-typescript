@@ -453,15 +453,6 @@ export interface ProductVariantPatch {
    */
   readonly productVariant: ProductVariantKeyReference
   /**
-   *	The product in which the patched product variant resides. Maps to `ProductVariant.product`.
-   *
-   *	The product referenced
-   *	must already exist in the commercetools project, or the
-   *	import operation state is set to `Unresolved`.
-   *
-   */
-  readonly product: ProductKeyReference
-  /**
    *	Maps to `ProductVariant.attributes`.
    *
    *	Each attribute referenced must be defined
