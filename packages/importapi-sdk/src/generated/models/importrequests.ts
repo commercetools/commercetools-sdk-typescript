@@ -14,6 +14,7 @@
 import { CategoryImport } from './categories'
 import { CustomerImport } from './customers'
 import { ImportOperationStatus } from './importoperations'
+import { InventoryImport } from './inventories'
 import { OrderImport } from './orders'
 import { PriceImport } from './prices'
 import { ProductDraftImport } from './productdrafts'
@@ -35,6 +36,7 @@ export type ImportRequest =
   | OrderImportRequest
   | ProductVariantPatchRequest
   | CustomerImportRequest
+  | InventoryImportRequest
 /**
  *	The import response contains an import operation for each import resource sent with an import request. Use it for tracking the progress of imports to a commercetools project.
  *
@@ -151,4 +153,16 @@ export interface CustomerImportRequest {
    *
    */
   readonly resources: CustomerImport[]
+}
+/**
+ *	An import request for multiple inventory import resources.
+ *
+ */
+export interface InventoryImportRequest {
+  readonly type: 'inventory'
+  /**
+   *	The inventory import resources of this request.
+   *
+   */
+  readonly resources: InventoryImport[]
 }

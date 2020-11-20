@@ -248,6 +248,7 @@ export type ImportResourceType =
   | 'product-variant'
   | 'product-variant-patch'
   | 'customer'
+  | 'inventory'
 /**
  *	The type of the referenced resource.
  *

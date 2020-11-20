@@ -15,6 +15,7 @@ import { ByProjectKeyCategoriesRequestBuilder } from './categories/by-project-ke
 import { ByProjectKeyCustomersRequestBuilder } from './customers/by-project-key-customers-request-builder'
 import { ByProjectKeyImportSinksRequestBuilder } from './import-sinks/by-project-key-import-sinks-request-builder'
 import { ByProjectKeyImportSummariesRequestBuilder } from './import-summaries/by-project-key-import-summaries-request-builder'
+import { ByProjectKeyInventoriesRequestBuilder } from './inventories/by-project-key-inventories-request-builder'
 import { ByProjectKeyOrdersRequestBuilder } from './orders/by-project-key-orders-request-builder'
 import { ByProjectKeyPricesRequestBuilder } from './prices/by-project-key-prices-request-builder'
 import { ByProjectKeyProductDraftsRequestBuilder } from './product-drafts/by-project-key-product-drafts-request-builder'
@@ -125,6 +126,15 @@ export class ByProjectKeyRequestBuilder {
   }
   public customers(): ByProjectKeyCustomersRequestBuilder {
     return new ByProjectKeyCustomersRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public inventories(): ByProjectKeyInventoriesRequestBuilder {
+    return new ByProjectKeyInventoriesRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },
