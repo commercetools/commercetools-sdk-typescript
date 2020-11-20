@@ -105,30 +105,31 @@ export type Message =
   | ProductSlugChangedMessage
   | ProductStateTransitionMessage
   | ProductUnpublishedMessage
+  | ProductVariantAddedMessage
   | ProductVariantDeletedMessage
   | ReviewCreatedMessage
   | ReviewRatingSetMessage
   | ReviewStateTransitionMessage
-  | CustomerCreatedMessage
-  | CustomerDateOfBirthSetMessage
-  | DeliveryAddressSetMessage
-  | CustomerAddressAddedMessage
-  | InventoryEntryCreatedMessage
-  | DeliveryAddedMessage
-  | CustomerGroupSetMessage
-  | InventoryEntryDeletedMessage
-  | CategorySlugChangedMessage
-  | LineItemStateTransitionMessage
-  | CustomerEmailChangedMessage
-  | DeliveryItemsUpdatedMessage
-  | CustomLineItemStateTransitionMessage
-  | DeliveryRemovedMessage
-  | CustomerAddressChangedMessage
-  | CategoryCreatedMessage
-  | InventoryEntryQuantitySetMessage
-  | CustomerCompanyNameSetMessage
   | CustomerAddressRemovedMessage
+  | CustomerCompanyNameSetMessage
+  | LineItemStateTransitionMessage
+  | CustomerGroupSetMessage
+  | CategorySlugChangedMessage
+  | DeliveryItemsUpdatedMessage
   | CustomerEmailVerifiedMessage
+  | CustomerEmailChangedMessage
+  | DeliveryRemovedMessage
+  | InventoryEntryQuantitySetMessage
+  | InventoryEntryDeletedMessage
+  | CustomerCreatedMessage
+  | DeliveryAddedMessage
+  | CategoryCreatedMessage
+  | DeliveryAddressSetMessage
+  | CustomLineItemStateTransitionMessage
+  | InventoryEntryCreatedMessage
+  | CustomerAddressChangedMessage
+  | CustomerAddressAddedMessage
+  | CustomerDateOfBirthSetMessage
 export interface CategoryCreatedMessage {
   readonly type: 'CategoryCreated'
   readonly id: string
@@ -1152,6 +1153,21 @@ export interface ProductUnpublishedMessage {
   readonly resourceVersion: number
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
 }
+export interface ProductVariantAddedMessage {
+  readonly type: 'ProductVariantAdded'
+  readonly id: string
+  readonly version: number
+  readonly createdAt: string
+  readonly lastModifiedAt: string
+  readonly lastModifiedBy?: LastModifiedBy
+  readonly createdBy?: CreatedBy
+  readonly sequenceNumber: number
+  readonly resource: Reference
+  readonly resourceVersion: number
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  readonly variant: ProductVariant
+  readonly staged: boolean
+}
 export interface ProductVariantDeletedMessage {
   readonly type: 'ProductVariantDeleted'
   readonly id: string
@@ -1273,30 +1289,31 @@ export type MessagePayload =
   | ProductSlugChangedMessagePayload
   | ProductStateTransitionMessagePayload
   | ProductUnpublishedMessagePayload
+  | ProductVariantAddedMessagePayload
   | ProductVariantDeletedMessagePayload
   | ReviewCreatedMessagePayload
   | ReviewRatingSetMessagePayload
   | ReviewStateTransitionMessagePayload
-  | CategorySlugChangedMessagePayload
-  | CustomerGroupSetMessagePayload
-  | CustomerEmailChangedMessagePayload
-  | LineItemStateTransitionMessagePayload
-  | DeliveryRemovedMessagePayload
-  | DeliveryItemsUpdatedMessagePayload
-  | InventoryEntryDeletedMessagePayload
   | CustomerDateOfBirthSetMessagePayload
   | CustomerCompanyNameSetMessagePayload
   | InventoryEntryCreatedMessagePayload
-  | InventoryEntryQuantitySetMessagePayload
-  | CustomerAddressAddedMessagePayload
+  | DeliveryAddedMessagePayload
+  | LineItemStateTransitionMessagePayload
+  | CustomerGroupSetMessagePayload
+  | DeliveryItemsUpdatedMessagePayload
   | CustomerAddressRemovedMessagePayload
-  | CategoryCreatedMessagePayload
-  | CustomerCreatedMessagePayload
+  | CustomerAddressAddedMessagePayload
   | DeliveryAddressSetMessagePayload
+  | DeliveryRemovedMessagePayload
+  | CategoryCreatedMessagePayload
+  | InventoryEntryDeletedMessagePayload
   | CustomLineItemStateTransitionMessagePayload
   | CustomerAddressChangedMessagePayload
-  | DeliveryAddedMessagePayload
   | CustomerEmailVerifiedMessagePayload
+  | CategorySlugChangedMessagePayload
+  | CustomerEmailChangedMessagePayload
+  | InventoryEntryQuantitySetMessagePayload
+  | CustomerCreatedMessagePayload
 export interface CategoryCreatedMessagePayload {
   readonly type: 'CategoryCreated'
   readonly category: Category
@@ -1626,6 +1643,11 @@ export interface ProductStateTransitionMessagePayload {
 }
 export interface ProductUnpublishedMessagePayload {
   readonly type: 'ProductUnpublished'
+}
+export interface ProductVariantAddedMessagePayload {
+  readonly type: 'ProductVariantAdded'
+  readonly variant: ProductVariant
+  readonly staged: boolean
 }
 export interface ProductVariantDeletedMessagePayload {
   readonly type: 'ProductVariantDeleted'

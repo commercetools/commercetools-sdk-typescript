@@ -269,8 +269,8 @@ export type Reference =
   | TaxCategoryReference
   | TypeReference
   | ZoneReference
-  | CartReference
   | CategoryReference
+  | CartReference
   | CartDiscountReference
   | ChannelReference
 export type ReferenceTypeId =
@@ -316,10 +316,10 @@ export type ResourceIdentifier =
   | TaxCategoryResourceIdentifier
   | TypeResourceIdentifier
   | ZoneResourceIdentifier
-  | CategoryResourceIdentifier
-  | CartDiscountResourceIdentifier
-  | CartResourceIdentifier
   | ChannelResourceIdentifier
+  | CategoryResourceIdentifier
+  | CartResourceIdentifier
+  | CartDiscountResourceIdentifier
 export interface ScopedPrice {
   readonly id: string
   readonly value: TypedMoney
@@ -336,7 +336,7 @@ export interface ScopedPrice {
   readonly discounted?: DiscountedPrice
   readonly custom?: CustomFields
 }
-export type TypedMoney = HighPrecisionMoney | CentPrecisionMoney
+export type TypedMoney = CentPrecisionMoney | HighPrecisionMoney
 export interface CentPrecisionMoney {
   readonly type: 'centPrecision'
   readonly fractionDigits: number
