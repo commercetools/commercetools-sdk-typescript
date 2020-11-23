@@ -22,6 +22,9 @@ import { ImportResourceType } from './common'
 export interface ImportSink {
   /**
    *	The unique key of the import sink.
+   *
+   *	Valid characters are: alphabetic characters (A-Z, a-z), numeric characters (0-9), underscores (_) and hyphens (-).
+   *
    */
   readonly key: string
   /**
