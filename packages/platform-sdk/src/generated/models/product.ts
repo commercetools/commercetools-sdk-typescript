@@ -234,6 +234,7 @@ export interface ProductProjectionPagedQueryResponse {
   readonly results: ProductProjection[]
 }
 export interface ProductProjectionPagedSearchResponse {
+  readonly limit: number
   readonly count: number
   readonly total?: number
   readonly offset: number
