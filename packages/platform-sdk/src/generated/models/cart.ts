@@ -22,7 +22,6 @@ import {
   Money,
   Price,
   TypedMoney,
-  TypedMoneyDraft,
 } from './common'
 import {
   CustomerGroupReference,
@@ -712,8 +711,8 @@ export interface TaxedPrice {
   readonly taxPortions: TaxPortion[]
 }
 export interface TaxedPriceDraft {
-  readonly totalNet: TypedMoneyDraft
-  readonly totalGross: TypedMoneyDraft
+  readonly totalNet: Money
+  readonly totalGross: Money
   readonly taxPortions: TaxPortionDraft[]
 }
 export interface CartAddCustomLineItemAction {
