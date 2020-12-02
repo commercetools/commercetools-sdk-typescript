@@ -71,8 +71,8 @@ export class ByProjectKeyImportSinksRequestBuilder {
    */
   public get(methodArgs: {
     queryArgs: {
-      limit: number | number[]
-      offset: number | number[]
+      limit: number
+      offset: number
       [key: string]: QueryParam
     }
     headers?: {

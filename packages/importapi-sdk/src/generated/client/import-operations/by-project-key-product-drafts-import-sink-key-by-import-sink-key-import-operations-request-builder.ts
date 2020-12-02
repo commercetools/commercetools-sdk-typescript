@@ -47,11 +47,11 @@ export class ByProjectKeyProductDraftsImportSinkKeyByImportSinkKeyImportOperatio
    */
   public get(methodArgs?: {
     queryArgs?: {
-      limit?: number | number[]
-      offset?: number | number[]
-      sort?: string | string[]
-      resourceKey?: string | string[]
-      state?: ProcessingState | ProcessingState[]
+      limit?: number
+      offset?: number
+      sort?: string
+      resourceKey?: string
+      state?: ProcessingState
       [key: string]: QueryParam
     }
     headers?: {
