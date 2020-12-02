@@ -30,7 +30,7 @@ export class ByProjectKeyZonesKeyByKeyRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string | string[]
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {
@@ -56,7 +56,7 @@ export class ByProjectKeyZonesKeyByKeyRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string | string[]
+      expand?: string
       [key: string]: QueryParam
     }
     body: ZoneUpdate
@@ -85,8 +85,8 @@ export class ByProjectKeyZonesKeyByKeyRequestBuilder {
    */
   public delete(methodArgs: {
     queryArgs: {
-      version: number | number[]
-      expand?: string | string[]
+      version: number
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {

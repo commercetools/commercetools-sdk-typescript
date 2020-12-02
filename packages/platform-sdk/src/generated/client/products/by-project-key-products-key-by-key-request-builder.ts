@@ -30,13 +30,13 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      priceCurrency?: string | string[]
-      priceCountry?: string | string[]
-      priceCustomerGroup?: string | string[]
-      priceChannel?: string | string[]
-      localeProjection?: string | string[]
-      storeProjection?: string | string[]
-      expand?: string | string[]
+      priceCurrency?: string
+      priceCountry?: string
+      priceCustomerGroup?: string
+      priceChannel?: string
+      localeProjection?: string
+      storeProjection?: string
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {
@@ -62,13 +62,13 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      priceCurrency?: string | string[]
-      priceCountry?: string | string[]
-      priceCustomerGroup?: string | string[]
-      priceChannel?: string | string[]
-      localeProjection?: string | string[]
-      storeProjection?: string | string[]
-      expand?: string | string[]
+      priceCurrency?: string
+      priceCountry?: string
+      priceCustomerGroup?: string
+      priceChannel?: string
+      localeProjection?: string
+      storeProjection?: string
+      expand?: string
       [key: string]: QueryParam
     }
     body: ProductUpdate
@@ -97,14 +97,14 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
    */
   public delete(methodArgs: {
     queryArgs: {
-      priceCurrency?: string | string[]
-      priceCountry?: string | string[]
-      priceCustomerGroup?: string | string[]
-      priceChannel?: string | string[]
-      localeProjection?: string | string[]
-      storeProjection?: string | string[]
-      version: number | number[]
-      expand?: string | string[]
+      priceCurrency?: string
+      priceCountry?: string
+      priceCustomerGroup?: string
+      priceChannel?: string
+      localeProjection?: string
+      storeProjection?: string
+      version: number
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {

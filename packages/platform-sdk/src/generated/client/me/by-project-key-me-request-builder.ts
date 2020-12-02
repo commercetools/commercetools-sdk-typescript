@@ -130,12 +130,12 @@ export class ByProjectKeyMeRequestBuilder {
 
   public get(methodArgs?: {
     queryArgs?: {
-      sort?: string | string[]
-      limit?: number | number[]
-      offset?: number | number[]
-      withTotal?: boolean | boolean[]
-      expand?: string | string[]
-      where?: string | string[]
+      sort?: string
+      limit?: number
+      offset?: number
+      withTotal?: boolean
+      expand?: string
+      where?: string
       [key: string]: QueryParam
     }
     headers?: {
@@ -185,7 +185,7 @@ export class ByProjectKeyMeRequestBuilder {
    */
   public delete(methodArgs: {
     queryArgs: {
-      version: number | number[]
+      version: number
       [key: string]: QueryParam
     }
     headers?: {

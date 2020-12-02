@@ -30,7 +30,7 @@ export class ByProjectKeyMePaymentsByIDRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string | string[]
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {
@@ -56,7 +56,7 @@ export class ByProjectKeyMePaymentsByIDRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string | string[]
+      expand?: string
       [key: string]: QueryParam
     }
     body: MyPaymentUpdate
@@ -85,8 +85,8 @@ export class ByProjectKeyMePaymentsByIDRequestBuilder {
    */
   public delete(methodArgs: {
     queryArgs: {
-      version: number | number[]
-      expand?: string | string[]
+      version: number
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {

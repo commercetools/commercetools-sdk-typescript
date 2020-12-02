@@ -63,18 +63,18 @@ export class ByProjectKeyProductsRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      priceCurrency?: string | string[]
-      priceCountry?: string | string[]
-      priceCustomerGroup?: string | string[]
-      priceChannel?: string | string[]
-      localeProjection?: string | string[]
-      storeProjection?: string | string[]
-      expand?: string | string[]
-      sort?: string | string[]
-      limit?: number | number[]
-      offset?: number | number[]
-      withTotal?: boolean | boolean[]
-      where?: string | string[]
+      priceCurrency?: string
+      priceCountry?: string
+      priceCustomerGroup?: string
+      priceChannel?: string
+      localeProjection?: string
+      storeProjection?: string
+      expand?: string
+      sort?: string
+      limit?: number
+      offset?: number
+      withTotal?: boolean
+      where?: string
       [key: string]: QueryParam
     }
     headers?: {
@@ -103,13 +103,13 @@ export class ByProjectKeyProductsRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      priceCurrency?: string | string[]
-      priceCountry?: string | string[]
-      priceCustomerGroup?: string | string[]
-      priceChannel?: string | string[]
-      localeProjection?: string | string[]
-      storeProjection?: string | string[]
-      expand?: string | string[]
+      priceCurrency?: string
+      priceCountry?: string
+      priceCustomerGroup?: string
+      priceChannel?: string
+      localeProjection?: string
+      storeProjection?: string
+      expand?: string
       [key: string]: QueryParam
     }
     body: ProductDraft

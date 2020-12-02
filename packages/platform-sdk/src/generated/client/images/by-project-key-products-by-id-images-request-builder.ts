@@ -31,10 +31,10 @@ export class ByProjectKeyProductsByIDImagesRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      filename?: string | string[]
-      variant?: number | number[]
-      sku?: string | string[]
-      staged?: boolean | boolean[]
+      filename?: string
+      variant?: number
+      sku?: string
+      staged?: boolean
       [key: string]: QueryParam
     }
     body: Buffer

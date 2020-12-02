@@ -31,7 +31,7 @@ export class ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string | string[]
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {
@@ -57,7 +57,7 @@ export class ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string | string[]
+      expand?: string
       [key: string]: QueryParam
     }
     body: MyShoppingListUpdate
@@ -86,8 +86,8 @@ export class ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder {
    */
   public delete(methodArgs: {
     queryArgs: {
-      version: number | number[]
-      expand?: string | string[]
+      version: number
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {

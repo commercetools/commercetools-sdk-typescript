@@ -50,25 +50,25 @@ export class ByProjectKeyProductProjectionsSearchRequestBuilder {
    */
   public get(methodArgs: {
     queryArgs: {
-      fuzzy?: boolean | boolean[]
-      fuzzyLevel?: number | number[]
-      markMatchingVariants: boolean | boolean[]
-      staged?: boolean | boolean[]
-      filter?: string | string[]
-      'filter.facets'?: string | string[]
-      'filter.query'?: string | string[]
-      facet?: string | string[]
-      sort?: string | string[]
-      limit?: number | number[]
-      offset?: number | number[]
-      withTotal?: boolean | boolean[]
-      priceCurrency?: string | string[]
-      priceCountry?: string | string[]
-      priceCustomerGroup?: string | string[]
-      priceChannel?: string | string[]
-      localeProjection?: string | string[]
-      storeProjection?: string | string[]
-      expand?: string | string[]
+      fuzzy?: boolean
+      fuzzyLevel?: number
+      markMatchingVariants: boolean
+      staged?: boolean
+      filter?: string
+      'filter.facets'?: string
+      'filter.query'?: string
+      facet?: string
+      sort?: string
+      limit?: number
+      offset?: number
+      withTotal?: boolean
+      priceCurrency?: string
+      priceCountry?: string
+      priceCustomerGroup?: string
+      priceChannel?: string
+      localeProjection?: string
+      storeProjection?: string
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {

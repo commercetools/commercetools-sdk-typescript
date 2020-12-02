@@ -33,7 +33,7 @@ export class ByProjectKeyShippingMethodsByIDRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string | string[]
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {
@@ -59,7 +59,7 @@ export class ByProjectKeyShippingMethodsByIDRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string | string[]
+      expand?: string
       [key: string]: QueryParam
     }
     body: ShippingMethodUpdate
@@ -88,8 +88,8 @@ export class ByProjectKeyShippingMethodsByIDRequestBuilder {
    */
   public delete(methodArgs: {
     queryArgs: {
-      version: number | number[]
-      expand?: string | string[]
+      version: number
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {

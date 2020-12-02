@@ -26,9 +26,9 @@ export class ByProjectKeyShippingMethodsMatchingOrdereditRequestBuilder {
   ) {}
   public get(methodArgs: {
     queryArgs: {
-      orderEditId: string | string[]
-      country: string | string[]
-      state?: string | string[]
+      orderEditId: string
+      country: string
+      state?: string
       [key: string]: QueryParam
     }
     headers?: {

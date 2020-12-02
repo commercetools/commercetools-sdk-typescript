@@ -41,7 +41,7 @@ export class ByProjectKeyOrdersEditsByIDRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string | string[]
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {
@@ -67,7 +67,7 @@ export class ByProjectKeyOrdersEditsByIDRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string | string[]
+      expand?: string
       [key: string]: QueryParam
     }
     body: OrderEditUpdate
@@ -96,8 +96,8 @@ export class ByProjectKeyOrdersEditsByIDRequestBuilder {
    */
   public delete(methodArgs: {
     queryArgs: {
-      version: number | number[]
-      expand?: string | string[]
+      version: number
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {

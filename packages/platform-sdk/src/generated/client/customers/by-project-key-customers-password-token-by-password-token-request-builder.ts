@@ -30,7 +30,7 @@ export class ByProjectKeyCustomersPasswordTokenByPasswordTokenRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string | string[]
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {

@@ -26,8 +26,8 @@ export class ByProjectKeyShippingMethodsMatchingCartRequestBuilder {
   ) {}
   public get(methodArgs: {
     queryArgs: {
-      cartId: string | string[]
-      expand?: string | string[]
+      cartId: string
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {

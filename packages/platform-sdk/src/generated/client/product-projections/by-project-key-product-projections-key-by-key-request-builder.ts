@@ -33,14 +33,14 @@ export class ByProjectKeyProductProjectionsKeyByKeyRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      staged?: boolean | boolean[]
-      priceCurrency?: string | string[]
-      priceCountry?: string | string[]
-      priceCustomerGroup?: string | string[]
-      priceChannel?: string | string[]
-      localeProjection?: string | string[]
-      storeProjection?: string | string[]
-      expand?: string | string[]
+      staged?: boolean
+      priceCurrency?: string
+      priceCountry?: string
+      priceCustomerGroup?: string
+      priceChannel?: string
+      localeProjection?: string
+      storeProjection?: string
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {

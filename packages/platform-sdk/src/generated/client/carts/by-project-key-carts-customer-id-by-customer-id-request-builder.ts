@@ -35,7 +35,7 @@ export class ByProjectKeyCartsCustomerIdByCustomerIdRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string | string[]
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {

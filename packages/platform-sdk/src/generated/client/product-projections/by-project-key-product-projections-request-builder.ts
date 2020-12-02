@@ -89,19 +89,19 @@ export class ByProjectKeyProductProjectionsRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      staged?: boolean | boolean[]
-      priceCurrency?: string | string[]
-      priceCountry?: string | string[]
-      priceCustomerGroup?: string | string[]
-      priceChannel?: string | string[]
-      localeProjection?: string | string[]
-      storeProjection?: string | string[]
-      expand?: string | string[]
-      sort?: string | string[]
-      limit?: number | number[]
-      offset?: number | number[]
-      withTotal?: boolean | boolean[]
-      where?: string | string[]
+      staged?: boolean
+      priceCurrency?: string
+      priceCountry?: string
+      priceCustomerGroup?: string
+      priceChannel?: string
+      localeProjection?: string
+      storeProjection?: string
+      expand?: string
+      sort?: string
+      limit?: number
+      offset?: number
+      withTotal?: boolean
+      where?: string
       [key: string]: QueryParam
     }
     headers?: {

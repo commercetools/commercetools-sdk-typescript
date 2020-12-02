@@ -26,10 +26,10 @@ export class ByProjectKeyShippingMethodsMatchingLocationRequestBuilder {
   ) {}
   public get(methodArgs: {
     queryArgs: {
-      country: string | string[]
-      state?: string | string[]
-      currency?: string | string[]
-      expand?: string | string[]
+      country: string
+      state?: string
+      currency?: string
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {

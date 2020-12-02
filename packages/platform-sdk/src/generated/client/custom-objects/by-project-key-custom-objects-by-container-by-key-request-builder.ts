@@ -31,7 +31,7 @@ export class ByProjectKeyCustomObjectsByContainerByKeyRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string | string[]
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {
@@ -57,9 +57,9 @@ export class ByProjectKeyCustomObjectsByContainerByKeyRequestBuilder {
    */
   public delete(methodArgs?: {
     queryArgs?: {
-      version?: number | number[]
-      dataErasure?: boolean | boolean[]
-      expand?: string | string[]
+      version?: number
+      dataErasure?: boolean
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {

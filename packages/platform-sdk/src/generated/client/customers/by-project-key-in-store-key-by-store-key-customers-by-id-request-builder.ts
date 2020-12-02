@@ -36,7 +36,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string | string[]
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {
@@ -65,7 +65,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string | string[]
+      expand?: string
       [key: string]: QueryParam
     }
     body: Update
@@ -94,9 +94,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
    */
   public delete(methodArgs: {
     queryArgs: {
-      dataErasure?: boolean | boolean[]
-      version: number | number[]
-      expand?: string | string[]
+      dataErasure?: boolean
+      version: number
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {

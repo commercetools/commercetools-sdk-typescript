@@ -30,7 +30,7 @@ export class ByProjectKeyPaymentsKeyByKeyRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string | string[]
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {
@@ -56,7 +56,7 @@ export class ByProjectKeyPaymentsKeyByKeyRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string | string[]
+      expand?: string
       [key: string]: QueryParam
     }
     body: PaymentUpdate
@@ -85,9 +85,9 @@ export class ByProjectKeyPaymentsKeyByKeyRequestBuilder {
    */
   public delete(methodArgs: {
     queryArgs: {
-      dataErasure?: boolean | boolean[]
-      version: number | number[]
-      expand?: string | string[]
+      dataErasure?: boolean
+      version: number
+      expand?: string
       [key: string]: QueryParam
     }
     headers?: {

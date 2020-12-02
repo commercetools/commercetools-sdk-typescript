@@ -44,12 +44,12 @@ export class ByProjectKeyMeOrdersRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string | string[]
-      sort?: string | string[]
-      limit?: number | number[]
-      offset?: number | number[]
-      withTotal?: boolean | boolean[]
-      where?: string | string[]
+      expand?: string
+      sort?: string
+      limit?: number
+      offset?: number
+      withTotal?: boolean
+      where?: string
       [key: string]: QueryParam
     }
     headers?: {
@@ -75,7 +75,7 @@ export class ByProjectKeyMeOrdersRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string | string[]
+      expand?: string
       [key: string]: QueryParam
     }
     body: MyOrderFromCartDraft
