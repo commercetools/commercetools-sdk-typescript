@@ -30,12 +30,12 @@ export class ByProjectKeyRecommendationsGeneralCategoriesRequestBuilder {
    */
   public get(methodArgs: {
     queryArgs: {
-      productImageUrl?: string | string[]
-      productName: string | string[]
-      limit?: number | number[]
-      offset?: number | number[]
-      confidenceMin?: number | number[]
-      confidenceMax?: number | number[]
+      productImageUrl?: string
+      productName: string
+      limit?: number
+      offset?: number
+      confidenceMin?: number
+      confidenceMax?: number
       [key: string]: QueryParam
     }
     headers?: {

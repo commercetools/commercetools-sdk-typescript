@@ -31,11 +31,11 @@ export class ByProjectKeyRecommendationsProjectCategoriesByProductIdRequestBuild
    */
   public get(methodArgs?: {
     queryArgs?: {
-      limit?: number | number[]
-      offset?: number | number[]
-      staged?: boolean | boolean[]
-      confidenceMin?: number | number[]
-      confidenceMax?: number | number[]
+      limit?: number
+      offset?: number
+      staged?: boolean
+      confidenceMin?: number
+      confidenceMax?: number
       [key: string]: QueryParam
     }
     headers?: {
