@@ -49,7 +49,7 @@ export class ByProjectKeyProductDraftsImportSinkKeyByImportSinkKeyImportOperatio
     queryArgs?: {
       limit?: number
       offset?: number
-      sort?: string
+      sort?: string[]
       resourceKey?: string
       state?: ProcessingState
       [key: string]: QueryParam
