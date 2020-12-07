@@ -11,7 +11,7 @@
  *
  */
 
-import { ChannelReference } from './channel'
+import { ChannelReference, ChannelResourceIdentifier } from './channel'
 import {
   BaseResource,
   CreatedBy,
@@ -21,7 +21,7 @@ import {
   Reference,
   TypedMoney,
 } from './common'
-import { ProductReference } from './product'
+import { ProductReference, ProductResourceIdentifier } from './product'
 import { CustomFields, TypeResourceIdentifier } from './type'
 
 export interface CartDiscount extends BaseResource {
@@ -50,7 +50,7 @@ export interface CartDiscount extends BaseResource {
    */
   readonly key?: string
   readonly description?: LocalizedString
-  readonly value: CartDiscountValue
+  readonly value: CartDiscountValueDraft
   /**
    *	A valid Cart predicate.
    */
@@ -205,15 +205,27 @@ export interface CartDiscountValueGiftLineItem {
   readonly type: 'giftLineItem'
   readonly product: ProductReference
   readonly variantId: number
+  /**
+   *	The channel must have the role `InventorySupply`
+   */
   readonly supplyChannel?: ChannelReference
+  /**
+   *	The channel must have the role `ProductDistribution`
+   */
   readonly distributionChannel?: ChannelReference
 }
 export interface CartDiscountValueGiftLineItemDraft {
   readonly type: 'giftLineItem'
-  readonly product: ProductReference
+  readonly product: ProductResourceIdentifier
   readonly variantId: number
-  readonly supplyChannel?: ChannelReference
-  readonly distributionChannel?: ChannelReference
+  /**
+   *	The channel must have the role `InventorySupply`
+   */
+  readonly supplyChannel?: ChannelResourceIdentifier
+  /**
+   *	The channel must have the role `ProductDistribution`
+   */
+  readonly distributionChannel?: ChannelResourceIdentifier
 }
 export interface CartDiscountValueRelative {
   readonly type: 'relative'
