@@ -391,7 +391,7 @@ export interface CustomLineItemDraft {
   /**
    *	The custom fields.
    */
-  readonly custom?: CustomFields
+  readonly custom?: CustomFieldsDraft
   /**
    *	Container for custom line item specific address(es).
    */
