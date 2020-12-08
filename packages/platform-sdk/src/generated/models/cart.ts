@@ -658,8 +658,8 @@ export interface ShippingInfo {
 }
 export type ShippingMethodState = 'DoesNotMatchCart' | 'MatchesCart'
 export type ShippingRateInput =
-  | ClassificationShippingRateInput
   | ScoreShippingRateInput
+  | ClassificationShippingRateInput
 export interface ClassificationShippingRateInput {
   readonly type: 'Classification'
   readonly key: string

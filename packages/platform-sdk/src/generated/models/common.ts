@@ -269,9 +269,9 @@ export type Reference =
   | TaxCategoryReference
   | TypeReference
   | ZoneReference
+  | CartReference
   | ChannelReference
   | CategoryReference
-  | CartReference
   | CartDiscountReference
 export type ReferenceTypeId =
   | 'cart'

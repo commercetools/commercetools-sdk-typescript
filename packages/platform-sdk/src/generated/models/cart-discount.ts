@@ -152,8 +152,8 @@ export type CartDiscountTarget =
   | MultiBuyCustomLineItemsTarget
   | MultiBuyLineItemsTarget
   | CartDiscountLineItemsTarget
-  | CartDiscountShippingCostTarget
   | CartDiscountCustomLineItemsTarget
+  | CartDiscountShippingCostTarget
 export interface CartDiscountCustomLineItemsTarget {
   readonly type: 'customLineItems'
   readonly predicate: string
