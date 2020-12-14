@@ -124,6 +124,7 @@ export interface ResourceDeletedDelivery {
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   readonly version: number
   readonly modifiedAt: string
+  readonly dataErasure?: boolean
 }
 export interface ResourceUpdatedDelivery {
   readonly notificationType: 'ResourceUpdated'
