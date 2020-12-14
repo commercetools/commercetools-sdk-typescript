@@ -150,6 +150,8 @@ export interface MyCartDraft {
    *	Each address must contain a key which is unique in this cart.
    */
   readonly itemShippingAddresses?: Address[]
+  readonly store?: StoreKeyReference
+  readonly discountCodes?: DiscountCodeInfo[]
 }
 export type MyCartUpdateAction =
   | MyCartAddDiscountCodeAction
