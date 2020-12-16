@@ -1,314 +1,329 @@
 /**
- *
- *    Generated file, please do not change!!!
- *    From http://www.vrap.io/ with love
- *
- *                ,d88b.d88b,
- *                88888888888
- *                `Y8888888Y'
- *                  `Y888Y'
- *                    `Y'
- *
- */
+*
+*    Generated file, please do not change!!!
+*    From http://www.vrap.io/ with love
+*
+*                ,d88b.d88b,
+*                88888888888
+*                `Y8888888Y'
+*                  `Y888Y'
+*                    `Y'
+*
+*/
 
-import { Custom } from './customfields'
+import { CategoryImport } from 'models/categories'
+import { CustomerImport } from 'models/customers'
+import { Custom } from 'models/customfields'
+import { InventoryImport } from 'models/inventories'
+import { OrderImport } from 'models/orders'
+import { PriceImport } from 'models/prices'
+import { ProductDraftImport } from 'models/productdrafts'
+import { ProductImport } from 'models/products'
+import { ProductTypeImport } from 'models/producttypes'
+import { ProductVariantImport } from 'models/productvariants'
 
 export interface Asset {
   /**
-   *	User-defined identifier for the asset.
-   *	Asset keys are unique inside their container (a product variant or a category).
-   *
-   */
-  readonly key: string
-  readonly sources: AssetSource[]
-  readonly name: LocalizedString
-  readonly description?: LocalizedString
-  readonly tags?: string[]
+  *	User-defined identifier for the asset.
+  *	Asset keys are unique inside their container (a product variant or a category).
+  *	
+  */
+  readonly key: string;
+  readonly sources: AssetSource[];
+  readonly name: LocalizedString;
+  readonly description?: LocalizedString;
+  readonly tags?: string[];
   /**
-   *	The representation to be sent to the server when creating a resource with custom fields.
-   */
+  *	The representation to be sent to the server when creating a resource with custom fields.
+  */
   readonly custom?: Custom
 }
 export interface AssetDimensions {
-  readonly w: number
+  readonly w: number;
   readonly h: number
 }
 export interface AssetSource {
-  readonly uri: string
-  readonly key?: string
-  readonly dimensions?: AssetDimensions
+  readonly uri: string;
+  readonly key?: string;
+  readonly dimensions?: AssetDimensions;
   readonly contentType?: string
 }
 export interface Image {
-  readonly url: string
-  readonly dimensions: AssetDimensions
+  readonly url: string;
+  readonly dimensions: AssetDimensions;
   readonly label?: string
 }
 export interface EnumValue {
-  readonly key: string
+  readonly key: string;
   readonly label: string
 }
 export interface LocalizedEnumValue {
-  readonly key: string
+  readonly key: string;
   readonly label: LocalizedString
 }
 export interface LocalizedString {
-  [key: string]: string
+  [key:string]: string
 }
 /**
- *	A representation of the resource to import.
- *	Import resources are similar to commercetools draft types, but they only support key references.
- *	In general, import resources are more granular then the normal commercetools resource.
- *	They are optimized for incremental updates and therefore have a slightly different structure.
- *
- */
+*	A representation of the resource to import.
+*	Import resources are similar to commercetools draft types, but they only support key references.
+*	In general, import resources are more granular then the normal commercetools resource.
+*	They are optimized for incremental updates and therefore have a slightly different structure.
+*	
+*/
 export interface ImportResource {
   readonly key: string
 }
 /**
- *	References a resource by its key.
- */
+*	References a resource by its key.
+*/
 export type KeyReference =
-  | CartDiscountKeyReference
-  | CategoryKeyReference
-  | ChannelKeyReference
-  | CustomerKeyReference
-  | CustomerGroupKeyReference
-  | PriceKeyReference
-  | ProductKeyReference
-  | ProductDiscountKeyReference
-  | ProductTypeKeyReference
-  | ProductVariantKeyReference
-  | ShippingMethodKeyReference
-  | StateKeyReference
-  | StoreKeyReference
-  | TaxCategoryKeyReference
-  | TypeKeyReference
+  CartDiscountKeyReference |
+  CategoryKeyReference |
+  ChannelKeyReference |
+  CustomerKeyReference |
+  CustomerGroupKeyReference |
+  PriceKeyReference |
+  ProductKeyReference |
+  ProductDiscountKeyReference |
+  ProductTypeKeyReference |
+  ProductVariantKeyReference |
+  ShippingMethodKeyReference |
+  StateKeyReference |
+  StoreKeyReference |
+  TaxCategoryKeyReference |
+  TypeKeyReference
+;
 /**
- *	References a cart discount by its key.
- */
+*	References a cart discount by its key.
+*/
 export interface CartDiscountKeyReference {
-  readonly typeId: 'cart-discount'
+  readonly typeId: "cart-discount";
   readonly key: string
 }
 /**
- *	References a category by its key.
- */
+*	References a category by its key.
+*/
 export interface CategoryKeyReference {
-  readonly typeId: 'category'
+  readonly typeId: "category";
   readonly key: string
 }
 /**
- *	References a channel by its key.
- */
+*	References a channel by its key.
+*/
 export interface ChannelKeyReference {
-  readonly typeId: 'channel'
+  readonly typeId: "channel";
   readonly key: string
 }
 /**
- *	References a customer by its key.
- */
+*	References a customer by its key.
+*/
 export interface CustomerKeyReference {
-  readonly typeId: 'customer'
+  readonly typeId: "customer";
   readonly key: string
 }
 /**
- *	References a customer group by its key.
- */
+*	References a customer group by its key.
+*/
 export interface CustomerGroupKeyReference {
-  readonly typeId: 'customer-group'
+  readonly typeId: "customer-group";
   readonly key: string
 }
 /**
- *	References a price by its key.
- */
+*	References a price by its key.
+*/
 export interface PriceKeyReference {
-  readonly typeId: 'price'
+  readonly typeId: "price";
   readonly key: string
 }
 /**
- *	References a product by its key.
- */
+*	References a product by its key.
+*/
 export interface ProductKeyReference {
-  readonly typeId: 'product'
+  readonly typeId: "product";
   readonly key: string
 }
 /**
- *	References a product discount by its key.
- */
+*	References a product discount by its key.
+*/
 export interface ProductDiscountKeyReference {
-  readonly typeId: 'product-discount'
+  readonly typeId: "product-discount";
   readonly key: string
 }
 /**
- *	References a product type by its key.
- */
+*	References a product type by its key.
+*/
 export interface ProductTypeKeyReference {
-  readonly typeId: 'product-type'
+  readonly typeId: "product-type";
   readonly key: string
 }
 /**
- *	References a product variant by its key.
- */
+*	References a product variant by its key.
+*/
 export interface ProductVariantKeyReference {
-  readonly typeId: 'product-variant'
+  readonly typeId: "product-variant";
   readonly key: string
 }
 /**
- *	References a shipping method by its key.
- */
+*	References a shipping method by its key.
+*/
 export interface ShippingMethodKeyReference {
-  readonly typeId: 'shipping-method'
+  readonly typeId: "shipping-method";
   readonly key: string
 }
 /**
- *	References a state by its key.
- */
+*	References a state by its key.
+*/
 export interface StateKeyReference {
-  readonly typeId: 'state'
+  readonly typeId: "state";
   readonly key: string
 }
 /**
- *	References a store by its key.
- */
+*	References a store by its key.
+*/
 export interface StoreKeyReference {
-  readonly typeId: 'store'
+  readonly typeId: "store";
   readonly key: string
 }
 /**
- *	References a tax category by its key.
- */
+*	References a tax category by its key.
+*/
 export interface TaxCategoryKeyReference {
-  readonly typeId: 'tax-category'
+  readonly typeId: "tax-category";
   readonly key: string
 }
 /**
- *	References a type by its key.
- */
+*	References a type by its key.
+*/
 export interface TypeKeyReference {
-  readonly typeId: 'type'
+  readonly typeId: "type";
   readonly key: string
 }
-export type MoneyType = 'centPrecision' | 'highPrecision'
-export type TypedMoney = HighPrecisionMoney | Money
+export type MoneyType =
+   'centPrecision' |
+   'highPrecision';
+export type TypedMoney =
+  HighPrecisionMoney |
+  Money
+;
 export interface HighPrecisionMoney {
-  readonly type: 'highPrecision'
-  readonly fractionDigits?: number
-  readonly centAmount: number
+  readonly type: "highPrecision";
+  readonly fractionDigits?: number;
+  readonly centAmount: number;
   /**
-   *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
-   *
-   */
-  readonly currencyCode: string
+  *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  *	
+  */
+  readonly currencyCode: string;
   readonly preciseAmount: number
 }
 export interface Money {
-  readonly type: 'centPrecision'
-  readonly fractionDigits?: number
-  readonly centAmount: number
+  readonly type: "centPrecision";
+  readonly fractionDigits?: number;
+  readonly centAmount: number;
   /**
-   *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
-   *
-   */
+  *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+  *	
+  */
   readonly currencyCode: string
 }
 export interface DiscountedPrice {
-  readonly value: TypedMoney
+  readonly value: TypedMoney;
   /**
-   *	Reference to a ProductDiscount.
-   */
+  *	Reference to a ProductDiscount.
+  */
   readonly discount: ProductDiscountKeyReference
 }
 /**
- *	A price tier is selected instead of the default price when a certain quantity of the ProductVariant is added to a cart and ordered.
- *
- */
+*	A price tier is selected instead of the default price when a certain quantity of the ProductVariant is added to a cart and ordered.
+*	
+*/
 export interface PriceTier {
   /**
-   *	The minimum quantity this price tier is valid for.
-   *
-   */
-  readonly minimumQuantity: number
+  *	The minimum quantity this price tier is valid for.
+  *	
+  */
+  readonly minimumQuantity: number;
   /**
-   *	The currency of a price tier is always the same as the currency of the base Price.
-   */
+  *	The currency of a price tier is always the same as the currency of the base Price.
+  */
   readonly value: TypedMoney
 }
 /**
- *	The type of the import resource.
- *
- */
+*	The type of the import resource.
+*	
+*/
 export type ImportResourceType =
-  | 'category'
-  | 'order'
-  | 'price'
-  | 'product'
-  | 'product-draft'
-  | 'product-type'
-  | 'product-variant'
-  | 'product-variant-patch'
-  | 'customer'
-  | 'inventory'
+   'category' |
+   'order' |
+   'price' |
+   'product' |
+   'product-draft' |
+   'product-type' |
+   'product-variant' |
+   'product-variant-patch' |
+   'customer' |
+   'inventory';
 /**
- *	The type of the referenced resource.
- *
- */
+*	The type of the referenced resource.
+*	
+*/
 export type ReferenceType =
-  | 'cart-discount'
-  | 'category'
-  | 'channel'
-  | 'customer'
-  | 'customer-group'
-  | 'price'
-  | 'product'
-  | 'product-discount'
-  | 'product-type'
-  | 'product-variant'
-  | 'shipping-method'
-  | 'state'
-  | 'store'
-  | 'tax-category'
-  | 'type'
+   'cart-discount' |
+   'category' |
+   'channel' |
+   'customer' |
+   'customer-group' |
+   'price' |
+   'product' |
+   'product-discount' |
+   'product-type' |
+   'product-variant' |
+   'shipping-method' |
+   'state' |
+   'store' |
+   'tax-category' |
+   'type';
 /**
- *	This enumeration describes the processing state of an import operation.
- *
- */
+*	This enumeration describes the processing state of an import operation.
+*	
+*/
 export type ProcessingState =
-  | 'ValidationFailed'
-  | 'Unresolved'
-  | 'WaitForMasterVariant'
-  | 'Imported'
-  | 'Delete'
-  | 'Deleted'
-  | 'Rejected'
+   'ValidationFailed' |
+   'Unresolved' |
+   'WaitForMasterVariant' |
+   'Imported' |
+   'Delete' |
+   'Deleted' |
+   'Rejected';
 export interface Address {
-  readonly id?: string
-  readonly key?: string
-  readonly title?: string
-  readonly salutation?: string
-  readonly firstName?: string
-  readonly lastName?: string
-  readonly streetName?: string
-  readonly streetNumber?: string
-  readonly additionalStreetInfo?: string
-  readonly postalCode?: string
-  readonly city?: string
-  readonly region?: string
-  readonly state?: string
+  readonly id?: string;
+  readonly key?: string;
+  readonly title?: string;
+  readonly salutation?: string;
+  readonly firstName?: string;
+  readonly lastName?: string;
+  readonly streetName?: string;
+  readonly streetNumber?: string;
+  readonly additionalStreetInfo?: string;
+  readonly postalCode?: string;
+  readonly city?: string;
+  readonly region?: string;
+  readonly state?: string;
   /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-   *
-   */
-  readonly country: string
-  readonly company?: string
-  readonly department?: string
-  readonly building?: string
-  readonly apartment?: string
-  readonly pOBox?: string
-  readonly phone?: string
-  readonly mobile?: string
-  readonly email?: string
-  readonly fax?: string
-  readonly additionalAddressInfo?: string
+  *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+  *	
+  */
+  readonly country: string;
+  readonly company?: string;
+  readonly department?: string;
+  readonly building?: string;
+  readonly apartment?: string;
+  readonly pOBox?: string;
+  readonly phone?: string;
+  readonly mobile?: string;
+  readonly email?: string;
+  readonly fax?: string;
+  readonly additionalAddressInfo?: string;
   readonly externalId?: string
 }
