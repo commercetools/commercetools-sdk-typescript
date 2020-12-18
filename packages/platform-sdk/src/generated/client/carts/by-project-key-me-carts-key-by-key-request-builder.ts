@@ -10,41 +10,38 @@
  *                    `Y'
  *
  */
-import { ImportOperation } from '../../models/importoperations'
+import { MyCartUpdate } from '../../models/me'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
-export class ByProjectKeyProductVariantsImportSinkKeyByImportSinkKeyImportOperationsByIdRequestBuilder {
+export class ByProjectKeyMeCartsKeyByKeyRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
         projectKey: string
-        importSinkKey: string
-        id: string
+        key: string
       }
       executeRequest: executeRequest
       baseUri?: string
     }
   ) {}
-  /**
-   *	Retrieves the import operation with the given id.
-   *
-   */
-  public get(methodArgs?: {
+  public post(methodArgs: {
+    body: MyCartUpdate
     headers?: {
       [key: string]: string
     }
-  }): ApiRequest<ImportOperation> {
-    return new ApiRequest<ImportOperation>(
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
       {
         baseUri: this.args.baseUri,
-        method: 'GET',
-        uriTemplate:
-          '/{projectKey}/product-variants/importSinkKey={importSinkKey}/import-operations/{id}',
+        method: 'POST',
+        uriTemplate: '/{projectKey}/me/carts/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
+          'Content-Type': 'application/json',
           ...methodArgs?.headers,
         },
+        body: methodArgs?.body,
       },
       this.args.executeRequest
     )

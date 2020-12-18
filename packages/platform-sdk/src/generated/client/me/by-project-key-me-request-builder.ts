@@ -10,8 +10,7 @@
  *                    `Y'
  *
  */
-import { Update } from '../../models/common'
-import { MyCustomer } from '../../models/me'
+import { MyCustomer, MyCustomerUpdate } from '../../models/me'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyMeActiveCartRequestBuilder } from '../active-cart/by-project-key-me-active-cart-request-builder'
@@ -157,10 +156,10 @@ export class ByProjectKeyMeRequestBuilder {
     )
   }
   /**
-   *	Create my customer
+   *	Update my customer
    */
   public post(methodArgs: {
-    body: Update
+    body: MyCustomerUpdate
     headers?: {
       [key: string]: string
     }

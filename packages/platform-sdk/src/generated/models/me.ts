@@ -153,6 +153,10 @@ export interface MyCartDraft {
   readonly store?: StoreKeyReference
   readonly discountCodes?: DiscountCodeInfo[]
 }
+export interface MyCartUpdate {
+  readonly version: number
+  readonly actions: MyCartUpdateAction[]
+}
 export type MyCartUpdateAction =
   | MyCartAddDiscountCodeAction
   | MyCartAddItemShippingAddressAction
@@ -241,6 +245,10 @@ export interface MyCustomerDraft {
   readonly custom?: CustomFields
   readonly locale?: string
   readonly stores?: StoreResourceIdentifier[]
+}
+export interface MyCustomerUpdate {
+  readonly version: number
+  readonly actions: MyCustomerUpdateAction[]
 }
 export type MyCustomerUpdateAction =
   | MyCustomerAddAddressAction

@@ -15,6 +15,7 @@ import { MyCart, MyCartDraft } from '../../models/me'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyMeCartsByIDRequestBuilder } from './by-project-key-me-carts-by-id-request-builder'
+import { ByProjectKeyMeCartsKeyByKeyRequestBuilder } from './by-project-key-me-carts-key-by-key-request-builder'
 
 export class ByProjectKeyMeCartsRequestBuilder {
   constructor(
@@ -30,6 +31,18 @@ export class ByProjectKeyMeCartsRequestBuilder {
     ID: string
   }): ByProjectKeyMeCartsByIDRequestBuilder {
     return new ByProjectKeyMeCartsByIDRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+        ...childPathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public keyWithKeyValue(childPathArgs: {
+    key: string
+  }): ByProjectKeyMeCartsKeyByKeyRequestBuilder {
+    return new ByProjectKeyMeCartsKeyByKeyRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
         ...childPathArgs,
