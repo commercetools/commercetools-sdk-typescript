@@ -217,9 +217,8 @@ export interface ExtensionBadResponseError {
 export interface ExtensionNoResponseError {
   readonly code: 'ExtensionNoResponse'
   readonly message: string
-  readonly localizedMessage?: LocalizedString
-  readonly extensionExtraInfo?: any
-  readonly errorByExtension: ErrorByExtension
+  readonly extensionId: string
+  readonly extensionKey?: string
 }
 export interface ExtensionUpdateActionsFailedError {
   readonly code: 'ExtensionUpdateActionsFailed'
