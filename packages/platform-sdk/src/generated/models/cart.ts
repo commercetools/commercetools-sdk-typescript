@@ -676,8 +676,8 @@ export interface ScoreShippingRateInput {
   readonly score: number
 }
 export type ShippingRateInputDraft =
-  | ScoreShippingRateInputDraft
   | ClassificationShippingRateInputDraft
+  | ScoreShippingRateInputDraft
 export interface ClassificationShippingRateInputDraft {
   readonly type: 'Classification'
   readonly key: string
@@ -1002,5 +1002,26 @@ export interface CartSetShippingRateInputAction {
 export interface CartUpdateItemShippingAddressAction {
   readonly action: 'updateItemShippingAddress'
   readonly address: Address
+}
+export interface CustomLineItemImportDraft {
+  readonly name: LocalizedString
+  /**
+   *	The amount of a CustomLineItem in the cart.
+   *	Must be a positive integer.
+   */
+  readonly quantity: number
+  /**
+   *	The cost to add to the cart. The amount can be negative.
+   */
+  readonly money: Money
+  readonly slug: string
+  readonly state?: ItemState[]
+  readonly taxRate?: TaxRate
+  readonly taxCategory?: TaxCategoryResourceIdentifier
+  /**
+   *	The custom fields.
+   */
+  readonly custom?: CustomFieldsDraft
+  readonly shippingDetails?: ItemShippingDetailsDraft
 }
 export type ProductPublishScope = 'All' | 'Prices'
