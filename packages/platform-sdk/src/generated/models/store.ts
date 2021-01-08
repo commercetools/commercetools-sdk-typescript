@@ -18,6 +18,7 @@ import {
   LastModifiedBy,
   LocalizedString,
 } from './common'
+import { CustomFields, CustomFieldsDraft, TypeResourceIdentifier } from './type'
 
 export interface Store extends BaseResource {
   readonly id: string
@@ -45,6 +46,7 @@ export interface Store extends BaseResource {
    *	Set of ResourceIdentifiers of Channels with `InventorySupply` role
    */
   readonly supplyChannels?: ChannelReference[]
+  readonly custom?: CustomFields
 }
 export interface StoreDraft {
   /**
@@ -66,6 +68,7 @@ export interface StoreDraft {
    *	Set of ResourceIdentifiers of Channels with `InventorySupply` role
    */
   readonly supplyChannels?: ChannelResourceIdentifier[]
+  readonly custom?: CustomFieldsDraft
 }
 export interface StoreKeyReference {
   readonly typeId: 'store'
@@ -97,6 +100,8 @@ export type StoreUpdateAction =
   | StoreAddSupplyChannelAction
   | StoreRemoveDistributionChannelAction
   | StoreRemoveSupplyChannelAction
+  | StoreSetCustomFieldAction
+  | StoreSetCustomTypeAction
   | StoreSetDistributionChannelsAction
   | StoreSetLanguagesAction
   | StoreSetNameAction
@@ -116,6 +121,24 @@ export interface StoreRemoveDistributionChannelAction {
 export interface StoreRemoveSupplyChannelAction {
   readonly action: 'removeSupplyChannel'
   readonly supplyChannel: ChannelResourceIdentifier
+}
+export interface StoreSetCustomFieldAction {
+  readonly action: 'setCustomField'
+  readonly name: string
+  readonly value?: any
+}
+export interface StoreSetCustomTypeAction {
+  readonly action: 'setCustomType'
+  /**
+   *	If set, the custom type is reset to this value.
+   *	If absent, the custom type and any existing custom fields are removed.
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *	A valid JSON object, based on the FieldDefinitions of the Type
+   *	Sets the custom field to this value.
+   */
+  readonly fields?: any
 }
 export interface StoreSetDistributionChannelsAction {
   readonly action: 'setDistributionChannels'
