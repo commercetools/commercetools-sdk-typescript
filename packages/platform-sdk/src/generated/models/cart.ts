@@ -568,6 +568,12 @@ export interface LineItem {
    *	Container for line item specific address(es).
    */
   readonly shippingDetails?: ItemShippingDetails
+  /**
+   *	The date when the LineItem was last modified by one of the following actions
+   *	setLineItemShippingDetails, addLineItem, removeLineItem, or changeLineItemQuantity.
+   *	Optional only for backwards compatible reasons. When the LineItem is created lastModifiedAt is set to addedAt.
+   */
+  readonly lastModifiedAt?: string
 }
 export interface LineItemDraft {
   readonly productId?: string
