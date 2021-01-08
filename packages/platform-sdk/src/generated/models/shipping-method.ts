@@ -144,9 +144,9 @@ export interface ShippingRateDraft {
   readonly tiers?: ShippingRatePriceTier[]
 }
 export type ShippingRatePriceTier =
-  | CartScoreTier
   | CartClassificationTier
   | CartValueTier
+  | CartScoreTier
 export interface CartClassificationTier {
   readonly type: 'CartClassification'
   readonly value: string

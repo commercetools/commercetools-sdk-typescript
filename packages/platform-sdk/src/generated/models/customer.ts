@@ -11,6 +11,7 @@
  *
  */
 
+import { CartResourceIdentifier } from './cart'
 import { Address, BaseResource, CreatedBy, LastModifiedBy } from './common'
 import {
   CustomerGroupReference,
@@ -144,6 +145,10 @@ export interface CustomerDraft {
    */
   readonly anonymousCartId?: string
   /**
+   *	Identifies a single cart that will be assigned to the new customer account.
+   */
+  readonly anonymousCart?: CartResourceIdentifier
+  /**
    *	Identifies carts and orders belonging to an anonymous session that will be assigned to the new customer account.
    */
   readonly anonymousId?: string
@@ -237,6 +242,7 @@ export interface CustomerSignin {
   readonly email: string
   readonly password: string
   readonly anonymousCartId?: string
+  readonly anonymousCart?: CartResourceIdentifier
   readonly anonymousCartSignInMode?: AnonymousCartSignInMode
   readonly anonymousId?: string
   readonly updateProductData?: boolean

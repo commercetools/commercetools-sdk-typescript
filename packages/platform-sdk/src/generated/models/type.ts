@@ -74,18 +74,18 @@ export interface FieldDefinition {
   readonly inputHint?: TypeTextInputHint
 }
 export type FieldType =
-  | CustomFieldStringType
   | CustomFieldSetType
-  | CustomFieldNumberType
-  | CustomFieldTimeType
-  | CustomFieldMoneyType
-  | CustomFieldLocalizedEnumType
-  | CustomFieldEnumType
-  | CustomFieldDateType
   | CustomFieldReferenceType
-  | CustomFieldDateTimeType
+  | CustomFieldMoneyType
+  | CustomFieldStringType
   | CustomFieldLocalizedStringType
+  | CustomFieldTimeType
+  | CustomFieldDateType
+  | CustomFieldDateTimeType
+  | CustomFieldLocalizedEnumType
+  | CustomFieldNumberType
   | CustomFieldBooleanType
+  | CustomFieldEnumType
 export interface CustomFieldBooleanType {
   readonly name: 'Boolean'
 }

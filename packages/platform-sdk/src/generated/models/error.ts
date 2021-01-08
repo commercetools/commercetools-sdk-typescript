@@ -75,25 +75,25 @@ export type ErrorObject =
   | ShippingMethodDoesNotMatchCartError
   | SyntaxErrorError
   | WeakPasswordError
-  | DuplicateVariantValuesError
-  | DiscountCodeNonApplicableError
   | DuplicatePriceScopeError
-  | AttributeDefinitionTypeConflictError
   | ConcurrentModificationError
-  | DuplicateEnumValuesError
-  | DuplicateFieldError
-  | DuplicateAttributeValuesError
-  | AccessDeniedError
-  | DuplicateFieldWithConflictingResourceError
-  | EnumKeyAlreadyExistsError
-  | DuplicateAttributeValueError
   | EnumValuesMustMatchError
-  | EditPreviewFailedError
-  | EnumValueIsUsedError
+  | DuplicateFieldWithConflictingResourceError
   | AttributeDefinitionAlreadyExistsError
-  | AnonymousIdAlreadyInUseError
-  | EnumKeyDoesNotExistError
   | AttributeNameDoesNotExistError
+  | DuplicateAttributeValuesError
+  | DuplicateEnumValuesError
+  | DuplicateAttributeValueError
+  | DuplicateFieldError
+  | EditPreviewFailedError
+  | DiscountCodeNonApplicableError
+  | EnumValueIsUsedError
+  | DuplicateVariantValuesError
+  | EnumKeyDoesNotExistError
+  | AnonymousIdAlreadyInUseError
+  | AccessDeniedError
+  | EnumKeyAlreadyExistsError
+  | AttributeDefinitionTypeConflictError
 export interface AccessDeniedError {
   readonly code: 'access_denied'
   readonly message: string
