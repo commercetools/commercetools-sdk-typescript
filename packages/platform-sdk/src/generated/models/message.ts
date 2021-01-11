@@ -157,6 +157,7 @@ export interface CategorySlugChangedMessage {
   readonly resourceVersion: number
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   readonly slug: LocalizedString
+  readonly oldSlug?: LocalizedString
 }
 export interface CustomLineItemStateTransitionMessage {
   readonly type: 'CustomLineItemStateTransition'
@@ -1124,6 +1125,7 @@ export interface ProductSlugChangedMessage {
   readonly resourceVersion: number
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   readonly slug: LocalizedString
+  readonly oldSlug?: LocalizedString
 }
 export interface ProductStateTransitionMessage {
   readonly type: 'ProductStateTransition'
@@ -1321,6 +1323,7 @@ export interface CategoryCreatedMessagePayload {
 export interface CategorySlugChangedMessagePayload {
   readonly type: 'CategorySlugChanged'
   readonly slug: LocalizedString
+  readonly oldSlug?: LocalizedString
 }
 export interface CustomLineItemStateTransitionMessagePayload {
   readonly type: 'CustomLineItemStateTransition'
@@ -1635,6 +1638,7 @@ export interface ProductRevertedStagedChangesMessagePayload {
 export interface ProductSlugChangedMessagePayload {
   readonly type: 'ProductSlugChanged'
   readonly slug: LocalizedString
+  readonly oldSlug?: LocalizedString
 }
 export interface ProductStateTransitionMessagePayload {
   readonly type: 'ProductStateTransition'
