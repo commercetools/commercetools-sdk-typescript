@@ -27,7 +27,7 @@ export class ByProjectKeyMissingDataImagesStatusByTaskIdRequestBuilder {
   ) {}
   public get(methodArgs?: {
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<MissingImagesTaskStatus> {
     return new ApiRequest<MissingImagesTaskStatus>(

@@ -33,11 +33,11 @@ export class ByProjectKeyShippingMethodsByIDRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ShippingMethod> {
     return new ApiRequest<ShippingMethod>(
@@ -59,12 +59,12 @@ export class ByProjectKeyShippingMethodsByIDRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: ShippingMethodUpdate
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ShippingMethod> {
     return new ApiRequest<ShippingMethod>(
@@ -89,11 +89,11 @@ export class ByProjectKeyShippingMethodsByIDRequestBuilder {
   public delete(methodArgs: {
     queryArgs: {
       version: number
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ShippingMethod> {
     return new ApiRequest<ShippingMethod>(

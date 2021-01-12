@@ -36,11 +36,11 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Customer> {
     return new ApiRequest<Customer>(
@@ -65,12 +65,12 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: Update
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Customer> {
     return new ApiRequest<Customer>(
@@ -96,11 +96,11 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
     queryArgs: {
       dataErasure?: boolean
       version: number
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Customer> {
     return new ApiRequest<Customer>(

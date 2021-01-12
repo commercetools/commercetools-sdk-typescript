@@ -30,7 +30,7 @@ export class ByProjectKeyCustomersEmailTokenRequestBuilder {
   public post(methodArgs: {
     body: CustomerCreateEmailToken
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<CustomerToken> {
     return new ApiRequest<CustomerToken>(

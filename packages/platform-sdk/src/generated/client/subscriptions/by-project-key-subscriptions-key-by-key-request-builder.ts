@@ -30,11 +30,11 @@ export class ByProjectKeySubscriptionsKeyByKeyRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Subscription> {
     return new ApiRequest<Subscription>(
@@ -56,12 +56,12 @@ export class ByProjectKeySubscriptionsKeyByKeyRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: SubscriptionUpdate
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Subscription> {
     return new ApiRequest<Subscription>(
@@ -86,11 +86,11 @@ export class ByProjectKeySubscriptionsKeyByKeyRequestBuilder {
   public delete(methodArgs: {
     queryArgs: {
       version: number
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Subscription> {
     return new ApiRequest<Subscription>(

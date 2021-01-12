@@ -60,16 +60,16 @@ export class ByProjectKeyReviewsRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
-      sort?: string
+      expand?: string | string[]
+      sort?: string | string[]
       limit?: number
       offset?: number
       withTotal?: boolean
-      where?: string
+      where?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ReviewPagedQueryResponse> {
     return new ApiRequest<ReviewPagedQueryResponse>(
@@ -91,12 +91,12 @@ export class ByProjectKeyReviewsRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: ReviewDraft
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Review> {
     return new ApiRequest<Review>(

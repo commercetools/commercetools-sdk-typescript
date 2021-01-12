@@ -443,7 +443,7 @@ export class ByProjectKeyRequestBuilder {
    */
   public get(methodArgs?: {
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Project> {
     return new ApiRequest<Project>(
@@ -465,7 +465,7 @@ export class ByProjectKeyRequestBuilder {
   public post(methodArgs: {
     body: ProjectUpdate
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Project> {
     return new ApiRequest<Project>(

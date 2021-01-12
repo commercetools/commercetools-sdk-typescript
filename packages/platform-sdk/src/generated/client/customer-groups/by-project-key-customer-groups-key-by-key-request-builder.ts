@@ -30,11 +30,11 @@ export class ByProjectKeyCustomerGroupsKeyByKeyRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<CustomerGroup> {
     return new ApiRequest<CustomerGroup>(
@@ -56,12 +56,12 @@ export class ByProjectKeyCustomerGroupsKeyByKeyRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: CustomerGroupUpdate
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<CustomerGroup> {
     return new ApiRequest<CustomerGroup>(
@@ -86,11 +86,11 @@ export class ByProjectKeyCustomerGroupsKeyByKeyRequestBuilder {
   public delete(methodArgs: {
     queryArgs: {
       version: number
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<CustomerGroup> {
     return new ApiRequest<CustomerGroup>(

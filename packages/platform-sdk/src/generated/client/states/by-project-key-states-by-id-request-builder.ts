@@ -30,11 +30,11 @@ export class ByProjectKeyStatesByIDRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<State> {
     return new ApiRequest<State>(
@@ -56,12 +56,12 @@ export class ByProjectKeyStatesByIDRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: StateUpdate
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<State> {
     return new ApiRequest<State>(
@@ -86,11 +86,11 @@ export class ByProjectKeyStatesByIDRequestBuilder {
   public delete(methodArgs: {
     queryArgs: {
       version: number
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<State> {
     return new ApiRequest<State>(

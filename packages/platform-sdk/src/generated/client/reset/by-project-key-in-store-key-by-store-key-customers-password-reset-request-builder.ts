@@ -31,7 +31,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersPasswordResetRequestBuilde
   public post(methodArgs: {
     body: CustomerResetPassword
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Customer> {
     return new ApiRequest<Customer>(

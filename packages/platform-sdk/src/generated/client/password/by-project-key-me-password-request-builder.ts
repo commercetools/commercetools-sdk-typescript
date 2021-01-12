@@ -38,7 +38,7 @@ export class ByProjectKeyMePasswordRequestBuilder {
   public post(methodArgs: {
     body: void
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<MyCustomer> {
     return new ApiRequest<MyCustomer>(

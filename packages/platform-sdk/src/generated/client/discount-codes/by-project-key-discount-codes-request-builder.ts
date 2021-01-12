@@ -47,16 +47,16 @@ export class ByProjectKeyDiscountCodesRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
-      sort?: string
+      expand?: string | string[]
+      sort?: string | string[]
       limit?: number
       offset?: number
       withTotal?: boolean
-      where?: string
+      where?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<DiscountCodePagedQueryResponse> {
     return new ApiRequest<DiscountCodePagedQueryResponse>(
@@ -78,12 +78,12 @@ export class ByProjectKeyDiscountCodesRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: DiscountCodeDraft
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<DiscountCode> {
     return new ApiRequest<DiscountCode>(

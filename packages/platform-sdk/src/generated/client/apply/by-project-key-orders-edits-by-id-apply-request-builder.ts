@@ -28,7 +28,7 @@ export class ByProjectKeyOrdersEditsByIDApplyRequestBuilder {
   public post(methodArgs: {
     body: OrderEditApply
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<void> {
     return new ApiRequest<void>(

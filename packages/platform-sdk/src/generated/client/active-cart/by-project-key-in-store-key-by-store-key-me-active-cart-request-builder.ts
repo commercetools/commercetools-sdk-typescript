@@ -27,7 +27,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeActiveCartRequestBuilder {
   ) {}
   public get(methodArgs?: {
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Cart> {
     return new ApiRequest<Cart>(

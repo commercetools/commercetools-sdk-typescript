@@ -30,11 +30,11 @@ export class ByProjectKeyTypesByIDRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Type> {
     return new ApiRequest<Type>(
@@ -56,12 +56,12 @@ export class ByProjectKeyTypesByIDRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: TypeUpdate
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Type> {
     return new ApiRequest<Type>(
@@ -86,11 +86,11 @@ export class ByProjectKeyTypesByIDRequestBuilder {
   public delete(methodArgs: {
     queryArgs: {
       version: number
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Type> {
     return new ApiRequest<Type>(

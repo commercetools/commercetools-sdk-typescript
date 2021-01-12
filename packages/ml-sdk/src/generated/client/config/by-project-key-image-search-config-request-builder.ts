@@ -32,7 +32,7 @@ export class ByProjectKeyImageSearchConfigRequestBuilder {
    */
   public get(methodArgs?: {
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ImageSearchConfigResponse> {
     return new ApiRequest<ImageSearchConfigResponse>(
@@ -54,7 +54,7 @@ export class ByProjectKeyImageSearchConfigRequestBuilder {
   public post(methodArgs: {
     body: ImageSearchConfigRequest
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ImageSearchConfigResponse> {
     return new ApiRequest<ImageSearchConfigResponse>(

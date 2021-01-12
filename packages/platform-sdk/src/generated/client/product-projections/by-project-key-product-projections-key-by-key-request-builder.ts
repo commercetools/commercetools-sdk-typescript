@@ -40,11 +40,11 @@ export class ByProjectKeyProductProjectionsKeyByKeyRequestBuilder {
       priceChannel?: string
       localeProjection?: string
       storeProjection?: string
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ProductProjection> {
     return new ApiRequest<ProductProjection>(

@@ -60,16 +60,16 @@ export class ByProjectKeySubscriptionsRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
-      sort?: string
+      expand?: string | string[]
+      sort?: string | string[]
       limit?: number
       offset?: number
       withTotal?: boolean
-      where?: string
+      where?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<SubscriptionPagedQueryResponse> {
     return new ApiRequest<SubscriptionPagedQueryResponse>(
@@ -96,12 +96,12 @@ export class ByProjectKeySubscriptionsRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: SubscriptionDraft
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Subscription> {
     return new ApiRequest<Subscription>(

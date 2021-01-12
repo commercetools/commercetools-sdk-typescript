@@ -27,7 +27,7 @@ export class ByProjectKeyCartsReplicateRequestBuilder {
   public post(methodArgs: {
     body: ReplicaCartDraft
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Cart> {
     return new ApiRequest<Cart>(

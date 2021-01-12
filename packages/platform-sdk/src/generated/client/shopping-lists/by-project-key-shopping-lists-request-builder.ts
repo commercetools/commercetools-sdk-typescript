@@ -60,16 +60,16 @@ export class ByProjectKeyShoppingListsRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
-      sort?: string
+      expand?: string | string[]
+      sort?: string | string[]
       limit?: number
       offset?: number
       withTotal?: boolean
-      where?: string
+      where?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ShoppingListPagedQueryResponse> {
     return new ApiRequest<ShoppingListPagedQueryResponse>(
@@ -91,12 +91,12 @@ export class ByProjectKeyShoppingListsRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: ShoppingListDraft
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ShoppingList> {
     return new ApiRequest<ShoppingList>(

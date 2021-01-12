@@ -31,11 +31,11 @@ export class ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<MyShoppingList> {
     return new ApiRequest<MyShoppingList>(
@@ -57,12 +57,12 @@ export class ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: MyShoppingListUpdate
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<MyShoppingList> {
     return new ApiRequest<MyShoppingList>(
@@ -87,11 +87,11 @@ export class ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder {
   public delete(methodArgs: {
     queryArgs: {
       version: number
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<MyShoppingList> {
     return new ApiRequest<MyShoppingList>(

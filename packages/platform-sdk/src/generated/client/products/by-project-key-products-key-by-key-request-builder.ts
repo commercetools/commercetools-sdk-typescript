@@ -36,11 +36,11 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
       priceChannel?: string
       localeProjection?: string
       storeProjection?: string
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Product> {
     return new ApiRequest<Product>(
@@ -68,12 +68,12 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
       priceChannel?: string
       localeProjection?: string
       storeProjection?: string
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: ProductUpdate
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Product> {
     return new ApiRequest<Product>(
@@ -104,11 +104,11 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
       localeProjection?: string
       storeProjection?: string
       version: number
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Product> {
     return new ApiRequest<Product>(

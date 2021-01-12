@@ -99,16 +99,16 @@ export class ByProjectKeyShippingMethodsRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
-      sort?: string
+      expand?: string | string[]
+      sort?: string | string[]
       limit?: number
       offset?: number
       withTotal?: boolean
-      where?: string
+      where?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ShippingMethodPagedQueryResponse> {
     return new ApiRequest<ShippingMethodPagedQueryResponse>(
@@ -130,12 +130,12 @@ export class ByProjectKeyShippingMethodsRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: ShippingMethodDraft
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ShippingMethod> {
     return new ApiRequest<ShippingMethod>(

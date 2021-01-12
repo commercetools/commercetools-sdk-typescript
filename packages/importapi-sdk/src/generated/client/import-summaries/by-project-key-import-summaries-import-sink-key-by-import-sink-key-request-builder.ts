@@ -33,7 +33,7 @@ export class ByProjectKeyImportSummariesImportSinkKeyByImportSinkKeyRequestBuild
    */
   public get(methodArgs?: {
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ImportSummary> {
     return new ApiRequest<ImportSummary>(

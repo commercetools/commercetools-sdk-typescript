@@ -57,16 +57,16 @@ export class ByProjectKeyMeCartsRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
-      sort?: string
+      expand?: string | string[]
+      sort?: string | string[]
       limit?: number
       offset?: number
       withTotal?: boolean
-      where?: string
+      where?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<CartPagedQueryResponse> {
     return new ApiRequest<CartPagedQueryResponse>(
@@ -88,12 +88,12 @@ export class ByProjectKeyMeCartsRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: MyCartDraft
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<MyCart> {
     return new ApiRequest<MyCart>(

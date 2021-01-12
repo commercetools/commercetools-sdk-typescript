@@ -39,7 +39,7 @@ export class ByProjectKeyMissingDataPricesRequestBuilder {
   public post(methodArgs: {
     body: MissingPricesSearchRequest
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<TaskToken> {
     return new ApiRequest<TaskToken>(

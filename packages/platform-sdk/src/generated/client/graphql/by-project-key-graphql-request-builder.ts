@@ -30,7 +30,7 @@ export class ByProjectKeyGraphqlRequestBuilder {
   public post(methodArgs: {
     body: GraphQLRequest
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<GraphQLResponse> {
     return new ApiRequest<GraphQLResponse>(

@@ -39,7 +39,7 @@ export class ByProjectKeySimilaritiesProductsRequestBuilder {
   public post(methodArgs: {
     body: SimilarProductSearchRequest
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<TaskToken> {
     return new ApiRequest<TaskToken>(

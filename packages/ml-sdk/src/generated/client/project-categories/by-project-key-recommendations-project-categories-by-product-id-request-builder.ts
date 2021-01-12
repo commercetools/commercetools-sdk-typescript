@@ -39,7 +39,7 @@ export class ByProjectKeyRecommendationsProjectCategoriesByProductIdRequestBuild
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ProjectCategoryRecommendationPagedQueryResponse> {
     return new ApiRequest<ProjectCategoryRecommendationPagedQueryResponse>(

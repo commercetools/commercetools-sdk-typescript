@@ -164,16 +164,16 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
-      sort?: string
+      expand?: string | string[]
+      sort?: string | string[]
       limit?: number
       offset?: number
       withTotal?: boolean
-      where?: string
+      where?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<CustomerPagedQueryResponse> {
     return new ApiRequest<CustomerPagedQueryResponse>(
@@ -203,12 +203,12 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: CustomerDraft
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<CustomerSignInResult> {
     return new ApiRequest<CustomerSignInResult>(

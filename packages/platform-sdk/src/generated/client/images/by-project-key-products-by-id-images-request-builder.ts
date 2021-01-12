@@ -40,7 +40,7 @@ export class ByProjectKeyProductsByIDImagesRequestBuilder {
     body: Buffer
     headers: {
       'Content-Type': 'image/jpeg' | 'image/png' | 'image/gif'
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Product> {
     return new ApiRequest<Product>(

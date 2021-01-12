@@ -96,16 +96,16 @@ export class ByProjectKeyProductProjectionsRequestBuilder {
       priceChannel?: string
       localeProjection?: string
       storeProjection?: string
-      expand?: string
-      sort?: string
+      expand?: string | string[]
+      sort?: string | string[]
       limit?: number
       offset?: number
       withTotal?: boolean
-      where?: string
+      where?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ProductProjectionPagedQueryResponse> {
     return new ApiRequest<ProductProjectionPagedQueryResponse>(

@@ -30,11 +30,11 @@ export class ByProjectKeyCustomObjectsByContainerRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<CustomObject> {
     return new ApiRequest<CustomObject>(

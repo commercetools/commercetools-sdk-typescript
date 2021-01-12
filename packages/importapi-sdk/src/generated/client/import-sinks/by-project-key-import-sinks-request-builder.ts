@@ -48,7 +48,7 @@ export class ByProjectKeyImportSinksRequestBuilder {
   public post(methodArgs: {
     body: ImportSinkDraft
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ImportSink> {
     return new ApiRequest<ImportSink>(
@@ -76,7 +76,7 @@ export class ByProjectKeyImportSinksRequestBuilder {
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ImportSinkPagedResponse> {
     return new ApiRequest<ImportSinkPagedResponse>(

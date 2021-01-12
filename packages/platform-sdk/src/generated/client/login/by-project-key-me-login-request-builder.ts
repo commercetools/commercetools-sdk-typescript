@@ -27,7 +27,7 @@ export class ByProjectKeyMeLoginRequestBuilder {
   public post(methodArgs: {
     body: void
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<CustomerSignInResult> {
     return new ApiRequest<CustomerSignInResult>(

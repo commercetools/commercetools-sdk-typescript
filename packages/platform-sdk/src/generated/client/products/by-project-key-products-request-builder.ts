@@ -69,16 +69,16 @@ export class ByProjectKeyProductsRequestBuilder {
       priceChannel?: string
       localeProjection?: string
       storeProjection?: string
-      expand?: string
-      sort?: string
+      expand?: string | string[]
+      sort?: string | string[]
       limit?: number
       offset?: number
       withTotal?: boolean
-      where?: string
+      where?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ProductPagedQueryResponse> {
     return new ApiRequest<ProductPagedQueryResponse>(
@@ -109,12 +109,12 @@ export class ByProjectKeyProductsRequestBuilder {
       priceChannel?: string
       localeProjection?: string
       storeProjection?: string
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: ProductDraft
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Product> {
     return new ApiRequest<Product>(

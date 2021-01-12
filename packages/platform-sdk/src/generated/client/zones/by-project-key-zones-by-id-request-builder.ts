@@ -30,11 +30,11 @@ export class ByProjectKeyZonesByIDRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Zone> {
     return new ApiRequest<Zone>(
@@ -56,12 +56,12 @@ export class ByProjectKeyZonesByIDRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: ZoneUpdate
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Zone> {
     return new ApiRequest<Zone>(
@@ -86,11 +86,11 @@ export class ByProjectKeyZonesByIDRequestBuilder {
   public delete(methodArgs: {
     queryArgs: {
       version: number
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Zone> {
     return new ApiRequest<Zone>(

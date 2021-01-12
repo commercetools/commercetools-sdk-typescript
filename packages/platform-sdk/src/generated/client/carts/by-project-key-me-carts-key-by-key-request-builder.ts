@@ -28,7 +28,7 @@ export class ByProjectKeyMeCartsKeyByKeyRequestBuilder {
   public post(methodArgs: {
     body: MyCartUpdate
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<void> {
     return new ApiRequest<void>(

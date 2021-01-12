@@ -39,7 +39,7 @@ export class ByProjectKeyMissingDataAttributesRequestBuilder {
   public post(methodArgs: {
     body: MissingAttributesSearchRequest
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<TaskToken> {
     return new ApiRequest<TaskToken>(

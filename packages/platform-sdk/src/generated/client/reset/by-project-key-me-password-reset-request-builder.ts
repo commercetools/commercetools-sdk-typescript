@@ -26,7 +26,7 @@ export class ByProjectKeyMePasswordResetRequestBuilder {
   ) {}
   public post(methodArgs?: {
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<MyCustomer> {
     return new ApiRequest<MyCustomer>(

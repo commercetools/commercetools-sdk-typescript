@@ -47,7 +47,7 @@ export class ByProjectKeyImageSearchRequestBuilder {
     }
     body: Buffer
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ImageSearchResponse> {
     return new ApiRequest<ImageSearchResponse>(

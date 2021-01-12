@@ -32,7 +32,7 @@ export class ByProjectKeyProductsImportSinkKeyByImportSinkKeyImportOperationsByI
    */
   public get(methodArgs?: {
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ImportOperation> {
     return new ApiRequest<ImportOperation>(

@@ -39,7 +39,7 @@ export class ByProjectKeyMissingDataImagesRequestBuilder {
   public post(methodArgs: {
     body: MissingImagesSearchRequest
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<TaskToken> {
     return new ApiRequest<TaskToken>(

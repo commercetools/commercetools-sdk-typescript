@@ -44,7 +44,7 @@ export class ByProjectKeyOrdersImportSinkKeyByImportSinkKeyRequestBuilder {
   public post(methodArgs: {
     body: OrderImportRequest
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ImportResponse> {
     return new ApiRequest<ImportResponse>(

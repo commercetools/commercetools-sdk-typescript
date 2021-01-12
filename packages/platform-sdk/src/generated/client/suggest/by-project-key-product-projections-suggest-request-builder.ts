@@ -27,14 +27,14 @@ export class ByProjectKeyProductProjectionsSuggestRequestBuilder {
     queryArgs?: {
       fuzzy?: boolean
       staged?: boolean
-      sort?: string
+      sort?: string | string[]
       limit?: number
       offset?: number
       withTotal?: boolean
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<any> {
     return new ApiRequest<any>(

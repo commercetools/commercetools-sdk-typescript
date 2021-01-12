@@ -32,7 +32,7 @@ export class ByProjectKeyShippingMethodsMatchingOrdereditRequestBuilder {
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ShippingMethodPagedQueryResponse> {
     return new ApiRequest<ShippingMethodPagedQueryResponse>(

@@ -30,11 +30,11 @@ export class ByProjectKeyMePaymentsKeyByKeyRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<MyPayment> {
     return new ApiRequest<MyPayment>(
@@ -56,12 +56,12 @@ export class ByProjectKeyMePaymentsKeyByKeyRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: MyPaymentUpdate
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<MyPayment> {
     return new ApiRequest<MyPayment>(
@@ -86,11 +86,11 @@ export class ByProjectKeyMePaymentsKeyByKeyRequestBuilder {
   public delete(methodArgs: {
     queryArgs: {
       version: number
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<MyPayment> {
     return new ApiRequest<MyPayment>(

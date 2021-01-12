@@ -31,7 +31,7 @@ export class ByProjectKeyProductDraftsImportSinkKeyByImportSinkKeyResourceKeyByR
    */
   public delete(methodArgs?: {
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ImportOperationStatus> {
     return new ApiRequest<ImportOperationStatus>(

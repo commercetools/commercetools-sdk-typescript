@@ -30,11 +30,11 @@ export class ByProjectKeyInventoryByIDRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<InventoryEntry> {
     return new ApiRequest<InventoryEntry>(
@@ -56,12 +56,12 @@ export class ByProjectKeyInventoryByIDRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: InventoryEntryUpdate
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<InventoryEntry> {
     return new ApiRequest<InventoryEntry>(
@@ -86,11 +86,11 @@ export class ByProjectKeyInventoryByIDRequestBuilder {
   public delete(methodArgs: {
     queryArgs: {
       version: number
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<InventoryEntry> {
     return new ApiRequest<InventoryEntry>(

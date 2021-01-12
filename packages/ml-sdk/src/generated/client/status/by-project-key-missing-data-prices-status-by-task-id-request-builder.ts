@@ -27,7 +27,7 @@ export class ByProjectKeyMissingDataPricesStatusByTaskIdRequestBuilder {
   ) {}
   public get(methodArgs?: {
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<MissingPricesTaskStatus> {
     return new ApiRequest<MissingPricesTaskStatus>(

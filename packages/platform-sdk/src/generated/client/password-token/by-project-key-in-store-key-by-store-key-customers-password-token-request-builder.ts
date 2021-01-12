@@ -36,7 +36,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersPasswordTokenRequestBuilde
   public post(methodArgs: {
     body: CustomerCreatePasswordResetToken
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<CustomerToken> {
     return new ApiRequest<CustomerToken>(

@@ -30,11 +30,11 @@ export class ByProjectKeyOrdersByIDRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Order> {
     return new ApiRequest<Order>(
@@ -56,12 +56,12 @@ export class ByProjectKeyOrdersByIDRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: OrderUpdate
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Order> {
     return new ApiRequest<Order>(
@@ -87,11 +87,11 @@ export class ByProjectKeyOrdersByIDRequestBuilder {
     queryArgs: {
       dataErasure?: boolean
       version: number
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Order> {
     return new ApiRequest<Order>(

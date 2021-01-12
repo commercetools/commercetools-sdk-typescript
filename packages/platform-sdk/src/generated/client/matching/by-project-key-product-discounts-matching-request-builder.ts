@@ -30,7 +30,7 @@ export class ByProjectKeyProductDiscountsMatchingRequestBuilder {
   public post(methodArgs: {
     body: ProductDiscountMatchQuery
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ProductDiscount> {
     return new ApiRequest<ProductDiscount>(

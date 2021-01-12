@@ -27,7 +27,7 @@ export class ByProjectKeySimilaritiesProductsStatusByTaskIdRequestBuilder {
   ) {}
   public get(methodArgs?: {
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<SimilarProductsTaskStatus> {
     return new ApiRequest<SimilarProductsTaskStatus>(

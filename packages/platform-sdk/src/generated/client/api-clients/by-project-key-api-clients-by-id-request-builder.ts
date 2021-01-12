@@ -30,7 +30,7 @@ export class ByProjectKeyApiClientsByIDRequestBuilder {
    */
   public get(methodArgs?: {
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ApiClient> {
     return new ApiRequest<ApiClient>(
@@ -51,7 +51,7 @@ export class ByProjectKeyApiClientsByIDRequestBuilder {
    */
   public delete(methodArgs?: {
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ApiClient> {
     return new ApiRequest<ApiClient>(

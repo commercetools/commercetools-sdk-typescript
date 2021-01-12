@@ -60,16 +60,16 @@ export class ByProjectKeyProductTypesRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
-      sort?: string
+      expand?: string | string[]
+      sort?: string | string[]
       limit?: number
       offset?: number
       withTotal?: boolean
-      where?: string
+      where?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ProductTypePagedQueryResponse> {
     return new ApiRequest<ProductTypePagedQueryResponse>(
@@ -91,12 +91,12 @@ export class ByProjectKeyProductTypesRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: ProductTypeDraft
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ProductType> {
     return new ApiRequest<ProductType>(

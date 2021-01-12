@@ -30,7 +30,7 @@ export class ByProjectKeyCustomersPasswordRequestBuilder {
   public post(methodArgs: {
     body: CustomerChangePassword
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Customer> {
     return new ApiRequest<Customer>(

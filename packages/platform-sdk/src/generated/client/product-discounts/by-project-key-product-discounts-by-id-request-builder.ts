@@ -33,11 +33,11 @@ export class ByProjectKeyProductDiscountsByIDRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ProductDiscount> {
     return new ApiRequest<ProductDiscount>(
@@ -59,12 +59,12 @@ export class ByProjectKeyProductDiscountsByIDRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: ProductDiscountUpdate
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ProductDiscount> {
     return new ApiRequest<ProductDiscount>(
@@ -89,11 +89,11 @@ export class ByProjectKeyProductDiscountsByIDRequestBuilder {
   public delete(methodArgs: {
     queryArgs: {
       version: number
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ProductDiscount> {
     return new ApiRequest<ProductDiscount>(

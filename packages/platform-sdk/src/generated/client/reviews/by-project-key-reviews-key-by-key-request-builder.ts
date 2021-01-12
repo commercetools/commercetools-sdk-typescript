@@ -30,11 +30,11 @@ export class ByProjectKeyReviewsKeyByKeyRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Review> {
     return new ApiRequest<Review>(
@@ -56,12 +56,12 @@ export class ByProjectKeyReviewsKeyByKeyRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: ReviewUpdate
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Review> {
     return new ApiRequest<Review>(
@@ -87,11 +87,11 @@ export class ByProjectKeyReviewsKeyByKeyRequestBuilder {
     queryArgs: {
       dataErasure?: boolean
       version: number
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Review> {
     return new ApiRequest<Review>(

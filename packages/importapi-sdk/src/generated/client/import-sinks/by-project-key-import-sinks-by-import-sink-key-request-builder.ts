@@ -31,7 +31,7 @@ export class ByProjectKeyImportSinksByImportSinkKeyRequestBuilder {
   public put(methodArgs: {
     body: ImportSinkDraft
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ImportSink> {
     return new ApiRequest<ImportSink>(
@@ -54,7 +54,7 @@ export class ByProjectKeyImportSinksByImportSinkKeyRequestBuilder {
    */
   public get(methodArgs?: {
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ImportSink> {
     return new ApiRequest<ImportSink>(
@@ -75,7 +75,7 @@ export class ByProjectKeyImportSinksByImportSinkKeyRequestBuilder {
    */
   public delete(methodArgs?: {
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ImportSink> {
     return new ApiRequest<ImportSink>(

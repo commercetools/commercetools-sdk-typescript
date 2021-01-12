@@ -30,7 +30,7 @@ export class ByProjectKeyOrdersImportRequestBuilder {
   public post(methodArgs: {
     body: OrderImportDraft
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<Order> {
     return new ApiRequest<Order>(

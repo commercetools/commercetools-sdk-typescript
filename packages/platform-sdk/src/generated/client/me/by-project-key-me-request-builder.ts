@@ -129,16 +129,16 @@ export class ByProjectKeyMeRequestBuilder {
 
   public get(methodArgs?: {
     queryArgs?: {
-      sort?: string
+      sort?: string | string[]
       limit?: number
       offset?: number
       withTotal?: boolean
-      expand?: string
-      where?: string
+      expand?: string | string[]
+      where?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<MyCustomer> {
     return new ApiRequest<MyCustomer>(
@@ -161,7 +161,7 @@ export class ByProjectKeyMeRequestBuilder {
   public post(methodArgs: {
     body: MyCustomerUpdate
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<MyCustomer> {
     return new ApiRequest<MyCustomer>(
@@ -188,7 +188,7 @@ export class ByProjectKeyMeRequestBuilder {
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<MyCustomer> {
     return new ApiRequest<MyCustomer>(

@@ -62,7 +62,7 @@ export class ByProjectKeyCustomersImportSinkKeyByImportSinkKeyRequestBuilder {
   public post(methodArgs: {
     body: CustomerImportRequest
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ImportResponse> {
     return new ApiRequest<ImportResponse>(

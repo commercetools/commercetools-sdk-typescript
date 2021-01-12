@@ -28,7 +28,7 @@ export class ByProjectKeyMeSignupRequestBuilder {
   public post(methodArgs: {
     body: MyCustomerDraft
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<CustomerSignInResult> {
     return new ApiRequest<CustomerSignInResult>(

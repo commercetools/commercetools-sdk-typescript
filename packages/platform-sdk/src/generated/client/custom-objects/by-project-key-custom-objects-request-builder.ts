@@ -64,16 +64,16 @@ export class ByProjectKeyCustomObjectsRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
-      sort?: string
+      expand?: string | string[]
+      sort?: string | string[]
       limit?: number
       offset?: number
       withTotal?: boolean
-      where?: string
+      where?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<CustomObjectPagedQueryResponse> {
     return new ApiRequest<CustomObjectPagedQueryResponse>(
@@ -102,12 +102,12 @@ export class ByProjectKeyCustomObjectsRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: CustomObjectDraft
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<CustomObject> {
     return new ApiRequest<CustomObject>(

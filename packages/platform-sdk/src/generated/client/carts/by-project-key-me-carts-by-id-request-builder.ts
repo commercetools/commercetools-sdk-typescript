@@ -30,11 +30,11 @@ export class ByProjectKeyMeCartsByIDRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<MyCart> {
     return new ApiRequest<MyCart>(
@@ -56,12 +56,12 @@ export class ByProjectKeyMeCartsByIDRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: MyCartUpdate
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<MyCart> {
     return new ApiRequest<MyCart>(
@@ -86,11 +86,11 @@ export class ByProjectKeyMeCartsByIDRequestBuilder {
   public delete(methodArgs: {
     queryArgs: {
       version: number
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<MyCart> {
     return new ApiRequest<MyCart>(

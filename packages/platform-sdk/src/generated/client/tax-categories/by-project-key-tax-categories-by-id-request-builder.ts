@@ -30,11 +30,11 @@ export class ByProjectKeyTaxCategoriesByIDRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<TaxCategory> {
     return new ApiRequest<TaxCategory>(
@@ -56,12 +56,12 @@ export class ByProjectKeyTaxCategoriesByIDRequestBuilder {
    */
   public post(methodArgs: {
     queryArgs?: {
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     body: TaxCategoryUpdate
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<TaxCategory> {
     return new ApiRequest<TaxCategory>(
@@ -86,11 +86,11 @@ export class ByProjectKeyTaxCategoriesByIDRequestBuilder {
   public delete(methodArgs: {
     queryArgs: {
       version: number
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<TaxCategory> {
     return new ApiRequest<TaxCategory>(

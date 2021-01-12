@@ -49,13 +49,13 @@ export class ByProjectKeyProductDraftsImportSinkKeyByImportSinkKeyImportOperatio
     queryArgs?: {
       limit?: number
       offset?: number
-      sort?: string[]
+      sort?: string | string[]
       resourceKey?: string
       state?: ProcessingState
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ImportOperationPagedResponse> {
     return new ApiRequest<ImportOperationPagedResponse>(

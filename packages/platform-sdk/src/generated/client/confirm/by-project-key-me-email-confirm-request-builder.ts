@@ -25,7 +25,7 @@ export class ByProjectKeyMeEmailConfirmRequestBuilder {
   ) {}
   public post(methodArgs?: {
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<void> {
     return new ApiRequest<void>(

@@ -29,7 +29,7 @@ export class ByProjectKeyProductProjectionsSearchRequestBuilder {
    */
   public post(methodArgs?: {
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<void> {
     return new ApiRequest<void>(
@@ -54,11 +54,11 @@ export class ByProjectKeyProductProjectionsSearchRequestBuilder {
       fuzzyLevel?: number
       markMatchingVariants: boolean
       staged?: boolean
-      filter?: string
-      'filter.facets'?: string
-      'filter.query'?: string
-      facet?: string
-      sort?: string
+      filter?: string | string[]
+      'filter.facets'?: string | string[]
+      'filter.query'?: string | string[]
+      facet?: string | string[]
+      sort?: string | string[]
       limit?: number
       offset?: number
       withTotal?: boolean
@@ -68,11 +68,11 @@ export class ByProjectKeyProductProjectionsSearchRequestBuilder {
       priceChannel?: string
       localeProjection?: string
       storeProjection?: string
-      expand?: string
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<ProductProjectionPagedSearchResponse> {
     return new ApiRequest<ProductProjectionPagedSearchResponse>(

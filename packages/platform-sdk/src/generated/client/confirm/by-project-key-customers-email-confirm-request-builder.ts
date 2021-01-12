@@ -30,7 +30,7 @@ export class ByProjectKeyCustomersEmailConfirmRequestBuilder {
   public post(methodArgs: {
     body: CustomerEmailVerify
     headers?: {
-      [key: string]: string
+      [key: string]: string | string[]
     }
   }): ApiRequest<void> {
     return new ApiRequest<void>(
