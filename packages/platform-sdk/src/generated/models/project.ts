@@ -71,8 +71,8 @@ export type ProjectUpdateAction =
   | ProjectSetExternalOAuthAction
   | ProjectSetShippingRateInputTypeAction
 export type ShippingRateInputType =
-  | CartValueType
   | CartScoreType
+  | CartValueType
   | CartClassificationType
 export interface CartClassificationType {
   readonly type: 'CartClassification'

@@ -110,26 +110,27 @@ export type Message =
   | ReviewCreatedMessage
   | ReviewRatingSetMessage
   | ReviewStateTransitionMessage
-  | LineItemStateTransitionMessage
-  | CustomerCompanyNameSetMessage
-  | CustomerEmailVerifiedMessage
-  | CustomLineItemStateTransitionMessage
-  | CustomerDateOfBirthSetMessage
-  | CustomerAddressAddedMessage
-  | CustomerAddressChangedMessage
-  | InventoryEntryCreatedMessage
-  | DeliveryAddedMessage
   | InventoryEntryDeletedMessage
+  | InventoryEntryCreatedMessage
+  | CustomerAddressChangedMessage
+  | CustomerDateOfBirthSetMessage
   | CategoryCreatedMessage
-  | CustomerGroupSetMessage
-  | DeliveryRemovedMessage
-  | CustomerCreatedMessage
+  | CustomerCompanyNameSetMessage
   | CategorySlugChangedMessage
-  | DeliveryItemsUpdatedMessage
-  | InventoryEntryQuantitySetMessage
-  | CustomerAddressRemovedMessage
+  | CustomLineItemStateTransitionMessage
   | DeliveryAddressSetMessage
+  | CustomerEmailVerifiedMessage
+  | DeliveryItemsUpdatedMessage
+  | LineItemStateTransitionMessage
   | CustomerEmailChangedMessage
+  | DeliveryAddedMessage
+  | CustomerAddressRemovedMessage
+  | CustomerPasswordUpdatedMessage
+  | InventoryEntryQuantitySetMessage
+  | DeliveryRemovedMessage
+  | CustomerAddressAddedMessage
+  | CustomerGroupSetMessage
+  | CustomerCreatedMessage
 export interface CategoryCreatedMessage {
   readonly type: 'CategoryCreated'
   readonly id: string
@@ -301,6 +302,23 @@ export interface CustomerGroupSetMessage {
   readonly resourceVersion: number
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   readonly customerGroup: CustomerGroupReference
+}
+export interface CustomerPasswordUpdatedMessage {
+  readonly type: 'CustomerPasswordUpdated'
+  readonly id: string
+  readonly version: number
+  readonly createdAt: string
+  readonly lastModifiedAt: string
+  readonly lastModifiedBy?: LastModifiedBy
+  readonly createdBy?: CreatedBy
+  readonly sequenceNumber: number
+  readonly resource: Reference
+  readonly resourceVersion: number
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	true, if password has been updated during Customer's Password Reset workflow.
+   */
+  readonly reset: boolean
 }
 export interface DeliveryAddedMessage {
   readonly type: 'DeliveryAdded'
@@ -1296,26 +1314,27 @@ export type MessagePayload =
   | ReviewCreatedMessagePayload
   | ReviewRatingSetMessagePayload
   | ReviewStateTransitionMessagePayload
-  | CustomerEmailVerifiedMessagePayload
-  | CustomerGroupSetMessagePayload
-  | DeliveryAddressSetMessagePayload
-  | DeliveryRemovedMessagePayload
-  | DeliveryAddedMessagePayload
-  | CustomerAddressRemovedMessagePayload
-  | InventoryEntryCreatedMessagePayload
-  | CategorySlugChangedMessagePayload
-  | InventoryEntryDeletedMessagePayload
+  | CustomerCreatedMessagePayload
   | CustomerDateOfBirthSetMessagePayload
+  | CustomerEmailVerifiedMessagePayload
+  | CustomerPasswordUpdatedMessagePayload
+  | CustomerEmailChangedMessagePayload
+  | CustomLineItemStateTransitionMessagePayload
+  | InventoryEntryDeletedMessagePayload
+  | DeliveryAddedMessagePayload
+  | DeliveryAddressSetMessagePayload
+  | LineItemStateTransitionMessagePayload
+  | CustomerAddressRemovedMessagePayload
+  | CategoryCreatedMessagePayload
   | CustomerAddressAddedMessagePayload
+  | DeliveryItemsUpdatedMessagePayload
+  | CategorySlugChangedMessagePayload
+  | InventoryEntryCreatedMessagePayload
+  | CustomerGroupSetMessagePayload
+  | DeliveryRemovedMessagePayload
+  | CustomerAddressChangedMessagePayload
   | CustomerCompanyNameSetMessagePayload
   | InventoryEntryQuantitySetMessagePayload
-  | CategoryCreatedMessagePayload
-  | CustomerAddressChangedMessagePayload
-  | CustomLineItemStateTransitionMessagePayload
-  | DeliveryItemsUpdatedMessagePayload
-  | LineItemStateTransitionMessagePayload
-  | CustomerCreatedMessagePayload
-  | CustomerEmailChangedMessagePayload
 export interface CategoryCreatedMessagePayload {
   readonly type: 'CategoryCreated'
   readonly category: Category
@@ -1367,6 +1386,13 @@ export interface CustomerEmailVerifiedMessagePayload {
 export interface CustomerGroupSetMessagePayload {
   readonly type: 'CustomerGroupSet'
   readonly customerGroup: CustomerGroupReference
+}
+export interface CustomerPasswordUpdatedMessagePayload {
+  readonly type: 'CustomerPasswordUpdated'
+  /**
+   *	true, if password has been updated during Customer's Password Reset workflow.
+   */
+  readonly reset: boolean
 }
 export interface DeliveryAddedMessagePayload {
   readonly type: 'DeliveryAdded'
