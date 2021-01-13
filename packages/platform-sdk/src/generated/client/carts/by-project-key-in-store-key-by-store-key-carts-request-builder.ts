@@ -13,6 +13,7 @@
 import { Cart, CartDraft } from '../../models/cart'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
+import { ByProjectKeyInStoreKeyByStoreKeyCartsReplicateRequestBuilder } from '../replicate/by-project-key-in-store-key-by-store-key-carts-replicate-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCartsByIDRequestBuilder } from './by-project-key-in-store-key-by-store-key-carts-by-id-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCartsCustomerIdByCustomerIdRequestBuilder } from './by-project-key-in-store-key-by-store-key-carts-customer-id-by-customer-id-request-builder'
 
@@ -40,6 +41,15 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder {
         baseUri: this.args.baseUri,
       }
     )
+  }
+  public replicate(): ByProjectKeyInStoreKeyByStoreKeyCartsReplicateRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyCartsReplicateRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
   }
   public withId(childPathArgs: {
     ID: string
