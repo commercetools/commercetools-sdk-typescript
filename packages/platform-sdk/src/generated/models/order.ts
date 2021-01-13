@@ -14,6 +14,7 @@
 import {
   CartOrigin,
   CartReference,
+  CartResourceIdentifier,
   CustomLineItem,
   CustomLineItemDraft,
   DiscountCodeInfo,
@@ -378,6 +379,10 @@ export interface OrderFromCartDraft {
    *	The unique id of the cart from which an order is created.
    */
   readonly id: string
+  /**
+   *	ResourceIdentifier to the Cart from which this order is created.
+   */
+  readonly cart: CartResourceIdentifier
   readonly version: number
   /**
    *	String that uniquely identifies an order.
@@ -602,7 +607,7 @@ export interface ReturnInfo {
   readonly returnTrackingId?: string
   readonly returnDate?: string
 }
-export type ReturnItem = LineItemReturnItem | CustomLineItemReturnItem
+export type ReturnItem = CustomLineItemReturnItem | LineItemReturnItem
 export interface CustomLineItemReturnItem {
   readonly type: 'CustomLineItemReturnItem'
   readonly id: string

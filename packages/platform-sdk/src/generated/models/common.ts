@@ -321,9 +321,9 @@ export type ResourceIdentifier =
   | TypeResourceIdentifier
   | ZoneResourceIdentifier
   | ChannelResourceIdentifier
-  | CartDiscountResourceIdentifier
-  | CartResourceIdentifier
   | CategoryResourceIdentifier
+  | CartResourceIdentifier
+  | CartDiscountResourceIdentifier
 export interface ScopedPrice {
   readonly id: string
   readonly value: TypedMoney
@@ -340,7 +340,7 @@ export interface ScopedPrice {
   readonly discounted?: DiscountedPrice
   readonly custom?: CustomFields
 }
-export type TypedMoney = CentPrecisionMoney | HighPrecisionMoney
+export type TypedMoney = HighPrecisionMoney | CentPrecisionMoney
 export interface CentPrecisionMoney {
   readonly type: 'centPrecision'
   readonly fractionDigits: number

@@ -59,6 +59,10 @@ export interface Cart extends BaseResource {
    */
   readonly id: string
   /**
+   *	User-specific unique identifier of the cart.
+   */
+  readonly key: string
+  /**
    *	The current version of the cart.
    */
   readonly version: number
@@ -306,6 +310,7 @@ export type CartUpdateAction =
   | CartSetCustomerGroupAction
   | CartSetCustomerIdAction
   | CartSetDeleteDaysAfterLastModificationAction
+  | CartSetKeyAction
   | CartSetLineItemCustomFieldAction
   | CartSetLineItemCustomTypeAction
   | CartSetLineItemDistributionChannelAction
@@ -626,6 +631,10 @@ export type LineItemMode = 'Standard' | 'GiftLineItem'
 export type LineItemPriceMode = 'Platform' | 'ExternalTotal' | 'ExternalPrice'
 export interface ReplicaCartDraft {
   readonly reference: CartReference | OrderReference
+  /**
+   *	User-specific unique identifier of the cart.
+   */
+  readonly key?: string
 }
 export type RoundingMode = 'HalfEven' | 'HalfUp' | 'HalfDown'
 export interface ShippingInfo {
@@ -676,8 +685,8 @@ export interface ScoreShippingRateInput {
   readonly score: number
 }
 export type ShippingRateInputDraft =
-  | ClassificationShippingRateInputDraft
   | ScoreShippingRateInputDraft
+  | ClassificationShippingRateInputDraft
 export interface ClassificationShippingRateInputDraft {
   readonly type: 'Classification'
   readonly key: string
@@ -925,6 +934,10 @@ export interface CartSetCustomerIdAction {
 export interface CartSetDeleteDaysAfterLastModificationAction {
   readonly action: 'setDeleteDaysAfterLastModification'
   readonly deleteDaysAfterLastModification?: number
+}
+export interface CartSetKeyAction {
+  readonly action: 'setKey'
+  readonly key?: string
 }
 export interface CartSetLineItemCustomFieldAction {
   readonly action: 'setLineItemCustomField'

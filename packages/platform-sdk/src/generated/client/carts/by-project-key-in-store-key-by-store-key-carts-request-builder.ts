@@ -16,6 +16,7 @@ import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyInStoreKeyByStoreKeyCartsReplicateRequestBuilder } from '../replicate/by-project-key-in-store-key-by-store-key-carts-replicate-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCartsByIDRequestBuilder } from './by-project-key-in-store-key-by-store-key-carts-by-id-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCartsCustomerIdByCustomerIdRequestBuilder } from './by-project-key-in-store-key-by-store-key-carts-customer-id-by-customer-id-request-builder'
+import { ByProjectKeyInStoreKeyByStoreKeyCartsKeyByKeyRequestBuilder } from './by-project-key-in-store-key-by-store-key-carts-key-by-key-request-builder'
 
 export class ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder {
   constructor(
@@ -41,6 +42,18 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder {
         baseUri: this.args.baseUri,
       }
     )
+  }
+  public withKey(childPathArgs: {
+    key: string
+  }): ByProjectKeyInStoreKeyByStoreKeyCartsKeyByKeyRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyCartsKeyByKeyRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+        ...childPathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
   }
   public replicate(): ByProjectKeyInStoreKeyByStoreKeyCartsReplicateRequestBuilder {
     return new ByProjectKeyInStoreKeyByStoreKeyCartsReplicateRequestBuilder({

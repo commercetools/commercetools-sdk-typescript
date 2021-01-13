@@ -16,6 +16,7 @@ import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyCartsReplicateRequestBuilder } from '../replicate/by-project-key-carts-replicate-request-builder'
 import { ByProjectKeyCartsByIDRequestBuilder } from './by-project-key-carts-by-id-request-builder'
 import { ByProjectKeyCartsCustomerIdByCustomerIdRequestBuilder } from './by-project-key-carts-customer-id-by-customer-id-request-builder'
+import { ByProjectKeyCartsKeyByKeyRequestBuilder } from './by-project-key-carts-key-by-key-request-builder'
 
 export class ByProjectKeyCartsRequestBuilder {
   constructor(
@@ -40,6 +41,18 @@ export class ByProjectKeyCartsRequestBuilder {
     customerId: string
   }): ByProjectKeyCartsCustomerIdByCustomerIdRequestBuilder {
     return new ByProjectKeyCartsCustomerIdByCustomerIdRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+        ...childPathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public withKey(childPathArgs: {
+    key: string
+  }): ByProjectKeyCartsKeyByKeyRequestBuilder {
+    return new ByProjectKeyCartsKeyByKeyRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
         ...childPathArgs,
