@@ -10,7 +10,7 @@
  *                    `Y'
  *
  */
-import { Customer, CustomerUpdate } from '../../models/customer'
+import { Customer, CustomerChangePassword } from '../../models/customer'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
@@ -29,7 +29,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersPasswordRequestBuilder {
    *	Change a customers password
    */
   public post(methodArgs: {
-    body: CustomerUpdate
+    body: CustomerChangePassword
     headers?: {
       [key: string]: string | string[]
     }

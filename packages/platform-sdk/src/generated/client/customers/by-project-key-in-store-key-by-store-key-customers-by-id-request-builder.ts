@@ -10,8 +10,7 @@
  *                    `Y'
  *
  */
-import { Update } from '../../models/common'
-import { Customer } from '../../models/customer'
+import { Customer, CustomerUpdate } from '../../models/customer'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
@@ -68,7 +67,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
       expand?: string | string[]
       [key: string]: QueryParam
     }
-    body: Update
+    body: CustomerUpdate
     headers?: {
       [key: string]: string | string[]
     }
