@@ -26,6 +26,10 @@ export class ApiRequest<O> {
     }
   }
 
+  public clientRequest(): ClientRequest {
+    return this.request
+  }
+
   public execute(): Promise<ClientResponse<O>> {
     return this.requestExecutor(this.request)
   }
