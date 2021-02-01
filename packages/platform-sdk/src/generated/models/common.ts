@@ -35,11 +35,7 @@ import {
 import { OrderReference, OrderResourceIdentifier } from './order'
 import { OrderEditReference, OrderEditResourceIdentifier } from './order-edit'
 import { PaymentReference, PaymentResourceIdentifier } from './payment'
-import {
-  FacetResults,
-  ProductReference,
-  ProductResourceIdentifier,
-} from './product'
+import { ProductReference, ProductResourceIdentifier } from './product'
 import {
   ProductDiscountReference,
   ProductDiscountResourceIdentifier,
@@ -81,7 +77,6 @@ export interface PagedQueryResponse {
   readonly total?: number
   readonly offset: number
   readonly results: BaseResource[]
-  readonly facets?: FacetResults
   readonly meta?: any
 }
 export interface Update {
@@ -269,10 +264,10 @@ export type Reference =
   | TaxCategoryReference
   | TypeReference
   | ZoneReference
-  | CartReference
-  | ChannelReference
   | CartDiscountReference
   | CategoryReference
+  | CartReference
+  | ChannelReference
 export type ReferenceTypeId =
   | 'cart'
   | 'cart-discount'
@@ -320,10 +315,10 @@ export type ResourceIdentifier =
   | TaxCategoryResourceIdentifier
   | TypeResourceIdentifier
   | ZoneResourceIdentifier
-  | CartResourceIdentifier
   | CategoryResourceIdentifier
-  | ChannelResourceIdentifier
+  | CartResourceIdentifier
   | CartDiscountResourceIdentifier
+  | ChannelResourceIdentifier
 export interface ScopedPrice {
   readonly id: string
   readonly value: TypedMoney
@@ -340,7 +335,7 @@ export interface ScopedPrice {
   readonly discounted?: DiscountedPrice
   readonly custom?: CustomFields
 }
-export type TypedMoney = HighPrecisionMoney | CentPrecisionMoney
+export type TypedMoney = CentPrecisionMoney | HighPrecisionMoney
 export interface CentPrecisionMoney {
   readonly type: 'centPrecision'
   readonly fractionDigits: number
@@ -362,7 +357,7 @@ export interface HighPrecisionMoney {
   readonly currencyCode: string
   readonly preciseAmount: number
 }
-export type TypedMoneyDraft = HighPrecisionMoneyDraft | CentPrecisionMoneyDraft
+export type TypedMoneyDraft = CentPrecisionMoneyDraft | HighPrecisionMoneyDraft
 export interface CentPrecisionMoneyDraft {
   readonly type: 'centPrecision'
   readonly centAmount: number
