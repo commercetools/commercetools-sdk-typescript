@@ -344,10 +344,7 @@ export interface RangeFacetResult {
 }
 export interface SearchKeyword {
   readonly text: string
-  readonly suggestTokenizer?:
-    | SuggestTokenizer
-    | WhitespaceTokenizer
-    | CustomTokenizer
+  readonly suggestTokenizer?: SuggestTokenizer
 }
 export interface SearchKeywords {
   [key: string]: SearchKeyword[]
