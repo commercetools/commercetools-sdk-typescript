@@ -11,7 +11,7 @@
  *
  */
 
-import { CartResourceIdentifier } from './cart'
+import { Cart, CartResourceIdentifier } from './cart'
 import { Address, BaseResource, CreatedBy, LastModifiedBy } from './common'
 import {
   CustomerGroupReference,
@@ -236,7 +236,7 @@ export interface CustomerSignInResult {
    *	A cart that is associated to the customer.
    *	Empty if the customer does not have a cart yet.
    */
-  readonly cart?: any
+  readonly cart?: Cart
 }
 export interface CustomerSignin {
   readonly email: string

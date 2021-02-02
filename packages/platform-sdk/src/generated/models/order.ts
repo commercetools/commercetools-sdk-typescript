@@ -607,7 +607,7 @@ export interface ReturnInfo {
   readonly returnTrackingId?: string
   readonly returnDate?: string
 }
-export type ReturnItem = CustomLineItemReturnItem | LineItemReturnItem
+export type ReturnItem = LineItemReturnItem | CustomLineItemReturnItem
 export interface CustomLineItemReturnItem {
   readonly type: 'CustomLineItemReturnItem'
   readonly id: string
