@@ -10,7 +10,7 @@
  *                    `Y'
  *
  */
-import { CustomObject } from '../../models/custom-object'
+import { CustomObjectPagedQueryResponse } from '../../models/custom-object'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
@@ -26,18 +26,19 @@ export class ByProjectKeyCustomObjectsByContainerRequestBuilder {
     }
   ) {}
   /**
-   *	Get CustomObject by container
+   *	Get CustomObjectPagedQueryResponse by container
    */
   public get(methodArgs?: {
     queryArgs?: {
+      where?: string | string[]
       expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<CustomObject> {
-    return new ApiRequest<CustomObject>(
+  }): ApiRequest<CustomObjectPagedQueryResponse> {
+    return new ApiRequest<CustomObjectPagedQueryResponse>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',
