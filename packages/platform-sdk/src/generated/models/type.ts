@@ -74,18 +74,18 @@ export interface FieldDefinition {
   readonly inputHint?: TypeTextInputHint
 }
 export type FieldType =
-  | CustomFieldLocalizedEnumType
-  | CustomFieldDateTimeType
-  | CustomFieldBooleanType
-  | CustomFieldLocalizedStringType
-  | CustomFieldNumberType
-  | CustomFieldSetType
-  | CustomFieldReferenceType
-  | CustomFieldMoneyType
-  | CustomFieldEnumType
   | CustomFieldDateType
-  | CustomFieldStringType
+  | CustomFieldDateTimeType
   | CustomFieldTimeType
+  | CustomFieldMoneyType
+  | CustomFieldLocalizedStringType
+  | CustomFieldSetType
+  | CustomFieldLocalizedEnumType
+  | CustomFieldBooleanType
+  | CustomFieldEnumType
+  | CustomFieldStringType
+  | CustomFieldNumberType
+  | CustomFieldReferenceType
 export interface CustomFieldBooleanType {
   readonly name: 'Boolean'
 }
@@ -140,6 +140,7 @@ export type ResourceTypeId =
   | 'payment'
   | 'payment-interface-interaction'
   | 'review'
+  | 'shipping-method'
   | 'shopping-list'
   | 'shopping-list-text-line-item'
   | 'discount-code'

@@ -23,6 +23,12 @@ import {
   TaxCategoryReference,
   TaxCategoryResourceIdentifier,
 } from './tax-category'
+import {
+  CustomFields,
+  CustomFieldsDraft,
+  FieldContainer,
+  TypeResourceIdentifier,
+} from './type'
 import { ZoneReference, ZoneResourceIdentifier } from './zone'
 
 export interface PriceFunction {
@@ -63,6 +69,7 @@ export interface ShippingMethod extends BaseResource {
    *	A Cart predicate which can be used to more precisely select a shipping method for a cart.
    */
   readonly predicate?: string
+  readonly custom?: CustomFields
 }
 export interface ShippingMethodDraft {
   readonly key?: string
@@ -79,6 +86,7 @@ export interface ShippingMethodDraft {
    *	A Cart predicate which can be used to more precisely select a shipping method for a cart.
    */
   readonly predicate?: string
+  readonly custom?: CustomFieldsDraft
 }
 export interface ShippingMethodPagedQueryResponse {
   readonly limit?: number
@@ -109,6 +117,8 @@ export type ShippingMethodUpdateAction =
   | ShippingMethodChangeTaxCategoryAction
   | ShippingMethodRemoveShippingRateAction
   | ShippingMethodRemoveZoneAction
+  | ShippingMethodSetCustomFieldAction
+  | ShippingMethodSetCustomTypeAction
   | ShippingMethodSetDescriptionAction
   | ShippingMethodSetKeyAction
   | ShippingMethodSetLocalizedDescriptionAction
@@ -144,9 +154,9 @@ export interface ShippingRateDraft {
   readonly tiers?: ShippingRatePriceTier[]
 }
 export type ShippingRatePriceTier =
-  | CartClassificationTier
   | CartValueTier
   | CartScoreTier
+  | CartClassificationTier
 export interface CartClassificationTier {
   readonly type: 'CartClassification'
   readonly value: string
@@ -216,6 +226,16 @@ export interface ShippingMethodRemoveShippingRateAction {
 export interface ShippingMethodRemoveZoneAction {
   readonly action: 'removeZone'
   readonly zone: ZoneResourceIdentifier
+}
+export interface ShippingMethodSetCustomFieldAction {
+  readonly action: 'setCustomField'
+  readonly name: string
+  readonly value?: any
+}
+export interface ShippingMethodSetCustomTypeAction {
+  readonly action: 'setCustomType'
+  readonly type?: TypeResourceIdentifier
+  readonly fields?: FieldContainer
 }
 export interface ShippingMethodSetDescriptionAction {
   readonly action: 'setDescription'

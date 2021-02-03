@@ -685,8 +685,8 @@ export interface ScoreShippingRateInput {
   readonly score: number
 }
 export type ShippingRateInputDraft =
-  | ClassificationShippingRateInputDraft
   | ScoreShippingRateInputDraft
+  | ClassificationShippingRateInputDraft
 export interface ClassificationShippingRateInputDraft {
   readonly type: 'Classification'
   readonly key: string

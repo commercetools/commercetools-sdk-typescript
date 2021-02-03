@@ -159,10 +159,10 @@ export interface OrderEditResourceIdentifier {
   readonly key?: string
 }
 export type OrderEditResult =
-  | OrderEditApplied
-  | OrderEditNotProcessed
   | OrderEditPreviewSuccess
+  | OrderEditApplied
   | OrderEditPreviewFailure
+  | OrderEditNotProcessed
 export interface OrderEditApplied {
   readonly type: 'Applied'
   readonly appliedAt: string
