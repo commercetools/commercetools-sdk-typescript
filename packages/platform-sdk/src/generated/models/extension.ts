@@ -72,8 +72,8 @@ export interface ExtensionHttpDestination {
   readonly authentication?: ExtensionHttpDestinationAuthentication
 }
 export type ExtensionHttpDestinationAuthentication =
-  | ExtensionAuthorizationHeaderAuthentication
   | ExtensionAzureFunctionsAuthentication
+  | ExtensionAuthorizationHeaderAuthentication
 export interface ExtensionAuthorizationHeaderAuthentication {
   readonly type: 'AuthorizationHeader'
   readonly headerValue: string
