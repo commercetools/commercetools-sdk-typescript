@@ -44,6 +44,9 @@ export type ImportRequest =
  *
  */
 export interface ImportResponse {
+  /**
+   *
+   */
   readonly operationStatus: ImportOperationStatus[]
 }
 /**
@@ -54,6 +57,7 @@ export interface CategoryImportRequest {
   readonly type: 'category'
   /**
    *	The category import resources of this request.
+   *
    *
    */
   readonly resources: CategoryImport[]
@@ -67,6 +71,7 @@ export interface ProductImportRequest {
   /**
    *	The product import resources of this request.
    *
+   *
    */
   readonly resources: ProductImport[]
 }
@@ -78,6 +83,7 @@ export interface ProductDraftImportRequest {
   readonly type: 'product-draft'
   /**
    *	The product draft import resources of this request.
+   *
    *
    */
   readonly resources: ProductDraftImport[]
@@ -91,6 +97,7 @@ export interface ProductTypeImportRequest {
   /**
    *	The product type import resources of this request.
    *
+   *
    */
   readonly resources: ProductTypeImport[]
 }
@@ -102,6 +109,7 @@ export interface ProductVariantImportRequest {
   readonly type: 'product-variant'
   /**
    *	The product variant import resources of this request.
+   *
    *
    */
   readonly resources: ProductVariantImport[]
@@ -115,6 +123,7 @@ export interface PriceImportRequest {
   /**
    *	The price import resources of this request.
    *
+   *
    */
   readonly resources: PriceImport[]
 }
@@ -126,6 +135,7 @@ export interface OrderImportRequest {
   readonly type: 'order'
   /**
    *	The order import resources of this request.
+   *
    *
    */
   readonly resources: OrderImport[]
@@ -139,6 +149,7 @@ export interface ProductVariantPatchRequest {
   /**
    *	The product variant patches of this request.
    *
+   *
    */
   readonly patches: ProductVariantPatch[]
 }
@@ -151,6 +162,7 @@ export interface CustomerImportRequest {
   /**
    *	The customer import resources of this request.
    *
+   *
    */
   readonly resources: CustomerImport[]
 }
@@ -162,6 +174,7 @@ export interface InventoryImportRequest {
   readonly type: 'inventory'
   /**
    *	The inventory import resources of this request.
+   *
    *
    */
   readonly resources: InventoryImport[]

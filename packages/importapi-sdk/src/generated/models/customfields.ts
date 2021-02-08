@@ -25,10 +25,12 @@ import {
 export interface Custom {
   /**
    *	The type that provides the field definitions for this object.
+   *
    */
   readonly type: TypeKeyReference
   /**
    *	The custom fields of this object.
+   *
    */
   readonly fields?: FieldContainer
 }
@@ -69,6 +71,9 @@ export type CustomField =
  */
 export interface BooleanField {
   readonly type: 'Boolean'
+  /**
+   *
+   */
   readonly value: boolean
 }
 /**
@@ -76,6 +81,9 @@ export interface BooleanField {
  */
 export interface StringField {
   readonly type: 'String'
+  /**
+   *
+   */
   readonly value: string
 }
 /**
@@ -83,6 +91,9 @@ export interface StringField {
  */
 export interface LocalizedStringField {
   readonly type: 'LocalizedString'
+  /**
+   *
+   */
   readonly value: LocalizedString
 }
 /**
@@ -90,6 +101,9 @@ export interface LocalizedStringField {
  */
 export interface EnumField {
   readonly type: 'Enum'
+  /**
+   *
+   */
   readonly value: string
 }
 /**
@@ -97,6 +111,9 @@ export interface EnumField {
  */
 export interface LocalizedEnumField {
   readonly type: 'LocalizedEnum'
+  /**
+   *
+   */
   readonly value: string
 }
 /**
@@ -104,6 +121,9 @@ export interface LocalizedEnumField {
  */
 export interface NumberField {
   readonly type: 'Number'
+  /**
+   *
+   */
   readonly value: number
 }
 /**
@@ -111,6 +131,9 @@ export interface NumberField {
  */
 export interface MoneyField {
   readonly type: 'Money'
+  /**
+   *
+   */
   readonly value: TypedMoney
 }
 /**
@@ -118,6 +141,9 @@ export interface MoneyField {
  */
 export interface DateField {
   readonly type: 'Date'
+  /**
+   *
+   */
   readonly value: string
 }
 /**
@@ -125,6 +151,9 @@ export interface DateField {
  */
 export interface TimeField {
   readonly type: 'Time'
+  /**
+   *
+   */
   readonly value: string
 }
 /**
@@ -132,6 +161,9 @@ export interface TimeField {
  */
 export interface DateTimeField {
   readonly type: 'DateTime'
+  /**
+   *
+   */
   readonly value: string
 }
 /**
@@ -141,6 +173,7 @@ export interface ReferenceField {
   readonly type: 'Reference'
   /**
    *	References a resource by its key.
+   *
    */
   readonly value: KeyReference
 }
@@ -149,6 +182,9 @@ export interface ReferenceField {
  */
 export interface BooleanSetField {
   readonly type: 'BooleanSet'
+  /**
+   *
+   */
   readonly value: boolean[]
 }
 /**
@@ -156,6 +192,9 @@ export interface BooleanSetField {
  */
 export interface StringSetField {
   readonly type: 'StringSet'
+  /**
+   *
+   */
   readonly value: string[]
 }
 /**
@@ -163,6 +202,9 @@ export interface StringSetField {
  */
 export interface LocalizedStringSetField {
   readonly type: 'LocalizedStringSet'
+  /**
+   *
+   */
   readonly value: LocalizedString[]
 }
 /**
@@ -170,6 +212,9 @@ export interface LocalizedStringSetField {
  */
 export interface EnumSetField {
   readonly type: 'EnumSet'
+  /**
+   *
+   */
   readonly value: string[]
 }
 /**
@@ -177,6 +222,9 @@ export interface EnumSetField {
  */
 export interface LocalizedEnumSetField {
   readonly type: 'LocalizedEnumSet'
+  /**
+   *
+   */
   readonly value: string[]
 }
 /**
@@ -184,6 +232,9 @@ export interface LocalizedEnumSetField {
  */
 export interface NumberSetField {
   readonly type: 'NumberSet'
+  /**
+   *
+   */
   readonly value: number[]
 }
 /**
@@ -191,6 +242,9 @@ export interface NumberSetField {
  */
 export interface MoneySetField {
   readonly type: 'MoneySet'
+  /**
+   *
+   */
   readonly value: Money[]
 }
 /**
@@ -198,6 +252,9 @@ export interface MoneySetField {
  */
 export interface DateSetField {
   readonly type: 'DateSet'
+  /**
+   *
+   */
   readonly value: string[]
 }
 /**
@@ -205,6 +262,9 @@ export interface DateSetField {
  */
 export interface TimeSetField {
   readonly type: 'TimeSet'
+  /**
+   *
+   */
   readonly value: string[]
 }
 /**
@@ -212,6 +272,9 @@ export interface TimeSetField {
  */
 export interface DateTimeSetField {
   readonly type: 'DateTimeSet'
+  /**
+   *
+   */
   readonly value: string[]
 }
 /**
@@ -219,5 +282,8 @@ export interface DateTimeSetField {
  */
 export interface ReferenceSetField {
   readonly type: 'ReferenceSet'
+  /**
+   *
+   */
   readonly value: KeyReference[]
 }

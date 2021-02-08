@@ -22,15 +22,18 @@ import { Attribute } from './productvariants'
 export interface ErrorResponse {
   /**
    *	The http status code of the response.
+   *
    */
   readonly statusCode: number
   /**
    *	Describes the error.
+   *
    */
   readonly message: string
   /**
    *	This property is only used for OAuth2 errors.
    *	Contains the error code.
+   *
    *
    */
   readonly error?: string
@@ -39,10 +42,12 @@ export interface ErrorResponse {
    *	Additional information to assist the client developer in
    *	understanding the error.
    *
+   *
    */
   readonly error_description?: string
   /**
    *	The errors that caused this error response.
+   *
    *
    */
   readonly errors?: ErrorObject[]
@@ -78,6 +83,7 @@ export interface AccessDeniedError {
   readonly code: 'access_denied'
   /**
    *	The error's description.
+   *
    */
   readonly message: string
 }
@@ -89,6 +95,7 @@ export interface InvalidScopeError {
   readonly code: 'invalid_scope'
   /**
    *	The error's description.
+   *
    */
   readonly message: string
 }
@@ -101,6 +108,7 @@ export interface InvalidOperation {
   readonly code: 'InvalidOperation'
   /**
    *	The error's description.
+   *
    */
   readonly message: string
 }
@@ -111,10 +119,12 @@ export interface DuplicateAttributeValueError {
   readonly code: 'DuplicateAttributeValue'
   /**
    *	The error's description.
+   *
    */
   readonly message: string
   /**
    *	The conflicting attribute.
+   *
    */
   readonly attribute: Attribute
 }
@@ -125,8 +135,12 @@ export interface DuplicateAttributeValuesError {
   readonly code: 'DuplicateAttributeValues'
   /**
    *	The error's description.
+   *
    */
   readonly message: string
+  /**
+   *
+   */
   readonly attributes: Attribute[]
 }
 /**
@@ -136,14 +150,17 @@ export interface DuplicateFieldError {
   readonly code: 'DuplicateField'
   /**
    *	The error's description.
+   *
    */
   readonly message: string
   /**
    *	The name of the field.
+   *
    */
   readonly field?: string
   /**
    *	The offending duplicate value.
+   *
    */
   readonly duplicateValue?: any
 }
@@ -156,22 +173,34 @@ export interface DuplicateVariantValuesError {
   readonly code: 'DuplicateVariantValues'
   /**
    *	The error's description.
+   *
    */
   readonly message: string
   /**
    *	The offending variant values.
+   *
    */
   readonly variantValues: VariantValues
 }
 export interface VariantValues {
+  /**
+   *
+   */
   readonly sku?: string
+  /**
+   *
+   */
   readonly prices: PriceImport[]
+  /**
+   *
+   */
   readonly attributes: Attribute[]
 }
 export interface InsufficientScopeError {
   readonly code: 'insufficient_scope'
   /**
    *	The error's description.
+   *
    */
   readonly message: string
 }
@@ -179,6 +208,7 @@ export interface InvalidCredentialsError {
   readonly code: 'InvalidCredentials'
   /**
    *	The error's description.
+   *
    */
   readonly message: string
 }
@@ -186,6 +216,7 @@ export interface InvalidTokenError {
   readonly code: 'invalid_token'
   /**
    *	The error's description.
+   *
    */
   readonly message: string
 }
@@ -196,18 +227,22 @@ export interface InvalidFieldError {
   readonly code: 'InvalidField'
   /**
    *	The error's description.
+   *
    */
   readonly message: string
   /**
    *	The name of the field.
+   *
    */
   readonly field: string
   /**
    *	The invalid value.
+   *
    */
   readonly invalidValue: any
   /**
    *	A fixed set of allowed values for the field, if any.
+   *
    */
   readonly allowedValues?: any[]
 }
@@ -221,6 +256,7 @@ export interface InvalidJsonInput {
   readonly code: 'InvalidJsonInput'
   /**
    *	The error's description.
+   *
    */
   readonly message: string
 }
@@ -233,6 +269,7 @@ export interface InvalidInput {
   readonly code: 'InvalidInput'
   /**
    *	The error's description.
+   *
    */
   readonly message: string
 }
@@ -240,32 +277,48 @@ export interface ResourceNotFoundError {
   readonly code: 'ResourceNotFound'
   /**
    *	The error's description.
+   *
    */
   readonly message: string
+  /**
+   *
+   */
   readonly resource?: any
 }
 export interface ResourceCreationError {
   readonly code: 'ResourceCreation'
   /**
    *	The error's description.
+   *
    */
   readonly message: string
+  /**
+   *
+   */
   readonly resource?: any
 }
 export interface ResourceUpdateError {
   readonly code: 'ResourceUpdate'
   /**
    *	The error's description.
+   *
    */
   readonly message: string
+  /**
+   *
+   */
   readonly resource?: any
 }
 export interface ResourceDeletionError {
   readonly code: 'ResourceDeletion'
   /**
    *	The error's description.
+   *
    */
   readonly message: string
+  /**
+   *
+   */
   readonly resource?: any
 }
 /**
@@ -275,10 +328,12 @@ export interface RequiredFieldError {
   readonly code: 'RequiredField'
   /**
    *	The error's description.
+   *
    */
   readonly message: string
   /**
    *	The name of the field.
+   *
    */
   readonly field: string
 }
@@ -286,15 +341,18 @@ export interface InvalidStateTransitionError {
   readonly code: 'InvalidTransition'
   /**
    *	The error's description.
+   *
    */
   readonly message: string
   /**
    *	This enumeration describes the processing state of an import operation.
    *
+   *
    */
   readonly currentState: ProcessingState
   /**
    *	This enumeration describes the processing state of an import operation.
+   *
    *
    */
   readonly newState: ProcessingState
@@ -309,18 +367,22 @@ export interface ConcurrentModificationError {
   readonly code: 'ConcurrentModification'
   /**
    *	The error's description.
+   *
    */
   readonly message: string
   /**
    *	The version specified in the failed request.
+   *
    */
   readonly specifiedVersion?: number
   /**
    *	The current version of the resource.
+   *
    */
   readonly currentVersion: number
   /**
    *	The conflicted resource.
+   *
    */
   readonly conflictedResource?: any
 }
@@ -328,6 +390,7 @@ export interface ContentionError {
   readonly code: 'Contention'
   /**
    *	The error's description.
+   *
    */
   readonly message: string
 }
@@ -335,6 +398,7 @@ export interface GenericError {
   readonly code: 'Generic'
   /**
    *	The error's description.
+   *
    */
   readonly message: string
 }

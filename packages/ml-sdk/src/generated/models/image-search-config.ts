@@ -15,18 +15,26 @@ export type ImageSearchConfigStatus = 'on' | 'off'
 export type ImageSearchConfigUpdateAction = ChangeStatusUpdateAction
 export interface ChangeStatusUpdateAction {
   readonly action: 'changeStatus'
+  /**
+   *
+   */
   readonly status: ImageSearchConfigStatus
 }
 export interface ImageSearchConfigRequest {
   /**
    *	The list of update actions to be performed on the project.
+   *
    */
   readonly actions: ImageSearchConfigUpdateAction[]
 }
 export interface ImageSearchConfigResponse {
   /**
    *	The image search activation status.
+   *
    */
   readonly status: ImageSearchConfigStatus
+  /**
+   *
+   */
   readonly lastModifiedAt: string
 }

@@ -20,40 +20,49 @@
 export interface ImportSummary {
   /**
    *	The states summary for this import summary.
+   *
    */
   readonly states: OperationStates
   /**
    *	The total number of import operations received for this import group.
+   *
    */
   readonly total: number
 }
 export interface OperationStates {
   /**
    *	The number of import operations that are in the state `ValidationFailed`.
+   *
    */
   readonly ValidationFailed: number
   /**
    *	The number of import operations that are in the state `Unresolved`.
+   *
    */
   readonly Unresolved: number
   /**
    *	The number of import operations that are in the state `WaitForMasterVariant`.
+   *
    */
   readonly WaitForMasterVariant: number
   /**
    *	The number of import operations that are in the state `Imported`.
+   *
    */
   readonly Imported: number
   /**
    *	The number of import operations that are in the state `Delete`.
+   *
    */
   readonly Delete: number
   /**
    *	The number of import operations that are in the state `Deleted`.
+   *
    */
   readonly Deleted: number
   /**
    *	The number of import operations that are in the state `Rejected`.
+   *
    */
   readonly Rejected: number
 }

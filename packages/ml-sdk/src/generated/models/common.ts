@@ -15,9 +15,13 @@ export interface LocalizedString {
   [key: string]: string
 }
 export interface Money {
+  /**
+   *
+   */
   readonly centAmount: number
   /**
    *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *
    *
    */
   readonly currencyCode: string
@@ -52,14 +56,23 @@ export type Reference =
   | ProductTypeReference
 export interface CategoryReference {
   readonly typeId: 'category'
+  /**
+   *
+   */
   readonly id: string
 }
 export interface ProductReference {
   readonly typeId: 'product'
+  /**
+   *
+   */
   readonly id: string
 }
 export interface ProductTypeReference {
   readonly typeId: 'product-type'
+  /**
+   *
+   */
   readonly id: string
 }
 /**
@@ -68,14 +81,17 @@ export interface ProductTypeReference {
 export interface ProductVariant {
   /**
    *	The product that contains this variant.
+   *
    */
   readonly product: ProductReference
   /**
    *	The state of the product variant.
+   *
    */
   readonly staged: boolean
   /**
    *	The id of the product variant.
+   *
    */
   readonly variantId: number
 }
@@ -86,10 +102,12 @@ export type TaskStatusEnum = 'PENDING' | 'SUCCESS'
 export interface TaskToken {
   /**
    *	The ID for the task. Used to find the status of the task.
+   *
    */
   readonly taskId: string
   /**
    *	The URI path to poll for the status of the task.
+   *
    */
   readonly uriPath: string
 }

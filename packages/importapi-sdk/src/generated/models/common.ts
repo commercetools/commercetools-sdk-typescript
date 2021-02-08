@@ -18,38 +18,91 @@ export interface Asset {
    *	User-defined identifier for the asset.
    *	Asset keys are unique inside their container (a product variant or a category).
    *
+   *
    */
   readonly key: string
+  /**
+   *
+   */
   readonly sources: AssetSource[]
+  /**
+   *
+   */
   readonly name: LocalizedString
+  /**
+   *
+   */
   readonly description?: LocalizedString
+  /**
+   *
+   */
   readonly tags?: string[]
   /**
    *	The representation to be sent to the server when creating a resource with custom fields.
+   *
    */
   readonly custom?: Custom
 }
 export interface AssetDimensions {
+  /**
+   *
+   */
   readonly w: number
+  /**
+   *
+   */
   readonly h: number
 }
 export interface AssetSource {
+  /**
+   *
+   */
   readonly uri: string
+  /**
+   *
+   */
   readonly key?: string
+  /**
+   *
+   */
   readonly dimensions?: AssetDimensions
+  /**
+   *
+   */
   readonly contentType?: string
 }
 export interface Image {
+  /**
+   *
+   */
   readonly url: string
+  /**
+   *
+   */
   readonly dimensions: AssetDimensions
+  /**
+   *
+   */
   readonly label?: string
 }
 export interface EnumValue {
+  /**
+   *
+   */
   readonly key: string
+  /**
+   *
+   */
   readonly label: string
 }
 export interface LocalizedEnumValue {
+  /**
+   *
+   */
   readonly key: string
+  /**
+   *
+   */
   readonly label: LocalizedString
 }
 export interface LocalizedString {
@@ -63,6 +116,9 @@ export interface LocalizedString {
  *
  */
 export interface ImportResource {
+  /**
+   *
+   */
   readonly key: string
 }
 /**
@@ -89,6 +145,9 @@ export type KeyReference =
  */
 export interface CartDiscountKeyReference {
   readonly typeId: 'cart-discount'
+  /**
+   *
+   */
   readonly key: string
 }
 /**
@@ -96,6 +155,9 @@ export interface CartDiscountKeyReference {
  */
 export interface CategoryKeyReference {
   readonly typeId: 'category'
+  /**
+   *
+   */
   readonly key: string
 }
 /**
@@ -103,6 +165,9 @@ export interface CategoryKeyReference {
  */
 export interface ChannelKeyReference {
   readonly typeId: 'channel'
+  /**
+   *
+   */
   readonly key: string
 }
 /**
@@ -110,6 +175,9 @@ export interface ChannelKeyReference {
  */
 export interface CustomerKeyReference {
   readonly typeId: 'customer'
+  /**
+   *
+   */
   readonly key: string
 }
 /**
@@ -117,6 +185,9 @@ export interface CustomerKeyReference {
  */
 export interface CustomerGroupKeyReference {
   readonly typeId: 'customer-group'
+  /**
+   *
+   */
   readonly key: string
 }
 /**
@@ -124,6 +195,9 @@ export interface CustomerGroupKeyReference {
  */
 export interface PriceKeyReference {
   readonly typeId: 'price'
+  /**
+   *
+   */
   readonly key: string
 }
 /**
@@ -131,6 +205,9 @@ export interface PriceKeyReference {
  */
 export interface ProductKeyReference {
   readonly typeId: 'product'
+  /**
+   *
+   */
   readonly key: string
 }
 /**
@@ -138,6 +215,9 @@ export interface ProductKeyReference {
  */
 export interface ProductDiscountKeyReference {
   readonly typeId: 'product-discount'
+  /**
+   *
+   */
   readonly key: string
 }
 /**
@@ -145,6 +225,9 @@ export interface ProductDiscountKeyReference {
  */
 export interface ProductTypeKeyReference {
   readonly typeId: 'product-type'
+  /**
+   *
+   */
   readonly key: string
 }
 /**
@@ -152,6 +235,9 @@ export interface ProductTypeKeyReference {
  */
 export interface ProductVariantKeyReference {
   readonly typeId: 'product-variant'
+  /**
+   *
+   */
   readonly key: string
 }
 /**
@@ -159,6 +245,9 @@ export interface ProductVariantKeyReference {
  */
 export interface ShippingMethodKeyReference {
   readonly typeId: 'shipping-method'
+  /**
+   *
+   */
   readonly key: string
 }
 /**
@@ -166,6 +255,9 @@ export interface ShippingMethodKeyReference {
  */
 export interface StateKeyReference {
   readonly typeId: 'state'
+  /**
+   *
+   */
   readonly key: string
 }
 /**
@@ -173,6 +265,9 @@ export interface StateKeyReference {
  */
 export interface StoreKeyReference {
   readonly typeId: 'store'
+  /**
+   *
+   */
   readonly key: string
 }
 /**
@@ -180,6 +275,9 @@ export interface StoreKeyReference {
  */
 export interface TaxCategoryKeyReference {
   readonly typeId: 'tax-category'
+  /**
+   *
+   */
   readonly key: string
 }
 /**
@@ -187,35 +285,59 @@ export interface TaxCategoryKeyReference {
  */
 export interface TypeKeyReference {
   readonly typeId: 'type'
+  /**
+   *
+   */
   readonly key: string
 }
 export type MoneyType = 'centPrecision' | 'highPrecision'
 export type TypedMoney = HighPrecisionMoney | Money
 export interface HighPrecisionMoney {
   readonly type: 'highPrecision'
+  /**
+   *
+   */
   readonly fractionDigits?: number
+  /**
+   *
+   */
   readonly centAmount: number
   /**
    *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
    *
+   *
    */
   readonly currencyCode: string
+  /**
+   *
+   */
   readonly preciseAmount: number
 }
 export interface Money {
   readonly type: 'centPrecision'
+  /**
+   *
+   */
   readonly fractionDigits?: number
+  /**
+   *
+   */
   readonly centAmount: number
   /**
    *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *
    *
    */
   readonly currencyCode: string
 }
 export interface DiscountedPrice {
+  /**
+   *
+   */
   readonly value: TypedMoney
   /**
    *	Reference to a ProductDiscount.
+   *
    */
   readonly discount: ProductDiscountKeyReference
 }
@@ -227,10 +349,12 @@ export interface PriceTier {
   /**
    *	The minimum quantity this price tier is valid for.
    *
+   *
    */
   readonly minimumQuantity: number
   /**
    *	The currency of a price tier is always the same as the currency of the base Price.
+   *
    */
   readonly value: TypedMoney
 }
@@ -282,33 +406,106 @@ export type ProcessingState =
   | 'Deleted'
   | 'Rejected'
 export interface Address {
+  /**
+   *
+   */
   readonly id?: string
+  /**
+   *
+   */
   readonly key?: string
+  /**
+   *
+   */
   readonly title?: string
+  /**
+   *
+   */
   readonly salutation?: string
+  /**
+   *
+   */
   readonly firstName?: string
+  /**
+   *
+   */
   readonly lastName?: string
+  /**
+   *
+   */
   readonly streetName?: string
+  /**
+   *
+   */
   readonly streetNumber?: string
+  /**
+   *
+   */
   readonly additionalStreetInfo?: string
+  /**
+   *
+   */
   readonly postalCode?: string
+  /**
+   *
+   */
   readonly city?: string
+  /**
+   *
+   */
   readonly region?: string
+  /**
+   *
+   */
   readonly state?: string
   /**
    *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
    *
+   *
    */
   readonly country: string
+  /**
+   *
+   */
   readonly company?: string
+  /**
+   *
+   */
   readonly department?: string
+  /**
+   *
+   */
   readonly building?: string
+  /**
+   *
+   */
   readonly apartment?: string
+  /**
+   *
+   */
   readonly pOBox?: string
+  /**
+   *
+   */
   readonly phone?: string
+  /**
+   *
+   */
   readonly mobile?: string
+  /**
+   *
+   */
   readonly email?: string
+  /**
+   *
+   */
   readonly fax?: string
+  /**
+   *
+   */
   readonly additionalAddressInfo?: string
+  /**
+   *
+   */
   readonly externalId?: string
 }

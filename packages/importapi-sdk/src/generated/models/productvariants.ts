@@ -61,8 +61,12 @@ export interface BooleanAttribute {
    *	The name is required if this type is used in a product variant and must not be set when
    *	used in a product variant patch.
    *
+   *
    */
   readonly name?: string
+  /**
+   *
+   */
   readonly value: boolean
 }
 /**
@@ -76,8 +80,12 @@ export interface BooleanSetAttribute {
    *	The name is required if this type is used in a product variant and must not be set when
    *	used in a product variant patch.
    *
+   *
    */
   readonly name?: string
+  /**
+   *
+   */
   readonly value: boolean[]
 }
 /**
@@ -91,8 +99,12 @@ export interface DateAttribute {
    *	The name is required if this type is used in a product variant and must not be set when
    *	used in a product variant patch.
    *
+   *
    */
   readonly name?: string
+  /**
+   *
+   */
   readonly value: string
 }
 /**
@@ -106,8 +118,12 @@ export interface DateSetAttribute {
    *	The name is required if this type is used in a product variant and must not be set when
    *	used in a product variant patch.
    *
+   *
    */
   readonly name?: string
+  /**
+   *
+   */
   readonly value: string[]
 }
 /**
@@ -121,8 +137,12 @@ export interface DateTimeAttribute {
    *	The name is required if this type is used in a product variant and must not be set when
    *	used in a product variant patch.
    *
+   *
    */
   readonly name?: string
+  /**
+   *
+   */
   readonly value: string
 }
 /**
@@ -136,8 +156,12 @@ export interface DateTimeSetAttribute {
    *	The name is required if this type is used in a product variant and must not be set when
    *	used in a product variant patch.
    *
+   *
    */
   readonly name?: string
+  /**
+   *
+   */
   readonly value: string[]
 }
 /**
@@ -152,8 +176,12 @@ export interface EnumAttribute {
    *	The name is required if this type is used in a product variant and must not be set when
    *	used in a product variant patch.
    *
+   *
    */
   readonly name?: string
+  /**
+   *
+   */
   readonly value: string
 }
 /**
@@ -168,8 +196,12 @@ export interface EnumSetAttribute {
    *	The name is required if this type is used in a product variant and must not be set when
    *	used in a product variant patch.
    *
+   *
    */
   readonly name?: string
+  /**
+   *
+   */
   readonly value: string[]
 }
 /**
@@ -184,8 +216,12 @@ export interface LocalizableEnumAttribute {
    *	The name is required if this type is used in a product variant and must not be set when
    *	used in a product variant patch.
    *
+   *
    */
   readonly name?: string
+  /**
+   *
+   */
   readonly value: string
 }
 /**
@@ -200,8 +236,12 @@ export interface LocalizableEnumSetAttribute {
    *	The name is required if this type is used in a product variant and must not be set when
    *	used in a product variant patch.
    *
+   *
    */
   readonly name?: string
+  /**
+   *
+   */
   readonly value: string[]
 }
 /**
@@ -215,8 +255,12 @@ export interface LocalizableTextAttribute {
    *	The name is required if this type is used in a product variant and must not be set when
    *	used in a product variant patch.
    *
+   *
    */
   readonly name?: string
+  /**
+   *
+   */
   readonly value: LocalizedString
 }
 /**
@@ -230,8 +274,12 @@ export interface LocalizableTextSetAttribute {
    *	The name is required if this type is used in a product variant and must not be set when
    *	used in a product variant patch.
    *
+   *
    */
   readonly name?: string
+  /**
+   *
+   */
   readonly value: LocalizedString[]
 }
 /**
@@ -245,8 +293,12 @@ export interface MoneyAttribute {
    *	The name is required if this type is used in a product variant and must not be set when
    *	used in a product variant patch.
    *
+   *
    */
   readonly name?: string
+  /**
+   *
+   */
   readonly value: TypedMoney
 }
 /**
@@ -260,8 +312,12 @@ export interface MoneySetAttribute {
    *	The name is required if this type is used in a product variant and must not be set when
    *	used in a product variant patch.
    *
+   *
    */
   readonly name?: string
+  /**
+   *
+   */
   readonly value: TypedMoney[]
 }
 /**
@@ -275,8 +331,12 @@ export interface NumberAttribute {
    *	The name is required if this type is used in a product variant and must not be set when
    *	used in a product variant patch.
    *
+   *
    */
   readonly name?: string
+  /**
+   *
+   */
   readonly value: number
 }
 /**
@@ -290,8 +350,12 @@ export interface NumberSetAttribute {
    *	The name is required if this type is used in a product variant and must not be set when
    *	used in a product variant patch.
    *
+   *
    */
   readonly name?: string
+  /**
+   *
+   */
   readonly value: number[]
 }
 /**
@@ -305,10 +369,12 @@ export interface ReferenceAttribute {
    *	The name is required if this type is used in a product variant and must not be set when
    *	used in a product variant patch.
    *
+   *
    */
   readonly name?: string
   /**
    *	References a resource by its key.
+   *
    */
   readonly value: KeyReference
 }
@@ -323,8 +389,12 @@ export interface ReferenceSetAttribute {
    *	The name is required if this type is used in a product variant and must not be set when
    *	used in a product variant patch.
    *
+   *
    */
   readonly name?: string
+  /**
+   *
+   */
   readonly value: KeyReference[]
 }
 /**
@@ -338,8 +408,12 @@ export interface TextAttribute {
    *	The name is required if this type is used in a product variant and must not be set when
    *	used in a product variant patch.
    *
+   *
    */
   readonly name?: string
+  /**
+   *
+   */
   readonly value: string
 }
 /**
@@ -353,8 +427,12 @@ export interface TextSetAttribute {
    *	The name is required if this type is used in a product variant and must not be set when
    *	used in a product variant patch.
    *
+   *
    */
   readonly name?: string
+  /**
+   *
+   */
   readonly value: string[]
 }
 /**
@@ -368,8 +446,12 @@ export interface TimeAttribute {
    *	The name is required if this type is used in a product variant and must not be set when
    *	used in a product variant patch.
    *
+   *
    */
   readonly name?: string
+  /**
+   *
+   */
   readonly value: string
 }
 /**
@@ -383,8 +465,12 @@ export interface TimeSetAttribute {
    *	The name is required if this type is used in a product variant and must not be set when
    *	used in a product variant patch.
    *
+   *
    */
   readonly name?: string
+  /**
+   *
+   */
   readonly value: string[]
 }
 /**
@@ -396,10 +482,12 @@ export interface ProductVariantImport extends ImportResource {
   /**
    *	Maps to `ProductVariant.sku`.
    *
+   *
    */
   readonly sku?: string
   /**
    *	Maps to `ProductVariant.isMasterVariant`.
+   *
    *
    */
   readonly isMasterVariant: boolean
@@ -410,20 +498,24 @@ export interface ProductVariantImport extends ImportResource {
    *	in an already existing product type in the commercetools project, or the import
    *	operation state is set to `Unresolved`.
    *
+   *
    */
   readonly attributes?: Attribute[]
   /**
    *	Maps to `ProductVariant.images`.
+   *
    *
    */
   readonly images?: Image[]
   /**
    *	Maps to `ProductVariant.assets`.
    *
+   *
    */
   readonly assets?: Asset[]
   /**
    *	If there were updates, only the updates will be published to `staged` and `current` projection.
+   *
    *
    */
   readonly publish?: boolean
@@ -433,6 +525,7 @@ export interface ProductVariantImport extends ImportResource {
    *	The product referenced
    *	must already exist in the commercetools project, or the
    *	import operation state is set to `Unresolved`.
+   *
    *
    */
   readonly product: ProductKeyReference
@@ -450,6 +543,7 @@ export interface ProductVariantPatch {
    *	must already exist in the commercetools project, or the
    *	import operation state is set to `Unresolved`.
    *
+   *
    */
   readonly productVariant: ProductVariantKeyReference
   /**
@@ -458,6 +552,7 @@ export interface ProductVariantPatch {
    *	Each attribute referenced must be defined
    *	in an already existing product type in the commercetools project, or the import
    *	operation state is set to `ValidationFailed`.
+   *
    *
    */
   readonly attributes?: Attributes

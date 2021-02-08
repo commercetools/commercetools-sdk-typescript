@@ -19,24 +19,34 @@ import { Custom } from './customfields'
  *
  */
 export interface InventoryImport extends ImportResource {
+  /**
+   *
+   */
   readonly sku: string
   /**
    *	Maps to `Inventory.quantityOnStock`
+   *
    *
    */
   readonly quantityOnStock: number
   /**
    *	Maps to `Inventory.restockableInDays`
    *
+   *
    */
   readonly restockableInDays?: number
+  /**
+   *
+   */
   readonly expectedDelivery?: string
   /**
    *	References a channel by its key.
+   *
    */
   readonly supplyChannel?: ChannelKeyReference
   /**
    *	Maps to `Inventory.custom`.
+   *
    *
    */
   readonly custom?: Custom

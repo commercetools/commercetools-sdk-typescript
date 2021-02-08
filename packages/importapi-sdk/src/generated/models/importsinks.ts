@@ -25,24 +25,29 @@ export interface ImportSink {
    *
    *	Valid characters are: alphabetic characters (A-Z, a-z), numeric characters (0-9), underscores (_) and hyphens (-).
    *
+   *
    */
   readonly key: string
   /**
    *	The type of import resource sent to this import sink.
    *	You can only send one resource type per import sink.
    *
+   *
    */
   readonly resourceType: ImportResourceType
   /**
    *	The version of this resource.
+   *
    */
   readonly version: number
   /**
    *	When the import sink was created.
+   *
    */
   readonly createdAt: string
   /**
    *	When the import sink was modified.
+   *
    */
   readonly lastModifiedAt: string
 }
@@ -53,14 +58,17 @@ export interface ImportSink {
 export interface ImportSinkDraft {
   /**
    *	The version of this resource.
+   *
    */
   readonly version?: number
   /**
    *	The unique key of the import sink.
+   *
    */
   readonly key: string
   /**
    *	The type of import resource sent to this import sink.
+   *
    */
   readonly resourceType: ImportResourceType
 }
@@ -70,18 +78,22 @@ export interface ImportSinkDraft {
 export interface ImportSinkPagedResponse {
   /**
    *	The maximum number of import operations returned for a page.
+   *
    */
   readonly limit: number
   /**
    *	The offset supplied by the client or the server default. It is the number of elements skipped.
+   *
    */
   readonly offset: number
   /**
    *	The actual number of results returned by this response.
+   *
    */
   readonly count: number
   /**
    *	The results for this paged response.
+   *
    */
   readonly results: ImportSink[]
 }

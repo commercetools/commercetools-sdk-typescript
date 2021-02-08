@@ -19,13 +19,37 @@ import {
 } from './common'
 
 export interface AttributeDefinition {
+  /**
+   *
+   */
   readonly type: AttributeType
+  /**
+   *
+   */
   readonly name: string
+  /**
+   *
+   */
   readonly label: LocalizedString
+  /**
+   *
+   */
   readonly isRequired: boolean
+  /**
+   *
+   */
   readonly attributeConstraint?: AttributeConstraintEnum
+  /**
+   *
+   */
   readonly inputTip?: LocalizedString
+  /**
+   *
+   */
   readonly inputHint?: TextInputHint
+  /**
+   *
+   */
   readonly isSearchable?: boolean
 }
 export type AttributeType =
@@ -53,10 +77,19 @@ export interface AttributeDateType {
 }
 export interface AttributeEnumType {
   readonly name: 'enum'
+  /**
+   *
+   */
   readonly values: AttributePlainEnumValue[]
 }
 export interface AttributePlainEnumValue {
+  /**
+   *
+   */
   readonly key: string
+  /**
+   *
+   */
   readonly label: string
 }
 export interface AttributeLocalizableTextType {
@@ -64,10 +97,19 @@ export interface AttributeLocalizableTextType {
 }
 export interface AttributeLocalizedEnumType {
   readonly name: 'lenum'
+  /**
+   *
+   */
   readonly values: AttributeLocalizedEnumValue[]
 }
 export interface AttributeLocalizedEnumValue {
+  /**
+   *
+   */
   readonly key: string
+  /**
+   *
+   */
   readonly label: LocalizedString
 }
 export interface AttributeMoneyType {
@@ -77,6 +119,7 @@ export interface AttributeNestedType {
   readonly name: 'nested'
   /**
    *	References a product type by its key.
+   *
    */
   readonly typeReference: ProductTypeKeyReference
 }
@@ -88,11 +131,15 @@ export interface AttributeReferenceType {
   /**
    *	The type of the referenced resource.
    *
+   *
    */
   readonly referenceTypeId: ReferenceType
 }
 export interface AttributeSetType {
   readonly name: 'set'
+  /**
+   *
+   */
   readonly elementType: AttributeType
 }
 export interface AttributeTextType {
@@ -115,15 +162,18 @@ export interface ProductTypeImport extends ImportResource {
   /**
    *	Maps to `ProductType.name`.
    *
+   *
    */
   readonly name: string
   /**
    *	Maps to `ProductType.description`.
    *
+   *
    */
   readonly description: string
   /**
    *	The product type's attributes.
+   *
    *
    */
   readonly attributes?: AttributeDefinition[]
