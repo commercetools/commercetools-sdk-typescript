@@ -58,6 +58,27 @@ import { StoreKeyReference } from './store'
 import { CustomFields } from './type'
 
 export type Message =
+  | CategoryCreatedMessage
+  | CategorySlugChangedMessage
+  | CustomLineItemStateTransitionMessage
+  | CustomerAddressAddedMessage
+  | CustomerAddressChangedMessage
+  | CustomerAddressRemovedMessage
+  | CustomerCompanyNameSetMessage
+  | CustomerCreatedMessage
+  | CustomerDateOfBirthSetMessage
+  | CustomerEmailChangedMessage
+  | CustomerEmailVerifiedMessage
+  | CustomerGroupSetMessage
+  | CustomerPasswordUpdatedMessage
+  | DeliveryAddedMessage
+  | DeliveryAddressSetMessage
+  | DeliveryItemsUpdatedMessage
+  | DeliveryRemovedMessage
+  | InventoryEntryCreatedMessage
+  | InventoryEntryDeletedMessage
+  | InventoryEntryQuantitySetMessage
+  | LineItemStateTransitionMessage
   | OrderBillingAddressSetMessage
   | OrderCreatedMessage
   | OrderCustomLineItemDiscountSetMessage
@@ -110,27 +131,6 @@ export type Message =
   | ReviewCreatedMessage
   | ReviewRatingSetMessage
   | ReviewStateTransitionMessage
-  | DeliveryItemsUpdatedMessage
-  | CustomLineItemStateTransitionMessage
-  | CustomerDateOfBirthSetMessage
-  | CustomerAddressRemovedMessage
-  | InventoryEntryCreatedMessage
-  | DeliveryRemovedMessage
-  | CustomerAddressChangedMessage
-  | LineItemStateTransitionMessage
-  | CustomerAddressAddedMessage
-  | CustomerGroupSetMessage
-  | CategoryCreatedMessage
-  | CategorySlugChangedMessage
-  | CustomerCompanyNameSetMessage
-  | DeliveryAddedMessage
-  | CustomerCreatedMessage
-  | InventoryEntryQuantitySetMessage
-  | InventoryEntryDeletedMessage
-  | CustomerEmailVerifiedMessage
-  | CustomerPasswordUpdatedMessage
-  | CustomerEmailChangedMessage
-  | DeliveryAddressSetMessage
 export interface CategoryCreatedMessage {
   readonly type: 'CategoryCreated'
   /**
@@ -3954,6 +3954,27 @@ export interface UserProvidedIdentifiers {
   readonly slug?: LocalizedString
 }
 export type MessagePayload =
+  | CategoryCreatedMessagePayload
+  | CategorySlugChangedMessagePayload
+  | CustomLineItemStateTransitionMessagePayload
+  | CustomerAddressAddedMessagePayload
+  | CustomerAddressChangedMessagePayload
+  | CustomerAddressRemovedMessagePayload
+  | CustomerCompanyNameSetMessagePayload
+  | CustomerCreatedMessagePayload
+  | CustomerDateOfBirthSetMessagePayload
+  | CustomerEmailChangedMessagePayload
+  | CustomerEmailVerifiedMessagePayload
+  | CustomerGroupSetMessagePayload
+  | CustomerPasswordUpdatedMessagePayload
+  | DeliveryAddedMessagePayload
+  | DeliveryAddressSetMessagePayload
+  | DeliveryItemsUpdatedMessagePayload
+  | DeliveryRemovedMessagePayload
+  | InventoryEntryCreatedMessagePayload
+  | InventoryEntryDeletedMessagePayload
+  | InventoryEntryQuantitySetMessagePayload
+  | LineItemStateTransitionMessagePayload
   | OrderBillingAddressSetMessagePayload
   | OrderCreatedMessagePayload
   | OrderCustomLineItemDiscountSetMessagePayload
@@ -4006,27 +4027,6 @@ export type MessagePayload =
   | ReviewCreatedMessagePayload
   | ReviewRatingSetMessagePayload
   | ReviewStateTransitionMessagePayload
-  | CustomLineItemStateTransitionMessagePayload
-  | CustomerAddressChangedMessagePayload
-  | InventoryEntryCreatedMessagePayload
-  | DeliveryRemovedMessagePayload
-  | CustomerGroupSetMessagePayload
-  | LineItemStateTransitionMessagePayload
-  | InventoryEntryDeletedMessagePayload
-  | CustomerEmailVerifiedMessagePayload
-  | CustomerEmailChangedMessagePayload
-  | CustomerCompanyNameSetMessagePayload
-  | DeliveryItemsUpdatedMessagePayload
-  | DeliveryAddressSetMessagePayload
-  | CustomerAddressRemovedMessagePayload
-  | CustomerAddressAddedMessagePayload
-  | CustomerCreatedMessagePayload
-  | InventoryEntryQuantitySetMessagePayload
-  | CategorySlugChangedMessagePayload
-  | DeliveryAddedMessagePayload
-  | CategoryCreatedMessagePayload
-  | CustomerPasswordUpdatedMessagePayload
-  | CustomerDateOfBirthSetMessagePayload
 export interface CategoryCreatedMessagePayload {
   readonly type: 'CategoryCreated'
   /**

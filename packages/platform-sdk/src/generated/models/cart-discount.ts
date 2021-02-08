@@ -237,11 +237,11 @@ export interface CartDiscountResourceIdentifier {
   readonly key?: string
 }
 export type CartDiscountTarget =
+  | CartDiscountCustomLineItemsTarget
+  | CartDiscountLineItemsTarget
+  | CartDiscountShippingCostTarget
   | MultiBuyCustomLineItemsTarget
   | MultiBuyLineItemsTarget
-  | CartDiscountShippingCostTarget
-  | CartDiscountLineItemsTarget
-  | CartDiscountCustomLineItemsTarget
 export interface CartDiscountCustomLineItemsTarget {
   readonly type: 'customLineItems'
   /**
@@ -297,9 +297,9 @@ export interface CartDiscountValueAbsolute {
   readonly money: TypedMoney[]
 }
 export type CartDiscountValueDraft =
+  | CartDiscountValueAbsoluteDraft
   | CartDiscountValueGiftLineItemDraft
   | CartDiscountValueRelativeDraft
-  | CartDiscountValueAbsoluteDraft
 export interface CartDiscountValueAbsoluteDraft {
   readonly type: 'absolute'
   /**

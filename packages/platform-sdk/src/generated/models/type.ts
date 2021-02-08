@@ -97,18 +97,18 @@ export interface FieldDefinition {
   readonly inputHint?: TypeTextInputHint
 }
 export type FieldType =
-  | CustomFieldDateType
-  | CustomFieldDateTimeType
-  | CustomFieldTimeType
-  | CustomFieldMoneyType
-  | CustomFieldLocalizedStringType
-  | CustomFieldSetType
-  | CustomFieldLocalizedEnumType
   | CustomFieldBooleanType
+  | CustomFieldDateTimeType
+  | CustomFieldDateType
   | CustomFieldEnumType
-  | CustomFieldStringType
+  | CustomFieldLocalizedEnumType
+  | CustomFieldLocalizedStringType
+  | CustomFieldMoneyType
   | CustomFieldNumberType
   | CustomFieldReferenceType
+  | CustomFieldSetType
+  | CustomFieldStringType
+  | CustomFieldTimeType
 export interface CustomFieldBooleanType {
   readonly name: 'Boolean'
 }
@@ -163,24 +163,24 @@ export interface CustomFieldTimeType {
 }
 export type ResourceTypeId =
   | 'asset'
+  | 'cart-discount'
   | 'category'
   | 'channel'
+  | 'custom-line-item'
   | 'customer'
-  | 'order'
-  | 'order-edit'
+  | 'customer-group'
+  | 'discount-code'
   | 'inventory-entry'
   | 'line-item'
-  | 'custom-line-item'
-  | 'product-price'
+  | 'order'
+  | 'order-edit'
   | 'payment'
   | 'payment-interface-interaction'
+  | 'product-price'
   | 'review'
   | 'shipping-method'
   | 'shopping-list'
   | 'shopping-list-text-line-item'
-  | 'discount-code'
-  | 'cart-discount'
-  | 'customer-group'
 export interface Type extends BaseResource {
   /**
    *	The unique ID of the type.
@@ -301,7 +301,7 @@ export interface TypeResourceIdentifier {
    */
   readonly key?: string
 }
-export type TypeTextInputHint = 'SingleLine' | 'MultiLine'
+export type TypeTextInputHint = 'MultiLine' | 'SingleLine'
 export interface TypeUpdate {
   /**
    *

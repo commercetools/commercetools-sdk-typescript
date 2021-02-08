@@ -58,27 +58,27 @@ export interface ErrorResponse {
  */
 export type ErrorObject =
   | AccessDeniedError
-  | InvalidScopeError
-  | InvalidOperation
+  | ConcurrentModificationError
+  | ContentionError
   | DuplicateAttributeValueError
   | DuplicateAttributeValuesError
   | DuplicateFieldError
   | DuplicateVariantValuesError
+  | GenericError
   | InsufficientScopeError
   | InvalidCredentialsError
-  | InvalidTokenError
   | InvalidFieldError
-  | InvalidJsonInput
   | InvalidInput
-  | ResourceNotFoundError
-  | ResourceCreationError
-  | ResourceUpdateError
-  | ResourceDeletionError
-  | RequiredFieldError
+  | InvalidJsonInput
+  | InvalidOperation
+  | InvalidScopeError
   | InvalidStateTransitionError
-  | ConcurrentModificationError
-  | ContentionError
-  | GenericError
+  | InvalidTokenError
+  | RequiredFieldError
+  | ResourceCreationError
+  | ResourceDeletionError
+  | ResourceNotFoundError
+  | ResourceUpdateError
 export interface AccessDeniedError {
   readonly code: 'access_denied'
   /**

@@ -128,11 +128,11 @@ export type KeyReference =
   | CartDiscountKeyReference
   | CategoryKeyReference
   | ChannelKeyReference
-  | CustomerKeyReference
   | CustomerGroupKeyReference
+  | CustomerKeyReference
   | PriceKeyReference
-  | ProductKeyReference
   | ProductDiscountKeyReference
+  | ProductKeyReference
   | ProductTypeKeyReference
   | ProductVariantKeyReference
   | ShippingMethodKeyReference
@@ -364,6 +364,8 @@ export interface PriceTier {
  */
 export type ImportResourceType =
   | 'category'
+  | 'customer'
+  | 'inventory'
   | 'order'
   | 'price'
   | 'product'
@@ -371,8 +373,6 @@ export type ImportResourceType =
   | 'product-type'
   | 'product-variant'
   | 'product-variant-patch'
-  | 'customer'
-  | 'inventory'
 /**
  *	The type of the referenced resource.
  *
@@ -398,13 +398,13 @@ export type ReferenceType =
  *
  */
 export type ProcessingState =
-  | 'ValidationFailed'
-  | 'Unresolved'
-  | 'WaitForMasterVariant'
-  | 'Imported'
   | 'Delete'
   | 'Deleted'
+  | 'Imported'
   | 'Rejected'
+  | 'Unresolved'
+  | 'ValidationFailed'
+  | 'WaitForMasterVariant'
 export interface Address {
   /**
    *

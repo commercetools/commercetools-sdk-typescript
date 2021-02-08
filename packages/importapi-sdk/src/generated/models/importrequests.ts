@@ -28,15 +28,15 @@ import { ProductVariantImport, ProductVariantPatch } from './productvariants'
  */
 export type ImportRequest =
   | CategoryImportRequest
-  | ProductImportRequest
-  | ProductDraftImportRequest
-  | ProductTypeImportRequest
-  | ProductVariantImportRequest
-  | PriceImportRequest
-  | OrderImportRequest
-  | ProductVariantPatchRequest
   | CustomerImportRequest
   | InventoryImportRequest
+  | OrderImportRequest
+  | PriceImportRequest
+  | ProductDraftImportRequest
+  | ProductImportRequest
+  | ProductTypeImportRequest
+  | ProductVariantImportRequest
+  | ProductVariantPatchRequest
 /**
  *	The import response contains an import operation for each import resource sent with an import request. Use it for tracking the progress of imports to a commercetools project.
  *

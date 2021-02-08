@@ -108,7 +108,7 @@ export interface ImportOperationPagedResponse {
  *	This enumeration describes the operation state of a newly created import operation.
  *
  */
-export type ImportOperationState = 'Unresolved' | 'ValidationFailed' | 'Delete'
+export type ImportOperationState = 'Delete' | 'Unresolved' | 'ValidationFailed'
 /**
  *	The validation status of a created operation.
  *

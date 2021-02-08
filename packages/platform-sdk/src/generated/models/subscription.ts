@@ -20,7 +20,7 @@ export interface ChangeSubscription {
    */
   readonly resourceTypeId: string
 }
-export type DeliveryFormat = DeliveryPlatformFormat | DeliveryCloudEventsFormat
+export type DeliveryFormat = DeliveryCloudEventsFormat | DeliveryPlatformFormat
 export interface DeliveryCloudEventsFormat {
   readonly type: 'CloudEvents'
   /**
@@ -32,12 +32,12 @@ export interface DeliveryPlatformFormat {
   readonly type: 'Platform'
 }
 export type Destination =
+  | AzureEventGridDestination
+  | AzureServiceBusDestination
   | GoogleCloudPubSubDestination
   | IronMqDestination
   | SnsDestination
   | SqsDestination
-  | AzureServiceBusDestination
-  | AzureEventGridDestination
 export interface AzureEventGridDestination {
   readonly type: 'EventGrid'
   /**
@@ -182,8 +182,8 @@ export interface Subscription extends BaseResource {
 }
 export type SubscriptionDelivery =
   | MessageDelivery
-  | ResourceDeletedDelivery
   | ResourceCreatedDelivery
+  | ResourceDeletedDelivery
   | ResourceUpdatedDelivery
 export interface MessageDelivery {
   readonly notificationType: 'Message'
@@ -328,9 +328,9 @@ export interface SubscriptionDraft {
   readonly format?: DeliveryFormat
 }
 export type SubscriptionHealthStatus =
-  | 'Healthy'
   | 'ConfigurationError'
   | 'ConfigurationErrorDeliveryStopped'
+  | 'Healthy'
   | 'TemporaryError'
 export interface SubscriptionPagedQueryResponse {
   /**

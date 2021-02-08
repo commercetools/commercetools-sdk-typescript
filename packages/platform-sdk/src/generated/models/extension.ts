@@ -61,8 +61,8 @@ export interface Extension extends BaseResource {
 }
 export type ExtensionAction = 'Create' | 'Update'
 export type ExtensionDestination =
-  | ExtensionHttpDestination
   | ExtensionAWSLambdaDestination
+  | ExtensionHttpDestination
 export interface ExtensionAWSLambdaDestination {
   readonly type: 'AWSLambda'
   /**
@@ -115,8 +115,8 @@ export interface ExtensionHttpDestination {
   readonly authentication?: ExtensionHttpDestinationAuthentication
 }
 export type ExtensionHttpDestinationAuthentication =
-  | ExtensionAzureFunctionsAuthentication
   | ExtensionAuthorizationHeaderAuthentication
+  | ExtensionAzureFunctionsAuthentication
 export interface ExtensionAuthorizationHeaderAuthentication {
   readonly type: 'AuthorizationHeader'
   /**
@@ -163,7 +163,7 @@ export interface ExtensionPagedQueryResponse {
    */
   readonly results: Extension[]
 }
-export type ExtensionResourceTypeId = 'cart' | 'order' | 'payment' | 'customer'
+export type ExtensionResourceTypeId = 'cart' | 'customer' | 'order' | 'payment'
 export interface ExtensionTrigger {
   /**
    *

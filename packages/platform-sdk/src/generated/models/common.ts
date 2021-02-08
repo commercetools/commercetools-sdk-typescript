@@ -547,6 +547,10 @@ export interface QueryPrice {
   readonly tiers?: PriceTierDraft[]
 }
 export type Reference =
+  | CartDiscountReference
+  | CartReference
+  | CategoryReference
+  | ChannelReference
   | CustomObjectReference
   | CustomerGroupReference
   | CustomerReference
@@ -556,8 +560,8 @@ export type Reference =
   | OrderReference
   | PaymentReference
   | ProductDiscountReference
-  | ProductTypeReference
   | ProductReference
+  | ProductTypeReference
   | ReviewReference
   | ShippingMethodReference
   | ShoppingListReference
@@ -566,10 +570,6 @@ export type Reference =
   | TaxCategoryReference
   | TypeReference
   | ZoneReference
-  | CategoryReference
-  | CartReference
-  | CartDiscountReference
-  | ChannelReference
 export type ReferenceTypeId =
   | 'cart'
   | 'cart-discount'
@@ -599,6 +599,10 @@ export type ReferenceTypeId =
   | 'type'
   | 'zone'
 export type ResourceIdentifier =
+  | CartDiscountResourceIdentifier
+  | CartResourceIdentifier
+  | CategoryResourceIdentifier
+  | ChannelResourceIdentifier
   | CustomerGroupResourceIdentifier
   | CustomerResourceIdentifier
   | DiscountCodeResourceIdentifier
@@ -607,8 +611,8 @@ export type ResourceIdentifier =
   | OrderResourceIdentifier
   | PaymentResourceIdentifier
   | ProductDiscountResourceIdentifier
-  | ProductTypeResourceIdentifier
   | ProductResourceIdentifier
+  | ProductTypeResourceIdentifier
   | ReviewResourceIdentifier
   | ShippingMethodResourceIdentifier
   | ShoppingListResourceIdentifier
@@ -617,10 +621,6 @@ export type ResourceIdentifier =
   | TaxCategoryResourceIdentifier
   | TypeResourceIdentifier
   | ZoneResourceIdentifier
-  | CartDiscountResourceIdentifier
-  | CategoryResourceIdentifier
-  | CartResourceIdentifier
-  | ChannelResourceIdentifier
 export interface ScopedPrice {
   /**
    *

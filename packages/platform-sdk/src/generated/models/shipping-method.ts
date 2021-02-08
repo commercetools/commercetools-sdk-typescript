@@ -260,9 +260,9 @@ export interface ShippingRateDraft {
   readonly tiers?: ShippingRatePriceTier[]
 }
 export type ShippingRatePriceTier =
-  | CartValueTier
-  | CartScoreTier
   | CartClassificationTier
+  | CartScoreTier
+  | CartValueTier
 export interface CartClassificationTier {
   readonly type: 'CartClassification'
   /**
@@ -313,9 +313,9 @@ export interface CartValueTier {
   readonly isMatching?: boolean
 }
 export type ShippingRateTierType =
-  | 'CartValue'
   | 'CartClassification'
   | 'CartScore'
+  | 'CartValue'
 export interface ZoneRate {
   /**
    *

@@ -149,11 +149,11 @@ export interface AttributeTimeType {
   readonly name: 'time'
 }
 export type AttributeConstraintEnum =
-  | 'None'
-  | 'Unique'
   | 'CombinationUnique'
+  | 'None'
   | 'SameForAll'
-export type TextInputHint = 'SingleLine' | 'MultiLine'
+  | 'Unique'
+export type TextInputHint = 'MultiLine' | 'SingleLine'
 /**
  *	Import representation for a product type.
  *

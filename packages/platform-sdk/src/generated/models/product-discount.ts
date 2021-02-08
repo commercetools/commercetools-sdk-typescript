@@ -249,9 +249,9 @@ export interface ProductDiscountValueAbsolute {
   readonly money: TypedMoney[]
 }
 export type ProductDiscountValueDraft =
+  | ProductDiscountValueAbsoluteDraft
   | ProductDiscountValueExternalDraft
   | ProductDiscountValueRelativeDraft
-  | ProductDiscountValueAbsoluteDraft
 export interface ProductDiscountValueAbsoluteDraft {
   readonly type: 'absolute'
   /**

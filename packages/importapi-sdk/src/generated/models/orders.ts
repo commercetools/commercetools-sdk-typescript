@@ -237,9 +237,9 @@ export interface LineItemImportDraft {
   readonly shippingDetails?: ItemShippingDetailsDraft
 }
 export type ShippingRateTierType =
-  | 'CartValue'
   | 'CartClassification'
   | 'CartScore'
+  | 'CartValue'
 export type ShippingRatePriceTier = CartClassificationTier
 export interface CartClassificationTier {
   readonly type: 'CartClassification'
@@ -556,34 +556,34 @@ export interface TaxedPrice {
 /**
  *	Maps to `Order.orderState`.
  */
-export type OrderState = 'Open' | 'Confirmed' | 'Complete' | 'Cancelled'
+export type OrderState = 'Cancelled' | 'Complete' | 'Confirmed' | 'Open'
 /**
  *	Maps to `Order.shipmentState`.
  */
 export type ShipmentState =
-  | 'Shipped'
-  | 'Ready'
-  | 'Pending'
+  | 'Backorder'
   | 'Delayed'
   | 'Partial'
-  | 'Backorder'
+  | 'Pending'
+  | 'Ready'
+  | 'Shipped'
 /**
  *	Maps to `Order.paymentState`.
  */
 export type PaymentState =
   | 'BalanceDue'
-  | 'Failed'
-  | 'Pending'
   | 'CreditOwed'
+  | 'Failed'
   | 'Paid'
+  | 'Pending'
 /**
  *	Maps to `Order.inventoryMode`.
  */
-export type InventoryMode = 'TrackOnly' | 'ReserveOnOrder'
+export type InventoryMode = 'ReserveOnOrder' | 'TrackOnly'
 /**
  *	Maps to `Order.taxRoundingMode`.
  */
-export type RoundingMode = 'HalfEven' | 'HalfUp' | 'HalfDown'
+export type RoundingMode = 'HalfDown' | 'HalfEven' | 'HalfUp'
 /**
  *	Maps to `Order.taxCalculationMode`.
  */

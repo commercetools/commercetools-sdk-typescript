@@ -514,7 +514,7 @@ export interface Order extends BaseResource {
 export interface OrderFromCartDraft {
   /**
    *	The unique id of the cart from which an order is created.
-   *
+   *	@deprecated
    */
   readonly id: string
   /**
@@ -707,7 +707,7 @@ export interface OrderResourceIdentifier {
    */
   readonly key?: string
 }
-export type OrderState = 'Open' | 'Confirmed' | 'Complete' | 'Cancelled'
+export type OrderState = 'Cancelled' | 'Complete' | 'Confirmed' | 'Open'
 export interface OrderUpdate {
   /**
    *
@@ -824,10 +824,10 @@ export interface PaymentInfo {
 }
 export type PaymentState =
   | 'BalanceDue'
-  | 'Failed'
-  | 'Pending'
   | 'CreditOwed'
+  | 'Failed'
   | 'Paid'
+  | 'Pending'
 export interface ProductVariantImportDraft {
   /**
    *	The sequential ID of the variant within the product.
@@ -876,7 +876,7 @@ export interface ReturnInfo {
    */
   readonly returnDate?: string
 }
-export type ReturnItem = LineItemReturnItem | CustomLineItemReturnItem
+export type ReturnItem = CustomLineItemReturnItem | LineItemReturnItem
 export interface CustomLineItemReturnItem {
   readonly type: 'CustomLineItemReturnItem'
   /**
@@ -970,22 +970,22 @@ export interface ReturnItemDraft {
   readonly shipmentState: ReturnShipmentState
 }
 export type ReturnPaymentState =
-  | 'NonRefundable'
   | 'Initial'
-  | 'Refunded'
+  | 'NonRefundable'
   | 'NotRefunded'
+  | 'Refunded'
 export type ReturnShipmentState =
   | 'Advised'
-  | 'Returned'
   | 'BackInStock'
+  | 'Returned'
   | 'Unusable'
 export type ShipmentState =
-  | 'Shipped'
-  | 'Ready'
-  | 'Pending'
+  | 'Backorder'
   | 'Delayed'
   | 'Partial'
-  | 'Backorder'
+  | 'Pending'
+  | 'Ready'
+  | 'Shipped'
 export interface ShippingInfoImportDraft {
   /**
    *

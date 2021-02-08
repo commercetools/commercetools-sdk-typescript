@@ -20,10 +20,10 @@ import {
 } from './common'
 
 export type AttributeConstraintEnum =
-  | 'None'
-  | 'Unique'
   | 'CombinationUnique'
+  | 'None'
   | 'SameForAll'
+  | 'Unique'
 export type AttributeConstraintEnumDraft = 'None'
 export interface AttributeDefinition {
   /**
@@ -145,19 +145,19 @@ export interface AttributePlainEnumValue {
   readonly label: string
 }
 export type AttributeType =
+  | AttributeBooleanType
+  | AttributeDateTimeType
+  | AttributeDateType
+  | AttributeEnumType
   | AttributeLocalizableTextType
   | AttributeLocalizedEnumType
-  | AttributeEnumType
   | AttributeMoneyType
-  | AttributeDateType
-  | AttributeDateTimeType
-  | AttributeReferenceType
-  | AttributeTimeType
   | AttributeNestedType
   | AttributeNumberType
-  | AttributeBooleanType
-  | AttributeTextType
+  | AttributeReferenceType
   | AttributeSetType
+  | AttributeTextType
+  | AttributeTimeType
 export interface AttributeBooleanType {
   readonly name: 'boolean'
 }
@@ -362,7 +362,7 @@ export type ProductTypeUpdateAction =
   | ProductTypeRemoveEnumValuesAction
   | ProductTypeSetInputTipAction
   | ProductTypeSetKeyAction
-export type TextInputHint = 'SingleLine' | 'MultiLine'
+export type TextInputHint = 'MultiLine' | 'SingleLine'
 export interface ProductTypeAddAttributeDefinitionAction {
   readonly action: 'addAttributeDefinition'
   /**

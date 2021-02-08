@@ -247,7 +247,7 @@ export interface CustomerDraft {
   readonly title?: string
   /**
    *	Identifies a single cart that will be assigned to the new customer account.
-   *
+   *	@deprecated
    */
   readonly anonymousCartId?: string
   /**

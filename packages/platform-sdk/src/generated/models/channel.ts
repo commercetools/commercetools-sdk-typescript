@@ -175,10 +175,10 @@ export interface ChannelResourceIdentifier {
 }
 export type ChannelRoleEnum =
   | 'InventorySupply'
-  | 'ProductDistribution'
   | 'OrderExport'
   | 'OrderImport'
   | 'Primary'
+  | 'ProductDistribution'
 export interface ChannelUpdate {
   /**
    *

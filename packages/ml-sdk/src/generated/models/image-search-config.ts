@@ -11,7 +11,7 @@
  *
  */
 
-export type ImageSearchConfigStatus = 'on' | 'off'
+export type ImageSearchConfigStatus = 'off' | 'on'
 export type ImageSearchConfigUpdateAction = ChangeStatusUpdateAction
 export interface ChangeStatusUpdateAction {
   readonly action: 'changeStatus'

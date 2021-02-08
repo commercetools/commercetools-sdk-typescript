@@ -163,13 +163,13 @@ export interface StateResourceIdentifier {
    */
   readonly key?: string
 }
-export type StateRoleEnum = 'ReviewIncludedInStatistics' | 'Return'
+export type StateRoleEnum = 'Return' | 'ReviewIncludedInStatistics'
 export type StateTypeEnum =
-  | 'OrderState'
   | 'LineItemState'
+  | 'OrderState'
+  | 'PaymentState'
   | 'ProductState'
   | 'ReviewState'
-  | 'PaymentState'
 export interface StateUpdate {
   /**
    *

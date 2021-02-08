@@ -395,13 +395,13 @@ export interface TransactionDraft {
    */
   readonly state?: TransactionState
 }
-export type TransactionState = 'Initial' | 'Pending' | 'Success' | 'Failure'
+export type TransactionState = 'Failure' | 'Initial' | 'Pending' | 'Success'
 export type TransactionType =
   | 'Authorization'
   | 'CancelAuthorization'
   | 'Charge'
-  | 'Refund'
   | 'Chargeback'
+  | 'Refund'
 export interface PaymentAddInterfaceInteractionAction {
   readonly action: 'addInterfaceInteraction'
   /**

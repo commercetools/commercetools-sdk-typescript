@@ -120,7 +120,7 @@ export interface FacetResults {
     | RangeFacetResult
     | TermFacetResult
 }
-export type FacetTypes = 'terms' | 'range' | 'filter'
+export type FacetTypes = 'filter' | 'range' | 'terms'
 export interface FilteredFacetResult {
   readonly type: 'filter'
   /**
@@ -699,7 +699,7 @@ export interface SearchKeyword {
 export interface SearchKeywords {
   [key: string]: SearchKeyword[]
 }
-export type SuggestTokenizer = WhitespaceTokenizer | CustomTokenizer
+export type SuggestTokenizer = CustomTokenizer | WhitespaceTokenizer
 export interface CustomTokenizer {
   readonly type: 'custom'
   /**
@@ -741,12 +741,12 @@ export interface TermFacetResult {
   readonly terms: FacetResultTerm[]
 }
 export type TermFacetResultType =
-  | 'text'
-  | 'date'
-  | 'time'
-  | 'datetime'
   | 'boolean'
+  | 'date'
+  | 'datetime'
   | 'number'
+  | 'text'
+  | 'time'
 export interface WhitespaceTokenizer {
   readonly type: 'whitespace'
 }

@@ -38,6 +38,25 @@ export interface ErrorByExtension {
   readonly key?: string
 }
 export type ErrorObject =
+  | AccessDeniedError
+  | AnonymousIdAlreadyInUseError
+  | AttributeDefinitionAlreadyExistsError
+  | AttributeDefinitionTypeConflictError
+  | AttributeNameDoesNotExistError
+  | ConcurrentModificationError
+  | DiscountCodeNonApplicableError
+  | DuplicateAttributeValueError
+  | DuplicateAttributeValuesError
+  | DuplicateEnumValuesError
+  | DuplicateFieldError
+  | DuplicateFieldWithConflictingResourceError
+  | DuplicatePriceScopeError
+  | DuplicateVariantValuesError
+  | EditPreviewFailedError
+  | EnumKeyAlreadyExistsError
+  | EnumKeyDoesNotExistError
+  | EnumValueIsUsedError
+  | EnumValuesMustMatchError
   | ExtensionBadResponseError
   | ExtensionNoResponseError
   | ExtensionUpdateActionsFailedError
@@ -81,25 +100,6 @@ export type ErrorObject =
   | ShippingMethodDoesNotMatchCartError
   | SyntaxErrorError
   | WeakPasswordError
-  | AccessDeniedError
-  | AnonymousIdAlreadyInUseError
-  | EnumKeyDoesNotExistError
-  | DuplicateEnumValuesError
-  | DuplicatePriceScopeError
-  | DuplicateFieldWithConflictingResourceError
-  | DuplicateVariantValuesError
-  | EnumValueIsUsedError
-  | DuplicateFieldError
-  | AttributeDefinitionAlreadyExistsError
-  | ConcurrentModificationError
-  | DiscountCodeNonApplicableError
-  | EditPreviewFailedError
-  | DuplicateAttributeValuesError
-  | AttributeNameDoesNotExistError
-  | DuplicateAttributeValueError
-  | EnumKeyAlreadyExistsError
-  | EnumValuesMustMatchError
-  | AttributeDefinitionTypeConflictError
 export interface AccessDeniedError {
   readonly code: 'access_denied'
   /**

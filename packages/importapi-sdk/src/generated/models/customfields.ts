@@ -45,27 +45,27 @@ export interface FieldContainer {
  */
 export type CustomField =
   | BooleanField
-  | StringField
-  | LocalizedStringField
-  | EnumField
-  | LocalizedEnumField
-  | NumberField
-  | MoneyField
-  | DateField
-  | TimeField
-  | DateTimeField
-  | ReferenceField
   | BooleanSetField
-  | StringSetField
-  | LocalizedStringSetField
-  | EnumSetField
-  | LocalizedEnumSetField
-  | NumberSetField
-  | MoneySetField
+  | DateField
   | DateSetField
-  | TimeSetField
+  | DateTimeField
   | DateTimeSetField
+  | EnumField
+  | EnumSetField
+  | LocalizedEnumField
+  | LocalizedEnumSetField
+  | LocalizedStringField
+  | LocalizedStringSetField
+  | MoneyField
+  | MoneySetField
+  | NumberField
+  | NumberSetField
+  | ReferenceField
   | ReferenceSetField
+  | StringField
+  | StringSetField
+  | TimeField
+  | TimeSetField
 /**
  *	A field with a boolean value.
  */

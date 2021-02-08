@@ -579,11 +579,11 @@ export interface DiscountCodeInfo {
   readonly state: DiscountCodeState
 }
 export type DiscountCodeState =
-  | 'NotActive'
+  | 'ApplicationStoppedByPreviousDiscount'
   | 'DoesNotMatchCart'
   | 'MatchesCart'
   | 'MaxApplicationReached'
-  | 'ApplicationStoppedByPreviousDiscount'
+  | 'NotActive'
   | 'NotValid'
 export interface DiscountedLineItemPortion {
   /**
@@ -672,7 +672,7 @@ export interface ExternalTaxRateDraft {
    */
   readonly includedInPrice?: boolean
 }
-export type InventoryMode = 'TrackOnly' | 'ReserveOnOrder' | 'None'
+export type InventoryMode = 'None' | 'ReserveOnOrder' | 'TrackOnly'
 export interface ItemShippingDetails {
   /**
    *	Used to map what sub-quantity should be shipped to which address.
@@ -893,8 +893,8 @@ export interface LineItemDraft {
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
 }
-export type LineItemMode = 'Standard' | 'GiftLineItem'
-export type LineItemPriceMode = 'Platform' | 'ExternalTotal' | 'ExternalPrice'
+export type LineItemMode = 'GiftLineItem' | 'Standard'
+export type LineItemPriceMode = 'ExternalPrice' | 'ExternalTotal' | 'Platform'
 export interface ReplicaCartDraft {
   /**
    *
@@ -906,7 +906,7 @@ export interface ReplicaCartDraft {
    */
   readonly key?: string
 }
-export type RoundingMode = 'HalfEven' | 'HalfUp' | 'HalfDown'
+export type RoundingMode = 'HalfDown' | 'HalfEven' | 'HalfUp'
 export interface ShippingInfo {
   /**
    *
@@ -980,8 +980,8 @@ export interface ScoreShippingRateInput {
   readonly score: number
 }
 export type ShippingRateInputDraft =
-  | ScoreShippingRateInputDraft
   | ClassificationShippingRateInputDraft
+  | ScoreShippingRateInputDraft
 export interface ClassificationShippingRateInputDraft {
   readonly type: 'Classification'
   /**
@@ -997,7 +997,7 @@ export interface ScoreShippingRateInputDraft {
   readonly score: number
 }
 export type TaxCalculationMode = 'LineItemLevel' | 'UnitPriceLevel'
-export type TaxMode = 'Platform' | 'External' | 'ExternalAmount' | 'Disabled'
+export type TaxMode = 'Disabled' | 'External' | 'ExternalAmount' | 'Platform'
 export interface TaxPortion {
   /**
    *
