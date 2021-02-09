@@ -516,12 +516,12 @@ export interface OrderFromCartDraft {
    *	The unique id of the cart from which an order is created.
    *	@deprecated
    */
-  readonly id: string
+  readonly id?: string
   /**
    *	ResourceIdentifier to the Cart from which this order is created.
    *
    */
-  readonly cart: CartResourceIdentifier
+  readonly cart?: CartResourceIdentifier
   /**
    *
    */
