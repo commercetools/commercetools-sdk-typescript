@@ -17,7 +17,6 @@ import {
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyProductTypesImportSinkKeyByImportSinkKeyImportOperationsRequestBuilder } from '../import-operations/by-project-key-product-types-import-sink-key-by-import-sink-key-import-operations-request-builder'
-import { ByProjectKeyProductTypesImportSinkKeyByImportSinkKeyResourceKeyByResourceKeyRequestBuilder } from './by-project-key-product-types-import-sink-key-by-import-sink-key-resource-key-by-resource-key-request-builder'
 
 export class ByProjectKeyProductTypesImportSinkKeyByImportSinkKeyRequestBuilder {
   constructor(
@@ -30,20 +29,6 @@ export class ByProjectKeyProductTypesImportSinkKeyByImportSinkKeyRequestBuilder 
       baseUri?: string
     }
   ) {}
-  public resourceKeyWithResourceKeyValue(childPathArgs: {
-    resourceKey: string
-  }): ByProjectKeyProductTypesImportSinkKeyByImportSinkKeyResourceKeyByResourceKeyRequestBuilder {
-    return new ByProjectKeyProductTypesImportSinkKeyByImportSinkKeyResourceKeyByResourceKeyRequestBuilder(
-      {
-        pathArgs: {
-          ...this.args.pathArgs,
-          ...childPathArgs,
-        },
-        executeRequest: this.args.executeRequest,
-        baseUri: this.args.baseUri,
-      }
-    )
-  }
   public importOperations(): ByProjectKeyProductTypesImportSinkKeyByImportSinkKeyImportOperationsRequestBuilder {
     return new ByProjectKeyProductTypesImportSinkKeyByImportSinkKeyImportOperationsRequestBuilder(
       {
