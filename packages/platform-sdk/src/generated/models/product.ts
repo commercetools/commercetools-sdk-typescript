@@ -114,11 +114,7 @@ export interface FacetResultTerm {
   readonly productCount?: number
 }
 export interface FacetResults {
-  [key: string]:
-    | FacetResult
-    | FilteredFacetResult
-    | RangeFacetResult
-    | TermFacetResult
+  [key: string]: FacetResult
 }
 export type FacetTypes = 'filter' | 'range' | 'terms'
 export interface FilteredFacetResult {
