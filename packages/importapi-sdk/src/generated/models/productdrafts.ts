@@ -69,14 +69,38 @@ export interface ProductDraftImport extends ImportResource {
    */
   readonly categories?: CategoryKeyReference[]
   /**
+   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
+   *	```json
+   *	{
+   *	  "de": "Hundefutter",
+   *	  "en": "dog food"
+   *	}
+   *	```
+   *
    *
    */
   readonly metaTitle?: LocalizedString
   /**
+   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
+   *	```json
+   *	{
+   *	  "de": "Hundefutter",
+   *	  "en": "dog food"
+   *	}
+   *	```
+   *
    *
    */
   readonly metaDescription?: LocalizedString
   /**
+   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
+   *	```json
+   *	{
+   *	  "de": "Hundefutter",
+   *	  "en": "dog food"
+   *	}
+   *	```
+   *
    *
    */
   readonly metaKeywords?: LocalizedString
@@ -103,6 +127,25 @@ export interface ProductDraftImport extends ImportResource {
    */
   readonly taxCategory?: TaxCategoryKeyReference
   /**
+   *	Search keywords are primarily used by the suggester but are also considered for the full-text search. SearchKeywords is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag). The value to a language tag key is an array of SearchKeyword for the specific language.
+   *	```json
+   *	{
+   *	  "en": [
+   *	    { "text": "Multi tool" },
+   *	    { "text": "Swiss Army Knife", "suggestTokenizer": { "type": "whitespace" } }
+   *	  ],
+   *	  "de": [
+   *	    {
+   *	      "text": "Schweizer Messer",
+   *	      "suggestTokenizer": {
+   *	        "type": "custom",
+   *	        "inputs": ["schweizer messer", "offiziersmesser", "sackmesser"]
+   *	      }
+   *	    }
+   *	  ]
+   *	}
+   *	```
+   *
    *
    */
   readonly searchKeywords?: SearchKeywords

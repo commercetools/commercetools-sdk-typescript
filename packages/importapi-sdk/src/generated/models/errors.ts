@@ -82,7 +82,7 @@ export type ErrorObject =
 export interface AccessDeniedError {
   readonly code: 'access_denied'
   /**
-   *	The error's description.
+   *	This is a placeholder for an actual platform error message.
    *
    */
   readonly message: string
@@ -94,7 +94,7 @@ export interface AccessDeniedError {
 export interface InvalidScopeError {
   readonly code: 'invalid_scope'
   /**
-   *	The error's description.
+   *	This is a placeholder for an actual platform error message.
    *
    */
   readonly message: string
@@ -107,7 +107,7 @@ export interface InvalidScopeError {
 export interface InvalidOperation {
   readonly code: 'InvalidOperation'
   /**
-   *	The error's description.
+   *	This is a placeholder for an actual platform error message.
    *
    */
   readonly message: string
@@ -118,7 +118,7 @@ export interface InvalidOperation {
 export interface DuplicateAttributeValueError {
   readonly code: 'DuplicateAttributeValue'
   /**
-   *	The error's description.
+   *	This is a placeholder for an actual platform error message.
    *
    */
   readonly message: string
@@ -134,7 +134,7 @@ export interface DuplicateAttributeValueError {
 export interface DuplicateAttributeValuesError {
   readonly code: 'DuplicateAttributeValues'
   /**
-   *	The error's description.
+   *	This is a placeholder for an actual platform error message.
    *
    */
   readonly message: string
@@ -149,7 +149,7 @@ export interface DuplicateAttributeValuesError {
 export interface DuplicateFieldError {
   readonly code: 'DuplicateField'
   /**
-   *	The error's description.
+   *	This is a placeholder for an actual platform error message.
    *
    */
   readonly message: string
@@ -172,7 +172,7 @@ export interface DuplicateFieldError {
 export interface DuplicateVariantValuesError {
   readonly code: 'DuplicateVariantValues'
   /**
-   *	The error's description.
+   *	This is a placeholder for an actual platform error message.
    *
    */
   readonly message: string
@@ -199,7 +199,7 @@ export interface VariantValues {
 export interface InsufficientScopeError {
   readonly code: 'insufficient_scope'
   /**
-   *	The error's description.
+   *	This is a placeholder for an actual platform error message.
    *
    */
   readonly message: string
@@ -207,7 +207,7 @@ export interface InsufficientScopeError {
 export interface InvalidCredentialsError {
   readonly code: 'InvalidCredentials'
   /**
-   *	The error's description.
+   *	This is a placeholder for an actual platform error message.
    *
    */
   readonly message: string
@@ -215,7 +215,7 @@ export interface InvalidCredentialsError {
 export interface InvalidTokenError {
   readonly code: 'invalid_token'
   /**
-   *	The error's description.
+   *	This is a placeholder for an actual platform error message.
    *
    */
   readonly message: string
@@ -226,7 +226,7 @@ export interface InvalidTokenError {
 export interface InvalidFieldError {
   readonly code: 'InvalidField'
   /**
-   *	The error's description.
+   *	This is a placeholder for an actual platform error message.
    *
    */
   readonly message: string
@@ -255,7 +255,7 @@ export interface InvalidFieldError {
 export interface InvalidJsonInput {
   readonly code: 'InvalidJsonInput'
   /**
-   *	The error's description.
+   *	This is a placeholder for an actual platform error message.
    *
    */
   readonly message: string
@@ -268,7 +268,7 @@ export interface InvalidJsonInput {
 export interface InvalidInput {
   readonly code: 'InvalidInput'
   /**
-   *	The error's description.
+   *	This is a placeholder for an actual platform error message.
    *
    */
   readonly message: string
@@ -276,7 +276,7 @@ export interface InvalidInput {
 export interface ResourceNotFoundError {
   readonly code: 'ResourceNotFound'
   /**
-   *	The error's description.
+   *	This is a placeholder for an actual platform error message.
    *
    */
   readonly message: string
@@ -288,7 +288,7 @@ export interface ResourceNotFoundError {
 export interface ResourceCreationError {
   readonly code: 'ResourceCreation'
   /**
-   *	The error's description.
+   *	This is a placeholder for an actual platform error message.
    *
    */
   readonly message: string
@@ -300,7 +300,7 @@ export interface ResourceCreationError {
 export interface ResourceUpdateError {
   readonly code: 'ResourceUpdate'
   /**
-   *	The error's description.
+   *	This is a placeholder for an actual platform error message.
    *
    */
   readonly message: string
@@ -312,7 +312,7 @@ export interface ResourceUpdateError {
 export interface ResourceDeletionError {
   readonly code: 'ResourceDeletion'
   /**
-   *	The error's description.
+   *	This is a placeholder for an actual platform error message.
    *
    */
   readonly message: string
@@ -327,7 +327,7 @@ export interface ResourceDeletionError {
 export interface RequiredFieldError {
   readonly code: 'RequiredField'
   /**
-   *	The error's description.
+   *	This is a placeholder for an actual platform error message.
    *
    */
   readonly message: string
@@ -340,7 +340,7 @@ export interface RequiredFieldError {
 export interface InvalidStateTransitionError {
   readonly code: 'InvalidTransition'
   /**
-   *	The error's description.
+   *	This is a placeholder for an actual platform error message.
    *
    */
   readonly message: string
@@ -366,7 +366,7 @@ export interface InvalidStateTransitionError {
 export interface ConcurrentModificationError {
   readonly code: 'ConcurrentModification'
   /**
-   *	The error's description.
+   *	This is a placeholder for an actual platform error message.
    *
    */
   readonly message: string
@@ -389,7 +389,7 @@ export interface ConcurrentModificationError {
 export interface ContentionError {
   readonly code: 'Contention'
   /**
-   *	The error's description.
+   *	This is a placeholder for an actual platform error message.
    *
    */
   readonly message: string
@@ -397,7 +397,7 @@ export interface ContentionError {
 export interface GenericError {
   readonly code: 'Generic'
   /**
-   *	The error's description.
+   *	This is a placeholder for an actual platform error message.
    *
    */
   readonly message: string

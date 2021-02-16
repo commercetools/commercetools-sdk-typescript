@@ -28,6 +28,14 @@ export interface AttributeDefinition {
    */
   readonly name: string
   /**
+   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
+   *	```json
+   *	{
+   *	  "de": "Hundefutter",
+   *	  "en": "dog food"
+   *	}
+   *	```
+   *
    *
    */
   readonly label: LocalizedString
@@ -40,6 +48,14 @@ export interface AttributeDefinition {
    */
   readonly attributeConstraint?: AttributeConstraintEnum
   /**
+   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
+   *	```json
+   *	{
+   *	  "de": "Hundefutter",
+   *	  "en": "dog food"
+   *	}
+   *	```
+   *
    *
    */
   readonly inputTip?: LocalizedString
@@ -108,6 +124,14 @@ export interface AttributeLocalizedEnumValue {
    */
   readonly key: string
   /**
+   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
+   *	```json
+   *	{
+   *	  "de": "Hundefutter",
+   *	  "en": "dog food"
+   *	}
+   *	```
+   *
    *
    */
   readonly label: LocalizedString

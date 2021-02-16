@@ -26,10 +26,26 @@ export interface Asset {
    */
   readonly sources: AssetSource[]
   /**
+   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
+   *	```json
+   *	{
+   *	  "de": "Hundefutter",
+   *	  "en": "dog food"
+   *	}
+   *	```
+   *
    *
    */
   readonly name: LocalizedString
   /**
+   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
+   *	```json
+   *	{
+   *	  "de": "Hundefutter",
+   *	  "en": "dog food"
+   *	}
+   *	```
+   *
    *
    */
   readonly description?: LocalizedString
@@ -43,16 +59,24 @@ export interface Asset {
    */
   readonly custom?: Custom
 }
+/**
+ *	The width and height of the Asset Source.
+ */
 export interface AssetDimensions {
   /**
+   *	The width of the asset source.
    *
    */
   readonly w: number
   /**
+   *	The height of the asset source.
    *
    */
   readonly h: number
 }
+/**
+ *	An AssetSource is a representation of an Asset in a specific format, for example, a video in a certain encoding or an image in a certain resolution.
+ */
 export interface AssetSource {
   /**
    *
@@ -63,6 +87,7 @@ export interface AssetSource {
    */
   readonly key?: string
   /**
+   *	The width and height of the Asset Source.
    *
    */
   readonly dimensions?: AssetDimensions
@@ -71,16 +96,22 @@ export interface AssetSource {
    */
   readonly contentType?: string
 }
+/**
+ *	An Image uploaded to the commercetools platform is stored in a Content Delivery Network and it's available in several pre-defined sizes. If you already have an image stored on an external service, you can save the URL when creating a new product or adding a variant, or you can add it later.
+ */
 export interface Image {
   /**
+   *	URL of the image in its original size. The URL must be unique within a single variant. It can be used to obtain the image in different sizes.
    *
    */
   readonly url: string
   /**
+   *	Dimensions of the original image. This can be used by your application, for example, to determine whether the image is large enough to display a zoom view.
    *
    */
   readonly dimensions: AssetDimensions
   /**
+   *	Custom label that can be used, for example, as an image description.
    *
    */
   readonly label?: string
@@ -101,10 +132,28 @@ export interface LocalizedEnumValue {
    */
   readonly key: string
   /**
+   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
+   *	```json
+   *	{
+   *	  "de": "Hundefutter",
+   *	  "en": "dog food"
+   *	}
+   *	```
+   *
    *
    */
   readonly label: LocalizedString
 }
+/**
+ *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
+ *	```json
+ *	{
+ *	  "de": "Hundefutter",
+ *	  "en": "dog food"
+ *	}
+ *	```
+ *
+ */
 export interface LocalizedString {
   [key: string]: string
 }
