@@ -80,6 +80,11 @@ export interface MyCart extends BaseResource {
    */
   readonly id: string
   /**
+   *	User-specific unique identifier of the cart.
+   *
+   */
+  readonly key?: string
+  /**
    *
    */
   readonly version: number

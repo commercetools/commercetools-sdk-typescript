@@ -63,7 +63,7 @@ export interface Cart extends BaseResource {
    *	User-specific unique identifier of the cart.
    *
    */
-  readonly key: string
+  readonly key?: string
   /**
    *	The current version of the cart.
    *
@@ -226,6 +226,11 @@ export interface CartDraft {
    *
    */
   readonly currency: string
+  /**
+   *	User-specific unique identifier of the cart.
+   *
+   */
+  readonly key?: string
   /**
    *	Id of an existing Customer.
    *
