@@ -734,6 +734,8 @@ export type OrderUpdateAction =
   | OrderRemoveParcelFromDeliveryAction
   | OrderRemovePaymentAction
   | OrderSetBillingAddressAction
+  | OrderSetBillingAddressCustomFieldAction
+  | OrderSetBillingAddressCustomTypeAction
   | OrderSetCustomFieldAction
   | OrderSetCustomLineItemCustomFieldAction
   | OrderSetCustomLineItemCustomTypeAction
@@ -742,7 +744,11 @@ export type OrderUpdateAction =
   | OrderSetCustomerEmailAction
   | OrderSetCustomerIdAction
   | OrderSetDeliveryAddressAction
+  | OrderSetDeliveryAddressCustomFieldAction
+  | OrderSetDeliveryAddressCustomTypeAction
   | OrderSetDeliveryItemsAction
+  | OrderSetItemShippingAddressCustomFieldAction
+  | OrderSetItemShippingAddressCustomTypeAction
   | OrderSetLineItemCustomFieldAction
   | OrderSetLineItemCustomTypeAction
   | OrderSetLineItemShippingDetailsAction
@@ -754,6 +760,8 @@ export type OrderUpdateAction =
   | OrderSetReturnPaymentStateAction
   | OrderSetReturnShipmentStateAction
   | OrderSetShippingAddressAction
+  | OrderSetShippingAddressCustomFieldAction
+  | OrderSetShippingAddressCustomTypeAction
   | OrderSetStoreAction
   | OrderTransitionCustomLineItemStateAction
   | OrderTransitionLineItemStateAction
@@ -1220,6 +1228,28 @@ export interface OrderSetBillingAddressAction {
    */
   readonly address?: Address
 }
+export interface OrderSetBillingAddressCustomFieldAction {
+  readonly action: 'setBillingAddressCustomField'
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value?: any
+}
+export interface OrderSetBillingAddressCustomTypeAction {
+  readonly action: 'setBillingAddressCustomType'
+  /**
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *
+   */
+  readonly fields?: FieldContainer
+}
 export interface OrderSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
@@ -1308,6 +1338,36 @@ export interface OrderSetDeliveryAddressAction {
    */
   readonly address?: Address
 }
+export interface OrderSetDeliveryAddressCustomFieldAction {
+  readonly action: 'setDeliveryAddressCustomField'
+  /**
+   *
+   */
+  readonly deliveryId: string
+  /**
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *
+   */
+  readonly fields?: FieldContainer
+}
+export interface OrderSetDeliveryAddressCustomTypeAction {
+  readonly action: 'setDeliveryAddressCustomType'
+  /**
+   *
+   */
+  readonly deliveryId: string
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value?: any
+}
 export interface OrderSetDeliveryItemsAction {
   readonly action: 'setDeliveryItems'
   /**
@@ -1318,6 +1378,36 @@ export interface OrderSetDeliveryItemsAction {
    *
    */
   readonly items: DeliveryItem[]
+}
+export interface OrderSetItemShippingAddressCustomFieldAction {
+  readonly action: 'setItemShippingAddressCustomField'
+  /**
+   *
+   */
+  readonly addressKey: string
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value?: any
+}
+export interface OrderSetItemShippingAddressCustomTypeAction {
+  readonly action: 'setItemShippingAddressCustomType'
+  /**
+   *
+   */
+  readonly addressKey: string
+  /**
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *
+   */
+  readonly fields?: FieldContainer
 }
 export interface OrderSetLineItemCustomFieldAction {
   readonly action: 'setLineItemCustomField'
@@ -1435,6 +1525,28 @@ export interface OrderSetShippingAddressAction {
    *
    */
   readonly address?: Address
+}
+export interface OrderSetShippingAddressCustomFieldAction {
+  readonly action: 'setShippingAddressCustomField'
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value?: any
+}
+export interface OrderSetShippingAddressCustomTypeAction {
+  readonly action: 'setShippingAddressCustomType'
+  /**
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *
+   */
+  readonly fields?: FieldContainer
 }
 export interface OrderSetStoreAction {
   readonly action: 'setStore'

@@ -162,6 +162,7 @@ export interface CustomFieldTimeType {
   readonly name: 'Time'
 }
 export type ResourceTypeId =
+  | 'address'
   | 'asset'
   | 'cart-discount'
   | 'category'

@@ -499,6 +499,8 @@ export type CustomerUpdateAction =
   | CustomerRemoveBillingAddressIdAction
   | CustomerRemoveShippingAddressIdAction
   | CustomerRemoveStoreAction
+  | CustomerSetAddressCustomFieldAction
+  | CustomerSetAddressCustomTypeAction
   | CustomerSetCompanyNameAction
   | CustomerSetCustomFieldAction
   | CustomerSetCustomTypeAction
@@ -614,6 +616,36 @@ export interface CustomerRemoveStoreAction {
    *
    */
   readonly store: StoreResourceIdentifier
+}
+export interface CustomerSetAddressCustomFieldAction {
+  readonly action: 'setAddressCustomField'
+  /**
+   *
+   */
+  readonly addressId: string
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value?: any
+}
+export interface CustomerSetAddressCustomTypeAction {
+  readonly action: 'setAddressCustomType'
+  /**
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *
+   */
+  readonly fields?: FieldContainer
+  /**
+   *
+   */
+  readonly addressId: string
 }
 export interface CustomerSetCompanyNameAction {
   readonly action: 'setCompanyName'

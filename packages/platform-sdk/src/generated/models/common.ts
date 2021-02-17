@@ -216,6 +216,10 @@ export interface Address {
    *
    */
   readonly externalId?: string
+  /**
+   *
+   */
+  readonly custom?: CustomFields
 }
 export interface Asset {
   /**

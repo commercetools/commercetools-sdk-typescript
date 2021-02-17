@@ -196,6 +196,8 @@ export type ChannelUpdateAction =
   | ChannelChangeNameAction
   | ChannelRemoveRolesAction
   | ChannelSetAddressAction
+  | ChannelSetAddressCustomFieldAction
+  | ChannelSetAddressCustomTypeAction
   | ChannelSetCustomFieldAction
   | ChannelSetCustomTypeAction
   | ChannelSetGeoLocationAction
@@ -241,6 +243,28 @@ export interface ChannelSetAddressAction {
    *
    */
   readonly address?: Address
+}
+export interface ChannelSetAddressCustomFieldAction {
+  readonly action: 'setAddressCustomField'
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value?: any
+}
+export interface ChannelSetAddressCustomTypeAction {
+  readonly action: 'setAddressCustomType'
+  /**
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *
+   */
+  readonly fields?: FieldContainer
 }
 export interface ChannelSetCustomFieldAction {
   readonly action: 'setCustomField'

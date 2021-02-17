@@ -427,6 +427,8 @@ export type CartUpdateAction =
   | CartRemovePaymentAction
   | CartSetAnonymousIdAction
   | CartSetBillingAddressAction
+  | CartSetBillingAddressCustomFieldAction
+  | CartSetBillingAddressCustomTypeAction
   | CartSetCartTotalTaxAction
   | CartSetCountryAction
   | CartSetCustomFieldAction
@@ -441,6 +443,10 @@ export type CartUpdateAction =
   | CartSetCustomerGroupAction
   | CartSetCustomerIdAction
   | CartSetDeleteDaysAfterLastModificationAction
+  | CartSetDeliveryAddressCustomFieldAction
+  | CartSetDeliveryAddressCustomTypeAction
+  | CartSetItemShippingAddressCustomFieldAction
+  | CartSetItemShippingAddressCustomTypeAction
   | CartSetKeyAction
   | CartSetLineItemCustomFieldAction
   | CartSetLineItemCustomTypeAction
@@ -452,6 +458,8 @@ export type CartUpdateAction =
   | CartSetLineItemTotalPriceAction
   | CartSetLocaleAction
   | CartSetShippingAddressAction
+  | CartSetShippingAddressCustomFieldAction
+  | CartSetShippingAddressCustomTypeAction
   | CartSetShippingMethodAction
   | CartSetShippingMethodTaxAmountAction
   | CartSetShippingMethodTaxRateAction
@@ -1342,6 +1350,28 @@ export interface CartSetBillingAddressAction {
    */
   readonly address?: Address
 }
+export interface CartSetBillingAddressCustomFieldAction {
+  readonly action: 'setBillingAddressCustomField'
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value?: any
+}
+export interface CartSetBillingAddressCustomTypeAction {
+  readonly action: 'setBillingAddressCustomType'
+  /**
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *
+   */
+  readonly fields?: FieldContainer
+}
 export interface CartSetCartTotalTaxAction {
   readonly action: 'setCartTotalTax'
   /**
@@ -1496,6 +1526,66 @@ export interface CartSetDeleteDaysAfterLastModificationAction {
    */
   readonly deleteDaysAfterLastModification?: number
 }
+export interface CartSetDeliveryAddressCustomFieldAction {
+  readonly action: 'setDeliveryAddressCustomField'
+  /**
+   *
+   */
+  readonly deliveryId: string
+  /**
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *
+   */
+  readonly fields?: FieldContainer
+}
+export interface CartSetDeliveryAddressCustomTypeAction {
+  readonly action: 'setDeliveryAddressCustomType'
+  /**
+   *
+   */
+  readonly deliveryId: string
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value?: any
+}
+export interface CartSetItemShippingAddressCustomFieldAction {
+  readonly action: 'setItemShippingAddressCustomField'
+  /**
+   *
+   */
+  readonly addressKey: string
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value?: any
+}
+export interface CartSetItemShippingAddressCustomTypeAction {
+  readonly action: 'setItemShippingAddressCustomType'
+  /**
+   *
+   */
+  readonly addressKey: string
+  /**
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *
+   */
+  readonly fields?: FieldContainer
+}
 export interface CartSetKeyAction {
   readonly action: 'setKey'
   /**
@@ -1612,6 +1702,28 @@ export interface CartSetShippingAddressAction {
    *
    */
   readonly address?: Address
+}
+export interface CartSetShippingAddressCustomFieldAction {
+  readonly action: 'setShippingAddressCustomField'
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value?: any
+}
+export interface CartSetShippingAddressCustomTypeAction {
+  readonly action: 'setShippingAddressCustomType'
+  /**
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *
+   */
+  readonly fields?: FieldContainer
 }
 export interface CartSetShippingMethodAction {
   readonly action: 'setShippingMethod'
