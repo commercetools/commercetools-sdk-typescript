@@ -11,7 +11,12 @@
  *
  */
 
-import { Address, CustomerGroupKeyReference, ImportResource } from './common'
+import {
+  Address,
+  CustomerGroupKeyReference,
+  ImportResource,
+  StoreKeyReference,
+} from './common'
 import { Custom } from './customfields'
 
 /**
@@ -37,6 +42,16 @@ export interface CustomerImport extends ImportResource {
    *
    */
   readonly password: string
+  /**
+   *	References stores by its keys.
+   *
+   *	The stores referenced
+   *	must already exist in the commercetools project, or the
+   *	import operation state is set to `Unresolved`.
+   *
+   *
+   */
+  readonly stores?: StoreKeyReference[]
   /**
    *	Maps to `Customer.firstName`.
    *
@@ -114,29 +129,29 @@ export interface CustomerImport extends ImportResource {
    */
   readonly addresses?: Address[]
   /**
-   *	Maps to `Customer.defaultBillingAddress`.
+   *	The index of the address in the addresses array. The `defaultBillingAddressId` of the customer will be set to the ID of that address.
    *
    *
    */
-  readonly defaultBillingAddress?: Address
+  readonly defaultBillingAddress?: number
   /**
-   *	Maps to `Customer.billingAddresses`.
+   *	The indices of the billing addresses in the addresses array. The `billingAddressIds` of the customer will be set to the IDs of that addresses.
    *
    *
    */
-  readonly billingAddresses?: Address
+  readonly billingAddresses?: number[]
   /**
-   *	Maps to `Customer.defaultShippingAddress`.
+   *	The index of the address in the addresses array. The `defaultShippingAddressId` of the customer will be set to the ID of that address.
    *
    *
    */
-  readonly defaultShippingAddress?: Address
+  readonly defaultShippingAddress?: number
   /**
-   *	Maps to `Customer.shippingAddresses`.
+   *	The indices of the shipping addresses in the addresses array. The `shippingAddressIds` of the customer will be set to the IDs of that addresses.
    *
    *
    */
-  readonly shippingAddresses?: Address
+  readonly shippingAddresses?: number[]
   /**
    *	Maps to `Customer.locale`.
    *
