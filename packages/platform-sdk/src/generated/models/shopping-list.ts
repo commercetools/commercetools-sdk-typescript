@@ -20,6 +20,7 @@ import {
 import { CustomerReference, CustomerResourceIdentifier } from './customer'
 import { ProductVariant } from './product'
 import { ProductTypeReference } from './product-type'
+import { StoreResourceIdentifier } from './store'
 import {
   CustomFields,
   CustomFieldsDraft,
@@ -365,6 +366,7 @@ export type ShoppingListUpdateAction =
   | ShoppingListSetLineItemCustomFieldAction
   | ShoppingListSetLineItemCustomTypeAction
   | ShoppingListSetSlugAction
+  | ShoppingListSetStoreAction
   | ShoppingListSetTextLineItemCustomFieldAction
   | ShoppingListSetTextLineItemCustomTypeAction
   | ShoppingListSetTextLineItemDescriptionAction
@@ -646,6 +648,13 @@ export interface ShoppingListSetSlugAction {
    *
    */
   readonly slug?: LocalizedString
+}
+export interface ShoppingListSetStoreAction {
+  readonly action: 'setStore'
+  /**
+   *
+   */
+  readonly store?: StoreResourceIdentifier
 }
 export interface ShoppingListSetTextLineItemCustomFieldAction {
   readonly action: 'setTextLineItemCustomField'

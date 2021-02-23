@@ -17,6 +17,7 @@ import { ByProjectKeyInStoreKeyByStoreKeyLoginRequestBuilder } from '../login/by
 import { ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder } from '../me/by-project-key-in-store-key-by-store-key-me-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyOrdersRequestBuilder } from '../orders/by-project-key-in-store-key-by-store-key-orders-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyShippingMethodsRequestBuilder } from '../shipping-methods/by-project-key-in-store-key-by-store-key-shipping-methods-request-builder'
+import { ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder } from '../shopping-lists/by-project-key-in-store-key-by-store-key-shopping-lists-request-builder'
 
 export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
   constructor(
@@ -90,6 +91,19 @@ export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
   }
   public shippingMethods(): ByProjectKeyInStoreKeyByStoreKeyShippingMethodsRequestBuilder {
     return new ByProjectKeyInStoreKeyByStoreKeyShippingMethodsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	shopping-lists e.g. for wishlist support
+   *
+   */
+  public shoppingLists(): ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },
