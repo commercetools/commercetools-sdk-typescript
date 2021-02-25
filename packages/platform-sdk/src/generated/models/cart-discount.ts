@@ -287,6 +287,7 @@ export type CartDiscountUpdateAction =
   | CartDiscountSetValidUntilAction
 export type CartDiscountValue =
   | CartDiscountValueAbsolute
+  | CartDiscountValueFixed
   | CartDiscountValueGiftLineItem
   | CartDiscountValueRelative
 export interface CartDiscountValueAbsolute {
@@ -298,10 +299,25 @@ export interface CartDiscountValueAbsolute {
 }
 export type CartDiscountValueDraft =
   | CartDiscountValueAbsoluteDraft
+  | CartDiscountValueFixedDraft
   | CartDiscountValueGiftLineItemDraft
   | CartDiscountValueRelativeDraft
 export interface CartDiscountValueAbsoluteDraft {
   readonly type: 'absolute'
+  /**
+   *
+   */
+  readonly money: Money[]
+}
+export interface CartDiscountValueFixed {
+  readonly type: 'fixed'
+  /**
+   *
+   */
+  readonly money: TypedMoney[]
+}
+export interface CartDiscountValueFixedDraft {
+  readonly type: 'fixed'
   /**
    *
    */
