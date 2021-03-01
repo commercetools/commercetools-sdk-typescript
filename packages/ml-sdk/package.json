@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/ml-sdk",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "description": "Type script sdk for commercetools ML features",
   "keywords": ["commercetools", "typescript", "sdk", "ml"],
   "homepage": "https://github.com/commercetools/commercetools-typescript-sdks/packages/ml-sdk",
