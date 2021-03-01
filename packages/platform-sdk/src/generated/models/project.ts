@@ -86,6 +86,10 @@ export interface Project {
    *
    */
   readonly carts: CartsConfiguration
+  /**
+   *
+   */
+  readonly searchIndexing?: SearchIndexingConfiguration
 }
 export interface ProjectUpdate {
   /**
@@ -105,8 +109,22 @@ export type ProjectUpdateAction =
   | ProjectChangeMessagesConfigurationAction
   | ProjectChangeMessagesEnabledAction
   | ProjectChangeNameAction
+  | ProjectChangeProductSearchIndexingEnabledAction
   | ProjectSetExternalOAuthAction
   | ProjectSetShippingRateInputTypeAction
+export interface SearchIndexingConfiguration {
+  /**
+   *
+   */
+  readonly products?: SearchIndexingConfigurationValues
+}
+export interface SearchIndexingConfigurationValues {
+  /**
+   *	Can be one of the following or absent. "Activated" or absent means that the search and suggest endpoints for the specified resource type are active. "Deactivated" means that the search and suggest endpoints for the specified resource type cannot be used. "Indexing" indicates that the search and suggest endpoints can _temporally_ not be used because the search index is being re-built.
+   *
+   */
+  readonly status?: string
+}
 export type ShippingRateInputType =
   | CartClassificationType
   | CartScoreType
@@ -176,6 +194,13 @@ export interface ProjectChangeNameAction {
    *
    */
   readonly name: string
+}
+export interface ProjectChangeProductSearchIndexingEnabledAction {
+  readonly action: 'changeProductSearchIndexingEnabled'
+  /**
+   *
+   */
+  readonly enabled: boolean
 }
 export interface ProjectSetExternalOAuthAction {
   readonly action: 'setExternalOAuth'

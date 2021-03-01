@@ -94,8 +94,10 @@ export type ErrorObject =
   | RequiredFieldError
   | ResourceNotFoundError
   | ResourceSizeLimitExceededError
+  | SearchDeactivatedError
   | SearchExecutionFailureError
   | SearchFacetPathNotFoundError
+  | SearchIndexingInProgressError
   | SemanticErrorError
   | ShippingMethodDoesNotMatchCartError
   | SyntaxErrorError
@@ -774,6 +776,13 @@ export interface ResourceSizeLimitExceededError {
    */
   readonly message: string
 }
+export interface SearchDeactivatedError {
+  readonly code: 'SearchDeactivated'
+  /**
+   *
+   */
+  readonly message: string
+}
 export interface SearchExecutionFailureError {
   readonly code: 'SearchExecutionFailure'
   /**
@@ -783,6 +792,13 @@ export interface SearchExecutionFailureError {
 }
 export interface SearchFacetPathNotFoundError {
   readonly code: 'SearchFacetPathNotFound'
+  /**
+   *
+   */
+  readonly message: string
+}
+export interface SearchIndexingInProgressError {
+  readonly code: 'SearchIndexingInProgress'
   /**
    *
    */
