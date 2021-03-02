@@ -10,8 +10,7 @@
  *                    `Y'
  *
  */
-import { Update } from '../../models/common'
-import { ShoppingList } from '../../models/shopping-list'
+import { ShoppingList, ShoppingListUpdate } from '../../models/shopping-list'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
@@ -62,7 +61,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyShoppingListsKeyByKeyRequestBuilder
       expand?: string | string[]
       [key: string]: QueryParam
     }
-    body: Update
+    body: ShoppingListUpdate
     headers?: {
       [key: string]: string | string[]
     }

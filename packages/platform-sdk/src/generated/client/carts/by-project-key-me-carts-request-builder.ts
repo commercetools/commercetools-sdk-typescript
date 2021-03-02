@@ -27,10 +27,10 @@ export class ByProjectKeyMeCartsRequestBuilder {
       baseUri?: string
     }
   ) {}
-  public withId(childPathArgs: {
-    ID: string
-  }): ByProjectKeyMeCartsByIDRequestBuilder {
-    return new ByProjectKeyMeCartsByIDRequestBuilder({
+  public withKey(childPathArgs: {
+    key: string
+  }): ByProjectKeyMeCartsKeyByKeyRequestBuilder {
+    return new ByProjectKeyMeCartsKeyByKeyRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
         ...childPathArgs,
@@ -39,10 +39,10 @@ export class ByProjectKeyMeCartsRequestBuilder {
       baseUri: this.args.baseUri,
     })
   }
-  public keyWithKeyValue(childPathArgs: {
-    key: string
-  }): ByProjectKeyMeCartsKeyByKeyRequestBuilder {
-    return new ByProjectKeyMeCartsKeyByKeyRequestBuilder({
+  public withId(childPathArgs: {
+    ID: string
+  }): ByProjectKeyMeCartsByIDRequestBuilder {
+    return new ByProjectKeyMeCartsByIDRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
         ...childPathArgs,
