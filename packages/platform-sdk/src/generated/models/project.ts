@@ -11,6 +11,7 @@
  *
  */
 
+import { LastModifiedBy } from './common'
 import { MessageConfiguration, MessageConfigurationDraft } from './message'
 import { CustomFieldLocalizedEnumValue } from './type'
 
@@ -118,12 +119,27 @@ export interface SearchIndexingConfiguration {
    */
   readonly products?: SearchIndexingConfigurationValues
 }
+/**
+ *	Can be one of the following or absent. "Activated" or absent means that the search and suggest endpoints for the specified resource type are active. "Deactivated" means that the search and suggest endpoints for the specified resource type cannot be used. "Indexing" indicates that the search and suggest endpoints can _temporally_ not be used because the search index is being re-built.
+ */
+export type SearchIndexingConfigurationStatus =
+  | 'Activated'
+  | 'Deactivated'
+  | 'Indexing'
 export interface SearchIndexingConfigurationValues {
   /**
    *	Can be one of the following or absent. "Activated" or absent means that the search and suggest endpoints for the specified resource type are active. "Deactivated" means that the search and suggest endpoints for the specified resource type cannot be used. "Indexing" indicates that the search and suggest endpoints can _temporally_ not be used because the search index is being re-built.
    *
    */
-  readonly status?: string
+  readonly status?: SearchIndexingConfigurationStatus
+  /**
+   *
+   */
+  readonly lastModifiedAt?: string
+  /**
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
 }
 export type ShippingRateInputType =
   | CartClassificationType
