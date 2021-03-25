@@ -52,7 +52,6 @@ export interface SearchKeyword {
   /**
    *	The tokenizer defines the tokens that are used to match against the [Suggest Query](/../products-suggestions#suggest-query) input.
    *
-   *
    */
   readonly suggestTokenizer?: SuggestTokenizer
 }

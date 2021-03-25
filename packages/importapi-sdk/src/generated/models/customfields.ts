@@ -180,7 +180,7 @@ export interface DateTimeField {
 export interface ReferenceField {
   readonly type: 'Reference'
   /**
-   *	References a resource by its key.
+   *	References a resource by its key
    *
    */
   readonly value: KeyReference
