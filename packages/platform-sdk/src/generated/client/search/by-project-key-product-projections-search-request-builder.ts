@@ -27,7 +27,8 @@ export class ByProjectKeyProductProjectionsSearchRequestBuilder {
   /**
    *	Search Product Projection
    */
-  public post(methodArgs?: {
+  public post(methodArgs: {
+    body: string
     headers?: {
       [key: string]: string | string[]
     }
@@ -39,8 +40,10 @@ export class ByProjectKeyProductProjectionsSearchRequestBuilder {
         uriTemplate: '/{projectKey}/product-projections/search',
         pathVariables: this.args.pathArgs,
         headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
           ...methodArgs?.headers,
         },
+        body: methodArgs?.body,
       },
       this.args.executeRequest
     )
