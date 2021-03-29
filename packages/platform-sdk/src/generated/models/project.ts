@@ -21,6 +21,11 @@ export interface CartsConfiguration {
    *
    */
   readonly countryTaxRateFallbackEnabled?: boolean
+  /**
+   *	The default value for the deleteDaysAfterLastModification parameter of the CartDraft. Initially set to 90 for projects created after December 2019.
+   *
+   */
+  readonly deleteDaysAfterLastModification?: number
 }
 export interface ExternalOAuth {
   /**
@@ -103,6 +108,7 @@ export interface ProjectUpdate {
   readonly actions: ProjectUpdateAction[]
 }
 export type ProjectUpdateAction =
+  | ProjectChangeCartsConfiguration
   | ProjectChangeCountriesAction
   | ProjectChangeCountryTaxRateFallbackEnabledAction
   | ProjectChangeCurrenciesAction
@@ -157,6 +163,13 @@ export interface CartScoreType {
 }
 export interface CartValueType {
   readonly type: 'CartValue'
+}
+export interface ProjectChangeCartsConfiguration {
+  readonly action: 'changeCartsConfiguration'
+  /**
+   *
+   */
+  readonly cartsConfiguration?: CartsConfiguration
 }
 export interface ProjectChangeCountriesAction {
   readonly action: 'changeCountries'
