@@ -1,0 +1,20 @@
+on:
+  push:
+    branches:
+      - 'gen-sdk-updates'
+
+name: Create Changes PR
+
+jobs:
+  create_pr:
+    name: Create/Update PR
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: jenschude/auto-create-pr-action@v0.3.0
+        with:
+          request_title: "Update generated SDKs"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reviewer: "commercetools/clients-team"
