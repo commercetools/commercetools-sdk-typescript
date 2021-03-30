@@ -51,12 +51,6 @@ export interface ImportOperation {
    */
   readonly resourceVersion?: number
   /**
-   *	The number of request retries for processing the import resource.
-   *
-   *
-   */
-  readonly retryCount: number
-  /**
    *	If an import resource does not import correctly, the state is set to `Rejected` or `ValidationFailed`
    *	and this property contains the errors.
    *
@@ -108,7 +102,7 @@ export interface ImportOperationPagedResponse {
  *	This enumeration describes the operation state of a newly created import operation.
  *
  */
-export type ImportOperationState = 'Delete' | 'Unresolved' | 'ValidationFailed'
+export type ImportOperationState = 'Unresolved' | 'ValidationFailed'
 /**
  *	The validation status of a created operation.
  *

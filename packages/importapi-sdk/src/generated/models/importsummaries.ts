@@ -51,16 +51,6 @@ export interface OperationStates {
    */
   readonly Imported: number
   /**
-   *	The number of import operations that are in the state `Delete`.
-   *
-   */
-  readonly Delete: number
-  /**
-   *	The number of import operations that are in the state `Deleted`.
-   *
-   */
-  readonly Deleted: number
-  /**
    *	The number of import operations that are in the state `Rejected`.
    *
    */

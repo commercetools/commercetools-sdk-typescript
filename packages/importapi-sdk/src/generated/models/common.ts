@@ -447,8 +447,6 @@ export type ReferenceType =
  *
  */
 export type ProcessingState =
-  | 'Delete'
-  | 'Deleted'
   | 'Imported'
   | 'Rejected'
   | 'Unresolved'
