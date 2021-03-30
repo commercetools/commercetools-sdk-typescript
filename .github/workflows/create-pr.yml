@@ -13,8 +13,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - uses: jenschude/auto-create-pr-action@v0.3.0
+      - uses: jenschude/auto-create-pr-action@v0.3.1
         with:
           request_title: "Update generated SDKs"
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          reviewer: "commercetools/clients-team"
+          team_reviewer: "clients-team"
