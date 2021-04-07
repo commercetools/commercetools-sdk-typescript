@@ -438,7 +438,7 @@ export interface ShippingMethodSetLocalizedDescriptionAction {
   /**
    *
    */
-  readonly localizedDescription?: string
+  readonly localizedDescription?: LocalizedString
 }
 export interface ShippingMethodSetPredicateAction {
   readonly action: 'setPredicate'
