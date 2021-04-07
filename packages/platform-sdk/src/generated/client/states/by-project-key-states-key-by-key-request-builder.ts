@@ -26,7 +26,7 @@ export class ByProjectKeyStatesKeyByKeyRequestBuilder {
     }
   ) {}
   /**
-   *	Get State by Key
+   *	Get State by key
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -52,7 +52,7 @@ export class ByProjectKeyStatesKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Update State by Key
+   *	Update State by key
    */
   public post(methodArgs: {
     queryArgs?: {
@@ -81,7 +81,7 @@ export class ByProjectKeyStatesKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Delete State by Key
+   *	Delete State by key
    */
   public delete(methodArgs: {
     queryArgs: {
