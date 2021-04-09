@@ -41,8 +41,8 @@ export class ByProjectKeyRequestBuilder {
     })
   }
 
-  public get(methodArgs: {
-    queryArgs: {
+  public get(methodArgs?: {
+    queryArgs?: {
       resourceType?: ChangeHistoryResourceType | ChangeHistoryResourceType[]
       'date.from'?: any
       'date.to'?: any
@@ -54,7 +54,7 @@ export class ByProjectKeyRequestBuilder {
       resourceId?: string
       source?: string
       changes?: string | string[]
-      customerId: string
+      customerId?: string
       expand?: boolean
       [key: string]: QueryParam
     }
