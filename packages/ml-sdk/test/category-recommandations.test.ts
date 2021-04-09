@@ -1,7 +1,7 @@
 import { withProduct } from './fixtures/product_fixtures'
 import { mlApiBuilder } from './helpers/api-helpers'
 
-test('test project recommendations', async () => {
+test.skip('test project recommendations', async () => {
   await withProduct(async product => {
     const resp = await mlApiBuilder
       .recommendations()

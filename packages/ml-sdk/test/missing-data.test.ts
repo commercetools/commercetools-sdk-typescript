@@ -6,7 +6,7 @@ import {
 import { mlApiBuilder } from './helpers/api-helpers'
 import { sleep } from './helpers/test-utils'
 
-test('Get async result for missing attributes', async () => {
+test.skip('Get async result for missing attributes', async () => {
   const token = await mlApiBuilder
     .missingData()
     .attributes()
