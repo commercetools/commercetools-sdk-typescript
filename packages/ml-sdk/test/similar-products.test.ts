@@ -2,7 +2,7 @@ import { SimilarProductsTaskStatus } from '../src'
 import { mlApiBuilder } from './helpers/api-helpers'
 import { sleep } from './helpers/test-utils'
 
-test('Get async result for similar products', async () => {
+test.skip('Get async result for similar products', async () => {
   const token = await mlApiBuilder
     .similarities()
     .products()

@@ -39,8 +39,8 @@ export class ByProjectKeyByResourceTypeRequestBuilder {
     })
   }
 
-  public get(methodArgs: {
-    queryArgs: {
+  public get(methodArgs?: {
+    queryArgs?: {
       'date.from'?: any
       'date.to'?: any
       limit?: number
@@ -51,7 +51,7 @@ export class ByProjectKeyByResourceTypeRequestBuilder {
       resourceId?: string
       source?: string
       changes?: string | string[]
-      customerId: string
+      customerId?: string
       expand?: boolean
       [key: string]: QueryParam
     }
