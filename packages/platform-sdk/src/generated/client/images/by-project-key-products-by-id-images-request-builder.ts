@@ -1,7 +1,7 @@
 /**
  *
  *    Generated file, please do not change!!!
- *    From http://www.vrap.io/ with love
+ *    From http://www.commercetools.com/ with love
  *
  *                ,d88b.d88b,
  *                88888888888
