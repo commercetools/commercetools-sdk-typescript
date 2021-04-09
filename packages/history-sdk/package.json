@@ -1,0 +1,57 @@
+{
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "name": "@commercetools/history-sdk",
+  "version": "1.10.0",
+  "description": "Type script sdk for commercetools audit log features",
+  "keywords": ["commercetools", "typescript", "sdk", "history"],
+  "homepage": "https://github.com/commercetools/commercetools-typescript-sdks/packages/history-sdk",
+  "bugs": "https://github.com/commercetools/commercetools-typescript-sdks/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commercetools/commercetools-typescript-sdks.git"
+  },
+  "files": ["dist"],
+  "author": "Jens Schulze",
+  "license": "MIT",
+  "main": "dist/history-sdk.js",
+  "module": "dist/history-sdk.es.js",
+  "browser": "dist/history-sdk.umd.js",
+  "typings": "dist/index.d.ts",
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@commercetools/sdk-client": "^2.1.1",
+    "@commercetools/sdk-middleware-auth": "^6.0.4",
+    "@commercetools/sdk-middleware-http": "^6.0.4",
+    "@commercetools/sdk-middleware-logger": "^2.1.1"
+  },
+  "devDependencies": {
+    "@commercetools/platform-sdk": "1.3.0",
+    "@types/jest": "25.1.3",
+    "@types/node": "13.7.2",
+    "@types/uuid": "7.0.0",
+    "commitlint": "8.3.5",
+    "jest": "25.1.0",
+    "jest-junit": "10.0.0",
+    "lint-staged": ">=10",
+    "microbundle": "0.12.0-next.9",
+    "organize-imports-cli": "0.7.0",
+    "ts-jest": "25.2.1",
+    "tsconfig-replace-paths": "0.0.5",
+    "tslib": "1.11.1",
+    "typescript": "3.8.3",
+    "uuid": "7.0.2"
+  },
+  "scripts": {
+    "remove_path_alias": "tsconfig-replace-paths --project tsconfig-declarations.json -s ./src/generated -o ./src/generated",
+    "organize_imports": "find src/generated -type f -name '*.ts' | xargs organize-imports-cli",
+    "post_process_generate": "yarn remove_path_alias && yarn organize_imports",
+    "generate-ts-sdk": "rmf-codegen generate ${HISTORY_API_REF} -o src/generated -t typescript_client",
+    "generate": "yarn generate-ts-sdk && yarn post_process_generate",
+    "prebuild": "rimraf dist/**",
+    "build": "microbundle",
+    "test": "jest"
+  }
+}
