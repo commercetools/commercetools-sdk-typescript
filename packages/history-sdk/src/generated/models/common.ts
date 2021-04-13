@@ -136,6 +136,10 @@ export type ChangeHistoryResourceType =
   | 'tax-category'
   | 'type'
   | 'zone'
+/**
+ *	This type consists of one enum value:
+ *
+ */
 export type DateStringFilter = 'now'
 export interface ErrorObject {
   /**
