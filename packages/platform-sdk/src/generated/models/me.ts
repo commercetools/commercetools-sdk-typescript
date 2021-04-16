@@ -59,14 +59,10 @@ import {
   TransactionDraft,
   TransactionType,
 } from './payment'
-import {
-  ShippingMethodResourceIdentifier,
-  ShippingRateDraft,
-} from './shipping-method'
+import { ShippingMethodResourceIdentifier } from './shipping-method'
 import { ShoppingListLineItemDraft, TextLineItemDraft } from './shopping-list'
 import { StateReference } from './state'
 import { StoreKeyReference, StoreResourceIdentifier } from './store'
-import { TaxCategoryResourceIdentifier } from './tax-category'
 import {
   CustomFields,
   CustomFieldsDraft,
@@ -312,7 +308,6 @@ export type MyCartUpdateAction =
   | MyCartSetBillingAddressAction
   | MyCartSetCountryAction
   | MyCartSetCustomFieldAction
-  | MyCartSetCustomShippingMethodAction
   | MyCartSetCustomTypeAction
   | MyCartSetDeleteDaysAfterLastModificationAction
   | MyCartSetLineItemCustomFieldAction
@@ -545,11 +540,11 @@ export interface MyLineItemDraft {
   /**
    *
    */
-  readonly productId: string
+  readonly productId?: string
   /**
    *
    */
-  readonly variantId: number
+  readonly variantId?: number
   /**
    *
    */
@@ -1136,25 +1131,6 @@ export interface MyCartSetCustomFieldAction {
    *
    */
   readonly value?: any
-}
-export interface MyCartSetCustomShippingMethodAction {
-  readonly action: 'setCustomShippingMethod'
-  /**
-   *
-   */
-  readonly shippingMethodName: string
-  /**
-   *
-   */
-  readonly shippingRate: ShippingRateDraft
-  /**
-   *
-   */
-  readonly taxCategory?: TaxCategoryResourceIdentifier
-  /**
-   *
-   */
-  readonly externalTaxRate?: ExternalTaxRateDraft
 }
 export interface MyCartSetCustomTypeAction {
   readonly action: 'setCustomType'
