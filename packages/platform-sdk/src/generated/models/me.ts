@@ -540,11 +540,11 @@ export interface MyLineItemDraft {
   /**
    *
    */
-  readonly productId: string
+  readonly productId?: string
   /**
    *
    */
-  readonly variantId: number
+  readonly variantId?: number
   /**
    *
    */
