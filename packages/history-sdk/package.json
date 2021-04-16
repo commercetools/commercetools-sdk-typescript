@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/history-sdk",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "description": "Type script sdk for commercetools audit log features",
   "keywords": ["commercetools", "typescript", "sdk", "history"],
   "homepage": "https://github.com/commercetools/commercetools-typescript-sdks/packages/history-sdk",
