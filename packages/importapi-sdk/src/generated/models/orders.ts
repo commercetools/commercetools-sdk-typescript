@@ -19,7 +19,6 @@ import {
   CustomerKeyReference,
   DiscountedPrice,
   Image,
-  ImportResource,
   LocalizedString,
   Money,
   PriceTier,
@@ -610,13 +609,13 @@ export type CartOrigin = 'Customer' | 'Merchant'
  *	The order import draft is a snapshot of an order at the time it was imported.
  *
  */
-export interface OrderImport extends ImportResource {
+export interface OrderImport {
   /**
-   *	Maps to `Order.orderNumber`.
+   *	Maps to `Order.orderNumber`. A string that identifies an Order. Must be unique across a Project. Once it is set, it cannot be changed.
    *
    *
    */
-  readonly orderNumber?: string
+  readonly orderNumber: string
   /**
    *	References a customer by its key.
    *
