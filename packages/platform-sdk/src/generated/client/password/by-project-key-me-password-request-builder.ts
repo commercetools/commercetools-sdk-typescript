@@ -10,7 +10,7 @@
  *                    `Y'
  *
  */
-import { MyCustomer } from '../../models/me'
+import { Customer } from '../../models/customer'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyMePasswordResetRequestBuilder } from '../reset/by-project-key-me-password-reset-request-builder'
@@ -40,8 +40,8 @@ export class ByProjectKeyMePasswordRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<MyCustomer> {
-    return new ApiRequest<MyCustomer>(
+  }): ApiRequest<Customer> {
+    return new ApiRequest<Customer>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',

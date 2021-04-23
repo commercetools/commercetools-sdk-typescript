@@ -11,7 +11,7 @@
  *
  */
 import { MyShoppingListUpdate } from '../../models/me'
-import { MyShoppingList } from '../../models/shopping-list'
+import { ShoppingList } from '../../models/shopping-list'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
@@ -27,7 +27,7 @@ export class ByProjectKeyMeShoppingListsByIDRequestBuilder {
     }
   ) {}
   /**
-   *	Get MyShoppingList by ID
+   *	Get ShoppingList by ID
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -37,8 +37,8 @@ export class ByProjectKeyMeShoppingListsByIDRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<MyShoppingList> {
-    return new ApiRequest<MyShoppingList>(
+  }): ApiRequest<ShoppingList> {
+    return new ApiRequest<ShoppingList>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',
@@ -53,7 +53,7 @@ export class ByProjectKeyMeShoppingListsByIDRequestBuilder {
     )
   }
   /**
-   *	Update MyShoppingList by ID
+   *	Update ShoppingList by ID
    */
   public post(methodArgs: {
     queryArgs?: {
@@ -64,8 +64,8 @@ export class ByProjectKeyMeShoppingListsByIDRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<MyShoppingList> {
-    return new ApiRequest<MyShoppingList>(
+  }): ApiRequest<ShoppingList> {
+    return new ApiRequest<ShoppingList>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',
@@ -82,7 +82,7 @@ export class ByProjectKeyMeShoppingListsByIDRequestBuilder {
     )
   }
   /**
-   *	Delete MyShoppingList by ID
+   *	Delete ShoppingList by ID
    */
   public delete(methodArgs: {
     queryArgs: {
@@ -93,8 +93,8 @@ export class ByProjectKeyMeShoppingListsByIDRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<MyShoppingList> {
-    return new ApiRequest<MyShoppingList>(
+  }): ApiRequest<ShoppingList> {
+    return new ApiRequest<ShoppingList>(
       {
         baseUri: this.args.baseUri,
         method: 'DELETE',

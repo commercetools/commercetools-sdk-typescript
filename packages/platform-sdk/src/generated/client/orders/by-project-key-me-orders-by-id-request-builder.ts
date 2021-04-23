@@ -10,7 +10,7 @@
  *                    `Y'
  *
  */
-import { MyOrder } from '../../models/me'
+import { Order } from '../../models/order'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
@@ -26,7 +26,7 @@ export class ByProjectKeyMeOrdersByIDRequestBuilder {
     }
   ) {}
   /**
-   *	Get MyOrder by ID
+   *	Get Order by ID
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -36,8 +36,8 @@ export class ByProjectKeyMeOrdersByIDRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<MyOrder> {
-    return new ApiRequest<MyOrder>(
+  }): ApiRequest<Order> {
+    return new ApiRequest<Order>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',

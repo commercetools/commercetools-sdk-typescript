@@ -10,7 +10,8 @@
  *                    `Y'
  *
  */
-import { MyCustomer, MyCustomerUpdate } from '../../models/me'
+import { Customer } from '../../models/customer'
+import { MyCustomerUpdate } from '../../models/me'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyMeActiveCartRequestBuilder } from '../active-cart/by-project-key-me-active-cart-request-builder'
@@ -140,8 +141,8 @@ export class ByProjectKeyMeRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<MyCustomer> {
-    return new ApiRequest<MyCustomer>(
+  }): ApiRequest<Customer> {
+    return new ApiRequest<Customer>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',
@@ -163,8 +164,8 @@ export class ByProjectKeyMeRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<MyCustomer> {
-    return new ApiRequest<MyCustomer>(
+  }): ApiRequest<Customer> {
+    return new ApiRequest<Customer>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',
@@ -190,8 +191,8 @@ export class ByProjectKeyMeRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<MyCustomer> {
-    return new ApiRequest<MyCustomer>(
+  }): ApiRequest<Customer> {
+    return new ApiRequest<Customer>(
       {
         baseUri: this.args.baseUri,
         method: 'DELETE',

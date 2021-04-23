@@ -12,46 +12,18 @@
  */
 
 import {
-  CartOrigin,
-  CartReference,
-  CartState,
-  CustomLineItem,
   DiscountCodeInfo,
   ExternalLineItemTotalPrice,
   ExternalTaxRateDraft,
   InventoryMode,
   ItemShippingDetailsDraft,
   ItemShippingTarget,
-  LineItem,
-  RoundingMode,
-  ShippingInfo,
-  ShippingRateInput,
-  TaxCalculationMode,
-  TaxedPrice,
   TaxMode,
 } from './cart'
-import { CartDiscountReference } from './cart-discount'
 import { ChannelResourceIdentifier } from './channel'
-import {
-  Address,
-  BaseResource,
-  CreatedBy,
-  LastModifiedBy,
-  LocalizedString,
-  Money,
-  TypedMoney,
-} from './common'
+import { Address, LocalizedString, Money, TypedMoney } from './common'
 import { CustomerReference } from './customer'
-import { CustomerGroupReference } from './customer-group'
 import { DiscountCodeReference } from './discount-code'
-import {
-  OrderState,
-  PaymentInfo,
-  PaymentState,
-  ReturnInfo,
-  ShipmentState,
-  SyncInfo,
-} from './order'
 import {
   PaymentMethodInfo,
   PaymentResourceIdentifier,
@@ -61,7 +33,6 @@ import {
 } from './payment'
 import { ShippingMethodResourceIdentifier } from './shipping-method'
 import { ShoppingListLineItemDraft, TextLineItemDraft } from './shopping-list'
-import { StateReference } from './state'
 import { StoreKeyReference, StoreResourceIdentifier } from './store'
 import {
   CustomFields,
@@ -70,147 +41,6 @@ import {
   TypeResourceIdentifier,
 } from './type'
 
-export interface MyCart extends BaseResource {
-  /**
-   *
-   */
-  readonly id: string
-  /**
-   *	User-specific unique identifier of the cart.
-   *
-   */
-  readonly key?: string
-  /**
-   *
-   */
-  readonly version: number
-  /**
-   *
-   */
-  readonly createdAt: string
-  /**
-   *
-   */
-  readonly lastModifiedAt: string
-  /**
-   *
-   */
-  readonly lastModifiedBy?: LastModifiedBy
-  /**
-   *
-   */
-  readonly createdBy?: CreatedBy
-  /**
-   *
-   */
-  readonly customerId?: string
-  /**
-   *
-   */
-  readonly customerEmail?: string
-  /**
-   *
-   */
-  readonly anonymousId?: string
-  /**
-   *
-   */
-  readonly store?: StoreKeyReference
-  /**
-   *
-   */
-  readonly lineItems: LineItem[]
-  /**
-   *
-   */
-  readonly customLineItems: CustomLineItem[]
-  /**
-   *
-   */
-  readonly totalPrice: TypedMoney
-  /**
-   *
-   */
-  readonly taxedPrice?: TaxedPrice
-  /**
-   *
-   */
-  readonly cartState: CartState
-  /**
-   *
-   */
-  readonly shippingAddress?: Address
-  /**
-   *
-   */
-  readonly billingAddress?: Address
-  /**
-   *
-   */
-  readonly inventoryMode?: InventoryMode
-  /**
-   *
-   */
-  readonly taxMode: TaxMode
-  /**
-   *
-   */
-  readonly taxRoundingMode: RoundingMode
-  /**
-   *
-   */
-  readonly taxCalculationMode: TaxCalculationMode
-  /**
-   *
-   */
-  readonly customerGroup?: CustomerGroupReference
-  /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-   *
-   *
-   */
-  readonly country?: string
-  /**
-   *
-   */
-  readonly shippingInfo?: ShippingInfo
-  /**
-   *
-   */
-  readonly discountCodes?: DiscountCodeInfo[]
-  /**
-   *
-   */
-  readonly custom?: CustomFields
-  /**
-   *
-   */
-  readonly paymentInfo?: PaymentInfo
-  /**
-   *
-   */
-  readonly locale?: string
-  /**
-   *
-   */
-  readonly deleteDaysAfterLastModification?: number
-  /**
-   *
-   */
-  readonly refusedGifts: CartDiscountReference[]
-  /**
-   *
-   */
-  readonly origin: CartOrigin
-  /**
-   *
-   */
-  readonly shippingRateInput?: ShippingRateInput
-  /**
-   *
-   */
-  readonly itemShippingAddresses?: Address[]
-}
 export interface MyCartDraft {
   /**
    *	A three-digit currency code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
@@ -318,124 +148,6 @@ export type MyCartUpdateAction =
   | MyCartSetShippingAddressAction
   | MyCartSetShippingMethodAction
   | MyCartUpdateItemShippingAddressAction
-export interface MyCustomer extends BaseResource {
-  /**
-   *
-   */
-  readonly id: string
-  /**
-   *
-   */
-  readonly version: number
-  /**
-   *
-   */
-  readonly createdAt: string
-  /**
-   *
-   */
-  readonly lastModifiedAt: string
-  /**
-   *
-   */
-  readonly lastModifiedBy?: LastModifiedBy
-  /**
-   *
-   */
-  readonly createdBy?: CreatedBy
-  /**
-   *
-   */
-  readonly customerNumber?: string
-  /**
-   *
-   */
-  readonly email: string
-  /**
-   *
-   */
-  readonly password: string
-  /**
-   *
-   */
-  readonly firstName?: string
-  /**
-   *
-   */
-  readonly lastName?: string
-  /**
-   *
-   */
-  readonly middleName?: string
-  /**
-   *
-   */
-  readonly title?: string
-  /**
-   *
-   */
-  readonly dateOfBirth?: string
-  /**
-   *
-   */
-  readonly companyName?: string
-  /**
-   *
-   */
-  readonly vatId?: string
-  /**
-   *
-   */
-  readonly addresses: Address[]
-  /**
-   *
-   */
-  readonly defaultShippingAddressId?: string
-  /**
-   *
-   */
-  readonly shippingAddressIds?: string[]
-  /**
-   *
-   */
-  readonly defaultBillingAddressId?: string
-  /**
-   *
-   */
-  readonly billingAddressIds?: string[]
-  /**
-   *
-   */
-  readonly isEmailVerified: boolean
-  /**
-   *
-   */
-  readonly externalId?: string
-  /**
-   *
-   */
-  readonly customerGroup?: CustomerGroupReference
-  /**
-   *
-   */
-  readonly custom?: CustomFields
-  /**
-   *
-   */
-  readonly locale?: string
-  /**
-   *
-   */
-  readonly salutation?: string
-  /**
-   *
-   */
-  readonly key?: string
-  /**
-   *
-   */
-  readonly stores?: StoreKeyReference[]
-}
 export interface MyCustomerDraft {
   /**
    *
@@ -583,172 +295,6 @@ export interface MyLineItemDraft {
    */
   readonly sku?: string
 }
-export interface MyOrder extends BaseResource {
-  /**
-   *
-   */
-  readonly id: string
-  /**
-   *
-   */
-  readonly version: number
-  /**
-   *
-   */
-  readonly createdAt: string
-  /**
-   *
-   */
-  readonly lastModifiedAt: string
-  /**
-   *
-   */
-  readonly lastModifiedBy?: LastModifiedBy
-  /**
-   *
-   */
-  readonly createdBy?: CreatedBy
-  /**
-   *
-   */
-  readonly completedAt?: string
-  /**
-   *
-   */
-  readonly orderNumber?: string
-  /**
-   *
-   */
-  readonly customerId?: string
-  /**
-   *
-   */
-  readonly customerEmail?: string
-  /**
-   *
-   */
-  readonly anonymousId?: string
-  /**
-   *
-   */
-  readonly store?: StoreKeyReference
-  /**
-   *
-   */
-  readonly lineItems: LineItem[]
-  /**
-   *
-   */
-  readonly customLineItems: CustomLineItem[]
-  /**
-   *
-   */
-  readonly totalPrice: TypedMoney
-  /**
-   *
-   */
-  readonly taxedPrice?: TaxedPrice
-  /**
-   *
-   */
-  readonly shippingAddress?: Address
-  /**
-   *
-   */
-  readonly billingAddress?: Address
-  /**
-   *
-   */
-  readonly taxMode?: TaxMode
-  /**
-   *
-   */
-  readonly taxRoundingMode?: RoundingMode
-  /**
-   *
-   */
-  readonly customerGroup?: CustomerGroupReference
-  /**
-   *
-   */
-  readonly country?: string
-  /**
-   *
-   */
-  readonly orderState: OrderState
-  /**
-   *
-   */
-  readonly state?: StateReference
-  /**
-   *
-   */
-  readonly shipmentState?: ShipmentState
-  /**
-   *
-   */
-  readonly paymentState?: PaymentState
-  /**
-   *
-   */
-  readonly shippingInfo?: ShippingInfo
-  /**
-   *
-   */
-  readonly syncInfo: SyncInfo[]
-  /**
-   *
-   */
-  readonly returnInfo?: ReturnInfo[]
-  /**
-   *
-   */
-  readonly discountCodes?: DiscountCodeInfo[]
-  /**
-   *
-   */
-  readonly lastMessageSequenceNumber: number
-  /**
-   *
-   */
-  readonly cart?: CartReference
-  /**
-   *
-   */
-  readonly custom?: CustomFields
-  /**
-   *
-   */
-  readonly paymentInfo?: PaymentInfo
-  /**
-   *
-   */
-  readonly locale?: string
-  /**
-   *
-   */
-  readonly inventoryMode?: InventoryMode
-  /**
-   *
-   */
-  readonly origin: CartOrigin
-  /**
-   *
-   */
-  readonly taxCalculationMode?: TaxCalculationMode
-  /**
-   *
-   */
-  readonly shippingRateInput?: ShippingRateInput
-  /**
-   *
-   */
-  readonly itemShippingAddresses?: Address[]
-  /**
-   *
-   */
-  readonly refusedGifts: CartDiscountReference[]
-}
 export interface MyOrderFromCartDraft {
   /**
    *	The unique ID of the cart from which an order is created.
@@ -888,6 +434,10 @@ export interface MyShoppingListDraft {
    *
    */
   readonly deleteDaysAfterLastModification?: number
+  /**
+   *
+   */
+  readonly store?: StoreResourceIdentifier
 }
 export interface MyShoppingListUpdate {
   /**

@@ -20,7 +20,7 @@ import {
 import { CustomerReference, CustomerResourceIdentifier } from './customer'
 import { ProductVariant } from './product'
 import { ProductTypeReference } from './product-type'
-import { StoreResourceIdentifier } from './store'
+import { StoreKeyReference, StoreResourceIdentifier } from './store'
 import {
   CustomFields,
   CustomFieldsDraft,
@@ -28,72 +28,6 @@ import {
   TypeResourceIdentifier,
 } from './type'
 
-export interface MyShoppingList extends BaseResource {
-  /**
-   *
-   */
-  readonly id: string
-  /**
-   *
-   */
-  readonly version: number
-  /**
-   *
-   */
-  readonly createdAt: string
-  /**
-   *
-   */
-  readonly lastModifiedAt: string
-  /**
-   *
-   */
-  readonly lastModifiedBy?: LastModifiedBy
-  /**
-   *
-   */
-  readonly createdBy?: CreatedBy
-  /**
-   *
-   */
-  readonly custom?: CustomFields
-  /**
-   *
-   */
-  readonly customer?: CustomerReference
-  /**
-   *
-   */
-  readonly deleteDaysAfterLastModification?: number
-  /**
-   *
-   */
-  readonly description?: LocalizedString
-  /**
-   *
-   */
-  readonly key?: string
-  /**
-   *
-   */
-  readonly lineItems?: ShoppingListLineItem[]
-  /**
-   *
-   */
-  readonly name: LocalizedString
-  /**
-   *
-   */
-  readonly slug?: LocalizedString
-  /**
-   *
-   */
-  readonly textLineItems?: TextLineItem[]
-  /**
-   *
-   */
-  readonly anonymousId?: string
-}
 export interface ShoppingList extends BaseResource {
   /**
    *	The unique ID of the shopping list.
@@ -169,6 +103,10 @@ export interface ShoppingList extends BaseResource {
    *
    */
   readonly anonymousId?: string
+  /**
+   *
+   */
+  readonly store?: StoreKeyReference
 }
 export interface ShoppingListDraft {
   /**
@@ -218,6 +156,10 @@ export interface ShoppingListDraft {
    *
    */
   readonly anonymousId?: string
+  /**
+   *
+   */
+  readonly store?: StoreResourceIdentifier
 }
 export interface ShoppingListLineItem {
   /**
