@@ -10,7 +10,7 @@
  *                    `Y'
  *
  */
-import { MyCart } from '../../models/me'
+import { Cart } from '../../models/cart'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
@@ -28,8 +28,8 @@ export class ByProjectKeyMeActiveCartRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<MyCart> {
-    return new ApiRequest<MyCart>(
+  }): ApiRequest<Cart> {
+    return new ApiRequest<Cart>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',

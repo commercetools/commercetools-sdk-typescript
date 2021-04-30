@@ -131,7 +131,6 @@ export type Message =
   | ReviewCreatedMessage
   | ReviewRatingSetMessage
   | ReviewStateTransitionMessage
-  | ShoppingListStoreSetMessage
 export interface CategoryCreatedMessage {
   readonly type: 'CategoryCreated'
   /**
@@ -3927,53 +3926,6 @@ export interface ReviewStateTransitionMessage {
    *
    */
   readonly force: boolean
-}
-export interface ShoppingListStoreSetMessage {
-  readonly type: 'ShoppingListStoreSet'
-  /**
-   *
-   */
-  readonly id: string
-  /**
-   *
-   */
-  readonly version: number
-  /**
-   *
-   */
-  readonly createdAt: string
-  /**
-   *
-   */
-  readonly lastModifiedAt: string
-  /**
-   *
-   */
-  readonly lastModifiedBy?: LastModifiedBy
-  /**
-   *
-   */
-  readonly createdBy?: CreatedBy
-  /**
-   *
-   */
-  readonly sequenceNumber: number
-  /**
-   *
-   */
-  readonly resource: Reference
-  /**
-   *
-   */
-  readonly resourceVersion: number
-  /**
-   *
-   */
-  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
-  /**
-   *
-   */
-  readonly store: StoreKeyReference
 }
 export interface UserProvidedIdentifiers {
   /**

@@ -10,7 +10,8 @@
  *                    `Y'
  *
  */
-import { Cart, CartUpdate } from '../../models/cart'
+import { Cart } from '../../models/cart'
+import { MyCartUpdate } from '../../models/me'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
@@ -60,7 +61,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeCartsByIDRequestBuilder {
       expand?: string | string[]
       [key: string]: QueryParam
     }
-    body: CartUpdate
+    body: MyCartUpdate
     headers?: {
       [key: string]: string | string[]
     }

@@ -10,8 +10,8 @@
  *                    `Y'
  *
  */
-import { MyOrder, MyOrderFromCartDraft } from '../../models/me'
-import { OrderPagedQueryResponse } from '../../models/order'
+import { MyOrderFromCartDraft } from '../../models/me'
+import { Order, OrderPagedQueryResponse } from '../../models/order'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyMeOrdersByIDRequestBuilder } from './by-project-key-me-orders-by-id-request-builder'
@@ -71,7 +71,7 @@ export class ByProjectKeyMeOrdersRequestBuilder {
     )
   }
   /**
-   *	Create MyOrder
+   *	Create Order
    */
   public post(methodArgs: {
     queryArgs?: {
@@ -82,8 +82,8 @@ export class ByProjectKeyMeOrdersRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<MyOrder> {
-    return new ApiRequest<MyOrder>(
+  }): ApiRequest<Order> {
+    return new ApiRequest<Order>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',

@@ -10,7 +10,8 @@
  *                    `Y'
  *
  */
-import { MyCart, MyCartUpdate } from '../../models/me'
+import { Cart } from '../../models/cart'
+import { MyCartUpdate } from '../../models/me'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
@@ -26,7 +27,7 @@ export class ByProjectKeyMeCartsByIDRequestBuilder {
     }
   ) {}
   /**
-   *	Get MyCart by ID
+   *	Get Cart by ID
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -36,8 +37,8 @@ export class ByProjectKeyMeCartsByIDRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<MyCart> {
-    return new ApiRequest<MyCart>(
+  }): ApiRequest<Cart> {
+    return new ApiRequest<Cart>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',
@@ -52,7 +53,7 @@ export class ByProjectKeyMeCartsByIDRequestBuilder {
     )
   }
   /**
-   *	Update MyCart by ID
+   *	Update Cart by ID
    */
   public post(methodArgs: {
     queryArgs?: {
@@ -63,8 +64,8 @@ export class ByProjectKeyMeCartsByIDRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<MyCart> {
-    return new ApiRequest<MyCart>(
+  }): ApiRequest<Cart> {
+    return new ApiRequest<Cart>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',
@@ -81,7 +82,7 @@ export class ByProjectKeyMeCartsByIDRequestBuilder {
     )
   }
   /**
-   *	Delete MyCart by ID
+   *	Delete Cart by ID
    */
   public delete(methodArgs: {
     queryArgs: {
@@ -92,8 +93,8 @@ export class ByProjectKeyMeCartsByIDRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<MyCart> {
-    return new ApiRequest<MyCart>(
+  }): ApiRequest<Cart> {
+    return new ApiRequest<Cart>(
       {
         baseUri: this.args.baseUri,
         method: 'DELETE',

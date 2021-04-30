@@ -17,42 +17,47 @@ import {
 } from '../../models/shopping-list'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-import { ByProjectKeyMeShoppingListsByIDRequestBuilder } from './by-project-key-me-shopping-lists-by-id-request-builder'
-import { ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder } from './by-project-key-me-shopping-lists-key-by-key-request-builder'
+import { ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsByIDRequestBuilder } from './by-project-key-in-store-key-by-store-key-me-shopping-lists-by-id-request-builder'
+import { ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsKeyByKeyRequestBuilder } from './by-project-key-in-store-key-by-store-key-me-shopping-lists-key-by-key-request-builder'
 
-export class ByProjectKeyMeShoppingListsRequestBuilder {
+export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
         projectKey: string
+        storeKey: string
       }
       executeRequest: executeRequest
       baseUri?: string
     }
   ) {}
-  public withId(childPathArgs: {
-    ID: string
-  }): ByProjectKeyMeShoppingListsByIDRequestBuilder {
-    return new ByProjectKeyMeShoppingListsByIDRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-        ...childPathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
-  }
   public withKey(childPathArgs: {
     key: string
-  }): ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder {
-    return new ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-        ...childPathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
+  }): ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsKeyByKeyRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsKeyByKeyRequestBuilder(
+      {
+        pathArgs: {
+          ...this.args.pathArgs,
+          ...childPathArgs,
+        },
+        executeRequest: this.args.executeRequest,
+        baseUri: this.args.baseUri,
+      }
+    )
+  }
+  public withId(childPathArgs: {
+    ID: string
+  }): ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsByIDRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsByIDRequestBuilder(
+      {
+        pathArgs: {
+          ...this.args.pathArgs,
+          ...childPathArgs,
+        },
+        executeRequest: this.args.executeRequest,
+        baseUri: this.args.baseUri,
+      }
+    )
   }
 
   /**
@@ -76,7 +81,7 @@ export class ByProjectKeyMeShoppingListsRequestBuilder {
       {
         baseUri: this.args.baseUri,
         method: 'GET',
-        uriTemplate: '/{projectKey}/me/shopping-lists',
+        uriTemplate: '/{projectKey}/in-store/key={storeKey}/me/shopping-lists',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
@@ -103,7 +108,7 @@ export class ByProjectKeyMeShoppingListsRequestBuilder {
       {
         baseUri: this.args.baseUri,
         method: 'POST',
-        uriTemplate: '/{projectKey}/me/shopping-lists',
+        uriTemplate: '/{projectKey}/in-store/key={storeKey}/me/shopping-lists',
         pathVariables: this.args.pathArgs,
         headers: {
           'Content-Type': 'application/json',

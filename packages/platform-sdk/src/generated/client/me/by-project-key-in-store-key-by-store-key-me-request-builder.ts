@@ -14,6 +14,7 @@ import { executeRequest } from '../../shared/utils/common-types'
 import { ByProjectKeyInStoreKeyByStoreKeyMeActiveCartRequestBuilder } from '../active-cart/by-project-key-in-store-key-by-store-key-me-active-cart-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyMeCartsRequestBuilder } from '../carts/by-project-key-in-store-key-by-store-key-me-carts-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyMeOrdersRequestBuilder } from '../orders/by-project-key-in-store-key-by-store-key-me-orders-request-builder'
+import { ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsRequestBuilder } from '../shopping-lists/by-project-key-in-store-key-by-store-key-me-shopping-lists-request-builder'
 
 export class ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder {
   constructor(
@@ -52,6 +53,19 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder {
   }
   public activeCart(): ByProjectKeyInStoreKeyByStoreKeyMeActiveCartRequestBuilder {
     return new ByProjectKeyInStoreKeyByStoreKeyMeActiveCartRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	shopping-lists e.g. for wishlist support
+   *
+   */
+  public shoppingLists(): ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },
