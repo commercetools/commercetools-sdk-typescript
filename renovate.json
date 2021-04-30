@@ -8,9 +8,7 @@
   "separateMajorMinor": true,
   "packageRules": [
     {
-      "packagePatterns": [
-        "*"
-      ],
+      "packagePatterns": ["*"],
       "updateTypes": ["minor", "patch"],
       "groupName": "all dependencies",
       "groupSlug": "all"
@@ -19,8 +17,6 @@
   "lockFileMaintenance": {
     "enabled": true
   },
-  "labels": [
-    "Type: Maintenance"
-  ],
+  "labels": ["Type: Maintenance"],
   "ignoreDeps": []
 }
