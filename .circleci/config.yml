@@ -6,7 +6,7 @@ jobs:
   build_and_test:
     working_directory: *ml_ts_sdk
     docker:
-      - image: node:12.16.1
+      - image: node:12.22.1
     steps:
       - checkout
       - run:
@@ -28,7 +28,7 @@ jobs:
   update_ml_sdk_from_spec:
     working_directory: ~/commercetools-typescript-spec
     docker:
-      - image: node:12.16.1
+      - image: node:12.22.1
     steps:
       - checkout
       - run:
