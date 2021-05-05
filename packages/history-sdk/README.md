@@ -1,4 +1,4 @@
-# Typescript SDK for commercetools audit log APIs.
+# Typescript SDK for commercetools Audit log APIs.
 
 ## Install
 
