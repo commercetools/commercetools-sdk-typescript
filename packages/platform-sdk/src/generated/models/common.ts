@@ -201,6 +201,10 @@ export interface BaseAddress {
   /**
    *
    */
+  readonly id?: string
+  /**
+   *
+   */
   readonly key?: string
   /**
    *
@@ -298,10 +302,6 @@ export interface BaseAddress {
   readonly externalId?: string
 }
 export interface Address extends BaseAddress {
-  /**
-   *
-   */
-  readonly id?: string
   /**
    *
    */
