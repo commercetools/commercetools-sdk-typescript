@@ -13,6 +13,7 @@
 
 import {
   Address,
+  BaseAddress,
   BaseResource,
   CreatedBy,
   GeoJson,
@@ -118,7 +119,7 @@ export interface ChannelDraft {
   /**
    *
    */
-  readonly address?: Address
+  readonly address?: BaseAddress
   /**
    *	The custom fields.
    *
@@ -242,7 +243,7 @@ export interface ChannelSetAddressAction {
   /**
    *
    */
-  readonly address?: Address
+  readonly address?: BaseAddress
 }
 export interface ChannelSetAddressCustomFieldAction {
   readonly action: 'setAddressCustomField'

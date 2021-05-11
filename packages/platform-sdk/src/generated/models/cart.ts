@@ -15,6 +15,7 @@ import { CartDiscountReference } from './cart-discount'
 import { ChannelReference, ChannelResourceIdentifier } from './channel'
 import {
   Address,
+  BaseAddress,
   BaseResource,
   CreatedBy,
   LastModifiedBy,
@@ -294,11 +295,11 @@ export interface CartDraft {
    *	The shipping address is used to determine the eligible shipping methods and rates as well as the tax rate of the line items.
    *
    */
-  readonly shippingAddress?: Address
+  readonly shippingAddress?: BaseAddress
   /**
    *
    */
-  readonly billingAddress?: Address
+  readonly billingAddress?: BaseAddress
   /**
    *
    */
@@ -346,7 +347,7 @@ export interface CartDraft {
    *	Only the cart's `shippingAddress` is used for this.
    *
    */
-  readonly itemShippingAddresses?: Address[]
+  readonly itemShippingAddresses?: BaseAddress[]
   /**
    *	The code of existing DiscountCodes.
    *
@@ -1123,7 +1124,7 @@ export interface CartAddItemShippingAddressAction {
   /**
    *
    */
-  readonly address: Address
+  readonly address: BaseAddress
 }
 export interface CartAddLineItemAction {
   readonly action: 'addLineItem'
@@ -1353,7 +1354,7 @@ export interface CartSetBillingAddressAction {
   /**
    *
    */
-  readonly address?: Address
+  readonly address?: BaseAddress
 }
 export interface CartSetBillingAddressCustomFieldAction {
   readonly action: 'setBillingAddressCustomField'
@@ -1706,7 +1707,7 @@ export interface CartSetShippingAddressAction {
   /**
    *
    */
-  readonly address?: Address
+  readonly address?: BaseAddress
 }
 export interface CartSetShippingAddressCustomFieldAction {
   readonly action: 'setShippingAddressCustomField'
@@ -1771,7 +1772,7 @@ export interface CartUpdateItemShippingAddressAction {
   /**
    *
    */
-  readonly address: Address
+  readonly address: BaseAddress
 }
 export interface CustomLineItemImportDraft {
   /**

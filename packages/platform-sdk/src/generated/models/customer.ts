@@ -12,7 +12,13 @@
  */
 
 import { Cart, CartResourceIdentifier } from './cart'
-import { Address, BaseResource, CreatedBy, LastModifiedBy } from './common'
+import {
+  Address,
+  BaseAddress,
+  BaseResource,
+  CreatedBy,
+  LastModifiedBy,
+} from './common'
 import {
   CustomerGroupReference,
   CustomerGroupResourceIdentifier,
@@ -276,7 +282,7 @@ export interface CustomerDraft {
    *	Sets the ID of each address to be unique in the addresses list.
    *
    */
-  readonly addresses?: Address[]
+  readonly addresses?: BaseAddress[]
   /**
    *	The index of the address in the addresses array.
    *	The `defaultShippingAddressId` of the customer will be set to the ID of that address.
@@ -524,7 +530,7 @@ export interface CustomerAddAddressAction {
   /**
    *
    */
-  readonly address: Address
+  readonly address: BaseAddress
 }
 export interface CustomerAddBillingAddressIdAction {
   readonly action: 'addBillingAddressId'
@@ -568,7 +574,7 @@ export interface CustomerChangeAddressAction {
   /**
    *
    */
-  readonly address: Address
+  readonly address: BaseAddress
 }
 export interface CustomerChangeEmailAction {
   readonly action: 'changeEmail'

@@ -113,11 +113,91 @@ export interface UpdateAction {
    */
   readonly action: string
 }
-export interface Address {
+export interface Asset {
   /**
    *
    */
-  readonly id?: string
+  readonly id: string
+  /**
+   *
+   */
+  readonly sources: AssetSource[]
+  /**
+   *
+   */
+  readonly name: LocalizedString
+  /**
+   *
+   */
+  readonly description?: LocalizedString
+  /**
+   *
+   */
+  readonly tags?: string[]
+  /**
+   *
+   */
+  readonly custom?: CustomFields
+  /**
+   *
+   */
+  readonly key?: string
+}
+export interface AssetDimensions {
+  /**
+   *
+   */
+  readonly w: number
+  /**
+   *
+   */
+  readonly h: number
+}
+export interface AssetDraft {
+  /**
+   *
+   */
+  readonly sources: AssetSource[]
+  /**
+   *
+   */
+  readonly name: LocalizedString
+  /**
+   *
+   */
+  readonly description?: LocalizedString
+  /**
+   *
+   */
+  readonly tags?: string[]
+  /**
+   *
+   */
+  readonly custom?: CustomFieldsDraft
+  /**
+   *
+   */
+  readonly key?: string
+}
+export interface AssetSource {
+  /**
+   *
+   */
+  readonly uri: string
+  /**
+   *
+   */
+  readonly key?: string
+  /**
+   *
+   */
+  readonly dimensions?: AssetDimensions
+  /**
+   *
+   */
+  readonly contentType?: string
+}
+export interface BaseAddress {
   /**
    *
    */
@@ -216,94 +296,22 @@ export interface Address {
    *
    */
   readonly externalId?: string
+}
+export interface Address extends BaseAddress {
+  /**
+   *
+   */
+  readonly id?: string
   /**
    *
    */
   readonly custom?: CustomFields
 }
-export interface Asset {
-  /**
-   *
-   */
-  readonly id: string
-  /**
-   *
-   */
-  readonly sources: AssetSource[]
-  /**
-   *
-   */
-  readonly name: LocalizedString
-  /**
-   *
-   */
-  readonly description?: LocalizedString
-  /**
-   *
-   */
-  readonly tags?: string[]
-  /**
-   *
-   */
-  readonly custom?: CustomFields
-  /**
-   *
-   */
-  readonly key?: string
-}
-export interface AssetDimensions {
-  /**
-   *
-   */
-  readonly w: number
-  /**
-   *
-   */
-  readonly h: number
-}
-export interface AssetDraft {
-  /**
-   *
-   */
-  readonly sources: AssetSource[]
-  /**
-   *
-   */
-  readonly name: LocalizedString
-  /**
-   *
-   */
-  readonly description?: LocalizedString
-  /**
-   *
-   */
-  readonly tags?: string[]
+export interface AddressDraft extends BaseAddress {
   /**
    *
    */
   readonly custom?: CustomFieldsDraft
-  /**
-   *
-   */
-  readonly key?: string
-}
-export interface AssetSource {
-  /**
-   *
-   */
-  readonly uri: string
-  /**
-   *
-   */
-  readonly key?: string
-  /**
-   *
-   */
-  readonly dimensions?: AssetDimensions
-  /**
-   *
-   */
-  readonly contentType?: string
 }
 export interface BaseResource {
   /**

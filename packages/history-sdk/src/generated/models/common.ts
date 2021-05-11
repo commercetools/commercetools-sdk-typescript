@@ -218,7 +218,7 @@ export interface ModifiedBy {
    */
   readonly clientId?: string
   /**
-   *	`true` if the change was made via Merchant Center or [ImPex](https://impex.europe-west1.gcp.commercetools.com/).
+   *	`true` if the change was made via Merchant Center or [ImpEx](https://impex.europe-west1.gcp.commercetools.com/).
    *
    *
    */

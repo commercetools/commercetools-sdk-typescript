@@ -35,6 +35,7 @@ import { CartDiscountReference } from './cart-discount'
 import { ChannelReference, ChannelResourceIdentifier } from './channel'
 import {
   Address,
+  BaseAddress,
   BaseResource,
   CreatedBy,
   Image,
@@ -594,11 +595,11 @@ export interface OrderImportDraft {
   /**
    *
    */
-  readonly shippingAddress?: Address
+  readonly shippingAddress?: BaseAddress
   /**
    *
    */
-  readonly billingAddress?: Address
+  readonly billingAddress?: BaseAddress
   /**
    *	Set when the customer is set and the customer is a member of a customer group.
    *	Used for product variant price selection.
@@ -652,7 +653,7 @@ export interface OrderImportDraft {
    *	Contains addresses for orders with multiple shipping addresses.
    *
    */
-  readonly itemShippingAddresses?: Address[]
+  readonly itemShippingAddresses?: BaseAddress[]
   /**
    *
    */
@@ -1096,7 +1097,7 @@ export interface OrderAddDeliveryAction {
   /**
    *
    */
-  readonly address?: Address
+  readonly address?: BaseAddress
   /**
    *
    */
@@ -1107,7 +1108,7 @@ export interface OrderAddItemShippingAddressAction {
   /**
    *
    */
-  readonly address: Address
+  readonly address: BaseAddress
 }
 export interface OrderAddParcelToDeliveryAction {
   readonly action: 'addParcelToDelivery'
@@ -1226,7 +1227,7 @@ export interface OrderSetBillingAddressAction {
   /**
    *
    */
-  readonly address?: Address
+  readonly address?: BaseAddress
 }
 export interface OrderSetBillingAddressCustomFieldAction {
   readonly action: 'setBillingAddressCustomField'
@@ -1336,7 +1337,7 @@ export interface OrderSetDeliveryAddressAction {
   /**
    *
    */
-  readonly address?: Address
+  readonly address?: BaseAddress
 }
 export interface OrderSetDeliveryAddressCustomFieldAction {
   readonly action: 'setDeliveryAddressCustomField'
@@ -1524,7 +1525,7 @@ export interface OrderSetShippingAddressAction {
   /**
    *
    */
-  readonly address?: Address
+  readonly address?: BaseAddress
 }
 export interface OrderSetShippingAddressCustomFieldAction {
   readonly action: 'setShippingAddressCustomField'
@@ -1617,7 +1618,7 @@ export interface OrderUpdateItemShippingAddressAction {
   /**
    *
    */
-  readonly address: Address
+  readonly address: BaseAddress
 }
 export interface OrderUpdateSyncInfoAction {
   readonly action: 'updateSyncInfo'
