@@ -25,7 +25,7 @@ import {
 } from './cart'
 import { ChannelResourceIdentifier } from './channel'
 import {
-  Address,
+  BaseAddress,
   BaseResource,
   CreatedBy,
   LastModifiedBy,
@@ -499,7 +499,7 @@ export interface StagedOrderAddDeliveryAction {
   /**
    *
    */
-  readonly address?: Address
+  readonly address?: BaseAddress
   /**
    *
    */
@@ -517,7 +517,7 @@ export interface StagedOrderAddItemShippingAddressAction {
   /**
    *
    */
-  readonly address: Address
+  readonly address: BaseAddress
 }
 export interface StagedOrderAddLineItemAction {
   readonly action: 'addLineItem'
@@ -801,7 +801,7 @@ export interface StagedOrderSetBillingAddressAction {
   /**
    *
    */
-  readonly address?: Address
+  readonly address?: BaseAddress
 }
 export interface StagedOrderSetCountryAction {
   readonly action: 'setCountry'
@@ -944,7 +944,7 @@ export interface StagedOrderSetDeliveryAddressAction {
   /**
    *
    */
-  readonly address?: Address
+  readonly address?: BaseAddress
 }
 export interface StagedOrderSetDeliveryItemsAction {
   readonly action: 'setDeliveryItems'
@@ -1138,14 +1138,14 @@ export interface StagedOrderSetShippingAddressAction {
   /**
    *
    */
-  readonly address?: Address
+  readonly address?: BaseAddress
 }
 export interface StagedOrderSetShippingAddressAndCustomShippingMethodAction {
   readonly action: 'setShippingAddressAndCustomShippingMethod'
   /**
    *
    */
-  readonly address: Address
+  readonly address: BaseAddress
   /**
    *
    */
@@ -1168,7 +1168,7 @@ export interface StagedOrderSetShippingAddressAndShippingMethodAction {
   /**
    *
    */
-  readonly address: Address
+  readonly address: BaseAddress
   /**
    *
    */
@@ -1272,7 +1272,7 @@ export interface StagedOrderUpdateItemShippingAddressAction {
   /**
    *
    */
-  readonly address: Address
+  readonly address: BaseAddress
 }
 export interface StagedOrderUpdateSyncInfoAction {
   readonly action: 'updateSyncInfo'

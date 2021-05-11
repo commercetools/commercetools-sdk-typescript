@@ -21,7 +21,7 @@ import {
   TaxMode,
 } from './cart'
 import { ChannelResourceIdentifier } from './channel'
-import { Address, LocalizedString, Money, TypedMoney } from './common'
+import { BaseAddress, LocalizedString, Money, TypedMoney } from './common'
 import { CustomerReference } from './customer'
 import { DiscountCodeReference } from './discount-code'
 import {
@@ -68,11 +68,11 @@ export interface MyCartDraft {
   /**
    *
    */
-  readonly shippingAddress?: Address
+  readonly shippingAddress?: BaseAddress
   /**
    *
    */
-  readonly billingAddress?: Address
+  readonly billingAddress?: BaseAddress
   /**
    *
    */
@@ -102,7 +102,7 @@ export interface MyCartDraft {
    *	Each address must contain a key which is unique in this cart.
    *
    */
-  readonly itemShippingAddresses?: Address[]
+  readonly itemShippingAddresses?: BaseAddress[]
   /**
    *
    */
@@ -189,7 +189,7 @@ export interface MyCustomerDraft {
    *	Sets the ID of each address to be unique in the addresses list.
    *
    */
-  readonly addresses?: Address[]
+  readonly addresses?: BaseAddress[]
   /**
    *	The index of the address in the addresses array.
    *	The `defaultShippingAddressId` of the customer will be set to the ID of that address.
@@ -507,7 +507,7 @@ export interface MyCartAddItemShippingAddressAction {
   /**
    *
    */
-  readonly address: Address
+  readonly address: BaseAddress
 }
 export interface MyCartAddLineItemAction {
   readonly action: 'addLineItem'
@@ -660,7 +660,7 @@ export interface MyCartSetBillingAddressAction {
   /**
    *
    */
-  readonly address?: Address
+  readonly address?: BaseAddress
 }
 export interface MyCartSetCountryAction {
   readonly action: 'setCountry'
@@ -764,7 +764,7 @@ export interface MyCartSetShippingAddressAction {
   /**
    *
    */
-  readonly address?: Address
+  readonly address?: BaseAddress
 }
 export interface MyCartSetShippingMethodAction {
   readonly action: 'setShippingMethod'
@@ -782,14 +782,14 @@ export interface MyCartUpdateItemShippingAddressAction {
   /**
    *
    */
-  readonly address: Address
+  readonly address: BaseAddress
 }
 export interface MyCustomerAddAddressAction {
   readonly action: 'addAddress'
   /**
    *
    */
-  readonly address: Address
+  readonly address: BaseAddress
 }
 export interface MyCustomerAddBillingAddressIdAction {
   readonly action: 'addBillingAddressId'
@@ -826,7 +826,7 @@ export interface MyCustomerChangeAddressAction {
   /**
    *
    */
-  readonly address: Address
+  readonly address: BaseAddress
 }
 export interface MyCustomerChangeEmailAction {
   readonly action: 'changeEmail'
