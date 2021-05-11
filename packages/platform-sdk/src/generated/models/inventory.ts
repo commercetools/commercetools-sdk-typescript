@@ -11,7 +11,7 @@
  *
  */
 
-import { ChannelResourceIdentifier } from './channel'
+import { ChannelReference, ChannelResourceIdentifier } from './channel'
 import { BaseResource, CreatedBy, LastModifiedBy } from './common'
 import {
   CustomFields,
@@ -56,7 +56,7 @@ export interface InventoryEntry extends BaseResource {
    *	Optional connection to a particular supplier.
    *
    */
-  readonly supplyChannel?: ChannelResourceIdentifier
+  readonly supplyChannel?: ChannelReference
   /**
    *	Overall amount of stock.
    *	(available + reserved)
