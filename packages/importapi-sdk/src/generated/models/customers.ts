@@ -12,13 +12,119 @@
  */
 
 import {
-  Address,
   CustomerGroupKeyReference,
   ImportResource,
   StoreKeyReference,
 } from './common'
 import { Custom } from './customfields'
 
+/**
+ *	Different from Address in that `key` is required and `id` is not supported.
+ *
+ */
+export interface CustomerAddress {
+  /**
+   *	User-defined identifier for the address.
+   *	It must follow the pattern [a-zA-Z0-9_\-]{2,256}, and unique per customer.
+   *
+   *
+   */
+  readonly key: string
+  /**
+   *
+   */
+  readonly title?: string
+  /**
+   *
+   */
+  readonly salutation?: string
+  /**
+   *
+   */
+  readonly firstName?: string
+  /**
+   *
+   */
+  readonly lastName?: string
+  /**
+   *
+   */
+  readonly streetName?: string
+  /**
+   *
+   */
+  readonly streetNumber?: string
+  /**
+   *
+   */
+  readonly additionalStreetInfo?: string
+  /**
+   *
+   */
+  readonly postalCode?: string
+  /**
+   *
+   */
+  readonly city?: string
+  /**
+   *
+   */
+  readonly region?: string
+  /**
+   *
+   */
+  readonly state?: string
+  /**
+   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *
+   *
+   */
+  readonly country: string
+  /**
+   *
+   */
+  readonly company?: string
+  /**
+   *
+   */
+  readonly department?: string
+  /**
+   *
+   */
+  readonly building?: string
+  /**
+   *
+   */
+  readonly apartment?: string
+  /**
+   *
+   */
+  readonly pOBox?: string
+  /**
+   *
+   */
+  readonly phone?: string
+  /**
+   *
+   */
+  readonly mobile?: string
+  /**
+   *
+   */
+  readonly email?: string
+  /**
+   *
+   */
+  readonly fax?: string
+  /**
+   *
+   */
+  readonly additionalAddressInfo?: string
+  /**
+   *
+   */
+  readonly externalId?: string
+}
 /**
  *	Import representation for a customer.
  *
@@ -127,7 +233,7 @@ export interface CustomerImport extends ImportResource {
    *
    *
    */
-  readonly addresses?: Address[]
+  readonly addresses: CustomerAddress[]
   /**
    *	The index of the address in the addresses array. The `defaultBillingAddressId` of the customer will be set to the ID of that address.
    *
