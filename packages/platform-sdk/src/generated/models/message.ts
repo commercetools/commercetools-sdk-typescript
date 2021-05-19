@@ -2396,6 +2396,10 @@ export interface OrderStateTransitionMessage {
   /**
    *
    */
+  readonly oldState?: StateReference
+  /**
+   *
+   */
   readonly force: boolean
 }
 export interface OrderStoreSetMessage {
