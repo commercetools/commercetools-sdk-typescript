@@ -709,6 +709,23 @@ export interface DeliveryItem {
    */
   readonly quantity: number
 }
+export interface DiscountCodeInfo {
+  /**
+   *
+   */
+  readonly discountCode: Reference
+  /**
+   *
+   */
+  readonly state: DiscountCodeState
+}
+export type DiscountCodeState =
+  | 'ApplicationStoppedByPreviousDiscount'
+  | 'DoesNotMatchCart'
+  | 'MatchesCart'
+  | 'MaxApplicationReached'
+  | 'NotActive'
+  | 'NotValid'
 export interface DiscountedLineItemPortion {
   /**
    *
@@ -1143,6 +1160,7 @@ export interface ReviewRatingStatistics {
    */
   readonly ratingsDistribution: any
 }
+export type RoundingMode = 'HalfDown' | 'HalfEven' | 'HalfUp'
 export interface SearchKeyword {
   /**
    *
@@ -1164,6 +1182,35 @@ export type ShipmentState =
   | 'Pending'
   | 'Ready'
   | 'Shipped'
+export interface ShippingRate {
+  /**
+   *
+   */
+  readonly price: Money
+  /**
+   *
+   */
+  readonly freeAbove: Money
+  /**
+   *	Only appears in response to requests for shipping methods by cart or location to mark this shipping rate as one that matches the cart or location.
+   *
+   */
+  readonly isMatching: boolean
+  /**
+   *
+   */
+  readonly tiers: ShippingRatePriceTier[]
+}
+export interface ShippingRatePriceTier {
+  /**
+   *
+   */
+  readonly type: ShippingRateTierType
+}
+export type ShippingRateTierType =
+  | 'CartClassification'
+  | 'CartScore'
+  | 'CartValue'
 export type StackingMode = 'Stacking' | 'StopAfterThisDiscount'
 export type StateRole = 'Return' | 'ReviewIncludedInStatistics'
 export type StateType =
@@ -1203,6 +1250,8 @@ export interface SyncInfo {
    */
   readonly syncedAt: string
 }
+export type TaxCalculationMode = 'LineItemLevel' | 'UnitPriceLevel'
+export type TaxMode = 'Disabled' | 'External' | 'ExternalAmount' | 'Platform'
 /**
  *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
  */
@@ -1238,9 +1287,19 @@ export interface TaxRate {
   /**
    *
    */
-  readonly subRates: SubRate
+  readonly subRates: SubRate[]
 }
 export interface TaxedItemPrice {
+  /**
+   *
+   */
+  readonly totalNet: Money
+  /**
+   *
+   */
+  readonly totalGross: Money
+}
+export interface TaxedPrice {
   /**
    *
    */
