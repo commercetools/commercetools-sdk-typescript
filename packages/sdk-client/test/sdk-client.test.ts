@@ -1,6 +1,10 @@
 import qs from 'querystring'
 import { createClient } from '../src'
-import { ClientRequest } from '../types/sdk'
+import {
+  ClientRequest,
+  HttpErrorType,
+  MiddlewareResponse,
+} from '../../../types/sdk'
 
 const createPayloadResult = (tot, startingId = 0) => ({
   count: tot,
@@ -151,7 +155,7 @@ describe('execute', () => {
                 customResolveSpy()
                 res.resolve(null)
               },
-            }
+            } as any
             next(req, responseWithCustomResolver)
           },
         ],
@@ -170,10 +174,10 @@ describe('execute', () => {
             const responseWithCustomResolver = {
               reject() {
                 customRejectSpy()
-                res.reject()
+                res.reject(null)
               },
               error: new Error('Oops'),
-            }
+            } as any
             next(req, responseWithCustomResolver)
           },
         ],
@@ -192,11 +196,11 @@ describe('process', () => {
     method: 'GET',
     body: null,
     headers: {},
-  }
+  } as any
 
   describe('validate arguments', () => {
     const middlewares = [next => (...args) => next(...args)]
-    const client = createClient({ middlewares })
+    const client = createClient({ middlewares }) as any
 
     test('should throw if second argument missing', () => {
       expect(() => client.process(request)).toThrow(
@@ -260,7 +264,7 @@ describe('process', () => {
           next(req, { ...res, body, statusCode: 200 })
         },
       ],
-    })
+    }) as any
 
     return client
       .process(request, () => Promise.resolve('OK'))
@@ -356,9 +360,7 @@ describe('process', () => {
           next(req, { ...res, body, statusCode: 200 })
         },
       ],
-    })
-
-    // @ts-ignore
+    }) as any
     return client.process(
       {
         ...request,
@@ -419,7 +421,6 @@ describe('process', () => {
     })
 
     let fnCall = 0
-    // @ts-ignore
     const processRes = await client.process(
       {
         ...request,
@@ -434,8 +435,7 @@ describe('process', () => {
         expect(fnCall).toBeLessThan(2) // should not call fn if the last page is empty
 
         fnCall += 1
-
-        return `OK${fnCall}`
+        return Promise.resolve(`OK${fnCall}`)
       },
       {
         accumulate: true,
@@ -450,11 +450,20 @@ describe('process', () => {
     const client = createClient({
       middlewares: [
         next => (req, res) => {
-          const error = new Error('Invalid password')
-          next(req, { ...res, error, statusCode: 400 })
+          const httpError = new Error('Invalid password')
+          const error: HttpErrorType = {
+            name: 'error',
+            message: httpError.message,
+            code: 400,
+            status: 400,
+            statusCode: 400,
+            originalRequest: req,
+          }
+          const _res: MiddlewareResponse = { ...res, error, statusCode: 400 }
+          next(req, _res)
         },
       ],
-    })
+    }) as any
 
     return client
       .process(request, () => Promise.resolve('OK'))
@@ -478,7 +487,7 @@ describe('process', () => {
           next(req, { ...res, statusCode: 200 })
         },
       ],
-    })
+    }) as any
 
     return client
       .process(request, () => Promise.reject(new Error('Rejection from user')))

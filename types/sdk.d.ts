@@ -103,14 +103,18 @@ export type ClientResult = SuccessResult | HttpErrorType
 
 export type ProcessFn = (result: SuccessResult) => Promise<any>
 
-export type Client = {
-  execute: (request: ClientRequest) => Promise<any>
-  process: (request: ClientRequest, fn: ProcessFn, Object) => Promise<any>
-}
-
 export type ProcessOptions = {
   accumulate?: boolean
   total?: number
+}
+
+export type Client = {
+  execute: (request: ClientRequest) => Promise<any>
+  process: (
+    request: ClientRequest,
+    fn: ProcessFn,
+    processOpt: ProcessOptions
+  ) => Promise<any>
 }
 
 export type ValiadateOption = {
@@ -170,7 +174,7 @@ export type TokenInfo = {
   refresh_token: string
   access_token: string
   expires_at: number
-  expires_in?: number
+  expires_in: number // since this will always be used to calculate the expiration time, it shouldn't be made optional
   scope?: string
   token_type?: string
 }
@@ -291,7 +295,7 @@ export type UserAgentMiddlewareOptions = {
 export type Next = (
   request: MiddlewareRequest,
   response: MiddlewareResponse
-) => mixed
+) => unknown
 
 /* API Request Builder */
 export type ServiceBuilderDefaultParams = {

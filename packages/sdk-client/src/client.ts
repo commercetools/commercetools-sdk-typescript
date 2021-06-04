@@ -10,7 +10,7 @@ import {
   ProcessOptions,
   SuccessResult,
   ClientResponse,
-} from '../types/sdk'
+} from '../../../types/sdk'
 import validate from './validate'
 
 function compose(...funcs: Array<Function>): Function {
@@ -85,7 +85,6 @@ export default function createClient(options: ClientOptions): Client {
       validate('process', request, { allowedMethods: ['GET'] })
 
       if (typeof fn !== 'function')
-        // eslint-disable-next-line max-len
         throw new Error(
           'The "process" function accepts a "Function" as a second argument that returns a Promise. See https://commercetools.github.io/nodejs/sdk/api/sdkClient.html#processrequest-processfn-options'
         )
