@@ -1,5 +1,5 @@
 import METHODS from './allowed-methods'
-import { ClientRequest } from 'types/sdk'
+import { ClientRequest } from '../../../types/sdk'
 
 /**
  * @throws {Error}
