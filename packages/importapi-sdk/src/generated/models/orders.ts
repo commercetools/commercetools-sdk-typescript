@@ -24,6 +24,7 @@ import {
   Money,
   PriceTier,
   ProductKeyReference,
+  ProductVariantKeyReference,
   ShippingMethodKeyReference,
   StateKeyReference,
   TaxCategoryKeyReference,
@@ -135,7 +136,7 @@ export interface LineItemProductVariantImportDraft {
    *
    *
    */
-  readonly product?: ProductKeyReference
+  readonly productVariant?: ProductVariantKeyReference
   /**
    *	Maps to `ProductVariantImportDraft.sku`.
    *
