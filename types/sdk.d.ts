@@ -44,6 +44,7 @@ export type HttpErrorType = {
   statusCode: number
   originalRequest: ClientRequest
   body?: JsonObject
+  retryCount?: number
   headers?: JsonObject<string>
 }
 
