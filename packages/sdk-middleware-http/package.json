@@ -1,0 +1,49 @@
+{
+  "name": "@commercetools/sdk-middleware-http",
+  "version": "3.0.0",
+  "description": "middleware for http requests, to use with @commercetools/sdk-client",
+  "keywords": [
+    "commercetools",
+    "sdk",
+    "middleware",
+    "http"
+  ],
+  "author": "Chukwuemeka Ajima <meeky.ae@gmail.com>",
+  "homepage": "https://github.com/commercetools/commercetools-sdk-typescript",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/commercetools/commercetools-sdk-typescript.git"
+  },
+  "bugs": {
+    "url": "https://github.com/commercetools/commercetools-sdk-typescript/issues"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.9.0",
+    "abort-controller": "3.0.0",
+    "common-tags": "^1.8.0",
+    "jest": "^27.0.3",
+    "jest-junit": "^12.1.0",
+    "nock": "12.0.3",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.0.2",
+    "typescript": "^4.3.2"
+  },
+  "scripts": {
+    "prebuild": "rimraf dist/**",
+    "build": "rimraf dist && tsc",
+    "test": "jest"
+  }
+}
