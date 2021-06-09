@@ -37,7 +37,7 @@ test.skip('Get async result for missing attributes', async () => {
   }
   expect(dataStatus).toBeDefined()
   expect(dataStatus.state).toBe('SUCCESS')
-}, 10000)
+}, 15000)
 
 test('Get async result for missing images', async () => {
   const token = await mlApiBuilder
@@ -70,7 +70,7 @@ test('Get async result for missing images', async () => {
   }
   expect(dataStatus).toBeDefined()
   expect(dataStatus.state).toBe('SUCCESS')
-}, 10000)
+}, 15000)
 
 test('Get async result for missing prices', async () => {
   const token = await mlApiBuilder
@@ -103,4 +103,4 @@ test('Get async result for missing prices', async () => {
   }
   expect(dataStatus).toBeDefined()
   expect(dataStatus.state).toBe('SUCCESS')
-}, 10000)
+}, 15000)
