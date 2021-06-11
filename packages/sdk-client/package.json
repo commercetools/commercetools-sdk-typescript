@@ -2,16 +2,27 @@
   "name": "@commercetools/sdk-client",
   "version": "3.0.0",
   "description": "commercetools TypeScript SDK client for Platform API",
-  "keywords": ["commercetools", "sdk", "typescript", "api", "client"],
+  "keywords": [
+    "commercetools",
+    "sdk",
+    "typescript",
+    "client",
+    "middleware",
+    "http",
+    "oauth",
+    "auth"
+  ],
   "author": "Chukwuemeka Ajima <meeky.ae@gmail.com>",
   "homepage": "https://github.com/commercetools/commercetools-sdk-typescript",
   "license": "MIT",
   "main": "dist/index.js",
   "directories": {
     "lib": "lib",
-    "test": "tests"
+    "test": "test"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -22,18 +33,28 @@
   "bugs": {
     "url": "https://github.com/commercetools/commercetools-sdk-typescript/issues"
   },
+  "dependencies": {
+    "@commercetools/platform-sdk": "^1.14.0",
+    "node-fetch": "^2.6.1"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.23",
-    "@types/node": "^15.6.1",
+    "@types/node": "^15.9.0",
+    "abort-controller": "3.0.0",
+    "chalk-animation": "^1.6.0",
+    "cli-highlight": "^2.1.11",
+    "common-tags": "^1.8.0",
+    "dotenv": "^10.0.0",
     "jest": "^27.0.3",
     "jest-junit": "^12.1.0",
+    "nock": "12.0.3",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.2",
     "typescript": "^4.3.2"
   },
   "scripts": {
     "prebuild": "rimraf dist/**",
-    "build": "rimraf dist && tsc --listFiles",
+    "build": "rimraf dist && tsc",
     "test": "jest"
   }
 }

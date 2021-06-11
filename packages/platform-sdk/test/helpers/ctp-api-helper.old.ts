@@ -1,29 +1,29 @@
 // import { createClient } from '@commercetools/sdk-client'
 // import { createAuthMiddlewareForClientCredentialsFlow } from '@commercetools/sdk-middleware-auth'
 // import { createHttpMiddleware } from '@commercetools/sdk-middleware-http'
-import { createClient, createAuthForClientCredentialsFlow, createHttpClient } from '../../../sdk-client/src/index'
+
+import { createAuthForClientCredentialsFlow, createHttpClient, createClient } from '../../../sdk-client/src/index'
+
 import fetch from 'node-fetch'
 import { requireEnvVar } from './test-utils'
 import {
   ApiRoot,
   executeRequest,
   createExecutorFromMiddlewares,
-} from './../../src'
+} from '../../src'
 
 const projectKey = requireEnvVar('CTP_PROJECT_KEY')
 const clientId = requireEnvVar('CTP_CLIENT_ID')
 const clientSecret = requireEnvVar('CTP_CLIENT_SECRET')
 const authURL = requireEnvVar('CTP_AUTH_URL')
-const ctp_host = requireEnvVar('CTP_IMPORT_URL')
+const ctp_host = requireEnvVar('CTP_API_URL')
 
-// TODO: fix this error
 const authMiddleware = createAuthForClientCredentialsFlow({
   host: authURL,
   projectKey,
   credentials: {
     clientId,
     clientSecret,
-    anonymousId: ''
   },
   fetch,
 })
@@ -44,4 +44,4 @@ const executor: executeRequest = createExecutorFromMiddlewares(
 export const ctpApiBuilder = new ApiRoot({
   executeRequest: executor,
   baseUri: ctp_host,
-}).withProjectKeyValue({ projectKey })
+}).withProjectKey({ projectKey })

@@ -61,7 +61,7 @@ test('Get async result for missing images', async () => {
       })
       .get()
       .execute()
-
+      console.log(resp, ">>>>>>")
     if (resp.statusCode === 200 && resp.body.state === 'SUCCESS') {
       dataStatus = resp.body
       break
