@@ -139,6 +139,7 @@ export type MyCartUpdateAction =
   | MyCartSetCountryAction
   | MyCartSetCustomFieldAction
   | MyCartSetCustomTypeAction
+  | MyCartSetCustomerEmailAction
   | MyCartSetDeleteDaysAfterLastModificationAction
   | MyCartSetLineItemCustomFieldAction
   | MyCartSetLineItemCustomTypeAction
@@ -692,6 +693,13 @@ export interface MyCartSetCustomTypeAction {
    *
    */
   readonly fields?: FieldContainer
+}
+export interface MyCartSetCustomerEmailAction {
+  readonly action: 'setCustomerEmail'
+  /**
+   *
+   */
+  readonly email?: string
 }
 export interface MyCartSetDeleteDaysAfterLastModificationAction {
   readonly action: 'setDeleteDaysAfterLastModification'

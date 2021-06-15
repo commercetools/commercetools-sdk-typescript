@@ -16,6 +16,7 @@ import { ByProjectKeyCustomersRequestBuilder } from './customers/by-project-key-
 import { ByProjectKeyImportSinksRequestBuilder } from './import-sinks/by-project-key-import-sinks-request-builder'
 import { ByProjectKeyImportSummariesRequestBuilder } from './import-summaries/by-project-key-import-summaries-request-builder'
 import { ByProjectKeyInventoriesRequestBuilder } from './inventories/by-project-key-inventories-request-builder'
+import { ByProjectKeyOrderPatchesRequestBuilder } from './order-patches/by-project-key-order-patches-request-builder'
 import { ByProjectKeyOrdersRequestBuilder } from './orders/by-project-key-orders-request-builder'
 import { ByProjectKeyPricesRequestBuilder } from './prices/by-project-key-prices-request-builder'
 import { ByProjectKeyProductDraftsRequestBuilder } from './product-drafts/by-project-key-product-drafts-request-builder'
@@ -117,6 +118,15 @@ export class ByProjectKeyRequestBuilder {
   }
   public orders(): ByProjectKeyOrdersRequestBuilder {
     return new ByProjectKeyOrdersRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public orderPatches(): ByProjectKeyOrderPatchesRequestBuilder {
+    return new ByProjectKeyOrderPatchesRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },

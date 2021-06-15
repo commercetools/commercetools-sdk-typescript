@@ -16,12 +16,16 @@ import {
   ChangeTargetChangeValue,
   ChangeValueChangeValue,
   CustomFieldExpandedValue,
+  CustomShippingMethodChangeValue,
   DeliveryChangeValue,
   EnumValue,
   FieldDefinitionOrderValue,
   InventoryQuantityValue,
   LocalizedEnumValue,
   ParcelChangeValue,
+  SetCartClassificationShippingRateInputValue,
+  SetCartScoreShippingRateInputValue,
+  ShippingMethodChangeValue,
   ShoppingListLineItemValue,
   TextLineItemValue,
   TransactionChangeValue,
@@ -39,6 +43,7 @@ import {
   CustomLineItem,
   Delivery,
   DeliveryItem,
+  DiscountCodeInfo,
   DiscountedLineItemPrice,
   DiscountedLineItemPriceForQuantity,
   FieldDefinition,
@@ -63,13 +68,17 @@ import {
   ReturnPaymentState,
   ReturnShipmentState,
   ReviewRatingStatistics,
+  RoundingMode,
   SearchKeywords,
   ShipmentState,
   StackingMode,
   StateRole,
   StateType,
   SyncInfo,
+  TaxCalculationMode,
   TaxedItemPrice,
+  TaxedPrice,
+  TaxMode,
   TaxRate,
   TextInputHint,
   TextLineItem,
@@ -87,6 +96,7 @@ export type Change =
   | AddChannelRolesChange
   | AddCustomLineItemChange
   | AddDeliveryChange
+  | AddDiscountCodeChange
   | AddEnumValueChange
   | AddExternalImageChange
   | AddFieldDefinitionChange
@@ -156,6 +166,9 @@ export type Change =
   | ChangeStackingModeChange
   | ChangeStateTypeChange
   | ChangeTargetChange
+  | ChangeTaxCalculationModeChange
+  | ChangeTaxModeChange
+  | ChangeTaxRoundingModeChange
   | ChangeTextLineItemNameChange
   | ChangeTextLineItemQuantityChange
   | ChangeTextLineItemsOrderChange
@@ -172,6 +185,7 @@ export type Change =
   | RemoveChannelRolesChange
   | RemoveCustomLineItemChange
   | RemoveDeliveryItemsChange
+  | RemoveDiscountCodeChange
   | RemoveEnumValuesChange
   | RemoveFieldDefinitionChange
   | RemoveFromCategoryChange
@@ -205,14 +219,18 @@ export type Change =
   | SetCategoryOrderHintChange
   | SetChannelRolesChange
   | SetCompanyNameChange
+  | SetCountryChange
   | SetCustomFieldChange
   | SetCustomLineItemCustomFieldChange
   | SetCustomLineItemCustomTypeChange
   | SetCustomLineItemMoneyChange
   | SetCustomLineItemShippingDetailsChange
+  | SetCustomLineItemTaxAmountChange
+  | SetCustomLineItemTaxCategoryChange
   | SetCustomLineItemTaxRateChange
   | SetCustomLineItemTaxedPriceChange
   | SetCustomLineItemTotalPriceChange
+  | SetCustomShippingMethodChange
   | SetCustomTypeChange
   | SetCustomerChange
   | SetCustomerEmailChange
@@ -241,9 +259,11 @@ export type Change =
   | SetLastNameChange
   | SetLineItemDiscountedPriceChange
   | SetLineItemDiscountedPricePerQuantityChange
+  | SetLineItemDistributionChannelChange
   | SetLineItemPriceChange
   | SetLineItemProductSlugChange
   | SetLineItemShippingDetailsChange
+  | SetLineItemTaxAmountChange
   | SetLineItemTaxRateChange
   | SetLineItemTaxedPriceChange
   | SetLineItemTotalPriceChange
@@ -264,6 +284,7 @@ export type Change =
   | SetOrderNumberChange
   | SetOrderTaxedPriceChange
   | SetOrderTotalPriceChange
+  | SetOrderTotalTaxChange
   | SetParcelItemsChange
   | SetParcelMeasurementsChange
   | SetParcelTrackingDataChange
@@ -279,6 +300,13 @@ export type Change =
   | SetSalutationChange
   | SetSearchKeywordsChange
   | SetShippingAddressChange
+  | SetShippingInfoPriceChange
+  | SetShippingInfoTaxedPriceChange
+  | SetShippingMethodChange
+  | SetShippingMethodTaxAmountChange
+  | SetShippingMethodTaxRateChange
+  | SetShippingRateChange
+  | SetShippingRateInputChange
   | SetShoppingListLineItemCustomFieldChange
   | SetShoppingListLineItemCustomTypeChange
   | SetSkuChange
@@ -420,6 +448,18 @@ export interface AddDeliveryChange {
    *
    */
   readonly previousValue: DeliveryChangeValue
+}
+export interface AddDiscountCodeChange {
+  readonly type: 'AddDiscountCodeChange'
+  /**
+   *	Update action for `addDiscountCode`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly nextValue: DiscountCodeInfo
 }
 export interface AddEnumValueChange {
   readonly type: 'AddEnumValueChange'
@@ -1649,6 +1689,54 @@ export interface ChangeTargetChange {
    */
   readonly previousValue: ChangeTargetChangeValue
 }
+export interface ChangeTaxCalculationModeChange {
+  readonly type: 'ChangeTaxCalculationModeChange'
+  /**
+   *	Shape of the action for `changeTaxCalculationMode`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly previousValue: TaxCalculationMode
+  /**
+   *
+   */
+  readonly nextValue: TaxCalculationMode
+}
+export interface ChangeTaxModeChange {
+  readonly type: 'ChangeTaxModeChange'
+  /**
+   *	Shape of the action for `changeTaxMode`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly previousValue: TaxMode
+  /**
+   *
+   */
+  readonly nextValue: TaxMode
+}
+export interface ChangeTaxRoundingModeChange {
+  readonly type: 'ChangeTaxRoundingModeChange'
+  /**
+   *	Shape of the action for `changeTaxRoundingMode`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly previousValue: RoundingMode
+  /**
+   *
+   */
+  readonly nextValue: RoundingMode
+}
 export interface ChangeTextLineItemNameChange {
   readonly type: 'ChangeTextLineItemNameChange'
   /**
@@ -1904,6 +1992,18 @@ export interface RemoveDeliveryItemsChange {
    *
    */
   readonly previousValue: Delivery
+}
+export interface RemoveDiscountCodeChange {
+  readonly type: 'RemoveDiscountCodeChange'
+  /**
+   *	Update action for `removeDiscountCode`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly previousValue: DiscountCodeInfo
 }
 export interface RemoveEnumValuesChange {
   readonly type: 'RemoveEnumValuesChange'
@@ -2498,6 +2598,24 @@ export interface SetCompanyNameChange {
    */
   readonly nextValue: string
 }
+export interface SetCountryChange {
+  readonly type: 'SetCountryChange'
+  /**
+   *	Update action for `setCountry`
+   *
+   */
+  readonly change: string
+  /**
+   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *
+   */
+  readonly previousValue: string
+  /**
+   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *
+   */
+  readonly nextValue: string
+}
 export interface SetCustomFieldChange {
   readonly type: 'SetCustomFieldChange'
   /**
@@ -2611,6 +2729,60 @@ export interface SetCustomLineItemShippingDetailsChange {
    */
   readonly previousValue: ItemShippingDetails
 }
+export interface SetCustomLineItemTaxAmountChange {
+  readonly type: 'SetCustomLineItemTaxAmountChange'
+  /**
+   *	Update action for `setCustomLineItemTaxAmount`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly customLineItem: LocalizedString
+  /**
+   *
+   */
+  readonly customLineItemId: string
+  /**
+   *
+   */
+  readonly taxMode: TaxMode
+  /**
+   *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
+   *
+   */
+  readonly nextValue: TaxRate
+  /**
+   *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
+   *
+   */
+  readonly previousValue: TaxRate
+}
+export interface SetCustomLineItemTaxCategoryChange {
+  readonly type: 'SetCustomLineItemTaxCategoryChange'
+  /**
+   *	Update action for `setCustomLineItemTaxCategory`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly customLineItem: LocalizedString
+  /**
+   *
+   */
+  readonly customLineItemId: string
+  /**
+   *
+   */
+  readonly nextValue: Reference
+  /**
+   *
+   */
+  readonly previousValue: Reference
+}
 export interface SetCustomLineItemTaxRateChange {
   readonly type: 'SetCustomLineItemTaxRateChange'
   /**
@@ -2626,6 +2798,10 @@ export interface SetCustomLineItemTaxRateChange {
    *
    */
   readonly customLineItemId: string
+  /**
+   *
+   */
+  readonly taxMode: TaxMode
   /**
    *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
    *
@@ -2684,6 +2860,22 @@ export interface SetCustomLineItemTotalPriceChange {
    *
    */
   readonly previousValue: Money
+}
+export interface SetCustomShippingMethodChange {
+  readonly type: 'SetCustomShippingMethodChange'
+  /**
+   *	Update action for `setCustomShippingMethod`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly nextValue: CustomShippingMethodChangeValue
+  /**
+   *
+   */
+  readonly previousValue: CustomShippingMethodChangeValue
 }
 export interface SetCustomTypeChange {
   readonly type: 'SetCustomTypeChange'
@@ -3178,6 +3370,30 @@ export interface SetLineItemDiscountedPricePerQuantityChange {
    */
   readonly previousValue: DiscountedLineItemPriceForQuantity
 }
+export interface SetLineItemDistributionChannelChange {
+  readonly type: 'SetLineItemDistributionChannelChange'
+  /**
+   *	Update action for `setLineItemDistributionChannel`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly lineItem: LocalizedString
+  /**
+   *
+   */
+  readonly variant: string
+  /**
+   *
+   */
+  readonly nextValue: Reference
+  /**
+   *
+   */
+  readonly previousValue: Reference
+}
 export interface SetLineItemPriceChange {
   readonly type: 'SetLineItemPriceChange'
   /**
@@ -3242,6 +3458,36 @@ export interface SetLineItemShippingDetailsChange {
    */
   readonly previousValue: ItemShippingDetails
 }
+export interface SetLineItemTaxAmountChange {
+  readonly type: 'SetLineItemTaxAmountChange'
+  /**
+   *	Update action for `setLineItemTaxAmount`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly lineItem: LocalizedString
+  /**
+   *
+   */
+  readonly variant: string
+  /**
+   *
+   */
+  readonly taxMode: TaxMode
+  /**
+   *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
+   *
+   */
+  readonly nextValue: TaxRate
+  /**
+   *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
+   *
+   */
+  readonly previousValue: TaxRate
+}
 export interface SetLineItemTaxRateChange {
   readonly type: 'SetLineItemTaxRateChange'
   /**
@@ -3253,6 +3499,14 @@ export interface SetLineItemTaxRateChange {
    *
    */
   readonly lineItem: LocalizedString
+  /**
+   *
+   */
+  readonly variant: string
+  /**
+   *
+   */
+  readonly taxMode: TaxMode
   /**
    *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
    *
@@ -3584,6 +3838,10 @@ export interface SetOrderTaxedPriceChange {
   /**
    *
    */
+  readonly taxMode: TaxMode
+  /**
+   *
+   */
   readonly nextValue: TaxedItemPrice
   /**
    *
@@ -3597,6 +3855,26 @@ export interface SetOrderTotalPriceChange {
    *
    */
   readonly change: string
+  /**
+   *
+   */
+  readonly nextValue: Money
+  /**
+   *
+   */
+  readonly previousValue: Money
+}
+export interface SetOrderTotalTaxChange {
+  readonly type: 'SetOrderTotalTaxChange'
+  /**
+   *	Update action for `setOrderTotalTax`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly taxMode: TaxMode
   /**
    *
    */
@@ -3881,6 +4159,132 @@ export interface SetShippingAddressChange {
    *
    */
   readonly previousValue: Address
+}
+export interface SetShippingInfoPriceChange {
+  readonly type: 'SetShippingInfoPriceChange'
+  /**
+   *	Update action for `setShippingInfoPrice`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly nextValue: Money
+  /**
+   *
+   */
+  readonly previousValue: Money
+}
+export interface SetShippingInfoTaxedPriceChange {
+  readonly type: 'SetShippingInfoTaxedPriceChange'
+  /**
+   *	Update action for `setShippingInfoTaxedPrice`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly nextValue: TaxedPrice
+  /**
+   *
+   */
+  readonly previousValue: TaxedPrice
+}
+export interface SetShippingMethodChange {
+  readonly type: 'SetShippingMethodChange'
+  /**
+   *	Update action for `setShippingMethod`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly nextValue: ShippingMethodChangeValue
+  /**
+   *
+   */
+  readonly previousValue: ShippingMethodChangeValue
+}
+export interface SetShippingMethodTaxAmountChange {
+  readonly type: 'SetShippingMethodTaxAmountChange'
+  /**
+   *	Update action for `setShippingMethodTaxAmount`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly taxMode: TaxMode
+  /**
+   *
+   */
+  readonly nextValue: any
+  /**
+   *
+   */
+  readonly previousValue: any
+}
+export interface SetShippingMethodTaxRateChange {
+  readonly type: 'SetShippingMethodTaxRateChange'
+  /**
+   *	Update action for `setShippingMethodTaxRate`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly taxMode: TaxMode
+  /**
+   *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
+   *
+   */
+  readonly nextValue: TaxRate
+  /**
+   *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
+   *
+   */
+  readonly previousValue: TaxRate
+}
+export interface SetShippingRateChange {
+  readonly type: 'SetShippingRateChange'
+  /**
+   *	Update action for `setShippingRate`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly nextValue: Money
+  /**
+   *
+   */
+  readonly previousValue: Money
+}
+export interface SetShippingRateInputChange {
+  readonly type: 'SetShippingRateInputChange'
+  /**
+   *	Update action for `setShippingRateInput`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly nextValue:
+    | SetCartClassificationShippingRateInputValue
+    | SetCartScoreShippingRateInputValue
+  /**
+   *
+   */
+  readonly previousValue:
+    | SetCartClassificationShippingRateInputValue
+    | SetCartScoreShippingRateInputValue
 }
 export interface SetShoppingListLineItemCustomFieldChange {
   readonly type: 'SetShoppingListLineItemCustomFieldChange'
