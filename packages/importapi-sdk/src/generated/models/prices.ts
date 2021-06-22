@@ -73,6 +73,8 @@ export interface PriceImport extends ImportResource {
   /**
    *	Maps to `Price.value`.
    *
+   *	The Import API **only** supports `centPrecision` prices.
+   *
    *
    */
   readonly value: TypedMoney

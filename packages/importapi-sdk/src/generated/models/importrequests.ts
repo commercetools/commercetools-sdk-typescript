@@ -15,7 +15,6 @@ import { CategoryImport } from './categories'
 import { CustomerImport } from './customers'
 import { ImportOperationStatus } from './importoperations'
 import { InventoryImport } from './inventories'
-import { OrderPatchImport } from './order-patches'
 import { OrderImport } from './orders'
 import { PriceImport } from './prices'
 import { ProductDraftImport } from './productdrafts'
@@ -32,7 +31,6 @@ export type ImportRequest =
   | CustomerImportRequest
   | InventoryImportRequest
   | OrderImportRequest
-  | OrderPatchImportRequest
   | PriceImportRequest
   | ProductDraftImportRequest
   | ProductImportRequest
@@ -141,19 +139,6 @@ export interface OrderImportRequest {
    *
    */
   readonly resources: OrderImport[]
-}
-/**
- *	An import request for multiple order patch resources.
- *
- */
-export interface OrderPatchImportRequest {
-  readonly type: 'order-patch'
-  /**
-   *	The order patches of this request
-   *
-   *
-   */
-  readonly patches: OrderPatchImport[]
 }
 /**
  *	An import request for multiple product variant patch resources.

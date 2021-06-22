@@ -73,8 +73,7 @@ export interface ImportSinkDraft {
   readonly resourceType: ImportResourceType
 }
 /**
- *	Response to a query request for [ImportSinks](#importsink).
- *
+ *	This type represents a paged importsink result.
  */
 export interface ImportSinkPagedResponse {
   /**
@@ -92,11 +91,6 @@ export interface ImportSinkPagedResponse {
    *
    */
   readonly count: number
-  /**
-   *	The total number of results matching the query.
-   *
-   */
-  readonly total: number
   /**
    *	The results for this paged response.
    *

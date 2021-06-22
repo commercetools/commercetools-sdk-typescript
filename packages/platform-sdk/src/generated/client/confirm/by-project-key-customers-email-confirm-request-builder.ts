@@ -10,7 +10,7 @@
  *                    `Y'
  *
  */
-import { Customer, CustomerEmailVerify } from '../../models/customer'
+import { CustomerEmailVerify } from '../../models/customer'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
@@ -32,8 +32,8 @@ export class ByProjectKeyCustomersEmailConfirmRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<Customer> {
-    return new ApiRequest<Customer>(
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',
