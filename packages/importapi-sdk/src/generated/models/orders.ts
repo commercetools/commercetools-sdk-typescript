@@ -17,12 +17,14 @@ import {
   ChannelKeyReference,
   CustomerGroupKeyReference,
   CustomerKeyReference,
+  DiscountCodeKeyReference,
   DiscountedPrice,
   Image,
   LocalizedString,
   Money,
   PriceTier,
   ProductKeyReference,
+  ProductVariantKeyReference,
   ShippingMethodKeyReference,
   StateKeyReference,
   TaxCategoryKeyReference,
@@ -134,7 +136,7 @@ export interface LineItemProductVariantImportDraft {
    *
    *
    */
-  readonly product?: ProductKeyReference
+  readonly productVariant?: ProductVariantKeyReference
   /**
    *	Maps to `ProductVariantImportDraft.sku`.
    *
@@ -561,6 +563,10 @@ export interface TaxedPrice {
   readonly taxPortions: TaxPortion[]
 }
 /**
+ *	Maps to `Order.taxMode`
+ */
+export type TaxMode = 'Disabled' | 'External' | 'ExternalAmount' | 'Platform'
+/**
  *	Maps to `Order.orderState`.
  */
 export type OrderState = 'Cancelled' | 'Complete' | 'Confirmed' | 'Open'
@@ -599,6 +605,75 @@ export type TaxCalculationMode = 'LineItemLevel' | 'UnitPriceLevel'
  *	Maps to `Order.origin`.
  */
 export type CartOrigin = 'Customer' | 'Merchant'
+export interface SyncInfo {
+  /**
+   *	Maps to `SyncInfo.channel`
+   *
+   */
+  readonly channel: ChannelKeyReference
+  /**
+   *	Maps to `SyncInfo.externalId`
+   *
+   */
+  readonly externalId?: string
+  /**
+   *	Maps to `SyncInfo.syncedAt`
+   *
+   */
+  readonly syncedAt: string
+}
+/**
+ *	Maps to `DiscountCodeInfo.state`
+ */
+export type DiscountCodeState =
+  | 'ApplicationStoppedByPreviousDiscount'
+  | 'DoesNotMatchCart'
+  | 'MatchesCart'
+  | 'MaxApplicationReached'
+  | 'NotActive'
+  | 'NotValid'
+export interface DiscountCodeInfo {
+  /**
+   *	References a discount code by its key.
+   *
+   */
+  readonly discountCode: DiscountCodeKeyReference
+  /**
+   *	Maps to `DiscountCodeInfo.state`
+   *
+   */
+  readonly state?: DiscountCodeState
+}
+export type ShippingRateInputType = 'Classification' | 'Score'
+export type ShippingRateInput =
+  | ClassificationShippingRateInput
+  | ScoreShippingRateInput
+export interface ClassificationShippingRateInput {
+  readonly type: 'Classification'
+  /**
+   *
+   */
+  readonly key: string
+  /**
+   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
+   *	```json
+   *	{
+   *	  "de": "Hundefutter",
+   *	  "en": "dog food"
+   *	}
+   *	```
+   *
+   *
+   */
+  readonly label: LocalizedString
+}
+export interface ScoreShippingRateInput {
+  readonly type: 'Score'
+  /**
+   *
+   */
+  readonly score: number
+}
 /**
  *	Import representation for an order.
  *
@@ -611,7 +686,7 @@ export type CartOrigin = 'Customer' | 'Merchant'
  */
 export interface OrderImport {
   /**
-   *	Maps to `Order.orderNumber`. A string that identifies an Order. Must be unique across a Project. Once it is set, it cannot be changed.
+   *	Maps to `Order.orderNumber`, String that uniquely identifies an order. It should be unique across a project. Once it's set it cannot be changed.
    *
    *
    */
