@@ -17,3 +17,4 @@ export { default as createHttpClient } from './sdk-middleware-http/http'
 // export { createApiBuilderFromCtpClient } from '../../platform-sdk/src/index' // import directly from project structure.
 // export { createApiBuilderFromCtpClient } from '@commercetools/typescript-sdk'
 export { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
+export { default as ApiRootBuilder } from './builder/ApiRootBuilder';

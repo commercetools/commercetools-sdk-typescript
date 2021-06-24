@@ -110,7 +110,7 @@ export type Middleware = (next: Dispatch) => Dispatch
 
 export interface ClientRequest {
   baseUri?: string
-  uri?: string
+  uri: string
   headers?: VariableMap
   method: MethodType
   uriTemplate?: string
