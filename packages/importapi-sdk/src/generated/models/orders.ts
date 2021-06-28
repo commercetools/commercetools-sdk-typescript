@@ -424,6 +424,7 @@ export interface ShippingInfoImportDraft {
    */
   readonly shippingMethod?: ShippingMethodKeyReference
   /**
+   *	Note that you can not add a `DeliveryItem` on import, as `LineItems` and `CustomLineItems` are not yet referencable by an `id`.
    *
    */
   readonly deliveries?: Delivery[]

@@ -564,6 +564,12 @@ export interface ProductVariantPatch {
    *
    */
   readonly attributes?: Attributes
+  /**
+   *	If `false`, the attribute changes are applied to both [current and staged projected representations](/../api/projects/productProjections#current--staged) of the [Product](/../api/projects/products#product).
+   *
+   *
+   */
+  readonly staged?: boolean
 }
 export interface Attributes {
   [key: string]: Attribute | null
