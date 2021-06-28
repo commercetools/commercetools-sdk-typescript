@@ -78,6 +78,8 @@ import {
   StagedOrderRemoveParcelFromDeliveryAction,
   StagedOrderRemovePaymentAction,
   StagedOrderSetBillingAddressAction,
+  StagedOrderSetBillingAddressCustomFieldAction,
+  StagedOrderSetBillingAddressCustomTypeAction,
   StagedOrderSetCountryAction,
   StagedOrderSetCustomerEmailAction,
   StagedOrderSetCustomerGroupAction,
@@ -91,7 +93,11 @@ import {
   StagedOrderSetCustomShippingMethodAction,
   StagedOrderSetCustomTypeAction,
   StagedOrderSetDeliveryAddressAction,
+  StagedOrderSetDeliveryAddressCustomFieldAction,
+  StagedOrderSetDeliveryAddressCustomTypeAction,
   StagedOrderSetDeliveryItemsAction,
+  StagedOrderSetItemShippingAddressCustomFieldAction,
+  StagedOrderSetItemShippingAddressCustomTypeAction,
   StagedOrderSetLineItemCustomFieldAction,
   StagedOrderSetLineItemCustomTypeAction,
   StagedOrderSetLineItemDistributionChannelAction,
@@ -111,6 +117,8 @@ import {
   StagedOrderSetShippingAddressAction,
   StagedOrderSetShippingAddressAndCustomShippingMethodAction,
   StagedOrderSetShippingAddressAndShippingMethodAction,
+  StagedOrderSetShippingAddressCustomFieldAction,
+  StagedOrderSetShippingAddressCustomTypeAction,
   StagedOrderSetShippingMethodAction,
   StagedOrderSetShippingMethodTaxAmountAction,
   StagedOrderSetShippingMethodTaxRateAction,
@@ -166,6 +174,8 @@ export type StagedOrderUpdateAction =
   | StagedOrderRemoveParcelFromDeliveryAction
   | StagedOrderRemovePaymentAction
   | StagedOrderSetBillingAddressAction
+  | StagedOrderSetBillingAddressCustomFieldAction
+  | StagedOrderSetBillingAddressCustomTypeAction
   | StagedOrderSetCountryAction
   | StagedOrderSetCustomFieldAction
   | StagedOrderSetCustomLineItemCustomFieldAction
@@ -179,7 +189,11 @@ export type StagedOrderUpdateAction =
   | StagedOrderSetCustomerGroupAction
   | StagedOrderSetCustomerIdAction
   | StagedOrderSetDeliveryAddressAction
+  | StagedOrderSetDeliveryAddressCustomFieldAction
+  | StagedOrderSetDeliveryAddressCustomTypeAction
   | StagedOrderSetDeliveryItemsAction
+  | StagedOrderSetItemShippingAddressCustomFieldAction
+  | StagedOrderSetItemShippingAddressCustomTypeAction
   | StagedOrderSetLineItemCustomFieldAction
   | StagedOrderSetLineItemCustomTypeAction
   | StagedOrderSetLineItemDistributionChannelAction
@@ -199,6 +213,8 @@ export type StagedOrderUpdateAction =
   | StagedOrderSetShippingAddressAction
   | StagedOrderSetShippingAddressAndCustomShippingMethodAction
   | StagedOrderSetShippingAddressAndShippingMethodAction
+  | StagedOrderSetShippingAddressCustomFieldAction
+  | StagedOrderSetShippingAddressCustomTypeAction
   | StagedOrderSetShippingMethodAction
   | StagedOrderSetShippingMethodTaxAmountAction
   | StagedOrderSetShippingMethodTaxRateAction
