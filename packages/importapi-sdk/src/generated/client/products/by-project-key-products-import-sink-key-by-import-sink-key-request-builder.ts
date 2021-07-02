@@ -42,7 +42,7 @@ export class ByProjectKeyProductsImportSinkKeyByImportSinkKeyRequestBuilder {
   }
 
   /**
-   *	Creates import request for creating new products or updating existing ones.
+   *	Creates a request for creating new Products or updating existing ones.
    */
   public post(methodArgs: {
     body: ProductImportRequest

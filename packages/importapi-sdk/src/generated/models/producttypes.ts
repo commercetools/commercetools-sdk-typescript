@@ -179,7 +179,7 @@ export type AttributeConstraintEnum =
   | 'Unique'
 export type TextInputHint = 'MultiLine' | 'SingleLine'
 /**
- *	Import representation for a product type.
+ *	The data representation for a ProductType to be imported that is persisted as a [ProductType](/../api/projects/productTypes#producttype) in the Project.
  *
  */
 export interface ProductTypeImport extends ImportResource {
@@ -196,7 +196,7 @@ export interface ProductTypeImport extends ImportResource {
    */
   readonly description: string
   /**
-   *	The product type's attributes.
+   *	The `attributes` of [ProductType](/../api/projects/productTypes#producttype).
    *
    *
    */

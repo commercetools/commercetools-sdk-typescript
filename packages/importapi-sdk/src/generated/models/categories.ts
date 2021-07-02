@@ -20,7 +20,7 @@ import {
 import { Custom } from './customfields'
 
 /**
- *	Import representation for a category.
+ *	The data representation for a Category to be imported that is persisted as a [Category](/../api/projects/categories#category) in the Project.
  *
  */
 export interface CategoryImport extends ImportResource {
@@ -45,9 +45,8 @@ export interface CategoryImport extends ImportResource {
   readonly description?: LocalizedString
   /**
    *	Maps to `Category.parent`.
-   *	The parent category referenced must already exist
-   *	in the commercetools project, or the import operation
-   *	will have an `Unresolved` state.
+   *	The Reference to the parent [Category](/../api/projects/categories#category) with which the Category is associated.
+   *	If referenced Category does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary Category is created.
    *
    *
    */
@@ -87,7 +86,7 @@ export interface CategoryImport extends ImportResource {
    */
   readonly assets?: Asset[]
   /**
-   *	The custom fields for this category.
+   *	The custom fields for this Category.
    *
    */
   readonly custom?: Custom

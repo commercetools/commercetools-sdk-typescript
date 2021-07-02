@@ -43,7 +43,8 @@ export class ByProjectKeyPricesImportSinkKeyByImportSinkKeyImportOperationsReque
   }
 
   /**
-   *	Retrieves all price import operations of an import sink key.
+   *	Retrieves all Price ImportOperations of a given ImportSink key.
+   *
    */
   public get(methodArgs?: {
     queryArgs?: {

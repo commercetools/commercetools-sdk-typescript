@@ -43,7 +43,8 @@ export class ByProjectKeyCategoriesImportSinkKeyByImportSinkKeyImportOperationsR
   }
 
   /**
-   *	Retrieves all category import operations of an import sink key.
+   *	Retrieves all Category ImportOperations of a given ImportSink key.
+   *
    */
   public get(methodArgs?: {
     queryArgs?: {

@@ -27,7 +27,7 @@ export class ByProjectKeyProductsImportSinkKeyByImportSinkKeyImportOperationsByI
     }
   ) {}
   /**
-   *	Retrieves the import operation with the given id.
+   *	Retrieves the ImportOperation of a given ID.
    *
    */
   public get(methodArgs?: {

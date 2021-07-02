@@ -40,9 +40,8 @@ export type ImportRequest =
   | ProductVariantImportRequest
   | ProductVariantPatchRequest
 /**
- *	The import response contains an import operation for each import resource sent with an import request. Use it for tracking the progress of imports to a commercetools project.
- *
- *	This is a generic parent type. In practice, send a specific import request type (`CategoryImportRequest`, `OrderImportRequest`, etc.) to an import sink with a matching import type.
+ *	A list of the ID's and validation statuses of newly created [ImportOperations](#importoperation).
+ *	Used as a response at each resource-specific import endpoint, for example, at [Import Categories](/category#import-categories) and [Import ProductTypes](/product-type#import-producttypes).
  *
  */
 export interface ImportResponse {
@@ -52,7 +51,7 @@ export interface ImportResponse {
   readonly operationStatus: ImportOperationStatus[]
 }
 /**
- *	An import request for multiple category import resources.
+ *	The request body to [import Categories](#import-categories). Contains data for [Categories](/../api/projects/categories#category) to be created or updated in a commercetools Project.
  *
  */
 export interface CategoryImportRequest {
@@ -65,7 +64,7 @@ export interface CategoryImportRequest {
   readonly resources: CategoryImport[]
 }
 /**
- *	An import request for multiple product import resources.
+ *	The request body to [import Products](#import-products). Contains data for [Products](/../api/projects/products#product) to be created or updated in a commercetools Project.
  *
  */
 export interface ProductImportRequest {
@@ -78,7 +77,7 @@ export interface ProductImportRequest {
   readonly resources: ProductImport[]
 }
 /**
- *	An import request for multiple product draft import resources.
+ *	The request body to [import ProductDrafts](#import-productdrafts). Contains data for [Products](/../api/projects/products#productdraft) to be created or updated in a commercetools Project.
  *
  */
 export interface ProductDraftImportRequest {
@@ -91,7 +90,7 @@ export interface ProductDraftImportRequest {
   readonly resources: ProductDraftImport[]
 }
 /**
- *	An import request for multiple product type import resources.
+ *	The request body to [import ProductTypes](#import-producttypes). Contains data for [ProductTypes](/../api/projects/productTypes#producttype) to be created or updated in a commercetools Project.
  *
  */
 export interface ProductTypeImportRequest {
@@ -104,7 +103,7 @@ export interface ProductTypeImportRequest {
   readonly resources: ProductTypeImport[]
 }
 /**
- *	An import request for multiple product variant import resources.
+ *	The request body to [import ProductVariants](#import-productvariants). Contains data for [ProductVariants](/../api/projects/products#productvariant) to be created or updated in a commercetools Project.
  *
  */
 export interface ProductVariantImportRequest {
@@ -117,7 +116,7 @@ export interface ProductVariantImportRequest {
   readonly resources: ProductVariantImport[]
 }
 /**
- *	An import request for multiple price import resources.
+ *	The request body to [import Prices](#import-prices). Contains data for [Prices](/../api/projects/products#price) to be created or updated in a commercetools Project.
  *
  */
 export interface PriceImportRequest {
@@ -130,7 +129,7 @@ export interface PriceImportRequest {
   readonly resources: PriceImport[]
 }
 /**
- *	An import request for multiple order import resources.
+ *	The request body to [import Orders](#import-orders). Contains data for [Orders](/../api/projects/orders#order) to be created or updated in a commercetools Project.
  *
  */
 export interface OrderImportRequest {
@@ -143,7 +142,7 @@ export interface OrderImportRequest {
   readonly resources: OrderImport[]
 }
 /**
- *	An import request for multiple order patch resources.
+ *	The request body to [import OrderPatches](#import-orderpatches). The data to be imported are represented by [OrderPatchImport](#orderpatchimport).
  *
  */
 export interface OrderPatchImportRequest {
@@ -156,7 +155,7 @@ export interface OrderPatchImportRequest {
   readonly patches: OrderPatchImport[]
 }
 /**
- *	An import request for multiple product variant patch resources.
+ *	The request body to [import ProductVariantPatches](#import-productvariantpatches). The data to be imported are represented by [ProductVariantPatch](#productvariantpatch).
  *
  */
 export interface ProductVariantPatchRequest {
@@ -169,7 +168,7 @@ export interface ProductVariantPatchRequest {
   readonly patches: ProductVariantPatch[]
 }
 /**
- *	An import request for multiple customer import resources.
+ *	The request body to [import Customers](#import-customers). Contains data for [Customers](/../api/projects/customers#customer) to be created or updated in a commercetools Project.
  *
  */
 export interface CustomerImportRequest {
@@ -182,7 +181,7 @@ export interface CustomerImportRequest {
   readonly resources: CustomerImport[]
 }
 /**
- *	An import request for multiple inventory import resources.
+ *	The request body to [import Inventories](#import-inventories). Contains data for [Inventories](/../api//projects/inventory#inventoryentry) to be created or updated in a commercetools Project.
  *
  */
 export interface InventoryImportRequest {

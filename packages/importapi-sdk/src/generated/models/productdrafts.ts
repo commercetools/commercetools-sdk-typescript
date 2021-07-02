@@ -30,13 +30,16 @@ import { Custom } from './customfields'
 import { SearchKeywords } from './products'
 import { Attribute } from './productvariants'
 
+/**
+ *	The representation of a Product Draft for the import purpose.
+ *
+ */
 export interface ProductDraftImport extends ImportResource {
   /**
-   *	The product's product type. Maps to `Product.productType`.
-   *
-   *	The product type referenced
-   *	must already exist in the commercetools project, or the
-   *	import operation state is set to `Unresolved`.
+   *	The `productType` of a [Product](/../api/projects/products#product).
+   *	Maps to `Product.productType`.
+   *	The Reference to the [ProductType](/../api/projects/productTypes#producttype) with which the ProductDraft is associated.
+   *	If referenced ProductType does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary ProductType is created.
    *
    *
    */
@@ -59,11 +62,8 @@ export interface ProductDraftImport extends ImportResource {
    */
   readonly description?: LocalizedString
   /**
-   *	An array of references to categories by their keys. Maps to `Product.categories`.
-   *
-   *	The categories referenced
-   *	must already exist in the commercetools project, or the
-   *	import operation state is set to `Unresolved`.
+   *	The Reference to the [Categories](/../api/projects/categories#category) with which the ProductDraft is associated.
+   *	If referenced Categories do not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary Categories are created.
    *
    *
    */
@@ -105,23 +105,20 @@ export interface ProductDraftImport extends ImportResource {
    */
   readonly metaKeywords?: LocalizedString
   /**
-   *	The master product variant.
-   *	Required if the `variants` array has product variants.
+   *	The master Product variant.
+   *	Required if the `variants` array contains a Product Variant.
    *
    *
    */
   readonly masterVariant?: ProductVariantDraftImport
   /**
-   *	An array of related product variants.
+   *	An array of related Product Variants.
    *
    */
   readonly variants?: ProductVariantDraftImport[]
   /**
-   *	References a tax category by its key.
-   *
-   *	The tax category referenced must already exist
-   *	in the commercetools project, or the
-   *	import operation state is set to `Unresolved`.
+   *	The Reference to the [TaxCategory](/../api/projects/taxCategories#taxcategory) with which the ProductDraft is associated.
+   *	If referenced TaxCategory does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary TaxCategory is created.
    *
    *
    */
@@ -150,11 +147,8 @@ export interface ProductDraftImport extends ImportResource {
    */
   readonly searchKeywords?: SearchKeywords
   /**
-   *	References a state by its key.
-   *
-   *	The tax category referenced must already exist
-   *	in the commercetools project, or the
-   *	import operation state is set to `Unresolved`.
+   *	The Reference to the [State](/../api/projects/states#state) with which the ProductDraft is associated.
+   *	If referenced State does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary State is created.
    *
    *
    */
@@ -166,6 +160,10 @@ export interface ProductDraftImport extends ImportResource {
    */
   readonly publish?: boolean
 }
+/**
+ *	The representation of a Product Variant Draft for the import purpose.
+ *
+ */
 export interface ProductVariantDraftImport {
   /**
    *
@@ -192,8 +190,14 @@ export interface ProductVariantDraftImport {
    */
   readonly assets?: Asset[]
 }
+/**
+ *	The representation of a Price Draft for the import purpose.
+ *
+ */
 export interface PriceDraftImport {
   /**
+   *	TypedMoney is what is called BaseMoney in the HTTP API.
+   *
    *
    */
   readonly value: TypedMoney

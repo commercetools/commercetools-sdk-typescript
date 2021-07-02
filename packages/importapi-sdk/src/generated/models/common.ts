@@ -492,7 +492,7 @@ export type ReferenceType =
   | 'tax-category'
   | 'type'
 /**
- *	This enumeration describes the processing state of an import operation.
+ *	Represents the status of a resource under an import process. Every resource has the initial state `Unresolved`.
  *
  */
 export type ProcessingState =
