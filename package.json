@@ -4,7 +4,7 @@
   "devDependencies": {
     "@commitlint/config-conventional": "8.3.4",
     "@lerna/bootstrap": "3.20.0",
-    "@rollup/plugin-typescript": "3.0.0",
+    "@rollup/plugin-typescript": "8.2.1",
     "husky": "4.3.8",
     "lerna": "3.20.2",
     "prettier": "1.19.1",
