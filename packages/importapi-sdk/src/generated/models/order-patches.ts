@@ -220,7 +220,8 @@ export interface OrderField {
   readonly setParcelItems?: ParcelItems[]
 }
 /**
- *	Import representation for an update to an Order. Use this type for importing updates to an existing Order into a commercetools project.
+ *	Representation for an update of an [Order](/../api/projects/orders#order). Use this type to import updates for existing
+ *	[Orders](/../api/projects/orders#order) in a commercetools Project.
  *
  */
 export interface OrderPatchImport {

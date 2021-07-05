@@ -43,7 +43,8 @@ export class ByProjectKeyProductsImportSinkKeyByImportSinkKeyImportOperationsReq
   }
 
   /**
-   *	Retrieves all product import operations of an import sink key.
+   *	Retrieves all Product ImportOperations of a given ImportSink key.
+   *
    */
   public get(methodArgs?: {
     queryArgs?: {

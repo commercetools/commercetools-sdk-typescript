@@ -43,7 +43,8 @@ export class ByProjectKeyOrderPatchesImportSinkKeyByImportSinkKeyImportOperation
   }
 
   /**
-   *	Retrieves all order-patches import operations of an import sink key.
+   *	Retrieves all OrderPatch ImportOperations of a given ImportSink key.
+   *
    */
   public get(methodArgs?: {
     queryArgs?: {

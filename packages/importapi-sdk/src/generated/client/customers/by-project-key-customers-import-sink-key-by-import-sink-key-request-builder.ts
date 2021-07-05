@@ -42,7 +42,7 @@ export class ByProjectKeyCustomersImportSinkKeyByImportSinkKeyRequestBuilder {
   }
 
   /**
-   *	Creates import request for creating new customers or updating existing ones.
+   *	Creates a request for creating new Customers or updating existing ones.
    */
   public post(methodArgs: {
     body: CustomerImportRequest

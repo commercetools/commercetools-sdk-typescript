@@ -71,10 +71,9 @@ export interface WhitespaceTokenizer {
   readonly type: 'whitespace'
 }
 /**
- *	Import representation for a product.
+ *	The data representation for a Product to be imported that is persisted as a [Product](/../api/projects/products#product) in the Project.
  *
- *	The import representation for a product is the most minimal representation required
- *	for creating a product in commercetools.
+ *	This is the minimal representation required for creating a [Product](/../api/projects/products#product) in commercetools.
  *
  */
 export interface ProductImport extends ImportResource {
@@ -85,17 +84,16 @@ export interface ProductImport extends ImportResource {
    */
   readonly name: LocalizedString
   /**
-   *	The product's product type. Maps to `Product.productType`.
-   *
-   *	The product type referenced
-   *	must already exist in the commercetools project, or the
-   *	import operation state is set to `Unresolved`.
+   *	The `productType` of a [Product](/../api/projects/products#product).
+   *	Maps to `Product.productType`.
+   *	The Reference to the [ProductType](/../api/projects/productTypes#producttype) with which the Product is associated.
+   *	If referenced ProductType does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary ProductType is created.
    *
    *
    */
   readonly productType: ProductTypeKeyReference
   /**
-   *	Human-readable identifiers usually used as deep-link URL to the related product. Each slug must be unique across a project,
+   *	Human-readable identifiers usually used as deep-link URL to the related product. Each slug must be unique across a Project,
    *	but a product can have the same slug for different languages. Allowed are alphabetic, numeric, underscore (_) and hyphen (-) characters.
    *
    *
@@ -108,11 +106,9 @@ export interface ProductImport extends ImportResource {
    */
   readonly description?: LocalizedString
   /**
-   *	An array of references to a categories by their keys. Maps to `Product.categories`.
-   *
-   *	The categories referenced
-   *	must already exist in the commercetools project, or the
-   *	import operation state is set to `Unresolved`.
+   *	Maps to `Product.categories`.
+   *	The References to the [Categories](/../api/projects/categories#category) with which the Product is associated.
+   *	If referenced Categories do not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary Categories are created.
    *
    *
    */
@@ -154,11 +150,8 @@ export interface ProductImport extends ImportResource {
    */
   readonly metaKeywords?: LocalizedString
   /**
-   *	References a tax category by its key.
-   *
-   *	The tax category referenced must already exist
-   *	in the commercetools project, or the
-   *	import operation state is set to `Unresolved`.
+   *	The Reference to the [TaxCategory](/../api/projects/taxCategories#taxcategory) with which the Product is associated.
+   *	If referenced TaxCategory does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary TaxCategory is created.
    *
    *
    */
@@ -187,11 +180,8 @@ export interface ProductImport extends ImportResource {
    */
   readonly searchKeywords?: SearchKeywords
   /**
-   *	References a state by its key.
-   *
-   *	The tax category referenced must already exist
-   *	in the commercetools project, or the
-   *	import operation state is set to `Unresolved`.
+   *	The Reference to the [State](/../api/projects/states#state) with which the Product is associated.
+   *	If referenced State does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary State is created.
    *
    *
    */

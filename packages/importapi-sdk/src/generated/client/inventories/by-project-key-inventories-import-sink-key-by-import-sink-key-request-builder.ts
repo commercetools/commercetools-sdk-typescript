@@ -42,7 +42,7 @@ export class ByProjectKeyInventoriesImportSinkKeyByImportSinkKeyRequestBuilder {
   }
 
   /**
-   *	Creates import request for creating new inventories or updating existing ones.
+   *	Creates a request for creating new Inventories or updating existing ones.
    */
   public post(methodArgs: {
     body: InventoryImportRequest

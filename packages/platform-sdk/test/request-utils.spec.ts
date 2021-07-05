@@ -1,5 +1,5 @@
-import { VariableMap } from '../../../src/generated/shared/utils/common-types'
-import { buildRelativeUri } from '../../../src/generated/shared/utils/uri-utils'
+import { VariableMap } from '../src/generated/shared/utils/common-types'
+import { buildRelativeUri } from '../src/generated/shared/utils/uri-utils'
 
 describe('ApiRequestExecutor', () => {
   describe('query parameters', () => {
