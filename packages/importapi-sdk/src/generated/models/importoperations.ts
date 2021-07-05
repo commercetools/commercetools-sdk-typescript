@@ -96,6 +96,11 @@ export interface ImportOperationPagedResponse {
    */
   readonly count: number
   /**
+   *	The total number of import operations matching the query.
+   *
+   */
+  readonly total: number
+  /**
    *	The array of Import Operations matching the query.
    *
    */
