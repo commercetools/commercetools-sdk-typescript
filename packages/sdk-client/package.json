@@ -34,7 +34,7 @@
     "url": "https://github.com/commercetools/commercetools-sdk-typescript/issues"
   },
   "dependencies": {
-    "@commercetools/platform-sdk": "^1.14.0",
+    "@commercetools/platform-sdk": "^1.16.0",
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {

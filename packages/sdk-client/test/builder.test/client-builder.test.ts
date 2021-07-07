@@ -44,10 +44,10 @@ describe('client builder', () => {
     host: 'https://auth.europe-west1.gcp.commercetools.com',
     projectKey: process.env.PROJECT_KEY || projectKey,
     credentials: {
-      clientId: process.env.adminClientId || '',
-      clientSecret: process.env.adminClientSecret || '',
+      clientId: process.env.CTP_CLIENT_ID || '',
+      clientSecret: process.env.CTP_CLIENT_SECRET || '',
     },
-    oauthUri: process.env.adminAuthUrl || '',
+    oauthUri: process.env.OAUTH_URL || '',
     scopes: ['manage_project:demo-1'],
     fetch,
   };
