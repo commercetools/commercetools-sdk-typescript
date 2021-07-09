@@ -1,6 +1,6 @@
 import { ctpApiBuilder } from './helpers/ctp-api-helper'
 
-test('check can get project info', async () => {
+test.skip('check can get project info', async () => {
   const res = await ctpApiBuilder
     .get({ queryArgs: { limit: 1, offset: 0 } })
     .execute()
