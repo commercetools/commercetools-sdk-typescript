@@ -51,6 +51,6 @@
     "generate": "yarn generate-ts-sdk && yarn post_process_generate",
     "prebuild": "rimraf dist/**",
     "build": "microbundle",
-    "test": "jest"
+    "test": "jest --verbose"
   }
 }
