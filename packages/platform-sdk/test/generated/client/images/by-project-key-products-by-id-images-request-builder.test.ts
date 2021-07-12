@@ -34,13 +34,13 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'post',
-      uri: '/test_projectKey/products/test_ID/images?variant=0.8538737',
+      uri: '/test_projectKey/products/test_ID/images?variant=7',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .products()
         .withId({ ID: 'test_ID' })
         .images()
-        .post({ body: null, headers: null, queryArgs: { variant: 0.8538737 } }),
+        .post({ body: null, headers: null, queryArgs: { variant: 7 } }),
     },
     {
       method: 'post',

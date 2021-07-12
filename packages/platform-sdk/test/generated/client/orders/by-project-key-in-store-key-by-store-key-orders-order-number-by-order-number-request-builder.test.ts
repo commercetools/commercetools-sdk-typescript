@@ -65,13 +65,13 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     {
       method: 'delete',
       uri:
-        '/test_projectKey/in-store/key=test_storeKey/orders/order-number=test_orderNumber?dataErasure=true&version=6',
+        '/test_projectKey/in-store/key=test_storeKey/orders/order-number=test_orderNumber?dataErasure=true&version=2',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
         .orders()
         .withOrderNumber({ orderNumber: 'test_orderNumber' })
-        .delete({ queryArgs: { dataErasure: true, version: 6 } }),
+        .delete({ queryArgs: { dataErasure: true, version: 2 } }),
     },
     {
       method: 'delete',
@@ -87,13 +87,13 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     {
       method: 'delete',
       uri:
-        '/test_projectKey/in-store/key=test_storeKey/orders/order-number=test_orderNumber?expand=expand&version=6',
+        '/test_projectKey/in-store/key=test_storeKey/orders/order-number=test_orderNumber?expand=expand&version=2',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
         .orders()
         .withOrderNumber({ orderNumber: 'test_orderNumber' })
-        .delete({ queryArgs: { expand: 'expand', version: 6 } }),
+        .delete({ queryArgs: { expand: 'expand', version: 2 } }),
     },
   ]
 }

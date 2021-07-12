@@ -1364,11 +1364,11 @@ export interface OrderSetDeliveryAddressCustomFieldAction {
   /**
    *
    */
-  readonly type?: TypeResourceIdentifier
+  readonly name: string
   /**
    *
    */
-  readonly fields?: FieldContainer
+  readonly value?: any
 }
 export interface OrderSetDeliveryAddressCustomTypeAction {
   readonly action: 'setDeliveryAddressCustomType'
@@ -1379,11 +1379,11 @@ export interface OrderSetDeliveryAddressCustomTypeAction {
   /**
    *
    */
-  readonly name: string
+  readonly type?: TypeResourceIdentifier
   /**
    *
    */
-  readonly value?: any
+  readonly fields?: FieldContainer
 }
 export interface OrderSetDeliveryItemsAction {
   readonly action: 'setDeliveryItems'

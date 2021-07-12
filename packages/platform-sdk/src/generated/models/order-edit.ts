@@ -865,11 +865,11 @@ export interface StagedOrderSetDeliveryAddressCustomFieldAction {
   /**
    *
    */
-  readonly type?: TypeResourceIdentifier
+  readonly name: string
   /**
    *
    */
-  readonly fields?: FieldContainer
+  readonly value?: any
 }
 export interface StagedOrderSetDeliveryAddressCustomTypeAction {
   readonly action: 'setDeliveryAddressCustomType'
@@ -880,11 +880,11 @@ export interface StagedOrderSetDeliveryAddressCustomTypeAction {
   /**
    *
    */
-  readonly name: string
+  readonly type?: TypeResourceIdentifier
   /**
    *
    */
-  readonly value?: any
+  readonly fields?: FieldContainer
 }
 export interface StagedOrderSetDeliveryItemsAction {
   readonly action: 'setDeliveryItems'

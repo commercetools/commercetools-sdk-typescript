@@ -1541,11 +1541,11 @@ export interface CartSetDeliveryAddressCustomFieldAction {
   /**
    *
    */
-  readonly type?: TypeResourceIdentifier
+  readonly name: string
   /**
    *
    */
-  readonly fields?: FieldContainer
+  readonly value?: any
 }
 export interface CartSetDeliveryAddressCustomTypeAction {
   readonly action: 'setDeliveryAddressCustomType'
@@ -1556,11 +1556,11 @@ export interface CartSetDeliveryAddressCustomTypeAction {
   /**
    *
    */
-  readonly name: string
+  readonly type?: TypeResourceIdentifier
   /**
    *
    */
-  readonly value?: any
+  readonly fields?: FieldContainer
 }
 export interface CartSetItemShippingAddressCustomFieldAction {
   readonly action: 'setItemShippingAddressCustomField'
