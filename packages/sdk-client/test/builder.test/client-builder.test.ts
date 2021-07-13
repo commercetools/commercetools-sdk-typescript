@@ -40,41 +40,53 @@ describe('client builder', () => {
     };
   };
 
-  const authMiddlewareOptions = {
-    host: 'https://auth.europe-west1.gcp.commercetools.com',
-    projectKey: process.env.PROJECT_KEY || projectKey,
-    credentials: {
-      clientId: process.env.CTP_CLIENT_ID || '',
-      clientSecret: process.env.CTP_CLIENT_SECRET || '',
-    },
-    oauthUri: process.env.OAUTH_URL || '',
-    scopes: ['manage_project:demo-1'],
-    fetch,
-  };
+  /**
+   * Note:
+   * 
+   * This test is meant to be ran using one's personal 
+   * credentials or a credential that can view the details
+   * of a specific project
+   * 
+   * Feel free to uncomment the below test, also note that 
+   * it makes an actual api call and should be used only 
+   * for validation and functionality verification purpose.
+   */
 
-  const httpMiddlewareOptions = {
-    host: 'https://api.europe-west1.gcp.commercetools.com',
-    fetch
-  }
+  // const authMiddlewareOptions = {
+  //   host: 'https://auth.europe-west1.gcp.commercetools.com',
+  //   projectKey: process.env.PROJECT_KEY || projectKey,
+  //   credentials: {
+  //     clientId: process.env.CTP_CLIENT_ID || '',
+  //     clientSecret: process.env.CTP_CLIENT_SECRET || '',
+  //   },
+  //   oauthUri: process.env.OAUTH_URL || '',
+  //   scopes: ['manage_project:demo-1'],
+  //   fetch,
+  // };
 
-  apiRoot = new ApiRootBuilder()
-    .withAuthMiddleware(authMiddlewareOptions)
-    .withHttpMiddleware(httpMiddlewareOptions)
-    .build();
+  // const httpMiddlewareOptions = {
+  //   host: 'https://api.europe-west1.gcp.commercetools.com',
+  //   fetch
+  // }
 
-  test('get bare project details', async () => {
-    const projectDetails = await apiRoot
-      .withProjectKey({ projectKey })
-      .get()
-      .execute();
+  // apiRoot = new ApiRootBuilder()
+  //   .withAuthMiddleware(authMiddlewareOptions)
+  //   .withHttpMiddleware(httpMiddlewareOptions)
+  //   .build();
 
-    expect(projectDetails).toHaveProperty('body');
-    expect(projectDetails.body).toHaveProperty('name');
-    expect(projectDetails.body).toHaveProperty('carts');
-    expect(projectDetails.body).toHaveProperty('shoppingLists');
+  // test('get bare project details', async () => {
+  //   const projectDetails = await apiRoot
+  //     .withProjectKey({ projectKey })
+  //     .get()
+  //     .execute();
 
-    expect(projectDetails.body.key).toEqual(projectKey);
-  })
+  //   expect(projectDetails).toHaveProperty('body');
+  //   expect(projectDetails.body).toHaveProperty('name');
+  //   expect(projectDetails.body).toHaveProperty('carts');
+  //   expect(projectDetails.body).toHaveProperty('shoppingLists');
+
+  //   expect(projectDetails.body.key).toEqual(projectKey);
+  // })
 
   // test('create a customer', async () => {
   //   const customer = await apiRoot
@@ -93,4 +105,7 @@ describe('client builder', () => {
   //   expect(customer.body.customer.lastName).toEqual('test');
   //   expect(customer.body.customer.email).toEqual(`test-${rand}@test.com`);
   // })
+  test('prevent jest from stopping subsequent test suites', () => {
+    expect(true).toEqual(true) // this is necessary to avoid jest error
+  })
 })

@@ -55,6 +55,6 @@
   "scripts": {
     "prebuild": "rimraf dist/**",
     "build": "rimraf dist && tsc",
-    "test": "jest"
+    "test": "jest --maxWorkers=2"
   }
 }
