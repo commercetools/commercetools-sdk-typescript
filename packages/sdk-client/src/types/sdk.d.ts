@@ -49,22 +49,9 @@ export type VariableMap = {
   [key: string]: QueryParam
 }
 
-// export interface ClientRequest {
-//   baseUri?: string
-//   uri?: string
-//   headers?: VariableMap
-//   method: MethodType
-//   uriTemplate?: string
-//   pathVariables?: VariableMap
-//   queryParams?: VariableMap
-//   body?: any
-// }
-
-// export type ClientResponse<T = any> = {
-//   body: T
-//   statusCode?: number
-//   headers?: Object
-// }
+export type RequestOptions = {
+  [key: string]: any
+}
 
 export type executeRequest = (request: ClientRequest) => Promise<ClientResponse>
 
@@ -99,33 +86,16 @@ export type Dispatch = (
 ) => unknown
 
 export type Middleware = (next: Dispatch) => Dispatch
-
-/* Client */
-// export type ClientRequest = {
-//   uri?: string
-//   method: MethodType
-//   body?: string | JsonObject
-//   headers?: JsonObject<string>
-// }
-
 export interface ClientRequest {
   baseUri?: string
-  uri: string
+  uri?: string
   headers?: VariableMap
   method: MethodType
   uriTemplate?: string
   pathVariables?: VariableMap
   queryParams?: VariableMap
-  body?: any
+  body?: any,
 }
-
-// export type ClientResponse = {
-//   body?: Object
-//   error?: HttpErrorType
-//   statusCode: number
-//   headers?: JsonObject<string>
-//   request?: Object
-// }
 
 export type ClientResponse<T = any> = {
   body?: T
@@ -188,9 +158,9 @@ export type AuthMiddlewareOptions = {
     clientSecret: string
     anonymousId?: string
   }
-  scopes: Array<string>
+  scopes?: Array<string>
   // For internal usage only
-  oauthUri: string
+  oauthUri?: string
   fetch?: typeof fetch
   tokenCache?: TokenCache
 }
@@ -243,7 +213,7 @@ export type RefreshAuthMiddlewareOptions = {
   }
   refreshToken: string
   // For internal usage only
-  oauthUri: string
+  oauthUri?: string
   fetch?: typeof fetch
 }
 
@@ -312,9 +282,9 @@ export type PasswordAuthMiddlewareOptions = {
     clientSecret: string
     user: UserAuthOptions
   }
-  scopes: Array<string>
+  scopes?: Array<string>
   // For internal usage only
-  oauthUri: string
+  oauthUri?: string
   fetch?: typeof fetch
 }
 

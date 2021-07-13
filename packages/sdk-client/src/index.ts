@@ -12,9 +12,5 @@ export { default as createAuthWithExistingToken } from './sdk-middleware-auth/ex
 // http
 export { default as createHttpClient } from './sdk-middleware-http/http'
 
-// platfrom sdk
-// @ts-ignore
-// export { createApiBuilderFromCtpClient } from '../../platform-sdk/src/index' // import directly from project structure.
-// export { createApiBuilderFromCtpClient } from '@commercetools/typescript-sdk'
 export { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
 export { default as ApiRootBuilder } from './builder/ApiRootBuilder';

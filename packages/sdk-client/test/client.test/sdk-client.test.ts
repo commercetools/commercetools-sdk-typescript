@@ -1,11 +1,10 @@
-// @ts-nocheck
 import qs from 'querystring'
 import { createClient } from '../../src/sdk-client'
 import {
   ClientRequest,
   HttpErrorType,
   MiddlewareResponse,
-} from '../../src/types/sdk'
+} from '../../src/types/sdk.d'
 
 const createPayloadResult = (tot, startingId = 0) => ({
   count: tot,

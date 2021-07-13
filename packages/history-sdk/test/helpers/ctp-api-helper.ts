@@ -1,6 +1,4 @@
 import { createClient, createAuthForClientCredentialsFlow, createHttpClient } from '../../../sdk-client/src/index'
-// import { createAuthMiddlewareForClientCredentialsFlow } from '@commercetools/sdk-middleware-auth'
-// import { createHttpMiddleware } from '@commercetools/sdk-middleware-http'
 import {
   ApiRoot,
   createExecutorFromMiddlewares,

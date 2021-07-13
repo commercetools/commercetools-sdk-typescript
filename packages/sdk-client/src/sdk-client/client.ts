@@ -10,7 +10,7 @@ import {
   ProcessOptions,
   SuccessResult,
   ClientResponse,
-} from '../types/sdk'
+} from '../types/sdk.d'
 import validate from './validate'
 
 function compose(...funcs: Array<Function>): Function {
@@ -97,8 +97,13 @@ export default function createClient(options: ClientOptions): Client {
       }
 
       return new Promise((resolve: Function, reject: Function) => {
-        const [path, queryString] = request.uri.split('?')
-        const requestQuery = { ...qs.parse(queryString) }
+        let _path, _queryString = '';
+        if (request && request.uri) {
+          const [path, queryString] = request.uri.split('?')
+          _path = path;
+          _queryString = queryString;
+        }
+        const requestQuery = { ...qs.parse(_queryString) }
         const query = {
           // defaults
           limit: 20,
@@ -121,7 +126,7 @@ export default function createClient(options: ClientOptions): Client {
           const enhancedQueryString = qs.stringify(enhancedQuery)
           const enhancedRequest = {
             ...request,
-            uri: `${path}?${enhancedQueryString}&${originalQueryString}`,
+            uri: `${_path}?${enhancedQueryString}&${originalQueryString}`,
           }
 
           try {

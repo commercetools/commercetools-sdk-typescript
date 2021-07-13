@@ -7,7 +7,7 @@ import {
   PasswordAuthMiddlewareOptions,
   AuthMiddlewareOptions,
   executeRequestOptions,
-} from '../types/sdk'
+} from '../types/sdk.d'
 import { buildRequestForRefreshTokenFlow } from './build-requests'
 
 function mergeAuthHeader(

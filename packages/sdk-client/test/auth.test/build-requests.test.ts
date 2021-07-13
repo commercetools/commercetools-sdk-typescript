@@ -21,7 +21,7 @@ function createTestOptions(options) {
         password: 'verysecurepassword',
       },
     },
-    scopes: allScopes,
+    scopes: Object.values(scopes),
     ...options,
   }
 }
@@ -234,7 +234,7 @@ describe('buildRequestForRefreshTokenFlow', () => {
       clientSecret: 'secret',
     },
     refreshToken: 'foobar123',
-    scopes: undefined,
+    scopes: allScopes,
   }
   test('build request values with all the given options', () => {
     const options = createTestOptions(mockCred)

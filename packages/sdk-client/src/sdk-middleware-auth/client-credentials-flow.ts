@@ -5,7 +5,7 @@ import {
   MiddlewareResponse,
   Next,
   Task,
-} from '../types/sdk'
+} from '../types/sdk.d'
 
 import { buildRequestForClientCredentialsFlow } from './build-requests'
 import buildTokenCacheKey from './build-token-cache-key'

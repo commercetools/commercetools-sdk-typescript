@@ -1,5 +1,5 @@
 import { ApiRoot, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
-import { Middleware, AuthMiddlewareOptions, HttpMiddlewareOptions } from '../types/sdk'
+import { Middleware, AuthMiddlewareOptions, HttpMiddlewareOptions } from '../types/sdk.d'
 import { default as createClient } from '../sdk-client/client'
 import { default as createHttpClient } from '../sdk-middleware-http/http'
 import { default as createAuthForClientCredentialsFlow } from '../sdk-middleware-auth/client-credentials-flow'

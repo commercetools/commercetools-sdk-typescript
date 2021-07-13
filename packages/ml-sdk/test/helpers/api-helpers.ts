@@ -1,6 +1,3 @@
-// import { createClient } from '@commercetools/sdk-client'
-// import { createAuthMiddlewareForClientCredentialsFlow } from '@commercetools/sdk-middleware-auth'
-// import { createHttpMiddleware } from '@commercetools/sdk-middleware-http'
 import { createClient, createAuthForClientCredentialsFlow, createHttpClient } from '../../../sdk-client/src/index'
 import fetch from 'node-fetch'
 import {
@@ -19,13 +16,11 @@ const ml_host = requireEnvVar('CTP_ML_API_URL')
 const authMiddleware = createAuthForClientCredentialsFlow({
   host: authURL,
   projectKey,
-  oauthUri: '',
   credentials: {
     clientId,
     clientSecret,
   },
   fetch,
-  scopes: ['']
 })
 
 const httpMiddleware = createHttpClient({

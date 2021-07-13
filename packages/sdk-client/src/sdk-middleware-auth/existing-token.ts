@@ -4,7 +4,7 @@ import {
   MiddlewareResponse,
   ExistingTokenMiddlewareOptions,
   Next,
-} from '../types/sdk'
+} from '../types/sdk.d'
 
 export default function createAuthMiddlewareWithExistingToken(
   authorization: string = '',

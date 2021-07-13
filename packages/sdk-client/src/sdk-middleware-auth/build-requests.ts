@@ -2,7 +2,7 @@ import {
   AuthMiddlewareOptions,
   PasswordAuthMiddlewareOptions,
   RefreshAuthMiddlewareOptions,
-} from '../types/sdk'
+} from '../types/sdk.d'
 
 interface IBuiltRequestParams {
   basicAuth: string

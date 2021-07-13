@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   JsonObject,
   HttpErrorType,
@@ -7,9 +6,9 @@ import {
   MiddlewareRequest,
   MiddlewareResponse,
   Next,
-  MethodType,
   ClientRequest,
-} from '../types/sdk'
+  RequestOptions,
+} from '../types/sdk.d'
 
 import getErrorByCode, { NetworkError, HttpError } from '../sdk-client/errors'
 import parseHeaders from './parse-headers'
@@ -112,26 +111,19 @@ export default function createHttpMiddleware({
         : // NOTE: `stringify` of `null` gives the String('null')
           JSON.stringify(request.body || undefined)
 
-    const requestHeader: JsonObject<string> = { ...request.headers }
+    const requestHeader = { ...request.headers }
     if (!Object.prototype.hasOwnProperty.call(requestHeader, 'Content-Type')) {
       requestHeader['Content-Type'] = 'application/json'
     }
     if (body) {
       requestHeader['Content-Length'] = Buffer.byteLength(body).toString()
     }
-    type RequestOptions = {
-      method?: MethodType
-      headers?: JsonObject<string>
-      credentials?: any
-      signal?: any
-      body?: any
-    }
     const fetchOptions: RequestOptions = {
       method: request.method,
       headers: requestHeader,
     }
     if (credentialsMode) {
-      fetchOptions.credentials = credentialsMode
+      fetchOptions.credentialsMode = credentialsMode
     }
     if (abortController) {
       fetchOptions.signal = abortController.signal
@@ -183,7 +175,7 @@ export default function createHttpMiddleware({
                   parsed = result
                 }
 
-                const parsedResponse: MiddlewareResponse = {
+                const parsedResponse: any = {
                   ...response,
                   body: parsed,
                   statusCode: res.status,

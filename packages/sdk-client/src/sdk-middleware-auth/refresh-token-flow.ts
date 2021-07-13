@@ -5,7 +5,7 @@ import {
   MiddlewareResponse,
   Next,
   Task,
-} from '../types/sdk'
+} from '../types/sdk.d'
 
 import { buildRequestForRefreshTokenFlow } from './build-requests'
 import authMiddlewareBase from './base-auth-flow'

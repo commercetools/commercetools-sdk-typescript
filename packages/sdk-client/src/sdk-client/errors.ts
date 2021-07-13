@@ -1,5 +1,4 @@
-// @ts-nocheck
-import { JsonObject } from "../types/sdk"
+import { JsonObject } from "../types/sdk.d"
 
 function defineError(this: any, statusCode: number, message: string, meta: JsonObject<any> = {}) {
   this.status = this.statusCode = this.code = statusCode
@@ -16,7 +15,7 @@ function defineError(this: any, statusCode: number, message: string, meta: JsonO
 export function NetworkError(this: any, ...args: Array<unknown>) {
   defineError.call(this, 0 /* special code to indicate network errors */, ...args);
 }
-export function HttpError(...args: { [key: string]: any }[]) {
+export function HttpError(...args: Array<unknown>) {
   defineError.call(this, /* code will be passed as arg */ ...args);
 }
 export function BadRequest(this: any, ...args: Array<unknown>) {

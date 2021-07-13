@@ -1,9 +1,8 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import nock from 'nock'
 import fetch from 'node-fetch'
 import AbortController from 'abort-controller'
 import { createHttpMiddleware } from '../../src/sdk-middleware-http'
-import { MiddlewareRequest, JsonObject, MiddlewareResponse } from '../../../../types/sdk'
+import { MiddlewareRequest, MiddlewareResponse } from '../../src/types/sdk.d'
 
 function createTestRequest(options) {
   return {
@@ -106,7 +105,7 @@ describe('Http', () => {
         uri: '/foo/bar',
       })
       const response = { resolve: Function, reject: Function } as any;
-      const next = (req: JsonObject, res: JsonObject) => {
+      const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res).toEqual({
           ...response,
           body: { foo: 'bar' },

@@ -1,4 +1,4 @@
-import { JsonObject } from "../types/sdk"
+import { JsonObject } from "../types/sdk.d"
 
 export default function parseHeaders(headers: JsonObject<any>): JsonObject<string> {
   if (headers.raw)

@@ -76,21 +76,21 @@ describe('client builder', () => {
     expect(projectDetails.body.key).toEqual(projectKey);
   })
 
-  test('create a customer', async () => {
-    const customer = await apiRoot
-      .withProjectKey({ projectKey })
-      .customers()
-      .post({
-        body: createCustomerDraft(customerSampleData),
-      }).execute();
+  // test('create a customer', async () => {
+  //   const customer = await apiRoot
+  //     .withProjectKey({ projectKey })
+  //     .customers()
+  //     .post({
+  //       body: createCustomerDraft(customerSampleData),
+  //     }).execute();
 
-    expect(customer).toHaveProperty('body');
-    expect(customer).toHaveProperty('statusCode');
-    expect(customer.body.customer).toHaveProperty('id');
-    expect(customer.body.customer).toHaveProperty('email');
+  //   expect(customer).toHaveProperty('body');
+  //   expect(customer).toHaveProperty('statusCode');
+  //   expect(customer.body.customer).toHaveProperty('id');
+  //   expect(customer.body.customer).toHaveProperty('email');
 
-    expect(customer.body.customer.firstName).toEqual('test2');
-    expect(customer.body.customer.lastName).toEqual('test');
-    expect(customer.body.customer.email).toEqual(`test-${rand}@test.com`);
-  })
+  //   expect(customer.body.customer.firstName).toEqual('test2');
+  //   expect(customer.body.customer.lastName).toEqual('test');
+  //   expect(customer.body.customer.email).toEqual(`test-${rand}@test.com`);
+  // })
 })

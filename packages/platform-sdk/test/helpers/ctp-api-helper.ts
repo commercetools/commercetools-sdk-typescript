@@ -1,7 +1,4 @@
-// import { createClient } from '@commercetools/sdk-client'
-import { createClient } from '../../../sdk-client/src/index'
-import { createAuthMiddlewareForClientCredentialsFlow } from '@commercetools/sdk-middleware-auth'
-import { createHttpMiddleware } from '@commercetools/sdk-middleware-http'
+import { createAuthForClientCredentialsFlow, createHttpClient, createClient } from '../../../sdk-client/src/index'
 import fetch from 'node-fetch'
 import { requireEnvVar } from './test-utils'
 import {
@@ -16,7 +13,7 @@ const clientSecret = requireEnvVar('CTP_CLIENT_SECRET')
 const authURL = requireEnvVar('CTP_AUTH_URL')
 const ctp_host = requireEnvVar('CTP_API_URL')
 
-const authMiddleware = createAuthMiddlewareForClientCredentialsFlow({
+const authMiddleware = createAuthForClientCredentialsFlow({
   host: authURL,
   projectKey,
   credentials: {
@@ -26,7 +23,7 @@ const authMiddleware = createAuthMiddlewareForClientCredentialsFlow({
   fetch,
 })
 
-const httpMiddleware = createHttpMiddleware({
+const httpMiddleware = createHttpClient({
   host: ctp_host,
   fetch,
 })

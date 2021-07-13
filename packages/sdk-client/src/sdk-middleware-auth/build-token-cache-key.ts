@@ -1,4 +1,4 @@
-import { AuthMiddlewareOptions, TokenCacheOptions } from '../types/sdk'
+import { AuthMiddlewareOptions, TokenCacheOptions } from '../types/sdk.d'
 
 export default function buildTokenCacheKey(
   options: AuthMiddlewareOptions
