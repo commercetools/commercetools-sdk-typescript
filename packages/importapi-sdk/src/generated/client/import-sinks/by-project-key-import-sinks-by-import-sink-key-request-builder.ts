@@ -10,7 +10,7 @@
  *                    `Y'
  *
  */
-import { ImportSink, ImportSinkDraft } from '../../models/importsinks'
+import { ImportSink, ImportSinkUpdateDraft } from '../../models/importsinks'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
@@ -29,7 +29,7 @@ export class ByProjectKeyImportSinksByImportSinkKeyRequestBuilder {
    *	Updates the import sink given by the key.
    */
   public put(methodArgs: {
-    body: ImportSinkDraft
+    body: ImportSinkUpdateDraft
     headers?: {
       [key: string]: string | string[]
     }

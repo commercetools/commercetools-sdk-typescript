@@ -49,15 +49,10 @@ export interface ImportSink {
   readonly lastModifiedAt: string
 }
 /**
- *	The representation sent to the server when creating or updating an [ImportSink](#importsink).
+ *	The representation sent to the server when creating an [ImportSink](#importsink).
  *
  */
 export interface ImportSinkDraft {
-  /**
-   *	The version of the ImportSinkDraft.
-   *
-   */
-  readonly version?: number
   /**
    *	User-defined unique identifier of the ImportSink.
    *	Keys can only contain alphanumeric characters (a-Z, 0-9), underscores and hyphens (_, -).
@@ -65,6 +60,24 @@ export interface ImportSinkDraft {
    *
    */
   readonly key: string
+  /**
+   *	The [resource type](#importresourcetype) to be imported.
+   *	If not given, the ImportSink is able to import all of the supported [ImportResourceTypes](#importresourcetype).
+   *
+   *
+   */
+  readonly resourceType?: ImportResourceType
+}
+/**
+ *	The representation sent to the server when updating an [ImportSink](#importsink).
+ *
+ */
+export interface ImportSinkUpdateDraft {
+  /**
+   *	Current version of the ImportSink.
+   *
+   */
+  readonly version: number
   /**
    *	The [resource type](#importresourcetype) to be imported.
    *	If not given, the ImportSink is able to import all of the supported [ImportResourceTypes](#importresourcetype).
