@@ -1,4 +1,10 @@
 export type JsonObject<T = unknown> = { [key: string]: T }
+export type Nullable<T> = T | null;
+export type Credentials = {
+  clientId: string
+  clientSecret: string
+  anonymousId?: string
+}
 
 export type MethodType =
   | 'ACL'
@@ -153,11 +159,7 @@ export type ClientOptions = {
 export type AuthMiddlewareOptions = {
   host: string
   projectKey: string
-  credentials: {
-    clientId: string
-    clientSecret: string
-    anonymousId?: string
-  }
+  credentials: Credentials
   scopes?: Array<string>
   // For internal usage only
   oauthUri?: string
