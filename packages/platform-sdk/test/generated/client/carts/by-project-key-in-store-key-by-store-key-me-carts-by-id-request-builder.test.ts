@@ -79,14 +79,14 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     {
       method: 'delete',
       uri:
-        '/test_projectKey/in-store/key=test_storeKey/me/carts/test_ID?expand=expand&version=8',
+        '/test_projectKey/in-store/key=test_storeKey/me/carts/test_ID?expand=expand&version=1',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
         .me()
         .carts()
         .withId({ ID: 'test_ID' })
-        .delete({ queryArgs: { expand: 'expand', version: 8 } }),
+        .delete({ queryArgs: { expand: 'expand', version: 1 } }),
     },
   ]
 }
