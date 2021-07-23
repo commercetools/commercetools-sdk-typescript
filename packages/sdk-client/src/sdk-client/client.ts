@@ -39,9 +39,9 @@ export default function createClient(options: ClientOptions): Client {
     throw new Error('You need to provide at least one middleware')
 
   return {
-    /*
-      Given a request object,
-    */
+    /**
+     * Given a request object,
+     */
     execute(request: ClientRequest): Promise<ClientResult> {
       validate('exec', request)
 

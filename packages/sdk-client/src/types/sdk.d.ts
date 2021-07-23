@@ -206,6 +206,21 @@ export type TokenInfo = {
   token_type?: string
 }
 
+export type AnonymousAuthMiddlewareOptions = {
+  host: string
+  projectKey: string
+  credentials: {
+    clientId: string
+    clientSecret: string
+    anonymousId: string
+  }
+  scopes?: Array<string>
+  // For internal usage only
+  oauthUri?: string
+  fetch?: typeof fetch
+  tokenCache?: TokenCache
+}
+
 export type RefreshAuthMiddlewareOptions = {
   host: string
   projectKey: string

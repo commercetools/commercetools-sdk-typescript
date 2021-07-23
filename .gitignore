@@ -37,3 +37,4 @@ setupEnv.sh
 
 # training files
 training-tmp/
+loadtest/
