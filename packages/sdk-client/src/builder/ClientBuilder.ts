@@ -1,12 +1,9 @@
 import fetch from 'node-fetch'
 import {
-  ApiRoot,
-  createApiBuilderFromCtpClient,
-} from '@commercetools/platform-sdk'
-import {
   AnonymousAuthMiddlewareOptions,
   AuthMiddlewareOptions,
   CorrelationIdMiddlewareOptions,
+  Client,
   Credentials,
   ExistingTokenMiddlewareOptions,
   HttpMiddlewareOptions,
@@ -34,7 +31,7 @@ const {
   createAuthMiddlewareWithExistingToken,
 } = authMiddlewares
 
-export default class ApiRootBuilder {
+export default class ClientBuilder {
   private projectKey: string | undefined
   private authMiddleware: Nullable<Middleware>
   private httpMiddleware: Nullable<Middleware>
@@ -44,7 +41,7 @@ export default class ApiRootBuilder {
   private queueMiddleware: Nullable<Middleware>
   private middlewares: Array<Middleware> = []
 
-  withProjectKey(key: string): ApiRootBuilder {
+  withProjectKey(key: string): ClientBuilder {
     this.projectKey = key
     return this
   }
@@ -54,7 +51,7 @@ export default class ApiRootBuilder {
     credentials: Credentials,
     oauthUri?: string,
     projectKey?: string
-  ): ApiRootBuilder {
+  ): ClientBuilder {
     return this.withClientCredentialsFlow({
       host: oauthUri,
       projectKey: projectKey || this.projectKey,
@@ -67,17 +64,17 @@ export default class ApiRootBuilder {
       .withLoggerMiddleware()
   }
 
-  withAuthMiddleware(authMiddleware: Middleware): ApiRootBuilder {
+  withAuthMiddleware(authMiddleware: Middleware): ClientBuilder {
     this.authMiddleware = authMiddleware
     return this
   }
 
-  withMiddleware(middleware: Middleware): ApiRootBuilder {
+  withMiddleware(middleware: Middleware): ClientBuilder {
     this.middlewares.push(middleware)
     return this
   }
 
-  withClientCredentialsFlow(options: AuthMiddlewareOptions): ApiRootBuilder {
+  withClientCredentialsFlow(options: AuthMiddlewareOptions): ClientBuilder {
     return this.withAuthMiddleware(
       createAuthMiddlewareForClientCredentialsFlow({
         host: options.host || 'https://auth.europe-west1.gcp.commercetools.com',
@@ -94,7 +91,7 @@ export default class ApiRootBuilder {
     )
   }
 
-  withPasswordFlow(options: PasswordAuthMiddlewareOptions): ApiRootBuilder {
+  withPasswordFlow(options: PasswordAuthMiddlewareOptions): ClientBuilder {
     return this.withAuthMiddleware(
       createAuthMiddlewareForPasswordFlow({
         host: options.host || 'https://auth.europe-west1.gcp.commercetools.com',
@@ -115,7 +112,7 @@ export default class ApiRootBuilder {
 
   withAnonymousSessionFlow(
     options: AnonymousAuthMiddlewareOptions
-  ): ApiRootBuilder {
+  ): ClientBuilder {
     return this.withAuthMiddleware(
       createAuthMiddlewareForAnonymousSessionFlow({
         host: options.host || 'https://auth.europe-west1.gcp.commercetools.com',
@@ -131,7 +128,7 @@ export default class ApiRootBuilder {
     )
   }
 
-  withRefreshTokenFlow(options: RefreshAuthMiddlewareOptions): ApiRootBuilder {
+  withRefreshTokenFlow(options: RefreshAuthMiddlewareOptions): ClientBuilder {
     return this.withAuthMiddleware(
       createAuthMiddlewareForRefreshTokenFlow({
         host: options.host || 'https://auth.europe-west1.gcp.commercetools.com',
@@ -150,7 +147,7 @@ export default class ApiRootBuilder {
   withExistingTokenFlow(
     authorization: string,
     options: ExistingTokenMiddlewareOptions
-  ): ApiRootBuilder {
+  ): ClientBuilder {
     return this.withAuthMiddleware(
       createAuthMiddlewareWithExistingToken(authorization, {
         force: options.force || true,
@@ -159,7 +156,7 @@ export default class ApiRootBuilder {
     )
   }
 
-  withHttpMiddleware(options: HttpMiddlewareOptions): ApiRootBuilder {
+  withHttpMiddleware(options: HttpMiddlewareOptions): ClientBuilder {
     this.httpMiddleware = createHttpMiddleware({
       host: options.host || 'https://api.europe-west1.gcp.commercetools.com',
       fetch: options.fetch || fetch,
@@ -168,7 +165,7 @@ export default class ApiRootBuilder {
     return this
   }
 
-  withUserAgentMiddleware(options: UserAgentMiddlewareOptions): ApiRootBuilder {
+  withUserAgentMiddleware(options: UserAgentMiddlewareOptions): ClientBuilder {
     this.userAgentMiddleware = createUserAgentMiddleware({
       libraryName: options.libraryName || '',
       libraryVersion: options.libraryVersion || '',
@@ -179,7 +176,7 @@ export default class ApiRootBuilder {
     return this
   }
 
-  withQueueMiddleware(options: QueueMiddlewareOptions): ApiRootBuilder {
+  withQueueMiddleware(options: QueueMiddlewareOptions): ClientBuilder {
     this.queueMiddleware = createQueueMiddleware({
       concurrency: options.concurrency || 20,
       ...options,
@@ -194,7 +191,7 @@ export default class ApiRootBuilder {
 
   withCorrelationIdMiddleware(
     options: CorrelationIdMiddlewareOptions
-  ): ApiRootBuilder {
+  ): ClientBuilder {
     this.correlationIdMiddleware = createCorrelationIdMiddleware({
       generate: options.generate || null,
       ...options,
@@ -202,7 +199,7 @@ export default class ApiRootBuilder {
     return this
   }
 
-  build(): ApiRoot {
+  build(): Client {
     const middlewares = this.middlewares.slice()
 
     if (this.correlationIdMiddleware)
@@ -213,6 +210,6 @@ export default class ApiRootBuilder {
     if (this.queueMiddleware) middlewares.push(this.queueMiddleware)
     if (this.httpMiddleware) middlewares.push(this.httpMiddleware)
 
-    return createApiBuilderFromCtpClient(createClient({ middlewares }))
+    return createClient({ middlewares })
   }
 }

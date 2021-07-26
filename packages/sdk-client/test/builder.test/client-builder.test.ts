@@ -1,4 +1,4 @@
-import ApiRootBuilder from "../../src/builder/ApiRootBuilder";
+import ClientBuilder from "../../src/builder/ClientBuilder";
 require("dotenv").config();
 
 export const projectKey = 'demo-1';
@@ -42,13 +42,13 @@ describe('client builder', () => {
 
   /**
    * Note:
-   * 
-   * This test is meant to be ran using one's personal 
+   *
+   * This test is meant to be ran using one's personal
    * credentials or a credential that can view the details
    * of a specific project
-   * 
-   * Feel free to uncomment the below test, also note that 
-   * it makes an actual api call and should be used only 
+   *
+   * Feel free to uncomment the below test, also note that
+   * it makes an actual api call and should be used only
    * for validation and functionality verification purpose.
    */
 
