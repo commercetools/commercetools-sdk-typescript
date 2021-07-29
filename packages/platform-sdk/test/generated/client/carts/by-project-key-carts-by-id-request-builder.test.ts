@@ -56,12 +56,12 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'delete',
-      uri: '/test_projectKey/carts/test_ID?dataErasure=true&version=7',
+      uri: '/test_projectKey/carts/test_ID?dataErasure=true&version=6',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .carts()
         .withId({ ID: 'test_ID' })
-        .delete({ queryArgs: { dataErasure: true, version: 7 } }),
+        .delete({ queryArgs: { dataErasure: true, version: 6 } }),
     },
     {
       method: 'delete',
@@ -74,12 +74,12 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'delete',
-      uri: '/test_projectKey/carts/test_ID?expand=expand&version=7',
+      uri: '/test_projectKey/carts/test_ID?expand=expand&version=6',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .carts()
         .withId({ ID: 'test_ID' })
-        .delete({ queryArgs: { expand: 'expand', version: 7 } }),
+        .delete({ queryArgs: { expand: 'expand', version: 6 } }),
     },
   ]
 }

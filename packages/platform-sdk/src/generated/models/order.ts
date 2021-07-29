@@ -16,7 +16,7 @@ import {
   CartReference,
   CartResourceIdentifier,
   CustomLineItem,
-  CustomLineItemDraft,
+  CustomLineItemImportDraft,
   DiscountCodeInfo,
   DiscountedLineItemPortion,
   InventoryMode,
@@ -597,7 +597,7 @@ export interface OrderImportDraft {
    *	If not given `lineItems` must not be empty.
    *
    */
-  readonly customLineItems?: CustomLineItemDraft[]
+  readonly customLineItems?: CustomLineItemImportDraft[]
   /**
    *
    */

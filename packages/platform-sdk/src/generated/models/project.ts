@@ -96,6 +96,10 @@ export interface Project {
    *
    */
   readonly searchIndexing?: SearchIndexingConfiguration
+  /**
+   *
+   */
+  readonly shoppingLists?: ShoppingListsConfiguration
 }
 export interface ProjectUpdate {
   /**
@@ -117,6 +121,7 @@ export type ProjectUpdateAction =
   | ProjectChangeMessagesEnabledAction
   | ProjectChangeNameAction
   | ProjectChangeProductSearchIndexingEnabledAction
+  | ProjectChangeShoppingListsConfiguration
   | ProjectSetExternalOAuthAction
   | ProjectSetShippingRateInputTypeAction
 export interface SearchIndexingConfiguration {
@@ -163,6 +168,13 @@ export interface CartScoreType {
 }
 export interface CartValueType {
   readonly type: 'CartValue'
+}
+export interface ShoppingListsConfiguration {
+  /**
+   *	The default value for the deleteDaysAfterLastModification parameter of the ShoppingListDraft. Initially set to 360 for projects created after December 2019.
+   *
+   */
+  readonly deleteDaysAfterLastModification?: number
 }
 export interface ProjectChangeCartsConfiguration {
   readonly action: 'changeCartsConfiguration'
@@ -230,6 +242,13 @@ export interface ProjectChangeProductSearchIndexingEnabledAction {
    *
    */
   readonly enabled: boolean
+}
+export interface ProjectChangeShoppingListsConfiguration {
+  readonly action: 'changeShoppingListsConfiguration'
+  /**
+   *
+   */
+  readonly shoppingListsConfiguration?: ShoppingListsConfiguration
 }
 export interface ProjectSetExternalOAuthAction {
   readonly action: 'setExternalOAuth'
