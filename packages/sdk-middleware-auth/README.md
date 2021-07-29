@@ -1,1 +1,0 @@
-# `sdk-middleware-auth`

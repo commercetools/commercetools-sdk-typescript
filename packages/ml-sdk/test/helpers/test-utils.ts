@@ -8,6 +8,6 @@ export function requireEnvVar(varName: string): string {
 
 export async function sleep(millis: number) {
   return new Promise((resolve, error) => {
-    setTimeout(() => resolve(), millis)
+    setTimeout(resolve, millis)
   })
 }
