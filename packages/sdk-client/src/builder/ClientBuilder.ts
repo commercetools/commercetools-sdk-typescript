@@ -64,7 +64,7 @@ export default class ClientBuilder {
       .withLoggerMiddleware()
   }
 
-  private withAuthMiddleware(authMiddleware: Middleware): ClientBuilder {
+  withAuthMiddleware(authMiddleware: Middleware): ClientBuilder {
     this.authMiddleware = authMiddleware
     return this
   }
