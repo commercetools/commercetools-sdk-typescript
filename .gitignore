@@ -34,3 +34,7 @@ setupEnv.sh
 
 # editor specific
 *.swp
+
+# training files
+training-tmp/
+loadtest/
