@@ -53,6 +53,7 @@ export class ByProjectKeyCategoriesImportSinkKeyByImportSinkKeyImportOperationsR
       sort?: string | string[]
       resourceKey?: string
       state?: ProcessingState
+      debug?: boolean
       [key: string]: QueryParam
     }
     headers?: {

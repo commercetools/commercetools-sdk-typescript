@@ -11,7 +11,7 @@
  *
  */
 
-import { ProcessingState } from './common'
+import { KeyReference, ProcessingState } from './common'
 import { ErrorObject } from './errors'
 
 /**
@@ -57,6 +57,12 @@ export interface ImportOperation {
    */
   readonly errors?: ErrorObject[]
   /**
+   *	In case of unresolved status this array will show the unresolved references
+   *
+   *
+   */
+  readonly unresolvedReferences?: KeyReference[]
+  /**
    *	The time when the ImportOperation was created.
    *
    */
@@ -95,6 +101,11 @@ export interface ImportOperationPagedResponse {
    *
    */
   readonly count: number
+  /**
+   *	The total number of import operations matching the query.
+   *
+   */
+  readonly total: number
   /**
    *	The array of Import Operations matching the query.
    *

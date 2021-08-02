@@ -86,6 +86,19 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     {
       method: 'get',
       uri:
+        '/test_projectKey/order-patches/importSinkKey=test_importSinkKey/import-operations?debug=true',
+      request: apiRoot
+        .withProjectKeyValue({ projectKey: 'test_projectKey' })
+        .orderPatches()
+        .importSinkKeyWithImportSinkKeyValue({
+          importSinkKey: 'test_importSinkKey',
+        })
+        .importOperations()
+        .get({ queryArgs: { debug: true } }),
+    },
+    {
+      method: 'get',
+      uri:
         '/test_projectKey/order-patches/importSinkKey=test_importSinkKey/import-operations',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
