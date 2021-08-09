@@ -12,7 +12,6 @@ import {
   PasswordAuthMiddlewareOptions,
   QueueMiddlewareOptions,
   RefreshAuthMiddlewareOptions,
-  UserAgentMiddlewareOptions,
 } from '../types/sdk.d'
 import { default as createClient } from '../sdk-client/client'
 import { default as createHttpMiddleware } from '../sdk-middleware-http/http'
@@ -165,14 +164,8 @@ export default class ClientBuilder {
     return this
   }
 
-  withUserAgentMiddleware(options: UserAgentMiddlewareOptions): ClientBuilder {
-    this.userAgentMiddleware = createUserAgentMiddleware({
-      libraryName: options.libraryName || '',
-      libraryVersion: options.libraryVersion || '',
-      contactUrl: options.contactUrl || '',
-      contactEmail: options.contactEmail || '',
-      ...options,
-    })
+  withUserAgentMiddleware(): ClientBuilder {
+    this.userAgentMiddleware = createUserAgentMiddleware()
     return this
   }
 
