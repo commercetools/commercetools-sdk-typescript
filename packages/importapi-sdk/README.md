@@ -6,7 +6,7 @@
 npm install --save @commercetools/importapi-sdk
 ```
 
-#### Browser
+### Browser
 
 ```html
 <script src="https://unpkg.com/browse/@commercetools/importapi-sdk/dist/importapi-sdk.umd.js"></script>
@@ -15,7 +15,7 @@ npm install --save @commercetools/importapi-sdk
 </script>
 ```
 
-#### Usage example
+### Usage example
 
 ```ts
 import { createAuthMiddlewareForClientCredentialsFlow } from '@commercetools/sdk-middleware-auth'

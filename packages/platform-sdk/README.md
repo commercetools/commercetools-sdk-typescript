@@ -6,7 +6,7 @@
 npm install --save @commercetools/platform-sdk
 ```
 
-#### Browser
+### Browser
 
 ```html
 <script src="https://unpkg.com/@commercetools/platform-sdk/dist/platform-sdk.umd.js"></script>
@@ -15,7 +15,7 @@ npm install --save @commercetools/platform-sdk
 </script>
 ```
 
-#### Usage example
+### Usage example
 
 ```ts
 import { createAuthMiddlewareForClientCredentialsFlow } from '@commercetools/sdk-middleware-auth'
