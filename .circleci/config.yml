@@ -33,6 +33,9 @@ jobs:
           command: yarn install --frozen-lockfile
       - save_cache: *save_yarn_cache
       - run:
+          name: Building packages
+          command: yarn build
+      - run:
           name: Running tests
           command: yarn test
       - store_artifacts:
