@@ -1,25 +1,15 @@
-import { default as createHttpUserAgent} from '../http-user-agent/create-user-agent'
-
+import { default as createHttpUserAgent } from '../http-user-agent/create-user-agent'
 import {
   Dispatch,
   Middleware,
   MiddlewareRequest,
-  MiddlewareResponse,
+  MiddlewareResponse
 } from '../types/sdk'
 
-type UserAgentMiddlewareOptions = {
-  libraryName?: string
-  libraryVersion?: string
-  contactUrl?: string
-  contactEmail?: string
-}
-
-export default function createUserAgentMiddleware(
-  options: UserAgentMiddlewareOptions
-): Middleware {
+const { version } = require('root-require')('package.json')
+export default function createUserAgentMiddleware(): Middleware {
   const userAgent = createHttpUserAgent({
-    name: 'commercetools-js-sdk',
-    ...options,
+    name: `commercetools-sdk-javascript-v2/${version}`,
   })
 
   return (next: Dispatch): Dispatch => (
