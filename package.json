@@ -5,7 +5,7 @@
     "@changesets/changelog-github": "0.4.0",
     "@changesets/cli": "2.16.0",
     "@commitlint/config-conventional": "8.3.4",
-    "@rollup/plugin-typescript": "3.0.0",
+    "@rollup/plugin-typescript": "8.2.5",
     "husky": "4.3.8",
     "lerna": "3.20.2",
     "prettier": "1.19.1",
