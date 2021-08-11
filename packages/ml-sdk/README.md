@@ -6,7 +6,7 @@
 npm install --save @commercetools/ml-sdk
 ```
 
-#### Browser
+### Browser
 
 ```html
 <script src="https://unpkg.com/browse/@commercetools/ml-sdk/dist/ml-sdk.umd.js"></script>
@@ -15,7 +15,7 @@ npm install --save @commercetools/ml-sdk
 </script>
 ```
 
-#### Usage example
+### Usage example
 
 ```ts
 import { createAuthMiddlewareForClientCredentialsFlow } from '@commercetools/sdk-middleware-auth'
