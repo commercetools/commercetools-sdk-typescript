@@ -1,7 +1,21 @@
 aliases:
-- &ml_ts_sdk ~/commercetools-typescript-sdk
+  - &ml_ts_sdk ~/commercetools-typescript-sdk
 
-version: 2.1 
+  - &restore_yarn_cache
+    name: 'Restoring yarn cache'
+    keys:
+      - v1-yarn-cache-{{ checksum "yarn.lock" }}
+
+  - &save_yarn_cache
+    name: 'Saving yarn cache'
+    key: v1-yarn-cache-{{ checksum "yarn.lock" }}
+    # Persisting to the workspace is always relative to the root which is our working directory.
+    # https://circleci.com/docs/2.0/configuration-reference/#persist_to_workspace
+    paths:
+      - .cache
+      - node_modules
+
+version: 2.1
 jobs:
   build_and_test:
     working_directory: *ml_ts_sdk
@@ -9,9 +23,11 @@ jobs:
       - image: node:12.22.1
     steps:
       - checkout
+      - restore_cache: *restore_yarn_cache
       - run:
           name: install dependencies
-          command: yarn install
+          command: yarn install --frozen-lockfile
+      - save_cache: *save_yarn_cache
       - run:
           name: test
           command: yarn test
@@ -21,9 +37,9 @@ jobs:
       - store_artifacts:
           path: packages/platform-sdk/test-results
           prefix: tests
-      - store_test_results: 
+      - store_test_results:
           path: packages/ml-sdk/test-results
-      - store_test_results: 
+      - store_test_results:
           path: packages/platform-sdk/test-results
   update_ml_sdk_from_spec:
     working_directory: ~/commercetools-typescript-spec
@@ -43,9 +59,11 @@ jobs:
       - run:
           name: install rmf cli
           command: export VRAP_VERSION=1.0.0-20200304142749 && curl -o- -s https://raw.githubusercontent.com/vrapio/rmf-codegen/master/scripts/install.sh | bash
+      - restore_cache: *restore_yarn_cache
       - run:
-          name: install yarn
-          command: yarn install && yarn bootstrap
+          name: install dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache: *save_yarn_cache
 workflows:
   version: 2
   validate_spec:
