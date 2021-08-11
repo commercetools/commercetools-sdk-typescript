@@ -1,14 +1,11 @@
-# commercetools typescript sdks
-
-<img src="http://dev.commercetools.com/assets/img/CT-logo.svg" width="550px" alt="CT-logo"></img>
+<h2 align="center">commercetools TypeScript SDKs 💅</h2>
+<p align="center">
+  <i>✨ Monorepository with generated TypeScript SDKs for the commercetools platform 🛠</i>
+</p>
 
 ## Introduction
 
-This repository contains the commercetools platform, import-api and machine learning packages for typescript generated from our api reference.
-
-<p align="center">
-  
-</p>
+This repository contains several SDK packages generated from the commercetools platform API reference.
 
 ## Support
 
@@ -23,10 +20,13 @@ If you have any urgent issues regarding this repository please create a support 
 | [`platform-sdk`](/packages/platform-sdk)   | [![platform-sdk Version][platform-sdk-icon]][platform-sdk-version]    |
 | [`importapi-sdk`](/packages/importapi-sdk) | [![importapi-sdk Version][importapi-sdk-icon]][importapi-sdk-version] |
 | [`ml-sdk`](/packages/ml-sdk)               | [![ml-sdk Version][ml-sdk-icon]][ml-sdk-version]                      |
+| [`history-sdk`](/packages/history-sdk)     | [![history-sdk Version][history-sdk-icon]][history-sdk-version]       |
 
 [platform-sdk-version]: https://www.npmjs.com/package/@commercetools/platform-sdk
 [platform-sdk-icon]: https://img.shields.io/npm/v/@commercetools/platform-sdk.svg?style=flat-square
-[importapi-sdk-version]: https://www.npmjs.com/package/@commercetools/platform-sdk
-[importapi-sdk-icon]: https://img.shields.io/npm/v/@commercetools/platform-sdk.svg?style=flat-square
-[ml-sdk-version]: https://www.npmjs.com/package/@commercetools/platform-sdk
-[ml-sdk-icon]: https://img.shields.io/npm/v/@commercetools/platform-sdk.svg?style=flat-square
+[importapi-sdk-version]: https://www.npmjs.com/package/@commercetools/importapi-sdk
+[importapi-sdk-icon]: https://img.shields.io/npm/v/@commercetools/importapi-sdk.svg?style=flat-square
+[ml-sdk-version]: https://www.npmjs.com/package/@commercetools/ml-sdk
+[ml-sdk-icon]: https://img.shields.io/npm/v/@commercetools/ml-sdk.svg?style=flat-square
+[history-sdk-version]: https://www.npmjs.com/package/@commercetools/history-sdk
+[history-sdk-icon]: https://img.shields.io/npm/v/@commercetools/history-sdk.svg?style=flat-square
