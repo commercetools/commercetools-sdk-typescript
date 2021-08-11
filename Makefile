@@ -28,7 +28,7 @@ prettify: yarn_install
 	yarn run format
 
 post_process: yarn_install
-	yarn run lerna run post_process_generate
+	yarn manypkg run post_process_generate
 
 codegen_install:
 	curl -o- -s https://raw.githubusercontent.com/vrapio/rmf-codegen/master/scripts/install.sh | bash
