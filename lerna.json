@@ -2,11 +2,5 @@
   "packages": ["packages/**"],
   "useWorkspaces": true,
   "npmclient": "yarn",
-  "version": "independent",
-  "command": {
-    "publish": {
-      "npmClient": "yarn",
-      "message": "chore(release): releasing component"
-    }
-  }
+  "version": "independent"
 }
