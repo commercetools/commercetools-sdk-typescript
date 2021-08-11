@@ -40,7 +40,7 @@
     "organize-imports-cli": "0.7.0",
     "ts-jest": "25.2.1",
     "tsconfig-replace-paths": "0.0.5",
-    "tslib": "1.11.1",
+    "tslib": "2.3.1",
     "typescript": "3.8.3",
     "uuid": "7.0.2"
   },
