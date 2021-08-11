@@ -7,12 +7,7 @@ import {
 import { createUserAgentMiddleware } from '../../src/sdk-middleware-user-agent'
 
 describe('UserAgent', () => {
-  const userAgentMiddleware = createUserAgentMiddleware({
-    libraryName: 'my-awesome-library',
-    libraryVersion: '1.0.0',
-    contactUrl: 'https://commercetools.com',
-    contactEmail: 'helpdesk@commercetools.com',
-  })
+  const userAgentMiddleware = createUserAgentMiddleware()
   const request: MiddlewareRequest = {
     method: 'GET',
     uri: '/foo',
@@ -33,24 +28,15 @@ describe('UserAgent', () => {
       expect(headers.Authorization).toBe('123')
     })
     test('has sdk info', () => {
-      expect(headers['User-Agent']).toMatch('commercetools-js-sdk')
+      expect(headers['User-Agent']).toMatch('commercetools-sdk-javascript')
     })
     test('has browser info', () => {
       // because we use jsdom
-      expect(headers['User-Agent']).toMatch('Node.js')
+      expect(headers['User-Agent']).toMatch('node.js')
     })
     test('has browser version', () => {
       // because we use jsdom
       expect(headers['User-Agent']).toMatch(process.version.slice(1))
-    })
-    test('has library info', () => {
-      expect(headers['User-Agent']).toMatch('my-awesome-library/1.0.0')
-    })
-    test('has library url', () => {
-      expect(headers['User-Agent']).toMatch('https://commercetools.com')
-    })
-    test('has contact info', () => {
-      expect(headers['User-Agent']).toMatch('helpdesk@commercetools.com')
     })
     test('do not change response object', () => {
       expect(res).toEqual({ ...res })

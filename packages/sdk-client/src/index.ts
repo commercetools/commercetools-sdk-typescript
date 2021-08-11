@@ -14,3 +14,4 @@ export { default as createHttpClient } from './sdk-middleware-http/http'
 
 export { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
 export { default as ApiRootBuilder } from './builder/ClientBuilder';
+export { default as ClientBuilder} from './builder/ClientBuilder';

@@ -16,7 +16,7 @@ describe('for browser', () => {
     },
   }
   const userAgent = createHttpUserAgent({
-    name: 'commercetools-node-sdk',
+    name: 'commercetools-sdk-javascript',
     version: '1.0.0',
     libraryName: 'my-awesome-library',
     libraryVersion: '1.0.0',
@@ -27,7 +27,7 @@ describe('for browser', () => {
   global.window = originalWindow
 
   test('has sdk info', () => {
-    expect(userAgent).toMatch('commercetools-node-sdk/1.0.0')
+    expect(userAgent).toMatch('commercetools-sdk-javascript')
   })
   test('has browser info', () => {
     // because we use jsdom
@@ -46,7 +46,7 @@ describe('for browser', () => {
 
 describe('for node', () => {
   const userAgent = createHttpUserAgent({
-    name: 'commercetools-node-sdk',
+    name: 'commercetools-sdk-javascript',
     version: '1.0.0',
     libraryName: 'my-awesome-library',
     libraryVersion: '1.0.0',
@@ -55,10 +55,10 @@ describe('for node', () => {
   })
 
   test('has sdk info', () => {
-    expect(userAgent).toMatch('commercetools-node-sdk/1.0.0')
+    expect(userAgent).toMatch('commercetools-sdk-javascript')
   })
   test('has node info', () => {
-    expect(userAgent).toMatch(`Node.js/${process.version.slice(1)}`)
+    expect(userAgent).toMatch(`node.js/`)
   })
   test('has library info', () => {
     expect(userAgent).toMatch('my-awesome-library/1.0.0')
@@ -91,63 +91,51 @@ describe('validation', () => {
 })
 
 describe('optional information', () => {
-  test('create user agent with only library name (missing version)', () => {
+  const { version } = require('root-require')('package.json')
+  test('create user agent with the correct SDK', () => {
     const userAgent = createHttpUserAgent({
-      name: 'commercetools-node-sdk',
-      libraryName: 'my-awesome-library',
+      name: `commercetools-sdk-javascript-v2/${version}`
     })
     expect(userAgent).toBe(
-      `commercetools-node-sdk Node.js/${process.version.slice(1)} (${
-        process.platform
-      }; ${process.arch}) my-awesome-library`
+      `commercetools-sdk-javascript-v2/${version} node.js/${process.version.slice(1)}`
     )
   })
   test('create user agent with library name and version', () => {
     const userAgent = createHttpUserAgent({
-      name: 'commercetools-node-sdk',
+      name: `commercetools-sdk-javascript-v2/${version}`,
       libraryName: 'my-awesome-library',
       libraryVersion: '1.0.0',
     })
     expect(userAgent).toBe(
-      `commercetools-node-sdk Node.js/${process.version.slice(1)} (${
-        process.platform
-      }; ${process.arch}) my-awesome-library/1.0.0`
+      `commercetools-sdk-javascript-v2/${version} node.js/${process.version.slice(1)} my-awesome-library/1.0.0`
     )
   })
   test('create user agent with contact url', () => {
     const userAgent = createHttpUserAgent({
-      name: 'commercetools-node-sdk',
+      name: `commercetools-sdk-javascript-v2/${version}`,
       contactUrl: 'https://commercetools.com',
     })
     expect(userAgent).toBe(
-      `commercetools-node-sdk Node.js/${process.version.slice(1)} (${
-        process.platform
-      }; ${process.arch}) (+https://commercetools.com)`
+      `commercetools-sdk-javascript-v2/${version} node.js/${process.version.slice(1)} (+https://commercetools.com)`
     )
   })
   test('create user agent with contact email', () => {
     const userAgent = createHttpUserAgent({
-      name: 'commercetools-node-sdk',
+      name: `commercetools-sdk-javascript-v2/${version}`,
       contactEmail: 'helpdesk@commercetools.com',
     })
     expect(userAgent).toBe(
-      `commercetools-node-sdk Node.js/${process.version.slice(1)} (${
-        process.platform
-      }; ${process.arch}) (+helpdesk@commercetools.com)`
+      `commercetools-sdk-javascript-v2/${version} node.js/${process.version.slice(1)} (+helpdesk@commercetools.com)`
     )
   })
   test('create user agent with full contact info', () => {
     const userAgent = createHttpUserAgent({
-      name: 'commercetools-node-sdk',
+      name: `commercetools-sdk-javascript-v2/${version}`,
       contactUrl: 'https://commercetools.com',
       contactEmail: 'helpdesk@commercetools.com',
     })
     expect(userAgent).toBe(
-      `commercetools-node-sdk Node.js/${process.version.slice(1)} (${
-        process.platform
-      }; ${
-        process.arch
-      }) (+https://commercetools.com; +helpdesk@commercetools.com)`
+      `commercetools-sdk-javascript-v2/${version} node.js/${process.version.slice(1)} (+https://commercetools.com; +helpdesk@commercetools.com)`
     )
   })
 })

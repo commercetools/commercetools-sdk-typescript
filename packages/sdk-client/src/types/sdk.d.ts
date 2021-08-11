@@ -212,7 +212,7 @@ export type AnonymousAuthMiddlewareOptions = {
   credentials: {
     clientId: string
     clientSecret: string
-    anonymousId: string
+    anonymousId?: string
   }
   scopes?: Array<string>
   // For internal usage only
