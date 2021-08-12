@@ -2,24 +2,18 @@
   "semi": false,
   "trailingComma": "es5",
   "singleQuote": true,
-  "parser": "babel-flow",
+  "parser": "typescript",
   "overrides": [
     {
-      "files": "*.ts",
+      "files": "*.json",
       "options": {
-        "parser": "typescript"
+        "parser": "json"
       }
     },
     {
       "files": "*.md",
       "options": {
         "parser": "markdown"
-      }
-    },
-    {
-      "files": "*.json",
-      "options": {
-        "parser": "json"
       }
     }
   ]
