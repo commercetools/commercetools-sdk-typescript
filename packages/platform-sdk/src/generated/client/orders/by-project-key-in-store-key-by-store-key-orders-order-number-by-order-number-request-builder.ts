@@ -94,9 +94,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersOrderNumberByOrderNumberReque
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete Order by orderNumber
-   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

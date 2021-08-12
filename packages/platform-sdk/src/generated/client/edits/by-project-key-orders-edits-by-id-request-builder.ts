@@ -36,9 +36,6 @@ export class ByProjectKeyOrdersEditsByIDRequestBuilder {
     })
   }
 
-  /**
-   *	Get OrderEdit by ID
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -62,9 +59,6 @@ export class ByProjectKeyOrdersEditsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update OrderEdit by ID
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -91,9 +85,6 @@ export class ByProjectKeyOrdersEditsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete OrderEdit by ID
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

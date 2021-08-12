@@ -55,9 +55,6 @@ export class ByProjectKeyReviewsRequestBuilder {
     })
   }
 
-  /**
-   *	Query reviews
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -86,9 +83,6 @@ export class ByProjectKeyReviewsRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Create Review
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

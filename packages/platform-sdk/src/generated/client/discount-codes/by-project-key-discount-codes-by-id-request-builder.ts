@@ -25,9 +25,6 @@ export class ByProjectKeyDiscountCodesByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get DiscountCode by ID
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -51,9 +48,6 @@ export class ByProjectKeyDiscountCodesByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update DiscountCode by ID
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -80,9 +74,6 @@ export class ByProjectKeyDiscountCodesByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete DiscountCode by ID
-   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

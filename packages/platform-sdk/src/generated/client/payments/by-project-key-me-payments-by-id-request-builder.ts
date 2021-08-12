@@ -25,9 +25,6 @@ export class ByProjectKeyMePaymentsByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get MyPayment by ID
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -51,9 +48,6 @@ export class ByProjectKeyMePaymentsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update MyPayment by ID
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -80,9 +74,6 @@ export class ByProjectKeyMePaymentsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete MyPayment by ID
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

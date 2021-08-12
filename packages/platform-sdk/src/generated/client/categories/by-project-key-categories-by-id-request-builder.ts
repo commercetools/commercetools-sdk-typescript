@@ -25,9 +25,6 @@ export class ByProjectKeyCategoriesByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get Category by ID
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -51,9 +48,6 @@ export class ByProjectKeyCategoriesByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update Category by ID
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -80,9 +74,6 @@ export class ByProjectKeyCategoriesByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete Category by ID
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

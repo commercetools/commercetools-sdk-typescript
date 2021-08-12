@@ -53,9 +53,6 @@ export class ByProjectKeyOrdersOrderNumberByOrderNumberRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update Order by orderNumber
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -82,9 +79,6 @@ export class ByProjectKeyOrdersOrderNumberByOrderNumberRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete Order by orderNumber
-   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

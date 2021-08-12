@@ -89,9 +89,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete Cart by key
-   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

@@ -53,9 +53,6 @@ export class ByProjectKeyCartsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update Cart by ID
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -82,9 +79,6 @@ export class ByProjectKeyCartsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete Cart by ID
-   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

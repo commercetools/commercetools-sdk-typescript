@@ -20,6 +20,14 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
       method: 'get',
+      uri: '/test_projectKey/customer-groups?where=where',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .customerGroups()
+        .get({ queryArgs: { where: 'where' } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/customer-groups?expand=expand',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
@@ -57,14 +65,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .withProjectKey({ projectKey: 'test_projectKey' })
         .customerGroups()
         .get({ queryArgs: { withTotal: true } }),
-    },
-    {
-      method: 'get',
-      uri: '/test_projectKey/customer-groups?where=where',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .customerGroups()
-        .get({ queryArgs: { where: 'where' } }),
     },
     {
       method: 'get',

@@ -68,9 +68,6 @@ export class ByProjectKeyProductsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update Product by ID
-   */
   public post(methodArgs: {
     queryArgs?: {
       priceCurrency?: string
@@ -103,9 +100,6 @@ export class ByProjectKeyProductsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete Product by ID
-   */
   public delete(methodArgs: {
     queryArgs: {
       priceCurrency?: string

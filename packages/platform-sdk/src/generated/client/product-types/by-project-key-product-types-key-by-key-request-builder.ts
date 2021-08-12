@@ -25,9 +25,6 @@ export class ByProjectKeyProductTypesKeyByKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get ProductType by key
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -51,9 +48,6 @@ export class ByProjectKeyProductTypesKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update ProductType by key
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -80,9 +74,6 @@ export class ByProjectKeyProductTypesKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete ProductType by key
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

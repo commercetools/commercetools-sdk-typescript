@@ -26,9 +26,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersPasswordTokenByPasswordTok
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get Customer by passwordToken
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]

@@ -19,8 +19,7 @@ export class ApiRoot {
 
   constructor(args: { executeRequest: executeRequest; baseUri?: string }) {
     this.executeRequest = args.executeRequest
-    this.baseUri =
-      args.baseUri ?? 'https://api.europe-west1.gcp.commercetools.com'
+    this.baseUri = args.baseUri ?? 'https://api.{region}.commercetools.com'
   }
 
   /**

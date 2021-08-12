@@ -55,9 +55,6 @@ export class ByProjectKeyPaymentsRequestBuilder {
     })
   }
 
-  /**
-   *	Query payments
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]

@@ -25,9 +25,6 @@ export class ByProjectKeyStatesByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get State by ID
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -51,9 +48,6 @@ export class ByProjectKeyStatesByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update State by ID
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -80,9 +74,6 @@ export class ByProjectKeyStatesByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete State by ID
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

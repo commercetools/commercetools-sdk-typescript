@@ -78,9 +78,6 @@ export class ByProjectKeyOrdersRequestBuilder {
     })
   }
 
-  /**
-   *	Query orders
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]

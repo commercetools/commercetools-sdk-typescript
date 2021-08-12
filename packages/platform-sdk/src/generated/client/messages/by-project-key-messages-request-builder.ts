@@ -38,9 +38,6 @@ export class ByProjectKeyMessagesRequestBuilder {
     })
   }
 
-  /**
-   *	Query messages
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]

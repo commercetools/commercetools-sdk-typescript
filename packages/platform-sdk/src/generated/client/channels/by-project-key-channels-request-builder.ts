@@ -42,9 +42,6 @@ export class ByProjectKeyChannelsRequestBuilder {
     })
   }
 
-  /**
-   *	Query channels
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -73,9 +70,6 @@ export class ByProjectKeyChannelsRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Create Channel
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

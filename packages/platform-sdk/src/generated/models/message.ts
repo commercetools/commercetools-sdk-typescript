@@ -131,6 +131,8 @@ export type Message =
   | ReviewCreatedMessage
   | ReviewRatingSetMessage
   | ReviewStateTransitionMessage
+  | StoreCreatedMessage
+  | StoreDeletedMessage
 export interface CategoryCreatedMessage {
   readonly type: 'CategoryCreated'
   /**
@@ -3931,6 +3933,112 @@ export interface ReviewStateTransitionMessage {
    */
   readonly force: boolean
 }
+export interface StoreCreatedMessage {
+  readonly type: 'StoreCreated'
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly name?: LocalizedString
+  /**
+   *
+   */
+  readonly languages: string[]
+  /**
+   *
+   */
+  readonly distributionChannels: ChannelReference[]
+  /**
+   *
+   */
+  readonly supplyChannels: ChannelReference[]
+  /**
+   *
+   */
+  readonly custom?: CustomFields
+}
+export interface StoreDeletedMessage {
+  readonly type: 'StoreDeleted'
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+}
 export interface UserProvidedIdentifiers {
   /**
    *
@@ -4032,6 +4140,8 @@ export type MessagePayload =
   | ReviewRatingSetMessagePayload
   | ReviewStateTransitionMessagePayload
   | ShoppingListStoreSetMessagePayload
+  | StoreCreatedMessagePayload
+  | StoreDeletedMessagePayload
 export interface CategoryCreatedMessagePayload {
   readonly type: 'CategoryCreated'
   /**
@@ -4846,4 +4956,30 @@ export interface ShoppingListStoreSetMessagePayload {
    *
    */
   readonly store: StoreKeyReference
+}
+export interface StoreCreatedMessagePayload {
+  readonly type: 'StoreCreated'
+  /**
+   *
+   */
+  readonly name?: LocalizedString
+  /**
+   *
+   */
+  readonly languages: string[]
+  /**
+   *
+   */
+  readonly distributionChannels: ChannelReference[]
+  /**
+   *
+   */
+  readonly supplyChannels: ChannelReference[]
+  /**
+   *
+   */
+  readonly custom?: CustomFields
+}
+export interface StoreDeletedMessagePayload {
+  readonly type: 'StoreDeleted'
 }

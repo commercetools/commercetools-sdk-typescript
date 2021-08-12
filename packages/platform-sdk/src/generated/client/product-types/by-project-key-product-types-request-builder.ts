@@ -55,9 +55,6 @@ export class ByProjectKeyProductTypesRequestBuilder {
     })
   }
 
-  /**
-   *	Query product-types
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -86,9 +83,6 @@ export class ByProjectKeyProductTypesRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Create ProductType
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

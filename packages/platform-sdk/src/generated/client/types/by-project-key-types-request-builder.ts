@@ -51,9 +51,6 @@ export class ByProjectKeyTypesRequestBuilder {
     })
   }
 
-  /**
-   *	Query types
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -82,9 +79,6 @@ export class ByProjectKeyTypesRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Create Type
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
