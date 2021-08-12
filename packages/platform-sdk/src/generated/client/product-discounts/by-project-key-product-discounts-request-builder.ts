@@ -65,9 +65,6 @@ export class ByProjectKeyProductDiscountsRequestBuilder {
     })
   }
 
-  /**
-   *	Query product-discounts
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -96,9 +93,6 @@ export class ByProjectKeyProductDiscountsRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Create ProductDiscount
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

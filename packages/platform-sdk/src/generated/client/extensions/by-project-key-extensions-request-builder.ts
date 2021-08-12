@@ -55,9 +55,6 @@ export class ByProjectKeyExtensionsRequestBuilder {
     })
   }
 
-  /**
-   *	Query extensions
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]

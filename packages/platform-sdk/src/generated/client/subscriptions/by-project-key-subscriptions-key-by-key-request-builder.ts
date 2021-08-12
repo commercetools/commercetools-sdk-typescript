@@ -51,9 +51,6 @@ export class ByProjectKeySubscriptionsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update Subscription by key
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -80,9 +77,6 @@ export class ByProjectKeySubscriptionsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete Subscription by key
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

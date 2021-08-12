@@ -25,9 +25,6 @@ export class ByProjectKeyInventoryByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get InventoryEntry by ID
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -51,9 +48,6 @@ export class ByProjectKeyInventoryByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update InventoryEntry by ID
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -80,9 +74,6 @@ export class ByProjectKeyInventoryByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete InventoryEntry by ID
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

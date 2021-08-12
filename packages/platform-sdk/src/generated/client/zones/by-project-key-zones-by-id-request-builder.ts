@@ -25,9 +25,6 @@ export class ByProjectKeyZonesByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get Zone by ID
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -51,9 +48,6 @@ export class ByProjectKeyZonesByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update Zone by ID
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -80,9 +74,6 @@ export class ByProjectKeyZonesByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete Zone by ID
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

@@ -25,9 +25,6 @@ export class ByProjectKeyStoresByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get Store by ID
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -51,9 +48,6 @@ export class ByProjectKeyStoresByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update Store by ID
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -80,9 +74,6 @@ export class ByProjectKeyStoresByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete Store by ID
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

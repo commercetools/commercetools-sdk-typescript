@@ -51,9 +51,6 @@ export class ByProjectKeyStoresRequestBuilder {
     })
   }
 
-  /**
-   *	Query stores
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -82,9 +79,6 @@ export class ByProjectKeyStoresRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Create Store
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

@@ -88,9 +88,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete Customer by ID
-   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

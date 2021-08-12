@@ -28,9 +28,6 @@ export class ByProjectKeyProductDiscountsKeyByKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get ProductDiscount by key
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -54,9 +51,6 @@ export class ByProjectKeyProductDiscountsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update ProductDiscount by key
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -83,9 +77,6 @@ export class ByProjectKeyProductDiscountsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete ProductDiscount by key
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

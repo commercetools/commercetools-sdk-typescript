@@ -25,9 +25,6 @@ export class ByProjectKeyReviewsByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get Review by ID
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -51,9 +48,6 @@ export class ByProjectKeyReviewsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update Review by ID
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -80,9 +74,6 @@ export class ByProjectKeyReviewsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete Review by ID
-   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

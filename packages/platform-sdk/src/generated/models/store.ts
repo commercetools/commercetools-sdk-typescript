@@ -88,7 +88,7 @@ export interface StoreDraft {
    *	The name of the store
    *
    */
-  readonly name: LocalizedString
+  readonly name?: LocalizedString
   /**
    *
    */

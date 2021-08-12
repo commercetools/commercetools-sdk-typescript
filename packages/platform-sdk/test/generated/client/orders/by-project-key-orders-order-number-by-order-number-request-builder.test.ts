@@ -59,12 +59,12 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     {
       method: 'delete',
       uri:
-        '/test_projectKey/orders/order-number=test_orderNumber?dataErasure=true&version=1',
+        '/test_projectKey/orders/order-number=test_orderNumber?dataErasure=true&version=4',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .orders()
         .withOrderNumber({ orderNumber: 'test_orderNumber' })
-        .delete({ queryArgs: { dataErasure: true, version: 1 } }),
+        .delete({ queryArgs: { dataErasure: true, version: 4 } }),
     },
     {
       method: 'delete',
@@ -78,12 +78,12 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     {
       method: 'delete',
       uri:
-        '/test_projectKey/orders/order-number=test_orderNumber?expand=expand&version=1',
+        '/test_projectKey/orders/order-number=test_orderNumber?expand=expand&version=4',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .orders()
         .withOrderNumber({ orderNumber: 'test_orderNumber' })
-        .delete({ queryArgs: { expand: 'expand', version: 1 } }),
+        .delete({ queryArgs: { expand: 'expand', version: 4 } }),
     },
   ]
 }

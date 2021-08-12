@@ -142,7 +142,7 @@ export interface PaymentDraft {
    */
   readonly anonymousId?: string
   /**
-   *
+   *	@deprecated
    */
   readonly externalId?: string
   /**

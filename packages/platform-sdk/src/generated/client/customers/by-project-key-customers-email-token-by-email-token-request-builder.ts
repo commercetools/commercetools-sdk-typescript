@@ -25,9 +25,6 @@ export class ByProjectKeyCustomersEmailTokenByEmailTokenRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get Customer by emailToken
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]

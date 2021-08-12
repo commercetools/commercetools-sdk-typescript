@@ -25,9 +25,6 @@ export class ByProjectKeyTaxCategoriesKeyByKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get TaxCategory by key
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -51,9 +48,6 @@ export class ByProjectKeyTaxCategoriesKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update TaxCategory by key
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -80,9 +74,6 @@ export class ByProjectKeyTaxCategoriesKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete TaxCategory by key
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

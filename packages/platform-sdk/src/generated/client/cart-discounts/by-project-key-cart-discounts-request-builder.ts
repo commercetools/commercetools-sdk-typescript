@@ -55,9 +55,6 @@ export class ByProjectKeyCartDiscountsRequestBuilder {
     })
   }
 
-  /**
-   *	Query cart-discounts
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -86,9 +83,6 @@ export class ByProjectKeyCartDiscountsRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Create CartDiscount
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

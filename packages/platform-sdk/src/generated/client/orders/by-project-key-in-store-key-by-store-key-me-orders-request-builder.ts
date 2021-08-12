@@ -40,9 +40,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeOrdersRequestBuilder {
     })
   }
 
-  /**
-   *	Query orders
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -71,9 +68,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeOrdersRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Create Order
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

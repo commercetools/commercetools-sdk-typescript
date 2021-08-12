@@ -25,9 +25,6 @@ export class ByProjectKeyCustomObjectsByContainerRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get CustomObjectPagedQueryResponse by container
-   */
   public get(methodArgs?: {
     queryArgs?: {
       where?: string | string[]

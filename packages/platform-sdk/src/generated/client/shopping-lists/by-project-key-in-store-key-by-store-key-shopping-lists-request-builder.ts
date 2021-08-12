@@ -58,9 +58,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder {
     })
   }
 
-  /**
-   *	Query shopping-lists
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -89,9 +86,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Create ShoppingList
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

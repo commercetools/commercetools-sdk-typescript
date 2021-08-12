@@ -26,9 +26,6 @@ export class ByProjectKeyMeShoppingListsByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get ShoppingList by ID
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -52,9 +49,6 @@ export class ByProjectKeyMeShoppingListsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update ShoppingList by ID
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -81,9 +75,6 @@ export class ByProjectKeyMeShoppingListsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete ShoppingList by ID
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

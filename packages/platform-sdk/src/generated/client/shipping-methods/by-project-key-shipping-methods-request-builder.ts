@@ -94,9 +94,6 @@ export class ByProjectKeyShippingMethodsRequestBuilder {
     })
   }
 
-  /**
-   *	Query shipping-methods
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -125,9 +122,6 @@ export class ByProjectKeyShippingMethodsRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Create ShippingMethod
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

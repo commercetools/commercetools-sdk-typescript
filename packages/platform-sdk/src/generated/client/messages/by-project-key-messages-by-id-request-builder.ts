@@ -25,9 +25,6 @@ export class ByProjectKeyMessagesByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get Message by ID
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]

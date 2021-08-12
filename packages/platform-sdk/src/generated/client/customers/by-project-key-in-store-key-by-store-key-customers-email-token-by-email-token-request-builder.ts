@@ -26,9 +26,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersEmailTokenByEmailTokenRequ
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get Customer by emailToken
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]

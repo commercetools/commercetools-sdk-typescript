@@ -55,9 +55,6 @@ export class ByProjectKeyTaxCategoriesRequestBuilder {
     })
   }
 
-  /**
-   *	Query tax-categories
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -86,9 +83,6 @@ export class ByProjectKeyTaxCategoriesRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Create TaxCategory
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

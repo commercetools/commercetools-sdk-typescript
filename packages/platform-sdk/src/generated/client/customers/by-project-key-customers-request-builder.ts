@@ -145,9 +145,6 @@ export class ByProjectKeyCustomersRequestBuilder {
     })
   }
 
-  /**
-   *	Query customers
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
