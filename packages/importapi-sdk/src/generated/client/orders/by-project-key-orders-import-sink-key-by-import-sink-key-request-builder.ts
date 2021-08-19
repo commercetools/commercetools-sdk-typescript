@@ -39,7 +39,7 @@ export class ByProjectKeyOrdersImportSinkKeyByImportSinkKeyRequestBuilder {
   }
 
   /**
-   *	Creates import request for creating new orders or updating existing ones.
+   *	Creates a request for creating new Orders or updating existing ones.
    */
   public post(methodArgs: {
     body: OrderImportRequest

@@ -43,7 +43,8 @@ export class ByProjectKeyCustomersImportSinkKeyByImportSinkKeyImportOperationsRe
   }
 
   /**
-   *	Retrieves all customer import operations of an import sink key.
+   *	Retrieves all Customer ImportOperations of a given ImportSink key.
+   *
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -52,6 +53,7 @@ export class ByProjectKeyCustomersImportSinkKeyByImportSinkKeyImportOperationsRe
       sort?: string | string[]
       resourceKey?: string
       state?: ProcessingState
+      debug?: boolean
       [key: string]: QueryParam
     }
     headers?: {

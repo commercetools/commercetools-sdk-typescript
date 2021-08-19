@@ -55,9 +55,6 @@ export class ByProjectKeyMePaymentsRequestBuilder {
     })
   }
 
-  /**
-   *	Query payments
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -86,9 +83,6 @@ export class ByProjectKeyMePaymentsRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Create MyPayment
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

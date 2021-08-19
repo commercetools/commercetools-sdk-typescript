@@ -14,85 +14,108 @@
 import { ImportResourceType } from './common'
 
 /**
- *	An import sink is the entry point for import resources from other systems.
- *
- *	It has an unique key and is specific to an import resource type.
+ *	Serves as the entry point of resources.
  *
  */
 export interface ImportSink {
   /**
-   *	The unique key of the import sink.
-   *
-   *	Valid characters are: alphabetic characters (A-Z, a-z), numeric characters (0-9), underscores (_) and hyphens (-).
+   *	User-defined unique identifier for the ImportSink.
+   *	Keys can only contain alphanumeric characters (a-Z, 0-9), underscores and hyphens (_, -).
    *
    *
    */
   readonly key: string
   /**
-   *	The type of import resource sent to this import sink.
-   *	You can only send one resource type per import sink.
+   *	The [resource type](#importresourcetype) the ImportSink is able to handle.
+   *	If not present, the ImportSink is able to import all of the supported [ImportResourceTypes](#importresourcetype).
    *
    *
    */
-  readonly resourceType: ImportResourceType
+  readonly resourceType?: ImportResourceType
   /**
-   *	The version of this resource.
+   *	The version of the ImportSink.
    *
    */
   readonly version: number
   /**
-   *	When the import sink was created.
+   *	The time when the ImportSink was created.
    *
    */
   readonly createdAt: string
   /**
-   *	When the import sink was modified.
+   *	The last time when the ImportSink was modified.
    *
    */
   readonly lastModifiedAt: string
 }
 /**
- *	The representation sent to the server when creating or updating an import sink.
+ *	The representation sent to the server when creating an [ImportSink](#importsink).
  *
  */
 export interface ImportSinkDraft {
   /**
-   *	The version of this resource.
+   *	User-defined unique identifier of the ImportSink.
+   *	Keys can only contain alphanumeric characters (a-Z, 0-9), underscores and hyphens (_, -).
    *
-   */
-  readonly version?: number
-  /**
-   *	The unique key of the import sink.
    *
    */
   readonly key: string
   /**
-   *	The type of import resource sent to this import sink.
+   *	The [resource type](#importresourcetype) to be imported.
+   *	If not given, the ImportSink is able to import all of the supported [ImportResourceTypes](#importresourcetype).
+   *
    *
    */
-  readonly resourceType: ImportResourceType
+  readonly resourceType?: ImportResourceType
 }
 /**
- *	This type represents a paged importsink result.
+ *	The representation sent to the server when updating an [ImportSink](#importsink).
+ *
+ */
+export interface ImportSinkUpdateDraft {
+  /**
+   *	Current version of the ImportSink.
+   *
+   */
+  readonly version: number
+  /**
+   *	The [resource type](#importresourcetype) to be imported.
+   *	If not given, the ImportSink is able to import all of the supported [ImportResourceTypes](#importresourcetype).
+   *
+   *
+   */
+  readonly resourceType?: ImportResourceType
+}
+/**
+ *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) for [ImportSinks](#importsink).
+ *	Used as a response to a query request for [ImportSinks](#importsink).
+ *
  */
 export interface ImportSinkPagedResponse {
   /**
-   *	The maximum number of import operations returned for a page.
+   *	The number of results requested in the query request.
    *
    */
   readonly limit: number
   /**
-   *	The offset supplied by the client or the server default. It is the number of elements skipped.
+   *	The number of elements skipped, not a page number.
+   *	Supplied by the client or the server default.
+   *
    *
    */
   readonly offset: number
   /**
-   *	The actual number of results returned by this response.
+   *	The actual number of results returned.
    *
    */
   readonly count: number
   /**
-   *	The results for this paged response.
+   *	The total number of results matching the query.
+   *
+   */
+  readonly total: number
+  /**
+   *	The array of Import Sinks matching the query.
    *
    */
   readonly results: ImportSink[]

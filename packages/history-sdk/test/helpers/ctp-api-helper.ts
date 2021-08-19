@@ -1,9 +1,13 @@
-import { createClient, createAuthForClientCredentialsFlow, createHttpClient } from '../../../sdk-client/src/index'
+import {
+  createClient,
+  createAuthForClientCredentialsFlow,
+  createHttpClient,
+} from '../../../sdk-client/src/index'
 import {
   ApiRoot,
   createExecutorFromMiddlewares,
   executeRequest,
-} from './../../src'
+} from '@commercetools/platform-sdk'
 import fetch from 'node-fetch'
 import { requireEnvVar } from './test-utils'
 
@@ -20,7 +24,8 @@ const authMiddleware = createAuthForClientCredentialsFlow({
     clientId,
     clientSecret,
   },
-  fetch
+  scopes: [`manage_project:${projectKey} manage_api_clients:${projectKey}`],
+  fetch,
 })
 
 const httpMiddleware = createHttpClient({
@@ -39,4 +44,4 @@ const executor: executeRequest = createExecutorFromMiddlewares(
 export const ctpApiBuilder = new ApiRoot({
   executeRequest: executor,
   baseUri: ctp_host,
-}).withProjectKeyValue({ projectKey })
+}).withProjectKey({ projectKey })

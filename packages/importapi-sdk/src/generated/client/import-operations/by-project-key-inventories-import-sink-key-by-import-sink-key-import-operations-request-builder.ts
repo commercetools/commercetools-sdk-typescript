@@ -43,7 +43,8 @@ export class ByProjectKeyInventoriesImportSinkKeyByImportSinkKeyImportOperations
   }
 
   /**
-   *	Retrieves all inventory import operations of an import sink key.
+   *	Retrieves all Inventory ImportOperations of a given ImportSink key.
+   *
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -52,6 +53,7 @@ export class ByProjectKeyInventoriesImportSinkKeyByImportSinkKeyImportOperations
       sort?: string | string[]
       resourceKey?: string
       state?: ProcessingState
+      debug?: boolean
       [key: string]: QueryParam
     }
     headers?: {

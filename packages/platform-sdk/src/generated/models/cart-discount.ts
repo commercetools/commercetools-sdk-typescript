@@ -180,7 +180,7 @@ export interface CartDiscountDraft {
    *	Defaults to `false`.
    *
    */
-  readonly requiresDiscountCode: boolean
+  readonly requiresDiscountCode?: boolean
   /**
    *	Specifies whether the application of this discount causes the following discounts to be ignored.
    *	Defaults to Stacking.

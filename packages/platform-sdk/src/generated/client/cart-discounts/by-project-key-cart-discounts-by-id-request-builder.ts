@@ -25,9 +25,6 @@ export class ByProjectKeyCartDiscountsByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get CartDiscount by ID
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -51,9 +48,6 @@ export class ByProjectKeyCartDiscountsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update CartDiscount by ID
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -80,9 +74,6 @@ export class ByProjectKeyCartDiscountsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete CartDiscount by ID
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

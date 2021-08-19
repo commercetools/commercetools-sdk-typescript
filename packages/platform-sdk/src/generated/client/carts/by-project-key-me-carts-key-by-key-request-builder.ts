@@ -26,9 +26,6 @@ export class ByProjectKeyMeCartsKeyByKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get Cart by key
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -52,9 +49,6 @@ export class ByProjectKeyMeCartsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update Cart by key
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -81,9 +75,6 @@ export class ByProjectKeyMeCartsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete Cart by key
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

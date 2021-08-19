@@ -51,9 +51,6 @@ export class ByProjectKeyZonesRequestBuilder {
     })
   }
 
-  /**
-   *	Query zones
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -82,9 +79,6 @@ export class ByProjectKeyZonesRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Create Zone
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

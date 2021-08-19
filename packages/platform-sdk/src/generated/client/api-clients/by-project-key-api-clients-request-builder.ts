@@ -42,9 +42,6 @@ export class ByProjectKeyApiClientsRequestBuilder {
     })
   }
 
-  /**
-   *	Query api-clients
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -73,9 +70,6 @@ export class ByProjectKeyApiClientsRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Create ApiClient
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

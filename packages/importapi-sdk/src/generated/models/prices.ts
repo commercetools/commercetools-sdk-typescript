@@ -66,14 +66,12 @@ export interface TaxRate {
   readonly subRates?: SubRate[]
 }
 /**
- *	Imports a product variant's prices.
+ *	The data representation for a Price to be imported that is persisted as a [Price](/../api/projects/products#price) in the Project.
  *
  */
 export interface PriceImport extends ImportResource {
   /**
-   *	Maps to `Price.value`.
-   *
-   *	The Import API **only** supports `centPrecision` prices.
+   *	Maps to `Price.value`. TypedMoney is what is called BaseMoney in the HTTP API.
    *
    *
    */
@@ -97,21 +95,15 @@ export interface PriceImport extends ImportResource {
    */
   readonly validUntil?: string
   /**
-   *	References a customer group by its key.
-   *
-   *	The customer group referenced
-   *	must already exist in the commercetools project, or the
-   *	import operation state is set to `Unresolved`.
+   *	The Reference to the [CustomerGroup](/../api/projects/customerGroups#customergroup) with which the Price is associated.
+   *	If referenced CustomerGroup does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary CustomerGroup is created.
    *
    *
    */
   readonly customerGroup?: CustomerGroupKeyReference
   /**
-   *	References a channel by its key.
-   *
-   *	The channel referenced
-   *	must already exist in the commercetools project, or the
-   *	import operation state is set to `Unresolved`.
+   *	The Reference to the [Channel](/../api/projects/channels#channel) with which the Price is associated.
+   *	If referenced Channel does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary Channel is created.
    *
    *
    */
@@ -138,21 +130,17 @@ export interface PriceImport extends ImportResource {
    */
   readonly custom?: Custom
   /**
-   *	The product variant in which this price is contained.
-   *
-   *	The product variant referenced
-   *	must already exist in the commercetools project, or the
-   *	import operation state is set to `Unresolved`.
+   *	The ProductVariant in which this Price is contained.
+   *	The Reference to the [ProductVariant](/../api/projects/products#productvariant) with which the Price is associated.
+   *	If referenced ProductVariant does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary ProductVariant is created.
    *
    *
    */
   readonly productVariant: ProductVariantKeyReference
   /**
-   *	The product in which this product variant containong the price is contained. Maps to `ProductVariant.product`.
-   *
-   *	The product referenced
-   *	must already exist in the commercetools project, or the
-   *	import operation state is set to `Unresolved`.
+   *	The Product in which the Product Variant containing this Price is contained. Maps to `ProductVariant.product`.
+   *	The Reference to the [Product](/../api/projects/products#product) with which the Price is associated.
+   *	If referenced Product does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary Product is created.
    *
    *
    */

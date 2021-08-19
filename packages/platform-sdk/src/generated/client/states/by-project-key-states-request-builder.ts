@@ -51,9 +51,6 @@ export class ByProjectKeyStatesRequestBuilder {
     })
   }
 
-  /**
-   *	Query states
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -82,9 +79,6 @@ export class ByProjectKeyStatesRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Create State
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

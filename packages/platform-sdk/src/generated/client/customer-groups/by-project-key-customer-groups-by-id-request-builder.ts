@@ -25,9 +25,6 @@ export class ByProjectKeyCustomerGroupsByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get CustomerGroup by ID
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -51,9 +48,6 @@ export class ByProjectKeyCustomerGroupsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update CustomerGroup by ID
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -80,9 +74,6 @@ export class ByProjectKeyCustomerGroupsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete CustomerGroup by ID
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

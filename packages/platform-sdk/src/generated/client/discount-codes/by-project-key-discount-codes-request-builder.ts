@@ -42,9 +42,6 @@ export class ByProjectKeyDiscountCodesRequestBuilder {
     })
   }
 
-  /**
-   *	Query discount-codes
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -73,9 +70,6 @@ export class ByProjectKeyDiscountCodesRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Create DiscountCode
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

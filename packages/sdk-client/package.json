@@ -12,17 +12,12 @@
     "oauth",
     "auth"
   ],
-  "author": "Chukwuemeka Ajima <meeky.ae@gmail.com>",
   "homepage": "https://github.com/commercetools/commercetools-sdk-typescript",
   "license": "MIT",
-  "main": "dist/index.js",
   "directories": {
     "lib": "lib",
     "test": "test"
   },
-  "files": [
-    "dist"
-  ],
   "publishConfig": {
     "access": "public"
   },
@@ -39,27 +34,33 @@
     "querystring": "^0.2.1",
     "root-require": "^0.3.1"
   },
-  "typings": "dist/index.d.ts",
-  "types": "dist/index.d.ts",
+  "files": ["dist", "CHANGELOG.md"],
+  "author": "Chukwuemeka Ajima <meeky.ae@gmail.com>",
+  "main": "dist/commercetools-sdk-client.cjs.js",
+  "module": "dist/commercetools-sdk-client.esm.js",
+  "browser": {
+    "./dist/commercetools-sdk-client.cjs.js": "./dist/commercetools-sdk-client.browser.cjs.js",
+    "./dist/commercetools-sdk-client.esm.js": "./dist/commercetools-sdk-client.browser.esm.js"
+  },
   "devDependencies": {
-    "@types/jest": "^26.0.23",
+    "@types/jest": "27.0.0",
     "@types/node": "^15.9.0",
     "abort-controller": "3.0.0",
     "chalk-animation": "^1.6.0",
     "cli-highlight": "^2.1.11",
     "common-tags": "^1.8.0",
     "dotenv": "^10.0.0",
-    "jest": "^27.0.3",
-    "jest-junit": "^12.1.0",
+    "jest": "27.0.6",
+    "jest-junit": "12.2.0",
     "microbundle": "^0.13.3",
     "nock": "12.0.3",
+    "organize-imports-cli": "0.7.0",
     "rimraf": "^3.0.2",
-    "ts-jest": "^27.0.2",
-    "typescript": "^4.3.2"
+    "ts-jest": "27.0.4",
+    "typescript": "4.3.5"
   },
   "scripts": {
-    "build": "microbundle",
-    "prebuild": "rimraf dist && tsc",
-    "test": "jest --maxWorkers=2"
+    "organize_imports": "find src -type f -name '*.ts' | xargs organize-imports-cli",
+    "postbuild": "yarn organize_imports"
   }
 }

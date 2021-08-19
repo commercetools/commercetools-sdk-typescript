@@ -55,17 +55,14 @@ export class ByProjectKeyCustomerGroupsRequestBuilder {
     })
   }
 
-  /**
-   *	Query customer-groups
-   */
   public get(methodArgs?: {
     queryArgs?: {
+      where?: string | string[]
       expand?: string | string[]
       sort?: string | string[]
       limit?: number
       offset?: number
       withTotal?: boolean
-      where?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
@@ -86,9 +83,6 @@ export class ByProjectKeyCustomerGroupsRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Create CustomerGroup
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

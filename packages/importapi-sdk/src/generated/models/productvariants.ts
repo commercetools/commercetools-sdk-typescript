@@ -51,7 +51,7 @@ export type Attribute =
   | TimeAttribute
   | TimeSetAttribute
 /**
- *	This type represents an attribute which value is either "true" or "false".
+ *	This type represents an attribute whose value is either "true" or "false".
  *
  */
 export interface BooleanAttribute {
@@ -70,7 +70,7 @@ export interface BooleanAttribute {
   readonly value: boolean
 }
 /**
- *	This type represents an attribute which value is set of boolean values.
+ *	This type represents an attribute whose value is set of boolean values.
  *
  */
 export interface BooleanSetAttribute {
@@ -89,7 +89,7 @@ export interface BooleanSetAttribute {
   readonly value: boolean[]
 }
 /**
- *	This type represents an attribute which value is a date.
+ *	This type represents an attribute whose value is a date.
  *
  */
 export interface DateAttribute {
@@ -108,7 +108,7 @@ export interface DateAttribute {
   readonly value: string
 }
 /**
- *	This type represents an attribute which value is a set of dates.
+ *	This type represents an attribute whose value is a set of dates.
  *
  */
 export interface DateSetAttribute {
@@ -127,7 +127,7 @@ export interface DateSetAttribute {
   readonly value: string[]
 }
 /**
- *	This type represents an attribute which value is a date with time.
+ *	This type represents an attribute whose value is a date with time.
  *
  */
 export interface DateTimeAttribute {
@@ -146,7 +146,7 @@ export interface DateTimeAttribute {
   readonly value: string
 }
 /**
- *	This type represents an attribute which value is a set of dates with time.
+ *	This type represents an attribute whose value is a set of dates with time.
  *
  */
 export interface DateTimeSetAttribute {
@@ -165,7 +165,7 @@ export interface DateTimeSetAttribute {
   readonly value: string[]
 }
 /**
- *	This type represents an attribute which value is an enum.
+ *	This type represents an attribute whose value is an enum.
  *	The attribute value refers to the key of the enum value.
  *
  */
@@ -185,7 +185,7 @@ export interface EnumAttribute {
   readonly value: string
 }
 /**
- *	This type represents an attribute which value is an enum.
+ *	This type represents an attribute whose value is an enum.
  *	The attribute value refers to the key of the enum value.
  *
  */
@@ -205,7 +205,7 @@ export interface EnumSetAttribute {
   readonly value: string[]
 }
 /**
- *	This type represents an attribute which value is a localized enum.
+ *	This type represents an attribute whose value is a localized enum.
  *	The attribute value refers to the key of the enum value.
  *
  */
@@ -225,7 +225,7 @@ export interface LocalizableEnumAttribute {
   readonly value: string
 }
 /**
- *	This type represents an attribute which value is a localized enum.
+ *	This type represents an attribute whose value is a localized enum.
  *	The attribute value refers to the key of the enum value.
  *
  */
@@ -245,7 +245,7 @@ export interface LocalizableEnumSetAttribute {
   readonly value: string[]
 }
 /**
- *	This type represents an attribute which value is a localized text.
+ *	This type represents an attribute whose value is a localized text.
  *
  */
 export interface LocalizableTextAttribute {
@@ -272,7 +272,7 @@ export interface LocalizableTextAttribute {
   readonly value: LocalizedString
 }
 /**
- *	This type represents an attribute which value is a localized text.
+ *	This type represents an attribute whose value is a localized text.
  *
  */
 export interface LocalizableTextSetAttribute {
@@ -291,7 +291,7 @@ export interface LocalizableTextSetAttribute {
   readonly value: LocalizedString[]
 }
 /**
- *	This type represents an attribute which value is a money object.
+ *	This type represents an attribute whose value is a money object.
  *
  */
 export interface MoneyAttribute {
@@ -310,7 +310,7 @@ export interface MoneyAttribute {
   readonly value: TypedMoney
 }
 /**
- *	This type represents an attribute which value is a set of money objects.
+ *	This type represents an attribute whose value is a set of money objects.
  *
  */
 export interface MoneySetAttribute {
@@ -324,12 +324,14 @@ export interface MoneySetAttribute {
    */
   readonly name?: string
   /**
+   *	TypedMoney is what is called BaseMoney in the HTTP API.
+   *
    *
    */
   readonly value: TypedMoney[]
 }
 /**
- *	This type represents an attribute which value is a number.
+ *	This type represents an attribute whose value is a number.
  *
  */
 export interface NumberAttribute {
@@ -348,7 +350,7 @@ export interface NumberAttribute {
   readonly value: number
 }
 /**
- *	This type represents an attribute which value is a set of numbers.
+ *	This type represents an attribute whose value is a set of numbers.
  *
  */
 export interface NumberSetAttribute {
@@ -367,7 +369,7 @@ export interface NumberSetAttribute {
   readonly value: number[]
 }
 /**
- *	This type represents an attribute which value is a key reference.
+ *	This type represents an attribute whose value is a key reference.
  *
  */
 export interface ReferenceAttribute {
@@ -387,7 +389,7 @@ export interface ReferenceAttribute {
   readonly value: KeyReference
 }
 /**
- *	This type represents an attribute which value is a set of references.
+ *	This type represents an attribute whose value is a set of references.
  *
  */
 export interface ReferenceSetAttribute {
@@ -406,7 +408,7 @@ export interface ReferenceSetAttribute {
   readonly value: KeyReference[]
 }
 /**
- *	This type represents an attribute which value is a string.
+ *	This type represents an attribute whose value is a string.
  *
  */
 export interface TextAttribute {
@@ -425,7 +427,7 @@ export interface TextAttribute {
   readonly value: string
 }
 /**
- *	This type represents an attribute which value is a set of strings.
+ *	This type represents an attribute whose value is a set of strings.
  *
  */
 export interface TextSetAttribute {
@@ -444,7 +446,7 @@ export interface TextSetAttribute {
   readonly value: string[]
 }
 /**
- *	This type represents an attribute which value is a time.
+ *	This type represents an attribute whose value is a time.
  *
  */
 export interface TimeAttribute {
@@ -463,7 +465,7 @@ export interface TimeAttribute {
   readonly value: string
 }
 /**
- *	This type represents an attribute which value is a set of times.
+ *	This type represents an attribute whose value is a set of times.
  *
  */
 export interface TimeSetAttribute {
@@ -482,8 +484,7 @@ export interface TimeSetAttribute {
   readonly value: string[]
 }
 /**
- *	Import representation for a product variant. Use this type for importing new product variants
- *	into a commercetools project.
+ *	The data representation for a ProductVariant to be imported that is persisted as a [ProductVariant](/../api/projects/products#productvariant) in the Project.
  *
  */
 export interface ProductVariantImport extends ImportResource {
@@ -501,10 +502,7 @@ export interface ProductVariantImport extends ImportResource {
   readonly isMasterVariant: boolean
   /**
    *	Maps to `ProductVariant.attributes`.
-   *
-   *	Each attribute referenced must be defined
-   *	in an already existing product type in the commercetools project, or the import
-   *	operation state is set to `Unresolved`.
+   *	The referenced attribute must be defined in an already existing ProductType in the commercetools project, or the `state` of the [ImportOperation](/import-operation#importoperation) will be `Unresolved`.
    *
    *
    */
@@ -528,42 +526,41 @@ export interface ProductVariantImport extends ImportResource {
    */
   readonly publish?: boolean
   /**
-   *	The product in which this product variant is contained. Maps to `ProductVariant.product`.
-   *
-   *	The product referenced
-   *	must already exist in the commercetools project, or the
-   *	import operation state is set to `Unresolved`.
+   *	The [Product](/../api/projects/products#productvariant) to which this Product Variant belongs. Maps to `ProductVariant.product`.
+   *	The Reference to the [Product](/../api/projects/products#product) with which the ProductVariant is associated.
+   *	If referenced Product does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary Product is created.
    *
    *
    */
   readonly product: ProductKeyReference
 }
 /**
- *	Import representation for an update to a product variant. Use this type for importing updates to existing
- *	product variants into a commercetools project.
+ *	Representation for an update of a [ProductVariant](/../api/projects/products#productvariant). Use this type to import updates for existing
+ *	[ProductVariants](/../api/projects/products#productvariant) in a commercetools Project.
  *
  */
 export interface ProductVariantPatch {
   /**
-   *	The product variant to which this patch is applied.
-   *
-   *	The product variant referenced
-   *	must already exist in the commercetools project, or the
-   *	import operation state is set to `Unresolved`.
+   *	The [ProductVariant](/../api/projects/products#productvariant) to which this patch is applied.
+   *	The Reference to the [ProductVariant](/../api/projects/products#productvariant) with which the ProductVariantPatch is associated.
+   *	If referenced ProductVariant does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary ProductVariant is created.
    *
    *
    */
   readonly productVariant: ProductVariantKeyReference
   /**
    *	Maps to `ProductVariant.attributes`.
-   *
-   *	Each attribute referenced must be defined
-   *	in an already existing product type in the commercetools project, or the import
-   *	operation state is set to `ValidationFailed`.
+   *	The referenced attribute must be defined in an already existing [ProductType](/../api/projects/productTypes#producttype) in the commercetools Project, or the `state` of the [ImportOperation](/import-operation#importoperation) will be `Unresolved`.
    *
    *
    */
   readonly attributes?: Attributes
+  /**
+   *	If `false`, the attribute changes are applied to both [current and staged projected representations](/../api/projects/productProjections#current--staged) of the [Product](/../api/projects/products#product).
+   *
+   *
+   */
+  readonly staged?: boolean
 }
 export interface Attributes {
   [key: string]: Attribute | null

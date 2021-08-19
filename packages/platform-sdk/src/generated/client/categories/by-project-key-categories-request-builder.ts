@@ -55,9 +55,6 @@ export class ByProjectKeyCategoriesRequestBuilder {
     })
   }
 
-  /**
-   *	Query categories
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]

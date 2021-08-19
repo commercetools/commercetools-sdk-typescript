@@ -25,9 +25,6 @@ export class ByProjectKeyPaymentsKeyByKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get Payment by key
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -51,9 +48,6 @@ export class ByProjectKeyPaymentsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update Payment by key
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -80,9 +74,6 @@ export class ByProjectKeyPaymentsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete Payment by key
-   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

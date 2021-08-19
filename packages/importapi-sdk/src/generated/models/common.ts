@@ -175,10 +175,14 @@ export interface ImportResource {
  */
 export type KeyReference =
   | CartDiscountKeyReference
+  | CartKeyReference
   | CategoryKeyReference
   | ChannelKeyReference
   | CustomerGroupKeyReference
   | CustomerKeyReference
+  | DiscountCodeKeyReference
+  | OrderKeyReference
+  | PaymentKeyReference
   | PriceKeyReference
   | ProductDiscountKeyReference
   | ProductKeyReference
@@ -189,6 +193,16 @@ export type KeyReference =
   | StoreKeyReference
   | TaxCategoryKeyReference
   | TypeKeyReference
+/**
+ *	References a cart by its key.
+ */
+export interface CartKeyReference {
+  readonly typeId: 'cart'
+  /**
+   *
+   */
+  readonly key: string
+}
 /**
  *	References a cart discount by its key.
  */
@@ -234,6 +248,36 @@ export interface CustomerKeyReference {
  */
 export interface CustomerGroupKeyReference {
   readonly typeId: 'customer-group'
+  /**
+   *
+   */
+  readonly key: string
+}
+/**
+ *	References a discount code by its key.
+ */
+export interface DiscountCodeKeyReference {
+  readonly typeId: 'discount-code'
+  /**
+   *
+   */
+  readonly key: string
+}
+/**
+ *	References an order by its key.
+ */
+export interface OrderKeyReference {
+  readonly typeId: 'order'
+  /**
+   *
+   */
+  readonly key: string
+}
+/**
+ *	References a payment by its key.
+ */
+export interface PaymentKeyReference {
+  readonly typeId: 'payment'
   /**
    *
    */
@@ -416,6 +460,7 @@ export type ImportResourceType =
   | 'customer'
   | 'inventory'
   | 'order'
+  | 'order-patch'
   | 'price'
   | 'product'
   | 'product-draft'
@@ -427,11 +472,15 @@ export type ImportResourceType =
  *
  */
 export type ReferenceType =
+  | 'cart'
   | 'cart-discount'
   | 'category'
   | 'channel'
   | 'customer'
   | 'customer-group'
+  | 'discount-code'
+  | 'order'
+  | 'payment'
   | 'price'
   | 'product'
   | 'product-discount'
@@ -443,7 +492,7 @@ export type ReferenceType =
   | 'tax-category'
   | 'type'
 /**
- *	This enumeration describes the processing state of an import operation.
+ *	Represents the status of a resource under an import process. Every resource has the initial state `Unresolved`.
  *
  */
 export type ProcessingState =

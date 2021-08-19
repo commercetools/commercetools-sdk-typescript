@@ -52,9 +52,6 @@ export class ByProjectKeyMeCartsRequestBuilder {
     })
   }
 
-  /**
-   *	Query carts
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -83,9 +80,6 @@ export class ByProjectKeyMeCartsRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Create Cart
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

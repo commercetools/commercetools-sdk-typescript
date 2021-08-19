@@ -25,9 +25,6 @@ export class ByProjectKeyCustomersByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get Customer by ID
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -51,9 +48,6 @@ export class ByProjectKeyCustomersByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update Customer by ID
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -80,9 +74,6 @@ export class ByProjectKeyCustomersByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete Customer by ID
-   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

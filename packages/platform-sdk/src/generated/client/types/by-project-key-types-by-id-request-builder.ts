@@ -25,9 +25,6 @@ export class ByProjectKeyTypesByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get Type by ID
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -51,9 +48,6 @@ export class ByProjectKeyTypesByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update Type by ID
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -80,9 +74,6 @@ export class ByProjectKeyTypesByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete Type by ID
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

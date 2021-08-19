@@ -25,9 +25,6 @@ export class ByProjectKeyOrdersEditsKeyByKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get OrderEdit by key
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -51,9 +48,6 @@ export class ByProjectKeyOrdersEditsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update OrderEdit by key
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -80,9 +74,6 @@ export class ByProjectKeyOrdersEditsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete OrderEdit by key
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

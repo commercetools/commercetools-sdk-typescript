@@ -25,9 +25,6 @@ export class ByProjectKeyOrdersByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get Order by ID
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -51,9 +48,6 @@ export class ByProjectKeyOrdersByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update Order by ID
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -80,9 +74,6 @@ export class ByProjectKeyOrdersByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete Order by ID
-   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

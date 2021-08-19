@@ -51,9 +51,6 @@ export class ByProjectKeyExtensionsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update Extension by key
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -80,9 +77,6 @@ export class ByProjectKeyExtensionsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete Extension by key
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

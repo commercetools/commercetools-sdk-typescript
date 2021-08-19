@@ -55,9 +55,6 @@ export class ByProjectKeySubscriptionsRequestBuilder {
     })
   }
 
-  /**
-   *	Query subscriptions
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]

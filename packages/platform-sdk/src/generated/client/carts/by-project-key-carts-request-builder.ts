@@ -74,9 +74,6 @@ export class ByProjectKeyCartsRequestBuilder {
     })
   }
 
-  /**
-   *	Query carts
-   */
   public get(methodArgs?: {
     queryArgs?: {
       customerId?: string

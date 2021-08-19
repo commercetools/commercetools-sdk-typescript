@@ -87,9 +87,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete Order by ID
-   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

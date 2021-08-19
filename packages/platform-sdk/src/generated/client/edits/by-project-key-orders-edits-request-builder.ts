@@ -55,9 +55,6 @@ export class ByProjectKeyOrdersEditsRequestBuilder {
     })
   }
 
-  /**
-   *	Query edits
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -86,9 +83,6 @@ export class ByProjectKeyOrdersEditsRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Create OrderEdit
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

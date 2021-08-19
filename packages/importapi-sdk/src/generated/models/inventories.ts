@@ -15,7 +15,7 @@ import { ChannelKeyReference, ImportResource } from './common'
 import { Custom } from './customfields'
 
 /**
- *	Import representation for a inventory.
+ *	The data representation for an Inventory to be imported that is persisted as a [Inventory](/../api/projects/inventory#top) in the Project.
  *
  */
 export interface InventoryImport extends ImportResource {

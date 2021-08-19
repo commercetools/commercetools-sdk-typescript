@@ -11,115 +11,127 @@
  *
  */
 
-import { ProcessingState } from './common'
+import { KeyReference, ProcessingState } from './common'
 import { ErrorObject } from './errors'
 
 /**
- *	Tracks the status of a single import resource as it is imported into the commercetools project.
+ *	Shows the import status of a specific resource.
  *
  */
 export interface ImportOperation {
   /**
-   *	The import operation version.
+   *	The version of the ImportOperation.
    *
    */
   readonly version: number
   /**
-   *	The key of the import sink.
+   *	The key of the [ImportSink](/import-sink#importsink).
    *
    */
   readonly importSinkKey: string
   /**
-   *	The key of the import resource.
+   *	The key of the resource.
    *
    */
   readonly resourceKey: string
   /**
-   *	The identifier of the operaton that is to be commited
+   *	The ID of the ImportOperation.
    *
    */
   readonly id: string
   /**
-   *	The status of the import resource.
+   *	The import status of the resource. Set to `Rejected` or `ValidationFailed` if the import of the resource was not successful.
    *
    *
    */
   readonly state: ProcessingState
   /**
-   *	When the resource is successfully imported, this represents the imported resource version
+   *	The version of the impmorted resource when the import was successful.
    *
    */
   readonly resourceVersion?: number
   /**
-   *	If an import resource does not import correctly, the state is set to `Rejected` or `ValidationFailed`
-   *	and this property contains the errors.
+   *	Contains an error if the import of the resource was not successful. See [Errors](/error).
    *
    *
    */
   readonly errors?: ErrorObject[]
   /**
-   *	When the import operation was created.
+   *	In case of unresolved status this array will show the unresolved references
+   *
+   *
+   */
+  readonly unresolvedReferences?: KeyReference[]
+  /**
+   *	The time when the ImportOperation was created.
    *
    */
   readonly createdAt: string
   /**
-   *	When the import operation was modified.
+   *	The last time When the ImportOperation was modified.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	When the import operation expires.
+   *	The expiration time of the ImportOperation.
    *
    */
   readonly expiresAt: string
 }
 /**
- *	This type represents a paged import operation result.
+ *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) for Import Operations.
+ *	Used as a response to a query request for Import Operations.
+ *
  */
 export interface ImportOperationPagedResponse {
   /**
-   *	The maximum number of import operations returned for a page.
+   *	The number of results requested in the query request.
    *
    */
   readonly limit: number
   /**
-   *	The offset supplied by the client or the server default. It is the number of elements skipped.
+   *	The number of elements skipped, not a page number.
+   *	Supplied by the client or the server default.
+   *
    *
    */
   readonly offset: number
   /**
-   *	The actual number of results returned by this response.
+   *	The actual number of results returned.
    *
    */
   readonly count: number
   /**
-   *	The results for this paged response.
+   *	The total number of import operations matching the query.
+   *
+   */
+  readonly total: number
+  /**
+   *	The array of Import Operations matching the query.
    *
    */
   readonly results: ImportOperation[]
 }
 /**
- *	This enumeration describes the operation state of a newly created import operation.
+ *	Describes the validation state of a newly created [ImportOperation](#importoperation).
  *
  */
 export type ImportOperationState = 'Unresolved' | 'ValidationFailed'
-/**
- *	The validation status of a created operation.
- *
- */
 export interface ImportOperationStatus {
   /**
-   *	Id of the import operation.
+   *	The ID of the [ImportOperation](#importoperation).
    *
    */
   readonly operationId?: string
   /**
-   *	Validation state of the import operation.
+   *	The validation state of the [ImportOperation](#importoperation).
    *
    */
   readonly state: ImportOperationState
   /**
-   *	Validation errors for the import operation.
+   *	The validation errors for the [ImportOperation](#importoperation).
+   *	See [Errors](/error).
+   *
    *
    */
   readonly errors?: ErrorObject[]

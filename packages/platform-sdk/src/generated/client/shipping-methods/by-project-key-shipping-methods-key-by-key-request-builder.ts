@@ -28,9 +28,6 @@ export class ByProjectKeyShippingMethodsKeyByKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get ShippingMethod by key
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -54,9 +51,6 @@ export class ByProjectKeyShippingMethodsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update ShippingMethod by key
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -83,9 +77,6 @@ export class ByProjectKeyShippingMethodsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete ShippingMethod by key
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

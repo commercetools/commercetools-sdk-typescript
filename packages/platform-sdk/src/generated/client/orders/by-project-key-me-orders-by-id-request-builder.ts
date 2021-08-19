@@ -25,9 +25,6 @@ export class ByProjectKeyMeOrdersByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get Order by ID
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]

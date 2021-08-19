@@ -25,9 +25,6 @@ export class ByProjectKeyChannelsByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get Channel by ID
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -51,9 +48,6 @@ export class ByProjectKeyChannelsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update Channel by ID
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -80,9 +74,6 @@ export class ByProjectKeyChannelsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete Channel by ID
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

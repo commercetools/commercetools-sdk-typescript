@@ -13,13 +13,17 @@ import {
 import getErrorByCode, { NetworkError, HttpError } from '../sdk-client/errors'
 import parseHeaders from './parse-headers'
 
-function createError({ statusCode, message, ...rest }: JsonObject<any>): HttpErrorType {
+function createError({
+  statusCode,
+  message,
+  ...rest
+}: JsonObject<any>): HttpErrorType {
   let errorMessage = message || 'Unexpected non-JSON error response'
   if (statusCode === 404)
     errorMessage = `URI not found: ${rest.originalRequest.uri}`
 
   const ResponseError = getErrorByCode(statusCode)
-  if (ResponseError) return new ResponseError(errorMessage, rest);
+  if (ResponseError) return new ResponseError(errorMessage, rest)
   return new HttpError(statusCode, errorMessage, rest)
 }
 
@@ -42,7 +46,10 @@ function calcDelayDuration(
   return retryDelay
 }
 
-function maskAuthData(request: ClientRequest, maskSensitiveHeaderData: boolean | undefined) {
+function maskAuthData(
+  request: ClientRequest,
+  maskSensitiveHeaderData: boolean | undefined
+) {
   if (maskSensitiveHeaderData) {
     if (request && request.headers && request.headers.authorization)
       request.headers.authorization = 'Bearer ********'
@@ -135,7 +142,7 @@ export default function createHttpMiddleware({
     // wrap in a fn so we can retry if error occur
     function executeFetch() {
       // Kick off timer for abortController directly before fetch.
-      let timer: ReturnType<typeof setTimeout>;
+      let timer: ReturnType<typeof setTimeout>
       if (timeout)
         timer = setTimeout(() => {
           abortController.abort()
@@ -152,7 +159,7 @@ export default function createHttpMiddleware({
                 return
               }
 
-              res.text().then((result) => {
+              res.text().then(result => {
                 // Try to parse the response as JSON
                 let parsed
                 try {

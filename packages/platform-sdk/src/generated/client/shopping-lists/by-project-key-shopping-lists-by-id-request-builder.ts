@@ -51,9 +51,6 @@ export class ByProjectKeyShoppingListsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update ShoppingList by ID
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -80,9 +77,6 @@ export class ByProjectKeyShoppingListsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete ShoppingList by ID
-   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

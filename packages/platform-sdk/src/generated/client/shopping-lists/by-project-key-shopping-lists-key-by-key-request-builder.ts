@@ -80,9 +80,6 @@ export class ByProjectKeyShoppingListsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete ShoppingList by key
-   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

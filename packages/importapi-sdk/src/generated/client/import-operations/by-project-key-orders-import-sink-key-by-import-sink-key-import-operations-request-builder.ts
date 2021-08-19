@@ -43,7 +43,8 @@ export class ByProjectKeyOrdersImportSinkKeyByImportSinkKeyImportOperationsReque
   }
 
   /**
-   *	Retrieves all order import operations of an import sink key.
+   *	Retrieves all Order ImportOperations of a given ImportSink key.
+   *
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -52,6 +53,7 @@ export class ByProjectKeyOrdersImportSinkKeyByImportSinkKeyImportOperationsReque
       sort?: string | string[]
       resourceKey?: string
       state?: ProcessingState
+      debug?: boolean
       [key: string]: QueryParam
     }
     headers?: {

@@ -16,7 +16,7 @@ import {
   CartReference,
   CartResourceIdentifier,
   CustomLineItem,
-  CustomLineItemDraft,
+  CustomLineItemImportDraft,
   DiscountCodeInfo,
   DiscountedLineItemPortion,
   InventoryMode,
@@ -78,6 +78,8 @@ import {
   StagedOrderRemoveParcelFromDeliveryAction,
   StagedOrderRemovePaymentAction,
   StagedOrderSetBillingAddressAction,
+  StagedOrderSetBillingAddressCustomFieldAction,
+  StagedOrderSetBillingAddressCustomTypeAction,
   StagedOrderSetCountryAction,
   StagedOrderSetCustomerEmailAction,
   StagedOrderSetCustomerGroupAction,
@@ -91,7 +93,11 @@ import {
   StagedOrderSetCustomShippingMethodAction,
   StagedOrderSetCustomTypeAction,
   StagedOrderSetDeliveryAddressAction,
+  StagedOrderSetDeliveryAddressCustomFieldAction,
+  StagedOrderSetDeliveryAddressCustomTypeAction,
   StagedOrderSetDeliveryItemsAction,
+  StagedOrderSetItemShippingAddressCustomFieldAction,
+  StagedOrderSetItemShippingAddressCustomTypeAction,
   StagedOrderSetLineItemCustomFieldAction,
   StagedOrderSetLineItemCustomTypeAction,
   StagedOrderSetLineItemDistributionChannelAction,
@@ -111,6 +117,8 @@ import {
   StagedOrderSetShippingAddressAction,
   StagedOrderSetShippingAddressAndCustomShippingMethodAction,
   StagedOrderSetShippingAddressAndShippingMethodAction,
+  StagedOrderSetShippingAddressCustomFieldAction,
+  StagedOrderSetShippingAddressCustomTypeAction,
   StagedOrderSetShippingMethodAction,
   StagedOrderSetShippingMethodTaxAmountAction,
   StagedOrderSetShippingMethodTaxRateAction,
@@ -166,6 +174,8 @@ export type StagedOrderUpdateAction =
   | StagedOrderRemoveParcelFromDeliveryAction
   | StagedOrderRemovePaymentAction
   | StagedOrderSetBillingAddressAction
+  | StagedOrderSetBillingAddressCustomFieldAction
+  | StagedOrderSetBillingAddressCustomTypeAction
   | StagedOrderSetCountryAction
   | StagedOrderSetCustomFieldAction
   | StagedOrderSetCustomLineItemCustomFieldAction
@@ -179,7 +189,11 @@ export type StagedOrderUpdateAction =
   | StagedOrderSetCustomerGroupAction
   | StagedOrderSetCustomerIdAction
   | StagedOrderSetDeliveryAddressAction
+  | StagedOrderSetDeliveryAddressCustomFieldAction
+  | StagedOrderSetDeliveryAddressCustomTypeAction
   | StagedOrderSetDeliveryItemsAction
+  | StagedOrderSetItemShippingAddressCustomFieldAction
+  | StagedOrderSetItemShippingAddressCustomTypeAction
   | StagedOrderSetLineItemCustomFieldAction
   | StagedOrderSetLineItemCustomTypeAction
   | StagedOrderSetLineItemDistributionChannelAction
@@ -199,6 +213,8 @@ export type StagedOrderUpdateAction =
   | StagedOrderSetShippingAddressAction
   | StagedOrderSetShippingAddressAndCustomShippingMethodAction
   | StagedOrderSetShippingAddressAndShippingMethodAction
+  | StagedOrderSetShippingAddressCustomFieldAction
+  | StagedOrderSetShippingAddressCustomTypeAction
   | StagedOrderSetShippingMethodAction
   | StagedOrderSetShippingMethodTaxAmountAction
   | StagedOrderSetShippingMethodTaxRateAction
@@ -581,7 +597,7 @@ export interface OrderImportDraft {
    *	If not given `lineItems` must not be empty.
    *
    */
-  readonly customLineItems?: CustomLineItemDraft[]
+  readonly customLineItems?: CustomLineItemImportDraft[]
   /**
    *
    */
@@ -1348,11 +1364,11 @@ export interface OrderSetDeliveryAddressCustomFieldAction {
   /**
    *
    */
-  readonly type?: TypeResourceIdentifier
+  readonly name: string
   /**
    *
    */
-  readonly fields?: FieldContainer
+  readonly value?: any
 }
 export interface OrderSetDeliveryAddressCustomTypeAction {
   readonly action: 'setDeliveryAddressCustomType'
@@ -1363,11 +1379,11 @@ export interface OrderSetDeliveryAddressCustomTypeAction {
   /**
    *
    */
-  readonly name: string
+  readonly type?: TypeResourceIdentifier
   /**
    *
    */
-  readonly value?: any
+  readonly fields?: FieldContainer
 }
 export interface OrderSetDeliveryItemsAction {
   readonly action: 'setDeliveryItems'

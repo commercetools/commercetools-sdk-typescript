@@ -69,10 +69,11 @@ export class ByProjectKeyImportSinksRequestBuilder {
   /**
    *	Retrieves all import sinks of a project key.
    */
-  public get(methodArgs: {
-    queryArgs: {
-      limit: number
-      offset: number
+  public get(methodArgs?: {
+    queryArgs?: {
+      limit?: number
+      offset?: number
+      sort?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {

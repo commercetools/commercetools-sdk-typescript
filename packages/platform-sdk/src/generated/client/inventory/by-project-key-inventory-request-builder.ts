@@ -42,9 +42,6 @@ export class ByProjectKeyInventoryRequestBuilder {
     })
   }
 
-  /**
-   *	Query inventory
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -73,9 +70,6 @@ export class ByProjectKeyInventoryRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Create InventoryEntry
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

@@ -43,7 +43,8 @@ export class ByProjectKeyProductDraftsImportSinkKeyByImportSinkKeyImportOperatio
   }
 
   /**
-   *	Retrieves all import operations of an import sink key.
+   *	Retrieves all ProductDraft ImportOperations of a given ImportSink key.
+   *
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -52,6 +53,7 @@ export class ByProjectKeyProductDraftsImportSinkKeyByImportSinkKeyImportOperatio
       sort?: string | string[]
       resourceKey?: string
       state?: ProcessingState
+      debug?: boolean
       [key: string]: QueryParam
     }
     headers?: {

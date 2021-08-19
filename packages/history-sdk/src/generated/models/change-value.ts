@@ -192,6 +192,12 @@ export interface CustomFieldExpandedValue {
    */
   readonly label: LocalizedString
 }
+export interface CustomShippingMethodChangeValue {
+  /**
+   *
+   */
+  readonly name: string
+}
 export interface DeliveryChangeValue {
   /**
    *
@@ -258,6 +264,46 @@ export interface ParcelChangeValue {
    *
    */
   readonly createdAt: string
+}
+/**
+ *	Shape of the cart classification shipping input rate value.
+ */
+export interface SetCartClassificationShippingRateInputValue {
+  /**
+   *
+   */
+  readonly type: string
+  /**
+   *
+   */
+  readonly key: string
+  /**
+   *
+   */
+  readonly label: LocalizedString
+}
+/**
+ *	Shape of the cart score shipping input rate value.
+ */
+export interface SetCartScoreShippingRateInputValue {
+  /**
+   *
+   */
+  readonly type: string
+  /**
+   *
+   */
+  readonly score: number
+}
+export interface ShippingMethodChangeValue {
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly name: string
 }
 export interface ShoppingListLineItemValue {
   /**

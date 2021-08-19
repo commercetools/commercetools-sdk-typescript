@@ -26,9 +26,6 @@ export class ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get ShoppingList by key
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -52,9 +49,6 @@ export class ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update ShoppingList by key
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -81,9 +75,6 @@ export class ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete ShoppingList by key
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

@@ -272,18 +272,10 @@ export interface OrderEditUpdate {
 }
 export type OrderEditUpdateAction =
   | OrderEditAddStagedActionAction
-  | OrderEditSetBillingAddressCustomFieldAction
-  | OrderEditSetBillingAddressCustomTypeAction
   | OrderEditSetCommentAction
   | OrderEditSetCustomFieldAction
   | OrderEditSetCustomTypeAction
-  | OrderEditSetDeliveryAddressCustomFieldAction
-  | OrderEditSetDeliveryAddressCustomTypeAction
-  | OrderEditSetItemShippingAddressCustomFieldAction
-  | OrderEditSetItemShippingAddressCustomTypeAction
   | OrderEditSetKeyAction
-  | OrderEditSetShippingAddressCustomFieldAction
-  | OrderEditSetShippingAddressCustomTypeAction
   | OrderEditSetStagedActionsAction
 export interface OrderExcerpt {
   /**
@@ -306,28 +298,6 @@ export interface OrderEditAddStagedActionAction {
    *
    */
   readonly stagedAction: StagedOrderUpdateAction
-}
-export interface OrderEditSetBillingAddressCustomFieldAction {
-  readonly action: 'setBillingAddressCustomField'
-  /**
-   *
-   */
-  readonly name: string
-  /**
-   *
-   */
-  readonly value?: any
-}
-export interface OrderEditSetBillingAddressCustomTypeAction {
-  readonly action: 'setBillingAddressCustomType'
-  /**
-   *
-   */
-  readonly type?: TypeResourceIdentifier
-  /**
-   *
-   */
-  readonly fields?: FieldContainer
 }
 export interface OrderEditSetCommentAction {
   readonly action: 'setComment'
@@ -361,66 +331,6 @@ export interface OrderEditSetCustomTypeAction {
    */
   readonly fields?: any
 }
-export interface OrderEditSetDeliveryAddressCustomFieldAction {
-  readonly action: 'setDeliveryAddressCustomField'
-  /**
-   *
-   */
-  readonly deliveryId: string
-  /**
-   *
-   */
-  readonly type?: TypeResourceIdentifier
-  /**
-   *
-   */
-  readonly fields?: FieldContainer
-}
-export interface OrderEditSetDeliveryAddressCustomTypeAction {
-  readonly action: 'setDeliveryAddressCustomType'
-  /**
-   *
-   */
-  readonly deliveryId: string
-  /**
-   *
-   */
-  readonly name: string
-  /**
-   *
-   */
-  readonly value?: any
-}
-export interface OrderEditSetItemShippingAddressCustomFieldAction {
-  readonly action: 'setItemShippingAddressCustomField'
-  /**
-   *
-   */
-  readonly addressKey: string
-  /**
-   *
-   */
-  readonly name: string
-  /**
-   *
-   */
-  readonly value?: any
-}
-export interface OrderEditSetItemShippingAddressCustomTypeAction {
-  readonly action: 'setItemShippingAddressCustomType'
-  /**
-   *
-   */
-  readonly addressKey: string
-  /**
-   *
-   */
-  readonly type?: TypeResourceIdentifier
-  /**
-   *
-   */
-  readonly fields?: FieldContainer
-}
 export interface OrderEditSetKeyAction {
   readonly action: 'setKey'
   /**
@@ -428,28 +338,6 @@ export interface OrderEditSetKeyAction {
    *
    */
   readonly key?: string
-}
-export interface OrderEditSetShippingAddressCustomFieldAction {
-  readonly action: 'setShippingAddressCustomField'
-  /**
-   *
-   */
-  readonly name: string
-  /**
-   *
-   */
-  readonly value?: any
-}
-export interface OrderEditSetShippingAddressCustomTypeAction {
-  readonly action: 'setShippingAddressCustomType'
-  /**
-   *
-   */
-  readonly type?: TypeResourceIdentifier
-  /**
-   *
-   */
-  readonly fields?: FieldContainer
 }
 export interface OrderEditSetStagedActionsAction {
   readonly action: 'setStagedActions'
@@ -803,6 +691,28 @@ export interface StagedOrderSetBillingAddressAction {
    */
   readonly address?: BaseAddress
 }
+export interface StagedOrderSetBillingAddressCustomFieldAction {
+  readonly action: 'setBillingAddressCustomField'
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value?: any
+}
+export interface StagedOrderSetBillingAddressCustomTypeAction {
+  readonly action: 'setBillingAddressCustomType'
+  /**
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *
+   */
+  readonly fields?: FieldContainer
+}
 export interface StagedOrderSetCountryAction {
   readonly action: 'setCountry'
   /**
@@ -946,6 +856,36 @@ export interface StagedOrderSetDeliveryAddressAction {
    */
   readonly address?: BaseAddress
 }
+export interface StagedOrderSetDeliveryAddressCustomFieldAction {
+  readonly action: 'setDeliveryAddressCustomField'
+  /**
+   *
+   */
+  readonly deliveryId: string
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value?: any
+}
+export interface StagedOrderSetDeliveryAddressCustomTypeAction {
+  readonly action: 'setDeliveryAddressCustomType'
+  /**
+   *
+   */
+  readonly deliveryId: string
+  /**
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *
+   */
+  readonly fields?: FieldContainer
+}
 export interface StagedOrderSetDeliveryItemsAction {
   readonly action: 'setDeliveryItems'
   /**
@@ -956,6 +896,36 @@ export interface StagedOrderSetDeliveryItemsAction {
    *
    */
   readonly items: DeliveryItem[]
+}
+export interface StagedOrderSetItemShippingAddressCustomFieldAction {
+  readonly action: 'setItemShippingAddressCustomField'
+  /**
+   *
+   */
+  readonly addressKey: string
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value?: any
+}
+export interface StagedOrderSetItemShippingAddressCustomTypeAction {
+  readonly action: 'setItemShippingAddressCustomType'
+  /**
+   *
+   */
+  readonly addressKey: string
+  /**
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *
+   */
+  readonly fields?: FieldContainer
 }
 export interface StagedOrderSetLineItemCustomFieldAction {
   readonly action: 'setLineItemCustomField'
@@ -1177,6 +1147,28 @@ export interface StagedOrderSetShippingAddressAndShippingMethodAction {
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
+}
+export interface StagedOrderSetShippingAddressCustomFieldAction {
+  readonly action: 'setShippingAddressCustomField'
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value?: any
+}
+export interface StagedOrderSetShippingAddressCustomTypeAction {
+  readonly action: 'setShippingAddressCustomType'
+  /**
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *
+   */
+  readonly fields?: FieldContainer
 }
 export interface StagedOrderSetShippingMethodAction {
   readonly action: 'setShippingMethod'

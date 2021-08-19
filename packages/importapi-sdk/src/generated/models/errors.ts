@@ -327,13 +327,13 @@ export interface InvalidStateTransitionError {
    */
   readonly message: string
   /**
-   *	This enumeration describes the processing state of an import operation.
+   *	Represents the status of a resource under an import process. Every resource has the initial state `Unresolved`.
    *
    *
    */
   readonly currentState: ProcessingState
   /**
-   *	This enumeration describes the processing state of an import operation.
+   *	Represents the status of a resource under an import process. Every resource has the initial state `Unresolved`.
    *
    *
    */

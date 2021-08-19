@@ -17,12 +17,14 @@ import {
   ChannelKeyReference,
   CustomerGroupKeyReference,
   CustomerKeyReference,
+  DiscountCodeKeyReference,
   DiscountedPrice,
   Image,
   LocalizedString,
   Money,
   PriceTier,
   ProductKeyReference,
+  ProductVariantKeyReference,
   ShippingMethodKeyReference,
   StateKeyReference,
   TaxCategoryKeyReference,
@@ -76,7 +78,7 @@ export interface ItemShippingDetailsDraft {
 }
 export interface LineItemPrice {
   /**
-   *	Maps to `Price.value`.
+   *	Maps to `Price.value`. TypedMoney is what is called BaseMoney in the HTTP API.
    *
    *
    */
@@ -134,7 +136,7 @@ export interface LineItemProductVariantImportDraft {
    *
    *
    */
-  readonly product?: ProductKeyReference
+  readonly productVariant?: ProductVariantKeyReference
   /**
    *	Maps to `ProductVariantImportDraft.sku`.
    *
@@ -161,10 +163,10 @@ export interface LineItemProductVariantImportDraft {
   readonly images?: Image[]
 }
 /**
- *	Represents an individual line item in an Order. A line item is a snapshot of a product at the time it was added to the order.
+ *	Represents an individual Line Item in an Order. A line item is a snapshot of a product at the time it was added to the order.
  *
- *	You cannot create an order which includes line operations that do not exist in the project or have been deleted.
- *	Products and variants referenced by a line item must already exist in the commercetools project.
+ *	You cannot create an Order that includes line item operations that do not exist in the Project or have been deleted.
+ *	Products and Product Variants referenced by a line item must already exist in the commercetools Project.
  *
  */
 export interface LineItemImportDraft {
@@ -203,21 +205,17 @@ export interface LineItemImportDraft {
    */
   readonly state?: ItemState[]
   /**
-   *	References a supply channel. Maps to `LineItem.supplyChannel`.
-   *
-   *	The supply channel referenced must already exist
-   *	in the commercetools project, or the
-   *	import operation state is set to `Unresolved`.
+   *	Maps to `LineItem.supplyChannel`.
+   *	The Reference to the Supply [Channel](/../api/projects/channels#channel) with which the LineItem is associated.
+   *	If referenced Supply Channel does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary Supply Channel is created.
    *
    *
    */
   readonly supplyChannel?: ChannelKeyReference
   /**
-   *	References a distribution channel. Maps to `LineItem.distributionChannel`.
-   *
-   *	The distribution channel referenced must already exist
-   *	in the commercetools project, or the
-   *	import operation state is set to `Unresolved`.
+   *	Maps to `LineItem.distributionChannel`.
+   *	The Reference to the Distribution [Channel](/../api/projects/channels#channel) with which the LineItem is associated.
+   *	If referenced CustomerGroup does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary Distribution Channel is created.
    *
    *
    */
@@ -400,6 +398,8 @@ export interface ShippingInfoImportDraft {
    */
   readonly shippingMethodName: string
   /**
+   *	TypedMoney is what is called BaseMoney in the HTTP API.
+   *
    *
    */
   readonly price: TypedMoney
@@ -422,6 +422,7 @@ export interface ShippingInfoImportDraft {
    */
   readonly shippingMethod?: ShippingMethodKeyReference
   /**
+   *	Note that you can not add a `DeliveryItem` on import, as `LineItems` and `CustomLineItems` are not yet referencable by an `id`.
    *
    */
   readonly deliveries?: Delivery[]
@@ -462,10 +463,14 @@ export interface ExternalTaxRateDraft {
 }
 export interface CustomLineItemTaxedPrice {
   /**
+   *	TypedMoney is what is called BaseMoney in the HTTP API.
+   *
    *
    */
   readonly totalNet: TypedMoney
   /**
+   *	TypedMoney is what is called BaseMoney in the HTTP API.
+   *
    *
    */
   readonly totalGross: TypedMoney
@@ -484,6 +489,8 @@ export interface CustomLineItemDraft {
    */
   readonly name: LocalizedString
   /**
+   *	TypedMoney is what is called BaseMoney in the HTTP API.
+   *
    *
    */
   readonly money: TypedMoney
@@ -492,6 +499,8 @@ export interface CustomLineItemDraft {
    */
   readonly taxedPrice?: CustomLineItemTaxedPrice
   /**
+   *	TypedMoney is what is called BaseMoney in the HTTP API.
+   *
    *
    */
   readonly totalPrice: TypedMoney
@@ -539,6 +548,8 @@ export interface TaxPortion {
    */
   readonly rate: number
   /**
+   *	TypedMoney is what is called BaseMoney in the HTTP API.
+   *
    *
    */
   readonly amount: TypedMoney
@@ -560,6 +571,10 @@ export interface TaxedPrice {
    */
   readonly taxPortions: TaxPortion[]
 }
+/**
+ *	Maps to `Order.taxMode`
+ */
+export type TaxMode = 'Disabled' | 'External' | 'ExternalAmount' | 'Platform'
 /**
  *	Maps to `Order.orderState`.
  */
@@ -599,25 +614,93 @@ export type TaxCalculationMode = 'LineItemLevel' | 'UnitPriceLevel'
  *	Maps to `Order.origin`.
  */
 export type CartOrigin = 'Customer' | 'Merchant'
+export interface SyncInfo {
+  /**
+   *	Maps to `SyncInfo.channel`
+   *
+   */
+  readonly channel: ChannelKeyReference
+  /**
+   *	Maps to `SyncInfo.externalId`
+   *
+   */
+  readonly externalId?: string
+  /**
+   *	Maps to `SyncInfo.syncedAt`
+   *
+   */
+  readonly syncedAt: string
+}
 /**
- *	Import representation for an order.
+ *	Maps to `DiscountCodeInfo.state`
+ */
+export type DiscountCodeState =
+  | 'ApplicationStoppedByPreviousDiscount'
+  | 'DoesNotMatchCart'
+  | 'MatchesCart'
+  | 'MaxApplicationReached'
+  | 'NotActive'
+  | 'NotValid'
+export interface DiscountCodeInfo {
+  /**
+   *	References a discount code by its key.
+   *
+   */
+  readonly discountCode: DiscountCodeKeyReference
+  /**
+   *	Maps to `DiscountCodeInfo.state`
+   *
+   */
+  readonly state?: DiscountCodeState
+}
+export type ShippingRateInputType = 'Classification' | 'Score'
+export type ShippingRateInput =
+  | ClassificationShippingRateInput
+  | ScoreShippingRateInput
+export interface ClassificationShippingRateInput {
+  readonly type: 'Classification'
+  /**
+   *
+   */
+  readonly key: string
+  /**
+   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
+   *	```json
+   *	{
+   *	  "de": "Hundefutter",
+   *	  "en": "dog food"
+   *	}
+   *	```
+   *
+   *
+   */
+  readonly label: LocalizedString
+}
+export interface ScoreShippingRateInput {
+  readonly type: 'Score'
+  /**
+   *
+   */
+  readonly score: number
+}
+/**
+ *	The data representation for an Order to be imported that is persisted as an [Order](/../api/projects/orders#top) in the Project.
  *
- *	In commercetools, you can import an order using the
+ *	In commercetools, you can import an Order using the
  *	[Create Order by Import](https://docs.commercetools.com/http-api-projects-orders-import.html#create-an-order-by-import)
- *	endpoint method instead of creating it from a cart.
+ *	endpoint method instead of creating it from a Cart.
  *
- *	The order import draft is a snapshot of an order at the time it was imported.
+ *	An OrderImport is a snapshot of an order at the time it was imported.
  *
  */
 export interface OrderImport {
   /**
-   *	Maps to `Order.orderNumber`. A string that identifies an Order. Must be unique across a Project. Once it is set, it cannot be changed.
+   *	Maps to `Order.orderNumber`, String that uniquely identifies an order. It should be unique across a project. Once it's set it cannot be changed.
    *
    *
    */
   readonly orderNumber: string
   /**
-   *	References a customer by its key.
    *
    */
   readonly customer?: CustomerKeyReference
@@ -640,7 +723,7 @@ export interface OrderImport {
    */
   readonly customLineItems?: CustomLineItemDraft[]
   /**
-   *	Maps to `Order.totalPrice`.
+   *	Maps to `Order.totalPrice`. TypedMoney is what is called BaseMoney in the HTTP API.
    *
    *
    */

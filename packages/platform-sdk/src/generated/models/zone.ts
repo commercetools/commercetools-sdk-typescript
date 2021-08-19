@@ -90,7 +90,7 @@ export interface ZoneDraft {
   /**
    *
    */
-  readonly locations: Location[]
+  readonly locations?: Location[]
 }
 export interface ZonePagedQueryResponse {
   /**
