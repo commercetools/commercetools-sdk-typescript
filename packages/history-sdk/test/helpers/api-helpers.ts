@@ -9,7 +9,7 @@ import {
   executeRequest,
 } from './../../src'
 import fetch from 'node-fetch'
-import { requireEnvVar } from './test-utils'
+import { requireEnvVar, scopes } from './test-utils'
 
 const projectKey = requireEnvVar('CTP_PROJECT_KEY')
 const clientId = requireEnvVar('CTP_CLIENT_ID')
@@ -24,6 +24,7 @@ const authMiddleware = createAuthForClientCredentialsFlow({
     clientId,
     clientSecret,
   },
+  scopes: scopes(projectKey),
   fetch,
 })
 

@@ -9,7 +9,7 @@ import {
   createExecutorFromMiddlewares,
   executeRequest,
 } from '../../src'
-import { requireEnvVar } from './test-utils'
+import { requireEnvVar, scopes } from './test-utils'
 
 const projectKey = requireEnvVar('CTP_PROJECT_KEY')
 const clientId = requireEnvVar('CTP_CLIENT_ID')
@@ -24,7 +24,7 @@ const authMiddleware = createAuthForClientCredentialsFlow({
     clientId,
     clientSecret,
   },
-  scopes: [`manage_project:${projectKey} manage_api_clients:${projectKey}`],
+  scopes: scopes(projectKey),
   fetch,
 })
 

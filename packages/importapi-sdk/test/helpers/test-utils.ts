@@ -11,3 +11,10 @@ export async function sleep(millis: number) {
     setTimeout(() => resolve(), millis)
   })
 }
+
+export const scopes = projectKey => [
+  `manage_project:${projectKey}`,
+  //  view_audit_log:${projectKey}
+  //  manage_api_clients:${projectKey}
+  //  view_api_clients:${projectKey}`
+]

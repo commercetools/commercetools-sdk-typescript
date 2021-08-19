@@ -12,8 +12,9 @@ export async function sleep(millis: number) {
   })
 }
 
-export const scopes = [
-  'view_audit_log:demo-1',
-  'manage_api_clients:demo-1',
-  'view_api_clients:demo-1'
+export const scopes = projectKey => [
+  `manage_project:${projectKey} view_project_settings:${projectKey}`,
+  //  view_audit_log:${projectKey}
+  //  manage_api_clients:${projectKey}
+  //  view_api_clients:${projectKey}`
 ]
