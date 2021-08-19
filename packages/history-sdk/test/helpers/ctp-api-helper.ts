@@ -1,4 +1,8 @@
-import { createClient, createAuthForClientCredentialsFlow, createHttpClient } from '../../../sdk-client/src/index'
+import {
+  createClient,
+  createAuthForClientCredentialsFlow,
+  createHttpClient,
+} from '../../../sdk-client/src/index'
 import {
   ApiRoot,
   createExecutorFromMiddlewares,
@@ -20,7 +24,8 @@ const authMiddleware = createAuthForClientCredentialsFlow({
     clientId,
     clientSecret,
   },
-  fetch
+  scopes: [`manage_project:${projectKey} manage_api_clients:${projectKey}`],
+  fetch,
 })
 
 const httpMiddleware = createHttpClient({

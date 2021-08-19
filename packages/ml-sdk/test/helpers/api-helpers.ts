@@ -1,4 +1,8 @@
-import { createClient, createAuthForClientCredentialsFlow, createHttpClient } from '../../../sdk-client/src/index'
+import {
+  createClient,
+  createAuthForClientCredentialsFlow,
+  createHttpClient,
+} from '../../../sdk-client/src/index'
 import fetch from 'node-fetch'
 import {
   ApiRoot,
@@ -20,6 +24,7 @@ const authMiddleware = createAuthForClientCredentialsFlow({
     clientId,
     clientSecret,
   },
+  scopes: [`manage_project:${projectKey} manage_api_clients:${projectKey}`],
   fetch,
 })
 

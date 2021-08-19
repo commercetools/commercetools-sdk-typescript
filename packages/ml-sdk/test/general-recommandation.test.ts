@@ -1,6 +1,6 @@
 import { mlApiBuilder } from './helpers/api-helpers'
 
-test('test general recommendations nominal scenario', async () => {
+test.skip('test general recommendations nominal scenario', async () => {
   const resp = await mlApiBuilder
     .recommendations()
     .generalCategories()
