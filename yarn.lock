@@ -1202,6 +1202,11 @@
     human-id "^1.0.2"
     prettier "^1.19.1"
 
+"@commercetools/sdk-client@^2.1.1", "@commercetools/sdk-client@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@commercetools/sdk-client/-/sdk-client-2.1.2.tgz#fe1e442f67a385f103470669784c0fa20d7a2314"
+  integrity sha512-YPpK39pkjfedjS1/BFg2d7CrvTeN7vIS5vfiqEkKOtAoUxiNkugv59gRSoh2Em8SOccxyM/skpgHyTqfmJzXug==
+
 "@commercetools/sdk-middleware-auth@^6.0.4":
   version "6.1.4"
   resolved "https://registry.yarnpkg.com/@commercetools/sdk-middleware-auth/-/sdk-middleware-auth-6.1.4.tgz#c5f464ae1627336715681e4590b63777e034c890"

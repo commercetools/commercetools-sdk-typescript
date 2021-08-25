@@ -1,1 +1,1 @@
-# `@commercetools/sdk-client`
+# `@commercetools/sdk-client-v2`
