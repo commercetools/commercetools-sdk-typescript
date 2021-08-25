@@ -12,7 +12,9 @@
     "changeset": "changeset",
     "changeset:version-and-format": "changeset version && prettier --write --parser json '**/package.json'"
   },
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "dependencies": {
     "@babel/core": "7.15.0",
     "@babel/plugin-proposal-class-properties": "7.14.5",
@@ -39,10 +41,17 @@
     "typescript": "4.3.5"
   },
   "lint-staged": {
-    "*.{js,json,md}": ["prettier --write"],
-    "*.ts": ["prettier --write", "tsc-files --noEmit"]
+    "*.{js,json,md}": [
+      "prettier --write"
+    ],
+    "*.ts": [
+      "prettier --write",
+      "tsc-files --noEmit"
+    ]
   },
   "preconstruct": {
-    "packages": ["packages/*"]
+    "packages": [
+      "packages/*"
+    ]
   }
 }

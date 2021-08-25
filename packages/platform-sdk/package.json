@@ -23,7 +23,7 @@
     "./dist/commercetools-platform-sdk.esm.js": "./dist/commercetools-platform-sdk.browser.esm.js"
   },
   "dependencies": {
-    "@commercetools/sdk-client": "^3.0.0",
+    "@commercetools/sdk-client": "^2.1.2",
     "@commercetools/sdk-middleware-auth": "^6.0.4",
     "@commercetools/sdk-middleware-http": "^6.0.4",
     "@commercetools/sdk-middleware-logger": "^2.1.1",
