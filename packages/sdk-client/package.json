@@ -1,6 +1,6 @@
 {
-  "name": "@commercetools/sdk-client",
-  "version": "3.0.0",
+  "name": "@commercetools/sdk-client-v2",
+  "version": "2.0.0",
   "description": "commercetools TypeScript SDK client for Platform API",
   "keywords": [
     "commercetools",
@@ -29,18 +29,21 @@
     "url": "https://github.com/commercetools/commercetools-sdk-typescript/issues"
   },
   "dependencies": {
-    "@commercetools/platform-sdk": "^1.16.0",
+    "@commercetools/platform-sdk": "^1.17.1",
     "node-fetch": "^2.6.1",
     "querystring": "^0.2.1",
     "root-require": "^0.3.1"
   },
-  "files": ["dist", "CHANGELOG.md"],
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ],
   "author": "Chukwuemeka Ajima <meeky.ae@gmail.com>",
-  "main": "dist/commercetools-sdk-client.cjs.js",
-  "module": "dist/commercetools-sdk-client.esm.js",
+  "main": "dist/commercetools-sdk-client-v2.cjs.js",
+  "module": "dist/commercetools-sdk-client-v2.esm.js",
   "browser": {
-    "./dist/commercetools-sdk-client.cjs.js": "./dist/commercetools-sdk-client.browser.cjs.js",
-    "./dist/commercetools-sdk-client.esm.js": "./dist/commercetools-sdk-client.browser.esm.js"
+    "./dist/commercetools-sdk-client-v2.cjs.js": "./dist/commercetools-sdk-client-v2.browser.cjs.js",
+    "./dist/commercetools-sdk-client-v2.esm.js": "./dist/commercetools-sdk-client-v2.browser.esm.js"
   },
   "devDependencies": {
     "@types/jest": "27.0.0",
