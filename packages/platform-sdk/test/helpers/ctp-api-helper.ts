@@ -1,4 +1,8 @@
-import { createAuthForClientCredentialsFlow, createHttpClient, createClient } from '../../../sdk-client/src/index'
+import {
+  createAuthForClientCredentialsFlow,
+  createHttpClient,
+  createClient,
+} from '@commercetools/sdk-client-v2'
 import fetch from 'node-fetch'
 import { requireEnvVar } from './test-utils'
 import {

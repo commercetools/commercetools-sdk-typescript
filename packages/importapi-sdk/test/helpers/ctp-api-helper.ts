@@ -1,4 +1,8 @@
-import { createClient, createAuthForClientCredentialsFlow, createHttpClient } from '../../../sdk-client/src/index'
+import {
+  createClient,
+  createAuthForClientCredentialsFlow,
+  createHttpClient,
+} from '@commercetools/sdk-client-v2'
 import fetch from 'node-fetch'
 import { requireEnvVar } from './test-utils'
 import {
@@ -19,7 +23,7 @@ const authMiddleware = createAuthForClientCredentialsFlow({
   credentials: {
     clientId,
     clientSecret,
-    anonymousId: ''
+    anonymousId: '',
   },
   fetch,
 })

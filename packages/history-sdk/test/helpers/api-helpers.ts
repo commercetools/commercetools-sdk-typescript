@@ -2,7 +2,7 @@ import {
   createClient,
   createAuthForClientCredentialsFlow,
   createHttpClient,
-} from '../../../sdk-client/src/index'
+} from '@commercetools/sdk-client-v2'
 import {
   ApiRoot,
   createExecutorFromMiddlewares,

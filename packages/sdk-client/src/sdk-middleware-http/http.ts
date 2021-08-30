@@ -74,19 +74,13 @@ export default function createHttpMiddleware({
     maxDelay = Infinity,
   } = {},
   fetch: fetcher,
-  abortController: _abortController,
   getAbortController,
 }: HttpMiddlewareOptions): Middleware {
   if (!fetcher && typeof fetch === 'undefined')
     throw new Error(
       '`fetch` is not available. Please pass in `fetch` as an option or have it globally available.'
     )
-  if (
-    timeout &&
-    !getAbortController &&
-    !_abortController &&
-    typeof AbortController === 'undefined'
-  )
+  if (timeout && !getAbortController && typeof AbortController === 'undefined')
     throw new Error(
       '`AbortController` is not available. Please pass in `getAbortController` as an option or have AbortController globally available when using timeout.'
     )
@@ -105,10 +99,9 @@ export default function createHttpMiddleware({
     response: MiddlewareResponse
   ) => {
     let abortController: any
-    if (timeout || getAbortController || _abortController)
+    if (timeout || getAbortController)
       abortController =
         (getAbortController ? getAbortController() : null) ||
-        _abortController ||
         new AbortController()
 
     const url = host.replace(/\/$/, '') + request.uri

@@ -46,7 +46,7 @@ describe('Http', () => {
       const request = createTestRequest({
         uri: '/foo/bar',
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res).toEqual({
           ...response,
@@ -59,7 +59,7 @@ describe('Http', () => {
       const httpMiddleware = createHttpMiddleware({
         host: testHost,
         fetch,
-      } as any);
+      } as any)
       nock(testHost)
         .defaultReplyHeaders({
           'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ describe('Http', () => {
       const request = createTestRequest({
         uri: '/foo/bar',
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res).toEqual({
           ...response,
@@ -104,7 +104,7 @@ describe('Http', () => {
       const request = createTestRequest({
         uri: '/foo/bar',
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res).toEqual({
           ...response,
@@ -118,7 +118,7 @@ describe('Http', () => {
         host: testHost,
         fetch,
         enableRetry: true,
-      } as any);
+      } as any)
       nock(testHost)
         .defaultReplyHeaders({
           'Content-Type': 'application/json',
@@ -141,7 +141,7 @@ describe('Http', () => {
       const request = createTestRequest({
         uri: '/foo/bar',
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res).toEqual({
           ...response,
@@ -155,7 +155,7 @@ describe('Http', () => {
         host: testHost,
         timeout: 1000, // time out after 1s
         fetch,
-        abortController: new AbortController(),
+        getAbortController: () => new AbortController(),
       } as any)
       nock(testHost)
         .defaultReplyHeaders({
@@ -174,7 +174,7 @@ describe('Http', () => {
       const request = createTestRequest({
         uri: '/foo/bar',
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res).toEqual({
           ...response,
@@ -221,7 +221,7 @@ describe('Http', () => {
         host: testHost,
         timeout: 10, // time out after 10ms
         fetch,
-        abortController: new AbortController(),
+        getAbortController: () => new AbortController(),
       } as any)
       nock(testHost)
         .defaultReplyHeaders({
@@ -240,7 +240,7 @@ describe('Http', () => {
       const request = createTestRequest({
         uri: '/foo/bar',
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res).toEqual({
           ...response,
@@ -273,7 +273,7 @@ describe('Http', () => {
       const request = createTestRequest({
         uri: '/foo/bar',
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res).toEqual({
           ...response,
@@ -287,7 +287,7 @@ describe('Http', () => {
         host: testHost,
         timeout: 100, // time out after 100ms
         fetch,
-        abortController: new AbortController(),
+        getAbortController: () => new AbortController(),
       } as any)
       nock(testHost)
         .defaultReplyHeaders({
@@ -304,7 +304,7 @@ describe('Http', () => {
   test('should accept HEAD request and return without response body', () =>
     new Promise((resolve: Function, reject: Function) => {
       const request = createTestRequest({ uri: '/foo', method: 'HEAD' })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res).toEqual({
           ...response,
@@ -317,7 +317,7 @@ describe('Http', () => {
         host: testHost,
         includeResponseHeaders: true,
         fetch,
-      } as any;
+      } as any
       const httpMiddleware = createHttpMiddleware(httpOptions)
       nock(testHost)
         .defaultReplyHeaders({
@@ -334,7 +334,7 @@ describe('Http', () => {
       const request = createTestRequest({
         uri: '/foo/bar',
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res).toEqual({
           ...response,
@@ -351,7 +351,7 @@ describe('Http', () => {
         host: testHost,
         includeResponseHeaders: true,
         fetch,
-      } as any;
+      } as any
       const httpMiddleware = createHttpMiddleware(httpOptions)
       nock(testHost)
         .defaultReplyHeaders({
@@ -368,7 +368,7 @@ describe('Http', () => {
       const request = createTestRequest({
         uri: '/foo/bar',
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res.request).toEqual(
           expect.objectContaining({
@@ -384,7 +384,7 @@ describe('Http', () => {
         host: testHost,
         includeOriginalRequest: true,
         fetch,
-      } as any;
+      } as any
       const httpMiddleware = createHttpMiddleware(httpOptions)
       nock(testHost)
         .defaultReplyHeaders({
@@ -404,7 +404,7 @@ describe('Http', () => {
           Authorization: 'Bearer 123',
         },
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res.request).toEqual(
           expect.objectContaining({
@@ -421,7 +421,7 @@ describe('Http', () => {
         host: testHost,
         includeOriginalRequest: true,
         fetch,
-      } as any;
+      } as any
       const httpMiddleware = createHttpMiddleware(httpOptions)
       nock(testHost)
         .defaultReplyHeaders({
@@ -441,7 +441,7 @@ describe('Http', () => {
           authorization: 'Bearer 123',
         },
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res.request).toEqual(
           expect.objectContaining({
@@ -459,7 +459,7 @@ describe('Http', () => {
         includeOriginalRequest: true,
         maskSensitiveHeaderData: false,
         fetch,
-      } as any;
+      } as any
       const httpMiddleware = createHttpMiddleware(httpOptions)
       nock(testHost)
         .defaultReplyHeaders({
@@ -478,7 +478,7 @@ describe('Http', () => {
         method: 'POST',
         body: { hello: 'world' },
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res).toEqual({
           ...response,
@@ -513,7 +513,7 @@ describe('Http', () => {
           'Content-Type': 'image/jpeg',
         },
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res).toEqual({
           ...response,
@@ -542,7 +542,7 @@ describe('Http', () => {
       const request = createTestRequest({
         uri: '/foo/bar',
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res.error.name).toBe('NetworkError')
         expect(res.error.headers).toBeUndefined()
@@ -574,7 +574,7 @@ describe('Http', () => {
         const request = createTestRequest({
           uri: '/foo/bar',
         })
-        const response = { resolve: Function, reject: Function } as any;
+        const response = { resolve: Function, reject: Function } as any
         const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
           expect(res.error.name).toBe('NetworkError')
           expect(res.error.headers).toBeUndefined()
@@ -595,7 +595,7 @@ describe('Http', () => {
             retryDelay: 300,
           },
           fetch,
-        } as any;
+        } as any
         const httpMiddleware = createHttpMiddleware(options)
         nock(testHost)
           .defaultReplyHeaders({
@@ -613,7 +613,7 @@ describe('Http', () => {
         const request = createTestRequest({
           uri: '/foo/bar',
         })
-        const response = { resolve: Function, reject: Function } as any;
+        const response = { resolve: Function, reject: Function } as any
         const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
           expect(res.error.name).toBe('ServiceUnavailable')
           expect(res.error.originalRequest).toBeDefined()
@@ -630,9 +630,12 @@ describe('Http', () => {
             retryDelay: 300,
           },
           fetch,
-        } as any;
+        } as any
         const httpMiddleware = createHttpMiddleware(options)
-        nock(testHost).get('/foo/bar').times(3).reply(503)
+        nock(testHost)
+          .get('/foo/bar')
+          .times(3)
+          .reply(503)
 
         httpMiddleware(next)(request, response)
       }))
@@ -644,7 +647,7 @@ describe('Http', () => {
           const request = createTestRequest({
             uri: '/foo/bar',
           })
-          const response = { resolve: Function, reject: Function } as any;
+          const response = { resolve: Function, reject: Function } as any
           const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
             expect(res.error.name).toBe('NetworkError')
             expect(res.error.headers).toBeUndefined()
@@ -666,7 +669,7 @@ describe('Http', () => {
               retryDelay: 300,
             },
             fetch,
-          } as any;
+          } as any
           const httpMiddleware = createHttpMiddleware(options)
           nock(testHost)
             .defaultReplyHeaders({
@@ -686,7 +689,7 @@ describe('Http', () => {
         const request = createTestRequest({
           uri: '/foo/bar',
         })
-        const response = { resolve: Function, reject: Function } as any;
+        const response = { resolve: Function, reject: Function } as any
         const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
           expect(res.error.message).toBe('URI not found: /foo/bar')
           expect(res.error.body).toBeFalsy()
@@ -702,7 +705,7 @@ describe('Http', () => {
             retryDelay: 300,
           },
           fetch,
-        } as any;
+        } as any
         const httpMiddleware = createHttpMiddleware(options)
         nock(testHost)
           .defaultReplyHeaders({
@@ -720,9 +723,9 @@ describe('Http', () => {
       const request = createTestRequest({
         uri: '/foo/bar',
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
-        const expectedError = new Error('oops') as any;
+        const expectedError = new Error('oops') as any
         expectedError.body = {
           message: 'oops',
           error: [{ code: 'InvalidField' }],
@@ -761,9 +764,9 @@ describe('Http', () => {
       const request = createTestRequest({
         uri: '/foo/bar',
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
-        const expectedError = new Error('non json error occurred') as any;
+        const expectedError = new Error('non json error occurred') as any
         expectedError.body = {
           message: 'non json error occurred',
           error: [{ code: 'InvalidField' }],
@@ -803,9 +806,9 @@ describe('Http', () => {
           Authorization: 'Bearer 123',
         },
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
-        const expectedError = new Error('non json error occurred') as any;
+        const expectedError = new Error('non json error occurred') as any
         expectedError.body = {
           message: 'non json error occurred',
           error: [{ code: 'InvalidField' }],
@@ -836,7 +839,7 @@ describe('Http', () => {
         host: testHost,
         includeOriginalRequest: true,
         fetch,
-      } as any;
+      } as any
       const httpMiddleware = createHttpMiddleware(httpOptions)
       nock(testHost)
         .defaultReplyHeaders({
@@ -859,7 +862,7 @@ describe('Http', () => {
       })
       const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
-        const expectedError = new Error('non json error occurred') as any;
+        const expectedError = new Error('non json error occurred') as any
         expectedError.body = {
           message: 'non json error occurred',
           error: [{ code: 'InvalidField' }],
@@ -891,7 +894,7 @@ describe('Http', () => {
         includeOriginalRequest: true,
         maskSensitiveHeaderData: false,
         fetch,
-      } as any;
+      } as any
       const httpMiddleware = createHttpMiddleware(httpOptions)
       nock(testHost)
         .defaultReplyHeaders({
@@ -908,7 +911,7 @@ describe('Http', () => {
       const request = createTestRequest({
         uri: '/foo/bar',
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res.error.message).toBe('URI not found: /foo/bar')
         expect(res.error.body).toBeFalsy()
@@ -935,7 +938,7 @@ describe('Http', () => {
       const request = createTestRequest({
         uri: '/foo/bar',
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res.error.message).toBe('oops')
         expect(res.error.name).toBe('HttpError')
@@ -969,7 +972,7 @@ describe('Http', () => {
           Authorization: 'Bearer 123',
         },
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res.error.name).toBe('NetworkError')
         expect(res.error.originalRequest).toMatchObject({
@@ -988,7 +991,7 @@ describe('Http', () => {
         host: testHost,
         includeOriginalRequest: true,
         fetch,
-      } as any;
+      } as any
       const httpMiddleware = createHttpMiddleware(httpOptions)
       nock(testHost)
         .defaultReplyHeaders({ 'Content-Type': 'application/json' })
@@ -1007,7 +1010,7 @@ describe('Http', () => {
           Authorization: 'Bearer 123',
         },
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res.error.name).toBe('NetworkError')
         expect(res.error.originalRequest).toMatchObject({
@@ -1027,7 +1030,7 @@ describe('Http', () => {
         includeOriginalRequest: true,
         maskSensitiveHeaderData: false,
         fetch,
-      } as any;
+      } as any
       const httpMiddleware = createHttpMiddleware(httpOptions)
       nock(testHost)
         .defaultReplyHeaders({ 'Content-Type': 'application/json' })
@@ -1043,7 +1046,7 @@ describe('Http', () => {
       const request = createTestRequest({
         uri: '/foo/bar',
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res.statusCode).toBe(200)
         resolve()
@@ -1051,7 +1054,7 @@ describe('Http', () => {
       const httpMiddleware = createHttpMiddleware({
         host: sampleHost,
         fetch,
-      }  as any);
+      } as any)
       nock(sampleHost)
         .defaultReplyHeaders({
           'Content-Type': 'application/json',
@@ -1068,7 +1071,7 @@ describe('Http', () => {
       const request = createTestRequest({
         uri: '/foo/bar',
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res.statusCode).toBe(200)
         resolve()
@@ -1076,7 +1079,7 @@ describe('Http', () => {
       const httpMiddleware = createHttpMiddleware({
         host: sampleHost,
         fetch,
-      } as any);
+      } as any)
       nock(sampleHost)
         .defaultReplyHeaders({
           'Content-Type': 'application/json',
@@ -1093,7 +1096,7 @@ describe('Http', () => {
         uri: '/foo/bar',
         method: 'POST',
       })
-      const response = { resolve: Function, reject: Function } as any;
+      const response = { resolve: Function, reject: Function } as any
       const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
         expect(res).toEqual({
           ...response,
@@ -1106,7 +1109,7 @@ describe('Http', () => {
       const httpMiddleware = createHttpMiddleware({
         host: testHost,
         fetch,
-      } as any);
+      } as any)
       nock(testHost)
         .defaultReplyHeaders({
           'Content-Type': 'application/json',

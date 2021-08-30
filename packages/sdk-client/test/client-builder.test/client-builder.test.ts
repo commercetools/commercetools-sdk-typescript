@@ -1,8 +1,8 @@
-import ClientBuilder from '../../src/builder/ClientBuilder';
-require('dotenv').config();
+import ClientBuilder from '../../src/client-builder/ClientBuilder'
+require('dotenv').config()
 
 export const projectKey = 'demo'
-const fetch = require('node-fetch');
+const fetch = require('node-fetch')
 
 describe('client builder', () => {
   const authMiddlewareOptions = {
@@ -15,11 +15,11 @@ describe('client builder', () => {
     oauthUri: process.env.OAUTH_URL || '',
     scopes: ['manage_project:demo-1'],
     fetch,
-  };
+  }
 
   const httpMiddlewareOptions = {
     host: 'https://api.europe-west1.gcp.commercetools.com',
-    fetch
+    fetch,
   }
 
   test('should set the projectKey', () => {
@@ -31,17 +31,19 @@ describe('client builder', () => {
   })
 
   test('should set authorization middleware', () => {
-    const client = new ClientBuilder() as any;
+    const client = new ClientBuilder() as any
     expect(client.authMiddleware).toEqual(undefined)
-    const clientWithKeyProp = client.withClientCredentialsFlow(authMiddlewareOptions)
+    const clientWithKeyProp = client.withClientCredentialsFlow(
+      authMiddlewareOptions
+    )
 
     expect(clientWithKeyProp.authMiddleware).toBeTruthy()
   })
 
   test('should set the http middleware', () => {
-    const client = new ClientBuilder() as any;
+    const client = new ClientBuilder() as any
     expect(client.httpMiddleware).toEqual(undefined)
-    const clientWithKeyProp = client.withHttpMiddleware(httpMiddlewareOptions);
+    const clientWithKeyProp = client.withHttpMiddleware(httpMiddlewareOptions)
 
     expect(clientWithKeyProp.httpMiddleware).toBeTruthy()
   })
@@ -50,10 +52,10 @@ describe('client builder', () => {
     const client = new ClientBuilder()
       .withHttpMiddleware(httpMiddlewareOptions)
       .withClientCredentialsFlow(authMiddlewareOptions)
-      .build() as any;
+      .build() as any
 
-    expect(client).toHaveProperty('execute');
-    expect(client).toHaveProperty('process');
+    expect(client).toHaveProperty('execute')
+    expect(client).toHaveProperty('process')
 
     expect(typeof client.execute).toEqual('function')
     expect(typeof client.process).toEqual('function')

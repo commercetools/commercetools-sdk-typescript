@@ -14,5 +14,4 @@ export { default as createUserAgentMiddleware } from './sdk-middleware-user-agen
 export { default as createQueueMiddleware } from './sdk-middleware-queue/queue'
 export { default as createHttpClient } from './sdk-middleware-http/http'
 
-export { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
-export { default as ClientBuilder} from './builder/ClientBuilder';
+export { default as ClientBuilder} from './client-builder/ClientBuilder';

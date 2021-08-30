@@ -12,7 +12,7 @@ import {
   PasswordAuthMiddlewareOptions,
   QueueMiddlewareOptions,
   RefreshAuthMiddlewareOptions,
-} from '../types/sdk.d'
+} from '../types/sdk'
 import { default as createClient } from '../sdk-client/client'
 import { default as createHttpMiddleware } from '../sdk-middleware-http/http'
 import * as authMiddlewares from '../sdk-middleware-auth'

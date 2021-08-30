@@ -23,10 +23,7 @@
     "./dist/commercetools-importapi-sdk.esm.js": "./dist/commercetools-importapi-sdk.browser.esm.js"
   },
   "dependencies": {
-    "@commercetools/sdk-client": "^2.1.2",
-    "@commercetools/sdk-middleware-auth": "^6.0.4",
-    "@commercetools/sdk-middleware-http": "^6.0.4",
-    "@commercetools/sdk-middleware-logger": "^2.1.1",
+    "@commercetools/sdk-client-v2": "^0.0.1",
     "querystring": "^0.2.1"
   },
   "devDependencies": {
