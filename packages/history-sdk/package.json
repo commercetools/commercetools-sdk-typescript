@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/history-sdk",
-  "version": "1.17.1",
+  "version": "1.18.0",
   "description": "Type script sdk for commercetools audit log features",
   "keywords": ["commercetools", "typescript", "sdk", "history"],
   "homepage": "https://github.com/commercetools/commercetools-typescript-sdks/packages/history-sdk",
@@ -30,8 +30,8 @@
     "querystring": "^0.2.1"
   },
   "devDependencies": {
-    "@commercetools/platform-sdk": "1.17.1",
-    "@commercetools/sdk-client-v2": "^0.0.1",
+    "@commercetools/platform-sdk": "1.18.0",
+    "@commercetools/sdk-client-v2": "^0.1.0",
     "@types/uuid": "7.0.0",
     "organize-imports-cli": "0.7.0",
     "uuid": "7.0.2"
