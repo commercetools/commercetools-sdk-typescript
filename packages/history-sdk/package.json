@@ -23,10 +23,14 @@
     "./dist/commercetools-history-sdk.esm.js": "./dist/commercetools-history-sdk.browser.esm.js"
   },
   "dependencies": {
-    "@commercetools/sdk-client-v2": "^0.0.1",
+    "@commercetools/sdk-client": "^2.1.1",
+    "@commercetools/sdk-middleware-auth": "^6.0.4",
+    "@commercetools/sdk-middleware-http": "^6.0.4",
+    "@commercetools/sdk-middleware-logger": "^2.1.1",
     "querystring": "^0.2.1"
   },
   "devDependencies": {
+    "@commercetools/sdk-client-v2": "^0.0.1",
     "@commercetools/platform-sdk": "1.17.1",
     "@types/uuid": "7.0.0",
     "organize-imports-cli": "0.7.0",
