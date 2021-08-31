@@ -51,6 +51,7 @@
   },
   "scripts": {
     "organize_imports": "find src -type f -name '*.ts' | xargs organize-imports-cli",
-    "postbuild": "yarn organize_imports"
+    "postbuild": "yarn organize_imports",
+    "post_process_generate": "yarn organize_imports"
   }
 }
