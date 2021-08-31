@@ -7,7 +7,6 @@
     }
   ],
   "commit": false,
-  "linked": [["@commercetools/*"]],
   "access": "restricted",
   "baseBranch": "master"
 }
