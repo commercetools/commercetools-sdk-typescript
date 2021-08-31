@@ -10,6 +10,7 @@ yarn-error.log*
 # Dependencies
 node_modules
 .npm
+.npmrc
 .released-packages
 
 # Integration tests dependencies cache
@@ -34,3 +35,8 @@ setupEnv.sh
 
 # editor specific
 *.swp
+
+# training files
+training-tmp/
+loadtest/
+.npmignore

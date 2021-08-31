@@ -1,0 +1,56 @@
+{
+  "name": "@commercetools/sdk-client-v2",
+  "version": "0.0.1",
+  "description": "commercetools TypeScript SDK client.",
+  "keywords": [
+    "commercetools",
+    "sdk",
+    "typescript",
+    "client",
+    "middleware",
+    "http",
+    "oauth",
+    "auth"
+  ],
+  "homepage": "https://github.com/commercetools/commercetools-sdk-typescript",
+  "license": "MIT",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/commercetools/commercetools-sdk-typescript.git"
+  },
+  "bugs": {
+    "url": "https://github.com/commercetools/commercetools-sdk-typescript/issues"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1",
+    "querystring": "^0.2.1",
+    "root-require": "^0.3.1"
+  },
+  "files": ["dist", "CHANGELOG.md"],
+  "author": "Chukwuemeka Ajima <meeky.ae@gmail.com>",
+  "main": "dist/commercetools-sdk-client-v2.cjs.js",
+  "module": "dist/commercetools-sdk-client-v2.esm.js",
+  "browser": {
+    "./dist/commercetools-sdk-client-v2.cjs.js": "./dist/commercetools-sdk-client-v2.browser.cjs.js",
+    "./dist/commercetools-sdk-client-v2.esm.js": "./dist/commercetools-sdk-client-v2.browser.esm.js"
+  },
+  "devDependencies": {
+    "abort-controller": "3.0.0",
+    "common-tags": "^1.8.0",
+    "dotenv": "^10.0.0",
+    "jest": "27.0.6",
+    "nock": "12.0.3",
+    "organize-imports-cli": "0.7.0"
+  },
+  "scripts": {
+    "organize_imports": "find src -type f -name '*.ts' | xargs organize-imports-cli",
+    "postbuild": "yarn organize_imports"
+  }
+}
