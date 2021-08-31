@@ -21,6 +21,7 @@ If you have any urgent issues regarding this repository please create a support 
 | [`importapi-sdk`](/packages/importapi-sdk) | [![importapi-sdk Version][importapi-sdk-icon]][importapi-sdk-version] |
 | [`ml-sdk`](/packages/ml-sdk)               | [![ml-sdk Version][ml-sdk-icon]][ml-sdk-version]                      |
 | [`history-sdk`](/packages/history-sdk)     | [![history-sdk Version][history-sdk-icon]][history-sdk-version]       |
+| [`client-sdk`](/packages/client-sdk)     | [![client-sdk Version][client-sdk-icon]][client-sdk-version]       |
 
 [platform-sdk-version]: https://www.npmjs.com/package/@commercetools/platform-sdk
 [platform-sdk-icon]: https://img.shields.io/npm/v/@commercetools/platform-sdk.svg?style=flat-square
@@ -30,3 +31,5 @@ If you have any urgent issues regarding this repository please create a support 
 [ml-sdk-icon]: https://img.shields.io/npm/v/@commercetools/ml-sdk.svg?style=flat-square
 [history-sdk-version]: https://www.npmjs.com/package/@commercetools/history-sdk
 [history-sdk-icon]: https://img.shields.io/npm/v/@commercetools/history-sdk.svg?style=flat-square
+[client-sdk-version]: https://www.npmjs.com/package/@commercetools/client-sdk-v2
+[client-sdk-icon]: https://img.shields.io/npm/v/@commercetools/client-sdk-v2.svg?style=flat-square
