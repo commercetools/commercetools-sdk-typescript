@@ -32,7 +32,11 @@ describe('validate options', () => {
 })
 
 describe('api', () => {
-  const middlewares = [next => (...args) => next(...args)]
+  const middlewares = [
+    (next) =>
+      (...args) =>
+        next(...args),
+  ]
   const client = createClient({ middlewares })
   const request: ClientRequest = {
     uri: '/foo',
@@ -58,7 +62,11 @@ describe('execute', () => {
   } as any
 
   test('should throw if request is missing', () => {
-    const middlewares = [next => (...args) => next(...args)]
+    const middlewares = [
+      (next) =>
+        (...args) =>
+          next(...args),
+    ]
     const client = createClient({ middlewares })
     expect(() => client.execute(null)).toThrow(
       /The "exec" function requires a "Request" object/
@@ -66,7 +74,11 @@ describe('execute', () => {
   })
 
   test('should throw if request uri is invalid', () => {
-    const middlewares = [next => (...args) => next(...args)]
+    const middlewares = [
+      (next) =>
+        (...args) =>
+          next(...args),
+    ]
     const client = createClient({ middlewares })
     const badRequest = {
       ...request,
@@ -78,7 +90,11 @@ describe('execute', () => {
   })
 
   test('should throw if request method is invalid', () => {
-    const middlewares = [next => (...args) => next(...args)]
+    const middlewares = [
+      (next) =>
+        (...args) =>
+          next(...args),
+    ]
     const client = createClient({ middlewares })
     const badRequest = {
       ...request,
@@ -92,13 +108,13 @@ describe('execute', () => {
   test('execute and resolve a simple request', () => {
     const client = createClient({
       middlewares: [
-        next => (req, res) => {
+        (next) => (req, res) => {
           const headers = {
             Authorization: 'Bearer 123',
           }
           next({ ...req, headers }, res)
         },
-        next => (req, res) => {
+        (next) => (req, res) => {
           const body = {
             id: '123',
             version: 1,
@@ -108,7 +124,7 @@ describe('execute', () => {
       ],
     })
 
-    return client.execute(request).then(response => {
+    return client.execute(request).then((response) => {
       expect(response).toEqual({
         body: {
           id: '123',
@@ -122,7 +138,7 @@ describe('execute', () => {
   test('execute and reject a request', () => {
     const client = createClient({
       middlewares: [
-        next => (req, res) => {
+        (next) => (req, res) => {
           const error = new Error('Invalid password') as any
           next(req, { ...res, error, statusCode: 400 })
         },
@@ -138,7 +154,7 @@ describe('execute', () => {
           )
         )
       )
-      .catch(error => {
+      .catch((error) => {
         expect(error.message).toEqual('Invalid password')
         return Promise.resolve()
       })
@@ -149,7 +165,7 @@ describe('execute', () => {
       const customResolveSpy = jest.fn()
       const client = createClient({
         middlewares: [
-          next => (req, res) => {
+          (next) => (req, res) => {
             const responseWithCustomResolver = {
               resolve() {
                 customResolveSpy()
@@ -170,7 +186,7 @@ describe('execute', () => {
       const customRejectSpy = jest.fn()
       const client = createClient({
         middlewares: [
-          next => (req, res) => {
+          (next) => (req, res) => {
             const responseWithCustomResolver = {
               reject() {
                 customRejectSpy()
@@ -199,7 +215,11 @@ describe('process', () => {
   } as any
 
   describe('validate arguments', () => {
-    const middlewares = [next => (...args) => next(...args)]
+    const middlewares = [
+      (next) =>
+        (...args) =>
+          next(...args),
+    ]
     const client = createClient({ middlewares }) as any
 
     test('should throw if second argument missing', () => {
@@ -254,7 +274,7 @@ describe('process', () => {
 
     const client = createClient({
       middlewares: [
-        next => (req, res) => {
+        (next) => (req, res) => {
           const body = reqStubs[reqCount].body
           expect(qs.parse(req.uri.split('?')[1])).toEqual(
             reqStubs[reqCount].query
@@ -268,7 +288,7 @@ describe('process', () => {
 
     return client
       .process(request, () => Promise.resolve('OK'))
-      .then(response => {
+      .then((response) => {
         expect(response).toEqual(['OK', 'OK', 'OK'])
       })
   })
@@ -306,7 +326,7 @@ describe('process', () => {
 
     const client = createClient({
       middlewares: [
-        next => (req, res) => {
+        (next) => (req, res) => {
           const body = reqStubs[reqCount].body
           expect(qs.parse(req.uri.split('?')[1])).toEqual(
             reqStubs[reqCount].query
@@ -320,7 +340,7 @@ describe('process', () => {
 
     return client
       .process(request, () => Promise.resolve('OK'), { total: 46 })
-      .then(response => {
+      .then((response) => {
         expect(response).toEqual(['OK', 'OK', 'OK'])
       })
   })
@@ -350,7 +370,7 @@ describe('process', () => {
 
     const client = createClient({
       middlewares: [
-        next => (req, res) => {
+        (next) => (req, res) => {
           const body = reqStubs[reqCount].body
           expect(qs.parse(req.uri.split('?')[1])).toEqual(
             reqStubs[reqCount].query
@@ -408,7 +428,7 @@ describe('process', () => {
 
     const client = createClient({
       middlewares: [
-        next => (req, res) => {
+        (next) => (req, res) => {
           const body = reqStubs[reqCount].body
           expect(qs.parse(req.uri.split('?')[1])).toEqual(
             reqStubs[reqCount].query
@@ -430,7 +450,7 @@ describe('process', () => {
           limit: 5,
         })}`,
       },
-      res => {
+      (res) => {
         expect(res.body.results).toEqual(reqStubs[fnCall].body.results)
         expect(fnCall).toBeLessThan(2) // should not call fn if the last page is empty
 
@@ -449,7 +469,7 @@ describe('process', () => {
   test('process and reject a request', () => {
     const client = createClient({
       middlewares: [
-        next => (req, res) => {
+        (next) => (req, res) => {
           const httpError = new Error('Invalid password')
           const error: HttpErrorType = {
             name: 'error',
@@ -474,7 +494,7 @@ describe('process', () => {
           )
         )
       )
-      .catch(error => {
+      .catch((error) => {
         expect(error.message).toEqual('Invalid password')
         return Promise.resolve()
       })
@@ -483,7 +503,7 @@ describe('process', () => {
   test('process and reject on rejection from user', () => {
     const client = createClient({
       middlewares: [
-        next => (req, res) => {
+        (next) => (req, res) => {
           next(req, { ...res, statusCode: 200 })
         },
       ],
@@ -498,7 +518,7 @@ describe('process', () => {
           )
         )
       )
-      .catch(error => {
+      .catch((error) => {
         expect(error).toEqual(new Error('Rejection from user'))
       })
   })

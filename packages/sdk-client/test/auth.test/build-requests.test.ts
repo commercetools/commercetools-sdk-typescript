@@ -7,7 +7,7 @@ import {
 } from '../../src/sdk-middleware-auth/build-requests'
 import * as scopes from '../../src/sdk-middleware-auth/scopes'
 
-const allScopes = Object.keys(scopes).map(key => scopes[key])
+const allScopes = Object.keys(scopes).map((key) => scopes[key])
 
 function createTestOptions(options) {
   return {

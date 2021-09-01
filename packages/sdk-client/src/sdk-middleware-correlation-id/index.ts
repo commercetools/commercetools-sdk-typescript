@@ -1,1 +1,1 @@
-export { default as createCorrelationIdMiddleware } from './correlation-id'
+export { default as createCorrelationIdMiddleware } from './correlation-id';

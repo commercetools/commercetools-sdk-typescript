@@ -1,6 +1,11 @@
-import { JsonObject } from "../types/sdk.d"
+import { JsonObject } from '../types/sdk.d'
 
-function defineError(this: any, statusCode: number, message: string, meta: JsonObject<any> = {}) {
+function defineError(
+  this: any,
+  statusCode: number,
+  message: string,
+  meta: JsonObject<any> = {}
+) {
   this.status = this.statusCode = this.code = statusCode
   this.message = message
   Object.assign(this, meta)
@@ -13,31 +18,35 @@ function defineError(this: any, statusCode: number, message: string, meta: JsonO
 }
 
 export function NetworkError(this: any, ...args: Array<unknown>) {
-  defineError.call(this, 0 /* special code to indicate network errors */, ...args);
+  defineError.call(
+    this,
+    0 /* special code to indicate network errors */,
+    ...args
+  )
 }
 export function HttpError(...args: Array<unknown>) {
-  defineError.call(this, /* code will be passed as arg */ ...args);
+  defineError.call(this, /* code will be passed as arg */ ...args)
 }
 export function BadRequest(this: any, ...args: Array<unknown>) {
   defineError.call(this, 400, ...args)
 }
 export function Unauthorized(this: any, ...args: Array<unknown>) {
-  defineError.call(this, 401, ...args);
+  defineError.call(this, 401, ...args)
 }
 export function Forbidden(this: any, ...args: Array<unknown>) {
-  defineError.call(this, 403, ...args);
+  defineError.call(this, 403, ...args)
 }
 export function NotFound(this: any, ...args: Array<unknown>) {
-  defineError.call(this, 404, ...args);
+  defineError.call(this, 404, ...args)
 }
 export function ConcurrentModification(this: any, ...args: Array<unknown>) {
-  defineError.call(this, 409, ...args);
+  defineError.call(this, 409, ...args)
 }
 export function InternalServerError(this: any, ...args: Array<unknown>) {
-  defineError.call(this, 500, ...args);
+  defineError.call(this, 500, ...args)
 }
 export function ServiceUnavailable(this: any, ...args: Array<unknown>) {
-  defineError.call(this, 503, ...args);
+  defineError.call(this, 503, ...args)
 }
 
 export default function getErrorByCode(code: number) {

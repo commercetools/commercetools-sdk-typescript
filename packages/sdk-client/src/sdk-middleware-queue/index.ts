@@ -1,1 +1,1 @@
-export { default as createQueueMiddleware } from './queue'
+export { default as createQueueMiddleware } from './queue';

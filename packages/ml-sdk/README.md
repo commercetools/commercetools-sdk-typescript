@@ -56,7 +56,7 @@ apiRoot
   })
   .get()
   .execute()
-  .then(x => {
+  .then((x) => {
     /*...*/
   })
 
@@ -73,7 +73,7 @@ apiRoot
     },
   })
   .execute()
-  .then(x => {
+  .then((x) => {
     /*...*/
   })
 ```

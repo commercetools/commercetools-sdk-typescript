@@ -1,25 +1,23 @@
 import type {
+  CorrelationIdMiddlewareOptions,
   Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
-  CorrelationIdMiddlewareOptions,
   Next,
-} from '../types/sdk.d';
+} from '../types/sdk.d'
 
 export default function createCorrelationIdMiddleware(
   options: CorrelationIdMiddlewareOptions
 ): Middleware {
-  return (next: Next): Next => (
-    request: MiddlewareRequest,
-    response: MiddlewareResponse
-  ) => {
-    const nextRequest = {
-      ...request,
-      headers: {
-        ...request.headers,
-        'X-Correlation-ID': options.generate(),
-      },
+  return (next: Next): Next =>
+    (request: MiddlewareRequest, response: MiddlewareResponse) => {
+      const nextRequest = {
+        ...request,
+        headers: {
+          ...request.headers,
+          'X-Correlation-ID': options.generate(),
+        },
+      }
+      next(nextRequest, response)
     }
-    next(nextRequest, response)
-  }
 }

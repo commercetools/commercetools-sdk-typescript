@@ -43,7 +43,7 @@ describe('Client Crentials Flow', () => {
         resolve,
         reject,
       }
-      const next = actualParams => {
+      const next = (actualParams) => {
         expect(actualParams).toMatchObject({
           request,
           response,
@@ -81,7 +81,7 @@ describe('Client Crentials Flow', () => {
         resolve,
         reject,
       }
-      const next = actualParams => {
+      const next = (actualParams) => {
         expect(actualParams).toMatchObject({
           request,
           response,

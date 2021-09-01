@@ -1,12 +1,12 @@
 import {
-  MiddlewareRequest,
-  Next,
-  Task,
-  TokenInfo,
   AuthMiddlewareBaseOptions,
-  PasswordAuthMiddlewareOptions,
   AuthMiddlewareOptions,
   executeRequestOptions,
+  MiddlewareRequest,
+  Next,
+  PasswordAuthMiddlewareOptions,
+  Task,
+  TokenInfo,
 } from '../types/sdk.d'
 import { buildRequestForRefreshTokenFlow } from './build-requests'
 
