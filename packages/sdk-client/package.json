@@ -47,7 +47,7 @@
     "dotenv": "^10.0.0",
     "jest": "27.0.6",
     "nock": "12.0.3",
-    "organize-imports-cli": "0.7.0"
+    "organize-imports-cli": "0.8.0"
   },
   "scripts": {
     "organize_imports": "find src -type f -name '*.ts' | xargs organize-imports-cli",
