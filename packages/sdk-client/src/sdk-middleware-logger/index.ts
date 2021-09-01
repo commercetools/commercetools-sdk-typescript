@@ -1,1 +1,1 @@
-export { default as createLoggerMiddleware } from './logger'
+export { default as createLoggerMiddleware } from './logger';

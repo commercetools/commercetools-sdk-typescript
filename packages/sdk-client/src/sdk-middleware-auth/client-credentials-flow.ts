@@ -6,10 +6,9 @@ import {
   Next,
   Task,
 } from '../types/sdk.d'
-
+import authMiddlewareBase from './base-auth-flow'
 import { buildRequestForClientCredentialsFlow } from './build-requests'
 import buildTokenCacheKey from './build-token-cache-key'
-import authMiddlewareBase from './base-auth-flow'
 import store from './utils'
 
 export default function createAuthMiddlewareForClientCredentialsFlow(
@@ -24,29 +23,27 @@ export default function createAuthMiddlewareForClientCredentialsFlow(
   const requestState = store(false)
   const pendingTasks: Array<Task> = []
 
-  return (next: Next): Next => (
-    request: MiddlewareRequest,
-    response: MiddlewareResponse
-  ) => {
-    // Check if there is already a `Authorization` header in the request.
-    // If so, then go directly to the next middleware.
-    if (
-      (request.headers && request.headers.authorization) ||
-      (request.headers && request.headers.Authorization)
-    ) {
-      next(request, response)
-      return
+  return (next: Next): Next =>
+    (request: MiddlewareRequest, response: MiddlewareResponse) => {
+      // Check if there is already a `Authorization` header in the request.
+      // If so, then go directly to the next middleware.
+      if (
+        (request.headers && request.headers.authorization) ||
+        (request.headers && request.headers.Authorization)
+      ) {
+        next(request, response)
+        return
+      }
+      const params = {
+        request,
+        response,
+        ...buildRequestForClientCredentialsFlow(options),
+        pendingTasks,
+        requestState,
+        tokenCache,
+        tokenCacheKey: buildTokenCacheKey(options),
+        fetch: options.fetch,
+      } as any
+      authMiddlewareBase(params, next)
     }
-    const params = {
-      request,
-      response,
-      ...buildRequestForClientCredentialsFlow(options),
-      pendingTasks,
-      requestState,
-      tokenCache,
-      tokenCacheKey: buildTokenCacheKey(options),
-      fetch: options.fetch,
-    } as any
-    authMiddlewareBase(params, next)
-  }
 }

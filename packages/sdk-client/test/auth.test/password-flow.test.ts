@@ -50,13 +50,12 @@ describe('Password Flow', () => {
         resolve,
         reject,
       }
-      const next = actualParams => {
+      const next = (actualParams) => {
         expect(actualParams).toMatchObject({
           request,
           response,
           pendingTasks: [],
-          url:
-            'https://auth.europe-west1.gcp.commercetools.com/oauth/foo/customers/token',
+          url: 'https://auth.europe-west1.gcp.commercetools.com/oauth/foo/customers/token',
           basicAuth: 'MTIzOnNlY3JldA==',
         })
         expect(authMiddlewareBase).toHaveBeenCalledTimes(1)

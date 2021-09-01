@@ -3,13 +3,13 @@ import {
   Client,
   ClientOptions,
   ClientRequest,
+  ClientResponse,
   ClientResult,
   MiddlewareRequest,
   MiddlewareResponse,
   ProcessFn,
   ProcessOptions,
   SuccessResult,
-  ClientResponse,
 } from '../types/sdk.d'
 import validate from './validate'
 
@@ -19,9 +19,9 @@ function compose(...funcs: Array<Function>): Function {
   if (funcs.length === 1) return funcs[0]
 
   return funcs.reduce(
-    (a: Function, b: Function): Function => (
-      ...args: Array<Function>
-    ): Array<Function> => a(b(...args))
+    (a: Function, b: Function): Function =>
+      (...args: Array<Function>): Array<Function> =>
+        a(b(...args))
   )
 }
 
@@ -97,11 +97,12 @@ export default function createClient(options: ClientOptions): Client {
       }
 
       return new Promise((resolve: Function, reject: Function) => {
-        let _path, _queryString = '';
+        let _path,
+          _queryString = ''
         if (request && request.uri) {
           const [path, queryString] = request.uri.split('?')
-          _path = path;
-          _queryString = queryString;
+          _path = path
+          _queryString = queryString
         }
         const requestQuery = { ...qs.parse(_queryString) }
         const query = {

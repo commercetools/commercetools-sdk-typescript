@@ -1,4 +1,4 @@
-import { HttpUserAgentOptions } from "../types/sdk.d"
+import { HttpUserAgentOptions } from '../types/sdk.d'
 
 /*
   This is the easiest way, for this use case, to detect if we're running in

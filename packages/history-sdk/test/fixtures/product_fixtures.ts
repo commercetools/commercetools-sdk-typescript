@@ -33,7 +33,7 @@ async function deleteProduct(product: Product): Promise<Product> {
 export async function withProduct(
   productConsumer: (prd: Product) => Promise<any>
 ) {
-  await withProductType(async productType => {
+  await withProductType(async (productType) => {
     const product = await createProduct({
       name: { en: `random name ${uuidv4()}` },
       productType: {

@@ -1,1 +1,1 @@
-export { default as createUserAgent } from './create-user-agent'
+export { default as createUserAgent } from './create-user-agent';

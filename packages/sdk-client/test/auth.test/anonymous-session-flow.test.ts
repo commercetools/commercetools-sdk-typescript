@@ -39,7 +39,7 @@ describe('Anonymous Session Flow', () => {
         resolve,
         reject,
       } as any
-      const next = actualParams => {
+      const next = (actualParams) => {
         expect(actualParams.request).toEqual(request)
         expect(actualParams.response).toEqual(response)
         expect(actualParams.pendingTasks).toEqual([])
@@ -52,9 +52,8 @@ describe('Anonymous Session Flow', () => {
         resolve(null)
       }
       const middlewareOptions = createTestMiddlewareOptions(null)
-      const authMiddleware = createAuthMiddlewareForAnonymousSessionFlow(
-        middlewareOptions
-      )
+      const authMiddleware =
+        createAuthMiddlewareForAnonymousSessionFlow(middlewareOptions)
 
       authMiddleware(next)(request, response)
     }))

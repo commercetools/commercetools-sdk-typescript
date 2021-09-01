@@ -94,10 +94,12 @@ describe('optional information', () => {
   const { version } = require('root-require')('package.json')
   test('create user agent with the correct SDK', () => {
     const userAgent = createHttpUserAgent({
-      name: `commercetools-sdk-javascript-v2/${version}`
+      name: `commercetools-sdk-javascript-v2/${version}`,
     })
     expect(userAgent).toBe(
-      `commercetools-sdk-javascript-v2/${version} node.js/${process.version.slice(1)}`
+      `commercetools-sdk-javascript-v2/${version} node.js/${process.version.slice(
+        1
+      )}`
     )
   })
   test('create user agent with library name and version', () => {
@@ -107,7 +109,9 @@ describe('optional information', () => {
       libraryVersion: '1.0.0',
     })
     expect(userAgent).toBe(
-      `commercetools-sdk-javascript-v2/${version} node.js/${process.version.slice(1)} my-awesome-library/1.0.0`
+      `commercetools-sdk-javascript-v2/${version} node.js/${process.version.slice(
+        1
+      )} my-awesome-library/1.0.0`
     )
   })
   test('create user agent with contact url', () => {
@@ -116,7 +120,9 @@ describe('optional information', () => {
       contactUrl: 'https://commercetools.com',
     })
     expect(userAgent).toBe(
-      `commercetools-sdk-javascript-v2/${version} node.js/${process.version.slice(1)} (+https://commercetools.com)`
+      `commercetools-sdk-javascript-v2/${version} node.js/${process.version.slice(
+        1
+      )} (+https://commercetools.com)`
     )
   })
   test('create user agent with contact email', () => {
@@ -125,7 +131,9 @@ describe('optional information', () => {
       contactEmail: 'helpdesk@commercetools.com',
     })
     expect(userAgent).toBe(
-      `commercetools-sdk-javascript-v2/${version} node.js/${process.version.slice(1)} (+helpdesk@commercetools.com)`
+      `commercetools-sdk-javascript-v2/${version} node.js/${process.version.slice(
+        1
+      )} (+helpdesk@commercetools.com)`
     )
   })
   test('create user agent with full contact info', () => {
@@ -135,7 +143,9 @@ describe('optional information', () => {
       contactEmail: 'helpdesk@commercetools.com',
     })
     expect(userAgent).toBe(
-      `commercetools-sdk-javascript-v2/${version} node.js/${process.version.slice(1)} (+https://commercetools.com; +helpdesk@commercetools.com)`
+      `commercetools-sdk-javascript-v2/${version} node.js/${process.version.slice(
+        1
+      )} (+https://commercetools.com; +helpdesk@commercetools.com)`
     )
   })
 })

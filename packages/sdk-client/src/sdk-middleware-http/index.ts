@@ -1,1 +1,1 @@
-export { default as createHttpMiddleware } from './http'
+export { default as createHttpMiddleware } from './http';

@@ -1,9 +1,16 @@
 import fetch from 'node-fetch'
+import { default as createClient } from '../sdk-client/client'
+import * as authMiddlewares from '../sdk-middleware-auth'
+import { default as createCorrelationIdMiddleware } from '../sdk-middleware-correlation-id/correlation-id'
+import { default as createHttpMiddleware } from '../sdk-middleware-http/http'
+import { default as createLoggerMiddleware } from '../sdk-middleware-logger/logger'
+import { default as createQueueMiddleware } from '../sdk-middleware-queue/queue'
+import { default as createUserAgentMiddleware } from '../sdk-middleware-user-agent/user-agent'
 import {
   AnonymousAuthMiddlewareOptions,
   AuthMiddlewareOptions,
-  CorrelationIdMiddlewareOptions,
   Client,
+  CorrelationIdMiddlewareOptions,
   Credentials,
   ExistingTokenMiddlewareOptions,
   HttpMiddlewareOptions,
@@ -13,14 +20,6 @@ import {
   QueueMiddlewareOptions,
   RefreshAuthMiddlewareOptions,
 } from '../types/sdk'
-import { default as createClient } from '../sdk-client/client'
-import { default as createHttpMiddleware } from '../sdk-middleware-http/http'
-import * as authMiddlewares from '../sdk-middleware-auth'
-
-import { default as createUserAgentMiddleware } from '../sdk-middleware-user-agent/user-agent'
-import { default as createQueueMiddleware } from '../sdk-middleware-queue/queue'
-import { default as createLoggerMiddleware } from '../sdk-middleware-logger/logger'
-import { default as createCorrelationIdMiddleware } from '../sdk-middleware-correlation-id/correlation-id'
 
 const {
   createAuthMiddlewareForPasswordFlow,
