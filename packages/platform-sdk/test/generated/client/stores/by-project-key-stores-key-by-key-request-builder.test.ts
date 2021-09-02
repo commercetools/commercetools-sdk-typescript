@@ -58,12 +58,12 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'delete',
-      uri: '/test_projectKey/stores/key=test_key?expand=expand&version=7',
+      uri: '/test_projectKey/stores/key=test_key?expand=expand&version=6',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .stores()
         .withKey({ key: 'test_key' })
-        .delete({ queryArgs: { expand: 'expand', version: 7 } }),
+        .delete({ queryArgs: { expand: 'expand', version: 6 } }),
     },
   ]
 }
