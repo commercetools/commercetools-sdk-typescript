@@ -142,7 +142,7 @@ export interface CustomerImport extends ImportResource {
    */
   readonly password: string
   /**
-   *	The References to the Stores with which the Customer is associated. If referenced Stores do not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary Stores are created.
+   *	The References to the Stores with which the Customer is associated. If referenced Stores do not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary Stores are created.
    *
    *
    */
@@ -209,7 +209,7 @@ export interface CustomerImport extends ImportResource {
   readonly isEmailVerified?: boolean
   /**
    *	The Reference to the [CustomerGroup](/../api/projects/customerGroups#customergroup) with which the Customer is associated.
-   *	If referenced CustomerGroup does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary CustomerGroup is created.
+   *	If referenced CustomerGroup does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary CustomerGroup is created.
    *
    *
    */

@@ -39,7 +39,7 @@ export interface CategoryImport extends ImportResource {
   /**
    *	Maps to `Category.parent`.
    *	The Reference to the parent [Category](/../api/projects/categories#category) with which the Category is associated.
-   *	If referenced Category does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary Category is created.
+   *	If referenced Category does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary Category is created.
    *
    *
    */

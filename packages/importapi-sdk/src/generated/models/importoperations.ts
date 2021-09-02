@@ -33,7 +33,7 @@ export interface ImportOperation {
    */
   readonly id: string
   /**
-   *	The import status of the resource. Set to `Rejected` or `ValidationFailed` if the import of the resource was not successful.
+   *	The import status of the resource. Set to `rejected` or `validationFailed` if the import of the resource was not successful.
    *
    *
    */
@@ -108,7 +108,7 @@ export interface ImportOperationPagedResponse {
  *	Describes the validation state of a newly created [ImportOperation](#importoperation).
  *
  */
-export type ImportOperationState = 'Unresolved' | 'ValidationFailed'
+export type ImportOperationState = 'processing' | 'validationFailed'
 export interface ImportOperationStatus {
   /**
    *	The ID of the [ImportOperation](#importoperation).

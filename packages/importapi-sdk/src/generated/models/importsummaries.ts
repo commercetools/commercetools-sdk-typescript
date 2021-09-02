@@ -24,28 +24,33 @@ export interface ImportSummary {
 }
 export interface OperationStates {
   /**
-   *	The number of resources in the `ValidationFailed` state.
+   *	The number of resources in the `processing` state.
    *
    */
-  readonly ValidationFailed: number
+  readonly processing: number
   /**
-   *	The number of resources in the `Unresolved` state.
+   *	The number of resources in the `validationFailed` state.
    *
    */
-  readonly Unresolved: number
+  readonly validationFailed: number
   /**
-   *	The number of resources in the `WaitForMasterVariant` state.
+   *	The number of resources in the `unresolved` state.
    *
    */
-  readonly WaitForMasterVariant: number
+  readonly unresolved: number
   /**
-   *	The number of resources in the `Imported` state.
+   *	The number of resources in the `waitForMasterVariant` state.
    *
    */
-  readonly Imported: number
+  readonly waitForMasterVariant: number
   /**
-   *	The number of resources in the `Rejected` state.
+   *	The number of resources in the `imported` state.
    *
    */
-  readonly Rejected: number
+  readonly imported: number
+  /**
+   *	The number of resources in the `rejected` state.
+   *
+   */
+  readonly rejected: number
 }

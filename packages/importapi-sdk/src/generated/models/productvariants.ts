@@ -495,7 +495,7 @@ export interface ProductVariantImport extends ImportResource {
   readonly isMasterVariant: boolean
   /**
    *	Maps to `ProductVariant.attributes`.
-   *	The referenced attribute must be defined in an already existing ProductType in the commercetools project, or the `state` of the [ImportOperation](/import-operation#importoperation) will be `Unresolved`.
+   *	The referenced attribute must be defined in an already existing ProductType in the commercetools project, or the `state` of the [ImportOperation](/import-operation#importoperation) will be `unresolved`.
    *
    *
    */
@@ -521,7 +521,7 @@ export interface ProductVariantImport extends ImportResource {
   /**
    *	The [Product](/../api/projects/products#productvariant) to which this Product Variant belongs. Maps to `ProductVariant.product`.
    *	The Reference to the [Product](/../api/projects/products#product) with which the ProductVariant is associated.
-   *	If referenced Product does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary Product is created.
+   *	If referenced Product does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary Product is created.
    *
    *
    */
@@ -536,14 +536,14 @@ export interface ProductVariantPatch {
   /**
    *	The [ProductVariant](/../api/projects/products#productvariant) to which this patch is applied.
    *	The Reference to the [ProductVariant](/../api/projects/products#productvariant) with which the ProductVariantPatch is associated.
-   *	If referenced ProductVariant does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary ProductVariant is created.
+   *	If referenced ProductVariant does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary ProductVariant is created.
    *
    *
    */
   readonly productVariant: ProductVariantKeyReference
   /**
    *	Maps to `ProductVariant.attributes`.
-   *	The referenced attribute must be defined in an already existing [ProductType](/../api/projects/productTypes#producttype) in the commercetools Project, or the `state` of the [ImportOperation](/import-operation#importoperation) will be `Unresolved`.
+   *	The referenced attribute must be defined in an already existing [ProductType](/../api/projects/productTypes#producttype) in the commercetools Project, or the `state` of the [ImportOperation](/import-operation#importoperation) will be `unresolved`.
    *
    *
    */

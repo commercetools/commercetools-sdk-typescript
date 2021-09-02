@@ -80,7 +80,7 @@ export interface ProductImport extends ImportResource {
    *	The `productType` of a [Product](/../api/projects/products#product).
    *	Maps to `Product.productType`.
    *	The Reference to the [ProductType](/../api/projects/productTypes#producttype) with which the Product is associated.
-   *	If referenced ProductType does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary ProductType is created.
+   *	If referenced ProductType does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary ProductType is created.
    *
    *
    */
@@ -101,7 +101,7 @@ export interface ProductImport extends ImportResource {
   /**
    *	Maps to `Product.categories`.
    *	The References to the [Categories](/../api/projects/categories#category) with which the Product is associated.
-   *	If referenced Categories do not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary Categories are created.
+   *	If referenced Categories do not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary Categories are created.
    *
    *
    */
@@ -144,7 +144,7 @@ export interface ProductImport extends ImportResource {
   readonly metaKeywords?: LocalizedString
   /**
    *	The Reference to the [TaxCategory](/../api/projects/taxCategories#taxcategory) with which the Product is associated.
-   *	If referenced TaxCategory does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary TaxCategory is created.
+   *	If referenced TaxCategory does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary TaxCategory is created.
    *
    *
    */
@@ -174,7 +174,7 @@ export interface ProductImport extends ImportResource {
   readonly searchKeywords?: SearchKeywords
   /**
    *	The Reference to the [State](/../api/projects/states#state) with which the Product is associated.
-   *	If referenced State does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary State is created.
+   *	If referenced State does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary State is created.
    *
    *
    */

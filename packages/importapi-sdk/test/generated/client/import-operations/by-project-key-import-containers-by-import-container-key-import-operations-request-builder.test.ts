@@ -61,7 +61,7 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/import-containers/test_importContainerKey/import-operations?state=ValidationFailed',
+      uri: '/test_projectKey/import-containers/test_importContainerKey/import-operations?state=processing',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
         .importContainers()
@@ -69,7 +69,7 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
           importContainerKey: 'test_importContainerKey',
         })
         .importOperations()
-        .get({ queryArgs: { state: 'ValidationFailed' } }),
+        .get({ queryArgs: { state: 'processing' } }),
     },
     {
       method: 'get',
