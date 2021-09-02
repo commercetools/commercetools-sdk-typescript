@@ -225,7 +225,7 @@ export interface OrderPatchImport {
    */
   readonly orderNumber: string
   /**
-   *	Each field referenced must be defined in an already existing order in the commercetools project or the import operation state is set to `ValidationFailed`.
+   *	Each field referenced must be defined in an already existing order in the commercetools project or the import operation state is set to `validationFailed`.
    *
    *
    */

@@ -61,7 +61,7 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-variants/importSinkKey=test_importSinkKey/import-operations?state=ValidationFailed',
+      uri: '/test_projectKey/product-variants/importSinkKey=test_importSinkKey/import-operations?state=processing',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
         .productVariants()
@@ -69,7 +69,7 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
           importSinkKey: 'test_importSinkKey',
         })
         .importOperations()
-        .get({ queryArgs: { state: 'ValidationFailed' } }),
+        .get({ queryArgs: { state: 'processing' } }),
     },
     {
       method: 'get',

@@ -89,14 +89,14 @@ export interface PriceImport extends ImportResource {
   readonly validUntil?: string
   /**
    *	The Reference to the [CustomerGroup](/../api/projects/customerGroups#customergroup) with which the Price is associated.
-   *	If referenced CustomerGroup does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary CustomerGroup is created.
+   *	If referenced CustomerGroup does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary CustomerGroup is created.
    *
    *
    */
   readonly customerGroup?: CustomerGroupKeyReference
   /**
    *	The Reference to the [Channel](/../api/projects/channels#channel) with which the Price is associated.
-   *	If referenced Channel does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary Channel is created.
+   *	If referenced Channel does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary Channel is created.
    *
    *
    */
@@ -125,7 +125,7 @@ export interface PriceImport extends ImportResource {
   /**
    *	The ProductVariant in which this Price is contained.
    *	The Reference to the [ProductVariant](/../api/projects/products#productvariant) with which the Price is associated.
-   *	If referenced ProductVariant does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary ProductVariant is created.
+   *	If referenced ProductVariant does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary ProductVariant is created.
    *
    *
    */
@@ -133,7 +133,7 @@ export interface PriceImport extends ImportResource {
   /**
    *	The Product in which the Product Variant containing this Price is contained. Maps to `ProductVariant.product`.
    *	The Reference to the [Product](/../api/projects/products#product) with which the Price is associated.
-   *	If referenced Product does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `Unresolved` until the necessary Product is created.
+   *	If referenced Product does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary Product is created.
    *
    *
    */

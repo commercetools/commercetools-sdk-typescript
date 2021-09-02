@@ -485,15 +485,16 @@ export type ReferenceType =
   | 'tax-category'
   | 'type'
 /**
- *	Represents the status of a resource under an import process. Every resource has the initial state `Unresolved`.
+ *	Represents the status of a resource under an import process. Every resource has the initial state `processing`.
  *
  */
 export type ProcessingState =
-  | 'Imported'
-  | 'Rejected'
-  | 'Unresolved'
-  | 'ValidationFailed'
-  | 'WaitForMasterVariant'
+  | 'imported'
+  | 'processing'
+  | 'rejected'
+  | 'unresolved'
+  | 'validationFailed'
+  | 'waitForMasterVariant'
 export interface Address {
   /**
    *
