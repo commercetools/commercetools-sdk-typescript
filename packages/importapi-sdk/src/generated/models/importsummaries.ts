@@ -5,13 +5,13 @@
  */
 
 /**
- *	Describes the status of an [ImportContainer](/import-container#importcontainer) by the number of resources in each [Processing State](/processing-state#the-list-of-processing-states).
+ *	Describes the status of an [ImportContainer](/import-container#importcontainer) by the number of resources in each [Processing State](/processing-state#processingState).
  *	Can be used to monitor the import progress per [Import Container](/import-container).
  *
  */
 export interface ImportSummary {
   /**
-   *	The import status of an [ImportContainer](/import-container#importcontainer) given by the number of resources in each [Processing State](/processing-state#the-list-of-processing-states).
+   *	The import status of an [ImportContainer](/import-container#importcontainer) given by the number of resources in each [Processing State](/processing-state#processingState).
    *
    *
    */
