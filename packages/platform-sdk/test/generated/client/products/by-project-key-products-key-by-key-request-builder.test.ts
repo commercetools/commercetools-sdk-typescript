@@ -181,62 +181,62 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'delete',
-      uri: '/test_projectKey/products/key=test_key?priceCurrency=priceCurrency&version=2',
+      uri: '/test_projectKey/products/key=test_key?priceCurrency=priceCurrency&version=3',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .products()
         .withKey({ key: 'test_key' })
-        .delete({ queryArgs: { priceCurrency: 'priceCurrency', version: 2 } }),
+        .delete({ queryArgs: { priceCurrency: 'priceCurrency', version: 3 } }),
     },
     {
       method: 'delete',
-      uri: '/test_projectKey/products/key=test_key?priceCountry=priceCountry&version=2',
+      uri: '/test_projectKey/products/key=test_key?priceCountry=priceCountry&version=3',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .products()
         .withKey({ key: 'test_key' })
-        .delete({ queryArgs: { priceCountry: 'priceCountry', version: 2 } }),
+        .delete({ queryArgs: { priceCountry: 'priceCountry', version: 3 } }),
     },
     {
       method: 'delete',
-      uri: '/test_projectKey/products/key=test_key?priceCustomerGroup=priceCustomerGroup&version=2',
+      uri: '/test_projectKey/products/key=test_key?priceCustomerGroup=priceCustomerGroup&version=3',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .products()
         .withKey({ key: 'test_key' })
         .delete({
-          queryArgs: { priceCustomerGroup: 'priceCustomerGroup', version: 2 },
+          queryArgs: { priceCustomerGroup: 'priceCustomerGroup', version: 3 },
         }),
     },
     {
       method: 'delete',
-      uri: '/test_projectKey/products/key=test_key?priceChannel=priceChannel&version=2',
+      uri: '/test_projectKey/products/key=test_key?priceChannel=priceChannel&version=3',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .products()
         .withKey({ key: 'test_key' })
-        .delete({ queryArgs: { priceChannel: 'priceChannel', version: 2 } }),
+        .delete({ queryArgs: { priceChannel: 'priceChannel', version: 3 } }),
     },
     {
       method: 'delete',
-      uri: '/test_projectKey/products/key=test_key?localeProjection=localeProjection&version=2',
+      uri: '/test_projectKey/products/key=test_key?localeProjection=localeProjection&version=3',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .products()
         .withKey({ key: 'test_key' })
         .delete({
-          queryArgs: { localeProjection: 'localeProjection', version: 2 },
+          queryArgs: { localeProjection: 'localeProjection', version: 3 },
         }),
     },
     {
       method: 'delete',
-      uri: '/test_projectKey/products/key=test_key?storeProjection=storeProjection&version=2',
+      uri: '/test_projectKey/products/key=test_key?storeProjection=storeProjection&version=3',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .products()
         .withKey({ key: 'test_key' })
         .delete({
-          queryArgs: { storeProjection: 'storeProjection', version: 2 },
+          queryArgs: { storeProjection: 'storeProjection', version: 3 },
         }),
     },
     {
@@ -250,12 +250,12 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'delete',
-      uri: '/test_projectKey/products/key=test_key?expand=expand&version=2',
+      uri: '/test_projectKey/products/key=test_key?expand=expand&version=3',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .products()
         .withKey({ key: 'test_key' })
-        .delete({ queryArgs: { expand: 'expand', version: 2 } }),
+        .delete({ queryArgs: { expand: 'expand', version: 3 } }),
     },
   ]
 }
