@@ -145,13 +145,13 @@ export interface CategoryCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -196,13 +196,13 @@ export interface CategorySlugChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -251,13 +251,13 @@ export interface CustomLineItemStateTransitionMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -318,13 +318,13 @@ export interface CustomerAddressAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -369,13 +369,13 @@ export interface CustomerAddressChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -420,13 +420,13 @@ export interface CustomerAddressRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -471,13 +471,13 @@ export interface CustomerCompanyNameSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -522,13 +522,13 @@ export interface CustomerCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -573,13 +573,13 @@ export interface CustomerDateOfBirthSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -624,13 +624,13 @@ export interface CustomerEmailChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -675,13 +675,13 @@ export interface CustomerEmailVerifiedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -722,13 +722,13 @@ export interface CustomerGroupSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -773,13 +773,13 @@ export interface CustomerPasswordUpdatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -825,13 +825,13 @@ export interface DeliveryAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -876,13 +876,13 @@ export interface DeliveryAddressSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -935,13 +935,13 @@ export interface DeliveryItemsUpdatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -994,13 +994,13 @@ export interface DeliveryRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -1045,13 +1045,13 @@ export interface InventoryEntryCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -1096,13 +1096,13 @@ export interface InventoryEntryDeletedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -1151,13 +1151,13 @@ export interface InventoryEntryQuantitySetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -1214,13 +1214,13 @@ export interface LineItemStateTransitionMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -1323,13 +1323,13 @@ export interface OrderBillingAddressSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -1378,13 +1378,13 @@ export interface OrderCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -1429,13 +1429,13 @@ export interface OrderCustomLineItemDiscountSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -1488,13 +1488,13 @@ export interface OrderCustomerEmailSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -1543,13 +1543,13 @@ export interface OrderCustomerGroupSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -1598,13 +1598,13 @@ export interface OrderCustomerSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -1661,13 +1661,13 @@ export interface OrderDeletedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -1712,13 +1712,13 @@ export interface OrderDiscountCodeAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -1763,13 +1763,13 @@ export interface OrderDiscountCodeRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -1814,13 +1814,13 @@ export interface OrderDiscountCodeStateSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -1873,13 +1873,13 @@ export interface OrderEditAppliedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -1928,13 +1928,13 @@ export interface OrderImportedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -1979,13 +1979,13 @@ export interface OrderLineItemAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -2034,13 +2034,13 @@ export interface OrderLineItemDiscountSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -2097,13 +2097,13 @@ export interface OrderPaymentStateChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -2152,13 +2152,13 @@ export interface OrderReturnInfoAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -2203,13 +2203,13 @@ export interface OrderReturnShipmentStateChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -2258,13 +2258,13 @@ export interface OrderShipmentStateChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -2313,13 +2313,13 @@ export interface OrderShippingAddressSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -2368,13 +2368,13 @@ export interface OrderShippingInfoSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -2423,13 +2423,13 @@ export interface OrderShippingRateInputSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -2478,13 +2478,13 @@ export interface OrderStateChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -2533,13 +2533,13 @@ export interface OrderStateTransitionMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -2592,13 +2592,13 @@ export interface OrderStoreSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -2643,13 +2643,13 @@ export interface ParcelAddedToDeliveryMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -2698,13 +2698,13 @@ export interface ParcelItemsUpdatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -2761,13 +2761,13 @@ export interface ParcelMeasurementsUpdatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -2820,13 +2820,13 @@ export interface ParcelRemovedFromDeliveryMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -2875,13 +2875,13 @@ export interface ParcelTrackingDataUpdatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -2934,13 +2934,13 @@ export interface PaymentCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -2985,13 +2985,13 @@ export interface PaymentInteractionAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -3036,13 +3036,13 @@ export interface PaymentStatusInterfaceCodeSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -3091,13 +3091,13 @@ export interface PaymentStatusStateTransitionMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -3146,13 +3146,13 @@ export interface PaymentTransactionAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -3197,13 +3197,13 @@ export interface PaymentTransactionStateChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -3252,13 +3252,13 @@ export interface ProductAddedToCategoryMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -3307,13 +3307,13 @@ export interface ProductCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -3358,13 +3358,13 @@ export interface ProductDeletedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -3413,13 +3413,13 @@ export interface ProductImageAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -3472,13 +3472,13 @@ export interface ProductPriceDiscountsSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -3549,13 +3549,13 @@ export interface ProductPriceExternalDiscountSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -3620,13 +3620,13 @@ export interface ProductPublishedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -3679,13 +3679,13 @@ export interface ProductRemovedFromCategoryMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -3734,13 +3734,13 @@ export interface ProductRevertedStagedChangesMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -3785,13 +3785,13 @@ export interface ProductSlugChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -3840,13 +3840,13 @@ export interface ProductStateTransitionMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -3895,13 +3895,13 @@ export interface ProductUnpublishedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -3942,13 +3942,13 @@ export interface ProductVariantAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -3997,13 +3997,13 @@ export interface ProductVariantDeletedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -4052,13 +4052,13 @@ export interface ReviewCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -4103,13 +4103,13 @@ export interface ReviewRatingSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -4166,13 +4166,13 @@ export interface ReviewStateTransitionMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -4237,13 +4237,13 @@ export interface StoreCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -4304,13 +4304,13 @@ export interface StoreDeletedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */

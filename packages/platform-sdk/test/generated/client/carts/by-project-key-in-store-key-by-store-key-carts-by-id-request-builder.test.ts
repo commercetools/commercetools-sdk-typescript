@@ -53,13 +53,13 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'delete',
-      uri: '/test_projectKey/in-store/key=test_storeKey/carts/test_ID?dataErasure=true&version=2',
+      uri: '/test_projectKey/in-store/key=test_storeKey/carts/test_ID?dataErasure=true&version=7',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
         .carts()
         .withId({ ID: 'test_ID' })
-        .delete({ queryArgs: { dataErasure: true, version: 2 } }),
+        .delete({ queryArgs: { dataErasure: true, version: 7 } }),
     },
     {
       method: 'delete',
@@ -73,13 +73,13 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'delete',
-      uri: '/test_projectKey/in-store/key=test_storeKey/carts/test_ID?expand=expand&version=2',
+      uri: '/test_projectKey/in-store/key=test_storeKey/carts/test_ID?expand=expand&version=7',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
         .carts()
         .withId({ ID: 'test_ID' })
-        .delete({ queryArgs: { expand: 'expand', version: 2 } }),
+        .delete({ queryArgs: { expand: 'expand', version: 7 } }),
     },
   ]
 }
