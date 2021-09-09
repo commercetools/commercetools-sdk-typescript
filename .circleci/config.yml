@@ -37,7 +37,10 @@ jobs:
           command: yarn build
       - run:
           name: Running tests
-          command: yarn test
+          command: yarn test --coverage
+      - run:
+          name: Send coverage report
+          command: yarn coverage
       - store_artifacts:
           path: packages/ml-sdk/test-results
       - store_artifacts:

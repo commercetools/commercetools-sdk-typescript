@@ -10,6 +10,7 @@ module.exports = {
   },
   testRegex: '\\.(test|spec)\\.[j|t]sx?$',
   moduleFileExtensions: ['ts', 'js', 'json'],
+  coveragePathIgnorePatterns: ['/node_modules/', '/dist/'],
   watchPlugins: ['jest-watch-typeahead/filename'],
   reporters: [
     'default',

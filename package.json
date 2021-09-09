@@ -8,6 +8,7 @@
     "format": "prettier --write '**/*.{js,ts,json,md}'",
     "build": "preconstruct build",
     "test": "jest --maxWorkers=2",
+    "coverage": "codecov",
     "typecheck": "tsc --noEmit",
     "changeset": "changeset",
     "changeset:version-and-format": "changeset version && prettier --write --parser json '**/package.json'"
@@ -27,6 +28,7 @@
     "@types/jest": "27.0.0",
     "@types/node": "^15.9.0",
     "babel-jest": "27.0.6",
+    "codecov": "^3.8.3",
     "husky": "7.0.1",
     "jest": "27.0.6",
     "jest-junit": "12.2.0",
