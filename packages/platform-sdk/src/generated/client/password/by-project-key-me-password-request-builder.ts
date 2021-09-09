@@ -3,7 +3,7 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { Customer } from '../../models/customer'
+import { Customer, MyCustomerChangePassword } from '../../models/customer'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyMePasswordResetRequestBuilder } from '../reset/by-project-key-me-password-reset-request-builder'
@@ -29,7 +29,7 @@ export class ByProjectKeyMePasswordRequestBuilder {
   }
 
   public post(methodArgs: {
-    body: void
+    body: MyCustomerChangePassword
     headers?: {
       [key: string]: string | string[]
     }

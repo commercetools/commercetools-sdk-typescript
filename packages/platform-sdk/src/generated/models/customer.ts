@@ -520,6 +520,20 @@ export type CustomerUpdateAction =
   | CustomerSetStoresAction
   | CustomerSetTitleAction
   | CustomerSetVatIdAction
+export interface MyCustomerChangePassword {
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly currentPassword: string
+  /**
+   *
+   */
+  readonly newPassword: string
+}
 export interface CustomerAddAddressAction {
   readonly action: 'addAddress'
   /**
