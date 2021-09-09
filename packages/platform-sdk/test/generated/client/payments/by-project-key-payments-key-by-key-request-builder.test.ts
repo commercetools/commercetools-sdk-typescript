@@ -49,12 +49,12 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'delete',
-      uri: '/test_projectKey/payments/key=test_key?dataErasure=true&version=6',
+      uri: '/test_projectKey/payments/key=test_key?dataErasure=true&version=3',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .payments()
         .withKey({ key: 'test_key' })
-        .delete({ queryArgs: { dataErasure: true, version: 6 } }),
+        .delete({ queryArgs: { dataErasure: true, version: 3 } }),
     },
     {
       method: 'delete',
@@ -67,12 +67,12 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'delete',
-      uri: '/test_projectKey/payments/key=test_key?expand=expand&version=6',
+      uri: '/test_projectKey/payments/key=test_key?expand=expand&version=3',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .payments()
         .withKey({ key: 'test_key' })
-        .delete({ queryArgs: { expand: 'expand', version: 6 } }),
+        .delete({ queryArgs: { expand: 'expand', version: 3 } }),
     },
   ]
 }
