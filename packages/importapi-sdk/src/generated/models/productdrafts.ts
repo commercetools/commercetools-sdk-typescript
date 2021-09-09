@@ -165,7 +165,7 @@ export interface ProductVariantDraftImport {
   /**
    *
    */
-  readonly key?: string
+  readonly key: string
   /**
    *
    */

@@ -37,13 +37,13 @@ export interface CartDiscount extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources updated after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources updated after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */

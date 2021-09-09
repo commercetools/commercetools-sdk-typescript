@@ -47,13 +47,13 @@ export interface Customer extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
    *
    *
    */
@@ -520,6 +520,20 @@ export type CustomerUpdateAction =
   | CustomerSetStoresAction
   | CustomerSetTitleAction
   | CustomerSetVatIdAction
+export interface MyCustomerChangePassword {
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly currentPassword: string
+  /**
+   *
+   */
+  readonly newPassword: string
+}
 export interface CustomerAddAddressAction {
   readonly action: 'addAddress'
   /**

@@ -485,7 +485,7 @@ export type ReferenceType =
   | 'tax-category'
   | 'type'
 /**
- *	Represents the status of a resource under an import process. Every resource has the initial state `processing`.
+ *	Every [Import Operation](/import-operation) is assigned with one of the following states.
  *
  */
 export type ProcessingState =
