@@ -57,14 +57,14 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'delete',
-      uri: '/test_projectKey/in-store/key=test_storeKey/me/shopping-lists/key=test_key?dataErasure=true&version=9',
+      uri: '/test_projectKey/in-store/key=test_storeKey/me/shopping-lists/key=test_key?dataErasure=true&version=2',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
         .me()
         .shoppingLists()
         .withKey({ key: 'test_key' })
-        .delete({ queryArgs: { dataErasure: true, version: 9 } }),
+        .delete({ queryArgs: { dataErasure: true, version: 2 } }),
     },
     {
       method: 'delete',
@@ -79,14 +79,14 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'delete',
-      uri: '/test_projectKey/in-store/key=test_storeKey/me/shopping-lists/key=test_key?expand=expand&version=9',
+      uri: '/test_projectKey/in-store/key=test_storeKey/me/shopping-lists/key=test_key?expand=expand&version=2',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
         .me()
         .shoppingLists()
         .withKey({ key: 'test_key' })
-        .delete({ queryArgs: { expand: 'expand', version: 9 } }),
+        .delete({ queryArgs: { expand: 'expand', version: 2 } }),
     },
   ]
 }

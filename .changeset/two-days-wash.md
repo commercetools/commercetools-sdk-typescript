@@ -1,6 +1,6 @@
 ---
-"@commercetools/importapi-sdk": patch
-"@commercetools/platform-sdk": minor
+'@commercetools/importapi-sdk': patch
+'@commercetools/platform-sdk': minor
 ---
 
 Update generated SDKs
