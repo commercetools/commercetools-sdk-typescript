@@ -22,23 +22,21 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?fuzzy=true&markMatchingVariants=true',
+      uri: '/test_projectKey/product-projections/search?fuzzy=true',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .search()
-        .get({ queryArgs: { fuzzy: true, markMatchingVariants: true } }),
+        .get({ queryArgs: { fuzzy: true } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?fuzzyLevel=0.110830665&markMatchingVariants=true',
+      uri: '/test_projectKey/product-projections/search?fuzzyLevel=0.110830665',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .search()
-        .get({
-          queryArgs: { fuzzyLevel: 0.110830665, markMatchingVariants: true },
-        }),
+        .get({ queryArgs: { fuzzyLevel: 0.110830665 } }),
     },
     {
       method: 'get',
@@ -51,201 +49,165 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?staged=true&markMatchingVariants=true',
+      uri: '/test_projectKey/product-projections/search?staged=true',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .search()
-        .get({ queryArgs: { staged: true, markMatchingVariants: true } }),
+        .get({ queryArgs: { staged: true } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?filter=filter&markMatchingVariants=true',
+      uri: '/test_projectKey/product-projections/search?filter=filter',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .search()
-        .get({ queryArgs: { filter: 'filter', markMatchingVariants: true } }),
+        .get({ queryArgs: { filter: 'filter' } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?filter.facets=filter.facets&markMatchingVariants=true',
+      uri: '/test_projectKey/product-projections/search?filter.facets=filter.facets',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .search()
-        .get({
-          queryArgs: {
-            'filter.facets': 'filter.facets',
-            markMatchingVariants: true,
-          },
-        }),
+        .get({ queryArgs: { 'filter.facets': 'filter.facets' } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?filter.query=filter.query&markMatchingVariants=true',
+      uri: '/test_projectKey/product-projections/search?filter.query=filter.query',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .search()
-        .get({
-          queryArgs: {
-            'filter.query': 'filter.query',
-            markMatchingVariants: true,
-          },
-        }),
+        .get({ queryArgs: { 'filter.query': 'filter.query' } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?facet=facet&markMatchingVariants=true',
+      uri: '/test_projectKey/product-projections/search?facet=facet',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .search()
-        .get({ queryArgs: { facet: 'facet', markMatchingVariants: true } }),
+        .get({ queryArgs: { facet: 'facet' } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?text.locale=text.locale&markMatchingVariants=true',
+      uri: '/test_projectKey/product-projections/search?text.locale=text.locale',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .search()
-        .get({
-          queryArgs: {
-            'text.locale': 'text.locale',
-            markMatchingVariants: true,
-          },
-        }),
+        .get({ queryArgs: { 'text.locale': 'text.locale' } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?sort=sort&markMatchingVariants=true',
+      uri: '/test_projectKey/product-projections/search?sort=sort',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .search()
-        .get({ queryArgs: { sort: 'sort', markMatchingVariants: true } }),
+        .get({ queryArgs: { sort: 'sort' } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?limit=7&markMatchingVariants=true',
+      uri: '/test_projectKey/product-projections/search?limit=7',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .search()
-        .get({ queryArgs: { limit: 7, markMatchingVariants: true } }),
+        .get({ queryArgs: { limit: 7 } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?offset=3&markMatchingVariants=true',
+      uri: '/test_projectKey/product-projections/search?offset=3',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .search()
-        .get({ queryArgs: { offset: 3, markMatchingVariants: true } }),
+        .get({ queryArgs: { offset: 3 } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?withTotal=true&markMatchingVariants=true',
+      uri: '/test_projectKey/product-projections/search?withTotal=true',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .search()
-        .get({ queryArgs: { withTotal: true, markMatchingVariants: true } }),
+        .get({ queryArgs: { withTotal: true } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?priceCurrency=priceCurrency&markMatchingVariants=true',
+      uri: '/test_projectKey/product-projections/search?priceCurrency=priceCurrency',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .search()
-        .get({
-          queryArgs: {
-            priceCurrency: 'priceCurrency',
-            markMatchingVariants: true,
-          },
-        }),
+        .get({ queryArgs: { priceCurrency: 'priceCurrency' } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?priceCountry=priceCountry&markMatchingVariants=true',
+      uri: '/test_projectKey/product-projections/search?priceCountry=priceCountry',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .search()
-        .get({
-          queryArgs: {
-            priceCountry: 'priceCountry',
-            markMatchingVariants: true,
-          },
-        }),
+        .get({ queryArgs: { priceCountry: 'priceCountry' } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?priceCustomerGroup=priceCustomerGroup&markMatchingVariants=true',
+      uri: '/test_projectKey/product-projections/search?priceCustomerGroup=priceCustomerGroup',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .search()
-        .get({
-          queryArgs: {
-            priceCustomerGroup: 'priceCustomerGroup',
-            markMatchingVariants: true,
-          },
-        }),
+        .get({ queryArgs: { priceCustomerGroup: 'priceCustomerGroup' } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?priceChannel=priceChannel&markMatchingVariants=true',
+      uri: '/test_projectKey/product-projections/search?priceChannel=priceChannel',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .search()
-        .get({
-          queryArgs: {
-            priceChannel: 'priceChannel',
-            markMatchingVariants: true,
-          },
-        }),
+        .get({ queryArgs: { priceChannel: 'priceChannel' } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?localeProjection=localeProjection&markMatchingVariants=true',
+      uri: '/test_projectKey/product-projections/search?localeProjection=localeProjection',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .search()
-        .get({
-          queryArgs: {
-            localeProjection: 'localeProjection',
-            markMatchingVariants: true,
-          },
-        }),
+        .get({ queryArgs: { localeProjection: 'localeProjection' } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?storeProjection=storeProjection&markMatchingVariants=true',
+      uri: '/test_projectKey/product-projections/search?storeProjection=storeProjection',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .search()
-        .get({
-          queryArgs: {
-            storeProjection: 'storeProjection',
-            markMatchingVariants: true,
-          },
-        }),
+        .get({ queryArgs: { storeProjection: 'storeProjection' } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?expand=expand&markMatchingVariants=true',
+      uri: '/test_projectKey/product-projections/search?expand=expand',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .search()
-        .get({ queryArgs: { expand: 'expand', markMatchingVariants: true } }),
+        .get({ queryArgs: { expand: 'expand' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/product-projections/search',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .productProjections()
+        .search()
+        .get(),
     },
   ]
 }

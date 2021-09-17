@@ -44,11 +44,11 @@ export class ByProjectKeyProductProjectionsSearchRequestBuilder {
   /**
    *	Search Product Projection
    */
-  public get(methodArgs: {
-    queryArgs: {
+  public get(methodArgs?: {
+    queryArgs?: {
       fuzzy?: boolean
       fuzzyLevel?: number
-      markMatchingVariants: boolean
+      markMatchingVariants?: boolean
       staged?: boolean
       filter?: string | string[]
       'filter.facets'?: string | string[]
