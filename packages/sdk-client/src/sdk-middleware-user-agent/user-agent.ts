@@ -1,4 +1,5 @@
 import { default as createHttpUserAgent } from '../http-user-agent/create-user-agent'
+import packageJson from '../../package.json'
 import {
   Dispatch,
   Middleware,
@@ -6,10 +7,9 @@ import {
   MiddlewareResponse,
 } from '../types/sdk'
 
-const { version } = require('root-require')('package.json')
 export default function createUserAgentMiddleware(): Middleware {
   const userAgent = createHttpUserAgent({
-    name: `commercetools-sdk-javascript-v2/${version}`,
+    name: `commercetools-sdk-javascript-v2/${packageJson.version}`,
   })
 
   return (next: Dispatch): Dispatch =>
