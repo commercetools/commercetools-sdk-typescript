@@ -91,7 +91,7 @@ describe('validation', () => {
 })
 
 describe('optional information', () => {
-  const { version } = require('root-require')('package.json')
+  const { version } = require('../../package.json')
   test('create user agent with the correct SDK', () => {
     const userAgent = createHttpUserAgent({
       name: `commercetools-sdk-javascript-v2/${version}`,
