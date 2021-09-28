@@ -118,6 +118,15 @@ export interface DiscountCode extends BaseResource {
    *
    */
   readonly validUntil?: string
+  /**
+   *	Used for the internal platform only and registers the reservation of use of a discount code.
+   *	Its value is managed by the platform.
+   *	It can change at any time due to internal and external factors.
+   *	It should not be used in customer logic.
+   *
+   *
+   */
+  readonly applicationVersion: number
 }
 export interface DiscountCodeDraft {
   /**

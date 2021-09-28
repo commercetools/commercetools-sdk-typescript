@@ -3,7 +3,10 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { RecordPagedQueryResponse } from '../models/common'
+import {
+  PlatformInitiatedChange,
+  RecordPagedQueryResponse,
+} from '../models/common'
 import { executeRequest, QueryParam } from '../shared/utils/common-types'
 import { ApiRequest } from '../shared/utils/requests-utils'
 
@@ -31,6 +34,9 @@ export class ByProjectKeyByResourceTypeByIDRequestBuilder {
       source?: string
       changes?: string | string[]
       customerId?: string
+      excludePlatformInitiatedChanges?:
+        | PlatformInitiatedChange
+        | PlatformInitiatedChange[]
       expand?: boolean
       [key: string]: QueryParam
     }
