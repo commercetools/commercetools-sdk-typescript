@@ -171,6 +171,7 @@ export type KeyReference =
   | CartKeyReference
   | CategoryKeyReference
   | ChannelKeyReference
+  | CustomObjectKeyReference
   | CustomerGroupKeyReference
   | CustomerKeyReference
   | DiscountCodeKeyReference
@@ -376,6 +377,32 @@ export interface TypeKeyReference {
    */
   readonly key: string
 }
+/**
+ *	References a key value document by its key.
+ */
+export interface CustomObjectKeyReference {
+  readonly typeId: 'key-value-document'
+  /**
+   *
+   */
+  readonly key: string
+  /**
+   *
+   */
+  readonly container: string
+}
+export interface UnresolvedReferences {
+  /**
+   *
+   */
+  readonly key: string
+  /**
+   *	The type of the referenced resource.
+   *
+   *
+   */
+  readonly typeId: ReferenceType
+}
 export type MoneyType = 'centPrecision' | 'highPrecision'
 export type TypedMoney = HighPrecisionMoney | Money
 export interface HighPrecisionMoney {
@@ -472,6 +499,7 @@ export type ReferenceType =
   | 'customer'
   | 'customer-group'
   | 'discount-code'
+  | 'key-value-document'
   | 'order'
   | 'payment'
   | 'price'

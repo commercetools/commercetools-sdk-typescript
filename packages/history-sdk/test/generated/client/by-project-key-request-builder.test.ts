@@ -97,6 +97,13 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
+      uri: '/test_projectKey?excludePlatformInitiatedChanges=excludeAll',
+      request: apiRoot
+        .withProjectKeyValue({ projectKey: 'test_projectKey' })
+        .get({ queryArgs: { excludePlatformInitiatedChanges: 'excludeAll' } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey?expand=true',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })

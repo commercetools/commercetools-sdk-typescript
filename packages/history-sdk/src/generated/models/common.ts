@@ -966,6 +966,13 @@ export type PaymentState =
   | 'Failed'
   | 'Paid'
   | 'Pending'
+export type PlatformInitiatedChange =
+  | 'changeLineItemName'
+  | 'changeReviewRatingStatistics'
+  | 'excludeAll'
+  | 'setApplicationVersion'
+  | 'setIsValid'
+  | 'setVariantAvailability'
 export interface Price {
   /**
    *

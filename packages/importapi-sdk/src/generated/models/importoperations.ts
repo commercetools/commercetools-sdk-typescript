@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
-import { KeyReference, ProcessingState } from './common'
+import { ProcessingState, UnresolvedReferences } from './common'
 import { ErrorObject } from './errors'
 
 /**
@@ -54,7 +54,7 @@ export interface ImportOperation {
    *
    *
    */
-  readonly unresolvedReferences?: KeyReference[]
+  readonly unresolvedReferences?: UnresolvedReferences[]
   /**
    *	The time when the ImportOperation was created.
    *

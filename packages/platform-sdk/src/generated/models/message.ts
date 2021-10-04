@@ -60,6 +60,7 @@ export type Message =
   | CustomerCompanyNameSetMessage
   | CustomerCreatedMessage
   | CustomerDateOfBirthSetMessage
+  | CustomerDeletedMessage
   | CustomerEmailChangedMessage
   | CustomerEmailVerifiedMessage
   | CustomerGroupSetMessage
@@ -604,6 +605,53 @@ export interface CustomerDateOfBirthSetMessage {
    *
    */
   readonly dateOfBirth: string
+}
+export interface CustomerDeletedMessage {
+  readonly type: 'CustomerDeleted'
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
 }
 export interface CustomerEmailChangedMessage {
   readonly type: 'CustomerEmailChanged'
@@ -4368,6 +4416,7 @@ export type MessagePayload =
   | CustomerCompanyNameSetMessagePayload
   | CustomerCreatedMessagePayload
   | CustomerDateOfBirthSetMessagePayload
+  | CustomerDeletedMessagePayload
   | CustomerEmailChangedMessagePayload
   | CustomerEmailVerifiedMessagePayload
   | CustomerGroupSetMessagePayload
@@ -4517,6 +4566,9 @@ export interface CustomerDateOfBirthSetMessagePayload {
    *
    */
   readonly dateOfBirth: string
+}
+export interface CustomerDeletedMessagePayload {
+  readonly type: 'CustomerDeleted'
 }
 export interface CustomerEmailChangedMessagePayload {
   readonly type: 'CustomerEmailChanged'
