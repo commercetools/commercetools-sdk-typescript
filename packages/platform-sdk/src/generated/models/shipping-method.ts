@@ -79,6 +79,10 @@ export interface ShippingMethod extends BaseResource {
   /**
    *
    */
+  readonly localizedName?: LocalizedString
+  /**
+   *
+   */
   readonly description?: string
   /**
    *
@@ -116,6 +120,10 @@ export interface ShippingMethodDraft {
    *
    */
   readonly name: string
+  /**
+   *
+   */
+  readonly localizedName?: LocalizedString
   /**
    *
    */
@@ -214,6 +222,7 @@ export type ShippingMethodUpdateAction =
   | ShippingMethodSetDescriptionAction
   | ShippingMethodSetKeyAction
   | ShippingMethodSetLocalizedDescriptionAction
+  | ShippingMethodSetLocalizedNameAction
   | ShippingMethodSetPredicateAction
 export interface ShippingRate {
   /**
@@ -436,6 +445,13 @@ export interface ShippingMethodSetLocalizedDescriptionAction {
    *
    */
   readonly localizedDescription?: LocalizedString
+}
+export interface ShippingMethodSetLocalizedNameAction {
+  readonly action: 'setLocalizedName'
+  /**
+   *
+   */
+  readonly localizedName?: LocalizedString
 }
 export interface ShippingMethodSetPredicateAction {
   readonly action: 'setPredicate'
