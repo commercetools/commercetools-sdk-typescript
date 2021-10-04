@@ -1,5 +1,11 @@
 # @commercetools/sdk-client-v2
 
+## 0.1.2
+
+### Patch Changes
+
+- [#123](https://github.com/commercetools/commercetools-sdk-typescript/pull/123) [`1bdcdcf`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1bdcdcf71669f38c3a157e9d03c8106bb8c7c4d5) Thanks [@ajimae](https://github.com/ajimae)! - Fix issues with SDK not working with Browsers
+
 ## 0.1.1
 
 ### Patch Changes
