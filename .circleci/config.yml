@@ -33,8 +33,19 @@ jobs:
           command: yarn install --frozen-lockfile
       - save_cache: *save_yarn_cache
       - run:
+          name: Install example dependencies
+          command: |
+            cd examples
+            yarn global add puppeteer
+            yarn install --frozen-lockfile
+      - run:
           name: Building packages
           command: yarn build
+      - run:
+          name: Running example tests
+          command: |
+            cd examples
+            yarn test
       - run:
           name: Running tests
           command: yarn test --coverage
