@@ -36,6 +36,7 @@ export type ErrorObject =
   | AttributeDefinitionAlreadyExistsError
   | AttributeDefinitionTypeConflictError
   | AttributeNameDoesNotExistError
+  | BadGatewayError
   | ConcurrentModificationError
   | DiscountCodeNonApplicableError
   | DuplicateAttributeValueError
@@ -157,6 +158,13 @@ export interface AttributeNameDoesNotExistError {
    *
    */
   readonly invalidAttributeName: string
+}
+export interface BadGatewayError {
+  readonly code: 'BadGateway'
+  /**
+   *
+   */
+  readonly message: string
 }
 export interface ConcurrentModificationError {
   readonly code: 'ConcurrentModification'
