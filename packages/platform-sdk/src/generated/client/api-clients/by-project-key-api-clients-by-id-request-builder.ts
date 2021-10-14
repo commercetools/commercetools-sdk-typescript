@@ -18,9 +18,6 @@ export class ByProjectKeyApiClientsByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get ApiClient by ID
-   */
   public get(methodArgs?: {
     headers?: {
       [key: string]: string | string[]
@@ -39,9 +36,6 @@ export class ByProjectKeyApiClientsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete ApiClient by ID
-   */
   public delete(methodArgs?: {
     headers?: {
       [key: string]: string | string[]
