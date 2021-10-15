@@ -347,6 +347,16 @@ export interface DiscountedPrice {
   /**
    *
    */
+  readonly value: TypedMoney
+  /**
+   *
+   */
+  readonly discount: ProductDiscountReference
+}
+export interface DiscountedPriceDraft {
+  /**
+   *
+   */
   readonly value: Money
   /**
    *
@@ -485,7 +495,7 @@ export interface PriceDraft {
   /**
    *
    */
-  readonly discounted?: DiscountedPrice
+  readonly discounted?: DiscountedPriceDraft
 }
 export interface PriceTier {
   /**
@@ -541,7 +551,7 @@ export interface QueryPrice {
   /**
    *
    */
-  readonly discounted?: DiscountedPrice
+  readonly discounted?: DiscountedPriceDraft
   /**
    *
    */

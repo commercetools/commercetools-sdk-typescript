@@ -12,7 +12,7 @@ import {
   AssetSource,
   BaseResource,
   CreatedBy,
-  DiscountedPrice,
+  DiscountedPriceDraft,
   Image,
   LastModifiedBy,
   LocalizedString,
@@ -1336,7 +1336,7 @@ export interface ProductSetDiscountedPriceAction {
   /**
    *
    */
-  readonly discounted?: DiscountedPrice
+  readonly discounted?: DiscountedPriceDraft
 }
 export interface ProductSetImageLabelAction {
   readonly action: 'setImageLabel'
