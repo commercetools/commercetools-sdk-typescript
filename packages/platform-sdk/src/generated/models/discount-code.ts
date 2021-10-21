@@ -214,6 +214,7 @@ export interface DiscountCodePagedQueryResponse {
 export interface DiscountCodeReference {
   readonly typeId: 'discount-code'
   /**
+   *	Unique ID of the referenced resource.
    *
    */
   readonly id: string
@@ -225,10 +226,12 @@ export interface DiscountCodeReference {
 export interface DiscountCodeResourceIdentifier {
   readonly typeId: 'discount-code'
   /**
+   *	Unique ID of the referenced resource. Either `id` or `key` is required.
    *
    */
   readonly id?: string
   /**
+   *	Unique key of the referenced resource. Either `id` or `key` is required.
    *
    */
   readonly key?: string

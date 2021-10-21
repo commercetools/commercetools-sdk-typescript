@@ -94,6 +94,7 @@ export interface CustomObjectPagedQueryResponse {
 export interface CustomObjectReference {
   readonly typeId: 'key-value-document'
   /**
+   *	Unique ID of the referenced resource.
    *
    */
   readonly id: string

@@ -139,6 +139,7 @@ export interface StatePagedQueryResponse {
 export interface StateReference {
   readonly typeId: 'state'
   /**
+   *	Unique ID of the referenced resource.
    *
    */
   readonly id: string
@@ -150,10 +151,12 @@ export interface StateReference {
 export interface StateResourceIdentifier {
   readonly typeId: 'state'
   /**
+   *	Unique ID of the referenced resource. Either `id` or `key` is required.
    *
    */
   readonly id?: string
   /**
+   *	Unique key of the referenced resource. Either `id` or `key` is required.
    *
    */
   readonly key?: string

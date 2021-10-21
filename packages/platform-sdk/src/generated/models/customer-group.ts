@@ -122,6 +122,7 @@ export interface CustomerGroupPagedQueryResponse {
 export interface CustomerGroupReference {
   readonly typeId: 'customer-group'
   /**
+   *	Unique ID of the referenced resource.
    *
    */
   readonly id: string
@@ -133,10 +134,12 @@ export interface CustomerGroupReference {
 export interface CustomerGroupResourceIdentifier {
   readonly typeId: 'customer-group'
   /**
+   *	Unique ID of the referenced resource. Either `id` or `key` is required.
    *
    */
   readonly id?: string
   /**
+   *	Unique key of the referenced resource. Either `id` or `key` is required.
    *
    */
   readonly key?: string
