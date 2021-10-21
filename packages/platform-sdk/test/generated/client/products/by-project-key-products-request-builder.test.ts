@@ -124,6 +124,14 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .get(),
     },
     {
+      method: 'head',
+      uri: '/test_projectKey/products',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .products()
+        .head(),
+    },
+    {
       method: 'post',
       uri: '/test_projectKey/products?priceCurrency=priceCurrency',
       request: apiRoot

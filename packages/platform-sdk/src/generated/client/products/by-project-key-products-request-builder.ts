@@ -89,6 +89,27 @@ export class ByProjectKeyProductsRequestBuilder {
     )
   }
   /**
+   *	Checks if products exist.
+   */
+  public head(methodArgs?: {
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'HEAD',
+        uriTemplate: '/{projectKey}/products',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+      },
+      this.args.executeRequest
+    )
+  }
+  /**
    *	To create a new product, send a representation that is going to become the initial staged representation
    *	of the new product in the master catalog. If price selection query parameters are provided,
    *	the selected prices will be added to the response.

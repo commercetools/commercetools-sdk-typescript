@@ -50,6 +50,27 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Checks if product with given key exists.
+   */
+  public head(methodArgs?: {
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'HEAD',
+        uriTemplate: '/{projectKey}/products/key={key}',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+      },
+      this.args.executeRequest
+    )
+  }
   public post(methodArgs: {
     queryArgs?: {
       priceCurrency?: string
