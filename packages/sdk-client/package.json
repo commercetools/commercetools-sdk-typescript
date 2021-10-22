@@ -42,8 +42,8 @@
   },
   "devDependencies": {
     "abort-controller": "3.0.0",
-    "common-tags": "^1.8.0",
-    "dotenv": "^10.0.0",
+    "common-tags": "1.8.0",
+    "dotenv": "10.0.0",
     "jest": "27.0.6",
     "nock": "12.0.3",
     "organize-imports-cli": "0.8.0"
