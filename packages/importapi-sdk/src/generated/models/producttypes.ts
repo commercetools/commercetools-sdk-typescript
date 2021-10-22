@@ -135,7 +135,7 @@ export interface AttributeMoneyType {
 export interface AttributeNestedType {
   readonly name: 'nested'
   /**
-   *	References a product type by its key.
+   *	References a product type by key.
    *
    */
   readonly typeReference: ProductTypeKeyReference

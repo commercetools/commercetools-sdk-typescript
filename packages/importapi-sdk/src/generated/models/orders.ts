@@ -95,13 +95,13 @@ export interface LineItemPrice {
    */
   readonly validUntil?: string
   /**
-   *	References a customer group by its key.
+   *	References a customer group by key.
    *
    *
    */
   readonly customerGroup?: CustomerGroupKeyReference
   /**
-   *	References a channel by its key.
+   *	References a channel by key.
    *
    *
    */
@@ -360,7 +360,7 @@ export interface Delivery {
 }
 export interface DiscountedLineItemPortion {
   /**
-   *	References a cart discount by its key.
+   *	References a cart discount by key.
    *
    */
   readonly discount: CartDiscountKeyReference
@@ -405,12 +405,12 @@ export interface ShippingInfoImportDraft {
    */
   readonly taxRate?: TaxRate
   /**
-   *	References a tax category by its key.
+   *	References a tax category by key.
    *
    */
   readonly taxCategory?: TaxCategoryKeyReference
   /**
-   *	References a shipping method by its key.
+   *	References a shipping method by key.
    *
    */
   readonly shippingMethod?: ShippingMethodKeyReference
@@ -510,7 +510,7 @@ export interface CustomLineItemDraft {
    */
   readonly state?: ItemState[]
   /**
-   *	References a tax category by its key.
+   *	References a tax category by key.
    *
    */
   readonly taxCategory?: TaxCategoryKeyReference
@@ -636,7 +636,7 @@ export type DiscountCodeState =
   | 'NotValid'
 export interface DiscountCodeInfo {
   /**
-   *	References a discount code by its key.
+   *	References a discount code by key.
    *
    */
   readonly discountCode: DiscountCodeKeyReference
