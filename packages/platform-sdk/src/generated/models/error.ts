@@ -579,6 +579,8 @@ export interface MatchingPriceNotFoundError {
    */
   readonly country?: string
   /**
+   *	[Reference](/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
    *
    */
   readonly customerGroup?: CustomerGroupReference

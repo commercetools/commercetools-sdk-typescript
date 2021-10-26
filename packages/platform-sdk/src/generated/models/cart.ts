@@ -1511,6 +1511,8 @@ export interface CartSetCustomerEmailAction {
 export interface CartSetCustomerGroupAction {
   readonly action: 'setCustomerGroup'
   /**
+   *	[ResourceIdentifier](/types#resourceidentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
    *
    */
   readonly customerGroup?: CustomerGroupResourceIdentifier

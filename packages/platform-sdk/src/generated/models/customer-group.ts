@@ -14,20 +14,26 @@ import {
 
 export interface CustomerGroup extends BaseResource {
   /**
-   *	Unique ID of the customer group.
+   *	Unique ID of the Customer Group.
+   *
    *
    */
   readonly id: string
   /**
-   *	Current version of the customer group.
+   *	Current version of the Customer Group.
+   *
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Customer Group was initially created.
+   *
    *
    */
   readonly createdAt: string
   /**
+   *	Date and time (UTC) the Customer Group was last updated.
+   *
    *
    */
   readonly lastModifiedAt: string
@@ -44,36 +50,42 @@ export interface CustomerGroup extends BaseResource {
    */
   readonly createdBy?: CreatedBy
   /**
-   *	User-defined unique identifier for the customer group.
+   *	User-defined unique identifier for the Customer Group.
    *
    *
    */
   readonly key?: string
   /**
-   *	Unique within the project.
+   *	Unique name of the Customer Group.
    *
    *
    */
   readonly name: string
   /**
+   *	Custom Fields for the Customer Group.
+   *
    *
    */
   readonly custom?: CustomFields
 }
 export interface CustomerGroupDraft {
   /**
-   *	User-defined unique identifier for the customer group.
+   *	User-defined unique identifier for the Customer Group.
+   *	Keys can only contain alphanumeric characters, underscores, and hyphens.
+   *
    *
    */
   readonly key?: string
   /**
-   *	Unique value which must be different from any value used for `name` in [CustomerGroup](ctp:api:type:CustomerGroup) in the project.
+   *	Unique value which must be different from any value used for `name` in [CustomerGroup](ctp:api:type:CustomerGroup) in the Project.
    *	If not, a `DuplicateField` [error](/../api/errors#400-bad-request-1) is thrown.
    *
    *
    */
   readonly groupName: string
   /**
+   *	Custom Fields for the Customer Group.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
@@ -84,18 +96,18 @@ export interface CustomerGroupDraft {
  */
 export interface CustomerGroupPagedQueryResponse {
   /**
+   *	Number of results requested in the query request.
+   *
+   *
+   */
+  readonly limit: number
+  /**
    *	Offset supplied by the client or server default.
    *	It is the number of elements skipped, not a page number.
    *
    *
    */
   readonly offset: number
-  /**
-   *	Number of results requested in the query request.
-   *
-   *
-   */
-  readonly limit: number
   /**
    *	Actual number of results returned.
    *
@@ -113,40 +125,53 @@ export interface CustomerGroupPagedQueryResponse {
    */
   readonly total?: number
   /**
-   *	Array of [CustomerGroups](ctp:api:type:CustomerGroup) matching the query.
+   *	[CustomerGroups](ctp:api:type:CustomerGroup) matching the query.
    *
    *
    */
   readonly results: CustomerGroup[]
 }
+/**
+ *	[Reference](/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+ *
+ */
 export interface CustomerGroupReference {
   readonly typeId: 'customer-group'
   /**
-   *	Unique ID of the referenced resource.
+   *	Unique ID of the referenced [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
    *
    */
   readonly id: string
   /**
+   *	Contains the representation of the expanded Customer Group. Only present in responses to requests with [Reference Expansion](/general-concepts#reference-expansion) for Customer Groups.
+   *
    *
    */
   readonly obj?: CustomerGroup
 }
+/**
+ *	[ResourceIdentifier](/types#resourceidentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+ *
+ */
 export interface CustomerGroupResourceIdentifier {
   readonly typeId: 'customer-group'
   /**
-   *	Unique ID of the referenced resource. Either `id` or `key` is required.
+   *	Unique ID of the referenced [CustomerGroup](ctp:api:type:CustomerGroup). Either `id` or `key` is required.
+   *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced resource. Either `id` or `key` is required.
+   *	Unique key of the referenced [CustomerGroup](ctp:api:type:CustomerGroup). Either `id` or `key` is required.
+   *
    *
    */
   readonly key?: string
 }
 export interface CustomerGroupUpdate {
   /**
-   *	Expected version of the customer group on which the changes should be applied.
+   *	Expected version of the Customer Group on which the changes should be applied.
    *	If the expected version does not match the actual version, a 409 Conflict
    *	will be returned.
    *
@@ -154,7 +179,7 @@ export interface CustomerGroupUpdate {
    */
   readonly version: number
   /**
-   *	List of update actions to be performed on the customer group.
+   *	Update actions to be performed on the Customer Group.
    *
    *
    */
@@ -168,7 +193,7 @@ export type CustomerGroupUpdateAction =
 export interface CustomerGroupChangeNameAction {
   readonly action: 'changeName'
   /**
-   *	User-defined unique name for the customer group.
+   *	New name of the Customer Group.
    *
    *
    */
@@ -177,21 +202,23 @@ export interface CustomerGroupChangeNameAction {
 export interface CustomerGroupSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
+   *	Name of the Custom Field.
+   *
    *
    */
   readonly name: string
   /**
    *	Value must be of type [Value](/../api/projects/custom-fields#value).
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#400-bad-request-1) error.
-   *	If `value` is provided, set the `value` of the field defined by the `name`.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
    */
   readonly value?: any
 }
 /**
- *	This action sets or removes the custom type for an existing customer group.
+ *	This action sets or removes the custom type for an existing Customer Group.
  *	If present, this action overwrites any existing [custom](/../api/projects/custom-fields#custom) type and fields.
  *
  */

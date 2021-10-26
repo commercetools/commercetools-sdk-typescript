@@ -429,6 +429,8 @@ export interface Price {
    */
   readonly country?: string
   /**
+   *	[Reference](/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
    *
    */
   readonly customerGroup?: CustomerGroupReference
@@ -469,6 +471,8 @@ export interface PriceDraft {
    */
   readonly country?: string
   /**
+   *	[ResourceIdentifier](/types#resourceidentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
    *
    */
   readonly customerGroup?: CustomerGroupResourceIdentifier
@@ -533,6 +537,8 @@ export interface QueryPrice {
    */
   readonly country?: string
   /**
+   *	[Reference](/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
    *
    */
   readonly customerGroup?: CustomerGroupReference
@@ -656,6 +662,8 @@ export interface ScopedPrice {
    */
   readonly country?: string
   /**
+   *	[Reference](/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
    *
    */
   readonly customerGroup?: CustomerGroupReference
