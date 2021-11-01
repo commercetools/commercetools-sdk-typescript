@@ -212,6 +212,7 @@ export interface CartDiscountPagedQueryResponse {
 export interface CartDiscountReference {
   readonly typeId: 'cart-discount'
   /**
+   *	Unique ID of the referenced resource.
    *
    */
   readonly id: string
@@ -223,10 +224,12 @@ export interface CartDiscountReference {
 export interface CartDiscountResourceIdentifier {
   readonly typeId: 'cart-discount'
   /**
+   *	Unique ID of the referenced resource. Either `id` or `key` is required.
    *
    */
   readonly id?: string
   /**
+   *	Unique key of the referenced resource. Either `id` or `key` is required.
    *
    */
   readonly key?: string

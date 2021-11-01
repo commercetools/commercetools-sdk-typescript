@@ -147,7 +147,9 @@ export interface ProductDraftImport extends ImportResource {
    */
   readonly state?: StateKeyReference
   /**
-   *	If there were updates, only the updates will be published to `staged` and `current` projection.
+   *	If `publish` is set to either `true` or `false`, both staged and current projections are set to the same value provided by the import data.
+   *	If `publish` is not set, the staged projection is set to the provided import data, but the current projection stays unchanged.
+   *	However, if the import data contains no update, that is, if it matches the staged projection of the existing Product in the platform, the import induces no change in the existing Product whether `publish` is set or not.
    *
    *
    */
@@ -201,12 +203,12 @@ export interface PriceDraftImport {
    */
   readonly country?: string
   /**
-   *	References a customer group by its key.
+   *	References a customer group by key.
    *
    */
   readonly customerGroup?: CustomerGroupKeyReference
   /**
-   *	References a channel by its key.
+   *	References a channel by key.
    *
    */
   readonly channel?: ChannelKeyReference

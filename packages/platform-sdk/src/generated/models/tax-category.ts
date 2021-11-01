@@ -109,6 +109,7 @@ export interface TaxCategoryPagedQueryResponse {
 export interface TaxCategoryReference {
   readonly typeId: 'tax-category'
   /**
+   *	Unique ID of the referenced resource.
    *
    */
   readonly id: string
@@ -120,10 +121,12 @@ export interface TaxCategoryReference {
 export interface TaxCategoryResourceIdentifier {
   readonly typeId: 'tax-category'
   /**
+   *	Unique ID of the referenced resource. Either `id` or `key` is required.
    *
    */
   readonly id?: string
   /**
+   *	Unique key of the referenced resource. Either `id` or `key` is required.
    *
    */
   readonly key?: string

@@ -36,6 +36,7 @@ export type ErrorObject =
   | AttributeDefinitionAlreadyExistsError
   | AttributeDefinitionTypeConflictError
   | AttributeNameDoesNotExistError
+  | BadGatewayError
   | ConcurrentModificationError
   | DiscountCodeNonApplicableError
   | DuplicateAttributeValueError
@@ -157,6 +158,13 @@ export interface AttributeNameDoesNotExistError {
    *
    */
   readonly invalidAttributeName: string
+}
+export interface BadGatewayError {
+  readonly code: 'BadGateway'
+  /**
+   *
+   */
+  readonly message: string
 }
 export interface ConcurrentModificationError {
   readonly code: 'ConcurrentModification'
@@ -571,6 +579,8 @@ export interface MatchingPriceNotFoundError {
    */
   readonly country?: string
   /**
+   *	[Reference](/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
    *
    */
   readonly customerGroup?: CustomerGroupReference

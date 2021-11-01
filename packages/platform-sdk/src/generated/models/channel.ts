@@ -150,6 +150,7 @@ export interface ChannelPagedQueryResponse {
 export interface ChannelReference {
   readonly typeId: 'channel'
   /**
+   *	Unique ID of the referenced resource.
    *
    */
   readonly id: string
@@ -161,10 +162,12 @@ export interface ChannelReference {
 export interface ChannelResourceIdentifier {
   readonly typeId: 'channel'
   /**
+   *	Unique ID of the referenced resource. Either `id` or `key` is required.
    *
    */
   readonly id?: string
   /**
+   *	Unique key of the referenced resource. Either `id` or `key` is required.
    *
    */
   readonly key?: string

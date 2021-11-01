@@ -164,7 +164,7 @@ export interface ImportResource {
   readonly key: string
 }
 /**
- *	References a resource by its key.
+ *	References a resource by key.
  */
 export type KeyReference =
   | CartDiscountKeyReference
@@ -188,7 +188,7 @@ export type KeyReference =
   | TaxCategoryKeyReference
   | TypeKeyReference
 /**
- *	References a cart by its key.
+ *	References a cart by key.
  */
 export interface CartKeyReference {
   readonly typeId: 'cart'
@@ -198,7 +198,7 @@ export interface CartKeyReference {
   readonly key: string
 }
 /**
- *	References a cart discount by its key.
+ *	References a cart discount by key.
  */
 export interface CartDiscountKeyReference {
   readonly typeId: 'cart-discount'
@@ -208,7 +208,7 @@ export interface CartDiscountKeyReference {
   readonly key: string
 }
 /**
- *	References a category by its key.
+ *	References a category by key.
  */
 export interface CategoryKeyReference {
   readonly typeId: 'category'
@@ -218,7 +218,7 @@ export interface CategoryKeyReference {
   readonly key: string
 }
 /**
- *	References a channel by its key.
+ *	References a channel by key.
  */
 export interface ChannelKeyReference {
   readonly typeId: 'channel'
@@ -228,7 +228,7 @@ export interface ChannelKeyReference {
   readonly key: string
 }
 /**
- *	References a customer by its key.
+ *	References a customer by key.
  */
 export interface CustomerKeyReference {
   readonly typeId: 'customer'
@@ -238,7 +238,7 @@ export interface CustomerKeyReference {
   readonly key: string
 }
 /**
- *	References a customer group by its key.
+ *	References a customer group by key.
  */
 export interface CustomerGroupKeyReference {
   readonly typeId: 'customer-group'
@@ -248,7 +248,7 @@ export interface CustomerGroupKeyReference {
   readonly key: string
 }
 /**
- *	References a discount code by its key.
+ *	References a discount code by key.
  */
 export interface DiscountCodeKeyReference {
   readonly typeId: 'discount-code'
@@ -258,7 +258,7 @@ export interface DiscountCodeKeyReference {
   readonly key: string
 }
 /**
- *	References an order by its key.
+ *	References an order by key.
  */
 export interface OrderKeyReference {
   readonly typeId: 'order'
@@ -268,7 +268,7 @@ export interface OrderKeyReference {
   readonly key: string
 }
 /**
- *	References a payment by its key.
+ *	References a payment by key.
  */
 export interface PaymentKeyReference {
   readonly typeId: 'payment'
@@ -278,7 +278,7 @@ export interface PaymentKeyReference {
   readonly key: string
 }
 /**
- *	References a price by its key.
+ *	References a price by key.
  */
 export interface PriceKeyReference {
   readonly typeId: 'price'
@@ -288,7 +288,7 @@ export interface PriceKeyReference {
   readonly key: string
 }
 /**
- *	References a product by its key.
+ *	References a product by key.
  */
 export interface ProductKeyReference {
   readonly typeId: 'product'
@@ -298,7 +298,7 @@ export interface ProductKeyReference {
   readonly key: string
 }
 /**
- *	References a product discount by its key.
+ *	References a product discount by key.
  */
 export interface ProductDiscountKeyReference {
   readonly typeId: 'product-discount'
@@ -308,7 +308,7 @@ export interface ProductDiscountKeyReference {
   readonly key: string
 }
 /**
- *	References a product type by its key.
+ *	References a product type by key.
  */
 export interface ProductTypeKeyReference {
   readonly typeId: 'product-type'
@@ -318,7 +318,7 @@ export interface ProductTypeKeyReference {
   readonly key: string
 }
 /**
- *	References a product variant by its key.
+ *	References a product variant by key.
  */
 export interface ProductVariantKeyReference {
   readonly typeId: 'product-variant'
@@ -328,7 +328,7 @@ export interface ProductVariantKeyReference {
   readonly key: string
 }
 /**
- *	References a shipping method by its key.
+ *	References a shipping method by key.
  */
 export interface ShippingMethodKeyReference {
   readonly typeId: 'shipping-method'
@@ -338,7 +338,7 @@ export interface ShippingMethodKeyReference {
   readonly key: string
 }
 /**
- *	References a state by its key.
+ *	References a state by key.
  */
 export interface StateKeyReference {
   readonly typeId: 'state'
@@ -348,7 +348,7 @@ export interface StateKeyReference {
   readonly key: string
 }
 /**
- *	References a store by its key.
+ *	References a store by key.
  */
 export interface StoreKeyReference {
   readonly typeId: 'store'
@@ -358,7 +358,7 @@ export interface StoreKeyReference {
   readonly key: string
 }
 /**
- *	References a tax category by its key.
+ *	References a tax category by key.
  */
 export interface TaxCategoryKeyReference {
   readonly typeId: 'tax-category'
@@ -368,7 +368,7 @@ export interface TaxCategoryKeyReference {
   readonly key: string
 }
 /**
- *	References a type by its key.
+ *	References a type by key.
  */
 export interface TypeKeyReference {
   readonly typeId: 'type'
@@ -378,7 +378,7 @@ export interface TypeKeyReference {
   readonly key: string
 }
 /**
- *	References a key value document by its key.
+ *	References a key value document by key.
  */
 export interface CustomObjectKeyReference {
   readonly typeId: 'key-value-document'

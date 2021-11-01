@@ -798,6 +798,8 @@ export interface CustomerGroupSetMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Reference](/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
    *
    */
   readonly customerGroup: CustomerGroupReference
@@ -1619,10 +1621,14 @@ export interface OrderCustomerGroupSetMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Reference](/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
    *
    */
   readonly customerGroup?: CustomerGroupReference
   /**
+   *	[Reference](/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
    *
    */
   readonly oldCustomerGroup?: CustomerGroupReference
@@ -1678,6 +1684,8 @@ export interface OrderCustomerSetMessage {
    */
   readonly customer?: CustomerReference
   /**
+   *	[Reference](/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
    *
    */
   readonly customerGroup?: CustomerGroupReference
@@ -1686,6 +1694,8 @@ export interface OrderCustomerSetMessage {
    */
   readonly oldCustomer?: CustomerReference
   /**
+   *	[Reference](/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
    *
    */
   readonly oldCustomerGroup?: CustomerGroupReference
@@ -4583,6 +4593,8 @@ export interface CustomerEmailVerifiedMessagePayload {
 export interface CustomerGroupSetMessagePayload {
   readonly type: 'CustomerGroupSet'
   /**
+   *	[Reference](/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
    *
    */
   readonly customerGroup: CustomerGroupReference
@@ -4746,10 +4758,14 @@ export interface OrderCustomerEmailSetMessagePayload {
 export interface OrderCustomerGroupSetMessagePayload {
   readonly type: 'OrderCustomerGroupSet'
   /**
+   *	[Reference](/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
    *
    */
   readonly customerGroup?: CustomerGroupReference
   /**
+   *	[Reference](/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
    *
    */
   readonly oldCustomerGroup?: CustomerGroupReference
@@ -4761,6 +4777,8 @@ export interface OrderCustomerSetMessagePayload {
    */
   readonly customer?: CustomerReference
   /**
+   *	[Reference](/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
    *
    */
   readonly customerGroup?: CustomerGroupReference
@@ -4769,6 +4787,8 @@ export interface OrderCustomerSetMessagePayload {
    */
   readonly oldCustomer?: CustomerReference
   /**
+   *	[Reference](/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
    *
    */
   readonly oldCustomerGroup?: CustomerGroupReference

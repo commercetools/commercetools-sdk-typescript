@@ -215,6 +215,7 @@ export interface ReviewRatingStatistics {
 export interface ReviewReference {
   readonly typeId: 'review'
   /**
+   *	Unique ID of the referenced resource.
    *
    */
   readonly id: string
@@ -226,10 +227,12 @@ export interface ReviewReference {
 export interface ReviewResourceIdentifier {
   readonly typeId: 'review'
   /**
+   *	Unique ID of the referenced resource. Either `id` or `key` is required.
    *
    */
   readonly id?: string
   /**
+   *	Unique key of the referenced resource. Either `id` or `key` is required.
    *
    */
   readonly key?: string

@@ -25,8 +25,8 @@ export class ByProjectKeyProductProjectionsSearchRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<void> {
-    return new ApiRequest<void>(
+  }): ApiRequest<ProductProjectionPagedSearchResponse> {
+    return new ApiRequest<ProductProjectionPagedSearchResponse>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',

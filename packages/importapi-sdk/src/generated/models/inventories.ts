@@ -33,7 +33,7 @@ export interface InventoryImport extends ImportResource {
    */
   readonly expectedDelivery?: string
   /**
-   *	References a channel by its key.
+   *	References a channel by key.
    *
    */
   readonly supplyChannel?: ChannelKeyReference

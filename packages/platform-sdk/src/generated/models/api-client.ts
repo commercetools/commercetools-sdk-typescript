@@ -6,27 +6,29 @@
 
 export interface ApiClient {
   /**
-   *	The unique ID of the API client.
-   *	This is the OAuth2 `client_id` and can be used to obtain a token.
+   *	Unique ID of the API client.
+   *	This is the OAuth2 `client_id` that can be used to [obtain an access token](/../api/authorization#requesting-an-access-token-using-commercetools-oauth-20-server).
    *
    */
   readonly id: string
   /**
+   *	Name of the API Client.
    *
    */
   readonly name: string
   /**
-   *	A whitespace separated list of the OAuth scopes.
-   *	This is the OAuth2 `scope` and can be used to obtain a token.
+   *	Whitespace-separated list of [OAuth scopes](/../api/scopes) that can be used when [obtaining an access token](/../api/authorization#requesting-an-access-token-using-commercetools-oauth-20-server).
    *
    */
   readonly scope: string
   /**
+   *	Only shown once in the response of creating the API Client.
+   *	This is the OAuth2 `client_secret` that can be used to [obtain an access token](/../api/authorization#requesting-an-access-token-using-commercetools-oauth-20-server).
    *
    */
-  readonly createdAt?: string
+  readonly secret?: string
   /**
-   *	The last day this API Client was used to obtain a token.
+   *	Date of the last day this API Client was used to [obtain an access token](/../api/authorization#requesting-an-access-token-using-commercetools-oauth-20-server).
    *
    */
   readonly lastUsedAt?: string
@@ -36,18 +38,19 @@ export interface ApiClient {
    */
   readonly deleteAt?: string
   /**
-   *	The secret is only shown once in the response of creating the API Client.
-   *	This is the OAuth2 `client_secret` and can be used to obtain a token.
+   *	Date and time (UTC) the API Client was initially created.
    *
    */
-  readonly secret?: string
+  readonly createdAt?: string
 }
 export interface ApiClientDraft {
   /**
+   *	Name of the API Client.
    *
    */
   readonly name: string
   /**
+   *	Whitespace-separated list of [OAuth scopes](/../api/scopes) that can be used when [obtaining an access token](/../api/authorization#requesting-an-access-token-using-commercetools-oauth-20-server).
    *
    */
   readonly scope: string
@@ -57,24 +60,42 @@ export interface ApiClientDraft {
    */
   readonly deleteDaysAfterCreation?: number
 }
+/**
+ *	[PagedQueryResult](/general-concepts#pagedqueryresult) with `results` containing an array of [APIClient](ctp:api:type:ApiClient).
+ *
+ */
 export interface ApiClientPagedQueryResponse {
   /**
+   *	Number of results requested in the query request.
+   *
    *
    */
   readonly limit: number
   /**
+   *	Offset supplied by the client or server default.
+   *	It is the number of elements skipped, not a page number.
    *
-   */
-  readonly count: number
-  /**
-   *
-   */
-  readonly total?: number
-  /**
    *
    */
   readonly offset: number
   /**
+   *	Actual number of results returned.
+   *
+   *
+   */
+  readonly count: number
+  /**
+   *	Total number of results matching the query.
+   *	This number is an estimation that is not [strongly consistent](/general-concepts#strong-consistency).
+   *	This field is returned by default.
+   *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
+   *	When the results are filtered with a [Query Predicate](/predicates/query), `total` is subject to a [limit](/contract#queries).
+   *
+   *
+   */
+  readonly total?: number
+  /**
+   *	API Clients matching the query.
    *
    */
   readonly results: ApiClient[]

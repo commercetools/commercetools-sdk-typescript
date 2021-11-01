@@ -197,6 +197,7 @@ export interface CategoryPagedQueryResponse {
 export interface CategoryReference {
   readonly typeId: 'category'
   /**
+   *	Unique ID of the referenced resource.
    *
    */
   readonly id: string
@@ -208,10 +209,12 @@ export interface CategoryReference {
 export interface CategoryResourceIdentifier {
   readonly typeId: 'category'
   /**
+   *	Unique ID of the referenced resource. Either `id` or `key` is required.
    *
    */
   readonly id?: string
   /**
+   *	Unique key of the referenced resource. Either `id` or `key` is required.
    *
    */
   readonly key?: string

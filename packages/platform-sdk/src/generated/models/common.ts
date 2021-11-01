@@ -347,6 +347,16 @@ export interface DiscountedPrice {
   /**
    *
    */
+  readonly value: TypedMoney
+  /**
+   *
+   */
+  readonly discount: ProductDiscountReference
+}
+export interface DiscountedPriceDraft {
+  /**
+   *
+   */
   readonly value: Money
   /**
    *
@@ -419,6 +429,8 @@ export interface Price {
    */
   readonly country?: string
   /**
+   *	[Reference](/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
    *
    */
   readonly customerGroup?: CustomerGroupReference
@@ -459,6 +471,8 @@ export interface PriceDraft {
    */
   readonly country?: string
   /**
+   *	[ResourceIdentifier](/types#resourceidentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
    *
    */
   readonly customerGroup?: CustomerGroupResourceIdentifier
@@ -485,7 +499,7 @@ export interface PriceDraft {
   /**
    *
    */
-  readonly discounted?: DiscountedPrice
+  readonly discounted?: DiscountedPriceDraft
 }
 export interface PriceTier {
   /**
@@ -523,6 +537,8 @@ export interface QueryPrice {
    */
   readonly country?: string
   /**
+   *	[Reference](/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
    *
    */
   readonly customerGroup?: CustomerGroupReference
@@ -541,7 +557,7 @@ export interface QueryPrice {
   /**
    *
    */
-  readonly discounted?: DiscountedPrice
+  readonly discounted?: DiscountedPriceDraft
   /**
    *
    */
@@ -646,6 +662,8 @@ export interface ScopedPrice {
    */
   readonly country?: string
   /**
+   *	[Reference](/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
    *
    */
   readonly customerGroup?: CustomerGroupReference
