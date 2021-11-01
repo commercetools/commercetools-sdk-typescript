@@ -8,7 +8,7 @@ module.exports = {
     '^.+\\.js$': 'babel-jest',
     '^.+\\.tsx?$': 'ts-jest',
   },
-  testRegex: '\\.(test|spec)\\.[j|t]sx?$',
+  testRegex: '\\.(test|spec)\\.[t]sx?$',
   moduleFileExtensions: ['ts', 'js', 'json'],
   coveragePathIgnorePatterns: ['/node_modules/', '/dist/'],
   watchPlugins: ['jest-watch-typeahead/filename'],
