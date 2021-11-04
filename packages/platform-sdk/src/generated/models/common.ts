@@ -471,7 +471,7 @@ export interface PriceDraft {
    */
   readonly country?: string
   /**
-   *	[ResourceIdentifier](/types#resourceidentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
    *
    *
    */

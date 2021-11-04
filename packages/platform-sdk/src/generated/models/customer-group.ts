@@ -38,13 +38,13 @@ export interface CustomerGroup extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources updated after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
    *
    *
    */
@@ -116,10 +116,10 @@ export interface CustomerGroupPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/predicates/query), `total` is subject to a [limit](/contract#queries).
+   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
    *
    *
    */
@@ -144,14 +144,14 @@ export interface CustomerGroupReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded Customer Group. Only present in responses to requests with [Reference Expansion](/general-concepts#reference-expansion) for Customer Groups.
+   *	Contains the representation of the expanded Customer Group. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Customer Groups.
    *
    *
    */
   readonly obj?: CustomerGroup
 }
 /**
- *	[ResourceIdentifier](/types#resourceidentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+ *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
  *
  */
 export interface CustomerGroupResourceIdentifier {
