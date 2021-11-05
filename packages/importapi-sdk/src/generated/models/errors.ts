@@ -228,6 +228,10 @@ export interface InvalidFieldError {
    *
    */
   readonly allowedValues?: any[]
+  /**
+   *
+   */
+  readonly resourceIndex?: number
 }
 /**
  *	An invalid JSON input has been sent to the service.
