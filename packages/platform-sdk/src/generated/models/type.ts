@@ -318,7 +318,6 @@ export type TypeUpdateAction =
   | TypeAddLocalizedEnumValueAction
   | TypeChangeEnumValueLabelAction
   | TypeChangeEnumValueOrderAction
-  | TypeChangeFieldDefinitionLabelAction
   | TypeChangeFieldDefinitionOrderAction
   | TypeChangeInputHintAction
   | TypeChangeKeyAction
@@ -378,17 +377,6 @@ export interface TypeChangeEnumValueOrderAction {
    *
    */
   readonly keys: string[]
-}
-export interface TypeChangeFieldDefinitionLabelAction {
-  readonly action: 'changeFieldDefinitionLabel'
-  /**
-   *
-   */
-  readonly fieldName: string
-  /**
-   *
-   */
-  readonly label: LocalizedString
 }
 export interface TypeChangeFieldDefinitionOrderAction {
   readonly action: 'changeFieldDefinitionOrder'
