@@ -105,6 +105,7 @@ import {
   StagedOrderSetParcelItemsAction,
   StagedOrderSetParcelMeasurementsAction,
   StagedOrderSetParcelTrackingDataAction,
+  StagedOrderSetReturnInfoAction,
   StagedOrderSetReturnPaymentStateAction,
   StagedOrderSetReturnShipmentStateAction,
   StagedOrderSetShippingAddressAction,
@@ -201,6 +202,7 @@ export type StagedOrderUpdateAction =
   | StagedOrderSetParcelItemsAction
   | StagedOrderSetParcelMeasurementsAction
   | StagedOrderSetParcelTrackingDataAction
+  | StagedOrderSetReturnInfoAction
   | StagedOrderSetReturnPaymentStateAction
   | StagedOrderSetReturnShipmentStateAction
   | StagedOrderSetShippingAddressAction
@@ -772,6 +774,7 @@ export type OrderUpdateAction =
   | OrderSetParcelItemsAction
   | OrderSetParcelMeasurementsAction
   | OrderSetParcelTrackingDataAction
+  | OrderSetReturnInfoAction
   | OrderSetReturnPaymentStateAction
   | OrderSetReturnShipmentStateAction
   | OrderSetShippingAddressAction
@@ -889,6 +892,21 @@ export interface ReturnInfo {
    *
    */
   readonly items: ReturnItem[]
+  /**
+   *	Identifies, which return tracking ID is connected to this particular return.
+   *
+   */
+  readonly returnTrackingId?: string
+  /**
+   *
+   */
+  readonly returnDate?: string
+}
+export interface ReturnInfoDraft {
+  /**
+   *
+   */
+  readonly items: ReturnItemDraft[]
   /**
    *	Identifies, which return tracking ID is connected to this particular return.
    *
@@ -1511,6 +1529,13 @@ export interface OrderSetParcelTrackingDataAction {
    *
    */
   readonly trackingData?: TrackingData
+}
+export interface OrderSetReturnInfoAction {
+  readonly action: 'setReturnInfo'
+  /**
+   *
+   */
+  readonly items?: ReturnInfoDraft[]
 }
 export interface OrderSetReturnPaymentStateAction {
   readonly action: 'setReturnPaymentState'

@@ -89,6 +89,7 @@ export type Message =
   | OrderLineItemDiscountSetMessage
   | OrderPaymentStateChangedMessage
   | OrderReturnInfoAddedMessage
+  | OrderReturnInfoSetMessage
   | OrderReturnShipmentStateChangedMessage
   | OrderShipmentStateChangedMessage
   | OrderShippingAddressSetMessage
@@ -2241,6 +2242,57 @@ export interface OrderReturnInfoAddedMessage {
    *
    */
   readonly returnInfo: ReturnInfo
+}
+export interface OrderReturnInfoSetMessage {
+  readonly type: 'ReturnInfoSet'
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly returnInfo?: ReturnInfo[]
 }
 export interface OrderReturnShipmentStateChangedMessage {
   readonly type: 'OrderReturnShipmentStateChanged'
@@ -4455,6 +4507,7 @@ export type MessagePayload =
   | OrderLineItemDiscountSetMessagePayload
   | OrderPaymentStateChangedMessagePayload
   | OrderReturnInfoAddedMessagePayload
+  | OrderReturnInfoSetMessagePayload
   | OrderReturnShipmentStateChangedMessagePayload
   | OrderShipmentStateChangedMessagePayload
   | OrderShippingAddressSetMessagePayload
@@ -4894,6 +4947,13 @@ export interface OrderReturnInfoAddedMessagePayload {
    *
    */
   readonly returnInfo: ReturnInfo
+}
+export interface OrderReturnInfoSetMessagePayload {
+  readonly type: 'ReturnInfoSet'
+  /**
+   *
+   */
+  readonly returnInfo?: ReturnInfo[]
 }
 export interface OrderReturnShipmentStateChangedMessagePayload {
   readonly type: 'OrderReturnShipmentStateChanged'

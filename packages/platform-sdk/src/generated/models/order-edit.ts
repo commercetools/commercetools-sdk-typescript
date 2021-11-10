@@ -39,6 +39,7 @@ import {
   ParcelDraft,
   ParcelMeasurements,
   PaymentState,
+  ReturnInfoDraft,
   ReturnItemDraft,
   ReturnPaymentState,
   ReturnShipmentState,
@@ -1080,6 +1081,13 @@ export interface StagedOrderSetParcelTrackingDataAction {
    *
    */
   readonly trackingData?: TrackingData
+}
+export interface StagedOrderSetReturnInfoAction {
+  readonly action: 'setReturnInfo'
+  /**
+   *
+   */
+  readonly items?: ReturnInfoDraft[]
 }
 export interface StagedOrderSetReturnPaymentStateAction {
   readonly action: 'setReturnPaymentState'
