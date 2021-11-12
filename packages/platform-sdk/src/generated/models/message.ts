@@ -63,8 +63,11 @@ export type Message =
   | CustomerDeletedMessage
   | CustomerEmailChangedMessage
   | CustomerEmailVerifiedMessage
+  | CustomerFirstNameSetMessage
   | CustomerGroupSetMessage
+  | CustomerLastNameSetMessage
   | CustomerPasswordUpdatedMessage
+  | CustomerTitleSetMessage
   | DeliveryAddedMessage
   | DeliveryAddressSetMessage
   | DeliveryItemsUpdatedMessage
@@ -503,7 +506,7 @@ export interface CustomerCompanyNameSetMessage {
   /**
    *
    */
-  readonly companyName: string
+  readonly companyName?: string
 }
 export interface CustomerCreatedMessage {
   readonly type: 'CustomerCreated'
@@ -605,7 +608,7 @@ export interface CustomerDateOfBirthSetMessage {
   /**
    *
    */
-  readonly dateOfBirth: string
+  readonly dateOfBirth?: string
 }
 export interface CustomerDeletedMessage {
   readonly type: 'CustomerDeleted'
@@ -752,6 +755,57 @@ export interface CustomerEmailVerifiedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
 }
+export interface CustomerFirstNameSetMessage {
+  readonly type: 'CustomerFirstNameSet'
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly firstName?: string
+}
 export interface CustomerGroupSetMessage {
   readonly type: 'CustomerGroupSet'
   /**
@@ -803,7 +857,58 @@ export interface CustomerGroupSetMessage {
    *
    *
    */
-  readonly customerGroup: CustomerGroupReference
+  readonly customerGroup?: CustomerGroupReference
+}
+export interface CustomerLastNameSetMessage {
+  readonly type: 'CustomerLastNameSet'
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly lastName?: string
 }
 export interface CustomerPasswordUpdatedMessage {
   readonly type: 'CustomerPasswordUpdated'
@@ -856,6 +961,57 @@ export interface CustomerPasswordUpdatedMessage {
    *
    */
   readonly reset: boolean
+}
+export interface CustomerTitleSetMessage {
+  readonly type: 'CustomerTitleSet'
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly title?: string
 }
 export interface DeliveryAddedMessage {
   readonly type: 'DeliveryAdded'
@@ -4481,8 +4637,11 @@ export type MessagePayload =
   | CustomerDeletedMessagePayload
   | CustomerEmailChangedMessagePayload
   | CustomerEmailVerifiedMessagePayload
+  | CustomerFirstNameSetMessagePayload
   | CustomerGroupSetMessagePayload
+  | CustomerLastNameSetMessagePayload
   | CustomerPasswordUpdatedMessagePayload
+  | CustomerTitleSetMessagePayload
   | DeliveryAddedMessagePayload
   | DeliveryAddressSetMessagePayload
   | DeliveryItemsUpdatedMessagePayload
@@ -4614,7 +4773,7 @@ export interface CustomerCompanyNameSetMessagePayload {
   /**
    *
    */
-  readonly companyName: string
+  readonly companyName?: string
 }
 export interface CustomerCreatedMessagePayload {
   readonly type: 'CustomerCreated'
@@ -4628,7 +4787,7 @@ export interface CustomerDateOfBirthSetMessagePayload {
   /**
    *
    */
-  readonly dateOfBirth: string
+  readonly dateOfBirth?: string
 }
 export interface CustomerDeletedMessagePayload {
   readonly type: 'CustomerDeleted'
@@ -4643,6 +4802,13 @@ export interface CustomerEmailChangedMessagePayload {
 export interface CustomerEmailVerifiedMessagePayload {
   readonly type: 'CustomerEmailVerified'
 }
+export interface CustomerFirstNameSetMessagePayload {
+  readonly type: 'CustomerFirstNameSet'
+  /**
+   *
+   */
+  readonly firstName: string
+}
 export interface CustomerGroupSetMessagePayload {
   readonly type: 'CustomerGroupSet'
   /**
@@ -4650,7 +4816,14 @@ export interface CustomerGroupSetMessagePayload {
    *
    *
    */
-  readonly customerGroup: CustomerGroupReference
+  readonly customerGroup?: CustomerGroupReference
+}
+export interface CustomerLastNameSetMessagePayload {
+  readonly type: 'CustomerLastNameSet'
+  /**
+   *
+   */
+  readonly lastName: string
 }
 export interface CustomerPasswordUpdatedMessagePayload {
   readonly type: 'CustomerPasswordUpdated'
@@ -4659,6 +4832,13 @@ export interface CustomerPasswordUpdatedMessagePayload {
    *
    */
   readonly reset: boolean
+}
+export interface CustomerTitleSetMessagePayload {
+  readonly type: 'CustomerTitleSet'
+  /**
+   *
+   */
+  readonly title: string
 }
 export interface DeliveryAddedMessagePayload {
   readonly type: 'DeliveryAdded'
