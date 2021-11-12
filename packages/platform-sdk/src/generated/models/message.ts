@@ -1337,7 +1337,7 @@ export interface InventoryEntryDeletedMessage {
   /**
    *
    */
-  readonly supplyChannel: ChannelReference
+  readonly supplyChannel?: ChannelReference
 }
 export interface InventoryEntryQuantitySetMessage {
   readonly type: 'InventoryEntryQuantitySet'
@@ -1401,6 +1401,10 @@ export interface InventoryEntryQuantitySetMessage {
    *
    */
   readonly newAvailableQuantity: number
+  /**
+   *
+   */
+  readonly supplyChannel?: ChannelReference
 }
 export interface LineItemStateTransitionMessage {
   readonly type: 'LineItemStateTransition'
@@ -4900,7 +4904,7 @@ export interface InventoryEntryDeletedMessagePayload {
   /**
    *
    */
-  readonly supplyChannel: ChannelReference
+  readonly supplyChannel?: ChannelReference
 }
 export interface InventoryEntryQuantitySetMessagePayload {
   readonly type: 'InventoryEntryQuantitySet'
@@ -4920,6 +4924,10 @@ export interface InventoryEntryQuantitySetMessagePayload {
    *
    */
   readonly newAvailableQuantity: number
+  /**
+   *
+   */
+  readonly supplyChannel?: ChannelReference
 }
 export interface LineItemStateTransitionMessagePayload {
   readonly type: 'LineItemStateTransition'

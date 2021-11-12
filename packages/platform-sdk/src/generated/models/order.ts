@@ -302,7 +302,7 @@ export interface LineItemImportDraft {
    */
   readonly state?: ItemState[]
   /**
-   *	Optional connection to a particular supplier.
+   *	Connection to a particular supplier.
    *	By providing supply channel information, you can uniquely identify
    *	inventory entries that should be reserved.
    *	The provided channel should have the
