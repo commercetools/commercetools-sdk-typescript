@@ -4811,7 +4811,7 @@ export interface CustomerFirstNameSetMessagePayload {
   /**
    *
    */
-  readonly firstName: string
+  readonly firstName?: string
 }
 export interface CustomerGroupSetMessagePayload {
   readonly type: 'CustomerGroupSet'
@@ -4827,7 +4827,7 @@ export interface CustomerLastNameSetMessagePayload {
   /**
    *
    */
-  readonly lastName: string
+  readonly lastName?: string
 }
 export interface CustomerPasswordUpdatedMessagePayload {
   readonly type: 'CustomerPasswordUpdated'
@@ -4842,7 +4842,7 @@ export interface CustomerTitleSetMessagePayload {
   /**
    *
    */
-  readonly title: string
+  readonly title?: string
 }
 export interface DeliveryAddedMessagePayload {
   readonly type: 'DeliveryAdded'
@@ -5215,6 +5215,10 @@ export interface OrderStateTransitionMessagePayload {
    *
    */
   readonly state: StateReference
+  /**
+   *
+   */
+  readonly oldState?: StateReference
   /**
    *
    */
