@@ -7,6 +7,7 @@
 import {
   DiscountCodeState,
   DiscountedLineItemPriceForQuantity,
+  ItemShippingDetails,
   LineItem,
   ProductPublishScope,
   ShippingInfo,
@@ -23,7 +24,9 @@ import {
   LastModifiedBy,
   LocalizedString,
   Money,
+  Price,
   Reference,
+  TypedMoney,
 } from './common'
 import { Customer, CustomerReference } from './customer'
 import { CustomerGroupReference } from './customer-group'
@@ -32,6 +35,7 @@ import { InventoryEntry } from './inventory'
 import {
   Delivery,
   DeliveryItem,
+  ItemState,
   Order,
   OrderState,
   Parcel,
@@ -90,6 +94,7 @@ export type Message =
   | OrderImportedMessage
   | OrderLineItemAddedMessage
   | OrderLineItemDiscountSetMessage
+  | OrderLineItemRemovedMessage
   | OrderPaymentStateChangedMessage
   | OrderReturnInfoAddedMessage
   | OrderReturnInfoSetMessage
@@ -2296,6 +2301,85 @@ export interface OrderLineItemDiscountSetMessage {
    *
    */
   readonly taxedPrice?: TaxedItemPrice
+}
+export interface OrderLineItemRemovedMessage {
+  readonly type: 'OrderLineItemRemoved'
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly lineItemId: string
+  /**
+   *
+   */
+  readonly removedQuantity: number
+  /**
+   *
+   */
+  readonly newQuantity: number
+  /**
+   *
+   */
+  readonly newState: ItemState[]
+  /**
+   *
+   */
+  readonly newTotalPrice: TypedMoney
+  /**
+   *
+   */
+  readonly newTaxedPrice?: TaxedItemPrice
+  /**
+   *
+   */
+  readonly newPrice?: Price
+  /**
+   *
+   */
+  readonly newShippingDetail?: ItemShippingDetails
 }
 export interface OrderPaymentStateChangedMessage {
   readonly type: 'OrderPaymentStateChanged'
@@ -4668,6 +4752,7 @@ export type MessagePayload =
   | OrderImportedMessagePayload
   | OrderLineItemAddedMessagePayload
   | OrderLineItemDiscountSetMessagePayload
+  | OrderLineItemRemovedMessagePayload
   | OrderPaymentStateChangedMessagePayload
   | OrderReturnInfoAddedMessagePayload
   | OrderReturnInfoSetMessagePayload
@@ -5117,6 +5202,41 @@ export interface OrderLineItemDiscountSetMessagePayload {
    *
    */
   readonly taxedPrice?: TaxedItemPrice
+}
+export interface OrderLineItemRemovedMessagePayload {
+  readonly type: 'OrderLineItemRemoved'
+  /**
+   *
+   */
+  readonly lineItemId: string
+  /**
+   *
+   */
+  readonly removedQuantity: number
+  /**
+   *
+   */
+  readonly newQuantity: number
+  /**
+   *
+   */
+  readonly newState: ItemState[]
+  /**
+   *
+   */
+  readonly newTotalPrice: TypedMoney
+  /**
+   *
+   */
+  readonly newTaxedPrice?: TaxedItemPrice
+  /**
+   *
+   */
+  readonly newPrice?: Price
+  /**
+   *
+   */
+  readonly newShippingDetail?: ItemShippingDetails
 }
 export interface OrderPaymentStateChangedMessagePayload {
   readonly type: 'OrderPaymentStateChanged'
