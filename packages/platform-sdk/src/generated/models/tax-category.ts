@@ -6,8 +6,13 @@
 
 import { BaseResource, CreatedBy, LastModifiedBy } from './common'
 
+/**
+ *	It is used to calculate the [taxPortions](/../api/projects/carts#taxedprice) field in a Cart or Order.
+ */
 export interface SubRate {
   /**
+   *	Name of the SubRate.
+   *
    *
    */
   readonly name: string
@@ -18,125 +23,181 @@ export interface SubRate {
 }
 export interface TaxCategory extends BaseResource {
   /**
-   *	The unique ID of the category.
+   *	Unique ID of the TaxCategory.
+   *
    *
    */
   readonly id: string
   /**
-   *	The current version of the category.
+   *	Current version of the TaxCategory.
+   *
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the TaxCategory was initially created.
+   *
    *
    */
   readonly createdAt: string
   /**
+   *	Date and time (UTC) the TaxCategory was last updated.
+   *
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
    *
    *
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Name of the TaxCategory.
+   *
    *
    */
   readonly name: string
   /**
+   *	Description of the TaxCategory.
+   *
    *
    */
   readonly description?: string
   /**
-   *	The tax rates have unique IDs in the rates list
+   *	Tax rates and subrates of states and countries. Each TaxRate in the array has a unique ID assigned by the platform.
+   *
    *
    */
   readonly rates: TaxRate[]
   /**
-   *	User-specific unique identifier for the category.
+   *	User-defined unique identifier for the TaxCategory.
+   *
    *
    */
   readonly key?: string
 }
 export interface TaxCategoryDraft {
   /**
+   *	Name of the TaxCategory.
+   *
    *
    */
   readonly name: string
   /**
+   *	Description of the TaxCategory.
+   *
    *
    */
   readonly description?: string
   /**
+   *	Tax rates and subrates of states and countries.
+   *
    *
    */
   readonly rates?: TaxRateDraft[]
   /**
+   *	User-defined unique identifier for the TaxCategory.
+   *
    *
    */
   readonly key?: string
 }
+/**
+ *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [TaxCategory](ctp:api:type:TaxCategory).
+ *
+ */
 export interface TaxCategoryPagedQueryResponse {
   /**
+   *	Number of results requested in the query request.
+   *
    *
    */
   readonly limit: number
   /**
+   *	Offset supplied by the client or the server default.
+   *	It is the number of elements skipped, not a page number.
    *
-   */
-  readonly count: number
-  /**
-   *
-   */
-  readonly total?: number
-  /**
    *
    */
   readonly offset: number
   /**
+   *	Actual number of results returned.
+   *
+   *
+   */
+  readonly count: number
+  /**
+   *	Total number of results matching the query.
+   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This field is returned by default.
+   *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
+   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/contract#queries).
+   *
+   *
+   */
+  readonly total?: number
+  /**
+   *	[TaxCategories](ctp:api:type:TaxCategory) matching the query.
+   *
    *
    */
   readonly results: TaxCategory[]
 }
+/**
+ *	[Reference](/../api/types#reference) to a [TaxCategory](ctp:api:type:TaxCategory).
+ *
+ */
 export interface TaxCategoryReference {
   readonly typeId: 'tax-category'
   /**
-   *	Unique ID of the referenced resource.
+   *	Unique ID of the referenced [TaxCategory](ctp:api:type:TaxCategory).
+   *
    *
    */
   readonly id: string
   /**
+   *	Contains the representation of the expanded TaxCategory. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for TaxCategory.
+   *
    *
    */
   readonly obj?: TaxCategory
 }
+/**
+ *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
+ *
+ */
 export interface TaxCategoryResourceIdentifier {
   readonly typeId: 'tax-category'
   /**
-   *	Unique ID of the referenced resource. Either `id` or `key` is required.
+   *	Unique ID of the referenced [TaxCategory](ctp:api:type:TaxCategory). Either `id` or `key` is required.
+   *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced resource. Either `id` or `key` is required.
+   *	Unique key of the referenced [TaxCategory](ctp:api:type:TaxCategory). Either `id` or `key` is required.
+   *
    *
    */
   readonly key?: string
 }
 export interface TaxCategoryUpdate {
   /**
+   *	Expected version of the TaxCategory on which the changes should be applied. If the expected version does not match the actual version, a 409 Conflict will be returned.
+   *
    *
    */
   readonly version: number
   /**
+   *	Update actions to be performed on the TaxCategory.
+   *
    *
    */
   readonly actions: TaxCategoryUpdateAction[]
@@ -150,75 +211,84 @@ export type TaxCategoryUpdateAction =
   | TaxCategorySetKeyAction
 export interface TaxRate {
   /**
-   *	The ID is always set if the tax rate is part of a TaxCategory.
-   *	The external tax rates in a
-   *	Cart do not contain an `id`.
+   *	Present if the TaxRate is part of a [TaxCategory](ctp:api:type:TaxCategory).
+   *	Absent for external TaxRates in [LineItem](ctp:api:type:LineItem), [CustomLineItem](ctp:api:type:CustomLineItem), and [ShippingInfo](ctp:api:type:ShippingInfo).
+   *
    *
    */
   readonly id?: string
   /**
+   *	Name of the TaxRate.
+   *
    *
    */
   readonly name: string
   /**
-   *	Percentage in the range of [0..1].
-   *	The sum of the amounts of all `subRates`, if there are any.
+   *	Tax rate. If subrates are used, the amount must be the sum of all subrates.
+   *
    *
    */
   readonly amount: number
   /**
+   *	If `true`, tax is included in [Prices](ctp:api:type:Price) and the `taxedPrice` is present on [LineItems](ctp:api:type:LineItem). In this case, the platform calculates the `totalNet` price based on the TaxRate.
+   *
    *
    */
   readonly includedInPrice: boolean
   /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Country in which the tax rate is applied in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
+   *
    *
    */
   readonly country: string
   /**
-   *	The state in the country
+   *	State within the country, such as Texas in the United States.
+   *
    *
    */
   readonly state?: string
   /**
-   *	For countries (e.g.
-   *	the US) where the total tax is a combination of multiple taxes (e.g.
-   *	state and local taxes).
+   *	Used to calculate the [taxPortions](/../api/projects/carts#taxedprice) field in a Cart or Order. It is useful if the total tax of a country (such as the US) is a combination of multiple taxes (such as state and local taxes).
+   *
    *
    */
   readonly subRates?: SubRate[]
 }
 export interface TaxRateDraft {
   /**
+   *	Name of the TaxRate.
    *
    */
   readonly name: string
   /**
-   *	Percentage in the range of [0..1].
+   *	Tax rate.
    *	Must be supplied if no `subRates` are specified.
-   *	If `subRates` are specified
-   *	then the `amount` can be omitted or it must be the sum of the amounts of all `subRates`.
+   *	If `subRates` are specified, this field can be omitted or it must be the sum of amounts of all `subRates`.
+   *
    *
    */
   readonly amount?: number
   /**
+   *	Set to `true`, if tax should be included in [Prices](ctp:api:type:Price) and the `taxedPrice` should be present on [Line Items](ctp:api:type:LineItem). In this case, the platform calculates the `totalNet` price based on the TaxRate.
+   *
    *
    */
   readonly includedInPrice: boolean
   /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Country in which the tax rate is applied in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
+   *
    *
    */
   readonly country: string
   /**
-   *	The state in the country
+   *	State within the country, such as Texas in the United States.
+   *
    *
    */
   readonly state?: string
   /**
-   *	For countries (e.g.
-   *	the US) where the total tax is a combination of multiple taxes (e.g.
-   *	state and local taxes).
+   *	Used to calculate the [taxPortions](/../api/projects/carts#taxedprice) field in a Cart or Order. It is useful if the total tax of a country (such as the US) is a combination of multiple taxes (such as state and local taxes).
+   *
    *
    */
   readonly subRates?: SubRate[]
@@ -226,6 +296,8 @@ export interface TaxRateDraft {
 export interface TaxCategoryAddTaxRateAction {
   readonly action: 'addTaxRate'
   /**
+   *	Value to append to the `rates` array.
+   *
    *
    */
   readonly taxRate: TaxRateDraft
@@ -233,6 +305,8 @@ export interface TaxCategoryAddTaxRateAction {
 export interface TaxCategoryChangeNameAction {
   readonly action: 'changeName'
   /**
+   *	New value to set. Must not be empty.
+   *
    *
    */
   readonly name: string
@@ -240,6 +314,8 @@ export interface TaxCategoryChangeNameAction {
 export interface TaxCategoryRemoveTaxRateAction {
   readonly action: 'removeTaxRate'
   /**
+   *	ID of the TaxRate to remove.
+   *
    *
    */
   readonly taxRateId: string
@@ -247,10 +323,14 @@ export interface TaxCategoryRemoveTaxRateAction {
 export interface TaxCategoryReplaceTaxRateAction {
   readonly action: 'replaceTaxRate'
   /**
+   *	ID of the TaxRate to replace.
+   *
    *
    */
   readonly taxRateId: string
   /**
+   *	New TaxRate to replace with.
+   *
    *
    */
   readonly taxRate: TaxRateDraft
@@ -258,6 +338,8 @@ export interface TaxCategoryReplaceTaxRateAction {
 export interface TaxCategorySetDescriptionAction {
   readonly action: 'setDescription'
   /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
    *
    */
   readonly description?: string
@@ -265,7 +347,8 @@ export interface TaxCategorySetDescriptionAction {
 export interface TaxCategorySetKeyAction {
   readonly action: 'setKey'
   /**
-   *	If `key` is absent or `null`, it is removed if it exists.
+   *	Value to set. If empty, any existing value will be removed.
+   *
    *
    */
   readonly key?: string

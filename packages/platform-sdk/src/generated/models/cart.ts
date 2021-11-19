@@ -1098,6 +1098,8 @@ export interface CartAddCustomLineItemAction {
    */
   readonly slug: string
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
+   *
    *
    */
   readonly taxCategory?: TaxCategoryResourceIdentifier
@@ -1482,6 +1484,8 @@ export interface CartSetCustomShippingMethodAction {
    */
   readonly shippingRate: ShippingRateDraft
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
+   *
    *
    */
   readonly taxCategory?: TaxCategoryResourceIdentifier

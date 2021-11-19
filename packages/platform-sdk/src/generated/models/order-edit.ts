@@ -365,6 +365,8 @@ export interface StagedOrderAddCustomLineItemAction {
    */
   readonly slug: string
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
+   *
    *
    */
   readonly taxCategory?: TaxCategoryResourceIdentifier
@@ -804,6 +806,8 @@ export interface StagedOrderSetCustomShippingMethodAction {
    */
   readonly shippingRate: ShippingRateDraft
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
+   *
    *
    */
   readonly taxCategory?: TaxCategoryResourceIdentifier
@@ -1133,6 +1137,8 @@ export interface StagedOrderSetShippingAddressAndCustomShippingMethodAction {
    */
   readonly shippingRate: ShippingRateDraft
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
+   *
    *
    */
   readonly taxCategory?: TaxCategoryResourceIdentifier
