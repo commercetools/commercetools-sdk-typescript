@@ -1,5 +1,11 @@
 # @commercetools/ml-sdk
 
+## 1.19.0
+
+### Minor Changes
+
+- [#146](https://github.com/commercetools/commercetools-sdk-typescript/pull/146) [`1f6f830`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1f6f830bb25d98c15ac96e06635c5e2aa07fe1e8) Thanks [@ajimae](https://github.com/ajimae)! - release a new version of typescript
+
 ## 1.18.1
 
 ### Patch Changes
