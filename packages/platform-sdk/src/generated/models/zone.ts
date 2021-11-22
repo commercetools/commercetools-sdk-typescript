@@ -45,13 +45,13 @@ export interface Zone extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
    *
    *
    */
@@ -126,10 +126,10 @@ export interface ZonePagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/general-concepts#strong-consistency).
+   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
    *	This field is returned by default.
    *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
-   *	When the results are filtered with a [Query Predicate](/predicates/query), `total` is subject to a [limit](/contract#queries).
+   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
    *
    *
    */
@@ -154,14 +154,14 @@ export interface ZoneReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded Zone. Only present in responses to requests with [Reference Expansion](/general-concepts#reference-expansion) for Zones.
+   *	Contains the representation of the expanded Zone. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Zones.
    *
    *
    */
   readonly obj?: Zone
 }
 /**
- *	[ResourceIdentifier](/types#resourceidentifier) to a [Zone](ctp:api:type:Zone).
+ *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Zone](ctp:api:type:Zone).
  *
  */
 export interface ZoneResourceIdentifier {

@@ -151,7 +151,7 @@ export interface ChangeValueGiftLineItemChangeValue {
   /**
    *
    */
-  readonly supplyChannel: Reference
+  readonly supplyChannel?: Reference
   /**
    *
    */

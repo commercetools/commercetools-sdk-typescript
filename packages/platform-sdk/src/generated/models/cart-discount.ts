@@ -65,7 +65,7 @@ export interface CartDiscount extends BaseResource {
   /**
    *
    */
-  readonly value: CartDiscountValueDraft
+  readonly value: CartDiscountValue
   /**
    *	A valid Cart predicate.
    *

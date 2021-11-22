@@ -48,7 +48,7 @@ export interface InventoryEntry extends BaseResource {
    */
   readonly sku: string
   /**
-   *	Optional connection to a particular supplier.
+   *	Connection to a particular supplier.
    *
    */
   readonly supplyChannel?: ChannelReference

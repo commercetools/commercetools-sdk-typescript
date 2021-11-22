@@ -192,7 +192,7 @@ export interface StoreAddSupplyChannelAction {
   /**
    *
    */
-  readonly supplyChannel: ChannelResourceIdentifier
+  readonly supplyChannel?: ChannelResourceIdentifier
 }
 export interface StoreRemoveDistributionChannelAction {
   readonly action: 'removeDistributionChannel'
@@ -206,7 +206,7 @@ export interface StoreRemoveSupplyChannelAction {
   /**
    *
    */
-  readonly supplyChannel: ChannelResourceIdentifier
+  readonly supplyChannel?: ChannelResourceIdentifier
 }
 export interface StoreSetCustomFieldAction {
   readonly action: 'setCustomField'
