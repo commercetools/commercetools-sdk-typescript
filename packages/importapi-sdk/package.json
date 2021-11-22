@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/importapi-sdk",
-  "version": "1.20.0",
+  "version": "1.21.0",
   "description": "Type script sdk for commercetools import features",
   "keywords": ["commercetools", "typescript", "sdk", "import"],
   "homepage": "https://github.com/commercetools/commercetools-sdk-typescript/packages/importapi-sdk",
@@ -30,7 +30,7 @@
     "querystring": "^0.2.1"
   },
   "devDependencies": {
-    "@commercetools/sdk-client-v2": "^0.1.2",
+    "@commercetools/sdk-client-v2": "^0.2.0",
     "@types/uuid": "8.3.3",
     "organize-imports-cli": "0.8.0",
     "tsconfig-replace-paths": "0.0.11",
