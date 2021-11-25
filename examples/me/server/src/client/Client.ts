@@ -1,8 +1,4 @@
-import {
-  ClientBuilder,
-  createAuthForPasswordFlow,
-  Credentials,
-} from '@commercetools/sdk-client-v2'
+import { ClientBuilder, Credentials } from '@commercetools/sdk-client-v2'
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
 
 interface Options {
@@ -12,11 +8,12 @@ interface Options {
   credentials?: Credentials
 }
 
-class ApiRoot {
+class Client {
   private projectKey: string
   private oauthUri: string
   private baseUri: string
   private credentials: Credentials
+
   constructor({ projectKey, oauthUri, baseUri, credentials }: Options) {
     this.projectKey = projectKey
     this.oauthUri = oauthUri
@@ -45,9 +42,13 @@ class ApiRoot {
       .build()
   }
 
+  getProjectKey() {
+    return this.projectKey
+  }
+
   getApiRoot(client) {
     return createApiBuilderFromCtpClient(client)
   }
 }
 
-export default ApiRoot
+export default Client

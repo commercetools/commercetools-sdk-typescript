@@ -1,6 +1,4 @@
 import { Router } from 'express'
-import { ProductService } from '../service'
-import { ProductRepository } from '../repository'
 import { ProductController } from '../controller'
 import ApiRoot from '../client/Client'
 
@@ -19,12 +17,7 @@ const root = new ApiRoot(options)
 const apiRoot = root.getApiRoot(root.getDefaultClient())
 
 // concrete implementation and dependency injection
-const productRepository = new ProductRepository({
-  apiRoot,
-  projectKey: options.projectKey,
-})
-const productService = new ProductService(productRepository)
-const productController = new ProductController(productService)
+const productController = new ProductController()
 
 const router = Router()
 const { getProducts } = productController

@@ -1,5 +1,7 @@
 import ResponseHandler from '../utils/Response'
 import { Request, Response } from 'express'
+import { ProductRepository } from '../repository'
+import { getOptions } from '../utils/options'
 
 /**
  * @description ProductController
@@ -7,26 +9,24 @@ import { Request, Response } from 'express'
  * @function registerUser
  */
 class ProductController {
-  private productService
-  constructor(ProductService) {
-    this.productService = ProductService
-  }
+  constructor() {}
 
   async getProducts(req: Request, res: Response) {
-    const data = await this.productService.getProducts()
+    const options = getOptions(req.headers)
+    const data = await new ProductRepository(options).getProducts()
 
     if (data.statusCode == 200) {
       return ResponseHandler.successResponse(
         res,
-        data.statusCode,
-        data.message,
+        data.statusCode || data.body.statusCode,
+        data.message || data.body.message,
         data.body
       )
     }
     return ResponseHandler.errorResponse(
       res,
-      data.statusCode,
-      data.message,
+      data.statusCode || data.body.statusCode,
+      data.message || data.body.message,
       data.body
     )
   }

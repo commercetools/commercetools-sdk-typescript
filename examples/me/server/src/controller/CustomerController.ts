@@ -1,5 +1,8 @@
 import ResponseHandler from '../utils/Response'
 import { Request, Response } from 'express'
+import { CustomerRepository } from '../repository'
+import { getOptions, getUserOptions } from '../utils/options'
+import { encrypt } from '../utils/helper'
 
 /**
  * @description CustomerController
@@ -8,13 +11,11 @@ import { Request, Response } from 'express'
  * @function getCustomer
  */
 class CustomerController {
-  private customerService
-  constructor(CustomerService) {
-    this.customerService = CustomerService
-  }
+  constructor() {}
 
   async createCustomer(req: Request, res: Response) {
-    const data = await this.customerService.createCustomer(req.body)
+    const options = getUserOptions(req.headers)
+    const data = await new CustomerRepository(options).createCustomer(req.body)
 
     if (data?.statusCode == 201) {
       return ResponseHandler.successResponse(
@@ -33,20 +34,41 @@ class CustomerController {
   }
 
   async getCustomer(req: Request, res: Response) {
-    const data = await this.customerService.getCustomer(req.body)
+    const { email: username, password } = req.body
+    const options = getUserOptions({ username, password })
+    const data = await new CustomerRepository(options).getCustomer(
+      req.body,
+      res.locals?.credentials
+    )
 
     if (data.statusCode == 200) {
+      data.body.token = encrypt(req.headers.token)
       return ResponseHandler.successResponse(
         res,
-        data.statusCode,
-        data.message,
+        data.statusCode || data.body.statusCode,
+        data.message || data.body.message,
         data.body
       )
     }
     return ResponseHandler.errorResponse(
       res,
-      data.statusCode,
-      data.message,
+      data.statusCode || data.body.statusCode,
+      data.message || data.body.message,
+      data.body
+    )
+  }
+
+  async logoutCustomer(req: Request, res: Response) {
+    const options = getOptions(req.headers)
+    const data = await new CustomerRepository(options).logoutCustomer()
+
+    if (data == null) {
+      return ResponseHandler.successResponse(res, 200, 'user logged out', data)
+    }
+    return ResponseHandler.errorResponse(
+      res,
+      data.statusCode || data.body.statusCode,
+      data.message || data.body.message,
       data.body
     )
   }

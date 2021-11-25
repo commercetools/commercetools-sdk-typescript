@@ -1,3 +1,4 @@
+import Client from '../client/Client'
 import { ApiRoot } from '@commercetools/platform-sdk'
 
 interface ICart {
@@ -48,12 +49,16 @@ type CartRemoveItemDraft = {
   quantity: number
 }
 
-class Cart implements ICart {
+class CartRepository implements ICart {
   apiRoot: ApiRoot
   projectKey: string
-  constructor({ apiRoot, projectKey }) {
-    this.apiRoot = apiRoot
-    this.projectKey = projectKey
+
+  constructor(options) {
+    const rootClient = new Client(options)
+    this.apiRoot = rootClient.getApiRoot(
+      rootClient.getClientFromOption(options)
+    )
+    this.projectKey = rootClient.getProjectKey()
   }
 
   private createCustomerCartDraft(cartData) {
@@ -102,7 +107,9 @@ class Cart implements ICart {
 
   async createCartForCurrentCustomer(cartDraft: CartDraft) {
     try {
-      const cart = await this.apiRoot
+      const cart = await this.getActiveCart()
+      if (cart?.statusCode == 200) return cart
+      return this.apiRoot
         .withProjectKey({ projectKey: this.projectKey })
         .me()
         .carts()
@@ -110,8 +117,6 @@ class Cart implements ICart {
           body: this.createCustomerCartDraft(cartDraft),
         })
         .execute()
-
-      return cart
     } catch (error) {
       return error
     }
@@ -133,8 +138,17 @@ class Cart implements ICart {
   }
 
   async updateActiveCart(productDetails) {
-    const { cartId, cartUpdateDraft } = productDetails
     try {
+      let { cartId, cartUpdateDraft } = productDetails
+      // if cartId is undefined create an anonymous cart
+      if (!cartId) {
+        const { body } = await this.createCartForCurrentCustomer({
+          currency: 'EUR',
+        })
+        cartId = body.id
+        cartUpdateDraft.version = body.version
+      }
+
       const updatedCart = await this.apiRoot
         .withProjectKey({ projectKey: this.projectKey })
         .me()
@@ -152,7 +166,6 @@ class Cart implements ICart {
   async removeLineItem(productDetails) {
     try {
       const { body } = await this.getActiveCart()
-
       const updatedCart = await this.apiRoot
         .withProjectKey({ projectKey: this.projectKey })
         .me()
@@ -168,4 +181,4 @@ class Cart implements ICart {
   }
 }
 
-export default Cart
+export default CartRepository

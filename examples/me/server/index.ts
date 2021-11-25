@@ -5,11 +5,11 @@ dotenv.config();
 
 // unhandledRejection
 process.on('unhandledRejection', function (reason, promise) {
-	console.error('Unhandled rejection', { reason: reason, promise: promise })
+	console.error('Unhandled rejection', { reason: reason, promise })
 })
 
-process.on('uncaughtException', function (err) {
-	console.error(err.stack);
+process.on('uncaughtException', function(error, origin) {
+	console.error('Unhandled exception', { error, origin })
 })
 
 // start

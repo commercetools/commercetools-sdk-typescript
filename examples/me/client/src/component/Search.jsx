@@ -45,7 +45,6 @@ class Search extends Component {
       that.setState(() => {
         const _keys = data.data.map(value => value.key)
         const _data = data.data.map(value => value.doc_count)
-        console.log(_keys, "000");
         return {
           keys: _keys,
           data: _data

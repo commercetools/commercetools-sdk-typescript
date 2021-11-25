@@ -40,3 +40,5 @@ setupEnv.sh
 training-tmp/
 loadtest/
 .npmignore
+api.http
+vue

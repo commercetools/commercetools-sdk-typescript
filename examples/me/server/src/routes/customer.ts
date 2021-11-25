@@ -1,41 +1,25 @@
 import { Router } from 'express'
-import { CustomerService } from '../service'
-import { CustomerRepository } from '../repository'
 import { CustomerController } from '../controller'
 import { Validator } from '../middleware'
-import ApiRoot from '../client/Client'
+import { authenticateUser, invalidateToken } from '../middleware'
 
-// build the client
-const options = {
-  projectKey: process.env.CTP_PROJECT_KEY || '',
-  oauthUri: 'https://auth.europe-west1.gcp.commercetools.com',
-  baseUri: 'https://api.europe-west1.gcp.commercetools.com',
-  credentials: {
-    clientId: process.env.CTP_CLIENT_ID || '',
-    clientSecret: process.env.CTP_CLIENT_SECRET || '',
-  },
-}
-
-const root = new ApiRoot(options)
-const apiRoot = root.getApiRoot(root.getDefaultClient())
-
-// concrete implementation and dependency injection
-const customerRepository = new CustomerRepository({
-  apiRoot,
-  projectKey: options.projectKey,
-})
-const customerService = new CustomerService(customerRepository)
-const customerController = new CustomerController(customerService)
+const customerController = new CustomerController()
 
 const router = Router()
 const { validateSignup, validateLogin } = Validator
-const { createCustomer, getCustomer } = customerController
+const { createCustomer, getCustomer, logoutCustomer } = customerController
 
-router.get('/customer', validateLogin, getCustomer.bind(customerController))
 router.post(
-  '/customer',
+  '/login',
+  validateLogin,
+  authenticateUser,
+  getCustomer.bind(customerController)
+)
+router.post(
+  '/register',
   validateSignup,
   createCustomer.bind(customerController)
 )
+router.post('/logout', invalidateToken, logoutCustomer.bind(customerController))
 
 export default router

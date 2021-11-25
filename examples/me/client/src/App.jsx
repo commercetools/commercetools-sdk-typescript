@@ -1,11 +1,29 @@
-import React from 'react';
-import Search from './component/Search.jsx';
+import React, { useEffect, useState } from 'react';
+import { Provider } from 'react-redux'
+import NavBar from './component/Nav.jsx'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { Routes, Route } from 'react-router-dom'
+import ProductList from './component/ProductList.jsx';
+import Details from './component/Details.jsx'
+import Cart from './component/Cart.jsx'
+import store from '../store'
+import Login from './component/Login.jsx'
+import './App.css'
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     return (
-        <div>
-            <Search />
-        </div>
+        <Provider store={store} className="app">
+            <Routes>
+                <Route path="*" element={<NavBar />} />
+            </Routes>
+            <Routes>
+                <Route exact path="/" element={<ProductList />} />
+                <Route path="/details" element={<Details />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/login" element={<Login />} />
+            </Routes>
+        </Provider>
     )
 }
 

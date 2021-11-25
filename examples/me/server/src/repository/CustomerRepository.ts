@@ -1,3 +1,4 @@
+import Client from '../client/Client'
 import { ApiRoot } from '@commercetools/platform-sdk'
 
 type CustomerData = {
@@ -9,26 +10,35 @@ type CustomerData = {
   key: string
 }
 
+type ICustomerOptions = {
+  anonymousId?: object
+}
 interface ICustomerRepository {
   apiRoot: ApiRoot
   projectKey: string
   createCustomerDraft(customerData: CustomerData): object
   createCustomer(customerData: CustomerData): any | never
-  getCustomer({
-    email,
-    password,
-  }: {
-    email: string
-    password: string
-  }): any | never
+  getCustomer(
+    {
+      email,
+      password,
+    }: {
+      email: string
+      password: string
+    },
+    options: ICustomerOptions
+  ): any | never
 }
 
 class CustomerRepository implements ICustomerRepository {
   apiRoot: ApiRoot
   projectKey: string
-  constructor({ apiRoot, projectKey }) {
-    this.apiRoot = apiRoot
-    this.projectKey = projectKey
+  constructor(options) {
+    const rootClient = new Client(options)
+    this.apiRoot = rootClient.getApiRoot(
+      rootClient.getClientFromOption(options)
+    )
+    this.projectKey = rootClient.getProjectKey()
   }
 
   createCustomerDraft(customerData) {
@@ -67,7 +77,7 @@ class CustomerRepository implements ICustomerRepository {
     }
   }
 
-  async getCustomer({ email, password }) {
+  async getCustomer({ email, password }, options) {
     try {
       const customer = await this.apiRoot
         .withProjectKey({ projectKey: this.projectKey })
@@ -77,11 +87,23 @@ class CustomerRepository implements ICustomerRepository {
           body: {
             email,
             password,
+            updateProductData: true,
+            anonymousId: options?.anonymousid,
+            anonymousCartSignInMode: 'MergeWithExistingCustomerCart',
+            // ...options
           },
         })
         .execute()
 
       return customer
+    } catch (error) {
+      return error
+    }
+  }
+
+  async logoutCustomer() {
+    try {
+      return null
     } catch (error) {
       return error
     }

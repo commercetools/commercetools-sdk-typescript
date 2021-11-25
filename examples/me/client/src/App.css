@@ -1,0 +1,24 @@
+.qty {
+  width: 40px;
+  height: 25px;
+  text-align: center;
+}
+input.qtyplus { width: 25px; height: 25px; padding: 5px; border: 2px solid #ccc; margin: 2%}
+input.qtyminus { width: 25px; height: 25px; padding: 5px; border: 2px solid #ccc; margin: 2%}
+
+.cart {
+  position: relative;
+}
+
+.item-count {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 0;
+  right: 10px;
+  text-align: center;
+  font-size: 14px;
+  color: white;
+  border-radius: 50px;
+  background-color: red;
+}

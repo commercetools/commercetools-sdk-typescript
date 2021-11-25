@@ -1,8 +1,16 @@
-import React, { Component } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
+import './index.css'
+import { BrowserRouter as Router } from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
-import Search from './src/App.jsx'
+import App from './src/App.jsx'
 
-const wrapper = document.getElementById('root')
-
-ReactDOM.render(<Search />, wrapper)
+ReactDOM.render(
+  <Router>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Router>,
+  document.getElementById('root')
+)

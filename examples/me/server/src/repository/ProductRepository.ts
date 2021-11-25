@@ -1,17 +1,21 @@
+import Client from '../client/Client'
 import { ApiRoot } from '@commercetools/platform-sdk'
 
 interface IProductRepository {
   apiRoot: ApiRoot
   projectKey: string
-  getProducts(): any | never
+  getProducts(): any | Error
 }
 
 class Product implements IProductRepository {
   apiRoot: ApiRoot
   projectKey: string
-  constructor({ apiRoot, projectKey }) {
-    this.apiRoot = apiRoot
-    this.projectKey = projectKey
+  constructor(options) {
+    const rootClient = new Client(options)
+    this.apiRoot = rootClient.getApiRoot(
+      rootClient.getClientFromOption(options)
+    )
+    this.projectKey = rootClient.getProjectKey()
   }
 
   async getProducts() {

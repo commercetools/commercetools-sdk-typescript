@@ -1,5 +1,9 @@
 import Validator from "./Validator";
+import { isAuthenticated, authenticateUser, invalidateToken } from './auth'
 
 export {
-  Validator
+  Validator,
+  isAuthenticated,
+  authenticateUser,
+  invalidateToken
 }
