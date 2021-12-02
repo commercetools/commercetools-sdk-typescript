@@ -117,6 +117,7 @@ export type ChangeHistoryResourceType =
   | 'customer-group'
   | 'discount-code'
   | 'inventory-entry'
+  | 'key-value-document'
   | 'order'
   | 'payment'
   | 'product'

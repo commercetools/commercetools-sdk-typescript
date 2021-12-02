@@ -102,6 +102,7 @@ export type Change =
   | AddPaymentChange
   | AddPlainEnumValueChange
   | AddPriceChange
+  | AddPropertyChange
   | AddReturnInfoChange
   | AddShippingAddressIdChange
   | AddShoppingListLineItemChange
@@ -190,6 +191,7 @@ export type Change =
   | RemoveParcelFromDeliveryChange
   | RemovePaymentChange
   | RemovePriceChange
+  | RemovePropertyChange
   | RemoveShippingAddressIdChange
   | RemoveShoppingListLineItemChange
   | RemoveStateRolesChange
@@ -285,6 +287,7 @@ export type Change =
   | SetProductPriceCustomFieldChange
   | SetProductPriceCustomTypeChange
   | SetProductVariantKeyChange
+  | SetPropertyChange
   | SetRatingChange
   | SetReservationsChange
   | SetRestockableInDaysChange
@@ -322,6 +325,7 @@ export type Change =
   | SetValidFromAndUntilChange
   | SetValidFromChange
   | SetValidUntilChange
+  | SetValueChange
   | SetVariantAvailabilityChange
   | SetVatIdChange
   | TransitionCustomLineItemStateChange
@@ -655,6 +659,23 @@ export interface AddPriceChange {
    *
    */
   readonly nextValue: Price
+}
+export interface AddPropertyChange {
+  readonly type: 'AddPropertyChange'
+  /**
+   *	Update action for `addProperty` on custom objects
+   *
+   */
+  readonly change: string
+  /**
+   *	Value path to the property that was added
+   *
+   */
+  readonly path: string
+  /**
+   *
+   */
+  readonly nextValue: any
 }
 export interface AddReturnInfoChange {
   readonly type: 'AddReturnInfoChange'
@@ -2189,6 +2210,23 @@ export interface RemovePriceChange {
    */
   readonly nextValue: Price
 }
+export interface RemovePropertyChange {
+  readonly type: 'RemovePropertyChange'
+  /**
+   *	Update action for `removeProperty` on custom objects
+   *
+   */
+  readonly change: string
+  /**
+   *	Value path to the property that was removed
+   *
+   */
+  readonly path: string
+  /**
+   *
+   */
+  readonly previousValue: any
+}
 export interface RemoveShippingAddressIdChange {
   readonly type: 'RemoveShippingAddressIdChange'
   /**
@@ -2652,6 +2690,10 @@ export interface SetCustomLineItemCustomFieldChange {
   /**
    *
    */
+  readonly customLineItemId: string
+  /**
+   *
+   */
   readonly nextValue: any
   /**
    *
@@ -2669,6 +2711,10 @@ export interface SetCustomLineItemCustomTypeChange {
    *
    */
   readonly customLineItem: LocalizedString
+  /**
+   *
+   */
+  readonly customLineItemId: string
   /**
    *
    */
@@ -4021,6 +4067,27 @@ export interface SetProductVariantKeyChange {
    */
   readonly nextValue: string
 }
+export interface SetPropertyChange {
+  readonly type: 'SetPropertyChange'
+  /**
+   *	Update action for `setProperty` on custom objects
+   *
+   */
+  readonly change: string
+  /**
+   *	Value path to the property that was changed
+   *
+   */
+  readonly path: string
+  /**
+   *
+   */
+  readonly nextValue: any
+  /**
+   *
+   */
+  readonly previousValue: any
+}
 export interface SetRatingChange {
   readonly type: 'SetRatingChange'
   /**
@@ -4669,6 +4736,22 @@ export interface SetValidUntilChange {
    *
    */
   readonly nextValue: string
+}
+export interface SetValueChange {
+  readonly type: 'SetValueChange'
+  /**
+   *	Update action for `setValue` on custom objects
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly nextValue: any
+  /**
+   *
+   */
+  readonly previousValue: any
 }
 export interface SetVariantAvailabilityChange {
   readonly type: 'SetVariantAvailabilityChange'
