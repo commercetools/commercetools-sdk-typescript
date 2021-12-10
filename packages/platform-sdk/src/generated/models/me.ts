@@ -138,6 +138,7 @@ export type MyCartUpdateAction =
   | MyCartSetLineItemCustomTypeAction
   | MyCartSetLineItemDistributionChannelAction
   | MyCartSetLineItemShippingDetailsAction
+  | MyCartSetLineItemSupplyChannelAction
   | MyCartSetLocaleAction
   | MyCartSetShippingAddressAction
   | MyCartSetShippingMethodAction
@@ -752,6 +753,17 @@ export interface MyCartSetLineItemShippingDetailsAction {
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
+}
+export interface MyCartSetLineItemSupplyChannelAction {
+  readonly action: 'setLineItemSupplyChannel'
+  /**
+   *
+   */
+  readonly lineItemId: string
+  /**
+   *
+   */
+  readonly distributionChannel?: ChannelResourceIdentifier
 }
 export interface MyCartSetLocaleAction {
   readonly action: 'setLocale'

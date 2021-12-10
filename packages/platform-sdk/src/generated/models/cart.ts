@@ -457,6 +457,7 @@ export type CartUpdateAction =
   | CartSetLineItemDistributionChannelAction
   | CartSetLineItemPriceAction
   | CartSetLineItemShippingDetailsAction
+  | CartSetLineItemSupplyChannelAction
   | CartSetLineItemTaxAmountAction
   | CartSetLineItemTaxRateAction
   | CartSetLineItemTotalPriceAction
@@ -1665,6 +1666,17 @@ export interface CartSetLineItemShippingDetailsAction {
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
+}
+export interface CartSetLineItemSupplyChannelAction {
+  readonly action: 'setLineItemSupplyChannel'
+  /**
+   *
+   */
+  readonly lineItemId: string
+  /**
+   *
+   */
+  readonly supplyChannel?: ChannelResourceIdentifier
 }
 export interface CartSetLineItemTaxAmountAction {
   readonly action: 'setLineItemTaxAmount'
