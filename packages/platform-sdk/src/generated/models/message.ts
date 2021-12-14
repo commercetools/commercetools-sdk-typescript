@@ -54,6 +54,22 @@ import { StateReference } from './state'
 import { StoreKeyReference } from './store'
 import { CustomFields } from './type'
 
+/**
+ *	Custom Objects are grouped into containers, which can be used like namespaces. Within a given container, a user-defined key can be used to uniquely identify resources.
+ *
+ */
+export interface ContainerAndKey {
+  /**
+   *	User-defined identifier that is unique within the given container.
+   *
+   */
+  readonly key: string
+  /**
+   *	Namespace to group Custom Objects.
+   *
+   */
+  readonly container: string
+}
 export type Message =
   | CategoryCreatedMessage
   | CategorySlugChangedMessage
@@ -4767,6 +4783,12 @@ export interface UserProvidedIdentifiers {
    *
    */
   readonly slug?: LocalizedString
+  /**
+   *	Custom Objects are grouped into containers, which can be used like namespaces. Within a given container, a user-defined key can be used to uniquely identify resources.
+   *
+   *
+   */
+  readonly containerAndKey?: ContainerAndKey
 }
 export type MessagePayload =
   | CategoryCreatedMessagePayload
