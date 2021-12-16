@@ -105,7 +105,7 @@ export interface ProjectUpdate {
   readonly actions: ProjectUpdateAction[]
 }
 export type ProjectUpdateAction =
-  | ProjectChangeCartsConfiguration
+  | ProjectChangeCartsConfigurationAction
   | ProjectChangeCountriesAction
   | ProjectChangeCountryTaxRateFallbackEnabledAction
   | ProjectChangeCurrenciesAction
@@ -114,7 +114,7 @@ export type ProjectUpdateAction =
   | ProjectChangeMessagesEnabledAction
   | ProjectChangeNameAction
   | ProjectChangeProductSearchIndexingEnabledAction
-  | ProjectChangeShoppingListsConfiguration
+  | ProjectChangeShoppingListsConfigurationAction
   | ProjectSetExternalOAuthAction
   | ProjectSetShippingRateInputTypeAction
 export interface SearchIndexingConfiguration {
@@ -171,7 +171,7 @@ export interface ShoppingListsConfiguration {
    */
   readonly deleteDaysAfterLastModification?: number
 }
-export interface ProjectChangeCartsConfiguration {
+export interface ProjectChangeCartsConfigurationAction {
   readonly action: 'changeCartsConfiguration'
   /**
    *
@@ -238,7 +238,7 @@ export interface ProjectChangeProductSearchIndexingEnabledAction {
    */
   readonly enabled: boolean
 }
-export interface ProjectChangeShoppingListsConfiguration {
+export interface ProjectChangeShoppingListsConfigurationAction {
   readonly action: 'changeShoppingListsConfiguration'
   /**
    *
