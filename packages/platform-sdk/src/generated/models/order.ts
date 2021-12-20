@@ -88,6 +88,8 @@ import {
   StagedOrderSetDeliveryAddressAction,
   StagedOrderSetDeliveryAddressCustomFieldAction,
   StagedOrderSetDeliveryAddressCustomTypeAction,
+  StagedOrderSetDeliveryCustomFieldAction,
+  StagedOrderSetDeliveryCustomTypeAction,
   StagedOrderSetDeliveryItemsAction,
   StagedOrderSetItemShippingAddressCustomFieldAction,
   StagedOrderSetItemShippingAddressCustomTypeAction,
@@ -185,6 +187,8 @@ export type StagedOrderUpdateAction =
   | StagedOrderSetDeliveryAddressAction
   | StagedOrderSetDeliveryAddressCustomFieldAction
   | StagedOrderSetDeliveryAddressCustomTypeAction
+  | StagedOrderSetDeliveryCustomFieldAction
+  | StagedOrderSetDeliveryCustomTypeAction
   | StagedOrderSetDeliveryItemsAction
   | StagedOrderSetItemShippingAddressCustomFieldAction
   | StagedOrderSetItemShippingAddressCustomTypeAction
@@ -242,6 +246,11 @@ export interface Delivery {
    *
    */
   readonly address?: Address
+  /**
+   *	Custom Fields for the Transaction.
+   *
+   */
+  readonly custom?: CustomFields
 }
 export interface DeliveryItem {
   /**
@@ -763,6 +772,8 @@ export type OrderUpdateAction =
   | OrderSetDeliveryAddressAction
   | OrderSetDeliveryAddressCustomFieldAction
   | OrderSetDeliveryAddressCustomTypeAction
+  | OrderSetDeliveryCustomFieldAction
+  | OrderSetDeliveryCustomTypeAction
   | OrderSetDeliveryItemsAction
   | OrderSetItemShippingAddressCustomFieldAction
   | OrderSetItemShippingAddressCustomTypeAction
@@ -1134,6 +1145,11 @@ export interface OrderAddDeliveryAction {
    *
    */
   readonly parcels?: ParcelDraft[]
+  /**
+   *	Custom Fields for the Transaction.
+   *
+   */
+  readonly custom?: CustomFields
 }
 export interface OrderAddItemShippingAddressAction {
   readonly action: 'addItemShippingAddress'
@@ -1392,6 +1408,28 @@ export interface OrderSetDeliveryAddressCustomTypeAction {
    *
    */
   readonly deliveryId: string
+  /**
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *
+   */
+  readonly fields?: FieldContainer
+}
+export interface OrderSetDeliveryCustomFieldAction {
+  readonly action: 'setDeliveryCustomField'
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value?: any
+}
+export interface OrderSetDeliveryCustomTypeAction {
+  readonly action: 'setDeliveryCustomType'
   /**
    *
    */

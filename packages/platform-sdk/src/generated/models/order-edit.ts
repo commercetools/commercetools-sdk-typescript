@@ -393,6 +393,11 @@ export interface StagedOrderAddDeliveryAction {
    *
    */
   readonly parcels?: ParcelDraft[]
+  /**
+   *	Custom Fields for the Transaction.
+   *
+   */
+  readonly custom?: CustomFields
 }
 export interface StagedOrderAddDiscountCodeAction {
   readonly action: 'addDiscountCode'
@@ -890,6 +895,31 @@ export interface StagedOrderSetDeliveryAddressCustomTypeAction {
    *
    */
   readonly fields?: FieldContainer
+}
+export interface StagedOrderSetDeliveryCustomFieldAction {
+  readonly action: 'setDeliveryCustomField'
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value?: any
+}
+export interface StagedOrderSetDeliveryCustomTypeAction {
+  readonly action: 'setDeliveryCustomType'
+  /**
+   *	If set, the custom type is set to this new value.
+   *	If absent, the custom type and any existing custom fields are removed.
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *	If set, the custom fields are set to this new value.
+   *
+   */
+  readonly fields?: any
 }
 export interface StagedOrderSetDeliveryItemsAction {
   readonly action: 'setDeliveryItems'

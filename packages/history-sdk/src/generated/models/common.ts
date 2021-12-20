@@ -691,7 +691,12 @@ export interface Delivery {
   /**
    *
    */
-  readonly address: Address
+  readonly address?: Address
+  /**
+   *	Custom Fields for the Transaction.
+   *
+   */
+  readonly custom?: CustomFields
 }
 export interface DeliveryItem {
   /**
