@@ -8,7 +8,7 @@ import { ProcessingState, UnresolvedReferences } from './common'
 import { ErrorObject } from './errors'
 
 /**
- *	Shows the import status of a specific resource.
+ *	Import Operation describes the import status of a specific resource.
  *
  */
 export interface ImportOperation {
