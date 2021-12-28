@@ -30,6 +30,10 @@ export interface ExternalOAuth {
    */
   readonly authorizationHeader: string
 }
+/**
+ *	Activated indicates that the Order Search feature is active. Deactivated means that the namely feature is currently configured to be inactive.
+ */
+export type OrderSearchStatus = 'Activated' | 'Deactivated'
 export interface Project {
   /**
    *	The current version of the project.
@@ -113,15 +117,22 @@ export type ProjectUpdateAction =
   | ProjectChangeMessagesConfigurationAction
   | ProjectChangeMessagesEnabledAction
   | ProjectChangeNameAction
+  | ProjectChangeOrderSearchStatusAction
   | ProjectChangeProductSearchIndexingEnabledAction
   | ProjectChangeShoppingListsConfigurationAction
   | ProjectSetExternalOAuthAction
   | ProjectSetShippingRateInputTypeAction
 export interface SearchIndexingConfiguration {
   /**
+   *	Configuration for endpoints serving indexed [Product](ctp:api:type:Product) information.
    *
    */
   readonly products?: SearchIndexingConfigurationValues
+  /**
+   *	Configuration for the [Order Search](/../api/projects/order-search) feature.
+   *
+   */
+  readonly orders?: SearchIndexingConfigurationValues
 }
 /**
  *	Can be one of the following or absent. "Activated" or absent means that the search and suggest endpoints for the specified resource type are active. "Deactivated" means that the search and suggest endpoints for the specified resource type cannot be used. "Indexing" indicates that the search and suggest endpoints can _temporally_ not be used because the search index is being re-built.
@@ -230,6 +241,14 @@ export interface ProjectChangeNameAction {
    *
    */
   readonly name: string
+}
+export interface ProjectChangeOrderSearchStatusAction {
+  readonly action: 'changeOrderSearchStatus'
+  /**
+   *	Activated indicates that the Order Search feature is active. Deactivated means that the namely feature is currently configured to be inactive.
+   *
+   */
+  readonly status: OrderSearchStatus
 }
 export interface ProjectChangeProductSearchIndexingEnabledAction {
   readonly action: 'changeProductSearchIndexingEnabled'
