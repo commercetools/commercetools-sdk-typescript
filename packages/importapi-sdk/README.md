@@ -1,36 +1,108 @@
 # Typescript SDK for commercetools import API
 
-## Install
+## Usage examples
 
-```bash
-npm install --save @commercetools/importapi-sdk
-```
-
-### Browser
+### Browser environment
 
 ```html
-<script src="https://unpkg.com/browse/@commercetools/importapi-sdk/dist/importapi-sdk.umd.js"></script>
+<script src="https://unpkg.com/@commercetools/sdk-client-v2@latest/dist/commercetools-sdk-client-v2.umd.js"></script>
+<script src="https://unpkg.com/@commercetools/importapi-sdk@latest/dist/commercetools-importapi-sdk.umd.js"></script>
+```
+
+```html
 <script>
-  // global: importApiSdk
+  // global: @commercetools/sdk-client-v2
+  // global: @commercetools/importapi-sdk
+  ;(function () {
+    //  We can now access the sdk-client-v2 and importapi-sdk object as:
+    //  const { ClientBuilder } = this['@commercetools/sdk-client-v2']
+    //  const { createApiBuilderFromCtpClient } = this['@commercetools/importapi-sdk']
+    //  or
+    //  const { ClientBuilder } = window['@commercetools/sdk-client-v2']
+    //  const { createApiBuilderFromCtpClient } = window['@commercetools/importapi-sdk']
+  })()
 </script>
 ```
 
-### Usage example
+### Node environment
+
+```bash
+npm install --save @commercetools/sdk-client-v2
+npm install --save @commercetools/importapi-sdk
+```
 
 ```ts
-import { createAuthMiddlewareForClientCredentialsFlow } from '@commercetools/sdk-middleware-auth'
-import { createHttpMiddleware } from '@commercetools/sdk-middleware-http'
-import { createClient } from '@commercetools/sdk-client'
+const {
+  ClientBuilder,
+  createAuthForClientCredentialsFlow,
+  createHttpClient,
+} = require('@commercetools/sdk-client-v2')
+const { createApiBuilderFromCtpClient } = require('@commercetools/importapi-sdk')
+const fetch = require('node-fetch')
+
+const projectKey = 'mc-project-key'
+const authMiddlewareOptions = {
+  host: 'https://auth.europe-west1.gcp.commercetools.com',
+  projectKey,
+  credentials: {
+    clientId: 'mc-client-id',
+    clientSecret: 'mc-client-secrets',
+  },
+  oauthUri: 'https://auth.europe-west1.gcp.commercetools.com',
+  scopes: [`manage_project:${projectKey}`],
+  fetch,
+}
+
+const httpMiddlewareOptions = {
+  host: 'https://api.europe-west1.gcp.commercetools.com',
+  fetch,
+}
+
+const client = new ClientBuilder()
+  .withProjectKey(projectKey)
+  .withMiddleware(createAuthForClientCredentialsFlow(authMiddlewareOptions))
+  .withMiddleware(createHttpClient(httpMiddlewareOptions))
+  .withUserAgentMiddleware()
+  .build()
+
+// or
+const client = new ClientBuilder()
+  .withProjectKey(projectKey)
+  .withClientCredentialsFlow(authMiddlewareOptions)
+  .withHttpMiddleware(httpMiddlewareOptions)
+  .withUserAgentMiddleware()
+  .build()
+
+
+const apiRoot = createApiBuilderFromCtpClient(client)
+
+// calling the importapi functions
+// get project details
+apiRoot
+  .withProjectKey({
+    projectKey,
+  })
+  .get()
+  .execute()
+  .then((x) => {
+    /*...*/
+  })
+
+
+// -----------------------------------------------------------------------
+// The sdk-client-v2 also has support for the old syntax
 import {
-  createApiBuilderFromCtpClient,
-  ApiRoot,
-} from '@commercetools/importapi-sdk'
+  createClient,
+  createHttpClient,
+  createAuthForClientCredentialsFlow,
+} from '@commercetools/sdk-client-v2'
+import { createApiBuilderFromCtpClient } from '@commercetools/importapi-sdk')
 import fetch from 'node-fetch'
 
 const projectKey = 'some_project_key'
 
-const authMiddleware = createAuthMiddlewareForClientCredentialsFlow({
-  host: 'https://auth.europe-west1.gcp.commercetools.com/',
+const authMiddleware = createAuthForClientCredentialsFlow({
+  host: 'https://auth.europe-west1.gcp.commercetools.com',
   projectKey,
   credentials: {
     clientId: 'some_id',
@@ -39,7 +111,7 @@ const authMiddleware = createAuthMiddlewareForClientCredentialsFlow({
   fetch,
 })
 
-const httpMiddleware = createHttpMiddleware({
+const httpMiddleware = createHttpClient({
   host: 'https://import.europe-west1.gcp.commercetools.com',
   fetch,
 })
@@ -48,5 +120,15 @@ const ctpClient = createClient({
   middlewares: [authMiddleware, httpMiddleware],
 })
 
-const apiRoot: ApiRoot = createApiBuilderFromCtpClient(ctpClient)
+const apiRoot = createApiBuilderFromCtpClient(ctpClient)
+
+apiRoot
+  .withProjectKey({
+    projectKey,
+  })
+  .get()
+  .execute()
+  .then((x) => {
+    /*...*/
+  })
 ```
