@@ -1,5 +1,11 @@
 # @commercetools/importapi-sdk
 
+## 2.0.0
+
+### Major Changes
+
+- [#154](https://github.com/commercetools/commercetools-sdk-typescript/pull/154) [`25f1dea`](https://github.com/commercetools/commercetools-sdk-typescript/commit/25f1dea23eccdfdda01e9144ec2afe968ead58f2) Thanks [@jherey](https://github.com/jherey)! - This is the first major release of the sdk client
+
 ## 1.21.0
 
 ### Minor Changes
