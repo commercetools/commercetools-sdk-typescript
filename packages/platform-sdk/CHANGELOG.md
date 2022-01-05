@@ -1,5 +1,11 @@
 # @commercetools/platform-sdk
 
+## 2.0.1
+
+### Patch Changes
+
+- [#159](https://github.com/commercetools/commercetools-sdk-typescript/pull/159) [`1d0d397`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1d0d397a2771edf959c77506276518df9f432555) Thanks [@ajimae](https://github.com/ajimae)! - Remove sdk-client-v2 from devDependency and make it a direct dependency, remove old node.js client completely.
+
 ## 2.0.0
 
 ### Major Changes
