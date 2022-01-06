@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/importapi-sdk",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Type script sdk for commercetools import features",
   "keywords": ["commercetools", "typescript", "sdk", "import"],
   "homepage": "https://github.com/commercetools/commercetools-sdk-typescript/packages/importapi-sdk",
