@@ -10,6 +10,8 @@ import {
 } from '../types/sdk.d'
 import { buildRequestForRefreshTokenFlow } from './build-requests'
 
+const Buffer = require('buffer/').Buffer
+
 function mergeAuthHeader(
   token: string,
   req: MiddlewareRequest

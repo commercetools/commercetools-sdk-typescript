@@ -12,16 +12,14 @@ interface IBuiltRequestParams {
 
 // POST https://{host}/oauth/token?grant_type=client_credentials&scope={scope}
 // Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==
+const Buffer = require('buffer/').Buffer
 export function buildRequestForClientCredentialsFlow(
   options: AuthMiddlewareOptions
 ): IBuiltRequestParams {
   if (!options) throw new Error('Missing required options')
-
   if (!options.host) throw new Error('Missing required option (host)')
-
   if (!options.projectKey)
     throw new Error('Missing required option (projectKey)')
-
   if (!options.credentials)
     throw new Error('Missing required option (credentials)')
 

@@ -11,6 +11,7 @@ import {
   RequestOptions,
 } from '../types/sdk.d'
 import parseHeaders from './parse-headers'
+const Buffer = require('buffer/').Buffer
 
 function createError({
   statusCode,
