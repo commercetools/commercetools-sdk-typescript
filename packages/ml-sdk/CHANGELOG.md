@@ -1,5 +1,11 @@
 # @commercetools/ml-sdk
 
+## 2.0.1
+
+### Patch Changes
+
+- [#161](https://github.com/commercetools/commercetools-sdk-typescript/pull/161) [`f28520f`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f28520f8caa16f8203a3790e354ffc3cffc43068) Thanks [@ajimae](https://github.com/ajimae)! - Restructure dependencies, remove sdk-client-v2 from devDependencies into dependencies.
+
 ## 2.0.0
 
 ### Major Changes
