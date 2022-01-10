@@ -7,7 +7,6 @@
 import { CategoryImport } from './categories'
 import { CustomerImport } from './customers'
 import { ImportOperationStatus } from './importoperations'
-import { InventoryImport } from './inventories'
 import { OrderPatchImport } from './order-patches'
 import { OrderImport } from './orders'
 import { PriceImport } from './prices'
@@ -23,7 +22,6 @@ import { ProductVariantImport, ProductVariantPatch } from './productvariants'
 export type ImportRequest =
   | CategoryImportRequest
   | CustomerImportRequest
-  | InventoryImportRequest
   | OrderImportRequest
   | OrderPatchImportRequest
   | PriceImportRequest
@@ -172,17 +170,4 @@ export interface CustomerImportRequest {
    *
    */
   readonly resources: CustomerImport[]
-}
-/**
- *	The request body to [import Inventories](#import-inventories). Contains data for [Inventories](/../api//projects/inventory#inventoryentry) to be created or updated in a commercetools Project.
- *
- */
-export interface InventoryImportRequest {
-  readonly type: 'inventory'
-  /**
-   *	The inventory import resources of this request.
-   *
-   *
-   */
-  readonly resources: InventoryImport[]
 }

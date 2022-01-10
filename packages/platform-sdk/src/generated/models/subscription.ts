@@ -27,6 +27,7 @@ export interface DeliveryPlatformFormat {
 export type Destination =
   | AzureEventGridDestination
   | AzureServiceBusDestination
+  | EventBridgeDestination
   | GoogleCloudPubSubDestination
   | IronMqDestination
   | SnsDestination
@@ -48,6 +49,23 @@ export interface AzureServiceBusDestination {
    *
    */
   readonly connectionString: string
+}
+/**
+ *	[AWS EventBridge](https://aws.amazon.com/eventbridge/) can be used to push events and messages to a serverless event bus that can forward them to AWS SQS, SNS, Lambda, and other AWS services based on forwarding rules.
+ *
+ */
+export interface EventBridgeDestination {
+  readonly type: 'EventBridge'
+  /**
+   *	AWS region to which commercetools sends the events.
+   *
+   */
+  readonly region: string
+  /**
+   *	ID of the AWS account that receives events from the commercetools platform.
+   *
+   */
+  readonly accountId: string
 }
 export interface GoogleCloudPubSubDestination {
   readonly type: 'GoogleCloudPubSub'

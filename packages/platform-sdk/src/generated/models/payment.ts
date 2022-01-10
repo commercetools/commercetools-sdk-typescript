@@ -332,6 +332,8 @@ export type PaymentUpdateAction =
   | PaymentSetMethodInfoNameAction
   | PaymentSetStatusInterfaceCodeAction
   | PaymentSetStatusInterfaceTextAction
+  | PaymentSetTransactionCustomFieldAction
+  | PaymentSetTransactionCustomTypeAction
   | PaymentTransitionStateAction
 export interface Transaction {
   /**
@@ -364,6 +366,11 @@ export interface Transaction {
    *
    */
   readonly state?: TransactionState
+  /**
+   *	Custom Fields for the Transaction.
+   *
+   */
+  readonly custom?: CustomFields
 }
 export interface TransactionDraft {
   /**
@@ -392,6 +399,11 @@ export interface TransactionDraft {
    *
    */
   readonly state?: TransactionState
+  /**
+   *	Custom Fields for the Transaction.
+   *
+   */
+  readonly custom?: CustomFields
 }
 export type TransactionState = 'Failure' | 'Initial' | 'Pending' | 'Success'
 export type TransactionType =
@@ -585,6 +597,31 @@ export interface PaymentSetStatusInterfaceTextAction {
    *
    */
   readonly interfaceText: string
+}
+export interface PaymentSetTransactionCustomFieldAction {
+  readonly action: 'setTransactionCustomField'
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value?: any
+}
+export interface PaymentSetTransactionCustomTypeAction {
+  readonly action: 'setTransactionCustomType'
+  /**
+   *	If set, the custom type is set to this new value.
+   *	If absent, the custom type and any existing custom fields are removed.
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *	Sets the custom fields to this value.
+   *
+   */
+  readonly fields?: FieldContainer
 }
 export interface PaymentTransitionStateAction {
   readonly action: 'transitionState'

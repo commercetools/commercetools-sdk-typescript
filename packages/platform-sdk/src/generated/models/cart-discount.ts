@@ -15,7 +15,7 @@ import {
   TypedMoney,
 } from './common'
 import { ProductReference, ProductResourceIdentifier } from './product'
-import { CustomFields, TypeResourceIdentifier } from './type'
+import { CustomFields, CustomFieldsDraft, TypeResourceIdentifier } from './type'
 
 export interface CartDiscount extends BaseResource {
   /**
@@ -185,7 +185,7 @@ export interface CartDiscountDraft {
   /**
    *
    */
-  readonly custom?: CustomFields
+  readonly custom?: CustomFieldsDraft
 }
 export interface CartDiscountPagedQueryResponse {
   /**

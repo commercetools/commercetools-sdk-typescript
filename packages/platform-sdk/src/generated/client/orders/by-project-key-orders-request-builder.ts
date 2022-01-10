@@ -12,6 +12,7 @@ import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyOrdersEditsRequestBuilder } from '../edits/by-project-key-orders-edits-request-builder'
 import { ByProjectKeyOrdersImportRequestBuilder } from '../import/by-project-key-orders-import-request-builder'
+import { ByProjectKeyOrdersSearchRequestBuilder } from '../search/by-project-key-orders-search-request-builder'
 import { ByProjectKeyOrdersByIDRequestBuilder } from './by-project-key-orders-by-id-request-builder'
 import { ByProjectKeyOrdersOrderNumberByOrderNumberRequestBuilder } from './by-project-key-orders-order-number-by-order-number-request-builder'
 
@@ -65,6 +66,19 @@ export class ByProjectKeyOrdersRequestBuilder {
       pathArgs: {
         ...this.args.pathArgs,
         ...childPathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	This endpoint provides high performance search queries over Orders. The order search allows searching through all orders (currently supporting a limit of the 10.000.000 newest orders) in your project.
+   *
+   */
+  public search(): ByProjectKeyOrdersSearchRequestBuilder {
+    return new ByProjectKeyOrdersSearchRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
       },
       executeRequest: this.args.executeRequest,
       baseUri: this.args.baseUri,

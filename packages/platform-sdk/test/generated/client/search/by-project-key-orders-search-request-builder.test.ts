@@ -13,20 +13,26 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
       method: 'post',
-      uri: '/test_projectKey/inventories/import-containers/test_importContainerKey',
+      uri: '/test_projectKey/orders/search',
       request: apiRoot
-        .withProjectKeyValue({ projectKey: 'test_projectKey' })
-        .inventories()
-        .importContainers()
-        .withImportContainerKeyValue({
-          importContainerKey: 'test_importContainerKey',
-        })
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .orders()
+        .search()
         .post({ body: null, headers: null }),
+    },
+    {
+      method: 'head',
+      uri: '/test_projectKey/orders/search',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .orders()
+        .search()
+        .head(),
     },
   ]
 }
 
-describe('Testing ByProjectKeyInventoriesImportContainersByImportContainerKeyRequestBuilder Requests', () => {
+describe('Testing ByProjectKeyOrdersSearchRequestBuilder Requests', () => {
   const requestsToTest = getRequestsWithMethodParameters()
   requestsToTest.forEach((rm) => {
     test(`Testing => request method: ${rm.method} and url: ${rm.uri}`, async () => {

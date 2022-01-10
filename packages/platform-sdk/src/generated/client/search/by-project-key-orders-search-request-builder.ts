@@ -4,44 +4,60 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import {
-  ImportResponse,
-  InventoryImportRequest,
-} from '../../models/importrequests'
+  OrderPagedSearchResponse,
+  OrderSearchRequest,
+} from '../../models/order'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
-export class ByProjectKeyInventoriesImportContainersByImportContainerKeyRequestBuilder {
+export class ByProjectKeyOrdersSearchRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
         projectKey: string
-        importContainerKey: string
       }
       executeRequest: executeRequest
       baseUri?: string
     }
   ) {}
-  /**
-   *	Creates a request for creating new Inventories or updating existing ones.
-   */
   public post(methodArgs: {
-    body: InventoryImportRequest
+    body: OrderSearchRequest
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<ImportResponse> {
-    return new ApiRequest<ImportResponse>(
+  }): ApiRequest<OrderPagedSearchResponse> {
+    return new ApiRequest<OrderPagedSearchResponse>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',
-        uriTemplate:
-          '/{projectKey}/inventories/import-containers/{importContainerKey}',
+        uriTemplate: '/{projectKey}/orders/search',
         pathVariables: this.args.pathArgs,
         headers: {
           'Content-Type': 'application/json',
           ...methodArgs?.headers,
         },
         body: methodArgs?.body,
+      },
+      this.args.executeRequest
+    )
+  }
+  /**
+   *	Checks whether a search index for the Project's Orders exists.
+   */
+  public head(methodArgs?: {
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'HEAD',
+        uriTemplate: '/{projectKey}/orders/search',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
       },
       this.args.executeRequest
     )

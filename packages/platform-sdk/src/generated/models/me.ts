@@ -138,6 +138,7 @@ export type MyCartUpdateAction =
   | MyCartSetLineItemCustomTypeAction
   | MyCartSetLineItemDistributionChannelAction
   | MyCartSetLineItemShippingDetailsAction
+  | MyCartSetLineItemSupplyChannelAction
   | MyCartSetLocaleAction
   | MyCartSetShippingAddressAction
   | MyCartSetShippingMethodAction
@@ -401,6 +402,7 @@ export type MyPaymentUpdateAction =
   | MyPaymentSetMethodInfoInterfaceAction
   | MyPaymentSetMethodInfoMethodAction
   | MyPaymentSetMethodInfoNameAction
+  | MyPaymentSetTransactionCustomFieldAction
 export interface MyShoppingListDraft {
   /**
    *
@@ -488,6 +490,11 @@ export interface MyTransactionDraft {
    *
    */
   readonly interactionId?: string
+  /**
+   *	Custom Fields for the Transaction.
+   *
+   */
+  readonly custom?: CustomFields
 }
 export interface MyCartAddDiscountCodeAction {
   readonly action: 'addDiscountCode'
@@ -752,6 +759,17 @@ export interface MyCartSetLineItemShippingDetailsAction {
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
+}
+export interface MyCartSetLineItemSupplyChannelAction {
+  readonly action: 'setLineItemSupplyChannel'
+  /**
+   *
+   */
+  readonly lineItemId: string
+  /**
+   *
+   */
+  readonly distributionChannel?: ChannelResourceIdentifier
 }
 export interface MyCartSetLocaleAction {
   readonly action: 'setLocale'
@@ -1021,6 +1039,17 @@ export interface MyPaymentSetMethodInfoNameAction {
    *
    */
   readonly name?: LocalizedString
+}
+export interface MyPaymentSetTransactionCustomFieldAction {
+  readonly action: 'setTransactionCustomField'
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value?: any
 }
 export interface MyShoppingListAddLineItemAction {
   readonly action: 'addLineItem'

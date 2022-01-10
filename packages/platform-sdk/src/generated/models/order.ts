@@ -88,6 +88,8 @@ import {
   StagedOrderSetDeliveryAddressAction,
   StagedOrderSetDeliveryAddressCustomFieldAction,
   StagedOrderSetDeliveryAddressCustomTypeAction,
+  StagedOrderSetDeliveryCustomFieldAction,
+  StagedOrderSetDeliveryCustomTypeAction,
   StagedOrderSetDeliveryItemsAction,
   StagedOrderSetItemShippingAddressCustomFieldAction,
   StagedOrderSetItemShippingAddressCustomTypeAction,
@@ -185,6 +187,8 @@ export type StagedOrderUpdateAction =
   | StagedOrderSetDeliveryAddressAction
   | StagedOrderSetDeliveryAddressCustomFieldAction
   | StagedOrderSetDeliveryAddressCustomTypeAction
+  | StagedOrderSetDeliveryCustomFieldAction
+  | StagedOrderSetDeliveryCustomTypeAction
   | StagedOrderSetDeliveryItemsAction
   | StagedOrderSetItemShippingAddressCustomFieldAction
   | StagedOrderSetItemShippingAddressCustomTypeAction
@@ -219,6 +223,45 @@ export type StagedOrderUpdateAction =
   | StagedOrderTransitionStateAction
   | StagedOrderUpdateItemShippingAddressAction
   | StagedOrderUpdateSyncInfoAction
+export interface Hit {
+  /**
+   *	Unique ID of the Order.
+   *
+   */
+  readonly id: string
+  /**
+   *	Current version of the Order.
+   *
+   */
+  readonly version: number
+  /**
+   *	The higher the value is, the more relevant the hit is for the search request.
+   *
+   */
+  readonly relevance: number
+}
+export interface OrderPagedSearchResponse {
+  /**
+   *	Total number of results matching the query.
+   *
+   */
+  readonly total: number
+  /**
+   *	Number of results skipped, used for pagination.
+   *
+   */
+  readonly offset?: number
+  /**
+   *	Number of results the response should contain at maximum, used for pagination.
+   *
+   */
+  readonly limit?: number
+  /**
+   *	Actual results.
+   *
+   */
+  readonly hits: Hit[]
+}
 export interface Delivery {
   /**
    *
@@ -242,6 +285,11 @@ export interface Delivery {
    *
    */
   readonly address?: Address
+  /**
+   *	Custom Fields for the Transaction.
+   *
+   */
+  readonly custom?: CustomFields
 }
 export interface DeliveryItem {
   /**
@@ -724,6 +772,28 @@ export interface OrderResourceIdentifier {
    */
   readonly key?: string
 }
+export interface OrderSearchRequest {
+  /**
+   *	The Order search query.
+   *
+   */
+  readonly query: string
+  /**
+   *	Controls how results to your query are sorted. If not provided, the results are sorted by relevance in descending order.
+   *
+   */
+  readonly sort?: string
+  /**
+   *	The maximum number of search results to be returned.
+   *
+   */
+  readonly limit?: number
+  /**
+   *	The number of search results to be skipped in the response for pagination.
+   *
+   */
+  readonly offset?: number
+}
 export type OrderState = 'Cancelled' | 'Complete' | 'Confirmed' | 'Open'
 export interface OrderUpdate {
   /**
@@ -763,6 +833,8 @@ export type OrderUpdateAction =
   | OrderSetDeliveryAddressAction
   | OrderSetDeliveryAddressCustomFieldAction
   | OrderSetDeliveryAddressCustomTypeAction
+  | OrderSetDeliveryCustomFieldAction
+  | OrderSetDeliveryCustomTypeAction
   | OrderSetDeliveryItemsAction
   | OrderSetItemShippingAddressCustomFieldAction
   | OrderSetItemShippingAddressCustomTypeAction
@@ -1134,6 +1206,11 @@ export interface OrderAddDeliveryAction {
    *
    */
   readonly parcels?: ParcelDraft[]
+  /**
+   *	Custom Fields for the Transaction.
+   *
+   */
+  readonly custom?: CustomFields
 }
 export interface OrderAddItemShippingAddressAction {
   readonly action: 'addItemShippingAddress'
@@ -1392,6 +1469,28 @@ export interface OrderSetDeliveryAddressCustomTypeAction {
    *
    */
   readonly deliveryId: string
+  /**
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *
+   */
+  readonly fields?: FieldContainer
+}
+export interface OrderSetDeliveryCustomFieldAction {
+  readonly action: 'setDeliveryCustomField'
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value?: any
+}
+export interface OrderSetDeliveryCustomTypeAction {
+  readonly action: 'setDeliveryCustomType'
   /**
    *
    */

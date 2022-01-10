@@ -117,6 +117,7 @@ export type ChangeHistoryResourceType =
   | 'customer-group'
   | 'discount-code'
   | 'inventory-entry'
+  | 'key-value-document'
   | 'order'
   | 'payment'
   | 'product'
@@ -690,7 +691,12 @@ export interface Delivery {
   /**
    *
    */
-  readonly address: Address
+  readonly address?: Address
+  /**
+   *	Custom Fields for the Transaction.
+   *
+   */
+  readonly custom?: CustomFields
 }
 export interface DeliveryItem {
   /**

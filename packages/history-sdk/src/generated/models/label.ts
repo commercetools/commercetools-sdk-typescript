@@ -10,6 +10,7 @@ import { LocalizedString, Money } from './common'
  *	Provides descriptive information specific to the resource.
  */
 export type Label =
+  | CustomObjectLabel
   | CustomerLabel
   | LocalizedLabel
   | OrderLabel
@@ -17,6 +18,17 @@ export type Label =
   | ProductLabel
   | ReviewLabel
   | StringLabel
+export interface CustomObjectLabel {
+  readonly type: 'CustomObjectLabel'
+  /**
+   *
+   */
+  readonly key: string
+  /**
+   *
+   */
+  readonly container: string
+}
 export interface CustomerLabel {
   readonly type: 'CustomerLabel'
   /**

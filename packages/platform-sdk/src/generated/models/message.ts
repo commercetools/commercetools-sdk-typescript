@@ -54,6 +54,22 @@ import { StateReference } from './state'
 import { StoreKeyReference } from './store'
 import { CustomFields } from './type'
 
+/**
+ *	Custom Objects are grouped into containers, which can be used like namespaces. Within a given container, a user-defined key can be used to uniquely identify resources.
+ *
+ */
+export interface ContainerAndKey {
+  /**
+   *	User-defined identifier that is unique within the given container.
+   *
+   */
+  readonly key: string
+  /**
+   *	Namespace to group Custom Objects.
+   *
+   */
+  readonly container: string
+}
 export type Message =
   | CategoryCreatedMessage
   | CategorySlugChangedMessage
@@ -94,6 +110,7 @@ export type Message =
   | OrderImportedMessage
   | OrderLineItemAddedMessage
   | OrderLineItemDiscountSetMessage
+  | OrderLineItemDistributionChannelSetMessage
   | OrderLineItemRemovedMessage
   | OrderPaymentStateChangedMessage
   | OrderReturnInfoAddedMessage
@@ -2301,6 +2318,61 @@ export interface OrderLineItemDiscountSetMessage {
    *
    */
   readonly taxedPrice?: TaxedItemPrice
+}
+export interface OrderLineItemDistributionChannelSetMessage {
+  readonly type: 'OrderLineItemDistributionChannelSet'
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly lineItemId: string
+  /**
+   *
+   */
+  readonly distributionChannel?: ChannelReference
 }
 export interface OrderLineItemRemovedMessage {
   readonly type: 'OrderLineItemRemoved'
@@ -4711,6 +4783,12 @@ export interface UserProvidedIdentifiers {
    *
    */
   readonly slug?: LocalizedString
+  /**
+   *	Custom Objects are grouped into containers, which can be used like namespaces. Within a given container, a user-defined key can be used to uniquely identify resources.
+   *
+   *
+   */
+  readonly containerAndKey?: ContainerAndKey
 }
 export type MessagePayload =
   | CategoryCreatedMessagePayload
@@ -4752,6 +4830,7 @@ export type MessagePayload =
   | OrderImportedMessagePayload
   | OrderLineItemAddedMessagePayload
   | OrderLineItemDiscountSetMessagePayload
+  | OrderLineItemDistributionChannelSetMessagePayload
   | OrderLineItemRemovedMessagePayload
   | OrderPaymentStateChangedMessagePayload
   | OrderReturnInfoAddedMessagePayload
@@ -5202,6 +5281,17 @@ export interface OrderLineItemDiscountSetMessagePayload {
    *
    */
   readonly taxedPrice?: TaxedItemPrice
+}
+export interface OrderLineItemDistributionChannelSetMessagePayload {
+  readonly type: 'OrderLineItemDistributionChannelSet'
+  /**
+   *
+   */
+  readonly lineItemId: string
+  /**
+   *
+   */
+  readonly distributionChannel?: ChannelReference
 }
 export interface OrderLineItemRemovedMessagePayload {
   readonly type: 'OrderLineItemRemoved'

@@ -10,7 +10,6 @@ import { ByProjectKeyImportContainersRequestBuilder } from './import-containers/
 import { ByProjectKeyImportOperationsRequestBuilder } from './import-operations/by-project-key-import-operations-request-builder'
 import { ByProjectKeyImportSinksRequestBuilder } from './import-sinks/by-project-key-import-sinks-request-builder'
 import { ByProjectKeyImportSummariesRequestBuilder } from './import-summaries/by-project-key-import-summaries-request-builder'
-import { ByProjectKeyInventoriesRequestBuilder } from './inventories/by-project-key-inventories-request-builder'
 import { ByProjectKeyOrderPatchesRequestBuilder } from './order-patches/by-project-key-order-patches-request-builder'
 import { ByProjectKeyOrdersRequestBuilder } from './orders/by-project-key-orders-request-builder'
 import { ByProjectKeyPricesRequestBuilder } from './prices/by-project-key-prices-request-builder'
@@ -149,15 +148,6 @@ export class ByProjectKeyRequestBuilder {
   }
   public customers(): ByProjectKeyCustomersRequestBuilder {
     return new ByProjectKeyCustomersRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
-  }
-  public inventories(): ByProjectKeyInventoriesRequestBuilder {
-    return new ByProjectKeyInventoriesRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },
