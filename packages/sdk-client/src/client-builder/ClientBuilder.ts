@@ -95,8 +95,8 @@ export default class ClientBuilder {
         host: options.host || 'https://auth.europe-west1.gcp.commercetools.com',
         projectKey: options.projectKey || this.projectKey,
         credentials: {
-          clientId: process.env.myClientId,
-          clientSecret: process.env.myClientSecret,
+          clientId: options.credentials.clientId || '',
+          clientSecret: options.credentials.clientSecret || '',
           user: {
             username: options.credentials.user.username || '',
             password: options.credentials.user.password || '',

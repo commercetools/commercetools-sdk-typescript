@@ -4,6 +4,7 @@ import AbortController from 'abort-controller'
 import { createHttpMiddleware } from '../../src/sdk-middleware-http'
 import { MiddlewareRequest, MiddlewareResponse } from '../../src/types/sdk.d'
 
+const Buffer = require('buffer/').Buffer
 function createTestRequest(options) {
   return {
     uri: '',

@@ -22,42 +22,142 @@ describe('client builder', () => {
     fetch,
   }
 
-  test('should set the projectKey', () => {
-    const client = new ClientBuilder() as any
-    expect(client.projectKey).toEqual(undefined)
-    const clientWithKeyProp = client.withProjectKey(projectKey)
+  describe('general', () => {
+    test('should set the projectKey', () => {
+      const client = new ClientBuilder() as any
+      expect(client.projectKey).toEqual(undefined)
+      const clientWithKeyProp = client.withProjectKey(projectKey)
 
-    expect(clientWithKeyProp.projectKey).toEqual('demo')
+      expect(clientWithKeyProp.projectKey).toEqual('demo')
+    })
+
+    test('should set authorization middleware', () => {
+      const client = new ClientBuilder() as any
+      expect(client.authMiddleware).toEqual(undefined)
+      const clientWithKeyProp = client.withClientCredentialsFlow(
+        authMiddlewareOptions
+      )
+
+      expect(clientWithKeyProp.authMiddleware).toBeTruthy()
+    })
+
+    test('should set the http middleware', () => {
+      const client = new ClientBuilder() as any
+      expect(client.httpMiddleware).toEqual(undefined)
+      const clientWithKeyProp = client.withHttpMiddleware(httpMiddlewareOptions)
+
+      expect(clientWithKeyProp.httpMiddleware).toBeTruthy()
+    })
+
+    test('should build the client when build method is called', () => {
+      const client = new ClientBuilder()
+        .withHttpMiddleware(httpMiddlewareOptions)
+        .withClientCredentialsFlow(authMiddlewareOptions)
+        .build() as any
+
+      expect(client).toHaveProperty('execute')
+      expect(client).toHaveProperty('process')
+
+      expect(typeof client.execute).toEqual('function')
+      expect(typeof client.process).toEqual('function')
+    })
   })
 
-  test('should set authorization middleware', () => {
-    const client = new ClientBuilder() as any
-    expect(client.authMiddleware).toEqual(undefined)
-    const clientWithKeyProp = client.withClientCredentialsFlow(
-      authMiddlewareOptions
-    )
-
-    expect(clientWithKeyProp.authMiddleware).toBeTruthy()
+  describe('middlewares', () => {
+    test('should create should create default client', () => {
+      const client = new ClientBuilder() as any
+      expect(client.authMiddleware).toEqual(undefined)
+      const defaultClient = client.defaultClient(
+        httpMiddlewareOptions.host,
+        authMiddlewareOptions.credentials,
+        authMiddlewareOptions.host,
+        authMiddlewareOptions.projectKey
+      )
+      expect(defaultClient.httpMiddleware).toBeTruthy()
+      expect(defaultClient.authMiddleware).toBeTruthy()
+    })
   })
 
-  test('should set the http middleware', () => {
+  test('should create a client using a middleware', () => {
+    const middleware = {
+      request: () => {},
+      response: () => {},
+    }
     const client = new ClientBuilder() as any
-    expect(client.httpMiddleware).toEqual(undefined)
-    const clientWithKeyProp = client.withHttpMiddleware(httpMiddlewareOptions)
-
-    expect(clientWithKeyProp.httpMiddleware).toBeTruthy()
+    expect(client.middlewares).toHaveLength(0)
+    const clientWithMiddleware = client.withMiddleware(middleware)
+    expect(clientWithMiddleware.middlewares).toHaveLength(1)
   })
 
-  test('should build the client when build method is called', () => {
-    const client = new ClientBuilder()
-      .withHttpMiddleware(httpMiddlewareOptions)
-      .withClientCredentialsFlow(authMiddlewareOptions)
-      .build() as any
+  test('should create a client using password flow middleware', () => {
+    const client = new ClientBuilder() as any
+    expect(client.authMiddleware).toBeFalsy()
 
-    expect(client).toHaveProperty('execute')
-    expect(client).toHaveProperty('process')
+    const clientWithUserCredentials = client.withPasswordFlow({
+      ...authMiddlewareOptions,
+      credentials: { user: { username: 'user', password: 'password' } },
+    })
+    expect(clientWithUserCredentials.authMiddleware).toBeTruthy()
+  })
 
-    expect(typeof client.execute).toEqual('function')
-    expect(typeof client.process).toEqual('function')
+  test('should create a client with anonymousId', () => {
+    const client = new ClientBuilder() as any
+    expect(client.authMiddleware).toBeFalsy()
+
+    const clientWithAnonymousID = client.withAnonymousSessionFlow({
+      ...authMiddlewareOptions,
+      credentials: { anonymousId: 'super-anonymous-id' },
+    })
+    expect(clientWithAnonymousID.authMiddleware).toBeTruthy()
+  })
+
+  test('should create a client with refreshToken', () => {
+    const client = new ClientBuilder() as any
+    expect(client.authMiddleware).toBeFalsy()
+
+    const clientWithRefreshToken = client.withRefreshTokenFlow({
+      ...authMiddlewareOptions,
+      refreshToken: 'refresh-token',
+    })
+    expect(clientWithRefreshToken.authMiddleware).toBeTruthy()
+  })
+
+  test('should create a client with existingToken', () => {
+    const client = new ClientBuilder() as any
+    expect(client.authMiddleware).toBeFalsy()
+
+    const clientWithExistingToken = client.withExistingTokenFlow('token', {
+      force: true,
+    })
+    expect(clientWithExistingToken.authMiddleware).toBeTruthy()
+  })
+
+  test('should create client with userAgentMiddleware', () => {
+    const client = new ClientBuilder() as any
+    expect(client.userAgentMiddleware).toBeFalsy()
+
+    const clientWithUserAgentMiddleware = client.withUserAgentMiddleware()
+    expect(clientWithUserAgentMiddleware.userAgentMiddleware).toBeTruthy()
+  })
+
+  test('should create client with queue middleware', () => {
+    const client = new ClientBuilder() as any
+    expect(client.queueMiddleware).toBeFalsy()
+
+    const clientWithQueueMiddleware = client.withQueueMiddleware({
+      concurrency: 20,
+    })
+    expect(clientWithQueueMiddleware.queueMiddleware).toBeTruthy()
+  })
+
+  test('should create client with correlation id middleware', () => {
+    const client = new ClientBuilder() as any
+    expect(client.correlationIdMiddleware).toBeFalsy()
+
+    const clientWithCorrelationIDMiddleware =
+      client.withCorrelationIdMiddleware({ generate: 'generated-uuid-string' })
+    expect(
+      clientWithCorrelationIDMiddleware.correlationIdMiddleware
+    ).toBeTruthy()
   })
 })

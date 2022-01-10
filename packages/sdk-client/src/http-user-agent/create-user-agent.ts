@@ -16,7 +16,7 @@ const isBrowser = () =>
 function getSystemInfo() {
   if (isBrowser()) return window.navigator.userAgent
 
-  const nodeVersion = process.version.slice(1)
+  const nodeVersion = process?.version.slice(1) || '12' // temporary fix for rn environment
   // const platformInfo = `(${process.platform}; ${process.arch})`
   // return `Node.js/${nodeVersion} ${platformInfo}`
 
