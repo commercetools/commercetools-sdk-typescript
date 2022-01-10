@@ -1,5 +1,11 @@
 # @commercetools/sdk-client-v2
 
+## 1.0.1
+
+### Patch Changes
+
+- [#163](https://github.com/commercetools/commercetools-sdk-typescript/pull/163) [`fcd35a0`](https://github.com/commercetools/commercetools-sdk-typescript/commit/fcd35a0f26b2780d0004c4e9d7b48233a86c2453) Thanks [@ajimae](https://github.com/ajimae)! - Fix issues with Buffer and node process
+
 ## 1.0.0
 
 ### Major Changes
