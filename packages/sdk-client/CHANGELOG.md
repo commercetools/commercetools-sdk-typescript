@@ -1,5 +1,11 @@
 # @commercetools/sdk-client-v2
 
+## 1.0.2
+
+### Patch Changes
+
+- [#167](https://github.com/commercetools/commercetools-sdk-typescript/pull/167) [`b31612d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/b31612dbcc3d644847cb42cf67bce407ab202cb0) Thanks [@ajimae](https://github.com/ajimae)! - Add Buffer Dependency
+
 ## 1.0.1
 
 ### Patch Changes

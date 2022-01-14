@@ -1,6 +1,6 @@
 {
   "name": "@commercetools/sdk-client-v2",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "commercetools TypeScript SDK client.",
   "keywords": [
     "commercetools",
