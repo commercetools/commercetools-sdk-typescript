@@ -3,7 +3,7 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { Cart, CartDraft } from '../../models/cart'
+import { Cart, CartDraft, CartPagedQueryResponse } from '../../models/cart'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyInStoreKeyByStoreKeyCartsReplicateRequestBuilder } from '../replicate/by-project-key-in-store-key-by-store-key-carts-replicate-request-builder'
@@ -75,7 +75,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder {
    */
   public get(methodArgs?: {
     queryArgs?: {
-      customerId?: string
       expand?: string | string[]
       sort?: string | string[]
       limit?: number
@@ -87,8 +86,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<any> {
-    return new ApiRequest<any>(
+  }): ApiRequest<CartPagedQueryResponse> {
+    return new ApiRequest<CartPagedQueryResponse>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',
