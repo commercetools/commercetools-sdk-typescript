@@ -104,6 +104,8 @@ import {
   StagedOrderSetLocaleAction,
   StagedOrderSetOrderNumberAction,
   StagedOrderSetOrderTotalTaxAction,
+  StagedOrderSetParcelCustomFieldAction,
+  StagedOrderSetParcelCustomTypeAction,
   StagedOrderSetParcelItemsAction,
   StagedOrderSetParcelMeasurementsAction,
   StagedOrderSetParcelTrackingDataAction,
@@ -203,6 +205,8 @@ export type StagedOrderUpdateAction =
   | StagedOrderSetLocaleAction
   | StagedOrderSetOrderNumberAction
   | StagedOrderSetOrderTotalTaxAction
+  | StagedOrderSetParcelCustomFieldAction
+  | StagedOrderSetParcelCustomTypeAction
   | StagedOrderSetParcelItemsAction
   | StagedOrderSetParcelMeasurementsAction
   | StagedOrderSetParcelTrackingDataAction
@@ -843,6 +847,8 @@ export type OrderUpdateAction =
   | OrderSetLineItemShippingDetailsAction
   | OrderSetLocaleAction
   | OrderSetOrderNumberAction
+  | OrderSetParcelCustomFieldAction
+  | OrderSetParcelCustomTypeAction
   | OrderSetParcelItemsAction
   | OrderSetParcelMeasurementsAction
   | OrderSetParcelTrackingDataAction
@@ -880,6 +886,11 @@ export interface Parcel {
    *
    */
   readonly items?: DeliveryItem[]
+  /**
+   *	Custom Fields of this parcel.
+   *
+   */
+  readonly custom?: CustomFields
 }
 export interface ParcelDraft {
   /**
@@ -895,6 +906,11 @@ export interface ParcelDraft {
    *
    */
   readonly items?: DeliveryItem[]
+  /**
+   *	Custom Fields of this parcel.
+   *
+   */
+  readonly custom?: CustomFieldsDraft
 }
 export interface ParcelMeasurements {
   /**
@@ -1595,6 +1611,36 @@ export interface OrderSetOrderNumberAction {
    *
    */
   readonly orderNumber?: string
+}
+export interface OrderSetParcelCustomFieldAction {
+  readonly action: 'setParcelCustomField'
+  /**
+   *
+   */
+  readonly parcelId: string
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value?: any
+}
+export interface OrderSetParcelCustomTypeAction {
+  readonly action: 'setParcelCustomType'
+  /**
+   *
+   */
+  readonly parcelId: string
+  /**
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *
+   */
+  readonly fields?: FieldContainer
 }
 export interface OrderSetParcelItemsAction {
   readonly action: 'setParcelItems'
