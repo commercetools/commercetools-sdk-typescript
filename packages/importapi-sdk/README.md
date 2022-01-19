@@ -48,7 +48,7 @@ const authMiddlewareOptions = {
     clientId: 'mc-client-id',
     clientSecret: 'mc-client-secrets',
   },
-  oauthUri: 'https://auth.europe-west1.gcp.commercetools.com',
+  oauthUri: '/oauth/token', // - optional: custom oauthUri
   scopes: [`manage_project:${projectKey}`],
   fetch,
 }

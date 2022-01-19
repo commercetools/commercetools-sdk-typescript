@@ -1,0 +1,80 @@
+# ###
+# POST http://localhost:3000/login HTTP/1.1
+# Content-Type: application/json
+
+# {
+#   "email": "willy.wonka@commercetools.com",
+#   "password": "p@ssword"
+# }
+
+GET http://localhost:8085/home HTTP/1.1
+Content-Type: application/json
+
+### register
+# POST http://localhost:8085/customer HTTP/1.1
+# Content-Type: application/json
+
+# {
+#   "firstName": "test",
+#   "lastName": "test",
+#   "email": "test40@test.com",
+#   "password": "12345678",
+#   "key": "test-04",
+#   "countryCode": "DE"
+# }
+
+### login
+POST http://localhost:8085/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "willy.wonka@commercetools.com",
+  "password": "p@ssword"
+}
+
+### product
+GET http://localhost:8085/product HTTP/1.1
+Content-Type: application/json
+x-access-token: 87dadb4d6a3f70b6c664f5cc7276bc4a.d79d3101414e1cb32124ba1d94d264a71cb48a17c681fae159a28dcacfcef25d520e07d3387d4f7fe2646657d83fd1a4e1c1421068962d9aa050b5a25d5363f364bef4415bdf5f2c853c4735f00c2f8f0ee83512614e739d690a2ddd9a5db0ea24a70f0c7472a3dd3ec8d38af0d4ad8d8579957bfdd33d3fb555960b8a1fe744f6ad7c2c7aec0d55fb40d10b550a8353
+# x-access-token: d7f72080b0851cbe830e583ec602a119.dfc530382fac413c29048227d638be7573a4c32bd8f32004b851ca7136691c52
+
+### create cart
+POST http://localhost:8085/cart HTTP/1.1
+Content-Type: application/json
+x-access-token: 87dadb4d6a3f70b6c664f5cc7276bc4a.d79d3101414e1cb32124ba1d94d264a71cb48a17c681fae159a28dcacfcef25d520e07d3387d4f7fe2646657d83fd1a4e1c1421068962d9aa050b5a25d5363f364bef4415bdf5f2c853c4735f00c2f8f0ee83512614e739d690a2ddd9a5db0ea24a70f0c7472a3dd3ec8d38af0d4ad8d8579957bfdd33d3fb555960b8a1fe744f6ad7c2c7aec0d55fb40d10b550a8353
+
+{
+  "currency": "EUR"
+  // "customerEmail": "willy.wonka@commercetools.com"
+}
+
+### get cart
+GET http://localhost:8085/cart HTTP/1.1
+Content-Type: application/json
+x-access-token: 87dadb4d6a3f70b6c664f5cc7276bc4a.d79d3101414e1cb32124ba1d94d264a71cb48a17c681fae159a28dcacfcef25d520e07d3387d4f7fe2646657d83fd1a4e1c1421068962d9aa050b5a25d5363f364bef4415bdf5f2c853c4735f00c2f8f0ee83512614e739d690a2ddd9a5db0ea24a70f0c7472a3dd3ec8d38af0d4ad8d8579957bfdd33d3fb555960b8a1fe744f6ad7c2c7aec0d55fb40d10b550a8353
+
+### add product to cart
+PUT http://localhost:8085/cart HTTP/1.1
+Content-Type: application/json
+x-access-token: 87dadb4d6a3f70b6c664f5cc7276bc4a.d79d3101414e1cb32124ba1d94d264a71cb48a17c681fae159a28dcacfcef25d520e07d3387d4f7fe2646657d83fd1a4e1c1421068962d9aa050b5a25d5363f364bef4415bdf5f2c853c4735f00c2f8f0ee83512614e739d690a2ddd9a5db0ea24a70f0c7472a3dd3ec8d38af0d4ad8d8579957bfdd33d3fb555960b8a1fe744f6ad7c2c7aec0d55fb40d10b550a8353
+
+{
+  "cartId": "e50fa5d8-a0c1-432a-833c-df6c250d0b35",
+  "cartUpdateDraft": {
+    "version": 7,
+    "productId": "a6bdd9fe-37a9-43b0-88e1-16a2a6713d28",
+    "variantId": 1,
+    "quantity": 1
+  }
+}
+
+### delete line item from cart
+DELETE http://localhost:8085/cart HTTP/1.1
+Content-Type: application/json
+x-access-token: 87dadb4d6a3f70b6c664f5cc7276bc4a.d79d3101414e1cb32124ba1d94d264a71cb48a17c681fae159a28dcacfcef25d520e07d3387d4f7fe2646657d83fd1a4e1c1421068962d9aa050b5a25d5363f364bef4415bdf5f2c853c4735f00c2f8f0ee83512614e739d690a2ddd9a5db0ea24a70f0c7472a3dd3ec8d38af0d4ad8d8579957bfdd33d3fb555960b8a1fe744f6ad7c2c7aec0d55fb40d10b550a8353
+
+{
+  "version": 10,
+  "lineItemId": "37e3b805-151d-41d9-9772-2d14cb3eaa66",
+  "quantity": 1
+}
