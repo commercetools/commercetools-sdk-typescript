@@ -1,5 +1,11 @@
 # @commercetools/ml-sdk
 
+## 2.0.2
+
+### Patch Changes
+
+- [#165](https://github.com/commercetools/commercetools-sdk-typescript/pull/165) [`1b305a1`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1b305a18602f6daceab31d7691f5b0239db2ad23) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
+
 ## 2.0.1
 
 ### Patch Changes
