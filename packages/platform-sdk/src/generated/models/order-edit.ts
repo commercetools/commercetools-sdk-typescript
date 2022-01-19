@@ -1156,6 +1156,39 @@ export interface StagedOrderSetReturnInfoAction {
    */
   readonly items?: ReturnInfoDraft[]
 }
+export interface StagedOrderSetReturnItemCustomFieldAction {
+  readonly action: 'setReturnItemCustomField'
+  /**
+   *
+   */
+  readonly returnItemId: string
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value?: any
+}
+export interface StagedOrderSetReturnItemCustomTypeAction {
+  readonly action: 'setReturnItemCustomType'
+  /**
+   *
+   */
+  readonly returnItemId: string
+  /**
+   *	If set, the custom type is set to this new value.
+   *	If absent, the custom type and any existing custom fields are removed.
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *	If set, the custom fields are set to this new value.
+   *
+   */
+  readonly fields?: any
+}
 export interface StagedOrderSetReturnPaymentStateAction {
   readonly action: 'setReturnPaymentState'
   /**

@@ -110,6 +110,8 @@ import {
   StagedOrderSetParcelMeasurementsAction,
   StagedOrderSetParcelTrackingDataAction,
   StagedOrderSetReturnInfoAction,
+  StagedOrderSetReturnItemCustomFieldAction,
+  StagedOrderSetReturnItemCustomTypeAction,
   StagedOrderSetReturnPaymentStateAction,
   StagedOrderSetReturnShipmentStateAction,
   StagedOrderSetShippingAddressAction,
@@ -211,6 +213,8 @@ export type StagedOrderUpdateAction =
   | StagedOrderSetParcelMeasurementsAction
   | StagedOrderSetParcelTrackingDataAction
   | StagedOrderSetReturnInfoAction
+  | StagedOrderSetReturnItemCustomFieldAction
+  | StagedOrderSetReturnItemCustomTypeAction
   | StagedOrderSetReturnPaymentStateAction
   | StagedOrderSetReturnShipmentStateAction
   | StagedOrderSetShippingAddressAction
@@ -853,6 +857,8 @@ export type OrderUpdateAction =
   | OrderSetParcelMeasurementsAction
   | OrderSetParcelTrackingDataAction
   | OrderSetReturnInfoAction
+  | OrderSetReturnItemCustomFieldAction
+  | OrderSetReturnItemCustomTypeAction
   | OrderSetReturnPaymentStateAction
   | OrderSetReturnShipmentStateAction
   | OrderSetShippingAddressAction
@@ -1029,6 +1035,11 @@ export interface CustomLineItemReturnItem {
    */
   readonly paymentState: ReturnPaymentState
   /**
+   *	Custom Fields of this return item.
+   *
+   */
+  readonly custom?: CustomFields
+  /**
    *
    */
   readonly lastModifiedAt: string
@@ -1064,6 +1075,11 @@ export interface LineItemReturnItem {
    */
   readonly paymentState: ReturnPaymentState
   /**
+   *	Custom Fields of this return item.
+   *
+   */
+  readonly custom?: CustomFields
+  /**
    *
    */
   readonly lastModifiedAt: string
@@ -1097,6 +1113,11 @@ export interface ReturnItemDraft {
    *
    */
   readonly shipmentState: ReturnShipmentState
+  /**
+   *	Custom Fields of this return item.
+   *
+   */
+  readonly custom?: CustomFields
 }
 export type ReturnPaymentState =
   | 'Initial'
@@ -1681,6 +1702,36 @@ export interface OrderSetReturnInfoAction {
    *
    */
   readonly items?: ReturnInfoDraft[]
+}
+export interface OrderSetReturnItemCustomFieldAction {
+  readonly action: 'setReturnItemCustomField'
+  /**
+   *
+   */
+  readonly returnItemId: string
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value?: any
+}
+export interface OrderSetReturnItemCustomTypeAction {
+  readonly action: 'setReturnItemCustomType'
+  /**
+   *
+   */
+  readonly returnItemId: string
+  /**
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *
+   */
+  readonly fields?: FieldContainer
 }
 export interface OrderSetReturnPaymentStateAction {
   readonly action: 'setReturnPaymentState'
