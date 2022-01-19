@@ -603,6 +603,10 @@ export interface PaymentSetTransactionCustomFieldAction {
   /**
    *
    */
+  readonly transactionId: string
+  /**
+   *
+   */
   readonly name: string
   /**
    *
@@ -611,6 +615,10 @@ export interface PaymentSetTransactionCustomFieldAction {
 }
 export interface PaymentSetTransactionCustomTypeAction {
   readonly action: 'setTransactionCustomType'
+  /**
+   *
+   */
+  readonly transactionId: string
   /**
    *	If set, the custom type is set to this new value.
    *	If absent, the custom type and any existing custom fields are removed.

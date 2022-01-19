@@ -69,7 +69,6 @@ export class ByProjectKeyCartsRequestBuilder {
 
   public get(methodArgs?: {
     queryArgs?: {
-      customerId?: string
       expand?: string | string[]
       sort?: string | string[]
       limit?: number

@@ -13,7 +13,7 @@ export class ApiRoot {
   constructor(args: { executeRequest: executeRequest; baseUri?: string }) {
     this.executeRequest = args.executeRequest
     this.baseUri =
-      args.baseUri ?? 'https://ml-eu.europe-west1.gcp.commercetools.com'
+      args.baseUri || 'https://ml-eu.europe-west1.gcp.commercetools.com'
   }
 
   public withProjectKey(childPathArgs: {
