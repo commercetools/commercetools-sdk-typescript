@@ -420,6 +420,8 @@ export interface StagedOrderAddLineItemAction {
    */
   readonly custom?: CustomFieldsDraft
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly distributionChannel?: ChannelResourceIdentifier
@@ -448,6 +450,8 @@ export interface StagedOrderAddLineItemAction {
    */
   readonly addedAt?: string
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly supplyChannel?: ChannelResourceIdentifier
@@ -512,10 +516,14 @@ export interface StagedOrderAddShoppingListAction {
    */
   readonly shoppingList: ShoppingListResourceIdentifier
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly distributionChannel?: ChannelResourceIdentifier
@@ -999,6 +1007,8 @@ export interface StagedOrderSetLineItemDistributionChannelAction {
    */
   readonly lineItemId: string
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly distributionChannel?: ChannelResourceIdentifier
@@ -1379,6 +1389,8 @@ export interface StagedOrderUpdateItemShippingAddressAction {
 export interface StagedOrderUpdateSyncInfoAction {
   readonly action: 'updateSyncInfo'
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly channel: ChannelResourceIdentifier

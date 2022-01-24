@@ -1858,6 +1858,8 @@ export interface OrderUpdateItemShippingAddressAction {
 export interface OrderUpdateSyncInfoAction {
   readonly action: 'updateSyncInfo'
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly channel: ChannelResourceIdentifier

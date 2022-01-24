@@ -403,7 +403,7 @@ export interface TransactionDraft {
    *	Custom Fields for the Transaction.
    *
    */
-  readonly custom?: CustomFields
+  readonly custom?: CustomFieldsDraft
 }
 export type TransactionState = 'Failure' | 'Initial' | 'Pending' | 'Success'
 export type TransactionType =

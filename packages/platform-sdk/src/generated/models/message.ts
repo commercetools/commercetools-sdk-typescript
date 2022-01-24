@@ -1357,6 +1357,8 @@ export interface InventoryEntryDeletedMessage {
    */
   readonly sku: string
   /**
+   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly supplyChannel?: ChannelReference
@@ -1424,6 +1426,8 @@ export interface InventoryEntryQuantitySetMessage {
    */
   readonly newAvailableQuantity: number
   /**
+   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly supplyChannel?: ChannelReference
@@ -2370,6 +2374,8 @@ export interface OrderLineItemDistributionChannelSetMessage {
    */
   readonly lineItemId: string
   /**
+   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly distributionChannel?: ChannelReference
@@ -5066,6 +5072,8 @@ export interface InventoryEntryDeletedMessagePayload {
    */
   readonly sku: string
   /**
+   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly supplyChannel?: ChannelReference
@@ -5089,6 +5097,8 @@ export interface InventoryEntryQuantitySetMessagePayload {
    */
   readonly newAvailableQuantity: number
   /**
+   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly supplyChannel?: ChannelReference
@@ -5289,6 +5299,8 @@ export interface OrderLineItemDistributionChannelSetMessagePayload {
    */
   readonly lineItemId: string
   /**
+   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly distributionChannel?: ChannelReference

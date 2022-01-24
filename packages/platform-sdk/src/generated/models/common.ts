@@ -435,6 +435,8 @@ export interface Price {
    */
   readonly customerGroup?: CustomerGroupReference
   /**
+   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly channel?: ChannelReference
@@ -477,6 +479,8 @@ export interface PriceDraft {
    */
   readonly customerGroup?: CustomerGroupResourceIdentifier
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly channel?: ChannelResourceIdentifier
@@ -543,6 +547,8 @@ export interface QueryPrice {
    */
   readonly customerGroup?: CustomerGroupReference
   /**
+   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly channel?: ChannelReference
@@ -668,6 +674,8 @@ export interface ScopedPrice {
    */
   readonly customerGroup?: CustomerGroupReference
   /**
+   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly channel?: ChannelReference
