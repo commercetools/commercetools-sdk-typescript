@@ -1,0 +1,41 @@
+{
+  "name": "react",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@commercetools/platform-sdk": "^2.2.0",
+    "@commercetools/sdk-client-v2": "^1.0.2",
+    "buffer": "^6.0.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "crypto-browserify": "^3.12.0",
+    "dotenv-webpack": "^7.0.3",
+    "node-fetch": "^2.1.0",
+    "node-polyfill-webpack-plugin": "^1.1.4",
+    "path-browserify": "^1.0.1",
+    "react": "^16.13.1",
+    "react-bootstrap": "^2.0.2",
+    "react-dom": "^16.13.1",
+    "stream-browserify": "^3.0.0",
+    "style-loader": "^2.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/plugin-transform-runtime": "^7.16.10",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^5.0.1",
+    "html-loader": "^1.1.0",
+    "html-webpack-plugin": "^4.3.0",
+    "webpack": "^5.53.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "scripts": {
+    "build": "webpack --mode production",
+    "start:dev": "webpack server --open --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

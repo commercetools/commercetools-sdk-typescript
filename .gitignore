@@ -21,7 +21,7 @@ package-lock.json
 _book
 .changelog
 dist
-lib
+# lib
 coverage
 
 # OS clutter
