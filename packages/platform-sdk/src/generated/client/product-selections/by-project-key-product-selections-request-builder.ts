@@ -4,44 +4,41 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import {
-  Order,
-  OrderFromCartDraft,
-  OrderPagedQueryResponse,
-} from '../../models/order'
+  ProductSelection,
+  ProductSelectionDraft,
+  ProductSelectionPagedQueryResponse,
+} from '../../models/product-selection'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-import { ByProjectKeyInStoreKeyByStoreKeyOrdersByIDRequestBuilder } from './by-project-key-in-store-key-by-store-key-orders-by-id-request-builder'
-import { ByProjectKeyInStoreKeyByStoreKeyOrdersOrderNumberByOrderNumberRequestBuilder } from './by-project-key-in-store-key-by-store-key-orders-order-number-by-order-number-request-builder'
+import { ByProjectKeyProductSelectionsByIDRequestBuilder } from './by-project-key-product-selections-by-id-request-builder'
+import { ByProjectKeyProductSelectionsKeyByKeyRequestBuilder } from './by-project-key-product-selections-key-by-key-request-builder'
 
-export class ByProjectKeyInStoreKeyByStoreKeyOrdersRequestBuilder {
+export class ByProjectKeyProductSelectionsRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
         projectKey: string
-        storeKey: string
       }
       executeRequest: executeRequest
       baseUri?: string
     }
   ) {}
-  public withOrderNumber(childPathArgs: {
-    orderNumber: string
-  }): ByProjectKeyInStoreKeyByStoreKeyOrdersOrderNumberByOrderNumberRequestBuilder {
-    return new ByProjectKeyInStoreKeyByStoreKeyOrdersOrderNumberByOrderNumberRequestBuilder(
-      {
-        pathArgs: {
-          ...this.args.pathArgs,
-          ...childPathArgs,
-        },
-        executeRequest: this.args.executeRequest,
-        baseUri: this.args.baseUri,
-      }
-    )
+  public withKey(childPathArgs: {
+    key: string
+  }): ByProjectKeyProductSelectionsKeyByKeyRequestBuilder {
+    return new ByProjectKeyProductSelectionsKeyByKeyRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+        ...childPathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
   }
   public withId(childPathArgs: {
     ID: string
-  }): ByProjectKeyInStoreKeyByStoreKeyOrdersByIDRequestBuilder {
-    return new ByProjectKeyInStoreKeyByStoreKeyOrdersByIDRequestBuilder({
+  }): ByProjectKeyProductSelectionsByIDRequestBuilder {
+    return new ByProjectKeyProductSelectionsByIDRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
         ...childPathArgs,
@@ -51,9 +48,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersRequestBuilder {
     })
   }
 
-  /**
-   *	Queries orders in a specific Store.
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -67,12 +61,12 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<OrderPagedQueryResponse> {
-    return new ApiRequest<OrderPagedQueryResponse>(
+  }): ApiRequest<ProductSelectionPagedQueryResponse> {
+    return new ApiRequest<ProductSelectionPagedQueryResponse>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',
-        uriTemplate: '/{projectKey}/in-store/key={storeKey}/orders',
+        uriTemplate: '/{projectKey}/product-selections',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
@@ -82,28 +76,21 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Creates an order from a Cart from a specific Store.
-   *	When using this endpoint the orders's store field is always set to the store specified in the path parameter.
-   *	The cart must have a shipping address set before creating an order. When using the Platform TaxMode,
-   *	the shipping address is used for tax calculation.
-   *
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
       [key: string]: QueryParam
     }
-    body: OrderFromCartDraft
+    body: ProductSelectionDraft
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<Order> {
-    return new ApiRequest<Order>(
+  }): ApiRequest<ProductSelection> {
+    return new ApiRequest<ProductSelection>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',
-        uriTemplate: '/{projectKey}/in-store/key={storeKey}/orders',
+        uriTemplate: '/{projectKey}/product-selections',
         pathVariables: this.args.pathArgs,
         headers: {
           'Content-Type': 'application/json',

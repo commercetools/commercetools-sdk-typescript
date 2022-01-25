@@ -3,47 +3,40 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { Cart } from '../../models/cart'
+import { ProductSelectionPagedQueryResponse } from '../../models/product-selection'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
-export class ByProjectKeyInStoreKeyByStoreKeyCartsCustomerIdByCustomerIdRequestBuilder {
+export class ByProjectKeyProductsByIDProductSelectionsRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
         projectKey: string
-        storeKey: string
-        customerId: string
+        ID: string
       }
       executeRequest: executeRequest
       baseUri?: string
     }
   ) {}
-  /**
-   *	Retrieves the active cart of the customer that has been modified most recently in a specific Store.
-   *
-   *	If the cart exists in the commercetools project but does not have the store field, or the store field
-   *	references a different store, this method returns a ResourceNotFound error.
-   *
-   *	The cart may not contain up-to-date prices, discounts etc. If you want to ensure they're up-to-date,
-   *	send an Update request with the Recalculate update action instead.
-   *
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
+      sort?: string | string[]
+      limit?: number
+      offset?: number
+      withTotal?: boolean
+      where?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<Cart> {
-    return new ApiRequest<Cart>(
+  }): ApiRequest<ProductSelectionPagedQueryResponse> {
+    return new ApiRequest<ProductSelectionPagedQueryResponse>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',
-        uriTemplate:
-          '/{projectKey}/in-store/key={storeKey}/carts/customer-id={customerId}',
+        uriTemplate: '/{projectKey}/products/{ID}/product-selections',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,

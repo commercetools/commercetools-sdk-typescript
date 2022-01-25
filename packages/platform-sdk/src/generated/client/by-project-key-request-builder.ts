@@ -26,6 +26,7 @@ import { ByProjectKeyOrdersRequestBuilder } from './orders/by-project-key-orders
 import { ByProjectKeyPaymentsRequestBuilder } from './payments/by-project-key-payments-request-builder'
 import { ByProjectKeyProductDiscountsRequestBuilder } from './product-discounts/by-project-key-product-discounts-request-builder'
 import { ByProjectKeyProductProjectionsRequestBuilder } from './product-projections/by-project-key-product-projections-request-builder'
+import { ByProjectKeyProductSelectionsRequestBuilder } from './product-selections/by-project-key-product-selections-request-builder'
 import { ByProjectKeyProductTypesRequestBuilder } from './product-types/by-project-key-product-types-request-builder'
 import { ByProjectKeyProductsRequestBuilder } from './products/by-project-key-products-request-builder'
 import { ByProjectKeyReviewsRequestBuilder } from './reviews/by-project-key-reviews-request-builder'
@@ -251,6 +252,23 @@ export class ByProjectKeyRequestBuilder {
    */
   public productProjections(): ByProjectKeyProductProjectionsRequestBuilder {
     return new ByProjectKeyProductProjectionsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	Manage individual Store assortments through Product Selections.
+   *
+   *	After you have created Product Selections and populated them by Products,
+   *	you can manage Store assortments by assigning Product Selections to Stores.
+   *	Product Selections may be used by a single Store or shared across several Stores.
+   *
+   */
+  public productSelections(): ByProjectKeyProductSelectionsRequestBuilder {
+    return new ByProjectKeyProductSelectionsRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },

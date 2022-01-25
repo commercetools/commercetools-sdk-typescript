@@ -34,6 +34,10 @@ import {
   ProductDiscountResourceIdentifier,
 } from './product-discount'
 import {
+  ProductSelectionReference,
+  ProductSelectionResourceIdentifier,
+} from './product-selection'
+import {
   ProductTypeReference,
   ProductTypeResourceIdentifier,
 } from './product-type'
@@ -588,6 +592,7 @@ export type Reference =
   | PaymentReference
   | ProductDiscountReference
   | ProductReference
+  | ProductSelectionReference
   | ProductTypeReference
   | ReviewReference
   | ShippingMethodReference
@@ -615,6 +620,7 @@ export type ReferenceTypeId =
   | 'payment'
   | 'product'
   | 'product-discount'
+  | 'product-selection'
   | 'product-type'
   | 'review'
   | 'shipping-method'
@@ -639,6 +645,7 @@ export type ResourceIdentifier =
   | PaymentResourceIdentifier
   | ProductDiscountResourceIdentifier
   | ProductResourceIdentifier
+  | ProductSelectionResourceIdentifier
   | ProductTypeResourceIdentifier
   | ReviewResourceIdentifier
   | ShippingMethodResourceIdentifier

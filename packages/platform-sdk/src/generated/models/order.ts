@@ -1117,7 +1117,7 @@ export interface ReturnItemDraft {
    *	Custom Fields of this return item.
    *
    */
-  readonly custom?: CustomFields
+  readonly custom?: CustomFieldsDraft
 }
 export type ReturnPaymentState =
   | 'Initial'

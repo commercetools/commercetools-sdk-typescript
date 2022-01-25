@@ -7,6 +7,7 @@ import { Product, ProductUpdate } from '../../models/product'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyProductsByIDImagesRequestBuilder } from '../images/by-project-key-products-by-id-images-request-builder'
+import { ByProjectKeyProductsByIDProductSelectionsRequestBuilder } from '../product-selections/by-project-key-products-by-id-product-selections-request-builder'
 
 export class ByProjectKeyProductsByIDRequestBuilder {
   constructor(
@@ -21,6 +22,15 @@ export class ByProjectKeyProductsByIDRequestBuilder {
   ) {}
   public images(): ByProjectKeyProductsByIDImagesRequestBuilder {
     return new ByProjectKeyProductsByIDImagesRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public productSelections(): ByProjectKeyProductsByIDProductSelectionsRequestBuilder {
+    return new ByProjectKeyProductsByIDProductSelectionsRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },

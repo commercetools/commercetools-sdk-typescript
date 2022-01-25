@@ -48,10 +48,11 @@ import {
 } from './order'
 import { OrderEditApplied, OrderEditReference } from './order-edit'
 import { Payment, Transaction, TransactionState } from './payment'
-import { ProductProjection, ProductVariant } from './product'
+import { ProductProjection, ProductReference, ProductVariant } from './product'
+import { ProductSelectionType } from './product-selection'
 import { Review } from './review'
 import { StateReference } from './state'
-import { StoreKeyReference } from './store'
+import { ProductSelectionSetting, StoreKeyReference } from './store'
 import { CustomFields } from './type'
 
 /**
@@ -143,6 +144,10 @@ export type Message =
   | ProductPublishedMessage
   | ProductRemovedFromCategoryMessage
   | ProductRevertedStagedChangesMessage
+  | ProductSelectionCreatedMessage
+  | ProductSelectionDeletedMessage
+  | ProductSelectionProductAddedMessage
+  | ProductSelectionProductRemovedMessage
   | ProductSlugChangedMessage
   | ProductStateTransitionMessage
   | ProductUnpublishedMessage
@@ -153,6 +158,7 @@ export type Message =
   | ReviewStateTransitionMessage
   | StoreCreatedMessage
   | StoreDeletedMessage
+  | StoreProductSelectionsChangedMessage
 export interface CategoryCreatedMessage {
   readonly type: 'CategoryCreated'
   /**
@@ -4198,6 +4204,210 @@ export interface ProductRevertedStagedChangesMessage {
    */
   readonly removedImageUrls: string[]
 }
+export interface ProductSelectionCreatedMessage {
+  readonly type: 'ProductSelectionCreated'
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly productSelection: ProductSelectionType
+}
+export interface ProductSelectionDeletedMessage {
+  readonly type: 'ProductSelectionDeleted'
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly name: LocalizedString
+}
+export interface ProductSelectionProductAddedMessage {
+  readonly type: 'ProductSelectionProductAdded'
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly product: ProductReference
+}
+export interface ProductSelectionProductRemovedMessage {
+  readonly type: 'ProductSelectionProductRemoved'
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly product: ProductReference
+}
 export interface ProductSlugChangedMessage {
   readonly type: 'ProductSlugChanged'
   /**
@@ -4715,6 +4925,10 @@ export interface StoreCreatedMessage {
   /**
    *
    */
+  readonly productSelections: ProductSelectionSetting[]
+  /**
+   *
+   */
   readonly custom?: CustomFields
 }
 export interface StoreDeletedMessage {
@@ -4763,6 +4977,65 @@ export interface StoreDeletedMessage {
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+}
+export interface StoreProductSelectionsChangedMessage {
+  readonly type: 'StoreProductSelectionsChanged'
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly addedProductSelections?: ProductSelectionSetting[]
+  /**
+   *
+   */
+  readonly removedProductSelections?: ProductSelectionSetting[]
+  /**
+   *
+   */
+  readonly updatedProductSelections?: ProductSelectionSetting[]
 }
 export interface UserProvidedIdentifiers {
   /**
@@ -4869,6 +5142,10 @@ export type MessagePayload =
   | ProductPublishedMessagePayload
   | ProductRemovedFromCategoryMessagePayload
   | ProductRevertedStagedChangesMessagePayload
+  | ProductSelectionCreatedMessagePayload
+  | ProductSelectionDeletedMessagePayload
+  | ProductSelectionProductAddedMessagePayload
+  | ProductSelectionProductRemovedMessagePayload
   | ProductSlugChangedMessagePayload
   | ProductStateTransitionMessagePayload
   | ProductUnpublishedMessagePayload
@@ -4880,6 +5157,7 @@ export type MessagePayload =
   | ShoppingListStoreSetMessagePayload
   | StoreCreatedMessagePayload
   | StoreDeletedMessagePayload
+  | StoreProductSelectionsChangedMessagePayload
 export interface CategoryCreatedMessagePayload {
   readonly type: 'CategoryCreated'
   /**
@@ -5689,6 +5967,34 @@ export interface ProductRevertedStagedChangesMessagePayload {
    */
   readonly removedImageUrls: string[]
 }
+export interface ProductSelectionCreatedMessagePayload {
+  readonly type: 'ProductSelectionCreated'
+  /**
+   *
+   */
+  readonly productSelection: ProductSelectionType
+}
+export interface ProductSelectionDeletedMessagePayload {
+  readonly type: 'ProductSelectionDeleted'
+  /**
+   *
+   */
+  readonly name: LocalizedString
+}
+export interface ProductSelectionProductAddedMessagePayload {
+  readonly type: 'ProductSelectionProductAdded'
+  /**
+   *
+   */
+  readonly product: ProductReference
+}
+export interface ProductSelectionProductRemovedMessagePayload {
+  readonly type: 'ProductSelectionProductRemoved'
+  /**
+   *
+   */
+  readonly product: ProductReference
+}
 export interface ProductSlugChangedMessagePayload {
   readonly type: 'ProductSlugChanged'
   /**
@@ -5817,8 +6123,27 @@ export interface StoreCreatedMessagePayload {
   /**
    *
    */
+  readonly productSelections: ProductSelectionSetting[]
+  /**
+   *
+   */
   readonly custom?: CustomFields
 }
 export interface StoreDeletedMessagePayload {
   readonly type: 'StoreDeleted'
+}
+export interface StoreProductSelectionsChangedMessagePayload {
+  readonly type: 'StoreProductSelectionsChanged'
+  /**
+   *
+   */
+  readonly addedProductSelections?: ProductSelectionSetting[]
+  /**
+   *
+   */
+  readonly removedProductSelections?: ProductSelectionSetting[]
+  /**
+   *
+   */
+  readonly updatedProductSelections?: ProductSelectionSetting[]
 }
