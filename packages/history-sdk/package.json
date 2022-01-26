@@ -31,8 +31,8 @@
   },
   "devDependencies": {
     "@commercetools/platform-sdk": "2.3.0",
-    "@types/uuid": "8.3.3",
-    "organize-imports-cli": "0.8.0",
+    "@types/uuid": "8.3.4",
+    "organize-imports-cli": "0.9.0",
     "tsconfig-replace-paths": "0.0.11",
     "uuid": "8.3.2"
   },

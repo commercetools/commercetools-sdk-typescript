@@ -18,7 +18,7 @@ aliases:
 executors:
   node_14:
     docker:
-      - image: cimg/node:14.18.1
+      - image: cimg/node:14.18.3
 
 version: 2.1
 jobs:
