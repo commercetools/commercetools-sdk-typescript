@@ -517,6 +517,8 @@ export interface MyCartAddLineItemAction {
    */
   readonly custom?: CustomFieldsDraft
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly distributionChannel?: ChannelResourceIdentifier
@@ -541,6 +543,8 @@ export interface MyCartAddLineItemAction {
    */
   readonly quantity?: number
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly supplyChannel?: ChannelResourceIdentifier
@@ -745,6 +749,8 @@ export interface MyCartSetLineItemDistributionChannelAction {
    */
   readonly lineItemId: string
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly distributionChannel?: ChannelResourceIdentifier
@@ -767,9 +773,11 @@ export interface MyCartSetLineItemSupplyChannelAction {
    */
   readonly lineItemId: string
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
-  readonly distributionChannel?: ChannelResourceIdentifier
+  readonly supplyChannel?: ChannelResourceIdentifier
 }
 export interface MyCartSetLocaleAction {
   readonly action: 'setLocale'

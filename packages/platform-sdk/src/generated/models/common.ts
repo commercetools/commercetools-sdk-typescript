@@ -34,6 +34,10 @@ import {
   ProductDiscountResourceIdentifier,
 } from './product-discount'
 import {
+  ProductSelectionReference,
+  ProductSelectionResourceIdentifier,
+} from './product-selection'
+import {
   ProductTypeReference,
   ProductTypeResourceIdentifier,
 } from './product-type'
@@ -435,6 +439,8 @@ export interface Price {
    */
   readonly customerGroup?: CustomerGroupReference
   /**
+   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly channel?: ChannelReference
@@ -477,6 +483,8 @@ export interface PriceDraft {
    */
   readonly customerGroup?: CustomerGroupResourceIdentifier
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly channel?: ChannelResourceIdentifier
@@ -543,6 +551,8 @@ export interface QueryPrice {
    */
   readonly customerGroup?: CustomerGroupReference
   /**
+   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly channel?: ChannelReference
@@ -582,6 +592,7 @@ export type Reference =
   | PaymentReference
   | ProductDiscountReference
   | ProductReference
+  | ProductSelectionReference
   | ProductTypeReference
   | ReviewReference
   | ShippingMethodReference
@@ -609,6 +620,7 @@ export type ReferenceTypeId =
   | 'payment'
   | 'product'
   | 'product-discount'
+  | 'product-selection'
   | 'product-type'
   | 'review'
   | 'shipping-method'
@@ -633,6 +645,7 @@ export type ResourceIdentifier =
   | PaymentResourceIdentifier
   | ProductDiscountResourceIdentifier
   | ProductResourceIdentifier
+  | ProductSelectionResourceIdentifier
   | ProductTypeResourceIdentifier
   | ReviewResourceIdentifier
   | ShippingMethodResourceIdentifier
@@ -668,6 +681,8 @@ export interface ScopedPrice {
    */
   readonly customerGroup?: CustomerGroupReference
   /**
+   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly channel?: ChannelReference

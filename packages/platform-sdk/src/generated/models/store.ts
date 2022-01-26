@@ -10,9 +10,38 @@ import {
   CreatedBy,
   LastModifiedBy,
   LocalizedString,
+  ResourceIdentifier,
 } from './common'
+import {
+  ProductSelectionReference,
+  ProductSelectionResourceIdentifier,
+} from './product-selection'
 import { CustomFields, CustomFieldsDraft, TypeResourceIdentifier } from './type'
 
+export interface ProductSelectionSetting {
+  /**
+   *	Reference to a Product Selection
+   *
+   */
+  readonly productSelection: ProductSelectionReference
+  /**
+   *	If `true` all Products assigned to this Product Selection are part of the Store's assortment.
+   *
+   */
+  readonly active: boolean
+}
+export interface ProductSelectionSettingDraft {
+  /**
+   *	Resource Identifier of a Product Selection
+   *
+   */
+  readonly productSelection: ProductSelectionResourceIdentifier
+  /**
+   *	If `true` all Products assigned to this Product Selection become part of the Store's assortment.
+   *
+   */
+  readonly active?: boolean
+}
 export interface Store extends BaseResource {
   /**
    *
@@ -69,6 +98,13 @@ export interface Store extends BaseResource {
    */
   readonly supplyChannels?: ChannelReference[]
   /**
+   *	Set of References to Product Selections along with settings.
+   *	If `productSelections` is empty all products in the project are available in this Store.
+   *	If `productSelections` is not empty but there exists no `active` Product Selection then no Product is available in this Store.
+   *
+   */
+  readonly productSelections?: ProductSelectionSetting[]
+  /**
    *
    */
   readonly custom?: CustomFields
@@ -100,6 +136,13 @@ export interface StoreDraft {
    *
    */
   readonly supplyChannels?: ChannelResourceIdentifier[]
+  /**
+   *	Set of ResourceIdentifiers of Product Selections along with settings.
+   *	If `productSelections` is empty all products in the project are available in this Store.
+   *	If `productSelections` is not empty but there exists no `active` Product Selection then no Product is available in this Store.
+   *
+   */
+  readonly productSelections?: ProductSelectionSettingDraft[]
   /**
    *
    */
@@ -171,14 +214,18 @@ export interface StoreUpdate {
 }
 export type StoreUpdateAction =
   | StoreAddDistributionChannelAction
+  | StoreAddProductSelectionAction
   | StoreAddSupplyChannelAction
+  | StoreChangeProductSelectionAction
   | StoreRemoveDistributionChannelAction
+  | StoreRemoveProductSelectionAction
   | StoreRemoveSupplyChannelAction
   | StoreSetCustomFieldAction
   | StoreSetCustomTypeAction
   | StoreSetDistributionChannelsAction
   | StoreSetLanguagesAction
   | StoreSetNameAction
+  | StoreSetProductSelectionsAction
   | StoreSetSupplyChannelsAction
 export interface StoreAddDistributionChannelAction {
   readonly action: 'addDistributionChannel'
@@ -187,6 +234,14 @@ export interface StoreAddDistributionChannelAction {
    */
   readonly distributionChannel: ChannelResourceIdentifier
 }
+export interface StoreAddProductSelectionAction {
+  readonly action: 'addProductSelection'
+  /**
+   *	A Product Selection to be added to the current Product Selections of this Store.
+   *
+   */
+  readonly productSelection: ProductSelectionSettingDraft
+}
 export interface StoreAddSupplyChannelAction {
   readonly action: 'addSupplyChannel'
   /**
@@ -194,12 +249,33 @@ export interface StoreAddSupplyChannelAction {
    */
   readonly supplyChannel?: ChannelResourceIdentifier
 }
+export interface StoreChangeProductSelectionAction {
+  readonly action: 'changeProductSelectionActive'
+  /**
+   *	A current Product Selection of this Store that is to be activated or deactivated.
+   *
+   */
+  readonly productSelection: ResourceIdentifier
+  /**
+   *	If `true` all Products assigned to the Product Selection become part of the Store's assortment.
+   *
+   */
+  readonly active?: boolean
+}
 export interface StoreRemoveDistributionChannelAction {
   readonly action: 'removeDistributionChannel'
   /**
    *
    */
   readonly distributionChannel: ChannelResourceIdentifier
+}
+export interface StoreRemoveProductSelectionAction {
+  readonly action: 'removeProductSelection'
+  /**
+   *	A Product Selection to be removed from the current Product Selections of this Store.
+   *
+   */
+  readonly productSelection: ResourceIdentifier
 }
 export interface StoreRemoveSupplyChannelAction {
   readonly action: 'removeSupplyChannel'
@@ -255,6 +331,14 @@ export interface StoreSetNameAction {
    *
    */
   readonly name?: LocalizedString
+}
+export interface StoreSetProductSelectionsAction {
+  readonly action: 'setProductSelections'
+  /**
+   *	The total of Product Selections to be set for this Store.
+   *
+   */
+  readonly productSelections: ProductSelectionSettingDraft[]
 }
 export interface StoreSetSupplyChannelsAction {
   readonly action: 'setSupplyChannels'

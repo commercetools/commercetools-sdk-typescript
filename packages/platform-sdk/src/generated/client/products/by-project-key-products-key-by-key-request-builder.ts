@@ -6,6 +6,7 @@
 import { Product, ProductUpdate } from '../../models/product'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
+import { ByProjectKeyProductsKeyByKeyProductSelectionsRequestBuilder } from '../product-selections/by-project-key-products-key-by-key-product-selections-request-builder'
 
 export class ByProjectKeyProductsKeyByKeyRequestBuilder {
   constructor(
@@ -18,6 +19,16 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
+  public productSelections(): ByProjectKeyProductsKeyByKeyProductSelectionsRequestBuilder {
+    return new ByProjectKeyProductsKeyByKeyProductSelectionsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+
   /**
    *	Gets the full representation of a product by Key.
    */

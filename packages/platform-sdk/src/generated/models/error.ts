@@ -585,6 +585,8 @@ export interface MatchingPriceNotFoundError {
    */
   readonly customerGroup?: CustomerGroupReference
   /**
+   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly channel?: ChannelReference
@@ -607,10 +609,14 @@ export interface MissingRoleOnChannelError {
    */
   readonly message: string
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly channel?: ChannelResourceIdentifier
   /**
+   *	Describes the purpose and type of the Channel. A Channel can have one or more roles.
+   *
    *
    */
   readonly missingRole: ChannelRoleEnum

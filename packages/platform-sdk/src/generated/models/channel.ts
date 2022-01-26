@@ -23,155 +23,221 @@ import {
 
 export interface Channel extends BaseResource {
   /**
-   *	The unique ID of the channel.
+   *	Unique ID of the Channel.
+   *
    *
    */
   readonly id: string
   /**
+   *	Current version of the Channel.
+   *
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Channel was initially created.
+   *
    *
    */
   readonly createdAt: string
   /**
+   *	Date and time (UTC) the Channel was last updated.
+   *
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources updated after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
    *
    *
    */
   readonly createdBy?: CreatedBy
   /**
-   *	Any arbitrary string key that uniquely identifies this channel within the project.
+   *	User-defined unique identifier for the Channel.
+   *
    *
    */
   readonly key: string
   /**
-   *	The roles of this channel.
-   *	Each channel must have at least one role.
+   *	Roles of the Channel.
+   *
    *
    */
   readonly roles: ChannelRoleEnum[]
   /**
-   *	A human-readable name of the channel.
+   *	Name of the Channel.
+   *
    *
    */
   readonly name?: LocalizedString
   /**
-   *	A human-readable description of the channel.
+   *	Description of the Channel.
+   *
    *
    */
   readonly description?: LocalizedString
   /**
-   *	The address where this channel is located (e.g.
-   *	if the channel is a physical store).
+   *	Address where the Channel is located (for example, if the Channel is a physical store).
+   *
    *
    */
   readonly address?: Address
   /**
-   *	Statistics about the review ratings taken into account for this channel.
+   *	Statistics about the review ratings taken into account for the Channel.
+   *
    *
    */
   readonly reviewRatingStatistics?: ReviewRatingStatistics
   /**
+   *	Custom Fields defined for the Channel.
+   *
    *
    */
   readonly custom?: CustomFields
   /**
-   *	A GeoJSON geometry object encoding the geo location of the channel.
+   *	GeoJSON geometry object encoding the geo location of the Channel.
+   *
    *
    */
   readonly geoLocation?: GeoJson
 }
 export interface ChannelDraft {
   /**
+   *	User-defined unique identifier for the Channel.
+   *
    *
    */
   readonly key: string
   /**
-   *	If not specified, then channel will get InventorySupply role by default
+   *	Roles of the Channel.
+   *	Each channel must have at least one role.
+   *	If not specified, then `InventorySupply` is assigned by default.
+   *
    *
    */
   readonly roles?: ChannelRoleEnum[]
   /**
+   *	Name of the Channel.
+   *
    *
    */
   readonly name?: LocalizedString
   /**
+   *	Description of the Channel.
+   *
    *
    */
   readonly description?: LocalizedString
   /**
+   *	Address where the Channel is located.
+   *
    *
    */
   readonly address?: BaseAddress
   /**
-   *	The custom fields.
+   *	Custom fields defined for the Channel.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
   /**
+   *	GeoJSON geometry object encoding the geo location of the Channel.
+   *	Currently, only the [Point](/../api/types#point) type is supported.
+   *
    *
    */
   readonly geoLocation?: GeoJson
 }
+/**
+ *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [Channel](ctp:api:type:Channel).
+ *
+ */
 export interface ChannelPagedQueryResponse {
   /**
+   *	Number of results requested in the query request.
+   *
    *
    */
   readonly limit: number
   /**
+   *	Offset supplied by the client or server default.
+   *	It is the number of elements skipped, not a page number.
    *
-   */
-  readonly count: number
-  /**
-   *
-   */
-  readonly total?: number
-  /**
    *
    */
   readonly offset: number
   /**
+   *	Actual number of results returned.
+   *
+   *
+   */
+  readonly count: number
+  /**
+   *	Total number of results matching the query.
+   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This field is returned by default.
+   *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
+   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/contract#queries).
+   *
+   *
+   */
+  readonly total?: number
+  /**
+   *	[Channels](ctp:api:type:Channel) matching the query.
+   *
    *
    */
   readonly results: Channel[]
 }
+/**
+ *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+ *
+ */
 export interface ChannelReference {
   readonly typeId: 'channel'
   /**
-   *	Unique ID of the referenced resource.
+   *	Unique ID of the referenced [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly id: string
   /**
+   *	Contains the representation of the expanded Channel.
+   *	Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Channels.
+   *
    *
    */
   readonly obj?: Channel
 }
+/**
+ *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+ *
+ */
 export interface ChannelResourceIdentifier {
   readonly typeId: 'channel'
   /**
-   *	Unique ID of the referenced resource. Either `id` or `key` is required.
+   *	Unique ID of the referenced [Channel](ctp:api:type:Channel). Either `id` or `key` is required.
+   *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced resource. Either `id` or `key` is required.
+   *	Unique key of the referenced [Channel](ctp:api:type:Channel). Either `id` or `key` is required.
+   *
    *
    */
   readonly key?: string
 }
+/**
+ *	Describes the purpose and type of the Channel. A Channel can have one or more roles.
+ *
+ */
 export type ChannelRoleEnum =
   | 'InventorySupply'
   | 'OrderExport'
@@ -180,10 +246,14 @@ export type ChannelRoleEnum =
   | 'ProductDistribution'
 export interface ChannelUpdate {
   /**
+   *	Expected version of the Channel on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *
    *
    */
   readonly version: number
   /**
+   *	Update actions to be performed on the Channel.
+   *
    *
    */
   readonly actions: ChannelUpdateAction[]
@@ -204,6 +274,8 @@ export type ChannelUpdateAction =
 export interface ChannelAddRolesAction {
   readonly action: 'addRoles'
   /**
+   *	Value to append to the array.
+   *
    *
    */
   readonly roles: ChannelRoleEnum[]
@@ -211,6 +283,8 @@ export interface ChannelAddRolesAction {
 export interface ChannelChangeDescriptionAction {
   readonly action: 'changeDescription'
   /**
+   *	New value to set. Must not be empty.
+   *
    *
    */
   readonly description: LocalizedString
@@ -218,6 +292,8 @@ export interface ChannelChangeDescriptionAction {
 export interface ChannelChangeKeyAction {
   readonly action: 'changeKey'
   /**
+   *	New value to set. Must not be empty.
+   *
    *
    */
   readonly key: string
@@ -225,6 +301,8 @@ export interface ChannelChangeKeyAction {
 export interface ChannelChangeNameAction {
   readonly action: 'changeName'
   /**
+   *	New value to set. Must not be empty.
+   *
    *
    */
   readonly name: LocalizedString
@@ -232,6 +310,8 @@ export interface ChannelChangeNameAction {
 export interface ChannelRemoveRolesAction {
   readonly action: 'removeRoles'
   /**
+   *	Value to remove from the array.
+   *
    *
    */
   readonly roles: ChannelRoleEnum[]
@@ -239,6 +319,8 @@ export interface ChannelRemoveRolesAction {
 export interface ChannelSetAddressAction {
   readonly action: 'setAddress'
   /**
+   *	Value to set.
+   *
    *
    */
   readonly address?: BaseAddress
@@ -246,10 +328,15 @@ export interface ChannelSetAddressAction {
 export interface ChannelSetAddressCustomFieldAction {
   readonly action: 'setAddressCustomField'
   /**
+   *	Name of the Custom Fields.
+   *
    *
    */
   readonly name: string
   /**
+   *	Specifies the format of the value of the Custom Field defined by `name`.
+   *	If `value` is absent or `null`, this field will be removed, if it exists. Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *
    *
    */
   readonly value?: any
@@ -257,10 +344,15 @@ export interface ChannelSetAddressCustomFieldAction {
 export interface ChannelSetAddressCustomTypeAction {
   readonly action: 'setAddressCustomType'
   /**
+   *	If absent, the [custom](/../api/projects/custom-fields#custom) type and any existing [CustomFields](/../api/projects/custom-fields) are removed from the address.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Valid JSON object, based on the [FieldDefinitions](/../api/projects/types#fielddefinition) of the [Type](/../api/projects/types#type).
+   *	Sets the [custom](/../api/projects/custom-fields#custom) fields to this value.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -268,10 +360,17 @@ export interface ChannelSetAddressCustomTypeAction {
 export interface ChannelSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
+   *	Name of the Custom Field.
+   *
    *
    */
   readonly name: string
   /**
+   *	Value must be of type [Value](/../api/projects/custom-fields#value).
+   *	If `value` is absent or `null`, this field will be removed, if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -279,10 +378,15 @@ export interface ChannelSetCustomFieldAction {
 export interface ChannelSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
+   *	If absent, the [custom](/../api/projects/custom-fields#custom) type and any existing [CustomFields](/../api/projects/custom-fields) are removed.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Valid JSON object, based on the [FieldDefinitions](/../api/projects/types#fielddefinition) of the [Type](/../api/projects/types#type).
+   *	Sets the [custom](/../api/projects/custom-fields#custom) fields to this value.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -290,6 +394,8 @@ export interface ChannelSetCustomTypeAction {
 export interface ChannelSetGeoLocationAction {
   readonly action: 'setGeoLocation'
   /**
+   *	Value to set.
+   *
    *
    */
   readonly geoLocation?: GeoJson
@@ -297,6 +403,8 @@ export interface ChannelSetGeoLocationAction {
 export interface ChannelSetRolesAction {
   readonly action: 'setRoles'
   /**
+   *	Value to set. If not specified, then `InventorySupply` is assigned by default.
+   *
    *
    */
   readonly roles: ChannelRoleEnum[]

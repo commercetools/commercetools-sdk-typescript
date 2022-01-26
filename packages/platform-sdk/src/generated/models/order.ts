@@ -1117,7 +1117,7 @@ export interface ReturnItemDraft {
    *	Custom Fields of this return item.
    *
    */
-  readonly custom?: CustomFields
+  readonly custom?: CustomFieldsDraft
 }
 export type ReturnPaymentState =
   | 'Initial'
@@ -1858,6 +1858,8 @@ export interface OrderUpdateItemShippingAddressAction {
 export interface OrderUpdateSyncInfoAction {
   readonly action: 'updateSyncInfo'
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly channel: ChannelResourceIdentifier

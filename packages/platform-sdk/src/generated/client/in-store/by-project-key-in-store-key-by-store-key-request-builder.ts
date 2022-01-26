@@ -9,6 +9,8 @@ import { ByProjectKeyInStoreKeyByStoreKeyCustomersRequestBuilder } from '../cust
 import { ByProjectKeyInStoreKeyByStoreKeyLoginRequestBuilder } from '../login/by-project-key-in-store-key-by-store-key-login-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder } from '../me/by-project-key-in-store-key-by-store-key-me-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyOrdersRequestBuilder } from '../orders/by-project-key-in-store-key-by-store-key-orders-request-builder'
+import { ByProjectKeyInStoreKeyByStoreKeyProductProjectionsRequestBuilder } from '../product-projections/by-project-key-in-store-key-by-store-key-product-projections-request-builder'
+import { ByProjectKeyInStoreKeyByStoreKeyProductSelectionAssignmentsRequestBuilder } from '../product-selection-assignments/by-project-key-in-store-key-by-store-key-product-selection-assignments-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyShippingMethodsRequestBuilder } from '../shipping-methods/by-project-key-in-store-key-by-store-key-shipping-methods-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder } from '../shopping-lists/by-project-key-in-store-key-by-store-key-shopping-lists-request-builder'
 
@@ -103,5 +105,32 @@ export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
       executeRequest: this.args.executeRequest,
       baseUri: this.args.baseUri,
     })
+  }
+  /**
+   *	A projected representation of a product shows the product with its current or staged data. The current or staged
+   *	representation of a product in a catalog is called a product projection.
+   *
+   */
+  public productProjections(): ByProjectKeyInStoreKeyByStoreKeyProductProjectionsRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyProductProjectionsRequestBuilder(
+      {
+        pathArgs: {
+          ...this.args.pathArgs,
+        },
+        executeRequest: this.args.executeRequest,
+        baseUri: this.args.baseUri,
+      }
+    )
+  }
+  public productSelectionAssignments(): ByProjectKeyInStoreKeyByStoreKeyProductSelectionAssignmentsRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyProductSelectionAssignmentsRequestBuilder(
+      {
+        pathArgs: {
+          ...this.args.pathArgs,
+        },
+        executeRequest: this.args.executeRequest,
+        baseUri: this.args.baseUri,
+      }
+    )
   }
 }

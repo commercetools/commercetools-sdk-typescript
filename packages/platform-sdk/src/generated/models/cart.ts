@@ -1140,6 +1140,8 @@ export interface CartAddLineItemAction {
    */
   readonly custom?: CustomFieldsDraft
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly distributionChannel?: ChannelResourceIdentifier
@@ -1164,6 +1166,8 @@ export interface CartAddLineItemAction {
    */
   readonly quantity?: number
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly supplyChannel?: ChannelResourceIdentifier
@@ -1194,10 +1198,14 @@ export interface CartAddShoppingListAction {
    */
   readonly shoppingList: ShoppingListResourceIdentifier
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly distributionChannel?: ChannelResourceIdentifier
@@ -1647,6 +1655,8 @@ export interface CartSetLineItemDistributionChannelAction {
    */
   readonly lineItemId: string
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly distributionChannel?: ChannelResourceIdentifier
@@ -1680,6 +1690,8 @@ export interface CartSetLineItemSupplyChannelAction {
    */
   readonly lineItemId: string
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *
    *
    */
   readonly supplyChannel?: ChannelResourceIdentifier
