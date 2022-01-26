@@ -1,5 +1,19 @@
 # @commercetools/platform-sdk
 
+## 2.3.0
+
+### Minor Changes
+
+- [#177](https://github.com/commercetools/commercetools-sdk-typescript/pull/177) [`9389a07`](https://github.com/commercetools/commercetools-sdk-typescript/commit/9389a07fa89f94049e1b3b7dbeb74adce0d0a60b) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
+
+  ### Features
+
+  - Add support for product selection (beta)
+
+  ### Fixes
+
+  - Fix returnItemDraft type of field `custom` to `CustomFieldsDraft`
+
 ## 2.2.0
 
 ### Minor Changes
