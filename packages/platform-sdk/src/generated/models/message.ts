@@ -47,7 +47,12 @@ import {
   TrackingData,
 } from './order'
 import { OrderEditApplied, OrderEditReference } from './order-edit'
-import { Payment, Transaction, TransactionState } from './payment'
+import {
+  Payment,
+  PaymentReference,
+  Transaction,
+  TransactionState,
+} from './payment'
 import { ProductProjection, ProductReference, ProductVariant } from './product'
 import { ProductSelectionType } from './product-selection'
 import { Review } from './review'
@@ -113,6 +118,7 @@ export type Message =
   | OrderLineItemDiscountSetMessage
   | OrderLineItemDistributionChannelSetMessage
   | OrderLineItemRemovedMessage
+  | OrderPaymentAddedMessage
   | OrderPaymentStateChangedMessage
   | OrderReturnInfoAddedMessage
   | OrderReturnInfoSetMessage
@@ -2464,6 +2470,57 @@ export interface OrderLineItemRemovedMessage {
    *
    */
   readonly newShippingDetail?: ItemShippingDetails
+}
+export interface OrderPaymentAddedMessage {
+  readonly type: 'OrderPaymentAdded'
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly payment: PaymentReference
 }
 export interface OrderPaymentStateChangedMessage {
   readonly type: 'OrderPaymentStateChanged'
@@ -5111,6 +5168,7 @@ export type MessagePayload =
   | OrderLineItemDiscountSetMessagePayload
   | OrderLineItemDistributionChannelSetMessagePayload
   | OrderLineItemRemovedMessagePayload
+  | OrderPaymentAddedMessagePayload
   | OrderPaymentStateChangedMessagePayload
   | OrderReturnInfoAddedMessagePayload
   | OrderReturnInfoSetMessagePayload
@@ -5617,6 +5675,13 @@ export interface OrderLineItemRemovedMessagePayload {
    *
    */
   readonly newShippingDetail?: ItemShippingDetails
+}
+export interface OrderPaymentAddedMessagePayload {
+  readonly type: 'OrderPaymentAdded'
+  /**
+   *
+   */
+  readonly payment: PaymentReference
 }
 export interface OrderPaymentStateChangedMessagePayload {
   readonly type: 'OrderPaymentStateChanged'
