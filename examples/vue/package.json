@@ -10,7 +10,7 @@
     "@commercetools/platform-sdk": "^2.2.0",
     "@commercetools/sdk-client-v2": "^1.0.2",
     "core-js": "^3.6.5",
-    "node-fetch": "2.1.0",
+    "node-fetch": "2.6.7",
     "vue": "^3.0.0"
   },
   "devDependencies": {
