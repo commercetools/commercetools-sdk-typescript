@@ -250,6 +250,7 @@ export interface PaymentReference {
   /**
    *	Unique ID of the referenced resource.
    *
+   *
    */
   readonly id: string
   /**
@@ -262,10 +263,12 @@ export interface PaymentResourceIdentifier {
   /**
    *	Unique ID of the referenced resource. Either `id` or `key` is required.
    *
+   *
    */
   readonly id?: string
   /**
    *	Unique key of the referenced resource. Either `id` or `key` is required.
+   *
    *
    */
   readonly key?: string
@@ -296,6 +299,8 @@ export interface PaymentStatusDraft {
    */
   readonly interfaceText?: string
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly state?: StateResourceIdentifier

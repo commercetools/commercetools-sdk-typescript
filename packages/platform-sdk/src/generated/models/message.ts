@@ -330,10 +330,14 @@ export interface CustomLineItemStateTransitionMessage {
    */
   readonly quantity: number
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly fromState: StateReference
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly toState: StateReference
@@ -1503,10 +1507,14 @@ export interface LineItemStateTransitionMessage {
    */
   readonly quantity: number
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly fromState: StateReference
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly toState: StateReference
@@ -3056,10 +3064,14 @@ export interface OrderStateTransitionMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly state: StateReference
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly oldState?: StateReference
@@ -3614,6 +3626,8 @@ export interface PaymentStatusStateTransitionMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly state: StateReference
@@ -4567,6 +4581,8 @@ export interface ProductStateTransitionMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly state: StateReference
@@ -4893,10 +4909,14 @@ export interface ReviewStateTransitionMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly oldState: StateReference
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly newState: StateReference
@@ -5249,10 +5269,14 @@ export interface CustomLineItemStateTransitionMessagePayload {
    */
   readonly quantity: number
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly fromState: StateReference
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly toState: StateReference
@@ -5454,10 +5478,14 @@ export interface LineItemStateTransitionMessagePayload {
    */
   readonly quantity: number
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly fromState: StateReference
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly toState: StateReference
@@ -5777,10 +5805,14 @@ export interface OrderStateChangedMessagePayload {
 export interface OrderStateTransitionMessagePayload {
   readonly type: 'OrderStateTransition'
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly state: StateReference
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly oldState?: StateReference
@@ -5895,6 +5927,8 @@ export interface PaymentStatusInterfaceCodeSetMessagePayload {
 export interface PaymentStatusStateTransitionMessagePayload {
   readonly type: 'PaymentStatusStateTransition'
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly state: StateReference
@@ -6074,6 +6108,8 @@ export interface ProductSlugChangedMessagePayload {
 export interface ProductStateTransitionMessagePayload {
   readonly type: 'ProductStateTransition'
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly state: StateReference
@@ -6136,10 +6172,14 @@ export interface ReviewRatingSetMessagePayload {
 export interface ReviewStateTransitionMessagePayload {
   readonly type: 'ReviewStateTransition'
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly oldState: StateReference
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly newState: StateReference

@@ -96,6 +96,7 @@ export interface CustomObjectReference {
   /**
    *	Unique ID of the referenced resource.
    *
+   *
    */
   readonly id: string
   /**
