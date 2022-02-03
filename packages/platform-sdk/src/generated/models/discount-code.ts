@@ -126,7 +126,7 @@ export interface DiscountCode extends BaseResource {
    *
    *
    */
-  readonly applicationVersion: number
+  readonly applicationVersion?: number
 }
 export interface DiscountCodeDraft {
   /**
