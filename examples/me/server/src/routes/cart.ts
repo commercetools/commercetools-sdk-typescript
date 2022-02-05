@@ -13,13 +13,25 @@ const {
   removeLineItem,
 } = cartController
 
-router.get('/cart', isAuthenticated, getActiveCart.bind(cartController))
+router.get(
+  '/cart',
+  // isAuthenticated,
+  getActiveCart.bind(cartController)
+)
 router.post(
   '/cart',
-  isAuthenticated,
+  // isAuthenticated,
   createCartForCurrentCustomer.bind(cartController)
 )
-router.put('/cart', isAuthenticated, updateActiveCart.bind(cartController))
-router.delete('/cart', isAuthenticated, removeLineItem.bind(cartController))
+router.put(
+  '/cart',
+  // isAuthenticated,
+  updateActiveCart.bind(cartController)
+)
+router.delete(
+  '/cart',
+  // isAuthenticated,
+  removeLineItem.bind(cartController)
+)
 
 export default router

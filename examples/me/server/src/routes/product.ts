@@ -13,10 +13,6 @@ const options = {
   },
 }
 
-const root = new ApiRoot(options)
-const apiRoot = root.getApiRoot(root.getDefaultClient())
-
-// concrete implementation and dependency injection
 const productController = new ProductController()
 
 const router = Router()

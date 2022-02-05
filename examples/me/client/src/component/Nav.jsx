@@ -19,7 +19,7 @@ const NavBar = ({ logoutUser, cart, user }) => {
     logoutUser()
       .then(_ => {
         tokenStorage.clearItems()
-        navigate('login')
+        navigate('/login')
         window.location.reload()
       }).catch(e => {
         console.log(e)
@@ -27,7 +27,7 @@ const NavBar = ({ logoutUser, cart, user }) => {
   }
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg" style={{ zIndex: 9999 }}>
       <Container fluid>
         <Navbar.Brand>
           <Nav>
@@ -50,10 +50,7 @@ const NavBar = ({ logoutUser, cart, user }) => {
               className="me-2"
               aria-label="Search"
             />
-            {/* <Button variant="outline-success" onClick={() => { }}>Search</Button>&nbsp; */}
-            {tokenStorage.getItem('token') &&
-              (tokenStorage.getItem('anonymousId') == 'undefined' ||
-                !tokenStorage.getItem('anonymousId')) ?
+            {!tokenStorage.getItem('token') && Object.keys(cart).length > 0 && !cart.anonymousId ?
               <Button variant="danger" onClick={() => logout()}>Logout</Button> : <Button as={Link} to="/login" variant="primary" onClick={() => { }}>Login</Button>}
           </Form>
           <Nav.Link as={Link} to="/cart" eventKey="/home" title="Home" className="cart">

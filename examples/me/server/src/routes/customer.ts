@@ -9,10 +9,16 @@ const router = Router()
 const { validateSignup, validateLogin } = Validator
 const { createCustomer, getCustomer, logoutCustomer } = customerController
 
+function forwardID(req, res, next) {
+  res.locals.anonymousId = req.headers.token
+  next()
+}
+
 router.post(
   '/login',
   validateLogin,
-  authenticateUser,
+  forwardID,
+  // authenticateUser,
   getCustomer.bind(customerController)
 )
 router.post(
@@ -20,6 +26,10 @@ router.post(
   validateSignup,
   createCustomer.bind(customerController)
 )
-router.post('/logout', invalidateToken, logoutCustomer.bind(customerController))
+router.post(
+  '/logout',
+  // invalidateToken,
+  logoutCustomer.bind(customerController)
+)
 
 export default router

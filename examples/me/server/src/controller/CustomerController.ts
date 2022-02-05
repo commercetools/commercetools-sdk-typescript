@@ -1,7 +1,7 @@
 import ResponseHandler from '../utils/Response'
 import { Request, Response } from 'express'
 import { CustomerRepository } from '../repository'
-import { getOptions, getUserOptions } from '../utils/options'
+import { getOptions } from '../utils/options'
 import { encrypt } from '../utils/helper'
 
 /**
@@ -14,7 +14,7 @@ class CustomerController {
   constructor() {}
 
   async createCustomer(req: Request, res: Response) {
-    const options = getUserOptions(req.headers)
+    const options = getOptions(req.headers)
     const data = await new CustomerRepository(options).createCustomer(req.body)
 
     if (data?.statusCode == 201) {
@@ -35,14 +35,15 @@ class CustomerController {
 
   async getCustomer(req: Request, res: Response) {
     const { email: username, password } = req.body
-    const options = getUserOptions({ username, password })
+    const options = getOptions(req.headers, { username, password })
     const data = await new CustomerRepository(options).getCustomer(
       req.body,
-      res.locals?.credentials
+      res.locals
     )
 
     if (data.statusCode == 200) {
-      data.body.token = encrypt(req.headers.token)
+      // data.body.token = encrypt(req.headers.token)
+      data.body.token = data.body?.customer.id
       return ResponseHandler.successResponse(
         res,
         data.statusCode || data.body.statusCode,
@@ -59,6 +60,7 @@ class CustomerController {
   }
 
   async logoutCustomer(req: Request, res: Response) {
+    const { email: username, password } = req.body
     const options = getOptions(req.headers)
     const data = await new CustomerRepository(options).logoutCustomer()
 

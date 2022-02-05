@@ -48,7 +48,6 @@ export function getUser({ email, password }) {
       headers: {
         'Content-Type': 'application/json',
         token: tokenStorage.getItem('token'),
-        anonymousId: tokenStorage.getItem('anonymousId'),
       },
       data: {
         email,
@@ -57,8 +56,7 @@ export function getUser({ email, password }) {
     })
       .then((response) => {
         if (response.status == 200) {
-          tokenStorage.removeItem('anonymousId')
-          tokenStorage.setItem('token', response.data.data.token)
+          tokenStorage.removeItem('token')
           return dispatch(getUserSuccess(response.data.data))
         }
         dispatch(getUserError(response.data))
@@ -77,7 +75,7 @@ export function logoutUser() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        token: tokenStorage.getItem('token'),
+        destroy: true,
       },
     })
       .then(({ data }) => {

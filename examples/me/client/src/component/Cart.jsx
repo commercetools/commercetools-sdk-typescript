@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { getActiveCart, removeLineItem } from '../../store/cart/cartAction'
 import { ToastContainer, toast } from 'react-toastify';
-
+import { ModalView } from './Modal.jsx';
 
 
 const Cart = ({ removeLineItem, getActiveCart, cart }) => {
   // const incart = false
+  const [show, setShow] = useState(false);
 
   const removeItem = (item) => {
     const lineItem = {
@@ -30,6 +30,14 @@ const Cart = ({ removeLineItem, getActiveCart, cart }) => {
       })
   }
 
+  const handleCheckout = () => {
+    // const items = 
+  }
+
+  const closeModal = () => {
+    setShow(false)
+  }
+
   useEffect(() => {
     getActiveCart()
   }, [])
@@ -37,10 +45,18 @@ const Cart = ({ removeLineItem, getActiveCart, cart }) => {
   return (
     <section>
       <div>
-        <div>
-          <h1>Your Cart</h1>
-        </div>
-        <div className="container-fluid text-center">
+
+        {
+          cart?.lineItems?.length > 0 && (
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 50px', marginBottom: '20px' }}>
+              <h1>Your Cart</h1>
+              <Button variant="warning" disabled={!(cart?.lineItems?.length > 0)} onClick={() => setShow(true)} size="sm">Checkout</Button>
+            </div>
+          )
+        }
+
+        {/* cart?.lineItems?.length > 0 */}
+        {false ? (<div className="container-fluid text-center" style={{ borderBottom: '#ccc' }}>
           <div className="row">
             <div className="col-10 max-auto col-lg-2">
               <strong>Product</strong>
@@ -58,8 +74,8 @@ const Cart = ({ removeLineItem, getActiveCart, cart }) => {
               <strong>Total</strong>
             </div>
           </div>
-        </div>
-        {cart?.lineItems?.length > 0 && cart.lineItems.map((item, index) => (
+        </div>) : (null)}
+        {cart?.lineItems?.length > 0 ? cart.lineItems.map((item, index) => (
           <div className="container-fluid text-center" key={index}>
             <div className="row">
               <div className="col-10 max-auto col-lg-2">
@@ -69,7 +85,7 @@ const Cart = ({ removeLineItem, getActiveCart, cart }) => {
                 {item?.name?.en}
               </div>
               <div className="col-10 max-auto col-lg-2">
-                {Number.parseFloat(item.price.value.centAmount / 100).toFixed(2).toString().replace('.', ',')}
+                € {Number.parseFloat(item.price.value.centAmount / 100).toFixed(2).toString().replace('.', ',')}
               </div>
               <div className="col-10 max-auto col-lg-2">
                 <input size="sm" className="qtyplus" defaultValue="-" onClick={() => { }} />
@@ -77,15 +93,39 @@ const Cart = ({ removeLineItem, getActiveCart, cart }) => {
                 <input size="sm" className="qtyminus" defaultValue="+" onClick={() => { }} />
               </div>
               <div className="col-10 max-auto col-lg-2">
-                {Number.parseFloat(item.totalPrice.centAmount / 100).toFixed(2).toString().replace('.', ',')}
+                € {Number.parseFloat(item.totalPrice.centAmount / 100).toFixed(2).toString().replace('.', ',')}
               </div>
               <div className="col-10 max-auto col-lg-2">
-                <Button variant="secondary" onClick={() => removeItem(item)} size="sm">Remove</Button>
+                <Button variant="danger" onClick={() => removeItem(item)} size="sm">Remove</Button>
               </div>
             </div>
           </div>
-        ))}
+        )) : (
+          <div style={{
+            // display: 'none',
+            // position: 'fixed',
+            // height: '100vh',
+            // width: '100vw',
+            // background: '#ccc',
+            // backgroundImage: `url("")`,
+            // backgroundRepeat: 'no-repeat'
+
+            // flexDirection: 'row',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            // background: 'red',
+            position: 'absolute',
+            top: '0px',
+            right: '0px',
+            bottom: '0px',
+            left: '0px'
+          }}>
+            <img src="../../assets/cart.jpeg" />
+          </div>
+        )}
       </div>
+      <ModalView data={cart?.lineItems} show={show} handleClose={() => setShow(false)} />
       <ToastContainer closeOnClick autoClose={3000} />
     </section>
   )

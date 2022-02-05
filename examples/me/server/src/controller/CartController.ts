@@ -57,7 +57,8 @@ class CartController {
     const options = getOptions(req.headers) // get the header object
     const data = await new CartRepository(options).updateActiveCart(req.body)
     if (data.statusCode == 200) {
-      data.body.token = encrypt(req.headers.token)
+      // data.body.token = encrypt(req.headers.token)
+      data.body.token = data.body?.anonymousId || data.body?.customerId || null
       return ResponseHandler.successResponse(
         res,
         data.statusCode || data.body.statusCode,

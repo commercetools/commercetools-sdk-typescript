@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button } from 'react-bootstrap'
 import { connect } from "react-redux";
 import { useNavigate } from 'react-router-dom'
 
 import { getUser } from "../../store/auth/authAction";
+import { getActiveCart } from "../../store/cart/cartAction";
 
-const Login = ({ getUser }) => {
+const Login = ({ getUser, getActiveCart, cart }) => {
   const navigate = useNavigate()
   const [user, setUser] = useState({ email: '', password: '' })
 
@@ -18,9 +19,15 @@ const Login = ({ getUser }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    if (cart?.lineItems?.length > 0 && cart?.anonymousId) {
+      // navigate to an intermediary screen and display anonymous cart items
+      return navigate('/Merge', { state: user })
+    }
+
     try {
       getUser(user)
-        .then(({ type, payload }) => {
+        .then(({ type }) => {
           if (type == 'GET_USER_SUCCESS') {
             navigate('/')
           }
@@ -29,6 +36,10 @@ const Login = ({ getUser }) => {
       console.error(error)
     }
   }
+
+  useEffect(() => {
+    getActiveCart()
+  }, [])
 
   return (
     <div className="col-2 mx-auto col-md-6 col-lg-3">
@@ -52,10 +63,11 @@ const Login = ({ getUser }) => {
 }
 
 const mapStateToProps = (state) => ({
-  // User: state.authReducer.user
+  cart: state.cartReducer.cart
 })
 
 const mapDispatchToProps = (dispatch) => ({
+  getActiveCart: () => dispatch(getActiveCart()),
   getUser: (user) => dispatch(getUser(user))
 })
 

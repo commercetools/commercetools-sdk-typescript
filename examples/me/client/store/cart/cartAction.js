@@ -61,33 +61,58 @@ export const removeLineItemError = (error) => ({
 })
 
 export function addLineItems(data) {
-  return (dispatch) => {
-    dispatch(addLineItemStart())
-    return axios({
-      url: 'http://localhost:8085/cart',
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        token: tokenStorage.getItem('token'),
-        anonymous_id: tokenStorage.getItem('anonymousId'),
-      },
-      data,
-    })
-      .then((response) => {
-        if (response.status == 200) {
-          // add anonymousId to header
-          const { data } = response?.data
-          tokenStorage.setItem('token', data?.token)
-          tokenStorage.setItem('anonymousId', data?.anonymousId)
+  const token = tokenStorage.getItem('token')
+  // return (dispatch) => {
+  //   dispatch(addLineItemStart())
+  //   return axios({
+  //     url: 'http://localhost:8085/cart',
+  //     method: 'PUT',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Access-Control-Allow-Origin': '*',
+  //       ...token ?? {}
+  //     },
+  //     data,
+  //   })
+  //     .then((response) => {
+  //       if (response.status == 200) {
+  //         // add anonymousId to header
+  //         const { data } = response?.data
+  //         tokenStorage.setItem('token', data?.token)
 
-          return dispatch(addLineItemSuccess(data))
-        }
-        dispatch(addLineItemError(response.data))
+  //         dispatch(addLineItemSuccess(data))
+  //         return data
+  //       }
+  //       dispatch(addLineItemError(response.data))
+  //     })
+  //     .catch((error) => {
+  //       dispatch(addLineItemError(error))
+  //     })
+  // }
+
+  return async (dispatch) => {
+    dispatch(addLineItemStart())
+    try {
+      const response = await axios({
+        url: 'http://localhost:8085/cart',
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          ...(token ?? {}),
+        },
+        data,
       })
-      .catch((error) => {
-        dispatch(addLineItemError(error))
-      })
+
+      if (response.status == 200) {
+        const { data } = response?.data
+
+        if (data.anonymousId) tokenStorage.setItem('token', data?.token)
+        return dispatch(addLineItemSuccess(data))
+      }
+    } catch (e) {
+      dispatch(addLineItemError(e))
+    }
   }
 }
 
@@ -116,29 +141,27 @@ export function getActiveCart() {
 }
 
 export function removeLineItem(lineItem) {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(removeLineItemStart())
-    return axios({
-      url: 'http://localhost:8085/cart',
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        token: tokenStorage.getItem('token'), // encrypt this
-        anonymous_id: tokenStorage.getItem('anonymousId'),
-      },
-      data: {
-        ...lineItem,
-      },
-    })
-      .then((response) => {
-        if (response.status == 200) {
-          return dispatch(removeLineItemSuccess(response.data.data))
-        }
-        dispatch(removeLineItemError(response.data))
+    try {
+      const response = await axios({
+        url: 'http://localhost:8085/cart',
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+        data: {
+          ...lineItem,
+        },
       })
-      .catch((error) => {
-        dispatch(removeLineItemError(error))
-      })
+
+      if (response.status == 200) {
+        return dispatch(removeLineItemSuccess(response.data.data))
+      }
+      dispatch(removeLineItemError(response.data))
+    } catch (error) {
+      dispatch(removeLineItemError(error))
+    }
   }
 }

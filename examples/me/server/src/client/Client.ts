@@ -1,6 +1,8 @@
 import { ClientBuilder, Credentials } from '@commercetools/sdk-client-v2'
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
 
+const userClientBuilder = new ClientBuilder()
+const anonymousClientBuilder = new ClientBuilder()
 interface Options {
   projectKey: string
   oauthUri?: string
@@ -22,7 +24,7 @@ class Client {
   }
 
   getDefaultClient() {
-    return new ClientBuilder()
+    return anonymousClientBuilder
       .defaultClient(
         this.baseUri,
         this.credentials,
@@ -33,8 +35,18 @@ class Client {
   }
 
   getClientFromOption(options) {
-    const { projectKey, authMiddleware, httpMiddlewareOptions } = options
-    return new ClientBuilder()
+    const { projectKey, authMiddleware, httpMiddlewareOptions, credentials } =
+      options
+    if (credentials) {
+      return userClientBuilder
+        .withProjectKey(projectKey)
+        .withMiddleware(authMiddleware)
+        .withHttpMiddleware(httpMiddlewareOptions)
+        .withLoggerMiddleware()
+        .build()
+    }
+
+    return anonymousClientBuilder
       .withProjectKey(projectKey)
       .withMiddleware(authMiddleware)
       .withHttpMiddleware(httpMiddlewareOptions)

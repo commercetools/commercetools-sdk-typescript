@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import { TokenStorage } from '../utils'
 
@@ -15,12 +14,7 @@ const ProductList = ({ getProducts, addLineItems, getActiveCart, products, cart 
 
   useEffect(() => {
     getProducts()
-    if (tokenStorage.getItem('token')) {
-      // get cart
-      getActiveCart()
-    } else {
-      // log the user in anonymously and create temp cart
-    }
+    getActiveCart()
   }, [])
 
   const addItemToCart = (data) => {
@@ -36,7 +30,7 @@ const ProductList = ({ getProducts, addLineItems, getActiveCart, products, cart 
     }
 
     addLineItems(lineItem)
-      .then(({ type }) => {
+      .then(({ type, payload }) => {
         if (type == 'ADD_LINE_ITEM_SUCCESS') {
           return toast.success('Item added to cart')
         }

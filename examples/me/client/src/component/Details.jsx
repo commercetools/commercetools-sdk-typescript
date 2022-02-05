@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import { useLocation } from 'react-router-dom'
-import { getActiveCart, removeLineItem } from '../../store/cart/cartAction'
+import { getActiveCart } from '../../store/cart/cartAction'
 import { connect } from 'react-redux'
 
 const Details = ({ addLineItems, cart  }) => {
