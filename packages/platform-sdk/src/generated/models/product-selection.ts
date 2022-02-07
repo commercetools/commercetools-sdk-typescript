@@ -19,6 +19,53 @@ export interface AssignedProductReference {
    */
   readonly product: ProductReference
 }
+export interface AssignedProductSelection {
+  /**
+   *	Reference to the Product Selection that this assignment is part of.
+   *
+   */
+  readonly productSelection: ProductSelectionReference
+}
+/**
+ *	[PagedQueryResult](/general-concepts#pagedqueryresult) containing an array of [AssignedProductSelection](ctp:api:type:AssignedProductSelection).
+ *
+ */
+export interface AssignedProductSelectionPagedQueryResponse {
+  /**
+   *	Number of results requested in the query request.
+   *
+   *
+   */
+  readonly limit: number
+  /**
+   *	Offset supplied by the client or the server default.
+   *	It is the number of elements skipped, not a page number.
+   *
+   *
+   */
+  readonly offset: number
+  /**
+   *	Actual number of results returned.
+   *
+   *
+   */
+  readonly count: number
+  /**
+   *	Total number of results matching the query.
+   *	This number is an estimation that is not [strongly consistent](/general-concepts#strong-consistency).
+   *	Unlike other endpoints, the Product Selection endpoint does not return this field by default.
+   *	To get `total`, pass the query parameter `withTotal` set to `true`.
+   *	When the results are filtered with a [Query Predicate](/predicates/query), `total` is subject to a [limit](/limits#queries).
+   *
+   *
+   */
+  readonly total?: number
+  /**
+   *	References to Product Selection that are assigned to the Product.
+   *
+   */
+  readonly results: AssignedProductSelection[]
+}
 export interface ProductSelection extends BaseResource {
   /**
    *	Unique ID of the Product Selection.
