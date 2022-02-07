@@ -8,5 +8,6 @@
     "moduleResolution": "Node",
     "removeComments": false,
     "resolveJsonModule": true
-  }
+  },
+  "exclude": ["./examples/"]
 }
