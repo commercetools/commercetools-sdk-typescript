@@ -1,5 +1,11 @@
 # @commercetools/platform-sdk
 
+## 2.4.1
+
+### Patch Changes
+
+- [#190](https://github.com/commercetools/commercetools-sdk-typescript/pull/190) [`5c9915f`](https://github.com/commercetools/commercetools-sdk-typescript/commit/5c9915f8655b269cb2c1a4adf3c2ce14780c4c30) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fix type in product selection query assigned to a product
+
 ## 2.4.0
 
 ### Minor Changes
