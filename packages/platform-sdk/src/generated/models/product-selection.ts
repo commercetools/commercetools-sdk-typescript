@@ -199,10 +199,12 @@ export interface ProductSelectionResourceIdentifier {
   /**
    *	Unique ID of the referenced resource. Either `id` or `key` is required.
    *
+   *
    */
   readonly id?: string
   /**
    *	Unique key of the referenced resource. Either `id` or `key` is required.
+   *
    *
    */
   readonly key?: string

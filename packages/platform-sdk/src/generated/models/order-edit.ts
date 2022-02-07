@@ -194,6 +194,7 @@ export interface OrderEditReference {
   /**
    *	Unique ID of the referenced resource.
    *
+   *
    */
   readonly id: string
   /**
@@ -206,10 +207,12 @@ export interface OrderEditResourceIdentifier {
   /**
    *	Unique ID of the referenced resource. Either `id` or `key` is required.
    *
+   *
    */
   readonly id?: string
   /**
    *	Unique key of the referenced resource. Either `id` or `key` is required.
+   *
    *
    */
   readonly key?: string
@@ -1333,10 +1336,14 @@ export interface StagedOrderTransitionCustomLineItemStateAction {
    */
   readonly quantity: number
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly fromState: StateResourceIdentifier
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly toState: StateResourceIdentifier
@@ -1356,10 +1363,14 @@ export interface StagedOrderTransitionLineItemStateAction {
    */
   readonly quantity: number
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly fromState: StateResourceIdentifier
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly toState: StateResourceIdentifier
@@ -1371,6 +1382,8 @@ export interface StagedOrderTransitionLineItemStateAction {
 export interface StagedOrderTransitionStateAction {
   readonly action: 'transitionState'
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly state: StateResourceIdentifier

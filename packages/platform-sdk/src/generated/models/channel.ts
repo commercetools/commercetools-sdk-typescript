@@ -319,7 +319,7 @@ export interface ChannelRemoveRolesAction {
 export interface ChannelSetAddressAction {
   readonly action: 'setAddress'
   /**
-   *	Value to set.
+   *	Value to set. If empty, any existing value will be removed.
    *
    *
    */

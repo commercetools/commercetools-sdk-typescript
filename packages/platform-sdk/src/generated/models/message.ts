@@ -47,7 +47,12 @@ import {
   TrackingData,
 } from './order'
 import { OrderEditApplied, OrderEditReference } from './order-edit'
-import { Payment, Transaction, TransactionState } from './payment'
+import {
+  Payment,
+  PaymentReference,
+  Transaction,
+  TransactionState,
+} from './payment'
 import { ProductProjection, ProductReference, ProductVariant } from './product'
 import { ProductSelectionType } from './product-selection'
 import { Review } from './review'
@@ -113,6 +118,7 @@ export type Message =
   | OrderLineItemDiscountSetMessage
   | OrderLineItemDistributionChannelSetMessage
   | OrderLineItemRemovedMessage
+  | OrderPaymentAddedMessage
   | OrderPaymentStateChangedMessage
   | OrderReturnInfoAddedMessage
   | OrderReturnInfoSetMessage
@@ -324,10 +330,14 @@ export interface CustomLineItemStateTransitionMessage {
    */
   readonly quantity: number
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly fromState: StateReference
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly toState: StateReference
@@ -1497,10 +1507,14 @@ export interface LineItemStateTransitionMessage {
    */
   readonly quantity: number
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly fromState: StateReference
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly toState: StateReference
@@ -2465,6 +2479,57 @@ export interface OrderLineItemRemovedMessage {
    */
   readonly newShippingDetail?: ItemShippingDetails
 }
+export interface OrderPaymentAddedMessage {
+  readonly type: 'OrderPaymentAdded'
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly payment: PaymentReference
+}
 export interface OrderPaymentStateChangedMessage {
   readonly type: 'OrderPaymentStateChanged'
   /**
@@ -2999,10 +3064,14 @@ export interface OrderStateTransitionMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly state: StateReference
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly oldState?: StateReference
@@ -3557,6 +3626,8 @@ export interface PaymentStatusStateTransitionMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly state: StateReference
@@ -4510,6 +4581,8 @@ export interface ProductStateTransitionMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly state: StateReference
@@ -4836,10 +4909,14 @@ export interface ReviewStateTransitionMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly oldState: StateReference
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly newState: StateReference
@@ -5111,6 +5188,7 @@ export type MessagePayload =
   | OrderLineItemDiscountSetMessagePayload
   | OrderLineItemDistributionChannelSetMessagePayload
   | OrderLineItemRemovedMessagePayload
+  | OrderPaymentAddedMessagePayload
   | OrderPaymentStateChangedMessagePayload
   | OrderReturnInfoAddedMessagePayload
   | OrderReturnInfoSetMessagePayload
@@ -5191,10 +5269,14 @@ export interface CustomLineItemStateTransitionMessagePayload {
    */
   readonly quantity: number
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly fromState: StateReference
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly toState: StateReference
@@ -5396,10 +5478,14 @@ export interface LineItemStateTransitionMessagePayload {
    */
   readonly quantity: number
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly fromState: StateReference
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly toState: StateReference
@@ -5618,6 +5704,13 @@ export interface OrderLineItemRemovedMessagePayload {
    */
   readonly newShippingDetail?: ItemShippingDetails
 }
+export interface OrderPaymentAddedMessagePayload {
+  readonly type: 'OrderPaymentAdded'
+  /**
+   *
+   */
+  readonly payment: PaymentReference
+}
 export interface OrderPaymentStateChangedMessagePayload {
   readonly type: 'OrderPaymentStateChanged'
   /**
@@ -5712,10 +5805,14 @@ export interface OrderStateChangedMessagePayload {
 export interface OrderStateTransitionMessagePayload {
   readonly type: 'OrderStateTransition'
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly state: StateReference
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly oldState?: StateReference
@@ -5830,6 +5927,8 @@ export interface PaymentStatusInterfaceCodeSetMessagePayload {
 export interface PaymentStatusStateTransitionMessagePayload {
   readonly type: 'PaymentStatusStateTransition'
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly state: StateReference
@@ -6009,6 +6108,8 @@ export interface ProductSlugChangedMessagePayload {
 export interface ProductStateTransitionMessagePayload {
   readonly type: 'ProductStateTransition'
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly state: StateReference
@@ -6071,10 +6172,14 @@ export interface ReviewRatingSetMessagePayload {
 export interface ReviewStateTransitionMessagePayload {
   readonly type: 'ReviewStateTransition'
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly oldState: StateReference
   /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly newState: StateReference
