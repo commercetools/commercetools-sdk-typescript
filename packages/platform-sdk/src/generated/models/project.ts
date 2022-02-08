@@ -5,7 +5,7 @@
  */
 
 import { LastModifiedBy } from './common'
-import { MessageConfiguration, MessageConfigurationDraft } from './message'
+import { MessagesConfiguration, MessagesConfigurationDraft } from './message'
 import { CustomFieldLocalizedEnumValue } from './type'
 
 export interface CartsConfiguration {
@@ -76,7 +76,7 @@ export interface Project {
   /**
    *
    */
-  readonly messages: MessageConfiguration
+  readonly messages: MessagesConfiguration
   /**
    *
    */
@@ -226,7 +226,7 @@ export interface ProjectChangeMessagesConfigurationAction {
   /**
    *
    */
-  readonly messagesConfiguration: MessageConfigurationDraft
+  readonly messagesConfiguration: MessagesConfigurationDraft
 }
 export interface ProjectChangeMessagesEnabledAction {
   readonly action: 'changeMessagesEnabled'

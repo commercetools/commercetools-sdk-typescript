@@ -46,11 +46,7 @@ export interface Attribute {
 export interface CategoryOrderHints {
   [key: string]: string
 }
-export type FacetResult =
-  | FilteredFacetResult
-  | RangeFacetResult
-  | TermFacetResult
-export interface FacetResultRange {
+export interface FacetRange {
   /**
    *
    */
@@ -92,7 +88,14 @@ export interface FacetResultRange {
    */
   readonly mean: number
 }
-export interface FacetResultTerm {
+export type FacetResult =
+  | FilteredFacetResult
+  | RangeFacetResult
+  | TermFacetResult
+export interface FacetResults {
+  [key: string]: FacetResult
+}
+export interface FacetTerm {
   /**
    *
    */
@@ -105,9 +108,6 @@ export interface FacetResultTerm {
    *
    */
   readonly productCount?: number
-}
-export interface FacetResults {
-  [key: string]: FacetResult
 }
 export type FacetTypes = 'filter' | 'range' | 'terms'
 export interface FilteredFacetResult {
@@ -681,7 +681,7 @@ export interface RangeFacetResult {
   /**
    *
    */
-  readonly ranges: FacetResultRange[]
+  readonly ranges: FacetRange[]
 }
 export interface SearchKeyword {
   /**
@@ -735,7 +735,7 @@ export interface TermFacetResult {
   /**
    *
    */
-  readonly terms: FacetResultTerm[]
+  readonly terms: FacetTerm[]
 }
 export type TermFacetResultType =
   | 'boolean'
