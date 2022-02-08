@@ -215,6 +215,11 @@ export interface Cart extends BaseResource {
    *
    */
   readonly itemShippingAddresses?: Address[]
+  /**
+   *	The sum off all the [Line Items](ctp:api:type:LineItem) quantities. Does not take [Custom Line Items](ctp:api:type:CustomLineItem) into consideration.
+   *
+   */
+  readonly totalLineItemQuantity?: number
 }
 export interface CartDraft {
   /**
