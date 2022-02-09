@@ -7,7 +7,6 @@ import { ModalView } from './Modal.jsx';
 
 
 const Cart = ({ removeLineItem, getActiveCart, cart }) => {
-  // const incart = false
   const [show, setShow] = useState(false);
 
   const removeItem = (item) => {
@@ -28,10 +27,6 @@ const Cart = ({ removeLineItem, getActiveCart, cart }) => {
         console.error(error)
         toast.error('An error occurred')
       })
-  }
-
-  const handleCheckout = () => {
-    // const items = 
   }
 
   const closeModal = () => {
@@ -102,19 +97,9 @@ const Cart = ({ removeLineItem, getActiveCart, cart }) => {
           </div>
         )) : (
           <div style={{
-            // display: 'none',
-            // position: 'fixed',
-            // height: '100vh',
-            // width: '100vw',
-            // background: '#ccc',
-            // backgroundImage: `url("")`,
-            // backgroundRepeat: 'no-repeat'
-
-            // flexDirection: 'row',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            // background: 'red',
             position: 'absolute',
             top: '0px',
             right: '0px',

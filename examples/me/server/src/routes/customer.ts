@@ -18,7 +18,6 @@ router.post(
   '/login',
   validateLogin,
   forwardID,
-  // authenticateUser,
   getCustomer.bind(customerController)
 )
 router.post(
@@ -26,10 +25,6 @@ router.post(
   validateSignup,
   createCustomer.bind(customerController)
 )
-router.post(
-  '/logout',
-  // invalidateToken,
-  logoutCustomer.bind(customerController)
-)
+router.post('/logout', logoutCustomer.bind(customerController))
 
 export default router

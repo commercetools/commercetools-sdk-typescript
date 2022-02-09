@@ -1,22 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import { useLocation } from 'react-router-dom'
-import { getActiveCart } from '../../store/cart/cartAction'
+import { ToastContainer, toast } from 'react-toastify'
+import { getActiveCart, addLineItems } from '../../store/cart/cartAction'
 import { connect } from 'react-redux'
 
-const Details = ({ addLineItems, cart  }) => {
+const Details = ({ addLineItems, getActiveCart, cart }) => {
   const { state } = useLocation()
   const incart = false
   
-  const addItemToCart = (data) => {
+  const addItemToCart = () => {
     const { id, version } = cart
+    const { product } = state
     const lineItem = {
       cartId: id,
       cartUpdateDraft: {
         version,
-        productId: data.id,
-        variantId: data?.masterData?.current?.masterVariant?.id,
+        productId: product.id,
+        variantId: product?.masterData?.current?.masterVariant?.id,
         quantity: 1
       }
     }
@@ -29,9 +31,14 @@ const Details = ({ addLineItems, cart  }) => {
         toast.error('An error occurred')
       })
       .catch((error) => {
+        console.log(error)
         toast.error('An error occurred')
       })
   }
+
+  useEffect(() => {
+    getActiveCart()
+  }, [])
 
   return (
     <div>
@@ -57,12 +64,13 @@ const Details = ({ addLineItems, cart  }) => {
           {/* <p>Some info abut this product:</p> */}
           <div>
             <Link to="/">Back to products page</Link>&nbsp;
-            <Button size="sm" disabled={incart} onClick={() => { }} variant="secondary">
+            <Button size="sm" disabled={incart} onClick={() => addItemToCart()} variant="secondary">
               {incart ? (<span>In Cart</span>) : (<span>Add to Cart</span>)}
             </Button>
           </div>
         </div>
       </div>
+      <ToastContainer closeOnClick autoClose={3000} />
     </div>
   )
 }

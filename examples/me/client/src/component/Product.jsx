@@ -12,7 +12,7 @@ const Product = ({ product, handler }) => {
   return (
     <div className="col-2 mx-auto col-md-6 col-lg-3" style={{ marginBottom: '25px' }}>
       <Card onClick={() => { }} style={{ width: '18rem' }}>
-        <Link to="/details" state={{ name, image, currencyCode, centAmount }}>
+        <Link to="/details" state={{ name, image, currencyCode, centAmount, product }}>
           <Card.Img variant="top" className="img-fluid" src={image} />
         </Link>
         <Card.Body>

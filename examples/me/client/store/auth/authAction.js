@@ -56,7 +56,9 @@ export function getUser({ email, password }) {
     })
       .then((response) => {
         if (response.status == 200) {
+          const { firstName, lastName } = response.data.data.customer
           tokenStorage.removeItem('token')
+          tokenStorage.setItem('name', `${firstName} ${lastName}`)
           return dispatch(getUserSuccess(response.data.data))
         }
         dispatch(getUserError(response.data))
@@ -79,6 +81,7 @@ export function logoutUser() {
       },
     })
       .then(({ data }) => {
+        tokenStorage.removeItem('name')
         dispatch(logoutUserSuccess(null))
       })
       .catch((error) => {

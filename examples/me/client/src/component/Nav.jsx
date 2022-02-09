@@ -43,6 +43,16 @@ const NavBar = ({ logoutUser, cart, user }) => {
           >
             <Nav.Link as={Link} to="/" eventKey="/" title="Home">Home</Nav.Link>
           </Nav>
+          {!tokenStorage.getItem('token') && Object.keys(cart).length > 0 && !cart.anonymousId && (
+            <>
+              <Nav.Item>
+                <img src="../../assets/profile.png" width="35px" height="35px" />
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href="#">{tokenStorage.getItem('name')}</Nav.Link>
+              </Nav.Item>
+            </>
+          )}
           <Form className="d-flex">
             <FormControl
               type="search"

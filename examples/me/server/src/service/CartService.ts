@@ -2,7 +2,6 @@ import { CartRepository } from '../repository'
 
 interface ICartService {
   cartRepository: typeof CartRepository
-  // createCustomer(customerData): any
   getActiveCart(): any
 }
 /**

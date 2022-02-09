@@ -31,7 +31,6 @@ export function getProducts() {
     })
       .then((response) => {
         if (response.status == 200) {
-          // const products = response.data.data
           return dispatch(getProductSuccess(response.data.data))
         }
         dispatch(getProductError(response.data))

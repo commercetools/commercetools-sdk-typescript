@@ -42,7 +42,6 @@ class CustomerController {
     )
 
     if (data.statusCode == 200) {
-      // data.body.token = encrypt(req.headers.token)
       data.body.token = data.body?.customer.id
       return ResponseHandler.successResponse(
         res,

@@ -50,12 +50,7 @@ export default class TokenProvider {
   }
 
   static _validateTokenInfo(tokenInfo: TokenInfo) {
-    if (!tokenInfo.access_token && !tokenInfo.refresh_token)
-      // throw new Error(
-      //   'At least one of "access_token" or "refresh_token" properties has to be provided'
-      // )
-
-      return false
+    if (!tokenInfo.access_token && !tokenInfo.refresh_token) return false
   }
 
   static _isTokenExpired(tokenInfo: TokenInfo): boolean {

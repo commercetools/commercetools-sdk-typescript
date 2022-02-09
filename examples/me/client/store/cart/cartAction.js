@@ -62,34 +62,6 @@ export const removeLineItemError = (error) => ({
 
 export function addLineItems(data) {
   const token = tokenStorage.getItem('token')
-  // return (dispatch) => {
-  //   dispatch(addLineItemStart())
-  //   return axios({
-  //     url: 'http://localhost:8085/cart',
-  //     method: 'PUT',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Access-Control-Allow-Origin': '*',
-  //       ...token ?? {}
-  //     },
-  //     data,
-  //   })
-  //     .then((response) => {
-  //       if (response.status == 200) {
-  //         // add anonymousId to header
-  //         const { data } = response?.data
-  //         tokenStorage.setItem('token', data?.token)
-
-  //         dispatch(addLineItemSuccess(data))
-  //         return data
-  //       }
-  //       dispatch(addLineItemError(response.data))
-  //     })
-  //     .catch((error) => {
-  //       dispatch(addLineItemError(error))
-  //     })
-  // }
-
   return async (dispatch) => {
     dispatch(addLineItemStart())
     try {

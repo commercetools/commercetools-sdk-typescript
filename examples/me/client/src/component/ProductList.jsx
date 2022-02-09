@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify'
-import { TokenStorage } from '../utils'
-
 
 import Product from './Product.jsx'
 import { getProducts } from '../../store/product/productAction'
 import { addLineItems, getActiveCart } from '../../store/cart/cartAction'
-
-const tokenStorage = new TokenStorage(localStorage)
 
 const ProductList = ({ getProducts, addLineItems, getActiveCart, products, cart }) => {
 
@@ -30,7 +26,7 @@ const ProductList = ({ getProducts, addLineItems, getActiveCart, products, cart 
     }
 
     addLineItems(lineItem)
-      .then(({ type, payload }) => {
+      .then(({ type }) => {
         if (type == 'ADD_LINE_ITEM_SUCCESS') {
           return toast.success('Item added to cart')
         }
