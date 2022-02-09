@@ -23,9 +23,9 @@ export interface CloudEventsFormat {
 }
 export type DeliveryPayload =
   | MessageDeliveryPayload
-  | ResourceCreatedDelivery
-  | ResourceDeletedDelivery
-  | ResourceUpdatedDelivery
+  | ResourceCreatedDeliveryPayload
+  | ResourceDeletedDeliveryPayload
+  | ResourceUpdatedDeliveryPayload
 export type Destination =
   | AzureEventGridDestination
   | AzureServiceBusDestination
@@ -153,7 +153,7 @@ export interface PayloadNotIncluded {
 export interface PlatformFormat {
   readonly type: 'Platform'
 }
-export interface ResourceCreatedDelivery {
+export interface ResourceCreatedDeliveryPayload {
   readonly notificationType: 'ResourceCreated'
   /**
    *
@@ -176,7 +176,7 @@ export interface ResourceCreatedDelivery {
    */
   readonly modifiedAt: string
 }
-export interface ResourceDeletedDelivery {
+export interface ResourceDeletedDeliveryPayload {
   readonly notificationType: 'ResourceDeleted'
   /**
    *
@@ -203,7 +203,7 @@ export interface ResourceDeletedDelivery {
    */
   readonly dataErasure?: boolean
 }
-export interface ResourceUpdatedDelivery {
+export interface ResourceUpdatedDeliveryPayload {
   readonly notificationType: 'ResourceUpdated'
   /**
    *
