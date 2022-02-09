@@ -55,10 +55,8 @@ export interface Extension extends BaseResource {
   readonly timeoutInMs?: number
 }
 export type ExtensionAction = 'Create' | 'Update'
-export type ExtensionDestination =
-  | ExtensionAWSLambdaDestination
-  | ExtensionHttpDestination
-export interface ExtensionAWSLambdaDestination {
+export type ExtensionDestination = AWSLambdaDestination | HttpDestination
+export interface AWSLambdaDestination {
   readonly type: 'AWSLambda'
   /**
    *
@@ -97,34 +95,6 @@ export interface ExtensionDraft {
    *
    */
   readonly timeoutInMs?: number
-}
-export interface ExtensionHttpDestination {
-  readonly type: 'HTTP'
-  /**
-   *
-   */
-  readonly url: string
-  /**
-   *
-   */
-  readonly authentication?: ExtensionHttpDestinationAuthentication
-}
-export type ExtensionHttpDestinationAuthentication =
-  | ExtensionAuthorizationHeaderAuthentication
-  | ExtensionAzureFunctionsAuthentication
-export interface ExtensionAuthorizationHeaderAuthentication {
-  readonly type: 'AuthorizationHeader'
-  /**
-   *
-   */
-  readonly headerValue: string
-}
-export interface ExtensionAzureFunctionsAuthentication {
-  readonly type: 'AzureFunctions'
-  /**
-   *
-   */
-  readonly key: string
 }
 export interface ExtensionInput {
   /**
@@ -184,6 +154,34 @@ export type ExtensionUpdateAction =
   | ExtensionChangeTriggersAction
   | ExtensionSetKeyAction
   | ExtensionSetTimeoutInMsAction
+export interface HttpDestination {
+  readonly type: 'HTTP'
+  /**
+   *
+   */
+  readonly url: string
+  /**
+   *
+   */
+  readonly authentication?: HttpDestinationAuthentication
+}
+export type HttpDestinationAuthentication =
+  | AuthorizationHeaderAuthentication
+  | AzureFunctionsAuthentication
+export interface AuthorizationHeaderAuthentication {
+  readonly type: 'AuthorizationHeader'
+  /**
+   *
+   */
+  readonly headerValue: string
+}
+export interface AzureFunctionsAuthentication {
+  readonly type: 'AzureFunctions'
+  /**
+   *
+   */
+  readonly key: string
+}
 export interface ExtensionChangeDestinationAction {
   readonly action: 'changeDestination'
   /**
