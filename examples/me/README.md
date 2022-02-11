@@ -23,4 +23,4 @@ These credentials can be gotten from the commercetools [merchant center](https:/
 
 ### Note
 
-Ensure there are products already and at least a customer enlisted and registered respectively within the project being used.
+Ensure there are products and at least a customer already enlisted and registered respectively within the project being used.
