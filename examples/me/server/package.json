@@ -16,7 +16,7 @@
     "express": "^4.17.1",
     "lodash.defaultsdeep": "^4.6.1",
     "ncrypt-js": "^2.0.0",
-    "node-fetch": "2.6.0",
+    "node-fetch": "2.6.7",
     "qss": "^2.0.3"
   },
   "devDependencies": {
