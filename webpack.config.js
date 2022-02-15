@@ -26,6 +26,11 @@ const generalConfig = {
   module: {
     rules: [
       {
+        test: /\.(js|jsx)$/,
+        loader: 'ignore-loader',
+        exclude: /examples/,
+      },
+      {
         test: /\.ts?$/,
         use: 'ts-loader',
         // loader: 'awesome-typescript-loader',
@@ -38,7 +43,7 @@ const generalConfig = {
     ],
   },
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: ['.ts', '.js', 'jsx'],
     fallback: {
       path: require.resolve('path-browserify'),
       'crypto-browserify': require.resolve('crypto-browserify'),

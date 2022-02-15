@@ -1,0 +1,28 @@
+{
+  "name": "me-app",
+  "version": "0.0.1",
+  "description": "me endpoint checkout app",
+  "main": "server.js",
+  "scripts": {
+    "start:dev": "npx ts-node index.ts"
+  },
+  "author": "ajimae",
+  "license": "MIT",
+  "dependencies": {
+    "@commercetools/platform-sdk": "^1.19.0",
+    "@commercetools/sdk-client-v2": "^0.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "lodash.defaultsdeep": "^4.6.1",
+    "ncrypt-js": "^2.0.0",
+    "node-fetch": "2.6.0",
+    "qss": "^2.0.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^16.11.7",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4"
+  }
+}
