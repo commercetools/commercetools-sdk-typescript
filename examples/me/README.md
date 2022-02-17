@@ -5,13 +5,20 @@ PoC to show how the ME endpoints can be used with the TypeScript SDK.
 ### Installation
 
 - Clone/Download the example folder
-- Create a `.env` file with the following entries
+- Create a `.env` file in the path `me/client/.env` with the following entry
 
 ```txt
-PORT=8085
+REACT_APP_BASE_URL=http://localhost:8085
+```
+
+- Create a `.env` file in the path `me/server/.env` with the following entries
+
+```bash
+PORT=8085 #default to 8085
 CTP_CLIENT_ID=
 CTP_PROJECT_KEY=
 CTP_CLIENT_SECRET=
+DEFAULT_CURRENCY=EUR #default to EUR
 ```
 
 These credentials can be gotten from the commercetools [merchant center](https://mc.europe-west1.gcp.commercetools.com/login?reason=unauthorized&redirectTo=https%3A%2F%2Fmc.europe-west1.gcp.commercetools.com)
