@@ -3,6 +3,7 @@ import * as cartAction from './cartAction'
 const initialState = {
   loading: false,
   cart: {},
+  showCart: true,
   error: null,
 }
 
@@ -66,6 +67,12 @@ const cartReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.payload.error,
+      }
+    }
+    case cartAction.TOGGLE_CART_VISIBILITY: {
+      return {
+        ...state,
+        showCart: action.payload.value,
       }
     }
     default: {

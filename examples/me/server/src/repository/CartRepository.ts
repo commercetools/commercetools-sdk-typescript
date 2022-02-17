@@ -143,7 +143,7 @@ class CartRepository implements ICart {
       // if cartId is undefined create an anonymous cart
       if (!cartId) {
         const { body } = await this.createCartForCurrentCustomer({
-          currency: 'EUR',
+          currency: process.env.DEFAULT_CURRENCY,
         })
         cartId = body.id
         cartUpdateDraft.version = body.version

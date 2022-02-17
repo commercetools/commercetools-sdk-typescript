@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Card, Row, Col, Button } from 'react-bootstrap'
 
+import { CURRENCY_CODE } from '../constants'
+
 const incart = false
 
 const Product = ({ product, handler }) => {
@@ -26,7 +28,7 @@ const Product = ({ product, handler }) => {
               </Button>
             </Col>
             <Col>
-              <small className="text-muted text-right">{'€'} {Number.parseFloat(centAmount / 100).toFixed(2).toString().replace('.', ',')}</small>
+              <small className="text-muted text-right">{CURRENCY_CODE[currencyCode] + Number.parseFloat(centAmount / 100).toFixed(2).toString().replace('.', ',')}</small>
             </Col>
           </Row>
         </Card.Footer>
