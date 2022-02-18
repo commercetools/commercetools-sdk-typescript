@@ -132,6 +132,8 @@ export interface Asset {
    */
   readonly tags?: string[]
   /**
+   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *
    *
    */
   readonly custom?: CustomFields
@@ -168,6 +170,8 @@ export interface AssetDraft {
    */
   readonly tags?: string[]
   /**
+   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
@@ -477,6 +481,8 @@ export interface Price {
    */
   readonly discounted?: DiscountedPrice
   /**
+   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *
    *
    */
   readonly custom?: CustomFields
@@ -520,6 +526,8 @@ export interface PriceDraft {
    */
   readonly validUntil?: string
   /**
+   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
@@ -600,6 +608,8 @@ export interface QueryPrice {
    */
   readonly discounted?: DiscountedPriceDraft
   /**
+   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *
    *
    */
   readonly custom?: CustomFields
@@ -734,6 +744,8 @@ export interface ScopedPrice {
    */
   readonly discounted?: DiscountedPrice
   /**
+   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *
    *
    */
   readonly custom?: CustomFields

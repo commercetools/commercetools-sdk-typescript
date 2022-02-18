@@ -3565,6 +3565,8 @@ export interface PaymentInteractionAddedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *
    *
    */
   readonly interaction: CustomFields
@@ -5049,6 +5051,8 @@ export interface StoreCreatedMessage {
    */
   readonly productSelections: ProductSelectionSetting[]
   /**
+   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *
    *
    */
   readonly custom?: CustomFields
@@ -5999,6 +6003,8 @@ export interface PaymentCreatedMessagePayload {
 export interface PaymentInteractionAddedMessagePayload {
   readonly type: 'PaymentInteractionAdded'
   /**
+   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *
    *
    */
   readonly interaction: CustomFields
@@ -6320,6 +6326,8 @@ export interface StoreCreatedMessagePayload {
    */
   readonly productSelections: ProductSelectionSetting[]
   /**
+   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *
    *
    */
   readonly custom?: CustomFields

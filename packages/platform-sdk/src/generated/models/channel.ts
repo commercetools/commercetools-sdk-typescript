@@ -344,14 +344,14 @@ export interface ChannelSetAddressCustomFieldAction {
 export interface ChannelSetAddressCustomTypeAction {
   readonly action: 'setAddressCustomType'
   /**
-   *	If absent, the [custom](/../api/projects/custom-fields#custom) type and any existing [CustomFields](/../api/projects/custom-fields) are removed from the address.
+   *	If absent, the [custom](/../api/projects/custom-fields) type and any existing [CustomFields](/../api/projects/custom-fields) are removed from the address.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
    *	Valid JSON object, based on the [FieldDefinitions](/../api/projects/types#fielddefinition) of the [Type](/../api/projects/types#type).
-   *	Sets the [custom](/../api/projects/custom-fields#custom) fields to this value.
+   *	Sets the [custom](/../api/projects/custom-fields) fields to this value.
    *
    *
    */
@@ -366,7 +366,7 @@ export interface ChannelSetCustomFieldAction {
    */
   readonly name: string
   /**
-   *	Value must be of type [Value](/../api/projects/custom-fields#value).
+   *	Value must be of type [Value](/../api/projects/custom-fields#customfieldvalue).
    *	If `value` is absent or `null`, this field will be removed, if it exists.
    *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
    *	If `value` is provided, it is for the field defined by `name`.
@@ -378,14 +378,14 @@ export interface ChannelSetCustomFieldAction {
 export interface ChannelSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
-   *	If absent, the [custom](/../api/projects/custom-fields#custom) type and any existing [CustomFields](/../api/projects/custom-fields) are removed.
+   *	If absent, the [custom](/../api/projects/custom-fields) type and any existing [CustomFields](/../api/projects/custom-fields) are removed.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
    *	Valid JSON object, based on the [FieldDefinitions](/../api/projects/types#fielddefinition) of the [Type](/../api/projects/types#type).
-   *	Sets the [custom](/../api/projects/custom-fields#custom) fields to this value.
+   *	Sets the [custom](/../api/projects/custom-fields) fields to this value.
    *
    *
    */
