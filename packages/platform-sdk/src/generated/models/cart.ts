@@ -1050,6 +1050,9 @@ export interface TaxPortionDraft {
    */
   readonly rate: number
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly amount: Money
@@ -1082,10 +1085,16 @@ export interface TaxedPrice {
 }
 export interface TaxedPriceDraft {
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly totalNet: Money
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly totalGross: Money
@@ -1097,6 +1106,9 @@ export interface TaxedPriceDraft {
 export interface CartAddCustomLineItemAction {
   readonly action: 'addCustomLineItem'
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly money: Money
@@ -1180,6 +1192,9 @@ export interface CartAddLineItemAction {
    */
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly externalPrice?: Money
@@ -1247,6 +1262,9 @@ export interface CartChangeCustomLineItemMoneyAction {
    */
   readonly customLineItemId: string
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly money: Money
@@ -1273,6 +1291,9 @@ export interface CartChangeLineItemQuantityAction {
    */
   readonly quantity: number
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly externalPrice?: Money
@@ -1345,6 +1366,9 @@ export interface CartRemoveLineItemAction {
    */
   readonly quantity?: number
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly externalPrice?: Money
@@ -1676,6 +1700,9 @@ export interface CartSetLineItemPriceAction {
    */
   readonly lineItemId: string
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly externalPrice?: Money

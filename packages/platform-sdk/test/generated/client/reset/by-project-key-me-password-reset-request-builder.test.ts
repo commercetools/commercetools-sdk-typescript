@@ -19,7 +19,7 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .me()
         .password()
         .reset()
-        .post(),
+        .post({ body: null, headers: null }),
     },
   ]
 }

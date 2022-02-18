@@ -71,7 +71,7 @@ export interface ItemShippingDetailsDraft {
 }
 export interface LineItemPrice {
   /**
-   *	Maps to `Price.value`. TypedMoney is what is called BaseMoney in the HTTP API.
+   *	Maps to `Price.value`.
    *
    *
    */
@@ -391,8 +391,6 @@ export interface ShippingInfoImportDraft {
    */
   readonly shippingMethodName: string
   /**
-   *	TypedMoney is what is called BaseMoney in the HTTP API.
-   *
    *
    */
   readonly price: TypedMoney
@@ -456,14 +454,10 @@ export interface ExternalTaxRateDraft {
 }
 export interface CustomLineItemTaxedPrice {
   /**
-   *	TypedMoney is what is called BaseMoney in the HTTP API.
-   *
    *
    */
   readonly totalNet: TypedMoney
   /**
-   *	TypedMoney is what is called BaseMoney in the HTTP API.
-   *
    *
    */
   readonly totalGross: TypedMoney
@@ -482,8 +476,6 @@ export interface CustomLineItemDraft {
    */
   readonly name: LocalizedString
   /**
-   *	TypedMoney is what is called BaseMoney in the HTTP API.
-   *
    *
    */
   readonly money: TypedMoney
@@ -492,8 +484,6 @@ export interface CustomLineItemDraft {
    */
   readonly taxedPrice?: CustomLineItemTaxedPrice
   /**
-   *	TypedMoney is what is called BaseMoney in the HTTP API.
-   *
    *
    */
   readonly totalPrice: TypedMoney
@@ -541,8 +531,6 @@ export interface TaxPortion {
    */
   readonly rate: number
   /**
-   *	TypedMoney is what is called BaseMoney in the HTTP API.
-   *
    *
    */
   readonly amount: TypedMoney
@@ -716,7 +704,7 @@ export interface OrderImport {
    */
   readonly customLineItems?: CustomLineItemDraft[]
   /**
-   *	Maps to `Order.totalPrice`. TypedMoney is what is called BaseMoney in the HTTP API.
+   *	Maps to `Order.totalPrice`.
    *
    *
    */

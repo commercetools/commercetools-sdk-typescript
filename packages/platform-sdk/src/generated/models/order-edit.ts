@@ -352,6 +352,9 @@ export interface OrderEditSetStagedActionsAction {
 export interface StagedOrderAddCustomLineItemAction {
   readonly action: 'addCustomLineItem'
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly money: Money
@@ -459,6 +462,9 @@ export interface StagedOrderAddLineItemAction {
    */
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly externalPrice?: Money
@@ -538,6 +544,9 @@ export interface StagedOrderChangeCustomLineItemMoneyAction {
    */
   readonly customLineItemId: string
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly money: Money
@@ -564,6 +573,9 @@ export interface StagedOrderChangeLineItemQuantityAction {
    */
   readonly quantity: number
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly externalPrice?: Money
@@ -675,6 +687,9 @@ export interface StagedOrderRemoveLineItemAction {
    */
   readonly quantity?: number
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly externalPrice?: Money
@@ -912,6 +927,10 @@ export interface StagedOrderSetDeliveryCustomFieldAction {
   /**
    *
    */
+  readonly deliveryId: string
+  /**
+   *
+   */
   readonly name: string
   /**
    *
@@ -920,6 +939,10 @@ export interface StagedOrderSetDeliveryCustomFieldAction {
 }
 export interface StagedOrderSetDeliveryCustomTypeAction {
   readonly action: 'setDeliveryCustomType'
+  /**
+   *
+   */
+  readonly deliveryId: string
   /**
    *	If set, the custom type is set to this new value.
    *	If absent, the custom type and any existing custom fields are removed.
@@ -1023,6 +1046,9 @@ export interface StagedOrderSetLineItemPriceAction {
    */
   readonly lineItemId: string
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly externalPrice?: Money
@@ -1088,6 +1114,9 @@ export interface StagedOrderSetOrderNumberAction {
 export interface StagedOrderSetOrderTotalTaxAction {
   readonly action: 'setOrderTotalTax'
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly externalTotalGross: Money

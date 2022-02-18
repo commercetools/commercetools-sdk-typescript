@@ -540,6 +540,16 @@ export interface MyCustomerChangePassword {
    */
   readonly newPassword: string
 }
+export interface MyCustomerResetPassword {
+  /**
+   *
+   */
+  readonly tokenValue: string
+  /**
+   *
+   */
+  readonly newPassword: string
+}
 export interface CustomerAddAddressAction {
   readonly action: 'addAddress'
   /**

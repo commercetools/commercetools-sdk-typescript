@@ -3,7 +3,7 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { Customer, CustomerResetPassword } from '../../models/customer'
+import { Customer, MyCustomerResetPassword } from '../../models/customer'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
@@ -22,7 +22,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersPasswordResetRequestBuilde
    *	Set a new password using a token.
    */
   public post(methodArgs: {
-    body: CustomerResetPassword
+    body: MyCustomerResetPassword
     headers?: {
       [key: string]: string | string[]
     }

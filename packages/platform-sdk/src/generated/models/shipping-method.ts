@@ -282,6 +282,9 @@ export interface CartClassificationTier {
    */
   readonly value: string
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly price: Money
@@ -297,6 +300,9 @@ export interface CartScoreTier {
    */
   readonly score: number
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly price?: Money
@@ -316,6 +322,9 @@ export interface CartValueTier {
    */
   readonly minimumCentAmount: number
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly price: Money

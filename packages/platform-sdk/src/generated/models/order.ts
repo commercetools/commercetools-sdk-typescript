@@ -311,6 +311,9 @@ export interface DeliveryItem {
 }
 export interface DiscountedLineItemPriceDraft {
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly value: Money
@@ -1199,10 +1202,16 @@ export interface SyncInfo {
 }
 export interface TaxedItemPriceDraft {
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly totalNet: Money
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly totalGross: Money
@@ -1250,7 +1259,7 @@ export interface OrderAddDeliveryAction {
    *	Custom Fields for the Transaction.
    *
    */
-  readonly custom?: CustomFields
+  readonly custom?: CustomFieldsDraft
 }
 export interface OrderAddItemShippingAddressAction {
   readonly action: 'addItemShippingAddress'
@@ -1523,6 +1532,10 @@ export interface OrderSetDeliveryCustomFieldAction {
   /**
    *
    */
+  readonly deliveryId: string
+  /**
+   *
+   */
   readonly name: string
   /**
    *
@@ -1531,6 +1544,10 @@ export interface OrderSetDeliveryCustomFieldAction {
 }
 export interface OrderSetDeliveryCustomTypeAction {
   readonly action: 'setDeliveryCustomType'
+  /**
+   *
+   */
+  readonly deliveryId: string
   /**
    *
    */

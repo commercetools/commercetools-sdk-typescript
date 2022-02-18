@@ -2375,6 +2375,9 @@ export interface OrderLineItemDiscountSetMessage {
    */
   readonly discountedPricePerQuantity: DiscountedLineItemPriceForQuantity[]
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly totalPrice: Money
@@ -2503,6 +2506,8 @@ export interface OrderLineItemRemovedMessage {
    */
   readonly newState: ItemState[]
   /**
+   *	Base polymorphic read-only Money type which is stored in cent precision or high precision. The actual type is determined by the `type` field.
+   *
    *
    */
   readonly newTotalPrice: TypedMoney
@@ -5728,6 +5733,9 @@ export interface OrderLineItemDiscountSetMessagePayload {
    */
   readonly discountedPricePerQuantity: DiscountedLineItemPriceForQuantity[]
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly totalPrice: Money
@@ -5768,6 +5776,8 @@ export interface OrderLineItemRemovedMessagePayload {
    */
   readonly newState: ItemState[]
   /**
+   *	Base polymorphic read-only Money type which is stored in cent precision or high precision. The actual type is determined by the `type` field.
+   *
    *
    */
   readonly newTotalPrice: TypedMoney

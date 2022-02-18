@@ -6,7 +6,7 @@
 
 export interface ApiClient {
   /**
-   *	Unique ID of the API client.
+   *	Unique ID of the API Client.
    *	This is the OAuth2 `client_id` that can be used to [obtain an access token](/../api/authorization#requesting-an-access-token-using-commercetools-oauth-20-server).
    *
    */
@@ -33,15 +33,27 @@ export interface ApiClient {
    */
   readonly lastUsedAt?: string
   /**
-   *	If set, the client will be deleted on (or shortly after) this point in time.
+   *	If set, the Client will be deleted on (or shortly after) this point in time.
    *
    */
   readonly deleteAt?: string
   /**
-   *	Date and time (UTC) the API Client was initially created.
+   *	Date and time (UTC) the API Client was initially created at.
    *
    */
   readonly createdAt?: string
+  /**
+   *	Expiration time in seconds for each access token obtained by the API Client. Only present when set with the [APIClientDraft](ctp:api:type:ApiClientDraft). If not present the default value applies.
+   *
+   *
+   */
+  readonly accessTokenValiditySeconds?: number
+  /**
+   *	Inactivity expiration time in seconds for each refresh token obtained by the API Client. Only present when set with the [APIClientDraft](ctp:api:type:ApiClientDraft). If not present the default value applies.
+   *
+   *
+   */
+  readonly refreshTokenValiditySeconds?: number
 }
 export interface ApiClientDraft {
   /**
@@ -55,10 +67,22 @@ export interface ApiClientDraft {
    */
   readonly scope: string
   /**
-   *	If set, the client will be deleted after the specified amount of days.
+   *	If set, the Client will be deleted after the specified amount of days.
    *
    */
   readonly deleteDaysAfterCreation?: number
+  /**
+   *	Expiration time in seconds for each access token obtained by the API Client. If not set the default value applies.
+   *
+   *
+   */
+  readonly accessTokenValiditySeconds?: number
+  /**
+   *	Inactivity expiration time in seconds for each refresh token obtained by the API Client. The expiration time for refresh tokens is restarted each time the token is used. If not set the default value applies.
+   *
+   *
+   */
+  readonly refreshTokenValiditySeconds?: number
 }
 /**
  *	[PagedQueryResult](/general-concepts#pagedqueryresult) with `results` containing an array of [APIClient](ctp:api:type:ApiClient).
