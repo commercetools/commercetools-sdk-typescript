@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
+
 import { getUser } from '../../store/auth/authAction'
-import { getActiveCart, removeLineItem, addLineItems } from '../../store/cart/cartAction'
+import { getActiveCart, removeLineItem, addLineItems, toggleCart } from '../../store/cart/cartAction'
 import { ToastContainer, toast } from 'react-toastify'
 import { sleep } from '../utils'
 import ActivityIndicator from './Loader.jsx'
+import { CURRENCY_CODE } from '../constants'
 
 
-const Merge = ({ removeLineItem, addLineItems, getActiveCart, getUser, cart }) => {
+const Merge = ({ removeLineItem, addLineItems, getActiveCart, getUser, cart, toggleCart }) => {
   const { state } = useLocation()
   const navigate = useNavigate()
 
@@ -37,6 +39,7 @@ const Merge = ({ removeLineItem, addLineItems, getActiveCart, getUser, cart }) =
   }
 
   const handleClick = async (e) => {
+    toggleCart(false)
     setLoading(true)
     e.preventDefault()
 
@@ -68,6 +71,7 @@ const Merge = ({ removeLineItem, addLineItems, getActiveCart, getUser, cart }) =
           }
         }
 
+        toggleCart(true)
         setLoading(false)
         navigate('/')
       }
@@ -132,7 +136,7 @@ const Merge = ({ removeLineItem, addLineItems, getActiveCart, getUser, cart }) =
                 {item?.name?.en}
               </div>
               <div className="col-10 max-auto col-lg-2">
-                {Number.parseFloat(item.price.value.centAmount / 100).toFixed(2).toString().replace('.', ',')}
+                {CURRENCY_CODE[item.price.value.currencyCode] + Number.parseFloat(item.price.value.centAmount / 100).toFixed(2).toString().replace('.', ',')}
               </div>
               <div className="col-10 max-auto col-lg-2">
                 <input size="sm" className="qtyplus" defaultValue="-" onClick={() => { }} />
@@ -140,7 +144,7 @@ const Merge = ({ removeLineItem, addLineItems, getActiveCart, getUser, cart }) =
                 <input size="sm" className="qtyminus" defaultValue="+" onClick={() => { }} />
               </div>
               <div className="col-10 max-auto col-lg-2">
-                {Number.parseFloat(item.totalPrice.centAmount / 100).toFixed(2).toString().replace('.', ',')}
+                {CURRENCY_CODE[item.price.value.currencyCode] + Number.parseFloat(item.totalPrice.centAmount / 100).toFixed(2).toString().replace('.', ',')}
               </div>
               <div className="col-10 max-auto col-lg-2">
                 <Button variant="danger" onClick={() => removeItem(item, cart)} size="sm">Remove</Button>
@@ -171,7 +175,8 @@ const mapDispatchToProps = (dispatch) => ({
   getUser: (user) => dispatch(getUser(user)),
   getActiveCart: () => dispatch(getActiveCart()),
   addLineItems: (item) => dispatch(addLineItems(item)),
-  removeLineItem: (lineItem) => dispatch(removeLineItem(lineItem))
+  removeLineItem: (lineItem) => dispatch(removeLineItem(lineItem)),
+  toggleCart: (action) => dispatch(toggleCart(action))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Merge)

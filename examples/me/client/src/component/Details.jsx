@@ -3,13 +3,15 @@ import { Link } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import { useLocation } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
+
 import { getActiveCart, addLineItems } from '../../store/cart/cartAction'
 import { connect } from 'react-redux'
+import { CURRENCY_CODE } from '../constants'
 
 const Details = ({ addLineItems, getActiveCart, cart }) => {
   const { state } = useLocation()
   const incart = false
-  
+
   const addItemToCart = () => {
     const { id, version } = cart
     const { product } = state
@@ -59,7 +61,7 @@ const Details = ({ addLineItems, getActiveCart, cart }) => {
             {state?.name}
           </h4>
           <h5>
-            <strong><span>{state?.currencyCode}</span>&nbsp;{Number.parseFloat(state?.centAmount / 100).toFixed(2).toString().replace('.', ',')}</strong>
+            <strong><span>{CURRENCY_CODE[state?.currencyCode]}</span>{Number.parseFloat(state?.centAmount / 100).toFixed(2).toString().replace('.', ',')}</strong>
           </h5>
           {/* <p>Some info abut this product:</p> */}
           <div>

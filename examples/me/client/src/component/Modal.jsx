@@ -1,6 +1,8 @@
 import React from 'react'
 import { Modal, Button } from 'react-bootstrap'
 
+import { CURRENCY_CODE } from '../constants'
+
 export const ModalView = ({ data, show, handleClose }) => {
   return (
     <>
@@ -14,7 +16,7 @@ export const ModalView = ({ data, show, handleClose }) => {
             data.map((item, index) => (
               <div key={index} style={{ padding: '10px', ...(index != data.length - 1) ? { borderBottom: '0.5px solid #ccc' } : null }}>
                 <div style={{ fontWeight: '500' }}>{index + 1}. {item?.name?.en}</div>
-                <div> € {Number.parseFloat(item.totalPrice.centAmount / 100).toFixed(2).toString().replace('.', ',')}</div>
+                <div>{CURRENCY_CODE[item.totalPrice.currencyCode] + Number.parseFloat(item.totalPrice.centAmount / 100).toFixed(2).toString().replace('.', ',')}</div>
               </div>
             ))
           }
@@ -24,7 +26,7 @@ export const ModalView = ({ data, show, handleClose }) => {
             Close
           </Button>
           <Button variant="primary" onClick={null}>
-            Proceed To Payment 
+            Proceed To Payment
           </Button>
         </Modal.Footer>
       </Modal>

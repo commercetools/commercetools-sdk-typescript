@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { FormControl, Container, Form, Button, Navbar, Nav } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
+
 import { logoutUser } from '../../store/auth/authAction'
 import { getActiveCart } from '../../store/cart/cartAction'
 import { TokenStorage } from '../utils'
 
 const tokenStorage = new TokenStorage(localStorage)
 
-const NavBar = ({ logoutUser, cart, user }) => {
+const NavBar = ({ logoutUser, cart, user, showCart }) => {
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -65,7 +66,7 @@ const NavBar = ({ logoutUser, cart, user }) => {
           </Form>
           <Nav.Link as={Link} to="/cart" eventKey="/home" title="Home" className="cart">
             <img src="../../cart.png" width="35px" height="35px" />
-            {user && cart?.lineItems?.length > 0 ? <div className="item-count">{cart.lineItems.length}</div> : null}
+            {showCart && user && cart?.lineItems?.length > 0 ? <div className="item-count">{cart.lineItems.length}</div> : null}
           </Nav.Link>
         </Navbar.Collapse>
       </Container>
@@ -76,7 +77,8 @@ const NavBar = ({ logoutUser, cart, user }) => {
 const mapStateToProps = (state) => {
   return ({
     cart: state.cartReducer.cart,
-    user: state.authReducer.user
+    user: state.authReducer.user,
+    showCart: state.cartReducer.showCart
   })
 }
 

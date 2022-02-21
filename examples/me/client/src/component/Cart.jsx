@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
+
 import { getActiveCart, removeLineItem } from '../../store/cart/cartAction'
 import { ToastContainer, toast } from 'react-toastify';
 import { ModalView } from './Modal.jsx';
-
+import { CURRENCY_CODE } from '../constants';
 
 const Cart = ({ removeLineItem, getActiveCart, cart }) => {
   const [show, setShow] = useState(false);
@@ -80,7 +81,9 @@ const Cart = ({ removeLineItem, getActiveCart, cart }) => {
                 {item?.name?.en}
               </div>
               <div className="col-10 max-auto col-lg-2">
-                € {Number.parseFloat(item.price.value.centAmount / 100).toFixed(2).toString().replace('.', ',')}
+                {
+                  CURRENCY_CODE[item.totalPrice.currencyCode] + Number.parseFloat(item.price.value.centAmount / 100).toFixed(2).toString().replace('.', ',')
+                }
               </div>
               <div className="col-10 max-auto col-lg-2">
                 <input size="sm" className="qtyplus" defaultValue="-" onClick={() => { }} />
@@ -88,7 +91,9 @@ const Cart = ({ removeLineItem, getActiveCart, cart }) => {
                 <input size="sm" className="qtyminus" defaultValue="+" onClick={() => { }} />
               </div>
               <div className="col-10 max-auto col-lg-2">
-                € {Number.parseFloat(item.totalPrice.centAmount / 100).toFixed(2).toString().replace('.', ',')}
+                {
+                  CURRENCY_CODE[item.totalPrice.currencyCode] + Number.parseFloat(item.totalPrice.centAmount / 100).toFixed(2).toString().replace('.', ',')
+                }
               </div>
               <div className="col-10 max-auto col-lg-2">
                 <Button variant="danger" onClick={() => removeItem(item)} size="sm">Remove</Button>

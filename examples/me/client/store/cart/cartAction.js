@@ -13,6 +13,8 @@ export const REMOVE_LINE_ITEM_START = 'REMOVE_LINE_ITEM_START'
 export const REMOVE_LINE_ITEM_SUCCESS = 'REMOVE_LINE_ITEM_SUCCESS'
 export const REMOVE_LINE_ITEM_ERROR = 'REMOVE_LINE_ITEM_ERROR'
 
+export const TOGGLE_CART_VISIBILITY = 'TOGGLE_CART_VISIBILITY'
+
 const tokenStorage = new TokenStorage(localStorage)
 
 // add line item
@@ -58,6 +60,11 @@ export const removeLineItemSuccess = (cart) => ({
 export const removeLineItemError = (error) => ({
   type: REMOVE_LINE_ITEM_ERROR,
   payload: { error },
+})
+
+export const toggleCartVisibility = (value) => ({
+  type: TOGGLE_CART_VISIBILITY,
+  payload: { value },
 })
 
 export function addLineItems(data) {
@@ -135,5 +142,11 @@ export function removeLineItem(lineItem) {
     } catch (error) {
       dispatch(removeLineItemError(error))
     }
+  }
+}
+
+export function toggleCart(value) {
+  return async (dispatch) => {
+    dispatch(toggleCartVisibility(value))
   }
 }
