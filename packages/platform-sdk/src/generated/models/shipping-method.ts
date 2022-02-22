@@ -333,6 +333,9 @@ export interface CartValueTier {
    */
   readonly isMatching?: boolean
 }
+/**
+ *	Can be one of the following or absent.
+ */
 export type ShippingRateTierType =
   | 'CartClassification'
   | 'CartScore'

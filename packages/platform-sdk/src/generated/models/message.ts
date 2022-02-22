@@ -1180,22 +1180,38 @@ export interface MessagePagedQueryResponse {
    */
   readonly results: Message[]
 }
+/**
+ *	Holds the configuration for the [Messages Query](/../api/projects/messages) feature for the Project.
+ */
 export interface MessagesConfiguration {
   /**
+   *	When `true`, the [Messages Query](/../api/projects/messages) feature is active.
+   *
    *
    */
   readonly enabled: boolean
   /**
+   *	Specifies the number of days each Message should be available via the [Messages Query](/../api/projects/messages) API.
+   *	For Messages older than the specified period, it is not guaranteed that they are still accessible via the API.
+   *	This field may not be present on Projects created before 8 October 2018.
+   *
    *
    */
   readonly deleteDaysAfterCreation?: number
 }
+/**
+ *	Defines the configuration for the [Messages Query](/../api/projects/messages) feature for the Project.
+ */
 export interface MessagesConfigurationDraft {
   /**
+   *	Setting to `true` activates the [Messages Query](/../api/projects/messages) feature.
+   *
    *
    */
   readonly enabled: boolean
   /**
+   *	Specifies the number of days each Message should be available via the [Messages Query](/../api/projects/messages) API. For Messages older than the specified period, it is not guaranteed that they are still accessible via the API.
+   *
    *
    */
   readonly deleteDaysAfterCreation: number
