@@ -7,5 +7,4 @@
 export type Expansion = string
 export type QueryPredicate = string
 export type Sort = string
-export type OrderSearchQuery = string
 export type OrderSearchSorting = string

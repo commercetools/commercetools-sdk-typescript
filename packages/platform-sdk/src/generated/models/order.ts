@@ -786,12 +786,13 @@ export interface OrderResourceIdentifier {
    */
   readonly key?: string
 }
+export interface OrderSearchQuery {}
 export interface OrderSearchRequest {
   /**
    *	The Order search query.
    *
    */
-  readonly query: string
+  readonly query: OrderSearchQuery
   /**
    *	Controls how results to your query are sorted. If not provided, the results are sorted by relevance in descending order.
    *
