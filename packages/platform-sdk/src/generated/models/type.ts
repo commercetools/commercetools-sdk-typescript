@@ -281,6 +281,7 @@ export type ResourceTypeId =
   | 'payment'
   | 'payment-interface-interaction'
   | 'product-price'
+  | 'product-selection'
   | 'review'
   | 'shipping-method'
   | 'shopping-list'
