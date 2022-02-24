@@ -201,7 +201,7 @@ export interface CustomerGroupChangeNameAction {
 export interface CustomerGroupSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the Custom Field.
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
    *
    */
@@ -223,14 +223,14 @@ export interface CustomerGroupSetCustomFieldAction {
 export interface CustomerGroupSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
-   *	If absent, the [custom](/../api/projects/custom-fields) type and any existing [CustomFields](/../api/projects/custom-fields) are removed.
+   *	Defines the [Type](ctp:api:type:Type) that extends the CustomerGroup with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the CustomerGroup.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Valid JSON object, based on the [FieldDefinitions](/../api/projects/types#fielddefinition) of the [Type](/../api/projects/types#type).
-   *	Sets the [custom](/../api/projects/custom-fields) fields to this value.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the CustomerGroup.
    *
    *
    */

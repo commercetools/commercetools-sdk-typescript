@@ -370,7 +370,7 @@ export interface ProductSelectionRemoveProductAction {
 export interface ProductSelectionSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the Custom Field.
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
    *
    */
@@ -387,14 +387,14 @@ export interface ProductSelectionSetCustomFieldAction {
 export interface ProductSelectionSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the Product Selection with [Custom Fields](/../api/projects/custom-fields).
-   *	If absent, any existing Type and any existing Custom Fields are removed from the Product Selection.
+   *	Defines the [Type](ctp:api:type:Type) that extends the ProductSelection with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the ProductSelection.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Product Selection.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the ProductSelection.
    *
    *
    */

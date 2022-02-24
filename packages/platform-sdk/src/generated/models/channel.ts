@@ -328,7 +328,7 @@ export interface ChannelSetAddressAction {
 export interface ChannelSetAddressCustomFieldAction {
   readonly action: 'setAddressCustomField'
   /**
-   *	Name of the Custom Fields.
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
    *
    */
@@ -344,14 +344,14 @@ export interface ChannelSetAddressCustomFieldAction {
 export interface ChannelSetAddressCustomTypeAction {
   readonly action: 'setAddressCustomType'
   /**
-   *	If absent, the [custom](/../api/projects/custom-fields) type and any existing [CustomFields](/../api/projects/custom-fields) are removed from the address.
+   *	Defines the [Type](ctp:api:type:Type) that extends the `address` with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the `address`.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Valid JSON object, based on the [FieldDefinitions](/../api/projects/types#fielddefinition) of the [Type](/../api/projects/types#type).
-   *	Sets the [custom](/../api/projects/custom-fields) fields to this value.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `address`.
    *
    *
    */
@@ -360,16 +360,15 @@ export interface ChannelSetAddressCustomTypeAction {
 export interface ChannelSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the Custom Field.
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
    *
    */
   readonly name: string
   /**
-   *	Value must be of type [Value](/../api/projects/custom-fields#customfieldvalue).
-   *	If `value` is absent or `null`, this field will be removed, if it exists.
+   *	If `value` is absent or `null`, this field will be removed if it exists.
    *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
-   *	If `value` is provided, it is for the field defined by `name`.
+   *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
    */
@@ -378,14 +377,14 @@ export interface ChannelSetCustomFieldAction {
 export interface ChannelSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
-   *	If absent, the [custom](/../api/projects/custom-fields) type and any existing [CustomFields](/../api/projects/custom-fields) are removed.
+   *	Defines the [Type](ctp:api:type:Type) that extends the Channel with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the Channel.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Valid JSON object, based on the [FieldDefinitions](/../api/projects/types#fielddefinition) of the [Type](/../api/projects/types#type).
-   *	Sets the [custom](/../api/projects/custom-fields) fields to this value.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Channel.
    *
    *
    */

@@ -15,7 +15,12 @@ import {
   TypedMoney,
 } from './common'
 import { ProductReference, ProductResourceIdentifier } from './product'
-import { CustomFields, CustomFieldsDraft, TypeResourceIdentifier } from './type'
+import {
+  CustomFields,
+  CustomFieldsDraft,
+  FieldContainer,
+  TypeResourceIdentifier,
+} from './type'
 
 export interface CartDiscount extends BaseResource {
   /**
@@ -501,14 +506,16 @@ export interface CartDiscountChangeValueAction {
 export interface CartDiscountSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an `InvalidOperation` error.
-   *	If `value` is provided, set the `value` of the field defined by the `name`.
-   *	The FieldDefinition determines the format for the `value` to be provided.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -516,16 +523,18 @@ export interface CartDiscountSetCustomFieldAction {
 export interface CartDiscountSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
-   *	If absent, the custom type and any existing CustomFields are removed.
+   *	Defines the [Type](ctp:api:type:Type) that extends the CartDiscount with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the CartDiscount.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	A valid JSON object, based on the FieldDefinitions of the Type.
-   *	Sets the custom fields to this value.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the CartDiscount.
+   *
    *
    */
-  readonly fields?: any
+  readonly fields?: FieldContainer
 }
 export interface CartDiscountSetDescriptionAction {
   readonly action: 'setDescription'
