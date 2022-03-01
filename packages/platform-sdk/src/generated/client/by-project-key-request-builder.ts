@@ -448,10 +448,6 @@ export class ByProjectKeyRequestBuilder {
     })
   }
 
-  /**
-   *	The Endpoint is responding a limited set of information about settings and configuration of the project.
-   *
-   */
   public get(methodArgs?: {
     headers?: {
       [key: string]: string | string[]
@@ -470,9 +466,6 @@ export class ByProjectKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update project
-   */
   public post(methodArgs: {
     body: ProjectUpdate
     headers?: {

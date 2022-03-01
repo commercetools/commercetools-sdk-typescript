@@ -4,106 +4,142 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
-import { LastModifiedBy } from './common'
-import { MessageConfiguration, MessageConfigurationDraft } from './message'
+import { MessagesConfiguration, MessagesConfigurationDraft } from './message'
 import { CustomFieldLocalizedEnumValue } from './type'
 
 export interface CartsConfiguration {
   /**
-   *	if country - no state tax rate fallback should be used when a shipping address state is not explicitly covered in the rates lists of all tax categories of a cart line items. Default value 'false'
+   *	Default value for the `deleteDaysAfterLastModification` parameter of the [CartDraft](ctp:api:type:CartDraft). This field may not be present on Projects created before January 2020.
    *
-   */
-  readonly countryTaxRateFallbackEnabled?: boolean
-  /**
-   *	The default value for the deleteDaysAfterLastModification parameter of the CartDraft. Initially set to 90 for projects created after December 2019.
    *
    */
   readonly deleteDaysAfterLastModification?: number
+  /**
+   *	Indicates if country _- no state_ Tax Rate fallback should be used when a shipping address state is not explicitly covered in the rates lists of all Tax Categories of a Cart Line Items. This field may not be present on Projects created before June 2020.
+   *
+   *
+   */
+  readonly countryTaxRateFallbackEnabled?: boolean
 }
+/**
+ *	Represents a RFC 7662 compliant [OAuth 2.0 Token Introspection](https://datatracker.ietf.org/doc/html/rfc7662) endpoint. For more information, see [Requesting an access token using an external OAuth 2.0 server](/../api/authorization#requesting-an-access-token-using-an-external-oauth-server).
+ *
+ *	You can only configure **one** external OAuth 2.0 endpoint per Project. To authenticate using multiple external services (such as social network logins), use a middle layer authentication service.
+ *
+ */
 export interface ExternalOAuth {
   /**
+   *	URL with authorization header.
+   *
    *
    */
   readonly url: string
   /**
+   *	Partially hidden on retrieval.
    *
    */
   readonly authorizationHeader: string
 }
 /**
- *	Activated indicates that the Order Search feature is active. Deactivated means that the namely feature is currently configured to be inactive.
+ *	Specifies the status of the [Order Search](/../api/projects/order-search) index.
  */
 export type OrderSearchStatus = 'Activated' | 'Deactivated'
 export interface Project {
   /**
-   *	The current version of the project.
+   *	Current version of the Project.
+   *
    *
    */
   readonly version: number
   /**
-   *	The unique key of the project.
+   *	User-defined unique identifier of the Project.
+   *
    *
    */
   readonly key: string
   /**
-   *	The name of the project.
+   *	Name of the Project.
+   *
    *
    */
   readonly name: string
   /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Country code of the geographic location.
+   *
    *
    */
   readonly countries: string[]
   /**
-   *	A three-digit currency code as per [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *	Currency code of the country. A Project must have at least one currency.
+   *
    *
    */
   readonly currencies: string[]
   /**
+   *	Language of the country. A Project must have at least one language.
+   *
    *
    */
   readonly languages: string[]
   /**
+   *	Date and time (UTC) the Project was initially created.
+   *
    *
    */
   readonly createdAt: string
   /**
-   *	The time is in the format Year-Month `YYYY-MM`.
+   *	Date in YYYY-MM format specifying when the trial period for the Project ends. Only present on Projects in trial period.
+   *
    *
    */
   readonly trialUntil?: string
   /**
+   *	Holds the configuration for the [Messages Query](/../api/projects/messages) feature.
+   *
    *
    */
-  readonly messages: MessageConfiguration
+  readonly messages: MessagesConfiguration
   /**
+   *	Holds the configuration for the [Carts](/../api/projects/carts) feature.
    *
-   */
-  readonly shippingRateInputType?: ShippingRateInputType
-  /**
-   *
-   */
-  readonly externalOAuth?: ExternalOAuth
-  /**
    *
    */
   readonly carts: CartsConfiguration
   /**
+   *	Holds the configuration for the [Shopping Lists](/../api/projects/shoppingLists) feature. This field may not be present on Projects created before January 2020.
    *
-   */
-  readonly searchIndexing?: SearchIndexingConfiguration
-  /**
    *
    */
   readonly shoppingLists?: ShoppingListsConfiguration
+  /**
+   *	Holds the configuration for the [tiered shipping rates](ctp:api:type:ShippingRatePriceTier) feature.
+   *
+   *
+   */
+  readonly shippingRateInputType?: ShippingRateInputType
+  /**
+   *	Represents a RFC 7662 compliant [OAuth 2.0 Token Introspection](https://datatracker.ietf.org/doc/html/rfc7662) endpoint.
+   *
+   *
+   */
+  readonly externalOAuth?: ExternalOAuth
+  /**
+   *	Controls indexing of resources to be provided on high performance read-only search endpoints.
+   *
+   *
+   */
+  readonly searchIndexing?: SearchIndexingConfiguration
 }
 export interface ProjectUpdate {
   /**
+   *	Expected version of the Project on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *
    *
    */
   readonly version: number
   /**
+   *	Update actions to be performed on the Project.
+   *
    *
    */
   readonly actions: ProjectUpdateAction[]
@@ -122,9 +158,13 @@ export type ProjectUpdateAction =
   | ProjectChangeShoppingListsConfigurationAction
   | ProjectSetExternalOAuthAction
   | ProjectSetShippingRateInputTypeAction
+/**
+ *	Controls indexing of resources to be provided on high performance read-only search endpoints.
+ *
+ */
 export interface SearchIndexingConfiguration {
   /**
-   *	Configuration for endpoints serving indexed [Product](ctp:api:type:Product) information.
+   *	Configuration for the [Product Projection Search](/../api/projects/products-search) and [Product Suggestions](/../api/projects/products-suggestions) endpoints.
    *
    */
   readonly products?: SearchIndexingConfigurationValues
@@ -135,7 +175,7 @@ export interface SearchIndexingConfiguration {
   readonly orders?: SearchIndexingConfigurationValues
 }
 /**
- *	Can be one of the following or absent. "Activated" or absent means that the search and suggest endpoints for the specified resource type are active. "Deactivated" means that the search and suggest endpoints for the specified resource type cannot be used. "Indexing" indicates that the search and suggest endpoints can _temporally_ not be used because the search index is being re-built.
+ *	Status of resource indexing.
  */
 export type SearchIndexingConfigurationStatus =
   | 'Activated'
@@ -143,20 +183,22 @@ export type SearchIndexingConfigurationStatus =
   | 'Indexing'
 export interface SearchIndexingConfigurationValues {
   /**
-   *	Can be one of the following or absent. "Activated" or absent means that the search and suggest endpoints for the specified resource type are active. "Deactivated" means that the search and suggest endpoints for the specified resource type cannot be used. "Indexing" indicates that the search and suggest endpoints can _temporally_ not be used because the search index is being re-built.
+   *	Current status of resource indexing. Present on Projects from 1 February 2019.
    *
    */
   readonly status?: SearchIndexingConfigurationStatus
   /**
+   *	Date and time (UTC) the Project was last updated.
+   *
    *
    */
-  readonly lastModifiedAt?: string
+  readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
    *
    *
    */
-  readonly lastModifiedBy?: LastModifiedBy
+  readonly lastModifiedBy?: string
 }
 export type ShippingRateInputType =
   | CartClassificationType
@@ -165,6 +207,7 @@ export type ShippingRateInputType =
 export interface CartClassificationType {
   readonly type: 'CartClassification'
   /**
+   *	The classification items that can be used for specifiying any [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
    *
    */
   readonly values: CustomFieldLocalizedEnumValue[]
@@ -177,7 +220,9 @@ export interface CartValueType {
 }
 export interface ShoppingListsConfiguration {
   /**
-   *	The default value for the deleteDaysAfterLastModification parameter of the ShoppingListDraft. Initially set to 360 for projects created after December 2019.
+   *	Default value for the `deleteDaysAfterLastModification` parameter of the [ShoppingListDraft](ctp:api:type:ShoppingListDraft).
+   *	This field may not be present on Projects created before January 2020.
+   *
    *
    */
   readonly deleteDaysAfterLastModification?: number
@@ -185,14 +230,17 @@ export interface ShoppingListsConfiguration {
 export interface ProjectChangeCartsConfigurationAction {
   readonly action: 'changeCartsConfiguration'
   /**
+   *	Configuration for the [Carts](/../api/projects/carts) feature.
+   *
    *
    */
-  readonly cartsConfiguration?: CartsConfiguration
+  readonly cartsConfiguration: CartsConfiguration
 }
 export interface ProjectChangeCountriesAction {
   readonly action: 'changeCountries'
   /**
-   *	A two-digit country code as per country code.
+   *	New value to set. Must not be empty.
+   *
    *
    */
   readonly countries: string[]
@@ -200,7 +248,7 @@ export interface ProjectChangeCountriesAction {
 export interface ProjectChangeCountryTaxRateFallbackEnabledAction {
   readonly action: 'changeCountryTaxRateFallbackEnabled'
   /**
-   *	default value is `false`
+   *	When `true`, country _- no state_ Tax Rate is used as fallback. See [CartsConfiguration](ctp:api:type:CartsConfiguration).
    *
    */
   readonly countryTaxRateFallbackEnabled: boolean
@@ -208,15 +256,21 @@ export interface ProjectChangeCountryTaxRateFallbackEnabledAction {
 export interface ProjectChangeCurrenciesAction {
   readonly action: 'changeCurrencies'
   /**
-   *	A three-digit currency code as per currency code.
+   *	New value to set. Must not be empty.
+   *
    *
    */
   readonly currencies: string[]
 }
+/**
+ *	If a language is used by a [Store](ctp:api:type:Store), it cannot be deleted. Attempts to delete such language will lead to [LanguageUsedInStores](/../api/errors#projects-400-language-used-in-stores) errors.
+ *
+ */
 export interface ProjectChangeLanguagesAction {
   readonly action: 'changeLanguages'
   /**
-   *	 .
+   *	New value to set. Must not be empty.
+   *
    *
    */
   readonly languages: string[]
@@ -224,9 +278,10 @@ export interface ProjectChangeLanguagesAction {
 export interface ProjectChangeMessagesConfigurationAction {
   readonly action: 'changeMessagesConfiguration'
   /**
+   *	Configuration for the [Messages Query](/../api/projects/messages) feature.
    *
    */
-  readonly messagesConfiguration: MessageConfigurationDraft
+  readonly messagesConfiguration: MessagesConfigurationDraft
 }
 export interface ProjectChangeMessagesEnabledAction {
   readonly action: 'changeMessagesEnabled'
@@ -238,6 +293,8 @@ export interface ProjectChangeMessagesEnabledAction {
 export interface ProjectChangeNameAction {
   readonly action: 'changeName'
   /**
+   *	New value to set. Must not be empty.
+   *
    *
    */
   readonly name: string
@@ -245,7 +302,7 @@ export interface ProjectChangeNameAction {
 export interface ProjectChangeOrderSearchStatusAction {
   readonly action: 'changeOrderSearchStatus'
   /**
-   *	Activated indicates that the Order Search feature is active. Deactivated means that the namely feature is currently configured to be inactive.
+   *	Activates or deactivates the [Order Search](/../api/projects/order-search) feature. Activation will trigger building a search index for the Orders in the Project.
    *
    */
   readonly status: OrderSearchStatus
@@ -253,6 +310,10 @@ export interface ProjectChangeOrderSearchStatusAction {
 export interface ProjectChangeProductSearchIndexingEnabledAction {
   readonly action: 'changeProductSearchIndexingEnabled'
   /**
+   *	If `false`, the indexing of [Product](ctp:api:type:Product) information will stop and the [Product Projection Search](/../api/projects/products-search) as well as the [Product Suggestions](/../api/projects/products-suggestions) endpoint will not be available anymore for this Project. The Project's [SearchIndexingConfiguration](ctp:api:type:SearchIndexingConfiguration) `status` for `products` will be changed to `"Deactivated"`.
+   *
+   *	If `true`, the indexing of [Product](ctp:api:type:Product) information will start and the [Product Projection Search](/../api/projects/products-search) as well as the [Product Suggestions](/../api/projects/products-suggestions) endpoint will become available soon after for this Project. Proportional to the amount of information being indexed, the Project's [SearchIndexingConfiguration](ctp:api:type:SearchIndexingConfiguration) `status` for `products` will be shown as `"Indexing"` during this time. As soon as the indexing has finished, the configuration status will be changed to `"Activated"` making the aforementioned endpoints fully available for this Project.
+   *
    *
    */
   readonly enabled: boolean
@@ -260,15 +321,16 @@ export interface ProjectChangeProductSearchIndexingEnabledAction {
 export interface ProjectChangeShoppingListsConfigurationAction {
   readonly action: 'changeShoppingListsConfiguration'
   /**
+   *	Configuration for the [Shopping Lists](/../api/projects/shoppingLists) feature.
+   *
    *
    */
-  readonly shoppingListsConfiguration?: ShoppingListsConfiguration
+  readonly shoppingListsConfiguration: ShoppingListsConfiguration
 }
 export interface ProjectSetExternalOAuthAction {
   readonly action: 'setExternalOAuth'
   /**
-   *	If you do not provide the `externalOAuth` field or provide a value
-   *	of `null`, the update action unsets the External OAuth provider.
+   *	Value to set. If empty, any existing value will be removed.
    *
    *
    */
@@ -277,7 +339,8 @@ export interface ProjectSetExternalOAuthAction {
 export interface ProjectSetShippingRateInputTypeAction {
   readonly action: 'setShippingRateInputType'
   /**
-   *	If not set, removes existing shippingRateInputType.
+   *	Value to set. If empty, any existing value will be removed.
+   *
    *
    */
   readonly shippingRateInputType?: ShippingRateInputType

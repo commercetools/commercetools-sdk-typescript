@@ -98,6 +98,7 @@ export type ErrorObject =
   | WeakPasswordError
 export interface AccessDeniedError {
   readonly code: 'access_denied'
+  [key: string]: any
   /**
    *
    */
@@ -105,6 +106,7 @@ export interface AccessDeniedError {
 }
 export interface AnonymousIdAlreadyInUseError {
   readonly code: 'AnonymousIdAlreadyInUse'
+  [key: string]: any
   /**
    *
    */
@@ -112,6 +114,7 @@ export interface AnonymousIdAlreadyInUseError {
 }
 export interface AttributeDefinitionAlreadyExistsError {
   readonly code: 'AttributeDefinitionAlreadyExists'
+  [key: string]: any
   /**
    *
    */
@@ -131,6 +134,7 @@ export interface AttributeDefinitionAlreadyExistsError {
 }
 export interface AttributeDefinitionTypeConflictError {
   readonly code: 'AttributeDefinitionTypeConflict'
+  [key: string]: any
   /**
    *
    */
@@ -150,6 +154,7 @@ export interface AttributeDefinitionTypeConflictError {
 }
 export interface AttributeNameDoesNotExistError {
   readonly code: 'AttributeNameDoesNotExist'
+  [key: string]: any
   /**
    *
    */
@@ -161,6 +166,7 @@ export interface AttributeNameDoesNotExistError {
 }
 export interface BadGatewayError {
   readonly code: 'BadGateway'
+  [key: string]: any
   /**
    *
    */
@@ -168,6 +174,7 @@ export interface BadGatewayError {
 }
 export interface ConcurrentModificationError {
   readonly code: 'ConcurrentModification'
+  [key: string]: any
   /**
    *
    */
@@ -179,6 +186,7 @@ export interface ConcurrentModificationError {
 }
 export interface DiscountCodeNonApplicableError {
   readonly code: 'DiscountCodeNonApplicable'
+  [key: string]: any
   /**
    *
    */
@@ -210,6 +218,7 @@ export interface DiscountCodeNonApplicableError {
 }
 export interface DuplicateAttributeValueError {
   readonly code: 'DuplicateAttributeValue'
+  [key: string]: any
   /**
    *
    */
@@ -221,6 +230,7 @@ export interface DuplicateAttributeValueError {
 }
 export interface DuplicateAttributeValuesError {
   readonly code: 'DuplicateAttributeValues'
+  [key: string]: any
   /**
    *
    */
@@ -232,6 +242,7 @@ export interface DuplicateAttributeValuesError {
 }
 export interface DuplicateEnumValuesError {
   readonly code: 'DuplicateEnumValues'
+  [key: string]: any
   /**
    *
    */
@@ -243,6 +254,7 @@ export interface DuplicateEnumValuesError {
 }
 export interface DuplicateFieldError {
   readonly code: 'DuplicateField'
+  [key: string]: any
   /**
    *
    */
@@ -262,6 +274,7 @@ export interface DuplicateFieldError {
 }
 export interface DuplicateFieldWithConflictingResourceError {
   readonly code: 'DuplicateFieldWithConflictingResource'
+  [key: string]: any
   /**
    *
    */
@@ -281,6 +294,7 @@ export interface DuplicateFieldWithConflictingResourceError {
 }
 export interface DuplicatePriceScopeError {
   readonly code: 'DuplicatePriceScope'
+  [key: string]: any
   /**
    *
    */
@@ -292,6 +306,7 @@ export interface DuplicatePriceScopeError {
 }
 export interface DuplicateVariantValuesError {
   readonly code: 'DuplicateVariantValues'
+  [key: string]: any
   /**
    *
    */
@@ -303,6 +318,7 @@ export interface DuplicateVariantValuesError {
 }
 export interface EditPreviewFailedError {
   readonly code: 'EditPreviewFailed'
+  [key: string]: any
   /**
    *
    */
@@ -314,6 +330,7 @@ export interface EditPreviewFailedError {
 }
 export interface EnumKeyAlreadyExistsError {
   readonly code: 'EnumKeyAlreadyExists'
+  [key: string]: any
   /**
    *
    */
@@ -329,6 +346,7 @@ export interface EnumKeyAlreadyExistsError {
 }
 export interface EnumKeyDoesNotExistError {
   readonly code: 'EnumKeyDoesNotExist'
+  [key: string]: any
   /**
    *
    */
@@ -344,6 +362,7 @@ export interface EnumKeyDoesNotExistError {
 }
 export interface EnumValueIsUsedError {
   readonly code: 'EnumValueIsUsed'
+  [key: string]: any
   /**
    *
    */
@@ -351,6 +370,7 @@ export interface EnumValueIsUsedError {
 }
 export interface EnumValuesMustMatchError {
   readonly code: 'EnumValuesMustMatch'
+  [key: string]: any
   /**
    *
    */
@@ -380,6 +400,7 @@ export interface ErrorResponse {
 }
 export interface ExtensionBadResponseError {
   readonly code: 'ExtensionBadResponse'
+  [key: string]: any
   /**
    *
    */
@@ -399,6 +420,7 @@ export interface ExtensionBadResponseError {
 }
 export interface ExtensionNoResponseError {
   readonly code: 'ExtensionNoResponse'
+  [key: string]: any
   /**
    *
    */
@@ -414,6 +436,7 @@ export interface ExtensionNoResponseError {
 }
 export interface ExtensionUpdateActionsFailedError {
   readonly code: 'ExtensionUpdateActionsFailed'
+  [key: string]: any
   /**
    *
    */
@@ -433,6 +456,7 @@ export interface ExtensionUpdateActionsFailedError {
 }
 export interface ExternalOAuthFailedError {
   readonly code: 'ExternalOAuthFailed'
+  [key: string]: any
   /**
    *
    */
@@ -440,6 +464,7 @@ export interface ExternalOAuthFailedError {
 }
 export interface FeatureRemovedError {
   readonly code: 'FeatureRemoved'
+  [key: string]: any
   /**
    *
    */
@@ -447,6 +472,7 @@ export interface FeatureRemovedError {
 }
 export interface GeneralError {
   readonly code: 'General'
+  [key: string]: any
   /**
    *
    */
@@ -454,6 +480,7 @@ export interface GeneralError {
 }
 export interface InsufficientScopeError {
   readonly code: 'insufficient_scope'
+  [key: string]: any
   /**
    *
    */
@@ -461,6 +488,7 @@ export interface InsufficientScopeError {
 }
 export interface InternalConstraintViolatedError {
   readonly code: 'InternalConstraintViolated'
+  [key: string]: any
   /**
    *
    */
@@ -468,6 +496,7 @@ export interface InternalConstraintViolatedError {
 }
 export interface InvalidCredentialsError {
   readonly code: 'InvalidCredentials'
+  [key: string]: any
   /**
    *
    */
@@ -475,6 +504,7 @@ export interface InvalidCredentialsError {
 }
 export interface InvalidCurrentPasswordError {
   readonly code: 'InvalidCurrentPassword'
+  [key: string]: any
   /**
    *
    */
@@ -482,6 +512,7 @@ export interface InvalidCurrentPasswordError {
 }
 export interface InvalidFieldError {
   readonly code: 'InvalidField'
+  [key: string]: any
   /**
    *
    */
@@ -501,6 +532,7 @@ export interface InvalidFieldError {
 }
 export interface InvalidInputError {
   readonly code: 'InvalidInput'
+  [key: string]: any
   /**
    *
    */
@@ -508,6 +540,7 @@ export interface InvalidInputError {
 }
 export interface InvalidItemShippingDetailsError {
   readonly code: 'InvalidItemShippingDetails'
+  [key: string]: any
   /**
    *
    */
@@ -523,6 +556,7 @@ export interface InvalidItemShippingDetailsError {
 }
 export interface InvalidJsonInputError {
   readonly code: 'InvalidJsonInput'
+  [key: string]: any
   /**
    *
    */
@@ -530,6 +564,7 @@ export interface InvalidJsonInputError {
 }
 export interface InvalidOperationError {
   readonly code: 'InvalidOperation'
+  [key: string]: any
   /**
    *
    */
@@ -537,6 +572,7 @@ export interface InvalidOperationError {
 }
 export interface InvalidSubjectError {
   readonly code: 'InvalidSubject'
+  [key: string]: any
   /**
    *
    */
@@ -544,6 +580,7 @@ export interface InvalidSubjectError {
 }
 export interface InvalidTokenError {
   readonly code: 'invalid_token'
+  [key: string]: any
   /**
    *
    */
@@ -551,6 +588,7 @@ export interface InvalidTokenError {
 }
 export interface LanguageUsedInStoresError {
   readonly code: 'LanguageUsedInStores'
+  [key: string]: any
   /**
    *
    */
@@ -558,6 +596,7 @@ export interface LanguageUsedInStoresError {
 }
 export interface MatchingPriceNotFoundError {
   readonly code: 'MatchingPriceNotFound'
+  [key: string]: any
   /**
    *
    */
@@ -593,6 +632,7 @@ export interface MatchingPriceNotFoundError {
 }
 export interface MaxResourceLimitExceededError {
   readonly code: 'MaxResourceLimitExceeded'
+  [key: string]: any
   /**
    *
    */
@@ -604,6 +644,7 @@ export interface MaxResourceLimitExceededError {
 }
 export interface MissingRoleOnChannelError {
   readonly code: 'MissingRoleOnChannel'
+  [key: string]: any
   /**
    *
    */
@@ -623,6 +664,7 @@ export interface MissingRoleOnChannelError {
 }
 export interface MissingTaxRateForCountryError {
   readonly code: 'MissingTaxRateForCountry'
+  [key: string]: any
   /**
    *
    */
@@ -642,6 +684,7 @@ export interface MissingTaxRateForCountryError {
 }
 export interface NoMatchingProductDiscountFoundError {
   readonly code: 'NoMatchingProductDiscountFound'
+  [key: string]: any
   /**
    *
    */
@@ -649,6 +692,7 @@ export interface NoMatchingProductDiscountFoundError {
 }
 export interface NotEnabledError {
   readonly code: 'NotEnabled'
+  [key: string]: any
   /**
    *
    */
@@ -656,6 +700,7 @@ export interface NotEnabledError {
 }
 export interface ObjectNotFoundError {
   readonly code: 'ObjectNotFound'
+  [key: string]: any
   /**
    *
    */
@@ -663,6 +708,7 @@ export interface ObjectNotFoundError {
 }
 export interface OutOfStockError {
   readonly code: 'OutOfStock'
+  [key: string]: any
   /**
    *
    */
@@ -678,6 +724,7 @@ export interface OutOfStockError {
 }
 export interface OverCapacityError {
   readonly code: 'OverCapacity'
+  [key: string]: any
   /**
    *
    */
@@ -685,6 +732,7 @@ export interface OverCapacityError {
 }
 export interface PendingOperationError {
   readonly code: 'PendingOperation'
+  [key: string]: any
   /**
    *
    */
@@ -692,6 +740,7 @@ export interface PendingOperationError {
 }
 export interface PriceChangedError {
   readonly code: 'PriceChanged'
+  [key: string]: any
   /**
    *
    */
@@ -707,6 +756,7 @@ export interface PriceChangedError {
 }
 export interface ProjectNotConfiguredForLanguagesError {
   readonly code: 'ProjectNotConfiguredForLanguages'
+  [key: string]: any
   /**
    *
    */
@@ -718,6 +768,7 @@ export interface ProjectNotConfiguredForLanguagesError {
 }
 export interface QueryComplexityLimitExceededError {
   readonly code: 'QueryComplexityLimitExceeded'
+  [key: string]: any
   /**
    *
    */
@@ -725,6 +776,7 @@ export interface QueryComplexityLimitExceededError {
 }
 export interface QueryTimedOutError {
   readonly code: 'QueryTimedOut'
+  [key: string]: any
   /**
    *
    */
@@ -732,6 +784,7 @@ export interface QueryTimedOutError {
 }
 export interface ReferenceExistsError {
   readonly code: 'ReferenceExists'
+  [key: string]: any
   /**
    *
    */
@@ -743,6 +796,7 @@ export interface ReferenceExistsError {
 }
 export interface ReferencedResourceNotFoundError {
   readonly code: 'ReferencedResourceNotFound'
+  [key: string]: any
   /**
    *
    */
@@ -762,6 +816,7 @@ export interface ReferencedResourceNotFoundError {
 }
 export interface RequiredFieldError {
   readonly code: 'RequiredField'
+  [key: string]: any
   /**
    *
    */
@@ -773,6 +828,7 @@ export interface RequiredFieldError {
 }
 export interface ResourceNotFoundError {
   readonly code: 'ResourceNotFound'
+  [key: string]: any
   /**
    *
    */
@@ -780,6 +836,7 @@ export interface ResourceNotFoundError {
 }
 export interface ResourceSizeLimitExceededError {
   readonly code: 'ResourceSizeLimitExceeded'
+  [key: string]: any
   /**
    *
    */
@@ -787,6 +844,7 @@ export interface ResourceSizeLimitExceededError {
 }
 export interface SearchDeactivatedError {
   readonly code: 'SearchDeactivated'
+  [key: string]: any
   /**
    *
    */
@@ -794,6 +852,7 @@ export interface SearchDeactivatedError {
 }
 export interface SearchExecutionFailureError {
   readonly code: 'SearchExecutionFailure'
+  [key: string]: any
   /**
    *
    */
@@ -801,6 +860,7 @@ export interface SearchExecutionFailureError {
 }
 export interface SearchFacetPathNotFoundError {
   readonly code: 'SearchFacetPathNotFound'
+  [key: string]: any
   /**
    *
    */
@@ -808,6 +868,7 @@ export interface SearchFacetPathNotFoundError {
 }
 export interface SearchIndexingInProgressError {
   readonly code: 'SearchIndexingInProgress'
+  [key: string]: any
   /**
    *
    */
@@ -815,6 +876,7 @@ export interface SearchIndexingInProgressError {
 }
 export interface SemanticErrorError {
   readonly code: 'SemanticError'
+  [key: string]: any
   /**
    *
    */
@@ -822,6 +884,7 @@ export interface SemanticErrorError {
 }
 export interface ShippingMethodDoesNotMatchCartError {
   readonly code: 'ShippingMethodDoesNotMatchCart'
+  [key: string]: any
   /**
    *
    */
@@ -829,6 +892,7 @@ export interface ShippingMethodDoesNotMatchCartError {
 }
 export interface SyntaxErrorError {
   readonly code: 'SyntaxError'
+  [key: string]: any
   /**
    *
    */
@@ -850,6 +914,7 @@ export interface VariantValues {
 }
 export interface WeakPasswordError {
   readonly code: 'WeakPassword'
+  [key: string]: any
   /**
    *
    */

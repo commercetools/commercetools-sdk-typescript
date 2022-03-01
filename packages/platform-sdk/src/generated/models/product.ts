@@ -46,11 +46,7 @@ export interface Attribute {
 export interface CategoryOrderHints {
   [key: string]: string
 }
-export type FacetResult =
-  | FilteredFacetResult
-  | RangeFacetResult
-  | TermFacetResult
-export interface FacetResultRange {
+export interface FacetRange {
   /**
    *
    */
@@ -92,7 +88,14 @@ export interface FacetResultRange {
    */
   readonly mean: number
 }
-export interface FacetResultTerm {
+export type FacetResult =
+  | FilteredFacetResult
+  | RangeFacetResult
+  | TermFacetResult
+export interface FacetResults {
+  [key: string]: FacetResult
+}
+export interface FacetTerm {
   /**
    *
    */
@@ -105,9 +108,6 @@ export interface FacetResultTerm {
    *
    */
   readonly productCount?: number
-}
-export interface FacetResults {
-  [key: string]: FacetResult
 }
 export type FacetTypes = 'filter' | 'range' | 'terms'
 export interface FilteredFacetResult {
@@ -681,7 +681,7 @@ export interface RangeFacetResult {
   /**
    *
    */
-  readonly ranges: FacetResultRange[]
+  readonly ranges: FacetRange[]
 }
 export interface SearchKeyword {
   /**
@@ -735,7 +735,7 @@ export interface TermFacetResult {
   /**
    *
    */
-  readonly terms: FacetResultTerm[]
+  readonly terms: FacetTerm[]
 }
 export type TermFacetResultType =
   | 'boolean'
@@ -1113,10 +1113,16 @@ export interface ProductSetAssetCustomFieldAction {
    */
   readonly assetKey?: string
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1144,16 +1150,18 @@ export interface ProductSetAssetCustomTypeAction {
    */
   readonly assetKey?: string
   /**
-   *	If set, the custom type is set to this new value.
-   *	If absent, the custom type and any existing custom fields are removed.
+   *	Defines the [Type](ctp:api:type:Type) that extends the Asset with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the Asset.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	If set, the custom fields are set to this new value.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Asset.
+   *
    *
    */
-  readonly fields?: any
+  readonly fields?: FieldContainer
 }
 export interface ProductSetAssetDescriptionAction {
   readonly action: 'setAssetDescription'
@@ -1442,10 +1450,16 @@ export interface ProductSetProductPriceCustomFieldAction {
    */
   readonly staged?: boolean
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1461,10 +1475,15 @@ export interface ProductSetProductPriceCustomTypeAction {
    */
   readonly staged?: boolean
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the Price with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the Price.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Price.
+   *
    *
    */
   readonly fields?: FieldContainer

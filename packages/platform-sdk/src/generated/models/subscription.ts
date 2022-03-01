@@ -13,17 +13,19 @@ export interface ChangeSubscription {
    */
   readonly resourceTypeId: string
 }
-export type DeliveryFormat = DeliveryCloudEventsFormat | DeliveryPlatformFormat
-export interface DeliveryCloudEventsFormat {
+export type DeliveryFormat = CloudEventsFormat | PlatformFormat
+export interface CloudEventsFormat {
   readonly type: 'CloudEvents'
   /**
    *
    */
   readonly cloudEventsVersion: string
 }
-export interface DeliveryPlatformFormat {
-  readonly type: 'Platform'
-}
+export type DeliveryPayload =
+  | MessageDeliveryPayload
+  | ResourceCreatedDeliveryPayload
+  | ResourceDeletedDeliveryPayload
+  | ResourceUpdatedDeliveryPayload
 export type Destination =
   | AzureEventGridDestination
   | AzureServiceBusDestination
@@ -85,6 +87,49 @@ export interface IronMqDestination {
    */
   readonly uri: string
 }
+export interface MessageDeliveryPayload {
+  readonly notificationType: 'Message'
+  /**
+   *
+   */
+  readonly projectKey: string
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly payloadNotIncluded: PayloadNotIncluded
+}
 export interface MessageSubscription {
   /**
    *
@@ -104,6 +149,86 @@ export interface PayloadNotIncluded {
    *
    */
   readonly payloadType: string
+}
+export interface PlatformFormat {
+  readonly type: 'Platform'
+}
+export interface ResourceCreatedDeliveryPayload {
+  readonly notificationType: 'ResourceCreated'
+  /**
+   *
+   */
+  readonly projectKey: string
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly modifiedAt: string
+}
+export interface ResourceDeletedDeliveryPayload {
+  readonly notificationType: 'ResourceDeleted'
+  /**
+   *
+   */
+  readonly projectKey: string
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly modifiedAt: string
+  /**
+   *
+   */
+  readonly dataErasure?: boolean
+}
+export interface ResourceUpdatedDeliveryPayload {
+  readonly notificationType: 'ResourceUpdated'
+  /**
+   *
+   */
+  readonly projectKey: string
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly oldVersion: number
+  /**
+   *
+   */
+  readonly modifiedAt: string
 }
 export interface SnsDestination {
   readonly type: 'SNS'
@@ -192,131 +317,6 @@ export interface Subscription extends BaseResource {
    *
    */
   readonly status: SubscriptionHealthStatus
-}
-export type SubscriptionDelivery =
-  | MessageDelivery
-  | ResourceCreatedDelivery
-  | ResourceDeletedDelivery
-  | ResourceUpdatedDelivery
-export interface MessageDelivery {
-  readonly notificationType: 'Message'
-  /**
-   *
-   */
-  readonly projectKey: string
-  /**
-   *
-   */
-  readonly resource: Reference
-  /**
-   *
-   */
-  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
-  /**
-   *
-   */
-  readonly id: string
-  /**
-   *
-   */
-  readonly version: number
-  /**
-   *
-   */
-  readonly createdAt: string
-  /**
-   *
-   */
-  readonly lastModifiedAt: string
-  /**
-   *
-   */
-  readonly sequenceNumber: number
-  /**
-   *
-   */
-  readonly resourceVersion: number
-  /**
-   *
-   */
-  readonly payloadNotIncluded: PayloadNotIncluded
-}
-export interface ResourceCreatedDelivery {
-  readonly notificationType: 'ResourceCreated'
-  /**
-   *
-   */
-  readonly projectKey: string
-  /**
-   *
-   */
-  readonly resource: Reference
-  /**
-   *
-   */
-  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
-  /**
-   *
-   */
-  readonly version: number
-  /**
-   *
-   */
-  readonly modifiedAt: string
-}
-export interface ResourceDeletedDelivery {
-  readonly notificationType: 'ResourceDeleted'
-  /**
-   *
-   */
-  readonly projectKey: string
-  /**
-   *
-   */
-  readonly resource: Reference
-  /**
-   *
-   */
-  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
-  /**
-   *
-   */
-  readonly version: number
-  /**
-   *
-   */
-  readonly modifiedAt: string
-  /**
-   *
-   */
-  readonly dataErasure?: boolean
-}
-export interface ResourceUpdatedDelivery {
-  readonly notificationType: 'ResourceUpdated'
-  /**
-   *
-   */
-  readonly projectKey: string
-  /**
-   *
-   */
-  readonly resource: Reference
-  /**
-   *
-   */
-  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
-  /**
-   *
-   */
-  readonly version: number
-  /**
-   *
-   */
-  readonly oldVersion: number
-  /**
-   *
-   */
-  readonly modifiedAt: string
 }
 export interface SubscriptionDraft {
   /**

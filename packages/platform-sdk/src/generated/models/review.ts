@@ -273,10 +273,16 @@ export interface ReviewSetAuthorNameAction {
 export interface ReviewSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -284,13 +290,15 @@ export interface ReviewSetCustomFieldAction {
 export interface ReviewSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
-   *	If absent, the custom type and any existing custom fields are removed.
+   *	Defines the [Type](ctp:api:type:Type) that extends the Review with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the Review.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	A valid JSON object, based on the FieldDefinitions of the Type.
-   *	Sets the CustomFields to this value.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Review.
+   *
    *
    */
   readonly fields?: FieldContainer

@@ -47,6 +47,15 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .matchingLocation()
         .get({ queryArgs: { expand: 'expand', country: 'country' } }),
     },
+    {
+      method: 'get',
+      uri: '/test_projectKey/shipping-methods/matching-location?sort=sort&country=country',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .shippingMethods()
+        .matchingLocation()
+        .get({ queryArgs: { sort: 'sort', country: 'country' } }),
+    },
   ]
 }
 

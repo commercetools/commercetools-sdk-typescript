@@ -513,6 +513,8 @@ export interface MyCartAddItemShippingAddressAction {
 export interface MyCartAddLineItemAction {
   readonly action: 'addLineItem'
   /**
+   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
@@ -549,6 +551,9 @@ export interface MyCartAddLineItemAction {
    */
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly externalPrice?: Money
@@ -594,6 +599,9 @@ export interface MyCartChangeLineItemQuantityAction {
    */
   readonly quantity: number
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly externalPrice?: Money
@@ -641,6 +649,9 @@ export interface MyCartRemoveLineItemAction {
    */
   readonly quantity?: number
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly externalPrice?: Money
@@ -679,10 +690,16 @@ export interface MyCartSetCountryAction {
 export interface MyCartSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -690,10 +707,15 @@ export interface MyCartSetCustomFieldAction {
 export interface MyCartSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the MyCart with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the MyCart.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the MyCart.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -719,10 +741,16 @@ export interface MyCartSetLineItemCustomFieldAction {
    */
   readonly lineItemId: string
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -734,10 +762,15 @@ export interface MyCartSetLineItemCustomTypeAction {
    */
   readonly lineItemId: string
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the LineItem with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the LineItem.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the LineItem.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -905,10 +938,16 @@ export interface MyCustomerSetCompanyNameAction {
 export interface MyCustomerSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -916,10 +955,15 @@ export interface MyCustomerSetCustomFieldAction {
 export interface MyCustomerSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the MyCustomer with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the MyCustomer.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the MyCustomer.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -1012,6 +1056,9 @@ export interface MyPaymentAddTransactionAction {
 export interface MyPaymentChangeAmountPlannedAction {
   readonly action: 'changeAmountPlanned'
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly amount: Money
@@ -1019,10 +1066,16 @@ export interface MyPaymentChangeAmountPlannedAction {
 export interface MyPaymentSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1051,10 +1104,16 @@ export interface MyPaymentSetMethodInfoNameAction {
 export interface MyPaymentSetTransactionCustomFieldAction {
   readonly action: 'setTransactionCustomField'
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1082,6 +1141,8 @@ export interface MyShoppingListAddLineItemAction {
    */
   readonly addedAt?: string
   /**
+   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
@@ -1105,6 +1166,8 @@ export interface MyShoppingListAddTextLineItemAction {
    */
   readonly addedAt?: string
   /**
+   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
@@ -1188,10 +1251,16 @@ export interface MyShoppingListRemoveTextLineItemAction {
 export interface MyShoppingListSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1199,10 +1268,15 @@ export interface MyShoppingListSetCustomFieldAction {
 export interface MyShoppingListSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the MyShoppingList with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the MyShoppingList.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the MyShoppingList.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -1228,10 +1302,16 @@ export interface MyShoppingListSetLineItemCustomFieldAction {
    */
   readonly lineItemId: string
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1243,10 +1323,15 @@ export interface MyShoppingListSetLineItemCustomTypeAction {
    */
   readonly lineItemId: string
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the LineItem with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the LineItem.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the LineItem.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -1258,10 +1343,16 @@ export interface MyShoppingListSetTextLineItemCustomFieldAction {
    */
   readonly textLineItemId: string
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1273,10 +1364,15 @@ export interface MyShoppingListSetTextLineItemCustomTypeAction {
    */
   readonly textLineItemId: string
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the TextLineItem with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the TextLineItem.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the TextLineItem.
+   *
    *
    */
   readonly fields?: FieldContainer

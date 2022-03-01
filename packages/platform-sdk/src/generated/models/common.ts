@@ -132,6 +132,8 @@ export interface Asset {
    */
   readonly tags?: string[]
   /**
+   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *
    *
    */
   readonly custom?: CustomFields
@@ -168,6 +170,8 @@ export interface AssetDraft {
    */
   readonly tags?: string[]
   /**
+   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
@@ -349,6 +353,8 @@ export interface ClientLogging {
 export interface CreatedBy extends ClientLogging {}
 export interface DiscountedPrice {
   /**
+   *	Base polymorphic read-only Money type which is stored in cent precision or high precision. The actual type is determined by the `type` field.
+   *
    *
    */
   readonly value: TypedMoney
@@ -359,6 +365,9 @@ export interface DiscountedPrice {
 }
 export interface DiscountedPriceDraft {
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly value: Money
@@ -404,8 +413,18 @@ export interface LastModifiedBy extends ClientLogging {}
 export interface LocalizedString {
   [key: string]: string
 }
+/**
+ *	Draft type that stores amounts in cent precision for the specified currency.
+ *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+ *
+ */
 export interface Money {
   /**
+   *	amount in the smallest indivisible unit of a currency, such as
+   *
+   *	* cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as 500).
+   *	* the value in the major unit for currencies without minor units, like JPY (5 JPY is specified as 5).
+   *
    *
    */
   readonly centAmount: number
@@ -416,6 +435,9 @@ export interface Money {
    */
   readonly currencyCode: string
 }
+/**
+ *	The platform supports two different types of Money, one for amounts in cent precision and another one for sub-cent amounts up to 12 fraction digits.
+ */
 export type MoneyType = 'centPrecision' | 'highPrecision'
 export interface Price {
   /**
@@ -423,6 +445,8 @@ export interface Price {
    */
   readonly id: string
   /**
+   *	Base polymorphic read-only Money type which is stored in cent precision or high precision. The actual type is determined by the `type` field.
+   *
    *
    */
   readonly value: TypedMoney
@@ -457,6 +481,8 @@ export interface Price {
    */
   readonly discounted?: DiscountedPrice
   /**
+   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *
    *
    */
   readonly custom?: CustomFields
@@ -467,6 +493,9 @@ export interface Price {
 }
 export interface PriceDraft {
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly value: Money
@@ -497,6 +526,8 @@ export interface PriceDraft {
    */
   readonly validUntil?: string
   /**
+   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
@@ -515,6 +546,8 @@ export interface PriceTier {
    */
   readonly minimumQuantity: number
   /**
+   *	Base polymorphic read-only Money type which is stored in cent precision or high precision. The actual type is determined by the `type` field.
+   *
    *
    */
   readonly value: TypedMoney
@@ -525,6 +558,9 @@ export interface PriceTierDraft {
    */
   readonly minimumQuantity: number
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly value: Money
@@ -535,6 +571,9 @@ export interface QueryPrice {
    */
   readonly id: string
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly value: Money
@@ -569,6 +608,8 @@ export interface QueryPrice {
    */
   readonly discounted?: DiscountedPriceDraft
   /**
+   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *
    *
    */
   readonly custom?: CustomFields
@@ -661,10 +702,14 @@ export interface ScopedPrice {
    */
   readonly id: string
   /**
+   *	Base polymorphic read-only Money type which is stored in cent precision or high precision. The actual type is determined by the `type` field.
+   *
    *
    */
   readonly value: TypedMoney
   /**
+   *	Base polymorphic read-only Money type which is stored in cent precision or high precision. The actual type is determined by the `type` field.
+   *
    *
    */
   readonly currentValue: TypedMoney
@@ -699,45 +744,76 @@ export interface ScopedPrice {
    */
   readonly discounted?: DiscountedPrice
   /**
+   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *
    *
    */
   readonly custom?: CustomFields
 }
+/**
+ *	Base polymorphic read-only Money type which is stored in cent precision or high precision. The actual type is determined by the `type` field.
+ *
+ */
 export type TypedMoney = CentPrecisionMoney | HighPrecisionMoney
 export interface CentPrecisionMoney {
   readonly type: 'centPrecision'
   /**
-   *
-   */
-  readonly fractionDigits: number
-  /**
-   *
-   */
-  readonly centAmount: number
-  /**
    *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
    *
    *
    */
   readonly currencyCode: string
+  /**
+   *	amount in the smallest indivisible unit of a currency, such as
+   *
+   *	* cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as 500).
+   *	* the value in the major unit for currencies without minor units, like JPY (5 JPY is specified as 5).
+   *
+   *
+   */
+  readonly centAmount: number
+  /**
+   *	number of digits after the decimal separator
+   *
+   *	* equal to the default number of fraction digits for a currency in [CentPrecisionMoney](ctp:api:type:CentPrecisionMoney).
+   *	* greater than the default number of fraction digits for a currency in [HighPrecisionMoney](ctp:api:type:HighPrecisionMoney).
+   *
+   *
+   */
+  readonly fractionDigits: number
 }
+/**
+ *	Money object that stores an amount of a fraction of the smallest indivisible unit of the specified currency.
+ */
 export interface HighPrecisionMoney {
   readonly type: 'highPrecision'
   /**
-   *
-   */
-  readonly fractionDigits: number
-  /**
-   *
-   */
-  readonly centAmount: number
-  /**
    *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
    *
    *
    */
   readonly currencyCode: string
   /**
+   *	amount in the smallest indivisible unit of a currency, such as
+   *
+   *	* cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as 500).
+   *	* the value in the major unit for currencies without minor units, like JPY (5 JPY is specified as 5).
+   *
+   *
+   */
+  readonly centAmount: number
+  /**
+   *	number of digits after the decimal separator
+   *
+   *	* equal to the default number of fraction digits for a currency in [CentPrecisionMoney](ctp:api:type:CentPrecisionMoney).
+   *	* greater than the default number of fraction digits for a currency in [HighPrecisionMoney](ctp:api:type:HighPrecisionMoney).
+   *
+   *
+   */
+  readonly fractionDigits: number
+  /**
+   *	amount in 1 / (10 ^ `fractionDigits`) of a currency.
+   *
    *
    */
   readonly preciseAmount: number
@@ -746,6 +822,11 @@ export type TypedMoneyDraft = CentPrecisionMoneyDraft | HighPrecisionMoneyDraft
 export interface CentPrecisionMoneyDraft {
   readonly type: 'centPrecision'
   /**
+   *	amount in the smallest indivisible unit of a currency, such as
+   *
+   *	* cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as 500).
+   *	* the value in the major unit for currencies without minor units, like JPY (5 JPY is specified as 5).
+   *
    *
    */
   readonly centAmount: number
@@ -756,13 +837,23 @@ export interface CentPrecisionMoneyDraft {
    */
   readonly currencyCode: string
   /**
+   *	Must be equal to the default number of fraction digits for the specified currency.
+   *
    *
    */
   readonly fractionDigits?: number
 }
+/**
+ *	Money draft object to store an amount of a fraction of the smallest indivisible unit of the specified currency.
+ */
 export interface HighPrecisionMoneyDraft {
   readonly type: 'highPrecision'
   /**
+   *	amount in the smallest indivisible unit of a currency, such as
+   *
+   *	* cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as 500).
+   *	* the value in the major unit for currencies without minor units, like JPY (5 JPY is specified as 5).
+   *
    *
    */
   readonly centAmount: number
@@ -773,10 +864,14 @@ export interface HighPrecisionMoneyDraft {
    */
   readonly currencyCode: string
   /**
+   *	Must be equal to the default number of fraction digits for the specified currency.
+   *
    *
    */
   readonly fractionDigits?: number
   /**
+   *	amount in 1 / (10 ^ `fractionDigits`) of a currency.
+   *
    *
    */
   readonly preciseAmount: number

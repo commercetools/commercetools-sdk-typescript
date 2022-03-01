@@ -162,6 +162,8 @@ export interface ShoppingListLineItem {
    */
   readonly addedAt: string
   /**
+   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *
    *
    */
   readonly custom?: CustomFields
@@ -208,6 +210,8 @@ export interface ShoppingListLineItemDraft {
    */
   readonly addedAt?: string
   /**
+   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
@@ -389,6 +393,8 @@ export interface ShoppingListAddLineItemAction {
    */
   readonly addedAt?: string
   /**
+   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
@@ -412,6 +418,8 @@ export interface ShoppingListAddTextLineItemAction {
    */
   readonly addedAt?: string
   /**
+   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
@@ -504,10 +512,16 @@ export interface ShoppingListSetAnonymousIdAction {
 export interface ShoppingListSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -515,13 +529,15 @@ export interface ShoppingListSetCustomFieldAction {
 export interface ShoppingListSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
-   *	If set, the custom type is set to this new value.
-   *	If absent, the custom type and any existing custom fields are removed.
+   *	Defines the [Type](ctp:api:type:Type) that extends the ShoppingList with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the ShoppingList.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	If set, the custom fields are set to this new value.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the ShoppingList.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -562,10 +578,16 @@ export interface ShoppingListSetLineItemCustomFieldAction {
    */
   readonly lineItemId: string
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -577,10 +599,15 @@ export interface ShoppingListSetLineItemCustomTypeAction {
    */
   readonly lineItemId: string
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the LineItem with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the LineItem.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the LineItem.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -606,10 +633,16 @@ export interface ShoppingListSetTextLineItemCustomFieldAction {
    */
   readonly textLineItemId: string
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -621,10 +654,15 @@ export interface ShoppingListSetTextLineItemCustomTypeAction {
    */
   readonly textLineItemId: string
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the TextLineItem with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the TextLineItem.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the TextLineItem.
+   *
    *
    */
   readonly fields?: FieldContainer

@@ -317,8 +317,6 @@ export interface MoneySetAttribute {
    */
   readonly name?: string
   /**
-   *	TypedMoney is what is called BaseMoney in the HTTP API.
-   *
    *
    */
   readonly value: TypedMoney[]

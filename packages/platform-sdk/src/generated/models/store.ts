@@ -16,7 +16,12 @@ import {
   ProductSelectionReference,
   ProductSelectionResourceIdentifier,
 } from './product-selection'
-import { CustomFields, CustomFieldsDraft, TypeResourceIdentifier } from './type'
+import {
+  CustomFields,
+  CustomFieldsDraft,
+  FieldContainer,
+  TypeResourceIdentifier,
+} from './type'
 
 export interface ProductSelectionSetting {
   /**
@@ -290,10 +295,16 @@ export interface StoreRemoveSupplyChannelAction {
 export interface StoreSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -301,17 +312,18 @@ export interface StoreSetCustomFieldAction {
 export interface StoreSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
-   *	If set, the custom type is reset to this value.
-   *	If absent, the custom type and any existing custom fields are removed.
+   *	Defines the [Type](ctp:api:type:Type) that extends the Store with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the Store.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	A valid JSON object, based on the FieldDefinitions of the Type
-   *	Sets the custom field to this value.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Store.
+   *
    *
    */
-  readonly fields?: any
+  readonly fields?: FieldContainer
 }
 export interface StoreSetDistributionChannelsAction {
   readonly action: 'setDistributionChannels'

@@ -540,6 +540,16 @@ export interface MyCustomerChangePassword {
    */
   readonly newPassword: string
 }
+export interface MyCustomerResetPassword {
+  /**
+   *
+   */
+  readonly tokenValue: string
+  /**
+   *
+   */
+  readonly newPassword: string
+}
 export interface CustomerAddAddressAction {
   readonly action: 'addAddress'
   /**
@@ -645,10 +655,16 @@ export interface CustomerSetAddressCustomFieldAction {
    */
   readonly addressId: string
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -656,10 +672,15 @@ export interface CustomerSetAddressCustomFieldAction {
 export interface CustomerSetAddressCustomTypeAction {
   readonly action: 'setAddressCustomType'
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the `address` with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the `address`.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `address`.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -679,10 +700,16 @@ export interface CustomerSetCompanyNameAction {
 export interface CustomerSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -690,13 +717,15 @@ export interface CustomerSetCustomFieldAction {
 export interface CustomerSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
-   *	If absent, the custom type and any existing custom fields are removed.
+   *	Defines the [Type](ctp:api:type:Type) that extends the Customer with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the Customer.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	A valid JSON object, based on the FieldDefinitions of the Type.
-   *	Sets the custom fields to this value.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Customer.
+   *
    *
    */
   readonly fields?: FieldContainer

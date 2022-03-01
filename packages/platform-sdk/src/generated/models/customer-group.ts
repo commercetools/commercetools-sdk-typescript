@@ -201,13 +201,12 @@ export interface CustomerGroupChangeNameAction {
 export interface CustomerGroupSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
-   *	Name of the Custom Field.
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
    *
    */
   readonly name: string
   /**
-   *	Value must be of type [Value](/../api/projects/custom-fields#value).
    *	If `value` is absent or `null`, this field will be removed if it exists.
    *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
    *	If `value` is provided, it is set for the field defined by `name`.
@@ -218,20 +217,20 @@ export interface CustomerGroupSetCustomFieldAction {
 }
 /**
  *	This action sets or removes the custom type for an existing Customer Group.
- *	If present, this action overwrites any existing [custom](/../api/projects/custom-fields#custom) type and fields.
+ *	If present, this action overwrites any existing [custom](/../api/projects/custom-fields) type and fields.
  *
  */
 export interface CustomerGroupSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
-   *	If absent, the [custom](/../api/projects/custom-fields#custom) type and any existing [CustomFields](/../api/projects/custom-fields) are removed.
+   *	Defines the [Type](ctp:api:type:Type) that extends the CustomerGroup with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the CustomerGroup.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Valid JSON object, based on the [FieldDefinitions](/../api/projects/types#fielddefinition) of the [Type](/../api/projects/types#type).
-   *	Sets the [custom](/../api/projects/custom-fields#custom) fields to this value.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the CustomerGroup.
    *
    *
    */

@@ -23,6 +23,7 @@ export class ByProjectKeyShippingMethodsMatchingLocationRequestBuilder {
       state?: string
       currency?: string
       expand?: string | string[]
+      sort?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {

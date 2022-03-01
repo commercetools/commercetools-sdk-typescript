@@ -78,6 +78,8 @@ export interface Payment extends BaseResource {
    */
   readonly amountPlanned: TypedMoney
   /**
+   *	Base polymorphic read-only Money type which is stored in cent precision or high precision. The actual type is determined by the `type` field.
+   *
    *
    */
   readonly amountAuthorized?: TypedMoney
@@ -86,10 +88,14 @@ export interface Payment extends BaseResource {
    */
   readonly authorizedUntil?: string
   /**
+   *	Base polymorphic read-only Money type which is stored in cent precision or high precision. The actual type is determined by the `type` field.
+   *
    *
    */
   readonly amountPaid?: TypedMoney
   /**
+   *	Base polymorphic read-only Money type which is stored in cent precision or high precision. The actual type is determined by the `type` field.
+   *
    *
    */
   readonly amountRefunded?: TypedMoney
@@ -154,6 +160,9 @@ export interface PaymentDraft {
    */
   readonly amountPlanned: Money
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly amountAuthorized?: Money
@@ -162,10 +171,16 @@ export interface PaymentDraft {
    */
   readonly authorizedUntil?: string
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly amountPaid?: Money
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly amountRefunded?: Money
@@ -478,6 +493,9 @@ export interface PaymentChangeTransactionTimestampAction {
 export interface PaymentSetAmountPaidAction {
   readonly action: 'setAmountPaid'
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly amount?: Money
@@ -485,6 +503,9 @@ export interface PaymentSetAmountPaidAction {
 export interface PaymentSetAmountRefundedAction {
   readonly action: 'setAmountRefunded'
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly amount?: Money
@@ -501,6 +522,9 @@ export interface PaymentSetAnonymousIdAction {
 export interface PaymentSetAuthorizationAction {
   readonly action: 'setAuthorization'
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly amount?: Money
@@ -512,10 +536,16 @@ export interface PaymentSetAuthorizationAction {
 export interface PaymentSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -523,13 +553,15 @@ export interface PaymentSetCustomFieldAction {
 export interface PaymentSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
-   *	If set, the custom type is set to this new value.
-   *	If absent, the custom type and any existing custom fields are removed.
+   *	Defines the [Type](ctp:api:type:Type) that extends the Payment with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the Payment.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the custom fields to this value.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Payment.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -610,10 +642,17 @@ export interface PaymentSetTransactionCustomFieldAction {
    */
   readonly transactionId: string
   /**
+   *	description: |
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -625,13 +664,15 @@ export interface PaymentSetTransactionCustomTypeAction {
    */
   readonly transactionId: string
   /**
-   *	If set, the custom type is set to this new value.
-   *	If absent, the custom type and any existing custom fields are removed.
+   *	Defines the [Type](ctp:api:type:Type) that extends the Transaction with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the Transaction.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the custom fields to this value.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Transaction.
+   *
    *
    */
   readonly fields?: FieldContainer

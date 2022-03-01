@@ -341,10 +341,16 @@ export interface CategorySetAssetCustomFieldAction {
    */
   readonly assetKey?: string
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -360,13 +366,15 @@ export interface CategorySetAssetCustomTypeAction {
    */
   readonly assetKey?: string
   /**
-   *	If set, the custom type is set to this new value.
-   *	If absent, the custom type and any existing custom fields are removed.
+   *	Defines the [Type](ctp:api:type:Type) that extends the Asset with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the Asset.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	If set, the custom fields are set to this new value.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Asset.
+   *
    *
    */
   readonly fields?: any
@@ -432,10 +440,16 @@ export interface CategorySetAssetTagsAction {
 export interface CategorySetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -443,12 +457,15 @@ export interface CategorySetCustomFieldAction {
 export interface CategorySetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
-   *	If absent, the custom type and any existing CustomFields are removed.
+   *	Defines the [Type](ctp:api:type:Type) that extends the Category with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the Category.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	A valid JSON object, based on the FieldDefinitions of the Type. Sets the custom fields to this value.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Category.
+   *
    *
    */
   readonly fields?: FieldContainer

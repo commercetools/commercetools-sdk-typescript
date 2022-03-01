@@ -191,8 +191,6 @@ export interface ProductVariantDraftImport {
  */
 export interface PriceDraftImport {
   /**
-   *	TypedMoney is what is called BaseMoney in the HTTP API.
-   *
    *
    */
   readonly value: TypedMoney

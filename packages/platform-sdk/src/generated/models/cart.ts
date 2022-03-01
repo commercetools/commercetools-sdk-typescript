@@ -215,6 +215,11 @@ export interface Cart extends BaseResource {
    *
    */
   readonly itemShippingAddresses?: Address[]
+  /**
+   *	The sum off all the [Line Items](ctp:api:type:LineItem) quantities. Does not take [Custom Line Items](ctp:api:type:CustomLineItem) into consideration.
+   *
+   */
+  readonly totalLineItemQuantity?: number
 }
 export interface CartDraft {
   /**
@@ -1045,6 +1050,9 @@ export interface TaxPortionDraft {
    */
   readonly rate: number
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly amount: Money
@@ -1077,10 +1085,16 @@ export interface TaxedPrice {
 }
 export interface TaxedPriceDraft {
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly totalNet: Money
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly totalGross: Money
@@ -1092,6 +1106,9 @@ export interface TaxedPriceDraft {
 export interface CartAddCustomLineItemAction {
   readonly action: 'addCustomLineItem'
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly money: Money
@@ -1114,6 +1131,8 @@ export interface CartAddCustomLineItemAction {
    */
   readonly taxCategory?: TaxCategoryResourceIdentifier
   /**
+   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
@@ -1139,6 +1158,8 @@ export interface CartAddItemShippingAddressAction {
 export interface CartAddLineItemAction {
   readonly action: 'addLineItem'
   /**
+   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
@@ -1175,6 +1196,9 @@ export interface CartAddLineItemAction {
    */
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly externalPrice?: Money
@@ -1242,6 +1266,9 @@ export interface CartChangeCustomLineItemMoneyAction {
    */
   readonly customLineItemId: string
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly money: Money
@@ -1268,6 +1295,9 @@ export interface CartChangeLineItemQuantityAction {
    */
   readonly quantity: number
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly externalPrice?: Money
@@ -1340,6 +1370,9 @@ export interface CartRemoveLineItemAction {
    */
   readonly quantity?: number
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly externalPrice?: Money
@@ -1377,10 +1410,16 @@ export interface CartSetBillingAddressAction {
 export interface CartSetBillingAddressCustomFieldAction {
   readonly action: 'setBillingAddressCustomField'
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1388,10 +1427,15 @@ export interface CartSetBillingAddressCustomFieldAction {
 export interface CartSetBillingAddressCustomTypeAction {
   readonly action: 'setBillingAddressCustomType'
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the `billingAddress` with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the `billingAddress`.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `billingAddress`.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -1420,10 +1464,16 @@ export interface CartSetCountryAction {
 export interface CartSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1435,10 +1485,16 @@ export interface CartSetCustomLineItemCustomFieldAction {
    */
   readonly customLineItemId: string
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1450,10 +1506,15 @@ export interface CartSetCustomLineItemCustomTypeAction {
    */
   readonly customLineItemId: string
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the CustomLineItem with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the CustomLineItem.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the CustomLineItem.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -1515,10 +1576,15 @@ export interface CartSetCustomShippingMethodAction {
 export interface CartSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the Cart with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the Cart.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Cart.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -1561,10 +1627,16 @@ export interface CartSetDeliveryAddressCustomFieldAction {
    */
   readonly deliveryId: string
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1576,10 +1648,15 @@ export interface CartSetDeliveryAddressCustomTypeAction {
    */
   readonly deliveryId: string
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the `address` in a Delivery with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the `address` in a Delivery.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `address` in a Delivery.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -1591,10 +1668,16 @@ export interface CartSetItemShippingAddressCustomFieldAction {
    */
   readonly addressKey: string
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1606,10 +1689,15 @@ export interface CartSetItemShippingAddressCustomTypeAction {
    */
   readonly addressKey: string
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the `itemShippingAddress` with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the `itemShippingAddress`.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `itemShippingAddress`.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -1628,10 +1716,16 @@ export interface CartSetLineItemCustomFieldAction {
    */
   readonly lineItemId: string
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1643,10 +1737,15 @@ export interface CartSetLineItemCustomTypeAction {
    */
   readonly lineItemId: string
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the LineItem with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the LineItem.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the LineItem.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -1671,6 +1770,9 @@ export interface CartSetLineItemPriceAction {
    */
   readonly lineItemId: string
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly externalPrice?: Money
@@ -1749,10 +1851,16 @@ export interface CartSetShippingAddressAction {
 export interface CartSetShippingAddressCustomFieldAction {
   readonly action: 'setShippingAddressCustomField'
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1760,10 +1868,15 @@ export interface CartSetShippingAddressCustomFieldAction {
 export interface CartSetShippingAddressCustomTypeAction {
   readonly action: 'setShippingAddressCustomType'
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the `shippingAddress` with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the `shippingAddress`.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `shippingAddress`.
+   *
    *
    */
   readonly fields?: FieldContainer

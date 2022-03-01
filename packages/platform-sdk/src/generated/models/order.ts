@@ -311,6 +311,9 @@ export interface DeliveryItem {
 }
 export interface DiscountedLineItemPriceDraft {
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly value: Money
@@ -783,12 +786,13 @@ export interface OrderResourceIdentifier {
    */
   readonly key?: string
 }
+export interface OrderSearchQuery {}
 export interface OrderSearchRequest {
   /**
    *	The Order search query.
    *
    */
-  readonly query: string
+  readonly query: OrderSearchQuery
   /**
    *	Controls how results to your query are sorted. If not provided, the results are sorted by relevance in descending order.
    *
@@ -1199,10 +1203,16 @@ export interface SyncInfo {
 }
 export interface TaxedItemPriceDraft {
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly totalNet: Money
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly totalGross: Money
@@ -1250,7 +1260,7 @@ export interface OrderAddDeliveryAction {
    *	Custom Fields for the Transaction.
    *
    */
-  readonly custom?: CustomFields
+  readonly custom?: CustomFieldsDraft
 }
 export interface OrderAddItemShippingAddressAction {
   readonly action: 'addItemShippingAddress'
@@ -1381,10 +1391,16 @@ export interface OrderSetBillingAddressAction {
 export interface OrderSetBillingAddressCustomFieldAction {
   readonly action: 'setBillingAddressCustomField'
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1392,10 +1408,15 @@ export interface OrderSetBillingAddressCustomFieldAction {
 export interface OrderSetBillingAddressCustomTypeAction {
   readonly action: 'setBillingAddressCustomType'
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the `billingAddress` with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the `billingAddress`.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `billingAddress`.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -1403,10 +1424,16 @@ export interface OrderSetBillingAddressCustomTypeAction {
 export interface OrderSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1418,10 +1445,16 @@ export interface OrderSetCustomLineItemCustomFieldAction {
    */
   readonly customLineItemId: string
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1433,10 +1466,15 @@ export interface OrderSetCustomLineItemCustomTypeAction {
    */
   readonly customLineItemId: string
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the CustomLineItem with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the CustomLineItem.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the CustomLineItem.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -1455,10 +1493,15 @@ export interface OrderSetCustomLineItemShippingDetailsAction {
 export interface OrderSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the Order with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the Order.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Order.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -1495,10 +1538,16 @@ export interface OrderSetDeliveryAddressCustomFieldAction {
    */
   readonly deliveryId: string
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1510,10 +1559,15 @@ export interface OrderSetDeliveryAddressCustomTypeAction {
    */
   readonly deliveryId: string
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the `address` in a Delivery with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the `address` in a Delivery.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `address` in a Delivery.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -1523,8 +1577,18 @@ export interface OrderSetDeliveryCustomFieldAction {
   /**
    *
    */
+  readonly deliveryId: string
+  /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
+   *
+   */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1534,8 +1598,17 @@ export interface OrderSetDeliveryCustomTypeAction {
   /**
    *
    */
+  readonly deliveryId: string
+  /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the Delivery with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the Delivery.
+   *
+   *
+   */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Delivery.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -1558,10 +1631,16 @@ export interface OrderSetItemShippingAddressCustomFieldAction {
    */
   readonly addressKey: string
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1573,10 +1652,15 @@ export interface OrderSetItemShippingAddressCustomTypeAction {
    */
   readonly addressKey: string
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the `itemShippingAddress` with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the `itemShippingAddress`.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `itemShippingAddress`.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -1588,10 +1672,16 @@ export interface OrderSetLineItemCustomFieldAction {
    */
   readonly lineItemId: string
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1603,10 +1693,15 @@ export interface OrderSetLineItemCustomTypeAction {
    */
   readonly lineItemId: string
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the LineItem with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the LineItem.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the LineItem.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -1643,10 +1738,16 @@ export interface OrderSetParcelCustomFieldAction {
    */
   readonly parcelId: string
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1658,10 +1759,15 @@ export interface OrderSetParcelCustomTypeAction {
    */
   readonly parcelId: string
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the Parcel with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the Parcel.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Parcel.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -1713,10 +1819,16 @@ export interface OrderSetReturnItemCustomFieldAction {
    */
   readonly returnItemId: string
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1728,10 +1840,15 @@ export interface OrderSetReturnItemCustomTypeAction {
    */
   readonly returnItemId: string
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the ReturnItem with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the ReturnItem.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the ReturnItem.
+   *
    *
    */
   readonly fields?: FieldContainer
@@ -1768,10 +1885,16 @@ export interface OrderSetShippingAddressAction {
 export interface OrderSetShippingAddressCustomFieldAction {
   readonly action: 'setShippingAddressCustomField'
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -1779,10 +1902,15 @@ export interface OrderSetShippingAddressCustomFieldAction {
 export interface OrderSetShippingAddressCustomTypeAction {
   readonly action: 'setShippingAddressCustomType'
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the `shippingAddress` with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the `shippingAddress`.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `shippingAddress`.
+   *
    *
    */
   readonly fields?: FieldContainer

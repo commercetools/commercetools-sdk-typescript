@@ -64,7 +64,7 @@ export interface TaxRate {
  */
 export interface PriceImport extends ImportResource {
   /**
-   *	Maps to `Price.value`. TypedMoney is what is called BaseMoney in the HTTP API.
+   *	Maps to `Price.value`.
    *
    *
    */

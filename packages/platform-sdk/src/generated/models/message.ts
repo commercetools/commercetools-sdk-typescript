@@ -118,6 +118,7 @@ export type Message =
   | OrderLineItemDiscountSetMessage
   | OrderLineItemDistributionChannelSetMessage
   | OrderLineItemRemovedMessage
+  | OrderMessage
   | OrderPaymentAddedMessage
   | OrderPaymentStateChangedMessage
   | OrderReturnInfoAddedMessage
@@ -270,77 +271,6 @@ export interface CategorySlugChangedMessage {
    *
    */
   readonly oldSlug?: LocalizedString
-}
-export interface CustomLineItemStateTransitionMessage {
-  readonly type: 'CustomLineItemStateTransition'
-  /**
-   *
-   */
-  readonly id: string
-  /**
-   *
-   */
-  readonly version: number
-  /**
-   *
-   */
-  readonly createdAt: string
-  /**
-   *
-   */
-  readonly lastModifiedAt: string
-  /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
-   *
-   *
-   */
-  readonly lastModifiedBy?: LastModifiedBy
-  /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
-   *
-   *
-   */
-  readonly createdBy?: CreatedBy
-  /**
-   *
-   */
-  readonly sequenceNumber: number
-  /**
-   *
-   */
-  readonly resource: Reference
-  /**
-   *
-   */
-  readonly resourceVersion: number
-  /**
-   *
-   */
-  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
-  /**
-   *
-   */
-  readonly customLineItemId: string
-  /**
-   *
-   */
-  readonly transitionDate: string
-  /**
-   *
-   */
-  readonly quantity: number
-  /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
-   *
-   *
-   */
-  readonly fromState: StateReference
-  /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
-   *
-   *
-   */
-  readonly toState: StateReference
 }
 export interface CustomerAddressAddedMessage {
   readonly type: 'CustomerAddressAdded'
@@ -1051,6 +981,351 @@ export interface CustomerTitleSetMessage {
    */
   readonly title?: string
 }
+export interface InventoryEntryCreatedMessage {
+  readonly type: 'InventoryEntryCreated'
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly inventoryEntry: InventoryEntry
+}
+export interface InventoryEntryDeletedMessage {
+  readonly type: 'InventoryEntryDeleted'
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly sku: string
+  /**
+   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *
+   *
+   */
+  readonly supplyChannel?: ChannelReference
+}
+export interface InventoryEntryQuantitySetMessage {
+  readonly type: 'InventoryEntryQuantitySet'
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly oldQuantityOnStock: number
+  /**
+   *
+   */
+  readonly newQuantityOnStock: number
+  /**
+   *
+   */
+  readonly oldAvailableQuantity: number
+  /**
+   *
+   */
+  readonly newAvailableQuantity: number
+  /**
+   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *
+   *
+   */
+  readonly supplyChannel?: ChannelReference
+}
+export interface MessagePagedQueryResponse {
+  /**
+   *
+   */
+  readonly limit: number
+  /**
+   *
+   */
+  readonly count: number
+  /**
+   *
+   */
+  readonly total?: number
+  /**
+   *
+   */
+  readonly offset: number
+  /**
+   *
+   */
+  readonly results: Message[]
+}
+/**
+ *	Holds the configuration for the [Messages Query](/../api/projects/messages) feature for the Project.
+ */
+export interface MessagesConfiguration {
+  /**
+   *	When `true`, the [Messages Query](/../api/projects/messages) feature is active.
+   *
+   *
+   */
+  readonly enabled: boolean
+  /**
+   *	Specifies the number of days each Message should be available via the [Messages Query](/../api/projects/messages) API.
+   *	For Messages older than the specified period, it is not guaranteed that they are still accessible via the API.
+   *	This field may not be present on Projects created before 8 October 2018.
+   *
+   *
+   */
+  readonly deleteDaysAfterCreation?: number
+}
+/**
+ *	Defines the configuration for the [Messages Query](/../api/projects/messages) feature for the Project.
+ */
+export interface MessagesConfigurationDraft {
+  /**
+   *	Setting to `true` activates the [Messages Query](/../api/projects/messages) feature.
+   *
+   *
+   */
+  readonly enabled: boolean
+  /**
+   *	Specifies the number of days each Message should be available via the [Messages Query](/../api/projects/messages) API. For Messages older than the specified period, it is not guaranteed that they are still accessible via the API.
+   *
+   *
+   */
+  readonly deleteDaysAfterCreation: number
+}
+export type OrderMessage =
+  | CustomLineItemStateTransitionMessage
+  | DeliveryAddedMessage
+  | DeliveryAddressSetMessage
+  | DeliveryItemsUpdatedMessage
+  | DeliveryRemovedMessage
+  | LineItemStateTransitionMessage
+  | OrderBillingAddressSetMessage
+  | OrderCreatedMessage
+  | OrderCustomLineItemDiscountSetMessage
+  | OrderCustomerEmailSetMessage
+  | OrderCustomerGroupSetMessage
+  | OrderCustomerSetMessage
+  | OrderDeletedMessage
+  | OrderDiscountCodeAddedMessage
+  | OrderDiscountCodeRemovedMessage
+  | OrderDiscountCodeStateSetMessage
+  | OrderEditAppliedMessage
+  | OrderImportedMessage
+  | OrderLineItemAddedMessage
+  | OrderLineItemDiscountSetMessage
+  | OrderLineItemDistributionChannelSetMessage
+  | OrderLineItemRemovedMessage
+  | OrderPaymentStateChangedMessage
+  | OrderReturnInfoAddedMessage
+  | OrderReturnInfoSetMessage
+  | OrderReturnShipmentStateChangedMessage
+  | OrderShipmentStateChangedMessage
+  | OrderShippingAddressSetMessage
+  | OrderShippingInfoSetMessage
+  | OrderShippingRateInputSetMessage
+  | OrderStateChangedMessage
+  | OrderStateTransitionMessage
+  | OrderStoreSetMessage
+  | ParcelAddedToDeliveryMessage
+  | ParcelItemsUpdatedMessage
+  | ParcelMeasurementsUpdatedMessage
+  | ParcelRemovedFromDeliveryMessage
+  | ParcelTrackingDataUpdatedMessage
+export interface CustomLineItemStateTransitionMessage {
+  readonly type: 'CustomLineItemStateTransition'
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly customLineItemId: string
+  /**
+   *
+   */
+  readonly transitionDate: string
+  /**
+   *
+   */
+  readonly quantity: number
+  /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
+   *
+   */
+  readonly fromState: StateReference
+  /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
+   *
+   */
+  readonly toState: StateReference
+}
 export interface DeliveryAddedMessage {
   readonly type: 'DeliveryAdded'
   /**
@@ -1271,183 +1546,6 @@ export interface DeliveryRemovedMessage {
    */
   readonly delivery: Delivery
 }
-export interface InventoryEntryCreatedMessage {
-  readonly type: 'InventoryEntryCreated'
-  /**
-   *
-   */
-  readonly id: string
-  /**
-   *
-   */
-  readonly version: number
-  /**
-   *
-   */
-  readonly createdAt: string
-  /**
-   *
-   */
-  readonly lastModifiedAt: string
-  /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
-   *
-   *
-   */
-  readonly lastModifiedBy?: LastModifiedBy
-  /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
-   *
-   *
-   */
-  readonly createdBy?: CreatedBy
-  /**
-   *
-   */
-  readonly sequenceNumber: number
-  /**
-   *
-   */
-  readonly resource: Reference
-  /**
-   *
-   */
-  readonly resourceVersion: number
-  /**
-   *
-   */
-  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
-  /**
-   *
-   */
-  readonly inventoryEntry: InventoryEntry
-}
-export interface InventoryEntryDeletedMessage {
-  readonly type: 'InventoryEntryDeleted'
-  /**
-   *
-   */
-  readonly id: string
-  /**
-   *
-   */
-  readonly version: number
-  /**
-   *
-   */
-  readonly createdAt: string
-  /**
-   *
-   */
-  readonly lastModifiedAt: string
-  /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
-   *
-   *
-   */
-  readonly lastModifiedBy?: LastModifiedBy
-  /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
-   *
-   *
-   */
-  readonly createdBy?: CreatedBy
-  /**
-   *
-   */
-  readonly sequenceNumber: number
-  /**
-   *
-   */
-  readonly resource: Reference
-  /**
-   *
-   */
-  readonly resourceVersion: number
-  /**
-   *
-   */
-  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
-  /**
-   *
-   */
-  readonly sku: string
-  /**
-   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
-   *
-   *
-   */
-  readonly supplyChannel?: ChannelReference
-}
-export interface InventoryEntryQuantitySetMessage {
-  readonly type: 'InventoryEntryQuantitySet'
-  /**
-   *
-   */
-  readonly id: string
-  /**
-   *
-   */
-  readonly version: number
-  /**
-   *
-   */
-  readonly createdAt: string
-  /**
-   *
-   */
-  readonly lastModifiedAt: string
-  /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
-   *
-   *
-   */
-  readonly lastModifiedBy?: LastModifiedBy
-  /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
-   *
-   *
-   */
-  readonly createdBy?: CreatedBy
-  /**
-   *
-   */
-  readonly sequenceNumber: number
-  /**
-   *
-   */
-  readonly resource: Reference
-  /**
-   *
-   */
-  readonly resourceVersion: number
-  /**
-   *
-   */
-  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
-  /**
-   *
-   */
-  readonly oldQuantityOnStock: number
-  /**
-   *
-   */
-  readonly newQuantityOnStock: number
-  /**
-   *
-   */
-  readonly oldAvailableQuantity: number
-  /**
-   *
-   */
-  readonly newAvailableQuantity: number
-  /**
-   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
-   *
-   *
-   */
-  readonly supplyChannel?: ChannelReference
-}
 export interface LineItemStateTransitionMessage {
   readonly type: 'LineItemStateTransition'
   /**
@@ -1518,48 +1616,6 @@ export interface LineItemStateTransitionMessage {
    *
    */
   readonly toState: StateReference
-}
-export interface MessageConfiguration {
-  /**
-   *
-   */
-  readonly enabled: boolean
-  /**
-   *
-   */
-  readonly deleteDaysAfterCreation?: number
-}
-export interface MessageConfigurationDraft {
-  /**
-   *
-   */
-  readonly enabled: boolean
-  /**
-   *
-   */
-  readonly deleteDaysAfterCreation: number
-}
-export interface MessagePagedQueryResponse {
-  /**
-   *
-   */
-  readonly limit: number
-  /**
-   *
-   */
-  readonly count: number
-  /**
-   *
-   */
-  readonly total?: number
-  /**
-   *
-   */
-  readonly offset: number
-  /**
-   *
-   */
-  readonly results: Message[]
 }
 export interface OrderBillingAddressSetMessage {
   readonly type: 'OrderBillingAddressSet'
@@ -2335,6 +2391,9 @@ export interface OrderLineItemDiscountSetMessage {
    */
   readonly discountedPricePerQuantity: DiscountedLineItemPriceForQuantity[]
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly totalPrice: Money
@@ -2463,6 +2522,8 @@ export interface OrderLineItemRemovedMessage {
    */
   readonly newState: ItemState[]
   /**
+   *	Base polymorphic read-only Money type which is stored in cent precision or high precision. The actual type is determined by the `type` field.
+   *
    *
    */
   readonly newTotalPrice: TypedMoney
@@ -3520,6 +3581,8 @@ export interface PaymentInteractionAddedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *
    *
    */
   readonly interaction: CustomFields
@@ -5004,6 +5067,8 @@ export interface StoreCreatedMessage {
    */
   readonly productSelections: ProductSelectionSetting[]
   /**
+   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *
    *
    */
   readonly custom?: CustomFields
@@ -5188,6 +5253,7 @@ export type MessagePayload =
   | OrderLineItemDiscountSetMessagePayload
   | OrderLineItemDistributionChannelSetMessagePayload
   | OrderLineItemRemovedMessagePayload
+  | OrderMessagePayload
   | OrderPaymentAddedMessagePayload
   | OrderPaymentStateChangedMessagePayload
   | OrderReturnInfoAddedMessagePayload
@@ -5253,33 +5319,6 @@ export interface CategorySlugChangedMessagePayload {
    *
    */
   readonly oldSlug?: LocalizedString
-}
-export interface CustomLineItemStateTransitionMessagePayload {
-  readonly type: 'CustomLineItemStateTransition'
-  /**
-   *
-   */
-  readonly customLineItemId: string
-  /**
-   *
-   */
-  readonly transitionDate: string
-  /**
-   *
-   */
-  readonly quantity: number
-  /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
-   *
-   *
-   */
-  readonly fromState: StateReference
-  /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
-   *
-   *
-   */
-  readonly toState: StateReference
 }
 export interface CustomerAddressAddedMessagePayload {
   readonly type: 'CustomerAddressAdded'
@@ -5374,50 +5413,6 @@ export interface CustomerTitleSetMessagePayload {
    */
   readonly title?: string
 }
-export interface DeliveryAddedMessagePayload {
-  readonly type: 'DeliveryAdded'
-  /**
-   *
-   */
-  readonly delivery: Delivery
-}
-export interface DeliveryAddressSetMessagePayload {
-  readonly type: 'DeliveryAddressSet'
-  /**
-   *
-   */
-  readonly deliveryId: string
-  /**
-   *
-   */
-  readonly address?: Address
-  /**
-   *
-   */
-  readonly oldAddress?: Address
-}
-export interface DeliveryItemsUpdatedMessagePayload {
-  readonly type: 'DeliveryItemsUpdated'
-  /**
-   *
-   */
-  readonly deliveryId: string
-  /**
-   *
-   */
-  readonly items: DeliveryItem[]
-  /**
-   *
-   */
-  readonly oldItems: DeliveryItem[]
-}
-export interface DeliveryRemovedMessagePayload {
-  readonly type: 'DeliveryRemoved'
-  /**
-   *
-   */
-  readonly delivery: Delivery
-}
 export interface InventoryEntryCreatedMessagePayload {
   readonly type: 'InventoryEntryCreated'
   /**
@@ -5462,6 +5457,116 @@ export interface InventoryEntryQuantitySetMessagePayload {
    *
    */
   readonly supplyChannel?: ChannelReference
+}
+export type OrderMessagePayload =
+  | CustomLineItemStateTransitionMessagePayload
+  | DeliveryAddedMessagePayload
+  | DeliveryAddressSetMessagePayload
+  | DeliveryItemsUpdatedMessagePayload
+  | DeliveryRemovedMessagePayload
+  | LineItemStateTransitionMessagePayload
+  | OrderBillingAddressSetMessagePayload
+  | OrderCreatedMessagePayload
+  | OrderCustomLineItemDiscountSetMessagePayload
+  | OrderCustomerEmailSetMessagePayload
+  | OrderCustomerGroupSetMessagePayload
+  | OrderCustomerSetMessagePayload
+  | OrderDeletedMessagePayload
+  | OrderDiscountCodeAddedMessagePayload
+  | OrderDiscountCodeRemovedMessagePayload
+  | OrderDiscountCodeStateSetMessagePayload
+  | OrderEditAppliedMessagePayload
+  | OrderImportedMessagePayload
+  | OrderLineItemAddedMessagePayload
+  | OrderLineItemDiscountSetMessagePayload
+  | OrderLineItemDistributionChannelSetMessagePayload
+  | OrderLineItemRemovedMessagePayload
+  | OrderPaymentStateChangedMessagePayload
+  | OrderReturnInfoAddedMessagePayload
+  | OrderReturnInfoSetMessagePayload
+  | OrderReturnShipmentStateChangedMessagePayload
+  | OrderShipmentStateChangedMessagePayload
+  | OrderShippingAddressSetMessagePayload
+  | OrderShippingInfoSetMessagePayload
+  | OrderShippingRateInputSetMessagePayload
+  | OrderStateChangedMessagePayload
+  | OrderStateTransitionMessagePayload
+  | OrderStoreSetMessagePayload
+  | ParcelAddedToDeliveryMessagePayload
+  | ParcelItemsUpdatedMessagePayload
+  | ParcelMeasurementsUpdatedMessagePayload
+  | ParcelRemovedFromDeliveryMessagePayload
+  | ParcelTrackingDataUpdatedMessagePayload
+export interface CustomLineItemStateTransitionMessagePayload {
+  readonly type: 'CustomLineItemStateTransition'
+  /**
+   *
+   */
+  readonly customLineItemId: string
+  /**
+   *
+   */
+  readonly transitionDate: string
+  /**
+   *
+   */
+  readonly quantity: number
+  /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
+   *
+   */
+  readonly fromState: StateReference
+  /**
+   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *
+   *
+   */
+  readonly toState: StateReference
+}
+export interface DeliveryAddedMessagePayload {
+  readonly type: 'DeliveryAdded'
+  /**
+   *
+   */
+  readonly delivery: Delivery
+}
+export interface DeliveryAddressSetMessagePayload {
+  readonly type: 'DeliveryAddressSet'
+  /**
+   *
+   */
+  readonly deliveryId: string
+  /**
+   *
+   */
+  readonly address?: Address
+  /**
+   *
+   */
+  readonly oldAddress?: Address
+}
+export interface DeliveryItemsUpdatedMessagePayload {
+  readonly type: 'DeliveryItemsUpdated'
+  /**
+   *
+   */
+  readonly deliveryId: string
+  /**
+   *
+   */
+  readonly items: DeliveryItem[]
+  /**
+   *
+   */
+  readonly oldItems: DeliveryItem[]
+}
+export interface DeliveryRemovedMessagePayload {
+  readonly type: 'DeliveryRemoved'
+  /**
+   *
+   */
+  readonly delivery: Delivery
 }
 export interface LineItemStateTransitionMessagePayload {
   readonly type: 'LineItemStateTransition'
@@ -5648,6 +5753,9 @@ export interface OrderLineItemDiscountSetMessagePayload {
    */
   readonly discountedPricePerQuantity: DiscountedLineItemPriceForQuantity[]
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly totalPrice: Money
@@ -5688,6 +5796,8 @@ export interface OrderLineItemRemovedMessagePayload {
    */
   readonly newState: ItemState[]
   /**
+   *	Base polymorphic read-only Money type which is stored in cent precision or high precision. The actual type is determined by the `type` field.
+   *
    *
    */
   readonly newTotalPrice: TypedMoney
@@ -5909,6 +6019,8 @@ export interface PaymentCreatedMessagePayload {
 export interface PaymentInteractionAddedMessagePayload {
   readonly type: 'PaymentInteractionAdded'
   /**
+   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *
    *
    */
   readonly interaction: CustomFields
@@ -6230,6 +6342,8 @@ export interface StoreCreatedMessagePayload {
    */
   readonly productSelections: ProductSelectionSetting[]
   /**
+   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *
    *
    */
   readonly custom?: CustomFields

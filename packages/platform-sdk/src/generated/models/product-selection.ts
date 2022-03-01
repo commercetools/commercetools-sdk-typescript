@@ -11,6 +11,12 @@ import {
   LocalizedString,
 } from './common'
 import { ProductReference, ProductResourceIdentifier } from './product'
+import {
+  CustomFields,
+  CustomFieldsDraft,
+  FieldContainer,
+  TypeResourceIdentifier,
+} from './type'
 
 export interface AssignedProductReference {
   /**
@@ -119,6 +125,11 @@ export interface ProductSelection extends BaseResource {
    *
    */
   readonly type: ProductSelectionTypeEnum
+  /**
+   *	Custom Fields of this Product Selection.
+   *
+   */
+  readonly custom?: CustomFields
 }
 /**
  *	Specifies which Product is assigned to which Product Selection.
@@ -146,6 +157,11 @@ export interface ProductSelectionDraft {
    *
    */
   readonly name: LocalizedString
+  /**
+   *	Custom Fields of this Product Selection.
+   *
+   */
+  readonly custom?: CustomFieldsDraft
 }
 /**
  *	[PagedQueryResult](/general-concepts#pagedqueryresult) containing an array of [ProductSelection](ctp:api:type:ProductSelection).
@@ -284,6 +300,8 @@ export type ProductSelectionUpdateAction =
   | ProductSelectionAddProductAction
   | ProductSelectionChangeNameAction
   | ProductSelectionRemoveProductAction
+  | ProductSelectionSetCustomFieldAction
+  | ProductSelectionSetCustomTypeAction
   | ProductSelectionSetKeyAction
 /**
  *	[PagedQueryResult](/general-concepts#pagedqueryresult) containing an array of [ProductSelectionAssignment](ctp:api:type:ProductSelectionAssignment).
@@ -348,6 +366,39 @@ export interface ProductSelectionRemoveProductAction {
    *
    */
   readonly product: ProductResourceIdentifier
+}
+export interface ProductSelectionSetCustomFieldAction {
+  readonly action: 'setCustomField'
+  /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
+   *
+   */
+  readonly value?: any
+}
+export interface ProductSelectionSetCustomTypeAction {
+  readonly action: 'setCustomType'
+  /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the ProductSelection with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the ProductSelection.
+   *
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the ProductSelection.
+   *
+   *
+   */
+  readonly fields?: FieldContainer
 }
 export interface ProductSelectionSetKeyAction {
   readonly action: 'setKey'

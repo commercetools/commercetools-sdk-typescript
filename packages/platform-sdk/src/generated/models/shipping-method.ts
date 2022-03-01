@@ -282,6 +282,9 @@ export interface CartClassificationTier {
    */
   readonly value: string
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly price: Money
@@ -297,6 +300,9 @@ export interface CartScoreTier {
    */
   readonly score: number
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly price?: Money
@@ -316,6 +322,9 @@ export interface CartValueTier {
    */
   readonly minimumCentAmount: number
   /**
+   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *
    *
    */
   readonly price: Money
@@ -324,6 +333,9 @@ export interface CartValueTier {
    */
   readonly isMatching?: boolean
 }
+/**
+ *	Can be one of the following or absent.
+ */
 export type ShippingRateTierType =
   | 'CartClassification'
   | 'CartScore'
@@ -411,10 +423,16 @@ export interface ShippingMethodRemoveZoneAction {
 export interface ShippingMethodSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -422,10 +440,15 @@ export interface ShippingMethodSetCustomFieldAction {
 export interface ShippingMethodSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the ShippingMethod with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the ShippingMethod.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the ShippingMethod.
+   *
    *
    */
   readonly fields?: FieldContainer

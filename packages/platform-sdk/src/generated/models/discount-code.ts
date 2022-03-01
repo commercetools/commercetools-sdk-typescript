@@ -297,10 +297,16 @@ export interface DiscountCodeSetCartPredicateAction {
 export interface DiscountCodeSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
    *
    */
   readonly name: string
   /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
    *
    */
   readonly value?: any
@@ -308,13 +314,15 @@ export interface DiscountCodeSetCustomFieldAction {
 export interface DiscountCodeSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
-   *	If absent, the custom type and any existing CustomFields are removed.
+   *	Defines the [Type](ctp:api:type:Type) that extends the DiscountCode with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the DiscountCode.
+   *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	A valid JSON object, based on the FieldDefinitions of the Type.
-   *	Sets the custom fields to this value.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the DiscountCode.
+   *
    *
    */
   readonly fields?: FieldContainer
