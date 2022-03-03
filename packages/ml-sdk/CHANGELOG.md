@@ -1,5 +1,19 @@
 # @commercetools/ml-sdk
 
+## 2.2.0
+
+### Minor Changes
+
+- [#211](https://github.com/commercetools/commercetools-sdk-typescript/pull/211) [`f3c1e3e`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f3c1e3ea0ca000b309eca1de6163c3ad065d526f) Thanks [@jherey](https://github.com/jherey)! - - Change Import Summaries `processingState` to `processingstate`.
+  - Add `sort` to `ByProjectKeyShippingMethodsMatchingLocationRequestBuilder`.
+  - New `MyCustomerResetPassword` model added to `ByProjectKeyMePasswordResetRequestBuilder` class.
+  - Other changes are detailed here: https://github.com/commercetools/commercetools-sdk-typescript/pull/192/files.
+
+### Patch Changes
+
+- Updated dependencies [[`f3c1e3e`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f3c1e3ea0ca000b309eca1de6163c3ad065d526f)]:
+  - @commercetools/sdk-client-v2@1.2.0
+
 ## 2.1.0
 
 ### Minor Changes
