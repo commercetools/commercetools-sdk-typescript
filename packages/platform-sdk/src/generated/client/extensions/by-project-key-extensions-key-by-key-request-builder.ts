@@ -18,9 +18,6 @@ export class ByProjectKeyExtensionsKeyByKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Retrieves the representation of an extension by its key.
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]

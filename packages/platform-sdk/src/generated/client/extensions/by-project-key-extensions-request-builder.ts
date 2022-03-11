@@ -76,9 +76,6 @@ export class ByProjectKeyExtensionsRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Currently, a maximum of 25 extensions can be created per project.
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
