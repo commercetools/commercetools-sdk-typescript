@@ -3,70 +3,35 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import {
-  InventoryEntry,
-  InventoryEntryDraft,
-  InventoryPagedQueryResponse,
-} from '../../models/inventory'
+import { InventoryEntry, InventoryEntryUpdate } from '../../models/inventory'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-import { ByProjectKeyInventoryByIDRequestBuilder } from './by-project-key-inventory-by-id-request-builder'
-import { ByProjectKeyInventoryKeyByKeyRequestBuilder } from './by-project-key-inventory-key-by-key-request-builder'
 
-export class ByProjectKeyInventoryRequestBuilder {
+export class ByProjectKeyInventoryKeyByKeyRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
         projectKey: string
+        key: string
       }
       executeRequest: executeRequest
       baseUri?: string
     }
   ) {}
-  public withId(childPathArgs: {
-    ID: string
-  }): ByProjectKeyInventoryByIDRequestBuilder {
-    return new ByProjectKeyInventoryByIDRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-        ...childPathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
-  }
-  public withKey(childPathArgs: {
-    key: string
-  }): ByProjectKeyInventoryKeyByKeyRequestBuilder {
-    return new ByProjectKeyInventoryKeyByKeyRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-        ...childPathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
-  }
-
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
-      sort?: string | string[]
-      limit?: number
-      offset?: number
-      withTotal?: boolean
-      where?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<InventoryPagedQueryResponse> {
-    return new ApiRequest<InventoryPagedQueryResponse>(
+  }): ApiRequest<InventoryEntry> {
+    return new ApiRequest<InventoryEntry>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',
-        uriTemplate: '/{projectKey}/inventory',
+        uriTemplate: '/{projectKey}/inventory/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
@@ -81,7 +46,7 @@ export class ByProjectKeyInventoryRequestBuilder {
       expand?: string | string[]
       [key: string]: QueryParam
     }
-    body: InventoryEntryDraft
+    body: InventoryEntryUpdate
     headers?: {
       [key: string]: string | string[]
     }
@@ -90,7 +55,7 @@ export class ByProjectKeyInventoryRequestBuilder {
       {
         baseUri: this.args.baseUri,
         method: 'POST',
-        uriTemplate: '/{projectKey}/inventory',
+        uriTemplate: '/{projectKey}/inventory/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
           'Content-Type': 'application/json',
@@ -98,6 +63,30 @@ export class ByProjectKeyInventoryRequestBuilder {
         },
         queryParams: methodArgs?.queryArgs,
         body: methodArgs?.body,
+      },
+      this.args.executeRequest
+    )
+  }
+  public delete(methodArgs: {
+    queryArgs: {
+      version: number
+      expand?: string | string[]
+      [key: string]: QueryParam
+    }
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<InventoryEntry> {
+    return new ApiRequest<InventoryEntry>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'DELETE',
+        uriTemplate: '/{projectKey}/inventory/key={key}',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
       },
       this.args.executeRequest
     )
