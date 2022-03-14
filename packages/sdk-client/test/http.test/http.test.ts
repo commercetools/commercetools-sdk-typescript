@@ -15,6 +15,10 @@ function createTestRequest(options) {
   }
 }
 
+function FormDataMockClass() {
+  this.append = jest.fn()
+}
+
 const testHost = 'https://api.commercetools.com'
 
 describe('Http', () => {
@@ -534,6 +538,44 @@ describe('Http', () => {
         })
         .post('/foo/bar', 'test')
         .reply(200, { foo: 'bar' })
+
+      httpMiddleware(next)(request, response)
+    }))
+
+  test('should accept a FormData body with null content type', () =>
+    new Promise((resolve: (value?: unknown) => void, reject): void => {
+      const formData = new FormDataMockClass()
+      formData.append('file', 'file content', 'file123')
+
+      const request = createTestRequest({
+        uri: '/import/file-upload',
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Content-Type': null,
+        },
+      })
+
+      const response = { resolve, reject, statusCode: undefined }
+      const next = (req, res) => {
+        expect(res).toEqual({
+          ...response,
+          body: { fileName: 'file123' },
+          statusCode: 200,
+        })
+        resolve()
+      }
+      // Use custom options
+      const httpMiddleware = createHttpMiddleware({
+        host: testHost,
+        fetch,
+      })
+      nock(testHost)
+        .defaultReplyHeaders({
+          'Content-Type': 'application/json',
+        })
+        .post('/import/file-upload')
+        .reply(200, { fileName: 'file123' })
 
       httpMiddleware(next)(request, response)
     }))

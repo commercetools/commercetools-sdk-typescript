@@ -8,8 +8,10 @@ import {
   MiddlewareRequest,
   MiddlewareResponse,
   Next,
+  QueryParam,
   RequestOptions,
 } from '../types/sdk.d'
+
 import parseHeaders from './parse-headers'
 const Buffer = require('buffer/').Buffer
 
@@ -103,19 +105,28 @@ export default function createHttpMiddleware({
           new AbortController()
 
       const url = host.replace(/\/$/, '') + request.uri
-      const body =
-        typeof request.body === 'string' || Buffer.isBuffer(request.body)
-          ? request.body
-          : // NOTE: `stringify` of `null` gives the String('null')
-            JSON.stringify(request.body || undefined)
+      const requestHeader: JsonObject<QueryParam> = { ...request.headers }
 
-      const requestHeader = { ...request.headers }
+      // Unset the content-type header if explicitly asked to (passing `null` as value).
+      if (requestHeader['Content-Type'] === null) {
+        delete requestHeader['Content-Type']
+      }
       if (
-        !Object.prototype.hasOwnProperty.call(requestHeader, 'Content-Type')
+        !Object.prototype.hasOwnProperty.call(requestHeader, 'Content-Type') ||
+        !Object.prototype.hasOwnProperty.call(requestHeader, 'content-type')
       ) {
         requestHeader['Content-Type'] = 'application/json'
       }
-      if (body) {
+
+      // Ensure body is a string if content type is application/json
+      const body =
+        (requestHeader['Content-Type'] === 'application/json' &&
+          typeof request.body === 'string') ||
+        Buffer.isBuffer(request.body)
+          ? request.body
+          : JSON.stringify(request.body || undefined)
+
+      if (body && (typeof body === 'string' || Buffer.isBuffer(body))) {
         requestHeader['Content-Length'] = Buffer.byteLength(body).toString()
       }
       const fetchOptions: RequestOptions = {
