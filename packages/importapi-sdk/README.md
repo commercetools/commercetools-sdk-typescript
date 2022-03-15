@@ -54,7 +54,7 @@ const authMiddlewareOptions = {
 }
 
 const httpMiddlewareOptions = {
-  host: 'https://api.europe-west1.gcp.commercetools.com',
+  host: 'https://import.europe-west1.gcp.commercetools.com',
   fetch,
 }
 
@@ -79,9 +79,10 @@ const apiRoot = createApiBuilderFromCtpClient(client)
 // calling the importapi functions
 // get project details
 apiRoot
-  .withProjectKey({
+  .withProjectKeyValue({
     projectKey,
   })
+  .importContainers()
   .get()
   .execute()
   .then((x) => {
