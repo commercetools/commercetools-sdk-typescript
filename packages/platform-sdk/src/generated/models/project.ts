@@ -4,6 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { LastModifiedBy } from './common'
 import { MessagesConfiguration, MessagesConfigurationDraft } from './message'
 import { CustomFieldLocalizedEnumValue } from './type'
 
@@ -188,17 +189,17 @@ export interface SearchIndexingConfigurationValues {
    */
   readonly status?: SearchIndexingConfigurationStatus
   /**
-   *	Date and time (UTC) the Project was last updated.
+   *	Date and time (UTC) the Project was last updated. Only present on Projects last modified after 1 February 2019.
    *
    *
    */
-  readonly lastModifiedAt: string
+  readonly lastModifiedAt?: string
   /**
    *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
    *
    *
    */
-  readonly lastModifiedBy?: string
+  readonly lastModifiedBy?: LastModifiedBy
 }
 export type ShippingRateInputType =
   | CartClassificationType
