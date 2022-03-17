@@ -413,7 +413,7 @@ export interface StagedOrderAddDeliveryAction {
    *	Custom Fields for the Transaction.
    *
    */
-  readonly custom?: CustomFields
+  readonly custom?: CustomFieldsDraft
 }
 export interface StagedOrderAddDiscountCodeAction {
   readonly action: 'addDiscountCode'
