@@ -27,6 +27,7 @@ import {
 export type AnonymousCartSignInMode =
   | 'MergeWithExistingCustomerCart'
   | 'UseAsNewActiveCustomerCart'
+export type AuthenticationMode = 'ExternalAuth' | 'Password'
 export interface Customer extends BaseResource {
   /**
    *	The unique ID of the customer.
@@ -73,9 +74,10 @@ export interface Customer extends BaseResource {
    */
   readonly email: string
   /**
+   *	Only present with the default `authenticationMode`, `Password`.
    *
    */
-  readonly password: string
+  readonly password?: string
   /**
    *
    */
@@ -167,6 +169,11 @@ export interface Customer extends BaseResource {
    *
    */
   readonly stores?: StoreKeyReference[]
+  /**
+   *	Defines whether a Customer has a password.
+   *
+   */
+  readonly authenticationMode?: AuthenticationMode
 }
 export interface CustomerChangePassword {
   /**
@@ -227,9 +234,10 @@ export interface CustomerDraft {
    */
   readonly email: string
   /**
+   *	Only optional with `authenticationMode` set to `ExternalAuth`.
    *
    */
-  readonly password: string
+  readonly password?: string
   /**
    *
    */
@@ -342,6 +350,11 @@ export interface CustomerDraft {
    *
    */
   readonly stores?: StoreResourceIdentifier[]
+  /**
+   *	Defines whether a password is required for the Customer that is used for platform-internal authentication.
+   *
+   */
+  readonly authenticationMode?: AuthenticationMode
 }
 export interface CustomerEmailVerify {
   /**
@@ -508,6 +521,7 @@ export type CustomerUpdateAction =
   | CustomerRemoveStoreAction
   | CustomerSetAddressCustomFieldAction
   | CustomerSetAddressCustomTypeAction
+  | CustomerSetAuthenticationModeAction
   | CustomerSetCompanyNameAction
   | CustomerSetCustomFieldAction
   | CustomerSetCustomTypeAction
@@ -688,6 +702,18 @@ export interface CustomerSetAddressCustomTypeAction {
    *
    */
   readonly addressId: string
+}
+export interface CustomerSetAuthenticationModeAction {
+  readonly action: 'setAuthenticationMode'
+  /**
+   *
+   */
+  readonly authMode: AuthenticationMode
+  /**
+   *	Required when `authMode` is `Password`
+   *
+   */
+  readonly password?: string
 }
 export interface CustomerSetCompanyNameAction {
   readonly action: 'setCompanyName'

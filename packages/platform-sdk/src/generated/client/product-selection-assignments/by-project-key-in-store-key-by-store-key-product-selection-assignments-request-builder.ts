@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { ProductsInStorePagedQueryResponse } from '../../models/product-selection'
-import { executeRequest } from '../../shared/utils/common-types'
+import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
 export class ByProjectKeyInStoreKeyByStoreKeyProductSelectionAssignmentsRequestBuilder {
@@ -22,6 +22,10 @@ export class ByProjectKeyInStoreKeyByStoreKeyProductSelectionAssignmentsRequestB
    *	Queries Product Selection assignments in a specific Store.
    */
   public get(methodArgs?: {
+    queryArgs?: {
+      expand?: string | string[]
+      [key: string]: QueryParam
+    }
     headers?: {
       [key: string]: string | string[]
     }
@@ -36,6 +40,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyProductSelectionAssignmentsRequestB
         headers: {
           ...methodArgs?.headers,
         },
+        queryParams: methodArgs?.queryArgs,
       },
       this.args.executeRequest
     )

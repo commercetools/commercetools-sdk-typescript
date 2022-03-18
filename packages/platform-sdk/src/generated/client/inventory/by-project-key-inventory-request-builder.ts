@@ -11,6 +11,7 @@ import {
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyInventoryByIDRequestBuilder } from './by-project-key-inventory-by-id-request-builder'
+import { ByProjectKeyInventoryKeyByKeyRequestBuilder } from './by-project-key-inventory-key-by-key-request-builder'
 
 export class ByProjectKeyInventoryRequestBuilder {
   constructor(
@@ -26,6 +27,18 @@ export class ByProjectKeyInventoryRequestBuilder {
     ID: string
   }): ByProjectKeyInventoryByIDRequestBuilder {
     return new ByProjectKeyInventoryByIDRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+        ...childPathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public withKey(childPathArgs: {
+    key: string
+  }): ByProjectKeyInventoryKeyByKeyRequestBuilder {
+    return new ByProjectKeyInventoryKeyByKeyRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
         ...childPathArgs,

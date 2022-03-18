@@ -3,16 +3,16 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { Extension, ExtensionUpdate } from '../../models/extension'
+import { InventoryEntry, InventoryEntryUpdate } from '../../models/inventory'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
-export class ByProjectKeyExtensionsByIDRequestBuilder {
+export class ByProjectKeyInventoryKeyByKeyRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
         projectKey: string
-        ID: string
+        key: string
       }
       executeRequest: executeRequest
       baseUri?: string
@@ -26,12 +26,12 @@ export class ByProjectKeyExtensionsByIDRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<Extension> {
-    return new ApiRequest<Extension>(
+  }): ApiRequest<InventoryEntry> {
+    return new ApiRequest<InventoryEntry>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',
-        uriTemplate: '/{projectKey}/extensions/{ID}',
+        uriTemplate: '/{projectKey}/inventory/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
@@ -46,16 +46,16 @@ export class ByProjectKeyExtensionsByIDRequestBuilder {
       expand?: string | string[]
       [key: string]: QueryParam
     }
-    body: ExtensionUpdate
+    body: InventoryEntryUpdate
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<Extension> {
-    return new ApiRequest<Extension>(
+  }): ApiRequest<InventoryEntry> {
+    return new ApiRequest<InventoryEntry>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',
-        uriTemplate: '/{projectKey}/extensions/{ID}',
+        uriTemplate: '/{projectKey}/inventory/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
           'Content-Type': 'application/json',
@@ -76,12 +76,12 @@ export class ByProjectKeyExtensionsByIDRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<Extension> {
-    return new ApiRequest<Extension>(
+  }): ApiRequest<InventoryEntry> {
+    return new ApiRequest<InventoryEntry>(
       {
         baseUri: this.args.baseUri,
         method: 'DELETE',
-        uriTemplate: '/{projectKey}/extensions/{ID}',
+        uriTemplate: '/{projectKey}/inventory/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
