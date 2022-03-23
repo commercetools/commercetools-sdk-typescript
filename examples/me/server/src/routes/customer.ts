@@ -1,7 +1,6 @@
 import { Router } from 'express'
 import { CustomerController } from '../controller'
 import { Validator } from '../middleware'
-import { authenticateUser, invalidateToken } from '../middleware'
 
 const customerController = new CustomerController()
 
