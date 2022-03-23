@@ -30,4 +30,4 @@ These credentials can be gotten from the commercetools [merchant center](https:/
 
 ### Note
 
-Ensure there are products and at least a customer already enlisted and registered respectively within the project being used.
+Ensure there are products and at least a customer already enlisted and registered respectively within the project being used, if you don't please follow this [link](https://github.com/commercetools/commercetools-sunrise-data) for further instructions.

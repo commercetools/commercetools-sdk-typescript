@@ -1,6 +1,5 @@
 import { Router } from 'express'
 import { CartController } from '../controller'
-import { isAuthenticated } from '../middleware'
 
 // build the client
 const cartController = new CartController()
