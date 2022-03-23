@@ -74,6 +74,7 @@ export default function createHttpMiddleware({
     backoff = true,
     retryDelay = 200,
     maxDelay = Infinity,
+    retryCodes = [503],
   } = {},
   fetch: fetcher,
   getAbortController,
@@ -94,6 +95,12 @@ export default function createHttpMiddleware({
     // declared before referencing it otherwise it would cause a `ReferenceError`.
     // For reference of this pattern: https://github.com/apollographql/apollo-link/blob/498b413a5b5199b0758ce898b3bb55451f57a2fa/packages/apollo-link-http/src/httpLink.ts#L49
     fetchFunction = fetch
+  }
+
+  if (!Array.isArray(retryCodes)) {
+    throw new Error(
+      '`retryCodes` option must be an array of retry status (error) codes.'
+    )
   }
 
   return (next: Next): Next =>
@@ -208,21 +215,21 @@ export default function createHttpMiddleware({
                 })
                 return
               }
-              if (res.status === 503 && enableRetry)
-                if (retryCount < maxRetries) {
-                  setTimeout(
-                    executeFetch,
-                    calcDelayDuration(
-                      retryCount,
-                      retryDelay,
-                      maxRetries,
-                      backoff,
-                      maxDelay
-                    )
-                  )
-                  retryCount += 1
-                  return
-                }
+              // if (res.status === 503 && enableRetry)
+              //   if (retryCount < maxRetries) {
+              //     setTimeout(
+              //       executeFetch,
+              //       calcDelayDuration(
+              //         retryCount,
+              //         retryDelay,
+              //         maxRetries,
+              //         backoff,
+              //         maxDelay
+              //       )
+              //     )
+              //     retryCount += 1
+              //     return
+              //   }
 
               // Server responded with an error. Try to parse it as JSON, then
               // return a proper error type with all necessary meta information.
@@ -244,6 +251,28 @@ export default function createHttpMiddleware({
                     ? { message: parsed.message, body: parsed }
                     : { message: parsed, body: parsed }),
                 })
+
+                if (
+                  enableRetry &&
+                  (retryCodes.indexOf(error.statusCode) !== -1 ||
+                    retryCodes?.indexOf(error.message) !== -1)
+                ) {
+                  if (retryCount < maxRetries) {
+                    setTimeout(
+                      executeFetch,
+                      calcDelayDuration(
+                        retryCount,
+                        retryDelay,
+                        maxRetries,
+                        backoff,
+                        maxDelay
+                      )
+                    )
+                    retryCount += 1
+                    return
+                  }
+                }
+
                 maskAuthData(error.originalRequest, maskSensitiveHeaderData)
                 // Let the final resolver to reject the promise
                 const parsedResponse = {

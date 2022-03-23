@@ -319,6 +319,7 @@ export type HttpMiddlewareOptions = {
     retryDelay?: number
     backoff?: boolean
     maxDelay?: number
+    retryCodes?: Array<number | string>,
   }
   fetch?: typeof fetch
   abortController?: AbortController // deprecated
