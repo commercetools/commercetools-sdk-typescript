@@ -690,6 +690,11 @@ export interface OrderImportDraft {
    */
   readonly orderState?: OrderState
   /**
+   *	This reference can point to a state in a custom workflow.
+   *
+   */
+  readonly state?: StateReference
+  /**
    *
    */
   readonly shipmentState?: ShipmentState
@@ -702,6 +707,10 @@ export interface OrderImportDraft {
    *
    */
   readonly shippingInfo?: ShippingInfoImportDraft
+  /**
+   *
+   */
+  readonly paymentInfo?: PaymentInfo
   /**
    *
    */

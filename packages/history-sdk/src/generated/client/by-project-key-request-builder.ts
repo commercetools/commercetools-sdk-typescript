@@ -7,7 +7,7 @@ import {
   ChangeHistoryResourceType,
   PlatformInitiatedChange,
   RecordPagedQueryResponse,
-} from '../models/common'
+} from '../models/change-history'
 import { executeRequest, QueryParam } from '../shared/utils/common-types'
 import { ApiRequest } from '../shared/utils/requests-utils'
 import { ByProjectKeyByResourceTypeRequestBuilder } from './by-project-key-by-resource-type-request-builder'
@@ -48,6 +48,7 @@ export class ByProjectKeyRequestBuilder {
       resourceId?: string
       source?: string
       changes?: string | string[]
+      stores?: string | string[]
       customerId?: string
       excludePlatformInitiatedChanges?:
         | PlatformInitiatedChange

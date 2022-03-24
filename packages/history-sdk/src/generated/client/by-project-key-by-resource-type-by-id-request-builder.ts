@@ -6,7 +6,7 @@
 import {
   PlatformInitiatedChange,
   RecordPagedQueryResponse,
-} from '../models/common'
+} from '../models/change-history'
 import { executeRequest, QueryParam } from '../shared/utils/common-types'
 import { ApiRequest } from '../shared/utils/requests-utils'
 
@@ -33,6 +33,7 @@ export class ByProjectKeyByResourceTypeByIDRequestBuilder {
       clientId?: string
       source?: string
       changes?: string | string[]
+      stores?: string | string[]
       customerId?: string
       excludePlatformInitiatedChanges?:
         | PlatformInitiatedChange
