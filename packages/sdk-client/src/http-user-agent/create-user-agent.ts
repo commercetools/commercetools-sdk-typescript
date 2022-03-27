@@ -55,7 +55,10 @@ export default function createUserAgent(options: HttpUserAgentOptions) {
   // System info
   const systemInfo = getSystemInfo()
 
-  return [baseInfo, systemInfo, libraryInfo, contactInfo]
+  // customName
+  const customAgent = options.customAgent || ''
+
+  return [baseInfo, systemInfo, libraryInfo, contactInfo, customAgent]
     .filter(Boolean)
     .join(' ')
 }

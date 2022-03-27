@@ -7,7 +7,8 @@ import {
 import { createUserAgentMiddleware } from '../../src/sdk-middleware-user-agent'
 
 describe('UserAgent', () => {
-  const userAgentMiddleware = createUserAgentMiddleware()
+  const option = { name: 'agentName', customAgent: 'customAgent' }
+  const userAgentMiddleware = createUserAgentMiddleware(option)
   const request: MiddlewareRequest = {
     method: 'GET',
     uri: '/foo',
@@ -37,6 +38,12 @@ describe('UserAgent', () => {
     test('has browser version', () => {
       // because we use jsdom
       expect(headers['User-Agent']).toMatch(process.version.slice(1))
+    })
+    test('has a customAgent', () => {
+      expect(headers['User-Agent']).toMatch('customAgent')
+    })
+    test('should not override the name', () => {
+      expect(headers['User-Agent']).toMatch('commercetools-sdk-javascript-v2/')
     })
     test('do not change response object', () => {
       expect(res).toEqual({ ...res })
