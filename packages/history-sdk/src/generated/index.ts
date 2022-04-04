@@ -9,6 +9,7 @@
 //Root client that is used to access all the endpoints in the API
 export * from './client/api-root'
 export * from './models/change'
+export * from './models/change-history'
 export * from './models/change-value'
 export * from './models/common'
 export * from './models/label'

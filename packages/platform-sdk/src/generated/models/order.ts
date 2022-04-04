@@ -625,6 +625,15 @@ export interface OrderFromCartDraft {
    *
    */
   readonly state?: StateResourceIdentifier
+  /**
+   *	[Custom Fields](/../api/projects/custom-fields) to be added to the Order.
+   *
+   *	- If provided, only the Custom Fields given here are added to the Order and the Custom Fields on the referenced [Cart](/../api/projects/carts#cart) are ignored.
+   *	- If not provided, the Custom Fields on the referenced [Cart](/../api/projects/carts#cart) are added to the Order automatically.
+   *
+   *
+   */
+  readonly custom?: CustomFieldsDraft
 }
 export interface OrderImportDraft {
   /**
@@ -690,6 +699,11 @@ export interface OrderImportDraft {
    */
   readonly orderState?: OrderState
   /**
+   *	This reference can point to a state in a custom workflow.
+   *
+   */
+  readonly state?: StateReference
+  /**
    *
    */
   readonly shipmentState?: ShipmentState
@@ -702,6 +716,10 @@ export interface OrderImportDraft {
    *
    */
   readonly shippingInfo?: ShippingInfoImportDraft
+  /**
+   *
+   */
+  readonly paymentInfo?: PaymentInfo
   /**
    *
    */

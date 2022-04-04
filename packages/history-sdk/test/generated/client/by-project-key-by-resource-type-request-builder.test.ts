@@ -93,6 +93,14 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
+      uri: '/test_projectKey/test_resourceType?stores=stores',
+      request: apiRoot
+        .withProjectKeyValue({ projectKey: 'test_projectKey' })
+        .withResourceTypeValue({ resourceType: 'test_resourceType' })
+        .get({ queryArgs: { stores: 'stores' } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/test_resourceType?customerId=customerId',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })

@@ -6,6 +6,7 @@
 
 import {
   AssetChangeValue,
+  AttributeValue,
   ChangeTargetChangeValue,
   ChangeValueChangeValue,
   CustomFieldExpandedValue,
@@ -19,6 +20,7 @@ import {
   SetCartClassificationShippingRateInputValue,
   SetCartScoreShippingRateInputValue,
   ShippingMethodChangeValue,
+  ShippingMethodTaxAmountChangeValue,
   ShoppingListLineItemValue,
   TextLineItemValue,
   TransactionChangeValue,
@@ -2520,11 +2522,11 @@ export interface SetAttributeChange {
   /**
    *
    */
-  readonly previousValue: any
+  readonly previousValue: AttributeValue
   /**
    *
    */
-  readonly nextValue: any
+  readonly nextValue: AttributeValue
 }
 export interface SetAuthorNameChange {
   readonly type: 'SetAuthorNameChange'
@@ -4282,11 +4284,11 @@ export interface SetShippingMethodTaxAmountChange {
   /**
    *
    */
-  readonly nextValue: any
+  readonly nextValue: ShippingMethodTaxAmountChangeValue
   /**
    *
    */
-  readonly previousValue: any
+  readonly previousValue: ShippingMethodTaxAmountChangeValue
 }
 export interface SetShippingMethodTaxRateChange {
   readonly type: 'SetShippingMethodTaxRateChange'

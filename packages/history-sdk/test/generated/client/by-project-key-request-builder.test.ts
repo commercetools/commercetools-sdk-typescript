@@ -90,6 +90,13 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
+      uri: '/test_projectKey?stores=stores',
+      request: apiRoot
+        .withProjectKeyValue({ projectKey: 'test_projectKey' })
+        .get({ queryArgs: { stores: 'stores' } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey?customerId=customerId',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })

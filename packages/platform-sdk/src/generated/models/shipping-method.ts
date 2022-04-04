@@ -68,7 +68,7 @@ export interface ShippingMethod extends BaseResource {
    */
   readonly createdBy?: CreatedBy
   /**
-   *	User-specific unique identifier for the shipping method.
+   *	User-specific unique identifier for the shipping method
    *
    */
   readonly key?: string

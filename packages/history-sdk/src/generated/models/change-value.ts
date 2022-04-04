@@ -12,6 +12,8 @@ import {
   Parcel,
   Reference,
   SelectionMode,
+  TaxedPrice,
+  TaxRate,
 } from './common'
 
 export type ChangeTargetChangeValue =
@@ -34,6 +36,16 @@ export interface AssetChangeValue {
    *
    */
   readonly name: LocalizedString
+}
+export interface AttributeValue {
+  /**
+   *
+   */
+  readonly name: string
+  /**
+   *
+   */
+  readonly value: any
 }
 /**
  *	Shape of the value for cart discounts line item and custom line items target.
@@ -297,6 +309,17 @@ export interface ShippingMethodChangeValue {
    *
    */
   readonly name: string
+}
+export interface ShippingMethodTaxAmountChangeValue {
+  /**
+   *
+   */
+  readonly taxedPrice: TaxedPrice
+  /**
+   *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
+   *
+   */
+  readonly taxRate: TaxRate
 }
 export interface ShoppingListLineItemValue {
   /**
