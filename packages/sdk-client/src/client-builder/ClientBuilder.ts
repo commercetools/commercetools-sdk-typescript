@@ -14,6 +14,7 @@ import {
   Credentials,
   ExistingTokenMiddlewareOptions,
   HttpMiddlewareOptions,
+  HttpUserAgentOptions,
   Middleware,
   Nullable,
   PasswordAuthMiddlewareOptions,
@@ -163,8 +164,8 @@ export default class ClientBuilder {
     return this
   }
 
-  withUserAgentMiddleware(): ClientBuilder {
-    this.userAgentMiddleware = createUserAgentMiddleware()
+  withUserAgentMiddleware(options: HttpUserAgentOptions): ClientBuilder {
+    this.userAgentMiddleware = createUserAgentMiddleware(options)
     return this
   }
 

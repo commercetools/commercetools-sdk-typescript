@@ -3,12 +3,16 @@ import { default as createHttpUserAgent } from '../http-user-agent/create-user-a
 import {
   Dispatch,
   Middleware,
+  HttpUserAgentOptions,
   MiddlewareRequest,
   MiddlewareResponse,
 } from '../types/sdk'
 
-export default function createUserAgentMiddleware(): Middleware {
+export default function createUserAgentMiddleware(
+  options: HttpUserAgentOptions
+): Middleware {
   const userAgent = createHttpUserAgent({
+    ...options,
     name: `commercetools-sdk-javascript-v2/${packageJson.version}`,
   })
 

@@ -481,12 +481,13 @@ export type ApiRequestBuilder = {
 
 /* HTTP User Agent */
 export type HttpUserAgentOptions = {
-  name: string
+  name?: string
   version?: string
   libraryName?: string
   libraryVersion?: string
   contactUrl?: string
   contactEmail?: string
+  customAgent?: string
 }
 
 /* Sync Actions */
