@@ -2,8 +2,8 @@ import packageJson from '../../package.json'
 import { default as createHttpUserAgent } from '../http-user-agent/create-user-agent'
 import {
   Dispatch,
-  Middleware,
   HttpUserAgentOptions,
+  Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
 } from '../types/sdk'
