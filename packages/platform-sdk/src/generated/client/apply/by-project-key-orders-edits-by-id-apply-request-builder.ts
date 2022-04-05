@@ -3,7 +3,7 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { OrderEditApply } from '../../models/order-edit'
+import { OrderEdit, OrderEditApply } from '../../models/order-edit'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
@@ -23,8 +23,8 @@ export class ByProjectKeyOrdersEditsByIDApplyRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<void> {
-    return new ApiRequest<void>(
+  }): ApiRequest<OrderEdit> {
+    return new ApiRequest<OrderEdit>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',
