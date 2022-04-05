@@ -9,7 +9,7 @@ import {
 } from '../types/sdk'
 
 export default function createUserAgentMiddleware(
-  options: HttpUserAgentOptions
+  options?: HttpUserAgentOptions
 ): Middleware {
   const userAgent = createHttpUserAgent({
     ...options,

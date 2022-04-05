@@ -164,7 +164,7 @@ export default class ClientBuilder {
     return this
   }
 
-  withUserAgentMiddleware(options: HttpUserAgentOptions): ClientBuilder {
+  withUserAgentMiddleware(options?: HttpUserAgentOptions): ClientBuilder {
     this.userAgentMiddleware = createUserAgentMiddleware(options)
     return this
   }

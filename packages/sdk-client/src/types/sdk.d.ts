@@ -163,7 +163,11 @@ export type AuthMiddlewareOptions = {
   scopes?: Array<string>
   // For internal usage only
   oauthUri?: string
-  fetch?: typeof fetch
+  /**
+   * fix until we understand how to
+   * type the new node-fetch version 
+   */
+  fetch?: any
   tokenCache?: TokenCache
 }
 
@@ -179,7 +183,7 @@ export type AuthOptions = {
   }
   headers?: JsonObject<string>
   scopes?: Array<string>
-  fetch?: typeof fetch
+  fetch?: any
 }
 
 export type CustomAuthOptions = {
@@ -194,7 +198,7 @@ export type CustomAuthOptions = {
   }
   headers?: JsonObject<string>
   scopes?: Array<string>
-  fetch?: typeof fetch
+  fetch?: any
 }
 
 export type TokenInfo = {
@@ -217,7 +221,7 @@ export type AnonymousAuthMiddlewareOptions = {
   scopes?: Array<string>
   // For internal usage only
   oauthUri?: string
-  fetch?: typeof fetch
+  fetch?: any
   tokenCache?: TokenCache
 }
 
@@ -231,7 +235,7 @@ export type RefreshAuthMiddlewareOptions = {
   refreshToken: string
   // For internal usage only
   oauthUri?: string
-  fetch?: typeof fetch
+  fetch?: any
 }
 
 export type Task = {
@@ -273,12 +277,12 @@ type requestBaseOptions = {
   tokenCacheKey?: TokenCacheOptions
 }
 export type executeRequestOptions = requestBaseOptions & {
-  fetcher: typeof fetch
+  fetcher: any
 }
 
 export type AuthMiddlewareBaseOptions = requestBaseOptions & {
   request: MiddlewareRequest
-  fetch?: typeof fetch
+  fetch?: any
 }
 
 export type UserAuthOptions = {
@@ -302,7 +306,7 @@ export type PasswordAuthMiddlewareOptions = {
   scopes?: Array<string>
   // For internal usage only
   oauthUri?: string
-  fetch?: typeof fetch
+  fetch?: any
 }
 
 export type HttpMiddlewareOptions = {
@@ -321,7 +325,7 @@ export type HttpMiddlewareOptions = {
     maxDelay?: number
     retryCodes?: Array<number | string>,
   }
-  fetch?: typeof fetch
+  fetch?: any
   abortController?: AbortController // deprecated
   getAbortController?: () => AbortController
 }
