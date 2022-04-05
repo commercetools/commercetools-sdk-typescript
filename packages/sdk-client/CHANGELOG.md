@@ -1,5 +1,14 @@
 # @commercetools/sdk-client-v2
 
+## 1.3.0
+
+### Minor Changes
+
+- [#241](https://github.com/commercetools/commercetools-sdk-typescript/pull/241) [`85f5be3`](https://github.com/commercetools/commercetools-sdk-typescript/commit/85f5be349a9b0fa46539259981bfd8d5fc2ffdc6) Thanks [@ajimae](https://github.com/ajimae)! - Releasing the TS SDK with the following changelogs
+
+  - added functionalities to extend client user agent
+  - custom field added to OrderFromCardDraft
+
 ## 1.2.0
 
 ### Minor Changes

@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/importapi-sdk",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "Type script sdk for commercetools import features",
   "keywords": ["commercetools", "typescript", "sdk", "import"],
   "homepage": "https://github.com/commercetools/commercetools-sdk-typescript/packages/importapi-sdk",
@@ -23,7 +23,7 @@
     "./dist/commercetools-importapi-sdk.esm.js": "./dist/commercetools-importapi-sdk.browser.esm.js"
   },
   "dependencies": {
-    "@commercetools/sdk-client-v2": "^1.2.0",
+    "@commercetools/sdk-client-v2": "^1.3.0",
     "@commercetools/sdk-middleware-auth": "^6.0.4",
     "@commercetools/sdk-middleware-http": "^6.0.4",
     "@commercetools/sdk-middleware-logger": "^2.1.1",
