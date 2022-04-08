@@ -1067,6 +1067,12 @@ export interface TaxedItemPrice {
    *
    */
   readonly totalGross: TypedMoney
+  /**
+   *	Platform-calculated value as subtraction of `totalGross` - `totalNet`.
+   *
+   *
+   */
+  readonly totalTax?: TypedMoney
 }
 export interface TaxedPrice {
   /**
@@ -1082,6 +1088,12 @@ export interface TaxedPrice {
    *
    */
   readonly taxPortions: TaxPortion[]
+  /**
+   *	Platform-calculated value as subtraction of `totalGross` - `totalNet`.
+   *
+   *
+   */
+  readonly totalTax?: TypedMoney
 }
 export interface TaxedPriceDraft {
   /**

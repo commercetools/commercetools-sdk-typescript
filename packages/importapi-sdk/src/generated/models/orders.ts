@@ -551,6 +551,11 @@ export interface TaxedPrice {
    *
    */
   readonly taxPortions: TaxPortion[]
+  /**
+   *	Maps to `TaxedPrice.totalTax`.
+   *
+   */
+  readonly totalTax?: Money
 }
 /**
  *	Maps to `Order.taxMode`
