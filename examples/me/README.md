@@ -1,6 +1,6 @@
 # ME Endpoint Checkout App
 
-PoC to show how the ME endpoints can be used with the TypeScript SDK.
+Example to show how the ME endpoints can be used with the TypeScript SDK.
 
 ### Installation
 
