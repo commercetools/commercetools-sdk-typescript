@@ -5,6 +5,7 @@
  */
 
 import {
+  CartReference,
   DiscountCodeInfo,
   ExternalLineItemTotalPrice,
   ExternalTaxRateDraft,
@@ -17,6 +18,7 @@ import { ChannelResourceIdentifier } from './channel'
 import { BaseAddress, LocalizedString, Money, TypedMoney } from './common'
 import { CustomerReference } from './customer'
 import { DiscountCodeReference } from './discount-code'
+import { OrderReference } from './order'
 import {
   PaymentMethodInfo,
   PaymentResourceIdentifier,
@@ -495,6 +497,12 @@ export interface MyTransactionDraft {
    *
    */
   readonly custom?: CustomFieldsDraft
+}
+export interface ReplicaMyCartDraft {
+  /**
+   *
+   */
+  readonly reference: CartReference | OrderReference
 }
 export interface MyCartAddDiscountCodeAction {
   readonly action: 'addDiscountCode'

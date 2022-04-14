@@ -7,6 +7,7 @@ import { Cart, CartPagedQueryResponse } from '../../models/cart'
 import { MyCartDraft } from '../../models/me'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
+import { ByProjectKeyMeCartsReplicateRequestBuilder } from '../replicate/by-project-key-me-carts-replicate-request-builder'
 import { ByProjectKeyMeCartsByIDRequestBuilder } from './by-project-key-me-carts-by-id-request-builder'
 import { ByProjectKeyMeCartsKeyByKeyRequestBuilder } from './by-project-key-me-carts-key-by-key-request-builder'
 
@@ -39,6 +40,15 @@ export class ByProjectKeyMeCartsRequestBuilder {
       pathArgs: {
         ...this.args.pathArgs,
         ...childPathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public replicate(): ByProjectKeyMeCartsReplicateRequestBuilder {
+    return new ByProjectKeyMeCartsReplicateRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
       },
       executeRequest: this.args.executeRequest,
       baseUri: this.args.baseUri,
