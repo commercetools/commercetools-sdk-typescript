@@ -490,6 +490,95 @@ describe('Http', () => {
       httpMiddleware(next)(request, response)
     }))
 
+  test('should not `include original request` in error response', () =>
+    new Promise((resolve: Function, reject: Function) => {
+      const request = createTestRequest({
+        uri: '/foo/bar',
+      })
+      const response = { resolve: Function, reject: Function } as any
+      const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
+        expect(res.error.name).toBe('NetworkError')
+        expect(res.error.headers).toBeUndefined()
+        expect(res.error.originalRequest).toBeUndefined()
+        expect(res.error.message).toBe(
+          `request to ${testHost}/foo/bar failed, reason: Connection timeout`
+        )
+        expect(res.body).toBeUndefined()
+        expect(res.statusCode).toBe(0)
+        resolve()
+      }
+      const httpMiddleware = createHttpMiddleware({
+        host: testHost,
+        includeRequestInErrorResponse: false,
+        fetch,
+      } as any)
+      nock(testHost)
+        .defaultReplyHeaders({
+          'Content-Type': 'application/json',
+        })
+        .get('/foo/bar')
+        .replyWithError('Connection timeout')
+
+      httpMiddleware(next)(request, response)
+    }))
+
+  test('should `include original request` in error response', () =>
+    new Promise((resolve: Function, reject: Function) => {
+      const request = createTestRequest({
+        uri: '/foo/bar',
+      })
+      const response = { resolve: Function, reject: Function } as any
+      const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
+        expect(res.error.name).toBe('NetworkError')
+        expect(res.error.headers).toBeUndefined()
+        expect(res.error.originalRequest).toBeDefined()
+        expect(res.error.message).toBe(
+          `request to ${testHost}/foo/bar failed, reason: Connection timeout`
+        )
+        expect(res.body).toBeUndefined()
+        expect(res.statusCode).toBe(0)
+        resolve()
+      }
+      const httpMiddleware = createHttpMiddleware({
+        host: testHost,
+        includeRequestInErrorResponse: true,
+        fetch,
+      } as any)
+      nock(testHost)
+        .defaultReplyHeaders({
+          'Content-Type': 'application/json',
+        })
+        .get('/foo/bar')
+        .replyWithError('Connection timeout')
+
+      httpMiddleware(next)(request, response)
+    }))
+
+  test('should not `include original request` in (5xx) error response', () =>
+    new Promise((resolve: Function, reject: Function) => {
+      const request = createTestRequest({
+        uri: '/foo/bar',
+      })
+      const response = { resolve: Function, reject: Function } as any
+      const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
+        expect(res.error.name).toBe('HttpError')
+        expect(res.error.originalRequest).toBeUndefined()
+        expect(res.statusCode).toBe(502)
+        expect(res.body).toBeUndefined()
+        resolve()
+      }
+      const options = {
+        host: testHost,
+        enableRetry: true,
+        includeRequestInErrorResponse: false,
+        fetch,
+      } as any
+      const httpMiddleware = createHttpMiddleware(options)
+      nock(testHost).get('/foo/bar').reply(502)
+
+      httpMiddleware(next)(request, response)
+    }))
+
   test('execute a post request (success)', () =>
     new Promise((resolve: Function, reject: Function) => {
       const request = createTestRequest({

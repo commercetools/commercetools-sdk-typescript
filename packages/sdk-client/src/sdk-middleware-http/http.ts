@@ -65,6 +65,7 @@ export default function createHttpMiddleware({
   credentialsMode,
   includeResponseHeaders,
   includeOriginalRequest,
+  includeRequestInErrorResponse = true,
   maskSensitiveHeaderData = true,
   enableRetry,
   timeout,
@@ -244,7 +245,9 @@ export default function createHttpMiddleware({
 
                 const error: HttpErrorType = createError({
                   statusCode: res.status,
-                  originalRequest: request,
+                  ...(includeRequestInErrorResponse
+                    ? { originalRequest: request }
+                    : {}),
                   retryCount,
                   headers: parseHeaders(res.headers),
                   ...(typeof parsed === 'object'
@@ -302,7 +305,9 @@ export default function createHttpMiddleware({
                 }
 
               const error = new NetworkError(e.message, {
-                originalRequest: request,
+                ...(includeRequestInErrorResponse
+                  ? { originalRequest: request }
+                  : {}),
                 retryCount,
               })
               maskAuthData(error.originalRequest, maskSensitiveHeaderData)
