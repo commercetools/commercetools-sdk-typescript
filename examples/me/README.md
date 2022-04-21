@@ -2,32 +2,50 @@
 
 Example to show how the ME endpoints can be used with the TypeScript SDK.
 
-### Installation
+## Requirements
 
-- Clone/Download the example folder
-- Create a `.env` file in the path `me/client/.env` with the following entry
+- A commercetools Project with a configured [API Client](https://docs.commercetools.com/tutorials/getting-started#creating-an-api-client).
+- Your commercetools Project must have existing Products containing Variants, and at least one Customer.
+  - If your commercetools Project is currently empty, you can install the [SUNRISE sample data](https://docs.commercetools.com/sdk/sunrise-data).
+
+## Installation
+
+1. Clone/Download the example folder.
+2. Navigate to the path `me/client/`.
+3. Create a `.env` file in this path and add the following code:
 
 ```txt
 REACT_APP_BASE_URL=http://localhost:8085
 ```
 
-- Create a `.env` file in the path `me/server/.env` with the following entries
+4. Navigate to the path `me/server/`.
+5. Create a `.env` file in this path and add the following code:
 
 ```bash
-PORT=8085 #default to 8085
-CTP_CLIENT_ID=
-CTP_PROJECT_KEY=
-CTP_CLIENT_SECRET=
-DEFAULT_CURRENCY=EUR #default to EUR
+PORT=8085
+CTP_CLIENT_ID={clientID}
+CTP_PROJECT_KEY={projectKey}
+CTP_CLIENT_SECRET={clientSecret}
+DEFAULT_CURRENCY=EUR
 ```
 
-These credentials can be gotten from the commercetools [merchant center](https://mc.europe-west1.gcp.commercetools.com/login?reason=unauthorized&redirectTo=https%3A%2F%2Fmc.europe-west1.gcp.commercetools.com)
+6. Replace `{clientID}`, `{projectKey}`, and `{clientSecret}` with the respective values from your API Client. The `DEFAULT_CURRENCY` can be changed based on your commercetools Project settings.
 
-- Open up a Terminal window and navigate to `examples/me/server` and run `yarn install` feel free to use `npm` if you wish
-- After the installation completes, run `yarn start:dev` within the (same) server directory, this should spin up the server.
-- On a separate Terminal window, navigate to `examples/me/client` and run `yarn install` also, feel free to use `npm` if you wish
-- Also, once the installation completes, run `yarn start:dev` within the (same) server directory, this will open up a browser Tab with a list of products, assuming everything went well.
+## Using the ME Endpoint Checkout App
 
-### Note
+You should start the server before the client and keep both running in separate Terminal windows.
 
-Ensure there are products and at least a customer already enlisted and registered respectively within the project being used, if you don't please follow this [link](https://github.com/commercetools/commercetools-sunrise-data) for further instructions.
+### Start the server
+
+1. Open a new Terminal.
+2. Navigate to `examples/me/server`.
+3. Run `yarn install` (`npm` can also be used).
+4. After the installation completes, run `yarn start:dev`.
+5. The server starts.
+
+### Start the client
+1. Open a new Terminal
+2. Navigate to `examples/me/client`.
+3. Run `yarn install` (`npm` can also be used).
+4. After the installation completes, run `yarn start:dev`.
+5. A new web browser window opens and displays the Checkout app. A list of Products should appear.
