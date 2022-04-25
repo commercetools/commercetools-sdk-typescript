@@ -315,6 +315,7 @@ export type HttpMiddlewareOptions = {
   includeHeaders?: boolean
   includeResponseHeaders?: boolean
   includeOriginalRequest?: boolean
+  includeRequestInErrorResponse?: boolean
   maskSensitiveHeaderData?: boolean
   timeout?: number
   enableRetry?: boolean
