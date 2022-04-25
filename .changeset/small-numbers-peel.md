@@ -2,4 +2,4 @@
 '@commercetools/sdk-client-v2': patch
 ---
 
-add an option (`excludeRequestInErrorResponse`) to exclude original request from error responses.
+- add an option (`includeRequestInErrorResponse`) to include or exclude original request from error responses.
