@@ -278,6 +278,8 @@ export type ResourceTypeId =
   | 'order'
   | 'order-delivery'
   | 'order-edit'
+  | 'order-parcel'
+  | 'order-return-item'
   | 'payment'
   | 'payment-interface-interaction'
   | 'product-price'
