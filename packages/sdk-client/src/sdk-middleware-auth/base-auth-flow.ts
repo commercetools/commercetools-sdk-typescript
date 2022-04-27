@@ -92,12 +92,18 @@ async function executeRequest({
     }
 
     // Handle error response
-    let parsed
-    const text: any = await _res.text()
-    try {
-      parsed = JSON.parse(text)
-    } catch (error) {
-      /* noop */
+    let parsed: any;
+    let text: string;
+    if (!_res.ok) {
+      text = `${url}: ${_res.statusText}`;
+    } else {
+      text = await _res.text();
+
+      try {
+        parsed = JSON.parse(text);
+      } catch (error) {
+        /* noop */
+      }
     }
 
     const error: any = new Error(parsed ? parsed.message : text)
