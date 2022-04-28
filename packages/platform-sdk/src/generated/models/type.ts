@@ -233,7 +233,7 @@ export interface CustomFieldReferenceType {
   readonly referenceTypeId: CustomFieldReferenceValue
 }
 /**
- *	Values of a SetType Custom Field are sets of values of the specified `elementType`.
+ *	Values of a SetType Custom Field are sets of values of the specified `elementType` (without duplicate elements).
  *
  */
 export interface CustomFieldSetType {
