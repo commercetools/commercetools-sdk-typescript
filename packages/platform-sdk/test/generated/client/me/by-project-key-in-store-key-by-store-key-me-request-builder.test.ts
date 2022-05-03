@@ -9,6 +9,111 @@ import { ApiRoot } from '../../../../src'
 
 const apiRoot: ApiRoot = new ApiRoot({ executeRequest: null })
 
-test('test', () => {
-  expect(apiRoot).toBeInstanceOf(ApiRoot)
+export function getRequestsWithMethodParameters(): RequestWithMethod[] {
+  return [
+    {
+      method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/me?sort=sort',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .me()
+        .get({ queryArgs: { sort: 'sort' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/me?limit=7',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .me()
+        .get({ queryArgs: { limit: 7 } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/me?offset=3',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .me()
+        .get({ queryArgs: { offset: 3 } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/me?withTotal=true',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .me()
+        .get({ queryArgs: { withTotal: true } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/me?expand=expand',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .me()
+        .get({ queryArgs: { expand: 'expand' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/me?where=where',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .me()
+        .get({ queryArgs: { where: 'where' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/me?var.varName=var.varName',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .me()
+        .get({ queryArgs: { 'var.varName': 'var.varName' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/me',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .me()
+        .get(),
+    },
+    {
+      method: 'post',
+      uri: '/test_projectKey/in-store/key=test_storeKey/me',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .me()
+        .post({ body: null, headers: null }),
+    },
+    {
+      method: 'delete',
+      uri: '/test_projectKey/in-store/key=test_storeKey/me?version=2',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .me()
+        .delete({ queryArgs: { version: 2 } }),
+    },
+  ]
+}
+
+describe('Testing ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder Requests', () => {
+  const requestsToTest = getRequestsWithMethodParameters()
+  requestsToTest.forEach((rm) => {
+    test(`Testing => request method: ${rm.method} and url: ${rm.uri}`, async () => {
+      expect(rm.method.toLowerCase()).toBe(
+        rm.request.clientRequest().method.toLowerCase()
+      )
+      expect(rm.uri.toLowerCase()).toBe(
+        rm.request.clientRequest().uri.toLowerCase()
+      )
+    })
+  })
 })

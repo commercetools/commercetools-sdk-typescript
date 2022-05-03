@@ -82,7 +82,7 @@ export interface Record {
  */
 export interface RecordPagedQueryResponse {
   /**
-   *	Maximum number of results requested in the query request.
+   *	Number of [results requested](/../api/general-concepts#limit).
    *
    *
    */

@@ -23,7 +23,7 @@ export interface Location {
 }
 export interface Zone extends BaseResource {
   /**
-   *	Unique ID of the Zone.
+   *	Platform-generated unique identifier of the Zone.
    *
    */
   readonly id: string
@@ -57,7 +57,7 @@ export interface Zone extends BaseResource {
    */
   readonly createdBy?: CreatedBy
   /**
-   *	User-defined unique identifier for the Zone.
+   *	User-defined unique identifier of the Zone.
    *
    *
    */
@@ -106,7 +106,7 @@ export interface ZoneDraft {
  */
 export interface ZonePagedQueryResponse {
   /**
-   *	Number of results requested in the query request.
+   *	Number of [results requested](/../api/general-concepts#limit).
    *
    *
    */
@@ -142,13 +142,13 @@ export interface ZonePagedQueryResponse {
   readonly results: Zone[]
 }
 /**
- *	[Reference](/types#reference) to a [Zone](ctp:api:type:Zone).
+ *	[Reference](/../api/types#reference) to a [Zone](ctp:api:type:Zone).
  *
  */
 export interface ZoneReference {
   readonly typeId: 'zone'
   /**
-   *	Unique ID of the referenced [Zone](ctp:api:type:Zone).
+   *	Platform-generated unique identifier of the referenced [Zone](ctp:api:type:Zone).
    *
    *
    */
@@ -167,13 +167,13 @@ export interface ZoneReference {
 export interface ZoneResourceIdentifier {
   readonly typeId: 'zone'
   /**
-   *	Unique ID of the referenced [Zone](ctp:api:type:Zone). Either `id` or `key` is required.
+   *	Platform-generated unique identifier of the referenced [Zone](ctp:api:type:Zone). Either `id` or `key` is required.
    *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced [Zone](ctp:api:type:Zone). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [Zone](ctp:api:type:Zone). Either `id` or `key` is required.
    *
    *
    */

@@ -8,6 +8,7 @@ import { BaseResource, CreatedBy, LastModifiedBy } from './common'
 
 export interface CustomObject extends BaseResource {
   /**
+   *	Platform-generated unique identifier of the CustomObject.
    *
    */
   readonly id: string
@@ -41,6 +42,7 @@ export interface CustomObject extends BaseResource {
    */
   readonly container: string
   /**
+   *	User-defined unique identifier of the CustomObject.
    *
    */
   readonly key: string
@@ -56,7 +58,8 @@ export interface CustomObjectDraft {
    */
   readonly container: string
   /**
-   *	A user-defined key that is unique within the given container.
+   *	User-defined unique identifier for the CustomObject.
+   *
    *
    */
   readonly key: string
@@ -71,6 +74,8 @@ export interface CustomObjectDraft {
 }
 export interface CustomObjectPagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number
@@ -91,15 +96,21 @@ export interface CustomObjectPagedQueryResponse {
    */
   readonly results: CustomObject[]
 }
+/**
+ *	[Reference](/../api/types#reference) to a [CustomObject](ctp:api:type:CustomObject).
+ *
+ */
 export interface CustomObjectReference {
   readonly typeId: 'key-value-document'
   /**
-   *	Unique ID of the referenced resource.
+   *	Platform-generated unique identifier of the referenced [CustomObject](ctp:api:type:CustomObject).
    *
    *
    */
   readonly id: string
   /**
+   *	Contains the representation of the expanded CustomObject. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for CustomObjects.
+   *
    *
    */
   readonly obj?: CustomObject

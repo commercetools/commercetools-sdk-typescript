@@ -24,7 +24,7 @@ import {
 
 export interface CartDiscount extends BaseResource {
   /**
-   *	The unique ID of the cart discount.
+   *	Platform-generated unique identifier of the CartDiscount.
    *
    */
   readonly id: string
@@ -58,8 +58,7 @@ export interface CartDiscount extends BaseResource {
    */
   readonly name: LocalizedString
   /**
-   *	User-specific unique identifier for a cart discount.
-   *	Must be unique across a project.
+   *	User-defined unique identifier of the CartDiscount.
    *
    */
   readonly key?: string
@@ -130,9 +129,7 @@ export interface CartDiscountDraft {
    */
   readonly name: LocalizedString
   /**
-   *	User-specific unique identifier for a cart discount.
-   *	Must be unique across a project.
-   *	The field can be reset using the Set Key UpdateAction.
+   *	User-defined unique identifier for the CartDiscount.
    *
    */
   readonly key?: string
@@ -194,6 +191,8 @@ export interface CartDiscountDraft {
 }
 export interface CartDiscountPagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number
@@ -214,29 +213,39 @@ export interface CartDiscountPagedQueryResponse {
    */
   readonly results: CartDiscount[]
 }
+/**
+ *	[Reference](/../api/types#reference) to a [CartDiscount](ctp:api:type:CartDiscount).
+ *
+ */
 export interface CartDiscountReference {
   readonly typeId: 'cart-discount'
   /**
-   *	Unique ID of the referenced resource.
+   *	Platform-generated unique identifier of the referenced [CartDiscount](ctp:api:type:CartDiscount).
    *
    *
    */
   readonly id: string
   /**
+   *	Contains the representation of the expanded CartDiscount. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for CartDiscounts.
+   *
    *
    */
   readonly obj?: CartDiscount
 }
+/**
+ *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [CartDiscount](ctp:api:type:CartDiscount).
+ *
+ */
 export interface CartDiscountResourceIdentifier {
   readonly typeId: 'cart-discount'
   /**
-   *	Unique ID of the referenced resource. Either `id` or `key` is required.
+   *	Platform-generated unique identifier of the referenced [CartDiscount](ctp:api:type:CartDiscount). Either `id` or `key` is required.
    *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced resource. Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [CartDiscount](ctp:api:type:CartDiscount). Either `id` or `key` is required.
    *
    *
    */
@@ -332,6 +341,8 @@ export interface CartDiscountValueFixedDraft {
 export interface CartDiscountValueGiftLineItem {
   readonly type: 'giftLineItem'
   /**
+   *	[Reference](/../api/types#reference) to a [Product](ctp:api:type:Product).
+   *
    *
    */
   readonly product: ProductReference
@@ -353,6 +364,8 @@ export interface CartDiscountValueGiftLineItem {
 export interface CartDiscountValueGiftLineItemDraft {
   readonly type: 'giftLineItem'
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Product](ctp:api:type:Product).
+   *
    *
    */
   readonly product: ProductResourceIdentifier

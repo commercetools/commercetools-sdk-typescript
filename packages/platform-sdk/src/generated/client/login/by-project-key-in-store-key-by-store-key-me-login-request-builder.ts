@@ -3,44 +3,38 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { SuggestionResult } from '../../models/product'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { CustomerSignin, CustomerSignInResult } from '../../models/customer'
+import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
-export class ByProjectKeyProductProjectionsSuggestRequestBuilder {
+export class ByProjectKeyInStoreKeyByStoreKeyMeLoginRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
         projectKey: string
+        storeKey: string
       }
       executeRequest: executeRequest
       baseUri?: string
     }
   ) {}
-  public get(methodArgs?: {
-    queryArgs?: {
-      fuzzy?: boolean
-      staged?: boolean
-      sort?: string | string[]
-      limit?: number
-      offset?: number
-      withTotal?: boolean
-      [key: string]: QueryParam
-    }
+  public post(methodArgs: {
+    body: CustomerSignin
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<SuggestionResult> {
-    return new ApiRequest<SuggestionResult>(
+  }): ApiRequest<CustomerSignInResult> {
+    return new ApiRequest<CustomerSignInResult>(
       {
         baseUri: this.args.baseUri,
-        method: 'GET',
-        uriTemplate: '/{projectKey}/product-projections/suggest',
+        method: 'POST',
+        uriTemplate: '/{projectKey}/in-store/key={storeKey}/me/login',
         pathVariables: this.args.pathArgs,
         headers: {
+          'Content-Type': 'application/json',
           ...methodArgs?.headers,
         },
-        queryParams: methodArgs?.queryArgs,
+        body: methodArgs?.body,
       },
       this.args.executeRequest
     )

@@ -23,7 +23,7 @@ export interface SubRate {
 }
 export interface TaxCategory extends BaseResource {
   /**
-   *	Unique ID of the TaxCategory.
+   *	Platform-generated unique identifier of the TaxCategory.
    *
    *
    */
@@ -77,7 +77,7 @@ export interface TaxCategory extends BaseResource {
    */
   readonly rates: TaxRate[]
   /**
-   *	User-defined unique identifier for the TaxCategory.
+   *	User-defined unique identifier of the TaxCategory.
    *
    *
    */
@@ -115,7 +115,7 @@ export interface TaxCategoryDraft {
  */
 export interface TaxCategoryPagedQueryResponse {
   /**
-   *	Number of results requested in the query request.
+   *	Number of [results requested](/../api/general-concepts#limit).
    *
    *
    */
@@ -157,13 +157,13 @@ export interface TaxCategoryPagedQueryResponse {
 export interface TaxCategoryReference {
   readonly typeId: 'tax-category'
   /**
-   *	Unique ID of the referenced [TaxCategory](ctp:api:type:TaxCategory).
+   *	Platform-generated unique identifier of the referenced [TaxCategory](ctp:api:type:TaxCategory).
    *
    *
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded TaxCategory. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for TaxCategory.
+   *	Contains the representation of the expanded TaxCategory. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for TaxCategories.
    *
    *
    */
@@ -176,13 +176,13 @@ export interface TaxCategoryReference {
 export interface TaxCategoryResourceIdentifier {
   readonly typeId: 'tax-category'
   /**
-   *	Unique ID of the referenced [TaxCategory](ctp:api:type:TaxCategory). Either `id` or `key` is required.
+   *	Platform-generated unique identifier of the referenced [TaxCategory](ctp:api:type:TaxCategory). Either `id` or `key` is required.
    *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced [TaxCategory](ctp:api:type:TaxCategory). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [TaxCategory](ctp:api:type:TaxCategory). Either `id` or `key` is required.
    *
    *
    */

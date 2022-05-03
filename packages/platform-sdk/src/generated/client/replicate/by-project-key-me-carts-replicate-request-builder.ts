@@ -3,11 +3,12 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { SuggestionResult } from '../../models/product'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { Cart } from '../../models/cart'
+import { ReplicaMyCartDraft } from '../../models/me'
+import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
-export class ByProjectKeyProductProjectionsSuggestRequestBuilder {
+export class ByProjectKeyMeCartsReplicateRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
@@ -17,30 +18,23 @@ export class ByProjectKeyProductProjectionsSuggestRequestBuilder {
       baseUri?: string
     }
   ) {}
-  public get(methodArgs?: {
-    queryArgs?: {
-      fuzzy?: boolean
-      staged?: boolean
-      sort?: string | string[]
-      limit?: number
-      offset?: number
-      withTotal?: boolean
-      [key: string]: QueryParam
-    }
+  public post(methodArgs: {
+    body: ReplicaMyCartDraft
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<SuggestionResult> {
-    return new ApiRequest<SuggestionResult>(
+  }): ApiRequest<Cart> {
+    return new ApiRequest<Cart>(
       {
         baseUri: this.args.baseUri,
-        method: 'GET',
-        uriTemplate: '/{projectKey}/product-projections/suggest',
+        method: 'POST',
+        uriTemplate: '/{projectKey}/me/carts/replicate',
         pathVariables: this.args.pathArgs,
         headers: {
+          'Content-Type': 'application/json',
           ...methodArgs?.headers,
         },
-        queryParams: methodArgs?.queryArgs,
+        body: methodArgs?.body,
       },
       this.args.executeRequest
     )

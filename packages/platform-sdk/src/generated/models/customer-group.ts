@@ -14,7 +14,7 @@ import {
 
 export interface CustomerGroup extends BaseResource {
   /**
-   *	Unique ID of the Customer Group.
+   *	Platform-generated unique identifier of the Customer Group.
    *
    *
    */
@@ -50,7 +50,7 @@ export interface CustomerGroup extends BaseResource {
    */
   readonly createdBy?: CreatedBy
   /**
-   *	User-defined unique identifier for the Customer Group.
+   *	User-defined unique identifier of the Customer Group.
    *
    *
    */
@@ -71,7 +71,6 @@ export interface CustomerGroup extends BaseResource {
 export interface CustomerGroupDraft {
   /**
    *	User-defined unique identifier for the Customer Group.
-   *	Keys can only contain alphanumeric characters, underscores, and hyphens.
    *
    *
    */
@@ -96,7 +95,7 @@ export interface CustomerGroupDraft {
  */
 export interface CustomerGroupPagedQueryResponse {
   /**
-   *	Number of results requested in the query request.
+   *	Number of [results requested](/../api/general-concepts#limit).
    *
    *
    */
@@ -132,13 +131,13 @@ export interface CustomerGroupPagedQueryResponse {
   readonly results: CustomerGroup[]
 }
 /**
- *	[Reference](/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+ *	[Reference](/../api/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
  *
  */
 export interface CustomerGroupReference {
   readonly typeId: 'customer-group'
   /**
-   *	Unique ID of the referenced [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	Platform-generated unique identifier of the referenced [CustomerGroup](ctp:api:type:CustomerGroup).
    *
    *
    */
@@ -157,13 +156,13 @@ export interface CustomerGroupReference {
 export interface CustomerGroupResourceIdentifier {
   readonly typeId: 'customer-group'
   /**
-   *	Unique ID of the referenced [CustomerGroup](ctp:api:type:CustomerGroup). Either `id` or `key` is required.
+   *	Platform-generated unique identifier of the referenced [CustomerGroup](ctp:api:type:CustomerGroup). Either `id` or `key` is required.
    *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced [CustomerGroup](ctp:api:type:CustomerGroup). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [CustomerGroup](ctp:api:type:CustomerGroup). Either `id` or `key` is required.
    *
    *
    */

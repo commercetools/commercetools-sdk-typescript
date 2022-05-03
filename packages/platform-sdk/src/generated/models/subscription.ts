@@ -266,6 +266,7 @@ export interface SqsDestination {
 }
 export interface Subscription extends BaseResource {
   /**
+   *	Platform-generated unique identifier of the Subscription.
    *
    */
   readonly id: string
@@ -302,6 +303,7 @@ export interface Subscription extends BaseResource {
    */
   readonly destination: Destination
   /**
+   *	User-defined unique identifier of the Subscription.
    *
    */
   readonly key?: string
@@ -328,6 +330,8 @@ export interface SubscriptionDraft {
    */
   readonly destination: Destination
   /**
+   *	User-defined unique identifier for the Subscription.
+   *
    *
    */
   readonly key?: string
@@ -347,6 +351,8 @@ export type SubscriptionHealthStatus =
   | 'TemporaryError'
 export interface SubscriptionPagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number

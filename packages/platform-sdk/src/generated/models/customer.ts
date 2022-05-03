@@ -30,7 +30,7 @@ export type AnonymousCartSignInMode =
 export type AuthenticationMode = 'ExternalAuth' | 'Password'
 export interface Customer extends BaseResource {
   /**
-   *	The unique ID of the customer.
+   *	Platform-generated unique identifier of the Customer.
    *
    */
   readonly id: string
@@ -156,9 +156,7 @@ export interface Customer extends BaseResource {
    */
   readonly salutation?: string
   /**
-   *	User-specific unique identifier for a customer.
-   *	Must be unique across a project.
-   *	The field can be reset using the Set Key UpdateAction
+   *	User-defined unique identifier of the Customer.
    *
    */
   readonly key?: string
@@ -177,6 +175,7 @@ export interface Customer extends BaseResource {
 }
 export interface CustomerChangePassword {
   /**
+   *	Platform-generated unique identifier of the Customer.
    *
    */
   readonly id: string
@@ -195,6 +194,7 @@ export interface CustomerChangePassword {
 }
 export interface CustomerCreateEmailToken {
   /**
+   *	Platform-generated unique identifier of the email token.
    *
    */
   readonly id: string
@@ -337,9 +337,7 @@ export interface CustomerDraft {
    */
   readonly salutation?: string
   /**
-   *	User-specific unique identifier for a customer.
-   *	Must be unique across a project.
-   *	The field can be reset using the Set Key UpdateAction
+   *	User-defined unique identifier for the Customer.
    *
    */
   readonly key?: string
@@ -368,6 +366,8 @@ export interface CustomerEmailVerify {
 }
 export interface CustomerPagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number
@@ -388,15 +388,21 @@ export interface CustomerPagedQueryResponse {
    */
   readonly results: Customer[]
 }
+/**
+ *	[Reference](/../api/types#reference) to a [Customer](ctp:api:type:Customer).
+ *
+ */
 export interface CustomerReference {
   readonly typeId: 'customer'
   /**
-   *	Unique ID of the referenced resource.
+   *	Platform-generated unique identifier of the referenced [Customer](ctp:api:type:Customer).
    *
    *
    */
   readonly id: string
   /**
+   *	Contains the representation of the expanded Customer. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Customers.
+   *
    *
    */
   readonly obj?: Customer
@@ -415,16 +421,20 @@ export interface CustomerResetPassword {
    */
   readonly version?: number
 }
+/**
+ *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Customer](ctp:api:type:Customer).
+ *
+ */
 export interface CustomerResourceIdentifier {
   readonly typeId: 'customer'
   /**
-   *	Unique ID of the referenced resource. Either `id` or `key` is required.
+   *	Platform-generated unique identifier of the referenced [Customer](ctp:api:type:Customer). Either `id` or `key` is required.
    *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced resource. Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [Customer](ctp:api:type:Customer). Either `id` or `key` is required.
    *
    *
    */
@@ -456,6 +466,8 @@ export interface CustomerSignin {
    */
   readonly anonymousCartId?: string
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Cart](ctp:api:type:Cart).
+   *
    *
    */
   readonly anonymousCart?: CartResourceIdentifier
@@ -474,6 +486,7 @@ export interface CustomerSignin {
 }
 export interface CustomerToken {
   /**
+   *	Platform-generated unique identifier of the CustomerToken.
    *
    */
   readonly id: string

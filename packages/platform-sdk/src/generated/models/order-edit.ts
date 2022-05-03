@@ -64,7 +64,7 @@ import {
 
 export interface OrderEdit extends BaseResource {
   /**
-   *	The unique ID of the OrderEdit.
+   *	Platform-generated unique identifier of the OrderEdit.
    *
    */
   readonly id: string
@@ -94,7 +94,7 @@ export interface OrderEdit extends BaseResource {
    */
   readonly createdBy?: CreatedBy
   /**
-   *	Unique identifier for this edit.
+   *	User-defined unique identifier of the OrderEdit.
    *
    */
   readonly key?: string
@@ -137,7 +137,7 @@ export interface OrderEditApply {
 }
 export interface OrderEditDraft {
   /**
-   *	Unique identifier for this edit.
+   *	User-defined unique identifier for the OrderEdit.
    *
    */
   readonly key?: string
@@ -169,6 +169,8 @@ export interface OrderEditDraft {
 }
 export interface OrderEditPagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number
@@ -189,29 +191,39 @@ export interface OrderEditPagedQueryResponse {
    */
   readonly results: OrderEdit[]
 }
+/**
+ *	[Reference](/../api/types#reference) to a [OrderEdit](ctp:api:type:OrderEdit).
+ *
+ */
 export interface OrderEditReference {
   readonly typeId: 'order-edit'
   /**
-   *	Unique ID of the referenced resource.
+   *	Platform-generated unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit).
    *
    *
    */
   readonly id: string
   /**
+   *	Contains the representation of the expanded OrderEdit. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for OrderEdits.
+   *
    *
    */
   readonly obj?: OrderEdit
 }
+/**
+ *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [OrderEdit](ctp:api:type:OrderEdit).
+ *
+ */
 export interface OrderEditResourceIdentifier {
   readonly typeId: 'order-edit'
   /**
-   *	Unique ID of the referenced resource. Either `id` or `key` is required.
+   *	Platform-generated unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit). Either `id` or `key` is required.
    *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced resource. Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit). Either `id` or `key` is required.
    *
    *
    */
@@ -511,6 +523,8 @@ export interface StagedOrderAddParcelToDeliveryAction {
 export interface StagedOrderAddPaymentAction {
   readonly action: 'addPayment'
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Payment](ctp:api:type:Payment).
+   *
    *
    */
   readonly payment: PaymentResourceIdentifier
@@ -533,6 +547,8 @@ export interface StagedOrderAddReturnInfoAction {
 export interface StagedOrderAddShoppingListAction {
   readonly action: 'addShoppingList'
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [ShoppingList](ctp:api:type:ShoppingList).
+   *
    *
    */
   readonly shoppingList: ShoppingListResourceIdentifier
@@ -677,6 +693,8 @@ export interface StagedOrderRemoveDeliveryAction {
 export interface StagedOrderRemoveDiscountCodeAction {
   readonly action: 'removeDiscountCode'
   /**
+   *	[Reference](/../api/types#reference) to a [DiscountCode](ctp:api:type:DiscountCode).
+   *
    *
    */
   readonly discountCode: DiscountCodeReference
@@ -724,6 +742,8 @@ export interface StagedOrderRemoveParcelFromDeliveryAction {
 export interface StagedOrderRemovePaymentAction {
   readonly action: 'removePayment'
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Payment](ctp:api:type:Payment).
+   *
    *
    */
   readonly payment: PaymentResourceIdentifier
@@ -1394,6 +1414,8 @@ export interface StagedOrderSetShippingAddressAndShippingMethodAction {
    */
   readonly address: BaseAddress
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod).
+   *
    *
    */
   readonly shippingMethod?: ShippingMethodResourceIdentifier
@@ -1438,6 +1460,8 @@ export interface StagedOrderSetShippingAddressCustomTypeAction {
 export interface StagedOrderSetShippingMethodAction {
   readonly action: 'setShippingMethod'
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod).
+   *
    *
    */
   readonly shippingMethod?: ShippingMethodResourceIdentifier
