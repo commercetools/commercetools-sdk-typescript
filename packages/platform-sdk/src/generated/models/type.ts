@@ -390,7 +390,7 @@ export interface TypeDraft {
  */
 export interface TypePagedQueryResponse {
   /**
-   *	Number of results requested in the query request.
+   *	Number of [results requested](/../api/general-concepts#limit).
    *
    *
    */

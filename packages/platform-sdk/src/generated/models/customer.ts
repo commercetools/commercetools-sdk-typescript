@@ -366,6 +366,8 @@ export interface CustomerEmailVerify {
 }
 export interface CustomerPagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number

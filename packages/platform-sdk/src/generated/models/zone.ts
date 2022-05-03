@@ -106,7 +106,7 @@ export interface ZoneDraft {
  */
 export interface ZonePagedQueryResponse {
   /**
-   *	Number of results requested in the query request.
+   *	Number of [results requested](/../api/general-concepts#limit).
    *
    *
    */

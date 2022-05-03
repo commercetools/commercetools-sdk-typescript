@@ -169,6 +169,8 @@ export interface OrderEditDraft {
 }
 export interface OrderEditPagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number

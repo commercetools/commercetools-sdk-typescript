@@ -153,7 +153,7 @@ export interface StateDraft {
  */
 export interface StatePagedQueryResponse {
   /**
-   *	Number of results requested in the query request.
+   *	Number of [results requested](/../api/general-concepts#limit).
    *
    *
    */

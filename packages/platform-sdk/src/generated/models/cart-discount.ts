@@ -191,6 +191,8 @@ export interface CartDiscountDraft {
 }
 export interface CartDiscountPagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number

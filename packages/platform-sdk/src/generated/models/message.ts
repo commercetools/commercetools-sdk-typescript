@@ -1179,6 +1179,8 @@ export interface InventoryEntryQuantitySetMessage {
 }
 export interface MessagePagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number

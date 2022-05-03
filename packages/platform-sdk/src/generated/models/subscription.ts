@@ -351,6 +351,8 @@ export type SubscriptionHealthStatus =
   | 'TemporaryError'
 export interface SubscriptionPagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number

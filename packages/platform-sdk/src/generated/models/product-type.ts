@@ -282,6 +282,8 @@ export interface ProductTypeDraft {
 }
 export interface ProductTypePagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number

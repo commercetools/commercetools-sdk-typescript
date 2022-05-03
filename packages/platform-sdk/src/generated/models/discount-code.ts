@@ -189,6 +189,8 @@ export interface DiscountCodeDraft {
 }
 export interface DiscountCodePagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number

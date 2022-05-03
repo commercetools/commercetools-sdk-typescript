@@ -358,6 +358,8 @@ export interface CartDraft {
 export type CartOrigin = 'Customer' | 'Merchant'
 export interface CartPagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number

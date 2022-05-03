@@ -95,7 +95,7 @@ export interface CustomerGroupDraft {
  */
 export interface CustomerGroupPagedQueryResponse {
   /**
-   *	Number of results requested in the query request.
+   *	Number of [results requested](/../api/general-concepts#limit).
    *
    *
    */

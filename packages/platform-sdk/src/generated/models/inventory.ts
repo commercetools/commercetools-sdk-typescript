@@ -178,6 +178,8 @@ export type InventoryEntryUpdateAction =
   | InventoryEntrySetSupplyChannelAction
 export interface InventoryPagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number

@@ -238,6 +238,8 @@ export interface ShoppingListLineItemDraft {
 }
 export interface ShoppingListPagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number

@@ -74,6 +74,8 @@ export interface CustomObjectDraft {
 }
 export interface CustomObjectPagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number

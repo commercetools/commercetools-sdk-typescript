@@ -77,7 +77,7 @@ export interface ImportOperation {
  */
 export interface ImportOperationPagedResponse {
   /**
-   *	The number of results requested in the query request.
+   *	Number of [results requested](/../api/general-concepts#limit).
    *
    */
   readonly limit: number

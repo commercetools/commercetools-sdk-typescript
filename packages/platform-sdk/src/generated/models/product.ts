@@ -325,6 +325,8 @@ export interface ProductDraft {
 }
 export interface ProductPagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number
@@ -434,6 +436,8 @@ export interface ProductProjection extends BaseResource {
 }
 export interface ProductProjectionPagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number
@@ -456,6 +460,8 @@ export interface ProductProjectionPagedQueryResponse {
 }
 export interface ProductProjectionPagedSearchResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number

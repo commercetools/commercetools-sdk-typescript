@@ -166,6 +166,8 @@ export interface ProductDiscountMatchQuery {
 }
 export interface ProductDiscountPagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number

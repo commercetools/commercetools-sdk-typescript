@@ -38,7 +38,7 @@ export interface AssignedProductSelection {
  */
 export interface AssignedProductSelectionPagedQueryResponse {
   /**
-   *	Number of results requested in the query request.
+   *	Number of [results requested](/../api/general-concepts#limit).
    *
    *
    */
@@ -167,7 +167,7 @@ export interface ProductSelectionDraft {
  */
 export interface ProductSelectionPagedQueryResponse {
   /**
-   *	Number of results requested in the query request.
+   *	Number of [results requested](/../api/general-concepts#limit).
    *
    *
    */
@@ -208,7 +208,7 @@ export interface ProductSelectionPagedQueryResponse {
  */
 export interface ProductSelectionProductPagedQueryResponse {
   /**
-   *	Number of results requested in the query request.
+   *	Number of [results requested](/../api/general-concepts#limit).
    *
    *
    */
@@ -316,7 +316,7 @@ export type ProductSelectionUpdateAction =
  */
 export interface ProductsInStorePagedQueryResponse {
   /**
-   *	Number of results requested in the query request.
+   *	Number of [results requested](/../api/general-concepts#limit).
    *
    *
    */

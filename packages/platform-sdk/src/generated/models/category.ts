@@ -173,6 +173,8 @@ export interface CategoryDraft {
 }
 export interface CategoryPagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number

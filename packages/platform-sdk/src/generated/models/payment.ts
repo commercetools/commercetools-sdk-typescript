@@ -239,6 +239,8 @@ export interface PaymentMethodInfo {
 }
 export interface PaymentPagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number

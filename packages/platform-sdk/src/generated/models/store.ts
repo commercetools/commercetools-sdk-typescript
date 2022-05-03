@@ -162,6 +162,8 @@ export interface StoreKeyReference {
 }
 export interface StorePagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number

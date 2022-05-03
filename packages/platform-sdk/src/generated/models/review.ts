@@ -162,6 +162,8 @@ export interface ReviewDraft {
 }
 export interface ReviewPagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number

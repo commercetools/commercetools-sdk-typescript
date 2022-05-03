@@ -368,6 +368,8 @@ export interface MyPaymentDraft {
 }
 export interface MyPaymentPagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number
