@@ -233,7 +233,7 @@ export type StagedOrderUpdateAction =
   | StagedOrderUpdateSyncInfoAction
 export interface Hit {
   /**
-   *	Unique ID of the Order.
+   *	Platform-generated unique identifier of the Order.
    *
    */
   readonly id: string
@@ -272,6 +272,7 @@ export interface OrderPagedSearchResponse {
 }
 export interface Delivery {
   /**
+   *	Platform-generated unique identifier of the Delivery.
    *
    */
   readonly id: string
@@ -301,6 +302,7 @@ export interface Delivery {
 }
 export interface DeliveryItem {
   /**
+   *	Platform-generated unique identifier of the DeliveryItem.
    *
    */
   readonly id: string
@@ -391,7 +393,7 @@ export interface LineItemImportDraft {
 }
 export interface Order extends BaseResource {
   /**
-   *	The unique ID of the order.
+   *	Platform-generated unique identifier of the Order.
    *
    */
   readonly id: string
@@ -586,7 +588,7 @@ export interface Order extends BaseResource {
 }
 export interface OrderFromCartDraft {
   /**
-   *	The unique id of the cart from which an order is created.
+   *	Platform-generated unique identifier of the Cart from which you can create an Order.
    *	@deprecated
    */
   readonly id?: string
@@ -896,6 +898,7 @@ export type OrderUpdateAction =
   | OrderUpdateSyncInfoAction
 export interface Parcel {
   /**
+   *	Platform-generated unique identifier of the Parcel.
    *
    */
   readonly id: string
@@ -1039,6 +1042,7 @@ export type ReturnItem = CustomLineItemReturnItem | LineItemReturnItem
 export interface CustomLineItemReturnItem {
   readonly type: 'CustomLineItemReturnItem'
   /**
+   *	Platform-generated unique identifier of the ReturnItem.
    *
    */
   readonly id: string
@@ -1079,6 +1083,7 @@ export interface CustomLineItemReturnItem {
 export interface LineItemReturnItem {
   readonly type: 'LineItemReturnItem'
   /**
+   *	Platform-generated unique identifier of the ReturnItem.
    *
    */
   readonly id: string
@@ -1308,6 +1313,8 @@ export interface OrderAddParcelToDeliveryAction {
 export interface OrderAddPaymentAction {
   readonly action: 'addPayment'
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Payment](ctp:api:type:Payment).
+   *
    *
    */
   readonly payment: PaymentResourceIdentifier
@@ -1394,6 +1401,8 @@ export interface OrderRemoveParcelFromDeliveryAction {
 export interface OrderRemovePaymentAction {
   readonly action: 'removePayment'
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Payment](ctp:api:type:Payment).
+   *
    *
    */
   readonly payment: PaymentResourceIdentifier

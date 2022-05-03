@@ -292,7 +292,7 @@ export type ResourceTypeId =
   | 'transaction'
 export interface Type extends BaseResource {
   /**
-   *	Unique ID of the Type.
+   *	Platform-generated unique identifier of the Type.
    *
    */
   readonly id: string
@@ -326,7 +326,7 @@ export interface Type extends BaseResource {
    */
   readonly createdBy?: CreatedBy
   /**
-   *	User-defined unique identifier for the Type.
+   *	User-defined unique identifier of the Type.
    *
    */
   readonly key: string
@@ -431,7 +431,7 @@ export interface TypePagedQueryResponse {
 export interface TypeReference {
   readonly typeId: 'type'
   /**
-   *	Unique ID of the referenced [Type](ctp:api:type:Type).
+   *	Platform-generated unique identifier of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
@@ -451,13 +451,13 @@ export interface TypeReference {
 export interface TypeResourceIdentifier {
   readonly typeId: 'type'
   /**
-   *	Unique ID of the referenced [Type](ctp:api:type:Type). Either `id` or `key` is required.
+   *	Platform-generated unique identifier of the referenced [Type](ctp:api:type:Type). Either `id` or `key` is required.
    *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced [Type](ctp:api:type:Type). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [Type](ctp:api:type:Type). Either `id` or `key` is required.
    *
    *
    */
@@ -471,7 +471,7 @@ export type TypeTextInputHint = 'MultiLine' | 'SingleLine'
 export interface TypeUpdate {
   /**
    *	Expected version of the type on which the changes should be applied.
-   *	If the expected version does not match the actual version, a 409 Conflict will be returned.
+   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
    *
    *
    */

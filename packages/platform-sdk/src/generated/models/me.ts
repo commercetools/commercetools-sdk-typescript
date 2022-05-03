@@ -294,7 +294,7 @@ export interface MyLineItemDraft {
 }
 export interface MyOrderFromCartDraft {
   /**
-   *	The unique ID of the cart from which an order is created.
+   *	Platform-generated unique identifier of the Cart from which the Platform creates an Order.
    *
    */
   readonly id: string
@@ -305,6 +305,7 @@ export interface MyOrderFromCartDraft {
 }
 export interface MyPayment {
   /**
+   *	Platform-generated unique identifier of the MyPayment.
    *
    */
   readonly id: string
@@ -581,6 +582,8 @@ export interface MyCartAddLineItemAction {
 export interface MyCartAddPaymentAction {
   readonly action: 'addPayment'
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Payment](ctp:api:type:Payment).
+   *
    *
    */
   readonly payment: PaymentResourceIdentifier
@@ -635,6 +638,8 @@ export interface MyCartRecalculateAction {
 export interface MyCartRemoveDiscountCodeAction {
   readonly action: 'removeDiscountCode'
   /**
+   *	[Reference](/../api/types#reference) to a [DiscountCode](ctp:api:type:DiscountCode).
+   *
    *
    */
   readonly discountCode: DiscountCodeReference
@@ -675,6 +680,8 @@ export interface MyCartRemoveLineItemAction {
 export interface MyCartRemovePaymentAction {
   readonly action: 'removePayment'
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Payment](ctp:api:type:Payment).
+   *
    *
    */
   readonly payment: PaymentResourceIdentifier
@@ -837,6 +844,8 @@ export interface MyCartSetShippingAddressAction {
 export interface MyCartSetShippingMethodAction {
   readonly action: 'setShippingMethod'
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod).
+   *
    *
    */
   readonly shippingMethod?: ShippingMethodResourceIdentifier

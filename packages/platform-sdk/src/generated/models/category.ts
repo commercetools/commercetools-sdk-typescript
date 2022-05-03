@@ -22,7 +22,7 @@ import {
 
 export interface Category extends BaseResource {
   /**
-   *	The unique ID of the category.
+   *	Platform-generated unique identifier of the Category.
    *
    */
   readonly id: string
@@ -106,7 +106,7 @@ export interface Category extends BaseResource {
    */
   readonly assets?: Asset[]
   /**
-   *	User-specific unique identifier for the category.
+   *	User-defined unique identifier of the Category.
    *
    */
   readonly key?: string
@@ -166,8 +166,7 @@ export interface CategoryDraft {
    */
   readonly assets?: AssetDraft[]
   /**
-   *	User-defined unique identifier for the category.
-   *	Keys can only contain alphanumeric characters (`a-Z, 0-9`), underscores and hyphens (`-, _`) and be between 2 and 256 characters.
+   *	User-defined unique identifier for the Category.
    *
    */
   readonly key?: string
@@ -194,29 +193,39 @@ export interface CategoryPagedQueryResponse {
    */
   readonly results: Category[]
 }
+/**
+ *	[Reference](/../api/types#reference) to a [Category](ctp:api:type:Category).
+ *
+ */
 export interface CategoryReference {
   readonly typeId: 'category'
   /**
-   *	Unique ID of the referenced resource.
+   *	Platform-generated unique identifier of the referenced [Category](ctp:api:type:Category).
    *
    *
    */
   readonly id: string
   /**
+   *	Contains the representation of the expanded Category. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Categories.
+   *
    *
    */
   readonly obj?: Category
 }
+/**
+ *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Category](ctp:api:type:Category).
+ *
+ */
 export interface CategoryResourceIdentifier {
   readonly typeId: 'category'
   /**
-   *	Unique ID of the referenced resource. Either `id` or `key` is required.
+   *	Platform-generated unique identifier of the referenced [Category](ctp:api:type:Channel). Either `id` or `key` is required.
    *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced resource. Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [Category](ctp:api:type:Category). Either `id` or `key` is required.
    *
    *
    */

@@ -74,7 +74,7 @@ export interface AssignedProductSelectionPagedQueryResponse {
 }
 export interface ProductSelection extends BaseResource {
   /**
-   *	Unique ID of the Product Selection.
+   *	Platform-generated unique identifier of the Product Selection.
    *
    */
   readonly id: string
@@ -94,19 +94,17 @@ export interface ProductSelection extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources updated after 1/02/2019 except for events not
-   *	tracked.
+   *	Present on resources updated after 1/02/2019 except for [events not tracked](/../api/client-logging#events-tracked).
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1/02/2019 except for events not
-   *	tracked.
+   *	Present on resources created after 1/02/2019 except for [events not tracked](/../api/client-logging#events-tracked).
    *
    */
   readonly createdBy?: CreatedBy
   /**
-   *	User-defined unique identifier for the Product Selection.
+   *	User-defined unique identifier of the Product Selection.
    *
    */
   readonly key?: string
@@ -148,7 +146,7 @@ export interface ProductSelectionAssignment {
 }
 export interface ProductSelectionDraft {
   /**
-   *	User-defined unique identifier for the Product Selection. You can use `key` besides `ID` to reference the Product Selection.
+   *	User-defined unique identifier for the Product Selection.
    *
    */
   readonly key?: string
@@ -244,29 +242,38 @@ export interface ProductSelectionProductPagedQueryResponse {
    */
   readonly results: AssignedProductReference[]
 }
+/**
+ *	[Reference](/../api/types#reference) to a [ProductSelection](ctp:api:type:ProductSelection).
+ *
+ */
 export interface ProductSelectionReference {
   readonly typeId: 'product-selection'
   /**
-   *	Unique ID of the Product Selection.
+   *	Platform-generated unique identifier of the referenced [ProductSelection](ctp:api:type:ProductSelection).
+   *
    *
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded Product Selection. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Product Selection.
+   *	Contains the representation of the expanded Product Selection. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Product Selections.
    *
    */
   readonly obj?: ProductSelection
 }
+/**
+ *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [ProductSelection](ctp:api:type:ProductSelection).
+ *
+ */
 export interface ProductSelectionResourceIdentifier {
   readonly typeId: 'product-selection'
   /**
-   *	Unique ID of the referenced resource. Either `id` or `key` is required.
+   *	Platform-generated unique identifier of the referenced [ProductSelection](ctp:api:type:ProductSelection). Either `id` or `key` is required.
    *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced resource. Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [ProductSelection](ctp:api:type:ProductSelection). Either `id` or `key` is required.
    *
    *
    */

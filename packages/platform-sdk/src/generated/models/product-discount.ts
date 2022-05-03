@@ -17,7 +17,7 @@ import {
 
 export interface ProductDiscount extends BaseResource {
   /**
-   *	The unique ID of the product discount
+   *	Platform-generated unique identifier of the ProductDiscount
    *
    */
   readonly id: string
@@ -51,8 +51,7 @@ export interface ProductDiscount extends BaseResource {
    */
   readonly name: LocalizedString
   /**
-   *	User-specific unique identifier for a product discount.
-   *	Must be unique across a project.
+   *	User-defined unique identifier of the ProductDiscount.
    *
    */
   readonly key?: string
@@ -106,9 +105,7 @@ export interface ProductDiscountDraft {
    */
   readonly name: LocalizedString
   /**
-   *	User-specific unique identifier for a product discount.
-   *	Must be unique across a project.
-   *	The field can be reset using the Set Key UpdateAction
+   *	User-defined unique identifier for the ProductDiscount.
    *
    */
   readonly key?: string
@@ -189,29 +186,39 @@ export interface ProductDiscountPagedQueryResponse {
    */
   readonly results: ProductDiscount[]
 }
+/**
+ *	[Reference](/../api/types#reference) to a [ProductDiscount](ctp:api:type:ProductDiscount).
+ *
+ */
 export interface ProductDiscountReference {
   readonly typeId: 'product-discount'
   /**
-   *	Unique ID of the referenced resource.
+   *	Platform-generated unique identifier of the referenced [ProductDiscount](ctp:api:type:ProductDiscount).
    *
    *
    */
   readonly id: string
   /**
+   *	Contains the representation of the expanded ProductDiscount. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for ProductDiscounts.
+   *
    *
    */
   readonly obj?: ProductDiscount
 }
+/**
+ *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [ProductDiscount](ctp:api:type:ProductDiscount).
+ *
+ */
 export interface ProductDiscountResourceIdentifier {
   readonly typeId: 'product-discount'
   /**
-   *	Unique ID of the referenced resource. Either `id` or `key` is required.
+   *	Platform-generated unique identifier of the referenced [ProductDiscount](ctp:api:type:ProductDiscount). Either `id` or `key` is required.
    *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced resource. Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [ProductDiscount](ctp:api:type:ProductDiscount). Either `id` or `key` is required.
    *
    *
    */

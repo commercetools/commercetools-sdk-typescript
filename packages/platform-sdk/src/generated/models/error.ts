@@ -22,10 +22,12 @@ import { Attribute } from './product'
 
 export interface ErrorByExtension {
   /**
+   *	Platform-generated unique identifier of the Extension.
    *
    */
   readonly id: string
   /**
+   *	User-defined unique identifier of the Extension.
    *
    */
   readonly key?: string
@@ -618,7 +620,7 @@ export interface MatchingPriceNotFoundError {
    */
   readonly country?: string
   /**
-   *	[Reference](/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[Reference](/../api/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
    *
    *
    */

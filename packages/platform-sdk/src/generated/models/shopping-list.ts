@@ -23,7 +23,7 @@ import {
 
 export interface ShoppingList extends BaseResource {
   /**
-   *	The unique ID of the shopping list.
+   *	Platform-generated unique identifier of the ShoppingList.
    *
    */
   readonly id: string
@@ -70,7 +70,7 @@ export interface ShoppingList extends BaseResource {
    */
   readonly description?: LocalizedString
   /**
-   *	User-specific unique identifier for the shopping list.
+   *	User-defined unique identifier of the ShoppingList.
    *
    */
   readonly key?: string
@@ -123,7 +123,8 @@ export interface ShoppingListDraft {
    */
   readonly description?: LocalizedString
   /**
-   *	User-specific unique identifier for the shopping list.
+   *	User-defined unique identifier for the ShoppingList.
+   *
    *
    */
   readonly key?: string
@@ -172,6 +173,7 @@ export interface ShoppingListLineItem {
    */
   readonly deactivatedAt?: string
   /**
+   *	Platform-generated unique identifier of the ShoppingListLineItem.
    *
    */
   readonly id: string
@@ -188,6 +190,8 @@ export interface ShoppingListLineItem {
    */
   readonly productSlug?: LocalizedString
   /**
+   *	[Reference](/../api/types#reference) to a [ProductType](ctp:api:type:ProductType).
+   *
    *
    */
   readonly productType: ProductTypeReference
@@ -254,29 +258,39 @@ export interface ShoppingListPagedQueryResponse {
    */
   readonly results: ShoppingList[]
 }
+/**
+ *	[Reference](/../api/types#reference) to a [ShoppingList](ctp:api:type:ShoppingList).
+ *
+ */
 export interface ShoppingListReference {
   readonly typeId: 'shopping-list'
   /**
-   *	Unique ID of the referenced resource.
+   *	Platform-generated unique identifier of the referenced [ShoppingList](ctp:api:type:ShoppingList).
    *
    *
    */
   readonly id: string
   /**
+   *	Contains the representation of the expanded ShoppingList. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for ShoppingLists.
+   *
    *
    */
   readonly obj?: ShoppingList
 }
+/**
+ *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [ShoppingList](ctp:api:type:ShoppingList).
+ *
+ */
 export interface ShoppingListResourceIdentifier {
   readonly typeId: 'shopping-list'
   /**
-   *	Unique ID of the referenced resource. Either `id` or `key` is required.
+   *	Platform-generated unique identifier of the referenced [ShoppingList](ctp:api:type:ShoppingList). Either `id` or `key` is required.
    *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced resource. Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [ShoppingList](ctp:api:type:ShoppingList). Either `id` or `key` is required.
    *
    *
    */
@@ -332,7 +346,7 @@ export interface TextLineItem {
    */
   readonly description?: LocalizedString
   /**
-   *	The unique ID of this TextLineItem.
+   *	Platform-generated unique identifier of the TextLineItem.
    *
    */
   readonly id: string

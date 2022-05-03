@@ -6,7 +6,7 @@
 
 export interface ApiClient {
   /**
-   *	Unique ID of the API Client.
+   *	Platform-generated unique identifier of the API Client.
    *	This is the OAuth2 `client_id` that can be used to [obtain an access token](/../api/authorization#requesting-an-access-token-using-commercetools-oauth-20-server).
    *
    */
