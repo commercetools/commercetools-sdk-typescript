@@ -1,5 +1,16 @@
 # @commercetools/history-sdk
 
+## 2.5.0
+
+### Minor Changes
+
+- [#257](https://github.com/commercetools/commercetools-sdk-typescript/pull/257) [`facc47b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/facc47ba50b00056adc232d7c75a2849cdcc6689) Thanks [@ajimae](https://github.com/ajimae)! - release latest sdk
+
+### Patch Changes
+
+- Updated dependencies [[`facc47b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/facc47ba50b00056adc232d7c75a2849cdcc6689), [`7512c3f`](https://github.com/commercetools/commercetools-sdk-typescript/commit/7512c3f1f488645da3952f296d4f4fe3149b7fba)]:
+  - @commercetools/sdk-client-v2@1.4.0
+
 ## 2.4.0
 
 ### Minor Changes
