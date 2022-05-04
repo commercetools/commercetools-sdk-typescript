@@ -1,5 +1,15 @@
 # @commercetools/sdk-client-v2
 
+## 1.4.0
+
+### Minor Changes
+
+- [#257](https://github.com/commercetools/commercetools-sdk-typescript/pull/257) [`facc47b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/facc47ba50b00056adc232d7c75a2849cdcc6689) Thanks [@ajimae](https://github.com/ajimae)! - release latest sdk
+
+### Patch Changes
+
+- [#248](https://github.com/commercetools/commercetools-sdk-typescript/pull/248) [`7512c3f`](https://github.com/commercetools/commercetools-sdk-typescript/commit/7512c3f1f488645da3952f296d4f4fe3149b7fba) Thanks [@ajimae](https://github.com/ajimae)! - - add an option (`includeRequestInErrorResponse`) to include or exclude original request from error responses.
+
 ## 1.3.0
 
 ### Minor Changes
