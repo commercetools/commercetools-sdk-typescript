@@ -112,8 +112,7 @@ export interface ZonePagedQueryResponse {
    */
   readonly limit: number
   /**
-   *	Offset supplied by the client or the server default.
-   *	It is the number of elements skipped, not a page number.
+   *	Number of [elements skipped](/../api/general-concepts#offset).
    *
    *
    */

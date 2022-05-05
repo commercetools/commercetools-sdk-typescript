@@ -159,6 +159,8 @@ export interface ShippingMethodDraft {
 }
 export interface ShippingMethodPagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit?: number
@@ -171,6 +173,8 @@ export interface ShippingMethodPagedQueryResponse {
    */
   readonly total?: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset?: number

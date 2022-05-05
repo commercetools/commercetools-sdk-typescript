@@ -44,6 +44,7 @@ You should start the server before the client and keep both running in separate 
 5. The server starts.
 
 ### Start the client
+
 1. Open a new Terminal
 2. Navigate to `examples/me/client`.
 3. Run `yarn install` (`npm` can also be used).

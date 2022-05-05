@@ -255,12 +255,14 @@ export interface OrderPagedSearchResponse {
    */
   readonly total: number
   /**
-   *	Number of results skipped, used for pagination.
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset?: number
   /**
-   *	Number of results the response should contain at maximum, used for pagination.
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit?: number
@@ -771,6 +773,8 @@ export interface OrderPagedQueryResponse {
    */
   readonly total?: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset: number

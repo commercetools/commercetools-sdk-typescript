@@ -78,10 +78,14 @@ export interface SimilarityMeasures {
 }
 export interface SimilarProductSearchRequest {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit?: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset?: number
@@ -188,6 +192,8 @@ export interface SimilarProductsPagedQueryResult {
    */
   readonly total: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset: number

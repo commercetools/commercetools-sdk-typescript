@@ -44,8 +44,7 @@ export interface AssignedProductSelectionPagedQueryResponse {
    */
   readonly limit: number
   /**
-   *	Offset supplied by the client or the server default.
-   *	It is the number of elements skipped, not a page number.
+   *	Number of [elements skipped](/../api/general-concepts#offset).
    *
    *
    */
@@ -173,8 +172,7 @@ export interface ProductSelectionPagedQueryResponse {
    */
   readonly limit: number
   /**
-   *	Offset supplied by the client or the server default.
-   *	It is the number of elements skipped, not a page number.
+   *	Number of [elements skipped](/../api/general-concepts#offset).
    *
    *
    */
@@ -214,8 +212,7 @@ export interface ProductSelectionProductPagedQueryResponse {
    */
   readonly limit: number
   /**
-   *	Offset supplied by the client or the server default.
-   *	It is the number of elements skipped, not a page number.
+   *	Number of [elements skipped](/../api/general-concepts#offset).
    *
    *
    */
@@ -322,8 +319,7 @@ export interface ProductsInStorePagedQueryResponse {
    */
   readonly limit: number
   /**
-   *	Offset supplied by the client or the server default.
-   *	It is the number of elements skipped, not a page number.
+   *	Number of [elements skipped](/../api/general-concepts#offset).
    *
    *
    */

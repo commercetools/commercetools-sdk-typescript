@@ -70,21 +70,33 @@ import { ZoneReference, ZoneResourceIdentifier } from './zone'
 
 export interface PagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
+   *
+   */
+  readonly offset: number
+  /**
+   *	Actual number of results returned.
+   *
    *
    */
   readonly count: number
   /**
+   *	Total number of results matching the query.
+   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This field is returned by default.
+   *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
+   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *
    *
    */
   readonly total?: number
-  /**
-   *
-   */
-  readonly offset: number
   /**
    *
    */
