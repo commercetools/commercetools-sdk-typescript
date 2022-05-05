@@ -107,7 +107,7 @@ export interface ProductVariantImportRequest {
   readonly resources: ProductVariantImport[]
 }
 /**
- *	The request body to [import Prices](#import-prices). Contains data for [Prices](/../api/projects/products#price) to be created or updated in a commercetools Project.
+ *	The request body to [import Prices](#import-prices). Contains data for [EmbeddedPrices](/../api/projects/products#embeddedprice) to be created or updated in a commercetools Project.
  *
  */
 export interface PriceImportRequest {

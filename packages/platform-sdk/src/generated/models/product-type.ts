@@ -123,6 +123,8 @@ export interface AttributeLocalizedEnumValue {
    */
   readonly key: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly label: LocalizedString
@@ -195,6 +197,8 @@ export interface AttributeNumberType {
 export interface AttributeReferenceType {
   readonly name: 'reference'
   /**
+   *	supported resource type identifiers:
+   *
    *
    */
   readonly referenceTypeId: ReferenceTypeId
@@ -493,6 +497,8 @@ export interface ProductTypeChangeLabelAction {
    */
   readonly attributeName: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly label: LocalizedString
@@ -574,6 +580,8 @@ export interface ProductTypeSetInputTipAction {
    */
   readonly attributeName: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly inputTip?: LocalizedString

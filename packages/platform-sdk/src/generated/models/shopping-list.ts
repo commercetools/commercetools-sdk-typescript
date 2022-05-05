@@ -178,6 +178,8 @@ export interface ShoppingListLineItem {
    */
   readonly id: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly name: LocalizedString
@@ -186,6 +188,8 @@ export interface ShoppingListLineItem {
    */
   readonly productId: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly productSlug?: LocalizedString
@@ -420,10 +424,14 @@ export interface ShoppingListAddLineItemAction {
 export interface ShoppingListAddTextLineItemAction {
   readonly action: 'addTextLineItem'
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly name: LocalizedString
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly description?: LocalizedString
@@ -474,6 +482,8 @@ export interface ShoppingListChangeTextLineItemNameAction {
    */
   readonly textLineItemId: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly name: LocalizedString
@@ -692,6 +702,8 @@ export interface ShoppingListSetTextLineItemDescriptionAction {
    */
   readonly textLineItemId: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly description?: LocalizedString

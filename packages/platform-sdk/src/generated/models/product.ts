@@ -201,6 +201,8 @@ export interface ProductCatalogData {
 }
 export interface ProductData {
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly name: LocalizedString
@@ -213,22 +215,32 @@ export interface ProductData {
    */
   readonly categoryOrderHints?: CategoryOrderHints
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly description?: LocalizedString
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly slug: LocalizedString
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly metaTitle?: LocalizedString
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly metaDescription?: LocalizedString
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly metaKeywords?: LocalizedString
@@ -959,7 +971,7 @@ export interface ProductChangeNameAction {
 export interface ProductChangePriceAction {
   readonly action: 'changePrice'
   /**
-   *	ID of the [Price](#price)
+   *	ID of the [EmbeddedPrice](ctp:api:type:EmbeddedPrice)
    *
    */
   readonly priceId: string
@@ -1085,7 +1097,7 @@ export interface ProductRemoveImageAction {
 export interface ProductRemovePriceAction {
   readonly action: 'removePrice'
   /**
-   *	ID of the [Price](#price)
+   *	ID of the [EmbeddedPrice](ctp:api:type:EmbeddedPrice)
    *
    */
   readonly priceId: string

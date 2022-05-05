@@ -649,6 +649,8 @@ export interface TypeChangeLabelAction {
    */
   readonly fieldName: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly label: LocalizedString

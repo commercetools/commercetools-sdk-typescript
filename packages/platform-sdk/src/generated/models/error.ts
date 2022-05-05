@@ -270,6 +270,8 @@ export interface DuplicateFieldError {
    */
   readonly duplicateValue?: any
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly conflictingResource?: Reference
@@ -290,6 +292,8 @@ export interface DuplicateFieldWithConflictingResourceError {
    */
   readonly duplicateValue: any
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly conflictingResource: Reference
@@ -408,6 +412,8 @@ export interface ExtensionBadResponseError {
    */
   readonly message: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly localizedMessage?: LocalizedString
@@ -444,6 +450,8 @@ export interface ExtensionUpdateActionsFailedError {
    */
   readonly message: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly localizedMessage?: LocalizedString
@@ -640,6 +648,8 @@ export interface MaxResourceLimitExceededError {
    */
   readonly message: string
   /**
+   *	supported resource type identifiers:
+   *
    *
    */
   readonly exceededResource: ReferenceTypeId
@@ -792,6 +802,8 @@ export interface ReferenceExistsError {
    */
   readonly message: string
   /**
+   *	supported resource type identifiers:
+   *
    *
    */
   readonly referencedBy?: ReferenceTypeId
@@ -804,6 +816,8 @@ export interface ReferencedResourceNotFoundError {
    */
   readonly message: string
   /**
+   *	supported resource type identifiers:
+   *
    *
    */
   readonly typeId: ReferenceTypeId

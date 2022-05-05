@@ -316,6 +316,7 @@ export interface DeliveryItem {
 export interface DiscountedLineItemPriceDraft {
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -799,13 +800,13 @@ export interface OrderReference {
 export interface OrderResourceIdentifier {
   readonly typeId: 'order'
   /**
-   *	Unique ID of the referenced resource. Either `id` or `key` is required.
+   *	Platform-generated unique identifier of the referenced resource. Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced resource. Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced resource. Required if `id` is absent.
    *
    *
    */
@@ -995,7 +996,7 @@ export interface ProductVariantImportDraft {
    */
   readonly sku?: string
   /**
-   *	The prices of the variant.
+   *	The [EmbeddedPrices](ctp:api:type:EmbeddedPrice) of the variant.
    *	The prices should not contain two prices for the same price scope (same currency, country and customer group).
    *	If this property is defined, then it will override the `prices` property from the original product variant, otherwise `prices` property from the original product variant would be copied in the resulting order.
    *
@@ -1232,6 +1233,7 @@ export interface SyncInfo {
 export interface TaxedItemPriceDraft {
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -1239,6 +1241,7 @@ export interface TaxedItemPriceDraft {
   readonly totalNet: Money
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *

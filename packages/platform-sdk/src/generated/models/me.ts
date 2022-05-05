@@ -565,6 +565,7 @@ export interface MyCartAddLineItemAction {
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -615,6 +616,7 @@ export interface MyCartChangeLineItemQuantityAction {
   readonly quantity: number
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -667,6 +669,7 @@ export interface MyCartRemoveLineItemAction {
   readonly quantity?: number
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -700,7 +703,7 @@ export interface MyCartSetBillingAddressAction {
 export interface MyCartSetCountryAction {
   readonly action: 'setCountry'
   /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
    *
    *
    */
@@ -1078,6 +1081,7 @@ export interface MyPaymentChangeAmountPlannedAction {
   readonly action: 'changeAmountPlanned'
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -1118,6 +1122,8 @@ export interface MyPaymentSetMethodInfoMethodAction {
 export interface MyPaymentSetMethodInfoNameAction {
   readonly action: 'setMethodInfoName'
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly name?: LocalizedString
@@ -1171,10 +1177,14 @@ export interface MyShoppingListAddLineItemAction {
 export interface MyShoppingListAddTextLineItemAction {
   readonly action: 'addTextLineItem'
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly name: LocalizedString
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly description?: LocalizedString
@@ -1214,6 +1224,8 @@ export interface MyShoppingListChangeLineItemsOrderAction {
 export interface MyShoppingListChangeNameAction {
   readonly action: 'changeName'
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly name: LocalizedString
@@ -1225,6 +1237,8 @@ export interface MyShoppingListChangeTextLineItemNameAction {
    */
   readonly textLineItemId: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly name: LocalizedString
@@ -1312,6 +1326,8 @@ export interface MyShoppingListSetDeleteDaysAfterLastModificationAction {
 export interface MyShoppingListSetDescriptionAction {
   readonly action: 'setDescription'
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly description?: LocalizedString
@@ -1405,6 +1421,8 @@ export interface MyShoppingListSetTextLineItemDescriptionAction {
    */
   readonly textLineItemId: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly description?: LocalizedString

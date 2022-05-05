@@ -202,6 +202,8 @@ export interface CategoryCreatedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -254,6 +256,8 @@ export interface CategorySlugChangedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -266,10 +270,14 @@ export interface CategorySlugChangedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly slug: LocalizedString
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly oldSlug?: LocalizedString
@@ -310,6 +318,8 @@ export interface CustomerAddressAddedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -362,6 +372,8 @@ export interface CustomerAddressChangedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -414,6 +426,8 @@ export interface CustomerAddressRemovedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -466,6 +480,8 @@ export interface CustomerCompanyNameSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -518,6 +534,8 @@ export interface CustomerCreatedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -570,6 +588,8 @@ export interface CustomerDateOfBirthSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -622,6 +642,8 @@ export interface CustomerDeletedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -670,6 +692,8 @@ export interface CustomerEmailChangedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -722,6 +746,8 @@ export interface CustomerEmailVerifiedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -770,6 +796,8 @@ export interface CustomerFirstNameSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -822,6 +850,8 @@ export interface CustomerGroupSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -876,6 +906,8 @@ export interface CustomerLastNameSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -928,6 +960,8 @@ export interface CustomerPasswordUpdatedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -981,6 +1015,8 @@ export interface CustomerTitleSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -1033,6 +1069,8 @@ export interface InventoryEntryCreatedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -1085,6 +1123,8 @@ export interface InventoryEntryDeletedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -1143,6 +1183,8 @@ export interface InventoryEntryQuantitySetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -1314,6 +1356,8 @@ export interface CustomLineItemStateTransitionMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -1386,6 +1430,8 @@ export interface DeliveryAddedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -1438,6 +1484,8 @@ export interface DeliveryAddressSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -1498,6 +1546,8 @@ export interface DeliveryItemsUpdatedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -1558,6 +1608,8 @@ export interface DeliveryRemovedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -1610,6 +1662,8 @@ export interface LineItemStateTransitionMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -1682,6 +1736,8 @@ export interface OrderBillingAddressSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -1738,6 +1794,8 @@ export interface OrderCreatedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -1790,6 +1848,8 @@ export interface OrderCustomLineItemDiscountSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -1850,6 +1910,8 @@ export interface OrderCustomerEmailSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -1906,6 +1968,8 @@ export interface OrderCustomerGroupSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -1966,6 +2030,8 @@ export interface OrderCustomerSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -2038,6 +2104,8 @@ export interface OrderDeletedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -2090,6 +2158,8 @@ export interface OrderDiscountCodeAddedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -2144,6 +2214,8 @@ export interface OrderDiscountCodeRemovedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -2198,6 +2270,8 @@ export interface OrderDiscountCodeStateSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -2260,6 +2334,8 @@ export interface OrderEditAppliedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -2318,6 +2394,8 @@ export interface OrderImportedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -2370,6 +2448,8 @@ export interface OrderLineItemAddedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -2426,6 +2506,8 @@ export interface OrderLineItemDiscountSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -2447,6 +2529,7 @@ export interface OrderLineItemDiscountSetMessage {
   readonly discountedPricePerQuantity: DiscountedLineItemPriceForQuantity[]
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -2493,6 +2576,8 @@ export interface OrderLineItemDistributionChannelSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -2551,6 +2636,8 @@ export interface OrderLineItemRemovedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -2633,6 +2720,8 @@ export interface OrderPaymentAddedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -2687,6 +2776,8 @@ export interface OrderPaymentStateChangedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -2743,6 +2834,8 @@ export interface OrderReturnInfoAddedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -2795,6 +2888,8 @@ export interface OrderReturnInfoSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -2847,6 +2942,8 @@ export interface OrderReturnShipmentStateChangedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -2903,6 +3000,8 @@ export interface OrderShipmentStateChangedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -2959,6 +3058,8 @@ export interface OrderShippingAddressSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -3015,6 +3116,8 @@ export interface OrderShippingInfoSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -3071,6 +3174,8 @@ export interface OrderShippingRateInputSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -3127,6 +3232,8 @@ export interface OrderStateChangedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -3183,6 +3290,8 @@ export interface OrderStateTransitionMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -3247,6 +3356,8 @@ export interface OrderStoreSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -3299,6 +3410,8 @@ export interface ParcelAddedToDeliveryMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -3355,6 +3468,8 @@ export interface ParcelItemsUpdatedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -3419,6 +3534,8 @@ export interface ParcelMeasurementsUpdatedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -3479,6 +3596,8 @@ export interface ParcelRemovedFromDeliveryMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -3535,6 +3654,8 @@ export interface ParcelTrackingDataUpdatedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -3595,6 +3716,8 @@ export interface PaymentCreatedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -3647,6 +3770,8 @@ export interface PaymentInteractionAddedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -3701,6 +3826,8 @@ export interface PaymentStatusInterfaceCodeSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -3757,6 +3884,8 @@ export interface PaymentStatusStateTransitionMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -3815,6 +3944,8 @@ export interface PaymentTransactionAddedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -3867,6 +3998,8 @@ export interface PaymentTransactionStateChangedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -3923,6 +4056,8 @@ export interface ProductAddedToCategoryMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -3981,6 +4116,8 @@ export interface ProductCreatedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -4033,6 +4170,8 @@ export interface ProductDeletedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -4089,6 +4228,8 @@ export interface ProductImageAddedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -4149,6 +4290,8 @@ export interface ProductPriceDiscountsSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -4227,6 +4370,8 @@ export interface ProductPriceExternalDiscountSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -4299,6 +4444,8 @@ export interface ProductPublishedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -4359,6 +4506,8 @@ export interface ProductRemovedFromCategoryMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -4417,6 +4566,8 @@ export interface ProductRevertedStagedChangesMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -4469,6 +4620,8 @@ export interface ProductSelectionCreatedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -4521,6 +4674,8 @@ export interface ProductSelectionDeletedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -4533,6 +4688,8 @@ export interface ProductSelectionDeletedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly name: LocalizedString
@@ -4573,6 +4730,8 @@ export interface ProductSelectionProductAddedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -4627,6 +4786,8 @@ export interface ProductSelectionProductRemovedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -4681,6 +4842,8 @@ export interface ProductSlugChangedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -4693,10 +4856,14 @@ export interface ProductSlugChangedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly slug: LocalizedString
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly oldSlug?: LocalizedString
@@ -4737,6 +4904,8 @@ export interface ProductStateTransitionMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -4795,6 +4964,8 @@ export interface ProductUnpublishedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -4843,6 +5014,8 @@ export interface ProductVariantAddedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -4899,6 +5072,8 @@ export interface ProductVariantDeletedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -4955,6 +5130,8 @@ export interface ReviewCreatedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -5007,6 +5184,8 @@ export interface ReviewRatingSetMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -5031,6 +5210,8 @@ export interface ReviewRatingSetMessage {
    */
   readonly includedInStatistics: boolean
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly target?: Reference
@@ -5071,6 +5252,8 @@ export interface ReviewStateTransitionMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -5103,6 +5286,8 @@ export interface ReviewStateTransitionMessage {
    */
   readonly newIncludedInStatistics: boolean
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly target: Reference
@@ -5147,6 +5332,8 @@ export interface StoreCreatedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -5159,6 +5346,8 @@ export interface StoreCreatedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly name?: LocalizedString
@@ -5221,6 +5410,8 @@ export interface StoreDeletedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -5269,6 +5460,8 @@ export interface StoreProductSelectionsChangedMessage {
    */
   readonly sequenceNumber: number
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly resource: Reference
@@ -5316,6 +5509,8 @@ export interface UserProvidedIdentifiers {
    */
   readonly sku?: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly slug?: LocalizedString
@@ -5427,10 +5622,14 @@ export interface CategoryCreatedMessagePayload {
 export interface CategorySlugChangedMessagePayload {
   readonly type: 'CategorySlugChanged'
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly slug: LocalizedString
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly oldSlug?: LocalizedString
@@ -5881,6 +6080,7 @@ export interface OrderLineItemDiscountSetMessagePayload {
   readonly discountedPricePerQuantity: DiscountedLineItemPriceForQuantity[]
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -6321,6 +6521,8 @@ export interface ProductSelectionCreatedMessagePayload {
 export interface ProductSelectionDeletedMessagePayload {
   readonly type: 'ProductSelectionDeleted'
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly name: LocalizedString
@@ -6346,10 +6548,14 @@ export interface ProductSelectionProductRemovedMessagePayload {
 export interface ProductSlugChangedMessagePayload {
   readonly type: 'ProductSlugChanged'
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly slug: LocalizedString
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly oldSlug?: LocalizedString
@@ -6414,6 +6620,8 @@ export interface ReviewRatingSetMessagePayload {
    */
   readonly includedInStatistics: boolean
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly target?: Reference
@@ -6441,6 +6649,8 @@ export interface ReviewStateTransitionMessagePayload {
    */
   readonly newIncludedInStatistics: boolean
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly target: Reference
@@ -6459,6 +6669,8 @@ export interface ShoppingListStoreSetMessagePayload {
 export interface StoreCreatedMessagePayload {
   readonly type: 'StoreCreated'
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly name?: LocalizedString
