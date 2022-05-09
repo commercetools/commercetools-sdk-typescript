@@ -788,8 +788,8 @@ export interface LineItem {
    */
   readonly variant: ProductVariant
   /**
-   *	The price of a line item is selected from the prices array of the product variant.
-   *	If the `variant` field hasn't been updated, the price may not correspond to a price in `variant.prices`.
+   *	The price of a line item is selected from the product variant according to the Product's [priceMode](ctp:api:type:Product) value.
+   *	If the `priceMode` is `Embedded` [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) and the `variant` field hasn't been updated, the price may not correspond to a price in `variant.prices`.
    *
    */
   readonly price: Price
@@ -1371,9 +1371,8 @@ export interface CartRecalculateAction {
   readonly action: 'recalculate'
   /**
    *	If set to `true`, the line item product data (`name`, `variant` and `productType`) will also be updated.
-   *	If set to `false`,
-   *	only the prices and tax rates of the line item will be updated.
-   *	The updated price of a line item may not correspond to a price in `variant.prices` anymore.
+   *	If set to `false`, only the prices and tax rates of the line item will be updated.
+   *	Notice that if the Product's [priceMode](ctp:api:type:Product) value is `Embedded` [ProductPriceMode](ctp:api:type:ProductPriceModeEnum), the updated price of a line item may not correspond to a price in `variant.prices` anymore.
    *
    */
   readonly updateProductData?: boolean

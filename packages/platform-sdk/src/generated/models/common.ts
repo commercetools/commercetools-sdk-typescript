@@ -50,6 +50,10 @@ import {
   ShoppingListReference,
   ShoppingListResourceIdentifier,
 } from './shopping-list'
+import {
+  StandalonePriceReference,
+  StandalonePriceResourceIdentifier,
+} from './standalone-price'
 import { StateReference, StateResourceIdentifier } from './state'
 import {
   StoreKeyReference,
@@ -896,6 +900,7 @@ export type Reference =
   | ReviewReference
   | ShippingMethodReference
   | ShoppingListReference
+  | StandalonePriceReference
   | StateReference
   | StoreReference
   | TaxCategoryReference
@@ -958,6 +963,7 @@ export type ResourceIdentifier =
   | ReviewResourceIdentifier
   | ShippingMethodResourceIdentifier
   | ShoppingListResourceIdentifier
+  | StandalonePriceResourceIdentifier
   | StateResourceIdentifier
   | StoreResourceIdentifier
   | TaxCategoryResourceIdentifier

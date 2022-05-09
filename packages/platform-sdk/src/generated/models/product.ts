@@ -180,6 +180,11 @@ export interface Product extends BaseResource {
    *
    */
   readonly reviewRatingStatistics?: ReviewRatingStatistics
+  /**
+   *	Specifies which type of prices should be used when looking up a price for this product. If not set, `Embedded` [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) is used.
+   *
+   */
+  readonly priceMode?: ProductPriceModeEnum
 }
 export interface ProductCatalogData {
   /**
@@ -334,6 +339,11 @@ export interface ProductDraft {
    *
    */
   readonly publish?: boolean
+  /**
+   *	Specifies which type of prices should be used when looking up a price for this product. If not set, `Embedded` [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) is used.
+   *
+   */
+  readonly priceMode?: ProductPriceModeEnum
 }
 export interface ProductPagedQueryResponse {
   /**
@@ -361,6 +371,12 @@ export interface ProductPagedQueryResponse {
    */
   readonly results: Product[]
 }
+/**
+ *
+ *	This mode specifies which type of prices should be used when looking up the price of a product.
+ *
+ */
+export type ProductPriceModeEnum = 'Embedded' | 'Standalone'
 export interface ProductProjection extends BaseResource {
   /**
    *	The unique ID of the Product.
@@ -590,6 +606,7 @@ export type ProductUpdateAction =
   | ProductSetMetaDescriptionAction
   | ProductSetMetaKeywordsAction
   | ProductSetMetaTitleAction
+  | ProductSetPriceModeAction
   | ProductSetPricesAction
   | ProductSetProductPriceCustomFieldAction
   | ProductSetProductPriceCustomTypeAction
@@ -1460,6 +1477,14 @@ export interface ProductSetMetaTitleAction {
    *
    */
   readonly staged?: boolean
+}
+export interface ProductSetPriceModeAction {
+  readonly action: 'setPriceMode'
+  /**
+   *	Specifies which type of prices should be used when looking up a price for this product. If not set, `Embedded` [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) is used.
+   *
+   */
+  readonly priceMode?: ProductPriceModeEnum
 }
 export interface ProductSetPricesAction {
   readonly action: 'setPrices'

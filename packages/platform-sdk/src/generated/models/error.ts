@@ -16,9 +16,13 @@ import {
   Reference,
   ReferenceTypeId,
 } from './common'
-import { CustomerGroupReference } from './customer-group'
+import {
+  CustomerGroupReference,
+  CustomerGroupResourceIdentifier,
+} from './customer-group'
 import { OrderEditPreviewFailure } from './order-edit'
 import { Attribute } from './product'
+import { StandalonePriceReference } from './standalone-price'
 
 export interface ErrorByExtension {
   /**
@@ -47,6 +51,7 @@ export type ErrorObject =
   | DuplicateFieldError
   | DuplicateFieldWithConflictingResourceError
   | DuplicatePriceScopeError
+  | DuplicateStandalonePriceScopeError
   | DuplicateVariantValuesError
   | EditPreviewFailedError
   | EnumKeyAlreadyExistsError
@@ -80,6 +85,7 @@ export type ErrorObject =
   | ObjectNotFoundError
   | OutOfStockError
   | OverCapacityError
+  | OverlappingStandalonePriceValidityError
   | PendingOperationError
   | PriceChangedError
   | ProjectNotConfiguredForLanguagesError
@@ -309,6 +315,52 @@ export interface DuplicatePriceScopeError {
    *
    */
   readonly conflictingPrices: Price[]
+}
+export interface DuplicateStandalonePriceScopeError {
+  readonly code: 'DuplicateStandalonePriceScope'
+  [key: string]: any
+  /**
+   *
+   */
+  readonly message: string
+  /**
+   *	[Reference](/../api/types#reference) to a [StandalonePrice](ctp:api:type:StandalonePrice).
+   *
+   *
+   */
+  readonly conflictingStandalonePrice: StandalonePriceReference
+  /**
+   *
+   */
+  readonly sku: string
+  /**
+   *
+   */
+  readonly currency: string
+  /**
+   *
+   */
+  readonly country?: string
+  /**
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
+   *
+   */
+  readonly customerGroup?: CustomerGroupResourceIdentifier
+  /**
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
+   *
+   *
+   */
+  readonly channel?: ChannelResourceIdentifier
+  /**
+   *
+   */
+  readonly validFrom?: string
+  /**
+   *
+   */
+  readonly validUntil?: string
 }
 export interface DuplicateVariantValuesError {
   readonly code: 'DuplicateVariantValues'
@@ -741,6 +793,60 @@ export interface OverCapacityError {
    *
    */
   readonly message: string
+}
+export interface OverlappingStandalonePriceValidityError {
+  readonly code: 'OverlappingStandalonePriceValidity'
+  [key: string]: any
+  /**
+   *
+   */
+  readonly message: string
+  /**
+   *	[Reference](/../api/types#reference) to a [StandalonePrice](ctp:api:type:StandalonePrice).
+   *
+   *
+   */
+  readonly conflictingStandalonePrice: StandalonePriceReference
+  /**
+   *
+   */
+  readonly sku: string
+  /**
+   *
+   */
+  readonly currency: string
+  /**
+   *
+   */
+  readonly country?: string
+  /**
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
+   *
+   */
+  readonly customerGroup?: CustomerGroupResourceIdentifier
+  /**
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
+   *
+   *
+   */
+  readonly channel?: ChannelResourceIdentifier
+  /**
+   *
+   */
+  readonly validFrom?: string
+  /**
+   *
+   */
+  readonly validUntil?: string
+  /**
+   *
+   */
+  readonly conflictingValidFrom?: string
+  /**
+   *
+   */
+  readonly conflictingValidUntil?: string
 }
 export interface PendingOperationError {
   readonly code: 'PendingOperation'

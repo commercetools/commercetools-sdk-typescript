@@ -59,7 +59,7 @@ export interface TaxRate {
   readonly subRates?: SubRate[]
 }
 /**
- *	The data representation for a price to be imported that is persisted as a [EmbeddedPrice](/../api/projects/products#embeddedprice) in the Project.
+ *	The data representation for a price to be imported that is persisted as an [EmbeddedPrice](/../api/projects/products#embeddedprice) in the Project.
  *
  */
 export interface PriceImport extends ImportResource {
