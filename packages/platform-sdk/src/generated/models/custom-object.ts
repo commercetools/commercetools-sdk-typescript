@@ -99,7 +99,7 @@ export interface CustomObjectPagedQueryResponse {
   readonly results: CustomObject[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [CustomObject](ctp:api:type:CustomObject).
+ *	[Reference](ctp:api:type:Reference) to a [CustomObject](ctp:api:type:CustomObject).
  *
  */
 export interface CustomObjectReference {

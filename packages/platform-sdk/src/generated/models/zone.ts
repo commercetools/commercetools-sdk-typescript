@@ -141,7 +141,7 @@ export interface ZonePagedQueryResponse {
   readonly results: Zone[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [Zone](ctp:api:type:Zone).
+ *	[Reference](ctp:api:type:Reference) to a [Zone](ctp:api:type:Zone).
  *
  */
 export interface ZoneReference {
@@ -160,7 +160,7 @@ export interface ZoneReference {
   readonly obj?: Zone
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Zone](ctp:api:type:Zone).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Zone](ctp:api:type:Zone).
  *
  */
 export interface ZoneResourceIdentifier {

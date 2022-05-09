@@ -191,7 +191,7 @@ export interface ProductDiscountPagedQueryResponse {
   readonly results: ProductDiscount[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [ProductDiscount](ctp:api:type:ProductDiscount).
+ *	[Reference](ctp:api:type:Reference) to a [ProductDiscount](ctp:api:type:ProductDiscount).
  *
  */
 export interface ProductDiscountReference {
@@ -210,7 +210,7 @@ export interface ProductDiscountReference {
   readonly obj?: ProductDiscount
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [ProductDiscount](ctp:api:type:ProductDiscount).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductDiscount](ctp:api:type:ProductDiscount).
  *
  */
 export interface ProductDiscountResourceIdentifier {

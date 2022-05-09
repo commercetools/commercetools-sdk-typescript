@@ -119,7 +119,7 @@ export interface InventoryEntryDraft {
   readonly custom?: CustomFieldsDraft
 }
 /**
- *	[Reference](/../api/types#reference) to a [InventoryEntry](ctp:api:type:InventoryEntry).
+ *	[Reference](ctp:api:type:Reference) to a [InventoryEntry](ctp:api:type:InventoryEntry).
  *
  */
 export interface InventoryEntryReference {
@@ -138,7 +138,7 @@ export interface InventoryEntryReference {
   readonly obj?: InventoryEntry
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [InventoryEntry](ctp:api:type:InventoryEntry).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [InventoryEntry](ctp:api:type:InventoryEntry).
  *
  */
 export interface InventoryEntryResourceIdentifier {

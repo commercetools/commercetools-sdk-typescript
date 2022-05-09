@@ -194,7 +194,7 @@ export interface ShoppingListLineItem {
    */
   readonly productSlug?: LocalizedString
   /**
-   *	[Reference](/../api/types#reference) to a [ProductType](ctp:api:type:ProductType).
+   *	[Reference](ctp:api:type:Reference) to a [ProductType](ctp:api:type:ProductType).
    *
    *
    */
@@ -267,7 +267,7 @@ export interface ShoppingListPagedQueryResponse {
   readonly results: ShoppingList[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [ShoppingList](ctp:api:type:ShoppingList).
+ *	[Reference](ctp:api:type:Reference) to a [ShoppingList](ctp:api:type:ShoppingList).
  *
  */
 export interface ShoppingListReference {
@@ -286,7 +286,7 @@ export interface ShoppingListReference {
   readonly obj?: ShoppingList
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [ShoppingList](ctp:api:type:ShoppingList).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShoppingList](ctp:api:type:ShoppingList).
  *
  */
 export interface ShoppingListResourceIdentifier {

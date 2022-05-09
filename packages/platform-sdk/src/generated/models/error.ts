@@ -628,13 +628,13 @@ export interface MatchingPriceNotFoundError {
    */
   readonly country?: string
   /**
-   *	[Reference](/../api/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
    *
    *
    */
   readonly customerGroup?: CustomerGroupReference
   /**
-   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *	[Reference](ctp:api:type:Reference) to a [Channel](ctp:api:type:Channel).
    *
    *
    */
@@ -662,7 +662,7 @@ export interface MissingRoleOnChannelError {
    */
   readonly message: string
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
    *
    *
    */

@@ -505,7 +505,7 @@ export interface ProductProjectionPagedSearchResponse {
   readonly facets: FacetResults
 }
 /**
- *	[Reference](/../api/types#reference) to a [Product](ctp:api:type:Product).
+ *	[Reference](ctp:api:type:Reference) to a [Product](ctp:api:type:Product).
  *
  */
 export interface ProductReference {
@@ -524,7 +524,7 @@ export interface ProductReference {
   readonly obj?: Product
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Product](ctp:api:type:Product).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Product](ctp:api:type:Product).
  *
  */
 export interface ProductResourceIdentifier {

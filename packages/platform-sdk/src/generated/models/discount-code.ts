@@ -214,7 +214,7 @@ export interface DiscountCodePagedQueryResponse {
   readonly results: DiscountCode[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [DiscountCode](ctp:api:type:DiscountCode).
+ *	[Reference](ctp:api:type:Reference) to a [DiscountCode](ctp:api:type:DiscountCode).
  *
  */
 export interface DiscountCodeReference {
@@ -233,7 +233,7 @@ export interface DiscountCodeReference {
   readonly obj?: DiscountCode
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [DiscountCode](ctp:api:type:DiscountCode).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [DiscountCode](ctp:api:type:DiscountCode).
  *
  */
 export interface DiscountCodeResourceIdentifier {

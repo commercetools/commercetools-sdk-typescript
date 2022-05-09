@@ -188,7 +188,7 @@ export interface StatePagedQueryResponse {
   readonly results: State[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+ *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
  *
  */
 export interface StateReference {
@@ -207,7 +207,7 @@ export interface StateReference {
   readonly obj?: State
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [State](ctp:api:type:State).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [State](ctp:api:type:State).
  *
  */
 export interface StateResourceIdentifier {

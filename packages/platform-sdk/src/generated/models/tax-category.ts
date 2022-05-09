@@ -150,7 +150,7 @@ export interface TaxCategoryPagedQueryResponse {
   readonly results: TaxCategory[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [TaxCategory](ctp:api:type:TaxCategory).
+ *	[Reference](ctp:api:type:Reference) to a [TaxCategory](ctp:api:type:TaxCategory).
  *
  */
 export interface TaxCategoryReference {
@@ -169,7 +169,7 @@ export interface TaxCategoryReference {
   readonly obj?: TaxCategory
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
  *
  */
 export interface TaxCategoryResourceIdentifier {

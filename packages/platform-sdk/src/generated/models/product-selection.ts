@@ -20,14 +20,14 @@ import {
 
 export interface AssignedProductReference {
   /**
-   *	Reference to a Product that is assigned to the Product Selection.
+   *	Reference to a Product that is assigned to the ProductSelection.
    *
    */
   readonly product: ProductReference
 }
 export interface AssignedProductSelection {
   /**
-   *	Reference to the Product Selection that this assignment is part of.
+   *	Reference to the ProductSelection that this assignment is part of.
    *
    */
   readonly productSelection: ProductSelectionReference
@@ -66,29 +66,30 @@ export interface AssignedProductSelectionPagedQueryResponse {
    */
   readonly total?: number
   /**
-   *	References to Product Selection that are assigned to the Product.
+   *	References to ProductSelection that are assigned to the Product.
    *
    */
   readonly results: AssignedProductSelection[]
 }
 export interface ProductSelection extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the Product Selection.
+   *	Platform-generated unique identifier of the ProductSelection.
+   *
    *
    */
   readonly id: string
   /**
-   *	Current version of the Product Selection.
+   *	Current version of the ProductSelection.
    *
    */
   readonly version: number
   /**
-   *	Date and time (UTC) the Product Selection was initially created.
+   *	Date and time (UTC) the ProductSelection was initially created.
    *
    */
   readonly createdAt: string
   /**
-   *	Date and time (UTC) the Product Selection was last updated.
+   *	Date and time (UTC) the ProductSelection was last updated.
    *
    */
   readonly lastModifiedAt: string
@@ -103,59 +104,60 @@ export interface ProductSelection extends BaseResource {
    */
   readonly createdBy?: CreatedBy
   /**
-   *	User-defined unique identifier of the Product Selection.
+   *	User-defined unique identifier of the ProductSelection.
+   *
    *
    */
   readonly key?: string
   /**
-   *	Name of the Product Selection.
+   *	Name of the ProductSelection.
    *
    */
   readonly name: LocalizedString
   /**
-   *	Number of Products that are currently assigned to this Product Selection.
+   *	Number of Products that are currently assigned to this ProductSelection.
    *
    */
   readonly productCount: number
   /**
-   *	Specifies in which way the Products are assigned to the Product Selection. Currently, the only way of doing this is to specify each Product individually. Hence, the type is fixed to `individual` for now, but we have plans to add other types in the future.
+   *	Specifies in which way the Products are assigned to the ProductSelection. Currently, the only way of doing this is to specify each Product individually. Hence, the type is fixed to `individual` for now, but we have plans to add other types in the future.
    *
    */
   readonly type: ProductSelectionTypeEnum
   /**
-   *	Custom Fields of this Product Selection.
+   *	Custom Fields of this ProductSelection.
    *
    */
   readonly custom?: CustomFields
 }
 /**
- *	Specifies which Product is assigned to which Product Selection.
+ *	Specifies which Product is assigned to which ProductSelection.
  */
 export interface ProductSelectionAssignment {
   /**
-   *	Reference to a Product that is assigned to the Product Selection.
+   *	Reference to a Product that is assigned to the ProductSelection.
    *
    */
   readonly product: ProductReference
   /**
-   *	Reference to the Product Selection that this assignment is part of.
+   *	Reference to the ProductSelection that this assignment is part of.
    *
    */
   readonly productSelection: ProductSelectionReference
 }
 export interface ProductSelectionDraft {
   /**
-   *	User-defined unique identifier for the Product Selection.
+   *	User-defined unique identifier for the ProductSelection.
    *
    */
   readonly key?: string
   /**
-   *	Name of the Product Selection. Not checked for uniqueness, but distinct names are recommended.
+   *	Name of the ProductSelection. Not checked for uniqueness, but distinct names are recommended.
    *
    */
   readonly name: LocalizedString
   /**
-   *	Custom Fields of this Product Selection.
+   *	Custom Fields of this ProductSelection.
    *
    */
   readonly custom?: CustomFieldsDraft
@@ -194,7 +196,7 @@ export interface ProductSelectionPagedQueryResponse {
    */
   readonly total?: number
   /**
-   *	The Product Selections matching the query.
+   *	[ProductSelections](ctp:api:type:ProductSelection) matching the query.
    *
    *
    */
@@ -234,13 +236,13 @@ export interface ProductSelectionProductPagedQueryResponse {
    */
   readonly total?: number
   /**
-   *	References to Products that are assigned to the Product Selection.
+   *	References to Products that are assigned to the ProductSelection.
    *
    */
   readonly results: AssignedProductReference[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [ProductSelection](ctp:api:type:ProductSelection).
+ *	[Reference](ctp:api:type:Reference) to a [ProductSelection](ctp:api:type:ProductSelection).
  *
  */
 export interface ProductSelectionReference {
@@ -252,13 +254,13 @@ export interface ProductSelectionReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded Product Selection. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Product Selections.
+   *	Contains the representation of the expanded ProductSelection. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for ProductSelections.
    *
    */
   readonly obj?: ProductSelection
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [ProductSelection](ctp:api:type:ProductSelection).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductSelection](ctp:api:type:ProductSelection).
  *
  */
 export interface ProductSelectionResourceIdentifier {
@@ -280,7 +282,7 @@ export type ProductSelectionType = IndividualProductSelectionType
 export interface IndividualProductSelectionType {
   readonly type: 'individual'
   /**
-   *	The name of the Product Selection which is recommended to be unique.
+   *	The name of the ProductSelection which is recommended to be unique.
    *
    */
   readonly name: LocalizedString
@@ -341,7 +343,7 @@ export interface ProductsInStorePagedQueryResponse {
    */
   readonly total?: number
   /**
-   *	Product Selection Assignments.
+   *	ProductSelectionAssignments matching the query.
    *
    */
   readonly results: ProductSelectionAssignment[]
@@ -357,7 +359,7 @@ export interface ProductSelectionAddProductAction {
 export interface ProductSelectionChangeNameAction {
   readonly action: 'changeName'
   /**
-   *	The new name to be set for the Product Selection.
+   *	The new name to be set for the ProductSelection.
    *
    */
   readonly name: LocalizedString

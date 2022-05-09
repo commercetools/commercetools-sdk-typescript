@@ -864,7 +864,7 @@ export interface CustomerGroupSetMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](/../api/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
    *
    *
    */
@@ -1141,7 +1141,7 @@ export interface InventoryEntryDeletedMessage {
    */
   readonly sku: string
   /**
-   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *	[Reference](ctp:api:type:Reference) to a [Channel](ctp:api:type:Channel).
    *
    *
    */
@@ -1213,7 +1213,7 @@ export interface InventoryEntryQuantitySetMessage {
    */
   readonly newAvailableQuantity: number
   /**
-   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *	[Reference](ctp:api:type:Reference) to a [Channel](ctp:api:type:Channel).
    *
    *
    */
@@ -1382,13 +1382,13 @@ export interface CustomLineItemStateTransitionMessage {
    */
   readonly quantity: number
   /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
    *
    *
    */
   readonly fromState: StateReference
   /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
    *
    *
    */
@@ -1688,13 +1688,13 @@ export interface LineItemStateTransitionMessage {
    */
   readonly quantity: number
   /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
    *
    *
    */
   readonly fromState: StateReference
   /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
    *
    *
    */
@@ -1982,13 +1982,13 @@ export interface OrderCustomerGroupSetMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](/../api/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
    *
    *
    */
   readonly customerGroup?: CustomerGroupReference
   /**
-   *	[Reference](/../api/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
    *
    *
    */
@@ -2044,25 +2044,25 @@ export interface OrderCustomerSetMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](/../api/types#reference) to a [Customer](ctp:api:type:Customer).
+   *	[Reference](ctp:api:type:Reference) to a [Customer](ctp:api:type:Customer).
    *
    *
    */
   readonly customer?: CustomerReference
   /**
-   *	[Reference](/../api/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
    *
    *
    */
   readonly customerGroup?: CustomerGroupReference
   /**
-   *	[Reference](/../api/types#reference) to a [Customer](ctp:api:type:Customer).
+   *	[Reference](ctp:api:type:Reference) to a [Customer](ctp:api:type:Customer).
    *
    *
    */
   readonly oldCustomer?: CustomerReference
   /**
-   *	[Reference](/../api/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
    *
    *
    */
@@ -2172,7 +2172,7 @@ export interface OrderDiscountCodeAddedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](/../api/types#reference) to a [DiscountCode](ctp:api:type:DiscountCode).
+   *	[Reference](ctp:api:type:Reference) to a [DiscountCode](ctp:api:type:DiscountCode).
    *
    *
    */
@@ -2228,7 +2228,7 @@ export interface OrderDiscountCodeRemovedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](/../api/types#reference) to a [DiscountCode](ctp:api:type:DiscountCode).
+   *	[Reference](ctp:api:type:Reference) to a [DiscountCode](ctp:api:type:DiscountCode).
    *
    *
    */
@@ -2284,7 +2284,7 @@ export interface OrderDiscountCodeStateSetMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](/../api/types#reference) to a [DiscountCode](ctp:api:type:DiscountCode).
+   *	[Reference](ctp:api:type:Reference) to a [DiscountCode](ctp:api:type:DiscountCode).
    *
    *
    */
@@ -2348,7 +2348,7 @@ export interface OrderEditAppliedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](/../api/types#reference) to a [OrderEdit](ctp:api:type:OrderEdit).
+   *	[Reference](ctp:api:type:Reference) to a [OrderEdit](ctp:api:type:OrderEdit).
    *
    *
    */
@@ -2594,7 +2594,7 @@ export interface OrderLineItemDistributionChannelSetMessage {
    */
   readonly lineItemId: string
   /**
-   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *	[Reference](ctp:api:type:Reference) to a [Channel](ctp:api:type:Channel).
    *
    *
    */
@@ -2734,7 +2734,7 @@ export interface OrderPaymentAddedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](/../api/types#reference) to a [Payment](ctp:api:type:Payment).
+   *	[Reference](ctp:api:type:Reference) to a [Payment](ctp:api:type:Payment).
    *
    *
    */
@@ -3304,13 +3304,13 @@ export interface OrderStateTransitionMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
    *
    *
    */
   readonly state: StateReference
   /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
    *
    *
    */
@@ -3898,7 +3898,7 @@ export interface PaymentStatusStateTransitionMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
    *
    *
    */
@@ -4070,7 +4070,7 @@ export interface ProductAddedToCategoryMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](/../api/types#reference) to a [Category](ctp:api:type:Category).
+   *	[Reference](ctp:api:type:Reference) to a [Category](ctp:api:type:Category).
    *
    *
    */
@@ -4520,7 +4520,7 @@ export interface ProductRemovedFromCategoryMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](/../api/types#reference) to a [Category](ctp:api:type:Category).
+   *	[Reference](ctp:api:type:Reference) to a [Category](ctp:api:type:Category).
    *
    *
    */
@@ -4744,7 +4744,7 @@ export interface ProductSelectionProductAddedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](/../api/types#reference) to a [Product](ctp:api:type:Product).
+   *	[Reference](ctp:api:type:Reference) to a [Product](ctp:api:type:Product).
    *
    *
    */
@@ -4800,7 +4800,7 @@ export interface ProductSelectionProductRemovedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](/../api/types#reference) to a [Product](ctp:api:type:Product).
+   *	[Reference](ctp:api:type:Reference) to a [Product](ctp:api:type:Product).
    *
    *
    */
@@ -4918,7 +4918,7 @@ export interface ProductStateTransitionMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
    *
    *
    */
@@ -5266,13 +5266,13 @@ export interface ReviewStateTransitionMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
    *
    *
    */
   readonly oldState: StateReference
   /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
    *
    *
    */
@@ -5699,7 +5699,7 @@ export interface CustomerFirstNameSetMessagePayload {
 export interface CustomerGroupSetMessagePayload {
   readonly type: 'CustomerGroupSet'
   /**
-   *	[Reference](/../api/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
    *
    *
    */
@@ -5741,7 +5741,7 @@ export interface InventoryEntryDeletedMessagePayload {
    */
   readonly sku: string
   /**
-   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *	[Reference](ctp:api:type:Reference) to a [Channel](ctp:api:type:Channel).
    *
    *
    */
@@ -5766,7 +5766,7 @@ export interface InventoryEntryQuantitySetMessagePayload {
    */
   readonly newAvailableQuantity: number
   /**
-   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *	[Reference](ctp:api:type:Reference) to a [Channel](ctp:api:type:Channel).
    *
    *
    */
@@ -5826,13 +5826,13 @@ export interface CustomLineItemStateTransitionMessagePayload {
    */
   readonly quantity: number
   /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
    *
    *
    */
   readonly fromState: StateReference
   /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
    *
    *
    */
@@ -5897,13 +5897,13 @@ export interface LineItemStateTransitionMessagePayload {
    */
   readonly quantity: number
   /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
    *
    *
    */
   readonly fromState: StateReference
   /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
    *
    *
    */
@@ -5956,13 +5956,13 @@ export interface OrderCustomerEmailSetMessagePayload {
 export interface OrderCustomerGroupSetMessagePayload {
   readonly type: 'OrderCustomerGroupSet'
   /**
-   *	[Reference](/../api/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
    *
    *
    */
   readonly customerGroup?: CustomerGroupReference
   /**
-   *	[Reference](/../api/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
    *
    *
    */
@@ -5971,25 +5971,25 @@ export interface OrderCustomerGroupSetMessagePayload {
 export interface OrderCustomerSetMessagePayload {
   readonly type: 'OrderCustomerSet'
   /**
-   *	[Reference](/../api/types#reference) to a [Customer](ctp:api:type:Customer).
+   *	[Reference](ctp:api:type:Reference) to a [Customer](ctp:api:type:Customer).
    *
    *
    */
   readonly customer?: CustomerReference
   /**
-   *	[Reference](/../api/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
    *
    *
    */
   readonly customerGroup?: CustomerGroupReference
   /**
-   *	[Reference](/../api/types#reference) to a [Customer](ctp:api:type:Customer).
+   *	[Reference](ctp:api:type:Reference) to a [Customer](ctp:api:type:Customer).
    *
    *
    */
   readonly oldCustomer?: CustomerReference
   /**
-   *	[Reference](/../api/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
    *
    *
    */
@@ -6005,7 +6005,7 @@ export interface OrderDeletedMessagePayload {
 export interface OrderDiscountCodeAddedMessagePayload {
   readonly type: 'OrderDiscountCodeAdded'
   /**
-   *	[Reference](/../api/types#reference) to a [DiscountCode](ctp:api:type:DiscountCode).
+   *	[Reference](ctp:api:type:Reference) to a [DiscountCode](ctp:api:type:DiscountCode).
    *
    *
    */
@@ -6014,7 +6014,7 @@ export interface OrderDiscountCodeAddedMessagePayload {
 export interface OrderDiscountCodeRemovedMessagePayload {
   readonly type: 'OrderDiscountCodeRemoved'
   /**
-   *	[Reference](/../api/types#reference) to a [DiscountCode](ctp:api:type:DiscountCode).
+   *	[Reference](ctp:api:type:Reference) to a [DiscountCode](ctp:api:type:DiscountCode).
    *
    *
    */
@@ -6023,7 +6023,7 @@ export interface OrderDiscountCodeRemovedMessagePayload {
 export interface OrderDiscountCodeStateSetMessagePayload {
   readonly type: 'OrderDiscountCodeStateSet'
   /**
-   *	[Reference](/../api/types#reference) to a [DiscountCode](ctp:api:type:DiscountCode).
+   *	[Reference](ctp:api:type:Reference) to a [DiscountCode](ctp:api:type:DiscountCode).
    *
    *
    */
@@ -6040,7 +6040,7 @@ export interface OrderDiscountCodeStateSetMessagePayload {
 export interface OrderEditAppliedMessagePayload {
   readonly type: 'OrderEditApplied'
   /**
-   *	[Reference](/../api/types#reference) to a [OrderEdit](ctp:api:type:OrderEdit).
+   *	[Reference](ctp:api:type:Reference) to a [OrderEdit](ctp:api:type:OrderEdit).
    *
    *
    */
@@ -6098,7 +6098,7 @@ export interface OrderLineItemDistributionChannelSetMessagePayload {
    */
   readonly lineItemId: string
   /**
-   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *	[Reference](ctp:api:type:Reference) to a [Channel](ctp:api:type:Channel).
    *
    *
    */
@@ -6144,7 +6144,7 @@ export interface OrderLineItemRemovedMessagePayload {
 export interface OrderPaymentAddedMessagePayload {
   readonly type: 'OrderPaymentAdded'
   /**
-   *	[Reference](/../api/types#reference) to a [Payment](ctp:api:type:Payment).
+   *	[Reference](ctp:api:type:Reference) to a [Payment](ctp:api:type:Payment).
    *
    *
    */
@@ -6244,13 +6244,13 @@ export interface OrderStateChangedMessagePayload {
 export interface OrderStateTransitionMessagePayload {
   readonly type: 'OrderStateTransition'
   /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
    *
    *
    */
   readonly state: StateReference
   /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
    *
    *
    */
@@ -6368,7 +6368,7 @@ export interface PaymentStatusInterfaceCodeSetMessagePayload {
 export interface PaymentStatusStateTransitionMessagePayload {
   readonly type: 'PaymentStatusStateTransition'
   /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
    *
    *
    */
@@ -6399,7 +6399,7 @@ export interface PaymentTransactionStateChangedMessagePayload {
 export interface ProductAddedToCategoryMessagePayload {
   readonly type: 'ProductAddedToCategory'
   /**
-   *	[Reference](/../api/types#reference) to a [Category](ctp:api:type:Category).
+   *	[Reference](ctp:api:type:Reference) to a [Category](ctp:api:type:Category).
    *
    *
    */
@@ -6494,7 +6494,7 @@ export interface ProductPublishedMessagePayload {
 export interface ProductRemovedFromCategoryMessagePayload {
   readonly type: 'ProductRemovedFromCategory'
   /**
-   *	[Reference](/../api/types#reference) to a [Category](ctp:api:type:Category).
+   *	[Reference](ctp:api:type:Reference) to a [Category](ctp:api:type:Category).
    *
    *
    */
@@ -6530,7 +6530,7 @@ export interface ProductSelectionDeletedMessagePayload {
 export interface ProductSelectionProductAddedMessagePayload {
   readonly type: 'ProductSelectionProductAdded'
   /**
-   *	[Reference](/../api/types#reference) to a [Product](ctp:api:type:Product).
+   *	[Reference](ctp:api:type:Reference) to a [Product](ctp:api:type:Product).
    *
    *
    */
@@ -6539,7 +6539,7 @@ export interface ProductSelectionProductAddedMessagePayload {
 export interface ProductSelectionProductRemovedMessagePayload {
   readonly type: 'ProductSelectionProductRemoved'
   /**
-   *	[Reference](/../api/types#reference) to a [Product](ctp:api:type:Product).
+   *	[Reference](ctp:api:type:Reference) to a [Product](ctp:api:type:Product).
    *
    *
    */
@@ -6563,7 +6563,7 @@ export interface ProductSlugChangedMessagePayload {
 export interface ProductStateTransitionMessagePayload {
   readonly type: 'ProductStateTransition'
   /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
    *
    *
    */
@@ -6629,13 +6629,13 @@ export interface ReviewRatingSetMessagePayload {
 export interface ReviewStateTransitionMessagePayload {
   readonly type: 'ReviewStateTransition'
   /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
    *
    *
    */
   readonly oldState: StateReference
   /**
-   *	[Reference](/../api/types#reference) to a [State](ctp:api:type:State).
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
    *
    *
    */

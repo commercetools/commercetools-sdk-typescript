@@ -185,7 +185,7 @@ export interface AttributeMoneyType {
 export interface AttributeNestedType {
   readonly name: 'nested'
   /**
-   *	[Reference](/../api/types#reference) to a [ProductType](ctp:api:type:ProductType).
+   *	[Reference](ctp:api:type:Reference) to a [ProductType](ctp:api:type:ProductType).
    *
    *
    */
@@ -311,7 +311,7 @@ export interface ProductTypePagedQueryResponse {
   readonly results: ProductType[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [ProductType](ctp:api:type:ProductType).
+ *	[Reference](ctp:api:type:Reference) to a [ProductType](ctp:api:type:ProductType).
  *
  */
 export interface ProductTypeReference {
@@ -330,7 +330,7 @@ export interface ProductTypeReference {
   readonly obj?: ProductType
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [ProductType](ctp:api:type:ProductType).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductType](ctp:api:type:ProductType).
  *
  */
 export interface ProductTypeResourceIdentifier {

@@ -184,7 +184,7 @@ export interface ShippingMethodPagedQueryResponse {
   readonly results: ShippingMethod[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [ShippingMethod](ctp:api:type:ShippingMethod).
+ *	[Reference](ctp:api:type:Reference) to a [ShippingMethod](ctp:api:type:ShippingMethod).
  *
  */
 export interface ShippingMethodReference {
@@ -203,7 +203,7 @@ export interface ShippingMethodReference {
   readonly obj?: ShippingMethod
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod).
  *
  */
 export interface ShippingMethodResourceIdentifier {

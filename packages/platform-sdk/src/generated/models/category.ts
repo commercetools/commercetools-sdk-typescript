@@ -198,7 +198,7 @@ export interface CategoryPagedQueryResponse {
   readonly results: Category[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [Category](ctp:api:type:Category).
+ *	[Reference](ctp:api:type:Reference) to a [Category](ctp:api:type:Category).
  *
  */
 export interface CategoryReference {
@@ -217,7 +217,7 @@ export interface CategoryReference {
   readonly obj?: Category
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Category](ctp:api:type:Category).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Category](ctp:api:type:Category).
  *
  */
 export interface CategoryResourceIdentifier {

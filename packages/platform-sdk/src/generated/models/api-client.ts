@@ -6,13 +6,13 @@
 
 export interface ApiClient {
   /**
-   *	Platform-generated unique identifier of the API Client.
+   *	Platform-generated unique identifier of the APIClient.
    *	This is the OAuth2 `client_id` that can be used to [obtain an access token](/../api/authorization#requesting-an-access-token-using-commercetools-oauth-20-server).
    *
    */
   readonly id: string
   /**
-   *	Name of the API Client.
+   *	Name of the APIClient.
    *
    */
   readonly name: string
@@ -22,13 +22,13 @@ export interface ApiClient {
    */
   readonly scope: string
   /**
-   *	Only shown once in the response of creating the API Client.
+   *	Only shown once in the response of creating the APIClient.
    *	This is the OAuth2 `client_secret` that can be used to [obtain an access token](/../api/authorization#requesting-an-access-token-using-commercetools-oauth-20-server).
    *
    */
   readonly secret?: string
   /**
-   *	Date of the last day this API Client was used to [obtain an access token](/../api/authorization#requesting-an-access-token-using-commercetools-oauth-20-server).
+   *	Date of the last day this APIClient was used to [obtain an access token](/../api/authorization#requesting-an-access-token-using-commercetools-oauth-20-server).
    *
    */
   readonly lastUsedAt?: string
@@ -38,18 +38,18 @@ export interface ApiClient {
    */
   readonly deleteAt?: string
   /**
-   *	Date and time (UTC) the API Client was initially created at.
+   *	Date and time (UTC) the APIClient was initially created at.
    *
    */
   readonly createdAt?: string
   /**
-   *	Expiration time in seconds for each access token obtained by the API Client. Only present when set with the [APIClientDraft](ctp:api:type:ApiClientDraft). If not present the default value applies.
+   *	Expiration time in seconds for each access token obtained by the APIClient. Only present when set with the [APIClientDraft](ctp:api:type:ApiClientDraft). If not present the default value applies.
    *
    *
    */
   readonly accessTokenValiditySeconds?: number
   /**
-   *	Inactivity expiration time in seconds for each refresh token obtained by the API Client. Only present when set with the [APIClientDraft](ctp:api:type:ApiClientDraft). If not present the default value applies.
+   *	Inactivity expiration time in seconds for each refresh token obtained by the APIClient. Only present when set with the [APIClientDraft](ctp:api:type:ApiClientDraft). If not present the default value applies.
    *
    *
    */
@@ -57,7 +57,7 @@ export interface ApiClient {
 }
 export interface ApiClientDraft {
   /**
-   *	Name of the API Client.
+   *	Name of the APIClient.
    *
    */
   readonly name: string
@@ -72,13 +72,13 @@ export interface ApiClientDraft {
    */
   readonly deleteDaysAfterCreation?: number
   /**
-   *	Expiration time in seconds for each access token obtained by the API Client. If not set the default value applies.
+   *	Expiration time in seconds for each access token obtained by the APIClient. If not set the default value applies.
    *
    *
    */
   readonly accessTokenValiditySeconds?: number
   /**
-   *	Inactivity expiration time in seconds for each refresh token obtained by the API Client. The expiration time for refresh tokens is restarted each time the token is used. If not set the default value applies.
+   *	Inactivity expiration time in seconds for each refresh token obtained by the APIClient. The expiration time for refresh tokens is restarted each time the token is used. If not set the default value applies.
    *
    *
    */
@@ -118,7 +118,7 @@ export interface ApiClientPagedQueryResponse {
    */
   readonly total?: number
   /**
-   *	API Clients matching the query.
+   *	APIClients matching the query.
    *
    */
   readonly results: ApiClient[]

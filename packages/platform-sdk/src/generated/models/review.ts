@@ -217,7 +217,7 @@ export interface ReviewRatingStatistics {
   readonly ratingsDistribution: any
 }
 /**
- *	[Reference](/../api/types#reference) to a [Review](ctp:api:type:Review).
+ *	[Reference](ctp:api:type:Reference) to a [Review](ctp:api:type:Review).
  *
  */
 export interface ReviewReference {
@@ -236,7 +236,7 @@ export interface ReviewReference {
   readonly obj?: Review
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Review](ctp:api:type:Review).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Review](ctp:api:type:Review).
  *
  */
 export interface ReviewResourceIdentifier {
