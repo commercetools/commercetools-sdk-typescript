@@ -38,7 +38,7 @@ app.use('/', routes)
 app.get('/home', async function (_, res) {
   res.status(200).json({
     status: 'success',
-    message: 'welocome to commercetools me endpoint demo app',
+    message: 'welcome to composable commerce me endpoint demo app',
   })
 })
 app.use('*', async (_, res: Response) => {

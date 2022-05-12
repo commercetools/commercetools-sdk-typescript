@@ -1,4 +1,4 @@
-# Commercetools TypeScript SDK client.
+# Commercetools Composable Commerce TypeScript SDK client.
 
 ## Usage examples
 

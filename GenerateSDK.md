@@ -1,6 +1,6 @@
-# commercetools-typescript-sdks Generation
+# Composable Commerce TypeScript SDKs Generation
 
-This repo contains commercetools SDKs and this is guide for how to generate the typescript SDK.
+This repo contains Composable Commerce SDKs and this is a guide for how to generate the typescript SDK.
 
 ## Requirements
 
@@ -18,16 +18,16 @@ run `yarn generate` to generate the sdks. (make sure the environement variables 
 
 ## Environment variables
 
-| Variable name |                                                    Description                                                    |
-| ------------- | :---------------------------------------------------------------------------------------------------------------: |
-| ML_API_REF    | The path to commercetools [machine learning RAML api](https://github.com/commercetools/ml-services-api-reference) |
-| API_RAML_FILE |        The path to commercetools [RAML api](https://github.com/commercetools/commercetools-api-reference)         |
+| Variable name |                                                       Description                                                       |
+| ------------- | :---------------------------------------------------------------------------------------------------------------------: |
+| ML_API_REF    | The path to Composable Commerce [machine learning RAML api](https://github.com/commercetools/ml-services-api-reference) |
+| API_RAML_FILE |        The path to Composable Commerce [RAML api](https://github.com/commercetools/commercetools-api-reference)         |
 
 ## Test environnement variables
 
 | Variable name     |                                               Description                                                |
 | ----------------- | :------------------------------------------------------------------------------------------------------: |
-| CTP_PROJECT_KEY   |                                        commercetools project key                                         |
+| CTP_PROJECT_KEY   |                                     composable commerce project key                                      |
 | CTP_CLIENT_ID     |                                              the client id                                               |
 | CTP_CLIENT_SECRET |                                            the client secret                                             |
 | CTP_API_URL       |                              the api url (contains infos about the region)                               |

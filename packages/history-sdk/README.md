@@ -1,4 +1,4 @@
-# Typescript SDK for commercetools Audit log (history) APIs.
+# Typescript SDK for Composable Commerce Audit log (history) APIs.
 
 ## Usage examples
 
