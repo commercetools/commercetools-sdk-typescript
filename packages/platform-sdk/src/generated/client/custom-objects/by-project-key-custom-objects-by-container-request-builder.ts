@@ -20,8 +20,12 @@ export class ByProjectKeyCustomObjectsByContainerRequestBuilder {
   ) {}
   public get(methodArgs?: {
     queryArgs?: {
+      sort?: string | string[]
       where?: string | string[]
       expand?: string | string[]
+      limit?: number
+      offset?: number
+      withTotal?: boolean
       [key: string]: QueryParam
     }
     headers?: {

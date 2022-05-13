@@ -13,12 +13,30 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
       method: 'get',
+      uri: '/test_projectKey/custom-objects/test_container?sort=sort',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .customObjects()
+        .withContainer({ container: 'test_container' })
+        .get({ queryArgs: { sort: 'sort' } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/custom-objects/test_container?where=where',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .customObjects()
         .withContainer({ container: 'test_container' })
         .get({ queryArgs: { where: 'where' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/custom-objects/test_container?expand=expand',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .customObjects()
+        .withContainer({ container: 'test_container' })
+        .get({ queryArgs: { expand: 'expand' } }),
     },
     {
       method: 'get',
@@ -31,12 +49,30 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/custom-objects/test_container?expand=expand',
+      uri: '/test_projectKey/custom-objects/test_container?limit=7',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .customObjects()
         .withContainer({ container: 'test_container' })
-        .get({ queryArgs: { expand: 'expand' } }),
+        .get({ queryArgs: { limit: 7 } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/custom-objects/test_container?offset=3',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .customObjects()
+        .withContainer({ container: 'test_container' })
+        .get({ queryArgs: { offset: 3 } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/custom-objects/test_container?withTotal=true',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .customObjects()
+        .withContainer({ container: 'test_container' })
+        .get({ queryArgs: { withTotal: true } }),
     },
     {
       method: 'get',

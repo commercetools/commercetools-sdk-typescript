@@ -40,21 +40,21 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'delete',
-      uri: '/test_projectKey/custom-objects/test_container/test_key?dataErasure=true',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .customObjects()
-        .withContainerAndKey({ container: 'test_container', key: 'test_key' })
-        .delete({ queryArgs: { dataErasure: true } }),
-    },
-    {
-      method: 'delete',
       uri: '/test_projectKey/custom-objects/test_container/test_key?expand=expand',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .customObjects()
         .withContainerAndKey({ container: 'test_container', key: 'test_key' })
         .delete({ queryArgs: { expand: 'expand' } }),
+    },
+    {
+      method: 'delete',
+      uri: '/test_projectKey/custom-objects/test_container/test_key?dataErasure=true',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .customObjects()
+        .withContainerAndKey({ container: 'test_container', key: 'test_key' })
+        .delete({ queryArgs: { dataErasure: true } }),
     },
     {
       method: 'delete',

@@ -19,9 +19,6 @@ export class ByProjectKeyCustomObjectsByContainerByKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Get CustomObject by container and key
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -45,14 +42,11 @@ export class ByProjectKeyCustomObjectsByContainerByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete CustomObject by container and key
-   */
   public delete(methodArgs?: {
     queryArgs?: {
       version?: number
-      dataErasure?: boolean
       expand?: string | string[]
+      dataErasure?: boolean
       [key: string]: QueryParam
     }
     headers?: {
