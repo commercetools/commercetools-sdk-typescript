@@ -693,7 +693,7 @@ export interface Price {
   /**
    *	Is set if a [ProductDiscount](ctp:api:type:ProductDiscount) has been applied.
    *	If set, the commercetools Platform uses the DiscountedPrice value for the [LineItem Price selection](/projects/carts#lineitem-price-selection).
-   *	When a [relative discount](/../api/projects/productDiscounts#relative) has been applied and the fraction part of the DiscountedPrice `value` is 0.5, the `value` is rounded in favor of the customer with [half down rounding](https://en.wikipedia.org/wiki/Rounding#Round_half_down).
+   *	When a [relative discount](/../api/projects/productDiscounts#productdiscountvaluerelative) has been applied and the fraction part of the DiscountedPrice `value` is 0.5, the `value` is rounded in favor of the customer with [half down rounding](https://en.wikipedia.org/wiki/Rounding#Round_half_down).
    *
    *
    */
@@ -824,54 +824,62 @@ export interface PriceTierDraft {
 }
 export interface QueryPrice {
   /**
+   *	Platform-generated unique identifier of the given Price.
+   *
    *
    */
-  readonly id: string
+  readonly id?: string
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Money value of the given Price.
    *
    *
    */
   readonly value: Money
   /**
-   *	Two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Country for which the given Price is valid.
    *
    *
    */
   readonly country?: string
   /**
-   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) for which the given Price is valid.
    *
    *
    */
   readonly customerGroup?: CustomerGroupReference
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Channel](ctp:api:type:Channel).
+   *	`ProductDistribution` [Channel](ctp:api:type:Channel) for which the given Price is valid.
    *
    *
    */
   readonly channel?: ChannelReference
   /**
+   *	Date from which the given Price is valid.
+   *
    *
    */
   readonly validFrom?: string
   /**
+   *	Date until which the given Price is valid.
+   *
    *
    */
   readonly validUntil?: string
   /**
+   *	[DiscountedPrice](ctp:api:type:DiscountedPrice) you specify for the given Price.
+   *
    *
    */
   readonly discounted?: DiscountedPriceDraft
   /**
-   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *	Custom Fields for the Price.
    *
    *
    */
   readonly custom?: CustomFields
   /**
+   *	Price tier applied when the minimum quantity for the [LineItem](ctp:api:type:LineItem) of a ProductVariant with the related Price is reached in a Cart.
+   *
    *
    */
   readonly tiers?: PriceTierDraft[]

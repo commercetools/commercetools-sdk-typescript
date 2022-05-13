@@ -20,6 +20,11 @@ export class ByProjectKeyProductDiscountsMatchingRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	This endpoint can be used to simulate which Product Discounts would be applied if a specified Product Variant had a specified Price.
+   *	Given Product and Product Variant IDs and a Price, this endpoint will return the [ProductDiscount](ctp:api:type:ProductDiscount) that would have been applied to that Price.
+   *
+   */
   public post(methodArgs: {
     body: ProductDiscountMatchQuery
     headers?: {
