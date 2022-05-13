@@ -77,7 +77,7 @@ When opening a Pull Request, a `changeset-bot` checks that the Pull Request cont
 
 ## Releasing packages
 
-Composable Commerce sdk-typescript uses [changesets](https://github.com/atlassian/changesets) to do versioning and publishing a release.
+Composable Commerce Ttypescript SDK uses [changesets](https://github.com/atlassian/changesets) to do versioning and publishing a release.
 
 A [Changesets release GitHub Action](https://github.com/changesets/action) opens a `Version Packages` Pull Request whenever there are some changesets that have not been released yet.
 
