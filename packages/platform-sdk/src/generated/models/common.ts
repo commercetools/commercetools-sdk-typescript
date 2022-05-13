@@ -409,7 +409,7 @@ export interface Address extends BaseAddress {
    *
    *
    */
-  readonly id: string
+  readonly id?: string
   /**
    *	Custom Fields defined for the Address.
    *
