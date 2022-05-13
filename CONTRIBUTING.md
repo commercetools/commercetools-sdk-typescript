@@ -68,7 +68,7 @@ Some useful commands to work with the repository:
 
 ## Adding changesets
 
-Composable Commerce sdk-typescript uses [changesets](https://github.com/atlassian/changesets) to do versioning and creating changelogs.
+Composable Commerce Typescript SDK uses [changesets](https://github.com/atlassian/changesets) to do versioning and creating changelogs.
 
 As a contributor you need to add a changeset by running `yarn changeset`.
 The command will prompt to select the packages that should be bumped, their associated semver bump types and some markdown which will be inserted into the changelogs.
