@@ -18,6 +18,9 @@ export class ByProjectKeyDiscountCodesByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Deprecated scope: `view_orders:{projectKey}`
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -41,6 +44,9 @@ export class ByProjectKeyDiscountCodesByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deprecated scope: `manage_orders:{projectKey}`
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -67,6 +73,9 @@ export class ByProjectKeyDiscountCodesByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deprecated scope: `manage_orders:{projectKey}`
+   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

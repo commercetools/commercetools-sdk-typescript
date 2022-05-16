@@ -137,7 +137,7 @@ export class ByProjectKeyRequestBuilder {
     })
   }
   /**
-   *	Discount codes can be added to a discount-code to enable certain discount-code discounts.
+   *	Discount Codes can be added to a discount-code to enable certain discount-code discounts.
    */
   public discountCodes(): ByProjectKeyDiscountCodesRequestBuilder {
     return new ByProjectKeyDiscountCodesRequestBuilder({

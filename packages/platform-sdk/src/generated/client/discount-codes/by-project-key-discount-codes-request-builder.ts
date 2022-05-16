@@ -35,6 +35,9 @@ export class ByProjectKeyDiscountCodesRequestBuilder {
     })
   }
 
+  /**
+   *	Deprecated scope: `view_orders:{projectKey}`
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -63,6 +66,9 @@ export class ByProjectKeyDiscountCodesRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deprecated scope: `manage_orders:{projectKey}`
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
