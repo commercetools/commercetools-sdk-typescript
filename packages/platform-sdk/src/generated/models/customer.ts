@@ -579,6 +579,24 @@ export interface MyCustomerResetPassword {
    */
   readonly newPassword: string
 }
+export interface MyCustomerSignin {
+  /**
+   *
+   */
+  readonly email: string
+  /**
+   *
+   */
+  readonly password: string
+  /**
+   *
+   */
+  readonly activeCartSignInMode?: AnonymousCartSignInMode
+  /**
+   *
+   */
+  readonly updateProductData?: boolean
+}
 export interface CustomerAddAddressAction {
   readonly action: 'addAddress'
   /**
