@@ -25,11 +25,11 @@ run `yarn generate` to generate the sdks. (make sure the environement variables 
 
 ## Test environnement variables
 
-| Variable name     |                                               Description                                                |
-| ----------------- | :------------------------------------------------------------------------------------------------------: |
-| CTP_PROJECT_KEY   |                                     composable commerce project key                                      |
-| CTP_CLIENT_ID     |                                              the client id                                               |
-| CTP_CLIENT_SECRET |                                            the client secret                                             |
-| CTP_API_URL       |                              the api url (contains infos about the region)                               |
-| CTP_AUTH_URL      |                              the auth url (contains infos about the region)                              |
-| CTP_ML_API_URL    | the ml api uses a pattern a bit different from the platform, that needs to be used to access ml services |
+| Variable name     |                                                     Description                                                     |
+| ----------------- | :-----------------------------------------------------------------------------------------------------------------: |
+| CTP_PROJECT_KEY   |                                           composable commerce project key                                           |
+| CTP_CLIENT_ID     |                                                    the client id                                                    |
+| CTP_CLIENT_SECRET |                                                  the client secret                                                  |
+| CTP_API_URL       |                                    the api url (contains infos about the region)                                    |
+| CTP_AUTH_URL      |                                   the auth url (contains infos about the region)                                    |
+| CTP_ML_API_URL    | the ml api uses a pattern a bit different from the composable commerce, that needs to be used to access ml services |

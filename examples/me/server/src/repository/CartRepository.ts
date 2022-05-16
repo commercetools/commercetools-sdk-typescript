@@ -73,7 +73,7 @@ class CartRepository implements ICart {
   private createCartUpdateDraft(
     cartUpdateDraft: CartUpdateDraft
   ): MyCartUpdate {
-    const action = 'addLineItem' // default value needed to tell the platform we are adding an item to cart
+    const action = 'addLineItem' // default value needed to tell the system we are adding an item to cart
     const { version, productId, variantId, quantity } = cartUpdateDraft
     return {
       version,
@@ -91,7 +91,7 @@ class CartRepository implements ICart {
   private createRemoveItemDraft(
     cartRemoveItemDraft: CartRemoveItemDraft
   ): MyCartRemoveItem {
-    const action = 'removeLineItem' // default value needed to tell the platform we are removing an item from the cart
+    const action = 'removeLineItem' // default value needed to tell the system we are removing an item from the cart
     const { version, lineItemId, quantity } = cartRemoveItemDraft
     return {
       version,

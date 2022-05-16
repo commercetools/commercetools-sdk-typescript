@@ -77,7 +77,7 @@ const client = new ClientBuilder()
 
 const apiRoot = createApiBuilderFromCtpClient(client)
 
-// calling the platform functions
+// calling the Composable Commerce functions
 // get project details
 apiRoot
   .withProjectKey({
