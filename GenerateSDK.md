@@ -27,7 +27,7 @@ run `yarn generate` to generate the sdks. (make sure the environement variables 
 
 | Variable name     |                                                     Description                                                     |
 | ----------------- | :-----------------------------------------------------------------------------------------------------------------: |
-| CTP_PROJECT_KEY   |                                           composable commerce project key                                           |
+| CTP_PROJECT_KEY   |                                           Composable Commerce Project key                                           |
 | CTP_CLIENT_ID     |                                                    the client id                                                    |
 | CTP_CLIENT_SECRET |                                                  the client secret                                                  |
 | CTP_API_URL       |                                    the api url (contains infos about the region)                                    |
