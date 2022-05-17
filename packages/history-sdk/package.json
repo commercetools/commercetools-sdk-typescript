@@ -5,7 +5,7 @@
   },
   "name": "@commercetools/history-sdk",
   "version": "2.5.0",
-  "description": "Typescript SDK for composable commerce audit log features",
+  "description": "Typescript SDK for Composable Commerce Audit Log features",
   "keywords": [
     "commercetools",
     "composable commerce",
