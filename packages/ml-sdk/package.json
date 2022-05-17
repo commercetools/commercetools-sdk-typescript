@@ -5,7 +5,7 @@
   },
   "name": "@commercetools/ml-sdk",
   "version": "2.4.0",
-  "description": "Type script sdk for commercetools Composable Commerce ML features",
+  "description": "TypeScript SDK for Composable Commerce Machine Learning features",
   "keywords": [
     "commercetools",
     "composable commerce",
