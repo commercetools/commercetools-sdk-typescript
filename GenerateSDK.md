@@ -20,7 +20,7 @@ run `yarn generate` to generate the sdks. (make sure the environement variables 
 
 | Variable name |                                                       Description                                                       |
 | ------------- | :---------------------------------------------------------------------------------------------------------------------: |
-| ML_API_REF    | The path to Composable Commerce [machine learning RAML api](https://github.com/commercetools/ml-services-api-reference) |
+| ML_API_REF    | The path to Composable Commerce [Machine Learning API reference](https://github.com/commercetools/ml-services-api-reference) |
 | API_RAML_FILE |        The path to Composable Commerce [RAML api](https://github.com/commercetools/commercetools-api-reference)         |
 
 ## Test environnement variables
