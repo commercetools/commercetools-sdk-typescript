@@ -5,7 +5,7 @@
   },
   "name": "@commercetools/importapi-sdk",
   "version": "2.5.0",
-  "description": "Type script sdk for commercetools composable commerce import features",
+  "description": "TypeScript SDK for Composable Commerce Import API features",
   "keywords": [
     "commercetools",
     "composable commerce",
