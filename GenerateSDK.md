@@ -1,6 +1,6 @@
 # Composable Commerce TypeScript SDKs Generation
 
-This repo contains Composable Commerce SDKs and this is a guide for how to generate the typescript SDK.
+This repo contains Composable Commerce SDKs and this is a guide on how to generate the Typescript SDK.
 
 ## Requirements
 
