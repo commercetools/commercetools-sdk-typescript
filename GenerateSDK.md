@@ -32,4 +32,4 @@ run `yarn generate` to generate the sdks. (make sure the environment variables a
 | CTP_CLIENT_SECRET |                                                  the client secret                                                  |
 | CTP_API_URL       |                                    the API url (contains infos about the region)                                    |
 | CTP_AUTH_URL      |                                   the auth url (contains infos about the region)                                    |
-| CTP_ML_API_URL    | the ml api uses a pattern a bit different from the composable commerce, that needs to be used to access ml services |
+| CTP_ML_API_URL    | the Machine Learning API uses a different pattern than the HTTP API, use this to access ML services |
