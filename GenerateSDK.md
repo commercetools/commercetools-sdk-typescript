@@ -14,14 +14,14 @@ This repo contains Composable Commerce SDKs and this is a guide on how to genera
 
 ## Generating the sdks
 
-run `yarn generate` to generate the sdks. (make sure the environement variables are set first)
+run `yarn generate` to generate the sdks. (make sure the environment variables are set first)
 
 ## Environment variables
 
-| Variable name |                                                       Description                                                       |
-| ------------- | :---------------------------------------------------------------------------------------------------------------------: |
+| Variable name |                                                         Description                                                          |
+| ------------- | :--------------------------------------------------------------------------------------------------------------------------: |
 | ML_API_REF    | The path to Composable Commerce [Machine Learning API reference](https://github.com/commercetools/ml-services-api-reference) |
-| API_RAML_FILE |        The path to Composable Commerce [RAML api](https://github.com/commercetools/commercetools-api-reference)         |
+| API_RAML_FILE |           The path to Composable Commerce [RAML API](https://github.com/commercetools/commercetools-api-reference)           |
 
 ## Test environnement variables
 
