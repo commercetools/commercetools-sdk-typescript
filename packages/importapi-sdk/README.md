@@ -1,4 +1,4 @@
-# Typescript SDK for commercetools import API
+# TypeScript SDK for commercetools Composable Commerce Import API
 
 ## Usage examples
 

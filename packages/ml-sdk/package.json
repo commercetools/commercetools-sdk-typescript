@@ -5,8 +5,14 @@
   },
   "name": "@commercetools/ml-sdk",
   "version": "2.4.0",
-  "description": "Type script sdk for commercetools ML features",
-  "keywords": ["commercetools", "typescript", "sdk", "ml"],
+  "description": "TypeScript SDK for Composable Commerce Machine Learning features",
+  "keywords": [
+    "commercetools",
+    "composable commerce",
+    "typescript",
+    "sdk",
+    "ml"
+  ],
   "homepage": "https://github.com/commercetools/commercetools-typescript-sdks/packages/ml-sdk",
   "bugs": "https://github.com/commercetools/commercetools-typescript-sdks/issues",
   "repository": {

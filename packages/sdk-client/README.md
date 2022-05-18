@@ -1,4 +1,4 @@
-# Commercetools TypeScript SDK client.
+# Commercetools Composable Commerce TypeScript SDK client
 
 ## Usage examples
 
@@ -77,7 +77,7 @@ const client = new ClientBuilder()
 
 const apiRoot = createApiBuilderFromCtpClient(client)
 
-// calling the platform functions
+// calling the Composable Commerce functions
 // get project details
 apiRoot
   .withProjectKey({

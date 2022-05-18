@@ -1,9 +1,10 @@
 {
   "name": "@commercetools/sdk-client-v2",
   "version": "1.4.0",
-  "description": "commercetools TypeScript SDK client.",
+  "description": "commercetools Composable Commerce TypeScript SDK client.",
   "keywords": [
     "commercetools",
+    "composable commerce",
     "sdk",
     "typescript",
     "client",

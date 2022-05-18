@@ -5,8 +5,14 @@
   },
   "name": "@commercetools/importapi-sdk",
   "version": "2.5.0",
-  "description": "Type script sdk for commercetools import features",
-  "keywords": ["commercetools", "typescript", "sdk", "import"],
+  "description": "TypeScript SDK for Composable Commerce Import API features",
+  "keywords": [
+    "commercetools",
+    "composable commerce",
+    "typescript",
+    "sdk",
+    "import"
+  ],
   "homepage": "https://github.com/commercetools/commercetools-sdk-typescript/packages/importapi-sdk",
   "bugs": "https://github.com/commercetools/commercetools-sdk-typescript/issues",
   "repository": {

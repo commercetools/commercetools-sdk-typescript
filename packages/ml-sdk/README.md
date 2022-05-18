@@ -1,4 +1,4 @@
-# Typescript SDK for commercetools machine learning API
+# Typescript SDK for commercetools Composable Commerce Machine Learning API
 
 ## Usage examples
 

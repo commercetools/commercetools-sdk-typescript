@@ -6,7 +6,7 @@ Please take a moment to review this document in order to make the contribution p
 
 ## Core ideas
 
-The repository primarily contains SDK packages in TypeScript generated from the commercetools platform API reference.
+The repository primarily contains SDK packages in TypeScript generated from the Composable Commerce API reference.
 
 ## Repository structure
 
@@ -68,7 +68,7 @@ Some useful commands to work with the repository:
 
 ## Adding changesets
 
-commercetools sdk-typescript uses [changesets](https://github.com/atlassian/changesets) to do versioning and creating changelogs.
+Composable Commerce Typescript SDK uses [changesets](https://github.com/atlassian/changesets) to do versioning and creating changelogs.
 
 As a contributor you need to add a changeset by running `yarn changeset`.
 The command will prompt to select the packages that should be bumped, their associated semver bump types and some markdown which will be inserted into the changelogs.
@@ -77,7 +77,7 @@ When opening a Pull Request, a `changeset-bot` checks that the Pull Request cont
 
 ## Releasing packages
 
-commercetools sdk-typescript uses [changesets](https://github.com/atlassian/changesets) to do versioning and publishing a release.
+Composable Commerce Typescript SDK uses [changesets](https://github.com/atlassian/changesets) to do versioning and publishing a release.
 
 A [Changesets release GitHub Action](https://github.com/changesets/action) opens a `Version Packages` Pull Request whenever there are some changesets that have not been released yet.
 

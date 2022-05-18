@@ -77,7 +77,7 @@ export function buildRequestForPasswordFlow(
    */
   const oauthUri = options.oauthUri || `/oauth/${pKey}/customers/token`
   const url = options.host.replace(/\/$/, '') + oauthUri
-  // encode username and password as requested by platform
+  // encode username and password as requested by the system
   const body = `grant_type=password&username=${encodeURIComponent(
     username
   )}&password=${encodeURIComponent(password)}${scopeStr}`

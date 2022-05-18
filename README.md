@@ -1,6 +1,6 @@
-<h2 align="center">commercetools TypeScript SDKs 💅</h2>
+<h2 align="center">Composable Commerce TypeScript SDKs 💅</h2>
 <p align="center">
-  <i>✨ Monorepository with generated TypeScript SDKs for the commercetools platform 🛠</i>
+  <i>✨ Monorepository with generated TypeScript SDKs for the Composable Commerce APIs 🛠</i>
 </p>
 <p align="center">
   <a href="https://circleci.com/gh/commercetools/commercetools-sdk-typescript">
@@ -17,7 +17,7 @@
 
 ## Introduction
 
-This repository contains several SDK packages generated from the commercetools platform API reference.
+This repository contains several SDK packages generated from the commercetools Composable Commerce API reference.
 
 ## Documentation
 

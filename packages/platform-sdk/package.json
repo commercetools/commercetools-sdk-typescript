@@ -5,8 +5,8 @@
   },
   "name": "@commercetools/platform-sdk",
   "version": "2.7.0",
-  "description": "Typescript definitions and sdk for commercetools platform",
-  "keywords": ["commercetools", "typescript", "sdk"],
+  "description": "TypeScript definitions and SDK for commercetools Composable Commerce",
+  "keywords": ["commercetools", "composable commerce", "typescript", "sdk"],
   "homepage": "https://github.com/commercetools/commercetools-typescript-sdks",
   "bugs": "https://github.com/commercetools/commercetools-typescript-sdks/issues",
   "repository": {
