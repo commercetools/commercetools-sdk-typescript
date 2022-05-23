@@ -10,68 +10,92 @@ export interface CustomObject extends BaseResource {
   /**
    *	Platform-generated unique identifier of the CustomObject.
    *
+   *
    */
   readonly id: string
   /**
+   *	Current version of the CustomObject.
+   *
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the CustomObject was initially created.
+   *
    *
    */
   readonly createdAt: string
   /**
+   *	Date and time (UTC) the CustomObject was last updated.
+   *
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 2019-02-01 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
    *
    *
    */
   readonly createdBy?: CreatedBy
   /**
-   *	A namespace to group custom objects.
+   *	Namespace to group CustomObjects.
+   *
    *
    */
   readonly container: string
   /**
-   *	User-defined unique identifier of the CustomObject.
+   *	User-defined unique identifier of the CustomObject within the defined `container`.
+   *
    *
    */
   readonly key: string
   /**
+   *	JSON standard types Number, String, Boolean, Array, Object, and [common API data types](/../api/types).
+   *	For values of type [Reference](ctp:api:type:Reference) the integrity of the data is not guaranteed.
+   *	If the referenced object is deleted, the platform does not delete the corresponding reference to it and the `value` points to a non-existing object in such case.
+   *
    *
    */
   readonly value: any
 }
 export interface CustomObjectDraft {
   /**
-   *	A namespace to group custom objects.
+   *	Namespace to group CustomObjects.
+   *
    *
    */
   readonly container: string
   /**
-   *	User-defined unique identifier for the CustomObject.
+   *	User-defined unique identifier of the CustomObject within the defined `container`.
    *
    *
    */
   readonly key: string
   /**
+   *	JSON standard types Number, String, Boolean, Array, Object, and [common API data types](/../api/types).
+   *	For values of type [Reference](ctp:api:type:Reference) the integrity of the data is not guaranteed.
+   *	If the referenced object is deleted, the platform does not delete the corresponding reference to it and the `value` points to a non-existing object in such case.
+   *
    *
    */
   readonly value: any
   /**
+   *	Current version of the CustomObject.
+   *
    *
    */
   readonly version?: number
 }
+/**
+ *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [CustomObject](ctp:api:type:CustomObject).
+ *
+ */
 export interface CustomObjectPagedQueryResponse {
   /**
    *	Number of [results requested](/../api/general-concepts#limit).
@@ -80,24 +104,36 @@ export interface CustomObjectPagedQueryResponse {
    */
   readonly limit: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
    *
-   */
-  readonly count: number
-  /**
-   *
-   */
-  readonly total?: number
-  /**
    *
    */
   readonly offset: number
   /**
+   *	Actual number of results returned.
+   *
+   *
+   */
+  readonly count: number
+  /**
+   *	The total number of results matching the query.
+   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This field is returned by default.
+   *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
+   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *
+   *
+   */
+  readonly total?: number
+  /**
+   *	[CustomObjects](ctp:api:type:CustomObject) matching the query.
+   *
    *
    */
   readonly results: CustomObject[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [CustomObject](ctp:api:type:CustomObject).
+ *	[Reference](ctp:api:type:Reference) to a [CustomObject](ctp:api:type:CustomObject).
  *
  */
 export interface CustomObjectReference {

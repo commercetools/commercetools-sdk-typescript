@@ -3,7 +3,7 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { CustomerSignin, CustomerSignInResult } from '../../models/customer'
+import { CustomerSignInResult, MyCustomerSignin } from '../../models/customer'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
@@ -19,7 +19,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeLoginRequestBuilder {
     }
   ) {}
   public post(methodArgs: {
-    body: CustomerSignin
+    body: MyCustomerSignin
     headers?: {
       [key: string]: string | string[]
     }

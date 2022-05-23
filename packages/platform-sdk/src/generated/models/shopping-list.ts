@@ -178,6 +178,8 @@ export interface ShoppingListLineItem {
    */
   readonly id: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly name: LocalizedString
@@ -186,11 +188,13 @@ export interface ShoppingListLineItem {
    */
   readonly productId: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly productSlug?: LocalizedString
   /**
-   *	[Reference](/../api/types#reference) to a [ProductType](ctp:api:type:ProductType).
+   *	[Reference](ctp:api:type:Reference) to a [ProductType](ctp:api:type:ProductType).
    *
    *
    */
@@ -252,6 +256,8 @@ export interface ShoppingListPagedQueryResponse {
    */
   readonly total?: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset: number
@@ -261,7 +267,7 @@ export interface ShoppingListPagedQueryResponse {
   readonly results: ShoppingList[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [ShoppingList](ctp:api:type:ShoppingList).
+ *	[Reference](ctp:api:type:Reference) to a [ShoppingList](ctp:api:type:ShoppingList).
  *
  */
 export interface ShoppingListReference {
@@ -280,7 +286,7 @@ export interface ShoppingListReference {
   readonly obj?: ShoppingList
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [ShoppingList](ctp:api:type:ShoppingList).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShoppingList](ctp:api:type:ShoppingList).
  *
  */
 export interface ShoppingListResourceIdentifier {
@@ -418,10 +424,14 @@ export interface ShoppingListAddLineItemAction {
 export interface ShoppingListAddTextLineItemAction {
   readonly action: 'addTextLineItem'
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly name: LocalizedString
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly description?: LocalizedString
@@ -472,6 +482,8 @@ export interface ShoppingListChangeTextLineItemNameAction {
    */
   readonly textLineItemId: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly name: LocalizedString
@@ -690,6 +702,8 @@ export interface ShoppingListSetTextLineItemDescriptionAction {
    */
   readonly textLineItemId: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly description?: LocalizedString

@@ -380,6 +380,8 @@ export interface CustomerPagedQueryResponse {
    */
   readonly total?: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset: number
@@ -389,7 +391,7 @@ export interface CustomerPagedQueryResponse {
   readonly results: Customer[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [Customer](ctp:api:type:Customer).
+ *	[Reference](ctp:api:type:Reference) to a [Customer](ctp:api:type:Customer).
  *
  */
 export interface CustomerReference {
@@ -422,7 +424,7 @@ export interface CustomerResetPassword {
   readonly version?: number
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Customer](ctp:api:type:Customer).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Customer](ctp:api:type:Customer).
  *
  */
 export interface CustomerResourceIdentifier {
@@ -466,7 +468,7 @@ export interface CustomerSignin {
    */
   readonly anonymousCartId?: string
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Cart](ctp:api:type:Cart).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Cart](ctp:api:type:Cart).
    *
    *
    */
@@ -576,6 +578,24 @@ export interface MyCustomerResetPassword {
    *
    */
   readonly newPassword: string
+}
+export interface MyCustomerSignin {
+  /**
+   *
+   */
+  readonly email: string
+  /**
+   *
+   */
+  readonly password: string
+  /**
+   *
+   */
+  readonly activeCartSignInMode?: AnonymousCartSignInMode
+  /**
+   *
+   */
+  readonly updateProductData?: boolean
 }
 export interface CustomerAddAddressAction {
   readonly action: 'addAddress'

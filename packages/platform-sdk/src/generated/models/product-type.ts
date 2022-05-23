@@ -123,6 +123,8 @@ export interface AttributeLocalizedEnumValue {
    */
   readonly key: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly label: LocalizedString
@@ -183,7 +185,7 @@ export interface AttributeMoneyType {
 export interface AttributeNestedType {
   readonly name: 'nested'
   /**
-   *	[Reference](/../api/types#reference) to a [ProductType](ctp:api:type:ProductType).
+   *	[Reference](ctp:api:type:Reference) to a [ProductType](ctp:api:type:ProductType).
    *
    *
    */
@@ -195,6 +197,8 @@ export interface AttributeNumberType {
 export interface AttributeReferenceType {
   readonly name: 'reference'
   /**
+   *	supported resource type identifiers:
+   *
    *
    */
   readonly referenceTypeId: ReferenceTypeId
@@ -296,6 +300,8 @@ export interface ProductTypePagedQueryResponse {
    */
   readonly total?: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset: number
@@ -305,7 +311,7 @@ export interface ProductTypePagedQueryResponse {
   readonly results: ProductType[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [ProductType](ctp:api:type:ProductType).
+ *	[Reference](ctp:api:type:Reference) to a [ProductType](ctp:api:type:ProductType).
  *
  */
 export interface ProductTypeReference {
@@ -324,7 +330,7 @@ export interface ProductTypeReference {
   readonly obj?: ProductType
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [ProductType](ctp:api:type:ProductType).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductType](ctp:api:type:ProductType).
  *
  */
 export interface ProductTypeResourceIdentifier {
@@ -491,6 +497,8 @@ export interface ProductTypeChangeLabelAction {
    */
   readonly attributeName: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly label: LocalizedString
@@ -572,6 +580,8 @@ export interface ProductTypeSetInputTipAction {
    */
   readonly attributeName: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly inputTip?: LocalizedString

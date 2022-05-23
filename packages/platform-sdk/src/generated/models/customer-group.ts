@@ -14,25 +14,25 @@ import {
 
 export interface CustomerGroup extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the Customer Group.
+   *	Platform-generated unique identifier of the CustomerGroup.
    *
    *
    */
   readonly id: string
   /**
-   *	Current version of the Customer Group.
+   *	Current version of the CustomerGroup.
    *
    *
    */
   readonly version: number
   /**
-   *	Date and time (UTC) the Customer Group was initially created.
+   *	Date and time (UTC) the CustomerGroup was initially created.
    *
    *
    */
   readonly createdAt: string
   /**
-   *	Date and time (UTC) the Customer Group was last updated.
+   *	Date and time (UTC) the CustomerGroup was last updated.
    *
    *
    */
@@ -50,19 +50,19 @@ export interface CustomerGroup extends BaseResource {
    */
   readonly createdBy?: CreatedBy
   /**
-   *	User-defined unique identifier of the Customer Group.
+   *	User-defined unique identifier for the CustomerGroup.
    *
    *
    */
   readonly key?: string
   /**
-   *	Unique name of the Customer Group.
+   *	Unique name of the CustomerGroup.
    *
    *
    */
   readonly name: string
   /**
-   *	Custom Fields for the Customer Group.
+   *	Custom Fields for the CustomerGroup.
    *
    *
    */
@@ -70,7 +70,7 @@ export interface CustomerGroup extends BaseResource {
 }
 export interface CustomerGroupDraft {
   /**
-   *	User-defined unique identifier for the Customer Group.
+   *	User-defined unique identifier for the CustomerGroup.
    *
    *
    */
@@ -83,7 +83,7 @@ export interface CustomerGroupDraft {
    */
   readonly groupName: string
   /**
-   *	Custom Fields for the Customer Group.
+   *	Custom Fields for the CustomerGroup.
    *
    *
    */
@@ -101,8 +101,7 @@ export interface CustomerGroupPagedQueryResponse {
    */
   readonly limit: number
   /**
-   *	Offset supplied by the client or server default.
-   *	It is the number of elements skipped, not a page number.
+   *	Number of [elements skipped](/../api/general-concepts#offset).
    *
    *
    */
@@ -131,7 +130,7 @@ export interface CustomerGroupPagedQueryResponse {
   readonly results: CustomerGroup[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+ *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
  *
  */
 export interface CustomerGroupReference {
@@ -143,14 +142,14 @@ export interface CustomerGroupReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded Customer Group. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Customer Groups.
+   *	Contains the representation of the expanded CustomerGroup. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for CustomerGroups.
    *
    *
    */
   readonly obj?: CustomerGroup
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
  *
  */
 export interface CustomerGroupResourceIdentifier {
@@ -170,14 +169,14 @@ export interface CustomerGroupResourceIdentifier {
 }
 export interface CustomerGroupUpdate {
   /**
-   *	Expected version of the Customer Group on which the changes should be applied.
+   *	Expected version of the CustomerGroup on which the changes should be applied.
    *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
    *
    *
    */
   readonly version: number
   /**
-   *	Update actions to be performed on the Customer Group.
+   *	Update actions to be performed on the CustomerGroup.
    *
    *
    */
@@ -191,7 +190,7 @@ export type CustomerGroupUpdateAction =
 export interface CustomerGroupChangeNameAction {
   readonly action: 'changeName'
   /**
-   *	New name of the Customer Group.
+   *	New name of the CustomerGroup.
    *
    *
    */
@@ -215,7 +214,7 @@ export interface CustomerGroupSetCustomFieldAction {
   readonly value?: any
 }
 /**
- *	This action sets or removes the custom type for an existing Customer Group.
+ *	This action sets or removes the custom type for an existing CustomerGroup.
  *	If present, this action overwrites any existing [custom](/../api/projects/custom-fields) type and fields.
  *
  */

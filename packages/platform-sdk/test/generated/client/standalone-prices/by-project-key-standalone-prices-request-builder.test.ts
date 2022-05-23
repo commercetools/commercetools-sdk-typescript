@@ -13,80 +13,88 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
       method: 'get',
-      uri: '/test_projectKey/custom-objects/test_container?sort=sort',
+      uri: '/test_projectKey/standalone-prices?expand=expand',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
-        .customObjects()
-        .withContainer({ container: 'test_container' })
-        .get({ queryArgs: { sort: 'sort' } }),
-    },
-    {
-      method: 'get',
-      uri: '/test_projectKey/custom-objects/test_container?where=where',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .customObjects()
-        .withContainer({ container: 'test_container' })
-        .get({ queryArgs: { where: 'where' } }),
-    },
-    {
-      method: 'get',
-      uri: '/test_projectKey/custom-objects/test_container?expand=expand',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .customObjects()
-        .withContainer({ container: 'test_container' })
+        .standalonePrices()
         .get({ queryArgs: { expand: 'expand' } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/custom-objects/test_container?var.varName=var.varName',
+      uri: '/test_projectKey/standalone-prices?sort=sort',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
-        .customObjects()
-        .withContainer({ container: 'test_container' })
-        .get({ queryArgs: { 'var.varName': 'var.varName' } }),
+        .standalonePrices()
+        .get({ queryArgs: { sort: 'sort' } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/custom-objects/test_container?limit=7',
+      uri: '/test_projectKey/standalone-prices?limit=7',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
-        .customObjects()
-        .withContainer({ container: 'test_container' })
+        .standalonePrices()
         .get({ queryArgs: { limit: 7 } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/custom-objects/test_container?offset=3',
+      uri: '/test_projectKey/standalone-prices?offset=3',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
-        .customObjects()
-        .withContainer({ container: 'test_container' })
+        .standalonePrices()
         .get({ queryArgs: { offset: 3 } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/custom-objects/test_container?withTotal=true',
+      uri: '/test_projectKey/standalone-prices?withTotal=true',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
-        .customObjects()
-        .withContainer({ container: 'test_container' })
+        .standalonePrices()
         .get({ queryArgs: { withTotal: true } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/custom-objects/test_container',
+      uri: '/test_projectKey/standalone-prices?where=where',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
-        .customObjects()
-        .withContainer({ container: 'test_container' })
+        .standalonePrices()
+        .get({ queryArgs: { where: 'where' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/standalone-prices?var.varName=var.varName',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .standalonePrices()
+        .get({ queryArgs: { 'var.varName': 'var.varName' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/standalone-prices',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .standalonePrices()
         .get(),
+    },
+    {
+      method: 'post',
+      uri: '/test_projectKey/standalone-prices?expand=expand',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .standalonePrices()
+        .post({ body: null, headers: null, queryArgs: { expand: 'expand' } }),
+    },
+    {
+      method: 'post',
+      uri: '/test_projectKey/standalone-prices',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .standalonePrices()
+        .post({ body: null, headers: null }),
     },
   ]
 }
 
-describe('Testing ByProjectKeyCustomObjectsByContainerRequestBuilder Requests', () => {
+describe('Testing ByProjectKeyStandalonePricesRequestBuilder Requests', () => {
   const requestsToTest = getRequestsWithMethodParameters()
   requestsToTest.forEach((rm) => {
     test(`Testing => request method: ${rm.method} and url: ${rm.uri}`, async () => {

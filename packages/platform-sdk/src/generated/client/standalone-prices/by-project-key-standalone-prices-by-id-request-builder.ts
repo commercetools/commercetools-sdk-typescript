@@ -3,17 +3,19 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { CustomObject } from '../../models/custom-object'
+import {
+  StandalonePrice,
+  StandalonePriceUpdate,
+} from '../../models/standalone-price'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 
-export class ByProjectKeyCustomObjectsByContainerByKeyRequestBuilder {
+export class ByProjectKeyStandalonePricesByIDRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
         projectKey: string
-        container: string
-        key: string
+        ID: string
       }
       executeRequest: executeRequest
       baseUri?: string
@@ -27,12 +29,12 @@ export class ByProjectKeyCustomObjectsByContainerByKeyRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<CustomObject> {
-    return new ApiRequest<CustomObject>(
+  }): ApiRequest<StandalonePrice> {
+    return new ApiRequest<StandalonePrice>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',
-        uriTemplate: '/{projectKey}/custom-objects/{container}/{key}',
+        uriTemplate: '/{projectKey}/standalone-prices/{ID}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
@@ -42,22 +44,47 @@ export class ByProjectKeyCustomObjectsByContainerByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  public delete(methodArgs?: {
+  public post(methodArgs: {
     queryArgs?: {
-      version?: number
       expand?: string | string[]
-      dataErasure?: boolean
+      [key: string]: QueryParam
+    }
+    body: StandalonePriceUpdate
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<StandalonePrice> {
+    return new ApiRequest<StandalonePrice>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'POST',
+        uriTemplate: '/{projectKey}/standalone-prices/{ID}',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          'Content-Type': 'application/json',
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
+        body: methodArgs?.body,
+      },
+      this.args.executeRequest
+    )
+  }
+  public delete(methodArgs: {
+    queryArgs: {
+      version: number
+      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<CustomObject> {
-    return new ApiRequest<CustomObject>(
+  }): ApiRequest<StandalonePrice> {
+    return new ApiRequest<StandalonePrice>(
       {
         baseUri: this.args.baseUri,
         method: 'DELETE',
-        uriTemplate: '/{projectKey}/custom-objects/{container}/{key}',
+        uriTemplate: '/{projectKey}/standalone-prices/{ID}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,

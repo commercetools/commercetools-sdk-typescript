@@ -50,6 +50,10 @@ import {
   ShoppingListReference,
   ShoppingListResourceIdentifier,
 } from './shopping-list'
+import {
+  StandalonePriceReference,
+  StandalonePriceResourceIdentifier,
+} from './standalone-price'
 import { StateReference, StateResourceIdentifier } from './state'
 import {
   StoreKeyReference,
@@ -70,21 +74,33 @@ import { ZoneReference, ZoneResourceIdentifier } from './zone'
 
 export interface PagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
+   *
+   */
+  readonly offset: number
+  /**
+   *	Actual number of results returned.
+   *
    *
    */
   readonly count: number
   /**
+   *	Total number of results matching the query.
+   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This field is returned by default.
+   *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
+   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *
    *
    */
   readonly total?: number
-  /**
-   *
-   */
-  readonly offset: number
   /**
    *
    */
@@ -112,6 +128,8 @@ export interface UpdateAction {
 }
 export interface Asset {
   /**
+   *	Platform-generated unique identifier of the Asset.
+   *
    *
    */
   readonly id: string
@@ -120,34 +138,50 @@ export interface Asset {
    */
   readonly sources: AssetSource[]
   /**
+   *	Name of the Asset.
+   *
    *
    */
   readonly name: LocalizedString
   /**
+   *	Description of the Asset.
+   *
    *
    */
   readonly description?: LocalizedString
   /**
+   *	Keywords for categorizing and organizing Assets.
+   *
    *
    */
   readonly tags?: string[]
   /**
-   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *	Custom Fields defined for the Asset.
    *
    *
    */
   readonly custom?: CustomFields
   /**
+   *	User-defined unique identifier of the Asset.
+   *
    *
    */
   readonly key?: string
 }
+/**
+ *	Dimensions of the Asset source specified by the number of pixels.
+ *
+ */
 export interface AssetDimensions {
   /**
+   *	Width of the Asset source.
+   *
    *
    */
   readonly w: number
   /**
+   *	Height of the Asset source.
+   *
    *
    */
   readonly h: number
@@ -158,161 +192,248 @@ export interface AssetDraft {
    */
   readonly sources: AssetSource[]
   /**
+   *	Name of the Asset.
+   *
    *
    */
   readonly name: LocalizedString
   /**
+   *	Description of the Asset.
+   *
    *
    */
   readonly description?: LocalizedString
   /**
+   *	Keywords for categorizing and organizing Assets.
+   *
    *
    */
   readonly tags?: string[]
   /**
-   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *	Custom Fields defined for the Asset.
    *
    *
    */
   readonly custom?: CustomFieldsDraft
   /**
+   *	User-defined unique identifier for the Asset.
+   *
    *
    */
   readonly key?: string
 }
+/**
+ *	Representation of an [Asset](#asset) in a specific format, for example a video in a certain encoding, or an image in a certain resolution.
+ *
+ */
 export interface AssetSource {
   /**
+   *	URI of the AssetSource.
+   *
    *
    */
   readonly uri: string
   /**
+   *	User-defined unique identifier of the AssetSource.
    *
    */
   readonly key?: string
   /**
+   *	Width and height of the AssetSource.
+   *
    *
    */
   readonly dimensions?: AssetDimensions
   /**
+   *	Indicates the type of content, for example `application/pdf`.
+   *
    *
    */
   readonly contentType?: string
 }
 export interface BaseAddress {
   /**
+   *	Platform-generated unique identifier of the Address.
+   *
    *
    */
   readonly id?: string
   /**
+   *	User-defined unique identifier of the Address.
+   *
    *
    */
   readonly key?: string
   /**
-   *
-   */
-  readonly title?: string
-  /**
-   *
-   */
-  readonly salutation?: string
-  /**
-   *
-   */
-  readonly firstName?: string
-  /**
-   *
-   */
-  readonly lastName?: string
-  /**
-   *
-   */
-  readonly streetName?: string
-  /**
-   *
-   */
-  readonly streetNumber?: string
-  /**
-   *
-   */
-  readonly additionalStreetInfo?: string
-  /**
-   *
-   */
-  readonly postalCode?: string
-  /**
-   *
-   */
-  readonly city?: string
-  /**
-   *
-   */
-  readonly region?: string
-  /**
-   *
-   */
-  readonly state?: string
-  /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
    *
    *
    */
   readonly country: string
   /**
+   *	Title of the contact, for example 'Dr.'
+   *
+   *
+   */
+  readonly title?: string
+  /**
+   *	Salutation of the contact, for example 'Mr.' or 'Ms.'
+   *
+   *
+   */
+  readonly salutation?: string
+  /**
+   *	Given name (first name) of the contact.
+   *
+   *
+   */
+  readonly firstName?: string
+  /**
+   *	Family name (last name) of the contact.
+   *
+   *
+   */
+  readonly lastName?: string
+  /**
+   *	Name of the street.
+   *
+   *
+   */
+  readonly streetName?: string
+  /**
+   *	Street number.
+   *
+   *
+   */
+  readonly streetNumber?: string
+  /**
+   *	Further information on the street address.
+   *
+   *
+   */
+  readonly additionalStreetInfo?: string
+  /**
+   *	Postal code.
+   *
+   *
+   */
+  readonly postalCode?: string
+  /**
+   *	Name of the city.
+   *
+   *
+   */
+  readonly city?: string
+  /**
+   *	Name of the region.
+   *
+   *
+   */
+  readonly region?: string
+  /**
+   *	Name of the state, for example, Colorado.
+   *
+   *
+   */
+  readonly state?: string
+  /**
+   *	Name of the company.
+   *
    *
    */
   readonly company?: string
   /**
+   *	Name of the department.
+   *
    *
    */
   readonly department?: string
   /**
+   *	Number or name of the building.
+   *
    *
    */
   readonly building?: string
   /**
+   *	Number or name of the apartment.
+   *
    *
    */
   readonly apartment?: string
   /**
+   *	Post office box number.
+   *
    *
    */
   readonly pOBox?: string
   /**
+   *	Phone number of the contact.
+   *
    *
    */
   readonly phone?: string
   /**
+   *	Mobile phone number of the contact.
+   *
    *
    */
   readonly mobile?: string
   /**
+   *	Email address of the contact.
+   *
    *
    */
   readonly email?: string
   /**
+   *	Fax number of the contact.
+   *
    *
    */
   readonly fax?: string
   /**
+   *	Further information on the Address.
+   *
    *
    */
   readonly additionalAddressInfo?: string
   /**
+   *	ID for the contact used in an external system.
+   *
    *
    */
   readonly externalId?: string
 }
 export interface Address extends BaseAddress {
   /**
+   *	Platform-generated unique identifier of the Address.
+   *
+   *
+   */
+  readonly id?: string
+  /**
+   *	Custom Fields defined for the Address.
    *
    */
   readonly custom?: CustomFields
 }
 export interface AddressDraft extends BaseAddress {
   /**
+   *	Custom Fields defined for the Address.
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	Unique identifier for the Address. Not recommended to set it manually since the Platform overwrites this ID when creating an Address for a [Customer](ctp:api:type:Customer). Use `key` instead and omit this field to let the Platform generate the ID for the Address.
+   *
+   *
+   */
+  readonly id?: string
+  /**
+   *	User-defined unique identifier for the Address.
+   *
+   *
+   */
+  readonly key?: string
 }
 export interface BaseResource {
   /**
@@ -332,36 +453,74 @@ export interface BaseResource {
    */
   readonly lastModifiedAt: string
 }
+/**
+ *	These objects represent information about which [API Client](/../api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/client-logging).
+ *
+ */
 export interface ClientLogging {
   /**
+   *	`id` of the [APIClient](ctp:api:type:ApiClient) which created the resource.
+   *
    *
    */
   readonly clientId?: string
   /**
+   *	[External user ID](/../api/client-logging#external-user-ids) provided by `X-External-User-ID` HTTP Header.
+   *
    *
    */
   readonly externalUserId?: string
   /**
-   *	[Reference](/../api/types#reference) to a [Customer](ctp:api:type:Customer).
+   *	Indicates the [Customer](ctp:api:type:Customer) who modified the resource using a token from the [password flow](/authorization#password-flow).
    *
    *
    */
   readonly customer?: CustomerReference
   /**
+   *	Indicates that the resource was modified during an [anonymous session](/../api/authorization#tokens-for-anonymous-sessions) with the logged ID.
+   *
    *
    */
   readonly anonymousId?: string
 }
-export interface CreatedBy extends ClientLogging {}
+/**
+ *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+ */
+export interface CreatedBy extends ClientLogging {
+  /**
+   *	`id` of the [APIClient](ctp:api:type:ApiClient) which created the resource.
+   *
+   *
+   */
+  readonly clientId?: string
+  /**
+   *	[External user ID](/../api/client-logging#external-user-ids) provided by `X-External-User-ID` HTTP Header.
+   *
+   *
+   */
+  readonly externalUserId?: string
+  /**
+   *	Indicates the [Customer](ctp:api:type:Customer) who created the resource using a token from the [password flow](/authorization#password-flow).
+   *
+   *
+   */
+  readonly customer?: CustomerReference
+  /**
+   *	Indicates the [anonymous session](/../api/authorization#tokens-for-anonymous-sessions) during which the resource was created.
+   *
+   *
+   */
+  readonly anonymousId?: string
+}
 export interface DiscountedPrice {
   /**
-   *	Base polymorphic read-only Money type which is stored in cent precision or high precision. The actual type is determined by the `type` field.
+   *	Money value of the discounted price.
    *
    *
    */
   readonly value: TypedMoney
   /**
-   *	[Reference](/../api/types#reference) to a [ProductDiscount](ctp:api:type:ProductDiscount).
+   *	[ProductDiscount](ctp:api:type:ProductDiscount) related to the discounted price.
    *
    *
    */
@@ -369,23 +528,28 @@ export interface DiscountedPrice {
 }
 export interface DiscountedPriceDraft {
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Sets the money value for the discounted price.
    *
    *
    */
   readonly value: Money
   /**
-   *	[Reference](/../api/types#reference) to a [ProductDiscount](ctp:api:type:ProductDiscount).
+   *	Relates the referenced [ProductDiscount](ctp:api:type:ProductDiscount) to the discounted price.
    *
    *
    */
   readonly discount: ProductDiscountReference
 }
+/**
+ *	GeoJSON Geometry represents a [Geometry Object](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1) as defined in the GeoJSON standard.
+ *
+ */
 export type GeoJson = GeoJsonPoint
 export interface GeoJsonPoint {
   readonly type: 'Point'
   /**
+   *	Longitude (stored on index `[0]`) and latitude (stored on index `[1]`) of the [Point](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.2).
+   *
    *
    */
   readonly coordinates: number[]
@@ -414,158 +578,245 @@ export interface ImageDimensions {
    */
   readonly h: number
 }
+/**
+ *	A KeyReference represents a loose reference to another resource in the same commercetools Project identified by the resource's `key` field. If available, the `key` is immutable and mandatory. KeyReferences do not support [Reference Expansion](/general-concepts#reference-expansion).
+ *
+ */
 export type KeyReference = StoreKeyReference
-export interface LastModifiedBy extends ClientLogging {}
+/**
+ *	Present on resources modified after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+ */
+export interface LastModifiedBy extends ClientLogging {
+  /**
+   *	`id` of the [APIClient](ctp:api:type:ApiClient) which modified the resource.
+   *
+   *
+   */
+  readonly clientId?: string
+  /**
+   *	[External user ID](/../api/client-logging#external-user-ids) provided by `X-External-User-ID` HTTP Header.
+   *
+   *
+   */
+  readonly externalUserId?: string
+  /**
+   *	Indicates the [Customer](ctp:api:type:Customer) who modified the resource using a token from the [password flow](/authorization#password-flow).
+   *
+   *
+   */
+  readonly customer?: CustomerReference
+  /**
+   *	Indicates the [anonymous session](/../api/authorization#tokens-for-anonymous-sessions) during which the resource was modified.
+   *
+   *
+   */
+  readonly anonymousId?: string
+}
+/**
+ *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+ *
+ */
 export interface LocalizedString {
   [key: string]: string
 }
 /**
  *	Draft type that stores amounts in cent precision for the specified currency.
+ *
  *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
  *
  */
 export interface Money {
   /**
-   *	amount in the smallest indivisible unit of a currency, such as
+   *	Amount in the smallest indivisible unit of a currency, such as:
    *
-   *	* cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as 500).
-   *	* the value in the major unit for currencies without minor units, like JPY (5 JPY is specified as 5).
+   *	* Cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as `500`).
+   *	* The value in the major unit for currencies without minor units, like JPY (5 JPY is specified as `5`).
    *
    *
    */
   readonly centAmount: number
   /**
-   *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *	Currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
    *
    *
    */
   readonly currencyCode: string
 }
 /**
- *	The platform supports two different types of Money, one for amounts in cent precision and another one for sub-cent amounts up to 12 fraction digits.
+ *	The commercetools Platform supports two different types of Money: one for amounts in cent precision and another one for sub-cent amounts up to 20 fraction digits.
+ *
  */
 export type MoneyType = 'centPrecision' | 'highPrecision'
 export interface Price {
   /**
+   *	Platform-generated unique identifier of this Price.
+   *
    *
    */
   readonly id: string
   /**
-   *	Base polymorphic read-only Money type which is stored in cent precision or high precision. The actual type is determined by the `type` field.
+   *	Money value of this Price.
    *
    *
    */
   readonly value: TypedMoney
   /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Country for which this Price is valid.
    *
    *
    */
   readonly country?: string
   /**
-   *	[Reference](/../api/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) for which this Price is valid.
    *
    *
    */
   readonly customerGroup?: CustomerGroupReference
   /**
-   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *	`ProductDistribution` [Channel](ctp:api:type:Channel) for which this Price is valid.
    *
    *
    */
   readonly channel?: ChannelReference
   /**
+   *	Date and time from which this Price is valid.
+   *
    *
    */
   readonly validFrom?: string
   /**
+   *	Date and time until this Price is valid.
+   *
    *
    */
   readonly validUntil?: string
   /**
+   *	Is set if a [ProductDiscount](ctp:api:type:ProductDiscount) has been applied.
+   *	If set, the commercetools Platform uses the DiscountedPrice value for the [LineItem Price selection](/projects/carts#lineitem-price-selection).
+   *	When a [relative discount](/../api/projects/productDiscounts#productdiscountvaluerelative) has been applied and the fraction part of the DiscountedPrice `value` is 0.5, the `value` is rounded in favor of the customer with [half down rounding](https://en.wikipedia.org/wiki/Rounding#Round_half_down).
+   *
    *
    */
   readonly discounted?: DiscountedPrice
   /**
-   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *	Present if different Prices for certain [LineItem](ctp:api:type:LineItem) quantities have been specified.
+   *
+   *
+   */
+  readonly tiers?: PriceTier[]
+  /**
+   *	Custom Fields defined for the Price.
    *
    *
    */
   readonly custom?: CustomFields
-  /**
-   *
-   */
-  readonly tiers?: PriceTier[]
 }
 export interface PriceDraft {
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Money value of this Price.
    *
    *
    */
   readonly value: Money
   /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Set this field if this Price is only valid for the specified country.
    *
    *
    */
   readonly country?: string
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	Set this field if this Price is only valid for the referenced [CustomerGroup](ctp:api:type:CustomerGroup).
    *
    *
    */
   readonly customerGroup?: CustomerGroupResourceIdentifier
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *	Set this field if this Price is only valid for the referenced `ProductDistribution` [Channel](ctp:api:type:Channel).
    *
    *
    */
   readonly channel?: ChannelResourceIdentifier
   /**
+   *	Set this field if this Price is valid only valid from the specified date and time.
+   *
    *
    */
   readonly validFrom?: string
   /**
+   *	Set this field if this Price is valid only valid until the specified date and time.
+   *
    *
    */
   readonly validUntil?: string
   /**
-   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *	Set this field to add a DiscountedPrice from an external service.
+   *
+   *	The commercetools Platform sets this field automatically if at least one [ProductDiscount](ctp:api:type:ProductDiscount) applies.
+   *	The DiscountedPrice must reference a ProductDiscount with:
+   *
+   *	* The `isActive` flag set to `true`.
+   *	* A [ProductDiscountValue](ctp:api:type:ProductDiscountValueExternal) of type `external`.
+   *	* A `predicate` that matches the [ProductVariant](ctp:api:type:ProductVariant) the Price is referenced from.
    *
    *
    */
-  readonly custom?: CustomFieldsDraft
+  readonly discounted?: DiscountedPriceDraft
   /**
+   *	Set this field to specify different Prices for certain [LineItem](ctp:api:type:LineItem) quantities.
+   *
    *
    */
   readonly tiers?: PriceTierDraft[]
   /**
+   *	Custom Fields for the Price.
+   *
    *
    */
-  readonly discounted?: DiscountedPriceDraft
+  readonly custom?: CustomFieldsDraft
 }
+/**
+ *	A Price tier is selected instead of the default Price when a certain quantity of the [ProductVariant](ctp:api:type:ProductVariant) is [added to a Cart](/projects/carts#add-lineitem) and ordered.
+ *	_For example: the Price can be lower if more than 10 items are ordered._
+ *	If no Price tier is found for the Order quantity, the base Price is used.
+ *	A Price tier is applied for the entire quantity of a Product Variant put as [LineItem](/projects/carts#lineitem) in a Cart as soon as the minimum quantity for the Price tier is reached.
+ *	The Price tier is applied per Line Item of the Product Variant. If, for example, the same Product Variant appears in the same Cart as several Line Items, (what can be achieved by different values of a Custom Field on the Line Items) for each Line Item the minimum quantity must be reached to get the Price tier.
+ *
+ */
 export interface PriceTier {
   /**
+   *	Minimum quantity this Price tier is valid for.
+   *
+   *	The minimum quantity is always greater than or equal to 2. The base Price is interpreted as valid for a minimum quantity equal to 1.
+   *
    *
    */
   readonly minimumQuantity: number
   /**
-   *	Base polymorphic read-only Money type which is stored in cent precision or high precision. The actual type is determined by the `type` field.
+   *	Money value that applies when the `minimumQuantity` is greater than or equal to the [LineItem](ctp:api:type:LineItem) `quantity`.
+   *
+   *	The `currencyCode` of a Price tier is always the same as the `currencyCode` in the `value` of the related Price.
    *
    *
    */
   readonly value: TypedMoney
 }
+/**
+ *	Specifies a Price tier that applies when the minimum quantity for the [LineItem](ctp:api:type:LineItem) of a ProductVariant with the related Price is reached in a Cart.
+ *
+ */
 export interface PriceTierDraft {
   /**
+   *	Minimum quantity this Price tier is valid for.
+   *
+   *	The minimum quantity is always greater than or equal to 2. The base Price is interpreted as valid for a minimum quantity equal to 1.
+   *
    *
    */
   readonly minimumQuantity: number
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Money value that applies when the `minimumQuantity` is greater than or equal to the [LineItem](ctp:api:type:LineItem) `quantity`.
+   *
+   *	The `currencyCode` of a Price tier must be the same as the `currencyCode` in the `value` of the related Price.
    *
    *
    */
@@ -573,57 +824,70 @@ export interface PriceTierDraft {
 }
 export interface QueryPrice {
   /**
+   *	Platform-generated unique identifier of the given Price.
+   *
    *
    */
-  readonly id: string
+  readonly id?: string
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Money value of the given Price.
    *
    *
    */
   readonly value: Money
   /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Country for which the given Price is valid.
    *
    *
    */
   readonly country?: string
   /**
-   *	[Reference](/../api/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) for which the given Price is valid.
    *
    *
    */
   readonly customerGroup?: CustomerGroupReference
   /**
-   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *	`ProductDistribution` [Channel](ctp:api:type:Channel) for which the given Price is valid.
    *
    *
    */
   readonly channel?: ChannelReference
   /**
+   *	Date from which the given Price is valid.
+   *
    *
    */
   readonly validFrom?: string
   /**
+   *	Date until which the given Price is valid.
+   *
    *
    */
   readonly validUntil?: string
   /**
+   *	[DiscountedPrice](ctp:api:type:DiscountedPrice) you specify for the given Price.
+   *
    *
    */
   readonly discounted?: DiscountedPriceDraft
   /**
-   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *	Custom Fields for the Price.
    *
    *
    */
   readonly custom?: CustomFields
   /**
+   *	Price tier applied when the minimum quantity for the [LineItem](ctp:api:type:LineItem) of a ProductVariant with the related Price is reached in a Cart.
+   *
    *
    */
   readonly tiers?: PriceTierDraft[]
 }
+/**
+ *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+ *
+ */
 export type Reference =
   | CartDiscountReference
   | CartReference
@@ -644,20 +908,23 @@ export type Reference =
   | ReviewReference
   | ShippingMethodReference
   | ShoppingListReference
+  | StandalonePriceReference
   | StateReference
   | StoreReference
   | TaxCategoryReference
   | TypeReference
   | ZoneReference
+/**
+ *	supported resource type identifiers:
+ *
+ */
 export type ReferenceTypeId =
   | 'cart'
   | 'cart-discount'
   | 'category'
   | 'channel'
   | 'customer'
-  | 'customer-email-token'
   | 'customer-group'
-  | 'customer-password-token'
   | 'discount-code'
   | 'extension'
   | 'inventory-entry'
@@ -667,6 +934,7 @@ export type ReferenceTypeId =
   | 'payment'
   | 'product'
   | 'product-discount'
+  | 'product-price'
   | 'product-selection'
   | 'product-type'
   | 'review'
@@ -678,6 +946,12 @@ export type ReferenceTypeId =
   | 'tax-category'
   | 'type'
   | 'zone'
+/**
+ *	Draft type to create a [Reference](ctp:api:type:Reference) or a [KeyReference](ctp:api:type:KeyReference) to a resource. Provide either the `id` or (wherever supported) the `key` of the resource to reference, but depending on the API endpoint the response returns either a Reference or a KeyReference. For example, the field `parent` of a [CategoryDraft](ctp:api:type:CategoryDraft) takes a ResourceIdentifier for its value while the value of the corresponding field of a [Category](ctp:api:type:Category) is a Reference.
+ *
+ *	Each resource type has its corresponding ResourceIdentifier, like [ChannelResourceIdentifier](ctp:api:type:ChannelResourceIdentifier).
+ *
+ */
 export type ResourceIdentifier =
   | CartDiscountResourceIdentifier
   | CartResourceIdentifier
@@ -697,6 +971,7 @@ export type ResourceIdentifier =
   | ReviewResourceIdentifier
   | ShippingMethodResourceIdentifier
   | ShoppingListResourceIdentifier
+  | StandalonePriceResourceIdentifier
   | StateResourceIdentifier
   | StoreResourceIdentifier
   | TaxCategoryResourceIdentifier
@@ -720,19 +995,19 @@ export interface ScopedPrice {
    */
   readonly currentValue: TypedMoney
   /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
    *
    *
    */
   readonly country?: string
   /**
-   *	[Reference](/../api/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
    *
    *
    */
   readonly customerGroup?: CustomerGroupReference
   /**
-   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *	[Reference](ctp:api:type:Reference) to a [Channel](ctp:api:type:Channel).
    *
    *
    */
@@ -761,28 +1036,29 @@ export interface ScopedPrice {
  *
  */
 export type TypedMoney = CentPrecisionMoney | HighPrecisionMoney
+/**
+ *	Object that stores cent amounts in a specific currency.
+ *
+ */
 export interface CentPrecisionMoney {
   readonly type: 'centPrecision'
   /**
-   *	amount in the smallest indivisible unit of a currency, such as
+   *	Amount in the smallest indivisible unit of a currency, such as:
    *
-   *	* cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as 500).
-   *	* the value in the major unit for currencies without minor units, like JPY (5 JPY is specified as 5).
+   *	* Cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as `500`).
+   *	* The value in the major unit for currencies without minor units, like JPY (5 JPY is specified as `5`).
    *
    *
    */
   readonly centAmount: number
   /**
-   *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *	Currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
    *
    *
    */
   readonly currencyCode: string
   /**
-   *	number of digits after the decimal separator
-   *
-   *	* equal to the default number of fraction digits for a currency in [CentPrecisionMoney](ctp:api:type:CentPrecisionMoney).
-   *	* greater than the default number of fraction digits for a currency in [HighPrecisionMoney](ctp:api:type:HighPrecisionMoney).
+   *	The number of default fraction digits for the given currency, like `2` for EUR or `0` for JPY.
    *
    *
    */
@@ -794,31 +1070,28 @@ export interface CentPrecisionMoney {
 export interface HighPrecisionMoney {
   readonly type: 'highPrecision'
   /**
-   *	amount in the smallest indivisible unit of a currency, such as
+   *	Amount in the smallest indivisible unit of a currency, such as:
    *
-   *	* cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as 500).
-   *	* the value in the major unit for currencies without minor units, like JPY (5 JPY is specified as 5).
+   *	* Cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as `500`).
+   *	* The value in the major unit for currencies without minor units, like JPY (5 JPY is specified as `5`).
    *
    *
    */
   readonly centAmount: number
   /**
-   *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *	Currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
    *
    *
    */
   readonly currencyCode: string
   /**
-   *	number of digits after the decimal separator
-   *
-   *	* equal to the default number of fraction digits for a currency in [CentPrecisionMoney](ctp:api:type:CentPrecisionMoney).
-   *	* greater than the default number of fraction digits for a currency in [HighPrecisionMoney](ctp:api:type:HighPrecisionMoney).
+   *	Number of digits after the decimal separator, greater than the default number of fraction digits for a currency.
    *
    *
    */
   readonly fractionDigits: number
   /**
-   *	amount in 1 / (10 ^ `fractionDigits`) of a currency.
+   *	Amount in 1 / (10 ^ `fractionDigits`) of a currency.
    *
    *
    */
@@ -828,22 +1101,22 @@ export type TypedMoneyDraft = CentPrecisionMoneyDraft | HighPrecisionMoneyDraft
 export interface CentPrecisionMoneyDraft {
   readonly type: 'centPrecision'
   /**
-   *	amount in the smallest indivisible unit of a currency, such as
+   *	Amount in the smallest indivisible unit of a currency, such as:
    *
-   *	* cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as 500).
-   *	* the value in the major unit for currencies without minor units, like JPY (5 JPY is specified as 5).
+   *	* Cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as `500`).
+   *	* The value in the major unit for currencies without minor units, like JPY (5 JPY is specified as `5`).
    *
    *
    */
   readonly centAmount: number
   /**
-   *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *	Currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
    *
    *
    */
   readonly currencyCode: string
   /**
-   *	Must be equal to the default number of fraction digits for the specified currency.
+   *	This field is optional for cent precision. If provided, it must be equal to the default number of fraction digits for the specified currency.
    *
    *
    */
@@ -855,23 +1128,29 @@ export interface CentPrecisionMoneyDraft {
 export interface HighPrecisionMoneyDraft {
   readonly type: 'highPrecision'
   /**
+   *	Amount in the smallest indivisible unit of a currency. This field is optional for high precision. If provided, it is checked for validity. Example:
+   *
+   *	A Price of 1.015 USD can be rounded either to 1.01 USD or 1.02 USD. If it lies outside of this range, an error message stating that centAmount must be rounded correctly will be returned.
+   *
+   *	If `centAmount` is not provided, the commercetools Platform calculates the value automatically using the default rounding mode half even.
+   *
    *
    */
   readonly centAmount?: number
   /**
-   *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *	Currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
    *
    *
    */
   readonly currencyCode: string
   /**
-   *	Must be equal to the default number of fraction digits for the specified currency.
+   *	Number of fraction digits for a specified high precision money. It must be greater than the default number of fraction digits for the specified currency.
    *
    *
    */
-  readonly fractionDigits?: number
+  readonly fractionDigits: number
   /**
-   *	amount in 1 / (10 ^ `fractionDigits`) of a currency.
+   *	Amount in 1 / (10 ^ `fractionDigits`) of a currency.
    *
    *
    */

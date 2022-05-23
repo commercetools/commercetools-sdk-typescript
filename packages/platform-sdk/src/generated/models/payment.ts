@@ -161,6 +161,7 @@ export interface PaymentDraft {
   readonly amountPlanned: Money
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -172,6 +173,7 @@ export interface PaymentDraft {
   readonly authorizedUntil?: string
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -179,6 +181,7 @@ export interface PaymentDraft {
   readonly amountPaid?: Money
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -253,6 +256,8 @@ export interface PaymentPagedQueryResponse {
    */
   readonly total?: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset: number
@@ -262,7 +267,7 @@ export interface PaymentPagedQueryResponse {
   readonly results: Payment[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [Payment](ctp:api:type:Payment).
+ *	[Reference](ctp:api:type:Reference) to a [Payment](ctp:api:type:Payment).
  *
  */
 export interface PaymentReference {
@@ -281,7 +286,7 @@ export interface PaymentReference {
   readonly obj?: Payment
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Payment](ctp:api:type:Payment).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Payment](ctp:api:type:Payment).
  *
  */
 export interface PaymentResourceIdentifier {
@@ -325,7 +330,7 @@ export interface PaymentStatusDraft {
    */
   readonly interfaceText?: string
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [State](ctp:api:type:State).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [State](ctp:api:type:State).
    *
    *
    */
@@ -505,6 +510,7 @@ export interface PaymentSetAmountPaidAction {
   readonly action: 'setAmountPaid'
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -515,6 +521,7 @@ export interface PaymentSetAmountRefundedAction {
   readonly action: 'setAmountRefunded'
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -534,6 +541,7 @@ export interface PaymentSetAuthorizationAction {
   readonly action: 'setAuthorization'
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *

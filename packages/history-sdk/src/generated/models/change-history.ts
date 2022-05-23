@@ -101,7 +101,7 @@ export interface RecordPagedQueryResponse {
    */
   readonly total: number
   /**
-   *	The number of elements skipped, not a page number. Supplied by the client or the server default.
+   *	Number of [elements skipped](/../api/general-concepts#offset).
    *
    *
    */

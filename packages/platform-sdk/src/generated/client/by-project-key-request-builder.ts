@@ -32,6 +32,7 @@ import { ByProjectKeyProductsRequestBuilder } from './products/by-project-key-pr
 import { ByProjectKeyReviewsRequestBuilder } from './reviews/by-project-key-reviews-request-builder'
 import { ByProjectKeyShippingMethodsRequestBuilder } from './shipping-methods/by-project-key-shipping-methods-request-builder'
 import { ByProjectKeyShoppingListsRequestBuilder } from './shopping-lists/by-project-key-shopping-lists-request-builder'
+import { ByProjectKeyStandalonePricesRequestBuilder } from './standalone-prices/by-project-key-standalone-prices-request-builder'
 import { ByProjectKeyStatesRequestBuilder } from './states/by-project-key-states-request-builder'
 import { ByProjectKeyStoresRequestBuilder } from './stores/by-project-key-stores-request-builder'
 import { ByProjectKeySubscriptionsRequestBuilder } from './subscriptions/by-project-key-subscriptions-request-builder'
@@ -136,7 +137,7 @@ export class ByProjectKeyRequestBuilder {
     })
   }
   /**
-   *	Discount codes can be added to a discount-code to enable certain discount-code discounts.
+   *	Discount Codes can be added to a discount-code to enable certain discount-code discounts.
    */
   public discountCodes(): ByProjectKeyDiscountCodesRequestBuilder {
     return new ByProjectKeyDiscountCodesRequestBuilder({
@@ -442,6 +443,18 @@ export class ByProjectKeyRequestBuilder {
       pathArgs: {
         ...this.args.pathArgs,
         ...childPathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	A standalone price assigns a price to a product variant for a given scope. The platform will use the standalone prices associated with a Product if its field [`priceMode`](/projects/products#pricemode) is set to `Standalone` [ProductPriceMode](ctp:api:type:ProductPriceModeEnum).
+   */
+  public standalonePrices(): ByProjectKeyStandalonePricesRequestBuilder {
+    return new ByProjectKeyStandalonePricesRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
       },
       executeRequest: this.args.executeRequest,
       baseUri: this.args.baseUri,

@@ -17,7 +17,7 @@ export interface ImageSearchResponse {
    */
   readonly count: number
   /**
-   *	The offset into the results matching the query. An offset of 0 is the default value indicating that no results should be skipped.
+   *	Number of [elements skipped](/../api/general-concepts#offset).
    *
    *
    */

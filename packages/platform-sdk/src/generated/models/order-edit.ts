@@ -183,6 +183,8 @@ export interface OrderEditPagedQueryResponse {
    */
   readonly total?: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset: number
@@ -192,7 +194,7 @@ export interface OrderEditPagedQueryResponse {
   readonly results: OrderEdit[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [OrderEdit](ctp:api:type:OrderEdit).
+ *	[Reference](ctp:api:type:Reference) to a [OrderEdit](ctp:api:type:OrderEdit).
  *
  */
 export interface OrderEditReference {
@@ -211,7 +213,7 @@ export interface OrderEditReference {
   readonly obj?: OrderEdit
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [OrderEdit](ctp:api:type:OrderEdit).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [OrderEdit](ctp:api:type:OrderEdit).
  *
  */
 export interface OrderEditResourceIdentifier {
@@ -373,12 +375,15 @@ export interface StagedOrderAddCustomLineItemAction {
   readonly action: 'addCustomLineItem'
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
    */
   readonly money: Money
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly name: LocalizedString
@@ -391,7 +396,7 @@ export interface StagedOrderAddCustomLineItemAction {
    */
   readonly slug: string
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
    *
    *
    */
@@ -450,7 +455,7 @@ export interface StagedOrderAddLineItemAction {
    */
   readonly custom?: CustomFieldsDraft
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
    *
    *
    */
@@ -480,13 +485,14 @@ export interface StagedOrderAddLineItemAction {
    */
   readonly addedAt?: string
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
    *
    *
    */
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -523,7 +529,7 @@ export interface StagedOrderAddParcelToDeliveryAction {
 export interface StagedOrderAddPaymentAction {
   readonly action: 'addPayment'
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Payment](ctp:api:type:Payment).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Payment](ctp:api:type:Payment).
    *
    *
    */
@@ -547,19 +553,19 @@ export interface StagedOrderAddReturnInfoAction {
 export interface StagedOrderAddShoppingListAction {
   readonly action: 'addShoppingList'
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [ShoppingList](ctp:api:type:ShoppingList).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShoppingList](ctp:api:type:ShoppingList).
    *
    *
    */
   readonly shoppingList: ShoppingListResourceIdentifier
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
    *
    *
    */
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
    *
    *
    */
@@ -573,6 +579,7 @@ export interface StagedOrderChangeCustomLineItemMoneyAction {
   readonly customLineItemId: string
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -602,6 +609,7 @@ export interface StagedOrderChangeLineItemQuantityAction {
   readonly quantity: number
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -693,7 +701,7 @@ export interface StagedOrderRemoveDeliveryAction {
 export interface StagedOrderRemoveDiscountCodeAction {
   readonly action: 'removeDiscountCode'
   /**
-   *	[Reference](/../api/types#reference) to a [DiscountCode](ctp:api:type:DiscountCode).
+   *	[Reference](ctp:api:type:Reference) to a [DiscountCode](ctp:api:type:DiscountCode).
    *
    *
    */
@@ -718,6 +726,7 @@ export interface StagedOrderRemoveLineItemAction {
   readonly quantity?: number
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -742,7 +751,7 @@ export interface StagedOrderRemoveParcelFromDeliveryAction {
 export interface StagedOrderRemovePaymentAction {
   readonly action: 'removePayment'
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Payment](ctp:api:type:Payment).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Payment](ctp:api:type:Payment).
    *
    *
    */
@@ -897,7 +906,7 @@ export interface StagedOrderSetCustomShippingMethodAction {
    */
   readonly shippingRate: ShippingRateDraft
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
    *
    *
    */
@@ -933,7 +942,7 @@ export interface StagedOrderSetCustomerEmailAction {
 export interface StagedOrderSetCustomerGroupAction {
   readonly action: 'setCustomerGroup'
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
    *
    *
    */
@@ -1139,7 +1148,7 @@ export interface StagedOrderSetLineItemDistributionChannelAction {
    */
   readonly lineItemId: string
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
    *
    *
    */
@@ -1153,6 +1162,7 @@ export interface StagedOrderSetLineItemPriceAction {
   readonly lineItemId: string
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -1221,6 +1231,7 @@ export interface StagedOrderSetOrderTotalTaxAction {
   readonly action: 'setOrderTotalTax'
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -1397,7 +1408,7 @@ export interface StagedOrderSetShippingAddressAndCustomShippingMethodAction {
    */
   readonly shippingRate: ShippingRateDraft
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
    *
    *
    */
@@ -1414,7 +1425,7 @@ export interface StagedOrderSetShippingAddressAndShippingMethodAction {
    */
   readonly address: BaseAddress
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod).
    *
    *
    */
@@ -1460,7 +1471,7 @@ export interface StagedOrderSetShippingAddressCustomTypeAction {
 export interface StagedOrderSetShippingMethodAction {
   readonly action: 'setShippingMethod'
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod).
    *
    *
    */
@@ -1502,13 +1513,13 @@ export interface StagedOrderTransitionCustomLineItemStateAction {
    */
   readonly quantity: number
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [State](ctp:api:type:State).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [State](ctp:api:type:State).
    *
    *
    */
   readonly fromState: StateResourceIdentifier
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [State](ctp:api:type:State).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [State](ctp:api:type:State).
    *
    *
    */
@@ -1529,13 +1540,13 @@ export interface StagedOrderTransitionLineItemStateAction {
    */
   readonly quantity: number
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [State](ctp:api:type:State).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [State](ctp:api:type:State).
    *
    *
    */
   readonly fromState: StateResourceIdentifier
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [State](ctp:api:type:State).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [State](ctp:api:type:State).
    *
    *
    */
@@ -1548,7 +1559,7 @@ export interface StagedOrderTransitionLineItemStateAction {
 export interface StagedOrderTransitionStateAction {
   readonly action: 'transitionState'
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [State](ctp:api:type:State).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [State](ctp:api:type:State).
    *
    *
    */
@@ -1568,7 +1579,7 @@ export interface StagedOrderUpdateItemShippingAddressAction {
 export interface StagedOrderUpdateSyncInfoAction {
   readonly action: 'updateSyncInfo'
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
    *
    *
    */

@@ -9,6 +9,7 @@ export interface LocalizedString {
 }
 export interface Address {
   /**
+   *	Unique ID of the Address.
    *
    */
   readonly id: string
@@ -61,7 +62,8 @@ export interface Address {
    */
   readonly state: string
   /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *
    *
    */
   readonly country: string
@@ -494,7 +496,8 @@ export interface LineItem {
  */
 export interface Location {
   /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *
    *
    */
   readonly country: string
@@ -505,7 +508,7 @@ export interface Location {
 }
 export interface Money {
   /**
-   *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *	Currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
    *
    *
    */
@@ -879,7 +882,8 @@ export interface TaxRate {
    */
   readonly includedInPrice: boolean
   /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *
    *
    */
   readonly country: string

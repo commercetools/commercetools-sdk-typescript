@@ -13,62 +13,62 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
       method: 'get',
-      uri: '/test_projectKey/custom-objects/test_container/test_key?expand=expand',
+      uri: '/test_projectKey/standalone-prices/test_ID?expand=expand',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
-        .customObjects()
-        .withContainerAndKey({ container: 'test_container', key: 'test_key' })
+        .standalonePrices()
+        .withId({ ID: 'test_ID' })
         .get({ queryArgs: { expand: 'expand' } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/custom-objects/test_container/test_key',
+      uri: '/test_projectKey/standalone-prices/test_ID',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
-        .customObjects()
-        .withContainerAndKey({ container: 'test_container', key: 'test_key' })
+        .standalonePrices()
+        .withId({ ID: 'test_ID' })
         .get(),
     },
     {
-      method: 'delete',
-      uri: '/test_projectKey/custom-objects/test_container/test_key?version=2',
+      method: 'post',
+      uri: '/test_projectKey/standalone-prices/test_ID?expand=expand',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
-        .customObjects()
-        .withContainerAndKey({ container: 'test_container', key: 'test_key' })
+        .standalonePrices()
+        .withId({ ID: 'test_ID' })
+        .post({ body: null, headers: null, queryArgs: { expand: 'expand' } }),
+    },
+    {
+      method: 'post',
+      uri: '/test_projectKey/standalone-prices/test_ID',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .standalonePrices()
+        .withId({ ID: 'test_ID' })
+        .post({ body: null, headers: null }),
+    },
+    {
+      method: 'delete',
+      uri: '/test_projectKey/standalone-prices/test_ID?version=2',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .standalonePrices()
+        .withId({ ID: 'test_ID' })
         .delete({ queryArgs: { version: 2 } }),
     },
     {
       method: 'delete',
-      uri: '/test_projectKey/custom-objects/test_container/test_key?expand=expand',
+      uri: '/test_projectKey/standalone-prices/test_ID?expand=expand&version=2',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
-        .customObjects()
-        .withContainerAndKey({ container: 'test_container', key: 'test_key' })
-        .delete({ queryArgs: { expand: 'expand' } }),
-    },
-    {
-      method: 'delete',
-      uri: '/test_projectKey/custom-objects/test_container/test_key?dataErasure=true',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .customObjects()
-        .withContainerAndKey({ container: 'test_container', key: 'test_key' })
-        .delete({ queryArgs: { dataErasure: true } }),
-    },
-    {
-      method: 'delete',
-      uri: '/test_projectKey/custom-objects/test_container/test_key',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .customObjects()
-        .withContainerAndKey({ container: 'test_container', key: 'test_key' })
-        .delete(),
+        .standalonePrices()
+        .withId({ ID: 'test_ID' })
+        .delete({ queryArgs: { expand: 'expand', version: 2 } }),
     },
   ]
 }
 
-describe('Testing ByProjectKeyCustomObjectsByContainerByKeyRequestBuilder Requests', () => {
+describe('Testing ByProjectKeyStandalonePricesByIDRequestBuilder Requests', () => {
   const requestsToTest = getRequestsWithMethodParameters()
   requestsToTest.forEach((rm) => {
     test(`Testing => request method: ${rm.method} and url: ${rm.uri}`, async () => {

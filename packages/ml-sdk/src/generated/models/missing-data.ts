@@ -106,10 +106,14 @@ export interface MissingAttributesMeta {
 }
 export interface MissingAttributesSearchRequest {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit?: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset?: number
@@ -182,6 +186,8 @@ export interface MissingAttributesPagedQueryResult {
    */
   readonly total: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset: number
@@ -282,10 +288,14 @@ export interface MissingImagesMeta {
 }
 export interface MissingImagesSearchRequest {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit?: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset?: number
@@ -335,6 +345,8 @@ export interface MissingImagesPagedQueryResult {
    */
   readonly total: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset: number
@@ -424,10 +436,14 @@ export interface MissingPricesMeta {
 }
 export interface MissingPricesSearchRequest {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit?: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset?: number
@@ -487,6 +503,8 @@ export interface MissingPricesPagedQueryResult {
    */
   readonly total: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset: number

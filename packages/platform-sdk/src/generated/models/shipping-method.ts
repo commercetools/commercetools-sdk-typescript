@@ -26,7 +26,7 @@ import { ZoneReference, ZoneResourceIdentifier } from './zone'
 
 export interface PriceFunction {
   /**
-   *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *	Currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
    *
    *
    */
@@ -159,6 +159,8 @@ export interface ShippingMethodDraft {
 }
 export interface ShippingMethodPagedQueryResponse {
   /**
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit?: number
@@ -171,6 +173,8 @@ export interface ShippingMethodPagedQueryResponse {
    */
   readonly total?: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset?: number
@@ -180,7 +184,7 @@ export interface ShippingMethodPagedQueryResponse {
   readonly results: ShippingMethod[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [ShippingMethod](ctp:api:type:ShippingMethod).
+ *	[Reference](ctp:api:type:Reference) to a [ShippingMethod](ctp:api:type:ShippingMethod).
  *
  */
 export interface ShippingMethodReference {
@@ -199,7 +203,7 @@ export interface ShippingMethodReference {
   readonly obj?: ShippingMethod
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod).
  *
  */
 export interface ShippingMethodResourceIdentifier {
@@ -295,6 +299,7 @@ export interface CartClassificationTier {
   readonly value: string
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -313,6 +318,7 @@ export interface CartScoreTier {
   readonly score: number
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -335,6 +341,7 @@ export interface CartValueTier {
   readonly minimumCentAmount: number
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *

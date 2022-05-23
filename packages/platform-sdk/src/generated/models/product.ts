@@ -180,6 +180,11 @@ export interface Product extends BaseResource {
    *
    */
   readonly reviewRatingStatistics?: ReviewRatingStatistics
+  /**
+   *	Specifies which type of prices should be used when looking up a price for this product. If not set, `Embedded` [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) is used.
+   *
+   */
+  readonly priceMode?: ProductPriceModeEnum
 }
 export interface ProductCatalogData {
   /**
@@ -201,6 +206,8 @@ export interface ProductCatalogData {
 }
 export interface ProductData {
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly name: LocalizedString
@@ -213,22 +220,32 @@ export interface ProductData {
    */
   readonly categoryOrderHints?: CategoryOrderHints
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly description?: LocalizedString
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly slug: LocalizedString
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly metaTitle?: LocalizedString
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly metaDescription?: LocalizedString
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly metaKeywords?: LocalizedString
@@ -322,6 +339,11 @@ export interface ProductDraft {
    *
    */
   readonly publish?: boolean
+  /**
+   *	Specifies which type of prices should be used when looking up a price for this product. If not set, `Embedded` [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) is used.
+   *
+   */
+  readonly priceMode?: ProductPriceModeEnum
 }
 export interface ProductPagedQueryResponse {
   /**
@@ -339,6 +361,8 @@ export interface ProductPagedQueryResponse {
    */
   readonly total?: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset: number
@@ -347,6 +371,12 @@ export interface ProductPagedQueryResponse {
    */
   readonly results: Product[]
 }
+/**
+ *
+ *	This mode specifies which type of prices should be used when looking up the price of a product.
+ *
+ */
+export type ProductPriceModeEnum = 'Embedded' | 'Standalone'
 export interface ProductProjection extends BaseResource {
   /**
    *	The unique ID of the Product.
@@ -450,6 +480,8 @@ export interface ProductProjectionPagedQueryResponse {
    */
   readonly total?: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset: number
@@ -474,6 +506,8 @@ export interface ProductProjectionPagedSearchResponse {
    */
   readonly total?: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset: number
@@ -487,7 +521,7 @@ export interface ProductProjectionPagedSearchResponse {
   readonly facets: FacetResults
 }
 /**
- *	[Reference](/../api/types#reference) to a [Product](ctp:api:type:Product).
+ *	[Reference](ctp:api:type:Reference) to a [Product](ctp:api:type:Product).
  *
  */
 export interface ProductReference {
@@ -506,7 +540,7 @@ export interface ProductReference {
   readonly obj?: Product
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Product](ctp:api:type:Product).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Product](ctp:api:type:Product).
  *
  */
 export interface ProductResourceIdentifier {
@@ -572,6 +606,7 @@ export type ProductUpdateAction =
   | ProductSetMetaDescriptionAction
   | ProductSetMetaKeywordsAction
   | ProductSetMetaTitleAction
+  | ProductSetPriceModeAction
   | ProductSetPricesAction
   | ProductSetProductPriceCustomFieldAction
   | ProductSetProductPriceCustomTypeAction
@@ -953,7 +988,7 @@ export interface ProductChangeNameAction {
 export interface ProductChangePriceAction {
   readonly action: 'changePrice'
   /**
-   *	ID of the [Price](#price)
+   *	ID of the [EmbeddedPrice](ctp:api:type:EmbeddedPrice)
    *
    */
   readonly priceId: string
@@ -1079,7 +1114,7 @@ export interface ProductRemoveImageAction {
 export interface ProductRemovePriceAction {
   readonly action: 'removePrice'
   /**
-   *	ID of the [Price](#price)
+   *	ID of the [EmbeddedPrice](ctp:api:type:EmbeddedPrice)
    *
    */
   readonly priceId: string
@@ -1442,6 +1477,14 @@ export interface ProductSetMetaTitleAction {
    *
    */
   readonly staged?: boolean
+}
+export interface ProductSetPriceModeAction {
+  readonly action: 'setPriceMode'
+  /**
+   *	Specifies which type of prices should be used when looking up a price for this product. If not set, `Embedded` [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) is used.
+   *
+   */
+  readonly priceMode?: ProductPriceModeEnum
 }
 export interface ProductSetPricesAction {
   readonly action: 'setPrices'

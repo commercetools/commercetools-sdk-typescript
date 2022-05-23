@@ -372,6 +372,8 @@ export interface CartPagedQueryResponse {
    */
   readonly total?: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset: number
@@ -381,7 +383,7 @@ export interface CartPagedQueryResponse {
   readonly results: Cart[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [Cart](ctp:api:type:Cart).
+ *	[Reference](ctp:api:type:Reference) to a [Cart](ctp:api:type:Cart).
  *
  */
 export interface CartReference {
@@ -400,7 +402,7 @@ export interface CartReference {
   readonly obj?: Cart
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Cart](ctp:api:type:Cart).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Cart](ctp:api:type:Cart).
  *
  */
 export interface CartResourceIdentifier {
@@ -786,8 +788,8 @@ export interface LineItem {
    */
   readonly variant: ProductVariant
   /**
-   *	The price of a line item is selected from the prices array of the product variant.
-   *	If the `variant` field hasn't been updated, the price may not correspond to a price in `variant.prices`.
+   *	The price of a line item is selected from the product variant according to the Product's [priceMode](ctp:api:type:Product) value.
+   *	If the `priceMode` is `Embedded` [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) and the `variant` field hasn't been updated, the price may not correspond to a price in `variant.prices`.
    *
    */
   readonly price: Price
@@ -1008,6 +1010,8 @@ export interface ClassificationShippingRateInput {
    */
   readonly key: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly label: LocalizedString
@@ -1064,6 +1068,7 @@ export interface TaxPortionDraft {
   readonly rate: number
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -1111,6 +1116,7 @@ export interface TaxedPrice {
 export interface TaxedPriceDraft {
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -1118,6 +1124,7 @@ export interface TaxedPriceDraft {
   readonly totalNet: Money
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -1132,12 +1139,15 @@ export interface CartAddCustomLineItemAction {
   readonly action: 'addCustomLineItem'
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
    */
   readonly money: Money
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly name: LocalizedString
@@ -1150,7 +1160,7 @@ export interface CartAddCustomLineItemAction {
    */
   readonly slug: string
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
    *
    *
    */
@@ -1189,7 +1199,7 @@ export interface CartAddLineItemAction {
    */
   readonly custom?: CustomFieldsDraft
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
    *
    *
    */
@@ -1215,13 +1225,14 @@ export interface CartAddLineItemAction {
    */
   readonly quantity?: number
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
    *
    *
    */
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -1246,19 +1257,19 @@ export interface CartAddPaymentAction {
 export interface CartAddShoppingListAction {
   readonly action: 'addShoppingList'
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [ShoppingList](ctp:api:type:ShoppingList).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShoppingList](ctp:api:type:ShoppingList).
    *
    *
    */
   readonly shoppingList: ShoppingListResourceIdentifier
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
    *
    *
    */
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
    *
    *
    */
@@ -1294,6 +1305,7 @@ export interface CartChangeCustomLineItemMoneyAction {
   readonly customLineItemId: string
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -1323,6 +1335,7 @@ export interface CartChangeLineItemQuantityAction {
   readonly quantity: number
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -1358,9 +1371,8 @@ export interface CartRecalculateAction {
   readonly action: 'recalculate'
   /**
    *	If set to `true`, the line item product data (`name`, `variant` and `productType`) will also be updated.
-   *	If set to `false`,
-   *	only the prices and tax rates of the line item will be updated.
-   *	The updated price of a line item may not correspond to a price in `variant.prices` anymore.
+   *	If set to `false`, only the prices and tax rates of the line item will be updated.
+   *	Notice that if the Product's [priceMode](ctp:api:type:Product) value is `Embedded` [ProductPriceMode](ctp:api:type:ProductPriceModeEnum), the updated price of a line item may not correspond to a price in `variant.prices` anymore.
    *
    */
   readonly updateProductData?: boolean
@@ -1375,7 +1387,7 @@ export interface CartRemoveCustomLineItemAction {
 export interface CartRemoveDiscountCodeAction {
   readonly action: 'removeDiscountCode'
   /**
-   *	[Reference](/../api/types#reference) to a [DiscountCode](ctp:api:type:DiscountCode).
+   *	[Reference](ctp:api:type:Reference) to a [DiscountCode](ctp:api:type:DiscountCode).
    *
    *
    */
@@ -1400,6 +1412,7 @@ export interface CartRemoveLineItemAction {
   readonly quantity?: number
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -1484,7 +1497,7 @@ export interface CartSetCartTotalTaxAction {
 export interface CartSetCountryAction {
   readonly action: 'setCountry'
   /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
    *
    *
    */
@@ -1592,7 +1605,7 @@ export interface CartSetCustomShippingMethodAction {
    */
   readonly shippingRate: ShippingRateDraft
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
    *
    *
    */
@@ -1628,7 +1641,7 @@ export interface CartSetCustomerEmailAction {
 export interface CartSetCustomerGroupAction {
   readonly action: 'setCustomerGroup'
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
    *
    *
    */
@@ -1786,7 +1799,7 @@ export interface CartSetLineItemDistributionChannelAction {
    */
   readonly lineItemId: string
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
    *
    *
    */
@@ -1800,6 +1813,7 @@ export interface CartSetLineItemPriceAction {
   readonly lineItemId: string
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -1824,7 +1838,7 @@ export interface CartSetLineItemSupplyChannelAction {
    */
   readonly lineItemId: string
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
    *
    *
    */
@@ -1913,7 +1927,7 @@ export interface CartSetShippingAddressCustomTypeAction {
 export interface CartSetShippingMethodAction {
   readonly action: 'setShippingMethod'
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod).
    *
    *
    */

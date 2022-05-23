@@ -156,6 +156,8 @@ export interface StoreDraft {
 export interface StoreKeyReference {
   readonly typeId: 'store'
   /**
+   *	User-defined unique and immutable key of the referenced resource.
+   *
    *
    */
   readonly key: string
@@ -176,6 +178,8 @@ export interface StorePagedQueryResponse {
    */
   readonly total?: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset: number
@@ -200,13 +204,13 @@ export interface StoreReference {
 export interface StoreResourceIdentifier {
   readonly typeId: 'store'
   /**
-   *	Unique ID of the referenced resource. Either `id` or `key` is required.
+   *	Platform-generated unique identifier of the referenced resource. Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced resource. Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced resource. Required if `id` is absent.
    *
    *
    */

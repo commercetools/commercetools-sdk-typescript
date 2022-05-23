@@ -255,12 +255,14 @@ export interface OrderPagedSearchResponse {
    */
   readonly total: number
   /**
-   *	Number of results skipped, used for pagination.
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset?: number
   /**
-   *	Number of results the response should contain at maximum, used for pagination.
+   *	Number of [results requested](/../api/general-concepts#limit).
+   *
    *
    */
   readonly limit?: number
@@ -314,6 +316,7 @@ export interface DeliveryItem {
 export interface DiscountedLineItemPriceDraft {
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -771,6 +774,8 @@ export interface OrderPagedQueryResponse {
    */
   readonly total?: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset: number
@@ -795,13 +800,13 @@ export interface OrderReference {
 export interface OrderResourceIdentifier {
   readonly typeId: 'order'
   /**
-   *	Unique ID of the referenced resource. Either `id` or `key` is required.
+   *	Platform-generated unique identifier of the referenced resource. Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced resource. Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced resource. Required if `id` is absent.
    *
    *
    */
@@ -991,7 +996,7 @@ export interface ProductVariantImportDraft {
    */
   readonly sku?: string
   /**
-   *	The prices of the variant.
+   *	The [EmbeddedPrices](ctp:api:type:EmbeddedPrice) of the variant.
    *	The prices should not contain two prices for the same price scope (same currency, country and customer group).
    *	If this property is defined, then it will override the `prices` property from the original product variant, otherwise `prices` property from the original product variant would be copied in the resulting order.
    *
@@ -1228,6 +1233,7 @@ export interface SyncInfo {
 export interface TaxedItemPriceDraft {
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -1235,6 +1241,7 @@ export interface TaxedItemPriceDraft {
   readonly totalNet: Money
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
+   *
    *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
    *
    *
@@ -1315,7 +1322,7 @@ export interface OrderAddParcelToDeliveryAction {
 export interface OrderAddPaymentAction {
   readonly action: 'addPayment'
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Payment](ctp:api:type:Payment).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Payment](ctp:api:type:Payment).
    *
    *
    */
@@ -1403,7 +1410,7 @@ export interface OrderRemoveParcelFromDeliveryAction {
 export interface OrderRemovePaymentAction {
   readonly action: 'removePayment'
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Payment](ctp:api:type:Payment).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Payment](ctp:api:type:Payment).
    *
    *
    */
@@ -1961,13 +1968,13 @@ export interface OrderTransitionCustomLineItemStateAction {
    */
   readonly quantity: number
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [State](ctp:api:type:State).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [State](ctp:api:type:State).
    *
    *
    */
   readonly fromState: StateResourceIdentifier
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [State](ctp:api:type:State).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [State](ctp:api:type:State).
    *
    *
    */
@@ -1988,13 +1995,13 @@ export interface OrderTransitionLineItemStateAction {
    */
   readonly quantity: number
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [State](ctp:api:type:State).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [State](ctp:api:type:State).
    *
    *
    */
   readonly fromState: StateResourceIdentifier
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [State](ctp:api:type:State).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [State](ctp:api:type:State).
    *
    *
    */
@@ -2007,7 +2014,7 @@ export interface OrderTransitionLineItemStateAction {
 export interface OrderTransitionStateAction {
   readonly action: 'transitionState'
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [State](ctp:api:type:State).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [State](ctp:api:type:State).
    *
    *
    */
@@ -2027,7 +2034,7 @@ export interface OrderUpdateItemShippingAddressAction {
 export interface OrderUpdateSyncInfoAction {
   readonly action: 'updateSyncInfo'
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
    *
    *
    */

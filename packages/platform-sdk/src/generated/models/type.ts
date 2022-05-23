@@ -396,7 +396,7 @@ export interface TypePagedQueryResponse {
    */
   readonly limit: number
   /**
-   *	Offset supplied by the client or server default. It is the number of elements skipped, not a page number.
+   *	Number of [elements skipped](/../api/general-concepts#offset).
    *
    *
    */
@@ -425,7 +425,7 @@ export interface TypePagedQueryResponse {
   readonly results: Type[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [Type](ctp:api:type:Type).
+ *	[Reference](ctp:api:type:Reference) to a [Type](ctp:api:type:Type).
  *
  */
 export interface TypeReference {
@@ -445,7 +445,7 @@ export interface TypeReference {
   readonly obj?: Type
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) of a [Type](ctp:api:type:Type).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Type](ctp:api:type:Type).
  *
  */
 export interface TypeResourceIdentifier {
@@ -649,6 +649,8 @@ export interface TypeChangeLabelAction {
    */
   readonly fieldName: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly label: LocalizedString

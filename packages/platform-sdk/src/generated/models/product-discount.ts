@@ -6,164 +6,206 @@
 
 import {
   BaseResource,
+  CentPrecisionMoney,
+  CentPrecisionMoneyDraft,
   CreatedBy,
   LastModifiedBy,
   LocalizedString,
-  Money,
   QueryPrice,
   Reference,
-  TypedMoney,
 } from './common'
 
 export interface ProductDiscount extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the ProductDiscount
+   *	Platform-generated unique identifier of the ProductDiscount.
+   *
    *
    */
   readonly id: string
   /**
-   *	The current version of the product discount.
+   *	Current version of the ProductDiscount.
+   *
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the ProductDiscount was initially created.
+   *
    *
    */
   readonly createdAt: string
   /**
+   *	Date and time (UTC) the ProductDiscount was last updated.
+   *
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
    *
    *
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Name of the ProductDiscount.
+   *
    *
    */
   readonly name: LocalizedString
   /**
    *	User-defined unique identifier of the ProductDiscount.
    *
+   *
    */
   readonly key?: string
   /**
+   *	Description of the ProductDiscount.
+   *
    *
    */
   readonly description?: LocalizedString
   /**
+   *	Type of Discount and its corresponding value.
+   *
    *
    */
   readonly value: ProductDiscountValue
   /**
-   *	A valid ProductDiscount Predicate.
+   *	Valid [ProductDiscount predicate](/../api/projects/predicates#productdiscount-predicates).
+   *
    *
    */
   readonly predicate: string
   /**
-   *	The string contains a number between 0 and 1.
-   *	A discount with greater sortOrder is prioritized higher than a discount with lower sortOrder.
-   *	A sortOrder must be unambiguous.
+   *	Unique decimal value between 0 and 1 (stored as String literal) defining the order of Product Discounts to apply in case more than one is applicable and active.
+   *	A Product Discount with a higher value is prioritized.
+   *
    *
    */
   readonly sortOrder: string
   /**
-   *	Only active discount will be applied to product prices.
+   *	If `true` the Product Discount is applied to Products matching the `predicate`.
+   *
    *
    */
   readonly isActive: boolean
   /**
-   *	The platform will generate this array from the predicate.
-   *	It contains the references of all the resources that are addressed in the predicate.
+   *	References of all the resources that are addressed in the `predicate`.
+   *
    *
    */
   readonly references: Reference[]
   /**
-   *	The time from which the discount should be effective.
-   *	Please take Eventual Consistency into account for calculated product discount values.
+   *	Date and time (UTC) from which the Discount is effective.
+   *	Take [Eventual Consistency](/../api/general-concepts#eventual-consistency) into account for calculated discount values.
+   *
    *
    */
   readonly validFrom?: string
   /**
-   *	The time from which the discount should be ineffective.
-   *	Please take Eventual Consistency into account for calculated undiscounted values.
+   *	Date and time (UTC) until which the Discount is effective.
+   *	Take [Eventual Consistency](/../api/general-concepts#eventual-consistency) into account for calculated undiscounted values.
+   *
    *
    */
   readonly validUntil?: string
 }
 export interface ProductDiscountDraft {
   /**
+   *	Name of the ProductDiscount.
+   *
    *
    */
   readonly name: LocalizedString
   /**
    *	User-defined unique identifier for the ProductDiscount.
    *
+   *
    */
   readonly key?: string
   /**
+   *	Description of the ProductDiscount.
+   *
    *
    */
   readonly description?: LocalizedString
   /**
+   *	Type of Discount and its corresponding value.
+   *
    *
    */
   readonly value: ProductDiscountValueDraft
   /**
-   *	A valid ProductDiscount Predicate.
+   *	Valid [ProductDiscount predicate](/../api/projects/predicates#productdiscount-predicates).
+   *
    *
    */
   readonly predicate: string
   /**
-   *	The string must contain a decimal number between 0 and 1.
-   *	A discount with greater sortOrder is prioritized higher than a discount with lower sortOrder.
+   *	Decimal value between 0 and 1 (passed as String literal) that defines the order of ProductDiscounts to apply in case more than one is applicable and active. A ProductDiscount with a higher `sortOrder` is prioritized.
+   *	The value must be **unique** among all ProductDiscounts in the [Project](ctp:api:type:Project).
+   *
    *
    */
   readonly sortOrder: string
   /**
-   *	If set to `true` the discount will be applied to product prices.
+   *	Set to `true` to activate the ProductDiscount, set to `false` to deactivate it (even though the `predicate` matches).
+   *
    *
    */
   readonly isActive: boolean
   /**
-   *	The time from which the discount should be effective.
-   *	Please take Eventual Consistency into account for calculated product discount values.
+   *	Date and time (UTC) from which the Discount is effective.
+   *	Take [Eventual Consistency](/../api/general-concepts#eventual-consistency) into account for calculated discount values.
+   *
    *
    */
   readonly validFrom?: string
   /**
-   *	The time from which the discount should be effective.
-   *	Please take Eventual Consistency into account for calculated undiscounted values.
+   *	Date and time (UTC) until which the Discount is effective.
+   *	Take [Eventual Consistency](/../api/general-concepts#eventual-consistency) into account for calculated undiscounted values.
+   *
    *
    */
   readonly validUntil?: string
 }
 export interface ProductDiscountMatchQuery {
   /**
+   *	ID of the specified Product.
+   *
    *
    */
   readonly productId: string
   /**
+   *	ID of the specified Product Variant.
+   *
    *
    */
   readonly variantId: number
   /**
+   *	Controls which [projected representation](/../api/projects/productProjections#current--staged) is applied for the query.
+   *	Set to `true` for the `staged` Product Projection of the specified Product Variant, set to `false` for the `current` one.
+   *
    *
    */
   readonly staged: boolean
   /**
+   *	Specified Price of the specified Product Variant.
+   *
    *
    */
   readonly price: QueryPrice
 }
+/**
+ *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [ProductDiscount](ctp:api:type:ProductDiscount).
+ *
+ */
 export interface ProductDiscountPagedQueryResponse {
   /**
    *	Number of [results requested](/../api/general-concepts#limit).
@@ -172,24 +214,36 @@ export interface ProductDiscountPagedQueryResponse {
    */
   readonly limit: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
    *
-   */
-  readonly count: number
-  /**
-   *
-   */
-  readonly total?: number
-  /**
    *
    */
   readonly offset: number
   /**
+   *	Actual number of results returned.
+   *
+   *
+   */
+  readonly count: number
+  /**
+   *	Total number of results matching the query.
+   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This field is returned by default.
+   *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
+   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *
+   *
+   */
+  readonly total?: number
+  /**
+   *	[ProductDiscounts](ctp:api:type:ProductDiscount) matching the query.
+   *
    *
    */
   readonly results: ProductDiscount[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [ProductDiscount](ctp:api:type:ProductDiscount).
+ *	[Reference](ctp:api:type:Reference) to a [ProductDiscount](ctp:api:type:ProductDiscount).
  *
  */
 export interface ProductDiscountReference {
@@ -208,7 +262,7 @@ export interface ProductDiscountReference {
   readonly obj?: ProductDiscount
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [ProductDiscount](ctp:api:type:ProductDiscount).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductDiscount](ctp:api:type:ProductDiscount).
  *
  */
 export interface ProductDiscountResourceIdentifier {
@@ -228,10 +282,14 @@ export interface ProductDiscountResourceIdentifier {
 }
 export interface ProductDiscountUpdate {
   /**
+   *	Expected version of the ProductDiscount on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *
    *
    */
   readonly version: number
   /**
+   *	Update actions to be performed on the ProductDiscount.
+   *
    *
    */
   readonly actions: ProductDiscountUpdateAction[]
@@ -251,40 +309,72 @@ export type ProductDiscountValue =
   | ProductDiscountValueAbsolute
   | ProductDiscountValueExternal
   | ProductDiscountValueRelative
+/**
+ *	Discounts the Product's Price by a fixed amount, defined by the `money` field.
+ */
 export interface ProductDiscountValueAbsolute {
   readonly type: 'absolute'
   /**
+   *	Money values in different currencies. An absolute [ProductDiscount](ctp:api:type:ProductDiscount) will only match a price if this array contains a value with the same currency. For example, if it contains 10€ and 15$, the matching € price will be decreased by 10€ and the matching $ price will be decreased by 15\$.
+   *
    *
    */
-  readonly money: TypedMoney[]
+  readonly money: CentPrecisionMoney[]
 }
 export type ProductDiscountValueDraft =
   | ProductDiscountValueAbsoluteDraft
   | ProductDiscountValueExternalDraft
   | ProductDiscountValueRelativeDraft
+/**
+ *	Discounts the Product Price by a fixed amount, defined by the `money` field.
+ *
+ */
 export interface ProductDiscountValueAbsoluteDraft {
   readonly type: 'absolute'
   /**
+   *	Money values in different currencies. An absolute [ProductDiscount](ctp:api:type:ProductDiscount) will only match a price if this array contains a value with the same currency. For example, if it contains 10€ and 15$, the matching € price will be decreased by 10€ and the matching $ price will be decreased by 15\$.
+   *
    *
    */
-  readonly money: Money[]
+  readonly money: CentPrecisionMoneyDraft[]
 }
+/**
+ *	Discounts the Product Price by allowing the client to explicitly [set a discounted value](/../api/projects/products#set-discounted-embedded-price).
+ *	Used when setting discounts using an external service.
+ *
+ */
 export interface ProductDiscountValueExternal {
   readonly type: 'external'
 }
+/**
+ *	Discounts the Product Price by allowing the client to explicitly [set a discounted value](/../api/projects/products#set-discounted-embedded-price).
+ *	Use this when setting discounts using an external service.
+ *
+ */
 export interface ProductDiscountValueExternalDraft {
   readonly type: 'external'
 }
+/**
+ *	Discounts the product price by a percentage, defined by the `permyriad` field.
+ */
 export interface ProductDiscountValueRelative {
   readonly type: 'relative'
   /**
+   *	Fraction (per ten thousand) the price is reduced by. For example, `1000` will result in a 10% price reduction.
+   *
    *
    */
   readonly permyriad: number
 }
+/**
+ *	Discounts the Product Price by a percentage, defined by the `permyriad` field.
+ *
+ */
 export interface ProductDiscountValueRelativeDraft {
   readonly type: 'relative'
   /**
+   *	Fraction (per ten thousand) the price is reduced by. For example, `1000` will result in a 10% price reduction.
+   *
    *
    */
   readonly permyriad: number
@@ -292,6 +382,9 @@ export interface ProductDiscountValueRelativeDraft {
 export interface ProductDiscountChangeIsActiveAction {
   readonly action: 'changeIsActive'
   /**
+   *	New value to set.
+   *	If set to `true`, the Discount will be applied to Product Prices.
+   *
    *
    */
   readonly isActive: boolean
@@ -299,6 +392,8 @@ export interface ProductDiscountChangeIsActiveAction {
 export interface ProductDiscountChangeNameAction {
   readonly action: 'changeName'
   /**
+   *	New value to set. Must not be empty.
+   *
    *
    */
   readonly name: LocalizedString
@@ -306,7 +401,8 @@ export interface ProductDiscountChangeNameAction {
 export interface ProductDiscountChangePredicateAction {
   readonly action: 'changePredicate'
   /**
-   *	A valid ProductDiscount Predicate.
+   *	New value to set. Must be a valid [ProductDiscount predicate](/../api/projects/predicates#productdiscount-predicates).
+   *
    *
    */
   readonly predicate: string
@@ -314,8 +410,11 @@ export interface ProductDiscountChangePredicateAction {
 export interface ProductDiscountChangeSortOrderAction {
   readonly action: 'changeSortOrder'
   /**
-   *	The string must contain a number between 0 and 1.
-   *	A discount with greater sortOrder is prioritized higher than a discount with lower sortOrder.
+   *	New value to set.
+   *	Must not be empty.
+   *	The string value must be a number between `0` and `1`.
+   *	A Discount with a higher sortOrder is prioritized.
+   *
    *
    */
   readonly sortOrder: string
@@ -323,6 +422,8 @@ export interface ProductDiscountChangeSortOrderAction {
 export interface ProductDiscountChangeValueAction {
   readonly action: 'changeValue'
   /**
+   *	New value to set. Must not be empty.
+   *
    *
    */
   readonly value: ProductDiscountValueDraft
@@ -330,6 +431,8 @@ export interface ProductDiscountChangeValueAction {
 export interface ProductDiscountSetDescriptionAction {
   readonly action: 'setDescription'
   /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
    *
    */
   readonly description?: LocalizedString
@@ -337,8 +440,8 @@ export interface ProductDiscountSetDescriptionAction {
 export interface ProductDiscountSetKeyAction {
   readonly action: 'setKey'
   /**
-   *	The key to set.
-   *	If you provide a `null` value or do not set this field at all, the existing `key` field is removed.
+   *	Value to set. If empty, any existing value will be removed.
+   *
    *
    */
   readonly key?: string
@@ -346,8 +449,10 @@ export interface ProductDiscountSetKeyAction {
 export interface ProductDiscountSetValidFromAction {
   readonly action: 'setValidFrom'
   /**
-   *	The time from which the discount should be effective.
-   *	Please take Eventual Consistency into account for calculated product discount values.
+   *	Value to set.
+   *	If empty, any existing value will be removed.
+   *	Take [Eventual Consistency](/../api/general-concepts#eventual-consistency) into account for calculated discount values.
+   *
    *
    */
   readonly validFrom?: string
@@ -355,12 +460,16 @@ export interface ProductDiscountSetValidFromAction {
 export interface ProductDiscountSetValidFromAndUntilAction {
   readonly action: 'setValidFromAndUntil'
   /**
+   *	Value to set.
+   *	Take [Eventual Consistency](/../api/general-concepts#eventual-consistency) into account for calculated undiscounted values.
+   *
    *
    */
   readonly validFrom?: string
   /**
-   *	The timeframe for which the discount should be effective.
-   *	Please take Eventual Consistency into account for calculated undiscounted values.
+   *	Value to set.
+   *	Take [Eventual Consistency](/../api/general-concepts#eventual-consistency) into account for calculated undiscounted values.
+   *
    *
    */
   readonly validUntil?: string
@@ -368,8 +477,10 @@ export interface ProductDiscountSetValidFromAndUntilAction {
 export interface ProductDiscountSetValidUntilAction {
   readonly action: 'setValidUntil'
   /**
-   *	The time from which the discount should be ineffective.
-   *	Please take Eventual Consistency into account for calculated undiscounted values.
+   *	Value to set.
+   *	If empty, any existing value will be removed.
+   *	Take [Eventual Consistency](/../api/general-concepts#eventual-consistency) into account for calculated undiscounted values.
+   *
    *
    */
   readonly validUntil?: string

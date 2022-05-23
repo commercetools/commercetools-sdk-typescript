@@ -205,6 +205,8 @@ export interface CartDiscountPagedQueryResponse {
    */
   readonly total?: number
   /**
+   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *
    *
    */
   readonly offset: number
@@ -214,7 +216,7 @@ export interface CartDiscountPagedQueryResponse {
   readonly results: CartDiscount[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [CartDiscount](ctp:api:type:CartDiscount).
+ *	[Reference](ctp:api:type:Reference) to a [CartDiscount](ctp:api:type:CartDiscount).
  *
  */
 export interface CartDiscountReference {
@@ -233,7 +235,7 @@ export interface CartDiscountReference {
   readonly obj?: CartDiscount
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [CartDiscount](ctp:api:type:CartDiscount).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [CartDiscount](ctp:api:type:CartDiscount).
  *
  */
 export interface CartDiscountResourceIdentifier {
@@ -341,7 +343,7 @@ export interface CartDiscountValueFixedDraft {
 export interface CartDiscountValueGiftLineItem {
   readonly type: 'giftLineItem'
   /**
-   *	[Reference](/../api/types#reference) to a [Product](ctp:api:type:Product).
+   *	[Reference](ctp:api:type:Reference) to a [Product](ctp:api:type:Product).
    *
    *
    */
@@ -364,7 +366,7 @@ export interface CartDiscountValueGiftLineItem {
 export interface CartDiscountValueGiftLineItemDraft {
   readonly type: 'giftLineItem'
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Product](ctp:api:type:Product).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Product](ctp:api:type:Product).
    *
    *
    */

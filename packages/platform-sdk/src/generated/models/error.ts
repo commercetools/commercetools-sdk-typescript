@@ -16,9 +16,13 @@ import {
   Reference,
   ReferenceTypeId,
 } from './common'
-import { CustomerGroupReference } from './customer-group'
+import {
+  CustomerGroupReference,
+  CustomerGroupResourceIdentifier,
+} from './customer-group'
 import { OrderEditPreviewFailure } from './order-edit'
 import { Attribute } from './product'
+import { StandalonePriceReference } from './standalone-price'
 
 export interface ErrorByExtension {
   /**
@@ -47,6 +51,7 @@ export type ErrorObject =
   | DuplicateFieldError
   | DuplicateFieldWithConflictingResourceError
   | DuplicatePriceScopeError
+  | DuplicateStandalonePriceScopeError
   | DuplicateVariantValuesError
   | EditPreviewFailedError
   | EnumKeyAlreadyExistsError
@@ -80,6 +85,7 @@ export type ErrorObject =
   | ObjectNotFoundError
   | OutOfStockError
   | OverCapacityError
+  | OverlappingStandalonePriceValidityError
   | PendingOperationError
   | PriceChangedError
   | ProjectNotConfiguredForLanguagesError
@@ -270,6 +276,8 @@ export interface DuplicateFieldError {
    */
   readonly duplicateValue?: any
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly conflictingResource?: Reference
@@ -290,6 +298,8 @@ export interface DuplicateFieldWithConflictingResourceError {
    */
   readonly duplicateValue: any
   /**
+   *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly conflictingResource: Reference
@@ -305,6 +315,52 @@ export interface DuplicatePriceScopeError {
    *
    */
   readonly conflictingPrices: Price[]
+}
+export interface DuplicateStandalonePriceScopeError {
+  readonly code: 'DuplicateStandalonePriceScope'
+  [key: string]: any
+  /**
+   *
+   */
+  readonly message: string
+  /**
+   *	[Reference](/../api/types#reference) to a [StandalonePrice](ctp:api:type:StandalonePrice).
+   *
+   *
+   */
+  readonly conflictingStandalonePrice: StandalonePriceReference
+  /**
+   *
+   */
+  readonly sku: string
+  /**
+   *
+   */
+  readonly currency: string
+  /**
+   *
+   */
+  readonly country?: string
+  /**
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
+   *
+   */
+  readonly customerGroup?: CustomerGroupResourceIdentifier
+  /**
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
+   *
+   *
+   */
+  readonly channel?: ChannelResourceIdentifier
+  /**
+   *
+   */
+  readonly validFrom?: string
+  /**
+   *
+   */
+  readonly validUntil?: string
 }
 export interface DuplicateVariantValuesError {
   readonly code: 'DuplicateVariantValues'
@@ -408,6 +464,8 @@ export interface ExtensionBadResponseError {
    */
   readonly message: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly localizedMessage?: LocalizedString
@@ -444,6 +502,8 @@ export interface ExtensionUpdateActionsFailedError {
    */
   readonly message: string
   /**
+   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *
    *
    */
   readonly localizedMessage?: LocalizedString
@@ -620,13 +680,13 @@ export interface MatchingPriceNotFoundError {
    */
   readonly country?: string
   /**
-   *	[Reference](/../api/types#reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
    *
    *
    */
   readonly customerGroup?: CustomerGroupReference
   /**
-   *	[Reference](/../api/types#reference) to a [Channel](ctp:api:type:Channel).
+   *	[Reference](ctp:api:type:Reference) to a [Channel](ctp:api:type:Channel).
    *
    *
    */
@@ -640,6 +700,8 @@ export interface MaxResourceLimitExceededError {
    */
   readonly message: string
   /**
+   *	supported resource type identifiers:
+   *
    *
    */
   readonly exceededResource: ReferenceTypeId
@@ -652,7 +714,7 @@ export interface MissingRoleOnChannelError {
    */
   readonly message: string
   /**
-   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Channel](ctp:api:type:Channel).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
    *
    *
    */
@@ -732,6 +794,60 @@ export interface OverCapacityError {
    */
   readonly message: string
 }
+export interface OverlappingStandalonePriceValidityError {
+  readonly code: 'OverlappingStandalonePriceValidity'
+  [key: string]: any
+  /**
+   *
+   */
+  readonly message: string
+  /**
+   *	[Reference](/../api/types#reference) to a [StandalonePrice](ctp:api:type:StandalonePrice).
+   *
+   *
+   */
+  readonly conflictingStandalonePrice: StandalonePriceReference
+  /**
+   *
+   */
+  readonly sku: string
+  /**
+   *
+   */
+  readonly currency: string
+  /**
+   *
+   */
+  readonly country?: string
+  /**
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
+   *
+   */
+  readonly customerGroup?: CustomerGroupResourceIdentifier
+  /**
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
+   *
+   *
+   */
+  readonly channel?: ChannelResourceIdentifier
+  /**
+   *
+   */
+  readonly validFrom?: string
+  /**
+   *
+   */
+  readonly validUntil?: string
+  /**
+   *
+   */
+  readonly conflictingValidFrom?: string
+  /**
+   *
+   */
+  readonly conflictingValidUntil?: string
+}
 export interface PendingOperationError {
   readonly code: 'PendingOperation'
   [key: string]: any
@@ -792,6 +908,8 @@ export interface ReferenceExistsError {
    */
   readonly message: string
   /**
+   *	supported resource type identifiers:
+   *
    *
    */
   readonly referencedBy?: ReferenceTypeId
@@ -804,6 +922,8 @@ export interface ReferencedResourceNotFoundError {
    */
   readonly message: string
   /**
+   *	supported resource type identifiers:
+   *
    *
    */
   readonly typeId: ReferenceTypeId
