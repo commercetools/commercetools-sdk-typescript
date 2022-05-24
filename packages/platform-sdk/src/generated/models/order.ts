@@ -537,11 +537,10 @@ export interface Order extends BaseResource {
    */
   readonly discountCodes?: DiscountCodeInfo[]
   /**
-   *	The sequence number of the last order message produced by changes to this order.
-   *	`0` means, that no messages were created yet.
-   *
+   *	Internal-only field.
+   *	@deprecated
    */
-  readonly lastMessageSequenceNumber: number
+  readonly lastMessageSequenceNumber?: number
   /**
    *	Set when this order was created from a cart.
    *	The cart will have the state `Ordered`.
