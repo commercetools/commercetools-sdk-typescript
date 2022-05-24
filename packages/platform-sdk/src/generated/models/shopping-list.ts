@@ -23,7 +23,7 @@ import {
 
 export interface ShoppingList extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the ShoppingList.
+   *	Unique identifier of the ShoppingList.
    *
    */
   readonly id: string
@@ -173,7 +173,7 @@ export interface ShoppingListLineItem {
    */
   readonly deactivatedAt?: string
   /**
-   *	Platform-generated unique identifier of the ShoppingListLineItem.
+   *	Unique identifier of the ShoppingListLineItem.
    *
    */
   readonly id: string
@@ -273,7 +273,7 @@ export interface ShoppingListPagedQueryResponse {
 export interface ShoppingListReference {
   readonly typeId: 'shopping-list'
   /**
-   *	Platform-generated unique identifier of the referenced [ShoppingList](ctp:api:type:ShoppingList).
+   *	Unique identifier of the referenced [ShoppingList](ctp:api:type:ShoppingList).
    *
    *
    */
@@ -292,7 +292,7 @@ export interface ShoppingListReference {
 export interface ShoppingListResourceIdentifier {
   readonly typeId: 'shopping-list'
   /**
-   *	Platform-generated unique identifier of the referenced [ShoppingList](ctp:api:type:ShoppingList). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [ShoppingList](ctp:api:type:ShoppingList). Either `id` or `key` is required.
    *
    *
    */
@@ -354,7 +354,7 @@ export interface TextLineItem {
    */
   readonly description?: LocalizedString
   /**
-   *	Platform-generated unique identifier of the TextLineItem.
+   *	Unique identifier of the TextLineItem.
    *
    */
   readonly id: string

@@ -23,7 +23,7 @@ export interface Location {
 }
 export interface Zone extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the Zone.
+   *	Unique identifier of the Zone.
    *
    */
   readonly id: string
@@ -147,7 +147,7 @@ export interface ZonePagedQueryResponse {
 export interface ZoneReference {
   readonly typeId: 'zone'
   /**
-   *	Platform-generated unique identifier of the referenced [Zone](ctp:api:type:Zone).
+   *	Unique identifier of the referenced [Zone](ctp:api:type:Zone).
    *
    *
    */
@@ -166,7 +166,7 @@ export interface ZoneReference {
 export interface ZoneResourceIdentifier {
   readonly typeId: 'zone'
   /**
-   *	Platform-generated unique identifier of the referenced [Zone](ctp:api:type:Zone). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [Zone](ctp:api:type:Zone). Either `id` or `key` is required.
    *
    *
    */

@@ -294,7 +294,7 @@ export interface MyLineItemDraft {
 }
 export interface MyOrderFromCartDraft {
   /**
-   *	Platform-generated unique identifier of the Cart from which the Platform creates an Order.
+   *	Unique identifier of the Cart that initiates an Order creation.
    *
    */
   readonly id: string
@@ -305,7 +305,7 @@ export interface MyOrderFromCartDraft {
 }
 export interface MyPayment {
   /**
-   *	Platform-generated unique identifier of the MyPayment.
+   *	Unique identifier of the MyPayment.
    *
    */
   readonly id: string

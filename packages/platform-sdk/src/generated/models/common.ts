@@ -128,7 +128,7 @@ export interface UpdateAction {
 }
 export interface Asset {
   /**
-   *	Platform-generated unique identifier of the Asset.
+   *	Unique identifier of the Asset.
    *
    *
    */
@@ -253,7 +253,7 @@ export interface AssetSource {
 }
 export interface BaseAddress {
   /**
-   *	Platform-generated unique identifier of the Address.
+   *	Unique identifier of the Address.
    *
    *
    */
@@ -405,7 +405,7 @@ export interface BaseAddress {
 }
 export interface Address extends BaseAddress {
   /**
-   *	Platform-generated unique identifier of the Address.
+   *	Unique identifier of the Address.
    *
    *
    */
@@ -423,7 +423,7 @@ export interface AddressDraft extends BaseAddress {
    */
   readonly custom?: CustomFieldsDraft
   /**
-   *	Unique identifier for the Address. Not recommended to set it manually since the Platform overwrites this ID when creating an Address for a [Customer](ctp:api:type:Customer). Use `key` instead and omit this field to let the Platform generate the ID for the Address.
+   *	Unique identifier for the Address. Not recommended to set it manually since the API overwrites this ID when creating an Address for a [Customer](ctp:api:type:Customer). Use `key` instead and omit this field from the request to let the API generate the ID for the Address.
    *
    *
    */
@@ -579,7 +579,7 @@ export interface ImageDimensions {
   readonly h: number
 }
 /**
- *	A KeyReference represents a loose reference to another resource in the same commercetools Project identified by the resource's `key` field. If available, the `key` is immutable and mandatory. KeyReferences do not support [Reference Expansion](/general-concepts#reference-expansion).
+ *	A KeyReference represents a loose reference to another resource in the same Project identified by the resource's `key` field. If available, the `key` is immutable and mandatory. KeyReferences do not support [Reference Expansion](/general-concepts#reference-expansion).
  *
  */
 export type KeyReference = StoreKeyReference
@@ -643,13 +643,12 @@ export interface Money {
   readonly currencyCode: string
 }
 /**
- *	The commercetools Platform supports two different types of Money: one for amounts in cent precision and another one for sub-cent amounts up to 20 fraction digits.
- *
+ *	MoneyType supports two different values, one for amounts in cent precision and another one for sub-cent amounts up to 20 fraction digits.
  */
 export type MoneyType = 'centPrecision' | 'highPrecision'
 export interface Price {
   /**
-   *	Platform-generated unique identifier of this Price.
+   *	Unique identifier of this Price.
    *
    *
    */
@@ -692,7 +691,7 @@ export interface Price {
   readonly validUntil?: string
   /**
    *	Is set if a [ProductDiscount](ctp:api:type:ProductDiscount) has been applied.
-   *	If set, the commercetools Platform uses the DiscountedPrice value for the [LineItem Price selection](/projects/carts#lineitem-price-selection).
+   *	If set, the API uses the DiscountedPrice value for the [LineItem Price selection](/projects/carts#lineitem-price-selection).
    *	When a [relative discount](/../api/projects/productDiscounts#productdiscountvaluerelative) has been applied and the fraction part of the DiscountedPrice `value` is 0.5, the `value` is rounded in favor of the customer with [half down rounding](https://en.wikipedia.org/wiki/Rounding#Round_half_down).
    *
    *
@@ -751,7 +750,7 @@ export interface PriceDraft {
   /**
    *	Set this field to add a DiscountedPrice from an external service.
    *
-   *	The commercetools Platform sets this field automatically if at least one [ProductDiscount](ctp:api:type:ProductDiscount) applies.
+   *	The API sets this field automatically if at least one [ProductDiscount](ctp:api:type:ProductDiscount) applies.
    *	The DiscountedPrice must reference a ProductDiscount with:
    *
    *	* The `isActive` flag set to `true`.
@@ -824,7 +823,7 @@ export interface PriceTierDraft {
 }
 export interface QueryPrice {
   /**
-   *	Platform-generated unique identifier of the given Price.
+   *	Unique identifier of the given Price.
    *
    *
    */
@@ -885,7 +884,7 @@ export interface QueryPrice {
   readonly tiers?: PriceTierDraft[]
 }
 /**
- *	A Reference represents a loose reference to another resource in the same commercetools Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+ *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
  *
  */
 export type Reference =
@@ -1132,7 +1131,7 @@ export interface HighPrecisionMoneyDraft {
    *
    *	A Price of 1.015 USD can be rounded either to 1.01 USD or 1.02 USD. If it lies outside of this range, an error message stating that centAmount must be rounded correctly will be returned.
    *
-   *	If `centAmount` is not provided, the commercetools Platform calculates the value automatically using the default rounding mode half even.
+   *	If `centAmount` is not provided, the API calculates the value automatically using the default rounding mode half even.
    *
    *
    */

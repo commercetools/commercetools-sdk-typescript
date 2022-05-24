@@ -24,7 +24,7 @@ import {
 
 export interface CartDiscount extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the CartDiscount.
+   *	Unique identifier of the CartDiscount.
    *
    */
   readonly id: string
@@ -107,8 +107,7 @@ export interface CartDiscount extends BaseResource {
    */
   readonly requiresDiscountCode: boolean
   /**
-   *	The platform will generate this array from the predicate.
-   *	It contains the references of all the resources that are addressed in the predicate.
+   *	The references of all the resources that are addressed in the predicate.
    *
    */
   readonly references: Reference[]
@@ -222,7 +221,7 @@ export interface CartDiscountPagedQueryResponse {
 export interface CartDiscountReference {
   readonly typeId: 'cart-discount'
   /**
-   *	Platform-generated unique identifier of the referenced [CartDiscount](ctp:api:type:CartDiscount).
+   *	Unique identifier of the referenced [CartDiscount](ctp:api:type:CartDiscount).
    *
    *
    */
@@ -241,7 +240,7 @@ export interface CartDiscountReference {
 export interface CartDiscountResourceIdentifier {
   readonly typeId: 'cart-discount'
   /**
-   *	Platform-generated unique identifier of the referenced [CartDiscount](ctp:api:type:CartDiscount). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [CartDiscount](ctp:api:type:CartDiscount). Either `id` or `key` is required.
    *
    *
    */

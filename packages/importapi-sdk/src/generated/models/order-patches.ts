@@ -214,7 +214,7 @@ export interface OrderField {
 }
 /**
  *	Representation for an update of an [Order](/../api/projects/orders#order). Use this type to import updates for existing
- *	[Orders](/../api/projects/orders#order) in a commercetools Project.
+ *	[Orders](/../api/projects/orders#order) in a Project.
  *
  */
 export interface OrderPatchImport {
@@ -225,7 +225,7 @@ export interface OrderPatchImport {
    */
   readonly orderNumber: string
   /**
-   *	Each field referenced must be defined in an already existing order in the commercetools project or the import operation state is set to `validationFailed`.
+   *	Each field referenced must be defined in an already existing order in the project or the import operation state is set to `validationFailed`.
    *
    *
    */

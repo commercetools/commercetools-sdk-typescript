@@ -22,7 +22,7 @@ import {
 
 export interface Category extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the Category.
+   *	Unique identifier of the Category.
    *
    */
   readonly id: string
@@ -204,7 +204,7 @@ export interface CategoryPagedQueryResponse {
 export interface CategoryReference {
   readonly typeId: 'category'
   /**
-   *	Platform-generated unique identifier of the referenced [Category](ctp:api:type:Category).
+   *	Unique identifier of the referenced [Category](ctp:api:type:Category).
    *
    *
    */
@@ -223,7 +223,7 @@ export interface CategoryReference {
 export interface CategoryResourceIdentifier {
   readonly typeId: 'category'
   /**
-   *	Platform-generated unique identifier of the referenced [Category](ctp:api:type:Channel). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [Category](ctp:api:type:Channel). Either `id` or `key` is required.
    *
    *
    */

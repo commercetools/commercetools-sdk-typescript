@@ -49,7 +49,7 @@ import {
 
 export interface Cart extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the Cart.
+   *	Unique identifier of the Cart.
    *
    */
   readonly id: string
@@ -389,7 +389,7 @@ export interface CartPagedQueryResponse {
 export interface CartReference {
   readonly typeId: 'cart'
   /**
-   *	Platform-generated unique identifier of the referenced [Cart](ctp:api:type:Cart).
+   *	Unique identifier of the referenced [Cart](ctp:api:type:Cart).
    *
    *
    */
@@ -408,7 +408,7 @@ export interface CartReference {
 export interface CartResourceIdentifier {
   readonly typeId: 'cart'
   /**
-   *	Platform-generated unique identifier of the referenced [Cart](ctp:api:type:Cart). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [Cart](ctp:api:type:Cart). Either `id` or `key` is required.
    *
    *
    */
@@ -495,7 +495,7 @@ export type CartUpdateAction =
   | CartUpdateItemShippingAddressAction
 export interface CustomLineItem {
   /**
-   *	Platform-generated unique identifier of the CustomLineItem.
+   *	Unique identifier of the CustomLineItem.
    *
    */
   readonly id: string
@@ -750,7 +750,7 @@ export interface ItemShippingTarget {
 }
 export interface LineItem {
   /**
-   *	Platform-generated unique identifier of the LineItem.
+   *	Unique identifier of the LineItem.
    *
    */
   readonly id: string
@@ -1086,7 +1086,7 @@ export interface TaxedItemPrice {
    */
   readonly totalGross: TypedMoney
   /**
-   *	Platform-calculated value as subtraction of `totalGross` - `totalNet`.
+   *	Calculated automatically as the subtraction of `totalGross` - `totalNet`.
    *
    *
    */
@@ -1107,7 +1107,7 @@ export interface TaxedPrice {
    */
   readonly taxPortions: TaxPortion[]
   /**
-   *	Platform-calculated value as subtraction of `totalGross` - `totalNet`.
+   *	Calculated automatically as the subtraction of `totalGross` - `totalNet`.
    *
    *
    */

@@ -23,7 +23,7 @@ export interface SubRate {
 }
 export interface TaxCategory extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the TaxCategory.
+   *	Unique identifier of the TaxCategory.
    *
    *
    */
@@ -71,7 +71,7 @@ export interface TaxCategory extends BaseResource {
    */
   readonly description?: string
   /**
-   *	Tax rates and subrates of states and countries. Each TaxRate in the array has a unique ID assigned by the platform.
+   *	Tax rates and subrates of states and countries. Each TaxRate in the array has a unique ID.
    *
    *
    */
@@ -156,7 +156,7 @@ export interface TaxCategoryPagedQueryResponse {
 export interface TaxCategoryReference {
   readonly typeId: 'tax-category'
   /**
-   *	Platform-generated unique identifier of the referenced [TaxCategory](ctp:api:type:TaxCategory).
+   *	Unique identifier of the referenced [TaxCategory](ctp:api:type:TaxCategory).
    *
    *
    */
@@ -175,7 +175,7 @@ export interface TaxCategoryReference {
 export interface TaxCategoryResourceIdentifier {
   readonly typeId: 'tax-category'
   /**
-   *	Platform-generated unique identifier of the referenced [TaxCategory](ctp:api:type:TaxCategory). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [TaxCategory](ctp:api:type:TaxCategory). Either `id` or `key` is required.
    *
    *
    */
@@ -229,7 +229,7 @@ export interface TaxRate {
    */
   readonly amount: number
   /**
-   *	If `true`, tax is included in [Prices](ctp:api:type:Price) and the `taxedPrice` is present on [LineItems](ctp:api:type:LineItem). In this case, the platform calculates the `totalNet` price based on the TaxRate.
+   *	If `true`, tax is included in [Prices](ctp:api:type:Price) and the `taxedPrice` is present on [LineItems](ctp:api:type:LineItem). In this case, the `totalNet` price on [TaxedPrice](ctp:api:type:TaxedPrice) includes the TaxRate.
    *
    *
    */
@@ -268,7 +268,7 @@ export interface TaxRateDraft {
    */
   readonly amount?: number
   /**
-   *	Set to `true`, if tax should be included in [Prices](ctp:api:type:Price) and the `taxedPrice` should be present on [Line Items](ctp:api:type:LineItem). In this case, the platform calculates the `totalNet` price based on the TaxRate.
+   *	If `true`, tax is included in [Prices](ctp:api:type:Price) and the `taxedPrice` is present on [LineItems](ctp:api:type:LineItem). In this case, the `totalNet` price on [TaxedPrice](ctp:api:type:TaxedPrice) includes the TaxRate.
    *
    *
    */

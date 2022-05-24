@@ -29,7 +29,7 @@ import {
 
 export interface StandalonePrice extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the StandalonePrice.
+   *	Unique identifier of the StandalonePrice.
    *
    *
    */
@@ -118,7 +118,7 @@ export interface StandalonePrice extends BaseResource {
    */
   readonly tiers?: PriceTier[]
   /**
-   *	Set if a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists. If set, the Platform uses the `discounted` value for the [LineItem Price selection](/../api/projects/carts#lineitem-price-selection).
+   *	Set if a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists. If set, the API uses the `discounted` value for the [LineItem Price selection](/../api/projects/carts#lineitem-price-selection).
    *	When a [relative discount](/../api/projects/productDiscounts#productdiscountvaluerelative) is applied and the fraction part of the `discounted` price is 0.5, the discounted price is rounded in favor of the customer with the [half down rounding](https://en.wikipedia.org/wiki/Rounding#Round_half_down).
    *
    *
@@ -142,7 +142,7 @@ export interface StandalonePriceDraft {
    */
   readonly key?: string
   /**
-   *	Specifies to which [ProductVariant](ctp:api:type:ProductVariant) the Platform associates this Price.
+   *	Specifies to which [ProductVariant](ctp:api:type:ProductVariant) the API associates this Price.
    *	It is not validated to exist in product variants.
    *
    */
@@ -264,7 +264,7 @@ export interface StandalonePriceReference {
 export interface StandalonePriceResourceIdentifier {
   readonly typeId: 'standalone-price'
   /**
-   *	Platform-generated unique identifier of the referenced resource. Required if `key` is absent.
+   *	Unique identifier of the referenced resource. Required if `key` is absent.
    *
    *
    */

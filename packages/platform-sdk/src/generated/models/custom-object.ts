@@ -8,8 +8,7 @@ import { BaseResource, CreatedBy, LastModifiedBy } from './common'
 
 export interface CustomObject extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the CustomObject.
-   *
+   *	Unique identifier of the CustomObject.
    *
    */
   readonly id: string
@@ -58,7 +57,7 @@ export interface CustomObject extends BaseResource {
   /**
    *	JSON standard types Number, String, Boolean, Array, Object, and [common API data types](/../api/types).
    *	For values of type [Reference](ctp:api:type:Reference) the integrity of the data is not guaranteed.
-   *	If the referenced object is deleted, the platform does not delete the corresponding reference to it and the `value` points to a non-existing object in such case.
+   *	If the referenced object is deleted, the API does not delete the corresponding reference to it and the `value` points to a non-existing object in such case.
    *
    *
    */
@@ -80,7 +79,7 @@ export interface CustomObjectDraft {
   /**
    *	JSON standard types Number, String, Boolean, Array, Object, and [common API data types](/../api/types).
    *	For values of type [Reference](ctp:api:type:Reference) the integrity of the data is not guaranteed.
-   *	If the referenced object is deleted, the platform does not delete the corresponding reference to it and the `value` points to a non-existing object in such case.
+   *	If the referenced object is deleted, the API does not delete the corresponding reference to it and the `value` points to a non-existing object in such case.
    *
    *
    */
@@ -139,7 +138,7 @@ export interface CustomObjectPagedQueryResponse {
 export interface CustomObjectReference {
   readonly typeId: 'key-value-document'
   /**
-   *	Platform-generated unique identifier of the referenced [CustomObject](ctp:api:type:CustomObject).
+   *	Unique identifier of the referenced [CustomObject](ctp:api:type:CustomObject).
    *
    *
    */

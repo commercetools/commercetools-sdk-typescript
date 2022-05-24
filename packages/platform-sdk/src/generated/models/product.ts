@@ -123,7 +123,7 @@ export interface FilteredFacetResult {
 }
 export interface Product extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the Product.
+   *	Unique identifier of the Product.
    *
    */
   readonly id: string
@@ -527,7 +527,7 @@ export interface ProductProjectionPagedSearchResponse {
 export interface ProductReference {
   readonly typeId: 'product'
   /**
-   *	Platform-generated unique identifier of the referenced [Product](ctp:api:type:Product).
+   *	Unique identifier of the referenced [Product](ctp:api:type:Product).
    *
    *
    */
@@ -546,7 +546,7 @@ export interface ProductReference {
 export interface ProductResourceIdentifier {
   readonly typeId: 'product'
   /**
-   *	Platform-generated unique identifier of the referenced [Product](ctp:api:type:Product). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [Product](ctp:api:type:Product). Either `id` or `key` is required.
    *
    *
    */
@@ -618,7 +618,7 @@ export type ProductUpdateAction =
   | ProductUnpublishAction
 export interface ProductVariant {
   /**
-   *	Platform-generated sequential and unique identifier of the ProductVariant within the Product.
+   *	A unique, sequential identifier of the ProductVariant within the Product.
    *
    */
   readonly id: number

@@ -292,7 +292,7 @@ export type ResourceTypeId =
   | 'transaction'
 export interface Type extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the Type.
+   *	Unique identifier of the Type.
    *
    */
   readonly id: string
@@ -431,7 +431,7 @@ export interface TypePagedQueryResponse {
 export interface TypeReference {
   readonly typeId: 'type'
   /**
-   *	Platform-generated unique identifier of the referenced [Type](ctp:api:type:Type).
+   *	Unique identifier of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
@@ -451,7 +451,7 @@ export interface TypeReference {
 export interface TypeResourceIdentifier {
   readonly typeId: 'type'
   /**
-   *	Platform-generated unique identifier of the referenced [Type](ctp:api:type:Type). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [Type](ctp:api:type:Type). Either `id` or `key` is required.
    *
    *
    */

@@ -218,7 +218,7 @@ export interface AttributeTimeType {
 }
 export interface ProductType extends BaseResource {
   /**
-   *	Platform-generated unique identifier for the ProductType.
+   *	Unique identifier for the ProductType.
    *
    */
   readonly id: string
@@ -317,7 +317,7 @@ export interface ProductTypePagedQueryResponse {
 export interface ProductTypeReference {
   readonly typeId: 'product-type'
   /**
-   *	Platform-generated unique identifier of the referenced [ProductType](ctp:api:type:ProductType).
+   *	Unique identifier of the referenced [ProductType](ctp:api:type:ProductType).
    *
    *
    */
@@ -336,7 +336,7 @@ export interface ProductTypeReference {
 export interface ProductTypeResourceIdentifier {
   readonly typeId: 'product-type'
   /**
-   *	Platform-generated unique identifier of the referenced [ProductType](ctp:api:type:ProductType). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [ProductType](ctp:api:type:ProductType). Either `id` or `key` is required.
    *
    *
    */

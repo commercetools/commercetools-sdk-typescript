@@ -23,7 +23,7 @@ import {
 
 export interface Channel extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the Channel.
+   *	Unique identifier of the Channel.
    *
    *
    */
@@ -201,7 +201,7 @@ export interface ChannelPagedQueryResponse {
 export interface ChannelReference {
   readonly typeId: 'channel'
   /**
-   *	Platform-generated unique identifier of the referenced [Channel](ctp:api:type:Channel).
+   *	Unique identifier of the referenced [Channel](ctp:api:type:Channel).
    *
    *
    */
@@ -221,7 +221,7 @@ export interface ChannelReference {
 export interface ChannelResourceIdentifier {
   readonly typeId: 'channel'
   /**
-   *	Platform-generated unique identifier of the referenced [Channel](ctp:api:type:Channel). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [Channel](ctp:api:type:Channel). Either `id` or `key` is required.
    *
    *
    */

@@ -204,7 +204,7 @@ export interface StoreReference {
 export interface StoreResourceIdentifier {
   readonly typeId: 'store'
   /**
-   *	Platform-generated unique identifier of the referenced resource. Required if `key` is absent.
+   *	Unique identifier of the referenced resource. Required if `key` is absent.
    *
    *
    */

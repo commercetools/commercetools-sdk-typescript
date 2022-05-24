@@ -73,7 +73,7 @@ export interface AssignedProductSelectionPagedQueryResponse {
 }
 export interface ProductSelection extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the ProductSelection.
+   *	Unique identifier of the ProductSelection.
    *
    *
    */
@@ -248,7 +248,7 @@ export interface ProductSelectionProductPagedQueryResponse {
 export interface ProductSelectionReference {
   readonly typeId: 'product-selection'
   /**
-   *	Platform-generated unique identifier of the referenced [ProductSelection](ctp:api:type:ProductSelection).
+   *	Unique identifier of the referenced [ProductSelection](ctp:api:type:ProductSelection).
    *
    *
    */
@@ -266,7 +266,7 @@ export interface ProductSelectionReference {
 export interface ProductSelectionResourceIdentifier {
   readonly typeId: 'product-selection'
   /**
-   *	Platform-generated unique identifier of the referenced [ProductSelection](ctp:api:type:ProductSelection). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [ProductSelection](ctp:api:type:ProductSelection). Either `id` or `key` is required.
    *
    *
    */

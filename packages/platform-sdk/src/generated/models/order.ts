@@ -233,7 +233,7 @@ export type StagedOrderUpdateAction =
   | StagedOrderUpdateSyncInfoAction
 export interface Hit {
   /**
-   *	Platform-generated unique identifier of the Order.
+   *	Unique identifier of the Order.
    *
    */
   readonly id: string
@@ -274,7 +274,7 @@ export interface OrderPagedSearchResponse {
 }
 export interface Delivery {
   /**
-   *	Platform-generated unique identifier of the Delivery.
+   *	Unique identifier of the Delivery.
    *
    */
   readonly id: string
@@ -304,7 +304,7 @@ export interface Delivery {
 }
 export interface DeliveryItem {
   /**
-   *	Platform-generated unique identifier of the DeliveryItem.
+   *	Unique identifier of the DeliveryItem.
    *
    */
   readonly id: string
@@ -396,7 +396,7 @@ export interface LineItemImportDraft {
 }
 export interface Order extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the Order.
+   *	Unique identifier of the Order.
    *
    */
   readonly id: string
@@ -591,7 +591,7 @@ export interface Order extends BaseResource {
 }
 export interface OrderFromCartDraft {
   /**
-   *	Platform-generated unique identifier of the Cart from which you can create an Order.
+   *	Unique identifier of the Cart from which you can create an Order.
    *	@deprecated
    */
   readonly id?: string
@@ -800,7 +800,7 @@ export interface OrderReference {
 export interface OrderResourceIdentifier {
   readonly typeId: 'order'
   /**
-   *	Platform-generated unique identifier of the referenced resource. Required if `key` is absent.
+   *	Unique identifier of the referenced resource. Required if `key` is absent.
    *
    *
    */
@@ -905,7 +905,7 @@ export type OrderUpdateAction =
   | OrderUpdateSyncInfoAction
 export interface Parcel {
   /**
-   *	Platform-generated unique identifier of the Parcel.
+   *	Unique identifier of the Parcel.
    *
    */
   readonly id: string
@@ -1049,7 +1049,7 @@ export type ReturnItem = CustomLineItemReturnItem | LineItemReturnItem
 export interface CustomLineItemReturnItem {
   readonly type: 'CustomLineItemReturnItem'
   /**
-   *	Platform-generated unique identifier of the ReturnItem.
+   *	Unique identifier of the ReturnItem.
    *
    */
   readonly id: string
@@ -1090,7 +1090,7 @@ export interface CustomLineItemReturnItem {
 export interface LineItemReturnItem {
   readonly type: 'LineItemReturnItem'
   /**
-   *	Platform-generated unique identifier of the ReturnItem.
+   *	Unique identifier of the ReturnItem.
    *
    */
   readonly id: string

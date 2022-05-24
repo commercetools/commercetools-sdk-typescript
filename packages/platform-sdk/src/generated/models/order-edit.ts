@@ -64,7 +64,7 @@ import {
 
 export interface OrderEdit extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the OrderEdit.
+   *	Unique identifier of the OrderEdit.
    *
    */
   readonly id: string
@@ -200,7 +200,7 @@ export interface OrderEditPagedQueryResponse {
 export interface OrderEditReference {
   readonly typeId: 'order-edit'
   /**
-   *	Platform-generated unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit).
+   *	Unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit).
    *
    *
    */
@@ -219,7 +219,7 @@ export interface OrderEditReference {
 export interface OrderEditResourceIdentifier {
   readonly typeId: 'order-edit'
   /**
-   *	Platform-generated unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit). Either `id` or `key` is required.
    *
    *
    */

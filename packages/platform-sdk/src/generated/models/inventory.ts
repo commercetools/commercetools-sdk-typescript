@@ -15,7 +15,7 @@ import {
 
 export interface InventoryEntry extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the InventoryEntry.
+   *	Unique identifier of the InventoryEntry.
    *
    */
   readonly id: string
@@ -125,7 +125,7 @@ export interface InventoryEntryDraft {
 export interface InventoryEntryReference {
   readonly typeId: 'inventory-entry'
   /**
-   *	Platform-generated unique identifier of the referenced [InventoryEntry](ctp:api:type:InventoryEntry).
+   *	Unique identifier of the referenced [InventoryEntry](ctp:api:type:InventoryEntry).
    *
    *
    */
@@ -144,7 +144,7 @@ export interface InventoryEntryReference {
 export interface InventoryEntryResourceIdentifier {
   readonly typeId: 'inventory-entry'
   /**
-   *	Platform-generated unique identifier of the referenced [InventoryEntry](ctp:api:type:InventoryEntry). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [InventoryEntry](ctp:api:type:InventoryEntry). Either `id` or `key` is required.
    *
    *
    */
