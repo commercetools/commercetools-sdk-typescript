@@ -18,6 +18,10 @@ export class ByProjectKeyCategoriesByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Either the [scope](/../api/scopes) `view_products:{projectKey}` or `view_categories:{projectKey}` is required.
+   *
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -41,6 +45,10 @@ export class ByProjectKeyCategoriesByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Either the [scope](/../api/scopes) `manage_products:{projectKey}` or `manage_categories:{projectKey}` is required.
+   *
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -67,6 +75,10 @@ export class ByProjectKeyCategoriesByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Either the [scope](/../api/scopes) `manage_products:{projectKey}` or `manage_categories:{projectKey}` is required.
+   *
+   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

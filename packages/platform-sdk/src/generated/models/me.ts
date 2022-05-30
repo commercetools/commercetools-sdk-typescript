@@ -1122,7 +1122,7 @@ export interface MyPaymentSetMethodInfoMethodAction {
 export interface MyPaymentSetMethodInfoNameAction {
   readonly action: 'setMethodInfoName'
   /**
-   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
    *
    *
    */
@@ -1177,13 +1177,13 @@ export interface MyShoppingListAddLineItemAction {
 export interface MyShoppingListAddTextLineItemAction {
   readonly action: 'addTextLineItem'
   /**
-   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
    *
    *
    */
   readonly name: LocalizedString
   /**
-   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
    *
    *
    */
@@ -1224,7 +1224,7 @@ export interface MyShoppingListChangeLineItemsOrderAction {
 export interface MyShoppingListChangeNameAction {
   readonly action: 'changeName'
   /**
-   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
    *
    *
    */
@@ -1237,7 +1237,7 @@ export interface MyShoppingListChangeTextLineItemNameAction {
    */
   readonly textLineItemId: string
   /**
-   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
    *
    *
    */
@@ -1326,7 +1326,7 @@ export interface MyShoppingListSetDeleteDaysAfterLastModificationAction {
 export interface MyShoppingListSetDescriptionAction {
   readonly action: 'setDescription'
   /**
-   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
    *
    *
    */
@@ -1421,7 +1421,7 @@ export interface MyShoppingListSetTextLineItemDescriptionAction {
    */
   readonly textLineItemId: string
   /**
-   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
    *
    *
    */

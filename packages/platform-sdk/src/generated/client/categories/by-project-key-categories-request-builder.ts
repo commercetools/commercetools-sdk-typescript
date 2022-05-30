@@ -48,6 +48,10 @@ export class ByProjectKeyCategoriesRequestBuilder {
     })
   }
 
+  /**
+   *	Either the [scope](/../api/scopes) `view_products:{projectKey}` or `view_categories:{projectKey}` is required.
+   *
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -77,7 +81,10 @@ export class ByProjectKeyCategoriesRequestBuilder {
     )
   }
   /**
-   *	Creating a category produces the CategoryCreated message.
+   *	Either the [scope](/../api/scopes) `manage_products:{projectKey}` or `manage_categories:{projectKey}` is required.
+   *
+   *	Creating a Category produces the [CategoryCreatedMessage](/../api/message-types#categorycreatedmessage).
+   *
    */
   public post(methodArgs: {
     queryArgs?: {
