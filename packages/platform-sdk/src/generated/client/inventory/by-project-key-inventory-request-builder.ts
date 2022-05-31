@@ -76,6 +76,9 @@ export class ByProjectKeyInventoryRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Produces the [InventoryEntryCreatedMessage](ctp:api:type:InventoryEntryCreatedMessage).
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
