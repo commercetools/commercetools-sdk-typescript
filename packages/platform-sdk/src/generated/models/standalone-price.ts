@@ -294,6 +294,10 @@ export type StandalonePriceUpdateAction =
   | StandalonePriceChangeValueAction
   | StandalonePriceSetCustomFieldAction
   | StandalonePriceSetCustomTypeAction
+/**
+ *	Produces the [StandalonePriceValueChangedMessage](ctp:api:type:StandalonePriceValueChangedMessage).
+ *
+ */
 export interface StandalonePriceChangeValueAction {
   readonly action: 'changeValue'
   /**

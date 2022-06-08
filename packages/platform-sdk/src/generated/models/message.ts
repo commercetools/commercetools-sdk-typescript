@@ -56,6 +56,7 @@ import {
 import { ProductProjection, ProductReference, ProductVariant } from './product'
 import { ProductSelectionType } from './product-selection'
 import { Review } from './review'
+import { StandalonePrice } from './standalone-price'
 import { StateReference } from './state'
 import { ProductSelectionSetting, StoreKeyReference } from './store'
 import { CustomFields } from './type'
@@ -163,6 +164,10 @@ export type Message =
   | ReviewCreatedMessage
   | ReviewRatingSetMessage
   | ReviewStateTransitionMessage
+  | StandalonePriceCreatedMessage
+  | StandalonePriceDeletedMessage
+  | StandalonePriceDiscountSetMessage
+  | StandalonePriceValueChangedMessage
   | StoreCreatedMessage
   | StoreDeletedMessage
   | StoreProductSelectionsChangedMessage
@@ -5296,6 +5301,240 @@ export interface ReviewStateTransitionMessage {
    */
   readonly force: boolean
 }
+/**
+ *	Generated after a successful [Create StandalonePrice](/../api/projects/standalone-prices#create-standaloneprice) request.
+ *
+ */
+export interface StandalonePriceCreatedMessage {
+  readonly type: 'StandalonePriceCreated'
+  /**
+   *	Unique identifier of the Message.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Standalone Price as it was created.
+   *
+   *
+   */
+  readonly standalonePrice: StandalonePrice
+}
+/**
+ *	Generated after a successful [Delete StandalonePrice](/../api/projects/standalone-prices#delete-standaloneprice) request.
+ *
+ */
+export interface StandalonePriceDeletedMessage {
+  readonly type: 'StandalonePriceDeleted'
+  /**
+   *	Unique identifier of the Message.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+}
+/**
+ *	Emitted when the affected StandalonePrice is updated based on a [Product Discount](ctp:api:type:ProductDiscount) being applied.
+ *
+ */
+export interface StandalonePriceDiscountSetMessage {
+  readonly type: 'StandalonePriceDiscountSet'
+  /**
+   *	Unique identifier of the Message.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The new `discounted` value of the updated StandalonePrice.
+   *
+   *
+   */
+  readonly discounted?: DiscountedPrice
+}
+/**
+ *	Generated after a successful [Change Value](ctp:api:types:StandalonePriceChangeValueAction) update action.
+ *
+ */
+export interface StandalonePriceValueChangedMessage {
+  readonly type: 'StandalonePriceValueChanged'
+  /**
+   *	Unique identifier of the Message.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The new value of the updated StandalonePrice.
+   *
+   *
+   */
+  readonly value: Money
+}
 export interface StoreCreatedMessage {
   readonly type: 'StoreCreated'
   /**
@@ -5609,6 +5848,10 @@ export type MessagePayload =
   | ReviewRatingSetMessagePayload
   | ReviewStateTransitionMessagePayload
   | ShoppingListStoreSetMessagePayload
+  | StandalonePriceCreatedMessagePayload
+  | StandalonePriceDeletedMessagePayload
+  | StandalonePriceDiscountSetMessagePayload
+  | StandalonePriceValueChangedMessagePayload
   | StoreCreatedMessagePayload
   | StoreDeletedMessagePayload
   | StoreProductSelectionsChangedMessagePayload
@@ -6665,6 +6908,52 @@ export interface ShoppingListStoreSetMessagePayload {
    *
    */
   readonly store: StoreKeyReference
+}
+/**
+ *	Generated after a successful [Create StandalonePrice](/../api/projects/standalone-prices#create-standaloneprice) request.
+ *
+ */
+export interface StandalonePriceCreatedMessagePayload {
+  readonly type: 'StandalonePriceCreated'
+  /**
+   *	The Standalone Price as it was created.
+   *
+   *
+   */
+  readonly standalonePrice: StandalonePrice
+}
+/**
+ *	Generated after a successful [Delete StandalonePrice](/../api/projects/standalone-prices#delete-standaloneprice) request.
+ *
+ */
+export interface StandalonePriceDeletedMessagePayload {
+  readonly type: 'StandalonePriceDeleted'
+}
+/**
+ *	Emitted when the affected StandalonePrice is updated based on a [Product Discount](ctp:api:type:ProductDiscount) being applied.
+ *
+ */
+export interface StandalonePriceDiscountSetMessagePayload {
+  readonly type: 'StandalonePriceDiscountSet'
+  /**
+   *	The new `discounted` value of the updated StandalonePrice.
+   *
+   *
+   */
+  readonly discounted?: DiscountedPrice
+}
+/**
+ *	Generated after a successful [Change Value](ctp:api:types:StandalonePriceChangeValueAction) update action.
+ *
+ */
+export interface StandalonePriceValueChangedMessagePayload {
+  readonly type: 'StandalonePriceValueChanged'
+  /**
+   *	The new value of the updated StandalonePrice.
+   *
+   *
+   */
+  readonly value: Money
 }
 export interface StoreCreatedMessagePayload {
   readonly type: 'StoreCreated'

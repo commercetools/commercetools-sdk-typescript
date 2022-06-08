@@ -70,6 +70,10 @@ export class ByProjectKeyStandalonePricesByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Produces the [StandalonePriceDeletedMessage](ctp:api:type:StandalonePriceDeletedMessage).
+   *
+   */
   public delete(methodArgs: {
     queryArgs: {
       version: number
