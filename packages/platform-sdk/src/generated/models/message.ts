@@ -2353,7 +2353,7 @@ export interface OrderEditAppliedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](ctp:api:type:Reference) to a [OrderEdit](ctp:api:type:OrderEdit).
+   *	[Reference](ctp:api:type:Reference) to an [OrderEdit](ctp:api:type:OrderEdit).
    *
    *
    */
@@ -6283,7 +6283,7 @@ export interface OrderDiscountCodeStateSetMessagePayload {
 export interface OrderEditAppliedMessagePayload {
   readonly type: 'OrderEditApplied'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [OrderEdit](ctp:api:type:OrderEdit).
+   *	[Reference](ctp:api:type:Reference) to an [OrderEdit](ctp:api:type:OrderEdit).
    *
    *
    */

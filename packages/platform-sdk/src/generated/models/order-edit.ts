@@ -194,7 +194,7 @@ export interface OrderEditPagedQueryResponse {
   readonly results: OrderEdit[]
 }
 /**
- *	[Reference](ctp:api:type:Reference) to a [OrderEdit](ctp:api:type:OrderEdit).
+ *	[Reference](ctp:api:type:Reference) to an [OrderEdit](ctp:api:type:OrderEdit).
  *
  */
 export interface OrderEditReference {
@@ -213,7 +213,7 @@ export interface OrderEditReference {
   readonly obj?: OrderEdit
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [OrderEdit](ctp:api:type:OrderEdit).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [OrderEdit](ctp:api:type:OrderEdit).
  *
  */
 export interface OrderEditResourceIdentifier {
