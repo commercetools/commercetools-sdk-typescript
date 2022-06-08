@@ -207,6 +207,12 @@ export interface ExtensionTrigger {
    *
    */
   readonly actions: ExtensionAction[]
+  /**
+   *	Valid [predicate](/../api/predicates/query) that controls the conditions under which the API Extension is called. The Extension is not triggered when the specified condition is not fulfilled.
+   *
+   *
+   */
+  readonly condition?: string
 }
 export interface ExtensionUpdate {
   /**
