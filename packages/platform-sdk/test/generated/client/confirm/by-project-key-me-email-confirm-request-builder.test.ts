@@ -18,7 +18,7 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .withProjectKey({ projectKey: 'test_projectKey' })
         .me()
         .emailConfirm()
-        .post(),
+        .post({ body: null, headers: null }),
     },
   ]
 }

@@ -19,7 +19,7 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
         .me()
         .emailConfirm()
-        .post(),
+        .post({ body: null, headers: null }),
     },
   ]
 }
