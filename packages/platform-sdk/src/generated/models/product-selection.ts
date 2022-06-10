@@ -256,6 +256,7 @@ export interface ProductSelectionReference {
   /**
    *	Contains the representation of the expanded ProductSelection. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for ProductSelections.
    *
+   *
    */
   readonly obj?: ProductSelection
 }

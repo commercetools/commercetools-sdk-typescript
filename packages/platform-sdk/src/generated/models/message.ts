@@ -3375,6 +3375,8 @@ export interface OrderStoreSetMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Reference](/../api/types#reference) to a [Store](ctp:api:type:Store) by its key.
+   *
    *
    */
   readonly store: StoreKeyReference
@@ -6506,6 +6508,8 @@ export interface OrderStateTransitionMessagePayload {
 export interface OrderStoreSetMessagePayload {
   readonly type: 'OrderStoreSet'
   /**
+   *	[Reference](/../api/types#reference) to a [Store](ctp:api:type:Store) by its key.
+   *
    *
    */
   readonly store: StoreKeyReference
@@ -6905,6 +6909,8 @@ export interface ReviewStateTransitionMessagePayload {
 export interface ShoppingListStoreSetMessagePayload {
   readonly type: 'ShoppingListStoreSet'
   /**
+   *	[Reference](/../api/types#reference) to a [Store](ctp:api:type:Store) by its key.
+   *
    *
    */
   readonly store: StoreKeyReference

@@ -629,6 +629,8 @@ export interface CustomerAddShippingAddressIdAction {
 export interface CustomerAddStoreAction {
   readonly action: 'addStore'
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Store](ctp:api:type:Store).
+   *
    *
    */
   readonly store: StoreResourceIdentifier
@@ -691,6 +693,8 @@ export interface CustomerRemoveShippingAddressIdAction {
 export interface CustomerRemoveStoreAction {
   readonly action: 'removeStore'
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Store](ctp:api:type:Store).
+   *
    *
    */
   readonly store: StoreResourceIdentifier

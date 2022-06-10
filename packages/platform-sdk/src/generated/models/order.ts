@@ -1952,6 +1952,8 @@ export interface OrderSetShippingAddressCustomTypeAction {
 export interface OrderSetStoreAction {
   readonly action: 'setStore'
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Store](ctp:api:type:Store).
+   *
    *
    */
   readonly store?: StoreResourceIdentifier

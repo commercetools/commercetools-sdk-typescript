@@ -99,6 +99,8 @@ export interface MyCartDraft {
    */
   readonly itemShippingAddresses?: BaseAddress[]
   /**
+   *	[Reference](/../api/types#reference) to a [Store](ctp:api:type:Store) by its key.
+   *
    *
    */
   readonly store?: StoreKeyReference
