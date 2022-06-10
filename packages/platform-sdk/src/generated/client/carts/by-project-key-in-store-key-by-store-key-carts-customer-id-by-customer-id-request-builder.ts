@@ -22,7 +22,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsCustomerIdByCustomerIdRequestB
   /**
    *	Retrieves the active cart of the customer that has been modified most recently in a specific Store.
    *
-   *	If the cart exists in the commercetools project but does not have the store field, or the store field
+   *	If the cart exists in the project but does not have the store field, or the store field
    *	references a different store, this method returns a ResourceNotFound error.
    *
    *	The cart may not contain up-to-date prices, discounts etc. If you want to ensure they're up-to-date,

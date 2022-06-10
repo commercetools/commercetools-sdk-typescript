@@ -21,15 +21,15 @@ run `yarn generate` to generate the sdks. (make sure the environment variables a
 | Variable name |                                                         Description                                                          |
 | ------------- | :--------------------------------------------------------------------------------------------------------------------------: |
 | ML_API_REF    | The path to Composable Commerce [Machine Learning API reference](https://github.com/commercetools/ml-services-api-reference) |
-| API_RAML_FILE |           The path to Composable Commerce [HTTP API reference](https://github.com/commercetools/commercetools-api-reference)           |
+| API_RAML_FILE |      The path to Composable Commerce [HTTP API reference](https://github.com/commercetools/commercetools-api-reference)      |
 
 ## Test environnement variables
 
-| Variable name     |                                                     Description                                                     |
-| ----------------- | :-----------------------------------------------------------------------------------------------------------------: |
-| CTP_PROJECT_KEY   |                                           Composable Commerce Project key                                           |
-| CTP_CLIENT_ID     |                                                    the client id                                                    |
-| CTP_CLIENT_SECRET |                                                  the client secret                                                  |
-| CTP_API_URL       |                                    the API url (contains infos about the region)                                    |
-| CTP_AUTH_URL      |                                   the auth url (contains infos about the region)                                    |
+| Variable name     |                                             Description                                             |
+| ----------------- | :-------------------------------------------------------------------------------------------------: |
+| CTP_PROJECT_KEY   |                                   Composable Commerce Project key                                   |
+| CTP_CLIENT_ID     |                                            the client id                                            |
+| CTP_CLIENT_SECRET |                                          the client secret                                          |
+| CTP_API_URL       |                            the API url (contains infos about the region)                            |
+| CTP_AUTH_URL      |                           the auth url (contains infos about the region)                            |
 | CTP_ML_API_URL    | the Machine Learning API uses a different pattern than the HTTP API, use this to access ML services |

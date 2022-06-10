@@ -22,155 +22,205 @@ import {
 
 export interface Category extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the Category.
+   *	Unique identifier of the Category.
+   *
    *
    */
   readonly id: string
   /**
-   *	The current version of the category.
+   *	Current version of the Category.
+   *
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Category was initially created.
+   *
    *
    */
   readonly createdAt: string
   /**
+   *	Date and time (UTC) the Category was last updated.
+   *
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources updated after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
    *
    *
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Name of the Category.
+   *
    *
    */
   readonly name: LocalizedString
   /**
-   *	human-readable identifiers usually used as deep-link URL to the related category.
-   *	Each slug is unique across a project, but a category can have the same slug for different languages.
+   *	User-defined identifier used as a deep-link URL to the related Category per [Locale](ctp:api:type:Locale).
+   *	A Category can have the same slug for different Locales, but they are unique across the [Project](ctp:api:type:Project).
+   *	Valid slugs match the pattern `^[A-Za-z0-9_-]{2,256}+$`.
+   *	For [good performance](/../api/predicates/query#performance-considerations), indexes are provided for the first 15 `languages` set in a Project.
+   *
    *
    */
   readonly slug: LocalizedString
   /**
+   *	Description of the Category.
+   *
    *
    */
   readonly description?: LocalizedString
   /**
-   *	Contains the parent path towards the root category.
+   *	Contains the parent path towards the root Category.
+   *
    *
    */
   readonly ancestors: CategoryReference[]
   /**
-   *	A category that is the parent of this category in the category tree.
+   *	Parent Category of this Category.
+   *
    *
    */
   readonly parent?: CategoryReference
   /**
-   *	An attribute as base for a custom category order in one level.
+   *	Decimal value between 0 and 1 used to order Categories that are on the same level in the Category tree.
+   *
    *
    */
   readonly orderHint: string
   /**
+   *	Additional identifier for external systems like Customer Relationship Management (CRM) or Enterprise Resource Planning (ERP).
+   *
    *
    */
   readonly externalId?: string
   /**
+   *	Name of the Category used by external search engines for improved search engine performance.
+   *
    *
    */
   readonly metaTitle?: LocalizedString
   /**
+   *	Description of the Category used by external search engines for improved search engine performance.
+   *
    *
    */
   readonly metaDescription?: LocalizedString
   /**
+   *	Keywords related to the Category for improved search engine performance.
+   *
    *
    */
   readonly metaKeywords?: LocalizedString
   /**
+   *	Custom Fields for the Category.
+   *
    *
    */
   readonly custom?: CustomFields
   /**
-   *	Can be used to store images, icons or movies related to this category.
+   *	Media related to the Category.
+   *
    *
    */
   readonly assets?: Asset[]
   /**
    *	User-defined unique identifier of the Category.
    *
+   *
    */
   readonly key?: string
 }
 export interface CategoryDraft {
   /**
+   *	Name of the Category.
+   *
    *
    */
   readonly name: LocalizedString
   /**
-   *	human-readable identifier usually used as deep-link URL to the related category.
-   *	Allowed are alphabetic, numeric, underscore (`_`) and hyphen (`-`) characters.
-   *	Maximum size is 256.
-   *	**Must be unique across a project!** The same category can have the same slug for different languages.
+   *	User-defined identifier used as a deep-link URL to the related Category.
+   *	A Category can have the same slug for different [Locales](ctp:api:type:Locale), but it must be unique across the [Project](ctp:api:type:Project).
+   *	Valid slugs must match the pattern `^[A-Za-z0-9_-]{2,256}+$`.
+   *
    *
    */
   readonly slug: LocalizedString
   /**
+   *	Description of the Category.
+   *
    *
    */
   readonly description?: LocalizedString
   /**
-   *	A category that is the parent of this category in the category tree.
-   *	The parent can be set by its ID or by its key.
+   *	Parent Category of the Category.
+   *	The parent can be set by its `id` or `key`.
+   *
    *
    */
   readonly parent?: CategoryResourceIdentifier
   /**
-   *	An attribute as base for a custom category order in one level.
-   *	A random value will be assigned by API if not set.
+   *	Decimal value between 0 and 1 used to order Categories that are on the same level in the Category tree.
+   *	If not set, a random value will be assigned.
+   *
    *
    */
   readonly orderHint?: string
   /**
+   *	Additional identifier for external systems like Customer Relationship Management (CRM) or Enterprise Resource Planning (ERP).
+   *
    *
    */
   readonly externalId?: string
   /**
+   *	Name of the Category used by external search engines for improved search engine performance.
+   *
    *
    */
   readonly metaTitle?: LocalizedString
   /**
+   *	Description of the Category used by external search engines for improved search engine performance.
+   *
    *
    */
   readonly metaDescription?: LocalizedString
   /**
+   *	Keywords related to the Category for improved search engine performance.
+   *
    *
    */
   readonly metaKeywords?: LocalizedString
   /**
-   *	The custom fields.
+   *	Custom Fields for the Category.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
   /**
+   *	Media related to the Category.
+   *
    *
    */
   readonly assets?: AssetDraft[]
   /**
    *	User-defined unique identifier for the Category.
    *
+   *
    */
   readonly key?: string
 }
+/**
+ *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [Category](ctp:api:type:Category).
+ *
+ */
 export interface CategoryPagedQueryResponse {
   /**
    *	Number of [results requested](/../api/general-concepts#limit).
@@ -179,20 +229,30 @@ export interface CategoryPagedQueryResponse {
    */
   readonly limit: number
   /**
-   *
-   */
-  readonly count: number
-  /**
-   *
-   */
-  readonly total?: number
-  /**
    *	Number of [elements skipped](/../api/general-concepts#offset).
    *
    *
    */
   readonly offset: number
   /**
+   *	Actual number of results returned.
+   *
+   *
+   */
+  readonly count: number
+  /**
+   *	Total number of results matching the query.
+   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This field is returned by default.
+   *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
+   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *
+   *
+   */
+  readonly total?: number
+  /**
+   *	[Category](ctp:api:type:Category) matching the query.
+   *
    *
    */
   readonly results: Category[]
@@ -204,7 +264,7 @@ export interface CategoryPagedQueryResponse {
 export interface CategoryReference {
   readonly typeId: 'category'
   /**
-   *	Platform-generated unique identifier of the referenced [Category](ctp:api:type:Category).
+   *	Unique identifier of the referenced [Category](ctp:api:type:Category).
    *
    *
    */
@@ -223,7 +283,7 @@ export interface CategoryReference {
 export interface CategoryResourceIdentifier {
   readonly typeId: 'category'
   /**
-   *	Platform-generated unique identifier of the referenced [Category](ctp:api:type:Channel). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [Category](ctp:api:type:Channel). Either `id` or `key` is required.
    *
    *
    */
@@ -237,10 +297,15 @@ export interface CategoryResourceIdentifier {
 }
 export interface CategoryUpdate {
   /**
+   *	Expected version of the Category on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *
    *
    */
   readonly version: number
   /**
+   *	Update actions to be performed on the Category.
+   *
    *
    */
   readonly actions: CategoryUpdateAction[]
@@ -271,11 +336,13 @@ export type CategoryUpdateAction =
 export interface CategoryAddAssetAction {
   readonly action: 'addAsset'
   /**
+   *	Value to append.
+   *
    *
    */
   readonly asset: AssetDraft
   /**
-   *	When specified, the value might be `0` and should be lower than the total of the assets list.
+   *	Position in the array at which the Asset should be put. When specified, the value must be between `0` and the total number of Assets minus `1`.
    *
    */
   readonly position?: number
@@ -283,21 +350,33 @@ export interface CategoryAddAssetAction {
 export interface CategoryChangeAssetNameAction {
   readonly action: 'changeAssetName'
   /**
+   *	New value to set. Either `assetId` or `assetKey` is required.
+   *
    *
    */
   readonly assetId?: string
   /**
+   *	New value to set. Either `assetId` or `assetKey` is required.
+   *
    *
    */
   readonly assetKey?: string
   /**
+   *	New value to set. Must not be empty.
+   *
    *
    */
   readonly name: LocalizedString
 }
+/**
+ *	This update action changes the order of the `assets` array. The new order is defined by listing the `id`s of the Assets.
+ *
+ */
 export interface CategoryChangeAssetOrderAction {
   readonly action: 'changeAssetOrder'
   /**
+   *	New value to set. Must contain all Asset `id`s.
+   *
    *
    */
   readonly assetOrder: string[]
@@ -305,6 +384,8 @@ export interface CategoryChangeAssetOrderAction {
 export interface CategoryChangeNameAction {
   readonly action: 'changeName'
   /**
+   *	New value to set. Must not be empty.
+   *
    *
    */
   readonly name: LocalizedString
@@ -312,6 +393,8 @@ export interface CategoryChangeNameAction {
 export interface CategoryChangeOrderHintAction {
   readonly action: 'changeOrderHint'
   /**
+   *	New value to set. Must be a decimal value between 0 and 1.
+   *
    *
    */
   readonly orderHint: string
@@ -319,15 +402,23 @@ export interface CategoryChangeOrderHintAction {
 export interface CategoryChangeParentAction {
   readonly action: 'changeParent'
   /**
+   *	New value to set as parent.
+   *
    *
    */
   readonly parent: CategoryResourceIdentifier
 }
+/**
+ *	Changing the slug produces the [CategorySlugChangedMessage](ctp:api:type:CategorySlugChangedMessage).
+ *
+ */
 export interface CategoryChangeSlugAction {
   readonly action: 'changeSlug'
   /**
-   *	Allowed are alphabetic, numeric, underscore (&#95;) and hyphen (&#45;) characters.
-   *	Maximum size is {{ site.data.api-limits.slugLength }}.
+   *	New value to set. Must not be empty.
+   *	A Category can have the same slug for different [Locales](ctp:api:type:Locale), but it must be unique across the [Project](ctp:api:type:Project).
+   *	Valid slugs must match the pattern `^[A-Za-z0-9_-]{2,256}+$`.
+   *
    *
    */
   readonly slug: LocalizedString
@@ -335,10 +426,14 @@ export interface CategoryChangeSlugAction {
 export interface CategoryRemoveAssetAction {
   readonly action: 'removeAsset'
   /**
+   *	Value to remove. Either `assetId` or `assetKey` is required.
+   *
    *
    */
   readonly assetId?: string
   /**
+   *	Value to remove. Either `assetId` or `assetKey` is required.
+   *
    *
    */
   readonly assetKey?: string
@@ -346,10 +441,14 @@ export interface CategoryRemoveAssetAction {
 export interface CategorySetAssetCustomFieldAction {
   readonly action: 'setAssetCustomField'
   /**
+   *	New value to set. Either `assetId` or `assetKey` is required.
+   *
    *
    */
   readonly assetId?: string
   /**
+   *	New value to set. Either `assetId` or `assetKey` is required.
+   *
    *
    */
   readonly assetKey?: string
@@ -371,10 +470,14 @@ export interface CategorySetAssetCustomFieldAction {
 export interface CategorySetAssetCustomTypeAction {
   readonly action: 'setAssetCustomType'
   /**
+   *	New value to set. Either `assetId` or `assetKey` is required.
+   *
    *
    */
   readonly assetId?: string
   /**
+   *	New value to set. Either `assetId` or `assetKey` is required.
+   *
    *
    */
   readonly assetKey?: string
@@ -390,32 +493,44 @@ export interface CategorySetAssetCustomTypeAction {
    *
    *
    */
-  readonly fields?: any
+  readonly fields?: FieldContainer
 }
 export interface CategorySetAssetDescriptionAction {
   readonly action: 'setAssetDescription'
   /**
+   *	New value to set. Either `assetId` or `assetKey` is required.
+   *
    *
    */
   readonly assetId?: string
   /**
+   *	New value to set. Either `assetId` or `assetKey` is required.
+   *
    *
    */
   readonly assetKey?: string
   /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
    *
    */
   readonly description?: LocalizedString
 }
+/**
+ *	Set or remove the `key` of an [Asset](ctp:api:type:Asset).
+ *
+ */
 export interface CategorySetAssetKeyAction {
   readonly action: 'setAssetKey'
   /**
+   *	Value to set.
+   *
    *
    */
   readonly assetId: string
   /**
-   *	User-defined identifier for the asset.
-   *	If left blank or set to `null`, the asset key is unset/removed.
+   *	Value to set. If empty, any existing value will be removed.
+   *
    *
    */
   readonly assetKey?: string
@@ -423,14 +538,20 @@ export interface CategorySetAssetKeyAction {
 export interface CategorySetAssetSourcesAction {
   readonly action: 'setAssetSources'
   /**
+   *	New value to set. Either `assetId` or `assetKey` is required.
+   *
    *
    */
   readonly assetId?: string
   /**
+   *	New value to set. Either `assetId` or `assetKey` is required.
+   *
    *
    */
   readonly assetKey?: string
   /**
+   *	Must not be empty. At least one entry is required.
+   *
    *
    */
   readonly sources: AssetSource[]
@@ -438,14 +559,20 @@ export interface CategorySetAssetSourcesAction {
 export interface CategorySetAssetTagsAction {
   readonly action: 'setAssetTags'
   /**
+   *	New value to set. Either `assetId` or `assetKey` is required.
+   *
    *
    */
   readonly assetId?: string
   /**
+   *	New value to set. Either `assetId` or `assetKey` is required.
+   *
    *
    */
   readonly assetKey?: string
   /**
+   *	Keywords for categorizing and organizing Assets.
+   *
    *
    */
   readonly tags?: string[]
@@ -486,14 +613,21 @@ export interface CategorySetCustomTypeAction {
 export interface CategorySetDescriptionAction {
   readonly action: 'setDescription'
   /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
    *
    */
   readonly description?: LocalizedString
 }
+/**
+ *	This update action sets a new ID that can be used as an additional identifier for external systems like Customer Relationship Management (CRM) or Enterprise Resource Planning (ERP).
+ *
+ */
 export interface CategorySetExternalIdAction {
   readonly action: 'setExternalId'
   /**
-   *	If not defined, the external ID is unset.
+   *	Value to set. If empty, any existing value will be removed.
+   *
    *
    */
   readonly externalId?: string
@@ -501,9 +635,8 @@ export interface CategorySetExternalIdAction {
 export interface CategorySetKeyAction {
   readonly action: 'setKey'
   /**
-   *	User-defined unique identifier for the category.
-   *	Keys can only contain alphanumeric characters (`a-Z, 0-9`), underscores and hyphens (`-, _`) and be between 2 and 256 characters.
-   *	If `key` is absent or `null`, this field will be removed if it exists.
+   *	Value to set. If empty, any existing value will be removed.
+   *
    *
    */
   readonly key?: string
@@ -511,6 +644,8 @@ export interface CategorySetKeyAction {
 export interface CategorySetMetaDescriptionAction {
   readonly action: 'setMetaDescription'
   /**
+   *	Value to set.
+   *
    *
    */
   readonly metaDescription?: LocalizedString
@@ -518,6 +653,8 @@ export interface CategorySetMetaDescriptionAction {
 export interface CategorySetMetaKeywordsAction {
   readonly action: 'setMetaKeywords'
   /**
+   *	Value to set.
+   *
    *
    */
   readonly metaKeywords?: LocalizedString
@@ -525,6 +662,8 @@ export interface CategorySetMetaKeywordsAction {
 export interface CategorySetMetaTitleAction {
   readonly action: 'setMetaTitle'
   /**
+   *	Value to set.
+   *
    *
    */
   readonly metaTitle?: LocalizedString

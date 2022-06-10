@@ -51,7 +51,7 @@ export interface Record {
   readonly previousLabel: Label
   /**
    *	Shows the differences in the resource between `previousVersion` and `version`.
-   *	The value is not identical to the actual array of update actions that was sent to the platform and is not limited to update actions (see, for example, [Optimistic  Concurrency Control](/general-concepts#optimistic-concurrency-control)).
+   *	The value is not identical to the actual array of update actions sent and is not limited to update actions (see, for example, [Optimistic  Concurrency Control](/general-concepts#optimistic-concurrency-control)).
    *
    *
    */

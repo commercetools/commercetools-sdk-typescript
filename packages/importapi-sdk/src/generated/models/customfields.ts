@@ -98,7 +98,7 @@ export interface LocalizedStringField {
   readonly value: LocalizedString
 }
 /**
- *	A field with a enum value.
+ *	A field with an enum value.
  */
 export interface EnumField {
   readonly type: 'Enum'
@@ -209,7 +209,7 @@ export interface LocalizedStringSetField {
   readonly value: LocalizedString[]
 }
 /**
- *	A field with a enum set value.
+ *	A field with an enum set value.
  */
 export interface EnumSetField {
   readonly type: 'EnumSet'

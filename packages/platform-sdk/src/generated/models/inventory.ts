@@ -15,19 +15,25 @@ import {
 
 export interface InventoryEntry extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the InventoryEntry.
+   *	Unique identifier of the InventoryEntry.
+   *
    *
    */
   readonly id: string
   /**
+   *	Current version of the InventoryEntry.
+   *
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the InventoryEntry was initially created.
+   *
    *
    */
   readonly createdAt: string
   /**
+   *	Date and time (UTC) the InventoryEntry was last updated.
    *
    */
   readonly lastModifiedAt: string
@@ -50,43 +56,50 @@ export interface InventoryEntry extends BaseResource {
    */
   readonly key?: string
   /**
+   *	[ProductVariant](ctp:api:type:ProductVariant) `sku` of the InventoryEntry.
+   *
    *
    */
   readonly sku: string
   /**
-   *	Connection to a particular supplier.
+   *	[Channel](ctp:api:type:Channel) that supplies this InventoryEntry.
+   *
    *
    */
   readonly supplyChannel?: ChannelReference
   /**
-   *	Overall amount of stock.
-   *	(available + reserved)
+   *	Overall amount of stock (`availableQuantity` + reserved).
    *
    */
   readonly quantityOnStock: number
   /**
-   *	Available amount of stock.
-   *	(available means: `quantityOnStock` - reserved quantity)
+   *	Available amount of stock (`quantityOnStock` - reserved).
+   *
    *
    */
   readonly availableQuantity: number
   /**
-   *	The time period in days, that tells how often this inventory entry is restocked.
+   *	How often the InventoryEntry is restocked (in days).
    *
    */
   readonly restockableInDays?: number
   /**
-   *	The date and time of the next restock.
+   *	Date and time of the next restock.
+   *
    *
    */
   readonly expectedDelivery?: string
   /**
+   *	Custom Fields of the InventoryEntry.
+   *
    *
    */
   readonly custom?: CustomFields
 }
 export interface InventoryEntryDraft {
   /**
+   *	[ProductVariant](ctp:api:type:ProductVariant) `sku` of the InventoryEntry.
+   *
    *
    */
   readonly sku: string
@@ -97,35 +110,44 @@ export interface InventoryEntryDraft {
    */
   readonly key?: string
   /**
+   *	[Channel](ctp:api:type:Channel) that supplies this InventoryEntry.
+   *
    *
    */
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
+   *	Overall amount of stock.
+   *
    *
    */
   readonly quantityOnStock: number
   /**
+   *	How often the InventoryEntry is restocked (in days).
+   *
    *
    */
   readonly restockableInDays?: number
   /**
+   *	Date and time of the next restock.
+   *
    *
    */
   readonly expectedDelivery?: string
   /**
-   *	The custom fields.
+   *	Custom Fields of the InventoryEntry.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
 }
 /**
- *	[Reference](ctp:api:type:Reference) to a [InventoryEntry](ctp:api:type:InventoryEntry).
+ *	[Reference](ctp:api:type:Reference) to an [InventoryEntry](ctp:api:type:InventoryEntry).
  *
  */
 export interface InventoryEntryReference {
   readonly typeId: 'inventory-entry'
   /**
-   *	Platform-generated unique identifier of the referenced [InventoryEntry](ctp:api:type:InventoryEntry).
+   *	Unique identifier of the referenced [InventoryEntry](ctp:api:type:InventoryEntry).
    *
    *
    */
@@ -138,13 +160,13 @@ export interface InventoryEntryReference {
   readonly obj?: InventoryEntry
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [InventoryEntry](ctp:api:type:InventoryEntry).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [InventoryEntry](ctp:api:type:InventoryEntry).
  *
  */
 export interface InventoryEntryResourceIdentifier {
   readonly typeId: 'inventory-entry'
   /**
-   *	Platform-generated unique identifier of the referenced [InventoryEntry](ctp:api:type:InventoryEntry). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [InventoryEntry](ctp:api:type:InventoryEntry). Either `id` or `key` is required.
    *
    *
    */
@@ -158,10 +180,14 @@ export interface InventoryEntryResourceIdentifier {
 }
 export interface InventoryEntryUpdate {
   /**
+   *	Expected version of the InventoryEntry on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *
    *
    */
   readonly version: number
   /**
+   *	Update actions to be performed on the InventoryEntry.
+   *
    *
    */
   readonly actions: InventoryEntryUpdateAction[]
@@ -184,41 +210,63 @@ export interface InventoryPagedQueryResponse {
    */
   readonly limit: number
   /**
-   *
-   */
-  readonly count: number
-  /**
-   *
-   */
-  readonly total?: number
-  /**
    *	Number of [elements skipped](/../api/general-concepts#offset).
    *
    *
    */
   readonly offset: number
   /**
+   *	Actual number of results returned.
+   *
+   *
+   */
+  readonly count: number
+  /**
+   *	Total number of results matching the query.
+   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This field is returned by default.
+   *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
+   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *
+   *
+   */
+  readonly total?: number
+  /**
+   *	[Inventory entries](ctp:api:type:InventoryEntry) matching the query.
+   *
    *
    */
   readonly results: InventoryEntry[]
 }
+/**
+ *	Updates `availableQuantity` based on the new `quantityOnStock` and amount of active reservations.
+ */
 export interface InventoryEntryAddQuantityAction {
   readonly action: 'addQuantity'
   /**
+   *	Value to add to `quantityOnStock`.
    *
    */
   readonly quantity: number
 }
+/**
+ *	Updates `availableQuantity` based on the new `quantityOnStock` and amount of active reservations.
+ */
 export interface InventoryEntryChangeQuantityAction {
   readonly action: 'changeQuantity'
   /**
+   *	Value to set for `quantityOnStock`.
    *
    */
   readonly quantity: number
 }
+/**
+ *	Updates `availableQuantity` based on the new `quantityOnStock` and amount of active reservations.
+ */
 export interface InventoryEntryRemoveQuantityAction {
   readonly action: 'removeQuantity'
   /**
+   *	Value to remove from `quantityOnStock`.
    *
    */
   readonly quantity: number
@@ -259,6 +307,7 @@ export interface InventoryEntrySetCustomTypeAction {
 export interface InventoryEntrySetExpectedDeliveryAction {
   readonly action: 'setExpectedDelivery'
   /**
+   *	Value to set. If empty, any existing value will be removed.
    *
    */
   readonly expectedDelivery?: string
@@ -275,15 +324,18 @@ export interface InventoryEntrySetKeyAction {
 export interface InventoryEntrySetRestockableInDaysAction {
   readonly action: 'setRestockableInDays'
   /**
+   *	Value to set. If empty, any existing value will be removed.
    *
    */
   readonly restockableInDays?: number
 }
+/**
+ *	If an entry with the same `sku` and `supplyChannel` already exists, this action will fail and a [400 Bad Request](/../api/errors#400-bad-request-1) `DuplicateField` error will be returned.
+ */
 export interface InventoryEntrySetSupplyChannelAction {
   readonly action: 'setSupplyChannel'
   /**
-   *	If absent, the supply channel is removed.
-   *	This action will fail if an entry with the combination of sku and supplyChannel already exists.
+   *	Value to set. If empty, any existing value will be removed.
    *
    */
   readonly supplyChannel?: ChannelResourceIdentifier

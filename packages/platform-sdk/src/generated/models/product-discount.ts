@@ -17,7 +17,7 @@ import {
 
 export interface ProductDiscount extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the ProductDiscount.
+   *	Unique identifier of the ProductDiscount.
    *
    *
    */
@@ -249,7 +249,7 @@ export interface ProductDiscountPagedQueryResponse {
 export interface ProductDiscountReference {
   readonly typeId: 'product-discount'
   /**
-   *	Platform-generated unique identifier of the referenced [ProductDiscount](ctp:api:type:ProductDiscount).
+   *	Unique identifier of the referenced [ProductDiscount](ctp:api:type:ProductDiscount).
    *
    *
    */
@@ -268,7 +268,7 @@ export interface ProductDiscountReference {
 export interface ProductDiscountResourceIdentifier {
   readonly typeId: 'product-discount'
   /**
-   *	Platform-generated unique identifier of the referenced [ProductDiscount](ctp:api:type:ProductDiscount). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [ProductDiscount](ctp:api:type:ProductDiscount). Either `id` or `key` is required.
    *
    *
    */

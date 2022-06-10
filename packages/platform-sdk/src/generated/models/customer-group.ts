@@ -14,7 +14,7 @@ import {
 
 export interface CustomerGroup extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the CustomerGroup.
+   *	Unique identifier of the CustomerGroup.
    *
    *
    */
@@ -136,7 +136,7 @@ export interface CustomerGroupPagedQueryResponse {
 export interface CustomerGroupReference {
   readonly typeId: 'customer-group'
   /**
-   *	Platform-generated unique identifier of the referenced [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	Unique identifier of the referenced [CustomerGroup](ctp:api:type:CustomerGroup).
    *
    *
    */
@@ -155,7 +155,7 @@ export interface CustomerGroupReference {
 export interface CustomerGroupResourceIdentifier {
   readonly typeId: 'customer-group'
   /**
-   *	Platform-generated unique identifier of the referenced [CustomerGroup](ctp:api:type:CustomerGroup). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [CustomerGroup](ctp:api:type:CustomerGroup). Either `id` or `key` is required.
    *
    *
    */

@@ -23,7 +23,7 @@ import {
 
 export interface Payment extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the Payment.
+   *	Unique identifier of the Payment.
    *
    */
   readonly id: string
@@ -273,7 +273,7 @@ export interface PaymentPagedQueryResponse {
 export interface PaymentReference {
   readonly typeId: 'payment'
   /**
-   *	Platform-generated unique identifier of the referenced [Payment](ctp:api:type:Payment).
+   *	Unique identifier of the referenced [Payment](ctp:api:type:Payment).
    *
    *
    */
@@ -292,7 +292,7 @@ export interface PaymentReference {
 export interface PaymentResourceIdentifier {
   readonly typeId: 'payment'
   /**
-   *	Platform-generated unique identifier of the referenced [Payment](ctp:api:type:Payment). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [Payment](ctp:api:type:Payment). Either `id` or `key` is required.
    *
    *
    */
@@ -373,7 +373,7 @@ export type PaymentUpdateAction =
   | PaymentTransitionStateAction
 export interface Transaction {
   /**
-   *	Platform-generated unique identifier of the Transaction.
+   *	Unique identifier of the Transaction.
    *
    */
   readonly id: string

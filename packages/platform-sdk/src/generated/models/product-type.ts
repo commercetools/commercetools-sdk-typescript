@@ -123,7 +123,7 @@ export interface AttributeLocalizedEnumValue {
    */
   readonly key: string
   /**
-   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
    *
    *
    */
@@ -218,7 +218,7 @@ export interface AttributeTimeType {
 }
 export interface ProductType extends BaseResource {
   /**
-   *	Platform-generated unique identifier for the ProductType.
+   *	Unique identifier for the ProductType.
    *
    */
   readonly id: string
@@ -317,7 +317,7 @@ export interface ProductTypePagedQueryResponse {
 export interface ProductTypeReference {
   readonly typeId: 'product-type'
   /**
-   *	Platform-generated unique identifier of the referenced [ProductType](ctp:api:type:ProductType).
+   *	Unique identifier of the referenced [ProductType](ctp:api:type:ProductType).
    *
    *
    */
@@ -336,7 +336,7 @@ export interface ProductTypeReference {
 export interface ProductTypeResourceIdentifier {
   readonly typeId: 'product-type'
   /**
-   *	Platform-generated unique identifier of the referenced [ProductType](ctp:api:type:ProductType). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [ProductType](ctp:api:type:ProductType). Either `id` or `key` is required.
    *
    *
    */
@@ -497,7 +497,7 @@ export interface ProductTypeChangeLabelAction {
    */
   readonly attributeName: string
   /**
-   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
    *
    *
    */
@@ -580,7 +580,7 @@ export interface ProductTypeSetInputTipAction {
    */
   readonly attributeName: string
   /**
-   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
    *
    *
    */

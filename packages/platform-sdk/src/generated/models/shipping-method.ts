@@ -38,7 +38,7 @@ export interface PriceFunction {
 }
 export interface ShippingMethod extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the ShippingMethod.
+   *	Unique identifier of the ShippingMethod.
    *
    */
   readonly id: string
@@ -190,7 +190,7 @@ export interface ShippingMethodPagedQueryResponse {
 export interface ShippingMethodReference {
   readonly typeId: 'shipping-method'
   /**
-   *	Platform-generated unique identifier of the referenced [ShippingMethod](ctp:api:type:ShippingMethod).
+   *	Unique identifier of the referenced [ShippingMethod](ctp:api:type:ShippingMethod).
    *
    *
    */
@@ -209,7 +209,7 @@ export interface ShippingMethodReference {
 export interface ShippingMethodResourceIdentifier {
   readonly typeId: 'shipping-method'
   /**
-   *	Platform-generated unique identifier of the referenced [ShippingMethod](ctp:api:type:ShippingMethod). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [ShippingMethod](ctp:api:type:ShippingMethod). Either `id` or `key` is required.
    *
    *
    */

@@ -64,7 +64,7 @@ import {
 
 export interface OrderEdit extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the OrderEdit.
+   *	Unique identifier of the OrderEdit.
    *
    */
   readonly id: string
@@ -194,13 +194,13 @@ export interface OrderEditPagedQueryResponse {
   readonly results: OrderEdit[]
 }
 /**
- *	[Reference](ctp:api:type:Reference) to a [OrderEdit](ctp:api:type:OrderEdit).
+ *	[Reference](ctp:api:type:Reference) to an [OrderEdit](ctp:api:type:OrderEdit).
  *
  */
 export interface OrderEditReference {
   readonly typeId: 'order-edit'
   /**
-   *	Platform-generated unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit).
+   *	Unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit).
    *
    *
    */
@@ -213,13 +213,13 @@ export interface OrderEditReference {
   readonly obj?: OrderEdit
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [OrderEdit](ctp:api:type:OrderEdit).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [OrderEdit](ctp:api:type:OrderEdit).
  *
  */
 export interface OrderEditResourceIdentifier {
   readonly typeId: 'order-edit'
   /**
-   *	Platform-generated unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit). Either `id` or `key` is required.
    *
    *
    */
@@ -382,7 +382,7 @@ export interface StagedOrderAddCustomLineItemAction {
    */
   readonly money: Money
   /**
-   *	JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values are the corresponding strings used for that language.
+   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
    *
    *
    */

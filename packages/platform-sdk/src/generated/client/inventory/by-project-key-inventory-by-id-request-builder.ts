@@ -67,6 +67,9 @@ export class ByProjectKeyInventoryByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Produces the [InventoryEntryDeletedMessage](ctp:api:type:InventoryEntryDeletedMessage).
+   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

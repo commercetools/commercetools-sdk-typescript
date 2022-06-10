@@ -18,7 +18,7 @@ import {
 
 export interface Review extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the Review.
+   *	Unique identifier of the Review.
    *
    */
   readonly id: string
@@ -223,7 +223,7 @@ export interface ReviewRatingStatistics {
 export interface ReviewReference {
   readonly typeId: 'review'
   /**
-   *	Platform-generated unique identifier of the referenced [Review](ctp:api:type:Review).
+   *	Unique identifier of the referenced [Review](ctp:api:type:Review).
    *
    *
    */
@@ -242,7 +242,7 @@ export interface ReviewReference {
 export interface ReviewResourceIdentifier {
   readonly typeId: 'review'
   /**
-   *	Platform-generated unique identifier of the referenced [Review](ctp:api:type:Review). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [Review](ctp:api:type:Review). Either `id` or `key` is required.
    *
    *
    */

@@ -149,7 +149,7 @@ export class ByProjectKeyRequestBuilder {
     })
   }
   /**
-   *	The commercetools™ platform provides a GraphQL API
+   *	commercetools Composable Commerce provides a GraphQL API
    */
   public graphql(): ByProjectKeyGraphqlRequestBuilder {
     return new ByProjectKeyGraphqlRequestBuilder({
@@ -328,7 +328,7 @@ export class ByProjectKeyRequestBuilder {
     })
   }
   /**
-   *	The commercetools platform allows you to model states of certain objects, such as orders, line items, products,
+   *	commercetools Composable Commerce allows you to model states of certain objects, such as orders, line items, products,
    *	reviews, and payments in order to define finite state machines reflecting the business logic you'd like to
    *	implement.
    *
@@ -449,7 +449,7 @@ export class ByProjectKeyRequestBuilder {
     })
   }
   /**
-   *	A standalone price assigns a price to a product variant for a given scope. The platform will use the standalone prices associated with a Product if its field [`priceMode`](/projects/products#pricemode) is set to `Standalone` [ProductPriceMode](ctp:api:type:ProductPriceModeEnum).
+   *	A standalone price assigns a price to a product variant for a given scope. The API will use the standalone prices associated with a Product if its field [`priceMode`](/projects/products#pricemode) is set to `Standalone` [ProductPriceMode](ctp:api:type:ProductPriceModeEnum).
    */
   public standalonePrices(): ByProjectKeyStandalonePricesRequestBuilder {
     return new ByProjectKeyStandalonePricesRequestBuilder({

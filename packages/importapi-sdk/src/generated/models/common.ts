@@ -90,7 +90,7 @@ export interface AssetSource {
   readonly contentType?: string
 }
 /**
- *	An Image uploaded to the commercetools platform is stored in a Content Delivery Network and it's available in several pre-defined sizes. If you already have an image stored on an external service, you can save the URL when creating a new product or adding a variant, or you can add it later.
+ *	An Image uploaded to commercetools Composable Commerce is stored in a Content Delivery Network and it's available in several pre-defined sizes. If you already have an image stored on an external service, you can save the URL when creating a new product or adding a variant, or you can add it later.
  */
 export interface Image {
   /**
@@ -152,8 +152,8 @@ export interface LocalizedString {
 }
 /**
  *	A representation of the resource to import.
- *	Import resources are similar to commercetools draft types, but they only support key references.
- *	In general, import resources are more granular then the normal commercetools resource.
+ *	Import resources are similar to draft types, but they only support key references.
+ *	In general, import resources are more granular then regular resources.
  *	They are optimized for incremental updates and therefore have a slightly different structure.
  *
  */

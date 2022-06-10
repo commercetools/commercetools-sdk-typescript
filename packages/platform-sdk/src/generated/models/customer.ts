@@ -30,7 +30,7 @@ export type AnonymousCartSignInMode =
 export type AuthenticationMode = 'ExternalAuth' | 'Password'
 export interface Customer extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the Customer.
+   *	Unique identifier of the Customer.
    *
    */
   readonly id: string
@@ -175,7 +175,7 @@ export interface Customer extends BaseResource {
 }
 export interface CustomerChangePassword {
   /**
-   *	Platform-generated unique identifier of the Customer.
+   *	Unique identifier of the Customer.
    *
    */
   readonly id: string
@@ -194,7 +194,7 @@ export interface CustomerChangePassword {
 }
 export interface CustomerCreateEmailToken {
   /**
-   *	Platform-generated unique identifier of the email token.
+   *	Unique identifier of the email token.
    *
    */
   readonly id: string
@@ -349,7 +349,7 @@ export interface CustomerDraft {
    */
   readonly stores?: StoreResourceIdentifier[]
   /**
-   *	Defines whether a password is required for the Customer that is used for platform-internal authentication.
+   *	Defines whether a password field is a required field for the Customer.
    *
    */
   readonly authenticationMode?: AuthenticationMode
@@ -397,7 +397,7 @@ export interface CustomerPagedQueryResponse {
 export interface CustomerReference {
   readonly typeId: 'customer'
   /**
-   *	Platform-generated unique identifier of the referenced [Customer](ctp:api:type:Customer).
+   *	Unique identifier of the referenced [Customer](ctp:api:type:Customer).
    *
    *
    */
@@ -430,7 +430,7 @@ export interface CustomerResetPassword {
 export interface CustomerResourceIdentifier {
   readonly typeId: 'customer'
   /**
-   *	Platform-generated unique identifier of the referenced [Customer](ctp:api:type:Customer). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [Customer](ctp:api:type:Customer). Either `id` or `key` is required.
    *
    *
    */
@@ -488,7 +488,7 @@ export interface CustomerSignin {
 }
 export interface CustomerToken {
   /**
-   *	Platform-generated unique identifier of the CustomerToken.
+   *	Unique identifier of the CustomerToken.
    *
    */
   readonly id: string
@@ -629,6 +629,8 @@ export interface CustomerAddShippingAddressIdAction {
 export interface CustomerAddStoreAction {
   readonly action: 'addStore'
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Store](ctp:api:type:Store).
+   *
    *
    */
   readonly store: StoreResourceIdentifier
@@ -691,6 +693,8 @@ export interface CustomerRemoveShippingAddressIdAction {
 export interface CustomerRemoveStoreAction {
   readonly action: 'removeStore'
   /**
+   *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Store](ctp:api:type:Store).
+   *
    *
    */
   readonly store: StoreResourceIdentifier

@@ -493,7 +493,7 @@ export interface ProductVariantImport extends ImportResource {
   readonly isMasterVariant: boolean
   /**
    *	Maps to `ProductVariant.attributes`.
-   *	The referenced attribute must be defined in an already existing ProductType in the commercetools project, or the `state` of the [ImportOperation](/import-operation#importoperation) will be `unresolved`.
+   *	The referenced attribute must be defined in an already existing ProductType in the project, or the `state` of the [ImportOperation](/import-operation#importoperation) will be `unresolved`.
    *
    *
    */
@@ -513,7 +513,7 @@ export interface ProductVariantImport extends ImportResource {
   /**
    *	If `publish` is set to either `true` or `false`, both staged and current projections are set to the same value provided by the import data.
    *	If `publish` is not set, the staged projection is set to the provided import data, but the current projection stays unchanged.
-   *	However, if the import data contains no update, that is, if it matches the staged projection of the existing Product in the platform, the import induces no change in the existing Product whether `publish` is set or not.
+   *	However, if the import data contains no update, that is, if it matches the staged projection of the existing Product, the import induces no change in the existing Product whether `publish` is set or not.
    *
    *
    */
@@ -529,7 +529,7 @@ export interface ProductVariantImport extends ImportResource {
 }
 /**
  *	Representation for an update of a [ProductVariant](/../api/projects/products#productvariant). Use this type to import updates for existing
- *	[ProductVariants](/../api/projects/products#productvariant) in a commercetools Project.
+ *	[ProductVariants](/../api/projects/products#productvariant) in a Project.
  *
  */
 export interface ProductVariantPatch {
@@ -543,7 +543,7 @@ export interface ProductVariantPatch {
   readonly productVariant: ProductVariantKeyReference
   /**
    *	Maps to `ProductVariant.attributes`.
-   *	The referenced attribute must be defined in an already existing [ProductType](/../api/projects/productTypes#producttype) in the commercetools Project, or the `state` of the [ImportOperation](/import-operation#importoperation) will be `unresolved`.
+   *	The referenced attribute must be defined in an already existing [ProductType](/../api/projects/productTypes#producttype) in the Project, or the `state` of the [ImportOperation](/import-operation#importoperation) will be `unresolved`.
    *
    *
    */

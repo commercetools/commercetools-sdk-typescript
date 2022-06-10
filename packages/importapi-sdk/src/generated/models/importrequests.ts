@@ -42,7 +42,7 @@ export interface ImportResponse {
   readonly operationStatus: ImportOperationStatus[]
 }
 /**
- *	The request body to [import Categories](#import-categories). Contains data for [Categories](/../api/projects/categories#category) to be created or updated in a commercetools Project.
+ *	The request body to [import Categories](#import-categories). Contains data for [Categories](/../api/projects/categories#category) to be created or updated in a Project.
  *
  */
 export interface CategoryImportRequest {
@@ -55,7 +55,7 @@ export interface CategoryImportRequest {
   readonly resources: CategoryImport[]
 }
 /**
- *	The request body to [import Products](#import-products). Contains data for [Products](/../api/projects/products#product) to be created or updated in a commercetools Project.
+ *	The request body to [import Products](#import-products). Contains data for [Products](/../api/projects/products#product) to be created or updated in a Project.
  *
  */
 export interface ProductImportRequest {
@@ -68,7 +68,7 @@ export interface ProductImportRequest {
   readonly resources: ProductImport[]
 }
 /**
- *	The request body to [import ProductDrafts](#import-productdrafts). Contains data for [Products](/../api/projects/products#productdraft) to be created or updated in a commercetools Project.
+ *	The request body to [import ProductDrafts](#import-productdrafts). Contains data for [Products](/../api/projects/products#productdraft) to be created or updated in a Project.
  *
  */
 export interface ProductDraftImportRequest {
@@ -81,7 +81,7 @@ export interface ProductDraftImportRequest {
   readonly resources: ProductDraftImport[]
 }
 /**
- *	The request body to [import ProductTypes](#import-producttypes). Contains data for [ProductTypes](/../api/projects/productTypes#producttype) to be created or updated in a commercetools Project.
+ *	The request body to [import ProductTypes](#import-producttypes). Contains data for [ProductTypes](/../api/projects/productTypes#producttype) to be created or updated in a Project.
  *
  */
 export interface ProductTypeImportRequest {
@@ -94,7 +94,7 @@ export interface ProductTypeImportRequest {
   readonly resources: ProductTypeImport[]
 }
 /**
- *	The request body to [import ProductVariants](#import-productvariants). Contains data for [ProductVariants](/../api/projects/products#productvariant) to be created or updated in a commercetools Project.
+ *	The request body to [import ProductVariants](#import-productvariants). Contains data for [ProductVariants](/../api/projects/products#productvariant) to be created or updated in a Project.
  *
  */
 export interface ProductVariantImportRequest {
@@ -107,7 +107,7 @@ export interface ProductVariantImportRequest {
   readonly resources: ProductVariantImport[]
 }
 /**
- *	The request body to [import Prices](#import-prices). Contains data for [EmbeddedPrices](/../api/projects/products#embeddedprice) to be created or updated in a commercetools Project.
+ *	The request body to [import Prices](#import-prices). Contains data for [EmbeddedPrices](/../api/projects/products#embeddedprice) to be created or updated in a Project.
  *
  */
 export interface PriceImportRequest {
@@ -120,7 +120,7 @@ export interface PriceImportRequest {
   readonly resources: PriceImport[]
 }
 /**
- *	The request body to [import Orders](#import-orders). Contains data for [Orders](/../api/projects/orders#order) to be created or updated in a commercetools Project.
+ *	The request body to [import Orders](#import-orders). Contains data for [Orders](/../api/projects/orders#order) to be created or updated in a Project.
  *
  */
 export interface OrderImportRequest {
@@ -159,7 +159,7 @@ export interface ProductVariantPatchRequest {
   readonly patches: ProductVariantPatch[]
 }
 /**
- *	The request body to [import Customers](#import-customers). Contains data for [Customers](/../api/projects/customers#customer) to be created or updated in a commercetools Project.
+ *	The request body to [import Customers](#import-customers). Contains data for [Customers](/../api/projects/customers#customer) to be created or updated in a Project.
  *
  */
 export interface CustomerImportRequest {

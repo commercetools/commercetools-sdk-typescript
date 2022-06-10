@@ -13,7 +13,7 @@ import {
 
 export interface State extends BaseResource {
   /**
-   *	Platform-generated unique identifier of the State.
+   *	Unique identifier of the State.
    *
    *
    */
@@ -194,7 +194,7 @@ export interface StatePagedQueryResponse {
 export interface StateReference {
   readonly typeId: 'state'
   /**
-   *	Platform-generated unique identifier of the referenced [State](ctp:api:type:State).
+   *	Unique identifier of the referenced [State](ctp:api:type:State).
    *
    *
    */
@@ -213,7 +213,7 @@ export interface StateReference {
 export interface StateResourceIdentifier {
   readonly typeId: 'state'
   /**
-   *	Platform-generated unique identifier of the referenced [State](ctp:api:type:State). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [State](ctp:api:type:State). Either `id` or `key` is required.
    *
    *
    */

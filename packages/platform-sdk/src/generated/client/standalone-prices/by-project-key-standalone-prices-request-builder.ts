@@ -76,6 +76,10 @@ export class ByProjectKeyStandalonePricesRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Produces the [StandalonePriceCreatedMessage](ctp:api:type:StandalonePriceCreatedMessage).
+   *
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
