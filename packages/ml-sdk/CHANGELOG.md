@@ -1,5 +1,13 @@
 # @commercetools/ml-sdk
 
+## 2.4.1
+
+### Patch Changes
+
+- [#258](https://github.com/commercetools/commercetools-sdk-typescript/pull/258) [`ba52d38`](https://github.com/commercetools/commercetools-sdk-typescript/commit/ba52d38a0a00299de61f554ae753cfb984401d79) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
+
+  - add support for Standalone Prices
+
 ## 2.4.0
 
 ### Minor Changes
