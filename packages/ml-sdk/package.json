@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/ml-sdk",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "TypeScript SDK for Composable Commerce Machine Learning features",
   "keywords": [
     "commercetools",
@@ -36,7 +36,7 @@
     "querystring": "^0.2.1"
   },
   "devDependencies": {
-    "@commercetools/platform-sdk": "2.7.0",
+    "@commercetools/platform-sdk": "2.8.0",
     "@types/uuid": "8.3.4",
     "organize-imports-cli": "0.9.0",
     "tsconfig-replace-paths": "0.0.11",
