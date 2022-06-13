@@ -167,6 +167,7 @@ export type Message =
   | StandalonePriceCreatedMessage
   | StandalonePriceDeletedMessage
   | StandalonePriceDiscountSetMessage
+  | StandalonePriceExternalDiscountSetMessage
   | StandalonePriceValueChangedMessage
   | StoreCreatedMessage
   | StoreDeletedMessage
@@ -5478,6 +5479,66 @@ export interface StandalonePriceDiscountSetMessage {
   readonly discounted?: DiscountedPrice
 }
 /**
+ *	This Message is the result of the Standalone Price [SetDiscountedPrice](/../api/projects/standalone-prices#set-discounted-price) update action.
+ *
+ */
+export interface StandalonePriceExternalDiscountSetMessage {
+  readonly type: 'StandalonePriceExternalDiscountSet'
+  /**
+   *	Unique identifier of the Message.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The new `discounted` value of the updated StandalonePrice.
+   *
+   *
+   */
+  readonly discounted?: DiscountedPrice
+}
+/**
  *	Generated after a successful [Change Value](ctp:api:types:StandalonePriceChangeValueAction) update action.
  *
  */
@@ -5853,6 +5914,7 @@ export type MessagePayload =
   | StandalonePriceCreatedMessagePayload
   | StandalonePriceDeletedMessagePayload
   | StandalonePriceDiscountSetMessagePayload
+  | StandalonePriceExternalDiscountSetMessagePayload
   | StandalonePriceValueChangedMessagePayload
   | StoreCreatedMessagePayload
   | StoreDeletedMessagePayload
@@ -6941,6 +7003,19 @@ export interface StandalonePriceDeletedMessagePayload {
  */
 export interface StandalonePriceDiscountSetMessagePayload {
   readonly type: 'StandalonePriceDiscountSet'
+  /**
+   *	The new `discounted` value of the updated StandalonePrice.
+   *
+   *
+   */
+  readonly discounted?: DiscountedPrice
+}
+/**
+ *	This Message is the result of the Standalone Price [SetDiscountedPrice](/../api/projects/standalone-prices#set-discounted-price) update action.
+ *
+ */
+export interface StandalonePriceExternalDiscountSetMessagePayload {
+  readonly type: 'StandalonePriceExternalDiscountSet'
   /**
    *	The new `discounted` value of the updated StandalonePrice.
    *

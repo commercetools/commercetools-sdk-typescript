@@ -294,6 +294,7 @@ export type StandalonePriceUpdateAction =
   | StandalonePriceChangeValueAction
   | StandalonePriceSetCustomFieldAction
   | StandalonePriceSetCustomTypeAction
+  | StandalonePriceSetDiscountedPriceAction
 /**
  *	Produces the [StandalonePriceValueChangedMessage](ctp:api:type:StandalonePriceValueChangedMessage).
  *
@@ -339,4 +340,17 @@ export interface StandalonePriceSetCustomTypeAction {
    *
    */
   readonly fields?: FieldContainer
+}
+/**
+ *	Discounts a Standalone Price. The referenced [ProductDiscount](ctp:api:type:ProductDiscount) in the discounted field must be of type external, active, and its predicate must match the referenced Price. Produces the [StandalonePriceExternalDiscountSet](ctp:api:type:StandalonePriceExternalDiscountSetMessage) Message.
+ *
+ */
+export interface StandalonePriceSetDiscountedPriceAction {
+  readonly action: 'setDiscountedPrice'
+  /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly discounted?: DiscountedPriceDraft
 }
