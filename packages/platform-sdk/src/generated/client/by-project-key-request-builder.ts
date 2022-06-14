@@ -304,7 +304,7 @@ export class ByProjectKeyRequestBuilder {
     })
   }
   /**
-   *	Shipping Methods define where orders can be shipped and what the costs are.
+   *	ShippingMethods define where orders can be shipped and what the costs are.
    */
   public shippingMethods(): ByProjectKeyShippingMethodsRequestBuilder {
     return new ByProjectKeyShippingMethodsRequestBuilder({
