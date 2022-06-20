@@ -27,6 +27,10 @@ The full documentation and usage example for the TypeScript SDK can be found [he
 
 If you have any urgent issues regarding this repository please create a support request over our [official support channel](http://support.commercetools.com).
 
+## Best Practices
+
+We have a doc with a currated list of best practices designed to assist developers on how best to use and develop applications using the JavaScript/TypeScript SDK. The best practices doc can be found [here](BEST_PRACTICES.md).
+
 ## Packages
 
 ### SDK
