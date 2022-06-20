@@ -914,7 +914,7 @@ export type Reference =
   | TypeReference
   | ZoneReference
 /**
- *	supported resource type identifiers:
+ *	Type of resource the value should reference. Supported resource type identifiers are:
  *
  */
 export type ReferenceTypeId =

@@ -102,7 +102,7 @@ export interface InvalidOperation {
   readonly message: string
 }
 /**
- *	The `Unique` [Attribute Constraint](/../api/projects/productTypes#attributeconstraint-enum) was violated.
+ *	The `Unique` [AttributeConstraintEnum](/../api/projects/productTypes#attributeconstraintenum) was violated.
  */
 export interface DuplicateAttributeValueError {
   readonly code: 'DuplicateAttributeValue'
@@ -117,7 +117,7 @@ export interface DuplicateAttributeValueError {
   readonly attribute: Attribute
 }
 /**
- *	The `CombinationUnique` [Attribute Constraint](/../api/projects/productTypes#attributeconstraint-enum) was violated.
+ *	The `CombinationUnique` [AttributeConstraintEnum](/../api/projects/productTypes#attributeconstraintenum) was violated.
  */
 export interface DuplicateAttributeValuesError {
   readonly code: 'DuplicateAttributeValues'

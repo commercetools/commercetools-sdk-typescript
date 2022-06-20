@@ -656,7 +656,7 @@ export interface TypeChangeLabelAction {
   readonly label: LocalizedString
 }
 /**
- *	Changes the `label` of a [LocalizedEnumValue](ctp:api:type:CustomFieldLocalizedEnumValue) of an [LocalizedEnumType](ctp:api:type:CustomFieldLocalizedEnumType) FieldDefinition.
+ *	Changes the `label` of a [LocalizedEnumValue](ctp:api:type:CustomFieldLocalizedEnumValue) of a [LocalizedEnumType](ctp:api:type:CustomFieldLocalizedEnumType) FieldDefinition.
  *
  */
 export interface TypeChangeLocalizedEnumValueLabelAction {
