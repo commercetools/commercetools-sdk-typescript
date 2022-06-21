@@ -51,9 +51,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Updates a cart in the store specified by {storeKey}.
-   *	If the cart exists in the project but does not have the store field,
-   *	or the store field references a different store, this method returns a ResourceNotFound error.
+   *	Updates a [Cart](ctp:api:type:Cart) in the Store specified by `storeKey`.
+   *	If the Cart exists in the Project but does not have the store field,
+   *	or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFound) error.
    *
    */
   public post(methodArgs: {

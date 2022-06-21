@@ -50,9 +50,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyProductProjectionsRequestBuilder {
   }
 
   /**
-   *	You can use the product projections query endpoint to get the current or staged representations of Products.
-   *	When used with an API client that has the view_published_products:{projectKey} scope,
-   *	this endpoint only returns published (current) product projections.
+   *	Use this endpoint to get the current or staged projection of [Products](ctp:api:type:Product) in the Store specified by `storeKey`.
+   *	When used with an [API Client](ctp:api:type:ApiClient) that has the `view_published_products:{projectKey}` scope,
+   *	this endpoint only returns published (current) Product Projections.
    *
    */
   public get(methodArgs?: {
