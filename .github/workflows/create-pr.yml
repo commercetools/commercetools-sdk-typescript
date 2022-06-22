@@ -17,3 +17,5 @@ jobs:
         with:
           request_title: "Update generated SDKs"
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          request_body: |
+            - [ ] Changeset added
