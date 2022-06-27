@@ -13,69 +13,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
       method: 'get',
-      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections?staged=true',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
-        .productProjections()
-        .get({ queryArgs: { staged: true } }),
-    },
-    {
-      method: 'get',
-      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections?priceCurrency=priceCurrency',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
-        .productProjections()
-        .get({ queryArgs: { priceCurrency: 'priceCurrency' } }),
-    },
-    {
-      method: 'get',
-      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections?priceCountry=priceCountry',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
-        .productProjections()
-        .get({ queryArgs: { priceCountry: 'priceCountry' } }),
-    },
-    {
-      method: 'get',
-      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections?priceCustomerGroup=priceCustomerGroup',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
-        .productProjections()
-        .get({ queryArgs: { priceCustomerGroup: 'priceCustomerGroup' } }),
-    },
-    {
-      method: 'get',
-      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections?priceChannel=priceChannel',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
-        .productProjections()
-        .get({ queryArgs: { priceChannel: 'priceChannel' } }),
-    },
-    {
-      method: 'get',
-      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections?localeProjection=localeProjection',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
-        .productProjections()
-        .get({ queryArgs: { localeProjection: 'localeProjection' } }),
-    },
-    {
-      method: 'get',
-      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections?storeProjection=storeProjection',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
-        .productProjections()
-        .get({ queryArgs: { storeProjection: 'storeProjection' } }),
-    },
-    {
-      method: 'get',
       uri: '/test_projectKey/in-store/key=test_storeKey/product-projections?expand=expand',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })

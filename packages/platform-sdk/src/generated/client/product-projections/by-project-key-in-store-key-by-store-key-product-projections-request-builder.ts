@@ -49,21 +49,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyProductProjectionsRequestBuilder {
     )
   }
 
-  /**
-   *	Use this endpoint to get the current or staged projection of [Products](ctp:api:type:Product) in the Store specified by `storeKey`.
-   *	When used with an [API Client](ctp:api:type:ApiClient) that has the `view_published_products:{projectKey}` scope,
-   *	this endpoint only returns published (current) Product Projections.
-   *
-   */
   public get(methodArgs?: {
     queryArgs?: {
-      staged?: boolean
-      priceCurrency?: string
-      priceCountry?: string
-      priceCustomerGroup?: string
-      priceChannel?: string
-      localeProjection?: string
-      storeProjection?: string
       expand?: string | string[]
       sort?: string | string[]
       limit?: number
