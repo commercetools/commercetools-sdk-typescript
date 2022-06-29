@@ -3,9 +3,7 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { ProductProjectionPagedQueryResponse } from '../../models/product'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
-import { ApiRequest } from '../../shared/utils/requests-utils'
+import { executeRequest } from '../../shared/utils/common-types'
 import { ByProjectKeyInStoreKeyByStoreKeyProductProjectionsByIDRequestBuilder } from './by-project-key-in-store-key-by-store-key-product-projections-by-id-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyProductProjectionsKeyByKeyRequestBuilder } from './by-project-key-in-store-key-by-store-key-product-projections-key-by-key-request-builder'
 
@@ -46,36 +44,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyProductProjectionsRequestBuilder {
         executeRequest: this.args.executeRequest,
         baseUri: this.args.baseUri,
       }
-    )
-  }
-
-  public get(methodArgs?: {
-    queryArgs?: {
-      expand?: string | string[]
-      sort?: string | string[]
-      limit?: number
-      offset?: number
-      withTotal?: boolean
-      where?: string | string[]
-      [key: string]: QueryParam
-    }
-    headers?: {
-      [key: string]: string | string[]
-    }
-  }): ApiRequest<ProductProjectionPagedQueryResponse> {
-    return new ApiRequest<ProductProjectionPagedQueryResponse>(
-      {
-        baseUri: this.args.baseUri,
-        method: 'GET',
-        uriTemplate:
-          '/{projectKey}/in-store/key={storeKey}/product-projections',
-        pathVariables: this.args.pathArgs,
-        headers: {
-          ...methodArgs?.headers,
-        },
-        queryParams: methodArgs?.queryArgs,
-      },
-      this.args.executeRequest
     )
   }
 }

@@ -106,11 +106,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
       baseUri: this.args.baseUri,
     })
   }
-  /**
-   *	A projected representation of a product shows the product with its current or staged data. The current or staged
-   *	representation of a product in a catalog is called a product projection.
-   *
-   */
   public productProjections(): ByProjectKeyInStoreKeyByStoreKeyProductProjectionsRequestBuilder {
     return new ByProjectKeyInStoreKeyByStoreKeyProductProjectionsRequestBuilder(
       {
