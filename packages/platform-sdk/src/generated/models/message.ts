@@ -54,7 +54,10 @@ import {
   TransactionState,
 } from './payment'
 import { ProductProjection, ProductReference, ProductVariant } from './product'
-import { ProductSelectionType } from './product-selection'
+import {
+  ProductSelectionType,
+  ProductVariantSelection,
+} from './product-selection'
 import { Review } from './review'
 import { StandalonePrice } from './standalone-price'
 import { StateReference } from './state'
@@ -156,6 +159,7 @@ export type Message =
   | ProductSelectionDeletedMessage
   | ProductSelectionProductAddedMessage
   | ProductSelectionProductRemovedMessage
+  | ProductSelectionVariantSelectionChangedMessage
   | ProductSlugChangedMessage
   | ProductStateTransitionMessage
   | ProductUnpublishedMessage
@@ -4757,6 +4761,12 @@ export interface ProductSelectionProductAddedMessage {
    *
    */
   readonly product: ProductReference
+  /**
+   *	Polymorphic base type for Product Variant Selections. The actual type is determined by the `type` field.
+   *
+   *
+   */
+  readonly variantSelection?: ProductVariantSelection
 }
 export interface ProductSelectionProductRemovedMessage {
   readonly type: 'ProductSelectionProductRemoved'
@@ -4813,6 +4823,72 @@ export interface ProductSelectionProductRemovedMessage {
    *
    */
   readonly product: ProductReference
+}
+export interface ProductSelectionVariantSelectionChangedMessage {
+  readonly type: 'ProductSelectionVariantSelectionChanged'
+  /**
+   *	Unique identifier of the Message.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[Reference](ctp:api:type:Reference) to a [Product](ctp:api:type:Product).
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The former Product Variant Selection if any.
+   *
+   */
+  readonly oldVariantSelection?: ProductVariantSelection
+  /**
+   *	The updated Product Variant Selection if any.
+   *
+   */
+  readonly newVariantSelection?: ProductVariantSelection
 }
 export interface ProductSlugChangedMessage {
   readonly type: 'ProductSlugChanged'
@@ -5902,6 +5978,7 @@ export type MessagePayload =
   | ProductSelectionDeletedMessagePayload
   | ProductSelectionProductAddedMessagePayload
   | ProductSelectionProductRemovedMessagePayload
+  | ProductSelectionVariantSelectionChangedMessagePayload
   | ProductSlugChangedMessagePayload
   | ProductStateTransitionMessagePayload
   | ProductUnpublishedMessagePayload
@@ -6844,6 +6921,12 @@ export interface ProductSelectionProductAddedMessagePayload {
    *
    */
   readonly product: ProductReference
+  /**
+   *	Polymorphic base type for Product Variant Selections. The actual type is determined by the `type` field.
+   *
+   *
+   */
+  readonly variantSelection?: ProductVariantSelection
 }
 export interface ProductSelectionProductRemovedMessagePayload {
   readonly type: 'ProductSelectionProductRemoved'
@@ -6853,6 +6936,25 @@ export interface ProductSelectionProductRemovedMessagePayload {
    *
    */
   readonly product: ProductReference
+}
+export interface ProductSelectionVariantSelectionChangedMessagePayload {
+  readonly type: 'ProductSelectionVariantSelectionChanged'
+  /**
+   *	[Reference](ctp:api:type:Reference) to a [Product](ctp:api:type:Product).
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The former Product Variant Selection if any.
+   *
+   */
+  readonly oldVariantSelection?: ProductVariantSelection
+  /**
+   *	The updated Product Variant Selection if any.
+   *
+   */
+  readonly newVariantSelection?: ProductVariantSelection
 }
 export interface ProductSlugChangedMessagePayload {
   readonly type: 'ProductSlugChanged'
