@@ -160,4 +160,36 @@ describe('client builder', () => {
       clientWithCorrelationIDMiddleware.correlationIdMiddleware
     ).toBeTruthy()
   })
+
+  test('should create client with concurrent modification middleware', () => {
+    const client = new ClientBuilder() as any
+    expect(client.concurrentModificationMiddleware).toBeFalsy()
+
+    const clientWithConcurrentModificationMiddleware =
+      client.withConcurrentModificationMiddleware({
+        host: 'https://api.commercetools.com',
+        enableRetry: true,
+        fetch,
+      })
+    expect(
+      clientWithConcurrentModificationMiddleware.concurrentModificationMiddleware
+    ).toBeTruthy()
+  })
+
+  test('should build a client with concurrent modification handler middleware', () => {
+    const client = new ClientBuilder()
+      .withHttpMiddleware(httpMiddlewareOptions)
+      .withClientCredentialsFlow(authMiddlewareOptions)
+      .withConcurrentModificationMiddleware({
+        host: 'https://api.commercetools.com',
+        fetch,
+      })
+      .build() as any
+
+    expect(client).toHaveProperty('execute')
+    expect(client).toHaveProperty('process')
+
+    expect(typeof client.process).toBe('function')
+    expect(typeof client.execute).toBe('function')
+  })
 })
