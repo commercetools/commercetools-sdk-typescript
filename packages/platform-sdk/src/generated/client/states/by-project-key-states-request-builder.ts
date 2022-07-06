@@ -8,7 +8,8 @@ import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyStatesByIDRequestBuilder } from './by-project-key-states-by-id-request-builder'
 import { ByProjectKeyStatesKeyByKeyRequestBuilder } from './by-project-key-states-key-by-key-request-builder'
-
+/**
+ **/
 export class ByProjectKeyStatesRequestBuilder {
   constructor(
     protected readonly args: {

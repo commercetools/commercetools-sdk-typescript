@@ -10,7 +10,8 @@ import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyMeCartsReplicateRequestBuilder } from '../replicate/by-project-key-me-carts-replicate-request-builder'
 import { ByProjectKeyMeCartsByIDRequestBuilder } from './by-project-key-me-carts-by-id-request-builder'
 import { ByProjectKeyMeCartsKeyByKeyRequestBuilder } from './by-project-key-me-carts-key-by-key-request-builder'
-
+/**
+ **/
 export class ByProjectKeyMeCartsRequestBuilder {
   constructor(
     protected readonly args: {

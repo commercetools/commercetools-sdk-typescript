@@ -6,7 +6,8 @@
 import { ProductProjection } from '../../models/product'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyProductProjectionsByIDRequestBuilder {
   constructor(
     protected readonly args: {

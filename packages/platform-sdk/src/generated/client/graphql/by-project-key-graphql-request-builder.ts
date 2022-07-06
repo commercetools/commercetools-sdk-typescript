@@ -6,7 +6,8 @@
 import { GraphQLRequest, GraphQLResponse } from '../../models/graph-ql'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyGraphqlRequestBuilder {
   constructor(
     protected readonly args: {

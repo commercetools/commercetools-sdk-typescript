@@ -6,6 +6,7 @@
 
 import {
   CartReference,
+  CartResourceIdentifier,
   DiscountCodeInfo,
   ExternalLineItemTotalPrice,
   ExternalTaxRateDraft,
@@ -412,6 +413,36 @@ export type MyPaymentUpdateAction =
   | MyPaymentSetMethodInfoMethodAction
   | MyPaymentSetMethodInfoNameAction
   | MyPaymentSetTransactionCustomFieldAction
+export interface MyQuoteRequestDraft {
+  /**
+   *	ResourceIdentifier to the Cart from which this quote request is created.
+   *
+   */
+  readonly cart: CartResourceIdentifier
+  /**
+   *	Current version of the Cart.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	Text message included in the request.
+   *
+   *
+   */
+  readonly comment: string
+}
+export interface MyQuoteRequestUpdate {
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly actions: MyQuoteRequestUpdateAction[]
+}
+export type MyQuoteRequestUpdateAction = MyQuoteRequestCancelAction
 export interface MyShoppingListDraft {
   /**
    *
@@ -1146,6 +1177,13 @@ export interface MyPaymentSetTransactionCustomFieldAction {
    *
    */
   readonly value?: any
+}
+/**
+ *	Transitions the `quoteRequestState` of the Quote Request to `Cancelled`. Can only be used when the Quote Request is in state `Submitted`.
+ *
+ */
+export interface MyQuoteRequestCancelAction {
+  readonly action: 'cancelQuoteRequest'
 }
 export interface MyShoppingListAddLineItemAction {
   readonly action: 'addLineItem'

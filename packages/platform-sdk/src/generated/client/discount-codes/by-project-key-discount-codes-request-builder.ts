@@ -11,7 +11,8 @@ import {
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyDiscountCodesByIDRequestBuilder } from './by-project-key-discount-codes-by-id-request-builder'
-
+/**
+ **/
 export class ByProjectKeyDiscountCodesRequestBuilder {
   constructor(
     protected readonly args: {

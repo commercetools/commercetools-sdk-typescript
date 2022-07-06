@@ -41,6 +41,11 @@ import {
   ProductTypeReference,
   ProductTypeResourceIdentifier,
 } from './product-type'
+import { QuoteReference, QuoteResourceIdentifier } from './quote'
+import {
+  QuoteRequestReference,
+  QuoteRequestResourceIdentifier,
+} from './quote-request'
 import { ReviewReference, ReviewResourceIdentifier } from './review'
 import {
   ShippingMethodReference,
@@ -50,6 +55,10 @@ import {
   ShoppingListReference,
   ShoppingListResourceIdentifier,
 } from './shopping-list'
+import {
+  StagedQuoteReference,
+  StagedQuoteResourceIdentifier,
+} from './staged-quote'
 import {
   StandalonePriceReference,
   StandalonePriceResourceIdentifier,
@@ -904,9 +913,12 @@ export type Reference =
   | ProductReference
   | ProductSelectionReference
   | ProductTypeReference
+  | QuoteReference
+  | QuoteRequestReference
   | ReviewReference
   | ShippingMethodReference
   | ShoppingListReference
+  | StagedQuoteReference
   | StandalonePriceReference
   | StateReference
   | StoreReference
@@ -914,7 +926,7 @@ export type Reference =
   | TypeReference
   | ZoneReference
 /**
- *	supported resource type identifiers:
+ *	Type of resource the value should reference. Supported resource type identifiers are:
  *
  */
 export type ReferenceTypeId =
@@ -936,9 +948,12 @@ export type ReferenceTypeId =
   | 'product-price'
   | 'product-selection'
   | 'product-type'
+  | 'quote'
+  | 'quote-request'
   | 'review'
   | 'shipping-method'
   | 'shopping-list'
+  | 'staged-quote'
   | 'state'
   | 'store'
   | 'subscription'
@@ -967,9 +982,12 @@ export type ResourceIdentifier =
   | ProductResourceIdentifier
   | ProductSelectionResourceIdentifier
   | ProductTypeResourceIdentifier
+  | QuoteRequestResourceIdentifier
+  | QuoteResourceIdentifier
   | ReviewResourceIdentifier
   | ShippingMethodResourceIdentifier
   | ShoppingListResourceIdentifier
+  | StagedQuoteResourceIdentifier
   | StandalonePriceResourceIdentifier
   | StateResourceIdentifier
   | StoreResourceIdentifier

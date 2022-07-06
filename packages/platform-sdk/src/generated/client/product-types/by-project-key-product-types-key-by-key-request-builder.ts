@@ -6,7 +6,8 @@
 import { ProductType, ProductTypeUpdate } from '../../models/product-type'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyProductTypesKeyByKeyRequestBuilder {
   constructor(
     protected readonly args: {

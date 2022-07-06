@@ -6,7 +6,8 @@
 import { Customer, CustomerEmailVerify } from '../../models/customer'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyMeEmailConfirmRequestBuilder {
   constructor(
     protected readonly args: {

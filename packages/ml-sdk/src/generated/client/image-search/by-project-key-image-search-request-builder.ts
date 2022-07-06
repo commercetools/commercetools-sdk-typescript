@@ -7,7 +7,8 @@ import { ImageSearchResponse } from '../../models/image-search'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyImageSearchConfigRequestBuilder } from '../config/by-project-key-image-search-config-request-builder'
-
+/**
+ **/
 export class ByProjectKeyImageSearchRequestBuilder {
   constructor(
     protected readonly args: {

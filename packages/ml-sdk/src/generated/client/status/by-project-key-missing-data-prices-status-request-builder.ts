@@ -5,7 +5,8 @@
  */
 import { executeRequest } from '../../shared/utils/common-types'
 import { ByProjectKeyMissingDataPricesStatusByTaskIdRequestBuilder } from './by-project-key-missing-data-prices-status-by-task-id-request-builder'
-
+/**
+ **/
 export class ByProjectKeyMissingDataPricesStatusRequestBuilder {
   constructor(
     protected readonly args: {

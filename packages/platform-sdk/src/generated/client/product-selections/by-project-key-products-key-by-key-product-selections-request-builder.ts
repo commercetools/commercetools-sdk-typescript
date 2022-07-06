@@ -6,7 +6,8 @@
 import { AssignedProductSelectionPagedQueryResponse } from '../../models/product-selection'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyProductsKeyByKeyProductSelectionsRequestBuilder {
   constructor(
     protected readonly args: {

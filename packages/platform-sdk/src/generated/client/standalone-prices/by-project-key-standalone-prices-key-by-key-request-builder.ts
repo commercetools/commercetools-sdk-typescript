@@ -9,7 +9,8 @@ import {
 } from '../../models/standalone-price'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyStandalonePricesKeyByKeyRequestBuilder {
   constructor(
     protected readonly args: {

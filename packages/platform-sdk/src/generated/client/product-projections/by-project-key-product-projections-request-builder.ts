@@ -10,7 +10,8 @@ import { ByProjectKeyProductProjectionsSearchRequestBuilder } from '../search/by
 import { ByProjectKeyProductProjectionsSuggestRequestBuilder } from '../suggest/by-project-key-product-projections-suggest-request-builder'
 import { ByProjectKeyProductProjectionsByIDRequestBuilder } from './by-project-key-product-projections-by-id-request-builder'
 import { ByProjectKeyProductProjectionsKeyByKeyRequestBuilder } from './by-project-key-product-projections-key-by-key-request-builder'
-
+/**
+ **/
 export class ByProjectKeyProductProjectionsRequestBuilder {
   constructor(
     protected readonly args: {

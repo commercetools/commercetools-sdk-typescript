@@ -700,7 +700,7 @@ export interface MaxResourceLimitExceededError {
    */
   readonly message: string
   /**
-   *	supported resource type identifiers:
+   *	Type of resource the value should reference. Supported resource type identifiers are:
    *
    *
    */
@@ -908,7 +908,7 @@ export interface ReferenceExistsError {
    */
   readonly message: string
   /**
-   *	supported resource type identifiers:
+   *	Type of resource the value should reference. Supported resource type identifiers are:
    *
    *
    */
@@ -922,7 +922,7 @@ export interface ReferencedResourceNotFoundError {
    */
   readonly message: string
   /**
-   *	supported resource type identifiers:
+   *	Type of resource the value should reference. Supported resource type identifiers are:
    *
    *
    */

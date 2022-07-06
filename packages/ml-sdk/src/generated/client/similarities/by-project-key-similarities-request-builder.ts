@@ -5,7 +5,8 @@
  */
 import { executeRequest } from '../../shared/utils/common-types'
 import { ByProjectKeySimilaritiesProductsRequestBuilder } from '../products/by-project-key-similarities-products-request-builder'
-
+/**
+ **/
 export class ByProjectKeySimilaritiesRequestBuilder {
   constructor(
     protected readonly args: {

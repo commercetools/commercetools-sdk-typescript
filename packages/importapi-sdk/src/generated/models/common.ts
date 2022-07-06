@@ -478,6 +478,7 @@ export interface PriceTier {
 export type ImportResourceType =
   | 'category'
   | 'customer'
+  | 'inventory'
   | 'order'
   | 'order-patch'
   | 'price'

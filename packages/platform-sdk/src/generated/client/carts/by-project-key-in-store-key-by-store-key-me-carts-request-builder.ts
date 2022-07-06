@@ -8,7 +8,8 @@ import { MyCartDraft } from '../../models/me'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyInStoreKeyByStoreKeyMeCartsByIDRequestBuilder } from './by-project-key-in-store-key-by-store-key-me-carts-by-id-request-builder'
-
+/**
+ **/
 export class ByProjectKeyInStoreKeyByStoreKeyMeCartsRequestBuilder {
   constructor(
     protected readonly args: {

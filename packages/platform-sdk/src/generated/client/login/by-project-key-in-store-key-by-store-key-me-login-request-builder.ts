@@ -6,7 +6,8 @@
 import { CustomerSignInResult, MyCustomerSignin } from '../../models/customer'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyInStoreKeyByStoreKeyMeLoginRequestBuilder {
   constructor(
     protected readonly args: {

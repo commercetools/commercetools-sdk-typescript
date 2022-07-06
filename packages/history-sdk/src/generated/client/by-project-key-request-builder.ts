@@ -11,7 +11,8 @@ import {
 import { executeRequest, QueryParam } from '../shared/utils/common-types'
 import { ApiRequest } from '../shared/utils/requests-utils'
 import { ByProjectKeyByResourceTypeRequestBuilder } from './by-project-key-by-resource-type-request-builder'
-
+/**
+ **/
 export class ByProjectKeyRequestBuilder {
   constructor(
     protected readonly args: {

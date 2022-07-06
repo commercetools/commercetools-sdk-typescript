@@ -8,7 +8,8 @@ import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyZonesByIDRequestBuilder } from './by-project-key-zones-by-id-request-builder'
 import { ByProjectKeyZonesKeyByKeyRequestBuilder } from './by-project-key-zones-key-by-key-request-builder'
-
+/**
+ **/
 export class ByProjectKeyZonesRequestBuilder {
   constructor(
     protected readonly args: {

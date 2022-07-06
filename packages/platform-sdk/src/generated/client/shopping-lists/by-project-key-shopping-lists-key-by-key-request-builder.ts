@@ -6,7 +6,8 @@
 import { ShoppingList, ShoppingListUpdate } from '../../models/shopping-list'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyShoppingListsKeyByKeyRequestBuilder {
   constructor(
     protected readonly args: {

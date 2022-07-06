@@ -8,7 +8,8 @@ import { MissingPricesSearchRequest } from '../../models/missing-data'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyMissingDataPricesStatusRequestBuilder } from '../status/by-project-key-missing-data-prices-status-request-builder'
-
+/**
+ **/
 export class ByProjectKeyMissingDataPricesRequestBuilder {
   constructor(
     protected readonly args: {

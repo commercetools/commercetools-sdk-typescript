@@ -9,7 +9,8 @@ import {
 } from '../models/change-history'
 import { executeRequest, QueryParam } from '../shared/utils/common-types'
 import { ApiRequest } from '../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyByResourceTypeByIDRequestBuilder {
   constructor(
     protected readonly args: {

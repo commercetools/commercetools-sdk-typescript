@@ -6,7 +6,8 @@
 import { CustomerCreateEmailToken, CustomerToken } from '../../models/customer'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyInStoreKeyByStoreKeyCustomersEmailTokenRequestBuilder {
   constructor(
     protected readonly args: {

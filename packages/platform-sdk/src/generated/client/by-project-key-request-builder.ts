@@ -29,9 +29,12 @@ import { ByProjectKeyProductProjectionsRequestBuilder } from './product-projecti
 import { ByProjectKeyProductSelectionsRequestBuilder } from './product-selections/by-project-key-product-selections-request-builder'
 import { ByProjectKeyProductTypesRequestBuilder } from './product-types/by-project-key-product-types-request-builder'
 import { ByProjectKeyProductsRequestBuilder } from './products/by-project-key-products-request-builder'
+import { ByProjectKeyQuoteRequestsRequestBuilder } from './quote-requests/by-project-key-quote-requests-request-builder'
+import { ByProjectKeyQuotesRequestBuilder } from './quotes/by-project-key-quotes-request-builder'
 import { ByProjectKeyReviewsRequestBuilder } from './reviews/by-project-key-reviews-request-builder'
 import { ByProjectKeyShippingMethodsRequestBuilder } from './shipping-methods/by-project-key-shipping-methods-request-builder'
 import { ByProjectKeyShoppingListsRequestBuilder } from './shopping-lists/by-project-key-shopping-lists-request-builder'
+import { ByProjectKeyStagedQuotesRequestBuilder } from './staged-quotes/by-project-key-staged-quotes-request-builder'
 import { ByProjectKeyStandalonePricesRequestBuilder } from './standalone-prices/by-project-key-standalone-prices-request-builder'
 import { ByProjectKeyStatesRequestBuilder } from './states/by-project-key-states-request-builder'
 import { ByProjectKeyStoresRequestBuilder } from './stores/by-project-key-stores-request-builder'
@@ -39,7 +42,8 @@ import { ByProjectKeySubscriptionsRequestBuilder } from './subscriptions/by-proj
 import { ByProjectKeyTaxCategoriesRequestBuilder } from './tax-categories/by-project-key-tax-categories-request-builder'
 import { ByProjectKeyTypesRequestBuilder } from './types/by-project-key-types-request-builder'
 import { ByProjectKeyZonesRequestBuilder } from './zones/by-project-key-zones-request-builder'
-
+/**
+ **/
 export class ByProjectKeyRequestBuilder {
   constructor(
     protected readonly args: {
@@ -292,6 +296,42 @@ export class ByProjectKeyRequestBuilder {
     })
   }
   /**
+   *	A quote holds the negotiated offer.
+   */
+  public quotes(): ByProjectKeyQuotesRequestBuilder {
+    return new ByProjectKeyQuotesRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	A request for a quote holds product variants and can be ordered.
+   */
+  public quoteRequests(): ByProjectKeyQuoteRequestsRequestBuilder {
+    return new ByProjectKeyQuoteRequestsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	A staged quote holds the negotiation between the [Buyer](/../api/quotes-overview#buyer) and the [Seller](/../api/quotes-overview#seller).
+   */
+  public stagedQuotes(): ByProjectKeyStagedQuotesRequestBuilder {
+    return new ByProjectKeyStagedQuotesRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
    *	Reviews are used to evaluate products and channels.
    */
   public reviews(): ByProjectKeyReviewsRequestBuilder {
@@ -304,7 +344,7 @@ export class ByProjectKeyRequestBuilder {
     })
   }
   /**
-   *	Shipping Methods define where orders can be shipped and what the costs are.
+   *	ShippingMethods define where orders can be shipped and what the costs are.
    */
   public shippingMethods(): ByProjectKeyShippingMethodsRequestBuilder {
     return new ByProjectKeyShippingMethodsRequestBuilder({

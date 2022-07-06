@@ -15,7 +15,8 @@ import { ByProjectKeyShippingMethodsMatchingLocationRequestBuilder } from '../ma
 import { ByProjectKeyShippingMethodsMatchingOrdereditRequestBuilder } from '../matching-orderedit/by-project-key-shipping-methods-matching-orderedit-request-builder'
 import { ByProjectKeyShippingMethodsByIDRequestBuilder } from './by-project-key-shipping-methods-by-id-request-builder'
 import { ByProjectKeyShippingMethodsKeyByKeyRequestBuilder } from './by-project-key-shipping-methods-key-by-key-request-builder'
-
+/**
+ **/
 export class ByProjectKeyShippingMethodsRequestBuilder {
   constructor(
     protected readonly args: {

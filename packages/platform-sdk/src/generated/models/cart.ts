@@ -4,7 +4,11 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
-import { CartDiscountReference } from './cart-discount'
+import {
+  CartDiscountReference,
+  CartDiscountTarget,
+  CartDiscountValue,
+} from './cart-discount'
 import { ChannelReference, ChannelResourceIdentifier } from './channel'
 import {
   Address,
@@ -174,6 +178,10 @@ export interface Cart extends BaseResource {
    *
    */
   readonly discountCodes?: DiscountCodeInfo[]
+  /**
+   *
+   */
+  readonly directDiscounts?: DirectDiscount[]
   /**
    *
    */
@@ -355,7 +363,7 @@ export interface CartDraft {
    */
   readonly discountCodes?: string[]
 }
-export type CartOrigin = 'Customer' | 'Merchant'
+export type CartOrigin = 'Customer' | 'Merchant' | 'Quote'
 export interface CartPagedQueryResponse {
   /**
    *	Number of [results requested](/../api/general-concepts#limit).
@@ -472,6 +480,7 @@ export type CartUpdateAction =
   | CartSetDeleteDaysAfterLastModificationAction
   | CartSetDeliveryAddressCustomFieldAction
   | CartSetDeliveryAddressCustomTypeAction
+  | CartSetDirectDiscountsAction
   | CartSetItemShippingAddressCustomFieldAction
   | CartSetItemShippingAddressCustomTypeAction
   | CartSetKeyAction
@@ -603,6 +612,33 @@ export interface CustomLineItemDraft {
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
+}
+export interface DirectDiscount {
+  /**
+   *	The unique ID of the cart discount.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly value: CartDiscountValue
+  /**
+   *	Empty when the `value` has type `giftLineItem`, otherwise a CartDiscountTarget is set.
+   *
+   */
+  readonly target?: CartDiscountTarget
+}
+export interface DirectDiscountDraft {
+  /**
+   *
+   */
+  readonly value: CartDiscountValue
+  /**
+   *	Empty when the `value` has type `giftLineItem`, otherwise a CartDiscountTarget is set.
+   *
+   */
+  readonly target?: CartDiscountTarget
 }
 export interface DiscountCodeInfo {
   /**
@@ -1702,6 +1738,13 @@ export interface CartSetDeliveryAddressCustomTypeAction {
    *
    */
   readonly fields?: FieldContainer
+}
+export interface CartSetDirectDiscountsAction {
+  readonly action: 'setDirectDiscounts'
+  /**
+   *
+   */
+  readonly discounts: DirectDiscountDraft[]
 }
 export interface CartSetItemShippingAddressCustomFieldAction {
   readonly action: 'setItemShippingAddressCustomField'

@@ -6,7 +6,8 @@
 import { ProductProjectionPagedSearchResponse } from '../../models/product'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyProductProjectionsSearchRequestBuilder {
   constructor(
     protected readonly args: {

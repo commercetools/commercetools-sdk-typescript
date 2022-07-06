@@ -6,7 +6,8 @@
 import { Category, CategoryUpdate } from '../../models/category'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyCategoriesKeyByKeyRequestBuilder {
   constructor(
     protected readonly args: {

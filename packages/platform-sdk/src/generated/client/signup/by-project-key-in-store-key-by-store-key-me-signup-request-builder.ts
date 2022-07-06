@@ -7,7 +7,8 @@ import { CustomerSignInResult } from '../../models/customer'
 import { MyCustomerDraft } from '../../models/me'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyInStoreKeyByStoreKeyMeSignupRequestBuilder {
   constructor(
     protected readonly args: {

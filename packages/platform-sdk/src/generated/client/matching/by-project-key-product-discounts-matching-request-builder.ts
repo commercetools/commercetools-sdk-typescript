@@ -9,7 +9,8 @@ import {
 } from '../../models/product-discount'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyProductDiscountsMatchingRequestBuilder {
   constructor(
     protected readonly args: {

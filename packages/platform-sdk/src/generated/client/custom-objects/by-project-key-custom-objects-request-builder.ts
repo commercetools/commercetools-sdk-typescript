@@ -12,7 +12,8 @@ import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyCustomObjectsByContainerByKeyRequestBuilder } from './by-project-key-custom-objects-by-container-by-key-request-builder'
 import { ByProjectKeyCustomObjectsByContainerRequestBuilder } from './by-project-key-custom-objects-by-container-request-builder'
-
+/**
+ **/
 export class ByProjectKeyCustomObjectsRequestBuilder {
   constructor(
     protected readonly args: {
@@ -53,6 +54,9 @@ export class ByProjectKeyCustomObjectsRequestBuilder {
    *	For performance reasons, it is highly advisable to query for Custom Objects in a container by using the `container` field in the `where` predicate.
    *
    */
+  /**
+   * @deprecated
+   **/
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]

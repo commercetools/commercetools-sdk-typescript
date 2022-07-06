@@ -6,7 +6,8 @@
 import { SimilarProductsTaskStatus } from '../../models/similar-products'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeySimilaritiesProductsStatusByTaskIdRequestBuilder {
   constructor(
     protected readonly args: {

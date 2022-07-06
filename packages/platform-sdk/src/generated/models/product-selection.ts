@@ -20,17 +20,29 @@ import {
 
 export interface AssignedProductReference {
   /**
-   *	Reference to a Product that is assigned to the ProductSelection.
+   *	Reference to a Product that is assigned to the Product Selection.
    *
    */
   readonly product: ProductReference
+  /**
+   *	The Variants of the Product that are included, or excluded, from the Product Selection.
+   *	In absence of this field, all Variants are deemed to be included.
+   *
+   *
+   */
+  readonly variantSelection?: ProductVariantSelection
 }
 export interface AssignedProductSelection {
   /**
-   *	Reference to the ProductSelection that this assignment is part of.
+   *	Reference to the Product Selection that this assignment is part of.
    *
    */
   readonly productSelection: ProductSelectionReference
+  /**
+   *	Selects which Variants of the newly added Product will be included, or excluded, from the Product Selection.
+   *
+   */
+  readonly variantSelection?: ProductVariantSelection
 }
 /**
  *	[PagedQueryResult](/general-concepts#pagedqueryresult) containing an array of [AssignedProductSelection](ctp:api:type:AssignedProductSelection).
@@ -140,10 +152,15 @@ export interface ProductSelectionAssignment {
    */
   readonly product: ProductReference
   /**
-   *	Reference to the ProductSelection that this assignment is part of.
+   *	Reference to the Product Selection that this assignment is part of.
    *
    */
   readonly productSelection: ProductSelectionReference
+  /**
+   *	Selects which Variants of the newly added Product will be included, or excluded, from the Product Selection.
+   *
+   */
+  readonly variantSelection?: ProductVariantSelection
 }
 export interface ProductSelectionDraft {
   /**
@@ -310,6 +327,41 @@ export type ProductSelectionUpdateAction =
   | ProductSelectionSetCustomFieldAction
   | ProductSelectionSetCustomTypeAction
   | ProductSelectionSetKeyAction
+  | ProductSelectionSetVariantSelectionAction
+/**
+ *	Polymorphic base type for Product Variant Selections. The actual type is determined by the `type` field.
+ *
+ */
+export type ProductVariantSelection =
+  | ProductVariantSelectionExclusion
+  | ProductVariantSelectionInclusion
+/**
+ *	All Product Variants except the explicitly stated SKUs are part of the Product Selection.
+ *
+ */
+export interface ProductVariantSelectionExclusion {
+  readonly type: 'exclusion'
+  /**
+   *	Non-empty array of SKUs representing Product Variants to be excluded from the Product Selection.
+   *
+   *
+   */
+  readonly skus: string[]
+}
+/**
+ *	Only Product Variants with explicitly stated SKUs are part of the Product Selection.
+ *
+ */
+export interface ProductVariantSelectionInclusion {
+  readonly type: 'inclusion'
+  /**
+   *	Non-empty array of SKUs representing Product Variants to be included into the Product Selection.
+   *
+   *
+   */
+  readonly skus: string[]
+}
+export type ProductVariantSelectionTypeEnum = 'exclusion' | 'inclusion'
 /**
  *	[PagedQueryResult](/general-concepts#pagedqueryresult) containing an array of [ProductSelectionAssignment](ctp:api:type:ProductSelectionAssignment).
  *
@@ -349,6 +401,12 @@ export interface ProductsInStorePagedQueryResponse {
    */
   readonly results: ProductSelectionAssignment[]
 }
+/**
+ *	Adds a Product to the Product Selection.
+ *	If the given Product is already assigned to the Product Selection with the same Variant Selection nothing happens
+ *	but if the existing Assignment has a different Variant Selection [ProductPresentWithDifferentVariantSelection](/errors#product-selections) is raised.'
+ *
+ */
 export interface ProductSelectionAddProductAction {
   readonly action: 'addProduct'
   /**
@@ -356,6 +414,13 @@ export interface ProductSelectionAddProductAction {
    *
    */
   readonly product: ProductResourceIdentifier
+  /**
+   *	Selects which Variants of the newly added Product will be included, or excluded, from the Product Selection.
+   *	If not supplied all Variants are deemed to be included.
+   *
+   *
+   */
+  readonly variantSelection?: ProductVariantSelection
 }
 export interface ProductSelectionChangeNameAction {
   readonly action: 'changeName'
@@ -413,4 +478,24 @@ export interface ProductSelectionSetKeyAction {
    *
    */
   readonly key?: string
+}
+/**
+ *	Updates the Product Variant Selection of an existing [Product Selection Assignment](ctp:api:type:ProductSelectionAssignment).
+ *	If the given Product is not assigned to the Product Selection [ProductAssignmentMissing](/errors#product-selections) error is raised.
+ *
+ */
+export interface ProductSelectionSetVariantSelectionAction {
+  readonly action: 'setVariantSelection'
+  /**
+   *	ResourceIdentifier to Product
+   *
+   */
+  readonly product: ProductResourceIdentifier
+  /**
+   *	Determines which Variants of the previously added Product are to be included in, or excluded from, the Product Selection.
+   *	Leave it empty to unset an existing Variant Selection.
+   *
+   *
+   */
+  readonly variantSelection?: ProductVariantSelection
 }

@@ -6,7 +6,8 @@
 import { ProjectCategoryRecommendationPagedQueryResponse } from '../../models/category-recommendations'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyRecommendationsProjectCategoriesByProductIdRequestBuilder {
   constructor(
     protected readonly args: {

@@ -12,7 +12,8 @@ import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsByIDRequestBuilder } from './by-project-key-in-store-key-by-store-key-me-shopping-lists-by-id-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsKeyByKeyRequestBuilder } from './by-project-key-in-store-key-by-store-key-me-shopping-lists-key-by-key-request-builder'
-
+/**
+ **/
 export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsRequestBuilder {
   constructor(
     protected readonly args: {

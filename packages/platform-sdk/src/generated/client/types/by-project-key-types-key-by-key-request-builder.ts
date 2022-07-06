@@ -6,7 +6,8 @@
 import { Type, TypeUpdate } from '../../models/type'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyTypesKeyByKeyRequestBuilder {
   constructor(
     protected readonly args: {

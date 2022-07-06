@@ -799,7 +799,7 @@ export interface ShippingRate {
    */
   readonly freeAbove: Money
   /**
-   *	Only appears in response to requests for shipping methods by cart or location to mark this shipping rate as one that matches the cart or location.
+   *	Only appears in response to requests for ShippingMethods by Cart or location to mark this shipping rate as one that matches the Cart or location.
    *
    */
   readonly isMatching: boolean

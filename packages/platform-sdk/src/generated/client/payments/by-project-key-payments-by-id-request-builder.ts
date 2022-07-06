@@ -6,7 +6,8 @@
 import { Payment, PaymentUpdate } from '../../models/payment'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyPaymentsByIDRequestBuilder {
   constructor(
     protected readonly args: {

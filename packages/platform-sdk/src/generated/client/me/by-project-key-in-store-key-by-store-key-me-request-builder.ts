@@ -15,7 +15,8 @@ import { ByProjectKeyInStoreKeyByStoreKeyMeOrdersRequestBuilder } from '../order
 import { ByProjectKeyInStoreKeyByStoreKeyMePasswordRequestBuilder } from '../password/by-project-key-in-store-key-by-store-key-me-password-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsRequestBuilder } from '../shopping-lists/by-project-key-in-store-key-by-store-key-me-shopping-lists-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyMeSignupRequestBuilder } from '../signup/by-project-key-in-store-key-by-store-key-me-signup-request-builder'
-
+/**
+ **/
 export class ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder {
   constructor(
     protected readonly args: {

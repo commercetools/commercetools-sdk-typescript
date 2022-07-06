@@ -8,7 +8,8 @@ import { SimilarProductSearchRequest } from '../../models/similar-products'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeySimilaritiesProductsStatusRequestBuilder } from '../status/by-project-key-similarities-products-status-request-builder'
-
+/**
+ **/
 export class ByProjectKeySimilaritiesProductsRequestBuilder {
   constructor(
     protected readonly args: {

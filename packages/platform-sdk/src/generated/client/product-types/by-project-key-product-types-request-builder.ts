@@ -12,7 +12,8 @@ import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyProductTypesByIDRequestBuilder } from './by-project-key-product-types-by-id-request-builder'
 import { ByProjectKeyProductTypesKeyByKeyRequestBuilder } from './by-project-key-product-types-key-by-key-request-builder'
-
+/**
+ **/
 export class ByProjectKeyProductTypesRequestBuilder {
   constructor(
     protected readonly args: {

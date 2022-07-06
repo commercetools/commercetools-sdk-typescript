@@ -7,7 +7,8 @@ import { Cart } from '../../models/cart'
 import { MyCartUpdate } from '../../models/me'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyMeCartsByIDRequestBuilder {
   constructor(
     protected readonly args: {
