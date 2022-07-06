@@ -4,6 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin')
 
 const generalConfig = {
+  stats: 'errors-only',
   watchOptions: {
     aggregateTimeout: 600,
     ignored: /node_modules/,
