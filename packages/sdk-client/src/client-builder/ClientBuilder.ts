@@ -6,6 +6,7 @@ import { default as createHttpMiddleware } from '../sdk-middleware-http/http'
 import { default as createLoggerMiddleware } from '../sdk-middleware-logger/logger'
 import { default as createQueueMiddleware } from '../sdk-middleware-queue/queue'
 import { default as createUserAgentMiddleware } from '../sdk-middleware-user-agent/user-agent'
+import { default as createConcurrentModificationMiddleware } from '../sdk-middleware-concurrent-modification/concurrent-modification'
 import {
   AnonymousAuthMiddlewareOptions,
   AuthMiddlewareOptions,
@@ -20,6 +21,7 @@ import {
   PasswordAuthMiddlewareOptions,
   QueueMiddlewareOptions,
   RefreshAuthMiddlewareOptions,
+  ConcurrentModificationMiddlewareOptions,
 } from '../types/sdk'
 
 const {
@@ -39,6 +41,7 @@ export default class ClientBuilder {
   private loggerMiddleware: Nullable<Middleware>
   private queueMiddleware: Nullable<Middleware>
   private middlewares: Array<Middleware> = []
+  private concurrentModificationMiddleware: Nullable<Middleware>
 
   withProjectKey(key: string): ClientBuilder {
     this.projectKey = key
@@ -192,6 +195,17 @@ export default class ClientBuilder {
     return this
   }
 
+  withConcurrentModificationMiddleware(
+    options: ConcurrentModificationMiddlewareOptions
+  ): ClientBuilder {
+    this.concurrentModificationMiddleware =
+      createConcurrentModificationMiddleware({
+        ...options,
+      })
+
+    return this
+  }
+
   build(): Client {
     const middlewares = this.middlewares.slice()
 
@@ -199,9 +213,11 @@ export default class ClientBuilder {
       middlewares.push(this.correlationIdMiddleware)
     if (this.userAgentMiddleware) middlewares.push(this.userAgentMiddleware)
     if (this.authMiddleware) middlewares.push(this.authMiddleware)
-    if (this.loggerMiddleware) middlewares.push(this.loggerMiddleware)
     if (this.queueMiddleware) middlewares.push(this.queueMiddleware)
+    if (this.concurrentModificationMiddleware)
+      middlewares.push(this.concurrentModificationMiddleware)
     if (this.httpMiddleware) middlewares.push(this.httpMiddleware)
+    if (this.loggerMiddleware) middlewares.push(this.loggerMiddleware)
 
     return createClient({ middlewares })
   }
