@@ -210,6 +210,7 @@ export interface AttributeType {
    */
   readonly name: string
 }
+export type AuthenticationMode = 'ExternalAuth' | 'Password'
 export interface CategoryOrderHints {
   [key: string]: string
 }
@@ -590,6 +591,16 @@ export interface Price {
    */
   readonly value: Money
 }
+export interface ProductSelectionSetting {
+  /**
+   *
+   */
+  readonly productSelection: Reference
+  /**
+   *
+   */
+  readonly active: boolean
+}
 export interface ProductVariantAvailability {
   /**
    *
@@ -653,6 +664,7 @@ export type ReferenceTypeId =
   | 'payment'
   | 'product'
   | 'product-discount'
+  | 'product-selection'
   | 'product-type'
   | 'review'
   | 'shipping-method'
