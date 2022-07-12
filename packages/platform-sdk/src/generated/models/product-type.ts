@@ -312,7 +312,7 @@ export interface ProductType extends BaseResource {
    */
   readonly createdAt: string
   /**
-   *	Date and time (UTC) the Channel was last updated.
+   *	Date and time (UTC) the ProductType was last updated.
    *
    *
    */
