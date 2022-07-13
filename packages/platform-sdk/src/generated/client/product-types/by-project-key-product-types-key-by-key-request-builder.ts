@@ -42,6 +42,27 @@ export class ByProjectKeyProductTypesKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Checks if a Product Type with given `key` exists. Responds with a `200 OK` status if the `Product Type` exists or `404 Not Found` otherwise.
+   */
+  public head(methodArgs?: {
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'HEAD',
+        uriTemplate: '/{projectKey}/product-types/key={key}',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+      },
+      this.args.executeRequest
+    )
+  }
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
