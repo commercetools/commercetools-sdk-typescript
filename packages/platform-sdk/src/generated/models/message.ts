@@ -193,6 +193,7 @@ export type Message =
   | StandalonePriceValueChangedMessage
   | StoreCreatedMessage
   | StoreDeletedMessage
+  | StoreDistributionChannelsChangedMessage
   | StoreProductSelectionsChangedMessage
 export interface CategoryCreatedMessage {
   readonly type: 'CategoryCreated'
@@ -6591,6 +6592,73 @@ export interface StoreDeletedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
 }
+/**
+ *	Generated after a successful [Add Distribution Channel](ctp:api:type:StoreAddDistributionChannelAction),
+ *	[Remove Distribution Channel](ctp:api:type:StoreRemoveDistributionChannelAction), or
+ *	[Set Distribution Channels](ctp:api:type:StoreSetDistributionChannelsAction) update action.
+ *
+ */
+export interface StoreDistributionChannelsChangedMessage {
+  readonly type: 'StoreDistributionChannelsChanged'
+  /**
+   *	Unique identifier of the Message.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The product distribution channels that have been added.
+   *
+   */
+  readonly addedDistributionChannels: ChannelReference[]
+  /**
+   *	The product distribution channels that have been removed.
+   *
+   *
+   */
+  readonly removedDistributionChannels: ChannelReference[]
+}
 export interface StoreProductSelectionsChangedMessage {
   readonly type: 'StoreProductSelectionsChanged'
   /**
@@ -6798,6 +6866,7 @@ export type MessagePayload =
   | StandalonePriceValueChangedMessagePayload
   | StoreCreatedMessagePayload
   | StoreDeletedMessagePayload
+  | StoreDistributionChannelsChangedMessagePayload
   | StoreProductSelectionsChangedMessagePayload
 export interface CategoryCreatedMessagePayload {
   readonly type: 'CategoryCreated'
@@ -8087,6 +8156,26 @@ export interface StoreCreatedMessagePayload {
 }
 export interface StoreDeletedMessagePayload {
   readonly type: 'StoreDeleted'
+}
+/**
+ *	Generated after a successful [Add Distribution Channel](ctp:api:type:StoreAddDistributionChannelAction),
+ *	[Remove Distribution Channel](ctp:api:type:StoreRemoveDistributionChannelAction), or
+ *	[Set Distribution Channels](ctp:api:type:StoreSetDistributionChannelsAction) update action.
+ *
+ */
+export interface StoreDistributionChannelsChangedMessagePayload {
+  readonly type: 'StoreDistributionChannelsChanged'
+  /**
+   *	The product distribution channels that have been added.
+   *
+   */
+  readonly addedDistributionChannels: ChannelReference[]
+  /**
+   *	The product distribution channels that have been removed.
+   *
+   *
+   */
+  readonly removedDistributionChannels: ChannelReference[]
 }
 export interface StoreProductSelectionsChangedMessagePayload {
   readonly type: 'StoreProductSelectionsChanged'

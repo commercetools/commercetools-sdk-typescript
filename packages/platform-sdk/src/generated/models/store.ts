@@ -298,7 +298,9 @@ export type StoreUpdateAction =
   | StoreSetProductSelectionsAction
   | StoreSetSupplyChannelsAction
 /**
- *	This action has no effect if a given distribution channel is already present in a Store.
+ *	This update action produces the [StoreDistributionChannelsChangedMessage](ctp:api:type:StoreDistributionChannelsChangedMessage).
+ *	It has no effect if a given distribution channel is already present in a Store.
+ *
  */
 export interface StoreAddDistributionChannelAction {
   readonly action: 'addDistributionChannel'
@@ -359,6 +361,10 @@ export interface StoreChangeProductSelectionAction {
    */
   readonly active?: boolean
 }
+/**
+ *	This update action produces the [StoreDistributionChannelsChangedMessage](ctp:api:type:StoreDistributionChannelsChangedMessage).
+ *
+ */
 export interface StoreRemoveDistributionChannelAction {
   readonly action: 'removeDistributionChannel'
   /**
@@ -423,6 +429,10 @@ export interface StoreSetCustomTypeAction {
    */
   readonly fields?: FieldContainer
 }
+/**
+ *	This update action produces the [StoreDistributionChannelsChangedMessage](ctp:api:type:StoreDistributionChannelsChangedMessage).
+ *
+ */
 export interface StoreSetDistributionChannelsAction {
   readonly action: 'setDistributionChannels'
   /**
