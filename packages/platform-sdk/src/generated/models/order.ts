@@ -673,6 +673,8 @@ export interface OrderFromQuoteDraft {
    */
   readonly quote: QuoteResourceIdentifier
   /**
+   *	The `version` of the [Quote](ctp:api:type:quote) from which an Order is created.
+   *
    *
    */
   readonly version: number

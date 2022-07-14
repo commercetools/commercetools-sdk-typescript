@@ -354,6 +354,7 @@ export type QuoteRequestUpdateAction =
   | QuoteRequestSetCustomTypeAction
 /**
  *	Transitions the Quote Request to a different state.
+ *	A Buyer is only allowed to cancel a Quote Request when it is in `Submitted` state.
  *
  */
 export interface QuoteRequestChangeQuoteRequestStateAction {
