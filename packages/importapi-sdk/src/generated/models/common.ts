@@ -627,3 +627,4 @@ export interface Address {
    */
   readonly externalId?: string
 }
+export type ProductPriceModeEnum = 'Embedded' | 'Standalone'

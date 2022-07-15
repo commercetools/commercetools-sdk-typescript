@@ -8,6 +8,7 @@ import {
   CategoryKeyReference,
   ImportResource,
   LocalizedString,
+  ProductPriceModeEnum,
   ProductTypeKeyReference,
   StateKeyReference,
   TaxCategoryKeyReference,
@@ -187,4 +188,10 @@ export interface ProductImport extends ImportResource {
    *
    */
   readonly publish?: boolean
+  /**
+   *	Determines the type of Prices used for [Product Price Selection](/../api/projects/products#price-selection) as well as for [LineItem Price selection](/../api/projects/carts#lineitem-price-selection). See [ProductPriceMode](/../api/projects/products#productpricemode) for more details.
+   *
+   *
+   */
+  readonly priceMode?: ProductPriceModeEnum
 }
