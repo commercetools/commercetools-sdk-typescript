@@ -59,6 +59,8 @@ import {
   Price,
   ProductSelectionSetting,
   ProductVariantAvailability,
+  QuoteRequestState,
+  QuoteState,
   Reference,
   Reservation,
   ReturnInfo,
@@ -69,6 +71,7 @@ import {
   SearchKeywords,
   ShipmentState,
   StackingMode,
+  StagedQuoteState,
   StateRole,
   StateType,
   SyncInfo,
@@ -155,6 +158,8 @@ export type Change =
   | ChangePredicateChange
   | ChangePriceChange
   | ChangeQuantityChange
+  | ChangeQuoteRequestStateChange
+  | ChangeQuoteStateChange
   | ChangeRequiresDiscountCodeChange
   | ChangeReviewRatingStatisticsChange
   | ChangeShipmentStateChange
@@ -163,6 +168,7 @@ export type Change =
   | ChangeSlugChange
   | ChangeSortOrderChange
   | ChangeStackingModeChange
+  | ChangeStagedQuoteStateChange
   | ChangeStateTypeChange
   | ChangeTargetChange
   | ChangeTaxCalculationModeChange
@@ -306,6 +312,7 @@ export type Change =
   | SetReturnShipmentStateChange
   | SetSalutationChange
   | SetSearchKeywordsChange
+  | SetSellerCommentChange
   | SetShippingAddressChange
   | SetShippingInfoPriceChange
   | SetShippingInfoTaxedPriceChange
@@ -335,6 +342,7 @@ export type Change =
   | SetTransitionsChange
   | SetValidFromAndUntilChange
   | SetValidFromChange
+  | SetValidToChange
   | SetValidUntilChange
   | SetValueChange
   | SetVariantAvailabilityChange
@@ -1564,6 +1572,42 @@ export interface ChangeQuantityChange {
    */
   readonly previousValue: InventoryQuantityValue
 }
+/**
+ *	Update action for `changeQuoteRequestState` on `quote-request`
+ */
+export interface ChangeQuoteRequestStateChange {
+  readonly type: 'ChangeQuoteRequestStateChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly nextValue: QuoteRequestState
+  /**
+   *
+   */
+  readonly previousValue: QuoteRequestState
+}
+/**
+ *	Update action for `changeQuoteState` on `quote`
+ */
+export interface ChangeQuoteStateChange {
+  readonly type: 'ChangeQuoteStateChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly nextValue: QuoteState
+  /**
+   *
+   */
+  readonly previousValue: QuoteState
+}
 export interface ChangeRequiresDiscountCodeChange {
   readonly type: 'ChangeRequiresDiscountCodeChange'
   /**
@@ -1693,6 +1737,24 @@ export interface ChangeStackingModeChange {
    *
    */
   readonly previousValue: StackingMode
+}
+/**
+ *	Update action for `changeStagedQuoteState` on `staged-quote`
+ */
+export interface ChangeStagedQuoteStateChange {
+  readonly type: 'ChangeStagedQuoteStateChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly nextValue: StagedQuoteState
+  /**
+   *
+   */
+  readonly previousValue: StagedQuoteState
 }
 export interface ChangeStateTypeChange {
   readonly type: 'ChangeStateTypeChange'
@@ -4337,6 +4399,22 @@ export interface SetSearchKeywordsChange {
    */
   readonly nextValue: SearchKeywords
 }
+export interface SetSellerCommentChange {
+  readonly type: 'SetSellerCommentChange'
+  /**
+   *	Shape of the action for `setSellerComment`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly previousValue: string
+  /**
+   *
+   */
+  readonly nextValue: string
+}
 export interface SetShippingAddressChange {
   readonly type: 'SetShippingAddressChange'
   /**
@@ -4842,6 +4920,22 @@ export interface SetValidFromChange {
   readonly type: 'SetValidFromChange'
   /**
    *	Shape of the action for `setValidFrom`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly previousValue: string
+  /**
+   *
+   */
+  readonly nextValue: string
+}
+export interface SetValidToChange {
+  readonly type: 'SetValidToChange'
+  /**
+   *	Shape of the action for `setValidTo`
    *
    */
   readonly change: string

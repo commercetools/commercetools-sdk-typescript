@@ -636,6 +636,18 @@ export interface ProductVariantChannelAvailability {
 export interface ProductVariantChannelAvailabilityMap {
   [key: string]: ProductVariantChannelAvailability
 }
+export type QuoteRequestState =
+  | 'Accepted'
+  | 'Cancelled'
+  | 'Closed'
+  | 'Rejected'
+  | 'Submitted'
+export type QuoteState =
+  | 'Accepted'
+  | 'Declined'
+  | 'Failed'
+  | 'Pending'
+  | 'Withdrawn'
 export interface Reference {
   /**
    *
@@ -666,9 +678,12 @@ export type ReferenceTypeId =
   | 'product-discount'
   | 'product-selection'
   | 'product-type'
+  | 'quote'
+  | 'quote-request'
   | 'review'
   | 'shipping-method'
   | 'shopping-list'
+  | 'staged-quote'
   | 'state'
   | 'store'
   | 'subscription'
@@ -831,6 +846,7 @@ export type ShippingRateTierType =
   | 'CartScore'
   | 'CartValue'
 export type StackingMode = 'Stacking' | 'StopAfterThisDiscount'
+export type StagedQuoteState = 'Closed' | 'InProgress' | 'Sent'
 export type StateRole = 'Return' | 'ReviewIncludedInStatistics'
 export type StateType =
   | 'LineItemState'
