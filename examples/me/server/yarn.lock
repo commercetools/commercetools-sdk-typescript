@@ -13,6 +13,14 @@
     "@commercetools/sdk-middleware-logger" "^2.1.1"
     querystring "^0.2.1"
 
+"@commercetools/sdk-client-v2@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@commercetools/sdk-client-v2/-/sdk-client-v2-0.2.0.tgz#d7274e2a6ba08b3694479dbb3395a282cbcf2fb1"
+  integrity sha512-+bhhxtfIXyFQFiAU2wzMQ18K06RLFBQo9Ye5e0FsVQDg870dOfqBJZgOJ+2mmy6bRGbQ2h03wl2VkTTX0rO4tA==
+  dependencies:
+    node-fetch "^2.6.1"
+    querystring "^0.2.1"
+
 "@commercetools/sdk-client@^2.1.1":
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/@commercetools/sdk-client/-/sdk-client-2.1.2.tgz#fe1e442f67a385f103470669784c0fa20d7a2314"
@@ -467,7 +475,7 @@ neo-async@^2.6.0:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-node-fetch@2.6.7, node-fetch@^2.3.0:
+node-fetch@2.6.7, node-fetch@^2.3.0, node-fetch@^2.6.1:
   version "2.6.7"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.7.tgz#24de9fba827e3b4ae44dc8b20256a379160052ad"
   integrity sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==
