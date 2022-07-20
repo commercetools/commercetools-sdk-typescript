@@ -61,14 +61,6 @@ export type RequestOptions = {
 
 export type executeRequest = (request: ClientRequest) => Promise<ClientResponse>
 
-export type RetryConfig = {
-  maxRetries?: number
-  retryDelay?: number
-  backoff?: boolean
-  maxDelay?: number
-  retryCodes?: Array<number | string>,
-}
-
 export type HttpErrorType = {
   name: string
   message: string
@@ -327,7 +319,13 @@ export type HttpMiddlewareOptions = {
   maskSensitiveHeaderData?: boolean
   timeout?: number
   enableRetry?: boolean
-  retryConfig?: RetryConfig
+  retryConfig?: {
+    maxRetries?: number
+    retryDelay?: number
+    backoff?: boolean
+    maxDelay?: number
+    retryCodes?: Array<number | string>,
+  }
   fetch?: any
   abortController?: AbortController // deprecated
   getAbortController?: () => AbortController
@@ -519,11 +517,4 @@ export type ExistingTokenMiddlewareOptions = {
 
 export type CorrelationIdMiddlewareOptions = {
   generate: () => string
-}
-
-export type ConcurrentModificationMiddlewareOptions = {
-  fetch: any
-  host?: string
-  enableRetry?: boolean
-  retryConfig?: Omit<RetryConfig, 'retryCodes'>
 }
