@@ -156,7 +156,7 @@ export interface ProductDraftImport extends ImportResource {
    */
   readonly publish?: boolean
   /**
-   *	Determines the type of Prices used for [Product Price Selection](/../api/projects/products#price-selection) as well as for [LineItem Price selection](/../api/projects/carts#lineitem-price-selection). See [ProductPriceMode](/../api/projects/products#productpricemode) for more details.
+   *	Determines the type of Prices the API uses. See [ProductPriceMode](/../api/projects/products#productpricemode) for more details. If not provided, the existing `Product.priceMode` is not changed.
    *
    *
    */
