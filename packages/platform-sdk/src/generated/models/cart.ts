@@ -449,6 +449,7 @@ export type CartUpdateAction =
   | CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction
   | CartApplyDeltaToLineItemShippingDetailsTargetsAction
   | CartChangeCustomLineItemMoneyAction
+  | CartChangeCustomLineItemPriceModeAction
   | CartChangeCustomLineItemQuantityAction
   | CartChangeLineItemQuantityAction
   | CartChangeTaxCalculationModeAction
@@ -572,6 +573,13 @@ export interface CustomLineItem {
    *
    */
   readonly shippingDetails?: ItemShippingDetails
+  /**
+   *	Specifies whether Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget)
+   *	are applied to the Custom Line Item: `Standard` = yes, `External` = no.
+   *
+   *
+   */
+  readonly priceMode: CustomLineItemPriceMode
 }
 export interface CustomLineItemDraft {
   /**
@@ -613,6 +621,7 @@ export interface CustomLineItemDraft {
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
 }
+export type CustomLineItemPriceMode = 'External' | 'Standard'
 export interface DirectDiscount {
   /**
    *	The unique ID of the cart discount.
@@ -1347,6 +1356,21 @@ export interface CartChangeCustomLineItemMoneyAction {
    *
    */
   readonly money: Money
+}
+export interface CartChangeCustomLineItemPriceModeAction {
+  readonly action: 'changeCustomLineItemPriceMode'
+  /**
+   *	ID of the Custom Line Item to be updated.
+   *
+   *
+   */
+  readonly customLineItemId: string
+  /**
+   *	New value to set.
+   *
+   *
+   */
+  readonly mode: CustomLineItemPriceMode
 }
 export interface CartChangeCustomLineItemQuantityAction {
   readonly action: 'changeCustomLineItemQuantity'
