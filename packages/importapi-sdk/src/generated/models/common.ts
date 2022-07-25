@@ -478,6 +478,7 @@ export interface PriceTier {
 export type ImportResourceType =
   | 'category'
   | 'customer'
+  | 'inventory'
   | 'order'
   | 'order-patch'
   | 'price'
@@ -626,3 +627,4 @@ export interface Address {
    */
   readonly externalId?: string
 }
+export type ProductPriceModeEnum = 'Embedded' | 'Standalone'

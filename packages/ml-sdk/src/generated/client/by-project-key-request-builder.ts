@@ -8,7 +8,8 @@ import { ByProjectKeyImageSearchRequestBuilder } from './image-search/by-project
 import { ByProjectKeyMissingDataRequestBuilder } from './missing-data/by-project-key-missing-data-request-builder'
 import { ByProjectKeyRecommendationsRequestBuilder } from './recommendations/by-project-key-recommendations-request-builder'
 import { ByProjectKeySimilaritiesRequestBuilder } from './similarities/by-project-key-similarities-request-builder'
-
+/**
+ **/
 export class ByProjectKeyRequestBuilder {
   constructor(
     protected readonly args: {

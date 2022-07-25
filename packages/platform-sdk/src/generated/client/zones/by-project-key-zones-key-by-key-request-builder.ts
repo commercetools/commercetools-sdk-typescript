@@ -6,7 +6,8 @@
 import { Zone, ZoneUpdate } from '../../models/zone'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyZonesKeyByKeyRequestBuilder {
   constructor(
     protected readonly args: {

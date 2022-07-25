@@ -6,7 +6,8 @@
 import { executeRequest } from '../../shared/utils/common-types'
 import { ByProjectKeyRecommendationsGeneralCategoriesRequestBuilder } from '../general-categories/by-project-key-recommendations-general-categories-request-builder'
 import { ByProjectKeyRecommendationsProjectCategoriesRequestBuilder } from '../project-categories/by-project-key-recommendations-project-categories-request-builder'
-
+/**
+ **/
 export class ByProjectKeyRecommendationsRequestBuilder {
   constructor(
     protected readonly args: {

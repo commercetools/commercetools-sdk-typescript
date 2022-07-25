@@ -32,6 +32,7 @@ import {
   AssetSource,
   AttributeConstraintEnum,
   AttributeDefinition,
+  AuthenticationMode,
   CategoryOrderHints,
   ChannelRole,
   CustomFields,
@@ -56,7 +57,10 @@ import {
   PaymentInfo,
   PaymentState,
   Price,
+  ProductSelectionSetting,
   ProductVariantAvailability,
+  QuoteRequestState,
+  QuoteState,
   Reference,
   Reservation,
   ReturnInfo,
@@ -67,6 +71,7 @@ import {
   SearchKeywords,
   ShipmentState,
   StackingMode,
+  StagedQuoteState,
   StateRole,
   StateType,
   SyncInfo,
@@ -104,6 +109,7 @@ export type Change =
   | AddPaymentChange
   | AddPlainEnumValueChange
   | AddPriceChange
+  | AddProductChange
   | AddPropertyChange
   | AddReturnInfoChange
   | AddShippingAddressIdChange
@@ -152,6 +158,8 @@ export type Change =
   | ChangePredicateChange
   | ChangePriceChange
   | ChangeQuantityChange
+  | ChangeQuoteRequestStateChange
+  | ChangeQuoteStateChange
   | ChangeRequiresDiscountCodeChange
   | ChangeReviewRatingStatisticsChange
   | ChangeShipmentStateChange
@@ -160,6 +168,7 @@ export type Change =
   | ChangeSlugChange
   | ChangeSortOrderChange
   | ChangeStackingModeChange
+  | ChangeStagedQuoteStateChange
   | ChangeStateTypeChange
   | ChangeTargetChange
   | ChangeTaxCalculationModeChange
@@ -193,6 +202,7 @@ export type Change =
   | RemoveParcelFromDeliveryChange
   | RemovePaymentChange
   | RemovePriceChange
+  | RemoveProductChange
   | RemovePropertyChange
   | RemoveShippingAddressIdChange
   | RemoveShoppingListLineItemChange
@@ -210,6 +220,7 @@ export type Change =
   | SetAssetSourcesChange
   | SetAssetTagsChange
   | SetAttributeChange
+  | SetAuthenticationModeChange
   | SetAuthorNameChange
   | SetBillingAddressChange
   | SetCartPredicateChange
@@ -254,10 +265,12 @@ export type Change =
   | SetKeyChange
   | SetLanguagesChange
   | SetLastNameChange
+  | SetLineItemDeactivatedAtChange
   | SetLineItemDiscountedPriceChange
   | SetLineItemDiscountedPricePerQuantityChange
   | SetLineItemDistributionChannelChange
   | SetLineItemPriceChange
+  | SetLineItemProductKeyChange
   | SetLineItemProductSlugChange
   | SetLineItemShippingDetailsChange
   | SetLineItemTaxAmountChange
@@ -286,8 +299,10 @@ export type Change =
   | SetParcelMeasurementsChange
   | SetParcelTrackingDataChange
   | SetPricesChange
+  | SetProductCountChange
   | SetProductPriceCustomFieldChange
   | SetProductPriceCustomTypeChange
+  | SetProductSelectionsChange
   | SetProductVariantKeyChange
   | SetPropertyChange
   | SetRatingChange
@@ -297,6 +312,7 @@ export type Change =
   | SetReturnShipmentStateChange
   | SetSalutationChange
   | SetSearchKeywordsChange
+  | SetSellerCommentChange
   | SetShippingAddressChange
   | SetShippingInfoPriceChange
   | SetShippingInfoTaxedPriceChange
@@ -326,6 +342,7 @@ export type Change =
   | SetTransitionsChange
   | SetValidFromAndUntilChange
   | SetValidFromChange
+  | SetValidToChange
   | SetValidUntilChange
   | SetValueChange
   | SetVariantAvailabilityChange
@@ -661,6 +678,18 @@ export interface AddPriceChange {
    *
    */
   readonly nextValue: Price
+}
+export interface AddProductChange {
+  readonly type: 'AddProductChange'
+  /**
+   *	Update action for when a product is assigned to a product selection
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly nextValue: Reference
 }
 export interface AddPropertyChange {
   readonly type: 'AddPropertyChange'
@@ -1543,6 +1572,42 @@ export interface ChangeQuantityChange {
    */
   readonly previousValue: InventoryQuantityValue
 }
+/**
+ *	Update action for `changeQuoteRequestState` on `quote-request`
+ */
+export interface ChangeQuoteRequestStateChange {
+  readonly type: 'ChangeQuoteRequestStateChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly nextValue: QuoteRequestState
+  /**
+   *
+   */
+  readonly previousValue: QuoteRequestState
+}
+/**
+ *	Update action for `changeQuoteState` on `quote`
+ */
+export interface ChangeQuoteStateChange {
+  readonly type: 'ChangeQuoteStateChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly nextValue: QuoteState
+  /**
+   *
+   */
+  readonly previousValue: QuoteState
+}
 export interface ChangeRequiresDiscountCodeChange {
   readonly type: 'ChangeRequiresDiscountCodeChange'
   /**
@@ -1672,6 +1737,24 @@ export interface ChangeStackingModeChange {
    *
    */
   readonly previousValue: StackingMode
+}
+/**
+ *	Update action for `changeStagedQuoteState` on `staged-quote`
+ */
+export interface ChangeStagedQuoteStateChange {
+  readonly type: 'ChangeStagedQuoteStateChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly nextValue: StagedQuoteState
+  /**
+   *
+   */
+  readonly previousValue: StagedQuoteState
 }
 export interface ChangeStateTypeChange {
   readonly type: 'ChangeStateTypeChange'
@@ -2212,6 +2295,18 @@ export interface RemovePriceChange {
    */
   readonly nextValue: Price
 }
+export interface RemoveProductChange {
+  readonly type: 'RemoveProductChange'
+  /**
+   *	Update action for when a product is unassigned from a product selection
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly previousValue: Reference
+}
 export interface RemovePropertyChange {
   readonly type: 'RemovePropertyChange'
   /**
@@ -2527,6 +2622,22 @@ export interface SetAttributeChange {
    *
    */
   readonly nextValue: AttributeValue
+}
+export interface SetAuthenticationModeChange {
+  readonly type: 'SetAuthenticationModeChange'
+  /**
+   *	Update action for `setAuthenticationMode`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly previousValue: AuthenticationMode
+  /**
+   *
+   */
+  readonly nextValue: AuthenticationMode
 }
 export interface SetAuthorNameChange {
   readonly type: 'SetAuthorNameChange'
@@ -3365,6 +3476,26 @@ export interface SetLastNameChange {
    */
   readonly nextValue: string
 }
+export interface SetLineItemDeactivatedAtChange {
+  readonly type: 'SetLineItemDeactivatedAtChange'
+  /**
+   *	Update action for `setLineItemDeactivatedAt`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly lineItem: ShoppingListLineItemValue
+  /**
+   *
+   */
+  readonly previousValue: string
+  /**
+   *
+   */
+  readonly nextValue: string
+}
 export interface SetLineItemDiscountedPriceChange {
   readonly type: 'SetLineItemDiscountedPriceChange'
   /**
@@ -3456,6 +3587,34 @@ export interface SetLineItemPriceChange {
    *
    */
   readonly previousValue: Price
+}
+export interface SetLineItemProductKeyChange {
+  readonly type: 'SetLineItemProductKeyChange'
+  /**
+   *	Update action for `setLineItemProductKey`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly lineItem: LocalizedString
+  /**
+   *
+   */
+  readonly lineItemId: string
+  /**
+   *
+   */
+  readonly variant: string
+  /**
+   *
+   */
+  readonly previousValue: string
+  /**
+   *
+   */
+  readonly nextValue: string
 }
 export interface SetLineItemProductSlugChange {
   readonly type: 'SetLineItemProductSlugChange'
@@ -4011,6 +4170,22 @@ export interface SetPricesChange {
    */
   readonly nextValue: Price[]
 }
+export interface SetProductCountChange {
+  readonly type: 'SetProductCountChange'
+  /**
+   *	Update action for `setProductCount`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly previousValue: number
+  /**
+   *
+   */
+  readonly nextValue: number
+}
 export interface SetProductPriceCustomFieldChange {
   readonly type: 'SetProductPriceCustomFieldChange'
   /**
@@ -4050,6 +4225,22 @@ export interface SetProductPriceCustomTypeChange {
    *
    */
   readonly nextValue: CustomFields
+}
+export interface SetProductSelectionsChange {
+  readonly type: 'SetProductSelectionsChange'
+  /**
+   *	Update action for `setProductSelections`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly previousValue: ProductSelectionSetting[]
+  /**
+   *
+   */
+  readonly nextValue: ProductSelectionSetting[]
 }
 export interface SetProductVariantKeyChange {
   readonly type: 'SetProductVariantKeyChange'
@@ -4207,6 +4398,22 @@ export interface SetSearchKeywordsChange {
    *
    */
   readonly nextValue: SearchKeywords
+}
+export interface SetSellerCommentChange {
+  readonly type: 'SetSellerCommentChange'
+  /**
+   *	Shape of the action for `setSellerComment`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly previousValue: string
+  /**
+   *
+   */
+  readonly nextValue: string
 }
 export interface SetShippingAddressChange {
   readonly type: 'SetShippingAddressChange'
@@ -4713,6 +4920,22 @@ export interface SetValidFromChange {
   readonly type: 'SetValidFromChange'
   /**
    *	Shape of the action for `setValidFrom`
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly previousValue: string
+  /**
+   *
+   */
+  readonly nextValue: string
+}
+export interface SetValidToChange {
+  readonly type: 'SetValidToChange'
+  /**
+   *	Shape of the action for `setValidTo`
    *
    */
   readonly change: string

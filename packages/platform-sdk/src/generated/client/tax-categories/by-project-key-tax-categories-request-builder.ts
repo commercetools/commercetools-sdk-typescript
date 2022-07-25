@@ -12,7 +12,8 @@ import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyTaxCategoriesByIDRequestBuilder } from './by-project-key-tax-categories-by-id-request-builder'
 import { ByProjectKeyTaxCategoriesKeyByKeyRequestBuilder } from './by-project-key-tax-categories-key-by-key-request-builder'
-
+/**
+ **/
 export class ByProjectKeyTaxCategoriesRequestBuilder {
   constructor(
     protected readonly args: {

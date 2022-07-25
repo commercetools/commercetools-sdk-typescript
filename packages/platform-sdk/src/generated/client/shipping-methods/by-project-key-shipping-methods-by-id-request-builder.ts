@@ -9,7 +9,8 @@ import {
 } from '../../models/shipping-method'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyShippingMethodsByIDRequestBuilder {
   constructor(
     protected readonly args: {

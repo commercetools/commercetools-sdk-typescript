@@ -7,7 +7,8 @@ import { Customer, MyCustomerChangePassword } from '../../models/customer'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyInStoreKeyByStoreKeyMePasswordResetRequestBuilder } from '../reset/by-project-key-in-store-key-by-store-key-me-password-reset-request-builder'
-
+/**
+ **/
 export class ByProjectKeyInStoreKeyByStoreKeyMePasswordRequestBuilder {
   constructor(
     protected readonly args: {

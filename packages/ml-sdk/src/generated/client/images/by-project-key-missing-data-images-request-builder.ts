@@ -8,7 +8,8 @@ import { MissingImagesSearchRequest } from '../../models/missing-data'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyMissingDataImagesStatusRequestBuilder } from '../status/by-project-key-missing-data-images-status-request-builder'
-
+/**
+ **/
 export class ByProjectKeyMissingDataImagesRequestBuilder {
   constructor(
     protected readonly args: {

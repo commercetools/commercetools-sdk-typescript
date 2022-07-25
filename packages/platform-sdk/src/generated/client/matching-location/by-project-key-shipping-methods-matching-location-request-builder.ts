@@ -6,7 +6,8 @@
 import { ShippingMethodPagedQueryResponse } from '../../models/shipping-method'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyShippingMethodsMatchingLocationRequestBuilder {
   constructor(
     protected readonly args: {
@@ -17,6 +18,13 @@ export class ByProjectKeyShippingMethodsMatchingLocationRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Retrieves all the ShippingMethods that can ship to the given [Location](/projects/zones#location).
+   *	If the `currency` parameter is given, then the ShippingMethods must also have a rate defined in the specified currency.
+   *	Each ShippingMethod contains at least one ShippingRate with the flag `isMatching` set to `true`.
+   *	If the `currency` parameter is given, exactly one ShippingRate will contain it.
+   *
+   */
   public get(methodArgs: {
     queryArgs: {
       country: string

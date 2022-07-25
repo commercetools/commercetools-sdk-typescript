@@ -6,7 +6,8 @@
 import { DiscountCode, DiscountCodeUpdate } from '../../models/discount-code'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyDiscountCodesByIDRequestBuilder {
   constructor(
     protected readonly args: {

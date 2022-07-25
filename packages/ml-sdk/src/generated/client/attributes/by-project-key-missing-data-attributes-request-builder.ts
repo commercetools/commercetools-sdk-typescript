@@ -8,7 +8,8 @@ import { MissingAttributesSearchRequest } from '../../models/missing-data'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyMissingDataAttributesStatusRequestBuilder } from '../status/by-project-key-missing-data-attributes-status-request-builder'
-
+/**
+ **/
 export class ByProjectKeyMissingDataAttributesRequestBuilder {
   constructor(
     protected readonly args: {

@@ -11,7 +11,8 @@ import {
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyChannelsByIDRequestBuilder } from './by-project-key-channels-by-id-request-builder'
-
+/**
+ **/
 export class ByProjectKeyChannelsRequestBuilder {
   constructor(
     protected readonly args: {

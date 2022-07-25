@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
-import { LocalizedString, Money } from './common'
+import { LocalizedString, Money, Reference } from './common'
 
 /**
  *	Provides descriptive information specific to the resource.
@@ -16,7 +16,10 @@ export type Label =
   | OrderLabel
   | PaymentLabel
   | ProductLabel
+  | QuoteLabel
+  | QuoteRequestLabel
   | ReviewLabel
+  | StagedQuoteLabel
   | StringLabel
 export interface CustomObjectLabel {
   readonly type: 'CustomObjectLabel'
@@ -84,6 +87,36 @@ export interface ProductLabel {
    */
   readonly name: LocalizedString
 }
+export interface QuoteLabel {
+  readonly type: 'QuoteLabel'
+  /**
+   *
+   */
+  readonly key: string
+  /**
+   *
+   */
+  readonly customer: Reference
+  /**
+   *
+   */
+  readonly stagedQuote: Reference
+  /**
+   *
+   */
+  readonly quoteRequest: Reference
+}
+export interface QuoteRequestLabel {
+  readonly type: 'QuoteRequestLabel'
+  /**
+   *
+   */
+  readonly key: string
+  /**
+   *
+   */
+  readonly customer: Reference
+}
 export interface ReviewLabel {
   readonly type: 'ReviewLabel'
   /**
@@ -94,6 +127,21 @@ export interface ReviewLabel {
    *
    */
   readonly title: string
+}
+export interface StagedQuoteLabel {
+  readonly type: 'StagedQuoteLabel'
+  /**
+   *
+   */
+  readonly key: string
+  /**
+   *
+   */
+  readonly customer: Reference
+  /**
+   *
+   */
+  readonly quoteRequest: Reference
 }
 export interface StringLabel {
   readonly type: 'StringLabel'

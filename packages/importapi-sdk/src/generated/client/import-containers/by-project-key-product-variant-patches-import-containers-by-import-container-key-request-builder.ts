@@ -9,7 +9,8 @@ import {
 } from '../../models/importrequests'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyProductVariantPatchesImportContainersByImportContainerKeyRequestBuilder {
   constructor(
     protected readonly args: {

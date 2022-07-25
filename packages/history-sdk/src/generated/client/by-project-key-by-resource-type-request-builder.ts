@@ -10,7 +10,8 @@ import {
 import { executeRequest, QueryParam } from '../shared/utils/common-types'
 import { ApiRequest } from '../shared/utils/requests-utils'
 import { ByProjectKeyByResourceTypeByIDRequestBuilder } from './by-project-key-by-resource-type-by-id-request-builder'
-
+/**
+ **/
 export class ByProjectKeyByResourceTypeRequestBuilder {
   constructor(
     protected readonly args: {

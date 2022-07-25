@@ -8,7 +8,8 @@ import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyProductsByIDImagesRequestBuilder } from '../images/by-project-key-products-by-id-images-request-builder'
 import { ByProjectKeyProductsByIDProductSelectionsRequestBuilder } from '../product-selections/by-project-key-products-by-id-product-selections-request-builder'
-
+/**
+ **/
 export class ByProjectKeyProductsByIDRequestBuilder {
   constructor(
     protected readonly args: {
@@ -48,7 +49,7 @@ export class ByProjectKeyProductsByIDRequestBuilder {
       priceCountry?: string
       priceCustomerGroup?: string
       priceChannel?: string
-      localeProjection?: string
+      localeProjection?: string | string[]
       storeProjection?: string
       expand?: string | string[]
       [key: string]: QueryParam
@@ -98,7 +99,7 @@ export class ByProjectKeyProductsByIDRequestBuilder {
       priceCountry?: string
       priceCustomerGroup?: string
       priceChannel?: string
-      localeProjection?: string
+      localeProjection?: string | string[]
       storeProjection?: string
       expand?: string | string[]
       [key: string]: QueryParam
@@ -130,7 +131,7 @@ export class ByProjectKeyProductsByIDRequestBuilder {
       priceCountry?: string
       priceCustomerGroup?: string
       priceChannel?: string
-      localeProjection?: string
+      localeProjection?: string | string[]
       storeProjection?: string
       version: number
       expand?: string | string[]

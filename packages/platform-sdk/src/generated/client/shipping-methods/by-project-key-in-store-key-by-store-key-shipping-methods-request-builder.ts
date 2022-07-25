@@ -5,7 +5,8 @@
  */
 import { executeRequest } from '../../shared/utils/common-types'
 import { ByProjectKeyInStoreKeyByStoreKeyShippingMethodsMatchingCartRequestBuilder } from '../matching-cart/by-project-key-in-store-key-by-store-key-shipping-methods-matching-cart-request-builder'
-
+/**
+ **/
 export class ByProjectKeyInStoreKeyByStoreKeyShippingMethodsRequestBuilder {
   constructor(
     protected readonly args: {

@@ -284,6 +284,7 @@ export type ResourceTypeId =
   | 'payment-interface-interaction'
   | 'product-price'
   | 'product-selection'
+  | 'quote'
   | 'review'
   | 'shipping-method'
   | 'shopping-list'
@@ -489,7 +490,6 @@ export type TypeUpdateAction =
   | TypeAddLocalizedEnumValueAction
   | TypeChangeEnumValueLabelAction
   | TypeChangeEnumValueOrderAction
-  | TypeChangeFieldDefinitionLabelAction
   | TypeChangeFieldDefinitionOrderAction
   | TypeChangeInputHintAction
   | TypeChangeKeyAction
@@ -585,22 +585,6 @@ export interface TypeChangeEnumValueOrderAction {
    */
   readonly keys: string[]
 }
-export interface TypeChangeFieldDefinitionLabelAction {
-  readonly action: 'changeFieldDefinitionLabel'
-  /**
-   *	`name` of the [FieldDefinition](ctp:api:type:FieldDefinition) to update.
-   *
-   *
-   */
-  readonly fieldName: string
-  /**
-   *	New value to set.
-   *	Must not be empty.
-   *
-   *
-   */
-  readonly label: LocalizedString
-}
 export interface TypeChangeFieldDefinitionOrderAction {
   readonly action: 'changeFieldDefinitionOrder'
   /**
@@ -656,7 +640,7 @@ export interface TypeChangeLabelAction {
   readonly label: LocalizedString
 }
 /**
- *	Changes the `label` of a [LocalizedEnumValue](ctp:api:type:CustomFieldLocalizedEnumValue) of an [LocalizedEnumType](ctp:api:type:CustomFieldLocalizedEnumType) FieldDefinition.
+ *	Changes the `label` of a [LocalizedEnumValue](ctp:api:type:CustomFieldLocalizedEnumValue) of a [LocalizedEnumType](ctp:api:type:CustomFieldLocalizedEnumType) FieldDefinition.
  *
  */
 export interface TypeChangeLocalizedEnumValueLabelAction {

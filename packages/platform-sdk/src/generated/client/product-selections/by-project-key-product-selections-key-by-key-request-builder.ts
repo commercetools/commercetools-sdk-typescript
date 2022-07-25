@@ -10,7 +10,8 @@ import {
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyProductSelectionsKeyByKeyProductsRequestBuilder } from '../products/by-project-key-product-selections-key-by-key-products-request-builder'
-
+/**
+ **/
 export class ByProjectKeyProductSelectionsKeyByKeyRequestBuilder {
   constructor(
     protected readonly args: {

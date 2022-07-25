@@ -12,7 +12,8 @@ import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyPaymentsByIDRequestBuilder } from './by-project-key-payments-by-id-request-builder'
 import { ByProjectKeyPaymentsKeyByKeyRequestBuilder } from './by-project-key-payments-key-by-key-request-builder'
-
+/**
+ **/
 export class ByProjectKeyPaymentsRequestBuilder {
   constructor(
     protected readonly args: {

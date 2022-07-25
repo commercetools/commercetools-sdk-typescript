@@ -6,7 +6,8 @@
 import { CustomerGroup, CustomerGroupUpdate } from '../../models/customer-group'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyCustomerGroupsByIDRequestBuilder {
   constructor(
     protected readonly args: {

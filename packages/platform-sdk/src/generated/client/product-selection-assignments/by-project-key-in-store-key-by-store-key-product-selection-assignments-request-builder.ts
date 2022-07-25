@@ -6,7 +6,8 @@
 import { ProductsInStorePagedQueryResponse } from '../../models/product-selection'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyInStoreKeyByStoreKeyProductSelectionAssignmentsRequestBuilder {
   constructor(
     protected readonly args: {
@@ -20,9 +21,18 @@ export class ByProjectKeyInStoreKeyByStoreKeyProductSelectionAssignmentsRequestB
   ) {}
   /**
    *	Queries Product Selection assignments in a specific Store.
+   *
+   *	The response will include duplicate Products whenever more than one active Product Selection of the Store
+   *	includes a Product. To make clear through which Product Selection a Product is available in the Store
+   *	the response contains assignments including both the Product and the Product Selection.
+   *	Only Products of Product Selections that are activated in Store will be returned.
+   *
    */
   public get(methodArgs?: {
     queryArgs?: {
+      limit?: number
+      offset?: number
+      withTotal?: boolean
       expand?: string | string[]
       [key: string]: QueryParam
     }

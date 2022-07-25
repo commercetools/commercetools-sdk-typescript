@@ -5,7 +5,8 @@
  */
 import { executeRequest } from '../../shared/utils/common-types'
 import { ByProjectKeyProductVariantsImportContainersByImportContainerKeyRequestBuilder } from './by-project-key-product-variants-import-containers-by-import-container-key-request-builder'
-
+/**
+ **/
 export class ByProjectKeyProductVariantsImportContainersRequestBuilder {
   constructor(
     protected readonly args: {

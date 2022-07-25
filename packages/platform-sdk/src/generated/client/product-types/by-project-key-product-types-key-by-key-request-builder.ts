@@ -6,7 +6,8 @@
 import { ProductType, ProductTypeUpdate } from '../../models/product-type'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyProductTypesKeyByKeyRequestBuilder {
   constructor(
     protected readonly args: {
@@ -37,6 +38,27 @@ export class ByProjectKeyProductTypesKeyByKeyRequestBuilder {
           ...methodArgs?.headers,
         },
         queryParams: methodArgs?.queryArgs,
+      },
+      this.args.executeRequest
+    )
+  }
+  /**
+   *	Checks if a Product Type with given `key` exists. Responds with a `200 OK` status if the `Product Type` exists or `404 Not Found` otherwise.
+   */
+  public head(methodArgs?: {
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'HEAD',
+        uriTemplate: '/{projectKey}/product-types/key={key}',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
       },
       this.args.executeRequest
     )

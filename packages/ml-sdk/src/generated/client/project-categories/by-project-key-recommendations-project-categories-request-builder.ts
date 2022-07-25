@@ -5,7 +5,8 @@
  */
 import { executeRequest } from '../../shared/utils/common-types'
 import { ByProjectKeyRecommendationsProjectCategoriesByProductIdRequestBuilder } from './by-project-key-recommendations-project-categories-by-product-id-request-builder'
-
+/**
+ **/
 export class ByProjectKeyRecommendationsProjectCategoriesRequestBuilder {
   constructor(
     protected readonly args: {

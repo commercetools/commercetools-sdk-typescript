@@ -6,7 +6,8 @@
 import { Customer, CustomerResetPassword } from '../../models/customer'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyCustomersPasswordResetRequestBuilder {
   constructor(
     protected readonly args: {

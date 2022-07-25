@@ -6,7 +6,8 @@
 import { ShippingMethodPagedQueryResponse } from '../../models/shipping-method'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyInStoreKeyByStoreKeyShippingMethodsMatchingCartRequestBuilder {
   constructor(
     protected readonly args: {
@@ -18,6 +19,12 @@ export class ByProjectKeyInStoreKeyByStoreKeyShippingMethodsMatchingCartRequestB
       baseUri?: string
     }
   ) {}
+  /**
+   *	Retrieves all the ShippingMethods that can ship to the shipping address of the given Cart in a given Store.
+   *	Each ShippingMethod contains exactly one ShippingRate with the flag `isMatching` set to `true`.
+   *	This ShippingRate is used when the ShippingMethod is [added to the Cart](ctp:api:type:CartSetShippingMethodAction).
+   *
+   */
   public get(methodArgs: {
     queryArgs: {
       cartId: string

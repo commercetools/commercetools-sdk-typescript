@@ -7,7 +7,8 @@ import { OrderEdit, OrderEditUpdate } from '../../models/order-edit'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyOrdersEditsByIDApplyRequestBuilder } from '../apply/by-project-key-orders-edits-by-id-apply-request-builder'
-
+/**
+ **/
 export class ByProjectKeyOrdersEditsByIDRequestBuilder {
   constructor(
     protected readonly args: {

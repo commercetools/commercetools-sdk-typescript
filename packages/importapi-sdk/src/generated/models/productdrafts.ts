@@ -14,6 +14,7 @@ import {
   ImportResource,
   LocalizedString,
   PriceTier,
+  ProductPriceModeEnum,
   ProductTypeKeyReference,
   StateKeyReference,
   TaxCategoryKeyReference,
@@ -154,6 +155,12 @@ export interface ProductDraftImport extends ImportResource {
    *
    */
   readonly publish?: boolean
+  /**
+   *	Determines the type of Prices the API uses. See [ProductPriceMode](/../api/projects/products#productpricemode) for more details. If not provided, the existing `Product.priceMode` is not changed.
+   *
+   *
+   */
+  readonly priceMode?: ProductPriceModeEnum
 }
 /**
  *	The representation of a Product Variant Draft for the import purpose.

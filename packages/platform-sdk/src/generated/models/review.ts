@@ -23,15 +23,19 @@ export interface Review extends BaseResource {
    */
   readonly id: string
   /**
-   *	The current version of the review.
+   *	Current version of the Review.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Review was initially created.
+   *
    *
    */
   readonly createdAt: string
   /**
+   *	Date and time (UTC) the Review was last updated.
+   *
    *
    */
   readonly lastModifiedAt: string
@@ -50,60 +54,79 @@ export interface Review extends BaseResource {
   /**
    *	User-defined unique identifier of the Review.
    *
+   *
    */
   readonly key?: string
   /**
+   *	Must be unique among Reviews. For example, if this value is set to Customer `id` + Product `id`, only one Review per Customer and per Product is allowed.
+   *
    *
    */
   readonly uniquenessValue?: string
   /**
+   *	Language in which the content of the Review is written.
+   *
    *
    */
   readonly locale?: string
   /**
+   *	Name of the author.
+   *
    *
    */
   readonly authorName?: string
   /**
+   *	Title of the Review.
+   *
    *
    */
   readonly title?: string
   /**
+   *	Content of the Review.
+   *
    *
    */
   readonly text?: string
   /**
-   *	Identifies the target of the review.
-   *	Can be a Product or a Channel
+   *	Identifies the target of the Review. Can be a [Product](ctp:api:type:Product) or a [Channel](ctp:api:type:Channel), specified as [ProductReference](ctp:api:type:ProductReference) or [ChannelReference](ctp:api:type:ChannelReference), respectively.
    *
    */
   readonly target?: ProductReference | ChannelReference
   /**
-   *	Indicates if this review is taken into account in the ratings statistics of the target.
-   *	A review is per default used in the statistics, unless the review is in a state that does not have the role `ReviewIncludedInStatistics`.
-   *	If the role of a State is modified after the calculation of this field, the calculation is not updated.
+   *	Indicates if this Review is taken into account in the ratings statistics of the target.
+   *	A Review is per default used in the statistics, unless the Review is in a state that does not have the [role](ctp:api:type:StateRoleEnum) `ReviewIncludedInStatistics`.
+   *	If the role of a [State](ctp:api:type:State) is modified after the calculation of this field, the calculation is not updated.
    *
    */
   readonly includedInStatistics: boolean
   /**
-   *	Number between -100 and 100 included.
+   *	Rating of the Product or Channel.
    *
    */
   readonly rating?: number
   /**
+   *	State of the Review. Used for approval processes, see [Review approval process](/../tutorials/review-ratings#review-approval-process) for details.
+   *
    *
    */
   readonly state?: StateReference
   /**
-   *	The customer who created the review.
+   *	Customer who created the Review.
+   *
    *
    */
   readonly customer?: CustomerReference
   /**
+   *	Custom Fields of the Review.
+   *
    *
    */
   readonly custom?: CustomFields
 }
+/**
+ *	When creating a new Review, at least one of `title`, `text` or `rating` should be set.
+ *
+ */
 export interface ReviewDraft {
   /**
    *	User-defined unique identifier for the Review.
@@ -111,51 +134,62 @@ export interface ReviewDraft {
    */
   readonly key?: string
   /**
-   *	If set, this value must be unique among reviews.
-   *	For example, if you want to have only one review per customer and per product, you can set the value to `customer's id` and `product's id`.
+   *	If set, this value must be unique among Reviews.
+   *	For example, if you want to have only one Review per Customer and per Product, you can set the value to Customer `id` + Product `id`.
    *
    */
   readonly uniquenessValue?: string
   /**
+   *	Language in which the content of the Review is written.
+   *
    *
    */
   readonly locale?: string
   /**
+   *	Name of the author.
+   *
    *
    */
   readonly authorName?: string
   /**
+   *	Title of the Review.
+   *
    *
    */
   readonly title?: string
   /**
+   *	Content of the Review.
+   *
    *
    */
   readonly text?: string
   /**
-   *	Identifies the target of the review.
-   *	Can be a Product or a Channel
+   *	Identifies the target of the Review. Can be a [Product](ctp:api:type:Product) or a [Channel](ctp:api:type:Channel), specified as [ProductResourceIdentifier](ctp:api:type:ProductResourceIdentifier) or [ChannelResourceIdentifier](ctp:api:type:ChannelResourceIdentifier), respectively.
    *
    */
   readonly target?: ProductResourceIdentifier | ChannelResourceIdentifier
   /**
+   *	State of the Review. Used for approval processes, see [Review approval process](/../tutorials/review-ratings#review-approval-process) for details.
+   *
    *
    */
   readonly state?: StateResourceIdentifier
   /**
-   *	Number between -100 and 100 included.
-   *	Rating of the targeted object, like a product.
-   *	This rating can represent the number of stars, or a percentage, or a like (+1)/dislike (-1)
-   *	A rating is used in the ratings statistics of the targeted object, unless the review is in a state that does not have the role `ReviewIncludedInStatistics`.
+   *	Rating of the targeted Product or Channel.
+   *	This rating can represent the number of stars, a percentage, or a like (+1)/dislike (-1).
+   *	A rating is used in the ratings statistics of the targeted object, unless the Review is in a State that does not have the role `ReviewIncludedInStatistics`.
    *
    */
   readonly rating?: number
   /**
-   *	The customer who created the review.
+   *	Customer who created the Review.
+   *
    *
    */
   readonly customer?: CustomerResourceIdentifier
   /**
+   *	Custom Fields for the Review.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
@@ -168,10 +202,18 @@ export interface ReviewPagedQueryResponse {
    */
   readonly limit: number
   /**
+   *	Actual number of results returned.
+   *
    *
    */
   readonly count: number
   /**
+   *	Total number of results matching the query.
+   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This field is returned by default.
+   *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
+   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *
    *
    */
   readonly total?: number
@@ -182,6 +224,8 @@ export interface ReviewPagedQueryResponse {
    */
   readonly offset: number
   /**
+   *	[Reviews](ctp:api:type:Review) matching the query.
+   *
    *
    */
   readonly results: Review[]
@@ -209,7 +253,7 @@ export interface ReviewRatingStatistics {
    */
   readonly count: number
   /**
-   *	The full distribution of the ratings.
+   *	Full distribution of the ratings.
    *	The keys are the different ratings and the values are the count of reviews having this rating.
    *	Only the used ratings appear in this object.
    *
@@ -256,10 +300,14 @@ export interface ReviewResourceIdentifier {
 }
 export interface ReviewUpdate {
   /**
+   *	The expected version of the review on which the changes should be applied. If the expected version does not match the actual version, a 409 Conflict will be returned.
+   *
    *
    */
   readonly version: number
   /**
+   *	The list of update actions to be performed on the review.
+   *
    *
    */
   readonly actions: ReviewUpdateAction[]
@@ -279,7 +327,8 @@ export type ReviewUpdateAction =
 export interface ReviewSetAuthorNameAction {
   readonly action: 'setAuthorName'
   /**
-   *	If `authorName` is absent or `null`, this field will be removed if it exists.
+   *	Value to set. If empty, any existing value will be removed.
+   *
    *
    */
   readonly authorName?: string
@@ -320,8 +369,7 @@ export interface ReviewSetCustomTypeAction {
 export interface ReviewSetCustomerAction {
   readonly action: 'setCustomer'
   /**
-   *	The customer who created the review.
-   *	If `customer` is absent or `null`, this field will be removed if it exists.
+   *	Value to set. If empty, any existing value will be removed.
    *
    */
   readonly customer?: CustomerResourceIdentifier
@@ -329,7 +377,8 @@ export interface ReviewSetCustomerAction {
 export interface ReviewSetKeyAction {
   readonly action: 'setKey'
   /**
-   *	If `key` is absent or `null`, this field will be removed if it exists.
+   *	Value to set. If empty, any existing value will be removed.
+   *
    *
    */
   readonly key?: string
@@ -337,16 +386,20 @@ export interface ReviewSetKeyAction {
 export interface ReviewSetLocaleAction {
   readonly action: 'setLocale'
   /**
-   *	If `locale` is absent or `null`, this field will be removed if it exists.
+   *	Value to set. If empty, any existing value will be removed.
+   *
    *
    */
   readonly locale?: string
 }
+/**
+ *	This update action produces the [ReviewRatingSetMessage](ctp:api:type:ReviewRatingSetMessage).
+ *
+ */
 export interface ReviewSetRatingAction {
   readonly action: 'setRating'
   /**
-   *	Number between -100 and 100 included.
-   *	If `rating` is absent or `null`, this field will be removed if it exists.
+   *	Value to set. If empty, any existing value will be removed.
    *
    */
   readonly rating?: number
@@ -354,9 +407,8 @@ export interface ReviewSetRatingAction {
 export interface ReviewSetTargetAction {
   readonly action: 'setTarget'
   /**
-   *	Identifies the target of the review.
-   *	Can be a Product or a Channel.
-   *	If `target` is absent or `null`, this field will be removed if it exists.
+   *	Value to set, specified as [ProductResourceIdentifier](ctp:api:type:ProductResourceIdentifier) or [ChannelResourceIdentifier](ctp:api:type:ChannelResourceIdentifier), respectively. If empty, any existing value will be removed.
+   *
    *
    */
   readonly target: ProductResourceIdentifier | ChannelResourceIdentifier
@@ -364,7 +416,8 @@ export interface ReviewSetTargetAction {
 export interface ReviewSetTextAction {
   readonly action: 'setText'
   /**
-   *	If `text` is absent or `null`, this field will be removed if it exists.
+   *	Value to set. If empty, any existing value will be removed.
+   *
    *
    */
   readonly text?: string
@@ -372,18 +425,27 @@ export interface ReviewSetTextAction {
 export interface ReviewSetTitleAction {
   readonly action: 'setTitle'
   /**
-   *	If `title` is absent or `null`, this field will be removed if it exists.
+   *	Value to set. If empty, any existing value will be removed.
+   *
    *
    */
   readonly title?: string
 }
+/**
+ *	Transition to a new State. This update action produces the [ReviewStateTransitionMessage](/message-types#reviewstatetransitionmessage).
+ *
+ */
 export interface ReviewTransitionStateAction {
   readonly action: 'transitionState'
   /**
+   *	Value to set. If there is no State yet, the new State must be an initial State. If the existing State has `transitions` set, there must be a direct transition to the new State. If `transitions` is not set, no validation is performed. If the new State does not have the [role](ctp:api:type:StateRoleEnum) `ReviewIncludedInStatistics`, the Review is not taken into account in the ratings statistics of the target.
+   *
    *
    */
   readonly state: StateResourceIdentifier
   /**
+   *	Switch validations on or off.
+   *
    *
    */
   readonly force?: boolean

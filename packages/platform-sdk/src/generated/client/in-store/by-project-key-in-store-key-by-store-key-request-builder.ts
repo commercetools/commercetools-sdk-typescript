@@ -13,7 +13,8 @@ import { ByProjectKeyInStoreKeyByStoreKeyProductProjectionsRequestBuilder } from
 import { ByProjectKeyInStoreKeyByStoreKeyProductSelectionAssignmentsRequestBuilder } from '../product-selection-assignments/by-project-key-in-store-key-by-store-key-product-selection-assignments-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyShippingMethodsRequestBuilder } from '../shipping-methods/by-project-key-in-store-key-by-store-key-shipping-methods-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder } from '../shopping-lists/by-project-key-in-store-key-by-store-key-shopping-lists-request-builder'
-
+/**
+ **/
 export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
   constructor(
     protected readonly args: {
@@ -106,11 +107,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
       baseUri: this.args.baseUri,
     })
   }
-  /**
-   *	A projected representation of a product shows the product with its current or staged data. The current or staged
-   *	representation of a product in a catalog is called a product projection.
-   *
-   */
   public productProjections(): ByProjectKeyInStoreKeyByStoreKeyProductProjectionsRequestBuilder {
     return new ByProjectKeyInStoreKeyByStoreKeyProductProjectionsRequestBuilder(
       {

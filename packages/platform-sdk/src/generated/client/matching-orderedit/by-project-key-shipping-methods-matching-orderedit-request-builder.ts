@@ -6,7 +6,8 @@
 import { ShippingMethodPagedQueryResponse } from '../../models/shipping-method'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyShippingMethodsMatchingOrdereditRequestBuilder {
   constructor(
     protected readonly args: {
@@ -17,6 +18,11 @@ export class ByProjectKeyShippingMethodsMatchingOrdereditRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Retrieves all the ShippingMethods that can ship to the given [Location](/projects/zones#location) for an [OrderEdit](/projects/order-edits).
+   *	In case the OrderEdit preview cannot be created an [EditPreviewFailed](ctp:api:type:EditPreviewFailedError) error is raised.
+   *
+   */
   public get(methodArgs: {
     queryArgs: {
       orderEditId: string

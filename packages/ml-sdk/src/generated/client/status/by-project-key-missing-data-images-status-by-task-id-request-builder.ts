@@ -6,7 +6,8 @@
 import { MissingImagesTaskStatus } from '../../models/missing-data'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyMissingDataImagesStatusByTaskIdRequestBuilder {
   constructor(
     protected readonly args: {

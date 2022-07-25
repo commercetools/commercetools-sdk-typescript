@@ -13,7 +13,8 @@ import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyProductDiscountsMatchingRequestBuilder } from '../matching/by-project-key-product-discounts-matching-request-builder'
 import { ByProjectKeyProductDiscountsByIDRequestBuilder } from './by-project-key-product-discounts-by-id-request-builder'
 import { ByProjectKeyProductDiscountsKeyByKeyRequestBuilder } from './by-project-key-product-discounts-key-by-key-request-builder'
-
+/**
+ **/
 export class ByProjectKeyProductDiscountsRequestBuilder {
   constructor(
     protected readonly args: {

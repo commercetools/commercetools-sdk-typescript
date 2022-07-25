@@ -4,7 +4,11 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
-import { CartDiscountReference } from './cart-discount'
+import {
+  CartDiscountReference,
+  CartDiscountTarget,
+  CartDiscountValue,
+} from './cart-discount'
 import { ChannelReference, ChannelResourceIdentifier } from './channel'
 import {
   Address,
@@ -174,6 +178,10 @@ export interface Cart extends BaseResource {
    *
    */
   readonly discountCodes?: DiscountCodeInfo[]
+  /**
+   *
+   */
+  readonly directDiscounts?: DirectDiscount[]
   /**
    *
    */
@@ -355,7 +363,7 @@ export interface CartDraft {
    */
   readonly discountCodes?: string[]
 }
-export type CartOrigin = 'Customer' | 'Merchant'
+export type CartOrigin = 'Customer' | 'Merchant' | 'Quote'
 export interface CartPagedQueryResponse {
   /**
    *	Number of [results requested](/../api/general-concepts#limit).
@@ -441,6 +449,7 @@ export type CartUpdateAction =
   | CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction
   | CartApplyDeltaToLineItemShippingDetailsTargetsAction
   | CartChangeCustomLineItemMoneyAction
+  | CartChangeCustomLineItemPriceModeAction
   | CartChangeCustomLineItemQuantityAction
   | CartChangeLineItemQuantityAction
   | CartChangeTaxCalculationModeAction
@@ -472,6 +481,7 @@ export type CartUpdateAction =
   | CartSetDeleteDaysAfterLastModificationAction
   | CartSetDeliveryAddressCustomFieldAction
   | CartSetDeliveryAddressCustomTypeAction
+  | CartSetDirectDiscountsAction
   | CartSetItemShippingAddressCustomFieldAction
   | CartSetItemShippingAddressCustomTypeAction
   | CartSetKeyAction
@@ -563,6 +573,13 @@ export interface CustomLineItem {
    *
    */
   readonly shippingDetails?: ItemShippingDetails
+  /**
+   *	Specifies whether Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget)
+   *	are applied to the Custom Line Item: `Standard` = yes, `External` = no.
+   *
+   *
+   */
+  readonly priceMode: CustomLineItemPriceMode
 }
 export interface CustomLineItemDraft {
   /**
@@ -603,6 +620,34 @@ export interface CustomLineItemDraft {
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
+}
+export type CustomLineItemPriceMode = 'External' | 'Standard'
+export interface DirectDiscount {
+  /**
+   *	The unique ID of the cart discount.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly value: CartDiscountValue
+  /**
+   *	Empty when the `value` has type `giftLineItem`, otherwise a CartDiscountTarget is set.
+   *
+   */
+  readonly target?: CartDiscountTarget
+}
+export interface DirectDiscountDraft {
+  /**
+   *
+   */
+  readonly value: CartDiscountValue
+  /**
+   *	Empty when the `value` has type `giftLineItem`, otherwise a CartDiscountTarget is set.
+   *
+   */
+  readonly target?: CartDiscountTarget
 }
 export interface DiscountCodeInfo {
   /**
@@ -1312,6 +1357,21 @@ export interface CartChangeCustomLineItemMoneyAction {
    */
   readonly money: Money
 }
+export interface CartChangeCustomLineItemPriceModeAction {
+  readonly action: 'changeCustomLineItemPriceMode'
+  /**
+   *	ID of the Custom Line Item to be updated.
+   *
+   *
+   */
+  readonly customLineItemId: string
+  /**
+   *	New value to set.
+   *
+   *
+   */
+  readonly mode: CustomLineItemPriceMode
+}
 export interface CartChangeCustomLineItemQuantityAction {
   readonly action: 'changeCustomLineItemQuantity'
   /**
@@ -1702,6 +1762,13 @@ export interface CartSetDeliveryAddressCustomTypeAction {
    *
    */
   readonly fields?: FieldContainer
+}
+export interface CartSetDirectDiscountsAction {
+  readonly action: 'setDirectDiscounts'
+  /**
+   *
+   */
+  readonly discounts: DirectDiscountDraft[]
 }
 export interface CartSetItemShippingAddressCustomFieldAction {
   readonly action: 'setItemShippingAddressCustomField'

@@ -12,7 +12,8 @@ import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyProductsByIDRequestBuilder } from './by-project-key-products-by-id-request-builder'
 import { ByProjectKeyProductsKeyByKeyRequestBuilder } from './by-project-key-products-key-by-key-request-builder'
-
+/**
+ **/
 export class ByProjectKeyProductsRequestBuilder {
   constructor(
     protected readonly args: {
@@ -60,7 +61,7 @@ export class ByProjectKeyProductsRequestBuilder {
       priceCountry?: string
       priceCustomerGroup?: string
       priceChannel?: string
-      localeProjection?: string
+      localeProjection?: string | string[]
       storeProjection?: string
       expand?: string | string[]
       sort?: string | string[]
@@ -121,7 +122,7 @@ export class ByProjectKeyProductsRequestBuilder {
       priceCountry?: string
       priceCustomerGroup?: string
       priceChannel?: string
-      localeProjection?: string
+      localeProjection?: string | string[]
       storeProjection?: string
       expand?: string | string[]
       [key: string]: QueryParam

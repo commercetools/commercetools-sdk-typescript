@@ -12,7 +12,8 @@ import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyInStoreKeyByStoreKeyOrdersByIDRequestBuilder } from './by-project-key-in-store-key-by-store-key-orders-by-id-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyOrdersOrderNumberByOrderNumberRequestBuilder } from './by-project-key-in-store-key-by-store-key-orders-order-number-by-order-number-request-builder'
-
+/**
+ **/
 export class ByProjectKeyInStoreKeyByStoreKeyOrdersRequestBuilder {
   constructor(
     protected readonly args: {

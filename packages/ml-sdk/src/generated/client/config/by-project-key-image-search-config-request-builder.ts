@@ -9,7 +9,8 @@ import {
 } from '../../models/image-search-config'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-
+/**
+ **/
 export class ByProjectKeyImageSearchConfigRequestBuilder {
   constructor(
     protected readonly args: {
