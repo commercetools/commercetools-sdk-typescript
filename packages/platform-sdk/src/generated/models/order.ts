@@ -413,6 +413,12 @@ export interface LineItemImportDraft {
    */
   readonly custom?: CustomFieldsDraft
   /**
+   *	Inventory mode specific to the line item only, valid for the entire `quantity` of the line item.
+   *	Set only if inventory mode should be different from the `inventoryMode` specified on the [OrderImportDraft](ctp:api:type:OrderImportDraft).
+   *
+   */
+  readonly inventoryMode?: InventoryMode
+  /**
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft

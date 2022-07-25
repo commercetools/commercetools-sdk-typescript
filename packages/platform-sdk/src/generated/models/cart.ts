@@ -903,6 +903,12 @@ export interface LineItem {
    */
   readonly custom?: CustomFields
   /**
+   *	Inventory mode specific to the line item only, valid for the entire `quantity` of the line item.
+   *	Only present if inventory mode is different from the `inventoryMode` specified on the [Cart](ctp:api:type:Cart).
+   *
+   */
+  readonly inventoryMode?: InventoryMode
+  /**
    *	Container for line item specific address(es).
    *
    */
@@ -974,6 +980,12 @@ export interface LineItemDraft {
    *
    */
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
+  /**
+   *	Inventory mode specific to the line item only, valid for the entire `quantity` of the line item.
+   *	Set only if inventory mode should be different from the `inventoryMode` specified on the [Cart](ctp:api:type:Cart).
+   *
+   */
+  readonly inventoryMode?: InventoryMode
   /**
    *	Container for line item specific address(es).
    *

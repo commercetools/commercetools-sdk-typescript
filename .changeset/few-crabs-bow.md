@@ -1,7 +1,7 @@
 ---
-"@commercetools/history-sdk": minor
-"@commercetools/importapi-sdk": minor
-"@commercetools/platform-sdk": major
+'@commercetools/history-sdk': minor
+'@commercetools/importapi-sdk': minor
+'@commercetools/platform-sdk': major
 ---
 
 ### History API
