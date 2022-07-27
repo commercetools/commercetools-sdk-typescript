@@ -49,24 +49,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/products/test_ID?localeProjection=localeProjection',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .products()
-        .withId({ ID: 'test_ID' })
-        .get({ queryArgs: { localeProjection: 'localeProjection' } }),
-    },
-    {
-      method: 'get',
-      uri: '/test_projectKey/products/test_ID?storeProjection=storeProjection',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .products()
-        .withId({ ID: 'test_ID' })
-        .get({ queryArgs: { storeProjection: 'storeProjection' } }),
-    },
-    {
-      method: 'get',
       uri: '/test_projectKey/products/test_ID?expand=expand',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
@@ -146,32 +128,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'post',
-      uri: '/test_projectKey/products/test_ID?localeProjection=localeProjection',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .products()
-        .withId({ ID: 'test_ID' })
-        .post({
-          body: null,
-          headers: null,
-          queryArgs: { localeProjection: 'localeProjection' },
-        }),
-    },
-    {
-      method: 'post',
-      uri: '/test_projectKey/products/test_ID?storeProjection=storeProjection',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .products()
-        .withId({ ID: 'test_ID' })
-        .post({
-          body: null,
-          headers: null,
-          queryArgs: { storeProjection: 'storeProjection' },
-        }),
-    },
-    {
-      method: 'post',
       uri: '/test_projectKey/products/test_ID?expand=expand',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
@@ -225,28 +181,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .products()
         .withId({ ID: 'test_ID' })
         .delete({ queryArgs: { priceChannel: 'priceChannel', version: 2 } }),
-    },
-    {
-      method: 'delete',
-      uri: '/test_projectKey/products/test_ID?localeProjection=localeProjection&version=2',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .products()
-        .withId({ ID: 'test_ID' })
-        .delete({
-          queryArgs: { localeProjection: 'localeProjection', version: 2 },
-        }),
-    },
-    {
-      method: 'delete',
-      uri: '/test_projectKey/products/test_ID?storeProjection=storeProjection&version=2',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .products()
-        .withId({ ID: 'test_ID' })
-        .delete({
-          queryArgs: { storeProjection: 'storeProjection', version: 2 },
-        }),
     },
     {
       method: 'delete',
