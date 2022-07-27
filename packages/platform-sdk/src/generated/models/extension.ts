@@ -193,10 +193,17 @@ export interface ExtensionPagedQueryResponse {
  *	Extensions are available for:
  *
  */
-export type ExtensionResourceTypeId = 'cart' | 'customer' | 'order' | 'payment'
+export type ExtensionResourceTypeId =
+  | 'cart'
+  | 'customer'
+  | 'order'
+  | 'payment'
+  | 'quote'
+  | 'quote-request'
+  | 'staged-quote'
 export interface ExtensionTrigger {
   /**
-   *	`cart`, `order`, `payment`, and `customer` are supported.
+   *	`cart`, `order`, `payment`, `customer`, `quote-request`, `staged-quote`, and `quote` are supported.
    *
    *
    */
