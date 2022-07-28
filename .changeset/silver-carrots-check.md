@@ -1,5 +1,5 @@
 ---
-"@commercetools/platform-sdk": patch
+"@commercetools/platform-sdk": minor
 ---
 
 ### Platform API
