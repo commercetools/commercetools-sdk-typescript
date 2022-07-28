@@ -1,6 +1,6 @@
 ---
 '@commercetools/history-sdk': minor
-'@commercetools/importapi-sdk': minor
+'@commercetools/importapi-sdk': major
 '@commercetools/platform-sdk': major
 ---
 
