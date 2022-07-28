@@ -2090,4 +2090,7 @@ export interface CustomLineItemImportDraft {
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
 }
+/**
+ *	The scope controls which part of the product information is published.
+ */
 export type ProductPublishScope = 'All' | 'Prices'

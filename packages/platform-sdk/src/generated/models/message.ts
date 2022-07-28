@@ -4674,6 +4674,7 @@ export interface ProductPublishedMessage {
    */
   readonly productProjection: ProductProjection
   /**
+   *	The scope controls which part of the product information is published.
    *
    */
   readonly scope: ProductPublishScope
@@ -5308,6 +5309,8 @@ export interface ProductVariantAddedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	A concrete sellable good for which inventory can be tracked. Product Variants are generally mapped to specific SKUs.
+   *
    *
    */
   readonly variant: ProductVariant
@@ -5366,6 +5369,8 @@ export interface ProductVariantDeletedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	A concrete sellable good for which inventory can be tracked. Product Variants are generally mapped to specific SKUs.
+   *
    *
    */
   readonly variant: ProductVariant
@@ -7781,6 +7786,7 @@ export interface ProductPublishedMessagePayload {
    */
   readonly productProjection: ProductProjection
   /**
+   *	The scope controls which part of the product information is published.
    *
    */
   readonly scope: ProductPublishScope
@@ -7898,6 +7904,8 @@ export interface ProductUnpublishedMessagePayload {
 export interface ProductVariantAddedMessagePayload {
   readonly type: 'ProductVariantAdded'
   /**
+   *	A concrete sellable good for which inventory can be tracked. Product Variants are generally mapped to specific SKUs.
+   *
    *
    */
   readonly variant: ProductVariant
@@ -7909,6 +7917,8 @@ export interface ProductVariantAddedMessagePayload {
 export interface ProductVariantDeletedMessagePayload {
   readonly type: 'ProductVariantDeleted'
   /**
+   *	A concrete sellable good for which inventory can be tracked. Product Variants are generally mapped to specific SKUs.
+   *
    *
    */
   readonly variant: ProductVariant
