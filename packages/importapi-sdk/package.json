@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/importapi-sdk",
-  "version": "2.5.1",
+  "version": "3.0.0",
   "description": "TypeScript SDK for Composable Commerce Import API features",
   "keywords": [
     "commercetools",

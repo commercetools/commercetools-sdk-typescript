@@ -1,5 +1,43 @@
 # @commercetools/platform-sdk
 
+## 3.0.0
+
+### Major Changes
+
+- [#291](https://github.com/commercetools/commercetools-sdk-typescript/pull/291) [`cde61f4`](https://github.com/commercetools/commercetools-sdk-typescript/commit/cde61f45563970ca1648496198268976e4f83d8e) Thanks [@github-actions](https://github.com/apps/github-actions)! - ### History API
+
+  - add support for quotes
+  - add support for authentication mode
+  - add product selection support
+
+  ### Import API
+
+  - add support for inventory imports
+  - remove import sink endpoints
+
+  ### Platform API
+
+  - add support for quotes
+  - fix localeProjection query parameter type
+  - add missing query parameters to product selection assigment
+  - add HEAD request to product types
+  - add DeliveryDraft model
+  - removed deprecated fields from Payment models
+
+### Minor Changes
+
+- [#302](https://github.com/commercetools/commercetools-sdk-typescript/pull/302) [`69da036`](https://github.com/commercetools/commercetools-sdk-typescript/commit/69da036f75595831a20503bc17aa292857cecdb9) Thanks [@github-actions](https://github.com/apps/github-actions)! - ### Platform API
+
+  #### Features
+
+  - add LocaleprojectingTrait, StoreprojectingTrait
+  - quotes to extension resource types
+  - support InventoryMode for cart line items
+
+  #### Fixes
+
+  - removed `localeProjection` & `priceSelection` parameter from PriceselectingTrait as they are not applying to all endpoints using price selection
+
 ## 2.8.0
 
 ### Minor Changes
