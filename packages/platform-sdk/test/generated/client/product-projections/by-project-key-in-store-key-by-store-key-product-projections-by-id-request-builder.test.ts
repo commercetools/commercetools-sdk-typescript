@@ -13,6 +13,56 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
       method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections/test_ID?priceCurrency=priceCurrency',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .productProjections()
+        .withId({ ID: 'test_ID' })
+        .get({ queryArgs: { priceCurrency: 'priceCurrency' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections/test_ID?priceCountry=priceCountry',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .productProjections()
+        .withId({ ID: 'test_ID' })
+        .get({ queryArgs: { priceCountry: 'priceCountry' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections/test_ID?priceCustomerGroup=priceCustomerGroup',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .productProjections()
+        .withId({ ID: 'test_ID' })
+        .get({ queryArgs: { priceCustomerGroup: 'priceCustomerGroup' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections/test_ID?priceChannel=priceChannel',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .productProjections()
+        .withId({ ID: 'test_ID' })
+        .get({ queryArgs: { priceChannel: 'priceChannel' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections/test_ID?localeProjection=localeProjection',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .productProjections()
+        .withId({ ID: 'test_ID' })
+        .get({ queryArgs: { localeProjection: 'localeProjection' } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/in-store/key=test_storeKey/product-projections/test_ID?expand=expand',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })

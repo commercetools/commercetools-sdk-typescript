@@ -25,6 +25,11 @@ export class ByProjectKeyInStoreKeyByStoreKeyProductProjectionsByIDRequestBuilde
    */
   public get(methodArgs?: {
     queryArgs?: {
+      priceCurrency?: string
+      priceCountry?: string
+      priceCustomerGroup?: string
+      priceChannel?: string
+      localeProjection?: string | string[]
       expand?: string | string[]
       [key: string]: QueryParam
     }
