@@ -63,3 +63,22 @@ jobs:
           commit: 'ci(changesets): version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_GITHUB_TOKEN }}
+
+      - name: Convert markdown to slack markdown
+        uses: LoveToKnow/slackify-markdown-action@v1.0.0
+        id: markdown
+        with:
+          text: |
+            A new version of [ts-sdk](https://github.com/commercetools/commercetools-sdk-typescript) was publish to npm :rocket:
+
+      - name: Slack Notification
+        if: steps.changesets.outputs.published == 'true'
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: devtooling-automation
+          SLACK_COLOR: ${{ job.status }} 
+          MSG_MINIMAL: actions url,commit
+          SLACK_TITLE: Typescript SDK Release ✨ 
+          SLACK_MESSAGE: ${{steps.markdown.outputs.text}}
+          SLACK_USERNAME: rtBot
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
