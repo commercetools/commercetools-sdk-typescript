@@ -7,7 +7,6 @@
 import {
   CartReference,
   CartResourceIdentifier,
-  DiscountCodeInfo,
   ExternalLineItemTotalPrice,
   ExternalTaxRateDraft,
   InventoryMode,
@@ -106,9 +105,10 @@ export interface MyCartDraft {
    */
   readonly store?: StoreKeyReference
   /**
+   *	The code of existing DiscountCodes.
    *
    */
-  readonly discountCodes?: DiscountCodeInfo[]
+  readonly discountCodes?: string[]
 }
 export interface MyCartUpdate {
   /**
