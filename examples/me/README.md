@@ -26,10 +26,12 @@ PORT=8085
 CTP_CLIENT_ID={clientID}
 CTP_PROJECT_KEY={projectKey}
 CTP_CLIENT_SECRET={clientSecret}
+CTP_AUTH_URL={authUrl}
+CTP_HOST_URL={hostUrl}
 DEFAULT_CURRENCY=EUR
 ```
 
-6. Replace `{clientID}`, `{projectKey}`, and `{clientSecret}` with the respective values from your API Client. The `DEFAULT_CURRENCY` can be changed based on your Composable Commerce Project settings.
+6. Replace `{clientID}`, `{projectKey}`, `{authUrl}`, `{hostUrl}` and `{clientSecret}` with the respective values from your API Client. The `DEFAULT_CURRENCY` can be changed based on your Composable Commerce Project settings.
 
 ## Using the ME Endpoint Checkout App
 
