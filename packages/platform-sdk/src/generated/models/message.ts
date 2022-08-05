@@ -177,7 +177,9 @@ export type Message =
   | QuoteRequestCreatedMessage
   | QuoteRequestDeletedMessage
   | QuoteRequestStateChangedMessage
+  | QuoteRequestStateTransitionMessage
   | QuoteStateChangedMessage
+  | QuoteStateTransitionMessage
   | ReviewCreatedMessage
   | ReviewRatingSetMessage
   | ReviewStateTransitionMessage
@@ -185,6 +187,7 @@ export type Message =
   | StagedQuoteDeletedMessage
   | StagedQuoteSellerCommentSetMessage
   | StagedQuoteStateChangedMessage
+  | StagedQuoteStateTransitionMessage
   | StagedQuoteValidToSetMessage
   | StandalonePriceCreatedMessage
   | StandalonePriceDeletedMessage
@@ -5641,6 +5644,78 @@ export interface QuoteRequestStateChangedMessage {
    */
   readonly oldQuoteRequestState: QuoteRequestState
 }
+/**
+ *	Generated after a successful [Transition State](ctp:api:type:QuoteRequestTransitionStateAction) update action.
+ *
+ */
+export interface QuoteRequestStateTransitionMessage {
+  readonly type: 'QuoteRequestStateTransition'
+  /**
+   *	Unique identifier of the Message.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[State](ctp:api:type:State) of the [Quote](ctp:api:type:Quote) after the [Transition State](ctp:api:type:QuoteRequestTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly state: StateReference
+  /**
+   *	[State](ctp:api:type:State) of the [Quote](ctp:api:type:Quote) before the [Transition State](ctp:api:type:QuoteRequestTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly oldState?: StateReference
+  /**
+   *	`true`, if [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:QuoteRequestTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly force: boolean
+}
 export interface QuoteStateChangedMessage {
   readonly type: 'QuoteStateChanged'
   /**
@@ -5702,6 +5777,78 @@ export interface QuoteStateChangedMessage {
    *
    */
   readonly oldQuoteState: QuoteState
+}
+/**
+ *	Generated after a successful [Transition State](ctp:api:type:QuoteTransitionStateAction) update action.
+ *
+ */
+export interface QuoteStateTransitionMessage {
+  readonly type: 'QuoteStateTransition'
+  /**
+   *	Unique identifier of the Message.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[State](ctp:api:type:State) of the [Quote](ctp:api:type:Quote) after the [Transition State](ctp:api:type:QuoteTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly state: StateReference
+  /**
+   *	[State](ctp:api:type:State) of the [Quote](ctp:api:type:Quote) before the [Transition State](ctp:api:type:QuoteTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly oldState?: StateReference
+  /**
+   *	`true`, if [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:QuoteTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly force: boolean
 }
 export interface ReviewCreatedMessage {
   readonly type: 'ReviewCreated'
@@ -6120,6 +6267,78 @@ export interface StagedQuoteStateChangedMessage {
    *
    */
   readonly oldStagedQuoteState: StagedQuoteState
+}
+/**
+ *	Generated after a successful [Transition State](ctp:api:type:StagedQuoteTransitionStateAction) update action.
+ *
+ */
+export interface StagedQuoteStateTransitionMessage {
+  readonly type: 'StagedQuoteStateTransition'
+  /**
+   *	Unique identifier of the Message.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[State](ctp:api:type:State) of the [Quote](ctp:api:type:Quote) after the [Transition State](ctp:api:type:StagedQuoteTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly state: StateReference
+  /**
+   *	[State](ctp:api:type:State) of the [Quote](ctp:api:type:Quote) before the [Transition State](ctp:api:type:StagedQuoteTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly oldState?: StateReference
+  /**
+   *	`true`, if [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:StagedQuoteTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly force: boolean
 }
 export interface StagedQuoteValidToSetMessage {
   readonly type: 'StagedQuoteValidToSet'
@@ -6854,7 +7073,9 @@ export type MessagePayload =
   | QuoteRequestCreatedMessagePayload
   | QuoteRequestDeletedMessagePayload
   | QuoteRequestStateChangedMessagePayload
+  | QuoteRequestStateTransitionMessagePayload
   | QuoteStateChangedMessagePayload
+  | QuoteStateTransitionMessagePayload
   | ReviewCreatedMessagePayload
   | ReviewRatingSetMessagePayload
   | ReviewStateTransitionMessagePayload
@@ -6863,6 +7084,7 @@ export type MessagePayload =
   | StagedQuoteDeletedMessagePayload
   | StagedQuoteSellerCommentSetMessagePayload
   | StagedQuoteStateChangedMessagePayload
+  | StagedQuoteStateTransitionMessagePayload
   | StagedQuoteValidToSetMessagePayload
   | StandalonePriceCreatedMessagePayload
   | StandalonePriceDeletedMessagePayload
@@ -7954,6 +8176,31 @@ export interface QuoteRequestStateChangedMessagePayload {
    */
   readonly oldQuoteRequestState: QuoteRequestState
 }
+/**
+ *	Generated after a successful [Transition State](ctp:api:type:QuoteRequestTransitionStateAction) update action.
+ *
+ */
+export interface QuoteRequestStateTransitionMessagePayload {
+  readonly type: 'QuoteRequestStateTransition'
+  /**
+   *	[State](ctp:api:type:State) of the [Quote](ctp:api:type:Quote) after the [Transition State](ctp:api:type:QuoteRequestTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly state: StateReference
+  /**
+   *	[State](ctp:api:type:State) of the [Quote](ctp:api:type:Quote) before the [Transition State](ctp:api:type:QuoteRequestTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly oldState?: StateReference
+  /**
+   *	`true`, if [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:QuoteRequestTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly force: boolean
+}
 export interface QuoteStateChangedMessagePayload {
   readonly type: 'QuoteStateChanged'
   /**
@@ -7968,6 +8215,31 @@ export interface QuoteStateChangedMessagePayload {
    *
    */
   readonly oldQuoteState: QuoteState
+}
+/**
+ *	Generated after a successful [Transition State](ctp:api:type:QuoteTransitionStateAction) update action.
+ *
+ */
+export interface QuoteStateTransitionMessagePayload {
+  readonly type: 'QuoteStateTransition'
+  /**
+   *	[State](ctp:api:type:State) of the [Quote](ctp:api:type:Quote) after the [Transition State](ctp:api:type:QuoteTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly state: StateReference
+  /**
+   *	[State](ctp:api:type:State) of the [Quote](ctp:api:type:Quote) before the [Transition State](ctp:api:type:QuoteTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly oldState?: StateReference
+  /**
+   *	`true`, if [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:QuoteTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly force: boolean
 }
 export interface ReviewCreatedMessagePayload {
   readonly type: 'ReviewCreated'
@@ -8066,6 +8338,31 @@ export interface StagedQuoteStateChangedMessagePayload {
    *
    */
   readonly oldStagedQuoteState: StagedQuoteState
+}
+/**
+ *	Generated after a successful [Transition State](ctp:api:type:StagedQuoteTransitionStateAction) update action.
+ *
+ */
+export interface StagedQuoteStateTransitionMessagePayload {
+  readonly type: 'StagedQuoteStateTransition'
+  /**
+   *	[State](ctp:api:type:State) of the [Quote](ctp:api:type:Quote) after the [Transition State](ctp:api:type:StagedQuoteTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly state: StateReference
+  /**
+   *	[State](ctp:api:type:State) of the [Quote](ctp:api:type:Quote) before the [Transition State](ctp:api:type:StagedQuoteTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly oldState?: StateReference
+  /**
+   *	`true`, if [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:StagedQuoteTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly force: boolean
 }
 export interface StagedQuoteValidToSetMessagePayload {
   readonly type: 'StagedQuoteValidToSet'

@@ -27,6 +27,7 @@ import {
 import { CustomerReference } from './customer'
 import { CustomerGroupReference } from './customer-group'
 import { PaymentInfo } from './order'
+import { StateReference, StateResourceIdentifier } from './state'
 import { StoreKeyReference } from './store'
 import {
   CustomFields,
@@ -216,6 +217,13 @@ export interface QuoteRequest extends BaseResource {
    *
    */
   readonly custom?: CustomFields
+  /**
+   *	[State](ctp:api:type:State) of this Quote Request.
+   *	This reference can point to a State in a custom workflow.
+   *
+   *
+   */
+  readonly state?: StateReference
 }
 export interface QuoteRequestDraft {
   /**
@@ -248,6 +256,13 @@ export interface QuoteRequestDraft {
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	[State](ctp:api:type:State) of this Quote Request.
+   *	This reference can point to a State in a custom workflow.
+   *
+   *
+   */
+  readonly state?: StateReference
 }
 /**
  *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [QuoteRequest](ctp:api:type:QuoteRequest).
@@ -352,6 +367,7 @@ export type QuoteRequestUpdateAction =
   | QuoteRequestChangeQuoteRequestStateAction
   | QuoteRequestSetCustomFieldAction
   | QuoteRequestSetCustomTypeAction
+  | QuoteRequestTransitionStateAction
 /**
  *	Transitions the Quote Request to a different state.
  *	A Buyer is only allowed to cancel a Quote Request when it is in `Submitted` state.
@@ -397,4 +413,24 @@ export interface QuoteRequestSetCustomTypeAction {
    *
    */
   readonly fields?: FieldContainer
+}
+/**
+ *	If the existing [State](ctp:api:type:State) has set `transitions`, there must be a direct transition to the new State. If `transitions` is not set, no validation is performed. This update action produces the [Quote Request State Transition](ctp:api:type:QuoteRequestStateTransitionMessage) Message.
+ *
+ */
+export interface QuoteRequestTransitionStateAction {
+  readonly action: 'transitionState'
+  /**
+   *	Value to set.
+   *	If there is no State yet, this must be an initial State.
+   *
+   *
+   */
+  readonly state: StateResourceIdentifier
+  /**
+   *	Switch validations on or off.
+   *
+   *
+   */
+  readonly force?: boolean
 }

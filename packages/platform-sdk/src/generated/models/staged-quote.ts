@@ -11,6 +11,7 @@ import {
   QuoteRequestReference,
   QuoteRequestResourceIdentifier,
 } from './quote-request'
+import { StateReference, StateResourceIdentifier } from './state'
 import {
   CustomFields,
   CustomFieldsDraft,
@@ -101,6 +102,13 @@ export interface StagedQuote extends BaseResource {
    *
    */
   readonly custom?: CustomFields
+  /**
+   *	[State](ctp:api:type:State) of this Staged Quote.
+   *	This reference can point to a State in a custom workflow.
+   *
+   *
+   */
+  readonly state?: StateReference
 }
 export interface StagedQuoteDraft {
   /**
@@ -130,6 +138,13 @@ export interface StagedQuoteDraft {
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	[State](ctp:api:type:State) of this Staged Quote.
+   *	This reference can point to a State in a custom workflow.
+   *
+   *
+   */
+  readonly state?: StateReference
 }
 /**
  *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [StagedQuote](ctp:api:type:StagedQuote).
@@ -231,6 +246,7 @@ export type StagedQuoteUpdateAction =
   | StagedQuoteSetCustomTypeAction
   | StagedQuoteSetSellerCommentAction
   | StagedQuoteSetValidToAction
+  | StagedQuoteTransitionStateAction
 export interface StagedQuoteChangeStagedQuoteStateAction {
   readonly action: 'changeStagedQuoteState'
   /**
@@ -289,4 +305,24 @@ export interface StagedQuoteSetValidToAction {
    *
    */
   readonly validTo?: string
+}
+/**
+ *	If the existing [State](ctp:api:type:State) has set `transitions`, there must be a direct transition to the new State. If `transitions` is not set, no validation is performed. This update action produces the [Staged Quote State Transition](ctp:api:type:StagedQuoteStateTransitionMessage) Message.
+ *
+ */
+export interface StagedQuoteTransitionStateAction {
+  readonly action: 'transitionState'
+  /**
+   *	Value to set.
+   *	If there is no State yet, the new State must be an initial State.
+   *
+   *
+   */
+  readonly state: StateResourceIdentifier
+  /**
+   *	Switch validations on or off.
+   *
+   *
+   */
+  readonly force?: boolean
 }

@@ -31,6 +31,7 @@ import {
   StagedQuoteReference,
   StagedQuoteResourceIdentifier,
 } from './staged-quote'
+import { StateReference, StateResourceIdentifier } from './state'
 import { StoreKeyReference } from './store'
 import {
   CustomFields,
@@ -232,6 +233,13 @@ export interface Quote extends BaseResource {
    *
    */
   readonly custom?: CustomFields
+  /**
+   *	[State](ctp:api:type:State) of the Quote.
+   *	This reference can point to a State in a custom workflow.
+   *
+   *
+   */
+  readonly state?: StateReference
 }
 export interface QuoteDraft {
   /**
@@ -260,6 +268,13 @@ export interface QuoteDraft {
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	[State](ctp:api:type:State) of the Quote.
+   *	This reference can point to a State in a custom workflow.
+   *
+   *
+   */
+  readonly state?: StateReference
 }
 /**
  *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [Quote](ctp:api:type:Quote).
@@ -364,6 +379,7 @@ export type QuoteUpdateAction =
   | QuoteChangeQuoteStateAction
   | QuoteSetCustomFieldAction
   | QuoteSetCustomTypeAction
+  | QuoteTransitionStateAction
 export interface QuoteChangeQuoteStateAction {
   readonly action: 'changeQuoteState'
   /**
@@ -404,4 +420,24 @@ export interface QuoteSetCustomTypeAction {
    *
    */
   readonly fields?: FieldContainer
+}
+/**
+ *	If the existing [State](ctp:api:type:State) has set `transitions`, there must be a direct transition to the new State. If `transitions` is not set, no validation is performed. This update action produces the [Quote State Transition](ctp:api:type:QuoteStateTransitionMessage) Message.
+ *
+ */
+export interface QuoteTransitionStateAction {
+  readonly action: 'transitionState'
+  /**
+   *	Value to set.
+   *	If there is no State yet, this must be an initial State.
+   *
+   *
+   */
+  readonly state: StateResourceIdentifier
+  /**
+   *	Switch validations on or off.
+   *
+   *
+   */
+  readonly force?: boolean
 }
