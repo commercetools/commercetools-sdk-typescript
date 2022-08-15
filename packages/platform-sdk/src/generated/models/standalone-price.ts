@@ -27,6 +27,23 @@ import {
   TypeResourceIdentifier,
 } from './type'
 
+/**
+ *	Staged changes on a Standalone Price. To update the `value` property of a Staged Standalone Price, use the corresponding [update action](ctp:api:type:StandalonePriceChangeValueAction). To apply all staged changes to the Standalone Price, use the `applyStagedChanges` update action.
+ */
+export interface StagedStandalonePrice {
+  /**
+   *	Money value of the StagedStandalonePrice.
+   *
+   *
+   */
+  readonly value: TypedMoney
+  /**
+   *	Discounted price for the StagedStandalonePrice.
+   *
+   *
+   */
+  readonly discounted: DiscountedPrice
+}
 export interface StandalonePrice extends BaseResource {
   /**
    *	Unique identifier of the StandalonePrice.
@@ -130,6 +147,12 @@ export interface StandalonePrice extends BaseResource {
    *
    */
   readonly custom?: CustomFields
+  /**
+   *	Staged changes of the StandalonePrice. Only present if the StandalonePrice has staged changes.
+   *
+   *
+   */
+  readonly staged?: StagedStandalonePrice
 }
 /**
  *	Standalone Prices are defined with a scope consisting of `currency` and optionally `country`, `customerGroup`, and `channel` and/or a validity period (`validFrom` and/or `validTo`). For more information see [price selection](/../api/projects/products#price-selection).
@@ -291,12 +314,20 @@ export interface StandalonePriceUpdate {
   readonly actions: StandalonePriceUpdateAction[]
 }
 export type StandalonePriceUpdateAction =
+  | StandalonePriceApplyStagedChangesAction
   | StandalonePriceChangeValueAction
   | StandalonePriceSetCustomFieldAction
   | StandalonePriceSetCustomTypeAction
   | StandalonePriceSetDiscountedPriceAction
 /**
- *	Produces the [StandalonePriceValueChangedMessage](ctp:api:type:StandalonePriceValueChangedMessage).
+ *	Applies all staged changes to the StandalonePrice by overwriting all current values with the values in the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice). After successfully applied, the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice) will be removed from the StandalonePrice. An `applyStagedChanges` update action on a StandalonePrice that does not contain any staged changes will return a `400 Bad Request` error. Applying staged changes successfully will produce the [StandalonePriceStagedChangesApplied](ctp:api:type:StandalonePriceStagedChangesAppliedMessage) Message.
+ *
+ */
+export interface StandalonePriceApplyStagedChangesAction {
+  readonly action: 'applyStagedChanges'
+}
+/**
+ *	Updating the value of a [StandalonePrice](ctp:api:type:StandalonePrice) produces the [StandalonePriceValueChangedMessage](ctp:api:type:StandalonePriceValueChangedMessage).
  *
  */
 export interface StandalonePriceChangeValueAction {
@@ -307,6 +338,12 @@ export interface StandalonePriceChangeValueAction {
    *
    */
   readonly value: Money
+  /**
+   *	If set to `true` the update action applies to the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice). If set to `false`, the update action applies to the current [StandalonePrice](ctp:api:type:StandalonePrice).
+   *
+   *
+   */
+  readonly staged?: boolean
 }
 export interface StandalonePriceSetCustomFieldAction {
   readonly action: 'setCustomField'

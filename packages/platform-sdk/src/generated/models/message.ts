@@ -63,7 +63,7 @@ import { QuoteState } from './quote'
 import { QuoteRequestState } from './quote-request'
 import { Review } from './review'
 import { StagedQuoteState } from './staged-quote'
-import { StandalonePrice } from './standalone-price'
+import { StagedStandalonePrice, StandalonePrice } from './standalone-price'
 import { StateReference } from './state'
 import { ProductSelectionSetting, StoreKeyReference } from './store'
 import { CustomFields } from './type'
@@ -193,6 +193,7 @@ export type Message =
   | StandalonePriceDeletedMessage
   | StandalonePriceDiscountSetMessage
   | StandalonePriceExternalDiscountSetMessage
+  | StandalonePriceStagedChangesAppliedMessage
   | StandalonePriceValueChangedMessage
   | StoreCreatedMessage
   | StoreDeletedMessage
@@ -6629,6 +6630,66 @@ export interface StandalonePriceExternalDiscountSetMessage {
   readonly discounted?: DiscountedPrice
 }
 /**
+ *	Generated after a successful [Apply Staged Changes](ctp:api:types:StandalonePriceApplyStagedChangesAction) update action.
+ *
+ */
+export interface StandalonePriceStagedChangesAppliedMessage {
+  readonly type: 'StandalonePriceStagedChangesApplied'
+  /**
+   *	Unique identifier of the Message.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly version: number
+  /**
+   *
+   */
+  readonly createdAt: string
+  /**
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Applied changes of the [StandalonePrice](/../api/projects/standalone-prices) after the [Apply Staged Changes](ctp:api:types:StandalonePriceApplyStagedChangesAction) update action.
+   *
+   *
+   */
+  readonly stagedChanges: StagedStandalonePrice
+}
+/**
  *	Generated after a successful [Change Value](ctp:api:types:StandalonePriceChangeValueAction) update action.
  *
  */
@@ -6687,6 +6748,12 @@ export interface StandalonePriceValueChangedMessage {
    *
    */
   readonly value: Money
+  /**
+   *	Whether the new value was applied to the current or the staged representation of the StandalonePrice. Staged changes are stored on the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice).
+   *
+   *
+   */
+  readonly staged: boolean
 }
 export interface StoreCreatedMessage {
   readonly type: 'StoreCreated'
@@ -7090,6 +7157,7 @@ export type MessagePayload =
   | StandalonePriceDeletedMessagePayload
   | StandalonePriceDiscountSetMessagePayload
   | StandalonePriceExternalDiscountSetMessagePayload
+  | StandalonePriceStagedChangesAppliedMessagePayload
   | StandalonePriceValueChangedMessagePayload
   | StoreCreatedMessagePayload
   | StoreDeletedMessagePayload
@@ -8418,6 +8486,19 @@ export interface StandalonePriceExternalDiscountSetMessagePayload {
   readonly discounted?: DiscountedPrice
 }
 /**
+ *	Generated after a successful [Apply Staged Changes](ctp:api:types:StandalonePriceApplyStagedChangesAction) update action.
+ *
+ */
+export interface StandalonePriceStagedChangesAppliedMessagePayload {
+  readonly type: 'StandalonePriceStagedChangesApplied'
+  /**
+   *	Applied changes of the [StandalonePrice](/../api/projects/standalone-prices) after the [Apply Staged Changes](ctp:api:types:StandalonePriceApplyStagedChangesAction) update action.
+   *
+   *
+   */
+  readonly stagedChanges: StagedStandalonePrice
+}
+/**
  *	Generated after a successful [Change Value](ctp:api:types:StandalonePriceChangeValueAction) update action.
  *
  */
@@ -8429,6 +8510,12 @@ export interface StandalonePriceValueChangedMessagePayload {
    *
    */
   readonly value: Money
+  /**
+   *	Whether the new value was applied to the current or the staged representation of the StandalonePrice. Staged changes are stored on the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice).
+   *
+   *
+   */
+  readonly staged: boolean
 }
 export interface StoreCreatedMessagePayload {
   readonly type: 'StoreCreated'
