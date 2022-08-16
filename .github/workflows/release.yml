@@ -69,7 +69,7 @@ jobs:
         id: markdown
         with:
           text: |
-            A new version of [ts-sdk](https://github.com/commercetools/commercetools-sdk-typescript) was publish to npm :rocket:
+            A new version of [ts-sdk](https://github.com/commercetools/commercetools-sdk-typescript) was published to npm :rocket:
 
       - name: Slack Notification
         if: steps.changesets.outputs.published == 'true'
