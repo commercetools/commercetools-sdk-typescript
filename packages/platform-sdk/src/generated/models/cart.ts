@@ -575,7 +575,7 @@ export interface CustomLineItem {
   readonly shippingDetails?: ItemShippingDetails
   /**
    *	Specifies whether Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget)
-   *	are applied to the Custom Line Item: `Standard` = yes, `External` = no.
+   *	are applied to the Custom Line Item.
    *
    *
    */
@@ -620,6 +620,14 @@ export interface CustomLineItemDraft {
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
+  /**
+   *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget)
+   *	are applied to the Custom Line Item.
+   *	- If `External`, Cart Discounts are not considered on the Custom Line Item.
+   *
+   *
+   */
+  readonly priceMode: CustomLineItemPriceMode
 }
 export type CustomLineItemPriceMode = 'External' | 'Standard'
 export interface DirectDiscount {
@@ -1232,6 +1240,14 @@ export interface CartAddCustomLineItemAction {
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
+  /**
+   *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget)
+   *	are applied to the Custom Line Item.
+   *	- If `External`, Cart Discounts are not considered on the Custom Line Item.
+   *
+   *
+   */
+  readonly priceMode?: CustomLineItemPriceMode
 }
 export interface CartAddDiscountCodeAction {
   readonly action: 'addDiscountCode'
@@ -2089,6 +2105,14 @@ export interface CustomLineItemImportDraft {
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
+  /**
+   *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget)
+   *	are applied to the Custom Line Item.
+   *	- If `External`, Cart Discounts are not considered on the Custom Line Item.
+   *
+   *
+   */
+  readonly priceMode: CustomLineItemPriceMode
 }
 /**
  *	The scope controls which part of the product information is published.
