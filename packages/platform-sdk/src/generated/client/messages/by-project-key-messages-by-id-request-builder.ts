@@ -19,6 +19,9 @@ export class ByProjectKeyMessagesByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Deprecated scope: `view_orders:{projectKey}`
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]

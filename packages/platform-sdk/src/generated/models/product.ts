@@ -1192,7 +1192,7 @@ export interface ProductAddAssetAction {
   readonly position?: number
 }
 /**
- *	Either `variantId` or `sku` is required. Produces the [ProductImageAddedMessage](ctp:api:type:ProductImageAddedMessage).
+ *	Either `variantId` or `sku` is required. Produces the [ProductImageAdded](/projects/messages#product-image-added) Message.
  *
  */
 export interface ProductAddExternalImageAction {
@@ -1255,7 +1255,7 @@ export interface ProductAddPriceAction {
   readonly staged?: boolean
 }
 /**
- *	Produces the [ProductAddedToCategoryMessage](ctp:api:type:ProductAddedToCategoryMessage).
+ *	Produces the [ProductAddedToCategory](/projects/messages#product-added-to-category) Message.
  */
 export interface ProductAddToCategoryAction {
   readonly action: 'addToCategory'
@@ -1459,7 +1459,7 @@ export interface ProductChangePriceAction {
   readonly staged?: boolean
 }
 /**
- *	Produces the [ProductSlugChangedMessage](ctp:api:type:ProductSlugChangedMessage).
+ *	Produces the [ProductSlugChanged](ctp:api:type:ProductSlugChangedMessage) Message.
  */
 export interface ProductChangeSlugAction {
   readonly action: 'changeSlug'
@@ -1526,7 +1526,7 @@ export interface ProductMoveImageToPositionAction {
 }
 /**
  *	Publishes product data from the Product's staged projection to its current projection.
- *	Produces the [ProductPublishedMessage](ctp:api:type:ProductPublishedMessage).
+ *	Produces the [ProductPublished](ctp:api:type:ProductPublishedMessage) Message.
  */
 export interface ProductPublishAction {
   readonly action: 'publish'
@@ -1575,7 +1575,7 @@ export interface ProductRemoveAssetAction {
   readonly assetKey?: string
 }
 /**
- *	Produces the [ProductRemovedFromCategoryMessage](ctp:api:type:ProductRemovedFromCategoryMessage).
+ *	Produces the [ProductRemovedFromCategory](ctp:api:type:ProductRemovedFromCategoryMessage) Message.
  */
 export interface ProductRemoveFromCategoryAction {
   readonly action: 'removeFromCategory'
@@ -1639,7 +1639,7 @@ export interface ProductRemovePriceAction {
   readonly staged?: boolean
 }
 /**
- *	Either `id` or `sku` is required. Produces the [ProductVariantDeletedMessage](ctp:api:type:ProductVariantDeletedMessage).
+ *	Either `id` or `sku` is required. Produces the [ProductVariantDeleted](ctp:api:type:ProductVariantDeletedMessage) Message.
  *
  */
 export interface ProductRemoveVariantAction {
@@ -1664,7 +1664,7 @@ export interface ProductRemoveVariantAction {
   readonly staged?: boolean
 }
 /**
- *	Reverts the staged version of a Product to the current version. Produces the [ProductRevertedStagedChangesMessage](ctp:api:type:ProductRevertedStagedChangesMessage).
+ *	Reverts the staged version of a Product to the current version. Produces the [ProductRevertedStagedChanges](ctp:api:type:ProductRevertedStagedChangesMessage) Message.
  *
  */
 export interface ProductRevertStagedChangesAction {
@@ -2071,7 +2071,7 @@ export interface ProductSetDescriptionAction {
   readonly staged?: boolean
 }
 /**
- *	Produces the [ProductPriceExternalDiscountSetMessage](ctp:api:type:ProductPriceExternalDiscountSetMessage).
+ *	Produces the [ProductPriceExternalDiscountSet](ctp:api:type:ProductPriceExternalDiscountSetMessage) Message.
  *
  */
 export interface ProductSetDiscountedPriceAction {
@@ -2374,7 +2374,7 @@ export interface ProductSetTaxCategoryAction {
   readonly taxCategory?: TaxCategoryResourceIdentifier
 }
 /**
- *	If the existing [State](ctp:api:type:State) has set `transitions`, there must be a direct transition to the new State. If `transitions` is not set, no validation is performed. Produces the [ProductStateTransitionMessage](ctp:api:type:ProductStateTransitionMessage).
+ *	If the existing [State](ctp:api:type:State) has set `transitions`, there must be a direct transition to the new State. If `transitions` is not set, no validation is performed. Produces the [ProductStateTransition](ctp:api:type:ProductStateTransitionMessage) Message.
  *
  */
 export interface ProductTransitionStateAction {
@@ -2393,7 +2393,7 @@ export interface ProductTransitionStateAction {
   readonly force?: boolean
 }
 /**
- *	Removes the current projection of the Product. The staged projection is unaffected. Unpublished Products only appear in query/search results with `staged=false`. Produces the [ProductUnpublishedMessage](ctp:api:type:ProductUnpublishedMessage).
+ *	Removes the current projection of the Product. The staged projection is unaffected. Unpublished Products only appear in query/search results with `staged=false`. Produces the [ProductUnpublished](ctp:api:type:ProductUnpublishedMessage) Message.
  *
  */
 export interface ProductUnpublishAction {

@@ -19,6 +19,7 @@ import { Category, CategoryReference } from './category'
 import { ChannelReference } from './channel'
 import {
   Address,
+  CentPrecisionMoney,
   CreatedBy,
   DiscountedPrice,
   Image,
@@ -27,7 +28,6 @@ import {
   Money,
   Price,
   Reference,
-  TypedMoney,
 } from './common'
 import { Customer, CustomerReference } from './customer'
 import { CustomerGroupReference } from './customer-group'
@@ -47,7 +47,7 @@ import {
   ShipmentState,
   TrackingData,
 } from './order'
-import { OrderEditApplied, OrderEditReference } from './order-edit'
+import { OrderEdit, OrderEditApplied } from './order-edit'
 import {
   Payment,
   PaymentReference,
@@ -56,20 +56,20 @@ import {
 } from './payment'
 import { ProductProjection, ProductReference, ProductVariant } from './product'
 import {
-  ProductSelectionType,
+  IndividualProductSelectionType,
   ProductVariantSelection,
 } from './product-selection'
-import { QuoteState } from './quote'
-import { QuoteRequestState } from './quote-request'
+import { Quote, QuoteState } from './quote'
+import { QuoteRequest, QuoteRequestState } from './quote-request'
 import { Review } from './review'
-import { StagedQuoteState } from './staged-quote'
+import { StagedQuote, StagedQuoteState } from './staged-quote'
 import { StagedStandalonePrice, StandalonePrice } from './standalone-price'
 import { StateReference } from './state'
 import { ProductSelectionSetting, StoreKeyReference } from './store'
 import { CustomFields } from './type'
 
 /**
- *	Custom Objects are grouped into containers, which can be used like namespaces. Within a given container, a user-defined key can be used to uniquely identify resources.
+ *	`ContainerAndKey` is specific to [Custom Objects](ctp:api:type:CustomObject). Custom Objects are grouped into containers, which can be used like namespaces. Within a given container, a user-defined key can be used to uniquely identify resources.
  *
  */
 export interface ContainerAndKey {
@@ -79,11 +79,15 @@ export interface ContainerAndKey {
    */
   readonly key: string
   /**
-   *	Namespace to group Custom Objects.
+   *	Namespace to group [Custom Objects](ctp:api:type:CustomObject).
    *
    */
   readonly container: string
 }
+/**
+ *	Base representation of a Message containing common fields to all [Message Types](/../api/projects/messages#message-types).
+ *
+ */
 export type Message =
   | CategoryCreatedMessage
   | CategorySlugChangedMessage
@@ -132,8 +136,6 @@ export type Message =
   | OrderMessage
   | OrderPaymentAddedMessage
   | OrderPaymentStateChangedMessage
-  | OrderReturnInfoAddedMessage
-  | OrderReturnInfoSetMessage
   | OrderReturnShipmentStateChangedMessage
   | OrderShipmentStateChangedMessage
   | OrderShippingAddressSetMessage
@@ -180,6 +182,8 @@ export type Message =
   | QuoteRequestStateTransitionMessage
   | QuoteStateChangedMessage
   | QuoteStateTransitionMessage
+  | ReturnInfoAddedMessage
+  | ReturnInfoSetMessage
   | ReviewCreatedMessage
   | ReviewRatingSetMessage
   | ReviewStateTransitionMessage
@@ -199,27 +203,34 @@ export type Message =
   | StoreDeletedMessage
   | StoreDistributionChannelsChangedMessage
   | StoreProductSelectionsChangedMessage
+/**
+ *	Generated after a successful [Create Category](/../api/projects/categories#create-category) request.
+ *
+ */
 export interface CategoryCreatedMessage {
   readonly type: 'CategoryCreated'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -231,49 +242,65 @@ export interface CategoryCreatedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Category](ctp:api:type:Category) that was created.
+   *
    *
    */
   readonly category: Category
 }
+/**
+ *	Generated after a successful [Change Slug](ctp:api:type:CategoryChangeSlugAction) update action.
+ *
+ */
 export interface CategorySlugChangedMessage {
   readonly type: 'CategorySlugChanged'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -285,57 +312,71 @@ export interface CategorySlugChangedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	The slug of the [Category](ctp:api:type:Category) after the [Change Slug](ctp:api:type:CategoryChangeSlugAction) update action.
    *
    *
    */
   readonly slug: LocalizedString
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	The slug of the [Category](ctp:api:type:Category) before the [Change Slug](ctp:api:type:CategoryChangeSlugAction) update action.
    *
    *
    */
   readonly oldSlug?: LocalizedString
 }
+/**
+ *	Generated after a successful [Add Address](ctp:api:type:CustomerAddAddressAction) update action.
+ *
+ */
 export interface CustomerAddressAddedMessage {
   readonly type: 'CustomerAddressAdded'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -347,49 +388,65 @@ export interface CustomerAddressAddedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Address](ctp:api:type:Address) that was added during the [Add Address](ctp:api:type:CustomerAddAddressAction) update action.
+   *
    *
    */
   readonly address: Address
 }
+/**
+ *	Generated after a successful [Change Address](ctp:api:type:CustomerChangeAddressAction) update action.
+ *
+ */
 export interface CustomerAddressChangedMessage {
   readonly type: 'CustomerAddressChanged'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -401,49 +458,65 @@ export interface CustomerAddressChangedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Address](ctp:api:type:Address) that was set during the [Change Address](ctp:api:type:CustomerChangeAddressAction) update action.
+   *
    *
    */
   readonly address: Address
 }
+/**
+ *	Generated after a successful [Remove Address](ctp:api:type:CustomerRemoveAddressAction) update action.
+ *
+ */
 export interface CustomerAddressRemovedMessage {
   readonly type: 'CustomerAddressRemoved'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -455,49 +528,65 @@ export interface CustomerAddressRemovedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Address](ctp:api:type:Address) that was removed during the [Remove Address](ctp:api:type:CustomerRemoveAddressAction) update action.
+   *
    *
    */
   readonly address: Address
 }
+/**
+ *	Generated after a successful [Set Company Name](ctp:api:type:CustomerSetCompanyNameAction) update action.
+ *
+ */
 export interface CustomerCompanyNameSetMessage {
   readonly type: 'CustomerCompanyNameSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -509,49 +598,65 @@ export interface CustomerCompanyNameSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	The `companyName` that was set during the [Set Company Name](ctp:api:type:CustomerSetCompanyNameAction) update action.
+   *
    *
    */
   readonly companyName?: string
 }
+/**
+ *	Generated after a successful [Create Customer](/../api/projects/customers#create-customer-sign-up) request.
+ *
+ */
 export interface CustomerCreatedMessage {
   readonly type: 'CustomerCreated'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -563,49 +668,65 @@ export interface CustomerCreatedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Customer](ctp:api:type:Customer) that was created.
+   *
    *
    */
   readonly customer: Customer
 }
+/**
+ *	Generated after a successful [Set Date of Birth](ctp:api:type:CustomerSetDateOfBirthAction) update action.
+ *
+ */
 export interface CustomerDateOfBirthSetMessage {
   readonly type: 'CustomerDateOfBirthSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -617,49 +738,65 @@ export interface CustomerDateOfBirthSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	The `dateOfBirth` that was set during the [Set Date of Birth](ctp:api:type:CustomerSetDateOfBirthAction) update action.
+   *
    *
    */
   readonly dateOfBirth?: string
 }
+/**
+ *	Generated after a successful [Delete Customer](/../api/projects/customers#delete-customer) request.
+ *
+ */
 export interface CustomerDeletedMessage {
   readonly type: 'CustomerDeleted'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -671,45 +808,59 @@ export interface CustomerDeletedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
 }
+/**
+ *	Generated after a successful [Change Email](ctp:api:type:CustomerChangeEmailAction) update action.
+ *
+ */
 export interface CustomerEmailChangedMessage {
   readonly type: 'CustomerEmailChanged'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -721,49 +872,65 @@ export interface CustomerEmailChangedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	The `email` that was set during the [Change Email](ctp:api:type:CustomerChangeEmailAction) update action.
+   *
    *
    */
   readonly email: string
 }
+/**
+ *	Generated after a successful [Verify Customer's Email](/../api/projects/customers#verify-customers-email) request.
+ *
+ */
 export interface CustomerEmailVerifiedMessage {
   readonly type: 'CustomerEmailVerified'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -775,45 +942,59 @@ export interface CustomerEmailVerifiedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
 }
+/**
+ *	Generated after a successful [Set First Name](ctp:api:type:CustomerSetFirstNameAction) update action.
+ *
+ */
 export interface CustomerFirstNameSetMessage {
   readonly type: 'CustomerFirstNameSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -825,49 +1006,65 @@ export interface CustomerFirstNameSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	The `firstName` that was set during the [Set First Name](ctp:api:type:CustomerSetFirstNameAction) update action.
+   *
    *
    */
   readonly firstName?: string
 }
+/**
+ *	Generated after a successful [Set Customer Group](ctp:api:type:CustomerSetCustomerGroupAction) update action.
+ *
+ */
 export interface CustomerGroupSetMessage {
   readonly type: 'CustomerGroupSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -879,51 +1076,65 @@ export interface CustomerGroupSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[Customer Group](ctp:api:type:CustomerGroup) that was set during the [Set Customer Group](ctp:api:type:CustomerSetCustomerGroupAction) update action.
    *
    *
    */
   readonly customerGroup?: CustomerGroupReference
 }
+/**
+ *	Generated after a successful [Set Last Name](ctp:api:type:CustomerSetLastNameAction) update action.
+ *
+ */
 export interface CustomerLastNameSetMessage {
   readonly type: 'CustomerLastNameSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -935,49 +1146,65 @@ export interface CustomerLastNameSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	The `lastName` that was set during the [Set Last Name](ctp:api:type:CustomerSetLastNameAction) update action.
+   *
    *
    */
   readonly lastName?: string
 }
+/**
+ *	Generated after a successful [Reset Customer's Password](/../api/projects/customers#reset-customers-password), [Reset Customer's Password in a Store](/../api/projects/customers#reset-customers-password-in-a-store), [Change Customer's Password](/../api/projects/customers#change-customers-password), or [Change Customer's Password in a Store](/../api/projects/customers#change-customers-password-in-a-store) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
+ *
+ */
 export interface CustomerPasswordUpdatedMessage {
   readonly type: 'CustomerPasswordUpdated'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -989,50 +1216,65 @@ export interface CustomerPasswordUpdatedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	true, if password has been updated during Customer's Password Reset workflow.
+   *	Whether the Customer's password was updated during the [Customer's Password Reset](/../api/projects/customers#customers-password-reset) workflow.
+   *
    *
    */
   readonly reset: boolean
 }
+/**
+ *	Generated after a successful [Set Title](ctp:api:type:CustomerSetTitleAction) update action.
+ *
+ */
 export interface CustomerTitleSetMessage {
   readonly type: 'CustomerTitleSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -1044,49 +1286,65 @@ export interface CustomerTitleSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	The `title` that was set during the [Set Title](ctp:api:type:CustomerSetTitleAction) update action.
+   *
    *
    */
   readonly title?: string
 }
+/**
+ *	Generated after a successful [Create InventoryEntry](/../api/projects/inventory#create-inventoryentry) request.
+ *
+ */
 export interface InventoryEntryCreatedMessage {
   readonly type: 'InventoryEntryCreated'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -1098,49 +1356,65 @@ export interface InventoryEntryCreatedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[InventoryEntry](ctp:api:type:InventoryEntry) that was created.
+   *
    *
    */
   readonly inventoryEntry: InventoryEntry
 }
+/**
+ *	Generated after a successful [Delete InventoryEntry](/../api/projects/inventory#delete-inventoryentry) request.
+ *
+ */
 export interface InventoryEntryDeletedMessage {
   readonly type: 'InventoryEntryDeleted'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -1152,55 +1426,72 @@ export interface InventoryEntryDeletedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	The `sku` of the [InventoryEntry](ctp:api:type:InventoryEntry) that was deleted.
+   *
    *
    */
   readonly sku: string
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Channel](ctp:api:type:Channel).
+   *	[Reference](ctp:api:type:Reference) to the [Channel](ctp:api:type:Channel) where the [InventoryEntry](ctp:api:type:InventoryEntry) was deleted.
    *
    *
    */
   readonly supplyChannel?: ChannelReference
 }
+/**
+ *	Generated after a successful [Add Quantity](ctp:api:type:InventoryEntryAddQuantityAction), [Remove Quantity](ctp:api:type:InventoryEntryRemoveQuantityAction) or [Change Quantity](ctp:api:type:InventoryEntryChangeQuantityAction) update action.
+ *	Inventory changes as a result of [Order creation](/../api/projects/orders#create-order) do not trigger this message.
+ *
+ */
 export interface InventoryEntryQuantitySetMessage {
   readonly type: 'InventoryEntryQuantitySet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -1212,46 +1503,65 @@ export interface InventoryEntryQuantitySetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Quantity on stock for the [InventoryEntry](ctp:api:type:InventoryEntry) before the quantity was updated.
+   *
    *
    */
   readonly oldQuantityOnStock: number
   /**
+   *	Quantity on stock for the [InventoryEntry](ctp:api:type:InventoryEntry) after the quantity was updated.
+   *
    *
    */
   readonly newQuantityOnStock: number
   /**
+   *	Available quantity for the [InventoryEntry](ctp:api:type:InventoryEntry) before the quantity was updated.
+   *
    *
    */
   readonly oldAvailableQuantity: number
   /**
+   *	Available quantity for the [InventoryEntry](ctp:api:type:InventoryEntry) after the quantity was updated.
+   *
    *
    */
   readonly newAvailableQuantity: number
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Channel](ctp:api:type:Channel).
+   *	[Reference](ctp:api:type:Reference) to the [Channel](ctp:api:type:Channel) where the [InventoryEntry](ctp:api:type:InventoryEntry) quantity was set.
    *
    *
    */
   readonly supplyChannel?: ChannelReference
 }
+/**
+ *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [Message](ctp:api:type:Message).
+ *
+ */
 export interface MessagePagedQueryResponse {
   /**
    *	Number of [results requested](/../api/general-concepts#limit).
@@ -1260,10 +1570,18 @@ export interface MessagePagedQueryResponse {
    */
   readonly limit: number
   /**
+   *	Actual number of results returned.
+   *
    *
    */
   readonly count: number
   /**
+   *	Total number of results matching the query.
+   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This field is returned by default.
+   *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
+   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *
    *
    */
   readonly total?: number
@@ -1274,6 +1592,8 @@ export interface MessagePagedQueryResponse {
    */
   readonly offset: number
   /**
+   *	[Messages](ctp:api:type:Message) matching the query.
+   *
    *
    */
   readonly results: Message[]
@@ -1341,8 +1661,6 @@ export type OrderMessage =
   | OrderLineItemDistributionChannelSetMessage
   | OrderLineItemRemovedMessage
   | OrderPaymentStateChangedMessage
-  | OrderReturnInfoAddedMessage
-  | OrderReturnInfoSetMessage
   | OrderReturnShipmentStateChangedMessage
   | OrderShipmentStateChangedMessage
   | OrderShippingAddressSetMessage
@@ -1356,27 +1674,36 @@ export type OrderMessage =
   | ParcelMeasurementsUpdatedMessage
   | ParcelRemovedFromDeliveryMessage
   | ParcelTrackingDataUpdatedMessage
+  | ReturnInfoAddedMessage
+  | ReturnInfoSetMessage
+/**
+ *	Generated after a successful [Transition Custom Line Item State](ctp:api:type:OrderTransitionCustomLineItemStateAction) update action.
+ *
+ */
 export interface CustomLineItemStateTransitionMessage {
   readonly type: 'CustomLineItemStateTransition'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -1388,69 +1715,89 @@ export interface CustomLineItemStateTransitionMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Unique identifier of the [Custom Line Item](ctp:api:type:CustomLineItem).
+   *
    *
    */
   readonly customLineItemId: string
   /**
+   *	Date and time (UTC) when the transition of the [Custom Line Item](ctp:api:type:CustomLineItem) [State](ctp:api:type:State) was performed.
+   *
    *
    */
   readonly transitionDate: string
   /**
+   *	Number of [Custom Line Items](ctp:api:type:CustomLineItem) for which the [State](ctp:api:type:State) was transitioned.
+   *
    *
    */
   readonly quantity: number
   /**
-   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+   *	[State](ctp:api:type:State) the [Custom Line Item](ctp:api:type:CustomLineItem) was transitioned from.
    *
    *
    */
   readonly fromState: StateReference
   /**
-   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+   *	[State](ctp:api:type:State) the [Custom Line Item](ctp:api:type:CustomLineItem) was transitioned to.
    *
    *
    */
   readonly toState: StateReference
 }
+/**
+ *	Generated after a successful [Add Delivery](ctp:api:type:OrderAddDeliveryAction) update action.
+ *
+ */
 export interface DeliveryAddedMessage {
   readonly type: 'DeliveryAdded'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -1462,49 +1809,65 @@ export interface DeliveryAddedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Delivery](ctp:api:type:Delivery) that was added to the [Order](ctp:api:type:Order). The [Delivery](ctp:api:type:Delivery) in the Message body does not contain [Parcels](ctp:api:type:Parcel) if those were part of the initial [Add Delivery](ctp:api:type:OrderAddDeliveryAction) update action. In that case, the update action produces an additional [ParcelAddedToDelivery](ctp:api:type:ParcelAddedToDeliveryMessage) Message containing information about the [Parcels](ctp:api:type:Parcel).
+   *
    *
    */
   readonly delivery: Delivery
 }
+/**
+ *	Generated after a successful [Set Delivery Address](ctp:api:type:OrderSetDeliveryAddressAction) update action.
+ *
+ */
 export interface DeliveryAddressSetMessage {
   readonly type: 'DeliveryAddressSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -1516,57 +1879,77 @@ export interface DeliveryAddressSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Unique identifier of the [Parcel](ctp:api:type:Delivery).
+   *
    *
    */
   readonly deliveryId: string
   /**
+   *	[Address](ctp:api:type:Address) after the [Set Delivery Address](ctp:api:type:OrderSetDeliveryAddressAction) update action.
+   *
    *
    */
   readonly address?: Address
   /**
+   *	[Address](ctp:api:type:Address) before the [Set Delivery Address](ctp:api:type:OrderSetDeliveryAddressAction) update action.
+   *
    *
    */
   readonly oldAddress?: Address
 }
+/**
+ *	Generated after a successful [Set Delivery Items](ctp:api:type:OrderSetDeliveryItemsAction) update action.
+ *
+ */
 export interface DeliveryItemsUpdatedMessage {
   readonly type: 'DeliveryItemsUpdated'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -1578,57 +1961,77 @@ export interface DeliveryItemsUpdatedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
+   *
    *
    */
   readonly deliveryId: string
   /**
+   *	[Delivery Items](ctp:api:type:DeliveryItem) after the [Set Delivery Items](ctp:api:type:OrderSetDeliveryItemsAction) update action.
+   *
    *
    */
   readonly items: DeliveryItem[]
   /**
+   *	[Delivery Items](ctp:api:type:DeliveryItem) before the [Set Delivery Items](ctp:api:type:OrderSetDeliveryItemsAction) update action.
+   *
    *
    */
   readonly oldItems: DeliveryItem[]
 }
+/**
+ *	Generated after a successful [Remove Delivery](ctp:api:type:OrderRemoveDeliveryAction) update action.
+ *
+ */
 export interface DeliveryRemovedMessage {
   readonly type: 'DeliveryRemoved'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -1640,49 +2043,65 @@ export interface DeliveryRemovedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	The [Delivery](ctp:api:type:Delivery) that was removed from the [Order](ctp:api:type:Order).
+   *
    *
    */
   readonly delivery: Delivery
 }
+/**
+ *	Generated after a successful [Transition Line Item State](ctp:api:type:OrderTransitionLineItemStateAction) update action.
+ *
+ */
 export interface LineItemStateTransitionMessage {
   readonly type: 'LineItemStateTransition'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -1694,69 +2113,89 @@ export interface LineItemStateTransitionMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Unique identifier of the [Line Item](ctp:api:type:LineItem).
+   *
    *
    */
   readonly lineItemId: string
   /**
+   *	Date and time (UTC) when the transition of the [Line Item](ctp:api:type:LineItem) [State](ctp:api:type:State) was performed.
+   *
    *
    */
   readonly transitionDate: string
   /**
+   *	Number of [Line Items](ctp:api:type:LineItem) for which the [State](ctp:api:type:State) was transitioned.
+   *
    *
    */
   readonly quantity: number
   /**
-   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+   *	[State](ctp:api:type:State) the [Line Item](ctp:api:type:LineItem) was transitioned from.
    *
    *
    */
   readonly fromState: StateReference
   /**
-   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+   *	[State](ctp:api:type:State) the [Line Item](ctp:api:type:LineItem) was transitioned to.
    *
    *
    */
   readonly toState: StateReference
 }
+/**
+ *	Generated after a successful [Set Billing Address](ctp:api:type:OrderSetBillingAddressAction) update action.
+ *
+ */
 export interface OrderBillingAddressSetMessage {
   readonly type: 'OrderBillingAddressSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -1768,53 +2207,71 @@ export interface OrderBillingAddressSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Billing address on the Order after the [Set Billing Address](ctp:api:type:OrderSetBillingAddressAction) update action.
+   *
    *
    */
   readonly address?: Address
   /**
+   *	Billing address on the Order before the [Set Billing Address](ctp:api:type:OrderSetBillingAddressAction) update action.
+   *
    *
    */
   readonly oldAddress?: Address
 }
+/**
+ *	Generated after a successful [Create Order](/../api/projects/orders#create-order) request.
+ *
+ */
 export interface OrderCreatedMessage {
   readonly type: 'OrderCreated'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -1826,49 +2283,65 @@ export interface OrderCreatedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Order](ctp:api:type:Order) that was created.
+   *
    *
    */
   readonly order: Order
 }
+/**
+ *	Generated after a successful [Add Custom Line Item](ctp:api:type:StagedOrderAddCustomLineItemAction) update action.
+ *
+ */
 export interface OrderCustomLineItemAddedMessage {
   readonly type: 'OrderCustomLineItemAdded'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -1880,49 +2353,65 @@ export interface OrderCustomLineItemAddedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Custom Line Item](ctp:api:type:CustomLineItem) that was added to the [Order](ctp:api:type:Order).
+   *
    *
    */
   readonly customLineItem: CustomLineItem
 }
+/**
+ *	Generated after a successful recalculation of a Discount on a [Custom Line Item](ctp:api:type:CustomLineItem).
+ *
+ */
 export interface OrderCustomLineItemDiscountSetMessage {
   readonly type: 'OrderCustomLineItemDiscountSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -1934,57 +2423,77 @@ export interface OrderCustomLineItemDiscountSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Unique identifier for the [Custom Line Item](ctp:api:type:CustomLineItem).
+   *
    *
    */
   readonly customLineItemId: string
   /**
+   *	Array of [DiscountedLineItemPriceForQuantity](ctp:api:type:DiscountedLineItemPriceForQuantity) after the Discount recalculation.
+   *
    *
    */
   readonly discountedPricePerQuantity: DiscountedLineItemPriceForQuantity[]
   /**
+   *	[TaxedItemPrice](ctp:api:type:TaxedItemPrice) of the [Custom Line Item](ctp:api:type:CustomLineItem) after the Discount recalculation.
+   *
    *
    */
   readonly taxedPrice?: TaxedItemPrice
 }
+/**
+ *	Generated after a successful [Change Custom Line Item Quantity](ctp:api:type:StagedOrderChangeCustomLineItemQuantityAction) update action.
+ *
+ */
 export interface OrderCustomLineItemQuantityChangedMessage {
   readonly type: 'OrderCustomLineItemQuantityChanged'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -1996,57 +2505,77 @@ export interface OrderCustomLineItemQuantityChangedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Unique identifier of the [Custom Line Item](ctp:api:type:CustomLineItem).
+   *
    *
    */
   readonly customLineItemId: string
   /**
+   *	[Custom Line Item](ctp:api:type:CustomLineItem) quantity after the [Change Custom Line Item Quantity](ctp:api:type:StagedOrderChangeCustomLineItemQuantityAction) update action.
+   *
    *
    */
   readonly quantity: number
   /**
+   *	[Custom Line Item](ctp:api:type:CustomLineItem) quantity before the [Change Custom Line Item Quantity](ctp:api:type:StagedOrderChangeCustomLineItemQuantityAction) update action.
+   *
    *
    */
   readonly oldQuantity: number
 }
+/**
+ *	Generated after a successful [Remove Custom Line Item](ctp:api:type:StagedOrderRemoveCustomLineItemAction) update action.
+ *
+ */
 export interface OrderCustomLineItemRemovedMessage {
   readonly type: 'OrderCustomLineItemRemoved'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -2058,53 +2587,71 @@ export interface OrderCustomLineItemRemovedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Unique identifier of the [Custom Line Item](ctp:api:type:CustomLineItem).
+   *
    *
    */
   readonly customLineItemId: string
   /**
+   *	[Custom Line Item](ctp:api:type:CustomLineItem) that was removed from the [Order](ctp:api:type:Order).
+   *
    *
    */
   readonly customLineItem: CustomLineItem
 }
+/**
+ *	Generated after a successful [Set Customer Email](ctp:api:type:OrderSetCustomerEmailAction) update action.
+ *
+ */
 export interface OrderCustomerEmailSetMessage {
   readonly type: 'OrderCustomerEmailSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -2116,53 +2663,71 @@ export interface OrderCustomerEmailSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Email address on the [Order](ctp:api:type:Order) after the [Set Customer Email](ctp:api:type:OrderSetCustomerEmailAction) update action.
+   *
    *
    */
   readonly email?: string
   /**
+   *	Email address on the [Order](ctp:api:type:Order) before the [Set Customer Email](ctp:api:type:OrderSetCustomerEmailAction) update action.
+   *
    *
    */
   readonly oldEmail?: string
 }
+/**
+ *	Generated after a successful [Set Customer Group](ctp:api:type:StagedOrderSetCustomerGroupAction) update action.
+ *
+ */
 export interface OrderCustomerGroupSetMessage {
   readonly type: 'OrderCustomerGroupSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -2174,57 +2739,71 @@ export interface OrderCustomerGroupSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) on the [Order](ctp:api:type:Order) after the [Set Customer Group](ctp:api:type:StagedOrderSetCustomerGroupAction) update action.
    *
    *
    */
   readonly customerGroup?: CustomerGroupReference
   /**
-   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) on the [Order](ctp:api:type:Order) before the [Set Customer Group](ctp:api:type:StagedOrderSetCustomerGroupAction) update action.
    *
    *
    */
   readonly oldCustomerGroup?: CustomerGroupReference
 }
+/**
+ *	Generated after a successful [Set Customer Id](ctp:api:type:OrderSetCustomerIdAction) update action.
+ *
+ */
 export interface OrderCustomerSetMessage {
   readonly type: 'OrderCustomerSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -2236,69 +2815,83 @@ export interface OrderCustomerSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Customer](ctp:api:type:Customer).
+   *	[Customer](ctp:api:type:Customer) on the [Order](ctp:api:type:Order) after the [Set Customer Id](ctp:api:type:OrderSetCustomerIdAction) update action.
    *
    *
    */
   readonly customer?: CustomerReference
   /**
-   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) on the [Order](ctp:api:type:Order) after the [Set Customer Id](ctp:api:type:OrderSetCustomerIdAction) update action.
    *
    *
    */
   readonly customerGroup?: CustomerGroupReference
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Customer](ctp:api:type:Customer).
+   *	[Customer](ctp:api:type:Customer) on the [Order](ctp:api:type:Order) before the [Set Customer Id](ctp:api:type:OrderSetCustomerIdAction) update action.
    *
    *
    */
   readonly oldCustomer?: CustomerReference
   /**
-   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) on the [Order](ctp:api:type:Order) before the [Set Customer Id](ctp:api:type:OrderSetCustomerIdAction) update action.
    *
    *
    */
   readonly oldCustomerGroup?: CustomerGroupReference
 }
+/**
+ *	Generated after a successful [Delete Order](/../api/projects/orders#delete-order) request.
+ *
+ */
 export interface OrderDeletedMessage {
   readonly type: 'OrderDeleted'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -2310,49 +2903,65 @@ export interface OrderDeletedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Order](ctp:api:type:Order) that has been deleted.
+   *
    *
    */
   readonly order: Order
 }
+/**
+ *	Generated after a successful [Add Discount Code](ctp:api:type:StagedOrderAddDiscountCodeAction) update action.
+ *
+ */
 export interface OrderDiscountCodeAddedMessage {
   readonly type: 'OrderDiscountCodeAdded'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -2364,51 +2973,65 @@ export interface OrderDiscountCodeAddedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](ctp:api:type:Reference) to a [DiscountCode](ctp:api:type:DiscountCode).
+   *	[DiscountCode](ctp:api:type:DiscountCode) that was added.
    *
    *
    */
   readonly discountCode: DiscountCodeReference
 }
+/**
+ *	Generated after a successful [Remove Discount Code](ctp:api:type:StagedOrderRemoveDiscountCodeAction) update action.
+ *
+ */
 export interface OrderDiscountCodeRemovedMessage {
   readonly type: 'OrderDiscountCodeRemoved'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -2420,51 +3043,65 @@ export interface OrderDiscountCodeRemovedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](ctp:api:type:Reference) to a [DiscountCode](ctp:api:type:DiscountCode).
+   *	[DiscountCode](ctp:api:type:DiscountCode) that was removed.
    *
    *
    */
   readonly discountCode: DiscountCodeReference
 }
+/**
+ *	Generated after the [DiscountCodeState](ctp:api:type:DiscountCodeState) changes due to a [recalculation](/../api/projects/carts#recalculate).
+ *
+ */
 export interface OrderDiscountCodeStateSetMessage {
   readonly type: 'OrderDiscountCodeStateSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -2476,59 +3113,77 @@ export interface OrderDiscountCodeStateSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](ctp:api:type:Reference) to a [DiscountCode](ctp:api:type:DiscountCode).
+   *	[DiscountCode](ctp:api:type:DiscountCode) that changed due to the recalculation.
    *
    *
    */
   readonly discountCode: DiscountCodeReference
   /**
+   *	[DiscountCodeState](ctp:api:type:DiscountCodeState) after the recalculation.
+   *
    *
    */
   readonly state: DiscountCodeState
   /**
+   *	[DiscountCodeState](ctp:api:type:DiscountCodeState) before the recalculation.
+   *
    *
    */
   readonly oldState?: DiscountCodeState
 }
+/**
+ *	Generated after a successfully applying an [OrderEdit](/../api/projects/order-edits#apply-an-orderedit).
+ *
+ */
 export interface OrderEditAppliedMessage {
   readonly type: 'OrderEditApplied'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -2540,55 +3195,71 @@ export interface OrderEditAppliedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](ctp:api:type:Reference) to an [OrderEdit](ctp:api:type:OrderEdit).
+   *	[OrderEdit](ctp:api:type:OrderEdit) that was applied.
    *
    *
    */
-  readonly edit: OrderEditReference
+  readonly edit: OrderEdit
   /**
+   *	Information about a successfully applied [OrderEdit](ctp:api:type:OrderEdit).
+   *
    *
    */
   readonly result: OrderEditApplied
 }
+/**
+ *	Generated after a successful [Order Import](/../api/projects/orders-import#create-an-order-by-import).
+ *
+ */
 export interface OrderImportedMessage {
   readonly type: 'OrderImported'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -2600,49 +3271,65 @@ export interface OrderImportedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Order](ctp:api:type:Order) that was imported.
+   *
    *
    */
   readonly order: Order
 }
+/**
+ *	Generated after a successful [Add Line Item](ctp:api:type:StagedOrderAddLineItemAction) update action.
+ *
+ */
 export interface OrderLineItemAddedMessage {
   readonly type: 'OrderLineItemAdded'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -2654,53 +3341,71 @@ export interface OrderLineItemAddedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Line Item](ctp:api:type:LineItem) that was added to the [Order](ctp:api:type:Order).
+   *
    *
    */
   readonly lineItem: LineItem
   /**
+   *	Quantity of [Line Items](ctp:api:type:LineItem) that were added to the [Order](ctp:api:type:Order).
+   *
    *
    */
   readonly addedQuantity: number
 }
+/**
+ *	Generated after a successful recalculation of a Discount on a [Line Item](ctp:api:type:LineItem).
+ *
+ */
 export interface OrderLineItemDiscountSetMessage {
   readonly type: 'OrderLineItemDiscountSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -2712,65 +3417,83 @@ export interface OrderLineItemDiscountSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Unique identifier for the [Line Item](ctp:api:type:LineItem).
+   *
    *
    */
   readonly lineItemId: string
   /**
+   *	Array of [DiscountedLineItemPriceForQuantity](ctp:api:type:DiscountedLineItemPriceForQuantity) after the Discount recalculation.
+   *
    *
    */
   readonly discountedPricePerQuantity: DiscountedLineItemPriceForQuantity[]
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Total Price of the [Line Item](ctp:api:type:LineItem) after the Discount recalculation.
    *
    *
    */
   readonly totalPrice: Money
   /**
+   *	[TaxedItemPrice](ctp:api:type:TaxedItemPrice) of the [Line Item](ctp:api:type:LineItem) after the Discount recalculation.
+   *
    *
    */
   readonly taxedPrice?: TaxedItemPrice
 }
+/**
+ *	Generated after a successful [Set Line Item Distribution Channel](/../api/projects/order-edits#set-lineitem-distributionchannel) update action.
+ *
+ */
 export interface OrderLineItemDistributionChannelSetMessage {
   readonly type: 'OrderLineItemDistributionChannelSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -2782,55 +3505,71 @@ export interface OrderLineItemDistributionChannelSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Unique identifier of the [Line Item](ctp:api:type:LineItem).
+   *
    *
    */
   readonly lineItemId: string
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Channel](ctp:api:type:Channel).
+   *	[Distribution Channel](ctp:api:type:Channel) that was set.
    *
    *
    */
   readonly distributionChannel?: ChannelReference
 }
+/**
+ *	Generated after a successful [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+ *
+ */
 export interface OrderLineItemRemovedMessage {
   readonly type: 'OrderLineItemRemoved'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -2842,79 +3581,107 @@ export interface OrderLineItemRemovedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Unique identifier of the [Line Item](ctp:api:type:LineItem).
+   *
    *
    */
   readonly lineItemId: string
   /**
+   *	Quantity of [Line Items](ctp:api:type:LineItem) that were removed during the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *
    *
    */
   readonly removedQuantity: number
   /**
+   *	[Line Item](ctp:api:type:LineItem) quantity after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *
    *
    */
   readonly newQuantity: number
   /**
+   *	[ItemStates](ctp:api:type:ItemState) after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *
    *
    */
   readonly newState: ItemState[]
   /**
-   *	Base polymorphic read-only Money type which is stored in cent precision or high precision. The actual type is determined by the `type` field.
+   *	`totalPrice` of the [Order](ctp:api:type:Order) after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
    *
    *
    */
-  readonly newTotalPrice: TypedMoney
+  readonly newTotalPrice: CentPrecisionMoney
   /**
+   *	[TaxedItemPrice](ctp:api:type:TaxedItemPrice) of the [Order](ctp:api:type:Order) after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *
    *
    */
   readonly newTaxedPrice?: TaxedItemPrice
   /**
+   *	[Price](ctp:api:type:Price) of the [Order](ctp:api:type:Order) after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *
    *
    */
   readonly newPrice?: Price
   /**
+   *	[Shipping Details](ctp:api:type:ItemShippingDetails) of the [Order](ctp:api:type:Order) after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *
    *
    */
   readonly newShippingDetail?: ItemShippingDetails
 }
+/**
+ *	Generated after a successful [Add Payment](ctp:api:type:OrderAddPaymentAction) update action or when a [Payment](ctp:api:type:Payment) is added via [Order Edits](ctp:api:type:StagedOrderAddPaymentAction).
+ *
+ */
 export interface OrderPaymentAddedMessage {
   readonly type: 'OrderPaymentAdded'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -2926,51 +3693,65 @@ export interface OrderPaymentAddedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Payment](ctp:api:type:Payment).
+   *	[Payment](ctp:api:type:Payment) that was added to the [Order](ctp:api:type:Order).
    *
    *
    */
   readonly payment: PaymentReference
 }
+/**
+ *	Generated after a successful [Change Payment State](ctp:api:type:OrderChangePaymentStateAction) update action.
+ *
+ */
 export interface OrderPaymentStateChangedMessage {
   readonly type: 'OrderPaymentStateChanged'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -2982,161 +3763,71 @@ export interface OrderPaymentStateChangedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[PaymentState](ctp:api:type:PaymentState) after the [Change Payment State](ctp:api:type:OrderChangePaymentStateAction) update action.
+   *
    *
    */
   readonly paymentState: PaymentState
   /**
+   *	[PaymentState](ctp:api:type:PaymentState) before the [Change Payment State](ctp:api:type:OrderChangePaymentStateAction) update action.
+   *
    *
    */
   readonly oldPaymentState?: PaymentState
 }
-export interface OrderReturnInfoAddedMessage {
-  readonly type: 'ReturnInfoAdded'
-  /**
-   *	Unique identifier of the Message.
-   *
-   */
-  readonly id: string
-  /**
-   *
-   */
-  readonly version: number
-  /**
-   *
-   */
-  readonly createdAt: string
-  /**
-   *
-   */
-  readonly lastModifiedAt: string
-  /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
-   *
-   *
-   */
-  readonly lastModifiedBy?: LastModifiedBy
-  /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
-   *
-   *
-   */
-  readonly createdBy?: CreatedBy
-  /**
-   *
-   */
-  readonly sequenceNumber: number
-  /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
-   *
-   *
-   */
-  readonly resource: Reference
-  /**
-   *
-   */
-  readonly resourceVersion: number
-  /**
-   *
-   */
-  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
-  /**
-   *
-   */
-  readonly returnInfo: ReturnInfo
-}
-export interface OrderReturnInfoSetMessage {
-  readonly type: 'ReturnInfoSet'
-  /**
-   *	Unique identifier of the Message.
-   *
-   */
-  readonly id: string
-  /**
-   *
-   */
-  readonly version: number
-  /**
-   *
-   */
-  readonly createdAt: string
-  /**
-   *
-   */
-  readonly lastModifiedAt: string
-  /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
-   *
-   *
-   */
-  readonly lastModifiedBy?: LastModifiedBy
-  /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
-   *
-   *
-   */
-  readonly createdBy?: CreatedBy
-  /**
-   *
-   */
-  readonly sequenceNumber: number
-  /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
-   *
-   *
-   */
-  readonly resource: Reference
-  /**
-   *
-   */
-  readonly resourceVersion: number
-  /**
-   *
-   */
-  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
-  /**
-   *
-   */
-  readonly returnInfo?: ReturnInfo[]
-}
+/**
+ *	Generated after a successful [Set Return Shipment State](ctp:api:type:OrderSetReturnShipmentStateAction) update action.
+ *
+ */
 export interface OrderReturnShipmentStateChangedMessage {
   readonly type: 'OrderReturnShipmentStateChanged'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -3148,53 +3839,71 @@ export interface OrderReturnShipmentStateChangedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Unique identifier of the [ReturnItem](ctp:api:type:ReturnItem).
+   *
    *
    */
   readonly returnItemId: string
   /**
+   *	State of the [ReturnItem](ctp:api:type:ReturnItem) after the [Set Return Shipment State](ctp:api:type:OrderSetReturnShipmentStateAction) update action.
+   *
    *
    */
   readonly returnShipmentState: ReturnShipmentState
 }
+/**
+ *	Generated after a successful [Change Shipment State](ctp:api:type:OrderChangeShipmentStateAction) update action.
+ *
+ */
 export interface OrderShipmentStateChangedMessage {
   readonly type: 'OrderShipmentStateChanged'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -3206,53 +3915,71 @@ export interface OrderShipmentStateChangedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[ShipmentState](ctp:api:type:ShipmentState) after the [Change Shipment State](ctp:api:type:OrderChangeShipmentStateAction) update action.
+   *
    *
    */
   readonly shipmentState: ShipmentState
   /**
+   *	[ShipmentState](ctp:api:type:ShipmentState) before the [Change Shipment State](ctp:api:type:OrderChangeShipmentStateAction) update action.
+   *
    *
    */
-  readonly oldShipmentState?: ShipmentState
+  readonly oldShipmentState: ShipmentState
 }
+/**
+ *	Generated after a successful [Set Shipping Address](ctp:api:type:OrderSetShippingAddressAction) update action.
+ *
+ */
 export interface OrderShippingAddressSetMessage {
   readonly type: 'OrderShippingAddressSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -3264,53 +3991,71 @@ export interface OrderShippingAddressSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Shipping address on the Order after the [Set Shipping Address](ctp:api:type:OrderSetShippingAddressAction) update action.
+   *
    *
    */
   readonly address?: Address
   /**
+   *	Shipping address on the Order before the [Set Shipping Address](ctp:api:type:OrderSetShippingAddressAction) update action.
+   *
    *
    */
   readonly oldAddress?: Address
 }
+/**
+ *	Generated after a successful [Set Shipping Method](ctp:api:type:StagedOrderSetShippingMethodAction) and [Set Custom Shipping Method](ctp:api:type:StagedOrderSetCustomShippingMethodAction) update actions.
+ *
+ */
 export interface OrderShippingInfoSetMessage {
   readonly type: 'OrderShippingInfoSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -3322,53 +4067,71 @@ export interface OrderShippingInfoSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[ShippingInfo](ctp:api:type:ShippingInfo) after the [Set Shipping Method](ctp:api:type:StagedOrderSetShippingMethodAction) or [Set Custom Shipping Method](ctp:api:type:StagedOrderSetCustomShippingMethodAction) update action.
+   *
    *
    */
   readonly shippingInfo?: ShippingInfo
   /**
+   *	[ShippingInfo](ctp:api:type:ShippingInfo) before the [Set Shipping Method](ctp:api:type:StagedOrderSetShippingMethodAction) or [Set Custom Shipping Method](ctp:api:type:StagedOrderSetCustomShippingMethodAction) update action.
+   *
    *
    */
   readonly oldShippingInfo?: ShippingInfo
 }
+/**
+ *	Generated after a successful [Set ShippingRateInput](ctp:api:type:StagedOrderSetShippingRateInputAction) update action.
+ *
+ */
 export interface OrderShippingRateInputSetMessage {
   readonly type: 'OrderShippingRateInputSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -3380,53 +4143,71 @@ export interface OrderShippingRateInputSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[ShippingRateInput](ctp:api:type:ShippingRateInput) after the [Set ShippingRateInput](ctp:api:type:StagedOrderSetShippingRateInputAction) update action.
+   *
    *
    */
   readonly shippingRateInput?: ShippingRateInput
   /**
+   *	[ShippingRateInput](ctp:api:type:ShippingRateInput) before the [Set ShippingRateInput](ctp:api:type:StagedOrderSetShippingRateInputAction) update action.
+   *
    *
    */
   readonly oldShippingRateInput?: ShippingRateInput
 }
+/**
+ *	Generated after a successful [Change Order State](ctp:api:type:OrderChangeOrderStateAction) update action.
+ *
+ */
 export interface OrderStateChangedMessage {
   readonly type: 'OrderStateChanged'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -3438,53 +4219,71 @@ export interface OrderStateChangedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[OrderState](ctp:api:type:OrderState) after the [Change Order State](ctp:api:type:OrderChangeOrderStateAction) update action.
+   *
    *
    */
   readonly orderState: OrderState
   /**
+   *	[OrderState](ctp:api:type:OrderState) before the [Change Order State](ctp:api:type:OrderChangeOrderStateAction) update action.
+   *
    *
    */
   readonly oldOrderState: OrderState
 }
+/**
+ *	Generated after a successful [Transition State](ctp:api:type:OrderTransitionStateAction) update action.
+ *
+ */
 export interface OrderStateTransitionMessage {
   readonly type: 'OrderStateTransition'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -3496,61 +4295,77 @@ export interface OrderStateTransitionMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+   *	[OrderState](ctp:api:type:OrderState) after the [Transition State](ctp:api:type:OrderTransitionStateAction) update action.
    *
    *
    */
   readonly state: StateReference
   /**
-   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+   *	[OrderState](ctp:api:type:OrderState) before the [Transition State](ctp:api:type:OrderTransitionStateAction) update action.
    *
    *
    */
   readonly oldState?: StateReference
   /**
+   *	Whether [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:OrderTransitionStateAction) update action.
+   *
    *
    */
   readonly force: boolean
 }
+/**
+ *	Generated after a successful [Set Store](ctp:api:type:OrderSetStoreAction) update action.
+ *
+ */
 export interface OrderStoreSetMessage {
   readonly type: 'OrderStoreSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -3562,51 +4377,65 @@ export interface OrderStoreSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](/../api/types#reference) to a [Store](ctp:api:type:Store) by its key.
+   *	[Store](ctp:api:type:Store) that was set.
    *
    *
    */
-  readonly store: StoreKeyReference
+  readonly store?: StoreKeyReference
 }
+/**
+ *	Generated after a successful [Add Parcel To Delivery](ctp:api:type:OrderAddParcelToDeliveryAction) update action.
+ *
+ */
 export interface ParcelAddedToDeliveryMessage {
   readonly type: 'ParcelAddedToDelivery'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -3618,53 +4447,71 @@ export interface ParcelAddedToDeliveryMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
+   *
    *
    */
   readonly delivery: Delivery
   /**
+   *	[Parcel](ctp:api:type:Parcel) that was added to the [Delivery](ctp:api:type:Delivery).
+   *
    *
    */
   readonly parcel: Parcel
 }
+/**
+ *	Generated after a successful [Set Parcel Items](ctp:api:type:OrderSetParcelItemsAction) update action.
+ *
+ */
 export interface ParcelItemsUpdatedMessage {
   readonly type: 'ParcelItemsUpdated'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -3676,61 +4523,83 @@ export interface ParcelItemsUpdatedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Unique identifier of the [Parcel](ctp:api:type:Parcel).
+   *
    *
    */
   readonly parcelId: string
   /**
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
+   *
    *
    */
-  readonly deliveryId?: string
+  readonly deliveryId: string
   /**
+   *	[Delivery Items](ctp:api:type:DeliveryItem) after the [Set Parcel Items](ctp:api:type:OrderSetParcelItemsAction) update action.
+   *
    *
    */
   readonly items: DeliveryItem[]
   /**
+   *	[Delivery Items](ctp:api:type:DeliveryItem) before the [Set Parcel Items](ctp:api:type:OrderSetParcelItemsAction) update action.
+   *
    *
    */
   readonly oldItems: DeliveryItem[]
 }
+/**
+ *	Generated after a successful [Set Parcel Measurements](ctp:api:type:OrderSetParcelMeasurementsAction) update action.
+ *
+ */
 export interface ParcelMeasurementsUpdatedMessage {
   readonly type: 'ParcelMeasurementsUpdated'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -3742,57 +4611,77 @@ export interface ParcelMeasurementsUpdatedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
+   *
    *
    */
   readonly deliveryId: string
   /**
+   *	Unique identifier of the [Parcel](ctp:api:type:Parcel).
+   *
    *
    */
   readonly parcelId: string
   /**
+   *	The [Parcel Measurements](ctp:api:type:ParcelMeasurements) that were set on the [Parcel](ctp:api:type:Parcel).
+   *
    *
    */
   readonly measurements?: ParcelMeasurements
 }
+/**
+ *	Generated after a successful [Remove Parcel From Delivery](ctp:api:type:OrderRemoveParcelFromDeliveryAction) update action.
+ *
+ */
 export interface ParcelRemovedFromDeliveryMessage {
   readonly type: 'ParcelRemovedFromDelivery'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -3804,53 +4693,71 @@ export interface ParcelRemovedFromDeliveryMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
+   *
    *
    */
   readonly deliveryId: string
   /**
+   *	[Parcel](ctp:api:type:Parcel) that was removed from the [Delivery](ctp:api:type:Delivery).
+   *
    *
    */
   readonly parcel: Parcel
 }
+/**
+ *	Generated after a successful [Set Parcel TrackingData](ctp:api:type:OrderSetParcelTrackingDataAction) update action.
+ *
+ */
 export interface ParcelTrackingDataUpdatedMessage {
   readonly type: 'ParcelTrackingDataUpdated'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -3862,57 +4769,77 @@ export interface ParcelTrackingDataUpdatedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
+   *
    *
    */
   readonly deliveryId: string
   /**
+   *	Unique identifier of the [Parcel](ctp:api:type:Parcel).
+   *
    *
    */
   readonly parcelId: string
   /**
+   *	The [Tracking Data](ctp:api:type:TrackingData) that was added to the [Parcel](ctp:api:type:Parcel).
+   *
    *
    */
   readonly trackingData?: TrackingData
 }
+/**
+ *	Generated after a successful [Create Payment](/../api/projects/payments#create-a-payment) request.
+ *
+ */
 export interface PaymentCreatedMessage {
   readonly type: 'PaymentCreated'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -3924,49 +4851,65 @@ export interface PaymentCreatedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Payment](ctp:api:type:Payment) that was created.
+   *
    *
    */
   readonly payment: Payment
 }
+/**
+ *	Generated after a successful [Add InterfaceInteraction](ctp:api:type:PaymentAddInterfaceInteractionAction) update action.
+ *
+ */
 export interface PaymentInteractionAddedMessage {
   readonly type: 'PaymentInteractionAdded'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -3978,51 +4921,65 @@ export interface PaymentInteractionAddedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *	The interface interaction that was added to the [Payment](ctp:api:type:Payment).
    *
    *
    */
   readonly interaction: CustomFields
 }
+/**
+ *	Generated after a successful [Set StatusInterfaceCode](ctp:api:type:PaymentSetStatusInterfaceCodeAction) update action.
+ *
+ */
 export interface PaymentStatusInterfaceCodeSetMessage {
   readonly type: 'PaymentStatusInterfaceCodeSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -4034,53 +4991,71 @@ export interface PaymentStatusInterfaceCodeSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Unique identifier for the [Payment](ctp:api:type:Payment) for which the [Set StatusInterfaceCode](ctp:api:type:PaymentSetStatusInterfaceCodeAction) update action was applied.
+   *
    *
    */
   readonly paymentId: string
   /**
+   *	The `interfaceCode` that was set during the [Set StatusInterfaceCode](ctp:api:type:PaymentSetStatusInterfaceCodeAction) update action.
+   *
    *
    */
-  readonly interfaceCode: string
+  readonly interfaceCode?: string
 }
+/**
+ *	Generated after a successful [Transition State](ctp:api:type:PaymentTransitionStateAction) update action.
+ *
+ */
 export interface PaymentStatusStateTransitionMessage {
   readonly type: 'PaymentStatusStateTransition'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -4092,55 +5067,71 @@ export interface PaymentStatusStateTransitionMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+   *	[State](ctp:api:type:State) of the [Payment](ctp:api:type:Payment) after the [Transition State](ctp:api:type:PaymentTransitionStateAction) update action.
    *
    *
    */
   readonly state: StateReference
   /**
+   *	Whether [State](ctp:api:type:State) transition validations were turned off during the [Change Transaction State](ctp:api:type:PaymentChangeTransactionStateAction) update action.
+   *
    *
    */
   readonly force: boolean
 }
+/**
+ *	Generated after a successful [Add Transaction](ctp:api:type:PaymentAddTransactionAction) update action.
+ *
+ */
 export interface PaymentTransactionAddedMessage {
   readonly type: 'PaymentTransactionAdded'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -4152,49 +5143,65 @@ export interface PaymentTransactionAddedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[Transaction](ctp:api:type:Transaction) that was added to the [Payment](ctp:api:type:Payment).
+   *
    *
    */
   readonly transaction: Transaction
 }
+/**
+ *	Generated after a successful [Change Transaction State](ctp:api:type:PaymentChangeTransactionStateAction) update action.
+ *
+ */
 export interface PaymentTransactionStateChangedMessage {
   readonly type: 'PaymentTransactionStateChanged'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -4206,53 +5213,71 @@ export interface PaymentTransactionStateChangedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Unique identifier for the [Transaction](ctp:api:type:Transaction) for which the [Transaction State](ctp:api:type:TransactionState) changed.
+   *
    *
    */
   readonly transactionId: string
   /**
+   *	[Transaction State](ctp:api:type:TransactionState) after the [Change Transaction State](ctp:api:type:PaymentChangeTransactionStateAction) update action.
+   *
    *
    */
   readonly state: TransactionState
 }
+/**
+ *	Generated after a successful [Add To Category](ctp:api:type:ProductAddToCategoryAction) update action.
+ *
+ */
 export interface ProductAddedToCategoryMessage {
   readonly type: 'ProductAddedToCategory'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -4264,55 +5289,71 @@ export interface ProductAddedToCategoryMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Category](ctp:api:type:Category).
+   *	[Category](ctp:api:type:Category) the [Product](ctp:api:type:Product) was added to.
    *
    *
    */
   readonly category: CategoryReference
   /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
    *
    */
   readonly staged: boolean
 }
+/**
+ *	Generated after a successful [Create Product](/../api/projects/products#create-product) request.
+ *
+ */
 export interface ProductCreatedMessage {
   readonly type: 'ProductCreated'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -4324,49 +5365,65 @@ export interface ProductCreatedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	The staged [Product Projection](ctp:api:type:ProductProjection) of the [Product](ctp:api:type:Product) at the time of creation.
+   *
    *
    */
   readonly productProjection: ProductProjection
 }
+/**
+ *	Generated after a successful [Delete Product](/../api/projects/products#delete-product) request.
+ *
+ */
 export interface ProductDeletedMessage {
   readonly type: 'ProductDeleted'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -4378,53 +5435,71 @@ export interface ProductDeletedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	List of image URLs that were removed during the [Delete Product](ctp:api:type:Product) request.
+   *
    *
    */
   readonly removedImageUrls: string[]
   /**
+   *	Current [Product Projection](ctp:api:type:ProductProjection) of the deleted [Product](ctp:api:type:Product).
+   *
    *
    */
-  readonly currentProjection: ProductProjection
+  readonly currentProjection?: ProductProjection
 }
+/**
+ *	Generated after a successful [Add External Image](ctp:api:type:ProductAddExternalImageAction) update action or after the successful [upload of an image](/../api/projects/products#upload-product-image).
+ *
+ */
 export interface ProductImageAddedMessage {
   readonly type: 'ProductImageAdded'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -4436,57 +5511,77 @@ export interface ProductImageAddedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Unique identifier of the [Product Variant](ctp:api:type:ProductVariant) to which the [Image](ctp:api:type:Image) was added.
+   *
    *
    */
   readonly variantId: number
   /**
+   *	[Image](ctp:api:type:Image) that was added.
+   *
    *
    */
   readonly image: Image
   /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
    *
    */
   readonly staged: boolean
 }
+/**
+ *	Generated after a Price is updated due to a [Product Discount](ctp:api:type:ProductDiscount).
+ *
+ */
 export interface ProductPriceDiscountsSetMessage {
   readonly type: 'ProductPriceDiscountsSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -4498,75 +5593,107 @@ export interface ProductPriceDiscountsSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Array containing details about the [Prices](ctp:api:type:Price) that were updated.
+   *
    *
    */
   readonly updatedPrices: ProductPriceDiscountsSetUpdatedPrice[]
 }
+/**
+ *	Details about a [Price](ctp:api:type:Price) that was updated due to a Discount. Specific to [ProductPriceDiscountsSet](ctp:api:type:ProductPriceDiscountsSetMessage) Message.
+ *
+ */
 export interface ProductPriceDiscountsSetUpdatedPrice {
   /**
+   *	Unique identifier of the [ProductVariant](ctp:api:type:ProductVariant) for which the Discount was set.
+   *
    *
    */
   readonly variantId: number
   /**
+   *	Key of the [ProductVariant](ctp:api:type:ProductVariant) for which Discount was set.
+   *
    *
    */
   readonly variantKey?: string
   /**
+   *	SKU of the [ProductVariant](ctp:api:type:ProductVariant) for which Discount was set.
+   *
    *
    */
   readonly sku?: string
   /**
+   *	Unique identifier of the [Price](ctp:api:type:Price).
+   *
    *
    */
   readonly priceId: string
   /**
+   *	Discounted Price for the [ProductVariant](ctp:api:type:ProductVariant) for which Discount was set.
+   *
    *
    */
   readonly discounted?: DiscountedPrice
   /**
+   *	Whether the update was only applied to the staged [ProductProjection](ctp:api:type:ProductProjection).
+   *
    *
    */
   readonly staged: boolean
 }
+/**
+ *	Generated after a successful [Set Discounted Embedded Price](ctp:api:type:ProductSetDiscountedPriceAction) update action.
+ *
+ */
 export interface ProductPriceExternalDiscountSetMessage {
   readonly type: 'ProductPriceExternalDiscountSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -4578,69 +5705,95 @@ export interface ProductPriceExternalDiscountSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Unique identifier of the [Product Variant](ctp:api:type:ProductVariant) for which the Discount was set.
+   *
    *
    */
   readonly variantId: number
   /**
+   *	Key of the [Product Variant](ctp:api:type:ProductVariant) for which the Discount was set.
+   *
    *
    */
   readonly variantKey?: string
   /**
+   *	SKU of the [Product Variant](ctp:api:type:ProductVariant) for which Discount was set.
+   *
    *
    */
   readonly sku?: string
   /**
+   *	Unique identifier of the [Price](ctp:api:type:Price).
+   *
    *
    */
   readonly priceId: string
   /**
+   *	Discounted Price for the [Product Variant](ctp:api:type:ProductVariant) for which Discount was set.
+   *
    *
    */
   readonly discounted?: DiscountedPrice
   /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
    *
    */
   readonly staged: boolean
 }
+/**
+ *	Generated after a successful [Publish](ctp:api:type:ProductPublishAction) update action.
+ *
+ */
 export interface ProductPublishedMessage {
   readonly type: 'ProductPublished'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -4652,58 +5805,77 @@ export interface ProductPublishedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	List of image URLs which were removed during the [Publish](ctp:api:type:ProductPublishAction) update action.
+   *
    *
    */
   readonly removedImageUrls: string[]
   /**
+   *	Current [Product Projection](ctp:api:type:ProductProjection) of the [Product](ctp:api:type:Product) at the time of creation.
+   *
    *
    */
   readonly productProjection: ProductProjection
   /**
-   *	The scope controls which part of the product information is published.
+   *	[Publishing Scope](ctp:api:type:ProductPublishScope) that was used during the [Publish](ctp:api:type:ProductPublishAction) update action.
+   *
    *
    */
   readonly scope: ProductPublishScope
 }
+/**
+ *	Generated after a successful [Remove From Category](ctp:api:type:ProductRemoveFromCategoryAction) update action.
+ *
+ */
 export interface ProductRemovedFromCategoryMessage {
   readonly type: 'ProductRemovedFromCategory'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -4715,55 +5887,71 @@ export interface ProductRemovedFromCategoryMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Category](ctp:api:type:Category).
+   *	[Category](ctp:api:type:Category) the [Product](ctp:api:type:Product) was removed from.
    *
    *
    */
   readonly category: CategoryReference
   /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
    *
    */
   readonly staged: boolean
 }
+/**
+ *	Generated after a successful [Revert Staged Changes](ctp:api:type:ProductRevertStagedChangesAction) update action.
+ *
+ */
 export interface ProductRevertedStagedChangesMessage {
   readonly type: 'ProductRevertedStagedChanges'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -4775,49 +5963,65 @@ export interface ProductRevertedStagedChangesMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	List of image URLs that were removed during the [Revert Staged Changes](ctp:api:type:ProductRevertStagedChangesAction) update action.
+   *
    *
    */
   readonly removedImageUrls: string[]
 }
+/**
+ *	Generated after a successful [Create Product Selection](/../api/projects/product-selections#create-product-selection) request.
+ *
+ */
 export interface ProductSelectionCreatedMessage {
   readonly type: 'ProductSelectionCreated'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -4829,49 +6033,65 @@ export interface ProductSelectionCreatedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	The `type` and `name` of the individual Product Selection.
+   *
    *
    */
-  readonly productSelection: ProductSelectionType
+  readonly productSelection: IndividualProductSelectionType
 }
+/**
+ *	Generated after a successful [Delete Product Selection](/../api/projects/product-selections#create-product-selection) request.
+ *
+ */
 export interface ProductSelectionDeletedMessage {
   readonly type: 'ProductSelectionDeleted'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -4883,51 +6103,59 @@ export interface ProductSelectionDeletedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
-  /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
-   *
-   *
-   */
-  readonly name: LocalizedString
 }
+/**
+ *	Generated after a successful [Add Product](ctp:api:type:ProductSelectionAddProductAction) update action.
+ *
+ */
 export interface ProductSelectionProductAddedMessage {
   readonly type: 'ProductSelectionProductAdded'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -4939,57 +6167,71 @@ export interface ProductSelectionProductAddedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Product](ctp:api:type:Product).
+   *	[Product](ctp:api:type:Product) that was added to the [Product Selection](ctp:api:type:ProductSelection).
    *
    *
    */
   readonly product: ProductReference
   /**
-   *	Polymorphic base type for Product Variant Selections. The actual type is determined by the `type` field.
+   *	Product Variant Selection after the [Add Product](ctp:api:type:ProductSelectionAddProductAction) update action.
    *
    *
    */
-  readonly variantSelection?: ProductVariantSelection
+  readonly variantSelection: ProductVariantSelection
 }
+/**
+ *	Generated after a successful [Remove Product](ctp:api:type:ProductSelectionRemoveProductAction) update action.
+ *
+ */
 export interface ProductSelectionProductRemovedMessage {
   readonly type: 'ProductSelectionProductRemoved'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -5001,51 +6243,65 @@ export interface ProductSelectionProductRemovedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Product](ctp:api:type:Product).
+   *	[Product](ctp:api:type:Product) that was removed from the Product Selection.
    *
    *
    */
   readonly product: ProductReference
 }
+/**
+ *	Generated after a successful [Set Variant Selection](ctp:api:type:ProductSelectionSetVariantSelectionAction) update action.
+ *
+ */
 export interface ProductSelectionVariantSelectionChangedMessage {
   readonly type: 'ProductSelectionVariantSelectionChanged'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -5057,61 +6313,75 @@ export interface ProductSelectionVariantSelectionChangedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Product](ctp:api:type:Product).
+   *	[Product](ctp:api:type:Product) for which the Product Variant Selection changed.
    *
    *
    */
   readonly product: ProductReference
   /**
-   *	The former Product Variant Selection if any.
+   *	Product Variant Selection before the [Set Variant Selection](ctp:api:type:ProductSelectionSetVariantSelectionAction) update action.
    *
    */
-  readonly oldVariantSelection?: ProductVariantSelection
+  readonly oldVariantSelection: ProductVariantSelection
   /**
-   *	The updated Product Variant Selection if any.
+   *	Product Variant Selection after the [Set Variant Selection](ctp:api:type:ProductSelectionSetVariantSelectionAction) update action.
    *
    */
-  readonly newVariantSelection?: ProductVariantSelection
+  readonly newVariantSelection: ProductVariantSelection
 }
+/**
+ *	Generated after a successful [Change Slug](ctp:api:type:ProductChangeSlugAction) update action.
+ *
+ */
 export interface ProductSlugChangedMessage {
   readonly type: 'ProductSlugChanged'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -5123,57 +6393,71 @@ export interface ProductSlugChangedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	The slug of the [Product](ctp:api:type:Product) after the [Change Slug](ctp:api:type:ProductChangeSlugAction) update action.
    *
    *
    */
   readonly slug: LocalizedString
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	The slug of the [Product](ctp:api:type:Product) before the [Change Slug](ctp:api:type:ProductChangeSlugAction) update action.
    *
    *
    */
   readonly oldSlug?: LocalizedString
 }
+/**
+ *	Generated after a successful [Transition State](ctp:api:type:ProductTransitionStateAction) update action.
+ *
+ */
 export interface ProductStateTransitionMessage {
   readonly type: 'ProductStateTransition'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -5185,55 +6469,70 @@ export interface ProductStateTransitionMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
-   *
+   *	Product [State](ctp:api:type:State) after the [Transition State](ctp:api:type:ProductTransitionStateAction) update action.
    *
    */
   readonly state: StateReference
   /**
+   *	Whether [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:ProductTransitionStateAction) update action.
+   *
    *
    */
   readonly force: boolean
 }
+/**
+ *	Generated after a successful [Unpublish Product](ctp:api:type:ProductUnpublishAction) update action.
+ *
+ */
 export interface ProductUnpublishedMessage {
   readonly type: 'ProductUnpublished'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -5245,45 +6544,59 @@ export interface ProductUnpublishedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
 }
+/**
+ *	Generated after a successful [Add Product Variant](ctp:api:type:ProductAddVariantAction) update action.
+ *
+ */
 export interface ProductVariantAddedMessage {
   readonly type: 'ProductVariantAdded'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -5295,55 +6608,71 @@ export interface ProductVariantAddedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	A concrete sellable good for which inventory can be tracked. Product Variants are generally mapped to specific SKUs.
+   *	Unique identifier of the [Product Variant](ctp:api:type:ProductVariant) that was added.
    *
    *
    */
   readonly variant: ProductVariant
   /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
    *
    */
   readonly staged: boolean
 }
+/**
+ *	Generated after a successful [Remove Product Variant](ctp:api:type:ProductRemoveVariantAction) update action.
+ *
+ */
 export interface ProductVariantDeletedMessage {
   readonly type: 'ProductVariantDeleted'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -5355,55 +6684,71 @@ export interface ProductVariantDeletedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	A concrete sellable good for which inventory can be tracked. Product Variants are generally mapped to specific SKUs.
+   *	Unique identifier of the [Product Variant](ctp:api:type:ProductVariant) that was added.
    *
    *
    */
-  readonly variant: ProductVariant
+  readonly variant?: ProductVariant
   /**
+   *	List of image URLs that were removed with the [Remove Product Variant](ctp:api:type:ProductRemoveVariantAction) update action.
+   *
    *
    */
   readonly removedImageUrls: string[]
 }
+/**
+ *	Generated after a successful [Create Quote](/../api/projects/quotes#create-quote) request.
+ *
+ */
 export interface QuoteCreatedMessage {
   readonly type: 'QuoteCreated'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -5415,45 +6760,65 @@ export interface QuoteCreatedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[Quote](/../api/projects/quotes) that was created.
+   *
+   *
+   */
+  readonly quote: Quote
 }
+/**
+ *	Generated after a successful [Delete Quote](/../api/projects/quotes#delete-quote) request.
+ *
+ */
 export interface QuoteDeletedMessage {
   readonly type: 'QuoteDeleted'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -5465,45 +6830,59 @@ export interface QuoteDeletedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
 }
+/**
+ *	Generated after a successful [Create Quote Request](/../api/projects/quote-requests#create-quoterequest) request.
+ *
+ */
 export interface QuoteRequestCreatedMessage {
   readonly type: 'QuoteRequestCreated'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -5515,45 +6894,65 @@ export interface QuoteRequestCreatedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[Quote Request](/../api/projects/quote-requests) that was created.
+   *
+   *
+   */
+  readonly quoteRequest: QuoteRequest
 }
+/**
+ *	Generated after a successful [Delete Quote Request](/../api/projects/quote-requests#delete-quoterequest) request.
+ *
+ */
 export interface QuoteRequestDeletedMessage {
   readonly type: 'QuoteRequestDeleted'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -5565,45 +6964,59 @@ export interface QuoteRequestDeletedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
 }
+/**
+ *	Generated after a successful [Change Quote Request State](ctp:api:type:QuoteRequestChangeQuoteRequestStateAction) update action.
+ *
+ */
 export interface QuoteRequestStateChangedMessage {
   readonly type: 'QuoteRequestStateChanged'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -5615,31 +7028,38 @@ export interface QuoteRequestStateChangedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Predefined states tracking the status of the Quote Request in the negotiation process.
+   *	State of the Quote Request after the [Change Quote Request State](ctp:api:type:QuoteRequestChangeQuoteRequestStateAction) update action.
    *
    *
    */
   readonly quoteRequestState: QuoteRequestState
   /**
-   *	Predefined states tracking the status of the Quote Request in the negotiation process.
+   *	State of the Quote Request before the [Change Quote Request State](ctp:api:type:QuoteRequestChangeQuoteRequestStateAction) update action.
    *
    *
    */
@@ -5652,24 +7072,27 @@ export interface QuoteRequestStateChangedMessage {
 export interface QuoteRequestStateTransitionMessage {
   readonly type: 'QuoteRequestStateTransition'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -5681,20 +7104,27 @@ export interface QuoteRequestStateTransitionMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
@@ -5711,33 +7141,40 @@ export interface QuoteRequestStateTransitionMessage {
    */
   readonly oldState?: StateReference
   /**
-   *	`true`, if [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:QuoteRequestTransitionStateAction) update action.
+   *	Whether [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:QuoteRequestTransitionStateAction) update action.
    *
    *
    */
   readonly force: boolean
 }
+/**
+ *	Generated after a successful [Change Quote State](ctp:api:type:QuoteChangeQuoteStateAction) update action.
+ *
+ */
 export interface QuoteStateChangedMessage {
   readonly type: 'QuoteStateChanged'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -5749,31 +7186,38 @@ export interface QuoteStateChangedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Predefined states tracking the status of the Quote.
+   *	State of the Quote after the [Change Quote State](ctp:api:type:QuoteChangeQuoteStateAction) update action.
    *
    *
    */
   readonly quoteState: QuoteState
   /**
-   *	Predefined states tracking the status of the Quote.
+   *	State of the Quote before the [Change Quote State](ctp:api:type:QuoteChangeQuoteStateAction) update action.
    *
    *
    */
@@ -5786,24 +7230,27 @@ export interface QuoteStateChangedMessage {
 export interface QuoteStateTransitionMessage {
   readonly type: 'QuoteStateTransition'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -5815,20 +7262,27 @@ export interface QuoteStateTransitionMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
@@ -5845,33 +7299,40 @@ export interface QuoteStateTransitionMessage {
    */
   readonly oldState?: StateReference
   /**
-   *	`true`, if [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:QuoteTransitionStateAction) update action.
+   *	Whether [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:QuoteTransitionStateAction) update action.
    *
    *
    */
   readonly force: boolean
 }
-export interface ReviewCreatedMessage {
-  readonly type: 'ReviewCreated'
+/**
+ *	Generated after a successful [Add Return Info](ctp:api:type:OrderAddReturnInfoAction) update action.
+ *
+ */
+export interface ReturnInfoAddedMessage {
+  readonly type: 'ReturnInfoAdded'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -5883,49 +7344,205 @@ export interface ReviewCreatedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	The [ReturnInfo](ctp:api:type:ReturnInfo) that was added to the [Order](ctp:api:type:Order).
+   *
+   *
+   */
+  readonly returnInfo: ReturnInfo
+}
+/**
+ *	Generated after a successful [Set Return Info](ctp:api:type:OrderSetReturnInfoAction) update action on [Orders](ctp:api:type:Order) and [Order Edits](ctp:api:type:OrderEdit).
+ *
+ */
+export interface ReturnInfoSetMessage {
+  readonly type: 'ReturnInfoSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The [ReturnInfo](ctp:api:type:ReturnInfo) that was set on the [Order](ctp:api:type:Order) or [Order Edit](ctp:api:type:OrderEdit).
+   *
+   *
+   */
+  readonly returnInfo?: ReturnInfo[]
+}
+/**
+ *	Generated after a successful [Create Review](/../api/projects/reviews#create-a-review) request.
+ *
+ */
+export interface ReviewCreatedMessage {
+  readonly type: 'ReviewCreated'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[Review](ctp:api:type:Review) that was created.
+   *
    *
    */
   readonly review: Review
 }
+/**
+ *	Generated after a successful [Set Rating](ctp:api:type:ReviewSetRatingAction) update action.
+ *
+ */
 export interface ReviewRatingSetMessage {
   readonly type: 'ReviewRatingSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -5937,63 +7554,83 @@ export interface ReviewRatingSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	The `rating` of the [Review](ctp:api:type:Review) before the [Set Rating](ctp:api:type:ReviewSetRatingAction) update action.
+   *
    *
    */
   readonly oldRating?: number
   /**
+   *	The `rating` of the [Review](ctp:api:type:Review) after the [Set Rating](ctp:api:type:ReviewSetRatingAction) update action.
+   *
    *
    */
   readonly newRating?: number
   /**
+   *	Whether the [Review](ctp:api:type:Review) was taken into account in the ratings statistics of the target.
+   *
    *
    */
   readonly includedInStatistics: boolean
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource that the [Review](ctp:api:type:Review) belongs to.
    *
    *
    */
   readonly target?: Reference
 }
+/**
+ *	Generated after a successful [Transition State](ctp:api:type:ReviewTransitionStateAction) update action.
+ *
+ */
 export interface ReviewStateTransitionMessage {
   readonly type: 'ReviewStateTransition'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -6005,75 +7642,95 @@ export interface ReviewStateTransitionMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+   *	[State](ctp:api:type:State) of the [Review](ctp:api:type:Review) before the [Transition State](ctp:api:type:ReviewTransitionStateAction) update action.
    *
    *
    */
-  readonly oldState: StateReference
+  readonly oldState?: StateReference
   /**
-   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+   *	[State](ctp:api:type:State) of the [Review](ctp:api:type:Review) after the [Transition State](ctp:api:type:ReviewTransitionStateAction) update action.
    *
    *
    */
   readonly newState: StateReference
   /**
+   *	Whether the old [Review](ctp:api:type:Review) was taken into account in the rating statistics of the target before the state transition.
+   *
    *
    */
   readonly oldIncludedInStatistics: boolean
   /**
+   *	Whether the new [Review](ctp:api:type:Review) was taken into account in the rating statistics of the target after the state transition.
+   *
    *
    */
   readonly newIncludedInStatistics: boolean
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource that the [Review](ctp:api:type:Review) belongs to.
    *
    *
    */
-  readonly target: Reference
+  readonly target?: Reference
   /**
+   *	Whether [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:ReviewTransitionStateAction) update action.
+   *
    *
    */
   readonly force: boolean
 }
+/**
+ *	Generated after a successful [Create Staged Quote](/../api/projects/staged-quotes#create-stagedquote) request.
+ *
+ */
 export interface StagedQuoteCreatedMessage {
   readonly type: 'StagedQuoteCreated'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -6085,45 +7742,65 @@ export interface StagedQuoteCreatedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[Staged Quote](/../api/projects/staged-quotes) that was created.
+   *
+   *
+   */
+  readonly stagedQuote: StagedQuote
 }
+/**
+ *	Generated after a successful [Delete Staged Quote](/../api/projects/staged-quotes#delete-stagedquote) request.
+ *
+ */
 export interface StagedQuoteDeletedMessage {
   readonly type: 'StagedQuoteDeleted'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -6135,45 +7812,59 @@ export interface StagedQuoteDeletedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
 }
+/**
+ *	Generated after a successful [Set Seller Comment](ctp:api:type:StagedQuoteSetSellerCommentAction) update action.
+ *
+ */
 export interface StagedQuoteSellerCommentSetMessage {
   readonly type: 'StagedQuoteSellerCommentSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -6185,49 +7876,65 @@ export interface StagedQuoteSellerCommentSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	`sellerComment` on the [StagedQuote](ctp:api:type:StagedQuote) after a successful [Set Seller Comment](ctp:api:type:StagedQuoteSetSellerCommentAction) update action.
+   *
    *
    */
   readonly sellerComment: string
 }
+/**
+ *	Generated after a successful [Change Staged Quote State](ctp:api:type:StagedQuoteChangeStagedQuoteStateAction) update action.
+ *
+ */
 export interface StagedQuoteStateChangedMessage {
   readonly type: 'StagedQuoteStateChanged'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -6239,31 +7946,38 @@ export interface StagedQuoteStateChangedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Predefined states tracking the status of the Staged Quote.
+   *	State of the Staged Quote after the [Change Staged Quote State](ctp:api:type:StagedQuoteChangeStagedQuoteStateAction) update action.
    *
    *
    */
   readonly stagedQuoteState: StagedQuoteState
   /**
-   *	Predefined states tracking the status of the Staged Quote.
+   *	State of the Staged Quote before the [Change Staged Quote State](ctp:api:type:StagedQuoteChangeStagedQuoteStateAction) update action.
    *
    *
    */
@@ -6276,24 +7990,27 @@ export interface StagedQuoteStateChangedMessage {
 export interface StagedQuoteStateTransitionMessage {
   readonly type: 'StagedQuoteStateTransition'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -6305,20 +8022,27 @@ export interface StagedQuoteStateTransitionMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
@@ -6335,33 +8059,40 @@ export interface StagedQuoteStateTransitionMessage {
    */
   readonly oldState?: StateReference
   /**
-   *	`true`, if [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:StagedQuoteTransitionStateAction) update action.
+   *	Whether [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:StagedQuoteTransitionStateAction) update action.
    *
    *
    */
   readonly force: boolean
 }
+/**
+ *	Generated after a successful [Set Valid To](ctp:api:type:StagedQuoteSetValidToAction) update action.
+ *
+ */
 export interface StagedQuoteValidToSetMessage {
   readonly type: 'StagedQuoteValidToSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -6373,24 +8104,33 @@ export interface StagedQuoteValidToSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	Expiration date for the Staged Quote after the [Set Valid To](ctp:api:type:StagedQuoteSetValidToAction) update action.
+   *
    *
    */
   readonly validTo: string
@@ -6402,24 +8142,27 @@ export interface StagedQuoteValidToSetMessage {
 export interface StandalonePriceCreatedMessage {
   readonly type: 'StandalonePriceCreated'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -6431,25 +8174,32 @@ export interface StandalonePriceCreatedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	The Standalone Price as it was created.
+   *	[Standalone Price](ctp:api:type:StandalonePrice) that was created.
    *
    *
    */
@@ -6462,24 +8212,27 @@ export interface StandalonePriceCreatedMessage {
 export interface StandalonePriceDeletedMessage {
   readonly type: 'StandalonePriceDeleted'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -6491,49 +8244,59 @@ export interface StandalonePriceDeletedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
 }
 /**
- *	Emitted when the affected StandalonePrice is updated based on a [Product Discount](ctp:api:type:ProductDiscount) being applied.
+ *	Generated after a [Product Discount](ctp:api:type:ProductDiscount) is successfully applied to a StandalonePrice.
  *
  */
 export interface StandalonePriceDiscountSetMessage {
   readonly type: 'StandalonePriceDiscountSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -6545,55 +8308,65 @@ export interface StandalonePriceDiscountSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	The new `discounted` value of the updated StandalonePrice.
+   *	The new `discounted` value of the updated [StandalonePrice](ctp:api:type:StandalonePrice).
    *
    *
    */
   readonly discounted?: DiscountedPrice
 }
 /**
- *	This Message is the result of the Standalone Price [SetDiscountedPrice](/../api/projects/standalone-prices#set-discounted-price) update action.
+ *	Generated after a successful [Set Discounted Price](ctp:api:type:StandalonePriceSetDiscountedPriceAction) update action.
  *
  */
 export interface StandalonePriceExternalDiscountSetMessage {
   readonly type: 'StandalonePriceExternalDiscountSet'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -6605,25 +8378,32 @@ export interface StandalonePriceExternalDiscountSetMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	The new `discounted` value of the updated StandalonePrice.
+   *	The `discounted` value of the [StandalonePrice](ctp:api:type:StandalonePrice) after the [Set Discounted Price](ctp:api:type:StandalonePriceSetDiscountedPriceAction) update action.
    *
    *
    */
@@ -6636,24 +8416,27 @@ export interface StandalonePriceExternalDiscountSetMessage {
 export interface StandalonePriceStagedChangesAppliedMessage {
   readonly type: 'StandalonePriceStagedChangesApplied'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -6665,20 +8448,27 @@ export interface StandalonePriceStagedChangesAppliedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
@@ -6690,30 +8480,33 @@ export interface StandalonePriceStagedChangesAppliedMessage {
   readonly stagedChanges: StagedStandalonePrice
 }
 /**
- *	Generated after a successful [Change Value](ctp:api:types:StandalonePriceChangeValueAction) update action.
+ *	Generated after a successful [Change Value](ctp:api:type:StandalonePriceChangeValueAction) update action.
  *
  */
 export interface StandalonePriceValueChangedMessage {
   readonly type: 'StandalonePriceValueChanged'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -6725,25 +8518,32 @@ export interface StandalonePriceValueChangedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	The new value of the updated StandalonePrice.
+   *	The new value of the updated [StandalonePrice](ctp:api:type:StandalonePrice).
    *
    *
    */
@@ -6755,27 +8555,34 @@ export interface StandalonePriceValueChangedMessage {
    */
   readonly staged: boolean
 }
+/**
+ *	Generated after a successful [Create Store](/../api/projects/stores#create-store) request.
+ *
+ */
 export interface StoreCreatedMessage {
   readonly type: 'StoreCreated'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -6787,73 +8594,95 @@ export interface StoreCreatedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	The `name` of the [Store](ctp:api:type:Store) that was created.
    *
    *
    */
   readonly name?: LocalizedString
   /**
+   *	Languages of the [Store](ctp:api:type:Store) that was created. Languages are represented as [IETF language tags](https://en.wikipedia.org/wiki/IETF_language_tag).
+   *
    *
    */
-  readonly languages: string[]
+  readonly languages?: string[]
   /**
+   *	[Distribution Channels](ctp:api:type:ChannelRoleEnum) of the [Store](ctp:api:type:Store) that was created.
+   *
    *
    */
   readonly distributionChannels: ChannelReference[]
   /**
+   *	[Supply Channels](ctp:api:type:ChannelRoleEnum) of the [Store](ctp:api:type:Store) that was created.
+   *
    *
    */
   readonly supplyChannels: ChannelReference[]
   /**
+   *	[ProductSelectionSettings](ctp:api:type:ProductSelectionSetting) of the [Store](ctp:api:type:Store) that was created.
+   *
    *
    */
   readonly productSelections: ProductSelectionSetting[]
   /**
-   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *	[Custom Fields](ctp:api:type:CustomFields) on the [Store](ctp:api:type:Store) that was created.
    *
    *
    */
   readonly custom?: CustomFields
 }
+/**
+ *	Generated after a successful [Delete Store](/../api/projects/quote-requests#delete-quoterequest) request.
+ *
+ */
 export interface StoreDeletedMessage {
   readonly type: 'StoreDeleted'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -6865,20 +8694,27 @@ export interface StoreDeletedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
@@ -6892,24 +8728,27 @@ export interface StoreDeletedMessage {
 export interface StoreDistributionChannelsChangedMessage {
   readonly type: 'StoreDistributionChannelsChanged'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -6921,56 +8760,73 @@ export interface StoreDistributionChannelsChangedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	The product distribution channels that have been added.
+   *	Product distribution Channels that have been added to the [Store](/../api/projects/stores).
    *
    */
   readonly addedDistributionChannels: ChannelReference[]
   /**
-   *	The product distribution channels that have been removed.
+   *	Product distribution Channels that have been removed from the [Store](/../api/projects/stores).
    *
    *
    */
   readonly removedDistributionChannels: ChannelReference[]
 }
+/**
+ *	Generated by a successful [Add Product Selection](ctp:api:type:StoreAddProductSelectionAction),
+ *	[Remove Product Selection](ctp:api:type:StoreRemoveProductSelectionAction),
+ *	[Set Product Selections](ctp:api:type:StoreSetProductSelectionsAction),
+ *	or [Change Product Selections Active](ctp:api:type:StoreChangeProductSelectionAction) update action.
+ *
+ */
 export interface StoreProductSelectionsChangedMessage {
   readonly type: 'StoreProductSelectionsChanged'
   /**
-   *	Unique identifier of the Message.
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
    */
   readonly id: string
   /**
+   *	Version of a resource. In case of Messages, this is always `1`.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Message was generated.
    *
    */
   readonly createdAt: string
   /**
+   *	Value of `createdAt`.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Value of `createdBy`.
    *
    *
    */
@@ -6982,36 +8838,53 @@ export interface StoreProductSelectionsChangedMessage {
    */
   readonly createdBy?: CreatedBy
   /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
    *
    */
   readonly sequenceNumber: number
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
    *
    *
    */
   readonly resource: Reference
   /**
+   *	Version of the resource on which the change or action was performed.
+   *
    *
    */
   readonly resourceVersion: number
   /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
+   *	[ProductSelectionSettings](ctp:api:type:ProductSelectionSetting) that were added to the [Store](ctp:api:type:Store).
+   *
    *
    */
   readonly addedProductSelections?: ProductSelectionSetting[]
   /**
+   *	[ProductSelectionSettings](ctp:api:type:ProductSelectionSetting) that were removed from the [Store](ctp:api:type:Store).
+   *
    *
    */
   readonly removedProductSelections?: ProductSelectionSetting[]
   /**
+   *	[ProductSelectionSettings](ctp:api:type:ProductSelectionSetting) that were updated in the [Store](ctp:api:type:Store).
+   *
    *
    */
   readonly updatedProductSelections?: ProductSelectionSetting[]
 }
+/**
+ *	User-provided identifiers present on the resource for which the Message is created. The value of the identifier stored in the Message corresponds to the one that was set on the resource at the version shown in `resourceVersion`.
+ *
+ */
 export interface UserProvidedIdentifiers {
   /**
    *	User-provided unique identifier of the resource.
@@ -7019,30 +8892,32 @@ export interface UserProvidedIdentifiers {
    */
   readonly key?: string
   /**
+   *	User-provided unique identifier of the resource.
    *
    */
   readonly externalId?: string
   /**
+   *	User-provided unique identifier of an [Order](ctp:api:type:Order).
    *
    */
   readonly orderNumber?: string
   /**
+   *	User-provided unique identifier of a [Customer](ctp:api:type:Customer).
    *
    */
   readonly customerNumber?: string
   /**
+   *	Unique SKU of a [Product Variant](ctp:api:type:ProductVariant).
    *
    */
   readonly sku?: string
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
-   *
+   *	Unique identifier usually used in deep-link URLs for a [Product](ctp:api:type:Product). The value corresponds to the slug in the `current` [Product Projection](ctp:api:type:ProductProjection).
    *
    */
   readonly slug?: LocalizedString
   /**
-   *	Custom Objects are grouped into containers, which can be used like namespaces. Within a given container, a user-defined key can be used to uniquely identify resources.
-   *
+   *	Unique identifier of a [Custom Object](/../api/projects/custom-objects).
    *
    */
   readonly containerAndKey?: ContainerAndKey
@@ -7095,8 +8970,6 @@ export type MessagePayload =
   | OrderMessagePayload
   | OrderPaymentAddedMessagePayload
   | OrderPaymentStateChangedMessagePayload
-  | OrderReturnInfoAddedMessagePayload
-  | OrderReturnInfoSetMessagePayload
   | OrderReturnShipmentStateChangedMessagePayload
   | OrderShipmentStateChangedMessagePayload
   | OrderShippingAddressSetMessagePayload
@@ -7143,6 +9016,8 @@ export type MessagePayload =
   | QuoteRequestStateTransitionMessagePayload
   | QuoteStateChangedMessagePayload
   | QuoteStateTransitionMessagePayload
+  | ReturnInfoAddedMessagePayload
+  | ReturnInfoSetMessagePayload
   | ReviewCreatedMessagePayload
   | ReviewRatingSetMessagePayload
   | ReviewStateTransitionMessagePayload
@@ -7163,161 +9038,273 @@ export type MessagePayload =
   | StoreDeletedMessagePayload
   | StoreDistributionChannelsChangedMessagePayload
   | StoreProductSelectionsChangedMessagePayload
+/**
+ *	Generated after a successful [Create Category](/../api/projects/categories#create-category) request.
+ *
+ */
 export interface CategoryCreatedMessagePayload {
   readonly type: 'CategoryCreated'
   /**
+   *	[Category](ctp:api:type:Category) that was created.
+   *
    *
    */
   readonly category: Category
 }
+/**
+ *	Generated after a successful [Change Slug](ctp:api:type:CategoryChangeSlugAction) update action.
+ *
+ */
 export interface CategorySlugChangedMessagePayload {
   readonly type: 'CategorySlugChanged'
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	The slug of the [Category](ctp:api:type:Category) after the [Change Slug](ctp:api:type:CategoryChangeSlugAction) update action.
    *
    *
    */
   readonly slug: LocalizedString
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	The slug of the [Category](ctp:api:type:Category) before the [Change Slug](ctp:api:type:CategoryChangeSlugAction) update action.
    *
    *
    */
   readonly oldSlug?: LocalizedString
 }
+/**
+ *	Generated after a successful [Add Address](ctp:api:type:CustomerAddAddressAction) update action.
+ *
+ */
 export interface CustomerAddressAddedMessagePayload {
   readonly type: 'CustomerAddressAdded'
   /**
+   *	[Address](ctp:api:type:Address) that was added during the [Add Address](ctp:api:type:CustomerAddAddressAction) update action.
+   *
    *
    */
   readonly address: Address
 }
+/**
+ *	Generated after a successful [Change Address](ctp:api:type:CustomerChangeAddressAction) update action.
+ *
+ */
 export interface CustomerAddressChangedMessagePayload {
   readonly type: 'CustomerAddressChanged'
   /**
+   *	[Address](ctp:api:type:Address) that was set during the [Change Address](ctp:api:type:CustomerChangeAddressAction) update action.
+   *
    *
    */
   readonly address: Address
 }
+/**
+ *	Generated after a successful [Remove Address](ctp:api:type:CustomerRemoveAddressAction) update action.
+ *
+ */
 export interface CustomerAddressRemovedMessagePayload {
   readonly type: 'CustomerAddressRemoved'
   /**
+   *	[Address](ctp:api:type:Address) that was removed during the [Remove Address](ctp:api:type:CustomerRemoveAddressAction) update action.
+   *
    *
    */
   readonly address: Address
 }
+/**
+ *	Generated after a successful [Set Company Name](ctp:api:type:CustomerSetCompanyNameAction) update action.
+ *
+ */
 export interface CustomerCompanyNameSetMessagePayload {
   readonly type: 'CustomerCompanyNameSet'
   /**
+   *	The `companyName` that was set during the [Set Company Name](ctp:api:type:CustomerSetCompanyNameAction) update action.
+   *
    *
    */
   readonly companyName?: string
 }
+/**
+ *	Generated after a successful [Create Customer](/../api/projects/customers#create-customer-sign-up) request.
+ *
+ */
 export interface CustomerCreatedMessagePayload {
   readonly type: 'CustomerCreated'
   /**
+   *	[Customer](ctp:api:type:Customer) that was created.
+   *
    *
    */
   readonly customer: Customer
 }
+/**
+ *	Generated after a successful [Set Date of Birth](ctp:api:type:CustomerSetDateOfBirthAction) update action.
+ *
+ */
 export interface CustomerDateOfBirthSetMessagePayload {
   readonly type: 'CustomerDateOfBirthSet'
   /**
+   *	The `dateOfBirth` that was set during the [Set Date of Birth](ctp:api:type:CustomerSetDateOfBirthAction) update action.
+   *
    *
    */
   readonly dateOfBirth?: string
 }
+/**
+ *	Generated after a successful [Delete Customer](/../api/projects/customers#delete-customer) request.
+ *
+ */
 export interface CustomerDeletedMessagePayload {
   readonly type: 'CustomerDeleted'
 }
+/**
+ *	Generated after a successful [Change Email](ctp:api:type:CustomerChangeEmailAction) update action.
+ *
+ */
 export interface CustomerEmailChangedMessagePayload {
   readonly type: 'CustomerEmailChanged'
   /**
+   *	The `email` that was set during the [Change Email](ctp:api:type:CustomerChangeEmailAction) update action.
+   *
    *
    */
   readonly email: string
 }
+/**
+ *	Generated after a successful [Verify Customer's Email](/../api/projects/customers#verify-customers-email) request.
+ *
+ */
 export interface CustomerEmailVerifiedMessagePayload {
   readonly type: 'CustomerEmailVerified'
 }
+/**
+ *	Generated after a successful [Set First Name](ctp:api:type:CustomerSetFirstNameAction) update action.
+ *
+ */
 export interface CustomerFirstNameSetMessagePayload {
   readonly type: 'CustomerFirstNameSet'
   /**
+   *	The `firstName` that was set during the [Set First Name](ctp:api:type:CustomerSetFirstNameAction) update action.
+   *
    *
    */
   readonly firstName?: string
 }
+/**
+ *	Generated after a successful [Set Customer Group](ctp:api:type:CustomerSetCustomerGroupAction) update action.
+ *
+ */
 export interface CustomerGroupSetMessagePayload {
   readonly type: 'CustomerGroupSet'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[Customer Group](ctp:api:type:CustomerGroup) that was set during the [Set Customer Group](ctp:api:type:CustomerSetCustomerGroupAction) update action.
    *
    *
    */
   readonly customerGroup?: CustomerGroupReference
 }
+/**
+ *	Generated after a successful [Set Last Name](ctp:api:type:CustomerSetLastNameAction) update action.
+ *
+ */
 export interface CustomerLastNameSetMessagePayload {
   readonly type: 'CustomerLastNameSet'
   /**
+   *	The `lastName` that was set during the [Set Last Name](ctp:api:type:CustomerSetLastNameAction) update action.
+   *
    *
    */
   readonly lastName?: string
 }
+/**
+ *	Generated after a successful [Reset Customer's Password](/../api/projects/customers#reset-customers-password), [Reset Customer's Password in a Store](/../api/projects/customers#reset-customers-password-in-a-store), [Change Customer's Password](/../api/projects/customers#change-customers-password), or [Change Customer's Password in a Store](/../api/projects/customers#change-customers-password-in-a-store) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
+ *
+ */
 export interface CustomerPasswordUpdatedMessagePayload {
   readonly type: 'CustomerPasswordUpdated'
   /**
-   *	true, if password has been updated during Customer's Password Reset workflow.
+   *	Whether the Customer's password was updated during the [Customer's Password Reset](/../api/projects/customers#customers-password-reset) workflow.
+   *
    *
    */
   readonly reset: boolean
 }
+/**
+ *	Generated after a successful [Set Title](ctp:api:type:CustomerSetTitleAction) update action.
+ *
+ */
 export interface CustomerTitleSetMessagePayload {
   readonly type: 'CustomerTitleSet'
   /**
+   *	The `title` that was set during the [Set Title](ctp:api:type:CustomerSetTitleAction) update action.
+   *
    *
    */
   readonly title?: string
 }
+/**
+ *	Generated after a successful [Create InventoryEntry](/../api/projects/inventory#create-inventoryentry) request.
+ *
+ */
 export interface InventoryEntryCreatedMessagePayload {
   readonly type: 'InventoryEntryCreated'
   /**
+   *	[InventoryEntry](ctp:api:type:InventoryEntry) that was created.
+   *
    *
    */
   readonly inventoryEntry: InventoryEntry
 }
+/**
+ *	Generated after a successful [Delete InventoryEntry](/../api/projects/inventory#delete-inventoryentry) request.
+ *
+ */
 export interface InventoryEntryDeletedMessagePayload {
   readonly type: 'InventoryEntryDeleted'
   /**
+   *	The `sku` of the [InventoryEntry](ctp:api:type:InventoryEntry) that was deleted.
+   *
    *
    */
   readonly sku: string
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Channel](ctp:api:type:Channel).
+   *	[Reference](ctp:api:type:Reference) to the [Channel](ctp:api:type:Channel) where the [InventoryEntry](ctp:api:type:InventoryEntry) was deleted.
    *
    *
    */
   readonly supplyChannel?: ChannelReference
 }
+/**
+ *	Generated after a successful [Add Quantity](ctp:api:type:InventoryEntryAddQuantityAction), [Remove Quantity](ctp:api:type:InventoryEntryRemoveQuantityAction) or [Change Quantity](ctp:api:type:InventoryEntryChangeQuantityAction) update action.
+ *	Inventory changes as a result of [Order creation](/../api/projects/orders#create-order) do not trigger this message.
+ *
+ */
 export interface InventoryEntryQuantitySetMessagePayload {
   readonly type: 'InventoryEntryQuantitySet'
   /**
+   *	Quantity on stock for the [InventoryEntry](ctp:api:type:InventoryEntry) before the quantity was updated.
+   *
    *
    */
   readonly oldQuantityOnStock: number
   /**
+   *	Quantity on stock for the [InventoryEntry](ctp:api:type:InventoryEntry) after the quantity was updated.
+   *
    *
    */
   readonly newQuantityOnStock: number
   /**
+   *	Available quantity for the [InventoryEntry](ctp:api:type:InventoryEntry) before the quantity was updated.
+   *
    *
    */
   readonly oldAvailableQuantity: number
   /**
+   *	Available quantity for the [InventoryEntry](ctp:api:type:InventoryEntry) after the quantity was updated.
+   *
    *
    */
   readonly newAvailableQuantity: number
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Channel](ctp:api:type:Channel).
+   *	[Reference](ctp:api:type:Reference) to the [Channel](ctp:api:type:Channel) where the [InventoryEntry](ctp:api:type:InventoryEntry) quantity was set.
    *
    *
    */
@@ -7350,8 +9337,6 @@ export type OrderMessagePayload =
   | OrderLineItemDistributionChannelSetMessagePayload
   | OrderLineItemRemovedMessagePayload
   | OrderPaymentStateChangedMessagePayload
-  | OrderReturnInfoAddedMessagePayload
-  | OrderReturnInfoSetMessagePayload
   | OrderReturnShipmentStateChangedMessagePayload
   | OrderShipmentStateChangedMessagePayload
   | OrderShippingAddressSetMessagePayload
@@ -7365,880 +9350,1360 @@ export type OrderMessagePayload =
   | ParcelMeasurementsUpdatedMessagePayload
   | ParcelRemovedFromDeliveryMessagePayload
   | ParcelTrackingDataUpdatedMessagePayload
+  | ReturnInfoAddedMessagePayload
+  | ReturnInfoSetMessagePayload
+/**
+ *	Generated after a successful [Transition Custom Line Item State](ctp:api:type:OrderTransitionCustomLineItemStateAction) update action.
+ *
+ */
 export interface CustomLineItemStateTransitionMessagePayload {
   readonly type: 'CustomLineItemStateTransition'
   /**
+   *	Unique identifier of the [Custom Line Item](ctp:api:type:CustomLineItem).
+   *
    *
    */
   readonly customLineItemId: string
   /**
+   *	Date and time (UTC) when the transition of the [Custom Line Item](ctp:api:type:CustomLineItem) [State](ctp:api:type:State) was performed.
+   *
    *
    */
   readonly transitionDate: string
   /**
+   *	Number of [Custom Line Items](ctp:api:type:CustomLineItem) for which the [State](ctp:api:type:State) was transitioned.
+   *
    *
    */
   readonly quantity: number
   /**
-   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+   *	[State](ctp:api:type:State) the [Custom Line Item](ctp:api:type:CustomLineItem) was transitioned from.
    *
    *
    */
   readonly fromState: StateReference
   /**
-   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+   *	[State](ctp:api:type:State) the [Custom Line Item](ctp:api:type:CustomLineItem) was transitioned to.
    *
    *
    */
   readonly toState: StateReference
 }
+/**
+ *	Generated after a successful [Add Delivery](ctp:api:type:OrderAddDeliveryAction) update action.
+ *
+ */
 export interface DeliveryAddedMessagePayload {
   readonly type: 'DeliveryAdded'
   /**
+   *	[Delivery](ctp:api:type:Delivery) that was added to the [Order](ctp:api:type:Order). The [Delivery](ctp:api:type:Delivery) in the Message body does not contain [Parcels](ctp:api:type:Parcel) if those were part of the initial [Add Delivery](ctp:api:type:OrderAddDeliveryAction) update action. In that case, the update action produces an additional [ParcelAddedToDelivery](ctp:api:type:ParcelAddedToDeliveryMessage) Message containing information about the [Parcels](ctp:api:type:Parcel).
+   *
    *
    */
   readonly delivery: Delivery
 }
+/**
+ *	Generated after a successful [Set Delivery Address](ctp:api:type:OrderSetDeliveryAddressAction) update action.
+ *
+ */
 export interface DeliveryAddressSetMessagePayload {
   readonly type: 'DeliveryAddressSet'
   /**
+   *	Unique identifier of the [Parcel](ctp:api:type:Delivery).
+   *
    *
    */
   readonly deliveryId: string
   /**
+   *	[Address](ctp:api:type:Address) after the [Set Delivery Address](ctp:api:type:OrderSetDeliveryAddressAction) update action.
+   *
    *
    */
   readonly address?: Address
   /**
+   *	[Address](ctp:api:type:Address) before the [Set Delivery Address](ctp:api:type:OrderSetDeliveryAddressAction) update action.
+   *
    *
    */
   readonly oldAddress?: Address
 }
+/**
+ *	Generated after a successful [Set Delivery Items](ctp:api:type:OrderSetDeliveryItemsAction) update action.
+ *
+ */
 export interface DeliveryItemsUpdatedMessagePayload {
   readonly type: 'DeliveryItemsUpdated'
   /**
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
+   *
    *
    */
   readonly deliveryId: string
   /**
+   *	[Delivery Items](ctp:api:type:DeliveryItem) after the [Set Delivery Items](ctp:api:type:OrderSetDeliveryItemsAction) update action.
+   *
    *
    */
   readonly items: DeliveryItem[]
   /**
+   *	[Delivery Items](ctp:api:type:DeliveryItem) before the [Set Delivery Items](ctp:api:type:OrderSetDeliveryItemsAction) update action.
+   *
    *
    */
   readonly oldItems: DeliveryItem[]
 }
+/**
+ *	Generated after a successful [Remove Delivery](ctp:api:type:OrderRemoveDeliveryAction) update action.
+ *
+ */
 export interface DeliveryRemovedMessagePayload {
   readonly type: 'DeliveryRemoved'
   /**
+   *	The [Delivery](ctp:api:type:Delivery) that was removed from the [Order](ctp:api:type:Order).
+   *
    *
    */
   readonly delivery: Delivery
 }
+/**
+ *	Generated after a successful [Transition Line Item State](ctp:api:type:OrderTransitionLineItemStateAction) update action.
+ *
+ */
 export interface LineItemStateTransitionMessagePayload {
   readonly type: 'LineItemStateTransition'
   /**
+   *	Unique identifier of the [Line Item](ctp:api:type:LineItem).
+   *
    *
    */
   readonly lineItemId: string
   /**
+   *	Date and time (UTC) when the transition of the [Line Item](ctp:api:type:LineItem) [State](ctp:api:type:State) was performed.
+   *
    *
    */
   readonly transitionDate: string
   /**
+   *	Number of [Line Items](ctp:api:type:LineItem) for which the [State](ctp:api:type:State) was transitioned.
+   *
    *
    */
   readonly quantity: number
   /**
-   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+   *	[State](ctp:api:type:State) the [Line Item](ctp:api:type:LineItem) was transitioned from.
    *
    *
    */
   readonly fromState: StateReference
   /**
-   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+   *	[State](ctp:api:type:State) the [Line Item](ctp:api:type:LineItem) was transitioned to.
    *
    *
    */
   readonly toState: StateReference
 }
+/**
+ *	Generated after a successful [Set Billing Address](ctp:api:type:OrderSetBillingAddressAction) update action.
+ *
+ */
 export interface OrderBillingAddressSetMessagePayload {
   readonly type: 'OrderBillingAddressSet'
   /**
+   *	Billing address on the Order after the [Set Billing Address](ctp:api:type:OrderSetBillingAddressAction) update action.
+   *
    *
    */
   readonly address?: Address
   /**
+   *	Billing address on the Order before the [Set Billing Address](ctp:api:type:OrderSetBillingAddressAction) update action.
+   *
    *
    */
   readonly oldAddress?: Address
 }
+/**
+ *	Generated after a successful [Create Order](/../api/projects/orders#create-order) request.
+ *
+ */
 export interface OrderCreatedMessagePayload {
   readonly type: 'OrderCreated'
   /**
+   *	[Order](ctp:api:type:Order) that was created.
+   *
    *
    */
   readonly order: Order
 }
+/**
+ *	Generated after a successful [Add Custom Line Item](ctp:api:type:StagedOrderAddCustomLineItemAction) update action.
+ *
+ */
 export interface OrderCustomLineItemAddedMessagePayload {
   readonly type: 'OrderCustomLineItemAdded'
   /**
+   *	[Custom Line Item](ctp:api:type:CustomLineItem) that was added to the [Order](ctp:api:type:Order).
+   *
    *
    */
   readonly customLineItem: CustomLineItem
 }
+/**
+ *	Generated after a successful recalculation of a Discount on a [Custom Line Item](ctp:api:type:CustomLineItem).
+ *
+ */
 export interface OrderCustomLineItemDiscountSetMessagePayload {
   readonly type: 'OrderCustomLineItemDiscountSet'
   /**
+   *	Unique identifier for the [Custom Line Item](ctp:api:type:CustomLineItem).
+   *
    *
    */
   readonly customLineItemId: string
   /**
+   *	Array of [DiscountedLineItemPriceForQuantity](ctp:api:type:DiscountedLineItemPriceForQuantity) after the Discount recalculation.
+   *
    *
    */
   readonly discountedPricePerQuantity: DiscountedLineItemPriceForQuantity[]
   /**
+   *	[TaxedItemPrice](ctp:api:type:TaxedItemPrice) of the [Custom Line Item](ctp:api:type:CustomLineItem) after the Discount recalculation.
+   *
    *
    */
   readonly taxedPrice?: TaxedItemPrice
 }
+/**
+ *	Generated after a successful [Change Custom Line Item Quantity](ctp:api:type:StagedOrderChangeCustomLineItemQuantityAction) update action.
+ *
+ */
 export interface OrderCustomLineItemQuantityChangedMessagePayload {
   readonly type: 'OrderCustomLineItemQuantityChanged'
   /**
+   *	Unique identifier of the [Custom Line Item](ctp:api:type:CustomLineItem).
+   *
    *
    */
   readonly customLineItemId: string
   /**
+   *	[Custom Line Item](ctp:api:type:CustomLineItem) quantity after the [Change Custom Line Item Quantity](ctp:api:type:StagedOrderChangeCustomLineItemQuantityAction) update action.
+   *
    *
    */
   readonly quantity: number
   /**
+   *	[Custom Line Item](ctp:api:type:CustomLineItem) quantity before the [Change Custom Line Item Quantity](ctp:api:type:StagedOrderChangeCustomLineItemQuantityAction) update action.
+   *
    *
    */
   readonly oldQuantity: number
 }
+/**
+ *	Generated after a successful [Remove Custom Line Item](ctp:api:type:StagedOrderRemoveCustomLineItemAction) update action.
+ *
+ */
 export interface OrderCustomLineItemRemovedMessagePayload {
   readonly type: 'OrderCustomLineItemRemoved'
   /**
+   *	Unique identifier of the [Custom Line Item](ctp:api:type:CustomLineItem).
+   *
    *
    */
   readonly customLineItemId: string
   /**
+   *	[Custom Line Item](ctp:api:type:CustomLineItem) that was removed from the [Order](ctp:api:type:Order).
+   *
    *
    */
   readonly customLineItem: CustomLineItem
 }
+/**
+ *	Generated after a successful [Set Customer Email](ctp:api:type:OrderSetCustomerEmailAction) update action.
+ *
+ */
 export interface OrderCustomerEmailSetMessagePayload {
   readonly type: 'OrderCustomerEmailSet'
   /**
+   *	Email address on the [Order](ctp:api:type:Order) after the [Set Customer Email](ctp:api:type:OrderSetCustomerEmailAction) update action.
+   *
    *
    */
   readonly email?: string
   /**
+   *	Email address on the [Order](ctp:api:type:Order) before the [Set Customer Email](ctp:api:type:OrderSetCustomerEmailAction) update action.
+   *
    *
    */
   readonly oldEmail?: string
 }
+/**
+ *	Generated after a successful [Set Customer Group](ctp:api:type:StagedOrderSetCustomerGroupAction) update action.
+ *
+ */
 export interface OrderCustomerGroupSetMessagePayload {
   readonly type: 'OrderCustomerGroupSet'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) on the [Order](ctp:api:type:Order) after the [Set Customer Group](ctp:api:type:StagedOrderSetCustomerGroupAction) update action.
    *
    *
    */
   readonly customerGroup?: CustomerGroupReference
   /**
-   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) on the [Order](ctp:api:type:Order) before the [Set Customer Group](ctp:api:type:StagedOrderSetCustomerGroupAction) update action.
    *
    *
    */
   readonly oldCustomerGroup?: CustomerGroupReference
 }
+/**
+ *	Generated after a successful [Set Customer Id](ctp:api:type:OrderSetCustomerIdAction) update action.
+ *
+ */
 export interface OrderCustomerSetMessagePayload {
   readonly type: 'OrderCustomerSet'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Customer](ctp:api:type:Customer).
+   *	[Customer](ctp:api:type:Customer) on the [Order](ctp:api:type:Order) after the [Set Customer Id](ctp:api:type:OrderSetCustomerIdAction) update action.
    *
    *
    */
   readonly customer?: CustomerReference
   /**
-   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) on the [Order](ctp:api:type:Order) after the [Set Customer Id](ctp:api:type:OrderSetCustomerIdAction) update action.
    *
    *
    */
   readonly customerGroup?: CustomerGroupReference
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Customer](ctp:api:type:Customer).
+   *	[Customer](ctp:api:type:Customer) on the [Order](ctp:api:type:Order) before the [Set Customer Id](ctp:api:type:OrderSetCustomerIdAction) update action.
    *
    *
    */
   readonly oldCustomer?: CustomerReference
   /**
-   *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) on the [Order](ctp:api:type:Order) before the [Set Customer Id](ctp:api:type:OrderSetCustomerIdAction) update action.
    *
    *
    */
   readonly oldCustomerGroup?: CustomerGroupReference
 }
+/**
+ *	Generated after a successful [Delete Order](/../api/projects/orders#delete-order) request.
+ *
+ */
 export interface OrderDeletedMessagePayload {
   readonly type: 'OrderDeleted'
   /**
+   *	[Order](ctp:api:type:Order) that has been deleted.
+   *
    *
    */
   readonly order: Order
 }
+/**
+ *	Generated after a successful [Add Discount Code](ctp:api:type:StagedOrderAddDiscountCodeAction) update action.
+ *
+ */
 export interface OrderDiscountCodeAddedMessagePayload {
   readonly type: 'OrderDiscountCodeAdded'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [DiscountCode](ctp:api:type:DiscountCode).
+   *	[DiscountCode](ctp:api:type:DiscountCode) that was added.
    *
    *
    */
   readonly discountCode: DiscountCodeReference
 }
+/**
+ *	Generated after a successful [Remove Discount Code](ctp:api:type:StagedOrderRemoveDiscountCodeAction) update action.
+ *
+ */
 export interface OrderDiscountCodeRemovedMessagePayload {
   readonly type: 'OrderDiscountCodeRemoved'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [DiscountCode](ctp:api:type:DiscountCode).
+   *	[DiscountCode](ctp:api:type:DiscountCode) that was removed.
    *
    *
    */
   readonly discountCode: DiscountCodeReference
 }
+/**
+ *	Generated after the [DiscountCodeState](ctp:api:type:DiscountCodeState) changes due to a [recalculation](/../api/projects/carts#recalculate).
+ *
+ */
 export interface OrderDiscountCodeStateSetMessagePayload {
   readonly type: 'OrderDiscountCodeStateSet'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [DiscountCode](ctp:api:type:DiscountCode).
+   *	[DiscountCode](ctp:api:type:DiscountCode) that changed due to the recalculation.
    *
    *
    */
   readonly discountCode: DiscountCodeReference
   /**
+   *	[DiscountCodeState](ctp:api:type:DiscountCodeState) after the recalculation.
+   *
    *
    */
   readonly state: DiscountCodeState
   /**
+   *	[DiscountCodeState](ctp:api:type:DiscountCodeState) before the recalculation.
+   *
    *
    */
   readonly oldState?: DiscountCodeState
 }
+/**
+ *	Generated after a successfully applying an [OrderEdit](/../api/projects/order-edits#apply-an-orderedit).
+ *
+ */
 export interface OrderEditAppliedMessagePayload {
   readonly type: 'OrderEditApplied'
   /**
-   *	[Reference](ctp:api:type:Reference) to an [OrderEdit](ctp:api:type:OrderEdit).
+   *	[OrderEdit](ctp:api:type:OrderEdit) that was applied.
    *
    *
    */
-  readonly edit: OrderEditReference
+  readonly edit: OrderEdit
   /**
+   *	Information about a successfully applied [OrderEdit](ctp:api:type:OrderEdit).
+   *
    *
    */
   readonly result: OrderEditApplied
 }
+/**
+ *	Generated after a successful [Order Import](/../api/projects/orders-import#create-an-order-by-import).
+ *
+ */
 export interface OrderImportedMessagePayload {
   readonly type: 'OrderImported'
   /**
+   *	[Order](ctp:api:type:Order) that was imported.
+   *
    *
    */
   readonly order: Order
 }
+/**
+ *	Generated after a successful [Add Line Item](ctp:api:type:StagedOrderAddLineItemAction) update action.
+ *
+ */
 export interface OrderLineItemAddedMessagePayload {
   readonly type: 'OrderLineItemAdded'
   /**
+   *	[Line Item](ctp:api:type:LineItem) that was added to the [Order](ctp:api:type:Order).
+   *
    *
    */
   readonly lineItem: LineItem
   /**
+   *	Quantity of [Line Items](ctp:api:type:LineItem) that were added to the [Order](ctp:api:type:Order).
+   *
    *
    */
   readonly addedQuantity: number
 }
+/**
+ *	Generated after a successful recalculation of a Discount on a [Line Item](ctp:api:type:LineItem).
+ *
+ */
 export interface OrderLineItemDiscountSetMessagePayload {
   readonly type: 'OrderLineItemDiscountSet'
   /**
+   *	Unique identifier for the [Line Item](ctp:api:type:LineItem).
+   *
    *
    */
   readonly lineItemId: string
   /**
+   *	Array of [DiscountedLineItemPriceForQuantity](ctp:api:type:DiscountedLineItemPriceForQuantity) after the Discount recalculation.
+   *
    *
    */
   readonly discountedPricePerQuantity: DiscountedLineItemPriceForQuantity[]
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Total Price of the [Line Item](ctp:api:type:LineItem) after the Discount recalculation.
    *
    *
    */
   readonly totalPrice: Money
   /**
+   *	[TaxedItemPrice](ctp:api:type:TaxedItemPrice) of the [Line Item](ctp:api:type:LineItem) after the Discount recalculation.
+   *
    *
    */
   readonly taxedPrice?: TaxedItemPrice
 }
+/**
+ *	Generated after a successful [Set Line Item Distribution Channel](/../api/projects/order-edits#set-lineitem-distributionchannel) update action.
+ *
+ */
 export interface OrderLineItemDistributionChannelSetMessagePayload {
   readonly type: 'OrderLineItemDistributionChannelSet'
   /**
+   *	Unique identifier of the [Line Item](ctp:api:type:LineItem).
+   *
    *
    */
   readonly lineItemId: string
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Channel](ctp:api:type:Channel).
+   *	[Distribution Channel](ctp:api:type:Channel) that was set.
    *
    *
    */
   readonly distributionChannel?: ChannelReference
 }
+/**
+ *	Generated after a successful [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+ *
+ */
 export interface OrderLineItemRemovedMessagePayload {
   readonly type: 'OrderLineItemRemoved'
   /**
+   *	Unique identifier of the [Line Item](ctp:api:type:LineItem).
+   *
    *
    */
   readonly lineItemId: string
   /**
+   *	Quantity of [Line Items](ctp:api:type:LineItem) that were removed during the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *
    *
    */
   readonly removedQuantity: number
   /**
+   *	[Line Item](ctp:api:type:LineItem) quantity after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *
    *
    */
   readonly newQuantity: number
   /**
+   *	[ItemStates](ctp:api:type:ItemState) after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *
    *
    */
   readonly newState: ItemState[]
   /**
-   *	Base polymorphic read-only Money type which is stored in cent precision or high precision. The actual type is determined by the `type` field.
+   *	`totalPrice` of the [Order](ctp:api:type:Order) after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
    *
    *
    */
-  readonly newTotalPrice: TypedMoney
+  readonly newTotalPrice: CentPrecisionMoney
   /**
+   *	[TaxedItemPrice](ctp:api:type:TaxedItemPrice) of the [Order](ctp:api:type:Order) after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *
    *
    */
   readonly newTaxedPrice?: TaxedItemPrice
   /**
+   *	[Price](ctp:api:type:Price) of the [Order](ctp:api:type:Order) after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *
    *
    */
   readonly newPrice?: Price
   /**
+   *	[Shipping Details](ctp:api:type:ItemShippingDetails) of the [Order](ctp:api:type:Order) after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *
    *
    */
   readonly newShippingDetail?: ItemShippingDetails
 }
+/**
+ *	Generated after a successful [Add Payment](ctp:api:type:OrderAddPaymentAction) update action or when a [Payment](ctp:api:type:Payment) is added via [Order Edits](ctp:api:type:StagedOrderAddPaymentAction).
+ *
+ */
 export interface OrderPaymentAddedMessagePayload {
   readonly type: 'OrderPaymentAdded'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Payment](ctp:api:type:Payment).
+   *	[Payment](ctp:api:type:Payment) that was added to the [Order](ctp:api:type:Order).
    *
    *
    */
   readonly payment: PaymentReference
 }
+/**
+ *	Generated after a successful [Change Payment State](ctp:api:type:OrderChangePaymentStateAction) update action.
+ *
+ */
 export interface OrderPaymentStateChangedMessagePayload {
   readonly type: 'OrderPaymentStateChanged'
   /**
+   *	[PaymentState](ctp:api:type:PaymentState) after the [Change Payment State](ctp:api:type:OrderChangePaymentStateAction) update action.
+   *
    *
    */
   readonly paymentState: PaymentState
   /**
+   *	[PaymentState](ctp:api:type:PaymentState) before the [Change Payment State](ctp:api:type:OrderChangePaymentStateAction) update action.
+   *
    *
    */
   readonly oldPaymentState?: PaymentState
 }
-export interface OrderReturnInfoAddedMessagePayload {
-  readonly type: 'ReturnInfoAdded'
-  /**
-   *
-   */
-  readonly returnInfo: ReturnInfo
-}
-export interface OrderReturnInfoSetMessagePayload {
-  readonly type: 'ReturnInfoSet'
-  /**
-   *
-   */
-  readonly returnInfo?: ReturnInfo[]
-}
+/**
+ *	Generated after a successful [Set Return Shipment State](ctp:api:type:OrderSetReturnShipmentStateAction) update action.
+ *
+ */
 export interface OrderReturnShipmentStateChangedMessagePayload {
   readonly type: 'OrderReturnShipmentStateChanged'
   /**
+   *	Unique identifier of the [ReturnItem](ctp:api:type:ReturnItem).
+   *
    *
    */
   readonly returnItemId: string
   /**
+   *	State of the [ReturnItem](ctp:api:type:ReturnItem) after the [Set Return Shipment State](ctp:api:type:OrderSetReturnShipmentStateAction) update action.
+   *
    *
    */
   readonly returnShipmentState: ReturnShipmentState
 }
+/**
+ *	Generated after a successful [Change Shipment State](ctp:api:type:OrderChangeShipmentStateAction) update action.
+ *
+ */
 export interface OrderShipmentStateChangedMessagePayload {
   readonly type: 'OrderShipmentStateChanged'
   /**
+   *	[ShipmentState](ctp:api:type:ShipmentState) after the [Change Shipment State](ctp:api:type:OrderChangeShipmentStateAction) update action.
+   *
    *
    */
   readonly shipmentState: ShipmentState
   /**
+   *	[ShipmentState](ctp:api:type:ShipmentState) before the [Change Shipment State](ctp:api:type:OrderChangeShipmentStateAction) update action.
+   *
    *
    */
-  readonly oldShipmentState?: ShipmentState
+  readonly oldShipmentState: ShipmentState
 }
+/**
+ *	Generated after a successful [Set Shipping Address](ctp:api:type:OrderSetShippingAddressAction) update action.
+ *
+ */
 export interface OrderShippingAddressSetMessagePayload {
   readonly type: 'OrderShippingAddressSet'
   /**
+   *	Shipping address on the Order after the [Set Shipping Address](ctp:api:type:OrderSetShippingAddressAction) update action.
+   *
    *
    */
   readonly address?: Address
   /**
+   *	Shipping address on the Order before the [Set Shipping Address](ctp:api:type:OrderSetShippingAddressAction) update action.
+   *
    *
    */
   readonly oldAddress?: Address
 }
+/**
+ *	Generated after a successful [Set Shipping Method](ctp:api:type:StagedOrderSetShippingMethodAction) and [Set Custom Shipping Method](ctp:api:type:StagedOrderSetCustomShippingMethodAction) update actions.
+ *
+ */
 export interface OrderShippingInfoSetMessagePayload {
   readonly type: 'OrderShippingInfoSet'
   /**
+   *	[ShippingInfo](ctp:api:type:ShippingInfo) after the [Set Shipping Method](ctp:api:type:StagedOrderSetShippingMethodAction) or [Set Custom Shipping Method](ctp:api:type:StagedOrderSetCustomShippingMethodAction) update action.
+   *
    *
    */
   readonly shippingInfo?: ShippingInfo
   /**
+   *	[ShippingInfo](ctp:api:type:ShippingInfo) before the [Set Shipping Method](ctp:api:type:StagedOrderSetShippingMethodAction) or [Set Custom Shipping Method](ctp:api:type:StagedOrderSetCustomShippingMethodAction) update action.
+   *
    *
    */
   readonly oldShippingInfo?: ShippingInfo
 }
+/**
+ *	Generated after a successful [Set ShippingRateInput](ctp:api:type:StagedOrderSetShippingRateInputAction) update action.
+ *
+ */
 export interface OrderShippingRateInputSetMessagePayload {
   readonly type: 'OrderShippingRateInputSet'
   /**
+   *	[ShippingRateInput](ctp:api:type:ShippingRateInput) after the [Set ShippingRateInput](ctp:api:type:StagedOrderSetShippingRateInputAction) update action.
+   *
    *
    */
   readonly shippingRateInput?: ShippingRateInput
   /**
+   *	[ShippingRateInput](ctp:api:type:ShippingRateInput) before the [Set ShippingRateInput](ctp:api:type:StagedOrderSetShippingRateInputAction) update action.
+   *
    *
    */
   readonly oldShippingRateInput?: ShippingRateInput
 }
+/**
+ *	Generated after a successful [Change Order State](ctp:api:type:OrderChangeOrderStateAction) update action.
+ *
+ */
 export interface OrderStateChangedMessagePayload {
   readonly type: 'OrderStateChanged'
   /**
+   *	[OrderState](ctp:api:type:OrderState) after the [Change Order State](ctp:api:type:OrderChangeOrderStateAction) update action.
+   *
    *
    */
   readonly orderState: OrderState
   /**
+   *	[OrderState](ctp:api:type:OrderState) before the [Change Order State](ctp:api:type:OrderChangeOrderStateAction) update action.
+   *
    *
    */
   readonly oldOrderState: OrderState
 }
+/**
+ *	Generated after a successful [Transition State](ctp:api:type:OrderTransitionStateAction) update action.
+ *
+ */
 export interface OrderStateTransitionMessagePayload {
   readonly type: 'OrderStateTransition'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+   *	[OrderState](ctp:api:type:OrderState) after the [Transition State](ctp:api:type:OrderTransitionStateAction) update action.
    *
    *
    */
   readonly state: StateReference
   /**
-   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+   *	[OrderState](ctp:api:type:OrderState) before the [Transition State](ctp:api:type:OrderTransitionStateAction) update action.
    *
    *
    */
   readonly oldState?: StateReference
   /**
+   *	Whether [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:OrderTransitionStateAction) update action.
+   *
    *
    */
   readonly force: boolean
 }
+/**
+ *	Generated after a successful [Set Store](ctp:api:type:OrderSetStoreAction) update action.
+ *
+ */
 export interface OrderStoreSetMessagePayload {
   readonly type: 'OrderStoreSet'
   /**
-   *	[Reference](/../api/types#reference) to a [Store](ctp:api:type:Store) by its key.
+   *	[Store](ctp:api:type:Store) that was set.
    *
    *
    */
-  readonly store: StoreKeyReference
+  readonly store?: StoreKeyReference
 }
+/**
+ *	Generated after a successful [Add Parcel To Delivery](ctp:api:type:OrderAddParcelToDeliveryAction) update action.
+ *
+ */
 export interface ParcelAddedToDeliveryMessagePayload {
   readonly type: 'ParcelAddedToDelivery'
   /**
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
+   *
    *
    */
   readonly delivery: Delivery
   /**
+   *	[Parcel](ctp:api:type:Parcel) that was added to the [Delivery](ctp:api:type:Delivery).
+   *
    *
    */
   readonly parcel: Parcel
 }
+/**
+ *	Generated after a successful [Set Parcel Items](ctp:api:type:OrderSetParcelItemsAction) update action.
+ *
+ */
 export interface ParcelItemsUpdatedMessagePayload {
   readonly type: 'ParcelItemsUpdated'
   /**
+   *	Unique identifier of the [Parcel](ctp:api:type:Parcel).
+   *
    *
    */
   readonly parcelId: string
   /**
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
+   *
    *
    */
-  readonly deliveryId?: string
+  readonly deliveryId: string
   /**
+   *	[Delivery Items](ctp:api:type:DeliveryItem) after the [Set Parcel Items](ctp:api:type:OrderSetParcelItemsAction) update action.
+   *
    *
    */
   readonly items: DeliveryItem[]
   /**
+   *	[Delivery Items](ctp:api:type:DeliveryItem) before the [Set Parcel Items](ctp:api:type:OrderSetParcelItemsAction) update action.
+   *
    *
    */
   readonly oldItems: DeliveryItem[]
 }
+/**
+ *	Generated after a successful [Set Parcel Measurements](ctp:api:type:OrderSetParcelMeasurementsAction) update action.
+ *
+ */
 export interface ParcelMeasurementsUpdatedMessagePayload {
   readonly type: 'ParcelMeasurementsUpdated'
   /**
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
+   *
    *
    */
   readonly deliveryId: string
   /**
+   *	Unique identifier of the [Parcel](ctp:api:type:Parcel).
+   *
    *
    */
   readonly parcelId: string
   /**
+   *	The [Parcel Measurements](ctp:api:type:ParcelMeasurements) that were set on the [Parcel](ctp:api:type:Parcel).
+   *
    *
    */
   readonly measurements?: ParcelMeasurements
 }
+/**
+ *	Generated after a successful [Remove Parcel From Delivery](ctp:api:type:OrderRemoveParcelFromDeliveryAction) update action.
+ *
+ */
 export interface ParcelRemovedFromDeliveryMessagePayload {
   readonly type: 'ParcelRemovedFromDelivery'
   /**
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
+   *
    *
    */
   readonly deliveryId: string
   /**
+   *	[Parcel](ctp:api:type:Parcel) that was removed from the [Delivery](ctp:api:type:Delivery).
+   *
    *
    */
   readonly parcel: Parcel
 }
+/**
+ *	Generated after a successful [Set Parcel TrackingData](ctp:api:type:OrderSetParcelTrackingDataAction) update action.
+ *
+ */
 export interface ParcelTrackingDataUpdatedMessagePayload {
   readonly type: 'ParcelTrackingDataUpdated'
   /**
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
+   *
    *
    */
   readonly deliveryId: string
   /**
+   *	Unique identifier of the [Parcel](ctp:api:type:Parcel).
+   *
    *
    */
   readonly parcelId: string
   /**
+   *	The [Tracking Data](ctp:api:type:TrackingData) that was added to the [Parcel](ctp:api:type:Parcel).
+   *
    *
    */
   readonly trackingData?: TrackingData
 }
+/**
+ *	Generated after a successful [Create Payment](/../api/projects/payments#create-a-payment) request.
+ *
+ */
 export interface PaymentCreatedMessagePayload {
   readonly type: 'PaymentCreated'
   /**
+   *	[Payment](ctp:api:type:Payment) that was created.
+   *
    *
    */
   readonly payment: Payment
 }
+/**
+ *	Generated after a successful [Add InterfaceInteraction](ctp:api:type:PaymentAddInterfaceInteractionAction) update action.
+ *
+ */
 export interface PaymentInteractionAddedMessagePayload {
   readonly type: 'PaymentInteractionAdded'
   /**
-   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *	The interface interaction that was added to the [Payment](ctp:api:type:Payment).
    *
    *
    */
   readonly interaction: CustomFields
 }
+/**
+ *	Generated after a successful [Set StatusInterfaceCode](ctp:api:type:PaymentSetStatusInterfaceCodeAction) update action.
+ *
+ */
 export interface PaymentStatusInterfaceCodeSetMessagePayload {
   readonly type: 'PaymentStatusInterfaceCodeSet'
   /**
+   *	Unique identifier for the [Payment](ctp:api:type:Payment) for which the [Set StatusInterfaceCode](ctp:api:type:PaymentSetStatusInterfaceCodeAction) update action was applied.
+   *
    *
    */
   readonly paymentId: string
   /**
+   *	The `interfaceCode` that was set during the [Set StatusInterfaceCode](ctp:api:type:PaymentSetStatusInterfaceCodeAction) update action.
+   *
    *
    */
-  readonly interfaceCode: string
+  readonly interfaceCode?: string
 }
+/**
+ *	Generated after a successful [Transition State](ctp:api:type:PaymentTransitionStateAction) update action.
+ *
+ */
 export interface PaymentStatusStateTransitionMessagePayload {
   readonly type: 'PaymentStatusStateTransition'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+   *	[State](ctp:api:type:State) of the [Payment](ctp:api:type:Payment) after the [Transition State](ctp:api:type:PaymentTransitionStateAction) update action.
    *
    *
    */
   readonly state: StateReference
   /**
+   *	Whether [State](ctp:api:type:State) transition validations were turned off during the [Change Transaction State](ctp:api:type:PaymentChangeTransactionStateAction) update action.
+   *
    *
    */
   readonly force: boolean
 }
+/**
+ *	Generated after a successful [Add Transaction](ctp:api:type:PaymentAddTransactionAction) update action.
+ *
+ */
 export interface PaymentTransactionAddedMessagePayload {
   readonly type: 'PaymentTransactionAdded'
   /**
+   *	[Transaction](ctp:api:type:Transaction) that was added to the [Payment](ctp:api:type:Payment).
+   *
    *
    */
   readonly transaction: Transaction
 }
+/**
+ *	Generated after a successful [Change Transaction State](ctp:api:type:PaymentChangeTransactionStateAction) update action.
+ *
+ */
 export interface PaymentTransactionStateChangedMessagePayload {
   readonly type: 'PaymentTransactionStateChanged'
   /**
+   *	Unique identifier for the [Transaction](ctp:api:type:Transaction) for which the [Transaction State](ctp:api:type:TransactionState) changed.
+   *
    *
    */
   readonly transactionId: string
   /**
+   *	[Transaction State](ctp:api:type:TransactionState) after the [Change Transaction State](ctp:api:type:PaymentChangeTransactionStateAction) update action.
+   *
    *
    */
   readonly state: TransactionState
 }
+/**
+ *	Generated after a successful [Add To Category](ctp:api:type:ProductAddToCategoryAction) update action.
+ *
+ */
 export interface ProductAddedToCategoryMessagePayload {
   readonly type: 'ProductAddedToCategory'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Category](ctp:api:type:Category).
+   *	[Category](ctp:api:type:Category) the [Product](ctp:api:type:Product) was added to.
    *
    *
    */
   readonly category: CategoryReference
   /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
    *
    */
   readonly staged: boolean
 }
+/**
+ *	Generated after a successful [Create Product](/../api/projects/products#create-product) request.
+ *
+ */
 export interface ProductCreatedMessagePayload {
   readonly type: 'ProductCreated'
   /**
+   *	The staged [Product Projection](ctp:api:type:ProductProjection) of the [Product](ctp:api:type:Product) at the time of creation.
+   *
    *
    */
   readonly productProjection: ProductProjection
 }
+/**
+ *	Generated after a successful [Delete Product](/../api/projects/products#delete-product) request.
+ *
+ */
 export interface ProductDeletedMessagePayload {
   readonly type: 'ProductDeleted'
   /**
+   *	List of image URLs that were removed during the [Delete Product](ctp:api:type:Product) request.
+   *
    *
    */
   readonly removedImageUrls: string[]
   /**
+   *	Current [Product Projection](ctp:api:type:ProductProjection) of the deleted [Product](ctp:api:type:Product).
+   *
    *
    */
-  readonly currentProjection: ProductProjection
+  readonly currentProjection?: ProductProjection
 }
+/**
+ *	Generated after a successful [Add External Image](ctp:api:type:ProductAddExternalImageAction) update action or after the successful [upload of an image](/../api/projects/products#upload-product-image).
+ *
+ */
 export interface ProductImageAddedMessagePayload {
   readonly type: 'ProductImageAdded'
   /**
+   *	Unique identifier of the [Product Variant](ctp:api:type:ProductVariant) to which the [Image](ctp:api:type:Image) was added.
+   *
    *
    */
   readonly variantId: number
   /**
+   *	[Image](ctp:api:type:Image) that was added.
+   *
    *
    */
   readonly image: Image
   /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
    *
    */
   readonly staged: boolean
 }
+/**
+ *	Generated after a Price is updated due to a [Product Discount](ctp:api:type:ProductDiscount).
+ *
+ */
 export interface ProductPriceDiscountsSetMessagePayload {
   readonly type: 'ProductPriceDiscountsSet'
   /**
+   *	Array containing details about the [Prices](ctp:api:type:Price) that were updated.
+   *
    *
    */
   readonly updatedPrices: ProductPriceDiscountsSetUpdatedPrice[]
 }
+/**
+ *	Generated after a successful [Set Discounted Embedded Price](ctp:api:type:ProductSetDiscountedPriceAction) update action.
+ *
+ */
 export interface ProductPriceExternalDiscountSetMessagePayload {
   readonly type: 'ProductPriceExternalDiscountSet'
   /**
+   *	Unique identifier of the [Product Variant](ctp:api:type:ProductVariant) for which the Discount was set.
+   *
    *
    */
   readonly variantId: number
   /**
+   *	Key of the [Product Variant](ctp:api:type:ProductVariant) for which the Discount was set.
+   *
    *
    */
   readonly variantKey?: string
   /**
+   *	SKU of the [Product Variant](ctp:api:type:ProductVariant) for which Discount was set.
+   *
    *
    */
   readonly sku?: string
   /**
+   *	Unique identifier of the [Price](ctp:api:type:Price).
+   *
    *
    */
   readonly priceId: string
   /**
+   *	Discounted Price for the [Product Variant](ctp:api:type:ProductVariant) for which Discount was set.
+   *
    *
    */
   readonly discounted?: DiscountedPrice
   /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
    *
    */
   readonly staged: boolean
 }
+/**
+ *	Generated after a successful [Publish](ctp:api:type:ProductPublishAction) update action.
+ *
+ */
 export interface ProductPublishedMessagePayload {
   readonly type: 'ProductPublished'
   /**
+   *	List of image URLs which were removed during the [Publish](ctp:api:type:ProductPublishAction) update action.
+   *
    *
    */
   readonly removedImageUrls: string[]
   /**
+   *	Current [Product Projection](ctp:api:type:ProductProjection) of the [Product](ctp:api:type:Product) at the time of creation.
+   *
    *
    */
   readonly productProjection: ProductProjection
   /**
-   *	The scope controls which part of the product information is published.
+   *	[Publishing Scope](ctp:api:type:ProductPublishScope) that was used during the [Publish](ctp:api:type:ProductPublishAction) update action.
+   *
    *
    */
   readonly scope: ProductPublishScope
 }
+/**
+ *	Generated after a successful [Remove From Category](ctp:api:type:ProductRemoveFromCategoryAction) update action.
+ *
+ */
 export interface ProductRemovedFromCategoryMessagePayload {
   readonly type: 'ProductRemovedFromCategory'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Category](ctp:api:type:Category).
+   *	[Category](ctp:api:type:Category) the [Product](ctp:api:type:Product) was removed from.
    *
    *
    */
   readonly category: CategoryReference
   /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
    *
    */
   readonly staged: boolean
 }
+/**
+ *	Generated after a successful [Revert Staged Changes](ctp:api:type:ProductRevertStagedChangesAction) update action.
+ *
+ */
 export interface ProductRevertedStagedChangesMessagePayload {
   readonly type: 'ProductRevertedStagedChanges'
   /**
+   *	List of image URLs that were removed during the [Revert Staged Changes](ctp:api:type:ProductRevertStagedChangesAction) update action.
+   *
    *
    */
   readonly removedImageUrls: string[]
 }
+/**
+ *	Generated after a successful [Create Product Selection](/../api/projects/product-selections#create-product-selection) request.
+ *
+ */
 export interface ProductSelectionCreatedMessagePayload {
   readonly type: 'ProductSelectionCreated'
   /**
+   *	The `type` and `name` of the individual Product Selection.
+   *
    *
    */
-  readonly productSelection: ProductSelectionType
+  readonly productSelection: IndividualProductSelectionType
 }
+/**
+ *	Generated after a successful [Delete Product Selection](/../api/projects/product-selections#create-product-selection) request.
+ *
+ */
 export interface ProductSelectionDeletedMessagePayload {
   readonly type: 'ProductSelectionDeleted'
-  /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
-   *
-   *
-   */
-  readonly name: LocalizedString
 }
+/**
+ *	Generated after a successful [Add Product](ctp:api:type:ProductSelectionAddProductAction) update action.
+ *
+ */
 export interface ProductSelectionProductAddedMessagePayload {
   readonly type: 'ProductSelectionProductAdded'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Product](ctp:api:type:Product).
+   *	[Product](ctp:api:type:Product) that was added to the [Product Selection](ctp:api:type:ProductSelection).
    *
    *
    */
   readonly product: ProductReference
   /**
-   *	Polymorphic base type for Product Variant Selections. The actual type is determined by the `type` field.
+   *	Product Variant Selection after the [Add Product](ctp:api:type:ProductSelectionAddProductAction) update action.
    *
    *
    */
-  readonly variantSelection?: ProductVariantSelection
+  readonly variantSelection: ProductVariantSelection
 }
+/**
+ *	Generated after a successful [Remove Product](ctp:api:type:ProductSelectionRemoveProductAction) update action.
+ *
+ */
 export interface ProductSelectionProductRemovedMessagePayload {
   readonly type: 'ProductSelectionProductRemoved'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Product](ctp:api:type:Product).
+   *	[Product](ctp:api:type:Product) that was removed from the Product Selection.
    *
    *
    */
   readonly product: ProductReference
 }
+/**
+ *	Generated after a successful [Set Variant Selection](ctp:api:type:ProductSelectionSetVariantSelectionAction) update action.
+ *
+ */
 export interface ProductSelectionVariantSelectionChangedMessagePayload {
   readonly type: 'ProductSelectionVariantSelectionChanged'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Product](ctp:api:type:Product).
+   *	[Product](ctp:api:type:Product) for which the Product Variant Selection changed.
    *
    *
    */
   readonly product: ProductReference
   /**
-   *	The former Product Variant Selection if any.
+   *	Product Variant Selection before the [Set Variant Selection](ctp:api:type:ProductSelectionSetVariantSelectionAction) update action.
    *
    */
-  readonly oldVariantSelection?: ProductVariantSelection
+  readonly oldVariantSelection: ProductVariantSelection
   /**
-   *	The updated Product Variant Selection if any.
+   *	Product Variant Selection after the [Set Variant Selection](ctp:api:type:ProductSelectionSetVariantSelectionAction) update action.
    *
    */
-  readonly newVariantSelection?: ProductVariantSelection
+  readonly newVariantSelection: ProductVariantSelection
 }
+/**
+ *	Generated after a successful [Change Slug](ctp:api:type:ProductChangeSlugAction) update action.
+ *
+ */
 export interface ProductSlugChangedMessagePayload {
   readonly type: 'ProductSlugChanged'
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	The slug of the [Product](ctp:api:type:Product) after the [Change Slug](ctp:api:type:ProductChangeSlugAction) update action.
    *
    *
    */
   readonly slug: LocalizedString
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	The slug of the [Product](ctp:api:type:Product) before the [Change Slug](ctp:api:type:ProductChangeSlugAction) update action.
    *
    *
    */
   readonly oldSlug?: LocalizedString
 }
+/**
+ *	Generated after a successful [Transition State](ctp:api:type:ProductTransitionStateAction) update action.
+ *
+ */
 export interface ProductStateTransitionMessagePayload {
   readonly type: 'ProductStateTransition'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
-   *
+   *	Product [State](ctp:api:type:State) after the [Transition State](ctp:api:type:ProductTransitionStateAction) update action.
    *
    */
   readonly state: StateReference
   /**
+   *	Whether [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:ProductTransitionStateAction) update action.
+   *
    *
    */
   readonly force: boolean
 }
+/**
+ *	Generated after a successful [Unpublish Product](ctp:api:type:ProductUnpublishAction) update action.
+ *
+ */
 export interface ProductUnpublishedMessagePayload {
   readonly type: 'ProductUnpublished'
 }
+/**
+ *	Generated after a successful [Add Product Variant](ctp:api:type:ProductAddVariantAction) update action.
+ *
+ */
 export interface ProductVariantAddedMessagePayload {
   readonly type: 'ProductVariantAdded'
   /**
-   *	A concrete sellable good for which inventory can be tracked. Product Variants are generally mapped to specific SKUs.
+   *	Unique identifier of the [Product Variant](ctp:api:type:ProductVariant) that was added.
    *
    *
    */
   readonly variant: ProductVariant
   /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
    *
    */
   readonly staged: boolean
 }
+/**
+ *	Generated after a successful [Remove Product Variant](ctp:api:type:ProductRemoveVariantAction) update action.
+ *
+ */
 export interface ProductVariantDeletedMessagePayload {
   readonly type: 'ProductVariantDeleted'
   /**
-   *	A concrete sellable good for which inventory can be tracked. Product Variants are generally mapped to specific SKUs.
+   *	Unique identifier of the [Product Variant](ctp:api:type:ProductVariant) that was added.
    *
    *
    */
-  readonly variant: ProductVariant
+  readonly variant?: ProductVariant
   /**
+   *	List of image URLs that were removed with the [Remove Product Variant](ctp:api:type:ProductRemoveVariantAction) update action.
+   *
    *
    */
   readonly removedImageUrls: string[]
 }
+/**
+ *	Generated after a successful [Create Quote](/../api/projects/quotes#create-quote) request.
+ *
+ */
 export interface QuoteCreatedMessagePayload {
   readonly type: 'QuoteCreated'
+  /**
+   *	[Quote](/../api/projects/quotes) that was created.
+   *
+   *
+   */
+  readonly quote: Quote
 }
+/**
+ *	Generated after a successful [Delete Quote](/../api/projects/quotes#delete-quote) request.
+ *
+ */
 export interface QuoteDeletedMessagePayload {
   readonly type: 'QuoteDeleted'
 }
+/**
+ *	Generated after a successful [Create Quote Request](/../api/projects/quote-requests#create-quoterequest) request.
+ *
+ */
 export interface QuoteRequestCreatedMessagePayload {
   readonly type: 'QuoteRequestCreated'
+  /**
+   *	[Quote Request](/../api/projects/quote-requests) that was created.
+   *
+   *
+   */
+  readonly quoteRequest: QuoteRequest
 }
+/**
+ *	Generated after a successful [Delete Quote Request](/../api/projects/quote-requests#delete-quoterequest) request.
+ *
+ */
 export interface QuoteRequestDeletedMessagePayload {
   readonly type: 'QuoteRequestDeleted'
 }
+/**
+ *	Generated after a successful [Change Quote Request State](ctp:api:type:QuoteRequestChangeQuoteRequestStateAction) update action.
+ *
+ */
 export interface QuoteRequestStateChangedMessagePayload {
   readonly type: 'QuoteRequestStateChanged'
   /**
-   *	Predefined states tracking the status of the Quote Request in the negotiation process.
+   *	State of the Quote Request after the [Change Quote Request State](ctp:api:type:QuoteRequestChangeQuoteRequestStateAction) update action.
    *
    *
    */
   readonly quoteRequestState: QuoteRequestState
   /**
-   *	Predefined states tracking the status of the Quote Request in the negotiation process.
+   *	State of the Quote Request before the [Change Quote Request State](ctp:api:type:QuoteRequestChangeQuoteRequestStateAction) update action.
    *
    *
    */
@@ -8263,22 +10728,26 @@ export interface QuoteRequestStateTransitionMessagePayload {
    */
   readonly oldState?: StateReference
   /**
-   *	`true`, if [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:QuoteRequestTransitionStateAction) update action.
+   *	Whether [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:QuoteRequestTransitionStateAction) update action.
    *
    *
    */
   readonly force: boolean
 }
+/**
+ *	Generated after a successful [Change Quote State](ctp:api:type:QuoteChangeQuoteStateAction) update action.
+ *
+ */
 export interface QuoteStateChangedMessagePayload {
   readonly type: 'QuoteStateChanged'
   /**
-   *	Predefined states tracking the status of the Quote.
+   *	State of the Quote after the [Change Quote State](ctp:api:type:QuoteChangeQuoteStateAction) update action.
    *
    *
    */
   readonly quoteState: QuoteState
   /**
-   *	Predefined states tracking the status of the Quote.
+   *	State of the Quote before the [Change Quote State](ctp:api:type:QuoteChangeQuoteStateAction) update action.
    *
    *
    */
@@ -8303,69 +10772,121 @@ export interface QuoteStateTransitionMessagePayload {
    */
   readonly oldState?: StateReference
   /**
-   *	`true`, if [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:QuoteTransitionStateAction) update action.
+   *	Whether [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:QuoteTransitionStateAction) update action.
    *
    *
    */
   readonly force: boolean
 }
+/**
+ *	Generated after a successful [Add Return Info](ctp:api:type:OrderAddReturnInfoAction) update action.
+ *
+ */
+export interface ReturnInfoAddedMessagePayload {
+  readonly type: 'ReturnInfoAdded'
+  /**
+   *	The [ReturnInfo](ctp:api:type:ReturnInfo) that was added to the [Order](ctp:api:type:Order).
+   *
+   *
+   */
+  readonly returnInfo: ReturnInfo
+}
+/**
+ *	Generated after a successful [Set Return Info](ctp:api:type:OrderSetReturnInfoAction) update action on [Orders](ctp:api:type:Order) and [Order Edits](ctp:api:type:OrderEdit).
+ *
+ */
+export interface ReturnInfoSetMessagePayload {
+  readonly type: 'ReturnInfoSet'
+  /**
+   *	The [ReturnInfo](ctp:api:type:ReturnInfo) that was set on the [Order](ctp:api:type:Order) or [Order Edit](ctp:api:type:OrderEdit).
+   *
+   *
+   */
+  readonly returnInfo?: ReturnInfo[]
+}
+/**
+ *	Generated after a successful [Create Review](/../api/projects/reviews#create-a-review) request.
+ *
+ */
 export interface ReviewCreatedMessagePayload {
   readonly type: 'ReviewCreated'
   /**
+   *	[Review](ctp:api:type:Review) that was created.
+   *
    *
    */
   readonly review: Review
 }
+/**
+ *	Generated after a successful [Set Rating](ctp:api:type:ReviewSetRatingAction) update action.
+ *
+ */
 export interface ReviewRatingSetMessagePayload {
   readonly type: 'ReviewRatingSet'
   /**
+   *	The `rating` of the [Review](ctp:api:type:Review) before the [Set Rating](ctp:api:type:ReviewSetRatingAction) update action.
+   *
    *
    */
   readonly oldRating?: number
   /**
+   *	The `rating` of the [Review](ctp:api:type:Review) after the [Set Rating](ctp:api:type:ReviewSetRatingAction) update action.
+   *
    *
    */
   readonly newRating?: number
   /**
+   *	Whether the [Review](ctp:api:type:Review) was taken into account in the ratings statistics of the target.
+   *
    *
    */
   readonly includedInStatistics: boolean
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource that the [Review](ctp:api:type:Review) belongs to.
    *
    *
    */
   readonly target?: Reference
 }
+/**
+ *	Generated after a successful [Transition State](ctp:api:type:ReviewTransitionStateAction) update action.
+ *
+ */
 export interface ReviewStateTransitionMessagePayload {
   readonly type: 'ReviewStateTransition'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+   *	[State](ctp:api:type:State) of the [Review](ctp:api:type:Review) before the [Transition State](ctp:api:type:ReviewTransitionStateAction) update action.
    *
    *
    */
-  readonly oldState: StateReference
+  readonly oldState?: StateReference
   /**
-   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+   *	[State](ctp:api:type:State) of the [Review](ctp:api:type:Review) after the [Transition State](ctp:api:type:ReviewTransitionStateAction) update action.
    *
    *
    */
   readonly newState: StateReference
   /**
+   *	Whether the old [Review](ctp:api:type:Review) was taken into account in the rating statistics of the target before the state transition.
+   *
    *
    */
   readonly oldIncludedInStatistics: boolean
   /**
+   *	Whether the new [Review](ctp:api:type:Review) was taken into account in the rating statistics of the target after the state transition.
+   *
    *
    */
   readonly newIncludedInStatistics: boolean
   /**
-   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *	[Reference](ctp:api:type:Reference) to the resource that the [Review](ctp:api:type:Review) belongs to.
    *
    *
    */
-  readonly target: Reference
+  readonly target?: Reference
   /**
+   *	Whether [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:ReviewTransitionStateAction) update action.
+   *
    *
    */
   readonly force: boolean
@@ -8379,29 +10900,53 @@ export interface ShoppingListStoreSetMessagePayload {
    */
   readonly store: StoreKeyReference
 }
+/**
+ *	Generated after a successful [Create Staged Quote](/../api/projects/staged-quotes#create-stagedquote) request.
+ *
+ */
 export interface StagedQuoteCreatedMessagePayload {
   readonly type: 'StagedQuoteCreated'
+  /**
+   *	[Staged Quote](/../api/projects/staged-quotes) that was created.
+   *
+   *
+   */
+  readonly stagedQuote: StagedQuote
 }
+/**
+ *	Generated after a successful [Delete Staged Quote](/../api/projects/staged-quotes#delete-stagedquote) request.
+ *
+ */
 export interface StagedQuoteDeletedMessagePayload {
   readonly type: 'StagedQuoteDeleted'
 }
+/**
+ *	Generated after a successful [Set Seller Comment](ctp:api:type:StagedQuoteSetSellerCommentAction) update action.
+ *
+ */
 export interface StagedQuoteSellerCommentSetMessagePayload {
   readonly type: 'StagedQuoteSellerCommentSet'
   /**
+   *	`sellerComment` on the [StagedQuote](ctp:api:type:StagedQuote) after a successful [Set Seller Comment](ctp:api:type:StagedQuoteSetSellerCommentAction) update action.
+   *
    *
    */
   readonly sellerComment: string
 }
+/**
+ *	Generated after a successful [Change Staged Quote State](ctp:api:type:StagedQuoteChangeStagedQuoteStateAction) update action.
+ *
+ */
 export interface StagedQuoteStateChangedMessagePayload {
   readonly type: 'StagedQuoteStateChanged'
   /**
-   *	Predefined states tracking the status of the Staged Quote.
+   *	State of the Staged Quote after the [Change Staged Quote State](ctp:api:type:StagedQuoteChangeStagedQuoteStateAction) update action.
    *
    *
    */
   readonly stagedQuoteState: StagedQuoteState
   /**
-   *	Predefined states tracking the status of the Staged Quote.
+   *	State of the Staged Quote before the [Change Staged Quote State](ctp:api:type:StagedQuoteChangeStagedQuoteStateAction) update action.
    *
    *
    */
@@ -8426,15 +10971,21 @@ export interface StagedQuoteStateTransitionMessagePayload {
    */
   readonly oldState?: StateReference
   /**
-   *	`true`, if [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:StagedQuoteTransitionStateAction) update action.
+   *	Whether [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:StagedQuoteTransitionStateAction) update action.
    *
    *
    */
   readonly force: boolean
 }
+/**
+ *	Generated after a successful [Set Valid To](ctp:api:type:StagedQuoteSetValidToAction) update action.
+ *
+ */
 export interface StagedQuoteValidToSetMessagePayload {
   readonly type: 'StagedQuoteValidToSet'
   /**
+   *	Expiration date for the Staged Quote after the [Set Valid To](ctp:api:type:StagedQuoteSetValidToAction) update action.
+   *
    *
    */
   readonly validTo: string
@@ -8446,7 +10997,7 @@ export interface StagedQuoteValidToSetMessagePayload {
 export interface StandalonePriceCreatedMessagePayload {
   readonly type: 'StandalonePriceCreated'
   /**
-   *	The Standalone Price as it was created.
+   *	[Standalone Price](ctp:api:type:StandalonePrice) that was created.
    *
    *
    */
@@ -8460,26 +11011,26 @@ export interface StandalonePriceDeletedMessagePayload {
   readonly type: 'StandalonePriceDeleted'
 }
 /**
- *	Emitted when the affected StandalonePrice is updated based on a [Product Discount](ctp:api:type:ProductDiscount) being applied.
+ *	Generated after a [Product Discount](ctp:api:type:ProductDiscount) is successfully applied to a StandalonePrice.
  *
  */
 export interface StandalonePriceDiscountSetMessagePayload {
   readonly type: 'StandalonePriceDiscountSet'
   /**
-   *	The new `discounted` value of the updated StandalonePrice.
+   *	The new `discounted` value of the updated [StandalonePrice](ctp:api:type:StandalonePrice).
    *
    *
    */
   readonly discounted?: DiscountedPrice
 }
 /**
- *	This Message is the result of the Standalone Price [SetDiscountedPrice](/../api/projects/standalone-prices#set-discounted-price) update action.
+ *	Generated after a successful [Set Discounted Price](ctp:api:type:StandalonePriceSetDiscountedPriceAction) update action.
  *
  */
 export interface StandalonePriceExternalDiscountSetMessagePayload {
   readonly type: 'StandalonePriceExternalDiscountSet'
   /**
-   *	The new `discounted` value of the updated StandalonePrice.
+   *	The `discounted` value of the [StandalonePrice](ctp:api:type:StandalonePrice) after the [Set Discounted Price](ctp:api:type:StandalonePriceSetDiscountedPriceAction) update action.
    *
    *
    */
@@ -8499,13 +11050,13 @@ export interface StandalonePriceStagedChangesAppliedMessagePayload {
   readonly stagedChanges: StagedStandalonePrice
 }
 /**
- *	Generated after a successful [Change Value](ctp:api:types:StandalonePriceChangeValueAction) update action.
+ *	Generated after a successful [Change Value](ctp:api:type:StandalonePriceChangeValueAction) update action.
  *
  */
 export interface StandalonePriceValueChangedMessagePayload {
   readonly type: 'StandalonePriceValueChanged'
   /**
-   *	The new value of the updated StandalonePrice.
+   *	The new value of the updated [StandalonePrice](ctp:api:type:StandalonePrice).
    *
    *
    */
@@ -8517,37 +11068,53 @@ export interface StandalonePriceValueChangedMessagePayload {
    */
   readonly staged: boolean
 }
+/**
+ *	Generated after a successful [Create Store](/../api/projects/stores#create-store) request.
+ *
+ */
 export interface StoreCreatedMessagePayload {
   readonly type: 'StoreCreated'
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	The `name` of the [Store](ctp:api:type:Store) that was created.
    *
    *
    */
   readonly name?: LocalizedString
   /**
+   *	Languages of the [Store](ctp:api:type:Store) that was created. Languages are represented as [IETF language tags](https://en.wikipedia.org/wiki/IETF_language_tag).
+   *
    *
    */
-  readonly languages: string[]
+  readonly languages?: string[]
   /**
+   *	[Distribution Channels](ctp:api:type:ChannelRoleEnum) of the [Store](ctp:api:type:Store) that was created.
+   *
    *
    */
   readonly distributionChannels: ChannelReference[]
   /**
+   *	[Supply Channels](ctp:api:type:ChannelRoleEnum) of the [Store](ctp:api:type:Store) that was created.
+   *
    *
    */
   readonly supplyChannels: ChannelReference[]
   /**
+   *	[ProductSelectionSettings](ctp:api:type:ProductSelectionSetting) of the [Store](ctp:api:type:Store) that was created.
+   *
    *
    */
   readonly productSelections: ProductSelectionSetting[]
   /**
-   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *	[Custom Fields](ctp:api:type:CustomFields) on the [Store](ctp:api:type:Store) that was created.
    *
    *
    */
   readonly custom?: CustomFields
 }
+/**
+ *	Generated after a successful [Delete Store](/../api/projects/quote-requests#delete-quoterequest) request.
+ *
+ */
 export interface StoreDeletedMessagePayload {
   readonly type: 'StoreDeleted'
 }
@@ -8560,28 +11127,41 @@ export interface StoreDeletedMessagePayload {
 export interface StoreDistributionChannelsChangedMessagePayload {
   readonly type: 'StoreDistributionChannelsChanged'
   /**
-   *	The product distribution channels that have been added.
+   *	Product distribution Channels that have been added to the [Store](/../api/projects/stores).
    *
    */
   readonly addedDistributionChannels: ChannelReference[]
   /**
-   *	The product distribution channels that have been removed.
+   *	Product distribution Channels that have been removed from the [Store](/../api/projects/stores).
    *
    *
    */
   readonly removedDistributionChannels: ChannelReference[]
 }
+/**
+ *	Generated by a successful [Add Product Selection](ctp:api:type:StoreAddProductSelectionAction),
+ *	[Remove Product Selection](ctp:api:type:StoreRemoveProductSelectionAction),
+ *	[Set Product Selections](ctp:api:type:StoreSetProductSelectionsAction),
+ *	or [Change Product Selections Active](ctp:api:type:StoreChangeProductSelectionAction) update action.
+ *
+ */
 export interface StoreProductSelectionsChangedMessagePayload {
   readonly type: 'StoreProductSelectionsChanged'
   /**
+   *	[ProductSelectionSettings](ctp:api:type:ProductSelectionSetting) that were added to the [Store](ctp:api:type:Store).
+   *
    *
    */
   readonly addedProductSelections?: ProductSelectionSetting[]
   /**
+   *	[ProductSelectionSettings](ctp:api:type:ProductSelectionSetting) that were removed from the [Store](ctp:api:type:Store).
+   *
    *
    */
   readonly removedProductSelections?: ProductSelectionSetting[]
   /**
+   *	[ProductSelectionSettings](ctp:api:type:ProductSelectionSetting) that were updated in the [Store](ctp:api:type:Store).
+   *
    *
    */
   readonly updatedProductSelections?: ProductSelectionSetting[]

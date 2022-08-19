@@ -72,7 +72,7 @@ export class ByProjectKeyStandalonePricesKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Produces the [StandalonePriceDeletedMessage](ctp:api:type:StandalonePriceDeletedMessage).
+   *	Produces the [StandalonePriceDeleted](ctp:api:type:StandalonePriceDeletedMessage) Message.
    *
    */
   public delete(methodArgs: {

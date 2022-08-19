@@ -32,6 +32,9 @@ export class ByProjectKeyMessagesRequestBuilder {
     })
   }
 
+  /**
+   *	Deprecated scope: `view_orders:{projectKey}`
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]

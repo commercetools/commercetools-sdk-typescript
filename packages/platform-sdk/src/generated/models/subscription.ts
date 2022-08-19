@@ -100,6 +100,8 @@ export interface MessageDeliveryPayload {
    */
   readonly resource: Reference
   /**
+   *	User-provided identifiers present on the resource for which the Message is created. The value of the identifier stored in the Message corresponds to the one that was set on the resource at the version shown in `resourceVersion`.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
@@ -168,6 +170,8 @@ export interface ResourceCreatedDeliveryPayload {
    */
   readonly resource: Reference
   /**
+   *	User-provided identifiers present on the resource for which the Message is created. The value of the identifier stored in the Message corresponds to the one that was set on the resource at the version shown in `resourceVersion`.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
@@ -193,6 +197,8 @@ export interface ResourceDeletedDeliveryPayload {
    */
   readonly resource: Reference
   /**
+   *	User-provided identifiers present on the resource for which the Message is created. The value of the identifier stored in the Message corresponds to the one that was set on the resource at the version shown in `resourceVersion`.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
@@ -222,6 +228,8 @@ export interface ResourceUpdatedDeliveryPayload {
    */
   readonly resource: Reference
   /**
+   *	User-provided identifiers present on the resource for which the Message is created. The value of the identifier stored in the Message corresponds to the one that was set on the resource at the version shown in `resourceVersion`.
+   *
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
