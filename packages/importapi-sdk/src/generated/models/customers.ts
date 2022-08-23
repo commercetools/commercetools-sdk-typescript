@@ -117,6 +117,11 @@ export interface CustomerAddress {
    *
    */
   readonly externalId?: string
+  /**
+   *	Custom Fields for the address.
+   *
+   */
+  readonly custom?: Custom
 }
 /**
  *	The data representation for a Customer to be imported that is persisted as a [Customer](/../api/projects/customers#top) in the Project.
