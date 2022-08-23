@@ -150,13 +150,13 @@ export interface StoreDraft {
    */
   readonly languages?: string[]
   /**
-   *	ResourceIdentifier to a Channel with `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *	ResourceIdentifier of a Channel with `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
    *
    */
   readonly distributionChannels?: ChannelResourceIdentifier[]
   /**
-   *	ResourceIdentifier to a Channel with `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *	ResourceIdentifier of a Channel with `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
    *
    */

@@ -68,42 +68,42 @@ export interface StagedQuote extends BaseResource {
    */
   readonly stagedQuoteState: StagedQuoteState
   /**
-   *	The [Buyer](/../api/quotes-overview#buyer) who requested the quote.
+   *	The [Buyer](/../api/quotes-overview#buyer) who requested the Quote.
    *
    *
    */
   readonly customer?: CustomerReference
   /**
-   *	The Quote Request related to this Staged Quote.
+   *	Quote Request related to the Staged Quote.
    *
    *
    */
   readonly quoteRequest: QuoteRequestReference
   /**
-   *	The [Cart](ctp:api:type:Cart) containing the offered items.
+   *	[Cart](ctp:api:type:Cart) containing the offered items. May contain either [DirectDiscounts](ctp:api:type:DirectDiscount) or [CartDiscounts](ctp:api:type:CartDiscount).
    *
    *
    */
   readonly quotationCart: CartReference
   /**
-   *	Expiration date for the quote.
+   *	Expiration date for the Quote.
    *
    *
    */
   readonly validTo?: string
   /**
-   *	The text message included in the offer from the [Seller](/../api/quotes-overview#seller).
+   *	Message from the [Seller](/../api/quotes-overview#seller) included in the offer.
    *
    *
    */
   readonly sellerComment?: string
   /**
-   *	Custom Fields of this Staged Quote.
+   *	Custom Fields of the Staged Quote.
    *
    */
   readonly custom?: CustomFields
   /**
-   *	[State](ctp:api:type:State) of this Staged Quote.
+   *	[State](ctp:api:type:State) of the Staged Quote.
    *	This reference can point to a State in a custom workflow.
    *
    *
@@ -112,7 +112,7 @@ export interface StagedQuote extends BaseResource {
 }
 export interface StagedQuoteDraft {
   /**
-   *	The QuoteRequest from which this StagedQuote is created.
+   *	QuoteRequest from which the StagedQuote is created.
    *
    *
    */
@@ -139,7 +139,7 @@ export interface StagedQuoteDraft {
    */
   readonly custom?: CustomFieldsDraft
   /**
-   *	[State](ctp:api:type:State) of this Staged Quote.
+   *	[State](ctp:api:type:State) of the Staged Quote.
    *	This reference can point to a State in a custom workflow.
    *
    *
@@ -250,7 +250,7 @@ export type StagedQuoteUpdateAction =
 export interface StagedQuoteChangeStagedQuoteStateAction {
   readonly action: 'changeStagedQuoteState'
   /**
-   *	The new quote staged state to be set for the Quote Staged.
+   *	New state to be set for the Staged Quote.
    *
    */
   readonly stagedQuoteState: StagedQuoteState

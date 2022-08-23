@@ -86,7 +86,7 @@ export interface QuoteRequest extends BaseResource {
    */
   readonly quoteRequestState: QuoteRequestState
   /**
-   *	Text message included in the request.
+   *	Message from the Buyer included in the Quote Request.
    *
    *
    */
@@ -110,19 +110,19 @@ export interface QuoteRequest extends BaseResource {
    */
   readonly store?: StoreKeyReference
   /**
-   *	The Line Items for which a quote is requested.
+   *	The Line Items for which a Quote is requested.
    *
    *
    */
   readonly lineItems: LineItem[]
   /**
-   *	The Custom Line Items for which a quote is requested.
+   *	The Custom Line Items for which a Quote is requested.
    *
    *
    */
   readonly customLineItems: CustomLineItem[]
   /**
-   *	The sum of all `totalPrice` fields of the `lineItems` and `customLineItems`, as well as the `price` field of `shippingInfo` (if it exists).
+   *	Sum of all `totalPrice` fields of the `lineItems` and `customLineItems`, as well as the `price` field of `shippingInfo` (if it exists).
    *	`totalPrice` may or may not include the taxes: it depends on the taxRate.includedInPrice property of each price.
    *
    *
@@ -144,19 +144,19 @@ export interface QuoteRequest extends BaseResource {
    */
   readonly shippingAddress?: Address
   /**
-   *	The address used for invoicing.
+   *	Address used for invoicing.
    *
    *
    */
   readonly billingAddress?: Address
   /**
-   *	The inventory mode of the Cart referenced in the [QuoteRequestDraft](ctp:api:type:QuoteRequestDraft).
+   *	Inventory mode of the Cart referenced in the [QuoteRequestDraft](ctp:api:type:QuoteRequestDraft).
    *
    *
    */
   readonly inventoryMode?: InventoryMode
   /**
-   *	The tax mode of the Cart referenced in the [QuoteRequestDraft](ctp:api:type:QuoteRequestDraft).
+   *	Tax mode of the Cart referenced in the [QuoteRequestDraft](ctp:api:type:QuoteRequestDraft).
    *
    *
    */
@@ -185,7 +185,7 @@ export interface QuoteRequest extends BaseResource {
    */
   readonly shippingInfo?: ShippingInfo
   /**
-   *	Log of payment transactions related to this quote.
+   *	Log of payment transactions related to the Quote.
    *
    *
    */
@@ -206,19 +206,19 @@ export interface QuoteRequest extends BaseResource {
    */
   readonly itemShippingAddresses?: Address[]
   /**
-   *	Discounts only valid for this Quote, those cannot be associated to any other Cart or Order.
+   *	Discounts that are only valid for the Quote and cannot be associated to any other Cart or Order.
    *
    *
    */
   readonly directDiscounts?: DirectDiscount[]
   /**
-   *	Custom Fields of this Quote Request.
+   *	Custom Fields of the Quote Request.
    *
    *
    */
   readonly custom?: CustomFields
   /**
-   *	[State](ctp:api:type:State) of this Quote Request.
+   *	[State](ctp:api:type:State) of the Quote Request.
    *	This reference can point to a State in a custom workflow.
    *
    *
@@ -245,7 +245,7 @@ export interface QuoteRequestDraft {
    */
   readonly key?: string
   /**
-   *	Text message included in the request.
+   *	Message from the Buyer included in the Quote Request.
    *
    *
    */
@@ -376,7 +376,7 @@ export type QuoteRequestUpdateAction =
 export interface QuoteRequestChangeQuoteRequestStateAction {
   readonly action: 'changeQuoteRequestState'
   /**
-   *	The new state to be set for the Quote Request.
+   *	New state to be set for the Quote Request.
    *
    */
   readonly quoteRequestState: QuoteRequestState

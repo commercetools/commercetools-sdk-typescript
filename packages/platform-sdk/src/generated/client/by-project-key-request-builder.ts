@@ -307,7 +307,7 @@ export class ByProjectKeyRequestBuilder {
     })
   }
   /**
-   *	A request for a quote holds product variants and can be ordered.
+   *	A request for a Quote holds product variants and can be ordered.
    */
   public quoteRequests(): ByProjectKeyQuoteRequestsRequestBuilder {
     return new ByProjectKeyQuoteRequestsRequestBuilder({

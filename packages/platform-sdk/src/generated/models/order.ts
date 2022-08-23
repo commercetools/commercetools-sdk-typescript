@@ -629,7 +629,7 @@ export interface OrderFromCartDraft {
    */
   readonly id?: string
   /**
-   *	ResourceIdentifier to the Cart from which this order is created.
+   *	ResourceIdentifier of the Cart from which this order is created.
    *
    */
   readonly cart?: CartResourceIdentifier
@@ -674,12 +674,12 @@ export interface OrderFromCartDraft {
 }
 export interface OrderFromQuoteDraft {
   /**
-   *	ResourceIdentifier to the Quote from which this order is created. If the quote has `QuoteState` in `Accepted`, `Declined` or `Withdrawn` then the order creation will fail. The creation will also if the `Quote` has expired (`validTo` check).
+   *	ResourceIdentifier of the Quote from which this Order is created. If the Quote has `QuoteState` in `Accepted`, `Declined` or `Withdrawn` then the order creation will fail. The creation will also if the `Quote` has expired (`validTo` check).
    *
    */
   readonly quote: QuoteResourceIdentifier
   /**
-   *	The `version` of the [Quote](ctp:api:type:quote) from which an Order is created.
+   *	`version` of the [Quote](ctp:api:type:quote) from which an Order is created.
    *
    *
    */
