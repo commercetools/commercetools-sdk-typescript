@@ -184,13 +184,13 @@ export interface EmbeddedPriceDraft {
    */
   readonly discounted?: DiscountedPriceDraft
   /**
-   *	Sets the date from which the EmbeddedPrice is valid.
+   *	Sets the date from which the EmbeddedPrice is valid. Must be at least 1 ms before `validUntil`.
    *
    *
    */
   readonly validFrom?: string
   /**
-   *	Sets the date until the EmbeddedPrice is valid.
+   *	Sets the date until the EmbeddedPrice is valid. Must be at least 1 ms after `validFrom`.
    *
    *
    */
