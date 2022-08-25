@@ -13,6 +13,15 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
       method: 'get',
+      uri: '/test_projectKey/me/active-cart?expand=expand',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .me()
+        .activeCart()
+        .get({ queryArgs: { expand: 'expand' } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/me/active-cart',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
