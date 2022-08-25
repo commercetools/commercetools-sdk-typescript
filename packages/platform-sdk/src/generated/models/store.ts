@@ -444,6 +444,10 @@ export interface StoreSetDistributionChannelsAction {
    */
   readonly distributionChannels?: ChannelResourceIdentifier[]
 }
+/**
+ *	This update action produces the [StoreLanguagesChanged](ctp:api:type:StoreLanguagesChangedMessage) Message.
+ *
+ */
 export interface StoreSetLanguagesAction {
   readonly action: 'setLanguages'
   /**
