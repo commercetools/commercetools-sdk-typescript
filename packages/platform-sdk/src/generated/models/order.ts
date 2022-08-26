@@ -248,7 +248,7 @@ export interface Hit {
    *	The higher the value is, the more relevant the hit is for the search request.
    *
    */
-  readonly relevance: number
+  readonly relevance?: number
 }
 export interface OrderPagedSearchResponse {
   /**
