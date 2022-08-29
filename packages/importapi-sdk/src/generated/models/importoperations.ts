@@ -39,7 +39,7 @@ export interface ImportOperation {
    */
   readonly state: ProcessingState
   /**
-   *	The version of the impmorted resource when the import was successful.
+   *	The version of the imported resource when the import was successful.
    *
    */
   readonly resourceVersion?: number
