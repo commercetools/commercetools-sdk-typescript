@@ -8789,13 +8789,13 @@ export interface StoreDistributionChannelsChangedMessage {
    *	Product distribution Channels that have been added to the [Store](/../api/projects/stores).
    *
    */
-  readonly addedDistributionChannels: ChannelReference[]
+  readonly addedDistributionChannels?: ChannelReference[]
   /**
    *	Product distribution Channels that have been removed from the [Store](/../api/projects/stores).
    *
    *
    */
-  readonly removedDistributionChannels: ChannelReference[]
+  readonly removedDistributionChannels?: ChannelReference[]
 }
 /**
  *	Generated after a successful [Set Languages](ctp:api:type:StoreSetLanguagesAction) update action.
@@ -11208,13 +11208,13 @@ export interface StoreDistributionChannelsChangedMessagePayload {
    *	Product distribution Channels that have been added to the [Store](/../api/projects/stores).
    *
    */
-  readonly addedDistributionChannels: ChannelReference[]
+  readonly addedDistributionChannels?: ChannelReference[]
   /**
    *	Product distribution Channels that have been removed from the [Store](/../api/projects/stores).
    *
    *
    */
-  readonly removedDistributionChannels: ChannelReference[]
+  readonly removedDistributionChannels?: ChannelReference[]
 }
 /**
  *	Generated after a successful [Set Languages](ctp:api:type:StoreSetLanguagesAction) update action.
