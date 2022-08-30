@@ -16,8 +16,10 @@ import {
   ItemShippingDetailsDraft,
   LineItem,
   RoundingMode,
+  Shipping,
   ShippingInfo,
   ShippingMethodState,
+  ShippingMode,
   ShippingRateInput,
   TaxCalculationMode,
   TaxedPrice,
@@ -502,6 +504,16 @@ export interface Order extends BaseResource {
    */
   readonly taxedPrice?: TaxedPrice
   /**
+   *	Sum of `taxedPrice` of [ShippingInfo](ctp:api:type:ShippingInfo) across all Shipping Methods.
+   *	For `Platform` [TaxMode](ctp:api:type:TaxMode), it is set automatically only if [shipping address is set](ctp:api:type:CartSetShippingAddressAction) or [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction) to the Cart.
+   *
+   */
+  readonly taxedShippingPrice?: TaxedPrice
+  /**
+   *	Holds all shipping-related information per Shipping Method.
+   *
+   *	For `Multi` [ShippingMode](ctp:api:typeShippingMode), it is updated automatically after the Shipping Methods are added.
+   *
    *
    */
   readonly shippingAddress?: Address
@@ -509,6 +521,20 @@ export interface Order extends BaseResource {
    *
    */
   readonly billingAddress?: Address
+  /**
+   *	Indicates whether one or multiple Shipping Methods are added to the Cart.
+   *
+   *
+   */
+  readonly shippingMode: ShippingMode
+  /**
+   *	Holds all shipping-related information per Shipping Method for `Multi` [ShippingMode](ctp:api:typeShippingMode).
+   *
+   *	It is updated automatically after the [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction).
+   *
+   *
+   */
+  readonly shipping: Shipping[]
   /**
    *
    */
@@ -1351,6 +1377,12 @@ export interface OrderAddDeliveryAction {
    *
    */
   readonly items?: DeliveryItem[]
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
   /**
    *
    */

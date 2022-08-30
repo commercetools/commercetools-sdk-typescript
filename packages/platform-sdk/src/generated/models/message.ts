@@ -10,6 +10,7 @@ import {
   DiscountedLineItemPriceForQuantity,
   ItemShippingDetails,
   LineItem,
+  MethodTaxedPrice,
   ProductPublishScope,
   ShippingInfo,
   ShippingRateInput,
@@ -1840,6 +1841,12 @@ export interface DeliveryAddedMessage {
    *
    */
   readonly delivery: Delivery
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Set Delivery Address](ctp:api:type:OrderSetDeliveryAddressAction) update action.
@@ -1922,6 +1929,12 @@ export interface DeliveryAddressSetMessage {
    *
    */
   readonly oldAddress?: Address
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Set Delivery Items](ctp:api:type:OrderSetDeliveryItemsAction) update action.
@@ -2004,6 +2017,12 @@ export interface DeliveryItemsUpdatedMessage {
    *
    */
   readonly oldItems: DeliveryItem[]
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Remove Delivery](ctp:api:type:OrderRemoveDeliveryAction) update action.
@@ -2074,6 +2093,12 @@ export interface DeliveryRemovedMessage {
    *
    */
   readonly delivery: Delivery
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Transition Line Item State](ctp:api:type:OrderTransitionLineItemStateAction) update action.
@@ -3466,6 +3491,12 @@ export interface OrderLineItemDiscountSetMessage {
    *
    */
   readonly taxedPrice?: TaxedItemPrice
+  /**
+   *	Taxed price of the Shipping Methods in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode)..
+   *
+   *
+   */
+  readonly taxedPricePortions: MethodTaxedPrice[]
 }
 /**
  *	Generated after a successful [Set Line Item Distribution Channel](/../api/projects/order-edits#set-lineitem-distributionchannel) update action.
@@ -4484,6 +4515,12 @@ export interface ParcelAddedToDeliveryMessage {
    *
    */
   readonly parcel: Parcel
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Set Parcel Items](ctp:api:type:OrderSetParcelItemsAction) update action.
@@ -4572,6 +4609,12 @@ export interface ParcelItemsUpdatedMessage {
    *
    */
   readonly oldItems: DeliveryItem[]
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Set Parcel Measurements](ctp:api:type:OrderSetParcelMeasurementsAction) update action.
@@ -4654,6 +4697,12 @@ export interface ParcelMeasurementsUpdatedMessage {
    *
    */
   readonly measurements?: ParcelMeasurements
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Remove Parcel From Delivery](ctp:api:type:OrderRemoveParcelFromDeliveryAction) update action.
@@ -4730,6 +4779,12 @@ export interface ParcelRemovedFromDeliveryMessage {
    *
    */
   readonly parcel: Parcel
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Set Parcel TrackingData](ctp:api:type:OrderSetParcelTrackingDataAction) update action.
@@ -4812,6 +4867,12 @@ export interface ParcelTrackingDataUpdatedMessage {
    *
    */
   readonly trackingData?: TrackingData
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Create Payment](/../api/projects/payments#create-a-payment) request.
@@ -9479,6 +9540,12 @@ export interface DeliveryAddedMessagePayload {
    *
    */
   readonly delivery: Delivery
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Set Delivery Address](ctp:api:type:OrderSetDeliveryAddressAction) update action.
@@ -9504,6 +9571,12 @@ export interface DeliveryAddressSetMessagePayload {
    *
    */
   readonly oldAddress?: Address
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Set Delivery Items](ctp:api:type:OrderSetDeliveryItemsAction) update action.
@@ -9529,6 +9602,12 @@ export interface DeliveryItemsUpdatedMessagePayload {
    *
    */
   readonly oldItems: DeliveryItem[]
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Remove Delivery](ctp:api:type:OrderRemoveDeliveryAction) update action.
@@ -9542,6 +9621,12 @@ export interface DeliveryRemovedMessagePayload {
    *
    */
   readonly delivery: Delivery
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Transition Line Item State](ctp:api:type:OrderTransitionLineItemStateAction) update action.
@@ -9908,6 +9993,12 @@ export interface OrderLineItemDiscountSetMessagePayload {
    *
    */
   readonly taxedPrice?: TaxedItemPrice
+  /**
+   *	Taxed price of the Shipping Methods in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode)..
+   *
+   *
+   */
+  readonly taxedPricePortions: MethodTaxedPrice[]
 }
 /**
  *	Generated after a successful [Set Line Item Distribution Channel](/../api/projects/order-edits#set-lineitem-distributionchannel) update action.
@@ -10185,6 +10276,12 @@ export interface ParcelAddedToDeliveryMessagePayload {
    *
    */
   readonly parcel: Parcel
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Set Parcel Items](ctp:api:type:OrderSetParcelItemsAction) update action.
@@ -10216,6 +10313,12 @@ export interface ParcelItemsUpdatedMessagePayload {
    *
    */
   readonly oldItems: DeliveryItem[]
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Set Parcel Measurements](ctp:api:type:OrderSetParcelMeasurementsAction) update action.
@@ -10241,6 +10344,12 @@ export interface ParcelMeasurementsUpdatedMessagePayload {
    *
    */
   readonly measurements?: ParcelMeasurements
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Remove Parcel From Delivery](ctp:api:type:OrderRemoveParcelFromDeliveryAction) update action.
@@ -10260,6 +10369,12 @@ export interface ParcelRemovedFromDeliveryMessagePayload {
    *
    */
   readonly parcel: Parcel
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Set Parcel TrackingData](ctp:api:type:OrderSetParcelTrackingDataAction) update action.
@@ -10285,6 +10400,12 @@ export interface ParcelTrackingDataUpdatedMessagePayload {
    *
    */
   readonly trackingData?: TrackingData
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Generated after a successful [Create Payment](/../api/projects/payments#create-a-payment) request.
