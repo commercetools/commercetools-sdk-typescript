@@ -663,6 +663,10 @@ export interface Money {
  *	MoneyType supports two different values, one for amounts in cent precision and another one for sub-cent amounts up to 20 fraction digits.
  */
 export type MoneyType = 'centPrecision' | 'highPrecision'
+/**
+ *	The representation for prices embedded in [LineItems](ctp:api:type:LineItem) and in [ProductVariants](ctp:api:type:ProductVariant) when the [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) is `Embedded`.
+ *	For the `Standalone` ProductPriceMode refer to [StandalonePrice](ctp:api:type:StandalonePrice).
+ */
 export interface Price {
   /**
    *	Unique identifier of this Price.
@@ -727,6 +731,9 @@ export interface Price {
    */
   readonly custom?: CustomFields
 }
+/**
+ *	The draft representation for prices to be embedded into [ProductVariantDrafts](ctp:api:type:ProductVariantDraft) when the [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) is `Embedded`. For the `Standalone` ProductPriceMode use [StandalonePriceDraft](ctp:api:type:StandalonePriceDraft).
+ */
 export interface PriceDraft {
   /**
    *	Money value of this Price.
@@ -753,21 +760,21 @@ export interface PriceDraft {
    */
   readonly channel?: ChannelResourceIdentifier
   /**
-   *	Set this field if this Price is valid only valid from the specified date and time.
+   *	Set this field if this Price is only valid from the specified date and time. Must be at least 1 ms earlier than `validUntil`.
    *
    *
    */
   readonly validFrom?: string
   /**
-   *	Set this field if this Price is valid only valid until the specified date and time.
+   *	Set this field if this Price is only valid until the specified date and time. Must be at least 1 ms later than `validFrom`.
    *
    *
    */
   readonly validUntil?: string
   /**
-   *	Set this field to add a DiscountedPrice from an external service.
+   *	Set this field to add a DiscountedPrice from an **external service**.
    *
-   *	The API sets this field automatically if at least one [ProductDiscount](ctp:api:type:ProductDiscount) applies.
+   *	Otherwise, Composable Commerce sets this field automatically if at least one [ProductDiscount](ctp:api:type:ProductDiscount) applies.
    *	The DiscountedPrice must reference a ProductDiscount with:
    *
    *	* The `isActive` flag set to `true`.

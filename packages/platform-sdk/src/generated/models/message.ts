@@ -5680,14 +5680,14 @@ export interface ProductPriceDiscountsSetMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Array containing details about the [Prices](ctp:api:type:Price) that were updated.
+   *	Array containing details about the [Embedded Prices](ctp:api:type:Price) that were updated.
    *
    *
    */
   readonly updatedPrices: ProductPriceDiscountsSetUpdatedPrice[]
 }
 /**
- *	Details about a [Price](ctp:api:type:Price) that was updated due to a Discount. Specific to [ProductPriceDiscountsSet](ctp:api:type:ProductPriceDiscountsSetMessage) Message.
+ *	Details about a [Embedded Price](ctp:api:type:Price) that was updated due to a Discount. Specific to [ProductPriceDiscountsSet](ctp:api:type:ProductPriceDiscountsSetMessage) Message.
  *
  */
 export interface ProductPriceDiscountsSetUpdatedPrice {
@@ -5710,7 +5710,7 @@ export interface ProductPriceDiscountsSetUpdatedPrice {
    */
   readonly sku?: string
   /**
-   *	Unique identifier of the [Price](ctp:api:type:Price).
+   *	Unique identifier of the [Embedded Price](ctp:api:type:Price).
    *
    *
    */
@@ -5810,7 +5810,7 @@ export interface ProductPriceExternalDiscountSetMessage {
    */
   readonly sku?: string
   /**
-   *	Unique identifier of the [Price](ctp:api:type:Price).
+   *	Unique identifier of the [Embedded Price](ctp:api:type:Price).
    *
    *
    */
@@ -10586,7 +10586,7 @@ export interface ProductImageAddedMessagePayload {
 export interface ProductPriceDiscountsSetMessagePayload {
   readonly type: 'ProductPriceDiscountsSet'
   /**
-   *	Array containing details about the [Prices](ctp:api:type:Price) that were updated.
+   *	Array containing details about the [Embedded Prices](ctp:api:type:Price) that were updated.
    *
    *
    */
@@ -10617,7 +10617,7 @@ export interface ProductPriceExternalDiscountSetMessagePayload {
    */
   readonly sku?: string
   /**
-   *	Unique identifier of the [Price](ctp:api:type:Price).
+   *	Unique identifier of the [Embedded Price](ctp:api:type:Price).
    *
    *
    */

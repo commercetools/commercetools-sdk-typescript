@@ -6,28 +6,20 @@
 
 import { ProductPublishScope } from './cart'
 import { CategoryReference, CategoryResourceIdentifier } from './category'
-import { ChannelReference, ChannelResourceIdentifier } from './channel'
 import {
   Asset,
   AssetDraft,
   AssetSource,
   BaseResource,
   CreatedBy,
-  DiscountedPrice,
   DiscountedPriceDraft,
   Image,
   LastModifiedBy,
   LocalizedString,
-  Money,
   Price,
-  PriceTier,
+  PriceDraft,
   ScopedPrice,
-  TypedMoney,
 } from './common'
-import {
-  CustomerGroupReference,
-  CustomerGroupResourceIdentifier,
-} from './customer-group'
 import {
   ProductTypeReference,
   ProductTypeResourceIdentifier,
@@ -38,12 +30,7 @@ import {
   TaxCategoryReference,
   TaxCategoryResourceIdentifier,
 } from './tax-category'
-import {
-  CustomFields,
-  CustomFieldsDraft,
-  FieldContainer,
-  TypeResourceIdentifier,
-} from './type'
+import { FieldContainer, TypeResourceIdentifier } from './type'
 
 export interface Attribute {
   /**
@@ -69,144 +56,12 @@ export interface Attribute {
   readonly value: any
 }
 /**
- *	JSON object where the key is a [Category](ctp:api:type:Category) `id` and the value is an order hint: a string representing a number between 0 and 1 that must start with `0.` and cannot end with `0`. Allows controlling the order of Products and how they appear in Categories. Products with no order hint have an order score below `0`. Order hints are non-unique. If a subset of Products have the same value for order hint in a specific category, the behavior is undetermined.
- *
+ *	JSON object where the key is a [Category](ctp:api:type:Category) `id` and the value is an order hint.
+ *	Allows controlling the order of Products and how they appear in Categories. Products with no order hint have an order score below `0`. Order hints are non-unique.
+ *	If a subset of Products have the same value for order hint in a specific category, the behavior is undetermined.
  */
-export interface CategoryOrderHints {}
-export interface EmbeddedPrice {
-  /**
-   *	Unique identifier of the EmbeddedPrice.
-   *
-   *
-   */
-  readonly id: string
-  /**
-   *	Money value of the EmbeddedPrice.
-   *
-   *
-   */
-  readonly value: TypedMoney
-  /**
-   *	Country for which the EmbeddedPrice is valid.
-   *
-   *
-   */
-  readonly country?: string
-  /**
-   *	[CustomerGroup](ctp:api:type:CustomerGroup) for which the EmbeddedPrice is valid.
-   *
-   *
-   */
-  readonly customerGroup?: CustomerGroupReference
-  /**
-   *	Product distribution [Channel](ctp:api:type:Channel) for which the EmbeddedPrice is valid.
-   *
-   *
-   */
-  readonly channel?: ChannelReference
-  /**
-   *	Date from which the EmbeddedPrice is valid.
-   *
-   *
-   */
-  readonly validFrom?: string
-  /**
-   *	Date until the EmbeddedPrice is valid.
-   *
-   *
-   */
-  readonly validUntil?: string
-  /**
-   *	Price tiers if any are defined.
-   *
-   *
-   */
-  readonly tiers?: PriceTier[]
-  /**
-   *	Set if a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists.
-   *	If set, the API uses the `discounted` value for the [LineItem Price selection](ctp:api:type:CartLineItemPriceSelection).
-   *	When a [relative Discount](ctp:api:type:ProductDiscountValueRelative) is applied and the fraction part of the `discounted` price is 0.5,
-   *	the discounted Price is rounded in favor of the customer with the [half down rounding](https://en.wikipedia.org/wiki/Rounding#Round_half_down).
-   *
-   *	The service will unset or replace the value
-   *
-   *	- once a matching relative or absolute Product Discount with a higher `sortOrder` exists,
-   *	- if the referenced external Product Discount is deactivated, or
-   *	- if the Product changes and the external Product Discount predicate does not match the discounted Price any more.
-   *
-   *
-   */
-  readonly discounted?: DiscountedPrice
-  /**
-   *	Custom Fields for the EmbeddedPrice.
-   *
-   *
-   */
-  readonly custom?: CustomFields
-}
-/**
- *	The representation sent to the server when creating a new EmbeddedPrice.
- *
- */
-export interface EmbeddedPriceDraft {
-  /**
-   *	Sets the money value of the EmbeddedPrice.
-   *
-   *
-   */
-  readonly value: Money
-  /**
-   *	Sets the country for which the EmbeddedPrice is valid. If not set, the Price is valid for any country.
-   *
-   *
-   */
-  readonly country?: string
-  /**
-   *	Sets the [CustomerGroup](ctp:api:type:CustomerGroup) for which the EmbeddedPrice is valid.
-   *
-   *
-   */
-  readonly customerGroup?: CustomerGroupResourceIdentifier
-  /**
-   *	Sets the product distribution [Channel](ctp:api:type:Channel) for which the EmbeddedPrice is valid.
-   *
-   *
-   */
-  readonly channel?: ChannelResourceIdentifier
-  /**
-   *	Sets a discounted Price from an **external service**. Absolute or relative [ProductDiscount](ctp:api:type:ProductDiscount) prices are automatically added to a Product's [EmbeddedPrice](#embeddedprice) when created. The DiscountedPrice must reference a ProductDiscount with:
-   *
-   *	- The `isActive` flag set to `true`.
-   *	- An `external` [ProductDiscountValue](ctp:api:type:ProductDiscountValueExternal).
-   *	- A `predicate` which matches the [ProductVariant](ctp:api:type:ProductVariant) the [EmbeddedPrice](ctp:api:type:EmbeddedPrice) is referenced from.
-   *
-   *
-   */
-  readonly discounted?: DiscountedPriceDraft
-  /**
-   *	Sets the date from which the EmbeddedPrice is valid. Must be at least 1 ms before `validUntil`.
-   *
-   *
-   */
-  readonly validFrom?: string
-  /**
-   *	Sets the date until the EmbeddedPrice is valid. Must be at least 1 ms after `validFrom`.
-   *
-   *
-   */
-  readonly validUntil?: string
-  /**
-   *	Sets Price tiers.
-   *
-   *
-   */
-  readonly tiers?: PriceTier[]
-  /**
-   *	Custom Fields for the EmbeddedPrice.
-   *
-   *
-   */
-  readonly custom?: CustomFieldsDraft
+export interface CategoryOrderHints {
+  [key: string]: string
 }
 export interface FacetRange {
   /**
@@ -900,7 +755,7 @@ export interface ProductVariant {
    *
    *
    */
-  readonly prices?: EmbeddedPrice[]
+  readonly prices?: Price[]
   /**
    *	Attributes of the Product Variant.
    *
@@ -1023,7 +878,9 @@ export interface ProductVariantChannelAvailability {
  *	JSON object where the key is a supply [Channel](ctp:api:type:Channel) `id` and the value is the [ProductVariantChannelAvailability](ctp:api:type:ProductVariantChannelAvailability) of the [InventoryEntry](ctp:api:type:InventoryEntry).
  *
  */
-export interface ProductVariantChannelAvailabilityMap {}
+export interface ProductVariantChannelAvailabilityMap {
+  [key: string]: ProductVariantChannelAvailability
+}
 /**
  *	Creates a Product Variant when included in the `masterVariant` and `variants` fields of the [ProductDraft](ctp:api:type:ProductDraft).
  *
@@ -1047,7 +904,7 @@ export interface ProductVariantDraft {
    *
    *
    */
-  readonly prices?: EmbeddedPriceDraft[]
+  readonly prices?: PriceDraft[]
   /**
    *	Attributes according to the respective [AttributeDefinition](ctp:api:type:AttributeDefinition).
    *
@@ -1092,7 +949,9 @@ export interface SearchKeyword {
  *	Search keywords are JSON objects primarily used by [Product Suggestions](ctp:api:type:ProductSuggestions), but are also considered for a full text search. The keys are of type [Locale](ctp:api:type:Locale), and the values are an array of [SearchKeyword](ctp:api:type:SearchKeyword).
  *
  */
-export interface SearchKeywords {}
+export interface SearchKeywords {
+  [key: string]: SearchKeyword[]
+}
 export type SuggestTokenizer = CustomTokenizer | WhitespaceTokenizer
 /**
  *	Define arbitrary tokens that are used to match the input.
@@ -1242,11 +1101,11 @@ export interface ProductAddPriceAction {
    */
   readonly sku?: string
   /**
-   *	EmbeddedPrice to add to the Product Variant.
+   *	Embedded Price to add to the Product Variant.
    *
    *
    */
-  readonly price: EmbeddedPriceDraft
+  readonly price: PriceDraft
   /**
    *	If `true`, only the staged `prices` is updated. If `false`, both the current and staged `prices` are updated.
    *
@@ -1293,11 +1152,11 @@ export interface ProductAddVariantAction {
    */
   readonly key?: string
   /**
-   *	EmbeddedPrices for the Product Variant.
+   *	Embedded Prices for the Product Variant.
    *
    *
    */
-  readonly prices?: EmbeddedPriceDraft[]
+  readonly prices?: PriceDraft[]
   /**
    *	Images for the Product Variant.
    *
@@ -1440,7 +1299,7 @@ export interface ProductChangeNameAction {
 export interface ProductChangePriceAction {
   readonly action: 'changePrice'
   /**
-   *	The `id` of the EmbeddedPrice to update.
+   *	The `id` of the Embedded Price to update.
    *
    *
    */
@@ -1450,9 +1309,9 @@ export interface ProductChangePriceAction {
    *
    *
    */
-  readonly price: EmbeddedPriceDraft
+  readonly price: PriceDraft
   /**
-   *	If `true`, only the staged EmbeddedPrice is updated. If `false`, both the current and staged EmbeddedPrice are updated.
+   *	If `true`, only the staged Embedded Price is updated. If `false`, both the current and staged Embedded Price are updated.
    *
    *
    */
@@ -1626,13 +1485,13 @@ export interface ProductRemoveImageAction {
 export interface ProductRemovePriceAction {
   readonly action: 'removePrice'
   /**
-   *	The `id` of the EmbeddedPrice to remove.
+   *	The `id` of the Embedded Price to remove.
    *
    *
    */
   readonly priceId: string
   /**
-   *	If `true`, only the staged EmbeddedPrice is removed. If `false`, both the current and staged EmbeddedPrice are removed.
+   *	If `true`, only the staged Embedded Price is removed. If `false`, both the current and staged Embedded Price are removed.
    *
    *
    */
@@ -2077,13 +1936,13 @@ export interface ProductSetDescriptionAction {
 export interface ProductSetDiscountedPriceAction {
   readonly action: 'setDiscountedPrice'
   /**
-   *	The `id` of the EmbeddedPrice to set the Discount.
+   *	The `id` of the [Embedded Price](ctp:api:type:Price) to set the Discount.
    *
    *
    */
   readonly priceId: string
   /**
-   *	If `true`, only the staged EmbeddedPrice is updated. If `false`, both the current and staged EmbeddedPrice are updated.
+   *	If `true`, only the staged Embedded Price is updated. If `false`, both the current and staged Embedded Price are updated.
    *
    *
    */
@@ -2224,7 +2083,7 @@ export interface ProductSetPricesAction {
    *
    *
    */
-  readonly prices: EmbeddedPriceDraft[]
+  readonly prices: PriceDraft[]
   /**
    *	If `true`, only the staged ProductVariant is updated. If `false`, both the current and staged ProductVariant are updated.
    *
