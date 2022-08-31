@@ -369,12 +369,12 @@ export interface CartDraft {
    *	Custom Shipping Methods for a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
    *
    */
-  readonly customShipping: CustomShippingDraft[]
+  readonly customShipping?: CustomShippingDraft[]
   /**
    *	Shipping Methods for a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
    *
    */
-  readonly shipping: ShippingDraft[]
+  readonly shipping?: ShippingDraft[]
   /**
    *	The shippingRateInput is used as an input to select a ShippingRatePriceTier.
    *	Based on the definition of ShippingRateInputType.
