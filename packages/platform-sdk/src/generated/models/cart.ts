@@ -150,7 +150,7 @@ export interface Cart extends BaseResource {
    */
   readonly shippingMode: ShippingMode
   /**
-   *	Holds all shipping-related information per Shipping Method of a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Holds all shipping-related information per Shipping Method of a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *	It is automatically updated after the [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction).
    *
@@ -361,17 +361,17 @@ export interface CartDraft {
   readonly origin?: CartOrigin
   /**
    *	- If `Single`, only a single Shipping Method can be added to the Cart.
-   *	- If `Multi`, multiple Shipping Methods can be added to the Cart.
+   *	- If `Multiple`, multiple Shipping Methods can be added to the Cart.
    *
    */
   readonly shippingMode?: ShippingMode
   /**
-   *	Custom Shipping Methods for a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Custom Shipping Methods for a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    */
   readonly customShipping?: CustomShippingDraft[]
   /**
-   *	Shipping Methods for a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Shipping Methods for a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    */
   readonly shipping?: ShippingDraft[]
@@ -673,7 +673,7 @@ export interface CustomLineItemDraft {
 export type CustomLineItemPriceMode = 'External' | 'Standard'
 export interface CustomShippingDraft {
   /**
-   *	User-defined unique identifier of the custom Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the custom Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -904,7 +904,7 @@ export interface ItemShippingTarget {
    */
   readonly quantity: number
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *	It connects Line Item quantities with individual shipping addresses.
    *
@@ -997,7 +997,7 @@ export interface LineItem {
    */
   readonly taxRate?: TaxRate
   /**
-   *	Tax Rate per Shipping Method that is automatically set after the [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction) to a Cart with the `Platform` [TaxMode](ctp:api:type:TaxMode) and `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Tax Rate per Shipping Method that is automatically set after the [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction) to a Cart with the `Platform` [TaxMode](ctp:api:type:TaxMode) and `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *	For the `External` [TaxMode](ctp:api:type:TaxMode), the Tax Rate must be set with [ExternalTaxRateDraft](ctp:api:type:ExternalTaxRateDraft).
    *
@@ -1126,7 +1126,7 @@ export type LineItemMode = 'GiftLineItem' | 'Standard'
 export type LineItemPriceMode = 'ExternalPrice' | 'ExternalTotal' | 'Platform'
 export interface MethodTaxRate {
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -1140,7 +1140,7 @@ export interface MethodTaxRate {
 }
 export interface MethodTaxedPrice {
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -1166,7 +1166,7 @@ export interface ReplicaCartDraft {
 export type RoundingMode = 'HalfDown' | 'HalfEven' | 'HalfUp'
 export interface Shipping {
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -1205,13 +1205,13 @@ export interface Shipping {
  */
 export interface ShippingDraft {
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
   readonly key: string
   /**
-   *	Shipping Methods added to the Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Shipping Methods added to the Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -1303,7 +1303,7 @@ export interface ShippingInfo {
   readonly shippingMethodState: ShippingMethodState
 }
 export type ShippingMethodState = 'DoesNotMatchCart' | 'MatchesCart'
-export type ShippingMode = 'Multi' | 'Single'
+export type ShippingMode = 'Multiple' | 'Single'
 export type ShippingRateInput =
   | ClassificationShippingRateInput
   | ScoreShippingRateInput
@@ -1491,7 +1491,7 @@ export interface CartAddCustomLineItemAction {
 export interface CartAddCustomShippingMethodAction {
   readonly action: 'addCustomShippingMethod'
   /**
-   *	User-defined unique identifier of the custom Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the custom Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -1636,7 +1636,7 @@ export interface CartAddPaymentAction {
 export interface CartAddShippingMethodAction {
   readonly action: 'addShippingMethod'
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -1883,7 +1883,7 @@ export interface CartRemovePaymentAction {
 export interface CartRemoveShippingMethodAction {
   readonly action: 'removeShippingMethod'
   /**
-   *	User-defined unique identifier of the Shipping Method to remove in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method to remove in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -2389,7 +2389,7 @@ export interface CartSetShippingAddressCustomTypeAction {
 export interface CartSetShippingCustomFieldAction {
   readonly action: 'setShippingCustomField'
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -2412,7 +2412,7 @@ export interface CartSetShippingCustomFieldAction {
 export interface CartSetShippingCustomTypeAction {
   readonly action: 'setShippingCustomType'
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
