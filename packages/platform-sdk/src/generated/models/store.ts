@@ -458,6 +458,10 @@ export interface StoreSetLanguagesAction {
    */
   readonly languages?: string[]
 }
+/**
+ *	This update action produces the [StoreNameSet](ctp:api:type:StoreNameSetMessage) Message.
+ *
+ */
 export interface StoreSetNameAction {
   readonly action: 'setName'
   /**
