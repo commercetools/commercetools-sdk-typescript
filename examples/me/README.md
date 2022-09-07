@@ -27,7 +27,7 @@ CTP_CLIENT_ID={clientID}
 CTP_PROJECT_KEY={projectKey}
 CTP_CLIENT_SECRET={clientSecret}
 CTP_AUTH_URL={authUrl}
-CTP_HOST_URL={hostUrl}
+CTP_API_URL={hostUrl}
 DEFAULT_CURRENCY=EUR
 ```
 
