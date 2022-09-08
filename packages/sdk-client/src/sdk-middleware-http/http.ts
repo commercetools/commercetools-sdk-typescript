@@ -128,7 +128,9 @@ export default function createHttpMiddleware({
 
       // Ensure body is a string if content type is application/json
       const body =
-        (requestHeader['Content-Type'] === 'application/json' &&
+        (['application/json', 'application/graphql'].indexOf(
+          requestHeader['Content-Type'] as string
+        ) > -1 &&
           typeof request.body === 'string') ||
         Buffer.isBuffer(request.body)
           ? request.body
