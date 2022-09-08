@@ -8,7 +8,8 @@ import { ByProjectKeyMissingDataAttributesRequestBuilder } from '../attributes/b
 import { ByProjectKeyMissingDataImagesRequestBuilder } from '../images/by-project-key-missing-data-images-request-builder'
 import { ByProjectKeyMissingDataPricesRequestBuilder } from '../prices/by-project-key-missing-data-prices-request-builder'
 /**
- **/
+@deprecated
+**/
 export class ByProjectKeyMissingDataRequestBuilder {
   constructor(
     protected readonly args: {
@@ -19,6 +20,10 @@ export class ByProjectKeyMissingDataRequestBuilder {
       baseUri?: string
     }
   ) {}
+
+  /**
+   * @deprecated
+   **/
   public attributes(): ByProjectKeyMissingDataAttributesRequestBuilder {
     return new ByProjectKeyMissingDataAttributesRequestBuilder({
       pathArgs: {
@@ -28,6 +33,10 @@ export class ByProjectKeyMissingDataRequestBuilder {
       baseUri: this.args.baseUri,
     })
   }
+
+  /**
+   * @deprecated
+   **/
   public images(): ByProjectKeyMissingDataImagesRequestBuilder {
     return new ByProjectKeyMissingDataImagesRequestBuilder({
       pathArgs: {
@@ -37,6 +46,10 @@ export class ByProjectKeyMissingDataRequestBuilder {
       baseUri: this.args.baseUri,
     })
   }
+
+  /**
+   * @deprecated
+   **/
   public prices(): ByProjectKeyMissingDataPricesRequestBuilder {
     return new ByProjectKeyMissingDataPricesRequestBuilder({
       pathArgs: {

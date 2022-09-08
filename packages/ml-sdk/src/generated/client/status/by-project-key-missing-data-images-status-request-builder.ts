@@ -6,7 +6,8 @@
 import { executeRequest } from '../../shared/utils/common-types'
 import { ByProjectKeyMissingDataImagesStatusByTaskIdRequestBuilder } from './by-project-key-missing-data-images-status-by-task-id-request-builder'
 /**
- **/
+@deprecated
+**/
 export class ByProjectKeyMissingDataImagesStatusRequestBuilder {
   constructor(
     protected readonly args: {
@@ -17,6 +18,10 @@ export class ByProjectKeyMissingDataImagesStatusRequestBuilder {
       baseUri?: string
     }
   ) {}
+
+  /**
+   * @deprecated
+   **/
   public withTaskId(childPathArgs: {
     taskId: string
   }): ByProjectKeyMissingDataImagesStatusByTaskIdRequestBuilder {

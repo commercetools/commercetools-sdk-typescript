@@ -7,7 +7,8 @@ import { MissingDataTaskStatus } from '../../models/missing-data'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
- **/
+@deprecated
+**/
 export class ByProjectKeyMissingDataAttributesStatusByTaskIdRequestBuilder {
   constructor(
     protected readonly args: {
@@ -19,6 +20,10 @@ export class ByProjectKeyMissingDataAttributesStatusByTaskIdRequestBuilder {
       baseUri?: string
     }
   ) {}
+
+  /**
+   * @deprecated
+   **/
   public get(methodArgs?: {
     headers?: {
       [key: string]: string | string[]

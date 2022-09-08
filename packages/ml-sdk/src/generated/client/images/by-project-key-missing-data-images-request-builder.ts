@@ -9,7 +9,8 @@ import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyMissingDataImagesStatusRequestBuilder } from '../status/by-project-key-missing-data-images-status-request-builder'
 /**
- **/
+@deprecated
+**/
 export class ByProjectKeyMissingDataImagesRequestBuilder {
   constructor(
     protected readonly args: {
@@ -20,6 +21,10 @@ export class ByProjectKeyMissingDataImagesRequestBuilder {
       baseUri?: string
     }
   ) {}
+
+  /**
+   * @deprecated
+   **/
   public status(): ByProjectKeyMissingDataImagesStatusRequestBuilder {
     return new ByProjectKeyMissingDataImagesStatusRequestBuilder({
       pathArgs: {
@@ -30,6 +35,9 @@ export class ByProjectKeyMissingDataImagesRequestBuilder {
     })
   }
 
+  /**
+   * @deprecated
+   **/
   public post(methodArgs: {
     body: MissingImagesSearchRequest
     headers?: {
