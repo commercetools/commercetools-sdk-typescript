@@ -194,6 +194,7 @@ export type Message =
   | StagedQuoteStateChangedMessage
   | StagedQuoteStateTransitionMessage
   | StagedQuoteValidToSetMessage
+  | StandalonePriceActiveChangedMessage
   | StandalonePriceCreatedMessage
   | StandalonePriceDeletedMessage
   | StandalonePriceDiscountSetMessage
@@ -8199,6 +8200,82 @@ export interface StagedQuoteValidToSetMessage {
   readonly validTo: string
 }
 /**
+ *	Generated after a successful [Change Active](ctp:api:types:StandalonePriceChangeActiveAction) update action.
+ *
+ */
+export interface StandalonePriceActiveChangedMessage {
+  readonly type: 'StandalonePriceActiveChanged'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Value of the `active` field of the StandalonePrice after the [Change Active](ctp:api:types:StandalonePriceChangeActiveAction) update action.
+   *
+   *
+   */
+  readonly active: boolean
+  /**
+   *	Value of the `active` field of the StandalonePrice before the [Change Active](ctp:api:types:StandalonePriceChangeActiveAction) update action.
+   *
+   *
+   */
+  readonly oldActive: boolean
+}
+/**
  *	Generated after a successful [Create StandalonePrice](/../api/projects/standalone-prices#create-standaloneprice) request.
  *
  */
@@ -9243,6 +9320,7 @@ export type MessagePayload =
   | StagedQuoteStateChangedMessagePayload
   | StagedQuoteStateTransitionMessagePayload
   | StagedQuoteValidToSetMessagePayload
+  | StandalonePriceActiveChangedMessagePayload
   | StandalonePriceCreatedMessagePayload
   | StandalonePriceDeletedMessagePayload
   | StandalonePriceDiscountSetMessagePayload
@@ -11266,6 +11344,25 @@ export interface StagedQuoteValidToSetMessagePayload {
    *
    */
   readonly validTo: string
+}
+/**
+ *	Generated after a successful [Change Active](ctp:api:types:StandalonePriceChangeActiveAction) update action.
+ *
+ */
+export interface StandalonePriceActiveChangedMessagePayload {
+  readonly type: 'StandalonePriceActiveChanged'
+  /**
+   *	Value of the `active` field of the StandalonePrice after the [Change Active](ctp:api:types:StandalonePriceChangeActiveAction) update action.
+   *
+   *
+   */
+  readonly active: boolean
+  /**
+   *	Value of the `active` field of the StandalonePrice before the [Change Active](ctp:api:types:StandalonePriceChangeActiveAction) update action.
+   *
+   *
+   */
+  readonly oldActive: boolean
 }
 /**
  *	Generated after a successful [Create StandalonePrice](/../api/projects/standalone-prices#create-standaloneprice) request.

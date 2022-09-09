@@ -153,6 +153,13 @@ export interface StandalonePrice extends BaseResource {
    *
    */
   readonly staged?: StagedStandalonePrice
+  /**
+   *	If set to `true`, the StandalonePrice is considered during [price selection](ctp:api:type:ProductPriceSelection).
+   *	If set to `false`, the StandalonePrice is not considered during [price selection](ctp:api:type:ProductPriceSelection).
+   *
+   *
+   */
+  readonly active: boolean
 }
 /**
  *	Standalone Prices are defined with a scope consisting of `currency` and optionally `country`, `customerGroup`, and `channel` and/or a validity period (`validFrom` and/or `validTo`). For more information see [price selection](/../api/projects/products#price-selection).
@@ -224,6 +231,13 @@ export interface StandalonePriceDraft {
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	If set to `true`, the StandalonePrice is considered during [price selection](ctp:api:type:ProductPriceSelection).
+   *	If set to `false`, the StandalonePrice is not considered during [price selection](ctp:api:type:ProductPriceSelection).
+   *
+   *
+   */
+  readonly active?: boolean
 }
 export interface StandalonePricePagedQueryResponse {
   /**
@@ -315,6 +329,7 @@ export interface StandalonePriceUpdate {
 }
 export type StandalonePriceUpdateAction =
   | StandalonePriceApplyStagedChangesAction
+  | StandalonePriceChangeActiveAction
   | StandalonePriceChangeValueAction
   | StandalonePriceSetCustomFieldAction
   | StandalonePriceSetCustomTypeAction
@@ -325,6 +340,19 @@ export type StandalonePriceUpdateAction =
  */
 export interface StandalonePriceApplyStagedChangesAction {
   readonly action: 'applyStagedChanges'
+}
+/**
+ *	Updating the value of a [StandalonePrice](ctp:api:type:StandalonePrice) produces the [StandalonePriceActiveChangedMessage](ctp:api:type:StandalonePriceActiveChangedMessage).
+ *
+ */
+export interface StandalonePriceChangeActiveAction {
+  readonly action: 'changeActive'
+  /**
+   *	New value to set for the `active` field of the [StandalonePrice](ctp:api:type:StandalonePrice).
+   *
+   *
+   */
+  readonly active: boolean
 }
 /**
  *	Updating the value of a [StandalonePrice](ctp:api:type:StandalonePrice) produces the [StandalonePriceValueChangedMessage](ctp:api:type:StandalonePriceValueChangedMessage).
