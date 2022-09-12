@@ -16,14 +16,14 @@ aliases:
       - node_modules
 
 executors:
-  node_16:
+  node_18:
     docker:
-      - image: cimg/node:16.17.0
+      - image: cimg/node:18.4.0
 
 version: 2.1
 jobs:
   build_and_test:
-    executor: node_16
+    executor: node_18
     working_directory: *working_directory
     steps:
       - checkout
@@ -62,7 +62,7 @@ jobs:
           path: packages/platform-sdk/test-results
 
   update_ml_sdk_from_spec:
-    executor: node_16
+    executor: node_18
     working_directory: ~/commercetools-typescript-spec
     steps:
       - checkout
