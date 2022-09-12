@@ -145,7 +145,7 @@ export default class ClientBuilder {
 
   withExistingTokenFlow(
     authorization: string,
-    options: ExistingTokenMiddlewareOptions
+    options?: ExistingTokenMiddlewareOptions
   ): ClientBuilder {
     return this.withAuthMiddleware(
       createAuthMiddlewareWithExistingToken(authorization, {
