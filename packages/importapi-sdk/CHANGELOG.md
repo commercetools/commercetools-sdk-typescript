@@ -1,5 +1,15 @@
 # @commercetools/importapi-sdk
 
+## 3.0.1
+
+### Patch Changes
+
+- [#303](https://github.com/commercetools/commercetools-sdk-typescript/pull/303) [`2bc0f73`](https://github.com/commercetools/commercetools-sdk-typescript/commit/2bc0f73d946eebb954bec8849c8697cd716ef848) Thanks [@github-actions](https://github.com/apps/github-actions)! - - Update generated SDKs
+  - Updated changes for generated SDKs
+    - add expand property to active-cart get endpoint.
+- Updated dependencies [[`d921acd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/d921acda35dadf135dffb53419b8825c915477b1), [`588a0f9`](https://github.com/commercetools/commercetools-sdk-typescript/commit/588a0f9b981a538a16a23a449e810c56956f352c), [`7510e0b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/7510e0bf69cc4b63c43d0431d338502d048524aa)]:
+  - @commercetools/sdk-client-v2@1.4.1
+
 ## 3.0.0
 
 ### Major Changes
