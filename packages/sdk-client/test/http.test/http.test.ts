@@ -683,6 +683,42 @@ describe('Http', () => {
       httpMiddleware(next)(request, response)
     }))
 
+  test('should not default other header content-type to application/json', () =>
+    new Promise((resolve: (value?: unknown) => void, reject): void => {
+      const request = createTestRequest({
+        uri: '/default-header/content-type',
+        method: 'POST',
+        body: { id: 'test-id' },
+        headers: {
+          'Content-Type': 'image/jpeg',
+        },
+      })
+
+      const response = { resolve, reject, statusCode: undefined }
+      const next = (req, res) => {
+        expect(req.headers).toEqual({ 'Content-Type': 'image/jpeg' })
+        expect(res).toEqual({
+          ...response,
+          body: { id: 'test-id' },
+          statusCode: 200,
+        })
+        resolve()
+      }
+      // Use custom options
+      const httpMiddleware = createHttpMiddleware({
+        host: testHost,
+        fetch,
+      })
+      nock(testHost)
+        .defaultReplyHeaders({
+          'Content-Type': 'application/json',
+        })
+        .post('/default-header/content-type')
+        .reply(200, { id: 'test-id' })
+
+      httpMiddleware(next)(request, response)
+    }))
+
   test('handle failed response (network error)', () =>
     new Promise((resolve: Function, reject: Function) => {
       const request = createTestRequest({
