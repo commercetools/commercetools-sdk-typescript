@@ -1,9 +1,9 @@
 import nock from 'nock'
-import fetch from 'node-fetch'
 import AbortController from 'abort-controller'
 import { createHttpMiddleware } from '../../src/sdk-middleware-http'
 import { MiddlewareRequest, MiddlewareResponse } from '../../src/types/sdk.d'
 
+const fetch = require('node-fetch')
 const Buffer = require('buffer/').Buffer
 function createTestRequest(options) {
   return {
