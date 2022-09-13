@@ -16,8 +16,10 @@ import {
   ItemShippingDetailsDraft,
   LineItem,
   RoundingMode,
+  Shipping,
   ShippingInfo,
   ShippingMethodState,
+  ShippingMode,
   ShippingRateInput,
   TaxCalculationMode,
   TaxedPrice,
@@ -248,7 +250,7 @@ export interface Hit {
    *	The higher the value is, the more relevant the hit is for the search request.
    *
    */
-  readonly relevance: number
+  readonly relevance?: number
 }
 export interface OrderPagedSearchResponse {
   /**
@@ -502,6 +504,16 @@ export interface Order extends BaseResource {
    */
   readonly taxedPrice?: TaxedPrice
   /**
+   *	Sum of `taxedPrice` of [ShippingInfo](ctp:api:type:ShippingInfo) across all Shipping Methods.
+   *	For `Platform` [TaxMode](ctp:api:type:TaxMode), it is set automatically only if [shipping address is set](ctp:api:type:CartSetShippingAddressAction) or [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction) to the Cart.
+   *
+   */
+  readonly taxedShippingPrice?: TaxedPrice
+  /**
+   *	Holds all shipping-related information per Shipping Method.
+   *
+   *	For `Multi` [ShippingMode](ctp:api:typeShippingMode), it is updated automatically after the Shipping Methods are added.
+   *
    *
    */
   readonly shippingAddress?: Address
@@ -509,6 +521,20 @@ export interface Order extends BaseResource {
    *
    */
   readonly billingAddress?: Address
+  /**
+   *	Indicates whether one or multiple Shipping Methods are added to the Cart.
+   *
+   *
+   */
+  readonly shippingMode: ShippingMode
+  /**
+   *	Holds all shipping-related information per Shipping Method for `Multi` [ShippingMode](ctp:api:typeShippingMode).
+   *
+   *	It is updated automatically after the [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction).
+   *
+   *
+   */
+  readonly shipping: Shipping[]
   /**
    *
    */
@@ -629,7 +655,7 @@ export interface OrderFromCartDraft {
    */
   readonly id?: string
   /**
-   *	ResourceIdentifier to the Cart from which this order is created.
+   *	ResourceIdentifier of the Cart from which this order is created.
    *
    */
   readonly cart?: CartResourceIdentifier
@@ -674,12 +700,12 @@ export interface OrderFromCartDraft {
 }
 export interface OrderFromQuoteDraft {
   /**
-   *	ResourceIdentifier to the Quote from which this order is created. If the quote has `QuoteState` in `Accepted`, `Declined` or `Withdrawn` then the order creation will fail. The creation will also if the `Quote` has expired (`validTo` check).
+   *	ResourceIdentifier of the Quote from which this Order is created. If the Quote has `QuoteState` in `Accepted`, `Declined` or `Withdrawn` then the order creation will fail. The creation will also if the `Quote` has expired (`validTo` check).
    *
    */
   readonly quote: QuoteResourceIdentifier
   /**
-   *	The `version` of the [Quote](ctp:api:type:quote) from which an Order is created.
+   *	`version` of the [Quote](ctp:api:type:quote) from which an Order is created.
    *
    *
    */
@@ -1068,7 +1094,7 @@ export interface ProductVariantImportDraft {
    */
   readonly sku?: string
   /**
-   *	The [EmbeddedPrices](ctp:api:type:EmbeddedPrice) of the variant.
+   *	The [Embedded Prices](ctp:api:type:Price) of the variant.
    *	The prices should not contain two prices for the same price scope (same currency, country, customer group, channel, valid from and valid until).
    *	If this property is defined, then it will override the `prices` property from the original product variant, otherwise `prices` property from the original product variant would be copied in the resulting order.
    *
@@ -1351,6 +1377,12 @@ export interface OrderAddDeliveryAction {
    *
    */
   readonly items?: DeliveryItem[]
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
   /**
    *
    */

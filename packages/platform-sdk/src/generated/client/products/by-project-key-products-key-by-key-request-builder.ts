@@ -31,7 +31,7 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
   }
 
   /**
-   *	Gets the full representation of a product by Key.
+   *	If [Price selection](ctp:api:type:ProductPriceSelection) query parameters are provided, the selected Prices are added to the response.
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -61,7 +61,7 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Checks if product with given key exists.
+   *	Check if a Product exists with a specified `key`. Responds with a `200 OK` status if the Product exists or `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -111,6 +111,10 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	If [Price selection](ctp:api:type:ProductPriceSelection) query parameters are provided, the selected Prices are added to the response.
+   *	Produces the [ProductDeleted](/projects/messages#product-deleted) Message.
+   */
   public delete(methodArgs: {
     queryArgs: {
       priceCurrency?: string

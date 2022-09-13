@@ -69,7 +69,7 @@ export class ByProjectKeyInventoryKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Produces the [InventoryEntryDeletedMessage](ctp:api:type:InventoryEntryDeletedMessage).
+   *	Produces the [InventoryEntryDeleted](ctp:api:type:InventoryEntryDeletedMessage) Message.
    */
   public delete(methodArgs: {
     queryArgs: {

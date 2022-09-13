@@ -6,7 +6,8 @@
 import { executeRequest } from '../../shared/utils/common-types'
 import { ByProjectKeyMissingDataPricesStatusByTaskIdRequestBuilder } from './by-project-key-missing-data-prices-status-by-task-id-request-builder'
 /**
- **/
+@deprecated
+**/
 export class ByProjectKeyMissingDataPricesStatusRequestBuilder {
   constructor(
     protected readonly args: {
@@ -17,6 +18,10 @@ export class ByProjectKeyMissingDataPricesStatusRequestBuilder {
       baseUri?: string
     }
   ) {}
+
+  /**
+   * @deprecated
+   **/
   public withTaskId(childPathArgs: {
     taskId: string
   }): ByProjectKeyMissingDataPricesStatusByTaskIdRequestBuilder {

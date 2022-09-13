@@ -81,21 +81,21 @@ export interface MissingAttributes {
    */
   readonly missingAttributeNames?: string[]
   /**
-   *
+   *	@deprecated
    */
   readonly attributeCount?: AttributeCount
   /**
-   *
+   *	@deprecated
    */
   readonly attributeCoverage?: AttributeCoverage
 }
 export interface MissingAttributesMeta {
   /**
-   *
+   *	@deprecated
    */
   readonly productLevel: MissingAttributesDetails
   /**
-   *
+   *	@deprecated
    */
   readonly variantLevel: MissingAttributesDetails
   /**
@@ -196,7 +196,7 @@ export interface MissingAttributesPagedQueryResult {
    */
   readonly results: MissingAttributes[]
   /**
-   *
+   *	@deprecated
    */
   readonly meta: MissingAttributesMeta
 }
@@ -216,7 +216,7 @@ export interface MissingDataTaskStatus {
   readonly expires: string
   /**
    *	The response to an asynchronous request. The type depends on the request initiated. Only populated when the status is `SUCCESS`.
-   *
+   *	@deprecated
    */
   readonly result: MissingAttributesPagedQueryResult
 }
@@ -273,11 +273,11 @@ export interface MissingImagesVariantLevel extends MissingImagesCount {
 }
 export interface MissingImagesMeta {
   /**
-   *
+   *	@deprecated
    */
   readonly productLevel: MissingImagesProductLevel
   /**
-   *
+   *	@deprecated
    */
   readonly variantLevel: MissingImagesVariantLevel
   /**
@@ -355,7 +355,7 @@ export interface MissingImagesPagedQueryResult {
    */
   readonly results: MissingImages[]
   /**
-   *
+   *	@deprecated
    */
   readonly meta: MissingImagesMeta
 }
@@ -375,7 +375,7 @@ export interface MissingImagesTaskStatus {
   readonly expires: string
   /**
    *	The response to an asynchronous request. The type depends on the request initiated. Only populated when the status is `SUCCESS`.
-   *
+   *	@deprecated
    */
   readonly result: MissingImagesPagedQueryResult
 }
@@ -426,11 +426,11 @@ export interface MissingPricesVariantLevel extends MissingPricesProductCount {
 }
 export interface MissingPricesMeta {
   /**
-   *
+   *	@deprecated
    */
   readonly productLevel: MissingPricesProductLevel
   /**
-   *
+   *	@deprecated
    */
   readonly variantLevel: MissingPricesVariantLevel
 }
@@ -513,7 +513,7 @@ export interface MissingPricesPagedQueryResult {
    */
   readonly results: MissingPrices[]
   /**
-   *
+   *	@deprecated
    */
   readonly meta: MissingPricesMeta
 }
@@ -533,7 +533,7 @@ export interface MissingPricesTaskStatus {
   readonly expires: string
   /**
    *	The response to an asynchronous request. The type depends on the request initiated. Only populated when the status is `SUCCESS`.
-   *
+   *	@deprecated
    */
   readonly result: MissingPricesPagedQueryResult
 }

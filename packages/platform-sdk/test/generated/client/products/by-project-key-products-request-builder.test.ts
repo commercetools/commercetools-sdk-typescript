@@ -13,6 +13,14 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
       method: 'get',
+      uri: '/test_projectKey/products?where=where',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .products()
+        .get({ queryArgs: { where: 'where' } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/products?priceCurrency=priceCurrency',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
@@ -85,14 +93,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/products?where=where',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .products()
-        .get({ queryArgs: { where: 'where' } }),
-    },
-    {
-      method: 'get',
       uri: '/test_projectKey/products?var.varName=var.varName',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
@@ -106,6 +106,14 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .withProjectKey({ projectKey: 'test_projectKey' })
         .products()
         .get(),
+    },
+    {
+      method: 'head',
+      uri: '/test_projectKey/products?where=where',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .products()
+        .head({ queryArgs: { where: 'where' } }),
     },
     {
       method: 'head',

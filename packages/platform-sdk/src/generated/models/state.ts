@@ -239,7 +239,10 @@ export type StateTypeEnum =
   | 'OrderState'
   | 'PaymentState'
   | 'ProductState'
+  | 'QuoteRequestState'
+  | 'QuoteState'
   | 'ReviewState'
+  | 'StagedQuoteState'
 export interface StateUpdate {
   /**
    *	Expected version of the State on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.

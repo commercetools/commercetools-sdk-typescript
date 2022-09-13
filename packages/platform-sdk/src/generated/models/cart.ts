@@ -126,6 +126,12 @@ export interface Cart extends BaseResource {
    */
   readonly taxedPrice?: TaxedPrice
   /**
+   *	Sum of `taxedPrice` of [ShippingInfo](ctp:api:type:ShippingInfo) across all Shipping Methods.
+   *	For `Platform` [TaxMode](ctp:api:type:TaxMode), it is set automatically only if [shipping address is set](ctp:api:type:CartSetShippingAddressAction) or [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction) to the Cart.
+   *
+   */
+  readonly taxedShippingPrice?: TaxedPrice
+  /**
    *
    */
   readonly cartState: CartState
@@ -138,6 +144,18 @@ export interface Cart extends BaseResource {
    *
    */
   readonly billingAddress?: Address
+  /**
+   *	Indicates whether one or multiple Shipping Methods are added to the Cart.
+   *
+   */
+  readonly shippingMode: ShippingMode
+  /**
+   *	Holds all shipping-related information per Shipping Method of a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *	It is automatically updated after the [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction).
+   *
+   */
+  readonly shipping: Shipping[]
   /**
    *
    */
@@ -170,7 +188,9 @@ export interface Cart extends BaseResource {
    */
   readonly country?: string
   /**
+   *	Shipping-related information of a Cart with `Single` [ShippingMode](ctp:api:type:ShippingMode).
    *	Set automatically once the ShippingMethod is set.
+   *
    *
    */
   readonly shippingInfo?: ShippingInfo
@@ -340,6 +360,22 @@ export interface CartDraft {
    */
   readonly origin?: CartOrigin
   /**
+   *	- If `Single`, only a single Shipping Method can be added to the Cart.
+   *	- If `Multiple`, multiple Shipping Methods can be added to the Cart.
+   *
+   */
+  readonly shippingMode?: ShippingMode
+  /**
+   *	Custom Shipping Methods for a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   */
+  readonly customShipping?: CustomShippingDraft[]
+  /**
+   *	Shipping Methods for a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   */
+  readonly shipping?: ShippingDraft[]
+  /**
    *	The shippingRateInput is used as an input to select a ShippingRatePriceTier.
    *	Based on the definition of ShippingRateInputType.
    *	If CartClassification is defined, it must be ClassificationShippingRateInput.
@@ -441,10 +477,12 @@ export interface CartUpdate {
 }
 export type CartUpdateAction =
   | CartAddCustomLineItemAction
+  | CartAddCustomShippingMethodAction
   | CartAddDiscountCodeAction
   | CartAddItemShippingAddressAction
   | CartAddLineItemAction
   | CartAddPaymentAction
+  | CartAddShippingMethodAction
   | CartAddShoppingListAction
   | CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction
   | CartApplyDeltaToLineItemShippingDetailsTargetsAction
@@ -461,6 +499,7 @@ export type CartUpdateAction =
   | CartRemoveItemShippingAddressAction
   | CartRemoveLineItemAction
   | CartRemovePaymentAction
+  | CartRemoveShippingMethodAction
   | CartSetAnonymousIdAction
   | CartSetBillingAddressAction
   | CartSetBillingAddressCustomFieldAction
@@ -498,6 +537,8 @@ export type CartUpdateAction =
   | CartSetShippingAddressAction
   | CartSetShippingAddressCustomFieldAction
   | CartSetShippingAddressCustomTypeAction
+  | CartSetShippingCustomFieldAction
+  | CartSetShippingCustomTypeAction
   | CartSetShippingMethodAction
   | CartSetShippingMethodTaxAmountAction
   | CartSetShippingMethodTaxRateAction
@@ -575,7 +616,7 @@ export interface CustomLineItem {
   readonly shippingDetails?: ItemShippingDetails
   /**
    *	Specifies whether Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget)
-   *	are applied to the Custom Line Item: `Standard` = yes, `External` = no.
+   *	are applied to the Custom Line Item.
    *
    *
    */
@@ -620,8 +661,78 @@ export interface CustomLineItemDraft {
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
+  /**
+   *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget)
+   *	are applied to the Custom Line Item.
+   *	- If `External`, Cart Discounts are not considered on the Custom Line Item.
+   *
+   *
+   */
+  readonly priceMode: CustomLineItemPriceMode
 }
 export type CustomLineItemPriceMode = 'External' | 'Standard'
+export interface CustomShippingDraft {
+  /**
+   *	User-defined unique identifier of the custom Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly key: string
+  /**
+   *	Name of the custom Shipping Method.
+   *
+   *
+   */
+  readonly shippingMethodName: string
+  /**
+   *	Determines the shipping rate and Tax Rate of the associated Line Items.
+   *
+   *
+   */
+  readonly shippingAddress?: BaseAddress
+  /**
+   *	Determines the shipping price.
+   *
+   *
+   */
+  readonly shippingRate: ShippingRateDraft
+  /**
+   *	Used as an input to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
+   *
+   *	- Must be [ClassificationShippingRateInput](ctp:api:type:ClassificationShippingRateInput) if [ShippingRateInputType](ctp:api:type:ShippingRateInputType) is [CartClassificationType](ctp:api:type:CartClassificationType).
+   *	- Must be [ScoreShippingRateInput](ctp:api:type:ScoreShippingRateInput) if [ShippingRateInputType](ctp:api:type:ShippingRateInputType) is [CartScoreType](ctp:api:type:CartScoreType).
+   *
+   *	The `shippingRateInput` cannot be set on the Cart if [CartValueType](ctp:api:type:CartValueType) is defined.
+   *
+   *
+   */
+  readonly shippingRateInput?: ShippingRateInputDraft
+  /**
+   *	Tax Category used to determine a shipping Tax Rate if a Cart has the `Platform` [TaxMode](ctp:api:type:TaxMode).
+   *
+   *
+   */
+  readonly taxCategory?: TaxCategoryResourceIdentifier
+  /**
+   *	Tax Rate used to tax a shipping expense if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+   *
+   *
+   */
+  readonly externalTaxRate?: string
+  /**
+   *	Deliveries tied to a Shipping Method in a multi-shipping method Cart.
+   *	It holds information on how items are delivered to customers.
+   *
+   *
+   */
+  readonly deliveries: Delivery[]
+  /**
+   *	Custom Fields for the custom Shipping Method.
+   *
+   *
+   */
+  readonly custom?: string
+}
 export interface DirectDiscount {
   /**
    *	The unique ID of the cart discount.
@@ -792,6 +903,13 @@ export interface ItemShippingTarget {
    *
    */
   readonly quantity: number
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *	It connects Line Item quantities with individual shipping addresses.
+   *
+   */
+  readonly shippingMethodKey?: string
 }
 export interface LineItem {
   /**
@@ -844,6 +962,11 @@ export interface LineItem {
    */
   readonly taxedPrice?: TaxedItemPrice
   /**
+   *	Taxed price of the Shipping Method that is set automatically after `perMethodTaxRate` is set.
+   *
+   */
+  readonly taxedPricePortions: MethodTaxedPrice[]
+  /**
    *	The total price of this line item.
    *	If the line item is discounted, then the `totalPrice` is the DiscountedLineItemPriceForQuantity multiplied by `quantity`.
    *	Otherwise the total price is the product price multiplied by the `quantity`.
@@ -873,6 +996,13 @@ export interface LineItem {
    *
    */
   readonly taxRate?: TaxRate
+  /**
+   *	Tax Rate per Shipping Method that is automatically set after the [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction) to a Cart with the `Platform` [TaxMode](ctp:api:type:TaxMode) and `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *	For the `External` [TaxMode](ctp:api:type:TaxMode), the Tax Rate must be set with [ExternalTaxRateDraft](ctp:api:type:ExternalTaxRateDraft).
+   *
+   */
+  readonly perMethodTaxRate: MethodTaxRate[]
   /**
    *	The supply channel identifies the inventory entries that should be reserved.
    *	The channel has
@@ -994,6 +1124,34 @@ export interface LineItemDraft {
 }
 export type LineItemMode = 'GiftLineItem' | 'Standard'
 export type LineItemPriceMode = 'ExternalPrice' | 'ExternalTotal' | 'Platform'
+export interface MethodTaxRate {
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingMethodKey: string
+  /**
+   *	Tax Rate for the Shipping Method.
+   *
+   *
+   */
+  readonly taxRate?: TaxRate
+}
+export interface MethodTaxedPrice {
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingMethodKey: string
+  /**
+   *	Taxed price for the Shipping Method.
+   *
+   *
+   */
+  readonly taxedPrice?: TaxedItemPrice
+}
 export interface ReplicaCartDraft {
   /**
    *
@@ -1006,6 +1164,94 @@ export interface ReplicaCartDraft {
   readonly key?: string
 }
 export type RoundingMode = 'HalfDown' | 'HalfEven' | 'HalfUp'
+export interface Shipping {
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey: string
+  /**
+   *	Automatically set when the [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction).
+   *
+   *
+   */
+  readonly shippingInfo: ShippingInfo
+  /**
+   *	Determines the shipping rates and Tax Rates of the associated Line Item quantities.
+   *
+   *
+   */
+  readonly shippingAddress: Address
+  /**
+   *	Used as an input to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
+   *
+   *	- Must be [ClassificationShippingRateInput](ctp:api:type:ClassificationShippingRateInput) if [ShippingRateInputType](ctp:api:type:ShippingRateInputType) is [CartClassificationType](ctp:api:type:CartClassificationType).
+   *	- Must be [ScoreShippingRateInput](ctp:api:type:ScoreShippingRateInput) if [ShippingRateInputType](ctp:api:type:ShippingRateInputType) is [CartScoreType](ctp:api:type:CartScoreType).
+   *
+   *
+   */
+  readonly shippingRateInput?: ShippingRateInput
+  /**
+   *	Custom Fields of Shipping.
+   *
+   *
+   */
+  readonly shippingCustomFields?: CustomFields
+}
+/**
+ *	Wraps all shipping-related information (such as address, rate, deliveries) per Shipping Method for Carts with multiple Shipping Methods.
+ *
+ */
+export interface ShippingDraft {
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly key: string
+  /**
+   *	Shipping Methods added to the Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingMethod?: ShippingMethodReference
+  /**
+   *	Determines the shipping rate and Tax Rate of the associated Line Items.
+   *
+   *
+   */
+  readonly shippingAddress?: BaseAddress
+  /**
+   *	Used as an input to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
+   *
+   *	- Must be [ClassificationShippingRateInput](ctp:api:type:ClassificationShippingRateInput) if [ShippingRateInputType](ctp:api:type:ShippingRateInputType) is [CartClassificationType](ctp:api:type:CartClassificationType).
+   *	- Must be [ScoreShippingRateInput](ctp:api:type:ScoreShippingRateInput) if [ShippingRateInputType](ctp:api:type:ShippingRateInputType) is [CartScoreType](ctp:api:type:CartScoreType).
+   *
+   *	The `shippingRateInput` cannot be set on the Cart if [CartValueType](ctp:api:type:CartValueType) is defined.
+   *
+   *
+   */
+  readonly shippingRateInput?: ShippingRateInputDraft
+  /**
+   *	Tax Rate used for taxing a shipping expense if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+   *
+   *
+   */
+  readonly externalTaxRate?: string
+  /**
+   *	Holds information on how items are delivered to customers.
+   *
+   *
+   */
+  readonly deliveries: Delivery[]
+  /**
+   *	Custom Fields for Shipping.
+   *
+   *
+   */
+  readonly custom?: string
+}
 export interface ShippingInfo {
   /**
    *
@@ -1057,6 +1303,7 @@ export interface ShippingInfo {
   readonly shippingMethodState: ShippingMethodState
 }
 export type ShippingMethodState = 'DoesNotMatchCart' | 'MatchesCart'
+export type ShippingMode = 'Multiple' | 'Single'
 export type ShippingRateInput =
   | ClassificationShippingRateInput
   | ScoreShippingRateInput
@@ -1232,6 +1479,77 @@ export interface CartAddCustomLineItemAction {
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
+  /**
+   *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget)
+   *	are applied to the Custom Line Item.
+   *	- If `External`, Cart Discounts are not considered on the Custom Line Item.
+   *
+   *
+   */
+  readonly priceMode?: CustomLineItemPriceMode
+}
+export interface CartAddCustomShippingMethodAction {
+  readonly action: 'addCustomShippingMethod'
+  /**
+   *	User-defined unique identifier of the custom Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey: string
+  /**
+   *	Name of the custom Shipping Method.
+   *
+   *
+   */
+  readonly shippingMethodName: string
+  /**
+   *	Determines the shipping rate and Tax Rate of the associated Line Items.
+   *
+   *
+   */
+  readonly shippingAddress?: BaseAddress
+  /**
+   *	Determines the shipping price.
+   *
+   *
+   */
+  readonly shippingRate: ShippingRateDraft
+  /**
+   *	Used as an input to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
+   *
+   *	- Must be [ClassificationShippingRateInput](ctp:api:type:ClassificationShippingRateInput) if [ShippingRateInputType](ctp:api:type:ShippingRateInputType) is [CartClassificationType](ctp:api:type:CartClassificationType).
+   *	- Must be [ScoreShippingRateInput](ctp:api:type:ScoreShippingRateInput) if [ShippingRateInputType](ctp:api:type:ShippingRateInputType) is [CartScoreType](ctp:api:type:CartScoreType).
+   *
+   *	The `shippingRateInput` cannot be set on the Cart if [CartValueType](ctp:api:type:CartValueType) is defined.
+   *
+   *
+   */
+  readonly shippingRateInput?: ShippingRateInputDraft
+  /**
+   *	Tax Category used to determine a shipping Tax Rate if a Cart has the `Platform` [TaxMode](ctp:api:type:TaxMode).
+   *
+   *
+   */
+  readonly taxCategory?: TaxCategoryResourceIdentifier
+  /**
+   *	Tax Rate used to tax a shipping expense if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+   *
+   *
+   */
+  readonly externalTaxRate?: string
+  /**
+   *	Deliveries tied to a Shipping Method in a multi-shipping method Cart.
+   *	It holds information on how items are delivered to customers.
+   *
+   *
+   */
+  readonly deliveries: Delivery[]
+  /**
+   *	Custom Fields for the custom Shipping Method.
+   *
+   *
+   */
+  readonly custom?: string
 }
 export interface CartAddDiscountCodeAction {
   readonly action: 'addDiscountCode'
@@ -1310,6 +1628,62 @@ export interface CartAddPaymentAction {
    *
    */
   readonly payment: PaymentResourceIdentifier
+}
+/**
+ *	This update action fails with an [InvalidOperation](ctp:api:type:InvalidOperationError) error if the referenced shipping method has a predicate that does not match the Cart.
+ *
+ */
+export interface CartAddShippingMethodAction {
+  readonly action: 'addShippingMethod'
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey: string
+  /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly shippingMethod?: ShippingMethodReference
+  /**
+   *	Determines the shipping rate and Tax Rate of the Line Items.
+   *
+   *
+   */
+  readonly shippingAddress?: BaseAddress
+  /**
+   *	Used as an input to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
+   *
+   *	- Must be [ClassificationShippingRateInput](ctp:api:type:ClassificationShippingRateInput) if [ShippingRateInputType](ctp:api:type:ShippingRateInputType) is [CartClassificationType](ctp:api:type:CartClassificationType).
+   *	- Must be [ScoreShippingRateInput](ctp:api:type:ScoreShippingRateInput) if [ShippingRateInputType](ctp:api:type:ShippingRateInputType) is [CartScoreType](ctp:api:type:CartScoreType).
+   *
+   *	The `shippingRateInput` cannot be set on the Cart if [CartValueType](ctp:api:type:CartValueType) is defined.
+   *
+   *
+   */
+  readonly shippingRateInput?: ShippingRateInputDraft
+  /**
+   *	Tax Rate used to tax a shipping expense if a Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+   *
+   *
+   */
+  readonly externalTaxRate?: string
+  /**
+   *	Deliveries tied to a Shipping Method in a multi-shipping method Cart.
+   *	It holds information on how items are delivered to customers.
+   *
+   *
+   */
+  readonly deliveries: Delivery[]
+  /**
+   *	Custom Fields for the Shipping Method.
+   *
+   *
+   */
+  readonly custom?: string
 }
 export interface CartAddShoppingListAction {
   readonly action: 'addShoppingList'
@@ -1505,6 +1879,15 @@ export interface CartRemovePaymentAction {
    *
    */
   readonly payment: PaymentResourceIdentifier
+}
+export interface CartRemoveShippingMethodAction {
+  readonly action: 'removeShippingMethod'
+  /**
+   *	User-defined unique identifier of the Shipping Method to remove in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey: string
 }
 export interface CartSetAnonymousIdAction {
   readonly action: 'setAnonymousId'
@@ -2003,6 +2386,51 @@ export interface CartSetShippingAddressCustomTypeAction {
    */
   readonly fields?: FieldContainer
 }
+export interface CartSetShippingCustomFieldAction {
+  readonly action: 'setShippingCustomField'
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
+  /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
+   *
+   */
+  readonly value?: any
+}
+export interface CartSetShippingCustomTypeAction {
+  readonly action: 'setShippingCustomType'
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
+  /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the `shippingAddress` with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the `shippingAddress`.
+   *
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `shippingAddress`.
+   *
+   *
+   */
+  readonly fields?: FieldContainer
+}
 export interface CartSetShippingMethodAction {
   readonly action: 'setShippingMethod'
   /**
@@ -2089,5 +2517,16 @@ export interface CustomLineItemImportDraft {
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
+  /**
+   *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget)
+   *	are applied to the Custom Line Item.
+   *	- If `External`, Cart Discounts are not considered on the Custom Line Item.
+   *
+   *
+   */
+  readonly priceMode: CustomLineItemPriceMode
 }
+/**
+ *	The scope controls which part of the product information is published.
+ */
 export type ProductPublishScope = 'All' | 'Prices'

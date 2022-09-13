@@ -229,7 +229,7 @@ export interface TaxRate {
    */
   readonly amount: number
   /**
-   *	If `true`, tax is included in [Prices](ctp:api:type:Price) and the `taxedPrice` is present on [LineItems](ctp:api:type:LineItem). In this case, the `totalNet` price on [TaxedPrice](ctp:api:type:TaxedPrice) includes the TaxRate.
+   *	If `true`, tax is included in [Embedded Prices](ctp:api:type:Price) and the `taxedPrice` is present on [LineItems](ctp:api:type:LineItem). In this case, the `totalNet` price on [TaxedPrice](ctp:api:type:TaxedPrice) includes the TaxRate.
    *
    *
    */
@@ -268,7 +268,7 @@ export interface TaxRateDraft {
    */
   readonly amount?: number
   /**
-   *	If `true`, tax is included in [Prices](ctp:api:type:Price) and the `taxedPrice` is present on [LineItems](ctp:api:type:LineItem). In this case, the `totalNet` price on [TaxedPrice](ctp:api:type:TaxedPrice) includes the TaxRate.
+   *	If `true`, tax is included in [Embedded Prices](ctp:api:type:Price) and the `taxedPrice` is present on [LineItems](ctp:api:type:LineItem). In this case, the `totalNet` price on [TaxedPrice](ctp:api:type:TaxedPrice) includes the TaxRate.
    *
    *
    */

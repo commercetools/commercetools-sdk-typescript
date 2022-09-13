@@ -225,6 +225,11 @@ export interface LineItemImportDraft {
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
+  /**
+   *	Custom Fields for this Line Item.
+   *
+   */
+  readonly custom?: Custom
 }
 export type ShippingRateTierType =
   | 'CartClassification'

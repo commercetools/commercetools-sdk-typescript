@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { Cart } from '../../models/cart'
-import { executeRequest } from '../../shared/utils/common-types'
+import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
@@ -19,6 +19,10 @@ export class ByProjectKeyMeActiveCartRequestBuilder {
     }
   ) {}
   public get(methodArgs?: {
+    queryArgs?: {
+      expand?: string | string[]
+      [key: string]: QueryParam
+    }
     headers?: {
       [key: string]: string | string[]
     }
@@ -32,6 +36,7 @@ export class ByProjectKeyMeActiveCartRequestBuilder {
         headers: {
           ...methodArgs?.headers,
         },
+        queryParams: methodArgs?.queryArgs,
       },
       this.args.executeRequest
     )

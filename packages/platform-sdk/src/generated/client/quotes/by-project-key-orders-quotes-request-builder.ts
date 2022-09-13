@@ -3,15 +3,12 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { TaskToken } from '../../models/common'
-import { MissingImagesSearchRequest } from '../../models/missing-data'
+import { Order, OrderFromQuoteDraft } from '../../models/order'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-import { ByProjectKeyMissingDataImagesStatusRequestBuilder } from '../status/by-project-key-missing-data-images-status-request-builder'
 /**
-@deprecated
-**/
-export class ByProjectKeyMissingDataImagesRequestBuilder {
+ **/
+export class ByProjectKeyOrdersQuotesRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
@@ -21,34 +18,20 @@ export class ByProjectKeyMissingDataImagesRequestBuilder {
       baseUri?: string
     }
   ) {}
-
   /**
-   * @deprecated
-   **/
-  public status(): ByProjectKeyMissingDataImagesStatusRequestBuilder {
-    return new ByProjectKeyMissingDataImagesStatusRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
-  }
-
-  /**
-   * @deprecated
-   **/
+   *	Create an Order from a Quote
+   */
   public post(methodArgs: {
-    body: MissingImagesSearchRequest
+    body: OrderFromQuoteDraft
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<TaskToken> {
-    return new ApiRequest<TaskToken>(
+  }): ApiRequest<Order> {
+    return new ApiRequest<Order>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',
-        uriTemplate: '/{projectKey}/missing-data/images',
+        uriTemplate: '/{projectKey}/orders/quotes',
         pathVariables: this.args.pathArgs,
         headers: {
           'Content-Type': 'application/json',
