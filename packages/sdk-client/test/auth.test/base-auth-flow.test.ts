@@ -55,7 +55,7 @@ describe('Base Auth Flow', () => {
   })
 
   test('throw without `fetch` passed and globally available', () => {
-    const middlewareOptions = createTestMiddlewareOptions({ fetch: undefined })
+    const middlewareOptions = createTestMiddlewareOptions({ fetch: null })
 
     expect(() => {
       createBaseMiddleware(middlewareOptions, () => {}, null)
