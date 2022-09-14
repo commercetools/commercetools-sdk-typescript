@@ -1,5 +1,11 @@
 # @commercetools/platform-sdk
 
+## 3.0.2
+
+### Patch Changes
+
+- [#323](https://github.com/commercetools/commercetools-sdk-typescript/pull/323) [`b11c9a8`](https://github.com/commercetools/commercetools-sdk-typescript/commit/b11c9a834da26b7afb0b81eccbe5752823fda7da) Thanks [@github-actions](https://github.com/apps/github-actions)! - Support standalone prices reference expansion
+
 ## 3.0.1
 
 ### Patch Changes
