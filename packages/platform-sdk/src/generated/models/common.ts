@@ -969,6 +969,7 @@ export type ReferenceTypeId =
   | 'shipping-method'
   | 'shopping-list'
   | 'staged-quote'
+  | 'standalone-price'
   | 'state'
   | 'store'
   | 'subscription'
