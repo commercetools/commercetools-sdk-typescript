@@ -16,17 +16,25 @@ aliases:
       - node_modules
 
 executors:
-  node_18:
+  docker:
     docker:
-      - image: cimg/node:18.4.0
+      - image: cimg/base:current
 
 version: 2.1
 jobs:
   build_and_test:
-    executor: node_18
+    parameters:
+      os:
+        type: executor
+      node-version:
+        type: string
+    executor: << parameters.os >>
     working_directory: *working_directory
     steps:
       - checkout
+      - node/install:
+          node-version: << parameters.node-version >>
+          install-yarn: true
       - restore_cache: *restore_yarn_cache
       - run:
           name: Installing dependencies
@@ -62,7 +70,7 @@ jobs:
           path: packages/platform-sdk/test-results
 
   update_ml_sdk_from_spec:
-    executor: node_18
+    executor: << parameters.os >>
     working_directory: ~/commercetools-typescript-spec
     steps:
       - checkout
@@ -88,4 +96,8 @@ workflows:
   version: 2
   validate_spec:
     jobs:
-      - build_and_test
+      - build_and_test:
+          matrix:
+            parameters:
+              os: [docker]
+              node-version: ["~14", "~16", "~18"]
