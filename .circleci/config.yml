@@ -32,9 +32,6 @@ jobs:
     working_directory: *working_directory
     steps:
       - checkout
-      - node/install:
-          node-version: << parameters.node-version >>
-          install-yarn: true
       - restore_cache: *restore_yarn_cache
       - run:
           name: Installing dependencies
