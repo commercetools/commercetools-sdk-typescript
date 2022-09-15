@@ -100,4 +100,4 @@ workflows:
           matrix:
             parameters:
               os: [docker]
-              node-version: ["~14", "~16", "~18"]
+              node-version: ["~14.20.0", "^16.17.0", "~18.9.0"]
