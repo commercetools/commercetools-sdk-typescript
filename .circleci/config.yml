@@ -21,6 +21,8 @@ executors:
       - image: cimg/node:14.20.0
 
 version: 2.1
+orbs:
+  node: circleci/node@5.0.2
 jobs:
   build_and_test:
     parameters:
