@@ -1266,6 +1266,7 @@ export type ReturnShipmentState =
 export type ShipmentState =
   | 'Backorder'
   | 'Delayed'
+  | 'Delivered'
   | 'Partial'
   | 'Pending'
   | 'Ready'
