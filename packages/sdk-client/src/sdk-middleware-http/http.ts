@@ -80,11 +80,12 @@ export default function createHttpMiddleware({
   fetch: fetcher,
   getAbortController,
 }: HttpMiddlewareOptions): Middleware {
-  if (!fetcher && typeof fetch === 'undefined')
+  //nodejs v18 has the fetch available and not the version 16
+  if (!fetcher)
     throw new Error(
       '`fetch` is not available. Please pass in `fetch` as an option or have it globally available.'
     )
-  if (timeout && !getAbortController && typeof AbortController === 'undefined')
+  if (timeout && !getAbortController)
     throw new Error(
       '`AbortController` is not available. Please pass in `getAbortController` as an option or have AbortController globally available when using timeout.'
     )
