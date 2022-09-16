@@ -331,7 +331,9 @@ export interface StoreAddProductSelectionAction {
   readonly active?: boolean
 }
 /**
- *	This action has no effect if a given supply channel is already present in a Store.
+ *	This update action produces the [StoreSupplyChannelsChanged](ctp:api:type:StoreSupplyChannelsChangedMessage) Message.
+ *	It has no effect if a given supply channel is already present in a Store.
+ *
  */
 export interface StoreAddSupplyChannelAction {
   readonly action: 'addSupplyChannel'
@@ -387,6 +389,10 @@ export interface StoreRemoveProductSelectionAction {
    */
   readonly productSelection: ProductSelectionResourceIdentifier
 }
+/**
+ *	This update action produces the [StoreSupplyChannelsChanged](ctp:api:type:StoreSupplyChannelsChangedMessage) Message.
+ *
+ */
 export interface StoreRemoveSupplyChannelAction {
   readonly action: 'removeSupplyChannel'
   /**
@@ -487,6 +493,10 @@ export interface StoreSetProductSelectionsAction {
    */
   readonly productSelections?: ProductSelectionSettingDraft[]
 }
+/**
+ *	This update action produces the [StoreSupplyChannelsChanged](ctp:api:type:StoreSupplyChannelsChangedMessage) Message.
+ *
+ */
 export interface StoreSetSupplyChannelsAction {
   readonly action: 'setSupplyChannels'
   /**

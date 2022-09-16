@@ -207,6 +207,7 @@ export type Message =
   | StoreLanguagesChangedMessage
   | StoreNameSetMessage
   | StoreProductSelectionsChangedMessage
+  | StoreSupplyChannelsChangedMessage
 /**
  *	Generated after a successful [Create Category](/../api/projects/categories#create-category) request.
  *
@@ -8925,12 +8926,12 @@ export interface StoreDistributionChannelsChangedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Product distribution Channels that have been added to the [Store](/../api/projects/stores).
+   *	Product distribution Channels that have been added to the [Store](ctp:api:type:Store).
    *
    */
   readonly addedDistributionChannels?: ChannelReference[]
   /**
-   *	Product distribution Channels that have been removed from the [Store](/../api/projects/stores).
+   *	Product distribution Channels that have been removed from the [Store](ctp:api:type:Store).
    *
    *
    */
@@ -9174,6 +9175,83 @@ export interface StoreProductSelectionsChangedMessage {
   readonly updatedProductSelections?: ProductSelectionSetting[]
 }
 /**
+ *	Generated after a successful [Add Supply Channel](ctp:api:type:StoreAddSupplyChannelAction),
+ *	[Remove Supply Channel](ctp:api:type:StoreRemoveSupplyChannelAction), or
+ *	[Set Supply Channels](ctp:api:type:StoreSetSupplyChannelsAction) update action.
+ *
+ */
+export interface StoreSupplyChannelsChangedMessage {
+  readonly type: 'StoreSupplyChannelsChanged'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Inventory supply Channels that have been added to the [Store](ctp:api:type:Store).
+   *
+   */
+  readonly addedSupplyChannels?: ChannelReference[]
+  /**
+   *	Inventory supply Channels that have been removed from the [Store](ctp:api:type:Store).
+   *
+   *
+   */
+  readonly removedSupplyChannels?: ChannelReference[]
+}
+/**
  *	User-provided identifiers present on the resource for which the Message is created. The value of the identifier stored in the Message corresponds to the one that was set on the resource at the version shown in `resourceVersion`.
  *
  */
@@ -9333,6 +9411,7 @@ export type MessagePayload =
   | StoreLanguagesChangedMessagePayload
   | StoreNameSetMessagePayload
   | StoreProductSelectionsChangedMessagePayload
+  | StoreSupplyChannelsChangedMessagePayload
 /**
  *	Generated after a successful [Create Category](/../api/projects/categories#create-category) request.
  *
@@ -11501,12 +11580,12 @@ export interface StoreDeletedMessagePayload {
 export interface StoreDistributionChannelsChangedMessagePayload {
   readonly type: 'StoreDistributionChannelsChanged'
   /**
-   *	Product distribution Channels that have been added to the [Store](/../api/projects/stores).
+   *	Product distribution Channels that have been added to the [Store](ctp:api:type:Store).
    *
    */
   readonly addedDistributionChannels?: ChannelReference[]
   /**
-   *	Product distribution Channels that have been removed from the [Store](/../api/projects/stores).
+   *	Product distribution Channels that have been removed from the [Store](ctp:api:type:Store).
    *
    *
    */
@@ -11577,4 +11656,24 @@ export interface StoreProductSelectionsChangedMessagePayload {
    *
    */
   readonly updatedProductSelections?: ProductSelectionSetting[]
+}
+/**
+ *	Generated after a successful [Add Supply Channel](ctp:api:type:StoreAddSupplyChannelAction),
+ *	[Remove Supply Channel](ctp:api:type:StoreRemoveSupplyChannelAction), or
+ *	[Set Supply Channels](ctp:api:type:StoreSetSupplyChannelsAction) update action.
+ *
+ */
+export interface StoreSupplyChannelsChangedMessagePayload {
+  readonly type: 'StoreSupplyChannelsChanged'
+  /**
+   *	Inventory supply Channels that have been added to the [Store](ctp:api:type:Store).
+   *
+   */
+  readonly addedSupplyChannels?: ChannelReference[]
+  /**
+   *	Inventory supply Channels that have been removed from the [Store](ctp:api:type:Store).
+   *
+   *
+   */
+  readonly removedSupplyChannels?: ChannelReference[]
 }
