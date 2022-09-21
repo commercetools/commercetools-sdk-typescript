@@ -7,7 +7,6 @@
 import {
   CartReference,
   CartResourceIdentifier,
-  DiscountCodeInfo,
   ExternalLineItemTotalPrice,
   ExternalTaxRateDraft,
   InventoryMode,
@@ -106,9 +105,10 @@ export interface MyCartDraft {
    */
   readonly store?: StoreKeyReference
   /**
+   *	The code of existing DiscountCodes.
    *
    */
-  readonly discountCodes?: DiscountCodeInfo[]
+  readonly discountCodes?: string[]
 }
 export interface MyCartUpdate {
   /**
@@ -415,7 +415,7 @@ export type MyPaymentUpdateAction =
   | MyPaymentSetTransactionCustomFieldAction
 export interface MyQuoteRequestDraft {
   /**
-   *	ResourceIdentifier to the Cart from which this quote request is created.
+   *	ResourceIdentifier of the Cart from which the Quote Request is created.
    *
    */
   readonly cart: CartResourceIdentifier
@@ -426,7 +426,7 @@ export interface MyQuoteRequestDraft {
    */
   readonly version: number
   /**
-   *	Text message included in the request.
+   *	Message from the Buyer included in the Quote Request.
    *
    *
    */

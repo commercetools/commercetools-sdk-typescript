@@ -12,6 +12,7 @@ import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyOrdersEditsRequestBuilder } from '../edits/by-project-key-orders-edits-request-builder'
 import { ByProjectKeyOrdersImportRequestBuilder } from '../import/by-project-key-orders-import-request-builder'
+import { ByProjectKeyOrdersQuotesRequestBuilder } from '../quotes/by-project-key-orders-quotes-request-builder'
 import { ByProjectKeyOrdersSearchRequestBuilder } from '../search/by-project-key-orders-search-request-builder'
 import { ByProjectKeyOrdersByIDRequestBuilder } from './by-project-key-orders-by-id-request-builder'
 import { ByProjectKeyOrdersOrderNumberByOrderNumberRequestBuilder } from './by-project-key-orders-order-number-by-order-number-request-builder'
@@ -29,6 +30,15 @@ export class ByProjectKeyOrdersRequestBuilder {
   ) {}
   public importOrder(): ByProjectKeyOrdersImportRequestBuilder {
     return new ByProjectKeyOrdersImportRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public orderQuote(): ByProjectKeyOrdersQuotesRequestBuilder {
+    return new ByProjectKeyOrdersQuotesRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },

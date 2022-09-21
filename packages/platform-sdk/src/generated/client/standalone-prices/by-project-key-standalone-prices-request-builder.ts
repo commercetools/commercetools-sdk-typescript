@@ -78,7 +78,7 @@ export class ByProjectKeyStandalonePricesRequestBuilder {
     )
   }
   /**
-   *	Produces the [StandalonePriceCreatedMessage](ctp:api:type:StandalonePriceCreatedMessage).
+   *	Produces the [StandalonePriceCreated](ctp:api:type:StandalonePriceCreatedMessage) Message.
    *
    */
   public post(methodArgs: {

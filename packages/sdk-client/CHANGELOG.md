@@ -1,5 +1,22 @@
 # @commercetools/sdk-client-v2
 
+## 1.4.2
+
+### Patch Changes
+
+- [#331](https://github.com/commercetools/commercetools-sdk-typescript/pull/331) [`007d9c6`](https://github.com/commercetools/commercetools-sdk-typescript/commit/007d9c6e056c3286c0c521427576b2cc1df664b2) Thanks [@ajimae](https://github.com/ajimae)! - - Fix issues with buffer request body always being converted to json (`stringified`)
+  - Abandon the static `Buffer.isBuffer()` method in favour of custom `isBuffer` function
+
+## 1.4.1
+
+### Patch Changes
+
+- [#317](https://github.com/commercetools/commercetools-sdk-typescript/pull/317) [`d921acd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/d921acda35dadf135dffb53419b8825c915477b1) Thanks [@ajimae](https://github.com/ajimae)! - Allow `sdk-client` to accept request headers with `application/graphql` content-type.
+
+* [#311](https://github.com/commercetools/commercetools-sdk-typescript/pull/311) [`588a0f9`](https://github.com/commercetools/commercetools-sdk-typescript/commit/588a0f9b981a538a16a23a449e810c56956f352c) Thanks [@ajimae](https://github.com/ajimae)! - Change token fetch window from 2 hours to 5 minutes
+
+- [#320](https://github.com/commercetools/commercetools-sdk-typescript/pull/320) [`7510e0b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/7510e0bf69cc4b63c43d0431d338502d048524aa) Thanks [@JohnMarsden24](https://github.com/JohnMarsden24)! - fix: make options for `withExistingTokenFlow` method optional
+
 ## 1.4.0
 
 ### Minor Changes

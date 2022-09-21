@@ -16,14 +16,21 @@ aliases:
       - node_modules
 
 executors:
-  node_14:
+  docker:
     docker:
-      - image: cimg/node:14.19.3
+      - image: cimg/node:14.20.0
 
 version: 2.1
+orbs:
+  node: circleci/node@5.0.2
 jobs:
   build_and_test:
-    executor: node_14
+    parameters:
+      os:
+        type: executor
+      node-version:
+        type: string
+    executor: << parameters.os >>
     working_directory: *working_directory
     steps:
       - checkout
@@ -62,7 +69,7 @@ jobs:
           path: packages/platform-sdk/test-results
 
   update_ml_sdk_from_spec:
-    executor: node_14
+    executor: << parameters.os >>
     working_directory: ~/commercetools-typescript-spec
     steps:
       - checkout
@@ -88,4 +95,8 @@ workflows:
   version: 2
   validate_spec:
     jobs:
-      - build_and_test
+      - build_and_test:
+          matrix:
+            parameters:
+              os: [docker]
+              node-version: ["^14.20.0", "^16.17.0", "^18.9.0"]

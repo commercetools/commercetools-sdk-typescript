@@ -1,4 +1,4 @@
-import getErrorByCode, { HttpError, NetworkError } from '../sdk-client/errors'
+import { Buffer } from 'buffer/'
 import {
   ClientRequest,
   HttpErrorType,
@@ -12,8 +12,17 @@ import {
   RequestOptions,
 } from '../types/sdk.d'
 import parseHeaders from './parse-headers'
+import getErrorByCode, { HttpError, NetworkError } from '../sdk-client/errors'
 
-const Buffer = require('buffer/').Buffer
+// performs a proper buffer check
+function isBuffer(obj: any): boolean {
+  return (
+    obj != null &&
+    obj.constructor != null &&
+    typeof obj.constructor.isBuffer === 'function' &&
+    obj.constructor.isBuffer(obj)
+  )
+}
 
 function createError({
   statusCode,
@@ -80,11 +89,12 @@ export default function createHttpMiddleware({
   fetch: fetcher,
   getAbortController,
 }: HttpMiddlewareOptions): Middleware {
-  if (!fetcher && typeof fetch === 'undefined')
+  //nodejs v18 has the fetch available and not the version 16
+  if (!fetcher)
     throw new Error(
       '`fetch` is not available. Please pass in `fetch` as an option or have it globally available.'
     )
-  if (timeout && !getAbortController && typeof AbortController === 'undefined')
+  if (timeout && !getAbortController)
     throw new Error(
       '`AbortController` is not available. Please pass in `getAbortController` as an option or have AbortController globally available when using timeout.'
     )
@@ -119,22 +129,27 @@ export default function createHttpMiddleware({
       if (requestHeader['Content-Type'] === null) {
         delete requestHeader['Content-Type']
       }
+
       if (
-        !Object.prototype.hasOwnProperty.call(requestHeader, 'Content-Type') ||
-        !Object.prototype.hasOwnProperty.call(requestHeader, 'content-type')
+        !(
+          Object.prototype.hasOwnProperty.call(requestHeader, 'Content-Type') ||
+          Object.prototype.hasOwnProperty.call(requestHeader, 'content-type')
+        )
       ) {
         requestHeader['Content-Type'] = 'application/json'
       }
 
       // Ensure body is a string if content type is application/json
       const body =
-        (requestHeader['Content-Type'] === 'application/json' &&
+        (['application/json', 'application/graphql'].indexOf(
+          requestHeader['Content-Type'] as string
+        ) > -1 &&
           typeof request.body === 'string') ||
-        Buffer.isBuffer(request.body)
+        isBuffer(request.body)
           ? request.body
           : JSON.stringify(request.body || undefined)
 
-      if (body && (typeof body === 'string' || Buffer.isBuffer(body))) {
+      if (body && (typeof body === 'string' || isBuffer(body))) {
         requestHeader['Content-Length'] = Buffer.byteLength(body).toString()
       }
       const fetchOptions: RequestOptions = {
@@ -216,21 +231,6 @@ export default function createHttpMiddleware({
                 })
                 return
               }
-              // if (res.status === 503 && enableRetry)
-              //   if (retryCount < maxRetries) {
-              //     setTimeout(
-              //       executeFetch,
-              //       calcDelayDuration(
-              //         retryCount,
-              //         retryDelay,
-              //         maxRetries,
-              //         backoff,
-              //         maxDelay
-              //       )
-              //     )
-              //     retryCount += 1
-              //     return
-              //   }
 
               // Server responded with an error. Try to parse it as JSON, then
               // return a proper error type with all necessary meta information.

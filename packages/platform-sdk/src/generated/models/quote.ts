@@ -31,6 +31,7 @@ import {
   StagedQuoteReference,
   StagedQuoteResourceIdentifier,
 } from './staged-quote'
+import { StateReference, StateResourceIdentifier } from './state'
 import { StoreKeyReference } from './store'
 import {
   CustomFields,
@@ -83,19 +84,19 @@ export interface Quote extends BaseResource {
    */
   readonly createdBy?: CreatedBy
   /**
-   *	The Quote Request related to this Quote.
+   *	Quote Request related to the Quote.
    *
    *
    */
   readonly quoteRequest: QuoteRequestReference
   /**
-   *	The Staged Quote related to this Quote.
+   *	Staged Quote related to the Quote.
    *
    *
    */
   readonly stagedQuote: StagedQuoteReference
   /**
-   *	The [Buyer](/../api/quotes-overview#buyer) who requested this Quote.
+   *	The [Buyer](/../api/quotes-overview#buyer) who requested the Quote.
    *
    *
    */
@@ -114,11 +115,17 @@ export interface Quote extends BaseResource {
    */
   readonly validTo?: string
   /**
-   *	The text message included in the offer from the [Seller](/../api/quotes-overview#seller).
+   *	Message from the [Seller](/../api/quotes-overview#seller) included in the offer.
    *
    *
    */
   readonly sellerComment?: string
+  /**
+   *	Message from the [Buyer](/../api/quotes-overview#buyer) included in the [renegotiation request](ctp:api:type:QuoteRequestQuoteRenegotiationAction).
+   *
+   *
+   */
+  readonly buyerComment?: string
   /**
    *	The Store to which the [Buyer](/../api/quotes-overview#buyer) belongs.
    *
@@ -138,7 +145,7 @@ export interface Quote extends BaseResource {
    */
   readonly customLineItems: CustomLineItem[]
   /**
-   *	The sum of all `totalPrice` fields of the `lineItems` and `customLineItems`, as well as the `price` field of `shippingInfo` (if it exists).
+   *	Sum of all `totalPrice` fields of the `lineItems` and `customLineItems`, as well as the `price` field of `shippingInfo` (if it exists).
    *	`totalPrice` may or may not include the taxes: it depends on the taxRate.includedInPrice property of each price.
    *
    *
@@ -159,19 +166,19 @@ export interface Quote extends BaseResource {
    */
   readonly shippingAddress?: Address
   /**
-   *	The address used for invoicing.
+   *	Address used for invoicing.
    *
    *
    */
   readonly billingAddress?: Address
   /**
-   *	The inventory mode of the Cart referenced in the [QuoteRequestDraft](ctp:api:type:QuoteRequestDraft).
+   *	Inventory mode of the Cart referenced in the [QuoteRequestDraft](ctp:api:type:QuoteRequestDraft).
    *
    *
    */
   readonly inventoryMode?: InventoryMode
   /**
-   *	The tax mode of the Cart referenced in the [QuoteRequestDraft](ctp:api:type:QuoteRequestDraft).
+   *	Tax mode of the Cart referenced in the [QuoteRequestDraft](ctp:api:type:QuoteRequestDraft).
    *
    *
    */
@@ -200,7 +207,7 @@ export interface Quote extends BaseResource {
    */
   readonly shippingInfo?: ShippingInfo
   /**
-   *	Log of payment transactions related to this quote.
+   *	Log of payment transactions related to the Quote.
    *
    *
    */
@@ -221,21 +228,28 @@ export interface Quote extends BaseResource {
    */
   readonly itemShippingAddresses?: Address[]
   /**
-   *	Discounts only valid for this Quote, those cannot be associated to any other Cart or Order.
+   *	Discounts that are only valid for the Quote and cannot be associated to any other Cart or Order.
    *
    *
    */
   readonly directDiscounts?: DirectDiscount[]
   /**
-   *	Custom Fields of this Quote.
+   *	Custom Fields on the Quote.
    *
    *
    */
   readonly custom?: CustomFields
+  /**
+   *	[State](ctp:api:type:State) of the Quote.
+   *	This reference can point to a State in a custom workflow.
+   *
+   *
+   */
+  readonly state?: StateReference
 }
 export interface QuoteDraft {
   /**
-   *	The StagedQuote from which this Quote is created.
+   *	StagedQuote from which the Quote is created.
    *
    */
   readonly stagedQuote: StagedQuoteResourceIdentifier
@@ -260,6 +274,13 @@ export interface QuoteDraft {
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	[State](ctp:api:type:State) of the Quote.
+   *	This reference can point to a State in a custom workflow.
+   *
+   *
+   */
+  readonly state?: StateReference
 }
 /**
  *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [Quote](ctp:api:type:Quote).
@@ -347,6 +368,7 @@ export interface QuoteResourceIdentifier {
 export type QuoteState =
   | 'Accepted'
   | 'Declined'
+  | 'DeclinedForRenegotiation'
   | 'Failed'
   | 'Pending'
   | 'Withdrawn'
@@ -362,15 +384,30 @@ export interface QuoteUpdate {
 }
 export type QuoteUpdateAction =
   | QuoteChangeQuoteStateAction
+  | QuoteRequestQuoteRenegotiationAction
   | QuoteSetCustomFieldAction
   | QuoteSetCustomTypeAction
+  | QuoteTransitionStateAction
 export interface QuoteChangeQuoteStateAction {
   readonly action: 'changeQuoteState'
   /**
-   *	The new quote state to be set for the Quote.
+   *	New state to be set for the Quote.
    *
    */
   readonly quoteState: QuoteState
+}
+/**
+ *	Represents the Buyer requesting renegotiation for a Quote. Valid for Quotes in a `Pending` or `Failed` [state](ctp:api:type:QuoteState).
+ *
+ */
+export interface QuoteRequestQuoteRenegotiationAction {
+  readonly action: 'requestQuoteRenegotiation'
+  /**
+   *	Message from the [Buyer](/api/quotes-overview#buyer) regarding the Quote renegotiation request.
+   *
+   *
+   */
+  readonly buyerComment?: string
 }
 export interface QuoteSetCustomFieldAction {
   readonly action: 'setCustomField'
@@ -404,4 +441,24 @@ export interface QuoteSetCustomTypeAction {
    *
    */
   readonly fields?: FieldContainer
+}
+/**
+ *	If the existing [State](ctp:api:type:State) has set `transitions`, there must be a direct transition to the new State. If `transitions` is not set, no validation is performed. This update action produces the [Quote State Transition](ctp:api:type:QuoteStateTransitionMessage) Message.
+ *
+ */
+export interface QuoteTransitionStateAction {
+  readonly action: 'transitionState'
+  /**
+   *	Value to set.
+   *	If there is no State yet, this must be an initial State.
+   *
+   *
+   */
+  readonly state: StateResourceIdentifier
+  /**
+   *	Switch validations on or off.
+   *
+   *
+   */
+  readonly force?: boolean
 }

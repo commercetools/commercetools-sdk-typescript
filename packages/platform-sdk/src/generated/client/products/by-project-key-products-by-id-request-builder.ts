@@ -41,7 +41,7 @@ export class ByProjectKeyProductsByIDRequestBuilder {
   }
 
   /**
-   *	Gets the full representation of a product by ID.
+   *	If [Price selection](ctp:api:type:ProductPriceSelection) query parameters are provided, the selected Prices are added to the response.
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -71,7 +71,7 @@ export class ByProjectKeyProductsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if product with given ID exists.
+   *	Check if a Product exists with a specified `id`. Responds with a `200 OK` status if the Product exists or `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -91,6 +91,9 @@ export class ByProjectKeyProductsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	If [Price selection](ctp:api:type:ProductPriceSelection) query parameters are provided, the selected Prices are added to the response.
+   */
   public post(methodArgs: {
     queryArgs?: {
       priceCurrency?: string
@@ -121,6 +124,10 @@ export class ByProjectKeyProductsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	If [Price selection](ctp:api:type:ProductPriceSelection) query parameters are provided, the selected Prices are added to the response.
+   *	Produces the [ProductDeleted](/projects/messages#product-deleted) Message.
+   */
   public delete(methodArgs: {
     queryArgs: {
       priceCurrency?: string

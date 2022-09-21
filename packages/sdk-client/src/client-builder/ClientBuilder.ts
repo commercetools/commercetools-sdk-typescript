@@ -145,7 +145,7 @@ export default class ClientBuilder {
 
   withExistingTokenFlow(
     authorization: string,
-    options: ExistingTokenMiddlewareOptions
+    options?: ExistingTokenMiddlewareOptions
   ): ClientBuilder {
     return this.withAuthMiddleware(
       createAuthMiddlewareWithExistingToken(authorization, {
@@ -199,9 +199,9 @@ export default class ClientBuilder {
       middlewares.push(this.correlationIdMiddleware)
     if (this.userAgentMiddleware) middlewares.push(this.userAgentMiddleware)
     if (this.authMiddleware) middlewares.push(this.authMiddleware)
-    if (this.loggerMiddleware) middlewares.push(this.loggerMiddleware)
     if (this.queueMiddleware) middlewares.push(this.queueMiddleware)
     if (this.httpMiddleware) middlewares.push(this.httpMiddleware)
+    if (this.loggerMiddleware) middlewares.push(this.loggerMiddleware)
 
     return createClient({ middlewares })
   }

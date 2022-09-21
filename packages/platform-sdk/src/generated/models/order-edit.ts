@@ -5,6 +5,7 @@
  */
 
 import {
+  CustomLineItemPriceMode,
   ExternalLineItemTotalPrice,
   ExternalTaxAmountDraft,
   ExternalTaxRateDraft,
@@ -411,6 +412,14 @@ export interface StagedOrderAddCustomLineItemAction {
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
+  /**
+   *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget)
+   *	are applied to the Custom Line Item.
+   *	- If `External`, Cart Discounts are not considered on the Custom Line Item.
+   *
+   *
+   */
+  readonly priceMode?: CustomLineItemPriceMode
 }
 export interface StagedOrderAddDeliveryAction {
   readonly action: 'addDelivery'

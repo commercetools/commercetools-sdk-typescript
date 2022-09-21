@@ -69,7 +69,7 @@ export interface AttributeDefinition {
    *
    *	Which exact features are available with this flag depends on the specific [AttributeType](ctp:api:type:AttributeType).
    *	The maximum size of a searchable field is **restricted** by the [Field content size limit](/../api/limits#field-content-size).
-   *	This constraint is enforced at both [Product creation](/../api/projects/products#create-a-product) and [Product update](/../api/projects/products#update-product).
+   *	This constraint is enforced at both [Product creation](/../api/projects/products#create-product) and [Product update](/../api/projects/products#update-product).
    *	If the length of the input exceeds the maximum size, an [InvalidFieldError](ctp:api:type:InvalidFieldError) is returned.
    *
    */
@@ -185,7 +185,7 @@ export type AttributeReferenceTypeId =
   | 'state'
   | 'zone'
 /**
- *	Umbrellla type for specific attribute types discriminated by property `name`.
+ *	Umbrella type for specific attribute types discriminated by property `name`.
  */
 export type AttributeType =
   | AttributeBooleanType

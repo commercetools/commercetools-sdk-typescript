@@ -225,8 +225,7 @@ export class ByProjectKeyRequestBuilder {
     })
   }
   /**
-   *	Products are the sellable goods in an e-commerce project on CTP. This document explains some design concepts
-   *	of products on CTP and describes the available HTTP APIs for working with them.
+   *	Products themselves are not sellable. Instead, they act as a parent structure for sellable Product Variants.
    *
    */
   public products(): ByProjectKeyProductsRequestBuilder {
@@ -308,7 +307,7 @@ export class ByProjectKeyRequestBuilder {
     })
   }
   /**
-   *	A request for a quote holds product variants and can be ordered.
+   *	A request for a Quote holds product variants and can be ordered.
    */
   public quoteRequests(): ByProjectKeyQuoteRequestsRequestBuilder {
     return new ByProjectKeyQuoteRequestsRequestBuilder({

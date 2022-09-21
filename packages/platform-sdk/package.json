@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/platform-sdk",
-  "version": "3.0.0",
+  "version": "3.0.2",
   "description": "TypeScript definitions and SDK for commercetools Composable Commerce",
   "keywords": ["commercetools", "composable commerce", "typescript", "sdk"],
   "homepage": "https://github.com/commercetools/commercetools-typescript-sdks",
@@ -23,7 +23,7 @@
     "./dist/commercetools-platform-sdk.esm.js": "./dist/commercetools-platform-sdk.browser.esm.js"
   },
   "dependencies": {
-    "@commercetools/sdk-client-v2": "^1.4.0",
+    "@commercetools/sdk-client-v2": "^1.4.1",
     "@commercetools/sdk-middleware-auth": "^6.0.4",
     "@commercetools/sdk-middleware-http": "^6.0.4",
     "@commercetools/sdk-middleware-logger": "^2.1.1",

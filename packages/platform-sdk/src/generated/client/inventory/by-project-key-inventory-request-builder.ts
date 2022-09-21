@@ -78,7 +78,7 @@ export class ByProjectKeyInventoryRequestBuilder {
     )
   }
   /**
-   *	Produces the [InventoryEntryCreatedMessage](ctp:api:type:InventoryEntryCreatedMessage).
+   *	Produces the [InventoryEntryCreated](ctp:api:type:InventoryEntryCreatedMessage) Message.
    */
   public post(methodArgs: {
     queryArgs?: {

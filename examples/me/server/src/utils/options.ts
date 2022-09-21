@@ -47,7 +47,7 @@ export function getOptions(
     projectKey: process.env.CTP_PROJECT_KEY,
     credentials: _credentials ? true : false,
     httpMiddlewareOptions: {
-      host: process.env.CTP_HOST_URL,
+      host: process.env.CTP_API_URL,
       fetch,
     },
   }

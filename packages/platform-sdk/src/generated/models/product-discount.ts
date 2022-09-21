@@ -7,10 +7,10 @@
 import {
   BaseResource,
   CentPrecisionMoney,
-  CentPrecisionMoneyDraft,
   CreatedBy,
   LastModifiedBy,
   LocalizedString,
+  Money,
   QueryPrice,
   Reference,
 } from './common'
@@ -336,7 +336,7 @@ export interface ProductDiscountValueAbsoluteDraft {
    *
    *
    */
-  readonly money: CentPrecisionMoneyDraft[]
+  readonly money: Money[]
 }
 /**
  *	Discounts the Product Price by allowing the client to explicitly [set a discounted value](/../api/projects/products#set-discounted-embedded-price).

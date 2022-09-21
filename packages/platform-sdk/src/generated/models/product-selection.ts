@@ -410,7 +410,7 @@ export interface ProductsInStorePagedQueryResponse {
 export interface ProductSelectionAddProductAction {
   readonly action: 'addProduct'
   /**
-   *	ResourceIdentifier to Product
+   *	ResourceIdentifier of the Product
    *
    */
   readonly product: ProductResourceIdentifier
@@ -433,7 +433,7 @@ export interface ProductSelectionChangeNameAction {
 export interface ProductSelectionRemoveProductAction {
   readonly action: 'removeProduct'
   /**
-   *	ResourceIdentifier to Product
+   *	ResourceIdentifier of the Product
    *
    */
   readonly product: ProductResourceIdentifier
@@ -487,7 +487,7 @@ export interface ProductSelectionSetKeyAction {
 export interface ProductSelectionSetVariantSelectionAction {
   readonly action: 'setVariantSelection'
   /**
-   *	ResourceIdentifier to Product
+   *	ResourceIdentifier of the Product
    *
    */
   readonly product: ProductResourceIdentifier

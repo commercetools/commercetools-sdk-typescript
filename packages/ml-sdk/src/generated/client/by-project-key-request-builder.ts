@@ -42,6 +42,10 @@ export class ByProjectKeyRequestBuilder {
       baseUri: this.args.baseUri,
     })
   }
+
+  /**
+   * @deprecated
+   **/
   public missingData(): ByProjectKeyMissingDataRequestBuilder {
     return new ByProjectKeyMissingDataRequestBuilder({
       pathArgs: {

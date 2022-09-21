@@ -393,7 +393,7 @@ export interface ReviewSetLocaleAction {
   readonly locale?: string
 }
 /**
- *	This update action produces the [ReviewRatingSetMessage](ctp:api:type:ReviewRatingSetMessage).
+ *	This update action produces the [ReviewRatingSet](ctp:api:type:ReviewRatingSetMessage) Message.
  *
  */
 export interface ReviewSetRatingAction {
@@ -432,7 +432,7 @@ export interface ReviewSetTitleAction {
   readonly title?: string
 }
 /**
- *	Transition to a new State. This update action produces the [ReviewStateTransitionMessage](/message-types#reviewstatetransitionmessage).
+ *	Transition to a new State. This update action produces the [Review State Transition](ctp:api:type:ReviewStateTransitionMessage) Message.
  *
  */
 export interface ReviewTransitionStateAction {

@@ -9,7 +9,8 @@ import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyMissingDataPricesStatusRequestBuilder } from '../status/by-project-key-missing-data-prices-status-request-builder'
 /**
- **/
+@deprecated
+**/
 export class ByProjectKeyMissingDataPricesRequestBuilder {
   constructor(
     protected readonly args: {
@@ -20,6 +21,10 @@ export class ByProjectKeyMissingDataPricesRequestBuilder {
       baseUri?: string
     }
   ) {}
+
+  /**
+   * @deprecated
+   **/
   public status(): ByProjectKeyMissingDataPricesStatusRequestBuilder {
     return new ByProjectKeyMissingDataPricesStatusRequestBuilder({
       pathArgs: {
@@ -30,6 +35,9 @@ export class ByProjectKeyMissingDataPricesRequestBuilder {
     })
   }
 
+  /**
+   * @deprecated
+   **/
   public post(methodArgs: {
     body: MissingPricesSearchRequest
     headers?: {
