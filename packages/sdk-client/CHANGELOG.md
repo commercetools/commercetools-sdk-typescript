@@ -1,5 +1,12 @@
 # @commercetools/sdk-client-v2
 
+## 1.4.2
+
+### Patch Changes
+
+- [#331](https://github.com/commercetools/commercetools-sdk-typescript/pull/331) [`007d9c6`](https://github.com/commercetools/commercetools-sdk-typescript/commit/007d9c6e056c3286c0c521427576b2cc1df664b2) Thanks [@ajimae](https://github.com/ajimae)! - - Fix issues with buffer request body always being converted to json (`stringified`)
+  - Abandon the static `Buffer.isBuffer()` method in favour of custom `isBuffer` function
+
 ## 1.4.1
 
 ### Patch Changes
