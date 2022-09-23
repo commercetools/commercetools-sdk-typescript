@@ -62,7 +62,7 @@
     "@babel/preset-react": "^7.10.4",
     "babel-loader": "^8.1.0",
     "css-loader": "^5.0.1",
-    "html-loader": "^4.1.0",
+    "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.0",
     "webpack": "^5.64.4",
     "webpack-cli": "^4.8.0",
