@@ -159,6 +159,8 @@ export interface LocalizedString {
  */
 export interface ImportResource {
   /**
+   *	User-defined unique identifier.
+   *
    *
    */
   readonly key: string
@@ -487,6 +489,7 @@ export type ImportResourceType =
   | 'product-type'
   | 'product-variant'
   | 'product-variant-patch'
+  | 'standalone-price'
 /**
  *	The type of the referenced resource.
  *
