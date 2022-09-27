@@ -1182,10 +1182,10 @@
   dependencies:
     node-fetch "^2.6.7"
 
-"@commercetools/sdk-middleware-http@^6.0.4":
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/@commercetools/sdk-middleware-http/-/sdk-middleware-http-6.2.0.tgz#8e51107bea9d3a7003ee653e1ed9e97d4d1171b8"
-  integrity sha512-3E1nV+awhP0eeFuyChxgbaPF5CWWH0PvGZO9FtNl/mirlYjGbXAHO4Ql5tG4/G+CywlXI9XVA9wKSwxG0kgwgA==
+"@commercetools/sdk-middleware-http@^7.0.0":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@commercetools/sdk-middleware-http/-/sdk-middleware-http-7.0.1.tgz#d040f1b56397589ddd98fbc705ee3a707227569e"
+  integrity sha512-8S+VPe2xkG7dx50yyy0BVE/KY8nN/7lxB9+UUCf/gIrEUizGXDZmhKbTxwYFoIhTtiUAZXnmfyyjCfbQkLgR5g==
 
 "@commercetools/sdk-middleware-logger@^3.0.0":
   version "3.0.0"
