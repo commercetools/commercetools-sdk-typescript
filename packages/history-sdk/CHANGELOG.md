@@ -1,5 +1,16 @@
 # @commercetools/history-sdk
 
+## 3.0.0
+
+### Major Changes
+
+- [#341](https://github.com/commercetools/commercetools-sdk-typescript/pull/341) [`385682f`](https://github.com/commercetools/commercetools-sdk-typescript/commit/385682fef6f0efa39a51570434d4d11789e0a220) Thanks [@ajimae](https://github.com/ajimae)! - Upgrade node versions to 14 and set engine to >= 14
+
+### Patch Changes
+
+- Updated dependencies [[`385682f`](https://github.com/commercetools/commercetools-sdk-typescript/commit/385682fef6f0efa39a51570434d4d11789e0a220)]:
+  - @commercetools/sdk-client-v2@2.0.0
+
 ## 2.6.0
 
 ### Minor Changes
