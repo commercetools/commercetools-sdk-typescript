@@ -1175,10 +1175,10 @@
     human-id "^1.0.2"
     prettier "^2.7.1"
 
-"@commercetools/sdk-middleware-auth@^6.0.4":
-  version "6.2.1"
-  resolved "https://registry.yarnpkg.com/@commercetools/sdk-middleware-auth/-/sdk-middleware-auth-6.2.1.tgz#bac3324bbedda004fc848167abe9b90abe0d6e85"
-  integrity sha512-JNVRVf7zssECg0i/amAG0gnFmx4Kj7rB0J9MfRlvN/54qyA6tKJOJaA5j9hYy60qKSW/NCGbVMcVlBnPJLhREQ==
+"@commercetools/sdk-middleware-auth@^7.0.0":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@commercetools/sdk-middleware-auth/-/sdk-middleware-auth-7.0.1.tgz#20260740a423589d9210747e460f8ca917b3787b"
+  integrity sha512-XLRm+o3Yd0mkVoyzsOA98PUu0U0ajQdBHMhZ8N2XMOtL4OY8zsgT8ap5JneXV8zWZNiwIYYAYoUDwBlLZh2lAQ==
   dependencies:
     node-fetch "^2.6.7"
 
