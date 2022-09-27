@@ -5,6 +5,9 @@
   },
   "name": "@commercetools/importapi-sdk",
   "version": "3.0.1",
+  "engines": {
+    "node": ">=14"
+  },
   "description": "TypeScript SDK for Composable Commerce Import API features",
   "keywords": [
     "commercetools",
