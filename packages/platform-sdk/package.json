@@ -29,7 +29,7 @@
     "@commercetools/sdk-client-v2": "^2.0.0",
     "@commercetools/sdk-middleware-auth": "^6.0.4",
     "@commercetools/sdk-middleware-http": "^6.0.4",
-    "@commercetools/sdk-middleware-logger": "^2.1.1",
+    "@commercetools/sdk-middleware-logger": "^3.0.0",
     "querystring": "^0.2.1"
   },
   "devDependencies": {

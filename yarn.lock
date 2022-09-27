@@ -1187,10 +1187,10 @@
   resolved "https://registry.yarnpkg.com/@commercetools/sdk-middleware-http/-/sdk-middleware-http-6.2.0.tgz#8e51107bea9d3a7003ee653e1ed9e97d4d1171b8"
   integrity sha512-3E1nV+awhP0eeFuyChxgbaPF5CWWH0PvGZO9FtNl/mirlYjGbXAHO4Ql5tG4/G+CywlXI9XVA9wKSwxG0kgwgA==
 
-"@commercetools/sdk-middleware-logger@^2.1.1":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@commercetools/sdk-middleware-logger/-/sdk-middleware-logger-2.1.2.tgz#6b8ce77699bf5d8e5ec4f243a2c9d691094ef0c7"
-  integrity sha512-uGhhAUnZzLWO3ozzz6VDMUAKr5Y9ctVyqfExXVC7t37IgppLsKrrvLl6VMoU2uXjIGSNA0VN0Kxgj93rBBejTQ==
+"@commercetools/sdk-middleware-logger@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@commercetools/sdk-middleware-logger/-/sdk-middleware-logger-3.0.0.tgz#4bfc7441d485b3f1046001f44200d12926accb84"
+  integrity sha512-DhMXAA2yIch/AaGxy7st85Z1HFmeLtHWGkr9z5rX4xKjan4PHGB/IE5saAR+SNGHhs6+1Lp8vZEHDo3tFqVLmg==
 
 "@commitlint/cli@17.1.2":
   version "17.1.2"
