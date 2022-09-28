@@ -5,6 +5,8 @@
 //   });
 // }
 
+import createAuthMiddlewareForClientCredentialsFlow from './auth-middleware/client-credentials-flow';
+
 // // athentication middleware
 // function createAuthMiddleware(options) {
 //   return function (next) {
@@ -61,10 +63,15 @@
 //   createLoggerMiddleware
 // }
 
-export { default as createCorrelationIdMiddleware } from './createCorrelationIdMiddleware'
-export { default as createAuthMiddleware } from './createAuthMiddleware';
-export { default as createLoggerMiddleware } from './createLoggerMiddleware'
-export { default as createRetryMiddleware } from './createRetryMiddleware'
-export { default as createHttpMiddleware } from './createHttpMiddleware'
-export { default as createUserAgentMiddleware } from './createUserAgentMiddleware'
-export { default as createQueueMiddleware } from './createQueueMiddleware'
+export { default as createCorrelationIdMiddleware } from './create-correlation-id-middleware'
+
+export { default as createLoggerMiddleware } from './create-logger-middleware'
+export { default as createRetryMiddleware } from './create-retry-middleware'
+export { default as createHttpMiddleware } from './create-http-middleware'
+export { default as createUserAgentMiddleware } from './create-user-agent-middleware'
+export { default as createQueueMiddleware } from './create-queue-middleware'
+
+export {
+  createAuthMiddlewareForClientCredentialsFlow,
+  createAuthMiddlewareForAnonymousSessionFlow
+} from './auth-middleware';

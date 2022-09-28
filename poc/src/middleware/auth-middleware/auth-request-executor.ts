@@ -1,86 +1,13 @@
-import fetch from 'node-fetch'
-import { Buffer } from 'buffer/'
 import {
-  Next,
-  Middleware,
-  MiddlewareRequest,
-  AuthMiddlewareOptions,
-  IBuiltRequestParams,
-  TokenInfo,
   ClientRequest,
+  TokenInfo,
   HttpErrorType,
-  MiddlewareResponse,
   executeRequestOptions,
-} from '../types/types'
-import { getHeaders } from '../utils'
-
-export function buildRequestForClientCredentialsFlow(
-  options: AuthMiddlewareOptions
-): IBuiltRequestParams {
-  // Validate options
-  if (!options) throw new Error('Missing required options')
-  if (!options.host) throw new Error('Missing required option (host)')
-  if (!options.projectKey)
-    throw new Error('Missing required option (projectKey)')
-  if (!options.credentials)
-    throw new Error('Missing required option (credentials)')
-
-  const { clientId, clientSecret } = options.credentials
-  if (!(clientId && clientSecret))
-    throw new Error('Missing required credentials (clientId, clientSecret)')
-
-  const scope = options.scopes ? options.scopes.join(' ') : undefined
-  const basicAuth = Buffer.from(`${clientId}:${clientSecret}`).toString(
-    'base64'
-  )
-  // This is mostly useful for internal testing purposes to be able to check
-  // other oauth endpoints.
-  const oauthUri = options.oauthUri || '/oauth/token'
-  const url = options.host.replace(/\/$/, '') + oauthUri
-  const body = `grant_type=client_credentials${scope ? `&scope=${scope}` : ''}`
-
-  return {
-    url,
-    body,
-    basicAuth,
-  }
-}
-
-export default function createAuthMiddlewareForClientCredentialsFlow(
-  options: AuthMiddlewareOptions
-): Middleware {
-  return (next: Next) => {
-    return async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {
-      // if here is a token in the header, then move on to the next middleware
-      if (
-        request.headers &&
-        (request.headers.Authorization || request.headers.authorization)
-      ) {
-        // move on
-        return next(request)
-      }
-
-      // implement every other conditions here - tokenCache, pendingTasks, requestState etc
-
-      // prepare request options
-      const requestOptions = {
-        request,
-        httpClient: options.httpClient || fetch,
-        ...buildRequestForClientCredentialsFlow(options),
-      }
-
-      // make request to coco
-      const requestWithAuth = await executeRequest(requestOptions)
-      if (requestWithAuth) {
-        // make the request and inject the token into the header
-        return next(requestWithAuth)
-      }
-    }
-  }
-}
+} from '../../types/types'
+import { Buffer } from 'buffer/'
 
 // http middleware - will be incharge of all external api calls
-async function executeRequest(
+export async function executeRequest(
   options: executeRequestOptions
 ): Promise<ClientRequest | HttpErrorType> {
   let _data: TokenInfo, parsed: any, text: string

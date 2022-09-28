@@ -90,10 +90,6 @@ export type AuthMiddlewareOptions = {
   scopes?: Array<string>
   // For internal usage only
   oauthUri?: string
-  /**
-   * fix until we understand how to
-   * type the new node-fetch version 
-   */
   httpClient?: any
   tokenCache?: TokenCache
 }

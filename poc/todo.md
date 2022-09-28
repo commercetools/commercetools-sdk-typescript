@@ -17,10 +17,10 @@ Things to do
 - [x] client and composer
 - [x] http-middleware
 - [ ] error-middleware
-- [x] logger-middleware
-- [ ] auth-middleware
+- [x] logger-middleware\*
+- [ ] auth-middleware\*
   - [x] with-client-credentials-flow
-  - [ ] with-anonymous-session-flow
+  - [x] with-anonymous-session-flow
   - [ ] with-password-flow
   - [ ] with-refresh-token-flow
   - [ ] with-existing-token-flow

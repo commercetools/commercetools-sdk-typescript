@@ -1,11 +1,12 @@
 import {
-  createCorrelationIdMiddleware,
-  createUserAgentMiddleware,
-  createAuthMiddleware,
   createLoggerMiddleware,
   createRetryMiddleware,
   createHttpMiddleware,
-  createQueueMiddleware
+  createQueueMiddleware,
+  createUserAgentMiddleware,
+  createCorrelationIdMiddleware,
+  createAuthMiddlewareForAnonymousSessionFlow,
+  createAuthMiddlewareForClientCredentialsFlow
 } from './middleware'
 import fetch from 'node-fetch'
 import { logger, generate } from './utils'
@@ -17,7 +18,7 @@ const client = createClient({
   middlewares: [
     createCorrelationIdMiddleware({ generate }),
     createUserAgentMiddleware({}),
-    createAuthMiddleware({
+    createAuthMiddlewareForClientCredentialsFlow({
       host: 'https://auth.europe-west1.gcp.commercetools.com',
       projectKey: 'demo-1',
       credentials: {
@@ -25,6 +26,15 @@ const client = createClient({
         clientSecret: process.env.CTP_CLIENT_SECRET
       },
     }),
+    // createAuthMiddlewareForAnonymousSessionFlow({
+    //   host: 'https://auth.europe-west1.gcp.commercetools.com',
+    //   projectKey: 'demo-1',
+    //   credentials: {
+    //     clientId: process.env.CTP_CLIENT_ID,
+    //     clientSecret: process.env.CTP_CLIENT_SECRET,
+    //     anonymousId: 'anonymouse-id-123'
+    //   },
+    // }),
     createQueueMiddleware({ concurrency: 5 }),
     createLoggerMiddleware({ loggerFn: logger }),
     createRetryMiddleware({ enableRetry: true }),
