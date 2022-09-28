@@ -227,7 +227,8 @@ export interface QuoteRequest extends BaseResource {
 }
 export interface QuoteRequestDraft {
   /**
-   *	Cart for which a Quote is requested. Anonymous Carts as well as Carts with [Discount Codes](/../api?projects/discount-codes) are not supported.
+   *	Cart for which a Quote is requested.
+   *	Anonymous Carts, Carts with [Discount Codes](ctp:api:type:DiscountCode), or Carts with a `Multiple` [ShippingMode](ctp:api:type:ShippingMode) are not supported.
    *
    *
    */
