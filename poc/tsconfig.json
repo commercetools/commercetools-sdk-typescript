@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "esModuleInterop": true,
+    // See https://devblogs.microsoft.com/typescript/typescript-and-babel-7/
+    "isolatedModules": true,
+    "lib": ["ESNext", "DOM"],
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "removeComments": false,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "rootDir": "src",
+    "declarationDir": "dist/declaration"
+  }
+  // "exclude": ["./examples/"]
+}
