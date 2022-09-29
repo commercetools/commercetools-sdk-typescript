@@ -1507,7 +1507,7 @@ export interface CartAddCustomShippingMethodAction {
    *
    *
    */
-  readonly shippingAddress?: BaseAddress
+  readonly shippingAddress: BaseAddress
   /**
    *	Determines the shipping price.
    *
@@ -1647,13 +1647,13 @@ export interface CartAddShippingMethodAction {
    *
    *
    */
-  readonly shippingMethod?: ShippingMethodReference
+  readonly shippingMethod: ShippingMethodReference
   /**
    *	Determines the shipping rate and Tax Rate of the Line Items.
    *
    *
    */
-  readonly shippingAddress?: BaseAddress
+  readonly shippingAddress: BaseAddress
   /**
    *	Used as an input to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
    *
