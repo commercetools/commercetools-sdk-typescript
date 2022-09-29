@@ -18,23 +18,23 @@ const client = createClient({
   middlewares: [
     createCorrelationIdMiddleware({ generate }),
     createUserAgentMiddleware({}),
-    createAuthMiddlewareForClientCredentialsFlow({
-      host: 'https://auth.europe-west1.gcp.commercetools.com',
-      projectKey: 'demo-1',
-      credentials: {
-        clientId: process.env.CTP_CLIENT_ID,
-        clientSecret: process.env.CTP_CLIENT_SECRET
-      },
-    }),
-    // createAuthMiddlewareForAnonymousSessionFlow({
+    // createAuthMiddlewareForClientCredentialsFlow({
     //   host: 'https://auth.europe-west1.gcp.commercetools.com',
     //   projectKey: 'demo-1',
     //   credentials: {
     //     clientId: process.env.CTP_CLIENT_ID,
-    //     clientSecret: process.env.CTP_CLIENT_SECRET,
-    //     anonymousId: 'anonymouse-id-123'
+    //     clientSecret: process.env.CTP_CLIENT_SECRET
     //   },
     // }),
+    createAuthMiddlewareForAnonymousSessionFlow({
+      host: 'https://auth.europe-west1.gcp.commercetools.com',
+      projectKey: 'demo-1',
+      credentials: {
+        clientId: process.env.CTP_CLIENT_ID,
+        clientSecret: process.env.CTP_CLIENT_SECRET,
+        anonymousId: 'anonymouse-id-123'
+      },
+    }),
     createQueueMiddleware({ concurrency: 5 }),
     createLoggerMiddleware({ loggerFn: logger }),
     createRetryMiddleware({ enableRetry: true }),
@@ -61,4 +61,4 @@ function execute() {
     .execute()
 }
 
-execute().catch(console.error)
+execute().catch(error => console.error(error, '<<<--', JSON.stringify(error)))

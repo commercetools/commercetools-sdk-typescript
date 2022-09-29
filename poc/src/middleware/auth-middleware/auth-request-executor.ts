@@ -66,22 +66,18 @@ export async function executeRequest(
     const error: any = new Error(parsed ? parsed.message || parsed : text)
     if (parsed) error.body = parsed
 
-    // reject whatever went wrong
-    // request.reject(error)
-
     /**
-     * or instead of rejecting the error,
-     * we can also return the error response
-     * to be handled by the next (retry) middleware
+     * reject the error immediately
+     * and free up the middleware chain
      */
-    return {
+    request.reject({
       ...request,
       headers: { ...request.headers },
       response: {
         error,
         statusCode: response.statusCode || response.status,
       },
-    }
+    })
   } catch (error) {
     // for now - log error to stdout
     console.log(error)

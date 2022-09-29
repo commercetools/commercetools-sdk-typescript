@@ -19,8 +19,7 @@ export default function createAuthMiddlewareForAnonymousSessionFlow(
       // if here is a token in the header, then move on to the next middleware
       if (
         request.headers &&
-        request.headers.Authorization &&
-        request.headers.authorization
+        (request.headers.Authorization || request.headers.authorization)
       ) {
         // move on
         return next(request)

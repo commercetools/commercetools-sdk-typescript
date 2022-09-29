@@ -253,4 +253,8 @@ export type QueueMiddlewareOptions = {
   concurrency: number
 }
 
+export type ExistingTokenMiddlewareOptions = {
+  force: boolean
+}
+
 export type executeRequest = (request: ClientRequest) => Promise<ClientResponse>

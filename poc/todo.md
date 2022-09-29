@@ -22,8 +22,8 @@ Things to do
   - [x] with-client-credentials-flow
   - [x] with-anonymous-session-flow
   - [ ] with-password-flow
-  - [ ] with-refresh-token-flow
-  - [ ] with-existing-token-flow
+  - [x] with-refresh-token-flow
+  - [x] with-existing-token-flow
 - [x] retry-middleware
 - [x] correlation-id-middleware
 - [x] queue-middleware
