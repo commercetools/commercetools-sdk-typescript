@@ -5,6 +5,7 @@ import {
   createQueueMiddleware,
   createUserAgentMiddleware,
   createCorrelationIdMiddleware,
+  createAuthMiddlewareForPasswordFlow,
   createAuthMiddlewareForAnonymousSessionFlow,
   createAuthMiddlewareForClientCredentialsFlow
 } from './middleware'
@@ -18,23 +19,35 @@ const client = createClient({
   middlewares: [
     createCorrelationIdMiddleware({ generate }),
     createUserAgentMiddleware({}),
-    // createAuthMiddlewareForClientCredentialsFlow({
-    //   host: 'https://auth.europe-west1.gcp.commercetools.com',
-    //   projectKey: 'demo-1',
-    //   credentials: {
-    //     clientId: process.env.CTP_CLIENT_ID,
-    //     clientSecret: process.env.CTP_CLIENT_SECRET
-    //   },
-    // }),
-    createAuthMiddlewareForAnonymousSessionFlow({
+    createAuthMiddlewareForClientCredentialsFlow({
       host: 'https://auth.europe-west1.gcp.commercetools.com',
       projectKey: 'demo-1',
       credentials: {
         clientId: process.env.CTP_CLIENT_ID,
-        clientSecret: process.env.CTP_CLIENT_SECRET,
-        anonymousId: 'anonymouse-id-123'
+        clientSecret: process.env.CTP_CLIENT_SECRET
       },
     }),
+    // createAuthMiddlewareForAnonymousSessionFlow({
+    //   host: 'https://auth.europe-west1.gcp.commercetools.com',
+    //   projectKey: 'demo-1',
+    //   credentials: {
+    //     clientId: process.env.CTP_CLIENT_ID,
+    //     clientSecret: process.env.CTP_CLIENT_SECRET,
+    //     anonymousId: 'anonymouse-id-123'
+    //   },
+    // }),
+    // createAuthMiddlewareForPasswordFlow({
+    //   host: 'https://auth.europe-west1.gcp.commercetools.com',
+    //   projectKey: 'demo-1',
+    //   credentials: {
+    //     clientId: process.env.CTP_CLIENT_ID,
+    //     clientSecret: process.env.CTP_CLIENT_SECRET,
+    //     user: {
+    //       username: 'willy.wonka@commercetools.com',
+    //       password: '*****'
+    //     }
+    //   },
+    // }),
     createQueueMiddleware({ concurrency: 5 }),
     createLoggerMiddleware({ loggerFn: logger }),
     createRetryMiddleware({ enableRetry: true }),

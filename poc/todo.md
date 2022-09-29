@@ -18,16 +18,19 @@ Things to do
 - [x] http-middleware
 - [ ] error-middleware
 - [x] logger-middleware\*
+  - [ ] logging using winston\*
 - [ ] auth-middleware\*
   - [x] with-client-credentials-flow
   - [x] with-anonymous-session-flow
-  - [ ] with-password-flow
+  - [x] with-password-flow
   - [x] with-refresh-token-flow
   - [x] with-existing-token-flow
+  - [ ] implement token caching
 - [x] retry-middleware
 - [x] correlation-id-middleware
 - [x] queue-middleware
 - [x] user-agent-middleware
+- [ ] test extensively
 
 Extras
 

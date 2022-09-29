@@ -72,6 +72,7 @@ export { default as createUserAgentMiddleware } from './create-user-agent-middle
 export { default as createQueueMiddleware } from './create-queue-middleware'
 
 export {
+  createAuthMiddlewareForPasswordFlow,
   createAuthMiddlewareForClientCredentialsFlow,
   createAuthMiddlewareForAnonymousSessionFlow
 } from './auth-middleware';
