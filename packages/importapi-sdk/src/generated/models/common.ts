@@ -405,7 +405,7 @@ export interface UnresolvedReferences {
    */
   readonly typeId: ReferenceType
 }
-export type MoneyType = 'centPrecision' | 'highPrecision'
+export type MoneyType = 'centPrecision' | 'highPrecision' | string
 export type TypedMoney = HighPrecisionMoney | Money
 export interface HighPrecisionMoney {
   readonly type: 'highPrecision'
@@ -490,6 +490,7 @@ export type ImportResourceType =
   | 'product-variant'
   | 'product-variant-patch'
   | 'standalone-price'
+  | string
 /**
  *	The type of the referenced resource.
  *
@@ -515,6 +516,7 @@ export type ReferenceType =
   | 'store'
   | 'tax-category'
   | 'type'
+  | string
 /**
  *	Every [Import Operation](/import-operation) is assigned with one of the following states.
  *
@@ -526,6 +528,7 @@ export type ProcessingState =
   | 'unresolved'
   | 'validationFailed'
   | 'waitForMasterVariant'
+  | string
 export interface Address {
   /**
    *
@@ -630,4 +633,4 @@ export interface Address {
    */
   readonly externalId?: string
 }
-export type ProductPriceModeEnum = 'Embedded' | 'Standalone'
+export type ProductPriceModeEnum = 'Embedded' | 'Standalone' | string

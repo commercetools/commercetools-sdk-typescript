@@ -235,6 +235,7 @@ export type ShippingRateTierType =
   | 'CartClassification'
   | 'CartScore'
   | 'CartValue'
+  | string
 export type ShippingRatePriceTier = CartClassificationTier
 export interface CartClassificationTier {
   readonly type: 'CartClassification'
@@ -384,7 +385,7 @@ export interface DiscountedLineItemPriceDraft {
    */
   readonly includedDiscounts: DiscountedLineItemPortion[]
 }
-export type ShippingMethodState = 'DoesNotMatchCart' | 'MatchesCart'
+export type ShippingMethodState = 'DoesNotMatchCart' | 'MatchesCart' | string
 /**
  *	Maps to an order's `shippingInfo` property. This field is usually populated by the cart assosciated with
  *	the order, but when importing orders you must provide a draft representation as a part of the OrderImport.
@@ -565,11 +566,21 @@ export interface TaxedPrice {
 /**
  *	Maps to `Order.taxMode`
  */
-export type TaxMode = 'Disabled' | 'External' | 'ExternalAmount' | 'Platform'
+export type TaxMode =
+  | 'Disabled'
+  | 'External'
+  | 'ExternalAmount'
+  | 'Platform'
+  | string
 /**
  *	Maps to `Order.orderState`.
  */
-export type OrderState = 'Cancelled' | 'Complete' | 'Confirmed' | 'Open'
+export type OrderState =
+  | 'Cancelled'
+  | 'Complete'
+  | 'Confirmed'
+  | 'Open'
+  | string
 /**
  *	Maps to `Order.shipmentState`.
  */
@@ -580,6 +591,7 @@ export type ShipmentState =
   | 'Pending'
   | 'Ready'
   | 'Shipped'
+  | string
 /**
  *	Maps to `Order.paymentState`.
  */
@@ -589,22 +601,23 @@ export type PaymentState =
   | 'Failed'
   | 'Paid'
   | 'Pending'
+  | string
 /**
  *	Maps to `Order.inventoryMode`.
  */
-export type InventoryMode = 'ReserveOnOrder' | 'TrackOnly'
+export type InventoryMode = 'ReserveOnOrder' | 'TrackOnly' | string
 /**
  *	Maps to `Order.taxRoundingMode`.
  */
-export type RoundingMode = 'HalfDown' | 'HalfEven' | 'HalfUp'
+export type RoundingMode = 'HalfDown' | 'HalfEven' | 'HalfUp' | string
 /**
  *	Maps to `Order.taxCalculationMode`.
  */
-export type TaxCalculationMode = 'LineItemLevel' | 'UnitPriceLevel'
+export type TaxCalculationMode = 'LineItemLevel' | 'UnitPriceLevel' | string
 /**
  *	Maps to `Order.origin`.
  */
-export type CartOrigin = 'Customer' | 'Merchant'
+export type CartOrigin = 'Customer' | 'Merchant' | string
 export interface SyncInfo {
   /**
    *	Maps to `SyncInfo.channel`
@@ -632,6 +645,7 @@ export type DiscountCodeState =
   | 'MaxApplicationReached'
   | 'NotActive'
   | 'NotValid'
+  | string
 export interface DiscountCodeInfo {
   /**
    *	References a discount code by key.
@@ -644,7 +658,7 @@ export interface DiscountCodeInfo {
    */
   readonly state?: DiscountCodeState
 }
-export type ShippingRateInputType = 'Classification' | 'Score'
+export type ShippingRateInputType = 'Classification' | 'Score' | string
 export type ShippingRateInput =
   | ClassificationShippingRateInput
   | ScoreShippingRateInput

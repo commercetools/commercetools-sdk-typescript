@@ -399,7 +399,7 @@ export interface CartDraft {
    */
   readonly discountCodes?: string[]
 }
-export type CartOrigin = 'Customer' | 'Merchant' | 'Quote'
+export type CartOrigin = 'Customer' | 'Merchant' | 'Quote' | string
 export interface CartPagedQueryResponse {
   /**
    *	Number of [results requested](/../api/general-concepts#limit).
@@ -464,7 +464,7 @@ export interface CartResourceIdentifier {
    */
   readonly key?: string
 }
-export type CartState = 'Active' | 'Merged' | 'Ordered'
+export type CartState = 'Active' | 'Merged' | 'Ordered' | string
 export interface CartUpdate {
   /**
    *
@@ -670,7 +670,7 @@ export interface CustomLineItemDraft {
    */
   readonly priceMode: CustomLineItemPriceMode
 }
-export type CustomLineItemPriceMode = 'External' | 'Standard'
+export type CustomLineItemPriceMode = 'External' | 'Standard' | string
 export interface CustomShippingDraft {
   /**
    *	User-defined unique identifier of the custom Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
@@ -777,6 +777,7 @@ export type DiscountCodeState =
   | 'MaxApplicationReached'
   | 'NotActive'
   | 'NotValid'
+  | string
 export interface DiscountedLineItemPortion {
   /**
    *
@@ -864,7 +865,7 @@ export interface ExternalTaxRateDraft {
    */
   readonly includedInPrice?: boolean
 }
-export type InventoryMode = 'None' | 'ReserveOnOrder' | 'TrackOnly'
+export type InventoryMode = 'None' | 'ReserveOnOrder' | 'TrackOnly' | string
 export interface ItemShippingDetails {
   /**
    *	Used to map what sub-quantity should be shipped to which address.
@@ -1122,8 +1123,12 @@ export interface LineItemDraft {
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
 }
-export type LineItemMode = 'GiftLineItem' | 'Standard'
-export type LineItemPriceMode = 'ExternalPrice' | 'ExternalTotal' | 'Platform'
+export type LineItemMode = 'GiftLineItem' | 'Standard' | string
+export type LineItemPriceMode =
+  | 'ExternalPrice'
+  | 'ExternalTotal'
+  | 'Platform'
+  | string
 export interface MethodTaxRate {
   /**
    *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
@@ -1163,7 +1168,7 @@ export interface ReplicaCartDraft {
    */
   readonly key?: string
 }
-export type RoundingMode = 'HalfDown' | 'HalfEven' | 'HalfUp'
+export type RoundingMode = 'HalfDown' | 'HalfEven' | 'HalfUp' | string
 export interface Shipping {
   /**
    *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
@@ -1302,8 +1307,8 @@ export interface ShippingInfo {
    */
   readonly shippingMethodState: ShippingMethodState
 }
-export type ShippingMethodState = 'DoesNotMatchCart' | 'MatchesCart'
-export type ShippingMode = 'Multiple' | 'Single'
+export type ShippingMethodState = 'DoesNotMatchCart' | 'MatchesCart' | string
+export type ShippingMode = 'Multiple' | 'Single' | string
 export type ShippingRateInput =
   | ClassificationShippingRateInput
   | ScoreShippingRateInput
@@ -1344,8 +1349,13 @@ export interface ScoreShippingRateInputDraft {
    */
   readonly score: number
 }
-export type TaxCalculationMode = 'LineItemLevel' | 'UnitPriceLevel'
-export type TaxMode = 'Disabled' | 'External' | 'ExternalAmount' | 'Platform'
+export type TaxCalculationMode = 'LineItemLevel' | 'UnitPriceLevel' | string
+export type TaxMode =
+  | 'Disabled'
+  | 'External'
+  | 'ExternalAmount'
+  | 'Platform'
+  | string
 export interface TaxPortion {
   /**
    *
@@ -2529,4 +2539,4 @@ export interface CustomLineItemImportDraft {
 /**
  *	The scope controls which part of the product information is published.
  */
-export type ProductPublishScope = 'All' | 'Prices'
+export type ProductPublishScope = 'All' | 'Prices' | string

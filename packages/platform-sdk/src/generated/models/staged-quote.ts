@@ -229,7 +229,7 @@ export interface StagedQuoteResourceIdentifier {
  *	Predefined states tracking the status of the Staged Quote.
  *
  */
-export type StagedQuoteState = 'Closed' | 'InProgress' | 'Sent'
+export type StagedQuoteState = 'Closed' | 'InProgress' | 'Sent' | string
 export interface StagedQuoteUpdate {
   /**
    *

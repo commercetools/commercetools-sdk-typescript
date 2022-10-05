@@ -587,12 +587,12 @@ export interface MultiBuyLineItemsTarget {
  *	Defines which matching items are to be discounted.
  *
  */
-export type SelectionMode = 'Cheapest' | 'MostExpensive'
+export type SelectionMode = 'Cheapest' | 'MostExpensive' | string
 /**
  *	Describes how the Cart Discount interacts with other Discounts.
  *
  */
-export type StackingMode = 'Stacking' | 'StopAfterThisDiscount'
+export type StackingMode = 'Stacking' | 'StopAfterThisDiscount' | string
 export interface CartDiscountChangeCartPredicateAction {
   readonly action: 'changeCartPredicate'
   /**

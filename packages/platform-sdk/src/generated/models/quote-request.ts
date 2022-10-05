@@ -354,6 +354,7 @@ export type QuoteRequestState =
   | 'Closed'
   | 'Rejected'
   | 'Submitted'
+  | string
 export interface QuoteRequestUpdate {
   /**
    *

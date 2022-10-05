@@ -933,7 +933,12 @@ export interface OrderSearchRequest {
    */
   readonly offset?: number
 }
-export type OrderState = 'Cancelled' | 'Complete' | 'Confirmed' | 'Open'
+export type OrderState =
+  | 'Cancelled'
+  | 'Complete'
+  | 'Confirmed'
+  | 'Open'
+  | string
 export interface OrderUpdate {
   /**
    *
@@ -1080,6 +1085,7 @@ export type PaymentState =
   | 'Failed'
   | 'Paid'
   | 'Pending'
+  | string
 export interface ProductVariantImportDraft {
   /**
    *	The sequential ID of the variant within the product.
@@ -1258,11 +1264,13 @@ export type ReturnPaymentState =
   | 'NonRefundable'
   | 'NotRefunded'
   | 'Refunded'
+  | string
 export type ReturnShipmentState =
   | 'Advised'
   | 'BackInStock'
   | 'Returned'
   | 'Unusable'
+  | string
 export type ShipmentState =
   | 'Backorder'
   | 'Delayed'
@@ -1271,6 +1279,7 @@ export type ShipmentState =
   | 'Pending'
   | 'Ready'
   | 'Shipped'
+  | string
 export interface ShippingInfoImportDraft {
   /**
    *

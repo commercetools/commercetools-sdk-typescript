@@ -662,7 +662,7 @@ export interface Money {
 /**
  *	MoneyType supports two different values, one for amounts in cent precision and another one for sub-cent amounts up to 20 fraction digits.
  */
-export type MoneyType = 'centPrecision' | 'highPrecision'
+export type MoneyType = 'centPrecision' | 'highPrecision' | string
 /**
  *	The representation for prices embedded in [LineItems](ctp:api:type:LineItem) and in [ProductVariants](ctp:api:type:ProductVariant) when the [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) is `Embedded`.
  *	For the `Standalone` ProductPriceMode refer to [StandalonePrice](ctp:api:type:StandalonePrice).
@@ -976,6 +976,7 @@ export type ReferenceTypeId =
   | 'tax-category'
   | 'type'
   | 'zone'
+  | string
 /**
  *	Draft type to create a [Reference](ctp:api:type:Reference) or a [KeyReference](ctp:api:type:KeyReference) to a resource. Provide either the `id` or (wherever supported) the `key` of the resource to reference, but depending on the API endpoint the response returns either a Reference or a KeyReference. For example, the field `parent` of a [CategoryDraft](ctp:api:type:CategoryDraft) takes a ResourceIdentifier for its value while the value of the corresponding field of a [Category](ctp:api:type:Category) is a Reference.
  *

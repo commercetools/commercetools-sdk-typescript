@@ -107,7 +107,7 @@ export interface ImportOperationPagedResponse {
  *	Describes the validation state of a newly created [ImportOperation](#importoperation).
  *
  */
-export type ImportOperationState = 'processing' | 'validationFailed'
+export type ImportOperationState = 'processing' | 'validationFailed' | string
 export interface ImportOperationStatus {
   /**
    *	The ID of the [ImportOperation](#importoperation).

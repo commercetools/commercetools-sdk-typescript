@@ -74,7 +74,7 @@ export interface Extension extends BaseResource {
  *	An Extension gets called during any of the following requests of an API call, but before the result is persisted.
  *
  */
-export type ExtensionAction = 'Create' | 'Update'
+export type ExtensionAction = 'Create' | 'Update' | string
 /**
  *	Generic type for destinations.
  */
@@ -201,6 +201,7 @@ export type ExtensionResourceTypeId =
   | 'quote'
   | 'quote-request'
   | 'staged-quote'
+  | string
 export interface ExtensionTrigger {
   /**
    *	`cart`, `order`, `payment`, `customer`, `quote-request`, `staged-quote`, and `quote` are supported.

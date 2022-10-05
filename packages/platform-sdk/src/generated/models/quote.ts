@@ -372,6 +372,7 @@ export type QuoteState =
   | 'Failed'
   | 'Pending'
   | 'Withdrawn'
+  | string
 export interface QuoteUpdate {
   /**
    *

@@ -43,6 +43,7 @@ export type ReferenceTypeId =
   | 'tax-category'
   | 'type'
   | 'zone'
+  | string
 export type Reference =
   | CategoryReference
   | ProductReference
@@ -88,7 +89,7 @@ export interface ProductVariant {
    */
   readonly variantId: number
 }
-export type TaskStatusEnum = 'PENDING' | 'SUCCESS'
+export type TaskStatusEnum = 'PENDING' | 'SUCCESS' | string
 /**
  *	Represents a URL path to poll to get the results of an Asynchronous Request.
  */

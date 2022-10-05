@@ -44,7 +44,7 @@ export interface ExternalOAuth {
 /**
  *	Specifies the status of the [Order Search](/../api/projects/order-search) index.
  */
-export type OrderSearchStatus = 'Activated' | 'Deactivated'
+export type OrderSearchStatus = 'Activated' | 'Deactivated' | string
 export interface Project {
   /**
    *	Current version of the Project.
@@ -181,6 +181,7 @@ export type SearchIndexingConfigurationStatus =
   | 'Activated'
   | 'Deactivated'
   | 'Indexing'
+  | string
 export interface SearchIndexingConfigurationValues {
   /**
    *	Current status of resource indexing. Present on Projects from 1 February 2019.

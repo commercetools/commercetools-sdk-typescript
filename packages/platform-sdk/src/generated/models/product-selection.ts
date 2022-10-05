@@ -309,7 +309,7 @@ export interface IndividualProductSelectionType {
  *	The following type of Product Selections is supported:
  *
  */
-export type ProductSelectionTypeEnum = 'individual'
+export type ProductSelectionTypeEnum = 'individual' | string
 export interface ProductSelectionUpdate {
   /**
    *
@@ -361,7 +361,7 @@ export interface ProductVariantSelectionInclusion {
    */
   readonly skus: string[]
 }
-export type ProductVariantSelectionTypeEnum = 'exclusion' | 'inclusion'
+export type ProductVariantSelectionTypeEnum = 'exclusion' | 'inclusion' | string
 /**
  *	[PagedQueryResult](/general-concepts#pagedqueryresult) containing an array of [ProductSelectionAssignment](ctp:api:type:ProductSelectionAssignment).
  *
