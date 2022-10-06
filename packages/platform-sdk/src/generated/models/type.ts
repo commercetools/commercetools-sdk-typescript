@@ -291,6 +291,7 @@ export type ResourceTypeId =
   | 'shipping-method'
   | 'shopping-list'
   | 'shopping-list-text-line-item'
+  | 'standalone-price'
   | 'store'
   | 'transaction'
   | string
