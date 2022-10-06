@@ -5,6 +5,10 @@
  */
 
 import {
+  BusinessUnitKeyReference,
+  BusinessUnitResourceIdentifier,
+} from './business-unit'
+import {
   CartDiscountReference,
   CartDiscountTarget,
   CartDiscountValue,
@@ -100,6 +104,12 @@ export interface Cart extends BaseResource {
    *
    */
   readonly anonymousId?: string
+  /**
+   *	The Business Unit the Cart belongs to.
+   *
+   *
+   */
+  readonly businessUnit?: BusinessUnitKeyReference
   /**
    *
    */
@@ -281,6 +291,12 @@ export interface CartDraft {
    *
    */
   readonly anonymousId?: string
+  /**
+   *	The Business Unit the Cart belongs to.
+   *
+   *
+   */
+  readonly businessUnit?: BusinessUnitResourceIdentifier
   /**
    *	Assigns the new cart to the store.
    *	The store assignment can not be modified.

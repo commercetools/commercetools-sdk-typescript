@@ -4,6 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { BusinessUnitKeyReference } from './business-unit'
 import { CartReference } from './cart'
 import { BaseResource, CreatedBy, LastModifiedBy } from './common'
 import { CustomerReference } from './customer'
@@ -109,6 +110,12 @@ export interface StagedQuote extends BaseResource {
    *
    */
   readonly state?: StateReference
+  /**
+   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Staged Quote.
+   *
+   *
+   */
+  readonly businessUnit?: BusinessUnitKeyReference
 }
 export interface StagedQuoteDraft {
   /**

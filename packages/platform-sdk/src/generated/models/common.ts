@@ -4,6 +4,11 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import {
+  BusinessUnitKeyReference,
+  BusinessUnitReference,
+  BusinessUnitResourceIdentifier,
+} from './business-unit'
 import { CartReference, CartResourceIdentifier } from './cart'
 import {
   CartDiscountReference,
@@ -599,7 +604,7 @@ export interface ImageDimensions {
  *	A KeyReference represents a loose reference to another resource in the same Project identified by the resource's `key` field. If available, the `key` is immutable and mandatory. KeyReferences do not support [Reference Expansion](/general-concepts#reference-expansion).
  *
  */
-export type KeyReference = StoreKeyReference
+export type KeyReference = BusinessUnitKeyReference | StoreKeyReference
 /**
  *	Present on resources modified after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
  */
@@ -912,6 +917,7 @@ export interface QueryPrice {
  *
  */
 export type Reference =
+  | BusinessUnitReference
   | CartDiscountReference
   | CartReference
   | CategoryReference
@@ -945,6 +951,7 @@ export type Reference =
  *
  */
 export type ReferenceTypeId =
+  | 'business-unit'
   | 'cart'
   | 'cart-discount'
   | 'category'
@@ -984,6 +991,7 @@ export type ReferenceTypeId =
  *
  */
 export type ResourceIdentifier =
+  | BusinessUnitResourceIdentifier
   | CartDiscountResourceIdentifier
   | CartResourceIdentifier
   | CategoryResourceIdentifier

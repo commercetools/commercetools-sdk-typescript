@@ -5,6 +5,10 @@
  */
 
 import {
+  BusinessUnitKeyReference,
+  BusinessUnitResourceIdentifier,
+} from './business-unit'
+import {
   CartOrigin,
   CartReference,
   CartResourceIdentifier,
@@ -483,6 +487,12 @@ export interface Order extends BaseResource {
    */
   readonly anonymousId?: string
   /**
+   *	The Business Unit the Order belongs to.
+   *
+   *
+   */
+  readonly businessUnit?: BusinessUnitKeyReference
+  /**
    *
    */
   readonly store?: StoreKeyReference
@@ -846,6 +856,12 @@ export interface OrderImportDraft {
    *
    */
   readonly itemShippingAddresses?: BaseAddress[]
+  /**
+   *	The Business Unit the Cart belongs to.
+   *
+   *
+   */
+  readonly businessUnit?: BusinessUnitResourceIdentifier
   /**
    *
    */

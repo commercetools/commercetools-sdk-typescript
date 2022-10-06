@@ -9,6 +9,7 @@
 //Root client that is used to access all the endpoints in the API
 export * from './client/api-root'
 export * from './models/api-client'
+export * from './models/business-unit'
 export * from './models/cart'
 export * from './models/cart-discount'
 export * from './models/category'

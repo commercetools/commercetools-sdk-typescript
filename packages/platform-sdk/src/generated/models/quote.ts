@@ -4,6 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { BusinessUnitKeyReference } from './business-unit'
 import {
   CustomLineItem,
   DirectDiscount,
@@ -246,6 +247,12 @@ export interface Quote extends BaseResource {
    *
    */
   readonly state?: StateReference
+  /**
+   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Quote.
+   *
+   *
+   */
+  readonly businessUnit?: BusinessUnitKeyReference
 }
 export interface QuoteDraft {
   /**

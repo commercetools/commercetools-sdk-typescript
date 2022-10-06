@@ -4,6 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { BusinessUnitKeyReference } from './business-unit'
 import {
   CartResourceIdentifier,
   CustomLineItem,
@@ -224,6 +225,12 @@ export interface QuoteRequest extends BaseResource {
    *
    */
   readonly state?: StateReference
+  /**
+   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Quote Request.
+   *
+   *
+   */
+  readonly businessUnit?: BusinessUnitKeyReference
 }
 export interface QuoteRequestDraft {
   /**

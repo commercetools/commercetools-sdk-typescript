@@ -8,6 +8,17 @@ import { LastModifiedBy } from './common'
 import { MessagesConfiguration, MessagesConfigurationDraft } from './message'
 import { CustomFieldLocalizedEnumValue } from './type'
 
+export interface BusinessUnitConfiguration {
+  /**
+   *	Status of Business Units created using the [My Business Unit endpoint](/../api/projects/me-business-units#create-businessunit).
+   *
+   */
+  readonly myBusinessUnitStatusOnCreation: BusinessUnitConfigurationStatus
+}
+/**
+ *	Default value for [Business Unit Status](ctp:api:type:BusinessUnitStatus) configured though [Project settings](/../api/projects/project#change-my-business-unit-status-on-creation).
+ */
+export type BusinessUnitConfigurationStatus = 'Active' | 'Inactive' | string
 export interface CartsConfiguration {
   /**
    *	Default value for the `deleteDaysAfterLastModification` parameter of the [CartDraft](ctp:api:type:CartDraft). This field may not be present on Projects created before January 2020.
@@ -130,6 +141,12 @@ export interface Project {
    *
    */
   readonly searchIndexing?: SearchIndexingConfiguration
+  /**
+   *	Holds configuration specific to [Business Units](ctp:api:type:BusinessUnit).
+   *
+   *
+   */
+  readonly businessUnits?: BusinessUnitConfiguration
 }
 export interface ProjectUpdate {
   /**
@@ -146,6 +163,7 @@ export interface ProjectUpdate {
   readonly actions: ProjectUpdateAction[]
 }
 export type ProjectUpdateAction =
+  | ProjectChangeBusinessUnitStatusOnCreationAction
   | ProjectChangeCartsConfigurationAction
   | ProjectChangeCountriesAction
   | ProjectChangeCountryTaxRateFallbackEnabledAction
@@ -243,6 +261,15 @@ export interface ShoppingListsConfiguration {
    *
    */
   readonly deleteDaysAfterLastModification?: number
+}
+export interface ProjectChangeBusinessUnitStatusOnCreationAction {
+  readonly action: 'changeMyBusinessUnitStatusOnCreation'
+  /**
+   *	Status for Business Units created using the [My Business Unit endpoint](/../api/projects/me-business-units#create-businessunit).
+   *
+   *
+   */
+  readonly status: BusinessUnitConfigurationStatus
 }
 export interface ProjectChangeCartsConfigurationAction {
   readonly action: 'changeCartsConfiguration'

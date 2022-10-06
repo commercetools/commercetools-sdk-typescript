@@ -194,6 +194,7 @@ export interface ExtensionPagedQueryResponse {
  *
  */
 export type ExtensionResourceTypeId =
+  | 'business-unit'
   | 'cart'
   | 'customer'
   | 'order'
@@ -204,7 +205,7 @@ export type ExtensionResourceTypeId =
   | string
 export interface ExtensionTrigger {
   /**
-   *	`cart`, `order`, `payment`, `customer`, `quote-request`, `staged-quote`, and `quote` are supported.
+   *	`cart`, `order`, `payment`, `customer`, `quote-request`, `staged-quote`, `quote`, and `business-unit` are supported.
    *
    *
    */
