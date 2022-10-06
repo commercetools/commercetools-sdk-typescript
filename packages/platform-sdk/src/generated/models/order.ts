@@ -5,6 +5,10 @@
  */
 
 import {
+  BusinessUnitKeyReference,
+  BusinessUnitResourceIdentifier,
+} from './business-unit'
+import {
   CartOrigin,
   CartReference,
   CartResourceIdentifier,
@@ -483,6 +487,12 @@ export interface Order extends BaseResource {
    */
   readonly anonymousId?: string
   /**
+   *	The Business Unit the Order belongs to.
+   *
+   *
+   */
+  readonly businessUnit?: BusinessUnitKeyReference
+  /**
    *
    */
   readonly store?: StoreKeyReference
@@ -847,6 +857,12 @@ export interface OrderImportDraft {
    */
   readonly itemShippingAddresses?: BaseAddress[]
   /**
+   *	The Business Unit the Cart belongs to.
+   *
+   *
+   */
+  readonly businessUnit?: BusinessUnitResourceIdentifier
+  /**
    *
    */
   readonly store?: StoreResourceIdentifier
@@ -933,7 +949,12 @@ export interface OrderSearchRequest {
    */
   readonly offset?: number
 }
-export type OrderState = 'Cancelled' | 'Complete' | 'Confirmed' | 'Open'
+export type OrderState =
+  | 'Cancelled'
+  | 'Complete'
+  | 'Confirmed'
+  | 'Open'
+  | string
 export interface OrderUpdate {
   /**
    *
@@ -1080,6 +1101,7 @@ export type PaymentState =
   | 'Failed'
   | 'Paid'
   | 'Pending'
+  | string
 export interface ProductVariantImportDraft {
   /**
    *	The sequential ID of the variant within the product.
@@ -1258,18 +1280,22 @@ export type ReturnPaymentState =
   | 'NonRefundable'
   | 'NotRefunded'
   | 'Refunded'
+  | string
 export type ReturnShipmentState =
   | 'Advised'
   | 'BackInStock'
   | 'Returned'
   | 'Unusable'
+  | string
 export type ShipmentState =
   | 'Backorder'
   | 'Delayed'
+  | 'Delivered'
   | 'Partial'
   | 'Pending'
   | 'Ready'
   | 'Shipped'
+  | string
 export interface ShippingInfoImportDraft {
   /**
    *

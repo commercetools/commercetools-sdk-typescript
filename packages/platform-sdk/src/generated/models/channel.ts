@@ -243,6 +243,7 @@ export type ChannelRoleEnum =
   | 'OrderImport'
   | 'Primary'
   | 'ProductDistribution'
+  | string
 export interface ChannelUpdate {
   /**
    *	Expected version of the Channel on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.

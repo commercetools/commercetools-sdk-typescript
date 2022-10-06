@@ -27,7 +27,8 @@ import {
 export type AnonymousCartSignInMode =
   | 'MergeWithExistingCustomerCart'
   | 'UseAsNewActiveCustomerCart'
-export type AuthenticationMode = 'ExternalAuth' | 'Password'
+  | string
+export type AuthenticationMode = 'ExternalAuth' | 'Password' | string
 export interface Customer extends BaseResource {
   /**
    *	Unique identifier of the Customer.

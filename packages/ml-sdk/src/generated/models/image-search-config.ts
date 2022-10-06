@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
-export type ImageSearchConfigStatus = 'off' | 'on'
+export type ImageSearchConfigStatus = 'off' | 'on' | string
 export type ImageSearchConfigUpdateAction = ChangeStatusUpdateAction
 export interface ChangeStatusUpdateAction {
   readonly action: 'changeStatus'

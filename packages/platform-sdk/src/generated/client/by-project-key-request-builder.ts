@@ -7,6 +7,7 @@ import { Project, ProjectUpdate } from '../models/project'
 import { executeRequest } from '../shared/utils/common-types'
 import { ApiRequest } from '../shared/utils/requests-utils'
 import { ByProjectKeyApiClientsRequestBuilder } from './api-clients/by-project-key-api-clients-request-builder'
+import { ByProjectKeyBusinessUnitsRequestBuilder } from './business-units/by-project-key-business-units-request-builder'
 import { ByProjectKeyCartDiscountsRequestBuilder } from './cart-discounts/by-project-key-cart-discounts-request-builder'
 import { ByProjectKeyCartsRequestBuilder } from './carts/by-project-key-carts-request-builder'
 import { ByProjectKeyCategoriesRequestBuilder } from './categories/by-project-key-categories-request-builder'
@@ -17,6 +18,7 @@ import { ByProjectKeyCustomersRequestBuilder } from './customers/by-project-key-
 import { ByProjectKeyDiscountCodesRequestBuilder } from './discount-codes/by-project-key-discount-codes-request-builder'
 import { ByProjectKeyExtensionsRequestBuilder } from './extensions/by-project-key-extensions-request-builder'
 import { ByProjectKeyGraphqlRequestBuilder } from './graphql/by-project-key-graphql-request-builder'
+import { ByProjectKeyInBusinessUnitKeyByBusinessUnitKeyRequestBuilder } from './in-business-unit/by-project-key-in-business-unit-key-by-business-unit-key-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyRequestBuilder } from './in-store/by-project-key-in-store-key-by-store-key-request-builder'
 import { ByProjectKeyInventoryRequestBuilder } from './inventory/by-project-key-inventory-request-builder'
 import { ByProjectKeyLoginRequestBuilder } from './login/by-project-key-login-request-builder'
@@ -54,6 +56,18 @@ export class ByProjectKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	A Business Unit can represent a Company or a Division.
+   */
+  public businessUnits(): ByProjectKeyBusinessUnitsRequestBuilder {
+    return new ByProjectKeyBusinessUnitsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
   /**
    *	Categories are used to organize products in a hierarchical structure.
    */
@@ -494,6 +508,18 @@ export class ByProjectKeyRequestBuilder {
     return new ByProjectKeyStandalonePricesRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public inBusinessUnitKeyWithBusinessUnitKeyValue(childPathArgs: {
+    businessUnitKey: string
+  }): ByProjectKeyInBusinessUnitKeyByBusinessUnitKeyRequestBuilder {
+    return new ByProjectKeyInBusinessUnitKeyByBusinessUnitKeyRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+        ...childPathArgs,
       },
       executeRequest: this.args.executeRequest,
       baseUri: this.args.baseUri,

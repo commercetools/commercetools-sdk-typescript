@@ -229,7 +229,7 @@ export interface StateResourceIdentifier {
  *	For some resource types, a State can fulfill the following predefined roles:
  *
  */
-export type StateRoleEnum = 'Return' | 'ReviewIncludedInStatistics'
+export type StateRoleEnum = 'Return' | 'ReviewIncludedInStatistics' | string
 /**
  *	Resource or object type the State can be assigned to.
  *
@@ -243,6 +243,7 @@ export type StateTypeEnum =
   | 'QuoteState'
   | 'ReviewState'
   | 'StagedQuoteState'
+  | string
 export interface StateUpdate {
   /**
    *	Expected version of the State on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.

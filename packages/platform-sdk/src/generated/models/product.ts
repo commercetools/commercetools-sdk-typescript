@@ -126,7 +126,7 @@ export interface FacetTerm {
    */
   readonly productCount?: number
 }
-export type FacetTypes = 'filter' | 'range' | 'terms'
+export type FacetTypes = 'filter' | 'range' | 'terms' | string
 export interface FilteredFacetResult {
   readonly type: 'filter'
   /**
@@ -480,7 +480,7 @@ export interface ProductPagedQueryResponse {
  *	This mode determines the type of Prices used for [Product Price Selection](ctp:api:type:ProductPriceSelection) as well as for [LineItem Price selection](ctp:api:type:CartLineItemPriceSelection).
  *
  */
-export type ProductPriceModeEnum = 'Embedded' | 'Standalone'
+export type ProductPriceModeEnum = 'Embedded' | 'Standalone' | string
 export interface ProductProjection extends BaseResource {
   /**
    *	The unique ID of the Product.
@@ -1006,6 +1006,7 @@ export type TermFacetResultType =
   | 'number'
   | 'text'
   | 'time'
+  | string
 /**
  *	Creates tokens by splitting the `text` field in [SearchKeyword](ctp:api:type:SearchKeyword) by whitespaces.
  *

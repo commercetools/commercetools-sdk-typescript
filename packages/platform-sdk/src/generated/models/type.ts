@@ -64,6 +64,7 @@ export type CustomFieldReferenceValue =
   | 'shipping-method'
   | 'state'
   | 'zone'
+  | string
 /**
  *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
  *
@@ -266,6 +267,7 @@ export interface CustomFieldTimeType {
 export type ResourceTypeId =
   | 'address'
   | 'asset'
+  | 'business-unit'
   | 'cart-discount'
   | 'category'
   | 'channel'
@@ -291,6 +293,7 @@ export type ResourceTypeId =
   | 'shopping-list-text-line-item'
   | 'store'
   | 'transaction'
+  | string
 export interface Type extends BaseResource {
   /**
    *	Unique identifier of the Type.
@@ -468,7 +471,7 @@ export interface TypeResourceIdentifier {
  *	Provides a visual representation type for this field. It is only relevant for string-based field types like [CustomFieldStringType](ctp:api:type:CustomFieldStringType) and [CustomFieldLocalizedStringType](ctp:api:type:CustomFieldLocalizedStringType). Following values are supported:
  *
  */
-export type TypeTextInputHint = 'MultiLine' | 'SingleLine'
+export type TypeTextInputHint = 'MultiLine' | 'SingleLine' | string
 export interface TypeUpdate {
   /**
    *	Expected version of the type on which the changes should be applied.

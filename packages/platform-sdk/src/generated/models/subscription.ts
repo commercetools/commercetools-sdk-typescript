@@ -365,6 +365,7 @@ export type SubscriptionHealthStatus =
   | 'ConfigurationErrorDeliveryStopped'
   | 'Healthy'
   | 'TemporaryError'
+  | string
 export interface SubscriptionPagedQueryResponse {
   /**
    *	Number of [results requested](/../api/general-concepts#limit).

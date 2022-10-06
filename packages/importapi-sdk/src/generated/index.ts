@@ -25,6 +25,7 @@ export * from './models/productdrafts'
 export * from './models/products'
 export * from './models/producttypes'
 export * from './models/productvariants'
+export * from './models/standalone-prices'
 //Common package
 export * from './shared/utils/common-types'
 export * from './shared/utils/middleware'

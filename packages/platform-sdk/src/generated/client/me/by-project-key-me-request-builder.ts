@@ -8,6 +8,7 @@ import { MyCustomerUpdate } from '../../models/me'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyMeActiveCartRequestBuilder } from '../active-cart/by-project-key-me-active-cart-request-builder'
+import { ByProjectKeyMeBusinessUnitsRequestBuilder } from '../business-units/by-project-key-me-business-units-request-builder'
 import { ByProjectKeyMeCartsRequestBuilder } from '../carts/by-project-key-me-carts-request-builder'
 import { ByProjectKeyMeEmailConfirmRequestBuilder } from '../confirm/by-project-key-me-email-confirm-request-builder'
 import { ByProjectKeyMeLoginRequestBuilder } from '../login/by-project-key-me-login-request-builder'
@@ -67,6 +68,18 @@ export class ByProjectKeyMeRequestBuilder {
   }
   public activeCart(): ByProjectKeyMeActiveCartRequestBuilder {
     return new ByProjectKeyMeActiveCartRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	MyBusinessUnit creates and provides access to Business Units scoped to a specific user.
+   */
+  public businessUnits(): ByProjectKeyMeBusinessUnitsRequestBuilder {
+    return new ByProjectKeyMeBusinessUnitsRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },

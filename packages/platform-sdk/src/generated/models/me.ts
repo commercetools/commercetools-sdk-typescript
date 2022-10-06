@@ -5,6 +5,16 @@
  */
 
 import {
+  BusinessUnitKeyReference,
+  BusinessUnitResourceIdentifier,
+  BusinessUnitUpdateAction,
+  MyBusinessUnitChangeAssociateAction,
+  MyBusinessUnitChangeNameAction,
+  MyBusinessUnitChangeParentUnitAction,
+  MyBusinessUnitSetDefaultBillingAddressAction,
+  MyBusinessUnitSetDefaultShippingAddressAction,
+} from './business-unit'
+import {
   CartReference,
   CartResourceIdentifier,
   ExternalLineItemTotalPrice,
@@ -16,7 +26,7 @@ import {
 } from './cart'
 import { ChannelResourceIdentifier } from './channel'
 import { BaseAddress, LocalizedString, Money, TypedMoney } from './common'
-import { CustomerReference } from './customer'
+import { CustomerReference, CustomerResourceIdentifier } from './customer'
 import { DiscountCodeReference } from './discount-code'
 import { OrderReference } from './order'
 import {
@@ -36,6 +46,55 @@ import {
   TypeResourceIdentifier,
 } from './type'
 
+export interface MyBusinessUnitAssociateDraft {
+  /**
+   *	Expected version of the BusinessUnit on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	[Customer](ctp:api:type:Customer) to create and assign to the Business Unit.
+   *
+   *
+   */
+  readonly customer: MyCustomerDraft
+}
+export type MyBusinessUnitDraft = MyCompanyDraft | MyDivisionDraft
+export interface MyBusinessUnitUpdate {
+  /**
+   *	Expected version of the BusinessUnit on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	Update actions to be performed on the BusinessUnit.
+   *
+   *
+   */
+  readonly actions: BusinessUnitUpdateAction[]
+}
+export type MyBusinessUnitUpdateAction =
+  | MyBusinessUnitAddAddressAction
+  | MyBusinessUnitAddBillingAddressIdAction
+  | MyBusinessUnitAddShippingAddressIdAction
+  | MyBusinessUnitChangeAddressAction
+  | MyBusinessUnitChangeAssociateAction
+  | MyBusinessUnitChangeNameAction
+  | MyBusinessUnitChangeParentUnitAction
+  | MyBusinessUnitRemoveAddressAction
+  | MyBusinessUnitRemoveAssociateAction
+  | MyBusinessUnitRemoveBillingAddressIdAction
+  | MyBusinessUnitRemoveShippingAddressIdAction
+  | MyBusinessUnitSetAddressCustomFieldAction
+  | MyBusinessUnitSetAddressCustomTypeAction
+  | MyBusinessUnitSetContactEmailAction
+  | MyBusinessUnitSetCustomFieldAction
+  | MyBusinessUnitSetCustomTypeAction
+  | MyBusinessUnitSetDefaultBillingAddressAction
+  | MyBusinessUnitSetDefaultShippingAddressAction
 export interface MyCartDraft {
   /**
    *	A three-digit currency code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
@@ -99,6 +158,12 @@ export interface MyCartDraft {
    */
   readonly itemShippingAddresses?: BaseAddress[]
   /**
+   *	The BusinessUnit the cart will belong to.
+   *
+   *
+   */
+  readonly businessUnit?: BusinessUnitKeyReference
+  /**
    *	[Reference](/../api/types#reference) to a [Store](ctp:api:type:Store) by its key.
    *
    *
@@ -148,6 +213,70 @@ export type MyCartUpdateAction =
   | MyCartSetShippingAddressAction
   | MyCartSetShippingMethodAction
   | MyCartUpdateItemShippingAddressAction
+/**
+ *	Draft type to represent the top level of a business.
+ *	Contains the fields and values of the generic [MyBusinessUnitDraft](ctp:api:type:BusinessUnitDraft) that are used specifically for creating a [Company](ctp:api:type:Company).
+ *
+ */
+export interface MyCompanyDraft {
+  readonly unitType: 'Company'
+  /**
+   *	User-defined unique identifier for the BusinessUnit.
+   *
+   *
+   */
+  readonly key: string
+  /**
+   *	Name of the Business Unit.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	Email address of the Business Unit.
+   *
+   *
+   */
+  readonly contactEmail?: string
+  /**
+   *	Custom Fields for the Business Unit.
+   *
+   *
+   */
+  readonly custom?: CustomFields
+  /**
+   *	Addresses used by the Business Unit.
+   *
+   *
+   */
+  readonly addresses?: BaseAddress[]
+  /**
+   *	Indexes of entries in `addresses` to set as shipping addresses.
+   *	The `shippingAddressIds` of the [Customer](ctp:api:type:Customer) will be replaced by these addresses.
+   *
+   *
+   */
+  readonly shippingAddresses?: number[]
+  /**
+   *	Index of the entry in `addresses` to set as the default shipping address.
+   *
+   *
+   */
+  readonly defaultShipingAddress?: number
+  /**
+   *	Indexes of entries in `addresses` to set as billing addresses.
+   *	The `billingAddressIds` of the [Customer](ctp:api:type:Customer) will be replaced by these addresses.
+   *
+   *
+   */
+  readonly billingAddresses?: number[]
+  /**
+   *	Index of the entry in `addresses` to set as the default billing address.
+   *
+   *
+   */
+  readonly defaultBillingAddress?: number
+}
 export interface MyCustomerDraft {
   /**
    *
@@ -248,6 +377,76 @@ export type MyCustomerUpdateAction =
   | MyCustomerSetSalutationAction
   | MyCustomerSetTitleAction
   | MyCustomerSetVatIdAction
+/**
+ *	Draft type to model divisions that are part of the [Company](ctp:api:type:Company) or a higher order [Division](ctp:api:type:Division).
+ *	Contains the fields and values of the generic [MyBusinessUnitDraft](ctp:api:type:MyBusinessUnitDraft) that are used specifically for creating a Division.
+ *
+ */
+export interface MyDivisionDraft {
+  readonly unitType: 'Division'
+  /**
+   *	User-defined unique identifier for the BusinessUnit.
+   *
+   *
+   */
+  readonly key: string
+  /**
+   *	Name of the Business Unit.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	Email address of the Business Unit.
+   *
+   *
+   */
+  readonly contactEmail?: string
+  /**
+   *	Custom Fields for the Business Unit.
+   *
+   *
+   */
+  readonly custom?: CustomFields
+  /**
+   *	Addresses used by the Business Unit.
+   *
+   *
+   */
+  readonly addresses?: BaseAddress[]
+  /**
+   *	Indexes of entries in `addresses` to set as shipping addresses.
+   *	The `shippingAddressIds` of the [Customer](ctp:api:type:Customer) will be replaced by these addresses.
+   *
+   *
+   */
+  readonly shippingAddresses?: number[]
+  /**
+   *	Index of the entry in `addresses` to set as the default shipping address.
+   *
+   *
+   */
+  readonly defaultShipingAddress?: number
+  /**
+   *	Indexes of entries in `addresses` to set as billing addresses.
+   *	The `billingAddressIds` of the [Customer](ctp:api:type:Customer) will be replaced by these addresses.
+   *
+   *
+   */
+  readonly billingAddresses?: number[]
+  /**
+   *	Index of the entry in `addresses` to set as the default billing address.
+   *
+   *
+   */
+  readonly defaultBillingAddress?: number
+  /**
+   *	The parent unit of this Division. Can be a Company or a Division.
+   *
+   *
+   */
+  readonly parentUnit: BusinessUnitResourceIdentifier
+}
 export interface MyLineItemDraft {
   /**
    *
@@ -541,6 +740,244 @@ export interface ReplicaMyCartDraft {
    *
    */
   readonly reference: CartReference | OrderReference
+}
+/**
+ *	Adding an address to a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitAddressAdded](ctp:api:type:BusinessUnitAddressAddedMessage) Message.
+ *
+ */
+export interface MyBusinessUnitAddAddressAction {
+  readonly action: 'addAddress'
+  /**
+   *	The address to add to `addresses`.
+   *
+   *
+   */
+  readonly address: BaseAddress
+}
+/**
+ *	Adding a billing address to a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitBillingAddressAdded](ctp:api:type:BusinessUnitBillingAddressAddedMessage) Message.
+ *
+ */
+export interface MyBusinessUnitAddBillingAddressIdAction {
+  readonly action: 'addBillingAddressId'
+  /**
+   *	ID of the address to add as a billing address. Either `addressId` or `addressKey` is required.
+   *
+   *
+   */
+  readonly addressId?: string
+  /**
+   *	Key of the address to add as a billing address. Either `addressId` or `addressKey` is required.
+   *
+   *
+   */
+  readonly addressKey?: string
+}
+/**
+ *	Adding a shipping address to a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitShippingAddressAdded](ctp:api:type:BusinessUnitShippingAddressAddedMessage) Message.
+ *
+ */
+export interface MyBusinessUnitAddShippingAddressIdAction {
+  readonly action: 'addShippingAddressId'
+  /**
+   *	ID of the address to add as a shipping address. Either `addressId` or `addressKey` is required.
+   *
+   *
+   */
+  readonly addressId?: string
+  /**
+   *	Key of the address to add as a shipping address. Either `addressId` or `addressKey` is required.
+   *
+   *
+   */
+  readonly addressKey?: string
+}
+/**
+ *	Changing the address on a Business Unit generates the [BusinessUnitAddressChanged](ctp:api:type:BusinessUnitAddressChangedMessage) Message.
+ *
+ */
+export interface MyBusinessUnitChangeAddressAction {
+  readonly action: 'changeAddress'
+  /**
+   *	ID of the address to change. Either `addressId` or `addressKey` is required.
+   *
+   *
+   */
+  readonly addressId?: string
+  /**
+   *	Key of the address to change. Either `addressId` or `addressKey` is required.
+   *
+   *
+   */
+  readonly addressKey?: string
+  /**
+   *	New address to set.
+   *
+   *
+   */
+  readonly address: BaseAddress
+}
+/**
+ *	Removing the address from a [Business Unit](ctp:api:type:BusinessUnit) generates the [BusinessUnitAddressRemoved](ctp:api:type:BusinessUnitAddressRemovedMessage) Message.
+ *
+ */
+export interface MyBusinessUnitRemoveAddressAction {
+  readonly action: 'removeAddress'
+  /**
+   *	ID of the address to be removed. Either `addressId` or `addressKey` is required.
+   *
+   *
+   */
+  readonly addressId?: string
+  /**
+   *	Key of the address to be removed. Either `addressId` or `addressKey` is required.
+   *
+   *
+   */
+  readonly addressKey?: string
+}
+/**
+ *	Removing an [Associate](ctp:api:type:Associate) from a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitAssociateRemoved](ctp:api:type:BusinessUnitAssociateRemovedMessage) Message.
+ *
+ */
+export interface MyBusinessUnitRemoveAssociateAction {
+  readonly action: 'removeAssociate'
+  /**
+   *	[Associate](ctp:api:type:Associate) to remove.
+   *
+   *
+   */
+  readonly customer: CustomerResourceIdentifier
+}
+/**
+ *	Removing a billing address from a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitBillingAddressRemoved](ctp:api:type:BusinessUnitBillingAddressRemovedMessage) Message.
+ *
+ */
+export interface MyBusinessUnitRemoveBillingAddressIdAction {
+  readonly action: 'removeBillingAddressId'
+  /**
+   *	ID of the billing address to be removed. Either `addressId` or `addressKey` is required.
+   *
+   *
+   */
+  readonly addressId?: string
+  /**
+   *	Key of the billing address to be removed. Either `addressId` or `addressKey` is required.
+   *
+   *
+   */
+  readonly addressKey?: string
+}
+/**
+ *	Removing a shipping address from a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitShippingAddressRemoved](ctp:api:type:BusinessUnitShippingAddressRemovedMessage) Message.
+ *
+ */
+export interface MyBusinessUnitRemoveShippingAddressIdAction {
+  readonly action: 'removeShippingAddressId'
+  /**
+   *	ID of the shipping address to be removed. Either `addressId` or `addressKey` is required.
+   *
+   *
+   */
+  readonly addressId?: string
+  /**
+   *	Key of the shipping address to be removed. Either `addressId` or `addressKey` is required.
+   *
+   *
+   */
+  readonly addressKey?: string
+}
+export interface MyBusinessUnitSetAddressCustomFieldAction {
+  readonly action: 'setAddressCustomField'
+  /**
+   *	ID of the `address` to be extended.
+   *
+   *
+   */
+  readonly addressId: string
+  /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
+   *
+   */
+  readonly value?: any
+}
+export interface MyBusinessUnitSetAddressCustomTypeAction {
+  readonly action: 'setAddressCustomType'
+  /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the `address` with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the `address`.
+   *
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `address`.
+   *
+   *
+   */
+  readonly fields?: FieldContainer
+  /**
+   *	ID of the `address` to be extended.
+   *
+   *
+   */
+  readonly addressId: string
+}
+/**
+ *	Setting the contact email on a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitContactEmailSet](ctp:api:type:BusinessUnitContactEmailSetMessage) Message.
+ *
+ */
+export interface MyBusinessUnitSetContactEmailAction {
+  readonly action: 'setContactEmail'
+  /**
+   *	Email to set.
+   *	If `contactEmail` is absent or `null`, the existing contact email, if any, will be removed.
+   *
+   *
+   */
+  readonly contactEmail?: string
+}
+export interface MyBusinessUnitSetCustomFieldAction {
+  readonly action: 'setCustomField'
+  /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
+   *
+   */
+  readonly value?: any
+}
+export interface MyBusinessUnitSetCustomTypeAction {
+  readonly action: 'setCustomType'
+  /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the BusinessUnit with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the BusinessUnit.
+   *
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) for the BusinessUnit.
+   *
+   *
+   */
+  readonly fields?: FieldContainer
 }
 export interface MyCartAddDiscountCodeAction {
   readonly action: 'addDiscountCode'

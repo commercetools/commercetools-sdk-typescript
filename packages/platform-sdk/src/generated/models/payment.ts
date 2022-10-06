@@ -411,13 +411,19 @@ export interface TransactionDraft {
    */
   readonly custom?: CustomFieldsDraft
 }
-export type TransactionState = 'Failure' | 'Initial' | 'Pending' | 'Success'
+export type TransactionState =
+  | 'Failure'
+  | 'Initial'
+  | 'Pending'
+  | 'Success'
+  | string
 export type TransactionType =
   | 'Authorization'
   | 'CancelAuthorization'
   | 'Charge'
   | 'Chargeback'
   | 'Refund'
+  | string
 export interface PaymentAddInterfaceInteractionAction {
   readonly action: 'addInterfaceInteraction'
   /**

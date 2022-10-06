@@ -4,6 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { BusinessUnitKeyReference } from './business-unit'
 import {
   CartResourceIdentifier,
   CustomLineItem,
@@ -224,10 +225,17 @@ export interface QuoteRequest extends BaseResource {
    *
    */
   readonly state?: StateReference
+  /**
+   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Quote Request.
+   *
+   *
+   */
+  readonly businessUnit?: BusinessUnitKeyReference
 }
 export interface QuoteRequestDraft {
   /**
-   *	Cart for which a Quote is requested. Anonymous Carts as well as Carts with [Discount Codes](/../api?projects/discount-codes) are not supported.
+   *	Cart for which a Quote is requested.
+   *	Anonymous Carts, Carts with [Discount Codes](ctp:api:type:DiscountCode), or Carts with a `Multiple` [ShippingMode](ctp:api:type:ShippingMode) are not supported.
    *
    *
    */
@@ -353,6 +361,7 @@ export type QuoteRequestState =
   | 'Closed'
   | 'Rejected'
   | 'Submitted'
+  | string
 export interface QuoteRequestUpdate {
   /**
    *

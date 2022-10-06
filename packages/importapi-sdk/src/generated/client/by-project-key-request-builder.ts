@@ -17,6 +17,7 @@ import { ByProjectKeyProductTypesRequestBuilder } from './product-types/by-proje
 import { ByProjectKeyProductVariantPatchesRequestBuilder } from './product-variant-patches/by-project-key-product-variant-patches-request-builder'
 import { ByProjectKeyProductVariantsRequestBuilder } from './product-variants/by-project-key-product-variants-request-builder'
 import { ByProjectKeyProductsRequestBuilder } from './products/by-project-key-products-request-builder'
+import { ByProjectKeyStandalonePricesRequestBuilder } from './standalone-prices/by-project-key-standalone-prices-request-builder'
 /**
  **/
 export class ByProjectKeyRequestBuilder {
@@ -58,6 +59,15 @@ export class ByProjectKeyRequestBuilder {
   }
   public prices(): ByProjectKeyPricesRequestBuilder {
     return new ByProjectKeyPricesRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public standalonePrices(): ByProjectKeyStandalonePricesRequestBuilder {
+    return new ByProjectKeyStandalonePricesRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },
