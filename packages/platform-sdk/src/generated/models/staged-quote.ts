@@ -239,10 +239,15 @@ export interface StagedQuoteResourceIdentifier {
 export type StagedQuoteState = 'Closed' | 'InProgress' | 'Sent' | string
 export interface StagedQuoteUpdate {
   /**
+   *	Expected version of the [StagedQuote](ctp:api:type:StagedQuote) to which the changes should be applied.
+   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *
    *
    */
   readonly version: number
   /**
+   *	Update actions to be performed on the [StagedQuote](ctp:api:type:StagedQuote).
+   *
    *
    */
   readonly actions: StagedQuoteUpdateAction[]

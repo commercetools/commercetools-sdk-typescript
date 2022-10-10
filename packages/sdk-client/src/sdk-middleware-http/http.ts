@@ -1,4 +1,5 @@
 import { Buffer } from 'buffer/'
+import getErrorByCode, { HttpError, NetworkError } from '../sdk-client/errors'
 import {
   ClientRequest,
   HttpErrorType,
@@ -12,7 +13,6 @@ import {
   RequestOptions,
 } from '../types/sdk.d'
 import parseHeaders from './parse-headers'
-import getErrorByCode, { HttpError, NetworkError } from '../sdk-client/errors'
 
 // performs a proper buffer check
 function isBuffer(obj: any): boolean {

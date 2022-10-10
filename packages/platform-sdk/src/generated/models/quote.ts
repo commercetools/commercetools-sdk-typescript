@@ -382,10 +382,15 @@ export type QuoteState =
   | string
 export interface QuoteUpdate {
   /**
+   *	Expected version of the [Quote](ctp:api:type:Quote) to which the changes should be applied.
+   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *
    *
    */
   readonly version: number
   /**
+   *	Update actions to be performed on the [Quote](ctp:api:type:Quote).
+   *
    *
    */
   readonly actions: QuoteUpdateAction[]
