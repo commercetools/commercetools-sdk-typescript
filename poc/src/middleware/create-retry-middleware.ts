@@ -32,7 +32,6 @@ export default function createRetryMiddleware(
       // const executeRequest = (): Promise<MiddlewareResponse> => next(request)
 
       async function executeRequest() {
-        // @ts-ignore
         const response = await next(request)
 
         if (

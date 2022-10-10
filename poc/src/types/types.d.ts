@@ -1,7 +1,7 @@
 export type JsonObject<T = unknown> = { [key: string]: T }
 export type MiddlewareRequest = ClientRequest
 
-export type Middleware = (next: Next) => (request: MiddlewareRequest) => Promise<MiddlewareResponse> | Promise<void>
+export type Middleware = (next: Next) => (request: MiddlewareRequest) => Promise<MiddlewareResponse>
 
 export type MiddlewareResponse = {
   resolve(response: JsonObject): void;
@@ -10,7 +10,7 @@ export type MiddlewareResponse = {
   error?: HttpErrorType;
   statusCode: number;
   headers?: JsonObject<string>;
-  request?: JsonObject;
+  request?: MiddlewareRequest;
 }
 
 export type HttpErrorType = {
@@ -74,7 +74,7 @@ export type ClientResponse<T = any> = {
   // request?: Object
 }
 
-export type ClientResult = ClientResponse | unknown
+export type ClientResult = ClientResponse
 export type ClientOptions = { middlewares: Array<Middleware> }
 
 export type Credentials = {
@@ -136,10 +136,19 @@ type requestBaseOptions = {
   body: string
   basicAuth: string
   request: MiddlewareRequest
+  tokenCache: TokenCache,
+  requestState: {
+    get: () => RequestState
+    set: (requestState: RequestState) => void
+  },
+  pendingTasks: Array<Task>,
+  tokenCacheKey?: TokenCacheOptions,
 }
 
 export type executeRequestOptions = requestBaseOptions & {
+  next: Next
   httpClient: any
+  userOption?: AuthMiddlewareOptions | PasswordAuthMiddlewareOptions
 }
 
 export type AuthMiddlewareBaseOptions = requestBaseOptions & {
@@ -212,7 +221,7 @@ export type HttpOptions = {
   httpClient: any
 }
 
-export type LogLevel = 'WARN' | 'ERROR' | 'INFO'
+export type LogLevel = 'INFO' | 'ERROR'
 
 export type LoggerMiddlewareOptions = {
   logLevel?: LogLevel
@@ -220,7 +229,7 @@ export type LoggerMiddlewareOptions = {
   includeOriginalRequest?: boolean
   includeResponseHeaders?: boolean
   includeRequestInErrorResponse?: boolean
-  loggerFn?: (options: ClientResponse) => void
+  loggerFn?: (options: MiddlewareResponse) => void
 }
 
 export type RetryMiddlewareOptions = {

@@ -1,6 +1,7 @@
 import fetch from 'node-fetch'
 import {
   Next,
+  Task,
   Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
@@ -8,14 +9,16 @@ import {
 } from '../../types/types'
 import { executeRequest } from './auth-request-executor'
 import { buildRequestForPasswordFlow } from './auth-request-builder'
-// import store from './utils'
+import { getHeaders, store, buildTokenCacheKey } from '../../utils'
 
 export default function createAuthMiddlewareForPasswordFlow(
   options: PasswordAuthMiddlewareOptions
 ): Middleware {
-  // const tokenCache = store({})
-  // const pendingTasks: Array<Task> = []
-  // const requestState = store(false)
+  const tokenCache = store({})
+  const pendingTasks: Array<Task> = []
+  const requestState = store(false)
+
+  const tokenCacheKey = buildTokenCacheKey(options)
 
   return (next: Next) => {
     return async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {
@@ -28,8 +31,14 @@ export default function createAuthMiddlewareForPasswordFlow(
 
       const requestOptions = {
         request,
+        requestState,
+        tokenCache,
+        pendingTasks,
+        tokenCacheKey,
         httpClient: options.httpClient || fetch,
         ...buildRequestForPasswordFlow(options),
+        userOption: options,
+        next,
       }
 
       // make request to coco

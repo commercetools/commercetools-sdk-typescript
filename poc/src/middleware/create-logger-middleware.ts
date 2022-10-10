@@ -5,23 +5,46 @@ import {
   MiddlewareResponse,
   LoggerMiddlewareOptions,
 } from '../types/types'
+import { maskAuthData } from '../utils'
 
 // error, info, success
 export default function createLoggerMiddleware(
   options: LoggerMiddlewareOptions
 ): Middleware {
-  return (next: Next) =>
-    async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {
-      const { loggerFn } = options
-      if (loggerFn && typeof loggerFn == 'function') {
-        const res = await next(request)
-        loggerFn(res)
+  return (next: Next) => {
+    return async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {
+      let response = await next(request)
 
-        return res
+      const {
+        loggerFn,
+        logLevel = 'ERROR',
+        maskSensitiveHeaderData = true,
+        includeOriginalRequest = true,
+        includeResponseHeaders = true,
+        // includeRequestInErrorResponse
+      } = options
+
+      if (includeOriginalRequest && maskSensitiveHeaderData) {
+        maskAuthData(response.request)
       }
 
-      // log request to stdout
-      const res = await next(request)
-      console.log('Response: ', res)
+      if (!includeOriginalRequest) {
+        const { request, ...rest } = response
+        response = rest
+      }
+
+      if (!includeResponseHeaders) {
+        const { headers, ...rest } = response
+        response = rest
+      }
+
+      if (loggerFn && typeof loggerFn == 'function') {
+        loggerFn(response)
+        return response
+      }
+
+      console.log('Response: ', response)
+      return response
     }
+  }
 }

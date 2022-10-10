@@ -1,22 +1,22 @@
 import {
+  Next,
+  Task,
   Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
-  Next,
   RefreshAuthMiddlewareOptions,
-  // Task,
 } from '../../types/types'
 import { executeRequest } from './auth-request-executor'
 import { buildRequestForRefreshTokenFlow } from './auth-request-builder'
-// import store from './utils'
+import { getHeaders, store, buildTokenCacheKey } from '../../utils'
 
 export default function createAuthMiddlewareForRefreshTokenFlow(
   options: RefreshAuthMiddlewareOptions
 ): Middleware {
-  // const tokenCache = store({})
-  // const pendingTasks: Array<Task> = []
+  const tokenCache = store({})
+  const pendingTasks: Array<Task> = []
+  const requestState = store(false)
 
-  // const requestState = store(false)
   return (next: Next) => {
     return async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {
       if (
@@ -29,8 +29,12 @@ export default function createAuthMiddlewareForRefreshTokenFlow(
       // prepare request options
       const requestOptions = {
         request,
+        requestState,
+        tokenCache,
+        pendingTasks,
         httpClient: options.httpClient || fetch,
         ...buildRequestForRefreshTokenFlow(options),
+        next,
       }
 
       // make request to coco

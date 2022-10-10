@@ -23,10 +23,8 @@ export default function createQueueMiddleware({
     }
   }
 
-  // enqueue requests
   const enqueue = ({ request }: { request: MiddlewareRequest }) =>
     queue.push({ request })
-
   return (next: Next) => (request: MiddlewareRequest) => {
     // wrap and override resolve and reject functions
     const patchedRequest = {
@@ -41,6 +39,7 @@ export default function createQueueMiddleware({
       },
     }
 
+    // enqueue requests
     enqueue({ request: patchedRequest })
 
     if (runningCount < concurrency) {
