@@ -680,6 +680,12 @@ export interface Price {
    */
   readonly id: string
   /**
+   *	User-defined identifier of the Price. It is unique per [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly key?: string
+  /**
    *	Money value of this Price.
    *
    *
@@ -740,6 +746,12 @@ export interface Price {
  *	The draft representation for prices to be embedded into [ProductVariantDrafts](ctp:api:type:ProductVariantDraft) when the [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) is `Embedded`. For the `Standalone` ProductPriceMode use [StandalonePriceDraft](ctp:api:type:StandalonePriceDraft).
  */
 export interface PriceDraft {
+  /**
+   *	User-defined identifier for the Price. It must be unique per [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly key?: string
   /**
    *	Money value of this Price.
    *
