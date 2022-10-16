@@ -11,6 +11,8 @@
     "resolveJsonModule": true,
     "declaration": true,
     "rootDir": "src",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "declarationDir": "dist/declaration"
   }
   // "exclude": ["./examples/"]

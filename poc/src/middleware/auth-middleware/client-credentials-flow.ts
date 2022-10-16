@@ -9,7 +9,7 @@ import {
 } from '../../types/types'
 import { executeRequest } from './auth-request-executor'
 import { buildRequestForClientCredentialsFlow } from './auth-request-builder'
-import { getHeaders, store, buildTokenCacheKey } from '../../utils'
+import { store, buildTokenCacheKey } from '../../utils'
 
 export default function createAuthMiddlewareForClientCredentialsFlow(
   options: AuthMiddlewareOptions

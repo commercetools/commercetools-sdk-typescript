@@ -5,14 +5,33 @@ import {
   createQueueMiddleware,
   createUserAgentMiddleware,
   createCorrelationIdMiddleware,
-  createAuthMiddlewareForPasswordFlow,
-  createAuthMiddlewareForAnonymousSessionFlow,
+
+  // createAuthMiddlewareForPasswordFlow,
+  // createAuthMiddlewareForAnonymousSessionFlow,
+
   createAuthMiddlewareForClientCredentialsFlow
 } from './middleware'
+
+// import axios from 'axios'
+import { Agent } from 'https'
 import fetch from 'node-fetch'
+
 import { logger, generate } from './utils'
 import { createClient } from './client'
+import { IClientOptions } from './types/types'
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
+
+const httpsAgent = new Agent({
+  keepAlive: true,
+  maxSockets: 100
+})
+
+function fetchWithAgent(url: string, fetchOptions: IClientOptions) {
+  fetchOptions.httpsAgent = httpsAgent;
+  fetchOptions.headers['x-app-name'] = 'new-agent'
+
+  return fetch(url, fetchOptions)
+}
 
 const client = createClient({
   // this will come from the `ClientBuilder` class
@@ -53,16 +72,13 @@ const client = createClient({
     createRetryMiddleware({ enableRetry: true }),
     createHttpMiddleware({
       host: 'https://api.europe-west1.gcp.commercetools.com',
-      httpClient: fetch
+      // httpClient: fetch
+      httpClient: fetchWithAgent
+      // @ts-ignore
+      // httpClient: (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args))
     }),
   ],
 });
-
-// const clientRequest = { method: 'GET' } // initial request will come from middleware options
-
-// CreateClient
-// client.execute(clientRequest).catch(console.error)
-// client.execute(clientRequest).then(console.log).catch(console.error)
 
 // ApiRoot
 const apiRoot = createApiBuilderFromCtpClient(client)
@@ -74,4 +90,5 @@ function execute() {
     .execute()
 }
 
-execute().catch(error => console.error(error, '<<<--', JSON.stringify(error)))
+// execute().catch(error => console.error(error, '<<<--', JSON.stringify(error)))
+execute().catch(() => null)

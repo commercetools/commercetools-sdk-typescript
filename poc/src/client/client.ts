@@ -29,15 +29,9 @@ export default function createClient(middlewares: ClientOptions) {
       const res = {
         body: null,
         error: null,
-        // headers: null,
-        // request: null,
-        // ...rs.headers ? { headers: rs.headers } : {},
-        // ...rs.request ? { request: rs.request } : {},
-        // ...{ reject: rest.reject, resolve: rest.resolve },
-        // statusCode: 200,
         reject,
         resolve,
-        retryCount,
+        ...(retryCount ? { retryCount } : {}),
         request: rest,
         ...response,
       } as MiddlewareResponse

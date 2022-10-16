@@ -1,32 +1,18 @@
 import { JsonObject } from '../types/types'
+import { DEFAULT_HEADERS } from './constants'
 
 function parse(headers: JsonObject<any>) {
-  return [
-    'content-type',
-    'access-control-allow-origin',
-    'access-control-allow-headers',
-    'access-control-allow-methods',
-    'access-control-expose-headers',
-    'access-control-max-ag',
-    'x-correlation-id',
-    'server-timing',
-    'date',
-    'server',
-    'transfer-encoding',
-    'access-control-max-age',
-    'content-encoding',
-    'x-envoy-upstream-service-time',
-    'via',
-    'alt-svc',
-    'connection',
-  ].reduce((result: object, key: string): object => {
-    let val = headers.get(key)
+  return DEFAULT_HEADERS.reduce((result: object, key: string): object => {
+    let val = headers[key]
+      ? headers[key]
+      : typeof headers.get == 'function'
+      ? headers.get(key)
+      : null
+
     if (val) result[key] = val
 
     return result
   }, {})
-
-  // .reduce((result, key) => result[key] = headers.get(key))
 }
 
 export default function getHeaders(

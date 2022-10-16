@@ -8,7 +8,7 @@ import {
 } from '../../types/types'
 import { executeRequest } from './auth-request-executor'
 import { buildRequestForRefreshTokenFlow } from './auth-request-builder'
-import { getHeaders, store, buildTokenCacheKey } from '../../utils'
+import { store } from '../../utils'
 
 export default function createAuthMiddlewareForRefreshTokenFlow(
   options: RefreshAuthMiddlewareOptions

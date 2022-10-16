@@ -5,7 +5,7 @@
 //   });
 // }
 
-import createAuthMiddlewareForClientCredentialsFlow from './auth-middleware/client-credentials-flow';
+// import createAuthMiddlewareForClientCredentialsFlow from './auth-middleware/client-credentials-flow';
 
 // // athentication middleware
 // function createAuthMiddleware(options) {

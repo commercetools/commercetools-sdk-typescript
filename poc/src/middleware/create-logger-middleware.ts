@@ -17,7 +17,7 @@ export default function createLoggerMiddleware(
 
       const {
         loggerFn,
-        logLevel = 'ERROR',
+        // logLevel = 'ERROR',
         maskSensitiveHeaderData = true,
         includeOriginalRequest = true,
         includeResponseHeaders = true,

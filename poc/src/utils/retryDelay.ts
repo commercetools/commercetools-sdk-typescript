@@ -1,10 +1,18 @@
-export default function calculateRetryDelay(
-  retryCount: number,
-  retryDelay: number,
-  maxRetries: number,
-  backoff: boolean,
+export type TRetryPolicy = {
+  retryCount: number
+  retryDelay: number
+  maxRetries: number
+  backoff: boolean
   maxDelay: number
-): number {
+}
+
+export default function calculateRetryDelay({
+  retryCount,
+  retryDelay,
+  // maxRetries,
+  backoff,
+  maxDelay,
+}: TRetryPolicy): number {
   if (backoff) {
     return retryCount !== 0 // do not increase if it's the first retry
       ? Math.min(
@@ -16,3 +24,5 @@ export default function calculateRetryDelay(
 
   return retryDelay
 }
+
+Math.min(Math.round((Math.random() + 1) * 200 * 2 ** 10), Infinity)

@@ -2,10 +2,8 @@ import {
   Task,
   ClientRequest,
   TokenInfo,
-  HttpErrorType,
   executeRequestOptions,
   IBuiltRequestParams,
-  MiddlewareResponse,
 } from '../../types/types'
 import { buildRequestForRefreshTokenFlow } from './auth-request-builder'
 import { Buffer } from 'buffer/'
@@ -13,12 +11,7 @@ import { calculateExpirationTime, mergeAuthHeader, executor } from '../../utils'
 
 export async function executeRequest(
   options: executeRequestOptions
-): Promise<ClientRequest | HttpErrorType> {
-  let _data: TokenInfo,
-    parsed: any,
-    text: string,
-    taskResponse: MiddlewareResponse
-
+): Promise<ClientRequest> {
   const {
     request,
     httpClient,
@@ -36,7 +29,7 @@ export async function executeRequest(
   // get the pending object from option
   let pendingTasks: Array<Task> = options.pendingTasks
 
-  if (!httpClient && typeof httpClient === 'undefined')
+  if (!httpClient || typeof httpClient !== 'function')
     throw new Error(
       'an `httpClient` is not available, please pass in a `fetch` or `axios` instance as an option or have them globally available.'
     )
@@ -98,15 +91,6 @@ export async function executeRequest(
 
   // request a new token
   try {
-    // const response = await httpClient(url, {
-    //   method: 'POST',
-    //   headers: {
-    //     Authorization: `Basic ${basicAuth}`,
-    //     'Content-Type': 'application/x-www-form-urlencoded',
-    //     'Conent-Length': Buffer.byteLength(body).toString(),
-    //   },
-    //   body
-    // })
     const response = await executor({
       url,
       method: 'POST',
@@ -119,14 +103,13 @@ export async function executeRequest(
       body,
     })
 
-    if (response.ok) {
-      _data = await response.json()
+    if (response.statusCode < 400) {
       const {
         access_token: token,
         expires_in: expiresIn,
-        expires_at: expiresAt,
+        // expires_at: expiresAt,
         refresh_token: refreshToken,
-      }: TokenInfo = _data
+      }: TokenInfo = response?.data
 
       // calculate token expiration time
       const expirationTime = calculateExpirationTime(expiresIn)
@@ -147,41 +130,27 @@ export async function executeRequest(
       // reset pendingTask queue
       pendingTasks = []
 
+      if (requestQueue.length === 1) {
+        return mergeAuthHeader(token, requestQueue.pop().request)
+      }
+
       // execute all pending tasks
       for (let i = 0; i < requestQueue.length; i++) {
         const task: Task = requestQueue[i]
         const requestWithAuth = mergeAuthHeader(token, task.request)
 
         // execute task
-        taskResponse = await task.next(requestWithAuth)
+        task.next(requestWithAuth)
       }
 
-      // if there was a response then return
-      if (taskResponse) return
-
-      // requestQueue.forEach((task: Task) => {
-      //   const requestWithToken = mergeAuthHeader(token, request)
-
-      //   task.next(requestWithToken)
-      // })
-
-      // update the request object and move on
-      return {
-        ...request,
-        headers: { ...request.headers, Authorization: `Bearer ${token}` },
-      }
+      return
     }
 
-    try {
-      text = await response.text()
-      parsed = JSON.parse(text)
-    } catch (e) {
-      parsed = text
-    }
-
-    const error: any = new Error(parsed ? parsed.message || parsed : text)
-    if (parsed) error.body = parsed
-
+    const error = new Error(
+      response.data.message
+        ? response.data.message
+        : JSON.stringify(response.data)
+    )
     /**
      * reject the error immediately
      * and free up the middleware chain
@@ -190,8 +159,8 @@ export async function executeRequest(
       ...request,
       headers: { ...request.headers },
       response: {
-        error,
-        statusCode: response.statusCode || response.status,
+        statusCode: response.statusCode || response.data.statusCode,
+        error: { error, body: response },
       },
     })
   } catch (error) {

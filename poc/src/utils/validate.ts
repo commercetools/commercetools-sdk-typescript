@@ -1,7 +1,7 @@
 import { HttpMiddlewareOptions, HttpUserAgentOptions } from '../types/types'
 
 export function validateHttpOptions(options: HttpMiddlewareOptions) {
-  if (!options.httpClient)
+  if (!options.httpClient && typeof options.httpClient !== 'function')
     throw new Error(
       'an `httpClient` is not available, please pass in a `fetch` or `axios` instance as an option or have them globally available.'
     )

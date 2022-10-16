@@ -1,3 +1,5 @@
+import { Buffer } from 'buffer/'
+
 export type JsonObject<T = unknown> = { [key: string]: T }
 export type MiddlewareRequest = ClientRequest
 
@@ -14,16 +16,17 @@ export type MiddlewareResponse = {
 }
 
 export type HttpErrorType = {
-  name: string
+  name?: string
   message: string
   code?: number
   status?: number
-  method: MethodType
+  method?: MethodType
   statusCode: number
-  originalRequest: ClientRequest
+  originalRequest?: ClientRequest
   body?: JsonObject
   retryCount?: number
-  headers?: JsonObject<string>
+  headers?: JsonObject<QueryParam>
+  [key: string]: unknown
 }
 
 export interface ClientRequest {
@@ -193,9 +196,11 @@ export type TokenInfo = {
 
 export type Dispatch = (next: Next) => (request: MiddlewareRequest) => Promise<MiddlewareResponse>
 
+export type CredentialsMode = 'omit' | 'same-origin' | 'include'
+
 export type HttpMiddlewareOptions = {
   host: string
-  credentialsMode?: 'omit' | 'same-origin' | 'include'
+  credentialsMode?: CredentialsMode
   includeHeaders?: boolean
   includeResponseHeaders?: boolean
   includeOriginalRequest?: boolean
@@ -210,14 +215,15 @@ export type HttpMiddlewareOptions = {
   //   maxDelay?: number
   //   retryCodes?: Array<number | string>,
   // }
-  httpClient: any
+  httpClient: Function
   abortController?: AbortController // deprecated
   getAbortController?: () => AbortController
+  httpClientOptions?: object
 }
 
 export type HttpOptions = {
   url: string;
-  clientOptions: JsonObject;
+  clientOptions: IClientOptions;
   httpClient: any
 }
 
@@ -235,7 +241,6 @@ export type LoggerMiddlewareOptions = {
 export type RetryMiddlewareOptions = {
   timeout?: number
   enableRetry: boolean
-  retryCount?: number
   backoff?: boolean
   maxRetries?: number
   retryDelay?: number
@@ -264,6 +269,19 @@ export type QueueMiddlewareOptions = {
 
 export type ExistingTokenMiddlewareOptions = {
   force: boolean
+}
+
+export type IClientOptions = {
+  method: string;
+  headers: JsonObject<QueryParam>;
+  credentialsMode?: CredentialsMode;
+  body?: string | Buffer
+  [k: string | number | symbol]: unknown
+}
+
+export type HttpClientConfig = IClientOptions & {
+  url: string
+  httpClient: Function
 }
 
 export type executeRequest = (request: ClientRequest) => Promise<ClientResponse>

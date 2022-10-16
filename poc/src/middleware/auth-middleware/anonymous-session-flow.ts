@@ -10,7 +10,7 @@ import {
 // import authMiddlewareBase from './base-auth-flow'
 import { buildRequestForAnonymousSessionFlow } from './auth-request-builder'
 import { executeRequest } from './auth-request-executor'
-import { getHeaders, store, buildTokenCacheKey } from '../../utils'
+import { store, buildTokenCacheKey } from '../../utils'
 // import store from './utils'
 
 export default function createAuthMiddlewareForAnonymousSessionFlow(

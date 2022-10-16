@@ -7,12 +7,25 @@ import {
   JsonObject,
   QueryParam,
   HttpOptions,
-  HttpErrorType,
+  HttpClientConfig,
+  IClientOptions,
+  ClientResult,
 } from '../types/types'
 import { validateHttpOptions, isBuffer, getHeaders } from '../utils'
+import { executor, constants } from '../utils'
 import { Buffer } from 'buffer/'
 
-const HEADERS = ['application/json', 'application/graphql']
+export type TResponse = {
+  statusCode: number
+  headers: JsonObject<QueryParam>
+  data: {
+    statusCode?: number
+    errors?: any
+    error?: string
+    message: string
+    // [k: string | number | symbol]: unknown
+  }
+}
 
 export default function createHttpMiddleware(
   options: HttpMiddlewareOptions
@@ -23,13 +36,10 @@ export default function createHttpMiddleware(
   const {
     host = 'https://auth.europe-west1.gcp.commercetools.com',
     credentialsMode,
-    includeHeaders,
-    includeResponseHeaders,
-    includeOriginalRequest,
-    includeRequestInErrorResponse,
     httpClient,
-    abortController,
-    getAbortController,
+
+    // getAbortController,
+    httpClientOptions,
   } = options
 
   return (next: Next) => {
@@ -45,7 +55,9 @@ export default function createHttpMiddleware(
 
       // Ensure body is a string if content type is application/{json|graphql}
       const body: string | Buffer =
-        (HEADERS.indexOf(requestHeader['Content-Type'] as string) > -1 &&
+        (constants.HEADERS_CONTENT_TYPES.indexOf(
+          requestHeader['Content-Type'] as string
+        ) > -1 &&
           typeof request.body === 'string') ||
         isBuffer(request.body)
           ? request.body
@@ -57,13 +69,14 @@ export default function createHttpMiddleware(
         ).toString()
       }
 
-      const clientOptions: JsonObject = {
+      const clientOptions: IClientOptions = {
         method: request.method,
         headers: requestHeader,
+        ...httpClientOptions,
       }
 
       if (credentialsMode) {
-        clientOptions.credentialsMode = credentialsMode
+        clientOptions.credentialsMode = clientOptions.credentialsMode
       }
 
       if (body) {
@@ -76,7 +89,6 @@ export default function createHttpMiddleware(
       const responseWithRequest = {
         ...request,
         response,
-        // request: { ...request },
       }
 
       return next(responseWithRequest)
@@ -88,52 +100,63 @@ async function executeRequest({
   url,
   clientOptions,
   httpClient,
-}: HttpOptions): Promise<{
-  body?: object | string
-  statusCode: number
-  error?: HttpErrorType
-  headers: JsonObject<string>
-}> {
-  let text: string, parsed: HttpErrorType, _data: object
+}: HttpOptions): Promise<ClientResult> {
+  let parsed: TResponse
   try {
-    const response = await httpClient(url, clientOptions)
+    const response: TResponse = await executor({
+      url,
+      ...clientOptions,
+      httpClient,
+      method: clientOptions.method,
+      ...(clientOptions.body ? { body: clientOptions.body } : {}),
+    } as HttpClientConfig)
 
-    if (response.ok) {
-      _data = await response.json()
-
+    if (response.statusCode < 400) {
       if (clientOptions.method == 'HEAD') {
         return {
-          statusCode: response.status,
+          statusCode: response.statusCode,
           headers: getHeaders(response.headers),
         }
       }
 
       return {
-        body: _data,
-        statusCode: response.status,
+        body: response.data || response,
+        statusCode: response.statusCode,
         headers: getHeaders(response.headers),
       }
     }
 
-    // handle non ok (error) response
-    try {
-      text = response.text()
-      parsed = JSON.parse(text)
-    } catch (e) {
-      parsed = text as any
-    }
-
-    // build error body
+    /**
+     * handle non-ok (error) response
+     * build error body
+     */
     return {
-      error: parsed,
-      statusCode: response.status,
+      error: {
+        message: response.data.message,
+        statusCode: response.data.statusCode,
+        ...parsed,
+      },
+      statusCode: response.statusCode || response.data.statusCode,
       headers: getHeaders(response.headers),
-      ...(typeof parsed === 'object'
-        ? { message: parsed.message, body: parsed }
-        : { message: parsed, body: parsed }),
+      ...(typeof response === 'object'
+        ? { message: response.data.message, body: response.data }
+        : { message: response, body: response }),
     }
   } catch (error) {
     // log error for now
-    console.log(error)
+    // console.log(error)
+
+    return {
+      error: {
+        message: error.response.data.message,
+        statusCode: error.response.status,
+        ...parsed,
+      },
+      statusCode: error.response.status || error.response.data.statusCode,
+      headers: getHeaders(error.response.headers),
+      ...(typeof error === 'object'
+        ? { message: error.response.data.message, body: error.response.data }
+        : { message: error, body: error }),
+    }
   }
 }

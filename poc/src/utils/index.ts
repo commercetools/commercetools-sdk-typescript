@@ -10,6 +10,8 @@ export { default as buildTokenCacheKey } from './tokenCacheKey'
 export { default as store } from './tokenStore'
 export { default as mergeAuthHeader } from './mergeAuthHeader'
 export { default as executor } from './executor'
+export * as constants from './constants'
+export { default as sleep } from './sleep'
 export {
   validateRetryCodes,
   validateHttpOptions,
