@@ -10,20 +10,74 @@ import {
   HttpClientConfig,
   IClientOptions,
   ClientResult,
+  TResponse,
 } from '../types/types'
 import { validateHttpOptions, isBuffer, getHeaders } from '../utils'
 import { executor, constants } from '../utils'
 import { Buffer } from 'buffer/'
 
-export type TResponse = {
-  statusCode: number
-  headers: JsonObject<QueryParam>
-  data: {
-    statusCode?: number
-    errors?: any
-    error?: string
-    message: string
-    // [k: string | number | symbol]: unknown
+async function executeRequest({
+  url,
+  clientOptions,
+  httpClient,
+}: HttpOptions): Promise<ClientResult> {
+  let parsed: TResponse
+  try {
+    const response: TResponse = await executor({
+      url,
+      ...clientOptions,
+      httpClient,
+      method: clientOptions.method,
+      ...(clientOptions.body ? { body: clientOptions.body } : {}),
+    } as HttpClientConfig)
+
+    if (response.statusCode < 400) {
+      if (clientOptions.method == 'HEAD') {
+        return {
+          statusCode: response.statusCode,
+          headers: getHeaders(response.headers),
+        }
+      }
+
+      return {
+        body: response.data || response,
+        statusCode: response.statusCode,
+        headers: getHeaders(response.headers),
+      }
+    }
+
+    /**
+     * handle non-ok (error) response
+     * build error body
+     */
+    return {
+      error: {
+        message: response.data.message,
+        statusCode: response.data.statusCode,
+        ...parsed,
+      },
+      statusCode: response.statusCode || response.data.statusCode,
+      headers: getHeaders(response.headers),
+      ...(typeof response === 'object'
+        ? { message: response.data.message, body: response.data }
+        : { message: response, body: response }),
+    }
+  } catch (error) {
+    // log error for now
+    // console.log(error)
+
+    return {
+      error: {
+        message: error.response.data.message,
+        statusCode: error.response.status,
+        ...parsed,
+      },
+      statusCode: error.response.status || error.response.data.statusCode,
+      headers: getHeaders(error.response.headers),
+      ...(typeof error === 'object'
+        ? { message: error.response.data.message, body: error.response.data }
+        : { message: error, body: error }),
+    }
   }
 }
 
@@ -92,71 +146,6 @@ export default function createHttpMiddleware(
       }
 
       return next(responseWithRequest)
-    }
-  }
-}
-
-async function executeRequest({
-  url,
-  clientOptions,
-  httpClient,
-}: HttpOptions): Promise<ClientResult> {
-  let parsed: TResponse
-  try {
-    const response: TResponse = await executor({
-      url,
-      ...clientOptions,
-      httpClient,
-      method: clientOptions.method,
-      ...(clientOptions.body ? { body: clientOptions.body } : {}),
-    } as HttpClientConfig)
-
-    if (response.statusCode < 400) {
-      if (clientOptions.method == 'HEAD') {
-        return {
-          statusCode: response.statusCode,
-          headers: getHeaders(response.headers),
-        }
-      }
-
-      return {
-        body: response.data || response,
-        statusCode: response.statusCode,
-        headers: getHeaders(response.headers),
-      }
-    }
-
-    /**
-     * handle non-ok (error) response
-     * build error body
-     */
-    return {
-      error: {
-        message: response.data.message,
-        statusCode: response.data.statusCode,
-        ...parsed,
-      },
-      statusCode: response.statusCode || response.data.statusCode,
-      headers: getHeaders(response.headers),
-      ...(typeof response === 'object'
-        ? { message: response.data.message, body: response.data }
-        : { message: response, body: response }),
-    }
-  } catch (error) {
-    // log error for now
-    // console.log(error)
-
-    return {
-      error: {
-        message: error.response.data.message,
-        statusCode: error.response.status,
-        ...parsed,
-      },
-      statusCode: error.response.status || error.response.data.statusCode,
-      headers: getHeaders(error.response.headers),
-      ...(typeof error === 'object'
-        ? { message: error.response.data.message, body: error.response.data }
-        : { message: error, body: error }),
     }
   }
 }

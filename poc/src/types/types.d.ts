@@ -37,7 +37,7 @@ export interface ClientRequest {
   uriTemplate?: string
   pathVariables?: VariableMap
   queryParams?: VariableMap
-  body?: any
+  body?: string | Buffer
   response?: ClientResponse
   resolve?: (response: JsonObject) => void;
   reject?: (error: JsonObject) => void;
@@ -282,6 +282,18 @@ export type IClientOptions = {
 export type HttpClientConfig = IClientOptions & {
   url: string
   httpClient: Function
+}
+
+export type TResponse = {
+  statusCode: number
+  headers: JsonObject<QueryParam>
+  data: {
+    statusCode?: number
+    errors?: any
+    error?: string
+    message: string
+    // [k: string | number | symbol]: unknown
+  }
 }
 
 export type executeRequest = (request: ClientRequest) => Promise<ClientResponse>

@@ -9,6 +9,7 @@ import {
   // createAuthMiddlewareForPasswordFlow,
   // createAuthMiddlewareForAnonymousSessionFlow,
 
+  createConcurrentModificationMiddleware,
   createAuthMiddlewareForClientCredentialsFlow
 } from './middleware'
 
@@ -28,7 +29,7 @@ const httpsAgent = new Agent({
 
 function fetchWithAgent(url: string, fetchOptions: IClientOptions) {
   fetchOptions.httpsAgent = httpsAgent;
-  fetchOptions.headers['x-app-name'] = 'new-agent'
+  fetchOptions.headers['x-app-name'] = 'sample-app-name'
 
   return fetch(url, fetchOptions)
 }
@@ -70,6 +71,7 @@ const client = createClient({
     createQueueMiddleware({ concurrency: 5 }),
     createLoggerMiddleware({ loggerFn: logger }),
     createRetryMiddleware({ enableRetry: true }),
+    createConcurrentModificationMiddleware(),
     createHttpMiddleware({
       host: 'https://api.europe-west1.gcp.commercetools.com',
       // httpClient: fetch

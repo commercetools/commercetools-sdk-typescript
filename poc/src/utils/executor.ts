@@ -47,12 +47,12 @@ export default async function executor(request: HttpClientConfig) {
         headers: response.headers,
       }
     },
-    {
-      headers: {
-        'http-client': 'node-fetch',
-        'x-app-name': 'improved-middleware-middleware',
-      },
-    }
+    /**
+     * get this object from the
+     * middleware options or from
+     * http client config
+     */
+    {}
   )
 
   return data
