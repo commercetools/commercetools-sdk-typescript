@@ -16,6 +16,7 @@ import { ByProjectKeyMeOrdersRequestBuilder } from '../orders/by-project-key-me-
 import { ByProjectKeyMePasswordRequestBuilder } from '../password/by-project-key-me-password-request-builder'
 import { ByProjectKeyMePaymentsRequestBuilder } from '../payments/by-project-key-me-payments-request-builder'
 import { ByProjectKeyMeQuoteRequestsRequestBuilder } from '../quote-requests/by-project-key-me-quote-requests-request-builder'
+import { ByProjectKeyMeQuotesRequestBuilder } from '../quotes/by-project-key-me-quotes-request-builder'
 import { ByProjectKeyMeShoppingListsRequestBuilder } from '../shopping-lists/by-project-key-me-shopping-lists-request-builder'
 import { ByProjectKeyMeSignupRequestBuilder } from '../signup/by-project-key-me-signup-request-builder'
 /**
@@ -124,10 +125,22 @@ export class ByProjectKeyMeRequestBuilder {
     })
   }
   /**
-   *	The My Quote Requests endpoint creates and provides access to quote requests scoped to a specific user.
+   *	The My Quote Requests endpoint creates and provides access to Quote Requests scoped to a specific user.
    */
   public quoteRequests(): ByProjectKeyMeQuoteRequestsRequestBuilder {
     return new ByProjectKeyMeQuoteRequestsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	The My Quote endpoint provides access to Quotes scoped to a specific user.
+   */
+  public quotes(): ByProjectKeyMeQuotesRequestBuilder {
+    return new ByProjectKeyMeQuotesRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },

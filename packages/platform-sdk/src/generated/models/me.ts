@@ -642,6 +642,27 @@ export interface MyQuoteRequestUpdate {
   readonly actions: MyQuoteRequestUpdateAction[]
 }
 export type MyQuoteRequestUpdateAction = MyQuoteRequestCancelAction
+/**
+ *	[QuoteStates](ctp:api:type:QuoteState) that can be set using the [Change My Quote State](ctp:api:type:MyQuoteChangeMyQuoteStateAction) update action.
+ *
+ */
+export type MyQuoteState = 'Accepted' | 'Declined' | string
+export interface MyQuoteUpdate {
+  /**
+   *	Expected version of the [Quote](ctp:api:type:Quote) to which the changes should be applied.
+   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	Update actions to be performed on the [Quote](ctp:api:type:Quote).
+   *
+   *
+   */
+  readonly actions: MyQuoteUpdateAction[]
+}
+export type MyQuoteUpdateAction = MyQuoteChangeMyQuoteStateAction
 export interface MyShoppingListDraft {
   /**
    *
@@ -1614,6 +1635,14 @@ export interface MyPaymentSetTransactionCustomFieldAction {
    *
    */
   readonly value?: any
+}
+export interface MyQuoteChangeMyQuoteStateAction {
+  readonly action: 'changeMyQuoteState'
+  /**
+   *	New state to be set for the Quote.
+   *
+   */
+  readonly quoteState: MyQuoteState
 }
 /**
  *	Transitions the `quoteRequestState` of the Quote Request to `Cancelled`. Can only be used when the Quote Request is in state `Submitted`.
