@@ -20,6 +20,7 @@ import {
   ProductVariantKeyReference,
   ShippingMethodKeyReference,
   StateKeyReference,
+  StoreKeyReference,
   TaxCategoryKeyReference,
   TypedMoney,
 } from './common'
@@ -557,11 +558,6 @@ export interface TaxedPrice {
    *
    */
   readonly taxPortions: TaxPortion[]
-  /**
-   *	Maps to `TaxedPrice.totalTax`.
-   *
-   */
-  readonly totalTax?: Money
 }
 /**
  *	Maps to `Order.taxMode`
@@ -829,4 +825,10 @@ export interface OrderImport {
    *
    */
   readonly itemShippingAddresses?: Address[]
+  /**
+   *	Reference to the Store in which the Order is associated. If referenced Store does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary Store exists.
+   *
+   *
+   */
+  readonly store?: StoreKeyReference
 }
