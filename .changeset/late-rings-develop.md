@@ -1,6 +1,6 @@
 ---
-"@commercetools/platform-sdk": minor
-"@commercetools/sdk-client-v2": patch
+'@commercetools/platform-sdk': minor
+'@commercetools/sdk-client-v2': patch
 ---
 
 Update generated SDKs
@@ -10,6 +10,7 @@ Add `quotes()` method for the `My Quote endpoint`
 - [Diff Link](https://github.com/commercetools/commercetools-sdk-typescript/pull/347/files#diff-17ea32dc184ca17b337fbf5e126f27f16651feadc9c879fae88db2580537cf8eR142)
 
 **Usage:**
+
 ```ts
 request: apiRoot
   .withProjectKey({ projectKey: 'test_projectKey' })
@@ -22,7 +23,6 @@ request: apiRoot
 Add `ByProjectKeyMeQuotesByIDRequestBuilder` class for `quotes-request` model
 
 - [Diff Link](https://github.com/commercetools/commercetools-sdk-typescript/pull/347/files#diff-a5bab13a41c9ece596cf0fcc545109385e16b6b1877755e58d8ec064125e2041R12)
-
 
 Add `ByProjectKeyMeQuotesKeyByKeyRequestBuilder` class for `quotes-request` model
 
