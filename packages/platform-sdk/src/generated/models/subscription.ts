@@ -7,6 +7,10 @@
 import { BaseResource, CreatedBy, LastModifiedBy, Reference } from './common'
 import { UserProvidedIdentifiers } from './message'
 
+/**
+ *	Defines the method of authentication for AWS SQS and SNS Destinations. Subscriptions with `Credentials` authentication mode are authenticated using an `accessKey` and `accessSecret` pair. Subscriptions with `IAM` authentication mode are authenticated using Identity and Access Management (IAM). In this case, the user `arn:aws:iam::362576667341:user/subscriptions` requires permissions to send messages to the queue or publish to the topic. This is the recommended `authenticationMode`, as it doesn't require additional key management.
+ */
+export type AwsAuthenticationMode = 'Credentials' | 'IAM' | string
 export interface ChangeSubscription {
   /**
    *
@@ -249,28 +253,37 @@ export interface ResourceUpdatedDeliveryPayload {
 export interface SnsDestination {
   readonly type: 'SNS'
   /**
+   *	Only present if `authenticationMode` is set to `Credentials`.
    *
    */
-  readonly accessKey: string
+  readonly accessKey?: string
   /**
+   *	Only present if `authenticationMode` is set to `Credentials`.
    *
    */
-  readonly accessSecret: string
+  readonly accessSecret?: string
   /**
    *
    */
   readonly topicArn: string
+  /**
+   *	Defines the method of authentication for the SNS topic.
+   *
+   */
+  readonly authenticationMode?: AwsAuthenticationMode
 }
 export interface SqsDestination {
   readonly type: 'SQS'
   /**
+   *	Only present if `authenticationMode` is set to `Credentials`.
    *
    */
-  readonly accessKey: string
+  readonly accessKey?: string
   /**
+   *	Only present if `authenticationMode` is set to `Credentials`.
    *
    */
-  readonly accessSecret: string
+  readonly accessSecret?: string
   /**
    *
    */
@@ -279,6 +292,11 @@ export interface SqsDestination {
    *
    */
   readonly region: string
+  /**
+   *	Defines the method of authentication for the SQS queue.
+   *
+   */
+  readonly authenticationMode?: AwsAuthenticationMode
 }
 export interface Subscription extends BaseResource {
   /**
