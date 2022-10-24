@@ -55,12 +55,6 @@ export class ByProjectKeyCustomersRequestBuilder {
       baseUri: this.args.baseUri,
     })
   }
-  /**
-   *	To verify a customer's email, an email token can be created. This should be embedded in a link and sent to the
-   *	customer via email. When the customer clicks on the link, the "verify customer's email" endpoint should be called,
-   *	which sets customer's isVerifiedEmail field to true.
-   *
-   */
   public emailToken(): ByProjectKeyCustomersEmailTokenRequestBuilder {
     return new ByProjectKeyCustomersEmailTokenRequestBuilder({
       pathArgs: {
@@ -97,14 +91,6 @@ export class ByProjectKeyCustomersRequestBuilder {
       baseUri: this.args.baseUri,
     })
   }
-  /**
-   *	The following workflow can be used to reset the customer's password:
-   *
-   *	* Create a password reset token and send it embedded in a link to the customer.
-   *	* When the customer clicks on the link, the customer is retrieved with the token.
-   *	* The customer enters a new password and the "reset customer's password" endpoint is called.
-   *
-   */
   public passwordToken(): ByProjectKeyCustomersPasswordTokenRequestBuilder {
     return new ByProjectKeyCustomersPasswordTokenRequestBuilder({
       pathArgs: {
@@ -168,9 +154,9 @@ export class ByProjectKeyCustomersRequestBuilder {
     )
   }
   /**
-   *	Creates a customer. If an anonymous cart is passed in,
-   *	then the cart is assigned to the created customer and the version number of the Cart will increase.
-   *	If the ID of an anonymous session is given, all carts and orders will be assigned to the created customer.
+   *	If the `anonymousCart` field is set on the [CustomerDraft](ctp:api:type:CustomerDraft), then the newly created Customer will be assigned to that [Cart](ctp:api:type:Cart).
+   *	Similarly, if the `anonymousId` field is set, the Customer will be set on all [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [ShoppingLists](ctp:api:type:ShoppingList) and [Payments](ctp:api:type:Payment) with the same `anonymousId`.
+   *	Creating a Customer produces the [CustomerCreated](ctp:api:type:CustomerCreatedMessage) Message.
    *
    */
   public post(methodArgs: {

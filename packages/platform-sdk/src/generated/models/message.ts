@@ -2289,7 +2289,7 @@ export interface CustomerCompanyNameSetMessage {
   readonly companyName?: string
 }
 /**
- *	Generated after a successful [Create Customer](/../api/projects/customers#create-customer-sign-up) request.
+ *	Generated after a successful [Create Customer](/../api/projects/customers#create-sign-up-customer) request.
  *
  */
 export interface CustomerCreatedMessage {
@@ -2563,7 +2563,7 @@ export interface CustomerEmailChangedMessage {
   readonly email: string
 }
 /**
- *	Generated after a successful [Verify Customer's Email](/../api/projects/customers#verify-customers-email) request.
+ *	Generated after a successful [Verify Customer's Email](/../api/projects/customers#verify-email-of-customer) request.
  *
  */
 export interface CustomerEmailVerifiedMessage {
@@ -2837,7 +2837,7 @@ export interface CustomerLastNameSetMessage {
   readonly lastName?: string
 }
 /**
- *	Generated after a successful [Reset Customer's Password](/../api/projects/customers#reset-customers-password), [Reset Customer's Password in a Store](/../api/projects/customers#reset-customers-password-in-a-store), [Change Customer's Password](/../api/projects/customers#change-customers-password), or [Change Customer's Password in a Store](/../api/projects/customers#change-customers-password-in-a-store) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
+ *	Generated after a successful [Reset Customer's Password](/../api/projects/customers#reset-password-of-customer), [Reset Customer's Password in a Store](/../api/projects/customers#reset-password-of-customer-in-store), [Change Customer's Password](/../api/projects/customers#change-password-of-customer), or [Change Customer's Password in a Store](/../api/projects/customers#change-password-of-customer-in-store) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
  *
  */
 export interface CustomerPasswordUpdatedMessage {
@@ -2900,7 +2900,7 @@ export interface CustomerPasswordUpdatedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Whether the Customer's password was updated during the [Customer's Password Reset](/../api/projects/customers#customers-password-reset) workflow.
+   *	Whether the Customer's password was updated during the [Reset password](/../api/projects/customers#password-reset-of-customer) or [Change password](/../api/projects/customers#change-password-of-customer) flow.
    *
    *
    */
@@ -11487,7 +11487,7 @@ export interface CustomerCompanyNameSetMessagePayload {
   readonly companyName?: string
 }
 /**
- *	Generated after a successful [Create Customer](/../api/projects/customers#create-customer-sign-up) request.
+ *	Generated after a successful [Create Customer](/../api/projects/customers#create-sign-up-customer) request.
  *
  */
 export interface CustomerCreatedMessagePayload {
@@ -11533,7 +11533,7 @@ export interface CustomerEmailChangedMessagePayload {
   readonly email: string
 }
 /**
- *	Generated after a successful [Verify Customer's Email](/../api/projects/customers#verify-customers-email) request.
+ *	Generated after a successful [Verify Customer's Email](/../api/projects/customers#verify-email-of-customer) request.
  *
  */
 export interface CustomerEmailVerifiedMessagePayload {
@@ -11579,13 +11579,13 @@ export interface CustomerLastNameSetMessagePayload {
   readonly lastName?: string
 }
 /**
- *	Generated after a successful [Reset Customer's Password](/../api/projects/customers#reset-customers-password), [Reset Customer's Password in a Store](/../api/projects/customers#reset-customers-password-in-a-store), [Change Customer's Password](/../api/projects/customers#change-customers-password), or [Change Customer's Password in a Store](/../api/projects/customers#change-customers-password-in-a-store) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
+ *	Generated after a successful [Reset Customer's Password](/../api/projects/customers#reset-password-of-customer), [Reset Customer's Password in a Store](/../api/projects/customers#reset-password-of-customer-in-store), [Change Customer's Password](/../api/projects/customers#change-password-of-customer), or [Change Customer's Password in a Store](/../api/projects/customers#change-password-of-customer-in-store) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
  *
  */
 export interface CustomerPasswordUpdatedMessagePayload {
   readonly type: 'CustomerPasswordUpdated'
   /**
-   *	Whether the Customer's password was updated during the [Customer's Password Reset](/../api/projects/customers#customers-password-reset) workflow.
+   *	Whether the Customer's password was updated during the [Reset password](/../api/projects/customers#password-reset-of-customer) or [Change password](/../api/projects/customers#change-password-of-customer) flow.
    *
    *
    */

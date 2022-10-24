@@ -118,7 +118,7 @@ export class ByProjectKeyRequestBuilder {
     })
   }
   /**
-   *	A customer is a person purchasing products. customers, Orders, Comments and Reviews can be associated to a customer.
+   *	A Customer is a person purchasing products. Carts, Orders, Quotes, Reviews and Payments can be associated to a Customer.
    *
    */
   public customers(): ByProjectKeyCustomersRequestBuilder {

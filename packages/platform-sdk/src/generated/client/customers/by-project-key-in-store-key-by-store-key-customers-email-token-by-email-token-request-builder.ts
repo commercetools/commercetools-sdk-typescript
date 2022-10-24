@@ -20,6 +20,10 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersEmailTokenByEmailTokenRequ
       baseUri?: string
     }
   ) {}
+  /**
+   *	If the Customer exists in the Project but the `stores` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]

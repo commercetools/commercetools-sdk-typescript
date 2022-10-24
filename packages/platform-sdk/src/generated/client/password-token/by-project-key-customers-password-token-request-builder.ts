@@ -21,11 +21,6 @@ export class ByProjectKeyCustomersPasswordTokenRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	The token value is used to reset the password of the customer with the given email. The token is
-   *	valid only for 10 minutes.
-   *
-   */
   public post(methodArgs: {
     body: CustomerCreatePasswordResetToken
     headers?: {

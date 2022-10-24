@@ -139,9 +139,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update my customer in a store
-   */
   public post(methodArgs: {
     body: MyCustomerUpdate
     headers?: {
@@ -163,9 +160,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete my Customer in a store
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

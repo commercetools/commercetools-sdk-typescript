@@ -18,9 +18,6 @@ export class ByProjectKeyCustomersEmailTokenRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Create a Token for verifying the Customer's Email
-   */
   public post(methodArgs: {
     body: CustomerCreateEmailToken
     headers?: {

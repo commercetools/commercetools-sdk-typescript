@@ -20,7 +20,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersPasswordRequestBuilder {
     }
   ) {}
   /**
-   *	Change a customers password
+   *	Changing the password of the Customer produces the [CustomerPasswordUpdated](ctp:api:type:CustomerPasswordUpdatedMessage) Message with `reset=false`.
+   *
    */
   public post(methodArgs: {
     body: CustomerChangePassword
