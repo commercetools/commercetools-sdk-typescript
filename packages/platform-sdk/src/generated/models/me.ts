@@ -5,14 +5,10 @@
  */
 
 import {
+  AssociateDraft,
   BusinessUnitKeyReference,
   BusinessUnitResourceIdentifier,
   BusinessUnitUpdateAction,
-  MyBusinessUnitChangeAssociateAction,
-  MyBusinessUnitChangeNameAction,
-  MyBusinessUnitChangeParentUnitAction,
-  MyBusinessUnitSetDefaultBillingAddressAction,
-  MyBusinessUnitSetDefaultShippingAddressAction,
 } from './business-unit'
 import {
   CartReference,
@@ -839,6 +835,45 @@ export interface MyBusinessUnitChangeAddressAction {
   readonly address: BaseAddress
 }
 /**
+ *	Updating the [Associate](ctp:api:type:Associate) on a [Business Unit](ctp:api:type:BusinessUnit) generates the [BusinessUnitAssociateChanged](ctp:api:type:BusinessUnitAssociateChangedMessage) Message.
+ *
+ */
+export interface MyBusinessUnitChangeAssociateAction {
+  readonly action: 'changeAssociate'
+  /**
+   *	The Associate to add.
+   *
+   *
+   */
+  readonly associate: AssociateDraft
+}
+/**
+ *	Updating the name on a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitNameChanged](ctp:api:type:BusinessUnitNameChangedMessage) Message.
+ *
+ */
+export interface MyBusinessUnitChangeNameAction {
+  readonly action: 'changeName'
+  /**
+   *	New name to set.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Changing the parent of a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitParentUnitChanged](ctp:api:type:BusinessUnitParentUnitChangedMessage) Message. The user must be an Associate with the `Admin` role in the new parent unit.
+ *
+ */
+export interface MyBusinessUnitChangeParentUnitAction {
+  readonly action: 'changeParentUnit'
+  /**
+   *	New parent unit of the [Business Unit](ctp:api:type:BusinessUnit).
+   *
+   *
+   */
+  readonly parentUnit: BusinessUnitResourceIdentifier
+}
+/**
  *	Removing the address from a [Business Unit](ctp:api:type:BusinessUnit) generates the [BusinessUnitAddressRemoved](ctp:api:type:BusinessUnitAddressRemovedMessage) Message.
  *
  */
@@ -999,6 +1034,44 @@ export interface MyBusinessUnitSetCustomTypeAction {
    *
    */
   readonly fields?: FieldContainer
+}
+/**
+ *	Setting the default billing address on a [Business Unit](ctp:api:type:BusinessUnit) generates the [BusinessUnitDefaultBillingAddressSet](ctp:api:type:BusinessUnitDefaultBillingAddressSetMessage) Message.
+ *
+ */
+export interface MyBusinessUnitSetDefaultBillingAddressAction {
+  readonly action: 'setDefaultBillingAddress'
+  /**
+   *	ID of the address to add as a billing address. Either `addressId` or `addressKey` is required.
+   *
+   *
+   */
+  readonly addressId?: string
+  /**
+   *	Key of the address to add as a billing address. Either `addressId` or `addressKey` is required.
+   *
+   *
+   */
+  readonly addressKey?: string
+}
+/**
+ *	Setting the default shipping address on a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitDefaultShippingAddressSet](ctp:api:type:BusinessUnitDefaultShippingAddressSetMessage) Message.
+ *
+ */
+export interface MyBusinessUnitSetDefaultShippingAddressAction {
+  readonly action: 'setDefaultShippingAddress'
+  /**
+   *	ID of the address to add as a shipping address. Either `addressId` or `addressKey` is required.
+   *
+   *
+   */
+  readonly addressId?: string
+  /**
+   *	Key of the address to add as a shipping address. Either `addressId` or `addressKey` is required.
+   *
+   *
+   */
+  readonly addressKey?: string
 }
 export interface MyCartAddDiscountCodeAction {
   readonly action: 'addDiscountCode'
