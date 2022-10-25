@@ -13,7 +13,7 @@ import store from './utils'
 export default function createAuthMiddlewareForPasswordFlow(
   options: PasswordAuthMiddlewareOptions
 ): Middleware {
-  const tokenCache = store({})
+  const tokenCache = options.tokenCache || store({})
   const pendingTasks: Array<Task> = []
   const requestState = store(false)
 
