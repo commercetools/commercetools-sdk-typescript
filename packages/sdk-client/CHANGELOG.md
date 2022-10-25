@@ -1,5 +1,13 @@
 # @commercetools/sdk-client-v2
 
+## 2.0.2
+
+### Patch Changes
+
+- [#355](https://github.com/commercetools/commercetools-sdk-typescript/pull/355) [`0db2947`](https://github.com/commercetools/commercetools-sdk-typescript/commit/0db2947dfe0629f833d7c101e9ec78e3a960f999) Thanks [@ajimae](https://github.com/ajimae)! - fix SDK to accept custom tokenCache store
+  allow anonymous auth flow to accept custom tokenCache store
+  fix refresh token flow and password flow to accept custom tokenCache store also
+
 ## 2.0.1
 
 ### Patch Changes
