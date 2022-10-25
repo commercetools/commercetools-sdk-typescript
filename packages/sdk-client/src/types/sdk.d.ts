@@ -233,6 +233,7 @@ export type RefreshAuthMiddlewareOptions = {
     clientSecret: string
   }
   refreshToken: string
+  tokenCache?: TokenCache
   // For internal usage only
   oauthUri?: string
   fetch?: any
@@ -304,6 +305,7 @@ export type PasswordAuthMiddlewareOptions = {
     user: UserAuthOptions
   }
   scopes?: Array<string>
+  tokenCache?: TokenCache
   // For internal usage only
   oauthUri?: string
   fetch?: any
