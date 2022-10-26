@@ -20,7 +20,7 @@ export default function createRetryMiddleware(
         maxRetries = 3,
         backoff = true,
         retryDelay = 200,
-      } = options
+      } = options || {}
 
       let response,
         retryCount = 0
@@ -28,6 +28,8 @@ export default function createRetryMiddleware(
       // validate the `retryCodes` option
       validateRetryCodes(retryCodes)
       async function executeRequest<T>(): Promise<T> {
+        if (!enableRetry) response = await next(request)
+
         while (enableRetry && retryCount < maxRetries) {
           // check if the response if worth retrying
           response = await next(request)

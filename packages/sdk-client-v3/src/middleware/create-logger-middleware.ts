@@ -45,7 +45,7 @@ export default function createLoggerMiddleware(
         return response
       }
 
-      console.log('Response: ', response)
+      console.log({ Response: response })
       return response
     }
   }

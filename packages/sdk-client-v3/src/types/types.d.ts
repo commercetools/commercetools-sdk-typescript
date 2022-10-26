@@ -129,6 +129,7 @@ export type RefreshAuthMiddlewareOptions = {
     clientSecret: string
   }
   refreshToken: string
+  tokenCache?: TokenCache,
   // For internal usage only
   oauthUri?: string
   httpClient?: any
@@ -181,6 +182,7 @@ export type PasswordAuthMiddlewareOptions = {
     user: UserAuthOptions
   }
   scopes?: Array<string>
+  tokenCache?: TokenCache,
   // For internal usage only
   oauthUri?: string
   httpClient?: any
@@ -207,7 +209,7 @@ export type HttpMiddlewareOptions = {
   includeOriginalRequest?: boolean
   includeRequestInErrorResponse?: boolean
   // maskSensitiveHeaderData?: boolean
-  // timeout?: number
+  timeout?: number
   // enableRetry?: boolean
   // retryConfig?: {
   //   maxRetries?: number
@@ -217,14 +219,13 @@ export type HttpMiddlewareOptions = {
   //   retryCodes?: Array<number | string>,
   // }
   httpClient: Function
-  abortController?: AbortController // deprecated
   getAbortController?: () => AbortController
   httpClientOptions?: object
 }
 
 export type HttpOptions = {
-  url: string;
-  clientOptions: IClientOptions;
+  url: string
+  clientOptions: IClientOptions
   httpClient: any
 }
 
@@ -240,7 +241,6 @@ export type LoggerMiddlewareOptions = {
 }
 
 export type RetryMiddlewareOptions = {
-  timeout?: number
   enableRetry: boolean
   backoff?: boolean
   maxRetries?: number
@@ -277,6 +277,8 @@ export type IClientOptions = {
   headers: JsonObject<QueryParam>;
   credentialsMode?: CredentialsMode;
   body?: string | Buffer
+  timeout?: number
+  abortController?: AbortController
   [k: string | number | symbol]: unknown
 }
 

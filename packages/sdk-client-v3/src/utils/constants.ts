@@ -1,9 +1,7 @@
 export const HEADERS_CONTENT_TYPES = ['application/json', 'application/graphql']
 export const CONCURRENCT_REQUEST = 20
-export const COCO_API_BASE_URL =
-  'https://api.europe-west1.gcp.commercetools.com'
-export const COCO_AUTH_BASE_URL =
-  'https://auth.europe-west1.gcp.commercetools.com'
+export const CTP_API_URL = 'https://api.europe-west1.gcp.commercetools.com'
+export const CTP_AUTH_URL = 'https://auth.europe-west1.gcp.commercetools.com'
 export const DEFAULT_HEADERS = [
   'content-type',
   'access-control-allow-origin',

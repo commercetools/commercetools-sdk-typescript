@@ -35,7 +35,7 @@ export async function executeRequest(
     )
 
   /**
-   * If there was a token in the tokenCache, and it's not
+   * If there is a token in the tokenCache, and it's not
    * expired, append the token in the `Authorization` header.
    */
   const tokenCacheObject = tokenCache.get(tokenCacheKey)
@@ -117,7 +117,7 @@ export async function executeRequest(
       // cache new generated token, refreshToken and expiration time
       tokenCache.set({ token, expirationTime, refreshToken })
 
-      // Execute all pending requests
+      // signal that a token fetch is complete
       requestState.set(false)
 
       /**

@@ -17,6 +17,7 @@ import {
   QueueMiddlewareOptions,
   RefreshAuthMiddlewareOptions,
   LoggerMiddlewareOptions,
+  RetryMiddlewareOptions,
 } from '../types/types'
 
 const {
@@ -27,6 +28,7 @@ const {
   createAuthMiddlewareForExistingTokenFlow,
 
   createCorrelationIdMiddleware,
+  createRetryMiddleware,
   createHttpMiddleware,
   createLoggerMiddleware,
   createQueueMiddleware,
@@ -86,7 +88,7 @@ export default class ClientBuilder {
   ): ClientBuilder {
     return this.withAuthMiddleware(
       createAuthMiddlewareForClientCredentialsFlow({
-        host: options.host || constants.COCO_AUTH_BASE_URL,
+        host: options.host || constants.CTP_AUTH_URL,
         projectKey: options.projectKey || this.projectKey,
         credentials: {
           clientId: options.credentials.clientId || null,
@@ -105,7 +107,7 @@ export default class ClientBuilder {
   ): ClientBuilder {
     return this.withAuthMiddleware(
       createAuthMiddlewareForPasswordFlow({
-        host: options.host || constants.COCO_AUTH_BASE_URL,
+        host: options.host || constants.CTP_AUTH_URL,
         projectKey: options.projectKey || this.projectKey,
         credentials: {
           clientId: options.credentials.clientId || null,
@@ -124,7 +126,7 @@ export default class ClientBuilder {
   withAnonymousSessionFlow(options: AuthMiddlewareOptions): ClientBuilder {
     return this.withAuthMiddleware(
       createAuthMiddlewareForAnonymousSessionFlow({
-        host: options.host || constants.COCO_AUTH_BASE_URL,
+        host: options.host || constants.CTP_AUTH_URL,
         projectKey: this.projectKey || options.projectKey,
         credentials: {
           clientId: options.credentials.clientId || null,
@@ -140,7 +142,7 @@ export default class ClientBuilder {
   withRefreshTokenFlow(options: RefreshAuthMiddlewareOptions): ClientBuilder {
     return this.withAuthMiddleware(
       createAuthMiddlewareForRefreshTokenFlow({
-        host: options.host || constants.COCO_AUTH_BASE_URL,
+        host: options.host || constants.CTP_AUTH_URL,
         projectKey: this.projectKey || options.projectKey,
         credentials: {
           clientId: options.credentials.clientId || null,
@@ -151,6 +153,15 @@ export default class ClientBuilder {
         ...options,
       })
     )
+  }
+
+  withRetryMiddleware(options: RetryMiddlewareOptions): ClientBuilder {
+    this.retryMiddleware = createRetryMiddleware({
+      enableRetry: true,
+      ...options,
+    })
+
+    return this
   }
 
   withExistingTokenFlow(
@@ -167,7 +178,7 @@ export default class ClientBuilder {
 
   withHttpMiddleware(options: HttpMiddlewareOptions): ClientBuilder {
     this.httpMiddleware = createHttpMiddleware({
-      host: options.host || constants.COCO_API_BASE_URL,
+      host: options.host || constants.CTP_API_URL,
       httpClient: options.httpClient || fetch,
       ...options,
     })

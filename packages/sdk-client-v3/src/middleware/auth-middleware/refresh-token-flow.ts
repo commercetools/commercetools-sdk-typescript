@@ -13,7 +13,13 @@ import { store } from '../../utils'
 export default function createAuthMiddlewareForRefreshTokenFlow(
   options: RefreshAuthMiddlewareOptions
 ): Middleware {
-  const tokenCache = store({})
+  const tokenCache =
+    options.tokenCache ||
+    store({
+      token: '',
+      tokencacheKey: -1,
+    })
+
   const pendingTasks: Array<Task> = []
   const requestState = store(false)
 

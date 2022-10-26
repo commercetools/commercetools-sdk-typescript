@@ -7,11 +7,9 @@ import {
   MiddlewareResponse,
   AuthMiddlewareOptions,
 } from '../../types/types'
-// import authMiddlewareBase from './base-auth-flow'
 import { buildRequestForAnonymousSessionFlow } from './auth-request-builder'
 import { executeRequest } from './auth-request-executor'
 import { store, buildTokenCacheKey } from '../../utils'
-// import store from './utils'
 
 export default function createAuthMiddlewareForAnonymousSessionFlow(
   options: AuthMiddlewareOptions
@@ -37,8 +35,6 @@ export default function createAuthMiddlewareForAnonymousSessionFlow(
         // move on
         return next(request)
       }
-
-      // implement every other conditions here - tokenCache, pendingTasks, requestState etc
 
       // prepare request options
       const requestOptions = {
