@@ -19,9 +19,6 @@ export class ByProjectKeySubscriptionsKeyByKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Retrieves the representation of a subscription by its key.
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
