@@ -943,7 +943,7 @@ export interface OrderSearchRequest {
    *	Controls how results to your query are sorted. If not provided, the results are sorted by relevance in descending order.
    *
    */
-  readonly sort?: string
+  readonly sort?: OrderSearchSorting[]
   /**
    *	The maximum number of search results to be returned.
    *
@@ -955,6 +955,7 @@ export interface OrderSearchRequest {
    */
   readonly offset?: number
 }
+export interface OrderSearchSorting {}
 export type OrderState =
   | 'Cancelled'
   | 'Complete'
