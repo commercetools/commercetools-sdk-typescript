@@ -24,11 +24,13 @@ async function executeRequest({
   let parsed: TResponse
   let timer: ReturnType<typeof setTimeout>
 
+  const { timeout, abortController } = clientOptions
+
   try {
-    if (clientOptions.timeout)
+    if (timeout)
       timer = setTimeout(() => {
-        clientOptions.abortController.abort()
-      })
+        abortController.abort()
+      }, timeout)
 
     const response: TResponse = await executor({
       url,

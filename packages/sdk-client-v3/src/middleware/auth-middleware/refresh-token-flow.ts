@@ -5,6 +5,8 @@ import {
   MiddlewareRequest,
   MiddlewareResponse,
   RefreshAuthMiddlewareOptions,
+  RequestState,
+  RequestStateStore,
 } from '../../types/types'
 import { executeRequest } from './auth-request-executor'
 import { buildRequestForRefreshTokenFlow } from './auth-request-builder'
@@ -17,11 +19,11 @@ export default function createAuthMiddlewareForRefreshTokenFlow(
     options.tokenCache ||
     store({
       token: '',
-      tokencacheKey: -1,
+      tokenCacheKey: null,
     })
 
   const pendingTasks: Array<Task> = []
-  const requestState = store(false)
+  const requestState = store<RequestState, RequestStateStore>(false)
 
   return (next: Next) => {
     return async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {

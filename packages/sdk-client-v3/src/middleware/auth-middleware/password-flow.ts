@@ -6,6 +6,8 @@ import {
   MiddlewareRequest,
   MiddlewareResponse,
   PasswordAuthMiddlewareOptions,
+  RequestState,
+  RequestStateStore,
 } from '../../types/types'
 import { executeRequest } from './auth-request-executor'
 import { buildRequestForPasswordFlow } from './auth-request-builder'
@@ -22,7 +24,7 @@ export default function createAuthMiddlewareForPasswordFlow(
     })
 
   const pendingTasks: Array<Task> = []
-  const requestState = store(false)
+  const requestState = store<RequestState, RequestStateStore>(false)
 
   const tokenCacheKey = buildTokenCacheKey(options)
 

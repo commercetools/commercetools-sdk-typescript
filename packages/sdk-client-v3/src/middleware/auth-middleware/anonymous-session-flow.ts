@@ -5,7 +5,11 @@ import {
   Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
+  RequestState,
   AuthMiddlewareOptions,
+  RequestStateStore,
+  TokenCache,
+  TokenStore,
 } from '../../types/types'
 import { buildRequestForAnonymousSessionFlow } from './auth-request-builder'
 import { executeRequest } from './auth-request-executor'
@@ -14,11 +18,11 @@ import { store, buildTokenCacheKey } from '../../utils'
 export default function createAuthMiddlewareForAnonymousSessionFlow(
   options: AuthMiddlewareOptions
 ): Middleware {
-  const requestState = store(false)
   const pendingTasks: Array<Task> = []
+  const requestState = store<RequestState, RequestStateStore>(false)
   const tokenCache =
     options.tokenCache ||
-    store({
+    store<TokenStore, TokenCache>({
       token: '',
       expirationTime: -1,
     })

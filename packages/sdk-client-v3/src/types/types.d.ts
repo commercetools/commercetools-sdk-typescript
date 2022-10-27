@@ -106,8 +106,9 @@ export type TokenCacheOptions = {
 
 export type TokenStore = {
   token: string
-  expirationTime: number
+  expirationTime?: number
   refreshToken?: string
+  tokenCacheKey?: TokenCacheOptions
 }
 
 export type TokenCache = {
@@ -135,6 +136,11 @@ export type RefreshAuthMiddlewareOptions = {
   httpClient?: any
 }
 
+export type RequestStateStore = {
+  get: () => RequestState
+  set: (requestState: RequestState) => void
+}
+
 /* Request */
 type requestBaseOptions = {
   url: string
@@ -142,10 +148,7 @@ type requestBaseOptions = {
   basicAuth: string
   request: MiddlewareRequest
   tokenCache: TokenCache,
-  requestState: {
-    get: () => RequestState
-    set: (requestState: RequestState) => void
-  },
+  requestState: RequestStateStore,
   pendingTasks: Array<Task>,
   tokenCacheKey?: TokenCacheOptions,
 }
