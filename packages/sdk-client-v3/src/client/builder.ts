@@ -59,18 +59,19 @@ export default class ClientBuilder {
     baseUri: string,
     credentials: Credentials,
     oauthUri?: string,
-    projectKey?: string
+    projectKey?: string,
+    scopes?: Array<string>,
+    httpClient?: Function
   ): ClientBuilder {
     return this.withClientCredentialsFlow({
       host: oauthUri,
       projectKey: projectKey || this.projectKey,
       credentials,
+      scopes,
+    }).withHttpMiddleware({
+      host: baseUri,
+      httpClient: httpClient || fetch,
     })
-      .withHttpMiddleware({
-        host: baseUri,
-        httpClient: fetch,
-      })
-      .withLoggerMiddleware()
   }
 
   private withAuthMiddleware(authMiddleware: Middleware): ClientBuilder {
