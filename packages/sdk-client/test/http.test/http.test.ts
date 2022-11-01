@@ -287,6 +287,97 @@ describe('Http', () => {
     })
   })
 
+  test('execute a get request with no retry on abort', () => {
+    expect.assertions(1)
+    return new Promise((resolve: Function, reject: Function) => {
+      const request = createTestRequest({
+        uri: '/foo/bar',
+      })
+      const response = { resolve: Function, reject: Function } as any
+
+      const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
+        expect(res).toEqual({
+          ...response,
+          error: expect.any(Error),
+          statusCode: 0,
+        })
+        resolve()
+      }
+      // Use default options
+      const httpMiddleware = createHttpMiddleware({
+        host: testHost,
+        timeout: 10, // time out after 10ms
+        fetch,
+        enableRetry: true,
+        retryConfig: {
+          retryTimes: 2,
+          retryOnAbort: false,
+        },
+        getAbortController: () => new AbortController(),
+      } as any)
+      nock(testHost)
+        .defaultReplyHeaders({
+          'Content-Type': 'application/json',
+        })
+        .get('/foo/bar')
+        .delay(100) // delay response with 100ms
+        .once()
+        .reply(200, { foo: 'bar' })
+
+      httpMiddleware(next)(request, response)
+    })
+  })
+
+  test('execute a get request with retry on abort', () => {
+    expect.assertions(1)
+    return new Promise((resolve: Function, reject: Function) => {
+      const request = createTestRequest({
+        uri: '/foo/bar',
+      })
+      const response = { resolve: Function, reject: Function } as any
+
+      const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
+        expect(res).toEqual({
+          ...response,
+          body: { foo: 'bar' },
+          statusCode: 200,
+        })
+        resolve()
+      }
+      // Use default options
+      const httpMiddleware = createHttpMiddleware({
+        host: testHost,
+        timeout: 50, // time out after 10ms
+        fetch,
+        enableRetry: true,
+        retryConfig: {
+          retryTimes: 2,
+          retryOnAbort: true,
+        },
+        getAbortController: () => new AbortController(),
+      } as any)
+      nock(testHost)
+        .defaultReplyHeaders({
+          'Content-Type': 'application/json',
+        })
+        .get('/foo/bar')
+        .delay(100) // delay response with 100ms
+        .once()
+        .reply(200, { foo: 'bar' })
+
+      nock(testHost)
+        .defaultReplyHeaders({
+          'Content-Type': 'application/json',
+        })
+        .get('/foo/bar')
+        .delay(10) // delay response with 100ms
+        .once()
+        .reply(200, { foo: 'bar' })
+
+      httpMiddleware(next)(request, response)
+    })
+  })
+
   test('execute a request with timeout and client re-use', () =>
     new Promise((resolve: Function, reject: Function) => {
       const request = createTestRequest({

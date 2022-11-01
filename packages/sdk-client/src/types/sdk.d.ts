@@ -326,6 +326,7 @@ export type HttpMiddlewareOptions = {
     retryDelay?: number
     backoff?: boolean
     maxDelay?: number
+    retryOnAbort?: boolean
     retryCodes?: Array<number | string>,
   }
   fetch?: any
