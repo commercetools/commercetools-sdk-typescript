@@ -3,8 +3,12 @@ import {
   Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
+  RequestState,
   Next,
   Task,
+  TokenCache,
+  TokenStore,
+  RequestStateStore,
 } from '../types/sdk.d'
 import authMiddlewareBase from './base-auth-flow'
 import { buildRequestForAnonymousSessionFlow } from './build-requests'
@@ -13,11 +17,16 @@ import store from './utils'
 export default function createAuthMiddlewareForAnonymousSessionFlow(
   options: AuthMiddlewareOptions
 ): Middleware {
-  const tokenCache = options.tokenCache || store({})
+  const tokenCache =
+    options.tokenCache ||
+    store<TokenStore, TokenCache>({
+      token: '',
+      expirationTime: -1,
+    })
 
   const pendingTasks: Array<Task> = []
 
-  const requestState = store(false)
+  const requestState = store<RequestState, RequestStateStore>(false)
   return (next: Next): Next =>
     (request: MiddlewareRequest, response: MiddlewareResponse) => {
       // Check if there is already a `Authorization` header in the request.
