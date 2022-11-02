@@ -84,6 +84,8 @@ export default function createHttpMiddleware({
     backoff = true,
     retryDelay = 200,
     maxDelay = Infinity,
+    // If set to true reinitialize the abort controller when the timeout is reached and apply the retry config
+    retryOnAbort = false,
     retryCodes = [503],
   } = {},
   fetch: fetcher,
@@ -116,12 +118,6 @@ export default function createHttpMiddleware({
 
   return (next: Next): Next =>
     (request: MiddlewareRequest, response: MiddlewareResponse) => {
-      let abortController: any
-      if (timeout || getAbortController)
-        abortController =
-          (getAbortController ? getAbortController() : null) ||
-          new AbortController()
-
       const url = host.replace(/\/$/, '') + request.uri
       const requestHeader: JsonObject<QueryParam> = { ...request.headers }
 
@@ -159,9 +155,6 @@ export default function createHttpMiddleware({
       if (credentialsMode) {
         fetchOptions.credentialsMode = credentialsMode
       }
-      if (abortController) {
-        fetchOptions.signal = abortController.signal
-      }
       if (body) {
         fetchOptions.body = body
       }
@@ -170,10 +163,18 @@ export default function createHttpMiddleware({
       function executeFetch() {
         // Kick off timer for abortController directly before fetch.
         let timer: ReturnType<typeof setTimeout>
-        if (timeout)
+        let abortController: any
+        if (timeout) {
+          // Initialize the abort controller in case we do a retry on an aborted request to rest the signal
+          abortController =
+            (getAbortController ? getAbortController() : null) ||
+            new AbortController()
+          fetchOptions.signal = abortController.signal
+          // Set the timer
           timer = setTimeout(() => {
             abortController.abort()
           }, timeout)
+        }
         fetchFunction(url, fetchOptions)
           .then(
             (res: Response) => {
@@ -288,7 +289,11 @@ export default function createHttpMiddleware({
             },
             // We know that this is a "network" error thrown by the `fetch` library
             (e: Error) => {
-              if (enableRetry)
+              // Retry when enabled and either the request was not aborted or retryOnAbort is enabled
+              if (
+                enableRetry &&
+                (retryOnAbort || !abortController || !abortController.signal)
+              ) {
                 if (retryCount < maxRetries) {
                   setTimeout(
                     executeFetch,
@@ -303,6 +308,7 @@ export default function createHttpMiddleware({
                   retryCount += 1
                   return
                 }
+              }
 
               const error = new NetworkError(e.message, {
                 ...(includeRequestInErrorResponse
