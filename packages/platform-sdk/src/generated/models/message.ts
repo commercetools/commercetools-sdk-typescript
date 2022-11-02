@@ -6737,7 +6737,7 @@ export interface PaymentStatusInterfaceCodeSetMessage {
   /**
    *	Unique identifier for the [Payment](ctp:api:type:Payment) for which the [Set StatusInterfaceCode](ctp:api:type:PaymentSetStatusInterfaceCodeAction) update action was applied.
    *
-   *
+   *	@deprecated
    */
   readonly paymentId: string
   /**
@@ -12667,7 +12667,7 @@ export interface PaymentStatusInterfaceCodeSetMessagePayload {
   /**
    *	Unique identifier for the [Payment](ctp:api:type:Payment) for which the [Set StatusInterfaceCode](ctp:api:type:PaymentSetStatusInterfaceCodeAction) update action was applied.
    *
-   *
+   *	@deprecated
    */
   readonly paymentId: string
   /**
