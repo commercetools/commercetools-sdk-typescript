@@ -2342,6 +2342,13 @@ export interface CartSetLineItemTaxAmountAction {
    *
    */
   readonly externalTaxAmount?: ExternalTaxAmountDraft
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) used for this Line Item.```
+   *	This is required for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 export interface CartSetLineItemTaxRateAction {
   readonly action: 'setLineItemTaxRate'
@@ -2353,6 +2360,13 @@ export interface CartSetLineItemTaxRateAction {
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) used for this Line Item.```
+   *	This is required for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 export interface CartSetLineItemTotalPriceAction {
   readonly action: 'setLineItemTotalPrice'

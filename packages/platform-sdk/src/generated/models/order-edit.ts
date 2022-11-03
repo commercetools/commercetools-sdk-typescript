@@ -1199,6 +1199,13 @@ export interface StagedOrderSetLineItemTaxAmountAction {
    *
    */
   readonly externalTaxAmount?: ExternalTaxAmountDraft
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) used for this Line Item.```
+   *	This is required for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 export interface StagedOrderSetLineItemTaxRateAction {
   readonly action: 'setLineItemTaxRate'
@@ -1210,6 +1217,13 @@ export interface StagedOrderSetLineItemTaxRateAction {
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) used for this Line Item.
+   *	This is required for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 export interface StagedOrderSetLineItemTotalPriceAction {
   readonly action: 'setLineItemTotalPrice'
