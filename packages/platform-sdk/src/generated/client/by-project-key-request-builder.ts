@@ -7,6 +7,7 @@ import { Project, ProjectUpdate } from '../models/project'
 import { executeRequest } from '../shared/utils/common-types'
 import { ApiRequest } from '../shared/utils/requests-utils'
 import { ByProjectKeyApiClientsRequestBuilder } from './api-clients/by-project-key-api-clients-request-builder'
+import { ByProjectKeyAttributeGroupsRequestBuilder } from './attribute-groups/by-project-key-attribute-groups-request-builder'
 import { ByProjectKeyBusinessUnitsRequestBuilder } from './business-units/by-project-key-business-units-request-builder'
 import { ByProjectKeyCartDiscountsRequestBuilder } from './cart-discounts/by-project-key-cart-discounts-request-builder'
 import { ByProjectKeyCartsRequestBuilder } from './carts/by-project-key-carts-request-builder'
@@ -520,6 +521,18 @@ export class ByProjectKeyRequestBuilder {
       pathArgs: {
         ...this.args.pathArgs,
         ...childPathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	Attribute groups ... TODO
+   */
+  public attributeGroups(): ByProjectKeyAttributeGroupsRequestBuilder {
+    return new ByProjectKeyAttributeGroupsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
       },
       executeRequest: this.args.executeRequest,
       baseUri: this.args.baseUri,
