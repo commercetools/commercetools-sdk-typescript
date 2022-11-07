@@ -189,9 +189,6 @@ export class ByProjectKeyMeRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update my customer
-   */
   public post(methodArgs: {
     body: MyCustomerUpdate
     headers?: {
@@ -213,9 +210,6 @@ export class ByProjectKeyMeRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete my Customer
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

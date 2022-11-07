@@ -3,45 +3,39 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { Customer, MyCustomerResetPassword } from '../../models/customer'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
-export class ByProjectKeyInStoreKeyByStoreKeyMePasswordResetRequestBuilder {
+export class ByProjectKeySubscriptionsByIDHealthRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
         projectKey: string
-        storeKey: string
+        ID: string
       }
       executeRequest: executeRequest
       baseUri?: string
     }
   ) {}
   /**
-   *	This is the last step in the [password reset process of the authenticated Customer](/../api/projects/customers#password-reset-of-customer-in-store).
-   *
-   *	Resetting a password produces the of the Customer [CustomerPasswordUpdated](ctp:api:type:CustomerPasswordUpdatedMessage) Message with `reset=true`.
+   *	This endpoint can be polled by a monitoring or alerting system that checks the health of your Subscriptions. To ease integration with such systems this endpoint does not require [Authorization](/../api/authorization).
    *
    */
-  public post(methodArgs: {
-    body: MyCustomerResetPassword
+  public get(methodArgs?: {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<Customer> {
-    return new ApiRequest<Customer>(
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
       {
         baseUri: this.args.baseUri,
-        method: 'POST',
-        uriTemplate: '/{projectKey}/in-store/key={storeKey}/me/password/reset',
+        method: 'GET',
+        uriTemplate: '/{projectKey}/subscriptions/{ID}/health',
         pathVariables: this.args.pathArgs,
         headers: {
-          'Content-Type': 'application/json',
           ...methodArgs?.headers,
         },
-        body: methodArgs?.body,
       },
       this.args.executeRequest
     )

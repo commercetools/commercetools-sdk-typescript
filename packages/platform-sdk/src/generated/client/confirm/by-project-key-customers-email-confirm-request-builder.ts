@@ -19,7 +19,8 @@ export class ByProjectKeyCustomersEmailConfirmRequestBuilder {
     }
   ) {}
   /**
-   *	Verifies customer's email using a token.
+   *	Verifying the email of the Customer produces the [CustomerEmailVerified](ctp:api:type:CustomerEmailVerifiedMessage) Message.
+   *
    */
   public post(methodArgs: {
     body: CustomerEmailVerify

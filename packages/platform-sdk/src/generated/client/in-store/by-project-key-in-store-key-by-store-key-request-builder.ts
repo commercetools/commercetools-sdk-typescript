@@ -60,8 +60,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
     })
   }
   /**
-   *	A customer is a person purchasing products. customers, Orders,
-   *	Comments and Reviews can be associated to a customer.
+   *	A Customer is a person purchasing products. Carts, Orders,
+   *	Comments and Reviews can be associated to a Customer.
    *
    */
   public customers(): ByProjectKeyInStoreKeyByStoreKeyCustomersRequestBuilder {

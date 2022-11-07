@@ -267,6 +267,12 @@ export interface QuoteDraft {
    */
   readonly stagedQuoteVersion: number
   /**
+   *	If `true`, the `stagedQuoteState` of the referenced [StagedQuote](/../api/projects/staged-quotes#stagedquote) will be set to `Sent`.
+   *
+   *
+   */
+  readonly stagedQuoteStateToSent?: boolean
+  /**
    *	User-defined unique identifier for the Quote.
    *
    *

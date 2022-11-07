@@ -131,6 +131,12 @@ export interface StagedQuoteDraft {
    */
   readonly quoteRequestVersion: number
   /**
+   *	If `true`, the `quoteRequestState` of the referenced [QuoteRequest](ctp:api:type:QuoteRequest) will be set to `Accepted`.
+   *
+   *
+   */
+  readonly quoteRequestStateToAccepted?: boolean
+  /**
    *	User-defined unique identifier for the StagedQuote.
    *
    *

@@ -5,6 +5,10 @@
  */
 
 import {
+  AttributeGroupReference,
+  AttributeGroupResourceIdentifier,
+} from './attribute-group'
+import {
   BusinessUnitKeyReference,
   BusinessUnitReference,
   BusinessUnitResourceIdentifier,
@@ -929,6 +933,7 @@ export interface QueryPrice {
  *
  */
 export type Reference =
+  | AttributeGroupReference
   | BusinessUnitReference
   | CartDiscountReference
   | CartReference
@@ -963,6 +968,7 @@ export type Reference =
  *
  */
 export type ReferenceTypeId =
+  | 'attribute-group'
   | 'business-unit'
   | 'cart'
   | 'cart-discount'
@@ -1003,6 +1009,7 @@ export type ReferenceTypeId =
  *
  */
 export type ResourceIdentifier =
+  | AttributeGroupResourceIdentifier
   | BusinessUnitResourceIdentifier
   | CartDiscountResourceIdentifier
   | CartResourceIdentifier

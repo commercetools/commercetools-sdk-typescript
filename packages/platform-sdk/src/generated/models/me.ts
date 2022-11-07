@@ -5,14 +5,10 @@
  */
 
 import {
+  AssociateDraft,
   BusinessUnitKeyReference,
   BusinessUnitResourceIdentifier,
   BusinessUnitUpdateAction,
-  MyBusinessUnitChangeAssociateAction,
-  MyBusinessUnitChangeNameAction,
-  MyBusinessUnitChangeParentUnitAction,
-  MyBusinessUnitSetDefaultBillingAddressAction,
-  MyBusinessUnitSetDefaultShippingAddressAction,
 } from './business-unit'
 import {
   CartReference,
@@ -279,78 +275,115 @@ export interface MyCompanyDraft {
 }
 export interface MyCustomerDraft {
   /**
+   *	Email address of the Customer that is [unique](/../api/customers-overview#customer-uniqueness) for an entire Project or Store the Customer is assigned to.
+   *	It is the mandatory unique identifier of a Customer.
+   *
    *
    */
   readonly email: string
   /**
+   *	Password of the Customer.
+   *
    *
    */
   readonly password: string
   /**
+   *	Given name (first name) of the Customer.
+   *
    *
    */
   readonly firstName?: string
   /**
+   *	Family name (last name) of the Customer.
+   *
    *
    */
   readonly lastName?: string
   /**
+   *	Middle name of the Customer.
+   *
    *
    */
   readonly middleName?: string
   /**
+   *	Title of the Customer, for example, 'Dr.'.
+   *
    *
    */
   readonly title?: string
   /**
+   *	Salutation of the Customer, for example, 'Mr.' or 'Mrs.'.
+   *
+   *
+   */
+  readonly salutation?: string
+  /**
+   *	Date of birth of the Customer.
+   *
    *
    */
   readonly dateOfBirth?: string
   /**
+   *	Company name of the Customer.
+   *
    *
    */
   readonly companyName?: string
   /**
+   *	Unique VAT ID of the Customer.
+   *
    *
    */
   readonly vatId?: string
   /**
-   *	Sets the ID of each address to be unique in the addresses list.
+   *	Addresses of the Customer.
+   *
    *
    */
   readonly addresses?: BaseAddress[]
   /**
-   *	The index of the address in the addresses array.
-   *	The `defaultShippingAddressId` of the customer will be set to the ID of that address.
+   *	Index of the address in the `addresses` array to use as the default shipping address.
+   *	The `defaultShippingAddressId` of the Customer will be set to the `id` of that address.
+   *
    *
    */
   readonly defaultShippingAddress?: number
   /**
-   *	The index of the address in the addresses array.
-   *	The `defaultBillingAddressId` of the customer will be set to the ID of that address.
+   *	Index of the address in the `addresses` array to use as the default billing address.
+   *	The `defaultBillingAddressId` of the Customer will be set to the `id` of that address.
+   *
    *
    */
   readonly defaultBillingAddress?: number
   /**
-   *	The custom fields.
+   *	Custom Fields for the Customer.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
   /**
+   *	Preferred language of the Customer. Must be one of the languages supported by the [Project](ctp:api:type:Project).
+   *
    *
    */
   readonly locale?: string
   /**
+   *	Sets the [Stores](ctp:api:type:Store) for the Customer.
+   *
    *
    */
   readonly stores?: StoreResourceIdentifier[]
 }
 export interface MyCustomerUpdate {
   /**
+   *	Expected version of the Customer on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *
    *
    */
   readonly version: number
   /**
+   *	Update actions to be performed on the Customer.
+   *
    *
    */
   readonly actions: MyCustomerUpdateAction[]
@@ -839,6 +872,45 @@ export interface MyBusinessUnitChangeAddressAction {
   readonly address: BaseAddress
 }
 /**
+ *	Updating the [Associate](ctp:api:type:Associate) on a [Business Unit](ctp:api:type:BusinessUnit) generates the [BusinessUnitAssociateChanged](ctp:api:type:BusinessUnitAssociateChangedMessage) Message.
+ *
+ */
+export interface MyBusinessUnitChangeAssociateAction {
+  readonly action: 'changeAssociate'
+  /**
+   *	The Associate to add.
+   *
+   *
+   */
+  readonly associate: AssociateDraft
+}
+/**
+ *	Updating the name on a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitNameChanged](ctp:api:type:BusinessUnitNameChangedMessage) Message.
+ *
+ */
+export interface MyBusinessUnitChangeNameAction {
+  readonly action: 'changeName'
+  /**
+   *	New name to set.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Changing the parent of a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitParentUnitChanged](ctp:api:type:BusinessUnitParentUnitChangedMessage) Message. The user must be an Associate with the `Admin` role in the new parent unit.
+ *
+ */
+export interface MyBusinessUnitChangeParentUnitAction {
+  readonly action: 'changeParentUnit'
+  /**
+   *	New parent unit of the [Business Unit](ctp:api:type:BusinessUnit).
+   *
+   *
+   */
+  readonly parentUnit: BusinessUnitResourceIdentifier
+}
+/**
  *	Removing the address from a [Business Unit](ctp:api:type:BusinessUnit) generates the [BusinessUnitAddressRemoved](ctp:api:type:BusinessUnitAddressRemovedMessage) Message.
  *
  */
@@ -999,6 +1071,44 @@ export interface MyBusinessUnitSetCustomTypeAction {
    *
    */
   readonly fields?: FieldContainer
+}
+/**
+ *	Setting the default billing address on a [Business Unit](ctp:api:type:BusinessUnit) generates the [BusinessUnitDefaultBillingAddressSet](ctp:api:type:BusinessUnitDefaultBillingAddressSetMessage) Message.
+ *
+ */
+export interface MyBusinessUnitSetDefaultBillingAddressAction {
+  readonly action: 'setDefaultBillingAddress'
+  /**
+   *	ID of the address to add as a billing address. Either `addressId` or `addressKey` is required.
+   *
+   *
+   */
+  readonly addressId?: string
+  /**
+   *	Key of the address to add as a billing address. Either `addressId` or `addressKey` is required.
+   *
+   *
+   */
+  readonly addressKey?: string
+}
+/**
+ *	Setting the default shipping address on a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitDefaultShippingAddressSet](ctp:api:type:BusinessUnitDefaultShippingAddressSetMessage) Message.
+ *
+ */
+export interface MyBusinessUnitSetDefaultShippingAddressAction {
+  readonly action: 'setDefaultShippingAddress'
+  /**
+   *	ID of the address to add as a shipping address. Either `addressId` or `addressKey` is required.
+   *
+   *
+   */
+  readonly addressId?: string
+  /**
+   *	Key of the address to add as a shipping address. Either `addressId` or `addressKey` is required.
+   *
+   *
+   */
+  readonly addressKey?: string
 }
 export interface MyCartAddDiscountCodeAction {
   readonly action: 'addDiscountCode'
@@ -1359,93 +1469,168 @@ export interface MyCartUpdateItemShippingAddressAction {
    */
   readonly address: BaseAddress
 }
+/**
+ *	Adding an address to the Customer produces the [CustomerAddressAdded](ctp:api:type:CustomerAddressAddedMessage) Message.
+ *
+ */
 export interface MyCustomerAddAddressAction {
   readonly action: 'addAddress'
   /**
+   *	Value to append to the `addresses` array.
+   *
    *
    */
   readonly address: BaseAddress
 }
+/**
+ *	Adds an address from the `addresses` array to `billingAddressIds`. Either `addressId` or `addressKey` is required.
+ *
+ */
 export interface MyCustomerAddBillingAddressIdAction {
   readonly action: 'addBillingAddressId'
   /**
+   *	`id` of the [Address](ctp:api:type:Address) to become a billing address.
+   *
    *
    */
   readonly addressId?: string
   /**
+   *	`key` of the [Address](ctp:api:type:Address) to become a billing address.
+   *
    *
    */
   readonly addressKey?: string
 }
+/**
+ *	Adds an address from the `addresses` array to `shippingAddressIds`. Either `addressId` or `addressKey` is required.
+ *
+ */
 export interface MyCustomerAddShippingAddressIdAction {
   readonly action: 'addShippingAddressId'
   /**
+   *	`id` of the [Address](ctp:api:type:Address) to become a shipping address.
+   *
    *
    */
   readonly addressId?: string
   /**
+   *	`key` of the [Address](ctp:api:type:Address) to become a shipping address.
+   *
    *
    */
   readonly addressKey?: string
 }
+/**
+ *	Changing an address of the Customer produces the [CustomerAddressChanged](ctp:api:type:CustomerAddressChangedMessage) Message.
+ *
+ *	Either `addressId` or `addressKey` is required.
+ *
+ */
 export interface MyCustomerChangeAddressAction {
   readonly action: 'changeAddress'
   /**
+   *	`id` of the [Address](ctp:api:type:Address) to change.
+   *
    *
    */
   readonly addressId?: string
   /**
+   *	`key` of the [Address](ctp:api:type:Address) to change.
+   *
    *
    */
   readonly addressKey?: string
   /**
+   *	Value to set.
+   *
    *
    */
   readonly address: BaseAddress
 }
+/**
+ *	Changing the email of the Customer produces the [CustomerEmailChanged](ctp:api:type:CustomerEmailChangedMessage) Message.
+ *
+ */
 export interface MyCustomerChangeEmailAction {
   readonly action: 'changeEmail'
   /**
+   *	New value to set.
+   *
    *
    */
   readonly email: string
 }
+/**
+ *	Removing an address of the Customer produces the [CustomerAddressRemoved](ctp:api:type:CustomerAddressRemovedMessage) Message.
+ *
+ *	Either `addressId` or `addressKey` is required.
+ *
+ */
 export interface MyCustomerRemoveAddressAction {
   readonly action: 'removeAddress'
   /**
+   *	`id` of the [Address](ctp:api:type:Address) to remove.
+   *
    *
    */
   readonly addressId?: string
   /**
+   *	`key` of the [Address](ctp:api:type:Address) to remove.
+   *
    *
    */
   readonly addressKey?: string
 }
+/**
+ *	Removes an existing billing address from `billingAddressesIds`.
+ *	If the billing address is the default billing address, the `defaultBillingAddressId` is unset. Either `addressId` or `addressKey` is required.
+ *
+ */
 export interface MyCustomerRemoveBillingAddressIdAction {
   readonly action: 'removeBillingAddressId'
   /**
+   *	`id` of the [Address](ctp:api:type:Address) to remove from `billingAddressesIds`.
+   *
    *
    */
   readonly addressId?: string
   /**
+   *	`key` of the [Address](ctp:api:type:Address) to remove from `billingAddressesIds`.
+   *
    *
    */
   readonly addressKey?: string
 }
+/**
+ *	Removes an existing shipping address from `shippingAddressesIds`.
+ *	If the shipping address is the default shipping address, the `defaultShippingAddressId` is unset. Either `addressId` or `addressKey` is required.
+ *
+ */
 export interface MyCustomerRemoveShippingAddressIdAction {
   readonly action: 'removeShippingAddressId'
   /**
+   *	`id` of the [Address](ctp:api:type:Address) to remove from `shippingAddressesIds`.
+   *
    *
    */
   readonly addressId?: string
   /**
+   *	`key` of the [Address](ctp:api:type:Address) to remove from `shippingAddressesIds`.
+   *
    *
    */
   readonly addressKey?: string
 }
+/**
+ *	Setting the `companyName` field on the Customer produces the [CustomerCompanyNameSet](ctp:api:type:CustomerCompanyNameSetMessage) Message.
+ *
+ */
 export interface MyCustomerSetCompanyNameAction {
   readonly action: 'setCompanyName'
   /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
    *
    */
   readonly companyName?: string
@@ -1460,7 +1645,7 @@ export interface MyCustomerSetCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -1483,45 +1668,84 @@ export interface MyCustomerSetCustomTypeAction {
    */
   readonly fields?: FieldContainer
 }
+/**
+ *	Setting the date of birth of the Customer produces the [CustomerDateOfBirthSet](ctp:api:type:CustomerDateOfBirthSetMessage) Message.
+ *
+ */
 export interface MyCustomerSetDateOfBirthAction {
   readonly action: 'setDateOfBirth'
   /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
    *
    */
   readonly dateOfBirth?: string
 }
+/**
+ *	Sets the default billing address from `addresses`.
+ *	If the address is not currently a billing address, it is added to `billingAddressIds`. Either `addressId` or `addressKey` is required.
+ *
+ */
 export interface MyCustomerSetDefaultBillingAddressAction {
   readonly action: 'setDefaultBillingAddress'
   /**
+   *	`id` of the [Address](ctp:api:type:Address) to become the default billing address.
+   *
    *
    */
   readonly addressId?: string
   /**
+   *	`key` of the [Address](ctp:api:type:Address) to become the default billing address.
+   *
    *
    */
   readonly addressKey?: string
 }
+/**
+ *	Sets the default shipping address from `addresses`.
+ *	If the address is not currently a shipping address, it is added to `shippingAddressIds`. Either `addressId` or `addressKey` is required.
+ *
+ */
 export interface MyCustomerSetDefaultShippingAddressAction {
   readonly action: 'setDefaultShippingAddress'
   /**
+   *	`id` of the [Address](ctp:api:type:Address) to become the default shipping address.
+   *
    *
    */
   readonly addressId?: string
   /**
+   *	`key` of the [Address](ctp:api:type:Address) to become the default shipping address.
+   *
    *
    */
   readonly addressKey?: string
 }
+/**
+ *	Setting the first name of the Customer produces the [CustomerFirstNameSetMessage](ctp:api:type:CustomerFirstNameSetMessage).
+ *
+ */
 export interface MyCustomerSetFirstNameAction {
   readonly action: 'setFirstName'
   /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
    *
    */
   readonly firstName?: string
 }
+/**
+ *	Setting the last name of the Customer produces the [CustomerLastNameSetMessage](ctp:api:type:CustomerLastNameSetMessage).
+ *
+ */
 export interface MyCustomerSetLastNameAction {
   readonly action: 'setLastName'
   /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
    *
    */
   readonly lastName?: string
@@ -1529,6 +1753,9 @@ export interface MyCustomerSetLastNameAction {
 export interface MyCustomerSetLocaleAction {
   readonly action: 'setLocale'
   /**
+   *	Value to set.
+   *	Must be one of the languages supported by the [Project](ctp:api:type:Project).
+   *
    *
    */
   readonly locale?: string
@@ -1536,6 +1763,9 @@ export interface MyCustomerSetLocaleAction {
 export interface MyCustomerSetMiddleNameAction {
   readonly action: 'setMiddleName'
   /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
    *
    */
   readonly middleName?: string
@@ -1543,13 +1773,23 @@ export interface MyCustomerSetMiddleNameAction {
 export interface MyCustomerSetSalutationAction {
   readonly action: 'setSalutation'
   /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
    *
    */
   readonly salutation?: string
 }
+/**
+ *	Setting the title of the Customer produces the [CustomerTitleSetMessage](ctp:api:type:CustomerTitleSetMessage).
+ *
+ */
 export interface MyCustomerSetTitleAction {
   readonly action: 'setTitle'
   /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
    *
    */
   readonly title?: string
@@ -1557,6 +1797,9 @@ export interface MyCustomerSetTitleAction {
 export interface MyCustomerSetVatIdAction {
   readonly action: 'setVatId'
   /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
    *
    */
   readonly vatId?: string

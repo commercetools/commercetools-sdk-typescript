@@ -68,6 +68,10 @@ export class ByProjectKeyCustomersKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deleting a Customer produces the [CustomerDeleted](ctp:api:type:CustomerDeletedMessage) Message.
+   *
+   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

@@ -4,17 +4,17 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import {
-  Subscription,
-  SubscriptionDraft,
-  SubscriptionPagedQueryResponse,
-} from '../../models/subscription'
+  AttributeGroup,
+  AttributeGroupDraft,
+  AttributeGroupPagedQueryResponse,
+} from '../../models/attribute-group'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-import { ByProjectKeySubscriptionsByIDRequestBuilder } from './by-project-key-subscriptions-by-id-request-builder'
-import { ByProjectKeySubscriptionsKeyByKeyRequestBuilder } from './by-project-key-subscriptions-key-by-key-request-builder'
+import { ByProjectKeyAttributeGroupsByIDRequestBuilder } from './by-project-key-attribute-groups-by-id-request-builder'
+import { ByProjectKeyAttributeGroupsKeyByKeyRequestBuilder } from './by-project-key-attribute-groups-key-by-key-request-builder'
 /**
  **/
-export class ByProjectKeySubscriptionsRequestBuilder {
+export class ByProjectKeyAttributeGroupsRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
@@ -26,8 +26,8 @@ export class ByProjectKeySubscriptionsRequestBuilder {
   ) {}
   public withKey(childPathArgs: {
     key: string
-  }): ByProjectKeySubscriptionsKeyByKeyRequestBuilder {
-    return new ByProjectKeySubscriptionsKeyByKeyRequestBuilder({
+  }): ByProjectKeyAttributeGroupsKeyByKeyRequestBuilder {
+    return new ByProjectKeyAttributeGroupsKeyByKeyRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
         ...childPathArgs,
@@ -38,8 +38,8 @@ export class ByProjectKeySubscriptionsRequestBuilder {
   }
   public withId(childPathArgs: {
     ID: string
-  }): ByProjectKeySubscriptionsByIDRequestBuilder {
-    return new ByProjectKeySubscriptionsByIDRequestBuilder({
+  }): ByProjectKeyAttributeGroupsByIDRequestBuilder {
+    return new ByProjectKeyAttributeGroupsByIDRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
         ...childPathArgs,
@@ -62,12 +62,12 @@ export class ByProjectKeySubscriptionsRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<SubscriptionPagedQueryResponse> {
-    return new ApiRequest<SubscriptionPagedQueryResponse>(
+  }): ApiRequest<AttributeGroupPagedQueryResponse> {
+    return new ApiRequest<AttributeGroupPagedQueryResponse>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',
-        uriTemplate: '/{projectKey}/subscriptions',
+        uriTemplate: '/{projectKey}/attribute-groups',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
@@ -77,25 +77,21 @@ export class ByProjectKeySubscriptionsRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	A test message is sent to ensure the correct configuration of the Destination. If the message cannot be delivered, the Subscription will not be created. The payload of the test message is a notification of type [ResourceCreated](/../api/projects/subscriptions#resourcecreateddeliverypayload) for the `resourceTypeId` `subscription`.
-   *
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
       [key: string]: QueryParam
     }
-    body: SubscriptionDraft
+    body: AttributeGroupDraft
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<Subscription> {
-    return new ApiRequest<Subscription>(
+  }): ApiRequest<AttributeGroup> {
+    return new ApiRequest<AttributeGroup>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',
-        uriTemplate: '/{projectKey}/subscriptions',
+        uriTemplate: '/{projectKey}/attribute-groups',
         pathVariables: this.args.pathArgs,
         headers: {
           'Content-Type': 'application/json',

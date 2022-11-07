@@ -3,27 +3,25 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { Customer, CustomerUpdate } from '../../models/customer'
+import {
+  AttributeGroup,
+  AttributeGroupUpdate,
+} from '../../models/attribute-group'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
-export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
+export class ByProjectKeyAttributeGroupsKeyByKeyRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
         projectKey: string
-        storeKey: string
-        ID: string
+        key: string
       }
       executeRequest: executeRequest
       baseUri?: string
     }
   ) {}
-  /**
-   *	If the Customer exists in the Project but the `stores` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
-   *
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -32,12 +30,12 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<Customer> {
-    return new ApiRequest<Customer>(
+  }): ApiRequest<AttributeGroup> {
+    return new ApiRequest<AttributeGroup>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',
-        uriTemplate: '/{projectKey}/in-store/key={storeKey}/customers/{ID}',
+        uriTemplate: '/{projectKey}/attribute-groups/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
@@ -47,25 +45,21 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	If the Customer exists in the Project but the `stores` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
-   *
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
       [key: string]: QueryParam
     }
-    body: CustomerUpdate
+    body: AttributeGroupUpdate
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<Customer> {
-    return new ApiRequest<Customer>(
+  }): ApiRequest<AttributeGroup> {
+    return new ApiRequest<AttributeGroup>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',
-        uriTemplate: '/{projectKey}/in-store/key={storeKey}/customers/{ID}',
+        uriTemplate: '/{projectKey}/attribute-groups/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
           'Content-Type': 'application/json',
@@ -77,15 +71,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Deleting a Customer produces the [CustomerDeleted](ctp:api:type:CustomerDeletedMessage) Message.
-   *
-   *	If the Customer exists in the Project but the `stores` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
-   *
-   */
   public delete(methodArgs: {
     queryArgs: {
-      dataErasure?: boolean
       version: number
       expand?: string | string[]
       [key: string]: QueryParam
@@ -93,12 +80,12 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<Customer> {
-    return new ApiRequest<Customer>(
+  }): ApiRequest<AttributeGroup> {
+    return new ApiRequest<AttributeGroup>(
       {
         baseUri: this.args.baseUri,
         method: 'DELETE',
-        uriTemplate: '/{projectKey}/in-store/key={storeKey}/customers/{ID}',
+        uriTemplate: '/{projectKey}/attribute-groups/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,

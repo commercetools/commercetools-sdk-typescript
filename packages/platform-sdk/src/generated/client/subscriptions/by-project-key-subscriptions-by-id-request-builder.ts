@@ -6,6 +6,7 @@
 import { Subscription, SubscriptionUpdate } from '../../models/subscription'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
+import { ByProjectKeySubscriptionsByIDHealthRequestBuilder } from '../health/by-project-key-subscriptions-by-id-health-request-builder'
 /**
  **/
 export class ByProjectKeySubscriptionsByIDRequestBuilder {
@@ -19,9 +20,16 @@ export class ByProjectKeySubscriptionsByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Retrieves the representation of a subscription by its id.
-   */
+  public withIdHealth(): ByProjectKeySubscriptionsByIDHealthRequestBuilder {
+    return new ByProjectKeySubscriptionsByIDHealthRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
