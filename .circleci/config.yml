@@ -18,7 +18,7 @@ aliases:
 executors:
   docker:
     docker:
-      - image: cimg/node:14.20.1
+      - image: cimg/node:14.21.0
 
 version: 2.1
 orbs:
