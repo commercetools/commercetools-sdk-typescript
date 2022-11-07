@@ -1,5 +1,18 @@
 # @commercetools/platform-sdk
 
+## 4.2.0
+
+### Minor Changes
+
+- [#352](https://github.com/commercetools/commercetools-sdk-typescript/pull/352) [`ef84dd4`](https://github.com/commercetools/commercetools-sdk-typescript/commit/ef84dd439c29a91f4b43eb9aae10774a56d490b6) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
+
+  Summary of changes can be seen [here](https://github.com/commercetools/commercetools-sdk-typescript/blob/master/changes.md)
+
+### Patch Changes
+
+- Updated dependencies [[`8cd7b08`](https://github.com/commercetools/commercetools-sdk-typescript/commit/8cd7b08a78e13a886ed2271f6807358380b22ab2), [`fe5109c`](https://github.com/commercetools/commercetools-sdk-typescript/commit/fe5109c58c17e150e3a8fa953b829b2875cd9f96)]:
+  - @commercetools/sdk-client-v2@2.1.0
+
 ## 4.1.0
 
 ### Minor Changes
