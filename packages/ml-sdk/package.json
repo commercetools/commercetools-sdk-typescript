@@ -32,14 +32,14 @@
     "./dist/commercetools-ml-sdk.esm.js": "./dist/commercetools-ml-sdk.browser.esm.js"
   },
   "dependencies": {
-    "@commercetools/sdk-client-v2": "^2.0.1",
+    "@commercetools/sdk-client-v2": "^2.1.0",
     "@commercetools/sdk-middleware-auth": "^7.0.0",
     "@commercetools/sdk-middleware-http": "^7.0.0",
     "@commercetools/sdk-middleware-logger": "^3.0.0",
     "querystring": "^0.2.1"
   },
   "devDependencies": {
-    "@commercetools/platform-sdk": "4.1.0",
+    "@commercetools/platform-sdk": "4.2.0",
     "@types/uuid": "8.3.4",
     "organize-imports-cli": "0.10.0",
     "tsconfig-replace-paths": "0.0.11",

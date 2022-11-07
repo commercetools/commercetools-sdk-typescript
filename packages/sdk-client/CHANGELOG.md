@@ -1,5 +1,15 @@
 # @commercetools/sdk-client-v2
 
+## 2.1.0
+
+### Minor Changes
+
+- [#361](https://github.com/commercetools/commercetools-sdk-typescript/pull/361) [`8cd7b08`](https://github.com/commercetools/commercetools-sdk-typescript/commit/8cd7b08a78e13a886ed2271f6807358380b22ab2) Thanks [@mh-flink](https://github.com/mh-flink)! - Introduce retryOnAbort option to allow retry on timeouts
+
+### Patch Changes
+
+- [#360](https://github.com/commercetools/commercetools-sdk-typescript/pull/360) [`fe5109c`](https://github.com/commercetools/commercetools-sdk-typescript/commit/fe5109c58c17e150e3a8fa953b829b2875cd9f96) Thanks [@ajimae](https://github.com/ajimae)! - Fix (store): add proper generic type for store function
+
 ## 2.0.2
 
 ### Patch Changes
