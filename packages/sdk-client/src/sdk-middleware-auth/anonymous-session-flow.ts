@@ -3,12 +3,12 @@ import {
   Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
-  RequestState,
   Next,
+  RequestState,
+  RequestStateStore,
   Task,
   TokenCache,
   TokenStore,
-  RequestStateStore,
 } from '../types/sdk.d'
 import authMiddlewareBase from './base-auth-flow'
 import { buildRequestForAnonymousSessionFlow } from './build-requests'

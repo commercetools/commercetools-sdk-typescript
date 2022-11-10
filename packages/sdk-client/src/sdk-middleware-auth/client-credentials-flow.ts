@@ -4,11 +4,11 @@ import {
   MiddlewareRequest,
   MiddlewareResponse,
   Next,
+  RequestState,
+  RequestStateStore,
   Task,
   TokenCache,
   TokenStore,
-  RequestState,
-  RequestStateStore,
 } from '../types/sdk.d'
 import authMiddlewareBase from './base-auth-flow'
 import { buildRequestForClientCredentialsFlow } from './build-requests'
