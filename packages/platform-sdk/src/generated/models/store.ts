@@ -15,6 +15,7 @@ import {
   ProductSelectionReference,
   ProductSelectionResourceIdentifier,
 } from './product-selection'
+import { StoreCountry } from './store-country'
 import {
   CustomFields,
   CustomFieldsDraft,
@@ -103,6 +104,12 @@ export interface Store extends BaseResource {
    */
   readonly languages: string[]
   /**
+   *	Countries defined for the Store.
+   *
+   *
+   */
+  readonly countries: StoreCountry[]
+  /**
    *	Product Distribution Channels allowed for the Store.
    *
    *
@@ -149,6 +156,12 @@ export interface StoreDraft {
    *
    */
   readonly languages?: string[]
+  /**
+   *	Countries defined for the Store.
+   *
+   *
+   */
+  readonly countries?: StoreCountry[]
   /**
    *	ResourceIdentifier of a Channel with `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
@@ -283,13 +296,16 @@ export interface StoreUpdate {
   readonly actions: StoreUpdateAction[]
 }
 export type StoreUpdateAction =
+  | StoreAddCountryAction
   | StoreAddDistributionChannelAction
   | StoreAddProductSelectionAction
   | StoreAddSupplyChannelAction
   | StoreChangeProductSelectionAction
+  | StoreRemoveCountryAction
   | StoreRemoveDistributionChannelAction
   | StoreRemoveProductSelectionAction
   | StoreRemoveSupplyChannelAction
+  | StoreSetCountriesAction
   | StoreSetCustomFieldAction
   | StoreSetCustomTypeAction
   | StoreSetDistributionChannelsAction
@@ -297,6 +313,20 @@ export type StoreUpdateAction =
   | StoreSetNameAction
   | StoreSetProductSelectionsAction
   | StoreSetSupplyChannelsAction
+/**
+ *	This update action produces the [StoreCountriesChanged](ctp:api:type:StoreCountriesChangedMessage) Message.
+ *	It has no effect if the given country is already present in a Store.
+ *
+ */
+export interface StoreAddCountryAction {
+  readonly action: 'addCountry'
+  /**
+   *	Value to append to `countries`.
+   *
+   *
+   */
+  readonly country: StoreCountry
+}
 /**
  *	This update action produces the [StoreDistributionChannelsChanged](ctp:api:type:StoreDistributionChannelsChangedMessage) Message.
  *	It has no effect if a given distribution channel is already present in a Store.
@@ -364,6 +394,20 @@ export interface StoreChangeProductSelectionAction {
   readonly active?: boolean
 }
 /**
+ *	This update action produces the [StoreCountriesChanged](ctp:api:type:StoreCountriesChangedMessage) Message.
+ *	It has no effect if a given country is not present in a Store.
+ *
+ */
+export interface StoreRemoveCountryAction {
+  readonly action: 'removeCountry'
+  /**
+   *	Value to remove from `countries`.
+   *
+   *
+   */
+  readonly country: StoreCountry
+}
+/**
  *	This update action produces the [StoreDistributionChannelsChanged](ctp:api:type:StoreDistributionChannelsChangedMessage) Message.
  *
  */
@@ -401,6 +445,19 @@ export interface StoreRemoveSupplyChannelAction {
    *
    */
   readonly supplyChannel: ChannelResourceIdentifier
+}
+/**
+ *	This update action produces the [StoreCountriesChanged](ctp:api:type:StoreCountriesChangedMessage) Message.
+ *
+ */
+export interface StoreSetCountriesAction {
+  readonly action: 'setCountries'
+  /**
+   *	New value to set.
+   *
+   *
+   */
+  readonly countries?: StoreCountry[]
 }
 export interface StoreSetCustomFieldAction {
   readonly action: 'setCustomField'

@@ -74,6 +74,7 @@ import { StagedQuote, StagedQuoteState } from './staged-quote'
 import { StagedStandalonePrice, StandalonePrice } from './standalone-price'
 import { StateReference } from './state'
 import { ProductSelectionSetting, StoreKeyReference } from './store'
+import { StoreCountry } from './store-country'
 import { CustomFields } from './type'
 
 /**
@@ -231,6 +232,7 @@ export type Message =
   | StandalonePriceExternalDiscountSetMessage
   | StandalonePriceStagedChangesAppliedMessage
   | StandalonePriceValueChangedMessage
+  | StoreCountriesChangedMessage
   | StoreCreatedMessage
   | StoreDeletedMessage
   | StoreDistributionChannelsChangedMessage
@@ -10351,6 +10353,84 @@ export interface StandalonePriceValueChangedMessage {
   readonly staged: boolean
 }
 /**
+ *	Generated after a successful [Add Country](ctp:api:type:StoreAddCountryAction),
+ *	[Remove Country](ctp:api:type:StoreRemoveCountryAction), or
+ *	[Set Countries](ctp:api:type:StoreSetCountriesAction) update action.
+ *
+ */
+export interface StoreCountriesChangedMessage {
+  readonly type: 'StoreCountriesChanged'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[Countries](ctp:api:type:StoreCountry) added to the [Store](ctp:api:type:Store).
+   *
+   *
+   */
+  readonly addedCountries?: StoreCountry[]
+  /**
+   *	[Countries](ctp:api:type:StoreCountry) removed from the [Store](ctp:api:type:Store).
+   *
+   *
+   */
+  readonly removedCountries?: StoreCountry[]
+}
+/**
  *	Generated after a successful [Create Store](/../api/projects/stores#create-store) request.
  *
  */
@@ -10425,6 +10505,12 @@ export interface StoreCreatedMessage {
    *
    */
   readonly languages?: string[]
+  /**
+   *	[Countries](ctp:api:type:StoreCountry) of the [Store](ctp:api:type:Store) that was created.
+   *
+   *
+   */
+  readonly countries?: StoreCountry[]
   /**
    *	[Distribution Channels](ctp:api:type:ChannelRoleEnum) of the [Store](ctp:api:type:Store) that was created.
    *
@@ -11082,6 +11168,7 @@ export type MessagePayload =
   | StandalonePriceExternalDiscountSetMessagePayload
   | StandalonePriceStagedChangesAppliedMessagePayload
   | StandalonePriceValueChangedMessagePayload
+  | StoreCountriesChangedMessagePayload
   | StoreCreatedMessagePayload
   | StoreDeletedMessagePayload
   | StoreDistributionChannelsChangedMessagePayload
@@ -13512,6 +13599,27 @@ export interface StandalonePriceValueChangedMessagePayload {
   readonly staged: boolean
 }
 /**
+ *	Generated after a successful [Add Country](ctp:api:type:StoreAddCountryAction),
+ *	[Remove Country](ctp:api:type:StoreRemoveCountryAction), or
+ *	[Set Countries](ctp:api:type:StoreSetCountriesAction) update action.
+ *
+ */
+export interface StoreCountriesChangedMessagePayload {
+  readonly type: 'StoreCountriesChanged'
+  /**
+   *	[Countries](ctp:api:type:StoreCountry) added to the [Store](ctp:api:type:Store).
+   *
+   *
+   */
+  readonly addedCountries?: StoreCountry[]
+  /**
+   *	[Countries](ctp:api:type:StoreCountry) removed from the [Store](ctp:api:type:Store).
+   *
+   *
+   */
+  readonly removedCountries?: StoreCountry[]
+}
+/**
  *	Generated after a successful [Create Store](/../api/projects/stores#create-store) request.
  *
  */
@@ -13529,6 +13637,12 @@ export interface StoreCreatedMessagePayload {
    *
    */
   readonly languages?: string[]
+  /**
+   *	[Countries](ctp:api:type:StoreCountry) of the [Store](ctp:api:type:Store) that was created.
+   *
+   *
+   */
+  readonly countries?: StoreCountry[]
   /**
    *	[Distribution Channels](ctp:api:type:ChannelRoleEnum) of the [Store](ctp:api:type:Store) that was created.
    *

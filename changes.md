@@ -5,8 +5,12 @@
 
 - added property `shippingKey` to type `CartSetLineItemTaxAmountAction` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/cart/updates/CartSetLineItemTaxAmountAction.raml:12:2)
 - added property `shippingKey` to type `CartSetLineItemTaxRateAction` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/cart/updates/CartSetLineItemTaxRateAction.raml:12:2)
+- added property `countries` to type `StoreCreatedMessage` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/message/StoreCreatedMessage.raml:17:2)
+- added property `countries` to type `StoreCreatedMessagePayload` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/message/payload/StoreCreatedMessagePayload.raml:17:2)
 - added property `shippingKey` to type `StagedOrderSetLineItemTaxAmountAction` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/order-edit/updates/StagedOrderSetLineItemTaxAmountAction.raml:12:2)
 - added property `shippingKey` to type `StagedOrderSetLineItemTaxRateAction` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/order-edit/updates/StagedOrderSetLineItemTaxRateAction.raml:12:2)
+- added property `countries` to type `Store` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/store/Store.raml:51:2)
+- added property `countries` to type `StoreDraft` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/store/StoreDraft.raml:23:2)
 </details>
 
 <details>
@@ -26,12 +30,18 @@
 - added type `AttributeGroupSetAttributesAction` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/types.raml:17:0)
 - added type `AttributeGroupSetDescriptionAction` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/types.raml:18:0)
 - added type `AttributeGroupSetKeyAction` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/types.raml:19:0)
+- added type `StoreCountriesChangedMessage` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/types.raml:785:0)
+- added type `StoreCountriesChangedMessagePayload` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/types.raml:943:0)
+- added type `StoreCountry` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/types.raml:1610:0)
+- added type `StoreAddCountryAction` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/types.raml:1618:0)
+- added type `StoreRemoveCountryAction` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/types.raml:1623:0)
+- added type `StoreSetCountriesAction` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/types.raml:1627:0)
 </details>
 
 <details>
 <summary>Changed Type(s)</summary>
 
-- marked type `ShippingMethodSetDescriptionAction` as deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/types.raml:1512:0)
+- marked type `ShippingMethodSetDescriptionAction` as deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/types.raml:1514:0)
 </details>
 
 <details>
