@@ -283,7 +283,7 @@ export interface StoreResourceIdentifier {
 }
 export interface StoreUpdate {
   /**
-   *	Expected version of the Store on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *	Expected version of the Store on which the changes should be applied. If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
    *
    *
    */
@@ -331,11 +331,13 @@ export interface StoreAddCountryAction {
  *	This update action produces the [StoreDistributionChannelsChanged](ctp:api:type:StoreDistributionChannelsChangedMessage) Message.
  *	It has no effect if a given distribution channel is already present in a Store.
  *
+ *	Adding a [Channel](ctp:api:type:Channel) without the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum) returns a [MissingRoleOnChannel](ctp:api:type:MissingRoleOnChannelError) error.
+ *
  */
 export interface StoreAddDistributionChannelAction {
   readonly action: 'addDistributionChannel'
   /**
-   *	Value to append. Any attempt to use [Channel](ctp:api:type:Channel) without the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum) will fail with a [MissingRoleOnChannelError](ctp:api:type:MissingRoleOnChannelError) error.
+   *	Value to append.
    *
    *
    */
@@ -361,14 +363,17 @@ export interface StoreAddProductSelectionAction {
   readonly active?: boolean
 }
 /**
- *	This update action produces the [StoreSupplyChannelsChanged](ctp:api:type:StoreSupplyChannelsChangedMessage) Message.
- *	It has no effect if a given supply channel is already present in a Store.
+ *	This action has no effect if a given supply channel is already present in a Store.
+ *
+ *	Adding a supply channel produces the [StoreSupplyChannelsChanged](ctp:api:type:StoreSupplyChannelsChangedMessage) Message.
+ *
+ *	Adding a [Channel](ctp:api:type:Channel) without the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum) returns a [MissingRoleOnChannel](ctp:api:type:MissingRoleOnChannelError) error.
  *
  */
 export interface StoreAddSupplyChannelAction {
   readonly action: 'addSupplyChannel'
   /**
-   *	Any attempt to use [Channel](ctp:api:type:Channel) without the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum) will fail with a [MissingRoleOnChannel](ctp:api:type:MissingRoleOnChannelError) error.
+   *	Value to append.
    *
    *
    */
@@ -469,7 +474,7 @@ export interface StoreSetCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -495,13 +500,14 @@ export interface StoreSetCustomTypeAction {
 /**
  *	This update action produces the [StoreDistributionChannelsChanged](ctp:api:type:StoreDistributionChannelsChangedMessage) Message.
  *
+ *	Setting a [Channel](ctp:api:type:Channel) without the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum) returns a [MissingRoleOnChannel](ctp:api:type:MissingRoleOnChannelError) error.
+ *
  */
 export interface StoreSetDistributionChannelsAction {
   readonly action: 'setDistributionChannels'
   /**
    *	Value to set.
    *	If not defined, the Store's `distributionChannels` are unset.
-   *	Any attempt to use [Channel](ctp:api:type:Channel) without the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum) will fail with a [MissingRoleOnChannel](ctp:api:type:MissingRoleOnChannelError) error.
    *
    *
    */
@@ -509,13 +515,13 @@ export interface StoreSetDistributionChannelsAction {
 }
 /**
  *	This update action produces the [StoreLanguagesChanged](ctp:api:type:StoreLanguagesChangedMessage) Message.
+ *	Adding a language other than the ones defined in the [Project](ctp:api:type:Project) returns a [ProjectNotConfiguredForLanguages](ctp:api:type:ProjectNotConfiguredForLanguagesError) error.
  *
  */
 export interface StoreSetLanguagesAction {
   readonly action: 'setLanguages'
   /**
    *	Value to set.
-   *	Any attempt to use languages other than the ones defined in the [Project](ctp:api:type:Project) will fail with a [ProjectNotConfiguredForLanguages](ctp:api:type:ProjectNotConfiguredForLanguagesError) error.
    *
    *
    */
@@ -551,7 +557,9 @@ export interface StoreSetProductSelectionsAction {
   readonly productSelections?: ProductSelectionSettingDraft[]
 }
 /**
- *	This update action produces the [StoreSupplyChannelsChanged](ctp:api:type:StoreSupplyChannelsChangedMessage) Message.
+ *	Setting a supply channel produces the [StoreSupplyChannelsChanged](ctp:api:type:StoreSupplyChannelsChangedMessage) Message.
+ *
+ *	Setting a [Channel](ctp:api:type:Channel) without the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum) returns a [MissingRoleOnChannel](ctp:api:type:MissingRoleOnChannelError) error.
  *
  */
 export interface StoreSetSupplyChannelsAction {
@@ -559,7 +567,6 @@ export interface StoreSetSupplyChannelsAction {
   /**
    *	Value to set.
    *	If not defined, the Store's `supplyChannels` are unset.
-   *	Any attempt to use [Channel](ctp:api:type:Channel) without the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum) will fail with a [MissingRoleOnChannel](ctp:api:type:MissingRoleOnChannelError) error.
    *
    *
    */

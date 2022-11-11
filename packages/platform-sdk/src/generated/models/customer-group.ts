@@ -77,7 +77,7 @@ export interface CustomerGroupDraft {
   readonly key?: string
   /**
    *	Unique value which must be different from any value used for `name` in [CustomerGroup](ctp:api:type:CustomerGroup) in the Project.
-   *	If not, a `DuplicateField` [error](/../api/errors#400-bad-request-1) is thrown.
+   *	If not, a [DuplicateField](ctp:api:type:DuplicateFieldError) error is returned.
    *
    *
    */
@@ -170,7 +170,7 @@ export interface CustomerGroupResourceIdentifier {
 export interface CustomerGroupUpdate {
   /**
    *	Expected version of the CustomerGroup on which the changes should be applied.
-   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
    *
    *
    */
@@ -206,7 +206,7 @@ export interface CustomerGroupSetCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
