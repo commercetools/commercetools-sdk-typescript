@@ -71,8 +71,8 @@ export class ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder {
   }
   public delete(methodArgs: {
     queryArgs: {
-      version: number
       expand?: string | string[]
+      version: number
       [key: string]: QueryParam
     }
     headers?: {

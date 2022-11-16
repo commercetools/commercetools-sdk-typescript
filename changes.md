@@ -44,6 +44,8 @@
 - :warning: changed property `country` of type `OverlappingStandalonePriceValidityError` from type `string` to `CountryCode` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/error/OverlappingStandalonePriceValidityError.raml:29:2)
 - :warning: changed property `field` of type `DuplicateFieldError` to be required (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/error/DuplicateFieldError.raml:14:2)
 - :warning: changed property `duplicateValue` of type `DuplicateFieldError` to be required (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/error/DuplicateFieldError.raml:18:2)
+- :warning: changed property `lineItems` of type `ShoppingList` to be required (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/shopping-list/ShoppingList.raml:41:2)
+- :warning: changed property `textLineItems` of type `ShoppingList` to be required (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/shopping-list/ShoppingList.raml:45:2)
 </details>
 
 <details>

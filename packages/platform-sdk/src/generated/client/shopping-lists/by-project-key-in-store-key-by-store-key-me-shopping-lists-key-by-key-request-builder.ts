@@ -22,7 +22,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsKeyByKeyRequestBuild
     }
   ) {}
   /**
-   *	Gets a shopping list by Key.
+   *	If a ShoppingList exists in a Project but does _not_ have the `store` field, or the `store` field references a different Store, the [ResourceNotFound](/errors#404-not-found-1) error is returned.
+   *
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -49,7 +50,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsKeyByKeyRequestBuild
     )
   }
   /**
-   *	Update a shopping list found by its Key.
+   *	If a ShoppingList exists in a Project but does _not_ have the `store` field, or the `store` field references a different Store,
+   *	the [ResourceNotFound](/errors#404-not-found-1) error is returned.
+   *
    */
   public post(methodArgs: {
     queryArgs?: {
@@ -78,11 +81,16 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsKeyByKeyRequestBuild
       this.args.executeRequest
     )
   }
+  /**
+   *	If a ShoppingList exists in a Project but does _not_ have the `store` field, or the `store` field references a different Store,
+   *	the [ResourceNotFound](/errors#404-not-found-1) error is returned.
+   *
+   */
   public delete(methodArgs: {
     queryArgs: {
+      expand?: string | string[]
       dataErasure?: boolean
       version: number
-      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
