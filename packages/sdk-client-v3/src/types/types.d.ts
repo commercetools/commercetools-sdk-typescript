@@ -244,7 +244,6 @@ export type LoggerMiddlewareOptions = {
 }
 
 export type RetryMiddlewareOptions = {
-  enableRetry: boolean
   backoff?: boolean
   maxRetries?: number
   retryDelay?: number

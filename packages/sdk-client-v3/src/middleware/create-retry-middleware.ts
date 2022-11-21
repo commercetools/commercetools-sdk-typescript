@@ -14,7 +14,6 @@ export default function createRetryMiddleware(
   return (next: Next) =>
     async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {
       const {
-        enableRetry = false,
         retryCodes = [],
         maxDelay = Infinity,
         maxRetries = 3,
@@ -28,10 +27,11 @@ export default function createRetryMiddleware(
       // validate the `retryCodes` option
       validateRetryCodes(retryCodes)
       async function executeRequest<T>(): Promise<T> {
-        if (!enableRetry) response = await next(request)
+        // first attenpt
+        response = await next(request)
 
-        while (enableRetry && retryCount < maxRetries) {
-          // check if the response if worth retrying
+        while (retryCount < maxRetries) {
+          // check if the response if worth retrying for subsequest calls
           response = await next(request)
 
           if (
@@ -42,7 +42,6 @@ export default function createRetryMiddleware(
           ) {
             return {
               ...response,
-              // retryCount
             }
           }
 

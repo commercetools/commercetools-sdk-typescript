@@ -158,7 +158,6 @@ export default class ClientBuilder {
 
   withRetryMiddleware(options: RetryMiddlewareOptions): ClientBuilder {
     this.retryMiddleware = createRetryMiddleware({
-      enableRetry: true,
       ...options,
     })
 
