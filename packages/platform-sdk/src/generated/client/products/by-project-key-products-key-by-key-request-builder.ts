@@ -39,6 +39,7 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
       priceCountry?: string
       priceCustomerGroup?: string
       priceChannel?: string
+      localeProjection?: string | string[]
       expand?: string | string[]
       [key: string]: QueryParam
     }
@@ -90,6 +91,7 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
       priceCountry?: string
       priceCustomerGroup?: string
       priceChannel?: string
+      localeProjection?: string | string[]
       expand?: string | string[]
       [key: string]: QueryParam
     }
@@ -124,6 +126,7 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
       priceCountry?: string
       priceCustomerGroup?: string
       priceChannel?: string
+      localeProjection?: string | string[]
       version: number
       expand?: string | string[]
       [key: string]: QueryParam

@@ -49,15 +49,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?staged=true',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .productProjections()
-        .search()
-        .get({ queryArgs: { staged: true } }),
-    },
-    {
-      method: 'get',
       uri: '/test_projectKey/product-projections/search?filter=filter',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
@@ -136,6 +127,15 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .productProjections()
         .search()
         .get({ queryArgs: { withTotal: true } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/product-projections/search?staged=true',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .productProjections()
+        .search()
+        .get({ queryArgs: { staged: true } }),
     },
     {
       method: 'get',
