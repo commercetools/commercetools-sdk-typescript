@@ -6534,7 +6534,7 @@ export interface ParcelTrackingDataUpdatedMessage {
   readonly shippingKey?: string
 }
 /**
- *	Generated after a successful [Create Payment](/../api/projects/payments#create-a-payment) request.
+ *	Generated after a successful [Create Payment](/../api/projects/payments#create-payment) request.
  *
  */
 export interface PaymentCreatedMessage {
@@ -6739,7 +6739,7 @@ export interface PaymentStatusInterfaceCodeSetMessage {
   /**
    *	Unique identifier for the [Payment](ctp:api:type:Payment) for which the [Set StatusInterfaceCode](ctp:api:type:PaymentSetStatusInterfaceCodeAction) update action was applied.
    *
-   *	@deprecated
+   *
    */
   readonly paymentId: string
   /**
@@ -12720,7 +12720,7 @@ export interface ParcelTrackingDataUpdatedMessagePayload {
   readonly shippingKey?: string
 }
 /**
- *	Generated after a successful [Create Payment](/../api/projects/payments#create-a-payment) request.
+ *	Generated after a successful [Create Payment](/../api/projects/payments#create-payment) request.
  *
  */
 export interface PaymentCreatedMessagePayload {
@@ -12754,7 +12754,7 @@ export interface PaymentStatusInterfaceCodeSetMessagePayload {
   /**
    *	Unique identifier for the [Payment](ctp:api:type:Payment) for which the [Set StatusInterfaceCode](ctp:api:type:PaymentSetStatusInterfaceCodeAction) update action was applied.
    *
-   *	@deprecated
+   *
    */
   readonly paymentId: string
   /**

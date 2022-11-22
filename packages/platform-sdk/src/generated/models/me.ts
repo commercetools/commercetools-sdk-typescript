@@ -21,7 +21,12 @@ import {
   TaxMode,
 } from './cart'
 import { ChannelResourceIdentifier } from './channel'
-import { BaseAddress, LocalizedString, Money, TypedMoney } from './common'
+import {
+  BaseAddress,
+  CentPrecisionMoney,
+  LocalizedString,
+  Money,
+} from './common'
 import { CustomerReference, CustomerResourceIdentifier } from './customer'
 import { DiscountCodeReference } from './discount-code'
 import { OrderReference } from './order'
@@ -540,67 +545,86 @@ export interface MyOrderFromCartDraft {
 }
 export interface MyPayment {
   /**
-   *	Unique identifier of the MyPayment.
+   *	Unique identifier of the Payment.
+   *
    *
    */
   readonly id: string
   /**
+   *	Current version of the Payment.
+   *
    *
    */
   readonly version: number
   /**
-   *	A reference to the customer this payment belongs to.
+   *	Reference to a [Customer](ctp:api:type:Customer) associated with the Payment. Set automatically with a [password flow token](/../api/authorization#password-flow). Either `customer` or `anonymousId` is present.
+   *
    *
    */
   readonly customer?: CustomerReference
   /**
-   *	Identifies payments belonging to an anonymous session (the customer has not signed up/in yet).
+   *	[Anonymous session](/../api/authorization#tokens-for-anonymous-sessions) associated with the Payment. Set automatically with a [token for an anonymous session](/../api/authorization#tokens-for-anonymous-sessions). Either `customer` or `anonymousId` is present.
+   *
    *
    */
   readonly anonymousId?: string
   /**
-   *	How much money this payment intends to receive from the customer.
-   *	The value usually matches the cart or order gross total.
+   *	Money value the Payment intends to receive from the customer.
+   *	The value typically matches the [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order) gross total.
+   *
    *
    */
-  readonly amountPlanned: TypedMoney
+  readonly amountPlanned: CentPrecisionMoney
   /**
+   *	Information regarding the payment interface (for example, a PSP), and the specific payment method used.
+   *
    *
    */
   readonly paymentMethodInfo: PaymentMethodInfo
   /**
-   *	A list of financial transactions of different TransactionTypes
-   *	with different TransactionStates.
+   *	Financial transactions of the Payment. Each Transaction has a [TransactionType](ctp:api:type:TransactionType) and a [TransactionState](ctp:api:type:TransactionState).
+   *
    *
    */
   readonly transactions: Transaction[]
   /**
+   *	Custom Fields defined for the Payment.
+   *
    *
    */
   readonly custom?: CustomFields
 }
 export interface MyPaymentDraft {
   /**
-   *	How much money this payment intends to receive from the customer.
-   *	The value usually matches the cart or order gross total.
+   *	Money value the Payment intends to receive from the customer.
+   *	The value usually matches the [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order) gross total.
+   *
    *
    */
   readonly amountPlanned: Money
   /**
+   *	Information regarding the payment interface (for example, a PSP), and the specific payment method used.
+   *
    *
    */
   readonly paymentMethodInfo?: PaymentMethodInfo
   /**
+   *	Custom Fields for the Payment.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
   /**
-   *	A list of financial transactions of the `Authorization` or `Charge`
-   *	TransactionTypes.
+   *	Financial transactions of the [TransactionTypes](ctp:api:type:TransactionType) `Authorization` or `Charge`.
+   *
    *
    */
   readonly transaction?: MyTransactionDraft
 }
+/**
+ *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [MyPayment](ctp:api:type:MyPayment).
+ *
+ */
 export interface MyPaymentPagedQueryResponse {
   /**
    *	Number of [results requested](/../api/general-concepts#limit).
@@ -609,10 +633,18 @@ export interface MyPaymentPagedQueryResponse {
    */
   readonly limit: number
   /**
+   *	Actual number of results returned.
+   *
    *
    */
   readonly count: number
   /**
+   *	Total number of results matching the query.
+   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This field is returned by default.
+   *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
+   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *
    *
    */
   readonly total?: number
@@ -623,16 +655,22 @@ export interface MyPaymentPagedQueryResponse {
    */
   readonly offset: number
   /**
+   *	[MyPayments](ctp:api:type:MyPayment) matching the query.
+   *
    *
    */
   readonly results: MyPayment[]
 }
 export interface MyPaymentUpdate {
   /**
+   *	Expected version of the Payment on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *
    *
    */
   readonly version: number
   /**
+   *	Update actions to be performed on the Payment.
+   *
    *
    */
   readonly actions: MyPaymentUpdateAction[]
@@ -784,31 +822,34 @@ export type MyShoppingListUpdateAction =
   | MyShoppingListSetTextLineItemDescriptionAction
 export interface MyTransactionDraft {
   /**
-   *	The time at which the transaction took place.
+   *	Date and time (UTC) the Transaction took place.
+   *
    *
    */
   readonly timestamp?: string
   /**
-   *	The type of this transaction.
-   *	Only the `Authorization` or `Charge`
-   *	TransactionTypes are allowed here.
+   *	Type of the Transaction.
+   *	Only `Authorization` or `Charge` is allowed.
+   *
    *
    */
   readonly type: TransactionType
   /**
+   *	Money value for the Transaction.
+   *
    *
    */
   readonly amount: Money
   /**
-   *	The identifier that is used by the interface that managed the transaction (usually the PSP).
-   *	If a matching interaction was logged in the interfaceInteractions array,
-   *	the corresponding interaction should be findable with this ID.
-   *	The `state` is set to the `Initial` TransactionState.
+   *	Identifier used by the payment service that manages the Transaction.
+   *	Can be used to correlate the Transaction to an interface interaction.
+   *
    *
    */
   readonly interactionId?: string
   /**
-   *	Custom Fields for the Transaction.
+   *	Custom Fields of the Transaction.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
@@ -1212,7 +1253,7 @@ export interface MyCartAddLineItemAction {
 export interface MyCartAddPaymentAction {
   readonly action: 'addPayment'
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Payment](ctp:api:type:Payment).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Payment](ctp:api:type:Payment).
    *
    *
    */
@@ -1312,7 +1353,7 @@ export interface MyCartRemoveLineItemAction {
 export interface MyCartRemovePaymentAction {
   readonly action: 'removePayment'
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Payment](ctp:api:type:Payment).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Payment](ctp:api:type:Payment).
    *
    *
    */
@@ -1828,19 +1869,28 @@ export interface MyCustomerSetVatIdAction {
    */
   readonly vatId?: string
 }
+/**
+ *	Adding a Transaction to a Payment generates the [PaymentTransactionAdded](ctp:api:type:PaymentTransactionAddedMessage) Message.
+ *	Once a Transaction is added to the Payment, it can no longer be updated or deleted using the My Payments API.
+ *
+ */
 export interface MyPaymentAddTransactionAction {
   readonly action: 'addTransaction'
   /**
+   *	Transaction to add to the Payment.
+   *
    *
    */
   readonly transaction: TransactionDraft
 }
+/**
+ *	Can be used to update the Payment if a customer changes the [Cart](ctp:api:type:Cart), or adds or removes a [CartDiscount](ctp:api:type:CartDiscount) during checkout.
+ *
+ */
 export interface MyPaymentChangeAmountPlannedAction {
   readonly action: 'changeAmountPlanned'
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	New value to set.
    *
    *
    */
@@ -1866,6 +1916,9 @@ export interface MyPaymentSetCustomFieldAction {
 export interface MyPaymentSetMethodInfoInterfaceAction {
   readonly action: 'setMethodInfoInterface'
   /**
+   *	Value to set.
+   *	Once set, the `paymentInterface` of the `paymentMethodInfo` cannot be changed.
+   *
    *
    */
   readonly interface: string
@@ -1873,6 +1926,9 @@ export interface MyPaymentSetMethodInfoInterfaceAction {
 export interface MyPaymentSetMethodInfoMethodAction {
   readonly action: 'setMethodInfoMethod'
   /**
+   *	Value to set.
+   *	If empty, any existing value will be removed.
+   *
    *
    */
   readonly method?: string
@@ -1880,7 +1936,8 @@ export interface MyPaymentSetMethodInfoMethodAction {
 export interface MyPaymentSetMethodInfoNameAction {
   readonly action: 'setMethodInfoName'
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	Value to set.
+   *	If empty, any existing value will be removed.
    *
    *
    */

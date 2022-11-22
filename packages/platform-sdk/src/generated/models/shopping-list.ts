@@ -679,10 +679,6 @@ export interface ShoppingListRemoveTextLineItemAction {
    */
   readonly quantity?: number
 }
-/**
- *	Sets an anonymous ID that corresponds to a Customer who has authenticated with an [anonymous session](/authorization#tokens-for-anonymous-sessions).
- *
- */
 export interface ShoppingListSetAnonymousIdAction {
   readonly action: 'setAnonymousId'
   /**
