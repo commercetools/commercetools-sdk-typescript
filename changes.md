@@ -45,6 +45,11 @@
 - :warning: changed property `country` of type `OverlappingStandalonePriceValidityError` from type `string` to `CountryCode` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/error/OverlappingStandalonePriceValidityError.raml:29:2)
 - :warning: changed property `amountPlanned` of type `MyPayment` from type `TypedMoney` to `CentPrecisionMoney` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/me/MyPayment.raml:27:2)
 - :warning: changed property `amountPlanned` of type `Payment` from type `TypedMoney` to `CentPrecisionMoney` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/payment/Payment.raml:49:2)
+</details>
+
+<details>
+<summary>Required Property(s)</summary>
+
 - :warning: changed property `field` of type `DuplicateFieldError` to be required (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/error/DuplicateFieldError.raml:14:2)
 - :warning: changed property `duplicateValue` of type `DuplicateFieldError` to be required (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/error/DuplicateFieldError.raml:18:2)
 - :warning: changed property `state` of type `Transaction` to be required (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/payment/Transaction.raml:27:2)
@@ -91,7 +96,7 @@
 </details>
 
 <details>
-<summary>Changed Type(s)</summary>
+<summary>MarkDeprecated Type(s)</summary>
 
 - marked type `ShippingMethodSetDescriptionAction` as deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/types.raml:1518:0)
 </details>
