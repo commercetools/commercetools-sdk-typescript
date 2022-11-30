@@ -75,6 +75,7 @@ describe('client builder', () => {
       )
       expect(defaultClient.httpMiddleware).toBeTruthy()
       expect(defaultClient.authMiddleware).toBeTruthy()
+      expect(defaultClient.userAgentMiddleware).toBeTruthy()
     })
   })
 
