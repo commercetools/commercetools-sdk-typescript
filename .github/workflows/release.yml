@@ -76,9 +76,22 @@ jobs:
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_CHANNEL: devtooling-automation
-          SLACK_COLOR: ${{ job.status }} 
+          SLACK_COLOR: ${{ job.status }}
           MSG_MINIMAL: actions url,commit
-          SLACK_TITLE: Typescript SDK Release ✨ 
+          SLACK_TITLE: Typescript SDK Release ✨
           SLACK_MESSAGE: ${{steps.markdown.outputs.text}}
           SLACK_USERNAME: rtBot
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
+      - name: "remove API reference commit SHA"
+        if: steps.changesets.outputs.published == 'true'
+        run: rm -rf reference.txt
+        continue-on-error: true
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        if: steps.changesets.outputs.published == 'true'
+        with:
+          commit_message: "TASK: Updating API ref SHA"
+          commit_user_name: automation-commercetools
+          commit_user_email: automation@commercetools.com
+          commit_author: Auto Mation <automation@commercetools.com>
