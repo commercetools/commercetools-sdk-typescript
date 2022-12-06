@@ -62,7 +62,12 @@ import {
   Transaction,
   TransactionState,
 } from './payment'
-import { ProductProjection, ProductReference, ProductVariant } from './product'
+import {
+  ProductPriceModeEnum,
+  ProductProjection,
+  ProductReference,
+  ProductVariant,
+} from './product'
 import {
   IndividualProductSelectionType,
   ProductVariantSelection,
@@ -191,8 +196,13 @@ export type Message =
   | ProductCreatedMessage
   | ProductDeletedMessage
   | ProductImageAddedMessage
+  | ProductPriceAddedMessage
+  | ProductPriceChangedMessage
   | ProductPriceDiscountsSetMessage
   | ProductPriceExternalDiscountSetMessage
+  | ProductPriceModeSetMessage
+  | ProductPriceRemovedMessage
+  | ProductPriceSetMessage
   | ProductPublishedMessage
   | ProductRemovedFromCategoryMessage
   | ProductRevertedStagedChangesMessage
@@ -7276,6 +7286,182 @@ export interface ProductImageAddedMessage {
   readonly staged: boolean
 }
 /**
+ *	Generated after a successful [Add Embedded Price](ctp:api:type:ProductAddPriceAction) update action.
+ *
+ */
+export interface ProductPriceAddedMessage {
+  readonly type: 'ProductPriceAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Unique identifier of the [ProductVariant](ctp:api:type:ProductVariant) for which the Price was added.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	The [Embedded Price](ctp:api:type:Price) that was added to the [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly price: Price
+  /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
+   *
+   */
+  readonly staged: boolean
+}
+/**
+ *	Generated after a successful [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+ *
+ */
+export interface ProductPriceChangedMessage {
+  readonly type: 'ProductPriceChanged'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Unique identifier of the [ProductVariant](ctp:api:type:ProductVariant) for which the Price was changed.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	The current [Embedded Price](ctp:api:type:Price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *
+   *
+   */
+  readonly oldPrice: Price
+  /**
+   *	The [Embedded Price](ctp:api:type:Price) after the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *
+   *
+   */
+  readonly newPrice: Price
+  /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
+   *
+   */
+  readonly staged: boolean
+  /**
+   *	The staged [Embedded Price](ctp:api:type:Price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *
+   *
+   */
+  readonly oldStagedPrice?: Price
+}
+/**
  *	Generated after a Price is updated due to a [Product Discount](ctp:api:type:ProductDiscount).
  *
  */
@@ -7480,6 +7666,240 @@ export interface ProductPriceExternalDiscountSetMessage {
    *
    */
   readonly discounted?: DiscountedPrice
+  /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
+   *
+   */
+  readonly staged: boolean
+}
+/**
+ *	Generated after a successful [Set PriceMode](ctp:api:type:ProductSetPriceModeAction) update action.
+ *
+ */
+export interface ProductPriceModeSetMessage {
+  readonly type: 'ProductPriceModeSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The [PriceMode](ctp:api:type:ProductPriceModeEnum) that was set.
+   *
+   *
+   */
+  readonly to: ProductPriceModeEnum
+}
+/**
+ *	Generated after a successful [Remove Embedded Price](ctp:api:type:ProductRemovePriceAction) update action.
+ *
+ */
+export interface ProductPriceRemovedMessage {
+  readonly type: 'ProductPriceRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Unique identifier of the [ProductVariant](ctp:api:type:ProductVariant) for which the Price was removed.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	The [Embedded Price](ctp:api:type:Price) that was removed from the [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly price: Price
+  /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
+   *
+   */
+  readonly staged: boolean
+}
+/**
+ *	Generated after a successful [Set Embedded Price](ctp:api:type:ProductSetPricesAction) update action.
+ *
+ */
+export interface ProductPriceSetMessage {
+  readonly type: 'ProductPriceSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Unique identifier of the [ProductVariant](ctp:api:type:ProductVariant) for which the Price was set.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	The [Embedded Prices](ctp:api:type:Price) that were set on the [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly prices: Price[]
   /**
    *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
    *
@@ -11126,8 +11546,13 @@ export type MessagePayload =
   | ProductCreatedMessagePayload
   | ProductDeletedMessagePayload
   | ProductImageAddedMessagePayload
+  | ProductPriceAddedMessagePayload
+  | ProductPriceChangedMessagePayload
   | ProductPriceDiscountsSetMessagePayload
   | ProductPriceExternalDiscountSetMessagePayload
+  | ProductPriceModeSetMessagePayload
+  | ProductPriceRemovedMessagePayload
+  | ProductPriceSetMessagePayload
   | ProductPublishedMessagePayload
   | ProductRemovedFromCategoryMessagePayload
   | ProductRevertedStagedChangesMessagePayload
@@ -12892,6 +13317,68 @@ export interface ProductImageAddedMessagePayload {
   readonly staged: boolean
 }
 /**
+ *	Generated after a successful [Add Embedded Price](ctp:api:type:ProductAddPriceAction) update action.
+ *
+ */
+export interface ProductPriceAddedMessagePayload {
+  readonly type: 'ProductPriceAdded'
+  /**
+   *	Unique identifier of the [ProductVariant](ctp:api:type:ProductVariant) for which the Price was added.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	The [Embedded Price](ctp:api:type:Price) that was added to the [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly price: Price
+  /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
+   *
+   */
+  readonly staged: boolean
+}
+/**
+ *	Generated after a successful [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+ *
+ */
+export interface ProductPriceChangedMessagePayload {
+  readonly type: 'ProductPriceChanged'
+  /**
+   *	Unique identifier of the [ProductVariant](ctp:api:type:ProductVariant) for which the Price was changed.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	The current [Embedded Price](ctp:api:type:Price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *
+   *
+   */
+  readonly oldPrice: Price
+  /**
+   *	The [Embedded Price](ctp:api:type:Price) after the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *
+   *
+   */
+  readonly newPrice: Price
+  /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
+   *
+   */
+  readonly staged: boolean
+  /**
+   *	The staged [Embedded Price](ctp:api:type:Price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *
+   *
+   */
+  readonly oldStagedPrice?: Price
+}
+/**
  *	Generated after a Price is updated due to a [Product Discount](ctp:api:type:ProductDiscount).
  *
  */
@@ -12940,6 +13427,69 @@ export interface ProductPriceExternalDiscountSetMessagePayload {
    *
    */
   readonly discounted?: DiscountedPrice
+  /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
+   *
+   */
+  readonly staged: boolean
+}
+/**
+ *	Generated after a successful [Set PriceMode](ctp:api:type:ProductSetPriceModeAction) update action.
+ *
+ */
+export interface ProductPriceModeSetMessagePayload {
+  readonly type: 'ProductPriceModeSet'
+  /**
+   *	The [PriceMode](ctp:api:type:ProductPriceModeEnum) that was set.
+   *
+   *
+   */
+  readonly to: ProductPriceModeEnum
+}
+/**
+ *	Generated after a successful [Remove Embedded Price](ctp:api:type:ProductRemovePriceAction) update action.
+ *
+ */
+export interface ProductPriceRemovedMessagePayload {
+  readonly type: 'ProductPriceRemoved'
+  /**
+   *	Unique identifier of the [ProductVariant](ctp:api:type:ProductVariant) for which the Price was removed.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	The [Embedded Price](ctp:api:type:Price) that was removed from the [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly price: Price
+  /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
+   *
+   */
+  readonly staged: boolean
+}
+/**
+ *	Generated after a successful [Set Embedded Price](ctp:api:type:ProductSetPricesAction) update action.
+ *
+ */
+export interface ProductPriceSetMessagePayload {
+  readonly type: 'ProductPriceSet'
+  /**
+   *	Unique identifier of the [ProductVariant](ctp:api:type:ProductVariant) for which the Price was set.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	The [Embedded Prices](ctp:api:type:Price) that were set on the [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly prices: Price[]
   /**
    *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
    *
