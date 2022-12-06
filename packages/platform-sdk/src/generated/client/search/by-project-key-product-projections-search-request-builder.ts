@@ -50,7 +50,6 @@ export class ByProjectKeyProductProjectionsSearchRequestBuilder {
       fuzzy?: boolean
       fuzzyLevel?: number
       markMatchingVariants?: boolean
-      staged?: boolean
       filter?: string | string[]
       'filter.facets'?: string | string[]
       'filter.query'?: string | string[]
@@ -59,6 +58,7 @@ export class ByProjectKeyProductProjectionsSearchRequestBuilder {
       limit?: number
       offset?: number
       withTotal?: boolean
+      staged?: boolean
       priceCurrency?: string
       priceCountry?: string
       priceCustomerGroup?: string

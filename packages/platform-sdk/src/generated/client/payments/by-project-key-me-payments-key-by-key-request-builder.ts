@@ -42,6 +42,10 @@ export class ByProjectKeyMePaymentsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	This endpoint can only update a Payment when it has no [Transactions](ctp:api:type:Transaction).
+   *
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -68,6 +72,10 @@ export class ByProjectKeyMePaymentsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	This endpoint can only delete a Payment when it has no [Transactions](ctp:api:type:Transaction).
+   *
+   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

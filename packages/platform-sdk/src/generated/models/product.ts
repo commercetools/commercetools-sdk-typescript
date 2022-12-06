@@ -483,90 +483,146 @@ export interface ProductPagedQueryResponse {
 export type ProductPriceModeEnum = 'Embedded' | 'Standalone' | string
 export interface ProductProjection extends BaseResource {
   /**
-   *	The unique ID of the Product.
+   *	Unique identifier of the [Product](ctp:api:type:Product).
+   *
    *
    */
   readonly id: string
   /**
-   *	The current version of the Product.
+   *	Current version of the [Product](ctp:api:type:Product).
+   *
    *
    */
   readonly version: number
   /**
-   *	User-specific unique identifier of the Product.
+   *	User-defined unique identifier of the [Product](ctp:api:type:Product).
+   *
    *
    */
   readonly key?: string
   /**
+   *	Date and time (UTC) the ProductProjection was initially created.
+   *
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Date and time (UTC) the ProductProjection was last updated.
+   *
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	The [ProductType](ctp:api:type:ProductType) defining the Attributes of the [Product](ctp:api:type:Product).
+   *
    *
    */
   readonly productType: ProductTypeReference
   /**
+   *	Name of the [Product](ctp:api:type:Product).
+   *
    *
    */
   readonly name: LocalizedString
   /**
+   *	Description of the [Product](ctp:api:type:Product).
+   *
    *
    */
   readonly description?: LocalizedString
   /**
+   *	User-defined identifier used in a deep-link URL for the [Product](ctp:api:type:Product).
+   *	Must be unique across a Project, but can be the same for Products in different locales.
+   *	Matches the pattern `[a-zA-Z0-9_\-]{2,256}`.
+   *	For [good performance](/../api/predicates/query#performance-considerations), indexes are provided for the first 15 `languages` set in the [Project](ctp:api:type:Project).
+   *
    *
    */
   readonly slug: LocalizedString
   /**
-   *	References to categories the product is in.
+   *	[Categories](ctp:api:type:Category) assigned to the [Product](ctp:api:type:Product).
+   *
    *
    */
   readonly categories: CategoryReference[]
   /**
+   *	Order of [Product](ctp:api:type:Product) in [Categories](ctp:api:type:Category).
+   *
    *
    */
   readonly categoryOrderHints?: CategoryOrderHints
   /**
+   *	Title of the [Product](ctp:api:type:Product) displayed in search results.
+   *
    *
    */
   readonly metaTitle?: LocalizedString
   /**
+   *	Description of the [Product](ctp:api:type:Product) displayed in search results below the meta title.
+   *
    *
    */
   readonly metaDescription?: LocalizedString
   /**
+   *	Keywords that give additional information about the [Product](ctp:api:type:Product) to search engines.
+   *
    *
    */
   readonly metaKeywords?: LocalizedString
   /**
+   *	Used by [Product Suggestions](/../api/projects/products-suggestions), but is also considered for a [full text search](ctp:api:type:FullTextSearch).
+   *
    *
    */
   readonly searchKeywords?: SearchKeywords
   /**
+   *	`true` if the staged data is different from the current data.
+   *
    *
    */
   readonly hasStagedChanges?: boolean
   /**
+   *	`true` if the [Product](ctp:api:type:Product) is [published](ctp:api:type:CurrentStaged).
+   *
    *
    */
   readonly published?: boolean
   /**
+   *	The Master Variant of the [Product](ctp:api:type:Product).
+   *
    *
    */
   readonly masterVariant: ProductVariant
   /**
+   *	Additional Product Variants.
+   *
    *
    */
   readonly variants: ProductVariant[]
   /**
+   *	The [TaxCategory](ctp:api:type:TaxCategory) of the [Product](ctp:api:type:Product).
+   *
    *
    */
   readonly taxCategory?: TaxCategoryReference
   /**
+   *	[State](ctp:api:type:State) of the [Product](ctp:api:type:Product).
+   *
    *
    */
   readonly state?: StateReference
   /**
-   *	Statistics about the review ratings taken into account for this product.
+   *	Review statistics of the [Product](ctp:api:type:Product).
+   *
    *
    */
   readonly reviewRatingStatistics?: ReviewRatingStatistics
+  /**
+   *	Indicates whether the Prices of the Product Projection are [embedded](ctp:api:type:Price) or [standalone](ctp:api:type:StandalonePrice). [Projecting Prices](#prices) only works with `Embedded`, there is currently no support for `Standalone`.
+   *
+   *
+   */
+  readonly priceMode?: ProductPriceModeEnum
 }
 export interface ProductProjectionPagedQueryResponse {
   /**
@@ -576,10 +632,18 @@ export interface ProductProjectionPagedQueryResponse {
    */
   readonly limit: number
   /**
+   *	Actual number of results returned.
+   *
    *
    */
   readonly count: number
   /**
+   *	Total number of results matching the query.
+   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This field is returned by default.
+   *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
+   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *
    *
    */
   readonly total?: number
@@ -590,6 +654,8 @@ export interface ProductProjectionPagedQueryResponse {
    */
   readonly offset: number
   /**
+   *	[ProductProjections](ctp:api:type:ProductProjection) matching the query.
+   *
    *
    */
   readonly results: ProductProjection[]
@@ -1587,7 +1653,7 @@ export interface ProductSetAssetCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -2114,7 +2180,7 @@ export interface ProductSetProductPriceCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *

@@ -21,7 +21,12 @@ import {
   TaxMode,
 } from './cart'
 import { ChannelResourceIdentifier } from './channel'
-import { BaseAddress, LocalizedString, Money, TypedMoney } from './common'
+import {
+  BaseAddress,
+  CentPrecisionMoney,
+  LocalizedString,
+  Money,
+} from './common'
 import { CustomerReference, CustomerResourceIdentifier } from './customer'
 import { DiscountCodeReference } from './discount-code'
 import { OrderReference } from './order'
@@ -540,67 +545,86 @@ export interface MyOrderFromCartDraft {
 }
 export interface MyPayment {
   /**
-   *	Unique identifier of the MyPayment.
+   *	Unique identifier of the Payment.
+   *
    *
    */
   readonly id: string
   /**
+   *	Current version of the Payment.
+   *
    *
    */
   readonly version: number
   /**
-   *	A reference to the customer this payment belongs to.
+   *	Reference to a [Customer](ctp:api:type:Customer) associated with the Payment. Set automatically with a [password flow token](/../api/authorization#password-flow). Either `customer` or `anonymousId` is present.
+   *
    *
    */
   readonly customer?: CustomerReference
   /**
-   *	Identifies payments belonging to an anonymous session (the customer has not signed up/in yet).
+   *	[Anonymous session](/../api/authorization#tokens-for-anonymous-sessions) associated with the Payment. Set automatically with a [token for an anonymous session](/../api/authorization#tokens-for-anonymous-sessions). Either `customer` or `anonymousId` is present.
+   *
    *
    */
   readonly anonymousId?: string
   /**
-   *	How much money this payment intends to receive from the customer.
-   *	The value usually matches the cart or order gross total.
+   *	Money value the Payment intends to receive from the customer.
+   *	The value typically matches the [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order) gross total.
+   *
    *
    */
-  readonly amountPlanned: TypedMoney
+  readonly amountPlanned: CentPrecisionMoney
   /**
+   *	Information regarding the payment interface (for example, a PSP), and the specific payment method used.
+   *
    *
    */
   readonly paymentMethodInfo: PaymentMethodInfo
   /**
-   *	A list of financial transactions of different TransactionTypes
-   *	with different TransactionStates.
+   *	Financial transactions of the Payment. Each Transaction has a [TransactionType](ctp:api:type:TransactionType) and a [TransactionState](ctp:api:type:TransactionState).
+   *
    *
    */
   readonly transactions: Transaction[]
   /**
+   *	Custom Fields defined for the Payment.
+   *
    *
    */
   readonly custom?: CustomFields
 }
 export interface MyPaymentDraft {
   /**
-   *	How much money this payment intends to receive from the customer.
-   *	The value usually matches the cart or order gross total.
+   *	Money value the Payment intends to receive from the customer.
+   *	The value usually matches the [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order) gross total.
+   *
    *
    */
   readonly amountPlanned: Money
   /**
+   *	Information regarding the payment interface (for example, a PSP), and the specific payment method used.
+   *
    *
    */
   readonly paymentMethodInfo?: PaymentMethodInfo
   /**
+   *	Custom Fields for the Payment.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
   /**
-   *	A list of financial transactions of the `Authorization` or `Charge`
-   *	TransactionTypes.
+   *	Financial transactions of the [TransactionTypes](ctp:api:type:TransactionType) `Authorization` or `Charge`.
+   *
    *
    */
   readonly transaction?: MyTransactionDraft
 }
+/**
+ *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [MyPayment](ctp:api:type:MyPayment).
+ *
+ */
 export interface MyPaymentPagedQueryResponse {
   /**
    *	Number of [results requested](/../api/general-concepts#limit).
@@ -609,10 +633,18 @@ export interface MyPaymentPagedQueryResponse {
    */
   readonly limit: number
   /**
+   *	Actual number of results returned.
+   *
    *
    */
   readonly count: number
   /**
+   *	Total number of results matching the query.
+   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This field is returned by default.
+   *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
+   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *
    *
    */
   readonly total?: number
@@ -623,16 +655,22 @@ export interface MyPaymentPagedQueryResponse {
    */
   readonly offset: number
   /**
+   *	[MyPayments](ctp:api:type:MyPayment) matching the query.
+   *
    *
    */
   readonly results: MyPayment[]
 }
 export interface MyPaymentUpdate {
   /**
+   *	Expected version of the Payment on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *
    *
    */
   readonly version: number
   /**
+   *	Update actions to be performed on the Payment.
+   *
    *
    */
   readonly actions: MyPaymentUpdateAction[]
@@ -696,44 +734,68 @@ export interface MyQuoteUpdate {
   readonly actions: MyQuoteUpdateAction[]
 }
 export type MyQuoteUpdateAction = MyQuoteChangeMyQuoteStateAction
+/**
+ *	A [MyShoppingListDraft](ctp:api:type:MyShoppingListDraft) is the object submitted as payload to the [Create MyShoppingList request](#create-shoppinglist).
+ *	The `customer` field of [ShoppingList](ctp:api:type:ShoppingList) is automatically set with
+ *	a [password flow token](/authorization#password-flow).
+ *	The `anonymousId` is automatically set with a [token for an anonymous session](/authorization#tokens-for-anonymous-sessions).
+ *	The `key` and `slug` fields can not be set.
+ *
+ */
 export interface MyShoppingListDraft {
   /**
+   *	Name of the [ShoppingList](ctp:api:type:ShoppingList).
+   *
    *
    */
   readonly name: LocalizedString
   /**
+   *	Description of the ShoppingList.
+   *
    *
    */
   readonly description?: LocalizedString
   /**
+   *	[Line Items](ctp:api:type:ShoppingListLineItem) (containing Products) to add to the ShoppingList.
+   *
    *
    */
   readonly lineItems?: ShoppingListLineItemDraft[]
   /**
+   *	[Line Items](ctp:api:type:TextLineItem) (containing text values) to add to the ShoppingList.
+   *
    *
    */
   readonly textLineItems?: TextLineItemDraft[]
   /**
-   *	The custom fields.
+   *	Custom Fields defined for the ShoppingList.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
   /**
-   *	The shopping list will be deleted automatically if it hasn't been modified for the specified amount of days.
+   *	Number of days after which the ShoppingList will be automatically deleted if it has not been modified. If not set, the [default value](ctp:api:type:ShoppingListsConfiguration) configured in the [Project](ctp:api:type:Project) is used.
+   *
    *
    */
   readonly deleteDaysAfterLastModification?: number
   /**
+   *	Assigns the new ShoppingList to the [Store](ctp:api:type:Store). The Store assignment can not be modified.
+   *
    *
    */
   readonly store?: StoreResourceIdentifier
 }
 export interface MyShoppingListUpdate {
   /**
+   *	Expected version of the ShoppingList on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *
    *
    */
   readonly version: number
   /**
+   *	List of update actions to be performed on the ShoppingList.
+   *
    *
    */
   readonly actions: MyShoppingListUpdateAction[]
@@ -760,31 +822,34 @@ export type MyShoppingListUpdateAction =
   | MyShoppingListSetTextLineItemDescriptionAction
 export interface MyTransactionDraft {
   /**
-   *	The time at which the transaction took place.
+   *	Date and time (UTC) the Transaction took place.
+   *
    *
    */
   readonly timestamp?: string
   /**
-   *	The type of this transaction.
-   *	Only the `Authorization` or `Charge`
-   *	TransactionTypes are allowed here.
+   *	Type of the Transaction.
+   *	Only `Authorization` or `Charge` is allowed.
+   *
    *
    */
   readonly type: TransactionType
   /**
+   *	Money value for the Transaction.
+   *
    *
    */
   readonly amount: Money
   /**
-   *	The identifier that is used by the interface that managed the transaction (usually the PSP).
-   *	If a matching interaction was logged in the interfaceInteractions array,
-   *	the corresponding interaction should be findable with this ID.
-   *	The `state` is set to the `Initial` TransactionState.
+   *	Identifier used by the payment service that manages the Transaction.
+   *	Can be used to correlate the Transaction to an interface interaction.
+   *
    *
    */
   readonly interactionId?: string
   /**
-   *	Custom Fields for the Transaction.
+   *	Custom Fields of the Transaction.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
@@ -996,7 +1061,7 @@ export interface MyBusinessUnitSetAddressCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -1049,7 +1114,7 @@ export interface MyBusinessUnitSetCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -1188,7 +1253,7 @@ export interface MyCartAddLineItemAction {
 export interface MyCartAddPaymentAction {
   readonly action: 'addPayment'
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Payment](ctp:api:type:Payment).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Payment](ctp:api:type:Payment).
    *
    *
    */
@@ -1288,7 +1353,7 @@ export interface MyCartRemoveLineItemAction {
 export interface MyCartRemovePaymentAction {
   readonly action: 'removePayment'
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Payment](ctp:api:type:Payment).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Payment](ctp:api:type:Payment).
    *
    *
    */
@@ -1320,7 +1385,7 @@ export interface MyCartSetCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -1371,7 +1436,7 @@ export interface MyCartSetLineItemCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -1645,8 +1710,8 @@ export interface MyCustomerSetCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *
    *
    */
@@ -1804,19 +1869,28 @@ export interface MyCustomerSetVatIdAction {
    */
   readonly vatId?: string
 }
+/**
+ *	Adding a Transaction to a Payment generates the [PaymentTransactionAdded](ctp:api:type:PaymentTransactionAddedMessage) Message.
+ *	Once a Transaction is added to the Payment, it can no longer be updated or deleted using the My Payments API.
+ *
+ */
 export interface MyPaymentAddTransactionAction {
   readonly action: 'addTransaction'
   /**
+   *	Transaction to add to the Payment.
+   *
    *
    */
   readonly transaction: TransactionDraft
 }
+/**
+ *	Can be used to update the Payment if a customer changes the [Cart](ctp:api:type:Cart), or adds or removes a [CartDiscount](ctp:api:type:CartDiscount) during checkout.
+ *
+ */
 export interface MyPaymentChangeAmountPlannedAction {
   readonly action: 'changeAmountPlanned'
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	New value to set.
    *
    *
    */
@@ -1832,7 +1906,7 @@ export interface MyPaymentSetCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -1842,6 +1916,9 @@ export interface MyPaymentSetCustomFieldAction {
 export interface MyPaymentSetMethodInfoInterfaceAction {
   readonly action: 'setMethodInfoInterface'
   /**
+   *	Value to set.
+   *	Once set, the `paymentInterface` of the `paymentMethodInfo` cannot be changed.
+   *
    *
    */
   readonly interface: string
@@ -1849,6 +1926,9 @@ export interface MyPaymentSetMethodInfoInterfaceAction {
 export interface MyPaymentSetMethodInfoMethodAction {
   readonly action: 'setMethodInfoMethod'
   /**
+   *	Value to set.
+   *	If empty, any existing value will be removed.
+   *
    *
    */
   readonly method?: string
@@ -1856,7 +1936,8 @@ export interface MyPaymentSetMethodInfoMethodAction {
 export interface MyPaymentSetMethodInfoNameAction {
   readonly action: 'setMethodInfoName'
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	Value to set.
+   *	If empty, any existing value will be removed.
    *
    *
    */
@@ -1872,7 +1953,7 @@ export interface MyPaymentSetTransactionCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -1897,27 +1978,37 @@ export interface MyQuoteRequestCancelAction {
 export interface MyShoppingListAddLineItemAction {
   readonly action: 'addLineItem'
   /**
+   *	`sku` of the [ProductVariant](ctp:api:type:ProductVariant).
+   *
    *
    */
   readonly sku?: string
   /**
+   *	Unique identifier of a [Product](ctp:api:type:Product).
+   *
    *
    */
   readonly productId?: string
   /**
+   *	`id` of the [ProductVariant](ctp:api:type:ProductVariant). If not set, the ShoppingListLineItem refers to the Master Variant.
+   *
    *
    */
   readonly variantId?: number
   /**
+   *	Number of Products in the [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem).
+   *
    *
    */
   readonly quantity?: number
   /**
+   *	Date and time the TextLineItem is added to the [ShoppingList](ctp:api:type:ShoppingList). If not set, the current date and time (UTC) is used.
+   *
    *
    */
   readonly addedAt?: string
   /**
-   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *	Custom Fields defined for the ShoppingListLineItem.
    *
    *
    */
@@ -1926,27 +2017,31 @@ export interface MyShoppingListAddLineItemAction {
 export interface MyShoppingListAddTextLineItemAction {
   readonly action: 'addTextLineItem'
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	Name of the [TextLineItem](ctp:api:type:TextLineItem).
    *
    *
    */
   readonly name: LocalizedString
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	Description of the TextLineItem.
    *
    *
    */
   readonly description?: LocalizedString
   /**
+   *	Number of entries in the TextLineItem.
+   *
    *
    */
   readonly quantity?: number
   /**
+   *	Date and time the TextLineItem is added to the [ShoppingList](ctp:api:type:ShoppingList). If not set, the current date and time (UTC) is used.
+   *
    *
    */
   readonly addedAt?: string
   /**
-   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *	Custom Fields defined for the TextLineItem.
    *
    *
    */
@@ -1955,10 +2050,14 @@ export interface MyShoppingListAddTextLineItemAction {
 export interface MyShoppingListChangeLineItemQuantityAction {
   readonly action: 'changeLineItemQuantity'
   /**
+   *	The `id` of the [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
   /**
+   *	New value to set. If `0`, the ShoppingListLineItem is removed from the ShoppingList.
+   *
    *
    */
   readonly quantity: number
@@ -1966,6 +2065,8 @@ export interface MyShoppingListChangeLineItemQuantityAction {
 export interface MyShoppingListChangeLineItemsOrderAction {
   readonly action: 'changeLineItemsOrder'
   /**
+   *	All existing [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem) `id`s of the [ShoppingList](ctp:api:type:ShoppingList) in the desired new order.
+   *
    *
    */
   readonly lineItemOrder: string[]
@@ -1973,7 +2074,7 @@ export interface MyShoppingListChangeLineItemsOrderAction {
 export interface MyShoppingListChangeNameAction {
   readonly action: 'changeName'
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	New value to set. Must not be empty.
    *
    *
    */
@@ -1982,11 +2083,13 @@ export interface MyShoppingListChangeNameAction {
 export interface MyShoppingListChangeTextLineItemNameAction {
   readonly action: 'changeTextLineItemName'
   /**
+   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update.
+   *
    *
    */
   readonly textLineItemId: string
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	New value to set. Must not be empty.
    *
    *
    */
@@ -1995,10 +2098,14 @@ export interface MyShoppingListChangeTextLineItemNameAction {
 export interface MyShoppingListChangeTextLineItemQuantityAction {
   readonly action: 'changeTextLineItemQuantity'
   /**
+   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update.
+   *
    *
    */
   readonly textLineItemId: string
   /**
+   *	New value to set. If `0`, the TextLineItem is removed from the ShoppingList.
+   *
    *
    */
   readonly quantity: number
@@ -2006,6 +2113,8 @@ export interface MyShoppingListChangeTextLineItemQuantityAction {
 export interface MyShoppingListChangeTextLineItemsOrderAction {
   readonly action: 'changeTextLineItemsOrder'
   /**
+   *	All existing [TextLineItem](ctp:api:type:TextLineItem) `id`s in the desired new order.
+   *
    *
    */
   readonly textLineItemOrder: string[]
@@ -2013,10 +2122,14 @@ export interface MyShoppingListChangeTextLineItemsOrderAction {
 export interface MyShoppingListRemoveLineItemAction {
   readonly action: 'removeLineItem'
   /**
+   *	The `id` of the [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
   /**
+   *	Amount to remove from the `quantity` of the ShoppingListLineItem. If not set, the ShoppingListLineItem is removed from the ShoppingList. If this value matches or exceeds the current `quantity` of the ShoppingListLineItem, the ShoppingListLineItem is removed from the ShoppingList.
+   *
    *
    */
   readonly quantity?: number
@@ -2024,10 +2137,14 @@ export interface MyShoppingListRemoveLineItemAction {
 export interface MyShoppingListRemoveTextLineItemAction {
   readonly action: 'removeTextLineItem'
   /**
+   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update.
+   *
    *
    */
   readonly textLineItemId: string
   /**
+   *	Amount to remove from the `quantity` of the TextLineItem. If not set, the TextLineItem is removed from the ShoppingList. If this value matches or exceeds the current `quantity` of the TextLineItem, the TextLineItem is removed from the ShoppingList.
+   *
    *
    */
   readonly quantity?: number
@@ -2042,7 +2159,7 @@ export interface MyShoppingListSetCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -2068,6 +2185,8 @@ export interface MyShoppingListSetCustomTypeAction {
 export interface MyShoppingListSetDeleteDaysAfterLastModificationAction {
   readonly action: 'setDeleteDaysAfterLastModification'
   /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
    *
    */
   readonly deleteDaysAfterLastModification?: number
@@ -2075,7 +2194,7 @@ export interface MyShoppingListSetDeleteDaysAfterLastModificationAction {
 export interface MyShoppingListSetDescriptionAction {
   readonly action: 'setDescription'
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	Value to set. If empty, any existing value will be removed.
    *
    *
    */
@@ -2084,6 +2203,8 @@ export interface MyShoppingListSetDescriptionAction {
 export interface MyShoppingListSetLineItemCustomFieldAction {
   readonly action: 'setLineItemCustomField'
   /**
+   *	Unique identifier of an existing [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem) in the [ShoppingList](ctp:api:type:ShoppingList).
+   *
    *
    */
   readonly lineItemId: string
@@ -2095,7 +2216,7 @@ export interface MyShoppingListSetLineItemCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -2105,18 +2226,20 @@ export interface MyShoppingListSetLineItemCustomFieldAction {
 export interface MyShoppingListSetLineItemCustomTypeAction {
   readonly action: 'setLineItemCustomType'
   /**
+   *	Unique identifier of an existing [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem) in the [ShoppingList](ctp:api:type:ShoppingList).
+   *
    *
    */
   readonly lineItemId: string
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the LineItem with [Custom Fields](/../api/projects/custom-fields).
-   *	If absent, any existing Type and Custom Fields are removed from the LineItem.
+   *	Defines the [Type](ctp:api:type:Type) that extends the ShoppingListLineItem with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the ShoppingListLineItem.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the LineItem.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the ShoppingListLineItem.
    *
    *
    */
@@ -2125,6 +2248,8 @@ export interface MyShoppingListSetLineItemCustomTypeAction {
 export interface MyShoppingListSetTextLineItemCustomFieldAction {
   readonly action: 'setTextLineItemCustomField'
   /**
+   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update.
+   *
    *
    */
   readonly textLineItemId: string
@@ -2136,7 +2261,7 @@ export interface MyShoppingListSetTextLineItemCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -2146,6 +2271,8 @@ export interface MyShoppingListSetTextLineItemCustomFieldAction {
 export interface MyShoppingListSetTextLineItemCustomTypeAction {
   readonly action: 'setTextLineItemCustomType'
   /**
+   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update.
+   *
    *
    */
   readonly textLineItemId: string
@@ -2166,11 +2293,13 @@ export interface MyShoppingListSetTextLineItemCustomTypeAction {
 export interface MyShoppingListSetTextLineItemDescriptionAction {
   readonly action: 'setTextLineItemDescription'
   /**
+   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update.
+   *
    *
    */
   readonly textLineItemId: string
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	Value to set. If empty, any existing value will be removed.
    *
    *
    */

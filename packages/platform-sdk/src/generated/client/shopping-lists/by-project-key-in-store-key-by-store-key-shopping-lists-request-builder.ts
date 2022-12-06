@@ -80,6 +80,10 @@ export class ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	When using this endpoint, the `store` field of a ShoppingList is always set to the Store specified in the path parameter.
+   *
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

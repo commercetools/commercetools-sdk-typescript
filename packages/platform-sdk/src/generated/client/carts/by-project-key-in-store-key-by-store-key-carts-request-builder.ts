@@ -105,8 +105,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder {
   /**
    *	Creates a [Cart](ctp:api:type:Cart) in the Store specified by `storeKey`.
    *	When using this endpoint the Cart's `store` field is always set to the store specified in the path parameter.
-   *	Creating a Cart can fail with an [InvalidOperationError](ctp:api:type:InvalidOperationError) if the referenced [ShippingMethod](ctp:api:type:ShippingMethod)
-   *	in the [CartDraft](ctp:api:type:CartDraft) has a predicate which does not match the Cart.
+   *	If the referenced [ShippingMethod](ctp:api:type:ShippingMethod) in the [CartDraft](ctp:api:type:CartDraft) has a predicate that does not match, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    */
   public post(methodArgs: {

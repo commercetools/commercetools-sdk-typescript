@@ -13,6 +13,16 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
       method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections/key=test_key?staged=true',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .productProjections()
+        .withKey({ key: 'test_key' })
+        .get({ queryArgs: { staged: true } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/in-store/key=test_storeKey/product-projections/key=test_key?priceCurrency=priceCurrency',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })

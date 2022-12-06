@@ -39,6 +39,7 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
       priceCountry?: string
       priceCustomerGroup?: string
       priceChannel?: string
+      localeProjection?: string | string[]
       expand?: string | string[]
       [key: string]: QueryParam
     }
@@ -81,12 +82,16 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	A failed response can return a [DuplicatePriceScope](ctp:api:type:DuplicatePriceScopeError), [DuplicateVariantValues](ctp:api:type:DuplicateVariantValuesError), [DuplicateAttributeValue](ctp:api:type:DuplicateAttributeValueError), or [DuplicateAttributeValues](ctp:api:type:DuplicateAttributeValuesError) error.
+   */
   public post(methodArgs: {
     queryArgs?: {
       priceCurrency?: string
       priceCountry?: string
       priceCustomerGroup?: string
       priceChannel?: string
+      localeProjection?: string | string[]
       expand?: string | string[]
       [key: string]: QueryParam
     }
@@ -121,6 +126,7 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
       priceCountry?: string
       priceCustomerGroup?: string
       priceChannel?: string
+      localeProjection?: string | string[]
       version: number
       expand?: string | string[]
       [key: string]: QueryParam

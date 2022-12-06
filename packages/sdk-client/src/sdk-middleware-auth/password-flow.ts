@@ -4,9 +4,9 @@ import {
   MiddlewareResponse,
   Next,
   PasswordAuthMiddlewareOptions,
-  Task,
   RequestState,
   RequestStateStore,
+  Task,
 } from '../types/sdk.d'
 import authMiddlewareBase from './base-auth-flow'
 import { buildRequestForPasswordFlow } from './build-requests'
