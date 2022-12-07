@@ -1,5 +1,11 @@
 # @commercetools/sdk-client-v2
 
+## 2.1.1
+
+### Patch Changes
+
+- [#390](https://github.com/commercetools/commercetools-sdk-typescript/pull/390) [`98d2d7c`](https://github.com/commercetools/commercetools-sdk-typescript/commit/98d2d7ce2abad1d8eb3466f4f3df1b877f144920) Thanks [@barbara79](https://github.com/barbara79)! - chore: add user agent in the client setting
+
 ## 2.1.0
 
 ### Minor Changes
