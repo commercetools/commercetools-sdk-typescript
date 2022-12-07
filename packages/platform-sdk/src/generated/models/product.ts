@@ -1246,7 +1246,7 @@ export interface ProductAddVariantAction {
    *
    *
    */
-  readonly assets?: Asset[]
+  readonly assets?: AssetDraft[]
 }
 /**
  *	Either `variantId` or `sku` is required. The Asset to update must be specified using either `assetId` or `assetKey`.
