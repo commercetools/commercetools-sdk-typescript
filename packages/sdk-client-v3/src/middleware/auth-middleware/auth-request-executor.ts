@@ -4,9 +4,10 @@ import {
   TokenInfo,
   executeRequestOptions,
   IBuiltRequestParams,
+  MiddlewareResponse,
 } from '../../types/types'
 import { buildRequestForRefreshTokenFlow } from './auth-request-builder'
-import { Buffer } from 'buffer'
+import { Buffer } from 'buffer/'
 import { calculateExpirationTime, mergeAuthHeader, executor } from '../../utils'
 
 export async function executeRequest(
@@ -90,8 +91,9 @@ export async function executeRequest(
   }
 
   // request a new token
+  let response
   try {
-    const response = await executor({
+    response = await executor({
       url,
       method: 'POST',
       headers: {
@@ -103,7 +105,8 @@ export async function executeRequest(
       body,
     })
 
-    if (response.statusCode < 400) {
+    // if (response.statusCode  < 400) {
+    if (response.statusCode >= 200 && response.statusCode < 300) {
       const {
         access_token: token,
         expires_in: expiresIn,
@@ -134,7 +137,7 @@ export async function executeRequest(
         return mergeAuthHeader(token, requestQueue.pop().request)
       }
 
-      // execute all pending tasks
+      // execute all pending tasks if any
       for (let i = 0; i < requestQueue.length; i++) {
         const task: Task = requestQueue[i]
         const requestWithAuth = mergeAuthHeader(token, task.request)
@@ -164,7 +167,17 @@ export async function executeRequest(
       },
     })
   } catch (error) {
-    // for now - log error to stdout
-    console.log(error)
+    return {
+      ...request,
+      headers: { ...request.headers },
+      response: {
+        statusCode: error.statusCode || 0,
+        error: {
+          ...response,
+          error,
+          body: response,
+        },
+      },
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Buffer } from 'buffer'
+import { Buffer } from 'buffer/'
 
 export type Nullable<T> = T | null
 export type JsonObject<T = unknown> = { [key: string]: T }
@@ -12,7 +12,8 @@ export type MiddlewareResponse = {
   body?: JsonObject;
   error?: HttpErrorType;
   statusCode: number;
-  headers?: JsonObject<string>;
+  // headers?: JsonObject<string>;
+  headers?: Record<string, any>
   request?: MiddlewareRequest;
 }
 
@@ -21,19 +22,21 @@ export type HttpErrorType = {
   message: string
   code?: number
   status?: number
-  method?: MethodType
+  method: MethodType
   statusCode: number
   originalRequest?: ClientRequest
   body?: JsonObject
   retryCount?: number
-  headers?: JsonObject<QueryParam>
-  [key: string]: unknown
+  // headers?: JsonObject<QueryParam>
+  headers?: Record<string, any>
+  [key: string]: any
 }
 
 export interface ClientRequest {
   baseUri?: string
   uri?: string
-  headers?: VariableMap
+  // headers?: VariableMap
+  headers?: Record<string, any>
   method: MethodType
   uriTemplate?: string
   pathVariables?: VariableMap
@@ -42,6 +45,7 @@ export interface ClientRequest {
   response?: ClientResponse
   resolve?: (response: JsonObject) => void;
   reject?: (error: JsonObject) => void;
+  [key: string]: any
 }
 
 export type Next = (request: MiddlewareRequest) => Promise<MiddlewareResponse>
@@ -73,7 +77,8 @@ export type VariableMap = {
 export type ClientResponse<T = any> = {
   body?: T
   statusCode?: number
-  headers?: JsonObject<string>
+  // headers?: JsonObject<string>
+  headers?: Record<string, any>
   error?: HttpErrorType
   // request?: Object
 }
@@ -120,6 +125,7 @@ export type IBuiltRequestParams = {
   basicAuth: string
   url: string
   body: string
+  data?: string
 }
 
 export type RefreshAuthMiddlewareOptions = {
@@ -275,8 +281,9 @@ export type ExistingTokenMiddlewareOptions = {
 }
 
 export type IClientOptions = {
-  method: string;
-  headers: JsonObject<QueryParam>;
+  method: MethodType;
+  // headers: JsonObject<QueryParam>;
+  headers: Record<string, any>
   credentialsMode?: CredentialsMode;
   body?: string | Buffer
   timeout?: number
@@ -291,14 +298,16 @@ export type HttpClientConfig = IClientOptions & {
 
 export type TResponse = {
   statusCode: number
-  headers: JsonObject<QueryParam>
+  // headers: JsonObject<QueryParam>
+  headers: Record<string, any>
   data: {
     statusCode?: number
     errors?: any
     error?: string
     message: string
-    // [k: string | number | symbol]: unknown
+    [k: string | number | symbol]: any
   }
+  [k: string | number | symbol]: any
 }
 
 export type Client = {
@@ -310,5 +319,7 @@ export type Client = {
   //   processOpt: ProcessOptions
   // ) => Promise<any>
 }
+
+export type ErrorMiddlewareOptions = {}
 
 export type executeRequest = (request: ClientRequest) => Promise<ClientResponse>

@@ -12,16 +12,20 @@ import {
   ClientResult,
   TResponse,
 } from '../types/types'
-import { validateHttpOptions, isBuffer, getHeaders } from '../utils'
-import { executor, constants } from '../utils'
-import { Buffer } from 'buffer'
+import {
+  validateHttpOptions,
+  isBuffer,
+  getHeaders,
+  executor,
+  constants,
+} from '../utils'
+import { Buffer } from 'buffer/'
 
 async function executeRequest({
   url,
   clientOptions,
   httpClient,
 }: HttpOptions): Promise<ClientResult> {
-  let parsed: TResponse
   let timer: ReturnType<typeof setTimeout>
 
   const { timeout, abortController } = clientOptions
@@ -40,7 +44,7 @@ async function executeRequest({
       ...(clientOptions.body ? { body: clientOptions.body } : {}),
     } as HttpClientConfig)
 
-    if (response.statusCode < 400) {
+    if (response.statusCode >= 200 && response.statusCode < 300) {
       if (clientOptions.method == 'HEAD') {
         return {
           statusCode: response.statusCode,
@@ -61,44 +65,15 @@ async function executeRequest({
      */
     return {
       error: {
-        message: response?.data?.message,
-        statusCode: response?.data?.statusCode,
-        ...parsed,
+        message: response.message || response.data.message,
+        method: clientOptions.method,
+        ...response,
       },
-      statusCode: response.statusCode || response?.data?.statusCode,
-      headers: getHeaders(response.headers),
-      ...(typeof response === 'object'
-        ? { message: response?.data?.message, body: response?.data }
-        : { message: response, body: response }),
     }
   } catch (error) {
-    if (error?.type == 'aborted') {
-      return {
-        error: {
-          statusCode: 0,
-          message: error.message,
-        },
-        statusCode: 0,
-        headers: null,
-        body: error,
-        ...{ message: error.message, body: error },
-      }
-    }
-
     return {
-      error: {
-        message: error?.response?.data?.message || error.message,
-        statusCode: error?.response?.status,
-        ...parsed,
-      },
-      statusCode: error?.response?.status || error?.response?.data?.statusCode,
-      headers: getHeaders(error?.response?.headers),
-      ...(typeof error === 'object'
-        ? {
-            message: error?.response?.data?.message,
-            body: error?.response?.data,
-          }
-        : { message: error, body: error }),
+      // We know that this is a network error
+      error,
     }
   } finally {
     clearTimeout(timer)

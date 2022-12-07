@@ -18,6 +18,7 @@ import {
   RefreshAuthMiddlewareOptions,
   LoggerMiddlewareOptions,
   RetryMiddlewareOptions,
+  ErrorMiddlewareOptions,
 } from '../types/types'
 
 const {
@@ -34,6 +35,8 @@ const {
   createQueueMiddleware,
   createUserAgentMiddleware,
   createConcurrentModificationMiddleware,
+
+  createErrorMiddleware,
 } = middleware
 
 export default class ClientBuilder {
@@ -47,8 +50,13 @@ export default class ClientBuilder {
   private queueMiddleware: Nullable<Middleware>
   private retryMiddleware: Nullable<Middleware>
   private concurrentMiddleware: Nullable<Middleware>
+  private errorMiddleware: Nullable<Middleware>
 
   private middlewares: Array<Middleware> = []
+
+  constructor() {
+    this.userAgentMiddleware = createUserAgentMiddleware({})
+  }
 
   withProjectKey(key: string): ClientBuilder {
     this.projectKey = key
@@ -224,16 +232,23 @@ export default class ClientBuilder {
     return this
   }
 
+  withErrorMiddleware(options?: ErrorMiddlewareOptions): ClientBuilder {
+    this.errorMiddleware = createErrorMiddleware(options)
+
+    return this
+  }
+
+  // builder
   build(): Client {
     const middlewares = this.middlewares.slice()
 
     if (this.correlationIdMiddleware)
       middlewares.push(this.correlationIdMiddleware)
-
     if (this.userAgentMiddleware) middlewares.push(this.userAgentMiddleware)
     if (this.authMiddleware) middlewares.push(this.authMiddleware)
     if (this.queueMiddleware) middlewares.push(this.queueMiddleware)
     if (this.loggerMiddleware) middlewares.push(this.loggerMiddleware)
+    if (this.errorMiddleware) middlewares.push(this.errorMiddleware)
     if (this.retryMiddleware) middlewares.push(this.retryMiddleware)
     if (this.concurrentMiddleware) middlewares.push(this.concurrentMiddleware)
 

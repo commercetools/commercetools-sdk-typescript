@@ -12,6 +12,7 @@ export { default as mergeAuthHeader } from './mergeAuthHeader'
 export { default as executor } from './executor'
 export * as constants from './constants'
 export { default as sleep } from './sleep'
+export { default as retryFn } from './retry'
 export {
   validateRetryCodes,
   validateHttpOptions,

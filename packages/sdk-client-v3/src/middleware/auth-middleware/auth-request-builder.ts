@@ -4,7 +4,7 @@ import {
   RefreshAuthMiddlewareOptions,
   PasswordAuthMiddlewareOptions,
 } from '../../types/types'
-import { Buffer } from 'buffer'
+import { Buffer } from 'buffer/'
 
 /**
  *
@@ -22,7 +22,7 @@ export function buildRequestForClientCredentialsFlow(
   if (!options.credentials)
     throw new Error('Missing required option (credentials)')
 
-  const { clientId, clientSecret } = options.credentials
+  const { clientId, clientSecret } = options.credentials || {}
   if (!(clientId && clientSecret))
     throw new Error('Missing required credentials (clientId, clientSecret)')
 

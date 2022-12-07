@@ -6,6 +6,7 @@ export { default as createRetryMiddleware } from './create-retry-middleware'
 export { default as createLoggerMiddleware } from './create-logger-middleware'
 export { default as createUserAgentMiddleware } from './create-user-agent-middleware'
 export { default as createConcurrentModificationMiddleware } from './create-concurrent-modification-middleware'
+export { default as createErrorMiddleware } from './create-error-middleware'
 export {
   createAuthMiddlewareForPasswordFlow,
   createAuthMiddlewareForClientCredentialsFlow,

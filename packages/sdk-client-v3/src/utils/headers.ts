@@ -18,6 +18,8 @@ function parse(headers: JsonObject<any>) {
 export default function getHeaders(
   headers: JsonObject<any>
 ): JsonObject<string> {
+  if (!headers) return null
+
   // node-fetch
   if (headers.raw && typeof headers.raw == 'function') return headers.raw()
 

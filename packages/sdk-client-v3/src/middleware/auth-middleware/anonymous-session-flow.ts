@@ -55,6 +55,7 @@ export default function createAuthMiddlewareForAnonymousSessionFlow(
 
       // make request to coco
       const requestWithAuth = await executeRequest(requestOptions)
+
       if (requestWithAuth) {
         return next(requestWithAuth)
       }

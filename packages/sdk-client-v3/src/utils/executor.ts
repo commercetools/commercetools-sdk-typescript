@@ -30,9 +30,13 @@ export default async function executor(request: HttpClientConfig) {
         headers: {
           ...rest.headers,
           ...options.headers,
+
+          // axios header encoding
+          'Accept-Encoding': 'application/json',
         },
 
         // for axios
+        ...(rest.body ? { data: rest.body } : {}),
         withCredentials: options.credentialsMode === 'include',
       })
 
