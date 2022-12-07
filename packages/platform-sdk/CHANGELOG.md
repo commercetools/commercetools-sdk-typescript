@@ -1,5 +1,66 @@
 # @commercetools/platform-sdk
 
+## 4.3.0
+
+### Minor Changes
+
+- [#371](https://github.com/commercetools/commercetools-sdk-typescript/pull/371) [`f6bd1fe`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f6bd1fe02773974d1e95a50a986e846698a95322) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
+
+  #### Summary
+
+  - The get method of `ByProjectKeyInStoreKeyByStoreKeyProductProjectionsByIDRequestBuilder` class now supports an optional `stage` property
+    - [Diff link](packages/platform-sdk/src/generated/client/product-projections/by-project-key-in-store-key-by-store-key-product-projections-by-id-request-builder.ts)
+  - The get method of `ByProjectKeyInStoreKeyByStoreKeyProductProjectionsKeyByKeyRequestBuilder` class now supports an optional `stage` property
+    - [Diff link](packages/platform-sdk/src/generated/client/product-projections/by-project-key-in-store-key-by-store-key-product-projections-key-by-key-request-builder.ts)
+
+  #### Snippet
+
+  ```diff
+  ...
+    queryArgs?: {
+  +   staged?: boolean
+      priceCurrency?: string
+      priceCountry?: string
+      priceCustomerGroup?: string,
+      ...
+    }
+    ...
+  }) {}
+  ```
+
+  - The `get`, `post` and `delete` method query args. of `ByProjectKeyProductsByIDRequestBuilder` class now supports optional `localeProjection` property
+    - [Diff link](packages/platform-sdk/src/generated/client/products/by-project-key-products-by-id-request-builder.ts)
+  - The `get` and `post` method query args. of the `ByProjectKeyProductsRequestBuilder` class now supports an optional `localeProjection` property.
+    - [Diff link](packages/platform-sdk/src/generated/client/products/by-project-key-products-request-builder.ts)
+
+  ```diff
+  ...
+    queryArgs?: {
+      where?: string | string[]
+      priceCurrency?: string
+      priceCountry?: string
+      priceCustomerGroup?: string
+      priceChannel?: string
+  +   localeProjection?: string | string[]
+      expand?: string | string[]
+      sort?: string | string[]
+      limit?: number
+      offset?: number
+      withTotal?: boolean
+      [key: string]: QueryParam
+    }
+  ...
+  ```
+
+  The complete changes can be found [here](changes.md)
+
+### Patch Changes
+
+- [#394](https://github.com/commercetools/commercetools-sdk-typescript/pull/394) [`01dcc12`](https://github.com/commercetools/commercetools-sdk-typescript/commit/01dcc12dd808f3431736fc00d0596f82d08a28d0) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
+
+- Updated dependencies [[`98d2d7c`](https://github.com/commercetools/commercetools-sdk-typescript/commit/98d2d7ce2abad1d8eb3466f4f3df1b877f144920)]:
+  - @commercetools/sdk-client-v2@2.1.1
+
 ## 4.2.0
 
 ### Minor Changes
