@@ -242,6 +242,14 @@ export default class ClientBuilder {
   build(): Client {
     const middlewares = this.middlewares.slice()
 
+    /**
+     * - use default retry policy if not explicity added
+     * - add retry middleware to be used by concurrent modification
+     *   middleware if not explicitly added as part of the middleware
+     */
+    if (!this.retryMiddleware && this.concurrentMiddleware)
+      this.withRetryMiddleware({})
+
     if (this.correlationIdMiddleware)
       middlewares.push(this.correlationIdMiddleware)
     if (this.userAgentMiddleware) middlewares.push(this.userAgentMiddleware)

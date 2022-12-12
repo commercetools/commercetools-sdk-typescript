@@ -27,6 +27,10 @@ export default function createUserAgent(options: HttpUserAgentOptions) {
   let libraryInfo: string | null = null
   let contactInfo: string | null = null
 
+  if (!options) {
+    throw new Error('Missing required option `name`')
+  }
+
   // Main info
   const baseInfo = options.version
     ? `${options.name}/${options.version}`

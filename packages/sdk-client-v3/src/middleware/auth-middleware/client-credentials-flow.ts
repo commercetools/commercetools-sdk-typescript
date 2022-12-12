@@ -39,9 +39,6 @@ export default function createAuthMiddlewareForClientCredentialsFlow(
         return next(request)
       }
 
-      // implement every other conditions here - tokenCache, pendingTasks, requestState etc
-      // const tokenDetails = tokenCache
-
       // prepare request options
       const requestOptions = {
         request,
