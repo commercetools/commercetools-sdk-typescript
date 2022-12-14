@@ -12,8 +12,11 @@ export { default as mergeAuthHeader } from './mergeAuthHeader'
 export { default as executor } from './executor'
 export * as constants from './constants'
 export { default as sleep } from './sleep'
+export { default as METHODS } from './methods'
 export {
   validateRetryCodes,
   validateHttpOptions,
-  validateUserAgentOptions
+  validateUserAgentOptions,
+  validateClient,
+  validate
 } from './validate'

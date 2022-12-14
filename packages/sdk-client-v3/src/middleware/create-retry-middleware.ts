@@ -7,6 +7,16 @@ import {
 } from '../types/types'
 import { sleep, validateRetryCodes, calculateRetryDelay } from '../utils'
 
+function predicate(
+  retryCodes: Array<string | number>,
+  response: MiddlewareResponse
+) {
+  return !(
+    retryCodes.includes(response?.error?.message) ||
+    [503, ...retryCodes].includes(response?.statusCode)
+  )
+}
+
 // error, info, warn
 export default function createRetryMiddleware(
   options: RetryMiddlewareOptions
@@ -26,20 +36,24 @@ export default function createRetryMiddleware(
 
       // validate the `retryCodes` option
       validateRetryCodes(retryCodes)
+
       async function executeRequest<T>(): Promise<T> {
         // first attenpt
         response = await next(request)
+
+        retryCount++
+        if (predicate(retryCodes, response)) {
+          return {
+            ...response,
+          }
+        }
 
         while (retryCount < maxRetries) {
           // check if the response if worth retrying for subsequest calls
           response = await next(request)
 
-          if (
-            !(
-              retryCodes.includes(response.error?.message) ||
-              [503, ...retryCodes].includes(response?.statusCode)
-            )
-          ) {
+          retryCount++
+          if (predicate(retryCodes, response)) {
             return {
               ...response,
             }
@@ -55,7 +69,6 @@ export default function createRetryMiddleware(
           })
 
           await sleep(timer)
-          retryCount++
         }
 
         return {

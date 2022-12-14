@@ -43,7 +43,7 @@ export default async function executor(request: HttpClientConfig) {
       const data =
         response.json && typeof response.json == 'function'
           ? await response.json()
-          : response.data
+          : response.data || response
 
       return {
         data,

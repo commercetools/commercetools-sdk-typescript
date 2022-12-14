@@ -1,4 +1,11 @@
-import { HttpMiddlewareOptions, HttpUserAgentOptions } from '../types/types'
+import { METHODS } from '../../src/utils'
+import {
+  ClientRequest,
+  HttpMiddlewareOptions,
+  HttpUserAgentOptions,
+  Middleware,
+  MethodType,
+} from '../types/types'
 
 /**
  * validate some essential http options
@@ -47,4 +54,46 @@ export function validateUserAgentOptions(options: HttpUserAgentOptions) {
   ) {
     throw new Error('Missing required option `name`')
   }
+}
+
+/**
+ * @param options
+ */
+export function validateClient(options: { middlewares: Array<Middleware> }) {
+  if (!options) throw new Error('Missing required options')
+
+  if (options.middlewares && !Array.isArray(options.middlewares))
+    throw new Error('Middlewares should be an array')
+
+  if (
+    !options.middlewares ||
+    !Array.isArray(options.middlewares) ||
+    !options.middlewares.length
+  ) {
+    throw new Error('You need to provide at least one middleware')
+  }
+}
+
+/**
+ * @param options
+ */
+export function validate(
+  funcName: string,
+  request: ClientRequest,
+  options: { allowedMethods: Array<string> } = { allowedMethods: METHODS }
+): void {
+  if (!request)
+    throw new Error(
+      `The "${funcName}" function requires a "Request" object as an argument. See https://commercetools.github.io/nodejs/sdk/Glossary.html#clientrequest`
+    )
+
+  if (typeof request.uri !== 'string')
+    throw new Error(
+      `The "${funcName}" Request object requires a valid uri. See https://commercetools.github.io/nodejs/sdk/Glossary.html#clientrequest`
+    )
+
+  if (!options.allowedMethods.includes(request.method))
+    throw new Error(
+      `The "${funcName}" Request object requires a valid method. See https://commercetools.github.io/nodejs/sdk/Glossary.html#clientrequest`
+    )
 }

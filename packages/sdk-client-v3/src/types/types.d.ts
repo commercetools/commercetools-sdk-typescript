@@ -314,14 +314,23 @@ export type TResponse = {
 
 export type Client = {
   execute(request: ClientRequest): Promise<ClientResult>
-  // execute: (request: MiddlewareRequest) => Promise<MiddlewareResponse>
-  // process: (
-  //   request: ClientRequest,
-  //   fn: ProcessFn,
-  //   processOpt: ProcessOptions
-  // ) => Promise<any>
+  process: (
+    request: ClientRequest,
+    fn: ProcessFn,
+    processOpt: ProcessOptions
+  ) => Promise<unknown>
 }
 
+export type ProcessFn = (result: ClientResult) => Promise<unknown>
+export type ProcessOptions = { accumulate?: boolean; total?: number }
 export type ErrorMiddlewareOptions = {}
+export type SuccessResult = {
+  body: {
+    results: Record<string | number | symbol, Record<string, any>>;
+    count: number;
+  };
+  statusCode: number;
+  headers?: JsonObject<string>;
+}
 
 export type executeRequest = (request: ClientRequest) => Promise<ClientResponse>

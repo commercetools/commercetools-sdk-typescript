@@ -1,4 +1,4 @@
-export { ClientBuilder, createClient } from './client'
+export { ClientBuilder, createClient, Process } from './client'
 
 // export { default as getErrorByCode } from './sdk-client/errors'
 export { createAuthMiddlewareForAnonymousSessionFlow } from './middleware'

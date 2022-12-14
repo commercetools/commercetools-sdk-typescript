@@ -14,17 +14,16 @@ export default function createLoggerMiddleware(
   return (next: Next) => {
     return async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {
       let response = await next(request)
+      const originalResponse = Object.assign({}, response)
 
       const {
-        loggerFn = null,
+        loggerFn = console.log,
         // logLevel = 'ERROR',
         maskSensitiveHeaderData = true,
         includeOriginalRequest = true,
         includeResponseHeaders = true,
         // includeRequestInErrorResponse
       } = options || {}
-
-      // const loggerFn = options?.
 
       if (includeOriginalRequest && maskSensitiveHeaderData) {
         maskAuthData(response.request)
@@ -42,11 +41,11 @@ export default function createLoggerMiddleware(
 
       if (loggerFn && typeof loggerFn == 'function') {
         loggerFn(response)
-        return response
+        return originalResponse
       }
 
-      console.log({ Response: response })
-      return response
+      // console.log({ Response: response })
+      return originalResponse
     }
   }
 }
