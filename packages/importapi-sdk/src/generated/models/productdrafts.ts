@@ -241,6 +241,8 @@ export interface PriceDraftImport {
    */
   readonly tiers?: PriceTier[]
   /**
+   *	User-defined unique identifier for the Embedded Price.
+   *
    *
    */
   readonly key?: string

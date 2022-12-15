@@ -480,7 +480,7 @@ export interface CartResourceIdentifier {
    */
   readonly key?: string
 }
-export type CartState = 'Active' | 'Merged' | 'Ordered' | string
+export type CartState = 'Active' | 'Frozen' | 'Merged' | 'Ordered' | string
 export interface CartUpdate {
   /**
    *
@@ -509,6 +509,7 @@ export type CartUpdateAction =
   | CartChangeTaxCalculationModeAction
   | CartChangeTaxModeAction
   | CartChangeTaxRoundingModeAction
+  | CartFreezeCartAction
   | CartRecalculateAction
   | CartRemoveCustomLineItemAction
   | CartRemoveDiscountCodeAction
@@ -559,6 +560,7 @@ export type CartUpdateAction =
   | CartSetShippingMethodTaxAmountAction
   | CartSetShippingMethodTaxRateAction
   | CartSetShippingRateInputAction
+  | CartUnfreezeCartAction
   | CartUpdateItemShippingAddressAction
 export interface CustomLineItem {
   /**
@@ -1576,6 +1578,12 @@ export interface CartAddCustomShippingMethodAction {
    */
   readonly custom?: string
 }
+/**
+ *	Adds a [DiscountCode](ctp:api:type:DiscountCode) to the Cart to activate the related [CartDiscounts](ctp:api:type:CartDiscount).
+ *	Adding a Discount Code is only possible if no [DirectDiscount](/../api/projects/carts#directdiscount) has been applied to the cart or the order.
+ *	Discount Codes can be added to [frozen Carts](ctp:api:type:FrozenCarts), but their [DiscountCodeState](ctp:api:type:DiscountCodeState) is then `DoesNotMatchCart`.
+ *
+ */
 export interface CartAddDiscountCodeAction {
   readonly action: 'addDiscountCode'
   /**
@@ -1837,6 +1845,14 @@ export interface CartChangeTaxRoundingModeAction {
    *
    */
   readonly taxRoundingMode: RoundingMode
+}
+/**
+ *	Changes the [CartState](ctp:api:type:Cartstate) from `Active` to `Frozen`. Results in a [Frozen Cart](ctp:api:type:FrozenCarts).
+ *	Fails with [InvalidOperation](ctp:api:type:InvalidOperation) error when the Cart is empty.
+ *
+ */
+export interface CartFreezeCartAction {
+  readonly action: 'freezeCart'
 }
 export interface CartRecalculateAction {
   readonly action: 'recalculate'
@@ -2507,6 +2523,14 @@ export interface CartSetShippingRateInputAction {
    *
    */
   readonly shippingRateInput?: ShippingRateInputDraft
+}
+/**
+ *	Changes the [CartState](ctp:api:type:CartState) from `Frozen` to `Active`. Reactivates a [Frozen Cart](ctp:api:type:FrozenCart).
+ *	This action updates all prices in the Cart according to latest Prices on related Product Variants and Shipping Methods and by applying all discounts currently being active and applicable for the Cart.
+ *
+ */
+export interface CartUnfreezeCartAction {
+  readonly action: 'unfreezeCart'
 }
 export interface CartUpdateItemShippingAddressAction {
   readonly action: 'updateItemShippingAddress'

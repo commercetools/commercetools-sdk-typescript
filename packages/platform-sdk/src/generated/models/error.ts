@@ -54,6 +54,7 @@ export type ErrorObject =
   | DuplicateEnumValuesError
   | DuplicateFieldError
   | DuplicateFieldWithConflictingResourceError
+  | DuplicatePriceKeyError
   | DuplicatePriceScopeError
   | DuplicateStandalonePriceScopeError
   | DuplicateVariantValuesError
@@ -458,6 +459,28 @@ export interface DuplicateFieldWithConflictingResourceError {
   readonly conflictingResource: Reference
 }
 /**
+ *	Returned when a Price key conflicts with an existing key.
+ *
+ *	Keys of Embedded Prices must be unique per ProductVariant.
+ *
+ */
+export interface DuplicatePriceKeyError {
+  readonly code: 'DuplicatePriceKey'
+  [key: string]: any
+  /**
+   *	`"Duplicate price key: $priceKey. The price key must be unique per variant."`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	Conflicting Embedded Price.
+   *
+   *
+   */
+  readonly conflictingPrice: Price
+}
+/**
  *	Returned when a Price scope conflicts with an existing one during an [Update Product](/../api/projects/products#update-product) request.
  *
  *	Every Price of a Product Variant must have a distinct combination of currency, Customer Group, country, and Channel that constitute the scope of a Price.
@@ -473,11 +496,11 @@ export interface DuplicatePriceScopeError {
    */
   readonly message: string
   /**
-   *	Conflicting Embedded Prices.
+   *	Conflicting Embedded Price.
    *
    *
    */
-  readonly conflictingPrices: Price[]
+  readonly conflictingPrice: Price
 }
 /**
  *	Returned when the given Price scope conflicts with the Price scope of an existing Standalone Price.

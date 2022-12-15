@@ -42,7 +42,7 @@ export interface StagedStandalonePrice {
    *
    *
    */
-  readonly discounted: DiscountedPrice
+  readonly discounted?: DiscountedPrice
 }
 export interface StandalonePrice extends BaseResource {
   /**
@@ -335,6 +335,7 @@ export type StandalonePriceUpdateAction =
   | StandalonePriceSetCustomFieldAction
   | StandalonePriceSetCustomTypeAction
   | StandalonePriceSetDiscountedPriceAction
+  | StandalonePriceSetKeyAction
 /**
  *	Applies all staged changes to the StandalonePrice by overwriting all current values with the values in the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice). After successfully applied, the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice) will be removed from the StandalonePrice. An `applyStagedChanges` update action on a StandalonePrice that does not contain any staged changes will return a `400 Bad Request` error. Applying staged changes successfully will produce the [StandalonePriceStagedChangesApplied](ctp:api:type:StandalonePriceStagedChangesAppliedMessage) Message.
  *
@@ -419,4 +420,17 @@ export interface StandalonePriceSetDiscountedPriceAction {
    *
    */
   readonly discounted?: DiscountedPriceDraft
+}
+/**
+ *	Sets the key on a Standalone Price. Produces the [StandalonePriceKeySet](ctp:api:type:StandalonePriceKeySetMessage) Message.
+ *
+ */
+export interface StandalonePriceSetKeyAction {
+  readonly action: 'setKey'
+  /**
+   *	Value to set. Must be unique. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly key?: string
 }
