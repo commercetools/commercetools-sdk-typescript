@@ -1,6 +1,6 @@
 {
-  "name": "@commercetools/sdk-client-v3",
-  "version": "2.0.0",
+  "name": "@commercetools/ts-client",
+  "version": "0.0.0-beta.1",
   "engines": {
     "node": ">=14"
   },
@@ -40,11 +40,11 @@
   },
   "files": ["dist", "CHANGELOG.md"],
   "author": "Chukwuemeka Ajima <meeky.ae@gmail.com>",
-  "main": "dist/commercetools-sdk-client-v3.cjs.js",
-  "module": "dist/commercetools-sdk-client-v3.esm.js",
+  "main": "dist/commercetools-ts-client.cjs.js",
+  "module": "dist/commercetools-ts-client.esm.js",
   "browser": {
-    "./dist/commercetools-sdk-client-v3.cjs.js": "./dist/commercetools-sdk-client-v3.browser.cjs.js",
-    "./dist/commercetools-sdk-client-v3.esm.js": "./dist/commercetools-sdk-client-v3.browser.esm.js"
+    "./dist/commercetools-ts-client.cjs.js": "./dist/commercetools-ts-client.browser.cjs.js",
+    "./dist/commercetools-ts-client.esm.js": "./dist/commercetools-ts-client.browser.esm.js"
   },
   "devDependencies": {
     "abort-controller": "3.0.0",
