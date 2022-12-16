@@ -47,7 +47,7 @@ export interface ExternalOAuth {
    */
   readonly url: string
   /**
-   *	Partially hidden on retrieval.
+   *	Must not contain any leading or trailing whitespaces. Partially hidden on retrieval.
    *
    */
   readonly authorizationHeader: string
