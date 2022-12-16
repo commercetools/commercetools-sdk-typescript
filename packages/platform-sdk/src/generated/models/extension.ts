@@ -86,7 +86,7 @@ export type ExtensionDestination = AWSLambdaDestination | HttpDestination
 export interface AWSLambdaDestination {
   readonly type: 'AWSLambda'
   /**
-   *	Amazon Resource Name (ARN) of the Lambda function in the format `arn:aws:lambda:<region>:<accountid>:function:<functionName>`.
+   *	Amazon Resource Name (ARN) of the Lambda function in the format `arn:aws:lambda:<region>:<accountid>:function:<functionName>`. Use the format `arn:aws:lambda:<region>:<accountid>:function:<functionName>:<functionAlias/version>` to point to a specific version of the function.
    *
    *
    */

@@ -51,6 +51,27 @@
 **ML changes**
 
 <details>
+<summary>Deprecated Method(s)</summary>
+
+- method `post /{projectKey}/missing-data/attributes` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/resources/missing-data.raml:6:2)
+- method `post /{projectKey}/missing-data/images` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/resources/missing-data.raml:40:2)
+- method `post /{projectKey}/missing-data/prices` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/resources/missing-data.raml:74:2)
+- method `get /{projectKey}/missing-data/attributes/status/{taskId}` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/resources/missing-data.raml:28:6)
+- method `get /{projectKey}/missing-data/images/status/{taskId}` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/resources/missing-data.raml:62:6)
+- method `get /{projectKey}/missing-data/prices/status/{taskId}` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/resources/missing-data.raml:96:6)
+- resource `/{projectKey}/missing-data` is deprecated (file:///home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/api.raml:30:2)
+- resource `/{projectKey}/missing-data/attributes` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/resources/missing-data.raml:3:0)
+- resource `/{projectKey}/missing-data/images` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/resources/missing-data.raml:37:0)
+- resource `/{projectKey}/missing-data/prices` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/resources/missing-data.raml:71:0)
+- resource `/{projectKey}/missing-data/attributes/status` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/resources/missing-data.raml:18:2)
+- resource `/{projectKey}/missing-data/attributes/status/{taskId}` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/resources/missing-data.raml:21:4)
+- resource `/{projectKey}/missing-data/images/status` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/resources/missing-data.raml:52:2)
+- resource `/{projectKey}/missing-data/images/status/{taskId}` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/resources/missing-data.raml:55:4)
+- resource `/{projectKey}/missing-data/prices/status` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/resources/missing-data.raml:86:2)
+- resource `/{projectKey}/missing-data/prices/status/{taskId}` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/resources/missing-data.raml:89:4)
+</details>
+
+<details>
 <summary>Deprecated Type(s)</summary>
 
 - type `AttributeCount` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/types/missing-data.raml:9:2)
