@@ -7,6 +7,31 @@
 </details>
 
 <details>
+<summary>Changed Property(s)</summary>
+
+- :warning: changed property `amount` of type `Transaction` from type `TypedMoney` to `CentPrecisionMoney` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/payment/Transaction.raml:18:2)
+</details>
+
+<details>
+<summary>Added Property(s)</summary>
+
+- added property `conflictingPrice` to type `DuplicatePriceScopeError` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/error/DuplicatePriceScopeError.raml:16:2)
+- added property `createdAt` to type `AssignedProductSelection` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/product-selection/AssignedProductSelection.raml:12:2)
+</details>
+
+<details>
+<summary>Required Property(s)</summary>
+
+- changed property `discounted` of type `StagedStandalonePrice` to be optional (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/standalone-price/StagedStandalonePrice.raml:12:2)
+</details>
+
+<details>
+<summary>Removed Property(s)</summary>
+
+- :warning: removed property `conflictingPrices` from type `DuplicatePriceScopeError` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference-previous/api-specs/api/types/error/DuplicatePriceScopeError.raml:16:2)
+</details>
+
+<details>
 <summary>Added Type(s)</summary>
 
 - added type `CartFreezeCartAction` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/types.raml:178:0)
@@ -27,25 +52,6 @@
 
 - :warning: removed type `ProductPriceSetMessage` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference-previous/api-specs/api/types/types.raml:754:0)
 - :warning: removed type `ProductPriceSetMessagePayload` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference-previous/api-specs/api/types/types.raml:913:0)
-</details>
-
-<details>
-<summary>Added Property(s)</summary>
-
-- added property `conflictingPrice` to type `DuplicatePriceScopeError` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/error/DuplicatePriceScopeError.raml:16:2)
-- added property `createdAt` to type `AssignedProductSelection` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/product-selection/AssignedProductSelection.raml:12:2)
-</details>
-
-<details>
-<summary>Required Property(s)</summary>
-
-- changed property `discounted` of type `StagedStandalonePrice` to be optional (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/standalone-price/StagedStandalonePrice.raml:12:2)
-</details>
-
-<details>
-<summary>Removed Property(s)</summary>
-
-- :warning: removed property `conflictingPrices` from type `DuplicatePriceScopeError` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference-previous/api-specs/api/types/error/DuplicatePriceScopeError.raml:16:2)
 </details>
 
 **ML changes**
