@@ -16,6 +16,8 @@
 <summary>Added Property(s)</summary>
 
 - added property `conflictingPrice` to type `DuplicatePriceScopeError` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/error/DuplicatePriceScopeError.raml:16:2)
+- added property `cartId` to type `MyQuoteRequestDraft` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/me/MyQuoteRequestDraft.raml:6:2)
+- added property `cartVersion` to type `MyQuoteRequestDraft` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/me/MyQuoteRequestDraft.raml:10:2)
 - added property `createdAt` to type `AssignedProductSelection` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/product-selection/AssignedProductSelection.raml:12:2)
 </details>
 
@@ -29,6 +31,8 @@
 <summary>Removed Property(s)</summary>
 
 - :warning: removed property `conflictingPrices` from type `DuplicatePriceScopeError` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference-previous/api-specs/api/types/error/DuplicatePriceScopeError.raml:16:2)
+- :warning: removed property `cart` from type `MyQuoteRequestDraft` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference-previous/api-specs/api/types/me/MyQuoteRequestDraft.raml:6:2)
+- :warning: removed property `version` from type `MyQuoteRequestDraft` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference-previous/api-specs/api/types/me/MyQuoteRequestDraft.raml:9:2)
 </details>
 
 <details>
@@ -65,6 +69,30 @@
 - method `get /{projectKey}/missing-data/attributes/status/{taskId}` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/resources/missing-data.raml:28:6)
 - method `get /{projectKey}/missing-data/images/status/{taskId}` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/resources/missing-data.raml:62:6)
 - method `get /{projectKey}/missing-data/prices/status/{taskId}` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/resources/missing-data.raml:96:6)
+</details>
+
+<details>
+<summary>Deprecated Property(s)</summary>
+
+- property `MissingAttributes::attributeCount` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/types/missing-data.raml:83:6)
+- property `MissingAttributes::attributeCoverage` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/types/missing-data.raml:85:6)
+- property `MissingAttributesMeta::productLevel` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/types/missing-data.raml:92:6)
+- property `MissingAttributesMeta::variantLevel` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/types/missing-data.raml:94:6)
+- property `MissingAttributesPagedQueryResult::meta` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/types/missing-data.raml:182:6)
+- property `MissingDataTaskStatus::result` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/types/missing-data.raml:197:6)
+- property `MissingImagesMeta::productLevel` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/types/missing-data.raml:261:6)
+- property `MissingImagesMeta::variantLevel` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/types/missing-data.raml:262:6)
+- property `MissingImagesPagedQueryResult::meta` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/types/missing-data.raml:339:6)
+- property `MissingImagesTaskStatus::result` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/types/missing-data.raml:353:6)
+- property `MissingPricesMeta::productLevel` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/types/missing-data.raml:410:6)
+- property `MissingPricesMeta::variantLevel` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/types/missing-data.raml:411:6)
+- property `MissingPricesPagedQueryResult::meta` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/types/missing-data.raml:493:6)
+- property `MissingPricesTaskStatus::result` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/types/missing-data.raml:507:6)
+</details>
+
+<details>
+<summary>Deprecated Resource(s)</summary>
+
 - resource `/{projectKey}/missing-data` is deprecated (file:///home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/api.raml:30:2)
 - resource `/{projectKey}/missing-data/attributes` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/resources/missing-data.raml:3:0)
 - resource `/{projectKey}/missing-data/images` is deprecated (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/ml/resources/missing-data.raml:37:0)

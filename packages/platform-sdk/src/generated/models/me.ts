@@ -12,7 +12,6 @@ import {
 } from './business-unit'
 import {
   CartReference,
-  CartResourceIdentifier,
   ExternalLineItemTotalPrice,
   ExternalTaxRateDraft,
   InventoryMode,
@@ -685,19 +684,18 @@ export type MyPaymentUpdateAction =
   | MyPaymentSetTransactionCustomFieldAction
 export interface MyQuoteRequestDraft {
   /**
-   *	ResourceIdentifier of the Cart from which the Quote Request is created.
+   *	`id` of the Cart from which the Quote Request is created.
+   *
    *
    */
-  readonly cart: CartResourceIdentifier
+  readonly cartId: string
   /**
    *	Current version of the Cart.
    *
-   *
    */
-  readonly version: number
+  readonly cartVersion: number
   /**
    *	Message from the Buyer included in the Quote Request.
-   *
    *
    */
   readonly comment: string
