@@ -19,6 +19,7 @@
 - added property `cartId` to type `MyQuoteRequestDraft` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/me/MyQuoteRequestDraft.raml:6:2)
 - added property `cartVersion` to type `MyQuoteRequestDraft` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/me/MyQuoteRequestDraft.raml:10:2)
 - added property `createdAt` to type `AssignedProductSelection` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/product-selection/AssignedProductSelection.raml:12:2)
+- added property `quoteState` to type `Quote` (file:/home/runner/work/commercetools-api-reference/commercetools-api-reference/commercetools-api-reference/api-specs/api/types/quote/Quote.raml:152:2)
 </details>
 
 <details>
