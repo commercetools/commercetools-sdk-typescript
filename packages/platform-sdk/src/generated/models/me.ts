@@ -262,7 +262,7 @@ export interface MyCompanyDraft {
    *
    *
    */
-  readonly defaultShipingAddress?: number
+  readonly defaultShippingAddress?: number
   /**
    *	Indexes of entries in `addresses` to set as billing addresses.
    *	The `billingAddressIds` of the [Customer](ctp:api:type:Customer) will be replaced by these addresses.
@@ -463,7 +463,7 @@ export interface MyDivisionDraft {
    *
    *
    */
-  readonly defaultShipingAddress?: number
+  readonly defaultShippingAddress?: number
   /**
    *	Indexes of entries in `addresses` to set as billing addresses.
    *	The `billingAddressIds` of the [Customer](ctp:api:type:Customer) will be replaced by these addresses.
