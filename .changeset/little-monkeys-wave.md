@@ -4,7 +4,7 @@
 
 Update generated SDKs
 
-**Api changes**
+#### Summary
 
 <details>
 <summary>Changed Property(s)</summary>
