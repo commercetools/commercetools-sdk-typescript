@@ -2,6 +2,8 @@
 '@commercetools/ml-sdk': minor
 ---
 
+Update generated SDKs
+
 **ML changes**
 
 <details>
