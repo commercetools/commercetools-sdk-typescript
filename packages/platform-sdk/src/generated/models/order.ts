@@ -44,12 +44,15 @@ import {
   Money,
   PriceDraft,
   TypedMoney,
+  _BaseAddress,
+  _Money,
 } from './common'
 import {
   CustomerGroupReference,
   CustomerGroupResourceIdentifier,
 } from './customer-group'
 import {
+  StagedOrder,
   StagedOrderAddCustomLineItemAction,
   StagedOrderAddDeliveryAction,
   StagedOrderAddDiscountCodeAction,
@@ -350,7 +353,7 @@ export interface DiscountedLineItemPriceDraft {
    *
    *
    */
-  readonly value: Money
+  readonly value: _Money
   /**
    *
    */
@@ -658,6 +661,7 @@ export interface Order extends BaseResource {
    */
   readonly refusedGifts: CartDiscountReference[]
 }
+export type _Order = Order | StagedOrder
 export interface OrderFromCartDraft {
   /**
    *	Unique identifier of the Cart from which you can create an Order.
@@ -915,7 +919,7 @@ export interface OrderReference {
   /**
    *
    */
-  readonly obj?: Order
+  readonly obj?: _Order
 }
 export interface OrderResourceIdentifier {
   readonly typeId: 'order'
@@ -1369,7 +1373,7 @@ export interface TaxedItemPriceDraft {
    *
    *
    */
-  readonly totalNet: Money
+  readonly totalNet: _Money
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
    *
@@ -1377,7 +1381,7 @@ export interface TaxedItemPriceDraft {
    *
    *
    */
-  readonly totalGross: Money
+  readonly totalGross: _Money
 }
 export interface TrackingData {
   /**
@@ -1419,7 +1423,7 @@ export interface OrderAddDeliveryAction {
   /**
    *
    */
-  readonly address?: BaseAddress
+  readonly address?: _BaseAddress
   /**
    *
    */
@@ -1435,7 +1439,7 @@ export interface OrderAddItemShippingAddressAction {
   /**
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
 }
 export interface OrderAddParcelToDeliveryAction {
   readonly action: 'addParcelToDelivery'
@@ -1558,7 +1562,7 @@ export interface OrderSetBillingAddressAction {
   /**
    *
    */
-  readonly address?: BaseAddress
+  readonly address?: _BaseAddress
 }
 export interface OrderSetBillingAddressCustomFieldAction {
   readonly action: 'setBillingAddressCustomField'
@@ -1701,7 +1705,7 @@ export interface OrderSetDeliveryAddressAction {
   /**
    *
    */
-  readonly address?: BaseAddress
+  readonly address?: _BaseAddress
 }
 export interface OrderSetDeliveryAddressCustomFieldAction {
   readonly action: 'setDeliveryAddressCustomField'
@@ -2052,7 +2056,7 @@ export interface OrderSetShippingAddressAction {
   /**
    *
    */
-  readonly address?: BaseAddress
+  readonly address?: _BaseAddress
 }
 export interface OrderSetShippingAddressCustomFieldAction {
   readonly action: 'setShippingAddressCustomField'
@@ -2168,7 +2172,7 @@ export interface OrderUpdateItemShippingAddressAction {
   /**
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
 }
 export interface OrderUpdateSyncInfoAction {
   readonly action: 'updateSyncInfo'

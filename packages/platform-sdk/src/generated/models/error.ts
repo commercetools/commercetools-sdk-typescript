@@ -721,6 +721,7 @@ export interface ErrorResponse {
    */
   readonly errors?: ErrorObject[]
 }
+export type _ErrorResponse = ErrorResponse | AuthErrorResponse
 /**
  *	Represents errors related to authentication and authorization in a format conforming to the [OAuth 2.0 specification](https://tools.ietf.org/html/rfc6749#section-5.2).
  *

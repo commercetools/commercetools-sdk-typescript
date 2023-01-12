@@ -5,90 +5,127 @@
  */
 
 import {
+  AttributeGroup,
   AttributeGroupReference,
   AttributeGroupResourceIdentifier,
 } from './attribute-group'
 import {
+  BusinessUnit,
   BusinessUnitKeyReference,
   BusinessUnitReference,
   BusinessUnitResourceIdentifier,
 } from './business-unit'
-import { CartReference, CartResourceIdentifier } from './cart'
+import { Cart, CartReference, CartResourceIdentifier } from './cart'
 import {
+  CartDiscount,
   CartDiscountReference,
   CartDiscountResourceIdentifier,
 } from './cart-discount'
-import { CategoryReference, CategoryResourceIdentifier } from './category'
-import { ChannelReference, ChannelResourceIdentifier } from './channel'
-import { CustomObjectReference } from './custom-object'
-import { CustomerReference, CustomerResourceIdentifier } from './customer'
 import {
+  Category,
+  CategoryReference,
+  CategoryResourceIdentifier,
+} from './category'
+import { Channel, ChannelReference, ChannelResourceIdentifier } from './channel'
+import { CustomObject, CustomObjectReference } from './custom-object'
+import {
+  Customer,
+  CustomerReference,
+  CustomerResourceIdentifier,
+} from './customer'
+import {
+  CustomerGroup,
   CustomerGroupReference,
   CustomerGroupResourceIdentifier,
 } from './customer-group'
 import {
+  DiscountCode,
   DiscountCodeReference,
   DiscountCodeResourceIdentifier,
 } from './discount-code'
+import { Extension } from './extension'
 import {
+  InventoryEntry,
   InventoryEntryReference,
   InventoryEntryResourceIdentifier,
 } from './inventory'
-import { OrderReference, OrderResourceIdentifier } from './order'
-import { OrderEditReference, OrderEditResourceIdentifier } from './order-edit'
-import { PaymentReference, PaymentResourceIdentifier } from './payment'
-import { ProductReference, ProductResourceIdentifier } from './product'
+import { Message } from './message'
+import { Order, OrderReference, OrderResourceIdentifier } from './order'
 import {
+  OrderEdit,
+  OrderEditReference,
+  OrderEditResourceIdentifier,
+} from './order-edit'
+import { Payment, PaymentReference, PaymentResourceIdentifier } from './payment'
+import {
+  Product,
+  ProductProjection,
+  ProductReference,
+  ProductResourceIdentifier,
+} from './product'
+import {
+  ProductDiscount,
   ProductDiscountReference,
   ProductDiscountResourceIdentifier,
 } from './product-discount'
 import {
+  ProductSelection,
   ProductSelectionReference,
   ProductSelectionResourceIdentifier,
 } from './product-selection'
 import {
+  ProductType,
   ProductTypeReference,
   ProductTypeResourceIdentifier,
 } from './product-type'
-import { QuoteReference, QuoteResourceIdentifier } from './quote'
+import { Quote, QuoteReference, QuoteResourceIdentifier } from './quote'
 import {
+  QuoteRequest,
   QuoteRequestReference,
   QuoteRequestResourceIdentifier,
 } from './quote-request'
-import { ReviewReference, ReviewResourceIdentifier } from './review'
+import { Review, ReviewReference, ReviewResourceIdentifier } from './review'
 import {
+  ShippingMethod,
   ShippingMethodReference,
   ShippingMethodResourceIdentifier,
 } from './shipping-method'
 import {
+  ShoppingList,
   ShoppingListReference,
   ShoppingListResourceIdentifier,
 } from './shopping-list'
 import {
+  StagedQuote,
   StagedQuoteReference,
   StagedQuoteResourceIdentifier,
 } from './staged-quote'
 import {
+  StandalonePrice,
   StandalonePriceReference,
   StandalonePriceResourceIdentifier,
 } from './standalone-price'
-import { StateReference, StateResourceIdentifier } from './state'
+import { State, StateReference, StateResourceIdentifier } from './state'
 import {
+  Store,
   StoreKeyReference,
   StoreReference,
   StoreResourceIdentifier,
 } from './store'
+import { Subscription } from './subscription'
 import {
+  TaxCategory,
   TaxCategoryReference,
   TaxCategoryResourceIdentifier,
 } from './tax-category'
 import {
   CustomFields,
   CustomFieldsDraft,
+  Type,
   TypeReference,
   TypeResourceIdentifier,
 } from './type'
-import { ZoneReference, ZoneResourceIdentifier } from './zone'
+import { Zone, ZoneReference, ZoneResourceIdentifier } from './zone'
 
 export interface PagedQueryResponse {
   /**
@@ -421,6 +458,7 @@ export interface BaseAddress {
    */
   readonly externalId?: string
 }
+export type _BaseAddress = BaseAddress | AddressDraft | Address
 export interface Address extends BaseAddress {
   /**
    *	Unique identifier of the Address.
@@ -471,6 +509,42 @@ export interface BaseResource {
    */
   readonly lastModifiedAt: string
 }
+export type _BaseResource =
+  | BaseResource
+  | CustomObject
+  | CustomerGroup
+  | Customer
+  | DiscountCode
+  | Extension
+  | InventoryEntry
+  | Message
+  | OrderEdit
+  | Order
+  | Payment
+  | ProductDiscount
+  | ProductSelection
+  | ProductType
+  | Product
+  | ProductProjection
+  | QuoteRequest
+  | Quote
+  | Review
+  | ShippingMethod
+  | ShoppingList
+  | StagedQuote
+  | StandalonePrice
+  | State
+  | Store
+  | Subscription
+  | TaxCategory
+  | Type
+  | Zone
+  | Category
+  | Cart
+  | CartDiscount
+  | BusinessUnit
+  | Channel
+  | AttributeGroup
 /**
  *	These objects represent information about which [API Client](/../api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/client-logging).
  *
@@ -501,6 +575,7 @@ export interface ClientLogging {
    */
   readonly anonymousId?: string
 }
+export type _ClientLogging = ClientLogging | CreatedBy | LastModifiedBy
 /**
  *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
  */
@@ -668,6 +743,7 @@ export interface Money {
    */
   readonly currencyCode: string
 }
+export type _Money = Money | TypedMoney | TypedMoneyDraft
 /**
  *	MoneyType supports two different values, one for amounts in cent precision and another one for sub-cent amounts up to 20 fraction digits.
  */

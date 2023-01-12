@@ -24,6 +24,8 @@ import {
   Money,
   Price,
   TypedMoney,
+  _BaseAddress,
+  _Money,
 } from './common'
 import {
   CustomerGroupReference,
@@ -1404,7 +1406,7 @@ export interface TaxPortionDraft {
    *
    *
    */
-  readonly amount: Money
+  readonly amount: _Money
 }
 export interface TaxedItemPrice {
   /**
@@ -1452,7 +1454,7 @@ export interface TaxedPriceDraft {
    *
    *
    */
-  readonly totalNet: Money
+  readonly totalNet: _Money
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
    *
@@ -1460,7 +1462,7 @@ export interface TaxedPriceDraft {
    *
    *
    */
-  readonly totalGross: Money
+  readonly totalGross: _Money
   /**
    *
    */
@@ -1475,7 +1477,7 @@ export interface CartAddCustomLineItemAction {
    *
    *
    */
-  readonly money: Money
+  readonly money: _Money
   /**
    *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
    *
@@ -1596,7 +1598,7 @@ export interface CartAddItemShippingAddressAction {
   /**
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
 }
 export interface CartAddLineItemAction {
   readonly action: 'addLineItem'
@@ -1645,7 +1647,7 @@ export interface CartAddLineItemAction {
    *
    *
    */
-  readonly externalPrice?: Money
+  readonly externalPrice?: _Money
   /**
    *
    */
@@ -1774,7 +1776,7 @@ export interface CartChangeCustomLineItemMoneyAction {
    *
    *
    */
-  readonly money: Money
+  readonly money: _Money
 }
 export interface CartChangeCustomLineItemPriceModeAction {
   readonly action: 'changeCustomLineItemPriceMode'
@@ -1819,7 +1821,7 @@ export interface CartChangeLineItemQuantityAction {
    *
    *
    */
-  readonly externalPrice?: Money
+  readonly externalPrice?: _Money
   /**
    *
    */
@@ -1904,7 +1906,7 @@ export interface CartRemoveLineItemAction {
    *
    *
    */
-  readonly externalPrice?: Money
+  readonly externalPrice?: _Money
   /**
    *
    */
@@ -2321,7 +2323,7 @@ export interface CartSetLineItemPriceAction {
    *
    *
    */
-  readonly externalPrice?: Money
+  readonly externalPrice?: _Money
 }
 export interface CartSetLineItemShippingDetailsAction {
   readonly action: 'setLineItemShippingDetails'
@@ -2537,7 +2539,7 @@ export interface CartUpdateItemShippingAddressAction {
   /**
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
 }
 export interface CustomLineItemImportDraft {
   /**

@@ -25,6 +25,8 @@ import {
   CentPrecisionMoney,
   LocalizedString,
   Money,
+  _BaseAddress,
+  _Money,
 } from './common'
 import { CustomerReference, CustomerResourceIdentifier } from './customer'
 import { DiscountCodeReference } from './discount-code'
@@ -1185,7 +1187,7 @@ export interface MyCartAddItemShippingAddressAction {
   /**
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
 }
 export interface MyCartAddLineItemAction {
   readonly action: 'addLineItem'
@@ -1234,7 +1236,7 @@ export interface MyCartAddLineItemAction {
    *
    *
    */
-  readonly externalPrice?: Money
+  readonly externalPrice?: _Money
   /**
    *
    */
@@ -1285,7 +1287,7 @@ export interface MyCartChangeLineItemQuantityAction {
    *
    *
    */
-  readonly externalPrice?: Money
+  readonly externalPrice?: _Money
   /**
    *
    */
@@ -1338,7 +1340,7 @@ export interface MyCartRemoveLineItemAction {
    *
    *
    */
-  readonly externalPrice?: Money
+  readonly externalPrice?: _Money
   /**
    *
    */
@@ -1362,7 +1364,7 @@ export interface MyCartSetBillingAddressAction {
   /**
    *
    */
-  readonly address?: BaseAddress
+  readonly address?: _BaseAddress
 }
 export interface MyCartSetCountryAction {
   readonly action: 'setCountry'
@@ -1510,7 +1512,7 @@ export interface MyCartSetShippingAddressAction {
   /**
    *
    */
-  readonly address?: BaseAddress
+  readonly address?: _BaseAddress
 }
 export interface MyCartSetShippingMethodAction {
   readonly action: 'setShippingMethod'
@@ -1530,7 +1532,7 @@ export interface MyCartUpdateItemShippingAddressAction {
   /**
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
 }
 /**
  *	Adding an address to the Customer produces the [CustomerAddressAdded](ctp:api:type:CustomerAddressAddedMessage) Message.

@@ -1,18 +1,6 @@
 **Api changes**
 
 <details>
-<summary>Added Enum(s)</summary>
-
-- added enum `Frozen` to type `CartState`
-</details>
-
-<details>
-<summary>Added Resource(s)</summary>
-
-- added resource `/{projectKey}/shipping-methods/matching-cart-location`
-</details>
-
-<details>
 <summary>Changed Property(s)</summary>
 
 - :warning: changed property `amount` of type `Transaction` from type `TypedMoney` to `CentPrecisionMoney`
@@ -61,6 +49,19 @@
 </details>
 
 <details>
+<summary>Removed Type(s)</summary>
+
+- :warning: removed type `ProductPriceSetMessage`
+- :warning: removed type `ProductPriceSetMessagePayload`
+</details>
+
+<details>
+<summary>Deprecated Type(s)</summary>
+
+- type `IronMqDestination` is removed
+</details>
+
+<details>
 <summary>Added Type(s)</summary>
 
 - added type `CartFreezeCartAction`
@@ -77,16 +78,9 @@
 </details>
 
 <details>
-<summary>Removed Type(s)</summary>
+<summary>Added Resource(s)</summary>
 
-- :warning: removed type `ProductPriceSetMessage`
-- :warning: removed type `ProductPriceSetMessagePayload`
-</details>
-
-<details>
-<summary>Deprecated Type(s)</summary>
-
-- type `IronMqDestination` is removed
+- added resource `/{projectKey}/shipping-methods/matching-cart-location`
 </details>
 
 <details>
@@ -95,18 +89,13 @@
 - added method `apiRoot.withProjectKey().shippingMethods().matchingCartLocation().get()`
 </details>
 
-**ML changes**
-
 <details>
-<summary>Deprecated Method(s)</summary>
+<summary>Added Enum(s)</summary>
 
-- method `post /{projectKey}/missing-data/attributes` is removed
-- method `post /{projectKey}/missing-data/images` is removed
-- method `post /{projectKey}/missing-data/prices` is removed
-- method `get /{projectKey}/missing-data/attributes/status/{taskId}` is removed
-- method `get /{projectKey}/missing-data/images/status/{taskId}` is removed
-- method `get /{projectKey}/missing-data/prices/status/{taskId}` is removed
+- added enum `Frozen` to type `CartState`
 </details>
+
+**ML changes**
 
 <details>
 <summary>Deprecated Property(s)</summary>
@@ -125,21 +114,6 @@
 - property `MissingPricesMeta::variantLevel` is removed
 - property `MissingPricesPagedQueryResult::meta` is removed
 - property `MissingPricesTaskStatus::result` is removed
-</details>
-
-<details>
-<summary>Deprecated Resource(s)</summary>
-
-- resource `/{projectKey}/missing-data` is removed
-- resource `/{projectKey}/missing-data/attributes` is removed
-- resource `/{projectKey}/missing-data/images` is removed
-- resource `/{projectKey}/missing-data/prices` is removed
-- resource `/{projectKey}/missing-data/attributes/status` is removed
-- resource `/{projectKey}/missing-data/attributes/status/{taskId}` is removed
-- resource `/{projectKey}/missing-data/images/status` is removed
-- resource `/{projectKey}/missing-data/images/status/{taskId}` is removed
-- resource `/{projectKey}/missing-data/prices/status` is removed
-- resource `/{projectKey}/missing-data/prices/status/{taskId}` is removed
 </details>
 
 <details>
@@ -169,4 +143,30 @@
 - type `MissingPricesSearchRequest` is removed
 - type `MissingPricesPagedQueryResult` is removed
 - type `MissingPricesTaskStatus` is removed
+</details>
+
+<details>
+<summary>Deprecated Resource(s)</summary>
+
+- resource `/{projectKey}/missing-data` is removed
+- resource `/{projectKey}/missing-data/attributes` is removed
+- resource `/{projectKey}/missing-data/images` is removed
+- resource `/{projectKey}/missing-data/prices` is removed
+- resource `/{projectKey}/missing-data/attributes/status` is removed
+- resource `/{projectKey}/missing-data/attributes/status/{taskId}` is removed
+- resource `/{projectKey}/missing-data/images/status` is removed
+- resource `/{projectKey}/missing-data/images/status/{taskId}` is removed
+- resource `/{projectKey}/missing-data/prices/status` is removed
+- resource `/{projectKey}/missing-data/prices/status/{taskId}` is removed
+</details>
+
+<details>
+<summary>Deprecated Method(s)</summary>
+
+- method `post /{projectKey}/missing-data/attributes` is removed
+- method `post /{projectKey}/missing-data/images` is removed
+- method `post /{projectKey}/missing-data/prices` is removed
+- method `get /{projectKey}/missing-data/attributes/status/{taskId}` is removed
+- method `get /{projectKey}/missing-data/images/status/{taskId}` is removed
+- method `get /{projectKey}/missing-data/prices/status/{taskId}` is removed
 </details>
