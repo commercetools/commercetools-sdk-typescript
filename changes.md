@@ -84,6 +84,12 @@
 </details>
 
 <details>
+<summary>Deprecated Type(s)</summary>
+
+- type `IronMqDestination` is removed
+</details>
+
+<details>
 <summary>Added Method(s)</summary>
 
 - added method `apiRoot.withProjectKey().shippingMethods().matchingCartLocation().get()`
@@ -94,73 +100,73 @@
 <details>
 <summary>Deprecated Method(s)</summary>
 
-- method `post /{projectKey}/missing-data/attributes` is deprecated
-- method `post /{projectKey}/missing-data/images` is deprecated
-- method `post /{projectKey}/missing-data/prices` is deprecated
-- method `get /{projectKey}/missing-data/attributes/status/{taskId}` is deprecated
-- method `get /{projectKey}/missing-data/images/status/{taskId}` is deprecated
-- method `get /{projectKey}/missing-data/prices/status/{taskId}` is deprecated
+- method `post /{projectKey}/missing-data/attributes` is removed
+- method `post /{projectKey}/missing-data/images` is removed
+- method `post /{projectKey}/missing-data/prices` is removed
+- method `get /{projectKey}/missing-data/attributes/status/{taskId}` is removed
+- method `get /{projectKey}/missing-data/images/status/{taskId}` is removed
+- method `get /{projectKey}/missing-data/prices/status/{taskId}` is removed
 </details>
 
 <details>
 <summary>Deprecated Property(s)</summary>
 
-- property `MissingAttributes::attributeCount` is deprecated
-- property `MissingAttributes::attributeCoverage` is deprecated
-- property `MissingAttributesMeta::productLevel` is deprecated
-- property `MissingAttributesMeta::variantLevel` is deprecated
-- property `MissingAttributesPagedQueryResult::meta` is deprecated
-- property `MissingDataTaskStatus::result` is deprecated
-- property `MissingImagesMeta::productLevel` is deprecated
-- property `MissingImagesMeta::variantLevel` is deprecated
-- property `MissingImagesPagedQueryResult::meta` is deprecated
-- property `MissingImagesTaskStatus::result` is deprecated
-- property `MissingPricesMeta::productLevel` is deprecated
-- property `MissingPricesMeta::variantLevel` is deprecated
-- property `MissingPricesPagedQueryResult::meta` is deprecated
-- property `MissingPricesTaskStatus::result` is deprecated
+- property `MissingAttributes::attributeCount` is removed
+- property `MissingAttributes::attributeCoverage` is removed
+- property `MissingAttributesMeta::productLevel` is removed
+- property `MissingAttributesMeta::variantLevel` is removed
+- property `MissingAttributesPagedQueryResult::meta` is removed
+- property `MissingDataTaskStatus::result` is removed
+- property `MissingImagesMeta::productLevel` is removed
+- property `MissingImagesMeta::variantLevel` is removed
+- property `MissingImagesPagedQueryResult::meta` is removed
+- property `MissingImagesTaskStatus::result` is removed
+- property `MissingPricesMeta::productLevel` is removed
+- property `MissingPricesMeta::variantLevel` is removed
+- property `MissingPricesPagedQueryResult::meta` is removed
+- property `MissingPricesTaskStatus::result` is removed
 </details>
 
 <details>
 <summary>Deprecated Resource(s)</summary>
 
-- resource `/{projectKey}/missing-data` is deprecated
-- resource `/{projectKey}/missing-data/attributes` is deprecated
-- resource `/{projectKey}/missing-data/images` is deprecated
-- resource `/{projectKey}/missing-data/prices` is deprecated
-- resource `/{projectKey}/missing-data/attributes/status` is deprecated
-- resource `/{projectKey}/missing-data/attributes/status/{taskId}` is deprecated
-- resource `/{projectKey}/missing-data/images/status` is deprecated
-- resource `/{projectKey}/missing-data/images/status/{taskId}` is deprecated
-- resource `/{projectKey}/missing-data/prices/status` is deprecated
-- resource `/{projectKey}/missing-data/prices/status/{taskId}` is deprecated
+- resource `/{projectKey}/missing-data` is removed
+- resource `/{projectKey}/missing-data/attributes` is removed
+- resource `/{projectKey}/missing-data/images` is removed
+- resource `/{projectKey}/missing-data/prices` is removed
+- resource `/{projectKey}/missing-data/attributes/status` is removed
+- resource `/{projectKey}/missing-data/attributes/status/{taskId}` is removed
+- resource `/{projectKey}/missing-data/images/status` is removed
+- resource `/{projectKey}/missing-data/images/status/{taskId}` is removed
+- resource `/{projectKey}/missing-data/prices/status` is removed
+- resource `/{projectKey}/missing-data/prices/status/{taskId}` is removed
 </details>
 
 <details>
 <summary>Deprecated Type(s)</summary>
 
-- type `AttributeCount` is deprecated
-- type `AttributeCoverage` is deprecated
-- type `MissingAttributesDetails` is deprecated
-- type `MissingAttributes` is deprecated
-- type `MissingAttributesMeta` is deprecated
-- type `MissingAttributesSearchRequest` is deprecated
-- type `MissingAttributesPagedQueryResult` is deprecated
-- type `MissingDataTaskStatus` is deprecated
-- type `MissingImages` is deprecated
-- type `MissingImagesCount` is deprecated
-- type `MissingImagesProductLevel` is deprecated
-- type `MissingImagesVariantLevel` is deprecated
-- type `MissingImagesMeta` is deprecated
-- type `MissingImagesSearchRequest` is deprecated
-- type `MissingImagesPagedQueryResult` is deprecated
-- type `MissingImagesTaskStatus` is deprecated
-- type `MissingPrices` is deprecated
-- type `MissingPricesProductCount` is deprecated
-- type `MissingPricesProductLevel` is deprecated
-- type `MissingPricesVariantLevel` is deprecated
-- type `MissingPricesMeta` is deprecated
-- type `MissingPricesSearchRequest` is deprecated
-- type `MissingPricesPagedQueryResult` is deprecated
-- type `MissingPricesTaskStatus` is deprecated
+- type `AttributeCount` is removed
+- type `AttributeCoverage` is removed
+- type `MissingAttributesDetails` is removed
+- type `MissingAttributes` is removed
+- type `MissingAttributesMeta` is removed
+- type `MissingAttributesSearchRequest` is removed
+- type `MissingAttributesPagedQueryResult` is removed
+- type `MissingDataTaskStatus` is removed
+- type `MissingImages` is removed
+- type `MissingImagesCount` is removed
+- type `MissingImagesProductLevel` is removed
+- type `MissingImagesVariantLevel` is removed
+- type `MissingImagesMeta` is removed
+- type `MissingImagesSearchRequest` is removed
+- type `MissingImagesPagedQueryResult` is removed
+- type `MissingImagesTaskStatus` is removed
+- type `MissingPrices` is removed
+- type `MissingPricesProductCount` is removed
+- type `MissingPricesProductLevel` is removed
+- type `MissingPricesVariantLevel` is removed
+- type `MissingPricesMeta` is removed
+- type `MissingPricesSearchRequest` is removed
+- type `MissingPricesPagedQueryResult` is removed
+- type `MissingPricesTaskStatus` is removed
 </details>

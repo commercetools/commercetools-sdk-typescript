@@ -160,7 +160,6 @@ export type Destination =
   | AzureServiceBusDestination
   | EventBridgeDestination
   | GoogleCloudPubSubDestination
-  | IronMqDestination
   | SnsDestination
   | SqsDestination
 /**
@@ -238,13 +237,6 @@ export interface GoogleCloudPubSubDestination {
    *
    */
   readonly topic: string
-}
-export interface IronMqDestination {
-  readonly type: 'IronMQ'
-  /**
-   *
-   */
-  readonly uri: string
 }
 /**
  *	This payload is sent for a [MessageSubscription](ctp:api:type:MessageSubscription).
