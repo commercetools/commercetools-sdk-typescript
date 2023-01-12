@@ -12,26 +12,6 @@ const apiRoot: ApiRoot = new ApiRoot({ executeRequest: null })
 export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
-      method: 'get',
-      uri: '/test_projectKey/me/quote-requests/test_ID?expand=expand',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .me()
-        .quoteRequests()
-        .withId({ ID: 'test_ID' })
-        .get({ queryArgs: { expand: 'expand' } }),
-    },
-    {
-      method: 'get',
-      uri: '/test_projectKey/me/quote-requests/test_ID',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .me()
-        .quoteRequests()
-        .withId({ ID: 'test_ID' })
-        .get(),
-    },
-    {
       method: 'post',
       uri: '/test_projectKey/me/quote-requests/test_ID?expand=expand',
       request: apiRoot
@@ -70,6 +50,26 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .quoteRequests()
         .withId({ ID: 'test_ID' })
         .delete({ queryArgs: { expand: 'expand', version: 2 } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/me/quote-requests/test_ID?expand=expand',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .me()
+        .quoteRequests()
+        .withId({ ID: 'test_ID' })
+        .get({ queryArgs: { expand: 'expand' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/me/quote-requests/test_ID',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .me()
+        .quoteRequests()
+        .withId({ ID: 'test_ID' })
+        .get(),
     },
   ]
 }

@@ -12,7 +12,6 @@ import {
 } from './business-unit'
 import {
   CartReference,
-  CartResourceIdentifier,
   ExternalLineItemTotalPrice,
   ExternalTaxRateDraft,
   InventoryMode,
@@ -26,6 +25,8 @@ import {
   CentPrecisionMoney,
   LocalizedString,
   Money,
+  _BaseAddress,
+  _Money,
 } from './common'
 import { CustomerReference, CustomerResourceIdentifier } from './customer'
 import { DiscountCodeReference } from './discount-code'
@@ -263,7 +264,7 @@ export interface MyCompanyDraft {
    *
    *
    */
-  readonly defaultShipingAddress?: number
+  readonly defaultShippingAddress?: number
   /**
    *	Indexes of entries in `addresses` to set as billing addresses.
    *	The `billingAddressIds` of the [Customer](ctp:api:type:Customer) will be replaced by these addresses.
@@ -464,7 +465,7 @@ export interface MyDivisionDraft {
    *
    *
    */
-  readonly defaultShipingAddress?: number
+  readonly defaultShippingAddress?: number
   /**
    *	Indexes of entries in `addresses` to set as billing addresses.
    *	The `billingAddressIds` of the [Customer](ctp:api:type:Customer) will be replaced by these addresses.
@@ -685,19 +686,18 @@ export type MyPaymentUpdateAction =
   | MyPaymentSetTransactionCustomFieldAction
 export interface MyQuoteRequestDraft {
   /**
-   *	ResourceIdentifier of the Cart from which the Quote Request is created.
+   *	`id` of the Cart from which the Quote Request is created.
+   *
    *
    */
-  readonly cart: CartResourceIdentifier
+  readonly cartId: string
   /**
    *	Current version of the Cart.
    *
-   *
    */
-  readonly version: number
+  readonly cartVersion: number
   /**
    *	Message from the Buyer included in the Quote Request.
-   *
    *
    */
   readonly comment: string
@@ -1187,7 +1187,7 @@ export interface MyCartAddItemShippingAddressAction {
   /**
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
 }
 export interface MyCartAddLineItemAction {
   readonly action: 'addLineItem'
@@ -1236,7 +1236,7 @@ export interface MyCartAddLineItemAction {
    *
    *
    */
-  readonly externalPrice?: Money
+  readonly externalPrice?: _Money
   /**
    *
    */
@@ -1287,7 +1287,7 @@ export interface MyCartChangeLineItemQuantityAction {
    *
    *
    */
-  readonly externalPrice?: Money
+  readonly externalPrice?: _Money
   /**
    *
    */
@@ -1340,7 +1340,7 @@ export interface MyCartRemoveLineItemAction {
    *
    *
    */
-  readonly externalPrice?: Money
+  readonly externalPrice?: _Money
   /**
    *
    */
@@ -1364,7 +1364,7 @@ export interface MyCartSetBillingAddressAction {
   /**
    *
    */
-  readonly address?: BaseAddress
+  readonly address?: _BaseAddress
 }
 export interface MyCartSetCountryAction {
   readonly action: 'setCountry'
@@ -1512,7 +1512,7 @@ export interface MyCartSetShippingAddressAction {
   /**
    *
    */
-  readonly address?: BaseAddress
+  readonly address?: _BaseAddress
 }
 export interface MyCartSetShippingMethodAction {
   readonly action: 'setShippingMethod'
@@ -1532,7 +1532,7 @@ export interface MyCartUpdateItemShippingAddressAction {
   /**
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
 }
 /**
  *	Adding an address to the Customer produces the [CustomerAddressAdded](ctp:api:type:CustomerAddressAddedMessage) Message.

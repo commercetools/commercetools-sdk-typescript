@@ -424,7 +424,7 @@ export interface Transaction {
    *
    *
    */
-  readonly amount: TypedMoney
+  readonly amount: CentPrecisionMoney
   /**
    *	Identifier used by the interface that manages the Transaction (usually the PSP).
    *	If a matching interaction was logged in the `interfaceInteractions` array, the corresponding interaction can be found with this ID.

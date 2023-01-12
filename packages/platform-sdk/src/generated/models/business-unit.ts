@@ -309,7 +309,7 @@ export interface Company {
    *
    *
    */
-  readonly defaultShipingAddressId?: string
+  readonly defaultShippingAddressId?: string
   /**
    *	Unique identifiers of addresses used as billing addresses.
    *
@@ -411,7 +411,7 @@ export interface CompanyDraft {
    *
    *
    */
-  readonly defaultShipingAddress?: number
+  readonly defaultShippingAddress?: number
   /**
    *	Indexes of entries in `addresses` to set as billing addresses.
    *	The `billingAddressIds` of the [Customer](ctp:api:type:Customer) will be replaced by these addresses.
@@ -537,7 +537,7 @@ export interface Division {
    *
    *
    */
-  readonly defaultShipingAddressId?: string
+  readonly defaultShippingAddressId?: string
   /**
    *	Unique identifiers of addresses used as billing addresses.
    *
@@ -640,7 +640,7 @@ export interface DivisionDraft {
    *
    *
    */
-  readonly defaultShipingAddress?: number
+  readonly defaultShippingAddress?: number
   /**
    *	Indexes of entries in `addresses` to set as billing addresses.
    *	The `billingAddressIds` of the [Customer](ctp:api:type:Customer) will be replaced by these addresses.

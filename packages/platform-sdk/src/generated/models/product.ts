@@ -780,6 +780,7 @@ export type ProductUpdateAction =
   | ProductSetMetaDescriptionAction
   | ProductSetMetaKeywordsAction
   | ProductSetMetaTitleAction
+  | ProductSetPriceKeyAction
   | ProductSetPriceModeAction
   | ProductSetPricesAction
   | ProductSetProductPriceCustomFieldAction
@@ -2112,6 +2113,31 @@ export interface ProductSetMetaTitleAction {
    *
    */
   readonly staged?: boolean
+}
+/**
+ *	Sets the key of an [Embedded Price](ctp:api:type:Price). Produces the [ProductPriceKeySet](ctp:api:type:ProductPriceKeySetMessage) Message.
+ *
+ */
+export interface ProductSetPriceKeyAction {
+  readonly action: 'setPriceKey'
+  /**
+   *	The `id` of the [Embedded Price](ctp:api:type:Price) to set the key.
+   *
+   *
+   */
+  readonly priceId: string
+  /**
+   *	If `true`, only the staged [Embedded Price](ctp:api:type:Price) is updated. If `false`, both the current and staged [Embedded Price](ctp:api:type:Price) are updated.
+   *
+   *
+   */
+  readonly staged?: boolean
+  /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly key?: string
 }
 /**
  *	Controls whether the Prices of a Product Variant are embedded into the Product or standalone.

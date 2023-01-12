@@ -4,7 +4,16 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { CategoryImport } from './categories'
+import { CustomerImport } from './customers'
 import { Custom } from './customfields'
+import { InventoryImport } from './inventories'
+import { PriceImport } from './prices'
+import { ProductDraftImport } from './productdrafts'
+import { ProductImport } from './products'
+import { ProductTypeImport } from './producttypes'
+import { ProductVariantImport } from './productvariants'
+import { StandalonePriceImport } from './standalone-prices'
 
 export interface Asset {
   /**
@@ -165,6 +174,17 @@ export interface ImportResource {
    */
   readonly key: string
 }
+export type _ImportResource =
+  | ImportResource
+  | ProductVariantImport
+  | PriceImport
+  | CategoryImport
+  | StandalonePriceImport
+  | ProductImport
+  | ProductDraftImport
+  | ProductTypeImport
+  | CustomerImport
+  | InventoryImport
 /**
  *	References a resource by key.
  */

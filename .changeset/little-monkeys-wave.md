@@ -1,3 +1,9 @@
+---
+"@commercetools/importapi-sdk": minor
+"@commercetools/ml-sdk": minor
+"@commercetools/platform-sdk": minor
+---
+
 **Api changes**
 
 <details>

@@ -160,7 +160,6 @@ export type Destination =
   | AzureServiceBusDestination
   | EventBridgeDestination
   | GoogleCloudPubSubDestination
-  | IronMqDestination
   | SnsDestination
   | SqsDestination
 /**
@@ -238,13 +237,6 @@ export interface GoogleCloudPubSubDestination {
    *
    */
   readonly topic: string
-}
-export interface IronMqDestination {
-  readonly type: 'IronMQ'
-  /**
-   *
-   */
-  readonly uri: string
 }
 /**
  *	This payload is sent for a [MessageSubscription](ctp:api:type:MessageSubscription).
@@ -504,7 +496,8 @@ export interface ResourceUpdatedDeliveryPayload {
   readonly modifiedAt: string
 }
 /**
- *	[AWS SNS](https://aws.amazon.com/sns/) can be used to push messages to AWS Lambda, HTTP endpoints (webhooks), or fan-out messages to SQS queues.
+ *	[AWS SNS](https://aws.amazon.com/sns/) can be used to push messages to AWS Lambda, HTTP endpoints (webhooks), or fan-out messages to SQS queues. The SQS queue must be a [Standard](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/standard-queues.html) queue type.
+ *
  *	We recommend setting `authenticationMode` to `IAM`, to avoid unnecessary key management. For IAM authentication, give permissions to user `arn:aws:iam::362576667341:user/subscriptions` to publish to the topic before creating the Subscription. Otherwise, a test message will not be sent.
  *
  *	If you prefer to use `Credentials` for authentication, we recommend [creating an IAM user](https://docs.aws.amazon.com/sns/latest/dg/sns-setting-up.html#create-iam-user) with an `accessKey` and `accessSecret` pair specifically for each Subscription.

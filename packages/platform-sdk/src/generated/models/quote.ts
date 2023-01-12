@@ -241,6 +241,12 @@ export interface Quote extends BaseResource {
    */
   readonly custom?: CustomFields
   /**
+   *	Predefined states tracking the status of the Quote.
+   *
+   *
+   */
+  readonly quoteState: QuoteState
+  /**
    *	[State](ctp:api:type:State) of the Quote.
    *	This reference can point to a State in a custom workflow.
    *
@@ -255,6 +261,12 @@ export interface Quote extends BaseResource {
   readonly businessUnit?: BusinessUnitKeyReference
 }
 export interface QuoteDraft {
+  /**
+   *	User-defined unique identifier for the Quote.
+   *
+   *
+   */
+  readonly key?: string
   /**
    *	StagedQuote from which the Quote is created.
    *
@@ -273,11 +285,12 @@ export interface QuoteDraft {
    */
   readonly stagedQuoteStateToSent?: boolean
   /**
-   *	User-defined unique identifier for the Quote.
+   *	[State](ctp:api:type:State) of the Quote.
+   *	This reference can point to a State in a custom workflow.
    *
    *
    */
-  readonly key?: string
+  readonly state?: StateReference
   /**
    *	[Custom Fields](/../api/projects/custom-fields) to be added to the Quote.
    *
@@ -287,13 +300,6 @@ export interface QuoteDraft {
    *
    */
   readonly custom?: CustomFieldsDraft
-  /**
-   *	[State](ctp:api:type:State) of the Quote.
-   *	This reference can point to a State in a custom workflow.
-   *
-   *
-   */
-  readonly state?: StateReference
 }
 /**
  *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [Quote](ctp:api:type:Quote).

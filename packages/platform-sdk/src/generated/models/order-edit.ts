@@ -19,13 +19,13 @@ import {
 } from './cart'
 import { ChannelResourceIdentifier } from './channel'
 import {
-  BaseAddress,
   BaseResource,
   CreatedBy,
   LastModifiedBy,
   LocalizedString,
-  Money,
   TypedMoney,
+  _BaseAddress,
+  _Money,
 } from './common'
 import { CustomerGroupResourceIdentifier } from './customer-group'
 import { DiscountCodeReference } from './discount-code'
@@ -381,7 +381,7 @@ export interface StagedOrderAddCustomLineItemAction {
    *
    *
    */
-  readonly money: Money
+  readonly money: _Money
   /**
    *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
    *
@@ -430,7 +430,7 @@ export interface StagedOrderAddDeliveryAction {
   /**
    *
    */
-  readonly address?: BaseAddress
+  readonly address?: _BaseAddress
   /**
    *
    */
@@ -453,7 +453,7 @@ export interface StagedOrderAddItemShippingAddressAction {
   /**
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
 }
 export interface StagedOrderAddLineItemAction {
   readonly action: 'addLineItem'
@@ -506,7 +506,7 @@ export interface StagedOrderAddLineItemAction {
    *
    *
    */
-  readonly externalPrice?: Money
+  readonly externalPrice?: _Money
   /**
    *
    */
@@ -593,7 +593,7 @@ export interface StagedOrderChangeCustomLineItemMoneyAction {
    *
    *
    */
-  readonly money: Money
+  readonly money: _Money
 }
 export interface StagedOrderChangeCustomLineItemQuantityAction {
   readonly action: 'changeCustomLineItemQuantity'
@@ -623,7 +623,7 @@ export interface StagedOrderChangeLineItemQuantityAction {
    *
    *
    */
-  readonly externalPrice?: Money
+  readonly externalPrice?: _Money
   /**
    *
    */
@@ -740,7 +740,7 @@ export interface StagedOrderRemoveLineItemAction {
    *
    *
    */
-  readonly externalPrice?: Money
+  readonly externalPrice?: _Money
   /**
    *
    */
@@ -771,7 +771,7 @@ export interface StagedOrderSetBillingAddressAction {
   /**
    *
    */
-  readonly address?: BaseAddress
+  readonly address?: _BaseAddress
 }
 export interface StagedOrderSetBillingAddressCustomFieldAction {
   readonly action: 'setBillingAddressCustomField'
@@ -973,7 +973,7 @@ export interface StagedOrderSetDeliveryAddressAction {
   /**
    *
    */
-  readonly address?: BaseAddress
+  readonly address?: _BaseAddress
 }
 export interface StagedOrderSetDeliveryAddressCustomFieldAction {
   readonly action: 'setDeliveryAddressCustomField'
@@ -1176,7 +1176,7 @@ export interface StagedOrderSetLineItemPriceAction {
    *
    *
    */
-  readonly externalPrice?: Money
+  readonly externalPrice?: _Money
 }
 export interface StagedOrderSetLineItemShippingDetailsAction {
   readonly action: 'setLineItemShippingDetails'
@@ -1259,7 +1259,7 @@ export interface StagedOrderSetOrderTotalTaxAction {
    *
    *
    */
-  readonly externalTotalGross: Money
+  readonly externalTotalGross: _Money
   /**
    *
    */
@@ -1414,14 +1414,14 @@ export interface StagedOrderSetShippingAddressAction {
   /**
    *
    */
-  readonly address?: BaseAddress
+  readonly address?: _BaseAddress
 }
 export interface StagedOrderSetShippingAddressAndCustomShippingMethodAction {
   readonly action: 'setShippingAddressAndCustomShippingMethod'
   /**
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
   /**
    *
    */
@@ -1446,7 +1446,7 @@ export interface StagedOrderSetShippingAddressAndShippingMethodAction {
   /**
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
   /**
    *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod).
    *
@@ -1597,7 +1597,7 @@ export interface StagedOrderUpdateItemShippingAddressAction {
   /**
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
 }
 export interface StagedOrderUpdateSyncInfoAction {
   readonly action: 'updateSyncInfo'

@@ -200,9 +200,10 @@ export type Message =
   | ProductPriceChangedMessage
   | ProductPriceDiscountsSetMessage
   | ProductPriceExternalDiscountSetMessage
+  | ProductPriceKeySetMessage
   | ProductPriceModeSetMessage
   | ProductPriceRemovedMessage
-  | ProductPriceSetMessage
+  | ProductPricesSetMessage
   | ProductPublishedMessage
   | ProductRemovedFromCategoryMessage
   | ProductRevertedStagedChangesMessage
@@ -240,6 +241,7 @@ export type Message =
   | StandalonePriceDeletedMessage
   | StandalonePriceDiscountSetMessage
   | StandalonePriceExternalDiscountSetMessage
+  | StandalonePriceKeySetMessage
   | StandalonePriceStagedChangesAppliedMessage
   | StandalonePriceValueChangedMessage
   | StoreCountriesChangedMessage
@@ -7674,6 +7676,98 @@ export interface ProductPriceExternalDiscountSetMessage {
   readonly staged: boolean
 }
 /**
+ *	Generated after a successful [Set Price Key](ctp:api:type:ProductSetPriceKeyAction) update action.
+ *
+ */
+export interface ProductPriceKeySetMessage {
+  readonly type: 'ProductPriceKeySet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *
+   */
+  readonly variantId: number
+  /**
+   *	Unique identifier of the [Embedded Price](ctp:api:type:Price).
+   *
+   *
+   */
+  readonly priceId?: string
+  /**
+   *	`key` value of the [Embedded Price](ctp:api:type:Price) before the [Set Price Key](ctp:api:type:ProductSetPriceKeyAction) update action.
+   *
+   *
+   */
+  readonly oldKey?: string
+  /**
+   *	`key` value of the [Embedded Price](ctp:api:type:Price) after the [Set Price Key](ctp:api:type:ProductSetPriceKeyAction) update action.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
+   *
+   */
+  readonly staged: boolean
+}
+/**
  *	Generated after a successful [Set PriceMode](ctp:api:type:ProductSetPriceModeAction) update action.
  *
  */
@@ -7826,11 +7920,11 @@ export interface ProductPriceRemovedMessage {
   readonly staged: boolean
 }
 /**
- *	Generated after a successful [Set Embedded Price](ctp:api:type:ProductSetPricesAction) update action.
+ *	Generated after a successful [Set Embedded Prices](ctp:api:type:ProductSetPricesAction) update action.
  *
  */
-export interface ProductPriceSetMessage {
-  readonly type: 'ProductPriceSet'
+export interface ProductPricesSetMessage {
+  readonly type: 'ProductPricesSet'
   /**
    *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
@@ -10627,6 +10721,82 @@ export interface StandalonePriceExternalDiscountSetMessage {
   readonly discounted?: DiscountedPrice
 }
 /**
+ *	Generated after a successful [Set Key](ctp:api:type:StandalonePriceSetKeyAction) update action.
+ *
+ */
+export interface StandalonePriceKeySetMessage {
+  readonly type: 'StandalonePriceKeySet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	`key` value of the [StandalonePrice](ctp:api:type:StandalonePrice) after the [Set Key](ctp:api:type:StandalonePriceSetKeyAction) update action.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	`key` value of the [StandalonePrice](ctp:api:type:StandalonePrice) before the [Set Key](ctp:api:type:StandalonePriceSetKeyAction) update action.
+   *
+   *
+   */
+  readonly oldKey?: string
+}
+/**
  *	Generated after a successful [Apply Staged Changes](ctp:api:types:StandalonePriceApplyStagedChangesAction) update action.
  *
  */
@@ -11550,9 +11720,10 @@ export type MessagePayload =
   | ProductPriceChangedMessagePayload
   | ProductPriceDiscountsSetMessagePayload
   | ProductPriceExternalDiscountSetMessagePayload
+  | ProductPriceKeySetMessagePayload
   | ProductPriceModeSetMessagePayload
   | ProductPriceRemovedMessagePayload
-  | ProductPriceSetMessagePayload
+  | ProductPricesSetMessagePayload
   | ProductPublishedMessagePayload
   | ProductRemovedFromCategoryMessagePayload
   | ProductRevertedStagedChangesMessagePayload
@@ -11591,6 +11762,7 @@ export type MessagePayload =
   | StandalonePriceDeletedMessagePayload
   | StandalonePriceDiscountSetMessagePayload
   | StandalonePriceExternalDiscountSetMessagePayload
+  | StandalonePriceKeySetMessagePayload
   | StandalonePriceStagedChangesAppliedMessagePayload
   | StandalonePriceValueChangedMessagePayload
   | StoreCountriesChangedMessagePayload
@@ -13435,6 +13607,41 @@ export interface ProductPriceExternalDiscountSetMessagePayload {
   readonly staged: boolean
 }
 /**
+ *	Generated after a successful [Set Price Key](ctp:api:type:ProductSetPriceKeyAction) update action.
+ *
+ */
+export interface ProductPriceKeySetMessagePayload {
+  readonly type: 'ProductPriceKeySet'
+  /**
+   *
+   */
+  readonly variantId: number
+  /**
+   *	Unique identifier of the [Embedded Price](ctp:api:type:Price).
+   *
+   *
+   */
+  readonly priceId?: string
+  /**
+   *	`key` value of the [Embedded Price](ctp:api:type:Price) before the [Set Price Key](ctp:api:type:ProductSetPriceKeyAction) update action.
+   *
+   *
+   */
+  readonly oldKey?: string
+  /**
+   *	`key` value of the [Embedded Price](ctp:api:type:Price) after the [Set Price Key](ctp:api:type:ProductSetPriceKeyAction) update action.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
+   *
+   */
+  readonly staged: boolean
+}
+/**
  *	Generated after a successful [Set PriceMode](ctp:api:type:ProductSetPriceModeAction) update action.
  *
  */
@@ -13473,11 +13680,11 @@ export interface ProductPriceRemovedMessagePayload {
   readonly staged: boolean
 }
 /**
- *	Generated after a successful [Set Embedded Price](ctp:api:type:ProductSetPricesAction) update action.
+ *	Generated after a successful [Set Embedded Prices](ctp:api:type:ProductSetPricesAction) update action.
  *
  */
-export interface ProductPriceSetMessagePayload {
-  readonly type: 'ProductPriceSet'
+export interface ProductPricesSetMessagePayload {
+  readonly type: 'ProductPricesSet'
   /**
    *	Unique identifier of the [ProductVariant](ctp:api:type:ProductVariant) for which the Price was set.
    *
@@ -14115,6 +14322,25 @@ export interface StandalonePriceExternalDiscountSetMessagePayload {
    *
    */
   readonly discounted?: DiscountedPrice
+}
+/**
+ *	Generated after a successful [Set Key](ctp:api:type:StandalonePriceSetKeyAction) update action.
+ *
+ */
+export interface StandalonePriceKeySetMessagePayload {
+  readonly type: 'StandalonePriceKeySet'
+  /**
+   *	`key` value of the [StandalonePrice](ctp:api:type:StandalonePrice) after the [Set Key](ctp:api:type:StandalonePriceSetKeyAction) update action.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	`key` value of the [StandalonePrice](ctp:api:type:StandalonePrice) before the [Set Key](ctp:api:type:StandalonePriceSetKeyAction) update action.
+   *
+   *
+   */
+  readonly oldKey?: string
 }
 /**
  *	Generated after a successful [Apply Staged Changes](ctp:api:types:StandalonePriceApplyStagedChangesAction) update action.

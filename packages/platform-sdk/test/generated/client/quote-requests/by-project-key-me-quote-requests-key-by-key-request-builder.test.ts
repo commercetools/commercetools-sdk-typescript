@@ -12,26 +12,6 @@ const apiRoot: ApiRoot = new ApiRoot({ executeRequest: null })
 export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
-      method: 'get',
-      uri: '/test_projectKey/me/quote-requests/key=test_key?expand=expand',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .me()
-        .quoteRequests()
-        .withKey({ key: 'test_key' })
-        .get({ queryArgs: { expand: 'expand' } }),
-    },
-    {
-      method: 'get',
-      uri: '/test_projectKey/me/quote-requests/key=test_key',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .me()
-        .quoteRequests()
-        .withKey({ key: 'test_key' })
-        .get(),
-    },
-    {
       method: 'post',
       uri: '/test_projectKey/me/quote-requests/key=test_key?expand=expand',
       request: apiRoot
@@ -70,6 +50,26 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .quoteRequests()
         .withKey({ key: 'test_key' })
         .delete({ queryArgs: { expand: 'expand', version: 2 } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/me/quote-requests/key=test_key?expand=expand',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .me()
+        .quoteRequests()
+        .withKey({ key: 'test_key' })
+        .get({ queryArgs: { expand: 'expand' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/me/quote-requests/key=test_key',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .me()
+        .quoteRequests()
+        .withKey({ key: 'test_key' })
+        .get(),
     },
   ]
 }

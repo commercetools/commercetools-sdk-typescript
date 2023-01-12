@@ -26,7 +26,7 @@ export interface StandalonePriceImport extends ImportResource {
    */
   readonly key: string
   /**
-   *	Specifies to which ProductVariant the API associates this Price. It is not validated to exist in product variants.
+   *	Identifies the ProductVariant to which this Standalone Price is associated. This value is not validated to exist in Product Variants.
    *
    *
    */

@@ -43,6 +43,11 @@ export interface AssignedProductSelection {
    *
    */
   readonly variantSelection?: ProductVariantSelection
+  /**
+   *	Date and time (UTC) this assignment was initially created.
+   *
+   */
+  readonly createdAt: string
 }
 /**
  *	[PagedQueryResult](/general-concepts#pagedqueryresult) containing an array of [AssignedProductSelection](ctp:api:type:AssignedProductSelection).
