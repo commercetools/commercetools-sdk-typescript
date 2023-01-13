@@ -91,7 +91,7 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v4
         if: steps.changesets.outputs.published == 'true'
         with:
-          commit_message: "chore: Updating API ref SHA"
+          commit_message: "chore: updating API ref SHA"
           commit_user_name: automation-commercetools
           commit_user_email: automation@commercetools.com
           commit_author: Auto Mation <automation@commercetools.com>
