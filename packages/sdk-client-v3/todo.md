@@ -16,21 +16,21 @@ Things to do
 
 - [x] client and composer
 - [x] http-middleware
-- [ ] error-middleware
+- [x] error-middleware
 - [x] logger-middleware\*
-  - [ ] logging using winston\*
-- [ ] auth-middleware\*
+  - [-] logging using winston\* <!--# won't implement this -->
+- [x] auth-middleware\*
   - [x] with-client-credentials-flow
   - [x] with-anonymous-session-flow
   - [x] with-password-flow
   - [x] with-refresh-token-flow
   - [x] with-existing-token-flow
-  - [ ] implement token caching
+  - [x] implement token caching
 - [x] retry-middleware
 - [x] correlation-id-middleware
 - [x] queue-middleware
 - [x] user-agent-middleware
-- [ ] test extensively
+- [x] test extensively
 
 Extras
 

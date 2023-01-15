@@ -1,6 +1,5 @@
 import { Buffer } from 'buffer/'
 import fetch from 'node-fetch'
-import axios from 'axios'
 
 export type Nullable<T> = T | null
 export type JsonObject<T = unknown> = { [key: string]: T }
@@ -101,7 +100,7 @@ export type AuthMiddlewareOptions = {
   scopes?: Array<string>
   // For internal usage only
   oauthUri?: string
-  httpClient?: fetch | typeof axios
+  httpClient?: fetch | Function
   tokenCache?: TokenCache
 }
 
