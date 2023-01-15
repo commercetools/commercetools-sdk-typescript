@@ -16,14 +16,13 @@ yarn add @commercetools/platform-sdk
 
 ```ts
 import {
-  type Next
+  type Next,
   type HttpMiddlewareOptions,
-  type AuthMiddlewareBaseOptions
+  type AuthMiddlewareBaseOptions,
   type ClientRequest,
   type MiddlewareRequest,
   type MiddlewareResponse,
-  type Client
-
+  type Client,
   ClientBuilder,
 } from '@commercetools/ts-client'
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
@@ -51,7 +50,7 @@ const retryOptions = {
   maxRetries: 3,
   retryDelay: 200,
   backoff: true,
-  retryCodes: [200]
+  retryCodes: [200],
 }
 
 // custom middleware
@@ -69,8 +68,13 @@ function middleware(options) {
 
 const client: Client = new ClientBuilder()
   .withPasswordFlow(authMiddlewareOptions)
-  .withLoggerMiddleware({ includeOriginalRequest: false, includeResponseHeaders: false })
-  .withCorrelationIdMiddleware({ generate: () => 'fake-correlation-id' + Math.floor(Math.random() + 2) })
+  .withLoggerMiddleware({
+    includeOriginalRequest: false,
+    includeResponseHeaders: false,
+  })
+  .withCorrelationIdMiddleware({
+    generate: () => 'fake-correlation-id' + Math.floor(Math.random() + 2),
+  })
   .withHttpMiddleware(httpMiddlewareOptions)
   .withRetryMiddleware(retryOptions)
   .withMiddleware(middleware({})) // <<<------------------- add the custom middleware here
