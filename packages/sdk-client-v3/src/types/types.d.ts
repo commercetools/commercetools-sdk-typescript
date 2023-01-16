@@ -1,5 +1,4 @@
 import { Buffer } from 'buffer/'
-import fetch from 'node-fetch'
 
 export type Nullable<T> = T | null
 export type JsonObject<T = unknown> = { [key: string]: T }
@@ -100,7 +99,7 @@ export type AuthMiddlewareOptions = {
   scopes?: Array<string>
   // For internal usage only
   oauthUri?: string
-  httpClient?: fetch | Function
+  httpClient?: Function
   tokenCache?: TokenCache
 }
 
@@ -289,7 +288,7 @@ export type IClientOptions = {
   body?: string | Buffer
   timeout?: number
   abortController?: AbortController
-  [k: string | number | symbol]: unknown
+  [k: string | number]: unknown
 }
 
 export type HttpClientConfig = IClientOptions & {
@@ -306,9 +305,9 @@ export type TResponse = {
     errors?: any
     error?: string
     message: string
-    [k: string | number | symbol]: any
+    [k: string | number]: any
   }
-  [k: string | number | symbol]: any
+  [k: string | number]: any
 }
 
 export type Client = {
@@ -325,7 +324,7 @@ export type ProcessOptions = { accumulate?: boolean; total?: number }
 export type ErrorMiddlewareOptions = {}
 export type SuccessResult = {
   body: {
-    results: Record<string | number | symbol, Record<string, any>>;
+    results: Record<string | number, Record<string, any>>;
     count: number;
   };
   statusCode: number;
