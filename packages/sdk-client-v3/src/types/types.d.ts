@@ -7,8 +7,8 @@ export type MiddlewareRequest = ClientRequest
 export type Middleware = (next: Next) => (request: MiddlewareRequest) => Promise<MiddlewareResponse>
 
 export type MiddlewareResponse = {
-  resolve(response: JsonObject): void;
-  reject(error: JsonObject): void;
+  resolve: Function;
+  reject: Function;
   body?: JsonObject;
   error?: HttpErrorType;
   statusCode: number;
@@ -43,8 +43,8 @@ export interface ClientRequest {
   queryParams?: VariableMap
   body?: string | Buffer
   response?: ClientResponse
-  resolve?: (response: JsonObject) => void;
-  reject?: (error: JsonObject) => void;
+  resolve?: Function;
+  reject?: Function;
   [key: string]: any
 }
 
@@ -139,7 +139,7 @@ export type RefreshAuthMiddlewareOptions = {
   tokenCache?: TokenCache,
   // For internal usage only
   oauthUri?: string
-  httpClient?: any
+  httpClient?: Function
 }
 
 export type RequestStateStore = {
@@ -161,13 +161,13 @@ type requestBaseOptions = {
 
 export type executeRequestOptions = requestBaseOptions & {
   next: Next
-  httpClient: any
+  httpClient: Function
   userOption?: AuthMiddlewareOptions | PasswordAuthMiddlewareOptions
 }
 
 export type AuthMiddlewareBaseOptions = requestBaseOptions & {
   request: MiddlewareRequest
-  httpClient?: any
+  httpClient?: Function
 }
 
 export type RequestState = boolean
@@ -194,7 +194,7 @@ export type PasswordAuthMiddlewareOptions = {
   tokenCache?: TokenCache,
   // For internal usage only
   oauthUri?: string
-  httpClient?: any
+  httpClient?: Function
 }
 
 export type TokenInfo = {
@@ -235,7 +235,7 @@ export type HttpMiddlewareOptions = {
 export type HttpOptions = {
   url: string
   clientOptions: IClientOptions
-  httpClient: any
+  httpClient: Function
 }
 
 export type LogLevel = 'INFO' | 'ERROR'
