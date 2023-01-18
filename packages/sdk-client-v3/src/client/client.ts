@@ -96,7 +96,7 @@ export function process(
 
         const result = await Promise.resolve(fn(payload))
         // const result = await fn(payload)
-        let accumulated: Array<ClientResult>
+        let accumulated: Array<Omit<ClientResult, 'body'>>
         hasFirstPageBeenProcessed = true
 
         if (opt.accumulate) accumulated = acc.concat(result || [])

@@ -434,7 +434,10 @@ describe('process', () => {
               originalRequest: req,
             } as HttpErrorType
 
-            return next({ ...req, response: { error, statusCode: 400 } })
+            return next({
+              ...req,
+              response: { body: null, error, statusCode: 400 },
+            })
           },
       ],
     })
@@ -458,7 +461,7 @@ describe('process', () => {
     const client = createClient({
       middlewares: [
         (next) => async (req) => {
-          return next({ ...req, response: { statusCode: 200 } })
+          return next({ ...req, response: { body: null, statusCode: 200 } })
         },
       ],
     })
@@ -758,7 +761,10 @@ describe('process - exposed', () => {
             originalRequest: req,
           } as HttpErrorType
 
-          return next({ ...req, response: { error, statusCode: 400 } })
+          return next({
+            ...req,
+            response: { body: null, error, statusCode: 400 },
+          })
         },
       ],
     }) as any

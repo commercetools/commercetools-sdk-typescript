@@ -201,7 +201,7 @@ describe('Http Middleware.', () => {
     }
 
     const next = (req) => {
-      expect(req.response.body).toBeUndefined()
+      expect(req.response.body).toBeFalsy()
       expect(req.method).toEqual('HEAD')
       return response
     }

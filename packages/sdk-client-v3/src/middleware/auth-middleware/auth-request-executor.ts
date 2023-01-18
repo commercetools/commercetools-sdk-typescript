@@ -171,6 +171,7 @@ export async function executeRequest(
       ...request,
       headers: { ...request.headers },
       response: {
+        body: null,
         statusCode: error.statusCode || 0,
         error: {
           ...response,

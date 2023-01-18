@@ -47,6 +47,7 @@ async function executeRequest({
     if (response.statusCode >= 200 && response.statusCode < 300) {
       if (clientOptions.method == 'HEAD') {
         return {
+          body: null,
           statusCode: response.statusCode,
           headers: getHeaders(response.headers),
         }
@@ -64,7 +65,10 @@ async function executeRequest({
      * build error body
      */
     return {
+      body: null,
+      ...response,
       error: {
+        statusCode: response.statusCode | response.data.statusCode,
         message: response.message || response.data.message,
         method: clientOptions.method,
         ...response,
@@ -73,6 +77,7 @@ async function executeRequest({
   } catch (error) {
     return {
       // We know that this is a network error
+      body: null,
       error,
     }
   } finally {

@@ -1,15 +1,16 @@
 import { Buffer } from 'buffer/'
 
 export type Nullable<T> = T | null
+export type Keys = string | number | symbol
 export type JsonObject<T = unknown> = { [key: string]: T }
 export type MiddlewareRequest = ClientRequest
 
 export type Middleware = (next: Next) => (request: MiddlewareRequest) => Promise<MiddlewareResponse>
 
-export type MiddlewareResponse = {
+export type MiddlewareResponse<T = Record<string, any>> = {
   resolve: Function;
   reject: Function;
-  body?: JsonObject;
+  body: T;
   error?: HttpErrorType;
   statusCode: number;
   // headers?: JsonObject<string>;
@@ -75,7 +76,7 @@ export type VariableMap = {
 }
 
 export type ClientResponse<T = any> = {
-  body?: T
+  body: T
   statusCode?: number
   // headers?: JsonObject<string>
   headers?: Record<string, any>
@@ -297,17 +298,7 @@ export type HttpClientConfig = IClientOptions & {
 }
 
 export type TResponse = {
-  statusCode: number
-  // headers: JsonObject<QueryParam>
-  headers: Record<string, any>
-  data: {
-    statusCode?: number
-    errors?: any
-    error?: string
-    message: string
-    [k: string | number]: any
-  }
-  [k: string | number]: any
+  [k in Keys]: any
 }
 
 export type Client = {
