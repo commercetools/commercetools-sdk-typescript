@@ -458,7 +458,7 @@ export interface BaseAddress {
    */
   readonly externalId?: string
 }
-export type _BaseAddress = BaseAddress | Address | AddressDraft
+export type _BaseAddress = BaseAddress | AddressDraft | Address
 export interface Address extends BaseAddress {
   /**
    *	Unique identifier of the Address.
@@ -539,10 +539,10 @@ export type _BaseResource =
   | TaxCategory
   | Type
   | Zone
-  | BusinessUnit
-  | CartDiscount
   | Category
   | Cart
+  | CartDiscount
+  | BusinessUnit
   | Channel
   | AttributeGroup
 /**
