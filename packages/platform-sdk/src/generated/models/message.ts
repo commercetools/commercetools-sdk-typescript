@@ -7357,7 +7357,7 @@ export interface ProductPriceAddedMessage {
    */
   readonly variantId: number
   /**
-   *	The [Embedded Price](ctp:api:type:Price) that was added to the [ProductVariant](ctp:api:type:ProductVariant).
+   *	The [Embedded Price](/projects/products#embedded-price) that was added to the [ProductVariant](ctp:api:type:ProductVariant).
    *
    *
    */
@@ -7439,13 +7439,13 @@ export interface ProductPriceChangedMessage {
    */
   readonly variantId: number
   /**
-   *	The current [Embedded Price](ctp:api:type:Price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *	The current [Embedded Price](/projects/products#embedded-price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
    *
    *
    */
   readonly oldPrice: Price
   /**
-   *	The [Embedded Price](ctp:api:type:Price) after the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *	The [Embedded Price](/projects/products#embedded-price) after the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
    *
    *
    */
@@ -7457,7 +7457,7 @@ export interface ProductPriceChangedMessage {
    */
   readonly staged: boolean
   /**
-   *	The staged [Embedded Price](ctp:api:type:Price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *	The staged [Embedded Price](/projects/products#embedded-price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
    *
    *
    */
@@ -7534,7 +7534,7 @@ export interface ProductPriceDiscountsSetMessage {
   readonly updatedPrices: ProductPriceDiscountsSetUpdatedPrice[]
 }
 /**
- *	Details about a [Embedded Price](ctp:api:type:Price) that was updated due to a Discount. Specific to [ProductPriceDiscountsSet](ctp:api:type:ProductPriceDiscountsSetMessage) Message.
+ *	Details about a [Embedded Price](/projects/products#embedded-price) that was updated due to a Discount. Specific to [ProductPriceDiscountsSet](ctp:api:type:ProductPriceDiscountsSetMessage) Message.
  *
  */
 export interface ProductPriceDiscountsSetUpdatedPrice {
@@ -7557,7 +7557,7 @@ export interface ProductPriceDiscountsSetUpdatedPrice {
    */
   readonly sku?: string
   /**
-   *	Unique identifier of the [Embedded Price](ctp:api:type:Price).
+   *	Unique identifier of the [Price](ctp:api:type:Price).
    *
    *
    */
@@ -7657,7 +7657,7 @@ export interface ProductPriceExternalDiscountSetMessage {
    */
   readonly sku?: string
   /**
-   *	Unique identifier of the [Embedded Price](ctp:api:type:Price).
+   *	Unique identifier of the [Price](ctp:api:type:Price).
    *
    *
    */
@@ -7743,19 +7743,19 @@ export interface ProductPriceKeySetMessage {
    */
   readonly variantId: number
   /**
-   *	Unique identifier of the [Embedded Price](ctp:api:type:Price).
+   *	Unique identifier of the [Price](ctp:api:type:Price).
    *
    *
    */
   readonly priceId?: string
   /**
-   *	`key` value of the [Embedded Price](ctp:api:type:Price) before the [Set Price Key](ctp:api:type:ProductSetPriceKeyAction) update action.
+   *	`key` value of the [Price](ctp:api:type:Price) before the [Set Price Key](ctp:api:type:ProductSetPriceKeyAction) update action.
    *
    *
    */
   readonly oldKey?: string
   /**
-   *	`key` value of the [Embedded Price](ctp:api:type:Price) after the [Set Price Key](ctp:api:type:ProductSetPriceKeyAction) update action.
+   *	`key` value of the [Price](ctp:api:type:Price) after the [Set Price Key](ctp:api:type:ProductSetPriceKeyAction) update action.
    *
    *
    */
@@ -7907,7 +7907,7 @@ export interface ProductPriceRemovedMessage {
    */
   readonly variantId: number
   /**
-   *	The [Embedded Price](ctp:api:type:Price) that was removed from the [ProductVariant](ctp:api:type:ProductVariant).
+   *	The [Embedded Price](/projects/products#embedded-price) that was removed from the [ProductVariant](ctp:api:type:ProductVariant).
    *
    *
    */
@@ -13501,7 +13501,7 @@ export interface ProductPriceAddedMessagePayload {
    */
   readonly variantId: number
   /**
-   *	The [Embedded Price](ctp:api:type:Price) that was added to the [ProductVariant](ctp:api:type:ProductVariant).
+   *	The [Embedded Price](/projects/products#embedded-price) that was added to the [ProductVariant](ctp:api:type:ProductVariant).
    *
    *
    */
@@ -13526,13 +13526,13 @@ export interface ProductPriceChangedMessagePayload {
    */
   readonly variantId: number
   /**
-   *	The current [Embedded Price](ctp:api:type:Price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *	The current [Embedded Price](/projects/products#embedded-price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
    *
    *
    */
   readonly oldPrice: Price
   /**
-   *	The [Embedded Price](ctp:api:type:Price) after the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *	The [Embedded Price](/projects/products#embedded-price) after the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
    *
    *
    */
@@ -13544,7 +13544,7 @@ export interface ProductPriceChangedMessagePayload {
    */
   readonly staged: boolean
   /**
-   *	The staged [Embedded Price](ctp:api:type:Price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *	The staged [Embedded Price](/projects/products#embedded-price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
    *
    *
    */
@@ -13588,7 +13588,7 @@ export interface ProductPriceExternalDiscountSetMessagePayload {
    */
   readonly sku?: string
   /**
-   *	Unique identifier of the [Embedded Price](ctp:api:type:Price).
+   *	Unique identifier of the [Price](ctp:api:type:Price).
    *
    *
    */
@@ -13617,19 +13617,19 @@ export interface ProductPriceKeySetMessagePayload {
    */
   readonly variantId: number
   /**
-   *	Unique identifier of the [Embedded Price](ctp:api:type:Price).
+   *	Unique identifier of the [Price](ctp:api:type:Price).
    *
    *
    */
   readonly priceId?: string
   /**
-   *	`key` value of the [Embedded Price](ctp:api:type:Price) before the [Set Price Key](ctp:api:type:ProductSetPriceKeyAction) update action.
+   *	`key` value of the [Price](ctp:api:type:Price) before the [Set Price Key](ctp:api:type:ProductSetPriceKeyAction) update action.
    *
    *
    */
   readonly oldKey?: string
   /**
-   *	`key` value of the [Embedded Price](ctp:api:type:Price) after the [Set Price Key](ctp:api:type:ProductSetPriceKeyAction) update action.
+   *	`key` value of the [Price](ctp:api:type:Price) after the [Set Price Key](ctp:api:type:ProductSetPriceKeyAction) update action.
    *
    *
    */
@@ -13667,7 +13667,7 @@ export interface ProductPriceRemovedMessagePayload {
    */
   readonly variantId: number
   /**
-   *	The [Embedded Price](ctp:api:type:Price) that was removed from the [ProductVariant](ctp:api:type:ProductVariant).
+   *	The [Embedded Price](/projects/products#embedded-price) that was removed from the [ProductVariant](ctp:api:type:ProductVariant).
    *
    *
    */

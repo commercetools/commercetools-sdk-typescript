@@ -2004,7 +2004,7 @@ export interface ProductSetDescriptionAction {
 export interface ProductSetDiscountedPriceAction {
   readonly action: 'setDiscountedPrice'
   /**
-   *	The `id` of the [Embedded Price](ctp:api:type:Price) to set the Discount.
+   *	The `id` of the [Price](ctp:api:type:Price) to set the Discount.
    *
    *
    */
@@ -2115,19 +2115,19 @@ export interface ProductSetMetaTitleAction {
   readonly staged?: boolean
 }
 /**
- *	Sets the key of an [Embedded Price](ctp:api:type:Price). Produces the [ProductPriceKeySet](ctp:api:type:ProductPriceKeySetMessage) Message.
+ *	Sets the key of an [Embedded Price](/projects/products#embedded-price). Produces the [ProductPriceKeySet](ctp:api:type:ProductPriceKeySetMessage) Message.
  *
  */
 export interface ProductSetPriceKeyAction {
   readonly action: 'setPriceKey'
   /**
-   *	The `id` of the [Embedded Price](ctp:api:type:Price) to set the key.
+   *	The `id` of the [Price](ctp:api:type:Price) to set the key.
    *
    *
    */
   readonly priceId: string
   /**
-   *	If `true`, only the staged [Embedded Price](ctp:api:type:Price) is updated. If `false`, both the current and staged [Embedded Price](ctp:api:type:Price) are updated.
+   *	If `true`, only the staged [Embedded Price](/projects/products#embedded-price) is updated. If `false`, both the current and staged Embedded Price are updated.
    *
    *
    */
