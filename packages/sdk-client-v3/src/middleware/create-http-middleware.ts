@@ -8,7 +8,7 @@ import {
   QueryParam,
   HttpOptions,
   HttpClientConfig,
-  IClientOptions,
+  HttpClientOptions,
   ClientResult,
   TResponse,
 } from '../types/types'
@@ -133,7 +133,7 @@ export default function createHttpMiddleware(
         ).toString()
       }
 
-      const clientOptions: IClientOptions = {
+      const clientOptions: HttpClientOptions = {
         method: request.method,
         headers: requestHeader,
         ...httpClientOptions,

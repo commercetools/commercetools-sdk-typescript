@@ -2,8 +2,9 @@ import { Buffer } from 'buffer/'
 
 export type Nullable<T> = T | null
 export type Keys = string | number | symbol
-export type JsonObject<T = unknown> = { [key: string]: T }
+export type JsonObject<T = unknown> = { [key in Keys]: T }
 export type MiddlewareRequest = ClientRequest
+export type Optional = { [k in Keys]: any }
 
 export type Middleware = (next: Next) => (request: MiddlewareRequest) => Promise<MiddlewareResponse>
 
@@ -289,8 +290,9 @@ export type IClientOptions = {
   body?: string | Buffer
   timeout?: number
   abortController?: AbortController
-  [k: string | number]: unknown
 }
+
+export type HttpClientOptions = IClientOptions & Optional
 
 export type HttpClientConfig = IClientOptions & {
   url: string
