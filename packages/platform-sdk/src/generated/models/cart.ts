@@ -21,7 +21,6 @@ import {
   CreatedBy,
   LastModifiedBy,
   LocalizedString,
-  Money,
   Price,
   TypedMoney,
   _BaseAddress,
@@ -342,11 +341,11 @@ export interface CartDraft {
    *	The shipping address is used to determine the eligible shipping methods and rates as well as the tax rate of the line items.
    *
    */
-  readonly shippingAddress?: BaseAddress
+  readonly shippingAddress?: _BaseAddress
   /**
    *
    */
-  readonly billingAddress?: BaseAddress
+  readonly billingAddress?: _BaseAddress
   /**
    *
    */
@@ -656,7 +655,7 @@ export interface CustomLineItemDraft {
   /**
    *
    */
-  readonly money: Money
+  readonly money: _Money
   /**
    *
    */
@@ -709,7 +708,7 @@ export interface CustomShippingDraft {
    *
    *
    */
-  readonly shippingAddress?: BaseAddress
+  readonly shippingAddress?: _BaseAddress
   /**
    *	Determines the shipping price.
    *
@@ -832,18 +831,18 @@ export interface ExternalLineItemTotalPrice {
   /**
    *
    */
-  readonly price: Money
+  readonly price: _Money
   /**
    *
    */
-  readonly totalPrice: Money
+  readonly totalPrice: _Money
 }
 export interface ExternalTaxAmountDraft {
   /**
    *	The total gross amount of the item (totalNet + taxes).
    *
    */
-  readonly totalGross: Money
+  readonly totalGross: _Money
   /**
    *
    */
@@ -1124,7 +1123,7 @@ export interface LineItemDraft {
    *	Sets the line item `price` to the given value and sets the line item `priceMode` to `ExternalPrice` LineItemPriceMode.
    *
    */
-  readonly externalPrice?: Money
+  readonly externalPrice?: _Money
   /**
    *	Sets the line item `price` and `totalPrice` to the given values and sets the line item `priceMode` to `ExternalTotal` LineItemPriceMode.
    *
@@ -1245,7 +1244,7 @@ export interface ShippingDraft {
    *
    *
    */
-  readonly shippingAddress?: BaseAddress
+  readonly shippingAddress?: _BaseAddress
   /**
    *	Used as an input to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
    *
@@ -1536,7 +1535,7 @@ export interface CartAddCustomShippingMethodAction {
    *
    *
    */
-  readonly shippingAddress: BaseAddress
+  readonly shippingAddress: _BaseAddress
   /**
    *	Determines the shipping price.
    *
@@ -1688,7 +1687,7 @@ export interface CartAddShippingMethodAction {
    *
    *
    */
-  readonly shippingAddress: BaseAddress
+  readonly shippingAddress: _BaseAddress
   /**
    *	Used as an input to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
    *
@@ -1945,7 +1944,7 @@ export interface CartSetBillingAddressAction {
   /**
    *
    */
-  readonly address?: BaseAddress
+  readonly address?: _BaseAddress
 }
 export interface CartSetBillingAddressCustomFieldAction {
   readonly action: 'setBillingAddressCustomField'
@@ -1986,7 +1985,7 @@ export interface CartSetCartTotalTaxAction {
    *	The total gross amount of the cart (totalNet + taxes).
    *
    */
-  readonly externalTotalGross: Money
+  readonly externalTotalGross: _Money
   /**
    *
    */
@@ -2408,7 +2407,7 @@ export interface CartSetShippingAddressAction {
   /**
    *
    */
-  readonly address?: BaseAddress
+  readonly address?: _BaseAddress
 }
 export interface CartSetShippingAddressCustomFieldAction {
   readonly action: 'setShippingAddressCustomField'
@@ -2556,7 +2555,7 @@ export interface CustomLineItemImportDraft {
    *	The cost to add to the cart. The amount can be negative.
    *
    */
-  readonly money: Money
+  readonly money: _Money
   /**
    *
    */

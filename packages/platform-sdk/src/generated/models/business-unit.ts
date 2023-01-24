@@ -4,7 +4,13 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
-import { Address, BaseAddress, CreatedBy, LastModifiedBy } from './common'
+import {
+  Address,
+  BaseAddress,
+  CreatedBy,
+  LastModifiedBy,
+  _BaseAddress,
+} from './common'
 import { CustomerReference, CustomerResourceIdentifier } from './customer'
 import { StoreKeyReference, StoreResourceIdentifier } from './store'
 import {
@@ -678,7 +684,7 @@ export interface BusinessUnitAddAddressAction {
    *
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
 }
 /**
  *	Adding an Associate to a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitAssociateAdded](ctp:api:type:BusinessUnitAssociateAddedMessage) Message.
@@ -768,7 +774,7 @@ export interface BusinessUnitChangeAddressAction {
    *
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
 }
 /**
  *	Updating the [Associate](ctp:api:type:Associate) on a [Business Unit](ctp:api:type:BusinessUnit) generates the [BusinessUnitAssociateChanged](ctp:api:type:BusinessUnitAssociateChangedMessage) Message.

@@ -24,7 +24,6 @@ import {
   BaseAddress,
   CentPrecisionMoney,
   LocalizedString,
-  Money,
   _BaseAddress,
   _Money,
 } from './common'
@@ -124,11 +123,11 @@ export interface MyCartDraft {
   /**
    *
    */
-  readonly shippingAddress?: BaseAddress
+  readonly shippingAddress?: _BaseAddress
   /**
    *
    */
-  readonly billingAddress?: BaseAddress
+  readonly billingAddress?: _BaseAddress
   /**
    *
    */
@@ -602,7 +601,7 @@ export interface MyPaymentDraft {
    *
    *
    */
-  readonly amountPlanned: Money
+  readonly amountPlanned: _Money
   /**
    *	Information regarding the payment interface (for example, a PSP), and the specific payment method used.
    *
@@ -839,7 +838,7 @@ export interface MyTransactionDraft {
    *
    *
    */
-  readonly amount: Money
+  readonly amount: _Money
   /**
    *	Identifier used by the payment service that manages the Transaction.
    *	Can be used to correlate the Transaction to an interface interaction.
@@ -871,7 +870,7 @@ export interface MyBusinessUnitAddAddressAction {
    *
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
 }
 /**
  *	Adding a billing address to a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitBillingAddressAdded](ctp:api:type:BusinessUnitBillingAddressAddedMessage) Message.
@@ -934,7 +933,7 @@ export interface MyBusinessUnitChangeAddressAction {
    *
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
 }
 /**
  *	Updating the [Associate](ctp:api:type:Associate) on a [Business Unit](ctp:api:type:BusinessUnit) generates the [BusinessUnitAssociateChanged](ctp:api:type:BusinessUnitAssociateChangedMessage) Message.
@@ -1545,7 +1544,7 @@ export interface MyCustomerAddAddressAction {
    *
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
 }
 /**
  *	Adds an address from the `addresses` array to `billingAddressIds`. Either `addressId` or `addressKey` is required.
@@ -1610,7 +1609,7 @@ export interface MyCustomerChangeAddressAction {
    *
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
 }
 /**
  *	Changing the email of the Customer produces the [CustomerEmailChanged](ctp:api:type:CustomerEmailChangedMessage) Message.
@@ -1894,7 +1893,7 @@ export interface MyPaymentChangeAmountPlannedAction {
    *
    *
    */
-  readonly amount: Money
+  readonly amount: _Money
 }
 export interface MyPaymentSetCustomFieldAction {
   readonly action: 'setCustomField'

@@ -11,10 +11,10 @@ import {
   DiscountedPrice,
   DiscountedPriceDraft,
   LastModifiedBy,
-  Money,
   PriceTier,
   PriceTierDraft,
   TypedMoney,
+  _Money,
 } from './common'
 import {
   CustomerGroupReference,
@@ -183,7 +183,7 @@ export interface StandalonePriceDraft {
    *
    *
    */
-  readonly value: Money
+  readonly value: _Money
   /**
    *	Sets the country for which this Price is valid.
    *
@@ -367,7 +367,7 @@ export interface StandalonePriceChangeValueAction {
    *
    *
    */
-  readonly value: Money
+  readonly value: _Money
   /**
    *	If set to `true` the update action applies to the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice). If set to `false`, the update action applies to the current [StandalonePrice](ctp:api:type:StandalonePrice).
    *

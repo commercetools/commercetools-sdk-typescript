@@ -1566,7 +1566,10 @@ export interface ProductRemovePriceAction {
   readonly staged?: boolean
 }
 /**
- *	Either `id` or `sku` is required. Produces the [ProductVariantDeleted](ctp:api:type:ProductVariantDeletedMessage) Message.
+ *	Either `id` or `sku` is required.
+ *	Produces the [ProductVariantDeleted](ctp:api:type:ProductVariantDeletedMessage) Message.
+ *	If the Product Variant to remove is part of a [ProductSelectionAssignment](ctp:api:type:ProductSelectionAssignment)
+ *	its SKU will be automatically removed from the respective [ProductVariantSelection](ctp:api:type:ProductVariantSelection).
  *
  */
 export interface ProductRemoveVariantAction {
@@ -2289,6 +2292,8 @@ export interface ProductSetSearchKeywordsAction {
 }
 /**
  *	SKU cannot be changed or removed if it is associated with an [InventoryEntry](ctp:api:type:InventoryEntry).
+ *	If the SKU to set or unset is part of a [ProductSelectionAssignment](ctp:api:type:ProductSelectionAssignment)
+ *	it will be automatically added or removed from the respective [ProductVariantSelection](ctp:api:type:ProductVariantSelection).
  *
  */
 export interface ProductSetSkuAction {

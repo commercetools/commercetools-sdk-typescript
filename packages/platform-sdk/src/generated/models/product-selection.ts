@@ -147,9 +147,6 @@ export interface ProductSelection extends BaseResource {
    */
   readonly custom?: CustomFields
 }
-/**
- *	Specifies which Product is assigned to which ProductSelection.
- */
 export interface ProductSelectionAssignment {
   /**
    *	Reference to a Product that is assigned to the ProductSelection.
@@ -163,6 +160,8 @@ export interface ProductSelectionAssignment {
   readonly productSelection: ProductSelectionReference
   /**
    *	Selects which Variants of the newly added Product will be included, or excluded, from the Product Selection.
+   *	The list of SKUs will be updated automatically on any change of those performed on the respective Product itself.
+   *
    *
    */
   readonly variantSelection?: ProductVariantSelection

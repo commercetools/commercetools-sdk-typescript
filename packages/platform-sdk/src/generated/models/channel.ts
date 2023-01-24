@@ -6,12 +6,12 @@
 
 import {
   Address,
-  BaseAddress,
   BaseResource,
   CreatedBy,
   GeoJson,
   LastModifiedBy,
   LocalizedString,
+  _BaseAddress,
 } from './common'
 import { ReviewRatingStatistics } from './review'
 import {
@@ -139,7 +139,7 @@ export interface ChannelDraft {
    *
    *
    */
-  readonly address?: BaseAddress
+  readonly address?: _BaseAddress
   /**
    *	Custom fields defined for the Channel.
    *
@@ -323,7 +323,7 @@ export interface ChannelSetAddressAction {
    *
    *
    */
-  readonly address?: BaseAddress
+  readonly address?: _BaseAddress
 }
 export interface ChannelSetAddressCustomFieldAction {
   readonly action: 'setAddressCustomField'

@@ -33,9 +33,9 @@ import {
   Image,
   LastModifiedBy,
   LocalizedString,
-  Money,
   Price,
   Reference,
+  _Money,
 } from './common'
 import { Customer, CustomerReference } from './customer'
 import { CustomerGroupReference } from './customer-group'
@@ -45,7 +45,6 @@ import {
   Delivery,
   DeliveryItem,
   ItemState,
-  Order,
   OrderState,
   Parcel,
   ParcelMeasurements,
@@ -54,6 +53,7 @@ import {
   ReturnShipmentState,
   ShipmentState,
   TrackingData,
+  _Order,
 } from './order'
 import { OrderEdit, OrderEditApplied } from './order-edit'
 import {
@@ -4009,7 +4009,7 @@ export interface OrderCreatedMessage {
    *
    *
    */
-  readonly order: Order
+  readonly order: _Order
 }
 /**
  *	Generated after a successful [Add Custom Line Item](ctp:api:type:StagedOrderAddCustomLineItemAction) update action.
@@ -4629,7 +4629,7 @@ export interface OrderDeletedMessage {
    *
    *
    */
-  readonly order: Order
+  readonly order: _Order
 }
 /**
  *	Generated after a successful [Add Discount Code](ctp:api:type:StagedOrderAddDiscountCodeAction) update action.
@@ -4997,7 +4997,7 @@ export interface OrderImportedMessage {
    *
    *
    */
-  readonly order: Order
+  readonly order: _Order
 }
 /**
  *	Generated after a successful [Add Line Item](ctp:api:type:StagedOrderAddLineItemAction) update action.
@@ -5155,7 +5155,7 @@ export interface OrderLineItemDiscountSetMessage {
    *
    *
    */
-  readonly totalPrice: Money
+  readonly totalPrice: _Money
   /**
    *	[TaxedItemPrice](ctp:api:type:TaxedItemPrice) of the [Line Item](ctp:api:type:LineItem) after the Discount recalculation.
    *
@@ -10934,7 +10934,7 @@ export interface StandalonePriceValueChangedMessage {
    *
    *
    */
-  readonly value: Money
+  readonly value: _Money
   /**
    *	Whether the new value was applied to the current or the staged representation of the StandalonePrice. Staged changes are stored on the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice).
    *
@@ -12604,7 +12604,7 @@ export interface OrderCreatedMessagePayload {
    *
    *
    */
-  readonly order: Order
+  readonly order: _Order
 }
 /**
  *	Generated after a successful [Add Custom Line Item](ctp:api:type:StagedOrderAddCustomLineItemAction) update action.
@@ -12768,7 +12768,7 @@ export interface OrderDeletedMessagePayload {
    *
    *
    */
-  readonly order: Order
+  readonly order: _Order
 }
 /**
  *	Generated after a successful [Add Discount Code](ctp:api:type:StagedOrderAddDiscountCodeAction) update action.
@@ -12851,7 +12851,7 @@ export interface OrderImportedMessagePayload {
    *
    *
    */
-  readonly order: Order
+  readonly order: _Order
 }
 /**
  *	Generated after a successful [Add Line Item](ctp:api:type:StagedOrderAddLineItemAction) update action.
@@ -12895,7 +12895,7 @@ export interface OrderLineItemDiscountSetMessagePayload {
    *
    *
    */
-  readonly totalPrice: Money
+  readonly totalPrice: _Money
   /**
    *	[TaxedItemPrice](ctp:api:type:TaxedItemPrice) of the [Line Item](ctp:api:type:LineItem) after the Discount recalculation.
    *
@@ -14366,7 +14366,7 @@ export interface StandalonePriceValueChangedMessagePayload {
    *
    *
    */
-  readonly value: Money
+  readonly value: _Money
   /**
    *	Whether the new value was applied to the current or the staged representation of the StandalonePrice. Staged changes are stored on the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice).
    *

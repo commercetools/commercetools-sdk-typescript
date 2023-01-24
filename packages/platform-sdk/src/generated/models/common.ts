@@ -625,7 +625,7 @@ export interface DiscountedPriceDraft {
    *
    *
    */
-  readonly value: Money
+  readonly value: _Money
   /**
    *	Relates the referenced [ProductDiscount](ctp:api:type:ProductDiscount) to the discounted price.
    *
@@ -837,7 +837,7 @@ export interface PriceDraft {
    *
    *
    */
-  readonly value: Money
+  readonly value: _Money
   /**
    *	Set this field if this Price is only valid for the specified country.
    *
@@ -940,7 +940,7 @@ export interface PriceTierDraft {
    *
    *
    */
-  readonly value: Money
+  readonly value: _Money
 }
 export interface QueryPrice {
   /**
@@ -954,7 +954,7 @@ export interface QueryPrice {
    *
    *
    */
-  readonly value: Money
+  readonly value: _Money
   /**
    *	Country for which the given Price is valid.
    *
