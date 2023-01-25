@@ -30,8 +30,10 @@ function createError({
   ...rest
 }: JsonObject<any>): HttpErrorType {
   let errorMessage = message || 'Unexpected non-JSON error response'
-  if (statusCode === 404)
-    errorMessage = `URI not found: ${rest.originalRequest.uri}`
+  if (statusCode === 404) {
+    errorMessage = `URI not found: ${rest.originalRequest?.uri || rest.uri}`
+    delete rest.uri // remove the `uri` property from the response
+  }
 
   const ResponseError = getErrorByCode(statusCode)
   if (ResponseError) return new ResponseError(errorMessage, rest)
@@ -248,6 +250,8 @@ export default function createHttpMiddleware({
                   statusCode: res.status,
                   ...(includeRequestInErrorResponse
                     ? { originalRequest: request }
+                    : res.status === 404
+                    ? { uri: request.uri }
                     : {}),
                   retryCount,
                   headers: parseHeaders(res.headers),
