@@ -754,6 +754,81 @@ describe('Http', () => {
       httpMiddleware(next)(request, response)
     }))
 
+  test('should include `uri` in 404 error response', () =>
+    new Promise((resolve: Function, reject: Function) => {
+      const request = createTestRequest({
+        uri: '/foo/bar',
+      })
+      const response = { resolve: Function, reject: Function } as any
+      const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
+        expect(res.error.name).toBe('NotFound')
+        expect(res.error.originalRequest).toHaveProperty('uri')
+        expect(res.error.originalRequest.uri).toBe('/foo/bar')
+        expect(res.statusCode).toBe(404)
+        expect(res.body).toBeUndefined()
+        resolve()
+      }
+      const options = {
+        host: testHost,
+        includeRequestInErrorResponse: true,
+        fetch,
+      } as any
+      const httpMiddleware = createHttpMiddleware(options)
+      nock(testHost).get('/foo/bar').reply(404)
+
+      httpMiddleware(next)(request, response)
+    }))
+
+  test('should delete the `uri` property in 404 error response', () =>
+    new Promise((resolve: Function, reject: Function) => {
+      const request = createTestRequest({
+        uri: '/foo/bar',
+      })
+      const response = { resolve: Function, reject: Function } as any
+      const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
+        expect(res.error.name).toBe('NotFound')
+        expect(res.error.originalRequest).toBeUndefined()
+        expect(res.statusCode).toBe(404)
+        expect(res.body).toBeUndefined()
+        resolve()
+      }
+      const options = {
+        host: testHost,
+        includeRequestInErrorResponse: false,
+        fetch,
+      } as any
+      const httpMiddleware = createHttpMiddleware(options)
+      nock(testHost).get('/foo/bar').reply(404)
+
+      httpMiddleware(next)(request, response)
+    }))
+
+  test('should include the `uri` path in 404 error message', () =>
+    new Promise((resolve: Function, reject: Function) => {
+      const uri = '/foo/bar'
+      const request = createTestRequest({
+        uri,
+      })
+      const response = { resolve: Function, reject: Function } as any
+      const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
+        expect(res.error.name).toBe('NotFound')
+        expect(res.error.originalRequest).toBeUndefined()
+        expect(res.error.message).toBe('URI not found: ' + uri)
+        expect(res.statusCode).toBe(404)
+        expect(res.body).toBeUndefined()
+        resolve()
+      }
+      const options = {
+        host: testHost,
+        includeRequestInErrorResponse: false,
+        fetch,
+      } as any
+      const httpMiddleware = createHttpMiddleware(options)
+      nock(testHost).get('/foo/bar').reply(404)
+
+      httpMiddleware(next)(request, response)
+    }))
+
   test('execute a post request (success)', () =>
     new Promise((resolve: Function, reject: Function) => {
       const request = createTestRequest({
