@@ -173,6 +173,7 @@ export type Message =
   | OrderMessage
   | OrderPaymentAddedMessage
   | OrderPaymentStateChangedMessage
+  | OrderPurchaseOrderNumberSetMessage
   | OrderReturnShipmentStateChangedMessage
   | OrderShipmentStateChangedMessage
   | OrderShippingAddressSetMessage
@@ -3334,6 +3335,7 @@ export type OrderMessage =
   | OrderLineItemDistributionChannelSetMessage
   | OrderLineItemRemovedMessage
   | OrderPaymentStateChangedMessage
+  | OrderPurchaseOrderNumberSetMessage
   | OrderReturnShipmentStateChangedMessage
   | OrderShipmentStateChangedMessage
   | OrderShippingAddressSetMessage
@@ -5502,6 +5504,82 @@ export interface OrderPaymentStateChangedMessage {
    *
    */
   readonly oldPaymentState?: PaymentState
+}
+/**
+ *	Generated after a successful [Set PurchaseOrderNumber](/../api/projects/orders#set-purchase-order-number) update action.
+ *
+ */
+export interface OrderPurchaseOrderNumberSetMessage {
+  readonly type: 'OrderPurchaseOrderNumberSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Purchase order number on the [Order](ctp:api:type:Order) after the [Set PurchaseOrderNumber](/../api/projects/orders#set-purchase-order-number) update action.
+   *
+   *
+   */
+  readonly purchaseOrderNumber?: string
+  /**
+   *	Purchase order number on the [Order](ctp:api:type:Order) before the [Set PurchaseOrderNumber](/../api/projects/orders#set-purchase-order-number) update action.
+   *
+   *
+   */
+  readonly oldPurchaseOrderNumber?: string
 }
 /**
  *	Generated after a successful [Set Return Shipment State](ctp:api:type:OrderSetReturnShipmentStateAction) update action.
@@ -11693,6 +11771,7 @@ export type MessagePayload =
   | OrderMessagePayload
   | OrderPaymentAddedMessagePayload
   | OrderPaymentStateChangedMessagePayload
+  | OrderPurchaseOrderNumberSetMessagePayload
   | OrderReturnShipmentStateChangedMessagePayload
   | OrderShipmentStateChangedMessagePayload
   | OrderShippingAddressSetMessagePayload
@@ -12385,6 +12464,7 @@ export type OrderMessagePayload =
   | OrderLineItemDistributionChannelSetMessagePayload
   | OrderLineItemRemovedMessagePayload
   | OrderPaymentStateChangedMessagePayload
+  | OrderPurchaseOrderNumberSetMessagePayload
   | OrderReturnShipmentStateChangedMessagePayload
   | OrderShipmentStateChangedMessagePayload
   | OrderShippingAddressSetMessagePayload
@@ -13014,6 +13094,25 @@ export interface OrderPaymentStateChangedMessagePayload {
    *
    */
   readonly oldPaymentState?: PaymentState
+}
+/**
+ *	Generated after a successful [Set PurchaseOrderNumber](/../api/projects/orders#set-purchase-order-number) update action.
+ *
+ */
+export interface OrderPurchaseOrderNumberSetMessagePayload {
+  readonly type: 'OrderPurchaseOrderNumberSet'
+  /**
+   *	Purchase order number on the [Order](ctp:api:type:Order) after the [Set PurchaseOrderNumber](/../api/projects/orders#set-purchase-order-number) update action.
+   *
+   *
+   */
+  readonly purchaseOrderNumber?: string
+  /**
+   *	Purchase order number on the [Order](ctp:api:type:Order) before the [Set PurchaseOrderNumber](/../api/projects/orders#set-purchase-order-number) update action.
+   *
+   *
+   */
+  readonly oldPurchaseOrderNumber?: string
 }
 /**
  *	Generated after a successful [Set Return Shipment State](ctp:api:type:OrderSetReturnShipmentStateAction) update action.

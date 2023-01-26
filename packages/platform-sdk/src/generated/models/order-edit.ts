@@ -1339,6 +1339,15 @@ export interface StagedOrderSetParcelTrackingDataAction {
    */
   readonly trackingData?: TrackingData
 }
+export interface StagedOrderSetPurchaseOrderNumberAction {
+  readonly action: 'setPurchaseOrderNumber'
+  /**
+   *	Identifier for a purchase order, usually in a B2B context.
+   *	The Purchase Order Number is typically entered by the [Buyer](/quotes-overview#buyer) and can also be used with [Quotes](/quotes-overview).
+   *
+   */
+  readonly purchaseOrderNumber?: string
+}
 export interface StagedOrderSetReturnInfoAction {
   readonly action: 'setReturnInfo'
   /**
