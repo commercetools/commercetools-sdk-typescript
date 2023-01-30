@@ -67,6 +67,7 @@ async function executeRequest({
     return {
       body: response.data,
       code: response.statusCode,
+      statusCode: response.statusCode,
       headers: getHeaders(response.headers),
       error: {
         statusCode: response.statusCode || response.data.statusCode,
@@ -78,7 +79,7 @@ async function executeRequest({
   } catch (error) {
     return {
       // We know that this is a network error
-      body: null,
+      body: error,
       error,
     }
   } finally {

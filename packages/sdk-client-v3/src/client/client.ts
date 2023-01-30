@@ -144,7 +144,6 @@ export default function createClient(middlewares: ClientOptions) {
         resolve,
         ...(retryCount ? { retryCount } : {}),
         request: rest,
-        code: response?.statusCode,
         ...response,
       } as MiddlewareResponse
 
