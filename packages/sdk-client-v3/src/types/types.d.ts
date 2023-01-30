@@ -78,6 +78,7 @@ export type VariableMap = {
 
 export type ClientResponse<T = any> = {
   body: T
+  code?: number
   statusCode?: number
   // headers?: JsonObject<string>
   headers?: Record<string, any>
@@ -299,8 +300,11 @@ export type HttpClientConfig = IClientOptions & {
   httpClient: Function
 }
 
-export type TResponse = {
-  [k in Keys]: any
+type TResponse = {
+  data: Record<string, any>
+  message?: string
+  statusCode: number
+  headers: Record<string, any>
 }
 
 export type Client = {

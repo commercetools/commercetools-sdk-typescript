@@ -54,7 +54,7 @@ async function executeRequest({
       }
 
       return {
-        body: response.data || response,
+        body: response.data,
         statusCode: response.statusCode,
         headers: getHeaders(response.headers),
       }
@@ -65,13 +65,14 @@ async function executeRequest({
      * build error body
      */
     return {
-      body: null,
-      ...response,
+      body: response.data,
+      code: response.statusCode,
+      headers: getHeaders(response.headers),
       error: {
-        statusCode: response.statusCode | response.data.statusCode,
-        message: response.message || response.data.message,
+        statusCode: response.statusCode || response.data.statusCode,
+        message: response.data.message,
         method: clientOptions.method,
-        ...response,
+        ...response.data,
       },
     }
   } catch (error) {

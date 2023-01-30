@@ -1,3 +1,4 @@
+import { MiddlewareRequest } from '../../src'
 import { Buffer } from 'buffer/'
 import { createHttpMiddleware } from '../../src/middleware'
 
@@ -94,7 +95,7 @@ describe('Http Middleware.', () => {
       // httpClientOptions,
     }
 
-    const next = (req) => {
+    const next = (req: MiddlewareRequest) => {
       expect(typeof req.response).toEqual('object')
       expect(req.response.statusCode).toEqual(200)
       return response
@@ -119,7 +120,7 @@ describe('Http Middleware.', () => {
       // httpClientOptions,
     }
 
-    const next = (req) => {
+    const next = (req: MiddlewareRequest) => {
       expect(typeof req.response).toEqual('object')
       expect(typeof req.response.body).toEqual('string')
       expect(req.response.statusCode).toEqual(200)
@@ -147,7 +148,7 @@ describe('Http Middleware.', () => {
       // httpClientOptions,
     }
 
-    const next = (req) => {
+    const next = (req: MiddlewareRequest) => {
       expect(typeof req.response).toEqual('object')
       expect(typeof req.response.body).toEqual('object')
       expect(req.response.statusCode).toEqual(200)
@@ -175,7 +176,7 @@ describe('Http Middleware.', () => {
       // httpClientOptions,
     }
 
-    const next = (req) => response
+    const next = (req: MiddlewareRequest) => response
 
     createHttpMiddleware(httpMiddlewareOptions)(next)(createTestRequest({}))
     expect(httpMiddlewareOptions.getAbortController).toHaveBeenCalled()
@@ -200,7 +201,7 @@ describe('Http Middleware.', () => {
       // httpClientOptions,
     }
 
-    const next = (req) => {
+    const next = (req: MiddlewareRequest) => {
       expect(req.response.body).toBeFalsy()
       expect(req.method).toEqual('HEAD')
       return response
@@ -234,7 +235,7 @@ describe('Http Middleware.', () => {
       // httpClientOptions,
     }
 
-    const next = (req) => {
+    const next = (req: MiddlewareRequest) => {
       expect(req.response.body).toBeDefined()
       expect(req.method).toEqual('POST')
       expect(Buffer.isBuffer(req.body)).toEqual(true)
@@ -275,7 +276,7 @@ describe('Http Middleware.', () => {
       // httpClientOptions,
     }
 
-    const next = (req) => {
+    const next = (req: MiddlewareRequest) => {
       expect(req.headers['Content-Type']).toEqual(null)
       expect(req.response.body).toBeDefined()
       expect(req.body).toHaveProperty('append')
@@ -313,7 +314,7 @@ describe('Http Middleware.', () => {
       // httpClientOptions,
     }
 
-    const next = (req) => {
+    const next = (req: MiddlewareRequest) => {
       expect(req.headers['Content-Type']).toEqual('image/jpeg')
       expect(req.headers).toEqual({ 'Content-Type': 'image/jpeg' })
       return response

@@ -33,7 +33,20 @@ const client = new ClientBuilder()
 
 const apiRoot = createApiBuilderFromCtpClient(client)
 function getProjectDetails() {
-  return apiRoot.withProjectKey({ projectKey }).get().execute()
+  return apiRoot
+    .withProjectKey({ projectKey })
+    .carts()
+    .post({
+      body: {
+        // shippingAddress: {
+        //   country: '',
+        //   custom
+        // }
+        shippingAddress: {},
+      },
+    })
+  // .get()
+  // .execute()
 }
 
 module.exports = {

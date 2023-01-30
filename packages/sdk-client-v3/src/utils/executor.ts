@@ -1,6 +1,15 @@
-import { HttpClientConfig } from '../types/types'
+import { HttpClientConfig, TResponse } from '../types/types'
 
-async function executeHttpClientRequest(fetcher: Function, config?: any) {
+// type Response = {
+//   data: Record<string, any>
+//   statusCode: number
+//   headers: Record<string, any>
+// }
+
+async function executeHttpClientRequest(
+  fetcher: Function,
+  config?: any
+): Promise<TResponse> {
   async function sendRequest() {
     const response = await fetcher({
       ...config,
@@ -22,7 +31,7 @@ async function executeHttpClientRequest(fetcher: Function, config?: any) {
 export default async function executor(request: HttpClientConfig) {
   const { url, httpClient, ...rest } = request
 
-  const data = await executeHttpClientRequest(
+  const data: TResponse = await executeHttpClientRequest(
     async (options: HttpClientConfig) => {
       const response = await httpClient(url, {
         ...rest,
@@ -47,7 +56,7 @@ export default async function executor(request: HttpClientConfig) {
 
       return {
         data,
-        statusCode: response.status || response.statusCode,
+        statusCode: response.status || response.statusCode || data.statusCode,
         headers: response.headers,
       }
     },

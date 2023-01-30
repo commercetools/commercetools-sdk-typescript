@@ -134,7 +134,7 @@ export default function createClient(middlewares: ClientOptions) {
   validateClient(middlewares)
 
   const resolver = {
-    async resolve(rs): Promise<ClientResult> {
+    async resolve(rs: ClientRequest): Promise<ClientResult> {
       const { reject, resolve, response, retryCount, ...rest } = rs
 
       const res = {
@@ -144,6 +144,7 @@ export default function createClient(middlewares: ClientOptions) {
         resolve,
         ...(retryCount ? { retryCount } : {}),
         request: rest,
+        code: response?.statusCode,
         ...response,
       } as MiddlewareResponse
 
