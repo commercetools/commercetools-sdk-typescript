@@ -59,7 +59,7 @@ export type AssociateRole = 'Admin' | 'Buyer' | string
  */
 export type BusinessUnit = Company | Division
 /**
- *	Generic draft type to model those fields all Business Units have in common.
+ *	Generic draft type to model those fields all Business Units have in common. The additional fields required for creating a [Company](ctp:api:type:Company) or [Division](ctp:api:type:Division) are represented on [CompanyDraft](ctp:api:type:CompanyDraft) and [DivisionDraft](ctp:api:type:DivisionDraft).
  *
  */
 export type BusinessUnitDraft = CompanyDraft | DivisionDraft
@@ -348,7 +348,7 @@ export interface Company {
   readonly topLevelUnit: BusinessUnitKeyReference
 }
 /**
- *	Draft type to represent the top level of a business. Contains the fields and values of the generic [BusinessUnitDraft](ctp:api:type:BusinessUnitDraft] that are used specifically for creating a [Company](ctp:api:type:Company).
+ *	Draft type to represent the top level of a business. Contains the fields and values of the generic [BusinessUnitDraft](ctp:api:type:BusinessUnitDraft) that are used specifically for creating a [Company](ctp:api:type:Company).
  *
  */
 export interface CompanyDraft {
