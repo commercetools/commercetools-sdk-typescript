@@ -11019,6 +11019,13 @@ export interface StandalonePriceValueChangedMessage {
    *
    */
   readonly staged: boolean
+  /**
+   *	The old value of the updated [StandalonePrice](ctp:api:type:StandalonePrice).
+   *	Present on Messages created after 3 February 2023. Optional for backwards compatibility.
+   *
+   *
+   */
+  readonly oldValue?: _Money
 }
 /**
  *	Generated after a successful [Add Country](ctp:api:type:StoreAddCountryAction),
@@ -14472,6 +14479,13 @@ export interface StandalonePriceValueChangedMessagePayload {
    *
    */
   readonly staged: boolean
+  /**
+   *	The old value of the updated [StandalonePrice](ctp:api:type:StandalonePrice).
+   *	Present on Messages created after 3 February 2023. Optional for backwards compatibility.
+   *
+   *
+   */
+  readonly oldValue?: _Money
 }
 /**
  *	Generated after a successful [Add Country](ctp:api:type:StoreAddCountryAction),

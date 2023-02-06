@@ -11,6 +11,8 @@
 <details>
 <summary>Added Property(s)</summary>
 
+- added property `oldValue` to type `StandalonePriceValueChangedMessage`
+- added property `oldValue` to type `StandalonePriceValueChangedMessagePayload`
 - added property `purchaseOrderNumber` to type `StagedOrder`
 - added property `purchaseOrderNumber` to type `Order`
 - added property `purchaseOrderNumber` to type `OrderFromCartDraft`
