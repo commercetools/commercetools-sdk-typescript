@@ -17,7 +17,7 @@ import {
   QueueMiddlewareOptions,
   RefreshAuthMiddlewareOptions,
   LoggerMiddlewareOptions,
-  RetryMiddlewareOptions,
+  // RetryMiddlewareOptions,
   ErrorMiddlewareOptions,
 } from '../types/types'
 
@@ -48,7 +48,7 @@ export default class ClientBuilder {
   private correlationIdMiddleware: Nullable<Middleware>
   private loggerMiddleware: Nullable<Middleware>
   private queueMiddleware: Nullable<Middleware>
-  private retryMiddleware: Nullable<Middleware>
+  // private retryMiddleware: Nullable<Middleware>
   private concurrentMiddleware: Nullable<Middleware>
   private errorMiddleware: Nullable<Middleware>
 
@@ -58,12 +58,12 @@ export default class ClientBuilder {
     this.userAgentMiddleware = createUserAgentMiddleware({})
   }
 
-  withProjectKey(key: string): ClientBuilder {
+  public withProjectKey(key: string): ClientBuilder {
     this.projectKey = key
     return this
   }
 
-  defaultClient(
+  public defaultClient(
     baseUri: string,
     credentials: Credentials,
     oauthUri?: string,
@@ -132,7 +132,9 @@ export default class ClientBuilder {
     )
   }
 
-  withAnonymousSessionFlow(options: AuthMiddlewareOptions): ClientBuilder {
+  public withAnonymousSessionFlow(
+    options: AuthMiddlewareOptions
+  ): ClientBuilder {
     return this.withAuthMiddleware(
       createAuthMiddlewareForAnonymousSessionFlow({
         host: options.host || constants.CTP_AUTH_URL,
@@ -148,7 +150,9 @@ export default class ClientBuilder {
     )
   }
 
-  withRefreshTokenFlow(options: RefreshAuthMiddlewareOptions): ClientBuilder {
+  public withRefreshTokenFlow(
+    options: RefreshAuthMiddlewareOptions
+  ): ClientBuilder {
     return this.withAuthMiddleware(
       createAuthMiddlewareForRefreshTokenFlow({
         host: options.host || constants.CTP_AUTH_URL,
@@ -164,15 +168,15 @@ export default class ClientBuilder {
     )
   }
 
-  withRetryMiddleware(options: RetryMiddlewareOptions): ClientBuilder {
-    this.retryMiddleware = createRetryMiddleware({
-      ...options,
-    })
+  // public withRetryMiddleware(options: RetryMiddlewareOptions): ClientBuilder {
+  //   this.retryMiddleware = createRetryMiddleware({
+  //     ...options,
+  //   })
 
-    return this
-  }
+  //   return this
+  // }
 
-  withExistingTokenFlow(
+  public withExistingTokenFlow(
     authorization: string,
     options?: ExistingTokenMiddlewareOptions
   ): ClientBuilder {
@@ -184,7 +188,7 @@ export default class ClientBuilder {
     )
   }
 
-  withHttpMiddleware(options: HttpMiddlewareOptions): ClientBuilder {
+  public withHttpMiddleware(options: HttpMiddlewareOptions): ClientBuilder {
     this.httpMiddleware = createHttpMiddleware({
       host: options.host || constants.CTP_API_URL,
       httpClient: options.httpClient || fetch,
@@ -194,13 +198,15 @@ export default class ClientBuilder {
     return this
   }
 
-  withUserAgentMiddleware(options?: HttpUserAgentOptions): ClientBuilder {
+  public withUserAgentMiddleware(
+    options?: HttpUserAgentOptions
+  ): ClientBuilder {
     this.userAgentMiddleware = createUserAgentMiddleware(options)
 
     return this
   }
 
-  withQueueMiddleware(options?: QueueMiddlewareOptions): ClientBuilder {
+  public withQueueMiddleware(options?: QueueMiddlewareOptions): ClientBuilder {
     this.queueMiddleware = createQueueMiddleware({
       concurrency: options.concurrency || constants.CONCURRENCT_REQUEST,
       ...options,
@@ -209,13 +215,13 @@ export default class ClientBuilder {
     return this
   }
 
-  withLoggerMiddleware(options?: LoggerMiddlewareOptions) {
+  public withLoggerMiddleware(options?: LoggerMiddlewareOptions) {
     this.loggerMiddleware = createLoggerMiddleware(options)
 
     return this
   }
 
-  withCorrelationIdMiddleware(
+  public withCorrelationIdMiddleware(
     options?: CorrelationIdMiddlewareOptions
   ): ClientBuilder {
     this.correlationIdMiddleware = createCorrelationIdMiddleware({
@@ -226,13 +232,13 @@ export default class ClientBuilder {
     return this
   }
 
-  withConcurrentModificationMiddleware(): ClientBuilder {
+  public withConcurrentModificationMiddleware(): ClientBuilder {
     this.concurrentMiddleware = createConcurrentModificationMiddleware()
 
     return this
   }
 
-  withErrorMiddleware(options?: ErrorMiddlewareOptions): ClientBuilder {
+  public withErrorMiddleware(options?: ErrorMiddlewareOptions): ClientBuilder {
     this.errorMiddleware = createErrorMiddleware(options)
 
     return this
@@ -247,8 +253,8 @@ export default class ClientBuilder {
      * - add retry middleware to be used by concurrent modification
      *   middleware if not explicitly added as part of the middleware
      */
-    if (!this.retryMiddleware && this.concurrentMiddleware)
-      this.withRetryMiddleware({})
+    // if (!this.retryMiddleware && this.concurrentMiddleware)
+    //   this.withRetryMiddleware({})
 
     if (this.correlationIdMiddleware)
       middlewares.push(this.correlationIdMiddleware)
@@ -257,7 +263,7 @@ export default class ClientBuilder {
     if (this.queueMiddleware) middlewares.push(this.queueMiddleware)
     if (this.loggerMiddleware) middlewares.push(this.loggerMiddleware)
     if (this.errorMiddleware) middlewares.push(this.errorMiddleware)
-    if (this.retryMiddleware) middlewares.push(this.retryMiddleware)
+    // if (this.retryMiddleware) middlewares.push(this.retryMiddleware)
     if (this.concurrentMiddleware) middlewares.push(this.concurrentMiddleware)
 
     if (this.httpMiddleware) middlewares.push(this.httpMiddleware)

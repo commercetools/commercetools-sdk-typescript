@@ -39,23 +39,32 @@ export default function createRetryMiddleware(
 
       async function executeRequest<T>(): Promise<T> {
         // first attenpt
-        response = await next(request)
+        // retryCount++
 
-        retryCount++
+        response = await next(request)
         if (predicate(retryCodes, response)) {
+          request.resolve({ ...response })
+
           return {
             ...response,
+            // retryCount
           }
         }
 
         while (retryCount < maxRetries) {
           // check if the response if worth retrying for subsequest calls
-          response = await next(request)
-
           retryCount++
+
+          response = await next({ ...request, retryCount })
           if (predicate(retryCodes, response)) {
+            // request.resolve({
+            //   ...response,
+            //   retryCount
+            // })
+
             return {
               ...response,
+              retryCount,
             }
           }
 
@@ -70,6 +79,11 @@ export default function createRetryMiddleware(
 
           await sleep(timer)
         }
+
+        // response.reject({
+        //   ...response,
+        //   retryCount
+        // })
 
         return {
           ...response,

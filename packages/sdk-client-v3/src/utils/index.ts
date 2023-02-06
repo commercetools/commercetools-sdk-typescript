@@ -13,6 +13,8 @@ export { default as executor } from './executor'
 export * as constants from './constants'
 export { default as sleep } from './sleep'
 export { default as METHODS } from './methods'
+export { default as createError } from './createError'
+export { NetworkError } from './errors'
 export {
   validateRetryCodes,
   validateHttpOptions,

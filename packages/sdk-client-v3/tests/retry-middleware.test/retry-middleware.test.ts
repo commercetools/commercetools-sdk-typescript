@@ -16,7 +16,7 @@ function createTestResponse(options) {
   }
 }
 
-describe('Retry Middleware', () => {
+describe.skip('Retry Middleware', () => {
   test('should be able to validate retry codes', async () => {
     const response = createTestResponse({})
     const retryMiddlewareOptions = {

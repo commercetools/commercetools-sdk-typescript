@@ -8,7 +8,7 @@ export type Optional = { [k in Keys]: any }
 
 export type Middleware = (next: Next) => (request: MiddlewareRequest) => Promise<MiddlewareResponse>
 
-export type MiddlewareResponse<T = Record<string, any>> = {
+export type MiddlewareResponse<T = unknown> = {
   resolve: Function;
   reject: Function;
   body: T;
@@ -27,7 +27,7 @@ export type HttpErrorType = {
   method: MethodType
   statusCode: number
   originalRequest?: ClientRequest
-  body?: JsonObject
+  body: JsonObject
   retryCount?: number
   // headers?: JsonObject<QueryParam>
   headers?: Record<string, any>
@@ -83,6 +83,7 @@ export type ClientResponse<T = any> = {
   // headers?: JsonObject<string>
   headers?: Record<string, any>
   error?: HttpErrorType
+  retryCount?: number
   // request?: Object
 }
 
@@ -216,13 +217,14 @@ export type CredentialsMode = 'omit' | 'same-origin' | 'include'
 export type HttpMiddlewareOptions = {
   host: string
   credentialsMode?: CredentialsMode
-  includeHeaders?: boolean
+  // includeHeaders?: boolean
   includeResponseHeaders?: boolean
   includeOriginalRequest?: boolean
   includeRequestInErrorResponse?: boolean
   // maskSensitiveHeaderData?: boolean
   timeout?: number
-  // enableRetry?: boolean
+  enableRetry?: boolean
+  retryConfig?: RetryOptions
   // retryConfig?: {
   //   maxRetries?: number
   //   retryDelay?: number
@@ -235,9 +237,11 @@ export type HttpMiddlewareOptions = {
   httpClientOptions?: object
 }
 
+export type RetryOptions = RetryMiddlewareOptions
+
 export type HttpOptions = {
   url: string
-  clientOptions: IClientOptions
+  clientOptions: HttpClientOptions
   httpClient: Function
 }
 
@@ -291,6 +295,9 @@ export type IClientOptions = {
   body?: string | Buffer
   timeout?: number
   abortController?: AbortController
+  includeOriginalRequest?: boolean
+  enableRetry?: boolean
+  retryConfig?: RetryOptions
 }
 
 export type HttpClientOptions = IClientOptions & Optional
@@ -304,6 +311,7 @@ type TResponse = {
   data: Record<string, any>
   message?: string
   statusCode: number
+  retryCount: number
   headers: Record<string, any>
 }
 
@@ -312,7 +320,7 @@ export type Client = {
   process: (
     request: ClientRequest,
     fn: ProcessFn,
-    processOpt: ProcessOptions
+    processOpt?: ProcessOptions
   ) => Promise<unknown>
 }
 

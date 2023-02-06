@@ -8,7 +8,11 @@ import {
   HttpErrorType,
   Process,
   Client,
+  MethodType,
+  ClientBuilder,
 } from '../../src'
+import fetch from 'node-fetch'
+import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
 
 const createPayloadResult = (tot: number, startingId = 0) => ({
   count: tot,
@@ -39,7 +43,7 @@ describe('api', () => {
   const middlewares = [
     (next: Next) =>
       (req: ClientRequest): Promise<MiddlewareResponse> =>
-        next(req),
+        next({ ...req, response: { body: {} } }),
   ]
   const client = createClient({ middlewares })
   const request: ClientRequest = {
@@ -99,7 +103,7 @@ describe('execute function', () => {
     const middlewares = [
       (next: Next) =>
         (req: ClientRequest): Promise<MiddlewareResponse> =>
-          next(req),
+          next({ ...req, response: { body: {} } }),
     ]
     const client = createClient({ middlewares })
     const badRequest: MiddlewareRequest = {
@@ -123,7 +127,41 @@ describe('execute function', () => {
           },
         (next: Next) =>
           async (req: ClientRequest): Promise<MiddlewareResponse> => {
-            return next(req)
+            expect(req.headers).toEqual({ Authorization: 'Bearer 123' })
+            return next({ ...req, response: { body: null } })
+          },
+      ],
+    })
+
+    return client.execute(request).then((response) => {
+      expect(response).toHaveProperty('reject')
+      expect(response).toHaveProperty('resolve')
+      expect(response).toEqual(
+        expect.objectContaining({
+          body: null,
+          error: null,
+        })
+      )
+    })
+  })
+
+  test('execute and resolve a simple request with `originalRequest`', () => {
+    const client = createClient({
+      middlewares: [
+        (next: Next) =>
+          async (req: ClientRequest): Promise<MiddlewareResponse> => {
+            const headers = {
+              Authorization: 'Bearer 123',
+            }
+            return next({ ...req, headers, response: { body: null } })
+          },
+        (next: Next) =>
+          async (req: ClientRequest): Promise<MiddlewareResponse> => {
+            return next({
+              ...req,
+              includeOriginalRequest: true,
+              response: { body: null },
+            })
           },
       ],
     })
@@ -131,14 +169,22 @@ describe('execute function', () => {
     return client.execute(request).then((response) => {
       expect(response).toEqual(
         expect.objectContaining({
-          request: {
+          body: null,
+          error: null,
+          originalRequest: expect.objectContaining({
             uri: '/test/products',
             method: 'GET',
             body: null,
             headers: { Authorization: 'Bearer 123' },
-          },
+          }),
         })
       )
+      expect(response).toHaveProperty('reject')
+      expect(response).toHaveProperty('resolve')
+      // @ts-ignore
+      expect(response.originalRequest).toHaveProperty('reject')
+      // @ts-ignore
+      expect(response.originalRequest).toHaveProperty('resolve')
     })
   })
 
@@ -148,7 +194,12 @@ describe('execute function', () => {
         (next: Next) =>
           async (req: ClientRequest): Promise<MiddlewareResponse> => {
             const error = new Error('Invalid password')
-            return next({ ...req, error, statusCode: 400 })
+            return next({
+              ...req,
+              error,
+              statusCode: 400,
+              response: { body: {} },
+            })
           },
       ],
     })
@@ -174,7 +225,11 @@ describe('execute function', () => {
                 req.resolve(null)
               },
             }
-            return next({ ...req, ...requestWithCustomResolver })
+            return next({
+              ...req,
+              ...requestWithCustomResolver,
+              response: { body: null },
+            })
           },
         ],
       })
@@ -195,14 +250,27 @@ describe('execute function', () => {
                   customRejectSpy()
                   req.reject(null)
                 },
-                error: new Error('Oops'),
               }
-              return next({ ...req, ...requestWithCustomResolver })
+
+              const error = {
+                method: 'GET' as MethodType,
+                statusCode: 400,
+                message: 'Oops',
+                error: new Error('Oops'),
+                body: null,
+              }
+
+              const resObject = {
+                ...req,
+                ...requestWithCustomResolver,
+                response: { body: null, error },
+              }
+              return next(resObject)
             },
         ],
       })
 
-      return client.execute(request).catch(() => {
+      return client.execute(request).catch((e) => {
         expect(customRejectSpy).toHaveBeenCalled()
       })
     })
@@ -221,7 +289,7 @@ describe('process', () => {
     const middlewares = [
       (next: Next) =>
         (req: MiddlewareRequest): Promise<MiddlewareResponse> =>
-          next(req),
+          next({ ...req, response: { body: null } }),
     ]
     const client = createClient({ middlewares })
 
@@ -451,7 +519,7 @@ describe('process', () => {
           )
         )
       )
-      .catch(({ error }) => {
+      .catch((error) => {
         expect(error.message).toEqual('Invalid password')
         return Promise.resolve()
       })
@@ -491,7 +559,8 @@ describe('process - exposed', () => {
 
   describe('validate arguments', () => {
     const middlewares = [
-      (next: Next) => async (req: MiddlewareRequest) => next({ ...req }),
+      (next: Next) => async (req: MiddlewareRequest) =>
+        next({ ...req, response: { body: null } }),
     ]
 
     createClient({ middlewares }) as Client
@@ -777,7 +846,7 @@ describe('process - exposed', () => {
           )
         )
       )
-      .catch(({ error }) => {
+      .catch((error) => {
         expect(error.message).toEqual('Invalid password')
         return Promise.resolve()
       })
@@ -788,7 +857,7 @@ describe('process - exposed', () => {
       middlewares: [
         (next) =>
           async (req: MiddlewareRequest): Promise<MiddlewareResponse> => {
-            return next({ ...req, statusCode: 200 })
+            return next({ ...req, statusCode: 200, response: { body: {} } })
           },
       ],
     })
@@ -810,45 +879,49 @@ describe('process - exposed', () => {
       })
   })
 
-  // test('should process and project details', async () => {
-  //   const projectKey = process.env.CTP_PROJECT_KEY
-  //   const authMiddlewareOptions = {
-  //     host: 'https://auth.europe-west1.gcp.commercetools.com',
-  //     projectKey,
-  //     credentials: {
-  //       clientId: process.env.CTP_CLIENT_ID || '',
-  //       clientSecret: process.env.CTP_CLIENT_SECRET || '',
-  //     },
-  //     oauthUri: process.env.adminAuthUrl || '',
-  //     scopes: [`manage_project:${projectKey}`],
-  //     fetch,
-  //   }
+  test('should process and project details', async () => {
+    const projectKey = process.env.CTP_PROJECT_KEY
+    const authMiddlewareOptions = {
+      host: 'https://auth.europe-west1.gcp.commercetools.com',
+      projectKey,
+      credentials: {
+        clientId: process.env.CTP_CLIENT_ID || '',
+        clientSecret: process.env.CTP_CLIENT_SECRET || '',
+      },
+      oauthUri: process.env.adminAuthUrl || '',
+      scopes: [`manage_project:${projectKey}`],
+      httpClient: fetch,
+    }
 
-  //   const httpMiddlewareOptions = {
-  //     host: 'https://api.europe-west1.gcp.commercetools.com',
-  //     fetch,
-  //   }
+    const httpMiddlewareOptions = {
+      host: 'https://api.europe-west1.gcp.commercetools.com',
+      httpClient: fetch,
+    }
 
-  //   const apiRoot = createApiBuilderFromCtpClient(
-  //     new ClientBuilder()
-  //       .withProjectKey(projectKey)
-  //       .withClientCredentialsFlow(authMiddlewareOptions)
-  //       .withHttpMiddleware(httpMiddlewareOptions)
-  //       .build()
-  //   )
+    const apiRoot = createApiBuilderFromCtpClient(
+      new ClientBuilder()
+        .withProjectKey(projectKey)
+        .withClientCredentialsFlow(authMiddlewareOptions)
+        .withHttpMiddleware(httpMiddlewareOptions)
+        .build()
+    )
 
-  //   // @ts-ignore
-  //   const request = await apiRoot.withProjectKey({ projectKey }).get().request
-  //   const fn = (data) => data
+    // @ts-ignore
+    const request = apiRoot.withProjectKey({ projectKey }).get().request
+    const fn = (data: any) => data
 
-  //   Process(request, fn, {})
-  //     /**
-  //      * response is an array of processed results
-  //      */
-  //     .then((response) => {
-  //       // @ts-ignore
-  //       expect(response[0].body.key).toEqual(process.env.CTP_PROJECT_KEY)
-  //     })
-  //     .catch(fn)
-  // })
+    Process(request, fn, {})
+      /**
+       * response is an array of processed results
+       */
+      .then((response) => {
+        // @ts-ignore
+        expect(response[0].body.key).toEqual(process.env.CTP_PROJECT_KEY)
+        expect(response[0].error).toBe(null)
+        expect(response[0].statusCode).toEqual(200)
+        expect(response[0].countries).toEqual(expect.any(Array))
+        expect(response[0].currencies).toEqual(expect.any(Array))
+      })
+      .catch(fn)
+  })
 })

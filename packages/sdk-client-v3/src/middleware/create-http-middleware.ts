@@ -7,6 +7,7 @@ import {
   JsonObject,
   QueryParam,
   HttpOptions,
+  HttpErrorType,
   HttpClientConfig,
   HttpClientOptions,
   ClientResult,
@@ -18,17 +19,20 @@ import {
   getHeaders,
   executor,
   constants,
+  createError,
+  NetworkError,
 } from '../utils'
 import { Buffer } from 'buffer/'
 
 async function executeRequest({
   url,
-  clientOptions,
   httpClient,
+  clientOptions,
 }: HttpOptions): Promise<ClientResult> {
   let timer: ReturnType<typeof setTimeout>
 
-  const { timeout, abortController } = clientOptions
+  const { timeout, request, abortController, includeRequestInErrorResponse } =
+    clientOptions
 
   try {
     if (timeout)
@@ -49,6 +53,7 @@ async function executeRequest({
         return {
           body: null,
           statusCode: response.statusCode,
+          retryCount: response.retryCount,
           headers: getHeaders(response.headers),
         }
       }
@@ -56,9 +61,20 @@ async function executeRequest({
       return {
         body: response.data,
         statusCode: response.statusCode,
+        retryCount: response.retryCount,
         headers: getHeaders(response.headers),
       }
     }
+
+    const error: HttpErrorType = createError({
+      message: response.data.message || response.message,
+      statusCode: response.statusCode || response.data.statusCode,
+      headers: getHeaders(response.headers),
+      method: clientOptions.method,
+      body: response.data,
+      retryCount: response.retryCount,
+      ...(includeRequestInErrorResponse ? { originalRequest: request } : {}),
+    })
 
     /**
      * handle non-ok (error) response
@@ -69,16 +85,23 @@ async function executeRequest({
       code: response.statusCode,
       statusCode: response.statusCode,
       headers: getHeaders(response.headers),
-      error: {
-        statusCode: response.statusCode || response.data.statusCode,
-        message: response.data.message,
-        method: clientOptions.method,
-        ...response.data,
-      },
+      error,
+      // error: {
+      //   statusCode: response.statusCode || response.data.statusCode,
+      //   message: response.data.message,
+      //   method: clientOptions.method,
+      //   ...response.data,
+      // },
     }
-  } catch (error) {
+  } catch (e) {
+    const error: HttpErrorType = new NetworkError(e.message, {
+      statusCode: 0,
+      body: e,
+      error: e,
+    })
     return {
       // We know that this is a network error
+      statusCode: 0,
       body: error,
       error,
     }
@@ -98,7 +121,11 @@ export default function createHttpMiddleware(
     credentialsMode,
     httpClient,
     timeout,
+    enableRetry,
+    retryConfig,
     getAbortController,
+    includeOriginalRequest,
+    includeRequestInErrorResponse,
     httpClientOptions,
   } = options
 
@@ -136,8 +163,12 @@ export default function createHttpMiddleware(
       }
 
       const clientOptions: HttpClientOptions = {
+        enableRetry,
+        retryConfig,
+        request: request,
         method: request.method,
         headers: requestHeader,
+        includeRequestInErrorResponse,
         ...httpClientOptions,
       }
 
@@ -163,6 +194,7 @@ export default function createHttpMiddleware(
 
       const responseWithRequest = {
         ...request,
+        includeOriginalRequest,
         response,
       }
 

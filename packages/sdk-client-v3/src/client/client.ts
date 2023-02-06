@@ -1,6 +1,7 @@
 import qs from 'querystring'
 import {
   Next,
+  Client,
   Dispatch,
   ClientResult,
   ClientRequest,
@@ -129,26 +130,29 @@ export function process(
   })
 }
 
-export default function createClient(middlewares: ClientOptions) {
+export default function createClient(middlewares: ClientOptions): Client {
   _options = middlewares
   validateClient(middlewares)
 
   const resolver = {
     async resolve(rs: ClientRequest): Promise<ClientResult> {
-      const { reject, resolve, response, retryCount, ...rest } = rs
+      const { response, includeOriginalRequest, ...rest } = rs
+      const { retryCount, ...restt } = response
 
       const res = {
         body: null,
         error: null,
-        reject,
-        resolve,
-        ...(retryCount ? { retryCount } : {}),
-        request: rest,
-        ...response,
+        reject: rs.reject,
+        resolve: rs.resolve,
+        ...restt,
+        ...(includeOriginalRequest ? { originalRequest: rest } : {}),
+        ...(response?.retryCount ? { retryCount: response.retryCount } : {}),
       } as MiddlewareResponse
 
+      // if (res.error) console.log(res)
+
       if (res.error) {
-        res.reject(res)
+        res.reject(res.error)
         return res
       }
 

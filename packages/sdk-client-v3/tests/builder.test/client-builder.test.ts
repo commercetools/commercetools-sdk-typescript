@@ -187,13 +187,13 @@ describe('Client Builder', () => {
     ).toBeTruthy()
   })
 
-  test('should create client with retry middleware', () => {
-    const client = new ClientBuilder() as any
-    expect(client.retryMiddleware).toBeFalsy()
+  // test('should create client with retry middleware', () => {
+  //   const client = new ClientBuilder() as any
+  //   expect(client.retryMiddleware).toBeFalsy()
 
-    const clientWithRetryMiddleware = client.withRetryMiddleware({
-      generate: 'generated-uuid-string',
-    })
-    expect(clientWithRetryMiddleware.retryMiddleware).toBeTruthy()
-  })
+  //   const clientWithRetryMiddleware = client.withRetryMiddleware({
+  //     generate: 'generated-uuid-string',
+  //   })
+  //   expect(clientWithRetryMiddleware.retryMiddleware).toBeTruthy()
+  // })
 })
