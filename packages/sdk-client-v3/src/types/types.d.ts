@@ -217,21 +217,13 @@ export type CredentialsMode = 'omit' | 'same-origin' | 'include'
 export type HttpMiddlewareOptions = {
   host: string
   credentialsMode?: CredentialsMode
-  // includeHeaders?: boolean
   includeResponseHeaders?: boolean
   includeOriginalRequest?: boolean
   includeRequestInErrorResponse?: boolean
-  // maskSensitiveHeaderData?: boolean
+  maskSensitiveHeaderData?: boolean
   timeout?: number
   enableRetry?: boolean
   retryConfig?: RetryOptions
-  // retryConfig?: {
-  //   maxRetries?: number
-  //   retryDelay?: number
-  //   backoff?: boolean
-  //   maxDelay?: number
-  //   retryCodes?: Array<number | string>,
-  // }
   httpClient: Function
   getAbortController?: () => AbortController
   httpClientOptions?: object
@@ -298,6 +290,7 @@ export type IClientOptions = {
   includeOriginalRequest?: boolean
   enableRetry?: boolean
   retryConfig?: RetryOptions
+  maskSensitiveHeaderData?: boolean
 }
 
 export type HttpClientOptions = IClientOptions & Optional

@@ -21,6 +21,7 @@ import {
   constants,
   createError,
   NetworkError,
+  maskAuthData,
 } from '../utils'
 import { Buffer } from 'buffer/'
 
@@ -31,8 +32,13 @@ async function executeRequest({
 }: HttpOptions): Promise<ClientResult> {
   let timer: ReturnType<typeof setTimeout>
 
-  const { timeout, request, abortController, includeRequestInErrorResponse } =
-    clientOptions
+  const {
+    timeout,
+    request,
+    abortController,
+    maskSensitiveHeaderData,
+    includeRequestInErrorResponse,
+  } = clientOptions
 
   try {
     if (timeout)
@@ -67,13 +73,19 @@ async function executeRequest({
     }
 
     const error: HttpErrorType = createError({
-      message: response.data.message || response.message,
-      statusCode: response.statusCode || response.data.statusCode,
+      message: response?.data?.message || response?.message,
+      statusCode: response.statusCode || response?.data?.statusCode,
       headers: getHeaders(response.headers),
       method: clientOptions.method,
       body: response.data,
       retryCount: response.retryCount,
-      ...(includeRequestInErrorResponse ? { originalRequest: request } : {}),
+      ...(includeRequestInErrorResponse
+        ? {
+            originalRequest: maskSensitiveHeaderData
+              ? maskAuthData(request)
+              : request,
+          }
+        : { uri: request.uri }),
     })
 
     /**
@@ -86,22 +98,31 @@ async function executeRequest({
       statusCode: response.statusCode,
       headers: getHeaders(response.headers),
       error,
-      // error: {
-      //   statusCode: response.statusCode || response.data.statusCode,
-      //   message: response.data.message,
-      //   method: clientOptions.method,
-      //   ...response.data,
-      // },
     }
   } catch (e) {
-    const error: HttpErrorType = new NetworkError(e.message, {
-      statusCode: 0,
-      body: e,
-      error: e,
+    // We know that this is a network error
+    const headers = getHeaders(e.response.headers)
+    const statusCode = e.response.status || e.response?.data0 || 0
+    const message = e.response?.data?.message
+
+    const error: HttpErrorType = createError({
+      statusCode,
+      code: statusCode,
+      status: statusCode,
+      message: message || e.message,
+      headers,
+      body: e.response?.data || e,
+      error: e.response?.data,
+      ...(includeRequestInErrorResponse
+        ? {
+            originalRequest: maskSensitiveHeaderData
+              ? maskAuthData(request)
+              : request,
+          }
+        : { uri: request.uri }),
     })
+
     return {
-      // We know that this is a network error
-      statusCode: 0,
       body: error,
       error,
     }
@@ -126,6 +147,7 @@ export default function createHttpMiddleware(
     getAbortController,
     includeOriginalRequest,
     includeRequestInErrorResponse,
+    maskSensitiveHeaderData,
     httpClientOptions,
   } = options
 
@@ -169,11 +191,12 @@ export default function createHttpMiddleware(
         method: request.method,
         headers: requestHeader,
         includeRequestInErrorResponse,
+        maskSensitiveHeaderData,
         ...httpClientOptions,
       }
 
       if (credentialsMode) {
-        clientOptions.credentialsMode = clientOptions.credentialsMode
+        clientOptions.credentialsMode = credentialsMode
       }
 
       if (abortController) {
@@ -195,6 +218,7 @@ export default function createHttpMiddleware(
       const responseWithRequest = {
         ...request,
         includeOriginalRequest,
+        maskSensitiveHeaderData,
         response,
       }
 

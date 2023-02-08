@@ -28,7 +28,7 @@ describe('UserAgent', () => {
   })
 
   test('has sdk info', () => {
-    const next = (req): any => {
+    const next = (req: MiddlewareRequest): any => {
       const headers: JsonObject<string> = req.headers
       expect(headers.Authorization).toBe('123')
       expect(headers['User-Agent']).toMatch('commercetools-sdk-javascript')
@@ -39,7 +39,7 @@ describe('UserAgent', () => {
 
   test('has browser info', () => {
     // because we use jsdom
-    const next = (req): any => {
+    const next = (req: MiddlewareRequest): any => {
       const headers: JsonObject<string> = req.headers
       expect(headers.Authorization).toBe('123')
       expect(headers['User-Agent']).toMatch('commercetools-sdk-javascript')
@@ -51,7 +51,7 @@ describe('UserAgent', () => {
 
   test('has browser version', () => {
     // because we use jsdom
-    const next = (req): any => {
+    const next = (req: MiddlewareRequest): any => {
       const headers: JsonObject<string> = req.headers
       expect(headers.Authorization).toBe('123')
       expect(headers['User-Agent']).toMatch('commercetools-sdk-javascript')
@@ -62,7 +62,7 @@ describe('UserAgent', () => {
   })
 
   test('has a customAgent', () => {
-    const next = (req): any => {
+    const next = (req: MiddlewareRequest): any => {
       const headers: JsonObject<string> = req.headers
       expect(headers.Authorization).toBe('123')
       expect(headers['User-Agent']).toMatch('commercetools-sdk-javascript')
@@ -73,18 +73,18 @@ describe('UserAgent', () => {
   })
 
   test('should not override the name', () => {
-    const next = (req): any => {
+    const next = (req: MiddlewareRequest): any => {
       const headers: JsonObject<string> = req.headers
       expect(headers.Authorization).toBe('123')
       expect(headers['User-Agent']).toMatch('commercetools-sdk-javascript')
-      expect(headers['User-Agent']).toMatch('commercetools-sdk-javascript-v2/')
+      expect(headers['User-Agent']).toMatch('commercetools-sdk-javascript-v3/')
     }
 
     userAgentMiddleware(next)(request)
   })
 
   test('do not change existing request header object', () => {
-    const next = (req): any => {
+    const next = (req: MiddlewareRequest): any => {
       const headers: JsonObject<string> = req.headers
       expect(headers.Authorization).toBe('123')
       expect(headers['User-Agent']).toMatch('commercetools-sdk-javascript')

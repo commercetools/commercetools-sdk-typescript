@@ -15,7 +15,7 @@ function createError({
 }: ErrorType): HttpErrorType {
   let errorMessage = message || 'Unexpected non-JSON error response'
   if (statusCode === 404)
-    errorMessage = `URI not found: ${rest.originalRequest.uri}`
+    errorMessage = `URI not found: ${rest.originalRequest?.uri || rest.uri}`
 
   const ResponseError = getErrorByCode(statusCode)
   if (ResponseError) return new ResponseError(errorMessage, rest)

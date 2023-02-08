@@ -25,9 +25,7 @@ async function executeHttpClientRequest(
   }
 
   // Attempt to send the request.
-  return sendRequest().catch((error) => {
-    throw error
-  })
+  return sendRequest().catch((error) => Promise.reject(error))
 }
 
 export default async function executor(request: HttpClientConfig) {
@@ -44,7 +42,9 @@ export default async function executor(request: HttpClientConfig) {
         retryDelay = 200,
       } = retryConfig || {}
 
-      let retryCount = 0
+      let result: string,
+        data: any,
+        retryCount: number = 0
 
       // validate the `retryCodes` option
       validateRetryCodes(retryCodes)
@@ -95,13 +95,20 @@ export default async function executor(request: HttpClientConfig) {
         return _response
       }
 
-      const response = await executeWithRetry()
-
-      // parse response as json or return the data object (for axios response)
-      const data =
-        response.json && typeof response.json == 'function'
-          ? await response.json()
-          : response.data || response
+      const response: Response & { statusCode?: number; data?: object } =
+        await executeWithRetry()
+      try {
+        // try to parse the `fetch` response as text
+        if (response.text && typeof response.text == 'function') {
+          result = await response.text()
+          data = JSON.parse(result)
+        } else {
+          // axios response
+          data = response.data || response
+        }
+      } catch (err) {
+        data = result
+      }
 
       return {
         data,

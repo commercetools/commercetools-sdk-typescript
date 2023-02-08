@@ -1,22 +1,4 @@
-// class DefineError {
-//   name: string
-//   code: number
-//   status: number
-//   statusCode: number
-//   message: string
-//   constructor(statusCode: number, message: string, meta: object) {
-//     this.status = this.statusCode = this.code = statusCode
-//     this.message = message
-//     Object.assign(this, meta)
-
-//     this.name = this.constructor.name
-//     this.constructor.prototype.__proto__ = Error.prototype
-
-//     if (Error.captureStackTrace) Error.captureStackTrace(this, this.constructor)
-//   }
-// }
-
-function DefineError(statusCode, message, meta = {}) {
+function DefineError(statusCode: number, message: string, meta: object = {}) {
   // eslint-disable-next-line no-multi-assign
   this.status = this.statusCode = this.code = statusCode
   this.message = message
@@ -49,7 +31,7 @@ export function Forbidden(...args: Array<unknown>) {
 }
 
 export function NotFound(...args: Array<unknown>) {
-  DefineError.call(this, 404)
+  DefineError.call(this, 404, ...args)
 }
 
 export function ConcurrentModification(...args: Array<unknown>) {

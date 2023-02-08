@@ -1,13 +1,16 @@
 import { MiddlewareRequest } from '../types/types'
 
 export default function maskAuthData(request: MiddlewareRequest) {
-  if (request?.headers) {
-    if (request.headers.Authorization) {
-      request.headers['Authorization'] = 'Bearer ********'
+  const _request = Object.assign({}, request)
+  if (_request?.headers) {
+    if (_request.headers.Authorization) {
+      _request.headers['Authorization'] = 'Bearer ********'
     }
 
-    if (request.headers.authorization) {
-      request.headers['authorization'] = 'Bearer ********'
+    if (_request.headers.authorization) {
+      _request.headers['authorization'] = 'Bearer ********'
     }
   }
+
+  return _request
 }

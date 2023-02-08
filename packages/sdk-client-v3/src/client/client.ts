@@ -11,7 +11,7 @@ import {
   ProcessFn,
   ProcessOptions,
 } from '../types/types'
-import { validateClient, validate } from '../../src/utils'
+import { validate, maskAuthData, validateClient } from '../../src/utils'
 
 function compose({
   middlewares,
@@ -136,20 +136,29 @@ export default function createClient(middlewares: ClientOptions): Client {
 
   const resolver = {
     async resolve(rs: ClientRequest): Promise<ClientResult> {
-      const { response, includeOriginalRequest, ...rest } = rs
-      const { retryCount, ...restt } = response
+      const {
+        response,
+        includeOriginalRequest,
+        maskSensitiveHeaderData,
+        ...request
+      } = rs
+      const { retryCount, ...rest } = response
 
       const res = {
         body: null,
         error: null,
         reject: rs.reject,
         resolve: rs.resolve,
-        ...restt,
-        ...(includeOriginalRequest ? { originalRequest: rest } : {}),
+        ...rest,
+        ...(includeOriginalRequest
+          ? {
+              originalRequest: maskSensitiveHeaderData
+                ? maskAuthData(request)
+                : request,
+            }
+          : {}),
         ...(response?.retryCount ? { retryCount: response.retryCount } : {}),
       } as MiddlewareResponse
-
-      // if (res.error) console.log(res)
 
       if (res.error) {
         res.reject(res.error)
