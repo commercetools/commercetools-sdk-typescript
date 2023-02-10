@@ -285,6 +285,8 @@ export class ByProjectKeyRequestBuilder {
    *	you can manage Store assortments by assigning Product Selections to Stores.
    *	Product Selections may be used by a single Store or shared across several Stores.
    *
+   *	As a good practice, we recommend first creating Products in the project, and then creating Product Selection.
+   *
    */
   public productSelections(): ByProjectKeyProductSelectionsRequestBuilder {
     return new ByProjectKeyProductSelectionsRequestBuilder({

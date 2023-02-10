@@ -4,7 +4,13 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
-import { Address, BaseAddress, CreatedBy, LastModifiedBy } from './common'
+import {
+  Address,
+  BaseAddress,
+  CreatedBy,
+  LastModifiedBy,
+  _BaseAddress,
+} from './common'
 import { CustomerReference, CustomerResourceIdentifier } from './customer'
 import { StoreKeyReference, StoreResourceIdentifier } from './store'
 import {
@@ -53,7 +59,7 @@ export type AssociateRole = 'Admin' | 'Buyer' | string
  */
 export type BusinessUnit = Company | Division
 /**
- *	Generic draft type to model those fields all Business Units have in common.
+ *	Generic draft type to model those fields all Business Units have in common. The additional fields required for creating a [Company](ctp:api:type:Company) or [Division](ctp:api:type:Division) are represented on [CompanyDraft](ctp:api:type:CompanyDraft) and [DivisionDraft](ctp:api:type:DivisionDraft).
  *
  */
 export type BusinessUnitDraft = CompanyDraft | DivisionDraft
@@ -342,7 +348,7 @@ export interface Company {
   readonly topLevelUnit: BusinessUnitKeyReference
 }
 /**
- *	Draft type to represent the top level of a business. Contains the fields and values of the generic [BusinessUnitDraft](ctp:api:type:BusinessUnitDraft] that are used specifically for creating a [Company](ctp:api:type:Company).
+ *	Draft type to represent the top level of a business. Contains the fields and values of the generic [BusinessUnitDraft](ctp:api:type:BusinessUnitDraft) that are used specifically for creating a [Company](ctp:api:type:Company).
  *
  */
 export interface CompanyDraft {
@@ -360,14 +366,14 @@ export interface CompanyDraft {
    */
   readonly status?: BusinessUnitStatus
   /**
-   *	References to [Stores](ctp:api:type:Store) the Business Unit is associated with. Can only be set when `storeMode` is `Explicit`.
+   *	Sets the [Stores](ctp:api:type:Store) the Business Unit is associated with. Can only be set when `storeMode` is `Explicit`.
    *	If not empty, the Business Unit can only be linked to [Carts](ctp:api:type:Cart) and [Orders](ctp:api:type:Order) of a referenced Store.
    *	If empty, the Business Unit can only create [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), or [Quotes](/../api/quotes-overview) that have no `store` value.
    *	Defaults to empty for [Companies](ctp:api:type:BusinessUnitType) and not set for [Divisions](ctp:api:type:BusinessUnitType).
    *
    *
    */
-  readonly stores?: StoreKeyReference[]
+  readonly stores?: StoreResourceIdentifier[]
   /**
    *	Defines whether the Stores of the Business Unit are set on the Business Unit or are inherited from a parent.
    *	Defaults to `Explicit` for [Companies](ctp:api:type:BusinessUnitType) and to `FromParent` for [Divisions](ctp:api:type:BusinessUnitType).
@@ -589,14 +595,14 @@ export interface DivisionDraft {
    */
   readonly status?: BusinessUnitStatus
   /**
-   *	References to [Stores](ctp:api:type:Store) the Business Unit is associated with. Can only be set when `storeMode` is `Explicit`.
+   *	Sets the [Stores](ctp:api:type:Store) the Business Unit is associated with. Can only be set when `storeMode` is `Explicit`.
    *	If not empty, the Business Unit can only be linked to [Carts](ctp:api:type:Cart) and [Orders](ctp:api:type:Order) of a referenced Store.
    *	If empty, the Business Unit can only create [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), or [Quotes](/../api/quotes-overview) that have no `store` value.
    *	Defaults to empty for [Companies](ctp:api:type:BusinessUnitType) and not set for [Divisions](ctp:api:type:BusinessUnitType).
    *
    *
    */
-  readonly stores?: StoreKeyReference[]
+  readonly stores?: StoreResourceIdentifier[]
   /**
    *	If not set, the Division inherits the [Stores](ctp:api:type:Store) from its `parentUnit`.
    *	Set this to `Explicit` if you want to set the Stores explicitly in the `stores` field instead.
@@ -678,7 +684,7 @@ export interface BusinessUnitAddAddressAction {
    *
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
 }
 /**
  *	Adding an Associate to a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitAssociateAdded](ctp:api:type:BusinessUnitAssociateAddedMessage) Message.
@@ -768,7 +774,7 @@ export interface BusinessUnitChangeAddressAction {
    *
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
 }
 /**
  *	Updating the [Associate](ctp:api:type:Associate) on a [Business Unit](ctp:api:type:BusinessUnit) generates the [BusinessUnitAssociateChanged](ctp:api:type:BusinessUnitAssociateChangedMessage) Message.

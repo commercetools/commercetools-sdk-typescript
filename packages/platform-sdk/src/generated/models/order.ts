@@ -41,7 +41,6 @@ import {
   Image,
   LastModifiedBy,
   LocalizedString,
-  Money,
   PriceDraft,
   TypedMoney,
   _BaseAddress,
@@ -119,6 +118,7 @@ import {
   StagedOrderSetParcelItemsAction,
   StagedOrderSetParcelMeasurementsAction,
   StagedOrderSetParcelTrackingDataAction,
+  StagedOrderSetPurchaseOrderNumberAction,
   StagedOrderSetReturnInfoAction,
   StagedOrderSetReturnItemCustomFieldAction,
   StagedOrderSetReturnItemCustomTypeAction,
@@ -223,6 +223,7 @@ export type StagedOrderUpdateAction =
   | StagedOrderSetParcelItemsAction
   | StagedOrderSetParcelMeasurementsAction
   | StagedOrderSetParcelTrackingDataAction
+  | StagedOrderSetPurchaseOrderNumberAction
   | StagedOrderSetReturnInfoAction
   | StagedOrderSetReturnItemCustomFieldAction
   | StagedOrderSetReturnItemCustomTypeAction
@@ -601,6 +602,12 @@ export interface Order extends BaseResource {
    */
   readonly returnInfo?: ReturnInfo[]
   /**
+   *	The Purchase Order Number is typically set by the [Buyer](/quotes-overview#buyer) on a [QuoteRequest](ctp:api:type:QuoteRequest) to
+   *	track the purchase order during the [quote and order flow](/../api/quotes-overview#intended-workflow).
+   *
+   */
+  readonly purchaseOrderNumber?: string
+  /**
    *
    */
   readonly discountCodes?: DiscountCodeInfo[]
@@ -686,6 +693,12 @@ export interface OrderFromCartDraft {
    *
    */
   readonly orderNumber?: string
+  /**
+   *	Identifier for a purchase order, usually in a B2B context.
+   *	The Purchase Order Number is typically entered by the [Buyer](/quotes-overview#buyer) and can also be used with [Quotes](/quotes-overview).
+   *
+   */
+  readonly purchaseOrderNumber?: string
   /**
    *
    */
@@ -788,7 +801,7 @@ export interface OrderImportDraft {
   /**
    *
    */
-  readonly totalPrice: Money
+  readonly totalPrice: _Money
   /**
    *	Order Import does not support calculation of taxes.
    *	When setting the draft the taxedPrice is to be provided.
@@ -798,11 +811,11 @@ export interface OrderImportDraft {
   /**
    *
    */
-  readonly shippingAddress?: BaseAddress
+  readonly shippingAddress?: _BaseAddress
   /**
    *
    */
-  readonly billingAddress?: BaseAddress
+  readonly billingAddress?: _BaseAddress
   /**
    *	Set when the customer is set and the customer is a member of a customer group.
    *	Used for product variant price selection.
@@ -1019,6 +1032,7 @@ export type OrderUpdateAction =
   | OrderSetParcelItemsAction
   | OrderSetParcelMeasurementsAction
   | OrderSetParcelTrackingDataAction
+  | OrderSetPurchaseOrderNumberAction
   | OrderSetReturnInfoAction
   | OrderSetReturnItemCustomFieldAction
   | OrderSetReturnItemCustomTypeAction
@@ -1315,7 +1329,7 @@ export interface ShippingInfoImportDraft {
   /**
    *
    */
-  readonly price: Money
+  readonly price: _Money
   /**
    *	The shipping rate used to determine the price.
    *
@@ -1980,6 +1994,15 @@ export interface OrderSetParcelTrackingDataAction {
    *
    */
   readonly trackingData?: TrackingData
+}
+export interface OrderSetPurchaseOrderNumberAction {
+  readonly action: 'setPurchaseOrderNumber'
+  /**
+   *	Identifier for a purchase order, usually in a B2B context.
+   *	The Purchase Order Number is typically entered by the [Buyer](/quotes-overview#buyer) and can also be used with [Quotes](/quotes-overview).
+   *
+   */
+  readonly purchaseOrderNumber?: string
 }
 export interface OrderSetReturnInfoAction {
   readonly action: 'setReturnInfo'

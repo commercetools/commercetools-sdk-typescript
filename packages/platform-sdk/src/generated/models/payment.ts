@@ -10,8 +10,8 @@ import {
   CreatedBy,
   LastModifiedBy,
   LocalizedString,
-  Money,
   TypedMoney,
+  _Money,
 } from './common'
 import { CustomerReference, CustomerResourceIdentifier } from './customer'
 import { StateReference, StateResourceIdentifier } from './state'
@@ -172,13 +172,13 @@ export interface PaymentDraft {
    *	The value typically matches the [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order) gross total.
    *
    */
-  readonly amountPlanned: Money
+  readonly amountPlanned: _Money
   /**
    *	Deprecated because the value can be calculated from the total amounts saved in the [Transactions](ctp:api:type:Transaction).
    *
    *
    */
-  readonly amountAuthorized?: Money
+  readonly amountAuthorized?: _Money
   /**
    *	Deprecated because this field is of little practical value, as it is either not reliably known, or the authorization time is fixed for a PSP.
    *
@@ -190,13 +190,13 @@ export interface PaymentDraft {
    *
    *
    */
-  readonly amountPaid?: Money
+  readonly amountPaid?: _Money
   /**
    *	Deprecated because the value can be calculated from the total amounts saved in the [Transactions](ctp:api:type:Transaction).
    *
    *
    */
-  readonly amountRefunded?: Money
+  readonly amountRefunded?: _Money
   /**
    *	Information regarding the payment interface (for example, a PSP), and the specific payment method used.
    *
@@ -458,7 +458,7 @@ export interface TransactionDraft {
    *
    *
    */
-  readonly amount: Money
+  readonly amount: _Money
   /**
    *	Identifier used by the payment service that manages the Transaction.
    *	Can be used to correlate the Transaction to an interface interaction.
@@ -536,7 +536,7 @@ export interface PaymentChangeAmountPlannedAction {
    *
    *
    */
-  readonly amount: Money
+  readonly amount: _Money
 }
 export interface PaymentChangeTransactionInteractionIdAction {
   readonly action: 'changeTransactionInteractionId'

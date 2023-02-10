@@ -1566,7 +1566,10 @@ export interface ProductRemovePriceAction {
   readonly staged?: boolean
 }
 /**
- *	Either `id` or `sku` is required. Produces the [ProductVariantDeleted](ctp:api:type:ProductVariantDeletedMessage) Message.
+ *	Either `id` or `sku` is required.
+ *	Produces the [ProductVariantDeleted](ctp:api:type:ProductVariantDeletedMessage) Message.
+ *	If the Product Variant to remove is part of a [ProductSelectionAssignment](ctp:api:type:ProductSelectionAssignment)
+ *	its SKU will be automatically removed from the respective [ProductVariantSelection](ctp:api:type:ProductVariantSelection).
  *
  */
 export interface ProductRemoveVariantAction {
@@ -2004,7 +2007,7 @@ export interface ProductSetDescriptionAction {
 export interface ProductSetDiscountedPriceAction {
   readonly action: 'setDiscountedPrice'
   /**
-   *	The `id` of the [Embedded Price](ctp:api:type:Price) to set the Discount.
+   *	The `id` of the [Price](ctp:api:type:Price) to set the Discount.
    *
    *
    */
@@ -2115,19 +2118,19 @@ export interface ProductSetMetaTitleAction {
   readonly staged?: boolean
 }
 /**
- *	Sets the key of an [Embedded Price](ctp:api:type:Price). Produces the [ProductPriceKeySet](ctp:api:type:ProductPriceKeySetMessage) Message.
+ *	Sets the key of an [Embedded Price](/projects/products#embedded-price). Produces the [ProductPriceKeySet](ctp:api:type:ProductPriceKeySetMessage) Message.
  *
  */
 export interface ProductSetPriceKeyAction {
   readonly action: 'setPriceKey'
   /**
-   *	The `id` of the [Embedded Price](ctp:api:type:Price) to set the key.
+   *	The `id` of the [Price](ctp:api:type:Price) to set the key.
    *
    *
    */
   readonly priceId: string
   /**
-   *	If `true`, only the staged [Embedded Price](ctp:api:type:Price) is updated. If `false`, both the current and staged [Embedded Price](ctp:api:type:Price) are updated.
+   *	If `true`, only the staged [Embedded Price](/projects/products#embedded-price) is updated. If `false`, both the current and staged Embedded Price are updated.
    *
    *
    */
@@ -2289,6 +2292,8 @@ export interface ProductSetSearchKeywordsAction {
 }
 /**
  *	SKU cannot be changed or removed if it is associated with an [InventoryEntry](ctp:api:type:InventoryEntry).
+ *	If the SKU to set or unset is part of a [ProductSelectionAssignment](ctp:api:type:ProductSelectionAssignment)
+ *	it will be automatically added or removed from the respective [ProductVariantSelection](ctp:api:type:ProductVariantSelection).
  *
  */
 export interface ProductSetSkuAction {

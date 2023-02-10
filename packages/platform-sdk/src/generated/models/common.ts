@@ -458,7 +458,7 @@ export interface BaseAddress {
    */
   readonly externalId?: string
 }
-export type _BaseAddress = BaseAddress | AddressDraft | Address
+export type _BaseAddress = BaseAddress | Address | AddressDraft
 export interface Address extends BaseAddress {
   /**
    *	Unique identifier of the Address.
@@ -541,10 +541,10 @@ export type _BaseResource =
   | Zone
   | Category
   | Cart
-  | CartDiscount
   | BusinessUnit
   | Channel
   | AttributeGroup
+  | CartDiscount
 /**
  *	These objects represent information about which [API Client](/../api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/client-logging).
  *
@@ -625,7 +625,7 @@ export interface DiscountedPriceDraft {
    *
    *
    */
-  readonly value: Money
+  readonly value: _Money
   /**
    *	Relates the referenced [ProductDiscount](ctp:api:type:ProductDiscount) to the discounted price.
    *
@@ -837,7 +837,7 @@ export interface PriceDraft {
    *
    *
    */
-  readonly value: Money
+  readonly value: _Money
   /**
    *	Set this field if this Price is only valid for the specified country.
    *
@@ -940,7 +940,7 @@ export interface PriceTierDraft {
    *
    *
    */
-  readonly value: Money
+  readonly value: _Money
 }
 export interface QueryPrice {
   /**
@@ -954,7 +954,7 @@ export interface QueryPrice {
    *
    *
    */
-  readonly value: Money
+  readonly value: _Money
   /**
    *	Country for which the given Price is valid.
    *

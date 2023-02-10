@@ -254,6 +254,13 @@ export interface Quote extends BaseResource {
    */
   readonly state?: StateReference
   /**
+   *	The Purchase Order Number is typically set by the [Buyer](/quotes-overview#buyer) on a [QuoteRequest](ctp:api:type:QuoteRequest) to
+   *	track the purchase order during the [quote and order flow](/../api/quotes-overview#intended-workflow).
+   *
+   *
+   */
+  readonly purchaseOrderNumber?: string
+  /**
    *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Quote.
    *
    *

@@ -33,9 +33,9 @@ import {
   Image,
   LastModifiedBy,
   LocalizedString,
-  Money,
   Price,
   Reference,
+  _Money,
 } from './common'
 import { Customer, CustomerReference } from './customer'
 import { CustomerGroupReference } from './customer-group'
@@ -45,7 +45,6 @@ import {
   Delivery,
   DeliveryItem,
   ItemState,
-  Order,
   OrderState,
   Parcel,
   ParcelMeasurements,
@@ -54,6 +53,7 @@ import {
   ReturnShipmentState,
   ShipmentState,
   TrackingData,
+  _Order,
 } from './order'
 import { OrderEdit, OrderEditApplied } from './order-edit'
 import {
@@ -173,6 +173,7 @@ export type Message =
   | OrderMessage
   | OrderPaymentAddedMessage
   | OrderPaymentStateChangedMessage
+  | OrderPurchaseOrderNumberSetMessage
   | OrderReturnShipmentStateChangedMessage
   | OrderShipmentStateChangedMessage
   | OrderShippingAddressSetMessage
@@ -3334,6 +3335,7 @@ export type OrderMessage =
   | OrderLineItemDistributionChannelSetMessage
   | OrderLineItemRemovedMessage
   | OrderPaymentStateChangedMessage
+  | OrderPurchaseOrderNumberSetMessage
   | OrderReturnShipmentStateChangedMessage
   | OrderShipmentStateChangedMessage
   | OrderShippingAddressSetMessage
@@ -4009,7 +4011,7 @@ export interface OrderCreatedMessage {
    *
    *
    */
-  readonly order: Order
+  readonly order: _Order
 }
 /**
  *	Generated after a successful [Add Custom Line Item](ctp:api:type:StagedOrderAddCustomLineItemAction) update action.
@@ -4629,7 +4631,7 @@ export interface OrderDeletedMessage {
    *
    *
    */
-  readonly order: Order
+  readonly order: _Order
 }
 /**
  *	Generated after a successful [Add Discount Code](ctp:api:type:StagedOrderAddDiscountCodeAction) update action.
@@ -4997,7 +4999,7 @@ export interface OrderImportedMessage {
    *
    *
    */
-  readonly order: Order
+  readonly order: _Order
 }
 /**
  *	Generated after a successful [Add Line Item](ctp:api:type:StagedOrderAddLineItemAction) update action.
@@ -5155,7 +5157,7 @@ export interface OrderLineItemDiscountSetMessage {
    *
    *
    */
-  readonly totalPrice: Money
+  readonly totalPrice: _Money
   /**
    *	[TaxedItemPrice](ctp:api:type:TaxedItemPrice) of the [Line Item](ctp:api:type:LineItem) after the Discount recalculation.
    *
@@ -5502,6 +5504,82 @@ export interface OrderPaymentStateChangedMessage {
    *
    */
   readonly oldPaymentState?: PaymentState
+}
+/**
+ *	Generated after a successful [Set PurchaseOrderNumber](/../api/projects/orders#set-purchase-order-number) update action.
+ *
+ */
+export interface OrderPurchaseOrderNumberSetMessage {
+  readonly type: 'OrderPurchaseOrderNumberSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Purchase order number on the [Order](ctp:api:type:Order) after the [Set PurchaseOrderNumber](/../api/projects/orders#set-purchase-order-number) update action.
+   *
+   *
+   */
+  readonly purchaseOrderNumber?: string
+  /**
+   *	Purchase order number on the [Order](ctp:api:type:Order) before the [Set PurchaseOrderNumber](/../api/projects/orders#set-purchase-order-number) update action.
+   *
+   *
+   */
+  readonly oldPurchaseOrderNumber?: string
 }
 /**
  *	Generated after a successful [Set Return Shipment State](ctp:api:type:OrderSetReturnShipmentStateAction) update action.
@@ -7357,7 +7435,7 @@ export interface ProductPriceAddedMessage {
    */
   readonly variantId: number
   /**
-   *	The [Embedded Price](ctp:api:type:Price) that was added to the [ProductVariant](ctp:api:type:ProductVariant).
+   *	The [Embedded Price](/projects/products#embedded-price) that was added to the [ProductVariant](ctp:api:type:ProductVariant).
    *
    *
    */
@@ -7439,13 +7517,13 @@ export interface ProductPriceChangedMessage {
    */
   readonly variantId: number
   /**
-   *	The current [Embedded Price](ctp:api:type:Price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *	The current [Embedded Price](/projects/products#embedded-price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
    *
    *
    */
   readonly oldPrice: Price
   /**
-   *	The [Embedded Price](ctp:api:type:Price) after the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *	The [Embedded Price](/projects/products#embedded-price) after the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
    *
    *
    */
@@ -7457,7 +7535,7 @@ export interface ProductPriceChangedMessage {
    */
   readonly staged: boolean
   /**
-   *	The staged [Embedded Price](ctp:api:type:Price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *	The staged [Embedded Price](/projects/products#embedded-price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
    *
    *
    */
@@ -7534,7 +7612,7 @@ export interface ProductPriceDiscountsSetMessage {
   readonly updatedPrices: ProductPriceDiscountsSetUpdatedPrice[]
 }
 /**
- *	Details about a [Embedded Price](ctp:api:type:Price) that was updated due to a Discount. Specific to [ProductPriceDiscountsSet](ctp:api:type:ProductPriceDiscountsSetMessage) Message.
+ *	Details about a [Embedded Price](/projects/products#embedded-price) that was updated due to a Discount. Specific to [ProductPriceDiscountsSet](ctp:api:type:ProductPriceDiscountsSetMessage) Message.
  *
  */
 export interface ProductPriceDiscountsSetUpdatedPrice {
@@ -7557,7 +7635,7 @@ export interface ProductPriceDiscountsSetUpdatedPrice {
    */
   readonly sku?: string
   /**
-   *	Unique identifier of the [Embedded Price](ctp:api:type:Price).
+   *	Unique identifier of the [Price](ctp:api:type:Price).
    *
    *
    */
@@ -7657,7 +7735,7 @@ export interface ProductPriceExternalDiscountSetMessage {
    */
   readonly sku?: string
   /**
-   *	Unique identifier of the [Embedded Price](ctp:api:type:Price).
+   *	Unique identifier of the [Price](ctp:api:type:Price).
    *
    *
    */
@@ -7743,19 +7821,19 @@ export interface ProductPriceKeySetMessage {
    */
   readonly variantId: number
   /**
-   *	Unique identifier of the [Embedded Price](ctp:api:type:Price).
+   *	Unique identifier of the [Price](ctp:api:type:Price).
    *
    *
    */
   readonly priceId?: string
   /**
-   *	`key` value of the [Embedded Price](ctp:api:type:Price) before the [Set Price Key](ctp:api:type:ProductSetPriceKeyAction) update action.
+   *	`key` value of the [Price](ctp:api:type:Price) before the [Set Price Key](ctp:api:type:ProductSetPriceKeyAction) update action.
    *
    *
    */
   readonly oldKey?: string
   /**
-   *	`key` value of the [Embedded Price](ctp:api:type:Price) after the [Set Price Key](ctp:api:type:ProductSetPriceKeyAction) update action.
+   *	`key` value of the [Price](ctp:api:type:Price) after the [Set Price Key](ctp:api:type:ProductSetPriceKeyAction) update action.
    *
    *
    */
@@ -7907,7 +7985,7 @@ export interface ProductPriceRemovedMessage {
    */
   readonly variantId: number
   /**
-   *	The [Embedded Price](ctp:api:type:Price) that was removed from the [ProductVariant](ctp:api:type:ProductVariant).
+   *	The [Embedded Price](/projects/products#embedded-price) that was removed from the [ProductVariant](ctp:api:type:ProductVariant).
    *
    *
    */
@@ -10934,13 +11012,20 @@ export interface StandalonePriceValueChangedMessage {
    *
    *
    */
-  readonly value: Money
+  readonly value: _Money
   /**
    *	Whether the new value was applied to the current or the staged representation of the StandalonePrice. Staged changes are stored on the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice).
    *
    *
    */
   readonly staged: boolean
+  /**
+   *	The old value of the updated [StandalonePrice](ctp:api:type:StandalonePrice).
+   *	Present on Messages created after 3 February 2023. Optional for backwards compatibility.
+   *
+   *
+   */
+  readonly oldValue?: _Money
 }
 /**
  *	Generated after a successful [Add Country](ctp:api:type:StoreAddCountryAction),
@@ -11693,6 +11778,7 @@ export type MessagePayload =
   | OrderMessagePayload
   | OrderPaymentAddedMessagePayload
   | OrderPaymentStateChangedMessagePayload
+  | OrderPurchaseOrderNumberSetMessagePayload
   | OrderReturnShipmentStateChangedMessagePayload
   | OrderShipmentStateChangedMessagePayload
   | OrderShippingAddressSetMessagePayload
@@ -12385,6 +12471,7 @@ export type OrderMessagePayload =
   | OrderLineItemDistributionChannelSetMessagePayload
   | OrderLineItemRemovedMessagePayload
   | OrderPaymentStateChangedMessagePayload
+  | OrderPurchaseOrderNumberSetMessagePayload
   | OrderReturnShipmentStateChangedMessagePayload
   | OrderShipmentStateChangedMessagePayload
   | OrderShippingAddressSetMessagePayload
@@ -12604,7 +12691,7 @@ export interface OrderCreatedMessagePayload {
    *
    *
    */
-  readonly order: Order
+  readonly order: _Order
 }
 /**
  *	Generated after a successful [Add Custom Line Item](ctp:api:type:StagedOrderAddCustomLineItemAction) update action.
@@ -12768,7 +12855,7 @@ export interface OrderDeletedMessagePayload {
    *
    *
    */
-  readonly order: Order
+  readonly order: _Order
 }
 /**
  *	Generated after a successful [Add Discount Code](ctp:api:type:StagedOrderAddDiscountCodeAction) update action.
@@ -12851,7 +12938,7 @@ export interface OrderImportedMessagePayload {
    *
    *
    */
-  readonly order: Order
+  readonly order: _Order
 }
 /**
  *	Generated after a successful [Add Line Item](ctp:api:type:StagedOrderAddLineItemAction) update action.
@@ -12895,7 +12982,7 @@ export interface OrderLineItemDiscountSetMessagePayload {
    *
    *
    */
-  readonly totalPrice: Money
+  readonly totalPrice: _Money
   /**
    *	[TaxedItemPrice](ctp:api:type:TaxedItemPrice) of the [Line Item](ctp:api:type:LineItem) after the Discount recalculation.
    *
@@ -13014,6 +13101,25 @@ export interface OrderPaymentStateChangedMessagePayload {
    *
    */
   readonly oldPaymentState?: PaymentState
+}
+/**
+ *	Generated after a successful [Set PurchaseOrderNumber](/../api/projects/orders#set-purchase-order-number) update action.
+ *
+ */
+export interface OrderPurchaseOrderNumberSetMessagePayload {
+  readonly type: 'OrderPurchaseOrderNumberSet'
+  /**
+   *	Purchase order number on the [Order](ctp:api:type:Order) after the [Set PurchaseOrderNumber](/../api/projects/orders#set-purchase-order-number) update action.
+   *
+   *
+   */
+  readonly purchaseOrderNumber?: string
+  /**
+   *	Purchase order number on the [Order](ctp:api:type:Order) before the [Set PurchaseOrderNumber](/../api/projects/orders#set-purchase-order-number) update action.
+   *
+   *
+   */
+  readonly oldPurchaseOrderNumber?: string
 }
 /**
  *	Generated after a successful [Set Return Shipment State](ctp:api:type:OrderSetReturnShipmentStateAction) update action.
@@ -13501,7 +13607,7 @@ export interface ProductPriceAddedMessagePayload {
    */
   readonly variantId: number
   /**
-   *	The [Embedded Price](ctp:api:type:Price) that was added to the [ProductVariant](ctp:api:type:ProductVariant).
+   *	The [Embedded Price](/projects/products#embedded-price) that was added to the [ProductVariant](ctp:api:type:ProductVariant).
    *
    *
    */
@@ -13526,13 +13632,13 @@ export interface ProductPriceChangedMessagePayload {
    */
   readonly variantId: number
   /**
-   *	The current [Embedded Price](ctp:api:type:Price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *	The current [Embedded Price](/projects/products#embedded-price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
    *
    *
    */
   readonly oldPrice: Price
   /**
-   *	The [Embedded Price](ctp:api:type:Price) after the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *	The [Embedded Price](/projects/products#embedded-price) after the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
    *
    *
    */
@@ -13544,7 +13650,7 @@ export interface ProductPriceChangedMessagePayload {
    */
   readonly staged: boolean
   /**
-   *	The staged [Embedded Price](ctp:api:type:Price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *	The staged [Embedded Price](/projects/products#embedded-price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
    *
    *
    */
@@ -13588,7 +13694,7 @@ export interface ProductPriceExternalDiscountSetMessagePayload {
    */
   readonly sku?: string
   /**
-   *	Unique identifier of the [Embedded Price](ctp:api:type:Price).
+   *	Unique identifier of the [Price](ctp:api:type:Price).
    *
    *
    */
@@ -13617,19 +13723,19 @@ export interface ProductPriceKeySetMessagePayload {
    */
   readonly variantId: number
   /**
-   *	Unique identifier of the [Embedded Price](ctp:api:type:Price).
+   *	Unique identifier of the [Price](ctp:api:type:Price).
    *
    *
    */
   readonly priceId?: string
   /**
-   *	`key` value of the [Embedded Price](ctp:api:type:Price) before the [Set Price Key](ctp:api:type:ProductSetPriceKeyAction) update action.
+   *	`key` value of the [Price](ctp:api:type:Price) before the [Set Price Key](ctp:api:type:ProductSetPriceKeyAction) update action.
    *
    *
    */
   readonly oldKey?: string
   /**
-   *	`key` value of the [Embedded Price](ctp:api:type:Price) after the [Set Price Key](ctp:api:type:ProductSetPriceKeyAction) update action.
+   *	`key` value of the [Price](ctp:api:type:Price) after the [Set Price Key](ctp:api:type:ProductSetPriceKeyAction) update action.
    *
    *
    */
@@ -13667,7 +13773,7 @@ export interface ProductPriceRemovedMessagePayload {
    */
   readonly variantId: number
   /**
-   *	The [Embedded Price](ctp:api:type:Price) that was removed from the [ProductVariant](ctp:api:type:ProductVariant).
+   *	The [Embedded Price](/projects/products#embedded-price) that was removed from the [ProductVariant](ctp:api:type:ProductVariant).
    *
    *
    */
@@ -14366,13 +14472,20 @@ export interface StandalonePriceValueChangedMessagePayload {
    *
    *
    */
-  readonly value: Money
+  readonly value: _Money
   /**
    *	Whether the new value was applied to the current or the staged representation of the StandalonePrice. Staged changes are stored on the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice).
    *
    *
    */
   readonly staged: boolean
+  /**
+   *	The old value of the updated [StandalonePrice](ctp:api:type:StandalonePrice).
+   *	Present on Messages created after 3 February 2023. Optional for backwards compatibility.
+   *
+   *
+   */
+  readonly oldValue?: _Money
 }
 /**
  *	Generated after a successful [Add Country](ctp:api:type:StoreAddCountryAction),

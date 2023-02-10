@@ -11,6 +11,7 @@ import {
   BaseResource,
   CreatedBy,
   LastModifiedBy,
+  _BaseAddress,
 } from './common'
 import {
   CustomerGroupReference,
@@ -802,7 +803,7 @@ export interface CustomerAddAddressAction {
    *
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
 }
 /**
  *	Adds an Address from the `addresses` array to `billingAddressIds`. Either `addressId` or `addressKey` is required.
@@ -880,7 +881,7 @@ export interface CustomerChangeAddressAction {
    *
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
 }
 /**
  *	Changing the email of the Customer produces the [CustomerEmailChanged](ctp:api:type:CustomerEmailChangedMessage) Message.

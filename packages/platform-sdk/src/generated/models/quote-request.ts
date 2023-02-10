@@ -226,6 +226,13 @@ export interface QuoteRequest extends BaseResource {
    */
   readonly state?: StateReference
   /**
+   *	Identifier for a purchase order, usually in a B2B context.
+   *	The Purchase Order Number is typically entered by the [Buyer](/quotes-overview#buyer).
+   *
+   *
+   */
+  readonly purchaseOrderNumber?: string
+  /**
    *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Quote Request.
    *
    *
@@ -271,6 +278,13 @@ export interface QuoteRequestDraft {
    *
    */
   readonly state?: StateReference
+  /**
+   *	Identifier for a purchase order, usually in a B2B context.
+   *	The Purchase Order Number is typically entered by the [Buyer](/quotes-overview#buyer).
+   *
+   *
+   */
+  readonly purchaseOrderNumber?: string
 }
 /**
  *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [QuoteRequest](ctp:api:type:QuoteRequest).
