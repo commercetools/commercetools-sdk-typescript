@@ -1,5 +1,11 @@
 # @commercetools/sdk-client-v2
 
+## 2.1.2
+
+### Patch Changes
+
+- [#415](https://github.com/commercetools/commercetools-sdk-typescript/pull/415) [`caca661`](https://github.com/commercetools/commercetools-sdk-typescript/commit/caca661ff4c91cf256b6ee406135a45478b7ae47) Thanks [@ajimae](https://github.com/ajimae)! - fix uri `notfound error` for 404 error when `includeRequestInErrorResponse` is set to false.
+
 ## 2.1.1
 
 ### Patch Changes
