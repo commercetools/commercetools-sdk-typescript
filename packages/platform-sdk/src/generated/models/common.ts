@@ -306,21 +306,30 @@ export interface AssetSource {
    */
   readonly contentType?: string
 }
+/**
+ *	Polymorphic base type that represents a postal address and contact details.
+ *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+ *	only differ in the data type for the optional `custom` field.
+ *
+ */
 export interface BaseAddress {
   /**
    *	Unique identifier of the Address.
+   *
+   *	It is not recommended to set it manually since the API overwrites this ID when creating an Address for a [Customer](ctp:api:type:Customer).
+   *	Use `key` instead and omit this field from the request to let the API generate the ID for the Address.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the Address.
+   *	User-defined identifier of the Address that must be unique when multiple addresses are referenced in [BusinessUnits](ctp:api:type:BusinessUnit), [Customers](ctp:api:type:Customer), and `itemShippingAddresses` (LineItem-specific addresses) of a [Cart](ctp:api:type:Cart), [Order](ctp:api:type:Order), [QuoteRequest](ctp:api:type:QuoteRequest), or [Quote](ctp:api:type:Quote).
    *
    *
    */
   readonly key?: string
   /**
-   *	Two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Name of the country.
    *
    *
    */
@@ -459,37 +468,29 @@ export interface BaseAddress {
   readonly externalId?: string
 }
 export type _BaseAddress = BaseAddress | Address | AddressDraft
+/**
+ *	Address type returned by read methods.
+ *	Optionally, the `custom` field can be present in addition to the fields of a [BaseAddress](ctp:api:type:BaseAddress).
+ *
+ */
 export interface Address extends BaseAddress {
-  /**
-   *	Unique identifier of the Address.
-   *
-   *
-   */
-  readonly id?: string
   /**
    *	Custom Fields defined for the Address.
    *
    */
   readonly custom?: CustomFields
 }
+/**
+ *	Address type to be used on write methods.
+ *	Optionally, use the `custom` field in addition to the fields of a [BaseAddress](ctp:api:type:BaseAddress).
+ *
+ */
 export interface AddressDraft extends BaseAddress {
   /**
    *	Custom Fields defined for the Address.
    *
    */
   readonly custom?: CustomFieldsDraft
-  /**
-   *	Unique identifier for the Address. Not recommended to set it manually since the API overwrites this ID when creating an Address for a [Customer](ctp:api:type:Customer). Use `key` instead and omit this field from the request to let the API generate the ID for the Address.
-   *
-   *
-   */
-  readonly id?: string
-  /**
-   *	User-defined unique identifier for the Address.
-   *
-   *
-   */
-  readonly key?: string
 }
 export interface BaseResource {
   /**

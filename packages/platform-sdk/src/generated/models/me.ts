@@ -1184,6 +1184,10 @@ export interface MyCartAddDiscountCodeAction {
 export interface MyCartAddItemShippingAddressAction {
   readonly action: 'addItemShippingAddress'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address: _BaseAddress
@@ -1361,6 +1365,10 @@ export interface MyCartRemovePaymentAction {
 export interface MyCartSetBillingAddressAction {
   readonly action: 'setBillingAddress'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address?: _BaseAddress
@@ -1509,6 +1517,10 @@ export interface MyCartSetLocaleAction {
 export interface MyCartSetShippingAddressAction {
   readonly action: 'setShippingAddress'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address?: _BaseAddress
@@ -1529,6 +1541,10 @@ export interface MyCartSetShippingMethodAction {
 export interface MyCartUpdateItemShippingAddressAction {
   readonly action: 'updateItemShippingAddress'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address: _BaseAddress

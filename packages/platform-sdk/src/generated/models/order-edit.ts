@@ -428,6 +428,10 @@ export interface StagedOrderAddDeliveryAction {
    */
   readonly items?: DeliveryItem[]
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address?: _BaseAddress
@@ -451,6 +455,10 @@ export interface StagedOrderAddDiscountCodeAction {
 export interface StagedOrderAddItemShippingAddressAction {
   readonly action: 'addItemShippingAddress'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address: _BaseAddress
@@ -769,6 +777,10 @@ export interface StagedOrderRemovePaymentAction {
 export interface StagedOrderSetBillingAddressAction {
   readonly action: 'setBillingAddress'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address?: _BaseAddress
@@ -971,6 +983,10 @@ export interface StagedOrderSetDeliveryAddressAction {
    */
   readonly deliveryId: string
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address?: _BaseAddress
@@ -1421,6 +1437,10 @@ export interface StagedOrderSetReturnShipmentStateAction {
 export interface StagedOrderSetShippingAddressAction {
   readonly action: 'setShippingAddress'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address?: _BaseAddress
@@ -1428,6 +1448,10 @@ export interface StagedOrderSetShippingAddressAction {
 export interface StagedOrderSetShippingAddressAndCustomShippingMethodAction {
   readonly action: 'setShippingAddressAndCustomShippingMethod'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address: _BaseAddress
@@ -1453,6 +1477,10 @@ export interface StagedOrderSetShippingAddressAndCustomShippingMethodAction {
 export interface StagedOrderSetShippingAddressAndShippingMethodAction {
   readonly action: 'setShippingAddressAndShippingMethod'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address: _BaseAddress
@@ -1604,6 +1632,10 @@ export interface StagedOrderTransitionStateAction {
 export interface StagedOrderUpdateItemShippingAddressAction {
   readonly action: 'updateItemShippingAddress'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address: _BaseAddress
