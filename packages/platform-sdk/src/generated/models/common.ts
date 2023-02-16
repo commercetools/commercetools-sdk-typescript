@@ -541,11 +541,11 @@ export type _BaseResource =
   | Type
   | Zone
   | Category
+  | CartDiscount
+  | AttributeGroup
   | Cart
   | BusinessUnit
   | Channel
-  | AttributeGroup
-  | CartDiscount
 /**
  *	These objects represent information about which [API Client](/../api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/client-logging).
  *
