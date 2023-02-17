@@ -32,6 +32,7 @@
 <details>
 <summary>Added Type(s)</summary>
 
+- added type `GoogleCloudFunctionDestination`
 - added type `OrderPurchaseOrderNumberSetMessage`
 - added type `OrderPurchaseOrderNumberSetMessagePayload`
 - added type `StagedOrderSetPurchaseOrderNumberAction`
