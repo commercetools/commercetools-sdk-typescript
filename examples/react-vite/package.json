@@ -1,0 +1,27 @@
+{
+  "name": "vite-number-conversion",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@commercetools/platform-sdk": "^4.2.0",
+    "@commercetools/sdk-client-v2": "^2.1.0",
+    "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
+    "@esbuild-plugins/node-modules-polyfill": "^0.1.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup-plugin-node-polyfills": "^0.2.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8",
+    "@vitejs/plugin-react": "^2.2.0",
+    "typescript": "^4.6.4",
+    "vite": "^3.2.3"
+  }
+}
