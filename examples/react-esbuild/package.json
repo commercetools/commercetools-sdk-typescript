@@ -1,0 +1,19 @@
+{
+  "name": "esbuild-react",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
+    "dotenv": "^16.0.3",
+    "esbuild": "^0.17.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "scripts": {
+    "dev": "npx lite-server",
+    "build": "node esbuild.config.js",
+    "start": "yarn build;yarn dev"
+  }
+}
