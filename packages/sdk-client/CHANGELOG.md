@@ -1,5 +1,11 @@
 # @commercetools/sdk-client-v2
 
+## 2.1.3
+
+### Patch Changes
+
+- [#423](https://github.com/commercetools/commercetools-sdk-typescript/pull/423) [`4c87f46`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4c87f46c811788543ee2b3b6d7f70e221e05c07e) Thanks [@ajimae](https://github.com/ajimae)! - Change all instances of `require` to `import`
+
 ## 2.1.2
 
 ### Patch Changes
