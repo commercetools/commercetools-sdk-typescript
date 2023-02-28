@@ -477,7 +477,7 @@ export interface ProductPagedQueryResponse {
   readonly results: Product[]
 }
 /**
- *	This mode determines the type of Prices used for [Product Price Selection](ctp:api:type:ProductPriceSelection) as well as for [LineItem Price selection](ctp:api:type:CartLineItemPriceSelection).
+ *	This mode determines the type of Prices used for [Product Price Selection](ctp:api:type:ProductPriceSelection) and for [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
  *
  */
 export type ProductPriceModeEnum = 'Embedded' | 'Standalone' | string

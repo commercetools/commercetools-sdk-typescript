@@ -80,7 +80,7 @@ export interface ShoppingList extends BaseResource {
    */
   readonly deleteDaysAfterLastModification?: number
   /**
-   *	Identifies ShoppingLists belonging to an [anonymous session](/../api/authorization#tokens-for-anonymous-sessions).
+   *	Identifies ShoppingLists belonging to an [anonymous session](ctp:api:type:AnonymousSession).
    *
    */
   readonly anonymousId?: string
@@ -154,7 +154,7 @@ export interface ShoppingListDraft {
    */
   readonly description?: LocalizedString
   /**
-   *	Identifies ShoppingLists belonging to an [anonymous session](/../api/authorization#tokens-for-anonymous-sessions).
+   *	Identifies ShoppingLists belonging to an [anonymous session](ctp:api:type:AnonymousSession).
    *
    */
   readonly anonymousId?: string

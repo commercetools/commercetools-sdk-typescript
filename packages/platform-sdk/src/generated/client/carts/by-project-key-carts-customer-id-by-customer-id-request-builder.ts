@@ -20,11 +20,9 @@ export class ByProjectKeyCartsCustomerIdByCustomerIdRequestBuilder {
     }
   ) {}
   /**
-   *	Retrieves the active cart of the customer that has been modified most recently.
-   *	It does not consider carts with CartOrigin Merchant. If no active cart exists, a 404 Not Found error is returned.
+   *	Retrieves the recently modified active Cart of a Customer with [CartOrigin](ctp:api:type:CartOrigin) `Customer`. If no active Cart exists, a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned.
    *
-   *	The cart may not contain up-to-date prices, discounts etc. If you want to ensure they're up-to-date,
-   *	send an Update request with the Recalculate update action instead.
+   *	To ensure the Cart is up-to-date with current values (such as Prices and Discounts), use the [Recalculate](ctp:api:type:CartRecalculateAction) update action.
    *
    */
   public get(methodArgs?: {

@@ -3,13 +3,13 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { CustomerSignInResult } from '../../models/customer'
-import { MyCustomerDraft } from '../../models/me'
+import { MyOrderFromQuoteDraft } from '../../models/me'
+import { Order } from '../../models/order'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
-export class ByProjectKeyMeSignupRequestBuilder {
+export class ByProjectKeyMeOrdersQuotesRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
@@ -19,23 +19,17 @@ export class ByProjectKeyMeSignupRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	If used with an [access token for an anonymous session](ctp:api:type:AnonymousSession), all Orders and Carts that belong to the `anonymousId` are assigned to the newly created Customer.
-   *
-   *	Creating a Customer produces the [CustomerCreated](ctp:api:type:CustomerCreatedMessage) Message.
-   *
-   */
   public post(methodArgs: {
-    body: MyCustomerDraft
+    body: MyOrderFromQuoteDraft
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<CustomerSignInResult> {
-    return new ApiRequest<CustomerSignInResult>(
+  }): ApiRequest<Order> {
+    return new ApiRequest<Order>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',
-        uriTemplate: '/{projectKey}/me/signup',
+        uriTemplate: '/{projectKey}/me/orders/quotes',
         pathVariables: this.args.pathArgs,
         headers: {
           'Content-Type': 'application/json',

@@ -288,6 +288,7 @@ export type ResourceTypeId =
   | 'product-selection'
   | 'quote'
   | 'review'
+  | 'shipping'
   | 'shipping-method'
   | 'shopping-list'
   | 'shopping-list-text-line-item'

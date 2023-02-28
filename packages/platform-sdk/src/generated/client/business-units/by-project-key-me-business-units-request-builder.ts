@@ -77,6 +77,10 @@ export class ByProjectKeyMeBusinessUnitsRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Automatically assigns the authenticated user to the Business Unit in the [Associate Roles](ctp:api:type:AssociateRole) of `Admin` as well as `Buyer`.
+   *
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

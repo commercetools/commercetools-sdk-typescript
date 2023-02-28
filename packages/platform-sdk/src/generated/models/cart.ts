@@ -18,6 +18,7 @@ import {
   Address,
   BaseAddress,
   BaseResource,
+  CentPrecisionMoney,
   CreatedBy,
   LastModifiedBy,
   LocalizedString,
@@ -31,7 +32,13 @@ import {
   CustomerGroupResourceIdentifier,
 } from './customer-group'
 import { DiscountCodeReference } from './discount-code'
-import { Delivery, ItemState, OrderReference, PaymentInfo } from './order'
+import {
+  Delivery,
+  DeliveryDraft,
+  ItemState,
+  OrderReference,
+  PaymentInfo,
+} from './order'
 import { PaymentResourceIdentifier } from './payment'
 import { ProductVariant } from './product'
 import { ProductTypeReference } from './product-type'
@@ -60,209 +67,255 @@ export interface Cart extends BaseResource {
   /**
    *	Unique identifier of the Cart.
    *
+   *
    */
   readonly id: string
   /**
-   *	User-defined unique identifier of the Cart.
+   *	Current version of the Cart.
    *
-   */
-  readonly key?: string
-  /**
-   *	The current version of the cart.
    *
    */
   readonly version: number
   /**
-   *
-   */
-  readonly createdAt: string
-  /**
-   *
-   */
-  readonly lastModifiedAt: string
-  /**
-   *	Present on resources updated after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	User-defined unique identifier of the Cart.
    *
    *
    */
-  readonly lastModifiedBy?: LastModifiedBy
+  readonly key?: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	`id` of the [Customer](ctp:api:type:Customer) that the Cart belongs to.
    *
-   *
-   */
-  readonly createdBy?: CreatedBy
-  /**
    *
    */
   readonly customerId?: string
   /**
+   *	Email address of the Customer that the Cart belongs to.
+   *
    *
    */
   readonly customerEmail?: string
   /**
-   *	Identifies carts and orders belonging to an anonymous session (the customer has not signed up/in yet).
+   *	[Reference](ctp:api:type:Reference) to the Customer Group of the Customer that the Cart belongs to. Used for [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+   *
+   *
+   */
+  readonly customerGroup?: CustomerGroupReference
+  /**
+   *	[Anonymous session](ctp:api:type:AnonymousSession) associated with the Cart.
+   *
    *
    */
   readonly anonymousId?: string
   /**
-   *	The Business Unit the Cart belongs to.
+   *	[Reference](ctp:api:type:Reference) to a Business Unit the Cart belongs to.
    *
    *
    */
   readonly businessUnit?: BusinessUnitKeyReference
   /**
+   *	[Reference](ctp:api:type:Reference) to a Store the Cart belongs to.
+   *
    *
    */
   readonly store?: StoreKeyReference
   /**
+   *	[Line Items](ctp:api:type:LineItems) added to the Cart.
+   *
    *
    */
   readonly lineItems: LineItem[]
   /**
+   *	[Custom Line Items](ctp:api:type:CustomLineItems) added to the Cart.
+   *
    *
    */
   readonly customLineItems: CustomLineItem[]
   /**
-   *	The sum of all `totalPrice` fields of the `lineItems` and `customLineItems`, as well as the `price` field of `shippingInfo` (if it exists).
-   *	`totalPrice` may or may not include the taxes: it depends on the taxRate.includedInPrice property of each price.
+   *	Sum of all [LineItem](ctp:api:type:LineItem) quantities, excluding [CustomLineItems](ctp:api:type:CustomLineItem). Only present when the Cart has at least one LineItem.
+   *
    *
    */
-  readonly totalPrice: TypedMoney
+  readonly totalLineItemQuantity?: number
   /**
-   *	Not set until the shipping address is set.
-   *	Will be set automatically in the `Platform` TaxMode.
-   *	For the `External` tax mode it will be set  as soon as the external tax rates for all line items, custom line items, and shipping in the cart are set.
+   *	Sum of the `totalPrice` field of all [LineItems](ctp:api:type:LineItem) and [CustomLineItems](ctp:api:type:CustomLineItem), and if available, the `price` field of [ShippingInfo](ctp:api:type:ShippingInfo).
+   *
+   *	Taxes are included if [TaxRate](ctp:api:type:TaxRate) `includedInPrice` is `true` for each price.
+   *
+   *
+   */
+  readonly totalPrice: CentPrecisionMoney
+  /**
+   *	- For a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode), it is automatically set when a [shipping address is set](ctp:api:type:CartSetShippingAddressAction).
+   *	- For a Cart with `External` [TaxMode](ctp:api:type:TaxMode), it is automatically set when the external Tax Rate for all Line Items, Custom Line Items, and Shipping Methods in the Cart are set.
+   *
    *
    */
   readonly taxedPrice?: TaxedPrice
   /**
-   *	Sum of `taxedPrice` of [ShippingInfo](ctp:api:type:ShippingInfo) across all Shipping Methods.
-   *	For `Platform` [TaxMode](ctp:api:type:TaxMode), it is set automatically only if [shipping address is set](ctp:api:type:CartSetShippingAddressAction) or [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction) to the Cart.
+   *	Sum of the `taxedPrice` field of [ShippingInfo](ctp:api:type:ShippingInfo) across all Shipping Methods.
    *
    */
   readonly taxedShippingPrice?: TaxedPrice
   /**
+   *	Indicates how Tax Rates are set.
    *
-   */
-  readonly cartState: CartState
-  /**
-   *	The shipping address is used to determine the eligible shipping methods and rates as well as the tax rate of the line items.
-   *
-   */
-  readonly shippingAddress?: Address
-  /**
-   *
-   */
-  readonly billingAddress?: Address
-  /**
-   *	Indicates whether one or multiple Shipping Methods are added to the Cart.
-   *
-   */
-  readonly shippingMode: ShippingMode
-  /**
-   *	Holds all shipping-related information per Shipping Method of a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
-   *
-   *	It is automatically updated after the [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction).
-   *
-   */
-  readonly shipping: Shipping[]
-  /**
-   *
-   */
-  readonly inventoryMode?: InventoryMode
-  /**
    *
    */
   readonly taxMode: TaxMode
   /**
-   *	When calculating taxes for `taxedPrice`, the selected mode is used for rounding.
+   *	Indicates how monetary values are rounded when calculating taxes for `taxedPrice`.
+   *
    *
    */
   readonly taxRoundingMode: RoundingMode
   /**
-   *	When calculating taxes for `taxedPrice`, the selected mode is used for calculating the price with `LineItemLevel` (horizontally) or `UnitPriceLevel` (vertically) calculation mode.
+   *	Indicates how taxes are calculated when calculating taxes for `taxedPrice`.
+   *
    *
    */
   readonly taxCalculationMode: TaxCalculationMode
   /**
-   *	Set automatically when the customer is set and the customer is a member of a customer group.
-   *	Used for product variant
-   *	price selection.
+   *	Indicates how stock quantities are tracked for Line Items in the Cart.
+   *
    *
    */
-  readonly customerGroup?: CustomerGroupReference
+  readonly inventoryMode: InventoryMode
   /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-   *	Used for product variant price selection.
+   *	Current status of the Cart.
+   *
    *
    */
-  readonly country?: string
+  readonly cartState: CartState
   /**
-   *	Shipping-related information of a Cart with `Single` [ShippingMode](ctp:api:type:ShippingMode).
-   *	Set automatically once the ShippingMethod is set.
+   *	Billing address associated with the Cart.
+   *
+   *
+   */
+  readonly billingAddress?: Address
+  /**
+   *	Shipping address associated with the Cart. Determines eligible [ShippingMethod](ctp:api:type:ShippingMethod) rates and Tax Rates of Line Items.
+   *
+   *
+   */
+  readonly shippingAddress?: Address
+  /**
+   *	Indicates whether the Cart has one or multiple Shipping Methods.
+   *
+   */
+  readonly shippingMode: ShippingMode
+  /**
+   *	Shipping-related information of a Cart with `Single` [ShippingMode](ctp:api:type:ShippingMode). Automatically set when a [Shipping Method is set](ctp:api:type:CartSetShippingMethodAction).
    *
    *
    */
   readonly shippingInfo?: ShippingInfo
   /**
+   *	Shipping-related information of a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode). Updated automatically each time a new [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction).
    *
    */
-  readonly discountCodes?: DiscountCodeInfo[]
+  readonly shipping: Shipping[]
   /**
+   *	Input used to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
+   *	The data type of this field depends on the `shippingRateInputType.type` configured in the [Project](ctp:api:type:Project):
    *
-   */
-  readonly directDiscounts?: DirectDiscount[]
-  /**
+   *	- If `CartClassification`, it is [ClassificationShippingRateInput](ctp:api:type:ClassificationShippingRateInput).
+   *	- If `CartScore`, it is [ScoreShippingRateInput](ctp:api:type:ScoreShippingRateInput).
+   *	- If `CartValue`, it cannot be used.
    *
-   */
-  readonly custom?: CustomFields
-  /**
-   *
-   */
-  readonly paymentInfo?: PaymentInfo
-  /**
-   *
-   */
-  readonly locale?: string
-  /**
-   *	The cart will be deleted automatically if it hasn't been modified for the specified amount of days and it is in the `Active` CartState.
-   *
-   */
-  readonly deleteDaysAfterLastModification?: number
-  /**
-   *	Automatically filled when a line item with LineItemMode `GiftLineItem` is removed from the cart.
-   *
-   */
-  readonly refusedGifts: CartDiscountReference[]
-  /**
-   *	The origin field indicates how this cart was created.
-   *	The value `Customer` indicates, that the cart was created by the customer.
-   *
-   */
-  readonly origin: CartOrigin
-  /**
-   *	The shippingRateInput is used as an input to select a ShippingRatePriceTier.
    *
    */
   readonly shippingRateInput?: ShippingRateInput
   /**
-   *	Contains addresses for carts with multiple shipping addresses.
-   *	Line items reference these addresses under their `shippingDetails`.
-   *	The addresses captured here are not used to determine eligible shipping methods or the applicable tax rate.
-   *	Only the cart's `shippingAddress` is used for this.
+   *	Additional shipping addresses of the Cart as specified by [LineItems](ctp:api:type:LineItem) using the `shippingDetails` field.
+   *
+   *	Eligible Shipping Methods or applicable Tax Rates are determined by the address in `shippingAddress`, and not `itemShippingAddresses`.
+   *
    *
    */
-  readonly itemShippingAddresses?: Address[]
+  readonly itemShippingAddresses: Address[]
   /**
-   *	The sum off all the [Line Items](ctp:api:type:LineItem) quantities. Does not take [Custom Line Items](ctp:api:type:CustomLineItem) into consideration.
+   *	Discount Codes applied to the Cart. A Cart that has `directDiscounts` cannot have `discountCodes`.
+   *
    *
    */
-  readonly totalLineItemQuantity?: number
+  readonly discountCodes: DiscountCodeInfo[]
+  /**
+   *	Direct Discounts added to the Cart. A Cart that has `discountCodes` cannot have `directDiscounts`.
+   *
+   *
+   */
+  readonly directDiscounts: DirectDiscount[]
+  /**
+   *	Automatically set when a Line Item with `GiftLineItem` [LineItemMode](ctp:api:type:LineItemMode) is [removed](ctp:api:type:CartRemoveLineItemAction) from the Cart.
+   *
+   *
+   */
+  readonly refusedGifts: CartDiscountReference[]
+  /**
+   *	Payment information related to the Cart.
+   *
+   *
+   */
+  readonly paymentInfo?: PaymentInfo
+  /**
+   *	Used for [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+   *
+   *
+   */
+  readonly country?: string
+  /**
+   *	Languages of the Cart. Can only contain languages supported by the [Project](ctp:api:type:Project).
+   *
+   *
+   */
+  readonly locale?: string
+  /**
+   *	Indicates how the Cart was created.
+   *
+   *
+   */
+  readonly origin: CartOrigin
+  /**
+   *	Custom Fields of the Cart.
+   *
+   *
+   */
+  readonly custom?: CustomFields
+  /**
+   *	Number of days after which an active Cart is deleted since its last modification. Configured in [Project settings](ctp:api:type:CartsConfiguration).
+   *
+   *
+   */
+  readonly deleteDaysAfterLastModification?: number
+  /**
+   *	Date and time (UTC) the Cart was initially created.
+   *
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Date and time (UTC) the Cart was last updated.
+   *
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
 }
 export interface CartDraft {
   /**
-   *	A three-digit currency code as per [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *	Currency the Cart uses.
+   *
    *
    */
   readonly currency: string
@@ -273,112 +326,118 @@ export interface CartDraft {
    */
   readonly key?: string
   /**
-   *	Id of an existing Customer.
+   *	`id` of the [Customer](ctp:api:type:Customer) that the Cart belongs to.
+   *
    *
    */
   readonly customerId?: string
   /**
+   *	Email address of the Customer that the Cart belongs to.
+   *
    *
    */
   readonly customerEmail?: string
   /**
-   *	Will be set automatically when the `customerId` is set and the customer is a member of a customer group.
-   *	Can be set explicitly when no `customerId` is present.
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to the Customer Group of the Customer that the Cart belongs to. Used for [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+   *
+   *	It is automatically set if the Customer referenced in `customerId` belongs to a Customer Group.
+   *	It can also be set explicitly when no `customerId` is present.
+   *
    *
    */
   readonly customerGroup?: CustomerGroupResourceIdentifier
   /**
-   *	Assigns the new cart to an anonymous session (the customer has not signed up/in yet).
+   *	[Anonymous session](ctp:api:type:AnonymousSession) associated with the Cart.
+   *
    *
    */
   readonly anonymousId?: string
   /**
-   *	The Business Unit the Cart belongs to.
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to the Business Unit the Cart should belong to.
    *
    *
    */
   readonly businessUnit?: BusinessUnitResourceIdentifier
   /**
-   *	Assigns the new cart to the store.
-   *	The store assignment can not be modified.
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to the Store the Cart should belong to. Once set, it cannot be updated.
+   *
    *
    */
   readonly store?: StoreResourceIdentifier
   /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	[Line Items](ctp:api:type:LineItems) to add to the Cart.
    *
-   */
-  readonly country?: string
-  /**
-   *	Default inventory mode is `None`.
-   *
-   */
-  readonly inventoryMode?: InventoryMode
-  /**
-   *	The default tax mode is `Platform`.
-   *
-   */
-  readonly taxMode?: TaxMode
-  /**
-   *	The default tax rounding mode is `HalfEven`.
-   *
-   */
-  readonly taxRoundingMode?: RoundingMode
-  /**
-   *	The default tax calculation mode is `LineItemLevel`.
-   *
-   */
-  readonly taxCalculationMode?: TaxCalculationMode
-  /**
    *
    */
   readonly lineItems?: LineItemDraft[]
   /**
+   *	[Custom Line Items](ctp:api:type:CustomLineItems) to add to the Cart.
+   *
    *
    */
   readonly customLineItems?: CustomLineItemDraft[]
   /**
-   *	The shipping address is used to determine the eligible shipping methods and rates as well as the tax rate of the line items.
+   *	Determines how Tax Rates are set.
+   *
    *
    */
-  readonly shippingAddress?: _BaseAddress
+  readonly taxMode?: TaxMode
   /**
+   *	External Tax Rate for the `shippingMethod` if the Cart has `External` [TaxMode](ctp:api:type:TaxMode).
    *
-   */
-  readonly billingAddress?: _BaseAddress
-  /**
-   *
-   */
-  readonly shippingMethod?: ShippingMethodResourceIdentifier
-  /**
-   *	An external tax rate can be set for the `shippingMethod` if the cart has the `External` TaxMode.
    *
    */
   readonly externalTaxRateForShippingMethod?: ExternalTaxRateDraft
   /**
-   *	The custom fields.
+   *	Determines how monetary values are rounded when calculating taxes for `taxedPrice`.
+   *
    *
    */
-  readonly custom?: CustomFieldsDraft
+  readonly taxRoundingMode?: RoundingMode
   /**
-   *	Must be one of the languages supported for this project
+   *	Determines how taxes are calculated when calculating taxes for `taxedPrice`.
+   *
    *
    */
-  readonly locale?: string
+  readonly taxCalculationMode?: TaxCalculationMode
   /**
-   *	The cart will be deleted automatically if it hasn't been modified for the specified amount of days and it is in the `Active` CartState.
-   *	If a ChangeSubscription for carts exists, a `ResourceDeleted` notification will be sent.
+   *	Determines how stock quantities are tracked for Line Items in the Cart.
+   *
    *
    */
-  readonly deleteDaysAfterLastModification?: number
+  readonly inventoryMode?: InventoryMode
   /**
-   *	The default origin is `Customer`.
+   *	Billing address associated with the Cart.
+   *
    *
    */
-  readonly origin?: CartOrigin
+  readonly billingAddress?: _BaseAddress
   /**
-   *	- If `Single`, only a single Shipping Method can be added to the Cart.
-   *	- If `Multiple`, multiple Shipping Methods can be added to the Cart.
+   *	Shipping address associated with the Cart. Determines eligible [ShippingMethod](ctp:api:type:ShippingMethod) rates and Tax Rates of Line Items.
+   *
+   *
+   */
+  readonly shippingAddress?: _BaseAddress
+  /**
+   *	Shipping Method for a Cart with `Single` [ShippingMode](ctp:api:type:ShippingMode). If the referenced [ShippingMethod](ctp:api:type:ShippingMethod) has a `predicate` that does not match the Cart, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned when [creating a Cart](#create-cart).
+   *
+   *
+   */
+  readonly shippingMethod?: ShippingMethodResourceIdentifier
+  /**
+   *	Used as an input to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
+   *	The data type of this field depends on the `shippingRateInputType.type` configured in the [Project](ctp:api:type:Project):
+   *
+   *	- If `CartClassification`, it must be [ClassificationShippingRateInputDraft](ctp:api:type:ClassificationShippingRateInputDraft).
+   *	- If `CartScore`, it must be [ScoreShippingRateInputDraft](ctp:api:type:ScoreShippingRateInputDraft).
+   *	- If `CartValue`, it cannot be set.
+   *
+   *
+   */
+  readonly shippingRateInput?: ShippingRateInputDraft
+  /**
+   *	- If set to `Single`, only a single Shipping Method can be added to the Cart.
+   *	- If set to `Multiple`, multiple Shipping Methods can be added to the Cart.
    *
    */
   readonly shippingMode?: ShippingMode
@@ -393,30 +452,64 @@ export interface CartDraft {
    */
   readonly shipping?: ShippingDraft[]
   /**
-   *	The shippingRateInput is used as an input to select a ShippingRatePriceTier.
-   *	Based on the definition of ShippingRateInputType.
-   *	If CartClassification is defined, it must be ClassificationShippingRateInput.
-   *	If CartScore is defined, it must be ScoreShippingRateInput.
-   *	Otherwise it can not bet set.
+   *	Multiple shipping addresses of the Cart. Each address must contain a `key` that is unique in this Cart.
+   *	The keys are used by [LineItems](ctp:api:type:LineItem) to reference these addresses under their `shippingDetails`.
    *
-   */
-  readonly shippingRateInput?: ShippingRateInputDraft
-  /**
-   *	Contains addresses for carts with multiple shipping addresses.
-   *	Each address must contain a key which is unique in this cart.
-   *	Line items will use these keys to reference the addresses under their `shippingDetails`.
-   *	The addresses captured here are not used to determine eligible shipping methods or the applicable tax rate.
-   *	Only the cart's `shippingAddress` is used for this.
+   *	Eligible Shipping Methods or applicable Tax Rates are determined by the address `shippingAddress`, and not `itemShippingAddresses`.
+   *
    *
    */
   readonly itemShippingAddresses?: BaseAddress[]
   /**
-   *	The code of existing DiscountCodes.
+   *	`code` of the existing [DiscountCodes](ctp:api:type:DiscountCode) to add to the Cart.
+   *
    *
    */
   readonly discountCodes?: string[]
+  /**
+   *	Used for [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+   *	If used for [Create Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/carts:POST), the provided country must be one of the [Store's](ctp:api:type:Store) `countries`.
+   *
+   *
+   */
+  readonly country?: string
+  /**
+   *	Languages of the Cart. Can only contain languages supported by the [Project](ctp:api:type:Project).
+   *
+   *
+   */
+  readonly locale?: string
+  /**
+   *	Indicates how the Cart was created.
+   *
+   *
+   */
+  readonly origin?: CartOrigin
+  /**
+   *	Number of days after which an active Cart is deleted since its last modification.
+   *	If not provided, the default value for this field configured in [Project settings](ctp:api:type:CartsConfiguration) is assigned.
+   *
+   *	Create a [ChangeSubscription](ctp:api:type:ChangeSubscription) for Carts to receive a [ResourceDeletedDeliveryPayload](ctp:api:type:ResourceDeletedDeliveryPayload) upon deletion of the Cart.
+   *
+   *
+   */
+  readonly deleteDaysAfterLastModification?: number
+  /**
+   *	Custom Fields for the Cart.
+   *
+   *
+   */
+  readonly custom?: CustomFieldsDraft
 }
+/**
+ *	Indicates who created the Cart.
+ *
+ */
 export type CartOrigin = 'Customer' | 'Merchant' | 'Quote' | string
+/**
+ *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [Cart](ctp:api:type:Cart).
+ *
+ */
 export interface CartPagedQueryResponse {
   /**
    *	Number of [results requested](/../api/general-concepts#limit).
@@ -425,20 +518,30 @@ export interface CartPagedQueryResponse {
    */
   readonly limit: number
   /**
-   *
-   */
-  readonly count: number
-  /**
-   *
-   */
-  readonly total?: number
-  /**
    *	Number of [elements skipped](/../api/general-concepts#offset).
    *
    *
    */
   readonly offset: number
   /**
+   *	Actual number of results returned.
+   *
+   *
+   */
+  readonly count: number
+  /**
+   *	Total number of results matching the query.
+   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This field is returned by default.
+   *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
+   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *
+   *
+   */
+  readonly total?: number
+  /**
+   *	[Carts](ctp:api:type:Cart) matching the query.
+   *
    *
    */
   readonly results: Cart[]
@@ -481,13 +584,22 @@ export interface CartResourceIdentifier {
    */
   readonly key?: string
 }
+/**
+ *	Indicates the current status of a Cart.
+ *
+ */
 export type CartState = 'Active' | 'Frozen' | 'Merged' | 'Ordered' | string
 export interface CartUpdate {
   /**
+   *	Expected version of the Cart on which the changes apply.
+   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) is returned.
+   *
    *
    */
   readonly version: number
   /**
+   *	Update actions to be performed on the Cart.
+   *
    *
    */
   readonly actions: CartUpdateAction[]
@@ -522,6 +634,7 @@ export type CartUpdateAction =
   | CartSetBillingAddressAction
   | CartSetBillingAddressCustomFieldAction
   | CartSetBillingAddressCustomTypeAction
+  | CartSetBusinessUnitAction
   | CartSetCartTotalTaxAction
   | CartSetCountryAction
   | CartSetCustomFieldAction
@@ -563,79 +676,97 @@ export type CartUpdateAction =
   | CartSetShippingRateInputAction
   | CartUnfreezeCartAction
   | CartUpdateItemShippingAddressAction
+/**
+ *	A generic item that can be added to the Cart but is not bound to a Product that can be used for discounts (negative money), vouchers, complex cart rules, additional services, or fees.
+ *	You control the lifecycle of this item.
+ *
+ */
 export interface CustomLineItem {
   /**
-   *	Unique identifier of the CustomLineItem.
+   *	Unique identifier of the Custom Line Item.
+   *
    *
    */
   readonly id: string
   /**
-   *	The name of this CustomLineItem.
+   *	Name of the Custom Line Item.
+   *
    *
    */
   readonly name: LocalizedString
   /**
-   *	The cost to add to the cart.
-   *	The amount can be negative.
+   *	Money value of the Custom Line Item.
+   *
    *
    */
   readonly money: TypedMoney
   /**
-   *	Set once the `taxRate` is set.
+   *	Automatically set after the `taxRate` is set.
+   *
    *
    */
   readonly taxedPrice?: TaxedItemPrice
   /**
-   *	The total price of this custom line item.
-   *	If custom line item is discounted, then the `totalPrice` would be the discounted custom line item price multiplied by `quantity`.
-   *	Otherwise a total price is just a `money` multiplied by the `quantity`.
-   *	`totalPrice` may or may not include the taxes: it depends on the taxRate.includedInPrice property.
+   *	Total price of the Custom Line Item (`money` multiplied by `quantity`).
+   *	If the Custom Line Item is discounted, the total price is `discountedPricePerQuantity` multiplied by `quantity`.
+   *
+   *	Includes taxes if the [TaxRate](ctp:api:type:TaxRate) `includedInPrice` is `true`.
+   *
    *
    */
-  readonly totalPrice: TypedMoney
+  readonly totalPrice: CentPrecisionMoney
   /**
-   *	A unique String in the cart to identify this CustomLineItem.
+   *	User-defined identifier used in a deep-link URL for the Custom Line Item.
+   *	It matches the pattern `[a-zA-Z0-9_-]{2,256}`.
+   *
    *
    */
   readonly slug: string
   /**
-   *	The amount of a CustomLineItem in the cart.
-   *	Must be a positive integer.
+   *	Number of Custom Line Items in the Cart.
+   *
    *
    */
   readonly quantity: number
   /**
+   *	State of the Custom Line Item in the Cart.
+   *
    *
    */
   readonly state: ItemState[]
   /**
+   *	Used to select a Tax Rate when a Cart has the `Platform` [TaxMode](ctp:api:type:TaxMode).
+   *
    *
    */
   readonly taxCategory?: TaxCategoryReference
   /**
-   *	Will be set automatically in the `Platform` TaxMode once the shipping address is set is set.
-   *	For the `External` tax mode the tax rate has to be set explicitly with the ExternalTaxRateDraft.
+   *	- For a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode), the `taxRate` of Custom Line Items is set automatically once a shipping address is set. The rate is based on the [TaxCategory](ctp:api:type:TaxCategory) that applies for the shipping address.
+   *	- For a Cart with `External` TaxMode, the `taxRate` of Custom Line Items can be set using [ExternalTaxRateDraft](ctp:api:type:ExternalTaxRateDraft).
+   *
    *
    */
   readonly taxRate?: TaxRate
   /**
+   *	Discounted price of a single quantity of the Custom Line Item.
+   *
    *
    */
   readonly discountedPricePerQuantity: DiscountedLineItemPriceForQuantity[]
   /**
+   *	Custom Fields of the Custom Line Item.
+   *
    *
    */
   readonly custom?: CustomFields
   /**
-   *	Container for custom line item specific address(es).
-   *	CustomLineItem fields that can be used in query predicates: `slug`, `name`, `quantity`,
-   *	`money`, `state`, `discountedPricePerQuantity`.
+   *	Container for Custom Line Item-specific addresses.
+   *
    *
    */
   readonly shippingDetails?: ItemShippingDetails
   /**
-   *	Specifies whether Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget)
-   *	are applied to the Custom Line Item.
+   *	Indicates whether Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget) are applied to the Custom Line Item.
    *
    *
    */
@@ -643,40 +774,53 @@ export interface CustomLineItem {
 }
 export interface CustomLineItemDraft {
   /**
+   *	Name of the Custom Line Item.
+   *
    *
    */
   readonly name: LocalizedString
   /**
-   *	The amount of a CustomLineItemin the cart.
-   *	Must be a positive integer.
+   *	Number of Custom Line Items to add to the Cart.
+   *
    *
    */
-  readonly quantity: number
+  readonly quantity?: number
   /**
+   *	Money value of the Custom Line Item.
+   *	The value can be negative.
+   *
    *
    */
   readonly money: _Money
   /**
+   *	User-defined identifier used in a deep-link URL for the Custom Line Item.
+   *	It must match the pattern `[a-zA-Z0-9_-]{2,256}`.
+   *
    *
    */
   readonly slug: string
   /**
-   *	The given tax category will be used to select a tax rate when a cart has the TaxMode `Platform`.
+   *	Used to select a Tax Rate when a Cart has the `Platform` [TaxMode](ctp:api:type:TaxMode).
+   *	This field is required for `Platform` [TaxMode](ctp:api:type:TaxMode).
+   *
    *
    */
   readonly taxCategory?: TaxCategoryResourceIdentifier
   /**
-   *	An external tax rate can be set if the cart has the `External` TaxMode.
+   *	External Tax Rate for the Custom Line Item if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+   *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
   /**
-   *	The custom fields.
+   *	Custom Fields for the Custom Line Item.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
   /**
-   *	Container for custom line item specific address(es).
+   *	Container for Custom Line Item-specific addresses.
+   *
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
@@ -689,10 +833,14 @@ export interface CustomLineItemDraft {
    */
   readonly priceMode: CustomLineItemPriceMode
 }
+/**
+ *	Determines if Cart Discounts can be applied to a Custom Line Item in the Cart.
+ *
+ */
 export type CustomLineItemPriceMode = 'External' | 'Standard' | string
 export interface CustomShippingDraft {
   /**
-   *	User-defined unique identifier of the custom Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the custom Shipping Method in the Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -716,18 +864,18 @@ export interface CustomShippingDraft {
    */
   readonly shippingRate: ShippingRateDraft
   /**
-   *	Used as an input to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
+   *	Input used to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
+   *	The data type of this field depends on the `shippingRateInputType.type` configured in the [Project](ctp:api:type:Project):
    *
-   *	- Must be [ClassificationShippingRateInput](ctp:api:type:ClassificationShippingRateInput) if [ShippingRateInputType](ctp:api:type:ShippingRateInputType) is [CartClassificationType](ctp:api:type:CartClassificationType).
-   *	- Must be [ScoreShippingRateInput](ctp:api:type:ScoreShippingRateInput) if [ShippingRateInputType](ctp:api:type:ShippingRateInputType) is [CartScoreType](ctp:api:type:CartScoreType).
-   *
-   *	The `shippingRateInput` cannot be set on the Cart if [CartValueType](ctp:api:type:CartValueType) is defined.
+   *	- If `CartClassification`, it must be [ClassificationShippingRateInputDraft](ctp:api:type:ClassificationShippingRateInputDraft).
+   *	- If `CartScore`, it must be [ScoreShippingRateInputDraft](ctp:api:type:ScoreShippingRateInputDraft).
+   *	- If `CartValue`, it cannot be set.
    *
    *
    */
   readonly shippingRateInput?: ShippingRateInputDraft
   /**
-   *	Tax Category used to determine a shipping Tax Rate if a Cart has the `Platform` [TaxMode](ctp:api:type:TaxMode).
+   *	Tax Category used to determine a shipping Tax Rate if the Cart has the `Platform` [TaxMode](ctp:api:type:TaxMode).
    *
    *
    */
@@ -737,58 +885,92 @@ export interface CustomShippingDraft {
    *
    *
    */
-  readonly externalTaxRate?: string
+  readonly externalTaxRate?: ExternalTaxRateDraft
   /**
-   *	Deliveries tied to a Shipping Method in a multi-shipping method Cart.
-   *	It holds information on how items are delivered to customers.
+   *	Deliveries to be shipped with the custom Shipping Method.
    *
    *
    */
-  readonly deliveries: Delivery[]
+  readonly deliveries?: DeliveryDraft[]
   /**
    *	Custom Fields for the custom Shipping Method.
    *
    *
    */
-  readonly custom?: string
+  readonly custom?: CustomFieldsDraft
 }
+/**
+ *	Represents a [CartDiscount](ctp:api:type:CartDiscount) that is only associated with a single Cart or Order.
+ *
+ */
 export interface DirectDiscount {
   /**
-   *	The unique ID of the cart discount.
+   *	Unique identifier of the Direct Discount.
+   *
    *
    */
   readonly id: string
   /**
+   *	Effect of the Discount on the Cart.
+   *
    *
    */
   readonly value: CartDiscountValue
   /**
-   *	Empty when the `value` has type `giftLineItem`, otherwise a CartDiscountTarget is set.
+   *	Part of the Cart that is discounted.
+   *
+   *	Empty when the `value` is set to `giftLineItem`.
+   *
    *
    */
   readonly target?: CartDiscountTarget
 }
+/**
+ *	Represents a [CartDiscount](ctp:api:type:CartDiscount) that can only be associated with a single Cart or Order.
+ *
+ *	Direct Discounts are always active and valid, and have the default `Stacking` [StackingMode](ctp:api:type:StackingMode).
+ *	They apply in the order in which they are listed in the `directDiscounts` array of [Carts](ctp:api:type:Cart) or [Orders](ctp:api:type:Order), and do not have a sorting order like Cart Discounts.
+ *
+ *	If a Direct Discount is present, any matching Cart Discounts in the Project are ignored.
+ *	Additionally, a Cart or Order supports either Discount Codes or Direct Discounts at the same time.
+ *
+ */
 export interface DirectDiscountDraft {
   /**
+   *	Defines the effect the Discount will have.
+   *
    *
    */
   readonly value: CartDiscountValue
   /**
-   *	Empty when the `value` has type `giftLineItem`, otherwise a CartDiscountTarget is set.
+   *	Defines what part of the Cart will be discounted.
+   *
+   *	If `value` is set to `giftLineItem`, this must not be set.
+   *
    *
    */
   readonly target?: CartDiscountTarget
 }
 export interface DiscountCodeInfo {
   /**
+   *	Discount Code associated with the Cart or Order.
+   *
    *
    */
   readonly discountCode: DiscountCodeReference
   /**
+   *	Indicates the state of the Discount Code applied to the Cart or Order.
+   *
    *
    */
   readonly state: DiscountCodeState
 }
+/**
+ *	Indicates the state of a Discount Code in a Cart.
+ *
+ *	If an Order is created from a Cart with a state other than `MatchesCart`, a [DiscountCodeNonApplicable](ctp:api:type:DiscountCodeNonApplicableError) error is returned.
+ *
+ */
 export type DiscountCodeState =
   | 'ApplicationStoppedByPreviousDiscount'
   | 'DoesNotMatchCart'
@@ -799,126 +981,186 @@ export type DiscountCodeState =
   | string
 export interface DiscountedLineItemPortion {
   /**
+   *	Cart Discount applicable on the Line Item.
+   *
    *
    */
   readonly discount: CartDiscountReference
   /**
+   *	Money value of the discount applicable.
+   *
    *
    */
   readonly discountedAmount: TypedMoney
 }
 export interface DiscountedLineItemPrice {
   /**
+   *	Money value of the discounted Line Item or Custom Line Item.
+   *
    *
    */
   readonly value: TypedMoney
   /**
+   *	Discount applicable on the Line Item or Custom Line Item.
+   *
    *
    */
   readonly includedDiscounts: DiscountedLineItemPortion[]
 }
 export interface DiscountedLineItemPriceForQuantity {
   /**
+   *	Number of Line Items or Custom Line Items in the Cart.
+   *
    *
    */
   readonly quantity: number
   /**
+   *	Discounted price of the Line Item or Custom Line Item.
+   *
    *
    */
   readonly discountedPrice: DiscountedLineItemPrice
 }
 export interface ExternalLineItemTotalPrice {
   /**
+   *	Price of the Line Item.
+   *
+   *	The value is selected from the Product Variant according to the [Product](ctp:api:type:Product) `priceMode`.
+   *
    *
    */
   readonly price: _Money
   /**
+   *	Total price of the Line Item.
+   *
    *
    */
   readonly totalPrice: _Money
 }
+/**
+ *	Cannot be used in [LineItemDraft](ctp:api:type:LineItemDraft) or [CustomLineItemDraft](ctp:api:type:CustomLineItemDraft).
+ *
+ *	Can only be set by these update actions:
+ *
+ *	- [Set LineItem TaxAmount](ctp:api:type:CartSetLineItemTaxAmountAction), [Set CustomLineItem TaxAmount](ctp:api:type:CartSetCustomLineItemTaxAmountAction), or [Set ShippingMethod TaxAmount](ctp:api:type:CartSetShippingMethodTaxAmountAction) on Carts
+ *	- [Set LineItem TaxAmount](ctp:api:type:OrderEditSetLineItemTaxAmountAction), [Set CustomLineItem TaxAmount](ctp:api:type:OrderEditSetCustomLineItemTaxAmountAction), or [Set ShippingMethod TaxAmount](ctp:api:type:OrderEditSetShippingMethodTaxAmountAction) on Order Edits
+ *
+ */
 export interface ExternalTaxAmountDraft {
   /**
-   *	The total gross amount of the item (totalNet + taxes).
+   *	Total gross amount (`totalNet` + `taxPortions`) of the Line Item or Custom Line Item.
+   *
    *
    */
   readonly totalGross: _Money
   /**
+   *	Tax Rates and subrates of states and countries.
+   *
    *
    */
   readonly taxRate: ExternalTaxRateDraft
 }
+/**
+ *	Controls calculation of taxed prices for Line Items, Custom Line Items, and Shipping Methods as explained in [Cart tax calculation](ctp:api:type:CartTaxCalculation).
+ *
+ */
 export interface ExternalTaxRateDraft {
   /**
+   *	Name of the Tax Rate.
+   *
    *
    */
   readonly name: string
   /**
-   *	Percentage in the range of [0..1].
-   *	Must be supplied if no `subRates` are specified.
-   *	If `subRates` are specified
-   *	then the `amount` can be omitted or it must be the sum of the amounts of all `subRates`.
+   *	Percentage in the range of 0-1.
+   *
+   *	- If no `subRates` are specified, a value must be defined.
+   *	- If `subRates` are specified, this can be omitted or its value must be the sum of all `subRates` amounts.
+   *
    *
    */
   readonly amount?: number
   /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	- If set to `false`, the related price is considered the net price and the provided `amount` is applied to calculate the gross price.
+   *	- If set to `true`, the related price is considered the gross price, and the provided `amount` is applied to calculate the net price.
+   *
+   *
+   */
+  readonly includedInPrice?: boolean
+  /**
+   *	Country for which the tax applies.
+   *
    *
    */
   readonly country: string
   /**
-   *	The state in the country
+   *	State within the specified country.
+   *
    *
    */
   readonly state?: string
   /**
-   *	For countries (e.g.
-   *	the US) where the total tax is a combination of multiple taxes (e.g.
-   *	state and local taxes).
+   *	For countries (such as the US) where the total tax is a combination of multiple taxes (such as state and local taxes).
+   *
    *
    */
   readonly subRates?: SubRate[]
-  /**
-   *	The default value for `includedInPrice` is FALSE.
-   *
-   */
-  readonly includedInPrice?: boolean
 }
+/**
+ *	Indicates how Line Items in a Cart are tracked.
+ *
+ */
 export type InventoryMode = 'None' | 'ReserveOnOrder' | 'TrackOnly' | string
 export interface ItemShippingDetails {
   /**
-   *	Used to map what sub-quantity should be shipped to which address.
-   *	Duplicate address keys are not allowed.
+   *	Holds information on the quantity of Line Items or Custom Line Items and the address it is shipped.
+   *
    *
    */
   readonly targets: ItemShippingTarget[]
   /**
-   *	`true` if the quantity of the Line Item or Custom Line Item is equal to the sum of the sub-quantities in `targets`, else it is `false`.
-   *	Ordering a Cart with value as `false` returns an [InvalidItemShippingDetails](ctp:api:type:InvalidItemShippingDetailsError) error.
+   *	- `true` if the quantity of Line Items or Custom Line Items is equal to the sum of sub-quantities defined in `targets`.
+   *	- `false` if the quantity of Line Items or Custom Line Items is not equal to the sum of sub-quantities defined in `targets`.
+   *	  Ordering a Cart when the value is `false` returns an [InvalidItemShippingDetails](ctp:api:type:InvalidItemShippingDetailsError) error.
+   *
    *
    */
   readonly valid: boolean
 }
+/**
+ *	For order creation and updates, the sum of the `targets` must match the quantity of the Line Items or Custom Line Items.
+ *
+ */
 export interface ItemShippingDetailsDraft {
   /**
-   *	Used to capture one or more (custom) line item specific shipping addresses.
-   *	By specifying sub-quantities, it is possible to set multiple shipping addresses for one line item.
-   *	A cart can have `shippingDetails` where the `targets` sum does not match the quantity of the line item or custom line item.
-   *	For the order creation and order updates the `targets` sum must match the quantity.
+   *	Holds information on the quantity of Line Items or Custom Line Items and the address it is shipped.
+   *
+   *	If multiple shipping addresses are present for a Line Item or Custom Line Item, sub-quantities must be specified.
+   *
    *
    */
   readonly targets: ItemShippingTarget[]
 }
+/**
+ *	Determines the address (as a reference to an address in `itemShippingAddresses`) and the quantity shipped to the address.
+ *
+ *	If multiple shipping addresses are present for a Line Item or Custom Line Item, sub-quantities must be specified.
+ *	An array of addresses and sub-quantities is stored per Line Item or Custom Line Item.
+ *
+ */
 export interface ItemShippingTarget {
   /**
-   *	The key of the address in the cart's `itemShippingAddresses`
+   *	Key of the address in the [Cart](ctp:api:type:Cart) `itemShippingAddresses`.
+   *	Duplicate address keys are not allowed.
+   *
    *
    */
   readonly addressKey: string
   /**
-   *	The quantity of items that should go to the address with the specified `addressKey`.
-   *	Only positive values are allowed.
-   *	Using `0` as quantity is also possible in a draft object, but the element will not be present in the resulting ItemShippingDetails.
+   *	Quantity of Line Items or Custom Line Items shipped to the address with the specified `addressKey`.
+   *
+   *	If a quantity is updated to `0` when defining [ItemShippingDetailsDraft](ctp:api:type:ItemShippingDetailsDraft), the `targets` are removed from a Line Item or Custom Line Item in the resulting [ItemShippingDetails](ctp:api:type:ItemShippingDetails).
+   *
    *
    */
   readonly quantity: number
@@ -930,218 +1172,278 @@ export interface ItemShippingTarget {
    */
   readonly shippingMethodKey?: string
 }
+/**
+ *	The representation of a [Line Item](/../api/carts-orders-overview#line-items) in a Cart.
+ *
+ */
 export interface LineItem {
   /**
-   *	Unique identifier of the LineItem.
+   *	Unique identifier of the Line Item.
+   *
    *
    */
   readonly id: string
   /**
+   *	`id` of the [Product](ctp:api:type:Product) the Line Item is based on.
+   *
    *
    */
   readonly productId: string
   /**
-   *	User-defined unique identifier of the [Product](ctp:api:type:Product).
-   *	Only present on Line Items in a [Cart](ctp:api:type:Cart) when the `key` is available on that specific Product at the time the Line Item is created or updated on the Cart. On [Order](/ctp:api:type:Order) resources this field is only present when the `key` is available on the specific Product at the time the Order is created from the Cart. This field is in general not present on Carts that had no updates until 3 December 2021 and on Orders created before this date.
+   *	`key` of the [Product](ctp:api:type:Product).
+   *
+   *	This field is only present on:
+   *
+   *	- Line Items in a [Cart](ctp:api:type:Cart) when the `key` is available on that specific Product at the time the Line Item was created or updated on the Cart.
+   *	- [Orders](ctp:api:type:Order) when the `key` is available on the specific Product at the time the Order was created from the Cart.
+   *
+   *	Present on resources created or updated after 3 December 2021.
+   *
    *
    */
   readonly productKey?: string
   /**
-   *	The product name.
+   *	Name of the Product.
+   *
    *
    */
   readonly name: LocalizedString
   /**
-   *	The slug of a product is inserted on the fly.
-   *	It is always up-to-date and can therefore be used to link to the product detail page of the product.
-   *	It is empty if the product has been deleted.
-   *	The slug is also empty if the cart or order is retrieved via Reference Expansion or is a snapshot in a Message.
+   *	`slug` of the current version of the Product. Updated automatically if the `slug` changes. Empty if the Product has been deleted.
+   *	The `productSlug` field of LineItem is not expanded when using [Reference Expansion](/../api/general-concepts#reference-expansion).
+   *
    *
    */
   readonly productSlug?: LocalizedString
   /**
+   *	Product Type of the Product.
+   *
    *
    */
   readonly productType: ProductTypeReference
   /**
-   *	The variant data is saved when the variant is added to the cart, and not updated automatically.
-   *	It can manually be updated with the Recalculate update action.
+   *	Holds the data of the Product Variant added to the Cart.
+   *
+   *	The data is saved at the time the Product Variant is added to the Cart and is not updated automatically when Product Variant data changes.
+   *	Must be updated using the [Recalculate](ctp:api:type:CartRecalculateAction) update action.
+   *
    *
    */
   readonly variant: ProductVariant
   /**
-   *	The price of a line item is selected from the product variant according to the Product's [priceMode](ctp:api:type:Product) value.
-   *	If the `priceMode` is `Embedded` [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) and the `variant` field hasn't been updated, the price may not correspond to a price in `variant.prices`.
+   *	Price of a Line Item selected from the Product Variant according to the [Product](ctp:api:type:Product) `priceMode`. If the `priceMode` is `Embedded` [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) and the `variant` field hasn't been updated, the price may not correspond to a price in `variant.prices`.
+   *
    *
    */
   readonly price: Price
   /**
-   *	Set once the `taxRate` is set.
+   *	Number of Line Items of the given Product Variant present in the Cart.
    *
-   */
-  readonly taxedPrice?: TaxedItemPrice
-  /**
-   *	Taxed price of the Shipping Method that is set automatically after `perMethodTaxRate` is set.
-   *
-   */
-  readonly taxedPricePortions: MethodTaxedPrice[]
-  /**
-   *	The total price of this line item.
-   *	If the line item is discounted, then the `totalPrice` is the DiscountedLineItemPriceForQuantity multiplied by `quantity`.
-   *	Otherwise the total price is the product price multiplied by the `quantity`.
-   *	`totalPrice` may or may not include the taxes: it depends on the taxRate.includedInPrice property.
-   *
-   */
-  readonly totalPrice: TypedMoney
-  /**
-   *	The amount of a LineItem in the cart.
-   *	Must be a positive integer.
    *
    */
   readonly quantity: number
   /**
-   *	When the line item was added to the cart. Optional for backwards
-   *	compatibility reasons only.
+   *	Total price of this Line Item equalling `price` multiplied by `quantity`. If the Line Item is discounted, the total price is the `discountedPricePerQuantity` multiplied by `quantity`.
+   *	Includes taxes if the [TaxRate](ctp:api:type:TaxRate) `includedInPrice` is `true`.
+   *
    *
    */
-  readonly addedAt?: string
+  readonly totalPrice: CentPrecisionMoney
   /**
+   *	Discounted price of a single quantity of the Line Item.
    *
-   */
-  readonly state: ItemState[]
-  /**
-   *	Will be set automatically in the `Platform` TaxMode once the shipping address is set is set.
-   *	For the `External` tax mode the tax rate has to be set explicitly with the ExternalTaxRateDraft.
-   *
-   */
-  readonly taxRate?: TaxRate
-  /**
-   *	Tax Rate per Shipping Method that is automatically set after the [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction) to a Cart with the `Platform` [TaxMode](ctp:api:type:TaxMode) and `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
-   *
-   *	For the `External` [TaxMode](ctp:api:type:TaxMode), the Tax Rate must be set with [ExternalTaxRateDraft](ctp:api:type:ExternalTaxRateDraft).
-   *
-   */
-  readonly perMethodTaxRate: MethodTaxRate[]
-  /**
-   *	The supply channel identifies the inventory entries that should be reserved.
-   *	The channel has
-   *	the role InventorySupply.
-   *
-   */
-  readonly supplyChannel?: ChannelReference
-  /**
-   *	The distribution channel is used to select a ProductPrice.
-   *	The channel has the role ProductDistribution.
-   *
-   */
-  readonly distributionChannel?: ChannelReference
-  /**
    *
    */
   readonly discountedPricePerQuantity: DiscountedLineItemPriceForQuantity[]
   /**
+   *	Automatically set after `taxRate` is set.
+   *
+   *
+   */
+  readonly taxedPrice?: TaxedItemPrice
+  /**
+   *	Taxed price of the Shipping Method that is automatically set after `perMethodTaxRate` is set.
+   *
+   */
+  readonly taxedPricePortions: MethodTaxedPrice[]
+  /**
+   *	State of the Line Item in the Cart.
+   *
+   *
+   */
+  readonly state: ItemState[]
+  /**
+   *	- For a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode), the `taxRate` of Line Items is set automatically once a shipping address is set. The rate is based on the [TaxCategory](ctp:api:type:TaxCategory) that applies for the shipping address.
+   *	- For a Cart with `External` TaxMode, the `taxRate` of Line Items can be set using [ExternalTaxRateDraft](ctp:api:type:ExternalTaxRateDraft).
+   *
+   *
+   */
+  readonly taxRate?: TaxRate
+  /**
+   *	Tax Rate per Shipping Method for a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode). For a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode) it is automatically set after the [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction).
+   *	For a Cart with `External` [TaxMode](ctp:api:type:TaxMode), the Tax Rate must be set with [ExternalTaxRateDraft](ctp:api:type:ExternalTaxRateDraft).
+   *
+   */
+  readonly perMethodTaxRate: MethodTaxRate[]
+  /**
+   *	Identifies [Inventory entries](/../api/projects/inventory) that are reserved. The referenced Channel has the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *
+   *
+   */
+  readonly supplyChannel?: ChannelReference
+  /**
+   *	Used to [select](ctp:api:type:LineItemPriceSelection) a Product Price. The referenced Channel has the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *
+   *
+   */
+  readonly distributionChannel?: ChannelReference
+  /**
+   *	Indicates how the Price for the Line Item is set.
+   *
    *
    */
   readonly priceMode: LineItemPriceMode
   /**
+   *	Indicates how the Line Item is added to the Cart.
+   *
    *
    */
   readonly lineItemMode: LineItemMode
   /**
+   *	Inventory mode specific to this Line Item only, and valid for the entire `quantity` of the Line Item.
+   *	Only present if the inventory mode is different from the `inventoryMode` specified on the [Cart](ctp:api:type:Cart).
    *
-   */
-  readonly custom?: CustomFields
-  /**
-   *	Inventory mode specific to the line item only, valid for the entire `quantity` of the line item.
-   *	Only present if inventory mode is different from the `inventoryMode` specified on the [Cart](ctp:api:type:Cart).
    *
    */
   readonly inventoryMode?: InventoryMode
   /**
-   *	Container for line item specific address(es).
+   *	Container for Line Item-specific addresses.
+   *
    *
    */
   readonly shippingDetails?: ItemShippingDetails
   /**
-   *	The date when the LineItem was last modified by one of the following actions
-   *	setLineItemShippingDetails, addLineItem, removeLineItem, or changeLineItemQuantity.
-   *	Optional only for backwards compatible reasons. When the LineItem is created lastModifiedAt is set to addedAt.
+   *	Custom Fields of the Line Item.
+   *
    *
    */
-  readonly lastModifiedAt?: string
-}
-export interface LineItemDraft {
+  readonly custom?: CustomFields
   /**
+   *	Date and time (UTC) the Line Item was added to the Cart.
    *
-   */
-  readonly productId?: string
-  /**
-   *
-   */
-  readonly variantId?: number
-  /**
-   *
-   */
-  readonly sku?: string
-  /**
-   *	The amount of a `LineItem`in the cart.
-   *	Must be a positive integer.
-   *
-   */
-  readonly quantity?: number
-  /**
-   *	When the line item was added to the cart. Optional for backwards
-   *	compatibility reasons only.
    *
    */
   readonly addedAt?: string
   /**
-   *	By providing supply channel information, you can unique identify
-   *	inventory entries that should be reserved.
-   *	The provided channel should have
-   *	the InventorySupply role.
+   *	Date and time (UTC) the Line Item was last updated.
+   *
+   *
+   */
+  readonly lastModifiedAt?: string
+}
+/**
+ *	For Product Variant identification, either the `productId` and `variantId`, or `sku` must be provided.
+ *
+ */
+export interface LineItemDraft {
+  /**
+   *	`id` of the [Product](ctp:api:type:Product).
+   *
+   *
+   */
+  readonly productId?: string
+  /**
+   *	`id` of the [ProductVariant](ctp:api:type:ProductVariant) in the Product.
+   *	If not provided, the Master Variant is used.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	`sku` of the [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	Number of Product Variants to add to the Cart.
+   *
+   *
+   */
+  readonly quantity?: number
+  /**
+   *	Date and time (UTC) the Product Variant is added to the Cart.
+   *	If not set, it defaults to the current date and time.
+   *
+   *	Optional for backwards compatibility reasons.
+   *
+   *
+   */
+  readonly addedAt?: string
+  /**
+   *	Used to identify [Inventory entries](/../api/projects/inventory) that must be reserved.
+   *	The referenced Channel must have the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *
    *
    */
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
-   *	The channel is used to select a ProductPrice.
-   *	The provided channel should have the ProductDistribution role.
+   *	Used to [select](ctp:api:type:LineItemPriceSelection) a Product Price.
+   *	The referenced Channel must have the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *
+   *	If the Cart is bound to a [Store](ctp:api:type:Store) with `distributionChannels` set,
+   *	the Channel must match one of the Store's distribution channels.
+   *
    *
    */
   readonly distributionChannel?: ChannelResourceIdentifier
   /**
-   *	An external tax rate can be set if the cart has the `External` TaxMode.
+   *	External Tax Rate for the Line Item if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+   *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
   /**
-   *	The custom fields.
+   *	Sets the [LineItem](ctp:api:type:LineItem) `price` value, and the `priceMode` to `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
    *
-   */
-  readonly custom?: CustomFieldsDraft
-  /**
-   *	Sets the line item `price` to the given value and sets the line item `priceMode` to `ExternalPrice` LineItemPriceMode.
    *
    */
   readonly externalPrice?: _Money
   /**
-   *	Sets the line item `price` and `totalPrice` to the given values and sets the line item `priceMode` to `ExternalTotal` LineItemPriceMode.
+   *	Sets the [LineItem](ctp:api:type:LineItem) `price` and `totalPrice` values, and the `priceMode` to `ExternalTotal` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+   *
    *
    */
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
   /**
-   *	Inventory mode specific to the line item only, valid for the entire `quantity` of the line item.
-   *	Set only if inventory mode should be different from the `inventoryMode` specified on the [Cart](ctp:api:type:Cart).
+   *	Inventory mode specific to the Line Item only, and valid for the entire `quantity` of the Line Item.
+   *	Set only if the inventory mode should be different from the `inventoryMode` specified on the [Cart](ctp:api:type:Cart).
+   *
    *
    */
   readonly inventoryMode?: InventoryMode
   /**
-   *	Container for line item specific address(es).
+   *	Container for Line Item-specific addresses.
+   *
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
+  /**
+   *	Custom Fields for the Line Item.
+   *
+   *
+   */
+  readonly custom?: CustomFieldsDraft
 }
+/**
+ *	Indicates how a Line Item is added to a Cart.
+ *
+ */
 export type LineItemMode = 'GiftLineItem' | 'Standard' | string
+/**
+ *	This mode indicates how the price is set for the Line Item.
+ *
+ */
 export type LineItemPriceMode =
   | 'ExternalPrice'
   | 'ExternalTotal'
@@ -1175,21 +1477,32 @@ export interface MethodTaxedPrice {
    */
   readonly taxedPrice?: TaxedItemPrice
 }
+/**
+ *	Used for [replicating an existing Cart](/../api/projects/carts#replicate-cart) or Order.
+ *
+ */
 export interface ReplicaCartDraft {
   /**
+   *	[Reference](ctp:api:type:Reference) to a [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order) that is replicated.
+   *
    *
    */
   readonly reference: CartReference | OrderReference
   /**
-   *	User-specific unique identifier of the cart.
+   *	User-defined unique identifier for the Cart.
+   *
    *
    */
   readonly key?: string
 }
+/**
+ *	Determines how monetary values are rounded.
+ *
+ */
 export type RoundingMode = 'HalfDown' | 'HalfEven' | 'HalfUp' | string
 export interface Shipping {
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -1201,16 +1514,18 @@ export interface Shipping {
    */
   readonly shippingInfo: ShippingInfo
   /**
-   *	Determines the shipping rates and Tax Rates of the associated Line Item quantities.
+   *	Determines the shipping rates and Tax Rates of associated Line Items.
    *
    *
    */
   readonly shippingAddress: Address
   /**
    *	Used as an input to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
+   *	The data type of this field depends on the `shippingRateInputType.type` configured in the [Project](ctp:api:type:Project):
    *
-   *	- Must be [ClassificationShippingRateInput](ctp:api:type:ClassificationShippingRateInput) if [ShippingRateInputType](ctp:api:type:ShippingRateInputType) is [CartClassificationType](ctp:api:type:CartClassificationType).
-   *	- Must be [ScoreShippingRateInput](ctp:api:type:ScoreShippingRateInput) if [ShippingRateInputType](ctp:api:type:ShippingRateInputType) is [CartScoreType](ctp:api:type:CartScoreType).
+   *	- If `CartClassification`, it is [ClassificationShippingRateInput](ctp:api:type:ClassificationShippingRateInput).
+   *	- If `CartScore`, it is [ScoreShippingRateInput](ctp:api:type:ScoreShippingRateInput).
+   *	- If `CartValue`, it cannot be used.
    *
    *
    */
@@ -1228,7 +1543,7 @@ export interface Shipping {
  */
 export interface ShippingDraft {
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier for the Shipping in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -1244,14 +1559,14 @@ export interface ShippingDraft {
    *
    *
    */
-  readonly shippingAddress?: _BaseAddress
+  readonly shippingAddress: _BaseAddress
   /**
-   *	Used as an input to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
+   *	Input used to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
+   *	The data type of this field depends on the `shippingRateInputType.type` configured in the [Project](ctp:api:type:Project):
    *
-   *	- Must be [ClassificationShippingRateInput](ctp:api:type:ClassificationShippingRateInput) if [ShippingRateInputType](ctp:api:type:ShippingRateInputType) is [CartClassificationType](ctp:api:type:CartClassificationType).
-   *	- Must be [ScoreShippingRateInput](ctp:api:type:ScoreShippingRateInput) if [ShippingRateInputType](ctp:api:type:ShippingRateInputType) is [CartScoreType](ctp:api:type:CartScoreType).
-   *
-   *	The `shippingRateInput` cannot be set on the Cart if [CartValueType](ctp:api:type:CartValueType) is defined.
+   *	- If `CartClassification`, it must be [ClassificationShippingRateInputDraft](ctp:api:type:ClassificationShippingRateInputDraft).
+   *	- If `CartScore`, it must be [ScoreShippingRateInputDraft](ctp:api:type:ScoreShippingRateInputDraft).
+   *	- If `CartValue`, it cannot be set.
    *
    *
    */
@@ -1261,70 +1576,88 @@ export interface ShippingDraft {
    *
    *
    */
-  readonly externalTaxRate?: string
+  readonly externalTaxRate?: ExternalTaxRateDraft
   /**
-   *	Holds information on how items are delivered to customers.
+   *	Deliveries to be shipped with the Shipping Method.
    *
    *
    */
-  readonly deliveries: Delivery[]
+  readonly deliveries?: DeliveryDraft[]
   /**
    *	Custom Fields for Shipping.
    *
    *
    */
-  readonly custom?: string
+  readonly custom?: CustomFieldsDraft
 }
 export interface ShippingInfo {
   /**
+   *	Name of the Shipping Method.
+   *
    *
    */
   readonly shippingMethodName: string
   /**
-   *	Determined based on the ShippingRate and its tiered prices, and either the sum of LineItem prices or the `shippingRateInput` field.
+   *	Determined based on the [ShippingRate](ctp:api:type:ShippingRate) and its tiered prices, and either the sum of [LineItem](ctp:api:type:LineItem) prices or the `shippingRateInput` field.
+   *
    *
    */
-  readonly price: TypedMoney
+  readonly price: CentPrecisionMoney
   /**
-   *	The shipping rate used to determine the price.
+   *	Used to determine the price.
+   *
    *
    */
   readonly shippingRate: ShippingRate
   /**
-   *	Set once the `taxRate` is set.
+   *	Automatically set after the `taxRate` is set.
+   *
    *
    */
   readonly taxedPrice?: TaxedItemPrice
   /**
-   *	Will be set automatically in the `Platform` TaxMode once the shipping address is set is set.
-   *	For the `External` tax mode the tax rate has to be set explicitly with the ExternalTaxRateDraft.
+   *	Automatically set in the `Platform` [TaxMode](ctp:api:type:TaxMode) after the [shipping address is set](ctp:api:type:CartSetShippingAddressAction).
+   *
+   *	For the `External` [TaxMode](ctp:api:type:TaxMode) the Tax Rate must be set explicitly with the [ExternalTaxRateDraft](ctp:api:type:ExternalTaxRateDraft).
+   *
    *
    */
   readonly taxRate?: TaxRate
   /**
+   *	Used to select a Tax Rate when a Cart has the `Platform` [TaxMode](ctp:api:type:TaxMode).
+   *
    *
    */
   readonly taxCategory?: TaxCategoryReference
   /**
-   *	Not set if custom shipping method is used.
+   *	Not set if a custom Shipping Method is used.
+   *
    *
    */
   readonly shippingMethod?: ShippingMethodReference
   /**
-   *	Deliveries are compilations of information on how the articles are being delivered to the customers.
+   *	Information on how items are delivered to customers.
+   *
    *
    */
   readonly deliveries?: Delivery[]
   /**
+   *	Discounted price of the Shipping Method.
+   *
    *
    */
   readonly discountedPrice?: DiscountedLineItemPrice
   /**
-   *	Indicates whether the ShippingMethod referenced in this ShippingInfo is allowed for the cart or not.
+   *	Indicates whether the [ShippingMethod](ctp:api:type:ShippingMethod) referenced in this ShippingInfo is allowed for the Cart.
+   *
    *
    */
   readonly shippingMethodState: ShippingMethodState
 }
+/**
+ *	Determines whether a [ShippingMethod](ctp:api:type:ShippingMethod) is allowed for a Cart.
+ *
+ */
 export type ShippingMethodState = 'DoesNotMatchCart' | 'MatchesCart' | string
 export type ShippingMode = 'Multiple' | 'Single' | string
 export type ShippingRateInput =
@@ -1333,11 +1666,13 @@ export type ShippingRateInput =
 export interface ClassificationShippingRateInput {
   readonly type: 'Classification'
   /**
+   *	Key of the value used as a programmatic identifier.
+   *
    *
    */
   readonly key: string
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	Descriptive localized label of the value.
    *
    *
    */
@@ -1346,16 +1681,23 @@ export interface ClassificationShippingRateInput {
 export interface ScoreShippingRateInput {
   readonly type: 'Score'
   /**
+   *	Abstract value for categorizing a Cart.
+   *
    *
    */
   readonly score: number
 }
+/**
+ *	Generic type holding specifc ShippingRateInputDraft types.
+ */
 export type ShippingRateInputDraft =
   | ClassificationShippingRateInputDraft
   | ScoreShippingRateInputDraft
 export interface ClassificationShippingRateInputDraft {
   readonly type: 'Classification'
   /**
+   *	Key of the value used as a programmatic identifier.
+   *
    *
    */
   readonly key: string
@@ -1363,45 +1705,76 @@ export interface ClassificationShippingRateInputDraft {
 export interface ScoreShippingRateInputDraft {
   readonly type: 'Score'
   /**
+   *	Abstract value for categorizing a Cart.
+   *
    *
    */
   readonly score: number
 }
+/**
+ *	Determines in which [Tax calculation mode](/carts-orders-overview#tax-calculation-mode) taxed prices are calculated.
+ *
+ */
 export type TaxCalculationMode = 'LineItemLevel' | 'UnitPriceLevel' | string
+/**
+ *	Indicates how taxes are set on the Cart.
+ *
+ */
 export type TaxMode =
   | 'Disabled'
   | 'External'
   | 'ExternalAmount'
   | 'Platform'
   | string
+/**
+ *	The tax portions are calculated from the [TaxRates](ctp:api:type:TaxRate).
+ *	If a Tax Rate has [SubRates](ctp:api:type:SubRate), they are used and can be identified by name.
+ *	Tax portions from Line Items with the same `rate` and `name` are accumulated to the same tax portion.
+ *
+ */
 export interface TaxPortion {
   /**
+   *	Name of the tax portion.
+   *
    *
    */
   readonly name?: string
   /**
-   *	A number in the range [0..1]
+   *	A number in the range 0-1.
+   *
    *
    */
   readonly rate: number
   /**
+   *	Money value of the tax portion.
+   *
    *
    */
-  readonly amount: TypedMoney
+  readonly amount: CentPrecisionMoney
 }
+/**
+ *	Represents the portions that sum up to the `totalGross` field of a [TaxedPrice](ctp:api:type:TaxedPrice).
+ *
+ *	The portions are calculated from the [TaxRates](ctp:api:type:TaxRate).
+ *	If a Tax Rate has [SubRates](ctp:api:type:SubRate), they are used and can be identified by name.
+ *	Tax portions from Line Items with the same `rate` and `name` will be accumulated to the same tax portion.
+ *
+ */
 export interface TaxPortionDraft {
   /**
+   *	Name of the tax portion.
+   *
    *
    */
   readonly name?: string
   /**
+   *	A number in the range 0-1.
+   *
    *
    */
   readonly rate: number
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Money value for the tax portion.
    *
    *
    */
@@ -1409,104 +1782,143 @@ export interface TaxPortionDraft {
 }
 export interface TaxedItemPrice {
   /**
+   *	Total net amount of the Line Item or Custom Line Item.
+   *
    *
    */
-  readonly totalNet: TypedMoney
+  readonly totalNet: CentPrecisionMoney
   /**
-   *	TaxedItemPrice fields can not be used in query predicates.
+   *	Total gross amount of the Line Item or Custom Line Item.
+   *
    *
    */
-  readonly totalGross: TypedMoney
+  readonly totalGross: CentPrecisionMoney
   /**
-   *	Calculated automatically as the subtraction of `totalGross` - `totalNet`.
+   *	Total tax applicable for the Line Item or Custom Line Item.
+   *	Automatically calculated as the difference between the `totalGross` and `totalNet` values.
    *
    *
    */
-  readonly totalTax?: TypedMoney
+  readonly totalTax?: CentPrecisionMoney
 }
 export interface TaxedPrice {
   /**
+   *	Total net price of the Cart or Order.
+   *
    *
    */
-  readonly totalNet: TypedMoney
+  readonly totalNet: CentPrecisionMoney
   /**
+   *	Total gross price of the Cart or Order.
+   *
    *
    */
-  readonly totalGross: TypedMoney
+  readonly totalGross: CentPrecisionMoney
   /**
-   *	TaxedPrice fields that can be used in query predicates: `totalNet`, `totalGross`.
+   *	Taxable portions added to the total net price.
+   *
+   *	Calculated from the [TaxRates](ctp:api:type:TaxRate).
+   *
    *
    */
   readonly taxPortions: TaxPortion[]
   /**
-   *	Calculated automatically as the subtraction of `totalGross` - `totalNet`.
+   *	Total tax applicable for the Cart or Order.
+   *
+   *	Automatically calculated as the difference between the `totalGross` and `totalNet` values.
    *
    *
    */
-  readonly totalTax?: TypedMoney
+  readonly totalTax?: CentPrecisionMoney
 }
 export interface TaxedPriceDraft {
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Total net price of the Line Item or Custom Line Item.
    *
    *
    */
   readonly totalNet: _Money
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Total gross price of the Line Item or Custom Line Item.
    *
    *
    */
   readonly totalGross: _Money
   /**
+   *	Taxable portions added to the `totalGross`.
+   *
+   *	Calculated from the [TaxRates](ctp:api:type:TaxRate).
+   *
    *
    */
   readonly taxPortions: TaxPortionDraft[]
 }
+/**
+ *	If the Cart already contains a [CustomLineItem](ctp:api:type:CustomLineItem) with the same `slug`, `name`, `money`, `taxCategory`, `state`,
+ *	and Custom Fields, then only the quantity of the existing Custom Line Item is increased.
+ *	If [CustomLineItem](ctp:api:type:CustomLineItem) `shippingDetails` are set, they are merged with the `targets` that already exist on the
+ *	[ItemShippingDetails](ctp:api:type:ItemShippingDetails) of the Custom Line Item.
+ *	In case of overlapping address keys the [ItemShippingTarget](ctp:api:type:ItemShippingTarget) `quantity` is summed up.
+ *
+ *	If the Cart already contains a Custom Line Item with the same slug that is otherwise not identical, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+ *
+ *	If the Tax Rate is not set, a [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError) error is returned.
+ *
+ */
 export interface CartAddCustomLineItemAction {
   readonly action: 'addCustomLineItem'
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Money value of the Custom Line Item.
+   *	The value can be negative.
    *
    *
    */
   readonly money: _Money
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	Name of the Custom Line Item.
    *
    *
    */
   readonly name: LocalizedString
   /**
+   *	Number of Custom Line Items to add to the Cart.
+   *
    *
    */
-  readonly quantity: number
+  readonly quantity?: number
   /**
+   *	User-defined identifier used in a deep-link URL for the Custom Line Item.
+   *	It must match the pattern `[a-zA-Z0-9_-]{2,256}`.
+   *
    *
    */
   readonly slug: string
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
+   *	Used to select a Tax Rate when a Cart has the `Platform` [TaxMode](ctp:api:type:TaxMode).
+   *
+   *	If [TaxMode](ctp:api:type:TaxMode) is `Platform`, this field must not be empty.
    *
    *
    */
   readonly taxCategory?: TaxCategoryResourceIdentifier
   /**
-   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *	An external Tax Rate can be set if the Cart has `External` [TaxMode](ctp:api:type:TaxMode).
+   *
+   *
+   */
+  readonly externalTaxRate?: ExternalTaxRateDraft
+  /**
+   *	Container for Custom Line Item-specific addresses.
+   *
+   *
+   */
+  readonly shippingDetails?: ItemShippingDetailsDraft
+  /**
+   *	Custom Fields for the Custom Line Item.
    *
    *
    */
   readonly custom?: CustomFieldsDraft
-  /**
-   *
-   */
-  readonly externalTaxRate?: ExternalTaxRateDraft
   /**
    *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget)
    *	are applied to the Custom Line Item.
@@ -1516,10 +1928,15 @@ export interface CartAddCustomLineItemAction {
    */
   readonly priceMode?: CustomLineItemPriceMode
 }
+/**
+ *	To add a custom Shipping Method (independent of the [ShippingMethods](ctp:api:type:ShippingMethod) managed through
+ *	the [Shipping Methods API](/projects/shippingMethods)) to the Cart, it **must have** the `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+ *
+ */
 export interface CartAddCustomShippingMethodAction {
   readonly action: 'addCustomShippingMethod'
   /**
-   *	User-defined unique identifier of the custom Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined identifier for the custom Shipping Method that must be unique across the Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -1543,18 +1960,18 @@ export interface CartAddCustomShippingMethodAction {
    */
   readonly shippingRate: ShippingRateDraft
   /**
-   *	Used as an input to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
+   *	Input used to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
+   *	The data type of this field depends on the `shippingRateInputType.type` configured in the [Project](ctp:api:type:Project):
    *
-   *	- Must be [ClassificationShippingRateInput](ctp:api:type:ClassificationShippingRateInput) if [ShippingRateInputType](ctp:api:type:ShippingRateInputType) is [CartClassificationType](ctp:api:type:CartClassificationType).
-   *	- Must be [ScoreShippingRateInput](ctp:api:type:ScoreShippingRateInput) if [ShippingRateInputType](ctp:api:type:ShippingRateInputType) is [CartScoreType](ctp:api:type:CartScoreType).
-   *
-   *	The `shippingRateInput` cannot be set on the Cart if [CartValueType](ctp:api:type:CartValueType) is defined.
+   *	- If `CartClassification`, it must be [ClassificationShippingRateInputDraft](ctp:api:type:ClassificationShippingRateInputDraft).
+   *	- If `CartScore`, it must be [ScoreShippingRateInputDraft](ctp:api:type:ScoreShippingRateInputDraft).
+   *	- If `CartValue`, it cannot be set.
    *
    *
    */
   readonly shippingRateInput?: ShippingRateInputDraft
   /**
-   *	Tax Category used to determine a shipping Tax Rate if a Cart has the `Platform` [TaxMode](ctp:api:type:TaxMode).
+   *	Tax Category used to determine a shipping Tax Rate if the Cart has the `Platform` [TaxMode](ctp:api:type:TaxMode).
    *
    *
    */
@@ -1564,128 +1981,174 @@ export interface CartAddCustomShippingMethodAction {
    *
    *
    */
-  readonly externalTaxRate?: string
+  readonly externalTaxRate?: ExternalTaxRateDraft
   /**
-   *	Deliveries tied to a Shipping Method in a multi-shipping method Cart.
-   *	It holds information on how items are delivered to customers.
+   *	Deliveries to be shipped with the custom Shipping Method.
    *
    *
    */
-  readonly deliveries: Delivery[]
+  readonly deliveries?: DeliveryDraft[]
   /**
    *	Custom Fields for the custom Shipping Method.
    *
    *
    */
-  readonly custom?: string
+  readonly custom?: CustomFieldsDraft
 }
 /**
- *	Adds a [DiscountCode](ctp:api:type:DiscountCode) to the Cart to activate the related [CartDiscounts](ctp:api:type:CartDiscount).
- *	Adding a Discount Code is only possible if no [DirectDiscount](/../api/projects/carts#directdiscount) has been applied to the cart or the order.
+ *	Adds a [DiscountCode](ctp:api:type:DiscountCode) to the Cart to activate the related [Cart Discounts](/../api/projects/cartDiscounts).
+ *	Adding a Discount Code is only possible if no [DirectDiscount](ctp:api:type:DirectDiscount) has been applied to the Cart.
  *	Discount Codes can be added to [frozen Carts](ctp:api:type:FrozenCarts), but their [DiscountCodeState](ctp:api:type:DiscountCodeState) is then `DoesNotMatchCart`.
+ *
+ *	The maximum number of Discount Codes in a Cart is restricted by a [limit](/../api/limits#carts).
+ *
+ *	Specific Error Code: [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError)
  *
  */
 export interface CartAddDiscountCodeAction {
   readonly action: 'addDiscountCode'
   /**
+   *	`code` of a [DiscountCode](ctp:api:type:DiscountCode).
+   *
    *
    */
   readonly code: string
 }
+/**
+ *	Adds an address to a Cart when shipping to multiple addresses is desired.
+ *
+ */
 export interface CartAddItemShippingAddressAction {
   readonly action: 'addItemShippingAddress'
   /**
-   *	Polymorphic base type that represents a postal address and contact details.
-   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
-   *	only differ in the data type for the optional `custom` field.
+   *	Address to append to `itemShippingAddresses`.
+   *
+   *	The new Address must have a `key` that is unique accross this Cart.
    *
    *
    */
   readonly address: _BaseAddress
 }
+/**
+ *	If the Cart contains a [LineItem](ctp:api:type:LineItem) for a Product Variant with the same [LineItemMode](ctp:api:type:LineItemMode), [Custom Fields](/../api/projects/custom-fields), supply and distribution channel, then only the quantity of the existing Line Item is increased.
+ *	If [LineItem](ctp:api:type:LineItem) `shippingDetails` is set, it is merged. All addresses will be present afterwards and, for address keys present in both shipping details, the quantity will be summed up.
+ *	A new Line Item is added when the `externalPrice` or `externalTotalPrice` is set in this update action.
+ *	The [LineItem](ctp:api:type:LineItem) price is set as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *
+ *	If the Tax Rate is not set, a [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError) error is returned.
+ *
+ *	If the Line Items do not have a Price according to the [Product](ctp:api:type:Product) `priceMode` value for a selected currency and/or country, Customer Group, or Channel, a [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError) error is returned.
+ *
+ */
 export interface CartAddLineItemAction {
   readonly action: 'addLineItem'
   /**
-   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *	ID of an existing [Product](ctp:api:type:Product).
+   *
+   *	Either the `productId` and `variantId`, or `sku` must be provided.
    *
    *
    */
-  readonly custom?: CustomFieldsDraft
+  readonly productId?: string
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
+   *	ID of an existing [ProductVariant](ctp:api:type:ProductVariant) in the Product.
+   *
+   *	If not given, the Master Variant is used.
+   *
+   *	Either the `productId` and `variantId`, or `sku` must be provided.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	SKU of an existing [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *	Either the `productId` and `variantId`, or `sku` must be provided.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	Number of Line Items to add to the Cart.
+   *
+   *
+   */
+  readonly quantity?: number
+  /**
+   *	Used to [select](ctp:api:type:LineItemPriceSelection) a Product Price.
+   *	The Channel must have the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *	If the Cart is bound to a [Store](ctp:api:type:Store) with `distributionChannels` set, the Channel must match one of the Store's distribution channels.
    *
    *
    */
   readonly distributionChannel?: ChannelResourceIdentifier
   /**
-   *
-   */
-  readonly externalTaxRate?: ExternalTaxRateDraft
-  /**
-   *
-   */
-  readonly productId?: string
-  /**
-   *
-   */
-  readonly variantId?: number
-  /**
-   *
-   */
-  readonly sku?: string
-  /**
-   *
-   */
-  readonly quantity?: number
-  /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
+   *	Used to identify [Inventory entries](/../api/projects/inventory) that must be reserved.
+   *	The Channel must have the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
    *
    */
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Sets the [LineItem](ctp:api:type:LineItem) `price` value, and the `priceMode` to `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
    *
    *
    */
   readonly externalPrice?: _Money
   /**
+   *	Sets the [LineItem](ctp:api:type:LineItem) `price` and `totalPrice` values, and the `priceMode` to `ExternalTotal` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+   *
    *
    */
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
   /**
+   *	External Tax Rate for the Line Item, if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+   *
+   *
+   */
+  readonly externalTaxRate?: ExternalTaxRateDraft
+  /**
+   *	Container for Line Item-specific addresses.
+   *
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
+  /**
+   *	Custom Fields for the Line Item.
+   *
+   *
+   */
+  readonly custom?: CustomFieldsDraft
 }
 export interface CartAddPaymentAction {
   readonly action: 'addPayment'
   /**
+   *	Payment to add to the Cart.
+   *	Must not be assigned to another Order or active Cart already.
+   *
    *
    */
   readonly payment: PaymentResourceIdentifier
 }
 /**
- *	This update action fails with an [InvalidOperation](ctp:api:type:InvalidOperationError) error if the referenced shipping method has a predicate that does not match the Cart.
+ *	Adds a Shipping Method for a specified shipping address to a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
  *
  */
 export interface CartAddShippingMethodAction {
   readonly action: 'addShippingMethod'
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined identifier for the [Shipping](ctp:api:type:Shipping) that must be unique across the Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
   readonly shippingKey: string
   /**
-   *	Value to set.
-   *	If empty, any existing value is removed.
+   *	RecourceIdentifier to a [ShippingMethod](ctp:api:type:ShippingMethod) to add to the Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	If the referenced Shipping Method has a predicate that does not match the Cart, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */
-  readonly shippingMethod: ShippingMethodReference
+  readonly shippingMethod: ShippingMethodResourceIdentifier
   /**
    *	Determines the shipping rate and Tax Rate of the Line Items.
    *
@@ -1693,75 +2156,92 @@ export interface CartAddShippingMethodAction {
    */
   readonly shippingAddress: _BaseAddress
   /**
-   *	Used as an input to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
+   *	Input used to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
+   *	The data type of this field depends on the `shippingRateInputType.type` configured in the [Project](ctp:api:type:Project):
    *
-   *	- Must be [ClassificationShippingRateInput](ctp:api:type:ClassificationShippingRateInput) if [ShippingRateInputType](ctp:api:type:ShippingRateInputType) is [CartClassificationType](ctp:api:type:CartClassificationType).
-   *	- Must be [ScoreShippingRateInput](ctp:api:type:ScoreShippingRateInput) if [ShippingRateInputType](ctp:api:type:ShippingRateInputType) is [CartScoreType](ctp:api:type:CartScoreType).
-   *
-   *	The `shippingRateInput` cannot be set on the Cart if [CartValueType](ctp:api:type:CartValueType) is defined.
+   *	- If `CartClassification`, it must be [ClassificationShippingRateInputDraft](ctp:api:type:ClassificationShippingRateInputDraft).
+   *	- If `CartScore`, it must be [ScoreShippingRateInputDraft](ctp:api:type:ScoreShippingRateInputDraft).
+   *	- If `CartValue`, it cannot be set.
    *
    *
    */
   readonly shippingRateInput?: ShippingRateInputDraft
   /**
-   *	Tax Rate used to tax a shipping expense if a Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+   *	Tax Rate used to tax a shipping expense if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
    *
    *
    */
-  readonly externalTaxRate?: string
+  readonly externalTaxRate?: ExternalTaxRateDraft
   /**
-   *	Deliveries tied to a Shipping Method in a multi-shipping method Cart.
-   *	It holds information on how items are delivered to customers.
+   *	Deliveries to be shipped with the referenced Shipping Method.
    *
    *
    */
-  readonly deliveries: Delivery[]
+  readonly deliveries?: DeliveryDraft[]
   /**
    *	Custom Fields for the Shipping Method.
    *
    *
    */
-  readonly custom?: string
+  readonly custom?: CustomFieldsDraft
 }
+/**
+ *	Adds all [LineItems](ctp:api:type:LineItem) of a [ShoppingList](ctp:api:type:ShoppingList) to the Cart.
+ *
+ */
 export interface CartAddShoppingListAction {
   readonly action: 'addShoppingList'
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShoppingList](ctp:api:type:ShoppingList).
+   *	Shopping List that contains the Line Items to be added.
    *
    *
    */
   readonly shoppingList: ShoppingListResourceIdentifier
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
-   *
-   *
-   */
-  readonly supplyChannel?: ChannelResourceIdentifier
-  /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
+   *	`distributionChannel` to set for all [LineItems](ctp:api:type:LineItem) that are added to the Cart.
+   *	The Channel must have the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
    *
    */
   readonly distributionChannel?: ChannelResourceIdentifier
+  /**
+   *	`supplyChannel` to set for all [LineItems](ctp:api:type:LineItem) that are added to the Cart.
+   *	The Channel must have the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *
+   *
+   */
+  readonly supplyChannel?: ChannelResourceIdentifier
 }
 export interface CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction {
   readonly action: 'applyDeltaToCustomLineItemShippingDetailsTargets'
   /**
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *
    *
    */
   readonly customLineItemId: string
   /**
+   *	Using positive or negative quantities increases or decreases the number of items shipped to an address.
+   *
    *
    */
   readonly targetsDelta: ItemShippingTarget[]
 }
+/**
+ *	To override the shipping details, see [Set LineItemShippingDetails](ctp:api:type:CartSetLineItemShippingDetailsAction).
+ *
+ */
 export interface CartApplyDeltaToLineItemShippingDetailsTargetsAction {
   readonly action: 'applyDeltaToLineItemShippingDetailsTargets'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
   /**
+   *	Using positive or negative quantities increases or decreases the number of items shipped to an address.
+   *
    *
    */
   readonly targetsDelta: ItemShippingTarget[]
@@ -1769,13 +2249,13 @@ export interface CartApplyDeltaToLineItemShippingDetailsTargetsAction {
 export interface CartChangeCustomLineItemMoneyAction {
   readonly action: 'changeCustomLineItemMoney'
   /**
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *
    *
    */
   readonly customLineItemId: string
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Value to set. Must not be empty. Can be a negative amount.
    *
    *
    */
@@ -1784,7 +2264,33 @@ export interface CartChangeCustomLineItemMoneyAction {
 export interface CartChangeCustomLineItemPriceModeAction {
   readonly action: 'changeCustomLineItemPriceMode'
   /**
-   *	ID of the Custom Line Item to be updated.
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *
+   *
+   */
+  readonly customLineItemId: string
+  /**
+   *	New value to set. Must not be empty.
+   *
+   *
+   */
+  readonly mode: CustomLineItemPriceMode
+}
+/**
+ *	When multiple shipping addresses are set for a Custom Line Item,
+ *	use the [Add CustomLineItem](ctp:api:type:CartAddCustomLineItemAction) update action to change the shipping details.
+ *	Since it is not possible for the API to infer how the overall change in the Custom Line Item quantity should be distributed over the sub-quantities,
+ *	the `shippingDetails` field is kept in its current state to avoid data loss.
+ *
+ *	To change the Custom Line Item quantity and shipping details together,
+ *	use this update action in combination with the [Set CustomLineItemShippingDetails](ctp:api:type:CartSetCustomLineItemShippingDetailsAction) update action
+ *	in a single Cart update command.
+ *
+ */
+export interface CartChangeCustomLineItemQuantityAction {
+  readonly action: 'changeCustomLineItemQuantity'
+  /**
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
    *
    *
    */
@@ -1792,86 +2298,135 @@ export interface CartChangeCustomLineItemPriceModeAction {
   /**
    *	New value to set.
    *
+   *	If `0`, the Custom Line Item is removed from the Cart.
    *
-   */
-  readonly mode: CustomLineItemPriceMode
-}
-export interface CartChangeCustomLineItemQuantityAction {
-  readonly action: 'changeCustomLineItemQuantity'
-  /**
-   *
-   */
-  readonly customLineItemId: string
-  /**
    *
    */
   readonly quantity: number
 }
+/**
+ *	When multiple shipping addresses are set for a Line Item,
+ *	use the [Remove LineItem](ctp:api:type:CartRemoveLineItemAction) and [Add LineItem](ctp:api:type:CartAddLineItemAction) update action
+ *	to change the shipping details.
+ *	Since it is not possible for the API to infer how the overall change in the Line Item quantity should be distributed over the sub-quantities,
+ *	the `shippingDetails` field is kept in its current state to avoid data loss.
+ *
+ *	To change the Line Item quantity and shipping details together,
+ *	use this update action in combination with the [Set LineItemShippingDetails](ctp:api:type:CartSetCustomLineItemShippingDetailsAction) update action
+ *	in a single Cart update command.
+ *
+ *	The [LineItem](ctp:api:type:LineItem) price is set as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *
+ */
 export interface CartChangeLineItemQuantityAction {
   readonly action: 'changeLineItemQuantity'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
   /**
+   *	New value to set.
+   *
+   *	If `0`, the Line Item is removed from the Cart.
+   *
    *
    */
   readonly quantity: number
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	Sets the [LineItem](ctp:api:type:LineItem) `price` to the given value when changing the quantity of a Line Item with the `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
    *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	The LineItem price is updated as described in LineItem Price selection.
    *
    *
    */
   readonly externalPrice?: _Money
   /**
+   *	Sets the [LineItem](ctp:api:type:LineItem) `price` and `totalPrice` to the given value when changing the quantity of a Line Item with the `ExternalTotal` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+   *
    *
    */
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
 }
+/**
+ *	Changing the tax calculation mode leads to [recalculation of taxes](/../api/carts-orders-overview#cart-tax-calculation).
+ *
+ */
 export interface CartChangeTaxCalculationModeAction {
   readonly action: 'changeTaxCalculationMode'
   /**
+   *	New value to set.
+   *
    *
    */
   readonly taxCalculationMode: TaxCalculationMode
 }
+/**
+ *	- When `External` [TaxMode](ctp:api:type:TaxMode) is changed to `Platform` or `Disabled`, all previously set external Tax Rates are removed.
+ *	- When set to `Platform`, Line Items, Custom Line Items, and Shipping Method require a Tax Category with a Tax Rate for the Cart's `shippingAddress`.
+ *
+ */
 export interface CartChangeTaxModeAction {
   readonly action: 'changeTaxMode'
   /**
+   *	The new TaxMode.
+   *
    *
    */
   readonly taxMode: TaxMode
 }
+/**
+ *	Changing the tax rounding mode leads to [recalculation of taxes](/../api/carts-orders-overview#cart-tax-calculation).
+ *
+ */
 export interface CartChangeTaxRoundingModeAction {
   readonly action: 'changeTaxRoundingMode'
   /**
+   *	New value to set.
+   *
    *
    */
   readonly taxRoundingMode: RoundingMode
 }
 /**
- *	Changes the [CartState](ctp:api:type:Cartstate) from `Active` to `Frozen`. Results in a [Frozen Cart](ctp:api:type:FrozenCarts).
+ *	Changes the [CartState](ctp:api:type:CartState) from `Active` to `Frozen`. Results in a [Frozen Cart](ctp:api:type:FrozenCarts).
  *	Fails with [InvalidOperation](ctp:api:type:InvalidOperation) error when the Cart is empty.
  *
  */
 export interface CartFreezeCartAction {
   readonly action: 'freezeCart'
 }
+/**
+ *	This update action does not set any Cart field in particular, but it triggers several [Cart updates](/../api/carts-orders-overview#cart-updates)
+ *	to bring prices and discounts to the latest state. Those can become stale over time when no Cart updates have been performed for a while and
+ *	prices on related Products have changed in the meanwhile.
+ *
+ *	If the `priceMode` of the [Product](ctp:api:type:Product) related to a Line Item is of `Embedded` [ProductPriceMode](ctp:api:type:ProductPriceModeEnum),
+ *	the updated `price` of that [LineItem](ctp:api:type:LineItem) may not correspond to a Price in the `variant.prices` anymore.
+ *
+ */
 export interface CartRecalculateAction {
   readonly action: 'recalculate'
   /**
-   *	If set to `true`, the line item product data (`name`, `variant` and `productType`) will also be updated.
-   *	If set to `false`, only the prices and tax rates of the line item will be updated.
-   *	Notice that if the Product's [priceMode](ctp:api:type:Product) value is `Embedded` [ProductPriceMode](ctp:api:type:ProductPriceModeEnum), the updated price of a line item may not correspond to a price in `variant.prices` anymore.
+   *	- Leave empty or set to `false` to only update the Prices and TaxRates of the Line Items.
+   *	- Set to `true` to update the Line Items' product data (like `name`, `variant` and `productType`) also.
+   *
    *
    */
   readonly updateProductData?: boolean
 }
+/**
+ *	This update action does not support specifying quantities, unlike the [Remove LineItem](ctp:api:type:CartRemoveLineItemAction) update action.
+ *
+ *	If `shippingDetails` must be partially removed, use the [Change CustomLineItem Quantity](ctp:api:type:CartChangeCustomLineItemQuantityAction) update action.
+ *
+ */
 export interface CartRemoveCustomLineItemAction {
   readonly action: 'removeCustomLineItem'
   /**
+   *	`id` of the Custom Line Item to remove.
+   *
    *
    */
   readonly customLineItemId: string
@@ -1879,42 +2434,59 @@ export interface CartRemoveCustomLineItemAction {
 export interface CartRemoveDiscountCodeAction {
   readonly action: 'removeDiscountCode'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [DiscountCode](ctp:api:type:DiscountCode).
+   *	Discount Code to remove from the Cart.
    *
    *
    */
   readonly discountCode: DiscountCodeReference
 }
+/**
+ *	An address can only be removed if it is not referenced in any [ItemShippingTarget](ctp:api:type:ItemShippingTarget) of the Cart.
+ *
+ */
 export interface CartRemoveItemShippingAddressAction {
   readonly action: 'removeItemShippingAddress'
   /**
+   *	`key` of the Address to remove from `itemShippingAddresses`.
+   *
    *
    */
   readonly addressKey: string
 }
+/**
+ *	The [LineItem](ctp:api:type:LineItem) price is updated as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *
+ */
 export interface CartRemoveLineItemAction {
   readonly action: 'removeLineItem'
   /**
+   *	`id` of the Line Item to remove.
+   *
    *
    */
   readonly lineItemId: string
   /**
+   *	New value to set.
+   *	If absent or `0`, the Line Item is removed from the Cart.
+   *
    *
    */
   readonly quantity?: number
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Sets the [LineItem](ctp:api:type:LineItem) `price` to the given value when decreasing the quantity of a Line Item with the `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
    *
    *
    */
   readonly externalPrice?: _Money
   /**
+   *	Sets the [LineItem](ctp:api:type:LineItem) `price` and `totalPrice` to the given value when decreasing the quantity of a Line Item with the `ExternalTotal` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+   *
    *
    */
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
   /**
+   *	Container for Line Item-specific addresses to remove.
+   *
    *
    */
   readonly shippingDetailsToRemove?: ItemShippingDetailsDraft
@@ -1922,14 +2494,20 @@ export interface CartRemoveLineItemAction {
 export interface CartRemovePaymentAction {
   readonly action: 'removePayment'
   /**
+   *	Payment to remove from the Cart.
+   *
    *
    */
   readonly payment: PaymentResourceIdentifier
 }
+/**
+ *	Removes a Shipping Method from a Cart that has the `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+ *
+ */
 export interface CartRemoveShippingMethodAction {
   readonly action: 'removeShippingMethod'
   /**
-   *	User-defined unique identifier of the Shipping Method to remove in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method to remove from the Cart.
    *
    *
    */
@@ -1938,7 +2516,9 @@ export interface CartRemoveShippingMethodAction {
 export interface CartSetAnonymousIdAction {
   readonly action: 'setAnonymousId'
   /**
-   *	If not set, any existing anonymous ID will be removed.
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
    *
    */
   readonly anonymousId?: string
@@ -1946,6 +2526,9 @@ export interface CartSetAnonymousIdAction {
 export interface CartSetBillingAddressAction {
   readonly action: 'setBillingAddress'
   /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
    *
    */
   readonly address?: _BaseAddress
@@ -1983,22 +2566,50 @@ export interface CartSetBillingAddressCustomTypeAction {
    */
   readonly fields?: FieldContainer
 }
+/**
+ *	Updates the Business Unit on the Cart. The Cart must have an existing Business Unit assigned already.
+ *
+ */
+export interface CartSetBusinessUnitAction {
+  readonly action: 'setBusinessUnit'
+  /**
+   *	New Business Unit to assign to the Cart, which must have access to the [Store](/../api/projects/stores) that is set on the Cart.
+   *
+   *
+   */
+  readonly businessUnit: BusinessUnitResourceIdentifier
+}
+/**
+ *	This update action results in the `taxedPrice` field being added to the Cart when the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode) is used.
+ *
+ */
 export interface CartSetCartTotalTaxAction {
   readonly action: 'setCartTotalTax'
   /**
-   *	The total gross amount of the cart (totalNet + taxes).
+   *	The Cart's total gross price becoming the `totalGross` field (`totalNet` + taxes) on the Cart's `taxedPrice`.
+   *
    *
    */
   readonly externalTotalGross: _Money
   /**
+   *	Set if the `externalTotalGross` price is a sum of portions with different tax rates.
+   *
    *
    */
   readonly externalTaxPortions?: TaxPortionDraft[]
 }
+/**
+ *	Setting the country can lead to changes in the [LineItem](ctp:api:type:LineItem) prices.
+ *
+ */
 export interface CartSetCountryAction {
   readonly action: 'setCountry'
   /**
-   *	Two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
+   *	If the Cart is bound to a `store`, the provided value must be included in the [Store's](ctp:api:type:Store) `countries`.
+   *	Otherwise a [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError) error is returned.
    *
    *
    */
@@ -2024,6 +2635,8 @@ export interface CartSetCustomFieldAction {
 export interface CartSetCustomLineItemCustomFieldAction {
   readonly action: 'setCustomLineItemCustomField'
   /**
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *
    *
    */
   readonly customLineItemId: string
@@ -2045,6 +2658,8 @@ export interface CartSetCustomLineItemCustomFieldAction {
 export interface CartSetCustomLineItemCustomTypeAction {
   readonly action: 'setCustomLineItemCustomType'
   /**
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *
    *
    */
   readonly customLineItemId: string
@@ -2065,53 +2680,91 @@ export interface CartSetCustomLineItemCustomTypeAction {
 export interface CartSetCustomLineItemShippingDetailsAction {
   readonly action: 'setCustomLineItemShippingDetails'
   /**
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *
    *
    */
   readonly customLineItemId: string
   /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
 }
+/**
+ *	Can be used if the Cart has the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode).
+ *
+ */
 export interface CartSetCustomLineItemTaxAmountAction {
   readonly action: 'setCustomLineItemTaxAmount'
   /**
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *
    *
    */
   readonly customLineItemId: string
   /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
    *
    */
   readonly externalTaxAmount?: ExternalTaxAmountDraft
 }
+/**
+ *	Can be used if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+ *
+ */
 export interface CartSetCustomLineItemTaxRateAction {
   readonly action: 'setCustomLineItemTaxRate'
   /**
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *
    *
    */
   readonly customLineItemId: string
   /**
+   *	Value to set.
+   *	If empty, an existing value is removed.
+   *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
 }
+/**
+ *	To set the Cart's custom Shipping Method (independent of the [ShippingMethods](ctp:api:type:ShippingMethod) managed through
+ *	the [Shipping Methods API](/projects/shippingMethods)) the Cart must have
+ *	the `Single` [ShippingMode](ctp:api:type:ShippingMode) and a `shippingAddress`.
+ *
+ *	To unset a custom Shipping Method on a Cart, use the [Set ShippingMethod](ctp:api:type:CartSetShippingMethodAction) update action
+ *	without the `shippingMethod` field instead.
+ *
+ */
 export interface CartSetCustomShippingMethodAction {
   readonly action: 'setCustomShippingMethod'
   /**
+   *	Name of the custom Shipping Method.
+   *
    *
    */
   readonly shippingMethodName: string
   /**
+   *	Determines the shipping price.
+   *
    *
    */
   readonly shippingRate: ShippingRateDraft
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
+   *	Tax Category used to determine the Tax Rate when the Cart has the `Platform` [TaxMode](ctp:api:type:TaxMode).
    *
    *
    */
   readonly taxCategory?: TaxCategoryResourceIdentifier
   /**
+   *	External Tax Rate for the `shippingRate` to be set if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+   *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
@@ -2135,30 +2788,58 @@ export interface CartSetCustomTypeAction {
 export interface CartSetCustomerEmailAction {
   readonly action: 'setCustomerEmail'
   /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
    *
    */
-  readonly email: string
+  readonly email?: string
 }
+/**
+ *	This update action can only be used if a Customer is not assigned to a Cart.
+ *	If a Customer is already assigned, the Cart has the same Customer Group as the assigned Customer.
+ *
+ *	Setting the Customer Group also updates the [LineItem](ctp:api:type:LineItem) `prices` according to the Customer Group.
+ *
+ */
 export interface CartSetCustomerGroupAction {
   readonly action: 'setCustomerGroup'
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	Value to set.
+   *	If empty, any existing value is removed.
    *
    *
    */
   readonly customerGroup?: CustomerGroupResourceIdentifier
 }
+/**
+ *	Setting the Cart's `customerId` can lead to updates on all its [LineItem](ctp:api:type:LineItem) `prices`.
+ *
+ *	If the Customer with the specified `id` cannot be found, this update action returns a
+ *	[MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError) error.
+ *
+ */
 export interface CartSetCustomerIdAction {
   readonly action: 'setCustomerId'
   /**
-   *	If set, a customer with the given ID must exist in the project.
+   *	`id` of an existing [Customer](ctp:api:type:Customer). If empty, any value is removed.
+   *
    *
    */
   readonly customerId?: string
 }
+/**
+ *	Number of days after which a Cart with `Active` [CartState](ctp:api:type:CartState) is deleted since its last modification.
+ *
+ *	If a [ChangeSubscription](ctp:api:type:ChangeSubscription) exists for Carts, a [ResourceDeletedDeliveryPayload](ctp:api:type:ResourceDeletedDeliveryPayload) is sent.
+ *
+ */
 export interface CartSetDeleteDaysAfterLastModificationAction {
   readonly action: 'setDeleteDaysAfterLastModification'
   /**
+   *	Value to set.
+   *	If not provided, the default value for this field configured in [Project settings](ctp:api:type:CartsConfiguration) is assigned.
+   *
    *
    */
   readonly deleteDaysAfterLastModification?: number
@@ -2166,6 +2847,8 @@ export interface CartSetDeleteDaysAfterLastModificationAction {
 export interface CartSetDeliveryAddressCustomFieldAction {
   readonly action: 'setDeliveryAddressCustomField'
   /**
+   *	`id` of the [Delivery](ctp:api:type:Delivery).
+   *
    *
    */
   readonly deliveryId: string
@@ -2187,26 +2870,37 @@ export interface CartSetDeliveryAddressCustomFieldAction {
 export interface CartSetDeliveryAddressCustomTypeAction {
   readonly action: 'setDeliveryAddressCustomType'
   /**
+   *	`id` of the [Delivery](ctp:api:type:Delivery).
+   *
    *
    */
   readonly deliveryId: string
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the `address` in a Delivery with [Custom Fields](/../api/projects/custom-fields).
-   *	If absent, any existing Type and Custom Fields are removed from the `address` in a Delivery.
+   *	Defines the [Type](ctp:api:type:Type) that extends the [Delivery](ctp:api:type:Delivery) `address` with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the [Delivery](ctp:api:type:Delivery) `address`.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `address` in a Delivery.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the [Delivery](ctp:api:type:Delivery) `address`.
    *
    *
    */
   readonly fields?: FieldContainer
 }
+/**
+ *	Adds a [DirectDiscount](ctp:api:type:DirectDiscount), but only if no [DiscountCode](ctp:api:type:DiscountCode) has been added to the Cart.
+ *	Either a Discount Code or a Direct Discount can exist on a Cart at the same time.
+ *
+ */
 export interface CartSetDirectDiscountsAction {
   readonly action: 'setDirectDiscounts'
   /**
+   *	- If set, all existing Direct Discounts are replaced.
+   *	  The discounts apply in the order they are added to the list.
+   *	- If empty, all existing Direct Discounts are removed and all affected prices on the Cart or Order are recalculated.
+   *
    *
    */
   readonly discounts: DirectDiscountDraft[]
@@ -2214,6 +2908,8 @@ export interface CartSetDirectDiscountsAction {
 export interface CartSetItemShippingAddressCustomFieldAction {
   readonly action: 'setItemShippingAddressCustomField'
   /**
+   *	`key` of the [Address](ctp:api:type:Address) in `itemShippingAddress`.
+   *
    *
    */
   readonly addressKey: string
@@ -2235,6 +2931,8 @@ export interface CartSetItemShippingAddressCustomFieldAction {
 export interface CartSetItemShippingAddressCustomTypeAction {
   readonly action: 'setItemShippingAddressCustomType'
   /**
+   *	`key` of the [Address](ctp:api:type:Address) in `itemShippingAddress`.
+   *
    *
    */
   readonly addressKey: string
@@ -2255,6 +2953,9 @@ export interface CartSetItemShippingAddressCustomTypeAction {
 export interface CartSetKeyAction {
   readonly action: 'setKey'
   /**
+   *	Value to set.
+   *	If empty, any existing key will be removed.
+   *
    *
    */
   readonly key?: string
@@ -2262,6 +2963,8 @@ export interface CartSetKeyAction {
 export interface CartSetLineItemCustomFieldAction {
   readonly action: 'setLineItemCustomField'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
@@ -2283,46 +2986,61 @@ export interface CartSetLineItemCustomFieldAction {
 export interface CartSetLineItemCustomTypeAction {
   readonly action: 'setLineItemCustomType'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the LineItem with [Custom Fields](/../api/projects/custom-fields).
-   *	If absent, any existing Type and Custom Fields are removed from the LineItem.
+   *	Defines the [Type](ctp:api:type:Type) that extends the Line Item with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the Line Item.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the LineItem.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Line Item.
    *
    *
    */
   readonly fields?: FieldContainer
 }
+/**
+ *	Setting a distribution channel for a [LineItem](ctp:api:type:LineItem) can lead to an updated `price` as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *
+ */
 export interface CartSetLineItemDistributionChannelAction {
   readonly action: 'setLineItemDistributionChannel'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
+   *	- If present, a [Reference](ctp:api:type:Reference) to the Channel is set for the [LineItem](ctp:api:type:LineItem) specified by `lineItemId`.
+   *	- If not present, the current [Reference](ctp:api:type:Reference) to a distribution channel is removed from the [LineItem](ctp:api:type:LineItem) specified by `lineItemId`.
+   *	  The Channel must have the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
    *
    */
   readonly distributionChannel?: ChannelResourceIdentifier
 }
+/**
+ *	Sets the [LineItem](ctp:api:type:LineItem) `price` and changes the `priceMode` to `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+ *
+ */
 export interface CartSetLineItemPriceAction {
   readonly action: 'setLineItemPrice'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Value to set.
+   *	If `externalPrice` is not given and the `priceMode` is `ExternalPrice`, the external price is unset and the `priceMode` is set to `Platform`.
    *
    *
    */
@@ -2331,70 +3049,110 @@ export interface CartSetLineItemPriceAction {
 export interface CartSetLineItemShippingDetailsAction {
   readonly action: 'setLineItemShippingDetails'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
   /**
+   *	Value to set.
+   *	If empty, the existing value is removed.
+   *
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
 }
+/**
+ *	Performing this action has no impact on inventory that should be reserved.
+ *
+ */
 export interface CartSetLineItemSupplyChannelAction {
   readonly action: 'setLineItemSupplyChannel'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
+   *	- If present, a [Reference](ctp:api:type:Reference) to the Channel is set for the [LineItem](ctp:api:type:LineItem) specified by `lineItemId`.
+   *	- If not present, the current [Reference](ctp:api:type:Reference) to a supply channel will be removed from the [LineItem](ctp:api:type:LineItem) specified by `lineItemId`.
+   *	  The Channel must have the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
    *
    */
   readonly supplyChannel?: ChannelResourceIdentifier
 }
+/**
+ *	Can be used if the Cart has the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode).
+ *
+ */
 export interface CartSetLineItemTaxAmountAction {
   readonly action: 'setLineItemTaxAmount'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
   /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
    *
    */
   readonly externalTaxAmount?: ExternalTaxAmountDraft
   /**
-   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) used for this Line Item.```
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) used for this Line Item.
    *	This is required for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
   readonly shippingKey?: string
 }
+/**
+ *	Can be used if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+ *
+ */
 export interface CartSetLineItemTaxRateAction {
   readonly action: 'setLineItemTaxRate'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
   /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
   /**
-   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) used for this Line Item.```
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) used for this Line Item.
    *	This is required for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
   readonly shippingKey?: string
 }
+/**
+ *	Sets the [LineItem](ctp:api:type:LineItem) `totalPrice` and `price`, and changes the `priceMode` to `ExternalTotal` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+ *
+ */
 export interface CartSetLineItemTotalPriceAction {
   readonly action: 'setLineItemTotalPrice'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
   /**
+   *	Value to set.
+   *	If `externalTotalPrice` is not given and the `priceMode` is `ExternalTotal`, the external price is unset and the `priceMode` is set to `Platform`.
+   *
    *
    */
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
@@ -2402,13 +3160,31 @@ export interface CartSetLineItemTotalPriceAction {
 export interface CartSetLocaleAction {
   readonly action: 'setLocale'
   /**
+   *	Value to set.
+   *	Must be one of the [Project](ctp:api:type:Project)'s `languages`.
+   *	If empty, any existing value will be removed.
+   *
    *
    */
   readonly locale?: string
 }
+/**
+ *	Setting the shipping address also sets the [TaxRate](ctp:api:type:TaxRate) of Line Items and calculates the [TaxedPrice](ctp:api:type:TaxedPrice).
+ *
+ *	If a matching price cannot be found for the given shipping address during [Line Item Price selection](ctp:api:type:LineItemPriceSelection),
+ *	a [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError) error is returned.
+ *
+ *	If you want to allow shipping to states inside a country that are not explicitly covered by a TaxRate,
+ *	set the `countryTaxRateFallbackEnabled` field to `true` in the [CartsConfiguration](ctp:api:type:CartsConfiguration) by using
+ *	the [Change CountryTaxRateFallbackEnabled](ctp:api:type:ProjectChangeCountryTaxRateFallbackEnabledAction) update action.
+ *
+ */
 export interface CartSetShippingAddressAction {
   readonly action: 'setShippingAddress'
   /**
+   *	Value to set.
+   *	If not set, the shipping address is unset, and the `taxedPrice` and `taxRate` are unset in all Line Items of the Cart.
+   *
    *
    */
   readonly address?: _BaseAddress
@@ -2449,7 +3225,9 @@ export interface CartSetShippingAddressCustomTypeAction {
 export interface CartSetShippingCustomFieldAction {
   readonly action: 'setShippingCustomField'
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	The `shippingKey` of the [Shipping](ctp:api:type:Shipping) to customize. Used to specify which Shipping Method to customize
+   *	on a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Leave this empty to customize the one and only ShippingMethod on a `Single` ShippingMode Cart.
    *
    *
    */
@@ -2469,80 +3247,118 @@ export interface CartSetShippingCustomFieldAction {
    */
   readonly value?: any
 }
+/**
+ *	This action sets, overwrites, or removes any existing Custom Type and Custom Fields for the Cart's `shippingMethod` or `shipping`.
+ *
+ */
 export interface CartSetShippingCustomTypeAction {
   readonly action: 'setShippingCustomType'
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	The `shippingKey` of the [Shipping](ctp:api:type:Shipping) to customize. Used to specify which Shipping Method to customize
+   *	on a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Leave this empty to customize the one and only ShippingMethod on a `Single` ShippingMode Cart.
    *
    *
    */
   readonly shippingKey?: string
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the `shippingAddress` with [Custom Fields](/../api/projects/custom-fields).
-   *	If absent, any existing Type and Custom Fields are removed from the `shippingAddress`.
+   *	Defines the [Type](ctp:api:type:Type) that extends the specified ShippingMethod with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the ShippingMethod.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `shippingAddress`.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `shippingMethod`.
    *
    *
    */
   readonly fields?: FieldContainer
 }
+/**
+ *	To set the Cart's Shipping Method the Cart must have the `Single` [ShippingMode](ctp:api:type:ShippingMode) and a `shippingAddress`.
+ *
+ */
 export interface CartSetShippingMethodAction {
   readonly action: 'setShippingMethod'
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod).
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
+   *	If the referenced Shipping Method has a predicate that does not match the Cart, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */
   readonly shippingMethod?: ShippingMethodResourceIdentifier
   /**
+   *	An external Tax Rate can be set if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+   *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
 }
+/**
+ *	A Shipping Method tax amount can be set if the Cart has the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode).
+ *
+ */
 export interface CartSetShippingMethodTaxAmountAction {
   readonly action: 'setShippingMethodTaxAmount'
   /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
    *
    */
   readonly externalTaxAmount?: ExternalTaxAmountDraft
 }
+/**
+ *	A Shipping Method Tax Rate can be set if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+ *
+ */
 export interface CartSetShippingMethodTaxRateAction {
   readonly action: 'setShippingMethodTaxRate'
   /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
 }
+/**
+ *	Input used to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
+ *	If no matching tier can be found, or the input is not set, the default price for the shipping rate is used.
+ *
+ */
 export interface CartSetShippingRateInputAction {
   readonly action: 'setShippingRateInput'
   /**
-   *	Based on the definition of ShippingRateInputType.
-   *	If CartClassification is defined, it must be ClassificationShippingRateInput.
-   *	If CartScore is defined, it must be ScoreShippingRateInput.
-   *	Otherwise it can not bet set.
+   *	The data type of this field depends on the `shippingRateInputType.type` configured in the [Project](ctp:api:type:Project):
+   *
+   *	- If `CartClassification`, it must be [ClassificationShippingRateInputDraft](ctp:api:type:ClassificationShippingRateInputDraft).
+   *	- If `CartScore`, it must be [ScoreShippingRateInputDraft](ctp:api:type:ScoreShippingRateInputDraft).
+   *	- If `CartValue`, it cannot be set.
+   *
    *
    */
   readonly shippingRateInput?: ShippingRateInputDraft
 }
 /**
- *	Changes the [CartState](ctp:api:type:CartState) from `Frozen` to `Active`. Reactivates a [Frozen Cart](ctp:api:type:FrozenCart).
+ *	Changes the [CartState](ctp:api:type:CartState) from `Frozen` to `Active`. Reactivates a [Frozen Cart](ctp:api:type:FrozenCarts).
  *	This action updates all prices in the Cart according to latest Prices on related Product Variants and Shipping Methods and by applying all discounts currently being active and applicable for the Cart.
  *
  */
 export interface CartUnfreezeCartAction {
   readonly action: 'unfreezeCart'
 }
+/**
+ *	Updates an address in `itemShippingAddresses` by keeping the Address `key`.
+ *
+ */
 export interface CartUpdateItemShippingAddressAction {
   readonly action: 'updateItemShippingAddress'
   /**
-   *	Polymorphic base type that represents a postal address and contact details.
-   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
-   *	only differ in the data type for the optional `custom` field.
+   *	The new Address with the same `key` as the Address it will replace.
    *
    *
    */

@@ -467,7 +467,7 @@ export interface BaseAddress {
    */
   readonly externalId?: string
 }
-export type _BaseAddress = BaseAddress | Address | AddressDraft
+export type _BaseAddress = BaseAddress | AddressDraft | Address
 /**
  *	Address type returned by read methods.
  *	Optionally, the `custom` field can be present in addition to the fields of a [BaseAddress](ctp:api:type:BaseAddress).
@@ -540,12 +540,12 @@ export type _BaseResource =
   | TaxCategory
   | Type
   | Zone
-  | CartDiscount
-  | BusinessUnit
   | Cart
-  | Category
-  | Channel
   | AttributeGroup
+  | Channel
+  | Category
+  | BusinessUnit
+  | CartDiscount
 /**
  *	These objects represent information about which [API Client](/../api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/client-logging).
  *
@@ -570,7 +570,7 @@ export interface ClientLogging {
    */
   readonly customer?: CustomerReference
   /**
-   *	Indicates that the resource was modified during an [anonymous session](/../api/authorization#tokens-for-anonymous-sessions) with the logged ID.
+   *	Indicates that the resource was modified during an [anonymous session](ctp:api:type:AnonymousSession) with the logged ID.
    *
    *
    */
@@ -600,7 +600,7 @@ export interface CreatedBy extends ClientLogging {
    */
   readonly customer?: CustomerReference
   /**
-   *	Indicates the [anonymous session](/../api/authorization#tokens-for-anonymous-sessions) during which the resource was created.
+   *	Indicates the [anonymous session](ctp:api:type:AnonymousSession) during which the resource was created.
    *
    *
    */
@@ -708,7 +708,7 @@ export interface LastModifiedBy extends ClientLogging {
    */
   readonly customer?: CustomerReference
   /**
-   *	Indicates the [anonymous session](/../api/authorization#tokens-for-anonymous-sessions) during which the resource was modified.
+   *	Indicates the [anonymous session](ctp:api:type:AnonymousSession) during which the resource was modified.
    *
    *
    */
@@ -804,8 +804,8 @@ export interface Price {
   readonly validUntil?: string
   /**
    *	Is set if a [ProductDiscount](ctp:api:type:ProductDiscount) has been applied.
-   *	If set, the API uses the DiscountedPrice value for the [LineItem Price selection](/projects/carts#lineitem-price-selection).
-   *	When a [relative discount](/../api/projects/productDiscounts#productdiscountvaluerelative) has been applied and the fraction part of the DiscountedPrice `value` is 0.5, the `value` is rounded in favor of the customer with [half down rounding](https://en.wikipedia.org/wiki/Rounding#Round_half_down).
+   *	If set, the API uses the DiscountedPrice value for the [Line Item Price selection](ctp:api:type:LineItemPriceSelection).
+   *	When a [relative discount](ctp:api:type:ProductDiscountValueRelative) has been applied and the fraction part of the DiscountedPrice `value` is 0.5, the `value` is rounded in favor of the customer with [half-down rounding](https://en.wikipedia.org/wiki/Rounding#Round_half_down).
    *
    *
    */
@@ -1170,7 +1170,7 @@ export interface ScopedPrice {
    */
   readonly validUntil?: string
   /**
-   *	Is set if a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists. If set, the [Cart](ctp:api:type:Cart) uses the discounted value for the [Cart Price calculation](ctp:api:type:CartAddLineItemAction).
+   *	Is set when a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists. If set, the [Cart](ctp:api:type:Cart) uses the discounted value for the [Cart Price calculation](ctp:api:type:CartAddLineItemAction).
    *
    *	When a [relative Product Discount](ctp:api:type:ProductDiscountValueRelative) is applied and the fractional part of the discounted Price is 0.5, the discounted Price is [rounded half down](https://en.wikipedia.org/wiki/Rounding#Round_half_down) in favor of the Customer.
    *
