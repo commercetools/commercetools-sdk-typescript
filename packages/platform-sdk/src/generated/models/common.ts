@@ -540,12 +540,12 @@ export type _BaseResource =
   | TaxCategory
   | Type
   | Zone
-  | Cart
-  | AttributeGroup
-  | Channel
-  | Category
-  | BusinessUnit
   | CartDiscount
+  | BusinessUnit
+  | Cart
+  | Category
+  | Channel
+  | AttributeGroup
 /**
  *	These objects represent information about which [API Client](/../api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/client-logging).
  *

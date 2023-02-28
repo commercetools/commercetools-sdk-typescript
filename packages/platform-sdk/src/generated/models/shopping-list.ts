@@ -254,18 +254,16 @@ export interface ShoppingListLineItem {
   readonly variantId?: number
   /**
    *	Data of the [ProductVariant](ctp:api:type:ProductVariant).
-   *	Returned when expanded using `expand=lineItems[*].variant`.
    *
-   *	*Limitation: `expand=lineItems[0].variant` is not supported.*
+   *	Returned when expanded using `expand=lineItems[*].variant`. You cannot expand only a single element of the array.
    *
    *
    */
   readonly variant?: ProductVariant
   /**
    *	Slug of the current [ProductData](ctp:api:type:ProductData).
-   *	Only returned when expanded using `expand=lineItems[*].productSlug`.
    *
-   *	*Limitation: `expand=lineItems[0].productSlug` is not supported.*
+   *	Returned when expanded using `expand=lineItems[*].productSlug`. You cannot expand only a single element of the array.
    *
    *
    */

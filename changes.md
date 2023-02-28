@@ -1,13 +1,6 @@
 **Api changes**
 
 <details>
-<summary>Added QueryParameter(s)</summary>
-
-- added query parameter `sort` to method `get /{projectKey}/product-selections/key={key}/products`
-- added query parameter `sort` to method `get /{projectKey}/product-selections/{ID}/products`
-</details>
-
-<details>
 <summary>Changed Property(s)</summary>
 
 - :warning: changed property `stores` of type `BusinessUnitDraft` from type `StoreKeyReference[]` to `StoreResourceIdentifier[]`
@@ -37,4 +30,11 @@
 - added type `OrderPurchaseOrderNumberSetMessagePayload`
 - added type `StagedOrderSetPurchaseOrderNumberAction`
 - added type `OrderSetPurchaseOrderNumberAction`
+</details>
+
+<details>
+<summary>Added QueryParameter(s)</summary>
+
+- added query parameter `sort` to method `get /{projectKey}/product-selections/key={key}/products`
+- added query parameter `sort` to method `get /{projectKey}/product-selections/{ID}/products`
 </details>
