@@ -123,11 +123,7 @@ export default function createHttpMiddleware({
       const url = host.replace(/\/$/, '') + request.uri
       const requestHeader: JsonObject<QueryParam> = { ...request.headers }
 
-      // Unset the content-type header if explicitly asked to (passing `null` as value).
-      if (requestHeader['Content-Type'] === null) {
-        delete requestHeader['Content-Type']
-      }
-
+      // If no content-type is provided, defaults to application/json
       if (
         !(
           Object.prototype.hasOwnProperty.call(requestHeader, 'Content-Type') ||
@@ -135,6 +131,11 @@ export default function createHttpMiddleware({
         )
       ) {
         requestHeader['Content-Type'] = 'application/json'
+      }
+
+      // Unset the content-type header if explicitly asked to (passing `null` as value).
+      if (requestHeader['Content-Type'] === null) {
+        delete requestHeader['Content-Type']
       }
 
       // Ensure body is a string if content type is application/json
