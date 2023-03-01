@@ -831,4 +831,10 @@ export interface OrderImport {
    *
    */
   readonly store?: StoreKeyReference
+  /**
+   *	Reference to a State in a custom workflow.
+   *
+   *
+   */
+  readonly state?: StateKeyReference
 }

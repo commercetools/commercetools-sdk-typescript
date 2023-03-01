@@ -120,3 +120,25 @@
 
 - added enum `shipping` to type `ResourceTypeId`
 </details>
+
+**Import changes**
+
+<details>
+<summary>Required Property(s)</summary>
+
+- changed property `password` of type `CustomerImport` to be optional
+</details>
+
+<details>
+<summary>Added Property(s)</summary>
+
+- added property `authenticationMode` to type `CustomerImport`
+- added property `state` to type `OrderImport`
+- added property `custom` to type `Address`
+</details>
+
+<details>
+<summary>Added Type(s)</summary>
+
+- added type `AuthenticationMode`
+</details>
