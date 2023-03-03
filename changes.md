@@ -1,15 +1,11 @@
 **Api changes**
 
 <details>
-<summary>Added Resource(s)</summary>
+<summary>Removed Property(s)</summary>
 
-- added resource `/{projectKey}/me/orders/quotes`
-</details>
-
-<details>
-<summary>Added Method(s)</summary>
-
-- added method `apiRoot.withProjectKey().me().orders().quotes().post()`
+- :warning: removed property `externalTaxRate` from type `MyCartAddLineItemAction`
+- :warning: removed property `externalPrice` from type `MyCartAddLineItemAction`
+- :warning: removed property `externalTotalPrice` from type `MyCartAddLineItemAction`
 </details>
 
 <details>
@@ -76,6 +72,8 @@
 <summary>Added Property(s)</summary>
 
 - added property `shippingDetails` to type `CartAddCustomLineItemAction`
+- added property `addedAt` to type `CartAddLineItemAction`
+- added property `inventoryMode` to type `CartAddLineItemAction`
 - added property `oldValue` to type `StandalonePriceValueChangedMessage`
 - added property `oldValue` to type `StandalonePriceValueChangedMessagePayload`
 - added property `purchaseOrderNumber` to type `StagedOrder`
@@ -85,6 +83,18 @@
 - added property `purchaseOrderNumber` to type `QuoteRequestDraft`
 - added property `purchaseOrderNumber` to type `Quote`
 - added property `purchaseOrderNumber` to type `StagedQuote`
+</details>
+
+<details>
+<summary>Added Resource(s)</summary>
+
+- added resource `/{projectKey}/me/orders/quotes`
+</details>
+
+<details>
+<summary>Added Method(s)</summary>
+
+- added method `apiRoot.withProjectKey().me().orders().quotes().post()`
 </details>
 
 <details>

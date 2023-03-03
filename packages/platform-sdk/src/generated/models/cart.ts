@@ -1347,7 +1347,7 @@ export interface LineItem {
  */
 export interface LineItemDraft {
   /**
-   *	`id` of the [Product](ctp:api:type:Product).
+   *	`id` of a published [Product](ctp:api:type:Product).
    *
    *
    */
@@ -1366,7 +1366,7 @@ export interface LineItemDraft {
    */
   readonly sku?: string
   /**
-   *	Number of Product Variants to add to the Cart.
+   *	Quantity of the Product Variant to add to the Cart.
    *
    *
    */
@@ -1381,13 +1381,6 @@ export interface LineItemDraft {
    */
   readonly addedAt?: string
   /**
-   *	Used to identify [Inventory entries](/../api/projects/inventory) that must be reserved.
-   *	The referenced Channel must have the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
-   *
-   *
-   */
-  readonly supplyChannel?: ChannelResourceIdentifier
-  /**
    *	Used to [select](ctp:api:type:LineItemPriceSelection) a Product Price.
    *	The referenced Channel must have the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
@@ -1398,11 +1391,12 @@ export interface LineItemDraft {
    */
   readonly distributionChannel?: ChannelResourceIdentifier
   /**
-   *	External Tax Rate for the Line Item if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+   *	Used to identify [Inventory entries](/../api/projects/inventory) that must be reserved.
+   *	The referenced Channel must have the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
    *
    */
-  readonly externalTaxRate?: ExternalTaxRateDraft
+  readonly supplyChannel?: ChannelResourceIdentifier
   /**
    *	Sets the [LineItem](ctp:api:type:LineItem) `price` value, and the `priceMode` to `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
    *
@@ -1415,6 +1409,12 @@ export interface LineItemDraft {
    *
    */
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
+  /**
+   *	External Tax Rate for the Line Item if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+   *
+   *
+   */
+  readonly externalTaxRate?: ExternalTaxRateDraft
   /**
    *	Inventory mode specific to the Line Item only, and valid for the entire `quantity` of the Line Item.
    *	Set only if the inventory mode should be different from the `inventoryMode` specified on the [Cart](ctp:api:type:Cart).
@@ -2043,7 +2043,7 @@ export interface CartAddItemShippingAddressAction {
 export interface CartAddLineItemAction {
   readonly action: 'addLineItem'
   /**
-   *	ID of an existing [Product](ctp:api:type:Product).
+   *	`id` of the published [Product](ctp:api:type:Product).
    *
    *	Either the `productId` and `variantId`, or `sku` must be provided.
    *
@@ -2051,9 +2051,8 @@ export interface CartAddLineItemAction {
    */
   readonly productId?: string
   /**
-   *	ID of an existing [ProductVariant](ctp:api:type:ProductVariant) in the Product.
-   *
-   *	If not given, the Master Variant is used.
+   *	`id` of the [ProductVariant](ctp:api:type:ProductVariant) in the Product.
+   *	If not provided, the Master Variant is used.
    *
    *	Either the `productId` and `variantId`, or `sku` must be provided.
    *
@@ -2061,7 +2060,7 @@ export interface CartAddLineItemAction {
    */
   readonly variantId?: number
   /**
-   *	SKU of an existing [ProductVariant](ctp:api:type:ProductVariant).
+   *	SKU of the [ProductVariant](ctp:api:type:ProductVariant).
    *
    *	Either the `productId` and `variantId`, or `sku` must be provided.
    *
@@ -2069,11 +2068,20 @@ export interface CartAddLineItemAction {
    */
   readonly sku?: string
   /**
-   *	Number of Line Items to add to the Cart.
+   *	Quantity of the Product Variant to add to the Cart.
    *
    *
    */
   readonly quantity?: number
+  /**
+   *	Date and time (UTC) the Product Variant is added to the Cart.
+   *	If not set, it defaults to the current date and time.
+   *
+   *	Optional for backwards compatibility reasons.
+   *
+   *
+   */
+  readonly addedAt?: string
   /**
    *	Used to [select](ctp:api:type:LineItemPriceSelection) a Product Price.
    *	The Channel must have the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
@@ -2107,6 +2115,13 @@ export interface CartAddLineItemAction {
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
+  /**
+   *	Inventory mode specific to the Line Item only, and valid for the entire `quantity` of the Line Item.
+   *	Set only if the inventory mode should be different from the `inventoryMode` specified on the [Cart](ctp:api:type:Cart).
+   *
+   *
+   */
+  readonly inventoryMode?: InventoryMode
   /**
    *	Container for Line Item-specific addresses.
    *

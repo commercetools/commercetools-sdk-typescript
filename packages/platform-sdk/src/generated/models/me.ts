@@ -1335,6 +1335,15 @@ export interface MyCartAddLineItemAction {
    */
   readonly quantity?: number
   /**
+   *	Date and time (UTC) the Line Item was added to the Cart.
+   *	If not set, it defaults to the current date and time.
+   *
+   *	Optional for backwards compatibility reasons.
+   *
+   *
+   */
+  readonly addedAt?: string
+  /**
    *	Used to [select](ctp:api:type:LineItemPriceSelection) a Product Price.
    *	The Channel must have the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *	If the Cart is bound to a [Store](ctp:api:type:Store) with `distributionChannels` set, the Channel must match one of the Store's distribution channels.
@@ -1350,38 +1359,11 @@ export interface MyCartAddLineItemAction {
    */
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
-   *	Sets the [LineItem](ctp:api:type:LineItem) `price` value, and the `priceMode` to `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
-   *
-   *
-   */
-  readonly externalPrice?: _Money
-  /**
-   *	Sets the [LineItem](ctp:api:type:LineItem) `price` and `totalPrice` values, and the `priceMode` to `ExternalTotal` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
-   *
-   *
-   */
-  readonly externalTotalPrice?: ExternalLineItemTotalPrice
-  /**
-   *	External Tax Rate for the Line Item, if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
-   *
-   *
-   */
-  readonly externalTaxRate?: ExternalTaxRateDraft
-  /**
    *	Container for Line Item-specific addresses.
    *
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
-  /**
-   *	Date and time (UTC) the Line Item was added to the Cart.
-   *	If not set, it defaults to the current date and time.
-   *
-   *	Optional for backwards compatibility reasons.
-   *
-   *
-   */
-  readonly addedAt?: string
   /**
    *	Custom Fields for the Line Item.
    *
