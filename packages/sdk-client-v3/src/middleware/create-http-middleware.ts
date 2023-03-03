@@ -164,8 +164,18 @@ export default function createHttpMiddleware(
       const requestHeader: JsonObject<QueryParam> = { ...request.headers }
 
       // validate header
-      if (!(requestHeader['Content-Type'] || requestHeader['content-type'])) {
+      if (
+        !(
+          Object.prototype.hasOwnProperty.call(requestHeader, 'Content-Type') ||
+          Object.prototype.hasOwnProperty.call(requestHeader, 'content-type')
+        )
+      ) {
         requestHeader['Content-Type'] = 'application/json'
+      }
+
+      // Unset the content-type header if explicitly asked to (passing `null` as value).
+      if (requestHeader['Content-Type'] === null) {
+        delete requestHeader['Content-Type']
       }
 
       // Ensure body is a string if content type is application/{json|graphql}
