@@ -1,5 +1,28 @@
 # @commercetools/importapi-sdk
 
+## 4.3.0
+
+### Minor Changes
+
+- [#432](https://github.com/commercetools/commercetools-sdk-typescript/pull/432) [`d06e0c5`](https://github.com/commercetools/commercetools-sdk-typescript/commit/d06e0c58f4b9a8f69bbde63f906cc905c878aa2d) Thanks [@ajimae](https://github.com/ajimae)! - ### Required Properties
+
+  - changed property `password` of type `CustomerImport` to be optional
+
+  ### Added Properties
+
+  - added property `authenticationMode` to type `CustomerImport`
+  - added property `state` to type `OrderImport`
+  - added property `custom` to type `Address`
+
+  ### Added Type
+
+  - added type `AuthenticationMode`
+
+### Patch Changes
+
+- Updated dependencies [[`8b4ad04`](https://github.com/commercetools/commercetools-sdk-typescript/commit/8b4ad04e9a43a8b399fa946ab6693500a4af3fb5)]:
+  - @commercetools/sdk-client-v2@2.1.4
+
 ## 4.2.0
 
 ### Minor Changes

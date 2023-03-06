@@ -1,5 +1,11 @@
 # @commercetools/sdk-client-v2
 
+## 2.1.4
+
+### Patch Changes
+
+- [#428](https://github.com/commercetools/commercetools-sdk-typescript/pull/428) [`8b4ad04`](https://github.com/commercetools/commercetools-sdk-typescript/commit/8b4ad04e9a43a8b399fa946ab6693500a4af3fb5) Thanks [@ajimae](https://github.com/ajimae)! - fix 415 error when uploading files using this SDK.
+
 ## 2.1.3
 
 ### Patch Changes
