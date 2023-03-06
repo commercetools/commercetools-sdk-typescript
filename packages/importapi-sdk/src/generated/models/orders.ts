@@ -688,7 +688,7 @@ export interface ScoreShippingRateInput {
  *	The data representation for an Order to be imported that is persisted as an [Order](/../api/projects/orders#top) in the Project.
  *
  *	In commercetools, you can import an Order using the
- *	[Create Order by Import](https://docs.commercetools.com/http-api-projects-orders-import.html#create-an-order-by-import)
+ *	[Create Order by Import](/../api/projects/orders-import#create-an-order-by-import)
  *	endpoint method instead of creating it from a Cart.
  *
  *	An OrderImport is a snapshot of an order at the time it was imported.
@@ -831,4 +831,10 @@ export interface OrderImport {
    *
    */
   readonly store?: StoreKeyReference
+  /**
+   *	Reference to a State in a custom workflow.
+   *
+   *
+   */
+  readonly state?: StateKeyReference
 }

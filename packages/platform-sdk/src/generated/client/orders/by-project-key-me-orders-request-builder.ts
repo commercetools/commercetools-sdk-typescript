@@ -7,6 +7,7 @@ import { MyOrderFromCartDraft } from '../../models/me'
 import { Order, OrderPagedQueryResponse } from '../../models/order'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
+import { ByProjectKeyMeOrdersQuotesRequestBuilder } from '../quotes/by-project-key-me-orders-quotes-request-builder'
 import { ByProjectKeyMeOrdersByIDRequestBuilder } from './by-project-key-me-orders-by-id-request-builder'
 /**
  **/
@@ -27,6 +28,15 @@ export class ByProjectKeyMeOrdersRequestBuilder {
       pathArgs: {
         ...this.args.pathArgs,
         ...childPathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public quotes(): ByProjectKeyMeOrdersQuotesRequestBuilder {
+    return new ByProjectKeyMeOrdersQuotesRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
       },
       executeRequest: this.args.executeRequest,
       baseUri: this.args.baseUri,

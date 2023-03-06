@@ -21,7 +21,10 @@ export interface BusinessUnitConfiguration {
 export type BusinessUnitConfigurationStatus = 'Active' | 'Inactive' | string
 export interface CartsConfiguration {
   /**
-   *	Default value for the `deleteDaysAfterLastModification` parameter of the [CartDraft](ctp:api:type:CartDraft). This field may not be present on Projects created before January 2020.
+   *	Default value for the `deleteDaysAfterLastModification` parameter of the [CartDraft](ctp:api:type:CartDraft) and [MyCartDraft](ctp:api:type:MyCartDraft).
+   *	If a [ChangeSubscription](ctp:api:type:ChangeSubscription) for Carts exists, a [ResourceDeletedDeliveryPayload](ctp:api:type:ResourceDeletedDeliveryPayload) is sent upon deletion of a Cart.
+   *
+   *	This field may not be present on Projects created before January 2020.
    *
    *
    */

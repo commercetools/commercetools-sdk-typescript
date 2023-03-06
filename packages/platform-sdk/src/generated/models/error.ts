@@ -47,7 +47,7 @@ export type ErrorObject =
   | AttributeNameDoesNotExistError
   | BadGatewayError
   | ConcurrentModificationError
-  | CountryNotConfiguredInStore
+  | CountryNotConfiguredInStoreError
   | DiscountCodeNonApplicableError
   | DuplicateAttributeValueError
   | DuplicateAttributeValuesError
@@ -258,12 +258,17 @@ export interface ConcurrentModificationError {
  *
  *	The error is returned as a failed response to:
  *
- *	- [Create Cart in Store](/../api/projects/carts#create-a-cart-in-a-store) request and [Set Country](/../api/projects/carts#set-country) update action on Carts.
- *	- [Create Order in a Store from a Cart](/../api/projects/me-orders#create-order-in-a-store-from-a-cart) requests and [Set Country](/../api/projects/me-carts#set-country) on My Orders.
- *	- [Create Order by Import](/../api/projects/orders#create-order-by-import) request.
+ *	- [Create Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/carts:POST) request and [Set Country](ctp:api:type:CartSetCountryAction) update action on Carts.
+ *	- [Create Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/me/carts:POST) request and [Set Country](ctp:api:type:MyCartSetCountryAction) update action on My Carts.
+ *	- [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests on Orders.
+ *	- [Create Order from Cart in a Store](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
+ *	- [Create Order from Quote](ctp:api:endpoint:/{projectKey}/orders/quotes:POST) requests on Orders.
+ *	- [Create Order from Quote](ctp:api:endpoint:/{projectKey}/me/orders/quotes:POST) requests on My Orders.
+ *	- [Create Order by Import](ctp:api:endpoint:/{projectKey}/orders/import:POST) request on Order Import.
+ *	- [Set Country](ctp:api:type:StagedOrderSetCountryAction) on Order Edits.
  *
  */
-export interface CountryNotConfiguredInStore {
+export interface CountryNotConfiguredInStoreError {
   readonly code: 'CountryNotConfiguredInStore'
   [key: string]: any
   /**
@@ -290,8 +295,8 @@ export interface CountryNotConfiguredInStore {
  *
  *	The error is returned as a failed response to:
  *
- *	- [Create Order from Cart](/../api/projects/orders#create-order-from-cart) and [Create Order from Cart in a Store](/../api/projects/orders#create-order-from-cart-in-a-store) requests on Orders.
- *	- [Create Order from Cart](/../api/projects/me-orders#create-order-from-a-cart) and [Create Order in a Store from a Cart](/../api/projects/me-orders#create-order-in-a-store-from-a-cart) requests on My Orders.
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests on Orders.
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/me/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
  *
  */
 export interface DiscountCodeNonApplicableError {
@@ -1055,7 +1060,7 @@ export interface InvalidInputError {
 /**
  *	Returned when Line Item or Custom Line Item quantities set under [ItemShippingDetails](ctp:api:type:ItemShippingDetails) do not match the sum of the quantities in their respective shipping details.
  *
- *	The error is returned as a failed response to the [Create Order from Cart](/../api/projects/orders#create-order-from-cart) and [Create Order from Cart in a Store](/../api/projects/orders#create-order-from-cart-in-a-store) requests.
+ *	The error is returned as a failed response to the [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests.
  *
  */
 export interface InvalidItemShippingDetailsError {
@@ -1161,8 +1166,8 @@ export interface LanguageUsedInStoresError {
  *
  *	- [Add LineItem](ctp:api:type:CartAddLineItemAction), [Add CustomLineItem](ctp:api:type:CartAddCustomLineItemAction), and [Add DiscountCode](ctp:api:type:CartAddDiscountCodeAction) update actions on Carts.
  *	- [Add LineItem](ctp:api:type:StagedOrderAddLineItemAction), [Add CustomLineItem](ctp:api:type:StagedOrderAddCustomLineItemAction), and [Add DiscountCode](ctp:api:type:StagedOrderAddDiscountCodeAction) update actions on Order Edits.
- *	- [Create Order from Cart](/../api/projects/orders#create-order-from-cart) and [Create Order from Cart in a Store](/../api/projects/orders#create-order-from-cart-in-a-store) requests on Orders.
- *	- [Create Order from a Cart](/../api/projects/me-orders#create-order-from-a-cart) and [Create Order in a Store from a Cart](/../api/projects/me-orders#create-order-in-a-store-from-a-cart) requests on My Orders.
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests on Orders.
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/me/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
  *
  */
 export interface MatchingPriceNotFoundError {
@@ -1236,7 +1241,7 @@ export interface MaxResourceLimitExceededError {
 /**
  *	Returned when one of the following states occur:
  *
- *	- [Channel](ctp:api:Channel) is added or set on a [Store](ctp:api:Store) with missing Channel `roles`.
+ *	- [Channel](ctp:api:type:Channel) is added or set on a [Store](ctp:api:type:Store) with missing Channel `roles`.
  *	- [Standalone Price](/../api/projects/standalone-prices#create-standaloneprice) references a Channel that does not contain the `ProductDistribution` role.
  *
  *	The error is returned as a failed response to:
@@ -1273,8 +1278,8 @@ export interface MissingRoleOnChannelError {
  *
  *	The error is returned as a failed response to:
  *
- *	- [Set Default Shipping Address](ctp:api:type:CustomerSetDefaultShippingAddressAction), [Add LineItem](ctp:api:type:CartAddLineItemAction), [Add CustomLineItem](ctp:api:type:CartAddCustomLineItemAction), [Set Shipping Address](ctp:api:type:CartSetShippingAddressAction), [Set Customer ID](ctp:api:type:CartSetCustomerIdAction), [Add LineItem](ctp:api:type:StagedOrderAddLineItemAction), and [Add CustomLineItem](ctp:api:type:StagedOrderAddCustomLineItemAction) update actions
- *	- [Create Order from Cart](/../api/projects/orders#create-order-from-cart) and [Create Order from Cart in a Store](/../api/projects/orders#create-order-from-cart-in-a-store) requests.
+ *	- [Set Default Shipping Address](ctp:api:type:CustomerSetDefaultShippingAddressAction), [Add LineItem](ctp:api:type:CartAddLineItemAction), [Add CustomLineItem](ctp:api:type:CartAddCustomLineItemAction), [Set Shipping Address](ctp:api:type:CartSetShippingAddressAction), [Set Customer ID](ctp:api:type:CartSetCustomerIdAction), [Add LineItem](ctp:api:type:MyCartAddLineItemAction), [Add LineItem](ctp:api:type:StagedOrderAddLineItemAction), and [Add CustomLineItem](ctp:api:type:StagedOrderAddCustomLineItemAction) update actions
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests.
  *
  */
 export interface MissingTaxRateForCountryError {
@@ -1354,8 +1359,8 @@ export interface ObjectNotFoundError {
  *
  *	The error is returned as a failed response to:
  *
- *	- [Create Order from Cart](/../api/projects/orders#create-order-from-cart), [Create Order from Cart in a Store](/../api/projects/orders#create-order-from-cart-in-a-store), and [Create Order by Import](/../api/projects/me-orders) requests on Orders.
- *	- [Create Order from a Cart](/../api/projects/me-orders#create-order-from-a-cart) and [Create Order in a Store from Cart](/../api/projects/me-orders#create-order-in-a-store-from-a-cart) requests on My Orders.
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST), [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST), and [Create Order by Import](/../api/projects/me-orders) requests on Orders.
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/me/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
  *
  */
 export interface OutOfStockError {
@@ -1493,8 +1498,8 @@ export interface PendingOperationError {
  *
  *	The error is returned as a failed response to:
  *
- *	- [Create Order from Cart](/../api/projects/orders#create-order-from-cart) and [Create Order from Cart in a Store](/../api/projects/orders#create-order-from-cart-in-a-store) requests on Orders.
- *	- [Create Order from a Cart](/../api/projects/me-orders#create-order-from-a-cart) and [Create Order in a Store from a Cart](/../api/projects/me-orders#create-order-in-a-store-from-a-cart) requests on My Orders.
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests on Orders.
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/me/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
  *
  */
 export interface PriceChangedError {
@@ -1790,7 +1795,7 @@ export interface SemanticErrorError {
 /**
  *	Returned when the Cart contains a [ShippingMethod](ctp:api:type:ShippingMethod) that is not allowed for the [Cart](ctp:api:type:Cart). In this case, the [ShippingMethodState](ctp:api:type:ShippingMethodState) value is `DoesNotMatchCart`.
  *
- *	The error is returned as a failed response to the [Create Order from Cart](/../api/projects/orders#create-order-from-cart) or [Create Order from Cart in a Store](/../api/projects/orders#create-order-from-cart-in-a-store) requests.
+ *	The error is returned as a failed response to the [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST) or [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests.
  *
  */
 export interface ShippingMethodDoesNotMatchCartError {

@@ -20,8 +20,7 @@ export class ByProjectKeyCartsKeyByKeyRequestBuilder {
     }
   ) {}
   /**
-   *	The cart may not contain up-to-date prices, discounts etc.
-   *	If you want to ensure they're up-to-date, send an Update request with the Recalculate update action instead.
+   *	To ensure the Cart is up-to-date with current values (such as Prices and Discounts), use the [Recalculate](ctp:api:type:CartRecalculateAction) update action.
    *
    */
   public get(methodArgs?: {

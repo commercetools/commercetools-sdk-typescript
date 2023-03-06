@@ -78,7 +78,10 @@ export type ExtensionAction = 'Create' | 'Update' | string
 /**
  *	Generic type for destinations.
  */
-export type ExtensionDestination = AWSLambdaDestination | HttpDestination
+export type ExtensionDestination =
+  | AWSLambdaDestination
+  | GoogleCloudFunctionDestination
+  | HttpDestination
 /**
  *	We recommend creating an Identify and Access Management (IAM) user with an `accessKey` and `accessSecret` pair, specifically for each Extension that only has the `lambda:InvokeFunction` permission on this function.
  *
@@ -242,6 +245,19 @@ export type ExtensionUpdateAction =
   | ExtensionChangeTriggersAction
   | ExtensionSetKeyAction
   | ExtensionSetTimeoutInMsAction
+/**
+ *	For GoogleCloudFunction destinations, you need to grant permissions to the `extensions@commercetools-platform.iam.gserviceaccount.com` service account to invoke your function. If your function's version is 1st gen, grant the service account the IAM role `Cloud Functions Invoker`. For version 2nd gen, assign the IAM role `Cloud Run Invoker` using the Cloud Run console.
+ *
+ */
+export interface GoogleCloudFunctionDestination {
+  readonly type: 'GoogleCloudFunction'
+  /**
+   *	URL to the target function.
+   *
+   *
+   */
+  readonly url: string
+}
 /**
  *	We recommend an encrypted `HTTPS` connection for production setups. However, we also accept unencrypted `HTTP` connections for development purposes. HTTP redirects will not be followed and cache headers will be ignored.
  *

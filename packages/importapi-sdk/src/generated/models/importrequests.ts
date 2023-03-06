@@ -137,7 +137,7 @@ export interface StandalonePriceImportRequest {
   readonly resources: StandalonePriceImport[]
 }
 /**
- *	The request body to [import Orders](#import-orders). Contains data for [Orders](/../api/projects/orders#order) to be created or updated in a Project.
+ *	The request body to [import Orders](#import-orders). Contains data for [Orders](/../api/projects/orders#order) to be created in a Project.
  *
  */
 export interface OrderImportRequest {

@@ -3,37 +3,33 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { ImportResponse, OrderImportRequest } from '../../models/importrequests'
+import { MyOrderFromQuoteDraft } from '../../models/me'
+import { Order } from '../../models/order'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
-export class ByProjectKeyOrdersImportContainersByImportContainerKeyRequestBuilder {
+export class ByProjectKeyMeOrdersQuotesRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
         projectKey: string
-        importContainerKey: string
       }
       executeRequest: executeRequest
       baseUri?: string
     }
   ) {}
-  /**
-   *	Creates a request for creating new Orders.
-   */
   public post(methodArgs: {
-    body: OrderImportRequest
+    body: MyOrderFromQuoteDraft
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<ImportResponse> {
-    return new ApiRequest<ImportResponse>(
+  }): ApiRequest<Order> {
+    return new ApiRequest<Order>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',
-        uriTemplate:
-          '/{projectKey}/orders/import-containers/{importContainerKey}',
+        uriTemplate: '/{projectKey}/me/orders/quotes',
         pathVariables: this.args.pathArgs,
         headers: {
           'Content-Type': 'application/json',

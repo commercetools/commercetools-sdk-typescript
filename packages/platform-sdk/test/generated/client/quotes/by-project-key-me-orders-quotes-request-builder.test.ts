@@ -12,29 +12,19 @@ const apiRoot: ApiRoot = new ApiRoot({ executeRequest: null })
 export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
-      method: 'get',
-      uri: '/test_projectKey/in-store/key=test_storeKey/me/active-cart?expand=expand',
+      method: 'post',
+      uri: '/test_projectKey/me/orders/quotes',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
-        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
         .me()
-        .activeCart()
-        .get({ queryArgs: { expand: 'expand' } }),
-    },
-    {
-      method: 'get',
-      uri: '/test_projectKey/in-store/key=test_storeKey/me/active-cart',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
-        .me()
-        .activeCart()
-        .get(),
+        .orders()
+        .quotes()
+        .post({ body: null, headers: null }),
     },
   ]
 }
 
-describe('Testing ByProjectKeyInStoreKeyByStoreKeyMeActiveCartRequestBuilder Requests', () => {
+describe('Testing ByProjectKeyMeOrdersQuotesRequestBuilder Requests', () => {
   const requestsToTest = getRequestsWithMethodParameters()
   requestsToTest.forEach((rm) => {
     test(`Testing => request method: ${rm.method} and url: ${rm.uri}`, async () => {

@@ -62,7 +62,7 @@ export interface Payment extends BaseResource {
    */
   readonly customer?: CustomerReference
   /**
-   *	[Anonymous session](/../api/authorization#tokens-for-anonymous-sessions) associated with the Payment.
+   *	[Anonymous session](ctp:api:type:AnonymousSession) associated with the Payment.
    *
    *
    */
@@ -150,7 +150,7 @@ export interface PaymentDraft {
    */
   readonly customer?: CustomerResourceIdentifier
   /**
-   *	[Anonymous session](/../api/authorization#tokens-for-anonymous-sessions) associated with the Payment.
+   *	[Anonymous session](ctp:api:type:AnonymousSession) associated with the Payment.
    *
    *
    */

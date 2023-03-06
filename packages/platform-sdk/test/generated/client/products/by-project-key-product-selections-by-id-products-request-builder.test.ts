@@ -53,6 +53,16 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
+      uri: '/test_projectKey/product-selections/test_ID/products?sort=sort',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .productSelections()
+        .withId({ ID: 'test_ID' })
+        .products()
+        .get({ queryArgs: { sort: 'sort' } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/product-selections/test_ID/products',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })

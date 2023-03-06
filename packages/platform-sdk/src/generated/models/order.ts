@@ -653,7 +653,13 @@ export interface Order extends BaseResource {
    */
   readonly taxCalculationMode?: TaxCalculationMode
   /**
-   *	The shippingRateInput is used as an input to select a ShippingRatePriceTier.
+   *	Input used to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
+   *	The data type of this field depends on the `shippingRateInputType.type` configured in the [Project](ctp:api:type:Project):
+   *
+   *	- If `CartClassification`, it is [ClassificationShippingRateInput](ctp:api:type:ClassificationShippingRateInput).
+   *	- If `CartScore`, it is [ScoreShippingRateInput](ctp:api:type:ScoreShippingRateInput).
+   *	- If `CartValue`, it cannot be used.
+   *
    *
    */
   readonly shippingRateInput?: ShippingRateInput
@@ -1435,6 +1441,10 @@ export interface OrderAddDeliveryAction {
    */
   readonly shippingKey?: string
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address?: _BaseAddress
@@ -1451,6 +1461,10 @@ export interface OrderAddDeliveryAction {
 export interface OrderAddItemShippingAddressAction {
   readonly action: 'addItemShippingAddress'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address: _BaseAddress
@@ -1574,6 +1588,10 @@ export interface OrderRemovePaymentAction {
 export interface OrderSetBillingAddressAction {
   readonly action: 'setBillingAddress'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address?: _BaseAddress
@@ -1676,6 +1694,8 @@ export interface OrderSetCustomLineItemShippingDetailsAction {
    */
   readonly customLineItemId: string
   /**
+   *	For order creation and updates, the sum of the `targets` must match the quantity of the Line Items or Custom Line Items.
+   *
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
@@ -1717,6 +1737,10 @@ export interface OrderSetDeliveryAddressAction {
    */
   readonly deliveryId: string
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address?: _BaseAddress
@@ -1903,6 +1927,8 @@ export interface OrderSetLineItemShippingDetailsAction {
    */
   readonly lineItemId: string
   /**
+   *	For order creation and updates, the sum of the `targets` must match the quantity of the Line Items or Custom Line Items.
+   *
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
@@ -2077,6 +2103,10 @@ export interface OrderSetReturnShipmentStateAction {
 export interface OrderSetShippingAddressAction {
   readonly action: 'setShippingAddress'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address?: _BaseAddress
@@ -2193,6 +2223,10 @@ export interface OrderTransitionStateAction {
 export interface OrderUpdateItemShippingAddressAction {
   readonly action: 'updateItemShippingAddress'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address: _BaseAddress

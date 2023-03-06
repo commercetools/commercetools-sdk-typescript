@@ -652,5 +652,10 @@ export interface Address {
    *
    */
   readonly externalId?: string
+  /**
+   *	Custom Fields for the address.
+   *
+   */
+  readonly custom?: Custom
 }
 export type ProductPriceModeEnum = 'Embedded' | 'Standalone' | string

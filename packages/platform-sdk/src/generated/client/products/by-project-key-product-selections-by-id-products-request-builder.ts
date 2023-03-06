@@ -25,6 +25,7 @@ export class ByProjectKeyProductSelectionsByIDProductsRequestBuilder {
       limit?: number
       offset?: number
       withTotal?: boolean
+      sort?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {

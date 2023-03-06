@@ -6,7 +6,6 @@
 
 import {
   AssociateDraft,
-  BusinessUnitKeyReference,
   BusinessUnitResourceIdentifier,
   BusinessUnitUpdateAction,
 } from './business-unit'
@@ -39,7 +38,7 @@ import {
 } from './payment'
 import { ShippingMethodResourceIdentifier } from './shipping-method'
 import { ShoppingListLineItemDraft, TextLineItemDraft } from './shopping-list'
-import { StoreKeyReference, StoreResourceIdentifier } from './store'
+import { StoreResourceIdentifier } from './store'
 import {
   CustomFields,
   CustomFieldsDraft,
@@ -96,92 +95,130 @@ export type MyBusinessUnitUpdateAction =
   | MyBusinessUnitSetCustomTypeAction
   | MyBusinessUnitSetDefaultBillingAddressAction
   | MyBusinessUnitSetDefaultShippingAddressAction
+/**
+ *	The `customerId` is determined by a [password flow token](/../api/authorization#password-flow) and
+ *	automatically set on the resulting [Cart](ctp:api:type:Cart).
+ *	The `anonymousId` is determined by a [token for an anonymous session](ctp:api:type:AnonymousSession) and
+ *	automatically set on the resulting [Cart](ctp:api:type:Cart).
+ *
+ */
 export interface MyCartDraft {
   /**
-   *	A three-digit currency code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Currency the Cart uses.
+   *
    *
    */
   readonly currency: string
   /**
+   *	Email address of the Customer the Cart belongs to.
+   *
    *
    */
   readonly customerEmail?: string
   /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to the Business Unit the Cart should belong to.
+   *
    *
    */
-  readonly country?: string
+  readonly businessUnit?: BusinessUnitResourceIdentifier
   /**
-   *	Default inventory mode is `None`.
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to the Store the Cart should belong to. Once set, it cannot be updated.
+   *
    *
    */
-  readonly inventoryMode?: InventoryMode
+  readonly store?: StoreResourceIdentifier
   /**
+   *	[Line Items](ctp:api:type:LineItems) to add to the Cart.
+   *
    *
    */
   readonly lineItems?: MyLineItemDraft[]
   /**
+   *	Determines how Tax Rates are set. The `Disabled` TaxMode **cannot** be set.
    *
-   */
-  readonly shippingAddress?: _BaseAddress
-  /**
-   *
-   */
-  readonly billingAddress?: _BaseAddress
-  /**
-   *
-   */
-  readonly shippingMethod?: ShippingMethodResourceIdentifier
-  /**
-   *	The custom fields.
-   *
-   */
-  readonly custom?: CustomFieldsDraft
-  /**
-   *
-   */
-  readonly locale?: string
-  /**
-   *	The `TaxMode` `Disabled` can not be set on the My Carts endpoint.
    *
    */
   readonly taxMode?: TaxMode
   /**
-   *	The cart will be deleted automatically if it hasn't been modified for the specified amount of days and it is in the `Active` CartState.
-   *	If a ChangeSubscription for carts exists, a `ResourceDeleted` notification will be sent.
+   *	Determines how stock quantities are tracked for Line Items in the Cart.
+   *
    *
    */
-  readonly deleteDaysAfterLastModification?: number
+  readonly inventoryMode?: InventoryMode
   /**
-   *	Contains addresses for orders with multiple shipping addresses.
-   *	Each address must contain a key which is unique in this cart.
+   *	Billing address associated with the Cart.
+   *
+   *
+   */
+  readonly billingAddress?: _BaseAddress
+  /**
+   *	Shipping address associated with the Cart. Determines eligible [ShippingMethod](ctp:api:type:ShippingMethod) rates and Tax Rates of Line Items.
+   *
+   *
+   */
+  readonly shippingAddress?: _BaseAddress
+  /**
+   *	Shipping Method for the Cart. If the referenced [ShippingMethod](ctp:api:type:ShippingMethod) has a `predicate` that does not match the Cart, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned when [creating a Cart](#create-cart).
+   *
+   *
+   */
+  readonly shippingMethod?: ShippingMethodResourceIdentifier
+  /**
+   *	Multiple shipping addresses of the Cart. Each address must contain a `key` that is unique in this Cart.
+   *	The keys are used by [LineItems](ctp:api:type:LineItem) to reference these addresses under their `shippingDetails`.
+   *
+   *	Eligible Shipping Methods or applicable Tax Rates are determined by the [Cart](ctp:api:type:Cart) `shippingAddress`, and not `itemShippingAddresses`.
+   *
    *
    */
   readonly itemShippingAddresses?: BaseAddress[]
   /**
-   *	The BusinessUnit the cart will belong to.
+   *	`code` of the existing [DiscountCodes](ctp:api:type:DiscountCode) to add to the Cart.
    *
-   *
-   */
-  readonly businessUnit?: BusinessUnitKeyReference
-  /**
-   *	[Reference](/../api/types#reference) to a [Store](ctp:api:type:Store) by its key.
-   *
-   *
-   */
-  readonly store?: StoreKeyReference
-  /**
-   *	The code of existing DiscountCodes.
    *
    */
   readonly discountCodes?: string[]
+  /**
+   *	Used for [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+   *	If used for [Create Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/me/carts:POST), the provided country must be one of the [Store's](ctp:api:type:Store) `countries`.
+   *
+   *
+   */
+  readonly country?: string
+  /**
+   *	Languages of the Cart.
+   *	Can only contain languages supported by the [Project](ctp:api:type:Project).
+   *
+   *
+   */
+  readonly locale?: string
+  /**
+   *	Number of days after which a Cart with `Active` [CartState](ctp:api:type:CartState) is deleted since its last modification.
+   *	If not provided, the default value for this field configured in [Project settings](ctp:api:type:CartsConfiguration) is assigned.
+   *
+   *	Create a [ChangeSubscription](ctp:api:type:ChangeSubscription) for Carts to receive a [ResourceDeletedDeliveryPayload](ctp:api:type:ResourceDeletedDeliveryPayload) upon deletion of the Cart.
+   *
+   *
+   */
+  readonly deleteDaysAfterLastModification?: number
+  /**
+   *	Custom Fields for the Cart.
+   *
+   *
+   */
+  readonly custom?: CustomFieldsDraft
 }
 export interface MyCartUpdate {
   /**
+   *	Expected version of the Cart on which the changes apply.
+   *	If it does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error is returned.
+   *
    *
    */
   readonly version: number
   /**
+   *	Update actions to be performed on the Cart.
+   *
    *
    */
   readonly actions: MyCartUpdateAction[]
@@ -200,6 +237,7 @@ export type MyCartUpdateAction =
   | MyCartRemoveLineItemAction
   | MyCartRemovePaymentAction
   | MyCartSetBillingAddressAction
+  | MyCartSetBusinessUnitAction
   | MyCartSetCountryAction
   | MyCartSetCustomFieldAction
   | MyCartSetCustomTypeAction
@@ -485,52 +523,74 @@ export interface MyDivisionDraft {
    */
   readonly parentUnit: BusinessUnitResourceIdentifier
 }
+/**
+ *	For Product Variant identification, either the `productId` and `variantId`, or `sku` must be provided.
+ *
+ */
 export interface MyLineItemDraft {
   /**
+   *	`id` of the [Product](ctp:api:type:Product).
+   *
    *
    */
   readonly productId?: string
   /**
+   *	`id` of the [ProductVariant](ctp:api:type:ProductVariant) in the Product.
+   *	If not provided, the Master Variant is used.
+   *
    *
    */
   readonly variantId?: number
   /**
+   *	`sku` of the [ProductVariant](ctp:api:type:ProductVariant).
+   *
    *
    */
-  readonly quantity: number
+  readonly sku?: string
   /**
-   *	When the line item was added to the cart. Optional for backwards
-   *	compatibility reasons only.
+   *	Number of Product Variants to add to the Cart.
+   *
+   *
+   */
+  readonly quantity?: number
+  /**
+   *	Date and time (UTC) the Product Variant is added to the Cart.
+   *	If not set, it defaults to the current date and time.
+   *
+   *	Optional for backwards compatibility reasons.
+   *
    *
    */
   readonly addedAt?: string
   /**
-   *	By providing supply channel information, you can unique identify
-   *	inventory entries that should be reserved.
-   *	The provided channel should have the InventorySupply role.
+   *	Used to identify [Inventory entries](/../api/projects/inventory) that must be reserved.
+   *	The Channel must have the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *
    *
    */
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
-   *	The channel is used to select a ProductPrice.
-   *	The provided channel should have the ProductDistribution role.
+   *	Used to [select](ctp:api:type:LineItemPriceSelection) a Product Price.
+   *	The Channel must have the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *
+   *	If the Cart is bound to a [Store](ctp:api:type:Store) with `distributionChannels` set,
+   *	the Channel must match one of the Store's distribution channels.
+   *
    *
    */
   readonly distributionChannel?: ChannelResourceIdentifier
   /**
-   *	The custom fields.
+   *	Container for Line Item-specific addresses.
    *
-   */
-  readonly custom?: CustomFieldsDraft
-  /**
-   *	Container for line item specific address(es).
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
   /**
+   *	Custom Fields for the Cart.
+   *
    *
    */
-  readonly sku?: string
+  readonly custom?: CustomFieldsDraft
 }
 export interface MyOrderFromCartDraft {
   /**
@@ -542,6 +602,25 @@ export interface MyOrderFromCartDraft {
    *
    */
   readonly version: number
+}
+export interface MyOrderFromQuoteDraft {
+  /**
+   *	Unique identifier of the Quote from which the Order is created.
+   *
+   */
+  readonly id: string
+  /**
+   *	`version` of the [Quote](ctp:api:type:quote) from which the Order is created.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	Set to `true`, if the `quoteState` of the referenced [Quote](ctp:api:type:quote) should be set to `Accepted`.
+   *
+   *
+   */
+  readonly quoteStateToAccepted?: boolean
 }
 export interface MyPayment {
   /**
@@ -563,7 +642,7 @@ export interface MyPayment {
    */
   readonly customer?: CustomerReference
   /**
-   *	[Anonymous session](/../api/authorization#tokens-for-anonymous-sessions) associated with the Payment. Set automatically with a [token for an anonymous session](/../api/authorization#tokens-for-anonymous-sessions). Either `customer` or `anonymousId` is present.
+   *	[Anonymous session](ctp:api:type:AnonymousSession) associated with the Payment. Set automatically with a [token for an anonymous session](ctp:api:type:AnonymousSession). Either `customer` or `anonymousId` is present.
    *
    *
    */
@@ -855,6 +934,8 @@ export interface MyTransactionDraft {
 }
 export interface ReplicaMyCartDraft {
   /**
+   *	[Reference](ctp:api:type:Reference) to a [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order) that is replicated.
+   *
    *
    */
   readonly reference: CartReference | OrderReference
@@ -1174,134 +1255,225 @@ export interface MyBusinessUnitSetDefaultShippingAddressAction {
    */
   readonly addressKey?: string
 }
+/**
+ *	Adds a [DiscountCode](ctp:api:type:DiscountCode) to the Cart to activate the related [CartDiscounts](/../api/projects/cartDiscounts).
+ *	Adding a Discount Code is only possible if no [DirectDiscount](ctp:api:type:DirectDiscount) has been applied to the Cart.
+ *	Discount Codes can be added to [frozen Carts](ctp:api:type:FrozenCarts), but their [DiscountCodeState](ctp:api:type:DiscountCodeState) is then `DoesNotMatchCart`.
+ *
+ *	The maximum number of Discount Codes in a Cart is restricted by a [limit](/../api/limits#carts).
+ *
+ *	Specific Error Code: [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError)
+ *
+ */
 export interface MyCartAddDiscountCodeAction {
   readonly action: 'addDiscountCode'
   /**
+   *	`code` of a [DiscountCode](ctp:api:type:DiscountCode).
+   *
    *
    */
   readonly code: string
 }
+/**
+ *	Adds an address to a Cart when shipping to multiple addresses is desired.
+ *
+ */
 export interface MyCartAddItemShippingAddressAction {
   readonly action: 'addItemShippingAddress'
   /**
+   *	Address to append to `itemShippingAddresses`.
+   *
+   *	The new address must have a key that is unique accross this Cart.
+   *
    *
    */
   readonly address: _BaseAddress
 }
+/**
+ *	If the Cart contains a [LineItem](ctp:api:type:LineItem) for a Product Variant with the same [LineItemMode](ctp:api:type:LineItemMode), [Custom Fields](/../api/projects/custom-fields), supply and distribution channel, then only the quantity of the existing Line Item is increased.
+ *	If [LineItem](ctp:api:type:LineItem) `shippingDetails` is set, it is merged. All addresses will be present afterwards and, for address keys present in both shipping details, the quantity will be summed up.
+ *	A new Line Item is added when the `externalPrice` or `externalTotalPrice` is set in this update action.
+ *	The [LineItem](ctp:api:type:LineItem) price is set as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *
+ *	If the Tax Rate is not set, a [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError) error is returned.
+ *
+ *	If the Line Items do not have a Price according to the [Product](ctp:api:type:Product) `priceMode` value for a selected currency and/or country, Customer Group, or Channel, a [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError) error is returned.
+ *
+ */
 export interface MyCartAddLineItemAction {
   readonly action: 'addLineItem'
   /**
-   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *	`id` of the [Product](ctp:api:type:Product).
+   *
+   *	Either the `productId` and `variantId`, or `sku` must be provided.
    *
    *
    */
-  readonly custom?: CustomFieldsDraft
+  readonly productId?: string
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
+   *	`id` of the [ProductVariant](ctp:api:type:ProductVariant) in the Product.
+   *
+   *	If not given, the Master Variant is used.
+   *
+   *	Either the `productId` and `variantId`, or `sku` must be provided.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	`sku` of the [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *	Either the `productId` and `variantId`, or `sku` must be provided.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	Number of Line Items to add to the Cart.
+   *
+   *
+   */
+  readonly quantity?: number
+  /**
+   *	Date and time (UTC) the Line Item was added to the Cart.
+   *	If not set, it defaults to the current date and time.
+   *
+   *	Optional for backwards compatibility reasons.
+   *
+   *
+   */
+  readonly addedAt?: string
+  /**
+   *	Used to [select](ctp:api:type:LineItemPriceSelection) a Product Price.
+   *	The Channel must have the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *	If the Cart is bound to a [Store](ctp:api:type:Store) with `distributionChannels` set, the Channel must match one of the Store's distribution channels.
    *
    *
    */
   readonly distributionChannel?: ChannelResourceIdentifier
   /**
-   *
-   */
-  readonly externalTaxRate?: ExternalTaxRateDraft
-  /**
-   *
-   */
-  readonly productId?: string
-  /**
-   *
-   */
-  readonly variantId?: number
-  /**
-   *
-   */
-  readonly sku?: string
-  /**
-   *
-   */
-  readonly quantity?: number
-  /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
+   *	Used to identify [Inventory entries](/../api/projects/inventory) that must be reserved.
+   *	The Channel must have the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
    *
    */
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	Container for Line Item-specific addresses.
    *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
-   *
-   *
-   */
-  readonly externalPrice?: _Money
-  /**
-   *
-   */
-  readonly externalTotalPrice?: ExternalLineItemTotalPrice
-  /**
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
   /**
+   *	Custom Fields for the Line Item.
+   *
    *
    */
-  readonly addedAt?: string
+  readonly custom?: CustomFieldsDraft
 }
 export interface MyCartAddPaymentAction {
   readonly action: 'addPayment'
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Payment](ctp:api:type:Payment).
+   *	Payment to add to the Cart.
+   *	Must not be assigned to another Order or active Cart already.
    *
    *
    */
   readonly payment: PaymentResourceIdentifier
 }
+/**
+ *	To override the shipping details, see [Set LineItemShippingDetails](ctp:api:type:MyCartSetLineItemShippingDetailsAction).
+ *
+ */
 export interface MyCartApplyDeltaToLineItemShippingDetailsTargetsAction {
   readonly action: 'applyDeltaToLineItemShippingDetailsTargets'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
   /**
+   *	Using positive or negative quantities increases or decreases the number of items shipped to an address.
+   *
    *
    */
   readonly targetsDelta: ItemShippingTarget[]
 }
+/**
+ *	When multiple shipping addresses are set for a Line Item,
+ *	use the [Remove LineItem](ctp:api:type:CartRemoveLineItemAction) and [Add LineItem](ctp:api:type:CartAddLineItemAction) update action
+ *	to change the shipping details.
+ *	Since it is not possible for the API to infer how the overall change in the Line Item quantity should be distributed over the sub-quantities,
+ *	the `shippingDetails` field is kept in its current state to avoid data loss.
+ *
+ *	To change the Line Item quantity and shipping details together,
+ *	use this update action in combination with the [Set LineItemShippingDetails](ctp:api:type:CartSetCustomLineItemShippingDetailsAction) update action
+ *	in a single Cart update command.
+ *
+ *	The [LineItem](ctp:api:type:LineItem) price is set as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *
+ */
 export interface MyCartChangeLineItemQuantityAction {
   readonly action: 'changeLineItemQuantity'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
   /**
+   *	New value to set.
+   *
+   *	If `0`, the Line Item is removed from the Cart.
+   *
    *
    */
   readonly quantity: number
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
+   *	Sets the [LineItem](ctp:api:type:LineItem) `price` to the given value when changing the quantity of a Line Item with the `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
    *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	The LineItem price is updated as described in LineItem Price selection.
    *
    *
    */
   readonly externalPrice?: _Money
   /**
+   *	Sets the [LineItem](ctp:api:type:LineItem) `price` and `totalPrice` to the given value when changing the quantity of a Line Item with the `ExternalTotal` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+   *
    *
    */
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
 }
+/**
+ *	- When `External` [TaxMode](ctp:api:type:TaxMode) is changed to `Platform` or `Disabled`, all previously set external Tax Rates are removed.
+ *	- When set to `Platform`, Line Items, Custom Line Items, and Shipping Method require a Tax Category with a Tax Rate for the Cart's `shippingAddress`.
+ *
+ */
 export interface MyCartChangeTaxModeAction {
   readonly action: 'changeTaxMode'
   /**
+   *	The new TaxMode.
+   *
    *
    */
   readonly taxMode: TaxMode
 }
+/**
+ *	This update action does not set any Cart field in particular, but it triggers several [Cart updates](/../api/carts-orders-overview#cart-updates)
+ *	to bring prices and discounts to the latest state. Those can become stale over time when no Cart updates have been performed for a while and
+ *	prices on related Products have changed in the meanwhile.
+ *
+ *	If the `priceMode` of the [Product](ctp:api:type:Product) related to a Line Item is of `Embedded` [ProductPriceMode](ctp:api:type:ProductPriceModeEnum),
+ *	the updated `price` of that [LineItem](ctp:api:type:LineItem) may not correspond to a Price in the `variant.prices` anymore.
+ *
+ */
 export interface MyCartRecalculateAction {
   readonly action: 'recalculate'
   /**
+   *	- Leave empty or set to `false` to only update the Prices and TaxRates of the Line Items.
+   *	- Set to `true` to update the Line Items' product data (like `name`, `variant` and `productType`) also.
+   *
    *
    */
   readonly updateProductData?: boolean
@@ -1309,42 +1481,60 @@ export interface MyCartRecalculateAction {
 export interface MyCartRemoveDiscountCodeAction {
   readonly action: 'removeDiscountCode'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [DiscountCode](ctp:api:type:DiscountCode).
+   *	Discount Code to remove from the Cart.
    *
    *
    */
   readonly discountCode: DiscountCodeReference
 }
+/**
+ *	An address can only be removed if it is not referenced in any [ItemShippingTarget](ctp:api:type:ItemShippingTarget) of the Cart.
+ *
+ */
 export interface MyCartRemoveItemShippingAddressAction {
   readonly action: 'removeItemShippingAddress'
   /**
+   *	`key` of the Address to remove from `itemShippingAddresses`.
+   *
    *
    */
   readonly addressKey: string
 }
+/**
+ *	The [LineItem](ctp:api:type:LineItem) price is updated as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *
+ */
 export interface MyCartRemoveLineItemAction {
   readonly action: 'removeLineItem'
   /**
+   *	`id` of the Line Item to remove.
+   *
    *
    */
   readonly lineItemId: string
   /**
+   *	New value to set.
+   *
+   *	If `0`, the Line Item is removed from the Cart.
+   *
    *
    */
   readonly quantity?: number
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Sets the [LineItem](ctp:api:type:LineItem) `price` to the given value when decreasing the quantity of a Line Item with the `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
    *
    *
    */
   readonly externalPrice?: _Money
   /**
+   *	Sets the [LineItem](ctp:api:type:LineItem) `price` and `totalPrice` to the given value when decreasing the quantity of a Line Item with the `ExternalTotal` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+   *
    *
    */
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
   /**
+   *	Container for Line Item-specific addresses to remove.
+   *
    *
    */
   readonly shippingDetailsToRemove?: ItemShippingDetailsDraft
@@ -1352,7 +1542,7 @@ export interface MyCartRemoveLineItemAction {
 export interface MyCartRemovePaymentAction {
   readonly action: 'removePayment'
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Payment](ctp:api:type:Payment).
+   *	Payment to remove from the Cart.
    *
    *
    */
@@ -1361,14 +1551,39 @@ export interface MyCartRemovePaymentAction {
 export interface MyCartSetBillingAddressAction {
   readonly action: 'setBillingAddress'
   /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
    *
    */
   readonly address?: _BaseAddress
 }
+/**
+ *	Updates the Business Unit on the Cart. The Cart must have an existing Business Unit assigned already.
+ *
+ */
+export interface MyCartSetBusinessUnitAction {
+  readonly action: 'setBusinessUnit'
+  /**
+   *	New Business Unit to assign to the Cart, which must have access to the [Store](/../api/projects/stores) that is set on the Cart.
+   *	Additionally, the authenticated user must have [Buyer](/projects/business-units#associate) access to the [Business Unit](/projects/business-units#businessunit).
+   *
+   *
+   */
+  readonly businessUnit: BusinessUnitResourceIdentifier
+}
+/**
+ *	Setting the country can lead to changes in the [LineItem](ctp:api:type:LineItem) prices.
+ *
+ */
 export interface MyCartSetCountryAction {
   readonly action: 'setCountry'
   /**
-   *	Two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
+   *	If the Cart is bound to a `store`, the provided value must be included in the [Store's](ctp:api:type:Store) `countries`.
+   *	Otherwise a [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError) error is returned.
    *
    *
    */
@@ -1394,14 +1609,14 @@ export interface MyCartSetCustomFieldAction {
 export interface MyCartSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the MyCart with [Custom Fields](/../api/projects/custom-fields).
-   *	If absent, any existing Type and Custom Fields are removed from the MyCart.
+   *	Defines the [Type](ctp:api:type:Type) that extends the Cart with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the Cart.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the MyCart.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Cart.
    *
    *
    */
@@ -1410,13 +1625,25 @@ export interface MyCartSetCustomTypeAction {
 export interface MyCartSetCustomerEmailAction {
   readonly action: 'setCustomerEmail'
   /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
    *
    */
   readonly email?: string
 }
+/**
+ *	Number of days after which a Cart with `Active` [CartState](ctp:api:type:CartState) is deleted since its last modification.
+ *
+ *	If a [ChangeSubscription](ctp:api:type:ChangeSubscription) exists for Carts, a [ResourceDeletedDeliveryPayload](ctp:api:type:ResourceDeletedDeliveryPayload) is sent.
+ *
+ */
 export interface MyCartSetDeleteDaysAfterLastModificationAction {
   readonly action: 'setDeleteDaysAfterLastModification'
   /**
+   *	Value to set.
+   *	If not provided, the default value for this field configured in [Project settings](ctp:api:type:CartsConfiguration) is assigned.
+   *
    *
    */
   readonly deleteDaysAfterLastModification?: number
@@ -1424,6 +1651,8 @@ export interface MyCartSetDeleteDaysAfterLastModificationAction {
 export interface MyCartSetLineItemCustomFieldAction {
   readonly action: 'setLineItemCustomField'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
@@ -1445,31 +1674,41 @@ export interface MyCartSetLineItemCustomFieldAction {
 export interface MyCartSetLineItemCustomTypeAction {
   readonly action: 'setLineItemCustomType'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the LineItem with [Custom Fields](/../api/projects/custom-fields).
-   *	If absent, any existing Type and Custom Fields are removed from the LineItem.
+   *	If absent, any existing Type and Custom Fields are removed from the Line Item.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the LineItem.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Line Item.
    *
    *
    */
   readonly fields?: FieldContainer
 }
+/**
+ *	Setting a distribution channel for a [LineItem](ctp:api:type:LineItem) can lead to an updated `price` as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *
+ */
 export interface MyCartSetLineItemDistributionChannelAction {
   readonly action: 'setLineItemDistributionChannel'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
+   *	- If present, a [Reference](ctp:api:type:Reference) to the Channel is set for the [LineItem](ctp:api:type:LineItem) specified by `lineItemId`.
+   *	- If not present, the current [Reference](ctp:api:type:Reference) to a distribution channel is removed from the [LineItem](ctp:api:type:LineItem) specified by `lineItemId`.
+   *	  The Channel must have the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
    *
    */
@@ -1478,22 +1717,35 @@ export interface MyCartSetLineItemDistributionChannelAction {
 export interface MyCartSetLineItemShippingDetailsAction {
   readonly action: 'setLineItemShippingDetails'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
   /**
+   *	Value to set.
+   *	If empty, the existing value is removed.
+   *
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
 }
+/**
+ *	Performing this action has no impact on inventory that should be reserved.
+ *
+ */
 export interface MyCartSetLineItemSupplyChannelAction {
   readonly action: 'setLineItemSupplyChannel'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
+   *	- If present, a [Reference](ctp:api:type:Reference) to the Channel is set for the [LineItem](ctp:api:type:LineItem) specified by `lineItemId`.
+   *	- If not present, the current [Reference](ctp:api:type:Reference) to a supply channel will be removed from the [LineItem](ctp:api:type:LineItem) specified by `lineItemId`.
+   *	  The Channel must have the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
    *
    */
@@ -1502,33 +1754,66 @@ export interface MyCartSetLineItemSupplyChannelAction {
 export interface MyCartSetLocaleAction {
   readonly action: 'setLocale'
   /**
+   *	Value to set.
+   *	Must be one of the [Project](ctp:api:type:Project)'s `languages`.
+   *	If empty, any existing value will be removed.
+   *
    *
    */
   readonly locale?: string
 }
+/**
+ *	Setting the shipping address also sets the [TaxRate](ctp:api:type:TaxRate) of Line Items and calculates the [TaxedPrice](ctp:api:type:TaxedPrice).
+ *
+ *	If a matching price cannot be found for the given shipping address during [Line Item Price selection](ctp:api:type:LineItemPriceSelection),
+ *	a [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError) error is returned.
+ *
+ *	If you want to allow shipping to states inside a country that are not explicitly covered by a TaxRate,
+ *	set the `countryTaxRateFallbackEnabled` field to `true` in the [CartsConfiguration](ctp:api:type:CartsConfiguration) by using
+ *	the [Change CountryTaxRateFallbackEnabled](ctp:api:type:ProjectChangeCountryTaxRateFallbackEnabledAction) update action.
+ *
+ */
 export interface MyCartSetShippingAddressAction {
   readonly action: 'setShippingAddress'
   /**
+   *	Value to set.
+   *	If not set, the shipping address is unset, and the `taxedPrice` and `taxRate` are unset in all Line Items.
+   *
    *
    */
   readonly address?: _BaseAddress
 }
+/**
+ *	To set the Cart's Shipping Method the Cart must have the `Single` [ShippingMode](ctp:api:type:ShippingMode) and a `shippingAddress`.
+ *
+ */
 export interface MyCartSetShippingMethodAction {
   readonly action: 'setShippingMethod'
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod).
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
+   *	If the referenced Shipping Method has a predicate that does not match the Cart, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */
   readonly shippingMethod?: ShippingMethodResourceIdentifier
   /**
+   *	An external Tax Rate can be set if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+   *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
 }
+/**
+ *	Updates an address in `itemShippingAddresses` by keeping the Address `key`.
+ *
+ */
 export interface MyCartUpdateItemShippingAddressAction {
   readonly action: 'updateItemShippingAddress'
   /**
+   *	The new Address with the same `key` as the Address it will replace.
+   *
    *
    */
   readonly address: _BaseAddress

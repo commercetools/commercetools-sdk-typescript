@@ -11,6 +11,7 @@ import {
 } from './common'
 import { Custom } from './customfields'
 
+export type AuthenticationMode = 'ExternalAuth' | 'Password' | string
 /**
  *	Different from Address in that `key` is required and `id` is not supported.
  *
@@ -145,7 +146,7 @@ export interface CustomerImport extends ImportResource {
    *
    *
    */
-  readonly password: string
+  readonly password?: string
   /**
    *	The References to the Stores with which the Customer is associated. If referenced Stores do not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary Stores are created.
    *
@@ -256,8 +257,16 @@ export interface CustomerImport extends ImportResource {
    */
   readonly locale?: string
   /**
-   *	The custom fields for this Customer.
+   *	The Custom Fields for this Customer.
+   *
    *
    */
   readonly custom?: Custom
+  /**
+   *	- Set to `Password` to make the `password` field required for the Customer.
+   *	- Set to `ExternalAuth` when the password is not required for the Customer.
+   *
+   *
+   */
+  readonly authenticationMode?: AuthenticationMode
 }

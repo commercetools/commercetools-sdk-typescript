@@ -62,6 +62,12 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeCartsRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	The `store` field in the created [Cart](ctp:api:type:Cart) is set to the Store specified by the `storeKey` path parameter.
+   *
+   *	Specific Error Codes: [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError)
+   *
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

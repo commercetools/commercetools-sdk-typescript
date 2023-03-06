@@ -306,21 +306,30 @@ export interface AssetSource {
    */
   readonly contentType?: string
 }
+/**
+ *	Polymorphic base type that represents a postal address and contact details.
+ *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+ *	only differ in the data type for the optional `custom` field.
+ *
+ */
 export interface BaseAddress {
   /**
    *	Unique identifier of the Address.
+   *
+   *	It is not recommended to set it manually since the API overwrites this ID when creating an Address for a [Customer](ctp:api:type:Customer).
+   *	Use `key` instead and omit this field from the request to let the API generate the ID for the Address.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the Address.
+   *	User-defined identifier of the Address that must be unique when multiple addresses are referenced in [BusinessUnits](ctp:api:type:BusinessUnit), [Customers](ctp:api:type:Customer), and `itemShippingAddresses` (LineItem-specific addresses) of a [Cart](ctp:api:type:Cart), [Order](ctp:api:type:Order), [QuoteRequest](ctp:api:type:QuoteRequest), or [Quote](ctp:api:type:Quote).
    *
    *
    */
   readonly key?: string
   /**
-   *	Two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Name of the country.
    *
    *
    */
@@ -458,38 +467,30 @@ export interface BaseAddress {
    */
   readonly externalId?: string
 }
-export type _BaseAddress = BaseAddress | Address | AddressDraft
+export type _BaseAddress = BaseAddress | AddressDraft | Address
+/**
+ *	Address type returned by read methods.
+ *	Optionally, the `custom` field can be present in addition to the fields of a [BaseAddress](ctp:api:type:BaseAddress).
+ *
+ */
 export interface Address extends BaseAddress {
-  /**
-   *	Unique identifier of the Address.
-   *
-   *
-   */
-  readonly id?: string
   /**
    *	Custom Fields defined for the Address.
    *
    */
   readonly custom?: CustomFields
 }
+/**
+ *	Address type to be used on write methods.
+ *	Optionally, use the `custom` field in addition to the fields of a [BaseAddress](ctp:api:type:BaseAddress).
+ *
+ */
 export interface AddressDraft extends BaseAddress {
   /**
    *	Custom Fields defined for the Address.
    *
    */
   readonly custom?: CustomFieldsDraft
-  /**
-   *	Unique identifier for the Address. Not recommended to set it manually since the API overwrites this ID when creating an Address for a [Customer](ctp:api:type:Customer). Use `key` instead and omit this field from the request to let the API generate the ID for the Address.
-   *
-   *
-   */
-  readonly id?: string
-  /**
-   *	User-defined unique identifier for the Address.
-   *
-   *
-   */
-  readonly key?: string
 }
 export interface BaseResource {
   /**
@@ -539,11 +540,11 @@ export type _BaseResource =
   | TaxCategory
   | Type
   | Zone
-  | Category
   | Cart
-  | BusinessUnit
-  | Channel
   | AttributeGroup
+  | Channel
+  | Category
+  | BusinessUnit
   | CartDiscount
 /**
  *	These objects represent information about which [API Client](/../api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/client-logging).
@@ -569,7 +570,7 @@ export interface ClientLogging {
    */
   readonly customer?: CustomerReference
   /**
-   *	Indicates that the resource was modified during an [anonymous session](/../api/authorization#tokens-for-anonymous-sessions) with the logged ID.
+   *	Indicates that the resource was modified during an [anonymous session](ctp:api:type:AnonymousSession) with the logged ID.
    *
    *
    */
@@ -599,7 +600,7 @@ export interface CreatedBy extends ClientLogging {
    */
   readonly customer?: CustomerReference
   /**
-   *	Indicates the [anonymous session](/../api/authorization#tokens-for-anonymous-sessions) during which the resource was created.
+   *	Indicates the [anonymous session](ctp:api:type:AnonymousSession) during which the resource was created.
    *
    *
    */
@@ -707,7 +708,7 @@ export interface LastModifiedBy extends ClientLogging {
    */
   readonly customer?: CustomerReference
   /**
-   *	Indicates the [anonymous session](/../api/authorization#tokens-for-anonymous-sessions) during which the resource was modified.
+   *	Indicates the [anonymous session](ctp:api:type:AnonymousSession) during which the resource was modified.
    *
    *
    */
@@ -803,8 +804,8 @@ export interface Price {
   readonly validUntil?: string
   /**
    *	Is set if a [ProductDiscount](ctp:api:type:ProductDiscount) has been applied.
-   *	If set, the API uses the DiscountedPrice value for the [LineItem Price selection](/projects/carts#lineitem-price-selection).
-   *	When a [relative discount](/../api/projects/productDiscounts#productdiscountvaluerelative) has been applied and the fraction part of the DiscountedPrice `value` is 0.5, the `value` is rounded in favor of the customer with [half down rounding](https://en.wikipedia.org/wiki/Rounding#Round_half_down).
+   *	If set, the API uses the DiscountedPrice value for the [Line Item Price selection](ctp:api:type:LineItemPriceSelection).
+   *	When a [relative discount](ctp:api:type:ProductDiscountValueRelative) has been applied and the fraction part of the DiscountedPrice `value` is 0.5, the `value` is rounded in favor of the customer with [half-down rounding](https://en.wikipedia.org/wiki/Rounding#Round_half_down).
    *
    *
    */
@@ -1169,7 +1170,7 @@ export interface ScopedPrice {
    */
   readonly validUntil?: string
   /**
-   *	Is set if a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists. If set, the [Cart](ctp:api:type:Cart) uses the discounted value for the [Cart Price calculation](ctp:api:type:CartAddLineItemAction).
+   *	Is set when a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists. If set, the [Cart](ctp:api:type:Cart) uses the discounted value for the [Cart Price calculation](ctp:api:type:CartAddLineItemAction).
    *
    *	When a [relative Product Discount](ctp:api:type:ProductDiscountValueRelative) is applied and the fractional part of the discounted Price is 0.5, the discounted Price is [rounded half down](https://en.wikipedia.org/wiki/Rounding#Round_half_down) in favor of the Customer.
    *

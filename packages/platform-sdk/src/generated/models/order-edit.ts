@@ -409,6 +409,8 @@ export interface StagedOrderAddCustomLineItemAction {
    */
   readonly custom?: CustomFieldsDraft
   /**
+   *	Controls calculation of taxed prices for Line Items, Custom Line Items, and Shipping Methods as explained in [Cart tax calculation](ctp:api:type:CartTaxCalculation).
+   *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
@@ -428,6 +430,10 @@ export interface StagedOrderAddDeliveryAction {
    */
   readonly items?: DeliveryItem[]
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address?: _BaseAddress
@@ -451,6 +457,10 @@ export interface StagedOrderAddDiscountCodeAction {
 export interface StagedOrderAddItemShippingAddressAction {
   readonly action: 'addItemShippingAddress'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address: _BaseAddress
@@ -470,6 +480,8 @@ export interface StagedOrderAddLineItemAction {
    */
   readonly distributionChannel?: ChannelResourceIdentifier
   /**
+   *	Controls calculation of taxed prices for Line Items, Custom Line Items, and Shipping Methods as explained in [Cart tax calculation](ctp:api:type:CartTaxCalculation).
+   *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
@@ -512,6 +524,8 @@ export interface StagedOrderAddLineItemAction {
    */
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
   /**
+   *	For order creation and updates, the sum of the `targets` must match the quantity of the Line Items or Custom Line Items.
+   *
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
@@ -653,6 +667,8 @@ export interface StagedOrderChangeShipmentStateAction {
 export interface StagedOrderChangeTaxCalculationModeAction {
   readonly action: 'changeTaxCalculationMode'
   /**
+   *	Determines in which [Tax calculation mode](/carts-orders-overview#tax-calculation-mode) taxed prices are calculated.
+   *
    *
    */
   readonly taxCalculationMode: TaxCalculationMode
@@ -660,6 +676,8 @@ export interface StagedOrderChangeTaxCalculationModeAction {
 export interface StagedOrderChangeTaxModeAction {
   readonly action: 'changeTaxMode'
   /**
+   *	Indicates how taxes are set on the Cart.
+   *
    *
    */
   readonly taxMode: TaxMode
@@ -667,6 +685,8 @@ export interface StagedOrderChangeTaxModeAction {
 export interface StagedOrderChangeTaxRoundingModeAction {
   readonly action: 'changeTaxRoundingMode'
   /**
+   *	Determines how monetary values are rounded.
+   *
    *
    */
   readonly taxRoundingMode: RoundingMode
@@ -746,6 +766,8 @@ export interface StagedOrderRemoveLineItemAction {
    */
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
   /**
+   *	For order creation and updates, the sum of the `targets` must match the quantity of the Line Items or Custom Line Items.
+   *
    *
    */
   readonly shippingDetailsToRemove?: ItemShippingDetailsDraft
@@ -769,6 +791,10 @@ export interface StagedOrderRemovePaymentAction {
 export interface StagedOrderSetBillingAddressAction {
   readonly action: 'setBillingAddress'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address?: _BaseAddress
@@ -878,6 +904,8 @@ export interface StagedOrderSetCustomLineItemShippingDetailsAction {
    */
   readonly customLineItemId: string
   /**
+   *	For order creation and updates, the sum of the `targets` must match the quantity of the Line Items or Custom Line Items.
+   *
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
@@ -889,6 +917,13 @@ export interface StagedOrderSetCustomLineItemTaxAmountAction {
    */
   readonly customLineItemId: string
   /**
+   *	Cannot be used in [LineItemDraft](ctp:api:type:LineItemDraft) or [CustomLineItemDraft](ctp:api:type:CustomLineItemDraft).
+   *
+   *	Can only be set by these update actions:
+   *
+   *	- [Set LineItem TaxAmount](ctp:api:type:CartSetLineItemTaxAmountAction), [Set CustomLineItem TaxAmount](ctp:api:type:CartSetCustomLineItemTaxAmountAction), or [Set ShippingMethod TaxAmount](ctp:api:type:CartSetShippingMethodTaxAmountAction) on Carts
+   *	- [Set LineItem TaxAmount](ctp:api:type:OrderEditSetLineItemTaxAmountAction), [Set CustomLineItem TaxAmount](ctp:api:type:OrderEditSetCustomLineItemTaxAmountAction), or [Set ShippingMethod TaxAmount](ctp:api:type:OrderEditSetShippingMethodTaxAmountAction) on Order Edits
+   *
    *
    */
   readonly externalTaxAmount?: ExternalTaxAmountDraft
@@ -900,6 +935,8 @@ export interface StagedOrderSetCustomLineItemTaxRateAction {
    */
   readonly customLineItemId: string
   /**
+   *	Controls calculation of taxed prices for Line Items, Custom Line Items, and Shipping Methods as explained in [Cart tax calculation](ctp:api:type:CartTaxCalculation).
+   *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
@@ -921,6 +958,8 @@ export interface StagedOrderSetCustomShippingMethodAction {
    */
   readonly taxCategory?: TaxCategoryResourceIdentifier
   /**
+   *	Controls calculation of taxed prices for Line Items, Custom Line Items, and Shipping Methods as explained in [Cart tax calculation](ctp:api:type:CartTaxCalculation).
+   *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
@@ -971,6 +1010,10 @@ export interface StagedOrderSetDeliveryAddressAction {
    */
   readonly deliveryId: string
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address?: _BaseAddress
@@ -1185,6 +1228,8 @@ export interface StagedOrderSetLineItemShippingDetailsAction {
    */
   readonly lineItemId: string
   /**
+   *	For order creation and updates, the sum of the `targets` must match the quantity of the Line Items or Custom Line Items.
+   *
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
@@ -1196,6 +1241,13 @@ export interface StagedOrderSetLineItemTaxAmountAction {
    */
   readonly lineItemId: string
   /**
+   *	Cannot be used in [LineItemDraft](ctp:api:type:LineItemDraft) or [CustomLineItemDraft](ctp:api:type:CustomLineItemDraft).
+   *
+   *	Can only be set by these update actions:
+   *
+   *	- [Set LineItem TaxAmount](ctp:api:type:CartSetLineItemTaxAmountAction), [Set CustomLineItem TaxAmount](ctp:api:type:CartSetCustomLineItemTaxAmountAction), or [Set ShippingMethod TaxAmount](ctp:api:type:CartSetShippingMethodTaxAmountAction) on Carts
+   *	- [Set LineItem TaxAmount](ctp:api:type:OrderEditSetLineItemTaxAmountAction), [Set CustomLineItem TaxAmount](ctp:api:type:OrderEditSetCustomLineItemTaxAmountAction), or [Set ShippingMethod TaxAmount](ctp:api:type:OrderEditSetShippingMethodTaxAmountAction) on Order Edits
+   *
    *
    */
   readonly externalTaxAmount?: ExternalTaxAmountDraft
@@ -1214,6 +1266,8 @@ export interface StagedOrderSetLineItemTaxRateAction {
    */
   readonly lineItemId: string
   /**
+   *	Controls calculation of taxed prices for Line Items, Custom Line Items, and Shipping Methods as explained in [Cart tax calculation](ctp:api:type:CartTaxCalculation).
+   *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
@@ -1421,6 +1475,10 @@ export interface StagedOrderSetReturnShipmentStateAction {
 export interface StagedOrderSetShippingAddressAction {
   readonly action: 'setShippingAddress'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address?: _BaseAddress
@@ -1428,6 +1486,10 @@ export interface StagedOrderSetShippingAddressAction {
 export interface StagedOrderSetShippingAddressAndCustomShippingMethodAction {
   readonly action: 'setShippingAddressAndCustomShippingMethod'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address: _BaseAddress
@@ -1446,6 +1508,8 @@ export interface StagedOrderSetShippingAddressAndCustomShippingMethodAction {
    */
   readonly taxCategory?: TaxCategoryResourceIdentifier
   /**
+   *	Controls calculation of taxed prices for Line Items, Custom Line Items, and Shipping Methods as explained in [Cart tax calculation](ctp:api:type:CartTaxCalculation).
+   *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
@@ -1453,6 +1517,10 @@ export interface StagedOrderSetShippingAddressAndCustomShippingMethodAction {
 export interface StagedOrderSetShippingAddressAndShippingMethodAction {
   readonly action: 'setShippingAddressAndShippingMethod'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address: _BaseAddress
@@ -1463,6 +1531,8 @@ export interface StagedOrderSetShippingAddressAndShippingMethodAction {
    */
   readonly shippingMethod?: ShippingMethodResourceIdentifier
   /**
+   *	Controls calculation of taxed prices for Line Items, Custom Line Items, and Shipping Methods as explained in [Cart tax calculation](ctp:api:type:CartTaxCalculation).
+   *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
@@ -1509,6 +1579,8 @@ export interface StagedOrderSetShippingMethodAction {
    */
   readonly shippingMethod?: ShippingMethodResourceIdentifier
   /**
+   *	Controls calculation of taxed prices for Line Items, Custom Line Items, and Shipping Methods as explained in [Cart tax calculation](ctp:api:type:CartTaxCalculation).
+   *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
@@ -1516,6 +1588,13 @@ export interface StagedOrderSetShippingMethodAction {
 export interface StagedOrderSetShippingMethodTaxAmountAction {
   readonly action: 'setShippingMethodTaxAmount'
   /**
+   *	Cannot be used in [LineItemDraft](ctp:api:type:LineItemDraft) or [CustomLineItemDraft](ctp:api:type:CustomLineItemDraft).
+   *
+   *	Can only be set by these update actions:
+   *
+   *	- [Set LineItem TaxAmount](ctp:api:type:CartSetLineItemTaxAmountAction), [Set CustomLineItem TaxAmount](ctp:api:type:CartSetCustomLineItemTaxAmountAction), or [Set ShippingMethod TaxAmount](ctp:api:type:CartSetShippingMethodTaxAmountAction) on Carts
+   *	- [Set LineItem TaxAmount](ctp:api:type:OrderEditSetLineItemTaxAmountAction), [Set CustomLineItem TaxAmount](ctp:api:type:OrderEditSetCustomLineItemTaxAmountAction), or [Set ShippingMethod TaxAmount](ctp:api:type:OrderEditSetShippingMethodTaxAmountAction) on Order Edits
+   *
    *
    */
   readonly externalTaxAmount?: ExternalTaxAmountDraft
@@ -1523,6 +1602,8 @@ export interface StagedOrderSetShippingMethodTaxAmountAction {
 export interface StagedOrderSetShippingMethodTaxRateAction {
   readonly action: 'setShippingMethodTaxRate'
   /**
+   *	Controls calculation of taxed prices for Line Items, Custom Line Items, and Shipping Methods as explained in [Cart tax calculation](ctp:api:type:CartTaxCalculation).
+   *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
@@ -1530,6 +1611,7 @@ export interface StagedOrderSetShippingMethodTaxRateAction {
 export interface StagedOrderSetShippingRateInputAction {
   readonly action: 'setShippingRateInput'
   /**
+   *	Generic type holding specifc ShippingRateInputDraft types.
    *
    */
   readonly shippingRateInput?: ShippingRateInputDraft
@@ -1604,6 +1686,10 @@ export interface StagedOrderTransitionStateAction {
 export interface StagedOrderUpdateItemShippingAddressAction {
   readonly action: 'updateItemShippingAddress'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
   readonly address: _BaseAddress
