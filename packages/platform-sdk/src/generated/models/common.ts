@@ -467,7 +467,7 @@ export interface BaseAddress {
    */
   readonly externalId?: string
 }
-export type _BaseAddress = BaseAddress | AddressDraft | Address
+export type _BaseAddress = BaseAddress | Address | AddressDraft
 /**
  *	Address type returned by read methods.
  *	Optionally, the `custom` field can be present in addition to the fields of a [BaseAddress](ctp:api:type:BaseAddress).
@@ -540,12 +540,12 @@ export type _BaseResource =
   | TaxCategory
   | Type
   | Zone
-  | Cart
-  | CartDiscount
-  | Category
-  | AttributeGroup
   | BusinessUnit
+  | CartDiscount
+  | AttributeGroup
   | Channel
+  | Category
+  | Cart
 /**
  *	These objects represent information about which [API Client](/../api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/client-logging).
  *
