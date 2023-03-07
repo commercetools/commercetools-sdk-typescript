@@ -140,8 +140,6 @@ export type DeliveryFormat = CloudEventsFormat | PlatformFormat
 export interface CloudEventsFormat {
   readonly type: 'CloudEvents'
   /**
-   *	Supported versions: "1.0".
-   *
    *
    */
   readonly cloudEventsVersion: string
