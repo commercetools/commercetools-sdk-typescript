@@ -338,6 +338,8 @@ export type ProductSelectionUpdateAction =
  */
 export type ProductVariantSelection =
   | ProductVariantSelectionExclusion
+  | ProductVariantSelectionIncludeAllExcept
+  | ProductVariantSelectionIncludeOnly
   | ProductVariantSelectionInclusion
 /**
  *	All Product Variants except the explicitly stated SKUs are part of the Product Selection.
@@ -347,6 +349,32 @@ export interface ProductVariantSelectionExclusion {
   readonly type: 'exclusion'
   /**
    *	Non-empty array of SKUs representing Product Variants to be excluded from the Product Selection.
+   *
+   *
+   */
+  readonly skus: string[]
+}
+/**
+ *	All Product Variants except the explicitly stated SKUs are part of the Product Selection.
+ *
+ */
+export interface ProductVariantSelectionIncludeAllExcept {
+  readonly type: 'includeAllExcept'
+  /**
+   *	Non-empty array of SKUs representing Product Variants to be excluded from the Product Selection.
+   *
+   *
+   */
+  readonly skus: string[]
+}
+/**
+ *	Only Product Variants with explicitly stated SKUs are part of the Product Selection.
+ *
+ */
+export interface ProductVariantSelectionIncludeOnly {
+  readonly type: 'includeOnly'
+  /**
+   *	Non-empty array of SKUs representing Product Variants to be included into the Product Selection.
    *
    *
    */
@@ -365,7 +393,12 @@ export interface ProductVariantSelectionInclusion {
    */
   readonly skus: string[]
 }
-export type ProductVariantSelectionTypeEnum = 'exclusion' | 'inclusion' | string
+export type ProductVariantSelectionTypeEnum =
+  | 'exclusion'
+  | 'includeAllExcept'
+  | 'includeOnly'
+  | 'inclusion'
+  | string
 /**
  *	[PagedQueryResult](/general-concepts#pagedqueryresult) containing an array of [ProductSelectionAssignment](ctp:api:type:ProductSelectionAssignment).
  *
