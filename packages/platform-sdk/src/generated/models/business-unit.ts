@@ -266,10 +266,11 @@ export interface Company {
    */
   readonly status: BusinessUnitStatus
   /**
-   *	References to [Stores](ctp:api:type:Store) the Business Unit is associated with.
-   *	If empty, the Business Unit can only create [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), or [Quotes](/../api/quotes-overview) that have no `store` value.
-   *	If not empty, the Business Unit can only be linked to [Carts](ctp:api:type:Cart) and [Orders](ctp:api:type:Order) of a referenced Store.
-   *	Only present when `storeMode` is `Explicit`.
+   *	References to [Stores](ctp:api:type:Store) the Business Unit is associated with. Only present when `storeMode` is `Explicit`.
+   *
+   *	If the Business Unit has Stores defined, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), or [Quote Requests](ctp:api:type:QuoteRequest) must belong to one of the Business Unit's Stores.
+   *
+   *	If the Business Unit has no Stores, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), or [Quote Requests](ctp:api:type:QuoteRequest) must not belong to any Store.
    *
    *
    */
@@ -367,16 +368,18 @@ export interface CompanyDraft {
   readonly status?: BusinessUnitStatus
   /**
    *	Sets the [Stores](ctp:api:type:Store) the Business Unit is associated with. Can only be set when `storeMode` is `Explicit`.
-   *	If not empty, the Business Unit can only be linked to [Carts](ctp:api:type:Cart) and [Orders](ctp:api:type:Order) of a referenced Store.
-   *	If empty, the Business Unit can only create [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), or [Quotes](/../api/quotes-overview) that have no `store` value.
    *	Defaults to empty for [Companies](ctp:api:type:BusinessUnitType) and not set for [Divisions](ctp:api:type:BusinessUnitType).
+   *
+   *	If the Business Unit has Stores defined, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), or [Quote Requests](ctp:api:type:QuoteRequest) must belong to one of the Business Unit's Stores.
+   *
+   *	If the Business Unit has no Stores, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), or [Quote Requests](ctp:api:type:QuoteRequest) must not belong to any Store.
    *
    *
    */
   readonly stores?: StoreResourceIdentifier[]
   /**
-   *	Defines whether the Stores of the Business Unit are set on the Business Unit or are inherited from a parent.
-   *	Defaults to `Explicit` for [Companies](ctp:api:type:BusinessUnitType) and to `FromParent` for [Divisions](ctp:api:type:BusinessUnitType).
+   *	Defines whether the Stores of the Business Unit are set directly on the Business Unit or are inherited from a parent.
+   *	`storeMode` is always `Explicit` for [Companies](ctp:api:type:BusinessUnitType) and defaults to `FromParent` for [Divisions](ctp:api:type:BusinessUnitType).
    *
    *
    */
@@ -494,10 +497,11 @@ export interface Division {
    */
   readonly status: BusinessUnitStatus
   /**
-   *	References to [Stores](ctp:api:type:Store) the Business Unit is associated with.
-   *	If empty, the Business Unit can only create [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), or [Quotes](/../api/quotes-overview) that have no `store` value.
-   *	If not empty, the Business Unit can only be linked to [Carts](ctp:api:type:Cart) and [Orders](ctp:api:type:Order) of a referenced Store.
-   *	Only present when `storeMode` is `Explicit`.
+   *	References to [Stores](ctp:api:type:Store) the Business Unit is associated with. Only present when `storeMode` is `Explicit`.
+   *
+   *	If the Business Unit has Stores defined, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), or [Quote Requests](ctp:api:type:QuoteRequest) must belong to one of the Business Unit's Stores.
+   *
+   *	If the Business Unit has no Stores, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), or [Quote Requests](ctp:api:type:QuoteRequest) must not belong to any Store.
    *
    *
    */
@@ -596,9 +600,11 @@ export interface DivisionDraft {
   readonly status?: BusinessUnitStatus
   /**
    *	Sets the [Stores](ctp:api:type:Store) the Business Unit is associated with. Can only be set when `storeMode` is `Explicit`.
-   *	If not empty, the Business Unit can only be linked to [Carts](ctp:api:type:Cart) and [Orders](ctp:api:type:Order) of a referenced Store.
-   *	If empty, the Business Unit can only create [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), or [Quotes](/../api/quotes-overview) that have no `store` value.
    *	Defaults to empty for [Companies](ctp:api:type:BusinessUnitType) and not set for [Divisions](ctp:api:type:BusinessUnitType).
+   *
+   *	If the Business Unit has Stores defined, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), or [Quote Requests](ctp:api:type:QuoteRequest) must belong to one of the Business Unit's Stores.
+   *
+   *	If the Business Unit has no Stores, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), or [Quote Requests](ctp:api:type:QuoteRequest) must not belong to any Store.
    *
    *
    */
