@@ -728,12 +728,12 @@ export interface ErrorResponse {
 }
 export type _ErrorResponse = ErrorResponse | AuthErrorResponse
 /**
- *	Represents errors related to authentication and authorization in a format conforming to the [OAuth 2.0 specification](https://tools.ietf.org/html/rfc6749#section-5.2).
+ *	Represents errors related to authentication and authorization in a format conforming to the [OAuth 2.0 specification](https://datatracker.ietf.org/doc/html/rfc6749#section-5.2).
  *
  */
 export interface AuthErrorResponse extends ErrorResponse {
   /**
-   *	Error code as per the [OAuth 2.0 specification](https://tools.ietf.org/html/rfc6749#section-5.2). For example: `"access_denied"`.
+   *	Error code as per the [OAuth 2.0 specification](https://datatracker.ietf.org/doc/html/rfc6749#section-5.2). For example: `"access_denied"`.
    *
    *
    */
