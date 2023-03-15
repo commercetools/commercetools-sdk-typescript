@@ -1,5 +1,5 @@
 import { Buffer } from 'buffer/'
-import getErrorByCode, { HttpError, NetworkError } from '../sdk-client/errors'
+import getErrorByCode, { HttpError, InternalServerError, NetworkError } from '../sdk-client/errors'
 import {
   ClientRequest,
   HttpErrorType,
@@ -232,7 +232,23 @@ export default function createHttpMiddleware({
                     )
                   }
                   next(request, parsedResponse)
-                })
+                }).catch(err => {
+                  if (enableRetry && retryCount < maxRetries) {
+                    setTimeout(executeFetch, calcDelayDuration(retryCount, retryDelay, maxRetries, backoff, maxDelay));
+                    retryCount += 1;
+                    return;
+                  }
+
+                  const error = new NetworkError(err.message, {
+                    ...(includeRequestInErrorResponse
+                      ? { originalRequest: request }
+                      : {}),
+                    retryCount,
+                  })
+                  maskAuthData(error.originalRequest, maskSensitiveHeaderData)
+                  
+                  next(request, { ...response, error, statusCode: 0 })
+                });
                 return
               }
 
