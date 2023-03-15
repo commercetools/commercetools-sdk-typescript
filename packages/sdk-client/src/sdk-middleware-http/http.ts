@@ -1,5 +1,5 @@
 import { Buffer } from 'buffer/'
-import getErrorByCode, { HttpError, InternalServerError, NetworkError } from '../sdk-client/errors'
+import getErrorByCode, { HttpError, NetworkError } from '../sdk-client/errors'
 import {
   ClientRequest,
   HttpErrorType,
