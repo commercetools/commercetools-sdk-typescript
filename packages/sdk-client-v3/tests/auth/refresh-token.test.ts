@@ -1,4 +1,5 @@
 import { createAuthMiddlewareForRefreshTokenFlow } from '../../src/middleware'
+import { buildRequestForRefreshTokenFlow } from '../../src/middleware/auth-middleware/auth-request-builder'
 
 function createTestRequest(options) {
   return {
@@ -30,6 +31,18 @@ function createTestMiddlewareOptions(options) {
 }
 
 describe('Refresh Token Flow', () => {
+  describe('Refresh token flow auth request builder', () => {
+    test('should throw if `options` are not provided.', () => {
+      new Promise((resolve, reject) => {
+        const middlewareOptions = null
+        expect(() =>
+          buildRequestForRefreshTokenFlow(middlewareOptions)
+        ).toThrow('Missing required options')
+        resolve(null)
+      })
+    })
+  })
+
   test('should throw if `credentials` is not provided.', () => {
     new Promise((resolve, reject) => {
       const response = createTestResponse({

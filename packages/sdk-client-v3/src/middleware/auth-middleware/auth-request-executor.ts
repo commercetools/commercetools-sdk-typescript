@@ -105,7 +105,6 @@ export async function executeRequest(
       body,
     })
 
-    // if (response.statusCode  < 400) {
     if (response.statusCode >= 200 && response.statusCode < 300) {
       const {
         access_token: token,

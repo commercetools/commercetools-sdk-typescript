@@ -1,4 +1,4 @@
-export { default as logger } from './logger'
+// export { default as logger } from './logger'
 export { default as getHeaders } from './headers'
 export { default as isBuffer } from './isBuffer'
 export { default as calculateRetryDelay } from './retryDelay'
@@ -18,7 +18,7 @@ export { NetworkError } from './errors'
 export {
   validateRetryCodes,
   validateHttpOptions,
-  validateUserAgentOptions,
+  // validateUserAgentOptions,
   validateClient,
   validate
 } from './validate'

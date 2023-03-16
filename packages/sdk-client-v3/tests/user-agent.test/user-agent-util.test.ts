@@ -49,7 +49,7 @@ describe('for browser', () => {
 })
 
 describe('for node', () => {
-  const userAgentObect = userAgent({
+  const userAgentObject = userAgent({
     name: 'commercetools-sdk-javascript',
     version: '1.0.0',
     libraryName: 'my-awesome-library',
@@ -59,23 +59,32 @@ describe('for node', () => {
   })
 
   test('has sdk info', () => {
-    expect(userAgentObect).toMatch('commercetools-sdk-javascript')
+    expect(userAgentObject).toMatch('commercetools-sdk-javascript')
   })
 
   test('has node info', () => {
-    expect(userAgentObect).toMatch(`node.js/`)
+    expect(userAgentObject).toMatch(`node.js/`)
   })
 
   test('has library info', () => {
-    expect(userAgentObect).toMatch('my-awesome-library/1.0.0')
+    expect(userAgentObject).toMatch('my-awesome-library/1.0.0')
+  })
+
+  test('has library info', () => {
+    const _userAgentObject = userAgent({
+      version: '1.0.0',
+      name: 'commercetools-sdk-javascript',
+      libraryName: 'my-awesome-library',
+    })
+    expect(_userAgentObject).toMatch('my-awesome-library')
   })
 
   test('has library url', () => {
-    expect(userAgentObect).toMatch('https://commercetools.com')
+    expect(userAgentObject).toMatch('https://commercetools.com')
   })
 
   test('has contact info', () => {
-    expect(userAgentObect).toMatch('helpdesk@commercetools.com')
+    expect(userAgentObject).toMatch('helpdesk@commercetools.com')
   })
 })
 

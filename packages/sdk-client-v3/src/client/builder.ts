@@ -29,7 +29,6 @@ const {
   createAuthMiddlewareForExistingTokenFlow,
 
   createCorrelationIdMiddleware,
-  createRetryMiddleware,
   createHttpMiddleware,
   createLoggerMiddleware,
   createQueueMiddleware,
@@ -253,9 +252,6 @@ export default class ClientBuilder {
      * - add retry middleware to be used by concurrent modification
      *   middleware if not explicitly added as part of the middleware
      */
-    // if (!this.retryMiddleware && this.concurrentMiddleware)
-    //   this.withRetryMiddleware({})
-
     if (this.correlationIdMiddleware)
       middlewares.push(this.correlationIdMiddleware)
     if (this.userAgentMiddleware) middlewares.push(this.userAgentMiddleware)
@@ -265,7 +261,6 @@ export default class ClientBuilder {
     if (this.errorMiddleware) middlewares.push(this.errorMiddleware)
     // if (this.retryMiddleware) middlewares.push(this.retryMiddleware)
     if (this.concurrentMiddleware) middlewares.push(this.concurrentMiddleware)
-
     if (this.httpMiddleware) middlewares.push(this.httpMiddleware)
 
     return createClient({ middlewares })

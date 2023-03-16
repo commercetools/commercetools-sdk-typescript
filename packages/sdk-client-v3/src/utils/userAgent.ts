@@ -1,3 +1,4 @@
+// import { validateUserAgentOptions } from '../utils'
 import { HttpUserAgentOptions } from '../types/types'
 
 /*
@@ -27,6 +28,7 @@ export default function createUserAgent(options: HttpUserAgentOptions) {
   let libraryInfo: string | null = null
   let contactInfo: string | null = null
 
+  // validateUserAgentOptions(options)
   if (!options) {
     throw new Error('Missing required option `name`')
   }

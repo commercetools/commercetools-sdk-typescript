@@ -41,7 +41,7 @@ export default function createLoggerMiddleware(
 
       if (loggerFn && typeof loggerFn == 'function') {
         loggerFn(response)
-        return originalResponse
+        // return originalResponse
       }
 
       // console.log({ Response: response })

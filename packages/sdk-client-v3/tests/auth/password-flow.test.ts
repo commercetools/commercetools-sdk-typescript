@@ -1,4 +1,5 @@
 import { createAuthMiddlewareForPasswordFlow } from '../../src/middleware'
+import { buildRequestForPasswordFlow } from '../../src/middleware/auth-middleware/auth-request-builder'
 
 function createTestRequest(options) {
   return {
@@ -33,6 +34,101 @@ function createTestMiddlewareOptions(options) {
 }
 
 describe('Password Flow', () => {
+  describe('Password flow auth request builder', () => {
+    test('should throw if `options` are not provided.', () => {
+      new Promise((resolve, reject) => {
+        const middlewareOptions = null
+        expect(() => buildRequestForPasswordFlow(middlewareOptions)).toThrow(
+          'Missing required options'
+        ) // 'Missing required options.'
+        resolve(null)
+      })
+    })
+
+    test('should throw if `host` is not provided.', () => {
+      new Promise((resolve, reject) => {
+        const middlewareOptions = createTestMiddlewareOptions({
+          host: null,
+          projectKey: 'demo-key',
+          httpClient: jest.fn(() => ({
+            data: {
+              access_token: 'xxx-xx',
+              expires_in: 6873735270,
+            },
+            statusCode: 200,
+            headers: {},
+          })),
+          credentials: {
+            clientId: 'test-client-id',
+            clientSecret: 'test-client-secret',
+            user: {
+              username: 'test-username',
+              password: 'test-password',
+            },
+          },
+        })
+
+        expect(() => buildRequestForPasswordFlow(middlewareOptions)).toThrow(
+          'Missing required option (host)'
+        ) // 'Missing required options.'
+        resolve(null)
+      })
+    })
+
+    test('should throw if `projectKey` is not provided.', () => {
+      new Promise((resolve, reject) => {
+        const middlewareOptions = createTestMiddlewareOptions({
+          host: 'test-host',
+          projectKey: null,
+          httpClient: jest.fn(() => ({
+            data: {
+              access_token: 'xxx-xx',
+              expires_in: 6873735270,
+            },
+            statusCode: 200,
+            headers: {},
+          })),
+          credentials: {
+            clientId: 'test-client-id',
+            clientSecret: 'test-client-secret',
+            user: {
+              username: 'test-username',
+              password: 'test-password',
+            },
+          },
+        })
+
+        expect(() => buildRequestForPasswordFlow(middlewareOptions)).toThrow(
+          'Missing required option (projectKey)'
+        ) // 'Missing required options.'
+        resolve(null)
+      })
+    })
+
+    test('should throw if `credentials` is not provided.', () => {
+      new Promise((resolve, reject) => {
+        const middlewareOptions = createTestMiddlewareOptions({
+          host: 'test-host',
+          projectKey: 'test-projectKey',
+          httpClient: jest.fn(() => ({
+            data: {
+              access_token: 'xxx-xx',
+              expires_in: 6873735270,
+            },
+            statusCode: 200,
+            headers: {},
+          })),
+          credentials: null,
+        })
+
+        expect(() => buildRequestForPasswordFlow(middlewareOptions)).toThrow(
+          'Missing required option (credentials)'
+        ) // 'Missing required options.'
+        resolve(null)
+      })
+    })
+  })
+
   test('should throw if `user credentials` is not provided.', () => {
     new Promise((resolve, reject) => {
       const response = createTestResponse({

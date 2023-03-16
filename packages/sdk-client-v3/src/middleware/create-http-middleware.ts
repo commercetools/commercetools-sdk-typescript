@@ -101,8 +101,8 @@ async function executeRequest({
     }
   } catch (e) {
     // We know that this is a network error
-    const headers = getHeaders(e.response.headers)
-    const statusCode = e.response.status || e.response?.data0 || 0
+    const headers = getHeaders(e.response?.headers)
+    const statusCode = e.response?.status || e.response?.data0 || 0
     const message = e.response?.data?.message
 
     const error: HttpErrorType = createError({

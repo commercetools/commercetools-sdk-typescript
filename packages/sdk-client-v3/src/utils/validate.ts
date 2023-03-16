@@ -46,15 +46,15 @@ export function validateRetryCodes(retryCodes: Array<string | number>) {
  *
  * @param options
  */
-export function validateUserAgentOptions(options: HttpUserAgentOptions) {
-  if (
-    !options ||
-    Object.keys(options).length === 0 ||
-    !{}.hasOwnProperty.call(options, 'name')
-  ) {
-    throw new Error('Missing required option `name`')
-  }
-}
+// export function validateUserAgentOptions(options: HttpUserAgentOptions) {
+//   if (
+//     !options ||
+//     Object.keys(options).length === 0 ||
+//     !{}.hasOwnProperty.call(options, 'name')
+//   ) {
+//     throw new Error('Missing required option `name`')
+//   }
+// }
 
 /**
  * @param options

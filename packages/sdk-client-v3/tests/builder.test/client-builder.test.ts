@@ -187,6 +187,36 @@ describe('Client Builder', () => {
     ).toBeTruthy()
   })
 
+  test('should create client with logger middleware', () => {
+    const client = new ClientBuilder() as any
+    expect(client.loggerMiddleware).toBeFalsy()
+
+    const clientWithLoggerMiddleware = client.withLoggerMiddleware({
+      loggerFn: jest.fn(),
+    })
+    expect(clientWithLoggerMiddleware.withLoggerMiddleware).toBeTruthy()
+  })
+
+  describe('builder method', () => {
+    test('build client', () => {
+      const client = new ClientBuilder()
+        .withCorrelationIdMiddleware({ generate: jest.fn() })
+        .withUserAgentMiddleware({ name: 'test-user-agent' })
+        .withClientCredentialsFlow(authMiddlewareOptions)
+        .withQueueMiddleware({ concurrency: 20 })
+        .withLoggerMiddleware({ loggerFn: jest.fn() })
+        .withErrorMiddleware({})
+        .withConcurrentModificationMiddleware()
+        .withHttpMiddleware(httpMiddlewareOptions)
+        .build()
+
+      expect(client).toBeTruthy()
+      expect(typeof client).toEqual('object')
+      expect(typeof client.execute).toEqual('function')
+      expect(typeof client.process).toEqual('function')
+    })
+  })
+
   // test('should create client with retry middleware', () => {
   //   const client = new ClientBuilder() as any
   //   expect(client.retryMiddleware).toBeFalsy()

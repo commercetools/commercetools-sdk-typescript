@@ -1,4 +1,5 @@
 import { createAuthMiddlewareForAnonymousSessionFlow } from '../../src/middleware'
+import { buildRequestForAnonymousSessionFlow } from '../../src/middleware/auth-middleware/auth-request-builder'
 
 function createTestRequest(options) {
   return {
@@ -30,6 +31,34 @@ function createTestMiddlewareOptions(options) {
 }
 
 describe('Anonymous Session Flow', () => {
+  describe('Anonymous session flow', () => {
+    test('should throw if `options` are not provided', () => {
+      const middlewareOptions = null
+
+      expect(() =>
+        buildRequestForAnonymousSessionFlow(middlewareOptions)
+      ).toThrow('Missing required options')
+    })
+
+    test('should throw if `projectKey` is not provided', () => {
+      const middlewareOptions = createTestMiddlewareOptions({
+        projectKey: null,
+        httpClient: jest.fn(() => ({
+          data: {
+            access_token: 'xxx-xx',
+            expires_in: 6873735270,
+          },
+          statusCode: 200,
+          headers: {},
+        })),
+      })
+
+      expect(() =>
+        buildRequestForAnonymousSessionFlow(middlewareOptions)
+      ).toThrow('Missing required option (projectKey')
+    })
+  })
+
   test('should fetch anonymous token and inject token in request headers', () =>
     new Promise((resolve, reject) => {
       const response = createTestResponse({
