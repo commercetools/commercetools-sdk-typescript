@@ -75,7 +75,7 @@ describe('Http Middleware.', () => {
       host: 'http://api-host.com',
       httpClient: jest.fn(() => response),
       timeout: 10,
-      getAbortController: jest.fn(() => new AbortController()),
+      getAbortController: jest.fn(),
       credentialsMode: 'include',
     }
 

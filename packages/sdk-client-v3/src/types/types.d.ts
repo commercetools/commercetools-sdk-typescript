@@ -1,4 +1,5 @@
 import { Buffer } from 'buffer/'
+import AbortController from 'abort-controller'
 
 export type Nullable<T> = T | null
 export type Keys = string | number | symbol

@@ -24,6 +24,7 @@ import {
   maskAuthData,
 } from '../utils'
 import { Buffer } from 'buffer/'
+import AbortController from 'abort-controller'
 
 async function executeRequest({
   url,
