@@ -1527,14 +1527,20 @@ export interface PriceChangedError {
 /**
  *	Returned when a Product is not assigned to the Product Selection.
  *
- *	The error is returned as a failed response to the [Set Variant Selection](ctp:api:type:ProductSelectionSetVariantSelectionAction) update action.
+ *	The error is returned as a failed response either to the [Set Variant Selection](ctp:api:type:ProductSelectionSetVariantSelectionAction) or to the [Set Variant Exclusion](ctp:api:type:ProductSelectionSetVariantExclusionAction) update action.
  *
  */
 export interface ProductAssignmentMissingError {
   readonly code: 'ProductAssignmentMissing'
   [key: string]: any
   /**
-   *	`"A Product Variant Selection can only be set for a Product previously added to the Product Selection."`
+   *	For Product Selection of type Individual, the message is:
+   *
+   *	`"A Product Variant Selection can only be set for a Product that has previously been added to the Product Selection."`
+   *
+   *	For Product Selection of type Individual Exclusion, the message is:
+   *
+   *	`"A Variant Exclusion can only be set for a Product that has previously been added to the Product Selection of type Individual Exclusion."`
    *
    *
    */
@@ -1547,9 +1553,9 @@ export interface ProductAssignmentMissingError {
   readonly product: ProductReference
 }
 /**
- *	Returned when a Product is already assigned to a [Product Selection](/../api/projects/product-selections), but the Product Selection has a different [Product Variant Selection](ctp:api:type:ProductVariantSelection).
+ *	Returned when a Product is already assigned to a [Product Selection](/../api/projects/product-selections), but the Product Selection has either a different [Product Variant Selection](ctp:api:type:ProductVariantSelection) or a different [Product Variant Exclusion](ctp:api:type:ProductVariantExclusion).
  *
- *	The error is returned as a failed response to the [Add Product](ctp:api:type:ProductSelectionAddProductAction) update action.
+ *	The error is returned as a failed response either to the [Add Product](ctp:api:type:ProductSelectionAddProductAction) or to the [Exclude Product](ctp:api:type:ProductSelectionExcludeProductAction) update action.
  *
  */
 export interface ProductPresentWithDifferentVariantSelectionError {
@@ -1568,7 +1574,7 @@ export interface ProductPresentWithDifferentVariantSelectionError {
    */
   readonly product: ProductReference
   /**
-   *	Existing Product Variant Selection for the [Product](/../api/projects/products) in the [Product Selection](/../api/projects/product-selections).
+   *	Existing Product Variant Selection or Exclusion for the [Product](/../api/projects/products) in the [Product Selection](/../api/projects/product-selections).
    *
    *
    */
