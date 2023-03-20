@@ -1,5 +1,556 @@
 # @commercetools/platform-sdk
 
+## 4.6.0
+
+### Minor Changes
+
+- [#432](https://github.com/commercetools/commercetools-sdk-typescript/pull/432) [`d06e0c5`](https://github.com/commercetools/commercetools-sdk-typescript/commit/d06e0c58f4b9a8f69bbde63f906cc905c878aa2d) Thanks [@ajimae](https://github.com/ajimae)! - ### Removed Properties
+
+  - :warning: removed property `externalTaxRate` from type `MyCartAddLineItemAction`
+  - :warning: removed property `externalPrice` from type `MyCartAddLineItemAction`
+  - :warning: removed property `externalTotalPrice` from type `MyCartAddLineItemAction`
+
+  ### Changed Properties
+
+  - :warning: changed property `stores` of type `BusinessUnitDraft` from type `StoreKeyReference[]` to `StoreResourceIdentifier[]`
+  - :warning: changed property `stores` of type `CompanyDraft` from type `StoreKeyReference[]` to `StoreResourceIdentifier[]`
+  - :warning: changed property `stores` of type `DivisionDraft` from type `StoreKeyReference[]` to `StoreResourceIdentifier[]`
+  - :warning: changed property `totalPrice` of type `Cart` from type `TypedMoney` to `CentPrecisionMoney`
+  - :warning: changed property `locale` of type `Cart` from type `string` to `Locale`
+  - :warning: changed property `country` of type `CartDraft` from type `string` to `CountryCode`
+  - :warning: changed property `locale` of type `CartDraft` from type `string` to `Locale`
+  - :warning: changed property `totalPrice` of type `CustomLineItem` from type `TypedMoney` to `CentPrecisionMoney`
+  - :warning: changed property `externalTaxRate` of type `CustomShippingDraft` from type `string` to `ExternalTaxRateDraft`
+  - :warning: changed property `deliveries` of type `CustomShippingDraft` from type `Delivery[]` to `DeliveryDraft[]`
+  - :warning: changed property `custom` of type `CustomShippingDraft` from type `string` to `CustomFieldsDraft`
+  - :warning: changed property `country` of type `ExternalTaxRateDraft` from type `string` to `CountryCode`
+  - :warning: changed property `totalPrice` of type `LineItem` from type `TypedMoney` to `CentPrecisionMoney`
+  - :warning: changed property `externalTaxRate` of type `ShippingDraft` from type `string` to `ExternalTaxRateDraft`
+  - :warning: changed property `deliveries` of type `ShippingDraft` from type `Delivery[]` to `DeliveryDraft[]`
+  - :warning: changed property `custom` of type `ShippingDraft` from type `string` to `CustomFieldsDraft`
+  - :warning: changed property `price` of type `ShippingInfo` from type `TypedMoney` to `CentPrecisionMoney`
+  - :warning: changed property `amount` of type `TaxPortion` from type `TypedMoney` to `CentPrecisionMoney`
+  - :warning: changed property `totalNet` of type `TaxedItemPrice` from type `TypedMoney` to `CentPrecisionMoney`
+  - :warning: changed property `totalGross` of type `TaxedItemPrice` from type `TypedMoney` to `CentPrecisionMoney`
+  - :warning: changed property `totalTax` of type `TaxedItemPrice` from type `TypedMoney` to `CentPrecisionMoney`
+  - :warning: changed property `totalNet` of type `TaxedPrice` from type `TypedMoney` to `CentPrecisionMoney`
+  - :warning: changed property `totalGross` of type `TaxedPrice` from type `TypedMoney` to `CentPrecisionMoney`
+  - :warning: changed property `totalTax` of type `TaxedPrice` from type `TypedMoney` to `CentPrecisionMoney`
+  - :warning: changed property `externalTaxRate` of type `CartAddCustomShippingMethodAction` from type `string` to `ExternalTaxRateDraft`
+  - :warning: changed property `deliveries` of type `CartAddCustomShippingMethodAction` from type `Delivery[]` to `DeliveryDraft[]`
+  - :warning: changed property `custom` of type `CartAddCustomShippingMethodAction` from type `string` to `CustomFieldsDraft`
+  - :warning: changed property `shippingMethod` of type `CartAddShippingMethodAction` from type `ShippingMethodReference` to `ShippingMethodResourceIdentifier`
+  - :warning: changed property `externalTaxRate` of type `CartAddShippingMethodAction` from type `string` to `ExternalTaxRateDraft`
+  - :warning: changed property `deliveries` of type `CartAddShippingMethodAction` from type `Delivery[]` to `DeliveryDraft[]`
+  - :warning: changed property `custom` of type `CartAddShippingMethodAction` from type `string` to `CustomFieldsDraft`
+  - :warning: changed property `locale` of type `CartSetLocaleAction` from type `string` to `Locale`
+  - :warning: changed property `businessUnit` of type `MyCartDraft` from type `BusinessUnitKeyReference` to `BusinessUnitResourceIdentifier`
+  - :warning: changed property `store` of type `MyCartDraft` from type `StoreKeyReference` to `StoreResourceIdentifier`
+  - :warning: changed property `country` of type `MyCartDraft` from type `string` to `CountryCode`
+  - :warning: changed property `locale` of type `MyCartDraft` from type `string` to `Locale`
+  - :warning: changed property `locale` of type `MyCartSetLocaleAction` from type `string` to `Locale`
+
+  ### Required Properties
+
+  - :warning: changed property `inventoryMode` of type `Cart` to be required
+  - :warning: changed property `itemShippingAddresses` of type `Cart` to be required
+  - :warning: changed property `discountCodes` of type `Cart` to be required
+  - :warning: changed property `directDiscounts` of type `Cart` to be required
+  - :warning: changed property `shippingAddress` of type `ShippingDraft` to be required
+  - changed property `quantity` of type `CustomLineItemDraft` to be optional
+  - changed property `deliveries` of type `CustomShippingDraft` to be optional
+  - changed property `deliveries` of type `ShippingDraft` to be optional
+  - changed property `quantity` of type `CartAddCustomLineItemAction` to be optional
+  - changed property `deliveries` of type `CartAddCustomShippingMethodAction` to be optional
+  - changed property `deliveries` of type `CartAddShippingMethodAction` to be optional
+  - changed property `email` of type `CartSetCustomerEmailAction` to be optional
+  - changed property `quantity` of type `MyLineItemDraft` to be optional
+
+  ### Added Properties
+
+  - added property `shippingDetails` to type `CartAddCustomLineItemAction`
+  - added property `addedAt` to type `CartAddLineItemAction`
+  - added property `inventoryMode` to type `CartAddLineItemAction`
+  - added property `oldValue` to type `StandalonePriceValueChangedMessage`
+  - added property `oldValue` to type `StandalonePriceValueChangedMessagePayload`
+  - added property `purchaseOrderNumber` to type `StagedOrder`
+  - added property `purchaseOrderNumber` to type `Order`
+  - added property `purchaseOrderNumber` to type `OrderFromCartDraft`
+  - added property `purchaseOrderNumber` to type `QuoteRequest`
+  - added property `purchaseOrderNumber` to type `QuoteRequestDraft`
+  - added property `purchaseOrderNumber` to type `Quote`
+  - added property `purchaseOrderNumber` to type `StagedQuote`
+
+  ### Added Resources
+
+  - added resource `/{projectKey}/me/orders/quotes`
+
+  ### Added Method
+
+  - added method `apiRoot.withProjectKey().me().orders().quotes().post()`
+
+  ### Removed Type
+
+  - :warning: removed type `CountryNotConfiguredInStore`
+
+  ### Added Types
+
+  - added type `CartSetBusinessUnitAction`
+  - added type `CountryNotConfiguredInStoreError`
+  - added type `GoogleCloudFunctionDestination`
+  - added type `MyOrderFromQuoteDraft`
+  - added type `MyCartSetBusinessUnitAction`
+  - added type `OrderPurchaseOrderNumberSetMessage`
+  - added type `OrderPurchaseOrderNumberSetMessagePayload`
+  - added type `StagedOrderSetPurchaseOrderNumberAction`
+  - added type `OrderSetPurchaseOrderNumberAction`
+
+  ### Added QueryParameters
+
+  - added query parameter `sort` to method `get /{projectKey}/product-selections/key={key}/products`
+  - added query parameter `sort` to method `get /{projectKey}/product-selections/{ID}/products`
+  - added query parameter `expand` to method `get /{projectKey}/in-store/key={storeKey}/me/active-cart`
+
+  ### Added Enum(s)
+
+  - added enum `shipping` to type `ResourceTypeId`
+
+### Patch Changes
+
+- Updated dependencies [[`8b4ad04`](https://github.com/commercetools/commercetools-sdk-typescript/commit/8b4ad04e9a43a8b399fa946ab6693500a4af3fb5)]:
+  - @commercetools/sdk-client-v2@2.1.4
+
+## 4.5.0
+
+### Minor Changes
+
+- [#411](https://github.com/commercetools/commercetools-sdk-typescript/pull/411) [`393f1f9`](https://github.com/commercetools/commercetools-sdk-typescript/commit/393f1f95359890673eb947682c76ab3ca9a290f0) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
+
+  ## Changes
+
+  - added property `defaultShippingAddressId` to type `BusinessUnit`
+  - added property `defaultShippingAddress` to type `BusinessUnitDraft`
+  - added property `defaultShippingAddressId` to type `Company`
+  - added property `defaultShippingAddress` to type `CompanyDraft`
+  - added property `defaultShippingAddressId` to type `Division`
+  - added property `defaultShippingAddress` to type `DivisionDraft`
+  - added property `conflictingPrice` to type `DuplicatePriceScopeError`
+  - added property `defaultShippingAddress` to type `MyBusinessUnitDraft`
+  - added property `defaultShippingAddress` to type `MyCompanyDraft`
+  - added property `defaultShippingAddress` to type `MyDivisionDraft`
+  - added property `cartId` to type `MyQuoteRequestDraft`
+  - added property `cartVersion` to type `MyQuoteRequestDraft`
+  - added property `createdAt` to type `AssignedProductSelection`
+  - added property `quoteState` to type `Quote`
+  </details>
+
+  <details>
+  <summary>Required Property(s)</summary>
+
+  - changed property `discounted` of type `StagedStandalonePrice` to be optional
+  </details>
+
+  <details>
+  <summary>Removed Property(s)</summary>
+
+  - :warning: removed property `defaultShipingAddressId` from type `BusinessUnit`
+  - :warning: removed property `defaultShipingAddress` from type `BusinessUnitDraft`
+  - :warning: removed property `defaultShipingAddressId` from type `Company`
+  - :warning: removed property `defaultShipingAddress` from type `CompanyDraft`
+  - :warning: removed property `defaultShipingAddressId` from type `Division`
+  - :warning: removed property `defaultShipingAddress` from type `DivisionDraft`
+  - :warning: removed property `conflictingPrices` from type `DuplicatePriceScopeError`
+  - :warning: removed property `defaultShipingAddress` from type `MyBusinessUnitDraft`
+  - :warning: removed property `defaultShipingAddress` from type `MyCompanyDraft`
+  - :warning: removed property `defaultShipingAddress` from type `MyDivisionDraft`
+  - :warning: removed property `cart` from type `MyQuoteRequestDraft`
+  - :warning: removed property `version` from type `MyQuoteRequestDraft`
+  </details>
+
+  <details>
+  <summary>Removed Type(s)</summary>
+
+  - :warning: removed type `ProductPriceSetMessage`
+  - :warning: removed type `ProductPriceSetMessagePayload`
+  </details>
+
+  <details>
+  <summary>Deprecated Type(s)</summary>
+
+  - type `IronMqDestination` is removed
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `CartFreezeCartAction`
+  - added type `CartUnfreezeCartAction`
+  - added type `DuplicatePriceKeyError`
+  - added type `ProductPriceKeySetMessage`
+  - added type `ProductPricesSetMessage`
+  - added type `StandalonePriceKeySetMessage`
+  - added type `ProductPriceKeySetMessagePayload`
+  - added type `ProductPricesSetMessagePayload`
+  - added type `StandalonePriceKeySetMessagePayload`
+  - added type `ProductSetPriceKeyAction`
+  - added type `StandalonePriceSetKeyAction`
+  </details>
+
+  <details>
+  <summary>Added Resource(s)</summary>
+
+  - added resource `/{projectKey}/shipping-methods/matching-cart-location`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+
+  - added method `apiRoot.withProjectKey().shippingMethods().matchingCartLocation().get()`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `Frozen` to type `CartState`
+  </details>
+
+  **ML changes**
+
+  <details>
+  <summary>Deprecated Property(s)</summary>
+
+  - property `MissingAttributes::attributeCount` is removed
+  - property `MissingAttributes::attributeCoverage` is removed
+  - property `MissingAttributesMeta::productLevel` is removed
+  - property `MissingAttributesMeta::variantLevel` is removed
+  - property `MissingAttributesPagedQueryResult::meta` is removed
+  - property `MissingDataTaskStatus::result` is removed
+  - property `MissingImagesMeta::productLevel` is removed
+  - property `MissingImagesMeta::variantLevel` is removed
+  - property `MissingImagesPagedQueryResult::meta` is removed
+  - property `MissingImagesTaskStatus::result` is removed
+  - property `MissingPricesMeta::productLevel` is removed
+  - property `MissingPricesMeta::variantLevel` is removed
+  - property `MissingPricesPagedQueryResult::meta` is removed
+  - property `MissingPricesTaskStatus::result` is removed
+  </details>
+
+  <details>
+  <summary>Deprecated Type(s)</summary>
+
+  - type `AttributeCount` is removed
+  - type `AttributeCoverage` is removed
+  - type `MissingAttributesDetails` is removed
+  - type `MissingAttributes` is removed
+  - type `MissingAttributesMeta` is removed
+  - type `MissingAttributesSearchRequest` is removed
+  - type `MissingAttributesPagedQueryResult` is removed
+  - type `MissingDataTaskStatus` is removed
+  - type `MissingImages` is removed
+  - type `MissingImagesCount` is removed
+  - type `MissingImagesProductLevel` is removed
+  - type `MissingImagesVariantLevel` is removed
+  - type `MissingImagesMeta` is removed
+  - type `MissingImagesSearchRequest` is removed
+  - type `MissingImagesPagedQueryResult` is removed
+  - type `MissingImagesTaskStatus` is removed
+  - type `MissingPrices` is removed
+  - type `MissingPricesProductCount` is removed
+  - type `MissingPricesProductLevel` is removed
+  - type `MissingPricesVariantLevel` is removed
+  - type `MissingPricesMeta` is removed
+  - type `MissingPricesSearchRequest` is removed
+  - type `MissingPricesPagedQueryResult` is removed
+  - type `MissingPricesTaskStatus` is removed
+  </details>
+
+  <details>
+  <summary>Deprecated Resource(s)</summary>
+
+  - resource `/{projectKey}/missing-data` is removed
+  - resource `/{projectKey}/missing-data/attributes` is removed
+  - resource `/{projectKey}/missing-data/images` is removed
+  - resource `/{projectKey}/missing-data/prices` is removed
+  - resource `/{projectKey}/missing-data/attributes/status` is removed
+  - resource `/{projectKey}/missing-data/attributes/status/{taskId}` is removed
+  - resource `/{projectKey}/missing-data/images/status` is removed
+  - resource `/{projectKey}/missing-data/images/status/{taskId}` is removed
+  - resource `/{projectKey}/missing-data/prices/status` is removed
+  - resource `/{projectKey}/missing-data/prices/status/{taskId}` is removed
+  </details>
+
+  <details>
+  <summary>Deprecated Method(s)</summary>
+
+  - method `post /{projectKey}/missing-data/attributes` is removed
+  - method `post /{projectKey}/missing-data/images` is removed
+  - method `post /{projectKey}/missing-data/prices` is removed
+  - method `get /{projectKey}/missing-data/attributes/status/{taskId}` is removed
+  - method `get /{projectKey}/missing-data/images/status/{taskId}` is removed
+  - method `get /{projectKey}/missing-data/prices/status/{taskId}` is removed
+
+### Patch Changes
+
+- Updated dependencies [[`caca661`](https://github.com/commercetools/commercetools-sdk-typescript/commit/caca661ff4c91cf256b6ee406135a45478b7ae47)]:
+  - @commercetools/sdk-client-v2@2.1.2
+
+## 4.4.0
+
+### Minor Changes
+
+- [#399](https://github.com/commercetools/commercetools-sdk-typescript/pull/399) [`391c1cb`](https://github.com/commercetools/commercetools-sdk-typescript/commit/391c1cb33b55458649f538107527d704ff11e2bd) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
+
+  #### Summary
+
+  <details>
+  <summary>Changed Property(s)</summary>
+
+  - :warning: changed property `amount` of type `Transaction` from type `TypedMoney` to `CentPrecisionMoney`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `defaultShippingAddressId` to type `BusinessUnit`
+  - added property `defaultShippingAddress` to type `BusinessUnitDraft`
+  - added property `defaultShippingAddressId` to type `Company`
+  - added property `defaultShippingAddress` to type `CompanyDraft`
+  - added property `defaultShippingAddressId` to type `Division`
+  - added property `defaultShippingAddress` to type `DivisionDraft`
+  - added property `conflictingPrice` to type `DuplicatePriceScopeError`
+  - added property `defaultShippingAddress` to type `MyBusinessUnitDraft`
+  - added property `defaultShippingAddress` to type `MyCompanyDraft`
+  - added property `defaultShippingAddress` to type `MyDivisionDraft`
+  - added property `cartId` to type `MyQuoteRequestDraft`
+  - added property `cartVersion` to type `MyQuoteRequestDraft`
+  - added property `createdAt` to type `AssignedProductSelection`
+  - added property `quoteState` to type `Quote`
+  </details>
+
+  <details>
+  <summary>Required Property(s)</summary>
+
+  - changed property `discounted` of type `StagedStandalonePrice` to be optional
+  </details>
+
+  <details>
+  <summary>Removed Property(s)</summary>
+
+  - :warning: removed property `defaultShipingAddressId` from type `BusinessUnit`
+  - :warning: removed property `defaultShipingAddress` from type `BusinessUnitDraft`
+  - :warning: removed property `defaultShipingAddressId` from type `Company`
+  - :warning: removed property `defaultShipingAddress` from type `CompanyDraft`
+  - :warning: removed property `defaultShipingAddressId` from type `Division`
+  - :warning: removed property `defaultShipingAddress` from type `DivisionDraft`
+  - :warning: removed property `conflictingPrices` from type `DuplicatePriceScopeError`
+  - :warning: removed property `defaultShipingAddress` from type `MyBusinessUnitDraft`
+  - :warning: removed property `defaultShipingAddress` from type `MyCompanyDraft`
+  - :warning: removed property `defaultShipingAddress` from type `MyDivisionDraft`
+  - :warning: removed property `cart` from type `MyQuoteRequestDraft`
+  - :warning: removed property `version` from type `MyQuoteRequestDraft`
+  </details>
+
+  <details>
+  <summary>Removed Type(s)</summary>
+
+  - :warning: removed type `ProductPriceSetMessage`
+  - :warning: removed type `ProductPriceSetMessagePayload`
+  </details>
+
+  <details>
+  <summary>Deprecated Type(s)</summary>
+
+  - type `IronMqDestination` is removed
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `CartFreezeCartAction`
+  - added type `CartUnfreezeCartAction`
+  - added type `DuplicatePriceKeyError`
+  - added type `ProductPriceKeySetMessage`
+  - added type `ProductPricesSetMessage`
+  - added type `StandalonePriceKeySetMessage`
+  - added type `ProductPriceKeySetMessagePayload`
+  - added type `ProductPricesSetMessagePayload`
+  - added type `StandalonePriceKeySetMessagePayload`
+  - added type `ProductSetPriceKeyAction`
+  - added type `StandalonePriceSetKeyAction`
+  </details>
+
+  <details>
+  <summary>Added Resource(s)</summary>
+
+  - added resource `/{projectKey}/shipping-methods/matching-cart-location`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+
+  - added method `apiRoot.withProjectKey().shippingMethods().matchingCartLocation().get()`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `Frozen` to type `CartState`
+  </details>
+
+## 4.3.0
+
+### Minor Changes
+
+- [#371](https://github.com/commercetools/commercetools-sdk-typescript/pull/371) [`f6bd1fe`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f6bd1fe02773974d1e95a50a986e846698a95322) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
+
+  #### Summary
+
+  - The get method of `ByProjectKeyInStoreKeyByStoreKeyProductProjectionsByIDRequestBuilder` class now supports an optional `stage` property
+    - [Diff link](packages/platform-sdk/src/generated/client/product-projections/by-project-key-in-store-key-by-store-key-product-projections-by-id-request-builder.ts)
+  - The get method of `ByProjectKeyInStoreKeyByStoreKeyProductProjectionsKeyByKeyRequestBuilder` class now supports an optional `stage` property
+    - [Diff link](packages/platform-sdk/src/generated/client/product-projections/by-project-key-in-store-key-by-store-key-product-projections-key-by-key-request-builder.ts)
+
+  #### Snippet
+
+  ```diff
+  ...
+    queryArgs?: {
+  +   staged?: boolean
+      priceCurrency?: string
+      priceCountry?: string
+      priceCustomerGroup?: string,
+      ...
+    }
+    ...
+  }) {}
+  ```
+
+  - The `get`, `post` and `delete` method query args. of `ByProjectKeyProductsByIDRequestBuilder` class now supports optional `localeProjection` property
+    - [Diff link](packages/platform-sdk/src/generated/client/products/by-project-key-products-by-id-request-builder.ts)
+  - The `get` and `post` method query args. of the `ByProjectKeyProductsRequestBuilder` class now supports an optional `localeProjection` property.
+    - [Diff link](packages/platform-sdk/src/generated/client/products/by-project-key-products-request-builder.ts)
+
+  ```diff
+  ...
+    queryArgs?: {
+      where?: string | string[]
+      priceCurrency?: string
+      priceCountry?: string
+      priceCustomerGroup?: string
+      priceChannel?: string
+  +   localeProjection?: string | string[]
+      expand?: string | string[]
+      sort?: string | string[]
+      limit?: number
+      offset?: number
+      withTotal?: boolean
+      [key: string]: QueryParam
+    }
+  ...
+  ```
+
+  The complete changes can be found [here](changes.md)
+
+### Patch Changes
+
+- [#394](https://github.com/commercetools/commercetools-sdk-typescript/pull/394) [`01dcc12`](https://github.com/commercetools/commercetools-sdk-typescript/commit/01dcc12dd808f3431736fc00d0596f82d08a28d0) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
+
+- Updated dependencies [[`98d2d7c`](https://github.com/commercetools/commercetools-sdk-typescript/commit/98d2d7ce2abad1d8eb3466f4f3df1b877f144920)]:
+  - @commercetools/sdk-client-v2@2.1.1
+
+## 4.2.0
+
+### Minor Changes
+
+- [#352](https://github.com/commercetools/commercetools-sdk-typescript/pull/352) [`ef84dd4`](https://github.com/commercetools/commercetools-sdk-typescript/commit/ef84dd439c29a91f4b43eb9aae10774a56d490b6) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
+
+  Summary of changes can be seen [here](https://github.com/commercetools/commercetools-sdk-typescript/blob/master/changes.md)
+
+### Patch Changes
+
+- Updated dependencies [[`8cd7b08`](https://github.com/commercetools/commercetools-sdk-typescript/commit/8cd7b08a78e13a886ed2271f6807358380b22ab2), [`fe5109c`](https://github.com/commercetools/commercetools-sdk-typescript/commit/fe5109c58c17e150e3a8fa953b829b2875cd9f96)]:
+  - @commercetools/sdk-client-v2@2.1.0
+
+## 4.1.0
+
+### Minor Changes
+
+- [#351](https://github.com/commercetools/commercetools-sdk-typescript/pull/351) [`9c93a8e`](https://github.com/commercetools/commercetools-sdk-typescript/commit/9c93a8e92b4d523d6661567f7571f115a527b039) Thanks [@ajimae](https://github.com/ajimae)! - Update packages
+
+  Update the `history-sdk` `DateStringFilter`, `ChangeHistoryResourceType`, `Source` and `PlatformInitiatedChange` etc. models to include a `string` type
+
+  [Diff](https://github.com/commercetools/commercetools-sdk-typescript/pull/346/files#diff-cc2fe178ca6b6be224a1703faedb4addb5aeaba6e8fed5c5fb8aa83e6b89c15c)
+  [Diff](https://github.com/commercetools/commercetools-sdk-typescript/pull/346/files#diff-d209024497a25bf47b1328575261874e3b3838708b200c576e9136881d7c2fc5)
+
+  Add builder class and method for [`standalone-prices`](https://github.com/commercetools/commercetools-sdk-typescript/pull/346/files#diff-6c227c775a135e83a3177890fb075a57a36aca5e54585ddd12800e2fc8c868d0) for `importapi-sdk`
+
+  [Diff](https://github.com/commercetools/commercetools-sdk-typescript/pull/346/files#diff-4194831274c991aa860b804aa0e4ef37607f3648ce4b5bd1fa485fb368563414)
+  [Diff](https://github.com/commercetools/commercetools-sdk-typescript/pull/346/files#diff-cf4d4d593249abe6c99086f76491a0bd251573cde0f78291d38c12db533955e9)
+  [Diff](https://github.com/commercetools/commercetools-sdk-typescript/pull/346/files#diff-9b983bcf9b8f15645d6c0c5395b43046a37915b6269f8f1f0d113c625661b61e)
+  [Diff](https://github.com/commercetools/commercetools-sdk-typescript/pull/346/files#diff-cab14530d8df4ee940fea751e4e5afa1b36a94b92ee1360e641f46696fc3f21b)
+
+  Update the `importapi-sdk` `MoneyType`, `ReferenceType`, `ProcessingState`, `ImportOperationState` `ProductPriceModeEnum` etc models to include a `string` type
+
+  [Diff](https://github.com/commercetools/commercetools-sdk-typescript/pull/346/files#diff-4a12dd49a3bd4416087368cf7d2adad860849ada79c1744ae27ddae67c299c43)
+  [Diff](https://github.com/commercetools/commercetools-sdk-typescript/pull/346/files#diff-098b1027a5d008b85d503e4fbfd1a7ae1c47a138e1d8fb82c7ac9ee1ea94de3f)
+  [Diff](https://github.com/commercetools/commercetools-sdk-typescript/pull/346/files#diff-66168b247234ab499100b349ea788dfc0bad6c5275d5cf7541088083cd4ad47f)
+  [Diff](https://github.com/commercetools/commercetools-sdk-typescript/pull/346/files#diff-ac6b2ee896a8ab4c39857df35774f59713a50c547a6e7cecfe6924547381cd96)
+
+  Add class and builder methods for
+  `ByProjectKeyBusinessUnitsByIDRequestBuilder`,
+  `ByProjectKeyBusinessUnitsRequestBuilder`,
+  `ByProjectKeyMeBusinessUnitsKeyByKeyRequestBuilder`,
+  `ByProjectKeyMeBusinessUnitsRequestBuilder`,
+  `ByProjectKeyBusinessUnitsKeyByKeyRequestBuilder`
+  `ByProjectKeyInBusinessUnitKeyByBusinessUnitKeyMeCustomersRequestBuilder`,
+  `ByProjectKeyInBusinessUnitKeyByBusinessUnitKeyMeRequestBuilder`,
+  `ByProjectKeyInBusinessUnitKeyByBusinessUnitKeyRequestBuilder`
+  in the `platform-sdk`
+
+  [Diff](https://github.com/commercetools/commercetools-sdk-typescript/pull/346/files#diff-cb753c87b292658be2da42c7548c3ffcad89550d99d5a433bae77b06b1e8dde8)
+  [Diff](https://github.com/commercetools/commercetools-sdk-typescript/pull/346/files#diff-61da76483d06d79e65e755f43ce8f1c8b06b62af3dd310cdeac4cac8583c9457)
+  [Diff](https://github.com/commercetools/commercetools-sdk-typescript/pull/346/files#diff-427e08314427fc8efa3e4466403eb7ad961482b0ebbfd71a65ad513b1e62d93c)
+  [Diff](https://github.com/commercetools/commercetools-sdk-typescript/pull/346/files#diff-f7e56705a0ede866385bed01616ec49604dc9921092e9c8ad8c3dc435c7f7706)
+  [Diff](https://github.com/commercetools/commercetools-sdk-typescript/pull/346/files#diff-8104137d8ff7613e73e02d11a26f3086884e2b135467f8c2d56b25e9719781c3)
+  [Diff](https://github.com/commercetools/commercetools-sdk-typescript/pull/346/files#diff-d2d796eb7f7a440dba06bc3f71f12fb9ffbfbd0ba86161a7b77eab7a62d89fb4)
+  [Diff](https://github.com/commercetools/commercetools-sdk-typescript/pull/346/files#diff-c008d9ee3cd715df487ab0ebb7ce332cf31804ac533a2598e6808bf73f057b9e)
+
+  Complete changes can be found [here](https://github.com/commercetools/commercetools-sdk-typescript/pull/346/files)
+
+- [#347](https://github.com/commercetools/commercetools-sdk-typescript/pull/347) [`f0e84dd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f0e84ddb2e34b908385a380175c6da596db6817a) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
+
+  Add `quotes()` method for the `My Quote endpoint`
+
+  - [Diff Link](https://github.com/commercetools/commercetools-sdk-typescript/pull/347/files#diff-17ea32dc184ca17b337fbf5e126f27f16651feadc9c879fae88db2580537cf8eR142)
+
+  **Usage:**
+
+  ```ts
+  request: apiRoot
+    .withProjectKey({ projectKey: 'test_projectKey' })
+    .me()
+    .quotes()
+    .withId({ ID: 'test_ID' })
+    .get({ queryArgs: { expand: 'expand' } }),
+  ```
+
+  Add `ByProjectKeyMeQuotesByIDRequestBuilder` class for `quotes-request` model
+
+  - [Diff Link](https://github.com/commercetools/commercetools-sdk-typescript/pull/347/files#diff-a5bab13a41c9ece596cf0fcc545109385e16b6b1877755e58d8ec064125e2041R12)
+
+  Add `ByProjectKeyMeQuotesKeyByKeyRequestBuilder` class for `quotes-request` model
+
+  - [Diff Link](https://github.com/commercetools/commercetools-sdk-typescript/pull/347/files#diff-034feddaefb558f6391d5238391e177290d7f018904308b2884dfa016c81bc0dR12)
+
+  Add `ByProjectKeyMeQuotesRequestBuilder` class for `quotes-request` model
+
+  - [Diff Link](https://github.com/commercetools/commercetools-sdk-typescript/pull/347/files#diff-26e9b7a9cef621eaf88d81d1e2bb61858402450c444e1fe4d11bde5b51d22638R13)
+
+### Patch Changes
+
+- Updated dependencies [[`f0e84dd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f0e84ddb2e34b908385a380175c6da596db6817a)]:
+  - @commercetools/sdk-client-v2@2.0.1
+
 ## 4.0.0
 
 ### Major Changes

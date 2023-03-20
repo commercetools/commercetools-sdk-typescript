@@ -11,10 +11,10 @@ import {
   DiscountedPrice,
   DiscountedPriceDraft,
   LastModifiedBy,
-  Money,
   PriceTier,
   PriceTierDraft,
   TypedMoney,
+  _Money,
 } from './common'
 import {
   CustomerGroupReference,
@@ -42,7 +42,7 @@ export interface StagedStandalonePrice {
    *
    *
    */
-  readonly discounted: DiscountedPrice
+  readonly discounted?: DiscountedPrice
 }
 export interface StandalonePrice extends BaseResource {
   /**
@@ -135,7 +135,7 @@ export interface StandalonePrice extends BaseResource {
    */
   readonly tiers?: PriceTier[]
   /**
-   *	Set if a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists. If set, the API uses the `discounted` value for the [LineItem Price selection](/../api/projects/carts#lineitem-price-selection).
+   *	Set if a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists. If set, the API uses the `discounted` value for the [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
    *	When a [relative discount](/../api/projects/productDiscounts#productdiscountvaluerelative) is applied and the fraction part of the `discounted` price is 0.5, the discounted price is rounded in favor of the customer with the [half down rounding](https://en.wikipedia.org/wiki/Rounding#Round_half_down).
    *
    *
@@ -163,7 +163,8 @@ export interface StandalonePrice extends BaseResource {
 }
 /**
  *	Standalone Prices are defined with a scope consisting of `currency` and optionally `country`, `customerGroup`, and `channel` and/or a validity period (`validFrom` and/or `validTo`). For more information see [price selection](/../api/projects/products#price-selection).
- *	Creating a Standalone Price is rejected if there already exists a Standalone Price for the same SKU with exactly the same price scope, or with overlapping validity periods within the same price scope. A Price without validity period does not conflict with a Price defined for a time period.
+ *
+ *	Creating a Standalone Price for an SKU which has a Standalone Price with exactly the same price scope, or with overlapping validity periods within the same price scope returns the [DuplicateStandalonePriceScope](ctp:api:type:DuplicateStandalonePriceScopeError) and [OverlappingStandalonePriceValidity](ctp:api:type:OverlappingStandalonePriceValidityError) errors, respectively. A Price without validity period does not conflict with a Price defined for a time period.
  */
 export interface StandalonePriceDraft {
   /**
@@ -182,7 +183,7 @@ export interface StandalonePriceDraft {
    *
    *
    */
-  readonly value: Money
+  readonly value: _Money
   /**
    *	Sets the country for which this Price is valid.
    *
@@ -315,7 +316,7 @@ export interface StandalonePriceResourceIdentifier {
 }
 export interface StandalonePriceUpdate {
   /**
-   *	Expected version of the StandalonePrice on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *	Expected version of the StandalonePrice on which the changes should be applied. If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
    *
    *
    */
@@ -334,6 +335,7 @@ export type StandalonePriceUpdateAction =
   | StandalonePriceSetCustomFieldAction
   | StandalonePriceSetCustomTypeAction
   | StandalonePriceSetDiscountedPriceAction
+  | StandalonePriceSetKeyAction
 /**
  *	Applies all staged changes to the StandalonePrice by overwriting all current values with the values in the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice). After successfully applied, the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice) will be removed from the StandalonePrice. An `applyStagedChanges` update action on a StandalonePrice that does not contain any staged changes will return a `400 Bad Request` error. Applying staged changes successfully will produce the [StandalonePriceStagedChangesApplied](ctp:api:type:StandalonePriceStagedChangesAppliedMessage) Message.
  *
@@ -365,7 +367,7 @@ export interface StandalonePriceChangeValueAction {
    *
    *
    */
-  readonly value: Money
+  readonly value: _Money
   /**
    *	If set to `true` the update action applies to the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice). If set to `false`, the update action applies to the current [StandalonePrice](ctp:api:type:StandalonePrice).
    *
@@ -383,7 +385,7 @@ export interface StandalonePriceSetCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -418,4 +420,17 @@ export interface StandalonePriceSetDiscountedPriceAction {
    *
    */
   readonly discounted?: DiscountedPriceDraft
+}
+/**
+ *	Sets the key on a Standalone Price. Produces the [StandalonePriceKeySet](ctp:api:type:StandalonePriceKeySetMessage) Message.
+ *
+ */
+export interface StandalonePriceSetKeyAction {
+  readonly action: 'setKey'
+  /**
+   *	Value to set. Must be unique. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly key?: string
 }

@@ -61,6 +61,7 @@ export default class ClientBuilder {
         fetch: fetch,
       })
       .withLoggerMiddleware()
+      .withUserAgentMiddleware()
   }
 
   withAuthMiddleware(authMiddleware: Middleware): ClientBuilder {

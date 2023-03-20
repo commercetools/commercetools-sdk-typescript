@@ -15,6 +15,7 @@ import { ProductDraftImport } from './productdrafts'
 import { ProductImport } from './products'
 import { ProductTypeImport } from './producttypes'
 import { ProductVariantImport, ProductVariantPatch } from './productvariants'
+import { StandalonePriceImport } from './standalone-prices'
 
 /**
  *	An import request batches multiple import resources of the same import resource type for processing by an import container.
@@ -32,6 +33,7 @@ export type ImportRequest =
   | ProductTypeImportRequest
   | ProductVariantImportRequest
   | ProductVariantPatchRequest
+  | StandalonePriceImportRequest
 /**
  *	A list of the ID's and validation statuses of newly created [ImportOperations](#importoperation).
  *	Used as a response at each resource-specific import endpoint, for example, at [Import Categories](/category#import-categories) and [Import ProductTypes](/product-type#import-producttypes).
@@ -109,7 +111,7 @@ export interface ProductVariantImportRequest {
   readonly resources: ProductVariantImport[]
 }
 /**
- *	The request body to [import Prices](#import-prices). Contains data for [Embedded Prices](/../api/types#embedded-price) to be created or updated in a Project.
+ *	The request body to [import Embedded Prices](#import-embedded-prices). Contains data for [Embedded Prices](/../api/projects/products#embedded-price) to be created or updated in a Project.
  *
  */
 export interface PriceImportRequest {
@@ -122,7 +124,20 @@ export interface PriceImportRequest {
   readonly resources: PriceImport[]
 }
 /**
- *	The request body to [import Orders](#import-orders). Contains data for [Orders](/../api/projects/orders#order) to be created or updated in a Project.
+ *	The request body to [import Standalone Prices](#import-standalone-prices). Contains data for [Standalone Prices](/../api/projects/standalone-prices#standaloneprice) to be created or updated in a Project.
+ *
+ */
+export interface StandalonePriceImportRequest {
+  readonly type: 'standalone-price'
+  /**
+   *	The Standalone Price import resources of this request.
+   *
+   *
+   */
+  readonly resources: StandalonePriceImport[]
+}
+/**
+ *	The request body to [import Orders](#import-orders). Contains data for [Orders](/../api/projects/orders#order) to be created in a Project.
  *
  */
 export interface OrderImportRequest {

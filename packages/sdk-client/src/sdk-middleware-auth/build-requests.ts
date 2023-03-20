@@ -10,9 +10,8 @@ interface IBuiltRequestParams {
   body: string
 }
 
-// POST https://{host}/oauth/token?grant_type=client_credentials&scope={scope}
-// Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==
-const Buffer = require('buffer/').Buffer
+import { Buffer } from 'buffer/'
+
 export function buildRequestForClientCredentialsFlow(
   options: AuthMiddlewareOptions
 ): IBuiltRequestParams {

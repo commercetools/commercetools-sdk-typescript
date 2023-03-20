@@ -233,6 +233,7 @@ export type RefreshAuthMiddlewareOptions = {
     clientSecret: string
   }
   refreshToken: string
+  tokenCache?: TokenCache
   // For internal usage only
   oauthUri?: string
   fetch?: any
@@ -262,6 +263,11 @@ export type TokenCache = {
   set: (cache: TokenStore, tokenCacheOptions?: TokenCacheOptions) => void
 }
 
+export type RequestStateStore = {
+  get: () => RequestState
+  set: (requestState: RequestState) => void
+}
+
 /* Request */
 type requestBaseOptions = {
   response: MiddlewareResponse
@@ -269,10 +275,7 @@ type requestBaseOptions = {
   body: string
   basicAuth: string
   pendingTasks: Array<Task>
-  requestState: {
-    get: () => RequestState
-    set: (requestState: RequestState) => void
-  }
+  requestState: RequestStateStore,
   tokenCache: TokenCache
   tokenCacheKey?: TokenCacheOptions
 }
@@ -304,6 +307,7 @@ export type PasswordAuthMiddlewareOptions = {
     user: UserAuthOptions
   }
   scopes?: Array<string>
+  tokenCache?: TokenCache
   // For internal usage only
   oauthUri?: string
   fetch?: any
@@ -324,6 +328,7 @@ export type HttpMiddlewareOptions = {
     retryDelay?: number
     backoff?: boolean
     maxDelay?: number
+    retryOnAbort?: boolean
     retryCodes?: Array<number | string>,
   }
   fetch?: any

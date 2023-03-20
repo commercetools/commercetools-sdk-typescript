@@ -18,6 +18,13 @@ export class ByProjectKeyMeActiveCartRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Retrieves the Customer's most recently modified active Cart.
+   *	Carts with `Merchant` or `Quote` [CartOrigin](ctp:api:type:CartOrigin) are ignored.
+   *
+   *	If no active Cart exists, a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned.
+   *
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]

@@ -8,9 +8,23 @@ import { LastModifiedBy } from './common'
 import { MessagesConfiguration, MessagesConfigurationDraft } from './message'
 import { CustomFieldLocalizedEnumValue } from './type'
 
+export interface BusinessUnitConfiguration {
+  /**
+   *	Status of Business Units created using the [My Business Unit endpoint](/../api/projects/me-business-units#create-businessunit).
+   *
+   */
+  readonly myBusinessUnitStatusOnCreation: BusinessUnitConfigurationStatus
+}
+/**
+ *	Default value for [Business Unit Status](ctp:api:type:BusinessUnitStatus) configured though [Project settings](/../api/projects/project#change-my-business-unit-status-on-creation).
+ */
+export type BusinessUnitConfigurationStatus = 'Active' | 'Inactive' | string
 export interface CartsConfiguration {
   /**
-   *	Default value for the `deleteDaysAfterLastModification` parameter of the [CartDraft](ctp:api:type:CartDraft). This field may not be present on Projects created before January 2020.
+   *	Default value for the `deleteDaysAfterLastModification` parameter of the [CartDraft](ctp:api:type:CartDraft) and [MyCartDraft](ctp:api:type:MyCartDraft).
+   *	If a [ChangeSubscription](ctp:api:type:ChangeSubscription) for Carts exists, a [ResourceDeletedDeliveryPayload](ctp:api:type:ResourceDeletedDeliveryPayload) is sent upon deletion of a Cart.
+   *
+   *	This field may not be present on Projects created before January 2020.
    *
    *
    */
@@ -36,7 +50,7 @@ export interface ExternalOAuth {
    */
   readonly url: string
   /**
-   *	Partially hidden on retrieval.
+   *	Must not contain any leading or trailing whitespaces. Partially hidden on retrieval.
    *
    */
   readonly authorizationHeader: string
@@ -44,7 +58,7 @@ export interface ExternalOAuth {
 /**
  *	Specifies the status of the [Order Search](/../api/projects/order-search) index.
  */
-export type OrderSearchStatus = 'Activated' | 'Deactivated'
+export type OrderSearchStatus = 'Activated' | 'Deactivated' | string
 export interface Project {
   /**
    *	Current version of the Project.
@@ -130,10 +144,16 @@ export interface Project {
    *
    */
   readonly searchIndexing?: SearchIndexingConfiguration
+  /**
+   *	Holds configuration specific to [Business Units](ctp:api:type:BusinessUnit).
+   *
+   *
+   */
+  readonly businessUnits?: BusinessUnitConfiguration
 }
 export interface ProjectUpdate {
   /**
-   *	Expected version of the Project on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *	Expected version of the Project on which the changes should be applied. If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
    *
    *
    */
@@ -146,6 +166,7 @@ export interface ProjectUpdate {
   readonly actions: ProjectUpdateAction[]
 }
 export type ProjectUpdateAction =
+  | ProjectChangeBusinessUnitStatusOnCreationAction
   | ProjectChangeCartsConfigurationAction
   | ProjectChangeCountriesAction
   | ProjectChangeCountryTaxRateFallbackEnabledAction
@@ -181,6 +202,7 @@ export type SearchIndexingConfigurationStatus =
   | 'Activated'
   | 'Deactivated'
   | 'Indexing'
+  | string
 export interface SearchIndexingConfigurationValues {
   /**
    *	Current status of resource indexing. Present on Projects from 1 February 2019.
@@ -243,6 +265,15 @@ export interface ShoppingListsConfiguration {
    */
   readonly deleteDaysAfterLastModification?: number
 }
+export interface ProjectChangeBusinessUnitStatusOnCreationAction {
+  readonly action: 'changeMyBusinessUnitStatusOnCreation'
+  /**
+   *	Status for Business Units created using the [My Business Unit endpoint](/../api/projects/me-business-units#create-businessunit).
+   *
+   *
+   */
+  readonly status: BusinessUnitConfigurationStatus
+}
 export interface ProjectChangeCartsConfigurationAction {
   readonly action: 'changeCartsConfiguration'
   /**
@@ -279,7 +310,7 @@ export interface ProjectChangeCurrenciesAction {
   readonly currencies: string[]
 }
 /**
- *	If a language is used by a [Store](ctp:api:type:Store), it cannot be deleted. Attempts to delete such language will lead to [LanguageUsedInStores](/../api/errors#projects-400-language-used-in-stores) errors.
+ *	Removing a language used by a [Store](ctp:api:type:Store) returns a [LanguageUsedInStores](ctp:api:type:LanguageUsedInStoresError) error.
  *
  */
 export interface ProjectChangeLanguagesAction {
@@ -319,9 +350,8 @@ export interface ProjectChangeOrderSearchStatusAction {
 export interface ProjectChangeProductSearchIndexingEnabledAction {
   readonly action: 'changeProductSearchIndexingEnabled'
   /**
-   *	If `false`, the indexing of [Product](ctp:api:type:Product) information will stop and the [Product Projection Search](/../api/projects/products-search) as well as the [Product Suggestions](/../api/projects/products-suggestions) endpoint will not be available anymore for this Project. The Project's [SearchIndexingConfiguration](ctp:api:type:SearchIndexingConfiguration) `status` for `products` will be changed to `"Deactivated"`.
-   *
-   *	If `true`, the indexing of [Product](ctp:api:type:Product) information will start and the [Product Projection Search](/../api/projects/products-search) as well as the [Product Suggestions](/../api/projects/products-suggestions) endpoint will become available soon after for this Project. Proportional to the amount of information being indexed, the Project's [SearchIndexingConfiguration](ctp:api:type:SearchIndexingConfiguration) `status` for `products` will be shown as `"Indexing"` during this time. As soon as the indexing has finished, the configuration status will be changed to `"Activated"` making the aforementioned endpoints fully available for this Project.
+   *	- If `false`, the indexing of [Product](ctp:api:type:Product) information will stop and the [Product Projection Search](/../api/projects/products-search) as well as the [Product Suggestions](/../api/projects/products-suggestions) endpoint will not be available anymore for this Project. The Project's [SearchIndexingConfiguration](ctp:api:type:SearchIndexingConfiguration) `status` for `products` will be changed to `"Deactivated"`.
+   *	- If `true`, the indexing of [Product](ctp:api:type:Product) information will start and the [Product Projection Search](/../api/projects/products-search) as well as the [Product Suggestions](/../api/projects/products-suggestions) endpoint will become available soon after for this Project. Proportional to the amount of information being indexed, the Project's [SearchIndexingConfiguration](ctp:api:type:SearchIndexingConfiguration) `status` for `products` will be shown as `"Indexing"` during this time. As soon as the indexing has finished, the configuration status will be changed to `"Activated"` making the aforementioned endpoints fully available for this Project.
    *
    *
    */

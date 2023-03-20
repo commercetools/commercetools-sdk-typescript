@@ -6,12 +6,12 @@
 
 import {
   Address,
-  BaseAddress,
   BaseResource,
   CreatedBy,
   GeoJson,
   LastModifiedBy,
   LocalizedString,
+  _BaseAddress,
 } from './common'
 import { ReviewRatingStatistics } from './review'
 import {
@@ -139,7 +139,7 @@ export interface ChannelDraft {
    *
    *
    */
-  readonly address?: BaseAddress
+  readonly address?: _BaseAddress
   /**
    *	Custom fields defined for the Channel.
    *
@@ -243,9 +243,10 @@ export type ChannelRoleEnum =
   | 'OrderImport'
   | 'Primary'
   | 'ProductDistribution'
+  | string
 export interface ChannelUpdate {
   /**
-   *	Expected version of the Channel on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *	Expected version of the Channel on which the changes should be applied. If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
    *
    *
    */
@@ -322,7 +323,7 @@ export interface ChannelSetAddressAction {
    *
    *
    */
-  readonly address?: BaseAddress
+  readonly address?: _BaseAddress
 }
 export interface ChannelSetAddressCustomFieldAction {
   readonly action: 'setAddressCustomField'
@@ -334,7 +335,8 @@ export interface ChannelSetAddressCustomFieldAction {
   readonly name: string
   /**
    *	Specifies the format of the value of the Custom Field defined by `name`.
-   *	If `value` is absent or `null`, this field will be removed, if it exists. Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	If `value` is absent or `null`, this field will be removed, if it exists.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *
    *
    */
@@ -366,7 +368,7 @@ export interface ChannelSetCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *

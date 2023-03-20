@@ -1,4 +1,5 @@
 import { Buffer } from 'buffer/'
+import getErrorByCode, { HttpError, NetworkError } from '../sdk-client/errors'
 import {
   ClientRequest,
   HttpErrorType,
@@ -12,7 +13,6 @@ import {
   RequestOptions,
 } from '../types/sdk.d'
 import parseHeaders from './parse-headers'
-import getErrorByCode, { HttpError, NetworkError } from '../sdk-client/errors'
 
 // performs a proper buffer check
 function isBuffer(obj: any): boolean {
@@ -30,8 +30,10 @@ function createError({
   ...rest
 }: JsonObject<any>): HttpErrorType {
   let errorMessage = message || 'Unexpected non-JSON error response'
-  if (statusCode === 404)
-    errorMessage = `URI not found: ${rest.originalRequest.uri}`
+  if (statusCode === 404) {
+    errorMessage = `URI not found: ${rest.originalRequest?.uri || rest.uri}`
+    delete rest.uri // remove the `uri` property from the response
+  }
 
   const ResponseError = getErrorByCode(statusCode)
   if (ResponseError) return new ResponseError(errorMessage, rest)
@@ -84,6 +86,8 @@ export default function createHttpMiddleware({
     backoff = true,
     retryDelay = 200,
     maxDelay = Infinity,
+    // If set to true reinitialize the abort controller when the timeout is reached and apply the retry config
+    retryOnAbort = false,
     retryCodes = [503],
   } = {},
   fetch: fetcher,
@@ -116,20 +120,10 @@ export default function createHttpMiddleware({
 
   return (next: Next): Next =>
     (request: MiddlewareRequest, response: MiddlewareResponse) => {
-      let abortController: any
-      if (timeout || getAbortController)
-        abortController =
-          (getAbortController ? getAbortController() : null) ||
-          new AbortController()
-
       const url = host.replace(/\/$/, '') + request.uri
       const requestHeader: JsonObject<QueryParam> = { ...request.headers }
 
-      // Unset the content-type header if explicitly asked to (passing `null` as value).
-      if (requestHeader['Content-Type'] === null) {
-        delete requestHeader['Content-Type']
-      }
-
+      // If no content-type is provided, defaults to application/json
       if (
         !(
           Object.prototype.hasOwnProperty.call(requestHeader, 'Content-Type') ||
@@ -137,6 +131,11 @@ export default function createHttpMiddleware({
         )
       ) {
         requestHeader['Content-Type'] = 'application/json'
+      }
+
+      // Unset the content-type header if explicitly asked to (passing `null` as value).
+      if (requestHeader['Content-Type'] === null) {
+        delete requestHeader['Content-Type']
       }
 
       // Ensure body is a string if content type is application/json
@@ -159,9 +158,6 @@ export default function createHttpMiddleware({
       if (credentialsMode) {
         fetchOptions.credentialsMode = credentialsMode
       }
-      if (abortController) {
-        fetchOptions.signal = abortController.signal
-      }
       if (body) {
         fetchOptions.body = body
       }
@@ -170,10 +166,18 @@ export default function createHttpMiddleware({
       function executeFetch() {
         // Kick off timer for abortController directly before fetch.
         let timer: ReturnType<typeof setTimeout>
-        if (timeout)
+        let abortController: any
+        if (timeout) {
+          // Initialize the abort controller in case we do a retry on an aborted request to rest the signal
+          abortController =
+            (getAbortController ? getAbortController() : null) ||
+            new AbortController()
+          fetchOptions.signal = abortController.signal
+          // Set the timer
           timer = setTimeout(() => {
             abortController.abort()
           }, timeout)
+        }
         fetchFunction(url, fetchOptions)
           .then(
             (res: Response) => {
@@ -247,6 +251,8 @@ export default function createHttpMiddleware({
                   statusCode: res.status,
                   ...(includeRequestInErrorResponse
                     ? { originalRequest: request }
+                    : res.status === 404
+                    ? { uri: request.uri }
                     : {}),
                   retryCount,
                   headers: parseHeaders(res.headers),
@@ -288,7 +294,11 @@ export default function createHttpMiddleware({
             },
             // We know that this is a "network" error thrown by the `fetch` library
             (e: Error) => {
-              if (enableRetry)
+              // Retry when enabled and either the request was not aborted or retryOnAbort is enabled
+              if (
+                enableRetry &&
+                (retryOnAbort || !abortController || !abortController.signal)
+              ) {
                 if (retryCount < maxRetries) {
                   setTimeout(
                     executeFetch,
@@ -303,6 +313,7 @@ export default function createHttpMiddleware({
                   retryCount += 1
                   return
                 }
+              }
 
               const error = new NetworkError(e.message, {
                 ...(includeRequestInErrorResponse

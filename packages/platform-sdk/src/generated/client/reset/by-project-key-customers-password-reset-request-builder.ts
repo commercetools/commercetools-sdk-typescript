@@ -19,7 +19,8 @@ export class ByProjectKeyCustomersPasswordResetRequestBuilder {
     }
   ) {}
   /**
-   *	Set a new password using a token.
+   *	Resetting the password of the Customer produces the [CustomerPasswordUpdated](ctp:api:type:CustomerPasswordUpdatedMessage) Message with `reset=true`.
+   *
    */
   public post(methodArgs: {
     body: CustomerResetPassword

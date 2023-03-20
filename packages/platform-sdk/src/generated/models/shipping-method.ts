@@ -9,8 +9,8 @@ import {
   CreatedBy,
   LastModifiedBy,
   LocalizedString,
-  Money,
   TypedMoney,
+  _Money,
 } from './common'
 import {
   TaxCategoryReference,
@@ -318,12 +318,12 @@ export interface ShippingRateDraft {
    *	Money value of the ShippingRate.
    *
    */
-  readonly price: Money
+  readonly price: _Money
   /**
    *	Shipping is free if the sum of the (Custom) Line Item Prices reaches the specified value.
    *
    */
-  readonly freeAbove?: Money
+  readonly freeAbove?: _Money
   /**
    *	Price tiers for the ShippingRate.
    *
@@ -351,7 +351,7 @@ export interface CartClassificationTier {
    *
    *
    */
-  readonly price: Money
+  readonly price: _Money
   /**
    *	Appears in response to [Get ShippingMethods for a Cart](#get-shippingmethods-for-a-cart) if the shipping rate matches the search query.
    *
@@ -377,7 +377,7 @@ export interface CartScoreTier {
    *
    *
    */
-  readonly price?: Money
+  readonly price?: _Money
   /**
    *	Dynamically calculates a Price for a range of scores.
    *
@@ -411,7 +411,7 @@ export interface CartValueTier {
    *
    *
    */
-  readonly price: Money
+  readonly price: _Money
   /**
    *	Appears in response to [Get ShippingMethods for a Cart](#get-shippingmethods-for-a-cart) if the shipping rate matches the search query.
    *
@@ -423,6 +423,7 @@ export type ShippingRateTierType =
   | 'CartClassification'
   | 'CartScore'
   | 'CartValue'
+  | string
 /**
  *	Defines shipping rates in different currencies for a specific [Zone](ctp:api:type:Zone).
  *
@@ -540,7 +541,7 @@ export interface ShippingMethodSetCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *

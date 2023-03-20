@@ -4,6 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { BusinessUnitKeyReference } from './business-unit'
 import { CartReference } from './cart'
 import { BaseResource, CreatedBy, LastModifiedBy } from './common'
 import { CustomerReference } from './customer'
@@ -109,6 +110,19 @@ export interface StagedQuote extends BaseResource {
    *
    */
   readonly state?: StateReference
+  /**
+   *	The Purchase Order Number is typically set by the [Buyer](/quotes-overview#buyer) on a [QuoteRequest](ctp:api:type:QuoteRequest) to
+   *	track the purchase order during the [quote and order flow](/../api/quotes-overview#intended-workflow).
+   *
+   *
+   */
+  readonly purchaseOrderNumber?: string
+  /**
+   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Staged Quote.
+   *
+   *
+   */
+  readonly businessUnit?: BusinessUnitKeyReference
 }
 export interface StagedQuoteDraft {
   /**
@@ -123,6 +137,12 @@ export interface StagedQuoteDraft {
    *
    */
   readonly quoteRequestVersion: number
+  /**
+   *	If `true`, the `quoteRequestState` of the referenced [QuoteRequest](ctp:api:type:QuoteRequest) will be set to `Accepted`.
+   *
+   *
+   */
+  readonly quoteRequestStateToAccepted?: boolean
   /**
    *	User-defined unique identifier for the StagedQuote.
    *
@@ -229,13 +249,18 @@ export interface StagedQuoteResourceIdentifier {
  *	Predefined states tracking the status of the Staged Quote.
  *
  */
-export type StagedQuoteState = 'Closed' | 'InProgress' | 'Sent'
+export type StagedQuoteState = 'Closed' | 'InProgress' | 'Sent' | string
 export interface StagedQuoteUpdate {
   /**
+   *	Expected version of the [StagedQuote](ctp:api:type:StagedQuote) to which the changes should be applied.
+   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *
    *
    */
   readonly version: number
   /**
+   *	Update actions to be performed on the [StagedQuote](ctp:api:type:StagedQuote).
+   *
    *
    */
   readonly actions: StagedQuoteUpdateAction[]
@@ -265,7 +290,7 @@ export interface StagedQuoteSetCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *

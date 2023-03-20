@@ -3,6 +3,12 @@ import fetch from 'node-fetch'
 import createAuthMiddlewareBase from '../../src/sdk-middleware-auth/base-auth-flow'
 import * as buildRequests from '../../src/sdk-middleware-auth/build-requests'
 import store from '../../src/sdk-middleware-auth/utils'
+import {
+  TokenCache,
+  TokenStore,
+  RequestState,
+  RequestStateStore,
+} from '../../src/types/sdk'
 
 function createTestRequest(options) {
   return {
@@ -297,8 +303,12 @@ describe('Base Auth Flow', () => {
           expect(requestCount).toBe(1)
           resolve(null)
         }
-        const tokenCache = store({})
-        const requestState = store(false)
+
+        const tokenCache = store<TokenStore, TokenCache>({
+          token: '',
+          expirationTime: -1,
+        })
+        const requestState = store<RequestState, RequestStateStore>(false)
         // Second call:
         // - we simulate that the request has a token set in the headers
         // which does not match any of the cached tokens. In this case
@@ -415,7 +425,7 @@ describe('Base Auth Flow', () => {
         error: 'invalid_client',
       })
 
-    const requestState = store(false)
+    const requestState = store<RequestState, RequestStateStore>(false)
     const pendingTasks = []
 
     const startCreateBaseMiddleware = () =>

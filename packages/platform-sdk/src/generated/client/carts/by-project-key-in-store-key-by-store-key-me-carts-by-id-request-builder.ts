@@ -44,6 +44,10 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeCartsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	If the Cart exists in the Project but does not have the `store` field, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

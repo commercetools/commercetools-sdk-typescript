@@ -4,7 +4,16 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { CategoryImport } from './categories'
+import { CustomerImport } from './customers'
 import { Custom } from './customfields'
+import { InventoryImport } from './inventories'
+import { PriceImport } from './prices'
+import { ProductDraftImport } from './productdrafts'
+import { ProductImport } from './products'
+import { ProductTypeImport } from './producttypes'
+import { ProductVariantImport } from './productvariants'
+import { StandalonePriceImport } from './standalone-prices'
 
 export interface Asset {
   /**
@@ -159,10 +168,23 @@ export interface LocalizedString {
  */
 export interface ImportResource {
   /**
+   *	User-defined unique identifier.
+   *
    *
    */
   readonly key: string
 }
+export type _ImportResource =
+  | ImportResource
+  | ProductVariantImport
+  | PriceImport
+  | CategoryImport
+  | StandalonePriceImport
+  | ProductImport
+  | ProductDraftImport
+  | ProductTypeImport
+  | CustomerImport
+  | InventoryImport
 /**
  *	References a resource by key.
  */
@@ -403,7 +425,7 @@ export interface UnresolvedReferences {
    */
   readonly typeId: ReferenceType
 }
-export type MoneyType = 'centPrecision' | 'highPrecision'
+export type MoneyType = 'centPrecision' | 'highPrecision' | string
 export type TypedMoney = HighPrecisionMoney | Money
 export interface HighPrecisionMoney {
   readonly type: 'highPrecision'
@@ -487,6 +509,8 @@ export type ImportResourceType =
   | 'product-type'
   | 'product-variant'
   | 'product-variant-patch'
+  | 'standalone-price'
+  | string
 /**
  *	The type of the referenced resource.
  *
@@ -512,6 +536,7 @@ export type ReferenceType =
   | 'store'
   | 'tax-category'
   | 'type'
+  | string
 /**
  *	Every [Import Operation](/import-operation) is assigned with one of the following states.
  *
@@ -523,6 +548,7 @@ export type ProcessingState =
   | 'unresolved'
   | 'validationFailed'
   | 'waitForMasterVariant'
+  | string
 export interface Address {
   /**
    *
@@ -626,5 +652,10 @@ export interface Address {
    *
    */
   readonly externalId?: string
+  /**
+   *	Custom Fields for the address.
+   *
+   */
+  readonly custom?: Custom
 }
-export type ProductPriceModeEnum = 'Embedded' | 'Standalone'
+export type ProductPriceModeEnum = 'Embedded' | 'Standalone' | string

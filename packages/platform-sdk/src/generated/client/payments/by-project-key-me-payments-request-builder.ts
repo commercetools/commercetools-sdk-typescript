@@ -77,6 +77,10 @@ export class ByProjectKeyMePaymentsRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Creating a Payment produces the [PaymentCreated](ctp:api:type:PaymentCreatedMessage) Message.
+   *
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

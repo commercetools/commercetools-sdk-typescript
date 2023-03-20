@@ -18,11 +18,11 @@ aliases:
 executors:
   docker:
     docker:
-      - image: cimg/node:14.20.1
+      - image: cimg/node:14.21.3
 
 version: 2.1
 orbs:
-  node: circleci/node@5.0.2
+  node: circleci/node@5.1.0
 jobs:
   build_and_test:
     parameters:

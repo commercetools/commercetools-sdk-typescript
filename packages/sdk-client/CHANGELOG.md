@@ -1,5 +1,80 @@
 # @commercetools/sdk-client-v2
 
+## 2.1.4
+
+### Patch Changes
+
+- [#428](https://github.com/commercetools/commercetools-sdk-typescript/pull/428) [`8b4ad04`](https://github.com/commercetools/commercetools-sdk-typescript/commit/8b4ad04e9a43a8b399fa946ab6693500a4af3fb5) Thanks [@ajimae](https://github.com/ajimae)! - fix 415 error when uploading files using this SDK.
+
+## 2.1.3
+
+### Patch Changes
+
+- [#423](https://github.com/commercetools/commercetools-sdk-typescript/pull/423) [`4c87f46`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4c87f46c811788543ee2b3b6d7f70e221e05c07e) Thanks [@ajimae](https://github.com/ajimae)! - Change all instances of `require` to `import`
+
+## 2.1.2
+
+### Patch Changes
+
+- [#415](https://github.com/commercetools/commercetools-sdk-typescript/pull/415) [`caca661`](https://github.com/commercetools/commercetools-sdk-typescript/commit/caca661ff4c91cf256b6ee406135a45478b7ae47) Thanks [@ajimae](https://github.com/ajimae)! - fix uri `notfound error` for 404 error when `includeRequestInErrorResponse` is set to false.
+
+## 2.1.1
+
+### Patch Changes
+
+- [#390](https://github.com/commercetools/commercetools-sdk-typescript/pull/390) [`98d2d7c`](https://github.com/commercetools/commercetools-sdk-typescript/commit/98d2d7ce2abad1d8eb3466f4f3df1b877f144920) Thanks [@barbara79](https://github.com/barbara79)! - chore: add user agent in the client setting
+
+## 2.1.0
+
+### Minor Changes
+
+- [#361](https://github.com/commercetools/commercetools-sdk-typescript/pull/361) [`8cd7b08`](https://github.com/commercetools/commercetools-sdk-typescript/commit/8cd7b08a78e13a886ed2271f6807358380b22ab2) Thanks [@mh-flink](https://github.com/mh-flink)! - Introduce retryOnAbort option to allow retry on timeouts
+
+### Patch Changes
+
+- [#360](https://github.com/commercetools/commercetools-sdk-typescript/pull/360) [`fe5109c`](https://github.com/commercetools/commercetools-sdk-typescript/commit/fe5109c58c17e150e3a8fa953b829b2875cd9f96) Thanks [@ajimae](https://github.com/ajimae)! - Fix (store): add proper generic type for store function
+
+## 2.0.2
+
+### Patch Changes
+
+- [#355](https://github.com/commercetools/commercetools-sdk-typescript/pull/355) [`0db2947`](https://github.com/commercetools/commercetools-sdk-typescript/commit/0db2947dfe0629f833d7c101e9ec78e3a960f999) Thanks [@ajimae](https://github.com/ajimae)! - fix SDK to accept custom tokenCache store
+  allow anonymous auth flow to accept custom tokenCache store
+  fix refresh token flow and password flow to accept custom tokenCache store also
+
+## 2.0.1
+
+### Patch Changes
+
+- [#347](https://github.com/commercetools/commercetools-sdk-typescript/pull/347) [`f0e84dd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f0e84ddb2e34b908385a380175c6da596db6817a) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
+
+  Add `quotes()` method for the `My Quote endpoint`
+
+  - [Diff Link](https://github.com/commercetools/commercetools-sdk-typescript/pull/347/files#diff-17ea32dc184ca17b337fbf5e126f27f16651feadc9c879fae88db2580537cf8eR142)
+
+  **Usage:**
+
+  ```ts
+  request: apiRoot
+    .withProjectKey({ projectKey: 'test_projectKey' })
+    .me()
+    .quotes()
+    .withId({ ID: 'test_ID' })
+    .get({ queryArgs: { expand: 'expand' } }),
+  ```
+
+  Add `ByProjectKeyMeQuotesByIDRequestBuilder` class for `quotes-request` model
+
+  - [Diff Link](https://github.com/commercetools/commercetools-sdk-typescript/pull/347/files#diff-a5bab13a41c9ece596cf0fcc545109385e16b6b1877755e58d8ec064125e2041R12)
+
+  Add `ByProjectKeyMeQuotesKeyByKeyRequestBuilder` class for `quotes-request` model
+
+  - [Diff Link](https://github.com/commercetools/commercetools-sdk-typescript/pull/347/files#diff-034feddaefb558f6391d5238391e177290d7f018904308b2884dfa016c81bc0dR12)
+
+  Add `ByProjectKeyMeQuotesRequestBuilder` class for `quotes-request` model
+
+  - [Diff Link](https://github.com/commercetools/commercetools-sdk-typescript/pull/347/files#diff-26e9b7a9cef621eaf88d81d1e2bb61858402450c444e1fe4d11bde5b51d22638R13)
+
 ## 2.0.0
 
 ### Major Changes

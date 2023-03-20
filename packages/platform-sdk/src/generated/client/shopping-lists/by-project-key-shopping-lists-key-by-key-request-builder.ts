@@ -19,9 +19,6 @@ export class ByProjectKeyShoppingListsKeyByKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Gets a shopping list by Key.
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -45,9 +42,6 @@ export class ByProjectKeyShoppingListsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update a shopping list found by its Key.
-   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -76,9 +70,9 @@ export class ByProjectKeyShoppingListsKeyByKeyRequestBuilder {
   }
   public delete(methodArgs: {
     queryArgs: {
+      expand?: string | string[]
       dataErasure?: boolean
       version: number
-      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {

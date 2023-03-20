@@ -10,6 +10,7 @@ import {
 } from '../../models/shipping-method'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
+import { ByProjectKeyShippingMethodsMatchingCartLocationRequestBuilder } from '../matching-cart-location/by-project-key-shipping-methods-matching-cart-location-request-builder'
 import { ByProjectKeyShippingMethodsMatchingCartRequestBuilder } from '../matching-cart/by-project-key-shipping-methods-matching-cart-request-builder'
 import { ByProjectKeyShippingMethodsMatchingLocationRequestBuilder } from '../matching-location/by-project-key-shipping-methods-matching-location-request-builder'
 import { ByProjectKeyShippingMethodsMatchingOrdereditRequestBuilder } from '../matching-orderedit/by-project-key-shipping-methods-matching-orderedit-request-builder'
@@ -44,6 +45,18 @@ export class ByProjectKeyShippingMethodsRequestBuilder {
    */
   public matchingCart(): ByProjectKeyShippingMethodsMatchingCartRequestBuilder {
     return new ByProjectKeyShippingMethodsMatchingCartRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	Get ShippingMethods for a cart and location
+   */
+  public matchingCartLocation(): ByProjectKeyShippingMethodsMatchingCartLocationRequestBuilder {
+    return new ByProjectKeyShippingMethodsMatchingCartLocationRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },

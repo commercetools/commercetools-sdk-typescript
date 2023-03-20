@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/platform-sdk",
-  "version": "4.0.0",
+  "version": "4.6.0",
   "engines": {
     "node": ">=14"
   },
@@ -26,16 +26,16 @@
     "./dist/commercetools-platform-sdk.esm.js": "./dist/commercetools-platform-sdk.browser.esm.js"
   },
   "dependencies": {
-    "@commercetools/sdk-client-v2": "^2.0.0",
+    "@commercetools/sdk-client-v2": "^2.1.4",
     "@commercetools/sdk-middleware-auth": "^7.0.0",
     "@commercetools/sdk-middleware-http": "^7.0.0",
     "@commercetools/sdk-middleware-logger": "^3.0.0",
     "querystring": "^0.2.1"
   },
   "devDependencies": {
-    "@types/uuid": "8.3.4",
+    "@types/uuid": "9.0.1",
     "organize-imports-cli": "0.10.0",
-    "tsconfig-replace-paths": "0.0.11",
+    "tsconfig-replace-paths": "0.0.14",
     "uuid": "9.0.0"
   },
   "scripts": {

@@ -4,6 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { BusinessUnitKeyReference } from './business-unit'
 import {
   CustomLineItem,
   DirectDiscount,
@@ -240,14 +241,39 @@ export interface Quote extends BaseResource {
    */
   readonly custom?: CustomFields
   /**
+   *	Predefined states tracking the status of the Quote.
+   *
+   *
+   */
+  readonly quoteState: QuoteState
+  /**
    *	[State](ctp:api:type:State) of the Quote.
    *	This reference can point to a State in a custom workflow.
    *
    *
    */
   readonly state?: StateReference
+  /**
+   *	The Purchase Order Number is typically set by the [Buyer](/quotes-overview#buyer) on a [QuoteRequest](ctp:api:type:QuoteRequest) to
+   *	track the purchase order during the [quote and order flow](/../api/quotes-overview#intended-workflow).
+   *
+   *
+   */
+  readonly purchaseOrderNumber?: string
+  /**
+   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Quote.
+   *
+   *
+   */
+  readonly businessUnit?: BusinessUnitKeyReference
 }
 export interface QuoteDraft {
+  /**
+   *	User-defined unique identifier for the Quote.
+   *
+   *
+   */
+  readonly key?: string
   /**
    *	StagedQuote from which the Quote is created.
    *
@@ -260,11 +286,18 @@ export interface QuoteDraft {
    */
   readonly stagedQuoteVersion: number
   /**
-   *	User-defined unique identifier for the Quote.
+   *	If `true`, the `stagedQuoteState` of the referenced [StagedQuote](/../api/projects/staged-quotes#stagedquote) will be set to `Sent`.
    *
    *
    */
-  readonly key?: string
+  readonly stagedQuoteStateToSent?: boolean
+  /**
+   *	[State](ctp:api:type:State) of the Quote.
+   *	This reference can point to a State in a custom workflow.
+   *
+   *
+   */
+  readonly state?: StateReference
   /**
    *	[Custom Fields](/../api/projects/custom-fields) to be added to the Quote.
    *
@@ -274,13 +307,6 @@ export interface QuoteDraft {
    *
    */
   readonly custom?: CustomFieldsDraft
-  /**
-   *	[State](ctp:api:type:State) of the Quote.
-   *	This reference can point to a State in a custom workflow.
-   *
-   *
-   */
-  readonly state?: StateReference
 }
 /**
  *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [Quote](ctp:api:type:Quote).
@@ -372,12 +398,18 @@ export type QuoteState =
   | 'Failed'
   | 'Pending'
   | 'Withdrawn'
+  | string
 export interface QuoteUpdate {
   /**
+   *	Expected version of the [Quote](ctp:api:type:Quote) to which the changes should be applied.
+   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *
    *
    */
   readonly version: number
   /**
+   *	Update actions to be performed on the [Quote](ctp:api:type:Quote).
+   *
    *
    */
   readonly actions: QuoteUpdateAction[]
@@ -419,7 +451,7 @@ export interface QuoteSetCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *

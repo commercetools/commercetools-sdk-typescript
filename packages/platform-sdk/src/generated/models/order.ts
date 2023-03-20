@@ -5,6 +5,10 @@
  */
 
 import {
+  BusinessUnitKeyReference,
+  BusinessUnitResourceIdentifier,
+} from './business-unit'
+import {
   CartOrigin,
   CartReference,
   CartResourceIdentifier,
@@ -37,15 +41,17 @@ import {
   Image,
   LastModifiedBy,
   LocalizedString,
-  Money,
   PriceDraft,
   TypedMoney,
+  _BaseAddress,
+  _Money,
 } from './common'
 import {
   CustomerGroupReference,
   CustomerGroupResourceIdentifier,
 } from './customer-group'
 import {
+  StagedOrder,
   StagedOrderAddCustomLineItemAction,
   StagedOrderAddDeliveryAction,
   StagedOrderAddDiscountCodeAction,
@@ -112,6 +118,7 @@ import {
   StagedOrderSetParcelItemsAction,
   StagedOrderSetParcelMeasurementsAction,
   StagedOrderSetParcelTrackingDataAction,
+  StagedOrderSetPurchaseOrderNumberAction,
   StagedOrderSetReturnInfoAction,
   StagedOrderSetReturnItemCustomFieldAction,
   StagedOrderSetReturnItemCustomTypeAction,
@@ -216,6 +223,7 @@ export type StagedOrderUpdateAction =
   | StagedOrderSetParcelItemsAction
   | StagedOrderSetParcelMeasurementsAction
   | StagedOrderSetParcelTrackingDataAction
+  | StagedOrderSetPurchaseOrderNumberAction
   | StagedOrderSetReturnInfoAction
   | StagedOrderSetReturnItemCustomFieldAction
   | StagedOrderSetReturnItemCustomTypeAction
@@ -346,7 +354,7 @@ export interface DiscountedLineItemPriceDraft {
    *
    *
    */
-  readonly value: Money
+  readonly value: _Money
   /**
    *
    */
@@ -483,6 +491,12 @@ export interface Order extends BaseResource {
    */
   readonly anonymousId?: string
   /**
+   *	The Business Unit the Order belongs to.
+   *
+   *
+   */
+  readonly businessUnit?: BusinessUnitKeyReference
+  /**
    *
    */
   readonly store?: StoreKeyReference
@@ -588,6 +602,12 @@ export interface Order extends BaseResource {
    */
   readonly returnInfo?: ReturnInfo[]
   /**
+   *	The Purchase Order Number is typically set by the [Buyer](/quotes-overview#buyer) on a [QuoteRequest](ctp:api:type:QuoteRequest) to
+   *	track the purchase order during the [quote and order flow](/../api/quotes-overview#intended-workflow).
+   *
+   */
+  readonly purchaseOrderNumber?: string
+  /**
    *
    */
   readonly discountCodes?: DiscountCodeInfo[]
@@ -633,7 +653,13 @@ export interface Order extends BaseResource {
    */
   readonly taxCalculationMode?: TaxCalculationMode
   /**
-   *	The shippingRateInput is used as an input to select a ShippingRatePriceTier.
+   *	Input used to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
+   *	The data type of this field depends on the `shippingRateInputType.type` configured in the [Project](ctp:api:type:Project):
+   *
+   *	- If `CartClassification`, it is [ClassificationShippingRateInput](ctp:api:type:ClassificationShippingRateInput).
+   *	- If `CartScore`, it is [ScoreShippingRateInput](ctp:api:type:ScoreShippingRateInput).
+   *	- If `CartValue`, it cannot be used.
+   *
    *
    */
   readonly shippingRateInput?: ShippingRateInput
@@ -648,6 +674,7 @@ export interface Order extends BaseResource {
    */
   readonly refusedGifts: CartDiscountReference[]
 }
+export type _Order = Order | StagedOrder
 export interface OrderFromCartDraft {
   /**
    *	Unique identifier of the Cart from which you can create an Order.
@@ -672,6 +699,12 @@ export interface OrderFromCartDraft {
    *
    */
   readonly orderNumber?: string
+  /**
+   *	Identifier for a purchase order, usually in a B2B context.
+   *	The Purchase Order Number is typically entered by the [Buyer](/quotes-overview#buyer) and can also be used with [Quotes](/quotes-overview).
+   *
+   */
+  readonly purchaseOrderNumber?: string
   /**
    *
    */
@@ -700,7 +733,7 @@ export interface OrderFromCartDraft {
 }
 export interface OrderFromQuoteDraft {
   /**
-   *	ResourceIdentifier of the Quote from which this Order is created. If the Quote has `QuoteState` in `Accepted`, `Declined` or `Withdrawn` then the order creation will fail. The creation will also if the `Quote` has expired (`validTo` check).
+   *	ResourceIdentifier of the Quote from which this Order is created. If the Quote has `QuoteState` in `Accepted`, `Declined` or `Withdrawn` then the order creation will fail. The creation will also fail if the `Quote` has expired (`validTo` check).
    *
    */
   readonly quote: QuoteResourceIdentifier
@@ -710,6 +743,12 @@ export interface OrderFromQuoteDraft {
    *
    */
   readonly version: number
+  /**
+   *	If `true`, the `quoteState` of the referenced [Quote](ctp:api:type:quote) will be set to `Accepted`.
+   *
+   *
+   */
+  readonly quoteStateToAccepted?: boolean
   /**
    *	String that uniquely identifies an order.
    *	It can be used to create more human-readable (in contrast to ID) identifier for the order.
@@ -768,7 +807,7 @@ export interface OrderImportDraft {
   /**
    *
    */
-  readonly totalPrice: Money
+  readonly totalPrice: _Money
   /**
    *	Order Import does not support calculation of taxes.
    *	When setting the draft the taxedPrice is to be provided.
@@ -778,11 +817,11 @@ export interface OrderImportDraft {
   /**
    *
    */
-  readonly shippingAddress?: BaseAddress
+  readonly shippingAddress?: _BaseAddress
   /**
    *
    */
-  readonly billingAddress?: BaseAddress
+  readonly billingAddress?: _BaseAddress
   /**
    *	Set when the customer is set and the customer is a member of a customer group.
    *	Used for product variant price selection.
@@ -847,6 +886,12 @@ export interface OrderImportDraft {
    */
   readonly itemShippingAddresses?: BaseAddress[]
   /**
+   *	The Business Unit the Cart belongs to.
+   *
+   *
+   */
+  readonly businessUnit?: BusinessUnitResourceIdentifier
+  /**
    *
    */
   readonly store?: StoreResourceIdentifier
@@ -893,7 +938,7 @@ export interface OrderReference {
   /**
    *
    */
-  readonly obj?: Order
+  readonly obj?: _Order
 }
 export interface OrderResourceIdentifier {
   readonly typeId: 'order'
@@ -921,7 +966,7 @@ export interface OrderSearchRequest {
    *	Controls how results to your query are sorted. If not provided, the results are sorted by relevance in descending order.
    *
    */
-  readonly sort?: string
+  readonly sort?: OrderSearchSorting[]
   /**
    *	The maximum number of search results to be returned.
    *
@@ -933,7 +978,13 @@ export interface OrderSearchRequest {
    */
   readonly offset?: number
 }
-export type OrderState = 'Cancelled' | 'Complete' | 'Confirmed' | 'Open'
+export interface OrderSearchSorting {}
+export type OrderState =
+  | 'Cancelled'
+  | 'Complete'
+  | 'Confirmed'
+  | 'Open'
+  | string
 export interface OrderUpdate {
   /**
    *
@@ -987,6 +1038,7 @@ export type OrderUpdateAction =
   | OrderSetParcelItemsAction
   | OrderSetParcelMeasurementsAction
   | OrderSetParcelTrackingDataAction
+  | OrderSetPurchaseOrderNumberAction
   | OrderSetReturnInfoAction
   | OrderSetReturnItemCustomFieldAction
   | OrderSetReturnItemCustomTypeAction
@@ -1080,6 +1132,7 @@ export type PaymentState =
   | 'Failed'
   | 'Paid'
   | 'Pending'
+  | string
 export interface ProductVariantImportDraft {
   /**
    *	The sequential ID of the variant within the product.
@@ -1258,18 +1311,22 @@ export type ReturnPaymentState =
   | 'NonRefundable'
   | 'NotRefunded'
   | 'Refunded'
+  | string
 export type ReturnShipmentState =
   | 'Advised'
   | 'BackInStock'
   | 'Returned'
   | 'Unusable'
+  | string
 export type ShipmentState =
   | 'Backorder'
   | 'Delayed'
+  | 'Delivered'
   | 'Partial'
   | 'Pending'
   | 'Ready'
   | 'Shipped'
+  | string
 export interface ShippingInfoImportDraft {
   /**
    *
@@ -1278,7 +1335,7 @@ export interface ShippingInfoImportDraft {
   /**
    *
    */
-  readonly price: Money
+  readonly price: _Money
   /**
    *	The shipping rate used to determine the price.
    *
@@ -1336,7 +1393,7 @@ export interface TaxedItemPriceDraft {
    *
    *
    */
-  readonly totalNet: Money
+  readonly totalNet: _Money
   /**
    *	Draft type that stores amounts in cent precision for the specified currency.
    *
@@ -1344,7 +1401,7 @@ export interface TaxedItemPriceDraft {
    *
    *
    */
-  readonly totalGross: Money
+  readonly totalGross: _Money
 }
 export interface TrackingData {
   /**
@@ -1384,9 +1441,13 @@ export interface OrderAddDeliveryAction {
    */
   readonly shippingKey?: string
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
-  readonly address?: BaseAddress
+  readonly address?: _BaseAddress
   /**
    *
    */
@@ -1400,9 +1461,13 @@ export interface OrderAddDeliveryAction {
 export interface OrderAddItemShippingAddressAction {
   readonly action: 'addItemShippingAddress'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
 }
 export interface OrderAddParcelToDeliveryAction {
   readonly action: 'addParcelToDelivery'
@@ -1426,7 +1491,7 @@ export interface OrderAddParcelToDeliveryAction {
 export interface OrderAddPaymentAction {
   readonly action: 'addPayment'
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Payment](ctp:api:type:Payment).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Payment](ctp:api:type:Payment).
    *
    *
    */
@@ -1514,7 +1579,7 @@ export interface OrderRemoveParcelFromDeliveryAction {
 export interface OrderRemovePaymentAction {
   readonly action: 'removePayment'
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Payment](ctp:api:type:Payment).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Payment](ctp:api:type:Payment).
    *
    *
    */
@@ -1523,9 +1588,13 @@ export interface OrderRemovePaymentAction {
 export interface OrderSetBillingAddressAction {
   readonly action: 'setBillingAddress'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
-  readonly address?: BaseAddress
+  readonly address?: _BaseAddress
 }
 export interface OrderSetBillingAddressCustomFieldAction {
   readonly action: 'setBillingAddressCustomField'
@@ -1537,7 +1606,7 @@ export interface OrderSetBillingAddressCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -1570,7 +1639,7 @@ export interface OrderSetCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -1591,7 +1660,7 @@ export interface OrderSetCustomLineItemCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -1625,6 +1694,8 @@ export interface OrderSetCustomLineItemShippingDetailsAction {
    */
   readonly customLineItemId: string
   /**
+   *	For order creation and updates, the sum of the `targets` must match the quantity of the Line Items or Custom Line Items.
+   *
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
@@ -1666,9 +1737,13 @@ export interface OrderSetDeliveryAddressAction {
    */
   readonly deliveryId: string
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
-  readonly address?: BaseAddress
+  readonly address?: _BaseAddress
 }
 export interface OrderSetDeliveryAddressCustomFieldAction {
   readonly action: 'setDeliveryAddressCustomField'
@@ -1684,7 +1759,7 @@ export interface OrderSetDeliveryAddressCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -1725,7 +1800,7 @@ export interface OrderSetDeliveryCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -1777,7 +1852,7 @@ export interface OrderSetItemShippingAddressCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -1818,7 +1893,7 @@ export interface OrderSetLineItemCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -1852,6 +1927,8 @@ export interface OrderSetLineItemShippingDetailsAction {
    */
   readonly lineItemId: string
   /**
+   *	For order creation and updates, the sum of the `targets` must match the quantity of the Line Items or Custom Line Items.
+   *
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
@@ -1884,7 +1961,7 @@ export interface OrderSetParcelCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -1944,6 +2021,15 @@ export interface OrderSetParcelTrackingDataAction {
    */
   readonly trackingData?: TrackingData
 }
+export interface OrderSetPurchaseOrderNumberAction {
+  readonly action: 'setPurchaseOrderNumber'
+  /**
+   *	Identifier for a purchase order, usually in a B2B context.
+   *	The Purchase Order Number is typically entered by the [Buyer](/quotes-overview#buyer) and can also be used with [Quotes](/quotes-overview).
+   *
+   */
+  readonly purchaseOrderNumber?: string
+}
 export interface OrderSetReturnInfoAction {
   readonly action: 'setReturnInfo'
   /**
@@ -1965,7 +2051,7 @@ export interface OrderSetReturnItemCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -2017,9 +2103,13 @@ export interface OrderSetReturnShipmentStateAction {
 export interface OrderSetShippingAddressAction {
   readonly action: 'setShippingAddress'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
-  readonly address?: BaseAddress
+  readonly address?: _BaseAddress
 }
 export interface OrderSetShippingAddressCustomFieldAction {
   readonly action: 'setShippingAddressCustomField'
@@ -2031,7 +2121,7 @@ export interface OrderSetShippingAddressCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -2133,9 +2223,13 @@ export interface OrderTransitionStateAction {
 export interface OrderUpdateItemShippingAddressAction {
   readonly action: 'updateItemShippingAddress'
   /**
+   *	Polymorphic base type that represents a postal address and contact details.
+   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+   *	only differ in the data type for the optional `custom` field.
+   *
    *
    */
-  readonly address: BaseAddress
+  readonly address: _BaseAddress
 }
 export interface OrderUpdateSyncInfoAction {
   readonly action: 'updateSyncInfo'

@@ -15,6 +15,7 @@ export type ReturnShipmentState =
   | 'BackInStock'
   | 'Returned'
   | 'Unusable'
+  | string
 export interface ReturnItemDraft {
   /**
    *

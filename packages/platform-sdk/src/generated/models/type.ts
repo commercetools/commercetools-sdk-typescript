@@ -64,6 +64,7 @@ export type CustomFieldReferenceValue =
   | 'shipping-method'
   | 'state'
   | 'zone'
+  | string
 /**
  *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
  *
@@ -266,6 +267,7 @@ export interface CustomFieldTimeType {
 export type ResourceTypeId =
   | 'address'
   | 'asset'
+  | 'business-unit'
   | 'cart-discount'
   | 'category'
   | 'channel'
@@ -286,11 +288,14 @@ export type ResourceTypeId =
   | 'product-selection'
   | 'quote'
   | 'review'
+  | 'shipping'
   | 'shipping-method'
   | 'shopping-list'
   | 'shopping-list-text-line-item'
+  | 'standalone-price'
   | 'store'
   | 'transaction'
+  | string
 export interface Type extends BaseResource {
   /**
    *	Unique identifier of the Type.
@@ -468,11 +473,11 @@ export interface TypeResourceIdentifier {
  *	Provides a visual representation type for this field. It is only relevant for string-based field types like [CustomFieldStringType](ctp:api:type:CustomFieldStringType) and [CustomFieldLocalizedStringType](ctp:api:type:CustomFieldLocalizedStringType). Following values are supported:
  *
  */
-export type TypeTextInputHint = 'MultiLine' | 'SingleLine'
+export type TypeTextInputHint = 'MultiLine' | 'SingleLine' | string
 export interface TypeUpdate {
   /**
    *	Expected version of the type on which the changes should be applied.
-   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
    *
    *
    */
@@ -518,6 +523,12 @@ export interface TypeAddEnumValueAction {
    */
   readonly value: CustomFieldEnumValue
 }
+/**
+ *	Defines a new field for a Type. Adding new required fields to a Type that is already referenced by existing entities can put those entities in a temporarily inconsistent state.
+ *
+ *	If a Type that is already in use requires new fields, we recommend making them optional (`required` set to `false`) whenever possible. Alternatively, any new required fields should be added one at a time followed by an update to all the resources using the Type. This prevents validation errors caused by an entity missing more than one required custom field.
+ *
+ */
 export interface TypeAddFieldDefinitionAction {
   readonly action: 'addFieldDefinition'
   /**

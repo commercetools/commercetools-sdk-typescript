@@ -21,13 +21,11 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsCustomerIdByCustomerIdRequestB
     }
   ) {}
   /**
-   *	Retrieves the active cart of the customer that has been modified most recently in a specific Store.
+   *	Retrieves the recently modified active Cart of a Customer with [CartOrigin](ctp:api:type:CartOrigin) `Customer`. If no active Cart exists, a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned.
    *
-   *	If the cart exists in the project but does not have the store field, or the store field
-   *	references a different store, this method returns a ResourceNotFound error.
+   *	If the Cart exists in the Project but does not have the `store` field, or the `store` field references a different Store, a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned.
    *
-   *	The cart may not contain up-to-date prices, discounts etc. If you want to ensure they're up-to-date,
-   *	send an Update request with the Recalculate update action instead.
+   *	To ensure the Cart is up-to-date with current values (such as Prices and Discounts), use the [Recalculate](ctp:api:type:CartRecalculateAction) update action.
    *
    */
   public get(methodArgs?: {

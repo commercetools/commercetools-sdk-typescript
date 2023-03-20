@@ -21,10 +21,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
     }
   ) {}
   /**
-   *	Returns a customer by its ID from a specific Store.
-   *	It also considers customers that do not have the stores field.
-   *	If the customer exists in the project but the stores field references different stores,
-   *	this method returns a ResourceNotFound error.
+   *	If the Customer exists in the Project but the `stores` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *
    */
   public get(methodArgs?: {
@@ -51,9 +48,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
     )
   }
   /**
-   *	Updates a customer in the store specified by {storeKey}.
-   *	If the customer exists in the project but the stores field references a different store,
-   *	this method returns a ResourceNotFound error.
+   *	If the Customer exists in the Project but the `stores` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *
    */
   public post(methodArgs: {
@@ -82,6 +77,12 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deleting a Customer produces the [CustomerDeleted](ctp:api:type:CustomerDeletedMessage) Message.
+   *
+   *	If the Customer exists in the Project but the `stores` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *
+   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

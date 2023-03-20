@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { Cart } from '../../models/cart'
-import { executeRequest } from '../../shared/utils/common-types'
+import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
@@ -19,7 +19,19 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeActiveCartRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Retrieves the Customer's most recently modified active Cart in the Store specified by the `storeKey` path parameter.
+   *
+   *	Carts with `Merchant` or `Quote` [CartOrigin](ctp:api:type:CartOrigin) are ignored.
+   *
+   *	If no active Cart exists, a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned.
+   *
+   */
   public get(methodArgs?: {
+    queryArgs?: {
+      expand?: string | string[]
+      [key: string]: QueryParam
+    }
     headers?: {
       [key: string]: string | string[]
     }
@@ -33,6 +45,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeActiveCartRequestBuilder {
         headers: {
           ...methodArgs?.headers,
         },
+        queryParams: methodArgs?.queryArgs,
       },
       this.args.executeRequest
     )

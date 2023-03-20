@@ -3,7 +3,7 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { Customer, MyCustomerResetPassword } from '../../models/customer'
+import { Customer, CustomerResetPassword } from '../../models/customer'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
@@ -20,10 +20,13 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersPasswordResetRequestBuilde
     }
   ) {}
   /**
-   *	Set a new password using a token.
+   *	Resetting the password of the Customer produces the [CustomerPasswordUpdated](ctp:api:type:CustomerPasswordUpdatedMessage) Message with `reset=true`.
+   *
+   *	If the Customer exists in the Project but the `stores` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *
    */
   public post(methodArgs: {
-    body: MyCustomerResetPassword
+    body: CustomerResetPassword
     headers?: {
       [key: string]: string | string[]
     }

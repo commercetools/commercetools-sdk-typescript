@@ -4,82 +4,128 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
-import { CartReference, CartResourceIdentifier } from './cart'
 import {
+  AttributeGroup,
+  AttributeGroupReference,
+  AttributeGroupResourceIdentifier,
+} from './attribute-group'
+import {
+  BusinessUnit,
+  BusinessUnitKeyReference,
+  BusinessUnitReference,
+  BusinessUnitResourceIdentifier,
+} from './business-unit'
+import { Cart, CartReference, CartResourceIdentifier } from './cart'
+import {
+  CartDiscount,
   CartDiscountReference,
   CartDiscountResourceIdentifier,
 } from './cart-discount'
-import { CategoryReference, CategoryResourceIdentifier } from './category'
-import { ChannelReference, ChannelResourceIdentifier } from './channel'
-import { CustomObjectReference } from './custom-object'
-import { CustomerReference, CustomerResourceIdentifier } from './customer'
 import {
+  Category,
+  CategoryReference,
+  CategoryResourceIdentifier,
+} from './category'
+import { Channel, ChannelReference, ChannelResourceIdentifier } from './channel'
+import { CustomObject, CustomObjectReference } from './custom-object'
+import {
+  Customer,
+  CustomerReference,
+  CustomerResourceIdentifier,
+} from './customer'
+import {
+  CustomerGroup,
   CustomerGroupReference,
   CustomerGroupResourceIdentifier,
 } from './customer-group'
 import {
+  DiscountCode,
   DiscountCodeReference,
   DiscountCodeResourceIdentifier,
 } from './discount-code'
+import { Extension } from './extension'
 import {
+  InventoryEntry,
   InventoryEntryReference,
   InventoryEntryResourceIdentifier,
 } from './inventory'
-import { OrderReference, OrderResourceIdentifier } from './order'
-import { OrderEditReference, OrderEditResourceIdentifier } from './order-edit'
-import { PaymentReference, PaymentResourceIdentifier } from './payment'
-import { ProductReference, ProductResourceIdentifier } from './product'
+import { Message } from './message'
+import { Order, OrderReference, OrderResourceIdentifier } from './order'
 import {
+  OrderEdit,
+  OrderEditReference,
+  OrderEditResourceIdentifier,
+} from './order-edit'
+import { Payment, PaymentReference, PaymentResourceIdentifier } from './payment'
+import {
+  Product,
+  ProductProjection,
+  ProductReference,
+  ProductResourceIdentifier,
+} from './product'
+import {
+  ProductDiscount,
   ProductDiscountReference,
   ProductDiscountResourceIdentifier,
 } from './product-discount'
 import {
+  ProductSelection,
   ProductSelectionReference,
   ProductSelectionResourceIdentifier,
 } from './product-selection'
 import {
+  ProductType,
   ProductTypeReference,
   ProductTypeResourceIdentifier,
 } from './product-type'
-import { QuoteReference, QuoteResourceIdentifier } from './quote'
+import { Quote, QuoteReference, QuoteResourceIdentifier } from './quote'
 import {
+  QuoteRequest,
   QuoteRequestReference,
   QuoteRequestResourceIdentifier,
 } from './quote-request'
-import { ReviewReference, ReviewResourceIdentifier } from './review'
+import { Review, ReviewReference, ReviewResourceIdentifier } from './review'
 import {
+  ShippingMethod,
   ShippingMethodReference,
   ShippingMethodResourceIdentifier,
 } from './shipping-method'
 import {
+  ShoppingList,
   ShoppingListReference,
   ShoppingListResourceIdentifier,
 } from './shopping-list'
 import {
+  StagedQuote,
   StagedQuoteReference,
   StagedQuoteResourceIdentifier,
 } from './staged-quote'
 import {
+  StandalonePrice,
   StandalonePriceReference,
   StandalonePriceResourceIdentifier,
 } from './standalone-price'
-import { StateReference, StateResourceIdentifier } from './state'
+import { State, StateReference, StateResourceIdentifier } from './state'
 import {
+  Store,
   StoreKeyReference,
   StoreReference,
   StoreResourceIdentifier,
 } from './store'
+import { Subscription } from './subscription'
 import {
+  TaxCategory,
   TaxCategoryReference,
   TaxCategoryResourceIdentifier,
 } from './tax-category'
 import {
   CustomFields,
   CustomFieldsDraft,
+  Type,
   TypeReference,
   TypeResourceIdentifier,
 } from './type'
-import { ZoneReference, ZoneResourceIdentifier } from './zone'
+import { Zone, ZoneReference, ZoneResourceIdentifier } from './zone'
 
 export interface PagedQueryResponse {
   /**
@@ -260,21 +306,30 @@ export interface AssetSource {
    */
   readonly contentType?: string
 }
+/**
+ *	Polymorphic base type that represents a postal address and contact details.
+ *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+ *	only differ in the data type for the optional `custom` field.
+ *
+ */
 export interface BaseAddress {
   /**
    *	Unique identifier of the Address.
+   *
+   *	It is not recommended to set it manually since the API overwrites this ID when creating an Address for a [Customer](ctp:api:type:Customer).
+   *	Use `key` instead and omit this field from the request to let the API generate the ID for the Address.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the Address.
+   *	User-defined identifier of the Address that must be unique when multiple addresses are referenced in [BusinessUnits](ctp:api:type:BusinessUnit), [Customers](ctp:api:type:Customer), and `itemShippingAddresses` (LineItem-specific addresses) of a [Cart](ctp:api:type:Cart), [Order](ctp:api:type:Order), [QuoteRequest](ctp:api:type:QuoteRequest), or [Quote](ctp:api:type:Quote).
    *
    *
    */
   readonly key?: string
   /**
-   *	Two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Name of the country.
    *
    *
    */
@@ -412,37 +467,30 @@ export interface BaseAddress {
    */
   readonly externalId?: string
 }
+export type _BaseAddress = BaseAddress | AddressDraft | Address
+/**
+ *	Address type returned by read methods.
+ *	Optionally, the `custom` field can be present in addition to the fields of a [BaseAddress](ctp:api:type:BaseAddress).
+ *
+ */
 export interface Address extends BaseAddress {
-  /**
-   *	Unique identifier of the Address.
-   *
-   *
-   */
-  readonly id?: string
   /**
    *	Custom Fields defined for the Address.
    *
    */
   readonly custom?: CustomFields
 }
+/**
+ *	Address type to be used on write methods.
+ *	Optionally, use the `custom` field in addition to the fields of a [BaseAddress](ctp:api:type:BaseAddress).
+ *
+ */
 export interface AddressDraft extends BaseAddress {
   /**
    *	Custom Fields defined for the Address.
    *
    */
   readonly custom?: CustomFieldsDraft
-  /**
-   *	Unique identifier for the Address. Not recommended to set it manually since the API overwrites this ID when creating an Address for a [Customer](ctp:api:type:Customer). Use `key` instead and omit this field from the request to let the API generate the ID for the Address.
-   *
-   *
-   */
-  readonly id?: string
-  /**
-   *	User-defined unique identifier for the Address.
-   *
-   *
-   */
-  readonly key?: string
 }
 export interface BaseResource {
   /**
@@ -462,6 +510,42 @@ export interface BaseResource {
    */
   readonly lastModifiedAt: string
 }
+export type _BaseResource =
+  | BaseResource
+  | CustomObject
+  | CustomerGroup
+  | Customer
+  | DiscountCode
+  | Extension
+  | InventoryEntry
+  | Message
+  | OrderEdit
+  | Order
+  | Payment
+  | ProductDiscount
+  | ProductSelection
+  | ProductType
+  | Product
+  | ProductProjection
+  | QuoteRequest
+  | Quote
+  | Review
+  | ShippingMethod
+  | ShoppingList
+  | StagedQuote
+  | StandalonePrice
+  | State
+  | Store
+  | Subscription
+  | TaxCategory
+  | Type
+  | Zone
+  | Cart
+  | AttributeGroup
+  | Channel
+  | Category
+  | BusinessUnit
+  | CartDiscount
 /**
  *	These objects represent information about which [API Client](/../api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/client-logging).
  *
@@ -486,12 +570,13 @@ export interface ClientLogging {
    */
   readonly customer?: CustomerReference
   /**
-   *	Indicates that the resource was modified during an [anonymous session](/../api/authorization#tokens-for-anonymous-sessions) with the logged ID.
+   *	Indicates that the resource was modified during an [anonymous session](ctp:api:type:AnonymousSession) with the logged ID.
    *
    *
    */
   readonly anonymousId?: string
 }
+export type _ClientLogging = ClientLogging | CreatedBy | LastModifiedBy
 /**
  *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
  */
@@ -515,7 +600,7 @@ export interface CreatedBy extends ClientLogging {
    */
   readonly customer?: CustomerReference
   /**
-   *	Indicates the [anonymous session](/../api/authorization#tokens-for-anonymous-sessions) during which the resource was created.
+   *	Indicates the [anonymous session](ctp:api:type:AnonymousSession) during which the resource was created.
    *
    *
    */
@@ -541,7 +626,7 @@ export interface DiscountedPriceDraft {
    *
    *
    */
-  readonly value: Money
+  readonly value: _Money
   /**
    *	Relates the referenced [ProductDiscount](ctp:api:type:ProductDiscount) to the discounted price.
    *
@@ -599,7 +684,7 @@ export interface ImageDimensions {
  *	A KeyReference represents a loose reference to another resource in the same Project identified by the resource's `key` field. If available, the `key` is immutable and mandatory. KeyReferences do not support [Reference Expansion](/general-concepts#reference-expansion).
  *
  */
-export type KeyReference = StoreKeyReference
+export type KeyReference = BusinessUnitKeyReference | StoreKeyReference
 /**
  *	Present on resources modified after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
  */
@@ -623,7 +708,7 @@ export interface LastModifiedBy extends ClientLogging {
    */
   readonly customer?: CustomerReference
   /**
-   *	Indicates the [anonymous session](/../api/authorization#tokens-for-anonymous-sessions) during which the resource was modified.
+   *	Indicates the [anonymous session](ctp:api:type:AnonymousSession) during which the resource was modified.
    *
    *
    */
@@ -659,10 +744,11 @@ export interface Money {
    */
   readonly currencyCode: string
 }
+export type _Money = Money | TypedMoney | TypedMoneyDraft
 /**
  *	MoneyType supports two different values, one for amounts in cent precision and another one for sub-cent amounts up to 20 fraction digits.
  */
-export type MoneyType = 'centPrecision' | 'highPrecision'
+export type MoneyType = 'centPrecision' | 'highPrecision' | string
 /**
  *	The representation for prices embedded in [LineItems](ctp:api:type:LineItem) and in [ProductVariants](ctp:api:type:ProductVariant) when the [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) is `Embedded`.
  *	For the `Standalone` ProductPriceMode refer to [StandalonePrice](ctp:api:type:StandalonePrice).
@@ -674,6 +760,12 @@ export interface Price {
    *
    */
   readonly id: string
+  /**
+   *	User-defined identifier of the Price. It is unique per [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly key?: string
   /**
    *	Money value of this Price.
    *
@@ -712,8 +804,8 @@ export interface Price {
   readonly validUntil?: string
   /**
    *	Is set if a [ProductDiscount](ctp:api:type:ProductDiscount) has been applied.
-   *	If set, the API uses the DiscountedPrice value for the [LineItem Price selection](/projects/carts#lineitem-price-selection).
-   *	When a [relative discount](/../api/projects/productDiscounts#productdiscountvaluerelative) has been applied and the fraction part of the DiscountedPrice `value` is 0.5, the `value` is rounded in favor of the customer with [half down rounding](https://en.wikipedia.org/wiki/Rounding#Round_half_down).
+   *	If set, the API uses the DiscountedPrice value for the [Line Item Price selection](ctp:api:type:LineItemPriceSelection).
+   *	When a [relative discount](ctp:api:type:ProductDiscountValueRelative) has been applied and the fraction part of the DiscountedPrice `value` is 0.5, the `value` is rounded in favor of the customer with [half-down rounding](https://en.wikipedia.org/wiki/Rounding#Round_half_down).
    *
    *
    */
@@ -736,11 +828,17 @@ export interface Price {
  */
 export interface PriceDraft {
   /**
+   *	User-defined identifier for the Price. It must be unique per [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly key?: string
+  /**
    *	Money value of this Price.
    *
    *
    */
-  readonly value: Money
+  readonly value: _Money
   /**
    *	Set this field if this Price is only valid for the specified country.
    *
@@ -843,7 +941,7 @@ export interface PriceTierDraft {
    *
    *
    */
-  readonly value: Money
+  readonly value: _Money
 }
 export interface QueryPrice {
   /**
@@ -857,7 +955,7 @@ export interface QueryPrice {
    *
    *
    */
-  readonly value: Money
+  readonly value: _Money
   /**
    *	Country for which the given Price is valid.
    *
@@ -912,6 +1010,8 @@ export interface QueryPrice {
  *
  */
 export type Reference =
+  | AttributeGroupReference
+  | BusinessUnitReference
   | CartDiscountReference
   | CartReference
   | CategoryReference
@@ -945,6 +1045,8 @@ export type Reference =
  *
  */
 export type ReferenceTypeId =
+  | 'attribute-group'
+  | 'business-unit'
   | 'cart'
   | 'cart-discount'
   | 'category'
@@ -976,6 +1078,7 @@ export type ReferenceTypeId =
   | 'tax-category'
   | 'type'
   | 'zone'
+  | string
 /**
  *	Draft type to create a [Reference](ctp:api:type:Reference) or a [KeyReference](ctp:api:type:KeyReference) to a resource. Provide either the `id` or (wherever supported) the `key` of the resource to reference, but depending on the API endpoint the response returns either a Reference or a KeyReference. For example, the field `parent` of a [CategoryDraft](ctp:api:type:CategoryDraft) takes a ResourceIdentifier for its value while the value of the corresponding field of a [Category](ctp:api:type:Category) is a Reference.
  *
@@ -983,6 +1086,8 @@ export type ReferenceTypeId =
  *
  */
 export type ResourceIdentifier =
+  | AttributeGroupResourceIdentifier
+  | BusinessUnitResourceIdentifier
   | CartDiscountResourceIdentifier
   | CartResourceIdentifier
   | CategoryResourceIdentifier
@@ -1065,7 +1170,7 @@ export interface ScopedPrice {
    */
   readonly validUntil?: string
   /**
-   *	Is set if a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists. If set, the [Cart](ctp:api:type:Cart) uses the discounted value for the [Cart Price calculation](ctp:api:type:CartAddLineItem).
+   *	Is set when a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists. If set, the [Cart](ctp:api:type:Cart) uses the discounted value for the [Cart Price calculation](ctp:api:type:CartAddLineItemAction).
    *
    *	When a [relative Product Discount](ctp:api:type:ProductDiscountValueRelative) is applied and the fractional part of the discounted Price is 0.5, the discounted Price is [rounded half down](https://en.wikipedia.org/wiki/Rounding#Round_half_down) in favor of the Customer.
    *

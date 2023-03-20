@@ -4,6 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { BusinessUnitKeyReference } from './business-unit'
 import {
   CartResourceIdentifier,
   CustomLineItem,
@@ -224,10 +225,24 @@ export interface QuoteRequest extends BaseResource {
    *
    */
   readonly state?: StateReference
+  /**
+   *	Identifier for a purchase order, usually in a B2B context.
+   *	The Purchase Order Number is typically entered by the [Buyer](/quotes-overview#buyer).
+   *
+   *
+   */
+  readonly purchaseOrderNumber?: string
+  /**
+   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Quote Request.
+   *
+   *
+   */
+  readonly businessUnit?: BusinessUnitKeyReference
 }
 export interface QuoteRequestDraft {
   /**
-   *	Cart for which a Quote is requested. Anonymous Carts as well as Carts with [Discount Codes](/../api?projects/discount-codes) are not supported.
+   *	Cart for which a Quote is requested.
+   *	Anonymous Carts, Carts with [Discount Codes](ctp:api:type:DiscountCode), or Carts with a `Multiple` [ShippingMode](ctp:api:type:ShippingMode) are not supported.
    *
    *
    */
@@ -263,6 +278,13 @@ export interface QuoteRequestDraft {
    *
    */
   readonly state?: StateReference
+  /**
+   *	Identifier for a purchase order, usually in a B2B context.
+   *	The Purchase Order Number is typically entered by the [Buyer](/quotes-overview#buyer).
+   *
+   *
+   */
+  readonly purchaseOrderNumber?: string
 }
 /**
  *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [QuoteRequest](ctp:api:type:QuoteRequest).
@@ -353,12 +375,18 @@ export type QuoteRequestState =
   | 'Closed'
   | 'Rejected'
   | 'Submitted'
+  | string
 export interface QuoteRequestUpdate {
   /**
+   *	Expected version of the [QuoteRequest](ctp:api:type:QuoteRequest) to which the changes should be applied.
+   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *
    *
    */
   readonly version: number
   /**
+   *	Update actions to be performed on the [QuoteRequest](ctp:api:type:QuoteRequest).
+   *
    *
    */
   readonly actions: QuoteRequestUpdateAction[]
@@ -391,7 +419,7 @@ export interface QuoteRequestSetCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *

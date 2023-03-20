@@ -6,11 +6,12 @@
 
 import {
   BaseResource,
+  CentPrecisionMoney,
   CreatedBy,
   LastModifiedBy,
   LocalizedString,
-  Money,
   TypedMoney,
+  _Money,
 } from './common'
 import { CustomerReference, CustomerResourceIdentifier } from './customer'
 import { StateReference, StateResourceIdentifier } from './state'
@@ -28,74 +29,111 @@ export interface Payment extends BaseResource {
    */
   readonly id: string
   /**
+   *	Current version of the Payment.
    *
    */
   readonly version: number
   /**
+   *	Date and time (UTC) the Payment was initially created.
    *
    */
   readonly createdAt: string
   /**
+   *	Date and time (UTC) the Payment was last updated.
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
    *
    *
    */
   readonly createdBy?: CreatedBy
   /**
-   *	A reference to the customer this payment belongs to.
+   *	Reference to a [Customer](ctp:api:type:Customer) associated with the Payment.
+   *
    *
    */
   readonly customer?: CustomerReference
   /**
-   *	Identifies payments belonging to an anonymous session (the customer has not signed up/in yet).
+   *	[Anonymous session](ctp:api:type:AnonymousSession) associated with the Payment.
+   *
    *
    */
   readonly anonymousId?: string
   /**
-   *	The identifier that is used by the interface that manages the payment (usually the PSP).
-   *	Cannot be changed once it has been set.
-   *	The combination of this ID and the PaymentMethodInfo `paymentInterface` must be unique.
+   *	Additional identifier for external systems like Customer Relationship Management (CRM) or Enterprise Resource Planning (ERP).
+   *
+   */
+  readonly externalId?: string
+  /**
+   *	Identifier used by the payment service that processes the Payment (for example, a PSP).
+   *	The combination of `interfaceId` and the `paymentInterface` field on [PaymentMethodInfo](ctp:api:type:PaymentMethodInfo) must be unique.
    *
    */
   readonly interfaceId?: string
   /**
-   *	How much money this payment intends to receive from the customer.
-   *	The value usually matches the cart or order gross total.
+   *	Money value the Payment intends to receive from the customer.
+   *	The value typically matches the [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order) gross total.
    *
    */
-  readonly amountPlanned: TypedMoney
+  readonly amountPlanned: CentPrecisionMoney
   /**
+   *	Deprecated because its value can be calculated from the total amounts saved in the [Transactions](ctp:api:type:Transaction).
+   *
+   *
+   */
+  readonly amountAuthorized?: TypedMoney
+  /**
+   *	Deprecated because this field is of little practical value, as it is either not reliably known, or the authorization time is fixed for a PSP.
+   *
+   *
+   */
+  readonly authorizedUntil?: string
+  /**
+   *	Deprecated because its value can be calculated from the total amounts saved in the [Transactions](ctp:api:type:Transaction).
+   *
+   *
+   */
+  readonly amountPaid?: TypedMoney
+  /**
+   *	Deprecated because its value can be calculated from the total amounts saved in the [Transactions](ctp:api:type:Transaction).
+   *
+   *
+   */
+  readonly amountRefunded?: TypedMoney
+  /**
+   *	Information regarding the payment interface (for example, a PSP), and the specific payment method used.
+   *
    *
    */
   readonly paymentMethodInfo: PaymentMethodInfo
   /**
+   *	Current status of the Payment.
+   *
    *
    */
   readonly paymentStatus: PaymentStatus
   /**
-   *	A list of financial transactions of different TransactionTypes with different TransactionStates.
+   *	Financial transactions of the Payment. Each Transaction has a [TransactionType](ctp:api:type:TransactionType) and a [TransactionState](ctp:api:type:TransactionState).
+   *
    *
    */
   readonly transactions: Transaction[]
   /**
-   *	Interface interactions can be requests sent to the PSP, responses received from the PSP or notifications received from the PSP.
-   *	Some interactions may result in a transaction.
-   *	If so, the `interactionId` in the Transaction should be set to match the ID of the PSP for the interaction.
-   *	Interactions are managed by the PSP integration and are usually neither written nor read by the user facing frontends or other services.
+   *	Represents information exchange with the payment service, for example, a PSP. An interaction may be a request sent, or a response or notification received from the payment service.
    *
    */
   readonly interfaceInteractions: CustomFields[]
   /**
+   *	Custom Fields for the Payment.
+   *
    *
    */
   readonly custom?: CustomFields
@@ -107,82 +145,83 @@ export interface Payment extends BaseResource {
 }
 export interface PaymentDraft {
   /**
-   *	A reference to the customer this payment belongs to.
+   *	Reference to a [Customer](ctp:api:type:Customer) associated with the Payment.
    *
    */
   readonly customer?: CustomerResourceIdentifier
   /**
-   *	Identifies payments belonging to an anonymous session (the customer has not signed up/in yet).
+   *	[Anonymous session](ctp:api:type:AnonymousSession) associated with the Payment.
+   *
    *
    */
   readonly anonymousId?: string
   /**
-   *	@deprecated
+   *	Additional identifier for external systems like Customer Relationship Management (CRM) or Enterprise Resource Planning (ERP).
+   *
    */
   readonly externalId?: string
   /**
-   *	The identifier that is used by the interface that manages the payment (usually the PSP).
-   *	Cannot be changed once it has been set.
-   *	The combination of this ID and the PaymentMethodInfo `paymentInterface` must be unique.
+   *	Identifier used by the payment service that processes the Payment (for example, a PSP).
+   *	The combination of `interfaceId` and the `paymentInterface` field on [PaymentMethodInfo](ctp:api:type:PaymentMethodInfo) must be unique.
+   *	Once set, it cannot be changed.
    *
    */
   readonly interfaceId?: string
   /**
-   *	How much money this payment intends to receive from the customer.
-   *	The value usually matches the cart or order gross total.
+   *	Money value the Payment intends to receive from the customer.
+   *	The value typically matches the [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order) gross total.
    *
    */
-  readonly amountPlanned: Money
+  readonly amountPlanned: _Money
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Deprecated because the value can be calculated from the total amounts saved in the [Transactions](ctp:api:type:Transaction).
    *
    *
    */
-  readonly amountAuthorized?: Money
+  readonly amountAuthorized?: _Money
   /**
+   *	Deprecated because this field is of little practical value, as it is either not reliably known, or the authorization time is fixed for a PSP.
+   *
    *
    */
   readonly authorizedUntil?: string
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Deprecated because the value can be calculated from the total amounts saved in the [Transactions](ctp:api:type:Transaction).
    *
    *
    */
-  readonly amountPaid?: Money
+  readonly amountPaid?: _Money
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Deprecated because the value can be calculated from the total amounts saved in the [Transactions](ctp:api:type:Transaction).
    *
    *
    */
-  readonly amountRefunded?: Money
+  readonly amountRefunded?: _Money
   /**
+   *	Information regarding the payment interface (for example, a PSP), and the specific payment method used.
+   *
    *
    */
   readonly paymentMethodInfo?: PaymentMethodInfo
   /**
+   *	Current status of the Payment.
+   *
    *
    */
   readonly paymentStatus?: PaymentStatusDraft
   /**
-   *	A list of financial transactions of different TransactionTypes with different TransactionStates.
+   *	Financial transactions of the Payment. Each Transaction has a [TransactionType](ctp:api:type:TransactionType) and a [TransactionState](ctp:api:type:TransactionState).
    *
    */
   readonly transactions?: TransactionDraft[]
   /**
-   *	Interface interactions can be requests send to the PSP, responses received from the PSP or notifications received from the PSP.
-   *	Some interactions may result in a transaction.
-   *	If so, the `interactionId` in the Transaction should be set to match the ID of the PSP for the interaction.
-   *	Interactions are managed by the PSP integration and are usually neither written nor read by the user facing frontends or other services.
+   *	Represents information exchange with the payment service, for example, a PSP. An interaction may be a request sent, or a response or notification received from the payment service.
    *
    */
   readonly interfaceInteractions?: CustomFieldsDraft[]
   /**
+   *	Custom Fields for the Payment.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
@@ -194,26 +233,27 @@ export interface PaymentDraft {
 }
 export interface PaymentMethodInfo {
   /**
-   *	The interface that handles the payment (usually a PSP).
-   *	Cannot be changed once it has been set.
-   *	The combination of Payment`interfaceId` and this field must be unique.
+   *	Payment service that processes the Payment (for example, a PSP).
+   *	Once set, it cannot be changed.
+   *	The combination of `paymentInterface` and the `interfaceId` of a [Payment](ctp:api:type:Payment) must be unique.
    *
    */
   readonly paymentInterface?: string
   /**
-   *	The payment method that is used, e.g.
-   *	e.g.
-   *	a conventional string representing Credit Card, Cash Advance etc.
+   *	Payment method used, for example, credit card, or cash advance.
    *
    */
   readonly method?: string
   /**
-   *	A human-readable, localized name for the payment method, e.g.
-   *	'Credit Card'.
+   *	Localizable name of the payment method.
    *
    */
   readonly name?: LocalizedString
 }
+/**
+ *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [Payment](ctp:api:type:Payment).
+ *
+ */
 export interface PaymentPagedQueryResponse {
   /**
    *	Number of [results requested](/../api/general-concepts#limit).
@@ -222,10 +262,18 @@ export interface PaymentPagedQueryResponse {
    */
   readonly limit: number
   /**
+   *	Actual number of results returned.
+   *
    *
    */
   readonly count: number
   /**
+   *	Total number of results matching the query.
+   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This field is returned by default.
+   *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
+   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *
    *
    */
   readonly total?: number
@@ -236,6 +284,8 @@ export interface PaymentPagedQueryResponse {
    */
   readonly offset: number
   /**
+   *	[Payments](ctp:api:type:Payment) matching the query.
+   *
    *
    */
   readonly results: Payment[]
@@ -260,7 +310,7 @@ export interface PaymentReference {
   readonly obj?: Payment
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Payment](ctp:api:type:Payment).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Payment](ctp:api:type:Payment).
  *
  */
 export interface PaymentResourceIdentifier {
@@ -280,31 +330,35 @@ export interface PaymentResourceIdentifier {
 }
 export interface PaymentStatus {
   /**
-   *	A code describing the current status returned by the interface that processes the payment.
+   *	External reference that identifies the current status of the Payment.
    *
    */
   readonly interfaceCode?: string
   /**
-   *	A text describing the current status returned by the interface that processes the payment.
+   *	Text describing the current status of the Payment.
    *
    */
   readonly interfaceText?: string
   /**
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly state?: StateReference
 }
 export interface PaymentStatusDraft {
   /**
+   *	External reference that identifies the current status of the Payment.
    *
    */
   readonly interfaceCode?: string
   /**
+   *	Text describing the current status of the Payment.
    *
    */
   readonly interfaceText?: string
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [State](ctp:api:type:State).
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
    *
    *
    */
@@ -312,10 +366,14 @@ export interface PaymentStatusDraft {
 }
 export interface PaymentUpdate {
   /**
+   *	Expected version of the Payment on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *
    *
    */
   readonly version: number
   /**
+   *	Update actions to be performed on the Payment.
+   *
    *
    */
   readonly actions: PaymentUpdateAction[]
@@ -341,6 +399,10 @@ export type PaymentUpdateAction =
   | PaymentSetTransactionCustomFieldAction
   | PaymentSetTransactionCustomTypeAction
   | PaymentTransitionStateAction
+/**
+ *	Represents a financial transaction typically created as a result of a notification from the payment service.
+ *
+ */
 export interface Transaction {
   /**
    *	Unique identifier of the Transaction.
@@ -348,119 +410,164 @@ export interface Transaction {
    */
   readonly id: string
   /**
-   *	The time at which the transaction took place.
+   *	Date and time (UTC) the Transaction took place.
    *
    */
   readonly timestamp?: string
   /**
-   *	The type of this transaction.
+   *	Type of the Transaction. For example, `Authorization`.
    *
    */
   readonly type: TransactionType
   /**
+   *	Money value of the Transaction.
+   *
    *
    */
-  readonly amount: TypedMoney
+  readonly amount: CentPrecisionMoney
   /**
-   *	The identifier that is used by the interface that managed the transaction (usually the PSP).
-   *	If a matching interaction was logged in the `interfaceInteractions` array, the corresponding interaction should be findable with this ID.
+   *	Identifier used by the interface that manages the Transaction (usually the PSP).
+   *	If a matching interaction was logged in the `interfaceInteractions` array, the corresponding interaction can be found with this ID.
    *
    */
   readonly interactionId?: string
   /**
-   *	The state of this transaction.
+   *	State of the Transaction.
    *
    */
-  readonly state?: TransactionState
+  readonly state: TransactionState
   /**
-   *	Custom Fields for the Transaction.
+   *	Custom Fields defined for the Transaction.
    *
    */
   readonly custom?: CustomFields
 }
 export interface TransactionDraft {
   /**
-   *	The time at which the transaction took place.
+   *	Date and time (UTC) the Transaction took place.
    *
    */
   readonly timestamp?: string
   /**
-   *	The type of this transaction.
+   *	Type of the Transaction.
    *
    */
   readonly type: TransactionType
   /**
+   *	Money value for the Transaction.
+   *
    *
    */
-  readonly amount: Money
+  readonly amount: _Money
   /**
-   *	The identifier that is used by the interface that managed the transaction (usually the PSP).
-   *	If a matching interaction was logged in the `interfaceInteractions` array, the corresponding interaction should be findable with this ID.
+   *	Identifier used by the payment service that manages the Transaction.
+   *	Can be used to correlate the Transaction to an interface interaction.
    *
    */
   readonly interactionId?: string
   /**
-   *	The state of this transaction.
-   *	If not set, defaults to `Initial`.
+   *	State of the Transaction.
    *
    */
   readonly state?: TransactionState
   /**
-   *	Custom Fields for the Transaction.
+   *	Custom Fields of the Transaction.
    *
    */
   readonly custom?: CustomFieldsDraft
 }
-export type TransactionState = 'Failure' | 'Initial' | 'Pending' | 'Success'
+/**
+ *	Transactions can be in one of the following States:
+ *
+ */
+export type TransactionState =
+  | 'Failure'
+  | 'Initial'
+  | 'Pending'
+  | 'Success'
+  | string
 export type TransactionType =
   | 'Authorization'
   | 'CancelAuthorization'
   | 'Charge'
   | 'Chargeback'
   | 'Refund'
+  | string
+/**
+ *	Adding a Payment interaction generates the [PaymentInteractionAdded](ctp:api:type:PaymentInteractionAddedMessage) Message.
+ *
+ */
 export interface PaymentAddInterfaceInteractionAction {
   readonly action: 'addInterfaceInteraction'
   /**
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Type](ctp:api:type:Type).
+   *
    *
    */
   readonly type: TypeResourceIdentifier
   /**
+   *	[Custom Fields](/../api/projects/custom-fields) as per [FieldDefinitions](ctp:api:type:FieldDefinition) of the [Type](ctp:api:type:Type).
+   *
    *
    */
   readonly fields?: FieldContainer
 }
+/**
+ *	Adding a Transaction to a Payment generates the [PaymentTransactionAdded](ctp:api:type:PaymentTransactionAddedMessage) Message.
+ *
+ */
 export interface PaymentAddTransactionAction {
   readonly action: 'addTransaction'
   /**
+   *	Value to append to the `transactions` array.
+   *
    *
    */
   readonly transaction: TransactionDraft
 }
+/**
+ *	Can be used to update the Payment if a customer changes the [Cart](ctp:api:type:Cart), or adds or removes a [CartDiscount](ctp:api:type:CartDiscount) during checkout.
+ *
+ */
 export interface PaymentChangeAmountPlannedAction {
   readonly action: 'changeAmountPlanned'
   /**
+   *	New value to set.
+   *
    *
    */
-  readonly amount: Money
+  readonly amount: _Money
 }
 export interface PaymentChangeTransactionInteractionIdAction {
   readonly action: 'changeTransactionInteractionId'
   /**
+   *	Unique identifier of the [Transaction](ctp:api:type:Transaction).
+   *
    *
    */
   readonly transactionId: string
   /**
+   *	New value to set.
+   *
    *
    */
   readonly interactionId: string
 }
+/**
+ *	Changing the [TransactionState](ctp:api:type:TransactionState) generates the [PaymentTransactionStateChanged](ctp:api:type:PaymentTransactionStateChangedMessage) Message.
+ *
+ */
 export interface PaymentChangeTransactionStateAction {
   readonly action: 'changeTransactionState'
   /**
+   *	Unique identifier of the [Transaction](ctp:api:type:Transaction).
+   *
    *
    */
   readonly transactionId: string
   /**
+   *	New TransactionState.
+   *
    *
    */
   readonly state: TransactionState
@@ -468,10 +575,14 @@ export interface PaymentChangeTransactionStateAction {
 export interface PaymentChangeTransactionTimestampAction {
   readonly action: 'changeTransactionTimestamp'
   /**
+   *	Unique identifier of the [Transaction](ctp:api:type:Transaction).
+   *
    *
    */
   readonly transactionId: string
   /**
+   *	Timestamp of the Transaction as reported by the payment service.
+   *
    *
    */
   readonly timestamp: string
@@ -479,8 +590,9 @@ export interface PaymentChangeTransactionTimestampAction {
 export interface PaymentSetAnonymousIdAction {
   readonly action: 'setAnonymousId'
   /**
-   *	Anonymous ID of the anonymous customer that this payment belongs to.
-   *	If this field is not set any existing `anonymousId` is removed.
+   *	Value to set.
+   *	If empty, any existing value will be removed.
+   *
    *
    */
   readonly anonymousId?: string
@@ -495,7 +607,7 @@ export interface PaymentSetCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -521,7 +633,9 @@ export interface PaymentSetCustomTypeAction {
 export interface PaymentSetCustomerAction {
   readonly action: 'setCustomer'
   /**
-   *	A reference to the customer this payment belongs to.
+   *	Value to set.
+   *	If empty, any existing reference is removed.
+   *
    *
    */
   readonly customer?: CustomerResourceIdentifier
@@ -529,6 +643,9 @@ export interface PaymentSetCustomerAction {
 export interface PaymentSetInterfaceIdAction {
   readonly action: 'setInterfaceId'
   /**
+   *	Value to set.
+   *	Once set, the `interfaceId` cannot be changed.
+   *
    *
    */
   readonly interfaceId: string
@@ -536,9 +653,8 @@ export interface PaymentSetInterfaceIdAction {
 export interface PaymentSetKeyAction {
   readonly action: 'setKey'
   /**
-   *	User-specific unique identifier for the payment (max.
-   *	256 characters).
-   *	If not provided an existing key will be removed.
+   *	Value to set.
+   *	If `key` is absent or `null`, the existing key, if any, will be removed.
    *
    */
   readonly key?: string
@@ -546,6 +662,9 @@ export interface PaymentSetKeyAction {
 export interface PaymentSetMethodInfoInterfaceAction {
   readonly action: 'setMethodInfoInterface'
   /**
+   *	Value to set.
+   *	Once set, the `paymentInterface` of the `paymentMethodInfo` cannot be changed.
+   *
    *
    */
   readonly interface: string
@@ -553,7 +672,9 @@ export interface PaymentSetMethodInfoInterfaceAction {
 export interface PaymentSetMethodInfoMethodAction {
   readonly action: 'setMethodInfoMethod'
   /**
-   *	If not provided, the method is unset.
+   *	Value to set.
+   *	If empty, any existing value will be removed.
+   *
    *
    */
   readonly method?: string
@@ -561,14 +682,21 @@ export interface PaymentSetMethodInfoMethodAction {
 export interface PaymentSetMethodInfoNameAction {
   readonly action: 'setMethodInfoName'
   /**
-   *	If not provided, the name is unset.
+   *	Value to set.
+   *	If empty, any existing value will be removed.
+   *
    *
    */
   readonly name?: LocalizedString
 }
+/**
+ *	Produces the [PaymentStatusInterfaceCodeSet](ctp:api:type:PaymentStatusInterfaceCodeSetMessage) Message.
+ */
 export interface PaymentSetStatusInterfaceCodeAction {
   readonly action: 'setStatusInterfaceCode'
   /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
    *
    */
   readonly interfaceCode?: string
@@ -576,6 +704,8 @@ export interface PaymentSetStatusInterfaceCodeAction {
 export interface PaymentSetStatusInterfaceTextAction {
   readonly action: 'setStatusInterfaceText'
   /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
    *
    */
   readonly interfaceText: string
@@ -583,11 +713,12 @@ export interface PaymentSetStatusInterfaceTextAction {
 export interface PaymentSetTransactionCustomFieldAction {
   readonly action: 'setTransactionCustomField'
   /**
+   *	Unique identifier of the [Transaction](ctp:api:type:Transaction).
+   *
    *
    */
   readonly transactionId: string
   /**
-   *	description: |
    *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
    *
@@ -595,7 +726,7 @@ export interface PaymentSetTransactionCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -605,6 +736,8 @@ export interface PaymentSetTransactionCustomFieldAction {
 export interface PaymentSetTransactionCustomTypeAction {
   readonly action: 'setTransactionCustomType'
   /**
+   *	Unique identifier of the [Transaction](ctp:api:type:Transaction). If the specified `transactionId` does not exist, the request will fail with an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
+   *
    *
    */
   readonly transactionId: string
@@ -622,13 +755,24 @@ export interface PaymentSetTransactionCustomTypeAction {
    */
   readonly fields?: FieldContainer
 }
+/**
+ *	If the Payment has no current [State](ctp:api:type:State), `initial` must be `true` for the new State.
+ *	If the existing State has transitions set, the new State must be a valid transition.
+ *	If the existing State has no transitions set, no validations are performed when transitioning to the new State.
+ *
+ *	Transitioning the State of a Payment produces the [PaymentStatusStateTransition](ctp:api:type:PaymentStatusStateTransitionMessage) Message.
+ *
+ */
 export interface PaymentTransitionStateAction {
   readonly action: 'transitionState'
   /**
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+   *
    *
    */
   readonly state: StateResourceIdentifier
   /**
+   *	Set to `true` to skip validations when transitioning to the new State.
    *
    */
   readonly force?: boolean

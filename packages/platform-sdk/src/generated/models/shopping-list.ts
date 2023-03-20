@@ -28,15 +28,83 @@ export interface ShoppingList extends BaseResource {
    */
   readonly id: string
   /**
-   *	The current version of the shopping list.
+   *	Current version of the ShoppingList.
    *
    */
   readonly version: number
   /**
+   *	Name of the ShoppingList.
+   *
+   *
+   */
+  readonly name: LocalizedString
+  /**
+   *	User-defined unique identifier of the ShoppingList.
+   *
+   */
+  readonly key?: string
+  /**
+   *	Reference to a [Customer](ctp:api:type:Customer) associated with the ShoppingList.
+   *
+   *
+   */
+  readonly customer?: CustomerReference
+  /**
+   *	Human-readable identifiers usually used as deep-link URL to the related ShoppingList.
+   *	Each slug is unique across a Project, but a ShoppingList can have the same slug for different languages.
+   *	The slug must match the pattern `[a-zA-Z0-9_-]{2,256}`. For [good performance](/predicates/query#performance-considerations), indexes are provided for the first 15 `languages` set on the [Project](ctp:api:type:Project).
+   *
+   */
+  readonly slug?: LocalizedString
+  /**
+   *	Description of the ShoppingList.
+   *
+   *
+   */
+  readonly description?: LocalizedString
+  /**
+   *	Line Items (containing Products) of the ShoppingList.
+   *
+   *
+   */
+  readonly lineItems: ShoppingListLineItem[]
+  /**
+   *	Line Items (containing text values) of the ShoppingList.
+   *
+   *
+   */
+  readonly textLineItems: TextLineItem[]
+  /**
+   *	Number of days after which the ShoppingList will be automatically deleted if it has not been modified.
+   *
+   */
+  readonly deleteDaysAfterLastModification?: number
+  /**
+   *	Identifies ShoppingLists belonging to an [anonymous session](ctp:api:type:AnonymousSession).
+   *
+   */
+  readonly anonymousId?: string
+  /**
+   *	Store to which the ShoppingList is assigned.
+   *
+   *
+   */
+  readonly store?: StoreKeyReference
+  /**
+   *	Custom Fields defined for the ShoppingList.
+   *
+   *
+   */
+  readonly custom?: CustomFields
+  /**
+   *	Date and time (UTC) the ShoppingList was initially created.
+   *
    *
    */
   readonly createdAt: string
   /**
+   *	Date and time (UTC) the ShoppingList was last updated.
+   *
    *
    */
   readonly lastModifiedAt: string
@@ -52,76 +120,27 @@ export interface ShoppingList extends BaseResource {
    *
    */
   readonly createdBy?: CreatedBy
+}
+export interface ShoppingListDraft {
   /**
+   *	Name of the ShoppingList.
    *
-   */
-  readonly custom?: CustomFields
-  /**
-   *
-   */
-  readonly customer?: CustomerReference
-  /**
-   *	The shopping list will be deleted automatically if it hasn't been modified for the specified amount of days.
-   *
-   */
-  readonly deleteDaysAfterLastModification?: number
-  /**
-   *
-   */
-  readonly description?: LocalizedString
-  /**
-   *	User-defined unique identifier of the ShoppingList.
-   *
-   */
-  readonly key?: string
-  /**
-   *
-   */
-  readonly lineItems?: ShoppingListLineItem[]
-  /**
    *
    */
   readonly name: LocalizedString
   /**
-   *	Human-readable identifiers usually used as deep-link URL to the related shopping list.
-   *	Each slug is unique across a project, but a shopping list can have the same slug for different languages.
-   *	The slug must match the pattern [a-zA-Z0-9_-]{2,256}.
+   *	Human-readable identifiers usually used as deep-link URL to the related ShoppingList.
+   *	Each slug is unique across a Project, but a ShoppingList can have the same slug for different languages.
+   *	The slug must match the pattern `[a-zA-Z0-9_-]{2,256}`.
    *
    */
   readonly slug?: LocalizedString
   /**
+   *	The [Customer](ctp:api:type:Customer) the ShoppingList should be associated to.
    *
-   */
-  readonly textLineItems?: TextLineItem[]
-  /**
-   *	Identifies shopping lists belonging to an anonymous session (the customer has not signed up/in yet).
-   *
-   */
-  readonly anonymousId?: string
-  /**
-   *
-   */
-  readonly store?: StoreKeyReference
-}
-export interface ShoppingListDraft {
-  /**
-   *	The custom fields.
-   *
-   */
-  readonly custom?: CustomFieldsDraft
-  /**
    *
    */
   readonly customer?: CustomerResourceIdentifier
-  /**
-   *	The shopping list will be deleted automatically if it hasn't been modified for the specified amount of days.
-   *
-   */
-  readonly deleteDaysAfterLastModification?: number
-  /**
-   *
-   */
-  readonly description?: LocalizedString
   /**
    *	User-defined unique identifier for the ShoppingList.
    *
@@ -129,46 +148,70 @@ export interface ShoppingListDraft {
    */
   readonly key?: string
   /**
+   *	Description of the ShoppingList.
+   *
    *
    */
-  readonly lineItems?: ShoppingListLineItemDraft[]
+  readonly description?: LocalizedString
   /**
-   *
-   */
-  readonly name: LocalizedString
-  /**
-   *	Human-readable identifiers usually used as deep-link URL to the related shopping list.
-   *	Each slug is unique across a project, but a shopping list can have the same slug for different languages.
-   *	The slug must match the pattern [a-zA-Z0-9_-]{2,256}.
-   *
-   */
-  readonly slug?: LocalizedString
-  /**
-   *
-   */
-  readonly textLineItems?: TextLineItemDraft[]
-  /**
-   *	Identifies shopping lists belonging to an anonymous session (the customer has not signed up/in yet).
+   *	Identifies ShoppingLists belonging to an [anonymous session](ctp:api:type:AnonymousSession).
    *
    */
   readonly anonymousId?: string
   /**
+   *	Number of days after which the ShoppingList will be automatically deleted if it has not been modified. If not set, the [default value](ctp:api:type:ShoppingListsConfiguration) configured in the [Project](ctp:api:type:Project) is used.
+   *
+   *
+   */
+  readonly deleteDaysAfterLastModification?: number
+  /**
+   *	Line Items (containing Products) to add to the ShoppingList.
+   *
+   *
+   */
+  readonly lineItems?: ShoppingListLineItemDraft[]
+  /**
+   *	Line Items (containing text values) to add to the ShoppingList.
+   *
+   *
+   */
+  readonly textLineItems?: TextLineItemDraft[]
+  /**
+   *	Assigns the new ShoppingList to the [Store](ctp:api:type:Store).
+   *
    *
    */
   readonly store?: StoreResourceIdentifier
+  /**
+   *	Custom Fields defined for the ShoppingList.
+   *
+   */
+  readonly custom?: CustomFieldsDraft
 }
+/**
+ *	ShoppingListLineItems are Line Items that contain references to [ProductVariants](ctp:api:type:ProductVariant) in a [Product](ctp:api:type:Product).
+ *
+ *	In addition to standard [Reference Expansion](/general-concepts#reference-expansion), a ShoppingListLineItem offers expansion on `productSlug` and `variant`, defined with the query parameter `expand`.
+ *
+ */
 export interface ShoppingListLineItem {
   /**
+   *	Date and time (UTC) the ShoppingListLineItem was added to the ShoppingList.
+   *
    *
    */
   readonly addedAt: string
   /**
-   *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+   *	Custom Fields of the ShoppingListLineItem.
    *
    *
    */
   readonly custom?: CustomFields
   /**
+   *	If the Product or Product Variant is deleted, `deactivatedAt` is the date and time (UTC) of deletion.
+   *
+   *	This data is updated in an [eventual consistent manner](/general-concepts#eventual-consistency) when the Product Variant cannot be ordered anymore.
+   *
    *
    */
   readonly deactivatedAt?: string
@@ -178,69 +221,95 @@ export interface ShoppingListLineItem {
    */
   readonly id: string
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	Name of the Product.
+   *
+   *	This data is updated in an [eventual consistent manner](/general-concepts#eventual-consistency) when the Product's name changes.
    *
    *
    */
   readonly name: LocalizedString
   /**
+   *	Unique identifier of a [Product](ctp:api:type:Product).
+   *
    *
    */
   readonly productId: string
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
-   *
-   *
-   */
-  readonly productSlug?: LocalizedString
-  /**
-   *	[Reference](ctp:api:type:Reference) to a [ProductType](ctp:api:type:ProductType).
+   *	The Product Type defining the Attributes of the [Product](ctp:api:type:Product).
    *
    *
    */
   readonly productType: ProductTypeReference
   /**
+   *	Number of Products in the ShoppingListLineItem.
+   *
    *
    */
   readonly quantity: number
   /**
-   *	A concrete sellable good for which inventory can be tracked. Product Variants are generally mapped to specific SKUs.
+   *	`id` of the [ProductVariant](ctp:api:type:ProductVariant) the ShoppingListLineItem refers to. If not set, the ShoppingListLineItem refers to the Master Variant.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	Data of the [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *	Returned when expanded using `expand=lineItems[*].variant`. You cannot expand only a single element of the array.
    *
    *
    */
   readonly variant?: ProductVariant
   /**
+   *	Slug of the current [ProductData](ctp:api:type:ProductData).
+   *
+   *	Returned when expanded using `expand=lineItems[*].productSlug`. You cannot expand only a single element of the array.
+   *
+   *
+   */
+  readonly productSlug?: LocalizedString
+}
+/**
+ *	The [ProductVariant](ctp:api:type:ProductVariant) to be included in the ShoppingListLineItem must be specified using the `productID` and `variantID`, or by the `sku`.
+ *
+ */
+export interface ShoppingListLineItemDraft {
+  /**
+   *	Unique identifier of a [Product](ctp:api:type:Product).
+   *
+   *
+   */
+  readonly productId?: string
+  /**
+   *	`id` of the [ProductVariant](ctp:api:type:ProductVariant). If not set, the ShoppingListLineItem refers to the Master Variant.
+   *
    *
    */
   readonly variantId?: number
-}
-export interface ShoppingListLineItemDraft {
   /**
+   *	`sku` of the [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	Date and time the ShoppingListLineItem is added to the [ShoppingList](ctp:api:type:ShoppingList). If not set, the current date and time (UTC) is used.
+   *
    *
    */
   readonly addedAt?: string
   /**
-   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *	Custom Fields of the ShoppingListLineItem.
    *
    *
    */
   readonly custom?: CustomFieldsDraft
   /**
+   *	Number of Products in the ShoppingListLineItem.
    *
-   */
-  readonly sku?: string
-  /**
-   *
-   */
-  readonly productId?: string
-  /**
    *
    */
   readonly quantity?: number
-  /**
-   *
-   */
-  readonly variantId?: number
 }
 export interface ShoppingListPagedQueryResponse {
   /**
@@ -250,10 +319,18 @@ export interface ShoppingListPagedQueryResponse {
    */
   readonly limit: number
   /**
+   *	Actual number of results returned.
+   *
    *
    */
   readonly count: number
   /**
+   *	Total number of results matching the query.
+   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This field is returned by default.
+   *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
+   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *
    *
    */
   readonly total?: number
@@ -264,6 +341,8 @@ export interface ShoppingListPagedQueryResponse {
    */
   readonly offset: number
   /**
+   *	[ShoppingLists](ctp:api:type:ShoppingList) matching the query.
+   *
    *
    */
   readonly results: ShoppingList[]
@@ -308,10 +387,14 @@ export interface ShoppingListResourceIdentifier {
 }
 export interface ShoppingListUpdate {
   /**
+   *	Expected version of the ShoppingList on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *
    *
    */
   readonly version: number
   /**
+   *	List of update actions to be performed on the ShoppingList.
+   *
    *
    */
   readonly actions: ShoppingListUpdateAction[]
@@ -341,17 +424,26 @@ export type ShoppingListUpdateAction =
   | ShoppingListSetTextLineItemCustomFieldAction
   | ShoppingListSetTextLineItemCustomTypeAction
   | ShoppingListSetTextLineItemDescriptionAction
+/**
+ *	TextLineItems are Line Items that use text values instead of references to Products.
+ *
+ */
 export interface TextLineItem {
   /**
-   *	When the text line item was added to the shopping list.
+   *	Date and time (UTC) the TextLineItem was added to the [ShoppingList](ctp:api:type:ShoppingList).
+   *
    *
    */
   readonly addedAt: string
   /**
+   *	Custom Fields of the TextLineItem.
+   *
    *
    */
   readonly custom?: CustomFields
   /**
+   *	Description of the TextLineItem.
+   *
    *
    */
   readonly description?: LocalizedString
@@ -361,63 +453,90 @@ export interface TextLineItem {
    */
   readonly id: string
   /**
+   *	Name of the TextLineItem.
+   *
    *
    */
   readonly name: LocalizedString
   /**
+   *	Number of entries in the TextLineItem.
+   *
    *
    */
   readonly quantity: number
 }
 export interface TextLineItemDraft {
   /**
-   *	Defaults to the current date and time.
+   *	Date and time the TextLineItem is added to the [ShoppingList](ctp:api:type:ShoppingList). If not set, the current date and time (UTC) is used.
+   *
    *
    */
   readonly addedAt?: string
   /**
-   *	The custom fields.
+   *	Custom Fields for the TextLineItem.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
   /**
+   *	Description of the TextLineItem.
+   *
    *
    */
   readonly description?: LocalizedString
   /**
+   *	Name of the TextLineItem.
+   *
    *
    */
   readonly name: LocalizedString
   /**
-   *	Defaults to `1`.
+   *	Number of entries in the TextLineItem.
+   *
    *
    */
   readonly quantity?: number
 }
+/**
+ *	The [ProductVariant](ctp:api:type:ProductVariant) to be included in the ShoppingListLineItem must be specified using the `productID` and `variantID`, or by the `sku`.
+ *	If the ShoppingList already contains a ShoppingListLineItem for the same Product Variant with the same Custom Fields, then only the quantity of the existing ShoppingListLineItem is increased.
+ *	A ShoppingListLineItem with an empty `variantId` is not considered the same as a ShoppingListLineItem with a `variantId` currently referring to the Master Variant.
+ *
+ */
 export interface ShoppingListAddLineItemAction {
   readonly action: 'addLineItem'
   /**
+   *	`sku` of the [ProductVariant](ctp:api:type:ProductVariant).
+   *
    *
    */
   readonly sku?: string
   /**
+   *	Unique identifier of a [Product](ctp:api:type:Product).
+   *
    *
    */
   readonly productId?: string
   /**
+   *	`id` of the [ProductVariant](ctp:api:type:ProductVariant). If not set, the ShoppingListLineItem refers to the Master Variant.
+   *
    *
    */
   readonly variantId?: number
   /**
+   *	Number of Products in the ShoppingListLineItem.
+   *
    *
    */
   readonly quantity?: number
   /**
+   *	Date and time the TextLineItem is added to the [ShoppingList](ctp:api:type:ShoppingList). If not set, the current date and time (UTC) is used.
+   *
    *
    */
   readonly addedAt?: string
   /**
-   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *	Custom Fields defined for the ShoppingListLineItem.
    *
    *
    */
@@ -426,27 +545,31 @@ export interface ShoppingListAddLineItemAction {
 export interface ShoppingListAddTextLineItemAction {
   readonly action: 'addTextLineItem'
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	Name of the TextLineItem.
    *
    *
    */
   readonly name: LocalizedString
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	Description of the TextLineItem.
    *
    *
    */
   readonly description?: LocalizedString
   /**
+   *	Number of entries in the TextLineItem.
+   *
    *
    */
   readonly quantity?: number
   /**
+   *	Date and time the TextLineItem is added to the [ShoppingList](ctp:api:type:ShoppingList). If not set, the current date and time (UTC) is used.
+   *
    *
    */
   readonly addedAt?: string
   /**
-   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *	Custom Fields defined for the TextLineItem.
    *
    *
    */
@@ -455,10 +578,14 @@ export interface ShoppingListAddTextLineItemAction {
 export interface ShoppingListChangeLineItemQuantityAction {
   readonly action: 'changeLineItemQuantity'
   /**
+   *	The `id` of the [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
   /**
+   *	New value to set. If `0`, the ShoppingListLineItem is removed from the ShoppingList.
+   *
    *
    */
   readonly quantity: number
@@ -466,6 +593,8 @@ export interface ShoppingListChangeLineItemQuantityAction {
 export interface ShoppingListChangeLineItemsOrderAction {
   readonly action: 'changeLineItemsOrder'
   /**
+   *	All existing ShoppingListLineItem `id`s in the desired new order.
+   *
    *
    */
   readonly lineItemOrder: string[]
@@ -473,6 +602,8 @@ export interface ShoppingListChangeLineItemsOrderAction {
 export interface ShoppingListChangeNameAction {
   readonly action: 'changeName'
   /**
+   *	New value to set. Must not be empty.
+   *
    *
    */
   readonly name: LocalizedString
@@ -480,11 +611,13 @@ export interface ShoppingListChangeNameAction {
 export interface ShoppingListChangeTextLineItemNameAction {
   readonly action: 'changeTextLineItemName'
   /**
+   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update.
+   *
    *
    */
   readonly textLineItemId: string
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	New value to set. Must not be empty.
    *
    *
    */
@@ -493,10 +626,14 @@ export interface ShoppingListChangeTextLineItemNameAction {
 export interface ShoppingListChangeTextLineItemQuantityAction {
   readonly action: 'changeTextLineItemQuantity'
   /**
+   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update.
+   *
    *
    */
   readonly textLineItemId: string
   /**
+   *	New value to set. If `0`, the TextLineItem is removed from the ShoppingList.
+   *
    *
    */
   readonly quantity: number
@@ -504,6 +641,8 @@ export interface ShoppingListChangeTextLineItemQuantityAction {
 export interface ShoppingListChangeTextLineItemsOrderAction {
   readonly action: 'changeTextLineItemsOrder'
   /**
+   *	Must contain all existing [TextLineItem](ctp:api:type:TextLineItem) `id`s in the desired new order.
+   *
    *
    */
   readonly textLineItemOrder: string[]
@@ -511,10 +650,14 @@ export interface ShoppingListChangeTextLineItemsOrderAction {
 export interface ShoppingListRemoveLineItemAction {
   readonly action: 'removeLineItem'
   /**
+   *	The `id` of the [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
   /**
+   *	Amount to remove from the `quantity` of the ShoppingListLineItem. If not set, the ShoppingListLineItem is removed from the ShoppingList. If this value matches or exceeds the current `quantity` of the ShoppingListLineItem, the ShoppingListLineItem is removed from the ShoppingList.
+   *
    *
    */
   readonly quantity?: number
@@ -522,10 +665,14 @@ export interface ShoppingListRemoveLineItemAction {
 export interface ShoppingListRemoveTextLineItemAction {
   readonly action: 'removeTextLineItem'
   /**
+   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update.
+   *
    *
    */
   readonly textLineItemId: string
   /**
+   *	Amount to remove from the `quantity` of the TextLineItem. If not set, the TextLineItem is removed from the ShoppingList. If this value matches or exceeds the current `quantity` of the TextLineItem, the TextLineItem is removed from the ShoppingList.
+   *
    *
    */
   readonly quantity?: number
@@ -533,8 +680,8 @@ export interface ShoppingListRemoveTextLineItemAction {
 export interface ShoppingListSetAnonymousIdAction {
   readonly action: 'setAnonymousId'
   /**
-   *	Anonymous ID of the anonymous customer that this shopping list belongs to.
-   *	If this field is not set any existing `anonymousId` is removed.
+   *	Value to set. If empty, any existing value will be removed.
+   *
    *
    */
   readonly anonymousId?: string
@@ -549,7 +696,7 @@ export interface ShoppingListSetCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -575,6 +722,8 @@ export interface ShoppingListSetCustomTypeAction {
 export interface ShoppingListSetCustomerAction {
   readonly action: 'setCustomer'
   /**
+   *	The [Customer](ctp:api:type:Customer) the ShoppingList should be associated to. If empty, any existing value will be removed.
+   *
    *
    */
   readonly customer?: CustomerResourceIdentifier
@@ -582,6 +731,8 @@ export interface ShoppingListSetCustomerAction {
 export interface ShoppingListSetDeleteDaysAfterLastModificationAction {
   readonly action: 'setDeleteDaysAfterLastModification'
   /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
    *
    */
   readonly deleteDaysAfterLastModification?: number
@@ -589,6 +740,8 @@ export interface ShoppingListSetDeleteDaysAfterLastModificationAction {
 export interface ShoppingListSetDescriptionAction {
   readonly action: 'setDescription'
   /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
    *
    */
   readonly description?: LocalizedString
@@ -596,7 +749,7 @@ export interface ShoppingListSetDescriptionAction {
 export interface ShoppingListSetKeyAction {
   readonly action: 'setKey'
   /**
-   *	User-specific unique identifier for the shopping list.
+   *	Value to set. If empty, any existing value will be removed.
    *
    */
   readonly key?: string
@@ -604,6 +757,8 @@ export interface ShoppingListSetKeyAction {
 export interface ShoppingListSetLineItemCustomFieldAction {
   readonly action: 'setLineItemCustomField'
   /**
+   *	The `id` of the [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
@@ -615,7 +770,7 @@ export interface ShoppingListSetLineItemCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -625,18 +780,20 @@ export interface ShoppingListSetLineItemCustomFieldAction {
 export interface ShoppingListSetLineItemCustomTypeAction {
   readonly action: 'setLineItemCustomType'
   /**
+   *	The `id` of the [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem) to update.
+   *
    *
    */
   readonly lineItemId: string
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the LineItem with [Custom Fields](/../api/projects/custom-fields).
-   *	If absent, any existing Type and Custom Fields are removed from the LineItem.
+   *	Defines the [Type](ctp:api:type:Type) that extends the ShoppingListLineItem with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the ShoppingListLineItem.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the LineItem.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the ShoppingListLineItem.
    *
    *
    */
@@ -645,6 +802,8 @@ export interface ShoppingListSetLineItemCustomTypeAction {
 export interface ShoppingListSetSlugAction {
   readonly action: 'setSlug'
   /**
+   *	Value to set. If empty, any existing value will be removed. Each slug is unique across a Project, but a ShoppingList can have the same slug for different languages. Must match the pattern `^[A-Za-z0-9_-]{2,256}+$`
+   *
    *
    */
   readonly slug?: LocalizedString
@@ -652,6 +811,8 @@ export interface ShoppingListSetSlugAction {
 export interface ShoppingListSetStoreAction {
   readonly action: 'setStore'
   /**
+   *	The [Store](ctp:api:type:Store) the ShoppingList should be assigned to. If empty, any existing value will be removed.
+   *
    *
    */
   readonly store?: StoreResourceIdentifier
@@ -659,6 +820,8 @@ export interface ShoppingListSetStoreAction {
 export interface ShoppingListSetTextLineItemCustomFieldAction {
   readonly action: 'setTextLineItemCustomField'
   /**
+   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update.
+   *
    *
    */
   readonly textLineItemId: string
@@ -670,7 +833,7 @@ export interface ShoppingListSetTextLineItemCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -680,6 +843,8 @@ export interface ShoppingListSetTextLineItemCustomFieldAction {
 export interface ShoppingListSetTextLineItemCustomTypeAction {
   readonly action: 'setTextLineItemCustomType'
   /**
+   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update.
+   *
    *
    */
   readonly textLineItemId: string
@@ -700,11 +865,13 @@ export interface ShoppingListSetTextLineItemCustomTypeAction {
 export interface ShoppingListSetTextLineItemDescriptionAction {
   readonly action: 'setTextLineItemDescription'
   /**
+   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update.
+   *
    *
    */
   readonly textLineItemId: string
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	Value to set. If empty, any existing value will be removed.
    *
    *
    */

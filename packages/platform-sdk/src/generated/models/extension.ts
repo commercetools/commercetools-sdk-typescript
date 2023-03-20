@@ -74,11 +74,14 @@ export interface Extension extends BaseResource {
  *	An Extension gets called during any of the following requests of an API call, but before the result is persisted.
  *
  */
-export type ExtensionAction = 'Create' | 'Update'
+export type ExtensionAction = 'Create' | 'Update' | string
 /**
  *	Generic type for destinations.
  */
-export type ExtensionDestination = AWSLambdaDestination | HttpDestination
+export type ExtensionDestination =
+  | AWSLambdaDestination
+  | GoogleCloudFunctionDestination
+  | HttpDestination
 /**
  *	We recommend creating an Identify and Access Management (IAM) user with an `accessKey` and `accessSecret` pair, specifically for each Extension that only has the `lambda:InvokeFunction` permission on this function.
  *
@@ -86,7 +89,7 @@ export type ExtensionDestination = AWSLambdaDestination | HttpDestination
 export interface AWSLambdaDestination {
   readonly type: 'AWSLambda'
   /**
-   *	Amazon Resource Name (ARN) of the Lambda function in the format `arn:aws:lambda:<region>:<accountid>:function:<functionName>`.
+   *	Amazon Resource Name (ARN) of the Lambda function in the format `arn:aws:lambda:<region>:<accountid>:function:<functionName>`. Use the format `arn:aws:lambda:<region>:<accountid>:function:<functionName>:<functionAlias/version>` to point to a specific version of the function.
    *
    *
    */
@@ -194,6 +197,7 @@ export interface ExtensionPagedQueryResponse {
  *
  */
 export type ExtensionResourceTypeId =
+  | 'business-unit'
   | 'cart'
   | 'customer'
   | 'order'
@@ -201,9 +205,10 @@ export type ExtensionResourceTypeId =
   | 'quote'
   | 'quote-request'
   | 'staged-quote'
+  | string
 export interface ExtensionTrigger {
   /**
-   *	`cart`, `order`, `payment`, `customer`, `quote-request`, `staged-quote`, and `quote` are supported.
+   *	`cart`, `order`, `payment`, `customer`, `quote-request`, `staged-quote`, `quote`, and `business-unit` are supported.
    *
    *
    */
@@ -223,7 +228,7 @@ export interface ExtensionTrigger {
 }
 export interface ExtensionUpdate {
   /**
-   *	Expected version of the Extension on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *	Expected version of the Extension on which the changes should be applied. If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
    *
    *
    */
@@ -240,6 +245,19 @@ export type ExtensionUpdateAction =
   | ExtensionChangeTriggersAction
   | ExtensionSetKeyAction
   | ExtensionSetTimeoutInMsAction
+/**
+ *	For GoogleCloudFunction destinations, you need to grant permissions to the `extensions@commercetools-platform.iam.gserviceaccount.com` service account to invoke your function. If your function's version is 1st gen, grant the service account the IAM role `Cloud Functions Invoker`. For version 2nd gen, assign the IAM role `Cloud Run Invoker` using the Cloud Run console.
+ *
+ */
+export interface GoogleCloudFunctionDestination {
+  readonly type: 'GoogleCloudFunction'
+  /**
+   *	URL to the target function.
+   *
+   *
+   */
+  readonly url: string
+}
 /**
  *	We recommend an encrypted `HTTPS` connection for production setups. However, we also accept unencrypted `HTTP` connections for development purposes. HTTP redirects will not be followed and cache headers will be ignored.
  *

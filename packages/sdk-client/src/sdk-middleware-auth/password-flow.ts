@@ -4,6 +4,8 @@ import {
   MiddlewareResponse,
   Next,
   PasswordAuthMiddlewareOptions,
+  RequestState,
+  RequestStateStore,
   Task,
 } from '../types/sdk.d'
 import authMiddlewareBase from './base-auth-flow'
@@ -13,9 +15,9 @@ import store from './utils'
 export default function createAuthMiddlewareForPasswordFlow(
   options: PasswordAuthMiddlewareOptions
 ): Middleware {
-  const tokenCache = store({})
+  const tokenCache = options.tokenCache || store({})
   const pendingTasks: Array<Task> = []
-  const requestState = store(false)
+  const requestState = store<RequestState, RequestStateStore>(false)
 
   return (next: Next): Next =>
     (request: MiddlewareRequest, response: MiddlewareResponse) => {

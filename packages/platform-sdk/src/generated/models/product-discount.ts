@@ -282,7 +282,7 @@ export interface ProductDiscountResourceIdentifier {
 }
 export interface ProductDiscountUpdate {
   /**
-   *	Expected version of the ProductDiscount on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *	Expected version of the ProductDiscount on which the changes should be applied. If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
    *
    *
    */
@@ -339,7 +339,7 @@ export interface ProductDiscountValueAbsoluteDraft {
   readonly money: Money[]
 }
 /**
- *	Discounts the Product Price by allowing the client to explicitly [set a discounted value](/../api/projects/products#set-discounted-embedded-price).
+ *	Discounts the Product Price by allowing the client to explicitly [set a discounted value](ctp:api:type:ProductSetDiscountedPriceAction).
  *	Used when setting discounts using an external service.
  *
  */
@@ -347,7 +347,7 @@ export interface ProductDiscountValueExternal {
   readonly type: 'external'
 }
 /**
- *	Discounts the Product Price by allowing the client to explicitly [set a discounted value](/../api/projects/products#set-discounted-embedded-price).
+ *	Discounts the Product Price by allowing the client to explicitly [set a discounted value](ctp:api:type:ProductSetDiscountedPriceAction).
  *	Use this when setting discounts using an external service.
  *
  */

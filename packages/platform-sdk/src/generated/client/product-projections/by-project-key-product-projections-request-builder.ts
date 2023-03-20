@@ -76,9 +76,9 @@ export class ByProjectKeyProductProjectionsRequestBuilder {
   }
 
   /**
-   *	You can use the product projections query endpoint to get the current or staged representations of Products.
-   *	When used with an API client that has the view_published_products:{projectKey} scope,
-   *	this endpoint only returns published (current) product projections.
+   *	Use the Product Projections query endpoint to get the current or staged representations of Products.
+   *	When used with an API Client that has the `view_published_products:{projectKey}` scope,
+   *	this endpoint only returns published (current) Product Projections.
    *
    */
   public get(methodArgs?: {

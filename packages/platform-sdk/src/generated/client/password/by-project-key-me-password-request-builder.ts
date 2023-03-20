@@ -29,6 +29,12 @@ export class ByProjectKeyMePasswordRequestBuilder {
     })
   }
 
+  /**
+   *	Changing the password of the Customer produces the [CustomerPasswordUpdated](ctp:api:type:CustomerPasswordUpdatedMessage) Message with `reset=false`.
+   *
+   *	If the current password does not match, an [InvalidCurrentPassword](ctp:api:type:InvalidCurrentPasswordError) error is returned.
+   *
+   */
   public post(methodArgs: {
     body: MyCustomerChangePassword
     headers?: {

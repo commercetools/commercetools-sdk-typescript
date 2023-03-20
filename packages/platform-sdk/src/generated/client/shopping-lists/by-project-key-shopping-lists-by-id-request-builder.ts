@@ -19,9 +19,6 @@ export class ByProjectKeyShoppingListsByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	Gets a shopping list by ID.
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -73,9 +70,9 @@ export class ByProjectKeyShoppingListsByIDRequestBuilder {
   }
   public delete(methodArgs: {
     queryArgs: {
+      expand?: string | string[]
       dataErasure?: boolean
       version: number
-      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {

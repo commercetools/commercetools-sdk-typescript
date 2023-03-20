@@ -141,11 +141,12 @@ export type ChangeHistoryResourceType =
   | 'tax-category'
   | 'type'
   | 'zone'
+  | string
 /**
  *	This type consists of one enum value:
  *
  */
-export type DateStringFilter = 'now'
+export type DateStringFilter = 'now' | string
 export interface ErrorObject {
   /**
    *
@@ -236,10 +237,11 @@ export type PlatformInitiatedChange =
   | 'setApplicationVersion'
   | 'setIsValid'
   | 'setVariantAvailability'
+  | string
 /**
  *	Values for the Source enumeration.
  */
-export type Source = 'ApiClient' | 'ImpEx' | 'MerchantCenter'
+export type Source = 'ApiClient' | 'ImpEx' | 'MerchantCenter' | string
 export type UpdateType =
   | 'addAddress'
   | 'addAsset'
@@ -438,3 +440,4 @@ export type UpdateType =
   | 'updateItemShippingAddress'
   | 'updateSyncInfo'
   | 'verifyEmail'
+  | string

@@ -287,6 +287,181 @@ describe('Http', () => {
     })
   })
 
+  test('execute a get request with retry on abort for error', () => {
+    expect.assertions(2)
+    return new Promise((resolve: Function, reject: Function) => {
+      const request = createTestRequest({
+        uri: '/foo/bar',
+      })
+      const response = { resolve: Function, reject: Function } as any
+
+      const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
+        expect(res.error.retryCount).toEqual(2)
+        expect(res).toEqual({
+          ...response,
+          error: expect.any(Error),
+          statusCode: 0,
+        })
+        resolve()
+      }
+      // Use default options
+      const httpMiddleware = createHttpMiddleware({
+        host: testHost,
+        timeout: 10, // time out after 10ms
+        fetch,
+        enableRetry: true,
+        retryConfig: {
+          maxRetries: 2,
+          retryOnAbort: true,
+        },
+        getAbortController: () => new AbortController(),
+      } as any)
+      nock(testHost)
+        .defaultReplyHeaders({
+          'Content-Type': 'application/json',
+        })
+        .get('/foo/bar')
+        .delay(100) // delay response with 100ms
+        .times(2)
+        .reply(200, { foo: 'bar' })
+
+      httpMiddleware(next)(request, response)
+    })
+  })
+
+  test('do not retry when `enableRetry` is set to false.', () => {
+    expect.assertions(2)
+    return new Promise((resolve: Function, reject: Function) => {
+      const request = createTestRequest({
+        uri: '/foo/bar',
+      })
+      const response = { resolve: Function, reject: Function } as any
+
+      const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
+        expect(res.error.retryCount).toEqual(0)
+        expect(res).toEqual({
+          ...response,
+          error: expect.any(Error),
+          statusCode: 0,
+        })
+        resolve()
+      }
+      // Use default options
+      const httpMiddleware = createHttpMiddleware({
+        host: testHost,
+        timeout: 10, // time out after 10ms
+        fetch,
+        enableRetry: false,
+        retryConfig: {
+          maxRetries: 2,
+          retryOnAbort: true,
+        },
+        getAbortController: () => new AbortController(),
+      } as any)
+      nock(testHost)
+        .defaultReplyHeaders({
+          'Content-Type': 'application/json',
+        })
+        .get('/foo/bar')
+        .delay(100) // delay response with 100ms
+        .times(2)
+        .reply(200, { foo: 'bar' })
+
+      httpMiddleware(next)(request, response)
+    })
+  })
+
+  test('execute a get request with no retry on abort', () => {
+    expect.assertions(1)
+    return new Promise((resolve: Function, reject: Function) => {
+      const request = createTestRequest({
+        uri: '/foo/bar',
+      })
+      const response = { resolve: Function, reject: Function } as any
+
+      const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
+        expect(res).toEqual({
+          ...response,
+          error: expect.any(Error),
+          statusCode: 0,
+        })
+        resolve()
+      }
+      // Use default options
+      const httpMiddleware = createHttpMiddleware({
+        host: testHost,
+        timeout: 10, // time out after 10ms
+        fetch,
+        enableRetry: true,
+        retryConfig: {
+          maxRetries: 2,
+          retryOnAbort: false,
+        },
+        getAbortController: () => new AbortController(),
+      } as any)
+      nock(testHost)
+        .defaultReplyHeaders({
+          'Content-Type': 'application/json',
+        })
+        .get('/foo/bar')
+        .delay(100) // delay response with 100ms
+        .once()
+        .reply(200, { foo: 'bar' })
+
+      httpMiddleware(next)(request, response)
+    })
+  })
+
+  test('execute a get request with retry on abort', () => {
+    expect.assertions(1)
+    return new Promise((resolve: Function, reject: Function) => {
+      const request = createTestRequest({
+        uri: '/foo/bar',
+      })
+      const response = { resolve: Function, reject: Function } as any
+
+      const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
+        expect(res).toEqual({
+          ...response,
+          body: { foo: 'bar' },
+          statusCode: 200,
+        })
+        resolve()
+      }
+      // Use default options
+      const httpMiddleware = createHttpMiddleware({
+        host: testHost,
+        timeout: 50, // time out after 10ms
+        fetch,
+        enableRetry: true,
+        retryConfig: {
+          maxRetries: 2,
+          retryOnAbort: true,
+        },
+        getAbortController: () => new AbortController(),
+      } as any)
+      nock(testHost)
+        .defaultReplyHeaders({
+          'Content-Type': 'application/json',
+        })
+        .get('/foo/bar')
+        .delay(100) // delay response with 100ms
+        .once()
+        .reply(200, { foo: 'bar' })
+
+      nock(testHost)
+        .defaultReplyHeaders({
+          'Content-Type': 'application/json',
+        })
+        .get('/foo/bar')
+        .delay(10) // delay response with 100ms
+        .once()
+        .reply(200, { foo: 'bar' })
+
+      httpMiddleware(next)(request, response)
+    })
+  })
+
   test('execute a request with timeout and client re-use', () =>
     new Promise((resolve: Function, reject: Function) => {
       const request = createTestRequest({
@@ -575,6 +750,81 @@ describe('Http', () => {
       } as any
       const httpMiddleware = createHttpMiddleware(options)
       nock(testHost).get('/foo/bar').reply(502)
+
+      httpMiddleware(next)(request, response)
+    }))
+
+  test('should include `uri` in 404 error response', () =>
+    new Promise((resolve: Function, reject: Function) => {
+      const request = createTestRequest({
+        uri: '/foo/bar',
+      })
+      const response = { resolve: Function, reject: Function } as any
+      const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
+        expect(res.error.name).toBe('NotFound')
+        expect(res.error.originalRequest).toHaveProperty('uri')
+        expect(res.error.originalRequest.uri).toBe('/foo/bar')
+        expect(res.statusCode).toBe(404)
+        expect(res.body).toBeUndefined()
+        resolve()
+      }
+      const options = {
+        host: testHost,
+        includeRequestInErrorResponse: true,
+        fetch,
+      } as any
+      const httpMiddleware = createHttpMiddleware(options)
+      nock(testHost).get('/foo/bar').reply(404)
+
+      httpMiddleware(next)(request, response)
+    }))
+
+  test('should delete the `uri` property in 404 error response', () =>
+    new Promise((resolve: Function, reject: Function) => {
+      const request = createTestRequest({
+        uri: '/foo/bar',
+      })
+      const response = { resolve: Function, reject: Function } as any
+      const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
+        expect(res.error.name).toBe('NotFound')
+        expect(res.error.originalRequest).toBeUndefined()
+        expect(res.statusCode).toBe(404)
+        expect(res.body).toBeUndefined()
+        resolve()
+      }
+      const options = {
+        host: testHost,
+        includeRequestInErrorResponse: false,
+        fetch,
+      } as any
+      const httpMiddleware = createHttpMiddleware(options)
+      nock(testHost).get('/foo/bar').reply(404)
+
+      httpMiddleware(next)(request, response)
+    }))
+
+  test('should include the `uri` path in 404 error message', () =>
+    new Promise((resolve: Function, reject: Function) => {
+      const uri = '/foo/bar'
+      const request = createTestRequest({
+        uri,
+      })
+      const response = { resolve: Function, reject: Function } as any
+      const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
+        expect(res.error.name).toBe('NotFound')
+        expect(res.error.originalRequest).toBeUndefined()
+        expect(res.error.message).toBe('URI not found: ' + uri)
+        expect(res.statusCode).toBe(404)
+        expect(res.body).toBeUndefined()
+        resolve()
+      }
+      const options = {
+        host: testHost,
+        includeRequestInErrorResponse: false,
+        fetch,
+      } as any
+      const httpMiddleware = createHttpMiddleware(options)
+      nock(testHost).get('/foo/bar').reply(404)
 
       httpMiddleware(next)(request, response)
     }))

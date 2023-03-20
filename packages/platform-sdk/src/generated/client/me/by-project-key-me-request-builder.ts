@@ -8,6 +8,7 @@ import { MyCustomerUpdate } from '../../models/me'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyMeActiveCartRequestBuilder } from '../active-cart/by-project-key-me-active-cart-request-builder'
+import { ByProjectKeyMeBusinessUnitsRequestBuilder } from '../business-units/by-project-key-me-business-units-request-builder'
 import { ByProjectKeyMeCartsRequestBuilder } from '../carts/by-project-key-me-carts-request-builder'
 import { ByProjectKeyMeEmailConfirmRequestBuilder } from '../confirm/by-project-key-me-email-confirm-request-builder'
 import { ByProjectKeyMeLoginRequestBuilder } from '../login/by-project-key-me-login-request-builder'
@@ -15,6 +16,7 @@ import { ByProjectKeyMeOrdersRequestBuilder } from '../orders/by-project-key-me-
 import { ByProjectKeyMePasswordRequestBuilder } from '../password/by-project-key-me-password-request-builder'
 import { ByProjectKeyMePaymentsRequestBuilder } from '../payments/by-project-key-me-payments-request-builder'
 import { ByProjectKeyMeQuoteRequestsRequestBuilder } from '../quote-requests/by-project-key-me-quote-requests-request-builder'
+import { ByProjectKeyMeQuotesRequestBuilder } from '../quotes/by-project-key-me-quotes-request-builder'
 import { ByProjectKeyMeShoppingListsRequestBuilder } from '../shopping-lists/by-project-key-me-shopping-lists-request-builder'
 import { ByProjectKeyMeSignupRequestBuilder } from '../signup/by-project-key-me-signup-request-builder'
 /**
@@ -75,6 +77,18 @@ export class ByProjectKeyMeRequestBuilder {
     })
   }
   /**
+   *	MyBusinessUnit creates and provides access to Business Units scoped to a specific user.
+   */
+  public businessUnits(): ByProjectKeyMeBusinessUnitsRequestBuilder {
+    return new ByProjectKeyMeBusinessUnitsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
    *	A shopping cart holds product variants and can be ordered.
    */
   public carts(): ByProjectKeyMeCartsRequestBuilder {
@@ -111,7 +125,7 @@ export class ByProjectKeyMeRequestBuilder {
     })
   }
   /**
-   *	The My Quote Requests endpoint creates and provides access to quote requests scoped to a specific user.
+   *	The My Quote Requests endpoint creates and provides access to Quote Requests scoped to a specific user.
    */
   public quoteRequests(): ByProjectKeyMeQuoteRequestsRequestBuilder {
     return new ByProjectKeyMeQuoteRequestsRequestBuilder({
@@ -123,7 +137,19 @@ export class ByProjectKeyMeRequestBuilder {
     })
   }
   /**
-   *	The My Shopping Lists endpoint creates and provides access to shopping lists scoped to a specific user.
+   *	The My Quote endpoint provides access to Quotes scoped to a specific user.
+   */
+  public quotes(): ByProjectKeyMeQuotesRequestBuilder {
+    return new ByProjectKeyMeQuotesRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	The My Shopping Lists endpoint creates and provides access to Shopping Lists scoped to a specific user.
    */
   public shoppingLists(): ByProjectKeyMeShoppingListsRequestBuilder {
     return new ByProjectKeyMeShoppingListsRequestBuilder({
@@ -163,9 +189,6 @@ export class ByProjectKeyMeRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Update my customer
-   */
   public post(methodArgs: {
     body: MyCustomerUpdate
     headers?: {
@@ -187,9 +210,6 @@ export class ByProjectKeyMeRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Delete my Customer
-   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

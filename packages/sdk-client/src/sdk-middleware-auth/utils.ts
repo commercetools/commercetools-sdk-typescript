@@ -1,10 +1,11 @@
-export default function store(initVal: any) {
-  let value = initVal
+import { TokenCacheOptions } from '../types/sdk'
+
+export default function store<T, V, S = TokenCacheOptions>(initVal: T): V {
+  let value: T = initVal
   return {
-    get: () => value,
-    set: (val: any) => {
+    get: (TokenCacheOption?: S) => value,
+    set: (val: T, TokenCacheOption?: S) => {
       value = val
-      return value
     },
-  }
+  } as V
 }

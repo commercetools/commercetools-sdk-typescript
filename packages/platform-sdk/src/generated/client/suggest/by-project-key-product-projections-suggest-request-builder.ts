@@ -21,11 +21,11 @@ export class ByProjectKeyProductProjectionsSuggestRequestBuilder {
   public get(methodArgs?: {
     queryArgs?: {
       fuzzy?: boolean
-      staged?: boolean
       sort?: string | string[]
       limit?: number
       offset?: number
       withTotal?: boolean
+      staged?: boolean
       [key: string]: QueryParam
     }
     headers?: {

@@ -43,6 +43,11 @@ export interface AssignedProductSelection {
    *
    */
   readonly variantSelection?: ProductVariantSelection
+  /**
+   *	Date and time (UTC) this assignment was initially created.
+   *
+   */
+  readonly createdAt: string
 }
 /**
  *	[PagedQueryResult](/general-concepts#pagedqueryresult) containing an array of [AssignedProductSelection](ctp:api:type:AssignedProductSelection).
@@ -142,9 +147,6 @@ export interface ProductSelection extends BaseResource {
    */
   readonly custom?: CustomFields
 }
-/**
- *	Specifies which Product is assigned to which ProductSelection.
- */
 export interface ProductSelectionAssignment {
   /**
    *	Reference to a Product that is assigned to the ProductSelection.
@@ -158,6 +160,8 @@ export interface ProductSelectionAssignment {
   readonly productSelection: ProductSelectionReference
   /**
    *	Selects which Variants of the newly added Product will be included, or excluded, from the Product Selection.
+   *	The list of SKUs will be updated automatically on any change of those performed on the respective Product itself.
+   *
    *
    */
   readonly variantSelection?: ProductVariantSelection
@@ -309,7 +313,7 @@ export interface IndividualProductSelectionType {
  *	The following type of Product Selections is supported:
  *
  */
-export type ProductSelectionTypeEnum = 'individual'
+export type ProductSelectionTypeEnum = 'individual' | string
 export interface ProductSelectionUpdate {
   /**
    *
@@ -361,7 +365,7 @@ export interface ProductVariantSelectionInclusion {
    */
   readonly skus: string[]
 }
-export type ProductVariantSelectionTypeEnum = 'exclusion' | 'inclusion'
+export type ProductVariantSelectionTypeEnum = 'exclusion' | 'inclusion' | string
 /**
  *	[PagedQueryResult](/general-concepts#pagedqueryresult) containing an array of [ProductSelectionAssignment](ctp:api:type:ProductSelectionAssignment).
  *
@@ -403,8 +407,8 @@ export interface ProductsInStorePagedQueryResponse {
 }
 /**
  *	Adds a Product to the Product Selection.
- *	If the given Product is already assigned to the Product Selection with the same Variant Selection nothing happens
- *	but if the existing Assignment has a different Variant Selection [ProductPresentWithDifferentVariantSelection](/errors#product-selections) is raised.'
+ *
+ *	If the specified Product is already assigned to the Product Selection, but the existing Product Selection has a different Product Variant Selection, a [ProductPresentWithDifferentVariantSelection](ctp:api:type:ProductPresentWithDifferentVariantSelectionError) error is returned.
  *
  */
 export interface ProductSelectionAddProductAction {
@@ -448,7 +452,7 @@ export interface ProductSelectionSetCustomFieldAction {
   readonly name: string
   /**
    *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](/../api/errors#general-400-invalid-operation) error.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *	If `value` is provided, it is set for the field defined by `name`.
    *
    *
@@ -481,7 +485,9 @@ export interface ProductSelectionSetKeyAction {
 }
 /**
  *	Updates the Product Variant Selection of an existing [Product Selection Assignment](ctp:api:type:ProductSelectionAssignment).
- *	If the given Product is not assigned to the Product Selection [ProductAssignmentMissing](/errors#product-selections) error is raised.
+ *	A [ProductVariantSelection](ctp:api:type:ProductVariantSelection) can only be set if a [Product](/projects/products) has been added to the [Product Selection](/projects/product-selections).
+ *
+ *	If the specified Product is not assigned to the Product Selection, a [ProductAssignmentMissing](ctp:api:type:ProductAssignmentMissingError) error is returned.
  *
  */
 export interface ProductSelectionSetVariantSelectionAction {

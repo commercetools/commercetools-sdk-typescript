@@ -167,6 +167,7 @@ export type AttributeConstraintEnum =
   | 'None'
   | 'SameForAll'
   | 'Unique'
+  | string
 export interface AttributeDefinition {
   /**
    *
@@ -210,7 +211,7 @@ export interface AttributeType {
    */
   readonly name: string
 }
-export type AuthenticationMode = 'ExternalAuth' | 'Password'
+export type AuthenticationMode = 'ExternalAuth' | 'Password' | string
 export interface CategoryOrderHints {
   [key: string]: string
 }
@@ -220,6 +221,7 @@ export type ChannelRole =
   | 'OrderImport'
   | 'Primary'
   | 'ProductDistribution'
+  | string
 export interface CustomFields {
   /**
    *
@@ -318,6 +320,7 @@ export type DiscountCodeState =
   | 'MaxApplicationReached'
   | 'NotActive'
   | 'NotValid'
+  | string
 export interface DiscountedLineItemPortion {
   /**
    *
@@ -527,8 +530,13 @@ export interface Money {
    */
   readonly type: MoneyType
 }
-export type MoneyType = 'centPrecision' | 'highPrecision'
-export type OrderState = 'Cancelled' | 'Complete' | 'Confirmed' | 'Open'
+export type MoneyType = 'centPrecision' | 'highPrecision' | string
+export type OrderState =
+  | 'Cancelled'
+  | 'Complete'
+  | 'Confirmed'
+  | 'Open'
+  | string
 export interface Parcel {
   /**
    *
@@ -581,6 +589,7 @@ export type PaymentState =
   | 'Failed'
   | 'Paid'
   | 'Pending'
+  | string
 export interface Price {
   /**
    *
@@ -642,12 +651,14 @@ export type QuoteRequestState =
   | 'Closed'
   | 'Rejected'
   | 'Submitted'
+  | string
 export type QuoteState =
   | 'Accepted'
   | 'Declined'
   | 'Failed'
   | 'Pending'
   | 'Withdrawn'
+  | string
 export interface Reference {
   /**
    *
@@ -690,6 +701,7 @@ export type ReferenceTypeId =
   | 'tax-category'
   | 'type'
   | 'zone'
+  | string
 export interface Reservation {
   /**
    *
@@ -762,11 +774,13 @@ export type ReturnPaymentState =
   | 'NonRefundable'
   | 'NotRefunded'
   | 'Refunded'
+  | string
 export type ReturnShipmentState =
   | 'Advised'
   | 'BackInStock'
   | 'Returned'
   | 'Unusable'
+  | string
 export interface ReviewRatingStatistics {
   /**
    *	Average rating of one target This number is rounded with 5 decimals.
@@ -794,7 +808,7 @@ export interface ReviewRatingStatistics {
    */
   readonly ratingsDistribution: any
 }
-export type RoundingMode = 'HalfDown' | 'HalfEven' | 'HalfUp'
+export type RoundingMode = 'HalfDown' | 'HalfEven' | 'HalfUp' | string
 export interface SearchKeyword {
   /**
    *
@@ -808,7 +822,7 @@ export interface SearchKeyword {
 export interface SearchKeywords {
   [key: string]: SearchKeyword[]
 }
-export type SelectionMode = 'Cheapest' | 'MostExpensive'
+export type SelectionMode = 'Cheapest' | 'MostExpensive' | string
 export type ShipmentState =
   | 'Backorder'
   | 'Delayed'
@@ -816,6 +830,7 @@ export type ShipmentState =
   | 'Pending'
   | 'Ready'
   | 'Shipped'
+  | string
 export interface ShippingRate {
   /**
    *
@@ -845,15 +860,17 @@ export type ShippingRateTierType =
   | 'CartClassification'
   | 'CartScore'
   | 'CartValue'
-export type StackingMode = 'Stacking' | 'StopAfterThisDiscount'
-export type StagedQuoteState = 'Closed' | 'InProgress' | 'Sent'
-export type StateRole = 'Return' | 'ReviewIncludedInStatistics'
+  | string
+export type StackingMode = 'Stacking' | 'StopAfterThisDiscount' | string
+export type StagedQuoteState = 'Closed' | 'InProgress' | 'Sent' | string
+export type StateRole = 'Return' | 'ReviewIncludedInStatistics' | string
 export type StateType =
   | 'LineItemState'
   | 'OrderState'
   | 'PaymentState'
   | 'ProductState'
   | 'ReviewState'
+  | string
 export interface SubRate {
   /**
    *
@@ -885,8 +902,13 @@ export interface SyncInfo {
    */
   readonly syncedAt: string
 }
-export type TaxCalculationMode = 'LineItemLevel' | 'UnitPriceLevel'
-export type TaxMode = 'Disabled' | 'External' | 'ExternalAmount' | 'Platform'
+export type TaxCalculationMode = 'LineItemLevel' | 'UnitPriceLevel' | string
+export type TaxMode =
+  | 'Disabled'
+  | 'External'
+  | 'ExternalAmount'
+  | 'Platform'
+  | string
 /**
  *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
  */
@@ -945,7 +967,7 @@ export interface TaxedPrice {
    */
   readonly totalGross: Money
 }
-export type TextInputHint = 'MultiLine' | 'SingleLine'
+export type TextInputHint = 'MultiLine' | 'SingleLine' | string
 export interface TextLineItem {
   /**
    *
@@ -999,12 +1021,12 @@ export interface TrackingData {
 }
 export interface Transaction {
   /**
-   *	The unique ID of this object.
+   *	Unique identifier of the Transaction.
    *
    */
   readonly id: string
   /**
-   *	The time at which the transaction took place.
+   *	Time at which the transaction took place.
    *
    */
   readonly timestamp: string
@@ -1017,7 +1039,7 @@ export interface Transaction {
    */
   readonly amount: Money
   /**
-   *	The identifier that is used by the interface that managed the transaction (usually the PSP). If a matching interaction was logged in the `interfaceInteractions` array, the corresponding interaction should be findable with this ID.
+   *	Identifier used by the interface that manages the transaction (usually the PSP). If a matching interaction was logged in the `interfaceInteractions` array, the corresponding interaction should be findable with this ID.
    *
    */
   readonly interactionId: string
@@ -1026,13 +1048,19 @@ export interface Transaction {
    */
   readonly state: TransactionState
 }
-export type TransactionState = 'Failure' | 'Initial' | 'Pending' | 'Success'
+export type TransactionState =
+  | 'Failure'
+  | 'Initial'
+  | 'Pending'
+  | 'Success'
+  | string
 export type TransactionType =
   | 'Authorization'
   | 'CancelAuthorization'
   | 'Charge'
   | 'Chargeback'
   | 'Refund'
+  | string
 export interface Variant {
   /**
    *

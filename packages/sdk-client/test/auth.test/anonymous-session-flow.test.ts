@@ -40,6 +40,7 @@ describe('Anonymous Session Flow', () => {
         reject,
       } as any
       const next = (actualParams) => {
+        expect(actualParams.tokenCache.get()).toEqual('mXHMeekyzxOtYu==')
         expect(actualParams.request).toEqual(request)
         expect(actualParams.response).toEqual(response)
         expect(actualParams.pendingTasks).toEqual([])
@@ -51,7 +52,22 @@ describe('Anonymous Session Flow', () => {
         jest.unmock('../../src/sdk-middleware-auth/base-auth-flow')
         resolve(null)
       }
-      const middlewareOptions = createTestMiddlewareOptions(null)
+
+      // custom store
+      const store = (token) => {
+        let value = token
+        return {
+          get: () => value,
+          set: (val) => (value = val),
+        }
+      }
+
+      const options = {
+        tokenCache: store({}),
+      }
+
+      options.tokenCache.set('mXHMeekyzxOtYu==')
+      const middlewareOptions = createTestMiddlewareOptions(options)
       const authMiddleware =
         createAuthMiddlewareForAnonymousSessionFlow(middlewareOptions)
 

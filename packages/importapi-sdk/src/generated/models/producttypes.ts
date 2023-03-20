@@ -170,7 +170,8 @@ export type AttributeConstraintEnum =
   | 'None'
   | 'SameForAll'
   | 'Unique'
-export type TextInputHint = 'MultiLine' | 'SingleLine'
+  | string
+export type TextInputHint = 'MultiLine' | 'SingleLine' | string
 /**
  *	The data representation for a ProductType to be imported that is persisted as a [ProductType](/../api/projects/productTypes#producttype) in the Project.
  *
