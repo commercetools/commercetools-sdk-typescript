@@ -1,4 +1,4 @@
-import { TResponse, HttpClientConfig } from '../types/types'
+import { TResponse, IResponse, HttpClientConfig } from '../types/types'
 import { sleep, validateRetryCodes, calculateRetryDelay } from '../utils'
 
 function predicate(retryCodes: Array<string | number>, response: any) {
@@ -95,8 +95,7 @@ export default async function executor(request: HttpClientConfig) {
         return _response
       }
 
-      const response: Response & { statusCode?: number; data?: object } =
-        await executeWithRetry()
+      const response: IResponse = await executeWithRetry()
       try {
         // try to parse the `fetch` response as text
         if (response.text && typeof response.text == 'function') {

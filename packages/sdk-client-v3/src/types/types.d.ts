@@ -330,4 +330,6 @@ export type SuccessResult = {
   headers?: JsonObject<string>;
 }
 
+export type IResponse = Response & { statusCode?: number; data?: object } 
+
 export type executeRequest = (request: ClientRequest) => Promise<ClientResponse>

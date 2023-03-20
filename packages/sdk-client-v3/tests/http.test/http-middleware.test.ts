@@ -394,6 +394,42 @@ describe('Http Middleware.', () => {
     await createHttpMiddleware(httpMiddlewareOptions as any)(next)(request)
   })
 
+  test('should return a parse a text encoded response as json', async () => {
+    const _response = {
+      data: {},
+      statusCode: 200,
+    }
+
+    const response = createTestResponse({
+      // text: jest.fn(() => _response)
+      text: () => _response,
+    })
+
+    const request = createTestRequest({
+      uri: '/error-url/retry',
+      method: 'POST',
+      body: { id: 'test-id' },
+      headers: {
+        'Content-Type': 'image/jpeg',
+      },
+    })
+
+    const httpMiddlewareOptions: HttpMiddlewareOptions = {
+      host: 'http://api-host.com',
+      httpClient: jest.fn(() => response),
+      enableRetry: false,
+    }
+
+    const next = (req: MiddlewareRequest) => {
+      expect(typeof req.response).toEqual('object')
+      expect(req.response.body).toEqual(_response)
+
+      return response
+    }
+
+    await createHttpMiddleware(httpMiddlewareOptions)(next)(request)
+  })
+
   describe('::retry test', () => {
     test('should throw if `retryCode` is not an array', async () => {
       const response = createTestResponse({
