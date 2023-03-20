@@ -154,13 +154,3 @@ describe('createError', () => {
     expect(errorResponse instanceof Error).toEqual(true)
   })
 })
-
-// console.log
-// NotFound {
-//   code: 404,
-//   statusCode: 404,
-//   status: 404,
-//   message: 'URI not found: /error-path-uri',
-//   originalRequest: { uri: '/error-path-uri', method: 'GET' },
-//   name: 'NotFound'
-// } >>>
