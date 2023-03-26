@@ -1,4 +1,4 @@
-import qs from 'querystring'
+import qs from 'qs'
 import {
   Client,
   ClientOptions,
@@ -24,6 +24,11 @@ function compose(...funcs: Array<Function>): Function {
       (...args: Array<Function>): Array<Function> =>
         a(b(...args))
   )
+}
+
+const qsOptions = {
+  indices: false,
+  encodeValuesOnly: true,
 }
 
 export function process(
@@ -66,14 +71,14 @@ export function process(
     const processPage = async (lastId?: string, acc: Array<any> = []) => {
       // Use the lesser value between limit and itemsToGet in query
       const limit = query.limit < itemsToGet ? query.limit : itemsToGet
-      const originalQueryString = qs.stringify({ ...query, limit })
+      const originalQueryString = qs.stringify({ ...query, limit }, qsOptions)
 
       const enhancedQuery = {
         sort: 'id asc',
         withTotal: false,
         ...(lastId ? { where: `id > "${lastId}"` } : {}),
       }
-      const enhancedQueryString = qs.stringify(enhancedQuery)
+      const enhancedQueryString = qs.stringify(enhancedQuery, qsOptions)
       const enhancedRequest = {
         ...request,
         uri: `${_path}?${enhancedQueryString}&${originalQueryString}`,

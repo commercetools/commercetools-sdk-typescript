@@ -1,4 +1,4 @@
-import qs from 'querystring'
+import qs from 'qs'
 import { Process, createClient, ClientBuilder } from '../../src'
 import { createApiBuilderFromCtpClient } from '../../../platform-sdk'
 import {
@@ -7,6 +7,11 @@ import {
   MiddlewareResponse,
 } from '../../src/types/sdk.d'
 import fetch from 'node-fetch'
+
+const qsOptions = {
+  indices: false,
+  encodeValuesOnly: true,
+}
 
 const createPayloadResult = (tot, startingId = 0) => ({
   count: tot,
@@ -386,11 +391,14 @@ describe('process', () => {
     return client.process(
       {
         ...request,
-        uri: `${request.uri}?${qs.stringify({
-          sort: 'createdAt desc',
-          where: 'name (en = "Foo")',
-          limit: 5,
-        })}`,
+        uri: `${request.uri}?${qs.stringify(
+          {
+            sort: 'createdAt desc',
+            where: 'name (en = "Foo")',
+            limit: 5,
+          },
+          qsOptions
+        )}`,
       },
       () => Promise.resolve('OK')
     )
@@ -446,11 +454,14 @@ describe('process', () => {
     const processRes = await client.process(
       {
         ...request,
-        uri: `${request.uri}?${qs.stringify({
-          sort: 'createdAt desc',
-          where: 'name (en = "Foo")',
-          limit: 5,
-        })}`,
+        uri: `${request.uri}?${qs.stringify(
+          {
+            sort: 'createdAt desc',
+            where: 'name (en = "Foo")',
+            limit: 5,
+          },
+          qsOptions
+        )}`,
       },
       (res) => {
         expect(res.body.results).toEqual(reqStubs[fnCall].body.results)
@@ -710,11 +721,14 @@ describe('process - exposed', () => {
     return Process(
       {
         ...request,
-        uri: `${request.uri}?${qs.stringify({
-          sort: 'createdAt desc',
-          where: 'name (en = "Foo")',
-          limit: 5,
-        })}`,
+        uri: `${request.uri}?${qs.stringify(
+          {
+            sort: 'createdAt desc',
+            where: 'name (en = "Foo")',
+            limit: 5,
+          },
+          qsOptions
+        )}`,
       },
       () => Promise.resolve('OK'),
       {}
@@ -771,11 +785,14 @@ describe('process - exposed', () => {
     const processRes = await Process(
       {
         ...request,
-        uri: `${request.uri}?${qs.stringify({
-          sort: 'createdAt desc',
-          where: 'name (en = "Foo")',
-          limit: 5,
-        })}`,
+        uri: `${request.uri}?${qs.stringify(
+          {
+            sort: 'createdAt desc',
+            where: 'name (en = "Foo")',
+            limit: 5,
+          },
+          qsOptions
+        )}`,
       },
       (res) => {
         expect(res.body.results).toEqual(reqStubs[fnCall].body.results)

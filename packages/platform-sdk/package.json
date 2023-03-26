@@ -30,7 +30,7 @@
     "@commercetools/sdk-middleware-auth": "^7.0.0",
     "@commercetools/sdk-middleware-http": "^7.0.0",
     "@commercetools/sdk-middleware-logger": "^3.0.0",
-    "querystring": "^0.2.1"
+    "qs": "^6.11.1"
   },
   "devDependencies": {
     "@types/uuid": "9.0.1",
