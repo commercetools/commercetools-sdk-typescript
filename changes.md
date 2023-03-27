@@ -45,3 +45,11 @@
 - added property `variantExclusion` to type `ProductSelectionAssignment`
 - added property `type` to type `ProductSelectionDraft`
 </details>
+
+**Import changes**
+
+<details>
+<summary>Added Property(s)</summary>
+
+- added property `custom` to type `Parcel`
+</details>
