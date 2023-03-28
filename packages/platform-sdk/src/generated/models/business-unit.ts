@@ -40,7 +40,7 @@ export interface AssociateDraft {
    *
    *
    */
-  readonly roles: AssociateRole[]
+  readonly roles?: AssociateRole[]
   /**
    *	The [Customer](ctp:api:type:Customer) to be part of the Business Unit.
    *
