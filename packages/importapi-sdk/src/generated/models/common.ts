@@ -653,7 +653,7 @@ export interface Address {
    */
   readonly externalId?: string
   /**
-   *	Custom Fields for the address.
+   *	Custom Fields defined for the Address. Custom Fields can only be applied to `shippingAddress`.
    *
    */
   readonly custom?: Custom
