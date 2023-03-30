@@ -1848,3 +1848,1299 @@ export interface VariantValues {
    */
   readonly attributes: Attribute[]
 }
+/**
+ *	Represents a single error.
+ */
+export type GraphQLErrorObject =
+  | GraphQLAnonymousIdAlreadyInUseError
+  | GraphQLAttributeDefinitionAlreadyExistsError
+  | GraphQLAttributeDefinitionTypeConflictError
+  | GraphQLAttributeNameDoesNotExistError
+  | GraphQLBadGatewayError
+  | GraphQLConcurrentModificationError
+  | GraphQLCountryNotConfiguredInStoreError
+  | GraphQLDiscountCodeNonApplicableError
+  | GraphQLDuplicateAttributeValueError
+  | GraphQLDuplicateAttributeValuesError
+  | GraphQLDuplicateEnumValuesError
+  | GraphQLDuplicateFieldError
+  | GraphQLDuplicateFieldWithConflictingResourceError
+  | GraphQLDuplicatePriceKeyError
+  | GraphQLDuplicatePriceScopeError
+  | GraphQLDuplicateStandalonePriceScopeError
+  | GraphQLDuplicateVariantValuesError
+  | GraphQLEditPreviewFailedError
+  | GraphQLEnumKeyAlreadyExistsError
+  | GraphQLEnumKeyDoesNotExistError
+  | GraphQLEnumValueIsUsedError
+  | GraphQLEnumValuesMustMatchError
+  | GraphQLExtensionBadResponseError
+  | GraphQLExtensionNoResponseError
+  | GraphQLExtensionPredicateEvaluationFailedError
+  | GraphQLExtensionUpdateActionsFailedError
+  | GraphQLExternalOAuthFailedError
+  | GraphQLFeatureRemovedError
+  | GraphQLGeneralError
+  | GraphQLInsufficientScopeError
+  | GraphQLInternalConstraintViolatedError
+  | GraphQLInvalidCredentialsError
+  | GraphQLInvalidCurrentPasswordError
+  | GraphQLInvalidFieldError
+  | GraphQLInvalidInputError
+  | GraphQLInvalidItemShippingDetailsError
+  | GraphQLInvalidJsonInputError
+  | GraphQLInvalidOperationError
+  | GraphQLInvalidSubjectError
+  | GraphQLInvalidTokenError
+  | GraphQLLanguageUsedInStoresError
+  | GraphQLMatchingPriceNotFoundError
+  | GraphQLMaxResourceLimitExceededError
+  | GraphQLMissingRoleOnChannelError
+  | GraphQLMissingTaxRateForCountryError
+  | GraphQLNoMatchingProductDiscountFoundError
+  | GraphQLNotEnabledError
+  | GraphQLObjectNotFoundError
+  | GraphQLOutOfStockError
+  | GraphQLOverCapacityError
+  | GraphQLOverlappingStandalonePriceValidityError
+  | GraphQLPendingOperationError
+  | GraphQLPriceChangedError
+  | GraphQLProductAssignmentMissingError
+  | GraphQLProductPresentWithDifferentVariantSelectionError
+  | GraphQLProjectNotConfiguredForLanguagesError
+  | GraphQLQueryComplexityLimitExceededError
+  | GraphQLQueryTimedOutError
+  | GraphQLReferenceExistsError
+  | GraphQLReferencedResourceNotFoundError
+  | GraphQLRequiredFieldError
+  | GraphQLResourceNotFoundError
+  | GraphQLResourceSizeLimitExceededError
+  | GraphQLSearchDeactivatedError
+  | GraphQLSearchExecutionFailureError
+  | GraphQLSearchFacetPathNotFoundError
+  | GraphQLSearchIndexingInProgressError
+  | GraphQLSemanticErrorError
+  | GraphQLShippingMethodDoesNotMatchCartError
+  | GraphQLSyntaxErrorError
+/**
+ *	Returned when the anonymous ID is being used by another resource.
+ *
+ *	The client application should choose another anonymous ID or retrieve an automatically generated one.
+ *
+ */
+export interface GraphQLAnonymousIdAlreadyInUseError {
+  readonly code: 'AnonymousIdAlreadyInUse'
+  [key: string]: any
+}
+/**
+ *	Returned when the `name` of the [AttributeDefinition](ctp:api:type:AttributeDefinition) conflicts with an existing Attribute.
+ *
+ *	The error is returned as a failed response to the [Create ProductType](/../api/projects/productTypes#create-producttype) request or [Change AttributeDefinition Name](ctp:api:type:ProductTypeChangeAttributeNameAction) update action.
+ *
+ */
+export interface GraphQLAttributeDefinitionAlreadyExistsError {
+  readonly code: 'AttributeDefinitionAlreadyExists'
+  [key: string]: any
+  /**
+   *	Unique identifier of the Product Type containing the conflicting name.
+   *
+   *
+   */
+  readonly conflictingProductTypeId: string
+  /**
+   *	Name of the Product Type containing the conflicting name.
+   *
+   *
+   */
+  readonly conflictingProductTypeName: string
+  /**
+   *	Name of the conflicting Attribute.
+   *
+   *
+   */
+  readonly conflictingAttributeName: string
+}
+/**
+ *	Returned when the `type` is different for an AttributeDefinition using the same `name` in multiple Product Types.
+ *
+ *	The error is returned as a failed response to the [Create ProductType](/../api/projects/productTypes#create-producttype) request.
+ *
+ */
+export interface GraphQLAttributeDefinitionTypeConflictError {
+  readonly code: 'AttributeDefinitionTypeConflict'
+  [key: string]: any
+  /**
+   *	Unique identifier of the Product Type containing the conflicting name.
+   *
+   *
+   */
+  readonly conflictingProductTypeId: string
+  /**
+   *	Name of the Product Type containing the conflicting name.
+   *
+   *
+   */
+  readonly conflictingProductTypeName: string
+  /**
+   *	Name of the conflicting Attribute.
+   *
+   *
+   */
+  readonly conflictingAttributeName: string
+}
+/**
+ *	Returned when an [AttributeDefinition](ctp:api:type:AttributeDefinition) does not exist for an Attribute `name`.
+ *
+ *	The error is returned as a failed response to the [Change AttributeDefinition Name](ctp:api:type:ProductTypeChangeAttributeNameAction) update action.
+ *
+ */
+export interface GraphQLAttributeNameDoesNotExistError {
+  readonly code: 'AttributeNameDoesNotExist'
+  [key: string]: any
+  /**
+   *	Non-existent Attribute name.
+   *
+   *
+   */
+  readonly invalidAttributeName: string
+}
+/**
+ *	Returned when a server-side problem is caused by scaling infrastructure resources.
+ *
+ *	The client application should retry the request with exponential backoff up to a point where further delay is unacceptable.
+ *
+ */
+export interface GraphQLBadGatewayError {
+  readonly code: 'BadGateway'
+  [key: string]: any
+}
+/**
+ *	Returned when the request conflicts with the current state of the involved resources. Typically, the request attempts to modify a resource that is out of date (that is modified by another client since it was last retrieved).
+ *	The client application should resolve the conflict (with or without involving the end-user) before retrying the request.
+ *
+ */
+export interface GraphQLConcurrentModificationError {
+  readonly code: 'ConcurrentModification'
+  [key: string]: any
+  /**
+   *	Current version of the resource.
+   *
+   *
+   */
+  readonly currentVersion?: number
+}
+/**
+ *	Returned when a [Cart](ctp:api:type:Cart) or an [Order](ctp:api:type:Order) in a [Store](ctp:api:type:Store) references a country that is not included in the countries configured for the Store.
+ *
+ *	The error is returned as a failed response to:
+ *
+ *	- [Create Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/carts:POST) request and [Set Country](ctp:api:type:CartSetCountryAction) update action on Carts.
+ *	- [Create Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/me/carts:POST) request and [Set Country](ctp:api:type:MyCartSetCountryAction) update action on My Carts.
+ *	- [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests on Orders.
+ *	- [Create Order from Cart in a Store](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
+ *	- [Create Order from Quote](ctp:api:endpoint:/{projectKey}/orders/quotes:POST) requests on Orders.
+ *	- [Create Order from Quote](ctp:api:endpoint:/{projectKey}/me/orders/quotes:POST) requests on My Orders.
+ *	- [Create Order by Import](ctp:api:endpoint:/{projectKey}/orders/import:POST) request on Order Import.
+ *	- [Set Country](ctp:api:type:StagedOrderSetCountryAction) on Order Edits.
+ *
+ */
+export interface GraphQLCountryNotConfiguredInStoreError {
+  readonly code: 'CountryNotConfiguredInStore'
+  [key: string]: any
+  /**
+   *	Countries configured for the Store.
+   *
+   *
+   */
+  readonly storeCountries: string[]
+  /**
+   *	The country that is not configured for the Store but referenced on the Cart or Order.
+   *
+   *
+   */
+  readonly country: string
+}
+/**
+ *	Returned when the Cart contains a Discount Code with a [DiscountCodeState](ctp:api:type:DiscountCodeState) other than `MatchesCart`.
+ *
+ *	The error is returned as a failed response to:
+ *
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests on Orders.
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/me/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
+ *
+ */
+export interface GraphQLDiscountCodeNonApplicableError {
+  readonly code: 'DiscountCodeNonApplicable'
+  [key: string]: any
+  /**
+   *	Discount Code passed to the Cart.
+   *
+   *
+   */
+  readonly discountCode?: string
+  /**
+   *	`"DoesNotExist"` or `"TimeRangeNonApplicable"`
+   *
+   *
+   */
+  readonly reason?: string
+  /**
+   *	Unique identifier of the Discount Code.
+   *
+   *
+   */
+  readonly discountCodeId?: string
+  /**
+   *	Date and time (UTC) from which the Discount Code is valid.
+   *
+   *
+   */
+  readonly validFrom?: string
+  /**
+   *	Date and time (UTC) until which the Discount Code is valid.
+   *
+   *
+   */
+  readonly validUntil?: string
+  /**
+   *	Date and time (UTC) the Discount Code validity check was last performed.
+   *
+   *
+   */
+  readonly validityCheckTime?: string
+}
+/**
+ *	Returned when the `Unique` [AttributeConstraint](ctp:api:type:AttributeConstraintEnum) criteria are not met during an [Update Product](/../api/projects/products#update-product) request.
+ *
+ */
+export interface GraphQLDuplicateAttributeValueError {
+  readonly code: 'DuplicateAttributeValue'
+  [key: string]: any
+  /**
+   *	Conflicting Attributes.
+   *
+   *
+   */
+  readonly attribute: Attribute
+}
+/**
+ *	Returned when the `CombinationUnique` [AttributeConstraint](ctp:api:type:AttributeConstraintEnum) criteria are not met during an [Update Product](/../api/projects/products#update-product) request.
+ *
+ */
+export interface GraphQLDuplicateAttributeValuesError {
+  readonly code: 'DuplicateAttributeValues'
+  [key: string]: any
+  /**
+   *	Conflicting Attributes.
+   *
+   *
+   */
+  readonly attributes: Attribute[]
+}
+/**
+ *	Returned when an [AttributeEnumType](ctp:api:type:AttributeEnumType) or [AttributeLocalizedEnumType](ctp:api:type:AttributeLocalizedEnumType) contains duplicate keys.
+ *
+ */
+export interface GraphQLDuplicateEnumValuesError {
+  readonly code: 'DuplicateEnumValues'
+  [key: string]: any
+  /**
+   *	Duplicate keys.
+   *
+   *
+   */
+  readonly duplicates: string[]
+}
+/**
+ *	Returned when a field value conflicts with an existing value causing a duplicate.
+ *
+ */
+export interface GraphQLDuplicateFieldError {
+  readonly code: 'DuplicateField'
+  [key: string]: any
+  /**
+   *	Name of the conflicting field.
+   *
+   *
+   */
+  readonly field: string
+  /**
+   *	Conflicting duplicate value.
+   *
+   *
+   */
+  readonly duplicateValue: any
+}
+/**
+ *	Returned when a field value conflicts with an existing value stored in a particular resource causing a duplicate.
+ *
+ */
+export interface GraphQLDuplicateFieldWithConflictingResourceError {
+  readonly code: 'DuplicateFieldWithConflictingResource'
+  [key: string]: any
+  /**
+   *	Name of the conflicting field.
+   *
+   *
+   */
+  readonly field: string
+  /**
+   *	Conflicting duplicate value.
+   *
+   *
+   */
+  readonly duplicateValue: any
+  /**
+   *	Reference to the resource that has the conflicting value.
+   *
+   *
+   */
+  readonly conflictingResource: Reference
+}
+/**
+ *	Returned when a Price key conflicts with an existing key.
+ *
+ *	Keys of Embedded Prices must be unique per ProductVariant.
+ *
+ */
+export interface GraphQLDuplicatePriceKeyError {
+  readonly code: 'DuplicatePriceKey'
+  [key: string]: any
+  /**
+   *	Conflicting Embedded Price.
+   *
+   *
+   */
+  readonly conflictingPrice: Price
+}
+/**
+ *	Returned when a Price scope conflicts with an existing one during an [Update Product](/../api/projects/products#update-product) request.
+ *
+ *	Every Price of a Product Variant must have a distinct combination of currency, Customer Group, country, and Channel that constitute the scope of a Price.
+ *
+ */
+export interface GraphQLDuplicatePriceScopeError {
+  readonly code: 'DuplicatePriceScope'
+  [key: string]: any
+  /**
+   *	Conflicting Embedded Price.
+   *
+   *
+   */
+  readonly conflictingPrice: Price
+}
+/**
+ *	Returned when the given Price scope conflicts with the Price scope of an existing Standalone Price.
+ *	Every Standalone Price associated with the same SKU must have a distinct combination of currency, country, Customer Group, Channel, and validity periods (`validFrom` and `validUntil`).
+ *
+ *	The error is returned as a failed response to the [Create StandalonePrice](/../api/projects/standalone-prices#create-standaloneprice) request.
+ *
+ */
+export interface GraphQLDuplicateStandalonePriceScopeError {
+  readonly code: 'DuplicateStandalonePriceScope'
+  [key: string]: any
+  /**
+   *	Reference to the conflicting Standalone Price.
+   *
+   *
+   */
+  readonly conflictingStandalonePrice: StandalonePriceReference
+  /**
+   *	SKU of the [ProductVariant](ctp:api:type:ProductVariant) to which the conflicting Standalone Price is associated.
+   *
+   *
+   */
+  readonly sku: string
+  /**
+   *	Currency code of the country.
+   *
+   *
+   */
+  readonly currency: string
+  /**
+   *	Country code of the geographic location.
+   *
+   *
+   */
+  readonly country?: string
+  /**
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) for which the Standalone Price is valid.
+   *
+   *
+   */
+  readonly customerGroup?: CustomerGroupResourceIdentifier
+  /**
+   *	[Channel](ctp:api:type:Channel) for which the Standalone Price is valid.
+   *
+   *
+   */
+  readonly channel?: ChannelResourceIdentifier
+  /**
+   *	Date and time (UTC) from which the Standalone Price is valid.
+   *
+   *
+   */
+  readonly validFrom?: string
+  /**
+   *	Date and time (UTC) until which the Standalone Price is valid.
+   *
+   *
+   */
+  readonly validUntil?: string
+}
+/**
+ *	Returned when a [Product Variant](ctp:api:type:ProductVariant) value conflicts with an existing one during an [Update Product](/../api/projects/products#update-product) request.
+ *
+ */
+export interface GraphQLDuplicateVariantValuesError {
+  readonly code: 'DuplicateVariantValues'
+  [key: string]: any
+  /**
+   *	Every Product Variant must have a distinct combination of SKU, prices, and custom Attribute values.
+   *
+   *
+   */
+  readonly variantValues: VariantValues
+}
+/**
+ *	Returned when a preview to find an appropriate Shipping Method for an OrderEdit could not be generated.
+ *
+ *	The error is returned as a failed response to the [Get Shipping Methods for an OrderEdit](/../api/projects/shippingMethods#get-shippingmethods-for-an-orderedit) request.
+ *
+ */
+export interface GraphQLEditPreviewFailedError {
+  readonly code: 'EditPreviewFailed'
+  [key: string]: any
+  /**
+   *	State of the OrderEdit where the `stagedActions` cannot be applied to the Order.
+   *
+   *
+   */
+  readonly result: OrderEditPreviewFailure
+}
+/**
+ *	Returned when an [AttributeEnumType](ctp:api:type:AttributeEnumType) or [AttributeLocalizedEnumType](ctp:api:type:AttributeLocalizedEnumType) contains a key that already exists.
+ *
+ */
+export interface GraphQLEnumKeyAlreadyExistsError {
+  readonly code: 'EnumKeyAlreadyExists'
+  [key: string]: any
+  /**
+   *	Conflicting enum key.
+   *
+   *
+   */
+  readonly conflictingEnumKey: string
+  /**
+   *	Name of the conflicting Attribute.
+   *
+   *
+   */
+  readonly conflictingAttributeName: string
+}
+/**
+ *	Returned when an [AttributeEnumType](ctp:api:type:AttributeEnumType) or [AttributeLocalizedEnumType](ctp:api:type:AttributeLocalizedEnumType) already contains a value with the given key.
+ *
+ *	The error is returned as a failed response to the [Change the key of an EnumValue](ctp:api:type:ProductTypeChangeEnumKeyAction) update action.
+ *
+ */
+export interface GraphQLEnumKeyDoesNotExistError {
+  readonly code: 'EnumKeyDoesNotExist'
+  [key: string]: any
+  /**
+   *	Conflicting enum key.
+   *
+   *
+   */
+  readonly conflictingEnumKey: string
+  /**
+   *	Name of the conflicting Attribute.
+   *
+   *
+   */
+  readonly conflictingAttributeName: string
+}
+/**
+ *	Returned when an enum value cannot be removed from an Attribute as it is being used by a Product.
+ *
+ *	The error is returned as a failed response to the [Remove EnumValues from AttributeDefinition](ctp:api:type:ProductTypeRemoveEnumValuesAction) update action.
+ *
+ */
+export interface GraphQLEnumValueIsUsedError {
+  readonly code: 'EnumValueIsUsed'
+  [key: string]: any
+}
+/**
+ *	Returned when during an order update of [AttributeEnumType](ctp:api:type:AttributeEnumType) or [AttributeLocalizedEnumType](ctp:api:type:AttributeLocalizedEnumType) the new enum values do not match the existing ones.
+ *
+ *	The error is returned as a failed response to the [Change the order of EnumValues](ctp:api:type:ProductTypeChangePlainEnumValueOrderAction) and [Change the order of LocalizedEnumValues](ctp:api:type:ProductTypeChangeLocalizedEnumValueOrderAction) update actions.
+ *
+ */
+export interface GraphQLEnumValuesMustMatchError {
+  readonly code: 'EnumValuesMustMatch'
+  [key: string]: any
+}
+/**
+ *	Returned when the response from the API Extension could not be parsed successfully (such as a `500` HTTP status code, or an invalid JSON response).
+ *
+ */
+export interface GraphQLExtensionBadResponseError {
+  readonly code: 'ExtensionBadResponse'
+  [key: string]: any
+  /**
+   *	User-defined localized description of the error.
+   *
+   *
+   */
+  readonly localizedMessage?: LocalizedString
+  /**
+   *	Any information that should be returned to the API caller.
+   *
+   *
+   */
+  readonly extensionExtraInfo?: any
+  /**
+   *	Additional errors related to the API Extension.
+   *
+   *
+   */
+  readonly extensionErrors: ExtensionError[]
+  /**
+   *	The response body returned by the Extension.
+   *
+   */
+  readonly extensionBody?: string
+  /**
+   *	Http status code returned by the Extension.
+   *
+   */
+  readonly extensionStatusCode?: number
+  /**
+   *	Unique identifier of the Extension.
+   *
+   */
+  readonly extensionId: string
+  /**
+   *	User-defined unique identifier of the Extension.
+   *
+   */
+  readonly extensionKey?: string
+}
+/**
+ *	Returned when the API Extension does not respond within the [time limit](/../api/projects/api-extensions#time-limits), or could not be reached.
+ *
+ */
+export interface GraphQLExtensionNoResponseError {
+  readonly code: 'ExtensionNoResponse'
+  [key: string]: any
+  /**
+   *	Unique identifier of the API Extension.
+   *
+   *
+   */
+  readonly extensionId: string
+  /**
+   *	User-defined unique identifier of the API Extension, if available.
+   *
+   *
+   */
+  readonly extensionKey?: string
+}
+/**
+ *	Returned when the predicate defined in the [ExtensionTrigger](ctp:api:type:ExtensionTrigger) could not be evaluated due to a missing field.
+ *
+ */
+export interface GraphQLExtensionPredicateEvaluationFailedError {
+  readonly code: 'ExtensionPredicateEvaluationFailed'
+  [key: string]: any
+  /**
+   *	Details about the API Extension that was involved in the error.
+   *
+   *
+   */
+  readonly errorByExtension: ErrorByExtension
+}
+/**
+ *	Returned when update actions could not be applied to the resource (for example, because a referenced resource does not exist).
+ *	This would result in a [400 Bad Request](#400-bad-request) response if the same update action was sent from a regular client.
+ *
+ */
+export interface GraphQLExtensionUpdateActionsFailedError {
+  readonly code: 'ExtensionUpdateActionsFailed'
+  [key: string]: any
+  /**
+   *	User-defined localized description of the error.
+   *
+   *
+   */
+  readonly localizedMessage?: LocalizedString
+  /**
+   *	Any information that should be returned to the API caller.
+   *
+   *
+   */
+  readonly extensionExtraInfo?: any
+  /**
+   *	Additional errors related to the API Extension.
+   *
+   *
+   */
+  readonly extensionErrors: ExtensionError[]
+}
+/**
+ *	Returned when an [external OAuth Introspection endpoint](/../api/authorization#requesting-an-access-token-using-an-external-oauth-server) does not return a response within the [time limit](/../api/authorization#time-limits), or the response isn't compliant with [RFC 7662](https://www.rfc-editor.org/rfc/rfc7662.html) (for example, an HTTP status code like `500`).
+ *
+ */
+export interface GraphQLExternalOAuthFailedError {
+  readonly code: 'ExternalOAuthFailed'
+  [key: string]: any
+}
+/**
+ *	Returned when the requested feature was removed.
+ *
+ */
+export interface GraphQLFeatureRemovedError {
+  readonly code: 'FeatureRemoved'
+  [key: string]: any
+}
+/**
+ *	Returned when a server-side problem occurs.
+ *
+ *	If you encounter this error, report it using the [Support Portal](https://support.commercetools.com).
+ *
+ */
+export interface GraphQLGeneralError {
+  readonly code: 'General'
+  [key: string]: any
+}
+export interface GraphQLInsufficientScopeError {
+  readonly code: 'insufficient_scope'
+  [key: string]: any
+}
+/**
+ *	Returned when certain API-specific constraints were not met. For example, the specified [Discount Code](ctp:api:type:DiscountCode) was never applied and cannot be updated.
+ *
+ */
+export interface GraphQLInternalConstraintViolatedError {
+  readonly code: 'InternalConstraintViolated'
+  [key: string]: any
+}
+/**
+ *	Returned when a Customer with the given credentials (matching the given email/password pair) is not found and authentication fails.
+ *
+ *	The error is returned as a failed response to:
+ *
+ *	- [Authenticate a global Customer (Sign-in)](/../api/projects/customers#authenticate-sign-in-customer) and [Authenticate Customer (Sign-in) in a Store](/../api/projects/customers#authenticate-sign-in-customer-in-store) requests on Customers.
+ *	- [Authenticating Customer (Sign-in)](/../api/projects/me-profile#authenticate-sign-in-customer) and [Authenticate Customer (Sign-in) in a Store](/../api/projects/me-profile#authenticate-sign-in-customer-in-store) requests on My Customer Profile.
+ *
+ */
+export interface GraphQLInvalidCredentialsError {
+  readonly code: 'InvalidCredentials'
+  [key: string]: any
+}
+/**
+ *	Returned when the current password of the Customer does not match.
+ *
+ *	The error is returned as a failed response to:
+ *
+ *	- [Change Customer Password](/../api/projects/customers#change-password-of-customer) and [Change Customer Password in a Store](/../api/projects/customers#change-password-of-customer-in-store) requests on Customers.
+ *	- [Change Customer Password](/../api/projects/me-profile#change-password-of-customer) and [Change Customer Password in a Store](/../api/projects/me-profile#change-password-of-customer-in-store) requests on My Customer Profile.
+ *
+ */
+export interface GraphQLInvalidCurrentPasswordError {
+  readonly code: 'InvalidCurrentPassword'
+  [key: string]: any
+}
+/**
+ *	Returned when a field has an invalid value.
+ *
+ */
+export interface GraphQLInvalidFieldError {
+  readonly code: 'InvalidField'
+  [key: string]: any
+  /**
+   *	Name of the field with the invalid value.
+   *
+   *
+   */
+  readonly field: string
+  /**
+   *	Value invalid for the field.
+   *
+   *
+   */
+  readonly invalidValue: any
+  /**
+   *	Fixed set of allowed values for the field, if any.
+   *
+   *
+   */
+  readonly allowedValues?: any[]
+}
+/**
+ *	Returned when an invalid input has been sent.
+ *
+ */
+export interface GraphQLInvalidInputError {
+  readonly code: 'InvalidInput'
+  [key: string]: any
+}
+/**
+ *	Returned when Line Item or Custom Line Item quantities set under [ItemShippingDetails](ctp:api:type:ItemShippingDetails) do not match the sum of the quantities in their respective shipping details.
+ *
+ *	The error is returned as a failed response to the [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests.
+ *
+ */
+export interface GraphQLInvalidItemShippingDetailsError {
+  readonly code: 'InvalidItemShippingDetails'
+  [key: string]: any
+  /**
+   *	`"LineItem"` or `"CustomLineItem"`
+   *
+   *
+   */
+  readonly subject: string
+  /**
+   *	Unique identifier of the Line Item or Custom Line Item.
+   *
+   *
+   */
+  readonly itemId: string
+}
+/**
+ *	Returned when an invalid JSON input has been sent.
+ *	Either the JSON is syntactically incorrect or does not conform to the expected shape (for example is missing a required field).
+ *
+ *	The client application should validate the input according to the constraints described in the error message before sending the request.
+ *
+ */
+export interface GraphQLInvalidJsonInputError {
+  readonly code: 'InvalidJsonInput'
+  [key: string]: any
+  /**
+   *	Further explanation about why the JSON is invalid.
+   *
+   */
+  readonly detailedErrorMessage: string
+}
+/**
+ *	Returned when the resources involved in the request are not in a valid state for the operation.
+ *
+ *	The client application should validate the constraints described in the error message before sending the request.
+ *
+ */
+export interface GraphQLInvalidOperationError {
+  readonly code: 'InvalidOperation'
+  [key: string]: any
+}
+export interface GraphQLInvalidSubjectError {
+  readonly code: 'InvalidSubject'
+  [key: string]: any
+}
+export interface GraphQLInvalidTokenError {
+  readonly code: 'invalid_token'
+  [key: string]: any
+}
+/**
+ *	Returned when a language cannot be removed from a Project as it is being used by a Store.
+ *
+ *	The error is returned as a failed response to the [Change Languages](ctp:api:type:ProjectChangeLanguagesAction) update action.
+ *
+ */
+export interface GraphQLLanguageUsedInStoresError {
+  readonly code: 'LanguageUsedInStores'
+  [key: string]: any
+}
+/**
+ *	Returned when the Product Variant does not have a Price according to the [Product](ctp:api:type:Product) `priceMode` value for a selected currency, country, Customer Group, or Channel.
+ *
+ *	The error is returned as a failed response to:
+ *
+ *	- [Add LineItem](ctp:api:type:CartAddLineItemAction), [Add CustomLineItem](ctp:api:type:CartAddCustomLineItemAction), and [Add DiscountCode](ctp:api:type:CartAddDiscountCodeAction) update actions on Carts.
+ *	- [Add LineItem](ctp:api:type:StagedOrderAddLineItemAction), [Add CustomLineItem](ctp:api:type:StagedOrderAddCustomLineItemAction), and [Add DiscountCode](ctp:api:type:StagedOrderAddDiscountCodeAction) update actions on Order Edits.
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests on Orders.
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/me/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
+ *
+ */
+export interface GraphQLMatchingPriceNotFoundError {
+  readonly code: 'MatchingPriceNotFound'
+  [key: string]: any
+  /**
+   *	Unique identifier of a [Product](ctp:api:type:Product).
+   *
+   *
+   */
+  readonly productId: string
+  /**
+   *	Unique identifier of a [ProductVariant](ctp:api:type:ProductVariant) in the Product.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	Currency code of the country.
+   *
+   *
+   */
+  readonly currency?: string
+  /**
+   *	Country code of the geographic location.
+   *
+   *
+   */
+  readonly country?: string
+  /**
+   *	Customer Group associated with the Price.
+   *
+   *
+   */
+  readonly customerGroup?: CustomerGroupReference
+  /**
+   *	Channel associated with the Price.
+   *
+   *
+   */
+  readonly channel?: ChannelReference
+}
+/**
+ *	Returned when a resource type cannot be created as it has reached its [limits](/../api/limits).
+ *
+ *	The limits must be adjusted for this resource before sending the request again.
+ *
+ */
+export interface GraphQLMaxResourceLimitExceededError {
+  readonly code: 'MaxResourceLimitExceeded'
+  [key: string]: any
+  /**
+   *	Resource type that reached its maximum limit of configured elements (for example, 100 Zones per Project).
+   *
+   *
+   */
+  readonly exceededResource: ReferenceTypeId
+}
+/**
+ *	Returned when one of the following states occur:
+ *
+ *	- [Channel](ctp:api:type:Channel) is added or set on a [Store](ctp:api:type:Store) with missing Channel `roles`.
+ *	- [Standalone Price](/../api/projects/standalone-prices#create-standaloneprice) references a Channel that does not contain the `ProductDistribution` role.
+ *
+ *	The error is returned as a failed response to:
+ *
+ *	- [Add Distribution Channel](ctp:api:type:StoreAddDistributionChannelAction), [Set Distribution Channel](ctp:api:type:StoreSetDistributionChannelsAction), [Add Supply Channel](ctp:api:type:StoreAddSupplyChannelAction), and [Set Supply Channel](ctp:api:type:StoreSetSupplyChannelsAction) update actions.
+ *	- [Create a Standalone Price](/../api/projects/standalone-prices#create-standaloneprice) request.
+ *
+ */
+export interface GraphQLMissingRoleOnChannelError {
+  readonly code: 'MissingRoleOnChannel'
+  [key: string]: any
+  /**
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a given [Channel](ctp:api:type:Channel).
+   *
+   *
+   */
+  readonly channel?: ChannelResourceIdentifier
+  /**
+   *	- `ProductDistribution` for Product Distribution Channels allowed for the Store. Also required for [Standalone Prices](ctp:api:type:StandalonePrice).
+   *	- `InventorySupply` for Inventory Supply Channels allowed for the Store.
+   *
+   *
+   */
+  readonly missingRole: ChannelRoleEnum
+}
+/**
+ *	Returned when the Tax Category of at least one of the `lineItems`, `customLineItems`, or `shippingInfo` in the [Cart](ctp:api:type:Cart) is missing the [TaxRate](ctp:api:type:TaxRate) matching `country` and `state` given in the `shippingAddress` of that Cart.
+ *
+ *	The error is returned as a failed response to:
+ *
+ *	- [Set Default Shipping Address](ctp:api:type:CustomerSetDefaultShippingAddressAction), [Add LineItem](ctp:api:type:CartAddLineItemAction), [Add CustomLineItem](ctp:api:type:CartAddCustomLineItemAction), [Set Shipping Address](ctp:api:type:CartSetShippingAddressAction), [Set Customer ID](ctp:api:type:CartSetCustomerIdAction), [Add LineItem](ctp:api:type:MyCartAddLineItemAction), [Add LineItem](ctp:api:type:StagedOrderAddLineItemAction), and [Add CustomLineItem](ctp:api:type:StagedOrderAddCustomLineItemAction) update actions
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests.
+ *
+ */
+export interface GraphQLMissingTaxRateForCountryError {
+  readonly code: 'MissingTaxRateForCountry'
+  [key: string]: any
+  /**
+   *	Unique identifier of the [TaxCategory](ctp:api:type:TaxCategory).
+   *
+   *
+   */
+  readonly taxCategoryId: string
+  /**
+   *	Country code of the geographic location.
+   *
+   *
+   */
+  readonly country?: string
+  /**
+   *	State within the country, such as Texas in the United States.
+   *
+   *
+   */
+  readonly state?: string
+}
+/**
+ *	Returned when a Product Discount could not be found that could be applied to the Price of a Product Variant.
+ *
+ *	The error is returned as a failed response to the [Get Matching ProductDiscount](/../api/projects/productDiscounts#get-matching-productdiscount) request.
+ *
+ */
+export interface GraphQLNoMatchingProductDiscountFoundError {
+  readonly code: 'NoMatchingProductDiscountFound'
+  [key: string]: any
+}
+/**
+ *	Returned when the [Project-specific category recommendations feature](/../api/projects/categoryRecommendations#project-specific-category-recommendations) is not enabled for the Project.
+ *
+ */
+export interface GraphQLNotEnabledError {
+  readonly code: 'NotEnabled'
+  [key: string]: any
+}
+/**
+ *	Returned when the requested resource was not found.
+ *
+ */
+export interface GraphQLObjectNotFoundError {
+  readonly code: 'ObjectNotFound'
+  [key: string]: any
+}
+/**
+ *	Returned when some of the [Line Items](ctp:api:type:LineItem) are out of stock at the time of placing an [Order](ctp:api:type:Order).
+ *
+ *	The error is returned as a failed response to:
+ *
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST), [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST), and [Create Order by Import](/../api/projects/me-orders) requests on Orders.
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/me/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
+ *
+ */
+export interface GraphQLOutOfStockError {
+  readonly code: 'OutOfStock'
+  [key: string]: any
+  /**
+   *	Unique identifiers of the Line Items that are out of stock.
+   *
+   *
+   */
+  readonly lineItems: string[]
+  /**
+   *	SKUs of the Line Items that are out of stock.
+   *
+   *
+   */
+  readonly skus: string[]
+}
+/**
+ *	Returned when the service is having trouble handling the load.
+ *
+ *	The client application should retry the request with exponential backoff up to a point where further delay is unacceptable.
+ *
+ */
+export interface GraphQLOverCapacityError {
+  readonly code: 'OverCapacity'
+  [key: string]: any
+}
+/**
+ *	Returned when a given Price validity period conflicts with an existing one.
+ *	Every Standalone Price associated with the same SKU and with the same combination of currency, country, Customer Group, and Channel, must have non-overlapping validity periods (`validFrom` and `validUntil`).
+ *
+ *	The error is returned as a failed response to the [Create StandalonePrice](/../api/projects/standalone-prices#create-standaloneprice) request.
+ *
+ */
+export interface GraphQLOverlappingStandalonePriceValidityError {
+  readonly code: 'OverlappingStandalonePriceValidity'
+  [key: string]: any
+  /**
+   *	Reference to the conflicting Standalone Price.
+   *
+   *
+   */
+  readonly conflictingStandalonePrice: StandalonePriceReference
+  /**
+   *	SKU of the [ProductVariant](ctp:api:type:ProductVariant) to which the conflicting Standalone Price is associated.
+   *
+   *
+   */
+  readonly sku: string
+  /**
+   *	Currency code of the country.
+   *
+   *
+   */
+  readonly currency: string
+  /**
+   *	Country code of the geographic location.
+   *
+   *
+   */
+  readonly country?: string
+  /**
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) for which the Standalone Price is valid.
+   *
+   *
+   */
+  readonly customerGroup?: CustomerGroupResourceIdentifier
+  /**
+   *	[Channel](ctp:api:type:Channel) for which the Standalone Price is valid.
+   *
+   *
+   */
+  readonly channel?: ChannelResourceIdentifier
+  /**
+   *	Date and time (UTC) from which the Standalone Price is valid.
+   *
+   *
+   */
+  readonly validFrom?: string
+  /**
+   *	Date and time (UTC) until which the Standalone Price is valid.
+   *
+   *
+   */
+  readonly validUntil?: string
+  /**
+   *	Date and time (UTC) from which the conflicting Standalone Price is valid.
+   *
+   *
+   */
+  readonly conflictingValidFrom?: string
+  /**
+   *	Date and time (UTC) until which the conflicting Standalone Price is valid.
+   *
+   *
+   */
+  readonly conflictingValidUntil?: string
+}
+/**
+ *	Returned when a previous conflicting operation is still pending and needs to finish before the request can succeed.
+ *
+ *	The client application should retry the request with exponential backoff up to a point where further delay is unacceptable.
+ *	If the error persists, report it using the [Support Portal](https://support.commercetools.com).
+ *
+ */
+export interface GraphQLPendingOperationError {
+  readonly code: 'PendingOperation'
+  [key: string]: any
+}
+/**
+ *	Returned when the Price, Tax Rate, or Shipping Rate of some Line Items changed since they were last added to the Cart.
+ *
+ *	The error is returned as a failed response to:
+ *
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests on Orders.
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/me/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
+ *
+ */
+export interface GraphQLPriceChangedError {
+  readonly code: 'PriceChanged'
+  [key: string]: any
+  /**
+   *	Unique identifiers of the Line Items for which the Price or [TaxRate](ctp:api:type:TaxRate) has changed.
+   *
+   *
+   */
+  readonly lineItems: string[]
+  /**
+   *	`true` if the [ShippingRate](ctp:api:type:ShippingRate) has changed.
+   *
+   *
+   */
+  readonly shipping: boolean
+}
+/**
+ *	Returned when a Product is not assigned to the Product Selection.
+ *
+ *	The error is returned as a failed response either to the [Set Variant Selection](ctp:api:type:ProductSelectionSetVariantSelectionAction) or to the [Set Variant Exclusion](ctp:api:type:ProductSelectionSetVariantExclusionAction) update action.
+ *
+ */
+export interface GraphQLProductAssignmentMissingError {
+  readonly code: 'ProductAssignmentMissing'
+  [key: string]: any
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Product](ctp:api:type:Product) for which the error was returned.
+   *
+   *
+   */
+  readonly product: ProductReference
+}
+/**
+ *	Returned when a Product is already assigned to a [Product Selection](/../api/projects/product-selections), but the Product Selection has either a different [Product Variant Selection](ctp:api:type:ProductVariantSelection) or a different [Product Variant Exclusion](ctp:api:type:ProductVariantExclusion).
+ *
+ *	The error is returned as a failed response either to the [Add Product](ctp:api:type:ProductSelectionAddProductAction) or to the [Exclude Product](ctp:api:type:ProductSelectionExcludeProductAction) update action.
+ *
+ */
+export interface GraphQLProductPresentWithDifferentVariantSelectionError {
+  readonly code: 'ProductPresentWithDifferentVariantSelection'
+  [key: string]: any
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Product](ctp:api:type:Product) for which the error was returned.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	Existing Product Variant Selection or Exclusion for the [Product](/../api/projects/products) in the [Product Selection](/../api/projects/product-selections).
+   *
+   *
+   */
+  readonly existingVariantSelection: ProductVariantSelection
+}
+/**
+ *	Returned when the languages set for a Store are not supported by the Project.
+ *
+ *	The error is returned as a failed response to the [Set Languages](ctp:api:type:StoreSetLanguagesAction) update action.
+ *
+ */
+export interface GraphQLProjectNotConfiguredForLanguagesError {
+  readonly code: 'ProjectNotConfiguredForLanguages'
+  [key: string]: any
+  /**
+   *	Languages configured for the Store.
+   *
+   *
+   */
+  readonly languages?: string[]
+}
+export interface GraphQLQueryComplexityLimitExceededError {
+  readonly code: 'QueryComplexityLimitExceeded'
+  [key: string]: any
+}
+/**
+ *	Returned when the query times out.
+ *
+ *	If a query constantly times out, please check if it follows the [performance best practices](/../api/predicates/query#performance-considerations).
+ *
+ */
+export interface GraphQLQueryTimedOutError {
+  readonly code: 'QueryTimedOut'
+  [key: string]: any
+}
+/**
+ *	Returned when a resource cannot be deleted because it is being referenced by another resource.
+ *
+ */
+export interface GraphQLReferenceExistsError {
+  readonly code: 'ReferenceExists'
+  [key: string]: any
+  /**
+   *	Type of referenced resource.
+   *
+   *
+   */
+  readonly referencedBy?: ReferenceTypeId
+}
+/**
+ *	Returned when a resource referenced by a [Reference](ctp:api:type:Reference) or a [ResourceIdentifier](ctp:api:type:ResourceIdentifier) could not be found.
+ *
+ */
+export interface GraphQLReferencedResourceNotFoundError {
+  readonly code: 'ReferencedResourceNotFound'
+  [key: string]: any
+  /**
+   *	Type of referenced resource.
+   *
+   *
+   */
+  readonly typeId: ReferenceTypeId
+  /**
+   *	Unique identifier of the referenced resource, if known.
+   *
+   *
+   */
+  readonly id?: string
+  /**
+   *	User-defined unique identifier of the referenced resource, if known.
+   *
+   *
+   */
+  readonly key?: string
+}
+/**
+ *	Returned when a value is not defined for a required field.
+ *
+ */
+export interface GraphQLRequiredFieldError {
+  readonly code: 'RequiredField'
+  [key: string]: any
+  /**
+   *	Name of the field missing the value.
+   *
+   *
+   */
+  readonly field: string
+}
+/**
+ *	Returned when the resource addressed by the request URL does not exist.
+ *
+ */
+export interface GraphQLResourceNotFoundError {
+  readonly code: 'ResourceNotFound'
+  [key: string]: any
+}
+/**
+ *	Returned when the resource exceeds the maximum allowed size of 16 MB.
+ *
+ */
+export interface GraphQLResourceSizeLimitExceededError {
+  readonly code: 'ResourceSizeLimitExceeded'
+  [key: string]: any
+}
+/**
+ *	Returned when the indexing of Product information is deactivated in a Project.
+ *
+ *	To activate indexing, call [Change Product Search Indexing Enabled](ctp:api:type:ProjectChangeProductSearchIndexingEnabledAction) and set `enabled` to `true`.
+ *
+ */
+export interface GraphQLSearchDeactivatedError {
+  readonly code: 'SearchDeactivated'
+  [key: string]: any
+}
+/**
+ *	Returned when a search query could not be completed due to an unexpected failure.
+ *
+ */
+export interface GraphQLSearchExecutionFailureError {
+  readonly code: 'SearchExecutionFailure'
+  [key: string]: any
+}
+/**
+ *	Returned when a search facet path could not be found.
+ *
+ */
+export interface GraphQLSearchFacetPathNotFoundError {
+  readonly code: 'SearchFacetPathNotFound'
+  [key: string]: any
+}
+/**
+ *	Returned when the indexing of Product information is still in progress for Projects that have indexing activated.
+ *
+ */
+export interface GraphQLSearchIndexingInProgressError {
+  readonly code: 'SearchIndexingInProgress'
+  [key: string]: any
+}
+/**
+ *	Returned when a [Discount predicate](/../api/predicates/predicate-operators) or [API Extension predicate](/../api/predicates/query#using-predicates-in-conditional-api-extensions) is not semantically correct.
+ *
+ */
+export interface GraphQLSemanticErrorError {
+  readonly code: 'SemanticError'
+  [key: string]: any
+}
+/**
+ *	Returned when the Cart contains a [ShippingMethod](ctp:api:type:ShippingMethod) that is not allowed for the [Cart](ctp:api:type:Cart). In this case, the [ShippingMethodState](ctp:api:type:ShippingMethodState) value is `DoesNotMatchCart`.
+ *
+ *	The error is returned as a failed response to the [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST) or [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests.
+ *
+ */
+export interface GraphQLShippingMethodDoesNotMatchCartError {
+  readonly code: 'ShippingMethodDoesNotMatchCart'
+  [key: string]: any
+}
+/**
+ *	Returned when a [Discount predicate](/../api/predicates/predicate-operators), [API Extension predicate](/../api/predicates/query#using-predicates-in-conditional-api-extensions), or [search query](/../api/projects/products-search) does not have the correct syntax.
+ *
+ */
+export interface GraphQLSyntaxErrorError {
+  readonly code: 'SyntaxError'
+  [key: string]: any
+}
