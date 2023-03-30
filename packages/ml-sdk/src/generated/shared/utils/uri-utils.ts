@@ -4,6 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { stringify } from 'querystring'
 import { ClientRequest, VariableMap } from './common-types'
 
 function isDefined<T>(value: T | undefined | null): value is T {
@@ -36,7 +37,7 @@ function cleanObject<T extends VariableMap>(obj: T): T {
 
 function formatQueryString(variableMap: VariableMap) {
   const map = cleanObject(variableMap)
-  const result = new URLSearchParams(map as Record<string, string>).toString()
+  const result = stringify(map)
   if (result === '') {
     return ''
   }
