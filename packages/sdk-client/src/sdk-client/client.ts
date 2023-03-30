@@ -1,4 +1,3 @@
-import qs from 'qs'
 import {
   Client,
   ClientOptions,
@@ -12,6 +11,7 @@ import {
   SuccessResult,
 } from '../types/sdk.d'
 import validate from './validate'
+import { stringifyURLString, parseURLString } from '../utils'
 
 let _options
 function compose(...funcs: Array<Function>): Function {
@@ -24,11 +24,6 @@ function compose(...funcs: Array<Function>): Function {
       (...args: Array<Function>): Array<Function> =>
         a(b(...args))
   )
-}
-
-const qsOptions = {
-  indices: false,
-  encodeValuesOnly: true,
 }
 
 export function process(
@@ -58,7 +53,9 @@ export function process(
       _path = path
       _queryString = queryString
     }
-    const requestQuery = { ...qs.parse(_queryString) }
+    // const requestQuery = { ...qs.parse(_queryString) }
+    // const requestQuery = { ...Object.fromEntries(new URLSearchParams(_queryString)) }
+    const requestQuery = { ...parseURLString<object>(_queryString) }
     const query = {
       // defaults
       limit: 20,
@@ -71,14 +68,21 @@ export function process(
     const processPage = async (lastId?: string, acc: Array<any> = []) => {
       // Use the lesser value between limit and itemsToGet in query
       const limit = query.limit < itemsToGet ? query.limit : itemsToGet
-      const originalQueryString = qs.stringify({ ...query, limit }, qsOptions)
+      // const originalQueryString = qs.stringify({ ...query, limit }, qsOptions)
+      const originalQueryString = new URLSearchParams({
+        ...query,
+        limit,
+      } as unknown as Record<string, string>).toString()
 
       const enhancedQuery = {
         sort: 'id asc',
         withTotal: false,
         ...(lastId ? { where: `id > "${lastId}"` } : {}),
       }
-      const enhancedQueryString = qs.stringify(enhancedQuery, qsOptions)
+      // const enhancedQueryString = qs.stringify(enhancedQuery, qsOptions)
+      const enhancedQueryString = new URLSearchParams(
+        enhancedQuery as unknown as Record<string, string>
+      ).toString()
       const enhancedRequest = {
         ...request,
         uri: `${_path}?${enhancedQueryString}&${originalQueryString}`,
