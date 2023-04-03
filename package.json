@@ -11,7 +11,7 @@
     "coverage": "codecov",
     "typecheck": "tsc --noEmit",
     "changeset": "changeset",
-    "postbuildd": "webpack --mode=production",
+    "postbuild": "webpack --mode=production",
     "changeset:version-and-format": "changeset version && prettier --write --parser json '**/package.json'"
   },
   "workspaces": ["packages/*"],
