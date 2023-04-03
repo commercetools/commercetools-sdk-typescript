@@ -15,7 +15,7 @@ export default function createConcurrentModificationMiddleware(): Middleware {
          * from the error body and update
          * request with the currentVersion
          */
-        const version = response.error.body.errors[0].currentVersion
+        const version = response.error?.body?.errors?.[0]?.currentVersion
 
         // update the resource version here
         request.body =
