@@ -4,6 +4,8 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { GraphQLErrorObject } from './error'
+
 export interface GraphQLError {
   /**
    *
@@ -16,7 +18,12 @@ export interface GraphQLError {
   /**
    *
    */
-  readonly path: any[]
+  readonly path?: any[]
+  /**
+   *	Represents a single error.
+   *
+   */
+  readonly extensions: GraphQLErrorObject
 }
 export interface GraphQLErrorLocation {
   /**

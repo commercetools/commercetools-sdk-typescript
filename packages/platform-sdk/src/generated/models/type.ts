@@ -134,9 +134,9 @@ export interface FieldDefinition {
    */
   readonly required: boolean
   /**
-   *	Must be either `SingleLine` or `MultiLine`.
    *	Defines the visual representation of the field in user interfaces like the Merchant Center.
    *	It is only relevant for string-based [FieldTypes](ctp:api:type:FieldType) like [CustomFieldStringType](ctp:api:type:CustomFieldStringType) and [CustomFieldLocalizedStringType](ctp:api:type:CustomFieldLocalizedStringType).
+   *
    *
    */
   readonly inputHint?: TypeTextInputHint

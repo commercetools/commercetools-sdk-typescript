@@ -1,154 +1,134 @@
 **Api changes**
 
 <details>
-<summary>Removed Property(s)</summary>
+<summary>MarkDeprecated Type(s)</summary>
 
-- :warning: removed property `externalTaxRate` from type `MyCartAddLineItemAction`
-- :warning: removed property `externalPrice` from type `MyCartAddLineItemAction`
-- :warning: removed property `externalTotalPrice` from type `MyCartAddLineItemAction`
-</details>
-
-<details>
-<summary>Changed Property(s)</summary>
-
-- :warning: changed property `stores` of type `BusinessUnitDraft` from type `StoreKeyReference[]` to `StoreResourceIdentifier[]`
-- :warning: changed property `stores` of type `CompanyDraft` from type `StoreKeyReference[]` to `StoreResourceIdentifier[]`
-- :warning: changed property `stores` of type `DivisionDraft` from type `StoreKeyReference[]` to `StoreResourceIdentifier[]`
-- :warning: changed property `totalPrice` of type `Cart` from type `TypedMoney` to `CentPrecisionMoney`
-- :warning: changed property `locale` of type `Cart` from type `string` to `Locale`
-- :warning: changed property `country` of type `CartDraft` from type `string` to `CountryCode`
-- :warning: changed property `locale` of type `CartDraft` from type `string` to `Locale`
-- :warning: changed property `totalPrice` of type `CustomLineItem` from type `TypedMoney` to `CentPrecisionMoney`
-- :warning: changed property `externalTaxRate` of type `CustomShippingDraft` from type `string` to `ExternalTaxRateDraft`
-- :warning: changed property `deliveries` of type `CustomShippingDraft` from type `Delivery[]` to `DeliveryDraft[]`
-- :warning: changed property `custom` of type `CustomShippingDraft` from type `string` to `CustomFieldsDraft`
-- :warning: changed property `country` of type `ExternalTaxRateDraft` from type `string` to `CountryCode`
-- :warning: changed property `totalPrice` of type `LineItem` from type `TypedMoney` to `CentPrecisionMoney`
-- :warning: changed property `externalTaxRate` of type `ShippingDraft` from type `string` to `ExternalTaxRateDraft`
-- :warning: changed property `deliveries` of type `ShippingDraft` from type `Delivery[]` to `DeliveryDraft[]`
-- :warning: changed property `custom` of type `ShippingDraft` from type `string` to `CustomFieldsDraft`
-- :warning: changed property `price` of type `ShippingInfo` from type `TypedMoney` to `CentPrecisionMoney`
-- :warning: changed property `amount` of type `TaxPortion` from type `TypedMoney` to `CentPrecisionMoney`
-- :warning: changed property `totalNet` of type `TaxedItemPrice` from type `TypedMoney` to `CentPrecisionMoney`
-- :warning: changed property `totalGross` of type `TaxedItemPrice` from type `TypedMoney` to `CentPrecisionMoney`
-- :warning: changed property `totalTax` of type `TaxedItemPrice` from type `TypedMoney` to `CentPrecisionMoney`
-- :warning: changed property `totalNet` of type `TaxedPrice` from type `TypedMoney` to `CentPrecisionMoney`
-- :warning: changed property `totalGross` of type `TaxedPrice` from type `TypedMoney` to `CentPrecisionMoney`
-- :warning: changed property `totalTax` of type `TaxedPrice` from type `TypedMoney` to `CentPrecisionMoney`
-- :warning: changed property `externalTaxRate` of type `CartAddCustomShippingMethodAction` from type `string` to `ExternalTaxRateDraft`
-- :warning: changed property `deliveries` of type `CartAddCustomShippingMethodAction` from type `Delivery[]` to `DeliveryDraft[]`
-- :warning: changed property `custom` of type `CartAddCustomShippingMethodAction` from type `string` to `CustomFieldsDraft`
-- :warning: changed property `shippingMethod` of type `CartAddShippingMethodAction` from type `ShippingMethodReference` to `ShippingMethodResourceIdentifier`
-- :warning: changed property `externalTaxRate` of type `CartAddShippingMethodAction` from type `string` to `ExternalTaxRateDraft`
-- :warning: changed property `deliveries` of type `CartAddShippingMethodAction` from type `Delivery[]` to `DeliveryDraft[]`
-- :warning: changed property `custom` of type `CartAddShippingMethodAction` from type `string` to `CustomFieldsDraft`
-- :warning: changed property `locale` of type `CartSetLocaleAction` from type `string` to `Locale`
-- :warning: changed property `businessUnit` of type `MyCartDraft` from type `BusinessUnitKeyReference` to `BusinessUnitResourceIdentifier`
-- :warning: changed property `store` of type `MyCartDraft` from type `StoreKeyReference` to `StoreResourceIdentifier`
-- :warning: changed property `country` of type `MyCartDraft` from type `string` to `CountryCode`
-- :warning: changed property `locale` of type `MyCartDraft` from type `string` to `Locale`
-- :warning: changed property `locale` of type `MyCartSetLocaleAction` from type `string` to `Locale`
-</details>
-
-<details>
-<summary>Required Property(s)</summary>
-
-- :warning: changed property `inventoryMode` of type `Cart` to be required
-- :warning: changed property `itemShippingAddresses` of type `Cart` to be required
-- :warning: changed property `discountCodes` of type `Cart` to be required
-- :warning: changed property `directDiscounts` of type `Cart` to be required
-- :warning: changed property `shippingAddress` of type `ShippingDraft` to be required
-- changed property `quantity` of type `CustomLineItemDraft` to be optional
-- changed property `deliveries` of type `CustomShippingDraft` to be optional
-- changed property `deliveries` of type `ShippingDraft` to be optional
-- changed property `quantity` of type `CartAddCustomLineItemAction` to be optional
-- changed property `deliveries` of type `CartAddCustomShippingMethodAction` to be optional
-- changed property `deliveries` of type `CartAddShippingMethodAction` to be optional
-- changed property `email` of type `CartSetCustomerEmailAction` to be optional
-- changed property `quantity` of type `MyLineItemDraft` to be optional
-</details>
-
-<details>
-<summary>Added Property(s)</summary>
-
-- added property `shippingDetails` to type `CartAddCustomLineItemAction`
-- added property `addedAt` to type `CartAddLineItemAction`
-- added property `inventoryMode` to type `CartAddLineItemAction`
-- added property `oldValue` to type `StandalonePriceValueChangedMessage`
-- added property `oldValue` to type `StandalonePriceValueChangedMessagePayload`
-- added property `purchaseOrderNumber` to type `StagedOrder`
-- added property `purchaseOrderNumber` to type `Order`
-- added property `purchaseOrderNumber` to type `OrderFromCartDraft`
-- added property `purchaseOrderNumber` to type `QuoteRequest`
-- added property `purchaseOrderNumber` to type `QuoteRequestDraft`
-- added property `purchaseOrderNumber` to type `Quote`
-- added property `purchaseOrderNumber` to type `StagedQuote`
-</details>
-
-<details>
-<summary>Added Resource(s)</summary>
-
-- added resource `/{projectKey}/me/orders/quotes`
-</details>
-
-<details>
-<summary>Added Method(s)</summary>
-
-- added method `apiRoot.withProjectKey().me().orders().quotes().post()`
-</details>
-
-<details>
-<summary>Removed Type(s)</summary>
-
-- :warning: removed type `CountryNotConfiguredInStore`
+- marked type `ProductVariantSelectionExclusion` as deprecated
+- marked type `ProductVariantSelectionInclusion` as deprecated
 </details>
 
 <details>
 <summary>Added Type(s)</summary>
 
-- added type `CartSetBusinessUnitAction`
-- added type `CountryNotConfiguredInStoreError`
-- added type `GoogleCloudFunctionDestination`
-- added type `MyOrderFromQuoteDraft`
-- added type `MyCartSetBusinessUnitAction`
-- added type `OrderPurchaseOrderNumberSetMessage`
-- added type `OrderPurchaseOrderNumberSetMessagePayload`
-- added type `StagedOrderSetPurchaseOrderNumberAction`
-- added type `OrderSetPurchaseOrderNumberAction`
-</details>
-
-<details>
-<summary>Added QueryParameter(s)</summary>
-
-- added query parameter `sort` to method `get /{projectKey}/product-selections/key={key}/products`
-- added query parameter `sort` to method `get /{projectKey}/product-selections/{ID}/products`
-- added query parameter `expand` to method `get /{projectKey}/in-store/key={storeKey}/me/active-cart`
+- added type `GraphQLAnonymousIdAlreadyInUseError`
+- added type `GraphQLAttributeDefinitionAlreadyExistsError`
+- added type `GraphQLAttributeDefinitionTypeConflictError`
+- added type `GraphQLAttributeNameDoesNotExistError`
+- added type `GraphQLBadGatewayError`
+- added type `GraphQLConcurrentModificationError`
+- added type `GraphQLCountryNotConfiguredInStoreError`
+- added type `GraphQLDiscountCodeNonApplicableError`
+- added type `GraphQLDuplicateAttributeValueError`
+- added type `GraphQLDuplicateAttributeValuesError`
+- added type `GraphQLDuplicateEnumValuesError`
+- added type `GraphQLDuplicateFieldError`
+- added type `GraphQLDuplicateFieldWithConflictingResourceError`
+- added type `GraphQLDuplicatePriceKeyError`
+- added type `GraphQLDuplicatePriceScopeError`
+- added type `GraphQLDuplicateStandalonePriceScopeError`
+- added type `GraphQLDuplicateVariantValuesError`
+- added type `GraphQLEditPreviewFailedError`
+- added type `GraphQLEnumKeyAlreadyExistsError`
+- added type `GraphQLEnumKeyDoesNotExistError`
+- added type `GraphQLEnumValueIsUsedError`
+- added type `GraphQLEnumValuesMustMatchError`
+- added type `GraphQLErrorObject`
+- added type `GraphQLExtensionBadResponseError`
+- added type `GraphQLExtensionNoResponseError`
+- added type `GraphQLExtensionPredicateEvaluationFailedError`
+- added type `GraphQLExtensionUpdateActionsFailedError`
+- added type `GraphQLExternalOAuthFailedError`
+- added type `GraphQLFeatureRemovedError`
+- added type `GraphQLGeneralError`
+- added type `GraphQLInsufficientScopeError`
+- added type `GraphQLInternalConstraintViolatedError`
+- added type `GraphQLInvalidCredentialsError`
+- added type `GraphQLInvalidCurrentPasswordError`
+- added type `GraphQLInvalidFieldError`
+- added type `GraphQLInvalidInputError`
+- added type `GraphQLInvalidItemShippingDetailsError`
+- added type `GraphQLInvalidJsonInputError`
+- added type `GraphQLInvalidOperationError`
+- added type `GraphQLInvalidSubjectError`
+- added type `GraphQLInvalidTokenError`
+- added type `GraphQLLanguageUsedInStoresError`
+- added type `GraphQLMatchingPriceNotFoundError`
+- added type `GraphQLMaxResourceLimitExceededError`
+- added type `GraphQLMissingRoleOnChannelError`
+- added type `GraphQLMissingTaxRateForCountryError`
+- added type `GraphQLNoMatchingProductDiscountFoundError`
+- added type `GraphQLNotEnabledError`
+- added type `GraphQLObjectNotFoundError`
+- added type `GraphQLOutOfStockError`
+- added type `GraphQLOverCapacityError`
+- added type `GraphQLOverlappingStandalonePriceValidityError`
+- added type `GraphQLPendingOperationError`
+- added type `GraphQLPriceChangedError`
+- added type `GraphQLProductAssignmentMissingError`
+- added type `GraphQLProductPresentWithDifferentVariantSelectionError`
+- added type `GraphQLProjectNotConfiguredForLanguagesError`
+- added type `GraphQLQueryComplexityLimitExceededError`
+- added type `GraphQLQueryTimedOutError`
+- added type `GraphQLReferenceExistsError`
+- added type `GraphQLReferencedResourceNotFoundError`
+- added type `GraphQLRequiredFieldError`
+- added type `GraphQLResourceNotFoundError`
+- added type `GraphQLResourceSizeLimitExceededError`
+- added type `GraphQLSearchDeactivatedError`
+- added type `GraphQLSearchExecutionFailureError`
+- added type `GraphQLSearchFacetPathNotFoundError`
+- added type `GraphQLSearchIndexingInProgressError`
+- added type `GraphQLSemanticErrorError`
+- added type `GraphQLShippingMethodDoesNotMatchCartError`
+- added type `GraphQLSyntaxErrorError`
+- added type `ProductSelectionProductExcludedMessage`
+- added type `ProductSelectionVariantExclusionChangedMessage`
+- added type `ProductSelectionProductExcludedMessagePayload`
+- added type `ProductSelectionVariantExclusionChangedMessagePayload`
+- added type `IndividualExclusionProductSelectionType`
+- added type `ProductVariantExclusion`
+- added type `ProductVariantSelectionIncludeAllExcept`
+- added type `ProductVariantSelectionIncludeOnly`
+- added type `ProductSelectionExcludeProductAction`
+- added type `ProductSelectionSetVariantExclusionAction`
 </details>
 
 <details>
 <summary>Added Enum(s)</summary>
 
-- added enum `shipping` to type `ResourceTypeId`
+- added enum `individualExclusion` to type `ProductSelectionTypeEnum`
+- added enum `includeOnly` to type `ProductVariantSelectionTypeEnum`
+- added enum `includeAllExcept` to type `ProductVariantSelectionTypeEnum`
 </details>
 
-**Import changes**
-
 <details>
-<summary>Required Property(s)</summary>
+<summary>Changed Property(s)</summary>
 
-- changed property `password` of type `CustomerImport` to be optional
+- :warning: changed property `productSelection` of type `ProductSelectionCreatedMessage` from type `IndividualProductSelectionType` to `ProductSelectionType`
+- :warning: changed property `productSelection` of type `ProductSelectionCreatedMessagePayload` from type `IndividualProductSelectionType` to `ProductSelectionType`
 </details>
 
 <details>
 <summary>Added Property(s)</summary>
 
-- added property `authenticationMode` to type `CustomerImport`
-- added property `state` to type `OrderImport`
-- added property `custom` to type `Address`
+- added property `extensions` to type `GraphQLError`
+- added property `variantExclusion` to type `AssignedProductReference`
+- added property `variantExclusion` to type `AssignedProductSelection`
+- added property `variantExclusion` to type `ProductSelectionAssignment`
+- added property `type` to type `ProductSelectionDraft`
 </details>
 
 <details>
-<summary>Added Type(s)</summary>
+<summary>Required Property(s)</summary>
 
-- added type `AuthenticationMode`
+- changed property `roles` of type `AssociateDraft` to be optional
+- changed property `path` of type `GraphQLError` to be optional
+</details>
+
+**Import changes**
+
+<details>
+<summary>Added Property(s)</summary>
+
+- added property `custom` to type `Parcel`
 </details>

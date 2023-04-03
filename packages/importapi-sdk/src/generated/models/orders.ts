@@ -342,6 +342,11 @@ export interface Parcel {
    *
    */
   readonly items?: DeliveryItem[]
+  /**
+   *	The representation to be sent to the server when creating a resource with custom fields.
+   *
+   */
+  readonly custom?: Custom
 }
 export interface Delivery {
   /**

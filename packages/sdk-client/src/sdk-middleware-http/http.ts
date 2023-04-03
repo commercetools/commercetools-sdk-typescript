@@ -190,12 +190,52 @@ export default function createHttpMiddleware({
                   return
                 }
 
-                res.text().then((result) => {
-                  // Try to parse the response as JSON
-                  let parsed
-                  try {
-                    parsed = result.length > 0 ? JSON.parse(result) : {}
-                  } catch (err) {
+                res
+                  .text()
+                  .then((result) => {
+                    // Try to parse the response as JSON
+                    let parsed
+                    try {
+                      parsed = result.length > 0 ? JSON.parse(result) : {}
+                    } catch (err) {
+                      if (enableRetry && retryCount < maxRetries) {
+                        setTimeout(
+                          executeFetch,
+                          calcDelayDuration(
+                            retryCount,
+                            retryDelay,
+                            maxRetries,
+                            backoff,
+                            maxDelay
+                          )
+                        )
+                        retryCount += 1
+                        return
+                      }
+                      parsed = result
+                    }
+
+                    const parsedResponse: any = {
+                      ...response,
+                      body: parsed,
+                      statusCode: res.status,
+                    }
+
+                    if (includeResponseHeaders)
+                      parsedResponse.headers = parseHeaders(res.headers)
+
+                    if (includeOriginalRequest) {
+                      parsedResponse.request = {
+                        ...fetchOptions,
+                      }
+                      maskAuthData(
+                        parsedResponse.request,
+                        maskSensitiveHeaderData
+                      )
+                    }
+                    next(request, parsedResponse)
+                  })
+                  .catch((err) => {
                     if (enableRetry && retryCount < maxRetries) {
                       setTimeout(
                         executeFetch,
@@ -210,29 +250,17 @@ export default function createHttpMiddleware({
                       retryCount += 1
                       return
                     }
-                    parsed = result
-                  }
 
-                  const parsedResponse: any = {
-                    ...response,
-                    body: parsed,
-                    statusCode: res.status,
-                  }
+                    const error = new NetworkError(err.message, {
+                      ...(includeRequestInErrorResponse
+                        ? { originalRequest: request }
+                        : {}),
+                      retryCount,
+                    })
+                    maskAuthData(error.originalRequest, maskSensitiveHeaderData)
 
-                  if (includeResponseHeaders)
-                    parsedResponse.headers = parseHeaders(res.headers)
-
-                  if (includeOriginalRequest) {
-                    parsedResponse.request = {
-                      ...fetchOptions,
-                    }
-                    maskAuthData(
-                      parsedResponse.request,
-                      maskSensitiveHeaderData
-                    )
-                  }
-                  next(request, parsedResponse)
-                })
+                    next(request, { ...response, error, statusCode: 0 })
+                  })
                 return
               }
 

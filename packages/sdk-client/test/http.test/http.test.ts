@@ -1741,4 +1741,97 @@ describe('Http', () => {
 
       httpMiddleware(next)(request, response)
     }))
+
+  test('should handle error when parsing an invalid response object', () => {
+    new Promise((resolve: Function, reject: Function) => {
+      const request = createTestRequest({
+        uri: '/foo/bar',
+        method: 'POST',
+      })
+      const response = { resolve: Function, reject: Function } as any
+      const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
+        expect(typeof res).toEqual('object')
+        expect(res.error).toBeTruthy()
+        expect(res.error).toEqual({
+          code: 0,
+          statusCode: 0,
+          status: 0,
+          message: 'malformed response',
+          originalRequest: {
+            uri: '/foo/bar',
+            method: 'POST',
+            body: null,
+            headers: {},
+          },
+          retryCount: 0,
+          name: 'NetworkError',
+        })
+        expect(res).toHaveProperty('reject')
+        expect(res).toHaveProperty('resolve')
+        resolve()
+      }
+      // Use default options
+      const httpMiddleware = createHttpMiddleware({
+        host: testHost,
+        credentialsMode: 'include',
+        fetch: jest.fn(() =>
+          Promise.resolve({
+            ok: true,
+            text: jest.fn(() =>
+              Promise.reject(new Error('malformed response'))
+            ),
+          })
+        ),
+      } as any)
+      httpMiddleware(next)(request, response)
+    })
+  })
+
+  test('should handle error when parsing an invalid response object', () => {
+    new Promise((resolve: Function, reject: Function) => {
+      const request = createTestRequest({
+        uri: '/foo/bar',
+        method: 'POST',
+      })
+      const response = { resolve: Function, reject: Function } as any
+      const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
+        expect(res.error).toEqual({
+          code: 0,
+          statusCode: 0,
+          status: 0,
+          message: 'error response after retry',
+          originalRequest: {
+            uri: '/foo/bar',
+            method: 'POST',
+            body: null,
+            headers: {},
+          },
+          retryCount: 2,
+          name: 'NetworkError',
+        })
+        expect(res).toHaveProperty('reject')
+        expect(res).toHaveProperty('resolve')
+        expect(res.error.retryCount).toEqual(2)
+        resolve()
+      }
+      // Use default options
+      const httpMiddleware = createHttpMiddleware({
+        host: testHost,
+        enableRetry: true,
+        credentialsMode: 'omit',
+        retryConfig: {
+          maxRetries: 2,
+          retryDelay: 100,
+          backoff: false,
+        },
+        fetch: () =>
+          Promise.resolve({
+            ok: true,
+            text: () => Promise.reject(new Error('error response after retry')),
+          }),
+      } as any)
+
+      httpMiddleware(next)(request, response)
+    })
+  })
 })
