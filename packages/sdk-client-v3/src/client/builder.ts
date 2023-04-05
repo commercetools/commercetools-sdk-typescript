@@ -17,7 +17,6 @@ import {
   QueueMiddlewareOptions,
   RefreshAuthMiddlewareOptions,
   LoggerMiddlewareOptions,
-  // RetryMiddlewareOptions,
   ErrorMiddlewareOptions,
 } from '../types/types'
 
@@ -47,7 +46,6 @@ export default class ClientBuilder {
   private correlationIdMiddleware: Nullable<Middleware>
   private loggerMiddleware: Nullable<Middleware>
   private queueMiddleware: Nullable<Middleware>
-  // private retryMiddleware: Nullable<Middleware>
   private concurrentMiddleware: Nullable<Middleware>
   private errorMiddleware: Nullable<Middleware>
 
@@ -167,14 +165,6 @@ export default class ClientBuilder {
     )
   }
 
-  // public withRetryMiddleware(options: RetryMiddlewareOptions): ClientBuilder {
-  //   this.retryMiddleware = createRetryMiddleware({
-  //     ...options,
-  //   })
-
-  //   return this
-  // }
-
   public withExistingTokenFlow(
     authorization: string,
     options?: ExistingTokenMiddlewareOptions
@@ -243,7 +233,6 @@ export default class ClientBuilder {
     return this
   }
 
-  // builder
   build(): Client {
     const middlewares = this.middlewares.slice()
 
@@ -259,7 +248,6 @@ export default class ClientBuilder {
     if (this.queueMiddleware) middlewares.push(this.queueMiddleware)
     if (this.loggerMiddleware) middlewares.push(this.loggerMiddleware)
     if (this.errorMiddleware) middlewares.push(this.errorMiddleware)
-    // if (this.retryMiddleware) middlewares.push(this.retryMiddleware)
     if (this.concurrentMiddleware) middlewares.push(this.concurrentMiddleware)
     if (this.httpMiddleware) middlewares.push(this.httpMiddleware)
 

@@ -15,7 +15,7 @@ export default function createAuthMiddlewareForExistingTokenFlow(
       if (typeof authorization !== 'string')
         throw new Error('authorization must be a string')
 
-      const force = options?.force === undefined ? true : options.force
+      const isForce = options?.force === undefined ? true : options.force
 
       /**
        * The request will not be modified if:
@@ -26,7 +26,7 @@ export default function createAuthMiddlewareForExistingTokenFlow(
         !authorization ||
         (request.headers &&
           (request.headers.Authorization || request.headers.authorization) &&
-          force === false)
+          isForce === false)
       ) {
         return next(request)
       }

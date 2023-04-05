@@ -15,7 +15,6 @@ export type MiddlewareResponse<T = unknown> = {
   body: T;
   error?: HttpErrorType;
   statusCode: number;
-  // headers?: JsonObject<string>;
   headers?: Record<string, any>
   request?: MiddlewareRequest;
 }
@@ -30,7 +29,6 @@ export type HttpErrorType = {
   originalRequest?: ClientRequest
   body: JsonObject
   retryCount?: number
-  // headers?: JsonObject<QueryParam>
   headers?: Record<string, any>
   [key: string]: any
 }
@@ -38,7 +36,6 @@ export type HttpErrorType = {
 export interface ClientRequest {
   baseUri?: string
   uri?: string
-  // headers?: VariableMap
   headers?: Record<string, any>
   method: MethodType
   uriTemplate?: string
@@ -81,11 +78,9 @@ export type ClientResponse<T = any> = {
   body: T
   code?: number
   statusCode?: number
-  // headers?: JsonObject<string>
   headers?: Record<string, any>
   error?: HttpErrorType
   retryCount?: number
-  // request?: Object
 }
 
 export type ClientResult = ClientResponse
@@ -282,7 +277,6 @@ export type ExistingTokenMiddlewareOptions = {
 
 export type IClientOptions = {
   method: MethodType;
-  // headers: JsonObject<QueryParam>;
   headers: Record<string, any>
   credentialsMode?: CredentialsMode;
   body?: string | Buffer

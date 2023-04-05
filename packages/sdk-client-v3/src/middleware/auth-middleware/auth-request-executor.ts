@@ -127,7 +127,6 @@ export async function executeRequest(
        * original one for accepting new pending tasks
        */
       const requestQueue = pendingTasks.slice()
-      // const lastTask = requestQueue.pop()
 
       // reset pendingTask queue
       pendingTasks = []
