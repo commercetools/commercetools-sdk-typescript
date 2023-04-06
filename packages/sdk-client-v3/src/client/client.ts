@@ -96,7 +96,6 @@ export function process(
         }
 
         const result = await Promise.resolve(fn(payload))
-        // const result = await fn(payload)
         let accumulated: Array<Omit<ClientResult, 'body'>>
         hasFirstPageBeenProcessed = true
 
@@ -119,9 +118,6 @@ export function process(
         processPage(newLastId, accumulated)
       } catch (error) {
         reject(error)
-        // return {
-        //   error
-        // }
       }
     }
 

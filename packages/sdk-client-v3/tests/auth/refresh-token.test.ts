@@ -88,7 +88,6 @@ describe('Refresh Token Flow', () => {
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
         expect(req.headers.Authorization).toBe('Bearer xxx-xx')
-        // expect()
 
         resolve(null)
       }
@@ -128,7 +127,6 @@ describe('Refresh Token Flow', () => {
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
         expect(req.headers.Authorization).toBe('Bearer xxx-xx')
-        // expect()
 
         resolve(null)
       }
@@ -168,7 +166,6 @@ describe('Refresh Token Flow', () => {
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
         expect(req.headers.Authorization).toBe('Bearer xxx-xx')
-        // expect()
 
         resolve(null)
       }
@@ -209,7 +206,6 @@ describe('Refresh Token Flow', () => {
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
         expect(req.headers.Authorization).toBe('Bearer xxx-xx')
-        // expect()
 
         resolve(null)
       }

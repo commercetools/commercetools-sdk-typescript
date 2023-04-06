@@ -109,7 +109,6 @@ export async function executeRequest(
       const {
         access_token: token,
         expires_in: expiresIn,
-        // expires_at: expiresAt,
         refresh_token: refreshToken,
       }: TokenInfo = response?.data
 

@@ -56,10 +56,10 @@ describe('Client Builder', () => {
         .build() as any
 
       expect(client).toHaveProperty('execute')
-      // expect(client).toHaveProperty('process')
+      expect(client).toHaveProperty('process')
 
       expect(typeof client.execute).toEqual('function')
-      // expect(typeof client.process).toEqual('function')
+      expect(typeof client.process).toEqual('function')
     })
   })
 
@@ -216,14 +216,4 @@ describe('Client Builder', () => {
       expect(typeof client.process).toEqual('function')
     })
   })
-
-  // test('should create client with retry middleware', () => {
-  //   const client = new ClientBuilder() as any
-  //   expect(client.retryMiddleware).toBeFalsy()
-
-  //   const clientWithRetryMiddleware = client.withRetryMiddleware({
-  //     generate: 'generated-uuid-string',
-  //   })
-  //   expect(clientWithRetryMiddleware.retryMiddleware).toBeTruthy()
-  // })
 })
