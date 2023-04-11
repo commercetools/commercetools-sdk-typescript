@@ -18,12 +18,14 @@ export default function createConcurrentModificationMiddleware(): Middleware {
         const version = response.error?.body?.errors?.[0]?.currentVersion
 
         // update the resource version here
-        request.body =
-          typeof request.body == 'string'
-            ? { ...JSON.parse(request.body), version }
-            : { ...request.body, version }
+        if (version) {
+          request.body =
+            typeof request.body == 'string'
+              ? { ...JSON.parse(request.body), version }
+              : { ...request.body, version }
 
-        return next(request)
+          return next(request)
+        }
       }
 
       return response
