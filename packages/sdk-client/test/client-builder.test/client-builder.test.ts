@@ -161,4 +161,12 @@ describe('client builder', () => {
       clientWithCorrelationIDMiddleware.correlationIdMiddleware
     ).toBeTruthy()
   })
+
+  test('should create client with apm middleware', () => {
+    const client = new ClientBuilder() as any
+    expect(client.apmMiddleware).toBeFalsy()
+
+    const clientWithApmMiddleware = client.withApmMiddleware({ apm: jest.fn() })
+    expect(clientWithApmMiddleware.apmMiddleware).toBeTruthy()
+  })
 })

@@ -6,8 +6,10 @@ import { default as createHttpMiddleware } from '../sdk-middleware-http/http'
 import { default as createLoggerMiddleware } from '../sdk-middleware-logger/logger'
 import { default as createQueueMiddleware } from '../sdk-middleware-queue/queue'
 import { default as createUserAgentMiddleware } from '../sdk-middleware-user-agent/user-agent'
+import { default as createApmMiddleware } from '../sdk-middleware-apm/apm'
 import {
   AnonymousAuthMiddlewareOptions,
+  ApmMiddlewareOptions,
   AuthMiddlewareOptions,
   Client,
   CorrelationIdMiddlewareOptions,
@@ -38,6 +40,7 @@ export default class ClientBuilder {
   private correlationIdMiddleware: Nullable<Middleware>
   private loggerMiddleware: Nullable<Middleware>
   private queueMiddleware: Nullable<Middleware>
+  private apmMiddleware: Nullable<Middleware>
   private middlewares: Array<Middleware> = []
 
   withProjectKey(key: string): ClientBuilder {
@@ -193,9 +196,15 @@ export default class ClientBuilder {
     return this
   }
 
+  withApmMiddleware(options: ApmMiddlewareOptions): ClientBuilder {
+    this.apmMiddleware = createApmMiddleware(options)
+    return this
+  }
+
   build(): Client {
     const middlewares = this.middlewares.slice()
 
+    if (this.apmMiddleware) middlewares.push(this.apmMiddleware)
     if (this.correlationIdMiddleware)
       middlewares.push(this.correlationIdMiddleware)
     if (this.userAgentMiddleware) middlewares.push(this.userAgentMiddleware)

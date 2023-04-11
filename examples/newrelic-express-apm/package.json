@@ -1,0 +1,18 @@
+{
+  "name": "newrelic-express-apm",
+  "version": "1.0.0",
+  "main": "server.js",
+  "license": "MIT",
+  "description": "express app to demonstrate the use of newrelic apm with commercetools typescript sdk",
+  "author": "chukwuemeka ajima",
+  "private": false,
+  "dependencies": {
+    "@commercetools/sdk-client-v2": "^2.1.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  },
+  "scripts": {
+    "start": "node -r newrelic server"
+  }
+}

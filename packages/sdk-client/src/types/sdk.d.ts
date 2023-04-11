@@ -523,3 +523,5 @@ export type ExistingTokenMiddlewareOptions = {
 export type CorrelationIdMiddlewareOptions = {
   generate: () => string
 }
+
+export type ApmMiddlewareOptions = Record<string, any>
