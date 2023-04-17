@@ -166,7 +166,12 @@ describe('client builder', () => {
     const client = new ClientBuilder() as any
     expect(client.apmMiddleware).toBeFalsy()
 
-    const clientWithApmMiddleware = client.withApmMiddleware({ apm: jest.fn() })
+    const options = {
+      apm: jest.fn(() => ({ agent: 'module' })),
+      createApmMiddleware: jest.fn(() => ({ n: 'middleware' })),
+    }
+
+    const clientWithApmMiddleware = client.withApmMiddleware(options)
     expect(clientWithApmMiddleware.apmMiddleware).toBeTruthy()
   })
 })

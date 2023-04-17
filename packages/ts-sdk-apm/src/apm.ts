@@ -4,16 +4,15 @@ import type {
   MiddlewareRequest,
   MiddlewareResponse,
   Next,
-} from '../types/sdk.d'
+} from '../types/types'
 
 export default function apmMiddleware(
-  options: ApmMiddlewareOptions
+  options?: ApmMiddlewareOptions
 ): Middleware {
   return (next: Next): Next =>
     (request: MiddlewareRequest, response: MiddlewareResponse) => {
       const nextRequest = {
         ...request,
-        apm: require('newrelic'),
         ...options,
       }
 

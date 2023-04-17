@@ -524,4 +524,9 @@ export type CorrelationIdMiddlewareOptions = {
   generate: () => string
 }
 
-export type ApmMiddlewareOptions = Record<string, any>
+// TODO: specify specific options 
+// export type ApmMiddlewareOptions = Record<string, any>
+export type ApmMiddlewareOptions = {
+  createApmMiddleware: (options?: any) => Middleware,
+  apm: any
+}

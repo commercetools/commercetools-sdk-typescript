@@ -1,0 +1,39 @@
+{
+  "name": "@commercetools/ts-sdk-apm",
+  "version": "1.0.0",
+  "description": "commercetools typescript SDK application performance monitoring.",
+  "main": "dist/commercetools-ts-sdk-apm.cjs.js",
+  "module": "dist/commercetools-ts-sdk-apm.esm.js",
+  "author": "Chukwuemeka Ajima <meeky.ae@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "newrelic": "^9.15.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "keywords": [
+    "commercetools",
+    "composable commerce",
+    "typescript",
+    "sdk",
+    "apm",
+    "telemetry",
+    "tracing"
+  ],
+  "homepage": "https://github.com/commercetools/commercetools-typescript-sdks",
+  "bugs": "https://github.com/commercetools/commercetools-typescript-sdks/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commercetools/commercetools-typescript-sdks.git"
+  },
+  "files": ["dist", "CHANGELOG.md"],
+  "browser": {
+    "./dist/commercetools-ts-sdk-apm.cjs.js": "./dist/commercetools-ts-sdk-apm.browser.cjs.js",
+    "./dist/commercetools-ts-sdk-apm.esm.js": "./dist/commercetools-ts-sdk-apm.browser.esm.js"
+  }
+}

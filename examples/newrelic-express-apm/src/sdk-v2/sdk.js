@@ -7,6 +7,7 @@ const {
    * module import once released
    */
 } = require('../../../../packages/sdk-client/dist/commercetools-sdk-client-v2.cjs.prod')
+const { createApmMiddleware } = require('@commercetools/ts-sdk-apm')
 const fetch = require('node-fetch')
 
 const { createApiBuilderFromCtpClient } = require('@commercetools/platform-sdk')
@@ -30,10 +31,16 @@ const httpMiddlewareOptions = {
   fetch,
 }
 
+// newrelic options
+const ampOptions = {
+  apm: require('newrelic'),
+  createApmMiddleware,
+}
+
 const client = new ClientBuilder()
   .withClientCredentialsFlow(authMiddlewareOptions)
   .withHttpMiddleware(httpMiddlewareOptions)
-  .withApmMiddleware({}) // apm middleware
+  .withApmMiddleware(ampOptions) // apm middleware
   .build()
 
 const apiRoot = createApiBuilderFromCtpClient(client).withProjectKey({

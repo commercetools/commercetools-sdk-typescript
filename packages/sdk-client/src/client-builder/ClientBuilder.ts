@@ -6,7 +6,6 @@ import { default as createHttpMiddleware } from '../sdk-middleware-http/http'
 import { default as createLoggerMiddleware } from '../sdk-middleware-logger/logger'
 import { default as createQueueMiddleware } from '../sdk-middleware-queue/queue'
 import { default as createUserAgentMiddleware } from '../sdk-middleware-user-agent/user-agent'
-import { default as createApmMiddleware } from '../sdk-middleware-apm/apm'
 import {
   AnonymousAuthMiddlewareOptions,
   ApmMiddlewareOptions,
@@ -197,6 +196,7 @@ export default class ClientBuilder {
   }
 
   withApmMiddleware(options: ApmMiddlewareOptions): ClientBuilder {
+    const { createApmMiddleware } = options
     this.apmMiddleware = createApmMiddleware(options)
     return this
   }

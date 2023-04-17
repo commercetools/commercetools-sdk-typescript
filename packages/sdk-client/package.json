@@ -34,7 +34,6 @@
   },
   "dependencies": {
     "buffer": "^6.0.3",
-    "newrelic": "^9.15.0",
     "node-fetch": "^2.6.1",
     "querystring": "^0.2.1"
   },
