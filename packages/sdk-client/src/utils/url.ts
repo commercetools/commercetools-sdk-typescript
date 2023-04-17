@@ -15,7 +15,15 @@ function urlParser<T>(url: string | URLSearchParams): T {
 function urlStringifier(
   object: string | Record<string, any> | Array<Array<string>> | URLSearchParams
 ): string {
-  return new URLSearchParams(object).toString()
+  const params = new URLSearchParams(object)
+  for (const [key, value] of Object.entries(object)) {
+    if (Array.isArray(value)) {
+      params.delete(key)
+      value.filter(Boolean).forEach((v) => params.append(key, v))
+    }
+  }
+
+  return params.toString()
 }
 
 export function parseURLString<T>(
