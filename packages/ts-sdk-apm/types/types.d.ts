@@ -94,8 +94,6 @@ export type MethodType =
   | 'UNLOCK'
   | 'UNSUBSCRIBE'
 
-// TODO: specify specific options 
-// export type ApmMiddlewareOptions = Record<string, any>
 export type ApmMiddlewareOptions = {
   apm: any,
   createApmMiddleware: (options?: any) => Middleware
