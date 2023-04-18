@@ -33,8 +33,8 @@ describe('ApiRequestExecutor', () => {
     })
 
     test('handle invalid characters', async () => {
-      // expect(testQuery({ foo: '<>abc /' })).toEqual('?foo=%3C%3Eabc+%2F')
       expect(testQuery({ foo: '<>abc /' })).toEqual('?foo=%3C%3Eabc%20%2F')
+      // expect(testQuery({ foo: '<>abc /' })).toEqual('?foo=%3C%3Eabc+%2F')
     })
 
     test('handle empty arrays', async () => {
