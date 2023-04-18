@@ -1,5 +1,22 @@
 # @commercetools/importapi-sdk
 
+## 4.4.0
+
+### Minor Changes
+
+- [`dad68dc`](https://github.com/commercetools/commercetools-sdk-typescript/commit/dad68dcabc0d8995b1c628b6cf431c14e9504888) Thanks [@jenschude](https://github.com/jenschude)! - **Import changes**
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `custom` to type `Parcel`
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`057e260`](https://github.com/commercetools/commercetools-sdk-typescript/commit/057e260b3330b7ab8df33171bb2d4aa2de0444d9)]:
+  - @commercetools/sdk-client-v2@2.1.5
+
 ## 4.3.0
 
 ### Minor Changes

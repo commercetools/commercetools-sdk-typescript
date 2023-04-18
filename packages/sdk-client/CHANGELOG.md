@@ -1,5 +1,12 @@
 # @commercetools/sdk-client-v2
 
+## 2.1.5
+
+### Patch Changes
+
+- [#438](https://github.com/commercetools/commercetools-sdk-typescript/pull/438) [`057e260`](https://github.com/commercetools/commercetools-sdk-typescript/commit/057e260b3330b7ab8df33171bb2d4aa2de0444d9) Thanks [@upperwalker](https://github.com/upperwalker)! - - Handle node-fetch text parse error in sdk client http middleware
+  - Adds `catch block` to prevent unhandled promise rejection on parsing response text
+
 ## 2.1.4
 
 ### Patch Changes

@@ -541,11 +541,11 @@ export type _BaseResource =
   | Type
   | Zone
   | Cart
-  | AttributeGroup
   | Channel
-  | Category
+  | AttributeGroup
   | BusinessUnit
   | CartDiscount
+  | Category
 /**
  *	These objects represent information about which [API Client](/../api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/client-logging).
  *
@@ -797,7 +797,7 @@ export interface Price {
    */
   readonly validFrom?: string
   /**
-   *	Date and time until this Price is valid.
+   *	Date and time until this Price is valid. Prices that are no longer valid are not automatically removed, but they can be [removed](ctp:api:type:ProductRemovePriceAction) if necessary.
    *
    *
    */
@@ -864,7 +864,7 @@ export interface PriceDraft {
    */
   readonly validFrom?: string
   /**
-   *	Set this field if this Price is only valid until the specified date and time. Must be at least 1 ms later than `validFrom`.
+   *	Set this field if this Price is only valid until the specified date and time. Must be at least 1 ms later than `validFrom`. Prices that are no longer valid are not automatically removed, but they can be [removed](ctp:api:type:ProductRemovePriceAction) if necessary.
    *
    *
    */

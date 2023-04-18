@@ -358,7 +358,7 @@ export interface PaymentStatusDraft {
    */
   readonly interfaceText?: string
   /**
-   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [State](ctp:api:type:State).
    *
    *
    */
@@ -766,7 +766,7 @@ export interface PaymentSetTransactionCustomTypeAction {
 export interface PaymentTransitionStateAction {
   readonly action: 'transitionState'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [State](ctp:api:type:State).
    *
    *
    */

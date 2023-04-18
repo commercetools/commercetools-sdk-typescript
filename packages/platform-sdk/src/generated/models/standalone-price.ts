@@ -123,7 +123,7 @@ export interface StandalonePrice extends BaseResource {
    */
   readonly validFrom?: string
   /**
-   *	Date until the Price is valid.
+   *	Date until the Price is valid. Standalone Prices that are no longer valid are not automatically deleted, but they can be [deleted](/../api/projects/standalone-prices#delete-standaloneprice) if necessary.
    *
    *
    */
@@ -209,7 +209,7 @@ export interface StandalonePriceDraft {
    */
   readonly validFrom?: string
   /**
-   *	Sets the date until the Price is valid. Must be at least 1 ms later than `validFrom`.
+   *	Sets the date until the Price is valid. Must be at least 1 ms later than `validFrom`. Standalone Prices that are no longer valid are not automatically deleted, but they can be [deleted](/../api/projects/standalone-prices#delete-standaloneprice) if necessary.
    *
    *
    */
