@@ -35,7 +35,7 @@ export function parseURLString<T>(
 
 export function stringifyURLString(
   object: string | Record<string, any> | Array<Array<string>>,
-  stringifer: (
+  stringifier: (
     object:
       | string
       | Record<string, any>
