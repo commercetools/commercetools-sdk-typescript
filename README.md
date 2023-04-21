@@ -4,7 +4,7 @@
 </p>
 <p align="center">
   <a href="https://circleci.com/gh/commercetools/commercetools-sdk-typescript">
-    <img alt="CircleCI Status" src="https://circleci.com/gh/commercetools/commercetools-sdk-typescript.svg?style=shield&circle-token=5eae5720e32669bf981a19603a7b8007821687e1">
+    <img alt="CircleCI Status" src="https://img.shields.io/circleci/build/github/commercetools/commercetools-sdk-typescript/master">
   </a>
   <a href="https://codecov.io/gh/commercetools/commercetools-sdk-typescript">
    <img alt="Codecov branch" src="https://img.shields.io/codecov/c/github/commercetools/commercetools-sdk-typescript/chore/small-repo-improvement">
