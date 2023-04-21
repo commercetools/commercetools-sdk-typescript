@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/ml-sdk",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "engines": {
     "node": ">=14"
   },
@@ -32,13 +32,13 @@
     "./dist/commercetools-ml-sdk.esm.js": "./dist/commercetools-ml-sdk.browser.esm.js"
   },
   "dependencies": {
-    "@commercetools/sdk-client-v2": "^2.1.5",
+    "@commercetools/sdk-client-v2": "^2.1.6",
     "@commercetools/sdk-middleware-auth": "^7.0.0",
     "@commercetools/sdk-middleware-http": "^7.0.0",
     "@commercetools/sdk-middleware-logger": "^3.0.0"
   },
   "devDependencies": {
-    "@commercetools/platform-sdk": "4.7.0",
+    "@commercetools/platform-sdk": "4.7.1",
     "@types/uuid": "9.0.1",
     "organize-imports-cli": "0.10.0",
     "tsconfig-replace-paths": "0.0.14",

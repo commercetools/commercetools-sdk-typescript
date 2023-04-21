@@ -1,5 +1,15 @@
 # @commercetools/platform-sdk
 
+## 4.7.1
+
+### Patch Changes
+
+- [#453](https://github.com/commercetools/commercetools-sdk-typescript/pull/453) [`a83e653`](https://github.com/commercetools/commercetools-sdk-typescript/commit/a83e653c986e50f31f71546edc721263d29990b5) Thanks [@ajimae](https://github.com/ajimae)! - - Remove all `querystring` dependency
+  - Add qs dependency to requiring package
+  - Refactor code to accommodate new implementation
+- Updated dependencies [[`a83e653`](https://github.com/commercetools/commercetools-sdk-typescript/commit/a83e653c986e50f31f71546edc721263d29990b5)]:
+  - @commercetools/sdk-client-v2@2.1.6
+
 ## 4.7.0
 
 ### Minor Changes
