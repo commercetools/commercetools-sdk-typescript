@@ -1,4 +1,3 @@
-import qs from 'querystring'
 import { Process, createClient, ClientBuilder } from '../../src'
 import { createApiBuilderFromCtpClient } from '../../../platform-sdk'
 import {
@@ -7,6 +6,7 @@ import {
   MiddlewareResponse,
 } from '../../src/types/sdk.d'
 import fetch from 'node-fetch'
+import { stringifyURLString, parseURLString } from '../../src/utils'
 
 const createPayloadResult = (tot, startingId = 0) => ({
   count: tot,
@@ -278,7 +278,7 @@ describe('process', () => {
       middlewares: [
         (next) => (req, res) => {
           const body = reqStubs[reqCount].body
-          expect(qs.parse(req.uri.split('?')[1])).toEqual(
+          expect(parseURLString(req.uri.split('?')[1])).toEqual(
             reqStubs[reqCount].query
           )
 
@@ -330,7 +330,7 @@ describe('process', () => {
       middlewares: [
         (next) => (req, res) => {
           const body = reqStubs[reqCount].body
-          expect(qs.parse(req.uri.split('?')[1])).toEqual(
+          expect(parseURLString(req.uri.split('?')[1])).toEqual(
             reqStubs[reqCount].query
           )
 
@@ -373,8 +373,9 @@ describe('process', () => {
     const client = createClient({
       middlewares: [
         (next) => (req, res) => {
+          // console.log(req.uri.split('?')[1], '>>>>', reqStubs[reqCount].query)
           const body = reqStubs[reqCount].body
-          expect(qs.parse(req.uri.split('?')[1])).toEqual(
+          expect(parseURLString(req.uri.split('?')[1])).toEqual(
             reqStubs[reqCount].query
           )
 
@@ -386,11 +387,11 @@ describe('process', () => {
     return client.process(
       {
         ...request,
-        uri: `${request.uri}?${qs.stringify({
+        uri: `${request.uri}?${stringifyURLString({
           sort: 'createdAt desc',
           where: 'name (en = "Foo")',
           limit: 5,
-        })}`,
+        }).toString()}`,
       },
       () => Promise.resolve('OK')
     )
@@ -432,7 +433,7 @@ describe('process', () => {
       middlewares: [
         (next) => (req, res) => {
           const body = reqStubs[reqCount].body
-          expect(qs.parse(req.uri.split('?')[1])).toEqual(
+          expect(parseURLString(req.uri.split('?')[1])).toEqual(
             reqStubs[reqCount].query
           )
 
@@ -446,7 +447,7 @@ describe('process', () => {
     const processRes = await client.process(
       {
         ...request,
-        uri: `${request.uri}?${qs.stringify({
+        uri: `${request.uri}?${stringifyURLString({
           sort: 'createdAt desc',
           where: 'name (en = "Foo")',
           limit: 5,
@@ -601,7 +602,7 @@ describe('process - exposed', () => {
       middlewares: [
         (next) => (req, res) => {
           const body = reqStubs[reqCount].body
-          expect(qs.parse(req.uri.split('?')[1])).toEqual(
+          expect(parseURLString(req.uri.split('?')[1])).toEqual(
             reqStubs[reqCount].query
           )
 
@@ -653,7 +654,7 @@ describe('process - exposed', () => {
       middlewares: [
         (next) => (req, res) => {
           const body = reqStubs[reqCount].body
-          expect(qs.parse(req.uri.split('?')[1])).toEqual(
+          expect(parseURLString(req.uri.split('?')[1])).toEqual(
             reqStubs[reqCount].query
           )
 
@@ -697,7 +698,7 @@ describe('process - exposed', () => {
       middlewares: [
         (next) => (req, res) => {
           const body = reqStubs[reqCount].body
-          expect(qs.parse(req.uri.split('?')[1])).toEqual(
+          expect(parseURLString(req.uri.split('?')[1])).toEqual(
             reqStubs[reqCount].query
           )
 
@@ -710,11 +711,11 @@ describe('process - exposed', () => {
     return Process(
       {
         ...request,
-        uri: `${request.uri}?${qs.stringify({
+        uri: `${request.uri}?${stringifyURLString({
           sort: 'createdAt desc',
           where: 'name (en = "Foo")',
           limit: 5,
-        })}`,
+        }).toString()}`,
       },
       () => Promise.resolve('OK'),
       {}
@@ -757,7 +758,7 @@ describe('process - exposed', () => {
       middlewares: [
         (next) => (req, res) => {
           const body = reqStubs[reqCount].body
-          expect(qs.parse(req.uri.split('?')[1])).toEqual(
+          expect(parseURLString(req.uri.split('?')[1])).toEqual(
             reqStubs[reqCount].query
           )
 
@@ -771,7 +772,7 @@ describe('process - exposed', () => {
     const processRes = await Process(
       {
         ...request,
-        uri: `${request.uri}?${qs.stringify({
+        uri: `${request.uri}?${stringifyURLString({
           sort: 'createdAt desc',
           where: 'name (en = "Foo")',
           limit: 5,
