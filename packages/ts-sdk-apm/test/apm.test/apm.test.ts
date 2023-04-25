@@ -1,5 +1,11 @@
-import { MiddlewareRequest, MiddlewareResponse } from '../../src'
-import { createApmMiddleware } from '../../src'
+import {
+  type MiddlewareRequest,
+  type MiddlewareResponse,
+  createTelemetryMiddleware,
+} from '../../src'
+
+jest.mock('newrelic', () => {})
+jest.mock('../../opentelemetry', () => {})
 
 function createTestRequest(options): MiddlewareRequest {
   return {
@@ -18,50 +24,58 @@ function createTestResponse(options): MiddlewareResponse {
 }
 
 describe('apm', () => {
-  beforeEach(() => {
-    jest.resetModules()
-  })
-
   const request = createTestRequest({
     headers: {
       Authorization: '123',
     },
   })
 
-  describe('apm test - falsy', () => {
-    const response = createTestResponse(null)
-    const apmMiddleware = createApmMiddleware()
+  describe('apm test - null tracer configurations', () => {
+    const response = createTestResponse({})
+    const telemetryMiddleware = createTelemetryMiddleware({
+      apm: null,
+      tracer: null,
+    })
 
     const next = (req: MiddlewareRequest) => {
-      test('retains existing headers', () => {
-        expect(req.headers.Authorization).toBe('123')
+      test('retains existing request (headers)', () => {
+        expect(req.headers?.Authorization).toBe('123')
       })
 
-      test('should not accept an option parameter', () => {
-        expect(req['apm']).toBeFalsy()
-        expect(req['apm']).toEqual(undefined)
+      test('should use default apm and tracing configurations', () => {
+        expect(req['apm']).toBeTruthy()
+        expect(req['tracer']).toBeTruthy()
+
+        expect(typeof req['apm']).toEqual('function')
+        expect(typeof req['tracer']).toEqual('function')
       })
     }
 
-    apmMiddleware(next)(request, response)
+    telemetryMiddleware(next)(request, response)
   })
 
-  describe('apm test - truthy', () => {
+  describe('should use provided apm and tracer configurations', () => {
     const options = {
-      apm: jest.fn(() => ({ n: 'module' })),
-      createApmMiddleware: jest.fn(),
+      apm: jest.fn(() => ({ a: 'apm-module' })),
+      tracer: jest.fn(() => ({ t: 'tracer-module' })),
     }
 
     const response = createTestResponse({})
-    const apmMiddleware = createApmMiddleware(options)
+    const telemetryMiddleware = createTelemetryMiddleware(options)
 
     const next = (req: MiddlewareRequest) => {
-      test('adds an `apm` and `createApmMiddleware` properties in request object', () => {
+      test('adds an `apm` and `tracer` properties in request object', () => {
         expect(req['apm']).toBeTruthy()
-        expect(req['createApmMiddleware']).toBeTruthy()
+        expect(req['tracer']).toBeTruthy()
+
+        expect(typeof req['apm']).toEqual('function')
+        expect(typeof req['tracer']).toEqual('function')
+
+        expect(req['apm']()).toEqual({ a: 'apm-module' })
+        expect(req['tracer']()).toEqual({ t: 'tracer-module' })
       })
     }
 
-    apmMiddleware(next)(request, response)
+    telemetryMiddleware(next)(request, response)
   })
 })

@@ -94,7 +94,10 @@ export type MethodType =
   | 'UNLOCK'
   | 'UNSUBSCRIBE'
 
-export type ApmMiddlewareOptions = {
-  apm: any,
-  createApmMiddleware: (options?: any) => Middleware
+export type TelemetryMiddlewareOptions = {
+  apm?: Function,
+  tracer?: Function,
+  createTelemetryMiddleware: (options?: OTelemetryMiddlewareOptions) => Middleware
 }
+
+export type OTelemetryMiddlewareOptions = Omit<TelemetryMiddlewareOptions, 'createTelemetryMiddleware'>
