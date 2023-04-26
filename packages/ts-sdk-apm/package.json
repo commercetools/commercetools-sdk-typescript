@@ -26,6 +26,7 @@
     "sdk",
     "apm",
     "telemetry",
+    "opentelemetry",
     "tracing"
   ],
   "homepage": "https://github.com/commercetools/commercetools-typescript-sdks",
