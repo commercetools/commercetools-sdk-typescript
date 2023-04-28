@@ -9,8 +9,9 @@
   "private": false,
   "dependencies": {
     "@opentelemetry/api": "^1.4.1",
-    "@opentelemetry/node": "^0.24.0",
-    "@opentelemetry/tracing": "^0.24.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.36.6",
+    "@opentelemetry/exporter-metrics-otlp-http": "^0.38.0",
+    "@opentelemetry/sdk-node": "^0.38.0",
     "newrelic": "^9.15.0"
   },
   "publishConfig": {
