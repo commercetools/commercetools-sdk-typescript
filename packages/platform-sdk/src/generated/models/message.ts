@@ -4,9 +4,11 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { AssociateRole, Permission } from './associate-role'
 import {
   Associate,
   BusinessUnit,
+  BusinessUnitAssociateMode,
   BusinessUnitKeyReference,
   BusinessUnitStatus,
   BusinessUnitStoreMode,
@@ -69,7 +71,7 @@ import {
   ProductVariant,
 } from './product'
 import {
-  ProductSelectionType,
+  ProductSelection,
   ProductVariantExclusion,
   ProductVariantSelection,
 } from './product-selection'
@@ -104,11 +106,19 @@ export interface ContainerAndKey {
  *
  */
 export type Message =
+  | AssociateRoleBuyerAssignableChangedMessage
+  | AssociateRoleCreatedMessage
+  | AssociateRoleDeletedMessage
+  | AssociateRoleNameChangedMessage
+  | AssociateRolePermissionAddedMessage
+  | AssociateRolePermissionRemovedMessage
+  | AssociateRolePermissionsSetMessage
   | BusinessUnitAddressAddedMessage
   | BusinessUnitAddressChangedMessage
   | BusinessUnitAddressRemovedMessage
   | BusinessUnitAssociateAddedMessage
   | BusinessUnitAssociateChangedMessage
+  | BusinessUnitAssociateModeChangedMessage
   | BusinessUnitAssociateRemovedMessage
   | BusinessUnitAssociatesSetMessage
   | BusinessUnitBillingAddressAddedMessage
@@ -256,6 +266,490 @@ export type Message =
   | StoreNameSetMessage
   | StoreProductSelectionsChangedMessage
   | StoreSupplyChannelsChangedMessage
+/**
+ *	Generated after a successful [Change BuyerAssignable](ctp:api:type:AssociateRoleChangeBuyerAssignableAction) update action.
+ *
+ */
+export interface AssociateRoleBuyerAssignableChangedMessage {
+  readonly type: 'AssociateRoleBuyerAssignableChanged'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The new value of the `buyerAssignable` field of the AssociateRole.
+   *
+   *
+   */
+  readonly buyerAssignable: boolean
+}
+/**
+ *	Generated after a successful [Create AssociateRole](/projects/associate-roles#create-associaterole) request.
+ *
+ */
+export interface AssociateRoleCreatedMessage {
+  readonly type: 'AssociateRoleCreated'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The [AssociateRole](ctp:api:type:AssociateRole) that was created.
+   *
+   *
+   */
+  readonly associateRole: AssociateRole
+}
+/**
+ *	Generated after a successful [Delete AssociateRole](/projects/associate-roles#delete-associaterole) request.
+ *
+ */
+export interface AssociateRoleDeletedMessage {
+  readonly type: 'AssociateRoleDeleted'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+}
+/**
+ *	Generated after a successful [Set Name](ctp:api:type:AssociateRoleSetNameAction) update action.
+ *
+ */
+export interface AssociateRoleNameChangedMessage {
+  readonly type: 'AssociateRoleNameSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Updated name of the [AssociateRole](ctp:api:type:AssociateRole).
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after a successful [Add Permissions](ctp:api:type:AssociateRoleAddPermissionAction) update action.
+ *
+ */
+export interface AssociateRolePermissionAddedMessage {
+  readonly type: 'AssociateRolePermissionAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Permission that was added to the AssociateRole.
+   *
+   *
+   */
+  readonly permission: Permission
+}
+/**
+ *	Generated after a successful [Remove Permissions](ctp:api:type:AssociateRoleRemovePermissionAction) update action.
+ *
+ */
+export interface AssociateRolePermissionRemovedMessage {
+  readonly type: 'AssociateRolePermissionRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Permission that was removed from the AssociateRole.
+   *
+   *
+   */
+  readonly permission: Permission
+}
+/**
+ *	Generated after a successful [Set Permissions](ctp:api:type:AssociateRoleSetPermissionsAction) update action.
+ *
+ */
+export interface AssociateRolePermissionsSetMessage {
+  readonly type: 'AssociateRolePermissionsSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Permission assigned to the AssociateRole.
+   *
+   *
+   */
+  readonly permissions: Permission[]
+}
 /**
  *	Generated after a successful [Add Address](ctp:api:type:BusinessUnitAddAddressAction) update action.
  *
@@ -605,6 +1099,82 @@ export interface BusinessUnitAssociateChangedMessage {
    *
    */
   readonly associate: Associate
+}
+/**
+ *	Generated after a successful [Change Associate Mode](ctp:api:type:BusinessUnitChangeAssociateModeAction) update action.
+ *
+ */
+export interface BusinessUnitAssociateModeChangedMessage {
+  readonly type: 'BusinessUnitAssociateModeChanged'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[BusinessUnitAssociateMode](ctp:api:type:BusinessUnitAssociateMode) of the Business Unit after the [Change Associate Mode](ctp:api:type:BusinessUnitChangeAssociateModeAction) update action.
+   *
+   *
+   */
+  readonly associateMode: BusinessUnitAssociateMode
+  /**
+   *	[BusinessUnitAssociateMode](ctp:api:type:BusinessUnitAssociateMode) of the Business Unit before the [Change Associate Mode](ctp:api:type:BusinessUnitChangeAssociateModeAction) update action.
+   *
+   *
+   */
+  readonly oldAssociateMode: BusinessUnitAssociateMode
 }
 /**
  *	Generated after a successful [Remove Associate](ctp:api:type:BusinessUnitRemoveAssociateAction) update action.
@@ -5168,7 +5738,7 @@ export interface OrderLineItemDiscountSetMessage {
    */
   readonly taxedPrice?: TaxedItemPrice
   /**
-   *	Taxed price of the Shipping Methods in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode)..
+   *	Taxed price of the Shipping Methods in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -8374,11 +8944,11 @@ export interface ProductSelectionCreatedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	The `type` and `name` of the individual Product Selection.
+   *	[Product Selection](ctp:api:type:ProductSelection) that was created.
    *
    *
    */
-  readonly productSelection: ProductSelectionType
+  readonly productSelection: ProductSelection
 }
 /**
  *	Generated after a successful [Delete Product Selection](/../api/projects/product-selections#create-product-selection) request.
@@ -11867,11 +12437,19 @@ export interface UserProvidedIdentifiers {
   readonly containerAndKey?: ContainerAndKey
 }
 export type MessagePayload =
+  | AssociateRoleBuyerAssignableChangedMessagePayload
+  | AssociateRoleCreatedMessagePayload
+  | AssociateRoleDeletedMessagePayload
+  | AssociateRoleNameChangedMessagePayload
+  | AssociateRolePermissionAddedMessagePayload
+  | AssociateRolePermissionRemovedMessagePayload
+  | AssociateRolePermissionsSetMessagePayload
   | BusinessUnitAddressAddedMessagePayload
   | BusinessUnitAddressChangedMessagePayload
   | BusinessUnitAddressRemovedMessagePayload
   | BusinessUnitAssociateAddedMessagePayload
   | BusinessUnitAssociateChangedMessagePayload
+  | BusinessUnitAssociateModeChangedMessagePayload
   | BusinessUnitAssociateRemovedMessagePayload
   | BusinessUnitAssociatesSetMessagePayload
   | BusinessUnitBillingAddressAddedMessagePayload
@@ -12021,6 +12599,91 @@ export type MessagePayload =
   | StoreProductSelectionsChangedMessagePayload
   | StoreSupplyChannelsChangedMessagePayload
 /**
+ *	Generated after a successful [Change BuyerAssignable](ctp:api:type:AssociateRoleChangeBuyerAssignableAction) update action.
+ *
+ */
+export interface AssociateRoleBuyerAssignableChangedMessagePayload {
+  readonly type: 'AssociateRoleBuyerAssignableChanged'
+  /**
+   *	The new value of the `buyerAssignable` field of the AssociateRole.
+   *
+   *
+   */
+  readonly buyerAssignable: boolean
+}
+/**
+ *	Generated after a successful [Create AssociateRole](/projects/associate-roles#create-associaterole) request.
+ *
+ */
+export interface AssociateRoleCreatedMessagePayload {
+  readonly type: 'AssociateRoleCreated'
+  /**
+   *	The [AssociateRole](ctp:api:type:AssociateRole) that was created.
+   *
+   *
+   */
+  readonly associateRole: AssociateRole
+}
+/**
+ *	Generated after a successful [Delete AssociateRole](/projects/associate-roles#delete-associaterole) request.
+ *
+ */
+export interface AssociateRoleDeletedMessagePayload {
+  readonly type: 'AssociateRoleDeleted'
+}
+/**
+ *	Generated after a successful [Set Name](ctp:api:type:AssociateRoleSetNameAction) update action.
+ *
+ */
+export interface AssociateRoleNameChangedMessagePayload {
+  readonly type: 'AssociateRoleNameSet'
+  /**
+   *	Updated name of the [AssociateRole](ctp:api:type:AssociateRole).
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after a successful [Add Permissions](ctp:api:type:AssociateRoleAddPermissionAction) update action.
+ *
+ */
+export interface AssociateRolePermissionAddedMessagePayload {
+  readonly type: 'AssociateRolePermissionAdded'
+  /**
+   *	The Permission that was added to the AssociateRole.
+   *
+   *
+   */
+  readonly permission: Permission
+}
+/**
+ *	Generated after a successful [Remove Permissions](ctp:api:type:AssociateRoleRemovePermissionAction) update action.
+ *
+ */
+export interface AssociateRolePermissionRemovedMessagePayload {
+  readonly type: 'AssociateRolePermissionRemoved'
+  /**
+   *	The Permission that was removed from the AssociateRole.
+   *
+   *
+   */
+  readonly permission: Permission
+}
+/**
+ *	Generated after a successful [Set Permissions](ctp:api:type:AssociateRoleSetPermissionsAction) update action.
+ *
+ */
+export interface AssociateRolePermissionsSetMessagePayload {
+  readonly type: 'AssociateRolePermissionsSet'
+  /**
+   *	Permission assigned to the AssociateRole.
+   *
+   *
+   */
+  readonly permissions: Permission[]
+}
+/**
  *	Generated after a successful [Add Address](ctp:api:type:BusinessUnitAddAddressAction) update action.
  *
  */
@@ -12084,6 +12747,25 @@ export interface BusinessUnitAssociateChangedMessagePayload {
    *
    */
   readonly associate: Associate
+}
+/**
+ *	Generated after a successful [Change Associate Mode](ctp:api:type:BusinessUnitChangeAssociateModeAction) update action.
+ *
+ */
+export interface BusinessUnitAssociateModeChangedMessagePayload {
+  readonly type: 'BusinessUnitAssociateModeChanged'
+  /**
+   *	[BusinessUnitAssociateMode](ctp:api:type:BusinessUnitAssociateMode) of the Business Unit after the [Change Associate Mode](ctp:api:type:BusinessUnitChangeAssociateModeAction) update action.
+   *
+   *
+   */
+  readonly associateMode: BusinessUnitAssociateMode
+  /**
+   *	[BusinessUnitAssociateMode](ctp:api:type:BusinessUnitAssociateMode) of the Business Unit before the [Change Associate Mode](ctp:api:type:BusinessUnitChangeAssociateModeAction) update action.
+   *
+   *
+   */
+  readonly oldAssociateMode: BusinessUnitAssociateMode
 }
 /**
  *	Generated after a successful [Remove Associate](ctp:api:type:BusinessUnitRemoveAssociateAction) update action.
@@ -13151,7 +13833,7 @@ export interface OrderLineItemDiscountSetMessagePayload {
    */
   readonly taxedPrice?: TaxedItemPrice
   /**
-   *	Taxed price of the Shipping Methods in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode)..
+   *	Taxed price of the Shipping Methods in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -14035,11 +14717,11 @@ export interface ProductRevertedStagedChangesMessagePayload {
 export interface ProductSelectionCreatedMessagePayload {
   readonly type: 'ProductSelectionCreated'
   /**
-   *	The `type` and `name` of the individual Product Selection.
+   *	[Product Selection](ctp:api:type:ProductSelection) that was created.
    *
    *
    */
-  readonly productSelection: ProductSelectionType
+  readonly productSelection: ProductSelection
 }
 /**
  *	Generated after a successful [Delete Product Selection](/../api/projects/product-selections#create-product-selection) request.

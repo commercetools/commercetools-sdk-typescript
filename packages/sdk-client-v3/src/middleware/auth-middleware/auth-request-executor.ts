@@ -1,14 +1,13 @@
+import { Buffer } from 'buffer/'
 import {
-  Task,
   ClientRequest,
-  TokenInfo,
   executeRequestOptions,
   IBuiltRequestParams,
-  MiddlewareResponse,
+  Task,
+  TokenInfo,
 } from '../../types/types'
+import { calculateExpirationTime, executor, mergeAuthHeader } from '../../utils'
 import { buildRequestForRefreshTokenFlow } from './auth-request-builder'
-import { Buffer } from 'buffer/'
-import { calculateExpirationTime, mergeAuthHeader, executor } from '../../utils'
 
 export async function executeRequest(
   options: executeRequestOptions

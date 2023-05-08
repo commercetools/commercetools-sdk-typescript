@@ -1,9 +1,9 @@
 import {
-  Next,
+  LoggerMiddlewareOptions,
   Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
-  LoggerMiddlewareOptions,
+  Next,
 } from '../types/types'
 import { maskAuthData } from '../utils'
 

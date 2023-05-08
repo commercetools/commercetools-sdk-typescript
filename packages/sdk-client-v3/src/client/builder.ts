@@ -1,23 +1,23 @@
 import fetch from 'node-fetch'
-import { default as createClient } from './client'
 import * as middleware from '../middleware'
 import { constants } from '../utils'
+import { default as createClient } from './client'
 
 import {
-  Client,
   AuthMiddlewareOptions,
+  Client,
   CorrelationIdMiddlewareOptions,
   Credentials,
+  ErrorMiddlewareOptions,
   ExistingTokenMiddlewareOptions,
   HttpMiddlewareOptions,
   HttpUserAgentOptions,
+  LoggerMiddlewareOptions,
   Middleware,
   Nullable,
   PasswordAuthMiddlewareOptions,
   QueueMiddlewareOptions,
   RefreshAuthMiddlewareOptions,
-  LoggerMiddlewareOptions,
-  ErrorMiddlewareOptions,
 } from '../types/types'
 
 const {

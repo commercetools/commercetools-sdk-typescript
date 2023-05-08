@@ -2,9 +2,7 @@ import { METHODS } from '../../src/utils'
 import {
   ClientRequest,
   HttpMiddlewareOptions,
-  HttpUserAgentOptions,
   Middleware,
-  MethodType,
 } from '../types/types'
 
 /**

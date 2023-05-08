@@ -1278,7 +1278,7 @@ export interface MissingRoleOnChannelError {
  *
  *	The error is returned as a failed response to:
  *
- *	- [Set Default Shipping Address](ctp:api:type:CustomerSetDefaultShippingAddressAction), [Add LineItem](ctp:api:type:CartAddLineItemAction), [Add CustomLineItem](ctp:api:type:CartAddCustomLineItemAction), [Set Shipping Address](ctp:api:type:CartSetShippingAddressAction), [Set Customer ID](ctp:api:type:CartSetCustomerIdAction), [Add LineItem](ctp:api:type:MyCartAddLineItemAction), [Add LineItem](ctp:api:type:StagedOrderAddLineItemAction), and [Add CustomLineItem](ctp:api:type:StagedOrderAddCustomLineItemAction) update actions
+ *	- [Set Default Shipping Address](ctp:api:type:CustomerSetDefaultShippingAddressAction), [Add LineItem](ctp:api:type:CartAddLineItemAction), [Add CustomLineItem](ctp:api:type:CartAddCustomLineItemAction), [Set Shipping Address](ctp:api:type:CartSetShippingAddressAction), [Add LineItem](ctp:api:type:MyCartAddLineItemAction), [Add LineItem](ctp:api:type:StagedOrderAddLineItemAction), and [Add CustomLineItem](ctp:api:type:StagedOrderAddCustomLineItemAction) update actions
  *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests.
  *
  */
@@ -1526,7 +1526,6 @@ export interface PriceChangedError {
 }
 /**
  *	Returned when a Product is not assigned to the Product Selection.
- *
  *	The error is returned as a failed response either to the [Set Variant Selection](ctp:api:type:ProductSelectionSetVariantSelectionAction) or to the [Set Variant Exclusion](ctp:api:type:ProductSelectionSetVariantExclusionAction) update action.
  *
  */
@@ -1534,12 +1533,9 @@ export interface ProductAssignmentMissingError {
   readonly code: 'ProductAssignmentMissing'
   [key: string]: any
   /**
-   *	For Product Selection of type Individual, the message is:
-   *
+   *	For Product Selection of mode Individual, the message is:
    *	`"A Product Variant Selection can only be set for a Product that has previously been added to the Product Selection."`
-   *
-   *	For Product Selection of type Individual Exclusion, the message is:
-   *
+   *	For Product Selection of mode IndividualExclusion, the message is:
    *	`"A Variant Exclusion can only be set for a Product that has previously been added to the Product Selection of type Individual Exclusion."`
    *
    *
@@ -2752,7 +2748,7 @@ export interface GraphQLMissingRoleOnChannelError {
  *
  *	The error is returned as a failed response to:
  *
- *	- [Set Default Shipping Address](ctp:api:type:CustomerSetDefaultShippingAddressAction), [Add LineItem](ctp:api:type:CartAddLineItemAction), [Add CustomLineItem](ctp:api:type:CartAddCustomLineItemAction), [Set Shipping Address](ctp:api:type:CartSetShippingAddressAction), [Set Customer ID](ctp:api:type:CartSetCustomerIdAction), [Add LineItem](ctp:api:type:MyCartAddLineItemAction), [Add LineItem](ctp:api:type:StagedOrderAddLineItemAction), and [Add CustomLineItem](ctp:api:type:StagedOrderAddCustomLineItemAction) update actions
+ *	- [Set Default Shipping Address](ctp:api:type:CustomerSetDefaultShippingAddressAction), [Add LineItem](ctp:api:type:CartAddLineItemAction), [Add CustomLineItem](ctp:api:type:CartAddCustomLineItemAction), [Set Shipping Address](ctp:api:type:CartSetShippingAddressAction), [Add LineItem](ctp:api:type:MyCartAddLineItemAction), [Add LineItem](ctp:api:type:StagedOrderAddLineItemAction), and [Add CustomLineItem](ctp:api:type:StagedOrderAddCustomLineItemAction) update actions
  *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests.
  *
  */
@@ -2948,7 +2944,6 @@ export interface GraphQLPriceChangedError {
 }
 /**
  *	Returned when a Product is not assigned to the Product Selection.
- *
  *	The error is returned as a failed response either to the [Set Variant Selection](ctp:api:type:ProductSelectionSetVariantSelectionAction) or to the [Set Variant Exclusion](ctp:api:type:ProductSelectionSetVariantExclusionAction) update action.
  *
  */

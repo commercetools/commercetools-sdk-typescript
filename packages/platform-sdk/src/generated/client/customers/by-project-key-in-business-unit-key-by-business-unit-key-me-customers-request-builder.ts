@@ -22,9 +22,8 @@ export class ByProjectKeyInBusinessUnitKeyByBusinessUnitKeyMeCustomersRequestBui
   ) {}
   /**
    *	The My Business Unit endpoint does not support assigning existing Customers to a Business Unit.
-   *	Use this endpoint to create a new Customer and associate it with the Business Unit.
-   *	The user must have the `Admin` role within the Business Unit to perform this request.
-   *	The new Customer is created with an empty set of roles.
+   *	Associates with the `UpdateAssociates` [Permission](ctp:api:type:Permission) can use this endpoint to create a new Customer and associate it with the Business Unit.
+   *	The new Associate is created with an empty set of roles.
    *
    */
   public post(methodArgs: {

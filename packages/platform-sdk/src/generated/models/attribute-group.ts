@@ -201,7 +201,7 @@ export type AttributeGroupUpdateAction =
   | AttributeGroupSetKeyAction
 export interface AttributeReference {
   /**
-   *	Key of the attribute.
+   *	The Attribute's `name` as given in its [AttributeDefinition](ctp:api:type:AttributeDefinition).
    *
    *
    */

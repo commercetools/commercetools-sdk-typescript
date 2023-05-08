@@ -1,19 +1,19 @@
 import fetch from 'node-fetch'
 import {
-  Next,
-  Task,
+  AuthMiddlewareOptions,
   Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
+  Next,
   RequestState,
-  AuthMiddlewareOptions,
   RequestStateStore,
+  Task,
   TokenCache,
   TokenStore,
 } from '../../types/types'
+import { buildTokenCacheKey, store } from '../../utils'
 import { buildRequestForAnonymousSessionFlow } from './auth-request-builder'
 import { executeRequest } from './auth-request-executor'
-import { store, buildTokenCacheKey } from '../../utils'
 
 export default function createAuthMiddlewareForAnonymousSessionFlow(
   options: AuthMiddlewareOptions
