@@ -38,7 +38,7 @@ export class ByProjectKeyRequestBuilder {
 
   public get(methodArgs?: {
     queryArgs?: {
-      resourceType?: ChangeHistoryResourceType | ChangeHistoryResourceType[]
+      resourceTypes?: ChangeHistoryResourceType | ChangeHistoryResourceType[]
       'date.from'?: any
       'date.to'?: any
       limit?: number

@@ -27,7 +27,7 @@ export interface AssignedProductReference {
   /**
    *	The Variants of the Product that are included from the Product Selection.
    *
-   *	This field may exist only for the [IndividualProductSelectionType](ctp:api:type:IndividualProductSelectionType).
+   *	This field may exist only in Product Selections with `Individual` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
    *	In absence of this field, all Variants are deemed to be included.
    *
    *
@@ -36,7 +36,7 @@ export interface AssignedProductReference {
   /**
    *	The Variants of the Product that are excluded from the Product Selection.
    *
-   *	This field may exist only for the [IndividualExclusionProductSelectionType](ctp:api:type:IndividualExclusionProductSelectionType).
+   *	This field may exist only in Product Selections with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
    *	In absence of this field, all Variants are deemed to be excluded.
    *
    *
@@ -50,9 +50,9 @@ export interface AssignedProductSelection {
    */
   readonly productSelection: ProductSelectionReference
   /**
-   *	Defines which Variants of the Product will be included from the Product Selection.
+   *	Defines which Variants of the Product will be included in the Product Selection.
    *
-   *	This field is only available for Assignments to a Product Selection of type [Individual](ctp:api:type:IndividualProductSelectionType).
+   *	This field is only available for assignments to a Product Selection with `Individual` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
    *
    *
    */
@@ -60,7 +60,7 @@ export interface AssignedProductSelection {
   /**
    *	Defines which Variants of the Product will be excluded from the Product Selection.
    *
-   *	This field is only available for Assignments to a Product Selection of type [Individual Exclusion](ctp:api:type:IndividualExclusionProductSelectionType).
+   *	This field is only available for assignments to a Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
    *
    *
    */
@@ -160,10 +160,16 @@ export interface ProductSelection extends BaseResource {
   readonly productCount: number
   /**
    *	Specifies in which way the Products are assigned to the ProductSelection.
-   *	Currently, the only way of doing this is to specify each Product individually, either by [including](ctp:api:type:IndividualProductSelectionType) or [excluding](ctp:api:type:IndividualExclusionProductSelectionType) them explicitly.
+   *	Currently, the only way of doing this is to specify each Product individually, either by [including or excluding](ctp:api:type:ProductSelectionMode) them explicitly.
+   *	@deprecated
+   */
+  readonly type?: ProductSelectionTypeEnum
+  /**
+   *	Specifies in which way the Products are assigned to the ProductSelection.
+   *	Currently, the only way of doing this is to specify each Product individually, either by [including or excluding](ctp:api:type:ProductSelectionMode) them explicitly.
    *
    */
-  readonly type: ProductSelectionTypeEnum
+  readonly mode: ProductSelectionMode
   /**
    *	Custom Fields of the ProductSelection.
    *
@@ -172,10 +178,10 @@ export interface ProductSelection extends BaseResource {
 }
 /**
  *
- *	Given the type of Product Selection this Assignment refers to, it may contain:
+ *	Given the mode of Product Selection, this assignment refers to, it may contain:
  *
- *	- `variantSelection` field if the Product Selection is of type [Individual](ctp:api:type:IndividualProductSelectionType).
- *	- `variantExclusion` field if the Product Selection is of type [Individual Exclusion](ctp:api:type:IndividualExclusionProductSelectionType).
+ *	- `variantSelection` field for a Product Selection with `Individual` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
+ *	- `variantExclusion` field for a Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode) ([BETA](/../offering/api-contract#public-beta)).
  */
 export interface ProductSelectionAssignment {
   /**
@@ -189,9 +195,9 @@ export interface ProductSelectionAssignment {
    */
   readonly productSelection: ProductSelectionReference
   /**
-   *	Define which Variants of the added Product will be included from the Product Selection.
+   *	Define which Variants of the added Product will be included in the Product Selection.
    *
-   *	This field is only available for Assignments to a Product Selection of type [Individual](ctp:api:type:IndividualProductSelectionType).
+   *	This field is only available for assignments to a Product Selection with `Individual` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
    *	The list of SKUs will be updated automatically on any change of those performed on the respective Product itself.
    *
    *
@@ -200,7 +206,7 @@ export interface ProductSelectionAssignment {
   /**
    *	Defines which Variants of the Product will be excluded from the Product Selection.
    *
-   *	This field is only available for Assignments to a Product Selection of type [Individual Exclusion](ctp:api:type:IndividualExclusionProductSelectionType).
+   *	This field is only available for assignments to a Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
    *	The list of SKUs will be updated automatically on any change of those performed on the respective Product itself.
    *
    *
@@ -225,10 +231,20 @@ export interface ProductSelectionDraft {
   readonly custom?: CustomFieldsDraft
   /**
    *	Type of the Product Selection.
-   *
+   *	@deprecated
    */
   readonly type?: ProductSelectionTypeEnum
+  /**
+   *	Mode of the Product Selection.
+   *
+   */
+  readonly mode?: ProductSelectionMode
 }
+/**
+ *	Product Selections can have the following modes:
+ *
+ */
+export type ProductSelectionMode = 'Individual' | 'IndividualExclusion' | string
 /**
  *	[PagedQueryResult](/general-concepts#pagedqueryresult) containing an array of [ProductSelection](ctp:api:type:ProductSelection).
  *
@@ -394,12 +410,12 @@ export type ProductSelectionUpdateAction =
   | ProductSelectionSetVariantExclusionAction
   | ProductSelectionSetVariantSelectionAction
 /**
- *	Only Product Variants with the explicitly listed SKUs are part of the Product Selection of type [Individual Exclusion](ctp:api:type:IndividualExclusionProductSelectionType).
+ *	Only Product Variants with the explicitly listed SKUs are part of a Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
  *
  */
 export interface ProductVariantExclusion {
   /**
-   *	Non-empty array of SKUs representing Product Variants to be included in the Product Selection of type [Individual Exclusion](ctp:api:type:IndividualExclusionProductSelectionType).
+   *	Non-empty array of SKUs representing Product Variants to be included in the Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
    *
    *
    */
@@ -525,7 +541,7 @@ export interface ProductSelectionAddProductAction {
    */
   readonly product: ProductResourceIdentifier
   /**
-   *	Defines which Variants of the Product will be included from the Product Selection.
+   *	Defines which Variants of the Product will be included in the Product Selection.
    *	If not supplied all Variants are deemed to be included.
    *
    *
@@ -541,7 +557,7 @@ export interface ProductSelectionChangeNameAction {
   readonly name: LocalizedString
 }
 /**
- *	Excludes a Product from the Product Selection of type [Individual Exclusion](ctp:api:type:IndividualExclusionProductSelectionType).
+ *	Excludes a Product from a Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
  *
  *	If the specified Product is already assigned to the Product Selection, but the existing Product Selection has a different Product Variant Exclusion, a [ProductPresentWithDifferentVariantSelection](ctp:api:type:ProductPresentWithDifferentVariantSelectionError) error is returned.
  *
@@ -612,7 +628,7 @@ export interface ProductSelectionSetKeyAction {
 }
 /**
  *	Updates the Product Variant Exclusion of an existing [Product Selection Assignment](ctp:api:type:ProductSelectionAssignment).
- *	A [ProductVariantExclusion](ctp:api:type:ProductVariantExclusion) can only be set if the [Product](/projects/products) has already been excluded from the [Product Selection of type Individual Exclusion](/projects/product-selections).
+ *	A [ProductVariantExclusion](ctp:api:type:ProductVariantExclusion) can only be set if the [Product](ctp:api:type:Product) has already been excluded from the [Product Selection](ctp:api:type:ProductSelection) with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
  *
  *	If the specified Product is not assigned to the Product Selection, a [ProductAssignmentMissing](ctp:api:type:ProductAssignmentMissingError) error is returned.
  *
@@ -625,7 +641,7 @@ export interface ProductSelectionSetVariantExclusionAction {
    */
   readonly product: ProductResourceIdentifier
   /**
-   *	Determines which Variants of the previously excluded Product are to be included in the Product Selection of type Individual Exclusion.
+   *	Determines which Variants of the previously excluded Product are to be included in the Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
    *	Leave it empty to unset an existing Variant Exclusion.
    *
    *
@@ -634,7 +650,7 @@ export interface ProductSelectionSetVariantExclusionAction {
 }
 /**
  *	Updates the Product Variant Selection of an existing [Product Selection Assignment](ctp:api:type:ProductSelectionAssignment).
- *	A [ProductVariantSelection](ctp:api:type:ProductVariantSelection) can only be set if the [Product](ctp:api:type:Product) has already been included to the [Product Selection of type Individual](ctp:api:type:IndividualProductSelectionType).
+ *	A [ProductVariantSelection](ctp:api:type:ProductVariantSelection) can only be set if the [Product](ctp:api:type:Product) has already been included in the Product Selection with `Individual` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
  *
  *	If the specified Product is not assigned to the Product Selection, a [ProductAssignmentMissing](ctp:api:type:ProductAssignmentMissingError) error is returned.
  *

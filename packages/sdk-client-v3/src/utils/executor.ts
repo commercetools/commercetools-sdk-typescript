@@ -1,5 +1,5 @@
-import { TResponse, IResponse, HttpClientConfig } from '../types/types'
-import { sleep, validateRetryCodes, calculateRetryDelay } from '../utils'
+import { HttpClientConfig, IResponse, TResponse } from '../types/types'
+import { calculateRetryDelay, sleep, validateRetryCodes } from '../utils'
 
 function predicate(retryCodes: Array<string | number>, response: any) {
   return !(

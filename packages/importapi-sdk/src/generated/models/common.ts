@@ -176,15 +176,15 @@ export interface ImportResource {
 }
 export type _ImportResource =
   | ImportResource
-  | ProductVariantImport
-  | PriceImport
   | CategoryImport
-  | StandalonePriceImport
-  | ProductImport
-  | ProductDraftImport
-  | ProductTypeImport
   | CustomerImport
   | InventoryImport
+  | PriceImport
+  | ProductDraftImport
+  | ProductImport
+  | ProductTypeImport
+  | ProductVariantImport
+  | StandalonePriceImport
 /**
  *	References a resource by key.
  */
@@ -494,7 +494,7 @@ export interface PriceTier {
   readonly value: TypedMoney
 }
 /**
- *	The type of the import resource.
+ *	The resource types that can be imported.
  *
  */
 export type ImportResourceType =

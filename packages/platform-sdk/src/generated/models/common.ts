@@ -5,6 +5,12 @@
  */
 
 import {
+  AssociateRole,
+  AssociateRoleKeyReference,
+  AssociateRoleReference,
+  AssociateRoleResourceIdentifier,
+} from './associate-role'
+import {
   AttributeGroup,
   AttributeGroupReference,
   AttributeGroupResourceIdentifier,
@@ -15,7 +21,12 @@ import {
   BusinessUnitReference,
   BusinessUnitResourceIdentifier,
 } from './business-unit'
-import { Cart, CartReference, CartResourceIdentifier } from './cart'
+import {
+  Cart,
+  CartReference,
+  CartResourceIdentifier,
+  DirectDiscountReference,
+} from './cart'
 import {
   CartDiscount,
   CartDiscountReference,
@@ -467,7 +478,7 @@ export interface BaseAddress {
    */
   readonly externalId?: string
 }
-export type _BaseAddress = BaseAddress | AddressDraft | Address
+export type _BaseAddress = BaseAddress | Address | AddressDraft
 /**
  *	Address type returned by read methods.
  *	Optionally, the `custom` field can be present in addition to the fields of a [BaseAddress](ctp:api:type:BaseAddress).
@@ -512,23 +523,30 @@ export interface BaseResource {
 }
 export type _BaseResource =
   | BaseResource
+  | AssociateRole
+  | AttributeGroup
+  | BusinessUnit
+  | Cart
+  | CartDiscount
+  | Category
+  | Channel
   | CustomObject
-  | CustomerGroup
   | Customer
+  | CustomerGroup
   | DiscountCode
   | Extension
   | InventoryEntry
   | Message
-  | OrderEdit
   | Order
+  | OrderEdit
   | Payment
+  | Product
   | ProductDiscount
+  | ProductProjection
   | ProductSelection
   | ProductType
-  | Product
-  | ProductProjection
-  | QuoteRequest
   | Quote
+  | QuoteRequest
   | Review
   | ShippingMethod
   | ShoppingList
@@ -540,12 +558,6 @@ export type _BaseResource =
   | TaxCategory
   | Type
   | Zone
-  | Cart
-  | Channel
-  | AttributeGroup
-  | BusinessUnit
-  | CartDiscount
-  | Category
 /**
  *	These objects represent information about which [API Client](/../api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/client-logging).
  *
@@ -684,7 +696,10 @@ export interface ImageDimensions {
  *	A KeyReference represents a loose reference to another resource in the same Project identified by the resource's `key` field. If available, the `key` is immutable and mandatory. KeyReferences do not support [Reference Expansion](/general-concepts#reference-expansion).
  *
  */
-export type KeyReference = BusinessUnitKeyReference | StoreKeyReference
+export type KeyReference =
+  | AssociateRoleKeyReference
+  | BusinessUnitKeyReference
+  | StoreKeyReference
 /**
  *	Present on resources modified after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
  */
@@ -1010,6 +1025,7 @@ export interface QueryPrice {
  *
  */
 export type Reference =
+  | AssociateRoleReference
   | AttributeGroupReference
   | BusinessUnitReference
   | CartDiscountReference
@@ -1019,6 +1035,7 @@ export type Reference =
   | CustomObjectReference
   | CustomerGroupReference
   | CustomerReference
+  | DirectDiscountReference
   | DiscountCodeReference
   | InventoryEntryReference
   | OrderEditReference
@@ -1045,6 +1062,7 @@ export type Reference =
  *
  */
 export type ReferenceTypeId =
+  | 'associate-role'
   | 'attribute-group'
   | 'business-unit'
   | 'cart'
@@ -1053,6 +1071,7 @@ export type ReferenceTypeId =
   | 'channel'
   | 'customer'
   | 'customer-group'
+  | 'direct-discount'
   | 'discount-code'
   | 'extension'
   | 'inventory-entry'
@@ -1086,6 +1105,7 @@ export type ReferenceTypeId =
  *
  */
 export type ResourceIdentifier =
+  | AssociateRoleResourceIdentifier
   | AttributeGroupResourceIdentifier
   | BusinessUnitResourceIdentifier
   | CartDiscountResourceIdentifier
@@ -1117,7 +1137,7 @@ export type ResourceIdentifier =
   | ZoneResourceIdentifier
 /**
  *	Scoped Price is contained in a [ProductVariant](ctp:api:type:ProductVariant) which is returned in response to a
- *	[Search Product Projection](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request when Price Selection is used.
+ *	[Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request when [Scoped Price Search](ctp:api:type:ScopedPriceSearch) is used.
  *
  */
 export interface ScopedPrice {

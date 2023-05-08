@@ -1,16 +1,16 @@
 import {
-  Next,
-  Task,
   Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
+  Next,
   RefreshAuthMiddlewareOptions,
   RequestState,
   RequestStateStore,
+  Task,
 } from '../../types/types'
-import { executeRequest } from './auth-request-executor'
-import { buildRequestForRefreshTokenFlow } from './auth-request-builder'
 import { store } from '../../utils'
+import { buildRequestForRefreshTokenFlow } from './auth-request-builder'
+import { executeRequest } from './auth-request-executor'
 
 export default function createAuthMiddlewareForRefreshTokenFlow(
   options: RefreshAuthMiddlewareOptions

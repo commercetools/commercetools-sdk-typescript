@@ -301,8 +301,8 @@ export interface ShippingRate {
   readonly freeAbove?: TypedMoney
   /**
    *	`true` if the ShippingRate matches given [Cart](ctp:api:type:Cart) or [Location](ctp:api:type:Location).
-   *	Only appears in response to requests for [Get ShippingMethods for a Cart](#get-shippingmethods-for-a-cart) or
-   *	[Get ShippingMethods for a Location](#get-shippingmethods-for-a-location).
+   *	Only appears in response to requests for [Get ShippingMethods for a Cart](ctp:api:endpoint:/{projectKey}/shipping-methods/matching-cart:GET) or
+   *	[Get ShippingMethods for a Location](ctp:api:endpoint:/{projectKey}/shipping-methods/matching-location:GET).
    *
    *
    */
@@ -353,7 +353,7 @@ export interface CartClassificationTier {
    */
   readonly price: _Money
   /**
-   *	Appears in response to [Get ShippingMethods for a Cart](#get-shippingmethods-for-a-cart) if the shipping rate matches the search query.
+   *	Appears in response to [Get ShippingMethods for a Cart](ctp:api:endpoint:/{projectKey}/shipping-methods/matching-cart:GET) if the shipping rate matches the search query.
    *
    *
    */
@@ -385,7 +385,7 @@ export interface CartScoreTier {
    */
   readonly priceFunction?: PriceFunction
   /**
-   *	Appears in response to [Get ShippingMethods for a Cart](#get-shippingmethods-for-a-cart) if the shipping rate matches the search query.
+   *	Appears in response to [Get ShippingMethods for a Cart](ctp:api:endpoint:/{projectKey}/shipping-methods/matching-cart:GET) if the shipping rate matches the search query.
    *
    *
    */
@@ -413,7 +413,7 @@ export interface CartValueTier {
    */
   readonly price: _Money
   /**
-   *	Appears in response to [Get ShippingMethods for a Cart](#get-shippingmethods-for-a-cart) if the shipping rate matches the search query.
+   *	Appears in response to [Get ShippingMethods for a Cart](ctp:api:endpoint:/{projectKey}/shipping-methods/matching-cart:GET) if the shipping rate matches the search query.
    *
    *
    */
