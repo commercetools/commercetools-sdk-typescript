@@ -8,6 +8,7 @@ import { default as createQueueMiddleware } from '../sdk-middleware-queue/queue'
 import { default as createUserAgentMiddleware } from '../sdk-middleware-user-agent/user-agent'
 import {
   AnonymousAuthMiddlewareOptions,
+  TelemetryOptions,
   AuthMiddlewareOptions,
   Client,
   CorrelationIdMiddlewareOptions,
@@ -38,6 +39,7 @@ export default class ClientBuilder {
   private correlationIdMiddleware: Nullable<Middleware>
   private loggerMiddleware: Nullable<Middleware>
   private queueMiddleware: Nullable<Middleware>
+  private telemetryMiddleware: Nullable<Middleware>
   private middlewares: Array<Middleware> = []
 
   withProjectKey(key: string): ClientBuilder {
@@ -193,9 +195,18 @@ export default class ClientBuilder {
     return this
   }
 
+  withTelemetryMiddleware<T extends TelemetryOptions<T>>(
+    options: T
+  ): ClientBuilder {
+    const { createTelemetryMiddleware, ...rest } = options
+    this.telemetryMiddleware = createTelemetryMiddleware(rest)
+    return this
+  }
+
   build(): Client {
     const middlewares = this.middlewares.slice()
 
+    if (this.telemetryMiddleware) middlewares.push(this.telemetryMiddleware)
     if (this.correlationIdMiddleware)
       middlewares.push(this.correlationIdMiddleware)
     if (this.userAgentMiddleware) middlewares.push(this.userAgentMiddleware)
