@@ -4,6 +4,8 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { Permission } from './associate-role'
+import { BusinessUnitResourceIdentifier } from './business-unit'
 import {
   ChannelReference,
   ChannelResourceIdentifier,
@@ -16,6 +18,7 @@ import {
   Reference,
   ReferenceTypeId,
 } from './common'
+import { CustomerResourceIdentifier } from './customer'
 import {
   CustomerGroupReference,
   CustomerGroupResourceIdentifier,
@@ -42,6 +45,7 @@ export interface ErrorByExtension {
  */
 export type ErrorObject =
   | AnonymousIdAlreadyInUseError
+  | AssociateMissingPermissionError
   | AttributeDefinitionAlreadyExistsError
   | AttributeDefinitionTypeConflictError
   | AttributeNameDoesNotExistError
@@ -126,6 +130,46 @@ export interface AnonymousIdAlreadyInUseError {
    *
    */
   readonly message: string
+}
+/**
+ *	Returned when an [Associate](/projects/business-units#associate) is missing a [Permission](/projects/associate-roles#ctp:api:type:Permission) on a [B2B resource](/associates-overview#b2b-resources).
+ *
+ */
+export interface AssociateMissingPermissionError {
+  readonly code: 'AssociateMissingPermission'
+  [key: string]: any
+  /**
+   *	- When an action is performed by an Associate: `"Associate '$idOfAssociate' has no rights to $action in business-unit '$idOrKeyOfBusinessUnit'. Needs '$requiredPermission'."`
+   *	- When an action is performed for another Associate, like [viewing their Cart](/projects/associate-carts#get-cart-in-businessunit): `"Associate '$idOfAssociate' has no rights to $action for customer '$idOfCustomer' in business-unit '$idOrKeyOfBusinessUnit'. Needs '$requiredPermission'."`
+   *	- When viewing an entity: `"Associate '$idOfAssociate' has no rights to $action in business-unit '$idOrKeyOfBusinessUnit'. Needs '$requiredViewMyPermission' or '$requiredViewOthersPermission'."`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	[ResourceIdentifier](ctp:api:type:CustomerResourceIdentifier) to the [Associate](ctp:api:type:Associate) that tried to perform the action.
+   *
+   *
+   */
+  readonly associate: CustomerResourceIdentifier
+  /**
+   *	[ResourceIdentifier](ctp:api:type:BusinessUnitResourceIdentifier) to the [BusinessUnit](ctp:api:type:BusinessUnit).
+   *
+   *
+   */
+  readonly businessUnit: BusinessUnitResourceIdentifier
+  /**
+   *	[ResourceIdentifier](ctp:api:type:CustomerResourceIdentifier) of the [Associate](ctp:api:type:Associate) on whose behalf the action is performed.
+   *
+   *
+   */
+  readonly associateOnBehalf?: CustomerResourceIdentifier
+  /**
+   *	The Permissions that the [Associate](ctp:api:type:Associate) performing the action lacks. At least one of these Permissions is needed.
+   *
+   *
+   */
+  readonly permissions: Permission[]
 }
 /**
  *	Returned when the `name` of the [AttributeDefinition](ctp:api:type:AttributeDefinition) conflicts with an existing Attribute.
@@ -1849,6 +1893,7 @@ export interface VariantValues {
  */
 export type GraphQLErrorObject =
   | GraphQLAnonymousIdAlreadyInUseError
+  | GraphQLAssociateMissingPermissionError
   | GraphQLAttributeDefinitionAlreadyExistsError
   | GraphQLAttributeDefinitionTypeConflictError
   | GraphQLAttributeNameDoesNotExistError
@@ -1927,6 +1972,38 @@ export type GraphQLErrorObject =
 export interface GraphQLAnonymousIdAlreadyInUseError {
   readonly code: 'AnonymousIdAlreadyInUse'
   [key: string]: any
+}
+/**
+ *	Returned when an [Associate](/projects/business-units#associate) is missing a [Permission](/projects/associate-roles#ctp:api:type:Permission) on a [B2B resource](/associates-overview#b2b-resources).
+ *
+ */
+export interface GraphQLAssociateMissingPermissionError {
+  readonly code: 'AssociateMissingPermission'
+  [key: string]: any
+  /**
+   *	[ResourceIdentifier](ctp:api:type:CustomerResourceIdentifier) to the [Associate](ctp:api:type:Associate) that tried to perform the action.
+   *
+   *
+   */
+  readonly associate: CustomerResourceIdentifier
+  /**
+   *	[ResourceIdentifier](ctp:api:type:BusinessUnitResourceIdentifier) to the [BusinessUnit](ctp:api:type:BusinessUnit).
+   *
+   *
+   */
+  readonly businessUnit: BusinessUnitResourceIdentifier
+  /**
+   *	[ResourceIdentifier](ctp:api:type:CustomerResourceIdentifier) of the [Associate](ctp:api:type:Associate) on whose behalf the action is performed.
+   *
+   *
+   */
+  readonly associateOnBehalf?: CustomerResourceIdentifier
+  /**
+   *	The Permissions that the [Associate](ctp:api:type:Associate) performing the action lacks. At least one of these Permissions is needed.
+   *
+   *
+   */
+  readonly permissions: Permission[]
 }
 /**
  *	Returned when the `name` of the [AttributeDefinition](ctp:api:type:AttributeDefinition) conflicts with an existing Attribute.

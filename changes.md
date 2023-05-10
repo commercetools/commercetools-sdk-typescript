@@ -1,3 +1,12 @@
+**Api changes**
+
+<details>
+<summary>Added Type(s)</summary>
+
+- added type `AssociateMissingPermissionError`
+- added type `GraphQLAssociateMissingPermissionError`
+</details>
+
 **History changes**
 
 <details>
