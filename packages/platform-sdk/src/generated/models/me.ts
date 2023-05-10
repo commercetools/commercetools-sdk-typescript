@@ -2251,7 +2251,7 @@ export interface MyPaymentSetTransactionCustomFieldAction {
   readonly value?: any
 }
 /**
- *	When accepting, declining, or renegotiating [B2B Quotes](/../api/associates-overview#b2b-resources), the Customer must have the `AcceptMyQuotes`, `DeclineMyQuotes`, or `RenegotiateMyQuotes` [Permission](ctp:api:type:Permission) respectively.
+ *	When accepting, declining, or renegotiating [B2B Quotes](/../api/associates-overview#b2b-resources), the Customer must have the `AcceptMyQuotes`, `DeclineMyQuotes`, or `RenegotiateMyQuotes` [Permission](ctp:api:type:Permission), respectively. If the required [Permission](/projects/associate-roles#permission) is missing, an [AssociateMissingPermission](/errors#associatemissingpermission) error is returned.
  */
 export interface MyQuoteChangeMyQuoteStateAction {
   readonly action: 'changeMyQuoteState'
