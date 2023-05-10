@@ -43,7 +43,6 @@ jobs:
           name: Install example dependencies
           command: |
             cd examples
-            yarn global add puppeteer
             yarn install --frozen-lockfile
       - run:
           name: Building packages

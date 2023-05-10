@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const puppeteer = require('puppeteer')
+// const puppeteer = require('puppeteer')
 
 describe('Dependency test', function () {
   test('should get project details', function (done) {
