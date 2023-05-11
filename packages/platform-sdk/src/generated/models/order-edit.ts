@@ -375,9 +375,7 @@ export interface OrderEditSetStagedActionsAction {
 export interface StagedOrderAddCustomLineItemAction {
   readonly action: 'addCustomLineItem'
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Draft type that stores amounts only in cent precision for the specified currency.
    *
    *
    */
@@ -512,9 +510,7 @@ export interface StagedOrderAddLineItemAction {
    */
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Draft type that stores amounts only in cent precision for the specified currency.
    *
    *
    */
@@ -601,9 +597,7 @@ export interface StagedOrderChangeCustomLineItemMoneyAction {
    */
   readonly customLineItemId: string
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Draft type that stores amounts only in cent precision for the specified currency.
    *
    *
    */
@@ -631,9 +625,7 @@ export interface StagedOrderChangeLineItemQuantityAction {
    */
   readonly quantity: number
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Draft type that stores amounts only in cent precision for the specified currency.
    *
    *
    */
@@ -754,9 +746,7 @@ export interface StagedOrderRemoveLineItemAction {
    */
   readonly quantity?: number
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Draft type that stores amounts only in cent precision for the specified currency.
    *
    *
    */
@@ -1213,9 +1203,7 @@ export interface StagedOrderSetLineItemPriceAction {
    */
   readonly lineItemId: string
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Draft type that stores amounts only in cent precision for the specified currency.
    *
    *
    */
@@ -1307,9 +1295,7 @@ export interface StagedOrderSetOrderNumberAction {
 export interface StagedOrderSetOrderTotalTaxAction {
   readonly action: 'setOrderTotalTax'
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Draft type that stores amounts only in cent precision for the specified currency.
    *
    *
    */

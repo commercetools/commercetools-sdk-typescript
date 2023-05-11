@@ -737,9 +737,7 @@ export interface LocalizedString {
   [key: string]: string
 }
 /**
- *	Draft type that stores amounts in cent precision for the specified currency.
- *
- *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+ *	Draft type that stores amounts only in cent precision for the specified currency.
  *
  */
 export interface Money {
@@ -1271,6 +1269,10 @@ export interface HighPrecisionMoney {
   readonly preciseAmount: number
 }
 export type TypedMoneyDraft = CentPrecisionMoneyDraft | HighPrecisionMoneyDraft
+/**
+ *	This draft type is the alternative to [Money](ctp:api:type:Money).
+ *
+ */
 export interface CentPrecisionMoneyDraft {
   readonly type: 'centPrecision'
   /**

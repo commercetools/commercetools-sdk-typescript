@@ -450,9 +450,7 @@ export interface DeliveryItem {
 }
 export interface DiscountedLineItemPriceDraft {
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Draft type that stores amounts only in cent precision for the specified currency.
    *
    *
    */
@@ -1645,17 +1643,13 @@ export interface SyncInfo {
 }
 export interface TaxedItemPriceDraft {
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Draft type that stores amounts only in cent precision for the specified currency.
    *
    *
    */
   readonly totalNet: _Money
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Draft type that stores amounts only in cent precision for the specified currency.
    *
    *
    */

@@ -1,8 +1,8 @@
 import type {
-  Next,
   Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
+  Next,
   OTelemetryMiddlewareOptions,
 } from '../types/types'
 
