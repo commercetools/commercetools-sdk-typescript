@@ -34,7 +34,7 @@ describe('testing channel API calls', () => {
 
   it('should update a channel by Id', async () => {
     const channel = await createChannel()
-    const geolocation: GeoJson = {
+    const geoLocation: GeoJson = {
       type: 'Point',
       coordinates: [0, 0],
     }
@@ -48,7 +48,7 @@ describe('testing channel API calls', () => {
           actions: [
             {
               action: 'setGeoLocation',
-              geoLocation: geolocation,
+              geoLocation,
             },
           ],
         },
