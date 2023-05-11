@@ -13,7 +13,7 @@ const authMiddlewareOptions = {
     clientId: process.env.CTP_CLIENT_ID || '',
     clientSecret: process.env.CTP_CLIENT_SECRET || '',
   },
-  oauthUri: process.env.adminAuthUrl || '',
+  oauthUri: process.env.ADMIN_AUTH_URL || '',
   scopes: [`manage_project:${projectKey}`],
   fetch,
 }

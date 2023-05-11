@@ -1,30 +1,43 @@
 import { createCategory, deleteCategory } from './category-fixture'
 import { apiRoot } from '../test-utils'
 import { randomUUID } from 'crypto'
-import { createType } from '../type/type-fixture'
+import { CategoryDraft } from '../../../src'
 
 describe('testing category API calls', () => {
-  it('should create and delete by ID a category', async () => {
-    const responseCreatedCategory = await createCategory()
+  it('should create and delete a category by ID', async () => {
+    const categoryDraft: CategoryDraft = {
+      key: randomUUID(),
+      name: { en: 'test-name-category' + randomUUID() },
+      slug: { en: 'test-slug-category' + randomUUID() },
+    }
+
+    const responseCreatedCategory = await apiRoot
+      .categories()
+      .post({ body: categoryDraft })
+      .execute()
 
     expect(responseCreatedCategory.statusCode).toEqual(201)
     expect(responseCreatedCategory.body).not.toBe(null)
 
-    const categoryDeleted = await deleteCategory(responseCreatedCategory)
+    const responseCategoryDeleted = await apiRoot
+      .categories()
+      .withId({ ID: responseCreatedCategory.body.id })
+      .delete({ queryArgs: { version: responseCreatedCategory.body.version } })
+      .execute()
 
-    expect(categoryDeleted.statusCode).toEqual(200)
+    expect(responseCategoryDeleted.statusCode).toEqual(200)
   })
 
   it('should delete a category by Key', async () => {
     const responseCreatedCategory = await createCategory()
 
-    const deletedCategory = await apiRoot
+    const responseCategoryDeleted = await apiRoot
       .categories()
       .withKey({ key: responseCreatedCategory.body.key })
       .delete({ queryArgs: { version: responseCreatedCategory.body.version } })
       .execute()
 
-    expect(deletedCategory.statusCode).toEqual(200)
+    expect(responseCategoryDeleted.statusCode).toEqual(200)
   })
 
   it('should update a category', async () => {
