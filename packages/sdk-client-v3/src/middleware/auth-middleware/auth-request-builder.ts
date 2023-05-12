@@ -1,10 +1,10 @@
-import {
-  IBuiltRequestParams,
-  AuthMiddlewareOptions,
-  RefreshAuthMiddlewareOptions,
-  PasswordAuthMiddlewareOptions,
-} from '../../types/types'
 import { Buffer } from 'buffer/'
+import {
+  AuthMiddlewareOptions,
+  IBuiltRequestParams,
+  PasswordAuthMiddlewareOptions,
+  RefreshAuthMiddlewareOptions,
+} from '../../types/types'
 
 /**
  *

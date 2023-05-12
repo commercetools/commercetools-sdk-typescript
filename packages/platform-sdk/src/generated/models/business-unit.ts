@@ -5,6 +5,10 @@
  */
 
 import {
+  AssociateRoleKeyReference,
+  AssociateRoleResourceIdentifier,
+} from './associate-role'
+import {
   Address,
   BaseAddress,
   CreatedBy,
@@ -22,13 +26,19 @@ import {
 
 export interface Associate {
   /**
-   *	Roles the Associate holds within the Business Unit.
+   *	Roles assigned to the Associate within a Business Unit.
    *
    *
    */
-  readonly roles: AssociateRole[]
+  readonly associateRoleAssignments: AssociateRoleAssignment[]
   /**
-   *	The [Customer](ctp:api:type:Customer) that is part of the Business Unit.
+   *	Deprecated type. Use `associateRoleAssignment` instead.
+   *
+   *	@deprecated
+   */
+  readonly roles: AssociateRoleDeprecated[]
+  /**
+   *	The [Customer](ctp:api:type:Customer) that acts as an Associate in the Business Unit.
    *
    *
    */
@@ -36,11 +46,17 @@ export interface Associate {
 }
 export interface AssociateDraft {
   /**
-   *	Roles the Associate should hold within the Business Unit.
+   *	Roles assigned to the Associate within a Business Unit.
    *
    *
    */
-  readonly roles?: AssociateRole[]
+  readonly associateRoleAssignments?: AssociateRoleAssignmentDraft[]
+  /**
+   *	Deprecated type. Use `associateRoleAssignment` instead.
+   *
+   *	@deprecated
+   */
+  readonly roles?: AssociateRoleDeprecated[]
   /**
    *	The [Customer](ctp:api:type:Customer) to be part of the Business Unit.
    *
@@ -48,16 +64,57 @@ export interface AssociateDraft {
    */
   readonly customer: CustomerResourceIdentifier
 }
+export interface AssociateRoleAssignment {
+  /**
+   *	Role the Associate holds within a Business Unit.
+   *
+   *
+   */
+  readonly associateRole: AssociateRoleKeyReference
+  /**
+   *	Determines whether the AssociateRoleAssignment can be inherited by child Business Units.
+   *
+   *
+   */
+  readonly inheritance: AssociateRoleInheritanceMode
+}
+export interface AssociateRoleAssignmentDraft {
+  /**
+   *	Role the Associate holds within a Business Unit.
+   *
+   *
+   */
+  readonly associateRole: AssociateRoleResourceIdentifier
+  /**
+   *	Determines whether the AssociateRoleAssignment can be inherited by child Business Units.
+   *
+   *
+   */
+  readonly inheritance?: AssociateRoleInheritanceMode
+}
 /**
  *	Roles defining how an [Associate](ctp:api:type:Associate) can interact with a Business Unit.
  *
  */
-export type AssociateRole = 'Admin' | 'Buyer' | string
+export type AssociateRoleDeprecated = 'Admin' | 'Buyer' | string
 /**
- *	Generic type to model those fields all Business Units have in common.
+ *	Determines whether an [AssociateRoleAssignment](ctp:api:type:AssociateRoleAssignment) can be inherited by child Business Units.
+ *
+ */
+export type AssociateRoleInheritanceMode = 'Disabled' | 'Enabled' | string
+/**
+ *	Generic type to model the fields that all types of Business Units have in common.
  *
  */
 export type BusinessUnit = Company | Division
+/**
+ *	Determines whether a Business Unit can inherit Associates from a parent.
+ *
+ */
+export type BusinessUnitAssociateMode =
+  | 'Explicit'
+  | 'ExplicitAndFromParent'
+  | string
 /**
  *	Generic draft type to model those fields all Business Units have in common. The additional fields required for creating a [Company](ctp:api:type:Company) or [Division](ctp:api:type:Division) are represented on [CompanyDraft](ctp:api:type:CompanyDraft) and [DivisionDraft](ctp:api:type:DivisionDraft).
  *
@@ -155,7 +212,7 @@ export interface BusinessUnitResourceIdentifier {
   readonly key?: string
 }
 /**
- *	Indicates whether the Business Unit can be edited and used in [Orders](/../api/projects/orders), [Carts](/../api/projects/carts), or [Quotes](/../api/projects/quotes).
+ *	Indicates whether the Business Unit can be edited and used in [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quote Requests](ctp:api:type:QuoteRequest), or [Quotes](ctp:api:type:Quote).
  *
  */
 export type BusinessUnitStatus = 'Active' | 'Inactive' | string
@@ -192,6 +249,7 @@ export type BusinessUnitUpdateAction =
   | BusinessUnitAddStoreAction
   | BusinessUnitChangeAddressAction
   | BusinessUnitChangeAssociateAction
+  | BusinessUnitChangeAssociateModeAction
   | BusinessUnitChangeNameAction
   | BusinessUnitChangeParentUnitAction
   | BusinessUnitChangeStatusAction
@@ -276,7 +334,7 @@ export interface Company {
    */
   readonly stores?: StoreKeyReference[]
   /**
-   *	Is always `Explicit` since a Company does not have a parent Business Unit the Stores can be inherited from.
+   *	Is always `Explicit` since a Company cannot have a parent Business Unit that Stores can be inherited from.
    *
    *
    */
@@ -330,11 +388,23 @@ export interface Company {
    */
   readonly defaultBillingAddressId?: string
   /**
-   *	Members that are part of the Business Unit in specific [roles](ctp:api:type:AssociateRole).
+   *	Is always `Explicit` since a Company cannot have a parent Business Unit that Associates can be inherited from.
+   *
+   *
+   */
+  readonly associateMode: BusinessUnitAssociateMode
+  /**
+   *	Associates that are part of the Business Unit in specific [roles](ctp:api:type:AssociateRole).
    *
    *
    */
   readonly associates: Associate[]
+  /**
+   *	Associates that are inherited from a parent Business Unit. This value of this field is [eventually consistent](/../api/general-concepts#eventual-consistency) and is only present when the `associateMode` is set to `ExplicitAndFromParent`.
+   *
+   *
+   */
+  readonly inheritedAssociates?: InheritedAssociate[]
   /**
    *	Parent unit of the Business Unit. Only present when the `unitType` is `Division`.
    *
@@ -397,6 +467,13 @@ export interface CompanyDraft {
    */
   readonly contactEmail?: string
   /**
+   *	Determines whether the Business Unit can inherit Associates from a parent.
+   *	Always `Explicit` for [Companies](ctp:api:type:BusinessUnitType) and defaults to `ExplicitAndFromParent` for [Divisions](ctp:api:type:BusinessUnitType).
+   *
+   *
+   */
+  readonly associateMode?: BusinessUnitAssociateMode
+  /**
    *	List of members that are part of the Business Unit in specific [roles](ctp:api:type:AssociateRole).
    *
    *
@@ -442,7 +519,7 @@ export interface CompanyDraft {
   readonly custom?: CustomFieldsDraft
 }
 /**
- *	Business Unit type to model divisions that are part of the [Company](ctp:api:type:Company) or a higher order Division.
+ *	Business Unit type to model divisions that are part of the [Company](ctp:api:type:Company) or a higher-order Division.
  *	Contains specific fields and values that differentiate a Division from the generic [BusinessUnit](ctp:api:type:BusinessUnit).
  *
  */
@@ -561,11 +638,23 @@ export interface Division {
    */
   readonly defaultBillingAddressId?: string
   /**
-   *	Members that are part of the Business Unit in specific [roles](ctp:api:type:AssociateRole).
+   *	Determines whether the Division can inherit Associates from a parent.
+   *
+   *
+   */
+  readonly associateMode: BusinessUnitAssociateMode
+  /**
+   *	Associates that are part of the Business Unit in specific [roles](ctp:api:type:AssociateRole).
    *
    *
    */
   readonly associates: Associate[]
+  /**
+   *	Associates that are inherited from a parent Business Unit. This value of this field is [eventually consistent](/../api/general-concepts#eventual-consistency) and is only present when the `associateMode` is set to `ExplicitAndFromParent`.
+   *
+   *
+   */
+  readonly inheritedAssociates?: InheritedAssociate[]
   /**
    *	Parent unit of the Division.
    *
@@ -580,7 +669,7 @@ export interface Division {
   readonly topLevelUnit: BusinessUnitKeyReference
 }
 /**
- *	Draft type to model divisions that are part of a [Company](ctp:api:type:Company) or a higher order [Division](ctp:api:type:Division).
+ *	Draft type to model divisions that are part of a [Company](ctp:api:type:Company) or a higher-order [Division](ctp:api:type:Division).
  *	Contains the fields and values of the generic [BusinessUnitDraft](ctp:api:type:BusinessUnitDraft) that are used specifically for creating a Division.
  *
  */
@@ -610,7 +699,7 @@ export interface DivisionDraft {
    */
   readonly stores?: StoreResourceIdentifier[]
   /**
-   *	If not set, the Division inherits the [Stores](ctp:api:type:Store) from its `parentUnit`.
+   *	If not set, the Division inherits the [Stores](ctp:api:type:Store) from a parent unit.
    *	Set this to `Explicit` if you want to set the Stores explicitly in the `stores` field instead.
    *
    *
@@ -628,6 +717,12 @@ export interface DivisionDraft {
    *
    */
   readonly contactEmail?: string
+  /**
+   *	Determines whether the Division can inherit Associates from a parent.
+   *
+   *
+   */
+  readonly associateMode?: BusinessUnitAssociateMode
   /**
    *	List of members that are part of the Business Unit in specific [roles](ctp:api:type:AssociateRole).
    *
@@ -678,6 +773,34 @@ export interface DivisionDraft {
    *
    */
   readonly parentUnit: BusinessUnitResourceIdentifier
+}
+export interface InheritedAssociate {
+  /**
+   *	Inherited roles of the Associate within a Business Unit.
+   *
+   *
+   */
+  readonly associateRoleAssignments: InheritedAssociateRoleAssignment[]
+  /**
+   *	The [Customer](ctp:api:type:Customer) that acts as an Associate in the Business Unit.
+   *
+   *
+   */
+  readonly customer: CustomerReference
+}
+export interface InheritedAssociateRoleAssignment {
+  /**
+   *	Inherited role the Associate holds within a Business Unit.
+   *
+   *
+   */
+  readonly associateRole: AssociateRoleKeyReference
+  /**
+   *	Reference to the parent Business Unit where the assignment is defined explicitly.
+   *
+   *
+   */
+  readonly source: BusinessUnitKeyReference
 }
 /**
  *	Adding an address to a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitAddressAdded](ctp:api:type:BusinessUnitAddressAddedMessage) Message.
@@ -796,6 +919,20 @@ export interface BusinessUnitChangeAssociateAction {
   readonly associate: AssociateDraft
 }
 /**
+ *	Only Business Units of type `Division` can be changed to `ExplicitAndFromParent`.
+ *	This update action generates a [BusinessUnitAssociateModeChanged](ctp:api:type:BusinessUnitAssociateModeChangedMessage) Message.
+ *
+ */
+export interface BusinessUnitChangeAssociateModeAction {
+  readonly action: 'changeAssociateMode'
+  /**
+   *	The new value for `associateMode`.
+   *
+   *
+   */
+  readonly associateMode: BusinessUnitAssociateMode
+}
+/**
  *	Updating the name on a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitNameChanged](ctp:api:type:BusinessUnitNameChangedMessage) Message.
  *
  */
@@ -908,7 +1045,7 @@ export interface BusinessUnitRemoveShippingAddressIdAction {
  *	Removes a Store from the Business Unit.
  *	Newly created [Carts](ctp:api:type:Cart) and [Orders](ctp:api:type:Order) can no longer reference the removed Store for the Business Unit.
  *	We recommend cleaning up unordered Carts that still have the Store assigned after calling this update action since those cannot be converted to Orders.
- *	Orders created prior to when the Store was removed remain unchanged.
+ *	Orders created before the Store was removed remain unchanged.
  *	Generates a [BusinessUnitStoreRemoved](ctp:api:type:BusinessUnitStoreRemovedMessage) Message.
  *	Only applicable when `storeMode` is `Explicit`.
  *
@@ -1066,8 +1203,7 @@ export interface BusinessUnitSetDefaultShippingAddressAction {
   readonly addressKey?: string
 }
 /**
- *	If `storeMode` is changed to `FromParent`, current Stores defined for the Business Unit are removed.
- *	Only Business Units of type `Division` can be set to `FromParent`.
+ *	Only Business Units of type `Division` can be have a store mode of `FromParent`. Changing the `storeMode` to `FromParent` empties the `stores` array on the BusinessUnit.
  *	This update action generates a [BusinessUnitStoreModeChanged](ctp:api:type:BusinessUnitStoreModeChangedMessage) Message.
  *
  */
@@ -1090,7 +1226,7 @@ export interface BusinessUnitSetStoreModeAction {
  *	Sets the Stores of the Business Unit. Can only be set if the Business Unit `storeMode` is `Explicit`.
  *	[Carts](ctp:api:type:Cart) and [Orders](ctp:api:type:Order) created after the Set Stores update must use the new Stores of
  *	the Business Unit and, if set, their [Product Selections](ctp:api:type:ProductSelection), and [Channels](ctp:api:type:Channel).
- *	Orders created prior to the Set Stores update action are unchanged.
+ *	Orders created before the Set Stores update action remain unchanged.
  *	Setting the Stores on a Business Unit generates a [BusinessUnitStoresSet](ctp:api:type:BusinessUnitStoresSetMessage) Message.
  *
  */

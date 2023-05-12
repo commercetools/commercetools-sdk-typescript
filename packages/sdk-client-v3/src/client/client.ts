@@ -1,17 +1,17 @@
 import qs from 'querystring'
+import { maskAuthData, validate, validateClient } from '../../src/utils'
 import {
-  Next,
   Client,
-  Dispatch,
-  ClientResult,
-  ClientRequest,
   ClientOptions,
-  MiddlewareResponse,
+  ClientRequest,
+  ClientResult,
+  Dispatch,
   Middleware,
+  MiddlewareResponse,
+  Next,
   ProcessFn,
   ProcessOptions,
 } from '../types/types'
-import { validate, maskAuthData, validateClient } from '../../src/utils'
 
 function compose({
   middlewares,

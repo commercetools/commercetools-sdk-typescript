@@ -7,6 +7,8 @@ import { Project, ProjectUpdate } from '../models/project'
 import { executeRequest } from '../shared/utils/common-types'
 import { ApiRequest } from '../shared/utils/requests-utils'
 import { ByProjectKeyApiClientsRequestBuilder } from './api-clients/by-project-key-api-clients-request-builder'
+import { ByProjectKeyAsAssociateRequestBuilder } from './as-associate/by-project-key-as-associate-request-builder'
+import { ByProjectKeyAssociateRolesRequestBuilder } from './associate-roles/by-project-key-associate-roles-request-builder'
 import { ByProjectKeyAttributeGroupsRequestBuilder } from './attribute-groups/by-project-key-attribute-groups-request-builder'
 import { ByProjectKeyBusinessUnitsRequestBuilder } from './business-units/by-project-key-business-units-request-builder'
 import { ByProjectKeyCartDiscountsRequestBuilder } from './cart-discounts/by-project-key-cart-discounts-request-builder'
@@ -57,6 +59,27 @@ export class ByProjectKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
+  public asAssociate(): ByProjectKeyAsAssociateRequestBuilder {
+    return new ByProjectKeyAsAssociateRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	An Associate Role enables permissions over a Business Unit to an Associate.
+   */
+  public associateRoles(): ByProjectKeyAssociateRolesRequestBuilder {
+    return new ByProjectKeyAssociateRolesRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
   /**
    *	A Business Unit can represent a Company or a Division.
    */
@@ -281,7 +304,7 @@ export class ByProjectKeyRequestBuilder {
   /**
    *	Manage individual Store assortments through Product Selections.
    *
-   *	After you have created Product Selections and populated them by Products,
+   *	After you have created Product Selections and populated them with Products,
    *	you can manage Store assortments by assigning Product Selections to Stores.
    *	Product Selections may be used by a single Store or shared across several Stores.
    *

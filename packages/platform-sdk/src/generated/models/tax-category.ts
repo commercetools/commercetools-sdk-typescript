@@ -217,6 +217,13 @@ export interface TaxRate {
    */
   readonly id?: string
   /**
+   *	User-defined unique identifier of the TaxRate.
+   *	Present when set using [TaxRateDraft](ctp:api:type:TaxRateDraft). Not available for external TaxRates created using [ExternalTaxRateDraft](ctp:api:type:ExternalTaxRateDraft).
+   *
+   *
+   */
+  readonly key?: string
+  /**
    *	Name of the TaxRate.
    *
    *
@@ -291,6 +298,12 @@ export interface TaxRateDraft {
    *
    */
   readonly subRates?: SubRate[]
+  /**
+   *	User-defined unique identifier of the TaxRate.
+   *
+   *
+   */
+  readonly key?: string
 }
 export interface TaxCategoryAddTaxRateAction {
   readonly action: 'addTaxRate'
@@ -314,19 +327,35 @@ export interface TaxCategoryRemoveTaxRateAction {
   readonly action: 'removeTaxRate'
   /**
    *	ID of the TaxRate to remove.
+   *	Either `taxRateId` or `taxRateKey` is required for this update action.
    *
    *
    */
-  readonly taxRateId: string
+  readonly taxRateId?: string
+  /**
+   *	Key of the TaxRate to remove.
+   *	Either `taxRateId` or `taxRateKey` is required for this update action.
+   *
+   *
+   */
+  readonly taxRateKey?: string
 }
 export interface TaxCategoryReplaceTaxRateAction {
   readonly action: 'replaceTaxRate'
   /**
    *	ID of the TaxRate to replace.
+   *	Either `taxRateId` or `taxRateKey` is required for this update action.
    *
    *
    */
-  readonly taxRateId: string
+  readonly taxRateId?: string
+  /**
+   *	Key of the TaxRate to replace.
+   *	Either `taxRateId` or `taxRateKey` is required for this update action.
+   *
+   *
+   */
+  readonly taxRateKey?: string
   /**
    *	New TaxRate to replace with.
    *

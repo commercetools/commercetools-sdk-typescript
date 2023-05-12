@@ -1,30 +1,29 @@
+import AbortController from 'abort-controller'
+import { Buffer } from 'buffer/'
 import {
-  Next,
+  ClientResult,
+  HttpClientConfig,
+  HttpClientOptions,
+  HttpErrorType,
+  HttpMiddlewareOptions,
+  HttpOptions,
+  JsonObject,
   Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
-  HttpMiddlewareOptions,
-  JsonObject,
+  Next,
   QueryParam,
-  HttpOptions,
-  HttpErrorType,
-  HttpClientConfig,
-  HttpClientOptions,
-  ClientResult,
   TResponse,
 } from '../types/types'
 import {
-  validateHttpOptions,
-  isBuffer,
-  getHeaders,
-  executor,
   constants,
   createError,
-  NetworkError,
+  executor,
+  getHeaders,
+  isBuffer,
   maskAuthData,
+  validateHttpOptions,
 } from '../utils'
-import { Buffer } from 'buffer/'
-import AbortController from 'abort-controller'
 
 async function executeRequest({
   url,

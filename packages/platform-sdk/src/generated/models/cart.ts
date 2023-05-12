@@ -23,6 +23,7 @@ import {
   LastModifiedBy,
   LocalizedString,
   Price,
+  Reference,
   TypedMoney,
   _BaseAddress,
   _Money,
@@ -204,16 +205,17 @@ export interface Cart extends BaseResource {
    */
   readonly shippingMode: ShippingMode
   /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Single` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
+  /**
    *	Shipping-related information of a Cart with `Single` [ShippingMode](ctp:api:type:ShippingMode). Automatically set when a [Shipping Method is set](ctp:api:type:CartSetShippingMethodAction).
    *
    *
    */
   readonly shippingInfo?: ShippingInfo
-  /**
-   *	Shipping-related information of a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode). Updated automatically each time a new [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction).
-   *
-   */
-  readonly shipping: Shipping[]
   /**
    *	Input used to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
    *	The data type of this field depends on the `shippingRateInputType.type` configured in the [Project](ctp:api:type:Project):
@@ -225,6 +227,17 @@ export interface Cart extends BaseResource {
    *
    */
   readonly shippingRateInput?: ShippingRateInput
+  /**
+   *	Custom Fields of the Shipping Method in a Cart with `Single` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingCustomFields?: CustomFields
+  /**
+   *	Shipping-related information of a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode). Updated automatically each time a new [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction).
+   *
+   */
+  readonly shipping: Shipping[]
   /**
    *	Additional shipping addresses of the Cart as specified by [LineItems](ctp:api:type:LineItem) using the `shippingDetails` field.
    *
@@ -353,7 +366,7 @@ export interface CartDraft {
    */
   readonly anonymousId?: string
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to the Business Unit the Cart should belong to.
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to the Business Unit the Cart should belong to. When the `customerId` of the Cart is also set, the [Customer](ctp:api:type:Customer) must be an [Associate](ctp:api:type:Associate) of the Business Unit.
    *
    *
    */
@@ -419,7 +432,7 @@ export interface CartDraft {
    */
   readonly shippingAddress?: _BaseAddress
   /**
-   *	Shipping Method for a Cart with `Single` [ShippingMode](ctp:api:type:ShippingMode). If the referenced [ShippingMethod](ctp:api:type:ShippingMethod) has a `predicate` that does not match the Cart, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned when [creating a Cart](#create-cart).
+   *	Shipping Method for a Cart with `Single` [ShippingMode](ctp:api:type:ShippingMode). If the referenced [ShippingMethod](ctp:api:type:ShippingMethod) has a `predicate` that does not match the Cart, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned when [creating a Cart](ctp:api:endpoint:/{projectKey}/carts:POST).
    *
    *
    */
@@ -951,6 +964,19 @@ export interface DirectDiscountDraft {
    */
   readonly target?: CartDiscountTarget
 }
+/**
+ *	[Reference](ctp:api:type:Reference) to a [DirectDiscount](ctp:api:type:DirectDiscount).
+ *
+ */
+export interface DirectDiscountReference {
+  readonly typeId: 'direct-discount'
+  /**
+   *	Unique identifier of the referenced [DirectDiscount](ctp:api:type:DirectDiscount).
+   *
+   *
+   */
+  readonly id: string
+}
 export interface DiscountCodeInfo {
   /**
    *	Discount Code associated with the Cart or Order.
@@ -981,11 +1007,11 @@ export type DiscountCodeState =
   | string
 export interface DiscountedLineItemPortion {
   /**
-   *	Cart Discount applicable on the Line Item.
+   *	A [CartDiscountReference](ctp:api:type:CartDiscountReference) or [DirectDiscountReference](ctp:api:type:DirectDiscountReference) for the applicable discount on the Line Item.
    *
    *
    */
-  readonly discount: CartDiscountReference
+  readonly discount: Reference
   /**
    *	Money value of the discount applicable.
    *
@@ -1531,7 +1557,7 @@ export interface Shipping {
    */
   readonly shippingRateInput?: ShippingRateInput
   /**
-   *	Custom Fields of Shipping.
+   *	Custom Fields of Shipping with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -2831,7 +2857,7 @@ export interface CartSetCustomerGroupAction {
  *	Setting the Cart's `customerId` can lead to updates on all its [LineItem](ctp:api:type:LineItem) `prices`.
  *
  *	If the Customer with the specified `id` cannot be found, this update action returns a
- *	[MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError) error.
+ *	[ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error.
  *
  */
 export interface CartSetCustomerIdAction {

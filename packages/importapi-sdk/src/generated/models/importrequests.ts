@@ -16,6 +16,7 @@ import { ProductImport } from './products'
 import { ProductTypeImport } from './producttypes'
 import { ProductVariantImport, ProductVariantPatch } from './productvariants'
 import { StandalonePriceImport } from './standalone-prices'
+import { TypeImport } from './types'
 
 /**
  *	An import request batches multiple import resources of the same import resource type for processing by an import container.
@@ -34,6 +35,7 @@ export type ImportRequest =
   | ProductVariantImportRequest
   | ProductVariantPatchRequest
   | StandalonePriceImportRequest
+  | TypeImportRequest
 /**
  *	A list of the ID's and validation statuses of newly created [ImportOperations](#importoperation).
  *	Used as a response at each resource-specific import endpoint, for example, at [Import Categories](/category#import-categories) and [Import ProductTypes](/product-type#import-producttypes).
@@ -200,4 +202,17 @@ export interface InventoryImportRequest {
    *
    */
   readonly resources: InventoryImport[]
+}
+/**
+ *	The request body to [import Types](#import-types). Contains data for [Types](/../api/projects/types#type) to be created or updated in a Project.
+ *
+ */
+export interface TypeImportRequest {
+  readonly type: 'type'
+  /**
+   *	The type import resources of this request.
+   *
+   *
+   */
+  readonly resources: TypeImport[]
 }

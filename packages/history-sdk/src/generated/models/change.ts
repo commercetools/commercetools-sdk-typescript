@@ -74,6 +74,7 @@ import {
   StagedQuoteState,
   StateRole,
   StateType,
+  StoreCountry,
   SyncInfo,
   TaxCalculationMode,
   TaxedItemPrice,
@@ -227,6 +228,7 @@ export type Change =
   | SetCategoryOrderHintChange
   | SetChannelRolesChange
   | SetCompanyNameChange
+  | SetCountriesChange
   | SetCountryChange
   | SetCustomFieldChange
   | SetCustomLineItemCustomFieldChange
@@ -305,6 +307,7 @@ export type Change =
   | SetProductSelectionsChange
   | SetProductVariantKeyChange
   | SetPropertyChange
+  | SetPurchaseOrderNumberChange
   | SetRatingChange
   | SetReservationsChange
   | SetRestockableInDaysChange
@@ -2762,6 +2765,24 @@ export interface SetCountryChange {
    */
   readonly nextValue: string
 }
+export interface SetCountriesChange {
+  readonly type: 'SetCountriesChange'
+  /**
+   *	Update action for `setCountries`.
+   *
+   */
+  readonly change: string
+  /**
+   *	Countries defined for the Store prior to the update action.
+   *
+   */
+  readonly previousValue: StoreCountry[]
+  /**
+   *	Countries defined for the Store after the update action.
+   *
+   */
+  readonly nextValue: StoreCountry[]
+}
 export interface SetCustomFieldChange {
   readonly type: 'SetCustomFieldChange'
   /**
@@ -4145,6 +4166,24 @@ export interface SetParcelTrackingDataChange {
    *
    */
   readonly previousValue: TrackingData
+}
+export interface SetPurchaseOrderNumberChange {
+  readonly type: 'SetPurchaseOrderNumberChange'
+  /**
+   *	Update action for `setPurchaseOrderNumber`.
+   *
+   */
+  readonly change: string
+  /**
+   *	Purchase Order number prior to the update action.
+   *
+   */
+  readonly previousValue: string
+  /**
+   *	Purchase Order number after the update action.
+   *
+   */
+  readonly nextValue: string
 }
 export interface SetPricesChange {
   readonly type: 'SetPricesChange'

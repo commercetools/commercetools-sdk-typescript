@@ -19,7 +19,7 @@ export class ByProjectKeyProductProjectionsSearchRequestBuilder {
     }
   ) {}
   /**
-   *	Search Product Projection
+   *	Product Projection Search
    */
   public post(methodArgs: {
     body: string
@@ -43,7 +43,7 @@ export class ByProjectKeyProductProjectionsSearchRequestBuilder {
     )
   }
   /**
-   *	Search Product Projection
+   *	Product Projection Search
    */
   public get(methodArgs?: {
     queryArgs?: {

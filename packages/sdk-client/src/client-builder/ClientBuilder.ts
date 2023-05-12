@@ -8,7 +8,6 @@ import { default as createQueueMiddleware } from '../sdk-middleware-queue/queue'
 import { default as createUserAgentMiddleware } from '../sdk-middleware-user-agent/user-agent'
 import {
   AnonymousAuthMiddlewareOptions,
-  TelemetryOptions,
   AuthMiddlewareOptions,
   Client,
   CorrelationIdMiddlewareOptions,
@@ -21,6 +20,7 @@ import {
   PasswordAuthMiddlewareOptions,
   QueueMiddlewareOptions,
   RefreshAuthMiddlewareOptions,
+  TelemetryOptions,
 } from '../types/sdk'
 
 const {

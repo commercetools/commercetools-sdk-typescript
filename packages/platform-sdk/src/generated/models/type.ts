@@ -267,6 +267,7 @@ export interface CustomFieldTimeType {
 export type ResourceTypeId =
   | 'address'
   | 'asset'
+  | 'associate-role'
   | 'business-unit'
   | 'cart-discount'
   | 'category'

@@ -284,6 +284,108 @@ export interface OrderPagedSearchResponse {
    */
   readonly hits: Hit[]
 }
+export type OrderSearchMatchType = 'all' | 'any' | string
+export interface OrderSearchQueryExpressionValue {
+  /**
+   *
+   */
+  readonly field: string
+  /**
+   *
+   */
+  readonly boost?: number
+  /**
+   *
+   */
+  readonly customType?: string
+}
+export type _OrderSearchQueryExpressionValue =
+  | OrderSearchQueryExpressionValue
+  | OrderSearchAnyValue
+  | OrderSearchDateRangeValue
+  | OrderSearchFullTextValue
+  | OrderSearchLongRangeValue
+  | OrderSearchNumberRangeValue
+  | OrderSearchStringValue
+export interface OrderSearchAnyValue extends OrderSearchQueryExpressionValue {
+  /**
+   *
+   */
+  readonly value: any
+  /**
+   *
+   */
+  readonly language?: string
+  /**
+   *
+   */
+  readonly caseInsensitive?: boolean
+}
+export interface OrderSearchDateRangeValue
+  extends OrderSearchQueryExpressionValue {
+  /**
+   *
+   */
+  readonly gte?: string
+  /**
+   *
+   */
+  readonly lte?: string
+}
+export interface OrderSearchFullTextValue
+  extends OrderSearchQueryExpressionValue {
+  /**
+   *
+   */
+  readonly value: string
+  /**
+   *
+   */
+  readonly language?: string
+  /**
+   *
+   */
+  readonly mustMatch?: OrderSearchMatchType
+}
+export interface OrderSearchLongRangeValue
+  extends OrderSearchQueryExpressionValue {
+  /**
+   *
+   */
+  readonly gte?: number
+  /**
+   *
+   */
+  readonly lte?: number
+}
+export interface OrderSearchNumberRangeValue
+  extends OrderSearchQueryExpressionValue {
+  /**
+   *
+   */
+  readonly gte?: number
+  /**
+   *
+   */
+  readonly lte?: number
+}
+export type OrderSearchSortMode = 'avg' | 'max' | 'min' | 'sum' | string
+export type OrderSearchSortOrder = 'asc' | 'desc' | string
+export interface OrderSearchStringValue
+  extends OrderSearchQueryExpressionValue {
+  /**
+   *
+   */
+  readonly value: string
+  /**
+   *
+   */
+  readonly language?: string
+  /**
+   *
+   */
+  readonly caseInsensitive?: boolean
+}
 export interface Delivery {
   /**
    *	Unique identifier of the Delivery.
@@ -348,9 +450,7 @@ export interface DeliveryItem {
 }
 export interface DiscountedLineItemPriceDraft {
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Draft type that stores amounts only in cent precision for the specified currency.
    *
    *
    */
@@ -542,6 +642,18 @@ export interface Order extends BaseResource {
    */
   readonly shippingMode: ShippingMode
   /**
+   *	User-defined unique identifier of the Shipping Method with `Single` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
+  /**
+   *	Custom Fields of the Shipping Method for `Single` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingCustomFields?: CustomFields
+  /**
    *	Holds all shipping-related information per Shipping Method for `Multi` [ShippingMode](ctp:api:typeShippingMode).
    *
    *	It is updated automatically after the [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction).
@@ -682,11 +794,14 @@ export interface OrderFromCartDraft {
    */
   readonly id?: string
   /**
-   *	ResourceIdentifier of the Cart from which this order is created.
+   *	ResourceIdentifier of the Cart from which the Order is created.
    *
    */
   readonly cart?: CartResourceIdentifier
   /**
+   *	Expected version of the Cart from which the Order is created.
+   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *
    *
    */
   readonly version: number
@@ -706,10 +821,14 @@ export interface OrderFromCartDraft {
    */
   readonly purchaseOrderNumber?: string
   /**
+   *	Payment state for the Order.
+   *
    *
    */
   readonly paymentState?: PaymentState
   /**
+   *	Shipment state for the Order.
+   *
    *
    */
   readonly shipmentState?: ShipmentState
@@ -719,6 +838,8 @@ export interface OrderFromCartDraft {
    */
   readonly orderState?: OrderState
   /**
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State) indicating the Order's state.
+   *
    *
    */
   readonly state?: StateResourceIdentifier
@@ -738,13 +859,13 @@ export interface OrderFromQuoteDraft {
    */
   readonly quote: QuoteResourceIdentifier
   /**
-   *	`version` of the [Quote](ctp:api:type:quote) from which an Order is created.
+   *	`version` of the [Quote](ctp:api:type:Quote) from which an Order is created.
    *
    *
    */
   readonly version: number
   /**
-   *	If `true`, the `quoteState` of the referenced [Quote](ctp:api:type:quote) will be set to `Accepted`.
+   *	If `true`, the `quoteState` of the referenced [Quote](ctp:api:type:Quote) will be set to `Accepted`.
    *
    *
    */
@@ -759,10 +880,13 @@ export interface OrderFromQuoteDraft {
    */
   readonly orderNumber?: string
   /**
+   *	Payment state of the Order.
+   *
    *
    */
   readonly paymentState?: PaymentState
   /**
+   *	Shipment state of the Order.
    *
    */
   readonly shipmentState?: ShipmentState
@@ -772,6 +896,8 @@ export interface OrderFromQuoteDraft {
    */
   readonly orderState?: OrderState
   /**
+   *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State) indicating the Order's state.
+   *
    *
    */
   readonly state?: StateResourceIdentifier
@@ -956,12 +1082,116 @@ export interface OrderResourceIdentifier {
   readonly key?: string
 }
 export interface OrderSearchQuery {}
+export type _OrderSearchQuery =
+  | OrderSearchQuery
+  | OrderSearchCompoundExpression
+  | OrderSearchQueryExpression
+export interface OrderSearchCompoundExpression extends OrderSearchQuery {}
+export type _OrderSearchCompoundExpression =
+  | OrderSearchCompoundExpression
+  | OrderSearchAndExpression
+  | OrderSearchFilterExpression
+  | OrderSearchNotExpression
+  | OrderSearchOrExpression
+export interface OrderSearchAndExpression
+  extends OrderSearchCompoundExpression {
+  /**
+   *
+   */
+  readonly and: OrderSearchQuery[]
+}
+export interface OrderSearchFilterExpression
+  extends OrderSearchCompoundExpression {
+  /**
+   *
+   */
+  readonly filter: OrderSearchQueryExpression[]
+}
+export interface OrderSearchNotExpression
+  extends OrderSearchCompoundExpression {
+  /**
+   *
+   */
+  readonly not: OrderSearchQuery[]
+}
+export interface OrderSearchOrExpression extends OrderSearchCompoundExpression {
+  /**
+   *
+   */
+  readonly or: OrderSearchQuery[]
+}
+export interface OrderSearchQueryExpression extends OrderSearchQuery {}
+export type _OrderSearchQueryExpression =
+  | OrderSearchQueryExpression
+  | OrderSearchDateRangeExpression
+  | OrderSearchExactExpression
+  | OrderSearchExistsExpression
+  | OrderSearchFullTextExpression
+  | OrderSearchLongRangeExpression
+  | OrderSearchNumberRangeExpression
+  | OrderSearchPrefixExpression
+  | OrderSearchWildCardExpression
+export interface OrderSearchDateRangeExpression
+  extends OrderSearchQueryExpression {
+  /**
+   *
+   */
+  readonly range: OrderSearchDateRangeValue
+}
+export interface OrderSearchExactExpression extends OrderSearchQueryExpression {
+  /**
+   *
+   */
+  readonly exact: OrderSearchAnyValue
+}
+export interface OrderSearchExistsExpression
+  extends OrderSearchQueryExpression {
+  /**
+   *
+   */
+  readonly exists: _OrderSearchQueryExpressionValue
+}
+export interface OrderSearchFullTextExpression
+  extends OrderSearchQueryExpression {
+  /**
+   *
+   */
+  readonly fullText: OrderSearchFullTextValue
+}
+export interface OrderSearchLongRangeExpression
+  extends OrderSearchQueryExpression {
+  /**
+   *
+   */
+  readonly range: OrderSearchLongRangeValue
+}
+export interface OrderSearchNumberRangeExpression
+  extends OrderSearchQueryExpression {
+  /**
+   *
+   */
+  readonly range: OrderSearchNumberRangeValue
+}
+export interface OrderSearchPrefixExpression
+  extends OrderSearchQueryExpression {
+  /**
+   *
+   */
+  readonly prefix: OrderSearchStringValue
+}
+export interface OrderSearchWildCardExpression
+  extends OrderSearchQueryExpression {
+  /**
+   *
+   */
+  readonly wildcard: OrderSearchStringValue
+}
 export interface OrderSearchRequest {
   /**
    *	The Order search query.
    *
    */
-  readonly query: OrderSearchQuery
+  readonly query: _OrderSearchQuery
   /**
    *	Controls how results to your query are sorted. If not provided, the results are sorted by relevance in descending order.
    *
@@ -978,7 +1208,28 @@ export interface OrderSearchRequest {
    */
   readonly offset?: number
 }
-export interface OrderSearchSorting {}
+export interface OrderSearchSorting {
+  /**
+   *
+   */
+  readonly field: string
+  /**
+   *
+   */
+  readonly language?: string
+  /**
+   *
+   */
+  readonly order?: OrderSearchSortOrder
+  /**
+   *
+   */
+  readonly mode?: OrderSearchSortMode
+  /**
+   *
+   */
+  readonly filter?: _OrderSearchQueryExpression
+}
 export type OrderState =
   | 'Cancelled'
   | 'Complete'
@@ -987,10 +1238,15 @@ export type OrderState =
   | string
 export interface OrderUpdate {
   /**
+   *	Expected version of the Order on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *
    *
    */
   readonly version: number
   /**
+   *	Update actions to be performed on the Order.
+   *
    *
    */
   readonly actions: OrderUpdateAction[]
@@ -1387,17 +1643,13 @@ export interface SyncInfo {
 }
 export interface TaxedItemPriceDraft {
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Draft type that stores amounts only in cent precision for the specified currency.
    *
    *
    */
   readonly totalNet: _Money
   /**
-   *	Draft type that stores amounts in cent precision for the specified currency.
-   *
-   *	For storing money values in fractions of the minor unit in a currency, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft) instead.
+   *	Draft type that stores amounts only in cent precision for the specified currency.
    *
    *
    */
