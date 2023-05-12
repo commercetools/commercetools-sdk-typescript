@@ -1,5 +1,19 @@
 # @commercetools/platform-sdk
 
+## 4.8.1
+
+### Patch Changes
+
+- [#477](https://github.com/commercetools/commercetools-sdk-typescript/pull/477) [`60ac380`](https://github.com/commercetools/commercetools-sdk-typescript/commit/60ac380c16b8739d1da7faf6ea510870051279a8) Thanks [@github-actions](https://github.com/apps/github-actions)! - ## Update generated SDKs
+
+  **Api changes**
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `associateRoleAssignments` to type `MyBusinessUnitAssociateDraft`
+  </details>
+
 ## 4.8.0
 
 ### Minor Changes
