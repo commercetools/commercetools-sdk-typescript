@@ -6,6 +6,7 @@
 
 import {
   AssociateDraft,
+  AssociateRoleAssignmentDraft,
   BusinessUnitResourceIdentifier,
   BusinessUnitUpdateAction,
 } from './business-unit'
@@ -59,6 +60,12 @@ export interface MyBusinessUnitAssociateDraft {
    *
    */
   readonly customer: MyCustomerDraft
+  /**
+   *	Roles assigned to the new Associate within a Business Unit.
+   *
+   *
+   */
+  readonly associateRoleAssignments: AssociateRoleAssignmentDraft[]
 }
 export type MyBusinessUnitDraft = MyCompanyDraft | MyDivisionDraft
 export interface MyBusinessUnitUpdate {
