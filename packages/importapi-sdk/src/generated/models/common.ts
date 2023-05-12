@@ -14,6 +14,7 @@ import { ProductImport } from './products'
 import { ProductTypeImport } from './producttypes'
 import { ProductVariantImport } from './productvariants'
 import { StandalonePriceImport } from './standalone-prices'
+import { TypeImport } from './types'
 
 export interface Asset {
   /**
@@ -185,6 +186,7 @@ export type _ImportResource =
   | ProductTypeImport
   | ProductVariantImport
   | StandalonePriceImport
+  | TypeImport
 /**
  *	References a resource by key.
  */
@@ -510,6 +512,7 @@ export type ImportResourceType =
   | 'product-variant'
   | 'product-variant-patch'
   | 'standalone-price'
+  | 'type'
   | string
 /**
  *	The type of the referenced resource.
