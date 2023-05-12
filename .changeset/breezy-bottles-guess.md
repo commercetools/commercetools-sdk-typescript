@@ -1,8 +1,8 @@
 ---
-"@commercetools/history-sdk": patch
-"@commercetools/importapi-sdk": patch
-"@commercetools/ml-sdk": patch
-"@commercetools/platform-sdk": patch
+'@commercetools/history-sdk': minor
+'@commercetools/importapi-sdk': minor
+'@commercetools/ml-sdk': minor
+'@commercetools/platform-sdk': minor
 ---
 
 ## Update generated SDKs
