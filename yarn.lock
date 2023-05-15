@@ -6627,10 +6627,10 @@ neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-newrelic@^9.15.0:
-  version "9.15.0"
-  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-9.15.0.tgz#46cc319f42bc342fe271e560e9e59cfda899ff0f"
-  integrity sha512-5bo4JDR76sk6ml8qykqQyUJIJ6IZfZrMWAbSwUVYErSs8faYOac6QpzRB11EvHQKZ8fnz5cRcksgERwY7Ia3zA==
+newrelic@^10.0.0:
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-10.1.0.tgz#a07011a621cbd5746b2b33a2d033775fb8eafe3e"
+  integrity sha512-KSUeN4QlmZEfOWfXM3Uv128a8KyRG1kgdoCd0vSk4hDLfo4VD/uN8skzf5jfAt3dbqllB2Wrdljoe6duoITVEw==
   dependencies:
     "@grpc/grpc-js" "^1.8.10"
     "@grpc/proto-loader" "^0.7.5"
@@ -8280,12 +8280,7 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==
 
-typescript@5.0.4:
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.0.4.tgz#b217fd20119bd61a94d4011274e0ab369058da3b"
-  integrity sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==
-
-"typescript@^4.6.4 || ^5.0.0":
+typescript@5.0.4, "typescript@^4.6.4 || ^5.0.0":
   version "5.0.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.0.4.tgz#b217fd20119bd61a94d4011274e0ab369058da3b"
   integrity sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==
