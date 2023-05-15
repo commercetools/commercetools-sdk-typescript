@@ -121,6 +121,10 @@ describe('testing customObject API calls', () => {
 
     const queryCustomObject = await apiRoot
       .customObjects()
+      .withContainerAndKey({
+        container: customObject.body.container,
+        key: customObject.body.key,
+      })
       .get({
         queryArgs: {
           where: 'id=' + '"' + customObject.body.id + '"',
@@ -129,9 +133,7 @@ describe('testing customObject API calls', () => {
       .execute()
 
     expect(queryCustomObject).not.toBe(null)
-    expect(queryCustomObject.body.results.at(0).id).toEqual(
-      customObject.body.id
-    )
+    expect(queryCustomObject.body.id).toEqual(customObject.body.id)
     await deleteCustomObject(
       customObject.body.container,
       customObject.body.key,
