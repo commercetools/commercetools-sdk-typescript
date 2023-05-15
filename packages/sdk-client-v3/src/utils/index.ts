@@ -15,6 +15,7 @@ export { default as buildTokenCacheKey } from './tokenCacheKey'
 export { default as calculateExpirationTime } from './tokenExpirationTime'
 export { default as store } from './tokenStore'
 export { default as userAgent } from './userAgent'
+export { stringifyURLString, parseURLString } from './url'
 export {
     validate,
     // validateUserAgentOptions,

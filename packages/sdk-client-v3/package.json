@@ -35,8 +35,7 @@
   "dependencies": {
     "abort-controller": "3.0.0",
     "buffer": "^6.0.3",
-    "node-fetch": "^2.6.1",
-    "querystring": "^0.2.1"
+    "node-fetch": "^2.6.1"
   },
   "files": ["dist", "CHANGELOG.md"],
   "author": "Chukwuemeka Ajima <meeky.ae@gmail.com>",

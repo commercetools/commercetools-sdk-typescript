@@ -6,11 +6,7 @@
 
 import { ClientRequest, VariableMap } from './common-types'
 
-function isDefined<T>(value: T | undefined | null): value is T {
-  return typeof value !== 'undefined' && value !== null
-}
-
-function stringify(
+function urlStringifier(
   object: string | Record<string, any> | Array<Array<string>> | URLSearchParams
 ): string {
   const params = new URLSearchParams(object)
@@ -22,6 +18,23 @@ function stringify(
   }
 
   return params.toString()
+}
+
+export function stringifyURLString(
+  object: string | Record<string, any> | Array<Array<string>>,
+  stringifier: (
+    object:
+      | string
+      | Record<string, any>
+      | Array<Array<string>>
+      | URLSearchParams
+  ) => string = urlStringifier
+): string {
+  return urlStringifier(object)
+}
+
+function isDefined<T>(value: T | undefined | null): value is T {
+  return typeof value !== 'undefined' && value !== null
 }
 
 function cleanObject<T extends VariableMap>(obj: T): T {
@@ -50,7 +63,7 @@ function cleanObject<T extends VariableMap>(obj: T): T {
 
 function formatQueryString(variableMap: VariableMap) {
   const map = cleanObject(variableMap)
-  const result = stringify(map)
+  const result = stringifyURLString(map)
   if (result === '') {
     return ''
   }
