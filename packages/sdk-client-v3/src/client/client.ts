@@ -1,4 +1,11 @@
 import {
+  maskAuthData,
+  parseURLString,
+  stringifyURLString,
+  validate,
+  validateClient,
+} from '../../src/utils'
+import {
   Client,
   ClientOptions,
   ClientRequest,
@@ -10,13 +17,6 @@ import {
   ProcessFn,
   ProcessOptions,
 } from '../types/types'
-import {
-  validate,
-  maskAuthData,
-  validateClient,
-  stringifyURLString,
-  parseURLString,
-} from '../../src/utils'
 
 function compose({
   middlewares,
