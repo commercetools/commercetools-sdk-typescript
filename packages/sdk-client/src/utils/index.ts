@@ -1,1 +1,1 @@
-export { stringifyURLString, parseURLString } from './url'
+export { parseURLString, stringifyURLString } from './url';

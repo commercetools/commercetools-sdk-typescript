@@ -4,16 +4,26 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import {
+  AssociateRoleKeyReference,
+  AssociateRoleResourceIdentifier,
+} from './associate-role'
 import { LastModifiedBy } from './common'
 import { MessagesConfiguration, MessagesConfigurationDraft } from './message'
 import { CustomFieldLocalizedEnumValue } from './type'
 
 export interface BusinessUnitConfiguration {
   /**
-   *	Status of Business Units created using the [My Business Unit endpoint](/../api/projects/me-business-units#create-businessunit).
+   *	Status of Business Units created using the [My Business Unit endpoint](ctp:api:endpoint:/{projectKey}/me/business-units:POST).
    *
    */
   readonly myBusinessUnitStatusOnCreation: BusinessUnitConfigurationStatus
+  /**
+   *	Default [Associate Role](ctp:api:type:AssociateRole) assigned to the Associate creating a Business Unit using the [My Business Unit endpoint](ctp:api:endpoint:/{projectKey}/me/business-units:POST).
+   *
+   *
+   */
+  readonly myBusinessUnitAssociateRoleOnCreation?: AssociateRoleKeyReference
 }
 /**
  *	Default value for [Business Unit Status](ctp:api:type:BusinessUnitStatus) configured though [Project settings](/../api/projects/project#change-my-business-unit-status-on-creation).
@@ -177,6 +187,7 @@ export type ProjectUpdateAction =
   | ProjectChangeOrderSearchStatusAction
   | ProjectChangeProductSearchIndexingEnabledAction
   | ProjectChangeShoppingListsConfigurationAction
+  | ProjectSetBusinessUnitAssociateRoleOnCreationAction
   | ProjectSetExternalOAuthAction
   | ProjectSetShippingRateInputTypeAction
 /**
@@ -268,7 +279,7 @@ export interface ShoppingListsConfiguration {
 export interface ProjectChangeBusinessUnitStatusOnCreationAction {
   readonly action: 'changeMyBusinessUnitStatusOnCreation'
   /**
-   *	Status for Business Units created using the [My Business Unit endpoint](/../api/projects/me-business-units#create-businessunit).
+   *	Status for Business Units created using the [My Business Unit endpoint](ctp:api:endpoint:/{projectKey}/me/business-units:POST).
    *
    *
    */
@@ -365,6 +376,15 @@ export interface ProjectChangeShoppingListsConfigurationAction {
    *
    */
   readonly shoppingListsConfiguration: ShoppingListsConfiguration
+}
+export interface ProjectSetBusinessUnitAssociateRoleOnCreationAction {
+  readonly action: 'setMyBusinessUnitAssociateRoleOnCreation'
+  /**
+   *	Default [Associate Role](ctp:api:type:AssociateRole) assigned to the Associate creating a Business Unit using the [My Business Unit endpoint](ctp:api:endpoint:/{projectKey}/me/business-units:POST).
+   *
+   *
+   */
+  readonly associateRole: AssociateRoleResourceIdentifier
 }
 export interface ProjectSetExternalOAuthAction {
   readonly action: 'setExternalOAuth'

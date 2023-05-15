@@ -3,8 +3,8 @@ import {
   MiddlewareRequest,
   MiddlewareResponse,
   Next,
-  Task,
   QueueMiddlewareOptions,
+  Task,
 } from '../types/types'
 
 export default function createQueueMiddleware({

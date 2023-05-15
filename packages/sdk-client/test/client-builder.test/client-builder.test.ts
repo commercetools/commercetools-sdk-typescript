@@ -1,3 +1,4 @@
+import { Middleware } from '../../src'
 import ClientBuilder from '../../src/client-builder/ClientBuilder'
 require('dotenv').config()
 
@@ -160,5 +161,50 @@ describe('client builder', () => {
     expect(
       clientWithCorrelationIDMiddleware.correlationIdMiddleware
     ).toBeTruthy()
+  })
+
+  test('should create client with apm middleware', () => {
+    const client = new ClientBuilder() as any
+    expect(client.telemetryMiddleware).toBeFalsy()
+
+    const options = {
+      apm: jest.fn(() => ({ apm: 'module' })),
+      tracer: jest.fn(() => ({ tracer: 'module' })),
+      createTelemetryMiddleware: jest.fn(() => ({ m: 'middleware' })),
+    }
+
+    const clientWithTelemetryMiddleware =
+      client.withTelemetryMiddleware(options)
+    expect(clientWithTelemetryMiddleware.telemetryMiddleware).toBeTruthy()
+  })
+
+  describe('builder method', () => {
+    test('build client', () => {
+      const client = new ClientBuilder()
+        .withCorrelationIdMiddleware({ generate: jest.fn() })
+        .withUserAgentMiddleware({ name: 'test-user-agent' })
+        .withClientCredentialsFlow(authMiddlewareOptions)
+        .withQueueMiddleware({ concurrency: 20 })
+        .withLoggerMiddleware()
+        .withHttpMiddleware(httpMiddlewareOptions)
+        .withTelemetryMiddleware<{
+          apm: Function
+          tracer: Function
+          createTelemetryMiddleware: (options: {
+            apm: Function
+            tracer: Function
+          }) => Middleware
+        }>({
+          apm: jest.fn(),
+          tracer: jest.fn(),
+          createTelemetryMiddleware: (): Middleware => jest.fn(),
+        })
+        .build()
+
+      expect(client).toBeTruthy()
+      expect(typeof client).toEqual('object')
+      expect(typeof client.execute).toEqual('function')
+      expect(typeof client.process).toEqual('function')
+    })
   })
 })

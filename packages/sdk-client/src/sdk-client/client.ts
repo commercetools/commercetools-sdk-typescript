@@ -10,8 +10,8 @@ import {
   ProcessOptions,
   SuccessResult,
 } from '../types/sdk.d'
+import { parseURLString } from '../utils'
 import validate from './validate'
-import { stringifyURLString, parseURLString } from '../utils'
 
 let _options
 function compose(...funcs: Array<Function>): Function {

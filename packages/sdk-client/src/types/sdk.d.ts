@@ -523,3 +523,14 @@ export type ExistingTokenMiddlewareOptions = {
 export type CorrelationIdMiddlewareOptions = {
   generate: () => string
 }
+
+// // TODO: specify specific options 
+// // export type ApmMiddlewareOptions = Record<string, any>
+// export type ApmMiddlewareOptions = {
+//   createApmMiddleware: (options?: any) => Middleware,
+//   apm: any
+// }
+
+export type TelemetryOptions<T> = {
+  createTelemetryMiddleware: (options?: Omit<T, 'createTelemetryMiddleware'>) => Middleware
+}

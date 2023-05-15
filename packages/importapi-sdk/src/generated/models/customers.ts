@@ -142,7 +142,7 @@ export interface CustomerImport extends ImportResource {
    */
   readonly email: string
   /**
-   *	Maps to `Customer.password`.
+   *	Required when `authenticationMode` is set to `Password`. Maps to `Customer.password`.
    *
    *
    */

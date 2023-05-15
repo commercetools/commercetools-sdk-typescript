@@ -161,7 +161,7 @@ export type Destination =
   | SnsDestination
   | SqsDestination
 /**
- *	[Azure Event Grid](https://azure.microsoft.com/en-us/services/event-grid/) can be used to push messages to Azure Functions, HTTP endpoints (webhooks), and several other Azure tools. Event Grid can only be used with the [CloudEventsFormat](ctp:api:type:CloudEventsFormat).
+ *	[Azure Event Grid](https://azure.microsoft.com/en-us/products/event-grid/) can be used to push messages to Azure Functions, HTTP endpoints (webhooks), and several other Azure tools. Event Grid can only be used with the [CloudEventsFormat](ctp:api:type:CloudEventsFormat).
  *	To set up a Subscription with Azure Event Grid, first create a topic in the [Azure Portal](https://azure.microsoft.com/en-us/get-started/azure-portal/). To allow Composable Commerce to push messages to your topic, provide an [access key](https://docs.microsoft.com/en-us/azure/event-grid/get-access-keys).
  *
  */
@@ -181,7 +181,7 @@ export interface AzureEventGridDestination {
   readonly accessKey: string
 }
 /**
- *	[Azure Service Bus](https://azure.microsoft.com/en-us/services/service-bus/) can be used as a pull-queue with [Queues](https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-queues-topics-subscriptions#queues), or to fan-out messages with [Topics and Subscriptions](https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-queues-topics-subscriptions#topics-and-subscriptions).
+ *	[Azure Service Bus](https://azure.microsoft.com/en-us/products/service-bus/) can be used as a pull-queue with [Queues](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-queues-topics-subscriptions#queues), or to fan-out messages with [Topics and Subscriptions](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-queues-topics-subscriptions).
  *	To set up a Subscription with Azure Service Bus, first create a queue/topic in the [Azure Portal](https://azure.microsoft.com/en-us/get-started/azure-portal/) with a Shared Access Policy including the `Send` permission.
  *
  */
@@ -331,6 +331,7 @@ export interface MessageSubscription {
  *
  */
 export type MessageSubscriptionResourceTypeId =
+  | 'associate-role'
   | 'business-unit'
   | 'category'
   | 'customer'

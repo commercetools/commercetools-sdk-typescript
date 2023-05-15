@@ -1,9 +1,9 @@
 import {
-  Next,
+  ExistingTokenMiddlewareOptions,
   Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
-  ExistingTokenMiddlewareOptions,
+  Next,
 } from '../../types/types'
 
 export default function createAuthMiddlewareForExistingTokenFlow(

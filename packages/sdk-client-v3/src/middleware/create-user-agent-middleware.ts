@@ -1,11 +1,11 @@
+import packageJson from '../../package.json'
 import {
-  Next,
   HttpUserAgentOptions,
   Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
+  Next,
 } from '../types/types'
-import packageJson from '../../package.json'
 import { default as createUserAgent } from '../utils/userAgent'
 
 export default function createUserAgentMiddleware(

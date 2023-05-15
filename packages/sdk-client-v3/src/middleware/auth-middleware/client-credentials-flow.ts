@@ -1,19 +1,19 @@
 import fetch from 'node-fetch'
 import {
-  Next,
-  Task,
+  AuthMiddlewareOptions,
   Middleware,
   MiddlewareRequest,
-  AuthMiddlewareOptions,
-  TokenStore,
   MiddlewareResponse,
-  TokenCache,
+  Next,
   RequestState,
   RequestStateStore,
+  Task,
+  TokenCache,
+  TokenStore,
 } from '../../types/types'
-import { executeRequest } from './auth-request-executor'
+import { buildTokenCacheKey, store } from '../../utils'
 import { buildRequestForClientCredentialsFlow } from './auth-request-builder'
-import { store, buildTokenCacheKey } from '../../utils'
+import { executeRequest } from './auth-request-executor'
 
 export default function createAuthMiddlewareForClientCredentialsFlow(
   options: AuthMiddlewareOptions

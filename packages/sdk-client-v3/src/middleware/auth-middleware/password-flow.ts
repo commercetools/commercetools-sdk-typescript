@@ -1,17 +1,17 @@
 import fetch from 'node-fetch'
 import {
-  Next,
-  Task,
   Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
+  Next,
   PasswordAuthMiddlewareOptions,
   RequestState,
   RequestStateStore,
+  Task,
 } from '../../types/types'
-import { executeRequest } from './auth-request-executor'
+import { buildTokenCacheKey, store } from '../../utils'
 import { buildRequestForPasswordFlow } from './auth-request-builder'
-import { store, buildTokenCacheKey } from '../../utils'
+import { executeRequest } from './auth-request-executor'
 
 export default function createAuthMiddlewareForPasswordFlow(
   options: PasswordAuthMiddlewareOptions

@@ -6,6 +6,7 @@
 
 import {
   AssociateDraft,
+  AssociateRoleAssignmentDraft,
   BusinessUnitResourceIdentifier,
   BusinessUnitUpdateAction,
 } from './business-unit'
@@ -59,6 +60,12 @@ export interface MyBusinessUnitAssociateDraft {
    *
    */
   readonly customer: MyCustomerDraft
+  /**
+   *	Roles assigned to the new Associate within a Business Unit.
+   *
+   *
+   */
+  readonly associateRoleAssignments: AssociateRoleAssignmentDraft[]
 }
 export type MyBusinessUnitDraft = MyCompanyDraft | MyDivisionDraft
 export interface MyBusinessUnitUpdate {
@@ -116,7 +123,7 @@ export interface MyCartDraft {
    */
   readonly customerEmail?: string
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to the Business Unit the Cart should belong to.
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to the Business Unit the Cart should belong to. The [Customer](ctp:api:type:Customer) must be an [Associate](ctp:api:type:Associate) of the Business Unit.
    *
    *
    */
@@ -158,7 +165,7 @@ export interface MyCartDraft {
    */
   readonly shippingAddress?: _BaseAddress
   /**
-   *	Shipping Method for the Cart. If the referenced [ShippingMethod](ctp:api:type:ShippingMethod) has a `predicate` that does not match the Cart, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned when [creating a Cart](#create-cart).
+   *	Shipping Method for the Cart. If the referenced [ShippingMethod](ctp:api:type:ShippingMethod) has a `predicate` that does not match the Cart, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned when [creating a Cart](ctp:api:endpoint:/{projectKey}/carts:POST).
    *
    *
    */
@@ -454,7 +461,7 @@ export type MyCustomerUpdateAction =
   | MyCustomerSetTitleAction
   | MyCustomerSetVatIdAction
 /**
- *	Draft type to model divisions that are part of the [Company](ctp:api:type:Company) or a higher order [Division](ctp:api:type:Division).
+ *	Draft type to model divisions that are part of the [Company](ctp:api:type:Company) or a higher-order [Division](ctp:api:type:Division).
  *	Contains the fields and values of the generic [MyBusinessUnitDraft](ctp:api:type:MyBusinessUnitDraft) that are used specifically for creating a Division.
  *
  */
@@ -592,6 +599,9 @@ export interface MyLineItemDraft {
    */
   readonly custom?: CustomFieldsDraft
 }
+/**
+ *	When creating [B2B Orders](/../api/associates-overview#b2b-resources), the Customer must have the `MyOrderFromCartDraft` [Permission](ctp:api:type:Permission).
+ */
 export interface MyOrderFromCartDraft {
   /**
    *	Unique identifier of the Cart that initiates an Order creation.
@@ -603,6 +613,9 @@ export interface MyOrderFromCartDraft {
    */
   readonly version: number
 }
+/**
+ *	When creating [B2B Orders](/../api/associates-overview#b2b-resources), the Customer must have the `MyOrderFromQuoteDraft` [Permission](ctp:api:type:Permission).
+ */
 export interface MyOrderFromQuoteDraft {
   /**
    *	Unique identifier of the Quote from which the Order is created.
@@ -813,7 +826,7 @@ export interface MyQuoteUpdate {
 }
 export type MyQuoteUpdateAction = MyQuoteChangeMyQuoteStateAction
 /**
- *	A [MyShoppingListDraft](ctp:api:type:MyShoppingListDraft) is the object submitted as payload to the [Create MyShoppingList request](#create-shoppinglist).
+ *	A [MyShoppingListDraft](ctp:api:type:MyShoppingListDraft) is the object submitted as payload to the [Create MyShoppingList request](ctp:api:endpoint:/{projectKey}/me/shopping-lists:POST).
  *	The `customer` field of [ShoppingList](ctp:api:type:ShoppingList) is automatically set with
  *	a [password flow token](/authorization#password-flow).
  *	The `anonymousId` is automatically set with a [token for an anonymous session](/authorization#tokens-for-anonymous-sessions).
@@ -1043,7 +1056,7 @@ export interface MyBusinessUnitChangeNameAction {
   readonly name: string
 }
 /**
- *	Changing the parent of a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitParentUnitChanged](ctp:api:type:BusinessUnitParentUnitChangedMessage) Message. The user must be an Associate with the `Admin` role in the new parent unit.
+ *	Changing the parent of a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitParentUnitChanged](ctp:api:type:BusinessUnitParentUnitChangedMessage) Message.
  *
  */
 export interface MyBusinessUnitChangeParentUnitAction {
@@ -1566,7 +1579,7 @@ export interface MyCartSetBusinessUnitAction {
   readonly action: 'setBusinessUnit'
   /**
    *	New Business Unit to assign to the Cart, which must have access to the [Store](/../api/projects/stores) that is set on the Cart.
-   *	Additionally, the authenticated user must have [Buyer](/projects/business-units#associate) access to the [Business Unit](/projects/business-units#businessunit).
+   *	Additionally, the authenticated user must be an [Associate](/projects/business-units#associate) in the [Business Unit](/projects/business-units#businessunit).
    *
    *
    */
@@ -2244,6 +2257,9 @@ export interface MyPaymentSetTransactionCustomFieldAction {
    */
   readonly value?: any
 }
+/**
+ *	When accepting, declining, or renegotiating [B2B Quotes](/../api/associates-overview#b2b-resources), the Customer must have the `AcceptMyQuotes`, `DeclineMyQuotes`, or `RenegotiateMyQuotes` [Permission](ctp:api:type:Permission), respectively. If the required [Permission](/projects/associate-roles#permission) is missing, an [AssociateMissingPermission](/errors#associatemissingpermission) error is returned.
+ */
 export interface MyQuoteChangeMyQuoteStateAction {
   readonly action: 'changeMyQuoteState'
   /**

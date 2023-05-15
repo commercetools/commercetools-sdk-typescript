@@ -1,8 +1,8 @@
 import {
-  Next,
   Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
+  Next,
 } from '../types/types'
 
 export default function createConcurrentModificationMiddleware(): Middleware {

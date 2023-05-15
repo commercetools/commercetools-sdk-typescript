@@ -1,17 +1,22 @@
-import qs from 'querystring'
 import {
-  Next,
   Client,
-  Dispatch,
-  ClientResult,
-  ClientRequest,
   ClientOptions,
-  MiddlewareResponse,
+  ClientRequest,
+  ClientResult,
+  Dispatch,
   Middleware,
+  MiddlewareResponse,
+  Next,
   ProcessFn,
   ProcessOptions,
 } from '../types/types'
-import { validate, maskAuthData, validateClient } from '../../src/utils'
+import {
+  validate,
+  maskAuthData,
+  validateClient,
+  stringifyURLString,
+  parseURLString,
+} from '../../src/utils'
 
 function compose({
   middlewares,
@@ -58,7 +63,7 @@ export function process(
       _queryString = queryString
     }
 
-    const requestQuery = { ...qs.parse(_queryString) }
+    const requestQuery = { ...parseURLString<object>(_queryString) }
     const query = {
       // defaults
       limit: 20,
@@ -71,14 +76,14 @@ export function process(
     const processPage = async (lastId?: string, acc: Array<unknown> = []) => {
       // Use the lesser value between limit and itemsToGet in query
       const limit = query.limit < itemsToGet ? query.limit : itemsToGet
-      const originalQueryString = qs.stringify({ ...query, limit })
+      const originalQueryString = stringifyURLString({ ...query, limit })
 
       const enhancedQuery = {
         sort: 'id asc',
         withTotal: false,
         ...(lastId ? { where: `id > "${lastId}"` } : {}),
       }
-      const enhancedQueryString = qs.stringify(enhancedQuery)
+      const enhancedQueryString = stringifyURLString(enhancedQuery)
       const enhancedRequest = {
         ...request,
         uri: `${_path}?${enhancedQueryString}&${originalQueryString}`,

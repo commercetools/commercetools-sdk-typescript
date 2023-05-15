@@ -1,10 +1,10 @@
 import {
-  Next,
-  Middleware,
+  ErrorMiddlewareOptions,
   HttpErrorType,
+  Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
-  ErrorMiddlewareOptions,
+  Next,
 } from '../types/types'
 import { getHeaders } from '../utils'
 

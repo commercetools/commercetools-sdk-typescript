@@ -1,8 +1,8 @@
 import {
+  CorrelationIdMiddlewareOptions,
   Middleware,
   MiddlewareRequest,
   Next,
-  CorrelationIdMiddlewareOptions,
 } from '../types/types'
 import { generate } from '../utils'
 
