@@ -1,5 +1,11 @@
 # @commercetools/importapi-sdk
 
+## 4.6.0
+
+### Minor Changes
+
+- [#478](https://github.com/commercetools/commercetools-sdk-typescript/pull/478) [`98c6bac`](https://github.com/commercetools/commercetools-sdk-typescript/commit/98c6bace1608889c16373e1a83451cf5d7a7d140) Thanks [@ajimae](https://github.com/ajimae)! - remove all remaining `querystring` package instances.
+
 ## 4.5.0
 
 ### Minor Changes
