@@ -73,7 +73,7 @@ describe('testing discount code API calls', () => {
     const cartDiscount = await createCartDiscount()
     const discountCodeDraft = await createDiscountCodeDraft(cartDiscount)
     const discountCode = await createDiscountCode(discountCodeDraft)
-    const getDiscountCode = await apiRoot
+    const queryDiscountCode = await apiRoot
       .discountCodes()
       .get({
         queryArgs: {
@@ -81,8 +81,10 @@ describe('testing discount code API calls', () => {
         },
       })
       .execute()
-    expect(getDiscountCode).not.toBe(null)
-    expect(getDiscountCode.body.results.at(0).id).toEqual(discountCode.body.id)
+    expect(queryDiscountCode).not.toBe(null)
+    expect(queryDiscountCode.body.results.at(0).id).toEqual(
+      discountCode.body.id
+    )
 
     await deleteDiscountCode(discountCode)
     await deleteCartDiscount(cartDiscount)

@@ -8,7 +8,7 @@ import { apiRoot } from '../test-utils'
 
 import { createCartDiscount, deleteCartDiscount } from './cart-discount-fixture'
 
-describe('testing cartDiscount API calls', () => {
+describe('testing cart discount API calls', () => {
   it('should create and delete a cart discount by ID', async () => {
     const cartDiscountValueDraft: CartDiscountValueRelativeDraft = {
       type: 'relative',
