@@ -380,7 +380,7 @@ export interface MyCustomerDraft {
    */
   readonly companyName?: string
   /**
-   *	Unique VAT ID of the Customer.
+   *	Individual VAT ID of the Customer.
    *
    *
    */

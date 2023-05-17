@@ -141,7 +141,7 @@ export interface Customer extends BaseResource {
    */
   readonly companyName?: string
   /**
-   *	Unique VAT ID of the Customer.
+   *	Individual VAT ID of the Customer.
    *
    *
    */
@@ -373,7 +373,7 @@ export interface CustomerDraft {
    */
   readonly companyName?: string
   /**
-   *	Unique VAT ID of the Customer.
+   *	Individual VAT ID of the Customer.
    *
    *
    */
