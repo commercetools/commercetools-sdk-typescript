@@ -23,6 +23,9 @@
 - added property `deliveryKey` to type `OrderSetDeliveryCustomFieldAction`
 - added property `deliveryKey` to type `OrderSetDeliveryCustomTypeAction`
 - added property `deliveryKey` to type `OrderSetDeliveryItemsAction`
+- added property `sku` to type `ProductRemovePriceAction`
+- added property `variantId` to type `ProductRemovePriceAction`
+- added property `price` to type `ProductRemovePriceAction`
 </details>
 
 <details>
