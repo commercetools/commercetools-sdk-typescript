@@ -1,0 +1,210 @@
+import { randomUUID } from 'crypto'
+import { apiRoot } from '../test-utils'
+import {
+  _BaseAddress,
+  BaseAddress,
+  CustomerDraft,
+  CustomerGroupResourceIdentifier,
+  StoreResourceIdentifier,
+} from '../../../src'
+import {
+  createCustomerGroup,
+  deleteCustomerGroup,
+} from '../customer-group/customer-group-fixture'
+import {
+  createCustomer,
+  createCustomerDraft,
+  deleteCustomer,
+} from './customer-fixture'
+import { createStore, deleteStore } from '../store/store-fixture'
+
+describe('testing customer API calls', () => {
+  it('should create and delete a customer by ID', async () => {
+    const customerGroup = await createCustomerGroup()
+
+    const customerGroupResourceIdentifier: CustomerGroupResourceIdentifier = {
+      typeId: 'customer-group',
+      id: customerGroup.body.id,
+    }
+
+    const address: BaseAddress[] = [
+      {
+        id: randomUUID(),
+        country: 'DE',
+      },
+    ]
+    const customerDraft: CustomerDraft = {
+      key: randomUUID(),
+      email: 'test-email-customer' + randomUUID(),
+      password: 'test-password-customer' + randomUUID(),
+      customerGroup: customerGroupResourceIdentifier,
+      addresses: address,
+    }
+
+    const responseCreatedCustomer = await apiRoot
+      .customers()
+      .post({ body: customerDraft })
+      .execute()
+
+    expect(responseCreatedCustomer.statusCode).toEqual(201)
+    expect(responseCreatedCustomer.body.customer).not.toBe(null)
+
+    const responseCustomerDeleted = await apiRoot
+      .customers()
+      .withId({ ID: responseCreatedCustomer.body.customer.id })
+      .delete({
+        queryArgs: { version: responseCreatedCustomer.body.customer.version },
+      })
+      .execute()
+
+    expect(responseCustomerDeleted.statusCode).toEqual(200)
+
+    await deleteCustomerGroup(customerGroup)
+  })
+
+  it('should update a customer by Id', async () => {
+    const customerGroup = await createCustomerGroup()
+    const customerDraft = await createCustomerDraft(customerGroup)
+    const customer = await createCustomer(customerDraft)
+
+    const updateCustomer = await apiRoot
+      .customers()
+      .withId({ ID: customer.body.customer.id })
+      .post({
+        body: {
+          version: customer.body.customer.version,
+          actions: [
+            {
+              action: 'setKey',
+              key: randomUUID(),
+            },
+          ],
+        },
+      })
+      .execute()
+
+    expect(updateCustomer.body.version).not.toBe(customer.body.customer.version)
+    expect(updateCustomer.statusCode).toEqual(200)
+
+    await deleteCustomer(updateCustomer)
+    await deleteCustomerGroup(customerGroup)
+  })
+
+  it('should update a customer by key', async () => {
+    const customerGroup = await createCustomerGroup()
+    const customerDraft = await createCustomerDraft(customerGroup)
+    const customer = await createCustomer(customerDraft)
+
+    const updateCustomer = await apiRoot
+      .customers()
+      .withKey({ key: customer.body.customer.key })
+      .post({
+        body: {
+          version: customer.body.customer.version,
+          actions: [
+            {
+              action: 'setKey',
+              key: randomUUID(),
+            },
+          ],
+        },
+      })
+      .execute()
+
+    expect(updateCustomer.body.version).not.toBe(customer.body.customer.version)
+    expect(updateCustomer.statusCode).toEqual(200)
+
+    await deleteCustomer(updateCustomer)
+    await deleteCustomerGroup(customerGroup)
+  })
+
+  it('should adding new address to a customer', async () => {
+    const customerGroup = await createCustomerGroup()
+    const customerDraft = await createCustomerDraft(customerGroup)
+    const customer = await createCustomer(customerDraft)
+
+    const newAddressKey = randomUUID()
+
+    const newAddress: _BaseAddress = {
+      key: newAddressKey,
+      country: 'DE',
+    }
+
+    const updateCustomer = await apiRoot
+      .customers()
+      .withId({ ID: customer.body.customer.id })
+      .post({
+        body: {
+          version: customer.body.customer.version,
+          actions: [
+            {
+              action: 'addAddress',
+              address: newAddress,
+            },
+          ],
+        },
+      })
+      .execute()
+
+    expect(updateCustomer.body.version).not.toBe(customer.body.customer.version)
+    expect(updateCustomer.statusCode).toEqual(200)
+    expect(updateCustomer.body.addresses.at(1).key).toEqual(newAddressKey)
+
+    await deleteCustomer(updateCustomer)
+    await deleteCustomerGroup(customerGroup)
+  })
+
+  it('should setting customer to a store', async () => {
+    const customerGroup = await createCustomerGroup()
+    const customerDraft = await createCustomerDraft(customerGroup)
+    const customer = await createCustomer(customerDraft)
+    const store = await createStore()
+
+    const storeResourceIdentifier: StoreResourceIdentifier = {
+      typeId: 'store',
+      key: store.body.key,
+    }
+
+    const updateCustomer = await apiRoot
+      .customers()
+      .withId({ ID: customer.body.customer.id })
+      .post({
+        body: {
+          version: customer.body.customer.version,
+          actions: [
+            {
+              action: 'setStores',
+              stores: [storeResourceIdentifier],
+            },
+          ],
+        },
+      })
+      .execute()
+
+    expect(updateCustomer.body.version).not.toBe(customer.body.customer.version)
+    expect(updateCustomer.statusCode).toEqual(200)
+    expect(updateCustomer.body.stores.at(0).key).toEqual(store.body.key)
+
+    await deleteCustomer(updateCustomer)
+    await deleteStore(store)
+    await deleteCustomerGroup(customerGroup)
+  })
+
+  it('should delete a customer by Key', async () => {
+    const customerGroup = await createCustomerGroup()
+    const customerDraft = await createCustomerDraft(customerGroup)
+    const customer = await createCustomer(customerDraft)
+
+    const responseCustomerDeleted = await apiRoot
+      .customers()
+      .withKey({ key: customer.body.customer.key })
+      .delete({
+        queryArgs: {
+          version: customer.body.customer.version,
+        },
+      })
+      .execute()
+
+    expect(responseCustomerDeleted.statusCode).toEqual(200)
+  })
+})
