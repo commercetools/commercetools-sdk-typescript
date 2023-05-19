@@ -8,8 +8,11 @@ const stateDraft: StateDraft = {
   roles: ['Return'],
 }
 
-export function createState(stateDraft?: StateDraft) {
-  return apiRoot.states().post({ body: stateDraft }).execute()
+export function createState(stateDraftBody?: StateDraft) {
+  return apiRoot
+    .states()
+    .post({ body: stateDraftBody || stateDraft })
+    .execute()
 }
 
 export function deleteState(responseCreatedState) {

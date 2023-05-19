@@ -61,8 +61,11 @@ const typeDraft: TypeDraft = {
   fieldDefinitions,
 }
 
-export function createType() {
-  return apiRoot.types().post({ body: typeDraft }).execute()
+export function createType(typeDraftBody?: TypeDraft) {
+  return apiRoot
+    .types()
+    .post({ body: typeDraftBody || typeDraft })
+    .execute()
 }
 
 export function deleteType(responseCreatedType) {

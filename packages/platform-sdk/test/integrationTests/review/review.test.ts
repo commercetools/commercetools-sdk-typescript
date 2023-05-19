@@ -1,23 +1,6 @@
 import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
-import {
-  ChannelResourceIdentifier,
-  CustomerResourceIdentifier,
-  ReviewDraft,
-  StateDraft,
-  StateResourceIdentifier,
-} from '../../../src'
-import { createState, deleteState } from '../state/state-fixture'
-import {
-  createCustomer,
-  createCustomerDraft,
-  deleteCustomer,
-} from '../customer/customer-fixture'
-import {
-  createCustomerGroup,
-  deleteCustomerGroup,
-} from '../customer-group/customer-group-fixture'
-import { createChannel, deleteChannel } from '../channel/channel-fixture'
+import { ReviewDraft } from '../../../src'
 import { createReview, deleteReview } from './review-fixture'
 
 describe('testing review API calls', () => {
