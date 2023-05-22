@@ -33,12 +33,22 @@ export function createCustomer(customerDraft) {
   return apiRoot.customers().post({ body: customerDraft }).execute()
 }
 
-export function deleteCustomer(responseCreatedCustomer) {
+export function deleteCustomerFromUpdatableObject(responseCreatedCustomer) {
   return apiRoot
     .customers()
     .withId({ ID: responseCreatedCustomer.body.id })
     .delete({
       queryArgs: { version: responseCreatedCustomer.body.version },
+    })
+    .execute()
+}
+
+export function deleteCustomer(customer) {
+  return apiRoot
+    .customers()
+    .withId({ ID: customer.body.customer.id })
+    .delete({
+      queryArgs: { version: customer.body.customer.version },
     })
     .execute()
 }

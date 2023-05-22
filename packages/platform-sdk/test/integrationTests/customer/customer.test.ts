@@ -14,7 +14,7 @@ import {
 import {
   createCustomer,
   createCustomerDraft,
-  deleteCustomer,
+  deleteCustomerFromUpdatableObject,
 } from './customer-fixture'
 import { createStore, deleteStore } from '../store/store-fixture'
 
@@ -86,7 +86,7 @@ describe('testing customer API calls', () => {
     expect(updateCustomer.body.version).not.toBe(customer.body.customer.version)
     expect(updateCustomer.statusCode).toEqual(200)
 
-    await deleteCustomer(updateCustomer)
+    await deleteCustomerFromUpdatableObject(updateCustomer)
     await deleteCustomerGroup(customerGroup)
   })
 
@@ -114,7 +114,7 @@ describe('testing customer API calls', () => {
     expect(updateCustomer.body.version).not.toBe(customer.body.customer.version)
     expect(updateCustomer.statusCode).toEqual(200)
 
-    await deleteCustomer(updateCustomer)
+    await deleteCustomerFromUpdatableObject(updateCustomer)
     await deleteCustomerGroup(customerGroup)
   })
 
@@ -150,7 +150,7 @@ describe('testing customer API calls', () => {
     expect(updateCustomer.statusCode).toEqual(200)
     expect(updateCustomer.body.addresses.at(1).key).toEqual(newAddressKey)
 
-    await deleteCustomer(updateCustomer)
+    await deleteCustomerFromUpdatableObject(updateCustomer)
     await deleteCustomerGroup(customerGroup)
   })
 
@@ -185,7 +185,7 @@ describe('testing customer API calls', () => {
     expect(updateCustomer.statusCode).toEqual(200)
     expect(updateCustomer.body.stores.at(0).key).toEqual(store.body.key)
 
-    await deleteCustomer(updateCustomer)
+    await deleteCustomerFromUpdatableObject(updateCustomer)
     await deleteStore(store)
     await deleteCustomerGroup(customerGroup)
   })
