@@ -1,6 +1,8 @@
 import { apiRoot } from '../test-utils'
 import {
   CustomFieldEnumValue,
+  CustomFieldLocalizedStringType,
+  CustomFieldStringType,
   FieldDefinition,
   FieldType,
   TypeDraft,
@@ -9,8 +11,12 @@ import { randomUUID } from 'crypto'
 
 const key = 'test-key-type' + randomUUID()
 
-const fieldTypeLocalized: FieldType = {
+const fieldTypeLocalized: CustomFieldLocalizedStringType = {
   name: 'LocalizedString',
+}
+
+const fieldTypeString: CustomFieldStringType = {
+  name: 'String',
 }
 
 const customFieldEnumValue: CustomFieldEnumValue[] = [
@@ -27,14 +33,20 @@ const fieldTypeEnum: FieldType = {
 
 const fieldDefinitions: FieldDefinition[] = [
   {
+    type: fieldTypeString,
+    name: 'type-field-name-' + randomUUID(),
+    label: { en: 'test-label' + randomUUID() },
+    required: false,
+  },
+  {
     type: fieldTypeLocalized,
-    name: randomUUID(),
+    name: 'type-field-name-' + randomUUID(),
     label: { en: 'test-label' + randomUUID() },
     required: false,
   },
   {
     type: fieldTypeEnum,
-    name: randomUUID(),
+    name: 'type-field-name-' + randomUUID(),
     label: { en: 'test-label' + randomUUID() },
     required: false,
   },

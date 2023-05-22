@@ -2,6 +2,8 @@ import {
   CartDiscountDraft,
   CartDiscountShippingCostTarget,
   CartDiscountValueRelativeDraft,
+  FieldContainer,
+  TypeResourceIdentifier,
 } from '../../../src'
 import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
@@ -12,6 +14,7 @@ import {
   createCustomerGroup,
   deleteCustomerGroup,
 } from '../customer-group/customer-group-fixture'
+import { createType, deleteType } from '../type/type-fixture'
 
 describe('testing cart discount API calls', () => {
   it('should create and delete a cart discount by ID', async () => {
@@ -149,5 +152,43 @@ describe('testing cart discount API calls', () => {
     expect(updateCartDiscount.statusCode).toEqual(200)
 
     await deleteCartDiscount(updateCartDiscount)
+  })
+
+  it('should set customer type to a cart discount', async () => {
+    const type = await createType()
+    const cartDiscount = await createCartDiscount()
+
+    const typeResourceIdentifier: TypeResourceIdentifier = {
+      typeId: 'type',
+      id: type.body.id,
+    }
+    const fieldName: string = type.body.fieldDefinitions.at(0).name
+    const fieldValue = 'fieldValue'
+    const fieldContainer: FieldContainer = {
+      [fieldName]: fieldValue,
+    }
+
+    const updateCartDiscount = await apiRoot
+      .cartDiscounts()
+      .withKey({ key: cartDiscount.body.key })
+      .post({
+        body: {
+          version: cartDiscount.body.version,
+          actions: [
+            {
+              action: 'setCustomType',
+              type: typeResourceIdentifier,
+              fields: fieldContainer,
+            },
+          ],
+        },
+      })
+      .execute()
+
+    expect(updateCartDiscount.body.version).not.toBe(cartDiscount.body.version)
+    expect(updateCartDiscount.statusCode).toEqual(200)
+
+    await deleteCartDiscount(updateCartDiscount)
+    await deleteType(type)
   })
 })

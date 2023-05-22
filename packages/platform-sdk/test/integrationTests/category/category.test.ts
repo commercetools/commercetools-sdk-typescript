@@ -1,7 +1,18 @@
 import { createCategory, deleteCategory } from './category-fixture'
 import { apiRoot } from '../test-utils'
 import { randomUUID } from 'crypto'
-import { CategoryDraft } from '../../../src'
+import {
+  AssetDraft,
+  AssetSource,
+  CategoryDraft,
+  FieldContainer,
+  TypeResourceIdentifier,
+} from '../../../src'
+import { createType, deleteType } from '../type/type-fixture'
+import {
+  createCartDiscount,
+  deleteCartDiscount,
+} from '../cart-discount/cart-discount-fixture'
 
 describe('testing category API calls', () => {
   it('should create and delete a category by ID', async () => {
@@ -111,5 +122,57 @@ describe('testing category API calls', () => {
     expect(updateCategory.statusCode).toEqual(200)
 
     await deleteCategory(updateCategory)
+  })
+
+  it('should update a category adding Assets and CustomFields', async () => {
+    const type = await createType()
+    const category = await createCategory()
+
+    const typeResourceIdentifier: TypeResourceIdentifier = {
+      typeId: 'type',
+      id: type.body.id,
+    }
+
+    const assetSource: AssetSource = {
+      uri: 'www.myphoto.com',
+    }
+    const assetDraft: AssetDraft = {
+      sources: [assetSource],
+      name: { en: 'test-photo' },
+      key: 'test-key-asset' + randomUUID(),
+    }
+
+    const fieldName: string = type.body.fieldDefinitions.at(0).name
+    const fieldValue = 'fieldValue'
+    const fieldContainer: FieldContainer = {
+      [fieldName]: fieldValue,
+    }
+
+    const updateCategory = await apiRoot
+      .categories()
+      .withId({ ID: category.body.id })
+      .post({
+        body: {
+          version: category.body.version,
+          actions: [
+            {
+              action: 'addAsset',
+              asset: assetDraft,
+            },
+            {
+              action: 'setCustomType',
+              type: typeResourceIdentifier,
+              fields: fieldContainer,
+            },
+          ],
+        },
+      })
+      .execute()
+
+    expect(updateCategory.body.version).not.toBe(category.body.version)
+    expect(updateCategory.statusCode).toEqual(200)
+
+    await deleteCategory(updateCategory)
+    await deleteType(type)
   })
 })
