@@ -14,9 +14,14 @@ import {
 import {
   createCustomer,
   createCustomerDraft,
+  deleteCustomer,
   deleteCustomerFromUpdatableObject,
 } from './customer-fixture'
 import { createStore, deleteStore } from '../store/store-fixture'
+import {
+  createCartDiscount,
+  deleteCartDiscount,
+} from '../cart-discount/cart-discount-fixture'
 
 describe('testing customer API calls', () => {
   it('should create and delete a customer by ID', async () => {
@@ -59,6 +64,65 @@ describe('testing customer API calls', () => {
 
     expect(responseCustomerDeleted.statusCode).toEqual(200)
 
+    await deleteCustomerGroup(customerGroup)
+  })
+
+  it('should get a customer by Id', async () => {
+    const customerGroup = await createCustomerGroup()
+    const customerDraft = await createCustomerDraft(customerGroup)
+    const customer = await createCustomer(customerDraft)
+
+    const getCustomer = await apiRoot
+      .customers()
+      .withId({ ID: customer.body.customer.id })
+      .get()
+      .execute()
+
+    expect(getCustomer).not.toBe(null)
+    expect(getCustomer.body.id).toEqual(customer.body.customer.id)
+
+    await deleteCustomer(customer)
+    await deleteCustomerGroup(customerGroup)
+  })
+
+  it('should get a customer by key', async () => {
+    const customerGroup = await createCustomerGroup()
+    const customerDraft = await createCustomerDraft(customerGroup)
+    const customer = await createCustomer(customerDraft)
+
+    const getCustomer = await apiRoot
+      .customers()
+      .withKey({ key: customer.body.customer.key })
+      .get()
+      .execute()
+
+    expect(getCustomer).not.toBe(null)
+    expect(getCustomer.body.key).toEqual(customer.body.customer.key)
+
+    await deleteCustomer(customer)
+    await deleteCustomerGroup(customerGroup)
+  })
+
+  it('should query a cart discount', async () => {
+    const customerGroup = await createCustomerGroup()
+    const customerDraft = await createCustomerDraft(customerGroup)
+    const customer = await createCustomer(customerDraft)
+
+    const queryCustomer = await apiRoot
+      .customers()
+      .get({
+        queryArgs: {
+          where: 'id=' + '"' + customer.body.customer.id + '"',
+        },
+      })
+      .execute()
+
+    expect(queryCustomer).not.toBe(null)
+    expect(queryCustomer.body.results.at(0).id).toEqual(
+      customer.body.customer.id
+    )
+
+    await deleteCustomer(customer)
     await deleteCustomerGroup(customerGroup)
   })
 

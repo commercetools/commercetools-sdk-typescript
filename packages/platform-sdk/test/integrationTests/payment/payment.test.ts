@@ -9,6 +9,15 @@ import {
 } from '../../../src'
 import { createPayment, deletePayment } from './payment-fixture'
 import { createType, deleteType } from '../type/type-fixture'
+import {
+  createCustomerGroup,
+  deleteCustomerGroup,
+} from '../customer-group/customer-group-fixture'
+import {
+  createCustomer,
+  createCustomerDraft,
+  deleteCustomer,
+} from '../customer/customer-fixture'
 
 const money: _Money = {
   centAmount: 1000,
@@ -57,6 +66,38 @@ describe('testing payment API calls', () => {
       .execute()
     expect(getPayment).not.toBe(null)
     expect(getPayment.body.id).toEqual(payment.body.id)
+
+    await deletePayment(payment)
+  })
+
+  it('should get a payment by key', async () => {
+    const payment = await createPayment()
+
+    const getPayment = await apiRoot
+      .payments()
+      .withKey({ key: payment.body.key })
+      .get()
+      .execute()
+    expect(getPayment).not.toBe(null)
+    expect(getPayment.body.key).toEqual(payment.body.key)
+
+    await deletePayment(payment)
+  })
+
+  it('should query a payment', async () => {
+    const payment = await createPayment()
+
+    const queryPayment = await apiRoot
+      .payments()
+      .get({
+        queryArgs: {
+          where: 'id=' + '"' + payment.body.id + '"',
+        },
+      })
+      .execute()
+
+    expect(queryPayment).not.toBe(null)
+    expect(queryPayment.body.results.at(0).id).toEqual(payment.body.id)
 
     await deletePayment(payment)
   })

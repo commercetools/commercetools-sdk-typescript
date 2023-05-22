@@ -7,6 +7,11 @@ import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
 
 import { createCartDiscount, deleteCartDiscount } from './cart-discount-fixture'
+import { createChannel, deleteChannel } from '../channel/channel-fixture'
+import {
+  createCustomerGroup,
+  deleteCustomerGroup,
+} from '../customer-group/customer-group-fixture'
 
 describe('testing cart discount API calls', () => {
   it('should create and delete a cart discount by ID', async () => {
@@ -24,7 +29,7 @@ describe('testing cart discount API calls', () => {
       value: cartDiscountValueDraft,
       cartPredicate: 'country="DE"',
       target: cartDiscountShippingCostTarget,
-      sortOrder: '0.61',
+      sortOrder: '0.65',
     }
 
     const responseCreatedCartDiscount = await apiRoot
@@ -44,6 +49,56 @@ describe('testing cart discount API calls', () => {
       .execute()
 
     expect(responseCartDiscountDeleted.statusCode).toEqual(200)
+  })
+
+  it('should get a cart discount  by Id', async () => {
+    const cartDiscount = await createCartDiscount()
+
+    const getCartDiscount = await apiRoot
+      .cartDiscounts()
+      .withId({ ID: cartDiscount.body.id })
+      .get()
+      .execute()
+
+    expect(getCartDiscount).not.toBe(null)
+    expect(getCartDiscount.body.id).toEqual(cartDiscount.body.id)
+
+    await deleteCartDiscount(cartDiscount)
+  })
+
+  it('should get a cart discount  by key', async () => {
+    const cartDiscount = await createCartDiscount()
+
+    const getCartDiscount = await apiRoot
+      .cartDiscounts()
+      .withKey({ key: cartDiscount.body.key })
+      .get()
+      .execute()
+
+    expect(getCartDiscount).not.toBe(null)
+    expect(getCartDiscount.body.key).toEqual(cartDiscount.body.key)
+
+    await deleteCartDiscount(cartDiscount)
+  })
+
+  it('should query a cart discount', async () => {
+    const cartDiscount = await createCartDiscount()
+
+    const queryCartDiscount = await apiRoot
+      .cartDiscounts()
+      .get({
+        queryArgs: {
+          where: 'id=' + '"' + cartDiscount.body.id + '"',
+        },
+      })
+      .execute()
+
+    expect(queryCartDiscount).not.toBe(null)
+    expect(queryCartDiscount.body.results.at(0).id).toEqual(
+      cartDiscount.body.id
+    )
+
+    await deleteCartDiscount(cartDiscount)
   })
 
   it('should update a cart discount by Id', async () => {
