@@ -15,15 +15,93 @@ const attributeDefinitionDraft: AttributeDefinitionDraft = {
   isSearchable: true,
 }
 
+const attributeDefinitionDraftProduct: AttributeDefinitionDraft[] = [
+  {
+    type: {
+      name: 'text',
+    },
+    name: 'test-text',
+    label: { en: 'test-text' },
+    isRequired: false,
+  },
+  {
+    type: {
+      name: 'number',
+    },
+    name: 'test-number',
+    label: { en: 'test-number' },
+    isRequired: false,
+  },
+  {
+    type: {
+      name: 'number',
+    },
+    name: 'test-integer',
+    label: { en: 'test-integer' },
+    isRequired: false,
+  },
+  {
+    type: {
+      name: 'enum',
+      values: [
+        {
+          key: 'test',
+          label: 'test',
+        },
+      ],
+    },
+    name: 'test-enum',
+    label: { en: 'test-enum' },
+    isRequired: false,
+  },
+  {
+    type: {
+      name: 'set',
+      elementType: { name: 'text' },
+    },
+    name: 'test-set-text',
+    label: { en: 'test-set-text' },
+    isRequired: false,
+  },
+  {
+    type: {
+      name: 'set',
+      elementType: { name: 'number' },
+    },
+    name: 'test-set-number',
+    label: { en: 'test-set-number' },
+    isRequired: false,
+  },
+  {
+    type: {
+      name: 'set',
+      elementType: { name: 'number' },
+    },
+    name: 'test-set-integer',
+    label: { en: 'test-set-integer' },
+    isRequired: false,
+  },
+]
+
 const productTypeDraft: ProductTypeDraft = {
   key: randomUUID(),
-  name: 'test-name-productType' + randomUUID(),
+  name: 'test-name-productType-' + randomUUID(),
   description: randomUUID(),
   attributes: [attributeDefinitionDraft],
 }
 
-export function createProductType() {
-  return apiRoot.productTypes().post({ body: productTypeDraft }).execute()
+export const productTypeDraftForProduct: ProductTypeDraft = {
+  key: 'test-productType-key-' + randomUUID(),
+  name: 'test-name-productType-' + randomUUID(),
+  description: 'test-productType-description-' + randomUUID(),
+  attributes: attributeDefinitionDraftProduct,
+}
+
+export function createProductType(productTypeDraftBody?) {
+  return apiRoot
+    .productTypes()
+    .post({ body: productTypeDraftBody || productTypeDraft })
+    .execute()
 }
 
 export function deleteProductType(responseCreatedProductType) {
