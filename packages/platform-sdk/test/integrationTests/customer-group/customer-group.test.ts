@@ -5,7 +5,6 @@ import {
   createCustomerGroup,
   deleteCustomerGroup,
 } from './customer-group-fixture'
-import { createProductType } from '../product-type/product-type-fixture'
 
 describe('testing customer group API calls', () => {
   it('should create and delete a customer group by ID', async () => {

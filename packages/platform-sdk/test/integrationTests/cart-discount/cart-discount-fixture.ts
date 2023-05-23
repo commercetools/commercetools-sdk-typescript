@@ -1,7 +1,6 @@
 import {
   CartDiscountDraft,
   CartDiscountShippingCostTarget,
-  CartDiscountValueDraft,
   CartDiscountValueRelativeDraft,
 } from '../../../src'
 import { randomUUID } from 'crypto'

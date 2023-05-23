@@ -9,15 +9,6 @@ import {
 } from '../../../src'
 import { createPayment, deletePayment } from './payment-fixture'
 import { createType, deleteType } from '../type/type-fixture'
-import {
-  createCustomerGroup,
-  deleteCustomerGroup,
-} from '../customer-group/customer-group-fixture'
-import {
-  createCustomer,
-  createCustomerDraft,
-  deleteCustomer,
-} from '../customer/customer-fixture'
 
 const money: _Money = {
   centAmount: 1000,

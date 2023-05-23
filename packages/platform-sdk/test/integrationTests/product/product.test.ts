@@ -22,14 +22,11 @@ import {
   TaxCategoryResourceIdentifier,
 } from '../../../src'
 import { createCategory, deleteCategory } from '../category/category-fixture'
-import { publish } from '@changesets/cli/dist/declarations/src/commands/publish/npm-utils'
-import { deleteType } from '../type/type-fixture'
 import {
   createProduct,
   createProductDraft,
   deleteProduct,
 } from './product-fixture'
-import { createZone, deleteZone } from '../zone/zone-fixture'
 
 describe('testing product API calls', () => {
   it('should create and delete a product by ID', async () => {

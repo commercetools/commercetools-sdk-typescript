@@ -18,10 +18,6 @@ import {
   deleteCustomerFromUpdatableObject,
 } from './customer-fixture'
 import { createStore, deleteStore } from '../store/store-fixture'
-import {
-  createCartDiscount,
-  deleteCartDiscount,
-} from '../cart-discount/cart-discount-fixture'
 
 describe('testing customer API calls', () => {
   it('should create and delete a customer by ID', async () => {

@@ -1,10 +1,6 @@
 import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
-import {
-  CartDiscountResourceIdentifier,
-  DiscountCodeDraft,
-  ResourceIdentifier,
-} from '../../../src'
+import { CartDiscountResourceIdentifier, DiscountCodeDraft } from '../../../src'
 import {
   createCartDiscount,
   deleteCartDiscount,

@@ -9,10 +9,6 @@ import {
   TypeResourceIdentifier,
 } from '../../../src'
 import { createType, deleteType } from '../type/type-fixture'
-import {
-  createCartDiscount,
-  deleteCartDiscount,
-} from '../cart-discount/cart-discount-fixture'
 
 describe('testing category API calls', () => {
   it('should create and delete a category by ID', async () => {

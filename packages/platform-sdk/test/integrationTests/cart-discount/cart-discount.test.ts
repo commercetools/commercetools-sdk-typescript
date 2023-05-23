@@ -9,11 +9,6 @@ import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
 
 import { createCartDiscount, deleteCartDiscount } from './cart-discount-fixture'
-import { createChannel, deleteChannel } from '../channel/channel-fixture'
-import {
-  createCustomerGroup,
-  deleteCustomerGroup,
-} from '../customer-group/customer-group-fixture'
 import { createType, deleteType } from '../type/type-fixture'
 
 describe('testing cart discount API calls', () => {

@@ -9,7 +9,6 @@ import {
   createCustomer,
   createCustomerDraft,
   deleteCustomer,
-  deleteCustomerFromUpdatableObject,
 } from '../customer/customer-fixture'
 import {
   createCustomerGroup,

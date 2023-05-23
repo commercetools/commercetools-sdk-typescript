@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
-import { ExtensionDraft, ExtensionTrigger, HttpDestination } from '../../../src'
+import { ExtensionDraft, HttpDestination } from '../../../src'
 
 describe('testing extension API calls', () => {
   it('should create and delete an extension by ID', async () => {
