@@ -52,3 +52,15 @@
 - changed property `deliveryId` of type `OrderSetDeliveryCustomTypeAction` to be optional
 - changed property `deliveryId` of type `OrderSetDeliveryItemsAction` to be optional
 </details>
+
+<details>
+<summary>Added Resource(s)</summary>
+
+- added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/carts/replicate`
+</details>
+
+<details>
+<summary>Added Method(s)</summary>
+
+- added method `apiRoot.withProjectKey().asAssociate().withAssociateIdValue().inBusinessUnitKeyWithBusinessUnitKeyValue().carts().replicate().post()`
+</details>
