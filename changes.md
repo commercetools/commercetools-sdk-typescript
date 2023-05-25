@@ -3,6 +3,8 @@
 <details>
 <summary>Added Property(s)</summary>
 
+- added property `shippingKey` to type `CartSetShippingMethodTaxAmountAction`
+- added property `shippingKey` to type `CartSetShippingMethodTaxRateAction`
 - added property `deliveryKey` to type `StagedOrderAddDeliveryAction`
 - added property `deliveryKey` to type `StagedOrderAddParcelToDeliveryAction`
 - added property `deliveryKey` to type `StagedOrderRemoveDeliveryAction`
@@ -12,6 +14,8 @@
 - added property `deliveryKey` to type `StagedOrderSetDeliveryCustomFieldAction`
 - added property `deliveryKey` to type `StagedOrderSetDeliveryCustomTypeAction`
 - added property `deliveryKey` to type `StagedOrderSetDeliveryItemsAction`
+- added property `shippingKey` to type `StagedOrderSetShippingMethodTaxAmountAction`
+- added property `shippingKey` to type `StagedOrderSetShippingMethodTaxRateAction`
 - added property `key` to type `Delivery`
 - added property `key` to type `DeliveryDraft`
 - added property `deliveryKey` to type `OrderAddDeliveryAction`

@@ -1628,6 +1628,12 @@ export interface StagedOrderSetShippingMethodAction {
 export interface StagedOrderSetShippingMethodTaxAmountAction {
   readonly action: 'setShippingMethodTaxAmount'
   /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) to update. This is required for Orders with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
+  /**
    *	Cannot be used in [LineItemDraft](ctp:api:type:LineItemDraft) or [CustomLineItemDraft](ctp:api:type:CustomLineItemDraft).
    *
    *	Can only be set by these update actions:
@@ -1641,6 +1647,12 @@ export interface StagedOrderSetShippingMethodTaxAmountAction {
 }
 export interface StagedOrderSetShippingMethodTaxRateAction {
   readonly action: 'setShippingMethodTaxRate'
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) to update. This is required for Orders with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
   /**
    *	Controls calculation of taxed prices for Line Items, Custom Line Items, and Shipping Methods as explained in [Cart tax calculation](ctp:api:type:CartTaxCalculation).
    *

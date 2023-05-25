@@ -3345,6 +3345,12 @@ export interface CartSetShippingMethodAction {
 export interface CartSetShippingMethodTaxAmountAction {
   readonly action: 'setShippingMethodTaxAmount'
   /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) to update. This is required for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
+  /**
    *	Value to set.
    *	If empty, any existing value is removed.
    *
@@ -3358,6 +3364,12 @@ export interface CartSetShippingMethodTaxAmountAction {
  */
 export interface CartSetShippingMethodTaxRateAction {
   readonly action: 'setShippingMethodTaxRate'
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) to update. This is required for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
   /**
    *	Value to set.
    *	If empty, any existing value is removed.
