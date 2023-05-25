@@ -9,7 +9,7 @@ import {
 } from '../../../src'
 import { randomUUID } from 'crypto'
 
-export function createShippingMethodDraft(taxCategory, zone) {
+export const createShippingMethodDraft = (taxCategory, zone) => {
   const taxCategoryResourceIdentifier: TaxCategoryResourceIdentifier = {
     typeId: 'tax-category',
     id: taxCategory.body.id,
@@ -42,12 +42,15 @@ export function createShippingMethodDraft(taxCategory, zone) {
   return shippingMethodDraft
 }
 
-export function createShippingMethod(shippingMethodDraft) {
-  return apiRoot.shippingMethods().post({ body: shippingMethodDraft }).execute()
+export const createShippingMethod = async (shippingMethodDraft) => {
+  return await apiRoot
+    .shippingMethods()
+    .post({ body: shippingMethodDraft })
+    .execute()
 }
 
-export function deleteShippingMethod(shippingMethod) {
-  return apiRoot
+export const deleteShippingMethod = async (shippingMethod) => {
+  return await apiRoot
     .shippingMethods()
     .withId({ ID: shippingMethod.body.id })
     .delete({ queryArgs: { version: shippingMethod.body.version } })

@@ -8,15 +8,15 @@ const stateDraft: StateDraft = {
   roles: ['Return'],
 }
 
-export function createState(stateDraftBody?: StateDraft) {
-  return apiRoot
+export const createState = async (stateDraftBody?: StateDraft) => {
+  return await apiRoot
     .states()
     .post({ body: stateDraftBody || stateDraft })
     .execute()
 }
 
-export function deleteState(responseCreatedState) {
-  return apiRoot
+export const deleteState = async (responseCreatedState) => {
+  return await apiRoot
     .states()
     .withId({ ID: responseCreatedState.body.id })
     .delete({

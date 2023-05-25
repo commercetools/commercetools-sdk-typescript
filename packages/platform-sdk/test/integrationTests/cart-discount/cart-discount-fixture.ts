@@ -20,17 +20,19 @@ const cartDiscountDraft: CartDiscountDraft = {
   value: cartDiscountValueDraft,
   cartPredicate: 'country="DE"',
   target: cartDiscountShippingCostTarget,
-  sortOrder: '0.7815',
+  sortOrder: '0.7031',
   isActive: false,
   requiresDiscountCode: true,
 }
 
-export function createCartDiscount() {
-  return apiRoot.cartDiscounts().post({ body: cartDiscountDraft }).execute()
+export const createCartDiscount = async (cartDiscountDraftBody?) => {
+  return await apiRoot
+    .cartDiscounts()
+    .post({ body: cartDiscountDraftBody || cartDiscountDraft })
+    .execute()
 }
-
-export function deleteCartDiscount(responseCreatedCartDiscount) {
-  return apiRoot
+export const deleteCartDiscount = async (responseCreatedCartDiscount) => {
+  return await apiRoot
     .cartDiscounts()
     .withId({ ID: responseCreatedCartDiscount.body.id })
     .delete({

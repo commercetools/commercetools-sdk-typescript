@@ -2,7 +2,7 @@ import { apiRoot } from '../test-utils'
 import { CartDiscountResourceIdentifier, DiscountCodeDraft } from '../../../src'
 import { randomUUID } from 'crypto'
 
-export function createDiscountCodeDraft(cartDiscount) {
+export const createDiscountCodeDraft = (cartDiscount) => {
   const cartDiscountResourceIdentifier: CartDiscountResourceIdentifier[] = [
     {
       typeId: 'cart-discount',
@@ -20,12 +20,16 @@ export function createDiscountCodeDraft(cartDiscount) {
 
   return discountCodeDraft
 }
-export function createDiscountCode(discountCodeDraft) {
-  return apiRoot.discountCodes().post({ body: discountCodeDraft }).execute()
+
+export const createDiscountCode = async (discountCodeDraft) => {
+  return await apiRoot
+    .discountCodes()
+    .post({ body: discountCodeDraft })
+    .execute()
 }
 
-export function deleteDiscountCode(discountCode) {
-  return apiRoot
+export const deleteDiscountCode = async (discountCode) => {
+  return await apiRoot
     .discountCodes()
     .withId({ ID: discountCode.body.id })
     .delete({ queryArgs: { version: discountCode.body.version } })

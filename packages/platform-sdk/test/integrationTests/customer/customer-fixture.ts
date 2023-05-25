@@ -6,7 +6,7 @@ import {
   CustomerGroupResourceIdentifier,
 } from '../../../src'
 
-export function createCustomerDraft(customerGroup) {
+export const createCustomerDraft = (customerGroup) => {
   const customerGroupResourceIdentifier: CustomerGroupResourceIdentifier = {
     typeId: 'customer-group',
     id: customerGroup.body.id,
@@ -29,12 +29,14 @@ export function createCustomerDraft(customerGroup) {
   return customerDraft
 }
 
-export function createCustomer(customerDraft) {
-  return apiRoot.customers().post({ body: customerDraft }).execute()
+export const createCustomer = async (customerDraft) => {
+  return await apiRoot.customers().post({ body: customerDraft }).execute()
 }
 
-export function deleteCustomerFromUpdatableObject(responseCreatedCustomer) {
-  return apiRoot
+export const deleteCustomerFromUpdatableObject = async (
+  responseCreatedCustomer
+) => {
+  return await apiRoot
     .customers()
     .withId({ ID: responseCreatedCustomer.body.id })
     .delete({
@@ -43,8 +45,8 @@ export function deleteCustomerFromUpdatableObject(responseCreatedCustomer) {
     .execute()
 }
 
-export function deleteCustomer(customer) {
-  return apiRoot
+export const deleteCustomer = async (customer) => {
+  return await apiRoot
     .customers()
     .withId({ ID: customer.body.customer.id })
     .delete({

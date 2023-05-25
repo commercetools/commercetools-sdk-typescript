@@ -7,7 +7,7 @@ import {
 } from '../../../src'
 import { randomUUID } from 'crypto'
 
-export function createShoppingListDraft(customer) {
+export const createShoppingListDraft = (customer) => {
   const customerResourceIdentifier: CustomerResourceIdentifier = {
     typeId: 'customer',
     id: customer.body.customer.id,
@@ -31,12 +31,16 @@ export function createShoppingListDraft(customer) {
 
   return shoppingListDraft
 }
-export function createShoppingList(shoppingListDraft) {
-  return apiRoot.shoppingLists().post({ body: shoppingListDraft }).execute()
+
+export const createShoppingList = async (shoppingListDraft) => {
+  return await apiRoot
+    .shoppingLists()
+    .post({ body: shoppingListDraft })
+    .execute()
 }
 
-export function deleteShoppingList(shoppingList) {
-  return apiRoot
+export const deleteShoppingList = async (shoppingList) => {
+  return await apiRoot
     .shoppingLists()
     .withId({ ID: shoppingList.body.id })
     .delete({ queryArgs: { version: shoppingList.body.version } })

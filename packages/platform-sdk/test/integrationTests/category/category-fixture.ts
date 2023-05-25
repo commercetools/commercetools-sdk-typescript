@@ -8,12 +8,12 @@ const categoryDraft: CategoryDraft = {
   slug: { en: 'test-slug-category' + randomUUID() },
 }
 
-export function createCategory() {
-  return apiRoot.categories().post({ body: categoryDraft }).execute()
+export const createCategory = async () => {
+  return await apiRoot.categories().post({ body: categoryDraft }).execute()
 }
 
-export function deleteCategory(responseCreatedCategory) {
-  return apiRoot
+export const deleteCategory = async (responseCreatedCategory) => {
+  return await apiRoot
     .categories()
     .withId({ ID: responseCreatedCategory.body.id })
     .delete({ queryArgs: { version: responseCreatedCategory.body.version } })

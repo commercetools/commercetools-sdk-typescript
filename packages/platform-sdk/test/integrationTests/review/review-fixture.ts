@@ -7,12 +7,12 @@ const reviewDraft: ReviewDraft = {
   title: 'review-title-1',
 }
 
-export function createReview() {
-  return apiRoot.reviews().post({ body: reviewDraft }).execute()
+export const createReview = async () => {
+  return await apiRoot.reviews().post({ body: reviewDraft }).execute()
 }
 
-export function deleteReview(responseCreatedReview) {
-  return apiRoot
+export const deleteReview = async (responseCreatedReview) => {
+  return await apiRoot
     .reviews()
     .withId({ ID: responseCreatedReview.body.id })
     .delete({

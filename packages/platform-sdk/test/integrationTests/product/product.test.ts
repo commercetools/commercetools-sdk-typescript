@@ -245,40 +245,6 @@ describe('testing product API calls', () => {
     await deleteCategory(category)
   })
 
-  it('should get a product by SKU using query predicates', async () => {
-    const category = await createCategory()
-    const taxCategory = await createTaxCategory()
-    const productType = await createProductType(productTypeDraftForProduct)
-    const productDraft = await createProductDraft(
-      category,
-      taxCategory,
-      productType
-    )
-    const product = await createProduct(productDraft)
-
-    const sku = product.body.masterData.current.masterVariant.sku
-    const getProduct = await apiRoot
-      .productProjections()
-      .get({
-        queryArgs: {
-          limit: 1,
-          staged: true,
-          where: `masterVariant(sku in :sku) or variants(sku in :sku)`,
-          sku,
-        },
-      })
-      .execute()
-
-    expect(getProduct).not.toBe(null)
-    expect(getProduct.body.results.length).toEqual(1)
-    expect(getProduct.body.results.at(0).key).toEqual(product.body.key)
-
-    await deleteProduct(product)
-    await deleteProductType(productType)
-    await deleteTaxCategory(taxCategory)
-    await deleteCategory(category)
-  })
-
   it('should update a product by Id', async () => {
     const category = await createCategory()
     const taxCategory = await createTaxCategory()

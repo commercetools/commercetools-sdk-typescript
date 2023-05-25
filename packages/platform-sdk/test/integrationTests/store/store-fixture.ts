@@ -6,12 +6,12 @@ const storeDraft: StoreDraft = {
   key: randomUUID(),
 }
 
-export function createStore() {
-  return apiRoot.stores().post({ body: storeDraft }).execute()
+export const createStore = async () => {
+  return await apiRoot.stores().post({ body: storeDraft }).execute()
 }
 
-export function deleteStore(responseCreatedStore) {
-  return apiRoot
+export const deleteStore = async (responseCreatedStore) => {
+  return await apiRoot
     .stores()
     .withId({ ID: responseCreatedStore.body.id })
     .delete({

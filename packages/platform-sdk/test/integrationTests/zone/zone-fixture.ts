@@ -8,15 +8,15 @@ const zoneDraft: ZoneDraft = {
   description: 'test-description-zone' + randomUUID(),
 }
 
-export function createZone(zoneDraftBody?: ZoneDraft) {
-  return apiRoot
+export const createZone = async (zoneDraftBody?: ZoneDraft) => {
+  return await apiRoot
     .zones()
     .post({ body: zoneDraftBody || zoneDraft })
     .execute()
 }
 
-export function deleteZone(responseCreatedZone) {
-  return apiRoot
+export const deleteZone = async (responseCreatedZone) => {
+  return await apiRoot
     .zones()
     .withId({ ID: responseCreatedZone.body.id })
     .delete({ queryArgs: { version: responseCreatedZone.body.version } })

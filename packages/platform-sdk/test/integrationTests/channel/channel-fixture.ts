@@ -12,12 +12,12 @@ const channelDraft: ChannelDraft = {
   geoLocation: geolocation,
 }
 
-export function createChannel() {
-  return apiRoot.channels().post({ body: channelDraft }).execute()
+export const createChannel = async () => {
+  return await apiRoot.channels().post({ body: channelDraft }).execute()
 }
 
-export function deleteChannel(responseCreatedChannel) {
-  return apiRoot
+export const deleteChannel = async (responseCreatedChannel) => {
+  return await apiRoot
     .channels()
     .withId({ ID: responseCreatedChannel.body.id })
     .delete({ queryArgs: { version: responseCreatedChannel.body.version } })

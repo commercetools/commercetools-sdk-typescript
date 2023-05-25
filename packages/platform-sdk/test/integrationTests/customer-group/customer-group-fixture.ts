@@ -6,17 +6,18 @@ const customerGroupDraft: CustomerGroupDraft = {
   key: 'test-key-customer-group-' + randomUUID(),
   groupName: 'test-name-customerGroup' + randomUUID(),
 }
-export function createCustomerGroup(
+
+export const createCustomerGroup = async (
   customerGroupDraftBody?: CustomerGroupDraft
-) {
-  return apiRoot
+) => {
+  return await apiRoot
     .customerGroups()
     .post({ body: customerGroupDraftBody || customerGroupDraft })
     .execute()
 }
 
-export function deleteCustomerGroup(responseCreatedCustomerGroup) {
-  return apiRoot
+export const deleteCustomerGroup = async (responseCreatedCustomerGroup) => {
+  return await apiRoot
     .customerGroups()
     .withId({ ID: responseCreatedCustomerGroup.body.id })
     .delete({

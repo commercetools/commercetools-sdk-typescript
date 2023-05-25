@@ -5,6 +5,7 @@ import {
   CustomFieldStringType,
   FieldDefinition,
   FieldType,
+  TaxCategoryDraft,
   TypeDraft,
 } from '../../../src'
 import { randomUUID } from 'crypto'
@@ -73,15 +74,15 @@ const typeDraft: TypeDraft = {
   fieldDefinitions,
 }
 
-export function createType(typeDraftBody?: TypeDraft) {
-  return apiRoot
+export const createType = async (typeDraftBody?: TypeDraft) => {
+  return await apiRoot
     .types()
     .post({ body: typeDraftBody || typeDraft })
     .execute()
 }
 
-export function deleteType(responseCreatedType) {
-  return apiRoot
+export const deleteType = async (responseCreatedType) => {
+  return await apiRoot
     .types()
     .withId({ ID: responseCreatedType.body.id })
     .delete({ queryArgs: { version: responseCreatedType.body.version } })

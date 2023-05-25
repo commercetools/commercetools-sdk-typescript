@@ -17,14 +17,16 @@ const taxCategoryDraft: TaxCategoryDraft = {
   rates: [taxRate],
 }
 
-export function createTaxCategory(taxCategoryDraftBody?: TaxCategoryDraft) {
-  return apiRoot
+export const createTaxCategory = async (
+  taxCategoryDraftBody?: TaxCategoryDraft
+) => {
+  return await apiRoot
     .taxCategories()
     .post({ body: taxCategoryDraftBody || taxCategoryDraft })
     .execute()
 }
 
-export function deleteTaxCategory(responseCreatedTaxCategory) {
+export const deleteTaxCategory = async (responseCreatedTaxCategory) => {
   return apiRoot
     .taxCategories()
     .withId({ ID: responseCreatedTaxCategory.body.id })

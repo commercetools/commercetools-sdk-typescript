@@ -97,15 +97,15 @@ export const productTypeDraftForProduct: ProductTypeDraft = {
   attributes: attributeDefinitionDraftProduct,
 }
 
-export function createProductType(productTypeDraftBody?) {
-  return apiRoot
+export const createProductType = async (productTypeDraftBody?) => {
+  return await apiRoot
     .productTypes()
     .post({ body: productTypeDraftBody || productTypeDraft })
     .execute()
 }
 
-export function deleteProductType(responseCreatedProductType) {
-  return apiRoot
+export const deleteProductType = async (responseCreatedProductType) => {
+  return await apiRoot
     .productTypes()
     .withId({ ID: responseCreatedProductType.body.id })
     .delete({

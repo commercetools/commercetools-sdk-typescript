@@ -19,12 +19,12 @@ const paymentDraft: PaymentDraft = {
   paymentMethodInfo,
 }
 
-export function createPayment() {
-  return apiRoot.payments().post({ body: paymentDraft }).execute()
+export const createPayment = async () => {
+  return await apiRoot.payments().post({ body: paymentDraft }).execute()
 }
 
-export function deletePayment(payment) {
-  return apiRoot
+export const deletePayment = async (payment) => {
+  return await apiRoot
     .payments()
     .withId({ ID: payment.body.id })
     .delete({

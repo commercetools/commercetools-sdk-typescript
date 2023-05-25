@@ -2,7 +2,7 @@ import { apiRoot } from '../test-utils'
 import { randomUUID } from 'crypto'
 import { ChannelResourceIdentifier, InventoryEntryDraft } from '../../../src'
 
-export function createInventoryDraft(channel) {
+export const createInventoryDraft = (channel) => {
   const channelResourceIdentifier: ChannelResourceIdentifier = {
     typeId: 'channel',
     id: channel.body.id,
@@ -17,12 +17,12 @@ export function createInventoryDraft(channel) {
   return inventoryDraft
 }
 
-export function createInventory(inventoryDraft) {
-  return apiRoot.inventory().post({ body: inventoryDraft }).execute()
+export const createInventory = async (inventoryDraft) => {
+  return await apiRoot.inventory().post({ body: inventoryDraft }).execute()
 }
 
-export function deleteInventory(inventory) {
-  return apiRoot
+export const deleteInventory = async (inventory) => {
+  return await apiRoot
     .inventory()
     .withId({ ID: inventory.body.id })
     .delete({

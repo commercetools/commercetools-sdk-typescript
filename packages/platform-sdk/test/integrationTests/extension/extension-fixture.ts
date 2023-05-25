@@ -18,12 +18,12 @@ const extensionDraft: ExtensionDraft = {
   ],
 }
 
-export function createExtension() {
-  return apiRoot.extensions().post({ body: extensionDraft }).execute()
+export const createExtension = async () => {
+  return await apiRoot.extensions().post({ body: extensionDraft }).execute()
 }
 
-export function deleteExtension(extension) {
-  return apiRoot
+export const deleteExtension = async (extension) => {
+  return await apiRoot
     .extensions()
     .withId({ ID: extension.body.id })
     .delete({

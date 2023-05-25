@@ -7,13 +7,15 @@ import {
   CategoryResourceIdentifier,
   Image,
   PriceDraft,
+  Product,
   ProductDraft,
   ProductTypeResourceIdentifier,
   ProductVariantDraft,
   TaxCategoryResourceIdentifier,
 } from '../../../src'
+import { ClientResponse } from '@commercetools/ts-client'
 
-export function createProductDraft(category, taxCategory, productType) {
+export const createProductDraft = (category, taxCategory, productType) => {
   const productTypeResourceIdentifier: ProductTypeResourceIdentifier = {
     typeId: 'product-type',
     id: productType.body.id,
@@ -119,16 +121,35 @@ export function createProductDraft(category, taxCategory, productType) {
   return productDraft
 }
 
-export function createProduct(productDraft) {
-  return apiRoot.products().post({ body: productDraft }).execute()
+export const createProduct = async (productDraft) => {
+  return await apiRoot.products().post({ body: productDraft }).execute()
 }
 
-export function deleteProduct(product) {
-  return apiRoot
+export const deleteProduct = async (product) => {
+  let updateProduct: ClientResponse<Product>
+  if (product.body?.masterData?.published) {
+    updateProduct = await apiRoot
+      .products()
+      .withId({ ID: product.body.id })
+      .post({
+        body: {
+          version: product.body.version,
+          actions: [
+            {
+              action: 'unpublish',
+            },
+          ],
+        },
+      })
+      .execute()
+  }
+  const productToDelete = updateProduct ? await updateProduct : product
+
+  return await apiRoot
     .products()
-    .withId({ ID: product.body.id })
+    .withId({ ID: productToDelete.body.id })
     .delete({
-      queryArgs: { version: product.body.version },
+      queryArgs: { version: productToDelete.body.version },
     })
     .execute()
 }

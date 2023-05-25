@@ -8,12 +8,15 @@ const customObjectDraft: CustomObjectDraft = {
   value: 2,
 }
 
-export function createCustomObject() {
-  return apiRoot.customObjects().post({ body: customObjectDraft }).execute()
+export const createCustomObject = async () => {
+  return await apiRoot
+    .customObjects()
+    .post({ body: customObjectDraft })
+    .execute()
 }
 
-export function deleteCustomObject(container, key, version) {
-  return apiRoot
+export const deleteCustomObject = async (container, key, version) => {
+  return await apiRoot
     .customObjects()
     .withContainerAndKey({
       container,

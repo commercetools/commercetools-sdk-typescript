@@ -19,15 +19,15 @@ const productDiscountDraft: ProductDiscountDraft = {
   isActive: false,
 }
 
-export function createProductDiscount() {
-  return apiRoot
+export const createProductDiscount = async () => {
+  return await apiRoot
     .productDiscounts()
     .post({ body: productDiscountDraft })
     .execute()
 }
 
-export function deleteProductDiscount(responseCreatedProductDiscount) {
-  return apiRoot
+export const deleteProductDiscount = async (responseCreatedProductDiscount) => {
+  return await apiRoot
     .productDiscounts()
     .withId({ ID: responseCreatedProductDiscount.body.id })
     .delete({
