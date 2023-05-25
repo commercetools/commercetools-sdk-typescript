@@ -16,7 +16,6 @@ import {
 } from '../customer-group/customer-group-fixture'
 import {
   createDiscountCode,
-  createDiscountCodeDraft,
   deleteDiscountCode,
 } from '../discount-code/discount-code-fixture'
 import {
@@ -24,33 +23,70 @@ import {
   deleteCartDiscount,
 } from '../cart-discount/cart-discount-fixture'
 import {
+  BaseAddress,
   CartDiscountDraft,
   CartDiscountResourceIdentifier,
   CartDiscountShippingCostTarget,
   CartDiscountValueRelativeDraft,
   CartDraft,
   DiscountCodeDraft,
-  LineItemDraft,
-  ProductDraft,
+  FieldContainer,
+  TypeResourceIdentifier,
 } from '../../../src'
-import {
-  createProduct,
-  createProductDraft,
-  deleteProduct,
-} from '../product/product-fixture'
-import { createCategory, deleteCategory } from '../category/category-fixture'
-import {
-  createTaxCategory,
-  deleteTaxCategory,
-} from '../tax-category/tax-category-fixture'
+
+import { createType, deleteType } from '../type/type-fixture'
+import { createCategory } from '../category/category-fixture'
+import { createTaxCategory } from '../tax-category/tax-category-fixture'
 import {
   createProductType,
-  deleteProductType,
   productTypeDraftForProduct,
 } from '../product-type/product-type-fixture'
+import { createProduct, createProductDraft } from '../product/product-fixture'
 
 describe('testing cart API calls', () => {
-  // tests for queries
+  //create
+  it('should create a cart with multiple item shipping address', async () => {
+    const category = await createCategory()
+    const taxCategory = await createTaxCategory()
+    const productType = await createProductType(productTypeDraftForProduct)
+
+    //Published product
+    const productDraft = await createProductDraft(
+      category,
+      taxCategory,
+      productType,
+      true
+    )
+    const product = await createProduct(productDraft)
+
+    const addresses: BaseAddress[] = [
+      {
+        country: 'DE',
+        key: randomUUID(),
+      },
+      {
+        country: 'FR',
+        key: randomUUID(),
+      },
+      {
+        country: 'IT',
+        key: randomUUID(),
+      },
+    ]
+
+    const cartDraft: CartDraft = {
+      itemShippingAddresses: addresses,
+      currency: 'EUR',
+      country: 'DE',
+    }
+
+    const cart = await createCart(cartDraft)
+
+    expect(cart.body.id).not.toBe(null)
+    expect(Object.keys(cart.body.itemShippingAddresses)).toHaveLength(3)
+  })
+
+  // query
   it('should get a cart by Id', async () => {
     const cart = await createCart()
 
@@ -216,5 +252,73 @@ describe('testing cart API calls', () => {
     await deleteCustomerGroup(customerGroup)
     await deleteDiscountCode(discountCode)
     await deleteCartDiscount(cartDiscount)
+  })
+
+  //update
+  it('should update the cart with custom field', async () => {
+    const type = await createType()
+    const cart = await createCart()
+
+    const typeResourceIdentifier: TypeResourceIdentifier = {
+      typeId: 'type',
+      id: type.body.id,
+    }
+    const fieldName: string = type.body.fieldDefinitions.at(0).name
+    const fieldValue = 'fieldValue'
+    const fieldContainer: FieldContainer = {
+      [fieldName]: fieldValue,
+    }
+
+    const updateCart = await apiRoot
+      .carts()
+      .withKey({ key: cart.body.key })
+      .post({
+        body: {
+          version: cart.body.version,
+          actions: [
+            {
+              action: 'setCustomType',
+              type: typeResourceIdentifier,
+              fields: fieldContainer,
+            },
+          ],
+        },
+      })
+      .execute()
+    expect(updateCart.body.version).not.toBe(cart.body.version)
+    expect(updateCart.statusCode).toEqual(200)
+
+    await deleteCart(updateCart)
+    await deleteType(type)
+  })
+
+  it('should update the cart adding item shipping address', async () => {
+    const cart = await createCart()
+
+    const address1: BaseAddress = {
+      country: 'DE',
+      key: randomUUID(),
+    }
+
+    const updateCart = await apiRoot
+      .carts()
+      .withKey({ key: cart.body.key })
+      .post({
+        body: {
+          version: cart.body.version,
+          actions: [
+            {
+              action: 'addItemShippingAddress',
+              address: address1,
+            },
+          ],
+        },
+      })
+      .execute()
+    expect(updateCart.body.version).not.toBe(cart.body.version)
+    expect(updateCart.statusCode).toEqual(200)
+    expect(Object.keys(updateCart.body.itemShippingAddresses)).toHaveLength(1)
+
+    await deleteCart(updateCart)
   })
 })

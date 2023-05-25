@@ -15,7 +15,12 @@ import {
 } from '../../../src'
 import { ClientResponse } from '@commercetools/ts-client'
 
-export const createProductDraft = (category, taxCategory, productType) => {
+export const createProductDraft = (
+  category,
+  taxCategory,
+  productType,
+  publish
+) => {
   const productTypeResourceIdentifier: ProductTypeResourceIdentifier = {
     typeId: 'product-type',
     id: productType.body.id,
@@ -115,7 +120,7 @@ export const createProductDraft = (category, taxCategory, productType) => {
     categories: [categoryResourceIdentifier],
     masterVariant: productVariantDraft,
     taxCategory: taxCategoryResourceIdentifier,
-    publish: false,
+    publish,
   }
 
   return productDraft

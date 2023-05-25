@@ -166,7 +166,8 @@ describe('testing product API calls', () => {
     const productDraft = await createProductDraft(
       category,
       taxCategory,
-      productType
+      productType,
+      false
     )
     const product = await createProduct(productDraft)
 
@@ -192,7 +193,8 @@ describe('testing product API calls', () => {
     const productDraft = await createProductDraft(
       category,
       taxCategory,
-      productType
+      productType,
+      false
     )
     const product = await createProduct(productDraft)
 
@@ -218,7 +220,8 @@ describe('testing product API calls', () => {
     const productDraft = await createProductDraft(
       category,
       taxCategory,
-      productType
+      productType,
+      false
     )
     const product = await createProduct(productDraft)
 
@@ -252,7 +255,8 @@ describe('testing product API calls', () => {
     const productDraft = await createProductDraft(
       category,
       taxCategory,
-      productType
+      productType,
+      false
     )
     const product = await createProduct(productDraft)
 
@@ -288,7 +292,8 @@ describe('testing product API calls', () => {
     const productDraft = await createProductDraft(
       category,
       taxCategory,
-      productType
+      productType,
+      false
     )
     const product = await createProduct(productDraft)
 
@@ -324,7 +329,8 @@ describe('testing product API calls', () => {
     const productDraft = await createProductDraft(
       category,
       taxCategory,
-      productType
+      productType,
+      false
     )
     const product = await createProduct(productDraft)
     const queryProduct = await apiRoot

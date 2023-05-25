@@ -23,7 +23,8 @@ describe('testing product projection API calls', () => {
     const productDraft = await createProductDraft(
       category,
       taxCategory,
-      productType
+      productType,
+      false
     )
     const product = await createProduct(productDraft)
 
@@ -53,7 +54,8 @@ describe('testing product projection API calls', () => {
     const productDraft = await createProductDraft(
       category,
       taxCategory,
-      productType
+      productType,
+      false
     )
     const product = await createProduct(productDraft)
 
@@ -119,7 +121,8 @@ describe('testing product projection API calls', () => {
     const productDraft = await createProductDraft(
       category,
       taxCategory,
-      productType
+      productType,
+      false
     )
     const product = await createProduct(productDraft)
     const productProjectionQueryResponse = await apiRoot
@@ -149,7 +152,8 @@ describe('testing product projection API calls', () => {
     const productDraft = await createProductDraft(
       category,
       taxCategory,
-      productType
+      productType,
+      false
     )
     const product = await createProduct(productDraft)
     const productProjectionSearchResponse = await apiRoot
