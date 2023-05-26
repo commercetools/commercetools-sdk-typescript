@@ -84,7 +84,7 @@ const attributeDefinitionDraftProduct: AttributeDefinitionDraft[] = [
 ]
 
 const productTypeDraft: ProductTypeDraft = {
-  key: randomUUID(),
+  key: 'test-productTypeDraft' + randomUUID(),
   name: 'test-name-productType-' + randomUUID(),
   description: randomUUID(),
   attributes: [attributeDefinitionDraft],

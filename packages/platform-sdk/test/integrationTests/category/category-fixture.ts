@@ -3,7 +3,7 @@ import { CategoryDraft } from '../../../src'
 import { randomUUID } from 'crypto'
 
 const categoryDraft: CategoryDraft = {
-  key: randomUUID(),
+  key: 'test-key-category-' + randomUUID(),
   name: { en: 'test-name-category' + randomUUID() },
   slug: { en: 'test-slug-category' + randomUUID() },
 }

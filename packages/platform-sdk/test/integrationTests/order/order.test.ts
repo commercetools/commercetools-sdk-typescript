@@ -16,6 +16,8 @@ import {
   deleteProduct,
 } from '../product/product-fixture'
 import { createCart, deleteCart } from '../cart/cart-fixture'
+import { _OrderSearchQuery, OrderSearchRequest } from '../../../src'
+import { ctpApiBuilder } from '../../helpers/ctp-api-helper'
 
 describe('testing order API calls', () => {
   it('should get a order by Id', async () => {
@@ -133,6 +135,67 @@ describe('testing order API calls', () => {
     const getCart = await apiRoot
       .carts()
       .withId({ ID: updateOrder.body.cart.id })
+      .get()
+      .execute()
+    await deleteCart(getCart)
+    await deleteProduct(product)
+    await deleteProductType(productType)
+    await deleteTaxCategory(taxCategory)
+    await deleteCategory(category)
+  })
+
+  it('should search a order', async () => {
+    const project = await ctpApiBuilder.get().execute()
+
+    const updateProject = await ctpApiBuilder
+      .post({
+        body: {
+          version: project.body.version,
+          actions: [
+            {
+              action: 'changeOrderSearchStatus',
+              status: 'Activated',
+            },
+          ],
+        },
+      })
+      .execute()
+
+    const category = await createCategory()
+    const taxCategory = await createTaxCategory()
+    const productType = await createProductType(productTypeDraftForProduct)
+    const productDraft = await createProductDraft(
+      category,
+      taxCategory,
+      productType,
+      true
+    )
+    const product = await createProduct(productDraft)
+    const cart = await createCart()
+    const order = await createOrder(cart, product)
+
+    const orderSearchRequest: OrderSearchRequest = {
+      query: {
+        exists: {
+          field: 'custom.deliveryDate',
+          customType: 'StringType',
+        },
+        sort: [
+          {
+            field: 'createdAt',
+            order: 'desc',
+          },
+        ],
+        limit: 20,
+      },
+    }
+
+    expect(orderSearchRequest).not.toBe(null)
+
+    await deleteOrder(order)
+    const getCart = await apiRoot
+      .carts()
+      .withId({ ID: order.body.cart.id })
       .get()
       .execute()
     await deleteCart(getCart)

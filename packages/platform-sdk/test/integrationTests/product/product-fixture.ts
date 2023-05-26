@@ -112,7 +112,7 @@ export const createProductDraft = (
   }
 
   const productDraft: ProductDraft = {
-    key: randomUUID(),
+    key: 'test-productDraft' + randomUUID(),
     name: { en: 'test-product-name' + randomUUID() },
     productType: productTypeResourceIdentifier,
     slug: { en: 'test-product-slug' + randomUUID() },

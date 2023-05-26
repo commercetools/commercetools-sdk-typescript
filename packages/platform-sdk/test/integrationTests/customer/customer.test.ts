@@ -99,7 +99,7 @@ describe('testing customer API calls', () => {
     await deleteCustomerGroup(customerGroup)
   })
 
-  it('should query a cart discount', async () => {
+  it('should query a customer', async () => {
     const customerGroup = await createCustomerGroup()
     const customerDraft = await createCustomerDraft(customerGroup)
     const customer = await createCustomer(customerDraft)

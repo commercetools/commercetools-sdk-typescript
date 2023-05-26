@@ -23,25 +23,37 @@ import {
   deleteCartDiscount,
 } from '../cart-discount/cart-discount-fixture'
 import {
+  _Money,
   BaseAddress,
   CartDiscountDraft,
   CartDiscountResourceIdentifier,
   CartDiscountShippingCostTarget,
   CartDiscountValueRelativeDraft,
   CartDraft,
+  CustomLineItemDraft,
   DiscountCodeDraft,
   FieldContainer,
+  LineItemDraft,
+  TaxCategoryResourceIdentifier,
   TypeResourceIdentifier,
 } from '../../../src'
 
 import { createType, deleteType } from '../type/type-fixture'
-import { createCategory } from '../category/category-fixture'
-import { createTaxCategory } from '../tax-category/tax-category-fixture'
+import { createCategory, deleteCategory } from '../category/category-fixture'
+import {
+  createTaxCategory,
+  deleteTaxCategory,
+} from '../tax-category/tax-category-fixture'
 import {
   createProductType,
+  deleteProductType,
   productTypeDraftForProduct,
 } from '../product-type/product-type-fixture'
-import { createProduct, createProductDraft } from '../product/product-fixture'
+import {
+  createProduct,
+  createProductDraft,
+  deleteProduct,
+} from '../product/product-fixture'
 
 describe('testing cart API calls', () => {
   //create
@@ -71,6 +83,94 @@ describe('testing cart API calls', () => {
 
     expect(cart.body.id).not.toBe(null)
     expect(Object.keys(cart.body.itemShippingAddresses)).toHaveLength(3)
+  })
+
+  it('should create a cart with line items', async () => {
+    const category = await createCategory()
+    const taxCategory = await createTaxCategory()
+    const productType = await createProductType(productTypeDraftForProduct)
+
+    //Published product
+    const productDraft1 = await createProductDraft(
+      category,
+      taxCategory,
+      productType,
+      true
+    )
+    const productDraft2 = await createProductDraft(
+      category,
+      taxCategory,
+      productType,
+      true
+    )
+    const product1 = await createProduct(productDraft1)
+    const product2 = await createProduct(productDraft2)
+
+    const lineItemDraft: LineItemDraft[] = [
+      {
+        sku: product1.body.masterData.current.masterVariant.sku,
+      },
+      {
+        sku: product2.body.masterData.current.masterVariant.sku,
+      },
+    ]
+
+    const cartDraft: CartDraft = {
+      currency: 'EUR',
+      country: 'DE',
+      lineItems: lineItemDraft,
+    }
+
+    const cart = await createCart(cartDraft)
+
+    expect(cart.body.id).not.toBe(null)
+    expect(cart.body.lineItems).toHaveLength(2)
+
+    await deleteCart(cart)
+    await deleteProduct(product1)
+    await deleteProduct(product2)
+    await deleteProductType(productType)
+    await deleteTaxCategory(taxCategory)
+    await deleteCategory(category)
+  })
+
+  it('should create a cart with custom line items', async () => {
+    const taxCategory = await createTaxCategory()
+
+    const taxCategoryResourceIdentifier: TaxCategoryResourceIdentifier = {
+      typeId: 'tax-category',
+      id: taxCategory.body.id,
+    }
+
+    const money: _Money = {
+      centAmount: 1000,
+      currencyCode: 'EUR',
+    }
+
+    const customLineItemDraft: CustomLineItemDraft[] = [
+      {
+        name: { en: 'test' },
+        quantity: 1,
+        taxCategory: taxCategoryResourceIdentifier,
+        money,
+        slug: 'test-slug',
+        priceMode: 'Standard',
+      },
+    ]
+
+    const cartDraft: CartDraft = {
+      currency: 'EUR',
+      country: 'DE',
+      customLineItems: customLineItemDraft,
+    }
+
+    const cart = await createCart(cartDraft)
+
+    expect(cart.body.id).not.toBe(null)
+    expect(cart.body.customLineItems).toHaveLength(1)
+
+    await deleteCart(cart)
+    await deleteTaxCategory(taxCategory)
   })
 
   // query
