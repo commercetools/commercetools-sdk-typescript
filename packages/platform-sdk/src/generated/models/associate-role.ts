@@ -246,6 +246,8 @@ export type Permission =
   | 'DeclineOthersQuotes'
   | 'DeleteMyCarts'
   | 'DeleteOthersCarts'
+  | 'ReassignMyQuotes'
+  | 'ReassignOthersQuotes'
   | 'RenegotiateMyQuotes'
   | 'RenegotiateOthersQuotes'
   | 'UpdateAssociates'
