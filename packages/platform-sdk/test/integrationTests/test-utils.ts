@@ -15,7 +15,7 @@ const authMiddlewareOptions = {
     clientSecret: process.env.CTP_CLIENT_SECRET || '',
   },
   oauthUri: process.env.ADMIN_AUTH_URL || '',
-  scopes: [`manage_project:${projectKey}`],
+  scopes: [`manage_project:${projectKey} manage_api_clients:${projectKey}`],
   fetch,
 }
 
