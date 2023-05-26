@@ -1,5 +1,6 @@
 import { ClientBuilder } from '@commercetools/sdk-client-v2/src'
 import { createApiBuilderFromCtpClient } from '../../src'
+const fetch = require('node-fetch')
 
 export const projectKey = process.env.CTP_PROJECT_KEY
 const httpMiddlewareOptions = {
