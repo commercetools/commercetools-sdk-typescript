@@ -1,16 +1,6 @@
 import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
-import { createProduct, createProductDraft } from '../product/product-fixture'
-import { createCategory } from '../category/category-fixture'
-import { createTaxCategory } from '../tax-category/tax-category-fixture'
-import { createProductType } from '../product-type/product-type-fixture'
-import { createCart, deleteCart } from '../cart/cart-fixture'
-import {
-  CartReference,
-  CartResourceIdentifier,
-  OrderFromCartDraft,
-  ProductTypeResourceIdentifier,
-} from '../../../src'
+import { CartResourceIdentifier, OrderFromCartDraft } from '../../../src'
 
 export const createOrder = async (cart, product) => {
   const updateCart = await apiRoot
