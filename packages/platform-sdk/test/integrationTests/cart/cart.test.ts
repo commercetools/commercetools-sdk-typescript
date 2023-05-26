@@ -46,19 +46,6 @@ import { createProduct, createProductDraft } from '../product/product-fixture'
 describe('testing cart API calls', () => {
   //create
   it('should create a cart with multiple item shipping address', async () => {
-    const category = await createCategory()
-    const taxCategory = await createTaxCategory()
-    const productType = await createProductType(productTypeDraftForProduct)
-
-    //Published product
-    const productDraft = await createProductDraft(
-      category,
-      taxCategory,
-      productType,
-      true
-    )
-    const product = await createProduct(productDraft)
-
     const addresses: BaseAddress[] = [
       {
         country: 'DE',
