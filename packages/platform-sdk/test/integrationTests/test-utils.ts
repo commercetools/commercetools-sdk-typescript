@@ -1,4 +1,4 @@
-import { ClientBuilder } from '@commercetools/sdk-client-v2/src'
+import { ClientBuilder } from '@commercetools/sdk-client-v2'
 import { createApiBuilderFromCtpClient } from '../../src'
 const fetch = require('node-fetch')
 
