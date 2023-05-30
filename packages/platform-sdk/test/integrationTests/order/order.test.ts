@@ -147,6 +147,10 @@ describe('testing order API calls', () => {
   it('should search a order', async () => {
     const project = await ctpApiBuilder.get().execute()
 
+    if (project.body.searchIndexing.orders.status === 'Activated') {
+      deactivateProject(project)
+    }
+
     const updateProject = await ctpApiBuilder
       .post({
         body: {
@@ -204,4 +208,20 @@ describe('testing order API calls', () => {
     await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
   })
+
+  const deactivateProject = async (project) => {
+    return await ctpApiBuilder
+      .post({
+        body: {
+          version: project.body.version,
+          actions: [
+            {
+              action: 'changeOrderSearchStatus',
+              status: 'Deactivated',
+            },
+          ],
+        },
+      })
+      .execute()
+  }
 })
