@@ -21,4 +21,8 @@ module.exports = {
         ]
       : null,
   ].filter(Boolean),
+  testMatch: [
+    '**/__tests__/**/*.ts?(x)', // Default pattern for unit tests
+    '**/?(*.)+(spec|integration.spec).ts?(x)', // Pattern for integration tests
+  ],
 }
