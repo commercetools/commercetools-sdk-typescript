@@ -82,11 +82,8 @@ jobs:
           command: yarn install --frozen-lockfile
       - save_cache: *save_yarn_cache
       - run:
-          name: Building packages
-          command: yarn build
-      - run:
           name: Running integration tests
-          command: npm test --integrationTests
+          command: npm test -- --integrationTests
       - store_artifacts:
           path: packages/platform-sdk/test-results
       - store_test_results:
