@@ -52,63 +52,17 @@ jobs:
           command: |
             cd examples
             yarn test
-      - store_artifacts:
-          path: packages/ml-sdk/test-results
-      - store_artifacts:
-          path: packages/platform-sdk/test-results
-      - store_test_results:
-          path: packages/ml-sdk/test-results
-      - store_test_results:
-          path: packages/platform-sdk/test-results
-
-  unit_test:
-    parameters:
-      os:
-        type: executor
-      node-version:
-        type: string
-    executor: << parameters.os >>
-    steps:
-      - checkout
-      - restore_cache: *restore_yarn_cache
-      - run:
-          name: Installing dependencies
-          command: yarn install --frozen-lockfile
-      - save_cache: *save_yarn_cache
       - run:
           name: Running tests
           command: yarn test --coverage
-      - run:
-          name: Send coverage report
-          command: yarn coverage
-      - store_artifacts:
-          path: packages/ml-sdk/test-results
-      - store_artifacts:
-          path: packages/platform-sdk/test-results
-      - store_test_results:
-          path: packages/ml-sdk/test-results
-      - store_test_results:
-          path: packages/platform-sdk/test-results
-
-  integration_test:
-    parameters:
-      os:
-        type: executor
-      node-version:
-        type: string
-    executor: << parameters.os >>
-    steps:
-      - checkout
-      - restore_cache: *restore_yarn_cache
-      - run:
-          name: Installing dependencies
-          command: yarn install --frozen-lockfile
-      - save_cache: *save_yarn_cache
       - run:
           name: Running integration tests
           command: |
             cd packages/platform-sdk/test/integrationTests
             yarn test
+      - run:
+          name: Send coverage report
+          command: yarn coverage
       - store_artifacts:
           path: packages/ml-sdk/test-results
       - store_artifacts:
@@ -147,11 +101,6 @@ workflows:
     jobs:
       - build_and_test:
           matrix:
-            os: [docker]
-            node-version: ["^14.20.0", "^16.17.0", "^18.9.0"]
-      - unit_test:
-          matrix:
-            os: [docker]
-      - integration_test:
-          matrix:
-            os: [docker]
+            parameters:
+              os: [docker]
+              node-version: ["^14.20.0", "^16.17.0", "^18.9.0"]
