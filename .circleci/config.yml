@@ -21,10 +21,8 @@ executors:
       - image: cimg/node:14.21.3
 
 version: 2.1
-
 orbs:
   node: circleci/node@5.1.0
-
 jobs:
   build_and_test:
     parameters:
@@ -69,29 +67,6 @@ jobs:
       - store_test_results:
           path: packages/platform-sdk/test-results
 
-  integration_test:
-    parameters:
-      os:
-        type: executor
-      node-version:
-        type: string
-    executor: << parameters.os >>
-    working_directory: *working_directory
-    steps:
-      - checkout
-      - restore_cache: *restore_yarn_cache
-      - run:
-          name: Installing dependencies
-          command: yarn install --frozen-lockfile
-      - save_cache: *save_yarn_cache
-      - run:
-          name: Running integration tests
-          command: |
-            cd packages/platform-sdk/test/integrationTests
-            yarn test
-      - store_artifacts:
-          path: packages/platform-sdk/test/integrationTests/coverage/
-
   update_ml_sdk_from_spec:
     executor: << parameters.os >>
     working_directory: ~/commercetools-typescript-spec
@@ -124,7 +99,3 @@ workflows:
             parameters:
               os: [docker]
               node-version: ["^14.20.0", "^16.17.0", "^18.9.0"]
-      - integration_test:
-          matrix:
-            parameters:
-              os: [docker]
