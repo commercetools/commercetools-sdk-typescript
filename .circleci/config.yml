@@ -86,9 +86,7 @@ jobs:
           command: yarn build
       - run:
           name: Running integration tests
-          command: |
-            cd packages/platform-sdk/test/integrationTests
-            yarn test
+          command: npm test --integrationTests
       - store_artifacts:
           path: packages/platform-sdk/test-results
       - store_test_results:
