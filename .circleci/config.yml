@@ -21,8 +21,10 @@ executors:
       - image: cimg/node:14.21.3
 
 version: 2.1
+
 orbs:
   node: circleci/node@5.1.0
+
 jobs:
   build_and_test:
     parameters:
@@ -122,7 +124,8 @@ workflows:
             parameters:
               os: [docker]
               node-version: ["^14.20.0", "^16.17.0", "^18.9.0"]
-      - integration_test:
-          matrix:
-            parameters:
-              os: [docker]
+          jobs:
+            - integration_test:
+                matrix:
+                  parameters:
+                    os: [docker]
