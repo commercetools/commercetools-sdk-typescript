@@ -85,7 +85,7 @@ jobs:
           name: Use environment variables
           command: |
             echo $IT_CTP_PROJECT_KEY
-            echo $IT_CLIENT_ID
+            echo $IT_CTP_CLIENT_SECRET
             echo $IT_CTP_CLIENT_ID
       - run:
           name: Running integration tests
