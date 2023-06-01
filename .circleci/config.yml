@@ -54,7 +54,7 @@ jobs:
             yarn test
       - run:
           name: Running tests
-          command: yarn test --coverage --testPathPattern='(?!integration-tests).*'
+          command: yarn test --coverage --testPathPattern='packages/platform-sdk/test/(?!integration-tests).*'
       - run:
           name: Send coverage report
           command: yarn coverage
@@ -83,7 +83,7 @@ jobs:
       - save_cache: *save_yarn_cache
       - run:
           name: Running integration tests
-          command: yarn test --testPathPattern='integration-test.*'
+          command: yarn test --testPathPattern='packages/platform-sdk/test/integration-tests'
       - store_artifacts:
           path: packages/platform-sdk/test-results
       - store_test_results:
