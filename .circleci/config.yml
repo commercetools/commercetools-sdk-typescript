@@ -54,7 +54,7 @@ jobs:
             yarn test
       - run:
           name: Running tests
-          command: yarn test --coverage
+          command: yarn test --coverage --ignore-integration
       - run:
           name: Send coverage report
           command: yarn coverage
