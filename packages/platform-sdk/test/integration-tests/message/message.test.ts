@@ -1,4 +1,3 @@
-import { ctpApiBuilder } from '../../helpers/ctp-api-helper'
 import {
   createProduct,
   createProductDraft,
@@ -50,9 +49,6 @@ describe('testing message API calls', () => {
     )
     const product = await createProduct(productDraft)
     await deleteProduct(product)
-    await deleteProductType(productType)
-    await deleteTaxCategory(taxCategory)
-    await deleteCategory(category)
 
     const messageResponse = await apiRoot.messages().get().execute()
     const messageId = messageResponse.body.results[0].id
@@ -64,5 +60,9 @@ describe('testing message API calls', () => {
 
     expect(message.body).not.toBe(null)
     expect(message.body.id).toEqual(messageId)
+
+    await deleteProductType(productType)
+    await deleteTaxCategory(taxCategory)
+    await deleteCategory(category)
   })
 })
