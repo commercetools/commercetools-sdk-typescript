@@ -82,6 +82,12 @@ jobs:
           command: yarn install --frozen-lockfile
       - save_cache: *save_yarn_cache
       - run:
+          name: Use environment variables
+          command: |
+            echo $IT_CTP_PROJECT_KEY
+            echo $IT_CLIENT_ID
+            echo $IT_CTP_CLIENT_ID
+      - run:
           name: Running integration tests
           command: yarn test --testPathPattern='packages/platform-sdk/test/integration-tests'
       - store_artifacts:
