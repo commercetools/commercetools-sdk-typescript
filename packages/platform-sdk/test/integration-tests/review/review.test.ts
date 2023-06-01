@@ -70,7 +70,7 @@ describe('testing review API calls', () => {
       })
       .execute()
     expect(queryReview).not.toBe(null)
-    expect(queryReview.body.results.at(0).id).toEqual(review.body.id)
+    expect(queryReview.body.results[0].id).toEqual(review.body.id)
 
     await deleteReview(review)
   })

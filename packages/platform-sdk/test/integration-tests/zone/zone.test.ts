@@ -71,7 +71,7 @@ describe('testing zone API calls', () => {
       })
       .execute()
     expect(queryZone).not.toBe(null)
-    expect(queryZone.body.results.at(0).id).toEqual(zone.body.id)
+    expect(queryZone.body.results[0].id).toEqual(zone.body.id)
 
     await deleteZone(zone)
   })

@@ -125,9 +125,7 @@ describe('testing shopping list API calls', () => {
       })
       .execute()
     expect(queryShoppingList).not.toBe(null)
-    expect(queryShoppingList.body.results.at(0).id).toEqual(
-      shoppingList.body.id
-    )
+    expect(queryShoppingList.body.results[0].id).toEqual(shoppingList.body.id)
 
     await deleteShoppingList(shoppingList)
     await deleteCustomer(customer)

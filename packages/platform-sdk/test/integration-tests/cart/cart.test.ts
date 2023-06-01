@@ -223,7 +223,7 @@ describe('testing cart API calls', () => {
       })
       .execute()
     expect(queryCart).not.toBe(null)
-    expect(queryCart.body.results.at(0).id).toEqual(cart.body.id)
+    expect(queryCart.body.results[0].id).toEqual(cart.body.id)
 
     const queryCart2 = await apiRoot
       .carts()
@@ -236,7 +236,7 @@ describe('testing cart API calls', () => {
       .execute()
 
     expect(queryCart2).not.toBe(null)
-    expect(queryCart2.body).toEqual(queryCart.body.results.at(0))
+    expect(queryCart2.body).toEqual(queryCart.body.results[0])
 
     await deleteCart(cart)
     await deleteCustomer(customer)
@@ -278,7 +278,7 @@ describe('testing cart API calls', () => {
       value: cartDiscountValueDraft,
       cartPredicate: 'country="DE"',
       target: cartDiscountShippingCostTarget,
-      sortOrder: '0.7042',
+      sortOrder: '0.7043',
       isActive: true,
       requiresDiscountCode: true,
     }
@@ -350,7 +350,7 @@ describe('testing cart API calls', () => {
       typeId: 'type',
       id: type.body.id,
     }
-    const fieldName: string = type.body.fieldDefinitions.at(0).name
+    const fieldName: string = type.body.fieldDefinitions[0].name
     const fieldValue = 'fieldValue'
     const fieldContainer: FieldContainer = {
       [fieldName]: fieldValue,

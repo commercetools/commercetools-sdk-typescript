@@ -27,7 +27,7 @@ describe('testing cart discount API calls', () => {
       value: cartDiscountValueDraft,
       cartPredicate: 'country="DE"',
       target: cartDiscountShippingCostTarget,
-      sortOrder: '0.65',
+      sortOrder: '0.651',
     }
 
     const responseCreatedCartDiscount = await apiRoot
@@ -92,9 +92,7 @@ describe('testing cart discount API calls', () => {
       .execute()
 
     expect(queryCartDiscount).not.toBe(null)
-    expect(queryCartDiscount.body.results.at(0).id).toEqual(
-      cartDiscount.body.id
-    )
+    expect(queryCartDiscount.body.results[0].id).toEqual(cartDiscount.body.id)
 
     await deleteCartDiscount(cartDiscount)
   })
@@ -157,7 +155,7 @@ describe('testing cart discount API calls', () => {
       typeId: 'type',
       id: type.body.id,
     }
-    const fieldName: string = type.body.fieldDefinitions.at(0).name
+    const fieldName: string = type.body.fieldDefinitions[0].name
     const fieldValue = 'fieldValue'
     const fieldContainer: FieldContainer = {
       [fieldName]: fieldValue,

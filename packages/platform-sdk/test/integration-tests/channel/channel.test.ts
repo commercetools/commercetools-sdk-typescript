@@ -89,7 +89,7 @@ describe('testing channel API calls', () => {
       .execute()
 
     expect(queryChannel).not.toBe(null)
-    expect(queryChannel.body.results.at(0).id).toEqual(channel.body.id)
+    expect(queryChannel.body.results[0].id).toEqual(channel.body.id)
 
     await deleteChannel(channel)
   })

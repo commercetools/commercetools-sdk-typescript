@@ -78,7 +78,7 @@ describe('testing category API calls', () => {
       .execute()
 
     expect(queryCategory).not.toBe(null)
-    expect(queryCategory.body.results.at(0).id).toEqual(category.body.id)
+    expect(queryCategory.body.results[0].id).toEqual(category.body.id)
 
     await deleteCategory(category)
   })
@@ -138,7 +138,7 @@ describe('testing category API calls', () => {
       key: 'test-key-asset' + randomUUID(),
     }
 
-    const fieldName: string = type.body.fieldDefinitions.at(0).name
+    const fieldName: string = type.body.fieldDefinitions[0].name
     const fieldValue = 'fieldValue'
     const fieldContainer: FieldContainer = {
       [fieldName]: fieldValue,

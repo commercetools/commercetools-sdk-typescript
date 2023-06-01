@@ -240,7 +240,7 @@ describe('testing product API calls', () => {
 
     expect(getProduct).not.toBe(null)
     expect(getProduct.body.results.length).toEqual(1)
-    expect(getProduct.body.results.at(0).key).toEqual(product.body.key)
+    expect(getProduct.body.results[0].key).toEqual(product.body.key)
 
     await deleteProduct(product)
     await deleteProductType(productType)
@@ -342,7 +342,7 @@ describe('testing product API calls', () => {
       })
       .execute()
     expect(queryProduct).not.toBe(null)
-    expect(queryProduct.body.results.at(0).id).toEqual(product.body.id)
+    expect(queryProduct.body.results[0].id).toEqual(product.body.id)
 
     await deleteProduct(product)
     await deleteProductType(productType)

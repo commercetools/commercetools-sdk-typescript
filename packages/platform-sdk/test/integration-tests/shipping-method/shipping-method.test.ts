@@ -137,7 +137,7 @@ describe('testing shipping method API calls', () => {
       })
       .execute()
     expect(queryShippingMethod).not.toBe(null)
-    expect(queryShippingMethod.body.results.at(0).id).toEqual(
+    expect(queryShippingMethod.body.results[0].id).toEqual(
       shippingMethod.body.id
     )
 

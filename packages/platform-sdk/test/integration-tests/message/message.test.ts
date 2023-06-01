@@ -55,7 +55,7 @@ describe('testing message API calls', () => {
     await deleteCategory(category)
 
     const messageResponse = await apiRoot.messages().get().execute()
-    const messageId = messageResponse.body.results.at(0).id
+    const messageId = messageResponse.body.results[0].id
     const message = await apiRoot
       .messages()
       .withId({ ID: messageId })

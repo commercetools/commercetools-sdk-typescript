@@ -75,9 +75,7 @@ describe('testing customer group API calls', () => {
       .execute()
 
     expect(queryCustomerGroup).not.toBe(null)
-    expect(queryCustomerGroup.body.results.at(0).id).toEqual(
-      customerGroup.body.id
-    )
+    expect(queryCustomerGroup.body.results[0].id).toEqual(customerGroup.body.id)
 
     await deleteCustomerGroup(customerGroup)
   })

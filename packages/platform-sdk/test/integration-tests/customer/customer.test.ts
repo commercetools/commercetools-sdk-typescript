@@ -114,9 +114,7 @@ describe('testing customer API calls', () => {
       .execute()
 
     expect(queryCustomer).not.toBe(null)
-    expect(queryCustomer.body.results.at(0).id).toEqual(
-      customer.body.customer.id
-    )
+    expect(queryCustomer.body.results[0].id).toEqual(customer.body.customer.id)
 
     await deleteCustomer(customer)
     await deleteCustomerGroup(customerGroup)
@@ -208,7 +206,7 @@ describe('testing customer API calls', () => {
 
     expect(updateCustomer.body.version).not.toBe(customer.body.customer.version)
     expect(updateCustomer.statusCode).toEqual(200)
-    expect(updateCustomer.body.addresses.at(1).key).toEqual(newAddressKey)
+    expect(updateCustomer.body.addresses[1].key).toEqual(newAddressKey)
 
     await deleteCustomerFromUpdatableObject(updateCustomer)
     await deleteCustomerGroup(customerGroup)
@@ -243,7 +241,7 @@ describe('testing customer API calls', () => {
 
     expect(updateCustomer.body.version).not.toBe(customer.body.customer.version)
     expect(updateCustomer.statusCode).toEqual(200)
-    expect(updateCustomer.body.stores.at(0).key).toEqual(store.body.key)
+    expect(updateCustomer.body.stores[0].key).toEqual(store.body.key)
 
     await deleteCustomerFromUpdatableObject(updateCustomer)
     await deleteStore(store)

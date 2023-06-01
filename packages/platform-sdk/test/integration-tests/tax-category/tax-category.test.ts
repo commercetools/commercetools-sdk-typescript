@@ -80,7 +80,7 @@ describe('testing taxCategory API calls', () => {
       })
       .execute()
     expect(queryTaxCategory).not.toBe(null)
-    expect(queryTaxCategory.body.results.at(0).id).toEqual(taxCategory.body.id)
+    expect(queryTaxCategory.body.results[0].id).toEqual(taxCategory.body.id)
 
     await deleteTaxCategory(taxCategory)
   })

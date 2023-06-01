@@ -85,7 +85,7 @@ describe('testing product type API calls', () => {
       })
       .execute()
     expect(queryProductType).not.toBe(null)
-    expect(queryProductType.body.results.at(0).id).toEqual(productType.body.id)
+    expect(queryProductType.body.results[0].id).toEqual(productType.body.id)
 
     await deleteProductType(productType)
   })

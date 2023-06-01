@@ -72,7 +72,7 @@ describe('testing inventory API calls', () => {
       })
       .execute()
     expect(getInventory).not.toBe(null)
-    expect(getInventory.body.results.at(0).sku).toEqual(inventory.body.sku)
+    expect(getInventory.body.results[0].sku).toEqual(inventory.body.sku)
 
     await deleteInventory(inventory)
     await deleteChannel(channel)

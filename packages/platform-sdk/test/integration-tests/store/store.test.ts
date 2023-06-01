@@ -69,7 +69,7 @@ describe('testing store API calls', () => {
       })
       .execute()
     expect(queryStore).not.toBe(null)
-    expect(queryStore.body.results.at(0).id).toEqual(store.body.id)
+    expect(queryStore.body.results[0].id).toEqual(store.body.id)
 
     await deleteStore(store)
   })

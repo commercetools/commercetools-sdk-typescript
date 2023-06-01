@@ -78,7 +78,7 @@ describe('testing type API calls', () => {
       })
       .execute()
     expect(queryType).not.toBe(null)
-    expect(queryType.body.results.at(0).id).toEqual(type.body.id)
+    expect(queryType.body.results[0].id).toEqual(type.body.id)
 
     await deleteType(type)
   })

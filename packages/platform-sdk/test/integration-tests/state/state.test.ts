@@ -56,7 +56,7 @@ describe('testing state API calls', () => {
       })
       .execute()
     expect(queryState).not.toBe(null)
-    expect(queryState.body.results.at(0).id).toEqual(state.body.id)
+    expect(queryState.body.results[0].id).toEqual(state.body.id)
 
     await deleteState(state)
   })

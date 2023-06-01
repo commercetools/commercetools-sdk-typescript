@@ -88,7 +88,7 @@ describe('testing payment API calls', () => {
       .execute()
 
     expect(queryPayment).not.toBe(null)
-    expect(queryPayment.body.results.at(0).id).toEqual(payment.body.id)
+    expect(queryPayment.body.results[0].id).toEqual(payment.body.id)
 
     await deletePayment(payment)
   })

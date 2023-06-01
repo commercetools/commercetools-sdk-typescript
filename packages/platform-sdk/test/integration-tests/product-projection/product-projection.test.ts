@@ -73,39 +73,39 @@ describe('testing product projection API calls', () => {
     expect(productProjectionResponse.body.key).toEqual(product.body.key)
     //attributes
     expect(
-      productProjectionResponse.body.masterVariant.attributes
-        .filter((attribute) => attribute.name === 'test-text')
-        .at(0).value
+      productProjectionResponse.body.masterVariant.attributes.filter(
+        (attribute) => attribute.name === 'test-text'
+      )[0].value
     ).toEqual('foo')
     expect(
-      productProjectionResponse.body.masterVariant.attributes
-        .filter((attribute) => attribute.name === 'test-number')
-        .at(0).value
+      productProjectionResponse.body.masterVariant.attributes.filter(
+        (attribute) => attribute.name === 'test-number'
+      )[0].value
     ).toEqual(10.0)
     expect(
-      productProjectionResponse.body.masterVariant.attributes
-        .filter((attribute) => attribute.name === 'test-integer')
-        .at(0).value
+      productProjectionResponse.body.masterVariant.attributes.filter(
+        (attribute) => attribute.name === 'test-integer'
+      )[0].value
     ).toEqual(10)
     expect(
-      productProjectionResponse.body.masterVariant.attributes
-        .filter((attribute) => attribute.name === 'test-set-text')
-        .at(0).value
+      productProjectionResponse.body.masterVariant.attributes.filter(
+        (attribute) => attribute.name === 'test-set-text'
+      )[0].value
     ).toContain('foo')
     expect(
-      productProjectionResponse.body.masterVariant.attributes
-        .filter((attribute) => attribute.name === 'test-set-number')
-        .at(0).value
+      productProjectionResponse.body.masterVariant.attributes.filter(
+        (attribute) => attribute.name === 'test-set-number'
+      )[0].value
     ).toContain(11.0)
     expect(
-      productProjectionResponse.body.masterVariant.attributes
-        .filter((attribute) => attribute.name === 'test-set-integer')
-        .at(0).value
+      productProjectionResponse.body.masterVariant.attributes.filter(
+        (attribute) => attribute.name === 'test-set-integer'
+      )[0].value
     ).toContain(11)
     expect(
-      productProjectionResponse.body.masterVariant.attributes
-        .filter((attribute) => attribute.name === 'test-enum')
-        .at(0).value
+      productProjectionResponse.body.masterVariant.attributes.filter(
+        (attribute) => attribute.name === 'test-enum'
+      )[0].value
     ).toEqual({ key: 'test', label: 'test' })
 
     await deleteProduct(product)
@@ -135,7 +135,7 @@ describe('testing product projection API calls', () => {
       })
       .execute()
     expect(productProjectionQueryResponse).not.toBe(null)
-    expect(productProjectionQueryResponse.body.results.at(0).id).toEqual(
+    expect(productProjectionQueryResponse.body.results[0].id).toEqual(
       product.body.id
     )
 
@@ -144,7 +144,7 @@ describe('testing product projection API calls', () => {
     await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
   })
-
+  //TODO this test has to be replaced adding eventually and adding the product in the search
   it('should search a product by product projection', async () => {
     const category = await createCategory()
     const taxCategory = await createTaxCategory()

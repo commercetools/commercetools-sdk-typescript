@@ -78,9 +78,7 @@ describe('testing discount code API calls', () => {
       })
       .execute()
     expect(queryDiscountCode).not.toBe(null)
-    expect(queryDiscountCode.body.results.at(0).id).toEqual(
-      discountCode.body.id
-    )
+    expect(queryDiscountCode.body.results[0].id).toEqual(discountCode.body.id)
 
     await deleteDiscountCode(discountCode)
     await deleteCartDiscount(cartDiscount)

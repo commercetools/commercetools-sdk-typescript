@@ -21,7 +21,7 @@ describe('testing product Discount API calls', () => {
       name: { en: 'test-name-productDiscount' + randomUUID() },
       value: productDiscountValueDraft,
       predicate: 'product.key="random-key"',
-      sortOrder: '0.413',
+      sortOrder: '0.4131',
       isActive: false,
     }
 
@@ -85,7 +85,7 @@ describe('testing product Discount API calls', () => {
       })
       .execute()
     expect(queryProductDiscount).not.toBe(null)
-    expect(queryProductDiscount.body.results.at(0).id).toEqual(
+    expect(queryProductDiscount.body.results[0].id).toEqual(
       productDiscount.body.id
     )
 
