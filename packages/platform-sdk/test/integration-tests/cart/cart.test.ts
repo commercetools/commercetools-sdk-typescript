@@ -278,7 +278,7 @@ describe('testing cart API calls', () => {
       value: cartDiscountValueDraft,
       cartPredicate: 'country="DE"',
       target: cartDiscountShippingCostTarget,
-      sortOrder: '0.7041',
+      sortOrder: '0.7042',
       isActive: true,
       requiresDiscountCode: true,
     }
