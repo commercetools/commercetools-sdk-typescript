@@ -56,6 +56,7 @@
 <details>
 <summary>Added Type(s)</summary>
 
+- added type `CartSetLineItemInventoryModeAction`
 - added type `MoneyOverflowError`
 - added type `GraphQLMoneyOverflowError`
 - added type `MyCartSetDirectDiscountsAction`

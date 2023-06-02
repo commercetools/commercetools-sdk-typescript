@@ -671,6 +671,7 @@ export type CartUpdateAction =
   | CartSetLineItemCustomFieldAction
   | CartSetLineItemCustomTypeAction
   | CartSetLineItemDistributionChannelAction
+  | CartSetLineItemInventoryModeAction
   | CartSetLineItemPriceAction
   | CartSetLineItemShippingDetailsAction
   | CartSetLineItemSupplyChannelAction
@@ -3066,6 +3067,22 @@ export interface CartSetLineItemDistributionChannelAction {
    *
    */
   readonly distributionChannel?: ChannelResourceIdentifier
+}
+export interface CartSetLineItemInventoryModeAction {
+  readonly action: 'setLineItemInventoryMode'
+  /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *
+   *
+   */
+  readonly lineItemId: string
+  /**
+   *	Inventory mode specific to the Line Item only, and valid for the entire `quantity` of the Line Item.
+   *	Set only if the inventory mode should be different from the `inventoryMode` specified on the [Cart](ctp:api:type:Cart).
+   *
+   *
+   */
+  readonly inventoryMode?: InventoryMode
 }
 /**
  *	Sets the [LineItem](ctp:api:type:LineItem) `price` and changes the `priceMode` to `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
