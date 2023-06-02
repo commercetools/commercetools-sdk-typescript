@@ -398,6 +398,7 @@ export type QuoteState =
   | 'DeclinedForRenegotiation'
   | 'Failed'
   | 'Pending'
+  | 'RenegotiationAddressed'
   | 'Withdrawn'
   | string
 export interface QuoteUpdate {
