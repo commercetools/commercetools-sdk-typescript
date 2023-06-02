@@ -144,7 +144,7 @@ describe('testing product projection API calls', () => {
     await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
   })
-  //TODO this test has to be replaced adding eventually and adding the product in the search
+
   it('should search a product by product projection', async () => {
     const category = await createCategory()
     const taxCategory = await createTaxCategory()

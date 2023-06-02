@@ -89,7 +89,10 @@ jobs:
             echo $IT_CTP_CLIENT_ID
       - run:
           name: Running integration tests
-          command: yarn test --testPathPattern='packages/platform-sdk/test/integration-tests'
+          command: yarn test --coverage --testPathPattern='packages/platform-sdk/test/integration-tests'
+      - run:
+          name: Send coverage report
+          command: yarn coverage
       - store_artifacts:
           path: packages/platform-sdk/test-results
       - store_test_results:
