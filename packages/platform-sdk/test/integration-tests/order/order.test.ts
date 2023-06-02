@@ -148,7 +148,7 @@ describe('testing order API calls', () => {
     const project = await ctpApiBuilder.get().execute()
 
     if (project.body.searchIndexing.orders.status === 'Activated') {
-      deactivateProject(project)
+      await deactivateProject(project)
     }
 
     const updateProject = await ctpApiBuilder
