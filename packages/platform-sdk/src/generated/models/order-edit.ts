@@ -424,6 +424,12 @@ export interface StagedOrderAddCustomLineItemAction {
 export interface StagedOrderAddDeliveryAction {
   readonly action: 'addDelivery'
   /**
+   *	User-defined unique identifier of a Delivery.
+   *
+   *
+   */
+  readonly deliveryKey?: string
+  /**
    *
    */
   readonly items?: DeliveryItem[]
@@ -529,9 +535,15 @@ export interface StagedOrderAddLineItemAction {
 export interface StagedOrderAddParcelToDeliveryAction {
   readonly action: 'addParcelToDelivery'
   /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
    *
    */
-  readonly deliveryId: string
+  readonly deliveryId?: string
+  /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *
+   */
+  readonly deliveryKey?: string
   /**
    *
    */
@@ -715,9 +727,15 @@ export interface StagedOrderRemoveCustomLineItemAction {
 export interface StagedOrderRemoveDeliveryAction {
   readonly action: 'removeDelivery'
   /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
    *
    */
-  readonly deliveryId: string
+  readonly deliveryId?: string
+  /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *
+   */
+  readonly deliveryKey?: string
 }
 export interface StagedOrderRemoveDiscountCodeAction {
   readonly action: 'removeDiscountCode'
@@ -996,9 +1014,15 @@ export interface StagedOrderSetCustomerIdAction {
 export interface StagedOrderSetDeliveryAddressAction {
   readonly action: 'setDeliveryAddress'
   /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
    *
    */
-  readonly deliveryId: string
+  readonly deliveryId?: string
+  /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *
+   */
+  readonly deliveryKey?: string
   /**
    *	Polymorphic base type that represents a postal address and contact details.
    *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
@@ -1011,9 +1035,15 @@ export interface StagedOrderSetDeliveryAddressAction {
 export interface StagedOrderSetDeliveryAddressCustomFieldAction {
   readonly action: 'setDeliveryAddressCustomField'
   /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
    *
    */
-  readonly deliveryId: string
+  readonly deliveryId?: string
+  /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *
+   */
+  readonly deliveryKey?: string
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
@@ -1032,9 +1062,15 @@ export interface StagedOrderSetDeliveryAddressCustomFieldAction {
 export interface StagedOrderSetDeliveryAddressCustomTypeAction {
   readonly action: 'setDeliveryAddressCustomType'
   /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
    *
    */
-  readonly deliveryId: string
+  readonly deliveryId?: string
+  /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *
+   */
+  readonly deliveryKey?: string
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the `address` in a Delivery with [Custom Fields](/../api/projects/custom-fields).
    *	If absent, any existing Type and Custom Fields are removed from the `address` in a Delivery.
@@ -1052,9 +1088,15 @@ export interface StagedOrderSetDeliveryAddressCustomTypeAction {
 export interface StagedOrderSetDeliveryCustomFieldAction {
   readonly action: 'setDeliveryCustomField'
   /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
    *
    */
-  readonly deliveryId: string
+  readonly deliveryId?: string
+  /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *
+   */
+  readonly deliveryKey?: string
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
@@ -1073,9 +1115,15 @@ export interface StagedOrderSetDeliveryCustomFieldAction {
 export interface StagedOrderSetDeliveryCustomTypeAction {
   readonly action: 'setDeliveryCustomType'
   /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
    *
    */
-  readonly deliveryId: string
+  readonly deliveryId?: string
+  /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *
+   */
+  readonly deliveryKey?: string
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the Delivery with [Custom Fields](/../api/projects/custom-fields).
    *	If absent, any existing Type and Custom Fields are removed from the Delivery.
@@ -1093,9 +1141,15 @@ export interface StagedOrderSetDeliveryCustomTypeAction {
 export interface StagedOrderSetDeliveryItemsAction {
   readonly action: 'setDeliveryItems'
   /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
    *
    */
-  readonly deliveryId: string
+  readonly deliveryId?: string
+  /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *
+   */
+  readonly deliveryKey?: string
   /**
    *
    */
@@ -1574,6 +1628,12 @@ export interface StagedOrderSetShippingMethodAction {
 export interface StagedOrderSetShippingMethodTaxAmountAction {
   readonly action: 'setShippingMethodTaxAmount'
   /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) to update. This is required for Orders with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
+  /**
    *	Cannot be used in [LineItemDraft](ctp:api:type:LineItemDraft) or [CustomLineItemDraft](ctp:api:type:CustomLineItemDraft).
    *
    *	Can only be set by these update actions:
@@ -1587,6 +1647,12 @@ export interface StagedOrderSetShippingMethodTaxAmountAction {
 }
 export interface StagedOrderSetShippingMethodTaxRateAction {
   readonly action: 'setShippingMethodTaxRate'
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) to update. This is required for Orders with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
   /**
    *	Controls calculation of taxed prices for Line Items, Custom Line Items, and Shipping Methods as explained in [Cart tax calculation](ctp:api:type:CartTaxCalculation).
    *
