@@ -98,9 +98,6 @@ jobs:
           command: yarn install --frozen-lockfile
       - save_cache: *save_yarn_cache
       - run:
-          name: Running tests with coverage
-          command: yarn test --coverage
-      - run:
           name: Send coverage report
           command: yarn coverage
       - store_artifacts:
