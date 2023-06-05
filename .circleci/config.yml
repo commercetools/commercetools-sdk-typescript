@@ -99,7 +99,9 @@ jobs:
       - save_cache: *save_yarn_cache
       - run:
           name: Send coverage report
-          command: yarn coverage
+          command: |
+            ls -l coverage
+            yarn coverage -v
       - store_artifacts:
           path: packages/ml-sdk/test-results
       - store_artifacts:
