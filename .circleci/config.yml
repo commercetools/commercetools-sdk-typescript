@@ -55,7 +55,7 @@ jobs:
             yarn test
       - run:
           name: Running tests
-          command: yarn test --testPathPattern='packages/platform-sdk/test/(?!integration-tests).*' --collectCoverage
+          command: yarn test --testPathPattern='packages/platform-sdk/test/(?!integration-tests).*'
 
   integration_test:
     parameters:
@@ -80,7 +80,7 @@ jobs:
             echo $IT_CTP_CLIENT_ID
       - run:
           name: Running integration tests
-          command: yarn test --testPathPattern='packages/platform-sdk/test/integration-tests' --collectCoverage
+          command: yarn test --testPathPattern='packages/platform-sdk/test/integration-tests'
 
   generate_coverage:
     parameters:
@@ -99,7 +99,7 @@ jobs:
       - save_cache: *save_yarn_cache
       - run:
           name: Send coverage report
-          command: yarn coverage
+          command: yarn coverage --silent
       - store_artifacts:
           path: packages/ml-sdk/test-results
       - store_artifacts:
