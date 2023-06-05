@@ -393,6 +393,11 @@ export interface Delivery {
    */
   readonly id: string
   /**
+   *	User-defined unique identifier of the Delivery.
+   *
+   */
+  readonly key?: string
+  /**
    *
    */
   readonly createdAt: string
@@ -417,6 +422,11 @@ export interface Delivery {
   readonly custom?: CustomFields
 }
 export interface DeliveryDraft {
+  /**
+   *	User-defined unique identifier of the Delivery.
+   *
+   */
+  readonly key?: string
   /**
    *	Items which are shipped in this delivery regardless their distribution over several parcels.
    *	Can also be specified individually for each Parcel.
@@ -1683,6 +1693,12 @@ export interface TrackingData {
 export interface OrderAddDeliveryAction {
   readonly action: 'addDelivery'
   /**
+   *	User-defined unique identifier of a Delivery.
+   *
+   *
+   */
+  readonly deliveryKey?: string
+  /**
    *
    */
   readonly items?: DeliveryItem[]
@@ -1724,9 +1740,15 @@ export interface OrderAddItemShippingAddressAction {
 export interface OrderAddParcelToDeliveryAction {
   readonly action: 'addParcelToDelivery'
   /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
    *
    */
-  readonly deliveryId: string
+  readonly deliveryId?: string
+  /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *
+   */
+  readonly deliveryKey?: string
   /**
    *
    */
@@ -1810,9 +1832,15 @@ export interface OrderImportLineItemStateAction {
 export interface OrderRemoveDeliveryAction {
   readonly action: 'removeDelivery'
   /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
    *
    */
-  readonly deliveryId: string
+  readonly deliveryId?: string
+  /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *
+   */
+  readonly deliveryKey?: string
 }
 export interface OrderRemoveItemShippingAddressAction {
   readonly action: 'removeItemShippingAddress'
@@ -1985,9 +2013,15 @@ export interface OrderSetCustomerIdAction {
 export interface OrderSetDeliveryAddressAction {
   readonly action: 'setDeliveryAddress'
   /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
    *
    */
-  readonly deliveryId: string
+  readonly deliveryId?: string
+  /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *
+   */
+  readonly deliveryKey?: string
   /**
    *	Polymorphic base type that represents a postal address and contact details.
    *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
@@ -2000,9 +2034,15 @@ export interface OrderSetDeliveryAddressAction {
 export interface OrderSetDeliveryAddressCustomFieldAction {
   readonly action: 'setDeliveryAddressCustomField'
   /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
    *
    */
-  readonly deliveryId: string
+  readonly deliveryId?: string
+  /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *
+   */
+  readonly deliveryKey?: string
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
@@ -2021,9 +2061,15 @@ export interface OrderSetDeliveryAddressCustomFieldAction {
 export interface OrderSetDeliveryAddressCustomTypeAction {
   readonly action: 'setDeliveryAddressCustomType'
   /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
    *
    */
-  readonly deliveryId: string
+  readonly deliveryId?: string
+  /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *
+   */
+  readonly deliveryKey?: string
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the `address` in a Delivery with [Custom Fields](/../api/projects/custom-fields).
    *	If absent, any existing Type and Custom Fields are removed from the `address` in a Delivery.
@@ -2041,9 +2087,15 @@ export interface OrderSetDeliveryAddressCustomTypeAction {
 export interface OrderSetDeliveryCustomFieldAction {
   readonly action: 'setDeliveryCustomField'
   /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
    *
    */
-  readonly deliveryId: string
+  readonly deliveryId?: string
+  /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *
+   */
+  readonly deliveryKey?: string
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
@@ -2062,9 +2114,15 @@ export interface OrderSetDeliveryCustomFieldAction {
 export interface OrderSetDeliveryCustomTypeAction {
   readonly action: 'setDeliveryCustomType'
   /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
    *
    */
-  readonly deliveryId: string
+  readonly deliveryId?: string
+  /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *
+   */
+  readonly deliveryKey?: string
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the Delivery with [Custom Fields](/../api/projects/custom-fields).
    *	If absent, any existing Type and Custom Fields are removed from the Delivery.
@@ -2082,9 +2140,15 @@ export interface OrderSetDeliveryCustomTypeAction {
 export interface OrderSetDeliveryItemsAction {
   readonly action: 'setDeliveryItems'
   /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
    *
    */
-  readonly deliveryId: string
+  readonly deliveryId?: string
+  /**
+   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *
+   */
+  readonly deliveryKey?: string
   /**
    *
    */

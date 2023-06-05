@@ -25,7 +25,7 @@ import {
   LastModifiedBy,
   TypedMoney,
 } from './common'
-import { CustomerReference } from './customer'
+import { CustomerReference, CustomerResourceIdentifier } from './customer'
 import { CustomerGroupReference } from './customer-group'
 import { PaymentInfo } from './order'
 import { StateReference, StateResourceIdentifier } from './state'
@@ -93,13 +93,14 @@ export interface QuoteRequest extends BaseResource {
    */
   readonly comment?: string
   /**
-   *	The [Buyer](/../api/quotes-overview#buyer) who raised the request.
+   *	The [Buyer](/../api/quotes-overview#buyer) who owns the request.
    *
    *
    */
   readonly customer: CustomerReference
   /**
    *	Set automatically when `customer` is set and the Customer is a member of a Customer Group.
+   *	Not updated if Customer is changed after Quote Request creation.
    *	Used for Product Variant price selection.
    *
    */
@@ -272,7 +273,7 @@ export interface QuoteRequestDraft {
    */
   readonly custom?: CustomFieldsDraft
   /**
-   *	[State](ctp:api:type:State) of this Quote Request.
+   *	[State](ctp:api:type:State) of the Quote Request.
    *	This reference can point to a State in a custom workflow.
    *
    *
@@ -392,10 +393,25 @@ export interface QuoteRequestUpdate {
   readonly actions: QuoteRequestUpdateAction[]
 }
 export type QuoteRequestUpdateAction =
+  | QuoteRequestChangeCustomerAction
   | QuoteRequestChangeQuoteRequestStateAction
   | QuoteRequestSetCustomFieldAction
   | QuoteRequestSetCustomTypeAction
   | QuoteRequestTransitionStateAction
+/**
+ *	Changes the owner of a Quote Request to a different Customer.
+ *	Customer Group is not updated.
+ *	This update action produces the [Quote Request Customer Changed](ctp:api:type:QuoteRequestCustomerChangedMessage) Message.
+ *
+ */
+export interface QuoteRequestChangeCustomerAction {
+  readonly action: 'changeCustomer'
+  /**
+   *	New Customer to own the Quote Request.
+   *
+   */
+  readonly customer: CustomerResourceIdentifier
+}
 /**
  *	Transitions the Quote Request to a different state.
  *	A Buyer is only allowed to cancel a Quote Request when it is in `Submitted` state.

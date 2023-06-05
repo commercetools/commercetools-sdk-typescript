@@ -90,6 +90,7 @@ export type ErrorObject =
   | MaxResourceLimitExceededError
   | MissingRoleOnChannelError
   | MissingTaxRateForCountryError
+  | MoneyOverflowError
   | NoMatchingProductDiscountFoundError
   | NotEnabledError
   | ObjectNotFoundError
@@ -1355,6 +1356,21 @@ export interface MissingTaxRateForCountryError {
   readonly state?: string
 }
 /**
+ *	Returned when a [Money](ctp:api:type:Money) operation overflows the 64-bit integer range.
+ *	See [Money usage](/types#usage) for more information.
+ *
+ */
+export interface MoneyOverflowError {
+  readonly code: 'MoneyOverflow'
+  [key: string]: any
+  /**
+   *	`"A Money operation resulted in an overflow."`
+   *
+   *
+   */
+  readonly message: string
+}
+/**
  *	Returned when a Product Discount could not be found that could be applied to the Price of a Product Variant.
  *
  *	The error is returned as a failed response to the [Get Matching ProductDiscount](/../api/projects/productDiscounts#get-matching-productdiscount) request.
@@ -1938,6 +1954,7 @@ export type GraphQLErrorObject =
   | GraphQLMaxResourceLimitExceededError
   | GraphQLMissingRoleOnChannelError
   | GraphQLMissingTaxRateForCountryError
+  | GraphQLMoneyOverflowError
   | GraphQLNoMatchingProductDiscountFoundError
   | GraphQLNotEnabledError
   | GraphQLObjectNotFoundError
@@ -2850,6 +2867,15 @@ export interface GraphQLMissingTaxRateForCountryError {
    *
    */
   readonly state?: string
+}
+/**
+ *	Returned when a [Money](ctp:api:type:Money) operation overflows the 64-bit integer range.
+ *	See [Money usage](/types#usage) for more information.
+ *
+ */
+export interface GraphQLMoneyOverflowError {
+  readonly code: 'MoneyOverflow'
+  [key: string]: any
 }
 /**
  *	Returned when a Product Discount could not be found that could be applied to the Price of a Product Variant.

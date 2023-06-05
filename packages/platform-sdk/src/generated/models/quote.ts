@@ -24,7 +24,7 @@ import {
   LastModifiedBy,
   TypedMoney,
 } from './common'
-import { CustomerReference } from './customer'
+import { CustomerReference, CustomerResourceIdentifier } from './customer'
 import { CustomerGroupReference } from './customer-group'
 import { PaymentInfo } from './order'
 import { QuoteRequestReference } from './quote-request'
@@ -97,13 +97,14 @@ export interface Quote extends BaseResource {
    */
   readonly stagedQuote: StagedQuoteReference
   /**
-   *	The [Buyer](/../api/quotes-overview#buyer) who requested the Quote.
+   *	The [Buyer](/../api/quotes-overview#buyer) who owns the Quote.
    *
    *
    */
   readonly customer?: CustomerReference
   /**
    *	Set automatically when `customer` is set and the Customer is a member of a Customer Group.
+   *	Not updated if Customer is changed after Quote creation.
    *	Used for Product Variant price selection.
    *
    *
@@ -397,6 +398,7 @@ export type QuoteState =
   | 'DeclinedForRenegotiation'
   | 'Failed'
   | 'Pending'
+  | 'RenegotiationAddressed'
   | 'Withdrawn'
   | string
 export interface QuoteUpdate {
@@ -415,11 +417,26 @@ export interface QuoteUpdate {
   readonly actions: QuoteUpdateAction[]
 }
 export type QuoteUpdateAction =
+  | QuoteChangeCustomerAction
   | QuoteChangeQuoteStateAction
   | QuoteRequestQuoteRenegotiationAction
   | QuoteSetCustomFieldAction
   | QuoteSetCustomTypeAction
   | QuoteTransitionStateAction
+/**
+ *	Changes the owner of a Quote to a different Customer.
+ *	Customer Group is not updated.
+ *	This update action produces the [Quote Customer Changed](ctp:api:type:QuoteCustomerChangedMessage) Message.
+ *
+ */
+export interface QuoteChangeCustomerAction {
+  readonly action: 'changeCustomer'
+  /**
+   *	New Customer to own the Quote.
+   *
+   */
+  readonly customer: CustomerResourceIdentifier
+}
 export interface QuoteChangeQuoteStateAction {
   readonly action: 'changeQuoteState'
   /**

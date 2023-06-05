@@ -265,7 +265,7 @@ export interface GoogleCloudFunctionDestination {
 export interface HttpDestination {
   readonly type: 'HTTP'
   /**
-   *	URL to the target destination.
+   *	URL to the target destination. If the Project is hosted in the China (AWS, Ningxia) Region, verify that the URL is not blocked due to firewall restrictions.
    *
    *
    */

@@ -232,8 +232,10 @@ export type Message =
   | ProductVariantAddedMessage
   | ProductVariantDeletedMessage
   | QuoteCreatedMessage
+  | QuoteCustomerChangedMessage
   | QuoteDeletedMessage
   | QuoteRequestCreatedMessage
+  | QuoteRequestCustomerChangedMessage
   | QuoteRequestDeletedMessage
   | QuoteRequestStateChangedMessage
   | QuoteRequestStateTransitionMessage
@@ -9834,6 +9836,82 @@ export interface QuoteCreatedMessage {
   readonly quote: Quote
 }
 /**
+ *	Generated after a successful [Change Customer](ctp:api:type:QuoteChangeCustomerAction) update action.
+ *
+ */
+export interface QuoteCustomerChangedMessage {
+  readonly type: 'QuoteCustomerChanged'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The [Buyer](/../api/quotes-overview#buyer) who now owns the Quote.
+   *
+   *
+   */
+  readonly customer: CustomerReference
+  /**
+   *	The previous [Buyer](/../api/quotes-overview#buyer).
+   *
+   *
+   */
+  readonly previousCustomer: CustomerReference
+}
+/**
  *	Generated after a successful [Delete Quote](/../api/projects/quotes#delete-quote) request.
  *
  */
@@ -9966,6 +10044,82 @@ export interface QuoteRequestCreatedMessage {
    *
    */
   readonly quoteRequest: QuoteRequest
+}
+/**
+ *	Generated after a successful [Change Customer](ctp:api:type:QuoteRequestChangeCustomerAction) update action.
+ *
+ */
+export interface QuoteRequestCustomerChangedMessage {
+  readonly type: 'QuoteRequestCustomerChanged'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The [Buyer](/../api/quotes-overview#buyer) who now owns the Quote Request.
+   *
+   *
+   */
+  readonly customer: CustomerReference
+  /**
+   *	The previous [Buyer](/../api/quotes-overview#buyer).
+   *
+   *
+   */
+  readonly previousCustomer: CustomerReference
 }
 /**
  *	Generated after a successful [Delete Quote Request](/../api/projects/quote-requests#delete-quoterequest) request.
@@ -12563,8 +12717,10 @@ export type MessagePayload =
   | ProductVariantAddedMessagePayload
   | ProductVariantDeletedMessagePayload
   | QuoteCreatedMessagePayload
+  | QuoteCustomerChangedMessagePayload
   | QuoteDeletedMessagePayload
   | QuoteRequestCreatedMessagePayload
+  | QuoteRequestCustomerChangedMessagePayload
   | QuoteRequestDeletedMessagePayload
   | QuoteRequestStateChangedMessagePayload
   | QuoteRequestStateTransitionMessagePayload
@@ -14923,6 +15079,25 @@ export interface QuoteCreatedMessagePayload {
   readonly quote: Quote
 }
 /**
+ *	Generated after a successful [Change Customer](ctp:api:type:QuoteChangeCustomerAction) update action.
+ *
+ */
+export interface QuoteCustomerChangedMessagePayload {
+  readonly type: 'QuoteCustomerChanged'
+  /**
+   *	The [Buyer](/../api/quotes-overview#buyer) who now owns the Quote.
+   *
+   *
+   */
+  readonly customer: CustomerReference
+  /**
+   *	The previous [Buyer](/../api/quotes-overview#buyer).
+   *
+   *
+   */
+  readonly previousCustomer: CustomerReference
+}
+/**
  *	Generated after a successful [Delete Quote](/../api/projects/quotes#delete-quote) request.
  *
  */
@@ -14941,6 +15116,25 @@ export interface QuoteRequestCreatedMessagePayload {
    *
    */
   readonly quoteRequest: QuoteRequest
+}
+/**
+ *	Generated after a successful [Change Customer](ctp:api:type:QuoteRequestChangeCustomerAction) update action.
+ *
+ */
+export interface QuoteRequestCustomerChangedMessagePayload {
+  readonly type: 'QuoteRequestCustomerChanged'
+  /**
+   *	The [Buyer](/../api/quotes-overview#buyer) who now owns the Quote Request.
+   *
+   *
+   */
+  readonly customer: CustomerReference
+  /**
+   *	The previous [Buyer](/../api/quotes-overview#buyer).
+   *
+   *
+   */
+  readonly previousCustomer: CustomerReference
 }
 /**
  *	Generated after a successful [Delete Quote Request](/../api/projects/quote-requests#delete-quoterequest) request.

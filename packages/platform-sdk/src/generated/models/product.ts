@@ -1559,6 +1559,29 @@ export interface ProductRemovePriceAction {
    */
   readonly priceId: string
   /**
+   *	The `sku` of the ProductVariant the provided Price should be removed from.
+   *	Either 'variantId' or 'sku' is required" when `priceId` is not provided.
+   *	This field is now deprecated, use 'priceId' instead.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	The `id` of the ProductVariant the provided Price should be removed from.
+   *	Either 'variantId' or 'sku' is required" when `priceId` is not provided.
+   *	This field is now deprecated, use 'priceId' instead.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	The Price identical to the one to be removed from the ProductVariant.
+   *	This field is now deprecated, use 'priceId' instead.
+   *
+   *
+   */
+  readonly price?: PriceDraft
+  /**
    *	If `true`, only the staged Embedded Price is removed. If `false`, both the current and staged Embedded Price are removed.
    *
    *
@@ -2350,7 +2373,7 @@ export interface ProductTransitionStateAction {
   readonly force?: boolean
 }
 /**
- *	Removes the current projection of the Product. The staged projection is unaffected. Unpublished Products only appear in query/search results with `staged=false`. Produces the [ProductUnpublished](ctp:api:type:ProductUnpublishedMessage) Message.
+ *	Removes the current [projection](/../api/projects/productProjections#current--staged) of the Product. The staged projection is unaffected. To retrieve unpublished Products, the `staged` parameter must be set to `false` when [querying](/projects/productProjections#query-productprojections)/[searching](/projects/products-search#product-projection-search) Product Projections. Produces the [ProductUnpublished](ctp:api:type:ProductUnpublishedMessage) Message.
  *
  *	Unpublished Products cannot be added to a Cart. However, if a Cart contains Line Items for Products that were added before the Product was unpublished, the Cart is unaffected and can still be used to create an Order. To prevent this, in addition to unpublishing the Product you should remove the Prices from the Product using [Remove Price](ctp:api:type:ProductRemovePriceAction) for Embedded Prices or [Delete StandalonePrice](/projects/standalone-prices#delete-standaloneprice) for Standalone Prices.
  *
