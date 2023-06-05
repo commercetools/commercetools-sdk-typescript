@@ -1426,7 +1426,9 @@ export interface MyCartApplyDeltaToLineItemShippingDetailsTargetsAction {
  *	use this update action in combination with the [Set LineItemShippingDetails](ctp:api:type:CartSetCustomLineItemShippingDetailsAction) update action
  *	in a single Cart update command.
  *
- *	The [LineItem](ctp:api:type:LineItem) price is set as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *	When the action applies to [LineItems](ctp:api:type:LineItem) with `ExternalTotal` [LineItemPriceMode](ctp:api:type:LineItemPriceMode),
+ *	it will be changed to `ExternalPrice` and the existing `externalPrice` value, i.e. `LineItem.price`, will be retained.
+ *	The LineItem total will be calculated by the system instead, so that the `externalTotalPrice` will be dropped.
  *
  */
 export interface MyCartChangeLineItemQuantityAction {
@@ -1446,15 +1448,13 @@ export interface MyCartChangeLineItemQuantityAction {
    */
   readonly quantity: number
   /**
-   *	Sets the [LineItem](ctp:api:type:LineItem) `price` to the given value when changing the quantity of a Line Item with the `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
-   *
-   *	The LineItem price is updated as described in LineItem Price selection.
+   *	Deprecated. Will be ignored.
    *
    *
    */
   readonly externalPrice?: _Money
   /**
-   *	Sets the [LineItem](ctp:api:type:LineItem) `price` and `totalPrice` to the given value when changing the quantity of a Line Item with the `ExternalTotal` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+   *	Deprecated. Will be ignored.
    *
    *
    */
