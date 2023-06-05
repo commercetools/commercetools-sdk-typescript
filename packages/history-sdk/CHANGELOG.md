@@ -1,5 +1,11 @@
 # @commercetools/history-sdk
 
+## 3.4.1
+
+### Patch Changes
+
+- [#483](https://github.com/commercetools/commercetools-sdk-typescript/pull/483) [`c87f6bf`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c87f6bf6efd3b7bd66027829378108b1f260a325) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
+
 ## 3.4.0
 
 ### Minor Changes
