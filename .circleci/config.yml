@@ -23,6 +23,7 @@ executors:
 version: 2.1
 orbs:
   node: circleci/node@5.1.0
+
 jobs:
   build_and_test:
     parameters:
@@ -54,99 +55,62 @@ jobs:
             yarn test
       - run:
           name: Running tests
-          command: yarn test --coverage --testPathPattern='packages/platform-sdk/test/(?!integration-tests).*'
+          command: yarn test --testPathPattern='packages/platform-sdk/test/(?!integration-tests).*'
+
+  integration_test:
+    parameters:
+      os:
+        type: executor
+      node-version:
+        type: string
+    executor: << parameters.os >>
+    working_directory: *working_directory
+    steps:
+      - checkout
+      - restore_cache: *restore_yarn_cache
+      - run:
+          name: Installing dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache: *save_yarn_cache
+      - run:
+          name: Use environment variables
+          command: |
+            echo $IT_CTP_PROJECT_KEY
+            echo $IT_CTP_CLIENT_SECRET
+            echo $IT_CTP_CLIENT_ID
       - run:
           name: Running integration tests
-          command: yarn test --coverage --testPathPattern='packages/platform-sdk/test/integration-tests'
+          command: yarn test --testPathPattern='packages/platform-sdk/test/integration-tests'
+
+  generate_coverage:
+    parameters:
+      os:
+        type: executor
+      node-version:
+        type: string
+    executor: << parameters.os >>
+    working_directory: *working_directory
+    steps:
+      - checkout
+      - restore_cache: *restore_yarn_cache
+      - run:
+          name: Installing dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache: *save_yarn_cache
+      - run:
+          name: Running tests with coverage
+          command: yarn test --coverage
       - run:
           name: Send coverage report
           command: yarn coverage
       - store_artifacts:
           path: packages/ml-sdk/test-results
-            - store_artifacts:
-                path: packages/platform-sdk/test-results
+      - store_artifacts:
+          path: packages/platform-sdk/test-results
       - store_test_results:
           path: packages/ml-sdk/test-results
       - store_test_results:
           path: packages/platform-sdk/test-results
-#  integration_test:
-#    parameters:
-#      os:
-#        type: executor
-#      node-version:
-#        type: string
-#    executor: << parameters.os >>
-#    working_directory: *working_directory
-#    steps:
-#      - checkout
-#      - restore_cache: *restore_yarn_cache
-#      - run:
-#          name: Installing dependencies
-#          command: yarn install --frozen-lockfile
-#      - save_cache: *save_yarn_cache
-#      - run:
-#          name: Use environment variables
-#          command: |
-#            echo $IT_CTP_PROJECT_KEY
-#            echo $IT_CTP_CLIENT_SECRET
-#            echo $IT_CTP_CLIENT_ID
-#      - run:
-#          name: Running integration tests
-#          command: yarn test --testPathPattern='packages/platform-sdk/test/integration-tests'
-#  unit-test-coverage:
-#    parameters:
-#      os:
-#        type: executor
-#      node-version:
-#        type: string
-#    executor: << parameters.os >>
-#    working_directory: *working_directory
-#    steps:
-#      - checkout
-#      - restore_cache: *restore_yarn_cache
-#      - run:
-#          name: Installing dependencies
-#          command: yarn install --frozen-lockfile
-#      - save_cache: *save_yarn_cache
-#      - run:
-#          name: Generate coverage for unit tests
-#          command: yarn test --coverage --testPathPattern='packages/platform-sdk/test/(?!integration-tests).*' --passWithNoTests
-#      - run:
-#          name: Send coverage report
-#          command: yarn coverage
-#      - store_artifacts:
-#          path: packages/ml-sdk/test-results
-#      - store_artifacts:
-#          path: packages/platform-sdk/test-results
-#      - store_test_results:
-#          path: packages/ml-sdk/test-results
-#      - store_test_results:
-#          path: packages/platform-sdk/test-results
-#  integration_test_coverage:
-#    parameters:
-#      os:
-#        type: executor
-#      node-version:
-#        type: string
-#    executor: << parameters.os >>
-#    working_directory: *working_directory
-#    steps:
-#      - checkout
-#      - restore_cache: *restore_yarn_cache
-#      - run:
-#          name: Installing dependencies
-#          command: yarn install --frozen-lockfile
-#      - save_cache: *save_yarn_cache
-#      - run:
-#          name: Generating coverage for integration tests
-#          command: yarn test --testPathPattern='packages/platform-sdk/test/integration-tests' --passWithNoTests
-#      - run:
-#          name: Send coverage report
-#          command: yarn coverage
-#      - store_artifacts:
-#          path: packages/platform-sdk/test-results
-#      - store_test_results:
-#          path: packages/platform-sdk/test-results
 
   update_ml_sdk_from_spec:
     executor: << parameters.os >>
@@ -180,16 +144,14 @@ workflows:
             parameters:
               os: [docker]
               node-version: ["^14.20.0", "^16.17.0", "^18.9.0"]
-#      - integration_test:
-#          requires:
-#            - build_and_test
-#          matrix:
-#            parameters:
-#              os: [docker]
-#              node-version: ["^18.9.0"]
-#      - unit-test-coverage:
-#          requires:
-#            - build_and_test
-#      - integration_test_coverage:
-#          requires:
-#            - integration_test
+      - integration_test:
+          requires:
+            - build_and_test
+          matrix:
+            parameters:
+              os: [docker]
+              node-version: ["^18.9.0"]
+      - generate_coverage:
+          requires:
+            - build_and_test
+            - integration_test
