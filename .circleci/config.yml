@@ -54,6 +54,9 @@ jobs:
             cd examples
             yarn test
       - run:
+          name: Install gcov
+          command: sudo apt-get install -y gcov
+      - run:
           name: Running tests
           command: yarn test --testPathPattern='packages/platform-sdk/test/(?!integration-tests).*' --collectCoverage
 
