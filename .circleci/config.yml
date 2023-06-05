@@ -100,7 +100,7 @@ jobs:
       - run:
           name: Send coverage report
           command: |
-            yarn coverage -v
+            yarn coverage -debug
             ls -l coverage
       - store_artifacts:
           path: packages/ml-sdk/test-results
