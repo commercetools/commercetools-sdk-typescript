@@ -155,3 +155,7 @@ workflows:
           requires:
             - build_and_test
             - integration_test
+          matrix:
+            parameters:
+              os: [ docker ]
+              node-version: [ "^18.9.0" ]
