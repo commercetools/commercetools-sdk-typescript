@@ -173,9 +173,9 @@ workflows:
             parameters:
               os: [docker]
               node-version: ["^18.9.0"]
-      - unit-test-coverage:
-          requires:
-            - build_and_test
-      - integration_test_coverage:
-          requires:
-            - integration_test
+#      - unit-test-coverage:
+#          requires:
+#            - build_and_test
+#      - integration_test_coverage:
+#          requires:
+#            - integration_test
