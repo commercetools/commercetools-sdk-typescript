@@ -99,9 +99,7 @@ jobs:
       - save_cache: *save_yarn_cache
       - run:
           name: Send coverage report
-          command: |
-            yarn coverage -debug
-            ls -l coverage
+          command: yarn coverage -f '/coverage/clover.xml' -f "/coverage/lcov.info" -f "/coverage/coverage-final.json"
       - store_artifacts:
           path: packages/ml-sdk/test-results
       - store_artifacts:
