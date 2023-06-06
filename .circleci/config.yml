@@ -55,17 +55,38 @@ jobs:
       - run:
           name: Running tests
           command: yarn test --testPathPattern='packages/platform-sdk/test/(?!integration-tests).*' --coverage
+      - store_artifacts:
+          path: coverage
+
+  integration_test:
+    parameters:
+      os:
+        type: executor
+      node-version:
+        type: string
+    executor: << parameters.os >>
+    working_directory: *working_directory
+    steps:
+      - checkout
+      - restore_cache: *restore_yarn_cache
       - run:
-          name: Send coverage report
+          name: Installing dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache: *save_yarn_cache
+      - run:
+          name: Running integration tests
+          command: yarn test --testPathPattern='packages/platform-sdk/test/integration-tests' --coverage
+      - store_artifacts:
+          path: coverage
+
+  coverage_report:
+    docker:
+      - image: circleci/node:14
+    steps:
+      - checkout
+      - run:
+          name: Send coverage reports
           command: yarn coverage
-#      - store_artifacts:
-#          path: packages/ml-sdk/test-results
-#      - store_artifacts:
-#          path: packages/platform-sdk/test-results
-#      - store_test_results:
-#          path: packages/ml-sdk/test-results
-#      - store_test_results:
-#          path: packages/platform-sdk/test-results
 
   update_ml_sdk_from_spec:
     executor: << parameters.os >>
@@ -99,3 +120,18 @@ workflows:
             parameters:
               os: [docker]
               node-version: ["^14.20.0", "^16.17.0", "^18.9.0"]
+      - integration_test:
+          requires:
+            - build_and_test
+          matrix:
+            parameters:
+              os: [ docker ]
+              node-version: ["^18.9.0"]
+      - coverage_report:
+          requires:
+            - build_and_test
+            - integration_test
+          matrix:
+            parameters:
+              os: [ docker ]
+              node-version: ["^18.9.0"]
