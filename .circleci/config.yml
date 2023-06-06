@@ -23,6 +23,8 @@ executors:
 version: 2.1
 orbs:
   node: circleci/node@5.1.0
+  codecov: codecov/codecov@3.8.3
+
 jobs:
   build_and_test:
     parameters:
@@ -89,6 +91,7 @@ jobs:
     working_directory: *working_directory
     steps:
       - checkout
+      - setup_remote_docker
       - restore_cache: *restore_yarn_cache
       - run:
           name: Merge coverage reports
