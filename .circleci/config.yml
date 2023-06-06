@@ -23,7 +23,6 @@ executors:
 version: 2.1
 orbs:
   node: circleci/node@5.1.0
-  codecov: codecov/codecov@3.8.3
 jobs:
   build_and_test:
     parameters:
