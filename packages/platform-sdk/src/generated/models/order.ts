@@ -1326,6 +1326,11 @@ export interface Parcel {
    */
   readonly id: string
   /**
+   *	User-defined unique identifier of the Parcel.
+   *
+   */
+  readonly key?: string
+  /**
    *
    */
   readonly createdAt: string
@@ -1349,6 +1354,11 @@ export interface Parcel {
   readonly custom?: CustomFields
 }
 export interface ParcelDraft {
+  /**
+   *	User-defined unique identifier of the Parcel.
+   *
+   */
+  readonly key?: string
   /**
    *
    */
@@ -1752,6 +1762,10 @@ export interface OrderAddParcelToDeliveryAction {
   /**
    *
    */
+  readonly parcelKey?: string
+  /**
+   *
+   */
   readonly measurements?: ParcelMeasurements
   /**
    *
@@ -1852,9 +1866,15 @@ export interface OrderRemoveItemShippingAddressAction {
 export interface OrderRemoveParcelFromDeliveryAction {
   readonly action: 'removeParcelFromDelivery'
   /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
    *
    */
-  readonly parcelId: string
+  readonly parcelId?: string
+  /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *
+   */
+  readonly parcelKey?: string
 }
 export interface OrderRemovePaymentAction {
   readonly action: 'removePayment'
@@ -2266,9 +2286,15 @@ export interface OrderSetOrderNumberAction {
 export interface OrderSetParcelCustomFieldAction {
   readonly action: 'setParcelCustomField'
   /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
    *
    */
-  readonly parcelId: string
+  readonly parcelId?: string
+  /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *
+   */
+  readonly parcelKey?: string
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
@@ -2287,9 +2313,15 @@ export interface OrderSetParcelCustomFieldAction {
 export interface OrderSetParcelCustomTypeAction {
   readonly action: 'setParcelCustomType'
   /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
    *
    */
-  readonly parcelId: string
+  readonly parcelId?: string
+  /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *
+   */
+  readonly parcelKey?: string
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the Parcel with [Custom Fields](/../api/projects/custom-fields).
    *	If absent, any existing Type and Custom Fields are removed from the Parcel.
@@ -2307,9 +2339,15 @@ export interface OrderSetParcelCustomTypeAction {
 export interface OrderSetParcelItemsAction {
   readonly action: 'setParcelItems'
   /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
    *
    */
-  readonly parcelId: string
+  readonly parcelId?: string
+  /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *
+   */
+  readonly parcelKey?: string
   /**
    *
    */
@@ -2318,9 +2356,15 @@ export interface OrderSetParcelItemsAction {
 export interface OrderSetParcelMeasurementsAction {
   readonly action: 'setParcelMeasurements'
   /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
    *
    */
-  readonly parcelId: string
+  readonly parcelId?: string
+  /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *
+   */
+  readonly parcelKey?: string
   /**
    *
    */
@@ -2329,9 +2373,15 @@ export interface OrderSetParcelMeasurementsAction {
 export interface OrderSetParcelTrackingDataAction {
   readonly action: 'setParcelTrackingData'
   /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
    *
    */
-  readonly parcelId: string
+  readonly parcelId?: string
+  /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *
+   */
+  readonly parcelKey?: string
   /**
    *
    */

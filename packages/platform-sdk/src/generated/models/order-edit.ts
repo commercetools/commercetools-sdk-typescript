@@ -547,6 +547,10 @@ export interface StagedOrderAddParcelToDeliveryAction {
   /**
    *
    */
+  readonly parcelKey?: string
+  /**
+   *
+   */
   readonly measurements?: ParcelMeasurements
   /**
    *
@@ -783,9 +787,15 @@ export interface StagedOrderRemoveLineItemAction {
 export interface StagedOrderRemoveParcelFromDeliveryAction {
   readonly action: 'removeParcelFromDelivery'
   /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
    *
    */
-  readonly parcelId: string
+  readonly parcelId?: string
+  /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *
+   */
+  readonly parcelKey?: string
 }
 export interface StagedOrderRemovePaymentAction {
   readonly action: 'removePayment'
@@ -1362,9 +1372,15 @@ export interface StagedOrderSetOrderTotalTaxAction {
 export interface StagedOrderSetParcelCustomFieldAction {
   readonly action: 'setParcelCustomField'
   /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
    *
    */
-  readonly parcelId: string
+  readonly parcelId?: string
+  /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *
+   */
+  readonly parcelKey?: string
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
@@ -1383,9 +1399,15 @@ export interface StagedOrderSetParcelCustomFieldAction {
 export interface StagedOrderSetParcelCustomTypeAction {
   readonly action: 'setParcelCustomType'
   /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
    *
    */
-  readonly parcelId: string
+  readonly parcelId?: string
+  /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *
+   */
+  readonly parcelKey?: string
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the Parcel with [Custom Fields](/../api/projects/custom-fields).
    *	If absent, any existing Type and Custom Fields are removed from the Parcel.
@@ -1403,9 +1425,15 @@ export interface StagedOrderSetParcelCustomTypeAction {
 export interface StagedOrderSetParcelItemsAction {
   readonly action: 'setParcelItems'
   /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
    *
    */
-  readonly parcelId: string
+  readonly parcelId?: string
+  /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *
+   */
+  readonly parcelKey?: string
   /**
    *
    */
@@ -1414,9 +1442,15 @@ export interface StagedOrderSetParcelItemsAction {
 export interface StagedOrderSetParcelMeasurementsAction {
   readonly action: 'setParcelMeasurements'
   /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
    *
    */
-  readonly parcelId: string
+  readonly parcelId?: string
+  /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *
+   */
+  readonly parcelKey?: string
   /**
    *
    */
@@ -1425,9 +1459,15 @@ export interface StagedOrderSetParcelMeasurementsAction {
 export interface StagedOrderSetParcelTrackingDataAction {
   readonly action: 'setParcelTrackingData'
   /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
    *
    */
-  readonly parcelId: string
+  readonly parcelId?: string
+  /**
+   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *
+   */
+  readonly parcelKey?: string
   /**
    *
    */
