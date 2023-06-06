@@ -8,7 +8,7 @@
     "format": "prettier --write '**/*.{js,ts,json,md}'",
     "build": "preconstruct build",
     "test": "jest --maxWorkers=2",
-    "coverage": "codecov -f 'coverage/lcov.info' -f 'coverage/clover.xml' -f 'coverage/coverage-final.json'",
+    "coverage": "codecov -f 'coverage/lcov.info' -f 'coverage/clover.xml'",
     "typecheck": "tsc --noEmit",
     "changeset": "changeset",
     "postbuild": "webpack --mode=production",
