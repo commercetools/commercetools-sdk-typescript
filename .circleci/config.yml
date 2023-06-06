@@ -56,6 +56,14 @@ jobs:
       - run:
           name: Running tests
           command: yarn test --testPathPattern='packages/platform-sdk/test/(?!integration-tests).*' --collectCoverage
+      - store_artifacts:
+          path: packages/ml-sdk/test-results
+      - store_artifacts:
+          path: packages/platform-sdk/test-results
+      - store_test_results:
+          path: packages/ml-sdk/test-results
+      - store_test_results:
+          path: packages/platform-sdk/test-results
 
   integration_test:
     parameters:
@@ -75,6 +83,10 @@ jobs:
       - run:
           name: Running integration tests
           command: yarn test --testPathPattern='packages/platform-sdk/test/integration-tests' --collectCoverage
+      - store_artifacts:
+          path: packages/platform-sdk/test-results
+      - store_test_results:
+          path: packages/platform-sdk/test-results
 
   generate_coverage:
     parameters:
