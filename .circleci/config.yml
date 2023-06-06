@@ -54,7 +54,7 @@ jobs:
             yarn test
       - run:
           name: Running tests
-          command: yarn test --coverage
+          command: yarn test --testPathPattern='packages/platform-sdk/test/(?!integration-tests).*' --coverage
       - run:
           name: Send coverage report
           command: yarn coverage
