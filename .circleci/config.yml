@@ -107,13 +107,13 @@ jobs:
           name: Send coverage report
           command: yarn coverage
       - store_artifacts:
-          path: coverage
+          path: /home/circleci/commercetools-typescript-sdk/coverage
 #      - store_artifacts:
 #          path: packages/platform-sdk/test-results
 #      - store_test_results:
 #          path: packages/ml-sdk/test-results
       - store_test_results:
-          path: coverage
+          path: /home/circleci/commercetools-typescript-sdk/coverage
 
   update_ml_sdk_from_spec:
     executor: << parameters.os >>
