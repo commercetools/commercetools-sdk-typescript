@@ -23,6 +23,7 @@ executors:
 version: 2.1
 orbs:
   node: circleci/node@5.1.0
+  codecov: codecov/codecov@3.8.3
 jobs:
   build_and_test:
     parameters:
@@ -89,9 +90,14 @@ jobs:
     working_directory: *working_directory
     steps:
       - checkout
+      - restore_cache: *restore_yarn_cache
       - run:
-          name: Send coverage reports
-          command: yarn coverage
+          name: Merge coverage reports
+          command: |
+            cd coverage
+            lcov-result-merger "coverage-*.info" merged-coverage.info
+      - codecov/upload:
+          file: merged-coverage.info
 
   update_ml_sdk_from_spec:
     executor: << parameters.os >>
