@@ -11,6 +11,7 @@ module.exports = {
   testRegex: '\\.(test|spec)\\.[t]sx?$',
   moduleFileExtensions: ['ts', 'js', 'json'],
   coveragePathIgnorePatterns: ['/node_modules/', '/dist/'],
+  coverageDirectory: 'coverage',
   watchPlugins: ['jest-watch-typeahead/filename'],
   reporters: [
     'default',
