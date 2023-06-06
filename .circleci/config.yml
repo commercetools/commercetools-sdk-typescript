@@ -80,8 +80,13 @@ jobs:
           path: coverage
 
   coverage_report:
-    docker:
-      - image: circleci/node:14
+    parameters:
+      os:
+        type: executor
+      node-version:
+        type: string
+    executor: << parameters.os >>
+    working_directory: *working_directory
     steps:
       - checkout
       - run:
