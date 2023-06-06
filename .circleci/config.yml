@@ -58,14 +58,14 @@ jobs:
       - run:
           name: Send coverage report
           command: yarn coverage
-      - store_artifacts:
-          path: packages/ml-sdk/test-results
-      - store_artifacts:
-          path: packages/platform-sdk/test-results
-      - store_test_results:
-          path: packages/ml-sdk/test-results
-      - store_test_results:
-          path: packages/platform-sdk/test-results
+#      - store_artifacts:
+#          path: packages/ml-sdk/test-results
+#      - store_artifacts:
+#          path: packages/platform-sdk/test-results
+#      - store_test_results:
+#          path: packages/ml-sdk/test-results
+#      - store_test_results:
+#          path: packages/platform-sdk/test-results
 
   update_ml_sdk_from_spec:
     executor: << parameters.os >>
