@@ -23,7 +23,7 @@ executors:
 version: 2.1
 orbs:
   node: circleci/node@5.1.0
-  codecov: codecov/codecov@3.8.3
+  codecov: codecov/codecov@3.2.5
 
 jobs:
   build_and_test:
@@ -96,7 +96,7 @@ jobs:
           name: Installing dependencies
           command: yarn install --frozen-lockfile
       - run:
-          name: Merge coverage reports
+          name: Send coverage reports
           command: |
             cd coverage
             lcov-result-merger "coverage-*.info" merged-coverage.info
