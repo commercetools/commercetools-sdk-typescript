@@ -96,6 +96,9 @@ jobs:
           name: Installing dependencies
           command: yarn install --frozen-lockfile
       - run:
+          name: Create coverage directory
+          command: mkdir coverage
+      - run:
           name: Send coverage reports
           command: |
             cd coverage
