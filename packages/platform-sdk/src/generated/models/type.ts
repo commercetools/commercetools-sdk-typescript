@@ -52,6 +52,8 @@ export interface CustomFieldLocalizedEnumValue {
  *
  */
 export type CustomFieldReferenceValue =
+  | 'associate-role'
+  | 'business-unit'
   | 'cart'
   | 'category'
   | 'channel'

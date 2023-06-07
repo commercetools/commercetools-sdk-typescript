@@ -46,7 +46,23 @@
 </details>
 
 <details>
+<summary>Added Enum(s)</summary>
+
+- added enum `associate-role` to type `CustomFieldReferenceValue`
+- added enum `business-unit` to type `CustomFieldReferenceValue`
+</details>
+
+<details>
 <summary>Added Type(s)</summary>
 
 - added type `ConfluentCloudDestination`
+</details>
+
+**Import changes**
+
+<details>
+<summary>Added Enum(s)</summary>
+
+- added enum `associate-role` to type `CustomFieldReferenceValue`
+- added enum `business-unit` to type `CustomFieldReferenceValue`
 </details>
