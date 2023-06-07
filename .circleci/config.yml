@@ -99,11 +99,11 @@ jobs:
           name: Create coverage directory
           command: mkdir coverage
       - run:
-          name: Install Codecov Bash uploader
-          command:  codecov
+          name: Send code coverage report to Codecov.io
+          command: yarn coverage || true
       - run:
           name: Merge coverage reports and upload to Codecov
-          command: codecov -Z -F build_and_test -F integration_test
+          command: yarn codecov -Z -F build_and_test -F integration_test
 
 #  update_ml_sdk_from_spec:
 #    executor: << parameters.os >>
