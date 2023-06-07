@@ -100,12 +100,10 @@ jobs:
           command: mkdir coverage
       - run:
           name: Install Codecov Bash uploader
-          command: |
-            curl -sSL https://codecov.io/bash > codecov.sh
-            chmod +x codecov.sh
+          command:  codecov
       - run:
           name: Merge coverage reports and upload to Codecov
-          command: ./codecov.sh -Z -F build_and_test -F integration_test
+          command: codecov -Z -F build_and_test -F integration_test
 
 #  update_ml_sdk_from_spec:
 #    executor: << parameters.os >>
