@@ -95,12 +95,12 @@ jobs:
       - run:
           name: Installing dependencies
           command: yarn install --frozen-lockfile
-      - run:
-          name: Send code coverage report to Codecov.io
-          command: yarn coverage || true
 #      - run:
-#          name: Merge coverage reports and upload to Codecov
-#          command: yarn coverage -F build_and_test,integration_test
+#          name: Send code coverage report to Codecov.io
+#          command: yarn coverage || true
+      - run:
+          name: Merge coverage reports and upload to Codecov
+          command: yarn coverage -F build_and_test,integration_test
 
 #  update_ml_sdk_from_spec:
 #    executor: << parameters.os >>
