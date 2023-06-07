@@ -97,7 +97,7 @@ jobs:
           command: yarn install --frozen-lockfile
       - run:
           name: Install lcov-result-merger
-          command: yarn add --dev lcov-result-merger
+          command: yarn add --dev -W lcov-result-merger
       - run:
           name: Create coverage directory
           command: mkdir coverage
