@@ -91,11 +91,17 @@ jobs:
     working_directory: *working_directory
     steps:
       - checkout
-      - setup_remote_docker
       - restore_cache: *restore_yarn_cache
       - run:
-          name: Upload coverage to Codecov
-          command: yarn coverage
+          name: Installing dependencies
+          command: yarn install --frozen-lockfile
+      - run:
+          name: Merge coverage reports
+          command: |
+            cd coverage
+            lcov-result-merger "coverage-*.info" merged-coverage.info
+      - codecov/upload:
+          file: merged-coverage.info
 
 #  update_ml_sdk_from_spec:
 #    executor: << parameters.os >>
