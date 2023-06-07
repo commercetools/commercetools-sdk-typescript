@@ -96,8 +96,8 @@ jobs:
           name: Installing dependencies
           command: yarn install --frozen-lockfile
       - run:
-          name: List coverage directory
-          command: ls -la coverage
+          name: Create coverage directory
+          command: mkdir coverage
       - run:
           name: Install Codecov Bash uploader
           command: |
