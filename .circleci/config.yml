@@ -94,6 +94,7 @@ jobs:
       - restore_cache: *restore_yarn_cache
       - run:
           name: Installing dependencies
+          command: yarn install --frozen-lockfile
       - run:
           name: Install Codecov Bash uploader
           command: |
