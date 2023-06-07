@@ -44,3 +44,9 @@
 - added property `parcelKey` to type `OrderSetParcelMeasurementsAction`
 - added property `parcelKey` to type `OrderSetParcelTrackingDataAction`
 </details>
+
+<details>
+<summary>Added Type(s)</summary>
+
+- added type `ConfluentCloudDestination`
+</details>

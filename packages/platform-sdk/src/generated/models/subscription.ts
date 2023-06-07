@@ -156,6 +156,7 @@ export type DeliveryPayload =
 export type Destination =
   | AzureEventGridDestination
   | AzureServiceBusDestination
+  | ConfluentCloudDestination
   | EventBridgeDestination
   | GoogleCloudPubSubDestination
   | SnsDestination
@@ -193,6 +194,53 @@ export interface AzureServiceBusDestination {
    *
    */
   readonly connectionString: string
+}
+/**
+ *	This destination can be used to push events and messages to [Confluent Cloud](https://www.confluent.io/confluent-cloud/).
+ *	To set up a Subscription of this type, first, create a topic in Confluent Cloud.
+ *	Then, to allow Composable Commerce to push events and messages to your topic, generate [API keys](https://docs.confluent.io/cloud/current/access-management/authenticate/api-keys/api-keys.html) for your topic, and create the Subscription destination using the generated credentials.
+ *
+ *	The Composable Commerce producer uses the following values: `SASL_SSL` for`security.protocol`, `PLAIN` for`sasl.mechanism`, and the default value (1048576) for `max.request.size`.
+ *
+ */
+export interface ConfluentCloudDestination {
+  readonly type: 'ConfluentCloud'
+  /**
+   *	URL to the bootstrap server including the port number in the format `<xxxxx>.<region>.<provider>.confluent.cloud:9092`.
+   *
+   *
+   */
+  readonly bootstrapServer: string
+  /**
+   *	Partially hidden on retrieval for security reasons.
+   *
+   *
+   */
+  readonly apiKey: string
+  /**
+   *	Partially hidden on retrieval for security reasons.
+   *
+   *
+   */
+  readonly apiSecret: string
+  /**
+   *	The Kafka `acks` value. Can be `"0"`, `"1"`, or `"all"`.
+   *
+   *
+   */
+  readonly acks: string
+  /**
+   *	The name of the topic.
+   *
+   *
+   */
+  readonly topic: string
+  /**
+   *	The Kafka record key.
+   *
+   *
+   */
+  readonly key?: string
 }
 /**
  *	[AWS EventBridge](https://aws.amazon.com/eventbridge/) can be used to push events and messages to a serverless event bus that can forward them to AWS SQS, SNS, Lambda, and other AWS services based on forwarding rules.
