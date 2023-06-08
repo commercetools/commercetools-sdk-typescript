@@ -56,7 +56,7 @@ jobs:
             yarn test
       - run:
           name: Running tests
-          command: yarn test --testPathPattern='packages/(?!platform-sdk/test/integration-tests).*' --coverage
+          command: yarn test --testPathIgnorePatterns='packages/platform-sdk/test/integration-tests' --coverage
       - codecov/upload:
           file: coverage/clover.xml
           flags: unittests
