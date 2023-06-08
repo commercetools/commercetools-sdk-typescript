@@ -60,7 +60,7 @@ jobs:
 #      - store_artifacts:
 #          path: coverage
       - codecov/upload:
-          file: {{ coverage_report_filepath }}
+          file: coverage/clover.xml
 #  integration_test:
 #    parameters:
 #      os:
@@ -137,14 +137,14 @@ workflows:
               os: [docker]
 #              node-version: ["^14.20.0", "^16.17.0", "^18.9.0"]
               node-version: ["^18.9.0"]
-      - integration_test:
-          requires:
-            - build_and_test
-          matrix:
-            parameters:
-              os: [ docker ]
-              node-version: ["^18.9.0"]
-#      - coverage_report:
+#      - integration_test:
+#          requires:
+#            - build_and_test
+#          matrix:
+#            parameters:
+#              os: [ docker ]
+#              node-version: ["^18.9.0"]
+##      - coverage_report:
 #          requires:
 #            - build_and_test
 #            - integration_test
