@@ -60,6 +60,7 @@ jobs:
       - codecov/upload:
           file: coverage/clover.xml
           flags: unittests
+          upload_name: $CIRCLE_BUILD_NUM
   integration_test:
     parameters:
       os:
@@ -81,6 +82,7 @@ jobs:
       - codecov/upload:
           file: coverage/clover.xml
           flags: integrationtests
+          upload_name: $CIRCLE_BUILD_NUM
 
   update_ml_sdk_from_spec:
     executor: << parameters.os >>
