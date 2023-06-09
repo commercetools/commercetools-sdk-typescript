@@ -20,7 +20,7 @@ const cartDiscountDraft: CartDiscountDraft = {
   value: cartDiscountValueDraft,
   cartPredicate: 'country="DE"',
   target: cartDiscountShippingCostTarget,
-  sortOrder: '0.7034',
+  sortOrder: '0.7035',
   isActive: false,
   requiresDiscountCode: true,
 }

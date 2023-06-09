@@ -15,7 +15,7 @@ const productDiscountDraft: ProductDiscountDraft = {
   name: { en: 'test-name-productDiscount' + randomUUID() },
   value: productDiscountValueDraft,
   predicate: 'product.key="random-key"',
-  sortOrder: '0.4192',
+  sortOrder: '0.4193',
   isActive: false,
 }
 

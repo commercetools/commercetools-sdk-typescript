@@ -27,7 +27,7 @@ describe('testing cart discount API calls', () => {
       value: cartDiscountValueDraft,
       cartPredicate: 'country="DE"',
       target: cartDiscountShippingCostTarget,
-      sortOrder: '0.651',
+      sortOrder: '0.6512',
     }
 
     const responseCreatedCartDiscount = await apiRoot
