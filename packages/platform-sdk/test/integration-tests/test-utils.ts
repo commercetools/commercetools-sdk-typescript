@@ -2,19 +2,21 @@ import { ClientBuilder } from '@commercetools/sdk-client-v2'
 import { createApiBuilderFromCtpClient } from '../../src'
 const fetch = require('node-fetch')
 
-export const projectKey = process.env.CTP_PROJECT_KEY
+export const projectKey = process.env.IT_CTP_PROJECT_KEY
 const httpMiddlewareOptions = {
-  host: 'https://api.europe-west1.gcp.commercetools.com',
+  host:
+    process.env.CTP_API_URL || 'https://api.europe-west1.gcp.commercetools.com',
   fetch,
 }
 const authMiddlewareOptions = {
-  host: 'https://auth.europe-west1.gcp.commercetools.com',
+  host:
+    process.env.CTP_AUTH_URL ||
+    'https://auth.europe-west1.gcp.commercetools.com',
   projectKey,
   credentials: {
-    clientId: process.env.CTP_CLIENT_ID,
-    clientSecret: process.env.CTP_CLIENT_SECRET,
+    clientId: process.env.IT_CTP_CLIENT_ID,
+    clientSecret: process.env.IT_CTP_CLIENT_SECRET,
   },
-  scopes: [`manage_project:${projectKey}`],
   fetch,
 }
 
