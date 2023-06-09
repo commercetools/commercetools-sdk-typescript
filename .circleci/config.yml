@@ -59,7 +59,7 @@ jobs:
           command: yarn test --testPathIgnorePatterns='packages/platform-sdk/test/integration-tests' --coverage
       - codecov/upload:
           file: coverage/clover.xml
-          flags: integrationtests
+          flags: unittests
   integration_test:
     parameters:
       os:
