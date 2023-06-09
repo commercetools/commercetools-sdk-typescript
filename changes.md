@@ -27,6 +27,12 @@
 <details>
 <summary>Added Property(s)</summary>
 
+- added property `key` to type `LineItem`
+- added property `key` to type `LineItemDraft`
+- added property `key` to type `CartAddLineItemAction`
+- added property `key` to type `MyLineItemDraft`
+- added property `key` to type `MyCartAddLineItemAction`
+- added property `key` to type `StagedOrderAddLineItemAction`
 - added property `parcelKey` to type `StagedOrderAddParcelToDeliveryAction`
 - added property `parcelKey` to type `StagedOrderRemoveParcelFromDeliveryAction`
 - added property `parcelKey` to type `StagedOrderSetParcelCustomFieldAction`

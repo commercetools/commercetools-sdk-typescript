@@ -472,6 +472,12 @@ export interface StagedOrderAddItemShippingAddressAction {
 export interface StagedOrderAddLineItemAction {
   readonly action: 'addLineItem'
   /**
+   *	User-defined unique identifier of the LineItem.
+   *
+   *
+   */
+  readonly key?: string
+  /**
    *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
    *
    *

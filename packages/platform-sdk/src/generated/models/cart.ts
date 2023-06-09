@@ -1205,11 +1205,17 @@ export interface ItemShippingTarget {
  */
 export interface LineItem {
   /**
-   *	Unique identifier of the Line Item.
+   *	Unique identifier of the LineItem.
    *
    *
    */
   readonly id: string
+  /**
+   *	User-defined unique identifier of the LineItem.
+   *
+   *
+   */
+  readonly key?: string
   /**
    *	`id` of the [Product](ctp:api:type:Product) the Line Item is based on.
    *
@@ -1373,6 +1379,12 @@ export interface LineItem {
  *
  */
 export interface LineItemDraft {
+  /**
+   *	User-defined unique identifier of the LineItem.
+   *
+   *
+   */
+  readonly key?: string
   /**
    *	`id` of a published [Product](ctp:api:type:Product).
    *
@@ -2069,6 +2081,12 @@ export interface CartAddItemShippingAddressAction {
  */
 export interface CartAddLineItemAction {
   readonly action: 'addLineItem'
+  /**
+   *	User-defined unique identifier of the LineItem.
+   *
+   *
+   */
+  readonly key?: string
   /**
    *	`id` of the published [Product](ctp:api:type:Product).
    *

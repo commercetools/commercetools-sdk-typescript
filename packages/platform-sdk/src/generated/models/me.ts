@@ -538,6 +538,12 @@ export interface MyDivisionDraft {
  */
 export interface MyLineItemDraft {
   /**
+   *	User-defined unique identifier of the LineItem.
+   *
+   *
+   */
+  readonly key?: string
+  /**
    *	`id` of the [Product](ctp:api:type:Product).
    *
    *
@@ -1317,6 +1323,12 @@ export interface MyCartAddItemShippingAddressAction {
  */
 export interface MyCartAddLineItemAction {
   readonly action: 'addLineItem'
+  /**
+   *	User-defined unique identifier of the LineItem.
+   *
+   *
+   */
+  readonly key?: string
   /**
    *	`id` of the [Product](ctp:api:type:Product).
    *
