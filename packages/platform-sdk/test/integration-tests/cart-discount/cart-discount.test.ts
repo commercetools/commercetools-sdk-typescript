@@ -86,7 +86,8 @@ describe('testing cart discount API calls', () => {
       .cartDiscounts()
       .get({
         queryArgs: {
-          where: 'name=' + '"' + cartDiscount.body.name + '"',
+          where: 'name(en= :name)',
+          'var.name': cartDiscount.body.name.en,
         },
       })
       .execute()
