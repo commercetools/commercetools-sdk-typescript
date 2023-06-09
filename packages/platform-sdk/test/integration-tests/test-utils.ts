@@ -25,10 +25,6 @@ const authMiddlewareOptions = {
     clientId: clientId,
     clientSecret: clientSecret,
   },
-  tokenCache: store<TokenStore, TokenCache>({
-    token: '',
-    expirationTime: -1,
-  }),
   fetch,
 }
 
