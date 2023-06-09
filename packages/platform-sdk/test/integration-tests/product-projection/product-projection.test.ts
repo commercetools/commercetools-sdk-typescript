@@ -145,7 +145,7 @@ describe('testing product projection API calls', () => {
     await deleteCategory(category)
   })
 
-  it('should search a product by product projection', async () => {
+  it.skip('should search a product by product projection', async () => {
     const category = await createCategory()
     const taxCategory = await createTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)

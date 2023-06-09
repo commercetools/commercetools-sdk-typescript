@@ -86,7 +86,7 @@ describe('testing cart discount API calls', () => {
       .cartDiscounts()
       .get({
         queryArgs: {
-          where: 'id=' + '"' + cartDiscount.body.id + '"',
+          where: 'name=' + '"' + cartDiscount.body.name + '"',
         },
       })
       .execute()

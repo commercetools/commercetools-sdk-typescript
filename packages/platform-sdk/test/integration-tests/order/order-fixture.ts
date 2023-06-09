@@ -2,7 +2,7 @@ import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
 import { CartResourceIdentifier, OrderFromCartDraft } from '../../../src'
 
-export const createOrder = async (cart, product) => {
+export const createOrder = async (cart) => {
   const updateCart = await apiRoot
     .carts()
     .withKey({ key: cart.body.key })
@@ -10,10 +10,6 @@ export const createOrder = async (cart, product) => {
       body: {
         version: cart.body.version,
         actions: [
-          {
-            action: 'addLineItem',
-            sku: product.body.masterData.current.masterVariant.sku,
-          },
           {
             action: 'setShippingAddress',
             address: {

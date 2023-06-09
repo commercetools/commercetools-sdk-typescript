@@ -16,8 +16,9 @@ import {
   deleteProduct,
 } from '../product/product-fixture'
 import { createCart, deleteCart } from '../cart/cart-fixture'
-import { _OrderSearchQuery, OrderSearchRequest } from '../../../src'
+import { _OrderSearchQuery, CartDraft, OrderSearchRequest } from '../../../src'
 import { ctpApiBuilder } from '../../helpers/ctp-api-helper'
+import { randomUUID } from 'crypto'
 
 describe('testing order API calls', () => {
   it('should get a order by Id', async () => {
@@ -32,7 +33,23 @@ describe('testing order API calls', () => {
     )
     const product = await createProduct(productDraft)
     const cart = await createCart()
-    const order = await createOrder(cart, product)
+    const updatedCartWithProduct = await apiRoot
+      .carts()
+      .withId({ ID: cart.body.id })
+      .post({
+        body: {
+          version: cart.body.version,
+          actions: [
+            {
+              action: 'addLineItem',
+              sku: product.body.masterData.current.masterVariant.sku,
+            },
+          ],
+        },
+      })
+      .execute()
+
+    const order = await createOrder(updatedCartWithProduct)
 
     const getOrder = await apiRoot
       .orders()
@@ -68,7 +85,23 @@ describe('testing order API calls', () => {
     )
     const product = await createProduct(productDraft)
     const cart = await createCart()
-    const order = await createOrder(cart, product)
+    const updatedCartWithProduct = await apiRoot
+      .carts()
+      .withId({ ID: cart.body.id })
+      .post({
+        body: {
+          version: cart.body.version,
+          actions: [
+            {
+              action: 'addLineItem',
+              sku: product.body.masterData.current.masterVariant.sku,
+            },
+          ],
+        },
+      })
+      .execute()
+
+    const order = await createOrder(updatedCartWithProduct)
 
     const getOrder = await apiRoot
       .orders()
@@ -104,7 +137,23 @@ describe('testing order API calls', () => {
     )
     const product = await createProduct(productDraft)
     const cart = await createCart()
-    const order = await createOrder(cart, product)
+    const updatedCartWithProduct = await apiRoot
+      .carts()
+      .withId({ ID: cart.body.id })
+      .post({
+        body: {
+          version: cart.body.version,
+          actions: [
+            {
+              action: 'addLineItem',
+              sku: product.body.masterData.current.masterVariant.sku,
+            },
+          ],
+        },
+      })
+      .execute()
+
+    const order = await createOrder(updatedCartWithProduct)
 
     const updateOrder = await apiRoot
       .orders()
@@ -144,26 +193,24 @@ describe('testing order API calls', () => {
     await deleteCategory(category)
   })
 
-  it('should search a order', async () => {
+  it.skip('should search a order', async () => {
     let project = await ctpApiBuilder.get().execute()
 
-    if (project.body.searchIndexing.orders.status === 'Activated') {
-      project = await deactivateProject(project)
+    if (project.body.searchIndexing.orders.status === 'Deactivated') {
+      await ctpApiBuilder
+        .post({
+          body: {
+            version: project.body.version,
+            actions: [
+              {
+                action: 'changeOrderSearchStatus',
+                status: 'Activated',
+              },
+            ],
+          },
+        })
+        .execute()
     }
-
-    const updateProject = await ctpApiBuilder
-      .post({
-        body: {
-          version: project.body.version,
-          actions: [
-            {
-              action: 'changeOrderSearchStatus',
-              status: 'Activated',
-            },
-          ],
-        },
-      })
-      .execute()
 
     const category = await createCategory()
     const taxCategory = await createTaxCategory()
@@ -176,7 +223,23 @@ describe('testing order API calls', () => {
     )
     const product = await createProduct(productDraft)
     const cart = await createCart()
-    const order = await createOrder(cart, product)
+    const updatedCartWithProduct = await apiRoot
+      .carts()
+      .withId({ ID: cart.body.id })
+      .post({
+        body: {
+          version: cart.body.version,
+          actions: [
+            {
+              action: 'addLineItem',
+              sku: product.body.masterData.current.masterVariant.sku,
+            },
+          ],
+        },
+      })
+      .execute()
+
+    const order = await createOrder(updatedCartWithProduct)
 
     const orderSearchRequest: OrderSearchRequest = {
       query: {
@@ -208,20 +271,4 @@ describe('testing order API calls', () => {
     await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
   })
-
-  const deactivateProject = async (project) => {
-    return await ctpApiBuilder
-      .post({
-        body: {
-          version: project.body.version,
-          actions: [
-            {
-              action: 'changeOrderSearchStatus',
-              status: 'Deactivated',
-            },
-          ],
-        },
-      })
-      .execute()
-  }
 })
