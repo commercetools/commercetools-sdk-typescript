@@ -1,11 +1,16 @@
-import { ClientBuilder } from '@commercetools/sdk-client-v2'
+import {
+  ClientBuilder,
+  TokenCache,
+  TokenStore,
+} from '@commercetools/sdk-client-v2'
 import { createApiBuilderFromCtpClient } from '../../src'
 import { requireEnvVar } from '../helpers/test-utils'
+import store from '@commercetools/sdk-client-v2/src/sdk-middleware-auth/utils'
 const fetch = require('node-fetch')
 
-export const projectKey = requireEnvVar('CTP_PROJECT_KEY')
-const clientId = requireEnvVar('CTP_CLIENT_ID')
-const clientSecret = requireEnvVar('CTP_CLIENT_SECRET')
+export const projectKey = requireEnvVar('IT_CTP_PROJECT_KEY')
+const clientId = requireEnvVar('IT_CTP_CLIENT_ID')
+const clientSecret = requireEnvVar('IT_CTP_CLIENT_SECRET')
 const authURL = requireEnvVar('CTP_AUTH_URL')
 const ctp_host = requireEnvVar('CTP_API_URL')
 
@@ -20,7 +25,10 @@ const authMiddlewareOptions = {
     clientId: clientId,
     clientSecret: clientSecret,
   },
-  scopes: [`manage_project:${projectKey}`],
+  tokenCache: store<TokenStore, TokenCache>({
+    token: '',
+    expirationTime: -1,
+  }),
   fetch,
 }
 
