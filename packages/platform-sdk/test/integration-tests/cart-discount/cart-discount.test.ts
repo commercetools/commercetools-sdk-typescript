@@ -79,7 +79,7 @@ describe('testing cart discount API calls', () => {
     await deleteCartDiscount(cartDiscount)
   })
 
-  it('should query a cart discount', async () => {
+  it('should query a cart discount if the name is equal', async () => {
     const cartDiscount = await createCartDiscount()
 
     const queryCartDiscount = await apiRoot

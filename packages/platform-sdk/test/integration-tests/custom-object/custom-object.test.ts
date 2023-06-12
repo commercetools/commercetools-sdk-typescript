@@ -116,7 +116,7 @@ describe('testing customObject API calls', () => {
     )
   })
 
-  it('should query a customObject', async () => {
+  it('should query a customObject when createdAt is equal to today', async () => {
     const customObject = await createCustomObject()
 
     const queryCustomObject = await apiRoot
