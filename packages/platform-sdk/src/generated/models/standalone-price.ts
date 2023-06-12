@@ -336,6 +336,9 @@ export type StandalonePriceUpdateAction =
   | StandalonePriceSetCustomTypeAction
   | StandalonePriceSetDiscountedPriceAction
   | StandalonePriceSetKeyAction
+  | StandalonePriceSetValidFromAction
+  | StandalonePriceSetValidFromAndUntilAction
+  | StandalonePriceSetValidUntilAction
 /**
  *	Applies all staged changes to the StandalonePrice by overwriting all current values with the values in the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice). After successfully applied, the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice) will be removed from the StandalonePrice. An `applyStagedChanges` update action on a StandalonePrice that does not contain any staged changes will return a `400 Bad Request` error. Applying staged changes successfully will produce the [StandalonePriceStagedChangesApplied](ctp:api:type:StandalonePriceStagedChangesAppliedMessage) Message.
  *
@@ -433,4 +436,59 @@ export interface StandalonePriceSetKeyAction {
    *
    */
   readonly key?: string
+}
+/**
+ *	Updating the `validFrom` value generates the [StandalonePriceValidFromSet](ctp:api:type:StandalonePriceValidFromSetMessage) Message.
+ *
+ *	As the validity dates are part of the price scope and are not allowed to overlap, this update might return the [DuplicateStandalonePriceScope](ctp:api:type:DuplicateStandalonePriceScopeError) and [OverlappingStandalonePriceValidity](ctp:api:type:OverlappingStandalonePriceValidityError) errors, respectively. A Price without validity period does not conflict with a Price defined for a time period.
+ *
+ */
+export interface StandalonePriceSetValidFromAction {
+  readonly action: 'setValidFrom'
+  /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly validFrom?: string
+}
+/**
+ *	Updating the `validFrom` and `validUntil` values generates the [StandalonePriceValidFromAndUntilSet](ctp:api:type:StandalonePriceValidFromAndUntilSetMessage) Message.
+ *
+ *	As the validity dates are part of the price scope and are not allowed to overlap, this update might return the [DuplicateStandalonePriceScope](ctp:api:type:DuplicateStandalonePriceScopeError) and [OverlappingStandalonePriceValidity](ctp:api:type:OverlappingStandalonePriceValidityError) errors, respectively. A Price without validity period does not conflict with a Price defined for a time period.
+ *
+ */
+export interface StandalonePriceSetValidFromAndUntilAction {
+  readonly action: 'setValidFromAndUntil'
+  /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly validFrom?: string
+  /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly validUntil?: string
+}
+/**
+ *	Updating the `validUntil` value generates the [StandalonePriceValidUntilSet](ctp:api:type:StandalonePriceValidUntilSetMessage) Message.
+ *
+ *	As the validity dates are part of the price scope and are not allowed to overlap, this update might return the [DuplicateStandalonePriceScope](ctp:api:type:DuplicateStandalonePriceScopeError) and [OverlappingStandalonePriceValidity](ctp:api:type:OverlappingStandalonePriceValidityError) errors, respectively. A Price without validity period does not conflict with a Price defined for a time period.
+ *
+ */
+export interface StandalonePriceSetValidUntilAction {
+  readonly action: 'setValidUntil'
+  /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly validUntil?: string
 }
