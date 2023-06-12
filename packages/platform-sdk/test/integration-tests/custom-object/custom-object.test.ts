@@ -127,7 +127,8 @@ describe('testing customObject API calls', () => {
       })
       .get({
         queryArgs: {
-          where: 'id=' + '"' + customObject.body.id + '"',
+          where: 'createdAt = :createdAt',
+          'var.createdAt': new Date().toISOString(),
         },
       })
       .execute()
