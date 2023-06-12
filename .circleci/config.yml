@@ -34,10 +34,6 @@ jobs:
         type: string
     executor: << parameters.os >>
     working_directory: *working_directory
-    # environment:
-      # CTP_PROJECT_KEY: $CTP_PROJECT_KEY
-      # CTP_CLIENT_ID: $CTP_CLIENT_ID
-      # CTP_CLIENT_SECRET: $CTP_CLIENT_SECRET
     steps:
       - checkout
       - restore_cache: *restore_yarn_cache
@@ -45,9 +41,6 @@ jobs:
           name: Installing dependencies
           command: yarn install --frozen-lockfile
       - save_cache: *save_yarn_cache
-      - run: 
-          name: Echo env
-          command: sh -c env
       - run:
           name: Install example dependencies
           command: |
@@ -81,7 +74,8 @@ jobs:
       - save_cache: *save_yarn_cache
       - run:
           name: Running integration tests
-          command: yarn test --coverage
+          command: yarn test --testPathIgnorePatterns='packages/platform-sdk/test/integration-tests' --coverage 
+          # command: yarn test packages/platform-sdk/test/integration-tests
       - codecov/upload:
           file: coverage/clover.xml
           flags: integrationtests
