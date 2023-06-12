@@ -6,7 +6,7 @@ import {
   TypeResourceIdentifier,
 } from '../../../src'
 import { randomUUID } from 'crypto'
-import { apiRoot } from '../test-utils'
+import { apiRoot, SORT_ORDER } from '../test-utils'
 
 import { createCartDiscount, deleteCartDiscount } from './cart-discount-fixture'
 import { createType, deleteType } from '../type/type-fixture'
@@ -27,7 +27,7 @@ describe('testing cart discount API calls', () => {
       value: cartDiscountValueDraft,
       cartPredicate: 'country="DE"',
       target: cartDiscountShippingCostTarget,
-      sortOrder: '0.6512',
+      sortOrder: SORT_ORDER,
     }
 
     const responseCreatedCartDiscount = await apiRoot

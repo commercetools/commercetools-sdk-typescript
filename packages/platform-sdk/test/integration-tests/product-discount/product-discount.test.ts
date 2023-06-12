@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto'
-import { apiRoot } from '../test-utils'
+import { apiRoot, SORT_ORDER } from '../test-utils'
 import {
   ProductDiscountDraft,
   ProductDiscountValueRelativeDraft,
@@ -21,7 +21,7 @@ describe('testing product Discount API calls', () => {
       name: { en: 'test-name-productDiscount' + randomUUID() },
       value: productDiscountValueDraft,
       predicate: 'product.key="random-key"',
-      sortOrder: '0.4132',
+      sortOrder: SORT_ORDER,
       isActive: false,
     }
 

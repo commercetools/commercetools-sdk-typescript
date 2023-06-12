@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto'
-import { apiRoot } from '../test-utils'
+import { apiRoot, SORT_ORDER } from '../test-utils'
 import {
   createCart,
   createCartDraftWithCustomer,
@@ -278,7 +278,7 @@ describe('testing cart API calls', () => {
       value: cartDiscountValueDraft,
       cartPredicate: 'country="DE"',
       target: cartDiscountShippingCostTarget,
-      sortOrder: '0.7044',
+      sortOrder: SORT_ORDER,
       isActive: true,
       requiresDiscountCode: true,
     }

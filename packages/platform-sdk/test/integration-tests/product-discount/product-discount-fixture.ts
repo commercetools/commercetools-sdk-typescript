@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto'
-import { apiRoot } from '../test-utils'
+import { apiRoot, SORT_ORDER } from '../test-utils'
 import {
   ProductDiscountDraft,
   ProductDiscountValueRelativeDraft,
@@ -15,7 +15,7 @@ const productDiscountDraft: ProductDiscountDraft = {
   name: { en: 'test-name-productDiscount' + randomUUID() },
   value: productDiscountValueDraft,
   predicate: 'product.key="random-key"',
-  sortOrder: '0.4193',
+  sortOrder: SORT_ORDER,
   isActive: false,
 }
 

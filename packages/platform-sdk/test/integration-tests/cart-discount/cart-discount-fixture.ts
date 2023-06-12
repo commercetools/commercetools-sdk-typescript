@@ -4,7 +4,7 @@ import {
   CartDiscountValueRelativeDraft,
 } from '../../../src'
 import { randomUUID } from 'crypto'
-import { apiRoot } from '../test-utils'
+import { apiRoot, SORT_ORDER } from '../test-utils'
 
 const cartDiscountValueDraft: CartDiscountValueRelativeDraft = {
   type: 'relative',
@@ -20,7 +20,7 @@ const cartDiscountDraft: CartDiscountDraft = {
   value: cartDiscountValueDraft,
   cartPredicate: 'country="DE"',
   target: cartDiscountShippingCostTarget,
-  sortOrder: '0.123485',
+  sortOrder: SORT_ORDER,
   isActive: false,
   requiresDiscountCode: true,
 }
