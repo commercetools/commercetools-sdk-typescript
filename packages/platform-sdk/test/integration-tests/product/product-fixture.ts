@@ -148,7 +148,7 @@ export const deleteProduct = async (product) => {
       })
       .execute()
   }
-  const productToDelete = updateProduct ? await updateProduct : product
+  const productToDelete = updateProduct ? updateProduct : product
 
   return await apiRoot
     .products()

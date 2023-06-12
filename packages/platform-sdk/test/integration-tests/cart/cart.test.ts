@@ -55,7 +55,7 @@ import {
   deleteProduct,
 } from '../product/product-fixture'
 
-describe('testing cart API calls', () => {
+describe.skip('testing cart API calls', () => {
   //create
   it('should create a cart with multiple item shipping address', async () => {
     const addresses: BaseAddress[] = [

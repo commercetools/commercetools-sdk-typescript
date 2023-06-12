@@ -11,6 +11,7 @@
     "coverage": "codecov",
     "typecheck": "tsc --noEmit",
     "changeset": "changeset",
+    "test:integration": "jest --testPathPattern='packages/platform-sdk/test/integration-tests'",
     "postbuild": "webpack --mode=production",
     "changeset:version-and-format": "changeset version && prettier --write --parser json '**/package.json'"
   },

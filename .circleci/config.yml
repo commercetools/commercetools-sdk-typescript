@@ -56,10 +56,7 @@ jobs:
             yarn test
       - run:
           name: Running tests
-          command: yarn test --testPathIgnorePatterns='packages/platform-sdk/test/integration-tests' --coverage
-      - codecov/upload:
-          file: coverage/clover.xml
-          flags: unittests
+          command: yarn test --testPathIgnorePatterns='packages/platform-sdk/test/integration-tests'
   integration_test:
     parameters:
       os:
@@ -77,7 +74,7 @@ jobs:
       - save_cache: *save_yarn_cache
       - run:
           name: Running integration tests
-          command: yarn test --testPathPattern='packages/platform-sdk/test/integration-tests' --coverage
+          command: yarn test --coverage
       - codecov/upload:
           file: coverage/clover.xml
           flags: integrationtests

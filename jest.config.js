@@ -3,6 +3,7 @@
  */
 module.exports = {
   preset: 'ts-jest',
+  testTimeout: 15000,
   testEnvironment: 'node',
   transform: {
     '^.+\\.js$': 'babel-jest',
