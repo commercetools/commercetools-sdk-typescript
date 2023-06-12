@@ -14,14 +14,6 @@ const clientSecret = requireEnvVar('CTP_CLIENT_SECRET')
 const authURL = requireEnvVar('CTP_AUTH_URL')
 const ctp_host = requireEnvVar('CTP_API_URL')
 
-console.log({
-  projectKey,
-  clientId,
-  clientSecret,
-  authURL,
-  ctp_host,
-})
-
 function _tokenCache<T, V, S = TokenCacheOptions>(val: T): V {
   let initialVal = val
   return {
