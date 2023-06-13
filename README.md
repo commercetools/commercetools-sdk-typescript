@@ -23,6 +23,8 @@ This repository contains several SDK packages generated from the commercetools C
 
 The full documentation and usage example for the TypeScript SDK can be found [here](https://commercetools.github.io/nodejs/sdk/api/typescriptSdk.html#typescript-sdk-client-v2)
 
+In addition, we created integration tests for each endpoint. Feel free to explore the examples [here](https://github.com/commercetools/commercetools-sdk-typescript/blob/master/packages/platform-sdk/test/integration-tests)
+
 ## Support
 
 If you have any urgent issues regarding this repository please create a support request over our [official support channel](http://support.commercetools.com).

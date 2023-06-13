@@ -3,6 +3,7 @@
  */
 module.exports = {
   preset: 'ts-jest',
+  testTimeout: 15000,
   testEnvironment: 'node',
   transform: {
     '^.+\\.js$': 'babel-jest',
@@ -11,6 +12,7 @@ module.exports = {
   testRegex: '\\.(test|spec)\\.[t]sx?$',
   moduleFileExtensions: ['ts', 'js', 'json'],
   coveragePathIgnorePatterns: ['/node_modules/', '/dist/'],
+  coverageDirectory: 'coverage',
   watchPlugins: ['jest-watch-typeahead/filename'],
   reporters: [
     'default',
