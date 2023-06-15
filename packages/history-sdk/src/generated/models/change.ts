@@ -89,6 +89,12 @@ import {
   Variant,
 } from './common'
 
+/**
+ *	Difference between the previous and next version of a resource represented by `previousValue` (omitted, for example, on creations) and `nextValue` of the associated change. A Change can also contain extra fields that provide further information.
+ *
+ *	They are not identical to the actual update actions sent.
+ *
+ */
 export type Change =
   | AddAddressChange
   | AddAssetChange
@@ -357,70 +363,93 @@ export type Change =
   | UnpublishChange
   | UpdateSyncInfoChange
   | VerifyEmailChange
+/**
+ *	Change triggered by the [Add Address](ctp:api:type:CustomerAddAddressAction) update action.
+ */
 export interface AddAddressChange {
   readonly type: 'AddAddressChange'
   /**
-   *	Update action for `setAddress` action.
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: Address
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Address
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: Address
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Add Asset](ctp:api:type:CategoryAddAssetAction) on Categories.
+ *	- [Add Asset](ctp:api:type:ProductAddAssetAction) on Products.
+ *
+ */
 export interface AddAssetChange {
   readonly type: 'AddAssetChange'
   /**
-   *	Update action for `addAsset`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: Asset
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Asset
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: Asset
 }
+/**
+ *	Change triggered by the [Add Attribute Definition](ctp:api:type:ProductTypeAddAttributeDefinitionAction) update action.
+ */
 export interface AddAttributeDefinitionChange {
   readonly type: 'AddAttributeDefinitionChange'
   /**
-   *	Update action for `addAttributeDefinition` on product types
    *
    */
   readonly change: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: AttributeDefinition
 }
+/**
+ *	Change triggered by the [Add Billing Address ID](ctp:api:type:CustomerAddBillingAddressIdAction) update action.
+ */
 export interface AddBillingAddressIdChange {
   readonly type: 'AddBillingAddressIdChange'
   /**
-   *	Update action for `addBillingAddressId` action on customers.
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: string[]
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string[]
   /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: string[]
+  /**
+   *	Address added to `billingAddressIds`.
    *
    */
   readonly address: Address
 }
+/**
+ *	Change triggered by the [Add Roles](ctp:api:type:ChannelAddRolesAction) update action.
+ */
 export interface AddChannelRolesChange {
   readonly type: 'AddChannelRolesChange'
   /**
@@ -428,176 +457,224 @@ export interface AddChannelRolesChange {
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: ChannelRole[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: ChannelRole[]
 }
+/**
+ *	Change triggered by the [Add CustomLineItem](ctp:api:type:StagedOrderAddCustomLineItemAction) update action.
+ */
 export interface AddCustomLineItemChange {
   readonly type: 'AddCustomLineItemChange'
   /**
-   *	Update action for adding and removing custom line items
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: CustomLineItem
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: CustomLineItem
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: CustomLineItem
 }
+/**
+ *	Change triggered by the [Add Delivery](ctp:api:type:OrderAddDeliveryAction) update action.
+ */
 export interface AddDeliveryChange {
   readonly type: 'AddDeliveryChange'
   /**
-   *	Update action for `addDelivery`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: DeliveryChangeValue
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: DeliveryChangeValue
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: DeliveryChangeValue
 }
+/**
+ *	Change triggered by the [Add DiscountCode](ctp:api:type:StagedOrderAddDiscountCodeAction) update action.
+ */
 export interface AddDiscountCodeChange {
   readonly type: 'AddDiscountCodeChange'
   /**
-   *	Update action for `addDiscountCode`
    *
    */
   readonly change: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: DiscountCodeInfo
 }
+/**
+ *	Change triggered by the [Add EnumValue to FieldDefinition](ctp:api:type:TypeAddEnumValueAction) update action.
+ */
 export interface AddEnumValueChange {
   readonly type: 'AddEnumValueChange'
   /**
-   *	Update action for `addEnumValue` on types
    *
    */
   readonly change: string
   /**
-   *	The name of the field/attribute definition updated.
-   *
-   */
-  readonly fieldName: string
-  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: EnumValue
+  /**
+   *	Name of the updated [FieldDefinition](ctp:api:type:FieldDefinition).
+   *
+   */
+  readonly fieldName: string
 }
+/**
+ *	Change triggered by the [Add External Image](ctp:api:type:ProductAddExternalImageAction) update action.
+ */
 export interface AddExternalImageChange {
   readonly type: 'AddExternalImageChange'
   /**
-   *	Update actions for adding an external image
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly catalogData: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Image[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Image[]
+  /**
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
+   *
+   */
+  readonly catalogData: string
 }
+/**
+ *	Change triggered by the [Add FieldDefinition](ctp:api:type:TypeAddFieldDefinitionAction) update action.
+ */
 export interface AddFieldDefinitionChange {
   readonly type: 'AddFieldDefinitionChange'
   /**
-   *	Update action for `addFieldDefinition` on payments
    *
    */
   readonly change: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: FieldDefinition
 }
+/**
+ *	Change triggered by the [Add InterfaceInteraction](ctp:api:type:PaymentAddInterfaceInteractionAction) update action.
+ */
 export interface AddInterfaceInteractionChange {
   readonly type: 'AddInterfaceInteractionChange'
   /**
-   *	Update action for `addInterfaceInteraction` on payments
    *
    */
   readonly change: string
   /**
-   *	Only available if `expand` is set to true
+   *	Value after the change.
    *
    */
   readonly nextValue: CustomFieldExpandedValue
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Add ItemShippingAddress](ctp:api:type:OrderAddItemShippingAddressAction) on Orders.
+ *	- [Add ItemShippingAddress](ctp:api:type:StagedOrderAddItemShippingAddressAction) on Staged Orders.
+ *
+ */
 export interface AddItemShippingAddressesChange {
   readonly type: 'AddItemShippingAddressesChange'
   /**
-   *	Update action for `addItemShippingAddress`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: Address
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Address
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: Address
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Add LocalizableEnumValue to AttributeDefinition](ctp:api:type:ProductTypeAddLocalizedEnumValueAction) on Product Types.
+ *	- [Add LocalizedEnumValue to FieldDefinition](ctp:api:type:TypeAddLocalizedEnumValueAction) on Types.
+ *
+ */
 export interface AddLocalizedEnumValueChange {
   readonly type: 'AddLocalizedEnumValueChange'
   /**
-   *	Update action for `addLocalizedEnumValue` on types
    *
    */
   readonly change: string
   /**
-   *	The name of the field definition updated.
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: LocalizedEnumValue
+  /**
+   *	Name of the updated [FieldDefinition](ctp:api:type:FieldDefinition); only present on changes to Types.
    *
    */
   readonly fieldName: string
   /**
-   *	The name of the attribute updated.
+   *	Name of the updated [AttributeDefinition](ctp:api:type:AttributeDefinition); only present on changes to Product Types.
    *
    */
   readonly attributeName: string
-  /**
-   *
-   */
-  readonly nextValue: LocalizedEnumValue
 }
+/**
+ *	Change triggered by the [Add Location](ctp:api:type:ZoneAddLocationAction) update action.
+ */
 export interface AddLocationChange {
   readonly type: 'AddLocationChange'
   /**
-   *	Update action for `addLocation` on zones
    *
    */
   readonly change: string
   /**
-   *	Shape of the value for `addLocation` and `removeLocation` actions
+   *	Value before the change.
    *
    */
   readonly previousValue: Location
   /**
-   *	Shape of the value for `addLocation` and `removeLocation` actions
+   *	Value after the change.
    *
    */
   readonly nextValue: Location
 }
+/**
+ *	Change triggered by the [Add LineItem](ctp:api:type:StagedOrderAddLineItemAction) update action.
+ */
 export interface AddOrderLineItemChange {
   readonly type: 'AddOrderLineItemChange'
   /**
@@ -605,144 +682,195 @@ export interface AddOrderLineItemChange {
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: LineItem
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: LineItem
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Add Parcel](ctp:api:type:OrderAddParcelToDeliveryAction) on Orders.
+ *	- [Add Parcel](ctp:api:type:StagedOrderAddParcelToDeliveryAction) on Staged Orders.
+ *
+ */
 export interface AddParcelToDeliveryChange {
   readonly type: 'AddParcelToDeliveryChange'
   /**
-   *	Update action for `addParcelToDelivery`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly deliveryId: string
-  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Parcel
+  /**
+   *	`id` of the [Delivery](ctp:api:type:Delivery) to which the Parcel was added.
+   *
+   *
+   */
+  readonly deliveryId: string
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Add Payment](ctp:api:type:OrderAddPaymentAction) on Orders.
+ *	- [Add Payment](ctp:api:type:StagedOrderAddPaymentAction) on Staged Orders.
+ *
+ */
 export interface AddPaymentChange {
   readonly type: 'AddPaymentChange'
   /**
-   *	Update action for `addPayment` & `removePayment`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: PaymentInfo
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: PaymentInfo
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: PaymentInfo
 }
+/**
+ *	Change triggered by the [Add PlainEnumValue to AttributeDefinition](ctp:api:type:ProductTypeAddPlainEnumValueAction) update action.
+ */
 export interface AddPlainEnumValueChange {
   readonly type: 'AddPlainEnumValueChange'
   /**
-   *	Update action for `addPlainEnumValue` on product types
    *
    */
   readonly change: string
   /**
-   *	The name of the attribute updated.
-   *
-   */
-  readonly attributeName: string
-  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: EnumValue
+  /**
+   *	Name of the updated [AttributeDefinition](ctp:api:type:AttributeDefinition).
+   *
+   */
+  readonly attributeName: string
 }
+/**
+ *	Change triggered by the [Add Price](ctp:api:type:ProductAddPriceAction) update action.
+ */
 export interface AddPriceChange {
   readonly type: 'AddPriceChange'
   /**
-   *	Update action for adding prices
    *
    */
   readonly change: string
   /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: Price
+  /**
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
    *
    */
   readonly catalogData: string
   /**
+   *	`id` of the Embedded [Price](ctp:api:type:Price).
+   *
    *
    */
   readonly priceId: string
-  /**
-   *
-   */
-  readonly nextValue: Price
 }
+/**
+ *	Change triggered by the [Add Product](ctp:api:type:ProductSelectionAddProductAction) update action.
+ */
 export interface AddProductChange {
   readonly type: 'AddProductChange'
   /**
-   *	Update action for when a product is assigned to a product selection
    *
    */
   readonly change: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Reference
 }
+/**
+ *	Change triggered by the [Update CustomObject](ctp:api:endpoint:/{projectKey}/custom-objects:POST) request when a new property is added.
+ */
 export interface AddPropertyChange {
   readonly type: 'AddPropertyChange'
   /**
-   *	Update action for `addProperty` on custom objects
    *
    */
   readonly change: string
   /**
-   *	Value path to the property that was added
-   *
-   */
-  readonly path: string
-  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: any
+  /**
+   *	Path to the new property that was added.
+   *
+   */
+  readonly path: string
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Add ReturnInfo](ctp:api:type:OrderAddReturnInfoAction) on Orders.
+ *	- [Add ReturnInfo](ctp:api:type:StagedOrderAddReturnInfoAction) on Staged Orders.
+ *
+ */
 export interface AddReturnInfoChange {
   readonly type: 'AddReturnInfoChange'
   /**
-   *	Update action for `addReturnInfo`
    *
    */
   readonly change: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: ReturnInfo
 }
+/**
+ *	Change triggered by the [Add Shipping Address ID](ctp:api:type:CustomerAddShippingAddressIdAction) update action.
+ */
 export interface AddShippingAddressIdChange {
   readonly type: 'AddShippingAddressIdChange'
   /**
-   *	Update action for `addShippingAddressId` action on customers.
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: string[]
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string[]
   /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: string[]
+  /**
+   *	Address added to `shippingAddressIds`.
    *
    */
   readonly address: Address
 }
+/**
+ *	Change triggered by the [Add ShoppingListLineItem](ctp:api:type:ShoppingListAddLineItemAction) update action.
+ */
 export interface AddShoppingListLineItemChange {
   readonly type: 'AddShoppingListLineItemChange'
   /**
@@ -750,14 +878,19 @@ export interface AddShoppingListLineItemChange {
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: LineItem
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: LineItem
 }
+/**
+ *	Change triggered by the [Add State roles](ctp:api:type:StateAddRolesAction) update action.
+ */
 export interface AddStateRolesChange {
   readonly type: 'AddStateRolesChange'
   /**
@@ -765,27 +898,34 @@ export interface AddStateRolesChange {
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: StateRole[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: StateRole[]
 }
+/**
+ *	Change triggered by the [Add TaxRate](ctp:api:type:TaxCategoryAddTaxRateAction) update action.
+ */
 export interface AddTaxRateChange {
   readonly type: 'AddTaxRateChange'
   /**
-   *	Update action for `addTaxRate` on tax categories
    *
    */
   readonly change: string
   /**
-   *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
+   *	Value after the change.
    *
    */
   readonly nextValue: TaxRate
 }
+/**
+ *	Change triggered by the [Add TextLineItem](ctp:api:type:ShoppingListAddTextLineItemAction) update action.
+ */
 export interface AddTextLineItemChange {
   readonly type: 'AddTextLineItemChange'
   /**
@@ -793,94 +933,121 @@ export interface AddTextLineItemChange {
    */
   readonly change: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: TextLineItem
 }
+/**
+ *	Change triggered by the [Add to Category](ctp:api:type:ProductAddToCategoryAction) update action.
+ */
 export interface AddToCategoryChange {
   readonly type: 'AddToCategoryChange'
   /**
-   *	Update action for `addToCategory`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly category: Reference
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Reference[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Reference[]
+  /**
+   *	Category to which the Product was added.
+   *
+   */
+  readonly category: Reference
 }
+/**
+ *	Change triggered by the [Add Transaction](ctp:api:type:PaymentAddTransactionAction) update action.
+ */
 export interface AddTransactionChange {
   readonly type: 'AddTransactionChange'
   /**
-   *	Update action for `addTransaction` on payments
    *
    */
   readonly change: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Transaction
 }
+/**
+ *	Change triggered by the [Add ProductVariant](ctp:api:type:ProductAddVariantAction) update action.
+ */
 export interface AddVariantChange {
   readonly type: 'AddVariantChange'
   /**
-   *	Update action for `addVariant`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly catalogData: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Variant
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Variant
+  /**
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
+   *
+   */
+  readonly catalogData: string
 }
+/**
+ *	Change triggered by the [Change Address](ctp:api:type:CustomerChangeAddressAction) update action.
+ */
 export interface ChangeAddressChange {
   readonly type: 'ChangeAddressChange'
   /**
-   *	Update action `changeAddress` action.
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: Address
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Address
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: Address
 }
+/**
+ *	Change triggered automatically due to a user-initiated change.
+ */
 export interface ChangeAmountAuthorizedChange {
   readonly type: 'ChangeAmountAuthorizedChange'
   /**
-   *	Internal Update action for `changeAmountAuthorized`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Money
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Money
 }
+/**
+ *	Change triggered by the [Change AmountPlanned](ctp:api:type:PaymentChangeAmountPlannedAction) update action.
+ */
 export interface ChangeAmountPlannedChange {
   readonly type: 'ChangeAmountPlannedChange'
   /**
@@ -888,34 +1055,52 @@ export interface ChangeAmountPlannedChange {
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Money
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Money
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Change Asset Name](ctp:api:type:CategoryChangeAssetNameAction) on Categories.
+ *	- [Change Asset Name](ctp:api:type:ProductChangeAssetNameAction) on Products.
+ *
+ */
 export interface ChangeAssetNameChange {
   readonly type: 'ChangeAssetNameChange'
   /**
-   *	Update action for `changeAssetName`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly asset: AssetChangeValue
+  readonly previousValue: LocalizedString
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: LocalizedString
   /**
+   *	Information about the updated Asset.
    *
    */
-  readonly previousValue: LocalizedString
+  readonly asset: AssetChangeValue
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Change Asset Order](ctp:api:type:CategoryChangeAssetOrderAction) on Categories.
+ *	- [Change Asset Order](ctp:api:type:ProductChangeAssetOrderAction) on Products.
+ *
+ */
 export interface ChangeAssetOrderChange {
   readonly type: 'ChangeAssetOrderChange'
   /**
@@ -923,14 +1108,19 @@ export interface ChangeAssetOrderChange {
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: LocalizedString[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: LocalizedString[]
 }
+/**
+ *	Change triggered by the [Change AttributeDefinition AttributeConstraint](ctp:api:type:ProductTypeChangeAttributeConstraintAction) update action.
+ */
 export interface ChangeAttributeConstraintChange {
   readonly type: 'ChangeAttributeConstraintChange'
   /**
@@ -938,627 +1128,835 @@ export interface ChangeAttributeConstraintChange {
    */
   readonly change: string
   /**
-   *	name of the updated attribute
-   *
-   */
-  readonly attributeName: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: AttributeConstraintEnum
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: AttributeConstraintEnum
+  /**
+   *	Name of the updated [AttributeDefinition](ctp:api:type:AttributeDefinition).
+   *
+   */
+  readonly attributeName: string
 }
+/**
+ *	Change triggered by the [Change the order of AttributeDefinitions](ctp:api:type:ProductTypeChangeAttributeOrderByNameAction) update action.
+ */
 export interface ChangeAttributeOrderByNameChange {
   readonly type: 'ChangeAttributeOrderByNameChange'
   /**
-   *	Update action for `changeAttributeOrderByName` on product types
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string[]
 }
+/**
+ *	Change triggered by the [Change CartDiscounts](ctp:api:type:DiscountCodeChangeCartDiscountsAction) update action.
+ */
 export interface ChangeCartDiscountsChange {
   readonly type: 'ChangeCartDiscountsChange'
   /**
-   *	Shape of the action for `changeCartDiscounts`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Reference[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Reference[]
 }
+/**
+ *	Change triggered by the [Change Cart Predicate](ctp:api:type:CartDiscountChangeCartPredicateAction) update action.
+ */
 export interface ChangeCartPredicateChange {
   readonly type: 'ChangeCartPredicateChange'
   /**
-   *	Shape of the action for `changeCartPredicate`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the [Change CustomLineItem Quantity](ctp:api:type:StagedOrderChangeCustomLineItemQuantityAction) update action.
+ */
 export interface ChangeCustomLineItemQuantityChange {
   readonly type: 'ChangeCustomLineItemQuantityChange'
   /**
-   *	Update action for `changeCustomLineItemQuantity`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: number
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: number
+  /**
+   *	Name of the CustomLineItem.
    *
    */
   readonly customLineItem: LocalizedString
   /**
+   *	`id` of the updated [CustomLineItem](ctp:api:type:CustomLineItem).
+   *
    *
    */
   readonly customLineItemId: string
-  /**
-   *
-   */
-  readonly nextValue: number
-  /**
-   *
-   */
-  readonly previousValue: number
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Change Description](ctp:api:type:ChannelChangeDescriptionAction) on Channels.
+ *	- [Change Description](ctp:api:type:ProductTypeChangeDescriptionAction) on Product Types.
+ *
+ */
 export interface ChangeDescriptionChange {
   readonly type: 'ChangeDescriptionChange'
   /**
-   *	Shape of the action for `changeDescription`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the [Change Email](ctp:api:type:CustomerChangeEmailAction) update action.
+ */
 export interface ChangeEmailChange {
   readonly type: 'ChangeEmailChange'
   /**
-   *	Shape of the action for `changeEmail`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the [Change EnumValue Label](ctp:api:type:TypeChangeEnumValueLabelAction) update action.
+ */
 export interface ChangeEnumValueLabelChange {
   readonly type: 'ChangeEnumValueLabelChange'
   /**
-   *	Update action for `changeEnumValueLabel` on types
    *
    */
   readonly change: string
   /**
-   *	The name of the field definition updated.
-   *
-   */
-  readonly fieldName: string
-  /**
-   *	Key of the values that was updated
-   *
-   */
-  readonly valueKey: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
-}
-export interface ChangeEnumValueOrderChange {
-  readonly type: 'ChangeEnumValueOrderChange'
   /**
-   *	Update action for `changeEnumValueOrder` on types
-   *
-   */
-  readonly change: string
-  /**
-   *	The name of the field/attribute definition updated.
+   *	Name of the updated [FieldDefinition](ctp:api:type:FieldDefinition).
    *
    */
   readonly fieldName: string
   /**
+   *	Key of the updated values.
+   *
+   */
+  readonly valueKey: string
+}
+/**
+ *	Change triggered by the [Change the order of EnumValues](ctp:api:type:TypeChangeEnumValueOrderAction) update action.
+ */
+export interface ChangeEnumValueOrderChange {
+  readonly type: 'ChangeEnumValueOrderChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: EnumValue[]
+  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: EnumValue[]
   /**
+   *	Name of the updated [FieldDefinition](ctp:api:type:FieldDefinition).
    *
    */
-  readonly previousValue: EnumValue[]
+  readonly fieldName: string
 }
+/**
+ *	Change triggered by the [Change the order of FieldDefinitions](ctp:api:type:TypeChangeFieldDefinitionOrderAction) update action.
+ */
 export interface ChangeFieldDefinitionOrderChange {
   readonly type: 'ChangeFieldDefinitionOrderChange'
   /**
-   *	Update action for `changeFieldDefinitionOrder` on types
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: FieldDefinitionOrderValue[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: FieldDefinitionOrderValue[]
 }
+/**
+ *	Change triggered by the [Change Groups](ctp:api:type:DiscountCodeChangeGroupsAction) update action.
+ */
 export interface ChangeGroupsChange {
   readonly type: 'ChangeGroupsChange'
   /**
-   *	Update action for `changeGroups` on stores
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string[]
 }
+/**
+ *	Change triggered by the [Change initial State](ctp:api:type:StateChangeInitialAction) update action.
+ */
 export interface ChangeInitialChange {
   readonly type: 'ChangeInitialChange'
   /**
-   *	Shape of the action for `changeInitial`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: boolean
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: boolean
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Change AttributeDefinition InputHint](ctp:api:type:ProductTypeChangeInputHintAction) on Product Types.
+ *	- [Change InputHint](ctp:api:type:TypeChangeInputHintAction) on Types.
+ *
+ */
 export interface ChangeInputHintChange {
   readonly type: 'ChangeInputHintChange'
   /**
-   *	Update action for `changeInputHint` on product types and types
    *
    */
   readonly change: string
   /**
-   *	The name of the field definition updated.
+   *	Value before the change.
    *
    */
-  readonly fieldName: string
+  readonly previousValue: TextInputHint
   /**
-   *	The name of the attribute updated.
-   *
-   */
-  readonly attributeName: string
-  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: TextInputHint
   /**
-   *
-   */
-  readonly previousValue: TextInputHint
-}
-export interface ChangeIsActiveChange {
-  readonly type: 'ChangeIsActiveChange'
-  /**
-   *	Shape of the action for `changeIsActive`
-   *
-   */
-  readonly change: string
-  /**
-   *
-   */
-  readonly previousValue: boolean
-  /**
-   *
-   */
-  readonly nextValue: boolean
-}
-export interface ChangeIsSearchableChange {
-  readonly type: 'ChangeIsSearchableChange'
-  /**
-   *	Update action for `changeIsSearchable` on product types
-   *
-   */
-  readonly change: string
-  /**
-   *	The name of the updated attribute.
-   *
-   */
-  readonly attributeName: string
-  /**
-   *
-   */
-  readonly nextValue: boolean
-  /**
-   *
-   */
-  readonly previousValue: boolean
-}
-export interface ChangeKeyChange {
-  readonly type: 'ChangeKeyChange'
-  /**
-   *	Shape of the action for `changeKey`
-   *
-   */
-  readonly change: string
-  /**
-   *
-   */
-  readonly previousValue: string
-  /**
-   *
-   */
-  readonly nextValue: string
-}
-export interface ChangeLabelChange {
-  readonly type: 'ChangeLabelChange'
-  /**
-   *	Update action for `changeLabel` on product types and types
-   *
-   */
-  readonly change: string
-  /**
-   *	The name of the field definition to update (types).
+   *	Name of the updated [FieldDefinition](ctp:api:type:FieldDefinition); only present on changes to Types.
    *
    */
   readonly fieldName: string
   /**
-   *	The name of the attribute definition to update (product-type).
+   *	Name of the updated [AttributeDefinition](ctp:api:type:AttributeDefinition); only present on changes to Product Types.
    *
    */
   readonly attributeName: string
-  /**
-   *
-   */
-  readonly nextValue: LocalizedString
-  /**
-   *
-   */
-  readonly previousValue: LocalizedString
 }
-export interface ChangeLineItemQuantityChange {
-  readonly type: 'ChangeLineItemQuantityChange'
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Change IsActive](ctp:api:type:CartDiscountChangeIsActiveAction) on Cart Discounts.
+ *	- [Change IsActive](ctp:api:type:DiscountCodeChangeIsActiveAction) on Discount Codes.
+ *	- [Change IsActive](ctp:api:type:ProductDiscountChangeIsActiveAction) on Product Discounts.
+ *
+ */
+export interface ChangeIsActiveChange {
+  readonly type: 'ChangeIsActiveChange'
   /**
-   *	Update action for `changeLineItemQuantity`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly lineItem: LocalizedString
+  readonly previousValue: boolean
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: boolean
+}
+/**
+ *	Change triggered by the [Change AttributeDefinition IsSearchable](ctp:api:type:ProductTypeChangeIsSearchableAction) update action.
+ */
+export interface ChangeIsSearchableChange {
+  readonly type: 'ChangeIsSearchableChange'
   /**
    *
    */
-  readonly lineItemId: string
+  readonly change: string
   /**
-   *	The amount of a LineItem in the cart. Must be a positive integer.
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: boolean
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: boolean
+  /**
+   *	Name of the updated [AttributeDefinition](ctp:api:type:AttributeDefinition).
+   *
+   */
+  readonly attributeName: string
+}
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Change Key](ctp:api:type:ChannelChangeKeyAction) on Channels.
+ *	- [Change State key](ctp:api:type:StateChangeKeyAction) on States.
+ *	- [Change Key](ctp:api:type:TypeChangeKeyAction) on Types.
+ *
+ */
+export interface ChangeKeyChange {
+  readonly type: 'ChangeKeyChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: string
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: string
+}
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Change AttributeDefinition Label](ctp:api:type:ProductTypeChangeLabelAction) on Product Types.
+ *	- [Change FieldDefinition Label](ctp:api:type:TypeChangeLabelAction) on Types.
+ *
+ */
+export interface ChangeLabelChange {
+  readonly type: 'ChangeLabelChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: LocalizedString
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: LocalizedString
+  /**
+   *	Name of the updated [FieldDefinition](ctp:api:type:FieldDefinition); only present on changes to Types).
+   *
+   */
+  readonly fieldName: string
+  /**
+   *	Name of the updated [AttributeDefinition](ctp:api:type:AttributeDefinition); only present on changes to Product Types.
+   *
+   */
+  readonly attributeName: string
+}
+/**
+ *	Change triggered by the [Change LineItem Quantity](ctp:api:type:StagedOrderChangeLineItemQuantityAction) update action.
+ */
+export interface ChangeLineItemQuantityChange {
+  readonly type: 'ChangeLineItemQuantityChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: number
+  /**
+   *	Value after the change
    *
    */
   readonly nextValue: number
   /**
-   *	The amount of a LineItem in the cart. Must be a positive integer.
+   *	Name of the [Product](ctp:api:type:Product) the updated Line Item is based on.
    *
    */
-  readonly previousValue: number
+  readonly lineItem: LocalizedString
+  /**
+   *	`id` of the updated [LineItem](ctp:api:type:LineItem).
+   *
+   *
+   */
+  readonly lineItemId: string
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Change Description](ctp:api:type:ProductTypeChangeDescriptionAction) on Product Types.
+ *	- [Change Description](ctp:api:type:ChannelChangeDescriptionAction) on Channels.
+ *
+ */
 export interface ChangeLocalizedDescriptionChange {
   readonly type: 'ChangeLocalizedDescriptionChange'
   /**
-   *	Shape of the action for `changeDescription`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: LocalizedString
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: LocalizedString
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Change the label of a LocalizedEnumValue](ctp:api:type:ProductTypeChangeLocalizedEnumValueLabelAction) on Product Types.
+ *	- [Change LocalizedEnumValue Label](ctp:api:type:TypeChangeLocalizedEnumValueLabelAction) on Types.
+ *
+ */
 export interface ChangeLocalizedEnumValueLabelChange {
   readonly type: 'ChangeLocalizedEnumValueLabelChange'
   /**
-   *	Update action for `changeLocalizedEnumValueLabel` on types
    *
    */
   readonly change: string
   /**
-   *	The name of the field definition updated.
-   *
-   */
-  readonly fieldName: string
-  /**
-   *	The name of the attribute updated.
-   *
-   */
-  readonly attributeName: string
-  /**
-   *	Key of the values that was updated
-   *
-   */
-  readonly valueKey: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: LocalizedString
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: LocalizedString
-}
-export interface ChangeLocalizedEnumValueOrderChange {
-  readonly type: 'ChangeLocalizedEnumValueOrderChange'
   /**
-   *	Update action for `changeLocalizedEnumValueOrder` on types and product types
-   *
-   */
-  readonly change: string
-  /**
-   *	The name of the field definition updated.
+   *	Name of the updated [FieldDefinition](ctp:api:type:FieldDefinition); only present on changes to Types.
    *
    */
   readonly fieldName: string
   /**
-   *	The name of the attribute updated.
+   *	Name of the updated [AttributeDefinition](ctp:api:type:AttributeDefinition); only present on changes to Product Types.
    *
    */
   readonly attributeName: string
   /**
+   *	Key of the updated values.
+   *
+   */
+  readonly valueKey: string
+}
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Change the order of LocalizedEnumValues](ctp:api:type:ProductTypeChangeLocalizedEnumValueOrderAction) on Product Types.
+ *	- [Change the order of LocalizedEnumValues](ctp:api:type:TypeChangeLocalizedEnumValueOrderAction) on Types.
+ *
+ */
+export interface ChangeLocalizedEnumValueOrderChange {
+  readonly type: 'ChangeLocalizedEnumValueOrderChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: LocalizedEnumValue[]
+  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: LocalizedEnumValue[]
   /**
+   *	Name of the updated [FieldDefinition](ctp:api:type:FieldDefinition); only present on changes to Types.
    *
    */
-  readonly previousValue: LocalizedEnumValue[]
+  readonly fieldName: string
+  /**
+   *	Name of the updated [AttributeDefinition](ctp:api:type:AttributeDefinition); only present on changes to Product Types.
+   *
+   */
+  readonly attributeName: string
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Change Name](ctp:api:type:CartDiscountChangeNameAction) on Cart Discounts.
+ *	- [Change Name](ctp:api:type:CategoryChangeNameAction) on Categories.
+ *	- [Change Name](ctp:api:type:ChannelChangeNameAction) on Channels.
+ *	- [Change Name](ctp:api:type:CustomerGroupChangeNameAction) on Customer Groups.
+ *	- [Change Name](ctp:api:type:ProductChangeNameAction) on Products.
+ *	- [Change Name](ctp:api:type:ProductDiscountChangeNameAction) on Product Discounts.
+ *	- [Change Name](ctp:api:type:ProductSelectionChangeNameAction) on Product Selections.
+ *	- [Change Name](ctp:api:type:ProductTypeChangeNameAction) on Product Types.
+ *	- [Change Name](ctp:api:type:ShoppingListChangeNameAction) on Shopping Lists.
+ *	- [Change Name](ctp:api:type:TaxCategoryChangeNameAction) on Tax Categories.
+ *	- [Change Name](ctp:api:type:TypeChangeNameAction) on Types.
+ *	- [Change Name](ctp:api:type:ZoneChangeNameAction) on Zones.
+ *
+ */
 export interface ChangeLocalizedNameChange {
   readonly type: 'ChangeLocalizedNameChange'
   /**
-   *	Shape of the action for `changeName`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: LocalizedString
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: LocalizedString
 }
+/**
+ *	Change triggered by the [Change Master Variant](ctp:api:type:ProductChangeMasterVariantAction) update action.
+ */
 export interface ChangeMasterVariantChange {
   readonly type: 'ChangeMasterVariantChange'
   /**
-   *	Update action for `changeMasterVariant`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly catalogData: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Variant
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Variant
+  /**
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
+   *
+   */
+  readonly catalogData: string
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Change Name](ctp:api:type:CartDiscountChangeNameAction) on Cart Discounts.
+ *	- [Change Name](ctp:api:type:CategoryChangeNameAction) on Categories.
+ *	- [Change Name](ctp:api:type:ChannelChangeNameAction) on Channels.
+ *	- [Change Name](ctp:api:type:CustomerGroupChangeNameAction) on Customer Groups.
+ *	- [Change Name](ctp:api:type:ProductChangeNameAction) on Products.
+ *	- [Change Name](ctp:api:type:ProductDiscountChangeNameAction) on Product Discounts.
+ *	- [Change Name](ctp:api:type:ProductSelectionChangeNameAction) on Product Selections.
+ *	- [Change Name](ctp:api:type:ProductTypeChangeNameAction) on Product Types.
+ *	- [Change Name](ctp:api:type:ShoppingListChangeNameAction) on Shopping Lists.
+ *	- [Change Name](ctp:api:type:TaxCategoryChangeNameAction) on Tax Categories.
+ *	- [Change Name](ctp:api:type:TypeChangeNameAction) on Types.
+ *	- [Change Name](ctp:api:type:ZoneChangeNameAction) on Zones.
+ *
+ */
 export interface ChangeNameChange {
   readonly type: 'ChangeNameChange'
   /**
-   *	Shape of the action for `changeName`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the [Change OrderHint](ctp:api:type:CategoryChangeOrderHintAction) update action.
+ */
 export interface ChangeOrderHintChange {
   readonly type: 'ChangeOrderHintChange'
   /**
-   *	Shape of the action for `changeOrderHint`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Change OrderState](ctp:api:type:OrderChangeOrderStateAction) on Orders.
+ *	- [Change OrderState](ctp:api:type:StagedOrderChangeOrderStateAction) on Staged Orders.
+ *
+ */
 export interface ChangeOrderStateChange {
   readonly type: 'ChangeOrderStateChange'
   /**
-   *	Update action for `changeOrderState`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: OrderState
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: OrderState
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: OrderState
 }
+/**
+ *	Change triggered by the [Change Parent](ctp:api:type:CategoryChangeParentAction) update action.
+ */
 export interface ChangeParentChange {
   readonly type: 'ChangeParentChange'
   /**
-   *	Shape of the action for `changeParent`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Reference
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Reference
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Change PaymentState](ctp:api:type:OrderChangePaymentStateAction) on Orders.
+ *	- [Change PaymentState](ctp:api:type:StagedOrderChangePaymentStateAction) on Staged Orders.
+ *
+ */
 export interface ChangePaymentStateChange {
   readonly type: 'ChangePaymentStateChange'
   /**
-   *	Update action for `changePaymentState`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: PaymentState
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: PaymentState
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: PaymentState
 }
+/**
+ *	Change triggered by the [Change the label of an EnumValue](ctp:api:type:ProductTypeChangePlainEnumValueLabelAction) update action.
+ */
 export interface ChangePlainEnumValueLabelChange {
   readonly type: 'ChangePlainEnumValueLabelChange'
   /**
-   *	Update action for `changePlainEnumValueLabel` on types
    *
    */
   readonly change: string
   /**
-   *	The name of the attribute updated.
-   *
-   */
-  readonly attributeName: string
-  /**
-   *	Key of the values that was updated
-   *
-   */
-  readonly valueKey: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
-}
-export interface ChangePlainEnumValueOrderChange {
-  readonly type: 'ChangePlainEnumValueOrderChange'
   /**
-   *	Update action for `changePlainEnumValueOrder` on product types
-   *
-   */
-  readonly change: string
-  /**
-   *	The name of the attribute updated.
+   *	Name of the updated [AttributeDefinition](ctp:api:type:AttributeDefinition).
    *
    */
   readonly attributeName: string
   /**
+   *	Key of the updated values.
+   *
+   */
+  readonly valueKey: string
+}
+/**
+ *	Change triggered by the [Change the order of EnumValues](ctp:api:type:ProductTypeChangePlainEnumValueOrderAction) update action.
+ */
+export interface ChangePlainEnumValueOrderChange {
+  readonly type: 'ChangePlainEnumValueOrderChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: EnumValue[]
+  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: EnumValue[]
   /**
+   *	Name of the updated [AttributeDefinition](ctp:api:type:AttributeDefinition).
    *
    */
-  readonly previousValue: EnumValue[]
+  readonly attributeName: string
 }
+/**
+ *	Change triggered by the [Change Predicate](ctp:api:type:ProductDiscountChangePredicateAction) update action.
+ */
 export interface ChangePredicateChange {
   readonly type: 'ChangePredicateChange'
   /**
-   *	Shape of the action for `changePredicate`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the [Change Price](ctp:api:type:ProductChangePriceAction) update action.
+ */
 export interface ChangePriceChange {
   readonly type: 'ChangePriceChange'
   /**
-   *	Update action for changing prices
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly catalogData: string
-  /**
-   *
-   */
-  readonly priceId: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Price
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Price
+  /**
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
+   *
+   */
+  readonly catalogData: string
+  /**
+   *	`id` of the Embedded [Price](ctp:api:type:Price).
+   *
+   *
+   */
+  readonly priceId: string
 }
 /**
- *	Update action for `changeQuantity` on inventories
+ *	Change triggered by the [Change Quantity](ctp:api:type:InventoryEntryChangeQuantityAction) update action.
  */
 export interface ChangeQuantityChange {
   readonly type: 'ChangeQuantityChange'
@@ -1567,16 +1965,18 @@ export interface ChangeQuantityChange {
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: InventoryQuantityValue
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: InventoryQuantityValue
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: InventoryQuantityValue
 }
 /**
- *	Update action for `changeQuoteRequestState` on `quote-request`
+ *	Change triggered by the [Change Quote Request State](ctp:api:type:QuoteRequestChangeQuoteRequestStateAction) update action.
  */
 export interface ChangeQuoteRequestStateChange {
   readonly type: 'ChangeQuoteRequestStateChange'
@@ -1585,16 +1985,18 @@ export interface ChangeQuoteRequestStateChange {
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: QuoteRequestState
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: QuoteRequestState
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: QuoteRequestState
 }
 /**
- *	Update action for `changeQuoteState` on `quote`
+ *	Change triggered by the [Change Quote State](ctp:api:type:QuoteChangeQuoteStateAction) update action.
  */
 export interface ChangeQuoteStateChange {
   readonly type: 'ChangeQuoteStateChange'
@@ -1603,26 +2005,32 @@ export interface ChangeQuoteStateChange {
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: QuoteState
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: QuoteState
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: QuoteState
 }
+/**
+ *	Change triggered by the [Change Requires DiscountCode](ctp:api:type:CartDiscountChangeRequiresDiscountCodeAction) update action.
+ */
 export interface ChangeRequiresDiscountCodeChange {
   readonly type: 'ChangeRequiresDiscountCodeChange'
   /**
-   *	Shape of the action for `changeRequiresDiscountCode`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: boolean
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: boolean
@@ -1630,35 +2038,47 @@ export interface ChangeRequiresDiscountCodeChange {
 export interface ChangeReviewRatingStatisticsChange {
   readonly type: 'ChangeReviewRatingStatisticsChange'
   /**
-   *	Update action for `changeReviewRatingStatistics`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: ReviewRatingStatistics
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: ReviewRatingStatistics
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: ReviewRatingStatistics
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Change ShipmentState](ctp:api:type:OrderChangeShipmentStateAction) on Orders.
+ *	- [Change ShipmentState](ctp:api:type:StagedOrderChangeShipmentStateAction) on Staged Orders.
+ *
+ */
 export interface ChangeShipmentStateChange {
   readonly type: 'ChangeShipmentStateChange'
   /**
-   *	Update action for `changeShipmentState`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: ShipmentState
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: ShipmentState
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: ShipmentState
 }
+/**
+ *	Change triggered by the [Change ShoppingListLineItem Quantity](ctp:api:type:ShoppingListChangeLineItemQuantityAction) update action.
+ */
 export interface ChangeShoppingListLineItemQuantityChange {
   readonly type: 'ChangeShoppingListLineItemQuantityChange'
   /**
@@ -1666,18 +2086,24 @@ export interface ChangeShoppingListLineItemQuantityChange {
    */
   readonly change: string
   /**
-   *
-   */
-  readonly lineItem: ShoppingListLineItemValue
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: number
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: number
+  /**
+   *	Holds information about the updated Shopping List Line Item.
+   *
+   */
+  readonly lineItem: ShoppingListLineItemValue
 }
+/**
+ *	Change triggered by the [Change ShoppingListLineItems Order](ctp:api:type:ShoppingListChangeLineItemsOrderAction) update action.
+ */
 export interface ChangeShoppingListLineItemsOrderChange {
   readonly type: 'ChangeShoppingListLineItemsOrderChange'
   /**
@@ -1685,64 +2111,86 @@ export interface ChangeShoppingListLineItemsOrderChange {
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: ShoppingListLineItemValue[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: ShoppingListLineItemValue[]
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Change Slug](ctp:api:type:CategoryChangeSlugAction) on Categories.
+ *	- [Change Slug](ctp:api:type:ProductChangeSlugAction) on Products.
+ *
+ */
 export interface ChangeSlugChange {
   readonly type: 'ChangeSlugChange'
   /**
-   *	Shape of the action for `changeSlug`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: LocalizedString
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: LocalizedString
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Change Sort Order](ctp:api:type:CartDiscountChangeSortOrderAction) on Cart Discounts.
+ *	- [Change Sort Order](ctp:api:type:ProductDiscountChangeSortOrderAction) on Product Discounts.
+ *
+ */
 export interface ChangeSortOrderChange {
   readonly type: 'ChangeSortOrderChange'
   /**
-   *	Shape of the action for `changeSortOrder`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the [Change Stacking Mode](ctp:api:type:CartDiscountChangeStackingModeAction) update action.
+ */
 export interface ChangeStackingModeChange {
   readonly type: 'ChangeStackingModeChange'
   /**
-   *	Update action for `changeStackingMode` on cart discounts
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: StackingMode
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: StackingMode
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: StackingMode
 }
 /**
- *	Update action for `changeStagedQuoteState` on `staged-quote`
+ *	Change triggered by the [ChangeStagedQuoteState](ctp:api:type:StagedQuoteChangeStagedQuoteStateAction) update action.
  */
 export interface ChangeStagedQuoteStateChange {
   readonly type: 'ChangeStagedQuoteStateChange'
@@ -1751,114 +2199,144 @@ export interface ChangeStagedQuoteStateChange {
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: StagedQuoteState
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: StagedQuoteState
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: StagedQuoteState
 }
+/**
+ *	Change triggered by the [Change State Type](ctp:api:type:StateChangeTypeAction) update action.
+ */
 export interface ChangeStateTypeChange {
   readonly type: 'ChangeStateTypeChange'
   /**
-   *	Update action for `changeType` on state
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: StateType
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: StateType
 }
+/**
+ *	Change triggered by the [Change Target](ctp:api:type:CartDiscountChangeTargetAction) update action.
+ */
 export interface ChangeTargetChange {
   readonly type: 'ChangeTargetChange'
   /**
-   *	Update action for `changeTarget` on cart discounts
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: ChangeTargetChangeValue
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: ChangeTargetChangeValue
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: ChangeTargetChangeValue
 }
+/**
+ *	Change triggered by the [Change TaxCalculationMode](ctp:api:type:StagedOrderChangeTaxCalculationModeAction) update action.
+ */
 export interface ChangeTaxCalculationModeChange {
   readonly type: 'ChangeTaxCalculationModeChange'
   /**
-   *	Shape of the action for `changeTaxCalculationMode`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: TaxCalculationMode
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: TaxCalculationMode
 }
+/**
+ *	Change triggered by the [Change TaxMode](ctp:api:type:StagedOrderChangeTaxModeAction) update action.
+ */
 export interface ChangeTaxModeChange {
   readonly type: 'ChangeTaxModeChange'
   /**
-   *	Shape of the action for `changeTaxMode`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: TaxMode
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: TaxMode
 }
+/**
+ *	Change triggered by the [Change Tax RoundingMode](ctp:api:type:StagedOrderChangeTaxRoundingModeAction) update action.
+ */
 export interface ChangeTaxRoundingModeChange {
   readonly type: 'ChangeTaxRoundingModeChange'
   /**
-   *	Shape of the action for `changeTaxRoundingMode`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: RoundingMode
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: RoundingMode
 }
+/**
+ *	Change triggered by the [Change TextLineItem Name](ctp:api:type:ShoppingListChangeTextLineItemNameAction) update action.
+ */
 export interface ChangeTextLineItemNameChange {
   readonly type: 'ChangeTextLineItemNameChange'
   /**
-   *	Update action for `changeTextLineItemName`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly textLineItem: TextLineItemValue
+  readonly previousValue: LocalizedString
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: LocalizedString
   /**
+   *	Holds information about the updated Text Line Item.
    *
    */
-  readonly previousValue: LocalizedString
+  readonly textLineItem: TextLineItemValue
 }
+/**
+ *	Change triggered by the [Change TextLineItem Quantity](ctp:api:type:ShoppingListChangeTextLineItemQuantityAction) update action.
+ */
 export interface ChangeTextLineItemQuantityChange {
   readonly type: 'ChangeTextLineItemQuantityChange'
   /**
@@ -1866,18 +2344,24 @@ export interface ChangeTextLineItemQuantityChange {
    */
   readonly change: string
   /**
-   *
-   */
-  readonly textLineItem: TextLineItemValue
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: number
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: number
+  /**
+   *	Holds information about the updated Text Line Item.
+   *
+   */
+  readonly textLineItem: TextLineItemValue
 }
+/**
+ *	Change triggered by the [Change TextLineItems Order](ctp:api:type:ShoppingListChangeTextLineItemsOrderAction) update action.
+ */
 export interface ChangeTextLineItemsOrderChange {
   readonly type: 'ChangeTextLineItemsOrderChange'
   /**
@@ -1885,110 +2369,145 @@ export interface ChangeTextLineItemsOrderChange {
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: TextLineItemValue[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: TextLineItemValue[]
 }
+/**
+ *	Change triggered by the [Change TransactionInteractionId](ctp:api:type:PaymentChangeTransactionInteractionIdAction) update action.
+ */
 export interface ChangeTransactionInteractionIdChange {
   readonly type: 'ChangeTransactionInteractionIdChange'
   /**
-   *	Update action for `changeTransactionInteractionId` on payments
    *
    */
   readonly change: string
   /**
+   *	Value after the change.
    *
    */
-  readonly transaction: TransactionChangeValue
+  readonly previousValue: string
   /**
+   *	Value before the change.
    *
    */
   readonly nextValue: string
   /**
+   *	Holds information about the updated Transaction.
    *
    */
-  readonly previousValue: string
+  readonly transaction: TransactionChangeValue
 }
+/**
+ *	Change triggered by the [Change TransactionState](ctp:api:type:PaymentChangeTransactionStateAction) update action.
+ */
 export interface ChangeTransactionStateChange {
   readonly type: 'ChangeTransactionStateChange'
   /**
-   *	Update action for `changeTransactionState` on payments
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly transaction: TransactionChangeValue
+  readonly previousValue: TransactionState
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: TransactionState
   /**
+   *	Holds information about the updated Transaction.
    *
    */
-  readonly previousValue: TransactionState
+  readonly transaction: TransactionChangeValue
 }
+/**
+ *	Change triggered by the [Change TransactionTimestamp](ctp:api:type:PaymentChangeTransactionTimestampAction) update action.
+ */
 export interface ChangeTransactionTimestampChange {
   readonly type: 'ChangeTransactionTimestampChange'
   /**
-   *	Update action for `changeTransactionTimestamp` on payments
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly transaction: TransactionChangeValue
+  readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
   /**
+   *	Holds information about the updated Transaction.
    *
    */
-  readonly previousValue: string
+  readonly transaction: TransactionChangeValue
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Change Value](ctp:api:type:CartDiscountChangeValueAction) on Cart Discounts.
+ *	- [Change Value](ctp:api:type:ProductDiscountChangeValueAction) on Product Discounts.
+ *
+ */
 export interface ChangeValueChange {
   readonly type: 'ChangeValueChange'
   /**
-   *	Update action for `changeValue` on cart discounts and product discounts
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: ChangeValueChangeValue
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: ChangeValueChangeValue
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: ChangeValueChangeValue
 }
+/**
+ *	Change triggered by the [Move image to position](ctp:api:type:ProductMoveImageToPositionAction) update action.
+ */
 export interface MoveImageToPositionChange {
   readonly type: 'MoveImageToPositionChange'
   /**
-   *	Update actions for moving images
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly catalogData: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Image[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Image[]
+  /**
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
+   *
+   */
+  readonly catalogData: string
 }
+/**
+ *	Change triggered by the [Publish](ctp:api:type:ProductPublishAction) update action.
+ */
 export interface PublishChange {
   readonly type: 'PublishChange'
   /**
@@ -1996,62 +2515,83 @@ export interface PublishChange {
    */
   readonly change: string
 }
+/**
+ *	Change triggered by the [Remove Address](ctp:api:type:CustomerRemoveAddressAction) update action.
+ */
 export interface RemoveAddressChange {
   readonly type: 'RemoveAddressChange'
   /**
-   *	Update action for `removeAddress` action.
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Address
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Remove Asset](ctp:api:type:CategoryRemoveAssetAction) on Categories.
+ *	- [Remove Asset](ctp:api:type:ProductRemoveAssetAction) on Products.
+ *
+ */
 export interface RemoveAssetChange {
   readonly type: 'RemoveAssetChange'
   /**
-   *	Update action for `removeAsset`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Asset
 }
+/**
+ *	Change triggered by the [Remove AttributeDefinition](ctp:api:type:ProductTypeRemoveAttributeDefinitionAction) update action.
+ */
 export interface RemoveAttributeDefinitionChange {
   readonly type: 'RemoveAttributeDefinitionChange'
   /**
-   *	Update action for `removeAttributeDefinition` on product types
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: AttributeDefinition
 }
+/**
+ *	Change triggered by the [Remove Billing Address ID](ctp:api:type:CustomerRemoveBillingAddressIdAction) update action.
+ */
 export interface RemoveBillingAddressIdChange {
   readonly type: 'RemoveBillingAddressIdChange'
   /**
-   *	Update action for `removeBillingAddressId` action on customers.
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: string[]
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string[]
   /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: string[]
+  /**
+   *	Address removed from `billingAddressesIds`.
    *
    */
   readonly address: Address
 }
+/**
+ *	Change triggered by the [Remove Roles](ctp:api:type:ChannelRemoveRolesAction) update action.
+ */
 export interface RemoveChannelRolesChange {
   readonly type: 'RemoveChannelRolesChange'
   /**
@@ -2059,174 +2599,216 @@ export interface RemoveChannelRolesChange {
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: ChannelRole[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: ChannelRole[]
 }
+/**
+ *	Change triggered by the [Remove CustomLineItem](ctp:api:type:StagedOrderRemoveCustomLineItemAction) update action.
+ */
 export interface RemoveCustomLineItemChange {
   readonly type: 'RemoveCustomLineItemChange'
   /**
-   *	Update action for adding and removing custom line items
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: CustomLineItem
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: CustomLineItem
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: CustomLineItem
 }
+/**
+ *	Change triggered by the [Remove Delivery](ctp:api:type:OrderRemoveDeliveryAction) update action.
+ */
 export interface RemoveDeliveryItemsChange {
   readonly type: 'RemoveDeliveryItemsChange'
   /**
-   *	Update action for `removeDelivery`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Delivery
 }
+/**
+ *	Change triggered by the [Remove DiscountCode](ctp:api:type:StagedOrderRemoveDiscountCodeAction) update action.
+ */
 export interface RemoveDiscountCodeChange {
   readonly type: 'RemoveDiscountCodeChange'
   /**
-   *	Update action for `removeDiscountCode`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: DiscountCodeInfo
 }
+/**
+ *	Change triggered by the [Remove EnumValues from AttributeDefinition](ctp:api:type:ProductTypeRemoveEnumValuesAction) update action.
+ */
 export interface RemoveEnumValuesChange {
   readonly type: 'RemoveEnumValuesChange'
   /**
-   *	Update action for `removeEnumValues` on product types
    *
    */
   readonly change: string
   /**
-   *	The name of the attribute updated.
-   *
-   */
-  readonly attributeName: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: EnumValue
+  /**
+   *	Name of the updated [AttributeDefinition](ctp:api:type:AttributeDefinition).
+   *
+   */
+  readonly attributeName: string
 }
+/**
+ *	Change triggered by the [Remove FieldDefinition](ctp:api:type:TypeRemoveFieldDefinitionAction) update action.
+ */
 export interface RemoveFieldDefinitionChange {
   readonly type: 'RemoveFieldDefinitionChange'
   /**
-   *	Update action for `removeFieldDefinition` on payments
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: FieldDefinition
 }
+/**
+ *	Change triggered by the [Remove from Category](ctp:api:type:ProductRemoveFromCategoryAction) update action.
+ */
 export interface RemoveFromCategoryChange {
   readonly type: 'RemoveFromCategoryChange'
   /**
-   *	Update action for `addToCategory`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly category: Reference
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Reference[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Reference[]
+  /**
+   *	Category from which the Product was removed.
+   *
+   */
+  readonly category: Reference
 }
+/**
+ *	Change triggered by the [Remove Image](ctp:api:type:ProductRemoveImageAction) update action.
+ */
 export interface RemoveImageChange {
   readonly type: 'RemoveImageChange'
   /**
-   *	Update actions for removing images
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly catalogData: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Image[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Image[]
+  /**
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
+   *
+   */
+  readonly catalogData: string
 }
+/**
+ *	Change triggered by the [Remove Item Shipping Address](ctp:api:type:OrderRemoveItemShippingAddressAction) update action.
+ */
 export interface RemoveItemShippingAddressesChange {
   readonly type: 'RemoveItemShippingAddressesChange'
   /**
-   *	Update action for `removeItemShippingAddress`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: Address
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Address
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: Address
 }
+/**
+ *	Change triggered by the [Remove EnumValues from AttributeDefinition](ctp:api:type:ProductTypeRemoveEnumValuesAction) update action.
+ */
 export interface RemoveLocalizedEnumValuesChange {
   readonly type: 'RemoveLocalizedEnumValuesChange'
   /**
-   *	Update action for `removeEnumValues` on product types
    *
    */
   readonly change: string
   /**
-   *	The name of the attribute updated.
-   *
-   */
-  readonly attributeName: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: LocalizedEnumValue
+  /**
+   *	Name of the updated [AttributeDefinition](ctp:api:type:AttributeDefinition).
+   *
+   */
+  readonly attributeName: string
 }
+/**
+ *	Change triggered by the [Remove Location](ctp:api:type:ZoneRemoveLocationAction) update action.
+ */
 export interface RemoveLocationChange {
   readonly type: 'RemoveLocationChange'
   /**
-   *	Update action for `removeLocation` on zones
    *
    */
   readonly change: string
   /**
-   *	Shape of the value for `addLocation` and `removeLocation` actions
+   *	Value before the change.
    *
    */
   readonly previousValue: Location
   /**
-   *	Shape of the value for `addLocation` and `removeLocation` actions
+   *	Value after the change.
    *
    */
   readonly nextValue: Location
 }
+/**
+ *	Change triggered by the [Remove Parcel From Delivery](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+ */
 export interface RemoveOrderLineItemChange {
   readonly type: 'RemoveOrderLineItemChange'
   /**
@@ -2234,119 +2816,161 @@ export interface RemoveOrderLineItemChange {
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: LineItem
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: LineItem
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Remove Parcel From Delivery](ctp:api:type:OrderRemoveParcelFromDeliveryAction) on Orders.
+ *	- [Remove Parcel From Delivery](ctp:api:type:StagedOrderRemoveParcelFromDeliveryAction) on Staged Orders.
+ *
+ */
 export interface RemoveParcelFromDeliveryChange {
   readonly type: 'RemoveParcelFromDeliveryChange'
   /**
-   *	Update action for `removeParcelFromDelivery`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly deliveryId: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Parcel
+  /**
+   *	`id` of the [Delivery](ctp:api:type:Delivery) from which the Parcel was removed.
+   *
+   *
+   */
+  readonly deliveryId: string
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Remove Payment](ctp:api:type:OrderRemovePaymentAction) on Orders.
+ *	- [Remove Payment](ctp:api:type:StagedOrderRemovePaymentAction) on Staged Orders.
+ *
+ */
 export interface RemovePaymentChange {
   readonly type: 'RemovePaymentChange'
   /**
-   *	Update action for `addPayment` & `removePayment`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: PaymentInfo
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: PaymentInfo
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: PaymentInfo
 }
+/**
+ *	Change triggered by the [Remove Embedded Price](ctp:api:type:ProductRemovePriceAction) update action.
+ */
 export interface RemovePriceChange {
   readonly type: 'RemovePriceChange'
   /**
-   *	Update action for removing prices
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly catalogData: string
-  /**
-   *
-   */
-  readonly priceId: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Price
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Price
+  /**
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
+   *
+   */
+  readonly catalogData: string
+  /**
+   *	`id` of the Embedded [Price](ctp:api:type:Price).
+   *
+   *
+   */
+  readonly priceId: string
 }
+/**
+ *	Change triggered by the [Remove Product](ctp:api:type:ProductSelectionRemoveProductAction) update action.
+ */
 export interface RemoveProductChange {
   readonly type: 'RemoveProductChange'
   /**
-   *	Update action for when a product is unassigned from a product selection
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Reference
 }
+/**
+ *	Change triggered by the [Update CustomObject](ctp:api:endpoint:/{projectKey}/custom-objects:POST) request when an existing property is removed.
+ */
 export interface RemovePropertyChange {
   readonly type: 'RemovePropertyChange'
   /**
-   *	Update action for `removeProperty` on custom objects
    *
    */
   readonly change: string
   /**
-   *	Value path to the property that was removed
-   *
-   */
-  readonly path: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: any
+  /**
+   *	Path to the property that was removed.
+   *
+   */
+  readonly path: string
 }
+/**
+ *	Change triggered by the [Remove Shipping Address ID](ctp:api:type:CustomerRemoveShippingAddressIdAction) update action.
+ */
 export interface RemoveShippingAddressIdChange {
   readonly type: 'RemoveShippingAddressIdChange'
   /**
-   *	Update action for `removeShippingAddressId` action on customers.
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: string[]
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string[]
   /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: string[]
+  /**
+   *	Address removed from `shippingAddressesIds`.
    *
    */
   readonly address: Address
 }
+/**
+ *	Change triggered by the [Remove ShoppingListLineItem](ctp:api:type:ShoppingListRemoveLineItemAction) update action.
+ */
 export interface RemoveShoppingListLineItemChange {
   readonly type: 'RemoveShoppingListLineItemChange'
   /**
@@ -2354,14 +2978,19 @@ export interface RemoveShoppingListLineItemChange {
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: LineItem
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: LineItem
 }
+/**
+ *	Change triggered by the [Remove State roles](ctp:api:type:StateRemoveRolesAction) update action.
+ */
 export interface RemoveStateRolesChange {
   readonly type: 'RemoveStateRolesChange'
   /**
@@ -2369,32 +2998,39 @@ export interface RemoveStateRolesChange {
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: StateRole[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: StateRole[]
 }
+/**
+ *	Change triggered by the [Remove TaxRate](ctp:api:type:TaxCategoryRemoveTaxRateAction) update action.
+ */
 export interface RemoveTaxRateChange {
   readonly type: 'RemoveTaxRateChange'
   /**
-   *	Update action for `removeTaxRate` on tax categories
    *
    */
   readonly change: string
   /**
-   *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
+   *	Value before the change.
    *
    */
   readonly previousValue: TaxRate
   /**
-   *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
+   *	Value after the change.
    *
    */
   readonly nextValue: TaxRate
 }
+/**
+ *	Change triggered by the [Remove TextLineItem](ctp:api:type:ShoppingListRemoveTextLineItemAction) update action.
+ */
 export interface RemoveTextLineItemChange {
   readonly type: 'RemoveTextLineItemChange'
   /**
@@ -2402,318 +3038,439 @@ export interface RemoveTextLineItemChange {
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: TextLineItem
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: TextLineItem
 }
+/**
+ *	Change triggered by the [Remove ProductVariant](ctp:api:type:ProductRemoveVariantAction) update action.
+ */
 export interface RemoveVariantChange {
   readonly type: 'RemoveVariantChange'
   /**
-   *	Update action for `removeVariant`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly catalogData: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Variant
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Variant
+  /**
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
+   *
+   */
+  readonly catalogData: string
 }
+/**
+ *	Change triggered by the [Set Address](ctp:api:type:ChannelSetAddressAction) update action.
+ */
 export interface SetAddressChange {
   readonly type: 'SetAddressChange'
   /**
-   *	Update action for `setAddress` action.
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: Address
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Address
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: Address
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set AnonymousId](ctp:api:type:PaymentSetAnonymousIdAction) on Payments.
+ *	- [Set AnonymousId](ctp:api:type:ShoppingListSetAnonymousIdAction) on Shopping Lists.
+ *
+ */
 export interface SetAnonymousIdChange {
   readonly type: 'SetAnonymousIdChange'
   /**
-   *	Shape of the action for `setAnonymousId`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered automatically due to a user-initiated change.
+ */
 export interface SetApplicationVersionChange {
   readonly type: 'SetApplicationVersionChange'
   /**
-   *	Internal Update action for `setApplicationVersion`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: number
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: number
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Asset CustomField](ctp:api:type:CategorySetAssetCustomFieldAction) on Categories.
+ *	- [Set Asset CustomField](ctp:api:type:ProductSetAssetCustomFieldAction) on Products.
+ *
+ */
 export interface SetAssetCustomFieldChange {
   readonly type: 'SetAssetCustomFieldChange'
   /**
-   *	Update action for `setAssetCustomField`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly name: string
+  readonly previousValue: any
   /**
-   *
-   */
-  readonly customTypeId: string
-  /**
-   *
-   */
-  readonly asset: AssetChangeValue
-  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: any
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
    */
-  readonly previousValue: any
+  readonly name: string
+  /**
+   *	`id` of the referenced [Type](ctp:api:type:Type).
+   *
+   *
+   */
+  readonly customTypeId: string
+  /**
+   *	Information about the updated Asset.
+   *
+   */
+  readonly asset: AssetChangeValue
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Asset Custom Type](ctp:api:type:CategorySetAssetCustomTypeAction) on Categories.
+ *	- [Set Asset Custom Type](ctp:api:type:ProductSetAssetCustomTypeAction) on Products.
+ *
+ */
 export interface SetAssetCustomTypeChange {
   readonly type: 'SetAssetCustomTypeChange'
   /**
-   *	Update action for `setAssetCustomType`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly asset: AssetChangeValue
+  readonly previousValue: CustomFields
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: CustomFields
   /**
+   *	Information about the updated Asset.
    *
    */
-  readonly previousValue: CustomFields
+  readonly asset: AssetChangeValue
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Asset Description](ctp:api:type:CategorySetAssetDescriptionAction) on Categories.
+ *	- [Set Asset Description](ctp:api:type:ProductSetAssetDescriptionAction) on Products.
+ *
+ */
 export interface SetAssetDescriptionChange {
   readonly type: 'SetAssetDescriptionChange'
   /**
-   *	Update action for `setAssetDescription`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly asset: AssetChangeValue
+  readonly previousValue: LocalizedString
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: LocalizedString
   /**
+   *	Information about the updated Asset.
    *
    */
-  readonly previousValue: LocalizedString
+  readonly asset: AssetChangeValue
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Asset Key](ctp:api:type:CategorySetAssetKeyAction) on Categories.
+ *	- [Set Asset Key](ctp:api:type:ProductSetAssetKeyAction) on Products.
+ *
+ */
 export interface SetAssetKeyChange {
   readonly type: 'SetAssetKeyChange'
   /**
-   *	Update action for `setAssetKey`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly asset: AssetChangeValue
+  readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
   /**
+   *	Information about the updated Asset.
    *
    */
-  readonly previousValue: string
+  readonly asset: AssetChangeValue
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Asset Sources](ctp:api:type:CategorySetAssetSourcesAction) on Categories.
+ *	- [Set Asset Sources](ctp:api:type:ProductSetAssetSourcesAction) on Products.
+ *
+ */
 export interface SetAssetSourcesChange {
   readonly type: 'SetAssetSourcesChange'
   /**
-   *	Update action for `setAssetSources`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly asset: AssetChangeValue
+  readonly previousValue: AssetSource[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: AssetSource[]
   /**
+   *	Information about the updated Asset.
    *
    */
-  readonly previousValue: AssetSource[]
+  readonly asset: AssetChangeValue
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Change Asset Tags](ctp:api:type:CategorySetAssetTagsAction) on Categories.
+ *	- [Change Asset Tags](ctp:api:type:ProductSetAssetTagsAction) on Products.
+ *
+ */
 export interface SetAssetTagsChange {
   readonly type: 'SetAssetTagsChange'
   /**
-   *	Update action for `setAssetTags`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly asset: AssetChangeValue
+  readonly previousValue: string[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string[]
   /**
+   *	Information about the updated Asset.
    *
    */
-  readonly previousValue: string[]
+  readonly asset: AssetChangeValue
 }
+/**
+ *	Change triggered by the [Set Attribute](ctp:api:type:ProductSetAttributeAction) update action.
+ */
 export interface SetAttributeChange {
   readonly type: 'SetAttributeChange'
   /**
-   *	Update action for `setAttribute`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly catalogData: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: AttributeValue
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: AttributeValue
+  /**
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
+   *
+   */
+  readonly catalogData: string
 }
+/**
+ *	Change triggered by the [Set AuthenticationMode](ctp:api:type:CustomerSetAuthenticationModeAction) update action.
+ */
 export interface SetAuthenticationModeChange {
   readonly type: 'SetAuthenticationModeChange'
   /**
-   *	Update action for `setAuthenticationMode`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: AuthenticationMode
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: AuthenticationMode
 }
+/**
+ *	Change triggered by the [Set Author Name](ctp:api:type:ReviewSetAuthorNameAction) update action.
+ */
 export interface SetAuthorNameChange {
   readonly type: 'SetAuthorNameChange'
   /**
-   *	Shape of the action for `setAuthorName`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Billing Address](ctp:api:type:OrderSetBillingAddressAction) on Orders.
+ *	- [Set Billing Address](ctp:api:type:StagedOrderSetBillingAddressAction) on Staged Orders.
+ *
+ */
 export interface SetBillingAddressChange {
   readonly type: 'SetBillingAddressChange'
   /**
-   *	Update action for `setBillingAddress`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: Address
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Address
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: Address
 }
+/**
+ *	Change triggered by the [Set Cart Predicate](ctp:api:type:DiscountCodeSetCartPredicateAction) update action.
+ */
 export interface SetCartPredicateChange {
   readonly type: 'SetCartPredicateChange'
   /**
-   *	Shape of the action for `setCartPredicate`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the [Set Category Order Hint](ctp:api:type:ProductSetCategoryOrderHintAction) update action.
+ */
 export interface SetCategoryOrderHintChange {
   readonly type: 'SetCategoryOrderHintChange'
   /**
-   *	Update action for `setCategoryOrderHint`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly catalogData: string
-  /**
-   *
-   */
-  readonly categoryId: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: CategoryOrderHints
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: CategoryOrderHints
+  /**
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
+   *
+   */
+  readonly catalogData: string
+  /**
+   *	`id` of the updated [Category](ctp:api:type:Category).
+   *
+   *
+   */
+  readonly categoryId: string
 }
+/**
+ *	Change triggered by the [Set Roles](ctp:api:type:ChannelSetRolesAction) update action.
+ */
 export interface SetChannelRolesChange {
   readonly type: 'SetChannelRolesChange'
   /**
@@ -2721,778 +3478,1071 @@ export interface SetChannelRolesChange {
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: ChannelRole[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: ChannelRole[]
 }
+/**
+ *	Change triggered by the [Set Company Name](ctp:api:type:CustomerSetCompanyNameAction) update action.
+ */
 export interface SetCompanyNameChange {
   readonly type: 'SetCompanyNameChange'
   /**
-   *	Shape of the action for `setCompanyName`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the [Set Country](ctp:api:type:StagedOrderSetCountryAction) update action.
+ */
 export interface SetCountryChange {
   readonly type: 'SetCountryChange'
   /**
-   *	Update action for `setCountry`
    *
    */
   readonly change: string
   /**
-   *	Two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-   *
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
-   *	Two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-   *
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the [Set Countries](ctp:api:type:StoreSetCountriesAction) update action.
+ */
 export interface SetCountriesChange {
   readonly type: 'SetCountriesChange'
   /**
-   *	Update action for `setCountries`.
    *
    */
   readonly change: string
   /**
-   *	Countries defined for the Store prior to the update action.
+   *	Value before the change.
    *
    */
   readonly previousValue: StoreCountry[]
   /**
-   *	Countries defined for the Store after the update action.
+   *	Value after the change.
    *
    */
   readonly nextValue: StoreCountry[]
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set CustomField](ctp:api:type:CartDiscountSetCustomFieldAction) on Cart Discounts.
+ *	- [Set CustomField](ctp:api:type:CategorySetCustomFieldAction) on Categories.
+ *	- [Set CustomField](ctp:api:type:ChannelSetCustomFieldAction) on Channels.
+ *	- [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) on Customers.
+ *	- [Set CustomField](ctp:api:type:CustomerGroupSetCustomFieldAction) on Customer Groups.
+ *	- [Set CustomField](ctp:api:type:DiscountCodeSetCustomFieldAction) on Discount Codes.
+ *	- [Set CustomField](ctp:api:type:InventoryEntrySetCustomFieldAction) on Inventories.
+ *	- [Set CustomField](ctp:api:type:OrderSetCustomFieldAction) on Orders.
+ *	- [Set CustomField](ctp:api:type:OrderEditSetCustomFieldAction) on Order Edits.
+ *	- [Set CustomField](ctp:api:type:PaymentSetCustomFieldAction) on Payments.
+ *	- [Set CustomField](ctp:api:type:ProductSelectionSetCustomFieldAction) on Product Selections.
+ *	- [Set CustomField](ctp:api:type:QuoteSetCustomFieldAction) on Quotes.
+ *	- [Set CustomField](ctp:api:type:QuoteRequestSetCustomFieldAction) on Quote Requests.
+ *	- [Set CustomField](ctp:api:type:ReviewSetCustomFieldAction) on Reviews.
+ *	- [Set CustomField](ctp:api:type:ShoppingListSetCustomFieldAction) on Shopping Lists.
+ *	- [Set CustomField](ctp:api:type:StagedOrderSetCustomFieldAction) on Staged Orders.
+ *	- [Set CustomField](ctp:api:type:StagedQuoteSetCustomFieldAction) on Staged Quotes.
+ *	- [Set CustomField](ctp:api:type:StoreSetCustomFieldAction) on Stores.
+ *
+ */
 export interface SetCustomFieldChange {
   readonly type: 'SetCustomFieldChange'
   /**
-   *	Update action for setting a custom field
    *
    */
   readonly change: string
   /**
-   *	Custom field name
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: any
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: any
+  /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
    */
   readonly name: string
   /**
+   *	`id` of the referenced [Type](ctp:api:type:Type).
+   *
    *
    */
   readonly customTypeId: string
-  /**
-   *
-   */
-  readonly nextValue: any
-  /**
-   *
-   */
-  readonly previousValue: any
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set CustomLineItem Custom Type](ctp:api:type:OrderSetCustomLineItemCustomFieldAction) on Orders.
+ *	- [Set CustomLineItem Custom Type](ctp:api:type:StagedOrderSetCustomLineItemCustomFieldAction) on Staged Orders.
+ *
+ */
 export interface SetCustomLineItemCustomFieldChange {
   readonly type: 'SetCustomLineItemCustomFieldChange'
   /**
-   *	Update action for `setCustomLineItemCustomField`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: any
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: any
+  /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
    */
   readonly name: string
   /**
+   *	Name of the updated [CustomLineItem](ctp:api:type:CustomLineItem).
    *
    */
   readonly customLineItem: LocalizedString
   /**
+   *	`id` of the updated [CustomLineItem](ctp:api:type:CustomLineItem).
+   *
    *
    */
   readonly customLineItemId: string
-  /**
-   *
-   */
-  readonly nextValue: any
-  /**
-   *
-   */
-  readonly previousValue: any
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set CustomLineItem CustomField](ctp:api:type:OrderSetCustomLineItemCustomTypeAction) on Orders.
+ *	- [Set CustomLineItem CustomField](ctp:api:type:StagedOrderSetCustomLineItemCustomTypeAction) on Staged Orders.
+ *
+ */
 export interface SetCustomLineItemCustomTypeChange {
   readonly type: 'SetCustomLineItemCustomTypeChange'
   /**
-   *	Update action for `setCustomLineItemCustomType`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly customLineItem: LocalizedString
+  readonly previousValue: CustomFields
   /**
-   *
-   */
-  readonly customLineItemId: string
-  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: CustomFields
   /**
-   *
-   */
-  readonly previousValue: CustomFields
-}
-export interface SetCustomLineItemMoneyChange {
-  readonly type: 'SetCustomLineItemMoneyChange'
-  /**
-   *	Update action for `setCustomLineItemMoney`
-   *
-   */
-  readonly change: string
-  /**
+   *	Name of the updated [CustomLineItem](ctp:api:type:CustomLineItem).
    *
    */
   readonly customLineItem: LocalizedString
   /**
+   *	`id` of the updated [CustomLineItem](ctp:api:type:CustomLineItem).
+   *
    *
    */
   readonly customLineItemId: string
-  /**
-   *
-   */
-  readonly nextValue: Money
-  /**
-   *
-   */
-  readonly previousValue: Money
 }
-export interface SetCustomLineItemShippingDetailsChange {
-  readonly type: 'SetCustomLineItemShippingDetailsChange'
+/**
+ *	Change triggered by the [Set CustomLineItem Money](ctp:api:type:StagedOrderChangeCustomLineItemMoneyAction) update action.
+ */
+export interface SetCustomLineItemMoneyChange {
+  readonly type: 'SetCustomLineItemMoneyChange'
   /**
-   *	Update action for `setCustomLineItemShippingDetails`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: Money
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: Money
+  /**
+   *	Name of the updated [CustomLineItem](ctp:api:type:CustomLineItem).
+   *
+   */
+  readonly customLineItem: LocalizedString
+  /**
+   *	`id` of the updated [CustomLineItem](ctp:api:type:CustomLineItem).
+   *
    *
    */
   readonly customLineItemId: string
+}
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set CustomLineItemShippingDetails](ctp:api:type:OrderSetCustomLineItemShippingDetailsAction) on Orders.
+ *	- [Set CustomLineItemShippingDetails](ctp:api:type:StagedOrderSetCustomLineItemShippingDetailsAction) on Staged Orders.
+ *
+ */
+export interface SetCustomLineItemShippingDetailsChange {
+  readonly type: 'SetCustomLineItemShippingDetailsChange'
   /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: ItemShippingDetails
+  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: ItemShippingDetails
   /**
+   *	`id` of the updated [CustomLineItem](ctp:api:type:CustomLineItem).
+   *
    *
    */
-  readonly previousValue: ItemShippingDetails
+  readonly customLineItemId: string
 }
+/**
+ *	Change triggered by the [Set CustomLineItem TaxAmount](ctp:api:type:StagedOrderSetCustomLineItemTaxAmountAction) update action.
+ */
 export interface SetCustomLineItemTaxAmountChange {
   readonly type: 'SetCustomLineItemTaxAmountChange'
   /**
-   *	Update action for `setCustomLineItemTaxAmount`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly customLineItem: LocalizedString
+  readonly previousValue: TaxRate
   /**
-   *
-   */
-  readonly customLineItemId: string
-  /**
-   *
-   */
-  readonly taxMode: TaxMode
-  /**
-   *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
+   *	Value after the change.
    *
    */
   readonly nextValue: TaxRate
   /**
-   *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
+   *	Name of the updated [CustomLineItem](ctp:api:type:CustomLineItem).
    *
    */
-  readonly previousValue: TaxRate
+  readonly customLineItem: LocalizedString
+  /**
+   *	`id` of the updated [CustomLineItem](ctp:api:type:CustomLineItem).
+   *
+   *
+   */
+  readonly customLineItemId: string
+  /**
+   *	`"ExternalAmount"`
+   *
+   *
+   */
+  readonly taxMode: TaxMode
 }
 export interface SetCustomLineItemTaxCategoryChange {
   readonly type: 'SetCustomLineItemTaxCategoryChange'
   /**
-   *	Update action for `setCustomLineItemTaxCategory`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly customLineItem: LocalizedString
+  readonly previousValue: Reference
   /**
-   *
-   */
-  readonly customLineItemId: string
-  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Reference
   /**
-   *
-   */
-  readonly previousValue: Reference
-}
-export interface SetCustomLineItemTaxRateChange {
-  readonly type: 'SetCustomLineItemTaxRateChange'
-  /**
-   *	Update action for `setCustomLineItemTaxRate`
-   *
-   */
-  readonly change: string
-  /**
+   *	Name of the updated [CustomLineItem](ctp:api:type:CustomLineItem).
    *
    */
   readonly customLineItem: LocalizedString
   /**
+   *	`id` of the updated [CustomLineItem](ctp:api:type:CustomLineItem).
+   *
    *
    */
   readonly customLineItemId: string
+}
+/**
+ *	Change triggered by the [Set CustomLineItem TaxRate](ctp:api:type:StagedOrderSetCustomLineItemTaxRateAction) update action.
+ */
+export interface SetCustomLineItemTaxRateChange {
+  readonly type: 'SetCustomLineItemTaxRateChange'
   /**
    *
    */
-  readonly taxMode: TaxMode
+  readonly change: string
   /**
-   *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: TaxRate
+  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: TaxRate
   /**
-   *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
+   *	Name of the updated [CustomLineItem](ctp:api:type:CustomLineItem).
    *
    */
-  readonly previousValue: TaxRate
+  readonly customLineItem: LocalizedString
+  /**
+   *	`id` of the updated [CustomLineItem](ctp:api:type:CustomLineItem).
+   *
+   *
+   */
+  readonly customLineItemId: string
+  /**
+   *	`"External"`
+   *
+   *
+   */
+  readonly taxMode: TaxMode
 }
 export interface SetCustomLineItemTaxedPriceChange {
   readonly type: 'SetCustomLineItemTaxedPriceChange'
   /**
-   *	Update action for `setCustomLineItemTaxedPrice`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly customLineItem: LocalizedString
+  readonly previousValue: Money
   /**
-   *
-   */
-  readonly customLineItemId: string
-  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Money
   /**
+   *	Name of the updated [CustomLineItem](ctp:api:type:CustomLineItem).
    *
    */
-  readonly previousValue: Money
+  readonly customLineItem: LocalizedString
+  /**
+   *	`id` of the updated [CustomLineItem](ctp:api:type:CustomLineItem).
+   *
+   *
+   */
+  readonly customLineItemId: string
 }
 export interface SetCustomLineItemTotalPriceChange {
   readonly type: 'SetCustomLineItemTotalPriceChange'
   /**
-   *	Update action for `setCustomLineItemTotalPrice`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly customLineItem: LocalizedString
+  readonly previousValue: Money
   /**
-   *
-   */
-  readonly customLineItemId: string
-  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Money
   /**
+   *	Name of the updated [CustomLineItem](ctp:api:type:CustomLineItem).
    *
    */
-  readonly previousValue: Money
+  readonly customLineItem: LocalizedString
+  /**
+   *	`id` of the updated [CustomLineItem](ctp:api:type:CustomLineItem).
+   *
+   *
+   */
+  readonly customLineItemId: string
 }
+/**
+ *	Change triggered by the [Set Custom ShippingMethod](ctp:api:type:StagedOrderSetCustomShippingMethodAction) update action.
+ */
 export interface SetCustomShippingMethodChange {
   readonly type: 'SetCustomShippingMethodChange'
   /**
-   *	Update action for `setCustomShippingMethod`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: CustomShippingMethodChangeValue
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: CustomShippingMethodChangeValue
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: CustomShippingMethodChangeValue
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Custom Type](ctp:api:type:CartDiscountSetCustomTypeAction) on Cart Discounts.
+ *	- [Set Custom Type](ctp:api:type:CategorySetCustomTypeAction) on Categories.
+ *	- [Set Custom Type](ctp:api:type:ChannelSetCustomTypeAction) on Channels.
+ *	- [Set Custom Type](ctp:api:type:CustomerSetCustomTypeAction) on Customers.
+ *	- [Set Custom Type](ctp:api:type:CustomerGroupSetCustomTypeAction) on Customer Groups.
+ *	- [Set Custom Type](ctp:api:type:DiscountCodeSetCustomTypeAction) on Discount Codes.
+ *	- [Set Custom Type](ctp:api:type:InventoryEntrySetCustomTypeAction) on Inventories.
+ *	- [Set Custom Type](ctp:api:type:OrderSetCustomTypeAction) on Orders.
+ *	- [Set Custom Type](ctp:api:type:OrderEditSetCustomTypeAction) on Order Edits.
+ *	- [Set Custom Type](ctp:api:type:StagedOrderSetCustomTypeAction) on Staged Orders.
+ *	- [Set Custom Type](ctp:api:type:PaymentSetCustomTypeAction) on Payments.
+ *	- [Set Custom Type](ctp:api:type:ProductSelectionSetCustomTypeAction) on Product Selections.
+ *	- [Set Custom Type](ctp:api:type:QuoteSetCustomTypeAction) on Quotes.
+ *	- [Set Custom Type](ctp:api:type:StagedQuoteSetCustomTypeAction) on Staged Quotes.
+ *	- [Set Custom Type](ctp:api:type:QuoteRequestSetCustomTypeAction) on Quote Requests.
+ *	- [Set Custom Type](ctp:api:type:ReviewSetCustomTypeAction) on Reviews.
+ *	- [Set Custom Type](ctp:api:type:ShoppingListSetCustomTypeAction) on Shopping Lists.
+ *	- [Set Custom Type](ctp:api:type:StoreSetCustomTypeAction) on Stores.
+ *
+ */
 export interface SetCustomTypeChange {
   readonly type: 'SetCustomTypeChange'
   /**
-   *	Update action for setting a custom type
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: CustomFields
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: CustomFields
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: CustomFields
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Customer](ctp:api:type:PaymentSetCustomerAction) on Payments.
+ *	- [Set Customer](ctp:api:type:ReviewSetCustomerAction) on Reviews.
+ *	- [Set Customer](ctp:api:type:ShoppingListSetCustomerAction) on Shopping Lists.
+ *
+ */
 export interface SetCustomerChange {
   readonly type: 'SetCustomerChange'
   /**
-   *	Shape of the action for `setCustomer`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Reference
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Reference
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Customer Email](ctp:api:type:OrderSetCustomerEmailAction) on Orders.
+ *	- [Set Customer Email](ctp:api:type:StagedOrderSetCustomerEmailAction) on Staged Orders.
+ *
+ */
 export interface SetCustomerEmailChange {
   readonly type: 'SetCustomerEmailChange'
   /**
-   *	Shape of the action for `setCustomerEmail`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the [Set CustomerGroup](ctp:api:type:CustomerSetCustomerGroupAction) update action.
+ */
 export interface SetCustomerGroupChange {
   readonly type: 'SetCustomerGroupChange'
   /**
-   *	Shape of the action for `setCustomerGroup`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Reference
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Reference
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Customer ID](ctp:api:type:OrderSetCustomerIdAction) on Orders.
+ *	- [Set Customer ID](ctp:api:type:StagedOrderSetCustomerIdAction) on Staged Orders.
+ *
+ */
 export interface SetCustomerIdChange {
   readonly type: 'SetCustomerIdChange'
   /**
-   *	Shape of the action for `setCustomerId`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the [Set Customer Number](ctp:api:type:CustomerSetCustomerNumberAction) update action.
+ */
 export interface SetCustomerNumberChange {
   readonly type: 'SetCustomerNumberChange'
   /**
-   *	Shape of the action for `setCustomerNumber`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the [Set Date of Birth](ctp:api:type:CustomerSetDateOfBirthAction) update action.
+ */
 export interface SetDateOfBirthChange {
   readonly type: 'SetDateOfBirthChange'
   /**
-   *	Shape of the action for `setDateOfBirth`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the [Set Default Billing Address](ctp:api:type:CustomerSetDefaultBillingAddressAction) update action.
+ */
 export interface SetDefaultBillingAddressChange {
   readonly type: 'SetDefaultBillingAddressChange'
   /**
-   *	Update action for `setDefaultBillingAddress` action.
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: Address
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Address
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: Address
 }
+/**
+ *	Change triggered by the [Set Default Shipping Address](ctp:api:type:CustomerSetDefaultShippingAddressAction) update action.
+ */
 export interface SetDefaultShippingAddressChange {
   readonly type: 'SetDefaultShippingAddressChange'
   /**
-   *	Update action for `setDefaultShippingAddress` action.
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: Address
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Address
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: Address
 }
+/**
+ *	Change triggered by the [Set DeleteDaysAfterLastModification](ctp:api:type:ShoppingListSetDeleteDaysAfterLastModificationAction) update action.
+ */
 export interface SetDeleteDaysAfterLastModificationChange {
   readonly type: 'SetDeleteDaysAfterLastModificationChange'
   /**
-   *	Shape of the action for `setDeleteDaysAfterLastModification`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: number
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: number
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set DeliveryAddress](ctp:api:type:OrderSetDeliveryAddressAction) on Orders.
+ *	- [Set DeliveryAddress](ctp:api:type:StagedOrderSetDeliveryAddressAction) on Staged Orders.
+ *
+ */
 export interface SetDeliveryAddressChange {
   readonly type: 'SetDeliveryAddressChange'
   /**
-   *	Update action for `setDeliveryAddress`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly deliveryId: string
+  readonly previousValue: Address
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Address
   /**
+   *	`id` of the updated [Delivery](ctp:api:type:Delivery).
+   *
    *
    */
-  readonly previousValue: Address
+  readonly deliveryId: string
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Delivery Items](ctp:api:type:OrderSetDeliveryItemsAction) on Orders.
+ *	- [Set Delivery Items](ctp:api:type:StagedOrderSetDeliveryItemsAction) on Staged Orders.
+ *
+ */
 export interface SetDeliveryItemsChange {
   readonly type: 'SetDeliveryItemsChange'
   /**
-   *	Update action for `setDeliveryItems`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly deliveryId: string
+  readonly previousValue: DeliveryItem[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: DeliveryItem[]
   /**
+   *	`id` of the updated [Delivery](ctp:api:type:Delivery).
+   *
    *
    */
-  readonly previousValue: DeliveryItem[]
+  readonly deliveryId: string
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Description](ctp:api:type:CartDiscountSetDescriptionAction) on Cart Discounts.
+ *	- [Set Description](ctp:api:type:CategorySetDescriptionAction) on Categories.
+ *	- [Set Description](ctp:api:type:DiscountCodeSetDescriptionAction) on Discount Codes.
+ *	- [Set Description](ctp:api:type:ProductSetDescriptionAction) on Products.
+ *	- [Set Description](ctp:api:type:ProductDiscountSetDescriptionAction) on Product Discounts.
+ *	- [Set Description](ctp:api:type:ShoppingListSetDescriptionAction) on Shopping Lists.
+ *	- [Set Description](ctp:api:type:StateSetDescriptionAction) on States.
+ *	- [Set Description](ctp:api:type:TaxCategorySetDescriptionAction) on Tax Categories.
+ *	- [Set Description](ctp:api:type:TypeSetDescriptionAction) on Types.
+ *	- [Set Description](ctp:api:type:ZoneSetDescriptionAction) on Zones.
+ *
+ */
 export interface SetDescriptionChange {
   readonly type: 'SetDescriptionChange'
   /**
-   *	Shape of the action for `setDescription`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the [Set Discounted Embedded Price](ctp:api:type:ProductSetDiscountedPriceAction) update action.
+ */
 export interface SetDiscountedPriceChange {
   readonly type: 'SetDiscountedPriceChange'
   /**
-   *	Update action for `setDiscountedPrice`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly catalogData: string
-  /**
-   *
-   */
-  readonly variant: string
-  /**
-   *
-   */
-  readonly priceId: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Price
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Price
-}
-export interface SetDistributionChannelsChange {
-  readonly type: 'SetDistributionChannelsChange'
   /**
-   *	Shape of the action for `setDistributionChannels`
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
    *
-   */
-  readonly change: string
-  /**
-   *
-   */
-  readonly previousValue: Reference[]
-  /**
-   *
-   */
-  readonly nextValue: Reference[]
-}
-export interface SetExpectedDeliveryChange {
-  readonly type: 'SetExpectedDeliveryChange'
-  /**
-   *	Shape of the action for `setExpectedDelivery`
-   *
-   */
-  readonly change: string
-  /**
-   *
-   */
-  readonly previousValue: string
-  /**
-   *
-   */
-  readonly nextValue: string
-}
-export interface SetExternalIdChange {
-  readonly type: 'SetExternalIdChange'
-  /**
-   *	Shape of the action for `setExternalId`
-   *
-   */
-  readonly change: string
-  /**
-   *
-   */
-  readonly previousValue: string
-  /**
-   *
-   */
-  readonly nextValue: string
-}
-export interface SetFirstNameChange {
-  readonly type: 'SetFirstNameChange'
-  /**
-   *	Shape of the action for `setFirstName`
-   *
-   */
-  readonly change: string
-  /**
-   *
-   */
-  readonly previousValue: string
-  /**
-   *
-   */
-  readonly nextValue: string
-}
-export interface SetGeoLocationChange {
-  readonly type: 'SetGeoLocationChange'
-  /**
-   *	Update action for `setGeoLocation`
-   *
-   */
-  readonly change: string
-  /**
-   *
-   */
-  readonly nextValue: GeoLocation
-  /**
-   *
-   */
-  readonly previousValue: GeoLocation
-}
-export interface SetImageLabelChange {
-  readonly type: 'SetImageLabelChange'
-  /**
-   *	Update action for `setImageLabel`
-   *
-   */
-  readonly change: string
-  /**
    *
    */
   readonly catalogData: string
   /**
+   *	`sku` or `key` of the updated [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly variant: string
+  /**
+   *	`id` of the Embedded [Price](ctp:api:type:Price).
+   *
+   *
+   */
+  readonly priceId: string
+}
+/**
+ *	Change triggered by the [Set Distribution Channels](ctp:api:type:StoreSetDistributionChannelsAction) update action.
+ */
+export interface SetDistributionChannelsChange {
+  readonly type: 'SetDistributionChannelsChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: Reference[]
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: Reference[]
+}
+/**
+ *	Change triggered by the [Set ExpectedDelivery](ctp:api:type:InventoryEntrySetExpectedDeliveryAction) update action.
+ */
+export interface SetExpectedDeliveryChange {
+  readonly type: 'SetExpectedDeliveryChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: string
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: string
+}
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set External ID](ctp:api:type:CategorySetExternalIdAction) on Categories.
+ *	- [Set External ID](ctp:api:type:CustomerSetExternalIdAction) on Customers.
+ *
+ */
+export interface SetExternalIdChange {
+  readonly type: 'SetExternalIdChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: string
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: string
+}
+/**
+ *	Change triggered by the [Set First Name](ctp:api:type:CustomerSetFirstNameAction) update action.
+ */
+export interface SetFirstNameChange {
+  readonly type: 'SetFirstNameChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: string
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: string
+}
+/**
+ *	Change triggered by the [Set GeoLocation](ctp:api:type:ChannelSetGeoLocationAction) update action.
+ */
+export interface SetGeoLocationChange {
+  readonly type: 'SetGeoLocationChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: GeoLocation
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: GeoLocation
+}
+/**
+ *	Change triggered by the [Set Image Label](ctp:api:type:ProductSetImageLabelAction) update action.
+ */
+export interface SetImageLabelChange {
+  readonly type: 'SetImageLabelChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Image
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Image
+  /**
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
+   *
+   */
+  readonly catalogData: string
 }
+/**
+ *	Change triggered by the [Set AttributeDefinition InputTip](ctp:api:type:ProductTypeSetInputTipAction) update action.
+ */
 export interface SetInputTipChange {
   readonly type: 'SetInputTipChange'
   /**
-   *	Update action for `setInputTip` on product types
    *
    */
   readonly change: string
   /**
-   *	The name of the updated attribute.
+   *	Value before the change.
    *
    */
-  readonly attributeName: string
+  readonly previousValue: LocalizedString
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: LocalizedString
   /**
+   *	Name of the updated [AttributeDefinition](ctp:api:type:AttributeDefinition).
    *
    */
-  readonly previousValue: LocalizedString
+  readonly attributeName: string
 }
+/**
+ *	Change triggered by the [Set InterfaceId](ctp:api:type:PaymentSetInterfaceIdAction) update action.
+ */
 export interface SetInterfaceIdChange {
   readonly type: 'SetInterfaceIdChange'
   /**
-   *	Shape of the action for `setInterfaceId`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered automatically due to a user-initiated change.
+ */
 export interface SetIsValidChange {
   readonly type: 'SetIsValidChange'
   /**
-   *	Shape of the action for `setIsValid`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: boolean
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: boolean
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Key](ctp:api:type:CartDiscountSetKeyAction) on Cart Discounts.
+ *	- [Set Key](ctp:api:type:CategorySetKeyAction) on Categories.
+ *	- [Set Key](ctp:api:type:CustomerSetKeyAction) on Customers.
+ *	- [Set Key](ctp:api:type:CustomerGroupSetKeyAction) on Customer Groups.
+ *	- [Set Key](ctp:api:type:PaymentSetKeyAction) on Payments.
+ *	- [Set Key](ctp:api:type:ProductSetKeyAction) on Products.
+ *	- [Set Key](ctp:api:type:ProductDiscountSetKeyAction) on Product Discounts.
+ *	- [Set Key](ctp:api:type:ProductSelectionSetKeyAction) on Product Selections.
+ *	- [Set Key](ctp:api:type:ProductTypeSetKeyAction) on Product Types.
+ *	- [Set Key](ctp:api:type:ReviewSetKeyAction) on Reviews.
+ *	- [Set Key](ctp:api:type:ShoppingListSetKeyAction) on Shopping Lists.
+ *	- [Set Key](ctp:api:type:ZoneSetKeyAction) on Zones.
+ *
+ */
 export interface SetKeyChange {
   readonly type: 'SetKeyChange'
   /**
-   *	Shape of the action for `setKey`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by [Set Languages](ctp:api:type:StoreSetLanguagesAction) update action.
+ */
 export interface SetLanguagesChange {
   readonly type: 'SetLanguagesChange'
   /**
-   *	Update action for `setLanguages` on stores
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string[]
 }
+/**
+ *	Change triggered by [Set Last Name](ctp:api:type:CustomerSetLastNameAction) update action.
+ */
 export interface SetLastNameChange {
   readonly type: 'SetLastNameChange'
   /**
-   *	Shape of the action for `setLastName`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
@@ -3500,553 +4550,735 @@ export interface SetLastNameChange {
 export interface SetLineItemDeactivatedAtChange {
   readonly type: 'SetLineItemDeactivatedAtChange'
   /**
-   *	Update action for `setLineItemDeactivatedAt`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly lineItem: ShoppingListLineItemValue
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
+  /**
+   *	Holds information about the updated Shopping List Line Item.
+   *
+   */
+  readonly lineItem: ShoppingListLineItemValue
 }
 export interface SetLineItemDiscountedPriceChange {
   readonly type: 'SetLineItemDiscountedPriceChange'
   /**
-   *	Update action for `setLineItemDiscountedPrice`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly lineItem: LocalizedString
+  readonly previousValue: DiscountedLineItemPrice
   /**
-   *
-   */
-  readonly variant: string
-  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: DiscountedLineItemPrice
   /**
+   *	Name of the [Product](ctp:api:type:Product) the Line Item is based on.
    *
    */
-  readonly previousValue: DiscountedLineItemPrice
+  readonly lineItem: LocalizedString
+  /**
+   *	`sku` or `key` of the updated [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly variant: string
 }
 export interface SetLineItemDiscountedPricePerQuantityChange {
   readonly type: 'SetLineItemDiscountedPricePerQuantityChange'
   /**
-   *	Update action for `setLineItemDiscountedPricePerQuantity`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly lineItem: LocalizedString
+  readonly previousValue: DiscountedLineItemPriceForQuantity
   /**
-   *
-   */
-  readonly variant: string
-  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: DiscountedLineItemPriceForQuantity
   /**
-   *
-   */
-  readonly previousValue: DiscountedLineItemPriceForQuantity
-}
-export interface SetLineItemDistributionChannelChange {
-  readonly type: 'SetLineItemDistributionChannelChange'
-  /**
-   *	Update action for `setLineItemDistributionChannel`
-   *
-   */
-  readonly change: string
-  /**
+   *	Name of the [Product](ctp:api:type:Product) the Line Item is based on.
    *
    */
   readonly lineItem: LocalizedString
   /**
+   *	`sku` or `key` of the updated [ProductVariant](ctp:api:type:ProductVariant).
+   *
    *
    */
   readonly variant: string
+}
+/**
+ *	Change triggered by the [Set LineItem DistributionChannel](ctp:api:type:StagedOrderSetLineItemDistributionChannelAction) update action.
+ */
+export interface SetLineItemDistributionChannelChange {
+  readonly type: 'SetLineItemDistributionChannelChange'
   /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: Reference
+  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Reference
   /**
-   *
-   */
-  readonly previousValue: Reference
-}
-export interface SetLineItemPriceChange {
-  readonly type: 'SetLineItemPriceChange'
-  /**
-   *	Update action for `setLineItemPrice`
-   *
-   */
-  readonly change: string
-  /**
+   *	Name of the [Product](ctp:api:type:Product) the Line Item is based on.
    *
    */
   readonly lineItem: LocalizedString
   /**
+   *	`sku` or `key` of the updated [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly variant: string
+}
+/**
+ *	Change triggered by the [Set LineItem Price](ctp:api:type:StagedOrderSetLineItemPriceAction) update action.
+ */
+export interface SetLineItemPriceChange {
+  readonly type: 'SetLineItemPriceChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: Price
+  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Price
   /**
+   *	Name of the [Product](ctp:api:type:Product) the updated Line Item is based on.
    *
    */
-  readonly previousValue: Price
+  readonly lineItem: LocalizedString
 }
 export interface SetLineItemProductKeyChange {
   readonly type: 'SetLineItemProductKeyChange'
   /**
-   *	Update action for `setLineItemProductKey`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly lineItem: LocalizedString
-  /**
-   *
-   */
-  readonly lineItemId: string
-  /**
-   *
-   */
-  readonly variant: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
-}
-export interface SetLineItemProductSlugChange {
-  readonly type: 'SetLineItemProductSlugChange'
   /**
-   *	Update action for `setLineItemProductSlug`
-   *
-   */
-  readonly change: string
-  /**
+   *	Name of the [Product](ctp:api:type:Product) the Line Item is based on.
    *
    */
   readonly lineItem: LocalizedString
   /**
+   *	`id` of the updated [LineItem](ctp:api:type:LineItem).
    *
-   */
-  readonly variant: string
-  /**
-   *
-   */
-  readonly nextValue: LocalizedString
-  /**
-   *
-   */
-  readonly previousValue: LocalizedString
-}
-export interface SetLineItemShippingDetailsChange {
-  readonly type: 'SetLineItemShippingDetailsChange'
-  /**
-   *	Update action for `setLineItemShippingDetails`
-   *
-   */
-  readonly change: string
-  /**
    *
    */
   readonly lineItemId: string
   /**
+   *	`sku` or `key` of the updated [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly variant: string
+}
+/**
+ *	Change triggered automatically due to a user-initiated change.
+ */
+export interface SetLineItemProductSlugChange {
+  readonly type: 'SetLineItemProductSlugChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: LocalizedString
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: LocalizedString
+  /**
+   *	Name of the [Product](ctp:api:type:Product) the updated Line Item is based on.
+   *
+   */
+  readonly lineItem: LocalizedString
+  /**
+   *	`sku` or `key` of the updated [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly variant: string
+}
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set LineItemShippingDetails](ctp:api:type:OrderSetLineItemShippingDetailsAction) on Orders.
+ *	- [Set LineItemShippingDetails](ctp:api:type:StagedOrderSetLineItemShippingDetailsAction) on Staged Orders.
+ *
+ */
+export interface SetLineItemShippingDetailsChange {
+  readonly type: 'SetLineItemShippingDetailsChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: ItemShippingDetails
+  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: ItemShippingDetails
   /**
+   *	`id` of the updated [LineItem](ctp:api:type:LineItem).
+   *
    *
    */
-  readonly previousValue: ItemShippingDetails
+  readonly lineItemId: string
 }
+/**
+ *	Change triggered by the [Set LineItem TaxAmount](ctp:api:type:StagedOrderSetLineItemTaxAmountAction) update action.
+ */
 export interface SetLineItemTaxAmountChange {
   readonly type: 'SetLineItemTaxAmountChange'
   /**
-   *	Update action for `setLineItemTaxAmount`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly lineItem: LocalizedString
+  readonly previousValue: TaxRate
   /**
-   *
-   */
-  readonly variant: string
-  /**
-   *
-   */
-  readonly taxMode: TaxMode
-  /**
-   *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
+   *	Value after the change.
    *
    */
   readonly nextValue: TaxRate
   /**
-   *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
+   *	Name of the [Product](ctp:api:type:Product) the Line Item is based on.
    *
    */
-  readonly previousValue: TaxRate
+  readonly lineItem: LocalizedString
+  /**
+   *	`sku` or `key` of the [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly variant: string
+  /**
+   *	`"ExternalAmount"`
+   *
+   *
+   */
+  readonly taxMode: TaxMode
 }
+/**
+ *	Change triggered by the [Set LineItemTaxRate](ctp:api:type:StagedOrderSetLineItemTaxRateAction) update action.
+ */
 export interface SetLineItemTaxRateChange {
   readonly type: 'SetLineItemTaxRateChange'
   /**
-   *	Update action for `setLineItemTaxRate`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly lineItem: LocalizedString
+  readonly previousValue: TaxRate
   /**
-   *
-   */
-  readonly variant: string
-  /**
-   *
-   */
-  readonly taxMode: TaxMode
-  /**
-   *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
+   *	Value after the change.
    *
    */
   readonly nextValue: TaxRate
   /**
-   *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
+   *	Name of the [Product](ctp:api:type:Product) the Line Item is based on.
    *
    */
-  readonly previousValue: TaxRate
+  readonly lineItem: LocalizedString
+  /**
+   *	`sku` or `key` of the [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly variant: string
+  /**
+   *	`"External"`
+   *
+   *
+   */
+  readonly taxMode: TaxMode
 }
 export interface SetLineItemTaxedPriceChange {
   readonly type: 'SetLineItemTaxedPriceChange'
   /**
-   *	Update action for `setLineItemTaxedPrice`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly lineItem: LocalizedString
+  readonly previousValue: TaxedItemPrice
   /**
-   *
-   */
-  readonly lineItemId: string
-  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: TaxedItemPrice
   /**
-   *
-   */
-  readonly previousValue: TaxedItemPrice
-}
-export interface SetLineItemTotalPriceChange {
-  readonly type: 'SetLineItemTotalPriceChange'
-  /**
-   *	Update action for `setLineItemTotalPrice`
-   *
-   */
-  readonly change: string
-  /**
+   *	Name of the [Product](ctp:api:type:Product) the Line Item is based on.
    *
    */
   readonly lineItem: LocalizedString
   /**
+   *	`id` of the updated [LineItem](ctp:api:type:LineItem).
+   *
+   *
+   */
+  readonly lineItemId: string
+}
+/**
+ *	Change triggered by the [Set LineItemTotalPrice](ctp:api:type:StagedOrderSetLineItemTotalPriceAction) update action.
+ */
+export interface SetLineItemTotalPriceChange {
+  readonly type: 'SetLineItemTotalPriceChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: Money
+  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Money
   /**
-   *
-   */
-  readonly previousValue: Money
-}
-export interface SetLocaleChange {
-  readonly type: 'SetLocaleChange'
-  /**
-   *	Update action for `setLocale` on reviews
-   *
-   */
-  readonly change: string
-  /**
-   *	A locale of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag).
-   *
-   */
-  readonly previousValue: string
-  /**
-   *	A locale of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag).
-   *
-   */
-  readonly nextValue: string
-}
-export interface SetLocalizedDescriptionChange {
-  readonly type: 'SetLocalizedDescriptionChange'
-  /**
-   *	Shape of the action for `setDescription`
-   *
-   */
-  readonly change: string
-  /**
-   *
-   */
-  readonly previousValue: LocalizedString
-  /**
-   *
-   */
-  readonly nextValue: LocalizedString
-}
-export interface SetMaxApplicationsChange {
-  readonly type: 'SetMaxApplicationsChange'
-  /**
-   *	Shape of the action for `setMaxApplications`
-   *
-   */
-  readonly change: string
-  /**
-   *
-   */
-  readonly previousValue: number
-  /**
-   *
-   */
-  readonly nextValue: number
-}
-export interface SetMaxApplicationsPerCustomerChange {
-  readonly type: 'SetMaxApplicationsPerCustomerChange'
-  /**
-   *	Shape of the action for `setMaxApplicationsPerCustomer`
-   *
-   */
-  readonly change: string
-  /**
-   *
-   */
-  readonly previousValue: number
-  /**
-   *
-   */
-  readonly nextValue: number
-}
-export interface SetMetaDescriptionChange {
-  readonly type: 'SetMetaDescriptionChange'
-  /**
-   *	Shape of the action for `setMetaDescription`
-   *
-   */
-  readonly change: string
-  /**
-   *
-   */
-  readonly previousValue: LocalizedString
-  /**
-   *
-   */
-  readonly nextValue: LocalizedString
-}
-export interface SetMetaKeywordsChange {
-  readonly type: 'SetMetaKeywordsChange'
-  /**
-   *	Shape of the action for `setMetaKeywords`
-   *
-   */
-  readonly change: string
-  /**
-   *
-   */
-  readonly previousValue: LocalizedString
-  /**
-   *
-   */
-  readonly nextValue: LocalizedString
-}
-export interface SetMetaTitleChange {
-  readonly type: 'SetMetaTitleChange'
-  /**
-   *	Shape of the action for `setMetaTitle`
-   *
-   */
-  readonly change: string
-  /**
-   *
-   */
-  readonly previousValue: LocalizedString
-  /**
-   *
-   */
-  readonly nextValue: LocalizedString
-}
-export interface SetMethodInfoInterfaceChange {
-  readonly type: 'SetMethodInfoInterfaceChange'
-  /**
-   *	Shape of the action for `setMethodInfoInterface`
-   *
-   */
-  readonly change: string
-  /**
-   *
-   */
-  readonly previousValue: string
-  /**
-   *
-   */
-  readonly nextValue: string
-}
-export interface SetMethodInfoMethodChange {
-  readonly type: 'SetMethodInfoMethodChange'
-  /**
-   *	Shape of the action for `setMethodInfoMethod`
-   *
-   */
-  readonly change: string
-  /**
-   *
-   */
-  readonly previousValue: string
-  /**
-   *
-   */
-  readonly nextValue: string
-}
-export interface SetMethodInfoNameChange {
-  readonly type: 'SetMethodInfoNameChange'
-  /**
-   *	Shape of the action for `setMethodInfoName`
-   *
-   */
-  readonly change: string
-  /**
-   *
-   */
-  readonly previousValue: LocalizedString
-  /**
-   *
-   */
-  readonly nextValue: LocalizedString
-}
-export interface SetMiddleNameChange {
-  readonly type: 'SetMiddleNameChange'
-  /**
-   *	Shape of the action for `setMiddleName`
-   *
-   */
-  readonly change: string
-  /**
-   *
-   */
-  readonly previousValue: string
-  /**
-   *
-   */
-  readonly nextValue: string
-}
-export interface SetNameChange {
-  readonly type: 'SetNameChange'
-  /**
-   *	Shape of the action for `setName`
-   *
-   */
-  readonly change: string
-  /**
-   *
-   */
-  readonly previousValue: LocalizedString
-  /**
-   *
-   */
-  readonly nextValue: LocalizedString
-}
-export interface SetOrderLineItemCustomFieldChange {
-  readonly type: 'SetOrderLineItemCustomFieldChange'
-  /**
-   *	Update action for `setLineItemCustomField`
-   *
-   */
-  readonly change: string
-  /**
-   *
-   */
-  readonly customTypeId: string
-  /**
-   *
-   */
-  readonly name: string
-  /**
-   *
-   */
-  readonly variant: string
-  /**
+   *	Name of the [Product](ctp:api:type:Product) the updated Line Item is based on.
    *
    */
   readonly lineItem: LocalizedString
+}
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Locale](ctp:api:type:CustomerSetLocaleAction) on Customers.
+ *	- [Set Locale](ctp:api:type:OrderSetLocaleAction) on Orders.
+ *	- [Set Locale](ctp:api:type:StagedOrderSetLocaleAction) on Staged Orders.
+ *	- [Set Locale](ctp:api:type:ReviewSetLocaleAction) on Reviews.
+ *
+ */
+export interface SetLocaleChange {
+  readonly type: 'SetLocaleChange'
   /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: string
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: string
+}
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Description](ctp:api:type:CartDiscountSetDescriptionAction) on Cart Discounts.
+ *	- [Set Description](ctp:api:type:CategorySetDescriptionAction) on Categories.
+ *	- [Set Description](ctp:api:type:DiscountCodeSetDescriptionAction) on Discount Codes.
+ *	- [Set Description](ctp:api:type:ProductSetDescriptionAction) on Products.
+ *	- [Set Description](ctp:api:type:ProductDiscountSetDescriptionAction) on Product Discounts.
+ *	- [Set Description](ctp:api:type:ShoppingListSetDescriptionAction) on Shopping Lists.
+ *	- [Set Description](ctp:api:type:StateSetDescriptionAction) on States.
+ *	- [Set Description](ctp:api:type:TaxCategorySetDescriptionAction) on Tax Categories.
+ *	- [Set Description](ctp:api:type:TypeSetDescriptionAction) on Types.
+ *	- [Set Description](ctp:api:type:ZoneSetDescriptionAction) on Zones.
+ *
+ */
+export interface SetLocalizedDescriptionChange {
+  readonly type: 'SetLocalizedDescriptionChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: LocalizedString
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: LocalizedString
+}
+/**
+ *	Change triggered by the [Set Max Applications](ctp:api:type:DiscountCodeSetMaxApplicationsAction) update action.
+ */
+export interface SetMaxApplicationsChange {
+  readonly type: 'SetMaxApplicationsChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: number
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: number
+}
+/**
+ *	Change triggered by the [Set Max Applications Per Customer](ctp:api:type:DiscountCodeSetMaxApplicationsPerCustomerAction) update action.
+ */
+export interface SetMaxApplicationsPerCustomerChange {
+  readonly type: 'SetMaxApplicationsPerCustomerChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: number
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: number
+}
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Meta Description](ctp:api:type:CategorySetMetaDescriptionAction) on Categories.
+ *	- [Set Meta Description](ctp:api:type:ProductSetMetaDescriptionAction) on Products.
+ *
+ */
+export interface SetMetaDescriptionChange {
+  readonly type: 'SetMetaDescriptionChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: LocalizedString
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: LocalizedString
+}
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Meta Keywords](ctp:api:type:CategorySetMetaKeywordsAction) on Categories.
+ *	- [Set Meta Keywords](ctp:api:type:ProductSetMetaKeywordsAction) on Products.
+ *
+ */
+export interface SetMetaKeywordsChange {
+  readonly type: 'SetMetaKeywordsChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: LocalizedString
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: LocalizedString
+}
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Meta Title](ctp:api:type:CategorySetMetaTitleAction) on Categories.
+ *	- [Set Meta Title](ctp:api:type:ProductSetMetaTitleAction) on Products.
+ *
+ */
+export interface SetMetaTitleChange {
+  readonly type: 'SetMetaTitleChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: LocalizedString
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: LocalizedString
+}
+/**
+ *	Change triggered by the [Set MethodInfoInterface](ctp:api:type:PaymentSetMethodInfoInterfaceAction) update action.
+ */
+export interface SetMethodInfoInterfaceChange {
+  readonly type: 'SetMethodInfoInterfaceChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: string
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: string
+}
+/**
+ *	Change triggered by the [Set MethodInfoInterface](ctp:api:type:PaymentSetMethodInfoMethodAction) update action.
+ */
+export interface SetMethodInfoMethodChange {
+  readonly type: 'SetMethodInfoMethodChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: string
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: string
+}
+/**
+ *	Change triggered by the [Set MethodInfoName](ctp:api:type:PaymentSetMethodInfoNameAction) update action.
+ */
+export interface SetMethodInfoNameChange {
+  readonly type: 'SetMethodInfoNameChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: LocalizedString
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: LocalizedString
+}
+/**
+ *	Change triggered by the [Set Middle Name](ctp:api:type:CustomerSetMiddleNameAction) update action.
+ */
+export interface SetMiddleNameChange {
+  readonly type: 'SetMiddleNameChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: string
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: string
+}
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Name](ctp:api:type:DiscountCodeSetNameAction) on Discount Codes.
+ *	- [Set Name](ctp:api:type:StateSetNameAction) on States.
+ *	- [Set Name](ctp:api:type:StoreSetNameAction) on Stores.
+ *
+ */
+export interface SetNameChange {
+  readonly type: 'SetNameChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: LocalizedString
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: LocalizedString
+}
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set LineItem CustomField](ctp:api:type:OrderSetLineItemCustomFieldAction) on Orders.
+ *	- [Set LineItem CustomField](ctp:api:type:StagedOrderSetLineItemCustomFieldAction) on Staged Orders.
+ *
+ */
+export interface SetOrderLineItemCustomFieldChange {
+  readonly type: 'SetOrderLineItemCustomFieldChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: any
+  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: any
   /**
+   *	`id` of the referenced [Type](ctp:api:type:Type).
+   *
    *
    */
-  readonly previousValue: any
-}
-export interface SetOrderLineItemCustomTypeChange {
-  readonly type: 'SetOrderLineItemCustomTypeChange'
+  readonly customTypeId: string
   /**
-   *	Update action for `setLineItemCustomType`
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
    */
-  readonly change: string
+  readonly name: string
   /**
+   *	Name of the [Product](ctp:api:type:Product) the Line Item is based on.
    *
    */
   readonly lineItem: LocalizedString
   /**
+   *	`sku` or `key` of the [ProductVariant](ctp:api:type:ProductVariant).
+   *
    *
    */
   readonly variant: string
-  /**
-   *
-   */
-  readonly nextValue: CustomFields
-  /**
-   *
-   */
-  readonly previousValue: CustomFields
 }
-export interface SetOrderNumberChange {
-  readonly type: 'SetOrderNumberChange'
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set LineItem Custom Type](ctp:api:type:OrderSetLineItemCustomTypeAction) on Orders.
+ *	- [Set LineItem Custom Type](ctp:api:type:StagedOrderSetLineItemCustomTypeAction) on Staged Orders.
+ *
+ */
+export interface SetOrderLineItemCustomTypeChange {
+  readonly type: 'SetOrderLineItemCustomTypeChange'
   /**
-   *	Shape of the action for `setOrderNumber`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: CustomFields
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: CustomFields
+  /**
+   *	Name of the [Product](ctp:api:type:Product) the updated Line Item is based on.
+   *
+   */
+  readonly lineItem: LocalizedString
+  /**
+   *	`sku` or `key` of the [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly variant: string
+}
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Order Number](ctp:api:type:OrderSetOrderNumberAction) on Orders.
+ *	- [Set Order Number](ctp:api:type:StagedOrderSetOrderNumberAction) on Staged Order.
+ *
+ */
+export interface SetOrderNumberChange {
+  readonly type: 'SetOrderNumberChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
@@ -4054,286 +5286,376 @@ export interface SetOrderNumberChange {
 export interface SetOrderTaxedPriceChange {
   readonly type: 'SetOrderTaxedPriceChange'
   /**
-   *	Update action for `setOrderTaxedPrice`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly taxMode: TaxMode
+  readonly previousValue: TaxedItemPrice
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: TaxedItemPrice
   /**
    *
    */
-  readonly previousValue: TaxedItemPrice
+  readonly taxMode: TaxMode
 }
+/**
+ *	Change triggered automatically due to a user-initiated change.
+ */
 export interface SetOrderTotalPriceChange {
   readonly type: 'SetOrderTotalPriceChange'
   /**
-   *	Update action for `setOrderTotalPrice`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: Money
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Money
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: Money
 }
+/**
+ *	Change triggered by the [Set OrderTotalTax](ctp:api:type:StagedOrderSetOrderTotalTaxAction) update action.
+ */
 export interface SetOrderTotalTaxChange {
   readonly type: 'SetOrderTotalTaxChange'
   /**
-   *	Update action for `setOrderTotalTax`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly taxMode: TaxMode
+  readonly previousValue: Money
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Money
   /**
+   *	`"ExternalAmount"`
+   *
    *
    */
-  readonly previousValue: Money
+  readonly taxMode: TaxMode
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Parcel Items](ctp:api:type:OrderSetParcelItemsAction) on Orders.
+ *	- [Set Parcel Items](ctp:api:type:StagedOrderSetParcelItemsAction) on Staged Orders.
+ *
+ */
 export interface SetParcelItemsChange {
   readonly type: 'SetParcelItemsChange'
   /**
-   *	Update action for `setParcelItems`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly parcel: ParcelChangeValue
+  readonly previousValue: DeliveryItem[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: DeliveryItem[]
   /**
+   *	Information about the updated Parcel.
    *
    */
-  readonly previousValue: DeliveryItem[]
+  readonly parcel: ParcelChangeValue
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [SetParcelMeasurements](ctp:api:type:OrderSetParcelMeasurementsAction) on Orders.
+ *	- [SetParcelMeasurements](ctp:api:type:StagedOrderSetParcelMeasurementsAction) on Staged Orders.
+ *
+ */
 export interface SetParcelMeasurementsChange {
   readonly type: 'SetParcelMeasurementsChange'
   /**
-   *	Update action for `setParcelMeasurements`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly parcel: ParcelChangeValue
+  readonly previousValue: ParcelMeasurements
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: ParcelMeasurements
   /**
+   *	Information about the updated Parcel.
    *
    */
-  readonly previousValue: ParcelMeasurements
+  readonly parcel: ParcelChangeValue
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Parcel Tracking Data](ctp:api:type:OrderSetParcelTrackingDataAction) on Orders.
+ *	- [Set Parcel Tracking Data](ctp:api:type:StagedOrderSetParcelTrackingDataAction) on Staged Orders.
+ *
+ */
 export interface SetParcelTrackingDataChange {
   readonly type: 'SetParcelTrackingDataChange'
   /**
-   *	Update action for `setParcelTrackingData`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly parcel: ParcelChangeValue
+  readonly previousValue: TrackingData
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: TrackingData
   /**
+   *	Information about the updated Parcel.
    *
    */
-  readonly previousValue: TrackingData
+  readonly parcel: ParcelChangeValue
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Purchase Order Number](ctp:api:type:OrderSetPurchaseOrderNumberAction) on Orders.
+ *	- [Set Purchase Order Number](ctp:api:type:StagedOrderSetPurchaseOrderNumberAction) on Staged Orders.
+ *
+ */
 export interface SetPurchaseOrderNumberChange {
   readonly type: 'SetPurchaseOrderNumberChange'
   /**
-   *	Update action for `setPurchaseOrderNumber`.
    *
    */
   readonly change: string
   /**
-   *	Purchase Order number prior to the update action.
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
-   *	Purchase Order number after the update action.
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the [Set Prices](ctp:api:type:ProductSetPricesAction) update action.
+ */
 export interface SetPricesChange {
   readonly type: 'SetPricesChange'
   /**
-   *	Update action for `setPrices`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly catalogData: string
-  /**
-   *
-   */
-  readonly variant: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Price[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Price[]
+  /**
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
+   *
+   */
+  readonly catalogData: string
+  /**
+   *	`sku` or `key` of the [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly variant: string
 }
+/**
+ *	Change triggered automatically by the [Add Product](ctp:api:type:ProductSelectionAddProductAction) or [Remove Product](ctp:api:type:ProductSelectionRemoveProductAction) update action.
+ */
 export interface SetProductCountChange {
   readonly type: 'SetProductCountChange'
   /**
-   *	Update action for `setProductCount`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: number
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: number
 }
+/**
+ *	Change triggered by the [Set Price CustomField](ctp:api:type:ProductSetProductPriceCustomFieldAction) update action.
+ */
 export interface SetProductPriceCustomFieldChange {
   readonly type: 'SetProductPriceCustomFieldChange'
   /**
-   *	Update action for `setProductPriceCustomField`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly catalogData: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: CustomFields
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: CustomFields
+  /**
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
+   *
+   */
+  readonly catalogData: string
 }
+/**
+ *	Change triggered by the [Set Price Custom Type](ctp:api:type:ProductSetProductPriceCustomTypeAction) update action.
+ */
 export interface SetProductPriceCustomTypeChange {
   readonly type: 'SetProductPriceCustomTypeChange'
   /**
-   *	Update action for `setProductPriceCustomType`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly catalogData: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: CustomFields
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: CustomFields
+  /**
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
+   *
+   */
+  readonly catalogData: string
 }
+/**
+ *	Change triggered by the [Set Product Selections](ctp:api:type:StoreSetProductSelectionsAction) update action.
+ */
 export interface SetProductSelectionsChange {
   readonly type: 'SetProductSelectionsChange'
   /**
-   *	Update action for `setProductSelections`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: ProductSelectionSetting[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: ProductSelectionSetting[]
 }
+/**
+ *	Change triggered by the [Set ProductVariant Key](ctp:api:type:ProductSetProductVariantKeyAction) update action.
+ */
 export interface SetProductVariantKeyChange {
   readonly type: 'SetProductVariantKeyChange'
   /**
-   *	Update action for `setProductVariantKey`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly catalogData: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
+  /**
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
+   *
+   */
+  readonly catalogData: string
 }
+/**
+ *	Change triggered by the [Update CustomObject](ctp:api:endpoint:/{projectKey}/custom-objects:POST) request when an existing property is updated.
+ */
 export interface SetPropertyChange {
   readonly type: 'SetPropertyChange'
   /**
-   *	Update action for `setProperty` on custom objects
    *
    */
   readonly change: string
   /**
-   *	Value path to the property that was changed
+   *	Value before the change.
    *
    */
-  readonly path: string
+  readonly previousValue: any
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: any
   /**
+   *	Path to the property that was updated.
    *
    */
-  readonly previousValue: any
+  readonly path: string
 }
+/**
+ *	Change triggered by the [Set Rating](ctp:api:type:ReviewSetRatingAction) update action.
+ */
 export interface SetRatingChange {
   readonly type: 'SetRatingChange'
   /**
-   *	Shape of the action for `setRating`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: number
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: number
@@ -4341,345 +5663,437 @@ export interface SetRatingChange {
 export interface SetReservationsChange {
   readonly type: 'SetReservationsChange'
   /**
-   *	Update action for `setReservations` on inventories
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: Reservation[]
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Reservation[]
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: Reservation[]
 }
+/**
+ *	Change triggered by the [Set RestockableInDays](ctp:api:type:InventoryEntrySetRestockableInDaysAction) update action.
+ */
 export interface SetRestockableInDaysChange {
   readonly type: 'SetRestockableInDaysChange'
   /**
-   *	Shape of the action for `setRestockableInDays`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: number
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: number
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set PaymentShipmentState](ctp:api:type:OrderSetReturnPaymentStateAction) on Orders.
+ *	- [Set PaymentShipmentState](ctp:api:type:StagedOrderSetReturnPaymentStateAction) on Staged Orders.
+ *
+ */
 export interface SetReturnPaymentStateChange {
   readonly type: 'SetReturnPaymentStateChange'
   /**
-   *	Update action for `setReturnPaymentState`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: ReturnPaymentState
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: ReturnPaymentState
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: ReturnPaymentState
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set ReturnShipmentState](ctp:api:type:OrderSetReturnShipmentStateAction) on Orders.
+ *	- [Set ReturnShipmentState](ctp:api:type:StagedOrderSetReturnShipmentStateAction) on Staged Orders.
+ *
+ */
 export interface SetReturnShipmentStateChange {
   readonly type: 'SetReturnShipmentStateChange'
   /**
-   *	Update action for `setReturnShipmentState`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: ReturnShipmentState
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: ReturnShipmentState
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: ReturnShipmentState
 }
+/**
+ *	Change triggered by the [Set Salutation](ctp:api:type:CustomerSetSalutationAction) update action.
+ */
 export interface SetSalutationChange {
   readonly type: 'SetSalutationChange'
   /**
-   *	Shape of the action for `setSalutation`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the [Set SearchKeywords](ctp:api:type:ProductSetSearchKeywordsAction) update action.
+ */
 export interface SetSearchKeywordsChange {
   readonly type: 'SetSearchKeywordsChange'
   /**
-   *	Update action for `setSearchKeywords`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly catalogData: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: SearchKeywords
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: SearchKeywords
+  /**
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
+   *
+   */
+  readonly catalogData: string
 }
+/**
+ *	Change triggered by the [Set Seller Comment](ctp:api:type:StagedQuoteSetSellerCommentAction) update action.
+ */
 export interface SetSellerCommentChange {
   readonly type: 'SetSellerCommentChange'
   /**
-   *	Shape of the action for `setSellerComment`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Shipping Address](ctp:api:type:OrderSetShippingAddressAction) on Orders.
+ *	- [Set Shipping Address](ctp:api:type:StagedOrderSetShippingAddressAction) on Staged Orders.
+ *
+ */
 export interface SetShippingAddressChange {
   readonly type: 'SetShippingAddressChange'
   /**
-   *	Update action for `setShippingAddress`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: Address
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Address
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: Address
 }
 export interface SetShippingInfoPriceChange {
   readonly type: 'SetShippingInfoPriceChange'
   /**
-   *	Update action for `setShippingInfoPrice`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: Money
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Money
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: Money
 }
 export interface SetShippingInfoTaxedPriceChange {
   readonly type: 'SetShippingInfoTaxedPriceChange'
   /**
-   *	Update action for `setShippingInfoTaxedPrice`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: TaxedPrice
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: TaxedPrice
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: TaxedPrice
 }
+/**
+ *	Change triggered by the [Set ShippingMethod](ctp:api:type:StagedOrderSetShippingMethodAction) update action.
+ */
 export interface SetShippingMethodChange {
   readonly type: 'SetShippingMethodChange'
   /**
-   *	Update action for `setShippingMethod`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: ShippingMethodChangeValue
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: ShippingMethodChangeValue
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: ShippingMethodChangeValue
 }
+/**
+ *	Change triggered by the [Set ShippingMethod TaxAmount](ctp:api:type:StagedOrderSetShippingMethodTaxAmountAction) update action.
+ */
 export interface SetShippingMethodTaxAmountChange {
   readonly type: 'SetShippingMethodTaxAmountChange'
   /**
-   *	Update action for `setShippingMethodTaxAmount`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly taxMode: TaxMode
+  readonly previousValue: ShippingMethodTaxAmountChangeValue
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: ShippingMethodTaxAmountChangeValue
   /**
+   *	`"ExternalAmount"`
+   *
    *
    */
-  readonly previousValue: ShippingMethodTaxAmountChangeValue
+  readonly taxMode: TaxMode
 }
+/**
+ *	Change triggered by the [Set ShippingMethod TaxRate](ctp:api:type:StagedOrderSetShippingMethodTaxRateAction) update action.
+ */
 export interface SetShippingMethodTaxRateChange {
   readonly type: 'SetShippingMethodTaxRateChange'
   /**
-   *	Update action for `setShippingMethodTaxRate`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly taxMode: TaxMode
+  readonly previousValue: TaxRate
   /**
-   *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
+   *	Value after the change.
    *
    */
   readonly nextValue: TaxRate
   /**
-   *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
+   *	`"External"`
+   *
    *
    */
-  readonly previousValue: TaxRate
+  readonly taxMode: TaxMode
 }
 export interface SetShippingRateChange {
   readonly type: 'SetShippingRateChange'
   /**
-   *	Update action for `setShippingRate`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: Money
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Money
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: Money
 }
+/**
+ *	Change triggered by the [Set Shipping Rate Input](ctp:api:type:StagedOrderSetShippingRateInputAction) update action.
+ */
 export interface SetShippingRateInputChange {
   readonly type: 'SetShippingRateInputChange'
   /**
-   *	Update action for `setShippingRateInput`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue:
-    | SetCartClassificationShippingRateInputValue
-    | SetCartScoreShippingRateInputValue
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue:
     | SetCartClassificationShippingRateInputValue
     | SetCartScoreShippingRateInputValue
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue:
+    | SetCartClassificationShippingRateInputValue
+    | SetCartScoreShippingRateInputValue
 }
+/**
+ *	Change triggered by the [Set ShoppingListLineItem Custom Field](ctp:api:type:ShoppingListSetLineItemCustomFieldAction) update action.
+ */
 export interface SetShoppingListLineItemCustomFieldChange {
   readonly type: 'SetShoppingListLineItemCustomFieldChange'
   /**
-   *	Update action for `setLineItemCustomField`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly name: string
+  readonly previousValue: any
   /**
-   *
-   */
-  readonly customTypeId: string
-  /**
-   *
-   */
-  readonly lineItem: ShoppingListLineItemValue
-  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: any
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
    */
-  readonly previousValue: any
+  readonly name: string
+  /**
+   *	`id` of the referenced [Type](ctp:api:type:Type).
+   *
+   *
+   */
+  readonly customTypeId: string
+  /**
+   *	Holds information about the updated Shopping List Line Item.
+   *
+   */
+  readonly lineItem: ShoppingListLineItemValue
 }
+/**
+ *	Change triggered by the [Set ShoppingListLineItem Custom Type](ctp:api:type:ShoppingListSetLineItemCustomTypeAction) update action.
+ */
 export interface SetShoppingListLineItemCustomTypeChange {
   readonly type: 'SetShoppingListLineItemCustomTypeChange'
   /**
-   *	Update action for `setLineItemCustomType`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly lineItem: ShoppingListLineItemValue
+  readonly previousValue: CustomFields
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: CustomFields
   /**
+   *	Holds information about the updated Shopping List Line Item.
    *
    */
-  readonly previousValue: CustomFields
+  readonly lineItem: ShoppingListLineItemValue
 }
+/**
+ *	Change triggered by the [Set SKU](ctp:api:type:ProductSetSkuAction) update action.
+ */
 export interface SetSkuChange {
   readonly type: 'SetSkuChange'
   /**
-   *	Update action for `setSku`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly catalogData: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
+  /**
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
+   *
+   */
+  readonly catalogData: string
 }
+/**
+ *	Change triggered by the [Set Slug](ctp:api:type:ShoppingListSetSlugAction) update action.
+ */
 export interface SetSlugChange {
   readonly type: 'SetSlugChange'
   /**
-   *	Shape of the action for `setSlug`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: LocalizedString
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: LocalizedString
 }
+/**
+ *	Change triggered by the [Set State roles](ctp:api:type:StateSetRolesAction) update action.
+ */
 export interface SetStateRolesChange {
   readonly type: 'SetStateRolesChange'
   /**
@@ -4687,206 +6101,264 @@ export interface SetStateRolesChange {
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: StateRole[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: StateRole[]
 }
+/**
+ *	Change triggered by the [Set StatusInterfaceCode](ctp:api:type:PaymentSetStatusInterfaceCodeAction) update action.
+ */
 export interface SetStatusInterfaceCodeChange {
   readonly type: 'SetStatusInterfaceCodeChange'
   /**
-   *	Shape of the action for `setStatusInterfaceCode`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the [Set StatusInterfaceText](ctp:api:type:PaymentSetStatusInterfaceTextAction) update action.
+ */
 export interface SetStatusInterfaceTextChange {
   readonly type: 'SetStatusInterfaceTextChange'
   /**
-   *	Shape of the action for `setStatusInterfaceText`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Store](ctp:api:type:OrderSetStoreAction) on Orders.
+ *	- [Set Store](ctp:api:type:ShoppingListSetStoreAction) on Shopping Lists.
+ *
+ */
 export interface SetStoreChange {
   readonly type: 'SetStoreChange'
   /**
-   *	Shape of the action for `setStore`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Reference
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Reference
 }
+/**
+ *	Change triggered by the [Set Stores](ctp:api:type:CustomerSetStoresAction) update action.
+ */
 export interface SetStoresChange {
   readonly type: 'SetStoresChange'
   /**
-   *	Shape of the action for `setStores`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Reference[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Reference[]
 }
+/**
+ *	Change triggered by the [Set SupplyChannel](ctp:api:type:InventoryEntrySetSupplyChannelAction) update action.
+ */
 export interface SetSupplyChannelChange {
   readonly type: 'SetSupplyChannelChange'
   /**
-   *	Shape of the action for `setSupplyChannel`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Reference
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Reference
 }
+/**
+ *	Change triggered by the [Set Supply Channels](ctp:api:type:StoreSetSupplyChannelsAction) update action.
+ */
 export interface SetSupplyChannelsChange {
   readonly type: 'SetSupplyChannelsChange'
   /**
-   *	Shape of the action for `setSupplyChannels`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Reference[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Reference[]
 }
+/**
+ *	Change triggered by the [Set Target](ctp:api:type:ReviewSetTargetAction) update action.
+ */
 export interface SetTargetChange {
   readonly type: 'SetTargetChange'
   /**
-   *	Shape of the action for `setTarget`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Reference
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Reference
 }
+/**
+ *	Change triggered by the [Set TaxCategory](ctp:api:type:ProductSetTaxCategoryAction) update action.
+ */
 export interface SetTaxCategoryChange {
   readonly type: 'SetTaxCategoryChange'
   /**
-   *	Shape of the action for `setTaxCategory`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Reference
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Reference
 }
+/**
+ *	Change triggered by the [Set Text](ctp:api:type:ReviewSetTextAction) update action.
+ */
 export interface SetTextChange {
   readonly type: 'SetTextChange'
   /**
-   *	Shape of the action for `setText`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the [Set TextLineItem CustomField](ctp:api:type:ShoppingListSetTextLineItemCustomFieldAction) update action.
+ */
 export interface SetTextLineItemCustomFieldChange {
   readonly type: 'SetTextLineItemCustomFieldChange'
   /**
-   *	Update action for `setTextLineItemCustomField`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly name: string
+  readonly previousValue: any
   /**
-   *
-   */
-  readonly customTypeId: string
-  /**
-   *
-   */
-  readonly textLineItem: TextLineItemValue
-  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: any
   /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
    */
-  readonly previousValue: any
+  readonly name: string
+  /**
+   *	`id` of the referenced [Type](ctp:api:type:Type).
+   *
+   *
+   */
+  readonly customTypeId: string
+  /**
+   *	Holds information about the updated Text Line Item.
+   *
+   */
+  readonly textLineItem: TextLineItemValue
 }
+/**
+ *	Change triggered by the [Set TextLineItem Custom Type](ctp:api:type:ShoppingListSetTextLineItemCustomTypeAction) update action.
+ */
 export interface SetTextLineItemCustomTypeChange {
   readonly type: 'SetTextLineItemCustomTypeChange'
   /**
-   *	Update action for `setTextLineItemCustomType`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly textLineItem: TextLineItemValue
+  readonly previousValue: CustomFields
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: CustomFields
   /**
+   *	Holds information about the updated Text Line Item.
    *
    */
-  readonly previousValue: CustomFields
+  readonly textLineItem: TextLineItemValue
 }
+/**
+ *	Change triggered by the [Set TextLineItem Description](ctp:api:type:ShoppingListSetTextLineItemDescriptionAction) update action.
+ */
 export interface SetTextLineItemDescriptionChange {
   readonly type: 'SetTextLineItemDescriptionChange'
   /**
@@ -4894,50 +6366,73 @@ export interface SetTextLineItemDescriptionChange {
    */
   readonly change: string
   /**
-   *
-   */
-  readonly textLineItem: TextLineItemValue
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: LocalizedString
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: LocalizedString
+  /**
+   *	Holds information about the updated Text Line Item.
+   *
+   */
+  readonly textLineItem: TextLineItemValue
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Title](ctp:api:type:CustomerSetTitleAction) on Customers.
+ *	- [Set Title](ctp:api:type:ReviewSetTitleAction) on Reviews.
+ *
+ */
 export interface SetTitleChange {
   readonly type: 'SetTitleChange'
   /**
-   *	Shape of the action for `setTitle`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the [Set Transitions](ctp:api:type:StateSetTransitionsAction) update action.
+ */
 export interface SetTransitionsChange {
   readonly type: 'SetTransitionsChange'
   /**
-   *	Shape of the action for `setTransitions`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Reference[]
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Reference[]
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Valid From and Until](ctp:api:type:CartDiscountSetValidFromAndUntilAction) on Cart Discounts.
+ *	- [Set Valid From and Until](ctp:api:type:DiscountCodeSetValidFromAndUntilAction) on Discount Codes.
+ *	- [Set Valid From and Until](ctp:api:type:ProductDiscountSetValidFromAndUntilAction) on Product Discounts.
+ *
+ */
 export interface SetValidFromAndUntilChange {
   readonly type: 'SetValidFromAndUntilChange'
   /**
@@ -4945,199 +6440,287 @@ export interface SetValidFromAndUntilChange {
    */
   readonly change: string
   /**
-   *	Shape of the value for `setValidFromAndUntil` action
+   *	Value before the change.
    *
    */
   readonly previousValue: ValidFromAndUntilValue
   /**
-   *	Shape of the value for `setValidFromAndUntil` action
+   *	Value after the change.
    *
    */
   readonly nextValue: ValidFromAndUntilValue
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Valid From](ctp:api:type:CartDiscountSetValidFromAction) on Cart Discounts.
+ *	- [Set Valid From](ctp:api:type:DiscountCodeSetValidFromAction) on Discount Codes.
+ *	- [Set Valid From](ctp:api:type:ProductDiscountSetValidFromAction) on Product Discounts.
+ *
+ */
 export interface SetValidFromChange {
   readonly type: 'SetValidFromChange'
   /**
-   *	Shape of the action for `setValidFrom`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the [Set Valid To](ctp:api:type:StagedQuoteSetValidToAction) update action.
+ */
 export interface SetValidToChange {
   readonly type: 'SetValidToChange'
   /**
-   *	Shape of the action for `setValidTo`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Valid Until](ctp:api:type:CartDiscountSetValidUntilAction) on Cart Discounts.
+ *	- [Set Valid Until](ctp:api:type:DiscountCodeSetValidUntilAction) on Discount Codes.
+ *	- [Set Valid Until](ctp:api:type:ProductDiscountSetValidUntilAction) on Product Discounts.
+ *
+ */
 export interface SetValidUntilChange {
   readonly type: 'SetValidUntilChange'
   /**
-   *	Shape of the action for `setValidUntil`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the [Update CustomObject](ctp:api:endpoint:/{projectKey}/custom-objects:POST) request when a value of a property is updated.
+ */
 export interface SetValueChange {
   readonly type: 'SetValueChange'
   /**
-   *	Update action for `setValue` on custom objects
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly nextValue: any
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: any
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: any
 }
+/**
+ *	Change triggered automatically when an [InventoryEntry](ctp:api:type:InventoryEntry) associated with a Product changes.
+ */
 export interface SetVariantAvailabilityChange {
   readonly type: 'SetVariantAvailabilityChange'
   /**
-   *	Update action for `setVariantAvailability`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly catalogData: string
-  /**
-   *
-   */
-  readonly variant: string
-  /**
+   *	Value before the change.
    *
    */
   readonly previousValue: ProductVariantAvailability
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: ProductVariantAvailability
+  /**
+   *	- `staged`, if the staged [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *	- `current`, if the current [ProductCatalogData](ctp:api:type:ProductCatalogData) was updated.
+   *
+   *
+   */
+  readonly catalogData: string
+  /**
+   *	`sku` or `key` of the [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly variant: string
 }
+/**
+ *	Change triggered by the [Set Vat ID](ctp:api:type:CustomerSetVatIdAction) update action.
+ */
 export interface SetVatIdChange {
   readonly type: 'SetVatIdChange'
   /**
-   *	Shape of the action for `setVatId`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: string
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: string
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Change the state of CustomLineItem according to allowed transitions](ctp:api:type:OrderTransitionCustomLineItemStateAction) on Orders.
+ *	- [Change the state of CustomLineItem according to allowed transitions](ctp:api:type:StagedOrderTransitionCustomLineItemStateAction) on Staged Orders.
+ *
+ */
 export interface TransitionCustomLineItemStateChange {
   readonly type: 'TransitionCustomLineItemStateChange'
   /**
-   *	Update action for `transitionCustomLineItemState`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly lineItemId: string
+  readonly previousValue: ItemState[]
   /**
-   *
-   */
-  readonly stateId: string
-  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: ItemState[]
   /**
+   *	`id` of the updated [CustomLineItem](ctp:api:type:CustomLineItem).
+   *
    *
    */
-  readonly previousValue: ItemState[]
+  readonly lineItemId: string
+  /**
+   *	`id` of the [State](ctp:api:type:State) involved in the transition.
+   *
+   *
+   */
+  readonly stateId: string
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Change the state of LineItem according to allowed transitions](ctp:api:type:OrderTransitionLineItemStateAction) on Orders.
+ *	- [Change the state of LineItem according to allowed transitions](ctp:api:type:OrderTransitionLineItemStateAction) on Staged Orders.
+ *
+ */
 export interface TransitionLineItemStateChange {
   readonly type: 'TransitionLineItemStateChange'
   /**
-   *	Update action for `transitionLineItemState`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
-  readonly lineItemId: string
+  readonly previousValue: ItemState[]
   /**
-   *
-   */
-  readonly stateId: string
-  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: ItemState[]
   /**
+   *	`id` of the updated [LineItem](ctp:api:type:LineItem).
+   *
    *
    */
-  readonly previousValue: ItemState[]
+  readonly lineItemId: string
+  /**
+   *	`id` of the [State](ctp:api:type:State) involved in the transition.
+   *
+   *
+   */
+  readonly stateId: string
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Transition State](ctp:api:type:OrderTransitionStateAction) on Orders.
+ *	- [Transition State](ctp:api:type:StagedOrderTransitionStateAction) on Staged Orders.
+ *	- [Transition State](ctp:api:type:PaymentTransitionStateAction) on Payments.
+ *	- [Transition State](ctp:api:type:ProductTransitionStateAction) on Products.
+ *	- [Transition State](ctp:api:type:QuoteTransitionStateAction) on Quotes.
+ *	- [Transition State](ctp:api:type:StagedQuoteTransitionStateAction) on Staged Quotes.
+ *	- [Transition State](ctp:api:type:QuoteRequestTransitionStateAction) on Quote Requests.
+ *	- [Transition State](ctp:api:type:ReviewTransitionStateAction) on Reviews.
+ *	- [Transition State](ctp:api:type:StateSetTransitionsAction) on States.
+ *
+ */
 export interface TransitionStateChange {
   readonly type: 'TransitionStateChange'
   /**
-   *	Shape of the action for `transitionState`
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: Reference
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: Reference
 }
+/**
+ *	Change triggered when the format of changes on an entity is not identified by Audit Log.
+ */
 export interface UnknownChange {
   readonly type: 'UnknownChange'
   /**
+   *	Identifier for the type of modification.
+   *
    *
    */
   readonly change: string
   /**
+   *	Value before the change.
    *
    */
   readonly previousValue: any
   /**
+   *	Value after the change.
    *
    */
   readonly nextValue: any
 }
+/**
+ *	Change triggered by the [Unpublish](ctp:api:type:ProductUnpublishAction) update action.
+ */
 export interface UnpublishChange {
   readonly type: 'UnpublishChange'
   /**
@@ -5145,22 +6728,34 @@ export interface UnpublishChange {
    */
   readonly change: string
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Update SyncInfo](ctp:api:type:OrderUpdateSyncInfoAction) on Orders.
+ *	- [Update SyncInfo](ctp:api:type:StagedOrderUpdateSyncInfoAction) on Staged Orders.
+ *
+ */
 export interface UpdateSyncInfoChange {
   readonly type: 'UpdateSyncInfoChange'
   /**
-   *	Update action for `updateSyncInfo`
    *
    */
   readonly change: string
   /**
-   *
-   */
-  readonly channelId: string
-  /**
+   *	Value after the change.
    *
    */
   readonly nextValue: SyncInfo
+  /**
+   *	`id` of the updated [Channel](ctp:api:type:Channel).
+   *
+   *
+   */
+  readonly channelId: string
 }
+/**
+ *	Change triggered by a Customer email verification.
+ */
 export interface VerifyEmailChange {
   readonly type: 'VerifyEmailChange'
   /**

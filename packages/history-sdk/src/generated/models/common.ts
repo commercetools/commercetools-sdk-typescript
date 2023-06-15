@@ -967,10 +967,12 @@ export interface TaxedItemPrice {
 }
 export interface TaxedPrice {
   /**
+   *	Total net price of the Order.
    *
    */
   readonly totalNet: Money
   /**
+   *	Total gross price of the Order.
    *
    */
   readonly totalGross: Money

@@ -29,345 +29,372 @@ export type ChangeValueChangeValue =
   | ChangeValueRelativeChangeValue
 export interface AssetChangeValue {
   /**
+   *	`id` of the [Asset](ctp:api:type:Asset).
+   *
    *
    */
   readonly id: string
   /**
+   *	Name of the Asset.
    *
    */
   readonly name: LocalizedString
 }
 export interface AttributeValue {
   /**
+   *	Name of the Attribute set.
    *
    */
   readonly name: string
   /**
+   *	Value set for the Attribute determined by the [AttributeType](ctp:api:type:AttributeType):
+   *
+   *	- For [Enum Type](ctp:api:type:AttributeEnumType) and [Localized Enum Type](ctp:api:type:AttributeLocalizedEnumType), `value` is the `key` of the [Plain Enum Value](ctp:api:type:AttributePlainEnumValue) or [Localized Enum Value](ctp:api:type:AttributeLocalizedEnumValue) objects,
+   *	  or the complete objects.
+   *	- For [Localizable Text Type](ctp:api:type:AttributeLocalizableTextType), `value` is the [LocalizedString](ctp:api:type:LocalizedString) object.
+   *	- For [Money Type](ctp:api:type:AttributeMoneyType) Attributes, `value` is the [Money](ctp:api:type:Money) object.
+   *	- For [Set Type](ctp:api:type:AttributeSetType) Attributes, `value` is the entire `set` object.
+   *	- For [Nested Type](ctp:api:type:AttributeNestedType) Attributes, `value` is the list of values of all Attributes of the nested Product.
+   *	- For [Reference Type](ctp:api:type:AttributeReferenceType) Attributes, `value` is the [Reference](ctp:api:type:Reference) object.
+   *
    *
    */
   readonly value: any
 }
-/**
- *	Shape of the value for cart discounts line item and custom line items target.
- */
 export interface ChangeTargetCustomLineItemsChangeValue {
   readonly type: 'customLineItems'
   /**
+   *	Valid [CustomLineItem target predicate](/../api/projects/predicates#customlineitem-field-identifiers).
    *
    */
   readonly predicate: string
 }
-/**
- *	Shape of the value for cart discounts line item target.
- */
 export interface ChangeTargetLineItemsChangeValue {
   readonly type: 'lineItems'
   /**
+   *	Valid [LineItem target predicate](/../api/projects/predicates#lineitem-field-identifiers).
    *
    */
   readonly predicate: string
 }
-/**
- *	Shape of the value for cart discounts multiBuyCustomLineItems target.
- */
 export interface ChangeTargetMultiBuyCustomLineItemsChangeValue {
   readonly type: 'multiBuyCustomLineItems'
   /**
+   *	Valid [CustomLineItem target predicate](/../api/projects/predicates#customlineitem-field-identifiers).
    *
    */
   readonly predicate: string
   /**
-   *	Quantity of line items that need to be present in order to trigger an application of this discount.
+   *	Quantity of Custom Line Items that triggered the application of the discount.
    *
    */
   readonly triggerQuantity: number
   /**
-   *	Quantity of line items that are discounted per application of this discount.
+   *	Quantity of Custom Line Items discounted per application of this discount.
    *
    */
   readonly discountedQuantity: number
   /**
-   *	Maximum number of applications of this discount.
+   *	Maximum number of times the discount is applicable.
    *
    */
   readonly maxOccurrence: number
   /**
+   *	SelectionMode based on which particular Custom Line Items were discounted.
    *
    */
   readonly selectionMode: SelectionMode
 }
-/**
- *	Shape of the value for cart discounts multiBuyLineItems target.
- */
 export interface ChangeTargetMultiBuyLineItemsChangeValue {
   readonly type: 'multiBuyLineItems'
   /**
+   *	Valid [LineItem target predicate](/../api/projects/predicates#lineitem-field-identifiers).
    *
    */
   readonly predicate: string
   /**
-   *	Quantity of line items that need to be present in order to trigger an application of this discount.
+   *	Quantity of Line Items that triggered the application of the discount.
    *
    */
   readonly triggerQuantity: number
   /**
-   *	Quantity of line items that are discounted per application of this discount.
+   *	Quantity of Line Items discounted per application of this discount.
    *
    */
   readonly discountedQuantity: number
   /**
-   *	Maximum number of applications of this discount.
+   *	Maximum number of times the discount is applicable.
    *
    */
   readonly maxOccurrence: number
   /**
+   *	SelectionMode based on which particular Line Items were discounted.
    *
    */
   readonly selectionMode: SelectionMode
 }
-/**
- *	Shape of the value for cart discounts shipping target.
- */
 export interface ChangeTargetShippingChangeValue {
   readonly type: 'shipping'
 }
-/**
- *	Shape of the value for cart discounts absolute value.
- */
 export interface ChangeValueAbsoluteChangeValue {
   readonly type: 'absolute'
   /**
+   *	Money values in different currencies.
    *
    */
   readonly money: Money[]
 }
-/**
- *	Shape of the value for product discounts external value.
- */
 export interface ChangeValueExternalChangeValue {
   readonly type: 'external'
 }
-/**
- *	Shape of the value for cart discounts gift line item value.
- */
 export interface ChangeValueGiftLineItemChangeValue {
   readonly type: 'giftLineItem'
   /**
+   *	Reference to a [Product](ctp:api:type:Product).
    *
    */
   readonly product: Reference
   /**
+   *	`id` of the [ProductVariant](ctp:api:type:ProductVariant).
+   *
    *
    */
   readonly variantId: number
   /**
+   *	Channel with [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum) `InventorySupply`.
    *
    */
   readonly supplyChannel?: Reference
   /**
+   *	Channel with [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum) `ProductDistribution`.
    *
    */
   readonly distributionChannel: Reference
 }
-/**
- *	Shape of the value for cart discounts relative value.
- */
 export interface ChangeValueRelativeChangeValue {
   readonly type: 'relative'
   /**
+   *	Fraction (per ten thousand) the price is reduced by. For example, 1000 results in a 10% price reduction.
    *
    */
   readonly permyriad: number
 }
 /**
- *	Only available if `expand` is set to true
+ *	Only present if `expand` is set to `true`.
  */
 export interface CustomFieldExpandedValue {
   /**
-   *	Name of a custom field.
+   *	Name of the Custom Field.
    *
    */
   readonly name: string
   /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
    *
    */
   readonly value: any
   /**
+   *	User-defined label of the Custom Field.
    *
    */
   readonly label: LocalizedString
 }
 export interface CustomShippingMethodChangeValue {
   /**
+   *	Name of the Custom ShippingMethod.
    *
    */
   readonly name: string
 }
 export interface DeliveryChangeValue {
   /**
+   *	Line Items or Custom Line Items shipped in the [Delivery](ctp:api:type:Delivery).
    *
    */
   readonly items: DeliveryItem[]
   /**
+   *	Address to which the parcels are delivered.
    *
    */
   readonly address: Address
   /**
+   *	Parcels included in the [Delivery](ctp:api:type:Delivery).
    *
    */
   readonly parcels: Parcel[]
 }
 export interface EnumValue {
   /**
+   *	Key of the value used as a programmatic identifier.
    *
    */
   readonly key: string
   /**
+   *	Descriptive label of the value.
    *
    */
   readonly label: string
 }
-/**
- *	Shape of the value for action `changeFieldDefinitionOrder`
- */
 export interface FieldDefinitionOrderValue {
   /**
+   *	Name of the [FieldDefinition](ctp:api:type:FieldDefinition).
    *
    */
   readonly name: string
   /**
+   *	Descriptive label of the field.
    *
    */
   readonly label: LocalizedString
 }
 export interface InventoryQuantityValue {
   /**
+   *	Overall amount of stock (`availableQuantity` + reserved).
    *
    */
   readonly quantityOnStock: number
   /**
+   *	Available amount of stock (`quantityOnStock` - reserved).
    *
    */
   readonly availableQuantity: number
 }
 export interface LocalizedEnumValue {
   /**
+   *	Key of the value used as a programmatic identifier.
    *
    */
   readonly key: string
   /**
+   *	Descriptive localized label of the value.
    *
    */
   readonly label: LocalizedString
 }
 export interface ParcelChangeValue {
   /**
+   *	`id` of the [Parcel](ctp:api:type:Parcel).
+   *
    *
    */
   readonly id: string
   /**
+   *	Date and time (UTC) the Parcel was created.
    *
    */
   readonly createdAt: string
 }
-/**
- *	Shape of the cart classification shipping input rate value.
- */
 export interface SetCartClassificationShippingRateInputValue {
   /**
    *
    */
   readonly type: string
   /**
+   *	Key of the value used as a programmatic identifier.
    *
    */
   readonly key: string
   /**
+   *	Descriptive localized label of the value.
    *
    */
   readonly label: LocalizedString
 }
-/**
- *	Shape of the cart score shipping input rate value.
- */
 export interface SetCartScoreShippingRateInputValue {
   /**
    *
    */
   readonly type: string
   /**
+   *	Abstract value for categorizing a Cart.
    *
    */
   readonly score: number
 }
 export interface ShippingMethodChangeValue {
   /**
+   *	`id` of the [ShippingMethod](ctp:api:type:ShippingMethod).
+   *
    *
    */
   readonly id: string
   /**
+   *	Name of the ShippingMethod.
    *
    */
   readonly name: string
 }
 export interface ShippingMethodTaxAmountChangeValue {
   /**
+   *	Taxed price for the Shipping Method based on `taxRate`.
    *
    */
   readonly taxedPrice: TaxedPrice
   /**
-   *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
+   *	Tax rate set externally for the Shipping Method.
    *
    */
   readonly taxRate: TaxRate
 }
 export interface ShoppingListLineItemValue {
   /**
+   *	`id` of the [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem).
+   *
    *
    */
   readonly id: string
   /**
+   *	Name of the corresponding Product the Product Variant belongs to.
    *
    */
   readonly name: LocalizedString
   /**
+   *	`id` of the [ProductVariant](ctp:api:type:ProductVariant) the ShoppingListLineItem refers to.
+   *
    *
    */
   readonly variantId: number
 }
 export interface TextLineItemValue {
   /**
+   *	`id` of the [TextLineItem](ctp:api:type:TextLineItem).
+   *
    *
    */
   readonly id: string
   /**
+   *	Name of the TextLineItem.
    *
    */
   readonly name: LocalizedString
 }
 export interface TransactionChangeValue {
   /**
+   *	`id` of the [Transaction](ctp:api:type:Transaction).
+   *
    *
    */
   readonly id: string
   /**
+   *	Identifier used by the interface that manages the Transaction (usually the PSP).
    *
    */
   readonly interactionId: string
   /**
+   *	Date and time (UTC) the Transaction took place.
    *
    */
   readonly timestamp: string
 }
-/**
- *	Shape of the value for `setValidFromAndUntil` action
- */
 export interface ValidFromAndUntilValue {
   /**
+   *	Date and time (UTC) from when the Discount is effective.
    *
    */
   readonly validFrom: string
   /**
+   *	Date and time (UTC) until when the Discount is effective.
    *
    */
   readonly validUntil: string

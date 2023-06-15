@@ -55,10 +55,10 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey?type=ResourceCreated',
+      uri: '/test_projectKey?type=type',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
-        .get({ queryArgs: { type: 'ResourceCreated' } }),
+        .get({ queryArgs: { type: 'type' } }),
     },
     {
       method: 'get',
