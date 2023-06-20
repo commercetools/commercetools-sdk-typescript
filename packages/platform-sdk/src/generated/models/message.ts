@@ -11547,6 +11547,12 @@ export interface StandalonePriceDeletedMessage {
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	SKU of the [ProductVariant](ctp:api:type:ProductVariant) to which the deleted Standalone Price was associated.
+   *
+   *
+   */
+  readonly sku: string
 }
 /**
  *	Generated after a [Product Discount](ctp:api:type:ProductDiscount) is successfully applied to a StandalonePrice.
@@ -15950,6 +15956,12 @@ export interface StandalonePriceCreatedMessagePayload {
  */
 export interface StandalonePriceDeletedMessagePayload {
   readonly type: 'StandalonePriceDeleted'
+  /**
+   *	SKU of the [ProductVariant](ctp:api:type:ProductVariant) to which the deleted Standalone Price was associated.
+   *
+   *
+   */
+  readonly sku: string
 }
 /**
  *	Generated after a [Product Discount](ctp:api:type:ProductDiscount) is successfully applied to a StandalonePrice.

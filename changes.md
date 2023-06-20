@@ -32,6 +32,8 @@
 - added property `key` to type `CartAddLineItemAction`
 - added property `key` to type `MyLineItemDraft`
 - added property `key` to type `MyCartAddLineItemAction`
+- added property `sku` to type `StandalonePriceDeletedMessage`
+- added property `sku` to type `StandalonePriceDeletedMessagePayload`
 - added property `key` to type `StagedOrderAddLineItemAction`
 - added property `parcelKey` to type `StagedOrderAddParcelToDeliveryAction`
 - added property `parcelKey` to type `StagedOrderRemoveParcelFromDeliveryAction`
