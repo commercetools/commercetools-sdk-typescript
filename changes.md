@@ -54,12 +54,21 @@
 <details>
 <summary>Added Type(s)</summary>
 
+- added type `StandalonePriceTierAddedMessage`
+- added type `StandalonePriceTierRemovedMessage`
+- added type `StandalonePriceTiersSetMessage`
 - added type `StandalonePriceValidFromAndUntilSetMessage`
 - added type `StandalonePriceValidFromSetMessage`
 - added type `StandalonePriceValidUntilSetMessage`
+- added type `StandalonePriceTierAddedMessagePayload`
+- added type `StandalonePriceTierRemovedMessagePayload`
+- added type `StandalonePriceTiersSetMessagePayload`
 - added type `StandalonePriceValidFromAndUntilSetMessagePayload`
 - added type `StandalonePriceValidFromSetMessagePayload`
 - added type `StandalonePriceValidUntilSetMessagePayload`
+- added type `StandalonePriceAddPriceTierAction`
+- added type `StandalonePriceRemovePriceTierAction`
+- added type `StandalonePriceSetPriceTiersAction`
 - added type `StandalonePriceSetValidFromAction`
 - added type `StandalonePriceSetValidFromAndUntilAction`
 - added type `StandalonePriceSetValidUntilAction`

@@ -329,16 +329,36 @@ export interface StandalonePriceUpdate {
   readonly actions: StandalonePriceUpdateAction[]
 }
 export type StandalonePriceUpdateAction =
+  | StandalonePriceAddPriceTierAction
   | StandalonePriceApplyStagedChangesAction
   | StandalonePriceChangeActiveAction
   | StandalonePriceChangeValueAction
+  | StandalonePriceRemovePriceTierAction
   | StandalonePriceSetCustomFieldAction
   | StandalonePriceSetCustomTypeAction
   | StandalonePriceSetDiscountedPriceAction
   | StandalonePriceSetKeyAction
+  | StandalonePriceSetPriceTiersAction
   | StandalonePriceSetValidFromAction
   | StandalonePriceSetValidFromAndUntilAction
   | StandalonePriceSetValidUntilAction
+/**
+ *	Adding a [PriceTier](ctp:api:type:PriceTier) to a [StandalonePrice](ctp:api:type:StandalonePrice) produces the [Standalone Price Tier Added](ctp:api:type:StandalonePriceTierAddedMessage) Message.
+ *
+ */
+export interface StandalonePriceAddPriceTierAction {
+  readonly action: 'addPriceTier'
+  /**
+   *	The [PriceTier](ctp:api:type:PriceTier) to be added to the `tiers` field of the [StandalonePrice](ctp:api:type:StandalonePrice).
+   *	The action returns an [InvalidField](ctp:api:type:InvalidFieldError) error in the following cases:
+   *
+   *	* Trying to add a PriceTier with `minimumQuantity` < `2`.
+   *	* Trying to add a PriceTier with `minimumQuantity` that already exists for the StandalonePrice.
+   *
+   *
+   */
+  readonly tier: PriceTierDraft
+}
 /**
  *	Applies all staged changes to the StandalonePrice by overwriting all current values with the values in the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice). After successfully applied, the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice) will be removed from the StandalonePrice. An `applyStagedChanges` update action on a StandalonePrice that does not contain any staged changes will return a `400 Bad Request` error. Applying staged changes successfully will produce the [StandalonePriceStagedChangesApplied](ctp:api:type:StandalonePriceStagedChangesAppliedMessage) Message.
  *
@@ -377,6 +397,19 @@ export interface StandalonePriceChangeValueAction {
    *
    */
   readonly staged?: boolean
+}
+/**
+ *	Removing a [PriceTier](ctp:api:type:PriceTier) from a [StandalonePrice](ctp:api:type:StandalonePrice) produces the [Standalone Price Tier Removed](ctp:api:type:StandalonePriceTierRemovedMessage) Message.
+ *
+ */
+export interface StandalonePriceRemovePriceTierAction {
+  readonly action: 'removePriceTier'
+  /**
+   *	The `minimumQuantity` of the [PriceTier](ctp:api:type:PriceTier) to be removed from the `tiers` field of the [StandalonePrice](ctp:api:type:StandalonePrice).
+   *
+   *
+   */
+  readonly tierMinimumQuantity: number
 }
 export interface StandalonePriceSetCustomFieldAction {
   readonly action: 'setCustomField'
@@ -436,6 +469,20 @@ export interface StandalonePriceSetKeyAction {
    *
    */
   readonly key?: string
+}
+/**
+ *	Sets all [PriceTiers](ctp:api:type:PriceTier) for a [StandalonePrice](ctp:api:type:StandalonePrice) in one action, produces the [Standalone Price Tiers Set](ctp:api:type:StandalonePriceTiersSetMessage) Message.
+ *
+ */
+export interface StandalonePriceSetPriceTiersAction {
+  readonly action: 'setPriceTier'
+  /**
+   *	Value to set. If empty, any existing value will be removed.
+   *	The `minimumQuantity` of the PriceTiers must be unique and greater than `1`, otherwise an [InvalidField](ctp:api:type:InvalidFieldError) error is returned.
+   *
+   *
+   */
+  readonly tiers: PriceTierDraft[]
 }
 /**
  *	Updating the `validFrom` value generates the [StandalonePriceValidFromSet](ctp:api:type:StandalonePriceValidFromSetMessage) Message.
