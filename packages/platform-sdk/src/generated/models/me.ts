@@ -1070,7 +1070,7 @@ export interface MyBusinessUnitChangeNameAction {
 export interface MyBusinessUnitChangeParentUnitAction {
   readonly action: 'changeParentUnit'
   /**
-   *	New parent unit of the [Business Unit](ctp:api:type:BusinessUnit).
+   *	New parent unit of the [Business Unit](ctp:api:type:BusinessUnit). The new parent unit must have the same top-level unit as the old parent unit.
    *
    *
    */
