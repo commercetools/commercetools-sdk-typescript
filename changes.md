@@ -78,6 +78,12 @@
 </details>
 
 <details>
+<summary>Removed Type(s)</summary>
+
+- :warning: removed type `MyCartSetDirectDiscountsAction`
+</details>
+
+<details>
 <summary>Added Enum(s)</summary>
 
 - added enum `associate-role` to type `CustomFieldReferenceValue`

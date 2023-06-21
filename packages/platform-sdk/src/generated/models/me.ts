@@ -12,7 +12,6 @@ import {
 } from './business-unit'
 import {
   CartReference,
-  DirectDiscountDraft,
   ExternalLineItemTotalPrice,
   ExternalTaxRateDraft,
   InventoryMode,
@@ -251,7 +250,6 @@ export type MyCartUpdateAction =
   | MyCartSetCustomTypeAction
   | MyCartSetCustomerEmailAction
   | MyCartSetDeleteDaysAfterLastModificationAction
-  | MyCartSetDirectDiscountsAction
   | MyCartSetLineItemCustomFieldAction
   | MyCartSetLineItemCustomTypeAction
   | MyCartSetLineItemDistributionChannelAction
@@ -1674,22 +1672,6 @@ export interface MyCartSetDeleteDaysAfterLastModificationAction {
    *
    */
   readonly deleteDaysAfterLastModification?: number
-}
-/**
- *	Adds a [DirectDiscount](ctp:api:type:DirectDiscount), but only if no [DiscountCode](ctp:api:type:DiscountCode) has been added to the Cart.
- *	Either a Discount Code or a Direct Discount can exist on a Cart at the same time.
- *
- */
-export interface MyCartSetDirectDiscountsAction {
-  readonly action: 'setDirectDiscounts'
-  /**
-   *	- If set, all existing Direct Discounts are replaced.
-   *	  The discounts apply in the order they are added to the list.
-   *	- If empty, all existing Direct Discounts are removed and all affected prices on the Cart or Order are recalculated.
-   *
-   *
-   */
-  readonly discounts: DirectDiscountDraft[]
 }
 export interface MyCartSetLineItemCustomFieldAction {
   readonly action: 'setLineItemCustomField'
