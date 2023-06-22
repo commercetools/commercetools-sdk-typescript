@@ -762,6 +762,12 @@ export interface CustomLineItem {
    */
   readonly taxRate?: TaxRate
   /**
+   *	Tax Rate per Shipping Method for a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode). For a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode) it is automatically set after the [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction).
+   *	For a Cart with `External` [TaxMode](ctp:api:type:TaxMode), the Tax Rate must be set with [ExternalTaxRateDraft](ctp:api:type:ExternalTaxRateDraft).
+   *
+   */
+  readonly perMethodTaxRate: MethodTaxRate[]
+  /**
    *	Discounted price of a single quantity of the Custom Line Item.
    *
    *

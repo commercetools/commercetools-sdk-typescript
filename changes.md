@@ -27,6 +27,7 @@
 <details>
 <summary>Added Property(s)</summary>
 
+- added property `perMethodTaxRate` to type `CustomLineItem`
 - added property `key` to type `LineItem`
 - added property `key` to type `LineItemDraft`
 - added property `key` to type `CartAddLineItemAction`
