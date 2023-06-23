@@ -224,7 +224,7 @@ export interface ConfluentCloudDestination {
    */
   readonly apiSecret: string
   /**
-   *	The Kafka `acks` value. Can be `"0"`, `"1"`, or `"all"`.
+   *	The Kafka `acks` value.
    *
    *
    */
