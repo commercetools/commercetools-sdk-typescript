@@ -639,9 +639,17 @@ export interface StagedOrderChangeCustomLineItemQuantityAction {
 export interface StagedOrderChangeLineItemQuantityAction {
   readonly action: 'changeLineItemQuantity'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *
    */
@@ -766,9 +774,17 @@ export interface StagedOrderRemoveItemShippingAddressAction {
 export interface StagedOrderRemoveLineItemAction {
   readonly action: 'removeLineItem'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *
    */
@@ -1215,9 +1231,17 @@ export interface StagedOrderSetItemShippingAddressCustomTypeAction {
 export interface StagedOrderSetLineItemCustomFieldAction {
   readonly action: 'setLineItemCustomField'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
@@ -1236,9 +1260,17 @@ export interface StagedOrderSetLineItemCustomFieldAction {
 export interface StagedOrderSetLineItemCustomTypeAction {
   readonly action: 'setLineItemCustomType'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the LineItem with [Custom Fields](/../api/projects/custom-fields).
    *	If absent, any existing Type and Custom Fields are removed from the LineItem.
@@ -1256,9 +1288,17 @@ export interface StagedOrderSetLineItemCustomTypeAction {
 export interface StagedOrderSetLineItemDistributionChannelAction {
   readonly action: 'setLineItemDistributionChannel'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
    *
@@ -1269,9 +1309,17 @@ export interface StagedOrderSetLineItemDistributionChannelAction {
 export interface StagedOrderSetLineItemPriceAction {
   readonly action: 'setLineItemPrice'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Draft type that stores amounts only in cent precision for the specified currency.
    *
@@ -1282,9 +1330,17 @@ export interface StagedOrderSetLineItemPriceAction {
 export interface StagedOrderSetLineItemShippingDetailsAction {
   readonly action: 'setLineItemShippingDetails'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	For order creation and updates, the sum of the `targets` must match the quantity of the Line Items or Custom Line Items.
    *
@@ -1295,9 +1351,17 @@ export interface StagedOrderSetLineItemShippingDetailsAction {
 export interface StagedOrderSetLineItemTaxAmountAction {
   readonly action: 'setLineItemTaxAmount'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Cannot be used in [LineItemDraft](ctp:api:type:LineItemDraft) or [CustomLineItemDraft](ctp:api:type:CustomLineItemDraft).
    *
@@ -1320,9 +1384,17 @@ export interface StagedOrderSetLineItemTaxAmountAction {
 export interface StagedOrderSetLineItemTaxRateAction {
   readonly action: 'setLineItemTaxRate'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Controls calculation of taxed prices for Line Items, Custom Line Items, and Shipping Methods as explained in [Cart tax calculation](ctp:api:type:CartTaxCalculation).
    *
@@ -1340,9 +1412,17 @@ export interface StagedOrderSetLineItemTaxRateAction {
 export interface StagedOrderSetLineItemTotalPriceAction {
   readonly action: 'setLineItemTotalPrice'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *
    */

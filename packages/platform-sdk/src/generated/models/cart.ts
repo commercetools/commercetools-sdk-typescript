@@ -2300,11 +2300,17 @@ export interface CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction {
 export interface CartApplyDeltaToLineItemShippingDetailsTargetsAction {
   readonly action: 'applyDeltaToLineItemShippingDetailsTargets'
   /**
-   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Using positive or negative quantities increases or decreases the number of items shipped to an address.
    *
@@ -2387,11 +2393,17 @@ export interface CartChangeCustomLineItemQuantityAction {
 export interface CartChangeLineItemQuantityAction {
   readonly action: 'changeLineItemQuantity'
   /**
-   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	New value to set.
    *
@@ -2526,11 +2538,17 @@ export interface CartRemoveItemShippingAddressAction {
 export interface CartRemoveLineItemAction {
   readonly action: 'removeLineItem'
   /**
-   *	`id` of the Line Item to remove.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	New value to set.
    *	If absent or `0`, the Line Item is removed from the Cart.
@@ -3029,11 +3047,17 @@ export interface CartSetKeyAction {
 export interface CartSetLineItemCustomFieldAction {
   readonly action: 'setLineItemCustomField'
   /**
-   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
@@ -3052,11 +3076,17 @@ export interface CartSetLineItemCustomFieldAction {
 export interface CartSetLineItemCustomTypeAction {
   readonly action: 'setLineItemCustomType'
   /**
-   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the Line Item with [Custom Fields](/../api/projects/custom-fields).
    *	If absent, any existing Type and Custom Fields are removed from the Line Item.
@@ -3078,11 +3108,17 @@ export interface CartSetLineItemCustomTypeAction {
 export interface CartSetLineItemDistributionChannelAction {
   readonly action: 'setLineItemDistributionChannel'
   /**
-   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	- If present, a [Reference](ctp:api:type:Reference) to the Channel is set for the [LineItem](ctp:api:type:LineItem) specified by `lineItemId`.
    *	- If not present, the current [Reference](ctp:api:type:Reference) to a distribution channel is removed from the [LineItem](ctp:api:type:LineItem) specified by `lineItemId`.
@@ -3095,11 +3131,17 @@ export interface CartSetLineItemDistributionChannelAction {
 export interface CartSetLineItemInventoryModeAction {
   readonly action: 'setLineItemInventoryMode'
   /**
-   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Inventory mode specific to the Line Item only, and valid for the entire `quantity` of the Line Item.
    *	Set only if the inventory mode should be different from the `inventoryMode` specified on the [Cart](ctp:api:type:Cart).
@@ -3115,11 +3157,17 @@ export interface CartSetLineItemInventoryModeAction {
 export interface CartSetLineItemPriceAction {
   readonly action: 'setLineItemPrice'
   /**
-   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Value to set.
    *	If `externalPrice` is not given and the `priceMode` is `ExternalPrice`, the external price is unset and the `priceMode` is set to `Platform`.
@@ -3131,11 +3179,17 @@ export interface CartSetLineItemPriceAction {
 export interface CartSetLineItemShippingDetailsAction {
   readonly action: 'setLineItemShippingDetails'
   /**
-   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Value to set.
    *	If empty, the existing value is removed.
@@ -3151,11 +3205,17 @@ export interface CartSetLineItemShippingDetailsAction {
 export interface CartSetLineItemSupplyChannelAction {
   readonly action: 'setLineItemSupplyChannel'
   /**
-   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	- If present, a [Reference](ctp:api:type:Reference) to the Channel is set for the [LineItem](ctp:api:type:LineItem) specified by `lineItemId`.
    *	- If not present, the current [Reference](ctp:api:type:Reference) to a supply channel will be removed from the [LineItem](ctp:api:type:LineItem) specified by `lineItemId`.
@@ -3172,11 +3232,17 @@ export interface CartSetLineItemSupplyChannelAction {
 export interface CartSetLineItemTaxAmountAction {
   readonly action: 'setLineItemTaxAmount'
   /**
-   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Value to set.
    *	If empty, any existing value is removed.
@@ -3199,11 +3265,17 @@ export interface CartSetLineItemTaxAmountAction {
 export interface CartSetLineItemTaxRateAction {
   readonly action: 'setLineItemTaxRate'
   /**
-   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Value to set.
    *	If empty, any existing value is removed.
@@ -3226,11 +3298,17 @@ export interface CartSetLineItemTaxRateAction {
 export interface CartSetLineItemTotalPriceAction {
   readonly action: 'setLineItemTotalPrice'
   /**
-   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Value to set.
    *	If `externalTotalPrice` is not given and the `priceMode` is `ExternalTotal`, the external price is unset and the `priceMode` is set to `Platform`.

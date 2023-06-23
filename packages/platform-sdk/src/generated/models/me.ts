@@ -1413,11 +1413,17 @@ export interface MyCartAddPaymentAction {
 export interface MyCartApplyDeltaToLineItemShippingDetailsTargetsAction {
   readonly action: 'applyDeltaToLineItemShippingDetailsTargets'
   /**
-   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Using positive or negative quantities increases or decreases the number of items shipped to an address.
    *
@@ -1444,11 +1450,17 @@ export interface MyCartApplyDeltaToLineItemShippingDetailsTargetsAction {
 export interface MyCartChangeLineItemQuantityAction {
   readonly action: 'changeLineItemQuantity'
   /**
-   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	New value to set.
    *
@@ -1532,11 +1544,17 @@ export interface MyCartRemoveItemShippingAddressAction {
 export interface MyCartRemoveLineItemAction {
   readonly action: 'removeLineItem'
   /**
-   *	`id` of the Line Item to remove.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	New value to set.
    *
@@ -1676,11 +1694,17 @@ export interface MyCartSetDeleteDaysAfterLastModificationAction {
 export interface MyCartSetLineItemCustomFieldAction {
   readonly action: 'setLineItemCustomField'
   /**
-   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
@@ -1699,11 +1723,17 @@ export interface MyCartSetLineItemCustomFieldAction {
 export interface MyCartSetLineItemCustomTypeAction {
   readonly action: 'setLineItemCustomType'
   /**
-   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the LineItem with [Custom Fields](/../api/projects/custom-fields).
    *	If absent, any existing Type and Custom Fields are removed from the Line Item.
@@ -1725,11 +1755,17 @@ export interface MyCartSetLineItemCustomTypeAction {
 export interface MyCartSetLineItemDistributionChannelAction {
   readonly action: 'setLineItemDistributionChannel'
   /**
-   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	- If present, a [Reference](ctp:api:type:Reference) to the Channel is set for the [LineItem](ctp:api:type:LineItem) specified by `lineItemId`.
    *	- If not present, the current [Reference](ctp:api:type:Reference) to a distribution channel is removed from the [LineItem](ctp:api:type:LineItem) specified by `lineItemId`.
@@ -1742,11 +1778,17 @@ export interface MyCartSetLineItemDistributionChannelAction {
 export interface MyCartSetLineItemShippingDetailsAction {
   readonly action: 'setLineItemShippingDetails'
   /**
-   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Value to set.
    *	If empty, the existing value is removed.
@@ -1762,11 +1804,17 @@ export interface MyCartSetLineItemShippingDetailsAction {
 export interface MyCartSetLineItemSupplyChannelAction {
   readonly action: 'setLineItemSupplyChannel'
   /**
-   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	- If present, a [Reference](ctp:api:type:Reference) to the Channel is set for the [LineItem](ctp:api:type:LineItem) specified by `lineItemId`.
    *	- If not present, the current [Reference](ctp:api:type:Reference) to a supply channel will be removed from the [LineItem](ctp:api:type:LineItem) specified by `lineItemId`.
@@ -2362,11 +2410,17 @@ export interface MyShoppingListAddTextLineItemAction {
 export interface MyShoppingListChangeLineItemQuantityAction {
   readonly action: 'changeLineItemQuantity'
   /**
-   *	The `id` of the [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem) to update.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	New value to set. If `0`, the ShoppingListLineItem is removed from the ShoppingList.
    *
