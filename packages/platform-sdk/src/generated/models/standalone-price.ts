@@ -28,7 +28,7 @@ import {
 } from './type'
 
 /**
- *	Staged changes on a Standalone Price. To update the `value` property of a Staged Standalone Price, use the corresponding [update action](ctp:api:type:StandalonePriceChangeValueAction). To apply all staged changes to the Standalone Price, use the `applyStagedChanges` update action.
+ *	Staged changes on a Standalone Price. To update the `value` property of a Staged Standalone Price, use the corresponding [update action](ctp:api:type:StandalonePriceChangeValueAction). To apply all staged changes to the Standalone Price, use the [Apply Staged Changes](ctp:api:type:StandalonePriceApplyStagedChangesAction) update action.
  */
 export interface StagedStandalonePrice {
   /**
@@ -148,7 +148,7 @@ export interface StandalonePrice extends BaseResource {
    */
   readonly custom?: CustomFields
   /**
-   *	Staged changes of the StandalonePrice. Only present if the StandalonePrice has staged changes.
+   *	Staged changes of the StandalonePrice. Only present if the StandalonePrice has some changes staged.
    *
    *
    */
@@ -233,8 +233,7 @@ export interface StandalonePriceDraft {
    */
   readonly custom?: CustomFieldsDraft
   /**
-   *	If set to `true`, the StandalonePrice is considered during [price selection](ctp:api:type:ProductPriceSelection).
-   *	If set to `false`, the StandalonePrice is not considered during [price selection](ctp:api:type:ProductPriceSelection).
+   *	Set to `false`, if the StandalonePrice should not be considered during [price selection](ctp:api:type:ProductPriceSelection).
    *
    *
    */

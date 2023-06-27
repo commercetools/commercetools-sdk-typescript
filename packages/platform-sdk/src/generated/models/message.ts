@@ -11339,7 +11339,7 @@ export interface StagedQuoteValidToSetMessage {
   readonly validTo: string
 }
 /**
- *	Generated after a successful [Change Active](ctp:api:types:StandalonePriceChangeActiveAction) update action.
+ *	Generated after a successful [Change Active](ctp:api:type:StandalonePriceChangeActiveAction) update action.
  *
  */
 export interface StandalonePriceActiveChangedMessage {
@@ -11402,13 +11402,13 @@ export interface StandalonePriceActiveChangedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Value of the `active` field of the StandalonePrice after the [Change Active](ctp:api:types:StandalonePriceChangeActiveAction) update action.
+   *	Value of the `active` field of the StandalonePrice after the [Change Active](ctp:api:type:StandalonePriceChangeActiveAction) update action.
    *
    *
    */
   readonly active: boolean
   /**
-   *	Value of the `active` field of the StandalonePrice before the [Change Active](ctp:api:types:StandalonePriceChangeActiveAction) update action.
+   *	Value of the `active` field of the StandalonePrice before the [Change Active](ctp:api:type:StandalonePriceChangeActiveAction) update action.
    *
    *
    */
@@ -11771,7 +11771,7 @@ export interface StandalonePriceKeySetMessage {
   readonly oldKey?: string
 }
 /**
- *	Generated after a successful [Apply Staged Changes](ctp:api:types:StandalonePriceApplyStagedChangesAction) update action.
+ *	Generated after a successful [Apply Staged Changes](ctp:api:type:StandalonePriceApplyStagedChangesAction) update action.
  *
  */
 export interface StandalonePriceStagedChangesAppliedMessage {
@@ -11834,7 +11834,7 @@ export interface StandalonePriceStagedChangesAppliedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Applied changes of the [StandalonePrice](/../api/projects/standalone-prices) after the [Apply Staged Changes](ctp:api:types:StandalonePriceApplyStagedChangesAction) update action.
+   *	Applied changes of the [StandalonePrice](/../api/projects/standalone-prices) after the [Apply Staged Changes](ctp:api:type:StandalonePriceApplyStagedChangesAction) update action.
    *
    *
    */
@@ -15919,19 +15919,19 @@ export interface StagedQuoteValidToSetMessagePayload {
   readonly validTo: string
 }
 /**
- *	Generated after a successful [Change Active](ctp:api:types:StandalonePriceChangeActiveAction) update action.
+ *	Generated after a successful [Change Active](ctp:api:type:StandalonePriceChangeActiveAction) update action.
  *
  */
 export interface StandalonePriceActiveChangedMessagePayload {
   readonly type: 'StandalonePriceActiveChanged'
   /**
-   *	Value of the `active` field of the StandalonePrice after the [Change Active](ctp:api:types:StandalonePriceChangeActiveAction) update action.
+   *	Value of the `active` field of the StandalonePrice after the [Change Active](ctp:api:type:StandalonePriceChangeActiveAction) update action.
    *
    *
    */
   readonly active: boolean
   /**
-   *	Value of the `active` field of the StandalonePrice before the [Change Active](ctp:api:types:StandalonePriceChangeActiveAction) update action.
+   *	Value of the `active` field of the StandalonePrice before the [Change Active](ctp:api:type:StandalonePriceChangeActiveAction) update action.
    *
    *
    */
@@ -16009,13 +16009,13 @@ export interface StandalonePriceKeySetMessagePayload {
   readonly oldKey?: string
 }
 /**
- *	Generated after a successful [Apply Staged Changes](ctp:api:types:StandalonePriceApplyStagedChangesAction) update action.
+ *	Generated after a successful [Apply Staged Changes](ctp:api:type:StandalonePriceApplyStagedChangesAction) update action.
  *
  */
 export interface StandalonePriceStagedChangesAppliedMessagePayload {
   readonly type: 'StandalonePriceStagedChangesApplied'
   /**
-   *	Applied changes of the [StandalonePrice](/../api/projects/standalone-prices) after the [Apply Staged Changes](ctp:api:types:StandalonePriceApplyStagedChangesAction) update action.
+   *	Applied changes of the [StandalonePrice](/../api/projects/standalone-prices) after the [Apply Staged Changes](ctp:api:type:StandalonePriceApplyStagedChangesAction) update action.
    *
    *
    */
