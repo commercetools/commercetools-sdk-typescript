@@ -640,7 +640,7 @@ export interface DuplicateVariantValuesError {
 /**
  *	Returned when a preview to find an appropriate Shipping Method for an OrderEdit could not be generated.
  *
- *	The error is returned as a failed response to the [Get Shipping Methods for an OrderEdit](/../api/projects/shippingMethods#get-shippingmethods-for-an-orderedit) request.
+ *	The error is returned as a failed response to the [Get Shipping Methods for an OrderEdit](/../api/projects/shippingMethods#for-an-orderedit) request.
  *
  */
 export interface EditPreviewFailedError {
@@ -2395,7 +2395,7 @@ export interface GraphQLDuplicateVariantValuesError {
 /**
  *	Returned when a preview to find an appropriate Shipping Method for an OrderEdit could not be generated.
  *
- *	The error is returned as a failed response to the [Get Shipping Methods for an OrderEdit](/../api/projects/shippingMethods#get-shippingmethods-for-an-orderedit) request.
+ *	The error is returned as a failed response to the [Get Shipping Methods for an OrderEdit](/../api/projects/shippingMethods#for-an-orderedit) request.
  *
  */
 export interface GraphQLEditPreviewFailedError {
