@@ -162,6 +162,31 @@ export interface AssetSource {
    */
   readonly contentType: string
 }
+export interface Associate {
+  /**
+   *
+   */
+  readonly associateRoleAssignments: AssociateRoleAssignment[]
+  /**
+   *
+   */
+  readonly customer: Reference
+}
+export interface AssociateRoleAssignment {
+  /**
+   *
+   */
+  readonly associateRole: KeyReference
+  /**
+   *	Determines whether an [AssociateRoleAssignment](ctp:api:type:AssociateRoleAssignment) can be inherited by child Business Units.
+   *
+   */
+  readonly inheritance: AssociateRoleInheritanceMode
+}
+/**
+ *	Determines whether an [AssociateRoleAssignment](ctp:api:type:AssociateRoleAssignment) can be inherited by child Business Units.
+ */
+export type AssociateRoleInheritanceMode = 'Disabled' | 'Enabled' | string
 export type AttributeConstraintEnum =
   | 'CombinationUnique'
   | 'None'
@@ -212,6 +237,21 @@ export interface AttributeType {
   readonly name: string
 }
 export type AuthenticationMode = 'ExternalAuth' | 'Password' | string
+/**
+ *	Determines whether a Business Unit can inherit Associates from a parent.
+ */
+export type BusinessUnitAssociateMode =
+  | 'Explicit'
+  | 'ExplicitAndFromParent'
+  | string
+/**
+ *	Indicates whether the Business Unit can be edited and used in [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quote Requests](ctp:api:type:QuoteRequest), or [Quotes](ctp:api:type:Quote).
+ */
+export type BusinessUnitStatus = 'Active' | 'Inactive' | string
+/**
+ *	Defines whether the Stores of the Business Unit are set directly on the Business Unit or are inherited from its parent unit.
+ */
+export type BusinessUnitStoreMode = 'Explicit' | 'FromParent' | string
 export interface CategoryOrderHints {
   [key: string]: string
 }
@@ -645,6 +685,17 @@ export interface ProductVariantChannelAvailability {
 export interface ProductVariantChannelAvailabilityMap {
   [key: string]: ProductVariantChannelAvailability
 }
+export interface ProductVariantSelection {
+  /**
+   *
+   */
+  readonly type: ProductVariantSelectionTypeEnum
+  /**
+   *
+   */
+  readonly skus: string[]
+}
+export type ProductVariantSelectionTypeEnum = 'exclusion' | 'inclusion' | string
 export type QuoteRequestState =
   | 'Accepted'
   | 'Cancelled'
@@ -655,6 +706,7 @@ export type QuoteRequestState =
 export type QuoteState =
   | 'Accepted'
   | 'Declined'
+  | 'DeclinedForRenegotiation'
   | 'Failed'
   | 'Pending'
   | 'Withdrawn'
@@ -670,6 +722,8 @@ export interface Reference {
   readonly typeId: ReferenceTypeId
 }
 export type ReferenceTypeId =
+  | 'associate-role'
+  | 'business-unit'
   | 'cart'
   | 'cart-discount'
   | 'category'
@@ -719,6 +773,20 @@ export interface Reservation {
    *
    */
   readonly checkoutStartedAt: string
+}
+export interface ResourceIdentifier {
+  /**
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly key: string
+  /**
+   *
+   */
+  readonly typeId: ReferenceTypeId
 }
 export interface ReturnInfo {
   /**

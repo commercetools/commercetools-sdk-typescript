@@ -13,10 +13,10 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
       method: 'get',
-      uri: '/test_projectKey?resourceTypes=cart-discount',
+      uri: '/test_projectKey?resourceTypes=business-unit',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
-        .get({ queryArgs: { resourceTypes: 'cart-discount' } }),
+        .get({ queryArgs: { resourceTypes: 'business-unit' } }),
     },
     {
       method: 'get',
@@ -73,6 +73,13 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
         .get({ queryArgs: { resourceId: 'resourceId' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey?resourceKey=resourceKey',
+      request: apiRoot
+        .withProjectKeyValue({ projectKey: 'test_projectKey' })
+        .get({ queryArgs: { resourceKey: 'resourceKey' } }),
     },
     {
       method: 'get',

@@ -169,3 +169,145 @@
 - added enum `associate-role` to type `CustomFieldReferenceValue`
 - added enum `business-unit` to type `CustomFieldReferenceValue`
 </details>
+
+**History changes**
+
+<details>
+<summary>Added Property(s)</summary>
+
+- added property `variantSelection` to type `AddProductChange`
+</details>
+
+<details>
+<summary>Changed Property(s)</summary>
+
+- :warning: changed property `resource` of type `Record` from type `Reference` to `ResourceIdentifier`
+</details>
+
+<details>
+<summary>Added QueryParameter(s)</summary>
+
+- added query parameter `resourceKey` to method `get /{projectKey}`
+- added query parameter `resourceKey` to method `get /{projectKey}/{resourceType}`
+</details>
+
+<details>
+<summary>Removed QueryParameter(s)</summary>
+
+- :warning: removed query parameter `resourceId` from method `get /{projectKey}/{resourceType}`
+</details>
+
+<details>
+<summary>Added Type(s)</summary>
+
+- added type `AddAssociateChange`
+- added type `AddProductSelectionChange`
+- added type `Associate`
+- added type `AssociateRoleAssignment`
+- added type `AssociateRoleInheritanceMode`
+- added type `BusinessUnitAssociateMode`
+- added type `BusinessUnitLabel`
+- added type `BusinessUnitStatus`
+- added type `BusinessUnitStoreMode`
+- added type `ChangeAssociateChange`
+- added type `ChangeAssociateModeChange`
+- added type `ChangeParentUnitChange`
+- added type `ChangeProductSelectionActiveChange`
+- added type `ChangeStatusChange`
+- added type `ProductVariantSelection`
+- added type `ProductVariantSelectionTypeEnum`
+- added type `RemoveAssociateChange`
+- added type `RemoveProductSelectionChange`
+- added type `RequestQuoteRenegotiationChange`
+- added type `ResourceIdentifier`
+- added type `SetAddressCustomFieldChange`
+- added type `SetAddressCustomTypeChange`
+- added type `SetContactEmailChange`
+- added type `SetStoreModeChange`
+- added type `SetVariantSelectionChange`
+</details>
+
+<details>
+<summary>Added Enum(s)</summary>
+
+- added enum `business-unit` to type `ChangeHistoryResourceType`
+- added enum `addAssociate` to type `UpdateType`
+- added enum `addCustomLineItem` to type `UpdateType`
+- added enum `addDiscountCode` to type `UpdateType`
+- added enum `addProduct` to type `UpdateType`
+- added enum `addProductSelection` to type `UpdateType`
+- added enum `addProperty` to type `UpdateType`
+- added enum `changeAmountAuthorized` to type `UpdateType`
+- added enum `changeAssociate` to type `UpdateType`
+- added enum `changeAssociateMode` to type `UpdateType`
+- added enum `changeCustomLineItemQuantity` to type `UpdateType`
+- added enum `changeLineItemName` to type `UpdateType`
+- added enum `changeParentUnit` to type `UpdateType`
+- added enum `changeProductSelectionActive` to type `UpdateType`
+- added enum `changeQuoteRequestState` to type `UpdateType`
+- added enum `changeQuoteState` to type `UpdateType`
+- added enum `changeStagedQuoteState` to type `UpdateType`
+- added enum `changeStatus` to type `UpdateType`
+- added enum `changeTaxCalculationMode` to type `UpdateType`
+- added enum `changeTaxMode` to type `UpdateType`
+- added enum `changeTaxRoundingMode` to type `UpdateType`
+- added enum `moveImageToPosition` to type `UpdateType`
+- added enum `removeAssociate` to type `UpdateType`
+- added enum `removeCustomLineItem` to type `UpdateType`
+- added enum `removeDiscountCode` to type `UpdateType`
+- added enum `removeProduct` to type `UpdateType`
+- added enum `removeProductSelection` to type `UpdateType`
+- added enum `removeProperty` to type `UpdateType`
+- added enum `requestQuoteRenegotiation` to type `UpdateType`
+- added enum `setAddressCustomField` to type `UpdateType`
+- added enum `setAddressCustomType` to type `UpdateType`
+- added enum `setApplicationVersion` to type `UpdateType`
+- added enum `setAuthenticationMode` to type `UpdateType`
+- added enum `setContactEmail` to type `UpdateType`
+- added enum `setCountries` to type `UpdateType`
+- added enum `setCountry` to type `UpdateType`
+- added enum `setCustomLineItemMoney` to type `UpdateType`
+- added enum `setCustomLineItemTaxAmount` to type `UpdateType`
+- added enum `setCustomLineItemTaxCategory` to type `UpdateType`
+- added enum `setCustomLineItemTaxRate` to type `UpdateType`
+- added enum `setCustomLineItemTaxedPrice` to type `UpdateType`
+- added enum `setCustomLineItemTotalPrice` to type `UpdateType`
+- added enum `setCustomShippingMethod` to type `UpdateType`
+- added enum `setIsValid` to type `UpdateType`
+- added enum `setLineItemDeactivatedAt` to type `UpdateType`
+- added enum `setLineItemDiscountedPrice` to type `UpdateType`
+- added enum `setLineItemDiscountedPricePerQuantity` to type `UpdateType`
+- added enum `setLineItemDistributionChannel` to type `UpdateType`
+- added enum `setLineItemPrice` to type `UpdateType`
+- added enum `setLineItemProductKey` to type `UpdateType`
+- added enum `setLineItemProductSlug` to type `UpdateType`
+- added enum `setLineItemTaxAmount` to type `UpdateType`
+- added enum `setLineItemTaxRate` to type `UpdateType`
+- added enum `setLineItemTaxedPrice` to type `UpdateType`
+- added enum `setLineItemTotalPrice` to type `UpdateType`
+- added enum `setOrderTaxedPrice` to type `UpdateType`
+- added enum `setOrderTotalPrice` to type `UpdateType`
+- added enum `setOrderTotalTax` to type `UpdateType`
+- added enum `setPrices` to type `UpdateType`
+- added enum `setProductCount` to type `UpdateType`
+- added enum `setProductSelections` to type `UpdateType`
+- added enum `setProperty` to type `UpdateType`
+- added enum `setPurchaseOrderNumber` to type `UpdateType`
+- added enum `setReservations` to type `UpdateType`
+- added enum `setSellerComment` to type `UpdateType`
+- added enum `setShippingInfoPrice` to type `UpdateType`
+- added enum `setShippingInfoTaxedPrice` to type `UpdateType`
+- added enum `setShippingMethod` to type `UpdateType`
+- added enum `setShippingMethodTaxAmount` to type `UpdateType`
+- added enum `setShippingMethodTaxRate` to type `UpdateType`
+- added enum `setShippingRate` to type `UpdateType`
+- added enum `setShippingRateInput` to type `UpdateType`
+- added enum `setStoreMode` to type `UpdateType`
+- added enum `setSupplyChannels` to type `UpdateType`
+- added enum `setValidTo` to type `UpdateType`
+- added enum `setValue` to type `UpdateType`
+- added enum `setVariantSelection` to type `UpdateType`
+- added enum `DeclinedForRenegotiation` to type `QuoteState`
+- added enum `associate-role` to type `ReferenceTypeId`
+- added enum `business-unit` to type `ReferenceTypeId`
+</details>

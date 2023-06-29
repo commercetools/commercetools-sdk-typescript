@@ -48,7 +48,7 @@ export class ByProjectKeyByResourceTypeRequestBuilder {
       userId?: string
       type?: string
       clientId?: string
-      resourceId?: string
+      resourceKey?: string
       source?: string
       changes?: string | string[]
       stores?: string | string[]

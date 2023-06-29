@@ -30,9 +30,13 @@ import {
   Address,
   Asset,
   AssetSource,
+  Associate,
   AttributeConstraintEnum,
   AttributeDefinition,
   AuthenticationMode,
+  BusinessUnitAssociateMode,
+  BusinessUnitStatus,
+  BusinessUnitStoreMode,
   CategoryOrderHints,
   ChannelRole,
   CustomFields,
@@ -47,6 +51,7 @@ import {
   Image,
   ItemShippingDetails,
   ItemState,
+  KeyReference,
   LineItem,
   LocalizedString,
   Location,
@@ -59,6 +64,7 @@ import {
   Price,
   ProductSelectionSetting,
   ProductVariantAvailability,
+  ProductVariantSelection,
   QuoteRequestState,
   QuoteState,
   Reference,
@@ -98,6 +104,7 @@ import {
 export type Change =
   | AddAddressChange
   | AddAssetChange
+  | AddAssociateChange
   | AddAttributeDefinitionChange
   | AddBillingAddressIdChange
   | AddChannelRolesChange
@@ -117,6 +124,7 @@ export type Change =
   | AddPlainEnumValueChange
   | AddPriceChange
   | AddProductChange
+  | AddProductSelectionChange
   | AddPropertyChange
   | AddReturnInfoChange
   | AddShippingAddressIdChange
@@ -132,6 +140,8 @@ export type Change =
   | ChangeAmountPlannedChange
   | ChangeAssetNameChange
   | ChangeAssetOrderChange
+  | ChangeAssociateChange
+  | ChangeAssociateModeChange
   | ChangeAttributeConstraintChange
   | ChangeAttributeOrderByNameChange
   | ChangeCartDiscountsChange
@@ -159,11 +169,13 @@ export type Change =
   | ChangeOrderHintChange
   | ChangeOrderStateChange
   | ChangeParentChange
+  | ChangeParentUnitChange
   | ChangePaymentStateChange
   | ChangePlainEnumValueLabelChange
   | ChangePlainEnumValueOrderChange
   | ChangePredicateChange
   | ChangePriceChange
+  | ChangeProductSelectionActiveChange
   | ChangeQuantityChange
   | ChangeQuoteRequestStateChange
   | ChangeQuoteStateChange
@@ -177,6 +189,7 @@ export type Change =
   | ChangeStackingModeChange
   | ChangeStagedQuoteStateChange
   | ChangeStateTypeChange
+  | ChangeStatusChange
   | ChangeTargetChange
   | ChangeTaxCalculationModeChange
   | ChangeTaxModeChange
@@ -192,6 +205,7 @@ export type Change =
   | PublishChange
   | RemoveAddressChange
   | RemoveAssetChange
+  | RemoveAssociateChange
   | RemoveAttributeDefinitionChange
   | RemoveBillingAddressIdChange
   | RemoveChannelRolesChange
@@ -210,6 +224,7 @@ export type Change =
   | RemovePaymentChange
   | RemovePriceChange
   | RemoveProductChange
+  | RemoveProductSelectionChange
   | RemovePropertyChange
   | RemoveShippingAddressIdChange
   | RemoveShoppingListLineItemChange
@@ -217,7 +232,10 @@ export type Change =
   | RemoveTaxRateChange
   | RemoveTextLineItemChange
   | RemoveVariantChange
+  | RequestQuoteRenegotiationChange
   | SetAddressChange
+  | SetAddressCustomFieldChange
+  | SetAddressCustomTypeChange
   | SetAnonymousIdChange
   | SetApplicationVersionChange
   | SetAssetCustomFieldChange
@@ -234,6 +252,7 @@ export type Change =
   | SetCategoryOrderHintChange
   | SetChannelRolesChange
   | SetCompanyNameChange
+  | SetContactEmailChange
   | SetCountriesChange
   | SetCountryChange
   | SetCustomFieldChange
@@ -338,6 +357,7 @@ export type Change =
   | SetStatusInterfaceCodeChange
   | SetStatusInterfaceTextChange
   | SetStoreChange
+  | SetStoreModeChange
   | SetStoresChange
   | SetSupplyChannelChange
   | SetSupplyChannelsChange
@@ -355,6 +375,7 @@ export type Change =
   | SetValidUntilChange
   | SetValueChange
   | SetVariantAvailabilityChange
+  | SetVariantSelectionChange
   | SetVatIdChange
   | TransitionCustomLineItemStateChange
   | TransitionLineItemStateChange
@@ -406,6 +427,21 @@ export interface AddAssetChange {
    *
    */
   readonly nextValue: Asset
+}
+/**
+ *	Change triggered by the [Add Associate](ctp:api:type:BusinessUnitAddAssociateAction) update action.
+ */
+export interface AddAssociateChange {
+  readonly type: 'AddAssociateChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: Associate
 }
 /**
  *	Change triggered by the [Add Attribute Definition](ctp:api:type:ProductTypeAddAttributeDefinitionAction) update action.
@@ -803,6 +839,29 @@ export interface AddProductChange {
    *
    */
   readonly nextValue: Reference
+  /**
+   *	The [Product Variants](ctp:api:type:ProductVariant) included in the [Product Selection](ctp:api:type:ProductSelection).
+   *
+   */
+  readonly variantSelection: ProductVariantSelection
+}
+/**
+ *	Change triggered by the [Add Product Selection](ctp:api:type:StoreAddProductSelectionAction) update action.
+ */
+export interface AddProductSelectionChange {
+  readonly type: 'AddProductSelectionChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *
+   */
+  readonly previousValue: ProductSelectionSetting
+  /**
+   *
+   */
+  readonly nextValue: ProductSelectionSetting
 }
 /**
  *	Change triggered by the [Update CustomObject](ctp:api:endpoint:/{projectKey}/custom-objects:POST) request when a new property is added.
@@ -1117,6 +1176,46 @@ export interface ChangeAssetOrderChange {
    *
    */
   readonly nextValue: LocalizedString[]
+}
+/**
+ *	Change triggered by the [Change Associate](ctp:api:type:BusinessUnitChangeAssociateAction) update action.
+ */
+export interface ChangeAssociateChange {
+  readonly type: 'ChangeAssociateChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: Associate
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: Associate
+}
+/**
+ *	Change triggered by the [Change Associate Mode](ctp:api:type:BusinessUnitChangeAssociateModeAction) update action.
+ */
+export interface ChangeAssociateModeChange {
+  readonly type: 'ChangeAssociateModeChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: BusinessUnitAssociateMode
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: BusinessUnitAssociateMode
 }
 /**
  *	Change triggered by the [Change AttributeDefinition AttributeConstraint](ctp:api:type:ProductTypeChangeAttributeConstraintAction) update action.
@@ -1824,6 +1923,26 @@ export interface ChangeParentChange {
   readonly nextValue: Reference
 }
 /**
+ *	Change triggered by the [Change Parent Unit](ctp:api:type:BusinessUnitChangeParentUnitAction) update action.
+ */
+export interface ChangeParentUnitChange {
+  readonly type: 'ChangeParentUnitChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: KeyReference
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: KeyReference
+}
+/**
  *	Change triggered by the following update actions:
  *
  *	- [Change PaymentState](ctp:api:type:OrderChangePaymentStateAction) on Orders.
@@ -1954,6 +2073,31 @@ export interface ChangePriceChange {
    *
    */
   readonly priceId: string
+}
+/**
+ *	Change triggered by the [Change Product Selection Active](ctp:api:type:StoreChangeProductSelectionAction) update action.
+ */
+export interface ChangeProductSelectionActiveChange {
+  readonly type: 'ChangeProductSelectionActiveChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Reference to the Product Selection which was changed.
+   *
+   */
+  readonly productSelection: Reference
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: boolean
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: boolean
 }
 /**
  *	Change triggered by the [Change Quantity](ctp:api:type:InventoryEntryChangeQuantityAction) update action.
@@ -2228,6 +2372,26 @@ export interface ChangeStateTypeChange {
    *
    */
   readonly nextValue: StateType
+}
+/**
+ *	Change triggered by the [Change Status](ctp:api:type:BusinessUnitChangeStatusAction) update action.
+ */
+export interface ChangeStatusChange {
+  readonly type: 'ChangeStatusChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: BusinessUnitStatus
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: BusinessUnitStatus
 }
 /**
  *	Change triggered by the [Change Target](ctp:api:type:CartDiscountChangeTargetAction) update action.
@@ -2548,6 +2712,21 @@ export interface RemoveAssetChange {
    *
    */
   readonly previousValue: Asset
+}
+/**
+ *	Change triggered by the [Remove Associate](ctp:api:type:BusinessUnitRemoveAssociateAction) update action.
+ */
+export interface RemoveAssociateChange {
+  readonly type: 'RemoveAssociateChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: Associate
 }
 /**
  *	Change triggered by the [Remove AttributeDefinition](ctp:api:type:ProductTypeRemoveAttributeDefinitionAction) update action.
@@ -2924,6 +3103,21 @@ export interface RemoveProductChange {
   readonly previousValue: Reference
 }
 /**
+ *	Change triggered by the [Remove Product Selection](ctp:api:type:StoreRemoveProductSelectionAction) update action.
+ */
+export interface RemoveProductSelectionChange {
+  readonly type: 'RemoveProductSelectionChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: ProductSelectionSetting
+}
+/**
  *	Change triggered by the [Update CustomObject](ctp:api:endpoint:/{projectKey}/custom-objects:POST) request when an existing property is removed.
  */
 export interface RemovePropertyChange {
@@ -3076,6 +3270,32 @@ export interface RemoveVariantChange {
   readonly catalogData: string
 }
 /**
+ *	Change triggered by the [Request Quote Renegotiation](ctp:api:type:QuoteRequestQuoteRenegotiationAction) update action.
+ *
+ */
+export interface RequestQuoteRenegotiationChange {
+  readonly type: 'RequestQuoteRenegotiationChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: QuoteState
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: QuoteState
+  /**
+   *	Message from the [Buyer](/../api/quotes-overview#buyer) regarding the [Quote](ctp:api:type:Quote) renegotiation request.
+   *
+   */
+  readonly buyerComment: string
+}
+/**
  *	Change triggered by the [Set Address](ctp:api:type:ChannelSetAddressAction) update action.
  */
 export interface SetAddressChange {
@@ -3094,6 +3314,70 @@ export interface SetAddressChange {
    *
    */
   readonly nextValue: Address
+}
+/**
+ *	Change triggered by the [Set Address Custom Field](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action.
+ *
+ */
+export interface SetAddressCustomFieldChange {
+  readonly type: 'SetAddressCustomFieldChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	[Address](ctp:api:type:Address) which was extended.
+   *
+   *
+   */
+  readonly address: Address
+  /**
+   *	Name of the [Custom Field](ctp:api:type:CustomFields).
+   *
+   */
+  readonly name: string
+  /**
+   *	`id` of the referenced [Type](ctp:api:type:Type).
+   *
+   *
+   */
+  readonly customTypeId: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: any
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: any
+}
+/**
+ *	Change triggered by the [Set Address Custom Type](ctp:api:type:BusinessUnitSetAddressCustomTypeAction) update action.
+ */
+export interface SetAddressCustomTypeChange {
+  readonly type: 'SetAddressCustomTypeChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	[Address](ctp:api:type:Address) which was extended.
+   *
+   *
+   */
+  readonly address: Address
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: CustomFields
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: CustomFields
 }
 /**
  *	Change triggered by the following update actions:
@@ -3509,10 +3793,10 @@ export interface SetCompanyNameChange {
   readonly nextValue: string
 }
 /**
- *	Change triggered by the [Set Country](ctp:api:type:StagedOrderSetCountryAction) update action.
+ *	Change triggered by the [Set Contact Email](ctp:api:type:BusinessUnitSetContactEmailAction) update action.
  */
-export interface SetCountryChange {
-  readonly type: 'SetCountryChange'
+export interface SetContactEmailChange {
+  readonly type: 'SetContactEmailChange'
   /**
    *
    */
@@ -3547,6 +3831,26 @@ export interface SetCountriesChange {
    *
    */
   readonly nextValue: StoreCountry[]
+}
+/**
+ *	Change triggered by the [Set Country](ctp:api:type:StagedOrderSetCountryAction) update action.
+ */
+export interface SetCountryChange {
+  readonly type: 'SetCountryChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: string
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: string
 }
 /**
  *	Change triggered by the following update actions:
@@ -5438,30 +5742,6 @@ export interface SetParcelTrackingDataChange {
   readonly parcel: ParcelChangeValue
 }
 /**
- *	Change triggered by the following update actions:
- *
- *	- [Set Purchase Order Number](ctp:api:type:OrderSetPurchaseOrderNumberAction) on Orders.
- *	- [Set Purchase Order Number](ctp:api:type:StagedOrderSetPurchaseOrderNumberAction) on Staged Orders.
- *
- */
-export interface SetPurchaseOrderNumberChange {
-  readonly type: 'SetPurchaseOrderNumberChange'
-  /**
-   *
-   */
-  readonly change: string
-  /**
-   *	Value before the change.
-   *
-   */
-  readonly previousValue: string
-  /**
-   *	Value after the change.
-   *
-   */
-  readonly nextValue: string
-}
-/**
  *	Change triggered by the [Set Prices](ctp:api:type:ProductSetPricesAction) update action.
  */
 export interface SetPricesChange {
@@ -5639,6 +5919,30 @@ export interface SetPropertyChange {
    *
    */
   readonly path: string
+}
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Purchase Order Number](ctp:api:type:OrderSetPurchaseOrderNumberAction) on Orders.
+ *	- [Set Purchase Order Number](ctp:api:type:StagedOrderSetPurchaseOrderNumberAction) on Staged Orders.
+ *
+ */
+export interface SetPurchaseOrderNumberChange {
+  readonly type: 'SetPurchaseOrderNumberChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: string
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: string
 }
 /**
  *	Change triggered by the [Set Rating](ctp:api:type:ReviewSetRatingAction) update action.
@@ -6176,6 +6480,26 @@ export interface SetStoreChange {
   readonly nextValue: Reference
 }
 /**
+ *	Change triggered by the [Set Store Mode](ctp:api:type:BusinessUnitSetStoreModeAction) update action.
+ */
+export interface SetStoreModeChange {
+  readonly type: 'SetStoreModeChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: BusinessUnitStoreMode
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: BusinessUnitStoreMode
+}
+/**
  *	Change triggered by the [Set Stores](ctp:api:type:CustomerSetStoresAction) update action.
  */
 export interface SetStoresChange {
@@ -6572,6 +6896,31 @@ export interface SetVariantAvailabilityChange {
    *
    */
   readonly variant: string
+}
+/**
+ *	Change triggered by the [Set Variant Selection](ctp:api:type:ProductSelectionSetVariantSelectionAction) update action.
+ */
+export interface SetVariantSelectionChange {
+  readonly type: 'SetVariantSelectionChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: ProductVariantSelection
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: ProductVariantSelection
+  /**
+   *	Reference to the updated [Product](ctp:api:type:Product).
+   *
+   */
+  readonly product: Reference
 }
 /**
  *	Change triggered by the [Set Vat ID](ctp:api:type:CustomerSetVatIdAction) update action.

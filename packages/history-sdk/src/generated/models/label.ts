@@ -10,6 +10,7 @@ import { LocalizedString, Money, Reference } from './common'
  *	Provides descriptive information specific to the resource.
  */
 export type Label =
+  | BusinessUnitLabel
   | CustomObjectLabel
   | CustomerLabel
   | LocalizedLabel
@@ -21,6 +22,19 @@ export type Label =
   | ReviewLabel
   | StagedQuoteLabel
   | StringLabel
+export interface BusinessUnitLabel {
+  readonly type: 'BusinessUnitLabel'
+  /**
+   *	User-defined unique identifier of the [Business Unit](ctp:api:type:BusinessUnit).
+   *
+   */
+  readonly key: string
+  /**
+   *	Name of the Business Unit.
+   *
+   */
+  readonly name: string
+}
 export interface CustomObjectLabel {
   readonly type: 'CustomObjectLabel'
   /**
