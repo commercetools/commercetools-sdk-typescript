@@ -1,65 +1,6 @@
 **Api changes**
 
 <details>
-<summary>Deprecated Property(s)</summary>
-
-- property `MyCartChangeLineItemQuantityAction::externalPrice` is removed
-- property `MyCartChangeLineItemQuantityAction::externalTotalPrice` is removed
-</details>
-
-<details>
-<summary>Required Property(s)</summary>
-
-- changed property `lineItemId` of type `CartApplyDeltaToLineItemShippingDetailsTargetsAction` to be optional
-- changed property `lineItemId` of type `CartChangeLineItemQuantityAction` to be optional
-- changed property `lineItemId` of type `CartRemoveLineItemAction` to be optional
-- changed property `lineItemId` of type `CartSetLineItemCustomFieldAction` to be optional
-- changed property `lineItemId` of type `CartSetLineItemCustomTypeAction` to be optional
-- changed property `lineItemId` of type `CartSetLineItemDistributionChannelAction` to be optional
-- changed property `lineItemId` of type `CartSetLineItemInventoryModeAction` to be optional
-- changed property `lineItemId` of type `CartSetLineItemPriceAction` to be optional
-- changed property `lineItemId` of type `CartSetLineItemShippingDetailsAction` to be optional
-- changed property `lineItemId` of type `CartSetLineItemSupplyChannelAction` to be optional
-- changed property `lineItemId` of type `CartSetLineItemTaxAmountAction` to be optional
-- changed property `lineItemId` of type `CartSetLineItemTaxRateAction` to be optional
-- changed property `lineItemId` of type `CartSetLineItemTotalPriceAction` to be optional
-- changed property `lineItemId` of type `MyCartApplyDeltaToLineItemShippingDetailsTargetsAction` to be optional
-- changed property `lineItemId` of type `MyCartChangeLineItemQuantityAction` to be optional
-- changed property `lineItemId` of type `MyCartRemoveLineItemAction` to be optional
-- changed property `lineItemId` of type `MyCartSetLineItemCustomFieldAction` to be optional
-- changed property `lineItemId` of type `MyCartSetLineItemCustomTypeAction` to be optional
-- changed property `lineItemId` of type `MyCartSetLineItemDistributionChannelAction` to be optional
-- changed property `lineItemId` of type `MyCartSetLineItemShippingDetailsAction` to be optional
-- changed property `lineItemId` of type `MyCartSetLineItemSupplyChannelAction` to be optional
-- changed property `lineItemId` of type `MyShoppingListChangeLineItemQuantityAction` to be optional
-- changed property `lineItemId` of type `StagedOrderChangeLineItemQuantityAction` to be optional
-- changed property `lineItemId` of type `StagedOrderRemoveLineItemAction` to be optional
-- changed property `parcelId` of type `StagedOrderRemoveParcelFromDeliveryAction` to be optional
-- changed property `lineItemId` of type `StagedOrderSetLineItemCustomFieldAction` to be optional
-- changed property `lineItemId` of type `StagedOrderSetLineItemCustomTypeAction` to be optional
-- changed property `lineItemId` of type `StagedOrderSetLineItemDistributionChannelAction` to be optional
-- changed property `lineItemId` of type `StagedOrderSetLineItemPriceAction` to be optional
-- changed property `lineItemId` of type `StagedOrderSetLineItemShippingDetailsAction` to be optional
-- changed property `lineItemId` of type `StagedOrderSetLineItemTaxAmountAction` to be optional
-- changed property `lineItemId` of type `StagedOrderSetLineItemTaxRateAction` to be optional
-- changed property `lineItemId` of type `StagedOrderSetLineItemTotalPriceAction` to be optional
-- changed property `parcelId` of type `StagedOrderSetParcelCustomFieldAction` to be optional
-- changed property `parcelId` of type `StagedOrderSetParcelCustomTypeAction` to be optional
-- changed property `parcelId` of type `StagedOrderSetParcelItemsAction` to be optional
-- changed property `parcelId` of type `StagedOrderSetParcelMeasurementsAction` to be optional
-- changed property `parcelId` of type `StagedOrderSetParcelTrackingDataAction` to be optional
-- changed property `parcelId` of type `OrderRemoveParcelFromDeliveryAction` to be optional
-- changed property `lineItemId` of type `OrderSetLineItemCustomFieldAction` to be optional
-- changed property `lineItemId` of type `OrderSetLineItemCustomTypeAction` to be optional
-- changed property `lineItemId` of type `OrderSetLineItemShippingDetailsAction` to be optional
-- changed property `parcelId` of type `OrderSetParcelCustomFieldAction` to be optional
-- changed property `parcelId` of type `OrderSetParcelCustomTypeAction` to be optional
-- changed property `parcelId` of type `OrderSetParcelItemsAction` to be optional
-- changed property `parcelId` of type `OrderSetParcelMeasurementsAction` to be optional
-- changed property `parcelId` of type `OrderSetParcelTrackingDataAction` to be optional
-</details>
-
-<details>
 <summary>Added Property(s)</summary>
 
 - added property `perMethodTaxRate` to type `CustomLineItem`
@@ -125,6 +66,71 @@
 </details>
 
 <details>
+<summary>Required Property(s)</summary>
+
+- changed property `lineItemId` of type `CartApplyDeltaToLineItemShippingDetailsTargetsAction` to be optional
+- changed property `lineItemId` of type `CartChangeLineItemQuantityAction` to be optional
+- changed property `lineItemId` of type `CartRemoveLineItemAction` to be optional
+- changed property `lineItemId` of type `CartSetLineItemCustomFieldAction` to be optional
+- changed property `lineItemId` of type `CartSetLineItemCustomTypeAction` to be optional
+- changed property `lineItemId` of type `CartSetLineItemDistributionChannelAction` to be optional
+- changed property `lineItemId` of type `CartSetLineItemInventoryModeAction` to be optional
+- changed property `lineItemId` of type `CartSetLineItemPriceAction` to be optional
+- changed property `lineItemId` of type `CartSetLineItemShippingDetailsAction` to be optional
+- changed property `lineItemId` of type `CartSetLineItemSupplyChannelAction` to be optional
+- changed property `lineItemId` of type `CartSetLineItemTaxAmountAction` to be optional
+- changed property `lineItemId` of type `CartSetLineItemTaxRateAction` to be optional
+- changed property `lineItemId` of type `CartSetLineItemTotalPriceAction` to be optional
+- changed property `lineItemId` of type `MyCartApplyDeltaToLineItemShippingDetailsTargetsAction` to be optional
+- changed property `lineItemId` of type `MyCartChangeLineItemQuantityAction` to be optional
+- changed property `lineItemId` of type `MyCartRemoveLineItemAction` to be optional
+- changed property `lineItemId` of type `MyCartSetLineItemCustomFieldAction` to be optional
+- changed property `lineItemId` of type `MyCartSetLineItemCustomTypeAction` to be optional
+- changed property `lineItemId` of type `MyCartSetLineItemDistributionChannelAction` to be optional
+- changed property `lineItemId` of type `MyCartSetLineItemShippingDetailsAction` to be optional
+- changed property `lineItemId` of type `MyCartSetLineItemSupplyChannelAction` to be optional
+- changed property `lineItemId` of type `MyShoppingListChangeLineItemQuantityAction` to be optional
+- changed property `lineItemId` of type `StagedOrderChangeLineItemQuantityAction` to be optional
+- changed property `lineItemId` of type `StagedOrderRemoveLineItemAction` to be optional
+- changed property `parcelId` of type `StagedOrderRemoveParcelFromDeliveryAction` to be optional
+- changed property `lineItemId` of type `StagedOrderSetLineItemCustomFieldAction` to be optional
+- changed property `lineItemId` of type `StagedOrderSetLineItemCustomTypeAction` to be optional
+- changed property `lineItemId` of type `StagedOrderSetLineItemDistributionChannelAction` to be optional
+- changed property `lineItemId` of type `StagedOrderSetLineItemPriceAction` to be optional
+- changed property `lineItemId` of type `StagedOrderSetLineItemShippingDetailsAction` to be optional
+- changed property `lineItemId` of type `StagedOrderSetLineItemTaxAmountAction` to be optional
+- changed property `lineItemId` of type `StagedOrderSetLineItemTaxRateAction` to be optional
+- changed property `lineItemId` of type `StagedOrderSetLineItemTotalPriceAction` to be optional
+- changed property `parcelId` of type `StagedOrderSetParcelCustomFieldAction` to be optional
+- changed property `parcelId` of type `StagedOrderSetParcelCustomTypeAction` to be optional
+- changed property `parcelId` of type `StagedOrderSetParcelItemsAction` to be optional
+- changed property `parcelId` of type `StagedOrderSetParcelMeasurementsAction` to be optional
+- changed property `parcelId` of type `StagedOrderSetParcelTrackingDataAction` to be optional
+- changed property `parcelId` of type `OrderRemoveParcelFromDeliveryAction` to be optional
+- changed property `lineItemId` of type `OrderSetLineItemCustomFieldAction` to be optional
+- changed property `lineItemId` of type `OrderSetLineItemCustomTypeAction` to be optional
+- changed property `lineItemId` of type `OrderSetLineItemShippingDetailsAction` to be optional
+- changed property `parcelId` of type `OrderSetParcelCustomFieldAction` to be optional
+- changed property `parcelId` of type `OrderSetParcelCustomTypeAction` to be optional
+- changed property `parcelId` of type `OrderSetParcelItemsAction` to be optional
+- changed property `parcelId` of type `OrderSetParcelMeasurementsAction` to be optional
+- changed property `parcelId` of type `OrderSetParcelTrackingDataAction` to be optional
+</details>
+
+<details>
+<summary>Deprecated Property(s)</summary>
+
+- property `MyCartChangeLineItemQuantityAction::externalPrice` is removed
+- property `MyCartChangeLineItemQuantityAction::externalTotalPrice` is removed
+</details>
+
+<details>
+<summary>Removed Type(s)</summary>
+
+- :warning: removed type `MyCartSetDirectDiscountsAction`
+</details>
+
+<details>
 <summary>Added Type(s)</summary>
 
 - added type `StandalonePriceTierAddedMessage`
@@ -146,12 +152,6 @@
 - added type `StandalonePriceSetValidFromAndUntilAction`
 - added type `StandalonePriceSetValidUntilAction`
 - added type `ConfluentCloudDestination`
-</details>
-
-<details>
-<summary>Removed Type(s)</summary>
-
-- :warning: removed type `MyCartSetDirectDiscountsAction`
 </details>
 
 <details>
