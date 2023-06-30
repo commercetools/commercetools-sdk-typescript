@@ -2550,8 +2550,8 @@ export interface CartRemoveLineItemAction {
    */
   readonly lineItemKey?: string
   /**
-   *	New value to set.
-   *	If absent or `0`, the Line Item is removed from the Cart.
+   *	Amount to subtract from the LineItem's `quantity`.
+   *	If absent, the LineItem is removed from the Cart.
    *
    *
    */
