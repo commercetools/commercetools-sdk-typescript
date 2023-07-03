@@ -703,6 +703,12 @@ export interface CustomLineItem {
    */
   readonly id: string
   /**
+   *	User-defined unique identifier of the Custom Line Item.
+   *
+   *
+   */
+  readonly key?: string
+  /**
    *	Name of the Custom Line Item.
    *
    *
@@ -799,6 +805,12 @@ export interface CustomLineItemDraft {
    *
    */
   readonly name: LocalizedString
+  /**
+   *	User-defined unique identifier of the Custom Line Item.
+   *
+   *
+   */
+  readonly key?: string
   /**
    *	Number of Custom Line Items to add to the Cart.
    *
@@ -1925,6 +1937,12 @@ export interface CartAddCustomLineItemAction {
    *
    */
   readonly name: LocalizedString
+  /**
+   *	User-defined unique identifier of the Custom Line Item.
+   *
+   *
+   */
+  readonly key?: string
   /**
    *	Number of Custom Line Items to add to the Cart.
    *

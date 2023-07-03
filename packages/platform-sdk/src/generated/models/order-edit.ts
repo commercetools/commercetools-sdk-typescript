@@ -387,6 +387,12 @@ export interface StagedOrderAddCustomLineItemAction {
    */
   readonly name: LocalizedString
   /**
+   *	User-defined unique identifier of the Custom Line Item.
+   *
+   *
+   */
+  readonly key?: string
+  /**
    *
    */
   readonly quantity?: number
