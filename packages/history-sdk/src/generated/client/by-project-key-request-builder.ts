@@ -36,6 +36,9 @@ export class ByProjectKeyRequestBuilder {
     })
   }
 
+  /**
+   *	The `view_audit_log:{projectKey}` scope is required, and depending on the [resource type](ctp:history:type:ChangeHistoryResourceType) queried, their respective scopes must be granted.
+   */
   public get(methodArgs?: {
     queryArgs?: {
       resourceTypes?: ChangeHistoryResourceType | ChangeHistoryResourceType[]
@@ -47,6 +50,7 @@ export class ByProjectKeyRequestBuilder {
       type?: string
       clientId?: string
       resourceId?: string
+      resourceKey?: string
       source?: string
       changes?: string | string[]
       stores?: string | string[]

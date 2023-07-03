@@ -155,7 +155,7 @@ export interface AttributeLocalizedEnumValue {
   readonly label: LocalizedString
 }
 /**
- *	A plain enum value must be unique within the enum, else a [DuplicateEnumValues](ctp:api:types:DuplicateEnumValuesError) error is returned.
+ *	A plain enum value must be unique within the enum, else a [DuplicateEnumValues](ctp:api:type:DuplicateEnumValuesError) error is returned.
  *
  */
 export interface AttributePlainEnumValue {

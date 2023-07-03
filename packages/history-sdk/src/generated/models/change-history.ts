@@ -5,17 +5,21 @@
  */
 
 import { Change } from './change'
-import { KeyReference, Reference } from './common'
+import { KeyReference, Reference, ResourceIdentifier } from './common'
 import { Label } from './label'
 
 /**
- *	A Record captures the differences in a resource between one version and the next.
- *	(Recall that the version number is not always incremented by one; see [Optimistic Concurrency Control](/general-concepts#optimistic-concurrency-control).)
+ *	Captures the differences between the previous and next version of a resource.
+ *
+ *	The maximum number of Records that can be stored and their retention period are subject to a [limit](/../api/limits#records).
  *
  */
 export interface Record {
   /**
    *	Version of the resource after the change.
+   *
+   *	For more information on how the version is incremented, see [Optimistic Concurrency Control](/../api/general-concepts#optimistic-concurrency-control).
+   *
    *
    */
   readonly version: number
@@ -25,17 +29,19 @@ export interface Record {
    */
   readonly previousVersion: number
   /**
-   *	Type of the change (creation, update or deletion).
+   *	Indicates the type of change.
+   *	For creation, update, or deletion, the value is `"ResourceCreated"`, `"ResourceUpdated"`, or `"ResourceDeleted"` respectively.
+   *
    *
    */
   readonly type: string
   /**
-   *	Information about the user or the API client who performed the change.
+   *	Information about the user or API Client who performed the change.
    *
    */
   readonly modifiedBy: ModifiedBy
   /**
-   *	Date and time when the change was made.
+   *	Date and time (UTC) when the change was made.
    *
    */
   readonly modifiedAt: string
@@ -51,25 +57,27 @@ export interface Record {
   readonly previousLabel: Label
   /**
    *	Shows the differences in the resource between `previousVersion` and `version`.
+   *
    *	The value is not identical to the actual array of update actions sent and is not limited to update actions (see, for example, [Optimistic  Concurrency Control](/general-concepts#optimistic-concurrency-control)).
    *
    *
    */
   readonly changes: Change[]
   /**
-   *	Reference to the changed resource.
+   *	ResourceIdentifier of the changed resource.
    *
    *
    */
-  readonly resource: Reference
+  readonly resource: ResourceIdentifier
   /**
-   *	References to the [Stores](ctp:api:type:Store) attached to the [Change](ctp:history:type:Change).
+   *	References to the [Stores](ctp:api:type:Store) associated with the [Change](ctp:history:type:Change).
    *
    *
    */
   readonly stores: KeyReference[]
   /**
    *	`true` if no change was detected.
+   *
    *	The version number of the resource can be increased even without any change in the resource.
    *
    *
@@ -77,7 +85,7 @@ export interface Record {
   readonly withoutChanges: boolean
 }
 /**
- *	Response to a query request for [Record](#record).
+ *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [Record](ctp:history:type:Record).
  *
  */
 export interface RecordPagedQueryResponse {
@@ -95,7 +103,7 @@ export interface RecordPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation and not [strongly consistent](/general-concepts#strong-consistency).
+   *	This number is an estimation and not [strongly consistent](/../api/general-concepts#strong-consistency).
    *
    *
    */
@@ -107,6 +115,8 @@ export interface RecordPagedQueryResponse {
    */
   readonly offset: number
   /**
+   *	Records matching the query.
+   *
    *
    */
   readonly results: Record[]
@@ -117,6 +127,7 @@ export interface RecordPagedQueryResponse {
  *
  */
 export type ChangeHistoryResourceType =
+  | 'business-unit'
   | 'cart-discount'
   | 'category'
   | 'channel'
@@ -180,56 +191,59 @@ export interface ErrorResponse {
   readonly errors?: ErrorObject[]
 }
 /**
- *	Information about the user or the API client who performed the change. This is a variant of
- *	[LastModifiedBy](/types#lastmodifiedby).
+ *	Information about the user or API Client who performed the change. This is a variant of [LastModifiedBy](ctp:api:type:LastModifiedBy).
  *
  */
 export interface ModifiedBy {
   /**
    *	[ID](/general-concepts#identifier) of the Merchant Center user who made the change.
+   *
    *	Present only if the change was made in the Merchant Center.
    *
    *
    */
   readonly id: string
   /**
-   *	Indicates whether the change was made by a user or the API client with or without an
-   *	[External user ID](/client-logging#external-user-ids).
+   *	Indicates who performed the change.
+   *
+   *	- If the change was made by a user, the value is `"user"`.
+   *	- If the change was made by an API Client with or without an [external user ID](/client-logging#external-user-ids), the value is `"external-user"`.
    *
    *
    */
   readonly type: string
   /**
-   *	[Reference](/types#reference) to the
-   *	[Customer](/projects/customers#customer) who made the change. Present only if
-   *	the change was made using a token from the [Password
-   *	Flow](/authorization#password-flow).
+   *	[Reference](ctp:api:type:Reference) to the [Customer](ctp:api:type:Customer) who made the change.
+   *
+   *	Present only if the change was made using a token from the [password flow](/authorization#password-flow).
    *
    *
    */
   readonly customer?: Reference
   /**
-   *	Present only if the change was made using a token from an [Anonymous
-   *	Session](/authorization#tokens-for-anonymous-sessions).
+   *	Present only if the change was made using a token from an [anonymous session](/authorization#tokens-for-anonymous-sessions).
    *
    *
    */
   readonly anonymousId?: string
   /**
-   *	[ID](/general-concepts#identifier) of the [API
-   *	Client](/projects/api-clients#apiclient) that made the change. Present only if
-   *	the change was made using an API Client.
+   *	[ID](/general-concepts#identifier) of the [API Client](ctp:api:type:ApiClient) that made the change.
+   *
+   *	Present only if the change was made using an API Client.
    *
    *
    */
   readonly clientId?: string
   /**
-   *	`true` if the change was made via Merchant Center or [ImpEx](https://impex.europe-west1.gcp.commercetools.com/).
+   *	`true` if the change was made using the Merchant Center or [ImpEx](https://impex.europe-west1.gcp.commercetools.com/).
    *
    *
    */
   readonly isPlatformClient: boolean
 }
+/**
+ *	Updates that are triggered automatically as a result of a user-initiated change.
+ */
 export type PlatformInitiatedChange =
   | 'changeLineItemName'
   | 'changeReviewRatingStatistics'
@@ -245,9 +259,12 @@ export type Source = 'ApiClient' | 'ImpEx' | 'MerchantCenter' | string
 export type UpdateType =
   | 'addAddress'
   | 'addAsset'
+  | 'addAssociate'
   | 'addAttributeDefinition'
   | 'addBillingAddressId'
+  | 'addCustomLineItem'
   | 'addDelivery'
+  | 'addDiscountCode'
   | 'addEnumValue'
   | 'addExternalImage'
   | 'addFieldDefinition'
@@ -260,6 +277,9 @@ export type UpdateType =
   | 'addPayment'
   | 'addPlainEnumValue'
   | 'addPrice'
+  | 'addProduct'
+  | 'addProductSelection'
+  | 'addProperty'
   | 'addReturnInfo'
   | 'addRoles'
   | 'addShippingAddressId'
@@ -269,14 +289,18 @@ export type UpdateType =
   | 'addTransaction'
   | 'addVariant'
   | 'changeAddress'
+  | 'changeAmountAuthorized'
   | 'changeAmountPlanned'
   | 'changeAssetName'
   | 'changeAssetOrder'
+  | 'changeAssociate'
+  | 'changeAssociateMode'
   | 'changeAttributeConstraint'
   | 'changeAttributeName'
   | 'changeAttributeOrderByName'
   | 'changeCartDiscounts'
   | 'changeCartPredicate'
+  | 'changeCustomLineItemQuantity'
   | 'changeDescription'
   | 'changeEmail'
   | 'changeEnumKey'
@@ -290,6 +314,7 @@ export type UpdateType =
   | 'changeIsSearchable'
   | 'changeKey'
   | 'changeLabel'
+  | 'changeLineItemName'
   | 'changeLineItemQuantity'
   | 'changeLineItemsOrder'
   | 'changeLocalizedEnumValueLabel'
@@ -299,18 +324,27 @@ export type UpdateType =
   | 'changeOrderHint'
   | 'changeOrderState'
   | 'changeParent'
+  | 'changeParentUnit'
   | 'changePaymentState'
   | 'changePlainEnumValueLabel'
   | 'changePredicate'
   | 'changePrice'
+  | 'changeProductSelectionActive'
   | 'changeQuantity'
+  | 'changeQuoteRequestState'
+  | 'changeQuoteState'
   | 'changeRequiresDiscountCode'
   | 'changeReviewRatingStatistics'
   | 'changeShipmentState'
   | 'changeSlug'
   | 'changeSortOrder'
   | 'changeStackingMode'
+  | 'changeStagedQuoteState'
+  | 'changeStatus'
   | 'changeTarget'
+  | 'changeTaxCalculationMode'
+  | 'changeTaxMode'
+  | 'changeTaxRoundingMode'
   | 'changeTextLineItemName'
   | 'changeTextLineItemQuantity'
   | 'changeTextLineItemsOrder'
@@ -319,12 +353,16 @@ export type UpdateType =
   | 'changeTransactionTimestamp'
   | 'changeType'
   | 'changeValue'
+  | 'moveImageToPosition'
   | 'publish'
   | 'removeAddress'
   | 'removeAsset'
+  | 'removeAssociate'
   | 'removeAttributeDefinition'
   | 'removeBillingAddressId'
+  | 'removeCustomLineItem'
   | 'removeDelivery'
+  | 'removeDiscountCode'
   | 'removeEnumValues'
   | 'removeFieldDefinition'
   | 'removeFromCategory'
@@ -335,13 +373,20 @@ export type UpdateType =
   | 'removeParcelFromDelivery'
   | 'removePayment'
   | 'removePrice'
+  | 'removeProduct'
+  | 'removeProductSelection'
+  | 'removeProperty'
   | 'removeRoles'
   | 'removeShippingAddressId'
   | 'removeTaxRate'
   | 'removeTextLineItem'
   | 'removeVariant'
+  | 'requestQuoteRenegotiation'
   | 'setAddress'
+  | 'setAddressCustomField'
+  | 'setAddressCustomType'
   | 'setAnonymousId'
+  | 'setApplicationVersion'
   | 'setAssetCustomField'
   | 'setAssetCustomType'
   | 'setAssetDescription'
@@ -349,15 +394,26 @@ export type UpdateType =
   | 'setAssetTags'
   | 'setAsssetKey'
   | 'setAttribute'
+  | 'setAuthenticationMode'
   | 'setAuthorName'
   | 'setBillingAddress'
   | 'setCartPredicate'
   | 'setCategoryOrderHint'
   | 'setCompanyName'
+  | 'setContactEmail'
+  | 'setCountries'
+  | 'setCountry'
   | 'setCustomField'
   | 'setCustomLineItemCustomField'
   | 'setCustomLineItemCustomType'
+  | 'setCustomLineItemMoney'
   | 'setCustomLineItemShippingDetails'
+  | 'setCustomLineItemTaxAmount'
+  | 'setCustomLineItemTaxCategory'
+  | 'setCustomLineItemTaxRate'
+  | 'setCustomLineItemTaxedPrice'
+  | 'setCustomLineItemTotalPrice'
+  | 'setCustomShippingMethod'
   | 'setCustomType'
   | 'setCustomer'
   | 'setCustomerEmail'
@@ -380,12 +436,24 @@ export type UpdateType =
   | 'setImageLabel'
   | 'setInputTip'
   | 'setInterfaceId'
+  | 'setIsValid'
   | 'setKey'
   | 'setLanguages'
   | 'setLastName'
   | 'setLineItemCustomField'
   | 'setLineItemCustomType'
+  | 'setLineItemDeactivatedAt'
+  | 'setLineItemDiscountedPrice'
+  | 'setLineItemDiscountedPricePerQuantity'
+  | 'setLineItemDistributionChannel'
+  | 'setLineItemPrice'
+  | 'setLineItemProductKey'
+  | 'setLineItemProductSlug'
   | 'setLineItemShippingDetails'
+  | 'setLineItemTaxAmount'
+  | 'setLineItemTaxRate'
+  | 'setLineItemTaxedPrice'
+  | 'setLineItemTotalPrice'
   | 'setLocale'
   | 'setMaxApplications'
   | 'setMaxApplicationsPerCustomer'
@@ -398,28 +466,47 @@ export type UpdateType =
   | 'setMiddleName'
   | 'setName'
   | 'setOrderNumber'
+  | 'setOrderTaxedPrice'
+  | 'setOrderTotalPrice'
+  | 'setOrderTotalTax'
   | 'setParcelItems'
   | 'setParcelMeasurements'
   | 'setParcelTrackingData'
   | 'setPassword'
+  | 'setPrices'
+  | 'setProductCount'
   | 'setProductPriceCustomField'
   | 'setProductPriceCustomType'
+  | 'setProductSelections'
   | 'setProductVariantKey'
+  | 'setProperty'
+  | 'setPurchaseOrderNumber'
   | 'setRating'
+  | 'setReservations'
   | 'setRestockableInDays'
   | 'setReturnPaymentState'
   | 'setReturnShipmentState'
   | 'setRoles'
   | 'setSalutation'
   | 'setSearchKeywords'
+  | 'setSellerComment'
   | 'setShippingAddress'
+  | 'setShippingInfoPrice'
+  | 'setShippingInfoTaxedPrice'
+  | 'setShippingMethod'
+  | 'setShippingMethodTaxAmount'
+  | 'setShippingMethodTaxRate'
+  | 'setShippingRate'
+  | 'setShippingRateInput'
   | 'setSku'
   | 'setSlug'
   | 'setStatusInterfaceCode'
   | 'setStatusInterfaceText'
   | 'setStore'
+  | 'setStoreMode'
   | 'setStores'
   | 'setSupplyChannel'
+  | 'setSupplyChannels'
   | 'setTarget'
   | 'setTaxCategory'
   | 'setText'
@@ -430,8 +517,11 @@ export type UpdateType =
   | 'setTransitions'
   | 'setValidFrom'
   | 'setValidFromAndUntil'
+  | 'setValidTo'
   | 'setValidUntil'
+  | 'setValue'
   | 'setVariantAvailability'
+  | 'setVariantSelection'
   | 'setVatId'
   | 'transitionCustomLineItemState'
   | 'transitionLineItemState'

@@ -1,5 +1,12 @@
-**Api changes**
+---
+"@commercetools/history-sdk": patch
+"@commercetools/importapi-sdk": patch
+"@commercetools/platform-sdk": patch
+---
 
+Update generated SDKs
+
+# Api (Platform) changes
 <details>
 <summary>Added Property(s)</summary>
 
@@ -168,8 +175,7 @@
 - added enum `business-unit` to type `CustomFieldReferenceValue`
 </details>
 
-**Import changes**
-
+# Import changes
 <details>
 <summary>Added Enum(s)</summary>
 
@@ -177,7 +183,7 @@
 - added enum `business-unit` to type `CustomFieldReferenceValue`
 </details>
 
-**History changes**
+# History change
 
 <details>
 <summary>Added Property(s)</summary>

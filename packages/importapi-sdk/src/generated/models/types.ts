@@ -163,6 +163,8 @@ export interface CustomFieldReferenceType {
  *	Defines which resource type a [CustomFieldReferenceType](ctp:import:type:CustomFieldReferenceType) can reference.
  */
 export type CustomFieldReferenceValue =
+  | 'associate-role'
+  | 'business-unit'
   | 'cart'
   | 'category'
   | 'channel'

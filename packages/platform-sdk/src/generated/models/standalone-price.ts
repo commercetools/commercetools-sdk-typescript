@@ -28,7 +28,7 @@ import {
 } from './type'
 
 /**
- *	Staged changes on a Standalone Price. To update the `value` property of a Staged Standalone Price, use the corresponding [update action](ctp:api:type:StandalonePriceChangeValueAction). To apply all staged changes to the Standalone Price, use the `applyStagedChanges` update action.
+ *	Staged changes on a Standalone Price. To update the `value` property of a Staged Standalone Price, use the corresponding [update action](ctp:api:type:StandalonePriceChangeValueAction). To apply all staged changes to the Standalone Price, use the [Apply Staged Changes](ctp:api:type:StandalonePriceApplyStagedChangesAction) update action.
  */
 export interface StagedStandalonePrice {
   /**
@@ -148,7 +148,7 @@ export interface StandalonePrice extends BaseResource {
    */
   readonly custom?: CustomFields
   /**
-   *	Staged changes of the StandalonePrice. Only present if the StandalonePrice has staged changes.
+   *	Staged changes of the StandalonePrice. Only present if the StandalonePrice has some changes staged.
    *
    *
    */
@@ -233,8 +233,7 @@ export interface StandalonePriceDraft {
    */
   readonly custom?: CustomFieldsDraft
   /**
-   *	If set to `true`, the StandalonePrice is considered during [price selection](ctp:api:type:ProductPriceSelection).
-   *	If set to `false`, the StandalonePrice is not considered during [price selection](ctp:api:type:ProductPriceSelection).
+   *	Set to `false`, if the StandalonePrice should not be considered during [price selection](ctp:api:type:ProductPriceSelection).
    *
    *
    */
@@ -329,13 +328,36 @@ export interface StandalonePriceUpdate {
   readonly actions: StandalonePriceUpdateAction[]
 }
 export type StandalonePriceUpdateAction =
+  | StandalonePriceAddPriceTierAction
   | StandalonePriceApplyStagedChangesAction
   | StandalonePriceChangeActiveAction
   | StandalonePriceChangeValueAction
+  | StandalonePriceRemovePriceTierAction
   | StandalonePriceSetCustomFieldAction
   | StandalonePriceSetCustomTypeAction
   | StandalonePriceSetDiscountedPriceAction
   | StandalonePriceSetKeyAction
+  | StandalonePriceSetPriceTiersAction
+  | StandalonePriceSetValidFromAction
+  | StandalonePriceSetValidFromAndUntilAction
+  | StandalonePriceSetValidUntilAction
+/**
+ *	Adding a [PriceTier](ctp:api:type:PriceTier) to a [StandalonePrice](ctp:api:type:StandalonePrice) produces the [Standalone Price Tier Added](ctp:api:type:StandalonePriceTierAddedMessage) Message.
+ *
+ */
+export interface StandalonePriceAddPriceTierAction {
+  readonly action: 'addPriceTier'
+  /**
+   *	The [PriceTier](ctp:api:type:PriceTier) to be added to the `tiers` field of the [StandalonePrice](ctp:api:type:StandalonePrice).
+   *	The action returns an [InvalidField](ctp:api:type:InvalidFieldError) error in the following cases:
+   *
+   *	* Trying to add a PriceTier with `minimumQuantity` < `2`.
+   *	* Trying to add a PriceTier with `minimumQuantity` that already exists for the StandalonePrice.
+   *
+   *
+   */
+  readonly tier: PriceTierDraft
+}
 /**
  *	Applies all staged changes to the StandalonePrice by overwriting all current values with the values in the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice). After successfully applied, the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice) will be removed from the StandalonePrice. An `applyStagedChanges` update action on a StandalonePrice that does not contain any staged changes will return a `400 Bad Request` error. Applying staged changes successfully will produce the [StandalonePriceStagedChangesApplied](ctp:api:type:StandalonePriceStagedChangesAppliedMessage) Message.
  *
@@ -374,6 +396,19 @@ export interface StandalonePriceChangeValueAction {
    *
    */
   readonly staged?: boolean
+}
+/**
+ *	Removing a [PriceTier](ctp:api:type:PriceTier) from a [StandalonePrice](ctp:api:type:StandalonePrice) produces the [Standalone Price Tier Removed](ctp:api:type:StandalonePriceTierRemovedMessage) Message.
+ *
+ */
+export interface StandalonePriceRemovePriceTierAction {
+  readonly action: 'removePriceTier'
+  /**
+   *	The `minimumQuantity` of the [PriceTier](ctp:api:type:PriceTier) to be removed from the `tiers` field of the [StandalonePrice](ctp:api:type:StandalonePrice).
+   *
+   *
+   */
+  readonly tierMinimumQuantity: number
 }
 export interface StandalonePriceSetCustomFieldAction {
   readonly action: 'setCustomField'
@@ -433,4 +468,73 @@ export interface StandalonePriceSetKeyAction {
    *
    */
   readonly key?: string
+}
+/**
+ *	Sets all [PriceTiers](ctp:api:type:PriceTier) for a [StandalonePrice](ctp:api:type:StandalonePrice) in one action, produces the [Standalone Price Tiers Set](ctp:api:type:StandalonePriceTiersSetMessage) Message.
+ *
+ */
+export interface StandalonePriceSetPriceTiersAction {
+  readonly action: 'setPriceTier'
+  /**
+   *	Value to set. If empty, any existing value will be removed.
+   *	The `minimumQuantity` of the PriceTiers must be unique and greater than `1`, otherwise an [InvalidField](ctp:api:type:InvalidFieldError) error is returned.
+   *
+   *
+   */
+  readonly tiers: PriceTierDraft[]
+}
+/**
+ *	Updating the `validFrom` value generates the [StandalonePriceValidFromSet](ctp:api:type:StandalonePriceValidFromSetMessage) Message.
+ *
+ *	As the validity dates are part of the price scope and are not allowed to overlap, this update might return the [DuplicateStandalonePriceScope](ctp:api:type:DuplicateStandalonePriceScopeError) and [OverlappingStandalonePriceValidity](ctp:api:type:OverlappingStandalonePriceValidityError) errors, respectively. A Price without validity period does not conflict with a Price defined for a time period.
+ *
+ */
+export interface StandalonePriceSetValidFromAction {
+  readonly action: 'setValidFrom'
+  /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly validFrom?: string
+}
+/**
+ *	Updating the `validFrom` and `validUntil` values generates the [StandalonePriceValidFromAndUntilSet](ctp:api:type:StandalonePriceValidFromAndUntilSetMessage) Message.
+ *
+ *	As the validity dates are part of the price scope and are not allowed to overlap, this update might return the [DuplicateStandalonePriceScope](ctp:api:type:DuplicateStandalonePriceScopeError) and [OverlappingStandalonePriceValidity](ctp:api:type:OverlappingStandalonePriceValidityError) errors, respectively. A Price without validity period does not conflict with a Price defined for a time period.
+ *
+ */
+export interface StandalonePriceSetValidFromAndUntilAction {
+  readonly action: 'setValidFromAndUntil'
+  /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly validFrom?: string
+  /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly validUntil?: string
+}
+/**
+ *	Updating the `validUntil` value generates the [StandalonePriceValidUntilSet](ctp:api:type:StandalonePriceValidUntilSetMessage) Message.
+ *
+ *	As the validity dates are part of the price scope and are not allowed to overlap, this update might return the [DuplicateStandalonePriceScope](ctp:api:type:DuplicateStandalonePriceScopeError) and [OverlappingStandalonePriceValidity](ctp:api:type:OverlappingStandalonePriceValidityError) errors, respectively. A Price without validity period does not conflict with a Price defined for a time period.
+ *
+ */
+export interface StandalonePriceSetValidUntilAction {
+  readonly action: 'setValidUntil'
+  /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly validUntil?: string
 }

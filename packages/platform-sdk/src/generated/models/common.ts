@@ -921,6 +921,7 @@ export interface PriceTier {
    *	Minimum quantity this Price tier is valid for.
    *
    *	The minimum quantity is always greater than or equal to 2. The base Price is interpreted as valid for a minimum quantity equal to 1.
+   *	A [Price](ctp:api:type:Price) or [StandalonePrice](ctp:api:type:StandalonePrice) cannot contain more than one tier with the same `minimumQuantity`.
    *
    *
    */
@@ -943,6 +944,8 @@ export interface PriceTierDraft {
    *	Minimum quantity this Price tier is valid for.
    *
    *	The minimum quantity is always greater than or equal to 2. The base Price is interpreted as valid for a minimum quantity equal to 1.
+   *	A [Price](ctp:api:type:Price) or [StandalonePrice](ctp:api:type:StandalonePrice) cannot contain more than one tier with the same `minimumQuantity`.
+   *	In the case one of the constraint is not met an [InvalidField](ctp:api:type:InvalidFieldError) is returned.
    *
    *
    */

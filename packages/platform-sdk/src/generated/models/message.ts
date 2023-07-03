@@ -36,6 +36,7 @@ import {
   LastModifiedBy,
   LocalizedString,
   Price,
+  PriceTier,
   Reference,
   _Money,
 } from './common'
@@ -259,6 +260,12 @@ export type Message =
   | StandalonePriceExternalDiscountSetMessage
   | StandalonePriceKeySetMessage
   | StandalonePriceStagedChangesAppliedMessage
+  | StandalonePriceTierAddedMessage
+  | StandalonePriceTierRemovedMessage
+  | StandalonePriceTiersSetMessage
+  | StandalonePriceValidFromAndUntilSetMessage
+  | StandalonePriceValidFromSetMessage
+  | StandalonePriceValidUntilSetMessage
   | StandalonePriceValueChangedMessage
   | StoreCountriesChangedMessage
   | StoreCreatedMessage
@@ -11332,7 +11339,7 @@ export interface StagedQuoteValidToSetMessage {
   readonly validTo: string
 }
 /**
- *	Generated after a successful [Change Active](ctp:api:types:StandalonePriceChangeActiveAction) update action.
+ *	Generated after a successful [Change Active](ctp:api:type:StandalonePriceChangeActiveAction) update action.
  *
  */
 export interface StandalonePriceActiveChangedMessage {
@@ -11395,13 +11402,13 @@ export interface StandalonePriceActiveChangedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Value of the `active` field of the StandalonePrice after the [Change Active](ctp:api:types:StandalonePriceChangeActiveAction) update action.
+   *	Value of the `active` field of the StandalonePrice after the [Change Active](ctp:api:type:StandalonePriceChangeActiveAction) update action.
    *
    *
    */
   readonly active: boolean
   /**
-   *	Value of the `active` field of the StandalonePrice before the [Change Active](ctp:api:types:StandalonePriceChangeActiveAction) update action.
+   *	Value of the `active` field of the StandalonePrice before the [Change Active](ctp:api:type:StandalonePriceChangeActiveAction) update action.
    *
    *
    */
@@ -11540,6 +11547,12 @@ export interface StandalonePriceDeletedMessage {
    *
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	SKU of the [ProductVariant](ctp:api:type:ProductVariant) to which the deleted Standalone Price was associated.
+   *
+   *
+   */
+  readonly sku: string
 }
 /**
  *	Generated after a [Product Discount](ctp:api:type:ProductDiscount) is successfully applied to a StandalonePrice.
@@ -11758,7 +11771,7 @@ export interface StandalonePriceKeySetMessage {
   readonly oldKey?: string
 }
 /**
- *	Generated after a successful [Apply Staged Changes](ctp:api:types:StandalonePriceApplyStagedChangesAction) update action.
+ *	Generated after a successful [Apply Staged Changes](ctp:api:type:StandalonePriceApplyStagedChangesAction) update action.
  *
  */
 export interface StandalonePriceStagedChangesAppliedMessage {
@@ -11821,11 +11834,467 @@ export interface StandalonePriceStagedChangesAppliedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Applied changes of the [StandalonePrice](/../api/projects/standalone-prices) after the [Apply Staged Changes](ctp:api:types:StandalonePriceApplyStagedChangesAction) update action.
+   *	Applied changes of the [StandalonePrice](/../api/projects/standalone-prices) after the [Apply Staged Changes](ctp:api:type:StandalonePriceApplyStagedChangesAction) update action.
    *
    *
    */
   readonly stagedChanges: StagedStandalonePrice
+}
+/**
+ *	Generated after a successful [Add Price Tier](ctp:api:type:StandalonePriceAddPriceTierAction) update action
+ *
+ */
+export interface StandalonePriceTierAddedMessage {
+  readonly type: 'StandalonePriceTierAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The [Price Tier](ctp:api:type:PriceTier) that has been added to the array field `tiers` for the [StandalonePrice](ctp:api:type:StandalonePrice).
+   *
+   *
+   */
+  readonly tier: PriceTier
+}
+/**
+ *	Generated after a successful [Remove Price Tier](ctp:api:type:StandalonePriceRemovePriceTierAction) update action
+ *
+ */
+export interface StandalonePriceTierRemovedMessage {
+  readonly type: 'StandalonePriceTierRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The [Price Tier](ctp:api:type:PriceTier) that has been removed from the array field `tiers` for the [StandalonePrice](ctp:api:type:StandalonePrice).
+   *
+   *
+   */
+  readonly removedTier: PriceTier
+}
+/**
+ *	Generated after a successful [Set Price Tier](ctp:api:type:StandalonePriceSetPriceTiersAction) update action
+ *
+ */
+export interface StandalonePriceTiersSetMessage {
+  readonly type: 'StandalonePriceTiersSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The updated content of the field `tiers` of the affected [StandalonePrice](ctp:api:type:StandalonePrice).
+   *
+   *
+   */
+  readonly tiers: PriceTier[]
+  /**
+   *	The previous content of the field `tiers` of the affected [StandalonePrice](ctp:api:type:StandalonePrice).
+   *
+   *
+   */
+  readonly previousTiers: PriceTier[]
+}
+/**
+ *	Generated after a successful [Set Valid From and Until](ctp:api:type:StandalonePriceSetValidFromAndUntilAction) update action.
+ *
+ */
+export interface StandalonePriceValidFromAndUntilSetMessage {
+  readonly type: 'StandalonePriceValidFromAndUntilSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Value of [StandalonePrice](ctp:api:type:StandalonePrice) `validFrom` after the [Set Valid From and Until](ctp:api:type:StandalonePriceSetValidFromAndUntilAction) update action.
+   *
+   *
+   */
+  readonly validFrom?: string
+  /**
+   *	Value of [StandalonePrice](ctp:api:type:StandalonePrice) `validFrom` before the [Set Valid From and Until](ctp:api:type:StandalonePriceSetValidFromAndUntilAction) update action.
+   *
+   *
+   */
+  readonly previousValidFrom?: string
+  /**
+   *	Value of [StandalonePrice](ctp:api:type:StandalonePrice) `validUntil` after the [Set Valid From and Until](ctp:api:type:StandalonePriceSetValidFromAndUntilAction) update action.
+   *
+   *
+   */
+  readonly validUntil?: string
+  /**
+   *	Value of [StandalonePrice](ctp:api:type:StandalonePrice) `validUntil` before the [Set Valid From and Until](ctp:api:type:StandalonePriceSetValidFromAndUntilAction) update action.
+   *
+   *
+   */
+  readonly previousValidUntil?: string
+}
+/**
+ *	Generated after a successful [Set Valid From](ctp:api:type:StandalonePriceSetValidFromAction) update action.
+ *
+ */
+export interface StandalonePriceValidFromSetMessage {
+  readonly type: 'StandalonePriceValidFromSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Value of [StandalonePrice](ctp:api:type:StandalonePrice) `validFrom` after the [Set Valid From](ctp:api:type:StandalonePriceSetValidFromAction) update action.
+   *
+   *
+   */
+  readonly validFrom?: string
+  /**
+   *	Value of [StandalonePrice](ctp:api:type:StandalonePrice) `validFrom` before the [Set Valid From](ctp:api:type:StandalonePriceSetValidFromAction) update action.
+   *
+   *
+   */
+  readonly previousValidFrom?: string
+}
+/**
+ *	Generated after a successful [Set Valid Until](ctp:api:type:StandalonePriceSetValidUntilAction) update action.
+ *
+ */
+export interface StandalonePriceValidUntilSetMessage {
+  readonly type: 'StandalonePriceValidUntilSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Value of [StandalonePrice](ctp:api:type:StandalonePrice) `validUntil` after the [Set Valid Until](ctp:api:type:StandalonePriceSetValidUntilAction) update action.
+   *
+   *
+   */
+  readonly validUntil?: string
+  /**
+   *	Value of [StandalonePrice](ctp:api:type:StandalonePrice) `validUntil` before the [Set Valid Until](ctp:api:type:StandalonePriceSetValidUntilAction) update action.
+   *
+   *
+   */
+  readonly previousValidUntil?: string
 }
 /**
  *	Generated after a successful [Change Value](ctp:api:type:StandalonePriceChangeValueAction) update action.
@@ -12745,6 +13214,12 @@ export type MessagePayload =
   | StandalonePriceExternalDiscountSetMessagePayload
   | StandalonePriceKeySetMessagePayload
   | StandalonePriceStagedChangesAppliedMessagePayload
+  | StandalonePriceTierAddedMessagePayload
+  | StandalonePriceTierRemovedMessagePayload
+  | StandalonePriceTiersSetMessagePayload
+  | StandalonePriceValidFromAndUntilSetMessagePayload
+  | StandalonePriceValidFromSetMessagePayload
+  | StandalonePriceValidUntilSetMessagePayload
   | StandalonePriceValueChangedMessagePayload
   | StoreCountriesChangedMessagePayload
   | StoreCreatedMessagePayload
@@ -15444,19 +15919,19 @@ export interface StagedQuoteValidToSetMessagePayload {
   readonly validTo: string
 }
 /**
- *	Generated after a successful [Change Active](ctp:api:types:StandalonePriceChangeActiveAction) update action.
+ *	Generated after a successful [Change Active](ctp:api:type:StandalonePriceChangeActiveAction) update action.
  *
  */
 export interface StandalonePriceActiveChangedMessagePayload {
   readonly type: 'StandalonePriceActiveChanged'
   /**
-   *	Value of the `active` field of the StandalonePrice after the [Change Active](ctp:api:types:StandalonePriceChangeActiveAction) update action.
+   *	Value of the `active` field of the StandalonePrice after the [Change Active](ctp:api:type:StandalonePriceChangeActiveAction) update action.
    *
    *
    */
   readonly active: boolean
   /**
-   *	Value of the `active` field of the StandalonePrice before the [Change Active](ctp:api:types:StandalonePriceChangeActiveAction) update action.
+   *	Value of the `active` field of the StandalonePrice before the [Change Active](ctp:api:type:StandalonePriceChangeActiveAction) update action.
    *
    *
    */
@@ -15481,6 +15956,12 @@ export interface StandalonePriceCreatedMessagePayload {
  */
 export interface StandalonePriceDeletedMessagePayload {
   readonly type: 'StandalonePriceDeleted'
+  /**
+   *	SKU of the [ProductVariant](ctp:api:type:ProductVariant) to which the deleted Standalone Price was associated.
+   *
+   *
+   */
+  readonly sku: string
 }
 /**
  *	Generated after a [Product Discount](ctp:api:type:ProductDiscount) is successfully applied to a StandalonePrice.
@@ -15528,17 +16009,131 @@ export interface StandalonePriceKeySetMessagePayload {
   readonly oldKey?: string
 }
 /**
- *	Generated after a successful [Apply Staged Changes](ctp:api:types:StandalonePriceApplyStagedChangesAction) update action.
+ *	Generated after a successful [Apply Staged Changes](ctp:api:type:StandalonePriceApplyStagedChangesAction) update action.
  *
  */
 export interface StandalonePriceStagedChangesAppliedMessagePayload {
   readonly type: 'StandalonePriceStagedChangesApplied'
   /**
-   *	Applied changes of the [StandalonePrice](/../api/projects/standalone-prices) after the [Apply Staged Changes](ctp:api:types:StandalonePriceApplyStagedChangesAction) update action.
+   *	Applied changes of the [StandalonePrice](/../api/projects/standalone-prices) after the [Apply Staged Changes](ctp:api:type:StandalonePriceApplyStagedChangesAction) update action.
    *
    *
    */
   readonly stagedChanges: StagedStandalonePrice
+}
+/**
+ *	Generated after a successful [Add Price Tier](ctp:api:type:StandalonePriceAddPriceTierAction) update action
+ *
+ */
+export interface StandalonePriceTierAddedMessagePayload {
+  readonly type: 'StandalonePriceTierAdded'
+  /**
+   *	The [Price Tier](ctp:api:type:PriceTier) that has been added to the array field `tiers` for the [StandalonePrice](ctp:api:type:StandalonePrice).
+   *
+   *
+   */
+  readonly tier: PriceTier
+}
+/**
+ *	Generated after a successful [Remove Price Tier](ctp:api:type:StandalonePriceRemovePriceTierAction) update action
+ *
+ */
+export interface StandalonePriceTierRemovedMessagePayload {
+  readonly type: 'StandalonePriceTierRemoved'
+  /**
+   *	The [Price Tier](ctp:api:type:PriceTier) that has been removed from the array field `tiers` for the [StandalonePrice](ctp:api:type:StandalonePrice).
+   *
+   *
+   */
+  readonly removedTier: PriceTier
+}
+/**
+ *	Generated after a successful [Set Price Tier](ctp:api:type:StandalonePriceSetPriceTiersAction) update action
+ *
+ */
+export interface StandalonePriceTiersSetMessagePayload {
+  readonly type: 'StandalonePriceTiersSet'
+  /**
+   *	The updated content of the field `tiers` of the affected [StandalonePrice](ctp:api:type:StandalonePrice).
+   *
+   *
+   */
+  readonly tiers: PriceTier[]
+  /**
+   *	The previous content of the field `tiers` of the affected [StandalonePrice](ctp:api:type:StandalonePrice).
+   *
+   *
+   */
+  readonly previousTiers: PriceTier[]
+}
+/**
+ *	Generated after a successful [Set Valid From and Until](ctp:api:type:StandalonePriceSetValidFromAndUntilAction) update action.
+ *
+ */
+export interface StandalonePriceValidFromAndUntilSetMessagePayload {
+  readonly type: 'StandalonePriceValidFromAndUntilSet'
+  /**
+   *	Value of [StandalonePrice](ctp:api:type:StandalonePrice) `validFrom` after the [Set Valid From and Until](ctp:api:type:StandalonePriceSetValidFromAndUntilAction) update action.
+   *
+   *
+   */
+  readonly validFrom?: string
+  /**
+   *	Value of [StandalonePrice](ctp:api:type:StandalonePrice) `validFrom` before the [Set Valid From and Until](ctp:api:type:StandalonePriceSetValidFromAndUntilAction) update action.
+   *
+   *
+   */
+  readonly previousValidFrom?: string
+  /**
+   *	Value of [StandalonePrice](ctp:api:type:StandalonePrice) `validUntil` after the [Set Valid From and Until](ctp:api:type:StandalonePriceSetValidFromAndUntilAction) update action.
+   *
+   *
+   */
+  readonly validUntil?: string
+  /**
+   *	Value of [StandalonePrice](ctp:api:type:StandalonePrice) `validUntil` before the [Set Valid From and Until](ctp:api:type:StandalonePriceSetValidFromAndUntilAction) update action.
+   *
+   *
+   */
+  readonly previousValidUntil?: string
+}
+/**
+ *	Generated after a successful [Set Valid From](ctp:api:type:StandalonePriceSetValidFromAction) update action.
+ *
+ */
+export interface StandalonePriceValidFromSetMessagePayload {
+  readonly type: 'StandalonePriceValidFromSet'
+  /**
+   *	Value of [StandalonePrice](ctp:api:type:StandalonePrice) `validFrom` after the [Set Valid From](ctp:api:type:StandalonePriceSetValidFromAction) update action.
+   *
+   *
+   */
+  readonly validFrom?: string
+  /**
+   *	Value of [StandalonePrice](ctp:api:type:StandalonePrice) `validFrom` before the [Set Valid From](ctp:api:type:StandalonePriceSetValidFromAction) update action.
+   *
+   *
+   */
+  readonly previousValidFrom?: string
+}
+/**
+ *	Generated after a successful [Set Valid Until](ctp:api:type:StandalonePriceSetValidUntilAction) update action.
+ *
+ */
+export interface StandalonePriceValidUntilSetMessagePayload {
+  readonly type: 'StandalonePriceValidUntilSet'
+  /**
+   *	Value of [StandalonePrice](ctp:api:type:StandalonePrice) `validUntil` after the [Set Valid Until](ctp:api:type:StandalonePriceSetValidUntilAction) update action.
+   *
+   *
+   */
+  readonly validUntil?: string
+  /**
+   *	Value of [StandalonePrice](ctp:api:type:StandalonePrice) `validUntil` before the [Set Valid Until](ctp:api:type:StandalonePriceSetValidUntilAction) update action.
+   *
+   *
+   */
+  readonly previousValidUntil?: string
 }
 /**
  *	Generated after a successful [Change Value](ctp:api:type:StandalonePriceChangeValueAction) update action.
