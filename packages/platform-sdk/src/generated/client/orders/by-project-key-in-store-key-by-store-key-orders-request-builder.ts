@@ -53,7 +53,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersRequestBuilder {
   }
 
   /**
-   *	Queries orders in a specific Store.
+   *	Queries orders in a specific [Store](ctp:api:type:Store).
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -84,8 +84,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersRequestBuilder {
     )
   }
   /**
-   *	Creates an order from a Cart from a specific Store.
-   *	When using this endpoint the orders's store field is always set to the store specified in the path parameter.
+   *	Creates an order from a Cart from a specific [Store](ctp:api:type:Store).
+   *	When using this endpoint the orders's `store` field is always set to the [Store](ctp:api:type:Store) specified in the path parameter.
    *	The cart must have a shipping address set before creating an order. When using the Platform TaxMode,
    *	the shipping address is used for tax calculation.
    *

@@ -22,7 +22,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsByIDRequestBuilder {
     }
   ) {}
   /**
-   *	If a ShoppingList exists in a Project but does _not_ have the `store` field, or the `store` field references a different Store,
+   *	If a ShoppingList exists in a Project but does _not_ have the `store` field, or the `store` field references a different [Store](ctp:api:type:Store),
    *	the [ResourceNotFound](/errors#404-not-found-1) error is returned.
    *
    */
@@ -51,7 +51,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsByIDRequestBuilder {
     )
   }
   /**
-   *	If a ShoppingList exists in a Project but does _not_ have the `store` field, or the `store` field references a different Store,
+   *	If a ShoppingList exists in a Project but does _not_ have the `store` field, or the `store` field references a different [Store](ctp:api:type:Store),
    *	the [ResourceNotFound](/errors#404-not-found-1) error is returned.
    *
    */
@@ -83,7 +83,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsByIDRequestBuilder {
     )
   }
   /**
-   *	If a ShoppingList exists in a Project but does _not_ have the `store` field, or the `store` field references a different Store,
+   *	If a ShoppingList exists in a Project but does _not_ have the `store` field, or the `store` field references a different [Store](ctp:api:type:Store),
    *	the [ResourceNotFound](/errors#404-not-found-1) error is returned.
    *
    */

@@ -4,6 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { executeRequest } from '../../shared/utils/common-types'
+import { ByProjectKeyInStoreKeyByStoreKeyCartDiscountsRequestBuilder } from '../cart-discounts/by-project-key-in-store-key-by-store-key-cart-discounts-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder } from '../carts/by-project-key-in-store-key-by-store-key-carts-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCustomersRequestBuilder } from '../customers/by-project-key-in-store-key-by-store-key-customers-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyLoginRequestBuilder } from '../login/by-project-key-in-store-key-by-store-key-login-request-builder'
@@ -128,5 +129,14 @@ export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
         baseUri: this.args.baseUri,
       }
     )
+  }
+  public cartDiscounts(): ByProjectKeyInStoreKeyByStoreKeyCartDiscountsRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyCartDiscountsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
   }
 }
