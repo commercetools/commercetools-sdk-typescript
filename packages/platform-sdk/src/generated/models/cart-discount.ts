@@ -487,6 +487,11 @@ export interface CartDiscountValueGiftLineItem {
    */
   readonly distributionChannel?: ChannelReference
 }
+/**
+ *	Can only be used in a [CartDiscountDraft](ctp:api:type:CartDiscountDraft) with no `target` specified.
+ *	Hence, this type can not be used in the [Change Value](ctp:api:type:CartDiscountChangeValueAction) update action.
+ *
+ */
 export interface CartDiscountValueGiftLineItemDraft {
   readonly type: 'giftLineItem'
   /**
@@ -702,10 +707,16 @@ export interface CartDiscountChangeTargetAction {
    */
   readonly target: CartDiscountTarget
 }
+/**
+ *	Changes the [CartDiscountValue](ctp:api:type:CartDiscountValue) for [relative](ctp:api:type:CartDiscountValueRelative), [absolute](ctp:api:type:CartDiscountValueAbsolute) and [fixed price](ctp:api:type:CartDiscountValueFixed) CartDiscounts.
+ *	Changing to [Gift Line Item](ctp:api:type:CartDiscountValueGiftLineItem) is not supported.
+ *
+ */
 export interface CartDiscountChangeValueAction {
   readonly action: 'changeValue'
   /**
    *	New value to set.
+   *	When trying to set a [CartDiscountValueGiftLineItemDraft](ctp:api:type:CartDiscountValueGiftLineItemDraft) an [InvalidInput](ctp:api:type:InvalidInputError) error is returned.
    *
    *
    */
