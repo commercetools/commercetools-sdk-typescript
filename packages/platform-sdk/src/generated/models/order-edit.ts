@@ -436,6 +436,12 @@ export interface StagedOrderAddDeliveryAction {
    */
   readonly deliveryKey?: string
   /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
+  /**
    *
    */
   readonly items?: DeliveryItem[]
