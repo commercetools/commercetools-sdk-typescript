@@ -427,6 +427,11 @@ export interface StagedOrderAddCustomLineItemAction {
    */
   readonly priceMode?: CustomLineItemPriceMode
 }
+/**
+ *	A [Delivery](ctp:api:type:Delivery) can only be added to an [Order](ctp:api:type:Order) if
+ *	its `shippingInfo` (for `shippingMode` = `Single`), or its `shipping` (for `shippingMode` = `Multiple`) exists.
+ *
+ */
 export interface StagedOrderAddDeliveryAction {
   readonly action: 'addDelivery'
   /**
@@ -436,7 +441,7 @@ export interface StagedOrderAddDeliveryAction {
    */
   readonly deliveryKey?: string
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod),required for `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */

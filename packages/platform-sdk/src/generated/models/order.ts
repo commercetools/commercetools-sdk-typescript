@@ -636,7 +636,7 @@ export interface Order extends BaseResource {
   /**
    *	Holds all shipping-related information per Shipping Method.
    *
-   *	For `Multi` [ShippingMode](ctp:api:typeShippingMode), it is updated automatically after the Shipping Methods are added.
+   *	For `Multiple` [ShippingMode](ctp:api:typeShippingMode), it is updated automatically after the Shipping Methods are added.
    *
    *
    */
@@ -652,7 +652,7 @@ export interface Order extends BaseResource {
    */
   readonly shippingMode: ShippingMode
   /**
-   *	User-defined unique identifier of the Shipping Method with `Single` [ShippingMode](ctp:api:type:ShippingMode).
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) for `Single` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -664,7 +664,7 @@ export interface Order extends BaseResource {
    */
   readonly shippingCustomFields?: CustomFields
   /**
-   *	Holds all shipping-related information per Shipping Method for `Multi` [ShippingMode](ctp:api:typeShippingMode).
+   *	Holds all shipping-related information per Shipping Method for `Multiple` [ShippingMode](ctp:api:typeShippingMode).
    *
    *	It is updated automatically after the [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction).
    *
@@ -1700,6 +1700,11 @@ export interface TrackingData {
    */
   readonly isReturn?: boolean
 }
+/**
+ *	A [Delivery](ctp:api:type:Delivery) can only be added to an [Order](ctp:api:type:Order) if
+ *	its `shippingInfo` (for `shippingMode` = `Single`), or its `shipping` (for `shippingMode` = `Multiple`) exists.
+ *
+ */
 export interface OrderAddDeliveryAction {
   readonly action: 'addDelivery'
   /**
@@ -1713,7 +1718,7 @@ export interface OrderAddDeliveryAction {
    */
   readonly items?: DeliveryItem[]
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod), required for `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */

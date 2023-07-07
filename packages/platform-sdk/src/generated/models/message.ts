@@ -4097,7 +4097,7 @@ export interface DeliveryAddedMessage {
    */
   readonly delivery: Delivery
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -4185,7 +4185,7 @@ export interface DeliveryAddressSetMessage {
    */
   readonly oldAddress?: Address
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -4273,7 +4273,7 @@ export interface DeliveryItemsUpdatedMessage {
    */
   readonly oldItems: DeliveryItem[]
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -4349,7 +4349,7 @@ export interface DeliveryRemovedMessage {
    */
   readonly delivery: Delivery
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -5747,7 +5747,7 @@ export interface OrderLineItemDiscountSetMessage {
    */
   readonly taxedPrice?: TaxedItemPrice
   /**
-   *	Taxed price of the Shipping Methods in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Taxed price of the Shipping Methods in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -6847,7 +6847,7 @@ export interface ParcelAddedToDeliveryMessage {
    */
   readonly parcel: Parcel
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -6941,7 +6941,7 @@ export interface ParcelItemsUpdatedMessage {
    */
   readonly oldItems: DeliveryItem[]
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -7029,7 +7029,7 @@ export interface ParcelMeasurementsUpdatedMessage {
    */
   readonly measurements?: ParcelMeasurements
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -7111,7 +7111,7 @@ export interface ParcelRemovedFromDeliveryMessage {
    */
   readonly parcel: Parcel
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -7199,7 +7199,7 @@ export interface ParcelTrackingDataUpdatedMessage {
    */
   readonly trackingData?: TrackingData
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -14011,7 +14011,7 @@ export interface DeliveryAddedMessagePayload {
    */
   readonly delivery: Delivery
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -14042,7 +14042,7 @@ export interface DeliveryAddressSetMessagePayload {
    */
   readonly oldAddress?: Address
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -14073,7 +14073,7 @@ export interface DeliveryItemsUpdatedMessagePayload {
    */
   readonly oldItems: DeliveryItem[]
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -14092,7 +14092,7 @@ export interface DeliveryRemovedMessagePayload {
    */
   readonly delivery: Delivery
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -14464,7 +14464,7 @@ export interface OrderLineItemDiscountSetMessagePayload {
    */
   readonly taxedPrice?: TaxedItemPrice
   /**
-   *	Taxed price of the Shipping Methods in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Taxed price of the Shipping Methods in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -14766,7 +14766,7 @@ export interface ParcelAddedToDeliveryMessagePayload {
    */
   readonly parcel: Parcel
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -14803,7 +14803,7 @@ export interface ParcelItemsUpdatedMessagePayload {
    */
   readonly oldItems: DeliveryItem[]
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -14834,7 +14834,7 @@ export interface ParcelMeasurementsUpdatedMessagePayload {
    */
   readonly measurements?: ParcelMeasurements
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -14859,7 +14859,7 @@ export interface ParcelRemovedFromDeliveryMessagePayload {
    */
   readonly parcel: Parcel
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
@@ -14890,7 +14890,7 @@ export interface ParcelTrackingDataUpdatedMessagePayload {
    */
   readonly trackingData?: TrackingData
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
