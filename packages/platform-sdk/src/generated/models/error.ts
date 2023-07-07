@@ -27,6 +27,7 @@ import { OrderEditPreviewFailure } from './order-edit'
 import { Attribute, ProductReference } from './product'
 import { ProductVariantSelection } from './product-selection'
 import { StandalonePriceReference } from './standalone-price'
+import { StoreKeyReference } from './store'
 
 export interface ErrorByExtension {
   /**
@@ -87,7 +88,9 @@ export type ErrorObject =
   | InvalidTokenError
   | LanguageUsedInStoresError
   | MatchingPriceNotFoundError
+  | MaxCartDiscountsReachedError
   | MaxResourceLimitExceededError
+  | MaxStoreReferencesReachedError
   | MissingRoleOnChannelError
   | MissingTaxRateForCountryError
   | MoneyOverflowError
@@ -115,6 +118,7 @@ export type ErrorObject =
   | SearchIndexingInProgressError
   | SemanticErrorError
   | ShippingMethodDoesNotMatchCartError
+  | StoreCartDiscountsLimitReachedError
   | SyntaxErrorError
 /**
  *	Returned when the anonymous ID is being used by another resource.
@@ -1262,6 +1266,25 @@ export interface MatchingPriceNotFoundError {
   readonly channel?: ChannelReference
 }
 /**
+ *	Returned when a Cart Discount cannot be created or activated as the [limit](/../api/limits#cart-discounts) for active Cart Discounts has been reached.
+ *
+ *	The error is returned as a failed response to:
+ *
+ *	- [Create CartDiscount](ctp:api:endpoint:/{projectKey}/cart-discounts:POST) and [Create CartDiscount in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/cart-discounts:POST) requests
+ *	- [Change IsActive](ctp:api:type:CartDiscountChangeIsActiveAction) update action
+ *
+ */
+export interface MaxCartDiscountsReachedError {
+  readonly code: 'MaxCartDiscountsReached'
+  [key: string]: any
+  /**
+   *	`"Maximum number of active cart discounts reached ($max)."`
+   *
+   *
+   */
+  readonly message: string
+}
+/**
  *	Returned when a resource type cannot be created as it has reached its [limits](/../api/limits).
  *
  *	The limits must be adjusted for this resource before sending the request again.
@@ -1282,6 +1305,25 @@ export interface MaxResourceLimitExceededError {
    *
    */
   readonly exceededResource: ReferenceTypeId
+}
+/**
+ *	Returned when a Store cannot be added to a Cart Discount as the [limit](/../api/limits#cart-discounts-stores) for Stores configured for a Cart Discount has been reached.
+ *
+ *	The error is returned as a failed response to:
+ *
+ *	- [Create CartDiscount](ctp:api:endpoint:/{projectKey}/cart-discounts:POST) and [Create CartDiscount in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/cart-discounts:POST) requests
+ *	- [Add Store](ctp:api:type:CartDiscountAddStoreAction) and [Set Store](ctp:api:type:CartDiscountSetStoresAction) update actions
+ *
+ */
+export interface MaxStoreReferencesReachedError {
+  readonly code: 'MaxStoreReferencesReached'
+  [key: string]: any
+  /**
+   *	`"Maximum number of store discounts on a single cart discount reached $max".`
+   *
+   *
+   */
+  readonly message: string
 }
 /**
  *	Returned when one of the following states occur:
@@ -1871,6 +1913,31 @@ export interface ShippingMethodDoesNotMatchCartError {
   readonly message: string
 }
 /**
+ *	Returned when a Cart Discount cannot be created or assigned to a Store as the [limit](/../api/limits#cart-discounts) for active Cart Discounts in a Store has been reached for one or more Stores in the request.
+ *
+ *	The error is returned as a failed response to:
+ *
+ *	- [Create CartDiscount](ctp:api:endpoint:/{projectKey}/cart-discounts:POST) and [Create CartDiscount in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/cart-discounts:POST) requests
+ *	- [Add Store](ctp:api:type:CartDiscountAddStoreAction) and [Set Store](ctp:api:type:CartDiscountSetStoresAction) update actions
+ *
+ */
+export interface StoreCartDiscountsLimitReachedError {
+  readonly code: 'StoreCartDiscountsLimitReached'
+  [key: string]: any
+  /**
+   *	`"Maximum number of active cart discounts reached for $stores."`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	Stores for which the limit for active Cart Discounts that can exist has been reached.
+   *
+   *
+   */
+  readonly stores: StoreKeyReference[]
+}
+/**
  *	Returned when a [Discount predicate](/../api/predicates/predicate-operators), [API Extension predicate](/../api/predicates/query#using-predicates-in-conditional-api-extensions), or [search query](/../api/projects/products-search) does not have the correct syntax.
  *
  */
@@ -1951,7 +2018,9 @@ export type GraphQLErrorObject =
   | GraphQLInvalidTokenError
   | GraphQLLanguageUsedInStoresError
   | GraphQLMatchingPriceNotFoundError
+  | GraphQLMaxCartDiscountsReachedError
   | GraphQLMaxResourceLimitExceededError
+  | GraphQLMaxStoreReferencesReachedError
   | GraphQLMissingRoleOnChannelError
   | GraphQLMissingTaxRateForCountryError
   | GraphQLMoneyOverflowError
@@ -1979,6 +2048,7 @@ export type GraphQLErrorObject =
   | GraphQLSearchIndexingInProgressError
   | GraphQLSemanticErrorError
   | GraphQLShippingMethodDoesNotMatchCartError
+  | GraphQLStoreCartDiscountsLimitReachedError
   | GraphQLSyntaxErrorError
 /**
  *	Returned when the anonymous ID is being used by another resource.
@@ -2793,6 +2863,19 @@ export interface GraphQLMatchingPriceNotFoundError {
   readonly channel?: ChannelReference
 }
 /**
+ *	Returned when a Cart Discount cannot be created or activated as the [limit](/../api/limits#cart-discounts) for active Cart Discounts has been reached.
+ *
+ *	The error is returned as a failed response to:
+ *
+ *	- [Create CartDiscount](ctp:api:endpoint:/{projectKey}/cart-discounts:POST) and [Create CartDiscount in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/cart-discounts:POST) requests
+ *	- [Change IsActive](ctp:api:type:CartDiscountChangeIsActiveAction) update action
+ *
+ */
+export interface GraphQLMaxCartDiscountsReachedError {
+  readonly code: 'MaxCartDiscountsReached'
+  [key: string]: any
+}
+/**
  *	Returned when a resource type cannot be created as it has reached its [limits](/../api/limits).
  *
  *	The limits must be adjusted for this resource before sending the request again.
@@ -2807,6 +2890,19 @@ export interface GraphQLMaxResourceLimitExceededError {
    *
    */
   readonly exceededResource: ReferenceTypeId
+}
+/**
+ *	Returned when a Store cannot be added to a Cart Discount as the [limit](/../api/limits#cart-discounts-stores) for Stores configured for a Cart Discount has been reached.
+ *
+ *	The error is returned as a failed response to:
+ *
+ *	- [Create CartDiscount](ctp:api:endpoint:/{projectKey}/cart-discounts:POST) and [Create CartDiscount in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/cart-discounts:POST) requests
+ *	- [Add Store](ctp:api:type:CartDiscountAddStoreAction) and [Set Store](ctp:api:type:CartDiscountSetStoresAction) update actions
+ *
+ */
+export interface GraphQLMaxStoreReferencesReachedError {
+  readonly code: 'MaxStoreReferencesReached'
+  [key: string]: any
 }
 /**
  *	Returned when one of the following states occur:
@@ -3233,6 +3329,25 @@ export interface GraphQLSemanticErrorError {
 export interface GraphQLShippingMethodDoesNotMatchCartError {
   readonly code: 'ShippingMethodDoesNotMatchCart'
   [key: string]: any
+}
+/**
+ *	Returned when a Cart Discount cannot be created or assigned to a Store as the [limit](/../api/limits#cart-discounts) for active Cart Discounts in a Store has been reached for one or more Stores in the request.
+ *
+ *	The error is returned as a failed response to:
+ *
+ *	- [Create CartDiscount](ctp:api:endpoint:/{projectKey}/cart-discounts:POST) and [Create CartDiscount in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/cart-discounts:POST) requests
+ *	- [Add Store](ctp:api:type:CartDiscountAddStoreAction) and [Set Store](ctp:api:type:CartDiscountSetStoresAction) update actions
+ *
+ */
+export interface GraphQLStoreCartDiscountsLimitReachedError {
+  readonly code: 'StoreCartDiscountsLimitReached'
+  [key: string]: any
+  /**
+   *	Stores for which the limit for active Cart Discounts that can exist has been reached.
+   *
+   *
+   */
+  readonly stores: StoreKeyReference[]
 }
 /**
  *	Returned when a [Discount predicate](/../api/predicates/predicate-operators), [API Extension predicate](/../api/predicates/query#using-predicates-in-conditional-api-extensions), or [search query](/../api/projects/products-search) does not have the correct syntax.

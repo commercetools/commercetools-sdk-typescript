@@ -21,8 +21,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersByIDRequestBuilder {
     }
   ) {}
   /**
-   *	Returns an order by its ID from a specific Store.
-   *	If the order exists in the project but does not have the store field,
+   *	Returns an [Order](ctp:api:type:Order) by its ID from a specific [Store](ctp:api:type:Store).
+   *	If the Order exists in the Project but does not have the `store` field,
    *	or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *
    */
@@ -50,8 +50,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersByIDRequestBuilder {
     )
   }
   /**
-   *	Updates an order in the store specified by {storeKey}.
-   *	If the order exists in the project but does not have the store field,
+   *	Updates an [Order](ctp:api:type:Order) in the [Store](ctp:api:type:Store) specified by {storeKey}.
+   *	If the Order exists in the Project but does not have the `store` field,
    *	or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *
    */

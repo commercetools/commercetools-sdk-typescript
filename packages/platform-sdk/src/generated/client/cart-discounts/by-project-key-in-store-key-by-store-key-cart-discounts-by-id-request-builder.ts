@@ -3,12 +3,12 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { Customer, CustomerUpdate } from '../../models/customer'
+import { CartDiscount, CartDiscountUpdate } from '../../models/cart-discount'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
-export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
+export class ByProjectKeyInStoreKeyByStoreKeyCartDiscountsByIDRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
@@ -20,10 +20,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	If the Customer exists in the Project but the `stores` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
-   *
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -32,12 +28,13 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<Customer> {
-    return new ApiRequest<Customer>(
+  }): ApiRequest<CartDiscount> {
+    return new ApiRequest<CartDiscount>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',
-        uriTemplate: '/{projectKey}/in-store/key={storeKey}/customers/{ID}',
+        uriTemplate:
+          '/{projectKey}/in-store/key={storeKey}/cart-discounts/{ID}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
@@ -48,7 +45,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
     )
   }
   /**
-   *	If the Customer exists in the Project but the `stores` field references a different [Store](ctp:api:type:Store), this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *	To update a CartDiscount, you must have permissions for all Stores the CartDiscount is associated with, except when [removing a Store](ctp:api:type:CartDiscountRemoveStoreAction).
    *
    */
   public post(methodArgs: {
@@ -56,16 +53,17 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
       expand?: string | string[]
       [key: string]: QueryParam
     }
-    body: CustomerUpdate
+    body: CartDiscountUpdate
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<Customer> {
-    return new ApiRequest<Customer>(
+  }): ApiRequest<CartDiscount> {
+    return new ApiRequest<CartDiscount>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',
-        uriTemplate: '/{projectKey}/in-store/key={storeKey}/customers/{ID}',
+        uriTemplate:
+          '/{projectKey}/in-store/key={storeKey}/cart-discounts/{ID}',
         pathVariables: this.args.pathArgs,
         headers: {
           'Content-Type': 'application/json',
@@ -78,14 +76,11 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
     )
   }
   /**
-   *	Deleting a Customer produces the [CustomerDeleted](ctp:api:type:CustomerDeletedMessage) Message.
-   *
-   *	If the Customer exists in the Project but the `stores` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *	To delete a CartDiscount, specify the `manage_cart_discounts:{projectKey}:{storeKey}` scope for all Stores associated with the CartDiscount.
    *
    */
   public delete(methodArgs: {
     queryArgs: {
-      dataErasure?: boolean
       version: number
       expand?: string | string[]
       [key: string]: QueryParam
@@ -93,12 +88,13 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersByIDRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<Customer> {
-    return new ApiRequest<Customer>(
+  }): ApiRequest<CartDiscount> {
+    return new ApiRequest<CartDiscount>(
       {
         baseUri: this.args.baseUri,
         method: 'DELETE',
-        uriTemplate: '/{projectKey}/in-store/key={storeKey}/customers/{ID}',
+        uriTemplate:
+          '/{projectKey}/in-store/key={storeKey}/cart-discounts/{ID}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,

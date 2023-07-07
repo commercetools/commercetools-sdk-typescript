@@ -662,8 +662,6 @@ export type CartUpdateAction =
   | CartSetCustomerGroupAction
   | CartSetCustomerIdAction
   | CartSetDeleteDaysAfterLastModificationAction
-  | CartSetDeliveryAddressCustomFieldAction
-  | CartSetDeliveryAddressCustomTypeAction
   | CartSetDirectDiscountsAction
   | CartSetItemShippingAddressCustomFieldAction
   | CartSetItemShippingAddressCustomTypeAction
@@ -702,6 +700,12 @@ export interface CustomLineItem {
    *
    */
   readonly id: string
+  /**
+   *	User-defined unique identifier of the Custom Line Item.
+   *
+   *
+   */
+  readonly key?: string
   /**
    *	Name of the Custom Line Item.
    *
@@ -799,6 +803,12 @@ export interface CustomLineItemDraft {
    *
    */
   readonly name: LocalizedString
+  /**
+   *	User-defined unique identifier of the Custom Line Item.
+   *
+   *
+   */
+  readonly key?: string
   /**
    *	Number of Custom Line Items to add to the Cart.
    *
@@ -1926,6 +1936,12 @@ export interface CartAddCustomLineItemAction {
    */
   readonly name: LocalizedString
   /**
+   *	User-defined unique identifier of the Custom Line Item.
+   *
+   *
+   */
+  readonly key?: string
+  /**
    *	Number of Custom Line Items to add to the Cart.
    *
    *
@@ -2927,51 +2943,6 @@ export interface CartSetDeleteDaysAfterLastModificationAction {
    *
    */
   readonly deleteDaysAfterLastModification?: number
-}
-export interface CartSetDeliveryAddressCustomFieldAction {
-  readonly action: 'setDeliveryAddressCustomField'
-  /**
-   *	`id` of the [Delivery](ctp:api:type:Delivery).
-   *
-   *
-   */
-  readonly deliveryId: string
-  /**
-   *	Name of the [Custom Field](/../api/projects/custom-fields).
-   *
-   *
-   */
-  readonly name: string
-  /**
-   *	If `value` is absent or `null`, this field will be removed if it exists.
-   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
-   *	If `value` is provided, it is set for the field defined by `name`.
-   *
-   *
-   */
-  readonly value?: any
-}
-export interface CartSetDeliveryAddressCustomTypeAction {
-  readonly action: 'setDeliveryAddressCustomType'
-  /**
-   *	`id` of the [Delivery](ctp:api:type:Delivery).
-   *
-   *
-   */
-  readonly deliveryId: string
-  /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the [Delivery](ctp:api:type:Delivery) `address` with [Custom Fields](/../api/projects/custom-fields).
-   *	If absent, any existing Type and Custom Fields are removed from the [Delivery](ctp:api:type:Delivery) `address`.
-   *
-   *
-   */
-  readonly type?: TypeResourceIdentifier
-  /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the [Delivery](ctp:api:type:Delivery) `address`.
-   *
-   *
-   */
-  readonly fields?: FieldContainer
 }
 /**
  *	Adds a [DirectDiscount](ctp:api:type:DirectDiscount), but only if no [DiscountCode](ctp:api:type:DiscountCode) has been added to the Cart.

@@ -71,6 +71,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder {
     })
   }
 
+  /**
+   *	Queries carts in a specific [Store](ctp:api:type:Store).
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -100,9 +103,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder {
     )
   }
   /**
-   *	The `store` field in the created [Cart](ctp:api:type:Cart) is set to the Store specified by the `storeKey` path parameter.
-   *
-   *	Specific Error Codes: [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError)
+   *	Creates a [Cart](ctp:api:type:Cart) in the [Store](ctp:api:type:Store) specified by `storeKey`.
+   *	When using this endpoint the Cart's `store` field is always set to the [Store](ctp:api:type:Store) specified in the path parameter.
+   *	If the referenced [ShippingMethod](ctp:api:type:ShippingMethod) in the [CartDraft](ctp:api:type:CartDraft) has a predicate that does not match, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    */
   public post(methodArgs: {

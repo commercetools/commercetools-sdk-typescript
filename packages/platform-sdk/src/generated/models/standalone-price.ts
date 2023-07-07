@@ -474,7 +474,7 @@ export interface StandalonePriceSetKeyAction {
  *
  */
 export interface StandalonePriceSetPriceTiersAction {
-  readonly action: 'setPriceTier'
+  readonly action: 'setPriceTiers'
   /**
    *	Value to set. If empty, any existing value will be removed.
    *	The `minimumQuantity` of the PriceTiers must be unique and greater than `1`, otherwise an [InvalidField](ctp:api:type:InvalidFieldError) error is returned.

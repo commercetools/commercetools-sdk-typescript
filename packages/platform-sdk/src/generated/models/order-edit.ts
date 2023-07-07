@@ -387,6 +387,12 @@ export interface StagedOrderAddCustomLineItemAction {
    */
   readonly name: LocalizedString
   /**
+   *	User-defined unique identifier of the Custom Line Item.
+   *
+   *
+   */
+  readonly key?: string
+  /**
    *
    */
   readonly quantity?: number
@@ -429,6 +435,12 @@ export interface StagedOrderAddDeliveryAction {
    *
    */
   readonly deliveryKey?: string
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
   /**
    *
    */

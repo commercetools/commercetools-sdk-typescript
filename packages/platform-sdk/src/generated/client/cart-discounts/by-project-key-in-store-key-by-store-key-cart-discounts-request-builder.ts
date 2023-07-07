@@ -3,18 +3,14 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import {
-  ShoppingList,
-  ShoppingListDraft,
-  ShoppingListPagedQueryResponse,
-} from '../../models/shopping-list'
-import { executeRequest, QueryParam } from '../../shared/utils/common-types'
+import { CartDiscount, CartDiscountDraft } from '../../models/cart-discount'
+import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-import { ByProjectKeyInStoreKeyByStoreKeyShoppingListsByIDRequestBuilder } from './by-project-key-in-store-key-by-store-key-shopping-lists-by-id-request-builder'
-import { ByProjectKeyInStoreKeyByStoreKeyShoppingListsKeyByKeyRequestBuilder } from './by-project-key-in-store-key-by-store-key-shopping-lists-key-by-key-request-builder'
+import { ByProjectKeyInStoreKeyByStoreKeyCartDiscountsByIDRequestBuilder } from './by-project-key-in-store-key-by-store-key-cart-discounts-by-id-request-builder'
+import { ByProjectKeyInStoreKeyByStoreKeyCartDiscountsKeyByKeyRequestBuilder } from './by-project-key-in-store-key-by-store-key-cart-discounts-key-by-key-request-builder'
 /**
  **/
-export class ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder {
+export class ByProjectKeyInStoreKeyByStoreKeyCartDiscountsRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
@@ -27,8 +23,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder {
   ) {}
   public withKey(childPathArgs: {
     key: string
-  }): ByProjectKeyInStoreKeyByStoreKeyShoppingListsKeyByKeyRequestBuilder {
-    return new ByProjectKeyInStoreKeyByStoreKeyShoppingListsKeyByKeyRequestBuilder(
+  }): ByProjectKeyInStoreKeyByStoreKeyCartDiscountsKeyByKeyRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyCartDiscountsKeyByKeyRequestBuilder(
       {
         pathArgs: {
           ...this.args.pathArgs,
@@ -41,8 +37,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder {
   }
   public withId(childPathArgs: {
     ID: string
-  }): ByProjectKeyInStoreKeyByStoreKeyShoppingListsByIDRequestBuilder {
-    return new ByProjectKeyInStoreKeyByStoreKeyShoppingListsByIDRequestBuilder({
+  }): ByProjectKeyInStoreKeyByStoreKeyCartDiscountsByIDRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyCartDiscountsByIDRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
         ...childPathArgs,
@@ -53,58 +49,43 @@ export class ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder {
   }
 
   public get(methodArgs?: {
-    queryArgs?: {
-      expand?: string | string[]
-      sort?: string | string[]
-      limit?: number
-      offset?: number
-      withTotal?: boolean
-      where?: string | string[]
-      [key: string]: QueryParam
-    }
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<ShoppingListPagedQueryResponse> {
-    return new ApiRequest<ShoppingListPagedQueryResponse>(
+  }): ApiRequest<CartDiscount> {
+    return new ApiRequest<CartDiscount>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',
-        uriTemplate: '/{projectKey}/in-store/key={storeKey}/shopping-lists',
+        uriTemplate: '/{projectKey}/in-store/key={storeKey}/cart-discounts',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
         },
-        queryParams: methodArgs?.queryArgs,
       },
       this.args.executeRequest
     )
   }
   /**
-   *	When using this endpoint, the `store` field of a ShoppingList is always set to the [Store](ctp:api:type:Store) specified in the path parameter.
+   *	When using the endpoint, the Store specified in the path and the Stores specified in the payload's `stores` field are added to the CartDiscount.
    *
    */
   public post(methodArgs: {
-    queryArgs?: {
-      expand?: string | string[]
-      [key: string]: QueryParam
-    }
-    body: ShoppingListDraft
+    body: CartDiscountDraft
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<ShoppingList> {
-    return new ApiRequest<ShoppingList>(
+  }): ApiRequest<CartDiscount> {
+    return new ApiRequest<CartDiscount>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',
-        uriTemplate: '/{projectKey}/in-store/key={storeKey}/shopping-lists',
+        uriTemplate: '/{projectKey}/in-store/key={storeKey}/cart-discounts',
         pathVariables: this.args.pathArgs,
         headers: {
           'Content-Type': 'application/json',
           ...methodArgs?.headers,
         },
-        queryParams: methodArgs?.queryArgs,
         body: methodArgs?.body,
       },
       this.args.executeRequest

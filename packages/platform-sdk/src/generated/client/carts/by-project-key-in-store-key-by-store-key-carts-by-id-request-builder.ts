@@ -50,7 +50,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsByIDRequestBuilder {
     )
   }
   /**
-   *	Updates a [Cart](ctp:api:type:Cart) in the Store specified by `storeKey`.
+   *	Updates a [Cart](ctp:api:type:Cart) in the [Store](ctp:api:type:Store) specified by `storeKey`.
    *	If the Cart exists in the Project but does not have the `store` field, or the `store` field references a different Store, a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned.
    *
    */

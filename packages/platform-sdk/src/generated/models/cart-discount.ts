@@ -15,6 +15,7 @@ import {
   Reference,
 } from './common'
 import { ProductReference, ProductResourceIdentifier } from './product'
+import { StoreKeyReference, StoreResourceIdentifier } from './store'
 import {
   CustomFields,
   CustomFieldsDraft,
@@ -103,6 +104,13 @@ export interface CartDiscount extends BaseResource {
    *
    */
   readonly sortOrder: string
+  /**
+   *	- If a value exists, the Cart Discount applies on [Carts](ctp:api:type:Cart) having a [Store](ctp:api:type:Store) matching any Store defined for this field.
+   *	- If empty, the Cart Discount applies on all [Carts](ctp:api:type:Cart), irrespective of a Store.
+   *
+   *
+   */
+  readonly stores: StoreKeyReference[]
   /**
    *	Indicates if the CartDiscount is active and can be applied to the Cart.
    *
@@ -194,7 +202,19 @@ export interface CartDiscountDraft {
    */
   readonly sortOrder: string
   /**
+   *	- If defined, the Cart Discount applies on [Carts](ctp:api:type:Cart) having a [Store](ctp:api:type:Store) matching any Store defined for this field.
+   *	- If not defined, the Cart Discount applies on all Carts, irrespective of a Store.
+   *
+   *	If the referenced Stores exceed the [limit](/../api/limits#cart-discounts-stores), a [MaxStoreReferencesReached](ctp:api:type:MaxStoreReferencesReachedError) error is returned.
+   *
+   *	If the referenced Stores exceed the [limit](/../api/limits#cart-discounts) for Cart Discounts that do not require a Discount Code, a [StoreCartDiscountsLimitReached](ctp:api:type:StoreCartDiscountsLimitReachedError) error is returned.
+   *
+   *
+   */
+  readonly stores?: StoreResourceIdentifier[]
+  /**
    *	Only active Discounts can be applied to the Cart.
+   *	If the [limit](/../api/limits#cart-discounts) for active Cart Discounts is reached, a [MaxCartDiscountsReached](ctp:api:type:MaxCartDiscountsReachedError) error is returned.
    *
    *
    */
@@ -362,6 +382,7 @@ export interface CartDiscountUpdate {
   readonly actions: CartDiscountUpdateAction[]
 }
 export type CartDiscountUpdateAction =
+  | CartDiscountAddStoreAction
   | CartDiscountChangeCartPredicateAction
   | CartDiscountChangeIsActiveAction
   | CartDiscountChangeNameAction
@@ -370,10 +391,12 @@ export type CartDiscountUpdateAction =
   | CartDiscountChangeStackingModeAction
   | CartDiscountChangeTargetAction
   | CartDiscountChangeValueAction
+  | CartDiscountRemoveStoreAction
   | CartDiscountSetCustomFieldAction
   | CartDiscountSetCustomTypeAction
   | CartDiscountSetDescriptionAction
   | CartDiscountSetKeyAction
+  | CartDiscountSetStoresAction
   | CartDiscountSetValidFromAction
   | CartDiscountSetValidFromAndUntilAction
   | CartDiscountSetValidUntilAction
@@ -464,6 +487,11 @@ export interface CartDiscountValueGiftLineItem {
    */
   readonly distributionChannel?: ChannelReference
 }
+/**
+ *	Can only be used in a [CartDiscountDraft](ctp:api:type:CartDiscountDraft) with no `target` specified.
+ *	Hence, this type can not be used in the [Change Value](ctp:api:type:CartDiscountChangeValueAction) update action.
+ *
+ */
 export interface CartDiscountValueGiftLineItemDraft {
   readonly type: 'giftLineItem'
   /**
@@ -593,6 +621,24 @@ export type SelectionMode = 'Cheapest' | 'MostExpensive' | string
  *
  */
 export type StackingMode = 'Stacking' | 'StopAfterThisDiscount' | string
+/**
+ *	If a referenced Store does not exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error is returned.
+ *
+ */
+export interface CartDiscountAddStoreAction {
+  readonly action: 'addStore'
+  /**
+   *	[Store](ctp:api:type:Store) to add.
+   *
+   *	A failed update can return the following errors:
+   *
+   *	- If the referenced Stores exceed the [limit](/../api/limits#cart-discounts-stores), a [MaxStoreReferencesReached](ctp:api:type:MaxStoreReferencesReachedError) error is returned.
+   *	- If the referenced Stores exceed the [limit](/../api/limits#cart-discounts) for Cart Discounts that do not require a Discount Code, a [StoreCartDiscountsLimitReached](ctp:api:type:StoreCartDiscountsLimitReachedError) error is returned.
+   *
+   *
+   */
+  readonly store: StoreResourceIdentifier
+}
 export interface CartDiscountChangeCartPredicateAction {
   readonly action: 'changeCartPredicate'
   /**
@@ -607,6 +653,8 @@ export interface CartDiscountChangeIsActiveAction {
   /**
    *	New value to set.
    *	If set to `true`, the Discount will be applied to the Cart.
+   *
+   *	If the limit for active Cart Discounts is reached, a [MaxCartDiscountsReached](ctp:api:type:MaxCartDiscountsReachedError) error is returned.
    *
    *
    */
@@ -659,14 +707,33 @@ export interface CartDiscountChangeTargetAction {
    */
   readonly target: CartDiscountTarget
 }
+/**
+ *	Changes the [CartDiscountValue](ctp:api:type:CartDiscountValue) for [relative](ctp:api:type:CartDiscountValueRelative), [absolute](ctp:api:type:CartDiscountValueAbsolute) and [fixed price](ctp:api:type:CartDiscountValueFixed) CartDiscounts.
+ *	Changing to [Gift Line Item](ctp:api:type:CartDiscountValueGiftLineItem) is not supported.
+ *
+ */
 export interface CartDiscountChangeValueAction {
   readonly action: 'changeValue'
   /**
    *	New value to set.
+   *	When trying to set a [CartDiscountValueGiftLineItemDraft](ctp:api:type:CartDiscountValueGiftLineItemDraft) an [InvalidInput](ctp:api:type:InvalidInputError) error is returned.
    *
    *
    */
   readonly value: CartDiscountValueDraft
+}
+/**
+ *	If a referenced Store does not exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error is returned.
+ *
+ */
+export interface CartDiscountRemoveStoreAction {
+  readonly action: 'removeStore'
+  /**
+   *	[Store](ctp:api:type:Store) to remove.
+   *
+   *
+   */
+  readonly store: StoreResourceIdentifier
 }
 export interface CartDiscountSetCustomFieldAction {
   readonly action: 'setCustomField'
@@ -718,6 +785,26 @@ export interface CartDiscountSetKeyAction {
    *
    */
   readonly key?: string
+}
+/**
+ *	If a referenced Store does not exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error is returned.
+ *
+ */
+export interface CartDiscountSetStoresAction {
+  readonly action: 'setStores'
+  /**
+   *	[Stores](ctp:api:type:Store) to set.
+   *	Overrides the current list of Stores.
+   *	If empty, any existing values will be removed.
+   *
+   *	A failed update can return the following errors:
+   *
+   *	- If the referenced Stores exceed the [limit](/../api/limits#cart-discounts-stores), a [MaxStoreReferencesReached](ctp:api:type:MaxStoreReferencesReachedError) error is returned.
+   *	- If the referenced Stores exceed the [limit](/../api/limits#cart-discounts) for Cart Discounts that do not require a Discount Code, a [StoreCartDiscountsLimitReached](ctp:api:type:StoreCartDiscountsLimitReachedError) error is returned.
+   *
+   *
+   */
+  readonly stores?: StoreResourceIdentifier[]
 }
 export interface CartDiscountSetValidFromAction {
   readonly action: 'setValidFrom'

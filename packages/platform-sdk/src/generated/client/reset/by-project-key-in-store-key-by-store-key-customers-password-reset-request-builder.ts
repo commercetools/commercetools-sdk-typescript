@@ -22,7 +22,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersPasswordResetRequestBuilde
   /**
    *	Resetting the password of the Customer produces the [CustomerPasswordUpdated](ctp:api:type:CustomerPasswordUpdatedMessage) Message with `reset=true`.
    *
-   *	If the Customer exists in the Project but the `stores` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *	If the Customer exists in the Project but the `stores` field references a different [Store](ctp:api:type:Store), this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *
    */
   public post(methodArgs: {
