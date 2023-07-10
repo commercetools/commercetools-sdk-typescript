@@ -34,6 +34,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyProductSelectionAssignmentsRequestB
       offset?: number
       withTotal?: boolean
       expand?: string | string[]
+      where?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {

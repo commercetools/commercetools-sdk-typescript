@@ -49,6 +49,24 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/product-selection-assignments?where=where',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .productSelectionAssignments()
+        .get({ queryArgs: { where: 'where' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/product-selection-assignments?var.varName=var.varName',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .productSelectionAssignments()
+        .get({ queryArgs: { 'var.varName': 'var.varName' } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/in-store/key=test_storeKey/product-selection-assignments',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
