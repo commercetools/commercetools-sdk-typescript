@@ -20,6 +20,10 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeOrdersByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	If the Order exists in the Project but does not have the `store` field, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]

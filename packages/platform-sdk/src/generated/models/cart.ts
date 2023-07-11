@@ -741,13 +741,13 @@ export interface CustomLineItem {
    */
   readonly slug: string
   /**
-   *	Number of Custom Line Items in the Cart.
+   *	Number of Custom Line Items in the [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order).
    *
    *
    */
   readonly quantity: number
   /**
-   *	State of the Custom Line Item in the Cart.
+   *	State of the Custom Line Item in the [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order).
    *
    *
    */
@@ -1086,7 +1086,7 @@ export interface ExternalLineItemTotalPrice {
  *	Can only be set by these update actions:
  *
  *	- [Set LineItem TaxAmount](ctp:api:type:CartSetLineItemTaxAmountAction), [Set CustomLineItem TaxAmount](ctp:api:type:CartSetCustomLineItemTaxAmountAction), or [Set ShippingMethod TaxAmount](ctp:api:type:CartSetShippingMethodTaxAmountAction) on Carts
- *	- [Set LineItem TaxAmount](ctp:api:type:OrderEditSetLineItemTaxAmountAction), [Set CustomLineItem TaxAmount](ctp:api:type:OrderEditSetCustomLineItemTaxAmountAction), or [Set ShippingMethod TaxAmount](ctp:api:type:OrderEditSetShippingMethodTaxAmountAction) on Order Edits
+ *	- [Set LineItem TaxAmount](ctp:api:type:StagedOrderSetLineItemTaxAmountAction), [Set CustomLineItem TaxAmount](ctp:api:type:StagedOrderSetCustomLineItemTaxAmountAction), or [Set ShippingMethod TaxAmount](ctp:api:type:StagedOrderSetShippingMethodTaxAmountAction) on Order Edits
  *
  */
 export interface ExternalTaxAmountDraft {
@@ -1216,7 +1216,7 @@ export interface ItemShippingTarget {
   readonly shippingMethodKey?: string
 }
 /**
- *	The representation of a [Line Item](/../api/carts-orders-overview#line-items) in a Cart.
+ *	The representation of a [Line Item](/../api/carts-orders-overview#line-items) in a [Cart](ctp:api:type:Cart) or in an [Order](ctp:api:type:Order).
  *
  */
 export interface LineItem {
@@ -1243,8 +1243,8 @@ export interface LineItem {
    *
    *	This field is only present on:
    *
-   *	- Line Items in a [Cart](ctp:api:type:Cart) when the `key` is available on that specific Product at the time the Line Item was created or updated on the Cart.
-   *	- [Orders](ctp:api:type:Order) when the `key` is available on the specific Product at the time the Order was created from the Cart.
+   *	- Line Items in a [Cart](ctp:api:type:Cart) when the `key` is available on that specific Product at the time the LineItem was created or updated on the Cart.
+   *	- Line Items in an [Order](ctp:api:type:Order) when the `key` is available on the specific Product at the time the Order was created from the Cart.
    *
    *	Present on resources created or updated after 3 December 2021.
    *
@@ -1286,7 +1286,7 @@ export interface LineItem {
    */
   readonly price: Price
   /**
-   *	Number of Line Items of the given Product Variant present in the Cart.
+   *	Number of Line Items of the given Product Variant present in the [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order).
    *
    *
    */
@@ -1316,7 +1316,7 @@ export interface LineItem {
    */
   readonly taxedPricePortions: MethodTaxedPrice[]
   /**
-   *	State of the Line Item in the Cart.
+   *	State of the Line Item in the [Cart](ctp:api:type:Cart) or the [Order](ctp:api:type:Order).
    *
    *
    */
@@ -2084,7 +2084,7 @@ export interface CartAddItemShippingAddressAction {
   /**
    *	Address to append to `itemShippingAddresses`.
    *
-   *	The new Address must have a `key` that is unique accross this Cart.
+   *	The new Address must have a `key` that is unique across this Cart.
    *
    *
    */

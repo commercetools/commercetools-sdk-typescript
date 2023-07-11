@@ -21,12 +21,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersOrderNumberByOrderNumberReque
     }
   ) {}
   /**
-   *	Returns an order by its order number from a specific [Store](ctp:api:type:Store).
-   *
-   *	If the Order exists in the Project but does not have the `store` field,
-   *	or the `store` field references a different [Store](ctp:api:type:Store), this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
-   *	In case the orderNumber does not match the regular expression [a-zA-Z0-9_\-]+,
-   *	it should be provided in URL-encoded format.
+   *	If the Order exists in the Project but does not have the `store` field, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *
    */
   public get(methodArgs?: {
@@ -54,12 +49,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersOrderNumberByOrderNumberReque
     )
   }
   /**
-   *	Updates an order in the [Store](ctp:api:type:Store) specified by {storeKey}.
-   *
-   *	If the [Order](ctp:api:type:Order) exists in the Project but does not have the `store` field,
-   *	or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
-   *	In case the orderNumber does not match the regular expression [a-zA-Z0-9_\-]+,
-   *	it should be provided in URL-encoded format.
+   *	If the Order exists in the Project but does not have the `store` field, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *
    */
   public post(methodArgs: {
@@ -89,6 +79,12 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersOrderNumberByOrderNumberReque
       this.args.executeRequest
     )
   }
+  /**
+   *	If the Order exists in the Project but does not have the `store` field, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *
+   *	Deleting an Order produces the [OrderDeleted](ctp:api:type:OrderDeletedMessage) Message.
+   *
+   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

@@ -4091,7 +4091,7 @@ export interface DeliveryAddedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Delivery](ctp:api:type:Delivery) that was added to the [Order](ctp:api:type:Order). The [Delivery](ctp:api:type:Delivery) in the Message body does not contain [Parcels](ctp:api:type:Parcel) if those were part of the initial [Add Delivery](ctp:api:type:OrderAddDeliveryAction) update action. In that case, the update action produces an additional [ParcelAddedToDelivery](ctp:api:type:ParcelAddedToDeliveryMessage) Message containing information about the [Parcels](ctp:api:type:Parcel).
+   *	[Delivery](ctp:api:type:Delivery) that was added to the [Order](ctp:api:type:Order). The [Delivery](ctp:api:type:Delivery) in the Message body does not contain [Parcels](ctp:api:type:Parcel) if those were part of the initial [Add Delivery](ctp:api:type:OrderAddDeliveryAction) update action. In that case, the update action produces an additional [Parcel Added To Delivery](ctp:api:type:ParcelAddedToDeliveryMessage) Message containing information about the [Parcels](ctp:api:type:Parcel).
    *
    *
    */
@@ -5438,7 +5438,7 @@ export interface OrderDiscountCodeStateSetMessage {
   readonly oldState?: DiscountCodeState
 }
 /**
- *	Generated after a successfully applying an [OrderEdit](/../api/projects/order-edits#apply-an-orderedit).
+ *	Generated after successfully [applying an OrderEdit](ctp:api:endpoint:/{projectKey}/orders/edits/{id}/apply:POST).
  *
  */
 export interface OrderEditAppliedMessage {
@@ -6088,7 +6088,7 @@ export interface OrderPaymentStateChangedMessage {
   readonly oldPaymentState?: PaymentState
 }
 /**
- *	Generated after a successful [Set PurchaseOrderNumber](/../api/projects/orders#set-purchase-order-number) update action.
+ *	Generated after a successful [Set Purchase Order Number](ctp:api:type:OrderSetPurchaseOrderNumberAction) update action.
  *
  */
 export interface OrderPurchaseOrderNumberSetMessage {
@@ -6151,13 +6151,13 @@ export interface OrderPurchaseOrderNumberSetMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Purchase order number on the [Order](ctp:api:type:Order) after the [Set PurchaseOrderNumber](/../api/projects/orders#set-purchase-order-number) update action.
+   *	Purchase order number on the [Order](ctp:api:type:Order) after the [Set Purchase Order Number](ctp:api:type:OrderSetPurchaseOrderNumberAction) update action.
    *
    *
    */
   readonly purchaseOrderNumber?: string
   /**
-   *	Purchase order number on the [Order](ctp:api:type:Order) before the [Set PurchaseOrderNumber](/../api/projects/orders#set-purchase-order-number) update action.
+   *	Purchase order number on the [Order](ctp:api:type:Order) before the [Set Purchase Order Number](ctp:api:type:OrderSetPurchaseOrderNumberAction) update action.
    *
    *
    */
@@ -14005,7 +14005,7 @@ export interface CustomLineItemStateTransitionMessagePayload {
 export interface DeliveryAddedMessagePayload {
   readonly type: 'DeliveryAdded'
   /**
-   *	[Delivery](ctp:api:type:Delivery) that was added to the [Order](ctp:api:type:Order). The [Delivery](ctp:api:type:Delivery) in the Message body does not contain [Parcels](ctp:api:type:Parcel) if those were part of the initial [Add Delivery](ctp:api:type:OrderAddDeliveryAction) update action. In that case, the update action produces an additional [ParcelAddedToDelivery](ctp:api:type:ParcelAddedToDeliveryMessage) Message containing information about the [Parcels](ctp:api:type:Parcel).
+   *	[Delivery](ctp:api:type:Delivery) that was added to the [Order](ctp:api:type:Order). The [Delivery](ctp:api:type:Delivery) in the Message body does not contain [Parcels](ctp:api:type:Parcel) if those were part of the initial [Add Delivery](ctp:api:type:OrderAddDeliveryAction) update action. In that case, the update action produces an additional [Parcel Added To Delivery](ctp:api:type:ParcelAddedToDeliveryMessage) Message containing information about the [Parcels](ctp:api:type:Parcel).
    *
    *
    */
@@ -14383,7 +14383,7 @@ export interface OrderDiscountCodeStateSetMessagePayload {
   readonly oldState?: DiscountCodeState
 }
 /**
- *	Generated after a successfully applying an [OrderEdit](/../api/projects/order-edits#apply-an-orderedit).
+ *	Generated after successfully [applying an OrderEdit](ctp:api:endpoint:/{projectKey}/orders/edits/{id}/apply:POST).
  *
  */
 export interface OrderEditAppliedMessagePayload {
@@ -14577,19 +14577,19 @@ export interface OrderPaymentStateChangedMessagePayload {
   readonly oldPaymentState?: PaymentState
 }
 /**
- *	Generated after a successful [Set PurchaseOrderNumber](/../api/projects/orders#set-purchase-order-number) update action.
+ *	Generated after a successful [Set Purchase Order Number](ctp:api:type:OrderSetPurchaseOrderNumberAction) update action.
  *
  */
 export interface OrderPurchaseOrderNumberSetMessagePayload {
   readonly type: 'OrderPurchaseOrderNumberSet'
   /**
-   *	Purchase order number on the [Order](ctp:api:type:Order) after the [Set PurchaseOrderNumber](/../api/projects/orders#set-purchase-order-number) update action.
+   *	Purchase order number on the [Order](ctp:api:type:Order) after the [Set Purchase Order Number](ctp:api:type:OrderSetPurchaseOrderNumberAction) update action.
    *
    *
    */
   readonly purchaseOrderNumber?: string
   /**
-   *	Purchase order number on the [Order](ctp:api:type:Order) before the [Set PurchaseOrderNumber](/../api/projects/orders#set-purchase-order-number) update action.
+   *	Purchase order number on the [Order](ctp:api:type:Order) before the [Set Purchase Order Number](ctp:api:type:OrderSetPurchaseOrderNumberAction) update action.
    *
    *
    */

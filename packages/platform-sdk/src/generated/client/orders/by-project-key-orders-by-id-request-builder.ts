@@ -68,6 +68,10 @@ export class ByProjectKeyOrdersByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deleting an Order produces the [OrderDeleted](ctp:api:type:OrderDeletedMessage) Message.
+   *
+   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

@@ -19,11 +19,6 @@ export class ByProjectKeyOrdersOrderNumberByOrderNumberRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	In case the orderNumber does not match the regular expression [a-zA-Z0-9_\-]+,
-   *	it should be provided in URL-encoded format.
-   *
-   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -73,6 +68,10 @@ export class ByProjectKeyOrdersOrderNumberByOrderNumberRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deleting an Order produces the [OrderDeleted](ctp:api:type:OrderDeletedMessage) Message.
+   *
+   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

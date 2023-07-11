@@ -605,37 +605,35 @@ export interface MyLineItemDraft {
    */
   readonly custom?: CustomFieldsDraft
 }
-/**
- *	When creating [B2B Orders](/../api/associates-overview#b2b-resources), the Customer must have the `MyOrderFromCartDraft` [Permission](ctp:api:type:Permission).
- */
 export interface MyOrderFromCartDraft {
   /**
-   *	Unique identifier of the Cart that initiates an Order creation.
+   *	`id` of the [Cart](ctp:api:type:Cart) from which the Order is created.
+   *
    *
    */
   readonly id: string
   /**
+   *	Current `version` of the [Cart](ctp:api:type:Cart) from which the Order is created.
+   *
    *
    */
   readonly version: number
 }
-/**
- *	When creating [B2B Orders](/../api/associates-overview#b2b-resources), the Customer must have the `MyOrderFromQuoteDraft` [Permission](ctp:api:type:Permission).
- */
 export interface MyOrderFromQuoteDraft {
   /**
-   *	Unique identifier of the Quote from which the Order is created.
+   *	`id` of the [Quote](ctp:api:type:Quote) from which the Order is created.
+   *
    *
    */
   readonly id: string
   /**
-   *	`version` of the [Quote](ctp:api:type:quote) from which the Order is created.
+   *	Current `version` of the [Quote](ctp:api:type:Quote) from which the Order is created.
    *
    *
    */
   readonly version: number
   /**
-   *	Set to `true`, if the `quoteState` of the referenced [Quote](ctp:api:type:quote) should be set to `Accepted`.
+   *	Set to `true`, if the `quoteState` of the referenced [Quote](ctp:api:type:Quote) should be set to `Accepted`.
    *
    *
    */

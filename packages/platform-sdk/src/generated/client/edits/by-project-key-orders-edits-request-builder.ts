@@ -77,6 +77,10 @@ export class ByProjectKeyOrdersEditsRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	You can either create multiple Order Edits for an Order and apply them sequentially to an Order, or create multiple Order Edits parallelly (as alternatives to each other) and apply one of them to the Order.
+   *
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
