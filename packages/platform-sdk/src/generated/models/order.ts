@@ -2321,11 +2321,17 @@ export interface OrderSetCustomFieldAction {
 export interface OrderSetCustomLineItemCustomFieldAction {
   readonly action: 'setCustomLineItemCustomField'
   /**
-   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
    *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
+  /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
@@ -2344,11 +2350,17 @@ export interface OrderSetCustomLineItemCustomFieldAction {
 export interface OrderSetCustomLineItemCustomTypeAction {
   readonly action: 'setCustomLineItemCustomType'
   /**
-   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
    *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
+  /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the Custom Line Item with [Custom Fields](/../api/projects/custom-fields).
    *	If absent, any existing Type and Custom Fields are removed from the Custom Line Item.
@@ -2366,11 +2378,17 @@ export interface OrderSetCustomLineItemCustomTypeAction {
 export interface OrderSetCustomLineItemShippingDetailsAction {
   readonly action: 'setCustomLineItemShippingDetails'
   /**
-   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
    *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
+  /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
   /**
    *	Value to set.
    *	If empty, any existing value is removed.

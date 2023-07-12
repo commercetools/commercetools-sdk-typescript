@@ -2297,11 +2297,17 @@ export interface CartAddShoppingListAction {
 export interface CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction {
   readonly action: 'applyDeltaToCustomLineItemShippingDetailsTargets'
   /**
-   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
    *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
+  /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
   /**
    *	Using positive or negative quantities increases or decreases the number of items shipped to an address.
    *
@@ -2337,11 +2343,17 @@ export interface CartApplyDeltaToLineItemShippingDetailsTargetsAction {
 export interface CartChangeCustomLineItemMoneyAction {
   readonly action: 'changeCustomLineItemMoney'
   /**
-   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
    *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
+  /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
   /**
    *	Value to set. Must not be empty. Can be a negative amount.
    *
@@ -2352,11 +2364,17 @@ export interface CartChangeCustomLineItemMoneyAction {
 export interface CartChangeCustomLineItemPriceModeAction {
   readonly action: 'changeCustomLineItemPriceMode'
   /**
-   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
    *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
+  /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
   /**
    *	New value to set. Must not be empty.
    *
@@ -2378,11 +2396,17 @@ export interface CartChangeCustomLineItemPriceModeAction {
 export interface CartChangeCustomLineItemQuantityAction {
   readonly action: 'changeCustomLineItemQuantity'
   /**
-   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
    *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
+  /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
   /**
    *	New value to set.
    *
@@ -2519,11 +2543,17 @@ export interface CartRecalculateAction {
 export interface CartRemoveCustomLineItemAction {
   readonly action: 'removeCustomLineItem'
   /**
-   *	`id` of the Custom Line Item to remove.
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
    *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
+  /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
 }
 export interface CartRemoveDiscountCodeAction {
   readonly action: 'removeDiscountCode'
@@ -2735,11 +2765,17 @@ export interface CartSetCustomFieldAction {
 export interface CartSetCustomLineItemCustomFieldAction {
   readonly action: 'setCustomLineItemCustomField'
   /**
-   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
    *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
+  /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
@@ -2758,11 +2794,17 @@ export interface CartSetCustomLineItemCustomFieldAction {
 export interface CartSetCustomLineItemCustomTypeAction {
   readonly action: 'setCustomLineItemCustomType'
   /**
-   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
    *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
+  /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the CustomLineItem with [Custom Fields](/../api/projects/custom-fields).
    *	If absent, any existing Type and Custom Fields are removed from the CustomLineItem.
@@ -2780,11 +2822,17 @@ export interface CartSetCustomLineItemCustomTypeAction {
 export interface CartSetCustomLineItemShippingDetailsAction {
   readonly action: 'setCustomLineItemShippingDetails'
   /**
-   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
    *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
+  /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
   /**
    *	Value to set.
    *	If empty, any existing value is removed.
@@ -2800,11 +2848,17 @@ export interface CartSetCustomLineItemShippingDetailsAction {
 export interface CartSetCustomLineItemTaxAmountAction {
   readonly action: 'setCustomLineItemTaxAmount'
   /**
-   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
    *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
+  /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
   /**
    *	Value to set.
    *	If empty, any existing value is removed.
@@ -2820,11 +2874,17 @@ export interface CartSetCustomLineItemTaxAmountAction {
 export interface CartSetCustomLineItemTaxRateAction {
   readonly action: 'setCustomLineItemTaxRate'
   /**
-   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
    *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
+  /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
   /**
    *	Value to set.
    *	If empty, an existing value is removed.
