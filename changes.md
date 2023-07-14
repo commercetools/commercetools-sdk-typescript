@@ -101,3 +101,9 @@
 - added type `StagedOrderSetDirectDiscountsAction`
 - added type `StagedOrderSetStoreAction`
 </details>
+
+<details>
+<summary>Added Enum(s)</summary>
+
+- added enum `associate-role` to type `ChangeSubscriptionResourceTypeId`
+</details>
