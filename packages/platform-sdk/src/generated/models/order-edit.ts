@@ -1065,11 +1065,17 @@ export interface StagedOrderImportCustomLineItemStateAction {
 export interface StagedOrderImportLineItemStateAction {
   readonly action: 'importLineItemState'
   /**
-   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	New status of the Line Items.
    *
@@ -2567,11 +2573,17 @@ export interface StagedOrderTransitionCustomLineItemStateAction {
 export interface StagedOrderTransitionLineItemStateAction {
   readonly action: 'transitionLineItemState'
   /**
-   *	`id` of the [LineItem](ctp:api:type:LineItem) to update.
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Number of Line Items that should transition [State](ctp:api:type:State).
    *

@@ -4425,6 +4425,12 @@ export interface LineItemStateTransitionMessage {
    */
   readonly lineItemId: string
   /**
+   *	User-defined unique identifier of the LineItem.
+   *
+   *
+   */
+  readonly lineItemKey?: string
+  /**
    *	Date and time (UTC) when the transition of the [Line Item](ctp:api:type:LineItem) [State](ctp:api:type:State) was performed.
    *
    *
@@ -5729,6 +5735,12 @@ export interface OrderLineItemDiscountSetMessage {
    */
   readonly lineItemId: string
   /**
+   *	User-defined unique identifier of the LineItem.
+   *
+   *
+   */
+  readonly lineItemKey?: string
+  /**
    *	Array of [DiscountedLineItemPriceForQuantity](ctp:api:type:DiscountedLineItemPriceForQuantity) after the Discount recalculation.
    *
    *
@@ -5823,6 +5835,12 @@ export interface OrderLineItemDistributionChannelSetMessage {
    */
   readonly lineItemId: string
   /**
+   *	User-defined unique identifier of the LineItem.
+   *
+   *
+   */
+  readonly lineItemKey?: string
+  /**
    *	[Distribution Channel](ctp:api:type:Channel) that was set.
    *
    *
@@ -5898,6 +5916,12 @@ export interface OrderLineItemRemovedMessage {
    *
    */
   readonly lineItemId: string
+  /**
+   *	User-defined unique identifier of the LineItem.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Quantity of [Line Items](ctp:api:type:LineItem) that were removed during the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
    *
@@ -14111,6 +14135,12 @@ export interface LineItemStateTransitionMessagePayload {
    */
   readonly lineItemId: string
   /**
+   *	User-defined unique identifier of the LineItem.
+   *
+   *
+   */
+  readonly lineItemKey?: string
+  /**
    *	Date and time (UTC) when the transition of the [Line Item](ctp:api:type:LineItem) [State](ctp:api:type:State) was performed.
    *
    *
@@ -14446,6 +14476,12 @@ export interface OrderLineItemDiscountSetMessagePayload {
    */
   readonly lineItemId: string
   /**
+   *	User-defined unique identifier of the LineItem.
+   *
+   *
+   */
+  readonly lineItemKey?: string
+  /**
    *	Array of [DiscountedLineItemPriceForQuantity](ctp:api:type:DiscountedLineItemPriceForQuantity) after the Discount recalculation.
    *
    *
@@ -14483,6 +14519,12 @@ export interface OrderLineItemDistributionChannelSetMessagePayload {
    */
   readonly lineItemId: string
   /**
+   *	User-defined unique identifier of the LineItem.
+   *
+   *
+   */
+  readonly lineItemKey?: string
+  /**
    *	[Distribution Channel](ctp:api:type:Channel) that was set.
    *
    *
@@ -14501,6 +14543,12 @@ export interface OrderLineItemRemovedMessagePayload {
    *
    */
   readonly lineItemId: string
+  /**
+   *	User-defined unique identifier of the LineItem.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Quantity of [Line Items](ctp:api:type:LineItem) that were removed during the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
    *
