@@ -564,7 +564,7 @@ export type _BaseResource =
  */
 export interface ClientLogging {
   /**
-   *	`id` of the [APIClient](ctp:api:type:ApiClient) which created the resource.
+   *	`id` of the [API Client](ctp:api:type:ApiClient) which created the resource.
    *
    *
    */
@@ -587,6 +587,12 @@ export interface ClientLogging {
    *
    */
   readonly anonymousId?: string
+  /**
+   *	Indicates the [Customer](ctp:api:type:Customer) who created or modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only present when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
+   *
+   *
+   */
+  readonly associate?: CustomerReference
 }
 export type _ClientLogging = ClientLogging | CreatedBy | LastModifiedBy
 /**
@@ -594,7 +600,7 @@ export type _ClientLogging = ClientLogging | CreatedBy | LastModifiedBy
  */
 export interface CreatedBy extends ClientLogging {
   /**
-   *	`id` of the [APIClient](ctp:api:type:ApiClient) which created the resource.
+   *	`id` of the [API Client](ctp:api:type:ApiClient) which created the resource.
    *
    *
    */
@@ -617,6 +623,12 @@ export interface CreatedBy extends ClientLogging {
    *
    */
   readonly anonymousId?: string
+  /**
+   *	Indicates the [Customer](ctp:api:type:Customer) who created the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only present when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
+   *
+   *
+   */
+  readonly associate?: CustomerReference
 }
 export interface DiscountedPrice {
   /**
@@ -705,7 +717,7 @@ export type KeyReference =
  */
 export interface LastModifiedBy extends ClientLogging {
   /**
-   *	`id` of the [APIClient](ctp:api:type:ApiClient) which modified the resource.
+   *	`id` of the [API Client](ctp:api:type:ApiClient) which modified the resource.
    *
    *
    */
@@ -728,6 +740,12 @@ export interface LastModifiedBy extends ClientLogging {
    *
    */
   readonly anonymousId?: string
+  /**
+   *	Indicates the [Customer](ctp:api:type:Customer) who modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only present when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
+   *
+   *
+   */
+  readonly associate?: CustomerReference
 }
 /**
  *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.

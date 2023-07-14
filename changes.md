@@ -13,6 +13,9 @@
 - added property `customLineItemKey` to type `CartSetCustomLineItemShippingDetailsAction`
 - added property `customLineItemKey` to type `CartSetCustomLineItemTaxAmountAction`
 - added property `customLineItemKey` to type `CartSetCustomLineItemTaxRateAction`
+- added property `associate` to type `ClientLogging`
+- added property `associate` to type `CreatedBy`
+- added property `associate` to type `LastModifiedBy`
 - added property `lineItemKey` to type `LineItemStateTransitionMessage`
 - added property `lineItemKey` to type `OrderLineItemDiscountSetMessage`
 - added property `lineItemKey` to type `OrderLineItemDistributionChannelSetMessage`
