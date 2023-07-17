@@ -1536,7 +1536,7 @@ export interface BusinessUnitContactEmailSetMessage {
   readonly contactEmail?: string
 }
 /**
- *	Generated after a successful [Create Business Unit](/projects/business-units#create-businessunit) request.
+ *	Generated after a successful [Create BusinessUnit](/projects/business-units#create-businessunit) request.
  *
  */
 export interface BusinessUnitCreatedMessage {
@@ -1746,7 +1746,7 @@ export interface BusinessUnitDefaultShippingAddressSetMessage {
   readonly address?: Address
 }
 /**
- *	Generated after a successful [Delete Business Unit](/projects/business-units#delete-businessunit) request.
+ *	Generated after a successful [Delete BusinessUnit](/projects/business-units#delete-businessunit) request.
  *
  */
 export interface BusinessUnitDeletedMessage {
@@ -2323,6 +2323,10 @@ export interface BusinessUnitStoreModeChangedMessage {
    */
   readonly oldStoreMode: BusinessUnitStoreMode
 }
+/**
+ *	Generated after a successful [Remove Store](ctp:api:type:BusinessUnitRemoveStoreAction) update action.
+ *
+ */
 export interface BusinessUnitStoreRemovedMessage {
   readonly type: 'BusinessUnitStoreRemoved'
   /**
@@ -3934,7 +3938,7 @@ export type OrderMessage =
   | ReturnInfoAddedMessage
   | ReturnInfoSetMessage
 /**
- *	Generated after a successful [Transition Custom Line Item State](ctp:api:type:OrderTransitionCustomLineItemStateAction) update action.
+ *	Generated after a successful [Transition CustomLineItem State](ctp:api:type:OrderTransitionCustomLineItemStateAction) update action.
  *
  */
 export interface CustomLineItemStateTransitionMessage {
@@ -4356,7 +4360,7 @@ export interface DeliveryRemovedMessage {
   readonly shippingKey?: string
 }
 /**
- *	Generated after a successful [Transition Line Item State](ctp:api:type:OrderTransitionLineItemStateAction) update action.
+ *	Generated after a successful [Transition LineItem State](ctp:api:type:OrderTransitionLineItemStateAction) update action.
  *
  */
 export interface LineItemStateTransitionMessage {
@@ -4602,7 +4606,7 @@ export interface OrderCreatedMessage {
   readonly order: _Order
 }
 /**
- *	Generated after a successful [Add Custom Line Item](ctp:api:type:StagedOrderAddCustomLineItemAction) update action.
+ *	Generated after a successful [Add CustomLineItem](ctp:api:type:StagedOrderAddCustomLineItemAction) update action.
  *
  */
 export interface OrderCustomLineItemAddedMessage {
@@ -4754,7 +4758,7 @@ export interface OrderCustomLineItemDiscountSetMessage {
   readonly taxedPrice?: TaxedItemPrice
 }
 /**
- *	Generated after a successful [Change Custom Line Item Quantity](ctp:api:type:StagedOrderChangeCustomLineItemQuantityAction) update action.
+ *	Generated after a successful [Change CustomLineItem Quantity](ctp:api:type:StagedOrderChangeCustomLineItemQuantityAction) update action.
  *
  */
 export interface OrderCustomLineItemQuantityChangedMessage {
@@ -4836,7 +4840,7 @@ export interface OrderCustomLineItemQuantityChangedMessage {
   readonly oldQuantity: number
 }
 /**
- *	Generated after a successful [Remove Custom Line Item](ctp:api:type:StagedOrderRemoveCustomLineItemAction) update action.
+ *	Generated after a successful [Remove CustomLineItem](ctp:api:type:StagedOrderRemoveCustomLineItemAction) update action.
  *
  */
 export interface OrderCustomLineItemRemovedMessage {
@@ -5064,7 +5068,7 @@ export interface OrderCustomerGroupSetMessage {
   readonly oldCustomerGroup?: CustomerGroupReference
 }
 /**
- *	Generated after a successful [Set Customer Id](ctp:api:type:OrderSetCustomerIdAction) update action.
+ *	Generated after a successful [Set Customer ID](ctp:api:type:OrderSetCustomerIdAction) update action.
  *
  */
 export interface OrderCustomerSetMessage {
@@ -5127,25 +5131,25 @@ export interface OrderCustomerSetMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	[Customer](ctp:api:type:Customer) on the [Order](ctp:api:type:Order) after the [Set Customer Id](ctp:api:type:OrderSetCustomerIdAction) update action.
+   *	[Customer](ctp:api:type:Customer) on the [Order](ctp:api:type:Order) after the [Set Customer ID](ctp:api:type:OrderSetCustomerIdAction) update action.
    *
    *
    */
   readonly customer?: CustomerReference
   /**
-   *	[CustomerGroup](ctp:api:type:CustomerGroup) on the [Order](ctp:api:type:Order) after the [Set Customer Id](ctp:api:type:OrderSetCustomerIdAction) update action.
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) on the [Order](ctp:api:type:Order) after the [Set Customer ID](ctp:api:type:OrderSetCustomerIdAction) update action.
    *
    *
    */
   readonly customerGroup?: CustomerGroupReference
   /**
-   *	[Customer](ctp:api:type:Customer) on the [Order](ctp:api:type:Order) before the [Set Customer Id](ctp:api:type:OrderSetCustomerIdAction) update action.
+   *	[Customer](ctp:api:type:Customer) on the [Order](ctp:api:type:Order) before the [Set Customer ID](ctp:api:type:OrderSetCustomerIdAction) update action.
    *
    *
    */
   readonly oldCustomer?: CustomerReference
   /**
-   *	[CustomerGroup](ctp:api:type:CustomerGroup) on the [Order](ctp:api:type:Order) before the [Set Customer Id](ctp:api:type:OrderSetCustomerIdAction) update action.
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) on the [Order](ctp:api:type:Order) before the [Set Customer ID](ctp:api:type:OrderSetCustomerIdAction) update action.
    *
    *
    */
@@ -5222,7 +5226,7 @@ export interface OrderDeletedMessage {
   readonly order: _Order
 }
 /**
- *	Generated after a successful [Add Discount Code](ctp:api:type:StagedOrderAddDiscountCodeAction) update action.
+ *	Generated after a successful [Add DiscountCode](ctp:api:type:StagedOrderAddDiscountCodeAction) update action.
  *
  */
 export interface OrderDiscountCodeAddedMessage {
@@ -5292,7 +5296,7 @@ export interface OrderDiscountCodeAddedMessage {
   readonly discountCode: DiscountCodeReference
 }
 /**
- *	Generated after a successful [Remove Discount Code](ctp:api:type:StagedOrderRemoveDiscountCodeAction) update action.
+ *	Generated after a successful [Remove DiscountCode](ctp:api:type:StagedOrderRemoveDiscountCodeAction) update action.
  *
  */
 export interface OrderDiscountCodeRemovedMessage {
@@ -5590,7 +5594,7 @@ export interface OrderImportedMessage {
   readonly order: _Order
 }
 /**
- *	Generated after a successful [Add Line Item](ctp:api:type:StagedOrderAddLineItemAction) update action.
+ *	Generated after a successful [Add LineItem](ctp:api:type:StagedOrderAddLineItemAction) update action.
  *
  */
 export interface OrderLineItemAddedMessage {
@@ -5766,7 +5770,7 @@ export interface OrderLineItemDiscountSetMessage {
   readonly taxedPricePortions: MethodTaxedPrice[]
 }
 /**
- *	Generated after a successful [Set Line Item Distribution Channel](/../api/projects/order-edits#set-lineitem-distributionchannel) update action.
+ *	Generated after a successful [Set LineItem DistributionChannel](/../api/projects/order-edits#set-lineitem-distributionchannel) update action.
  *
  */
 export interface OrderLineItemDistributionChannelSetMessage {
@@ -5848,7 +5852,7 @@ export interface OrderLineItemDistributionChannelSetMessage {
   readonly distributionChannel?: ChannelReference
 }
 /**
- *	Generated after a successful [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+ *	Generated after a successful [Remove LineItem](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
  *
  */
 export interface OrderLineItemRemovedMessage {
@@ -6036,7 +6040,7 @@ export interface OrderPaymentAddedMessage {
   readonly payment: PaymentReference
 }
 /**
- *	Generated after a successful [Change Payment State](ctp:api:type:OrderChangePaymentStateAction) update action.
+ *	Generated after a successful [Change PaymentState](ctp:api:type:OrderChangePaymentStateAction) update action.
  *
  */
 export interface OrderPaymentStateChangedMessage {
@@ -6188,7 +6192,7 @@ export interface OrderPurchaseOrderNumberSetMessage {
   readonly oldPurchaseOrderNumber?: string
 }
 /**
- *	Generated after a successful [Set Return Shipment State](ctp:api:type:OrderSetReturnShipmentStateAction) update action.
+ *	Generated after a successful [Set ReturnShipmentState](ctp:api:type:OrderSetReturnShipmentStateAction) update action.
  *
  */
 export interface OrderReturnShipmentStateChangedMessage {
@@ -6264,7 +6268,7 @@ export interface OrderReturnShipmentStateChangedMessage {
   readonly returnShipmentState: ReturnShipmentState
 }
 /**
- *	Generated after a successful [Change Shipment State](ctp:api:type:OrderChangeShipmentStateAction) update action.
+ *	Generated after a successful [Change ShipmentState](ctp:api:type:OrderChangeShipmentStateAction) update action.
  *
  */
 export interface OrderShipmentStateChangedMessage {
@@ -6416,7 +6420,7 @@ export interface OrderShippingAddressSetMessage {
   readonly oldAddress?: Address
 }
 /**
- *	Generated after a successful [Set Shipping Method](ctp:api:type:StagedOrderSetShippingMethodAction) and [Set Custom Shipping Method](ctp:api:type:StagedOrderSetCustomShippingMethodAction) update actions.
+ *	Generated after a successful [Set ShippingMethod](ctp:api:type:StagedOrderSetShippingMethodAction) and [Set Custom ShippingMethod](ctp:api:type:StagedOrderSetCustomShippingMethodAction) update actions.
  *
  */
 export interface OrderShippingInfoSetMessage {
@@ -6568,7 +6572,7 @@ export interface OrderShippingRateInputSetMessage {
   readonly oldShippingRateInput?: ShippingRateInput
 }
 /**
- *	Generated after a successful [Change Order State](ctp:api:type:OrderChangeOrderStateAction) update action.
+ *	Generated after a successful [Change OrderState](ctp:api:type:OrderChangeOrderStateAction) update action.
  *
  */
 export interface OrderStateChangedMessage {
@@ -6796,7 +6800,7 @@ export interface OrderStoreSetMessage {
   readonly store?: StoreKeyReference
 }
 /**
- *	Generated after a successful [Add Parcel To Delivery](ctp:api:type:OrderAddParcelToDeliveryAction) update action.
+ *	Generated after a successful [Add Parcel to Delivery](ctp:api:type:OrderAddParcelToDeliveryAction) update action.
  *
  */
 export interface ParcelAddedToDeliveryMessage {
@@ -7060,7 +7064,7 @@ export interface ParcelMeasurementsUpdatedMessage {
   readonly shippingKey?: string
 }
 /**
- *	Generated after a successful [Remove Parcel From Delivery](ctp:api:type:OrderRemoveParcelFromDeliveryAction) update action.
+ *	Generated after a successful [Remove Parcel from Delivery](ctp:api:type:OrderRemoveParcelFromDeliveryAction) update action.
  *
  */
 export interface ParcelRemovedFromDeliveryMessage {
@@ -7142,7 +7146,7 @@ export interface ParcelRemovedFromDeliveryMessage {
   readonly shippingKey?: string
 }
 /**
- *	Generated after a successful [Set Parcel TrackingData](ctp:api:type:OrderSetParcelTrackingDataAction) update action.
+ *	Generated after a successful [Set Parcel Tracking Data](ctp:api:type:OrderSetParcelTrackingDataAction) update action.
  *
  */
 export interface ParcelTrackingDataUpdatedMessage {
@@ -7592,7 +7596,7 @@ export interface PaymentTransactionAddedMessage {
   readonly transaction: Transaction
 }
 /**
- *	Generated after a successful [Change Transaction State](ctp:api:type:PaymentChangeTransactionStateAction) update action.
+ *	Generated after a successful [Change TransactionState](ctp:api:type:PaymentChangeTransactionStateAction) update action.
  *
  */
 export interface PaymentTransactionStateChangedMessage {
@@ -7668,7 +7672,7 @@ export interface PaymentTransactionStateChangedMessage {
   readonly state: TransactionState
 }
 /**
- *	Generated after a successful [Add To Category](ctp:api:type:ProductAddToCategoryAction) update action.
+ *	Generated after a successful [Add to Category](ctp:api:type:ProductAddToCategoryAction) update action.
  *
  */
 export interface ProductAddedToCategoryMessage {
@@ -7972,7 +7976,7 @@ export interface ProductImageAddedMessage {
   readonly staged: boolean
 }
 /**
- *	Generated after a successful [Add Embedded Price](ctp:api:type:ProductAddPriceAction) update action.
+ *	Generated after a successful [Add Price](ctp:api:type:ProductAddPriceAction) update action.
  *
  */
 export interface ProductPriceAddedMessage {
@@ -8054,7 +8058,7 @@ export interface ProductPriceAddedMessage {
   readonly staged: boolean
 }
 /**
- *	Generated after a successful [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+ *	Generated after a successful [Change Price](ctp:api:type:ProductChangePriceAction) update action.
  *
  */
 export interface ProductPriceChangedMessage {
@@ -8218,7 +8222,7 @@ export interface ProductPriceDiscountsSetMessage {
   readonly updatedPrices: ProductPriceDiscountsSetUpdatedPrice[]
 }
 /**
- *	Details about a [Embedded Price](/projects/products#embedded-price) that was updated due to a Discount. Specific to [ProductPriceDiscountsSet](ctp:api:type:ProductPriceDiscountsSetMessage) Message.
+ *	Details about a [Embedded Price](/projects/products#embedded-price) that was updated due to a Discount. Specific to [Product Price Discounts Set](ctp:api:type:ProductPriceDiscountsSetMessage) Message.
  *
  */
 export interface ProductPriceDiscountsSetUpdatedPrice {
@@ -8260,7 +8264,7 @@ export interface ProductPriceDiscountsSetUpdatedPrice {
   readonly staged: boolean
 }
 /**
- *	Generated after a successful [Set Discounted Embedded Price](ctp:api:type:ProductSetDiscountedPriceAction) update action.
+ *	Generated after a successful [Set Discounted Price](ctp:api:type:ProductSetDiscountedPriceAction) update action.
  *
  */
 export interface ProductPriceExternalDiscountSetMessage {
@@ -8522,7 +8526,7 @@ export interface ProductPriceModeSetMessage {
   readonly to: ProductPriceModeEnum
 }
 /**
- *	Generated after a successful [Remove Embedded Price](ctp:api:type:ProductRemovePriceAction) update action.
+ *	Generated after a successful [Remove Price](ctp:api:type:ProductRemovePriceAction) update action.
  *
  */
 export interface ProductPriceRemovedMessage {
@@ -8604,7 +8608,7 @@ export interface ProductPriceRemovedMessage {
   readonly staged: boolean
 }
 /**
- *	Generated after a successful [Set Embedded Prices](ctp:api:type:ProductSetPricesAction) update action.
+ *	Generated after a successful [Set Prices](ctp:api:type:ProductSetPricesAction) update action.
  *
  */
 export interface ProductPricesSetMessage {
@@ -8768,7 +8772,7 @@ export interface ProductPublishedMessage {
   readonly scope: ProductPublishScope
 }
 /**
- *	Generated after a successful [Remove From Category](ctp:api:type:ProductRemoveFromCategoryAction) update action.
+ *	Generated after a successful [Remove from Category](ctp:api:type:ProductRemoveFromCategoryAction) update action.
  *
  */
 export interface ProductRemovedFromCategoryMessage {
@@ -8984,7 +8988,7 @@ export interface ProductSelectionCreatedMessage {
   readonly productSelection: ProductSelection
 }
 /**
- *	Generated after a successful [Delete Product Selection](/../api/projects/product-selections#create-product-selection) request.
+ *	Generated after a successful [Delete Product Selection](/../api/projects/product-selections#delete-product-selection) request.
  *
  */
 export interface ProductSelectionDeletedMessage {
@@ -9645,7 +9649,7 @@ export interface ProductUnpublishedMessage {
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
 }
 /**
- *	Generated after a successful [Add Product Variant](ctp:api:type:ProductAddVariantAction) update action.
+ *	Generated after a successful [Add ProductVariant](ctp:api:type:ProductAddVariantAction) update action.
  *
  */
 export interface ProductVariantAddedMessage {
@@ -9721,7 +9725,7 @@ export interface ProductVariantAddedMessage {
   readonly staged: boolean
 }
 /**
- *	Generated after a successful [Remove Product Variant](ctp:api:type:ProductRemoveVariantAction) update action.
+ *	Generated after a successful [Remove ProductVariant](ctp:api:type:ProductRemoveVariantAction) update action.
  *
  */
 export interface ProductVariantDeletedMessage {
@@ -10007,7 +10011,7 @@ export interface QuoteDeletedMessage {
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
 }
 /**
- *	Generated after a successful [Create Quote Request](/../api/projects/quote-requests#create-quoterequest) request.
+ *	Generated after a successful [Create QuoteRequest](/../api/projects/quote-requests#create-quoterequest) request.
  *
  */
 export interface QuoteRequestCreatedMessage {
@@ -10153,7 +10157,7 @@ export interface QuoteRequestCustomerChangedMessage {
   readonly previousCustomer: CustomerReference
 }
 /**
- *	Generated after a successful [Delete Quote Request](/../api/projects/quote-requests#delete-quoterequest) request.
+ *	Generated after a successful [Delete QuoteRequest](/../api/projects/quote-requests#delete-quoterequest) request.
  *
  */
 export interface QuoteRequestDeletedMessage {
@@ -10533,7 +10537,7 @@ export interface QuoteStateTransitionMessage {
   readonly force: boolean
 }
 /**
- *	Generated after a successful [Add Return Info](ctp:api:type:OrderAddReturnInfoAction) update action.
+ *	Generated after a successful [Add ReturnInfo](ctp:api:type:OrderAddReturnInfoAction) update action.
  *
  */
 export interface ReturnInfoAddedMessage {
@@ -10603,7 +10607,7 @@ export interface ReturnInfoAddedMessage {
   readonly returnInfo: ReturnInfo
 }
 /**
- *	Generated after a successful [Set Return Info](ctp:api:type:OrderSetReturnInfoAction) update action on [Orders](ctp:api:type:Order) and [Order Edits](ctp:api:type:OrderEdit).
+ *	Generated after a successful [Set ReturnInfo](ctp:api:type:OrderSetReturnInfoAction) update action on [Orders](ctp:api:type:Order) and [Order Edits](ctp:api:type:OrderEdit).
  *
  */
 export interface ReturnInfoSetMessage {
@@ -10931,7 +10935,7 @@ export interface ReviewStateTransitionMessage {
   readonly force: boolean
 }
 /**
- *	Generated after a successful [Create Staged Quote](/../api/projects/staged-quotes#create-stagedquote) request.
+ *	Generated after a successful [Create StagedQuote](/../api/projects/staged-quotes#create-stagedquote) request.
  *
  */
 export interface StagedQuoteCreatedMessage {
@@ -11001,7 +11005,7 @@ export interface StagedQuoteCreatedMessage {
   readonly stagedQuote: StagedQuote
 }
 /**
- *	Generated after a successful [Delete Staged Quote](/../api/projects/staged-quotes#delete-stagedquote) request.
+ *	Generated after a successful [Delete StagedQuote](/../api/projects/staged-quotes#delete-stagedquote) request.
  *
  */
 export interface StagedQuoteDeletedMessage {
@@ -13488,7 +13492,7 @@ export interface BusinessUnitContactEmailSetMessagePayload {
   readonly contactEmail?: string
 }
 /**
- *	Generated after a successful [Create Business Unit](/projects/business-units#create-businessunit) request.
+ *	Generated after a successful [Create BusinessUnit](/projects/business-units#create-businessunit) request.
  *
  */
 export interface BusinessUnitCreatedMessagePayload {
@@ -13527,7 +13531,7 @@ export interface BusinessUnitDefaultShippingAddressSetMessagePayload {
   readonly address?: Address
 }
 /**
- *	Generated after a successful [Delete Business Unit](/projects/business-units#delete-businessunit) request.
+ *	Generated after a successful [Delete BusinessUnit](/projects/business-units#delete-businessunit) request.
  *
  */
 export interface BusinessUnitDeletedMessagePayload {
@@ -13648,6 +13652,10 @@ export interface BusinessUnitStoreModeChangedMessagePayload {
    */
   readonly oldStoreMode: BusinessUnitStoreMode
 }
+/**
+ *	Generated after a successful [Remove Store](ctp:api:type:BusinessUnitRemoveStoreAction) update action.
+ *
+ */
 export interface BusinessUnitStoreRemovedMessagePayload {
   readonly type: 'BusinessUnitStoreRemoved'
   /**
@@ -13986,7 +13994,7 @@ export type OrderMessagePayload =
   | ReturnInfoAddedMessagePayload
   | ReturnInfoSetMessagePayload
 /**
- *	Generated after a successful [Transition Custom Line Item State](ctp:api:type:OrderTransitionCustomLineItemStateAction) update action.
+ *	Generated after a successful [Transition CustomLineItem State](ctp:api:type:OrderTransitionCustomLineItemStateAction) update action.
  *
  */
 export interface CustomLineItemStateTransitionMessagePayload {
@@ -14123,7 +14131,7 @@ export interface DeliveryRemovedMessagePayload {
   readonly shippingKey?: string
 }
 /**
- *	Generated after a successful [Transition Line Item State](ctp:api:type:OrderTransitionLineItemStateAction) update action.
+ *	Generated after a successful [Transition LineItem State](ctp:api:type:OrderTransitionLineItemStateAction) update action.
  *
  */
 export interface LineItemStateTransitionMessagePayload {
@@ -14198,7 +14206,7 @@ export interface OrderCreatedMessagePayload {
   readonly order: _Order
 }
 /**
- *	Generated after a successful [Add Custom Line Item](ctp:api:type:StagedOrderAddCustomLineItemAction) update action.
+ *	Generated after a successful [Add CustomLineItem](ctp:api:type:StagedOrderAddCustomLineItemAction) update action.
  *
  */
 export interface OrderCustomLineItemAddedMessagePayload {
@@ -14236,7 +14244,7 @@ export interface OrderCustomLineItemDiscountSetMessagePayload {
   readonly taxedPrice?: TaxedItemPrice
 }
 /**
- *	Generated after a successful [Change Custom Line Item Quantity](ctp:api:type:StagedOrderChangeCustomLineItemQuantityAction) update action.
+ *	Generated after a successful [Change CustomLineItem Quantity](ctp:api:type:StagedOrderChangeCustomLineItemQuantityAction) update action.
  *
  */
 export interface OrderCustomLineItemQuantityChangedMessagePayload {
@@ -14261,7 +14269,7 @@ export interface OrderCustomLineItemQuantityChangedMessagePayload {
   readonly oldQuantity: number
 }
 /**
- *	Generated after a successful [Remove Custom Line Item](ctp:api:type:StagedOrderRemoveCustomLineItemAction) update action.
+ *	Generated after a successful [Remove CustomLineItem](ctp:api:type:StagedOrderRemoveCustomLineItemAction) update action.
  *
  */
 export interface OrderCustomLineItemRemovedMessagePayload {
@@ -14318,31 +14326,31 @@ export interface OrderCustomerGroupSetMessagePayload {
   readonly oldCustomerGroup?: CustomerGroupReference
 }
 /**
- *	Generated after a successful [Set Customer Id](ctp:api:type:OrderSetCustomerIdAction) update action.
+ *	Generated after a successful [Set Customer ID](ctp:api:type:OrderSetCustomerIdAction) update action.
  *
  */
 export interface OrderCustomerSetMessagePayload {
   readonly type: 'OrderCustomerSet'
   /**
-   *	[Customer](ctp:api:type:Customer) on the [Order](ctp:api:type:Order) after the [Set Customer Id](ctp:api:type:OrderSetCustomerIdAction) update action.
+   *	[Customer](ctp:api:type:Customer) on the [Order](ctp:api:type:Order) after the [Set Customer ID](ctp:api:type:OrderSetCustomerIdAction) update action.
    *
    *
    */
   readonly customer?: CustomerReference
   /**
-   *	[CustomerGroup](ctp:api:type:CustomerGroup) on the [Order](ctp:api:type:Order) after the [Set Customer Id](ctp:api:type:OrderSetCustomerIdAction) update action.
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) on the [Order](ctp:api:type:Order) after the [Set Customer ID](ctp:api:type:OrderSetCustomerIdAction) update action.
    *
    *
    */
   readonly customerGroup?: CustomerGroupReference
   /**
-   *	[Customer](ctp:api:type:Customer) on the [Order](ctp:api:type:Order) before the [Set Customer Id](ctp:api:type:OrderSetCustomerIdAction) update action.
+   *	[Customer](ctp:api:type:Customer) on the [Order](ctp:api:type:Order) before the [Set Customer ID](ctp:api:type:OrderSetCustomerIdAction) update action.
    *
    *
    */
   readonly oldCustomer?: CustomerReference
   /**
-   *	[CustomerGroup](ctp:api:type:CustomerGroup) on the [Order](ctp:api:type:Order) before the [Set Customer Id](ctp:api:type:OrderSetCustomerIdAction) update action.
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) on the [Order](ctp:api:type:Order) before the [Set Customer ID](ctp:api:type:OrderSetCustomerIdAction) update action.
    *
    *
    */
@@ -14362,7 +14370,7 @@ export interface OrderDeletedMessagePayload {
   readonly order: _Order
 }
 /**
- *	Generated after a successful [Add Discount Code](ctp:api:type:StagedOrderAddDiscountCodeAction) update action.
+ *	Generated after a successful [Add DiscountCode](ctp:api:type:StagedOrderAddDiscountCodeAction) update action.
  *
  */
 export interface OrderDiscountCodeAddedMessagePayload {
@@ -14375,7 +14383,7 @@ export interface OrderDiscountCodeAddedMessagePayload {
   readonly discountCode: DiscountCodeReference
 }
 /**
- *	Generated after a successful [Remove Discount Code](ctp:api:type:StagedOrderRemoveDiscountCodeAction) update action.
+ *	Generated after a successful [Remove DiscountCode](ctp:api:type:StagedOrderRemoveDiscountCodeAction) update action.
  *
  */
 export interface OrderDiscountCodeRemovedMessagePayload {
@@ -14445,7 +14453,7 @@ export interface OrderImportedMessagePayload {
   readonly order: _Order
 }
 /**
- *	Generated after a successful [Add Line Item](ctp:api:type:StagedOrderAddLineItemAction) update action.
+ *	Generated after a successful [Add LineItem](ctp:api:type:StagedOrderAddLineItemAction) update action.
  *
  */
 export interface OrderLineItemAddedMessagePayload {
@@ -14507,7 +14515,7 @@ export interface OrderLineItemDiscountSetMessagePayload {
   readonly taxedPricePortions: MethodTaxedPrice[]
 }
 /**
- *	Generated after a successful [Set Line Item Distribution Channel](/../api/projects/order-edits#set-lineitem-distributionchannel) update action.
+ *	Generated after a successful [Set LineItem DistributionChannel](/../api/projects/order-edits#set-lineitem-distributionchannel) update action.
  *
  */
 export interface OrderLineItemDistributionChannelSetMessagePayload {
@@ -14532,7 +14540,7 @@ export interface OrderLineItemDistributionChannelSetMessagePayload {
   readonly distributionChannel?: ChannelReference
 }
 /**
- *	Generated after a successful [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+ *	Generated after a successful [Remove LineItem](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
  *
  */
 export interface OrderLineItemRemovedMessagePayload {
@@ -14606,7 +14614,7 @@ export interface OrderPaymentAddedMessagePayload {
   readonly payment: PaymentReference
 }
 /**
- *	Generated after a successful [Change Payment State](ctp:api:type:OrderChangePaymentStateAction) update action.
+ *	Generated after a successful [Change PaymentState](ctp:api:type:OrderChangePaymentStateAction) update action.
  *
  */
 export interface OrderPaymentStateChangedMessagePayload {
@@ -14644,7 +14652,7 @@ export interface OrderPurchaseOrderNumberSetMessagePayload {
   readonly oldPurchaseOrderNumber?: string
 }
 /**
- *	Generated after a successful [Set Return Shipment State](ctp:api:type:OrderSetReturnShipmentStateAction) update action.
+ *	Generated after a successful [Set ReturnShipmentState](ctp:api:type:OrderSetReturnShipmentStateAction) update action.
  *
  */
 export interface OrderReturnShipmentStateChangedMessagePayload {
@@ -14663,7 +14671,7 @@ export interface OrderReturnShipmentStateChangedMessagePayload {
   readonly returnShipmentState: ReturnShipmentState
 }
 /**
- *	Generated after a successful [Change Shipment State](ctp:api:type:OrderChangeShipmentStateAction) update action.
+ *	Generated after a successful [Change ShipmentState](ctp:api:type:OrderChangeShipmentStateAction) update action.
  *
  */
 export interface OrderShipmentStateChangedMessagePayload {
@@ -14701,7 +14709,7 @@ export interface OrderShippingAddressSetMessagePayload {
   readonly oldAddress?: Address
 }
 /**
- *	Generated after a successful [Set Shipping Method](ctp:api:type:StagedOrderSetShippingMethodAction) and [Set Custom Shipping Method](ctp:api:type:StagedOrderSetCustomShippingMethodAction) update actions.
+ *	Generated after a successful [Set ShippingMethod](ctp:api:type:StagedOrderSetShippingMethodAction) and [Set Custom ShippingMethod](ctp:api:type:StagedOrderSetCustomShippingMethodAction) update actions.
  *
  */
 export interface OrderShippingInfoSetMessagePayload {
@@ -14739,7 +14747,7 @@ export interface OrderShippingRateInputSetMessagePayload {
   readonly oldShippingRateInput?: ShippingRateInput
 }
 /**
- *	Generated after a successful [Change Order State](ctp:api:type:OrderChangeOrderStateAction) update action.
+ *	Generated after a successful [Change OrderState](ctp:api:type:OrderChangeOrderStateAction) update action.
  *
  */
 export interface OrderStateChangedMessagePayload {
@@ -14796,7 +14804,7 @@ export interface OrderStoreSetMessagePayload {
   readonly store?: StoreKeyReference
 }
 /**
- *	Generated after a successful [Add Parcel To Delivery](ctp:api:type:OrderAddParcelToDeliveryAction) update action.
+ *	Generated after a successful [Add Parcel to Delivery](ctp:api:type:OrderAddParcelToDeliveryAction) update action.
  *
  */
 export interface ParcelAddedToDeliveryMessagePayload {
@@ -14889,7 +14897,7 @@ export interface ParcelMeasurementsUpdatedMessagePayload {
   readonly shippingKey?: string
 }
 /**
- *	Generated after a successful [Remove Parcel From Delivery](ctp:api:type:OrderRemoveParcelFromDeliveryAction) update action.
+ *	Generated after a successful [Remove Parcel from Delivery](ctp:api:type:OrderRemoveParcelFromDeliveryAction) update action.
  *
  */
 export interface ParcelRemovedFromDeliveryMessagePayload {
@@ -14914,7 +14922,7 @@ export interface ParcelRemovedFromDeliveryMessagePayload {
   readonly shippingKey?: string
 }
 /**
- *	Generated after a successful [Set Parcel TrackingData](ctp:api:type:OrderSetParcelTrackingDataAction) update action.
+ *	Generated after a successful [Set Parcel Tracking Data](ctp:api:type:OrderSetParcelTrackingDataAction) update action.
  *
  */
 export interface ParcelTrackingDataUpdatedMessagePayload {
@@ -15022,7 +15030,7 @@ export interface PaymentTransactionAddedMessagePayload {
   readonly transaction: Transaction
 }
 /**
- *	Generated after a successful [Change Transaction State](ctp:api:type:PaymentChangeTransactionStateAction) update action.
+ *	Generated after a successful [Change TransactionState](ctp:api:type:PaymentChangeTransactionStateAction) update action.
  *
  */
 export interface PaymentTransactionStateChangedMessagePayload {
@@ -15041,7 +15049,7 @@ export interface PaymentTransactionStateChangedMessagePayload {
   readonly state: TransactionState
 }
 /**
- *	Generated after a successful [Add To Category](ctp:api:type:ProductAddToCategoryAction) update action.
+ *	Generated after a successful [Add to Category](ctp:api:type:ProductAddToCategoryAction) update action.
  *
  */
 export interface ProductAddedToCategoryMessagePayload {
@@ -15117,7 +15125,7 @@ export interface ProductImageAddedMessagePayload {
   readonly staged: boolean
 }
 /**
- *	Generated after a successful [Add Embedded Price](ctp:api:type:ProductAddPriceAction) update action.
+ *	Generated after a successful [Add Price](ctp:api:type:ProductAddPriceAction) update action.
  *
  */
 export interface ProductPriceAddedMessagePayload {
@@ -15142,7 +15150,7 @@ export interface ProductPriceAddedMessagePayload {
   readonly staged: boolean
 }
 /**
- *	Generated after a successful [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+ *	Generated after a successful [Change Price](ctp:api:type:ProductChangePriceAction) update action.
  *
  */
 export interface ProductPriceChangedMessagePayload {
@@ -15192,7 +15200,7 @@ export interface ProductPriceDiscountsSetMessagePayload {
   readonly updatedPrices: ProductPriceDiscountsSetUpdatedPrice[]
 }
 /**
- *	Generated after a successful [Set Discounted Embedded Price](ctp:api:type:ProductSetDiscountedPriceAction) update action.
+ *	Generated after a successful [Set Discounted Price](ctp:api:type:ProductSetDiscountedPriceAction) update action.
  *
  */
 export interface ProductPriceExternalDiscountSetMessagePayload {
@@ -15283,7 +15291,7 @@ export interface ProductPriceModeSetMessagePayload {
   readonly to: ProductPriceModeEnum
 }
 /**
- *	Generated after a successful [Remove Embedded Price](ctp:api:type:ProductRemovePriceAction) update action.
+ *	Generated after a successful [Remove Price](ctp:api:type:ProductRemovePriceAction) update action.
  *
  */
 export interface ProductPriceRemovedMessagePayload {
@@ -15308,7 +15316,7 @@ export interface ProductPriceRemovedMessagePayload {
   readonly staged: boolean
 }
 /**
- *	Generated after a successful [Set Embedded Prices](ctp:api:type:ProductSetPricesAction) update action.
+ *	Generated after a successful [Set Prices](ctp:api:type:ProductSetPricesAction) update action.
  *
  */
 export interface ProductPricesSetMessagePayload {
@@ -15358,7 +15366,7 @@ export interface ProductPublishedMessagePayload {
   readonly scope: ProductPublishScope
 }
 /**
- *	Generated after a successful [Remove From Category](ctp:api:type:ProductRemoveFromCategoryAction) update action.
+ *	Generated after a successful [Remove from Category](ctp:api:type:ProductRemoveFromCategoryAction) update action.
  *
  */
 export interface ProductRemovedFromCategoryMessagePayload {
@@ -15403,7 +15411,7 @@ export interface ProductSelectionCreatedMessagePayload {
   readonly productSelection: ProductSelection
 }
 /**
- *	Generated after a successful [Delete Product Selection](/../api/projects/product-selections#create-product-selection) request.
+ *	Generated after a successful [Delete Product Selection](/../api/projects/product-selections#delete-product-selection) request.
  *
  */
 export interface ProductSelectionDeletedMessagePayload {
@@ -15551,7 +15559,7 @@ export interface ProductUnpublishedMessagePayload {
   readonly type: 'ProductUnpublished'
 }
 /**
- *	Generated after a successful [Add Product Variant](ctp:api:type:ProductAddVariantAction) update action.
+ *	Generated after a successful [Add ProductVariant](ctp:api:type:ProductAddVariantAction) update action.
  *
  */
 export interface ProductVariantAddedMessagePayload {
@@ -15570,7 +15578,7 @@ export interface ProductVariantAddedMessagePayload {
   readonly staged: boolean
 }
 /**
- *	Generated after a successful [Remove Product Variant](ctp:api:type:ProductRemoveVariantAction) update action.
+ *	Generated after a successful [Remove ProductVariant](ctp:api:type:ProductRemoveVariantAction) update action.
  *
  */
 export interface ProductVariantDeletedMessagePayload {
@@ -15628,7 +15636,7 @@ export interface QuoteDeletedMessagePayload {
   readonly type: 'QuoteDeleted'
 }
 /**
- *	Generated after a successful [Create Quote Request](/../api/projects/quote-requests#create-quoterequest) request.
+ *	Generated after a successful [Create QuoteRequest](/../api/projects/quote-requests#create-quoterequest) request.
  *
  */
 export interface QuoteRequestCreatedMessagePayload {
@@ -15660,7 +15668,7 @@ export interface QuoteRequestCustomerChangedMessagePayload {
   readonly previousCustomer: CustomerReference
 }
 /**
- *	Generated after a successful [Delete Quote Request](/../api/projects/quote-requests#delete-quoterequest) request.
+ *	Generated after a successful [Delete QuoteRequest](/../api/projects/quote-requests#delete-quoterequest) request.
  *
  */
 export interface QuoteRequestDeletedMessagePayload {
@@ -15755,7 +15763,7 @@ export interface QuoteStateTransitionMessagePayload {
   readonly force: boolean
 }
 /**
- *	Generated after a successful [Add Return Info](ctp:api:type:OrderAddReturnInfoAction) update action.
+ *	Generated after a successful [Add ReturnInfo](ctp:api:type:OrderAddReturnInfoAction) update action.
  *
  */
 export interface ReturnInfoAddedMessagePayload {
@@ -15768,7 +15776,7 @@ export interface ReturnInfoAddedMessagePayload {
   readonly returnInfo: ReturnInfo
 }
 /**
- *	Generated after a successful [Set Return Info](ctp:api:type:OrderSetReturnInfoAction) update action on [Orders](ctp:api:type:Order) and [Order Edits](ctp:api:type:OrderEdit).
+ *	Generated after a successful [Set ReturnInfo](ctp:api:type:OrderSetReturnInfoAction) update action on [Orders](ctp:api:type:Order) and [Order Edits](ctp:api:type:OrderEdit).
  *
  */
 export interface ReturnInfoSetMessagePayload {
@@ -15877,7 +15885,7 @@ export interface ShoppingListStoreSetMessagePayload {
   readonly store: StoreKeyReference
 }
 /**
- *	Generated after a successful [Create Staged Quote](/../api/projects/staged-quotes#create-stagedquote) request.
+ *	Generated after a successful [Create StagedQuote](/../api/projects/staged-quotes#create-stagedquote) request.
  *
  */
 export interface StagedQuoteCreatedMessagePayload {
@@ -15890,7 +15898,7 @@ export interface StagedQuoteCreatedMessagePayload {
   readonly stagedQuote: StagedQuote
 }
 /**
- *	Generated after a successful [Delete Staged Quote](/../api/projects/staged-quotes#delete-stagedquote) request.
+ *	Generated after a successful [Delete StagedQuote](/../api/projects/staged-quotes#delete-stagedquote) request.
  *
  */
 export interface StagedQuoteDeletedMessagePayload {

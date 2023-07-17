@@ -110,3 +110,11 @@
 
 - added enum `associate-role` to type `ChangeSubscriptionResourceTypeId`
 </details>
+
+**Import changes**
+
+<details>
+<summary>Required Property(s)</summary>
+
+- :warning: changed property `key` of type `PriceDraftImport` to be required
+</details>
