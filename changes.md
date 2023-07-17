@@ -99,6 +99,12 @@
 </details>
 
 <details>
+<summary>Removed Type(s)</summary>
+
+- :warning: removed type `OrderResourceIdentifier`
+</details>
+
+<details>
 <summary>Added Type(s)</summary>
 
 - added type `StagedOrderSetDirectDiscountsAction`

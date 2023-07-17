@@ -61,7 +61,7 @@ import {
   InventoryEntryResourceIdentifier,
 } from './inventory'
 import { Message } from './message'
-import { Order, OrderReference, OrderResourceIdentifier } from './order'
+import { Order, OrderReference } from './order'
 import {
   OrderEdit,
   OrderEditReference,
@@ -1136,7 +1136,6 @@ export type ResourceIdentifier =
   | DiscountCodeResourceIdentifier
   | InventoryEntryResourceIdentifier
   | OrderEditResourceIdentifier
-  | OrderResourceIdentifier
   | PaymentResourceIdentifier
   | ProductDiscountResourceIdentifier
   | ProductResourceIdentifier

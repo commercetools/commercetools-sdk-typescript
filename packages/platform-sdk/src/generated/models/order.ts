@@ -1201,25 +1201,6 @@ export interface OrderReference {
    */
   readonly obj?: _Order
 }
-/**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [Order](ctp:api:type:Order). Either `id` or `key` is required.
- *
- */
-export interface OrderResourceIdentifier {
-  readonly typeId: 'order'
-  /**
-   *	Unique identifier of the referenced [Order](ctp:api:type:Order).
-   *
-   *
-   */
-  readonly id?: string
-  /**
-   *	User-defined unique identifier of the referenced [Order](ctp:api:type:Order).
-   *
-   *
-   */
-  readonly key?: string
-}
 export interface OrderSearchQuery {}
 export type _OrderSearchQuery =
   | OrderSearchQuery
