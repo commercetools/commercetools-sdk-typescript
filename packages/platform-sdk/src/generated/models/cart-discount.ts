@@ -78,7 +78,7 @@ export interface CartDiscount extends BaseResource {
    */
   readonly description?: LocalizedString
   /**
-   *	Effect of the CartDiscount.
+   *	Effect of the CartDiscount on the `target`.
    *
    *
    */
@@ -90,7 +90,9 @@ export interface CartDiscount extends BaseResource {
    */
   readonly cartPredicate: string
   /**
-   *	Sets a [CartDiscountTarget](ctp:api:type:CartDiscountTarget). Empty if `value` has type `giftLineItem`.
+   *	Segment of the Cart that is discounted.
+   *
+   *	Empty, if the `value` is `giftLineItem`.
    *
    *
    */
@@ -175,8 +177,7 @@ export interface CartDiscountDraft {
    */
   readonly description?: LocalizedString
   /**
-   *	Effect of the CartDiscount.
-   *	For a [target](ctp:api:type:CartDiscountTarget), relative or absolute Discount values or a fixed item Price value can be specified. If no target is specified, a [Gift Line Item](/../api/projects/cartDiscounts#gift-line-item) can be added to the Cart.
+   *	Effect of the CartDiscount on the `target`.
    *
    *
    */
@@ -188,7 +189,9 @@ export interface CartDiscountDraft {
    */
   readonly cartPredicate: string
   /**
-   *	Must not be set when the `value` has type `giftLineItem`, otherwise a [CartDiscountTarget](ctp:api:type:CartDiscountTarget) must be set.
+   *	Segment of the Cart that will be discounted.
+   *
+   *	Must not be set if the `value` is `giftLineItem`.
    *
    *
    */
@@ -561,12 +564,14 @@ export interface MultiBuyCustomLineItemsTarget {
   readonly triggerQuantity: number
   /**
    *	Number of Custom Line Items that are discounted per application of this Discount.
+   *	It must be less than or equal to the `triggerQuantity`.
    *
    *
    */
   readonly discountedQuantity: number
   /**
    *	Maximum number of times this Discount can be applied.
+   *	Do not set if the Discount should be applied an unlimited number of times.
    *
    *
    */
@@ -594,12 +599,14 @@ export interface MultiBuyLineItemsTarget {
   readonly triggerQuantity: number
   /**
    *	Number of Line Items that are discounted per application of this Discount.
+   *	It must be less than or equal to the `triggerQuantity`.
    *
    *
    */
   readonly discountedQuantity: number
   /**
    *	Maximum number of times this Discount can be applied.
+   *	Do not set if the Discount should be applied an unlimited number of times.
    *
    *
    */

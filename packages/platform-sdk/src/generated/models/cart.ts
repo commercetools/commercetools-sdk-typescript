@@ -947,7 +947,7 @@ export interface DirectDiscount {
    */
   readonly value: CartDiscountValue
   /**
-   *	Part of the Cart that is discounted.
+   *	Segment of the Cart that is discounted.
    *
    *	Empty when the `value` is set to `giftLineItem`.
    *
@@ -973,7 +973,7 @@ export interface DirectDiscountDraft {
    */
   readonly value: CartDiscountValue
   /**
-   *	Defines what part of the Cart will be discounted.
+   *	Defines what segment of the Cart will be discounted.
    *
    *	If `value` is set to `giftLineItem`, this must not be set.
    *
