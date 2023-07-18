@@ -225,7 +225,7 @@ export interface CustomerImport extends ImportResource {
    *
    *
    */
-  readonly addresses: CustomerAddress[]
+  readonly addresses?: CustomerAddress[]
   /**
    *	The index of the address in the addresses array. The `defaultBillingAddressId` of the customer will be set to the ID of that address.
    *

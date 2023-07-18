@@ -126,6 +126,7 @@
 <details>
 <summary>Required Property(s)</summary>
 
+- changed property `addresses` of type `CustomerImport` to be optional
 - :warning: changed property `key` of type `PriceDraftImport` to be required
 </details>
 
