@@ -5524,7 +5524,7 @@ export interface OrderEditAppliedMessage {
   readonly result: OrderEditApplied
 }
 /**
- *	Generated after a successful [Order Import](/../api/projects/orders-import#create-an-order-by-import).
+ *	Generated after a successful [Order Import](ctp:api:endpoint:/{projectKey}/orders/import:POST).
  *
  */
 export interface OrderImportedMessage {
@@ -14440,7 +14440,7 @@ export interface OrderEditAppliedMessagePayload {
   readonly result: OrderEditApplied
 }
 /**
- *	Generated after a successful [Order Import](/../api/projects/orders-import#create-an-order-by-import).
+ *	Generated after a successful [Order Import](ctp:api:endpoint:/{projectKey}/orders/import:POST).
  *
  */
 export interface OrderImportedMessagePayload {

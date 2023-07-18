@@ -38,6 +38,8 @@
 - added property `customLineItemKey` to type `StagedOrderSetCustomLineItemTaxRateAction`
 - added property `lineItemKey` to type `StagedOrderTransitionLineItemStateAction`
 - added property `directDiscounts` to type `Order`
+- added property `purchaseOrderNumber` to type `OrderImportDraft`
+- added property `taxCalculationMode` to type `OrderImportDraft`
 - added property `lineItemKey` to type `OrderImportLineItemStateAction`
 - added property `customLineItemKey` to type `OrderSetCustomLineItemCustomFieldAction`
 - added property `customLineItemKey` to type `OrderSetCustomLineItemCustomTypeAction`
@@ -68,6 +70,7 @@
 - changed property `customLineItemId` of type `StagedOrderSetCustomLineItemTaxAmountAction` to be optional
 - changed property `customLineItemId` of type `StagedOrderSetCustomLineItemTaxRateAction` to be optional
 - changed property `lineItemId` of type `StagedOrderTransitionLineItemStateAction` to be optional
+- changed property `priceMode` of type `CustomLineItemImportDraft` to be optional
 - changed property `lineItemId` of type `OrderImportLineItemStateAction` to be optional
 - changed property `customLineItemId` of type `OrderSetCustomLineItemCustomFieldAction` to be optional
 - changed property `customLineItemId` of type `OrderSetCustomLineItemCustomTypeAction` to be optional
@@ -88,6 +91,7 @@
 - :warning: changed property `locale` of type `StagedOrderSetLocaleAction` from type `string` to `Locale`
 - :warning: changed property `country` of type `Order` from type `string` to `CountryCode`
 - :warning: changed property `locale` of type `Order` from type `string` to `Locale`
+- :warning: changed property `country` of type `OrderImportDraft` from type `string` to `CountryCode`
 - :warning: changed property `locale` of type `OrderSetLocaleAction` from type `string` to `Locale`
 </details>
 

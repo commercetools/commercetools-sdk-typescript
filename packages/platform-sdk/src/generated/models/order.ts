@@ -13,7 +13,7 @@ import {
   CartReference,
   CartResourceIdentifier,
   CustomLineItem,
-  CustomLineItemImportDraft,
+  CustomLineItemPriceMode,
   DirectDiscount,
   DiscountCodeInfo,
   DiscountedLineItemPortion,
@@ -392,6 +392,73 @@ export interface OrderSearchStringValue
   readonly caseInsensitive?: boolean
 }
 /**
+ *	Custom Line Items contain generic user-defined items that are not linked to Products.
+ *
+ */
+export interface CustomLineItemImportDraft {
+  /**
+   *	Name of the Custom Line Item.
+   *
+   *
+   */
+  readonly name: LocalizedString
+  /**
+   *	User-defined identifier used in a deep-link URL for the Custom Line Item. This value should match the pattern `[a-zA-Z0-9_-]{2,256}`.
+   *
+   *
+   */
+  readonly slug: string
+  /**
+   *	The number of items in the Custom Line Item. Can be a negative value.
+   *
+   *
+   */
+  readonly quantity: number
+  /**
+   *	The cost of individual items in the Custom Line Item. The amount can be negative.
+   *
+   */
+  readonly money: _Money
+  /**
+   *	The tax rate used to calculate the `taxedPrice` of the Order.
+   *
+   *
+   */
+  readonly taxRate?: TaxRate
+  /**
+   *	Include a value to associate a Tax Category with the Custom Line Item.
+   *
+   *
+   */
+  readonly taxCategory?: TaxCategoryResourceIdentifier
+  /**
+   *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget)
+   *	are applied to the Custom Line Item.
+   *	- If `External`, Cart Discounts are not considered on the Custom Line Item.
+   *
+   *
+   */
+  readonly priceMode?: CustomLineItemPriceMode
+  /**
+   *	Container for Custom Line Item-specific addresses.
+   *
+   *
+   */
+  readonly shippingDetails?: ItemShippingDetailsDraft
+  /**
+   *	State of the Custom Line Items.
+   *
+   *
+   */
+  readonly state?: ItemState[]
+  /**
+   *	Custom Fields of the CustomLineItem.
+   *
+   *
+   */
+  readonly custom?: CustomFieldsDraft
+}
+/**
  *	Contains information on how items are shipped to Customers, for example, a delivery note.
  *
  */
@@ -485,12 +552,14 @@ export interface DeliveryItem {
 }
 export interface DiscountedLineItemPriceDraft {
   /**
-   *	Draft type that stores amounts only in cent precision for the specified currency.
+   *	Discounted money value.
    *
    *
    */
   readonly value: _Money
   /**
+   *	Discounts to be applied.
+   *
    *
    */
   readonly includedDiscounts: DiscountedLineItemPortion[]
@@ -509,68 +578,81 @@ export interface ItemState {
    */
   readonly state: StateReference
 }
+/**
+ *	Represents a snapshot of a Product Variant at the time it was imported with the Order. The Product Variant can be specified by providing a `productId` and `variant.id`, or by providing a `variant.sku`.
+ *
+ */
 export interface LineItemImportDraft {
   /**
-   *	ID of the existing product.
-   *	You also need to specify the ID of the variant if this property is set or alternatively you can just specify SKU of the product variant.
+   *	Name of the Line Item.
    *
-   */
-  readonly productId?: string
-  /**
-   *	The product name.
    *
    */
   readonly name: LocalizedString
   /**
+   *	The Product Variant to use as a [Line Item](ctp:api:type:LineItem).
    *
    */
   readonly variant: ProductVariantImportDraft
   /**
+   *	`id` of the [Product](ctp:api:type:Product) the Product Variant belongs to.
+   *
+   *	If provided, you must also set `variant.id`.
    *
    */
-  readonly price: PriceDraft
+  readonly productId?: string
   /**
+   *	The number of Product Variants in the LineItem. Can be a negative value.
+   *
    *
    */
   readonly quantity: number
   /**
+   *	The Line Item price for `quantity` = `1`. The amount can be negative.
    *
    */
-  readonly state?: ItemState[]
+  readonly price: PriceDraft
   /**
-   *	Connection to a particular supplier.
-   *	By providing supply channel information, you can uniquely identify
-   *	inventory entries that should be reserved.
-   *	The provided channel should have the
-   *	InventorySupply role.
-   *
-   */
-  readonly supplyChannel?: ChannelResourceIdentifier
-  /**
-   *	The channel is used to select a ProductPrice.
-   *	The provided channel should have the ProductDistribution role.
-   *
-   */
-  readonly distributionChannel?: ChannelResourceIdentifier
-  /**
+   *	The tax rate used to calculate the `taxedPrice` of the Order.
    *
    */
   readonly taxRate?: TaxRate
   /**
-   *	The custom fields.
+   *	The Channel used to [select a Price](ctp:api:type:LineItemPriceSelection).
+   *	This Channel must have the `ProductDistribution` role.
    *
    */
-  readonly custom?: CustomFieldsDraft
+  readonly distributionChannel?: ChannelResourceIdentifier
   /**
-   *	Inventory mode specific to the line item only, valid for the entire `quantity` of the line item.
-   *	Set only if inventory mode should be different from the `inventoryMode` specified on the [OrderImportDraft](ctp:api:type:OrderImportDraft).
+   *	The Channel used to supply Line Items.
+   *	By providing supply Channel information, you can uniquely identify [Inventory entries](ctp:api:type:InventoryEntry) that should be reserved.
+   *	This Channel must have the `InventorySupply` role.
+   *
+   */
+  readonly supplyChannel?: ChannelResourceIdentifier
+  /**
+   *	Inventory mode specific to the LineItem, valid for the entire `quantity` of the LineItem.
+   *	Set only if Inventory mode should be different from the `inventoryMode` specified on the [OrderImportDraft](ctp:api:type:OrderImportDraft).
    *
    */
   readonly inventoryMode?: InventoryMode
   /**
+   *	Container for Line Item-specific addresses.
+   *
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
+  /**
+   *	States of the Line Item.
+   *
+   */
+  readonly state?: ItemState[]
+  /**
+   *	Custom Fields of the LineItem.
+   *
+   *
+   */
+  readonly custom?: CustomFieldsDraft
 }
 export interface Order extends BaseResource {
   /**
@@ -1012,87 +1094,125 @@ export interface OrderFromQuoteDraft {
    */
   readonly state?: StateResourceIdentifier
 }
+/**
+ *	A snapshot of an Order at the time it was imported.
+ *
+ */
 export interface OrderImportDraft {
   /**
-   *	String that unique identifies an order.
-   *	It can be used to create more human-readable (in contrast to ID) identifier for the order.
-   *	It should be unique within a project.
+   *	User-defined identifier of the Order. Must be unique across a Project.
+   *	Once set, the value cannot be changed.
+   *
    *
    */
   readonly orderNumber?: string
   /**
-   *	If given the customer with that ID must exist in the project.
+   *	User-defined identifier for a purchase Order.
+   *
+   */
+  readonly purchaseOrderNumber?: string
+  /**
+   *	The `id` of the [Customer](ctp:api:type:Customer) the Order belongs to.
+   *
    *
    */
   readonly customerId?: string
   /**
-   *	The customer email can be used when no check against existing Customers is desired during order import.
+   *	The Email address of the Customer the Order belongs to. Can be used instead of `customerId` when no check against existing [Customers](ctp:api:type:Customer) is required.
+   *
    *
    */
   readonly customerEmail?: string
   /**
-   *	If not given `customLineItems` must not be empty.
+   *	The Customer Group of the Customer the Order belongs to.
    *
-   */
-  readonly lineItems?: LineItemImportDraft[]
-  /**
-   *	If not given `lineItems` must not be empty.
-   *
-   */
-  readonly customLineItems?: CustomLineItemImportDraft[]
-  /**
-   *
-   */
-  readonly totalPrice: _Money
-  /**
-   *	Order Import does not support calculation of taxes.
-   *	When setting the draft the taxedPrice is to be provided.
-   *
-   */
-  readonly taxedPrice?: TaxedPriceDraft
-  /**
-   *
-   */
-  readonly shippingAddress?: _BaseAddress
-  /**
-   *
-   */
-  readonly billingAddress?: _BaseAddress
-  /**
-   *	Set when the customer is set and the customer is a member of a customer group.
-   *	Used for product variant price selection.
    *
    */
   readonly customerGroup?: CustomerGroupResourceIdentifier
   /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-   *	Used for product variant price selection.
-   *
-   */
-  readonly country?: string
-  /**
-   *	Current status of the Order.
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to the Business Unit the Order should belong to.
+   *	When the `customerId` of the Order is also set, the [Customer](ctp:api:type:Customer) must be an [Associate](ctp:api:type:Associate) of the Business Unit.
    *
    *
    */
-  readonly orderState?: OrderState
+  readonly businessUnit?: BusinessUnitResourceIdentifier
   /**
-   *	This reference can point to a state in a custom workflow.
+   *	The Store the Order belongs to.
+   *	Used for [filtering](#filtering).
+   *
+   *	If a [LineItemImportDraft](ctp:api:type:LineItemImportDraft) or a [CustomLineItemImportDraft](ctp:api:type:CustomLineItemImportDraft) specifies a `distributionChannel` or a `supplyChannel` that is not defined for the referenced Store, the Order Import gets rejected.
+   *	The same applies when the provided `country` is not defined for the referenced Store.
+   *
    *
    */
-  readonly state?: StateReference
+  readonly store?: StoreResourceIdentifier
   /**
-   *	Shipment status of the Order.
+   *	[Line Items](ctp:api:type:LineItems) to add to the Order.
+   *
+   *	If not specified, `customLineItems` must not be empty.
    *
    *
    */
-  readonly shipmentState?: ShipmentState
+  readonly lineItems?: LineItemImportDraft[]
   /**
+   *	[Custom Line Items](ctp:api:type:CustomLineItems) to add to the Cart.
+   *
+   *	If not specified, `lineItems` must not be empty.
+   *
    *
    */
-  readonly paymentState?: PaymentState
+  readonly customLineItems?: CustomLineItemImportDraft[]
   /**
-   *	Set if the ShippingMethod is set.
+   *	The total Price of the Order. The amount can be negative.
+   *
+   *
+   */
+  readonly totalPrice: _Money
+  /**
+   *	Include TaxedPrice information for the Order. If not included, and if you have Tax Rates set for Line Items and Custom Line Items, the Order total will not be recalculated.
+   *
+   *
+   */
+  readonly taxedPrice?: TaxedPriceDraft
+  /**
+   *	Determines how monetary values are rounded when calculating taxes for `taxedPrice`.
+   *
+   *
+   */
+  readonly taxRoundingMode?: RoundingMode
+  /**
+   *	Determines how taxes are calculated for `taxedPrice`.
+   *
+   *
+   */
+  readonly taxCalculationMode?: TaxCalculationMode
+  /**
+   *	Determines how stock quantities are tracked for Line Items in the Cart.
+   *
+   *
+   */
+  readonly inventoryMode?: InventoryMode
+  /**
+   *	Billing address associated with the Order.
+   *
+   *
+   */
+  readonly billingAddress?: _BaseAddress
+  /**
+   *	Shipping address associated with the Order.
+   *
+   *
+   */
+  readonly shippingAddress?: _BaseAddress
+  /**
+   *	Addresses for Orders with multiple shipping addresses. Addresses must include a value for `key`.
+   *
+   *
+   */
+  readonly itemShippingAddresses?: BaseAddress[]
+  /**
+   *	Shipping-related information of the Order.
+   *
    *
    */
   readonly shippingInfo?: ShippingInfoImportDraft
@@ -1103,44 +1223,53 @@ export interface OrderImportDraft {
    */
   readonly paymentInfo?: PaymentInfo
   /**
+   *	Payment status of the Order.
+   *
+   *
+   */
+  readonly paymentState?: PaymentState
+  /**
+   *	Shipment status of the Order.
+   *
+   *
+   */
+  readonly shipmentState?: ShipmentState
+  /**
+   *	Current status of the Order.
+   *
+   *
+   */
+  readonly orderState?: OrderState
+  /**
+   *	State of the Order in a custom workflow.
+   *
+   *
+   */
+  readonly state?: StateReference
+  /**
+   *	Include a value to associate a country with the Order.
+   *
+   *
+   */
+  readonly country?: string
+  /**
+   *	Indicates the origin of the Order.
+   *
+   *
+   */
+  readonly origin?: CartOrigin
+  /**
+   *	User-defined date and time for the Order. This value does not influence the `createdAt` or `lastModifiedAt` values of the Order created by the Order Import.
+   *
    *
    */
   readonly completedAt?: string
   /**
-   *	The custom fields.
+   *	Custom Fields for the Order.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
-  /**
-   *	If not given the mode `None` will be assigned by default.
-   *
-   */
-  readonly inventoryMode?: InventoryMode
-  /**
-   *	If not given the tax rounding mode `HalfEven` will be assigned by default.
-   *
-   */
-  readonly taxRoundingMode?: RoundingMode
-  /**
-   *	Contains addresses for orders with multiple shipping addresses.
-   *
-   */
-  readonly itemShippingAddresses?: BaseAddress[]
-  /**
-   *	The Business Unit the Cart belongs to.
-   *
-   *
-   */
-  readonly businessUnit?: BusinessUnitResourceIdentifier
-  /**
-   *
-   */
-  readonly store?: StoreResourceIdentifier
-  /**
-   *	The default origin is `Customer`.
-   *
-   */
-  readonly origin?: CartOrigin
 }
 /**
  *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [Order](ctp:api:type:Order).
@@ -1555,35 +1684,43 @@ export type PaymentState =
   | 'Paid'
   | 'Pending'
   | string
+/**
+ *	Contains the Product Variant to be used in the [LineItemImportDraft](ctp:api:type:LineItemImportDraft).
+ *
+ */
 export interface ProductVariantImportDraft {
   /**
-   *	The sequential ID of the variant within the product.
-   *	The variant with provided ID should exist in some existing product, so you also need to specify the productId if this property is set,
-   *	or alternatively you can just specify SKU of the product variant.
+   *	The `id` of the [ProductVariant](ctp:api:type:ProductVariant). Required if you do not set a value for `sku`.
+   *	If set, you must specify a `productId` in the [LineItemImportDraft](ctp:api:type:LineItemImportDraft) also.
+   *
    *
    */
   readonly id?: number
   /**
-   *	The SKU of the existing variant.
+   *	The `sku` of the [ProductVariant](ctp:api:type:ProductVariant). Required if you do not set a value for `id`.
+   *
    *
    */
   readonly sku?: string
   /**
-   *	The [Embedded Prices](ctp:api:type:Price) of the variant.
-   *	The prices should not contain two prices for the same price scope (same currency, country, customer group, channel, valid from and valid until).
-   *	If this property is defined, then it will override the `prices` property from the original product variant, otherwise `prices` property from the original product variant would be copied in the resulting order.
+   *	The [Prices](ctp:api:type:Price) of the Product Variant if you want to override the `prices` property in the referenced [ProductVariant](ctp:api:type:ProductVariant).
+   *	If not set, the `prices` from the referenced [ProductVariant](ctp:api:type:ProductVariant) are used in the resulting Order.
+   *	If set, each Price must have its unique price scope (same `value.currencyCode`, `country`, `customerGroup`, `channel`, `validFrom` and `validUntil`).
+   *
    *
    */
   readonly prices?: PriceDraft[]
   /**
-   *	If this property is defined, then it will override the `attributes` property from the original
-   *	product variant, otherwise `attributes` property from the original product variant would be copied in the resulting order.
+   *	The [Attributes](ctp:api:type:Attribute) of the Product Variant if you want to override the `attributes` property in the referenced [ProductVariant](ctp:api:type:ProductVariant).
+   *	If not set, the `attributes` from the referenced [ProductVariant](ctp:api:type:ProductVariant) are copied to the resulting Order.
+   *
    *
    */
   readonly attributes?: Attribute[]
   /**
-   *	If this property is defined, then it will override the `images` property from the original
-   *	product variant, otherwise `images` property from the original product variant would be copied in the resulting order.
+   *	The [Images](ctp:api:type:Image) of the Product Variant if you want to override the `images` property in the referenced [ProductVariant](ctp:api:type:ProductVariant).
+   *	If not set, the `images` from the referenced [ProductVariant](ctp:api:type:ProductVariant) are copied to the resulting Order.
+   *
    *
    */
   readonly images?: Image[]
@@ -1821,44 +1958,62 @@ export type ShipmentState =
   | 'Ready'
   | 'Shipped'
   | string
+/**
+ *	Becomes the `shippingInfo` of the imported Order.
+ *
+ */
 export interface ShippingInfoImportDraft {
   /**
+   *	Name of the Shipping Method.
+   *
    *
    */
   readonly shippingMethodName: string
   /**
+   *	The base price for the Shipping Method.
+   *
    *
    */
   readonly price: _Money
   /**
-   *	The shipping rate used to determine the price.
+   *	Shipping rate information for the Order.
+   *
    *
    */
   readonly shippingRate: ShippingRateDraft
   /**
+   *	Include a Tax Rate for the Shipping Method.
+   *
    *
    */
   readonly taxRate?: TaxRate
   /**
+   *	Include a value to associate a Tax Category with the shipping information.
+   *
    *
    */
   readonly taxCategory?: TaxCategoryResourceIdentifier
   /**
-   *	Not set if custom shipping method is used.
+   *	Include a value to associate a Shipping Method with the Order.
+   *
    *
    */
   readonly shippingMethod?: ShippingMethodResourceIdentifier
   /**
-   *	Deliveries are compilations of information on how the articles are being delivered to the customers.
+   *	Information on how items are to be delivered to customers.
+   *
    *
    */
   readonly deliveries?: DeliveryDraft[]
   /**
+   *	Discounted Price of the Shipping Method.
+   *
    *
    */
   readonly discountedPrice?: DiscountedLineItemPriceDraft
   /**
-   *	Indicates whether the ShippingMethod referenced is allowed for the cart or not.
+   *	Indicates if the [ShippingMethod](ctp:api:type:ShippingMethod) referenced is allowed for the Order or not.
+   *
    *
    */
   readonly shippingMethodState?: ShippingMethodState

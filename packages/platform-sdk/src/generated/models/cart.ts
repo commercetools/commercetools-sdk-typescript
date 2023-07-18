@@ -408,7 +408,7 @@ export interface CartDraft {
    */
   readonly taxRoundingMode?: RoundingMode
   /**
-   *	Determines how taxes are calculated when calculating taxes for `taxedPrice`.
+   *	Determines how taxes are calculated for `taxedPrice`.
    *
    *
    */
@@ -1888,13 +1888,13 @@ export interface TaxedPrice {
 }
 export interface TaxedPriceDraft {
   /**
-   *	Total net price of the Line Item or Custom Line Item.
+   *	Total net price of the Cart or Order.
    *
    *
    */
   readonly totalNet: _Money
   /**
-   *	Total gross price of the Line Item or Custom Line Item.
+   *	Total gross price of the Cart or Order.
    *
    *
    */
@@ -3566,56 +3566,6 @@ export interface CartUpdateItemShippingAddressAction {
    *
    */
   readonly address: _BaseAddress
-}
-export interface CustomLineItemImportDraft {
-  /**
-   *
-   */
-  readonly name: LocalizedString
-  /**
-   *	The amount of a CustomLineItem in the cart.
-   *	Must be a positive integer.
-   *
-   */
-  readonly quantity: number
-  /**
-   *	The cost to add to the cart. The amount can be negative.
-   *
-   */
-  readonly money: _Money
-  /**
-   *
-   */
-  readonly slug: string
-  /**
-   *
-   */
-  readonly state?: ItemState[]
-  /**
-   *
-   */
-  readonly taxRate?: TaxRate
-  /**
-   *
-   */
-  readonly taxCategory?: TaxCategoryResourceIdentifier
-  /**
-   *	The custom fields.
-   *
-   */
-  readonly custom?: CustomFieldsDraft
-  /**
-   *
-   */
-  readonly shippingDetails?: ItemShippingDetailsDraft
-  /**
-   *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget)
-   *	are applied to the Custom Line Item.
-   *	- If `External`, Cart Discounts are not considered on the Custom Line Item.
-   *
-   *
-   */
-  readonly priceMode: CustomLineItemPriceMode
 }
 /**
  *	The scope controls which part of the product information is published.

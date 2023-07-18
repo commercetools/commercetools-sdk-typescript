@@ -19,7 +19,13 @@ export class ByProjectKeyOrdersImportRequestBuilder {
     }
   ) {}
   /**
-   *	Create an Order by Import
+   *	Importing an Order produces the [Order Imported](ctp:api:type:OrderImportedMessage) Message.
+   *
+   *	Specific Error Codes:
+   *
+   *	- [OutOfStock](ctp:api:type:OutOfStockError)
+   *	- [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError)
+   *
    */
   public post(methodArgs: {
     body: OrderImportDraft
