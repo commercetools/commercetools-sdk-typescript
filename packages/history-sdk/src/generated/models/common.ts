@@ -450,6 +450,26 @@ export interface ImageDimensions {
    */
   readonly h: number
 }
+export interface InheritedAssociate {
+  /**
+   *
+   */
+  readonly associateRoleAssignments: InheritedAssociateRoleAssignment[]
+  /**
+   *
+   */
+  readonly customer: Reference
+}
+export interface InheritedAssociateRoleAssignment {
+  /**
+   *
+   */
+  readonly associateRole: KeyReference
+  /**
+   *
+   */
+  readonly source: KeyReference
+}
 export interface ItemShippingDetails {
   /**
    *
@@ -629,6 +649,47 @@ export type PaymentState =
   | 'Failed'
   | 'Paid'
   | 'Pending'
+  | string
+/**
+ *	Permissions grant granular access to [Business Units](ctp:api:type:BusinessUnit), [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), and [Quote Requests](ctp:api:type:QuoteRequest).
+ */
+export type Permission =
+  | 'AcceptMyQuotes'
+  | 'AcceptOthersQuotes'
+  | 'AddChildUnits'
+  | 'CreateMyCarts'
+  | 'CreateMyOrdersFromMyCarts'
+  | 'CreateMyOrdersFromMyQuotes'
+  | 'CreateMyQuoteRequestsFromMyCarts'
+  | 'CreateOrdersFromOthersCarts'
+  | 'CreateOrdersFromOthersQuotes'
+  | 'CreateOthersCarts'
+  | 'CreateQuoteRequestsFromOthersCarts'
+  | 'DeclineMyQuotes'
+  | 'DeclineOthersQuotes'
+  | 'DeleteMyCarts'
+  | 'DeleteOthersCarts'
+  | 'ReassignMyQuotes'
+  | 'ReassignOthersQuotes'
+  | 'RenegotiateMyQuotes'
+  | 'RenegotiateOthersQuotes'
+  | 'UpdateAssociates'
+  | 'UpdateBusinessUnitDetails'
+  | 'UpdateMyCarts'
+  | 'UpdateMyOrders'
+  | 'UpdateMyQuoteRequests'
+  | 'UpdateOthersCarts'
+  | 'UpdateOthersOrders'
+  | 'UpdateOthersQuoteRequests'
+  | 'UpdateParentUnit'
+  | 'ViewMyCarts'
+  | 'ViewMyOrders'
+  | 'ViewMyQuoteRequests'
+  | 'ViewMyQuotes'
+  | 'ViewOthersCarts'
+  | 'ViewOthersOrders'
+  | 'ViewOthersQuoteRequests'
+  | 'ViewOthersQuotes'
   | string
 export interface Price {
   /**

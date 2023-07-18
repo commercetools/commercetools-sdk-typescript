@@ -10,6 +10,7 @@ import { LocalizedString, Money, Reference } from './common'
  *	Provides descriptive information specific to the resource.
  */
 export type Label =
+  | AssociateRoleLabel
   | BusinessUnitLabel
   | CustomObjectLabel
   | CustomerLabel
@@ -22,6 +23,19 @@ export type Label =
   | ReviewLabel
   | StagedQuoteLabel
   | StringLabel
+export interface AssociateRoleLabel {
+  readonly type: 'AssociateRoleLabel'
+  /**
+   *	User-defined unique identifier of the [Associate Role](ctp:api:type:AssociateRole).
+   *
+   */
+  readonly key: string
+  /**
+   *	Name of the Associate Role.
+   *
+   */
+  readonly name: string
+}
 export interface BusinessUnitLabel {
   readonly type: 'BusinessUnitLabel'
   /**
