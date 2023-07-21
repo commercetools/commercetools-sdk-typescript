@@ -16,11 +16,19 @@
 - added property `associate` to type `ClientLogging`
 - added property `associate` to type `CreatedBy`
 - added property `associate` to type `LastModifiedBy`
+- added property `customLineItemKey` to type `CustomLineItemStateTransitionMessage`
 - added property `lineItemKey` to type `LineItemStateTransitionMessage`
+- added property `customLineItemKey` to type `OrderCustomLineItemDiscountSetMessage`
+- added property `customLineItemKey` to type `OrderCustomLineItemQuantityChangedMessage`
+- added property `customLineItemKey` to type `OrderCustomLineItemRemovedMessage`
 - added property `lineItemKey` to type `OrderLineItemDiscountSetMessage`
 - added property `lineItemKey` to type `OrderLineItemDistributionChannelSetMessage`
 - added property `lineItemKey` to type `OrderLineItemRemovedMessage`
+- added property `customLineItemKey` to type `CustomLineItemStateTransitionMessagePayload`
 - added property `lineItemKey` to type `LineItemStateTransitionMessagePayload`
+- added property `customLineItemKey` to type `OrderCustomLineItemDiscountSetMessagePayload`
+- added property `customLineItemKey` to type `OrderCustomLineItemQuantityChangedMessagePayload`
+- added property `customLineItemKey` to type `OrderCustomLineItemRemovedMessagePayload`
 - added property `lineItemKey` to type `OrderLineItemDiscountSetMessagePayload`
 - added property `lineItemKey` to type `OrderLineItemDistributionChannelSetMessagePayload`
 - added property `lineItemKey` to type `OrderLineItemRemovedMessagePayload`
@@ -29,6 +37,7 @@
 - added property `inventoryMode` to type `StagedOrderAddLineItemAction`
 - added property `customLineItemKey` to type `StagedOrderChangeCustomLineItemMoneyAction`
 - added property `customLineItemKey` to type `StagedOrderChangeCustomLineItemQuantityAction`
+- added property `customLineItemKey` to type `StagedOrderImportCustomLineItemStateAction`
 - added property `lineItemKey` to type `StagedOrderImportLineItemStateAction`
 - added property `customLineItemKey` to type `StagedOrderRemoveCustomLineItemAction`
 - added property `customLineItemKey` to type `StagedOrderSetCustomLineItemCustomFieldAction`
@@ -36,14 +45,19 @@
 - added property `customLineItemKey` to type `StagedOrderSetCustomLineItemShippingDetailsAction`
 - added property `customLineItemKey` to type `StagedOrderSetCustomLineItemTaxAmountAction`
 - added property `customLineItemKey` to type `StagedOrderSetCustomLineItemTaxRateAction`
+- added property `customLineItemKey` to type `StagedOrderTransitionCustomLineItemStateAction`
 - added property `lineItemKey` to type `StagedOrderTransitionLineItemStateAction`
+- added property `key` to type `CustomLineItemImportDraft`
+- added property `key` to type `LineItemImportDraft`
 - added property `directDiscounts` to type `Order`
 - added property `purchaseOrderNumber` to type `OrderImportDraft`
 - added property `taxCalculationMode` to type `OrderImportDraft`
+- added property `customLineItemKey` to type `OrderImportCustomLineItemStateAction`
 - added property `lineItemKey` to type `OrderImportLineItemStateAction`
 - added property `customLineItemKey` to type `OrderSetCustomLineItemCustomFieldAction`
 - added property `customLineItemKey` to type `OrderSetCustomLineItemCustomTypeAction`
 - added property `customLineItemKey` to type `OrderSetCustomLineItemShippingDetailsAction`
+- added property `customLineItemKey` to type `OrderTransitionCustomLineItemStateAction`
 - added property `lineItemKey` to type `OrderTransitionLineItemStateAction`
 </details>
 
@@ -62,6 +76,7 @@
 - changed property `customLineItemId` of type `CartSetCustomLineItemTaxRateAction` to be optional
 - changed property `customLineItemId` of type `StagedOrderChangeCustomLineItemMoneyAction` to be optional
 - changed property `customLineItemId` of type `StagedOrderChangeCustomLineItemQuantityAction` to be optional
+- changed property `customLineItemId` of type `StagedOrderImportCustomLineItemStateAction` to be optional
 - changed property `lineItemId` of type `StagedOrderImportLineItemStateAction` to be optional
 - changed property `customLineItemId` of type `StagedOrderRemoveCustomLineItemAction` to be optional
 - changed property `customLineItemId` of type `StagedOrderSetCustomLineItemCustomFieldAction` to be optional
@@ -69,12 +84,15 @@
 - changed property `customLineItemId` of type `StagedOrderSetCustomLineItemShippingDetailsAction` to be optional
 - changed property `customLineItemId` of type `StagedOrderSetCustomLineItemTaxAmountAction` to be optional
 - changed property `customLineItemId` of type `StagedOrderSetCustomLineItemTaxRateAction` to be optional
+- changed property `customLineItemId` of type `StagedOrderTransitionCustomLineItemStateAction` to be optional
 - changed property `lineItemId` of type `StagedOrderTransitionLineItemStateAction` to be optional
 - changed property `priceMode` of type `CustomLineItemImportDraft` to be optional
+- changed property `customLineItemId` of type `OrderImportCustomLineItemStateAction` to be optional
 - changed property `lineItemId` of type `OrderImportLineItemStateAction` to be optional
 - changed property `customLineItemId` of type `OrderSetCustomLineItemCustomFieldAction` to be optional
 - changed property `customLineItemId` of type `OrderSetCustomLineItemCustomTypeAction` to be optional
 - changed property `customLineItemId` of type `OrderSetCustomLineItemShippingDetailsAction` to be optional
+- changed property `customLineItemId` of type `OrderTransitionCustomLineItemStateAction` to be optional
 - changed property `lineItemId` of type `OrderTransitionLineItemStateAction` to be optional
 - :warning: changed property `paymentState` of type `StagedOrderChangePaymentStateAction` to be required
 - :warning: changed property `shipmentState` of type `StagedOrderChangeShipmentStateAction` to be required

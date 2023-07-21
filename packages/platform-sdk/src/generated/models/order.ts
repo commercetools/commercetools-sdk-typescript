@@ -403,6 +403,11 @@ export interface CustomLineItemImportDraft {
    */
   readonly name: LocalizedString
   /**
+   *	User-defined unique identifier of the Custom Line Item.
+   *
+   */
+  readonly key?: string
+  /**
    *	User-defined identifier used in a deep-link URL for the Custom Line Item. This value should match the pattern `[a-zA-Z0-9_-]{2,256}`.
    *
    *
@@ -589,6 +594,11 @@ export interface LineItemImportDraft {
    *
    */
   readonly name: LocalizedString
+  /**
+   *	User-defined unique identifier of the Line Item.
+   *
+   */
+  readonly key?: string
   /**
    *	The Product Variant to use as a [Line Item](ctp:api:type:LineItem).
    *
@@ -2288,11 +2298,17 @@ export interface OrderChangeShipmentStateAction {
 export interface OrderImportCustomLineItemStateAction {
   readonly action: 'importCustomLineItemState'
   /**
-   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
    *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
+  /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
   /**
    *	New status of the Custom Line Items.
    *
@@ -3270,11 +3286,17 @@ export interface OrderSetStoreAction {
 export interface OrderTransitionCustomLineItemStateAction {
   readonly action: 'transitionCustomLineItemState'
   /**
-   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
    *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
+  /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
   /**
    *	Number of Custom Line Items that should transition [State](ctp:api:type:State).
    *

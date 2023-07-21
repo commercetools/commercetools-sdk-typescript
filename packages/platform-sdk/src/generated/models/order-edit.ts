@@ -1045,11 +1045,17 @@ export interface StagedOrderChangeTaxRoundingModeAction {
 export interface StagedOrderImportCustomLineItemStateAction {
   readonly action: 'importCustomLineItemState'
   /**
-   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
    *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
+  /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
   /**
    *	New status of the Custom Line Items.
    *
@@ -2536,11 +2542,17 @@ export interface StagedOrderSetStoreAction {
 export interface StagedOrderTransitionCustomLineItemStateAction {
   readonly action: 'transitionCustomLineItemState'
   /**
-   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update.
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
    *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
+  /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
   /**
    *	Number of Custom Line Items that should transition [State](ctp:api:type:State).
    *

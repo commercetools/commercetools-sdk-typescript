@@ -4007,6 +4007,12 @@ export interface CustomLineItemStateTransitionMessage {
    */
   readonly customLineItemId: string
   /**
+   *	User-defined unique identifier of the [Custom Line Item](ctp:api:type:CustomLineItem).
+   *
+   *
+   */
+  readonly customLineItemKey?: string
+  /**
    *	Date and time (UTC) when the transition of the [Custom Line Item](ctp:api:type:CustomLineItem) [State](ctp:api:type:State) was performed.
    *
    *
@@ -4745,6 +4751,12 @@ export interface OrderCustomLineItemDiscountSetMessage {
    */
   readonly customLineItemId: string
   /**
+   *	User-defined unique identifier of the [Custom Line Item](ctp:api:type:CustomLineItem).
+   *
+   *
+   */
+  readonly customLineItemKey?: string
+  /**
    *	Array of [DiscountedLineItemPriceForQuantity](ctp:api:type:DiscountedLineItemPriceForQuantity) after the Discount recalculation.
    *
    *
@@ -4827,6 +4839,12 @@ export interface OrderCustomLineItemQuantityChangedMessage {
    */
   readonly customLineItemId: string
   /**
+   *	User-defined unique identifier of the [Custom Line Item](ctp:api:type:CustomLineItem).
+   *
+   *
+   */
+  readonly customLineItemKey?: string
+  /**
    *	[Custom Line Item](ctp:api:type:CustomLineItem) quantity after the [Change Custom Line Item Quantity](ctp:api:type:StagedOrderChangeCustomLineItemQuantityAction) update action.
    *
    *
@@ -4908,6 +4926,12 @@ export interface OrderCustomLineItemRemovedMessage {
    *
    */
   readonly customLineItemId: string
+  /**
+   *	User-defined unique identifier of the [Custom Line Item](ctp:api:type:CustomLineItem).
+   *
+   *
+   */
+  readonly customLineItemKey?: string
   /**
    *	[Custom Line Item](ctp:api:type:CustomLineItem) that was removed from the [Order](ctp:api:type:Order).
    *
@@ -14006,6 +14030,12 @@ export interface CustomLineItemStateTransitionMessagePayload {
    */
   readonly customLineItemId: string
   /**
+   *	User-defined unique identifier of the [Custom Line Item](ctp:api:type:CustomLineItem).
+   *
+   *
+   */
+  readonly customLineItemKey?: string
+  /**
    *	Date and time (UTC) when the transition of the [Custom Line Item](ctp:api:type:CustomLineItem) [State](ctp:api:type:State) was performed.
    *
    *
@@ -14231,6 +14261,12 @@ export interface OrderCustomLineItemDiscountSetMessagePayload {
    */
   readonly customLineItemId: string
   /**
+   *	User-defined unique identifier of the [Custom Line Item](ctp:api:type:CustomLineItem).
+   *
+   *
+   */
+  readonly customLineItemKey?: string
+  /**
    *	Array of [DiscountedLineItemPriceForQuantity](ctp:api:type:DiscountedLineItemPriceForQuantity) after the Discount recalculation.
    *
    *
@@ -14256,6 +14292,12 @@ export interface OrderCustomLineItemQuantityChangedMessagePayload {
    */
   readonly customLineItemId: string
   /**
+   *	User-defined unique identifier of the [Custom Line Item](ctp:api:type:CustomLineItem).
+   *
+   *
+   */
+  readonly customLineItemKey?: string
+  /**
    *	[Custom Line Item](ctp:api:type:CustomLineItem) quantity after the [Change Custom Line Item Quantity](ctp:api:type:StagedOrderChangeCustomLineItemQuantityAction) update action.
    *
    *
@@ -14280,6 +14322,12 @@ export interface OrderCustomLineItemRemovedMessagePayload {
    *
    */
   readonly customLineItemId: string
+  /**
+   *	User-defined unique identifier of the [Custom Line Item](ctp:api:type:CustomLineItem).
+   *
+   *
+   */
+  readonly customLineItemKey?: string
   /**
    *	[Custom Line Item](ctp:api:type:CustomLineItem) that was removed from the [Order](ctp:api:type:Order).
    *
