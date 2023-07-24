@@ -265,7 +265,7 @@ export interface QuoteRequestDraft {
    *
    *
    */
-  readonly comment: string
+  readonly comment?: string
   /**
    *	Custom Fields to be added to the Quote Request.
    *

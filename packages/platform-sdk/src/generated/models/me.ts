@@ -795,7 +795,7 @@ export interface MyQuoteRequestDraft {
    *	Message from the Buyer included in the Quote Request.
    *
    */
-  readonly comment: string
+  readonly comment?: string
 }
 export interface MyQuoteRequestUpdate {
   /**

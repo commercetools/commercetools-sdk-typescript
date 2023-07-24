@@ -20,6 +20,29 @@ export class ByProjectKeyMeQuoteRequestsByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
+  public get(methodArgs?: {
+    queryArgs?: {
+      expand?: string | string[]
+      [key: string]: QueryParam
+    }
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<QuoteRequest> {
+    return new ApiRequest<QuoteRequest>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'GET',
+        uriTemplate: '/{projectKey}/me/quote-requests/{ID}',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
+      },
+      this.args.executeRequest
+    )
+  }
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -60,29 +83,6 @@ export class ByProjectKeyMeQuoteRequestsByIDRequestBuilder {
       {
         baseUri: this.args.baseUri,
         method: 'DELETE',
-        uriTemplate: '/{projectKey}/me/quote-requests/{ID}',
-        pathVariables: this.args.pathArgs,
-        headers: {
-          ...methodArgs?.headers,
-        },
-        queryParams: methodArgs?.queryArgs,
-      },
-      this.args.executeRequest
-    )
-  }
-  public get(methodArgs?: {
-    queryArgs?: {
-      expand?: string | string[]
-      [key: string]: QueryParam
-    }
-    headers?: {
-      [key: string]: string | string[]
-    }
-  }): ApiRequest<QuoteRequest> {
-    return new ApiRequest<QuoteRequest>(
-      {
-        baseUri: this.args.baseUri,
-        method: 'GET',
         uriTemplate: '/{projectKey}/me/quote-requests/{ID}',
         pathVariables: this.args.pathArgs,
         headers: {
