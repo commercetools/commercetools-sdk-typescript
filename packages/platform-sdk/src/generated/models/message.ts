@@ -165,10 +165,15 @@ export type Message =
   | LineItemStateTransitionMessage
   | OrderBillingAddressSetMessage
   | OrderCreatedMessage
+  | OrderCustomFieldAddedMessage
+  | OrderCustomFieldChangedMessage
+  | OrderCustomFieldRemovedMessage
   | OrderCustomLineItemAddedMessage
   | OrderCustomLineItemDiscountSetMessage
   | OrderCustomLineItemQuantityChangedMessage
   | OrderCustomLineItemRemovedMessage
+  | OrderCustomTypeRemovedMessage
+  | OrderCustomTypeSetMessage
   | OrderCustomerEmailSetMessage
   | OrderCustomerGroupSetMessage
   | OrderCustomerSetMessage
@@ -3903,10 +3908,15 @@ export type OrderMessage =
   | LineItemStateTransitionMessage
   | OrderBillingAddressSetMessage
   | OrderCreatedMessage
+  | OrderCustomFieldAddedMessage
+  | OrderCustomFieldChangedMessage
+  | OrderCustomFieldRemovedMessage
   | OrderCustomLineItemAddedMessage
   | OrderCustomLineItemDiscountSetMessage
   | OrderCustomLineItemQuantityChangedMessage
   | OrderCustomLineItemRemovedMessage
+  | OrderCustomTypeRemovedMessage
+  | OrderCustomTypeSetMessage
   | OrderCustomerEmailSetMessage
   | OrderCustomerGroupSetMessage
   | OrderCustomerSetMessage
@@ -4612,6 +4622,234 @@ export interface OrderCreatedMessage {
   readonly order: _Order
 }
 /**
+ *	Generated after adding a Custom Field using the [Set CustomField](ctp:api:type:OrderSetCustomFieldAction).
+ *
+ */
+export interface OrderCustomFieldAddedMessage {
+  readonly type: 'OrderCustomFieldAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that has been added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated when an existing Custom Field has been changed using the [Set CustomField](ctp:api:type:OrderSetCustomFieldAction) action.
+ *
+ */
+export interface OrderCustomFieldChangedMessage {
+  readonly type: 'OrderCustomFieldChanged'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that has been changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set Custom Field](ctp:api:type:OrderSetCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) before the [Set CustomField](ctp:api:type:OrderSetCustomFieldAction) update action.
+   *	When there has not been a Custom Field with the `name` on the Order before, an [Order Custom Field Added](ctp:api:type:OrderCustomFieldAddedMessage) Message is generated instead.
+   *
+   *
+   */
+  readonly previousValue?: any
+}
+/**
+ *	Generated when a Custom Field has been removed from the Order using the [Set CustomField](ctp:api:type:OrderSetCustomFieldAction) action..
+ *
+ */
+export interface OrderCustomFieldRemovedMessage {
+  readonly type: 'OrderCustomFieldRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that has been removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
  *	Generated after a successful [Add CustomLineItem](ctp:api:type:StagedOrderAddCustomLineItemAction) update action.
  *
  */
@@ -4938,6 +5176,155 @@ export interface OrderCustomLineItemRemovedMessage {
    *
    */
   readonly customLineItem: CustomLineItem
+}
+/**
+ *	Generated after a successful [Set Custom Type](ctp:api:type:OrderSetCustomTypeAction) with empty parameters.
+ *
+ */
+export interface OrderCustomTypeRemovedMessage {
+  readonly type: 'OrderCustomTypeRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	`id` of the [Custom Type](ctp:api:type:Type) that has been removed.
+   *
+   *	Absent when there has not been a Custom Type before.
+   *
+   *
+   */
+  readonly previousTypeId?: string
+}
+/**
+ *	Generated after a successful [Set Custom Type](ctp:api:type:OrderSetCustomTypeAction).
+ *
+ */
+export interface OrderCustomTypeSetMessage {
+  readonly type: 'OrderCustomTypeSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Custom Fields that have been set.
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type).
+   *
+   *	Absent when there has not been a Custom Type before.
+   *
+   *
+   */
+  readonly previousTypeId?: string
 }
 /**
  *	Generated after a successful [Set Customer Email](ctp:api:type:OrderSetCustomerEmailAction) update action.
@@ -13170,10 +13557,15 @@ export type MessagePayload =
   | LineItemStateTransitionMessagePayload
   | OrderBillingAddressSetMessagePayload
   | OrderCreatedMessagePayload
+  | OrderCustomFieldAddedMessagePayload
+  | OrderCustomFieldChangedMessagePayload
+  | OrderCustomFieldRemovedMessagePayload
   | OrderCustomLineItemAddedMessagePayload
   | OrderCustomLineItemDiscountSetMessagePayload
   | OrderCustomLineItemQuantityChangedMessagePayload
   | OrderCustomLineItemRemovedMessagePayload
+  | OrderCustomTypeRemovedMessagePayload
+  | OrderCustomTypeSetMessagePayload
   | OrderCustomerEmailSetMessagePayload
   | OrderCustomerGroupSetMessagePayload
   | OrderCustomerSetMessagePayload
@@ -13983,10 +14375,15 @@ export type OrderMessagePayload =
   | LineItemStateTransitionMessagePayload
   | OrderBillingAddressSetMessagePayload
   | OrderCreatedMessagePayload
+  | OrderCustomFieldAddedMessagePayload
+  | OrderCustomFieldChangedMessagePayload
+  | OrderCustomFieldRemovedMessagePayload
   | OrderCustomLineItemAddedMessagePayload
   | OrderCustomLineItemDiscountSetMessagePayload
   | OrderCustomLineItemQuantityChangedMessagePayload
   | OrderCustomLineItemRemovedMessagePayload
+  | OrderCustomTypeRemovedMessagePayload
+  | OrderCustomTypeSetMessagePayload
   | OrderCustomerEmailSetMessagePayload
   | OrderCustomerGroupSetMessagePayload
   | OrderCustomerSetMessagePayload
@@ -14236,6 +14633,63 @@ export interface OrderCreatedMessagePayload {
   readonly order: _Order
 }
 /**
+ *	Generated after adding a Custom Field using the [Set CustomField](ctp:api:type:OrderSetCustomFieldAction).
+ *
+ */
+export interface OrderCustomFieldAddedMessagePayload {
+  readonly type: 'OrderCustomFieldAdded'
+  /**
+   *	Name of the Custom Field that has been added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated when an existing Custom Field has been changed using the [Set CustomField](ctp:api:type:OrderSetCustomFieldAction) action.
+ *
+ */
+export interface OrderCustomFieldChangedMessagePayload {
+  readonly type: 'OrderCustomFieldChanged'
+  /**
+   *	Name of the Custom Field that has been changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set Custom Field](ctp:api:type:OrderSetCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) before the [Set CustomField](ctp:api:type:OrderSetCustomFieldAction) update action.
+   *	When there has not been a Custom Field with the `name` on the Order before, an [Order Custom Field Added](ctp:api:type:OrderCustomFieldAddedMessage) Message is generated instead.
+   *
+   *
+   */
+  readonly previousValue?: any
+}
+/**
+ *	Generated when a Custom Field has been removed from the Order using the [Set CustomField](ctp:api:type:OrderSetCustomFieldAction) action..
+ *
+ */
+export interface OrderCustomFieldRemovedMessagePayload {
+  readonly type: 'OrderCustomFieldRemoved'
+  /**
+   *	Name of the Custom Field that has been removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
  *	Generated after a successful [Add CustomLineItem](ctp:api:type:StagedOrderAddCustomLineItemAction) update action.
  *
  */
@@ -14334,6 +14788,41 @@ export interface OrderCustomLineItemRemovedMessagePayload {
    *
    */
   readonly customLineItem: CustomLineItem
+}
+/**
+ *	Generated after a successful [Set Custom Type](ctp:api:type:OrderSetCustomTypeAction) with empty parameters.
+ *
+ */
+export interface OrderCustomTypeRemovedMessagePayload {
+  readonly type: 'OrderCustomTypeRemoved'
+  /**
+   *	`id` of the [Custom Type](ctp:api:type:Type) that has been removed.
+   *
+   *	Absent when there has not been a Custom Type before.
+   *
+   *
+   */
+  readonly previousTypeId?: string
+}
+/**
+ *	Generated after a successful [Set Custom Type](ctp:api:type:OrderSetCustomTypeAction).
+ *
+ */
+export interface OrderCustomTypeSetMessagePayload {
+  readonly type: 'OrderCustomTypeSet'
+  /**
+   *	The Custom Fields that have been set.
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type).
+   *
+   *	Absent when there has not been a Custom Type before.
+   *
+   *
+   */
+  readonly previousTypeId?: string
 }
 /**
  *	Generated after a successful [Set Customer Email](ctp:api:type:OrderSetCustomerEmailAction) update action.
