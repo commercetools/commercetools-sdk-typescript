@@ -130,7 +130,7 @@ export type Message =
   | BusinessUnitDefaultShippingAddressSetMessage
   | BusinessUnitDeletedMessage
   | BusinessUnitNameChangedMessage
-  | BusinessUnitParentUnitChangedMessage
+  | BusinessUnitParentChangedMessage
   | BusinessUnitShippingAddressAddedMessage
   | BusinessUnitShippingAddressRemovedMessage
   | BusinessUnitStatusChangedMessage
@@ -1883,8 +1883,8 @@ export interface BusinessUnitNameChangedMessage {
  *	Generated after a successful [Change Parent Unit](ctp:api:type:BusinessUnitChangeParentUnitAction) update action.
  *
  */
-export interface BusinessUnitParentUnitChangedMessage {
-  readonly type: 'BusinessUnitParentUnitChanged'
+export interface BusinessUnitParentChangedMessage {
+  readonly type: 'BusinessUnitParentChanged'
   /**
    *	Unique identifier of the Message. Can be used to track which Messages have been processed.
    *
@@ -13135,7 +13135,7 @@ export type MessagePayload =
   | BusinessUnitDefaultShippingAddressSetMessagePayload
   | BusinessUnitDeletedMessagePayload
   | BusinessUnitNameChangedMessagePayload
-  | BusinessUnitParentUnitChangedMessagePayload
+  | BusinessUnitParentChangedMessagePayload
   | BusinessUnitShippingAddressAddedMessagePayload
   | BusinessUnitShippingAddressRemovedMessagePayload
   | BusinessUnitStatusChangedMessagePayload
@@ -13578,8 +13578,8 @@ export interface BusinessUnitNameChangedMessagePayload {
  *	Generated after a successful [Change Parent Unit](ctp:api:type:BusinessUnitChangeParentUnitAction) update action.
  *
  */
-export interface BusinessUnitParentUnitChangedMessagePayload {
-  readonly type: 'BusinessUnitParentUnitChanged'
+export interface BusinessUnitParentChangedMessagePayload {
+  readonly type: 'BusinessUnitParentChanged'
   /**
    *	Parent unit of the [Business Unit](ctp:api:type:BusinessUnit) before the [Change Parent Unit](ctp:api:type:BusinessUnitChangeParentUnitAction) update action.
    *

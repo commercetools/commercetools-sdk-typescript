@@ -1060,7 +1060,7 @@ export interface MyBusinessUnitChangeNameAction {
   readonly name: string
 }
 /**
- *	Changing the parent of a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitParentUnitChanged](ctp:api:type:BusinessUnitParentUnitChangedMessage) Message.
+ *	Changing the parent of a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitParentChanged](ctp:api:type:BusinessUnitParentChangedMessage) Message.
  *
  */
 export interface MyBusinessUnitChangeParentUnitAction {

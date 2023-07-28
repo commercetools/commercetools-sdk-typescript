@@ -125,12 +125,16 @@
 <details>
 <summary>Removed Type(s)</summary>
 
+- :warning: removed type `BusinessUnitParentUnitChangedMessage`
+- :warning: removed type `BusinessUnitParentUnitChangedMessagePayload`
 - :warning: removed type `OrderResourceIdentifier`
 </details>
 
 <details>
 <summary>Added Type(s)</summary>
 
+- added type `BusinessUnitParentChangedMessage`
+- added type `BusinessUnitParentChangedMessagePayload`
 - added type `StagedOrderSetDirectDiscountsAction`
 - added type `StagedOrderSetStoreAction`
 </details>
