@@ -2245,11 +2245,17 @@ export interface StagedOrderSetReturnInfoAction {
 export interface StagedOrderSetReturnItemCustomFieldAction {
   readonly action: 'setReturnItemCustomField'
   /**
-   *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update.
+   *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
    *
    *
    */
-  readonly returnItemId: string
+  readonly returnItemId?: string
+  /**
+   *	`key` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
+   *
+   *
+   */
+  readonly returnItemKey?: string
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
@@ -2268,11 +2274,17 @@ export interface StagedOrderSetReturnItemCustomFieldAction {
 export interface StagedOrderSetReturnItemCustomTypeAction {
   readonly action: 'setReturnItemCustomType'
   /**
-   *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update.
+   *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
    *
    *
    */
-  readonly returnItemId: string
+  readonly returnItemId?: string
+  /**
+   *	`key` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
+   *
+   *
+   */
+  readonly returnItemKey?: string
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the Return Item with [Custom Fields](/../api/projects/custom-fields).
    *	If absent, any existing Type and Custom Fields are removed from the Return Item.
@@ -2294,11 +2306,17 @@ export interface StagedOrderSetReturnItemCustomTypeAction {
 export interface StagedOrderSetReturnPaymentStateAction {
   readonly action: 'setReturnPaymentState'
   /**
-   *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update.
+   *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
    *
    *
    */
-  readonly returnItemId: string
+  readonly returnItemId?: string
+  /**
+   *	`key` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
+   *
+   *
+   */
+  readonly returnItemKey?: string
   /**
    *	New Payment status of the [ReturnItem](ctp:api:type:ReturnItem).
    *
@@ -2315,11 +2333,17 @@ export interface StagedOrderSetReturnPaymentStateAction {
 export interface StagedOrderSetReturnShipmentStateAction {
   readonly action: 'setReturnShipmentState'
   /**
-   *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update.
+   *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
    *
    *
    */
-  readonly returnItemId: string
+  readonly returnItemId?: string
+  /**
+   *	`key` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
+   *
+   *
+   */
+  readonly returnItemKey?: string
   /**
    *	New shipment state of the [ReturnItem](ctp:api:type:ReturnItem).
    *

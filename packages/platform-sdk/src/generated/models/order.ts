@@ -1789,6 +1789,11 @@ export interface CustomLineItemReturnItem {
    */
   readonly id: string
   /**
+   *	User-defined unique identifier of the CustomLineItemReturnItem.
+   *
+   */
+  readonly key?: string
+  /**
    *	Number of Custom Line Items returned.
    *
    *
@@ -1849,6 +1854,11 @@ export interface LineItemReturnItem {
    */
   readonly id: string
   /**
+   *	User-defined unique identifier of the LineItemReturnItem.
+   *
+   */
+  readonly key?: string
+  /**
    *	Number of Line Items returned.
    *
    *
@@ -1901,6 +1911,11 @@ export interface LineItemReturnItem {
   readonly lineItemId: string
 }
 export interface ReturnItemDraft {
+  /**
+   *	User-defined unique identifier of the Return Item.
+   *
+   */
+  readonly key?: string
   /**
    *	Number of Line Items or Custom Line Items to return.
    *
@@ -3126,11 +3141,17 @@ export interface OrderSetReturnInfoAction {
 export interface OrderSetReturnItemCustomFieldAction {
   readonly action: 'setReturnItemCustomField'
   /**
-   *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update.
+   *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
    *
    *
    */
-  readonly returnItemId: string
+  readonly returnItemId?: string
+  /**
+   *	`key` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
+   *
+   *
+   */
+  readonly returnItemKey?: string
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
@@ -3149,11 +3170,17 @@ export interface OrderSetReturnItemCustomFieldAction {
 export interface OrderSetReturnItemCustomTypeAction {
   readonly action: 'setReturnItemCustomType'
   /**
-   *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update.
+   *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
    *
    *
    */
-  readonly returnItemId: string
+  readonly returnItemId?: string
+  /**
+   *	`key` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
+   *
+   *
+   */
+  readonly returnItemKey?: string
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the Return Item with [Custom Fields](/../api/projects/custom-fields).
    *	If absent, any existing Type and Custom Fields are removed from the Return Item.
@@ -3175,11 +3202,17 @@ export interface OrderSetReturnItemCustomTypeAction {
 export interface OrderSetReturnPaymentStateAction {
   readonly action: 'setReturnPaymentState'
   /**
-   *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update.
+   *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
    *
    *
    */
-  readonly returnItemId: string
+  readonly returnItemId?: string
+  /**
+   *	`key` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
+   *
+   *
+   */
+  readonly returnItemKey?: string
   /**
    *	New Payment status of the [ReturnItem](ctp:api:type:ReturnItem).
    *
@@ -3196,11 +3229,17 @@ export interface OrderSetReturnPaymentStateAction {
 export interface OrderSetReturnShipmentStateAction {
   readonly action: 'setReturnShipmentState'
   /**
-   *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update.
+   *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
    *
    *
    */
-  readonly returnItemId: string
+  readonly returnItemId?: string
+  /**
+   *	`key` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
+   *
+   *
+   */
+  readonly returnItemKey?: string
   /**
    *	New shipment state of the [ReturnItem](ctp:api:type:ReturnItem).
    *

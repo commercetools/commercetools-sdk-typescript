@@ -45,18 +45,30 @@
 - added property `customLineItemKey` to type `StagedOrderSetCustomLineItemShippingDetailsAction`
 - added property `customLineItemKey` to type `StagedOrderSetCustomLineItemTaxAmountAction`
 - added property `customLineItemKey` to type `StagedOrderSetCustomLineItemTaxRateAction`
+- added property `returnItemKey` to type `StagedOrderSetReturnItemCustomFieldAction`
+- added property `returnItemKey` to type `StagedOrderSetReturnItemCustomTypeAction`
+- added property `returnItemKey` to type `StagedOrderSetReturnPaymentStateAction`
+- added property `returnItemKey` to type `StagedOrderSetReturnShipmentStateAction`
 - added property `customLineItemKey` to type `StagedOrderTransitionCustomLineItemStateAction`
 - added property `lineItemKey` to type `StagedOrderTransitionLineItemStateAction`
 - added property `key` to type `CustomLineItemImportDraft`
+- added property `key` to type `CustomLineItemReturnItem`
 - added property `key` to type `LineItemImportDraft`
+- added property `key` to type `LineItemReturnItem`
 - added property `directDiscounts` to type `Order`
 - added property `purchaseOrderNumber` to type `OrderImportDraft`
 - added property `taxCalculationMode` to type `OrderImportDraft`
+- added property `key` to type `ReturnItem`
+- added property `key` to type `ReturnItemDraft`
 - added property `customLineItemKey` to type `OrderImportCustomLineItemStateAction`
 - added property `lineItemKey` to type `OrderImportLineItemStateAction`
 - added property `customLineItemKey` to type `OrderSetCustomLineItemCustomFieldAction`
 - added property `customLineItemKey` to type `OrderSetCustomLineItemCustomTypeAction`
 - added property `customLineItemKey` to type `OrderSetCustomLineItemShippingDetailsAction`
+- added property `returnItemKey` to type `OrderSetReturnItemCustomFieldAction`
+- added property `returnItemKey` to type `OrderSetReturnItemCustomTypeAction`
+- added property `returnItemKey` to type `OrderSetReturnPaymentStateAction`
+- added property `returnItemKey` to type `OrderSetReturnShipmentStateAction`
 - added property `customLineItemKey` to type `OrderTransitionCustomLineItemStateAction`
 - added property `lineItemKey` to type `OrderTransitionLineItemStateAction`
 </details>
@@ -87,6 +99,10 @@
 - changed property `customLineItemId` of type `StagedOrderSetCustomLineItemShippingDetailsAction` to be optional
 - changed property `customLineItemId` of type `StagedOrderSetCustomLineItemTaxAmountAction` to be optional
 - changed property `customLineItemId` of type `StagedOrderSetCustomLineItemTaxRateAction` to be optional
+- changed property `returnItemId` of type `StagedOrderSetReturnItemCustomFieldAction` to be optional
+- changed property `returnItemId` of type `StagedOrderSetReturnItemCustomTypeAction` to be optional
+- changed property `returnItemId` of type `StagedOrderSetReturnPaymentStateAction` to be optional
+- changed property `returnItemId` of type `StagedOrderSetReturnShipmentStateAction` to be optional
 - changed property `customLineItemId` of type `StagedOrderTransitionCustomLineItemStateAction` to be optional
 - changed property `lineItemId` of type `StagedOrderTransitionLineItemStateAction` to be optional
 - changed property `priceMode` of type `CustomLineItemImportDraft` to be optional
@@ -95,6 +111,10 @@
 - changed property `customLineItemId` of type `OrderSetCustomLineItemCustomFieldAction` to be optional
 - changed property `customLineItemId` of type `OrderSetCustomLineItemCustomTypeAction` to be optional
 - changed property `customLineItemId` of type `OrderSetCustomLineItemShippingDetailsAction` to be optional
+- changed property `returnItemId` of type `OrderSetReturnItemCustomFieldAction` to be optional
+- changed property `returnItemId` of type `OrderSetReturnItemCustomTypeAction` to be optional
+- changed property `returnItemId` of type `OrderSetReturnPaymentStateAction` to be optional
+- changed property `returnItemId` of type `OrderSetReturnShipmentStateAction` to be optional
 - changed property `customLineItemId` of type `OrderTransitionCustomLineItemStateAction` to be optional
 - changed property `lineItemId` of type `OrderTransitionLineItemStateAction` to be optional
 - changed property `comment` of type `QuoteRequestDraft` to be optional
