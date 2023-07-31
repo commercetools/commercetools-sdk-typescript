@@ -777,7 +777,7 @@ export interface Money {
 }
 export type _Money = Money | TypedMoney | TypedMoneyDraft
 /**
- *	MoneyType supports two different values, one for amounts in cent precision and another one for sub-cent amounts up to 20 fraction digits.
+ *	Determines the type of money used.
  */
 export type MoneyType = 'centPrecision' | 'highPrecision' | string
 /**
@@ -1223,7 +1223,7 @@ export interface ScopedPrice {
   readonly custom?: CustomFields
 }
 /**
- *	Base polymorphic read-only Money type which is stored in cent precision or high precision. The actual type is determined by the `type` field.
+ *	Base polymorphic read-only money type that stores currency in cent precision or high precision, that is in sub-cents.
  *
  */
 export type TypedMoney = CentPrecisionMoney | HighPrecisionMoney
@@ -1288,6 +1288,13 @@ export interface HighPrecisionMoney {
    */
   readonly preciseAmount: number
 }
+/**
+ *	Base polymorphic money type containing common fields for [Money](ctp:api:type:Money) and [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
+ *
+ *	- To set money in cent precision, use [Money](ctp:api:type:Money).
+ *	- To set money in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
+ *
+ */
 export type TypedMoneyDraft = CentPrecisionMoneyDraft | HighPrecisionMoneyDraft
 /**
  *	This draft type is the alternative to [Money](ctp:api:type:Money).
@@ -1296,14 +1303,11 @@ export type TypedMoneyDraft = CentPrecisionMoneyDraft | HighPrecisionMoneyDraft
 export interface CentPrecisionMoneyDraft {
   readonly type: 'centPrecision'
   /**
-   *	Amount in the smallest indivisible unit of a currency, such as:
-   *
-   *	* Cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as `500`).
-   *	* The value in the major unit for currencies without minor units, like JPY (5 JPY is specified as `5`).
+   *	Amount in the smallest indivisible unit of a currency.
    *
    *
    */
-  readonly centAmount: number
+  readonly centAmount?: number
   /**
    *	Currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
    *

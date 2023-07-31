@@ -13,6 +13,8 @@ import {
   LocalizedString,
   Money,
   Reference,
+  TypedMoney,
+  TypedMoneyDraft,
 } from './common'
 import { ProductReference, ProductResourceIdentifier } from './product'
 import { StoreKeyReference, StoreResourceIdentifier } from './store'
@@ -443,11 +445,11 @@ export interface CartDiscountValueAbsoluteDraft {
 export interface CartDiscountValueFixed {
   readonly type: 'fixed'
   /**
-   *	Cent precision money values in different currencies.
+   *	Money values in [cent precision](ctp:api:type:CentPrecisionMoney) or [high precision](ctp:api:type:HighPrecisionMoney) of different currencies.
    *
    *
    */
-  readonly money: CentPrecisionMoney[]
+  readonly money: TypedMoney[]
 }
 /**
  *	Sets the [DiscountedLineItemPrice](ctp:api:type:DiscountedLineItemPrice) of the [CartDiscountLineItemsTarget](ctp:api:type:CartDiscountLineItemsTarget) or [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget) to the value specified in the `money` field, if it is lower than the current Line Item price for the same currency. If the Line Item price is already discounted to a price equal to or lower than the respective price in the `money` field, this Discount is not applied.
@@ -456,12 +458,12 @@ export interface CartDiscountValueFixed {
 export interface CartDiscountValueFixedDraft {
   readonly type: 'fixed'
   /**
-   *	Money values in different currencies.
+   *	Money values provided either in [cent precision](ctp:api:type:Money) or [high precision](ctp:api:type:HighPrecisionMoneyDraft) for different currencies.
    *	A fixed Cart Discount will only match a price if this array contains a value with the same currency. If it contains 10€ and 15$, the matching € price will be discounted by 10€ and the matching $ price will be discounted to 15$.
    *
    *
    */
-  readonly money: Money[]
+  readonly money: TypedMoneyDraft[]
 }
 export interface CartDiscountValueGiftLineItem {
   readonly type: 'giftLineItem'

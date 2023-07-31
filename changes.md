@@ -74,6 +74,8 @@
 - changed property `customLineItemId` of type `CartSetCustomLineItemShippingDetailsAction` to be optional
 - changed property `customLineItemId` of type `CartSetCustomLineItemTaxAmountAction` to be optional
 - changed property `customLineItemId` of type `CartSetCustomLineItemTaxRateAction` to be optional
+- changed property `centAmount` of type `CentPrecisionMoneyDraft` to be optional
+- changed property `centAmount` of type `TypedMoneyDraft` to be optional
 - changed property `comment` of type `MyQuoteRequestDraft` to be optional
 - changed property `customLineItemId` of type `StagedOrderChangeCustomLineItemMoneyAction` to be optional
 - changed property `customLineItemId` of type `StagedOrderChangeCustomLineItemQuantityAction` to be optional
@@ -105,6 +107,8 @@
 <details>
 <summary>Changed Property(s)</summary>
 
+- :warning: changed property `money` of type `CartDiscountValueFixed` from type `CentPrecisionMoney[]` to `TypedMoney[]`
+- :warning: changed property `money` of type `CartDiscountValueFixedDraft` from type `Money[]` to `TypedMoneyDraft[]`
 - :warning: changed property `country` of type `StagedOrder` from type `string` to `CountryCode`
 - :warning: changed property `locale` of type `StagedOrder` from type `string` to `Locale`
 - :warning: changed property `country` of type `StagedOrderSetCountryAction` from type `string` to `CountryCode`
