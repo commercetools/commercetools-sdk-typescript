@@ -889,7 +889,7 @@ export interface StagedOrderChangeCustomLineItemMoneyAction {
 /**
  *	When multiple shipping addresses are set for a Custom Line Item, use the [Add CustomLineItem](ctp:api:type:StagedOrderAddCustomLineItemAction) update action to change the shipping details. Since it is not possible for the API to infer how the overall change in the Custom Line Item quantity should be distributed over the sub-quantities, the `shippingDetails` field is kept in its current state to avoid data loss.
  *
- *	To change the Custom Line Item quantity and shipping details together, use this update action in combination with the [Set CustomLineItemShippingDetails](ctp:api:type:StagedOrderSetCustomLineItemShippingDetailsAction) update action in a single Order update command.
+ *	To change the Custom Line Item quantity and shipping details together, use this update action in combination with the [Set CustomLineItem ShippingDetails](ctp:api:type:StagedOrderSetCustomLineItemShippingDetailsAction) update action in a single Order update command.
  *
  */
 export interface StagedOrderChangeCustomLineItemQuantityAction {
@@ -917,7 +917,7 @@ export interface StagedOrderChangeCustomLineItemQuantityAction {
 /**
  *	When multiple shipping addresses are set for a Line Item, use the [Remove LineItem](ctp:api:type:StagedOrderRemoveLineItemAction) and [Add LineItem](ctp:api:type:StagedOrderAddLineItemAction) update action to change the shipping details. Since it is not possible for the API to infer how the overall change in the Line Item quantity should be distributed over the sub-quantities, the `shippingDetails` field is kept in its current state to avoid data loss.
  *
- *	To change the Line Item quantity and shipping details together, use this update action in combination with the [Set LineItemShippingDetails](ctp:api:type:StagedOrderSetLineItemShippingDetailsAction) update action in a single Order update command.
+ *	To change the Line Item quantity and shipping details together, use this update action in combination with the [Set LineItem ShippingDetails](ctp:api:type:StagedOrderSetLineItemShippingDetailsAction) update action in a single Order update command.
  *
  *	The [LineItem](ctp:api:type:LineItem) price is updated as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
  *

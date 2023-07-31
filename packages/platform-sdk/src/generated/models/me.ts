@@ -1405,7 +1405,7 @@ export interface MyCartAddPaymentAction {
   readonly payment: PaymentResourceIdentifier
 }
 /**
- *	To override the shipping details, see [Set LineItemShippingDetails](ctp:api:type:MyCartSetLineItemShippingDetailsAction).
+ *	To override the shipping details, see [Set LineItem ShippingDetails](ctp:api:type:MyCartSetLineItemShippingDetailsAction).
  *
  */
 export interface MyCartApplyDeltaToLineItemShippingDetailsTargetsAction {
@@ -1437,7 +1437,7 @@ export interface MyCartApplyDeltaToLineItemShippingDetailsTargetsAction {
  *	the `shippingDetails` field is kept in its current state to avoid data loss.
  *
  *	To change the Line Item quantity and shipping details together,
- *	use this update action in combination with the [Set LineItemShippingDetails](ctp:api:type:CartSetCustomLineItemShippingDetailsAction) update action
+ *	use this update action in combination with the [Set LineItem ShippingDetails](ctp:api:type:CartSetLineItemShippingDetailsAction) update action
  *	in a single Cart update command.
  *
  *	When the action applies to [LineItems](ctp:api:type:LineItem) with `ExternalTotal` [LineItemPriceMode](ctp:api:type:LineItemPriceMode),

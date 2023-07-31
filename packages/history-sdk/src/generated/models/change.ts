@@ -4091,8 +4091,8 @@ export interface SetCustomLineItemMoneyChange {
 /**
  *	Change triggered by the following update actions:
  *
- *	- [Set CustomLineItemShippingDetails](ctp:api:type:OrderSetCustomLineItemShippingDetailsAction) on Orders.
- *	- [Set CustomLineItemShippingDetails](ctp:api:type:StagedOrderSetCustomLineItemShippingDetailsAction) on Staged Orders.
+ *	- [Set CustomLineItem ShippingDetails](ctp:api:type:OrderSetCustomLineItemShippingDetailsAction) on Orders.
+ *	- [Set CustomLineItem ShippingDetails](ctp:api:type:StagedOrderSetCustomLineItemShippingDetailsAction) on Staged Orders.
  *
  */
 export interface SetCustomLineItemShippingDetailsChange {
@@ -5132,8 +5132,8 @@ export interface SetLineItemProductSlugChange {
 /**
  *	Change triggered by the following update actions:
  *
- *	- [Set LineItemShippingDetails](ctp:api:type:OrderSetLineItemShippingDetailsAction) on Orders.
- *	- [Set LineItemShippingDetails](ctp:api:type:StagedOrderSetLineItemShippingDetailsAction) on Staged Orders.
+ *	- [Set LineItem ShippingDetails](ctp:api:type:OrderSetLineItemShippingDetailsAction) on Orders.
+ *	- [Set LineItem ShippingDetails](ctp:api:type:StagedOrderSetLineItemShippingDetailsAction) on Staged Orders.
  *
  */
 export interface SetLineItemShippingDetailsChange {

@@ -2316,7 +2316,7 @@ export interface CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction {
   readonly targetsDelta: ItemShippingTarget[]
 }
 /**
- *	To override the shipping details, see [Set LineItemShippingDetails](ctp:api:type:CartSetLineItemShippingDetailsAction).
+ *	To override the shipping details, see [Set LineItem ShippingDetails](ctp:api:type:CartSetLineItemShippingDetailsAction).
  *
  */
 export interface CartApplyDeltaToLineItemShippingDetailsTargetsAction {
@@ -2389,7 +2389,7 @@ export interface CartChangeCustomLineItemPriceModeAction {
  *	the `shippingDetails` field is kept in its current state to avoid data loss.
  *
  *	To change the Custom Line Item quantity and shipping details together,
- *	use this update action in combination with the [Set CustomLineItemShippingDetails](ctp:api:type:CartSetCustomLineItemShippingDetailsAction) update action
+ *	use this update action in combination with the [Set CustomLineItem ShippingDetails](ctp:api:type:CartSetCustomLineItemShippingDetailsAction) update action
  *	in a single Cart update command.
  *
  */
@@ -2424,7 +2424,7 @@ export interface CartChangeCustomLineItemQuantityAction {
  *	the `shippingDetails` field is kept in its current state to avoid data loss.
  *
  *	To change the Line Item quantity and shipping details together,
- *	use this update action in combination with the [Set LineItemShippingDetails](ctp:api:type:CartSetCustomLineItemShippingDetailsAction) update action
+ *	use this update action in combination with the [Set LineItem ShippingDetails](ctp:api:type:CartSetLineItemShippingDetailsAction) update action
  *	in a single Cart update command.
  *
  *	The [LineItem](ctp:api:type:LineItem) price is set as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
