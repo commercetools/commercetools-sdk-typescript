@@ -52,6 +52,7 @@ export type ErrorObject =
   | AttributeNameDoesNotExistError
   | BadGatewayError
   | ConcurrentModificationError
+  | ContentTooLargeError
   | CountryNotConfiguredInStoreError
   | DiscountCodeNonApplicableError
   | DuplicateAttributeValueError
@@ -301,6 +302,20 @@ export interface ConcurrentModificationError {
    *
    */
   readonly currentVersion?: number
+}
+/**
+ *	Returned when the request results in too much data being returned from the API. Adjust the request query to reduce the size of the data returned.
+ *
+ */
+export interface ContentTooLargeError {
+  readonly code: 'ContentTooLarge'
+  [key: string]: any
+  /**
+   *	`"Content too large."`
+   *
+   *
+   */
+  readonly message: string
 }
 /**
  *	Returned when a [Cart](ctp:api:type:Cart) or an [Order](ctp:api:type:Order) in a [Store](ctp:api:type:Store) references a country that is not included in the countries configured for the Store.
@@ -1982,6 +1997,7 @@ export type GraphQLErrorObject =
   | GraphQLAttributeNameDoesNotExistError
   | GraphQLBadGatewayError
   | GraphQLConcurrentModificationError
+  | GraphQLContentTooLargeError
   | GraphQLCountryNotConfiguredInStoreError
   | GraphQLDiscountCodeNonApplicableError
   | GraphQLDuplicateAttributeValueError
@@ -2188,6 +2204,14 @@ export interface GraphQLConcurrentModificationError {
    *
    */
   readonly currentVersion?: number
+}
+/**
+ *	Returned when the request results in too much data being returned from the API. Adjust the request query to reduce the size of the data returned.
+ *
+ */
+export interface GraphQLContentTooLargeError {
+  readonly code: 'ContentTooLarge'
+  [key: string]: any
 }
 /**
  *	Returned when a [Cart](ctp:api:type:Cart) or an [Order](ctp:api:type:Order) in a [Store](ctp:api:type:Store) references a country that is not included in the countries configured for the Store.

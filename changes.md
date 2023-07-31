@@ -157,6 +157,8 @@
 <details>
 <summary>Added Type(s)</summary>
 
+- added type `ContentTooLargeError`
+- added type `GraphQLContentTooLargeError`
 - added type `BusinessUnitParentChangedMessage`
 - added type `BusinessUnitParentChangedMessagePayload`
 - added type `StagedOrderSetDirectDiscountsAction`
