@@ -14677,7 +14677,7 @@ export interface OrderCustomFieldChangedMessagePayload {
   readonly previousValue?: any
 }
 /**
- *	Generated when a Custom Field has been removed from the Order using the [Set CustomField](ctp:api:type:OrderSetCustomFieldAction) action..
+ *	Generated when a Custom Field has been removed from the Order using the [Set CustomField](ctp:api:type:OrderSetCustomFieldAction) action.
  *
  */
 export interface OrderCustomFieldRemovedMessagePayload {
