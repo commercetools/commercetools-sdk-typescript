@@ -61,7 +61,7 @@ export interface MyBusinessUnitAssociateDraft {
    */
   readonly customer: MyCustomerDraft
   /**
-   *	Roles assigned to the new Associate within a Business Unit.
+   *	Roles assigned to the new Associate within a Business Unit. Can only contain [AssociateRoles](ctp:api:type:AssociateRole) with the `buyerAssignable` property set to `true`.
    *
    *
    */

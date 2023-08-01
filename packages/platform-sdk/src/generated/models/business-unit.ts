@@ -50,7 +50,7 @@ export interface AssociateDraft {
    *
    *
    */
-  readonly associateRoleAssignments?: AssociateRoleAssignmentDraft[]
+  readonly associateRoleAssignments: AssociateRoleAssignmentDraft[]
   /**
    *	Deprecated type. Use `associateRoleAssignment` instead.
    *
