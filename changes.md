@@ -161,7 +161,17 @@
 - added type `ContentTooLargeError`
 - added type `GraphQLContentTooLargeError`
 - added type `BusinessUnitParentChangedMessage`
+- added type `OrderCustomFieldAddedMessage`
+- added type `OrderCustomFieldChangedMessage`
+- added type `OrderCustomFieldRemovedMessage`
+- added type `OrderCustomTypeRemovedMessage`
+- added type `OrderCustomTypeSetMessage`
 - added type `BusinessUnitParentChangedMessagePayload`
+- added type `OrderCustomFieldAddedMessagePayload`
+- added type `OrderCustomFieldChangedMessagePayload`
+- added type `OrderCustomFieldRemovedMessagePayload`
+- added type `OrderCustomTypeRemovedMessagePayload`
+- added type `OrderCustomTypeSetMessagePayload`
 - added type `StagedOrderSetDirectDiscountsAction`
 - added type `StagedOrderSetStoreAction`
 </details>
