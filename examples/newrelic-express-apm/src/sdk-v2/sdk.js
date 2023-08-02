@@ -1,16 +1,7 @@
-const {
-  ClientBuilder,
-  /**
-   * TODO:
-   * replace relative import with
-   * actual @commercetools/sdk-client-v2
-   * module import once released
-   */
-} = require('../../../../packages/sdk-client/dist/commercetools-sdk-client-v2.cjs.prod')
+const { ClientBuilder } = require('@commercetools/sdk-client-v2')
 const { createTelemetryMiddleware } = require('@commercetools/ts-sdk-apm')
-const fetch = require('node-fetch')
-
 const { createApiBuilderFromCtpClient } = require('@commercetools/platform-sdk')
+const fetch = require('node-fetch')
 
 const projectKey = process.env.CTP_PROJECT_KEY
 const authMiddlewareOptions = {
@@ -19,6 +10,10 @@ const authMiddlewareOptions = {
   credentials: {
     clientId: process.env.CTP_CLIENT_ID,
     clientSecret: process.env.CTP_CLIENT_SECRET,
+    user: {
+      username: 'test-one@mail.com',
+      password: 'test-one',
+    },
   },
   scopes: [`manage_project:${projectKey}`],
   fetch,
@@ -37,7 +32,7 @@ const telemetryOptions = {
 }
 
 const client = new ClientBuilder()
-  .withClientCredentialsFlow(authMiddlewareOptions)
+  .withPasswordFlow(authMiddlewareOptions)
   .withHttpMiddleware(httpMiddlewareOptions)
   .withTelemetryMiddleware(telemetryOptions) // telemetry middleware
   .build()

@@ -1,0 +1,59 @@
+GET http://localhost:8000/project
+  headers:
+    Content-Type: application/json
+  body: {}
+
+GET http://localhost:8000/customers
+  headers:
+    Content-Type: application/json
+  body: {}
+
+GET http://localhost:8000/products
+  headers:
+    Content-Type: application/json
+  body: {}
+
+GET http://localhost:8000/cart
+  headers:
+    Content-Type: application/json
+    Authorization: Bearer <token>
+  body: {}
+
+POST http://localhost:8000/cart
+  headers:
+    Content-Type: application/json
+    Authorization: Bearer <token>
+  body: {
+      "currency": "EUR",
+      "customerEmail": "test.one@mail.com"
+    }
+
+POST http://localhost:8000/cart-discount
+  headers: 
+    Content-Type: application/json
+    Authorization: Bearer <token>
+  body: {
+    "key": "b2c0f765-93b1-4b01-890d-6d6850cfd7bf",
+    "name": {
+        "en": "test-name-cartDiscount-1234567890"
+    },
+    "value": {
+        "type": "relative",
+        "permyriad": 10
+    },
+    "cartPredicate": "'country='DE'",
+    "target": {
+        "type": "shipping"
+    },
+      "sortOrder": "0.65141",
+      "requiresDiscountCode": true,
+      "isActive": false
+    }
+
+GET http://localhost:8000/cart-discount
+  headers: 
+    Content-Type: application
+  body: {
+      "id": "<cart-discount-id>"
+    }
+
