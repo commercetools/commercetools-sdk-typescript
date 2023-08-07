@@ -15,14 +15,16 @@
     "postbuild": "webpack --mode=production",
     "changeset:version-and-format": "changeset version && prettier --write --parser json '**/package.json'"
   },
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "dependencies": {
     "@babel/core": "7.21.3",
     "@babel/plugin-proposal-class-properties": "7.18.6",
     "@babel/preset-env": "7.20.2",
     "@babel/preset-typescript": "7.21.0",
     "@changesets/changelog-github": "0.4.8",
-    "@changesets/cli": "2.26.0",
+    "@changesets/cli": "^2.26.0",
     "@commitlint/cli": "17.4.4",
     "@commitlint/config-conventional": "17.4.4",
     "@manypkg/cli": "0.20.0",
@@ -53,10 +55,17 @@
     "webpack-node-externals": "^3.0.0"
   },
   "lint-staged": {
-    "*.{js,json,md}": ["prettier --write"],
-    "*.ts": ["prettier --write", "tsc-files --noEmit"]
+    "*.{js,json,md}": [
+      "prettier --write"
+    ],
+    "*.ts": [
+      "prettier --write",
+      "tsc-files --noEmit"
+    ]
   },
   "preconstruct": {
-    "packages": ["packages/*"]
+    "packages": [
+      "packages/*"
+    ]
   }
 }
