@@ -245,5 +245,5 @@ export interface PriceDraftImport {
    *
    *
    */
-  readonly key?: string
+  readonly key: string
 }

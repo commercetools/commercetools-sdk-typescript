@@ -30,6 +30,7 @@ export interface ChangeSubscription {
  *
  */
 export type ChangeSubscriptionResourceTypeId =
+  | 'associate-role'
   | 'business-unit'
   | 'cart'
   | 'cart-discount'

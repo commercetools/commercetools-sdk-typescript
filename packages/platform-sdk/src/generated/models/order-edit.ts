@@ -6,9 +6,11 @@
 
 import {
   CustomLineItemPriceMode,
+  DirectDiscountDraft,
   ExternalLineItemTotalPrice,
   ExternalTaxAmountDraft,
   ExternalTaxRateDraft,
+  InventoryMode,
   ItemShippingDetailsDraft,
   RoundingMode,
   ShippingRateInputDraft,
@@ -55,6 +57,7 @@ import {
 } from './shipping-method'
 import { ShoppingListResourceIdentifier } from './shopping-list'
 import { StateResourceIdentifier } from './state'
+import { StoreResourceIdentifier } from './store'
 import { TaxCategoryResourceIdentifier } from './tax-category'
 import {
   CustomFields,
@@ -65,20 +68,63 @@ import {
 
 export interface OrderEdit extends BaseResource {
   /**
-   *	Unique identifier of the OrderEdit.
+   *	Unique identifier of the Order Edit.
+   *
    *
    */
   readonly id: string
   /**
-   *	The current version of the OrderEdit.
+   *	Current version of the Order Edit.
+   *
    *
    */
   readonly version: number
   /**
+   *	User-defined unique identifier of the Order Edit.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	[Reference](ctp:api:type:Reference) to the Order updated with this edit.
+   *
+   *
+   */
+  readonly resource: OrderReference
+  /**
+   *	Update actions applied to the Order referenced by `resource`.
+   *
+   *
+   */
+  readonly stagedActions: StagedOrderUpdateAction[]
+  /**
+   *	For applied edits, it's a summary of the changes on the Order.
+   *	For unapplied edits, it's a preview of the changes.
+   *
+   *
+   */
+  readonly result: OrderEditResult
+  /**
+   *	User-defined information regarding the Order Edit.
+   *
+   *
+   */
+  readonly comment?: string
+  /**
+   *	Custom Fields of the Order Edit.
+   *
+   *
+   */
+  readonly custom?: CustomFields
+  /**
+   *	Date and time (UTC) the Order Edit was initially created.
+   *
    *
    */
   readonly createdAt: string
   /**
+   *	Date and time (UTC) the Order Edit was last updated.
+   *
    *
    */
   readonly lastModifiedAt: string
@@ -94,80 +140,71 @@ export interface OrderEdit extends BaseResource {
    *
    */
   readonly createdBy?: CreatedBy
-  /**
-   *	User-defined unique identifier of the OrderEdit.
-   *
-   */
-  readonly key?: string
-  /**
-   *	The order to be updated with this edit.
-   *
-   */
-  readonly resource: OrderReference
-  /**
-   *	The actions to apply to the Order.
-   *	Cannot be updated after the edit has been applied.
-   *
-   */
-  readonly stagedActions: StagedOrderUpdateAction[]
-  /**
-   *
-   */
-  readonly custom?: CustomFields
-  /**
-   *	Contains a preview of the changes in case of unapplied edit.
-   *	For applied edits, it contains the summary of the changes.
-   *
-   */
-  readonly result: OrderEditResult
-  /**
-   *	This field can be used to add textual information regarding the edit.
-   *
-   */
-  readonly comment?: string
 }
+/**
+ *	If the `editVersion` and/or `resourceVersion` do not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+ *
+ */
 export interface OrderEditApply {
   /**
+   *	Current `version` of the OrderEdit to be applied.
+   *
    *
    */
   readonly editVersion: number
   /**
+   *	Current `version` of the [Order](ctp:api:type:Order) to which the OrderEdit is applied.
+   *
    *
    */
   readonly resourceVersion: number
 }
 export interface OrderEditDraft {
   /**
-   *	User-defined unique identifier for the OrderEdit.
+   *	User-defined unique identifier for the Order Edit.
+   *
    *
    */
   readonly key?: string
   /**
-   *	The order to be updated with this edit.
+   *	[Reference](ctp:api:type:Reference) to the Order updated with this edit.
+   *
    *
    */
   readonly resource: OrderReference
   /**
-   *	The actions to apply to `resource`.
+   *	Update actions to apply to the Order referenced in `resource`.
+   *	Cannot be updated if the [edit has been applied](ctp:api:endpoint:/{projectKey}/orders/edits/{id}/apply:POST).
+   *
    *
    */
   readonly stagedActions?: StagedOrderUpdateAction[]
   /**
-   *	The custom fields.
+   *	Custom Fields for the Order Edit.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
   /**
-   *	This field can be used to add additional textual information regarding the edit.
+   *	User-defined description regarding the Order Edit.
+   *
    *
    */
   readonly comment?: string
   /**
-   *	When set to `true` the edit is applied on the Order without persisting it.
+   *	Set to `true` if you want to [peview](ctp:api:type:OrderEditPreviewSuccess) the edited Order first without persisting it (dry run).
+   *	A dry run allows checking for potential [errors](ctp:api:type:OrderEditPreviewFailure) when trying to apply the `stagedActions`.
+   *
+   *	Order [API Extensions](/../api/projects/api-extensions), if any, are also called in dry runs.
+   *
    *
    */
   readonly dryRun?: boolean
 }
+/**
+ *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [OrderEdit](ctp:api:type:OrderEdit).
+ *
+ */
 export interface OrderEditPagedQueryResponse {
   /**
    *	Number of [results requested](/../api/general-concepts#limit).
@@ -176,20 +213,30 @@ export interface OrderEditPagedQueryResponse {
    */
   readonly limit: number
   /**
-   *
-   */
-  readonly count: number
-  /**
-   *
-   */
-  readonly total?: number
-  /**
    *	Number of [elements skipped](/../api/general-concepts#offset).
    *
    *
    */
   readonly offset: number
   /**
+   *	Actual number of results returned.
+   *
+   *
+   */
+  readonly count: number
+  /**
+   *	Total number of results matching the query.
+   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	This field is returned by default.
+   *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
+   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
+   *
+   *
+   */
+  readonly total?: number
+  /**
+   *	[OrderEdits](ctp:api:type:OrderEdit) matching the query.
+   *
    *
    */
   readonly results: OrderEdit[]
@@ -207,26 +254,26 @@ export interface OrderEditReference {
    */
   readonly id: string
   /**
-   *	Contains the representation of the expanded OrderEdit. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for OrderEdits.
+   *	Contains the representation of the expanded Order Edit. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Order Edits.
    *
    *
    */
   readonly obj?: OrderEdit
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [OrderEdit](ctp:api:type:OrderEdit).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [OrderEdit](ctp:api:type:OrderEdit). Either `id` or `key` is required.
  *
  */
 export interface OrderEditResourceIdentifier {
   readonly typeId: 'order-edit'
   /**
-   *	Unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit).
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit).
    *
    *
    */
@@ -237,52 +284,87 @@ export type OrderEditResult =
   | OrderEditNotProcessed
   | OrderEditPreviewFailure
   | OrderEditPreviewSuccess
+/**
+ *	Result of a succesful application of `stagedActions` to the Order.
+ *
+ */
 export interface OrderEditApplied {
   readonly type: 'Applied'
   /**
+   *	Date and time (UTC) the Order was edited.
+   *
    *
    */
   readonly appliedAt: string
   /**
+   *	Prices of the Order before the edit.
+   *
    *
    */
   readonly excerptBeforeEdit: OrderExcerpt
   /**
+   *	Prices of the Order after the edit.
+   *
    *
    */
   readonly excerptAfterEdit: OrderExcerpt
 }
+/**
+ *	Indicates that the edit has not been applied or processed in any way.
+ *
+ */
 export interface OrderEditNotProcessed {
   readonly type: 'NotProcessed'
 }
+/**
+ *	Result of a failed application of `stagedActions` to the Order. The data is calculated on the fly and is not queryable.
+ *
+ */
 export interface OrderEditPreviewFailure {
   readonly type: 'PreviewFailure'
   /**
+   *	Errors returned.
+   *
    *
    */
   readonly errors: ErrorObject[]
 }
+/**
+ *	The data is not persisted but is dynamically pulled by dry-running the update actions from `stagedActions` on the current version of the related [Order](ctp:api:type:Order), not from the Order version at the time the OrderEdit was created. Therefore, it cannot be queried.
+ *
+ */
 export interface OrderEditPreviewSuccess {
   readonly type: 'PreviewSuccess'
   /**
+   *	A preview of the edited [Order](ctp:api:type:Order) as it will be after all `stagedActions` (incl. optional Order [API Extensions](/../api/projects/api-extensions)) are applied.
+   *
    *
    */
   readonly preview: StagedOrder
   /**
+   *	Messages that will be generated if the edit is applied.
+   *
    *
    */
   readonly messagePayloads: MessagePayload[]
 }
 export interface OrderEditUpdate {
   /**
+   *	Expected version of the Order Edit on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *
    *
    */
   readonly version: number
   /**
+   *	Update actions to be performed on the Order Edit.
+   *
    *
    */
   readonly actions: OrderEditUpdateAction[]
   /**
+   *	If set to `true`, the Order Edit is applied on the [Order](ctp:api:type:Order) without persisting it.
+   *
    *
    */
   readonly dryRun?: boolean
@@ -294,24 +376,40 @@ export type OrderEditUpdateAction =
   | OrderEditSetCustomTypeAction
   | OrderEditSetKeyAction
   | OrderEditSetStagedActionsAction
+/**
+ *	Excerpt of the Order extracting the total and the taxed price.
+ *
+ */
 export interface OrderExcerpt {
   /**
+   *	Total price of the Order.
+   *
    *
    */
   readonly totalPrice: TypedMoney
   /**
+   *	Taxed price of the Order.
+   *
    *
    */
   readonly taxedPrice?: TaxedPrice
   /**
+   *	Current version of the Order.
+   *
    *
    */
   readonly version: number
 }
 export interface StagedOrder extends Order {}
+/**
+ *	If the [edit was applied](ctp:api:endpoint:/{projectKey}/orders/edits/{id}/apply:POST), this cannot be updated.
+ *
+ */
 export interface OrderEditAddStagedActionAction {
   readonly action: 'addStagedAction'
   /**
+   *	Order update action to append to the `stagedActions` array.
+   *
    *
    */
   readonly stagedAction: StagedOrderUpdateAction
@@ -319,6 +417,9 @@ export interface OrderEditAddStagedActionAction {
 export interface OrderEditSetCommentAction {
   readonly action: 'setComment'
   /**
+   *	Value to set.
+   *	If empty, any existing value will be removed.
+   *
    *
    */
   readonly comment?: string
@@ -343,14 +444,14 @@ export interface OrderEditSetCustomFieldAction {
 export interface OrderEditSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the OrderEdit with [Custom Fields](/../api/projects/custom-fields).
-   *	If absent, any existing Type and Custom Fields are removed from the OrderEdit.
+   *	Defines the [Type](ctp:api:type:Type) that extends the Order Edit with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the Order Edit.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the OrderEdit.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Order Edit.
    *
    *
    */
@@ -359,29 +460,48 @@ export interface OrderEditSetCustomTypeAction {
 export interface OrderEditSetKeyAction {
   readonly action: 'setKey'
   /**
-   *	If `key` is absent or `null`, this field will be removed if it exists.
+   *	Value to set.
+   *	If empty, any existing value will be removed.
+   *
    *
    */
   readonly key?: string
 }
+/**
+ *	If the [edit is applied](ctp:api:endpoint:/{projectKey}/orders/edits/{id}/apply:POST), `stagedActions` cannot be updated.
+ *
+ */
 export interface OrderEditSetStagedActionsAction {
   readonly action: 'setStagedActions'
   /**
-   *	The actions to edit the `resource`.
+   *	Value to replace the `stagedActions` of the Order Edit.
+   *
    *
    */
   readonly stagedActions: StagedOrderUpdateAction[]
 }
+/**
+ *	If the Cart already contains a [CustomLineItem](ctp:api:type:CustomLineItem) with the same `slug`, `name`, `money`, `taxCategory`, `state`,
+ *	and Custom Fields, then only the quantity of the existing Custom Line Item is increased.
+ *	If [CustomLineItem](ctp:api:type:CustomLineItem) `shippingDetails` are set, they are merged with the `targets` that already exist on the
+ *	[ItemShippingDetails](ctp:api:type:ItemShippingDetails) of the Custom Line Item.
+ *	In case of overlapping address keys the [ItemShippingTarget](ctp:api:type:ItemShippingTarget) `quantity` is summed up.
+ *
+ *	If the Cart already contains a Custom Line Item with the same slug that is otherwise not identical, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+ *
+ *	If the Tax Rate is not set, a [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError) error is returned.
+ *
+ */
 export interface StagedOrderAddCustomLineItemAction {
   readonly action: 'addCustomLineItem'
   /**
-   *	Draft type that stores amounts only in cent precision for the specified currency.
+   *	Money value of the Custom Line Item. The value can be negative.
    *
    *
    */
   readonly money: _Money
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	Name of the Custom Line Item.
    *
    *
    */
@@ -393,31 +513,36 @@ export interface StagedOrderAddCustomLineItemAction {
    */
   readonly key?: string
   /**
+   *	Number of Custom Line Items to add to the Cart.
+   *
    *
    */
   readonly quantity?: number
   /**
+   *	User-defined identifier used in a deep-link URL for the Custom Line Item. It must match the pattern `[a-zA-Z0-9_-]{2,256}`.
+   *
    *
    */
   readonly slug: string
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
+   *	Used to select a Tax Rate when a Cart has the `Platform` [TaxMode](ctp:api:type:TaxMode).
+   *	If [TaxMode](ctp:api:type:TaxMode) is `Platform`, this field must not be empty.
    *
    *
    */
   readonly taxCategory?: TaxCategoryResourceIdentifier
   /**
-   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
-   *
-   *
-   */
-  readonly custom?: CustomFieldsDraft
-  /**
-   *	Controls calculation of taxed prices for Line Items, Custom Line Items, and Shipping Methods as explained in [Cart tax calculation](ctp:api:type:CartTaxCalculation).
+   *	An external Tax Rate can be set if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
    *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
+  /**
+   *	Container for Custom Line Item-specific addresses.
+   *
+   *
+   */
+  readonly shippingDetails?: ItemShippingDetailsDraft
   /**
    *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget)
    *	are applied to the Custom Line Item.
@@ -426,61 +551,104 @@ export interface StagedOrderAddCustomLineItemAction {
    *
    */
   readonly priceMode?: CustomLineItemPriceMode
+  /**
+   *	Custom Fields for the Custom Line Item.
+   *
+   *
+   */
+  readonly custom?: CustomFieldsDraft
 }
+/**
+ *	A [Delivery](ctp:api:type:Delivery) can only be added to an [Order](ctp:api:type:Order) if
+ *	its `shippingInfo` (for `shippingMode` = `Single`), or its `shipping` (for `shippingMode` = `Multiple`) exists.
+ *
+ *	Produces the [Delivery Added](ctp:api:type:DeliveryAddedMessage) Message.
+ *
+ */
 export interface StagedOrderAddDeliveryAction {
   readonly action: 'addDelivery'
   /**
-   *	User-defined unique identifier of a Delivery.
+   *	`key` of an existing [Delivery](ctp:api:type:Delivery).
    *
    *
    */
   readonly deliveryKey?: string
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multi` [ShippingMode](ctp:api:type:ShippingMode).
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod), required for `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
   readonly shippingKey?: string
   /**
+   *	Items to be included in the Delivery.
+   *
    *
    */
   readonly items?: DeliveryItem[]
   /**
-   *	Polymorphic base type that represents a postal address and contact details.
-   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
-   *	only differ in the data type for the optional `custom` field.
+   *	Address the `parcels` should be delivered to.
    *
    *
    */
   readonly address?: _BaseAddress
   /**
+   *	Parcels of the Delivery.
+   *
+   *	If provided, this update action also produces the [Parcel Added To Delivery](ctp:api:type:ParcelAddedToDeliveryMessage) Message.
+   *
    *
    */
   readonly parcels?: ParcelDraft[]
   /**
-   *	Custom Fields for the Transaction.
+   *	Custom Fields for the Delivery.
+   *
    *
    */
   readonly custom?: CustomFieldsDraft
 }
+/**
+ *	Adds a [DiscountCode](ctp:api:type:DiscountCode) to the Cart to activate the related [Cart Discounts](/../api/projects/cartDiscounts).
+ *	Adding a Discount Code is only possible if no [DirectDiscount](ctp:api:type:DirectDiscount) has been applied to the Order.
+ *
+ *	The maximum number of Discount Codes in a Cart is restricted by a [limit](/../api/limits#carts).
+ *
+ *	Specific Error Code: [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError)
+ *
+ */
 export interface StagedOrderAddDiscountCodeAction {
   readonly action: 'addDiscountCode'
   /**
+   *	`code` of a [DiscountCode](ctp:api:type:DiscountCode).
+   *
    *
    */
   readonly code: string
 }
+/**
+ *	Adds an address to an Order when shipping to multiple addresses is desired.
+ *
+ */
 export interface StagedOrderAddItemShippingAddressAction {
   readonly action: 'addItemShippingAddress'
   /**
-   *	Polymorphic base type that represents a postal address and contact details.
-   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
-   *	only differ in the data type for the optional `custom` field.
+   *	Address to append to `itemShippingAddresses`.
+   *	The new Address must have a `key` that is unique across this Order.
    *
    *
    */
   readonly address: _BaseAddress
 }
+/**
+ *	If the Cart contains a [LineItem](ctp:api:type:LineItem) for a Product Variant with the same [LineItemMode](ctp:api:type:LineItemMode), [Custom Fields](/../api/projects/custom-fields), supply and distribution channel, then only the quantity of the existing Line Item is increased.
+ *	If [LineItem](ctp:api:type:LineItem) `shippingDetails` is set, it is merged. All addresses will be present afterwards and, for address keys present in both shipping details, the quantity will be summed up.
+ *	A new Line Item is added when the `externalPrice` or `externalTotalPrice` is set in this update action.
+ *	The [LineItem](ctp:api:type:LineItem) price is set as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *
+ *	If the Tax Rate is not set, a [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError) error is returned.
+ *
+ *	If the Line Items do not have a Price according to the [Product](ctp:api:type:Product) `priceMode` value for a selected currency and/or country, Customer Group, or Channel, a [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError) error is returned.
+ *
+ */
 export interface StagedOrderAddLineItemAction {
   readonly action: 'addLineItem'
   /**
@@ -490,91 +658,143 @@ export interface StagedOrderAddLineItemAction {
    */
   readonly key?: string
   /**
-   *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+   *	`id` of the published [Product](ctp:api:type:Product).
+   *
+   *	Either the `productId` and `variantId`, or `sku` must be provided.
    *
    *
    */
-  readonly custom?: CustomFieldsDraft
+  readonly productId?: string
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
+   *	`id` of the [ProductVariant](ctp:api:type:ProductVariant) in the Product.
+   *	If not provided, the Master Variant is used.
+   *
+   *	Either the `productId` and `variantId`, or `sku` must be provided.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	SKU of the [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *	Either the `productId` and `variantId`, or `sku` must be provided.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	Quantity of the Product Variant to add to the Cart.
+   *
+   *
+   */
+  readonly quantity?: number
+  /**
+   *	Date and time (UTC) the Product Variant is added to the Cart.
+   *	If not set, it defaults to the current date and time.
+   *
+   *	Optional for backwards compatibility reasons.
+   *
+   *
+   */
+  readonly addedAt?: string
+  /**
+   *	Used to [select](/../api/carts-orders-overview#line-item-price-selection) a Product Price.
+   *	The Channel must have the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *	If the Cart is bound to a [Store](ctp:api:type:Store) with `distributionChannels` set, the Channel must match one of the Store's distribution channels.
    *
    *
    */
   readonly distributionChannel?: ChannelResourceIdentifier
   /**
-   *	Controls calculation of taxed prices for Line Items, Custom Line Items, and Shipping Methods as explained in [Cart tax calculation](ctp:api:type:CartTaxCalculation).
-   *
-   *
-   */
-  readonly externalTaxRate?: ExternalTaxRateDraft
-  /**
-   *
-   */
-  readonly productId?: string
-  /**
-   *
-   */
-  readonly variantId?: number
-  /**
-   *
-   */
-  readonly sku?: string
-  /**
-   *
-   */
-  readonly quantity?: number
-  /**
-   *
-   */
-  readonly addedAt?: string
-  /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
+   *	Used to identify [Inventory entries](/../api/projects/inventory) that must be reserved.
+   *	The Channel must have the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
    *
    */
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
-   *	Draft type that stores amounts only in cent precision for the specified currency.
+   *	Sets the [LineItem](ctp:api:type:LineItem) `price` value, and the `priceMode` to `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
    *
    *
    */
   readonly externalPrice?: _Money
   /**
+   *	Sets the [LineItem](ctp:api:type:LineItem) `price` and `totalPrice` values, and the `priceMode` to `ExternalTotal` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+   *
    *
    */
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
   /**
-   *	For order creation and updates, the sum of the `targets` must match the quantity of the Line Items or Custom Line Items.
+   *	External Tax Rate for the Line Item, if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+   *
+   *
+   */
+  readonly externalTaxRate?: ExternalTaxRateDraft
+  /**
+   *	Inventory mode specific to the Line Item only, and valid for the entire `quantity` of the Line Item.
+   *	Set only if the inventory mode should be different from the `inventoryMode` specified on the [Cart](ctp:api:type:Cart).
+   *
+   *
+   */
+  readonly inventoryMode?: InventoryMode
+  /**
+   *	Container for Line Item-specific addresses.
    *
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
+  /**
+   *	Custom Fields for the Line Item.
+   *
+   *
+   */
+  readonly custom?: CustomFieldsDraft
 }
+/**
+ *	To add a Parcel, at least one [Delivery](ctp:api:type:Delivery) must exist.
+ *
+ *	Produces the [Parcel Added To Delivery](ctp:api:type:ParcelAddedToDeliveryMessage) Message.
+ *
+ */
 export interface StagedOrderAddParcelToDeliveryAction {
   readonly action: 'addParcelToDelivery'
   /**
-   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *	`id` of an existing [Delivery](ctp:api:type:Delivery).
+   *
+   *	Either `deliveryId` or `deliveryKey` must be provided.
+   *
    *
    */
   readonly deliveryId?: string
   /**
-   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *	`key` of an existing [Delivery](ctp:api:type:Delivery).
+   *
+   *	Either `deliveryId` or `deliveryKey` must be provided.
+   *
    *
    */
   readonly deliveryKey?: string
   /**
+   *	`key` of an existing [Parcel](ctp:api:type:Parcel).
+   *
    *
    */
   readonly parcelKey?: string
   /**
+   *	Value to set.
+   *
    *
    */
   readonly measurements?: ParcelMeasurements
   /**
+   *	Value to set.
+   *
    *
    */
   readonly trackingData?: TrackingData
   /**
+   *	Value to set.
+   *
    *
    */
   readonly items?: DeliveryItem[]
@@ -582,72 +802,126 @@ export interface StagedOrderAddParcelToDeliveryAction {
 export interface StagedOrderAddPaymentAction {
   readonly action: 'addPayment'
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Payment](ctp:api:type:Payment).
+   *	Payment to add to the [PaymentInfo](ctp:api:type:PaymentInfo).
+   *	Must not be assigned to another Order or active Cart already.
    *
    *
    */
   readonly payment: PaymentResourceIdentifier
 }
+/**
+ *	Produces the [Return Info Added](ctp:api:type:ReturnInfoAddedMessage) Message.
+ *
+ */
 export interface StagedOrderAddReturnInfoAction {
   readonly action: 'addReturnInfo'
   /**
+   *	Value to set.
+   *
    *
    */
   readonly returnTrackingId?: string
   /**
+   *	Items to be returned.
+   *	Must not be empty.
+   *
    *
    */
   readonly items: ReturnItemDraft[]
   /**
+   *	Value to set.
+   *	If not set, it defaults to the current date and time.
+   *
    *
    */
   readonly returnDate?: string
 }
+/**
+ *	Adds all [LineItems](ctp:api:type:LineItem) of a [ShoppingList](ctp:api:type:ShoppingList) to the Cart.
+ *
+ */
 export interface StagedOrderAddShoppingListAction {
   readonly action: 'addShoppingList'
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShoppingList](ctp:api:type:ShoppingList).
+   *	Shopping List that contains the Line Items to be added.
    *
    *
    */
   readonly shoppingList: ShoppingListResourceIdentifier
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
-   *
-   *
-   */
-  readonly supplyChannel?: ChannelResourceIdentifier
-  /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
+   *	`distributionChannel` to set for all [LineItems](ctp:api:type:LineItem) that are added to the Cart.
+   *	The Channel must have the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
    *
    */
   readonly distributionChannel?: ChannelResourceIdentifier
+  /**
+   *	`supplyChannel` to set for all [LineItems](ctp:api:type:LineItem) that are added to the Cart.
+   *	The Channel must have the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *
+   *
+   */
+  readonly supplyChannel?: ChannelResourceIdentifier
 }
 export interface StagedOrderChangeCustomLineItemMoneyAction {
   readonly action: 'changeCustomLineItemMoney'
   /**
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
   /**
-   *	Draft type that stores amounts only in cent precision for the specified currency.
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
+  /**
+   *	Value to set.
+   *	Must not be empty.
+   *	Can be a negative amount.
    *
    *
    */
   readonly money: _Money
 }
+/**
+ *	When multiple shipping addresses are set for a Custom Line Item, use the [Add CustomLineItem](ctp:api:type:StagedOrderAddCustomLineItemAction) update action to change the shipping details. Since it is not possible for the API to infer how the overall change in the Custom Line Item quantity should be distributed over the sub-quantities, the `shippingDetails` field is kept in its current state to avoid data loss.
+ *
+ *	To change the Custom Line Item quantity and shipping details together, use this update action in combination with the [Set CustomLineItem ShippingDetails](ctp:api:type:StagedOrderSetCustomLineItemShippingDetailsAction) update action in a single Order update command.
+ *
+ */
 export interface StagedOrderChangeCustomLineItemQuantityAction {
   readonly action: 'changeCustomLineItemQuantity'
   /**
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
   /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
+  /**
+   *	New value to set.
+   *	If `0`, the Custom Line Item is removed from the Order.
+   *
    *
    */
   readonly quantity: number
 }
+/**
+ *	When multiple shipping addresses are set for a Line Item, use the [Remove LineItem](ctp:api:type:StagedOrderRemoveLineItemAction) and [Add LineItem](ctp:api:type:StagedOrderAddLineItemAction) update action to change the shipping details. Since it is not possible for the API to infer how the overall change in the Line Item quantity should be distributed over the sub-quantities, the `shippingDetails` field is kept in its current state to avoid data loss.
+ *
+ *	To change the Line Item quantity and shipping details together, use this update action in combination with the [Set LineItem ShippingDetails](ctp:api:type:StagedOrderSetLineItemShippingDetailsAction) update action in a single Order update command.
+ *
+ *	The [LineItem](ctp:api:type:LineItem) price is updated as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *
+ */
 export interface StagedOrderChangeLineItemQuantityAction {
   readonly action: 'changeLineItemQuantity'
   /**
@@ -663,106 +937,198 @@ export interface StagedOrderChangeLineItemQuantityAction {
    */
   readonly lineItemKey?: string
   /**
+   *	New value to set.
+   *	If `0`, the LineItem is removed from the Order.
+   *
    *
    */
   readonly quantity: number
   /**
-   *	Draft type that stores amounts only in cent precision for the specified currency.
+   *	Sets the [LineItem](ctp:api:type:LineItem) `price` to the given value when changing the quantity of a Line Item with the `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+   *
+   *	The [LineItem](ctp:api:type:LineItem) price is updated as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
    *
    *
    */
   readonly externalPrice?: _Money
   /**
+   *	Sets the [LineItem](ctp:api:type:LineItem) `price` and `totalPrice` to the given value when changing the quantity of a Line Item with the `ExternalTotal` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+   *
    *
    */
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
 }
+/**
+ *	Produces the [Order State Changed](ctp:api:type:OrderStateChangedMessage) Message.
+ *
+ */
 export interface StagedOrderChangeOrderStateAction {
   readonly action: 'changeOrderState'
   /**
+   *	New status of the Order.
+   *
    *
    */
   readonly orderState: OrderState
 }
+/**
+ *	Produces the [Order Payment State Changed](ctp:api:type:OrderPaymentStateChangedMessage) Message.
+ *
+ */
 export interface StagedOrderChangePaymentStateAction {
   readonly action: 'changePaymentState'
   /**
+   *	New payment status of the Order.
+   *
    *
    */
-  readonly paymentState?: PaymentState
+  readonly paymentState: PaymentState
 }
+/**
+ *	Produces the [Order Shipment State Changed](ctp:api:type:OrderShipmentStateChangedMessage) Message.
+ *
+ */
 export interface StagedOrderChangeShipmentStateAction {
   readonly action: 'changeShipmentState'
   /**
+   *	New shipment status of the Order.
+   *
    *
    */
-  readonly shipmentState?: ShipmentState
+  readonly shipmentState: ShipmentState
 }
+/**
+ *	Changing the tax calculation mode leads to [recalculation of taxes](/../api/carts-orders-overview#cart-tax-calculation).
+ *
+ */
 export interface StagedOrderChangeTaxCalculationModeAction {
   readonly action: 'changeTaxCalculationMode'
   /**
-   *	Determines in which [Tax calculation mode](/carts-orders-overview#tax-calculation-mode) taxed prices are calculated.
+   *	New value to set.
    *
    *
    */
   readonly taxCalculationMode: TaxCalculationMode
 }
+/**
+ *	- When `External` [TaxMode](ctp:api:type:TaxMode) is changed to `Platform` or `Disabled`, all previously set external Tax Rates are removed.
+ *	- When set to `Platform`, Line Items, Custom Line Items, and Shipping Method require a Tax Category with a Tax Rate for the Cart's `shippingAddress`.
+ *
+ */
 export interface StagedOrderChangeTaxModeAction {
   readonly action: 'changeTaxMode'
   /**
-   *	Indicates how taxes are set on the Cart.
+   *	The new TaxMode.
    *
    *
    */
   readonly taxMode: TaxMode
 }
+/**
+ *	Changing the tax rounding mode leads to [recalculation of taxes](/../api/carts-orders-overview#cart-tax-calculation).
+ *
+ */
 export interface StagedOrderChangeTaxRoundingModeAction {
   readonly action: 'changeTaxRoundingMode'
   /**
-   *	Determines how monetary values are rounded.
+   *	New value to set.
    *
    *
    */
   readonly taxRoundingMode: RoundingMode
 }
+/**
+ *	The import of States does not follow any predefined rules and should be only used if no transitions are defined.
+ *	The `quantity` of the [ItemStates](ctp:api:type:ItemState) must match the sum of all Custom Line Item states' quantities.
+ *
+ */
 export interface StagedOrderImportCustomLineItemStateAction {
   readonly action: 'importCustomLineItemState'
   /**
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
   /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
+  /**
+   *	New status of the Custom Line Items.
+   *
    *
    */
   readonly state: ItemState[]
 }
+/**
+ *	The import of States does not follow any predefined rules and should be only used if no transitions are defined.
+ *	The `quantity` in the [ItemStates](ctp:api:type:ItemState) must match the sum of all Line Item states' quantities.
+ *
+ */
 export interface StagedOrderImportLineItemStateAction {
   readonly action: 'importLineItemState'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
   /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
+  /**
+   *	New status of the Line Items.
+   *
    *
    */
   readonly state: ItemState[]
 }
+/**
+ *	This update action does not support specifying a quantity, unlike the [Remove LineItem](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+ *
+ *	If `shippingDetails` must be partially removed, use the [Change CustomLineItem Quantity](ctp:api:type:StagedOrderChangeCustomLineItemQuantityAction) update action.
+ *
+ */
 export interface StagedOrderRemoveCustomLineItemAction {
   readonly action: 'removeCustomLineItem'
   /**
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
+  /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
 }
+/**
+ *	Produces the [DeliveryRemoved](ctp:api:type:DeliveryRemovedMessage) Message.
+ *
+ */
 export interface StagedOrderRemoveDeliveryAction {
   readonly action: 'removeDelivery'
   /**
-   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *	`id` of an existing [Delivery](ctp:api:type:Delivery).
+   *
+   *	Either `deliveryId` or `deliveryKey` must be provided.
+   *
    *
    */
   readonly deliveryId?: string
   /**
-   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *	`key` of an existing [Delivery](ctp:api:type:Delivery).
+   *
+   *	Either `deliveryId` or `deliveryKey` must be provided.
+   *
    *
    */
   readonly deliveryKey?: string
@@ -770,19 +1136,29 @@ export interface StagedOrderRemoveDeliveryAction {
 export interface StagedOrderRemoveDiscountCodeAction {
   readonly action: 'removeDiscountCode'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [DiscountCode](ctp:api:type:DiscountCode).
+   *	Discount Code to remove from the Cart.
    *
    *
    */
   readonly discountCode: DiscountCodeReference
 }
+/**
+ *	An address can only be removed if it is not referenced in any [ItemShippingTarget](ctp:api:type:ItemShippingTarget) of the Cart.
+ *
+ */
 export interface StagedOrderRemoveItemShippingAddressAction {
   readonly action: 'removeItemShippingAddress'
   /**
+   *	`key` of the Address to remove from `itemShippingAddresses`.
+   *
    *
    */
   readonly addressKey: string
 }
+/**
+ *	The [LineItem](ctp:api:type:LineItem) price is updated as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *
+ */
 export interface StagedOrderRemoveLineItemAction {
   readonly action: 'removeLineItem'
   /**
@@ -798,35 +1174,50 @@ export interface StagedOrderRemoveLineItemAction {
    */
   readonly lineItemKey?: string
   /**
+   *	New value to set.
+   *	If absent or `0`, the Line Item is removed from the Cart.
+   *
    *
    */
   readonly quantity?: number
   /**
-   *	Draft type that stores amounts only in cent precision for the specified currency.
+   *	Sets the [LineItem](ctp:api:type:LineItem) `price` to the given value when decreasing the quantity of a Line Item with the `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
    *
    *
    */
   readonly externalPrice?: _Money
   /**
+   *	Sets the [LineItem](ctp:api:type:LineItem) `price` and `totalPrice` to the given value when decreasing the quantity of a Line Item with the `ExternalTotal` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+   *
    *
    */
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
   /**
-   *	For order creation and updates, the sum of the `targets` must match the quantity of the Line Items or Custom Line Items.
+   *	Container for Line Item-specific addresses to remove.
    *
    *
    */
   readonly shippingDetailsToRemove?: ItemShippingDetailsDraft
 }
+/**
+ *	Produces the [ParcelRemovedFromDelivery](ctp:api:type:ParcelRemovedFromDeliveryMessage) Message.
+ *
+ */
 export interface StagedOrderRemoveParcelFromDeliveryAction {
   readonly action: 'removeParcelFromDelivery'
   /**
-   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *	`id` of an existing [Parcel](ctp:api:type:Parcel).
+   *
+   *	Either `parcelId` or `parcelKey` must be provided.
+   *
    *
    */
   readonly parcelId?: string
   /**
-   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *	`key` of an existing [Parcel](ctp:api:type:Parcel).
+   *
+   *	Either `parcelId` or `parcelKey` must be provided.
+   *
    *
    */
   readonly parcelKey?: string
@@ -834,18 +1225,23 @@ export interface StagedOrderRemoveParcelFromDeliveryAction {
 export interface StagedOrderRemovePaymentAction {
   readonly action: 'removePayment'
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Payment](ctp:api:type:Payment).
+   *	Payment to remove from the [PaymentInfo](ctp:api:type:PaymentInfo).
    *
    *
    */
   readonly payment: PaymentResourceIdentifier
 }
+/**
+ *	This action updates the `billingAddress` on the Order, but it does not change the billing address on the referenced [Cart](ctp:api:type:Cart) from which the Order is created.
+ *
+ *	Produces the [Order Billing Address Set](ctp:api:type:OrderBillingAddressSetMessage) Message.
+ *
+ */
 export interface StagedOrderSetBillingAddressAction {
   readonly action: 'setBillingAddress'
   /**
-   *	Polymorphic base type that represents a postal address and contact details.
-   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
-   *	only differ in the data type for the optional `custom` field.
+   *	Value to set.
+   *	If empty, any existing value is removed.
    *
    *
    */
@@ -884,9 +1280,19 @@ export interface StagedOrderSetBillingAddressCustomTypeAction {
    */
   readonly fields?: FieldContainer
 }
+/**
+ *	Setting the country can lead to changes in the [LineItem](ctp:api:type:LineItem) prices.
+ *
+ */
 export interface StagedOrderSetCountryAction {
   readonly action: 'setCountry'
   /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
+   *	If the Cart is bound to a `store`, the provided value must be included in the [Store](ctp:api:type:Store)'s `countries`.
+   *	Otherwise a [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError) error is returned.
+   *
    *
    */
   readonly country?: string
@@ -911,9 +1317,17 @@ export interface StagedOrderSetCustomFieldAction {
 export interface StagedOrderSetCustomLineItemCustomFieldAction {
   readonly action: 'setCustomLineItemCustomField'
   /**
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
+  /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
@@ -932,18 +1346,26 @@ export interface StagedOrderSetCustomLineItemCustomFieldAction {
 export interface StagedOrderSetCustomLineItemCustomTypeAction {
   readonly action: 'setCustomLineItemCustomType'
   /**
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the CustomLineItem with [Custom Fields](/../api/projects/custom-fields).
-   *	If absent, any existing Type and Custom Fields are removed from the CustomLineItem.
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
+  /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the Custom Line Item with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the Custom Line Item.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the CustomLineItem.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Custom Line Item.
    *
    *
    */
@@ -952,65 +1374,105 @@ export interface StagedOrderSetCustomLineItemCustomTypeAction {
 export interface StagedOrderSetCustomLineItemShippingDetailsAction {
   readonly action: 'setCustomLineItemShippingDetails'
   /**
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
   /**
-   *	For order creation and updates, the sum of the `targets` must match the quantity of the Line Items or Custom Line Items.
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
+  /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
    *
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
 }
+/**
+ *	Can be used if the Cart has the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode).
+ *
+ */
 export interface StagedOrderSetCustomLineItemTaxAmountAction {
   readonly action: 'setCustomLineItemTaxAmount'
   /**
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
   /**
-   *	Cannot be used in [LineItemDraft](ctp:api:type:LineItemDraft) or [CustomLineItemDraft](ctp:api:type:CustomLineItemDraft).
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
    *
-   *	Can only be set by these update actions:
    *
-   *	- [Set LineItem TaxAmount](ctp:api:type:CartSetLineItemTaxAmountAction), [Set CustomLineItem TaxAmount](ctp:api:type:CartSetCustomLineItemTaxAmountAction), or [Set ShippingMethod TaxAmount](ctp:api:type:CartSetShippingMethodTaxAmountAction) on Carts
-   *	- [Set LineItem TaxAmount](ctp:api:type:OrderEditSetLineItemTaxAmountAction), [Set CustomLineItem TaxAmount](ctp:api:type:OrderEditSetCustomLineItemTaxAmountAction), or [Set ShippingMethod TaxAmount](ctp:api:type:OrderEditSetShippingMethodTaxAmountAction) on Order Edits
+   */
+  readonly customLineItemKey?: string
+  /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
    *
    *
    */
   readonly externalTaxAmount?: ExternalTaxAmountDraft
 }
+/**
+ *	Can be used if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+ *
+ */
 export interface StagedOrderSetCustomLineItemTaxRateAction {
   readonly action: 'setCustomLineItemTaxRate'
   /**
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
   /**
-   *	Controls calculation of taxed prices for Line Items, Custom Line Items, and Shipping Methods as explained in [Cart tax calculation](ctp:api:type:CartTaxCalculation).
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
+  /**
+   *	Value to set.
+   *	If empty, an existing value is removed.
    *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
 }
+/**
+ *	To set the Cart's custom Shipping Method (independent of the [ShippingMethods](ctp:api:type:ShippingMethod) managed through the [Shipping Methods API](/../api/projects/shippingMethods)) the Cart must have the `Single` [ShippingMode](ctp:api:type:ShippingMode) and a `shippingAddress`.
+ *
+ *	To unset a custom Shipping Method on a Cart, use the [Set ShippingMethod](ctp:api:type:StagedOrderSetShippingMethodAction) update action without the `shippingMethod` field instead.
+ *
+ */
 export interface StagedOrderSetCustomShippingMethodAction {
   readonly action: 'setCustomShippingMethod'
   /**
+   *	Name of the custom Shipping Method.
+   *
    *
    */
   readonly shippingMethodName: string
   /**
+   *	Determines the shipping price.
+   *
    *
    */
   readonly shippingRate: ShippingRateDraft
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
+   *	Tax Category used to determine the Tax Rate when the Cart has the `Platform` [TaxMode](ctp:api:type:TaxMode).
    *
    *
    */
   readonly taxCategory?: TaxCategoryResourceIdentifier
   /**
-   *	Controls calculation of taxed prices for Line Items, Custom Line Items, and Shipping Methods as explained in [Cart tax calculation](ctp:api:type:CartTaxCalculation).
+   *	External Tax Rate for the `shippingRate` to be set if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
    *
    *
    */
@@ -1019,58 +1481,93 @@ export interface StagedOrderSetCustomShippingMethodAction {
 export interface StagedOrderSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the StagedOrder with [Custom Fields](/../api/projects/custom-fields).
-   *	If absent, any existing Type and Custom Fields are removed from the StagedOrder.
+   *	Defines the [Type](ctp:api:type:Type) that extends the Order Edit with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the Order Edit.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the StagedOrder.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Order Edit.
    *
    *
    */
   readonly fields?: FieldContainer
 }
+/**
+ *	This action updates the `customerEmail` on the Order, but it does not change the Customer email on the [Cart](ctp:api:type:Cart) the Order has been created from.
+ *
+ *	Produces the [Order Customer Email Set](ctp:api:type:OrderCustomerEmailSetMessage) Message.
+ *
+ */
 export interface StagedOrderSetCustomerEmailAction {
   readonly action: 'setCustomerEmail'
   /**
+   *	Value to set.
+   *	If empty, any existing value will be removed.
+   *
    *
    */
   readonly email?: string
 }
+/**
+ *	This update action can only be used if a Customer is not assigned to a Cart. If a Customer is already assigned, the Cart has the same Customer Group as the assigned Customer.
+ *
+ *	Setting the Customer Group also updates the [LineItem](ctp:api:type:LineItem) `prices` according to the Customer Group.
+ *
+ */
 export interface StagedOrderSetCustomerGroupAction {
   readonly action: 'setCustomerGroup'
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+   *	Value to set.
+   *	If empty, any existing value is removed.
    *
    *
    */
   readonly customerGroup?: CustomerGroupResourceIdentifier
 }
+/**
+ *	Setting the Order's `customerId` does not recalculate prices or discounts on the Order.
+ *	If the Customer belongs to a Customer Group, `customerGroup` on the [Order](ctp:api:type:Order) is updated automatically.
+ *
+ *	Produces the [OrderCustomerSet](ctp:api:type:OrderCustomerSetMessage) Message.
+ *
+ */
 export interface StagedOrderSetCustomerIdAction {
   readonly action: 'setCustomerId'
   /**
+   *	`id` of an existing [Customer](ctp:api:type:Customer).
+   *	If empty, any existing value is removed.
+   *
    *
    */
   readonly customerId?: string
 }
+/**
+ *	Produces the [DeliveryAddressSet](ctp:api:type:DeliveryAddressSetMessage) Message.
+ *
+ */
 export interface StagedOrderSetDeliveryAddressAction {
   readonly action: 'setDeliveryAddress'
   /**
-   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *	`id` of an existing [Delivery](ctp:api:type:Delivery).
+   *
+   *	Either `deliveryId` or `deliveryKey` must be provided.
+   *
    *
    */
   readonly deliveryId?: string
   /**
-   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *	`key` of an existing [Delivery](ctp:api:type:Delivery).
+   *
+   *	Either `deliveryId` or `deliveryKey` must be provided.
+   *
    *
    */
   readonly deliveryKey?: string
   /**
-   *	Polymorphic base type that represents a postal address and contact details.
-   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
-   *	only differ in the data type for the optional `custom` field.
+   *	Value to set.
+   *	If empty, any existing value will be removed.
    *
    *
    */
@@ -1079,12 +1576,18 @@ export interface StagedOrderSetDeliveryAddressAction {
 export interface StagedOrderSetDeliveryAddressCustomFieldAction {
   readonly action: 'setDeliveryAddressCustomField'
   /**
-   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *	`id` of an existing [Delivery](ctp:api:type:Delivery).
+   *
+   *	Either `deliveryId` or `deliveryKey` must be provided.
+   *
    *
    */
   readonly deliveryId?: string
   /**
-   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *	`key` of an existing [Delivery](ctp:api:type:Delivery).
+   *
+   *	Either `deliveryId` or `deliveryKey` must be provided.
+   *
    *
    */
   readonly deliveryKey?: string
@@ -1106,24 +1609,30 @@ export interface StagedOrderSetDeliveryAddressCustomFieldAction {
 export interface StagedOrderSetDeliveryAddressCustomTypeAction {
   readonly action: 'setDeliveryAddressCustomType'
   /**
-   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *	`id` of an existing [Delivery](ctp:api:type:Delivery).
+   *
+   *	Either `deliveryId` or `deliveryKey` must be provided.
+   *
    *
    */
   readonly deliveryId?: string
   /**
-   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *	`key` of an existing [Delivery](ctp:api:type:Delivery).
+   *
+   *	Either `deliveryId` or `deliveryKey` must be provided.
+   *
    *
    */
   readonly deliveryKey?: string
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the `address` in a Delivery with [Custom Fields](/../api/projects/custom-fields).
-   *	If absent, any existing Type and Custom Fields are removed from the `address` in a Delivery.
+   *	Defines the [Type](ctp:api:type:Type) that extends the [Delivery](ctp:api:type:Delivery) `address` with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the [Delivery](ctp:api:type:Delivery) `address`.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `address` in a Delivery.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the [Delivery](ctp:api:type:Delivery) `address`.
    *
    *
    */
@@ -1132,12 +1641,18 @@ export interface StagedOrderSetDeliveryAddressCustomTypeAction {
 export interface StagedOrderSetDeliveryCustomFieldAction {
   readonly action: 'setDeliveryCustomField'
   /**
-   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *	`id` of an existing [Delivery](ctp:api:type:Delivery).
+   *
+   *	Either `deliveryId` or `deliveryKey` must be provided.
+   *
    *
    */
   readonly deliveryId?: string
   /**
-   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *	`key` of an existing [Delivery](ctp:api:type:Delivery).
+   *
+   *	Either `deliveryId` or `deliveryKey` must be provided.
+   *
    *
    */
   readonly deliveryKey?: string
@@ -1159,12 +1674,18 @@ export interface StagedOrderSetDeliveryCustomFieldAction {
 export interface StagedOrderSetDeliveryCustomTypeAction {
   readonly action: 'setDeliveryCustomType'
   /**
-   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *	`id` of an existing [Delivery](ctp:api:type:Delivery).
+   *
+   *	Either `deliveryId` or `deliveryKey` must be provided.
+   *
    *
    */
   readonly deliveryId?: string
   /**
-   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *	`key` of an existing [Delivery](ctp:api:type:Delivery).
+   *
+   *	Either `deliveryId` or `deliveryKey` must be provided.
+   *
    *
    */
   readonly deliveryKey?: string
@@ -1182,26 +1703,57 @@ export interface StagedOrderSetDeliveryCustomTypeAction {
    */
   readonly fields?: FieldContainer
 }
+/**
+ *	Produces the [Delivery Items Updated](ctp:api:type:DeliveryItemsUpdatedMessage) Message.
+ *
+ */
 export interface StagedOrderSetDeliveryItemsAction {
   readonly action: 'setDeliveryItems'
   /**
-   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *	`id` of an existing [Delivery](ctp:api:type:Delivery).
+   *
+   *	Either `deliveryId` or `deliveryKey` must be provided.
+   *
    *
    */
   readonly deliveryId?: string
   /**
-   *	Either `deliveryId` or `deliveryKey` is required for this update action.
+   *	`key` of an existing [Delivery](ctp:api:type:Delivery).
+   *
+   *	Either `deliveryId` or `deliveryKey` must be provided.
+   *
    *
    */
   readonly deliveryKey?: string
   /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
    *
    */
   readonly items: DeliveryItem[]
 }
+/**
+ *	Adds a [DirectDiscount](ctp:api:type:DirectDiscount), but only if no [DiscountCode](ctp:api:type:DiscountCode) has been added to the Order.
+ *	Either a Discount Code or a Direct Discount can exist on a Order at the same time.
+ *
+ */
+export interface StagedOrderSetDirectDiscountsAction {
+  readonly action: 'setDirectDiscounts'
+  /**
+   *	- If set, all existing Direct Discounts are replaced.
+   *	  The discounts apply in the order they are added to the list.
+   *	- If empty, all existing Direct Discounts are removed and all affected prices on the Order are recalculated.
+   *
+   *
+   */
+  readonly discounts: DirectDiscountDraft[]
+}
 export interface StagedOrderSetItemShippingAddressCustomFieldAction {
   readonly action: 'setItemShippingAddressCustomField'
   /**
+   *	`key` of the [Address](ctp:api:type:Address) in `itemShippingAddresses`.
+   *
    *
    */
   readonly addressKey: string
@@ -1223,6 +1775,8 @@ export interface StagedOrderSetItemShippingAddressCustomFieldAction {
 export interface StagedOrderSetItemShippingAddressCustomTypeAction {
   readonly action: 'setItemShippingAddressCustomType'
   /**
+   *	`key` of the [Address](ctp:api:type:Address) in `itemShippingAddresses`.
+   *
    *
    */
   readonly addressKey: string
@@ -1284,19 +1838,25 @@ export interface StagedOrderSetLineItemCustomTypeAction {
    */
   readonly lineItemKey?: string
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the LineItem with [Custom Fields](/../api/projects/custom-fields).
-   *	If absent, any existing Type and Custom Fields are removed from the LineItem.
+   *	Defines the [Type](ctp:api:type:Type) that extends the Line Item with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the Line Item.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the LineItem.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Line Item.
    *
    *
    */
   readonly fields?: FieldContainer
 }
+/**
+ *	Setting a distribution channel for a [LineItem](ctp:api:type:LineItem) can lead to an updated `price` as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *
+ *	Produces the [OrderLineItemDistributionChannelSet](ctp:api:type:OrderLineItemDistributionChannelSetMessage) Message.
+ *
+ */
 export interface StagedOrderSetLineItemDistributionChannelAction {
   readonly action: 'setLineItemDistributionChannel'
   /**
@@ -1312,12 +1872,18 @@ export interface StagedOrderSetLineItemDistributionChannelAction {
    */
   readonly lineItemKey?: string
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
+   *	- If present, a [Reference](ctp:api:type:Reference) to the Channel is set for the [LineItem](ctp:api:type:LineItem) specified by `lineItemId`.
+   *	- If not present, the current [Reference](ctp:api:type:Reference) to a distribution channel is removed from the [LineItem](ctp:api:type:LineItem) specified by `lineItemId`.
+   *	  The Channel must have the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
    *
    */
   readonly distributionChannel?: ChannelResourceIdentifier
 }
+/**
+ *	Sets the [LineItem](ctp:api:type:LineItem) `price` and changes the `priceMode` to `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+ *
+ */
 export interface StagedOrderSetLineItemPriceAction {
   readonly action: 'setLineItemPrice'
   /**
@@ -1333,7 +1899,8 @@ export interface StagedOrderSetLineItemPriceAction {
    */
   readonly lineItemKey?: string
   /**
-   *	Draft type that stores amounts only in cent precision for the specified currency.
+   *	Value to set.
+   *	If `externalPrice` is not given and the `priceMode` is `ExternalPrice`, the external price is unset and the `priceMode` is set to `Platform`.
    *
    *
    */
@@ -1354,12 +1921,17 @@ export interface StagedOrderSetLineItemShippingDetailsAction {
    */
   readonly lineItemKey?: string
   /**
-   *	For order creation and updates, the sum of the `targets` must match the quantity of the Line Items or Custom Line Items.
+   *	Value to set.
+   *	If empty, the existing value is removed.
    *
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
 }
+/**
+ *	Can be used if the Cart has the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode).
+ *
+ */
 export interface StagedOrderSetLineItemTaxAmountAction {
   readonly action: 'setLineItemTaxAmount'
   /**
@@ -1375,24 +1947,24 @@ export interface StagedOrderSetLineItemTaxAmountAction {
    */
   readonly lineItemKey?: string
   /**
-   *	Cannot be used in [LineItemDraft](ctp:api:type:LineItemDraft) or [CustomLineItemDraft](ctp:api:type:CustomLineItemDraft).
-   *
-   *	Can only be set by these update actions:
-   *
-   *	- [Set LineItem TaxAmount](ctp:api:type:CartSetLineItemTaxAmountAction), [Set CustomLineItem TaxAmount](ctp:api:type:CartSetCustomLineItemTaxAmountAction), or [Set ShippingMethod TaxAmount](ctp:api:type:CartSetShippingMethodTaxAmountAction) on Carts
-   *	- [Set LineItem TaxAmount](ctp:api:type:OrderEditSetLineItemTaxAmountAction), [Set CustomLineItem TaxAmount](ctp:api:type:OrderEditSetCustomLineItemTaxAmountAction), or [Set ShippingMethod TaxAmount](ctp:api:type:OrderEditSetShippingMethodTaxAmountAction) on Order Edits
+   *	Value to set.
+   *	If empty, any existing value will be removed.
    *
    *
    */
   readonly externalTaxAmount?: ExternalTaxAmountDraft
   /**
-   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) used for this Line Item.```
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) used for this Line Item.
    *	This is required for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
   readonly shippingKey?: string
 }
+/**
+ *	Can be used if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+ *
+ */
 export interface StagedOrderSetLineItemTaxRateAction {
   readonly action: 'setLineItemTaxRate'
   /**
@@ -1408,7 +1980,8 @@ export interface StagedOrderSetLineItemTaxRateAction {
    */
   readonly lineItemKey?: string
   /**
-   *	Controls calculation of taxed prices for Line Items, Custom Line Items, and Shipping Methods as explained in [Cart tax calculation](ctp:api:type:CartTaxCalculation).
+   *	Value to set.
+   *	If empty, any existing value will be removed.
    *
    *
    */
@@ -1421,6 +1994,10 @@ export interface StagedOrderSetLineItemTaxRateAction {
    */
   readonly shippingKey?: string
 }
+/**
+ *	Sets the [LineItem](ctp:api:type:LineItem) `totalPrice` and `price`, and changes the `priceMode` to `ExternalTotal` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+ *
+ */
 export interface StagedOrderSetLineItemTotalPriceAction {
   readonly action: 'setLineItemTotalPrice'
   /**
@@ -1436,6 +2013,9 @@ export interface StagedOrderSetLineItemTotalPriceAction {
    */
   readonly lineItemKey?: string
   /**
+   *	Value to set.
+   *	If `externalTotalPrice` is not given and the `priceMode` is `ExternalTotal`, the external price is unset and the `priceMode` is set to `Platform`.
+   *
    *
    */
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
@@ -1443,6 +2023,10 @@ export interface StagedOrderSetLineItemTotalPriceAction {
 export interface StagedOrderSetLocaleAction {
   readonly action: 'setLocale'
   /**
+   *	Value to set.
+   *	Must be one of the [Project](ctp:api:type:Project)'s languages.
+   *	If empty, any existing value is removed.
+   *
    *
    */
   readonly locale?: string
@@ -1450,19 +2034,28 @@ export interface StagedOrderSetLocaleAction {
 export interface StagedOrderSetOrderNumberAction {
   readonly action: 'setOrderNumber'
   /**
+   *	Value to set. Must be unique across a Project.
+   *	Once set, the value cannot be changed.
+   *
    *
    */
   readonly orderNumber?: string
 }
+/**
+ *	Updates the total tax amount of the Order if it has the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode).
+ *
+ */
 export interface StagedOrderSetOrderTotalTaxAction {
   readonly action: 'setOrderTotalTax'
   /**
-   *	Draft type that stores amounts only in cent precision for the specified currency.
+   *	Total gross amount of the Order (totalNet + taxes).
    *
    *
    */
   readonly externalTotalGross: _Money
   /**
+   *	Value to set.
+   *
    *
    */
   readonly externalTaxPortions?: TaxPortionDraft[]
@@ -1470,12 +2063,18 @@ export interface StagedOrderSetOrderTotalTaxAction {
 export interface StagedOrderSetParcelCustomFieldAction {
   readonly action: 'setParcelCustomField'
   /**
-   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *	`id` of an existing [Parcel](ctp:api:type:Parcel).
+   *
+   *	Either `parcelId` or `parcelKey` must be provided.
+   *
    *
    */
   readonly parcelId?: string
   /**
-   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *	`key` of an existing [Parcel](ctp:api:type:Parcel).
+   *
+   *	Either `parcelId` or `parcelKey` must be provided.
+   *
    *
    */
   readonly parcelKey?: string
@@ -1497,12 +2096,18 @@ export interface StagedOrderSetParcelCustomFieldAction {
 export interface StagedOrderSetParcelCustomTypeAction {
   readonly action: 'setParcelCustomType'
   /**
-   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *	`id` of an existing [Parcel](ctp:api:type:Parcel).
+   *
+   *	Either `parcelId` or `parcelKey` must be provided.
+   *
    *
    */
   readonly parcelId?: string
   /**
-   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *	`key` of an existing [Parcel](ctp:api:type:Parcel).
+   *
+   *	Either `parcelId` or `parcelKey` must be provided.
+   *
    *
    */
   readonly parcelKey?: string
@@ -1520,69 +2125,119 @@ export interface StagedOrderSetParcelCustomTypeAction {
    */
   readonly fields?: FieldContainer
 }
+/**
+ *	Produces the [ParcelItemsUpdated](ctp:api:type:ParcelItemsUpdatedMessage) Message.
+ *
+ */
 export interface StagedOrderSetParcelItemsAction {
   readonly action: 'setParcelItems'
   /**
-   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *	`id` of an existing [Parcel](ctp:api:type:Parcel).
+   *
+   *	Either `parcelId` or `parcelKey` must be provided.
+   *
    *
    */
   readonly parcelId?: string
   /**
-   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *	`key` of an existing [Parcel](ctp:api:type:Parcel).
+   *
+   *	Either `parcelId` or `parcelKey` must be provided.
+   *
    *
    */
   readonly parcelKey?: string
   /**
+   *	Value to set.
+   *	If empty, any existing value will be removed.
+   *
    *
    */
   readonly items: DeliveryItem[]
 }
+/**
+ *	Produces the [ParcelMeasurementsUpdated](ctp:api:type:ParcelMeasurementsUpdatedMessage) Message.
+ *
+ */
 export interface StagedOrderSetParcelMeasurementsAction {
   readonly action: 'setParcelMeasurements'
   /**
-   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *	`id` of an existing [Parcel](ctp:api:type:Parcel).
+   *
+   *	Either `parcelId` or `parcelKey` must be provided.
+   *
    *
    */
   readonly parcelId?: string
   /**
-   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *	`key` of an existing [Parcel](ctp:api:type:Parcel).
+   *
+   *	Either `parcelId` or `parcelKey` must be provided.
+   *
    *
    */
   readonly parcelKey?: string
   /**
+   *	Value to set.
+   *	If empty, any existing value will be removed.
+   *
    *
    */
   readonly measurements?: ParcelMeasurements
 }
+/**
+ *	Produces the [ParcelTrackingDataUpdated](ctp:api:type:ParcelTrackingDataUpdatedMessage) Message.
+ *
+ */
 export interface StagedOrderSetParcelTrackingDataAction {
   readonly action: 'setParcelTrackingData'
   /**
-   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *	`id` of an existing [Parcel](ctp:api:type:Parcel).
+   *
+   *	Either `parcelId` or `parcelKey` must be provided.
+   *
    *
    */
   readonly parcelId?: string
   /**
-   *	Either `parcelId` or `parcelKey` is required for this update action.
+   *	`key` of an existing [Parcel](ctp:api:type:Parcel).
+   *
+   *	Either `parcelId` or `parcelKey` must be provided.
+   *
    *
    */
   readonly parcelKey?: string
   /**
+   *	Value to set.
+   *	If empty, any existing value will be removed.
+   *
    *
    */
   readonly trackingData?: TrackingData
 }
+/**
+ *	Produces the [PurchaseOrderNumberSet](ctp:api:type:OrderPurchaseOrderNumberSetMessage) Message.
+ *
+ */
 export interface StagedOrderSetPurchaseOrderNumberAction {
   readonly action: 'setPurchaseOrderNumber'
   /**
-   *	Identifier for a purchase order, usually in a B2B context.
-   *	The Purchase Order Number is typically entered by the [Buyer](/quotes-overview#buyer) and can also be used with [Quotes](/quotes-overview).
+   *	Value to set.
+   *
    *
    */
   readonly purchaseOrderNumber?: string
 }
+/**
+ *	Produces the [Return Info Set](ctp:api:type:ReturnInfoSetMessage) Message.
+ *
+ */
 export interface StagedOrderSetReturnInfoAction {
   readonly action: 'setReturnInfo'
   /**
+   *	Value to set.
+   *	If empty, any existing value will be removed.
+   *
    *
    */
   readonly items?: ReturnInfoDraft[]
@@ -1590,9 +2245,17 @@ export interface StagedOrderSetReturnInfoAction {
 export interface StagedOrderSetReturnItemCustomFieldAction {
   readonly action: 'setReturnItemCustomField'
   /**
+   *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
+   *
    *
    */
-  readonly returnItemId: string
+  readonly returnItemId?: string
+  /**
+   *	`key` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
+   *
+   *
+   */
+  readonly returnItemKey?: string
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
@@ -1611,105 +2274,157 @@ export interface StagedOrderSetReturnItemCustomFieldAction {
 export interface StagedOrderSetReturnItemCustomTypeAction {
   readonly action: 'setReturnItemCustomType'
   /**
+   *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
+   *
    *
    */
-  readonly returnItemId: string
+  readonly returnItemId?: string
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the ReturnItem with [Custom Fields](/../api/projects/custom-fields).
-   *	If absent, any existing Type and Custom Fields are removed from the ReturnItem.
+   *	`key` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
+   *
+   *
+   */
+  readonly returnItemKey?: string
+  /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the Return Item with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the Return Item.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the ReturnItem.
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Return Item.
    *
    *
    */
   readonly fields?: FieldContainer
 }
+/**
+ *	To set a [ReturnPaymentState](ctp:api:type:ReturnPaymentState), the [Order](ctp:api:type:Order) `returnInfo` must have at least one [ReturnItem](ctp:api:type:ReturnItem).
+ *
+ */
 export interface StagedOrderSetReturnPaymentStateAction {
   readonly action: 'setReturnPaymentState'
   /**
+   *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
+   *
    *
    */
-  readonly returnItemId: string
+  readonly returnItemId?: string
   /**
+   *	`key` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
+   *
+   *
+   */
+  readonly returnItemKey?: string
+  /**
+   *	New Payment status of the [ReturnItem](ctp:api:type:ReturnItem).
+   *
    *
    */
   readonly paymentState: ReturnPaymentState
 }
+/**
+ *	To set a `ReturnShipmentState`, the [Order](ctp:api:type:Order) `returnInfo` must have at least one [ReturnItem](ctp:api:type:ReturnItem).
+ *
+ *	Produces the [Order Return Shipment State Changed](ctp:api:type:OrderReturnShipmentStateChangedMessage) Message.
+ *
+ */
 export interface StagedOrderSetReturnShipmentStateAction {
   readonly action: 'setReturnShipmentState'
   /**
+   *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
+   *
    *
    */
-  readonly returnItemId: string
+  readonly returnItemId?: string
   /**
+   *	`key` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
+   *
+   *
+   */
+  readonly returnItemKey?: string
+  /**
+   *	New shipment state of the [ReturnItem](ctp:api:type:ReturnItem).
+   *
    *
    */
   readonly shipmentState: ReturnShipmentState
 }
+/**
+ *	This action updates the `shippingAddress` on the Order, but it does not change the shipping address on the referenced [Cart](ctp:api:type:Cart) from which the Order is created.
+ *	Also, it does not recalculate the Cart as taxes may not fit to the shipping address anymore.
+ *
+ *	Produces the [Order Shipping Address Set](ctp:api:type:OrderShippingAddressSetMessage) Message.
+ *
+ */
 export interface StagedOrderSetShippingAddressAction {
   readonly action: 'setShippingAddress'
   /**
-   *	Polymorphic base type that represents a postal address and contact details.
-   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
-   *	only differ in the data type for the optional `custom` field.
+   *	Value to set.
+   *	If empty, any existing value is removed.
    *
    *
    */
   readonly address?: _BaseAddress
 }
+/**
+ *	Sets the shipping address and a custom Shipping Method together to prevent an inconsistent state.
+ *
+ */
 export interface StagedOrderSetShippingAddressAndCustomShippingMethodAction {
   readonly action: 'setShippingAddressAndCustomShippingMethod'
   /**
-   *	Polymorphic base type that represents a postal address and contact details.
-   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
-   *	only differ in the data type for the optional `custom` field.
+   *	Value to set for `shippingAddress`.
    *
    *
    */
   readonly address: _BaseAddress
   /**
+   *	Value to set.
+   *
    *
    */
   readonly shippingMethodName: string
   /**
+   *	Value to set.
+   *
    *
    */
   readonly shippingRate: ShippingRateDraft
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
+   *	Used to select a Tax Rate when the Order has the `Platform` [TaxMode](ctp:api:type:TaxMode).
    *
    *
    */
   readonly taxCategory?: TaxCategoryResourceIdentifier
   /**
-   *	Controls calculation of taxed prices for Line Items, Custom Line Items, and Shipping Methods as explained in [Cart tax calculation](ctp:api:type:CartTaxCalculation).
+   *	An external Tax Rate can be set if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
    *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
 }
+/**
+ *	Sets the shipping address and Shipping Method together to prevent an inconsistent state.
+ *
+ */
 export interface StagedOrderSetShippingAddressAndShippingMethodAction {
   readonly action: 'setShippingAddressAndShippingMethod'
   /**
-   *	Polymorphic base type that represents a postal address and contact details.
-   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
-   *	only differ in the data type for the optional `custom` field.
+   *	Value to set for `shippingAddress`.
    *
    *
    */
   readonly address: _BaseAddress
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod).
+   *	Value to set.
    *
    *
    */
   readonly shippingMethod?: ShippingMethodResourceIdentifier
   /**
-   *	Controls calculation of taxed prices for Line Items, Custom Line Items, and Shipping Methods as explained in [Cart tax calculation](ctp:api:type:CartTaxCalculation).
+   *	An external Tax Rate can be set if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
    *
    *
    */
@@ -1748,21 +2463,30 @@ export interface StagedOrderSetShippingAddressCustomTypeAction {
    */
   readonly fields?: FieldContainer
 }
+/**
+ *	To set the Cart's Shipping Method, the Cart must have the `Single` [ShippingMode](ctp:api:type:ShippingMode) and a `shippingAddress`.
+ *
+ */
 export interface StagedOrderSetShippingMethodAction {
   readonly action: 'setShippingMethod'
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod).
+   *	Value to set. If empty, any existing value will be removed.
+   *	If the referenced Shipping Method has a predicate that does not match the Cart, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */
   readonly shippingMethod?: ShippingMethodResourceIdentifier
   /**
-   *	Controls calculation of taxed prices for Line Items, Custom Line Items, and Shipping Methods as explained in [Cart tax calculation](ctp:api:type:CartTaxCalculation).
+   *	An external Tax Rate can be set if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
    *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
 }
+/**
+ *	A Shipping Method tax amount can be set if the Cart has the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode).
+ *
+ */
 export interface StagedOrderSetShippingMethodTaxAmountAction {
   readonly action: 'setShippingMethodTaxAmount'
   /**
@@ -1772,17 +2496,16 @@ export interface StagedOrderSetShippingMethodTaxAmountAction {
    */
   readonly shippingKey?: string
   /**
-   *	Cannot be used in [LineItemDraft](ctp:api:type:LineItemDraft) or [CustomLineItemDraft](ctp:api:type:CustomLineItemDraft).
-   *
-   *	Can only be set by these update actions:
-   *
-   *	- [Set LineItem TaxAmount](ctp:api:type:CartSetLineItemTaxAmountAction), [Set CustomLineItem TaxAmount](ctp:api:type:CartSetCustomLineItemTaxAmountAction), or [Set ShippingMethod TaxAmount](ctp:api:type:CartSetShippingMethodTaxAmountAction) on Carts
-   *	- [Set LineItem TaxAmount](ctp:api:type:OrderEditSetLineItemTaxAmountAction), [Set CustomLineItem TaxAmount](ctp:api:type:OrderEditSetCustomLineItemTaxAmountAction), or [Set ShippingMethod TaxAmount](ctp:api:type:OrderEditSetShippingMethodTaxAmountAction) on Order Edits
+   *	Value to set. If empty, any existing value will be removed.
    *
    *
    */
   readonly externalTaxAmount?: ExternalTaxAmountDraft
 }
+/**
+ *	A Shipping Method Tax Rate can be set if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+ *
+ */
 export interface StagedOrderSetShippingMethodTaxRateAction {
   readonly action: 'setShippingMethodTaxRate'
   /**
@@ -1792,93 +2515,166 @@ export interface StagedOrderSetShippingMethodTaxRateAction {
    */
   readonly shippingKey?: string
   /**
-   *	Controls calculation of taxed prices for Line Items, Custom Line Items, and Shipping Methods as explained in [Cart tax calculation](ctp:api:type:CartTaxCalculation).
+   *	Value to set.
+   *	If empty, any existing value is removed.
    *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
 }
+/**
+ *	Input used to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier). If no matching tier can be found, or the input is not set, the default price for the shipping rate is used.
+ *
+ */
 export interface StagedOrderSetShippingRateInputAction {
   readonly action: 'setShippingRateInput'
   /**
-   *	Generic type holding specifc ShippingRateInputDraft types.
+   *	The data type of this field depends on the `shippingRateInputType.type` configured in the [Project](ctp:api:type:Project):
+   *
+   *	- If `CartClassification`, it must be [ClassificationShippingRateInputDraft](ctp:api:type:ClassificationShippingRateInputDraft).
+   *	- If `CartScore`, it must be [ScoreShippingRateInputDraft](ctp:api:type:ScoreShippingRateInputDraft).
+   *	- If `CartValue`, it cannot be set.
+   *
    *
    */
   readonly shippingRateInput?: ShippingRateInputDraft
 }
+/**
+ *	Sets the [Store](ctp:api:type:Store) the Order is assigned to.
+ *	It should be used to migrate Orders to a new Store.
+ *	No validations are performed (such as that the Customer is allowed to create Orders in the Store).
+ *
+ *	Produces the [Order Store Set](ctp:api:type:OrderStoreSetMessage) Message.
+ *	Returns a `400` error if `store` references the same Store the Order is currently assigned to, including if you try to remove the value when no Store is currently assigned.
+ *
+ */
+export interface StagedOrderSetStoreAction {
+  readonly action: 'setStore'
+  /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
+   *	If `store` references the same Store the Order is currently assigned to or if you try to remove the value when no Store is currently assigned, a `400` error is returned.
+   *
+   *
+   */
+  readonly store?: StoreResourceIdentifier
+}
+/**
+ *	Produces the [Custom Line Item State Transition](ctp:api:type:CustomLineItemStateTransitionMessage) Message.
+ *
+ */
 export interface StagedOrderTransitionCustomLineItemStateAction {
   readonly action: 'transitionCustomLineItemState'
   /**
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
    *
    */
-  readonly customLineItemId: string
+  readonly customLineItemId?: string
   /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
+  /**
+   *	Number of Custom Line Items that should transition [State](ctp:api:type:State).
+   *
    *
    */
   readonly quantity: number
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [State](ctp:api:type:State).
+   *	[State](ctp:api:type:State) the Custom Line Item should transition from.
    *
    *
    */
   readonly fromState: StateResourceIdentifier
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [State](ctp:api:type:State).
+   *	[State](ctp:api:type:State) the Custom Line Item should transition to.
    *
    *
    */
   readonly toState: StateResourceIdentifier
   /**
+   *	Date and time (UTC) to perform the [State](ctp:api:type:State) transition.
+   *
    *
    */
   readonly actualTransitionDate?: string
 }
+/**
+ *	Produces the [Line Item State Transition](ctp:api:type:LineItemStateTransitionMessage) Message.
+ *
+ */
 export interface StagedOrderTransitionLineItemStateAction {
   readonly action: 'transitionLineItemState'
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
   /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
+  /**
+   *	Number of Line Items that should transition [State](ctp:api:type:State).
+   *
    *
    */
   readonly quantity: number
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [State](ctp:api:type:State).
+   *	[State](ctp:api:type:State) the Line Item should transition from.
    *
    *
    */
   readonly fromState: StateResourceIdentifier
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [State](ctp:api:type:State).
+   *	[State](ctp:api:type:State) the Line Item should transition to.
    *
    *
    */
   readonly toState: StateResourceIdentifier
   /**
+   *	Date and time (UTC) to perform the [State](ctp:api:type:State) transition.
+   *
    *
    */
   readonly actualTransitionDate?: string
 }
+/**
+ *	If the existing [State](ctp:api:type:State) has set `transitions`, there must be a direct transition to the new State. If `transitions` is not set, no validation is performed.
+ *
+ *	This update action produces the [Order State Transition](ctp:api:type:OrderStateTransitionMessage) Message.
+ *
+ */
 export interface StagedOrderTransitionStateAction {
   readonly action: 'transitionState'
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [State](ctp:api:type:State).
+   *	Value to set.
+   *	If there is no State yet, the new State must be an initial State.
    *
    *
    */
   readonly state: StateResourceIdentifier
   /**
+   *	Set to `true` to turn off validation.
+   *
    *
    */
   readonly force?: boolean
 }
+/**
+ *	Updates an address in `itemShippingAddresses` by keeping the Address `key`.
+ *
+ */
 export interface StagedOrderUpdateItemShippingAddressAction {
   readonly action: 'updateItemShippingAddress'
   /**
-   *	Polymorphic base type that represents a postal address and contact details.
-   *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
-   *	only differ in the data type for the optional `custom` field.
+   *	The new Address with the same `key` as the Address it will replace.
    *
    *
    */
@@ -1887,16 +2683,22 @@ export interface StagedOrderUpdateItemShippingAddressAction {
 export interface StagedOrderUpdateSyncInfoAction {
   readonly action: 'updateSyncInfo'
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
+   *	Set this to identify an external order instance, file, or other resource.
+   *
+   *
+   */
+  readonly externalId?: string
+  /**
+   *	The synchronization destination to set. Must not be empty.
+   *	The referenced Channel must have the [Channel Role](ctp:api:type:ChannelRoleEnum) `OrderExport` or `OrderImport`.
+   *	Otherwise this update action returns an [InvalidInput](ctp:api:type:InvalidInputError) error.
    *
    *
    */
   readonly channel: ChannelResourceIdentifier
   /**
+   *	If not set, it defaults to the current date and time.
    *
-   */
-  readonly externalId?: string
-  /**
    *
    */
   readonly syncedAt?: string

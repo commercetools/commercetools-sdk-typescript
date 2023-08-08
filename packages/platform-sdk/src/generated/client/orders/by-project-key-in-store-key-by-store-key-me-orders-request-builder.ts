@@ -62,6 +62,20 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeOrdersRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	The Cart must have a [shipping address set](ctp:api:type:CartSetShippingAddressAction) for taxes to be calculated. When creating [B2B Orders](/associates-overview#b2b-resources), the Customer must have the `CreateMyOrdersFromMyCarts` [Permission](ctp:api:type:Permission).
+   *
+   *	Creating an Order produces the [OrderCreated](ctp:api:type:OrderCreatedMessage) Message.
+   *
+   *	Specific Error Codes:
+   *
+   *	- [OutOfStock](ctp:api:type:OutOfStockError)
+   *	- [PriceChanged](ctp:api:type:PriceChangedError)
+   *	- [DiscountCodeNonApplicable](ctp:api:type:DiscountCodeNonApplicableError)
+   *	- [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError)
+   *	- [AssociateMissingPermission](ctp:api:type:AssociateMissingPermissionError)
+   *
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

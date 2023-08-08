@@ -19,7 +19,16 @@ export class ByProjectKeyOrdersQuotesRequestBuilder {
     }
   ) {}
   /**
-   *	Create an Order from a Quote
+   *	Creating an Order produces the [OrderCreated](ctp:api:type:OrderCreatedMessage) Message.
+   *
+   *	Specific Error Codes:
+   *
+   *	- [OutOfStock](ctp:api:type:OutOfStockError)
+   *	- [PriceChanged](ctp:api:type:PriceChangedError)
+   *	- [InvalidItemShippingDetails](ctp:api:type:InvalidItemShippingDetailsError)
+   *	- [InvalidOperation](ctp:api:type:InvalidOperationError)
+   *	- [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError)
+   *
    */
   public post(methodArgs: {
     body: OrderFromQuoteDraft

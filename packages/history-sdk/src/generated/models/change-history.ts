@@ -127,6 +127,7 @@ export interface RecordPagedQueryResponse {
  *
  */
 export type ChangeHistoryResourceType =
+  | 'associate-role'
   | 'business-unit'
   | 'cart-discount'
   | 'category'

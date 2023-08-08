@@ -18,7 +18,7 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .withProjectKey({ projectKey: 'test_projectKey' })
         .me()
         .orders()
-        .quotes()
+        .orderQuote()
         .post({ body: null, headers: null }),
     },
   ]

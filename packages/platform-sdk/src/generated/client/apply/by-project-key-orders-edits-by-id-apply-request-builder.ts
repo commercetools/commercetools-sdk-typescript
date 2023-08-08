@@ -19,6 +19,10 @@ export class ByProjectKeyOrdersEditsByIDApplyRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Applying an OrderEdit produces the [OrderEditApplied](ctp:api:type:OrderEditAppliedMessage) Message.
+   *
+   */
   public post(methodArgs: {
     body: OrderEditApply
     headers?: {

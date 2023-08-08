@@ -52,6 +52,7 @@ export type ErrorObject =
   | AttributeNameDoesNotExistError
   | BadGatewayError
   | ConcurrentModificationError
+  | ContentTooLargeError
   | CountryNotConfiguredInStoreError
   | DiscountCodeNonApplicableError
   | DuplicateAttributeValueError
@@ -303,6 +304,20 @@ export interface ConcurrentModificationError {
   readonly currentVersion?: number
 }
 /**
+ *	Returned when the request results in too much data being returned from the API. Adjust the request query to reduce the size of the data returned.
+ *
+ */
+export interface ContentTooLargeError {
+  readonly code: 'ContentTooLarge'
+  [key: string]: any
+  /**
+   *	`"Content too large."`
+   *
+   *
+   */
+  readonly message: string
+}
+/**
  *	Returned when a [Cart](ctp:api:type:Cart) or an [Order](ctp:api:type:Order) in a [Store](ctp:api:type:Store) references a country that is not included in the countries configured for the Store.
  *
  *	The error is returned as a failed response to:
@@ -310,7 +325,7 @@ export interface ConcurrentModificationError {
  *	- [Create Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/carts:POST) request and [Set Country](ctp:api:type:CartSetCountryAction) update action on Carts.
  *	- [Create Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/me/carts:POST) request and [Set Country](ctp:api:type:MyCartSetCountryAction) update action on My Carts.
  *	- [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests on Orders.
- *	- [Create Order from Cart in a Store](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
+ *	- [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
  *	- [Create Order from Quote](ctp:api:endpoint:/{projectKey}/orders/quotes:POST) requests on Orders.
  *	- [Create Order from Quote](ctp:api:endpoint:/{projectKey}/me/orders/quotes:POST) requests on My Orders.
  *	- [Create Order by Import](ctp:api:endpoint:/{projectKey}/orders/import:POST) request on Order Import.
@@ -1461,7 +1476,7 @@ export interface ObjectNotFoundError {
  *
  *	The error is returned as a failed response to:
  *
- *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST), [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST), and [Create Order by Import](/../api/projects/me-orders) requests on Orders.
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST), [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST), and [Create Order by Import](ctp:api:endpoint:/{projectKey}/orders/import:POST) requests on Orders.
  *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/me/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
  *
  */
@@ -1982,6 +1997,7 @@ export type GraphQLErrorObject =
   | GraphQLAttributeNameDoesNotExistError
   | GraphQLBadGatewayError
   | GraphQLConcurrentModificationError
+  | GraphQLContentTooLargeError
   | GraphQLCountryNotConfiguredInStoreError
   | GraphQLDiscountCodeNonApplicableError
   | GraphQLDuplicateAttributeValueError
@@ -2190,6 +2206,14 @@ export interface GraphQLConcurrentModificationError {
   readonly currentVersion?: number
 }
 /**
+ *	Returned when the request results in too much data being returned from the API. Adjust the request query to reduce the size of the data returned.
+ *
+ */
+export interface GraphQLContentTooLargeError {
+  readonly code: 'ContentTooLarge'
+  [key: string]: any
+}
+/**
  *	Returned when a [Cart](ctp:api:type:Cart) or an [Order](ctp:api:type:Order) in a [Store](ctp:api:type:Store) references a country that is not included in the countries configured for the Store.
  *
  *	The error is returned as a failed response to:
@@ -2197,7 +2221,7 @@ export interface GraphQLConcurrentModificationError {
  *	- [Create Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/carts:POST) request and [Set Country](ctp:api:type:CartSetCountryAction) update action on Carts.
  *	- [Create Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/me/carts:POST) request and [Set Country](ctp:api:type:MyCartSetCountryAction) update action on My Carts.
  *	- [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests on Orders.
- *	- [Create Order from Cart in a Store](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
+ *	- [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
  *	- [Create Order from Quote](ctp:api:endpoint:/{projectKey}/orders/quotes:POST) requests on Orders.
  *	- [Create Order from Quote](ctp:api:endpoint:/{projectKey}/me/orders/quotes:POST) requests on My Orders.
  *	- [Create Order by Import](ctp:api:endpoint:/{projectKey}/orders/import:POST) request on Order Import.
@@ -3004,7 +3028,7 @@ export interface GraphQLObjectNotFoundError {
  *
  *	The error is returned as a failed response to:
  *
- *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST), [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST), and [Create Order by Import](/../api/projects/me-orders) requests on Orders.
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST), [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST), and [Create Order by Import](ctp:api:endpoint:/{projectKey}/orders/import:POST) requests on Orders.
  *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/me/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
  *
  */

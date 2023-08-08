@@ -61,7 +61,7 @@ import {
   InventoryEntryResourceIdentifier,
 } from './inventory'
 import { Message } from './message'
-import { Order, OrderReference, OrderResourceIdentifier } from './order'
+import { Order, OrderReference } from './order'
 import {
   OrderEdit,
   OrderEditReference,
@@ -564,7 +564,7 @@ export type _BaseResource =
  */
 export interface ClientLogging {
   /**
-   *	`id` of the [APIClient](ctp:api:type:ApiClient) which created the resource.
+   *	`id` of the [API Client](ctp:api:type:ApiClient) which created the resource.
    *
    *
    */
@@ -587,6 +587,12 @@ export interface ClientLogging {
    *
    */
   readonly anonymousId?: string
+  /**
+   *	Indicates the [Customer](ctp:api:type:Customer) who created or modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only present when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
+   *
+   *
+   */
+  readonly associate?: CustomerReference
 }
 export type _ClientLogging = ClientLogging | CreatedBy | LastModifiedBy
 /**
@@ -594,7 +600,7 @@ export type _ClientLogging = ClientLogging | CreatedBy | LastModifiedBy
  */
 export interface CreatedBy extends ClientLogging {
   /**
-   *	`id` of the [APIClient](ctp:api:type:ApiClient) which created the resource.
+   *	`id` of the [API Client](ctp:api:type:ApiClient) which created the resource.
    *
    *
    */
@@ -617,6 +623,12 @@ export interface CreatedBy extends ClientLogging {
    *
    */
   readonly anonymousId?: string
+  /**
+   *	Indicates the [Customer](ctp:api:type:Customer) who created the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only present when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
+   *
+   *
+   */
+  readonly associate?: CustomerReference
 }
 export interface DiscountedPrice {
   /**
@@ -705,7 +717,7 @@ export type KeyReference =
  */
 export interface LastModifiedBy extends ClientLogging {
   /**
-   *	`id` of the [APIClient](ctp:api:type:ApiClient) which modified the resource.
+   *	`id` of the [API Client](ctp:api:type:ApiClient) which modified the resource.
    *
    *
    */
@@ -728,6 +740,12 @@ export interface LastModifiedBy extends ClientLogging {
    *
    */
   readonly anonymousId?: string
+  /**
+   *	Indicates the [Customer](ctp:api:type:Customer) who modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only present when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
+   *
+   *
+   */
+  readonly associate?: CustomerReference
 }
 /**
  *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
@@ -759,7 +777,7 @@ export interface Money {
 }
 export type _Money = Money | TypedMoney | TypedMoneyDraft
 /**
- *	MoneyType supports two different values, one for amounts in cent precision and another one for sub-cent amounts up to 20 fraction digits.
+ *	Determines the type of money used.
  */
 export type MoneyType = 'centPrecision' | 'highPrecision' | string
 /**
@@ -1118,7 +1136,6 @@ export type ResourceIdentifier =
   | DiscountCodeResourceIdentifier
   | InventoryEntryResourceIdentifier
   | OrderEditResourceIdentifier
-  | OrderResourceIdentifier
   | PaymentResourceIdentifier
   | ProductDiscountResourceIdentifier
   | ProductResourceIdentifier
@@ -1206,7 +1223,7 @@ export interface ScopedPrice {
   readonly custom?: CustomFields
 }
 /**
- *	Base polymorphic read-only Money type which is stored in cent precision or high precision. The actual type is determined by the `type` field.
+ *	Base polymorphic read-only money type that stores currency in cent precision or high precision, that is in sub-cents.
  *
  */
 export type TypedMoney = CentPrecisionMoney | HighPrecisionMoney
@@ -1271,6 +1288,13 @@ export interface HighPrecisionMoney {
    */
   readonly preciseAmount: number
 }
+/**
+ *	Base polymorphic money type containing common fields for [Money](ctp:api:type:Money) and [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
+ *
+ *	- To set money in cent precision, use [Money](ctp:api:type:Money).
+ *	- To set money in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
+ *
+ */
 export type TypedMoneyDraft = CentPrecisionMoneyDraft | HighPrecisionMoneyDraft
 /**
  *	This draft type is the alternative to [Money](ctp:api:type:Money).
@@ -1279,14 +1303,11 @@ export type TypedMoneyDraft = CentPrecisionMoneyDraft | HighPrecisionMoneyDraft
 export interface CentPrecisionMoneyDraft {
   readonly type: 'centPrecision'
   /**
-   *	Amount in the smallest indivisible unit of a currency, such as:
-   *
-   *	* Cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as `500`).
-   *	* The value in the major unit for currencies without minor units, like JPY (5 JPY is specified as `5`).
+   *	Amount in the smallest indivisible unit of a currency.
    *
    *
    */
-  readonly centAmount: number
+  readonly centAmount?: number
   /**
    *	Currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
    *

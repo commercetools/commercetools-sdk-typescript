@@ -13,6 +13,8 @@ import {
   LocalizedString,
   Money,
   Reference,
+  TypedMoney,
+  TypedMoneyDraft,
 } from './common'
 import { ProductReference, ProductResourceIdentifier } from './product'
 import { StoreKeyReference, StoreResourceIdentifier } from './store'
@@ -78,7 +80,7 @@ export interface CartDiscount extends BaseResource {
    */
   readonly description?: LocalizedString
   /**
-   *	Effect of the CartDiscount.
+   *	Effect of the CartDiscount on the `target`.
    *
    *
    */
@@ -90,7 +92,9 @@ export interface CartDiscount extends BaseResource {
    */
   readonly cartPredicate: string
   /**
-   *	Sets a [CartDiscountTarget](ctp:api:type:CartDiscountTarget). Empty if `value` has type `giftLineItem`.
+   *	Segment of the Cart that is discounted.
+   *
+   *	Empty, if the `value` is `giftLineItem`.
    *
    *
    */
@@ -175,8 +179,7 @@ export interface CartDiscountDraft {
    */
   readonly description?: LocalizedString
   /**
-   *	Effect of the CartDiscount.
-   *	For a [target](ctp:api:type:CartDiscountTarget), relative or absolute Discount values or a fixed item Price value can be specified. If no target is specified, a [Gift Line Item](/../api/projects/cartDiscounts#gift-line-item) can be added to the Cart.
+   *	Effect of the CartDiscount on the `target`.
    *
    *
    */
@@ -188,7 +191,9 @@ export interface CartDiscountDraft {
    */
   readonly cartPredicate: string
   /**
-   *	Must not be set when the `value` has type `giftLineItem`, otherwise a [CartDiscountTarget](ctp:api:type:CartDiscountTarget) must be set.
+   *	Segment of the Cart that will be discounted.
+   *
+   *	Must not be set if the `value` is `giftLineItem`.
    *
    *
    */
@@ -440,11 +445,11 @@ export interface CartDiscountValueAbsoluteDraft {
 export interface CartDiscountValueFixed {
   readonly type: 'fixed'
   /**
-   *	Cent precision money values in different currencies.
+   *	Money values in [cent precision](ctp:api:type:CentPrecisionMoney) or [high precision](ctp:api:type:HighPrecisionMoney) of different currencies.
    *
    *
    */
-  readonly money: CentPrecisionMoney[]
+  readonly money: TypedMoney[]
 }
 /**
  *	Sets the [DiscountedLineItemPrice](ctp:api:type:DiscountedLineItemPrice) of the [CartDiscountLineItemsTarget](ctp:api:type:CartDiscountLineItemsTarget) or [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget) to the value specified in the `money` field, if it is lower than the current Line Item price for the same currency. If the Line Item price is already discounted to a price equal to or lower than the respective price in the `money` field, this Discount is not applied.
@@ -453,12 +458,12 @@ export interface CartDiscountValueFixed {
 export interface CartDiscountValueFixedDraft {
   readonly type: 'fixed'
   /**
-   *	Money values in different currencies.
+   *	Money values provided either in [cent precision](ctp:api:type:Money) or [high precision](ctp:api:type:HighPrecisionMoneyDraft) for different currencies.
    *	A fixed Cart Discount will only match a price if this array contains a value with the same currency. If it contains 10€ and 15$, the matching € price will be discounted by 10€ and the matching $ price will be discounted to 15$.
    *
    *
    */
-  readonly money: Money[]
+  readonly money: TypedMoneyDraft[]
 }
 export interface CartDiscountValueGiftLineItem {
   readonly type: 'giftLineItem'
@@ -561,12 +566,14 @@ export interface MultiBuyCustomLineItemsTarget {
   readonly triggerQuantity: number
   /**
    *	Number of Custom Line Items that are discounted per application of this Discount.
+   *	It must be less than or equal to the `triggerQuantity`.
    *
    *
    */
   readonly discountedQuantity: number
   /**
    *	Maximum number of times this Discount can be applied.
+   *	Do not set if the Discount should be applied an unlimited number of times.
    *
    *
    */
@@ -594,12 +601,14 @@ export interface MultiBuyLineItemsTarget {
   readonly triggerQuantity: number
   /**
    *	Number of Line Items that are discounted per application of this Discount.
+   *	It must be less than or equal to the `triggerQuantity`.
    *
    *
    */
   readonly discountedQuantity: number
   /**
    *	Maximum number of times this Discount can be applied.
+   *	Do not set if the Discount should be applied an unlimited number of times.
    *
    *
    */

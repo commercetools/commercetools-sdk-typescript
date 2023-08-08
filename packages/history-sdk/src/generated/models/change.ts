@@ -49,6 +49,7 @@ import {
   FieldDefinition,
   GeoLocation,
   Image,
+  InheritedAssociate,
   ItemShippingDetails,
   ItemState,
   KeyReference,
@@ -61,6 +62,7 @@ import {
   ParcelMeasurements,
   PaymentInfo,
   PaymentState,
+  Permission,
   Price,
   ProductSelectionSetting,
   ProductVariantAvailability,
@@ -114,6 +116,7 @@ export type Change =
   | AddEnumValueChange
   | AddExternalImageChange
   | AddFieldDefinitionChange
+  | AddInheritedAssociateChange
   | AddInterfaceInteractionChange
   | AddItemShippingAddressesChange
   | AddLocalizedEnumValueChange
@@ -144,6 +147,7 @@ export type Change =
   | ChangeAssociateModeChange
   | ChangeAttributeConstraintChange
   | ChangeAttributeOrderByNameChange
+  | ChangeBuyerAssignableChange
   | ChangeCartDiscountsChange
   | ChangeCartPredicateChange
   | ChangeCustomLineItemQuantityChange
@@ -153,6 +157,7 @@ export type Change =
   | ChangeEnumValueOrderChange
   | ChangeFieldDefinitionOrderChange
   | ChangeGroupsChange
+  | ChangeInheritedAssociateChange
   | ChangeInitialChange
   | ChangeInputHintChange
   | ChangeIsActiveChange
@@ -216,6 +221,7 @@ export type Change =
   | RemoveFieldDefinitionChange
   | RemoveFromCategoryChange
   | RemoveImageChange
+  | RemoveInheritedAssociateChange
   | RemoveItemShippingAddressesChange
   | RemoveLocalizedEnumValuesChange
   | RemoveLocationChange
@@ -306,6 +312,7 @@ export type Change =
   | SetLineItemTotalPriceChange
   | SetLocaleChange
   | SetLocalizedDescriptionChange
+  | SetLocalizedNameChange
   | SetMaxApplicationsChange
   | SetMaxApplicationsPerCustomerChange
   | SetMetaDescriptionChange
@@ -325,6 +332,7 @@ export type Change =
   | SetParcelItemsChange
   | SetParcelMeasurementsChange
   | SetParcelTrackingDataChange
+  | SetPermissionsChange
   | SetPricesChange
   | SetProductCountChange
   | SetProductPriceCustomFieldChange
@@ -619,6 +627,21 @@ export interface AddFieldDefinitionChange {
    *
    */
   readonly nextValue: FieldDefinition
+}
+/**
+ *	Change triggered by the [Add Associate](ctp:api:type:BusinessUnitAddAssociateAction) update action on a parent of a Business Unit in cases where [inheritance applies](/../api/associates-overview#conditions-for-inheritance).
+ */
+export interface AddInheritedAssociateChange {
+  readonly type: 'AddInheritedAssociateChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: InheritedAssociate
 }
 /**
  *	Change triggered by the [Add InterfaceInteraction](ctp:api:type:PaymentAddInterfaceInteractionAction) update action.
@@ -1263,6 +1286,27 @@ export interface ChangeAttributeOrderByNameChange {
   readonly nextValue: string[]
 }
 /**
+ *	Change triggered by the [Change BuyerAssignable](ctp:api:type:AssociateRoleChangeBuyerAssignableAction) update action.
+ *
+ */
+export interface ChangeBuyerAssignableChange {
+  readonly type: 'ChangeBuyerAssignableChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: boolean
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: boolean
+}
+/**
  *	Change triggered by the [Change CartDiscounts](ctp:api:type:DiscountCodeChangeCartDiscountsAction) update action.
  */
 export interface ChangeCartDiscountsChange {
@@ -1471,6 +1515,26 @@ export interface ChangeGroupsChange {
    *
    */
   readonly nextValue: string[]
+}
+/**
+ *	Change triggered by the [Change Associate](ctp:api:type:BusinessUnitChangeAssociateAction) update action on a parent of a Business Unit in cases where [inheritance applies](/../api/associates-overview#conditions-for-inheritance).
+ */
+export interface ChangeInheritedAssociateChange {
+  readonly type: 'ChangeInheritedAssociateChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: InheritedAssociate
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: InheritedAssociate
 }
 /**
  *	Change triggered by the [Change initial State](ctp:api:type:StateChangeInitialAction) update action.
@@ -2926,6 +2990,21 @@ export interface RemoveImageChange {
   readonly catalogData: string
 }
 /**
+ *	Change triggered by the [Remove Associate](ctp:api:type:BusinessUnitRemoveAssociateAction) update action on a parent of a Business Unit in cases where [inheritance applies](/../api/associates-overview#conditions-for-inheritance).
+ */
+export interface RemoveInheritedAssociateChange {
+  readonly type: 'RemoveInheritedAssociateChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	The value before the change.
+   *
+   */
+  readonly previousValue: InheritedAssociate
+}
+/**
  *	Change triggered by the [Remove Item Shipping Address](ctp:api:type:OrderRemoveItemShippingAddressAction) update action.
  */
 export interface RemoveItemShippingAddressesChange {
@@ -4012,8 +4091,8 @@ export interface SetCustomLineItemMoneyChange {
 /**
  *	Change triggered by the following update actions:
  *
- *	- [Set CustomLineItemShippingDetails](ctp:api:type:OrderSetCustomLineItemShippingDetailsAction) on Orders.
- *	- [Set CustomLineItemShippingDetails](ctp:api:type:StagedOrderSetCustomLineItemShippingDetailsAction) on Staged Orders.
+ *	- [Set CustomLineItem ShippingDetails](ctp:api:type:OrderSetCustomLineItemShippingDetailsAction) on Orders.
+ *	- [Set CustomLineItem ShippingDetails](ctp:api:type:StagedOrderSetCustomLineItemShippingDetailsAction) on Staged Orders.
  *
  */
 export interface SetCustomLineItemShippingDetailsChange {
@@ -5053,8 +5132,8 @@ export interface SetLineItemProductSlugChange {
 /**
  *	Change triggered by the following update actions:
  *
- *	- [Set LineItemShippingDetails](ctp:api:type:OrderSetLineItemShippingDetailsAction) on Orders.
- *	- [Set LineItemShippingDetails](ctp:api:type:StagedOrderSetLineItemShippingDetailsAction) on Staged Orders.
+ *	- [Set LineItem ShippingDetails](ctp:api:type:OrderSetLineItemShippingDetailsAction) on Orders.
+ *	- [Set LineItem ShippingDetails](ctp:api:type:StagedOrderSetLineItemShippingDetailsAction) on Staged Orders.
  *
  */
 export interface SetLineItemShippingDetailsChange {
@@ -5461,12 +5540,29 @@ export interface SetMiddleNameChange {
  *	Change triggered by the following update actions:
  *
  *	- [Set Name](ctp:api:type:DiscountCodeSetNameAction) on Discount Codes.
- *	- [Set Name](ctp:api:type:StateSetNameAction) on States.
+ *	- [Set State Name](ctp:api:type:StateSetNameAction) on States.
  *	- [Set Name](ctp:api:type:StoreSetNameAction) on Stores.
  *
  */
 export interface SetNameChange {
   readonly type: 'SetNameChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: LocalizedString
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: LocalizedString
+}
+export interface SetLocalizedNameChange {
+  readonly type: 'SetLocalizedNameChange'
   /**
    *
    */
@@ -5740,6 +5836,27 @@ export interface SetParcelTrackingDataChange {
    *
    */
   readonly parcel: ParcelChangeValue
+}
+/**
+ *	Change triggered by the [Set Permissions](ctp:api:type:AssociateRoleSetPermissionsAction), [Add Permission](ctp:api:type:AssociateRoleAddPermissionAction), and [Remove Permission](ctp:api:type:AssociateRoleRemovePermissionAction) update actions.
+ *
+ */
+export interface SetPermissionsChange {
+  readonly type: 'SetPermissionsChange'
+  /**
+   *
+   */
+  readonly change: string
+  /**
+   *	Value before the change.
+   *
+   */
+  readonly previousValue: Permission[]
+  /**
+   *	Value after the change.
+   *
+   */
+  readonly nextValue: Permission[]
 }
 /**
  *	Change triggered by the [Set Prices](ctp:api:type:ProductSetPricesAction) update action.

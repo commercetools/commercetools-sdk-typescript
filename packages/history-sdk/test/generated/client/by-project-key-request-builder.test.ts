@@ -13,10 +13,10 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
       method: 'get',
-      uri: '/test_projectKey?resourceTypes=business-unit',
+      uri: '/test_projectKey?resourceTypes=associate-role',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
-        .get({ queryArgs: { resourceTypes: 'business-unit' } }),
+        .get({ queryArgs: { resourceTypes: 'associate-role' } }),
     },
     {
       method: 'get',

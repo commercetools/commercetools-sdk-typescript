@@ -61,7 +61,7 @@ export interface MyBusinessUnitAssociateDraft {
    */
   readonly customer: MyCustomerDraft
   /**
-   *	Roles assigned to the new Associate within a Business Unit.
+   *	Roles assigned to the new Associate within a Business Unit. Can only contain [AssociateRoles](ctp:api:type:AssociateRole) with the `buyerAssignable` property set to `true`.
    *
    *
    */
@@ -605,37 +605,35 @@ export interface MyLineItemDraft {
    */
   readonly custom?: CustomFieldsDraft
 }
-/**
- *	When creating [B2B Orders](/../api/associates-overview#b2b-resources), the Customer must have the `MyOrderFromCartDraft` [Permission](ctp:api:type:Permission).
- */
 export interface MyOrderFromCartDraft {
   /**
-   *	Unique identifier of the Cart that initiates an Order creation.
+   *	`id` of the [Cart](ctp:api:type:Cart) from which the Order is created.
+   *
    *
    */
   readonly id: string
   /**
+   *	Current `version` of the [Cart](ctp:api:type:Cart) from which the Order is created.
+   *
    *
    */
   readonly version: number
 }
-/**
- *	When creating [B2B Orders](/../api/associates-overview#b2b-resources), the Customer must have the `MyOrderFromQuoteDraft` [Permission](ctp:api:type:Permission).
- */
 export interface MyOrderFromQuoteDraft {
   /**
-   *	Unique identifier of the Quote from which the Order is created.
+   *	`id` of the [Quote](ctp:api:type:Quote) from which the Order is created.
+   *
    *
    */
   readonly id: string
   /**
-   *	`version` of the [Quote](ctp:api:type:quote) from which the Order is created.
+   *	Current `version` of the [Quote](ctp:api:type:Quote) from which the Order is created.
    *
    *
    */
   readonly version: number
   /**
-   *	Set to `true`, if the `quoteState` of the referenced [Quote](ctp:api:type:quote) should be set to `Accepted`.
+   *	Set to `true`, if the `quoteState` of the referenced [Quote](ctp:api:type:Quote) should be set to `Accepted`.
    *
    *
    */
@@ -797,7 +795,7 @@ export interface MyQuoteRequestDraft {
    *	Message from the Buyer included in the Quote Request.
    *
    */
-  readonly comment: string
+  readonly comment?: string
 }
 export interface MyQuoteRequestUpdate {
   /**
@@ -1062,7 +1060,7 @@ export interface MyBusinessUnitChangeNameAction {
   readonly name: string
 }
 /**
- *	Changing the parent of a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitParentUnitChanged](ctp:api:type:BusinessUnitParentUnitChangedMessage) Message.
+ *	Changing the parent of a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitParentChanged](ctp:api:type:BusinessUnitParentChangedMessage) Message.
  *
  */
 export interface MyBusinessUnitChangeParentUnitAction {
@@ -1407,7 +1405,7 @@ export interface MyCartAddPaymentAction {
   readonly payment: PaymentResourceIdentifier
 }
 /**
- *	To override the shipping details, see [Set LineItemShippingDetails](ctp:api:type:MyCartSetLineItemShippingDetailsAction).
+ *	To override the shipping details, see [Set LineItem ShippingDetails](ctp:api:type:MyCartSetLineItemShippingDetailsAction).
  *
  */
 export interface MyCartApplyDeltaToLineItemShippingDetailsTargetsAction {
@@ -1439,7 +1437,7 @@ export interface MyCartApplyDeltaToLineItemShippingDetailsTargetsAction {
  *	the `shippingDetails` field is kept in its current state to avoid data loss.
  *
  *	To change the Line Item quantity and shipping details together,
- *	use this update action in combination with the [Set LineItemShippingDetails](ctp:api:type:CartSetCustomLineItemShippingDetailsAction) update action
+ *	use this update action in combination with the [Set LineItem ShippingDetails](ctp:api:type:CartSetLineItemShippingDetailsAction) update action
  *	in a single Cart update command.
  *
  *	When the action applies to [LineItems](ctp:api:type:LineItem) with `ExternalTotal` [LineItemPriceMode](ctp:api:type:LineItemPriceMode),
