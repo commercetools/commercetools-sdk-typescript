@@ -1,5 +1,5 @@
 ---
-"@commercetools/platform-sdk": minor
+"@commercetools/platform-sdk": major
 ---
 
 Update generated SDKs
