@@ -725,6 +725,11 @@ export interface CustomLineItem {
    */
   readonly taxedPrice?: TaxedItemPrice
   /**
+   *	Taxed price of the Shipping Method that is automatically set after `perMethodTaxRate` is set.
+   *
+   */
+  readonly taxedPricePortions: MethodTaxedPrice[]
+  /**
    *	Total price of the Custom Line Item (`money` multiplied by `quantity`).
    *	If the Custom Line Item is discounted, the total price is `discountedPricePerQuantity` multiplied by `quantity`.
    *
@@ -2866,6 +2871,13 @@ export interface CartSetCustomLineItemTaxAmountAction {
    *
    */
   readonly externalTaxAmount?: ExternalTaxAmountDraft
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) used for this Custom Line Item.
+   *	This is required for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Can be used if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
@@ -2892,6 +2904,13 @@ export interface CartSetCustomLineItemTaxRateAction {
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) used for this Custom Line Item.
+   *	This is required for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	To set the Cart's custom Shipping Method (independent of the [ShippingMethods](ctp:api:type:ShippingMethod) managed through

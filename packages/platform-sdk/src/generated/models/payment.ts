@@ -10,7 +10,6 @@ import {
   CreatedBy,
   LastModifiedBy,
   LocalizedString,
-  TypedMoney,
   _Money,
 } from './common'
 import { CustomerReference, CustomerResourceIdentifier } from './customer'
@@ -68,11 +67,6 @@ export interface Payment extends BaseResource {
    */
   readonly anonymousId?: string
   /**
-   *	Additional identifier for external systems like Customer Relationship Management (CRM) or Enterprise Resource Planning (ERP).
-   *
-   */
-  readonly externalId?: string
-  /**
    *	Identifier used by the payment service that processes the Payment (for example, a PSP).
    *	The combination of `interfaceId` and the `paymentInterface` field on [PaymentMethodInfo](ctp:api:type:PaymentMethodInfo) must be unique.
    *
@@ -84,30 +78,6 @@ export interface Payment extends BaseResource {
    *
    */
   readonly amountPlanned: CentPrecisionMoney
-  /**
-   *	Deprecated because its value can be calculated from the total amounts saved in the [Transactions](ctp:api:type:Transaction).
-   *
-   *
-   */
-  readonly amountAuthorized?: TypedMoney
-  /**
-   *	Deprecated because this field is of little practical value, as it is either not reliably known, or the authorization time is fixed for a PSP.
-   *
-   *
-   */
-  readonly authorizedUntil?: string
-  /**
-   *	Deprecated because its value can be calculated from the total amounts saved in the [Transactions](ctp:api:type:Transaction).
-   *
-   *
-   */
-  readonly amountPaid?: TypedMoney
-  /**
-   *	Deprecated because its value can be calculated from the total amounts saved in the [Transactions](ctp:api:type:Transaction).
-   *
-   *
-   */
-  readonly amountRefunded?: TypedMoney
   /**
    *	Information regarding the payment interface (for example, a PSP), and the specific payment method used.
    *
@@ -156,11 +126,6 @@ export interface PaymentDraft {
    */
   readonly anonymousId?: string
   /**
-   *	Additional identifier for external systems like Customer Relationship Management (CRM) or Enterprise Resource Planning (ERP).
-   *
-   */
-  readonly externalId?: string
-  /**
    *	Identifier used by the payment service that processes the Payment (for example, a PSP).
    *	The combination of `interfaceId` and the `paymentInterface` field on [PaymentMethodInfo](ctp:api:type:PaymentMethodInfo) must be unique.
    *	Once set, it cannot be changed.
@@ -173,30 +138,6 @@ export interface PaymentDraft {
    *
    */
   readonly amountPlanned: _Money
-  /**
-   *	Deprecated because the value can be calculated from the total amounts saved in the [Transactions](ctp:api:type:Transaction).
-   *
-   *
-   */
-  readonly amountAuthorized?: _Money
-  /**
-   *	Deprecated because this field is of little practical value, as it is either not reliably known, or the authorization time is fixed for a PSP.
-   *
-   *
-   */
-  readonly authorizedUntil?: string
-  /**
-   *	Deprecated because the value can be calculated from the total amounts saved in the [Transactions](ctp:api:type:Transaction).
-   *
-   *
-   */
-  readonly amountPaid?: _Money
-  /**
-   *	Deprecated because the value can be calculated from the total amounts saved in the [Transactions](ctp:api:type:Transaction).
-   *
-   *
-   */
-  readonly amountRefunded?: _Money
   /**
    *	Information regarding the payment interface (for example, a PSP), and the specific payment method used.
    *

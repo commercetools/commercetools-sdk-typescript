@@ -31,12 +31,12 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?fuzzyLevel=0.110830665',
+      uri: '/test_projectKey/product-projections/search?fuzzyLevel=9',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .search()
-        .get({ queryArgs: { fuzzyLevel: 0.110830665 } }),
+        .get({ queryArgs: { fuzzyLevel: 9 } }),
     },
     {
       method: 'get',

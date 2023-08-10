@@ -20,10 +20,6 @@ export class ByProjectKeyExtensionsKeyByKeyRequestBuilder {
     }
   ) {}
   public get(methodArgs?: {
-    queryArgs?: {
-      expand?: string | string[]
-      [key: string]: QueryParam
-    }
     headers?: {
       [key: string]: string | string[]
     }
@@ -37,16 +33,11 @@ export class ByProjectKeyExtensionsKeyByKeyRequestBuilder {
         headers: {
           ...methodArgs?.headers,
         },
-        queryParams: methodArgs?.queryArgs,
       },
       this.args.executeRequest
     )
   }
   public post(methodArgs: {
-    queryArgs?: {
-      expand?: string | string[]
-      [key: string]: QueryParam
-    }
     body: ExtensionUpdate
     headers?: {
       [key: string]: string | string[]
@@ -62,7 +53,6 @@ export class ByProjectKeyExtensionsKeyByKeyRequestBuilder {
           'Content-Type': 'application/json',
           ...methodArgs?.headers,
         },
-        queryParams: methodArgs?.queryArgs,
         body: methodArgs?.body,
       },
       this.args.executeRequest
@@ -71,7 +61,6 @@ export class ByProjectKeyExtensionsKeyByKeyRequestBuilder {
   public delete(methodArgs: {
     queryArgs: {
       version: number
-      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {

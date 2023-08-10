@@ -1418,6 +1418,13 @@ export interface StagedOrderSetCustomLineItemTaxAmountAction {
    *
    */
   readonly externalTaxAmount?: ExternalTaxAmountDraft
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) used for this Custom Line Item.
+   *	This is required for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	Can be used if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
@@ -1444,6 +1451,13 @@ export interface StagedOrderSetCustomLineItemTaxRateAction {
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
+  /**
+   *	`key` of the [ShippingMethod](ctp:api:type:ShippingMethod) used for this Custom Line Item.
+   *	This is required for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey?: string
 }
 /**
  *	To set the Cart's custom Shipping Method (independent of the [ShippingMethods](ctp:api:type:ShippingMethod) managed through the [Shipping Methods API](/../api/projects/shippingMethods)) the Cart must have the `Single` [ShippingMode](ctp:api:type:ShippingMode) and a `shippingAddress`.

@@ -1467,18 +1467,6 @@ export interface MyCartChangeLineItemQuantityAction {
    *
    */
   readonly quantity: number
-  /**
-   *	Deprecated. Will be ignored.
-   *
-   *
-   */
-  readonly externalPrice?: _Money
-  /**
-   *	Deprecated. Will be ignored.
-   *
-   *
-   */
-  readonly externalTotalPrice?: ExternalLineItemTotalPrice
 }
 /**
  *	- When `External` [TaxMode](ctp:api:type:TaxMode) is changed to `Platform` or `Disabled`, all previously set external Tax Rates are removed.

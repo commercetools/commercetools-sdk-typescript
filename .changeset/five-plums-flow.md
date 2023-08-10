@@ -1,3 +1,9 @@
+---
+"@commercetools/platform-sdk": minor
+---
+
+Update generated SDKs
+
 **Api changes**
 
 <details>
@@ -5,14 +11,6 @@
 
 - :warning: changed property `money` of type `CartDiscountValueFixed` from type `CentPrecisionMoney[]` to `TypedMoney[]`
 - :warning: changed property `money` of type `CartDiscountValueFixedDraft` from type `Money[]` to `TypedMoneyDraft[]`
-- :warning: changed property `country` of type `StagedOrder` from type `string` to `CountryCode`
-- :warning: changed property `locale` of type `StagedOrder` from type `string` to `Locale`
-- :warning: changed property `country` of type `StagedOrderSetCountryAction` from type `string` to `CountryCode`
-- :warning: changed property `locale` of type `StagedOrderSetLocaleAction` from type `string` to `Locale`
-- :warning: changed property `country` of type `Order` from type `string` to `CountryCode`
-- :warning: changed property `locale` of type `Order` from type `string` to `Locale`
-- :warning: changed property `country` of type `OrderImportDraft` from type `string` to `CountryCode`
-- :warning: changed property `locale` of type `OrderSetLocaleAction` from type `string` to `Locale`
 </details>
 
 <details>
@@ -229,36 +227,4 @@
 <summary>Added Enum(s)</summary>
 
 - added enum `associate-role` to type `ChangeSubscriptionResourceTypeId`
-</details>
-
-**Import changes**
-
-<details>
-<summary>Required Property(s)</summary>
-
-- :warning: changed property `key` of type `PriceDraftImport` to be required
-- changed property `addresses` of type `CustomerImport` to be optional
-</details>
-
-**History changes**
-
-<details>
-<summary>Added Type(s)</summary>
-
-- added type `AddInheritedAssociateChange`
-- added type `AssociateRoleLabel`
-- added type `ChangeBuyerAssignableChange`
-- added type `ChangeInheritedAssociateChange`
-- added type `InheritedAssociate`
-- added type `InheritedAssociateRoleAssignment`
-- added type `Permission`
-- added type `RemoveInheritedAssociateChange`
-- added type `SetLocalizedNameChange`
-- added type `SetPermissionsChange`
-</details>
-
-<details>
-<summary>Added Enum(s)</summary>
-
-- added enum `associate-role` to type `ChangeHistoryResourceType`
 </details>

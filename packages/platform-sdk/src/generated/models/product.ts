@@ -1559,29 +1559,6 @@ export interface ProductRemovePriceAction {
    */
   readonly priceId: string
   /**
-   *	The `sku` of the ProductVariant the provided Price should be removed from.
-   *	Either 'variantId' or 'sku' is required" when `priceId` is not provided.
-   *	This field is now deprecated, use 'priceId' instead.
-   *
-   *
-   */
-  readonly sku?: string
-  /**
-   *	The `id` of the ProductVariant the provided Price should be removed from.
-   *	Either 'variantId' or 'sku' is required" when `priceId` is not provided.
-   *	This field is now deprecated, use 'priceId' instead.
-   *
-   *
-   */
-  readonly variantId?: number
-  /**
-   *	The Price identical to the one to be removed from the ProductVariant.
-   *	This field is now deprecated, use 'priceId' instead.
-   *
-   *
-   */
-  readonly price?: PriceDraft
-  /**
    *	If `true`, only the staged Embedded Price is removed. If `false`, both the current and staged Embedded Price are removed.
    *
    *

@@ -13,14 +13,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
       method: 'get',
-      uri: '/test_projectKey/subscriptions?expand=expand',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .subscriptions()
-        .get({ queryArgs: { expand: 'expand' } }),
-    },
-    {
-      method: 'get',
       uri: '/test_projectKey/subscriptions?sort=sort',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
@@ -74,14 +66,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .withProjectKey({ projectKey: 'test_projectKey' })
         .subscriptions()
         .get(),
-    },
-    {
-      method: 'post',
-      uri: '/test_projectKey/subscriptions?expand=expand',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .subscriptions()
-        .post({ body: null, headers: null, queryArgs: { expand: 'expand' } }),
     },
     {
       method: 'post',
