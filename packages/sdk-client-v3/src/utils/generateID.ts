@@ -1,9 +1,5 @@
-import crytpo from 'crypto'
+import { v4 as uuidv4 } from 'uuid'
 
-// TODO: Polyfill crypto for browsers
 export default function generateID() {
-  return crytpo
-    .randomBytes(32)
-    .toString('base64')
-    .replace(/[\/\-=+]/gi, '')
+  return uuidv4()
 }
