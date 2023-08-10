@@ -13,30 +13,12 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
       method: 'get',
-      uri: '/test_projectKey/extensions/key=test_key?expand=expand',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .extensions()
-        .withKey({ key: 'test_key' })
-        .get({ queryArgs: { expand: 'expand' } }),
-    },
-    {
-      method: 'get',
       uri: '/test_projectKey/extensions/key=test_key',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .extensions()
         .withKey({ key: 'test_key' })
         .get(),
-    },
-    {
-      method: 'post',
-      uri: '/test_projectKey/extensions/key=test_key?expand=expand',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .extensions()
-        .withKey({ key: 'test_key' })
-        .post({ body: null, headers: null, queryArgs: { expand: 'expand' } }),
     },
     {
       method: 'post',
@@ -55,15 +37,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .extensions()
         .withKey({ key: 'test_key' })
         .delete({ queryArgs: { version: 2 } }),
-    },
-    {
-      method: 'delete',
-      uri: '/test_projectKey/extensions/key=test_key?expand=expand&version=2',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .extensions()
-        .withKey({ key: 'test_key' })
-        .delete({ queryArgs: { expand: 'expand', version: 2 } }),
     },
   ]
 }

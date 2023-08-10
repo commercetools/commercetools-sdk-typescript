@@ -51,7 +51,6 @@ export class ByProjectKeySubscriptionsRequestBuilder {
 
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string | string[]
       sort?: string | string[]
       limit?: number
       offset?: number
@@ -82,10 +81,6 @@ export class ByProjectKeySubscriptionsRequestBuilder {
    *
    */
   public post(methodArgs: {
-    queryArgs?: {
-      expand?: string | string[]
-      [key: string]: QueryParam
-    }
     body: SubscriptionDraft
     headers?: {
       [key: string]: string | string[]
@@ -101,7 +96,6 @@ export class ByProjectKeySubscriptionsRequestBuilder {
           'Content-Type': 'application/json',
           ...methodArgs?.headers,
         },
-        queryParams: methodArgs?.queryArgs,
         body: methodArgs?.body,
       },
       this.args.executeRequest

@@ -7848,12 +7848,6 @@ export interface PaymentStatusInterfaceCodeSetMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Unique identifier for the [Payment](ctp:api:type:Payment) for which the [Set StatusInterfaceCode](ctp:api:type:PaymentSetStatusInterfaceCodeAction) update action was applied.
-   *
-   *
-   */
-  readonly paymentId: string
-  /**
    *	The `interfaceCode` that was set during the [Set StatusInterfaceCode](ctp:api:type:PaymentSetStatusInterfaceCodeAction) update action.
    *
    *
@@ -15521,12 +15515,6 @@ export interface PaymentInteractionAddedMessagePayload {
  */
 export interface PaymentStatusInterfaceCodeSetMessagePayload {
   readonly type: 'PaymentStatusInterfaceCodeSet'
-  /**
-   *	Unique identifier for the [Payment](ctp:api:type:Payment) for which the [Set StatusInterfaceCode](ctp:api:type:PaymentSetStatusInterfaceCodeAction) update action was applied.
-   *
-   *
-   */
-  readonly paymentId: string
   /**
    *	The `interfaceCode` that was set during the [Set StatusInterfaceCode](ctp:api:type:PaymentSetStatusInterfaceCodeAction) update action.
    *

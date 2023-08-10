@@ -51,7 +51,6 @@ export class ByProjectKeyExtensionsRequestBuilder {
 
   public get(methodArgs?: {
     queryArgs?: {
-      expand?: string | string[]
       sort?: string | string[]
       limit?: number
       offset?: number
@@ -78,10 +77,6 @@ export class ByProjectKeyExtensionsRequestBuilder {
     )
   }
   public post(methodArgs: {
-    queryArgs?: {
-      expand?: string | string[]
-      [key: string]: QueryParam
-    }
     body: ExtensionDraft
     headers?: {
       [key: string]: string | string[]
@@ -97,7 +92,6 @@ export class ByProjectKeyExtensionsRequestBuilder {
           'Content-Type': 'application/json',
           ...methodArgs?.headers,
         },
-        queryParams: methodArgs?.queryArgs,
         body: methodArgs?.body,
       },
       this.args.executeRequest

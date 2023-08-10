@@ -32,12 +32,6 @@ export interface Associate {
    */
   readonly associateRoleAssignments: AssociateRoleAssignment[]
   /**
-   *	Deprecated type. Use `associateRoleAssignment` instead.
-   *
-   *	@deprecated
-   */
-  readonly roles: AssociateRoleDeprecated[]
-  /**
    *	The [Customer](ctp:api:type:Customer) that acts as an Associate in the Business Unit.
    *
    *
@@ -51,12 +45,6 @@ export interface AssociateDraft {
    *
    */
   readonly associateRoleAssignments: AssociateRoleAssignmentDraft[]
-  /**
-   *	Deprecated type. Use `associateRoleAssignment` instead.
-   *
-   *	@deprecated
-   */
-  readonly roles?: AssociateRoleDeprecated[]
   /**
    *	The [Customer](ctp:api:type:Customer) to be part of the Business Unit.
    *
@@ -92,11 +80,6 @@ export interface AssociateRoleAssignmentDraft {
    */
   readonly inheritance?: AssociateRoleInheritanceMode
 }
-/**
- *	Roles defining how an [Associate](ctp:api:type:Associate) can interact with a Business Unit.
- *
- */
-export type AssociateRoleDeprecated = 'Admin' | 'Buyer' | string
 /**
  *	Determines whether an [AssociateRoleAssignment](ctp:api:type:AssociateRoleAssignment) can be inherited by child Business Units.
  *

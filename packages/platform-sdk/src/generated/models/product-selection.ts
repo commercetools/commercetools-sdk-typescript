@@ -161,12 +161,6 @@ export interface ProductSelection extends BaseResource {
   /**
    *	Specifies in which way the Products are assigned to the ProductSelection.
    *	Currently, the only way of doing this is to specify each Product individually, either by [including or excluding](ctp:api:type:ProductSelectionMode) them explicitly.
-   *	@deprecated
-   */
-  readonly type?: ProductSelectionTypeEnum
-  /**
-   *	Specifies in which way the Products are assigned to the ProductSelection.
-   *	Currently, the only way of doing this is to specify each Product individually, either by [including or excluding](ctp:api:type:ProductSelectionMode) them explicitly.
    *
    */
   readonly mode: ProductSelectionMode
@@ -229,11 +223,6 @@ export interface ProductSelectionDraft {
    *
    */
   readonly custom?: CustomFieldsDraft
-  /**
-   *	Type of the Product Selection.
-   *	@deprecated
-   */
-  readonly type?: ProductSelectionTypeEnum
   /**
    *	Mode of the Product Selection.
    *
@@ -362,33 +351,6 @@ export interface ProductSelectionResourceIdentifier {
    */
   readonly key?: string
 }
-export type ProductSelectionType =
-  | IndividualExclusionProductSelectionType
-  | IndividualProductSelectionType
-export interface IndividualExclusionProductSelectionType {
-  readonly type: 'individualExclusion'
-  /**
-   *	The name of the ProductSelection which is recommended to be unique.
-   *
-   */
-  readonly name: LocalizedString
-}
-export interface IndividualProductSelectionType {
-  readonly type: 'individual'
-  /**
-   *	The name of the ProductSelection which is recommended to be unique.
-   *
-   */
-  readonly name: LocalizedString
-}
-/**
- *	The following types of Product Selections are supported:
- *
- */
-export type ProductSelectionTypeEnum =
-  | 'individual'
-  | 'individualExclusion'
-  | string
 export interface ProductSelectionUpdate {
   /**
    *

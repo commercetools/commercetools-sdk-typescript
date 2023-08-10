@@ -1,7 +1,7 @@
 export { default as ClientBuilder } from './client-builder/ClientBuilder'
 export {
-  default as createClient,
-  process as Process,
+    default as createClient,
+    process as Process
 } from './sdk-client/client'
 export { default as getErrorByCode } from './sdk-client/errors'
 export { default as createAuthForAnonymousSessionFlow } from './sdk-middleware-auth/anonymous-session-flow'
