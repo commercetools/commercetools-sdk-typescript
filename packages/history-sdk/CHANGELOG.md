@@ -1,5 +1,32 @@
 # @commercetools/history-sdk
 
+## 3.5.0
+
+### Minor Changes
+
+- [#514](https://github.com/commercetools/commercetools-sdk-typescript/pull/514) [`800c52f`](https://github.com/commercetools/commercetools-sdk-typescript/commit/800c52f46dfef01ba74322c006045587efc570db) Thanks [@github-actions](https://github.com/apps/github-actions)! - **History changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `AddInheritedAssociateChange`
+  - added type `AssociateRoleLabel`
+  - added type `ChangeBuyerAssignableChange`
+  - added type `ChangeInheritedAssociateChange`
+  - added type `InheritedAssociate`
+  - added type `InheritedAssociateRoleAssignment`
+  - added type `Permission`
+  - added type `RemoveInheritedAssociateChange`
+  - added type `SetLocalizedNameChange`
+  - added type `SetPermissionsChange`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `associate-role` to type `ChangeHistoryResourceType`
+  </details>
+
 ## 3.4.2
 
 ### Patch Changes
