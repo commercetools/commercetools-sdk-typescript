@@ -1,7 +1,5 @@
 ---
-"@commercetools/platform-sdk": patch
-"@commercetools/ts-client": patch
-"@commercetools/sdk-client-v2": patch
+"@commercetools/platform-sdk": minor
 ---
 
 Update generated SDKs
