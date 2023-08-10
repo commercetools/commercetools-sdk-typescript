@@ -40,7 +40,7 @@
   "devDependencies": {
     "@types/uuid": "9.0.2",
     "organize-imports-cli": "0.10.0",
-    "tsconfig-replace-paths": "0.0.14",
+    "tsconfig-replace-paths": "0.0.13",
     "uuid": "9.0.0"
   },
   "scripts": {
