@@ -228,7 +228,7 @@ export interface Asset {
    */
   readonly custom?: CustomFields
   /**
-   *	User-defined unique identifier of the Asset.
+   *	User-defined identifier of the Asset. It is unique per [Category](ctp:api:type:Category) or [ProductVariant](ctp:api:type:ProductVariant).
    *
    *
    */
@@ -282,7 +282,7 @@ export interface AssetDraft {
    */
   readonly custom?: CustomFieldsDraft
   /**
-   *	User-defined unique identifier for the Asset.
+   *	User-defined identifier for the Asset. Must be unique per [Category](ctp:api:type:Category) or [ProductVariant](ctp:api:type:ProductVariant).
    *
    *
    */
@@ -300,7 +300,7 @@ export interface AssetSource {
    */
   readonly uri: string
   /**
-   *	User-defined unique identifier of the AssetSource.
+   *	User-defined identifier of the AssetSource. Must be unique per [Asset](ctp:api:type:Asset).
    *
    */
   readonly key?: string
