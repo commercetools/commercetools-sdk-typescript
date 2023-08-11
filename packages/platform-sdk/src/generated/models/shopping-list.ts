@@ -221,6 +221,11 @@ export interface ShoppingListLineItem {
    */
   readonly id: string
   /**
+   *	User-defined identifier of the ShoppingListLineItem. It is unique per [ShoppingList](ctp:api:type:ShoppingList).
+   *
+   */
+  readonly key?: string
+  /**
    *	Name of the Product.
    *
    *	This data is updated in an [eventual consistent manner](/general-concepts#eventual-consistency) when the Product's name changes.
@@ -274,6 +279,11 @@ export interface ShoppingListLineItem {
  *
  */
 export interface ShoppingListLineItemDraft {
+  /**
+   *	User-defined identifier of the ShoppingListLineItem. Must be unique per [ShoppingList](ctp:api:type:ShoppingList).
+   *
+   */
+  readonly key?: string
   /**
    *	Unique identifier of a [Product](ctp:api:type:Product).
    *
@@ -453,6 +463,11 @@ export interface TextLineItem {
    */
   readonly id: string
   /**
+   *	User-defined identifier of the TextLineItem. It is unique per [ShoppingList](ctp:api:type:ShoppingList).
+   *
+   */
+  readonly key?: string
+  /**
    *	Name of the TextLineItem.
    *
    *
@@ -466,6 +481,11 @@ export interface TextLineItem {
   readonly quantity: number
 }
 export interface TextLineItemDraft {
+  /**
+   *	User-defined unique identifier of the TextLineItem. Must be unique per [ShoppingList](ctp:api:type:ShoppingList).
+   *
+   */
+  readonly key?: string
   /**
    *	Date and time the TextLineItem is added to the [ShoppingList](ctp:api:type:ShoppingList). If not set, the current date and time (UTC) is used.
    *
@@ -505,6 +525,12 @@ export interface TextLineItemDraft {
  */
 export interface ShoppingListAddLineItemAction {
   readonly action: 'addLineItem'
+  /**
+   *	User-defined identifier of the ShoppingListLineItem. Must be unique per [ShoppingList](ctp:api:type:ShoppingList).
+   *
+   *
+   */
+  readonly key?: string
   /**
    *	`sku` of the [ProductVariant](ctp:api:type:ProductVariant).
    *
@@ -551,6 +577,12 @@ export interface ShoppingListAddTextLineItemAction {
    */
   readonly name: LocalizedString
   /**
+   *	User-defined identifier of the TextLineItem. Must be unique per [ShoppingList](ctp:api:type:ShoppingList).
+   *
+   *
+   */
+  readonly key?: string
+  /**
    *	Description of the TextLineItem.
    *
    *
@@ -578,11 +610,17 @@ export interface ShoppingListAddTextLineItemAction {
 export interface ShoppingListChangeLineItemQuantityAction {
   readonly action: 'changeLineItemQuantity'
   /**
-   *	The `id` of the [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem) to update.
+   *	The `id` of the [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	The `key` of the [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	New value to set. If `0`, the ShoppingListLineItem is removed from the ShoppingList.
    *
@@ -611,11 +649,17 @@ export interface ShoppingListChangeNameAction {
 export interface ShoppingListChangeTextLineItemNameAction {
   readonly action: 'changeTextLineItemName'
   /**
-   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update.
+   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly textLineItemId: string
+  readonly textLineItemId?: string
+  /**
+   *	The `key` of the [TextLineItem](ctp:api:type:TextLineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly textLineItemKey?: string
   /**
    *	New value to set. Must not be empty.
    *
@@ -626,11 +670,17 @@ export interface ShoppingListChangeTextLineItemNameAction {
 export interface ShoppingListChangeTextLineItemQuantityAction {
   readonly action: 'changeTextLineItemQuantity'
   /**
-   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update.
+   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly textLineItemId: string
+  readonly textLineItemId?: string
+  /**
+   *	The `key` of the [TextLineItem](ctp:api:type:TextLineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly textLineItemKey?: string
   /**
    *	New value to set. If `0`, the TextLineItem is removed from the ShoppingList.
    *
@@ -650,11 +700,17 @@ export interface ShoppingListChangeTextLineItemsOrderAction {
 export interface ShoppingListRemoveLineItemAction {
   readonly action: 'removeLineItem'
   /**
-   *	The `id` of the [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem) to update.
+   *	The `id` of the [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	The `key` of the [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Amount to remove from the `quantity` of the ShoppingListLineItem. If not set, the ShoppingListLineItem is removed from the ShoppingList. If this value matches or exceeds the current `quantity` of the ShoppingListLineItem, the ShoppingListLineItem is removed from the ShoppingList.
    *
@@ -665,11 +721,17 @@ export interface ShoppingListRemoveLineItemAction {
 export interface ShoppingListRemoveTextLineItemAction {
   readonly action: 'removeTextLineItem'
   /**
-   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update.
+   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly textLineItemId: string
+  readonly textLineItemId?: string
+  /**
+   *	The `key` of the [TextLineItem](ctp:api:type:TextLineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly textLineItemKey?: string
   /**
    *	Amount to remove from the `quantity` of the TextLineItem. If not set, the TextLineItem is removed from the ShoppingList. If this value matches or exceeds the current `quantity` of the TextLineItem, the TextLineItem is removed from the ShoppingList.
    *
@@ -757,11 +819,17 @@ export interface ShoppingListSetKeyAction {
 export interface ShoppingListSetLineItemCustomFieldAction {
   readonly action: 'setLineItemCustomField'
   /**
-   *	The `id` of the [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem) to update.
+   *	The `id` of the [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	The `key` of the [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
@@ -780,11 +848,17 @@ export interface ShoppingListSetLineItemCustomFieldAction {
 export interface ShoppingListSetLineItemCustomTypeAction {
   readonly action: 'setLineItemCustomType'
   /**
-   *	The `id` of the [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem) to update.
+   *	The `id` of the [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly lineItemId: string
+  readonly lineItemId?: string
+  /**
+   *	The `key` of the [ShoppingListLineItem](ctp:api:type:ShoppingListLineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the ShoppingListLineItem with [Custom Fields](/../api/projects/custom-fields).
    *	If absent, any existing Type and Custom Fields are removed from the ShoppingListLineItem.
@@ -820,11 +894,17 @@ export interface ShoppingListSetStoreAction {
 export interface ShoppingListSetTextLineItemCustomFieldAction {
   readonly action: 'setTextLineItemCustomField'
   /**
-   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update.
+   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly textLineItemId: string
+  readonly textLineItemId?: string
+  /**
+   *	The `key` of the [TextLineItem](ctp:api:type:TextLineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly textLineItemKey?: string
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
    *
@@ -843,11 +923,17 @@ export interface ShoppingListSetTextLineItemCustomFieldAction {
 export interface ShoppingListSetTextLineItemCustomTypeAction {
   readonly action: 'setTextLineItemCustomType'
   /**
-   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update.
+   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly textLineItemId: string
+  readonly textLineItemId?: string
+  /**
+   *	The `key` of the [TextLineItem](ctp:api:type:TextLineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly textLineItemKey?: string
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the TextLineItem with [Custom Fields](/../api/projects/custom-fields).
    *	If absent, any existing Type and Custom Fields are removed from the TextLineItem.
@@ -865,11 +951,17 @@ export interface ShoppingListSetTextLineItemCustomTypeAction {
 export interface ShoppingListSetTextLineItemDescriptionAction {
   readonly action: 'setTextLineItemDescription'
   /**
-   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update.
+   *	The `id` of the [TextLineItem](ctp:api:type:TextLineItem) to update. Either `lineItemId` or `lineItemKey` is required.
    *
    *
    */
-  readonly textLineItemId: string
+  readonly textLineItemId?: string
+  /**
+   *	The `key` of the [TextLineItem](ctp:api:type:TextLineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly textLineItemKey?: string
   /**
    *	Value to set. If empty, any existing value will be removed.
    *
