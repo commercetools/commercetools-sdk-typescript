@@ -13,6 +13,7 @@
 - added property `textLineItemKey` to type `MyShoppingListSetTextLineItemCustomFieldAction`
 - added property `textLineItemKey` to type `MyShoppingListSetTextLineItemCustomTypeAction`
 - added property `textLineItemKey` to type `MyShoppingListSetTextLineItemDescriptionAction`
+- added property `cart` to type `QuoteRequest`
 - added property `key` to type `ShoppingListLineItem`
 - added property `key` to type `ShoppingListLineItemDraft`
 - added property `key` to type `TextLineItem`
