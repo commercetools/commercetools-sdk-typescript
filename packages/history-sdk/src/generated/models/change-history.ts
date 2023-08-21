@@ -209,24 +209,11 @@ export interface ModifiedBy {
    *
    *	- If the change was made by a user, the value is `"user"`.
    *	- If the change was made by an API Client with or without an [external user ID](/client-logging#external-user-ids), the value is `"external-user"`.
+   *	- If the change was made by an [Associate](ctp:api:type:Associate), the value is `"associate"`.
    *
    *
    */
   readonly type: string
-  /**
-   *	[Reference](ctp:api:type:Reference) to the [Customer](ctp:api:type:Customer) who made the change.
-   *
-   *	Present only if the change was made using a token from the [password flow](/authorization#password-flow).
-   *
-   *
-   */
-  readonly customer?: Reference
-  /**
-   *	Present only if the change was made using a token from an [anonymous session](/authorization#tokens-for-anonymous-sessions).
-   *
-   *
-   */
-  readonly anonymousId?: string
   /**
    *	[ID](/general-concepts#identifier) of the [API Client](ctp:api:type:ApiClient) that made the change.
    *
@@ -235,6 +222,26 @@ export interface ModifiedBy {
    *
    */
   readonly clientId?: string
+  /**
+   *	Present only if the change was made using a token from an [anonymous session](/authorization#tokens-for-anonymous-sessions).
+   *
+   *
+   */
+  readonly anonymousId?: string
+  /**
+   *	The [Customer](ctp:api:type:Customer) who made the change.
+   *
+   *	Present only if the change was made using a token from the [password flow](/authorization#password-flow).
+   *
+   *
+   */
+  readonly customer?: Reference
+  /**
+   *	The [Associate](ctp:api:type:Associate) who made the change in the context of a [Business Unit](ctp:api:type:BusinessUnit). Present only if the Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
+   *
+   *
+   */
+  readonly associate?: Reference
   /**
    *	`true` if the change was made using the Merchant Center or [ImpEx](https://impex.europe-west1.gcp.commercetools.com/).
    *
