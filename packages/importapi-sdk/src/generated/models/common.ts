@@ -541,10 +541,11 @@ export type ReferenceType =
   | 'type'
   | string
 /**
- *	Every [Import Operation](/import-operation) is assigned with one of the following states.
+ *	Every [Import Operation](/import-operation) is assigned one of the following states.
  *
  */
 export type ProcessingState =
+  | 'canceled'
   | 'imported'
   | 'processing'
   | 'rejected'

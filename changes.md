@@ -55,6 +55,14 @@
 - changed property `textLineItemId` of type `ShoppingListSetTextLineItemDescriptionAction` to be optional
 </details>
 
+**Import changes**
+
+<details>
+<summary>Added Enum(s)</summary>
+
+- added enum `canceled` to type `ProcessingState`
+</details>
+
 **History changes**
 
 <details>
