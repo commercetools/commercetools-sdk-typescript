@@ -58,6 +58,12 @@
 **Import changes**
 
 <details>
+<summary>Added Property(s)</summary>
+
+- added property `canceled` to type `OperationStates`
+</details>
+
+<details>
 <summary>Added Enum(s)</summary>
 
 - added enum `canceled` to type `ProcessingState`
