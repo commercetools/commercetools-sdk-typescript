@@ -47,14 +47,15 @@ export class ByProjectKeyRequestBuilder {
       limit?: number
       offset?: number
       userId?: string
-      type?: string
       clientId?: string
+      customerId?: string
+      associateId?: string
+      type?: string
       resourceId?: string
       resourceKey?: string
       source?: string
       changes?: string | string[]
       stores?: string | string[]
-      customerId?: string
       excludePlatformInitiatedChanges?:
         | PlatformInitiatedChange
         | PlatformInitiatedChange[]

@@ -55,17 +55,31 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey?type=type',
-      request: apiRoot
-        .withProjectKeyValue({ projectKey: 'test_projectKey' })
-        .get({ queryArgs: { type: 'type' } }),
-    },
-    {
-      method: 'get',
       uri: '/test_projectKey?clientId=clientId',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
         .get({ queryArgs: { clientId: 'clientId' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey?customerId=customerId',
+      request: apiRoot
+        .withProjectKeyValue({ projectKey: 'test_projectKey' })
+        .get({ queryArgs: { customerId: 'customerId' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey?associateId=associateId',
+      request: apiRoot
+        .withProjectKeyValue({ projectKey: 'test_projectKey' })
+        .get({ queryArgs: { associateId: 'associateId' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey?type=type',
+      request: apiRoot
+        .withProjectKeyValue({ projectKey: 'test_projectKey' })
+        .get({ queryArgs: { type: 'type' } }),
     },
     {
       method: 'get',
@@ -101,13 +115,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
         .get({ queryArgs: { stores: 'stores' } }),
-    },
-    {
-      method: 'get',
-      uri: '/test_projectKey?customerId=customerId',
-      request: apiRoot
-        .withProjectKeyValue({ projectKey: 'test_projectKey' })
-        .get({ queryArgs: { customerId: 'customerId' } }),
     },
     {
       method: 'get',

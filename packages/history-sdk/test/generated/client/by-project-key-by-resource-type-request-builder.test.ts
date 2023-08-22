@@ -53,19 +53,35 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/test_resourceType?type=type',
-      request: apiRoot
-        .withProjectKeyValue({ projectKey: 'test_projectKey' })
-        .withResourceTypeValue({ resourceType: 'test_resourceType' })
-        .get({ queryArgs: { type: 'type' } }),
-    },
-    {
-      method: 'get',
       uri: '/test_projectKey/test_resourceType?clientId=clientId',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
         .withResourceTypeValue({ resourceType: 'test_resourceType' })
         .get({ queryArgs: { clientId: 'clientId' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/test_resourceType?customerId=customerId',
+      request: apiRoot
+        .withProjectKeyValue({ projectKey: 'test_projectKey' })
+        .withResourceTypeValue({ resourceType: 'test_resourceType' })
+        .get({ queryArgs: { customerId: 'customerId' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/test_resourceType?associateId=associateId',
+      request: apiRoot
+        .withProjectKeyValue({ projectKey: 'test_projectKey' })
+        .withResourceTypeValue({ resourceType: 'test_resourceType' })
+        .get({ queryArgs: { associateId: 'associateId' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/test_resourceType?type=type',
+      request: apiRoot
+        .withProjectKeyValue({ projectKey: 'test_projectKey' })
+        .withResourceTypeValue({ resourceType: 'test_resourceType' })
+        .get({ queryArgs: { type: 'type' } }),
     },
     {
       method: 'get',
@@ -98,14 +114,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
         .withResourceTypeValue({ resourceType: 'test_resourceType' })
         .get({ queryArgs: { stores: 'stores' } }),
-    },
-    {
-      method: 'get',
-      uri: '/test_projectKey/test_resourceType?customerId=customerId',
-      request: apiRoot
-        .withProjectKeyValue({ projectKey: 'test_projectKey' })
-        .withResourceTypeValue({ resourceType: 'test_resourceType' })
-        .get({ queryArgs: { customerId: 'customerId' } }),
     },
     {
       method: 'get',

@@ -324,13 +324,13 @@ export interface InvalidStateTransitionError {
    */
   readonly message: string
   /**
-   *	Every [Import Operation](/import-operation) is assigned with one of the following states.
+   *	Every [Import Operation](/import-operation) is assigned one of the following states.
    *
    *
    */
   readonly currentState: ProcessingState
   /**
-   *	Every [Import Operation](/import-operation) is assigned with one of the following states.
+   *	Every [Import Operation](/import-operation) is assigned one of the following states.
    *
    *
    */

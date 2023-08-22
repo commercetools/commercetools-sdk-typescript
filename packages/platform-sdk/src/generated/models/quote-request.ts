@@ -6,6 +6,7 @@
 
 import { BusinessUnitKeyReference } from './business-unit'
 import {
+  CartReference,
   CartResourceIdentifier,
   CustomLineItem,
   DirectDiscount,
@@ -233,6 +234,12 @@ export interface QuoteRequest extends BaseResource {
    *
    */
   readonly purchaseOrderNumber?: string
+  /**
+   *	The [Cart](ctp:api:type:Cart) from which a Quote is requested.
+   *
+   *
+   */
+  readonly cart?: CartReference
   /**
    *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Quote Request.
    *

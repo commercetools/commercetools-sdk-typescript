@@ -33,12 +33,13 @@ export class ByProjectKeyByResourceTypeByIDRequestBuilder {
       limit?: number
       offset?: number
       userId?: string
-      type?: string
       clientId?: string
+      customerId?: string
+      associateId?: string
+      type?: string
       source?: string
       changes?: string | string[]
       stores?: string | string[]
-      customerId?: string
       excludePlatformInitiatedChanges?:
         | PlatformInitiatedChange
         | PlatformInitiatedChange[]

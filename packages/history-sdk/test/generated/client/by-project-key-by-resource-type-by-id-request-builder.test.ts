@@ -58,21 +58,39 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/test_resourceType/test_ID?type=type',
-      request: apiRoot
-        .withProjectKeyValue({ projectKey: 'test_projectKey' })
-        .withResourceTypeValue({ resourceType: 'test_resourceType' })
-        .withIDValue({ ID: 'test_ID' })
-        .get({ queryArgs: { type: 'type' } }),
-    },
-    {
-      method: 'get',
       uri: '/test_projectKey/test_resourceType/test_ID?clientId=clientId',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
         .withResourceTypeValue({ resourceType: 'test_resourceType' })
         .withIDValue({ ID: 'test_ID' })
         .get({ queryArgs: { clientId: 'clientId' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/test_resourceType/test_ID?customerId=customerId',
+      request: apiRoot
+        .withProjectKeyValue({ projectKey: 'test_projectKey' })
+        .withResourceTypeValue({ resourceType: 'test_resourceType' })
+        .withIDValue({ ID: 'test_ID' })
+        .get({ queryArgs: { customerId: 'customerId' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/test_resourceType/test_ID?associateId=associateId',
+      request: apiRoot
+        .withProjectKeyValue({ projectKey: 'test_projectKey' })
+        .withResourceTypeValue({ resourceType: 'test_resourceType' })
+        .withIDValue({ ID: 'test_ID' })
+        .get({ queryArgs: { associateId: 'associateId' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/test_resourceType/test_ID?type=type',
+      request: apiRoot
+        .withProjectKeyValue({ projectKey: 'test_projectKey' })
+        .withResourceTypeValue({ resourceType: 'test_resourceType' })
+        .withIDValue({ ID: 'test_ID' })
+        .get({ queryArgs: { type: 'type' } }),
     },
     {
       method: 'get',
@@ -100,15 +118,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .withResourceTypeValue({ resourceType: 'test_resourceType' })
         .withIDValue({ ID: 'test_ID' })
         .get({ queryArgs: { stores: 'stores' } }),
-    },
-    {
-      method: 'get',
-      uri: '/test_projectKey/test_resourceType/test_ID?customerId=customerId',
-      request: apiRoot
-        .withProjectKeyValue({ projectKey: 'test_projectKey' })
-        .withResourceTypeValue({ resourceType: 'test_resourceType' })
-        .withIDValue({ ID: 'test_ID' })
-        .get({ queryArgs: { customerId: 'customerId' } }),
     },
     {
       method: 'get',
