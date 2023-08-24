@@ -1,6 +1,13 @@
 **Api changes**
 
 <details>
+<summary>Added Type(s)</summary>
+
+- added type `QuoteRenegotiationRequestedMessage`
+- added type `QuoteRenegotiationRequestedMessagePayload`
+</details>
+
+<details>
 <summary>Added Property(s)</summary>
 
 - added property `key` to type `MyShoppingListAddLineItemAction`
