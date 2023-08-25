@@ -3,6 +3,7 @@
 <details>
 <summary>Added Type(s)</summary>
 
+- added type `MethodExternalTaxRateDraft`
 - added type `QuoteRenegotiationRequestedMessage`
 - added type `QuoteRenegotiationRequestedMessagePayload`
 </details>
@@ -10,6 +11,7 @@
 <details>
 <summary>Added Property(s)</summary>
 
+- added property `perMethodExternalTaxRate` to type `LineItemDraft`
 - added property `key` to type `MyShoppingListAddLineItemAction`
 - added property `key` to type `MyShoppingListAddTextLineItemAction`
 - added property `textLineItemKey` to type `MyShoppingListChangeTextLineItemNameAction`
