@@ -64,6 +64,12 @@
 - changed property `textLineItemId` of type `ShoppingListSetTextLineItemDescriptionAction` to be optional
 </details>
 
+<details>
+<summary>Removed Enum(s)</summary>
+
+- :warning: removed enum `Failed` from type `QuoteState`
+</details>
+
 **Import changes**
 
 <details>
