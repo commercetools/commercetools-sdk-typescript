@@ -1,5 +1,17 @@
 # @commercetools/importapi-sdk
 
+## 4.7.0
+
+### Minor Changes
+
+- [`0e0c5bf`](https://github.com/commercetools/commercetools-sdk-typescript/commit/0e0c5bfc7e9f9c0c30dfdd520aed768122c7933d) Thanks [@jenschude](https://github.com/jenschude)! - **Import changes**
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `canceled` to type `ProcessingState`
+  </details>
+
 ## 4.6.2
 
 ### Patch Changes

@@ -1,5 +1,25 @@
 # @commercetools/history-sdk
 
+## 3.6.0
+
+### Minor Changes
+
+- [`0e0c5bf`](https://github.com/commercetools/commercetools-sdk-typescript/commit/0e0c5bfc7e9f9c0c30dfdd520aed768122c7933d) Thanks [@jenschude](https://github.com/jenschude)! - **History changes**
+
+  <details>
+  <summary>Added QueryParameter(s)</summary>
+
+  - added query parameter `associateId` to method `get /{projectKey}`
+  - added query parameter `associateId` to method `get /{projectKey}/{resourceType}`
+  - added query parameter `associateId` to method `get /{projectKey}/{resourceType}/{ID}`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `associate` to type `ModifiedBy`
+  </details>
+
 ## 3.5.0
 
 ### Minor Changes
