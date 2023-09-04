@@ -11,7 +11,6 @@ import {
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyMePaymentsByIDRequestBuilder } from './by-project-key-me-payments-by-id-request-builder'
-import { ByProjectKeyMePaymentsKeyByKeyRequestBuilder } from './by-project-key-me-payments-key-by-key-request-builder'
 /**
  **/
 export class ByProjectKeyMePaymentsRequestBuilder {
@@ -24,18 +23,6 @@ export class ByProjectKeyMePaymentsRequestBuilder {
       baseUri?: string
     }
   ) {}
-  public withKey(childPathArgs: {
-    key: string
-  }): ByProjectKeyMePaymentsKeyByKeyRequestBuilder {
-    return new ByProjectKeyMePaymentsKeyByKeyRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-        ...childPathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
-  }
   public withId(childPathArgs: {
     ID: string
   }): ByProjectKeyMePaymentsByIDRequestBuilder {

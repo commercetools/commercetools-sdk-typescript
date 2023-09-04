@@ -14,6 +14,7 @@ import {
   PriceTier,
   PriceTierDraft,
   TypedMoney,
+  TypedMoneyDraft,
   _Money,
 } from './common'
 import {
@@ -27,8 +28,19 @@ import {
   TypeResourceIdentifier,
 } from './type'
 
+export interface StagedPriceDraft {
+  /**
+   *	Money value for the StagedPriceDraft.
+   *
+   *
+   */
+  readonly value: TypedMoneyDraft
+}
 /**
- *	Staged changes on a Standalone Price. To update the `value` property of a Staged Standalone Price, use the corresponding [update action](ctp:api:type:StandalonePriceChangeValueAction). To apply all staged changes to the Standalone Price, use the [Apply Staged Changes](ctp:api:type:StandalonePriceApplyStagedChangesAction) update action.
+ *	Staged changes on a Standalone Price.
+ *	To update the `value` property of a Staged Standalone Price, use the [Change Value](ctp:api:type:StandalonePriceChangeValueAction) update action.
+ *	To apply all staged changes to the Standalone Price, use the [Apply Staged Changes](ctp:api:type:StandalonePriceApplyStagedChangesAction) update action.
+ *
  */
 export interface StagedStandalonePrice {
   /**
@@ -233,6 +245,12 @@ export interface StandalonePriceDraft {
    */
   readonly custom?: CustomFieldsDraft
   /**
+   *	Staged changes for the StandalonePrice.
+   *
+   *
+   */
+  readonly staged?: StagedPriceDraft
+  /**
    *	Set to `false`, if the StandalonePrice should not be considered during [price selection](ctp:api:type:ProductPriceSelection).
    *
    *
@@ -333,6 +351,7 @@ export type StandalonePriceUpdateAction =
   | StandalonePriceChangeActiveAction
   | StandalonePriceChangeValueAction
   | StandalonePriceRemovePriceTierAction
+  | StandalonePriceRemoveStagedChangesAction
   | StandalonePriceSetCustomFieldAction
   | StandalonePriceSetCustomTypeAction
   | StandalonePriceSetDiscountedPriceAction
@@ -409,6 +428,14 @@ export interface StandalonePriceRemovePriceTierAction {
    *
    */
   readonly tierMinimumQuantity: number
+}
+/**
+ *	Removes all staged changes from the StandalonePrice.
+ *	Removing staged changes successfully produces the [StandalonePriceStagedChangesRemoved](ctp:api:type:StandalonePriceStagedChangesRemovedMessage) Message.
+ *
+ */
+export interface StandalonePriceRemoveStagedChangesAction {
+  readonly action: 'removeStagedChanges'
 }
 export interface StandalonePriceSetCustomFieldAction {
   readonly action: 'setCustomField'

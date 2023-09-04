@@ -396,7 +396,6 @@ export type QuoteState =
   | 'Accepted'
   | 'Declined'
   | 'DeclinedForRenegotiation'
-  | 'Failed'
   | 'Pending'
   | 'RenegotiationAddressed'
   | 'Withdrawn'
@@ -446,7 +445,7 @@ export interface QuoteChangeQuoteStateAction {
   readonly quoteState: QuoteState
 }
 /**
- *	Represents the Buyer requesting renegotiation for a Quote. Valid for Quotes in a `Pending` or `Failed` [state](ctp:api:type:QuoteState).
+ *	Represents the Buyer requesting renegotiation for a Quote. Valid for Quotes in a `Pending` [state](ctp:api:type:QuoteState).
  *
  */
 export interface QuoteRequestQuoteRenegotiationAction {

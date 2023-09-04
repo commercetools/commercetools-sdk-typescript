@@ -53,4 +53,9 @@ export interface OperationStates {
    *
    */
   readonly rejected: number
+  /**
+   *	The number of resources in the `canceled` state.
+   *
+   */
+  readonly canceled: number
 }

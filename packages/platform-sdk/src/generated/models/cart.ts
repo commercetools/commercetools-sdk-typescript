@@ -1470,11 +1470,17 @@ export interface LineItemDraft {
    */
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
   /**
-   *	External Tax Rate for the Line Item if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+   *	Sets the external Tax Rate for the Line Item, if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
    *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
+  /**
+   *	Sets the external Tax Rates for individual Shipping Methods, if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode) and `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly perMethodExternalTaxRate?: MethodExternalTaxRateDraft[]
   /**
    *	Inventory mode specific to the Line Item only, and valid for the entire `quantity` of the Line Item.
    *	Set only if the inventory mode should be different from the `inventoryMode` specified on the [Cart](ctp:api:type:Cart).
@@ -1509,6 +1515,20 @@ export type LineItemPriceMode =
   | 'ExternalTotal'
   | 'Platform'
   | string
+export interface MethodExternalTaxRateDraft {
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingMethodKey: string
+  /**
+   *	External Tax Rate for the Shipping Method, if the Cart has `External` [TaxMode](ctp:api:type:TaxMode).
+   *
+   *
+   */
+  readonly taxRate?: ExternalTaxRateDraft
+}
 export interface MethodTaxRate {
   /**
    *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
