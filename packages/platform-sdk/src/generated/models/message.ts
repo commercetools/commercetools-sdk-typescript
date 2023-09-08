@@ -116,6 +116,11 @@ export type Message =
   | AssociateRolePermissionsSetMessage
   | BusinessUnitAddressAddedMessage
   | BusinessUnitAddressChangedMessage
+  | BusinessUnitAddressCustomFieldAddedMessage
+  | BusinessUnitAddressCustomFieldChangedMessage
+  | BusinessUnitAddressCustomFieldRemovedMessage
+  | BusinessUnitAddressCustomTypeRemovedMessage
+  | BusinessUnitAddressCustomTypeSetMessage
   | BusinessUnitAddressRemovedMessage
   | BusinessUnitAssociateAddedMessage
   | BusinessUnitAssociateChangedMessage
@@ -126,6 +131,11 @@ export type Message =
   | BusinessUnitBillingAddressRemovedMessage
   | BusinessUnitContactEmailSetMessage
   | BusinessUnitCreatedMessage
+  | BusinessUnitCustomFieldAddedMessage
+  | BusinessUnitCustomFieldChangedMessage
+  | BusinessUnitCustomFieldRemovedMessage
+  | BusinessUnitCustomTypeRemovedMessage
+  | BusinessUnitCustomTypeSetMessage
   | BusinessUnitDefaultBillingAddressSetMessage
   | BusinessUnitDefaultShippingAddressSetMessage
   | BusinessUnitDeletedMessage
@@ -917,6 +927,378 @@ export interface BusinessUnitAddressChangedMessage {
   readonly address: Address
 }
 /**
+ *	Generated after adding a Custom Field to an address of a Business Unit using the [Set Address CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action. If a Custom Field exists already exists with the same name, a [BusinessUnitAddressCustomFieldChanged](ctp:api:type:BusinessUnitAddressCustomFieldChangedMessage) Message is generated instead.
+ *
+ */
+export interface BusinessUnitAddressCustomFieldAddedMessage {
+  readonly type: 'BusinessUnitAddressCustomFieldAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that has been added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after changing an existing Custom Field on an address of a Business Unit using the [Set Address CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action.
+ *
+ */
+export interface BusinessUnitAddressCustomFieldChangedMessage {
+  readonly type: 'BusinessUnitAddressCustomFieldChanged'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) before the [Set CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly oldValue?: any
+}
+/**
+ *	Generated after removing a Custom Field from an address of a Business Unit using the [Set Address CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action.
+ *
+ */
+export interface BusinessUnitAddressCustomFieldRemovedMessage {
+  readonly type: 'BusinessUnitAddressCustomFieldRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after removing a Custom Type from an address of a Business Unit using the [Set CustomType in Address](ctp:api:type:BusinessUnitSetAddressCustomTypeAction) update action.
+ *
+ */
+export interface BusinessUnitAddressCustomTypeRemovedMessage {
+  readonly type: 'BusinessUnitAddressCustomTypeRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
+ *	Generated after adding a Custom Type to an address of a Business Unit using the [Set CustomType in Address](ctp:api:type:BusinessUnitSetAddressCustomTypeAction) update action.
+ *
+ */
+export interface BusinessUnitAddressCustomTypeSetMessage {
+  readonly type: 'BusinessUnitAddressCustomTypeSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Custom Fields that were set.
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
  *	Generated after a successful [Remove Address](ctp:api:type:BusinessUnitRemoveAddressAction) update action.
  *
  */
@@ -1621,6 +2003,378 @@ export interface BusinessUnitCreatedMessage {
    *
    */
   readonly businessUnit: BusinessUnit
+}
+/**
+ *	Generated after adding a Custom Field to a Business Unit using the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action. If a Custom Field exists already exists with the same name, a [BusinessUnitCustomFieldChanged](ctp:api:type:BusinessUnitCustomFieldChangedMessage) Message is generated instead.
+ *
+ */
+export interface BusinessUnitCustomFieldAddedMessage {
+  readonly type: 'BusinessUnitCustomFieldAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that was added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after changing an existing Custom Field on a Business Unit using the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action.
+ *
+ */
+export interface BusinessUnitCustomFieldChangedMessage {
+  readonly type: 'BusinessUnitCustomFieldChanged'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) before the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly oldValue?: any
+}
+/**
+ *	Generated after removing a Custom Field from a Business Unit using the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action.
+ *
+ */
+export interface BusinessUnitCustomFieldRemovedMessage {
+  readonly type: 'BusinessUnitCustomFieldRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after removing a Custom Type from a Business Unit using the [Set Custom Type](ctp:api:type:BusinessUnitSetCustomTypeAction) update action.
+ *
+ */
+export interface BusinessUnitCustomTypeRemovedMessage {
+  readonly type: 'BusinessUnitCustomTypeRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
+ *	Generated after adding a Custom Type to a Business Unit using the [Set Custom Type](ctp:api:type:BusinessUnitSetCustomTypeAction) update action.
+ *
+ */
+export interface BusinessUnitCustomTypeSetMessage {
+  readonly type: 'BusinessUnitCustomTypeSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Custom Fields that were set.
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
 }
 /**
  *	Generated after a successful [Set Default Billing Address](ctp:api:type:BusinessUnitSetDefaultBillingAddressAction) update action.
@@ -2911,7 +3665,7 @@ export interface CustomerAddressCustomFieldChangedMessage {
    */
   readonly name: string
   /**
-   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set Custom Field](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
    *
    *
    */
@@ -3498,7 +4252,7 @@ export interface CustomerCustomFieldChangedMessage {
    */
   readonly name: string
   /**
-   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set Custom Field](ctp:api:type:CustomerSetCustomFieldAction) update action.
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
    *
    *
    */
@@ -5532,7 +6286,7 @@ export interface OrderCustomFieldChangedMessage {
    */
   readonly name: string
   /**
-   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set Custom Field](ctp:api:type:OrderSetCustomFieldAction) update action.
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:OrderSetCustomFieldAction) update action.
    *
    *
    */
@@ -14408,6 +15162,11 @@ export type MessagePayload =
   | AssociateRolePermissionsSetMessagePayload
   | BusinessUnitAddressAddedMessagePayload
   | BusinessUnitAddressChangedMessagePayload
+  | BusinessUnitAddressCustomFieldAddedMessagePayload
+  | BusinessUnitAddressCustomFieldChangedMessagePayload
+  | BusinessUnitAddressCustomFieldRemovedMessagePayload
+  | BusinessUnitAddressCustomTypeRemovedMessagePayload
+  | BusinessUnitAddressCustomTypeSetMessagePayload
   | BusinessUnitAddressRemovedMessagePayload
   | BusinessUnitAssociateAddedMessagePayload
   | BusinessUnitAssociateChangedMessagePayload
@@ -14418,6 +15177,11 @@ export type MessagePayload =
   | BusinessUnitBillingAddressRemovedMessagePayload
   | BusinessUnitContactEmailSetMessagePayload
   | BusinessUnitCreatedMessagePayload
+  | BusinessUnitCustomFieldAddedMessagePayload
+  | BusinessUnitCustomFieldChangedMessagePayload
+  | BusinessUnitCustomFieldRemovedMessagePayload
+  | BusinessUnitCustomTypeRemovedMessagePayload
+  | BusinessUnitCustomTypeSetMessagePayload
   | BusinessUnitDefaultBillingAddressSetMessagePayload
   | BusinessUnitDefaultShippingAddressSetMessagePayload
   | BusinessUnitDeletedMessagePayload
@@ -14697,6 +15461,93 @@ export interface BusinessUnitAddressChangedMessagePayload {
   readonly address: Address
 }
 /**
+ *	Generated after adding a Custom Field to an address of a Business Unit using the [Set Address CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action. If a Custom Field exists already exists with the same name, a [BusinessUnitAddressCustomFieldChanged](ctp:api:type:BusinessUnitAddressCustomFieldChangedMessage) Message is generated instead.
+ *
+ */
+export interface BusinessUnitAddressCustomFieldAddedMessagePayload {
+  readonly type: 'BusinessUnitAddressCustomFieldAdded'
+  /**
+   *	Name of the Custom Field that has been added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after changing an existing Custom Field on an address of a Business Unit using the [Set Address CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action.
+ *
+ */
+export interface BusinessUnitAddressCustomFieldChangedMessagePayload {
+  readonly type: 'BusinessUnitAddressCustomFieldChanged'
+  /**
+   *	Name of the Custom Field that changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) before the [Set CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly oldValue?: any
+}
+/**
+ *	Generated after removing a Custom Field from an address of a Business Unit using the [Set Address CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action.
+ *
+ */
+export interface BusinessUnitAddressCustomFieldRemovedMessagePayload {
+  readonly type: 'BusinessUnitAddressCustomFieldRemoved'
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after removing a Custom Type from an address of a Business Unit using the [Set CustomType in Address](ctp:api:type:BusinessUnitSetAddressCustomTypeAction) update action.
+ *
+ */
+export interface BusinessUnitAddressCustomTypeRemovedMessagePayload {
+  readonly type: 'BusinessUnitAddressCustomTypeRemoved'
+  /**
+   *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
+ *	Generated after adding a Custom Type to an address of a Business Unit using the [Set CustomType in Address](ctp:api:type:BusinessUnitSetAddressCustomTypeAction) update action.
+ *
+ */
+export interface BusinessUnitAddressCustomTypeSetMessagePayload {
+  readonly type: 'BusinessUnitAddressCustomTypeSet'
+  /**
+   *	The Custom Fields that were set.
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
  *	Generated after a successful [Remove Address](ctp:api:type:BusinessUnitRemoveAddressAction) update action.
  *
  */
@@ -14831,6 +15682,93 @@ export interface BusinessUnitCreatedMessagePayload {
    *
    */
   readonly businessUnit: BusinessUnit
+}
+/**
+ *	Generated after adding a Custom Field to a Business Unit using the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action. If a Custom Field exists already exists with the same name, a [BusinessUnitCustomFieldChanged](ctp:api:type:BusinessUnitCustomFieldChangedMessage) Message is generated instead.
+ *
+ */
+export interface BusinessUnitCustomFieldAddedMessagePayload {
+  readonly type: 'BusinessUnitCustomFieldAdded'
+  /**
+   *	Name of the Custom Field that was added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after changing an existing Custom Field on a Business Unit using the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action.
+ *
+ */
+export interface BusinessUnitCustomFieldChangedMessagePayload {
+  readonly type: 'BusinessUnitCustomFieldChanged'
+  /**
+   *	Name of the Custom Field that changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) before the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly oldValue?: any
+}
+/**
+ *	Generated after removing a Custom Field from a Business Unit using the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action.
+ *
+ */
+export interface BusinessUnitCustomFieldRemovedMessagePayload {
+  readonly type: 'BusinessUnitCustomFieldRemoved'
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after removing a Custom Type from a Business Unit using the [Set Custom Type](ctp:api:type:BusinessUnitSetCustomTypeAction) update action.
+ *
+ */
+export interface BusinessUnitCustomTypeRemovedMessagePayload {
+  readonly type: 'BusinessUnitCustomTypeRemoved'
+  /**
+   *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
+ *	Generated after adding a Custom Type to a Business Unit using the [Set Custom Type](ctp:api:type:BusinessUnitSetCustomTypeAction) update action.
+ *
+ */
+export interface BusinessUnitCustomTypeSetMessagePayload {
+  readonly type: 'BusinessUnitCustomTypeSet'
+  /**
+   *	The Custom Fields that were set.
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
 }
 /**
  *	Generated after a successful [Set Default Billing Address](ctp:api:type:BusinessUnitSetDefaultBillingAddressAction) update action.
@@ -15095,7 +16033,7 @@ export interface CustomerAddressCustomFieldChangedMessagePayload {
    */
   readonly name: string
   /**
-   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set Custom Field](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
    *
    *
    */
@@ -15226,7 +16164,7 @@ export interface CustomerCustomFieldChangedMessagePayload {
    */
   readonly name: string
   /**
-   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set Custom Field](ctp:api:type:CustomerSetCustomFieldAction) update action.
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
    *
    *
    */
@@ -15759,7 +16697,7 @@ export interface OrderCustomFieldChangedMessagePayload {
    */
   readonly name: string
   /**
-   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set Custom Field](ctp:api:type:OrderSetCustomFieldAction) update action.
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:OrderSetCustomFieldAction) update action.
    *
    *
    */
