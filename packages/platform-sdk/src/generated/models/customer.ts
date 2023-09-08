@@ -971,6 +971,10 @@ export interface CustomerRemoveStoreAction {
    */
   readonly store: StoreResourceIdentifier
 }
+/**
+ *	Adding a Custom Field to an Address of a Customer generates the [CustomerAddressCustomFieldAdded](ctp:api:type:CustomerAddressCustomFieldAddedMessage) Message, removing one generates the [CustomerAddressCustomFieldRemoved](ctp:api:type:CustomerAddressCustomFieldRemovedMessage) Message, and updating an existing one generates the [CustomerAddressCustomFieldChanged](ctp:api:type:CustomerAddressCustomFieldChangedMessage) Message.
+ *
+ */
 export interface CustomerSetAddressCustomFieldAction {
   readonly action: 'setAddressCustomField'
   /**
@@ -994,6 +998,10 @@ export interface CustomerSetAddressCustomFieldAction {
    */
   readonly value?: any
 }
+/**
+ *	Adding or updating a Custom Type on an Address of a Customer generates the [CustomerAddressCustomTypeSet](ctp:api:type:CustomerAddressCustomTypeSetMessage) Message, and removing one generates the [CustomerAddressCustomTypeRemoved](ctp:api:type:CustomerAddressCustomTypeRemovedMessage) Message.
+ *
+ */
 export interface CustomerSetAddressCustomTypeAction {
   readonly action: 'setAddressCustomType'
   /**
@@ -1046,6 +1054,10 @@ export interface CustomerSetCompanyNameAction {
    */
   readonly companyName?: string
 }
+/**
+ *	Adding a Custom Field to a Customer generates the [CustomerCustomFieldAdded](ctp:api:type:CustomerCustomFieldAddedMessage) Message, removing one generates the [CustomerCustomFieldRemoved](ctp:api:type:CustomerCustomFieldRemovedMessage) Message, and updating an existing one generates the [CustomerCustomFieldChanged](ctp:api:type:CustomerCustomFieldChangedMessage) Message.
+ *
+ */
 export interface CustomerSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
@@ -1063,6 +1075,10 @@ export interface CustomerSetCustomFieldAction {
    */
   readonly value?: any
 }
+/**
+ *	Adding or updating a Custom Type on a Customer generates the [CustomerCustomTypeSet](ctp:api:type:CustomerCustomTypeSetMessage) Message, removing one generates the [CustomerCustomTypeRemoved](ctp:api:type:CustomerCustomTypeRemovedMessage) Message.
+ *
+ */
 export interface CustomerSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**

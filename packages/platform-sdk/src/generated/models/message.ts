@@ -927,7 +927,7 @@ export interface BusinessUnitAddressChangedMessage {
   readonly address: Address
 }
 /**
- *	Generated after adding a Custom Field to an address of a Business Unit using the [Set Address CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action. If a Custom Field exists already exists with the same name, a [BusinessUnitAddressCustomFieldChanged](ctp:api:type:BusinessUnitAddressCustomFieldChangedMessage) Message is generated instead.
+ *	Generated after adding a Custom Field to an address of a Business Unit using the [Set Address CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action. If a Custom Field already exists with the same name, a [BusinessUnitAddressCustomFieldChanged](ctp:api:type:BusinessUnitAddressCustomFieldChangedMessage) Message is generated instead.
  *
  */
 export interface BusinessUnitAddressCustomFieldAddedMessage {
@@ -1154,7 +1154,7 @@ export interface BusinessUnitAddressCustomFieldRemovedMessage {
   readonly name: string
 }
 /**
- *	Generated after removing a Custom Type from an address of a Business Unit using the [Set CustomType in Address](ctp:api:type:BusinessUnitSetAddressCustomTypeAction) update action.
+ *	Generated after removing a Custom Type from an address of a Business Unit using the [Set Custom Type in Address](ctp:api:type:BusinessUnitSetAddressCustomTypeAction) update action.
  *
  */
 export interface BusinessUnitAddressCustomTypeRemovedMessage {
@@ -1224,7 +1224,7 @@ export interface BusinessUnitAddressCustomTypeRemovedMessage {
   readonly oldTypeId?: string
 }
 /**
- *	Generated after adding a Custom Type to an address of a Business Unit using the [Set CustomType in Address](ctp:api:type:BusinessUnitSetAddressCustomTypeAction) update action.
+ *	Generated after adding a Custom Type to an address of a Business Unit using the [Set Custom Type in Address](ctp:api:type:BusinessUnitSetAddressCustomTypeAction) update action.
  *
  */
 export interface BusinessUnitAddressCustomTypeSetMessage {
@@ -2005,7 +2005,7 @@ export interface BusinessUnitCreatedMessage {
   readonly businessUnit: BusinessUnit
 }
 /**
- *	Generated after adding a Custom Field to a Business Unit using the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action. If a Custom Field exists already exists with the same name, a [BusinessUnitCustomFieldChanged](ctp:api:type:BusinessUnitCustomFieldChangedMessage) Message is generated instead.
+ *	Generated after adding a Custom Field to a Business Unit using the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action. If a Custom Field already exists with the same name, a [BusinessUnitCustomFieldChanged](ctp:api:type:BusinessUnitCustomFieldChangedMessage) Message is generated instead.
  *
  */
 export interface BusinessUnitCustomFieldAddedMessage {
@@ -3521,7 +3521,8 @@ export interface CustomerAddressChangedMessage {
   readonly address: Address
 }
 /**
- *	Generated after adding a Custom Field to the Address using the [Set CustomField in Address](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
+ *	Generated after adding a Custom Field to an Address of a Customer using the [Set CustomField in Address](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
+ *	If a Custom Field already exists with the same name, a [CustomerAddressCustomFieldChanged](ctp:api:type:CustomerAddressCustomFieldChangedMessage) Message is generated instead.
  *
  */
 export interface CustomerAddressCustomFieldAddedMessage {
@@ -3596,7 +3597,7 @@ export interface CustomerAddressCustomFieldAddedMessage {
   readonly value: any
 }
 /**
- *	Generated after changing an existing Custom Field on the Address using the [Set CustomField in Address](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
+ *	Generated after changing an existing Custom Field on an Address of a Customer using the [Set CustomField in Address](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
  *
  */
 export interface CustomerAddressCustomFieldChangedMessage {
@@ -3679,7 +3680,7 @@ export interface CustomerAddressCustomFieldChangedMessage {
   readonly previousValue?: any
 }
 /**
- *	Generated after removing a Custom Field from the Address using the [Set CustomField in Address](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
+ *	Generated after removing a Custom Field from an Address of a Customer using the [Set CustomField in Address](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
  *
  */
 export interface CustomerAddressCustomFieldRemovedMessage {
@@ -3749,7 +3750,7 @@ export interface CustomerAddressCustomFieldRemovedMessage {
   readonly name: string
 }
 /**
- *	Generated after a successful [Set CustomType in Address](ctp:api:type:CustomerSetAddressCustomTypeAction) update action with empty parameters.
+ *	Generated after removing a Custom Type from an Address of a Customer using the [Set Custom Type in Address](ctp:api:type:CustomerSetAddressCustomTypeAction) update action.
  *
  */
 export interface CustomerAddressCustomTypeRemovedMessage {
@@ -3821,7 +3822,7 @@ export interface CustomerAddressCustomTypeRemovedMessage {
   readonly previousTypeId?: string
 }
 /**
- *	Generated after a successful [Set CustomType in Address](ctp:api:type:CustomerSetAddressCustomTypeAction) update action.
+ *	Generated after adding a Custom Type to an Address of a Customer using the [Set Custom Type in Address](ctp:api:type:CustomerSetAddressCustomTypeAction) update action.
  *
  */
 export interface CustomerAddressCustomTypeSetMessage {
@@ -4108,7 +4109,8 @@ export interface CustomerCreatedMessage {
   readonly customer: Customer
 }
 /**
- *	Generated after adding a Custom Field using the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
+ *	Generated after adding a Custom Field to a Customer using the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
+ *	If a Custom Field already exists with the same name, a [CustomerCustomFieldChanged](ctp:api:type:CustomerCustomFieldChangedMessage) Message is generated instead.
  *
  */
 export interface CustomerCustomFieldAddedMessage {
@@ -4183,7 +4185,7 @@ export interface CustomerCustomFieldAddedMessage {
   readonly value: any
 }
 /**
- *	Generated after changing an existing Custom Field using the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
+ *	Generated after changing an existing Custom Field on a Customer using the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
  *
  */
 export interface CustomerCustomFieldChangedMessage {
@@ -4266,7 +4268,7 @@ export interface CustomerCustomFieldChangedMessage {
   readonly previousValue?: any
 }
 /**
- *	Generated after removing a Custom Field using the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
+ *	Generated after removing a Custom Field on a Customer using the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
  *
  */
 export interface CustomerCustomFieldRemovedMessage {
@@ -4336,7 +4338,7 @@ export interface CustomerCustomFieldRemovedMessage {
   readonly name: string
 }
 /**
- *	Generated after a successful [Set Custom Type](ctp:api:type:CustomerSetCustomTypeAction) update action with empty parameters.
+ *	Generated after adding a Custom Type to a Customer using the [Set Custom Type](ctp:api:type:CustomerSetCustomTypeAction) update action with empty parameters.
  *
  */
 export interface CustomerCustomTypeRemovedMessage {
@@ -4408,7 +4410,7 @@ export interface CustomerCustomTypeRemovedMessage {
   readonly previousTypeId?: string
 }
 /**
- *	Generated after a successful [Set Custom Type](ctp:api:type:CustomerSetCustomTypeAction) update action.
+ *	Generated after removing a Custom Type from a Customer using the [Set Custom Type](ctp:api:type:CustomerSetCustomTypeAction) update action.
  *
  */
 export interface CustomerCustomTypeSetMessage {
@@ -15461,7 +15463,7 @@ export interface BusinessUnitAddressChangedMessagePayload {
   readonly address: Address
 }
 /**
- *	Generated after adding a Custom Field to an address of a Business Unit using the [Set Address CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action. If a Custom Field exists already exists with the same name, a [BusinessUnitAddressCustomFieldChanged](ctp:api:type:BusinessUnitAddressCustomFieldChangedMessage) Message is generated instead.
+ *	Generated after adding a Custom Field to an address of a Business Unit using the [Set Address CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action. If a Custom Field already exists with the same name, a [BusinessUnitAddressCustomFieldChanged](ctp:api:type:BusinessUnitAddressCustomFieldChangedMessage) Message is generated instead.
  *
  */
 export interface BusinessUnitAddressCustomFieldAddedMessagePayload {
@@ -15517,7 +15519,7 @@ export interface BusinessUnitAddressCustomFieldRemovedMessagePayload {
   readonly name: string
 }
 /**
- *	Generated after removing a Custom Type from an address of a Business Unit using the [Set CustomType in Address](ctp:api:type:BusinessUnitSetAddressCustomTypeAction) update action.
+ *	Generated after removing a Custom Type from an address of a Business Unit using the [Set Custom Type in Address](ctp:api:type:BusinessUnitSetAddressCustomTypeAction) update action.
  *
  */
 export interface BusinessUnitAddressCustomTypeRemovedMessagePayload {
@@ -15530,7 +15532,7 @@ export interface BusinessUnitAddressCustomTypeRemovedMessagePayload {
   readonly oldTypeId?: string
 }
 /**
- *	Generated after adding a Custom Type to an address of a Business Unit using the [Set CustomType in Address](ctp:api:type:BusinessUnitSetAddressCustomTypeAction) update action.
+ *	Generated after adding a Custom Type to an address of a Business Unit using the [Set Custom Type in Address](ctp:api:type:BusinessUnitSetAddressCustomTypeAction) update action.
  *
  */
 export interface BusinessUnitAddressCustomTypeSetMessagePayload {
@@ -15684,7 +15686,7 @@ export interface BusinessUnitCreatedMessagePayload {
   readonly businessUnit: BusinessUnit
 }
 /**
- *	Generated after adding a Custom Field to a Business Unit using the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action. If a Custom Field exists already exists with the same name, a [BusinessUnitCustomFieldChanged](ctp:api:type:BusinessUnitCustomFieldChangedMessage) Message is generated instead.
+ *	Generated after adding a Custom Field to a Business Unit using the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action. If a Custom Field already exists with the same name, a [BusinessUnitCustomFieldChanged](ctp:api:type:BusinessUnitCustomFieldChangedMessage) Message is generated instead.
  *
  */
 export interface BusinessUnitCustomFieldAddedMessagePayload {
@@ -16003,7 +16005,8 @@ export interface CustomerAddressChangedMessagePayload {
   readonly address: Address
 }
 /**
- *	Generated after adding a Custom Field to the Address using the [Set CustomField in Address](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
+ *	Generated after adding a Custom Field to an Address of a Customer using the [Set CustomField in Address](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
+ *	If a Custom Field already exists with the same name, a [CustomerAddressCustomFieldChanged](ctp:api:type:CustomerAddressCustomFieldChangedMessage) Message is generated instead.
  *
  */
 export interface CustomerAddressCustomFieldAddedMessagePayload {
@@ -16021,7 +16024,7 @@ export interface CustomerAddressCustomFieldAddedMessagePayload {
   readonly value: any
 }
 /**
- *	Generated after changing an existing Custom Field on the Address using the [Set CustomField in Address](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
+ *	Generated after changing an existing Custom Field on an Address of a Customer using the [Set CustomField in Address](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
  *
  */
 export interface CustomerAddressCustomFieldChangedMessagePayload {
@@ -16047,7 +16050,7 @@ export interface CustomerAddressCustomFieldChangedMessagePayload {
   readonly previousValue?: any
 }
 /**
- *	Generated after removing a Custom Field from the Address using the [Set CustomField in Address](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
+ *	Generated after removing a Custom Field from an Address of a Customer using the [Set CustomField in Address](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
  *
  */
 export interface CustomerAddressCustomFieldRemovedMessagePayload {
@@ -16060,7 +16063,7 @@ export interface CustomerAddressCustomFieldRemovedMessagePayload {
   readonly name: string
 }
 /**
- *	Generated after a successful [Set CustomType in Address](ctp:api:type:CustomerSetAddressCustomTypeAction) update action with empty parameters.
+ *	Generated after removing a Custom Type from an Address of a Customer using the [Set Custom Type in Address](ctp:api:type:CustomerSetAddressCustomTypeAction) update action.
  *
  */
 export interface CustomerAddressCustomTypeRemovedMessagePayload {
@@ -16075,7 +16078,7 @@ export interface CustomerAddressCustomTypeRemovedMessagePayload {
   readonly previousTypeId?: string
 }
 /**
- *	Generated after a successful [Set CustomType in Address](ctp:api:type:CustomerSetAddressCustomTypeAction) update action.
+ *	Generated after adding a Custom Type to an Address of a Customer using the [Set Custom Type in Address](ctp:api:type:CustomerSetAddressCustomTypeAction) update action.
  *
  */
 export interface CustomerAddressCustomTypeSetMessagePayload {
@@ -16134,7 +16137,8 @@ export interface CustomerCreatedMessagePayload {
   readonly customer: Customer
 }
 /**
- *	Generated after adding a Custom Field using the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
+ *	Generated after adding a Custom Field to a Customer using the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
+ *	If a Custom Field already exists with the same name, a [CustomerCustomFieldChanged](ctp:api:type:CustomerCustomFieldChangedMessage) Message is generated instead.
  *
  */
 export interface CustomerCustomFieldAddedMessagePayload {
@@ -16152,7 +16156,7 @@ export interface CustomerCustomFieldAddedMessagePayload {
   readonly value: any
 }
 /**
- *	Generated after changing an existing Custom Field using the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
+ *	Generated after changing an existing Custom Field on a Customer using the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
  *
  */
 export interface CustomerCustomFieldChangedMessagePayload {
@@ -16178,7 +16182,7 @@ export interface CustomerCustomFieldChangedMessagePayload {
   readonly previousValue?: any
 }
 /**
- *	Generated after removing a Custom Field using the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
+ *	Generated after removing a Custom Field on a Customer using the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
  *
  */
 export interface CustomerCustomFieldRemovedMessagePayload {
@@ -16191,7 +16195,7 @@ export interface CustomerCustomFieldRemovedMessagePayload {
   readonly name: string
 }
 /**
- *	Generated after a successful [Set Custom Type](ctp:api:type:CustomerSetCustomTypeAction) update action with empty parameters.
+ *	Generated after adding a Custom Type to a Customer using the [Set Custom Type](ctp:api:type:CustomerSetCustomTypeAction) update action with empty parameters.
  *
  */
 export interface CustomerCustomTypeRemovedMessagePayload {
@@ -16206,7 +16210,7 @@ export interface CustomerCustomTypeRemovedMessagePayload {
   readonly previousTypeId?: string
 }
 /**
- *	Generated after a successful [Set Custom Type](ctp:api:type:CustomerSetCustomTypeAction) update action.
+ *	Generated after removing a Custom Type from a Customer using the [Set Custom Type](ctp:api:type:CustomerSetCustomTypeAction) update action.
  *
  */
 export interface CustomerCustomTypeSetMessagePayload {
