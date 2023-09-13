@@ -30,3 +30,19 @@
 
 - :warning: removed type `CustomerMessagePayload`
 </details>
+
+**History changes**
+
+<details>
+<summary>Added QueryParameter(s)</summary>
+
+- added query parameter `businessUnit` to method `get /{projectKey}`
+- added query parameter `businessUnit` to method `get /{projectKey}/{resourceType}`
+- added query parameter `businessUnit` to method `get /{projectKey}/{resourceType}/{ID}`
+</details>
+
+<details>
+<summary>Added Property(s)</summary>
+
+- added property `businessUnit` to type `Record`
+</details>

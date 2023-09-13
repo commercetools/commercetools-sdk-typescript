@@ -50,6 +50,7 @@ export class ByProjectKeyRequestBuilder {
       clientId?: string
       customerId?: string
       associateId?: string
+      businessUnit?: string
       type?: string
       resourceId?: string
       resourceKey?: string
