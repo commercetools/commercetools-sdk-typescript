@@ -1073,8 +1073,6 @@ export interface ExternalLineItemTotalPrice {
   /**
    *	Price of the Line Item.
    *
-   *	The value is selected from the Product Variant according to the [Product](ctp:api:type:Product) `priceMode`.
-   *
    *
    */
   readonly price: _Money
