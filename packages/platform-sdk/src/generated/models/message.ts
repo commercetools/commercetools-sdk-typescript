@@ -4,6 +4,13 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { ApprovalFlow, ApprovalFlowStatus } from './approval-flow'
+import {
+  ApprovalRule,
+  ApprovalRuleStatus,
+  ApproverHierarchy,
+  RuleRequester,
+} from './approval-rule'
 import { AssociateRole, Permission } from './associate-role'
 import {
   Associate,
@@ -48,6 +55,7 @@ import {
   Delivery,
   DeliveryItem,
   ItemState,
+  OrderReference,
   OrderState,
   Parcel,
   ParcelMeasurements,
@@ -107,6 +115,18 @@ export interface ContainerAndKey {
  *
  */
 export type Message =
+  | ApprovalFlowApprovedMessage
+  | ApprovalFlowCompletedMessage
+  | ApprovalFlowCreatedMessage
+  | ApprovalFlowRejectedMessage
+  | ApprovalRuleApproversSetMessage
+  | ApprovalRuleCreatedMessage
+  | ApprovalRuleDescriptionSetMessage
+  | ApprovalRuleKeySetMessage
+  | ApprovalRuleNameSetMessage
+  | ApprovalRulePredicateSetMessage
+  | ApprovalRuleRequestersSetMessage
+  | ApprovalRuleStatusSetMessage
   | AssociateRoleBuyerAssignableChangedMessage
   | AssociateRoleCreatedMessage
   | AssociateRoleDeletedMessage
@@ -307,6 +327,912 @@ export type Message =
   | StoreNameSetMessage
   | StoreProductSelectionsChangedMessage
   | StoreSupplyChannelsChangedMessage
+/**
+ *	Generated after an [approval in the Approval Flow](/projects/approval-flows#approve).
+ *
+ */
+export interface ApprovalFlowApprovedMessage {
+  readonly type: 'ApprovalFlowApproved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Customer](ctp:api:type:Customer) who approved the [Approval Flow](/projects/approval-flows).
+   *
+   *
+   */
+  readonly associate: CustomerReference
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Order](ctp:api:type:Order) that received the approval.
+   *
+   *
+   */
+  readonly order: OrderReference
+}
+/**
+ *	Generated after an [Approval Flow](ctp:api:type:ApprovalFlow) is completed and reaches a final status.
+ *
+ */
+export interface ApprovalFlowCompletedMessage {
+  readonly type: 'ApprovalFlowCompleted'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Final status of the [Approval Flow](ctp:api:type:ApprovalFlow).
+   *
+   *
+   */
+  readonly status: ApprovalFlowStatus
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Order](ctp:api:type:Order) related to the completed [Approval Flow](ctp:api:type:ApprovalFlow).
+   *
+   *
+   */
+  readonly order: OrderReference
+}
+/**
+ *	Generated after an [Approval Flow](ctp:api:type:ApprovalFlow) is created.
+ *
+ */
+export interface ApprovalFlowCreatedMessage {
+  readonly type: 'ApprovalFlowCreated'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The [Approval Flow](ctp:api:type:ApprovalFlow) that was created.
+   *
+   *
+   */
+  readonly approvalFlow: ApprovalFlow
+}
+/**
+ *	Generated after an [Approval Flow is rejected](/projects/approval-flows#reject).
+ *
+ */
+export interface ApprovalFlowRejectedMessage {
+  readonly type: 'ApprovalFlowRejected'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Customer](ctp:api:type:Customer) who rejected the [Approval Flow](/projects/approval-flows).
+   *
+   *
+   */
+  readonly associate: CustomerReference
+  /**
+   *	Description of the reason why the [Approval Flow](ctp:api:type:ApprovalFlow) was rejected.
+   *
+   *
+   */
+  readonly rejectionReason?: string
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Order](ctp:api:type:Order) that received the rejection.
+   *
+   *
+   */
+  readonly order: OrderReference
+}
+/**
+ *	Generated after a successful [Set Approvers](ctp:api:type:ApprovalRuleSetApproversAction) update action.
+ *
+ */
+export interface ApprovalRuleApproversSetMessage {
+  readonly type: 'ApprovalRuleApproversSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Approver hierarchy of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Approvers](ctp:api:type:ApprovalRuleSetApproversAction) update action.
+   *
+   *
+   */
+  readonly approvers: ApproverHierarchy
+  /**
+   *	Approver hierarchy of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Approvers](ctp:api:type:ApprovalRuleSetApproversAction) update action.
+   *
+   *
+   */
+  readonly oldApprovers: ApproverHierarchy
+}
+/**
+ *	Generated after an [Approval Rule](ctp:api:type:ApprovalRule) is created.
+ *
+ */
+export interface ApprovalRuleCreatedMessage {
+  readonly type: 'ApprovalRuleCreated'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The [Approval Rule](ctp:api:type:ApprovalRule) that was created.
+   *
+   *
+   */
+  readonly approvalRule: ApprovalRule
+}
+/**
+ *	Generated after a successful [Set Description](ctp:api:type:ApprovalRuleSetDescriptionAction) update action.
+ *
+ */
+export interface ApprovalRuleDescriptionSetMessage {
+  readonly type: 'ApprovalRuleDescriptionSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Description](ctp:api:type:ApprovalRuleSetDescriptionAction) update action.
+   *
+   *
+   */
+  readonly description?: string
+  /**
+   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Description](ctp:api:type:ApprovalRuleSetDescriptionAction) update action.
+   *
+   *
+   */
+  readonly oldDescription?: string
+}
+/**
+ *	Generated after a successful [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
+ *
+ */
+export interface ApprovalRuleKeySetMessage {
+  readonly type: 'ApprovalRuleKeySet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
+   *
+   *
+   */
+  readonly oldKey?: string
+}
+/**
+ *	Generated after a successful [Set Name](ctp:api:type:ApprovalRuleSetNameAction) update action.
+ *
+ */
+export interface ApprovalRuleNameSetMessage {
+  readonly type: 'ApprovalRuleNameSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Name](ctp:api:type:ApprovalRuleSetNameAction) update action.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	Name of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Name](ctp:api:type:ApprovalRuleSetNameAction) update action.
+   *
+   *
+   */
+  readonly oldName: string
+}
+/**
+ *	Generated after a successful [Set Predicate](ctp:api:type:ApprovalRuleSetPredicateAction) update action.
+ *
+ */
+export interface ApprovalRulePredicateSetMessage {
+  readonly type: 'ApprovalRulePredicateSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Predicate](ctp:api:type:ApprovalRuleSetPredicateAction) update action.
+   *
+   *
+   */
+  readonly predicate: string
+  /**
+   *	Name of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Predicate](ctp:api:type:ApprovalRuleSetPredicateAction) update action.
+   *
+   *
+   */
+  readonly oldPredicate: string
+}
+/**
+ *	Generated after a successful [Set Requester](ctp:api:type:ApprovalRuleSetRequestersAction) update action.
+ *
+ */
+export interface ApprovalRuleRequestersSetMessage {
+  readonly type: 'ApprovalRuleRequestersSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	RuleRequester of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Requester](ctp:api:type:ApprovalRuleSetRequestersAction) update action.
+   *
+   *
+   */
+  readonly requesters: RuleRequester[]
+  /**
+   *	RuleRequester of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Requester](ctp:api:type:ApprovalRuleSetRequestersAction) update action.
+   *
+   *
+   */
+  readonly oldRequesters: RuleRequester[]
+}
+/**
+ *	Generated after a successful [Set Status](ctp:api:type:ApprovalRuleSetStatusAction) update action.
+ *
+ */
+export interface ApprovalRuleStatusSetMessage {
+  readonly type: 'ApprovalRuleStatusSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Status of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Status](ctp:api:type:ApprovalRuleSetStatusAction) update action.
+   *
+   *
+   */
+  readonly status: ApprovalRuleStatus
+  /**
+   *	Status of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Status](ctp:api:type:ApprovalRuleSetStatusAction) update action.
+   *
+   *
+   */
+  readonly oldStatus: ApprovalRuleStatus
+}
 /**
  *	Generated after a successful [Change BuyerAssignable](ctp:api:type:AssociateRoleChangeBuyerAssignableAction) update action.
  *
@@ -15521,6 +16447,18 @@ export interface UserProvidedIdentifiers {
   readonly containerAndKey?: ContainerAndKey
 }
 export type MessagePayload =
+  | ApprovalFlowApprovedMessagePayload
+  | ApprovalFlowCompletedMessagePayload
+  | ApprovalFlowCreatedMessagePayload
+  | ApprovalFlowRejectedMessagePayload
+  | ApprovalRuleApproversSetMessagePayload
+  | ApprovalRuleCreatedMessagePayload
+  | ApprovalRuleDescriptionSetMessagePayload
+  | ApprovalRuleKeySetMessagePayload
+  | ApprovalRuleNameSetMessagePayload
+  | ApprovalRulePredicateSetMessagePayload
+  | ApprovalRuleRequestersSetMessagePayload
+  | ApprovalRuleStatusSetMessagePayload
   | AssociateRoleBuyerAssignableChangedMessagePayload
   | AssociateRoleCreatedMessagePayload
   | AssociateRoleDeletedMessagePayload
@@ -15722,6 +16660,228 @@ export type MessagePayload =
   | StoreNameSetMessagePayload
   | StoreProductSelectionsChangedMessagePayload
   | StoreSupplyChannelsChangedMessagePayload
+/**
+ *	Generated after an [approval in the Approval Flow](/projects/approval-flows#approve).
+ *
+ */
+export interface ApprovalFlowApprovedMessagePayload {
+  readonly type: 'ApprovalFlowApproved'
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Customer](ctp:api:type:Customer) who approved the [Approval Flow](/projects/approval-flows).
+   *
+   *
+   */
+  readonly associate: CustomerReference
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Order](ctp:api:type:Order) that received the approval.
+   *
+   *
+   */
+  readonly order: OrderReference
+}
+/**
+ *	Generated after an [Approval Flow](ctp:api:type:ApprovalFlow) is completed and reaches a final status.
+ *
+ */
+export interface ApprovalFlowCompletedMessagePayload {
+  readonly type: 'ApprovalFlowCompleted'
+  /**
+   *	Final status of the [Approval Flow](ctp:api:type:ApprovalFlow).
+   *
+   *
+   */
+  readonly status: ApprovalFlowStatus
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Order](ctp:api:type:Order) related to the completed [Approval Flow](ctp:api:type:ApprovalFlow).
+   *
+   *
+   */
+  readonly order: OrderReference
+}
+/**
+ *	Generated after an [Approval Flow](ctp:api:type:ApprovalFlow) is created.
+ *
+ */
+export interface ApprovalFlowCreatedMessagePayload {
+  readonly type: 'ApprovalFlowCreated'
+  /**
+   *	The [Approval Flow](ctp:api:type:ApprovalFlow) that was created.
+   *
+   *
+   */
+  readonly approvalFlow: ApprovalFlow
+}
+/**
+ *	Generated after an [Approval Flow is rejected](/projects/approval-flows#reject).
+ *
+ */
+export interface ApprovalFlowRejectedMessagePayload {
+  readonly type: 'ApprovalFlowRejected'
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Customer](ctp:api:type:Customer) who rejected the [Approval Flow](/projects/approval-flows).
+   *
+   *
+   */
+  readonly associate: CustomerReference
+  /**
+   *	Description of the reason why the [Approval Flow](ctp:api:type:ApprovalFlow) was rejected.
+   *
+   *
+   */
+  readonly rejectionReason?: string
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Order](ctp:api:type:Order) that received the rejection.
+   *
+   *
+   */
+  readonly order: OrderReference
+}
+/**
+ *	Generated after a successful [Set Approvers](ctp:api:type:ApprovalRuleSetApproversAction) update action.
+ *
+ */
+export interface ApprovalRuleApproversSetMessagePayload {
+  readonly type: 'ApprovalRuleApproversSet'
+  /**
+   *	Approver hierarchy of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Approvers](ctp:api:type:ApprovalRuleSetApproversAction) update action.
+   *
+   *
+   */
+  readonly approvers: ApproverHierarchy
+  /**
+   *	Approver hierarchy of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Approvers](ctp:api:type:ApprovalRuleSetApproversAction) update action.
+   *
+   *
+   */
+  readonly oldApprovers: ApproverHierarchy
+}
+/**
+ *	Generated after an [Approval Rule](ctp:api:type:ApprovalRule) is created.
+ *
+ */
+export interface ApprovalRuleCreatedMessagePayload {
+  readonly type: 'ApprovalRuleCreated'
+  /**
+   *	The [Approval Rule](ctp:api:type:ApprovalRule) that was created.
+   *
+   *
+   */
+  readonly approvalRule: ApprovalRule
+}
+/**
+ *	Generated after a successful [Set Description](ctp:api:type:ApprovalRuleSetDescriptionAction) update action.
+ *
+ */
+export interface ApprovalRuleDescriptionSetMessagePayload {
+  readonly type: 'ApprovalRuleDescriptionSet'
+  /**
+   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Description](ctp:api:type:ApprovalRuleSetDescriptionAction) update action.
+   *
+   *
+   */
+  readonly description?: string
+  /**
+   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Description](ctp:api:type:ApprovalRuleSetDescriptionAction) update action.
+   *
+   *
+   */
+  readonly oldDescription?: string
+}
+/**
+ *	Generated after a successful [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
+ *
+ */
+export interface ApprovalRuleKeySetMessagePayload {
+  readonly type: 'ApprovalRuleKeySet'
+  /**
+   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
+   *
+   *
+   */
+  readonly oldKey?: string
+}
+/**
+ *	Generated after a successful [Set Name](ctp:api:type:ApprovalRuleSetNameAction) update action.
+ *
+ */
+export interface ApprovalRuleNameSetMessagePayload {
+  readonly type: 'ApprovalRuleNameSet'
+  /**
+   *	Name of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Name](ctp:api:type:ApprovalRuleSetNameAction) update action.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	Name of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Name](ctp:api:type:ApprovalRuleSetNameAction) update action.
+   *
+   *
+   */
+  readonly oldName: string
+}
+/**
+ *	Generated after a successful [Set Predicate](ctp:api:type:ApprovalRuleSetPredicateAction) update action.
+ *
+ */
+export interface ApprovalRulePredicateSetMessagePayload {
+  readonly type: 'ApprovalRulePredicateSet'
+  /**
+   *	Name of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Predicate](ctp:api:type:ApprovalRuleSetPredicateAction) update action.
+   *
+   *
+   */
+  readonly predicate: string
+  /**
+   *	Name of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Predicate](ctp:api:type:ApprovalRuleSetPredicateAction) update action.
+   *
+   *
+   */
+  readonly oldPredicate: string
+}
+/**
+ *	Generated after a successful [Set Requester](ctp:api:type:ApprovalRuleSetRequestersAction) update action.
+ *
+ */
+export interface ApprovalRuleRequestersSetMessagePayload {
+  readonly type: 'ApprovalRuleRequestersSet'
+  /**
+   *	RuleRequester of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Requester](ctp:api:type:ApprovalRuleSetRequestersAction) update action.
+   *
+   *
+   */
+  readonly requesters: RuleRequester[]
+  /**
+   *	RuleRequester of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Requester](ctp:api:type:ApprovalRuleSetRequestersAction) update action.
+   *
+   *
+   */
+  readonly oldRequesters: RuleRequester[]
+}
+/**
+ *	Generated after a successful [Set Status](ctp:api:type:ApprovalRuleSetStatusAction) update action.
+ *
+ */
+export interface ApprovalRuleStatusSetMessagePayload {
+  readonly type: 'ApprovalRuleStatusSet'
+  /**
+   *	Status of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Status](ctp:api:type:ApprovalRuleSetStatusAction) update action.
+   *
+   *
+   */
+  readonly status: ApprovalRuleStatus
+  /**
+   *	Status of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Status](ctp:api:type:ApprovalRuleSetStatusAction) update action.
+   *
+   *
+   */
+  readonly oldStatus: ApprovalRuleStatus
+}
 /**
  *	Generated after a successful [Change BuyerAssignable](ctp:api:type:AssociateRoleChangeBuyerAssignableAction) update action.
  *

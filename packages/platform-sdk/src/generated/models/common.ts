@@ -4,6 +4,8 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { ApprovalFlow } from './approval-flow'
+import { ApprovalRule } from './approval-rule'
 import {
   AssociateRole,
   AssociateRoleKeyReference,
@@ -523,6 +525,8 @@ export interface BaseResource {
 }
 export type _BaseResource =
   | BaseResource
+  | ApprovalFlow
+  | ApprovalRule
   | AssociateRole
   | AttributeGroup
   | BusinessUnit
