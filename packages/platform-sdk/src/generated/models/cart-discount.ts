@@ -134,7 +134,7 @@ export interface CartDiscount extends BaseResource {
    */
   readonly validUntil?: string
   /**
-   *	Indicates if the Discount can be used in connection with a [DiscountCode](ctp:api:type:DiscountCode).
+   *	Indicates if the Discount is used in connection with a [DiscountCode](ctp:api:type:DiscountCode).
    *
    *
    */
