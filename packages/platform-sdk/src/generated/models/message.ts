@@ -12137,7 +12137,7 @@ export interface ProductRevertedStagedChangesMessage {
   readonly removedImageUrls: string[]
 }
 /**
- *	Generated after a successful [Create Product Selection](/../api/projects/product-selections#create-product-selection) request.
+ *	Generated after a successful [Create Product Selection](/../api/projects/product-selections#create-productselection) request.
  *
  */
 export interface ProductSelectionCreatedMessage {
@@ -12207,7 +12207,7 @@ export interface ProductSelectionCreatedMessage {
   readonly productSelection: ProductSelection
 }
 /**
- *	Generated after a successful [Delete Product Selection](/../api/projects/product-selections#delete-product-selection) request.
+ *	Generated after a successful [Delete Product Selection](/../api/projects/product-selections#delete-productselection) request.
  *
  */
 export interface ProductSelectionDeletedMessage {
@@ -19574,7 +19574,7 @@ export interface ProductRevertedStagedChangesMessagePayload {
   readonly removedImageUrls: string[]
 }
 /**
- *	Generated after a successful [Create Product Selection](/../api/projects/product-selections#create-product-selection) request.
+ *	Generated after a successful [Create Product Selection](/../api/projects/product-selections#create-productselection) request.
  *
  */
 export interface ProductSelectionCreatedMessagePayload {
@@ -19587,7 +19587,7 @@ export interface ProductSelectionCreatedMessagePayload {
   readonly productSelection: ProductSelection
 }
 /**
- *	Generated after a successful [Delete Product Selection](/../api/projects/product-selections#delete-product-selection) request.
+ *	Generated after a successful [Delete Product Selection](/../api/projects/product-selections#delete-productselection) request.
  *
  */
 export interface ProductSelectionDeletedMessagePayload {
