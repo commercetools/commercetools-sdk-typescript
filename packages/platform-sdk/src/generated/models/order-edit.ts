@@ -798,6 +798,12 @@ export interface StagedOrderAddParcelToDeliveryAction {
    *
    */
   readonly items?: DeliveryItem[]
+  /**
+   *	Custom Fields for the Parcel.
+   *
+   *
+   */
+  readonly custom?: CustomFieldsDraft
 }
 export interface StagedOrderAddPaymentAction {
   readonly action: 'addPayment'

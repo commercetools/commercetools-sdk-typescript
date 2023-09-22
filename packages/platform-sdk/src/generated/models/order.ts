@@ -2228,6 +2228,12 @@ export interface OrderAddParcelToDeliveryAction {
    *
    */
   readonly items?: DeliveryItem[]
+  /**
+   *	Custom Fields for the Parcel.
+   *
+   *
+   */
+  readonly custom?: CustomFieldsDraft
 }
 export interface OrderAddPaymentAction {
   readonly action: 'addPayment'

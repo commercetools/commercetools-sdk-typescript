@@ -118,6 +118,13 @@
 </details>
 
 <details>
+<summary>Added Property(s)</summary>
+
+- added property `custom` to type `StagedOrderAddParcelToDeliveryAction`
+- added property `custom` to type `OrderAddParcelToDeliveryAction`
+</details>
+
+<details>
 <summary>Added Resource(s)</summary>
 
 - added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-rules`
