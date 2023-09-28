@@ -337,6 +337,7 @@ export type CartDiscountTarget =
   | CartDiscountCustomLineItemsTarget
   | CartDiscountLineItemsTarget
   | CartDiscountShippingCostTarget
+  | CartDiscountTotalPriceTarget
   | MultiBuyCustomLineItemsTarget
   | MultiBuyLineItemsTarget
 /**
@@ -371,6 +372,13 @@ export interface CartDiscountLineItemsTarget {
  */
 export interface CartDiscountShippingCostTarget {
   readonly type: 'shipping'
+}
+/**
+ *	Discount is applied to the total price of the [Cart](ctp:api:type:Cart).
+ *
+ */
+export interface CartDiscountTotalPriceTarget {
+  readonly type: 'totalPrice'
 }
 export interface CartDiscountUpdate {
   /**

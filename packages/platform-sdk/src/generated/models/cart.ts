@@ -139,6 +139,7 @@ export interface Cart extends BaseResource {
   readonly totalLineItemQuantity?: number
   /**
    *	Sum of the `totalPrice` field of all [LineItems](ctp:api:type:LineItem) and [CustomLineItems](ctp:api:type:CustomLineItem), and if available, the `price` field of [ShippingInfo](ctp:api:type:ShippingInfo).
+   *	If a discount applies on `totalPrice`, this field holds the discounted value.
    *
    *	Taxes are included if [TaxRate](ctp:api:type:TaxRate) `includedInPrice` is `true` for each price.
    *
@@ -149,6 +150,8 @@ export interface Cart extends BaseResource {
    *	- For a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode), it is automatically set when a [shipping address is set](ctp:api:type:CartSetShippingAddressAction).
    *	- For a Cart with `External` [TaxMode](ctp:api:type:TaxMode), it is automatically set when the external Tax Rate for all Line Items, Custom Line Items, and Shipping Methods in the Cart are set.
    *
+   *	If a discount applies on `totalPrice`, this field holds the discounted values.
+   *
    *
    */
   readonly taxedPrice?: TaxedPrice
@@ -157,6 +160,11 @@ export interface Cart extends BaseResource {
    *
    */
   readonly taxedShippingPrice?: TaxedPrice
+  /**
+   *	Discounts that apply on the Cart `totalPrice`.
+   *
+   */
+  readonly discountOnTotalPrice?: DiscountOnTotalPrice
   /**
    *	Indicates how Tax Rates are set.
    *
@@ -1027,6 +1035,34 @@ export type DiscountCodeState =
   | 'NotActive'
   | 'NotValid'
   | string
+export interface DiscountOnTotalPrice {
+  /**
+   *	Money value of the discount on the total price of the Cart or Order.
+   *
+   *
+   */
+  readonly discountedAmount: TypedMoney
+  /**
+   *	Discounts that impact the total price of the Cart or Order.
+   *
+   *
+   */
+  readonly includedDiscounts: DiscountedTotalPricePortion[]
+  /**
+   *	Money value of the discount on the total net price of the Cart or Order.
+   *	Present only when `taxedPrice` of the Cart or Order exists.
+   *
+   *
+   */
+  readonly discountedNetAmount?: TypedMoney
+  /**
+   *	Money value of the discount on the total gross price of the Cart or Order.
+   *	Present only when `taxedPrice` of the Cart or Order exists.
+   *
+   *
+   */
+  readonly discountedGrossAmount?: TypedMoney
+}
 export interface DiscountedLineItemPortion {
   /**
    *	A [CartDiscountReference](ctp:api:type:CartDiscountReference) or [DirectDiscountReference](ctp:api:type:DirectDiscountReference) for the applicable discount on the Line Item.
@@ -1068,6 +1104,20 @@ export interface DiscountedLineItemPriceForQuantity {
    *
    */
   readonly discountedPrice: DiscountedLineItemPrice
+}
+export interface DiscountedTotalPricePortion {
+  /**
+   *	Cart Discount related to the discounted price.
+   *
+   *
+   */
+  readonly discount: CartDiscountReference
+  /**
+   *	Money value of the discount.
+   *
+   *
+   */
+  readonly discountedAmount: TypedMoney
 }
 export interface ExternalLineItemTotalPrice {
   /**
