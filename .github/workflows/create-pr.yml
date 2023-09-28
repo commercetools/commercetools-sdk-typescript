@@ -16,6 +16,6 @@ jobs:
       - uses: jenschude/auto-create-pr-action@v0.3.1
         with:
           request_title: "Update generated SDKs"
-          github_token: ${{ secrets.GITHUB_TOKEN }
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           request_body: |
             - [ ] Changeset added
