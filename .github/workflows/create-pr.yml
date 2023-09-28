@@ -11,11 +11,19 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
+      # Get GitHub token via the CT Changesets App
+      - name: Generate GitHub token (via CT Changesets App)
+        id: generate_github_token
+        uses: tibdex/github-app-token@v2.1.0
+        with:
+          app_id: ${{ secrets.CT_CHANGESETS_APP_ID }}
+          private_key: ${{ secrets.CT_CHANGESETS_APP_PEM }}
+          
       - name: Checkout
         uses: actions/checkout@v3
       - uses: jenschude/auto-create-pr-action@v0.3.1
         with:
           request_title: "Update generated SDKs"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ steps.generate_github_token.outputs.token }}
           request_body: |
             - [ ] Changeset added
