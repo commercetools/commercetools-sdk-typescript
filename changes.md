@@ -140,6 +140,14 @@
 - added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-flows/{ID}`
 </details>
 
+**Import changes**
+
+<details>
+<summary>Added Property(s)</summary>
+
+- added property `product` to type `ProductVariantPatch`
+</details>
+
 **History changes**
 
 <details>
