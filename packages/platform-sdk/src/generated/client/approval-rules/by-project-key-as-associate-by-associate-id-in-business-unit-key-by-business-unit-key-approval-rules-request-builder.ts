@@ -3,7 +3,11 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { ApprovalRule, ApprovalRuleDraft } from '../../models/approval-rule'
+import {
+  ApprovalRule,
+  ApprovalRuleDraft,
+  ApprovalRulePagedQueryResponse,
+} from '../../models/approval-rule'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyApprovalRulesByIDRequestBuilder } from './by-project-key-as-associate-by-associate-id-in-business-unit-key-by-business-unit-key-approval-rules-by-id-request-builder'
@@ -51,6 +55,35 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
     )
   }
 
+  public get(methodArgs?: {
+    queryArgs?: {
+      expand?: string | string[]
+      sort?: string | string[]
+      limit?: number
+      offset?: number
+      withTotal?: boolean
+      where?: string | string[]
+      [key: string]: QueryParam
+    }
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<ApprovalRulePagedQueryResponse> {
+    return new ApiRequest<ApprovalRulePagedQueryResponse>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'GET',
+        uriTemplate:
+          '/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-rules',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
+      },
+      this.args.executeRequest
+    )
+  }
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -74,35 +107,6 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
         },
         queryParams: methodArgs?.queryArgs,
         body: methodArgs?.body,
-      },
-      this.args.executeRequest
-    )
-  }
-  public get(methodArgs?: {
-    queryArgs?: {
-      expand?: string | string[]
-      sort?: string | string[]
-      limit?: number
-      offset?: number
-      withTotal?: boolean
-      where?: string | string[]
-      [key: string]: QueryParam
-    }
-    headers?: {
-      [key: string]: string | string[]
-    }
-  }): ApiRequest<any> {
-    return new ApiRequest<any>(
-      {
-        baseUri: this.args.baseUri,
-        method: 'GET',
-        uriTemplate:
-          '/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-rules',
-        pathVariables: this.args.pathArgs,
-        headers: {
-          ...methodArgs?.headers,
-        },
-        queryParams: methodArgs?.queryArgs,
       },
       this.args.executeRequest
     )

@@ -12,32 +12,6 @@ const apiRoot: ApiRoot = new ApiRoot({ executeRequest: null })
 export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
-      method: 'post',
-      uri: '/test_projectKey/as-associate/test_associateId/in-business-unit/key=test_businessUnitKey/approval-rules?expand=expand',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .asAssociate()
-        .withAssociateIdValue({ associateId: 'test_associateId' })
-        .inBusinessUnitKeyWithBusinessUnitKeyValue({
-          businessUnitKey: 'test_businessUnitKey',
-        })
-        .approvalRules()
-        .post({ body: null, headers: null, queryArgs: { expand: 'expand' } }),
-    },
-    {
-      method: 'post',
-      uri: '/test_projectKey/as-associate/test_associateId/in-business-unit/key=test_businessUnitKey/approval-rules',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .asAssociate()
-        .withAssociateIdValue({ associateId: 'test_associateId' })
-        .inBusinessUnitKeyWithBusinessUnitKeyValue({
-          businessUnitKey: 'test_businessUnitKey',
-        })
-        .approvalRules()
-        .post({ body: null, headers: null }),
-    },
-    {
       method: 'get',
       uri: '/test_projectKey/as-associate/test_associateId/in-business-unit/key=test_businessUnitKey/approval-rules?expand=expand',
       request: apiRoot
@@ -140,6 +114,32 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         })
         .approvalRules()
         .get(),
+    },
+    {
+      method: 'post',
+      uri: '/test_projectKey/as-associate/test_associateId/in-business-unit/key=test_businessUnitKey/approval-rules?expand=expand',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .asAssociate()
+        .withAssociateIdValue({ associateId: 'test_associateId' })
+        .inBusinessUnitKeyWithBusinessUnitKeyValue({
+          businessUnitKey: 'test_businessUnitKey',
+        })
+        .approvalRules()
+        .post({ body: null, headers: null, queryArgs: { expand: 'expand' } }),
+    },
+    {
+      method: 'post',
+      uri: '/test_projectKey/as-associate/test_associateId/in-business-unit/key=test_businessUnitKey/approval-rules',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .asAssociate()
+        .withAssociateIdValue({ associateId: 'test_associateId' })
+        .inBusinessUnitKeyWithBusinessUnitKeyValue({
+          businessUnitKey: 'test_businessUnitKey',
+        })
+        .approvalRules()
+        .post({ body: null, headers: null }),
     },
   ]
 }
