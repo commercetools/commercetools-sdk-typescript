@@ -66,11 +66,13 @@
 - added type `BusinessUnitCustomFieldRemovedMessage`
 - added type `BusinessUnitCustomTypeRemovedMessage`
 - added type `BusinessUnitCustomTypeSetMessage`
+- added type `CustomerEmailTokenCreatedMessage`
 - added type `CustomerGroupCustomFieldAddedMessage`
 - added type `CustomerGroupCustomFieldChangedMessage`
 - added type `CustomerGroupCustomFieldRemovedMessage`
 - added type `CustomerGroupCustomTypeRemovedMessage`
 - added type `CustomerGroupCustomTypeSetMessage`
+- added type `CustomerPasswordTokenCreatedMessage`
 - added type `ApprovalFlowApprovedMessagePayload`
 - added type `ApprovalFlowCompletedMessagePayload`
 - added type `ApprovalFlowCreatedMessagePayload`
@@ -93,11 +95,13 @@
 - added type `BusinessUnitCustomFieldRemovedMessagePayload`
 - added type `BusinessUnitCustomTypeRemovedMessagePayload`
 - added type `BusinessUnitCustomTypeSetMessagePayload`
+- added type `CustomerEmailTokenCreatedMessagePayload`
 - added type `CustomerGroupCustomFieldAddedMessagePayload`
 - added type `CustomerGroupCustomFieldChangedMessagePayload`
 - added type `CustomerGroupCustomFieldRemovedMessagePayload`
 - added type `CustomerGroupCustomTypeRemovedMessagePayload`
 - added type `CustomerGroupCustomTypeSetMessagePayload`
+- added type `CustomerPasswordTokenCreatedMessagePayload`
 </details>
 
 <details>

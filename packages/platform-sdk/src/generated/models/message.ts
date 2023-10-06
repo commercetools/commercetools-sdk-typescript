@@ -189,6 +189,7 @@ export type Message =
   | CustomerDateOfBirthSetMessage
   | CustomerDeletedMessage
   | CustomerEmailChangedMessage
+  | CustomerEmailTokenCreatedMessage
   | CustomerEmailVerifiedMessage
   | CustomerFirstNameSetMessage
   | CustomerGroupCustomFieldAddedMessage
@@ -198,6 +199,7 @@ export type Message =
   | CustomerGroupCustomTypeSetMessage
   | CustomerGroupSetMessage
   | CustomerLastNameSetMessage
+  | CustomerPasswordTokenCreatedMessage
   | CustomerPasswordUpdatedMessage
   | CustomerTitleSetMessage
   | DeliveryAddedMessage
@@ -5614,6 +5616,82 @@ export interface CustomerEmailChangedMessage {
   readonly email: string
 }
 /**
+ *	Generated after a successful [Create email token for Customer](/../api/projects/customers#create-email-token-for-customer) request.
+ *
+ */
+export interface CustomerEmailTokenCreatedMessage {
+  readonly type: 'CustomerEmailTokenCreated'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Unique identifier of the Customer.
+   *
+   *
+   */
+  readonly customerId: string
+  /**
+   *	Date and time (UTC) the email token expires.
+   *
+   *
+   */
+  readonly expiresAt: string
+}
+/**
  *	Generated after a successful [Verify Customer's Email](/../api/projects/customers#verify-email-of-customer) request.
  *
  */
@@ -6259,6 +6337,82 @@ export interface CustomerLastNameSetMessage {
    *
    */
   readonly lastName?: string
+}
+/**
+ *	Generated after a successful [Create password reset token for Customer](/../api/projects/customers#create-password-reset-token-for-customer) request.
+ *
+ */
+export interface CustomerPasswordTokenCreatedMessage {
+  readonly type: 'CustomerPasswordTokenCreated'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Unique identifier of the Customer.
+   *
+   *
+   */
+  readonly customerId: string
+  /**
+   *	Date and time (UTC) the password token expires.
+   *
+   *
+   */
+  readonly expiresAt: string
 }
 /**
  *	Generated after a successful [Reset Customer's Password](/../api/projects/customers#reset-password-of-customer), [Reset Customer's Password in a Store](/../api/projects/customers#reset-password-of-customer-in-store), [Change Customer's Password](/../api/projects/customers#change-password-of-customer), or [Change Customer's Password in a Store](/../api/projects/customers#change-password-of-customer-in-store) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
@@ -16521,6 +16675,7 @@ export type MessagePayload =
   | CustomerDateOfBirthSetMessagePayload
   | CustomerDeletedMessagePayload
   | CustomerEmailChangedMessagePayload
+  | CustomerEmailTokenCreatedMessagePayload
   | CustomerEmailVerifiedMessagePayload
   | CustomerFirstNameSetMessagePayload
   | CustomerGroupCustomFieldAddedMessagePayload
@@ -16530,6 +16685,7 @@ export type MessagePayload =
   | CustomerGroupCustomTypeSetMessagePayload
   | CustomerGroupSetMessagePayload
   | CustomerLastNameSetMessagePayload
+  | CustomerPasswordTokenCreatedMessagePayload
   | CustomerPasswordUpdatedMessagePayload
   | CustomerTitleSetMessagePayload
   | DeliveryAddedMessagePayload
@@ -17786,6 +17942,25 @@ export interface CustomerEmailChangedMessagePayload {
   readonly email: string
 }
 /**
+ *	Generated after a successful [Create email token for Customer](/../api/projects/customers#create-email-token-for-customer) request.
+ *
+ */
+export interface CustomerEmailTokenCreatedMessagePayload {
+  readonly type: 'CustomerEmailTokenCreated'
+  /**
+   *	Unique identifier of the Customer.
+   *
+   *
+   */
+  readonly customerId: string
+  /**
+   *	Date and time (UTC) the email token expires.
+   *
+   *
+   */
+  readonly expiresAt: string
+}
+/**
  *	Generated after a successful [Verify Customer's Email](/../api/projects/customers#verify-email-of-customer) request.
  *
  */
@@ -17918,6 +18093,25 @@ export interface CustomerLastNameSetMessagePayload {
    *
    */
   readonly lastName?: string
+}
+/**
+ *	Generated after a successful [Create password reset token for Customer](/../api/projects/customers#create-password-reset-token-for-customer) request.
+ *
+ */
+export interface CustomerPasswordTokenCreatedMessagePayload {
+  readonly type: 'CustomerPasswordTokenCreated'
+  /**
+   *	Unique identifier of the Customer.
+   *
+   *
+   */
+  readonly customerId: string
+  /**
+   *	Date and time (UTC) the password token expires.
+   *
+   *
+   */
+  readonly expiresAt: string
 }
 /**
  *	Generated after a successful [Reset Customer's Password](/../api/projects/customers#reset-password-of-customer), [Reset Customer's Password in a Store](/../api/projects/customers#reset-password-of-customer-in-store), [Change Customer's Password](/../api/projects/customers#change-password-of-customer), or [Change Customer's Password in a Store](/../api/projects/customers#change-password-of-customer-in-store) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.

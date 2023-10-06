@@ -91,6 +91,9 @@ export class ByProjectKeyCustomersRequestBuilder {
       baseUri: this.args.baseUri,
     })
   }
+  /**
+   *	Produces the [CustomerPasswordTokenCreated](ctp:api:type:CustomerPasswordTokenCreatedMessage) Message.
+   */
   public passwordToken(): ByProjectKeyCustomersPasswordTokenRequestBuilder {
     return new ByProjectKeyCustomersPasswordTokenRequestBuilder({
       pathArgs: {
