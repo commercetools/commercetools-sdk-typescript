@@ -95,7 +95,7 @@ jobs:
         run: rm -rf reference.txt
         continue-on-error: true
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: stefanzweifel/git-auto-commit-action@v5
         if: steps.changesets.outputs.published == 'true'
         with:
           commit_message: "chore: updating API ref SHA"
