@@ -105,6 +105,16 @@
 </details>
 
 <details>
+<summary>Added Resource(s)</summary>
+
+- added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-rules`
+- added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-flows`
+- added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-rules/{ID}`
+- added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-rules/key={key}`
+- added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-flows/{ID}`
+</details>
+
+<details>
 <summary>Added Enum(s)</summary>
 
 - added enum `CreateApprovalRules` to type `Permission`
@@ -136,16 +146,6 @@
 - added property `custom` to type `OrderAddParcelToDeliveryAction`
 </details>
 
-<details>
-<summary>Added Resource(s)</summary>
-
-- added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-rules`
-- added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-flows`
-- added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-rules/{ID}`
-- added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-rules/key={key}`
-- added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-flows/{ID}`
-</details>
-
 **Import changes**
 
 <details>
@@ -157,15 +157,15 @@
 **History changes**
 
 <details>
-<summary>Added Property(s)</summary>
-
-- added property `businessUnit` to type `Record`
-</details>
-
-<details>
 <summary>Added QueryParameter(s)</summary>
 
 - added query parameter `businessUnit` to method `get /{projectKey}`
 - added query parameter `businessUnit` to method `get /{projectKey}/{resourceType}`
 - added query parameter `businessUnit` to method `get /{projectKey}/{resourceType}/{ID}`
+</details>
+
+<details>
+<summary>Added Property(s)</summary>
+
+- added property `businessUnit` to type `Record`
 </details>
