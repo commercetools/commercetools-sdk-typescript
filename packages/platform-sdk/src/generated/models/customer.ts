@@ -461,6 +461,19 @@ export interface CustomerDraft {
    */
   readonly authenticationMode?: AuthenticationMode
 }
+/**
+ *	[Reference](ctp:api:type:Reference) to a [CustomerToken](ctp:api:type:CustomerToken) for email verification.
+ *
+ */
+export interface CustomerEmailTokenReference {
+  readonly typeId: 'customer-email-token'
+  /**
+   *	Unique identifier of the referenced [CustomerToken](ctp:api:type:CustomerToken).
+   *
+   *
+   */
+  readonly id: string
+}
 export interface CustomerEmailVerify {
   /**
    *	Expected version of the Customer.
@@ -514,6 +527,19 @@ export interface CustomerPagedQueryResponse {
    *
    */
   readonly results: Customer[]
+}
+/**
+ *	[Reference](ctp:api:type:Reference) to a [CustomerToken](ctp:api:type:CustomerToken) for password reset.
+ *
+ */
+export interface CustomerPasswordTokenReference {
+  readonly typeId: 'customer-password-token'
+  /**
+   *	Unique identifier of the referenced [CustomerToken](ctp:api:type:CustomerToken).
+   *
+   *
+   */
+  readonly id: string
 }
 /**
  *	[Reference](ctp:api:type:Reference) to a [Customer](ctp:api:type:Customer).
@@ -644,6 +670,24 @@ export interface CustomerToken {
    */
   readonly id: string
   /**
+   *	The `id` of the Customer.
+   *
+   *
+   */
+  readonly customerId: string
+  /**
+   *	Value of the token.
+   *
+   *
+   */
+  readonly value: string
+  /**
+   *	Date and time (UTC) the token expires.
+   *
+   *
+   */
+  readonly expiresAt: string
+  /**
    *	Date and time (UTC) the token was initially created.
    *
    *
@@ -655,24 +699,6 @@ export interface CustomerToken {
    *
    */
   readonly lastModifiedAt?: string
-  /**
-   *	The `id` of the Customer.
-   *
-   *
-   */
-  readonly customerId: string
-  /**
-   *	Date and time (UTC) the token expires.
-   *
-   *
-   */
-  readonly expiresAt: string
-  /**
-   *	Value of the token.
-   *
-   *
-   */
-  readonly value: string
 }
 export interface CustomerUpdate {
   /**

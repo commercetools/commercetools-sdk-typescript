@@ -43,6 +43,8 @@ import { Channel, ChannelReference, ChannelResourceIdentifier } from './channel'
 import { CustomObject, CustomObjectReference } from './custom-object'
 import {
   Customer,
+  CustomerEmailTokenReference,
+  CustomerPasswordTokenReference,
   CustomerReference,
   CustomerResourceIdentifier,
 } from './customer'
@@ -1056,7 +1058,9 @@ export type Reference =
   | CategoryReference
   | ChannelReference
   | CustomObjectReference
+  | CustomerEmailTokenReference
   | CustomerGroupReference
+  | CustomerPasswordTokenReference
   | CustomerReference
   | DirectDiscountReference
   | DiscountCodeReference
@@ -1093,7 +1097,9 @@ export type ReferenceTypeId =
   | 'category'
   | 'channel'
   | 'customer'
+  | 'customer-email-token'
   | 'customer-group'
+  | 'customer-password-token'
   | 'direct-discount'
   | 'discount-code'
   | 'extension'

@@ -44,6 +44,8 @@
 - added type `CartDiscountTotalPriceTarget`
 - added type `DiscountOnTotalPrice`
 - added type `DiscountedTotalPricePortion`
+- added type `CustomerEmailTokenReference`
+- added type `CustomerPasswordTokenReference`
 - added type `ApprovalFlowApprovedMessage`
 - added type `ApprovalFlowCompletedMessage`
 - added type `ApprovalFlowCreatedMessage`
@@ -120,6 +122,11 @@
 - added enum `CreateApprovalRules` to type `Permission`
 - added enum `UpdateApprovalRules` to type `Permission`
 - added enum `UpdateApprovalFlows` to type `Permission`
+- added enum `customer-email-token` to type `ReferenceTypeId`
+- added enum `customer-password-token` to type `ReferenceTypeId`
+- added enum `customer-email-token` to type `MessageSubscriptionResourceTypeId`
+- added enum `customer-group` to type `MessageSubscriptionResourceTypeId`
+- added enum `customer-password-token` to type `MessageSubscriptionResourceTypeId`
 </details>
 
 <details>

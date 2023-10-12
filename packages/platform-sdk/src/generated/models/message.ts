@@ -5616,7 +5616,7 @@ export interface CustomerEmailChangedMessage {
   readonly email: string
 }
 /**
- *	Generated after a successful [Create email token for Customer](/../api/projects/customers#create-email-token-for-customer) request.
+ *	Generated after a successful [Create email token for Customer](/../api/projects/customers#create-email-token-for-customer) request. The `resource` property of the Message is a [CustomerEmailTokenReference](ctp:api:type:CustomerEmailTokenReference).
  *
  */
 export interface CustomerEmailTokenCreatedMessage {
@@ -6339,7 +6339,7 @@ export interface CustomerLastNameSetMessage {
   readonly lastName?: string
 }
 /**
- *	Generated after a successful [Create password reset token for Customer](/../api/projects/customers#create-password-reset-token-for-customer) request.
+ *	Generated after a successful [Create password reset token for Customer](/../api/projects/customers#create-password-reset-token-for-customer) request.  The `resource` property of the Message is a [CustomerPasswordTokenReference](ctp:api:type:CustomerPasswordTokenReference).
  *
  */
 export interface CustomerPasswordTokenCreatedMessage {
@@ -17942,7 +17942,7 @@ export interface CustomerEmailChangedMessagePayload {
   readonly email: string
 }
 /**
- *	Generated after a successful [Create email token for Customer](/../api/projects/customers#create-email-token-for-customer) request.
+ *	Generated after a successful [Create email token for Customer](/../api/projects/customers#create-email-token-for-customer) request. The `resource` property of the Message is a [CustomerEmailTokenReference](ctp:api:type:CustomerEmailTokenReference).
  *
  */
 export interface CustomerEmailTokenCreatedMessagePayload {
@@ -18095,7 +18095,7 @@ export interface CustomerLastNameSetMessagePayload {
   readonly lastName?: string
 }
 /**
- *	Generated after a successful [Create password reset token for Customer](/../api/projects/customers#create-password-reset-token-for-customer) request.
+ *	Generated after a successful [Create password reset token for Customer](/../api/projects/customers#create-password-reset-token-for-customer) request.  The `resource` property of the Message is a [CustomerPasswordTokenReference](ctp:api:type:CustomerPasswordTokenReference).
  *
  */
 export interface CustomerPasswordTokenCreatedMessagePayload {
