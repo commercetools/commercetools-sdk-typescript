@@ -13,6 +13,7 @@ export * from './models/change-history'
 export * from './models/change-value'
 export * from './models/common'
 export * from './models/label'
+export * from './models/scalar-types'
 //Common package
 export * from './shared/utils/common-types'
 export * from './shared/utils/middleware'
