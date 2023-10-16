@@ -5,6 +5,7 @@ import type {
   Next,
   OTelemetryMiddlewareOptions,
 } from '../types/types'
+import { version } from '../package.json'
 
 /**
  * default newrelic APM and
@@ -38,6 +39,10 @@ export default function createTelemetryMiddleware(
     (request: MiddlewareRequest, response: MiddlewareResponse) => {
       const nextRequest = {
         ...request,
+        headers: {
+          ...request.headers,
+          'User-Agent': `typescript-sdk-newrelic-middleware-${version}`,
+        },
         ...options,
       }
 
