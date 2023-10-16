@@ -1,5 +1,11 @@
 # @commercetools/ts-sdk-apm
 
+## 1.0.1
+
+### Patch Changes
+
+- [#537](https://github.com/commercetools/commercetools-sdk-typescript/pull/537) [`ae8677d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/ae8677d8ac1d28bdfb367ab8929c71686a7142ce) Thanks [@ajimae](https://github.com/ajimae)! - add useragent header
+
 ## 1.0.0
 
 ### Major Changes
