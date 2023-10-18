@@ -51,6 +51,28 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsByIDRequestBuilder {
     )
   }
   /**
+   *	Checks if a ShoppingList exists for a given `id`. Returns a `200 OK` status if the ShoppingList exists or a `404 Not Found` otherwise.
+   */
+  public head(methodArgs?: {
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'HEAD',
+        uriTemplate:
+          '/{projectKey}/in-store/key={storeKey}/me/shopping-lists/{ID}',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+      },
+      this.args.executeRequest
+    )
+  }
+  /**
    *	If a ShoppingList exists in a Project but does _not_ have the `store` field, or the `store` field references a different [Store](ctp:api:type:Store),
    *	the [ResourceNotFound](/errors#404-not-found-1) error is returned.
    *

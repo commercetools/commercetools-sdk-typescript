@@ -31,6 +31,16 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .activeCart()
         .get(),
     },
+    {
+      method: 'head',
+      uri: '/test_projectKey/in-store/key=test_storeKey/me/active-cart',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .me()
+        .activeCart()
+        .head(),
+    },
   ]
 }
 

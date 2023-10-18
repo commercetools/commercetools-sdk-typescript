@@ -116,6 +116,32 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .get(),
     },
     {
+      method: 'head',
+      uri: '/test_projectKey/as-associate/test_associateId/in-business-unit/key=test_businessUnitKey/carts?where=where',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .asAssociate()
+        .withAssociateIdValue({ associateId: 'test_associateId' })
+        .inBusinessUnitKeyWithBusinessUnitKeyValue({
+          businessUnitKey: 'test_businessUnitKey',
+        })
+        .carts()
+        .head({ queryArgs: { where: 'where' } }),
+    },
+    {
+      method: 'head',
+      uri: '/test_projectKey/as-associate/test_associateId/in-business-unit/key=test_businessUnitKey/carts',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .asAssociate()
+        .withAssociateIdValue({ associateId: 'test_associateId' })
+        .inBusinessUnitKeyWithBusinessUnitKeyValue({
+          businessUnitKey: 'test_businessUnitKey',
+        })
+        .carts()
+        .head(),
+    },
+    {
       method: 'post',
       uri: '/test_projectKey/as-associate/test_associateId/in-business-unit/key=test_businessUnitKey/carts?expand=expand',
       request: apiRoot

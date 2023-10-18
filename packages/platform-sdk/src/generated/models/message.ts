@@ -14120,7 +14120,7 @@ export interface ReturnInfoSetMessage {
   readonly returnInfo?: ReturnInfo[]
 }
 /**
- *	Generated after a successful [Create Review](/../api/projects/reviews#create-a-review) request.
+ *	Generated after a successful [Create Review](/../api/projects/reviews#create-review) request.
  *
  */
 export interface ReviewCreatedMessage {
@@ -20172,7 +20172,7 @@ export interface ReturnInfoSetMessagePayload {
   readonly returnInfo?: ReturnInfo[]
 }
 /**
- *	Generated after a successful [Create Review](/../api/projects/reviews#create-a-review) request.
+ *	Generated after a successful [Create Review](/../api/projects/reviews#create-review) request.
  *
  */
 export interface ReviewCreatedMessagePayload {

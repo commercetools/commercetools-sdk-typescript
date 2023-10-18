@@ -29,6 +29,15 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .activeCart()
         .get(),
     },
+    {
+      method: 'head',
+      uri: '/test_projectKey/me/active-cart',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .me()
+        .activeCart()
+        .head(),
+    },
   ]
 }
 

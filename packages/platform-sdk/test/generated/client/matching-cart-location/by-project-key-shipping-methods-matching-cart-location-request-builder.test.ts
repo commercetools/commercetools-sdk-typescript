@@ -51,6 +51,35 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
           queryArgs: { expand: 'expand', country: 'country', cartId: 'cartId' },
         }),
     },
+    {
+      method: 'head',
+      uri: '/test_projectKey/shipping-methods/matching-cart-location?country=country&cartId=cartId',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .shippingMethods()
+        .matchingCartLocation()
+        .head({ queryArgs: { country: 'country', cartId: 'cartId' } }),
+    },
+    {
+      method: 'head',
+      uri: '/test_projectKey/shipping-methods/matching-cart-location?state=state&country=country&cartId=cartId',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .shippingMethods()
+        .matchingCartLocation()
+        .head({
+          queryArgs: { state: 'state', country: 'country', cartId: 'cartId' },
+        }),
+    },
+    {
+      method: 'head',
+      uri: '/test_projectKey/shipping-methods/matching-cart-location?cartId=cartId&country=country',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .shippingMethods()
+        .matchingCartLocation()
+        .head({ queryArgs: { cartId: 'cartId', country: 'country' } }),
+    },
   ]
 }
 

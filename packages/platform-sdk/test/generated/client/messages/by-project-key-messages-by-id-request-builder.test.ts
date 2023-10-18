@@ -29,6 +29,15 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .withId({ ID: 'test_ID' })
         .get(),
     },
+    {
+      method: 'head',
+      uri: '/test_projectKey/messages/test_ID',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .messages()
+        .withId({ ID: 'test_ID' })
+        .head(),
+    },
   ]
 }
 

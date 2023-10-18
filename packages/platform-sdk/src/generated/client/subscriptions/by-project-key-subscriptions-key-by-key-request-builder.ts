@@ -37,6 +37,27 @@ export class ByProjectKeySubscriptionsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Checks if a Subscription exists for a given `key`. Returns a `200 OK` status if the Subscription exists or a `404 Not Found` otherwise.
+   */
+  public head(methodArgs?: {
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'HEAD',
+        uriTemplate: '/{projectKey}/subscriptions/key={key}',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+      },
+      this.args.executeRequest
+    )
+  }
   public post(methodArgs: {
     body: SubscriptionUpdate
     headers?: {

@@ -84,6 +84,24 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .get(),
     },
     {
+      method: 'head',
+      uri: '/test_projectKey/in-store/key=test_storeKey/shopping-lists?where=where',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .shoppingLists()
+        .head({ queryArgs: { where: 'where' } }),
+    },
+    {
+      method: 'head',
+      uri: '/test_projectKey/in-store/key=test_storeKey/shopping-lists',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .shoppingLists()
+        .head(),
+    },
+    {
       method: 'post',
       uri: '/test_projectKey/in-store/key=test_storeKey/shopping-lists?expand=expand',
       request: apiRoot

@@ -29,6 +29,15 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .withCustomerId({ customerId: 'test_customerId' })
         .get(),
     },
+    {
+      method: 'head',
+      uri: '/test_projectKey/carts/customer-id=test_customerId',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .carts()
+        .withCustomerId({ customerId: 'test_customerId' })
+        .head(),
+    },
   ]
 }
 

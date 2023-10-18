@@ -30,6 +30,15 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .get(),
     },
     {
+      method: 'head',
+      uri: '/test_projectKey/inventory/test_ID',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inventory()
+        .withId({ ID: 'test_ID' })
+        .head(),
+    },
+    {
       method: 'post',
       uri: '/test_projectKey/inventory/test_ID?expand=expand',
       request: apiRoot

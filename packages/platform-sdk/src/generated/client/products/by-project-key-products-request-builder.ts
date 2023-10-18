@@ -86,7 +86,7 @@ export class ByProjectKeyProductsRequestBuilder {
     )
   }
   /**
-   *	Check if Products exist. Responds with a `200 OK` status if any Products match the Query Predicate, or `404 Not Found` otherwise.
+   *	Checks if a Product exists for a given Query Predicate. Returns a `200 OK` status if any Products match the Query Predicate or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

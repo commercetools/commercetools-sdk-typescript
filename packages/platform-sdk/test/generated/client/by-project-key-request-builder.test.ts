@@ -17,6 +17,11 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
       request: apiRoot.withProjectKey({ projectKey: 'test_projectKey' }).get(),
     },
     {
+      method: 'head',
+      uri: '/test_projectKey',
+      request: apiRoot.withProjectKey({ projectKey: 'test_projectKey' }).head(),
+    },
+    {
       method: 'post',
       uri: '/test_projectKey',
       request: apiRoot

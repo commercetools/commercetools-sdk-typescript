@@ -37,6 +37,27 @@ export class ByProjectKeyApiClientsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Checks if an API Client exists for a given `id`. Returns a `200 OK` status if the API Client exists or a `404 Not Found` otherwise.
+   */
+  public head(methodArgs?: {
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'HEAD',
+        uriTemplate: '/{projectKey}/api-clients/{ID}',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+      },
+      this.args.executeRequest
+    )
+  }
   public delete(methodArgs?: {
     headers?: {
       [key: string]: string | string[]
