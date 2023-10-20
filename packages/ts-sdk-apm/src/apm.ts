@@ -39,10 +39,6 @@ export default function createTelemetryMiddleware(
     (request: MiddlewareRequest, response: MiddlewareResponse) => {
       const nextRequest = {
         ...request,
-        headers: {
-          ...request.headers,
-          'User-Agent': `typescript-sdk-newrelic-middleware-${packageJson.version}`,
-        },
         ...options,
       }
 

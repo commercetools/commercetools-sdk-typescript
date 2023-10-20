@@ -22,7 +22,7 @@ export default function createUserAgentMiddleware(
         ...request,
         headers: {
           ...request.headers,
-          'User-Agent': `${userAgent} ${request.headers['User-Agent'] || ''}`,
+          'User-Agent': userAgent,
         },
       }
       next(requestWithUserAgent, response)

@@ -1,4 +1,4 @@
-const { ClientBuilder } = require('@commercetools/sdk-client-v2')
+const { ClientBuilder } = require('../../../../packages/sdk-client')
 const { createTelemetryMiddleware } = require('@commercetools/ts-sdk-apm')
 const { createApiBuilderFromCtpClient } = require('@commercetools/platform-sdk')
 const fetch = require('node-fetch')
@@ -35,6 +35,7 @@ const client = new ClientBuilder()
   .withPasswordFlow(authMiddlewareOptions)
   .withHttpMiddleware(httpMiddlewareOptions)
   .withTelemetryMiddleware(telemetryOptions) // telemetry middleware
+  .withLoggerMiddleware()
   .build()
 
 const apiRoot = createApiBuilderFromCtpClient(client).withProjectKey({
