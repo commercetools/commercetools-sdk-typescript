@@ -60,6 +60,18 @@ describe('Http', () => {
     )
   })
 
+  test('throw when a non-array option is passed as headersWithStringBody in the httpMiddlewareOptions', () => {
+    expect(() => {
+      createHttpMiddleware({
+        host: testHost,
+        headersWithStringBody: null,
+        fetch,
+      })
+    }).toThrow(
+      new Error('`headersWithStringBody` option must be an array of strings')
+    )
+  })
+
   test('execute a get request (success)', () =>
     new Promise((resolve: Function, reject: Function) => {
       const request = createTestRequest({
@@ -822,6 +834,70 @@ describe('Http', () => {
         host: testHost,
         includeRequestInErrorResponse: false,
         fetch,
+      } as any
+      const httpMiddleware = createHttpMiddleware(options)
+      nock(testHost).get('/foo/bar').reply(404)
+
+      httpMiddleware(next)(request, response)
+    }))
+
+  test('should keep request bodies as is if header is included.', () =>
+    new Promise((resolve: Function, reject: Function) => {
+      const uri = '/foo/bar'
+      const request = createTestRequest({
+        method: 'POST',
+        uri,
+        body: 'this is a string body',
+        headers: { 'Content-Type': 'foo' },
+      })
+      const response = { resolve: Function, reject: Function } as any
+      const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
+        expect(req.body).toBeDefined()
+        expect(typeof req.body).toBe('string')
+        resolve()
+      }
+      const options = {
+        host: testHost,
+        headersWithStringBody: ['foo'],
+        fetch: jest
+          .fn()
+          .mockImplementation((url: string, fetchOptions: RequestInit) => {
+            expect(fetchOptions.body).toBe('this is a string body')
+            return fetch(url, fetchOptions)
+          }),
+      } as any
+      const httpMiddleware = createHttpMiddleware(options)
+      nock(testHost).get('/foo/bar').reply(404)
+
+      httpMiddleware(next)(request, response)
+    }))
+
+  test('should stringify request body if header is included and body is not a string.', () =>
+    new Promise((resolve: Function, reject: Function) => {
+      const uri = '/foo/bar'
+      const request = createTestRequest({
+        method: 'POST',
+        uri,
+        body: { text: 'this is not a string body' },
+        headers: { 'Content-Type': 'foo' },
+      })
+      const response = { resolve: Function, reject: Function } as any
+      const next = (req: MiddlewareRequest, res: MiddlewareResponse) => {
+        expect(req.body).toBeDefined()
+        expect(typeof req.body).toEqual('object')
+        resolve()
+      }
+      const options = {
+        host: testHost,
+        headersWithStringBody: ['foo'],
+        fetch: jest
+          .fn()
+          .mockImplementation((url: string, fetchOptions: RequestInit) => {
+            expect(fetchOptions.body).toBe(
+              '{"text":"this is not a string body"}'
+            )
+            return fetch(url, fetchOptions)
+          }),
       } as any
       const httpMiddleware = createHttpMiddleware(options)
       nock(testHost).get('/foo/bar').reply(404)

@@ -78,6 +78,7 @@ export default function createHttpMiddleware({
   includeOriginalRequest,
   includeRequestInErrorResponse = true,
   maskSensitiveHeaderData = true,
+  headersWithStringBody = [],
   enableRetry,
   timeout,
   retryConfig: {
@@ -118,6 +119,12 @@ export default function createHttpMiddleware({
     )
   }
 
+  if (!Array.isArray(headersWithStringBody)) {
+    throw new Error(
+      '`headersWithStringBody` option must be an array of strings'
+    )
+  }
+
   return (next: Next): Next =>
     (request: MiddlewareRequest, response: MiddlewareResponse) => {
       const url = host.replace(/\/$/, '') + request.uri
@@ -138,11 +145,13 @@ export default function createHttpMiddleware({
         delete requestHeader['Content-Type']
       }
 
-      // Ensure body is a string if content type is application/json
+      // Ensure body is a string if content type is application/json or application/graphql
       const body =
-        (['application/json', 'application/graphql'].indexOf(
-          requestHeader['Content-Type'] as string
-        ) > -1 &&
+        ([
+          'application/json',
+          'application/graphql',
+          ...headersWithStringBody,
+        ].indexOf(requestHeader['Content-Type'] as string) > -1 &&
           typeof request.body === 'string') ||
         isBuffer(request.body)
           ? request.body
