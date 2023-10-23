@@ -1089,6 +1089,8 @@ export type Reference =
  *
  */
 export type ReferenceTypeId =
+  | 'approval-flow'
+  | 'approval-rule'
   | 'associate-role'
   | 'attribute-group'
   | 'business-unit'
