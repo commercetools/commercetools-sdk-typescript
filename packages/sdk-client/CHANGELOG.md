@@ -1,5 +1,11 @@
 # @commercetools/sdk-client-v2
 
+## 2.2.1
+
+### Patch Changes
+
+- [#548](https://github.com/commercetools/commercetools-sdk-typescript/pull/548) [`510838c`](https://github.com/commercetools/commercetools-sdk-typescript/commit/510838cdb1cd5e45f89022ad825a7688d419f2e0) Thanks [@ajimae](https://github.com/ajimae)! - add headersWithStringBody option to httpMiddlewareOptions
+
 ## 2.2.0
 
 ### Minor Changes
