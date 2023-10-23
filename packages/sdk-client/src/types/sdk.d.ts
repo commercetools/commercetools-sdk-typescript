@@ -100,7 +100,7 @@ export interface ClientRequest {
   uriTemplate?: string
   pathVariables?: VariableMap
   queryParams?: VariableMap
-  body?: any,
+  body?: any
 }
 
 export type ClientResponse<T = any> = {
@@ -275,7 +275,7 @@ type requestBaseOptions = {
   body: string
   basicAuth: string
   pendingTasks: Array<Task>
-  requestState: RequestStateStore,
+  requestState: RequestStateStore
   tokenCache: TokenCache
   tokenCacheKey?: TokenCacheOptions
 }
@@ -321,6 +321,7 @@ export type HttpMiddlewareOptions = {
   includeOriginalRequest?: boolean
   includeRequestInErrorResponse?: boolean
   maskSensitiveHeaderData?: boolean
+  headersWithStringBody?: Array<string>
   timeout?: number
   enableRetry?: boolean
   retryConfig?: {
@@ -329,7 +330,7 @@ export type HttpMiddlewareOptions = {
     backoff?: boolean
     maxDelay?: number
     retryOnAbort?: boolean
-    retryCodes?: Array<number | string>,
+    retryCodes?: Array<number | string>
   }
   fetch?: any
   abortController?: AbortController // deprecated
