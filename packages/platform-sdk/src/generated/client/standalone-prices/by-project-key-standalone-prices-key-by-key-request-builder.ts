@@ -45,6 +45,27 @@ export class ByProjectKeyStandalonePricesKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Checks if a StandalonePrice exists for a given `key`. Returns a `200 OK` status if the StandalonePrice exists or a `404 Not Found` otherwise.
+   */
+  public head(methodArgs?: {
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'HEAD',
+        uriTemplate: '/{projectKey}/standalone-prices/key={key}',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+      },
+      this.args.executeRequest
+    )
+  }
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

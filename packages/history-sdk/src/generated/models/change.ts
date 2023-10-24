@@ -5537,12 +5537,7 @@ export interface SetMiddleNameChange {
   readonly nextValue: string
 }
 /**
- *	Change triggered by the following update actions:
- *
- *	- [Set Name](ctp:api:type:DiscountCodeSetNameAction) on Discount Codes.
- *	- [Set State Name](ctp:api:type:StateSetNameAction) on States.
- *	- [Set Name](ctp:api:type:StoreSetNameAction) on Stores.
- *
+ *	Change triggered by the [Set Name](ctp:api:type:AssociateRoleSetNameAction) update action.
  */
 export interface SetNameChange {
   readonly type: 'SetNameChange'
@@ -5554,13 +5549,21 @@ export interface SetNameChange {
    *	Value before the change.
    *
    */
-  readonly previousValue: LocalizedString
+  readonly previousValue: string
   /**
    *	Value after the change.
    *
    */
-  readonly nextValue: LocalizedString
+  readonly nextValue: string
 }
+/**
+ *	Change triggered by the following update actions:
+ *
+ *	- [Set Name](ctp:api:type:DiscountCodeSetNameAction) on Discount Codes.
+ *	- [Set State Name](ctp:api:type:StateSetNameAction) on States.
+ *	- [Set Name](ctp:api:type:StoreSetNameAction) on Stores.
+ *
+ */
 export interface SetLocalizedNameChange {
   readonly type: 'SetLocalizedNameChange'
   /**

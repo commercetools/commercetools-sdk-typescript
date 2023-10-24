@@ -30,6 +30,15 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .get(),
     },
     {
+      method: 'head',
+      uri: '/test_projectKey/staged-quotes/test_ID',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .stagedQuotes()
+        .withId({ ID: 'test_ID' })
+        .head(),
+    },
+    {
       method: 'post',
       uri: '/test_projectKey/staged-quotes/test_ID?expand=expand',
       request: apiRoot

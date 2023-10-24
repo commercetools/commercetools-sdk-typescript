@@ -76,6 +76,12 @@ export interface Record {
    */
   readonly stores: KeyReference[]
   /**
+   *	Reference to the [Business Unit](ctp:api:type:BusinessUnit) associated with the [Change](ctp:history:type:Change).
+   *
+   *
+   */
+  readonly businessUnit?: KeyReference
+  /**
    *	`true` if no change was detected.
    *
    *	The version number of the resource can be increased even without any change in the resource.

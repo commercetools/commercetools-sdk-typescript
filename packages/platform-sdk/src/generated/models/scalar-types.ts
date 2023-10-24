@@ -5,5 +5,6 @@
  */
 
 export type Expansion = string
+export type Locale = string
 export type QueryPredicate = string
 export type Sort = string

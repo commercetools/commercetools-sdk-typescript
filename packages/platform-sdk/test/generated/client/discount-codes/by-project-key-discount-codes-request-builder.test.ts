@@ -76,6 +76,22 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .get(),
     },
     {
+      method: 'head',
+      uri: '/test_projectKey/discount-codes?where=where',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .discountCodes()
+        .head({ queryArgs: { where: 'where' } }),
+    },
+    {
+      method: 'head',
+      uri: '/test_projectKey/discount-codes',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .discountCodes()
+        .head(),
+    },
+    {
       method: 'post',
       uri: '/test_projectKey/discount-codes?expand=expand',
       request: apiRoot

@@ -34,6 +34,17 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .get(),
     },
     {
+      method: 'head',
+      uri: '/test_projectKey/as-associate/test_associateId/business-units/test_ID',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .asAssociate()
+        .withAssociateIdValue({ associateId: 'test_associateId' })
+        .businessUnits()
+        .withId({ ID: 'test_ID' })
+        .head(),
+    },
+    {
       method: 'post',
       uri: '/test_projectKey/as-associate/test_associateId/business-units/test_ID?expand=expand',
       request: apiRoot

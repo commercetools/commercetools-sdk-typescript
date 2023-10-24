@@ -227,13 +227,14 @@ export type AssociateRoleUpdateAction =
   | AssociateRoleSetNameAction
   | AssociateRoleSetPermissionsAction
 /**
- *	Permissions grant granular access to [Business Units](ctp:api:type:BusinessUnit), [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), and [QuoteRequests](ctp:api:type:QuoteRequest).
+ *	Permissions grant granular access to [Approval Rules](ctp:api:type:ApprovalRule), [Approval Flows](ctp:api:type:ApprovalFlow), [Business Units](ctp:api:type:BusinessUnit), [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), and [Quote Requests](ctp:api:type:QuoteRequest).
  *
  */
 export type Permission =
   | 'AcceptMyQuotes'
   | 'AcceptOthersQuotes'
   | 'AddChildUnits'
+  | 'CreateApprovalRules'
   | 'CreateMyCarts'
   | 'CreateMyOrdersFromMyCarts'
   | 'CreateMyOrdersFromMyQuotes'
@@ -250,6 +251,8 @@ export type Permission =
   | 'ReassignOthersQuotes'
   | 'RenegotiateMyQuotes'
   | 'RenegotiateOthersQuotes'
+  | 'UpdateApprovalFlows'
+  | 'UpdateApprovalRules'
   | 'UpdateAssociates'
   | 'UpdateBusinessUnitDetails'
   | 'UpdateMyCarts'

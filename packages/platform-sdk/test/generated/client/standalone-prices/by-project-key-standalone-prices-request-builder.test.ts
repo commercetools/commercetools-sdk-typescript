@@ -76,6 +76,22 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .get(),
     },
     {
+      method: 'head',
+      uri: '/test_projectKey/standalone-prices?where=where',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .standalonePrices()
+        .head({ queryArgs: { where: 'where' } }),
+    },
+    {
+      method: 'head',
+      uri: '/test_projectKey/standalone-prices',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .standalonePrices()
+        .head(),
+    },
+    {
       method: 'post',
       uri: '/test_projectKey/standalone-prices?expand=expand',
       request: apiRoot

@@ -4,6 +4,8 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { ApprovalFlow } from './approval-flow'
+import { ApprovalRule } from './approval-rule'
 import {
   AssociateRole,
   AssociateRoleKeyReference,
@@ -41,6 +43,8 @@ import { Channel, ChannelReference, ChannelResourceIdentifier } from './channel'
 import { CustomObject, CustomObjectReference } from './custom-object'
 import {
   Customer,
+  CustomerEmailTokenReference,
+  CustomerPasswordTokenReference,
   CustomerReference,
   CustomerResourceIdentifier,
 } from './customer'
@@ -523,6 +527,8 @@ export interface BaseResource {
 }
 export type _BaseResource =
   | BaseResource
+  | ApprovalFlow
+  | ApprovalRule
   | AssociateRole
   | AttributeGroup
   | BusinessUnit
@@ -1052,7 +1058,9 @@ export type Reference =
   | CategoryReference
   | ChannelReference
   | CustomObjectReference
+  | CustomerEmailTokenReference
   | CustomerGroupReference
+  | CustomerPasswordTokenReference
   | CustomerReference
   | DirectDiscountReference
   | DiscountCodeReference
@@ -1081,6 +1089,8 @@ export type Reference =
  *
  */
 export type ReferenceTypeId =
+  | 'approval-flow'
+  | 'approval-rule'
   | 'associate-role'
   | 'attribute-group'
   | 'business-unit'
@@ -1089,7 +1099,9 @@ export type ReferenceTypeId =
   | 'category'
   | 'channel'
   | 'customer'
+  | 'customer-email-token'
   | 'customer-group'
+  | 'customer-password-token'
   | 'direct-discount'
   | 'discount-code'
   | 'extension'

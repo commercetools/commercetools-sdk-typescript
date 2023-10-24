@@ -48,4 +48,30 @@ export class ByProjectKeyShippingMethodsMatchingCartRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Checks if a ShippingMethod exists for the given Cart. Returns a `200 OK` status if the ShippingMethod exists or a `404 Not Found` otherwise.
+   */
+  public head(methodArgs: {
+    queryArgs: {
+      cartId: string
+      [key: string]: QueryParam
+    }
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'HEAD',
+        uriTemplate: '/{projectKey}/shipping-methods/matching-cart',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
+      },
+      this.args.executeRequest
+    )
+  }
 }

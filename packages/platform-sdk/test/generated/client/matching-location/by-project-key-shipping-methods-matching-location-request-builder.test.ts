@@ -56,6 +56,33 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .matchingLocation()
         .get({ queryArgs: { sort: 'sort', country: 'country' } }),
     },
+    {
+      method: 'head',
+      uri: '/test_projectKey/shipping-methods/matching-location?country=country',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .shippingMethods()
+        .matchingLocation()
+        .head({ queryArgs: { country: 'country' } }),
+    },
+    {
+      method: 'head',
+      uri: '/test_projectKey/shipping-methods/matching-location?state=state&country=country',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .shippingMethods()
+        .matchingLocation()
+        .head({ queryArgs: { state: 'state', country: 'country' } }),
+    },
+    {
+      method: 'head',
+      uri: '/test_projectKey/shipping-methods/matching-location?currency=currency&country=country',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .shippingMethods()
+        .matchingLocation()
+        .head({ queryArgs: { currency: 'currency', country: 'country' } }),
+    },
   ]
 }
 

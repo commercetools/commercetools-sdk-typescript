@@ -134,7 +134,7 @@ export interface CartDiscount extends BaseResource {
    */
   readonly validUntil?: string
   /**
-   *	Indicates if the Discount can be used in connection with a [DiscountCode](ctp:api:type:DiscountCode).
+   *	Indicates if the Discount is used in connection with a [DiscountCode](ctp:api:type:DiscountCode).
    *
    *
    */
@@ -337,6 +337,7 @@ export type CartDiscountTarget =
   | CartDiscountCustomLineItemsTarget
   | CartDiscountLineItemsTarget
   | CartDiscountShippingCostTarget
+  | CartDiscountTotalPriceTarget
   | MultiBuyCustomLineItemsTarget
   | MultiBuyLineItemsTarget
 /**
@@ -371,6 +372,13 @@ export interface CartDiscountLineItemsTarget {
  */
 export interface CartDiscountShippingCostTarget {
   readonly type: 'shipping'
+}
+/**
+ *	Discount is applied to the total price of the [Cart](ctp:api:type:Cart).
+ *
+ */
+export interface CartDiscountTotalPriceTarget {
+  readonly type: 'totalPrice'
 }
 export interface CartDiscountUpdate {
   /**
@@ -432,7 +440,9 @@ export interface CartDiscountValueAbsoluteDraft {
   readonly type: 'absolute'
   /**
    *	Money values in different currencies.
-   *	An absolute Cart Discount will only match a price if this array contains a value with the same currency. If it contains 10€ and 15$, the matching € price will be decreased by 10€ and the matching $ price will be decreased by 15$.
+   *	An absolute Cart Discount will match a price only if the array contains a value with the same currency. For example, if it contains 10€ and 15$, the matching € price will be decreased by 10€ and the matching $ price will be decreased by 15$. If the array has multiple values of the same currency, the API returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
+   *
+   *	If the array is empty, the discount does not apply.
    *
    *
    */
@@ -459,7 +469,9 @@ export interface CartDiscountValueFixedDraft {
   readonly type: 'fixed'
   /**
    *	Money values provided either in [cent precision](ctp:api:type:Money) or [high precision](ctp:api:type:HighPrecisionMoneyDraft) for different currencies.
-   *	A fixed Cart Discount will only match a price if this array contains a value with the same currency. If it contains 10€ and 15$, the matching € price will be discounted by 10€ and the matching $ price will be discounted to 15$.
+   *	A fixed Cart Discount will match a price only if the array contains a value with the same currency. For example, if it contains 10€ and 15$, the matching € price will be discounted by 10€ and the matching $ price will be discounted to 15$. If the array has multiple values of the same currency, the API returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
+   *
+   *	If the array is empty, the discount does not apply.
    *
    *
    */

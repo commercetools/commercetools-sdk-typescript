@@ -30,6 +30,8 @@ export interface ChangeSubscription {
  *
  */
 export type ChangeSubscriptionResourceTypeId =
+  | 'approval-flow'
+  | 'approval-rule'
   | 'associate-role'
   | 'business-unit'
   | 'cart'
@@ -380,10 +382,15 @@ export interface MessageSubscription {
  *
  */
 export type MessageSubscriptionResourceTypeId =
+  | 'approval-flow'
+  | 'approval-rule'
   | 'associate-role'
   | 'business-unit'
   | 'category'
   | 'customer'
+  | 'customer-email-token'
+  | 'customer-group'
+  | 'customer-password-token'
   | 'inventory-entry'
   | 'order'
   | 'payment'

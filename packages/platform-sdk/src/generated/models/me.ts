@@ -1142,6 +1142,10 @@ export interface MyBusinessUnitRemoveShippingAddressIdAction {
    */
   readonly addressKey?: string
 }
+/**
+ *	Adding a Custom Field to an Address of a Business Unit generates the [BusinessUnitAddressCustomFieldAdded](ctp:api:type:BusinessUnitAddressCustomFieldAddedMessage) Message, removing one generates the [BusinessUnitAddressCustomFieldRemoved](ctp:api:type:BusinessUnitAddressCustomFieldRemovedMessage) Message, and updating an existing one generates the [BusinessUnitAddressCustomFieldChanged](ctp:api:type:BusinessUnitAddressCustomFieldChangedMessage) Message.
+ *
+ */
 export interface MyBusinessUnitSetAddressCustomFieldAction {
   readonly action: 'setAddressCustomField'
   /**
@@ -1165,6 +1169,10 @@ export interface MyBusinessUnitSetAddressCustomFieldAction {
    */
   readonly value?: any
 }
+/**
+ *	Adding or updating a Custom Type to an Address of a Business Unit generates the [BusinessUnitAddressCustomTypeSet](ctp:api:type:BusinessUnitAddressCustomTypeSetMessage) Message, and removing one generates the [BusinessUnitAddressCustomTypeRemoved](ctp:api:type:BusinessUnitAddressCustomTypeRemovedMessage) Message.
+ *
+ */
 export interface MyBusinessUnitSetAddressCustomTypeAction {
   readonly action: 'setAddressCustomType'
   /**
@@ -1201,6 +1209,10 @@ export interface MyBusinessUnitSetContactEmailAction {
    */
   readonly contactEmail?: string
 }
+/**
+ *	Adding a Custom Field to a Business Unit generates the [BusinessUnitCustomFieldAdded](ctp:api:type:BusinessUnitCustomFieldAddedMessage) Message, removing one generates the [BusinessUnitCustomFieldRemoved](ctp:api:type:BusinessUnitCustomFieldRemovedMessage) Message, and updating an existing one generates the [BusinessUnitCustomFieldChanged](ctp:api:type:BusinessUnitCustomFieldChangedMessage) Message.
+ *
+ */
 export interface MyBusinessUnitSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
@@ -1218,6 +1230,10 @@ export interface MyBusinessUnitSetCustomFieldAction {
    */
   readonly value?: any
 }
+/**
+ *	Adding or updating a Custom Type on a Business Unit generates the [BusinessUnitCustomTypeSet](ctp:api:type:BusinessUnitCustomTypeSetMessage) Message, removing one generates the [BusinessUnitCustomTypeRemoved](ctp:api:type:BusinessUnitCustomTypeRemovedMessage) Message.
+ *
+ */
 export interface MyBusinessUnitSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
@@ -2042,6 +2058,10 @@ export interface MyCustomerSetCompanyNameAction {
    */
   readonly companyName?: string
 }
+/**
+ *	Adding a Custom Field to a Customer generates the [CustomerCustomFieldAdded](ctp:api:type:CustomerCustomFieldAddedMessage) Message, removing one generates the [CustomerCustomFieldRemoved](ctp:api:type:CustomerCustomFieldRemovedMessage) Message, and updating an existing one generates the [CustomerCustomFieldChanged](ctp:api:type:CustomerCustomFieldChangedMessage) Message.
+ *
+ */
 export interface MyCustomerSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
@@ -2059,6 +2079,10 @@ export interface MyCustomerSetCustomFieldAction {
    */
   readonly value?: any
 }
+/**
+ *	Adding or updating a Custom Type on a Customer generates the [CustomerCustomTypeSet](ctp:api:type:CustomerCustomTypeSetMessage) Message, removing one generates the [CustomerCustomTypeRemoved](ctp:api:type:CustomerCustomTypeRemovedMessage) Message.
+ *
+ */
 export interface MyCustomerSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**

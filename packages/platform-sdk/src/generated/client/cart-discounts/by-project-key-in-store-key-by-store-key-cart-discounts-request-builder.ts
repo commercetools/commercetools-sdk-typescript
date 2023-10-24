@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { CartDiscount, CartDiscountDraft } from '../../models/cart-discount'
-import { executeRequest } from '../../shared/utils/common-types'
+import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyInStoreKeyByStoreKeyCartDiscountsByIDRequestBuilder } from './by-project-key-in-store-key-by-store-key-cart-discounts-by-id-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCartDiscountsKeyByKeyRequestBuilder } from './by-project-key-in-store-key-by-store-key-cart-discounts-key-by-key-request-builder'
@@ -62,6 +62,32 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartDiscountsRequestBuilder {
         headers: {
           ...methodArgs?.headers,
         },
+      },
+      this.args.executeRequest
+    )
+  }
+  /**
+   *	Checks if a CartDiscount exists for a given Query Predicate. Returns a `200 OK` status if any CartDiscounts match the Query Predicate or a `404 Not Found` otherwise.
+   */
+  public head(methodArgs?: {
+    queryArgs?: {
+      where?: string | string[]
+      [key: string]: QueryParam
+    }
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'HEAD',
+        uriTemplate: '/{projectKey}/in-store/key={storeKey}/cart-discounts',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
       },
       this.args.executeRequest
     )

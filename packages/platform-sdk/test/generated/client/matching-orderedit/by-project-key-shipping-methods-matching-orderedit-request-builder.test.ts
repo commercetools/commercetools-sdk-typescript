@@ -44,6 +44,43 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
           },
         }),
     },
+    {
+      method: 'head',
+      uri: '/test_projectKey/shipping-methods/matching-orderedit?orderEditId=orderEditId&country=country',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .shippingMethods()
+        .matchingOrderedit()
+        .head({
+          queryArgs: { orderEditId: 'orderEditId', country: 'country' },
+        }),
+    },
+    {
+      method: 'head',
+      uri: '/test_projectKey/shipping-methods/matching-orderedit?country=country&orderEditId=orderEditId',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .shippingMethods()
+        .matchingOrderedit()
+        .head({
+          queryArgs: { country: 'country', orderEditId: 'orderEditId' },
+        }),
+    },
+    {
+      method: 'head',
+      uri: '/test_projectKey/shipping-methods/matching-orderedit?state=state&orderEditId=orderEditId&country=country',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .shippingMethods()
+        .matchingOrderedit()
+        .head({
+          queryArgs: {
+            state: 'state',
+            orderEditId: 'orderEditId',
+            country: 'country',
+          },
+        }),
+    },
   ]
 }
 

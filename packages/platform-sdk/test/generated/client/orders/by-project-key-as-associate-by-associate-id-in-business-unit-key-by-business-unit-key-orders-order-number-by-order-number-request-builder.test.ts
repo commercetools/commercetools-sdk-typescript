@@ -40,6 +40,20 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .get(),
     },
     {
+      method: 'head',
+      uri: '/test_projectKey/as-associate/test_associateId/in-business-unit/key=test_businessUnitKey/orders/order-number=test_orderNumber',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .asAssociate()
+        .withAssociateIdValue({ associateId: 'test_associateId' })
+        .inBusinessUnitKeyWithBusinessUnitKeyValue({
+          businessUnitKey: 'test_businessUnitKey',
+        })
+        .orders()
+        .withOrderNumber({ orderNumber: 'test_orderNumber' })
+        .head(),
+    },
+    {
       method: 'post',
       uri: '/test_projectKey/as-associate/test_associateId/in-business-unit/key=test_businessUnitKey/orders/order-number=test_orderNumber?expand=expand',
       request: apiRoot

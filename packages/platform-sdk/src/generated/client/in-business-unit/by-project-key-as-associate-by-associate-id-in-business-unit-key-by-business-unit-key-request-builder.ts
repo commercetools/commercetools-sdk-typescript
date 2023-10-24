@@ -4,6 +4,8 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { executeRequest } from '../../shared/utils/common-types'
+import { ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyApprovalFlowsRequestBuilder } from '../approval-flows/by-project-key-as-associate-by-associate-id-in-business-unit-key-by-business-unit-key-approval-flows-request-builder'
+import { ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyApprovalRulesRequestBuilder } from '../approval-rules/by-project-key-as-associate-by-associate-id-in-business-unit-key-by-business-unit-key-approval-rules-request-builder'
 import { ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyCartsRequestBuilder } from '../carts/by-project-key-as-associate-by-associate-id-in-business-unit-key-by-business-unit-key-carts-request-builder'
 import { ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyOrdersRequestBuilder } from '../orders/by-project-key-as-associate-by-associate-id-in-business-unit-key-by-business-unit-key-orders-request-builder'
 import { ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyQuoteRequestsRequestBuilder } from '../quote-requests/by-project-key-as-associate-by-associate-id-in-business-unit-key-by-business-unit-key-quote-requests-request-builder'
@@ -22,6 +24,36 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
       baseUri?: string
     }
   ) {}
+  /**
+   *	An Approval Rule describes the conditions determining whether an Order that matches the predicate needs approval by an approver before it can be ordered by an requester within a Business Unit.
+   */
+  public approvalRules(): ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyApprovalRulesRequestBuilder {
+    return new ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyApprovalRulesRequestBuilder(
+      {
+        pathArgs: {
+          ...this.args.pathArgs,
+        },
+        executeRequest: this.args.executeRequest,
+        baseUri: this.args.baseUri,
+      }
+    )
+  }
+  /**
+   *	Approval Flows connect Orders that require approval with the Approval Rules that initiate the approval requirement.
+   *	They represent the approval process by including information about approvals, rejections, and all involved parties.
+   *
+   */
+  public approvalFlows(): ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyApprovalFlowsRequestBuilder {
+    return new ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyApprovalFlowsRequestBuilder(
+      {
+        pathArgs: {
+          ...this.args.pathArgs,
+        },
+        executeRequest: this.args.executeRequest,
+        baseUri: this.args.baseUri,
+      }
+    )
+  }
   /**
    *	A shopping cart holds product variants and can be ordered.
    */

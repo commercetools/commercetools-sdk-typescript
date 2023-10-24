@@ -72,7 +72,7 @@ export class ByProjectKeyProductsByIDRequestBuilder {
     )
   }
   /**
-   *	Check if a Product exists with a specified `id`. Responds with a `200 OK` status if the Product exists or `404 Not Found` otherwise.
+   *	Checks if a Product exists for a given `id`. Returns a `200 OK` status if the Product exists or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     headers?: {

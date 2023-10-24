@@ -43,7 +43,7 @@ export class ByProjectKeyProductTypesKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Checks if a Product Type with given `key` exists. Responds with a `200 OK` status if the `Product Type` exists or `404 Not Found` otherwise.
+   *	Checks if a ProductType exists for a given `key`. Returns a `200 OK` status if the ProductType exists or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     headers?: {

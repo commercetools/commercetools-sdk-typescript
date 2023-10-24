@@ -85,6 +85,15 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
+      uri: '/test_projectKey/test_resourceType/test_ID?businessUnit=businessUnit',
+      request: apiRoot
+        .withProjectKeyValue({ projectKey: 'test_projectKey' })
+        .withResourceTypeValue({ resourceType: 'test_resourceType' })
+        .withIDValue({ ID: 'test_ID' })
+        .get({ queryArgs: { businessUnit: 'businessUnit' } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/test_resourceType/test_ID?type=type',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
