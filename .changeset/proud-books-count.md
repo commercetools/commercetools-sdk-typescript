@@ -5,16 +5,16 @@
 **History changes**
 
 <details>
+<summary>Added Property(s)</summary>
+
+- added property `businessUnit` to type `Record`
+</details>
+
+<details>
 <summary>Changed Property(s)</summary>
 
 - :warning: changed property `previousValue` of type `SetNameChange` from type `LocalizedString` to `string`
 - :warning: changed property `nextValue` of type `SetNameChange` from type `LocalizedString` to `string`
-</details>
-
-<details>
-<summary>Added Property(s)</summary>
-
-- added property `businessUnit` to type `Record`
 </details>
 
 <details>
