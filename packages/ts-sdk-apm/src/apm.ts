@@ -5,7 +5,6 @@ import type {
   Next,
   OTelemetryMiddlewareOptions,
 } from '../types/types'
-import packageJson from '../package.json'
 
 /**
  * default newrelic APM and

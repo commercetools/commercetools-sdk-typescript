@@ -1,5 +1,5 @@
 ---
-"@commercetools/history-sdk": minor
+'@commercetools/history-sdk': minor
 ---
 
 **History changes**
