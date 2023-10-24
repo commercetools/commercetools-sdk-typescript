@@ -1,5 +1,5 @@
 ---
-"@commercetools/importapi-sdk": patch
+"@commercetools/importapi-sdk": minor
 ---
 
 **Import changes**
