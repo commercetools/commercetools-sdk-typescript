@@ -79,7 +79,7 @@ export interface ShippingMethod extends BaseResource {
    */
   readonly key?: string
   /**
-   *	Name of the ShippingMethod.
+   *	Unique name of the ShippingMethod within a [Project](ctp:api:type:Project).
    *
    */
   readonly name: string
@@ -134,7 +134,7 @@ export interface ShippingMethodDraft {
    */
   readonly key?: string
   /**
-   *	Name of the ShippingMethod.
+   *	Unique name for the ShippingMethod within a [Project](ctp:api:type:Project).
    *
    */
   readonly name: string
@@ -491,7 +491,7 @@ export interface ShippingMethodChangeIsDefaultAction {
 export interface ShippingMethodChangeNameAction {
   readonly action: 'changeName'
   /**
-   *	Value to set. Must not be empty.
+   *	Unique value to set within a [Project](ctp:api:type:Project). Must not be empty.
    *
    */
   readonly name: string
