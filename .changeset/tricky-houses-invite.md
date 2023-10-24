@@ -2,10 +2,35 @@
 '@commercetools/platform-sdk': minor
 ---
 
-<details>
-<summary>Removed Type(s)</summary>
+**Api changes**
 
-- :warning: removed type `CustomerMessagePayload`
+<details>
+<summary>Added Property(s)</summary>
+
+- added property `discountOnTotalPrice` to type `Cart`
+- added property `discountOnTotalPrice` to type `StagedOrder`
+- added property `custom` to type `StagedOrderAddParcelToDeliveryAction`
+- added property `discountOnTotalPrice` to type `Order`
+- added property `custom` to type `OrderAddParcelToDeliveryAction`
+</details>
+
+<details>
+<summary>Added Enum(s)</summary>
+
+- added enum `CreateApprovalRules` to type `Permission`
+- added enum `UpdateApprovalRules` to type `Permission`
+- added enum `UpdateApprovalFlows` to type `Permission`
+- added enum `approval-flow` to type `ReferenceTypeId`
+- added enum `approval-rule` to type `ReferenceTypeId`
+- added enum `customer-email-token` to type `ReferenceTypeId`
+- added enum `customer-password-token` to type `ReferenceTypeId`
+- added enum `approval-flow` to type `ChangeSubscriptionResourceTypeId`
+- added enum `approval-rule` to type `ChangeSubscriptionResourceTypeId`
+- added enum `approval-flow` to type `MessageSubscriptionResourceTypeId`
+- added enum `approval-rule` to type `MessageSubscriptionResourceTypeId`
+- added enum `customer-email-token` to type `MessageSubscriptionResourceTypeId`
+- added enum `customer-group` to type `MessageSubscriptionResourceTypeId`
+- added enum `customer-password-token` to type `MessageSubscriptionResourceTypeId`
 </details>
 
 <details>
@@ -109,32 +134,9 @@
 </details>
 
 <details>
-<summary>Added Resource(s)</summary>
+<summary>Removed Type(s)</summary>
 
-- added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-rules`
-- added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-flows`
-- added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-rules/{ID}`
-- added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-rules/key={key}`
-- added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-flows/{ID}`
-</details>
-
-<details>
-<summary>Added Enum(s)</summary>
-
-- added enum `CreateApprovalRules` to type `Permission`
-- added enum `UpdateApprovalRules` to type `Permission`
-- added enum `UpdateApprovalFlows` to type `Permission`
-- added enum `approval-flow` to type `ReferenceTypeId`
-- added enum `approval-rule` to type `ReferenceTypeId`
-- added enum `customer-email-token` to type `ReferenceTypeId`
-- added enum `customer-password-token` to type `ReferenceTypeId`
-- added enum `approval-flow` to type `ChangeSubscriptionResourceTypeId`
-- added enum `approval-rule` to type `ChangeSubscriptionResourceTypeId`
-- added enum `approval-flow` to type `MessageSubscriptionResourceTypeId`
-- added enum `approval-rule` to type `MessageSubscriptionResourceTypeId`
-- added enum `customer-email-token` to type `MessageSubscriptionResourceTypeId`
-- added enum `customer-group` to type `MessageSubscriptionResourceTypeId`
-- added enum `customer-password-token` to type `MessageSubscriptionResourceTypeId`
+- :warning: removed type `CustomerMessagePayload`
 </details>
 
 <details>
@@ -316,11 +318,11 @@
 </details>
 
 <details>
-<summary>Added Property(s)</summary>
+<summary>Added Resource(s)</summary>
 
-- added property `discountOnTotalPrice` to type `Cart`
-- added property `discountOnTotalPrice` to type `StagedOrder`
-- added property `custom` to type `StagedOrderAddParcelToDeliveryAction`
-- added property `discountOnTotalPrice` to type `Order`
-- added property `custom` to type `OrderAddParcelToDeliveryAction`
+- added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-rules`
+- added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-flows`
+- added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-rules/{ID}`
+- added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-rules/key={key}`
+- added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-flows/{ID}`
 </details>
