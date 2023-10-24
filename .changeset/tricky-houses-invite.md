@@ -1,5 +1,5 @@
 ---
-"@commercetools/platform-sdk": minor
+'@commercetools/platform-sdk': minor
 ---
 
 **Api changes**
