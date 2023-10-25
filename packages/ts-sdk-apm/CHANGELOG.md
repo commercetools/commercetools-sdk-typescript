@@ -1,5 +1,16 @@
 # @commercetools/ts-sdk-apm
 
+## 1.0.2
+
+### Patch Changes
+
+- [#551](https://github.com/commercetools/commercetools-sdk-typescript/pull/551) [`9e7939a`](https://github.com/commercetools/commercetools-sdk-typescript/commit/9e7939a1df234fd1f4f77c60f4ff75b31d7fc3fd) Thanks [@github-actions](https://github.com/apps/github-actions)! - BREAKING CHANGE:
+
+  - fix URI parameters to be URI encoded
+
+- [#545](https://github.com/commercetools/commercetools-sdk-typescript/pull/545) [`a6d0df2`](https://github.com/commercetools/commercetools-sdk-typescript/commit/a6d0df2034b72504db2aa2d13a8d3726d97cc881) Thanks [@ajimae](https://github.com/ajimae)! - - fix user-agent header
+  - remove User-Agent key from the middleware request header
+
 ## 1.0.1
 
 ### Patch Changes

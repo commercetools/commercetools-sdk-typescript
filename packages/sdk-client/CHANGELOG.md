@@ -1,5 +1,12 @@
 # @commercetools/sdk-client-v2
 
+## 2.2.2
+
+### Patch Changes
+
+- [#545](https://github.com/commercetools/commercetools-sdk-typescript/pull/545) [`a6d0df2`](https://github.com/commercetools/commercetools-sdk-typescript/commit/a6d0df2034b72504db2aa2d13a8d3726d97cc881) Thanks [@ajimae](https://github.com/ajimae)! - - fix user-agent header
+  - remove User-Agent key from the middleware request header
+
 ## 2.2.1
 
 ### Patch Changes
