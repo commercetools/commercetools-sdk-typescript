@@ -18,6 +18,11 @@ import { Custom } from './customfields'
  */
 export interface CategoryImport extends ImportResource {
   /**
+   *	User-defined unique identifier. If a [Category](/../api/projects/categories#category) with this `key` exists, it will be updated with the imported data.
+   *
+   */
+  readonly key: string
+  /**
    *	Maps to `Category.name`.
    *
    *

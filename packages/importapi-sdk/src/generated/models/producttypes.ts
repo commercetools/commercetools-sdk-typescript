@@ -178,6 +178,11 @@ export type TextInputHint = 'MultiLine' | 'SingleLine' | string
  */
 export interface ProductTypeImport extends ImportResource {
   /**
+   *	User-defined unique identifier. If a [ProductType](/../api/projects/productTypes#producttype) with this `key` exists, it will be updated with the imported data.
+   *
+   */
+  readonly key: string
+  /**
    *	Maps to `ProductType.name`.
    *
    *

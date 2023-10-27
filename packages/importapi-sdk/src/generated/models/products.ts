@@ -72,6 +72,11 @@ export interface WhitespaceTokenizer {
  */
 export interface ProductImport extends ImportResource {
   /**
+   *	User-defined unique identifier. If a [Product](/../api/projects/products#product) with this `key` exists, it will be updated with the imported data.
+   *
+   */
+  readonly key: string
+  /**
    *	Maps to `Product.name`.
    *
    *
