@@ -750,7 +750,7 @@ export interface Order extends BaseResource {
   readonly totalPrice: TypedMoney
   /**
    *	- For `Platform` [TaxMode](ctp:api:type:TaxMode), it is automatically set when a [shipping address is set](ctp:api:type:OrderSetShippingAddressAction).
-   *	- For `External` [TaxMode](ctp:api:type:TaxMode), it is automatically set when the external Tax Rate for all Line Items, Custom Line Items, and Shipping Methods in the Cart are set.
+   *	- For `External` [TaxMode](ctp:api:type:TaxMode), it is automatically set when `shippingAddress` and external Tax Rates for all Line Items, Custom Line Items, and Shipping Methods in the Cart are set.
    *
    *	If a discount applies on `totalPrice`, this field holds the discounted values.
    *
