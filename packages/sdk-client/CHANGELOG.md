@@ -1,5 +1,11 @@
 # @commercetools/sdk-client-v2
 
+## 2.2.3
+
+### Patch Changes
+
+- [#561](https://github.com/commercetools/commercetools-sdk-typescript/pull/561) [`d0424d9`](https://github.com/commercetools/commercetools-sdk-typescript/commit/d0424d9ed0acbf70ff22feac5800ae3f55f08dd9) Thanks [@jenschude](https://github.com/jenschude)! - Remove APM user agent version
+
 ## 2.2.2
 
 ### Patch Changes
