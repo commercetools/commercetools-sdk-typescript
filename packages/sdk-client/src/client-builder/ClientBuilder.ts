@@ -198,11 +198,10 @@ export default class ClientBuilder {
   withTelemetryMiddleware<T extends TelemetryOptions<T>>(
     options: T
   ): ClientBuilder {
-    const { version } = require('@commercetools/ts-sdk-apm/package.json')
     const { createTelemetryMiddleware, ...rest } = options
 
     this.withUserAgentMiddleware({
-      customAgent: `typescript-sdk-newrelic-middleware/${version}`,
+      customAgent: `typescript-sdk-newrelic-middleware`,
     })
     this.telemetryMiddleware = createTelemetryMiddleware(rest)
     return this
