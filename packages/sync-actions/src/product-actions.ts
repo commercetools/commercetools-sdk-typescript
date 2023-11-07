@@ -1,5 +1,4 @@
 import { ProductVariant } from '@commercetools/platform-sdk/src'
-import uniqWith from 'lodash.uniqwith'
 import actionsMapCustom from './utils/action-map-custom'
 import {
   buildBaseAttributesActions,
@@ -701,10 +700,15 @@ export function actionsMapAttributes(
 
   // Ensure that an action is unique.
   // This is especially necessary for SFA attributes.
-  return uniqWith(
-    actions,
-    (a, b) =>
-      a.action === b.action && a.name === b.name && a.variantId === b.variantId
+  return actions.filter(
+    (b, index, self) =>
+      index ===
+      self.findIndex(
+        (a) =>
+          a.action === b.action &&
+          a.name === b.name &&
+          a.variantId === b.variantId
+      )
   )
 }
 
