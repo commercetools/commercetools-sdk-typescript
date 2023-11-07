@@ -7,7 +7,7 @@ import type {
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
 import * as stateActions from './state-actions'
-import * as diffpatcher from './utils/diffpatcher'
+import { diff } from './utils/diffpatcher'
 
 type RoleUpdate = {
   action: string
@@ -65,6 +65,6 @@ export default (
 ): SyncAction => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createStatesMapActions(mapActionGroup, syncActionConfig)
-  const buildActions = createBuildActions(diffpatcher.diff, doMapActions)
+  const buildActions = createBuildActions(diff, doMapActions)
   return { buildActions }
 }

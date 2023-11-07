@@ -6,7 +6,7 @@ import createBuildArrayActions, {
   CHANGE_ACTIONS,
 } from './utils/create-build-array-actions'
 import { buildBaseAttributesActions } from './utils/common-actions'
-import * as diffPatcher from './utils/diffpatcher'
+import { diff, getDeltaValue } from './utils/diffpatcher'
 import extractMatchingPairs from './utils/extract-matching-pairs'
 
 const REGEX_NUMBER = new RegExp(/^\d+$/)
@@ -150,7 +150,7 @@ export function actionsMapFieldDefinitions(
 
       if (getIsChangedOperation(diffKey)) {
         if (Array.isArray(diffValue)) {
-          const deltaValue = diffPatcher.getDeltaValue(diffValue)
+          const deltaValue = getDeltaValue(diffValue)
           if (deltaValue.name) {
             actions.push({
               action: 'addFieldDefinition',
@@ -188,7 +188,7 @@ export function actionsMapFieldDefinitions(
               fieldNames: next.map((n) => n.name),
             })
           } else {
-            const deltaValue = diffPatcher.getDeltaValue(diffValue)
+            const deltaValue = getDeltaValue(diffValue)
             if (deltaValue === undefined && diffValue[0].name)
               actions.push({
                 action: 'removeFieldDefinition',

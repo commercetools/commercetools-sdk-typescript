@@ -7,7 +7,7 @@ import type {
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
 import * as zonesActions from './zones-actions'
-import * as diffpatcher from './utils/diffpatcher'
+import { diff } from './utils/diffpatcher'
 
 export const actionGroups = ['base', 'locations']
 
@@ -59,6 +59,6 @@ export default (
   // It will return an empty array for ignored action groups
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createZonesMapActions(mapActionGroup, syncActionConfig)
-  const buildActions = createBuildActions(diffpatcher.diff, doMapActions)
+  const buildActions = createBuildActions(diff, doMapActions)
   return { buildActions }
 }

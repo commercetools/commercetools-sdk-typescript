@@ -8,7 +8,7 @@ import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
 import actionsMapCustom from './utils/action-map-custom'
 import * as customerActions from './customer-actions'
-import * as diffpatcher from './utils/diffpatcher'
+import { diff } from './utils/diffpatcher'
 import copyEmptyArrayProps from './utils/copy-empty-array-props'
 
 export const actionGroups = [
@@ -123,7 +123,7 @@ export default (
     syncActionConfig
   )
   const buildActions = createBuildActions(
-    diffpatcher.diff,
+    diff,
     doMapActions,
     copyEmptyArrayProps
   )

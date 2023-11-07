@@ -7,7 +7,7 @@ import type {
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
 import * as productActions from './product-actions'
-import * as diffpatcher from './utils/diffpatcher'
+import { diff } from './utils/diffpatcher'
 import findMatchingPairs from './utils/find-matching-pairs'
 import copyEmptyArrayProps from './utils/copy-empty-array-props'
 
@@ -188,7 +188,7 @@ export default (
   const doMapActions = createProductMapActions(mapActionGroup, syncActionConfig)
 
   const buildActions = createBuildActions(
-    diffpatcher.diff,
+    diff,
     doMapActions,
     moveMasterVariantsIntoVariants
   )

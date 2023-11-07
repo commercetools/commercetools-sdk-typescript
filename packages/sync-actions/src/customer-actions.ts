@@ -9,7 +9,7 @@ import createBuildArrayActions, {
   REMOVE_ACTIONS,
   CHANGE_ACTIONS,
 } from './utils/create-build-array-actions'
-import * as diffpatcher from './utils/diffpatcher'
+import { patch } from './utils/diffpatcher'
 import clone from './utils/clone'
 
 const isEmptyValue = createIsEmptyValue([undefined, null, ''])
@@ -205,7 +205,7 @@ function buildAuthenticationModeActions({ actions, diff, oldObj, newObj }) {
         return undefined
 
       // We need to clone `before` as `patch` will mutate it
-      const patched = diffpatcher.patch(clone(before), delta)
+      const patched = patch(clone(before), delta)
       if (newObj.authenticationMode === 'ExternalAuth')
         return { action: item.action, authMode: patched }
       return {

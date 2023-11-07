@@ -1,4 +1,5 @@
 import * as diffpatcher from './diffpatcher'
+import { getDeltaValue } from './diffpatcher'
 
 const Actions = {
   setCustomType: 'setCustomType',
@@ -10,20 +11,14 @@ const haveMultipleCustomFieldsChanged = (diff) => Boolean(diff.custom.fields)
 const hasCustomTypeChanged = (diff) => Boolean(diff.custom.type)
 const extractCustomType = (diff, previousObject) =>
   Array.isArray(diff.custom.type)
-    ? diffpatcher.getDeltaValue(diff.custom.type, previousObject)
+    ? getDeltaValue(diff.custom.type, previousObject)
     : diff.custom.type
 const extractTypeId = (type, nextObject) =>
-  Array.isArray(type.id)
-    ? diffpatcher.getDeltaValue(type.id)
-    : nextObject.custom.type.id
+  Array.isArray(type.id) ? getDeltaValue(type.id) : nextObject.custom.type.id
 const extractTypeKey = (type, nextObject) =>
-  Array.isArray(type.key)
-    ? diffpatcher.getDeltaValue(type.key)
-    : nextObject.custom.type.key
+  Array.isArray(type.key) ? getDeltaValue(type.key) : nextObject.custom.type.key
 const extractTypeFields = (diffedFields, nextFields) =>
-  Array.isArray(diffedFields)
-    ? diffpatcher.getDeltaValue(diffedFields)
-    : nextFields
+  Array.isArray(diffedFields) ? getDeltaValue(diffedFields) : nextFields
 const extractFieldValue = (newFields, fieldName) => newFields[fieldName]
 
 export default function actionsMapCustom(
@@ -41,7 +36,7 @@ export default function actionsMapCustom(
   if (!diff.custom) return actions
   if (hasSingleCustomFieldChanged(diff)) {
     // If custom is not defined on the new or old category
-    const custom = diffpatcher.getDeltaValue(diff.custom, oldObj)
+    const custom = getDeltaValue(diff.custom, oldObj)
     actions.push({ action: actionGroup.setCustomType, ...options, ...custom })
   } else if (hasCustomTypeChanged(diff)) {
     // If custom is set to an empty object on the new or old category

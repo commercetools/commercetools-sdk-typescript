@@ -8,7 +8,7 @@ import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
 import actionsMapCustom from './utils/action-map-custom'
 import * as inventoryActions from './inventory-actions'
-import * as diffpatcher from './utils/diffpatcher'
+import { diff } from './utils/diffpatcher'
 
 export const actionGroups = ['base', 'references']
 
@@ -71,6 +71,6 @@ export default (
     mapActionGroup,
     syncActionConfig
   )
-  const buildActions = createBuildActions(diffpatcher.diff, doMapActions)
+  const buildActions = createBuildActions(diff, doMapActions)
   return { buildActions }
 }

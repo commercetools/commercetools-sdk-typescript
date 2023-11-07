@@ -8,7 +8,7 @@ import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
 import actionsMapCustom from './utils/action-map-custom'
 import * as QuotesActions from './quotes-actions'
-import * as diffpatcher from './utils/diffpatcher'
+import { diff } from './utils/diffpatcher'
 
 const actionGroups = ['base', 'custom']
 
@@ -49,7 +49,7 @@ export default (
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createQuotesMapActions(mapActionGroup, syncActionConfig)
 
-  const buildActions = createBuildActions(diffpatcher.diff, doMapActions)
+  const buildActions = createBuildActions(diff, doMapActions)
 
   return { buildActions }
 }

@@ -8,7 +8,7 @@ import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
 import actionsMapCustom from './utils/action-map-custom'
 import * as pricesActions from './prices-actions'
-import * as diffpatcher from './utils/diffpatcher'
+import { diff } from './utils/diffpatcher'
 import combineValidityActions from './utils/combine-validity-actions'
 
 const actionGroups = ['base', 'custom']
@@ -44,7 +44,7 @@ export default (
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createPriceMapActions(mapActionGroup, syncActionConfig)
 
-  const buildActions = createBuildActions(diffpatcher.diff, doMapActions)
+  const buildActions = createBuildActions(diff, doMapActions)
 
   return { buildActions }
 }

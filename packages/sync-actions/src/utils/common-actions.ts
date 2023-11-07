@@ -1,6 +1,7 @@
 import isNil from 'lodash.isnil'
 import clone from './clone'
 import * as diffpatcher from './diffpatcher'
+import { getDeltaValue, patch } from './diffpatcher'
 
 const normalizeValue = (value) =>
   typeof value === 'string' ? value.trim() : value
@@ -61,7 +62,7 @@ export function buildBaseAttributesActions({
         return { action: item.action }
 
       // We need to clone `before` as `patch` will mutate it
-      const patched = diffpatcher.patch(clone(before), delta)
+      const patched = patch(clone(before), delta)
       return { action: item.action, [actionKey]: patched }
     })
     .filter((action) => !isNil(action))
@@ -91,7 +92,7 @@ export function buildReferenceActions({ actions, diff, oldObj, newObj }) {
           diff[key].id)
       ) {
         const newValue = Array.isArray(diff[key])
-          ? diffpatcher.getDeltaValue(diff[key])
+          ? getDeltaValue(diff[key])
           : newObj[key]
 
         if (!newValue) return { action }

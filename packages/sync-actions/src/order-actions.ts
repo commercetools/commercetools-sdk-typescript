@@ -1,4 +1,4 @@
-import * as diffpatcher from './utils/diffpatcher'
+import { diff, getDeltaValue } from './utils/diffpatcher'
 import { buildBaseAttributesActions } from './utils/common-actions'
 import createBuildArrayActions, {
   ADD_ACTIONS,
@@ -83,7 +83,7 @@ function _buildDeliveryParcelsAction(
         addParcelActions.push({
           action: 'addParcelToDelivery',
           deliveryId: oldDelivery.id,
-          ...diffpatcher.getDeltaValue(parcel),
+          ...getDeltaValue(parcel),
         })
         return
       }

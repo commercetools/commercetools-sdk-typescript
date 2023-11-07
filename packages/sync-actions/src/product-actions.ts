@@ -2,7 +2,7 @@
 import uniqWith from 'lodash.uniqwith'
 import intersection from 'lodash.intersection'
 import without from 'lodash.without'
-import * as diffpatcher from './utils/diffpatcher'
+import { diff, getDeltaValue } from './utils/diffpatcher'
 import extractMatchingPairs from './utils/extract-matching-pairs'
 import actionsMapCustom from './utils/action-map-custom'
 import {
@@ -65,7 +65,7 @@ const getIsItemMovedAction = (key, resource) =>
 
 function _buildSkuActions(variantDiff, oldVariant) {
   if ({}.hasOwnProperty.call(variantDiff, 'sku')) {
-    const newValue = diffpatcher.getDeltaValue(variantDiff.sku)
+    const newValue = getDeltaValue(variantDiff.sku)
     if (!newValue && !oldVariant.sku) return null
 
     return {
@@ -79,7 +79,7 @@ function _buildSkuActions(variantDiff, oldVariant) {
 
 function _buildKeyActions(variantDiff, oldVariant) {
   if ({}.hasOwnProperty.call(variantDiff, 'key')) {
-    const newValue = diffpatcher.getDeltaValue(variantDiff.key)
+    const newValue = getDeltaValue(variantDiff.key)
     if (!newValue && !oldVariant.key) return null
 
     return {
@@ -134,7 +134,7 @@ function _buildSetAttributeAction(
   }
 
   if (Array.isArray(diffedValue))
-    action.value = diffpatcher.getDeltaValue(diffedValue, oldAttribute.value)
+    action.value = getDeltaValue(diffedValue, oldAttribute.value)
   else if (typeof diffedValue === 'string')
     // LText: value: {en: "", de: ""}
     // Enum: value: {key: "foo", label: "Foo"}
@@ -143,20 +143,20 @@ function _buildSetAttributeAction(
     // *: value: ""
 
     // normal
-    action.value = diffpatcher.getDeltaValue(diffedValue, oldAttribute.value)
+    action.value = getDeltaValue(diffedValue, oldAttribute.value)
   else if (diffedValue.centAmount || diffedValue.currencyCode)
     // Money
     action.value = {
       centAmount: diffedValue.centAmount
-        ? diffpatcher.getDeltaValue(diffedValue.centAmount)
+        ? getDeltaValue(diffedValue.centAmount)
         : attribute.value.centAmount,
       currencyCode: diffedValue.currencyCode
-        ? diffpatcher.getDeltaValue(diffedValue.currencyCode)
+        ? getDeltaValue(diffedValue.currencyCode)
         : attribute.value.currencyCode,
     }
   else if (diffedValue.key)
     // Enum / LEnum (use only the key)
-    action.value = diffpatcher.getDeltaValue(diffedValue.key)
+    action.value = getDeltaValue(diffedValue.key)
   else if (typeof diffedValue === 'object')
     if ({}.hasOwnProperty.call(diffedValue, '_t') && diffedValue._t === 'a') {
       // set-typed attribute
@@ -166,10 +166,7 @@ function _buildSetAttributeAction(
 
       const updatedValue = Object.keys(diffedValue).reduce(
         (acc, lang) => {
-          const patchedValue = diffpatcher.getDeltaValue(
-            diffedValue[lang],
-            acc[lang]
-          )
+          const patchedValue = getDeltaValue(diffedValue[lang], acc[lang])
           return Object.assign(acc, { [lang]: patchedValue })
         },
         { ...oldAttribute.value }
@@ -208,7 +205,7 @@ function _buildVariantImagesAction(
           actions.push({
             action: 'addExternalImage',
             variantId: oldVariant.id,
-            image: diffpatcher.getDeltaValue(image),
+            image: getDeltaValue(image),
           })
         else if (typeof image === 'object')
           if (
@@ -235,7 +232,7 @@ function _buildVariantImagesAction(
               action: 'setImageLabel',
               variantId: oldVariant.id,
               imageUrl: oldObj.url,
-              label: diffpatcher.getDeltaValue((image as any).label),
+              label: getDeltaValue((image as any).label),
             })
       } else if (REGEX_UNDERSCORE_NUMBER.test(key))
         if (Array.isArray(image) && image.length === 3) {
@@ -295,7 +292,7 @@ function _buildVariantPricesAction(
         addPriceActions.push({
           action: 'addPrice',
           variantId: oldVariant.id,
-          price: diffpatcher.getDeltaValue(patchedPrice),
+          price: getDeltaValue(patchedPrice),
         })
         return
       }
@@ -345,7 +342,7 @@ function _buildVariantAttributesActions(
       if (REGEX_NUMBER.test(key)) {
         if (Array.isArray(value)) {
           const { id } = oldVariant
-          const deltaValue = diffpatcher.getDeltaValue(value)
+          const deltaValue = getDeltaValue(value)
           const setAction = _buildNewSetAttributeAction(
             id,
             deltaValue,
@@ -369,7 +366,7 @@ function _buildVariantAttributesActions(
 
           const { id } = oldVariant
 
-          let deltaValue = diffpatcher.getDeltaValue(value)
+          let deltaValue = getDeltaValue(value)
           if (!deltaValue)
             if (value[0] && value[0].name)
               // unset attribute if
@@ -458,7 +455,7 @@ function _buildVariantAssetsActions(diffAssets, oldVariant, newVariant) {
       if (getIsAddAction(key, asset)) {
         assetActions.push({
           action: 'addAsset',
-          asset: diffpatcher.getDeltaValue(asset),
+          asset: getDeltaValue(asset),
           ...toVariantIdentifier(newVariant),
           position: Number(key),
         })

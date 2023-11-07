@@ -1,7 +1,7 @@
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
 import * as typeActions from './types-actions'
-import * as diffPatcher from './utils/diffpatcher'
+import { diff } from './utils/diffpatcher'
 import findMatchingPairs from './utils/find-matching-pairs'
 import { SyncActionConfig } from '@commercetools/sdk-client-v2'
 
@@ -41,7 +41,7 @@ export default (
 ) => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createTypeMapActions(mapActionGroup, syncActionConfig)
-  const buildActions = createBuildActions(diffPatcher.diff, doMapActions)
+  const buildActions = createBuildActions(diff, doMapActions)
   return { buildActions }
 }
 

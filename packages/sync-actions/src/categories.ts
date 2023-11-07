@@ -8,9 +8,13 @@ import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
 import actionsMapCustom from './utils/action-map-custom'
 import actionsMapAssets from './assets-actions'
-import * as categoryActions from './category-actions'
-import * as diffpatcher from './utils/diffpatcher'
+import {
+  actionsMapBase,
+  actionsMapMeta,
+  actionsMapReferences,
+} from './category-actions'
 import copyEmptyArrayProps from './utils/copy-empty-array-props'
+import { diff } from './utils/diffpatcher'
 
 export const actionGroups = ['base', 'references', 'meta', 'custom', 'assets']
 
@@ -29,23 +33,21 @@ function createCategoryMapActions(
       mapActionGroup(
         'base',
         (): Array<UpdateAction> =>
-          categoryActions.actionsMapBase(diff, oldObj, newObj, syncActionConfig)
+          actionsMapBase(diff, oldObj, newObj, syncActionConfig)
       )
     )
 
     allActions.push(
       mapActionGroup(
         'references',
-        (): Array<UpdateAction> =>
-          categoryActions.actionsMapReferences(diff, oldObj, newObj)
+        (): Array<UpdateAction> => actionsMapReferences(diff, oldObj, newObj)
       )
     )
 
     allActions.push(
       mapActionGroup(
         'meta',
-        (): Array<UpdateAction> =>
-          categoryActions.actionsMapMeta(diff, oldObj, newObj)
+        (): Array<UpdateAction> => actionsMapMeta(diff, oldObj, newObj)
       )
     )
 
@@ -88,7 +90,7 @@ export default (
     syncActionConfig
   )
   const buildActions = createBuildActions(
-    diffpatcher.diff,
+    diff,
     doMapActions,
     copyEmptyArrayProps
   )

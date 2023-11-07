@@ -7,7 +7,7 @@ import type {
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
 import * as productTypeActions from './product-types-actions'
-import * as diffpatcher from './utils/diffpatcher'
+import { diff } from './utils/diffpatcher'
 
 type SyncActionConfig = { withHints?: boolean } & BaseSyncActionConfig
 
@@ -59,7 +59,7 @@ export default (
   )
   const onBeforeApplyingDiff = null
   const buildActions = createBuildActions(
-    diffpatcher.diff,
+    diff,
     doMapActions,
     onBeforeApplyingDiff,
     { withHints: true }

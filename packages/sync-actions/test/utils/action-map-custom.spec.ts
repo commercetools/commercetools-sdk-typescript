@@ -1,11 +1,11 @@
-import * as diffpatcher from '../../src/utils/diffpatcher'
 import createBuildActions from '../../src/utils/create-build-actions'
 import doMapActions from '../../src/utils/action-map-custom'
+import { diff } from '../../src/utils/diffpatcher'
 
 describe('buildActions', () => {
   let buildActions
   beforeEach(() => {
-    buildActions = createBuildActions(diffpatcher.diff, doMapActions)
+    buildActions = createBuildActions(diff, doMapActions)
   })
 
   test('should build `setCustomType` action', () => {

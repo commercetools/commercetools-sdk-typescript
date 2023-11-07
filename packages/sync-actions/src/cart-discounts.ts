@@ -3,7 +3,7 @@ import createMapActionGroup from './utils/create-map-action-group'
 import actionsMapCustom from './utils/action-map-custom'
 import { actionsMapBase } from './cart-discounts-actions'
 import combineValidityActions from './utils/combine-validity-actions'
-import * as diffpatcher from './utils/diffpatcher'
+import { diff } from './utils/diffpatcher'
 import { SyncActionConfig } from '@commercetools/sdk-client-v2'
 
 export const actionGroups = ['base', 'custom']
@@ -32,6 +32,6 @@ export default (actionGroupList?, syncActionConfig?: SyncActionConfig) => {
     mapActionGroup,
     syncActionConfig
   )
-  const buildActions = createBuildActions(diffpatcher.diff, doMapActions)
+  const buildActions = createBuildActions(diff, doMapActions)
   return { buildActions }
 }

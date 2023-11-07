@@ -2,7 +2,7 @@ import {
   buildBaseAttributesActions,
   buildReferenceActions,
 } from '../../src/utils/common-actions'
-import * as diffpatcher from '../../src/utils/diffpatcher'
+import { diff } from '../../src/utils/diffpatcher'
 
 describe('Common actions', () => {
   describe('::buildBaseAttributesActions', () => {
@@ -65,7 +65,7 @@ describe('Common actions', () => {
 
       actions = buildBaseAttributesActions({
         actions: testActions,
-        diff: diffpatcher.diff(before, now),
+        diff: diff(before, now),
         oldObj: before,
         newObj: now,
       })
@@ -84,7 +84,7 @@ describe('Common actions', () => {
         now = { key: '' }
         actions = buildBaseAttributesActions({
           actions: testActions,
-          diff: diffpatcher.diff(before, now),
+          diff: diff(before, now),
           oldObj: before,
           newObj: now,
           shouldOmitEmptyString: true,
@@ -101,7 +101,7 @@ describe('Common actions', () => {
         now = { key: '' }
         actions = buildBaseAttributesActions({
           actions: testActions,
-          diff: diffpatcher.diff(before, now),
+          diff: diff(before, now),
           oldObj: before,
           newObj: now,
           shouldOmitEmptyString: false,
@@ -142,7 +142,7 @@ describe('Common actions', () => {
         beforeEach(() => {
           actions = buildReferenceActions({
             actions: testActions,
-            diff: diffpatcher.diff(before, now),
+            diff: diff(before, now),
             oldObj: before,
             newObj: now,
           })
@@ -169,7 +169,7 @@ describe('Common actions', () => {
         beforeEach(() => {
           actions = buildReferenceActions({
             actions: testActions,
-            diff: diffpatcher.diff(before, now),
+            diff: diff(before, now),
             oldObj: before,
             newObj: now,
           })
@@ -196,7 +196,7 @@ describe('Common actions', () => {
         beforeEach(() => {
           actions = buildReferenceActions({
             actions: testActions,
-            diff: diffpatcher.diff(before, now),
+            diff: diff(before, now),
             oldObj: before,
             newObj: now,
           })
@@ -226,7 +226,7 @@ describe('Common actions', () => {
         beforeEach(() => {
           actions = buildReferenceActions({
             actions: testActions,
-            diff: diffpatcher.diff(before, now),
+            diff: diff(before, now),
             oldObj: before,
             newObj: now,
           })
@@ -257,7 +257,7 @@ describe('Common actions', () => {
         beforeEach(() => {
           actions = buildReferenceActions({
             actions: testActions,
-            diff: diffpatcher.diff(before, now),
+            diff: diff(before, now),
             oldObj: before,
             newObj: now,
           })
@@ -294,7 +294,7 @@ describe('Common actions', () => {
         beforeEach(() => {
           actions = buildReferenceActions({
             actions: testActions,
-            diff: diffpatcher.diff(before, now),
+            diff: diff(before, now),
             oldObj: before,
             newObj: now,
           })
