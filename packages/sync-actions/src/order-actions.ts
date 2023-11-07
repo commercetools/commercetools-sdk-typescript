@@ -1,4 +1,3 @@
-import forEach from 'lodash.foreach'
 import * as diffpatcher from './utils/diffpatcher'
 import { buildBaseAttributesActions } from './utils/common-actions'
 import createBuildArrayActions, {
@@ -71,30 +70,31 @@ function _buildDeliveryParcelsAction(
     oldDelivery.parcels,
     newDelivery.parcels
   )
-  forEach(diffedParcels, (parcel, key) => {
-    const { oldObj } = extractMatchingPairs(
-      matchingParcelPairs,
-      key,
-      oldDelivery.parcels,
-      newDelivery.parcels
-    )
+  diffedParcels &&
+    Object.entries(diffedParcels).forEach(([key, parcel]) => {
+      const { oldObj } = extractMatchingPairs(
+        matchingParcelPairs,
+        key,
+        oldDelivery.parcels,
+        newDelivery.parcels
+      )
 
-    if (isAddAction(key, parcel)) {
-      addParcelActions.push({
-        action: 'addParcelToDelivery',
-        deliveryId: oldDelivery.id,
-        ...diffpatcher.getDeltaValue(parcel),
-      })
-      return
-    }
+      if (isAddAction(key, parcel)) {
+        addParcelActions.push({
+          action: 'addParcelToDelivery',
+          deliveryId: oldDelivery.id,
+          ...diffpatcher.getDeltaValue(parcel),
+        })
+        return
+      }
 
-    if (isRemoveAction(key, parcel)) {
-      removeParcelActions.push({
-        action: 'removeParcelFromDelivery',
-        parcelId: oldObj.id,
-      })
-    }
-  })
+      if (isRemoveAction(key, parcel)) {
+        removeParcelActions.push({
+          action: 'removeParcelFromDelivery',
+          parcelId: oldObj.id,
+        })
+      }
+    })
 
   return [addParcelActions, removeParcelActions]
 }
@@ -116,7 +116,12 @@ function _buildDeliveryItemsAction(diffedItems, newDelivery: any = {}) {
   return [setDeliveryItemsAction]
 }
 
-export function actionsMapParcels(diff, oldObj, newObj, deliveryHashMap) {
+export function actionsMapParcels(
+  diff: { shippingInfo: { deliveries: { any } } },
+  oldObj,
+  newObj,
+  deliveryHashMap
+) {
   const shippingInfo = diff.shippingInfo
   if (!shippingInfo) return []
 
@@ -127,7 +132,7 @@ export function actionsMapParcels(diff, oldObj, newObj, deliveryHashMap) {
   let removeParcelActions = []
 
   if (deliveries)
-    forEach(deliveries, (delivery, key) => {
+    Object.entries(deliveries).forEach(([key, delivery]) => {
       const { oldObj: oldDelivery, newObj: newDelivery } = extractMatchingPairs(
         deliveryHashMap,
         key,
@@ -150,7 +155,12 @@ export function actionsMapParcels(diff, oldObj, newObj, deliveryHashMap) {
   return removeParcelActions.concat(addParcelActions)
 }
 
-export function actionsMapDeliveryItems(diff, oldObj, newObj, deliveryHashMap) {
+export function actionsMapDeliveryItems(
+  diff: { shippingInfo: { deliveries: { any } } },
+  oldObj,
+  newObj,
+  deliveryHashMap
+) {
   const shippingInfo = diff.shippingInfo
   if (!shippingInfo) return []
 
@@ -159,7 +169,7 @@ export function actionsMapDeliveryItems(diff, oldObj, newObj, deliveryHashMap) {
 
   let setDeliveryItemsActions = []
 
-  forEach(deliveries, (delivery, key) => {
+  Object.entries(deliveries).forEach(([key, delivery]) => {
     const { newObj: newDelivery } = extractMatchingPairs(
       deliveryHashMap,
       key,

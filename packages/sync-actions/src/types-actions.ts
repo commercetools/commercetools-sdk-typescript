@@ -1,4 +1,3 @@
-import forEach from 'lodash.foreach'
 import sortBy from 'lodash.sortby'
 
 import isEqual from 'lodash.isequal'
@@ -134,70 +133,71 @@ function actionsMapEnums(
 }
 
 export function actionsMapFieldDefinitions(
-  fieldDefinitionsDiff,
+  fieldDefinitionsDiff: { [key: string]: any },
   previous,
   next,
   diffPaths
 ) {
   const actions = []
-  forEach(fieldDefinitionsDiff, (diffValue, diffKey) => {
-    const extractedPairs = extractMatchingPairs(
-      diffPaths,
-      diffKey,
-      previous,
-      next
-    )
+  fieldDefinitionsDiff &&
+    Object.entries(fieldDefinitionsDiff).forEach(([diffKey, diffValue]) => {
+      const extractedPairs = extractMatchingPairs(
+        diffPaths,
+        diffKey,
+        previous,
+        next
+      )
 
-    if (getIsChangedOperation(diffKey)) {
-      if (Array.isArray(diffValue)) {
-        const deltaValue = diffPatcher.getDeltaValue(diffValue)
-        if (deltaValue.name) {
-          actions.push({
-            action: 'addFieldDefinition',
-            fieldDefinition: deltaValue,
-          })
-        }
-      } else if (diffValue.label) {
-        actions.push({
-          action: 'changeLabel',
-          label: extractedPairs.newObj.label,
-          fieldName: extractedPairs.oldObj.name,
-        })
-      } else if (diffValue.inputHint) {
-        actions.push({
-          action: 'changeInputHint',
-          inputHint: extractedPairs.newObj.inputHint,
-          fieldName: extractedPairs.oldObj.name,
-        })
-      } else if (diffValue?.type?.values) {
-        actions.push(
-          ...actionsMapEnums(
-            extractedPairs.oldObj.name,
-            extractedPairs.oldObj.type.name,
-            diffValue.type,
-            extractedPairs.oldObj.type,
-            extractedPairs.newObj.type
-          )
-        )
-      }
-    } else if (getIsRemovedOperation(diffKey)) {
-      if (Array.isArray(diffValue)) {
-        if (diffValue.length === 3 && diffValue[2] === 3) {
-          actions.push({
-            action: 'changeFieldDefinitionOrder',
-            fieldNames: next.map((n) => n.name),
-          })
-        } else {
+      if (getIsChangedOperation(diffKey)) {
+        if (Array.isArray(diffValue)) {
           const deltaValue = diffPatcher.getDeltaValue(diffValue)
-          if (deltaValue === undefined && diffValue[0].name)
+          if (deltaValue.name) {
             actions.push({
-              action: 'removeFieldDefinition',
-              fieldName: diffValue[0].name,
+              action: 'addFieldDefinition',
+              fieldDefinition: deltaValue,
             })
+          }
+        } else if (diffValue.label) {
+          actions.push({
+            action: 'changeLabel',
+            label: extractedPairs.newObj.label,
+            fieldName: extractedPairs.oldObj.name,
+          })
+        } else if (diffValue.inputHint) {
+          actions.push({
+            action: 'changeInputHint',
+            inputHint: extractedPairs.newObj.inputHint,
+            fieldName: extractedPairs.oldObj.name,
+          })
+        } else if (diffValue?.type?.values) {
+          actions.push(
+            ...actionsMapEnums(
+              extractedPairs.oldObj.name,
+              extractedPairs.oldObj.type.name,
+              diffValue.type,
+              extractedPairs.oldObj.type,
+              extractedPairs.newObj.type
+            )
+          )
+        }
+      } else if (getIsRemovedOperation(diffKey)) {
+        if (Array.isArray(diffValue)) {
+          if (diffValue.length === 3 && diffValue[2] === 3) {
+            actions.push({
+              action: 'changeFieldDefinitionOrder',
+              fieldNames: next.map((n) => n.name),
+            })
+          } else {
+            const deltaValue = diffPatcher.getDeltaValue(diffValue)
+            if (deltaValue === undefined && diffValue[0].name)
+              actions.push({
+                action: 'removeFieldDefinition',
+                fieldName: diffValue[0].name,
+              })
+          }
         }
       }
-    }
-  })
+    })
 
   // Make sure to execute removeActions before creating new ones
   // in order to prevent any eventual removal of `addAction`.

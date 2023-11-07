@@ -1,5 +1,3 @@
-import forEach from 'lodash.foreach'
-
 const REGEX_NUMBER = new RegExp(/^\d+$/)
 const REGEX_UNDERSCORE_NUMBER = new RegExp(/^_\d+$/)
 
@@ -33,15 +31,16 @@ export default function findMatchingPairs(
     refByIdentifier: nowObjRefByIdentifier,
     refByIndex: nowObjRefByIndex,
   } = preProcessCollection(now, identifier)
-  forEach(diff, (item, key) => {
-    if (REGEX_NUMBER.test(key)) {
-      const matchingIdentifier = nowObjRefByIndex[key]
-      result[key] = [beforeObjRefByIdentifier[matchingIdentifier], key]
-    } else if (REGEX_UNDERSCORE_NUMBER.test(key)) {
-      const index = key.substring(1)
-      const matchingIdentifier = beforeObjRefByIndex[index]
-      result[key] = [index, nowObjRefByIdentifier[matchingIdentifier]]
-    }
-  })
+  diff &&
+    Object.entries(diff).forEach(([key, item]) => {
+      if (REGEX_NUMBER.test(key)) {
+        const matchingIdentifier = nowObjRefByIndex[key]
+        result[key] = [beforeObjRefByIdentifier[matchingIdentifier], key]
+      } else if (REGEX_UNDERSCORE_NUMBER.test(key)) {
+        const index = key.substring(1)
+        const matchingIdentifier = beforeObjRefByIndex[index]
+        result[key] = [index, nowObjRefByIdentifier[matchingIdentifier]]
+      }
+    })
   return result
 }
