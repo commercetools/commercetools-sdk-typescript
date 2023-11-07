@@ -1,5 +1,5 @@
-import isEqual from 'lodash.isequal'
 import isNil from 'lodash.isnil'
+import { deepEqual } from 'fast-equals'
 
 function applyOnBeforeDiff(before, now, fn?: (before, now) => Array<any>) {
   return fn && typeof fn === 'function' ? fn(before, now) : [before, now]
@@ -17,7 +17,7 @@ const createPriceComparator = (price) => ({
 function arePricesStructurallyEqual(oldPrice, newPrice) {
   const oldPriceComparison = createPriceComparator(oldPrice)
   const newPriceComparison = createPriceComparator(newPrice)
-  return isEqual(newPriceComparison, oldPriceComparison)
+  return deepEqual(newPriceComparison, oldPriceComparison)
 }
 
 function extractPriceFromPreviousVariant(newPrice, previousVariant) {

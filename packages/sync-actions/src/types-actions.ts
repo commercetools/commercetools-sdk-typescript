@@ -1,6 +1,4 @@
 import sortBy from 'lodash.sortby'
-
-import isEqual from 'lodash.isequal'
 import { buildBaseAttributesActions } from './utils/common-actions'
 import createBuildArrayActions, {
   ADD_ACTIONS,
@@ -8,6 +6,7 @@ import createBuildArrayActions, {
 } from './utils/create-build-array-actions'
 import { getDeltaValue } from './utils/diffpatcher'
 import extractMatchingPairs from './utils/extract-matching-pairs'
+import { deepEqual } from 'fast-equals'
 
 const REGEX_NUMBER = new RegExp(/^\d+$/)
 const REGEX_UNDERSCORE_NUMBER = new RegExp(/^_\d+$/)
@@ -76,7 +75,7 @@ function actionsMapEnums(
         const foundPreviousEnum = previous.values.find(
           (previousEnum) => previousEnum.key === newEnum.key
         )
-        const isLabelEqual = isEqual(foundPreviousEnum.label, newEnum.label)
+        const isLabelEqual = deepEqual(foundPreviousEnum.label, newEnum.label)
 
         if (isKeyChanged) {
           // these actions is then flatten in the end
