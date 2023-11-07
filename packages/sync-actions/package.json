@@ -25,7 +25,6 @@
   "dependencies": {
     "fast-equals": "^2.0.0",
     "jsondiffpatch": "^0.4.0",
-    "lodash.shuffle": "^4.2.0",
     "lodash.sortby": "^4.7.0",
     "lodash.uniqwith": "^4.5.0"
   },
