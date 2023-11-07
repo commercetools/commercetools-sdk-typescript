@@ -1,5 +1,4 @@
-import isNil from 'lodash.isnil'
-import clone from './utils/clone'
+import clone, { notEmpty } from './utils/clone'
 import {
   buildBaseAttributesActions,
   buildReferenceActions,
@@ -214,5 +213,5 @@ function buildAuthenticationModeActions({ actions, diff, oldObj, newObj }) {
         [value]: newObj.password,
       }
     })
-    .filter((action) => !isNil(action))
+    .filter(notEmpty)
 }

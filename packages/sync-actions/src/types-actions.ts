@@ -1,3 +1,4 @@
+import { deepEqual } from 'fast-equals'
 import sortBy from 'lodash.sortby'
 import { buildBaseAttributesActions } from './utils/common-actions'
 import createBuildArrayActions, {
@@ -6,7 +7,6 @@ import createBuildArrayActions, {
 } from './utils/create-build-array-actions'
 import { getDeltaValue } from './utils/diffpatcher'
 import extractMatchingPairs from './utils/extract-matching-pairs'
-import { deepEqual } from 'fast-equals'
 
 const REGEX_NUMBER = new RegExp(/^\d+$/)
 const REGEX_UNDERSCORE_NUMBER = new RegExp(/^_\d+$/)

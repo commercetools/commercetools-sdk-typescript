@@ -1,5 +1,3 @@
-import isNil from 'lodash.isnil'
-
 const CUSTOM = 'custom'
 
 /**
@@ -11,7 +9,7 @@ const CUSTOM = 'custom'
  * @returns {Array} Ordered Array [oldObj, newObj]
  */
 export default function copyEmptyArrayProps(oldObj = {}, newObj = {}) {
-  if (!isNil(oldObj) && !isNil(newObj)) {
+  if (oldObj && newObj) {
     const nextObjectWithEmptyArray = Object.entries(oldObj).reduce(
       (merged, [key, value]) => {
         // Ignore CUSTOM key as this object is dynamic and its up to the user to dynamically change it
@@ -26,13 +24,13 @@ export default function copyEmptyArrayProps(oldObj = {}, newObj = {}) {
           }, {})
           for (let i = 0; i < newObj[key].length; i++) {
             if (
-              !isNil(newObj[key][i]) &&
+              newObj[key][i] &&
               typeof newObj[key][i] === 'object' &&
-              !isNil(newObj[key][i].id)
+              newObj[key][i].id
             ) {
               // Since its unordered array elements then check if the element on `oldObj` exists by id
               const foundObject = hashMapValue[newObj[key][i].id]
-              if (!isNil(foundObject)) {
+              if (foundObject) {
                 const [, nestedObject] = copyEmptyArrayProps(
                   foundObject,
                   newObj[key][i]
@@ -50,11 +48,11 @@ export default function copyEmptyArrayProps(oldObj = {}, newObj = {}) {
           return merged
         }
         if (Array.isArray(value)) {
-          merged[key] = isNil(newObj[key]) ? [] : newObj[key]
+          merged[key] = newObj[key] ? newObj[key] : []
           return merged
         }
         if (
-          !isNil(newObj[key]) &&
+          newObj[key] &&
           typeof value === 'object' &&
           // Ignore Date as this will create invalid object since typeof date === 'object' return true
           // ex: {date: new Date()} will result {date: {}}

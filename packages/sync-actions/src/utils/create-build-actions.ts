@@ -1,4 +1,3 @@
-import isNil from 'lodash.isnil'
 import { deepEqual } from 'fast-equals'
 
 function applyOnBeforeDiff(before, now, fn?: (before, now) => Array<any>) {
@@ -35,10 +34,9 @@ function injectMissingPriceIds(nextVariants, previousVariants) {
     if (!prices) return restOfVariant
     const oldVariant = previousVariants.find(
       (previousVariant) =>
-        (!isNil(previousVariant.id) && previousVariant.id === newVariant.id) ||
-        (!isNil(previousVariant.key) &&
-          previousVariant.key === newVariant.key) ||
-        (!isNil(previousVariant.sku) && previousVariant.sku === newVariant.sku)
+        (previousVariant.id && previousVariant.id === newVariant.id) ||
+        (previousVariant.key && previousVariant.key === newVariant.key) ||
+        (previousVariant.sku && previousVariant.sku === newVariant.sku)
     )
 
     return {
@@ -49,13 +47,17 @@ function injectMissingPriceIds(nextVariants, previousVariants) {
 
         if (oldPrice) {
           // copy ID if not provided
-          if (!newPrice.id) newPrice.id = oldPrice.id
+          if (!newPrice.id) {
+            newPrice.id = oldPrice.id
+          }
 
-          if (isNil(newPrice.value.type))
+          if (!newPrice.value.type) {
             newPrice.value.type = oldPrice.value.type
+          }
 
-          if (isNil(newPrice.value.fractionDigits))
+          if (!newPrice.value.fractionDigits) {
             newPrice.value.fractionDigits = oldPrice.value.fractionDigits
+          }
         }
 
         return newPrice

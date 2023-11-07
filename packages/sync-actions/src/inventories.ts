@@ -4,12 +4,12 @@ import type {
   SyncActionConfig,
   UpdateAction,
 } from '@commercetools/sdk-client-v2'
+import { actionsMapBase, actionsMapReferences } from './inventory-actions'
 import { SyncAction } from './types/update-actions'
 import actionsMapCustom from './utils/action-map-custom'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
-import { actionsMapBase, actionsMapReferences } from './inventory-actions'
 
 export const actionGroups = ['base', 'references']
 

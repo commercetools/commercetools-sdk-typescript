@@ -1,5 +1,4 @@
-import isNil from 'lodash.isnil'
-import clone from './clone'
+import clone, { notEmpty } from './clone'
 import { getDeltaValue, patch } from './diffpatcher'
 
 const normalizeValue = (value) =>
@@ -64,7 +63,7 @@ export function buildBaseAttributesActions({
       const patched = patch(clone(before), delta)
       return { action: item.action, [actionKey]: patched }
     })
-    .filter((action) => !isNil(action))
+    .filter(notEmpty)
 }
 
 /**
