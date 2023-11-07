@@ -1,6 +1,4 @@
-/* eslint-disable max-len */
 import { ProductVariant } from '@commercetools/platform-sdk/src'
-import intersection from 'lodash.intersection'
 import uniqWith from 'lodash.uniqwith'
 import actionsMapCustom from './utils/action-map-custom'
 import {
@@ -423,7 +421,9 @@ function _buildVariantChangeAssetOrderAction(
   const assetIdsCurrent = newVariant.assets
     .map((_) => _.id)
     .filter((_) => _ !== undefined)
-  const assetIdsToKeep = intersection(assetIdsCurrent, assetIdsBefore)
+  const assetIdsToKeep = assetIdsCurrent.filter((value) =>
+    assetIdsBefore.includes(value)
+  )
   const assetIdsToRemove = assetIdsBefore.filter(
     (item) => !assetIdsToKeep.includes(item)
   )
