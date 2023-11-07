@@ -1,5 +1,4 @@
 import { deepEqual } from 'fast-equals'
-import sortBy from 'lodash.sortby'
 import { buildBaseAttributesActions } from './utils/common-actions'
 import createBuildArrayActions, {
   ADD_ACTIONS,
@@ -202,10 +201,18 @@ export function actionsMapFieldDefinitions(
   // in order to prevent any eventual removal of `addAction`.
   // List of `removeActions` can be found here
   // https://docs.commercetools.com/http-api-projects-types.html#change-key
-  const sortedActions = sortBy(
-    actions,
-    (action) => action.action !== 'removeFieldDefinition'
-  )
 
-  return sortedActions
+  return actions.sort((a, b) => {
+    if (
+      a.action === 'removeFieldDefinition' &&
+      a.action === 'removeFieldDefinition'
+    ) {
+      return (a.fieldName as string).localeCompare(b.fieldName)
+    } else if (a.action === 'removeFieldDefinition') {
+      return -1
+    } else if (b.action === 'removeFieldDefinition') {
+      return -1
+    }
+    return 0
+  })
 }
