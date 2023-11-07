@@ -1,4 +1,3 @@
-/* @flow */
 import flatten from 'lodash.flatten'
 import type {
   SyncAction,
