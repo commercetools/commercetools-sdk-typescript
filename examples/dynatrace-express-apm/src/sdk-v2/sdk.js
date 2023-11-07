@@ -1,3 +1,4 @@
+const path = require('path')
 const { ClientBuilder } = require('@commercetools/sdk-client-v2')
 // const { createTelemetryMiddleware } = require('@commercetools/ts-sdk-apm')
 const {
@@ -6,6 +7,7 @@ const {
 const { createApiBuilderFromCtpClient } = require('@commercetools/platform-sdk')
 const fetch = require('node-fetch')
 
+const oneagent = path.join(__dirname, '..', '..', 'oneagent-tracer.js')
 const projectKey = process.env.CTP_PROJECT_KEY
 const authMiddlewareOptions = {
   host: 'https://auth.europe-west1.gcp.commercetools.com',
@@ -32,7 +34,9 @@ const httpMiddlewareOptions = {
 // newrelic options
 const telemetryOptions = {
   createTelemetryMiddleware,
-  apm: () => require('newrelic'),
+  userAgent: 'typescript-sdk-middleware-dynatrace',
+  tracer: require(oneagent),
+  // apm: () => {}
 }
 
 const client = new ClientBuilder()
