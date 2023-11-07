@@ -1,0 +1,51 @@
+{
+  "name": "@commercetools/sync-actions",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=14"
+  },
+  "description": "Build API update actions for the commercetools platform.",
+  "keywords": ["commercetools", "sync", "actions"],
+  "homepage": "https://commercetools.github.io/nodejs/",
+  "license": "MIT",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/commercetools/commercetools-sdk-typescript.git"
+  },
+  "bugs": {
+    "url": "https://github.com/commercetools/commercetools-sdk-typescript/issues"
+  },
+  "dependencies": {
+    "fast-equals": "^2.0.0",
+    "jsondiffpatch": "^0.4.0",
+    "lodash.flatten": "^4.4.0",
+    "lodash.foreach": "^4.5.0",
+    "lodash.intersection": "^4.4.0",
+    "lodash.isequal": "^4.5.0",
+    "lodash.isnil": "^4.0.0",
+    "lodash.shuffle": "^4.2.0",
+    "lodash.sortby": "^4.7.0",
+    "lodash.uniqwith": "^4.5.0",
+    "lodash.without": "^4.4.0"
+  },
+  "files": ["dist", "CHANGELOG.md"],
+  "author": "Nicola Molinari <nicola.molinari@commercetools.com> (https://github.com/emmenko)",
+  "main": "dist/commercetools-sync-actions.cjs.js",
+  "module": "dist/commercetools-sync-actions.esm.js",
+  "browser": {
+    "./dist/commercetools-sync-actions.cjs.js": "./dist/commercetools-sync-actions.browser.cjs.js",
+    "./dist/commercetools-sync-actions.esm.js": "./dist/commercetools-sync-actions.browser.esm.js"
+  },
+  "scripts": {
+    "organize_imports": "find src -type f -name '*.ts' | xargs organize-imports-cli",
+    "postbuild": "yarn organize_imports",
+    "post_process_generate": "yarn organize_imports"
+  }
+}
