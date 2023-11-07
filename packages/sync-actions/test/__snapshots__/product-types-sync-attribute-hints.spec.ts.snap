@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`product type hints attribute enum values with previous with changes when is localized should match snapshot 1`] = `
-Array [
-  Object {
+[
+  {
     "action": "changeEnumKey",
     "attributeName": "attribute-name",
     "key": "enum-key",
     "newKey": "next-key",
   },
-  Object {
+  {
     "action": "changeLocalizedEnumValueLabel",
     "attributeName": "attribute-name",
-    "newValue": Object {
+    "newValue": {
       "key": "next-key",
       "label": "next-label",
     },
@@ -20,17 +20,17 @@ Array [
 `;
 
 exports[`product type hints attribute enum values with previous with changes when is not localized should match snapshot 1`] = `
-Array [
-  Object {
+[
+  {
     "action": "changeEnumKey",
     "attributeName": "attribute-name",
     "key": "enum-key",
     "newKey": "next-key",
   },
-  Object {
+  {
     "action": "changePlainEnumValueLabel",
     "attributeName": "attribute-name",
-    "newValue": Object {
+    "newValue": {
       "key": "next-key",
       "label": "next-label",
     },
@@ -39,33 +39,33 @@ Array [
 `;
 
 exports[`product type hints attribute enum values with previous with changes when removing, adding, and editing (in a single batch of actions) should match snapshot 1`] = `
-Array [
-  Object {
+[
+  {
     "action": "removeEnumValues",
     "attributeName": "attribute-enum-with-2-enum-values-to-remove",
-    "keys": Array [
+    "keys": [
       "enum-key-1",
       "enum-key-2",
     ],
   },
-  Object {
+  {
     "action": "changeEnumKey",
     "attributeName": "attribute-name",
     "key": "enum-key",
     "newKey": "next-enum-draft-item",
   },
-  Object {
+  {
     "action": "changePlainEnumValueLabel",
     "attributeName": "attribute-name",
-    "newValue": Object {
+    "newValue": {
       "key": "next-enum-draft-item",
       "label": undefined,
     },
   },
-  Object {
+  {
     "action": "addPlainEnumValue",
     "attributeName": "attribute-name",
-    "value": Object {
+    "value": {
       "key": "new-enum-draft-item",
       "label": "new-enum-draft-item",
     },
@@ -74,11 +74,11 @@ Array [
 `;
 
 exports[`product type hints attribute enum values without previous should match snapshot 1`] = `
-Array [
-  Object {
+[
+  {
     "action": "addPlainEnumValue",
     "attributeName": "attribute-name",
-    "value": Object {
+    "value": {
       "key": "enum-key",
       "label": "enum-label",
     },
@@ -87,11 +87,11 @@ Array [
 `;
 
 exports[`product type hints attribute enum values without previous when is localized should match snapshot 1`] = `
-Array [
-  Object {
+[
+  {
     "action": "addLocalizedEnumValue",
     "attributeName": "attribute-name",
-    "value": Object {
+    "value": {
       "key": "enum-key",
       "label": "enum-label",
     },
@@ -100,32 +100,32 @@ Array [
 `;
 
 exports[`product type hints attribute hints with previous with next with changes should match snapshot 1`] = `
-Array [
-  Object {
+[
+  {
     "action": "changeLabel",
     "attributeName": "attribute-name",
-    "label": Object {
+    "label": {
       "en": "next-attribute-label",
     },
   },
-  Object {
+  {
     "action": "setInputTip",
     "attributeName": "attribute-name",
-    "inputTip": Object {
+    "inputTip": {
       "en": "next-input-tip",
     },
   },
-  Object {
+  {
     "action": "changeInputHint",
     "attributeName": "attribute-name",
     "newValue": "MultiLine",
   },
-  Object {
+  {
     "action": "changeIsSearchable",
     "attributeName": "attribute-name",
     "isSearchable": true,
   },
-  Object {
+  {
     "action": "changeAttributeConstraint",
     "attributeName": "attribute-name",
     "newValue": "None",
@@ -133,11 +133,11 @@ Array [
 ]
 `;
 
-exports[`product type hints attribute hints with previous with next with no changes should match snapshot 1`] = `Array []`;
+exports[`product type hints attribute hints with previous with next with no changes should match snapshot 1`] = `[]`;
 
 exports[`product type hints attribute hints with previous without next should match snapshot 1`] = `
-Array [
-  Object {
+[
+  {
     "action": "removeAttributeDefinition",
     "name": "attribute-name",
   },
@@ -145,22 +145,22 @@ Array [
 `;
 
 exports[`product type hints attribute hints without previous should match snapshot 1`] = `
-Array [
-  Object {
+[
+  {
     "action": "addAttributeDefinition",
-    "attribute": Object {
+    "attribute": {
       "attributeConstraint": "SameForAll",
       "inputHint": "SingleLine",
-      "inputTip": Object {
+      "inputTip": {
         "en": "input-hint",
       },
       "isRequired": false,
       "isSearchable": false,
-      "label": Object {
+      "label": {
         "en": "attribute-label",
       },
       "name": "attribute-name",
-      "type": Object {
+      "type": {
         "name": "text",
       },
     },
