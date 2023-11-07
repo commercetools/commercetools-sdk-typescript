@@ -1,4 +1,3 @@
-import flatten from 'lodash.flatten'
 import type {
   SyncAction,
   SyncActionConfig,
@@ -36,13 +35,11 @@ function createShippingMethodsMapActions(
       )
     )
     allActions.push(
-      flatten(
-        mapActionGroup(
-          'zoneRates',
-          (): Array<UpdateAction> =>
-            shippingMethodsActions.actionsMapZoneRates(diff, oldObj, newObj)
-        )
-      )
+      mapActionGroup(
+        'zoneRates',
+        (): Array<UpdateAction> =>
+          shippingMethodsActions.actionsMapZoneRates(diff, oldObj, newObj)
+      ).flat()
     )
     allActions.push(
       mapActionGroup(
@@ -50,7 +47,7 @@ function createShippingMethodsMapActions(
         (): Array<UpdateAction> => actionsMapCustom(diff, newObj, oldObj)
       )
     )
-    return flatten(allActions)
+    return allActions.flat()
   }
 }
 

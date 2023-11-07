@@ -1,4 +1,3 @@
-import flatten from 'lodash.flatten'
 import type {
   SyncAction,
   SyncActionConfig,
@@ -48,7 +47,7 @@ function createInventoryMapActions(
         (): Array<UpdateAction> => actionsMapCustom(diff, newObj, oldObj)
       )
     )
-    return flatten(allActions)
+    return allActions.flat()
   }
 }
 

@@ -1,4 +1,3 @@
-import flatten from 'lodash.flatten'
 import type {
   SyncAction,
   SyncActionConfig,
@@ -44,7 +43,7 @@ function createStagedQuotesMapActions(
       )
     )
 
-    return flatten(allActions)
+    return allActions.flat()
   }
 }
 

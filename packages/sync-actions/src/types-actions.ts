@@ -1,5 +1,4 @@
 import forEach from 'lodash.foreach'
-import flatten from 'lodash.flatten'
 import sortBy from 'lodash.sortby'
 
 import isEqual from 'lodash.isequal'
@@ -112,13 +111,13 @@ function actionsMapEnums(
   // order of enumValues, we generate one updateAction instead of one at a time.
   let newEnumValuesOrder = []
 
-  flatten(buildArrayActions(attributeDiff, previous, next)).forEach(
-    (updateAction) => {
+  buildArrayActions(attributeDiff, previous, next)
+    .flat()
+    .forEach((updateAction) => {
       if (updateAction.action === changeEnumOrderActionName) {
         newEnumValuesOrder = next.values.map((enumValue) => enumValue.key)
       } else actions.push(updateAction)
-    }
-  )
+    })
 
   return [
     ...actions,

@@ -1,4 +1,3 @@
-import flatten from 'lodash.flatten'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
 import actionsMapCustom from './utils/action-map-custom'
@@ -22,7 +21,7 @@ function createChannelsMapActions(mapActionGroup, syncActionConfig) {
       mapActionGroup('custom', () => actionsMapCustom(diff, newObj, oldObj))
     )
 
-    return flatten(allActions)
+    return allActions.flat()
   }
 }
 

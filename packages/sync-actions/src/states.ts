@@ -1,4 +1,3 @@
-import flatten from 'lodash.flatten'
 import type {
   UpdateAction,
   SyncAction,
@@ -56,7 +55,7 @@ function createStatesMapActions(
           stateActions.actionsMapRoles(diff, oldObj, newObj)
       )
     )
-    return flatten([...baseActions, ...groupRoleActions(roleActions)])
+    return [...baseActions, ...groupRoleActions(roleActions)].flat()
   }
 }
 

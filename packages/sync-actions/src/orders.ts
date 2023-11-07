@@ -1,4 +1,3 @@
-import flatten from 'lodash.flatten'
 import type {
   SyncAction,
   SyncActionConfig,
@@ -72,20 +71,18 @@ function createOrderMapActions(
     )
 
     allActions.push(
-      flatten(
-        mapActionGroup(
-          'returnInfo',
-          (): Array<UpdateAction> =>
-            orderActions.actionsMapReturnsInfo(diff, oldObj, newObj)
-        )
-      )
+      mapActionGroup(
+        'returnInfo',
+        (): Array<UpdateAction> =>
+          orderActions.actionsMapReturnsInfo(diff, oldObj, newObj)
+      ).flat()
     )
 
     allActions.push(
       mapActionGroup('custom', () => actionsMapCustom(diff, newObj, oldObj))
     )
 
-    return flatten(allActions)
+    return allActions.flat()
   }
 }
 

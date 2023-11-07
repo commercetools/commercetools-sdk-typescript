@@ -1,4 +1,3 @@
-import flatten from 'lodash.flatten'
 import type {
   SyncAction,
   ActionGroup,
@@ -36,15 +35,13 @@ function createAttributeGroupsMapActions(
       )
     )
     allActions.push(
-      flatten(
-        mapActionGroup(
-          'attributes',
-          (): Array<UpdateAction> =>
-            attributeGroupsActions.actionsMapAttributes(diff, oldObj, newObj)
-        )
-      )
+      mapActionGroup(
+        'attributes',
+        (): Array<UpdateAction> =>
+          attributeGroupsActions.actionsMapAttributes(diff, oldObj, newObj)
+      ).flat()
     )
-    return flatten(allActions)
+    return allActions.flat()
   }
 }
 

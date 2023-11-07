@@ -1,4 +1,3 @@
-import flatten from 'lodash.flatten'
 import type {
   SyncAction,
   SyncActionConfig,
@@ -99,7 +98,7 @@ function createCustomerMapActions(
       )
     )
 
-    return flatten(allActions)
+    return allActions.flat()
   }
 }
 

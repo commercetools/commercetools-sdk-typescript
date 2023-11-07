@@ -1,5 +1,3 @@
-import flatten from 'lodash.flatten'
-
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
 import * as typeActions from './types-actions'
@@ -33,7 +31,7 @@ function createTypeMapActions(
         )
       )
     )
-    return flatten(allActions)
+    return allActions.flat()
   }
 }
 

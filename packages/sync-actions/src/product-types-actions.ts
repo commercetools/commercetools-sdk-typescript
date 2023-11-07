@@ -1,4 +1,3 @@
-import flatten from 'lodash.flatten'
 import { deepEqual } from 'fast-equals'
 import {
   createIsEmptyValue,
@@ -135,8 +134,8 @@ const generateUpdateActionsForAttributeDefinitions = (
       action: 'removeAttributeDefinition',
       name: attributeDef.previous.name,
     })),
-    ...flatten(
-      updatedAttributeDefinitions.map((updatedAttributeDefinition) =>
+    ...updatedAttributeDefinitions
+      .map((updatedAttributeDefinition) =>
         generateBaseFieldsUpdateActions(
           updatedAttributeDefinition.previous,
           updatedAttributeDefinition.next,
@@ -164,7 +163,7 @@ const generateUpdateActionsForAttributeDefinitions = (
           }
         )
       )
-    ),
+      .flat(),
     ...addedAttributeDefinitions.map((attributeDef) => ({
       action: 'addAttributeDefinition',
       attribute: attributeDef.next,
@@ -213,8 +212,8 @@ const generateUpdateActionsForAttributeEnumValues = (
         {}
       )
     ),
-    ...flatten(
-      updatedAttributeEnumValues.map((updatedAttributeEnumValue) => {
+    ...updatedAttributeEnumValues
+      .map((updatedAttributeEnumValue) => {
         const updateActions = generateBaseFieldsUpdateActions(
           updatedAttributeEnumValue.previous,
           updatedAttributeEnumValue.next,
@@ -252,7 +251,7 @@ const generateUpdateActionsForAttributeEnumValues = (
         }
         return updateActions
       })
-    ),
+      .flat(),
     ...addedAttributeEnumValues.map((addedAttributeEnumValue) => ({
       action: addedAttributeEnumValue.hint.isLocalized
         ? 'addLocalizedEnumValue'

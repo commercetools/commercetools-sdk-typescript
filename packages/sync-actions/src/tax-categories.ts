@@ -1,4 +1,3 @@
-import flatten from 'lodash.flatten'
 import type {
   SyncAction,
   ActionGroup,
@@ -44,7 +43,7 @@ function createTaxCategoriesMapActions(
           taxCategoriesActions.actionsMapRates(diff, oldObj, newObj)
       )
     )
-    return flatten(allActions)
+    return allActions.flat()
   }
 }
 

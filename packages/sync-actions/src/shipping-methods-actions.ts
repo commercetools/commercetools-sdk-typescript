@@ -1,4 +1,3 @@
-import flatten from 'lodash.flatten'
 import createBuildArrayActions, {
   ADD_ACTIONS,
   REMOVE_ACTIONS,
@@ -104,7 +103,7 @@ export function actionsMapZoneRates(diff, oldObj, newObj) {
         []
       )
 
-      return flatten(
+      return (
         hasZoneActions
           ? [
               ...shippingRateActions,
@@ -120,7 +119,7 @@ export function actionsMapZoneRates(diff, oldObj, newObj) {
               ],
             ]
           : shippingRateActions
-      )
+      ).flat()
     },
   })
 

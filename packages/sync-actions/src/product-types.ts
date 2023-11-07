@@ -1,4 +1,3 @@
-import flatten from 'lodash.flatten'
 import type {
   SyncAction,
   UpdateAction,
@@ -27,7 +26,7 @@ function createProductTypeMapActions(
     previous: any,
     options: any
   ): Array<UpdateAction> {
-    return flatten([
+    return [
       // we support only base fields for the product type,
       // for attributes, applying hints would be recommended
       mapActionGroup(
@@ -45,7 +44,7 @@ function createProductTypeMapActions(
         previous,
         next
       ),
-    ])
+    ].flat()
   }
 }
 
