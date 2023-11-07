@@ -4,7 +4,7 @@ import type {
   SyncActionConfig,
   UpdateAction,
 } from '@commercetools/sdk-client-v2'
-import * as QuoteRequestsActions from './quote-requests-actions'
+import { actionsMapBase } from './quote-requests-actions'
 import { SyncAction } from './types/update-actions'
 import actionsMapCustom from './utils/action-map-custom'
 import createBuildActions from './utils/create-build-actions'
@@ -28,12 +28,7 @@ function createQuoteRequestsMapActions(
       mapActionGroup(
         'base',
         (): Array<UpdateAction> =>
-          QuoteRequestsActions.actionsMapBase(
-            diff,
-            oldObj,
-            newObj,
-            syncActionConfig
-          )
+          actionsMapBase(diff, oldObj, newObj, syncActionConfig)
       )
     )
 

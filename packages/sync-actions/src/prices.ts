@@ -4,7 +4,7 @@ import type {
   SyncActionConfig,
   UpdateAction,
 } from '@commercetools/sdk-client-v2'
-import * as pricesActions from './prices-actions'
+import { actionsMapBase } from './prices-actions'
 import actionsMapCustom from './utils/action-map-custom'
 import combineValidityActions from './utils/combine-validity-actions'
 import createBuildActions from './utils/create-build-actions'
@@ -25,7 +25,7 @@ function createPriceMapActions(
     const baseActions = mapActionGroup(
       'base',
       (): Array<UpdateAction> =>
-        pricesActions.actionsMapBase(diff, oldObj, newObj, syncActionConfig)
+        actionsMapBase(diff, oldObj, newObj, syncActionConfig)
     )
 
     const customActions = mapActionGroup(

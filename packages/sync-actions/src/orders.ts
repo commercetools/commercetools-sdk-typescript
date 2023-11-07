@@ -4,7 +4,13 @@ import type {
   SyncActionConfig,
   UpdateAction,
 } from '@commercetools/sdk-client-v2'
-import * as orderActions from './order-actions'
+import {
+  actionsMapBase,
+  actionsMapDeliveries,
+  actionsMapDeliveryItems,
+  actionsMapParcels,
+  actionsMapReturnsInfo,
+} from './order-actions'
 import { SyncAction } from './types/update-actions'
 import actionsMapCustom from './utils/action-map-custom'
 import createBuildActions from './utils/create-build-actions'
@@ -38,15 +44,14 @@ function createOrderMapActions(
       mapActionGroup(
         'base',
         (): Array<UpdateAction> =>
-          orderActions.actionsMapBase(diff, oldObj, newObj, syncActionConfig)
+          actionsMapBase(diff, oldObj, newObj, syncActionConfig)
       )
     )
 
     allActions.push(
       mapActionGroup(
         'deliveries',
-        (): Array<UpdateAction> =>
-          orderActions.actionsMapDeliveries(diff, oldObj, newObj)
+        (): Array<UpdateAction> => actionsMapDeliveries(diff, oldObj, newObj)
       )
     )
 
@@ -54,7 +59,7 @@ function createOrderMapActions(
       mapActionGroup(
         'parcels',
         (): Array<UpdateAction> =>
-          orderActions.actionsMapParcels(diff, oldObj, newObj, deliveryHashMap)
+          actionsMapParcels(diff, oldObj, newObj, deliveryHashMap)
       )
     )
 
@@ -62,20 +67,14 @@ function createOrderMapActions(
       mapActionGroup(
         'items',
         (): Array<UpdateAction> =>
-          orderActions.actionsMapDeliveryItems(
-            diff,
-            oldObj,
-            newObj,
-            deliveryHashMap
-          )
+          actionsMapDeliveryItems(diff, oldObj, newObj, deliveryHashMap)
       )
     )
 
     allActions.push(
       mapActionGroup(
         'returnInfo',
-        (): Array<UpdateAction> =>
-          orderActions.actionsMapReturnsInfo(diff, oldObj, newObj)
+        (): Array<UpdateAction> => actionsMapReturnsInfo(diff, oldObj, newObj)
       ).flat()
     )
 

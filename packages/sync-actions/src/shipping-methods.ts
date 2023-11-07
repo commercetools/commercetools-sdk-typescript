@@ -4,7 +4,7 @@ import type {
   SyncActionConfig,
   UpdateAction,
 } from '@commercetools/sdk-client-v2'
-import * as shippingMethodsActions from './shipping-methods-actions'
+import { actionsMapBase, actionsMapZoneRates } from './shipping-methods-actions'
 import { SyncAction } from './types/update-actions'
 import actionsMapCustom from './utils/action-map-custom'
 import createBuildActions from './utils/create-build-actions'
@@ -27,19 +27,13 @@ function createShippingMethodsMapActions(
       mapActionGroup(
         'base',
         (): Array<UpdateAction> =>
-          shippingMethodsActions.actionsMapBase(
-            diff,
-            oldObj,
-            newObj,
-            syncActionConfig
-          )
+          actionsMapBase(diff, oldObj, newObj, syncActionConfig)
       )
     )
     allActions.push(
       mapActionGroup(
         'zoneRates',
-        (): Array<UpdateAction> =>
-          shippingMethodsActions.actionsMapZoneRates(diff, oldObj, newObj)
+        (): Array<UpdateAction> => actionsMapZoneRates(diff, oldObj, newObj)
       ).flat()
     )
     allActions.push(

@@ -4,7 +4,15 @@ import type {
   SyncActionConfig,
   UpdateAction,
 } from '@commercetools/sdk-client-v2'
-import * as customerActions from './customer-actions'
+import {
+  actionsMapAddresses,
+  actionsMapAuthenticationModes,
+  actionsMapBase,
+  actionsMapBillingAddresses,
+  actionsMapReferences,
+  actionsMapSetDefaultBase,
+  actionsMapShippingAddresses,
+} from './customer-actions'
 import { SyncAction } from './types/update-actions'
 import actionsMapCustom from './utils/action-map-custom'
 import copyEmptyArrayProps from './utils/copy-empty-array-props'
@@ -35,23 +43,21 @@ function createCustomerMapActions(
       mapActionGroup(
         'base',
         (): Array<UpdateAction> =>
-          customerActions.actionsMapBase(diff, oldObj, newObj, syncActionConfig)
+          actionsMapBase(diff, oldObj, newObj, syncActionConfig)
       )
     )
 
     allActions.push(
       mapActionGroup(
         'references',
-        (): Array<UpdateAction> =>
-          customerActions.actionsMapReferences(diff, oldObj, newObj)
+        (): Array<UpdateAction> => actionsMapReferences(diff, oldObj, newObj)
       )
     )
 
     allActions.push(
       mapActionGroup(
         'addresses',
-        (): Array<UpdateAction> =>
-          customerActions.actionsMapAddresses(diff, oldObj, newObj)
+        (): Array<UpdateAction> => actionsMapAddresses(diff, oldObj, newObj)
       )
     )
 
@@ -59,12 +65,7 @@ function createCustomerMapActions(
       mapActionGroup(
         'base',
         (): Array<UpdateAction> =>
-          customerActions.actionsMapSetDefaultBase(
-            diff,
-            oldObj,
-            newObj,
-            syncActionConfig
-          )
+          actionsMapSetDefaultBase(diff, oldObj, newObj, syncActionConfig)
       )
     )
 
@@ -72,7 +73,7 @@ function createCustomerMapActions(
       mapActionGroup(
         'billingAddressIds',
         (): Array<UpdateAction> =>
-          customerActions.actionsMapBillingAddresses(diff, oldObj, newObj)
+          actionsMapBillingAddresses(diff, oldObj, newObj)
       )
     )
 
@@ -80,7 +81,7 @@ function createCustomerMapActions(
       mapActionGroup(
         'shippingAddressIds',
         (): Array<UpdateAction> =>
-          customerActions.actionsMapShippingAddresses(diff, oldObj, newObj)
+          actionsMapShippingAddresses(diff, oldObj, newObj)
       )
     )
 
@@ -95,7 +96,7 @@ function createCustomerMapActions(
       mapActionGroup(
         'authenticationModes',
         (): Array<UpdateAction> =>
-          customerActions.actionsMapAuthenticationModes(diff, oldObj, newObj)
+          actionsMapAuthenticationModes(diff, oldObj, newObj)
       )
     )
 

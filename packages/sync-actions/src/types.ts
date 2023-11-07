@@ -1,5 +1,5 @@
 import { SyncActionConfig } from '@commercetools/sdk-client-v2'
-import * as typeActions from './types-actions'
+import { actionsMapBase, actionsMapFieldDefinitions } from './types-actions'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
@@ -15,10 +15,10 @@ function createTypeMapActions(
     const allActions = []
     allActions.push(
       mapActionGroup('base', () =>
-        typeActions.actionsMapBase(diff, previous, next, syncActionConfig)
+        actionsMapBase(diff, previous, next, syncActionConfig)
       ),
       mapActionGroup('fieldDefinitions', () =>
-        typeActions.actionsMapFieldDefinitions(
+        actionsMapFieldDefinitions(
           diff.fieldDefinitions,
           previous.fieldDefinitions,
           next.fieldDefinitions,

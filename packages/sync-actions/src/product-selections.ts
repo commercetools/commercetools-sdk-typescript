@@ -1,6 +1,6 @@
 import { ProductSelectionUpdateAction } from '@commercetools/platform-sdk'
 import type { ActionGroup, UpdateAction } from '@commercetools/sdk-client-v2'
-import * as productSelectionsActions from './product-selections-actions'
+import { actionsMapBase } from './product-selections-actions'
 import { SyncAction } from './types/update-actions'
 import actionsMapCustom from './utils/action-map-custom'
 import createBuildActions from './utils/create-build-actions'
@@ -24,8 +24,7 @@ function createProductSelectionsMapActions(
     allActions.push(
       mapActionGroup(
         'base',
-        (): Array<UpdateAction> =>
-          productSelectionsActions.actionsMapBase(diff, previous, next)
+        (): Array<UpdateAction> => actionsMapBase(diff, previous, next)
       )
     )
     allActions.push(

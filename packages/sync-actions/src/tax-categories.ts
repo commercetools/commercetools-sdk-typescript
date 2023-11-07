@@ -4,7 +4,7 @@ import type {
   SyncActionConfig,
   UpdateAction,
 } from '@commercetools/sdk-client-v2'
-import * as taxCategoriesActions from './tax-categories-actions'
+import { actionsMapBase, actionsMapRates } from './tax-categories-actions'
 import { SyncAction } from './types/update-actions'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
@@ -29,19 +29,13 @@ function createTaxCategoriesMapActions(
       mapActionGroup(
         'base',
         (): Array<UpdateAction> =>
-          taxCategoriesActions.actionsMapBase(
-            diff,
-            oldObj,
-            newObj,
-            syncActionConfig
-          )
+          actionsMapBase(diff, oldObj, newObj, syncActionConfig)
       )
     )
     allActions.push(
       mapActionGroup(
         'rates',
-        (): Array<UpdateAction> =>
-          taxCategoriesActions.actionsMapRates(diff, oldObj, newObj)
+        (): Array<UpdateAction> => actionsMapRates(diff, oldObj, newObj)
       )
     )
     return allActions.flat()

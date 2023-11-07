@@ -4,7 +4,7 @@ import type {
   SyncActionConfig,
   UpdateAction,
 } from '@commercetools/sdk-client-v2'
-import * as stateActions from './state-actions'
+import { actionsMapBase, actionsMapRoles } from './state-actions'
 import { SyncAction } from './types/update-actions'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
@@ -46,14 +46,13 @@ function createStatesMapActions(
       mapActionGroup(
         'base',
         (): Array<UpdateAction> =>
-          stateActions.actionsMapBase(diff, oldObj, newObj, syncActionConfig)
+          actionsMapBase(diff, oldObj, newObj, syncActionConfig)
       )
     )
     roleActions.push(
       mapActionGroup(
         'roles',
-        (): Array<UpdateAction> =>
-          stateActions.actionsMapRoles(diff, oldObj, newObj)
+        (): Array<UpdateAction> => actionsMapRoles(diff, oldObj, newObj)
       )
     )
     return [...baseActions, ...groupRoleActions(roleActions)].flat()

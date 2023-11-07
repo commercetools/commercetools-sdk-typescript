@@ -4,7 +4,21 @@ import type {
   SyncActionConfig,
   UpdateAction,
 } from '@commercetools/sdk-client-v2'
-import * as productActions from './product-actions'
+import {
+  actionsMapAddVariants,
+  actionsMapAssets,
+  actionsMapAttributes,
+  actionsMapBase,
+  actionsMapCategories,
+  actionsMapCategoryOrderHints,
+  actionsMapImages,
+  actionsMapMasterVariant,
+  actionsMapMeta,
+  actionsMapPrices,
+  actionsMapPricesCustom,
+  actionsMapReferences,
+  actionsMapRemoveVariants,
+} from './product-actions'
 import { SyncAction } from './types/update-actions'
 import copyEmptyArrayProps from './utils/copy-empty-array-props'
 import createBuildActions from './utils/create-build-actions'
@@ -49,7 +63,7 @@ function createProductMapActions(
       mapActionGroup(
         'attributes',
         (): Array<UpdateAction> =>
-          productActions.actionsMapAttributes(
+          actionsMapAttributes(
             diff,
             oldObj,
             newObj,
@@ -62,18 +76,17 @@ function createProductMapActions(
     allActions.push(
       mapActionGroup(
         'variants',
-        (): Array<UpdateAction> =>
-          productActions.actionsMapAddVariants(diff, oldObj, newObj)
+        (): Array<UpdateAction> => actionsMapAddVariants(diff, oldObj, newObj)
       )
     )
 
-    allActions.push(productActions.actionsMapMasterVariant(oldObj, newObj))
+    allActions.push(actionsMapMasterVariant(oldObj, newObj))
 
     allActions.push(
       mapActionGroup(
         'variants',
         (): Array<UpdateAction> =>
-          productActions.actionsMapRemoveVariants(diff, oldObj, newObj)
+          actionsMapRemoveVariants(diff, oldObj, newObj)
       )
     )
 
@@ -81,23 +94,21 @@ function createProductMapActions(
       mapActionGroup(
         'base',
         (): Array<UpdateAction> =>
-          productActions.actionsMapBase(diff, oldObj, newObj, syncActionConfig)
+          actionsMapBase(diff, oldObj, newObj, syncActionConfig)
       )
     )
 
     allActions.push(
       mapActionGroup(
         'meta',
-        (): Array<UpdateAction> =>
-          productActions.actionsMapMeta(diff, oldObj, newObj)
+        (): Array<UpdateAction> => actionsMapMeta(diff, oldObj, newObj)
       )
     )
 
     allActions.push(
       mapActionGroup(
         'references',
-        (): Array<UpdateAction> =>
-          productActions.actionsMapReferences(diff, oldObj, newObj)
+        (): Array<UpdateAction> => actionsMapReferences(diff, oldObj, newObj)
       )
     )
 
@@ -105,7 +116,7 @@ function createProductMapActions(
       mapActionGroup(
         'images',
         (): Array<UpdateAction> =>
-          productActions.actionsMapImages(diff, oldObj, newObj, variantHashMap)
+          actionsMapImages(diff, oldObj, newObj, variantHashMap)
       )
     )
 
@@ -113,12 +124,7 @@ function createProductMapActions(
       mapActionGroup(
         'pricesCustom',
         (): Array<UpdateAction> =>
-          productActions.actionsMapPricesCustom(
-            diff,
-            oldObj,
-            newObj,
-            variantHashMap
-          )
+          actionsMapPricesCustom(diff, oldObj, newObj, variantHashMap)
       )
     )
 
@@ -126,7 +132,7 @@ function createProductMapActions(
       mapActionGroup(
         'prices',
         (): Array<UpdateAction> =>
-          productActions.actionsMapPrices(
+          actionsMapPrices(
             diff,
             oldObj,
             newObj,
@@ -139,15 +145,14 @@ function createProductMapActions(
     allActions.push(
       mapActionGroup(
         'categories',
-        (): Array<UpdateAction> => productActions.actionsMapCategories(diff)
+        (): Array<UpdateAction> => actionsMapCategories(diff)
       )
     )
 
     allActions.push(
       mapActionGroup(
         'categories',
-        (): Array<UpdateAction> =>
-          productActions.actionsMapCategoryOrderHints(diff)
+        (): Array<UpdateAction> => actionsMapCategoryOrderHints(diff)
       )
     )
 
@@ -155,7 +160,7 @@ function createProductMapActions(
       mapActionGroup(
         'assets',
         (): Array<UpdateAction> =>
-          productActions.actionsMapAssets(diff, oldObj, newObj, variantHashMap)
+          actionsMapAssets(diff, oldObj, newObj, variantHashMap)
       )
     )
 
