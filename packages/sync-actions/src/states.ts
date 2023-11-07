@@ -1,12 +1,13 @@
+import { StateUpdateAction } from '@commercetools/platform-sdk'
 import type {
-  UpdateAction,
-  SyncAction,
   ActionGroup,
   SyncActionConfig,
+  UpdateAction,
 } from '@commercetools/sdk-client-v2'
+import * as stateActions from './state-actions'
+import { SyncAction } from './types/update-actions'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
-import * as stateActions from './state-actions'
 import { diff } from './utils/diffpatcher'
 
 type RoleUpdate = {
@@ -62,7 +63,7 @@ function createStatesMapActions(
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction => {
+): SyncAction<StateUpdateAction> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createStatesMapActions(mapActionGroup, syncActionConfig)
   const buildActions = createBuildActions(diff, doMapActions)

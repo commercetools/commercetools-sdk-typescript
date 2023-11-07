@@ -1,9 +1,8 @@
 /* eslint-disable max-len */
-import uniqWith from 'lodash.uniqwith'
+import { ProductVariant } from '@commercetools/platform-sdk/src'
 import intersection from 'lodash.intersection'
+import uniqWith from 'lodash.uniqwith'
 import without from 'lodash.without'
-import { diff, getDeltaValue } from './utils/diffpatcher'
-import extractMatchingPairs from './utils/extract-matching-pairs'
 import actionsMapCustom from './utils/action-map-custom'
 import {
   buildBaseAttributesActions,
@@ -13,8 +12,9 @@ import createBuildArrayActions, {
   ADD_ACTIONS,
   REMOVE_ACTIONS,
 } from './utils/create-build-array-actions'
+import { getDeltaValue } from './utils/diffpatcher'
+import extractMatchingPairs from './utils/extract-matching-pairs'
 import findMatchingPairs from './utils/find-matching-pairs'
-import { ProductVariant } from '@commercetools/platform-sdk/src'
 
 const REGEX_NUMBER = new RegExp(/^\d+$/)
 const REGEX_UNDERSCORE_NUMBER = new RegExp(/^_\d+$/)

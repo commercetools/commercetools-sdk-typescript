@@ -1,12 +1,10 @@
-import type {
-  SyncAction,
-  UpdateAction,
-  ActionGroup,
-} from '@commercetools/sdk-client-v2'
+import { ProductSelectionUpdateAction } from '@commercetools/platform-sdk'
+import type { ActionGroup, UpdateAction } from '@commercetools/sdk-client-v2'
+import * as productSelectionsActions from './product-selections-actions'
+import { SyncAction } from './types/update-actions'
+import actionsMapCustom from './utils/action-map-custom'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
-import actionsMapCustom from './utils/action-map-custom'
-import * as productSelectionsActions from './product-selections-actions'
 import { diff } from './utils/diffpatcher'
 
 export const actionGroups = ['base']
@@ -41,7 +39,9 @@ function createProductSelectionsMapActions(
   }
 }
 
-export default (actionGroupList?: Array<ActionGroup>): SyncAction => {
+export default (
+  actionGroupList?: Array<ActionGroup>
+): SyncAction<ProductSelectionUpdateAction> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createProductSelectionsMapActions(mapActionGroup)
   const onBeforeApplyingDiff = null

@@ -1,13 +1,14 @@
+import { OrderUpdateAction } from '@commercetools/platform-sdk'
 import type {
-  SyncAction,
-  SyncActionConfig,
   ActionGroup,
+  SyncActionConfig,
   UpdateAction,
 } from '@commercetools/sdk-client-v2'
+import * as orderActions from './order-actions'
+import { SyncAction } from './types/update-actions'
+import actionsMapCustom from './utils/action-map-custom'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
-import actionsMapCustom from './utils/action-map-custom'
-import * as orderActions from './order-actions'
 import { diff } from './utils/diffpatcher'
 import findMatchingPairs from './utils/find-matching-pairs'
 
@@ -89,7 +90,7 @@ function createOrderMapActions(
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction => {
+): SyncAction<OrderUpdateAction> => {
   // actionGroupList contains information about which action groups
   // are allowed or ignored
 

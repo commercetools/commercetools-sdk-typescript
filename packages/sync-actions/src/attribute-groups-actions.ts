@@ -1,8 +1,8 @@
 import { buildBaseAttributesActions } from './utils/common-actions'
 import createBuildArrayActions, {
   ADD_ACTIONS,
-  REMOVE_ACTIONS,
   CHANGE_ACTIONS,
+  REMOVE_ACTIONS,
 } from './utils/create-build-array-actions'
 
 const hasAttribute = (attributes, newValue) =>

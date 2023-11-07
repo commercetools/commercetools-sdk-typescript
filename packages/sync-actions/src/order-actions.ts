@@ -1,9 +1,9 @@
-import { diff, getDeltaValue } from './utils/diffpatcher'
 import { buildBaseAttributesActions } from './utils/common-actions'
 import createBuildArrayActions, {
   ADD_ACTIONS,
   CHANGE_ACTIONS,
 } from './utils/create-build-array-actions'
+import { getDeltaValue } from './utils/diffpatcher'
 import extractMatchingPairs from './utils/extract-matching-pairs'
 import findMatchingPairs from './utils/find-matching-pairs'
 

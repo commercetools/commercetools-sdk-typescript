@@ -1,4 +1,3 @@
-import * as diffpatcher from './diffpatcher'
 import { getDeltaValue } from './diffpatcher'
 
 const Actions = {

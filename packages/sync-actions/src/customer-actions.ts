@@ -1,4 +1,5 @@
 import isNil from 'lodash.isnil'
+import clone from './utils/clone'
 import {
   buildBaseAttributesActions,
   buildReferenceActions,
@@ -6,11 +7,10 @@ import {
 } from './utils/common-actions'
 import createBuildArrayActions, {
   ADD_ACTIONS,
-  REMOVE_ACTIONS,
   CHANGE_ACTIONS,
+  REMOVE_ACTIONS,
 } from './utils/create-build-array-actions'
 import { patch } from './utils/diffpatcher'
-import clone from './utils/clone'
 
 const isEmptyValue = createIsEmptyValue([undefined, null, ''])
 

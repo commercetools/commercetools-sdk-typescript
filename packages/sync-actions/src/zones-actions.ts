@@ -1,9 +1,9 @@
+import { buildBaseAttributesActions } from './utils/common-actions'
 import createBuildArrayActions, {
   ADD_ACTIONS,
-  REMOVE_ACTIONS,
   CHANGE_ACTIONS,
+  REMOVE_ACTIONS,
 } from './utils/create-build-array-actions'
-import { buildBaseAttributesActions } from './utils/common-actions'
 
 export const baseActionsList = [
   { action: 'changeName', key: 'name' },

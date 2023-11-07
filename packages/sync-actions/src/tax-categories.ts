@@ -1,12 +1,13 @@
+import { TaxCategoryUpdateAction } from '@commercetools/platform-sdk'
 import type {
-  SyncAction,
   ActionGroup,
-  UpdateAction,
   SyncActionConfig,
+  UpdateAction,
 } from '@commercetools/sdk-client-v2'
+import * as taxCategoriesActions from './tax-categories-actions'
+import { SyncAction } from './types/update-actions'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
-import * as taxCategoriesActions from './tax-categories-actions'
 import { diff } from './utils/diffpatcher'
 
 export const actionGroups = ['base', 'rates']
@@ -50,7 +51,7 @@ function createTaxCategoriesMapActions(
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction => {
+): SyncAction<TaxCategoryUpdateAction> => {
   // config contains information about which action groups
   // are allowed or ignored
 

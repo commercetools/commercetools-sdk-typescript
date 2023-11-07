@@ -1,9 +1,11 @@
+import { ProductDiscountUpdateAction } from '@commercetools/platform-sdk'
+import { ActionGroup, SyncActionConfig } from '@commercetools/sdk-client-v2'
+import { actionsMapBase } from './product-discounts-actions'
+import { SyncAction } from './types/update-actions'
+import combineValidityActions from './utils/combine-validity-actions'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
-import { actionsMapBase } from './product-discounts-actions'
-import combineValidityActions from './utils/combine-validity-actions'
 import { diff } from './utils/diffpatcher'
-import { SyncActionConfig } from '@commercetools/sdk-client-v2'
 
 export const actionGroups = ['base']
 
@@ -20,7 +22,10 @@ function createProductDiscountsMapActions(mapActionGroup, syncActionConfig) {
   }
 }
 
-export default (actionGroupList?, syncActionConfig?: SyncActionConfig) => {
+export default (
+  actionGroupList?: Array<ActionGroup>,
+  syncActionConfig?: SyncActionConfig
+): SyncAction<ProductDiscountUpdateAction> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createProductDiscountsMapActions(
     mapActionGroup,

@@ -1,12 +1,13 @@
+import { ProductTypeUpdateAction } from '@commercetools/platform-sdk'
 import type {
-  SyncAction,
-  UpdateAction,
   ActionGroup,
   SyncActionConfig as BaseSyncActionConfig,
+  UpdateAction,
 } from '@commercetools/sdk-client-v2'
+import * as productTypeActions from './product-types-actions'
+import { SyncAction } from './types/update-actions'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
-import * as productTypeActions from './product-types-actions'
 import { diff } from './utils/diffpatcher'
 
 type SyncActionConfig = { withHints?: boolean } & BaseSyncActionConfig
@@ -51,7 +52,7 @@ function createProductTypeMapActions(
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction => {
+): SyncAction<ProductTypeUpdateAction> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createProductTypeMapActions(
     mapActionGroup,

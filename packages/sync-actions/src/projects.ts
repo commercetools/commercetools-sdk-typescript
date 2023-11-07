@@ -1,6 +1,9 @@
+import { ProjectUpdateAction } from '@commercetools/platform-sdk'
+import { ActionGroup, SyncActionConfig } from '@commercetools/sdk-client-v2'
+import { actionsMapBase } from './projects-actions'
+import { SyncAction } from './types/update-actions'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
-import { actionsMapBase } from './projects-actions'
 import { diff } from './utils/diffpatcher'
 
 export const actionGroups = ['base']
@@ -19,7 +22,10 @@ function createChannelsMapActions(mapActionGroup, syncActionConfig) {
   }
 }
 
-export default (actionGroupList?, syncActionConfig?) => {
+export default (
+  actionGroupList?: Array<ActionGroup>,
+  syncActionConfig?: SyncActionConfig
+): SyncAction<ProjectUpdateAction> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createChannelsMapActions(
     mapActionGroup,

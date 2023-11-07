@@ -1,15 +1,16 @@
+import { ProductUpdateAction } from '@commercetools/platform-sdk'
 import type {
-  SyncAction,
-  SyncActionConfig,
   ActionGroup,
+  SyncActionConfig,
   UpdateAction,
 } from '@commercetools/sdk-client-v2'
+import * as productActions from './product-actions'
+import { SyncAction } from './types/update-actions'
+import copyEmptyArrayProps from './utils/copy-empty-array-props'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
-import * as productActions from './product-actions'
 import { diff } from './utils/diffpatcher'
 import findMatchingPairs from './utils/find-matching-pairs'
-import copyEmptyArrayProps from './utils/copy-empty-array-props'
 
 const actionGroups = [
   'base',
@@ -183,7 +184,7 @@ function moveMasterVariantsIntoVariants(before: any, now: any): Array<Object> {
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction => {
+): SyncAction<ProductUpdateAction> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createProductMapActions(mapActionGroup, syncActionConfig)
 

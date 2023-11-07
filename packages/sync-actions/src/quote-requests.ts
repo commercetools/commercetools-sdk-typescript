@@ -1,13 +1,14 @@
+import { QuoteRequestUpdateAction } from '@commercetools/platform-sdk'
 import type {
-  SyncAction,
-  SyncActionConfig,
   ActionGroup,
+  SyncActionConfig,
   UpdateAction,
 } from '@commercetools/sdk-client-v2'
+import * as QuoteRequestsActions from './quote-requests-actions'
+import { SyncAction } from './types/update-actions'
+import actionsMapCustom from './utils/action-map-custom'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
-import actionsMapCustom from './utils/action-map-custom'
-import * as QuoteRequestsActions from './quote-requests-actions'
 import { diff } from './utils/diffpatcher'
 
 const actionGroups = ['base', 'custom']
@@ -50,7 +51,7 @@ function createQuoteRequestsMapActions(
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction => {
+): SyncAction<QuoteRequestUpdateAction> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createQuoteRequestsMapActions(
     mapActionGroup,

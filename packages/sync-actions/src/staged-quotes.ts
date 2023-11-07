@@ -1,13 +1,14 @@
+import { StagedQuoteUpdateAction } from '@commercetools/platform-sdk'
 import type {
-  SyncAction,
-  SyncActionConfig,
   ActionGroup,
+  SyncActionConfig,
   UpdateAction,
 } from '@commercetools/sdk-client-v2'
+import { actionsMapBase } from './staged-quotes-actions'
+import { SyncAction } from './types/update-actions'
+import actionsMapCustom from './utils/action-map-custom'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
-import actionsMapCustom from './utils/action-map-custom'
-import * as StagedQuotesActions from './staged-quotes-actions'
 import { diff } from './utils/diffpatcher'
 
 const actionGroups = ['base', 'custom']
@@ -27,12 +28,7 @@ function createStagedQuotesMapActions(
       mapActionGroup(
         'base',
         (): Array<UpdateAction> =>
-          StagedQuotesActions.actionsMapBase(
-            diff,
-            oldObj,
-            newObj,
-            syncActionConfig
-          )
+          actionsMapBase(diff, oldObj, newObj, syncActionConfig)
       )
     )
 
@@ -50,7 +46,7 @@ function createStagedQuotesMapActions(
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction => {
+): SyncAction<StagedQuoteUpdateAction> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createStagedQuotesMapActions(
     mapActionGroup,

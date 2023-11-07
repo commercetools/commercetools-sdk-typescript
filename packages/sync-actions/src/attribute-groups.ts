@@ -1,13 +1,14 @@
+import { AttributeGroupUpdateAction } from '@commercetools/platform-sdk'
 import type {
-  SyncAction,
   ActionGroup,
-  UpdateAction,
   SyncActionConfig,
+  UpdateAction,
 } from '@commercetools/sdk-client-v2'
 import {
   actionsMapAttributes,
   actionsMapBase,
 } from './attribute-groups-actions'
+import { SyncAction } from './types/update-actions'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
@@ -45,7 +46,7 @@ function createAttributeGroupsMapActions(
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction => {
+): SyncAction<AttributeGroupUpdateAction> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createAttributeGroupsMapActions(
     mapActionGroup,

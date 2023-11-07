@@ -1,6 +1,5 @@
 import isNil from 'lodash.isnil'
 import clone from './clone'
-import * as diffpatcher from './diffpatcher'
 import { getDeltaValue, patch } from './diffpatcher'
 
 const normalizeValue = (value) =>

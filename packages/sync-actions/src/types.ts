@@ -1,9 +1,9 @@
+import { SyncActionConfig } from '@commercetools/sdk-client-v2'
+import * as typeActions from './types-actions'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
-import * as typeActions from './types-actions'
 import { diff } from './utils/diffpatcher'
 import findMatchingPairs from './utils/find-matching-pairs'
-import { SyncActionConfig } from '@commercetools/sdk-client-v2'
 
 const actionGroups = ['base', 'fieldDefinitions']
 

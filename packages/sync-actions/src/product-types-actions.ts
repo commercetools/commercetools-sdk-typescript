@@ -1,7 +1,7 @@
 import { deepEqual } from 'fast-equals'
 import {
-  createIsEmptyValue,
   buildBaseAttributesActions,
+  createIsEmptyValue,
 } from './utils/common-actions'
 
 export const baseActionsList = [

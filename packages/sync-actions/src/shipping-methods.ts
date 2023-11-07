@@ -1,13 +1,14 @@
+import { ShippingMethodUpdateAction } from '@commercetools/platform-sdk'
 import type {
-  SyncAction,
-  SyncActionConfig,
   ActionGroup,
+  SyncActionConfig,
   UpdateAction,
 } from '@commercetools/sdk-client-v2'
+import * as shippingMethodsActions from './shipping-methods-actions'
+import { SyncAction } from './types/update-actions'
+import actionsMapCustom from './utils/action-map-custom'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
-import actionsMapCustom from './utils/action-map-custom'
-import * as shippingMethodsActions from './shipping-methods-actions'
 import { diff } from './utils/diffpatcher'
 
 export const actionGroups = ['base', 'zoneRates', 'custom']
@@ -54,7 +55,7 @@ function createShippingMethodsMapActions(
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction => {
+): SyncAction<ShippingMethodUpdateAction> => {
   // actionGroupList contains information about which action groups
   // are allowed or ignored
 

@@ -1,15 +1,16 @@
+import { CustomerUpdateAction } from '@commercetools/platform-sdk'
 import type {
-  SyncAction,
+  ActionGroup,
   SyncActionConfig,
   UpdateAction,
-  ActionGroup,
 } from '@commercetools/sdk-client-v2'
+import * as customerActions from './customer-actions'
+import { SyncAction } from './types/update-actions'
+import actionsMapCustom from './utils/action-map-custom'
+import copyEmptyArrayProps from './utils/copy-empty-array-props'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
-import actionsMapCustom from './utils/action-map-custom'
-import * as customerActions from './customer-actions'
 import { diff } from './utils/diffpatcher'
-import copyEmptyArrayProps from './utils/copy-empty-array-props'
 
 export const actionGroups = [
   'base',
@@ -105,7 +106,7 @@ function createCustomerMapActions(
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction => {
+): SyncAction<CustomerUpdateAction> => {
   // actionGroupList contains information about which action groups
   // are allowed or ignored
 

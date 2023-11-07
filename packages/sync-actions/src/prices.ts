@@ -1,15 +1,15 @@
 import type {
+  ActionGroup,
   SyncAction,
   SyncActionConfig,
-  ActionGroup,
   UpdateAction,
 } from '@commercetools/sdk-client-v2'
+import * as pricesActions from './prices-actions'
+import actionsMapCustom from './utils/action-map-custom'
+import combineValidityActions from './utils/combine-validity-actions'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
-import actionsMapCustom from './utils/action-map-custom'
-import * as pricesActions from './prices-actions'
 import { diff } from './utils/diffpatcher'
-import combineValidityActions from './utils/combine-validity-actions'
 
 const actionGroups = ['base', 'custom']
 

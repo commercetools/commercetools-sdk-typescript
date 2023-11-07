@@ -1,12 +1,12 @@
 import sortBy from 'lodash.sortby'
 
 import isEqual from 'lodash.isequal'
+import { buildBaseAttributesActions } from './utils/common-actions'
 import createBuildArrayActions, {
   ADD_ACTIONS,
   CHANGE_ACTIONS,
 } from './utils/create-build-array-actions'
-import { buildBaseAttributesActions } from './utils/common-actions'
-import { diff, getDeltaValue } from './utils/diffpatcher'
+import { getDeltaValue } from './utils/diffpatcher'
 import extractMatchingPairs from './utils/extract-matching-pairs'
 
 const REGEX_NUMBER = new RegExp(/^\d+$/)
