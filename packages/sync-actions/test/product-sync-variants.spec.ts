@@ -1,4 +1,4 @@
-import { DeepPartial, SyncAction } from '../src/types/update-actions'
+import { DeepPartial } from '../src/types/update-actions'
 import productsSyncFn, { ProductSync } from '../src/products'
 import { Asset } from '@commercetools/platform-sdk/src'
 

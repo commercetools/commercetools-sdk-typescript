@@ -5,12 +5,8 @@ import {
   metaActionsList,
   referenceActionsList,
 } from '../src/product-actions'
-import { DeepPartial, SyncAction } from '../src/types/update-actions'
-import {
-  ProductData,
-  ProductDraft,
-  ProductUpdateAction,
-} from '@commercetools/platform-sdk/src'
+import { DeepPartial } from '../src/types/update-actions'
+import { ProductDraft } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {

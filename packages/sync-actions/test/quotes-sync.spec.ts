@@ -1,11 +1,7 @@
 import createQuotesSync, { actionGroups } from '../src/quotes'
 import { baseActionsList } from '../src/quotes-actions'
-import { DeepPartial, SyncAction } from '../src/types/update-actions'
-import {
-  Quote,
-  QuoteDraft,
-  QuoteUpdateAction,
-} from '@commercetools/platform-sdk/src'
+import { DeepPartial } from '../src/types/update-actions'
+import { Quote } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {

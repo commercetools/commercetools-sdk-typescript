@@ -1,10 +1,7 @@
 import shippingMethodsSyncFn, { actionGroups } from '../src/shipping-methods'
 import { baseActionsList } from '../src/shipping-methods-actions'
-import { DeepPartial, SyncAction } from '../src/types/update-actions'
-import {
-  ShippingMethodDraft,
-  ShippingMethodUpdateAction,
-} from '@commercetools/platform-sdk/src'
+import { DeepPartial } from '../src/types/update-actions'
+import { ShippingMethodDraft } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {

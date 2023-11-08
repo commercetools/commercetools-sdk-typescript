@@ -2,11 +2,8 @@ import { baseActionsList } from '../src/product-selections-actions'
 import productSelectionsSyncFn, {
   actionGroups,
 } from '../src/product-selections'
-import { DeepPartial, SyncAction } from '../src/types/update-actions'
-import {
-  ProductSelectionDraft,
-  ProductSelectionUpdateAction,
-} from '@commercetools/platform-sdk/src'
+import { DeepPartial } from '../src/types/update-actions'
+import { ProductSelectionDraft } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {

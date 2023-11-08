@@ -1,13 +1,10 @@
 import clone from '../src/utils/clone'
-import createSyncProductTypes, {
-  actionGroups,
-  ProductTypeConfig,
-} from '../src/product-types'
+import createSyncProductTypes, { actionGroups } from '../src/product-types'
 import {
   baseActionsList,
   generateBaseFieldsUpdateActions,
 } from '../src/product-types-actions'
-import { DeepPartial, SyncAction } from '../src/types/update-actions'
+import { DeepPartial } from '../src/types/update-actions'
 import {
   ProductTypeDraft,
   ProductTypeUpdateAction,

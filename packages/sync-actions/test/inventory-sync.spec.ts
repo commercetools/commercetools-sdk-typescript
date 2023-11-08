@@ -1,10 +1,6 @@
 import inventorySyncFn, { actionGroups } from '../src/inventories'
 import { baseActionsList, referenceActionsList } from '../src/inventory-actions'
-import { SyncAction } from '../src/types/update-actions'
-import {
-  InventoryEntryDraft,
-  InventoryEntryUpdateAction,
-} from '@commercetools/platform-sdk/src'
+import { InventoryEntryDraft } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {

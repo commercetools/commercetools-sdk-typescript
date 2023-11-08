@@ -1,10 +1,9 @@
 import customerGroupSyncFn, { actionGroups } from '../src/customer-group'
 import { baseActionsList } from '../src/customer-group-actions'
-import { DeepPartial, SyncAction } from '../src/types/update-actions'
+import { DeepPartial } from '../src/types/update-actions'
 import {
   CustomerGroup,
   CustomerGroupDraft,
-  CustomerGroupUpdateAction,
 } from '@commercetools/platform-sdk/src'
 
 describe('Customer Groups Exports', () => {

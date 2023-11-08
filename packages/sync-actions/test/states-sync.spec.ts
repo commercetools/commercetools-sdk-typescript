@@ -1,11 +1,7 @@
 import statesSyncFn, { actionGroups } from '../src/states'
 import { baseActionsList } from '../src/state-actions'
-import { DeepPartial, SyncAction } from '../src/types/update-actions'
-import {
-  StateDraft,
-  StateUpdateAction,
-  ZoneDraft,
-} from '@commercetools/platform-sdk/src'
+import { DeepPartial } from '../src/types/update-actions'
+import { StateDraft } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -238,7 +234,7 @@ describe('Actions', () => {
 
   test('should build the `removeRoles` and `addRoles` actions', () => {
     // This is necessary because there is currently no way to differentiate
-    // between `setRoles` action and `addRoles || removeRoles` actions so we
+    // between `setRoles` action and `addRoles || removeRoles` actions, so we
     // simply replace the roles that need to be replaced with add and remove
     const before = {
       key: 'state-1',

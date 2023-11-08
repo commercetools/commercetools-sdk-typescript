@@ -1,10 +1,7 @@
 import cartDiscountsSyncFn, { actionGroups } from '../src/cart-discounts'
 import { baseActionsList } from '../src/cart-discounts-actions'
-import { DeepPartial, SyncAction } from '../src/types/update-actions'
-import {
-  CartDiscountDraft,
-  CartDiscountUpdateAction,
-} from '@commercetools/platform-sdk/src'
+import { DeepPartial } from '../src/types/update-actions'
+import { CartDiscountDraft } from '@commercetools/platform-sdk/src'
 
 describe('Cart Discounts Exports', () => {
   test('action group list', () => {

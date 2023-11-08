@@ -1,7 +1,6 @@
 import clone from '../src/utils/clone'
 import createSyncTypes, { actionGroups } from '../src/types'
 import { baseActionsList } from '../src/types-actions'
-import { SyncAction } from '../src/types/update-actions'
 import { TypeUpdateAction } from '@commercetools/platform-sdk/src'
 import typesSyncFn from '../src/types'
 

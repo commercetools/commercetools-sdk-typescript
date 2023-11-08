@@ -3,8 +3,7 @@ import createStagedQuotesSync, {
   StagedQuoteSync,
 } from '../src/staged-quotes'
 import { baseActionsList } from '../src/staged-quotes-actions'
-import { DeepPartial, SyncAction } from '../src/types/update-actions'
-import { StagedQuoteUpdateAction } from '@commercetools/platform-sdk/src'
+import { DeepPartial } from '../src/types/update-actions'
 
 describe('Exports', () => {
   test('action group list', () => {

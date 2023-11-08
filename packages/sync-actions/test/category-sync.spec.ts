@@ -1,15 +1,11 @@
 import categorySyncFn, { actionGroups } from '../src/categories'
-import { DeepPartial, SyncAction } from '../src/types/update-actions'
+import { DeepPartial } from '../src/types/update-actions'
 import {
   baseActionsList,
   metaActionsList,
   referenceActionsList,
 } from '../src/category-actions'
-import {
-  CartDiscountDraft,
-  CategoryDraft,
-  CategoryUpdateAction,
-} from '@commercetools/platform-sdk/src'
+import { CategoryDraft } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {

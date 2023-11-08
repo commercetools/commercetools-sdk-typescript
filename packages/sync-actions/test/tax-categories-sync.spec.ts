@@ -1,10 +1,7 @@
 import taxCategorySyncFn, { actionGroups } from '../src/tax-categories'
 import { baseActionsList } from '../src/tax-categories-actions'
-import { DeepPartial, SyncAction } from '../src/types/update-actions'
-import {
-  TaxCategory,
-  TaxCategoryUpdateAction,
-} from '@commercetools/platform-sdk/src'
+import { DeepPartial } from '../src/types/update-actions'
+import { TaxCategory } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {

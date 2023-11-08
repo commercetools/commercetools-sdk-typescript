@@ -1,11 +1,7 @@
 import { performance } from 'perf_hooks'
 import orderSyncFn, { actionGroups, OrderSync } from '../src/orders'
 import { baseActionsList } from '../src/order-actions'
-import { DeepPartial, SyncAction } from '../src/types/update-actions'
-import {
-  OrderEditDraft,
-  OrderUpdateAction,
-} from '@commercetools/platform-sdk/src'
+import { DeepPartial } from '../src/types/update-actions'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -194,11 +190,11 @@ describe('Actions', () => {
           shippingInfo: {
             deliveries: Array(100)
               .fill(null)
-              .map((a, index) => ({
+              .map((_a, index) => ({
                 parcels: [],
                 items: Array(50)
                   .fill(null)
-                  .map((b, index2) => {
+                  .map((_b, index2) => {
                     return {
                       id: `id-${index}-${index2}`,
                       qty: 1,
@@ -211,11 +207,11 @@ describe('Actions', () => {
           shippingInfo: {
             deliveries: Array(100)
               .fill(null)
-              .map((a, index) => ({
+              .map((_a, index) => ({
                 parcels: [],
                 items: Array(50)
                   .fill(null)
-                  .map((b, index2) => {
+                  .map((_b, index2) => {
                     return {
                       id: `id-${index}-${index2}`,
                       qty: 2,
@@ -804,10 +800,10 @@ describe('Actions', () => {
           const before = {
             returnInfo: Array(100)
               .fill(null)
-              .map((a, index) => ({
+              .map((_a, index) => ({
                 items: Array(50)
                   .fill(null)
-                  .map((b, index2) => {
+                  .map((_b, index2) => {
                     return {
                       id: `id-${index}-${index2}`,
                       shipmentState: 'Returned',
@@ -819,10 +815,10 @@ describe('Actions', () => {
           const now = {
             returnInfo: Array(100)
               .fill(null)
-              .map((a, index) => ({
+              .map((_a, index) => ({
                 items: Array(50)
                   .fill(null)
-                  .map((b, index2) => {
+                  .map((_b, index2) => {
                     return {
                       id: `id-${index}-${index2}`,
                       shipmentState: 'Returned',

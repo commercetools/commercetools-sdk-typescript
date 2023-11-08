@@ -1,11 +1,7 @@
 import createChannelsSync, { actionGroups } from '../src/channels'
 import { baseActionsList } from '../src/channels-actions'
-import { DeepPartial, SyncAction } from '../src/types/update-actions'
-import {
-  CategoryDraft,
-  ChannelDraft,
-  ChannelUpdateAction,
-} from '@commercetools/platform-sdk/src'
+import { DeepPartial } from '../src/types/update-actions'
+import { ChannelDraft } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {

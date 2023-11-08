@@ -1,7 +1,7 @@
 import storesSyncFn, { actionGroups } from '../src/stores'
 import { baseActionsList } from '../src/stores-actions'
-import { DeepPartial, SyncAction } from '../src/types/update-actions'
-import { Store, StoreUpdateAction } from '@commercetools/platform-sdk/src'
+import { DeepPartial } from '../src/types/update-actions'
+import { Store } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {

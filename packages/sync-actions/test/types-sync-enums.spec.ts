@@ -1,5 +1,4 @@
 import typesSyncFn from '../src/types'
-import { SyncAction } from '../src/types/update-actions'
 import { TypeUpdateAction } from '@commercetools/platform-sdk/src'
 
 const createTestType = (custom) => ({
