@@ -1,4 +1,6 @@
 import typesSyncFn from '../src/types'
+import { SyncAction } from '../src/types/update-actions'
+import { TypeUpdateAction } from '@commercetools/platform-sdk/src'
 
 const createTestType = (custom) => ({
   id: 'type-id',
@@ -9,8 +11,8 @@ const createTestType = (custom) => ({
 describe('Actions', () => {
   let before
   let now
-  let typesSync
-  let updateActions
+  let typesSync: SyncAction<TypeUpdateAction>
+  let updateActions: Array<TypeUpdateAction>
   beforeEach(() => {
     typesSync = typesSyncFn()
   })

@@ -1,5 +1,7 @@
 import productDiscountsSyncFn, { actionGroups } from '../src/product-discounts'
 import { baseActionsList } from '../src/product-discounts-actions'
+import { SyncAction } from '../src/types/update-actions'
+import { ProductDiscountUpdateAction } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -76,7 +78,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let productDiscountsSync
+  let productDiscountsSync: SyncAction<ProductDiscountUpdateAction>
   beforeEach(() => {
     productDiscountsSync = productDiscountsSyncFn()
   })

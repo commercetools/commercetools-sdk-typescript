@@ -1,6 +1,8 @@
 import { performance } from 'perf_hooks'
 import orderSyncFn, { actionGroups } from '../src/orders'
 import { baseActionsList } from '../src/order-actions'
+import { SyncAction } from '../src/types/update-actions'
+import { OrderUpdateAction } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -17,7 +19,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let orderSync
+  let orderSync: SyncAction<OrderUpdateAction>
   beforeEach(() => {
     orderSync = orderSyncFn()
   })
@@ -839,7 +841,7 @@ describe('Actions', () => {
 })
 
 describe('custom fields', () => {
-  let orderSync
+  let orderSync: SyncAction<OrderUpdateAction>
   beforeEach(() => {
     orderSync = orderSyncFn()
   })

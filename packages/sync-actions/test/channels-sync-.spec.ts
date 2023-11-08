@@ -1,5 +1,7 @@
 import createChannelsSync, { actionGroups } from '../src/channels'
 import { baseActionsList } from '../src/channels-actions'
+import { SyncAction } from '../src/types/update-actions'
+import { ChannelUpdateAction } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -66,7 +68,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let channelsSync
+  let channelsSync: SyncAction<ChannelUpdateAction>
   beforeEach(() => {
     channelsSync = createChannelsSync()
   })

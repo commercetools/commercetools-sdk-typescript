@@ -1,5 +1,7 @@
 import shippingMethodsSyncFn, { actionGroups } from '../src/shipping-methods'
 import { baseActionsList } from '../src/shipping-methods-actions'
+import { SyncAction } from '../src/types/update-actions'
+import { ShippingMethodUpdateAction } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -21,7 +23,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let shippingMethodsSync
+  let shippingMethodsSync: SyncAction<ShippingMethodUpdateAction>
   beforeEach(() => {
     shippingMethodsSync = shippingMethodsSyncFn()
   })

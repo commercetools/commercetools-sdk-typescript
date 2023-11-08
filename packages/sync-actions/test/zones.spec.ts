@@ -1,5 +1,7 @@
 import zonesSyncFn, { actionGroups } from '../src/zones'
 import { baseActionsList } from '../src/zones-actions'
+import { SyncAction } from '../src/types/update-actions'
+import { ZoneUpdateAction } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -16,7 +18,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let zonesSync
+  let zonesSync: SyncAction<ZoneUpdateAction>
   beforeEach(() => {
     zonesSync = zonesSyncFn()
   })

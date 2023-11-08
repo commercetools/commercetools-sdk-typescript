@@ -1,5 +1,7 @@
 import createStagedQuotesSync, { actionGroups } from '../src/staged-quotes'
 import { baseActionsList } from '../src/staged-quotes-actions'
+import { SyncAction } from '../src/types/update-actions'
+import { StagedQuoteUpdateAction } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -38,7 +40,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let stagedQuotesSync
+  let stagedQuotesSync: SyncAction<StagedQuoteUpdateAction>
   beforeEach(() => {
     stagedQuotesSync = createStagedQuotesSync()
   })

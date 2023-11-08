@@ -4,6 +4,8 @@ import {
   baseActionsList,
   generateBaseFieldsUpdateActions,
 } from '../src/product-types-actions'
+import { SyncAction } from '../src/types/update-actions'
+import { ProductTypeUpdateAction } from '@commercetools/platform-sdk/src'
 
 describe('ProductTypes sync', () => {
   test('action group list', () => {
@@ -21,8 +23,8 @@ describe('ProductTypes sync', () => {
 })
 
 describe('Actions', () => {
-  let productTypesSync
-  let updateActions
+  let productTypesSync: SyncAction<ProductTypeUpdateAction>
+  let updateActions: Array<ProductTypeUpdateAction>
   let before
   let now
   beforeEach(() => {

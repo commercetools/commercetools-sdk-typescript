@@ -1,6 +1,8 @@
 import clone from '../src/utils/clone'
 import createSyncTypes, { actionGroups } from '../src/types'
 import { baseActionsList } from '../src/types-actions'
+import { SyncAction } from '../src/types/update-actions'
+import { TypeUpdateAction } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -17,8 +19,8 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let typesSync
-  let updateActions
+  let typesSync: SyncAction<TypeUpdateAction>
+  let updateActions: Array<TypeUpdateAction>
   let before
   let now
   beforeEach(() => {

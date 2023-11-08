@@ -1,5 +1,7 @@
 import createProjectsSync, { actionGroups } from '../src/projects'
 import { baseActionsList } from '../src/projects-actions'
+import { SyncAction } from '../src/types/update-actions'
+import { ProjectUpdateAction } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -68,7 +70,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let projectsSync
+  let projectsSync: SyncAction<ProjectUpdateAction>
   beforeEach(() => {
     projectsSync = createProjectsSync()
   })

@@ -1,5 +1,7 @@
 import inventorySyncFn, { actionGroups } from '../src/inventories'
 import { baseActionsList, referenceActionsList } from '../src/inventory-actions'
+import { SyncAction } from '../src/types/update-actions'
+import { InventoryEntryUpdateAction } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -26,7 +28,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let inventorySync
+  let inventorySync: SyncAction<InventoryEntryUpdateAction>
   beforeEach(() => {
     inventorySync = inventorySyncFn()
   })

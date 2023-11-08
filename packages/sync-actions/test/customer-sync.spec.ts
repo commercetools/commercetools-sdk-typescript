@@ -4,6 +4,8 @@ import {
   setDefaultBaseActionsList,
   referenceActionsList,
 } from '../src/customer-actions'
+import { SyncAction } from '../src/types/update-actions'
+import { CustomerUpdateAction } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -64,7 +66,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let customerSync
+  let customerSync: SyncAction<CustomerUpdateAction>
   beforeEach(() => {
     customerSync = customerSyncFn()
   })

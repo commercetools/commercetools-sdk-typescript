@@ -99,6 +99,21 @@ exports[`product type hints attribute enum values without previous when is local
 ]
 `;
 
+exports[`product type hints attribute enum values without previous when is truly localized should match snapshot 1`] = `
+[
+  {
+    "action": "changeLocalizedEnumValueLabel",
+    "attributeName": "attribute-name",
+    "newValue": {
+      "key": "enum-key",
+      "label": {
+        "en-GB": "uk-label-new",
+      },
+    },
+  },
+]
+`;
+
 exports[`product type hints attribute hints with previous with next with changes should match snapshot 1`] = `
 [
   {

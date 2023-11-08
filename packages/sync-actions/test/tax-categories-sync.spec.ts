@@ -1,5 +1,7 @@
 import taxCategorySyncFn, { actionGroups } from '../src/tax-categories'
 import { baseActionsList } from '../src/tax-categories-actions'
+import { SyncAction } from '../src/types/update-actions'
+import { TaxCategoryUpdateAction } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -16,7 +18,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let taxCategorySync
+  let taxCategorySync: SyncAction<TaxCategoryUpdateAction>
   beforeEach(() => {
     taxCategorySync = taxCategorySyncFn()
   })

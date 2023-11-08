@@ -1,5 +1,7 @@
 import statesSyncFn, { actionGroups } from '../src/states'
 import { baseActionsList } from '../src/state-actions'
+import { SyncAction } from '../src/types/update-actions'
+import { StateUpdateAction } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -66,7 +68,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let statesSync
+  let statesSync: SyncAction<StateUpdateAction>
   beforeEach(() => {
     statesSync = statesSyncFn()
   })

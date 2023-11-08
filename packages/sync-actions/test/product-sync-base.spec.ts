@@ -5,6 +5,8 @@ import {
   metaActionsList,
   referenceActionsList,
 } from '../src/product-actions'
+import { SyncAction } from '../src/types/update-actions'
+import { ProductUpdateAction } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -50,7 +52,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let productsSync
+  let productsSync: SyncAction<ProductUpdateAction>
   beforeEach(() => {
     productsSync = productsSyncFn()
   })

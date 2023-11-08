@@ -1,9 +1,11 @@
 import categorySyncFn, { actionGroups } from '../src/categories'
+import { SyncAction } from '../src/types/update-actions'
 import {
   baseActionsList,
   metaActionsList,
   referenceActionsList,
 } from '../src/category-actions'
+import { CategoryUpdateAction } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -43,7 +45,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let categorySync
+  let categorySync: SyncAction<CategoryUpdateAction>
   beforeEach(() => {
     categorySync = categorySyncFn()
   })

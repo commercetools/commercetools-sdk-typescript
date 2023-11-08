@@ -1,5 +1,7 @@
 import customerGroupSyncFn, { actionGroups } from '../src/customer-group'
 import { baseActionsList } from '../src/customer-group-actions'
+import { SyncAction } from '../src/types/update-actions'
+import { CustomerGroupUpdateAction } from '@commercetools/platform-sdk/src'
 
 describe('Customer Groups Exports', () => {
   test('action group list', () => {
@@ -27,7 +29,7 @@ describe('Customer Groups Exports', () => {
 })
 
 describe('Customer Groups Actions', () => {
-  let customerGroupSync
+  let customerGroupSync: SyncAction<CustomerGroupUpdateAction>
   beforeEach(() => {
     customerGroupSync = customerGroupSyncFn()
   })

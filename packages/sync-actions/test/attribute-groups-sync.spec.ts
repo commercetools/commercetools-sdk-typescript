@@ -1,5 +1,7 @@
 import attributeGroupSyncFn from '../src/attribute-groups'
 import { baseActionsList } from '../src/attribute-groups-actions'
+import { AttributeGroupUpdateAction } from '@commercetools/platform-sdk/src'
+import { SyncAction } from '../src/types/update-actions'
 
 describe('Exports', () => {
   test('correctly define base actions list', () => {
@@ -12,7 +14,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let attributeGroupSync
+  let attributeGroupSync: SyncAction<AttributeGroupUpdateAction>
   beforeEach(() => {
     attributeGroupSync = attributeGroupSyncFn()
   })

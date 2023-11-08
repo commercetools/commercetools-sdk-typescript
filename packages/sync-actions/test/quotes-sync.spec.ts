@@ -1,5 +1,7 @@
 import createQuotesSync, { actionGroups } from '../src/quotes'
 import { baseActionsList } from '../src/quotes-actions'
+import { SyncAction } from '../src/types/update-actions'
+import { QuoteUpdateAction } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -32,7 +34,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let quotesSync
+  let quotesSync: SyncAction<QuoteUpdateAction>
   beforeEach(() => {
     quotesSync = createQuotesSync()
   })

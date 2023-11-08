@@ -1,8 +1,10 @@
+import { SyncAction } from '../src/types/update-actions'
 import productsSyncFn from '../src/products'
+import { ProductUpdateAction } from '@commercetools/platform-sdk/src'
 
 /* eslint-disable max-len */
 describe('Actions', () => {
-  let productsSync
+  let productsSync: SyncAction<ProductUpdateAction>
   beforeEach(() => {
     productsSync = productsSyncFn()
   })
