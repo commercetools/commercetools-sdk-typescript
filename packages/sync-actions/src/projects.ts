@@ -1,11 +1,14 @@
-import { Project, ProjectUpdateAction } from '@commercetools/platform-sdk'
+import {
+  MessagesConfigurationDraft,
+  Project,
+  ProjectUpdateAction,
+} from '@commercetools/platform-sdk'
 import { ActionGroup, SyncActionConfig } from '@commercetools/sdk-client-v2'
 import { actionsMapBase } from './projects-actions'
 import { SyncAction } from './types/update-actions'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
-import { MessagesConfigurationDraft } from '@commercetools/platform-sdk'
 
 export const actionGroups = ['base']
 

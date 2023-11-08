@@ -433,6 +433,7 @@ function _buildVariantChangeAssetOrderAction(
   }
   return [changeAssetOrderAction]
 }
+
 function _buildVariantAssetsActions(diffAssets, oldVariant, newVariant) {
   const assetActions = []
 

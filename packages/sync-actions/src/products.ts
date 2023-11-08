@@ -25,7 +25,6 @@ import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
 import findMatchingPairs from './utils/find-matching-pairs'
-import exp from 'constants'
 
 const actionGroups = [
   'base',
