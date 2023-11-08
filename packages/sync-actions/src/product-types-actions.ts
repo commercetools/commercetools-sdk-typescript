@@ -3,6 +3,7 @@ import {
   buildBaseAttributesActions,
   createIsEmptyValue,
 } from './utils/common-actions'
+import { LocalizedString } from '@commercetools/platform-sdk'
 
 export const baseActionsList = [
   { action: 'changeName', key: 'name' },
@@ -112,8 +113,14 @@ export const generateBaseFieldsUpdateActions = (
   )
 }
 
+type AttributeDefinition = {
+  previous?: { name: string } | undefined
+  next?: { name: string } | undefined
+  hint?: { attributeName: string; isLocalized: boolean }
+}
+
 const generateUpdateActionsForAttributeDefinitions = (
-  attributeDefinitions = []
+  attributeDefinitions: Array<AttributeDefinition> = []
 ) => {
   const removedAttributeDefinitions = attributeDefinitions.filter(
     (attributeDefinition) =>
@@ -170,8 +177,22 @@ const generateUpdateActionsForAttributeDefinitions = (
     })),
   ]
 }
+
+export type AttributeEnumValues = {
+  previous?: {
+    key: string
+    label: LocalizedString | string | undefined
+    [key: string]: unknown
+  }
+  next?: {
+    key: string
+    label: LocalizedString | string | undefined
+    [key: string]: unknown
+  }
+  hint?: { attributeName: string; isLocalized: boolean }
+}
 const generateUpdateActionsForAttributeEnumValues = (
-  attributeEnumValues = []
+  attributeEnumValues: Array<AttributeEnumValues> = []
 ) => {
   const removedAttributeEnumValues = attributeEnumValues.filter(
     (attributeEnumValue) =>
@@ -295,20 +316,21 @@ const generateChangeAttributeOrderAction = (
   return null
 }
 
+export type NestedValues = {
+  attributeDefinitions?: Array<AttributeDefinition>
+  attributeEnumValues?: Array<AttributeEnumValues>
+}
 export const actionsMapForHints = (
-  nestedValuesChanges: {
-    attributeDefinitions: Array<any>
-    attributeEnumValues: Array<any>
-  } = { attributeDefinitions: [], attributeEnumValues: [] },
+  nestedValuesChanges: NestedValues,
   ptOld,
   ptNew
 ) => {
   const updateActions = [
     ...generateUpdateActionsForAttributeDefinitions(
-      nestedValuesChanges.attributeDefinitions
+      nestedValuesChanges?.attributeDefinitions
     ),
     ...generateUpdateActionsForAttributeEnumValues(
-      nestedValuesChanges.attributeEnumValues
+      nestedValuesChanges?.attributeEnumValues
     ),
   ]
 

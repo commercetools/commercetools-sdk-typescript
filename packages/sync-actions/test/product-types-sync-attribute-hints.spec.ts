@@ -1,6 +1,9 @@
-import createSyncProductTypes from '../src/product-types'
+import createSyncProductTypes, { ProductTypeConfig } from '../src/product-types'
+import { SyncAction } from '../src/types/update-actions'
+import { ProductTypeUpdateAction } from '@commercetools/platform-sdk/src'
+import { AttributeEnumValues } from '../src/product-types-actions'
 
-const createAttributeDefinitionDraftItem = (custom?) => ({
+const createAttributeDefinitionDraftItem = (custom?): AttributeEnumValues => ({
   previous: {
     type: { name: 'text' },
     name: 'attribute-name',
@@ -24,7 +27,9 @@ const createAttributeDefinitionDraftItem = (custom?) => ({
   ...custom,
 })
 
-const createAttributeEnumDraftItem = (custom?) => ({
+const createAttributeEnumDraftItem = (
+  custom?: AttributeEnumValues
+): AttributeEnumValues => ({
   previous: {
     key: 'enum-key',
     label: 'enum-label',
@@ -41,13 +46,13 @@ const createAttributeEnumDraftItem = (custom?) => ({
 })
 
 describe('product type hints', () => {
-  let updateActions
-  let sync
+  let updateActions: Array<ProductTypeUpdateAction>
+  let sync: SyncAction<ProductTypeUpdateAction, ProductTypeConfig>
   beforeEach(() => {
     sync = createSyncProductTypes([])
   })
   describe('attribute enum values', () => {
-    let attributeEnumDraftItem
+    let attributeEnumDraftItem: AttributeEnumValues
     describe('with previous', () => {
       describe('with no changes', () => {
         beforeEach(() => {
@@ -308,6 +313,40 @@ describe('product type hints', () => {
               action: 'addLocalizedEnumValue',
               attributeName: attributeEnumDraftItem.hint.attributeName,
               value: attributeEnumDraftItem.next,
+            },
+          ])
+        })
+      })
+      describe('when is truly localized', () => {
+        beforeEach(() => {
+          attributeEnumDraftItem = createAttributeEnumDraftItem({
+            previous: { label: { 'en-GB': 'uk-label' }, key: 'enum-key' },
+            next: { label: { 'en-GB': 'uk-label-new' }, key: 'enum-key' },
+            hint: {
+              // this hint value is used as `attributeName` for enum update actions
+              attributeName: 'attribute-name',
+              isLocalized: true,
+            },
+          })
+          updateActions = sync.buildActions(
+            {},
+            {},
+            {
+              nestedValuesChanges: {
+                attributeEnumValues: [attributeEnumDraftItem],
+              },
+            }
+          )
+        })
+        it('should match snapshot', () => {
+          expect(updateActions).toMatchSnapshot()
+        })
+        it('should generate `addLocalizedEnumValue`', () => {
+          expect(updateActions).toEqual([
+            {
+              action: 'changeLocalizedEnumValueLabel',
+              attributeName: attributeEnumDraftItem.hint.attributeName,
+              newValue: attributeEnumDraftItem.next,
             },
           ])
         })

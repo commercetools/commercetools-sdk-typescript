@@ -9,6 +9,7 @@ import { SyncAction } from './types/update-actions'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
+import { NestedValues } from './product-types-actions'
 
 type SyncActionConfig = { withHints?: boolean } & BaseSyncActionConfig
 
@@ -49,10 +50,14 @@ function createProductTypeMapActions(
   }
 }
 
+export type ProductTypeConfig = {
+  nestedValuesChanges: NestedValues
+}
+
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction<ProductTypeUpdateAction> => {
+): SyncAction<ProductTypeUpdateAction, ProductTypeConfig> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createProductTypeMapActions(
     mapActionGroup,
