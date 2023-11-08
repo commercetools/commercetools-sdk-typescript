@@ -1,5 +1,4 @@
-import createSyncProductTypes, { ProductTypeConfig } from '../src/product-types'
-import { SyncAction } from '../src/types/update-actions'
+import createSyncProductTypes from '../src/product-types'
 import { ProductTypeUpdateAction } from '@commercetools/platform-sdk/src'
 import { AttributeEnumValues } from '../src/product-types-actions'
 
@@ -47,7 +46,7 @@ const createAttributeEnumDraftItem = (
 
 describe('product type hints', () => {
   let updateActions: Array<ProductTypeUpdateAction>
-  let sync: SyncAction<ProductTypeUpdateAction, ProductTypeConfig>
+  let sync = createSyncProductTypes([])
   beforeEach(() => {
     sync = createSyncProductTypes([])
   })

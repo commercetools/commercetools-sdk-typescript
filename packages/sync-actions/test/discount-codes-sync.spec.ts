@@ -1,7 +1,7 @@
 import discountCodesSyncFn, { actionGroups } from '../src/discount-codes'
 import { baseActionsList } from '../src/discount-codes-actions'
-import { SyncAction } from '../src/types/update-actions'
-import { DiscountCodeUpdateAction } from '@commercetools/platform-sdk/src'
+import { DeepPartial } from '../src/types/update-actions'
+import { DiscountCodeDraft } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -86,7 +86,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let discountCodesSync: SyncAction<DiscountCodeUpdateAction>
+  let discountCodesSync = discountCodesSyncFn()
   beforeEach(() => {
     discountCodesSync = discountCodesSyncFn()
   })
@@ -180,34 +180,34 @@ describe('Actions', () => {
   })
 
   test('should build `changeCartDiscounts` action', () => {
-    const before = {
+    const before: DeepPartial<DiscountCodeDraft> = {
       cartDiscounts: [
         {
-          typeId: 'previous-cart-discount',
+          typeId: 'cart-discount',
           id: 'previous-cart-discount-id',
         },
         {
-          typeId: 'another-previous-cart-discount',
+          typeId: 'cart-discount',
           id: 'another-previous-cart-discount-id',
         },
       ],
     }
-    const now = {
+    const now: DeepPartial<DiscountCodeDraft> = {
       cartDiscounts: [
         {
-          typeId: 'previous-cart-discount',
+          typeId: 'cart-discount',
           id: 'previous-cart-discount-id',
         },
         {
-          typeId: 'new-cart-discount-1',
+          typeId: 'cart-discount',
           id: 'new-cart-discount-id-1',
         },
         {
-          typeId: 'new-cart-discount-2',
+          typeId: 'cart-discount',
           id: 'new-cart-discount-id-2',
         },
         {
-          typeId: 'another-new-cart-discount-2',
+          typeId: 'cart-discount',
           id: 'another-new-cart-discount-id-2',
         },
       ],
@@ -219,19 +219,19 @@ describe('Actions', () => {
         action: 'changeCartDiscounts',
         cartDiscounts: [
           {
-            typeId: 'previous-cart-discount',
+            typeId: 'cart-discount',
             id: 'previous-cart-discount-id',
           },
           {
-            typeId: 'new-cart-discount-1',
+            typeId: 'cart-discount',
             id: 'new-cart-discount-id-1',
           },
           {
-            typeId: 'new-cart-discount-2',
+            typeId: 'cart-discount',
             id: 'new-cart-discount-id-2',
           },
           {
-            typeId: 'another-new-cart-discount-2',
+            typeId: 'cart-discount',
             id: 'another-new-cart-discount-id-2',
           },
         ],
@@ -321,7 +321,7 @@ describe('Actions', () => {
 
   describe('custom fields', () => {
     test('should build `setCustomType` action', () => {
-      const before = {
+      const before: DeepPartial<DiscountCodeDraft> = {
         custom: {
           type: {
             typeId: 'type',
@@ -332,7 +332,7 @@ describe('Actions', () => {
           },
         },
       }
-      const now = {
+      const now: DeepPartial<DiscountCodeDraft> = {
         custom: {
           type: {
             typeId: 'type',
@@ -350,7 +350,7 @@ describe('Actions', () => {
   })
 
   test('should build `setCustomField` action', () => {
-    const before = {
+    const before: DeepPartial<DiscountCodeDraft> = {
       custom: {
         type: {
           typeId: 'type',
@@ -361,7 +361,7 @@ describe('Actions', () => {
         },
       },
     }
-    const now = {
+    const now: DeepPartial<DiscountCodeDraft> = {
       custom: {
         type: {
           typeId: 'type',

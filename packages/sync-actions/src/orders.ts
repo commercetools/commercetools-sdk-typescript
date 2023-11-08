@@ -1,4 +1,10 @@
-import { OrderUpdateAction } from '@commercetools/platform-sdk'
+import {
+  CustomFields,
+  OrderUpdateAction,
+  ReturnInfo,
+  ShippingInfo,
+  StagedOrderUpdateAction,
+} from '@commercetools/platform-sdk'
 import type {
   ActionGroup,
   SyncActionConfig,
@@ -86,10 +92,19 @@ function createOrderMapActions(
   }
 }
 
+export type OrderSync = {
+  orderState: string
+  paymentState: string
+  shipmentState: string
+  shippingInfo: ShippingInfo
+  returnInfo: Array<ReturnInfo>
+  custom: CustomFields
+}
+
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction<OrderUpdateAction> => {
+): SyncAction<OrderSync, StagedOrderUpdateAction> => {
   // actionGroupList contains information about which action groups
   // are allowed or ignored
 
@@ -103,6 +118,9 @@ export default (
   // It will return an empty array for ignored action groups
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createOrderMapActions(mapActionGroup, syncActionConfig)
-  const buildActions = createBuildActions(diff, doMapActions)
+  const buildActions = createBuildActions<OrderSync, OrderUpdateAction>(
+    diff,
+    doMapActions
+  )
   return { buildActions }
 }

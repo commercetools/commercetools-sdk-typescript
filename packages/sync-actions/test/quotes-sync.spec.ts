@@ -1,7 +1,11 @@
 import createQuotesSync, { actionGroups } from '../src/quotes'
 import { baseActionsList } from '../src/quotes-actions'
-import { SyncAction } from '../src/types/update-actions'
-import { QuoteUpdateAction } from '@commercetools/platform-sdk/src'
+import { DeepPartial, SyncAction } from '../src/types/update-actions'
+import {
+  Quote,
+  QuoteDraft,
+  QuoteUpdateAction,
+} from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -34,14 +38,14 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let quotesSync: SyncAction<QuoteUpdateAction>
+  let quotesSync = createQuotesSync()
   beforeEach(() => {
     quotesSync = createQuotesSync()
   })
 
   test('should build `changeQuoteState` action', () => {
-    const before = { quoteState: 'Pending' }
-    const now = { quoteState: 'Approved' }
+    const before: DeepPartial<Quote> = { quoteState: 'Pending' }
+    const now: DeepPartial<Quote> = { quoteState: 'Approved' }
     const actual = quotesSync.buildActions(now, before)
     const expected = [
       {
@@ -53,8 +57,8 @@ describe('Actions', () => {
   })
 
   test('should build `requestQuoteRenegotiation` action', () => {
-    const before = { buyerComment: '' }
-    const now = { buyerComment: 'give me a 10% discount' }
+    const before: DeepPartial<Quote> = { buyerComment: '' }
+    const now: DeepPartial<Quote> = { buyerComment: 'give me a 10% discount' }
     const actual = quotesSync.buildActions(now, before)
     const expected = [
       {
@@ -66,13 +70,13 @@ describe('Actions', () => {
   })
 
   test('should build `transitionState` action', () => {
-    const before = {
+    const before: DeepPartial<Quote> = {
       state: {
         typeId: 'state',
         id: 'sid1',
       },
     }
-    const now = {
+    const now: DeepPartial<Quote> = {
       state: {
         typeId: 'state',
         id: 'sid2',
@@ -89,7 +93,7 @@ describe('Actions', () => {
   })
 
   test('should build `setCustomType` action', () => {
-    const before = {
+    const before: DeepPartial<Quote> = {
       custom: {
         type: {
           typeId: 'type',
@@ -100,7 +104,7 @@ describe('Actions', () => {
         },
       },
     }
-    const now = {
+    const now: DeepPartial<Quote> = {
       custom: {
         type: {
           typeId: 'type',
@@ -117,7 +121,7 @@ describe('Actions', () => {
   })
 
   test('should build `setCustomField` action', () => {
-    const before = {
+    const before: DeepPartial<Quote> = {
       custom: {
         type: {
           typeId: 'type',
@@ -128,7 +132,7 @@ describe('Actions', () => {
         },
       },
     }
-    const now = {
+    const now: DeepPartial<Quote> = {
       custom: {
         type: {
           typeId: 'type',

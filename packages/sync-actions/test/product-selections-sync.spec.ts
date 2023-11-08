@@ -2,8 +2,11 @@ import { baseActionsList } from '../src/product-selections-actions'
 import productSelectionsSyncFn, {
   actionGroups,
 } from '../src/product-selections'
-import { SyncAction } from '../src/types/update-actions'
-import { ProductSelectionUpdateAction } from '@commercetools/platform-sdk/src'
+import { DeepPartial, SyncAction } from '../src/types/update-actions'
+import {
+  ProductSelectionDraft,
+  ProductSelectionUpdateAction,
+} from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -19,7 +22,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let productSelectionsSync: SyncAction<ProductSelectionUpdateAction>
+  let productSelectionsSync = productSelectionsSyncFn()
   beforeEach(() => {
     productSelectionsSync = productSelectionsSyncFn()
   })
@@ -52,7 +55,7 @@ describe('Actions', () => {
 
   describe('custom fields', () => {
     test('should build `setCustomType` action', () => {
-      const before = {
+      const before: DeepPartial<ProductSelectionDraft> = {
         custom: {
           type: {
             typeId: 'type',
@@ -63,7 +66,7 @@ describe('Actions', () => {
           },
         },
       }
-      const now = {
+      const now: DeepPartial<ProductSelectionDraft> = {
         custom: {
           type: {
             typeId: 'type',
@@ -81,7 +84,7 @@ describe('Actions', () => {
   })
 
   test('should build `setCustomField` action', () => {
-    const before = {
+    const before: DeepPartial<ProductSelectionDraft> = {
       custom: {
         type: {
           typeId: 'type',
@@ -92,7 +95,7 @@ describe('Actions', () => {
         },
       },
     }
-    const now = {
+    const now: DeepPartial<ProductSelectionDraft> = {
       custom: {
         type: {
           typeId: 'type',

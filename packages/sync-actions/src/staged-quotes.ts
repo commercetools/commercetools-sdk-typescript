@@ -1,4 +1,8 @@
-import { StagedQuoteUpdateAction } from '@commercetools/platform-sdk'
+import {
+  CustomFields,
+  StagedQuote,
+  StagedQuoteUpdateAction,
+} from '@commercetools/platform-sdk'
 import type {
   ActionGroup,
   SyncActionConfig,
@@ -43,17 +47,25 @@ function createStagedQuotesMapActions(
   }
 }
 
+export type StagedQuoteSync = {
+  stagedQuoteState: string
+  custom: CustomFields
+} & StagedQuote
+
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction<StagedQuoteUpdateAction> => {
+): SyncAction<StagedQuoteSync, StagedQuoteUpdateAction> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createStagedQuotesMapActions(
     mapActionGroup,
     syncActionConfig
   )
 
-  const buildActions = createBuildActions(diff, doMapActions)
+  const buildActions = createBuildActions<
+    StagedQuoteSync,
+    StagedQuoteUpdateAction
+  >(diff, doMapActions)
 
   return { buildActions }
 }

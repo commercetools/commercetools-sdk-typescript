@@ -1,4 +1,6 @@
+import { UpdateAction } from '@commercetools/sdk-client-v2'
 import { deepEqual } from 'fast-equals'
+import { DeepPartial } from '../types/update-actions'
 
 function applyOnBeforeDiff(before, now, fn?: (before, now) => Array<any>) {
   return fn && typeof fn === 'function' ? fn(before, now) : [before, now]
@@ -66,13 +68,17 @@ function injectMissingPriceIds(nextVariants, previousVariants) {
   })
 }
 
-export default function createBuildActions(
+export default function createBuildActions<S, T extends UpdateAction>(
   differ,
   doMapActions,
-  onBeforeDiff?: (before, now) => Array<any>,
+  onBeforeDiff?: (before: DeepPartial<S>, now: DeepPartial<S>) => Array<any>,
   buildActionsConfig: any = {}
 ) {
-  return function buildActions(now, before, options = {}) {
+  return function buildActions(
+    now: DeepPartial<S>,
+    before: DeepPartial<S>,
+    options = {}
+  ): Array<T> {
     if (!now || !before)
       throw new Error(
         'Missing either `newObj` or `oldObj` ' +

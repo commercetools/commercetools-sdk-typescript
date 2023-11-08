@@ -1,7 +1,10 @@
 import cartDiscountsSyncFn, { actionGroups } from '../src/cart-discounts'
 import { baseActionsList } from '../src/cart-discounts-actions'
-import { SyncAction } from '../src/types/update-actions'
-import { CartDiscountUpdateAction } from '@commercetools/platform-sdk/src'
+import { DeepPartial, SyncAction } from '../src/types/update-actions'
+import {
+  CartDiscountDraft,
+  CartDiscountUpdateAction,
+} from '@commercetools/platform-sdk/src'
 
 describe('Cart Discounts Exports', () => {
   test('action group list', () => {
@@ -111,7 +114,7 @@ describe('Cart Discounts Exports', () => {
 })
 
 describe('Cart Discounts Actions', () => {
-  let cartDiscountsSync: SyncAction<CartDiscountUpdateAction>
+  let cartDiscountsSync = cartDiscountsSyncFn()
   beforeEach(() => {
     cartDiscountsSync = cartDiscountsSyncFn()
   })
@@ -193,14 +196,14 @@ describe('Cart Discounts Actions', () => {
   })
 
   test('should build the `changeValue` action', () => {
-    const before = {
+    const before: DeepPartial<CartDiscountDraft> = {
       value: {
         type: 'relative',
         permyriad: 100,
       },
     }
 
-    const now = {
+    const now: DeepPartial<CartDiscountDraft> = {
       value: {
         type: 'relative',
         permyriad: 200,
@@ -240,14 +243,14 @@ describe('Cart Discounts Actions', () => {
   })
 
   test('should build the `changeTarget` action', () => {
-    const before = {
+    const before: DeepPartial<CartDiscountDraft> = {
       target: {
         type: 'customLineItems',
         predicate: 'sku="sku-a"',
       },
     }
 
-    const now = {
+    const now: DeepPartial<CartDiscountDraft> = {
       target: {
         type: 'lineItems',
         predicate: 'sku="sku-b"',
@@ -368,7 +371,7 @@ describe('Cart Discounts Actions', () => {
 
   describe('custom fields', () => {
     test('should build `setCustomType` action', () => {
-      const before = {
+      const before: DeepPartial<CartDiscountDraft> = {
         custom: {
           type: {
             typeId: 'type',
@@ -379,7 +382,7 @@ describe('Cart Discounts Actions', () => {
           },
         },
       }
-      const now = {
+      const now: DeepPartial<CartDiscountDraft> = {
         custom: {
           type: {
             typeId: 'type',
@@ -397,7 +400,7 @@ describe('Cart Discounts Actions', () => {
   })
 
   test('should build `setCustomField` action', () => {
-    const before = {
+    const before: DeepPartial<CartDiscountDraft> = {
       custom: {
         type: {
           typeId: 'type',
@@ -408,7 +411,7 @@ describe('Cart Discounts Actions', () => {
         },
       },
     }
-    const now = {
+    const now: DeepPartial<CartDiscountDraft> = {
       custom: {
         type: {
           typeId: 'type',

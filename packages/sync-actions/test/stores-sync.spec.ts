@@ -1,7 +1,7 @@
 import storesSyncFn, { actionGroups } from '../src/stores'
 import { baseActionsList } from '../src/stores-actions'
-import { SyncAction } from '../src/types/update-actions'
-import { StoreUpdateAction } from '@commercetools/platform-sdk/src'
+import { DeepPartial, SyncAction } from '../src/types/update-actions'
+import { Store, StoreUpdateAction } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -19,7 +19,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let storesSync: SyncAction<StoreUpdateAction>
+  let storesSync = storesSyncFn()
   beforeEach(() => {
     storesSync = storesSyncFn()
   })
@@ -51,7 +51,7 @@ describe('Actions', () => {
   })
 
   test('should build `setDistributionsChannels` action', () => {
-    const before = {
+    const before: DeepPartial<Store> = {
       distributionChannels: [
         {
           typeId: 'channel',
@@ -59,7 +59,7 @@ describe('Actions', () => {
         },
       ],
     }
-    const now = {
+    const now: DeepPartial<Store> = {
       distributionChannels: [
         {
           typeId: 'channel',
@@ -67,7 +67,7 @@ describe('Actions', () => {
         },
         {
           typeId: 'channel',
-          key: 'pd-002',
+          id: 'pd-002',
         },
       ],
     }
@@ -81,7 +81,7 @@ describe('Actions', () => {
     ])
   })
   test('should build `setSupplyChannels` action', () => {
-    const before = {
+    const before: DeepPartial<Store> = {
       supplyChannels: [
         {
           typeId: 'channel',
@@ -89,7 +89,7 @@ describe('Actions', () => {
         },
       ],
     }
-    const now = {
+    const now: DeepPartial<Store> = {
       supplyChannels: [
         {
           typeId: 'channel',
@@ -97,7 +97,7 @@ describe('Actions', () => {
         },
         {
           typeId: 'channel',
-          key: 'inventory-supply-002',
+          id: 'inventory-supply-002',
         },
       ],
     }
@@ -113,7 +113,7 @@ describe('Actions', () => {
 
   describe('custom fields', () => {
     test('should build `setCustomType` action', () => {
-      const before = {
+      const before: DeepPartial<Store> = {
         custom: {
           type: {
             typeId: 'type',
@@ -124,7 +124,7 @@ describe('Actions', () => {
           },
         },
       }
-      const now = {
+      const now: DeepPartial<Store> = {
         custom: {
           type: {
             typeId: 'type',
@@ -142,7 +142,7 @@ describe('Actions', () => {
   })
 
   test('should build `setCustomField` action', () => {
-    const before = {
+    const before: DeepPartial<Store> = {
       custom: {
         type: {
           typeId: 'type',
@@ -153,7 +153,7 @@ describe('Actions', () => {
         },
       },
     }
-    const now = {
+    const now: DeepPartial<Store> = {
       custom: {
         type: {
           typeId: 'type',

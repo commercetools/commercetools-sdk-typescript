@@ -9,7 +9,7 @@ const createTestType = (custom) => ({
 })
 
 describe('Actions', () => {
-  let typesSync: SyncAction<TypeUpdateAction>
+  let typesSync = typesSyncFn()
   let updateActions: Array<TypeUpdateAction>
   let before
   let now

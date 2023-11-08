@@ -1,4 +1,7 @@
-import { CartDiscountUpdateAction } from '@commercetools/platform-sdk'
+import {
+  CartDiscount,
+  CartDiscountUpdateAction,
+} from '@commercetools/platform-sdk'
 import { ActionGroup, SyncActionConfig } from '@commercetools/sdk-client-v2'
 import { actionsMapBase } from './cart-discounts-actions'
 import { SyncAction } from './types/update-actions'
@@ -31,12 +34,15 @@ function createCartDiscountsMapActions(mapActionGroup, syncActionConfig) {
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction<CartDiscountUpdateAction> => {
+): SyncAction<CartDiscount, CartDiscountUpdateAction> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createCartDiscountsMapActions(
     mapActionGroup,
     syncActionConfig
   )
-  const buildActions = createBuildActions(diff, doMapActions)
+  const buildActions = createBuildActions<
+    CartDiscount,
+    CartDiscountUpdateAction
+  >(diff, doMapActions)
   return { buildActions }
 }

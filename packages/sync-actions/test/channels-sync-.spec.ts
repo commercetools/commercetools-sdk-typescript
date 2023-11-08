@@ -1,7 +1,11 @@
 import createChannelsSync, { actionGroups } from '../src/channels'
 import { baseActionsList } from '../src/channels-actions'
-import { SyncAction } from '../src/types/update-actions'
-import { ChannelUpdateAction } from '@commercetools/platform-sdk/src'
+import { DeepPartial, SyncAction } from '../src/types/update-actions'
+import {
+  CategoryDraft,
+  ChannelDraft,
+  ChannelUpdateAction,
+} from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -68,7 +72,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let channelsSync: SyncAction<ChannelUpdateAction>
+  let channelsSync = createChannelsSync()
   beforeEach(() => {
     channelsSync = createChannelsSync()
   })
@@ -87,8 +91,10 @@ describe('Actions', () => {
   })
 
   test('should build `changeName` action', () => {
-    const before = { name: 'nameBefore' }
-    const now = { name: 'nameAfter' }
+    const before = {
+      name: { 'en-GB': 'nameBefore' },
+    }
+    const now = { name: { 'en-GB': 'nameAfter' } }
     const actual = channelsSync.buildActions(now, before)
     const expected = [
       {
@@ -100,8 +106,8 @@ describe('Actions', () => {
   })
 
   test('should build `changeDescription` action', () => {
-    const before = { description: 'descriptionBefore' }
-    const now = { description: 'descriptionAfter' }
+    const before = { description: { 'en-GB': 'descriptionBefore' } }
+    const now = { description: { 'en-GB': 'descriptionAfter' } }
     const actual = channelsSync.buildActions(now, before)
     const expected = [
       {
@@ -113,8 +119,10 @@ describe('Actions', () => {
   })
 
   test('should build `setAddress` action', () => {
-    const before = { address: 'addressBefore' }
-    const now = { address: 'addressAfter' }
+    const before: DeepPartial<ChannelDraft> = {
+      address: { country: 'addressBefore' },
+    }
+    const now = { address: { country: 'addressAfter' } }
     const actual = channelsSync.buildActions(now, before)
     const expected = [
       {
@@ -126,8 +134,12 @@ describe('Actions', () => {
   })
 
   test('should build `setGeoLocation` action', () => {
-    const before = { geoLocation: 'geoLocationBefore' }
-    const now = { geoLocation: 'geoLocationAfter' }
+    const before: DeepPartial<ChannelDraft> = {
+      geoLocation: { type: 'Point', coordinates: [123] },
+    }
+    const now: DeepPartial<ChannelDraft> = {
+      geoLocation: { type: 'Point', coordinates: [456] },
+    }
     const actual = channelsSync.buildActions(now, before)
     const expected = [
       {
@@ -153,7 +165,7 @@ describe('Actions', () => {
 
   describe('custom fields', () => {
     test('should build `setCustomType` action', () => {
-      const before = {
+      const before: DeepPartial<ChannelDraft> = {
         custom: {
           type: {
             typeId: 'type',
@@ -164,7 +176,7 @@ describe('Actions', () => {
           },
         },
       }
-      const now = {
+      const now: DeepPartial<ChannelDraft> = {
         custom: {
           type: {
             typeId: 'type',
@@ -182,7 +194,7 @@ describe('Actions', () => {
   })
 
   test('should build `setCustomField` action', () => {
-    const before = {
+    const before: DeepPartial<ChannelDraft> = {
       custom: {
         type: {
           typeId: 'type',
@@ -193,7 +205,7 @@ describe('Actions', () => {
         },
       },
     }
-    const now = {
+    const now: DeepPartial<ChannelDraft> = {
       custom: {
         type: {
           typeId: 'type',

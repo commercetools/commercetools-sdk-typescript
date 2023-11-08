@@ -4,8 +4,8 @@ import {
   setDefaultBaseActionsList,
   referenceActionsList,
 } from '../src/customer-actions'
-import { SyncAction } from '../src/types/update-actions'
-import { CustomerUpdateAction } from '@commercetools/platform-sdk/src'
+import { DeepPartial } from '../src/types/update-actions'
+import { Customer } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -66,7 +66,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let customerSync: SyncAction<CustomerUpdateAction>
+  let customerSync = customerSyncFn()
   beforeEach(() => {
     customerSync = customerSyncFn()
   })
@@ -98,7 +98,7 @@ describe('Actions', () => {
   })
 
   test('should build `setDefaultBillingAddress` action', () => {
-    const before = {
+    const before: DeepPartial<Customer> = {
       defaultBillingAddressId: 'abc123',
     }
     const now = {
@@ -380,11 +380,10 @@ describe('Actions', () => {
   })
 
   test('should build `setCustomerGroup` action with key', () => {
-    const before = {}
-    const now = {
+    const before: DeepPartial<Customer> = {}
+    const now: DeepPartial<Customer> = {
       customerGroup: {
         typeId: 'customer-group',
-        key: 'foo-customer-group',
       },
     }
     const actual = customerSync.buildActions(now, before)
@@ -399,7 +398,7 @@ describe('Actions', () => {
 
   describe('custom fields', () => {
     test('should build `setCustomType` action', () => {
-      const before = {
+      const before: DeepPartial<Customer> = {
         custom: {
           type: {
             typeId: 'type',
@@ -410,7 +409,7 @@ describe('Actions', () => {
           },
         },
       }
-      const now = {
+      const now: DeepPartial<Customer> = {
         custom: {
           type: {
             typeId: 'type',
@@ -428,7 +427,7 @@ describe('Actions', () => {
   })
 
   test('should build `setCustomField` action', () => {
-    const before = {
+    const before: DeepPartial<Customer> = {
       custom: {
         type: {
           typeId: 'type',
@@ -439,7 +438,7 @@ describe('Actions', () => {
         },
       },
     }
-    const now = {
+    const now: DeepPartial<Customer> = {
       custom: {
         type: {
           typeId: 'type',
@@ -462,7 +461,7 @@ describe('Actions', () => {
   })
 
   test('should build `setStores` action', () => {
-    const before = {
+    const before: DeepPartial<Customer> = {
       stores: [
         {
           typeId: 'store',
@@ -470,7 +469,7 @@ describe('Actions', () => {
         },
       ],
     }
-    const now = {
+    const now: DeepPartial<Customer> = {
       stores: [
         {
           typeId: 'store',
@@ -518,7 +517,7 @@ describe('Actions', () => {
   })
 
   test('should build not throw error for empty array', () => {
-    const before = {
+    const before: DeepPartial<Customer> = {
       stores: [
         {
           typeId: 'store',

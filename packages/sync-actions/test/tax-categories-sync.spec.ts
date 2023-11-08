@@ -1,7 +1,10 @@
 import taxCategorySyncFn, { actionGroups } from '../src/tax-categories'
 import { baseActionsList } from '../src/tax-categories-actions'
-import { SyncAction } from '../src/types/update-actions'
-import { TaxCategoryUpdateAction } from '@commercetools/platform-sdk/src'
+import { DeepPartial, SyncAction } from '../src/types/update-actions'
+import {
+  TaxCategory,
+  TaxCategoryUpdateAction,
+} from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -18,7 +21,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let taxCategorySync: SyncAction<TaxCategoryUpdateAction>
+  let taxCategorySync = taxCategorySyncFn()
   beforeEach(() => {
     taxCategorySync = taxCategorySyncFn()
   })
@@ -55,9 +58,9 @@ describe('Actions', () => {
   })
 
   test('should build `addTaxRate` action', () => {
-    const before = { addresses: [] }
-    const now = {
-      rates: [{ name: '5% US', amount: '0.05' }],
+    const before: DeepPartial<TaxCategory> = {}
+    const now: DeepPartial<TaxCategory> = {
+      rates: [{ name: '5% US', amount: 5 }],
     }
 
     const actual = taxCategorySync.buildActions(now, before)
@@ -66,21 +69,21 @@ describe('Actions', () => {
   })
 
   test('should build `replaceTaxRate` action', () => {
-    const before = {
+    const before: DeepPartial<TaxCategory> = {
       rates: [
         {
           id: 'taxRate-1',
           name: '5% US',
-          amount: '0.05',
+          amount: 5,
         },
       ],
     }
-    const now = {
+    const now: DeepPartial<TaxCategory> = {
       rates: [
         {
           id: 'taxRate-1',
           name: '11% US',
-          amount: '0.11',
+          amount: 11,
         },
       ],
     }
@@ -113,31 +116,31 @@ describe('Actions', () => {
   })
 
   test('should build complex mixed actions (1)', () => {
-    const before = {
+    const before: DeepPartial<TaxCategory> = {
       rates: [
         {
           id: 'taxRate-1',
           name: '11% US',
-          amount: '0.11',
+          amount: 11,
         },
         {
           id: 'taxRate-2',
           name: '8% DE',
-          amount: '0.08',
+          amount: 8,
         },
         {
           id: 'taxRate-3',
           name: '21% ES',
-          amount: '0.21',
+          amount: 21,
         },
       ],
     }
-    const now = {
+    const now: DeepPartial<TaxCategory> = {
       rates: [
         {
           id: 'taxRate-1',
           name: '11% US',
-          amount: '0.11',
+          amount: 11,
           country: 'US',
         },
         // REMOVED RATE 2
@@ -145,13 +148,13 @@ describe('Actions', () => {
           // UNCHANGED RATE 3
           id: 'taxRate-3',
           name: '21% ES',
-          amount: '0.21',
+          amount: 21,
         },
         {
           // ADD NEW RATE
           id: 'taxRate-4',
           name: '15% FR',
-          amount: '0.15',
+          amount: 15,
         },
       ],
     }
@@ -161,7 +164,7 @@ describe('Actions', () => {
       {
         action: 'replaceTaxRate',
         taxRate: {
-          amount: '0.11',
+          amount: 11,
           country: 'US', // added country to an existing rate
           id: 'taxRate-1',
           name: '11% US',
@@ -171,7 +174,7 @@ describe('Actions', () => {
       { action: 'removeTaxRate', taxRateId: 'taxRate-2' }, // removed second tax rate
       {
         action: 'addTaxRate',
-        taxRate: { amount: '0.15', id: 'taxRate-4', name: '15% FR' }, // adds new tax rate
+        taxRate: { amount: 15, id: 'taxRate-4', name: '15% FR' }, // adds new tax rate
       },
     ]
     expect(actual).toEqual(expected)
@@ -183,17 +186,17 @@ describe('Actions', () => {
         {
           id: 'taxRate-1',
           name: '11% US',
-          amount: '0.11',
+          amount: 11,
         },
         {
           id: 'taxRate-2',
           name: '8% DE',
-          amount: '0.08',
+          amount: 8,
         },
         {
           id: 'taxRate-3',
           name: '21% ES',
-          amount: '0.21',
+          amount: 21,
         },
       ],
     }
@@ -206,13 +209,13 @@ describe('Actions', () => {
           id: 'taxRate-3',
           name: '21% ES',
           state: 'NY',
-          amount: '0.21',
+          amount: 21,
         },
         {
           // ADD NEW RATE
           id: 'taxRate-4',
           name: '15% FR',
-          amount: '0.15',
+          amount: 15,
         },
       ],
     }
@@ -222,7 +225,7 @@ describe('Actions', () => {
       {
         action: 'replaceTaxRate',
         taxRate: {
-          amount: '0.21',
+          amount: 21,
           id: 'taxRate-3',
           name: '21% ES',
           state: 'NY',
@@ -233,7 +236,7 @@ describe('Actions', () => {
       { action: 'removeTaxRate', taxRateId: 'taxRate-2' }, // removed second tax rate
       {
         action: 'addTaxRate',
-        taxRate: { amount: '0.15', id: 'taxRate-4', name: '15% FR' }, // adds new tax rate
+        taxRate: { amount: 15, id: 'taxRate-4', name: '15% FR' }, // adds new tax rate
       },
     ]
 

@@ -1,10 +1,9 @@
-import { SyncAction } from '../src/types/update-actions'
-import productsSyncFn from '../src/products'
-import { ProductUpdateAction } from '@commercetools/platform-sdk/src'
+import { DeepPartial, SyncAction } from '../src/types/update-actions'
+import productsSyncFn, { ProductSync } from '../src/products'
 
 /* eslint-disable max-len */
 describe('Actions', () => {
-  let productsSync: SyncAction<ProductUpdateAction>
+  let productsSync = productsSyncFn()
   beforeEach(() => {
     productsSync = productsSyncFn()
   })
@@ -469,14 +468,12 @@ describe('Actions', () => {
 
   describe('without images', () => {
     test('should not build actions if images are not set', () => {
-      const before = {
-        id: '123-abc',
-        masterVariant: { id: 1, images: [] },
+      const before: DeepPartial<ProductSync> = {
+        masterVariant: { images: [] },
         variants: [],
       }
-      const now = {
-        id: '456-def',
-        masterVariant: { id: 1 },
+      const now: DeepPartial<ProductSync> = {
+        masterVariant: {},
         variants: [],
       }
 

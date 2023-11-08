@@ -1,11 +1,15 @@
 import categorySyncFn, { actionGroups } from '../src/categories'
-import { SyncAction } from '../src/types/update-actions'
+import { DeepPartial, SyncAction } from '../src/types/update-actions'
 import {
   baseActionsList,
   metaActionsList,
   referenceActionsList,
 } from '../src/category-actions'
-import { CategoryUpdateAction } from '@commercetools/platform-sdk/src'
+import {
+  CartDiscountDraft,
+  CategoryDraft,
+  CategoryUpdateAction,
+} from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -45,14 +49,14 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let categorySync: SyncAction<CategoryUpdateAction>
+  let categorySync = categorySyncFn()
   beforeEach(() => {
     categorySync = categorySyncFn()
   })
 
   describe('custom fields', () => {
     test('should build `setCustomType` action', () => {
-      const before = {
+      const before: DeepPartial<CategoryDraft> = {
         custom: {
           type: {
             typeId: 'type',
@@ -63,7 +67,7 @@ describe('Actions', () => {
           },
         },
       }
-      const now = {
+      const now: DeepPartial<CategoryDraft> = {
         custom: {
           type: {
             typeId: 'type',
@@ -81,7 +85,7 @@ describe('Actions', () => {
   })
 
   test('should build `setCustomField` action', () => {
-    const before = {
+    const before: DeepPartial<CategoryDraft> = {
       custom: {
         type: {
           typeId: 'type',
@@ -92,7 +96,7 @@ describe('Actions', () => {
         },
       },
     }
-    const now = {
+    const now: DeepPartial<CategoryDraft> = {
       custom: {
         type: {
           typeId: 'type',

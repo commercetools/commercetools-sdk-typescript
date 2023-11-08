@@ -1,4 +1,7 @@
-import { InventoryEntryUpdateAction } from '@commercetools/platform-sdk'
+import {
+  InventoryEntry,
+  InventoryEntryUpdateAction,
+} from '@commercetools/platform-sdk'
 import type {
   ActionGroup,
   SyncActionConfig,
@@ -50,7 +53,7 @@ function createInventoryMapActions(
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction<InventoryEntryUpdateAction> => {
+): SyncAction<InventoryEntry, InventoryEntryUpdateAction> => {
   // actionGroupList contains information about which action groups
   // are allowed or ignored
 
@@ -67,6 +70,9 @@ export default (
     mapActionGroup,
     syncActionConfig
   )
-  const buildActions = createBuildActions(diff, doMapActions)
+  const buildActions = createBuildActions<
+    InventoryEntry,
+    InventoryEntryUpdateAction
+  >(diff, doMapActions)
   return { buildActions }
 }

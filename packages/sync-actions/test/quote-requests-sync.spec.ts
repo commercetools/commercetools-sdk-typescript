@@ -1,7 +1,10 @@
 import createQuoteRequestsSync, { actionGroups } from '../src/quote-requests'
 import { baseActionsList } from '../src/quote-requests-actions'
-import { SyncAction } from '../src/types/update-actions'
-import { QuoteRequestUpdateAction } from '@commercetools/platform-sdk/src'
+import { DeepPartial, SyncAction } from '../src/types/update-actions'
+import {
+  QuoteRequest,
+  QuoteRequestUpdateAction,
+} from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -26,7 +29,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let quoteRequestsSync: SyncAction<QuoteRequestUpdateAction>
+  let quoteRequestsSync = createQuoteRequestsSync()
   beforeEach(() => {
     quoteRequestsSync = createQuoteRequestsSync()
   })
@@ -45,13 +48,13 @@ describe('Actions', () => {
   })
 
   test('should build `transitionState` action', () => {
-    const before = {
+    const before: DeepPartial<QuoteRequest> = {
       state: {
         typeId: 'state',
         id: 'sid1',
       },
     }
-    const now = {
+    const now: DeepPartial<QuoteRequest> = {
       state: {
         typeId: 'state',
         id: 'sid2',
@@ -68,7 +71,7 @@ describe('Actions', () => {
   })
 
   test('should build `setCustomType` action', () => {
-    const before = {
+    const before: DeepPartial<QuoteRequest> = {
       custom: {
         type: {
           typeId: 'type',
@@ -79,7 +82,7 @@ describe('Actions', () => {
         },
       },
     }
-    const now = {
+    const now: DeepPartial<QuoteRequest> = {
       custom: {
         type: {
           typeId: 'type',
@@ -96,7 +99,7 @@ describe('Actions', () => {
   })
 
   test('should build `setCustomField` action', () => {
-    const before = {
+    const before: DeepPartial<QuoteRequest> = {
       custom: {
         type: {
           typeId: 'type',
@@ -107,7 +110,7 @@ describe('Actions', () => {
         },
       },
     }
-    const now = {
+    const now: DeepPartial<QuoteRequest> = {
       custom: {
         type: {
           typeId: 'type',

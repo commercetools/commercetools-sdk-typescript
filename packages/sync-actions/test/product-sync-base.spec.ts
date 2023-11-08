@@ -1,12 +1,16 @@
 import clone from '../src/utils/clone'
-import productsSyncFn, { actionGroups } from '../src/products'
+import productsSyncFn, { actionGroups, ProductSync } from '../src/products'
 import {
   baseActionsList,
   metaActionsList,
   referenceActionsList,
 } from '../src/product-actions'
-import { SyncAction } from '../src/types/update-actions'
-import { ProductUpdateAction } from '@commercetools/platform-sdk/src'
+import { DeepPartial, SyncAction } from '../src/types/update-actions'
+import {
+  ProductData,
+  ProductDraft,
+  ProductUpdateAction,
+} from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -52,7 +56,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let productsSync: SyncAction<ProductUpdateAction>
+  let productsSync = productsSyncFn()
   beforeEach(() => {
     productsSync = productsSyncFn()
   })
@@ -91,7 +95,7 @@ describe('Actions', () => {
 
   test('should build `setKey` action', () => {
     const before = { key: 'unique-key-1' }
-    const now = { key: 'unique-key-2' }
+    const now: Partial<ProductSync> = { key: 'unique-key-2' }
     const actions = productsSync.buildActions(now, before)
 
     expect(actions).toEqual([{ action: 'setKey', ...now }])
@@ -137,7 +141,7 @@ describe('Actions', () => {
 
   test('should build `setSearchKeywords` action', () => {
     /* eslint-disable max-len */
-    const before = {
+    const before: DeepPartial<ProductDraft> = {
       searchKeywords: {
         en: [
           { text: 'Multi tool' },
@@ -157,7 +161,7 @@ describe('Actions', () => {
         ],
       },
     }
-    const now = {
+    const now: DeepPartial<ProductDraft> = {
       searchKeywords: {
         en: [
           {
@@ -189,7 +193,7 @@ describe('Actions', () => {
 
   test('should build no actions if searchKeywords did not change', () => {
     /* eslint-disable max-len */
-    const before = {
+    const before: DeepPartial<ProductDraft> = {
       name: { en: 'Car', de: 'Auto' },
       searchKeywords: {
         en: [

@@ -1,11 +1,17 @@
 import clone from '../src/utils/clone'
-import createSyncProductTypes, { actionGroups } from '../src/product-types'
+import createSyncProductTypes, {
+  actionGroups,
+  ProductTypeConfig,
+} from '../src/product-types'
 import {
   baseActionsList,
   generateBaseFieldsUpdateActions,
 } from '../src/product-types-actions'
-import { SyncAction } from '../src/types/update-actions'
-import { ProductTypeUpdateAction } from '@commercetools/platform-sdk/src'
+import { DeepPartial, SyncAction } from '../src/types/update-actions'
+import {
+  ProductTypeDraft,
+  ProductTypeUpdateAction,
+} from '@commercetools/platform-sdk/src'
 
 describe('ProductTypes sync', () => {
   test('action group list', () => {
@@ -23,10 +29,10 @@ describe('ProductTypes sync', () => {
 })
 
 describe('Actions', () => {
-  let productTypesSync: SyncAction<ProductTypeUpdateAction>
+  let productTypesSync = createSyncProductTypes()
   let updateActions: Array<ProductTypeUpdateAction>
-  let before
-  let now
+  let before: DeepPartial<ProductTypeDraft>
+  let now: DeepPartial<ProductTypeDraft>
   beforeEach(() => {
     productTypesSync = createSyncProductTypes()
   })

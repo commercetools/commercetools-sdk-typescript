@@ -1,4 +1,4 @@
-import { ProductUpdateAction } from '@commercetools/platform-sdk'
+import { ProductData, ProductUpdateAction } from '@commercetools/platform-sdk'
 import type {
   ActionGroup,
   SyncActionConfig,
@@ -25,6 +25,7 @@ import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
 import findMatchingPairs from './utils/find-matching-pairs'
+import exp from 'constants'
 
 const actionGroups = [
   'base',
@@ -186,14 +187,16 @@ function moveMasterVariantsIntoVariants(before: any, now: any): Array<Object> {
   ]
 }
 
+export type ProductSync = { key: string; id: string } & ProductData
+
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction<ProductUpdateAction> => {
+): SyncAction<ProductSync, ProductUpdateAction> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createProductMapActions(mapActionGroup, syncActionConfig)
 
-  const buildActions = createBuildActions(
+  const buildActions = createBuildActions<ProductSync, ProductUpdateAction>(
     diff,
     doMapActions,
     moveMasterVariantsIntoVariants

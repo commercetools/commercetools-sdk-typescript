@@ -1,10 +1,10 @@
-import { SyncAction } from '../src/types/update-actions'
-import productsSyncFn from '../src/products'
-import { ProductUpdateAction } from '@commercetools/platform-sdk/src'
+import { DeepPartial, SyncAction } from '../src/types/update-actions'
+import productsSyncFn, { ProductSync } from '../src/products'
+import { Asset } from '@commercetools/platform-sdk/src'
 
 /* eslint-disable max-len */
 describe('Actions', () => {
-  let productsSync: SyncAction<ProductUpdateAction>
+  let productsSync = productsSyncFn()
   beforeEach(() => {
     productsSync = productsSyncFn()
   })
@@ -881,21 +881,16 @@ describe('Actions', () => {
 
   test('should ignore set sku', () => {
     // Case when sku is not set, and the new value is empty or null
-    const before = {
-      id: '123',
-      masterVariant: {
-        id: 1,
-      },
-      variants: [{ id: 2 }],
+    const before: DeepPartial<ProductSync> = {
+      masterVariant: {},
+      variants: [{}],
     }
 
-    const now = {
-      id: '123',
+    const now: DeepPartial<ProductSync> = {
       masterVariant: {
-        id: 1,
         sku: '',
       },
-      variants: [{ id: 2, sku: null }],
+      variants: [{ sku: null }],
     }
 
     const actions = productsSync.buildActions(now, before)
@@ -904,16 +899,14 @@ describe('Actions', () => {
 
   test('should ignore set key', () => {
     // Case when key is not set, and the new value is empty or null
-    const before = {
-      id: '123',
+    const before: DeepPartial<ProductSync> = {
       masterVariant: {
         id: 1,
       },
       variants: [{ id: 2 }],
     }
 
-    const now = {
-      id: '123',
+    const now: DeepPartial<ProductSync> = {
       masterVariant: {
         id: 1,
         key: '',
@@ -927,8 +920,7 @@ describe('Actions', () => {
 
   test('should ignore set sku if the sku was and still is empty', () => {
     // Case when sku is not set, and the new value is empty or null
-    const before = {
-      id: '123',
+    const before: DeepPartial<ProductSync> = {
       masterVariant: {
         id: 1,
         sku: '',
@@ -936,8 +928,7 @@ describe('Actions', () => {
       variants: [{ id: 2 }],
     }
 
-    const now = {
-      id: '123',
+    const now: DeepPartial<ProductSync> = {
       masterVariant: {
         id: 1,
         sku: '',
@@ -951,7 +942,7 @@ describe('Actions', () => {
 
   test('should ignore set key if the key was and still is empty', () => {
     // Case when key is not set, and the new value is empty or null
-    const before = {
+    const before: DeepPartial<ProductSync> = {
       id: '123',
       masterVariant: {
         id: 1,
@@ -960,7 +951,7 @@ describe('Actions', () => {
       variants: [{ id: 2 }],
     }
 
-    const now = {
+    const now: DeepPartial<ProductSync> = {
       id: '123',
       masterVariant: {
         id: 1,
@@ -1540,7 +1531,7 @@ describe('Actions', () => {
     })
 
     test('should build "setAssetKey", "changeAssetName", "setAssetDescription", "setAssetSources", "setAssetTags", "setAssetCustomType" actions', () => {
-      const initialAsset = {
+      const initialAsset: Asset = {
         id: 'xyz',
         key: 'asset-key',
         name: {
@@ -1567,7 +1558,7 @@ describe('Actions', () => {
         },
       }
 
-      const changedAsset = {
+      const changedAsset: Asset = {
         id: 'xyz',
         key: 'update-asset-key',
         name: {
@@ -1594,7 +1585,7 @@ describe('Actions', () => {
         },
       }
 
-      const before = {
+      const before: DeepPartial<ProductSync> = {
         variants: [
           {
             id: 1,
@@ -1602,7 +1593,7 @@ describe('Actions', () => {
           },
         ],
       }
-      const now = {
+      const now: DeepPartial<ProductSync> = {
         variants: [
           {
             id: 1,
@@ -1659,7 +1650,7 @@ describe('Actions', () => {
     })
 
     test('should build "setAssetKey", "changeAssetName" and "setAssetCustomField" ', () => {
-      const initialAsset = {
+      const initialAsset: DeepPartial<Asset> = {
         id: 'xyz',
         key: 'asset-key',
         name: {
@@ -1675,7 +1666,7 @@ describe('Actions', () => {
           },
         },
       }
-      const changedAsset = {
+      const changedAsset: DeepPartial<Asset> = {
         id: 'xyz',
         key: 'asset-key-two',
         name: {
@@ -1691,7 +1682,7 @@ describe('Actions', () => {
           },
         },
       }
-      const before = {
+      const before: DeepPartial<ProductSync> = {
         variants: [
           {
             id: 1,
@@ -1699,7 +1690,7 @@ describe('Actions', () => {
           },
         ],
       }
-      const now = {
+      const now: DeepPartial<ProductSync> = {
         variants: [
           {
             id: 1,

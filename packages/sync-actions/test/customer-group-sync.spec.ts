@@ -1,7 +1,11 @@
 import customerGroupSyncFn, { actionGroups } from '../src/customer-group'
 import { baseActionsList } from '../src/customer-group-actions'
-import { SyncAction } from '../src/types/update-actions'
-import { CustomerGroupUpdateAction } from '@commercetools/platform-sdk/src'
+import { DeepPartial, SyncAction } from '../src/types/update-actions'
+import {
+  CustomerGroup,
+  CustomerGroupDraft,
+  CustomerGroupUpdateAction,
+} from '@commercetools/platform-sdk/src'
 
 describe('Customer Groups Exports', () => {
   test('action group list', () => {
@@ -29,24 +33,24 @@ describe('Customer Groups Exports', () => {
 })
 
 describe('Customer Groups Actions', () => {
-  let customerGroupSync: SyncAction<CustomerGroupUpdateAction>
+  let customerGroupSync = customerGroupSyncFn()
   beforeEach(() => {
     customerGroupSync = customerGroupSyncFn()
   })
 
   test('should build the `changeName` action', () => {
-    const before = {
-      name: { en: 'en-name-before', de: 'de-name-before' },
+    const before: DeepPartial<CustomerGroup> = {
+      name: 'en-name-before',
     }
 
-    const now = {
-      name: { en: 'en-name-now', de: 'de-name-now' },
+    const now: DeepPartial<CustomerGroup> = {
+      name: 'en-name-now',
     }
 
     const expected = [
       {
         action: 'changeName',
-        name: { en: 'en-name-now', de: 'de-name-now' },
+        name: 'en-name-now',
       },
     ]
     const actual = customerGroupSync.buildActions(now, before)
@@ -74,7 +78,7 @@ describe('Customer Groups Actions', () => {
 
   describe('custom fields', () => {
     test('should build `setCustomType` action', () => {
-      const before = {
+      const before: DeepPartial<CustomerGroupDraft> = {
         custom: {
           type: {
             typeId: 'type',
@@ -85,7 +89,7 @@ describe('Customer Groups Actions', () => {
           },
         },
       }
-      const now = {
+      const now: DeepPartial<CustomerGroupDraft> = {
         custom: {
           type: {
             typeId: 'type',
@@ -103,7 +107,7 @@ describe('Customer Groups Actions', () => {
   })
 
   test('should build `setCustomField` action', () => {
-    const before = {
+    const before: DeepPartial<CustomerGroupDraft> = {
       custom: {
         type: {
           typeId: 'type',
@@ -114,7 +118,7 @@ describe('Customer Groups Actions', () => {
         },
       },
     }
-    const now = {
+    const now: DeepPartial<CustomerGroupDraft> = {
       custom: {
         type: {
           typeId: 'type',

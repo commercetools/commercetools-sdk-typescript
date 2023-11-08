@@ -1,7 +1,7 @@
 import productDiscountsSyncFn, { actionGroups } from '../src/product-discounts'
 import { baseActionsList } from '../src/product-discounts-actions'
-import { SyncAction } from '../src/types/update-actions'
-import { ProductDiscountUpdateAction } from '@commercetools/platform-sdk/src'
+import { DeepPartial } from '../src/types/update-actions'
+import { ProductDiscountDraft } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -78,7 +78,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let productDiscountsSync: SyncAction<ProductDiscountUpdateAction>
+  let productDiscountsSync = productDiscountsSyncFn()
   beforeEach(() => {
     productDiscountsSync = productDiscountsSyncFn()
   })
@@ -160,14 +160,14 @@ describe('Actions', () => {
   })
 
   test('should build the `changeValue` action', () => {
-    const before = {
+    const before: DeepPartial<ProductDiscountDraft> = {
       value: {
         type: 'relative',
         permyriad: 100,
       },
     }
 
-    const now = {
+    const now: DeepPartial<ProductDiscountDraft> = {
       value: {
         type: 'relative',
         permyriad: 200,

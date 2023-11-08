@@ -1,7 +1,7 @@
-import createProjectsSync, { actionGroups } from '../src/projects'
+import createProjectsSync, { actionGroups, ProjectSync } from '../src/projects'
 import { baseActionsList } from '../src/projects-actions'
-import { SyncAction } from '../src/types/update-actions'
-import { ProjectUpdateAction } from '@commercetools/platform-sdk/src'
+import { DeepPartial } from '../src/types/update-actions'
+import { Project } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -70,7 +70,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let projectsSync: SyncAction<ProjectUpdateAction>
+  let projectsSync = createProjectsSync()
   beforeEach(() => {
     projectsSync = createProjectsSync()
   })
@@ -129,7 +129,7 @@ describe('Actions', () => {
 
   describe('setShippingRateInputType', () => {
     describe('given `shippingRateInputType` is of type `CartClassification`', () => {
-      const before = {
+      const before: DeepPartial<ProjectSync> = {
         shippingRateInputType: {
           type: 'CartClassification',
           values: [
@@ -140,7 +140,7 @@ describe('Actions', () => {
         },
       }
       describe('given a value of `values` changes', () => {
-        const now = {
+        const now: DeepPartial<ProjectSync> = {
           shippingRateInputType: {
             type: 'CartClassification',
             values: [
@@ -163,7 +163,7 @@ describe('Actions', () => {
         })
       })
       describe('given type changes to `CartValue`', () => {
-        let now = {
+        let now: DeepPartial<Project> = {
           shippingRateInputType: {
             type: 'CartValue',
           },
@@ -203,8 +203,12 @@ describe('Actions', () => {
   })
 
   test('should build `changeMessagesConfiguration` action', () => {
-    const before = { messagesConfiguration: { type: 'some-config' } }
-    const now = { messagesConfiguration: { type: 'some-other-config' } }
+    const before: DeepPartial<ProjectSync> = {
+      messagesConfiguration: { enabled: false },
+    }
+    const now: DeepPartial<ProjectSync> = {
+      messagesConfiguration: { enabled: true },
+    }
     const actual = projectsSync.buildActions(now, before)
     const expected = [
       {

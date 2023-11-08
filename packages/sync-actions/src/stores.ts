@@ -1,4 +1,4 @@
-import { StoreUpdateAction } from '@commercetools/platform-sdk'
+import { Store, StoreUpdateAction } from '@commercetools/platform-sdk'
 import type { ActionGroup, UpdateAction } from '@commercetools/sdk-client-v2'
 import { actionsMapBase } from './stores-actions'
 import { SyncAction } from './types/update-actions'
@@ -40,11 +40,11 @@ function createStoresMapActions(
 
 export default (
   actionGroupList?: Array<ActionGroup>
-): SyncAction<StoreUpdateAction> => {
+): SyncAction<Store, StoreUpdateAction> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createStoresMapActions(mapActionGroup)
   const onBeforeApplyingDiff = null
-  const buildActions = createBuildActions(
+  const buildActions = createBuildActions<Store, StoreUpdateAction>(
     diff,
     doMapActions,
     onBeforeApplyingDiff

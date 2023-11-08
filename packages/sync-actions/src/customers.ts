@@ -1,4 +1,4 @@
-import { CustomerUpdateAction } from '@commercetools/platform-sdk'
+import { Customer, CustomerUpdateAction } from '@commercetools/platform-sdk'
 import type {
   ActionGroup,
   SyncActionConfig,
@@ -107,7 +107,7 @@ function createCustomerMapActions(
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction<CustomerUpdateAction> => {
+): SyncAction<Customer, CustomerUpdateAction> => {
   // actionGroupList contains information about which action groups
   // are allowed or ignored
 
@@ -124,7 +124,7 @@ export default (
     mapActionGroup,
     syncActionConfig
   )
-  const buildActions = createBuildActions(
+  const buildActions = createBuildActions<Customer, CustomerUpdateAction>(
     diff,
     doMapActions,
     copyEmptyArrayProps

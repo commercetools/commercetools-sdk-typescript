@@ -1,7 +1,10 @@
 import shippingMethodsSyncFn, { actionGroups } from '../src/shipping-methods'
 import { baseActionsList } from '../src/shipping-methods-actions'
-import { SyncAction } from '../src/types/update-actions'
-import { ShippingMethodUpdateAction } from '@commercetools/platform-sdk/src'
+import { DeepPartial, SyncAction } from '../src/types/update-actions'
+import {
+  ShippingMethodDraft,
+  ShippingMethodUpdateAction,
+} from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -23,7 +26,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let shippingMethodsSync: SyncAction<ShippingMethodUpdateAction>
+  let shippingMethodsSync = shippingMethodsSyncFn()
   beforeEach(() => {
     shippingMethodsSync = shippingMethodsSyncFn()
   })
@@ -163,7 +166,7 @@ describe('Actions', () => {
     })
 
     test('should build `setPredicate` action', () => {
-      const before = {
+      const before: Partial<ShippingMethodDraft> = {
         predicate: 'id is defined',
       }
       const now = {
@@ -181,8 +184,12 @@ describe('Actions', () => {
     })
 
     test('should build `changeTaxCategory` action', () => {
-      const before = { taxCategory: { typeId: 'taxCategory', id: 'id1' } }
-      const now = { taxCategory: { typeId: 'taxCategory', id: 'id2' } }
+      const before: Partial<ShippingMethodDraft> = {
+        taxCategory: { typeId: 'tax-category', id: 'id1' },
+      }
+      const now: Partial<ShippingMethodDraft> = {
+        taxCategory: { typeId: 'tax-category', id: 'id2' },
+      }
 
       const actual = shippingMethodsSync.buildActions(now, before)
       const expected = [
@@ -194,10 +201,10 @@ describe('Actions', () => {
 
   describe('`addZone`', () => {
     test('should build `addZone` action with one zone', () => {
-      const before = {
+      const before: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [{ zone: { typeId: 'zone', id: 'z1' } }],
       }
-      const now = {
+      const now: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [
           { zone: { typeId: 'zone', id: 'z1' } },
           { zone: { typeId: 'zone', id: 'z2' } },
@@ -210,10 +217,10 @@ describe('Actions', () => {
     })
 
     test('should build `addZone` action with multiple zones', () => {
-      const before = {
+      const before: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [{ zone: { typeId: 'zone', id: 'z1' } }],
       }
-      const now = {
+      const now: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [
           { zone: { typeId: 'zone', id: 'z1' } },
           { zone: { typeId: 'zone', id: 'z3' } },
@@ -234,13 +241,13 @@ describe('Actions', () => {
 
   describe('`removeZone`', () => {
     test('should build `removeZone` removing the last zone item', () => {
-      const before = {
+      const before: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [
           { zone: { typeId: 'zone', id: 'z1' } },
           { zone: { typeId: 'zone', id: 'z2' } },
         ],
       }
-      const now = {
+      const now: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [{ zone: { typeId: 'zone', id: 'z1' } }],
       }
 
@@ -252,14 +259,14 @@ describe('Actions', () => {
     })
 
     test('should build `removeZone` removing all existing zones', () => {
-      const before = {
+      const before: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [
           { zone: { typeId: 'zone', id: 'z1' } },
           { zone: { typeId: 'zone', id: 'z2' } },
           { zone: { typeId: 'zone', id: 'z3' } },
         ],
       }
-      const now = {
+      const now: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [],
       }
 
@@ -275,7 +282,7 @@ describe('Actions', () => {
 
   describe('`addShippingRate`', () => {
     test('should build `addShippingRate` action with one shipping rate', () => {
-      const before = {
+      const before: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [
           {
             zone: { typeId: 'zone', id: 'z1' },
@@ -283,7 +290,7 @@ describe('Actions', () => {
           },
         ],
       }
-      const now = {
+      const now: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [
           {
             zone: { typeId: 'zone', id: 'z1' },
@@ -306,10 +313,10 @@ describe('Actions', () => {
     })
 
     test('should build `addShippingRate` action with multiple shipping rate', () => {
-      const before = {
+      const before: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [{ zone: { typeId: 'zone', id: 'z1' }, shippingRates: [] }],
       }
-      const now = {
+      const now: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [
           {
             zone: { typeId: 'zone', id: 'z1' },
@@ -341,7 +348,7 @@ describe('Actions', () => {
 
   describe('`removeShippingRate`', () => {
     test('should build `removeShippingRate` removing one shippingRate', () => {
-      const before = {
+      const before: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [
           {
             zone: { typeId: 'zone', id: 'z1' },
@@ -352,7 +359,7 @@ describe('Actions', () => {
           },
         ],
       }
-      const now = {
+      const now: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [
           {
             zone: { typeId: 'zone', id: 'z1' },
@@ -375,7 +382,7 @@ describe('Actions', () => {
     })
 
     test('should build `removeShippingRate` removing all existing zones', () => {
-      const before = {
+      const before: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [
           {
             zone: { typeId: 'zone', id: 'z1' },
@@ -386,7 +393,7 @@ describe('Actions', () => {
           },
         ],
       }
-      const now = {
+      const now: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [
           {
             zone: { typeId: 'zone', id: 'z1' },
@@ -414,14 +421,14 @@ describe('Actions', () => {
 
   describe('Swap zones (create one + delete one)', () => {
     test('should build `removeZone` and `addZone` when swaping zones', () => {
-      const before = {
+      const before: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [
           { zone: { typeId: 'zone', id: 'z1' } },
           { zone: { typeId: 'zone', id: 'z2' } },
           { zone: { typeId: 'zone', id: 'z3' } },
         ],
       }
-      const now = {
+      const now: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [
           { zone: { typeId: 'zone', id: 'z4' } },
           { zone: { typeId: 'zone', id: 'z5' } },
@@ -444,7 +451,7 @@ describe('Actions', () => {
 
   describe('Swap shippingRates (create one + delete one)', () => {
     test('should build `removeShippingRate` and `addShippingRate` when swaping zones', () => {
-      const before = {
+      const before: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [
           {
             zone: { typeId: 'zone', id: 'z1' },
@@ -455,7 +462,7 @@ describe('Actions', () => {
           },
         ],
       }
-      const now = {
+      const now: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [
           {
             zone: { typeId: 'zone', id: 'z1' },
@@ -486,7 +493,7 @@ describe('Actions', () => {
 
   describe('Multiple actions between zones and shippingRates', () => {
     test('should build different actions for updating zones and shippingRates', () => {
-      const before = {
+      const before: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [
           {
             zone: { typeId: 'zone', id: 'z1' },
@@ -497,7 +504,7 @@ describe('Actions', () => {
           },
         ],
       }
-      const now = {
+      const now: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [
           {
             zone: { typeId: 'zone', id: 'z1' },
@@ -530,7 +537,7 @@ describe('Actions', () => {
 
   describe('When adding a new zoneRate with zone and shippingRates (fixed rates)', () => {
     it('should build different actions for adding zone and shippingRates', () => {
-      const before = {
+      const before: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [
           {
             zone: { typeId: 'zone', id: 'z1' },
@@ -541,7 +548,7 @@ describe('Actions', () => {
           },
         ],
       }
-      const now = {
+      const now: DeepPartial<ShippingMethodDraft> = {
         zoneRates: [
           {
             zone: { typeId: 'zone', id: 'z1' },
@@ -551,7 +558,7 @@ describe('Actions', () => {
             ],
           },
           {
-            zone: { typeId: 'zone 2', id: 'z2' },
+            zone: { typeId: 'zone', id: 'z2' },
             shippingRates: [
               { price: { currencyCode: 'EUR', centAmount: 1000 } },
               { price: { currencyCode: 'USD', centAmount: 1000 } },
@@ -580,7 +587,7 @@ describe('Actions', () => {
 
   describe('custom fields', () => {
     test('should build `setCustomType` action', () => {
-      const before = {
+      const before: DeepPartial<ShippingMethodDraft> = {
         custom: {
           type: {
             typeId: 'type',
@@ -591,7 +598,7 @@ describe('Actions', () => {
           },
         },
       }
-      const now = {
+      const now: DeepPartial<ShippingMethodDraft> = {
         custom: {
           type: {
             typeId: 'type',
@@ -608,7 +615,7 @@ describe('Actions', () => {
     })
 
     test('should build `setCustomField` action', () => {
-      const before = {
+      const before: DeepPartial<ShippingMethodDraft> = {
         custom: {
           type: {
             typeId: 'type',
@@ -619,7 +626,7 @@ describe('Actions', () => {
           },
         },
       }
-      const now = {
+      const now: DeepPartial<ShippingMethodDraft> = {
         custom: {
           type: {
             typeId: 'type',

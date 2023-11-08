@@ -1,4 +1,7 @@
-import { TaxCategoryUpdateAction } from '@commercetools/platform-sdk'
+import {
+  TaxCategory,
+  TaxCategoryUpdateAction,
+} from '@commercetools/platform-sdk'
 import type {
   ActionGroup,
   SyncActionConfig,
@@ -45,7 +48,7 @@ function createTaxCategoriesMapActions(
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction<TaxCategoryUpdateAction> => {
+): SyncAction<TaxCategory, TaxCategoryUpdateAction> => {
   // config contains information about which action groups
   // are allowed or ignored
 
@@ -62,6 +65,9 @@ export default (
     mapActionGroup,
     syncActionConfig
   )
-  const buildActions = createBuildActions(diff, doMapActions)
+  const buildActions = createBuildActions<TaxCategory, TaxCategoryUpdateAction>(
+    diff,
+    doMapActions
+  )
   return { buildActions }
 }

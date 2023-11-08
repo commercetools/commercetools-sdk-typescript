@@ -14,17 +14,17 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let attributeGroupSync: SyncAction<AttributeGroupUpdateAction>
+  let attributeGroupSync = attributeGroupSyncFn()
   beforeEach(() => {
     attributeGroupSync = attributeGroupSyncFn()
   })
 
   test('should build `changeName` action', () => {
     const before = {
-      name: 'John',
+      name: { 'en-GB': 'John' },
     }
     const now = {
-      name: 'Robert',
+      name: { 'en-GB': 'Robert' },
     }
 
     const actual = attributeGroupSync.buildActions(now, before)
@@ -34,10 +34,10 @@ describe('Actions', () => {
 
   test('should build `setDescription` action', () => {
     const before = {
-      description: 'some description',
+      description: { 'en-GB': 'some description' },
     }
     const now = {
-      description: 'some updated description',
+      description: { 'en-GB': 'some updated description' },
     }
 
     const actual = attributeGroupSync.buildActions(now, before)

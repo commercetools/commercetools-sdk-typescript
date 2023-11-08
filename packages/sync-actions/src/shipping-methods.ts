@@ -1,4 +1,7 @@
-import { ShippingMethodUpdateAction } from '@commercetools/platform-sdk'
+import {
+  ShippingMethod,
+  ShippingMethodUpdateAction,
+} from '@commercetools/platform-sdk'
 import type {
   ActionGroup,
   SyncActionConfig,
@@ -49,7 +52,7 @@ function createShippingMethodsMapActions(
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction<ShippingMethodUpdateAction> => {
+): SyncAction<ShippingMethod, ShippingMethodUpdateAction> => {
   // actionGroupList contains information about which action groups
   // are allowed or ignored
 
@@ -66,6 +69,9 @@ export default (
     mapActionGroup,
     syncActionConfig
   )
-  const buildActions = createBuildActions(diff, doMapActions)
+  const buildActions = createBuildActions<
+    ShippingMethod,
+    ShippingMethodUpdateAction
+  >(diff, doMapActions)
   return { buildActions }
 }

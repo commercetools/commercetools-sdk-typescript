@@ -1,9 +1,9 @@
+import { LocalizedString } from '@commercetools/platform-sdk'
 import { deepEqual } from 'fast-equals'
 import {
   buildBaseAttributesActions,
   createIsEmptyValue,
 } from './utils/common-actions'
-import { LocalizedString } from '@commercetools/platform-sdk'
 
 export const baseActionsList = [
   { action: 'changeName', key: 'name' },

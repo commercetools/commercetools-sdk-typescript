@@ -1,4 +1,4 @@
-import { CategoryUpdateAction } from '@commercetools/platform-sdk'
+import { Category, CategoryUpdateAction } from '@commercetools/platform-sdk'
 import type {
   ActionGroup,
   SyncActionConfig,
@@ -73,7 +73,7 @@ function createCategoryMapActions(
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction<CategoryUpdateAction> => {
+): SyncAction<Category, CategoryUpdateAction> => {
   // actionGroupList contains information about which action groups
   // are allowed or ignored
 
@@ -90,7 +90,7 @@ export default (
     mapActionGroup,
     syncActionConfig
   )
-  const buildActions = createBuildActions(
+  const buildActions = createBuildActions<Category, CategoryUpdateAction>(
     diff,
     doMapActions,
     copyEmptyArrayProps

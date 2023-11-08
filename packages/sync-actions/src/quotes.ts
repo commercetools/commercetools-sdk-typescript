@@ -1,4 +1,4 @@
-import { QuoteUpdateAction } from '@commercetools/platform-sdk'
+import { Quote, QuoteUpdateAction } from '@commercetools/platform-sdk'
 import type {
   ActionGroup,
   SyncActionConfig,
@@ -46,11 +46,14 @@ function createQuotesMapActions(
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction<QuoteUpdateAction> => {
+): SyncAction<Quote, QuoteUpdateAction> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createQuotesMapActions(mapActionGroup, syncActionConfig)
 
-  const buildActions = createBuildActions(diff, doMapActions)
+  const buildActions = createBuildActions<Quote, QuoteUpdateAction>(
+    diff,
+    doMapActions
+  )
 
   return { buildActions }
 }

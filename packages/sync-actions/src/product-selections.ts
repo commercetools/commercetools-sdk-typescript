@@ -1,4 +1,7 @@
-import { ProductSelectionUpdateAction } from '@commercetools/platform-sdk'
+import {
+  ProductSelection,
+  ProductSelectionUpdateAction,
+} from '@commercetools/platform-sdk'
 import type { ActionGroup, UpdateAction } from '@commercetools/sdk-client-v2'
 import { actionsMapBase } from './product-selections-actions'
 import { SyncAction } from './types/update-actions'
@@ -40,15 +43,14 @@ function createProductSelectionsMapActions(
 
 export default (
   actionGroupList?: Array<ActionGroup>
-): SyncAction<ProductSelectionUpdateAction> => {
+): SyncAction<ProductSelection, ProductSelectionUpdateAction> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createProductSelectionsMapActions(mapActionGroup)
   const onBeforeApplyingDiff = null
-  const buildActions = createBuildActions(
-    diff,
-    doMapActions,
-    onBeforeApplyingDiff
-  )
+  const buildActions = createBuildActions<
+    ProductSelection,
+    ProductSelectionUpdateAction
+  >(diff, doMapActions, onBeforeApplyingDiff)
 
   return { buildActions }
 }

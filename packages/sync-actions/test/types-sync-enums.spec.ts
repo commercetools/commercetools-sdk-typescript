@@ -11,7 +11,7 @@ const createTestType = (custom) => ({
 describe('Actions', () => {
   let before
   let now
-  let typesSync: SyncAction<TypeUpdateAction>
+  let typesSync = typesSyncFn()
   let updateActions: Array<TypeUpdateAction>
   beforeEach(() => {
     typesSync = typesSyncFn()

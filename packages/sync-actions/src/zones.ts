@@ -1,4 +1,4 @@
-import { ZoneUpdateAction } from '@commercetools/platform-sdk'
+import { Zone, ZoneUpdateAction } from '@commercetools/platform-sdk'
 import type {
   ActionGroup,
   SyncActionConfig,
@@ -46,7 +46,7 @@ function createZonesMapActions(
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction<ZoneUpdateAction> => {
+): SyncAction<Zone, ZoneUpdateAction> => {
   // config contains information about which action groups
   // are allowed or ignored
 
@@ -60,6 +60,9 @@ export default (
   // It will return an empty array for ignored action groups
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createZonesMapActions(mapActionGroup, syncActionConfig)
-  const buildActions = createBuildActions(diff, doMapActions)
+  const buildActions = createBuildActions<Zone, ZoneUpdateAction>(
+    diff,
+    doMapActions
+  )
   return { buildActions }
 }

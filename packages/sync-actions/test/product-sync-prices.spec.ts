@@ -1,22 +1,22 @@
-import { SyncAction } from '../src/types/update-actions'
-import productsSyncFn from '../src/products'
-import { ProductUpdateAction } from '@commercetools/platform-sdk/src'
+import { DeepPartial } from '../src/types/update-actions'
+import productsSyncFn, { ProductSync } from '../src/products'
+import { DiscountedPriceDraft } from '@commercetools/platform-sdk/src'
 
 /* eslint-disable max-len */
 describe('Actions', () => {
-  let productsSync: SyncAction<ProductUpdateAction>
+  let productsSync = productsSyncFn()
   beforeEach(() => {
     productsSync = productsSyncFn()
   })
 
   describe('with `priceID`', () => {
-    const discounted = {
+    const discounted: DiscountedPriceDraft = {
       value: { centAmount: 4000, currencyCode: 'EUR' },
       discount: { typeId: 'product-discount', id: 'pd1' },
     }
     const validFrom = new Date().toISOString()
 
-    const before = {
+    const before: DeepPartial<ProductSync> = {
       id: '123',
       masterVariant: {
         id: 1,
@@ -66,7 +66,7 @@ describe('Actions', () => {
       ],
     }
 
-    const now = {
+    const now: DeepPartial<ProductSync> = {
       id: '123',
       masterVariant: {
         id: 1,
@@ -226,7 +226,7 @@ describe('Actions', () => {
   })
 
   test('should generate PriceCustom actions before changePrice action', () => {
-    const before = {
+    const before: DeepPartial<ProductSync> = {
       id: '123',
       masterVariant: {
         prices: [
@@ -253,7 +253,7 @@ describe('Actions', () => {
       },
     }
 
-    const now = {
+    const now: DeepPartial<ProductSync> = {
       id: '123',
       masterVariant: {
         prices: [
@@ -322,11 +322,11 @@ describe('Actions', () => {
 
   describe('without `priceID`', () => {
     let actions
-    const dateNow = new Date()
-    const twoWeeksFromNow = new Date(Date.now() + 12096e5) // two weeks from now
-    const threeWeeksFromNow = new Date(Date.now() + 12096e5 * 1.5)
+    const dateNow = new Date().toISOString()
+    const twoWeeksFromNow = new Date(Date.now() + 12096e5).toISOString() // two weeks from now
+    const threeWeeksFromNow = new Date(Date.now() + 12096e5 * 1.5).toISOString()
 
-    const before = {
+    const before: DeepPartial<ProductSync> = {
       id: '123-abc',
       masterVariant: {
         id: 1,
@@ -438,7 +438,7 @@ describe('Actions', () => {
         ],
       },
     }
-    const now = {
+    let now: DeepPartial<ProductSync> = {
       id: '456-def',
       masterVariant: {
         id: 1,
@@ -553,9 +553,13 @@ describe('Actions', () => {
     }
 
     beforeEach(() => {
-      now.masterVariant.prices = now.masterVariant.prices.sort(
-        () => Math.random() - 0.5
-      )
+      now = {
+        masterVariant: {
+          prices: now.masterVariant.prices.sort(() => Math.random() - 0.5),
+          ...now.masterVariant,
+        },
+        ...now,
+      }
       actions = productsSync.buildActions(now, before)
     })
 
@@ -723,9 +727,8 @@ describe('Actions', () => {
     })
 
     test('should remove a price without id', () => {
-      const oldProduct = {
+      const oldProduct: DeepPartial<ProductSync> = {
         id: '123',
-        version: 1,
         masterVariant: {
           id: 1,
           sku: 'v1',
@@ -765,9 +768,8 @@ describe('Actions', () => {
         },
         variants: [],
       }
-      const newProduct = {
+      const newProduct: DeepPartial<ProductSync> = {
         id: '123',
-        version: 1,
         masterVariant: {
           id: 1,
           sku: 'v1',
@@ -806,9 +808,8 @@ describe('Actions', () => {
     })
 
     test('should handle missing optional fields', () => {
-      const oldProduct = {
+      const oldProduct: DeepPartial<ProductSync> = {
         id: '123',
-        version: 1,
         masterVariant: {
           id: 1,
           sku: 'v1',
@@ -828,9 +829,8 @@ describe('Actions', () => {
         },
         variants: [],
       }
-      const newProduct = {
+      const newProduct: DeepPartial<ProductSync> = {
         id: '123',
-        version: 1,
         masterVariant: {
           id: 1,
           sku: 'v1',
@@ -853,9 +853,8 @@ describe('Actions', () => {
     })
 
     test('should sync when optional fields are different', () => {
-      const oldProduct = {
+      const oldProduct: DeepPartial<ProductSync> = {
         id: '123',
-        version: 1,
         masterVariant: {
           id: 1,
           sku: 'v1',
@@ -875,9 +874,8 @@ describe('Actions', () => {
         },
         variants: [],
       }
-      const newProduct = {
+      const newProduct: DeepPartial<ProductSync> = {
         id: '123',
-        version: 1,
         masterVariant: {
           id: 1,
           sku: 'v1',
@@ -919,13 +917,8 @@ describe('Actions', () => {
 
   describe('without `country`', () => {
     let actions
-    const before = {
+    const before: DeepPartial<ProductSync> = {
       id: '81400c95-1de9-4431-9abd-a3eb8e0884d5',
-      version: 1,
-      productType: {
-        typeId: 'product-type',
-        id: 'c538376f-b565-4cb7-ac29-49b88b7f2acf',
-      },
       name: {
         de: 'abcd',
       },
@@ -995,13 +988,8 @@ describe('Actions', () => {
       ],
     }
 
-    const now = {
+    const now: DeepPartial<ProductSync> = {
       id: '81400c95-1de9-4431-9abd-a3eb8e0884d5',
-      version: 1,
-      productType: {
-        typeId: 'product-type',
-        id: 'c538376f-b565-4cb7-ac29-49b88b7f2acf',
-      },
       name: {
         de: 'abcd',
       },
@@ -1076,30 +1064,30 @@ describe('Actions', () => {
   })
 
   describe('with read only prices', () => {
-    const before = {
+    const before: Readonly<DeepPartial<ProductSync>> = {
       id: '123',
       masterVariant: {
         id: 1,
-        prices: Object.freeze([
+        prices: [
           {
             id: '111',
             value: { currencyCode: 'EUR', centAmount: 1000 },
           },
-        ]),
+        ],
       },
     }
 
-    const now = {
+    const now: Readonly<DeepPartial<ProductSync>> = {
       id: '123',
       masterVariant: {
         id: 1,
-        prices: Object.freeze([
+        prices: [
           {
             id: '111',
             value: { currencyCode: 'EUR', centAmount: 2000 },
             country: 'US',
           },
-        ]),
+        ],
       },
     }
 

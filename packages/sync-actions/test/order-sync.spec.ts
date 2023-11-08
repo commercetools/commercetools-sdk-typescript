@@ -1,8 +1,11 @@
 import { performance } from 'perf_hooks'
-import orderSyncFn, { actionGroups } from '../src/orders'
+import orderSyncFn, { actionGroups, OrderSync } from '../src/orders'
 import { baseActionsList } from '../src/order-actions'
-import { SyncAction } from '../src/types/update-actions'
-import { OrderUpdateAction } from '@commercetools/platform-sdk/src'
+import { DeepPartial, SyncAction } from '../src/types/update-actions'
+import {
+  OrderEditDraft,
+  OrderUpdateAction,
+} from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -19,14 +22,14 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let orderSync: SyncAction<OrderUpdateAction>
+  let orderSync = orderSyncFn()
   beforeEach(() => {
     orderSync = orderSyncFn()
   })
 
   describe('base', () => {
     test('should build *state actions', () => {
-      const before = {
+      const before: DeepPartial<OrderSync> = {
         orderState: 'Open',
         paymentState: 'Pending',
         shipmentState: 'Ready',
@@ -49,18 +52,18 @@ describe('Actions', () => {
 
   describe('deliveries', () => {
     test('should build `addDelivery` action', () => {
-      const before = {
+      const before: DeepPartial<OrderSync> = {
         shippingInfo: {
           deliveries: [],
         },
       }
-      const now = {
+      const now: DeepPartial<OrderSync> = {
         shippingInfo: {
           deliveries: [
             {
               items: [
-                { id: 'li-1', qty: 1 },
-                { id: 'li-2', qty: 2 },
+                { id: 'li-1', quantity: 1 },
+                { id: 'li-2', quantity: 2 },
               ],
               parcels: [
                 {
@@ -306,7 +309,7 @@ describe('Actions', () => {
     })
 
     test('should create remove `parcel` action', () => {
-      const before = {
+      const before: DeepPartial<OrderSync> = {
         shippingInfo: {
           deliveries: [
             {
@@ -330,7 +333,7 @@ describe('Actions', () => {
         },
       }
 
-      const now = {
+      const now: DeepPartial<OrderSync> = {
         shippingInfo: {
           deliveries: [
             {
@@ -355,11 +358,11 @@ describe('Actions', () => {
 
   describe('returnInfo', () => {
     test('should not build `returnInfo` action if items are not set', () => {
-      const before = {
+      const before: DeepPartial<OrderSync> = {
         returnInfo: [],
       }
 
-      const now = {
+      const now: DeepPartial<OrderSync> = {
         returnInfo: [
           {
             returnTrackingId: 'tracking-id-1',
@@ -378,7 +381,7 @@ describe('Actions', () => {
         returnInfo: [],
       }
 
-      const now = {
+      const now: DeepPartial<OrderSync> = {
         returnInfo: [
           {
             returnTrackingId: 'tracking-id-1',
@@ -841,12 +844,12 @@ describe('Actions', () => {
 })
 
 describe('custom fields', () => {
-  let orderSync: SyncAction<OrderUpdateAction>
+  let orderSync = orderSyncFn()
   beforeEach(() => {
     orderSync = orderSyncFn()
   })
   test('should build `setCustomType` action', () => {
-    const before = {
+    const before: DeepPartial<OrderSync> = {
       custom: {
         type: {
           typeId: 'type',
@@ -857,7 +860,7 @@ describe('custom fields', () => {
         },
       },
     }
-    const now = {
+    const now: DeepPartial<OrderSync> = {
       custom: {
         type: {
           typeId: 'type',
@@ -873,7 +876,7 @@ describe('custom fields', () => {
     expect(actual).toEqual(expected)
   })
   test('should build `setCustomField` action', () => {
-    const before = {
+    const before: DeepPartial<OrderSync> = {
       custom: {
         type: {
           typeId: 'type',
@@ -884,7 +887,7 @@ describe('custom fields', () => {
         },
       },
     }
-    const now = {
+    const now: DeepPartial<OrderSync> = {
       custom: {
         type: {
           typeId: 'type',

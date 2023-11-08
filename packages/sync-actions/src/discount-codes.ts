@@ -1,4 +1,7 @@
-import { DiscountCodeUpdateAction } from '@commercetools/platform-sdk'
+import {
+  DiscountCode,
+  DiscountCodeUpdateAction,
+} from '@commercetools/platform-sdk'
 import { ActionGroup, SyncActionConfig } from '@commercetools/sdk-client-v2'
 import { actionsMapBase } from './discount-codes-actions'
 import { SyncAction } from './types/update-actions'
@@ -28,7 +31,7 @@ function createDiscountCodesMapActions(mapActionGroup, syncActionConfig) {
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction<DiscountCodeUpdateAction> => {
+): SyncAction<DiscountCode, DiscountCodeUpdateAction> => {
   // actionGroupList contains information about which action groups
   // are allowed or ignored
 
@@ -45,6 +48,9 @@ export default (
     mapActionGroup,
     syncActionConfig
   )
-  const buildActions = createBuildActions(diff, doMapActions)
+  const buildActions = createBuildActions<
+    DiscountCode,
+    DiscountCodeUpdateAction
+  >(diff, doMapActions)
   return { buildActions }
 }

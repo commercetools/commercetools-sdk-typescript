@@ -1,4 +1,7 @@
-import { CustomerGroupUpdateAction } from '@commercetools/platform-sdk'
+import {
+  CustomerGroup,
+  CustomerGroupUpdateAction,
+} from '@commercetools/platform-sdk'
 import { ActionGroup, SyncActionConfig } from '@commercetools/sdk-client-v2'
 import { actionsMapBase } from './customer-group-actions'
 import { SyncAction } from './types/update-actions'
@@ -30,12 +33,15 @@ function createCustomerGroupMapActions(mapActionGroup, syncActionConfig) {
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction<CustomerGroupUpdateAction> => {
+): SyncAction<CustomerGroup, CustomerGroupUpdateAction> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createCustomerGroupMapActions(
     mapActionGroup,
     syncActionConfig
   )
-  const buildActions = createBuildActions(diff, doMapActions)
+  const buildActions = createBuildActions<
+    CustomerGroup,
+    CustomerGroupUpdateAction
+  >(diff, doMapActions)
   return { buildActions }
 }

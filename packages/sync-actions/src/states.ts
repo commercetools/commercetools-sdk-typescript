@@ -1,4 +1,4 @@
-import { StateUpdateAction } from '@commercetools/platform-sdk'
+import { State, StateUpdateAction } from '@commercetools/platform-sdk'
 import type {
   ActionGroup,
   SyncActionConfig,
@@ -62,9 +62,12 @@ function createStatesMapActions(
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction<StateUpdateAction> => {
+): SyncAction<State, StateUpdateAction> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createStatesMapActions(mapActionGroup, syncActionConfig)
-  const buildActions = createBuildActions(diff, doMapActions)
+  const buildActions = createBuildActions<State, StateUpdateAction>(
+    diff,
+    doMapActions
+  )
   return { buildActions }
 }

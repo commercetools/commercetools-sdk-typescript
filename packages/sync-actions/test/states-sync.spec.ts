@@ -1,7 +1,11 @@
 import statesSyncFn, { actionGroups } from '../src/states'
 import { baseActionsList } from '../src/state-actions'
-import { SyncAction } from '../src/types/update-actions'
-import { StateUpdateAction } from '@commercetools/platform-sdk/src'
+import { DeepPartial, SyncAction } from '../src/types/update-actions'
+import {
+  StateDraft,
+  StateUpdateAction,
+  ZoneDraft,
+} from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
   test('action group list', () => {
@@ -68,7 +72,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let statesSync: SyncAction<StateUpdateAction>
+  let statesSync = statesSyncFn()
   beforeEach(() => {
     statesSync = statesSyncFn()
   })
@@ -149,7 +153,7 @@ describe('Actions', () => {
   })
 
   test('should build `setTransitions` action', () => {
-    const before = {
+    const before: DeepPartial<StateDraft> = {
       key: 'state-1',
       transitions: [
         {
@@ -162,7 +166,7 @@ describe('Actions', () => {
         },
       ],
     }
-    const now = {
+    const now: DeepPartial<StateDraft> = {
       key: 'state-1',
       transitions: [
         {

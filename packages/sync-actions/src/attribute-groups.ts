@@ -1,4 +1,7 @@
-import { AttributeGroupUpdateAction } from '@commercetools/platform-sdk'
+import {
+  AttributeGroup,
+  AttributeGroupUpdateAction,
+} from '@commercetools/platform-sdk'
 import type {
   ActionGroup,
   SyncActionConfig,
@@ -46,12 +49,15 @@ function createAttributeGroupsMapActions(
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction<AttributeGroupUpdateAction> => {
+): SyncAction<AttributeGroup, AttributeGroupUpdateAction> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createAttributeGroupsMapActions(
     mapActionGroup,
     syncActionConfig
   )
-  const buildActions = createBuildActions(diff, doMapActions)
+  const buildActions = createBuildActions<
+    AttributeGroup,
+    AttributeGroupUpdateAction
+  >(diff, doMapActions)
   return { buildActions }
 }

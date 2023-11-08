@@ -1,6 +1,9 @@
-import createStagedQuotesSync, { actionGroups } from '../src/staged-quotes'
+import createStagedQuotesSync, {
+  actionGroups,
+  StagedQuoteSync,
+} from '../src/staged-quotes'
 import { baseActionsList } from '../src/staged-quotes-actions'
-import { SyncAction } from '../src/types/update-actions'
+import { DeepPartial, SyncAction } from '../src/types/update-actions'
 import { StagedQuoteUpdateAction } from '@commercetools/platform-sdk/src'
 
 describe('Exports', () => {
@@ -40,7 +43,7 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let stagedQuotesSync: SyncAction<StagedQuoteUpdateAction>
+  let stagedQuotesSync = createStagedQuotesSync()
   beforeEach(() => {
     stagedQuotesSync = createStagedQuotesSync()
   })
@@ -87,13 +90,13 @@ describe('Actions', () => {
   })
 
   test('should build `transitionState` action', () => {
-    const before = {
+    const before: DeepPartial<StagedQuoteSync> = {
       state: {
         typeId: 'state',
         id: 'sid1',
       },
     }
-    const now = {
+    const now: DeepPartial<StagedQuoteSync> = {
       state: {
         typeId: 'state',
         id: 'sid2',
@@ -110,7 +113,7 @@ describe('Actions', () => {
   })
 
   test('should build `setCustomType` action', () => {
-    const before = {
+    const before: DeepPartial<StagedQuoteSync> = {
       custom: {
         type: {
           typeId: 'type',
@@ -121,7 +124,7 @@ describe('Actions', () => {
         },
       },
     }
-    const now = {
+    const now: DeepPartial<StagedQuoteSync> = {
       custom: {
         type: {
           typeId: 'type',
@@ -138,7 +141,7 @@ describe('Actions', () => {
   })
 
   test('should build `setCustomField` action', () => {
-    const before = {
+    const before: DeepPartial<StagedQuoteSync> = {
       custom: {
         type: {
           typeId: 'type',
@@ -149,7 +152,7 @@ describe('Actions', () => {
         },
       },
     }
-    const now = {
+    const now: DeepPartial<StagedQuoteSync> = {
       custom: {
         type: {
           typeId: 'type',
