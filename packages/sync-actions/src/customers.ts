@@ -17,7 +17,10 @@ import { SyncAction } from './types/update-actions'
 import actionsMapCustom from './utils/action-map-custom'
 import copyEmptyArrayProps from './utils/copy-empty-array-props'
 import createBuildActions from './utils/create-build-actions'
-import createMapActionGroup from './utils/create-map-action-group'
+import createMapActionGroup, {
+  MapActionGroup,
+  MapActionResult,
+} from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
 
 export const actionGroups = [
@@ -29,74 +32,55 @@ export const actionGroups = [
 ]
 
 function createCustomerMapActions(
-  mapActionGroup: Function,
+  mapActionGroup: MapActionGroup,
   syncActionConfig?: SyncActionConfig
-): (diff: any, newObj: any, oldObj: any) => Array<UpdateAction> {
-  return function doMapActions(
-    diff: any,
-    newObj: any,
-    oldObj: any /* , options */
-  ): Array<UpdateAction> {
-    const allActions = []
+): MapActionResult {
+  return function doMapActions(diff, newObj, oldObj) {
+    const allActions: Array<Array<UpdateAction>> = []
 
     allActions.push(
-      mapActionGroup(
-        'base',
-        (): Array<UpdateAction> =>
-          actionsMapBase(diff, oldObj, newObj, syncActionConfig)
+      mapActionGroup('base', () =>
+        actionsMapBase(diff, oldObj, newObj, syncActionConfig)
       )
     )
 
     allActions.push(
-      mapActionGroup(
-        'references',
-        (): Array<UpdateAction> => actionsMapReferences(diff, oldObj, newObj)
+      mapActionGroup('references', () =>
+        actionsMapReferences(diff, oldObj, newObj)
       )
     )
 
     allActions.push(
-      mapActionGroup(
-        'addresses',
-        (): Array<UpdateAction> => actionsMapAddresses(diff, oldObj, newObj)
+      mapActionGroup('addresses', () =>
+        actionsMapAddresses(diff, oldObj, newObj)
       )
     )
 
     allActions.push(
-      mapActionGroup(
-        'base',
-        (): Array<UpdateAction> =>
-          actionsMapSetDefaultBase(diff, oldObj, newObj, syncActionConfig)
+      mapActionGroup('base', () =>
+        actionsMapSetDefaultBase(diff, oldObj, newObj, syncActionConfig)
       )
     )
 
     allActions.push(
-      mapActionGroup(
-        'billingAddressIds',
-        (): Array<UpdateAction> =>
-          actionsMapBillingAddresses(diff, oldObj, newObj)
+      mapActionGroup('billingAddressIds', () =>
+        actionsMapBillingAddresses(diff, oldObj, newObj)
       )
     )
 
     allActions.push(
-      mapActionGroup(
-        'shippingAddressIds',
-        (): Array<UpdateAction> =>
-          actionsMapShippingAddresses(diff, oldObj, newObj)
+      mapActionGroup('shippingAddressIds', () =>
+        actionsMapShippingAddresses(diff, oldObj, newObj)
       )
     )
 
     allActions.push(
-      mapActionGroup(
-        'custom',
-        (): Array<UpdateAction> => actionsMapCustom(diff, newObj, oldObj)
-      )
+      mapActionGroup('custom', () => actionsMapCustom(diff, newObj, oldObj))
     )
 
     allActions.push(
-      mapActionGroup(
-        'authenticationModes',
-        (): Array<UpdateAction> =>
-          actionsMapAuthenticationModes(diff, oldObj, newObj)
+      mapActionGroup('authenticationModes', () =>
+        actionsMapAuthenticationModes(diff, oldObj, newObj)
       )
     )
 

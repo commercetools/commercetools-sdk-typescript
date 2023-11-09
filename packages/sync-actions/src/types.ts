@@ -1,33 +1,36 @@
 import { Type, TypeUpdateAction } from '@commercetools/platform-sdk/src'
-import { SyncActionConfig } from '@commercetools/sdk-client-v2'
+import { SyncActionConfig, UpdateAction } from '@commercetools/sdk-client-v2'
 import { actionsMapBase, actionsMapFieldDefinitions } from './types-actions'
 import { SyncAction } from './types/update-actions'
 import createBuildActions from './utils/create-build-actions'
-import createMapActionGroup from './utils/create-map-action-group'
+import createMapActionGroup, {
+  MapActionGroup,
+  MapActionResult,
+} from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
 import findMatchingPairs from './utils/find-matching-pairs'
 
 const actionGroups = ['base', 'fieldDefinitions']
 
 function createTypeMapActions(
-  mapActionGroup,
-  syncActionConfig: { shouldOmitEmptyString?: boolean }
-) {
-  return function doMapActions(diff, next, previous) {
-    const allActions = []
+  mapActionGroup: MapActionGroup,
+  syncActionConfig?: SyncActionConfig
+): MapActionResult {
+  return function doMapActions(diff, newObj, oldObj) {
+    const allActions: Array<Array<UpdateAction>> = []
     allActions.push(
       mapActionGroup('base', () =>
-        actionsMapBase(diff, previous, next, syncActionConfig)
+        actionsMapBase(diff, oldObj, newObj, syncActionConfig)
       ),
       mapActionGroup('fieldDefinitions', () =>
         actionsMapFieldDefinitions(
           diff.fieldDefinitions,
-          previous.fieldDefinitions,
-          next.fieldDefinitions,
+          oldObj.fieldDefinitions,
+          newObj.fieldDefinitions,
           findMatchingPairs(
             diff.fieldDefinitions,
-            previous.fieldDefinitions,
-            next.fieldDefinitions,
+            oldObj.fieldDefinitions,
+            newObj.fieldDefinitions,
             'name'
           )
         )

@@ -6,39 +6,36 @@ import createBuildArrayActions, {
 } from './utils/create-build-array-actions'
 import { getDeltaValue } from './utils/diffpatcher'
 import extractMatchingPairs from './utils/extract-matching-pairs'
+import { ActionMapBase } from './utils/create-map-action-group'
+import { UpdateAction } from '@commercetools/sdk-client-v2'
 
 const REGEX_NUMBER = new RegExp(/^\d+$/)
 const REGEX_UNDERSCORE_NUMBER = new RegExp(/^_\d+$/)
-const getIsChangedOperation = (key) => REGEX_NUMBER.test(key)
-const getIsRemovedOperation = (key) => REGEX_UNDERSCORE_NUMBER.test(key)
+const getIsChangedOperation = (key: string) => REGEX_NUMBER.test(key)
+const getIsRemovedOperation = (key: string) => REGEX_UNDERSCORE_NUMBER.test(key)
 
-export const baseActionsList = [
+export const baseActionsList: Array<UpdateAction> = [
   { action: 'changeKey', key: 'key' },
   { action: 'changeName', key: 'name' },
   { action: 'setDescription', key: 'description' },
 ]
 
-export function actionsMapBase(
-  diff,
-  oldObj,
-  newObj,
-  config: { shouldOmitEmptyString?: boolean } = {}
-) {
+export const actionsMapBase: ActionMapBase = (diff, oldObj, newObj, config) => {
   return buildBaseAttributesActions({
     actions: baseActionsList,
     diff,
     oldObj,
     newObj,
-    shouldOmitEmptyString: config.shouldOmitEmptyString,
+    shouldOmitEmptyString: config?.shouldOmitEmptyString,
   })
 }
 
 function actionsMapEnums(
-  fieldName,
-  attributeType,
-  attributeDiff,
-  previous,
-  next
+  fieldName: any,
+  attributeType: any,
+  attributeDiff: any,
+  previous: any,
+  next: any
 ) {
   const addEnumActionName =
     attributeType === 'Enum' ? 'addEnumValue' : 'addLocalizedEnumValue'
@@ -58,7 +55,7 @@ function actionsMapEnums(
     }),
     [CHANGE_ACTIONS]: (oldEnum, newEnum) => {
       const oldEnumInNext = next.values.find(
-        (nextEnum) => nextEnum.key === oldEnum.key
+        (nextEnum: any) => nextEnum.key === oldEnum.key
       )
 
       // These `changeActions` would impose a nested structure among
@@ -72,7 +69,7 @@ function actionsMapEnums(
 
         // check if the label is changed
         const foundPreviousEnum = previous.values.find(
-          (previousEnum) => previousEnum.key === newEnum.key
+          (previousEnum: any) => previousEnum.key === newEnum.key
         )
         const isLabelEqual = deepEqual(foundPreviousEnum.label, newEnum.label)
 
@@ -103,16 +100,16 @@ function actionsMapEnums(
     },
   })
 
-  const actions = []
+  const actions: Array<UpdateAction> = []
   // following lists are necessary to ensure that when we change the
   // order of enumValues, we generate one updateAction instead of one at a time.
-  let newEnumValuesOrder = []
+  let newEnumValuesOrder: Array<any> = []
 
   buildArrayActions(attributeDiff, previous, next)
     .flat()
     .forEach((updateAction) => {
       if (updateAction.action === changeEnumOrderActionName) {
-        newEnumValuesOrder = next.values.map((enumValue) => enumValue.key)
+        newEnumValuesOrder = next.values.map((enumValue: any) => enumValue.key)
       } else actions.push(updateAction)
     })
 
@@ -132,11 +129,11 @@ function actionsMapEnums(
 
 export function actionsMapFieldDefinitions(
   fieldDefinitionsDiff: { [key: string]: any },
-  previous,
-  next,
-  diffPaths
+  previous: any,
+  next: any,
+  diffPaths: any
 ) {
-  const actions = []
+  const actions: Array<UpdateAction> = []
   fieldDefinitionsDiff &&
     Object.entries(fieldDefinitionsDiff).forEach(([diffKey, diffValue]) => {
       const extractedPairs = extractMatchingPairs(
@@ -183,7 +180,7 @@ export function actionsMapFieldDefinitions(
           if (diffValue.length === 3 && diffValue[2] === 3) {
             actions.push({
               action: 'changeFieldDefinitionOrder',
-              fieldNames: next.map((n) => n.name),
+              fieldNames: next.map((n: any) => n.name),
             })
           } else {
             const deltaValue = getDeltaValue(diffValue)

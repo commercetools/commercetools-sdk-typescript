@@ -10,10 +10,12 @@ import createBuildArrayActions, {
   REMOVE_ACTIONS,
 } from './utils/create-build-array-actions'
 import { patch } from './utils/diffpatcher'
+import { ActionMapBase } from './utils/create-map-action-group'
+import { UpdateAction } from '@commercetools/sdk-client-v2'
 
 const isEmptyValue = createIsEmptyValue([undefined, null, ''])
 
-export const baseActionsList = [
+export const baseActionsList: Array<UpdateAction> = [
   { action: 'setSalutation', key: 'salutation' },
   { action: 'changeEmail', key: 'email' },
   { action: 'setFirstName', key: 'firstName' },
@@ -33,7 +35,7 @@ export const baseActionsList = [
   { action: 'setKey', key: 'key' },
 ]
 
-export const setDefaultBaseActionsList = [
+export const setDefaultBaseActionsList: Array<UpdateAction> = [
   {
     action: 'setDefaultBillingAddress',
     key: 'defaultBillingAddressId',
@@ -62,37 +64,32 @@ export const authenticationModeActionsList = [
  * SYNC FUNCTIONS
  */
 
-export function actionsMapBase(
-  diff,
-  oldObj,
-  newObj,
-  config: { shouldOmitEmptyString?: boolean } = {}
-) {
+export const actionsMapBase: ActionMapBase = (diff, oldObj, newObj, config) => {
   return buildBaseAttributesActions({
     actions: baseActionsList,
     diff,
     oldObj,
     newObj,
-    shouldOmitEmptyString: config.shouldOmitEmptyString,
+    shouldOmitEmptyString: config?.shouldOmitEmptyString,
   })
 }
 
-export function actionsMapSetDefaultBase(
+export const actionsMapSetDefaultBase: ActionMapBase = (
   diff,
   oldObj,
   newObj,
-  config: { shouldOmitEmptyString?: boolean } = {}
-) {
+  config
+) => {
   return buildBaseAttributesActions({
     actions: setDefaultBaseActionsList,
     diff,
     oldObj,
     newObj,
-    shouldOmitEmptyString: config.shouldOmitEmptyString,
+    shouldOmitEmptyString: config?.shouldOmitEmptyString,
   })
 }
 
-export function actionsMapReferences(diff, oldObj, newObj) {
+export function actionsMapReferences(diff: any, oldObj: any, newObj: any) {
   return buildReferenceActions({
     actions: referenceActionsList,
     diff,
@@ -101,7 +98,7 @@ export function actionsMapReferences(diff, oldObj, newObj) {
   })
 }
 
-export function actionsMapAddresses(diff, oldObj, newObj) {
+export function actionsMapAddresses(diff: any, oldObj: any, newObj: any) {
   const handler = createBuildArrayActions('addresses', {
     [ADD_ACTIONS]: (newObject) => ({
       action: 'addAddress',
@@ -121,7 +118,11 @@ export function actionsMapAddresses(diff, oldObj, newObj) {
   return handler(diff, oldObj, newObj)
 }
 
-export function actionsMapBillingAddresses(diff, oldObj, newObj) {
+export function actionsMapBillingAddresses(
+  diff: any,
+  oldObj: any,
+  newObj: any
+) {
   const handler = createBuildArrayActions('billingAddressIds', {
     [ADD_ACTIONS]: (addressId) => ({
       action: 'addBillingAddressId',
@@ -136,7 +137,11 @@ export function actionsMapBillingAddresses(diff, oldObj, newObj) {
   return handler(diff, oldObj, newObj)
 }
 
-export function actionsMapShippingAddresses(diff, oldObj, newObj) {
+export function actionsMapShippingAddresses(
+  diff: any,
+  oldObj: any,
+  newObj: any
+) {
   const handler = createBuildArrayActions('shippingAddressIds', {
     [ADD_ACTIONS]: (addressId) => ({
       action: 'addShippingAddressId',
@@ -151,7 +156,11 @@ export function actionsMapShippingAddresses(diff, oldObj, newObj) {
   return handler(diff, oldObj, newObj)
 }
 
-export function actionsMapAuthenticationModes(diff, oldObj, newObj) {
+export function actionsMapAuthenticationModes(
+  diff: any,
+  oldObj: any,
+  newObj: any
+) {
   // eslint-disable-next-line no-use-before-define
   return buildAuthenticationModeActions({
     actions: authenticationModeActionsList,
@@ -161,7 +170,17 @@ export function actionsMapAuthenticationModes(diff, oldObj, newObj) {
   })
 }
 
-function buildAuthenticationModeActions({ actions, diff, oldObj, newObj }) {
+function buildAuthenticationModeActions({
+  actions,
+  diff,
+  oldObj,
+  newObj,
+}: {
+  actions: Array<UpdateAction>
+  diff: any
+  oldObj: any
+  newObj: any
+}) {
   return actions
     .map((item) => {
       const key = item.key

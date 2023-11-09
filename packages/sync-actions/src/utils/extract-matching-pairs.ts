@@ -1,4 +1,9 @@
-export default function extractMatchingPairs(hashMap, key, before, now) {
+export default function extractMatchingPairs(
+  hashMap: any,
+  key: string,
+  before: any,
+  now: any
+) {
   let oldObjPos
   let newObjPos
   let oldObj

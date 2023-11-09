@@ -1,7 +1,7 @@
 const REGEX_NUMBER = new RegExp(/^\d+$/)
 const REGEX_UNDERSCORE_NUMBER = new RegExp(/^_\d+$/)
 
-function preProcessCollection(collection = [], identifier = 'id') {
+function preProcessCollection(collection: Array<any> = [], identifier = 'id') {
   return collection.reduce(
     (acc, currentValue, currentIndex) => {
       acc.refByIndex[String(currentIndex)] = currentValue[identifier]
@@ -17,10 +17,10 @@ function preProcessCollection(collection = [], identifier = 'id') {
 
 // creates a hash of a location of an item in collection1 and collection2
 export default function findMatchingPairs(
-  diff,
-  before = [],
-  now = [],
-  identifier = 'id'
+  diff: any,
+  before: Array<any> = [],
+  now: Array<any> = [],
+  identifier: string = 'id'
 ) {
   const result = {}
   const {

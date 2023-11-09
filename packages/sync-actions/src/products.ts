@@ -22,7 +22,10 @@ import {
 import { SyncAction } from './types/update-actions'
 import copyEmptyArrayProps from './utils/copy-empty-array-props'
 import createBuildActions from './utils/create-build-actions'
-import createMapActionGroup from './utils/create-map-action-group'
+import createMapActionGroup, {
+  MapActionGroup,
+  MapActionResult,
+} from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
 import findMatchingPairs from './utils/find-matching-pairs'
 
@@ -40,16 +43,11 @@ const actionGroups = [
 ]
 
 function createProductMapActions(
-  mapActionGroup: Function,
+  mapActionGroup: MapActionGroup,
   syncActionConfig?: SyncActionConfig
-): (diff: any, newObj: any, oldObj: any, options: any) => Array<UpdateAction> {
-  return function doMapActions(
-    diff: any,
-    newObj: any,
-    oldObj: any,
-    options: any = {}
-  ): Array<UpdateAction> {
-    const allActions = []
+): MapActionResult {
+  return function doMapActions(diff, newObj, oldObj, options) {
+    const allActions: Array<Array<UpdateAction>> = []
     const { sameForAllAttributeNames, enableDiscounted } = options
     const { publish, staged } = newObj
 
@@ -60,107 +58,76 @@ function createProductMapActions(
     )
 
     allActions.push(
-      mapActionGroup(
-        'attributes',
-        (): Array<UpdateAction> =>
-          actionsMapAttributes(
-            diff,
-            oldObj,
-            newObj,
-            sameForAllAttributeNames || [],
-            variantHashMap
-          )
+      mapActionGroup('attributes', () =>
+        actionsMapAttributes(
+          diff,
+          oldObj,
+          newObj,
+          sameForAllAttributeNames || [],
+          variantHashMap
+        )
       )
     )
 
     allActions.push(
-      mapActionGroup(
-        'variants',
-        (): Array<UpdateAction> => actionsMapAddVariants(diff, oldObj, newObj)
+      mapActionGroup('variants', () =>
+        actionsMapAddVariants(diff, oldObj, newObj)
       )
     )
 
     allActions.push(actionsMapMasterVariant(oldObj, newObj))
 
     allActions.push(
-      mapActionGroup(
-        'variants',
-        (): Array<UpdateAction> =>
-          actionsMapRemoveVariants(diff, oldObj, newObj)
+      mapActionGroup('variants', () =>
+        actionsMapRemoveVariants(diff, oldObj, newObj)
       )
     )
 
     allActions.push(
-      mapActionGroup(
-        'base',
-        (): Array<UpdateAction> =>
-          actionsMapBase(diff, oldObj, newObj, syncActionConfig)
+      mapActionGroup('base', () =>
+        actionsMapBase(diff, oldObj, newObj, syncActionConfig)
       )
     )
 
     allActions.push(
-      mapActionGroup(
-        'meta',
-        (): Array<UpdateAction> => actionsMapMeta(diff, oldObj, newObj)
+      mapActionGroup('meta', () => actionsMapMeta(diff, oldObj, newObj))
+    )
+
+    allActions.push(
+      mapActionGroup('references', () =>
+        actionsMapReferences(diff, oldObj, newObj)
       )
     )
 
     allActions.push(
-      mapActionGroup(
-        'references',
-        (): Array<UpdateAction> => actionsMapReferences(diff, oldObj, newObj)
+      mapActionGroup('images', () =>
+        actionsMapImages(diff, oldObj, newObj, variantHashMap)
       )
     )
 
     allActions.push(
-      mapActionGroup(
-        'images',
-        (): Array<UpdateAction> =>
-          actionsMapImages(diff, oldObj, newObj, variantHashMap)
+      mapActionGroup('pricesCustom', () =>
+        actionsMapPricesCustom(diff, oldObj, newObj, variantHashMap)
       )
     )
 
     allActions.push(
-      mapActionGroup(
-        'pricesCustom',
-        (): Array<UpdateAction> =>
-          actionsMapPricesCustom(diff, oldObj, newObj, variantHashMap)
+      mapActionGroup('prices', () =>
+        actionsMapPrices(diff, oldObj, newObj, variantHashMap, enableDiscounted)
       )
     )
 
     allActions.push(
-      mapActionGroup(
-        'prices',
-        (): Array<UpdateAction> =>
-          actionsMapPrices(
-            diff,
-            oldObj,
-            newObj,
-            variantHashMap,
-            enableDiscounted
-          )
-      )
+      mapActionGroup('categories', () => actionsMapCategories(diff))
     )
 
     allActions.push(
-      mapActionGroup(
-        'categories',
-        (): Array<UpdateAction> => actionsMapCategories(diff)
-      )
+      mapActionGroup('categories', () => actionsMapCategoryOrderHints(diff))
     )
 
     allActions.push(
-      mapActionGroup(
-        'categories',
-        (): Array<UpdateAction> => actionsMapCategoryOrderHints(diff)
-      )
-    )
-
-    allActions.push(
-      mapActionGroup(
-        'assets',
-        (): Array<UpdateAction> =>
-          actionsMapAssets(diff, oldObj, newObj, variantHashMap)
+      mapActionGroup('assets', () =>
+        actionsMapAssets(diff, oldObj, newObj, variantHashMap)
       )
     )
 

@@ -3,7 +3,7 @@
 // TODO create an issue here https://github.com/benjamine/jsondiffpatch/issues/new
 const DiffPatcher = require('jsondiffpatch').DiffPatcher
 
-export function objectHash(obj, index) {
+export function objectHash(obj: any, index: any) {
   const objIndex = `$$index:${index}`
   return typeof obj === 'object' && obj !== null
     ? obj.id || obj.name || obj.url || objIndex
@@ -31,15 +31,15 @@ const diffpatcher = new DiffPatcher({
   },
 })
 
-export function diff(oldObj, newObj) {
+export function diff(oldObj: any, newObj: any) {
   return diffpatcher.diff(oldObj, newObj)
 }
 
-export function patch(obj, delta) {
+export function patch(obj: any, delta: any) {
   return diffpatcher.patch(obj, delta)
 }
 
-export function getDeltaValue(arr, originalObject?: any) {
+export function getDeltaValue(arr: Array<any> | any, originalObject?: any) {
   if (!Array.isArray(arr))
     throw new Error('Expected array to extract delta value')
 

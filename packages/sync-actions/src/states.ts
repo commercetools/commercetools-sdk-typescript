@@ -7,20 +7,20 @@ import type {
 import { actionsMapBase, actionsMapRoles } from './state-actions'
 import { SyncAction } from './types/update-actions'
 import createBuildActions from './utils/create-build-actions'
-import createMapActionGroup from './utils/create-map-action-group'
+import createMapActionGroup, {
+  MapActionGroup,
+  MapActionResult,
+} from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
-
-type RoleUpdate = {
-  action: string
-  roles: string
-}
 
 export const actionGroups = ['base']
 
 // This function groups `addRoles` and `removeRoles` actions to one array
-function groupRoleActions([actions]: Array<UpdateAction>): Array<UpdateAction> {
-  const addActionRoles = []
-  const removeActionRoles = []
+function groupRoleActions([actions]: Array<
+  Array<UpdateAction>
+>): Array<UpdateAction> {
+  const addActionRoles: Array<UpdateAction> = []
+  const removeActionRoles: Array<UpdateAction> = []
   actions.forEach((action: UpdateAction) => {
     if (action.action === 'removeRoles') removeActionRoles.push(action.roles)
     if (action.action === 'addRoles') addActionRoles.push(action.roles)
@@ -32,28 +32,19 @@ function groupRoleActions([actions]: Array<UpdateAction>): Array<UpdateAction> {
 }
 
 function createStatesMapActions(
-  mapActionGroup: Function,
+  mapActionGroup: MapActionGroup,
   syncActionConfig?: SyncActionConfig
-): (diff: any, newObj: any, oldObj: any) => Array<UpdateAction> {
-  return function doMapActions(
-    diff: any,
-    newObj: any,
-    oldObj: any
-  ): Array<UpdateAction> {
-    const baseActions = []
-    const roleActions = []
+): MapActionResult {
+  return function doMapActions(diff, newObj, oldObj) {
+    const baseActions: Array<Array<UpdateAction>> = []
+    const roleActions: Array<Array<UpdateAction>> = []
     baseActions.push(
-      mapActionGroup(
-        'base',
-        (): Array<UpdateAction> =>
-          actionsMapBase(diff, oldObj, newObj, syncActionConfig)
+      mapActionGroup('base', () =>
+        actionsMapBase(diff, oldObj, newObj, syncActionConfig)
       )
     )
     roleActions.push(
-      mapActionGroup(
-        'roles',
-        (): Array<UpdateAction> => actionsMapRoles(diff, oldObj, newObj)
-      )
+      mapActionGroup('roles', () => actionsMapRoles(diff, oldObj, newObj))
     )
     return [...baseActions, ...groupRoleActions(roleActions)].flat()
   }

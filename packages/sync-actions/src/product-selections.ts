@@ -46,7 +46,7 @@ export default (
 ): SyncAction<ProductSelection, ProductSelectionUpdateAction> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createProductSelectionsMapActions(mapActionGroup)
-  const onBeforeApplyingDiff = null
+  const onBeforeApplyingDiff: any = null
   const buildActions = createBuildActions<
     ProductSelection,
     ProductSelectionUpdateAction

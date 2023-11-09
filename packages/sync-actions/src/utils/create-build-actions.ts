@@ -1,12 +1,18 @@
 import { UpdateAction } from '@commercetools/sdk-client-v2'
 import { deepEqual } from 'fast-equals'
 import { DeepPartial } from '../types/update-actions'
+import { Price, ProductVariant } from '@commercetools/platform-sdk'
+import { MapActionResult } from './create-map-action-group'
 
-function applyOnBeforeDiff(before, now, fn?: (before, now) => Array<any>) {
+function applyOnBeforeDiff(
+  before: any,
+  now: any,
+  fn?: (before: any, now: any) => Array<any>
+) {
   return fn && typeof fn === 'function' ? fn(before, now) : [before, now]
 }
 
-const createPriceComparator = (price) => ({
+const createPriceComparator = (price: Price) => ({
   value: { currencyCode: price.value.currencyCode },
   channel: price.channel,
   country: price.country,
@@ -15,13 +21,16 @@ const createPriceComparator = (price) => ({
   validUntil: price.validUntil,
 })
 
-function arePricesStructurallyEqual(oldPrice, newPrice) {
+function arePricesStructurallyEqual(oldPrice: Price, newPrice: Price) {
   const oldPriceComparison = createPriceComparator(oldPrice)
   const newPriceComparison = createPriceComparator(newPrice)
   return deepEqual(newPriceComparison, oldPriceComparison)
 }
 
-function extractPriceFromPreviousVariant(newPrice, previousVariant) {
+function extractPriceFromPreviousVariant(
+  newPrice: Price,
+  previousVariant?: ProductVariant
+) {
   if (!previousVariant) return null
   const price = previousVariant.prices.find((oldPrice) =>
     arePricesStructurallyEqual(oldPrice, newPrice)
@@ -29,7 +38,10 @@ function extractPriceFromPreviousVariant(newPrice, previousVariant) {
   return price || null
 }
 
-function injectMissingPriceIds(nextVariants, previousVariants) {
+function injectMissingPriceIds(
+  nextVariants: Array<ProductVariant>,
+  previousVariants: Array<ProductVariant>
+) {
   return nextVariants.map((newVariant) => {
     const { prices, ...restOfVariant } = newVariant
 
@@ -44,7 +56,7 @@ function injectMissingPriceIds(nextVariants, previousVariants) {
     return {
       ...restOfVariant,
       prices: prices.map((price) => {
-        const newPrice = { ...price }
+        let newPrice: any = { ...price }
         const oldPrice = extractPriceFromPreviousVariant(price, oldVariant)
 
         if (oldPrice) {
@@ -69,8 +81,8 @@ function injectMissingPriceIds(nextVariants, previousVariants) {
 }
 
 export default function createBuildActions<S, T extends UpdateAction>(
-  differ,
-  doMapActions,
+  differ: any,
+  doMapActions: any,
   onBeforeDiff?: (before: DeepPartial<S>, now: DeepPartial<S>) => Array<any>,
   buildActionsConfig: any = {}
 ) {

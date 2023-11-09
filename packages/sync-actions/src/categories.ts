@@ -4,7 +4,7 @@ import type {
   SyncActionConfig,
   UpdateAction,
 } from '@commercetools/sdk-client-v2'
-import actionsMapAssets from './assets-actions'
+import actionsMapAssets from './category-assets-actions'
 import {
   actionsMapBase,
   actionsMapMeta,
@@ -14,56 +14,43 @@ import { SyncAction } from './types/update-actions'
 import actionsMapCustom from './utils/action-map-custom'
 import copyEmptyArrayProps from './utils/copy-empty-array-props'
 import createBuildActions from './utils/create-build-actions'
-import createMapActionGroup from './utils/create-map-action-group'
+import createMapActionGroup, {
+  MapActionGroup,
+  MapActionResult,
+} from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
 
 export const actionGroups = ['base', 'references', 'meta', 'custom', 'assets']
 
 function createCategoryMapActions(
-  mapActionGroup: Function,
+  mapActionGroup: MapActionGroup,
   syncActionConfig?: SyncActionConfig
-): (diff: any, newObj: any, oldObj: any) => Array<UpdateAction> {
-  return function doMapActions(
-    diff: any,
-    newObj: any,
-    oldObj: any /* , options */
-  ): Array<UpdateAction> {
-    const allActions = []
+): MapActionResult {
+  return function doMapActions(diff, newObj, oldObj) {
+    const allActions: Array<Array<UpdateAction>> = []
 
     allActions.push(
-      mapActionGroup(
-        'base',
-        (): Array<UpdateAction> =>
-          actionsMapBase(diff, oldObj, newObj, syncActionConfig)
+      mapActionGroup('base', () =>
+        actionsMapBase(diff, oldObj, newObj, syncActionConfig)
       )
     )
 
     allActions.push(
-      mapActionGroup(
-        'references',
-        (): Array<UpdateAction> => actionsMapReferences(diff, oldObj, newObj)
+      mapActionGroup('references', () =>
+        actionsMapReferences(diff, oldObj, newObj)
       )
     )
 
     allActions.push(
-      mapActionGroup(
-        'meta',
-        (): Array<UpdateAction> => actionsMapMeta(diff, oldObj, newObj)
-      )
+      mapActionGroup('meta', () => actionsMapMeta(diff, oldObj, newObj))
     )
 
     allActions.push(
-      mapActionGroup(
-        'custom',
-        (): Array<UpdateAction> => actionsMapCustom(diff, newObj, oldObj)
-      )
+      mapActionGroup('custom', () => actionsMapCustom(diff, newObj, oldObj))
     )
 
     allActions.push(
-      mapActionGroup(
-        'assets',
-        (): Array<UpdateAction> => actionsMapAssets(diff, oldObj, newObj)
-      )
+      mapActionGroup('assets', () => actionsMapAssets(diff, oldObj, newObj))
     )
 
     return allActions.flat()

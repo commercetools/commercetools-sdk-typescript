@@ -1,22 +1,23 @@
 import clone, { notEmpty } from './clone'
 import { getDeltaValue, patch } from './diffpatcher'
+import { UpdateAction } from '@commercetools/sdk-client-v2'
 
-const normalizeValue = (value) =>
+const normalizeValue = (value: any) =>
   typeof value === 'string' ? value.trim() : value
 
-export const createIsEmptyValue = (emptyValues) => (value) =>
+export const createIsEmptyValue = (emptyValues: Array<any>) => (value: any) =>
   emptyValues.some((emptyValue) => emptyValue === normalizeValue(value))
 
 /**
  * Builds actions for simple object properties, given a list of actions
  * E.g. [{ action: `changeName`, key: 'name' }]
  *
- * @param  {Array} options.actions - a list of actions to be built
+ * @param  {Array} actions - a list of actions to be built
  * based on the given property
- * @param  {Object} options.diff - the diff object
- * @param  {Object} options.oldObj - the object that needs to be updated
- * @param  {Object} options.newObj - the new representation of the object
- * @param {Boolean} options.shouldOmitEmptyString - a flag to determine if we should treat an empty string a NON-value
+ * @param  {Object} diff - the diff object
+ * @param  {Object} oldObj - the object that needs to be updated
+ * @param  {Object} newObj - the new representation of the object
+ * @param {Boolean} shouldOmitEmptyString - a flag to determine if we should treat an empty string a NON-value
  */
 export function buildBaseAttributesActions({
   actions,
@@ -25,12 +26,12 @@ export function buildBaseAttributesActions({
   newObj,
   shouldOmitEmptyString,
 }: {
-  actions: Array<any>
+  actions: Array<UpdateAction>
   diff: any
   oldObj: any
   newObj: any
   shouldOmitEmptyString?: boolean
-}) {
+}): Array<UpdateAction> {
   const isEmptyValue = createIsEmptyValue(
     shouldOmitEmptyString ? [undefined, null, ''] : [undefined, null]
   )
@@ -70,13 +71,23 @@ export function buildBaseAttributesActions({
  * Builds actions for simple reference objects, given a list of actions
  * E.g. [{ action: `setTaxCategory`, key: 'taxCategory' }]
  *
- * @param  {Array} options.actions - a list of actions to be built
+ * @param  {Array} actions - a list of actions to be built
  * based on the given property
- * @param  {Object} options.diff - the diff object
- * @param  {Object} options.oldObj - the object that needs to be updated
- * @param  {Object} options.newObj - the new representation of the object
+ * @param  {Object} diff - the diff object
+ * @param  {Object} oldObj - the object that needs to be updated
+ * @param  {Object} newObj - the new representation of the object
  */
-export function buildReferenceActions({ actions, diff, oldObj, newObj }) {
+export function buildReferenceActions({
+  actions,
+  diff,
+  oldObj,
+  newObj,
+}: {
+  actions: Array<UpdateAction>
+  diff: any
+  oldObj: any
+  newObj: any
+}): Array<{ action: string }> {
   return actions
     .map((item) => {
       const action = item.action

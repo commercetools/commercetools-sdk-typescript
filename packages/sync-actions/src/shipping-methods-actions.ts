@@ -4,8 +4,11 @@ import createBuildArrayActions, {
   CHANGE_ACTIONS,
   REMOVE_ACTIONS,
 } from './utils/create-build-array-actions'
+import { ActionMapBase } from './utils/create-map-action-group'
+import { UpdateAction } from '@commercetools/sdk-client-v2'
+import { ZoneRate } from '@commercetools/platform-sdk'
 
-export const baseActionsList = [
+export const baseActionsList: Array<UpdateAction> = [
   { action: 'setKey', key: 'key' },
   { action: 'changeName', key: 'name' },
   { action: 'setLocalizedName', key: 'localizedName' },
@@ -16,22 +19,17 @@ export const baseActionsList = [
   { action: 'changeTaxCategory', key: 'taxCategory' },
 ]
 
-export function actionsMapBase(
-  diff,
-  oldObj,
-  newObj,
-  config: { shouldOmitEmptyString?: boolean } = {}
-) {
+export const actionsMapBase: ActionMapBase = (diff, oldObj, newObj, config) => {
   return buildBaseAttributesActions({
     actions: baseActionsList,
     diff,
     oldObj,
     newObj,
-    shouldOmitEmptyString: config.shouldOmitEmptyString,
+    shouldOmitEmptyString: config?.shouldOmitEmptyString,
   })
 }
 
-const addShippingRates = (newZoneRate) =>
+const addShippingRates = (newZoneRate: ZoneRate) =>
   newZoneRate.shippingRates
     ? newZoneRate.shippingRates.map((shippingRate) => ({
         action: 'addShippingRate',
@@ -40,7 +38,7 @@ const addShippingRates = (newZoneRate) =>
       }))
     : []
 
-function actionsMapZoneRatesShippingRates(diff, oldObj, newObj) {
+function actionsMapZoneRatesShippingRates(diff: any, oldObj: any, newObj: any) {
   const handler = createBuildArrayActions('shippingRates', {
     [ADD_ACTIONS]: (newShippingRate) => ({
       action: 'addShippingRate',
@@ -69,7 +67,7 @@ function actionsMapZoneRatesShippingRates(diff, oldObj, newObj) {
   return handler(diff, oldObj, newObj)
 }
 
-export function actionsMapZoneRates(diff, oldObj, newObj) {
+export function actionsMapZoneRates(diff: any, oldObj: any, newObj: any) {
   const handler = createBuildArrayActions('zoneRates', {
     [ADD_ACTIONS]: (newZoneRate) => [
       {

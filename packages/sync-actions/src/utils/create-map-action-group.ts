@@ -5,12 +5,34 @@
 //   { type: 'prices', group: 'allow' },
 //   { type: 'variants', group: 'ignore' },
 // ]
-import { ActionGroup } from '@commercetools/sdk-client-v2'
+import { ActionGroup, UpdateAction } from '@commercetools/sdk-client-v2'
+
+export type MapActionGroup = (
+  type: string,
+  fn: () => Array<UpdateAction>
+) => Array<UpdateAction>
+
+export type MapActionResult = (
+  diff: any,
+  newObj: any,
+  oldObj: any,
+  config?: any
+) => Array<UpdateAction>
+
+export type ActionMapBase = (
+  diff: any,
+  oldObj: any,
+  newObj: any,
+  config?: { shouldOmitEmptyString?: boolean; [key: string]: any }
+) => Array<UpdateAction>
 
 export default function createMapActionGroup(
   actionGroups: Array<ActionGroup> = []
-) {
-  return function mapActionGroup(type: string, fn: () => any) {
+): MapActionGroup {
+  return function mapActionGroup(
+    type: string,
+    fn: () => Array<UpdateAction>
+  ): Array<UpdateAction> {
     if (!Object.keys(actionGroups).length) return fn()
 
     const found = actionGroups.find((c) => c.type === type)

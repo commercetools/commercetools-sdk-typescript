@@ -8,7 +8,10 @@ const CUSTOM = 'custom'
  * @param {Object} newObj
  * @returns {Array} Ordered Array [oldObj, newObj]
  */
-export default function copyEmptyArrayProps(oldObj = {}, newObj = {}) {
+export default function copyEmptyArrayProps(
+  oldObj: any = {},
+  newObj: any = {}
+): Array<any> {
   if (oldObj && newObj) {
     const nextObjectWithEmptyArray = Object.entries(oldObj).reduce(
       (merged, [key, value]) => {

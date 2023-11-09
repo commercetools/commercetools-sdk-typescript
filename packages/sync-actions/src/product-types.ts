@@ -10,7 +10,10 @@ import type {
 import * as productTypeActions from './product-types-actions'
 import { NestedValues } from './product-types-actions'
 import createBuildActions from './utils/create-build-actions'
-import createMapActionGroup from './utils/create-map-action-group'
+import createMapActionGroup, {
+  MapActionGroup,
+  MapActionResult,
+} from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
 
 type SyncActionConfig = { withHints?: boolean } & BaseSyncActionConfig
@@ -18,42 +21,28 @@ type SyncActionConfig = { withHints?: boolean } & BaseSyncActionConfig
 const actionGroups = ['base']
 
 function createProductTypeMapActions(
-  mapActionGroup: (
-    type: string,
-    fn: () => Array<UpdateAction>
-  ) => Array<UpdateAction>,
+  mapActionGroup: MapActionGroup,
   syncActionConfig?: SyncActionConfig
-): (diff: any, next: any, previous: any, options: any) => Array<UpdateAction> {
-  return function doMapActions(
-    diff: any,
-    next: any,
-    previous: any,
-    options: any
-  ): Array<UpdateAction> {
+): MapActionResult {
+  return function doMapActions(diff, newObj, oldObj, options) {
     return [
       // we support only base fields for the product type,
       // for attributes, applying hints would be recommended
-      mapActionGroup(
-        'base',
-        (): Array<UpdateAction> =>
-          productTypeActions.actionsMapBase(
-            diff,
-            previous,
-            next,
-            syncActionConfig
-          )
+      mapActionGroup('base', () =>
+        productTypeActions.actionsMapBase(
+          diff,
+          oldObj,
+          newObj,
+          syncActionConfig
+        )
       ),
       productTypeActions.actionsMapForHints(
         options.nestedValuesChanges,
-        previous,
-        next
+        oldObj,
+        newObj
       ),
     ].flat()
   }
-}
-
-export type ProductTypeConfig = {
-  nestedValuesChanges: NestedValues
 }
 
 export default (
@@ -65,7 +54,7 @@ export default (
     mapActionGroup,
     syncActionConfig
   )
-  const onBeforeApplyingDiff = null
+  const onBeforeApplyingDiff: any = null
   const buildActions = createBuildActions<ProductType, ProductTypeUpdateAction>(
     diff,
     doMapActions,

@@ -4,32 +4,32 @@ import createBuildArrayActions, {
   CHANGE_ACTIONS,
   REMOVE_ACTIONS,
 } from './utils/create-build-array-actions'
+import { UpdateAction } from '@commercetools/sdk-client-v2'
+import { ActionMapBase } from './utils/create-map-action-group'
+import { AttributeReference } from '@commercetools/platform-sdk/src'
 
-const hasAttribute = (attributes, newValue) =>
-  attributes.some((attribute) => attribute.key === newValue.key)
+const hasAttribute = (
+  attributes: Array<AttributeReference>,
+  newValue: AttributeReference
+) => attributes.some((attribute) => attribute.key === newValue.key)
 
-export const baseActionsList = [
+export const baseActionsList: Array<UpdateAction> = [
   { action: 'changeName', key: 'name' },
   { action: 'setKey', key: 'key' },
   { action: 'setDescription', key: 'description' },
 ]
 
-export function actionsMapBase(
-  diff,
-  oldObj,
-  newObj,
-  config: { shouldOmitEmptyString?: boolean } = {}
-) {
+export const actionsMapBase: ActionMapBase = (diff, oldObj, newObj, config) => {
   return buildBaseAttributesActions({
     actions: baseActionsList,
     diff,
     oldObj,
     newObj,
-    shouldOmitEmptyString: config.shouldOmitEmptyString,
+    shouldOmitEmptyString: config?.shouldOmitEmptyString,
   })
 }
 
-export function actionsMapAttributes(diff, oldObj, newObj) {
+export function actionsMapAttributes(diff: any, oldObj: any, newObj: any) {
   const handler = createBuildArrayActions('attributes', {
     [ADD_ACTIONS]: (newAttribute) => ({
       action: 'addAttribute',

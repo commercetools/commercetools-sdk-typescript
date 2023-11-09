@@ -1,6 +1,8 @@
 import { buildBaseAttributesActions } from './utils/common-actions'
+import { ActionMapBase } from './utils/create-map-action-group'
+import { UpdateAction } from '@commercetools/sdk-client-v2'
 
-export const baseActionsList = [
+export const baseActionsList: Array<UpdateAction> = [
   { action: 'changeValue', key: 'value' },
   { action: 'setDiscountedPrice', key: 'discounted' },
   // TODO: Later add more accurate actions `addPriceTier`, `removePriceTier`
@@ -11,17 +13,12 @@ export const baseActionsList = [
   { action: 'changeActive', key: 'active' },
 ]
 
-export function actionsMapBase(
-  diff,
-  oldObj,
-  newObj,
-  config: { shouldOmitEmptyString?: boolean } = {}
-) {
+export const actionsMapBase: ActionMapBase = (diff, oldObj, newObj, config) => {
   return buildBaseAttributesActions({
     actions: baseActionsList,
     diff,
     oldObj,
     newObj,
-    shouldOmitEmptyString: config.shouldOmitEmptyString,
+    shouldOmitEmptyString: config?.shouldOmitEmptyString,
   })
 }

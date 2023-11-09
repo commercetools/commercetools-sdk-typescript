@@ -6,37 +6,29 @@ import type {
 } from '@commercetools/sdk-client-v2'
 import { SyncAction } from './types/update-actions'
 import createBuildActions from './utils/create-build-actions'
-import createMapActionGroup from './utils/create-map-action-group'
+import createMapActionGroup, {
+  MapActionGroup,
+  MapActionResult,
+} from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
 import * as zonesActions from './zones-actions'
 
 export const actionGroups = ['base', 'locations']
 
 function createZonesMapActions(
-  mapActionGroup: (
-    type: string,
-    fn: () => Array<UpdateAction>
-  ) => Array<UpdateAction>,
+  mapActionGroup: MapActionGroup,
   syncActionConfig?: SyncActionConfig
-): (diff: any, next: any, previous: any) => Array<UpdateAction> {
-  return function doMapActions(
-    diff: any,
-    newObj: any,
-    oldObj: any
-  ): Array<UpdateAction> {
-    const allActions = []
+): MapActionResult {
+  return function doMapActions(diff, newObj, oldObj) {
+    const allActions: Array<Array<UpdateAction>> = []
     allActions.push(
-      mapActionGroup(
-        'base',
-        (): Array<UpdateAction> =>
-          zonesActions.actionsMapBase(diff, oldObj, newObj, syncActionConfig)
+      mapActionGroup('base', () =>
+        zonesActions.actionsMapBase(diff, oldObj, newObj, syncActionConfig)
       )
     )
     allActions.push(
-      mapActionGroup(
-        'locations',
-        (): Array<UpdateAction> =>
-          zonesActions.actionsMapLocations(diff, oldObj, newObj)
+      mapActionGroup('locations', () =>
+        zonesActions.actionsMapLocations(diff, oldObj, newObj)
       ).flat()
     )
     return allActions.flat()

@@ -8,29 +8,25 @@ import { actionsMapBase } from './prices-actions'
 import actionsMapCustom from './utils/action-map-custom'
 import combineValidityActions from './utils/combine-validity-actions'
 import createBuildActions from './utils/create-build-actions'
-import createMapActionGroup from './utils/create-map-action-group'
+import createMapActionGroup, {
+  MapActionGroup,
+  MapActionResult,
+} from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
 
 const actionGroups = ['base', 'custom']
 
 function createPriceMapActions(
-  mapActionGroup: Function,
+  mapActionGroup: MapActionGroup,
   syncActionConfig?: SyncActionConfig
-): (diff: any, newObj: any, oldObj: any, options: any) => Array<UpdateAction> {
-  return function doMapActions(
-    diff: any,
-    newObj: any,
-    oldObj: any
-  ): Array<UpdateAction> {
-    const baseActions = mapActionGroup(
-      'base',
-      (): Array<UpdateAction> =>
-        actionsMapBase(diff, oldObj, newObj, syncActionConfig)
+): MapActionResult {
+  return function doMapActions(diff, newObj, oldObj) {
+    const baseActions = mapActionGroup('base', () =>
+      actionsMapBase(diff, oldObj, newObj, syncActionConfig)
     )
 
-    const customActions = mapActionGroup(
-      'custom',
-      (): Array<UpdateAction> => actionsMapCustom(diff, newObj, oldObj)
+    const customActions = mapActionGroup('custom', () =>
+      actionsMapCustom(diff, newObj, oldObj)
     )
 
     return combineValidityActions([...baseActions, ...customActions])

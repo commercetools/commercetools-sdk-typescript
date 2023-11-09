@@ -4,19 +4,16 @@ import {
   buildBaseAttributesActions,
   createIsEmptyValue,
 } from './utils/common-actions'
+import { ActionMapBase } from './utils/create-map-action-group'
+import { UpdateAction } from '@commercetools/sdk-client-v2'
 
-export const baseActionsList = [
+export const baseActionsList: Array<UpdateAction> = [
   { action: 'changeName', key: 'name' },
   { action: 'setKey', key: 'key' },
   { action: 'changeDescription', key: 'description' },
 ]
 
-export function actionsMapBase(
-  diff,
-  previous,
-  next,
-  config: { shouldOmitEmptyString?: boolean } = {}
-) {
+export const actionsMapBase: ActionMapBase = (diff, previous, next, config) => {
   // when `diff` is undefined, then the underlying `buildActions` has returned any diff
   // which given in product-types would mean that `buildActions` has run with `nestedValuesChanges` applied
   // To allow continuation of update-action generation, we let this pass..
@@ -26,7 +23,7 @@ export function actionsMapBase(
     actions: baseActionsList,
     oldObj: previous,
     newObj: next,
-    shouldOmitEmptyString: config.shouldOmitEmptyString,
+    shouldOmitEmptyString: config?.shouldOmitEmptyString,
   })
 }
 
@@ -35,8 +32,8 @@ export function actionsMapBase(
 // which is an object consisting of flags which indicates different operations.
 // `generateBaseFieldsUpdateActions` only generate based on `previous` and `next`.
 export const generateBaseFieldsUpdateActions = (
-  previous,
-  next,
+  previous: any,
+  next: any,
   actionDefinition: { [s: string]: { action: string; attributeName?: string } }
 ) => {
   const isEmpty = createIsEmptyValue([undefined, null, ''])
@@ -284,9 +281,9 @@ const generateUpdateActionsForAttributeEnumValues = (
 }
 
 const generateChangeAttributeOrderAction = (
-  attrsOld = [],
-  attrsNew = [],
-  updateActions = []
+  attrsOld: Array<any> = [],
+  attrsNew: Array<any> = [],
+  updateActions: Array<UpdateAction> = []
 ) => {
   if (!attrsOld.length || !attrsNew.length) return null
 
@@ -322,8 +319,8 @@ export type NestedValues = {
 }
 export const actionsMapForHints = (
   nestedValuesChanges: NestedValues,
-  ptOld,
-  ptNew
+  ptOld: any,
+  ptNew: any
 ) => {
   const updateActions = [
     ...generateUpdateActionsForAttributeDefinitions(

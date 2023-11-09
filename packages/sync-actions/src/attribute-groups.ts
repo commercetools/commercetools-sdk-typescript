@@ -13,33 +13,26 @@ import {
 } from './attribute-groups-actions'
 import { SyncAction } from './types/update-actions'
 import createBuildActions from './utils/create-build-actions'
-import createMapActionGroup from './utils/create-map-action-group'
+import createMapActionGroup, {
+  MapActionGroup,
+  MapActionResult,
+} from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
 
 function createAttributeGroupsMapActions(
-  mapActionGroup: (
-    type: string,
-    fn: () => Array<UpdateAction>
-  ) => Array<UpdateAction>,
+  mapActionGroup: MapActionGroup,
   syncActionConfig?: SyncActionConfig
-): (diff: any, newObj: any, oldObj: any) => Array<UpdateAction> {
-  return function doMapActions(
-    diff: any,
-    newObj: any,
-    oldObj: any
-  ): Array<UpdateAction> {
-    const allActions = []
+): MapActionResult {
+  return function doMapActions(diff, newObj, oldObj) {
+    const allActions: Array<Array<UpdateAction>> = []
     allActions.push(
-      mapActionGroup(
-        'base',
-        (): Array<UpdateAction> =>
-          actionsMapBase(diff, oldObj, newObj, syncActionConfig)
+      mapActionGroup('base', () =>
+        actionsMapBase(diff, oldObj, newObj, syncActionConfig)
       )
     )
     allActions.push(
-      mapActionGroup(
-        'attributes',
-        (): Array<UpdateAction> => actionsMapAttributes(diff, oldObj, newObj)
+      mapActionGroup('attributes', () =>
+        actionsMapAttributes(diff, oldObj, newObj)
       ).flat()
     )
     return allActions.flat()

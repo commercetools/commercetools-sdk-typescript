@@ -1,24 +1,27 @@
 import { getDeltaValue } from './diffpatcher'
+import { UpdateAction } from '@commercetools/sdk-client-v2'
 
 const Actions = {
   setCustomType: 'setCustomType',
   setCustomField: 'setCustomField',
 }
 
-const hasSingleCustomFieldChanged = (diff) => Array.isArray(diff.custom)
-const haveMultipleCustomFieldsChanged = (diff) => Boolean(diff.custom.fields)
-const hasCustomTypeChanged = (diff) => Boolean(diff.custom.type)
-const extractCustomType = (diff, previousObject) =>
+const hasSingleCustomFieldChanged = (diff: any) => Array.isArray(diff.custom)
+const haveMultipleCustomFieldsChanged = (diff: any) =>
+  Boolean(diff.custom.fields)
+const hasCustomTypeChanged = (diff: any) => Boolean(diff.custom.type)
+const extractCustomType = (diff: any, previousObject: any) =>
   Array.isArray(diff.custom.type)
     ? getDeltaValue(diff.custom.type, previousObject)
     : diff.custom.type
-const extractTypeId = (type, nextObject) =>
+const extractTypeId = (type: any, nextObject: any) =>
   Array.isArray(type.id) ? getDeltaValue(type.id) : nextObject.custom.type.id
-const extractTypeKey = (type, nextObject) =>
+const extractTypeKey = (type: any, nextObject: any) =>
   Array.isArray(type.key) ? getDeltaValue(type.key) : nextObject.custom.type.key
-const extractTypeFields = (diffedFields, nextFields) =>
+const extractTypeFields = (diffedFields: any, nextFields: any) =>
   Array.isArray(diffedFields) ? getDeltaValue(diffedFields) : nextFields
-const extractFieldValue = (newFields, fieldName) => newFields[fieldName]
+const extractFieldValue = (newFields: any, fieldName: string) =>
+  newFields[fieldName]
 
 export default function actionsMapCustom(
   diff: any,
@@ -28,7 +31,7 @@ export default function actionsMapCustom(
     actions: {},
   }
 ) {
-  const actions = []
+  const actions: Array<UpdateAction> = []
   const { actions: customPropsActions, ...options } = customProps
   const actionGroup = { ...Actions, ...customPropsActions }
 

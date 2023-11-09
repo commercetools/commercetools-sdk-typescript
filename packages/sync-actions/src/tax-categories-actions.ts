@@ -4,29 +4,26 @@ import createBuildArrayActions, {
   CHANGE_ACTIONS,
   REMOVE_ACTIONS,
 } from './utils/create-build-array-actions'
+import { ActionMapBase } from './utils/create-map-action-group'
+import { UpdateAction } from '@commercetools/sdk-client-v2'
 
-export const baseActionsList = [
+export const baseActionsList: Array<UpdateAction> = [
   { action: 'changeName', key: 'name' },
   { action: 'setKey', key: 'key' },
   { action: 'setDescription', key: 'description' },
 ]
 
-export function actionsMapBase(
-  diff,
-  oldObj,
-  newObj,
-  config: { shouldOmitEmptyString?: boolean } = {}
-) {
+export const actionsMapBase: ActionMapBase = (diff, oldObj, newObj, config) => {
   return buildBaseAttributesActions({
     actions: baseActionsList,
     diff,
     oldObj,
     newObj,
-    shouldOmitEmptyString: config.shouldOmitEmptyString,
+    shouldOmitEmptyString: config?.shouldOmitEmptyString,
   })
 }
 
-export function actionsMapRates(diff, oldObj, newObj) {
+export function actionsMapRates(diff: any, oldObj: any, newObj: any) {
   const handler = createBuildArrayActions('rates', {
     [ADD_ACTIONS]: (newObject) => ({
       action: 'addTaxRate',

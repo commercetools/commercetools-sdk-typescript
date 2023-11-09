@@ -10,36 +10,27 @@ import type {
 import { actionsMapBase, actionsMapRates } from './tax-categories-actions'
 import { SyncAction } from './types/update-actions'
 import createBuildActions from './utils/create-build-actions'
-import createMapActionGroup from './utils/create-map-action-group'
+import createMapActionGroup, {
+  MapActionGroup,
+  MapActionResult,
+} from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
 
 export const actionGroups = ['base', 'rates']
 
 function createTaxCategoriesMapActions(
-  mapActionGroup: (
-    type: string,
-    fn: () => Array<UpdateAction>
-  ) => Array<UpdateAction>,
+  mapActionGroup: MapActionGroup,
   syncActionConfig?: SyncActionConfig
-): (diff: any, newObj: any, oldObj: any) => Array<UpdateAction> {
-  return function doMapActions(
-    diff: any,
-    newObj: any,
-    oldObj: any
-  ): Array<UpdateAction> {
-    const allActions = []
+): MapActionResult {
+  return function doMapActions(diff, newObj, oldObj) {
+    const allActions: Array<Array<UpdateAction>> = []
     allActions.push(
-      mapActionGroup(
-        'base',
-        (): Array<UpdateAction> =>
-          actionsMapBase(diff, oldObj, newObj, syncActionConfig)
+      mapActionGroup('base', () =>
+        actionsMapBase(diff, oldObj, newObj, syncActionConfig)
       )
     )
     allActions.push(
-      mapActionGroup(
-        'rates',
-        (): Array<UpdateAction> => actionsMapRates(diff, oldObj, newObj)
-      )
+      mapActionGroup('rates', () => actionsMapRates(diff, oldObj, newObj))
     )
     return allActions.flat()
   }

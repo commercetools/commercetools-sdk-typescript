@@ -11,40 +11,33 @@ import { actionsMapBase, actionsMapReferences } from './inventory-actions'
 import { SyncAction } from './types/update-actions'
 import actionsMapCustom from './utils/action-map-custom'
 import createBuildActions from './utils/create-build-actions'
-import createMapActionGroup from './utils/create-map-action-group'
+import createMapActionGroup, {
+  MapActionGroup,
+  MapActionResult,
+} from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
 
 export const actionGroups = ['base', 'references']
 
 function createInventoryMapActions(
-  mapActionGroup: Function,
+  mapActionGroup: MapActionGroup,
   syncActionConfig?: SyncActionConfig
-): (diff: any, newObj: any, oldObj: any) => Array<UpdateAction> {
-  return function doMapActions(
-    diff: any,
-    newObj: any,
-    oldObj: any /* , options */
-  ): Array<UpdateAction> {
-    const allActions = []
+): MapActionResult {
+  return function doMapActions(diff, newObj, oldObj) {
+    const allActions: Array<Array<UpdateAction>> = []
     allActions.push(
-      mapActionGroup(
-        'base',
-        (): Array<UpdateAction> =>
-          actionsMapBase(diff, oldObj, newObj, syncActionConfig)
+      mapActionGroup('base', () =>
+        actionsMapBase(diff, oldObj, newObj, syncActionConfig)
       )
     )
 
     allActions.push(
-      mapActionGroup(
-        'references',
-        (): Array<UpdateAction> => actionsMapReferences(diff, oldObj, newObj)
+      mapActionGroup('references', () =>
+        actionsMapReferences(diff, oldObj, newObj)
       )
     )
     allActions.push(
-      mapActionGroup(
-        'custom',
-        (): Array<UpdateAction> => actionsMapCustom(diff, newObj, oldObj)
-      )
+      mapActionGroup('custom', () => actionsMapCustom(diff, newObj, oldObj))
     )
     return allActions.flat()
   }

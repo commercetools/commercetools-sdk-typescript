@@ -6,17 +6,19 @@ import createBuildArrayActions, {
 import { getDeltaValue } from './utils/diffpatcher'
 import extractMatchingPairs from './utils/extract-matching-pairs'
 import findMatchingPairs from './utils/find-matching-pairs'
+import { ActionMapBase } from './utils/create-map-action-group'
+import { UpdateAction } from '@commercetools/sdk-client-v2'
 
 const REGEX_NUMBER = new RegExp(/^\d+$/)
 const REGEX_UNDERSCORE_NUMBER = new RegExp(/^_\d+$/)
 
-const isAddAction = (key, resource) =>
+const isAddAction = (key: string, resource: any) =>
   REGEX_NUMBER.test(key) && Array.isArray(resource) && resource.length
 
-const isRemoveAction = (key, resource) =>
+const isRemoveAction = (key: string, resource: any) =>
   REGEX_UNDERSCORE_NUMBER.test(key) && Number(resource[2]) === 0
 
-export const baseActionsList = [
+export const baseActionsList: Array<UpdateAction> = [
   { action: 'changeOrderState', key: 'orderState' },
   { action: 'changePaymentState', key: 'paymentState' },
   { action: 'changeShipmentState', key: 'shipmentState' },
@@ -26,22 +28,17 @@ export const baseActionsList = [
  * SYNC FUNCTIONS
  */
 
-export function actionsMapBase(
-  diff,
-  oldObj,
-  newObj,
-  config: { shouldOmitEmptyString?: boolean } = {}
-) {
+export const actionsMapBase: ActionMapBase = (diff, oldObj, newObj, config) => {
   return buildBaseAttributesActions({
     actions: baseActionsList,
     diff,
     oldObj,
     newObj,
-    shouldOmitEmptyString: config.shouldOmitEmptyString,
+    shouldOmitEmptyString: config?.shouldOmitEmptyString,
   })
 }
 
-export function actionsMapDeliveries(diff, oldObj, newObj) {
+export function actionsMapDeliveries(diff: any, oldObj: any, newObj: any) {
   const deliveriesDiff = diff.shippingInfo
   if (!deliveriesDiff) return []
 
@@ -57,12 +54,12 @@ export function actionsMapDeliveries(diff, oldObj, newObj) {
 }
 
 function _buildDeliveryParcelsAction(
-  diffedParcels,
+  diffedParcels: any,
   oldDelivery: any = {},
   newDelivery: any = {}
 ) {
-  const addParcelActions = []
-  const removeParcelActions = []
+  const addParcelActions: Array<UpdateAction> = []
+  const removeParcelActions: Array<UpdateAction> = []
 
   // generate a hashMap to be able to reference the right image from both ends
   const matchingParcelPairs = findMatchingPairs(
@@ -99,7 +96,7 @@ function _buildDeliveryParcelsAction(
   return [addParcelActions, removeParcelActions]
 }
 
-function _buildDeliveryItemsAction(diffedItems, newDelivery: any = {}) {
+function _buildDeliveryItemsAction(diffedItems: any, newDelivery: any = {}) {
   const setDeliveryItemsAction: Array<any> = []
   // If there is a diff it means that there were changes (update, adds or removes)
   // over the items, which means that `setDeliveryItems` change has happened over
@@ -117,10 +114,10 @@ function _buildDeliveryItemsAction(diffedItems, newDelivery: any = {}) {
 }
 
 export function actionsMapParcels(
-  diff: { shippingInfo: { deliveries: { any } } },
-  oldObj,
-  newObj,
-  deliveryHashMap
+  diff: { shippingInfo: { deliveries: { [key: string]: any } } },
+  oldObj: any,
+  newObj: any,
+  deliveryHashMap: any
 ) {
   const shippingInfo = diff.shippingInfo
   if (!shippingInfo) return []
@@ -128,8 +125,8 @@ export function actionsMapParcels(
   const deliveries = shippingInfo.deliveries
   if (!deliveries) return []
 
-  let addParcelActions = []
-  let removeParcelActions = []
+  let addParcelActions: Array<UpdateAction> = []
+  let removeParcelActions: Array<UpdateAction> = []
 
   if (deliveries)
     Object.entries(deliveries).forEach(([key, delivery]) => {
@@ -156,10 +153,10 @@ export function actionsMapParcels(
 }
 
 export function actionsMapDeliveryItems(
-  diff: { shippingInfo: { deliveries: { any } } },
-  oldObj,
-  newObj,
-  deliveryHashMap
+  diff: { shippingInfo: { deliveries: { [key: string]: any } } },
+  oldObj: any,
+  newObj: any,
+  deliveryHashMap: any
 ) {
   const shippingInfo = diff.shippingInfo
   if (!shippingInfo) return []
@@ -167,7 +164,7 @@ export function actionsMapDeliveryItems(
   const deliveries = shippingInfo.deliveries
   if (!deliveries) return []
 
-  let setDeliveryItemsActions = []
+  let setDeliveryItemsActions: Array<UpdateAction> = []
 
   Object.entries(deliveries).forEach(([key, delivery]) => {
     const { newObj: newDelivery } = extractMatchingPairs(
@@ -190,7 +187,7 @@ export function actionsMapDeliveryItems(
   return setDeliveryItemsActions
 }
 
-export function actionsMapReturnsInfo(diff, oldObj, newObj) {
+export function actionsMapReturnsInfo(diff: any, oldObj: any, newObj: any) {
   const returnInfoDiff = diff.returnInfo
   if (!returnInfoDiff) return []
 

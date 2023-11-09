@@ -4,32 +4,30 @@ import createBuildArrayActions, {
   CHANGE_ACTIONS,
   REMOVE_ACTIONS,
 } from './utils/create-build-array-actions'
+import { UpdateAction } from '@commercetools/sdk-client-v2'
+import { ActionMapBase } from './utils/create-map-action-group'
+import { Location } from '@commercetools/platform-sdk'
 
-export const baseActionsList = [
+export const baseActionsList: Array<UpdateAction> = [
   { action: 'changeName', key: 'name' },
   { action: 'setDescription', key: 'description' },
   { action: 'setKey', key: 'key' },
 ]
 
-const hasLocation = (locations, otherLocation) =>
+const hasLocation = (locations: Array<Location>, otherLocation: Location) =>
   locations.some((location) => location.country === otherLocation.country)
 
-export function actionsMapBase(
-  diff,
-  oldObj,
-  newObj,
-  config: { shouldOmitEmptyString?: boolean } = {}
-) {
+export const actionsMapBase: ActionMapBase = (diff, oldObj, newObj, config) => {
   return buildBaseAttributesActions({
     actions: baseActionsList,
     diff,
     oldObj,
     newObj,
-    shouldOmitEmptyString: config.shouldOmitEmptyString,
+    shouldOmitEmptyString: config?.shouldOmitEmptyString,
   })
 }
 
-export function actionsMapLocations(diff, oldObj, newObj) {
+export function actionsMapLocations(diff: any, oldObj: any, newObj: any) {
   const handler = createBuildArrayActions('locations', {
     [ADD_ACTIONS]: (newLocation) => ({
       action: 'addLocation',
@@ -44,7 +42,7 @@ export function actionsMapLocations(diff, oldObj, newObj) {
           }
         : null,
     [CHANGE_ACTIONS]: (oldLocation, newLocation) => {
-      const result = []
+      const result: Array<UpdateAction> = []
 
       // We only remove the location in case that the oldLocation is not
       // included in the new object

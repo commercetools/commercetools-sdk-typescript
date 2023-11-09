@@ -20,23 +20,22 @@ import {
 import { SyncAction } from './types/update-actions'
 import actionsMapCustom from './utils/action-map-custom'
 import createBuildActions from './utils/create-build-actions'
-import createMapActionGroup from './utils/create-map-action-group'
+import createMapActionGroup, {
+  MapActionGroup,
+  MapActionResult,
+} from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
 import findMatchingPairs from './utils/find-matching-pairs'
 
 export const actionGroups = ['base', 'deliveries']
 
 function createOrderMapActions(
-  mapActionGroup: Function,
+  mapActionGroup: MapActionGroup,
   syncActionConfig?: SyncActionConfig
-): (diff: any, newObj: any, oldObj: any) => Array<UpdateAction> {
-  return function doMapActions(
-    diff: any,
-    newObj: any,
-    oldObj: any /* , options */
-  ): Array<UpdateAction> {
-    const allActions = []
-    let deliveryHashMap
+): MapActionResult {
+  return function doMapActions(diff, newObj, oldObj) {
+    const allActions: Array<Array<UpdateAction>> = []
+    let deliveryHashMap: any
 
     if (diff.shippingInfo && diff.shippingInfo.deliveries) {
       deliveryHashMap = findMatchingPairs(
@@ -47,40 +46,32 @@ function createOrderMapActions(
     }
 
     allActions.push(
-      mapActionGroup(
-        'base',
-        (): Array<UpdateAction> =>
-          actionsMapBase(diff, oldObj, newObj, syncActionConfig)
+      mapActionGroup('base', () =>
+        actionsMapBase(diff, oldObj, newObj, syncActionConfig)
       )
     )
 
     allActions.push(
-      mapActionGroup(
-        'deliveries',
-        (): Array<UpdateAction> => actionsMapDeliveries(diff, oldObj, newObj)
+      mapActionGroup('deliveries', () =>
+        actionsMapDeliveries(diff, oldObj, newObj)
       )
     )
 
     allActions.push(
-      mapActionGroup(
-        'parcels',
-        (): Array<UpdateAction> =>
-          actionsMapParcels(diff, oldObj, newObj, deliveryHashMap)
+      mapActionGroup('parcels', () =>
+        actionsMapParcels(diff, oldObj, newObj, deliveryHashMap)
       )
     )
 
     allActions.push(
-      mapActionGroup(
-        'items',
-        (): Array<UpdateAction> =>
-          actionsMapDeliveryItems(diff, oldObj, newObj, deliveryHashMap)
+      mapActionGroup('items', () =>
+        actionsMapDeliveryItems(diff, oldObj, newObj, deliveryHashMap)
       )
     )
 
     allActions.push(
-      mapActionGroup(
-        'returnInfo',
-        (): Array<UpdateAction> => actionsMapReturnsInfo(diff, oldObj, newObj)
+      mapActionGroup('returnInfo', () =>
+        actionsMapReturnsInfo(diff, oldObj, newObj)
       ).flat()
     )
 

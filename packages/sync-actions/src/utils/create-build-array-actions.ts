@@ -1,3 +1,5 @@
+import { UpdateAction } from '@commercetools/sdk-client-v2'
+
 const REGEX_NUMBER = new RegExp(/^\d+$/)
 const REGEX_UNDERSCORE_NUMBER = new RegExp(/^_\d+$/)
 
@@ -17,7 +19,7 @@ export const CHANGE_ACTIONS = 'change'
  * @return {Boolean}     Returns true if delta represents a create action,
  *   false otherwise
  */
-function isCreateAction(obj, key) {
+function isCreateAction(obj: { [key: string]: any }, key: string): boolean {
   return (
     REGEX_NUMBER.test(key) && Array.isArray(obj[key]) && obj[key].length === 1
   )
@@ -37,7 +39,7 @@ function isCreateAction(obj, key) {
  * @return {Boolean}     Returns true if delta represents a change action,
  *   false otherwise
  */
-function isChangeAction(obj, key) {
+function isChangeAction(obj: any, key: string): boolean {
   return (
     REGEX_NUMBER.test(key) &&
     (typeof obj[key] === 'object' || typeof obj[key] === 'string')
@@ -56,7 +58,7 @@ function isChangeAction(obj, key) {
  * @return {Boolean}     Returns true if delta represents a remove action,
  *   false otherwise
  */
-function isRemoveAction(obj, key) {
+function isRemoveAction(obj: any, key: string): boolean {
   return (
     REGEX_UNDERSCORE_NUMBER.test(key) &&
     Array.isArray(obj[key]) &&
@@ -77,11 +79,29 @@ function isRemoveAction(obj, key) {
  *   return an action object.
  * @return {Array}        The generated array of actions
  */
-export default function createBuildArrayActions(key, config) {
-  return function buildArrayActions(diff, oldObj, newObj) {
-    const addActions = []
-    const removeActions = []
-    const changeActions = []
+export default function createBuildArrayActions(
+  key: string,
+  config: {
+    [ADD_ACTIONS]?: (
+      newItem: any,
+      key?: number
+    ) => UpdateAction | Array<UpdateAction>
+    [REMOVE_ACTIONS]?: (oldItem: any, key?: number) => UpdateAction
+    [CHANGE_ACTIONS]?: (
+      oldAsset: any,
+      newAsset: any,
+      key?: number
+    ) => UpdateAction | Array<UpdateAction>
+  }
+) {
+  return function buildArrayActions(
+    diff: any,
+    oldObj: any,
+    newObj: any
+  ): Array<UpdateAction> {
+    let addActions: Array<UpdateAction> = []
+    const removeActions: Array<UpdateAction> = []
+    let changeActions: Array<UpdateAction> = []
 
     if (diff[key]) {
       const arrayDelta = diff[key]
@@ -95,7 +115,13 @@ export default function createBuildArrayActions(key, config) {
             parseInt(index, 10)
           )
 
-          if (action) addActions.push(action)
+          if (action) {
+            if (Array.isArray(action)) {
+              addActions = addActions.concat(action)
+            } else {
+              addActions.push(action)
+            }
+          }
         } else if (
           config[CHANGE_ACTIONS] &&
           isChangeAction(arrayDelta, index)
@@ -108,7 +134,13 @@ export default function createBuildArrayActions(key, config) {
             parseInt(index, 10)
           )
 
-          if (action) changeActions.push(action)
+          if (action) {
+            if (Array.isArray(action)) {
+              changeActions = changeActions.concat(action)
+            } else {
+              changeActions.push(action)
+            }
+          }
         } else if (
           config[REMOVE_ACTIONS] &&
           isRemoveAction(arrayDelta, index)
