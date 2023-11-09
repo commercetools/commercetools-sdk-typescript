@@ -1,4 +1,5 @@
 import createMapActionGroup from '../../src/utils/create-map-action-group'
+import { ActionGroup } from '@commercetools/sdk-client-v2'
 
 describe('createMapActionGroup', () => {
   describe('without actionGroups', () => {
@@ -18,7 +19,9 @@ describe('createMapActionGroup', () => {
   describe('with found `actionGroup` (type)', () => {
     describe('with `group` being `allow`', () => {
       const fn = jest.fn()
-      const actionGroups = [{ type: 'base', group: 'allow' }]
+      const actionGroups: Array<ActionGroup> = [
+        { type: 'base', group: 'allow' },
+      ]
       let mapActionGroup
 
       beforeEach(() => {
@@ -33,7 +36,9 @@ describe('createMapActionGroup', () => {
 
     describe('with `group` being `ignore`', () => {
       const fn = jest.fn()
-      const actionGroups = [{ type: 'base', group: 'ignore' }]
+      const actionGroups: Array<ActionGroup> = [
+        { type: 'base', group: 'ignore' },
+      ]
       let mapActionGroup
 
       beforeEach(() => {
@@ -52,7 +57,9 @@ describe('createMapActionGroup', () => {
       let mapActionGroup
 
       beforeEach(() => {
-        mapActionGroup = createMapActionGroup(actionGroups)
+        mapActionGroup = createMapActionGroup(
+          actionGroups as Array<ActionGroup>
+        )
       })
 
       test('should throw an error', () => {
@@ -74,7 +81,7 @@ describe('createMapActionGroup', () => {
 
   describe('with non found `actionGroup` (type)', () => {
     const fn = jest.fn()
-    const actionGroups = [{ type: 'base', group: 'allow' }]
+    const actionGroups: Array<ActionGroup> = [{ type: 'base', group: 'allow' }]
     let mapActionGroup
 
     beforeEach(() => {
