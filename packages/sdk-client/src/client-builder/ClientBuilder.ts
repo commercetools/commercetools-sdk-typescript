@@ -201,7 +201,7 @@ export default class ClientBuilder {
     const { createTelemetryMiddleware, ...rest } = options
 
     this.withUserAgentMiddleware({
-      customAgent: rest?.userAgent || 'typescript-sdk-middleware-newrelic',
+      customAgent: rest?.userAgent || 'typescript-sdk-apm-middleware',
     })
     this.telemetryMiddleware = createTelemetryMiddleware(rest)
     return this
