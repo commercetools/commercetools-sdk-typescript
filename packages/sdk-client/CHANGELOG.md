@@ -1,5 +1,13 @@
 # @commercetools/sdk-client-v2
 
+## 2.3.0
+
+### Minor Changes
+
+- [#564](https://github.com/commercetools/commercetools-sdk-typescript/pull/564) [`db69db1`](https://github.com/commercetools/commercetools-sdk-typescript/commit/db69db1f2a1f6ca69858c272f3905b96b6180bd2) Thanks [@ajimae](https://github.com/ajimae)! - - remove newrelic as dependency in `@commercetools/ts-sdk-apm` package
+  - add useragent key with a default `typescript-sdk-apm-middleware` string
+  - add example express app on how to add `dynatrace` monitoring in the ts sdk
+
 ## 2.2.3
 
 ### Patch Changes
