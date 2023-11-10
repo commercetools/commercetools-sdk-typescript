@@ -149,19 +149,19 @@ export interface CustomerGroupReference {
   readonly obj?: CustomerGroup
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface CustomerGroupResourceIdentifier {
   readonly typeId: 'customer-group'
   /**
-   *	Unique identifier of the referenced [CustomerGroup](ctp:api:type:CustomerGroup). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [CustomerGroup](ctp:api:type:CustomerGroup). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [CustomerGroup](ctp:api:type:CustomerGroup). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [CustomerGroup](ctp:api:type:CustomerGroup). Required if `id` is absent.
    *
    *
    */

@@ -283,19 +283,19 @@ export interface DiscountCodeReference {
   readonly obj?: DiscountCode
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [DiscountCode](ctp:api:type:DiscountCode).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [DiscountCode](ctp:api:type:DiscountCode). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface DiscountCodeResourceIdentifier {
   readonly typeId: 'discount-code'
   /**
-   *	Unique identifier of the referenced [DiscountCode](ctp:api:type:DiscountCode). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [DiscountCode](ctp:api:type:DiscountCode). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [DiscountCode](ctp:api:type:DiscountCode). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [DiscountCode](ctp:api:type:DiscountCode). Required if `id` is absent.
    *
    *
    */

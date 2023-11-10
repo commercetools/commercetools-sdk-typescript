@@ -333,19 +333,19 @@ export interface ProductSelectionReference {
   readonly obj?: ProductSelection
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductSelection](ctp:api:type:ProductSelection).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductSelection](ctp:api:type:ProductSelection). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface ProductSelectionResourceIdentifier {
   readonly typeId: 'product-selection'
   /**
-   *	Unique identifier of the referenced [ProductSelection](ctp:api:type:ProductSelection). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [ProductSelection](ctp:api:type:ProductSelection). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [ProductSelection](ctp:api:type:ProductSelection). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [ProductSelection](ctp:api:type:ProductSelection). Required if `id` is absent.
    *
    *
    */

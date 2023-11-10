@@ -448,19 +448,19 @@ export interface ProductTypeReference {
   readonly obj?: ProductType
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductType](ctp:api:type:ProductType).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductType](ctp:api:type:ProductType). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface ProductTypeResourceIdentifier {
   readonly typeId: 'product-type'
   /**
-   *	Unique identifier of the referenced [ProductType](ctp:api:type:ProductType). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [ProductType](ctp:api:type:ProductType). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [ProductType](ctp:api:type:ProductType). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [ProductType](ctp:api:type:ProductType). Required if `id` is absent.
    *
    *
    */

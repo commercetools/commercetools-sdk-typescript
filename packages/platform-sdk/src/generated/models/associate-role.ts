@@ -185,19 +185,19 @@ export interface AssociateRoleReference {
   readonly obj?: AssociateRole
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:TypeResourceIdentifier) of an [AssociateRole](ctp:api:type:AssociateRole).
+ *	[ResourceIdentifier](ctp:api:type:TypeResourceIdentifier) of an [AssociateRole](ctp:api:type:AssociateRole). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface AssociateRoleResourceIdentifier {
   readonly typeId: 'associate-role'
   /**
-   *	Unique identifier of the referenced [AssociateRole](ctp:api:type:AssociateRole). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [AssociateRole](ctp:api:type:AssociateRole). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced [AssociateRole](ctp:api:type:AssociateRole). Either `id` or `key` is required.
+   *	Unique key of the referenced [AssociateRole](ctp:api:type:AssociateRole). Required if `id` is absent.
    *
    *
    */

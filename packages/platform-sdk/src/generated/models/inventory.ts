@@ -160,19 +160,19 @@ export interface InventoryEntryReference {
   readonly obj?: InventoryEntry
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [InventoryEntry](ctp:api:type:InventoryEntry).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [InventoryEntry](ctp:api:type:InventoryEntry). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface InventoryEntryResourceIdentifier {
   readonly typeId: 'inventory-entry'
   /**
-   *	Unique identifier of the referenced [InventoryEntry](ctp:api:type:InventoryEntry). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [InventoryEntry](ctp:api:type:InventoryEntry). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [InventoryEntry](ctp:api:type:InventoryEntry). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [InventoryEntry](ctp:api:type:InventoryEntry). Required if `id` is absent.
    *
    *
    */

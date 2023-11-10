@@ -454,19 +454,19 @@ export interface TypeReference {
   readonly obj?: Type
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Type](ctp:api:type:Type).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Type](ctp:api:type:Type). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface TypeResourceIdentifier {
   readonly typeId: 'type'
   /**
-   *	Unique identifier of the referenced [Type](ctp:api:type:Type). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [Type](ctp:api:type:Type). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [Type](ctp:api:type:Type). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [Type](ctp:api:type:Type). Required if `id` is absent.
    *
    *
    */

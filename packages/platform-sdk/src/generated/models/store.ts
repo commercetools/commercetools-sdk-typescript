@@ -267,19 +267,19 @@ export interface StoreReference {
   readonly obj?: Store
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Store](ctp:api:type:Store).
+ *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Store](ctp:api:type:Store). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface StoreResourceIdentifier {
   readonly typeId: 'store'
   /**
-   *	Unique ID of the referenced [Store](ctp:api:type:Store). Either `id` or `key` is required.
+   *	Unique ID of the referenced [Store](ctp:api:type:Store). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced [Store](ctp:api:type:Store). Either `id` or `key` is required.
+   *	Unique key of the referenced [Store](ctp:api:type:Store). Required if `id` is absent.
    *
    *
    */

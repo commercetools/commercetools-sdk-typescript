@@ -280,19 +280,19 @@ export interface ReviewReference {
   readonly obj?: Review
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Review](ctp:api:type:Review).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Review](ctp:api:type:Review). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface ReviewResourceIdentifier {
   readonly typeId: 'review'
   /**
-   *	Unique identifier of the referenced [Review](ctp:api:type:Review). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [Review](ctp:api:type:Review). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [Review](ctp:api:type:Review). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [Review](ctp:api:type:Review). Required if `id` is absent.
    *
    *
    */

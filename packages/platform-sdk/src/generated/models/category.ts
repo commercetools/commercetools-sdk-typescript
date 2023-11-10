@@ -277,19 +277,19 @@ export interface CategoryReference {
   readonly obj?: Category
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Category](ctp:api:type:Category).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Category](ctp:api:type:Category). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface CategoryResourceIdentifier {
   readonly typeId: 'category'
   /**
-   *	Unique identifier of the referenced [Category](ctp:api:type:Channel). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [Category](ctp:api:type:Channel). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [Category](ctp:api:type:Category). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [Category](ctp:api:type:Category). Required if `id` is absent.
    *
    *
    */

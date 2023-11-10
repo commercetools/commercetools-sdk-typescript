@@ -176,19 +176,19 @@ export interface BusinessUnitReference {
   readonly obj?: BusinessUnit
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [BusinessUnit](ctp:api:type:BusinessUnit).
+ *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [BusinessUnit](ctp:api:type:BusinessUnit). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface BusinessUnitResourceIdentifier {
   readonly typeId: 'business-unit'
   /**
-   *	Unique identifier of the referenced [BusinessUnit](ctp:api:type:BusinessUnit). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [BusinessUnit](ctp:api:type:BusinessUnit). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced [BusinessUnit](ctp:api:type:BusinessUnit). Either `id` or `key` is required.
+   *	Unique key of the referenced [BusinessUnit](ctp:api:type:BusinessUnit). Required if `id` is absent.
    *
    *
    */

@@ -581,19 +581,19 @@ export interface CustomerResetPassword {
   readonly version?: number
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Customer](ctp:api:type:Customer). Either `id` or `key` is required.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Customer](ctp:api:type:Customer). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface CustomerResourceIdentifier {
   readonly typeId: 'customer'
   /**
-   *	Unique identifier of the referenced [Customer](ctp:api:type:Customer).
+   *	Unique identifier of the referenced [Customer](ctp:api:type:Customer). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [Customer](ctp:api:type:Customer).
+   *	User-defined unique identifier of the referenced [Customer](ctp:api:type:Customer). Required if `id` is absent.
    *
    *
    */

@@ -251,19 +251,19 @@ export interface PaymentReference {
   readonly obj?: Payment
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Payment](ctp:api:type:Payment).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Payment](ctp:api:type:Payment). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface PaymentResourceIdentifier {
   readonly typeId: 'payment'
   /**
-   *	Unique identifier of the referenced [Payment](ctp:api:type:Payment). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [Payment](ctp:api:type:Payment). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [Payment](ctp:api:type:Payment). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [Payment](ctp:api:type:Payment). Required if `id` is absent.
    *
    *
    */

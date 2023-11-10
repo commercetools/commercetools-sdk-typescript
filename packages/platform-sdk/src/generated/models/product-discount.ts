@@ -262,19 +262,19 @@ export interface ProductDiscountReference {
   readonly obj?: ProductDiscount
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductDiscount](ctp:api:type:ProductDiscount).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductDiscount](ctp:api:type:ProductDiscount). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface ProductDiscountResourceIdentifier {
   readonly typeId: 'product-discount'
   /**
-   *	Unique identifier of the referenced [ProductDiscount](ctp:api:type:ProductDiscount). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [ProductDiscount](ctp:api:type:ProductDiscount). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [ProductDiscount](ctp:api:type:ProductDiscount). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [ProductDiscount](ctp:api:type:ProductDiscount). Required if `id` is absent.
    *
    *
    */

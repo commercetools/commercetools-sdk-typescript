@@ -261,19 +261,19 @@ export interface OrderEditReference {
   readonly obj?: OrderEdit
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [OrderEdit](ctp:api:type:OrderEdit). Either `id` or `key` is required.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [OrderEdit](ctp:api:type:OrderEdit). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface OrderEditResourceIdentifier {
   readonly typeId: 'order-edit'
   /**
-   *	Unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit).
+   *	Unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit).
+   *	User-defined unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit). Required if `id` is absent.
    *
    *
    */

@@ -160,19 +160,19 @@ export interface ZoneReference {
   readonly obj?: Zone
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Zone](ctp:api:type:Zone).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Zone](ctp:api:type:Zone). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface ZoneResourceIdentifier {
   readonly typeId: 'zone'
   /**
-   *	Unique identifier of the referenced [Zone](ctp:api:type:Zone). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [Zone](ctp:api:type:Zone). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [Zone](ctp:api:type:Zone). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [Zone](ctp:api:type:Zone). Required if `id` is absent.
    *
    *
    */

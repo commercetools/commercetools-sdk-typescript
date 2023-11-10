@@ -215,19 +215,19 @@ export interface ChannelReference {
   readonly obj?: Channel
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface ChannelResourceIdentifier {
   readonly typeId: 'channel'
   /**
-   *	Unique identifier of the referenced [Channel](ctp:api:type:Channel). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [Channel](ctp:api:type:Channel). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [Channel](ctp:api:type:Channel). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [Channel](ctp:api:type:Channel). Required if `id` is absent.
    *
    *
    */

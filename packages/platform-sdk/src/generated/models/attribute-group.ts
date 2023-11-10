@@ -160,19 +160,19 @@ export interface AttributeGroupReference {
   readonly obj?: AttributeGroup
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to an [AttributeGroup](ctp:api:type:AttributeGroup).
+ *	[ResourceIdentifier](/../api/types#resourceidentifier) to an [AttributeGroup](ctp:api:type:AttributeGroup). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface AttributeGroupResourceIdentifier {
   readonly typeId: 'attribute-group'
   /**
-   *	Platform-generated unique identifier of the referenced [AttributeGroup](ctp:api:type:AttributeGroup). Either `id` or `key` is required.
+   *	Platform-generated unique identifier of the referenced [AttributeGroup](ctp:api:type:AttributeGroup). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-generated unique identifier of the referenced [AttributeGroup](ctp:api:type:AttributeGroup). Either `id` or `key` is required.
+   *	User-generated unique identifier of the referenced [AttributeGroup](ctp:api:type:AttributeGroup). Required if `id` is absent.
    *
    *
    */

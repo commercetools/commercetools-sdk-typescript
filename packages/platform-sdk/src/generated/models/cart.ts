@@ -588,19 +588,19 @@ export interface CartReference {
   readonly obj?: Cart
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Cart](ctp:api:type:Cart).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Cart](ctp:api:type:Cart). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface CartResourceIdentifier {
   readonly typeId: 'cart'
   /**
-   *	Unique identifier of the referenced [Cart](ctp:api:type:Cart). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [Cart](ctp:api:type:Cart). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [Cart](ctp:api:type:Cart). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [Cart](ctp:api:type:Cart). Required if `id` is absent.
    *
    *
    */

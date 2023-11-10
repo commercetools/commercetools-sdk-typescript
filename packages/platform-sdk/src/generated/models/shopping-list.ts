@@ -377,19 +377,19 @@ export interface ShoppingListReference {
   readonly obj?: ShoppingList
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShoppingList](ctp:api:type:ShoppingList).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShoppingList](ctp:api:type:ShoppingList). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface ShoppingListResourceIdentifier {
   readonly typeId: 'shopping-list'
   /**
-   *	Unique identifier of the referenced [ShoppingList](ctp:api:type:ShoppingList). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [ShoppingList](ctp:api:type:ShoppingList). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [ShoppingList](ctp:api:type:ShoppingList). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [ShoppingList](ctp:api:type:ShoppingList). Required if `id` is absent.
    *
    *
    */
