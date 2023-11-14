@@ -203,7 +203,7 @@ export interface Cart extends BaseResource {
    */
   readonly billingAddress?: Address
   /**
-   *	Shipping address associated with the Cart. Determines eligible [ShippingMethod](ctp:api:type:ShippingMethod) rates and Tax Rates of Line Items.
+   *	Shipping address for a Cart with `Single` [ShippingMode](ctp:api:type:ShippingMode). Determines eligible [ShippingMethod](ctp:api:type:ShippingMethod) rates and Tax Rates of Line Items.
    *
    *
    */
@@ -250,7 +250,7 @@ export interface Cart extends BaseResource {
   /**
    *	Additional shipping addresses of the Cart as specified by [LineItems](ctp:api:type:LineItem) using the `shippingDetails` field.
    *
-   *	Eligible Shipping Methods or applicable Tax Rates are determined by the address in `shippingAddress`, and not `itemShippingAddresses`.
+   *	For Carts with `Single` [ShippingMode](ctp:api:type:ShippingMode): eligible Shipping Methods or applicable Tax Rates are determined by the address in `shippingAddress`, and not `itemShippingAddresses`.
    *
    *
    */
@@ -435,7 +435,7 @@ export interface CartDraft {
    */
   readonly billingAddress?: _BaseAddress
   /**
-   *	Shipping address associated with the Cart. Determines eligible [ShippingMethod](ctp:api:type:ShippingMethod) rates and Tax Rates of Line Items.
+   *	Shipping address for a Cart with `Single` [ShippingMode](ctp:api:type:ShippingMode). Determines eligible [ShippingMethod](ctp:api:type:ShippingMethod) rates and Tax Rates of Line Items.
    *
    *
    */
@@ -477,7 +477,7 @@ export interface CartDraft {
    *	Multiple shipping addresses of the Cart. Each address must contain a `key` that is unique in this Cart.
    *	The keys are used by [LineItems](ctp:api:type:LineItem) to reference these addresses under their `shippingDetails`.
    *
-   *	Eligible Shipping Methods or applicable Tax Rates are determined by the address `shippingAddress`, and not `itemShippingAddresses`.
+   *	For Carts with `Single` [ShippingMode](ctp:api:type:ShippingMode): eligible Shipping Methods or applicable Tax Rates are determined by the address `shippingAddress`, and not `itemShippingAddresses`.
    *
    *
    */
