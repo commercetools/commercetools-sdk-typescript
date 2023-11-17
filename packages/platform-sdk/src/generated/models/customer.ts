@@ -910,7 +910,7 @@ export interface CustomerChangeAddressAction {
   readonly address: _BaseAddress
 }
 /**
- *	Changing the email of the Customer produces the [CustomerEmailChanged](ctp:api:type:CustomerEmailChangedMessage) Message.
+ *	Changes the `email` of the Customer and sets the `isEmailVerified` property to `false`. This update action generates a [CustomerEmailChanged](ctp:api:type:CustomerEmailChangedMessage) Message.
  *
  */
 export interface CustomerChangeEmailAction {
