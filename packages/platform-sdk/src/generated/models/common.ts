@@ -612,7 +612,7 @@ export interface CreatedBy extends ClientLogging {
    */
   readonly clientId?: string
   /**
-   *	[External user ID](/../api/general-concepts#external-user-ids) provided by `X-External-User-ID` HTTP Header.
+   *	[External user ID](/../api/general-concepts#external-user-ids) provided by `X-External-User-ID` HTTP Header or [`external_user_id:{externalUserId}`](/../api/scopes#external_user_idexternaluserid) scope.
    *
    *
    */
@@ -729,7 +729,7 @@ export interface LastModifiedBy extends ClientLogging {
    */
   readonly clientId?: string
   /**
-   *	[External user ID](/../api/general-concepts#external-user-ids) provided by `X-External-User-ID` HTTP Header.
+   *	[External user ID](/../api/general-concepts#external-user-ids) provided by `X-External-User-ID` HTTP Header or [`external_user_id:{externalUserId}`](/../api/scopes#external_user_idexternaluserid) scope.
    *
    *
    */
