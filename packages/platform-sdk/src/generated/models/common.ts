@@ -565,7 +565,7 @@ export type _BaseResource =
   | Type
   | Zone
 /**
- *	These objects represent information about which [API Client](/../api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/client-logging).
+ *	These objects represent information about which [API Client](/../api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/../api/general-concepts#client-logging).
  *
  */
 export interface ClientLogging {
@@ -576,7 +576,7 @@ export interface ClientLogging {
    */
   readonly clientId?: string
   /**
-   *	[External user ID](/../api/client-logging#external-user-ids) provided by `X-External-User-ID` HTTP Header.
+   *	[External user ID](/../api/general-concepts#external-user-ids) provided by `X-External-User-ID` HTTP Header.
    *
    *
    */
@@ -602,7 +602,7 @@ export interface ClientLogging {
 }
 export type _ClientLogging = ClientLogging | CreatedBy | LastModifiedBy
 /**
- *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+ *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
  */
 export interface CreatedBy extends ClientLogging {
   /**
@@ -612,7 +612,7 @@ export interface CreatedBy extends ClientLogging {
    */
   readonly clientId?: string
   /**
-   *	[External user ID](/../api/client-logging#external-user-ids) provided by `X-External-User-ID` HTTP Header.
+   *	[External user ID](/../api/general-concepts#external-user-ids) provided by `X-External-User-ID` HTTP Header.
    *
    *
    */
@@ -719,7 +719,7 @@ export type KeyReference =
   | BusinessUnitKeyReference
   | StoreKeyReference
 /**
- *	Present on resources modified after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+ *	Present on resources modified after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
  */
 export interface LastModifiedBy extends ClientLogging {
   /**
@@ -729,7 +729,7 @@ export interface LastModifiedBy extends ClientLogging {
    */
   readonly clientId?: string
   /**
-   *	[External user ID](/../api/client-logging#external-user-ids) provided by `X-External-User-ID` HTTP Header.
+   *	[External user ID](/../api/general-concepts#external-user-ids) provided by `X-External-User-ID` HTTP Header.
    *
    *
    */

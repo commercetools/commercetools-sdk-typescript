@@ -29,7 +29,7 @@ export interface ApprovalFlow extends BaseResource {
    */
   readonly createdAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/general-concepts#events-tracked).
    *
    *
    */
@@ -41,7 +41,7 @@ export interface ApprovalFlow extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/general-concepts#events-tracked).
    *
    *
    */
