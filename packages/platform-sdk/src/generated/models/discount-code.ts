@@ -304,7 +304,7 @@ export interface DiscountCodeResourceIdentifier {
 export interface DiscountCodeUpdate {
   /**
    *	Expected version of the DiscountCode on which the changes should be applied.
-   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */

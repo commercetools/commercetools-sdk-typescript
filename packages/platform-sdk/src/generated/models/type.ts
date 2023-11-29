@@ -480,7 +480,7 @@ export type TypeTextInputHint = 'MultiLine' | 'SingleLine' | string
 export interface TypeUpdate {
   /**
    *	Expected version of the type on which the changes should be applied.
-   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */

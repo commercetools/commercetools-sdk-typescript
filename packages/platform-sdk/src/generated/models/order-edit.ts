@@ -142,7 +142,7 @@ export interface OrderEdit extends BaseResource {
   readonly createdBy?: CreatedBy
 }
 /**
- *	If the `editVersion` and/or `resourceVersion` do not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+ *	If the `editVersion` and/or `resourceVersion` do not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
  *
  */
 export interface OrderEditApply {
@@ -351,7 +351,7 @@ export interface OrderEditPreviewSuccess {
 export interface OrderEditUpdate {
   /**
    *	Expected version of the Order Edit on which the changes should be applied.
-   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */

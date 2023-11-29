@@ -163,7 +163,8 @@ export interface Project {
 }
 export interface ProjectUpdate {
   /**
-   *	Expected version of the Project on which the changes should be applied. If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
+   *	Expected version of the Project on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */

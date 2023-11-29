@@ -170,7 +170,7 @@ export interface CustomerGroupResourceIdentifier {
 export interface CustomerGroupUpdate {
   /**
    *	Expected version of the CustomerGroup on which the changes should be applied.
-   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */

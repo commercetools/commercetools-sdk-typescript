@@ -730,7 +730,8 @@ export interface ProductResourceIdentifier {
 }
 export interface ProductUpdate {
   /**
-   *	Expected version of the Product on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *	Expected version of the Product on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */

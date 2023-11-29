@@ -189,7 +189,7 @@ export type ApprovalRuleStatus = 'Active' | 'Inactive' | string
 export interface ApprovalRuleUpdate {
   /**
    *	Expected version of the [ApprovalRule](ctp:api:type:ApprovalRule) to which the changes should be applied.
-   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */

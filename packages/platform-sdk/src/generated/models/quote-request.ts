@@ -387,7 +387,7 @@ export type QuoteRequestState =
 export interface QuoteRequestUpdate {
   /**
    *	Expected version of the [QuoteRequest](ctp:api:type:QuoteRequest) to which the changes should be applied.
-   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */

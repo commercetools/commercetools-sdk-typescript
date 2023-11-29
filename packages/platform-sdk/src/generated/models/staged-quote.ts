@@ -253,7 +253,7 @@ export type StagedQuoteState = 'Closed' | 'InProgress' | 'Sent' | string
 export interface StagedQuoteUpdate {
   /**
    *	Expected version of the [StagedQuote](ctp:api:type:StagedQuote) to which the changes should be applied.
-   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */

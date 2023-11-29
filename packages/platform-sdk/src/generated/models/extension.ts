@@ -228,7 +228,8 @@ export interface ExtensionTrigger {
 }
 export interface ExtensionUpdate {
   /**
-   *	Expected version of the Extension on which the changes should be applied. If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
+   *	Expected version of the Extension on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
