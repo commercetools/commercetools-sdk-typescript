@@ -64,7 +64,7 @@ export interface TaxRate {
  */
 export interface PriceImport extends ImportResource {
   /**
-   *	User-defined unique identifier for the Embedded Price.
+   *	User-defined unique identifier for the Embedded Price. If a [Price](/../api/types#price) with this `key` exists on the specified `productVariant`, it will be updated with the imported data.
    *
    *
    */

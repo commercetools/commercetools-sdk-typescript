@@ -30,6 +30,11 @@ import { Attribute } from './productvariants'
  */
 export interface ProductDraftImport extends ImportResource {
   /**
+   *	User-defined unique identifier. If a [Product](/../api/projects/products#product) with this `key` exists, it will be updated with the imported data.
+   *
+   */
+  readonly key: string
+  /**
    *	The `productType` of a [Product](/../api/projects/products#product).
    *	Maps to `Product.productType`.
    *	The Reference to the [ProductType](/../api/projects/productTypes#producttype) with which the ProductDraft is associated.

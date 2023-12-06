@@ -80,13 +80,13 @@ export interface Customer extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -581,19 +581,19 @@ export interface CustomerResetPassword {
   readonly version?: number
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Customer](ctp:api:type:Customer). Either `id` or `key` is required.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Customer](ctp:api:type:Customer). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface CustomerResourceIdentifier {
   readonly typeId: 'customer'
   /**
-   *	Unique identifier of the referenced [Customer](ctp:api:type:Customer).
+   *	Unique identifier of the referenced [Customer](ctp:api:type:Customer). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [Customer](ctp:api:type:Customer).
+   *	User-defined unique identifier of the referenced [Customer](ctp:api:type:Customer). Required if `id` is absent.
    *
    *
    */
@@ -702,7 +702,8 @@ export interface CustomerToken {
 }
 export interface CustomerUpdate {
   /**
-   *	Expected version of the Customer on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *	Expected version of the Customer on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -910,7 +911,7 @@ export interface CustomerChangeAddressAction {
   readonly address: _BaseAddress
 }
 /**
- *	Changing the email of the Customer produces the [CustomerEmailChanged](ctp:api:type:CustomerEmailChangedMessage) Message.
+ *	Changes the `email` of the Customer and sets the `isEmailVerified` property to `false`. This update action generates a [CustomerEmailChanged](ctp:api:type:CustomerEmailChangedMessage) Message.
  *
  */
 export interface CustomerChangeEmailAction {

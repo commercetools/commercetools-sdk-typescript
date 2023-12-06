@@ -323,13 +323,13 @@ export interface Type extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -454,19 +454,19 @@ export interface TypeReference {
   readonly obj?: Type
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Type](ctp:api:type:Type).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Type](ctp:api:type:Type). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface TypeResourceIdentifier {
   readonly typeId: 'type'
   /**
-   *	Unique identifier of the referenced [Type](ctp:api:type:Type). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [Type](ctp:api:type:Type). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [Type](ctp:api:type:Type). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [Type](ctp:api:type:Type). Required if `id` is absent.
    *
    *
    */
@@ -480,7 +480,7 @@ export type TypeTextInputHint = 'MultiLine' | 'SingleLine' | string
 export interface TypeUpdate {
   /**
    *	Expected version of the type on which the changes should be applied.
-   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */

@@ -48,13 +48,13 @@ export interface DiscountCode extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -283,19 +283,19 @@ export interface DiscountCodeReference {
   readonly obj?: DiscountCode
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [DiscountCode](ctp:api:type:DiscountCode).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [DiscountCode](ctp:api:type:DiscountCode). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface DiscountCodeResourceIdentifier {
   readonly typeId: 'discount-code'
   /**
-   *	Unique identifier of the referenced [DiscountCode](ctp:api:type:DiscountCode). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [DiscountCode](ctp:api:type:DiscountCode). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [DiscountCode](ctp:api:type:DiscountCode). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [DiscountCode](ctp:api:type:DiscountCode). Required if `id` is absent.
    *
    *
    */
@@ -304,7 +304,7 @@ export interface DiscountCodeResourceIdentifier {
 export interface DiscountCodeUpdate {
   /**
    *	Expected version of the DiscountCode on which the changes should be applied.
-   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */

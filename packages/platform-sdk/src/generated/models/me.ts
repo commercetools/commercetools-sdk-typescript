@@ -49,7 +49,8 @@ import {
 
 export interface MyBusinessUnitAssociateDraft {
   /**
-   *	Expected version of the BusinessUnit on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *	Expected version of the BusinessUnit on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -71,7 +72,7 @@ export type MyBusinessUnitDraft = MyCompanyDraft | MyDivisionDraft
 export interface MyBusinessUnitUpdate {
   /**
    *	Expected version of the BusinessUnit on which the changes should be applied.
-   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -218,7 +219,7 @@ export interface MyCartDraft {
 export interface MyCartUpdate {
   /**
    *	Expected version of the Cart on which the changes apply.
-   *	If it does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error is returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -426,7 +427,8 @@ export interface MyCustomerDraft {
 }
 export interface MyCustomerUpdate {
   /**
-   *	Expected version of the Customer on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *	Expected version of the Customer on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -759,7 +761,8 @@ export interface MyPaymentPagedQueryResponse {
 }
 export interface MyPaymentUpdate {
   /**
-   *	Expected version of the Payment on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *	Expected version of the Payment on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -816,7 +819,7 @@ export type MyQuoteState = 'Accepted' | 'Declined' | string
 export interface MyQuoteUpdate {
   /**
    *	Expected version of the [Quote](ctp:api:type:Quote) to which the changes should be applied.
-   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -883,7 +886,8 @@ export interface MyShoppingListDraft {
 }
 export interface MyShoppingListUpdate {
   /**
-   *	Expected version of the ShoppingList on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *	Expected version of the ShoppingList on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */

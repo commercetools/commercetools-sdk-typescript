@@ -147,8 +147,9 @@ export interface Cart extends BaseResource {
    */
   readonly totalPrice: CentPrecisionMoney
   /**
+   *
    *	- For a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode), it is automatically set when a [shipping address is set](ctp:api:type:CartSetShippingAddressAction).
-   *	- For a Cart with `External` [TaxMode](ctp:api:type:TaxMode), it is automatically set when the external Tax Rate for all Line Items, Custom Line Items, and Shipping Methods in the Cart are set.
+   *	- For a Cart with `External` [TaxMode](ctp:api:type:TaxMode), it is automatically set when `shippingAddress` and external Tax Rates for all Line Items, Custom Line Items, and Shipping Methods in the Cart are set.
    *
    *	If a discount applies on `totalPrice`, this field holds the discounted values.
    *
@@ -202,7 +203,7 @@ export interface Cart extends BaseResource {
    */
   readonly billingAddress?: Address
   /**
-   *	Shipping address associated with the Cart. Determines eligible [ShippingMethod](ctp:api:type:ShippingMethod) rates and Tax Rates of Line Items.
+   *	Shipping address for a Cart with `Single` [ShippingMode](ctp:api:type:ShippingMode). Determines eligible [ShippingMethod](ctp:api:type:ShippingMethod) rates and Tax Rates of Line Items.
    *
    *
    */
@@ -249,7 +250,7 @@ export interface Cart extends BaseResource {
   /**
    *	Additional shipping addresses of the Cart as specified by [LineItems](ctp:api:type:LineItem) using the `shippingDetails` field.
    *
-   *	Eligible Shipping Methods or applicable Tax Rates are determined by the address in `shippingAddress`, and not `itemShippingAddresses`.
+   *	For Carts with `Single` [ShippingMode](ctp:api:type:ShippingMode): eligible Shipping Methods or applicable Tax Rates are determined by the address in `shippingAddress`, and not `itemShippingAddresses`.
    *
    *
    */
@@ -321,13 +322,13 @@ export interface Cart extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -434,7 +435,7 @@ export interface CartDraft {
    */
   readonly billingAddress?: _BaseAddress
   /**
-   *	Shipping address associated with the Cart. Determines eligible [ShippingMethod](ctp:api:type:ShippingMethod) rates and Tax Rates of Line Items.
+   *	Shipping address for a Cart with `Single` [ShippingMode](ctp:api:type:ShippingMode). Determines eligible [ShippingMethod](ctp:api:type:ShippingMethod) rates and Tax Rates of Line Items.
    *
    *
    */
@@ -476,7 +477,7 @@ export interface CartDraft {
    *	Multiple shipping addresses of the Cart. Each address must contain a `key` that is unique in this Cart.
    *	The keys are used by [LineItems](ctp:api:type:LineItem) to reference these addresses under their `shippingDetails`.
    *
-   *	Eligible Shipping Methods or applicable Tax Rates are determined by the address `shippingAddress`, and not `itemShippingAddresses`.
+   *	For Carts with `Single` [ShippingMode](ctp:api:type:ShippingMode): eligible Shipping Methods or applicable Tax Rates are determined by the address `shippingAddress`, and not `itemShippingAddresses`.
    *
    *
    */
@@ -587,19 +588,19 @@ export interface CartReference {
   readonly obj?: Cart
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Cart](ctp:api:type:Cart).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Cart](ctp:api:type:Cart). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface CartResourceIdentifier {
   readonly typeId: 'cart'
   /**
-   *	Unique identifier of the referenced [Cart](ctp:api:type:Cart). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [Cart](ctp:api:type:Cart). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [Cart](ctp:api:type:Cart). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [Cart](ctp:api:type:Cart). Required if `id` is absent.
    *
    *
    */
@@ -613,7 +614,7 @@ export type CartState = 'Active' | 'Frozen' | 'Merged' | 'Ordered' | string
 export interface CartUpdate {
   /**
    *	Expected version of the Cart on which the changes apply.
-   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) is returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */

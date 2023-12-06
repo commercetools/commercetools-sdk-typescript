@@ -29,7 +29,7 @@ export interface ApprovalFlow extends BaseResource {
    */
   readonly createdAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/general-concepts#events-tracked).
    *
    *
    */
@@ -41,7 +41,7 @@ export interface ApprovalFlow extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/general-concepts#events-tracked).
    *
    *
    */
@@ -184,7 +184,7 @@ export type ApprovalFlowStatus = 'Approved' | 'Pending' | 'Rejected' | string
 export interface ApprovalFlowUpdate {
   /**
    *	Expected version of the [Approval Flow](ctp:api:type:ApprovalFlow) to which the changes should be applied.
-   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */

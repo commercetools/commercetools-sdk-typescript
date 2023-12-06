@@ -170,13 +170,13 @@ export interface Product extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -710,19 +710,19 @@ export interface ProductReference {
   readonly obj?: Product
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Product](ctp:api:type:Product). Either `id` or `key` is required.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Product](ctp:api:type:Product). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface ProductResourceIdentifier {
   readonly typeId: 'product'
   /**
-   *	Unique identifier of the referenced [Product](ctp:api:type:Product).
+   *	Unique identifier of the referenced [Product](ctp:api:type:Product). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [Product](ctp:api:type:Product).
+   *	User-defined unique identifier of the referenced [Product](ctp:api:type:Product). Required if `id` is absent.
    *
    *
    */
@@ -730,7 +730,8 @@ export interface ProductResourceIdentifier {
 }
 export interface ProductUpdate {
   /**
-   *	Expected version of the Product on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *	Expected version of the Product on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
