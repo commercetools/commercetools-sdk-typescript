@@ -14,6 +14,14 @@
 </details>
 
 <details>
+<summary>Added Enum(s)</summary>
+
+- added enum `associate-role` to type `AttributeReferenceTypeId`
+- added enum `business-unit` to type `AttributeReferenceTypeId`
+- added enum `cart-discount` to type `AttributeReferenceTypeId`
+</details>
+
+<details>
 <summary>Changed MethodResponseBody(s)</summary>
 
 - :warning: changed response body for `200: application/json` of method `get /{projectKey}/in-store/key={storeKey}/cart-discounts` from type `CartDiscount` to `CartDiscountPagedQueryResponse`

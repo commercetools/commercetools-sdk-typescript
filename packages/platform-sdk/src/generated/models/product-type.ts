@@ -177,7 +177,10 @@ export interface AttributePlainEnumValue {
  *
  */
 export type AttributeReferenceTypeId =
+  | 'associate-role'
+  | 'business-unit'
   | 'cart'
+  | 'cart-discount'
   | 'category'
   | 'channel'
   | 'customer'
