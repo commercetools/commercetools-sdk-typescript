@@ -27,11 +27,17 @@ export const createProductDiscount = async () => {
 }
 
 export const deleteProductDiscount = async (responseCreatedProductDiscount) => {
-  return await apiRoot
+  const productDiscount = await apiRoot
     .productDiscounts()
-    .withId({ ID: responseCreatedProductDiscount.body.id })
+    .withKey({ key: responseCreatedProductDiscount.body.key })
+    .get()
+    .execute()
+
+  await apiRoot
+    .productDiscounts()
+    .withId({ ID: productDiscount.body.id })
     .delete({
-      queryArgs: { version: responseCreatedProductDiscount.body.version },
+      queryArgs: { version: productDiscount.body.version },
     })
     .execute()
 }

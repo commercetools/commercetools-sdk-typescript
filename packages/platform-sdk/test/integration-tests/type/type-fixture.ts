@@ -52,7 +52,7 @@ const fieldDefinitions: FieldDefinition[] = [
     required: false,
   },
   {
-    type: fieldTypeEnum,
+    type: fieldTypeString,
     name: 'string-field',
     label: { en: 'test-label' + randomUUID() },
     required: false,

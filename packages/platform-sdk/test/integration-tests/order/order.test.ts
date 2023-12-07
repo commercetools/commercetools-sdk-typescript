@@ -19,6 +19,7 @@ import { createCart, deleteCart } from '../cart/cart-fixture'
 import { _OrderSearchQuery, CartDraft, OrderSearchRequest } from '../../../src'
 import { ctpApiBuilder } from '../../helpers/ctp-api-helper'
 import { randomUUID } from 'crypto'
+import { waitUntil } from '../../helpers/test-utils'
 
 describe('testing order API calls', () => {
   it('should get a order by Id', async () => {
@@ -193,7 +194,7 @@ describe('testing order API calls', () => {
     await deleteCategory(category)
   })
 
-  it.skip('should search a order', async () => {
+  it('should search a order', async () => {
     let project = await ctpApiBuilder.get().execute()
 
     if (project.body.searchIndexing.orders.status === 'Deactivated') {
@@ -239,30 +240,49 @@ describe('testing order API calls', () => {
       })
       .execute()
 
-    const order = await createOrder(updatedCartWithProduct)
+    const responseOrder = await createOrder(updatedCartWithProduct)
+    const order = responseOrder.body
 
     const orderSearchRequest: OrderSearchRequest = {
       query: {
-        exists: {
-          field: 'custom.deliveryDate',
-          customType: 'StringType',
+        exact: {
+          field: 'orderNumber',
+          value: order.orderNumber,
         },
-        sort: [
-          {
-            field: 'createdAt',
-            order: 'desc',
-          },
-        ],
-        limit: 20,
       },
+      sort: [
+        {
+          field: 'createdAt',
+          order: 'desc',
+        },
+      ],
+      limit: 20,
     }
 
-    expect(orderSearchRequest).not.toBe(null)
+    await waitUntil(async () => {
+      console.log('Waiting for order to be indexed')
+      const responseOrderSearch = await apiRoot
+        .orders()
+        .search()
+        .post({ body: orderSearchRequest })
+        .execute()
+      return responseOrderSearch.body.total > 0
+    })
 
-    await deleteOrder(order)
+    const responseOrderSearch = await apiRoot
+      .orders()
+      .search()
+      .post({ body: orderSearchRequest })
+      .execute()
+
+    expect(responseOrderSearch.statusCode).toEqual(200)
+    expect(responseOrderSearch.body.hits.length).toEqual(1)
+    expect(responseOrderSearch.body.hits[0].id).toEqual(order.id)
+
+    await deleteOrder(responseOrder)
     const getCart = await apiRoot
       .carts()
-      .withId({ ID: order.body.cart.id })
+      .withId({ ID: order.cart.id })
       .get()
       .execute()
     await deleteCart(getCart)
@@ -270,5 +290,5 @@ describe('testing order API calls', () => {
     await deleteProductType(productType)
     await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
-  })
+  }, 50_000)
 })

@@ -58,28 +58,28 @@ jobs:
           name: Running tests
           command: yarn test --testPathIgnorePatterns='packages/platform-sdk/test/integration-tests'
 
-#  integration_test:
-#    parameters:
-#      os:
-#        type: executor
-#      node-version:
-#        type: string
-#    executor: << parameters.os >>
-#    working_directory: *working_directory
-#    steps:
-#      - checkout
-#      - restore_cache: *restore_yarn_cache
-#      - run:
-#          name: Installing dependencies
-#          command: yarn install --frozen-lockfile
-#      - save_cache: *save_yarn_cache
-#      - run:
-#          name: Running integration tests
+  integration_test:
+    parameters:
+      os:
+        type: executor
+      node-version:
+        type: string
+    executor: << parameters.os >>
+    working_directory: *working_directory
+    steps:
+      - checkout
+      - restore_cache: *restore_yarn_cache
+      - run:
+          name: Installing dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache: *save_yarn_cache
+      - run:
+          name: Running integration tests
 #          command: yarn test --testPathIgnorePatterns='packages/platform-sdk/test/integration-tests' --coverage
-#          # command: yarn test packages/platform-sdk/test/integration-tests
-#      - codecov/upload:
-#          file: coverage/clover.xml
-#          flags: integrationtests
+          command: yarn test packages/platform-sdk/test/integration-tests
+      - codecov/upload:
+          file: coverage/clover.xml
+          flags: integrationtests
 
   update_ml_sdk_from_spec:
     executor: << parameters.os >>
@@ -114,8 +114,8 @@ workflows:
               os: [docker]
               node-version: ["^14.20.0", "^16.17.0", "^18.9.0"]
 
-#      - integration_test:
-#          matrix:
-#            parameters:
-#              os: [ docker ]
-#              node-version: ["^18.9.0"]
+      - integration_test:
+          matrix:
+            parameters:
+              os: [ docker ]
+              node-version: ["^18.9.0"]

@@ -37,7 +37,7 @@ describe('testing message API calls', () => {
     expect(message.body.results).not.toBe(null)
   })
 
-  it.skip('should get a message by Id', async () => {
+  it('should get a message by Id', async () => {
     const category = await createCategory()
     const taxCategory = await createTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)
