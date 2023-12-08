@@ -37,119 +37,110 @@ describe('testing type API calls', () => {
     expect(responseTypeDeleted.statusCode).toEqual(200)
   })
 
-  it('should get a type by ID', async () => {
-    const type = await createType()
+  describe('with an existing type', () => {
+    let type
 
-    const getType = await apiRoot
-      .types()
-      .withId({ ID: type.body.id })
-      .get()
-      .execute()
+    beforeEach(async () => {
+      type = await createType()
+    })
 
-    expect(getType).not.toBe(null)
-    expect(getType.body.id).toEqual(type.body.id)
+    afterEach(async () => {
+      await deleteType(type)
+    })
 
-    await deleteType(getType)
-  })
+    it('should get a type by ID', async () => {
+      const getType = await apiRoot
+        .types()
+        .withId({ ID: type.body.id })
+        .get()
+        .execute()
 
-  it('should get a type by key', async () => {
-    const type = await createType()
+      expect(getType).not.toBe(null)
+      expect(getType.body.id).toEqual(type.body.id)
+    })
 
-    const getType = await apiRoot
-      .types()
-      .withKey({ key: type.body.key })
-      .get()
-      .execute()
+    it('should get a type by key', async () => {
+      const getType = await apiRoot
+        .types()
+        .withKey({ key: type.body.key })
+        .get()
+        .execute()
 
-    expect(getType).not.toBe(null)
-    expect(getType.body.key).toEqual(type.body.key)
+      expect(getType).not.toBe(null)
+      expect(getType.body.key).toEqual(type.body.key)
+    })
 
-    await deleteType(getType)
-  })
+    it('should query a type', async () => {
+      const queryType = await apiRoot
+        .types()
+        .get({
+          queryArgs: {
+            where: 'id=' + '"' + type.body.id + '"',
+          },
+        })
+        .execute()
+      expect(queryType).not.toBe(null)
+      expect(queryType.body.results[0].id).toEqual(type.body.id)
+    })
 
-  it('should query a type', async () => {
-    const type = await createType()
-    const queryType = await apiRoot
-      .types()
-      .get({
-        queryArgs: {
-          where: 'id=' + '"' + type.body.id + '"',
-        },
-      })
-      .execute()
-    expect(queryType).not.toBe(null)
-    expect(queryType.body.results[0].id).toEqual(type.body.id)
+    it('should update a type by Id', async () => {
+      const newName = 'test-name-type-' + randomUUID()
+      const updateType = await apiRoot
+        .types()
+        .withId({ ID: type.body.id })
+        .post({
+          body: {
+            version: type.body.version,
+            actions: [
+              {
+                action: 'changeName',
+                name: { en: newName },
+              },
+            ],
+          },
+        })
+        .execute()
 
-    await deleteType(type)
-  })
+      expect(updateType.body.version).not.toBe(type.body.version)
+      expect(updateType.statusCode).toEqual(200)
+      expect(updateType.body.name.en).toEqual(newName)
+    })
 
-  it('should update a type by Id', async () => {
-    const type = await createType()
+    it('should update a type by key', async () => {
+      const newName = 'test-name-type-' + randomUUID()
+      const updateType = await apiRoot
+        .types()
+        .withKey({ key: type.body.key })
+        .post({
+          body: {
+            version: type.body.version,
+            actions: [
+              {
+                action: 'changeName',
+                name: { en: newName },
+              },
+            ],
+          },
+        })
+        .execute()
 
-    const newKey = 'test-key-type-' + randomUUID()
-    const updateType = await apiRoot
-      .types()
-      .withId({ ID: type.body.id })
-      .post({
-        body: {
-          version: type.body.version,
-          actions: [
-            {
-              action: 'changeKey',
-              key: newKey,
-            },
-          ],
-        },
-      })
-      .execute()
+      expect(updateType.body.version).not.toBe(type.body.version)
+      expect(updateType.statusCode).toEqual(200)
+      expect(updateType.body.name.en).toEqual(newName)
+    })
 
-    expect(updateType.body.version).not.toBe(type.body.version)
-    expect(updateType.statusCode).toEqual(200)
-    expect(updateType.body.key).toEqual(newKey)
+    it('should delete a type by key', async () => {
+      const deleteType = await apiRoot
+        .types()
+        .withKey({ key: type.body.key })
+        .delete({
+          queryArgs: {
+            version: type.body.version,
+          },
+        })
+        .execute()
 
-    await deleteType(updateType)
-  })
-
-  it('should update a type by key', async () => {
-    const type = await createType()
-
-    const newKey = 'test-key-type-' + randomUUID()
-    const updateType = await apiRoot
-      .types()
-      .withKey({ key: type.body.key })
-      .post({
-        body: {
-          version: type.body.version,
-          actions: [
-            {
-              action: 'changeKey',
-              key: newKey,
-            },
-          ],
-        },
-      })
-      .execute()
-
-    expect(updateType.body.version).not.toBe(type.body.version)
-    expect(updateType.statusCode).toEqual(200)
-    expect(updateType.body.key).toEqual(newKey)
-
-    await deleteType(updateType)
-  })
-
-  it('should delete a type by key', async () => {
-    const type = await createType()
-
-    const deleteType = await apiRoot
-      .types()
-      .withKey({ key: type.body.key })
-      .delete({
-        queryArgs: {
-          version: type.body.version,
-        },
-      })
-      .execute()
-
-    expect(deleteType.statusCode).toEqual(200)
+      expect(deleteType.statusCode).toEqual(200)
+    })
   })
 })

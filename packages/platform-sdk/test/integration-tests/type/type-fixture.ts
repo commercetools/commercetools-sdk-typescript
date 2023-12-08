@@ -82,9 +82,21 @@ export const createType = async (typeDraftBody?: TypeDraft) => {
 }
 
 export const deleteType = async (responseCreatedType) => {
-  return await apiRoot
-    .types()
-    .withId({ ID: responseCreatedType.body.id })
-    .delete({ queryArgs: { version: responseCreatedType.body.version } })
-    .execute()
+  try {
+    const { body: type } = await apiRoot
+      .types()
+      .withKey({ key: responseCreatedType.body.key })
+      .get()
+      .execute()
+
+    return await apiRoot
+      .types()
+      .withId({ ID: type.id })
+      .delete({ queryArgs: { version: type.version } })
+      .execute()
+  } catch (e) {
+    if (e.statusCode !== 404) {
+      throw e
+    }
+  }
 }

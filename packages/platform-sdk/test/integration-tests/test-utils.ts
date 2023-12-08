@@ -14,7 +14,7 @@ const clientSecret = requireEnvVar('CTP_CLIENT_SECRET')
 const authURL = requireEnvVar('CTP_AUTH_URL')
 const ctp_host = requireEnvVar('CTP_API_URL')
 
-export const SORT_ORDER = '0.65141'
+export const SORT_ORDER = parseFloat(Math.random().toFixed(5)).toString()
 
 function _tokenCache<T, V, S = TokenCacheOptions>(val: T): V {
   let initialVal = val
