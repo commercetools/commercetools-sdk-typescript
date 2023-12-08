@@ -260,7 +260,6 @@ describe('testing order API calls', () => {
     }
 
     await waitUntil(async () => {
-      console.log('Waiting for order to be indexed')
       const responseOrderSearch = await apiRoot
         .orders()
         .search()
