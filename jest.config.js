@@ -14,7 +14,6 @@ module.exports = {
   coveragePathIgnorePatterns: ['/node_modules/', '/dist/'],
   coverageDirectory: 'coverage',
   watchPlugins: ['jest-watch-typeahead/filename'],
-  // testPathIgnorePatterns: ['packages/platform-sdk/test/integration-tests'],
   reporters: [
     'default',
     process.env.CI === 'true'
