@@ -1197,7 +1197,7 @@ export interface ExternalTaxRateDraft {
    */
   readonly state?: string
   /**
-   *	For countries (such as the US) where the total tax is a combination of multiple taxes (such as state and local taxes).
+   *	For countries (such as the US) where the total tax is a combination of multiple taxes (such as state and local taxes). The total of all subrates must equal the TaxRate `amount`.
    *
    *
    */
