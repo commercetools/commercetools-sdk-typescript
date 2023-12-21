@@ -27,6 +27,13 @@
 - :warning: changed response body for `200: application/json` of method `get /{projectKey}/in-store/key={storeKey}/cart-discounts` from type `CartDiscount` to `CartDiscountPagedQueryResponse`
 </details>
 
+<details>
+<summary>Removed Type(s)</summary>
+
+- :warning: removed type `NotEnabledError`
+- :warning: removed type `GraphQLNotEnabledError`
+</details>
+
 **History changes**
 
 <details>

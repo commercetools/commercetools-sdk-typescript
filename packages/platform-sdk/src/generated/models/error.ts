@@ -96,7 +96,6 @@ export type ErrorObject =
   | MissingTaxRateForCountryError
   | MoneyOverflowError
   | NoMatchingProductDiscountFoundError
-  | NotEnabledError
   | ObjectNotFoundError
   | OutOfStockError
   | OverCapacityError
@@ -1444,20 +1443,6 @@ export interface NoMatchingProductDiscountFoundError {
   readonly message: string
 }
 /**
- *	Returned when the [Project-specific category recommendations feature](/../api/projects/categoryRecommendations#project-specific-category-recommendations) is not enabled for the Project.
- *
- */
-export interface NotEnabledError {
-  readonly code: 'NotEnabled'
-  [key: string]: any
-  /**
-   *	`"The category recommendations API is not yet enabled for your project."`
-   *
-   *
-   */
-  readonly message: string
-}
-/**
  *	Returned when the requested resource was not found.
  *
  */
@@ -2041,7 +2026,6 @@ export type GraphQLErrorObject =
   | GraphQLMissingTaxRateForCountryError
   | GraphQLMoneyOverflowError
   | GraphQLNoMatchingProductDiscountFoundError
-  | GraphQLNotEnabledError
   | GraphQLObjectNotFoundError
   | GraphQLOutOfStockError
   | GraphQLOverCapacityError
@@ -3005,14 +2989,6 @@ export interface GraphQLMoneyOverflowError {
  */
 export interface GraphQLNoMatchingProductDiscountFoundError {
   readonly code: 'NoMatchingProductDiscountFound'
-  [key: string]: any
-}
-/**
- *	Returned when the [Project-specific category recommendations feature](/../api/projects/categoryRecommendations#project-specific-category-recommendations) is not enabled for the Project.
- *
- */
-export interface GraphQLNotEnabledError {
-  readonly code: 'NotEnabled'
   [key: string]: any
 }
 /**
