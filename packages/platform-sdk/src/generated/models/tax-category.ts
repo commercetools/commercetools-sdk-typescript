@@ -231,7 +231,7 @@ export interface TaxRate {
    */
   readonly name: string
   /**
-   *	Tax rate. If subrates are used, the amount must be the sum of all subrates.
+   *	Tax rate. If subrates are used, the amount is the sum of all rates in `subRates`.
    *
    *
    */
@@ -255,7 +255,7 @@ export interface TaxRate {
    */
   readonly state?: string
   /**
-   *	Used to calculate the [taxPortions](/../api/projects/carts#taxedprice) field in a Cart or Order. It is useful if the total tax of a country (such as the US) is a combination of multiple taxes (such as state and local taxes).
+   *	Used to calculate the [taxPortions](/../api/projects/carts#taxedprice) field in a Cart or Order. It is useful if the total tax of a country (such as the US) is a combination of multiple taxes (such as state and local taxes). The total of all subrates equals the TaxRate `amount`.
    *
    *
    */
@@ -294,7 +294,7 @@ export interface TaxRateDraft {
    */
   readonly state?: string
   /**
-   *	Used to calculate the [taxPortions](/../api/projects/carts#taxedprice) field in a Cart or Order. It is useful if the total tax of a country (such as the US) is a combination of multiple taxes (such as state and local taxes).
+   *	Used to calculate the [taxPortions](/../api/projects/carts#taxedprice) field in a Cart or Order. It is useful if the total tax of a country (such as the US) is a combination of multiple taxes (such as state and local taxes). The total of all subrates must equal the TaxRate `amount`.
    *
    *
    */

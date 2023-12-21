@@ -1981,7 +1981,7 @@ export type ReturnShipmentState =
   | 'Unusable'
   | string
 /**
- *	Indicates the shipment status of the Parcel.
+ *	Indicates the shipment status of the Order.
  *
  */
 export type ShipmentState =
