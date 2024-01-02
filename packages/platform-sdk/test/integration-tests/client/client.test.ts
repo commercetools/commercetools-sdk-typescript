@@ -1,5 +1,6 @@
 import { requireEnvVar } from '../../helpers/test-utils'
 import { ClientBuilder, ClientRequest } from '@commercetools/sdk-client-v2/src'
+import fetch from 'node-fetch'
 
 const projectKey = requireEnvVar('CTP_PROJECT_KEY')
 const clientId = requireEnvVar('CTP_CLIENT_ID')

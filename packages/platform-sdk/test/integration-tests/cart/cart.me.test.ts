@@ -6,6 +6,7 @@ import {
 import { requireEnvVar } from '../../helpers/test-utils'
 import { ClientBuilder } from '@commercetools/sdk-client-v2'
 import { ByProjectKeyRequestBuilder } from '../../../src/generated/client/by-project-key-request-builder'
+import fetch from 'node-fetch'
 
 const projectKey = requireEnvVar('CTP_PROJECT_KEY')
 const clientId = requireEnvVar('CTP_CLIENT_ID')
@@ -26,7 +27,7 @@ describe('testing me endpoint cart', () => {
           clientSecret: clientSecret,
         },
         scopes: [`manage_project:${projectKey}`],
-        fetch: fetch,
+        fetch,
       })
       .withHttpMiddleware({ host: apiUrl, fetch })
       .build()
