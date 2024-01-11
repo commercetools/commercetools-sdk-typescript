@@ -14,17 +14,10 @@
 </details>
 
 <details>
-<summary>Added Enum(s)</summary>
+<summary>Added Type(s)</summary>
 
-- added enum `associate-role` to type `AttributeReferenceTypeId`
-- added enum `business-unit` to type `AttributeReferenceTypeId`
-- added enum `cart-discount` to type `AttributeReferenceTypeId`
-</details>
-
-<details>
-<summary>Changed MethodResponseBody(s)</summary>
-
-- :warning: changed response body for `200: application/json` of method `get /{projectKey}/in-store/key={storeKey}/cart-discounts` from type `CartDiscount` to `CartDiscountPagedQueryResponse`
+- added type `ApprovalFlowSetCustomFieldAction`
+- added type `ApprovalFlowSetCustomTypeAction`
 </details>
 
 <details>
@@ -32,6 +25,28 @@
 
 - :warning: removed type `NotEnabledError`
 - :warning: removed type `GraphQLNotEnabledError`
+</details>
+
+<details>
+<summary>Added Property(s)</summary>
+
+- added property `custom` to type `ApprovalFlow`
+</details>
+
+<details>
+<summary>Added Enum(s)</summary>
+
+- added enum `associate-role` to type `AttributeReferenceTypeId`
+- added enum `business-unit` to type `AttributeReferenceTypeId`
+- added enum `cart-discount` to type `AttributeReferenceTypeId`
+- added enum `approval-flow` to type `CustomFieldReferenceValue`
+- added enum `approval-flow` to type `ResourceTypeId`
+</details>
+
+<details>
+<summary>Changed MethodResponseBody(s)</summary>
+
+- :warning: changed response body for `200: application/json` of method `get /{projectKey}/in-store/key={storeKey}/cart-discounts` from type `CartDiscount` to `CartDiscountPagedQueryResponse`
 </details>
 
 **History changes**

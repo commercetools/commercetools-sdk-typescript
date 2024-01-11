@@ -52,6 +52,7 @@ export interface CustomFieldLocalizedEnumValue {
  *
  */
 export type CustomFieldReferenceValue =
+  | 'approval-flow'
   | 'associate-role'
   | 'business-unit'
   | 'cart'
@@ -268,6 +269,7 @@ export interface CustomFieldTimeType {
  */
 export type ResourceTypeId =
   | 'address'
+  | 'approval-flow'
   | 'asset'
   | 'associate-role'
   | 'business-unit'
