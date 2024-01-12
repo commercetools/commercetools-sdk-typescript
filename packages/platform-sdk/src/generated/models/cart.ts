@@ -1607,7 +1607,7 @@ export interface MethodTaxedPrice {
   readonly taxedPrice?: TaxedItemPrice
 }
 /**
- *	Used for [replicating an existing Cart](/../api/projects/carts#replicate-cart) or Order.
+ *	Used for [replicating an existing Cart](ctp:api:endpoint:/{projectKey}/carts/replicate:POST) or Order.
  *
  */
 export interface ReplicaCartDraft {

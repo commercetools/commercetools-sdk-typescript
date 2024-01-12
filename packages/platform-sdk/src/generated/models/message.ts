@@ -1306,7 +1306,7 @@ export interface AssociateRoleBuyerAssignableChangedMessage {
   readonly buyerAssignable: boolean
 }
 /**
- *	Generated after a successful [Create AssociateRole](/projects/associate-roles#create-associaterole) request.
+ *	Generated after a successful [Create AssociateRole](ctp:api:endpoint:/{projectKey}/associate-roles:POST) request.
  *
  */
 export interface AssociateRoleCreatedMessage {
@@ -2868,7 +2868,7 @@ export interface BusinessUnitContactEmailSetMessage {
   readonly contactEmail?: string
 }
 /**
- *	Generated after a successful [Create BusinessUnit](/projects/business-units#create-businessunit) request.
+ *	Generated after a successful [Create BusinessUnit](ctp:api:endpoint:/{projectKey}/business-units:POST) request.
  *
  */
 export interface BusinessUnitCreatedMessage {
@@ -4168,7 +4168,7 @@ export interface BusinessUnitStoresSetMessage {
   readonly stores: StoreKeyReference[]
 }
 /**
- *	Generated after a successful [Create Category](/../api/projects/categories#create-category) request.
+ *	Generated after a successful [Create Category](ctp:api:endpoint:/{projectKey}/categories:POST) request.
  *
  */
 export interface CategoryCreatedMessage {
@@ -4968,7 +4968,7 @@ export interface CustomerCompanyNameSetMessage {
   readonly companyName?: string
 }
 /**
- *	Generated after a successful [Create Customer](/../api/projects/customers#create-sign-up-customer) request.
+ *	Generated after a successful [Create Customer](ctp:api:endpoint:/{projectKey}/customers:POST) request.
  *
  */
 export interface CustomerCreatedMessage {
@@ -5616,7 +5616,7 @@ export interface CustomerEmailChangedMessage {
   readonly email: string
 }
 /**
- *	Generated after a successful [Create email token for Customer](/../api/projects/customers#create-email-token-for-customer) request. The `resource` property of the Message is a [CustomerEmailTokenReference](ctp:api:type:CustomerEmailTokenReference).
+ *	Generated after a successful [Create email token for Customer](ctp:api:endpoint:/{projectKey}/customers/email-token:POST) request. The `resource` property of the Message is a [CustomerEmailTokenReference](ctp:api:type:CustomerEmailTokenReference).
  *
  */
 export interface CustomerEmailTokenCreatedMessage {
@@ -5692,7 +5692,7 @@ export interface CustomerEmailTokenCreatedMessage {
   readonly expiresAt: string
 }
 /**
- *	Generated after a successful [Verify Customer's Email](/../api/projects/customers#verify-email-of-customer) request.
+ *	Generated after a successful [Verify Customer's Email](ctp:api:endpoint:/{projectKey}/customers/email/confirm:POST) request.
  *
  */
 export interface CustomerEmailVerifiedMessage {
@@ -6339,7 +6339,7 @@ export interface CustomerLastNameSetMessage {
   readonly lastName?: string
 }
 /**
- *	Generated after a successful [Create password reset token for Customer](/../api/projects/customers#create-password-reset-token-for-customer) request.  The `resource` property of the Message is a [CustomerPasswordTokenReference](ctp:api:type:CustomerPasswordTokenReference).
+ *	Generated after a successful [Create password reset token for Customer](ctp:api:endpoint:/{projectKey}/customers/password-token:POST) request. The `resource` property of the Message is a [CustomerPasswordTokenReference](ctp:api:type:CustomerPasswordTokenReference).
  *
  */
 export interface CustomerPasswordTokenCreatedMessage {
@@ -6415,7 +6415,7 @@ export interface CustomerPasswordTokenCreatedMessage {
   readonly expiresAt: string
 }
 /**
- *	Generated after a successful [Reset Customer's Password](/../api/projects/customers#reset-password-of-customer), [Reset Customer's Password in a Store](/../api/projects/customers#reset-password-of-customer-in-store), [Change Customer's Password](/../api/projects/customers#change-password-of-customer), or [Change Customer's Password in a Store](/../api/projects/customers#change-password-of-customer-in-store) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
+ *	Generated after a successful [Reset Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST), [Reset Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password/reset:POST), [Change Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password:POST), or [Change Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password:POST) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
  *
  */
 export interface CustomerPasswordUpdatedMessage {
@@ -6478,7 +6478,7 @@ export interface CustomerPasswordUpdatedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Whether the Customer's password was updated during the [Reset password](/../api/projects/customers#password-reset-of-customer) or [Change password](/../api/projects/customers#change-password-of-customer) flow.
+   *	Whether the Customer's password was updated during the [Reset password](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST) or [Change password](ctp:api:endpoint:/{projectKey}/customers/password:POST) flow.
    *
    *
    */
@@ -6555,7 +6555,7 @@ export interface CustomerTitleSetMessage {
   readonly title?: string
 }
 /**
- *	Generated after a successful [Create InventoryEntry](/../api/projects/inventory#create-inventoryentry) request.
+ *	Generated after a successful [Create InventoryEntry](ctp:api:endpoint:/{projectKey}/inventory:POST) request.
  *
  */
 export interface InventoryEntryCreatedMessage {
@@ -6702,7 +6702,7 @@ export interface InventoryEntryDeletedMessage {
 }
 /**
  *	Generated after a successful [Add Quantity](ctp:api:type:InventoryEntryAddQuantityAction), [Remove Quantity](ctp:api:type:InventoryEntryRemoveQuantityAction) or [Change Quantity](ctp:api:type:InventoryEntryChangeQuantityAction) update action.
- *	Inventory changes as a result of [Order creation](/../api/projects/orders#create-order) do not trigger this message.
+ *	Inventory changes as a result of [Order creation](ctp:api:endpoint:/{projectKey}/orders:POST) do not trigger this message.
  *
  */
 export interface InventoryEntryQuantitySetMessage {
@@ -7524,7 +7524,7 @@ export interface OrderBillingAddressSetMessage {
   readonly oldAddress?: Address
 }
 /**
- *	Generated after a successful [Create Order](/../api/projects/orders#create-order) request.
+ *	Generated after a successful [Create Order](ctp:api:endpoint:/{projectKey}/orders:POST) request.
  *
  */
 export interface OrderCreatedMessage {
@@ -10613,7 +10613,7 @@ export interface ParcelTrackingDataUpdatedMessage {
   readonly shippingKey?: string
 }
 /**
- *	Generated after a successful [Create Payment](/../api/projects/payments#create-payment) request.
+ *	Generated after a successful [Create Payment](ctp:api:endpoint:/{projectKey}/payments:POST) request.
  *
  */
 export interface PaymentCreatedMessage {
@@ -11121,7 +11121,7 @@ export interface ProductAddedToCategoryMessage {
   readonly staged: boolean
 }
 /**
- *	Generated after a successful [Create Product](/../api/projects/products#create-product) request.
+ *	Generated after a successful [Create Product](ctp:api:endpoint:/{projectKey}/products:POST) request.
  *
  */
 export interface ProductCreatedMessage {
@@ -12291,7 +12291,7 @@ export interface ProductRevertedStagedChangesMessage {
   readonly removedImageUrls: string[]
 }
 /**
- *	Generated after a successful [Create Product Selection](/../api/projects/product-selections#create-productselection) request.
+ *	Generated after a successful [Create Product Selection](ctp:api:endpoint:/{projectKey}/product-selections:POST) request.
  *
  */
 export interface ProductSelectionCreatedMessage {
@@ -13174,7 +13174,7 @@ export interface ProductVariantDeletedMessage {
   readonly removedImageUrls: string[]
 }
 /**
- *	Generated after a successful [Create Quote](/../api/projects/quotes#create-quote) request.
+ *	Generated after a successful [Create Quote](ctp:api:endpoint:/{projectKey}/quotes:POST) request.
  *
  */
 export interface QuoteCreatedMessage {
@@ -13454,7 +13454,7 @@ export interface QuoteRenegotiationRequestedMessage {
   readonly buyerComment?: string
 }
 /**
- *	Generated after a successful [Create QuoteRequest](/../api/projects/quote-requests#create-quoterequest) request.
+ *	Generated after a successful [Create QuoteRequest](ctp:api:endpoint:/{projectKey}/quote-requests:POST) request.
  *
  */
 export interface QuoteRequestCreatedMessage {
@@ -14120,7 +14120,7 @@ export interface ReturnInfoSetMessage {
   readonly returnInfo?: ReturnInfo[]
 }
 /**
- *	Generated after a successful [Create Review](/../api/projects/reviews#create-review) request.
+ *	Generated after a successful [Create Review](ctp:api:endpoint:/{projectKey}/reviews:POST) request.
  *
  */
 export interface ReviewCreatedMessage {
@@ -14378,7 +14378,7 @@ export interface ReviewStateTransitionMessage {
   readonly force: boolean
 }
 /**
- *	Generated after a successful [Create StagedQuote](/../api/projects/staged-quotes#create-stagedquote) request.
+ *	Generated after a successful [Create StagedQuote](ctp:api:endpoint:/{projectKey}/staged-quotes:POST) request.
  *
  */
 export interface StagedQuoteCreatedMessage {
@@ -14886,7 +14886,7 @@ export interface StandalonePriceActiveChangedMessage {
   readonly oldActive: boolean
 }
 /**
- *	Generated after a successful [Create StandalonePrice](/../api/projects/standalone-prices#create-standaloneprice) request.
+ *	Generated after a successful [Create StandalonePrice](ctp:api:endpoint:/{projectKey}/standalone-prices:POST) request.
  *
  */
 export interface StandalonePriceCreatedMessage {
@@ -15999,7 +15999,7 @@ export interface StoreCountriesChangedMessage {
   readonly removedCountries?: StoreCountry[]
 }
 /**
- *	Generated after a successful [Create Store](/../api/projects/stores#create-store) request.
+ *	Generated after a successful [Create Store](ctp:api:endpoint:/{projectKey}/stores:POST) request.
  *
  */
 export interface StoreCreatedMessage {
@@ -16105,7 +16105,7 @@ export interface StoreCreatedMessage {
   readonly custom?: CustomFields
 }
 /**
- *	Generated after a successful [Delete Store](/../api/projects/quote-requests#delete-quoterequest) request.
+ *	Generated after a successful [Delete Store](/../api/projects/stores#delete-store) request.
  *
  */
 export interface StoreDeletedMessage {
@@ -17052,7 +17052,7 @@ export interface AssociateRoleBuyerAssignableChangedMessagePayload {
   readonly buyerAssignable: boolean
 }
 /**
- *	Generated after a successful [Create AssociateRole](/projects/associate-roles#create-associaterole) request.
+ *	Generated after a successful [Create AssociateRole](ctp:api:endpoint:/{projectKey}/associate-roles:POST) request.
  *
  */
 export interface AssociateRoleCreatedMessagePayload {
@@ -17360,7 +17360,7 @@ export interface BusinessUnitContactEmailSetMessagePayload {
   readonly contactEmail?: string
 }
 /**
- *	Generated after a successful [Create BusinessUnit](/projects/business-units#create-businessunit) request.
+ *	Generated after a successful [Create BusinessUnit](ctp:api:endpoint:/{projectKey}/business-units:POST) request.
  *
  */
 export interface BusinessUnitCreatedMessagePayload {
@@ -17634,7 +17634,7 @@ export interface BusinessUnitStoresSetMessagePayload {
   readonly stores: StoreKeyReference[]
 }
 /**
- *	Generated after a successful [Create Category](/../api/projects/categories#create-category) request.
+ *	Generated after a successful [Create Category](ctp:api:endpoint:/{projectKey}/categories:POST) request.
  *
  */
 export interface CategoryCreatedMessagePayload {
@@ -17807,7 +17807,7 @@ export interface CustomerCompanyNameSetMessagePayload {
   readonly companyName?: string
 }
 /**
- *	Generated after a successful [Create Customer](/../api/projects/customers#create-sign-up-customer) request.
+ *	Generated after a successful [Create Customer](ctp:api:endpoint:/{projectKey}/customers:POST) request.
  *
  */
 export interface CustomerCreatedMessagePayload {
@@ -17942,7 +17942,7 @@ export interface CustomerEmailChangedMessagePayload {
   readonly email: string
 }
 /**
- *	Generated after a successful [Create email token for Customer](/../api/projects/customers#create-email-token-for-customer) request. The `resource` property of the Message is a [CustomerEmailTokenReference](ctp:api:type:CustomerEmailTokenReference).
+ *	Generated after a successful [Create email token for Customer](ctp:api:endpoint:/{projectKey}/customers/email-token:POST) request. The `resource` property of the Message is a [CustomerEmailTokenReference](ctp:api:type:CustomerEmailTokenReference).
  *
  */
 export interface CustomerEmailTokenCreatedMessagePayload {
@@ -17961,7 +17961,7 @@ export interface CustomerEmailTokenCreatedMessagePayload {
   readonly expiresAt: string
 }
 /**
- *	Generated after a successful [Verify Customer's Email](/../api/projects/customers#verify-email-of-customer) request.
+ *	Generated after a successful [Verify Customer's Email](ctp:api:endpoint:/{projectKey}/customers/email/confirm:POST) request.
  *
  */
 export interface CustomerEmailVerifiedMessagePayload {
@@ -18095,7 +18095,7 @@ export interface CustomerLastNameSetMessagePayload {
   readonly lastName?: string
 }
 /**
- *	Generated after a successful [Create password reset token for Customer](/../api/projects/customers#create-password-reset-token-for-customer) request.  The `resource` property of the Message is a [CustomerPasswordTokenReference](ctp:api:type:CustomerPasswordTokenReference).
+ *	Generated after a successful [Create password reset token for Customer](ctp:api:endpoint:/{projectKey}/customers/password-token:POST) request. The `resource` property of the Message is a [CustomerPasswordTokenReference](ctp:api:type:CustomerPasswordTokenReference).
  *
  */
 export interface CustomerPasswordTokenCreatedMessagePayload {
@@ -18114,13 +18114,13 @@ export interface CustomerPasswordTokenCreatedMessagePayload {
   readonly expiresAt: string
 }
 /**
- *	Generated after a successful [Reset Customer's Password](/../api/projects/customers#reset-password-of-customer), [Reset Customer's Password in a Store](/../api/projects/customers#reset-password-of-customer-in-store), [Change Customer's Password](/../api/projects/customers#change-password-of-customer), or [Change Customer's Password in a Store](/../api/projects/customers#change-password-of-customer-in-store) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
+ *	Generated after a successful [Reset Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST), [Reset Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password/reset:POST), [Change Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password:POST), or [Change Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password:POST) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
  *
  */
 export interface CustomerPasswordUpdatedMessagePayload {
   readonly type: 'CustomerPasswordUpdated'
   /**
-   *	Whether the Customer's password was updated during the [Reset password](/../api/projects/customers#password-reset-of-customer) or [Change password](/../api/projects/customers#change-password-of-customer) flow.
+   *	Whether the Customer's password was updated during the [Reset password](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST) or [Change password](ctp:api:endpoint:/{projectKey}/customers/password:POST) flow.
    *
    *
    */
@@ -18140,7 +18140,7 @@ export interface CustomerTitleSetMessagePayload {
   readonly title?: string
 }
 /**
- *	Generated after a successful [Create InventoryEntry](/../api/projects/inventory#create-inventoryentry) request.
+ *	Generated after a successful [Create InventoryEntry](ctp:api:endpoint:/{projectKey}/inventory:POST) request.
  *
  */
 export interface InventoryEntryCreatedMessagePayload {
@@ -18173,7 +18173,7 @@ export interface InventoryEntryDeletedMessagePayload {
 }
 /**
  *	Generated after a successful [Add Quantity](ctp:api:type:InventoryEntryAddQuantityAction), [Remove Quantity](ctp:api:type:InventoryEntryRemoveQuantityAction) or [Change Quantity](ctp:api:type:InventoryEntryChangeQuantityAction) update action.
- *	Inventory changes as a result of [Order creation](/../api/projects/orders#create-order) do not trigger this message.
+ *	Inventory changes as a result of [Order creation](ctp:api:endpoint:/{projectKey}/orders:POST) do not trigger this message.
  *
  */
 export interface InventoryEntryQuantitySetMessagePayload {
@@ -18463,7 +18463,7 @@ export interface OrderBillingAddressSetMessagePayload {
   readonly oldAddress?: Address
 }
 /**
- *	Generated after a successful [Create Order](/../api/projects/orders#create-order) request.
+ *	Generated after a successful [Create Order](ctp:api:endpoint:/{projectKey}/orders:POST) request.
  *
  */
 export interface OrderCreatedMessagePayload {
@@ -19329,7 +19329,7 @@ export interface ParcelTrackingDataUpdatedMessagePayload {
   readonly shippingKey?: string
 }
 /**
- *	Generated after a successful [Create Payment](/../api/projects/payments#create-payment) request.
+ *	Generated after a successful [Create Payment](ctp:api:endpoint:/{projectKey}/payments:POST) request.
  *
  */
 export interface PaymentCreatedMessagePayload {
@@ -19438,7 +19438,7 @@ export interface ProductAddedToCategoryMessagePayload {
   readonly staged: boolean
 }
 /**
- *	Generated after a successful [Create Product](/../api/projects/products#create-product) request.
+ *	Generated after a successful [Create Product](ctp:api:endpoint:/{projectKey}/products:POST) request.
  *
  */
 export interface ProductCreatedMessagePayload {
@@ -19768,7 +19768,7 @@ export interface ProductRevertedStagedChangesMessagePayload {
   readonly removedImageUrls: string[]
 }
 /**
- *	Generated after a successful [Create Product Selection](/../api/projects/product-selections#create-productselection) request.
+ *	Generated after a successful [Create Product Selection](ctp:api:endpoint:/{projectKey}/product-selections:POST) request.
  *
  */
 export interface ProductSelectionCreatedMessagePayload {
@@ -19967,7 +19967,7 @@ export interface ProductVariantDeletedMessagePayload {
   readonly removedImageUrls: string[]
 }
 /**
- *	Generated after a successful [Create Quote](/../api/projects/quotes#create-quote) request.
+ *	Generated after a successful [Create Quote](ctp:api:endpoint:/{projectKey}/quotes:POST) request.
  *
  */
 export interface QuoteCreatedMessagePayload {
@@ -20019,7 +20019,7 @@ export interface QuoteRenegotiationRequestedMessagePayload {
   readonly buyerComment?: string
 }
 /**
- *	Generated after a successful [Create QuoteRequest](/../api/projects/quote-requests#create-quoterequest) request.
+ *	Generated after a successful [Create QuoteRequest](ctp:api:endpoint:/{projectKey}/quote-requests:POST) request.
  *
  */
 export interface QuoteRequestCreatedMessagePayload {
@@ -20172,7 +20172,7 @@ export interface ReturnInfoSetMessagePayload {
   readonly returnInfo?: ReturnInfo[]
 }
 /**
- *	Generated after a successful [Create Review](/../api/projects/reviews#create-review) request.
+ *	Generated after a successful [Create Review](ctp:api:endpoint:/{projectKey}/reviews:POST) request.
  *
  */
 export interface ReviewCreatedMessagePayload {
@@ -20268,7 +20268,7 @@ export interface ShoppingListStoreSetMessagePayload {
   readonly store: StoreKeyReference
 }
 /**
- *	Generated after a successful [Create StagedQuote](/../api/projects/staged-quotes#create-stagedquote) request.
+ *	Generated after a successful [Create StagedQuote](ctp:api:endpoint:/{projectKey}/staged-quotes:POST) request.
  *
  */
 export interface StagedQuoteCreatedMessagePayload {
@@ -20377,7 +20377,7 @@ export interface StandalonePriceActiveChangedMessagePayload {
   readonly oldActive: boolean
 }
 /**
- *	Generated after a successful [Create StandalonePrice](/../api/projects/standalone-prices#create-standaloneprice) request.
+ *	Generated after a successful [Create StandalonePrice](ctp:api:endpoint:/{projectKey}/standalone-prices:POST) request.
  *
  */
 export interface StandalonePriceCreatedMessagePayload {
@@ -20635,7 +20635,7 @@ export interface StoreCountriesChangedMessagePayload {
   readonly removedCountries?: StoreCountry[]
 }
 /**
- *	Generated after a successful [Create Store](/../api/projects/stores#create-store) request.
+ *	Generated after a successful [Create Store](ctp:api:endpoint:/{projectKey}/stores:POST) request.
  *
  */
 export interface StoreCreatedMessagePayload {
@@ -20684,7 +20684,7 @@ export interface StoreCreatedMessagePayload {
   readonly custom?: CustomFields
 }
 /**
- *	Generated after a successful [Delete Store](/../api/projects/quote-requests#delete-quoterequest) request.
+ *	Generated after a successful [Delete Store](/../api/projects/stores#delete-store) request.
  *
  */
 export interface StoreDeletedMessagePayload {
