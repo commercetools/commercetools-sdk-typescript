@@ -2158,7 +2158,7 @@ export interface MyCustomerSetDefaultShippingAddressAction {
   readonly addressKey?: string
 }
 /**
- *	Setting the first name of the Customer produces the [CustomerFirstNameSetMessage](ctp:api:type:CustomerFirstNameSetMessage).
+ *	Setting the first name of the Customer produces the [CustomerFirstNameSet](ctp:api:type:CustomerFirstNameSetMessage) Message.
  *
  */
 export interface MyCustomerSetFirstNameAction {
@@ -2172,7 +2172,7 @@ export interface MyCustomerSetFirstNameAction {
   readonly firstName?: string
 }
 /**
- *	Setting the last name of the Customer produces the [CustomerLastNameSetMessage](ctp:api:type:CustomerLastNameSetMessage).
+ *	Setting the last name of the Customer produces the [CustomerLastNameSet](ctp:api:type:CustomerLastNameSetMessage) Message.
  *
  */
 export interface MyCustomerSetLastNameAction {
