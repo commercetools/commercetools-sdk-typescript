@@ -1,16 +1,10 @@
 **Api changes**
 
 <details>
-<summary>Added QueryParameter(s)</summary>
+<summary>Removed Type(s)</summary>
 
-- added query parameter `expand` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
-- added query parameter `sort` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
-- added query parameter `limit` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
-- added query parameter `offset` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
-- added query parameter `withTotal` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
-- added query parameter `where` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
-- added query parameter `/^var[.][a-zA-Z0-9]+$/` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
-- added query parameter `expand` to method `post /{projectKey}/in-store/key={storeKey}/cart-discounts`
+- :warning: removed type `NotEnabledError`
+- :warning: removed type `GraphQLNotEnabledError`
 </details>
 
 <details>
@@ -31,16 +25,9 @@
 </details>
 
 <details>
-<summary>Removed Type(s)</summary>
+<summary>Changed MethodResponseBody(s)</summary>
 
-- :warning: removed type `NotEnabledError`
-- :warning: removed type `GraphQLNotEnabledError`
-</details>
-
-<details>
-<summary>Added Property(s)</summary>
-
-- added property `custom` to type `ApprovalFlow`
+- :warning: changed response body for `200: application/json` of method `get /{projectKey}/in-store/key={storeKey}/cart-discounts` from type `CartDiscount` to `CartDiscountPagedQueryResponse`
 </details>
 
 <details>
@@ -54,12 +41,33 @@
 </details>
 
 <details>
-<summary>Changed MethodResponseBody(s)</summary>
+<summary>Added QueryParameter(s)</summary>
 
-- :warning: changed response body for `200: application/json` of method `get /{projectKey}/in-store/key={storeKey}/cart-discounts` from type `CartDiscount` to `CartDiscountPagedQueryResponse`
+- added query parameter `expand` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
+- added query parameter `sort` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
+- added query parameter `limit` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
+- added query parameter `offset` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
+- added query parameter `withTotal` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
+- added query parameter `where` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
+- added query parameter `/^var[.][a-zA-Z0-9]+$/` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
+- added query parameter `expand` to method `post /{projectKey}/in-store/key={storeKey}/cart-discounts`
+</details>
+
+<details>
+<summary>Added Property(s)</summary>
+
+- added property `custom` to type `ApprovalFlow`
 </details>
 
 **History changes**
+
+<details>
+<summary>Removed Type(s)</summary>
+
+- :warning: removed type `ChannelRole`
+- :warning: removed type `StateRole`
+- :warning: removed type `StateType`
+</details>
 
 <details>
 <summary>Added Type(s)</summary>
@@ -69,14 +77,6 @@
 - added type `ChannelRoleEnum`
 - added type `StateRoleEnum`
 - added type `StateTypeEnum`
-</details>
-
-<details>
-<summary>Removed Type(s)</summary>
-
-- :warning: removed type `ChannelRole`
-- :warning: removed type `StateRole`
-- :warning: removed type `StateType`
 </details>
 
 <details>
