@@ -1353,8 +1353,8 @@ export interface OrderReference {
 export interface OrderSearchQuery {}
 export type _OrderSearchQuery =
   | OrderSearchQuery
-  | OrderSearchCompoundExpression
-  | OrderSearchQueryExpression
+  | _OrderSearchCompoundExpression
+  | _OrderSearchQueryExpression
 export interface OrderSearchCompoundExpression extends OrderSearchQuery {}
 export type _OrderSearchCompoundExpression =
   | OrderSearchCompoundExpression

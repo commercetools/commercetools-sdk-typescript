@@ -998,7 +998,7 @@ export interface FeatureRemovedError {
   readonly message: string
 }
 /**
- *	Returned when a server-side problem occurs.
+ *	Returned when a server-side problem occurs before or after data persistence. In some cases, the requested action may successfully complete after the error is returned. Therefore, it is recommended to verify the status of the requested resource after receiving a 500 error.
  *
  *	If you encounter this error, report it using the [Support Portal](https://support.commercetools.com).
  *
@@ -2672,7 +2672,7 @@ export interface GraphQLFeatureRemovedError {
   [key: string]: any
 }
 /**
- *	Returned when a server-side problem occurs.
+ *	Returned when a server-side problem occurs before or after data persistence. In some cases, the requested action may successfully complete after the error is returned. Therefore, it is recommended to verify the status of the requested resource after receiving a 500 error.
  *
  *	If you encounter this error, report it using the [Support Portal](https://support.commercetools.com).
  *
