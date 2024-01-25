@@ -734,7 +734,8 @@ export interface CustomLineItem {
    */
   readonly taxedPrice?: TaxedItemPrice
   /**
-   *	Taxed price of the Shipping Method that is automatically set after `perMethodTaxRate` is set.
+   *	Total taxed prices based on the quantity of the Custom Line Item assigned to each [Shipping Method](ctp:api:type:ShippingMethod). Only applicable for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Automatically set after `perMethodTaxRate` is set.
    *
    */
   readonly taxedPricePortions: MethodTaxedPrice[]
@@ -1365,7 +1366,8 @@ export interface LineItem {
    */
   readonly taxedPrice?: TaxedItemPrice
   /**
-   *	Taxed price of the Shipping Method that is automatically set after `perMethodTaxRate` is set.
+   *	Total taxed prices based on the quantity of Line Item assigned to each [Shipping Method](ctp:api:type:ShippingMethod). Only applicable for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Automatically set after `perMethodTaxRate` is set.
    *
    */
   readonly taxedPricePortions: MethodTaxedPrice[]
@@ -1594,13 +1596,13 @@ export interface MethodTaxRate {
 }
 export interface MethodTaxedPrice {
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the [Shipping Method](ctp:api:type:ShippingMethod) in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
   readonly shippingMethodKey: string
   /**
-   *	Taxed price for the Shipping Method.
+   *	Total taxed price based on the quantity of the Line Item or Custom Line Item assigned to the Shipping Method identified by `shippingMethodKey`.
    *
    *
    */
