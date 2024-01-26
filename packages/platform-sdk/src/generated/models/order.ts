@@ -2398,6 +2398,7 @@ export interface OrderRemoveDeliveryAction {
 }
 /**
  *	An address can only be removed if it is not referenced in any [ItemShippingTarget](ctp:api:type:ItemShippingTarget) of the Cart.
+ *	In such case, change the Line Item shipping address to a different `addressKey` first using the [Set LineItemShippingDetails](ctp:api:type:OrderSetLineItemShippingDetailsAction) update action, before you remove the obsolete address.
  *
  */
 export interface OrderRemoveItemShippingAddressAction {

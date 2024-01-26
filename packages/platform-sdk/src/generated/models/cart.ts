@@ -436,6 +436,7 @@ export interface CartDraft {
   readonly billingAddress?: _BaseAddress
   /**
    *	Shipping address for a Cart with `Single` [ShippingMode](ctp:api:type:ShippingMode). Determines eligible [ShippingMethod](ctp:api:type:ShippingMethod) rates and Tax Rates of Line Items.
+   *	Must be one of the `itemShippingAddresses` when that field is also provided.
    *
    *
    */
@@ -1265,7 +1266,7 @@ export interface ItemShippingTarget {
   /**
    *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
-   *	It connects Line Item quantities with individual shipping addresses.
+   *	It connects Line Item or Custom Line Item quantities with individual Shipping Methods.
    *
    */
   readonly shippingMethodKey?: string
