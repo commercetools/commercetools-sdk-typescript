@@ -17,6 +17,7 @@ import {
   InventoryMode,
   ItemShippingDetailsDraft,
   ItemShippingTarget,
+  ShippingMode,
   TaxMode,
 } from './cart'
 import { ChannelResourceIdentifier } from './channel'
@@ -180,6 +181,12 @@ export interface MyCartDraft {
    *
    */
   readonly itemShippingAddresses?: BaseAddress[]
+  /**
+   *	- If set to `Single`, only a single Shipping Method can be added to the Cart.
+   *	- If set to `Multiple`, multiple Shipping Methods can be added to the Cart.
+   *
+   */
+  readonly shippingMode?: ShippingMode
   /**
    *	`code` of the existing [DiscountCodes](ctp:api:type:DiscountCode) to add to the Cart.
    *

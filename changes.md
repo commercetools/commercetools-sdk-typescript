@@ -57,6 +57,7 @@
 <summary>Added Property(s)</summary>
 
 - added property `custom` to type `ApprovalFlow`
+- added property `shippingMode` to type `MyCartDraft`
 </details>
 
 **History changes**
