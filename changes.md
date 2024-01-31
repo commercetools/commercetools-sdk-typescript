@@ -57,6 +57,7 @@
 <summary>Added Property(s)</summary>
 
 - added property `custom` to type `ApprovalFlow`
+- added property `perMethodExternalTaxRate` to type `CartAddLineItemAction`
 - added property `shippingMode` to type `MyCartDraft`
 </details>
 

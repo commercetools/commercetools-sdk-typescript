@@ -2260,6 +2260,12 @@ export interface CartAddLineItemAction {
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
   /**
+   *	Sets the external Tax Rates for individual Shipping Methods, if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode) and `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly perMethodExternalTaxRate?: MethodExternalTaxRateDraft[]
+  /**
    *	Inventory mode specific to the Line Item only, and valid for the entire `quantity` of the Line Item.
    *	Set only if the inventory mode should be different from the `inventoryMode` specified on the [Cart](ctp:api:type:Cart).
    *
