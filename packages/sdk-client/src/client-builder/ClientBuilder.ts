@@ -195,10 +195,14 @@ export default class ClientBuilder {
     return this
   }
 
-  withTelemetryMiddleware<T extends TelemetryOptions<T>>(
+  withTelemetryMiddleware<T extends TelemetryOptions>(
     options: T
   ): ClientBuilder {
     const { createTelemetryMiddleware, ...rest } = options
+
+    this.withUserAgentMiddleware({
+      customAgent: rest?.userAgent || 'typescript-sdk-apm-middleware',
+    })
     this.telemetryMiddleware = createTelemetryMiddleware(rest)
     return this
   }

@@ -76,6 +76,22 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .get(),
     },
     {
+      method: 'head',
+      uri: '/test_projectKey/attribute-groups?where=where',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .attributeGroups()
+        .head({ queryArgs: { where: 'where' } }),
+    },
+    {
+      method: 'head',
+      uri: '/test_projectKey/attribute-groups',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .attributeGroups()
+        .head(),
+    },
+    {
       method: 'post',
       uri: '/test_projectKey/attribute-groups?expand=expand',
       request: apiRoot

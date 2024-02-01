@@ -63,5 +63,19 @@ describe('ApiRequestExecutor', () => {
     test('handle undefined variable map', async () => {
       expect(testQuery(undefined)).toEqual('')
     })
+
+    test('handle special characters in uri parameter', async () => {
+      const request = {
+        baseURL: 'http://base-url',
+        method: 'GET' as const,
+        uriTemplate: '/key={foo}/test/{bar}',
+        pathVariables: {
+          foo: 'foo[bar]',
+          bar: 'bar',
+        },
+      }
+
+      expect(buildRelativeUri(request)).toEqual('/key=foo%5Bbar%5D/test/bar')
+    })
   })
 })

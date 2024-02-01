@@ -22,9 +22,11 @@ export class ByProjectKeyInStoreKeyByStoreKeyProductProjectionsKeyByKeyRequestBu
   ) {}
   /**
    *	Gets the current or staged representation of a [Product](ctp:api:type:Product) by its key from the specified [Store](ctp:api:type:Store).
-   *	If the Store has defined some languages, countries, distribution or supply Channels,
+   *	If the Store has defined some languages, countries, distribution, supply Channels, and/or Product Selection,
    *	they are used for projections based on [locale](ctp:api:type:ProductProjectionLocales), [price](ctp:api:type:ProductProjectionPrices)
    *	and [inventory](ctp:api:type:ProductProjectionInventoryEntries).
+   *
+   *	If [ProductSelection](ctp:api:type:ProductSelection) is used, it affects the [availability of the Product](/projects/stores#products-available-in-store) in the specified Store.
    *
    *	When used with an API Client that has the `view_published_products:{projectKey}` scope, this endpoint only returns published (current) Product Projections.
    *
@@ -55,6 +57,28 @@ export class ByProjectKeyInStoreKeyByStoreKeyProductProjectionsKeyByKeyRequestBu
           ...methodArgs?.headers,
         },
         queryParams: methodArgs?.queryArgs,
+      },
+      this.args.executeRequest
+    )
+  }
+  /**
+   *	Checks if the current or staged representations of a Product exists for a given `key` in the specified [Store](ctp:api:type:Store). Returns a `200 OK` status if the ProductProjection exists or a `404 Not Found` otherwise.
+   */
+  public head(methodArgs?: {
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'HEAD',
+        uriTemplate:
+          '/{projectKey}/in-store/key={storeKey}/product-projections/key={key}',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
       },
       this.args.executeRequest
     )

@@ -77,6 +77,32 @@ export class ByProjectKeySubscriptionsRequestBuilder {
     )
   }
   /**
+   *	Checks if a Subscription exists for a given Query Predicate. Returns a `200 OK` status if any Subscriptions match the Query Predicate or a `404 Not Found` otherwise.
+   */
+  public head(methodArgs?: {
+    queryArgs?: {
+      where?: string | string[]
+      [key: string]: QueryParam
+    }
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'HEAD',
+        uriTemplate: '/{projectKey}/subscriptions',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
+      },
+      this.args.executeRequest
+    )
+  }
+  /**
    *	A test message is sent to ensure the correct configuration of the Destination. If the message cannot be delivered, the Subscription will not be created. The payload of the test message is a notification of type [ResourceCreated](/../api/projects/subscriptions#resourcecreateddeliverypayload) for the `resourceTypeId` `subscription`.
    *
    */

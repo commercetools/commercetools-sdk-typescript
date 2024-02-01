@@ -95,8 +95,9 @@ export type MethodType =
   | 'UNSUBSCRIBE'
 
 export type TelemetryMiddlewareOptions = {
-  apm?: Function,
-  tracer?: Function,
+  apm?: Function;
+  tracer?: Function;
+  userAgent?: string;
   createTelemetryMiddleware: (options?: OTelemetryMiddlewareOptions) => Middleware
 }
 

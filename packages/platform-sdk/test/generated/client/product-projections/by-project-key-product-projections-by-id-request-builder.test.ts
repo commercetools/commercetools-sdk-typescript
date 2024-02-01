@@ -92,6 +92,15 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .withId({ ID: 'test_ID' })
         .get(),
     },
+    {
+      method: 'head',
+      uri: '/test_projectKey/product-projections/test_ID',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .productProjections()
+        .withId({ ID: 'test_ID' })
+        .head(),
+    },
   ]
 }
 

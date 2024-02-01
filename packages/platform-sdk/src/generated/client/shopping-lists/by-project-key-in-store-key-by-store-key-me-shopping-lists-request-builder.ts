@@ -83,6 +83,32 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsRequestBuilder {
     )
   }
   /**
+   *	Checks if a ShoppingList exists for a given Query Predicate. Returns a `200 OK` status if any ShoppingLists match the Query Predicate or a `404 Not Found` otherwise.
+   */
+  public head(methodArgs?: {
+    queryArgs?: {
+      where?: string | string[]
+      [key: string]: QueryParam
+    }
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'HEAD',
+        uriTemplate: '/{projectKey}/in-store/key={storeKey}/me/shopping-lists',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
+      },
+      this.args.executeRequest
+    )
+  }
+  /**
    *	When using this endpoint, the `store` field of a ShoppingList is always set to the [Store](ctp:api:type:Store) specified in the path parameter.
    *
    */

@@ -38,13 +38,13 @@ export interface AssociateRole extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -185,19 +185,19 @@ export interface AssociateRoleReference {
   readonly obj?: AssociateRole
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:TypeResourceIdentifier) of an [AssociateRole](ctp:api:type:AssociateRole).
+ *	[ResourceIdentifier](ctp:api:type:TypeResourceIdentifier) of an [AssociateRole](ctp:api:type:AssociateRole). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface AssociateRoleResourceIdentifier {
   readonly typeId: 'associate-role'
   /**
-   *	Unique identifier of the referenced [AssociateRole](ctp:api:type:AssociateRole). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [AssociateRole](ctp:api:type:AssociateRole). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced [AssociateRole](ctp:api:type:AssociateRole). Either `id` or `key` is required.
+   *	Unique key of the referenced [AssociateRole](ctp:api:type:AssociateRole). Required if `id` is absent.
    *
    *
    */
@@ -206,7 +206,7 @@ export interface AssociateRoleResourceIdentifier {
 export interface AssociateRoleUpdate {
   /**
    *	Expected version of the AssociateRole on which the changes should be applied.
-   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -227,13 +227,14 @@ export type AssociateRoleUpdateAction =
   | AssociateRoleSetNameAction
   | AssociateRoleSetPermissionsAction
 /**
- *	Permissions grant granular access to [Business Units](ctp:api:type:BusinessUnit), [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), and [QuoteRequests](ctp:api:type:QuoteRequest).
+ *	Permissions grant granular access to [Approval Rules](ctp:api:type:ApprovalRule), [Approval Flows](ctp:api:type:ApprovalFlow), [Business Units](ctp:api:type:BusinessUnit), [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), and [Quote Requests](ctp:api:type:QuoteRequest).
  *
  */
 export type Permission =
   | 'AcceptMyQuotes'
   | 'AcceptOthersQuotes'
   | 'AddChildUnits'
+  | 'CreateApprovalRules'
   | 'CreateMyCarts'
   | 'CreateMyOrdersFromMyCarts'
   | 'CreateMyOrdersFromMyQuotes'
@@ -250,6 +251,8 @@ export type Permission =
   | 'ReassignOthersQuotes'
   | 'RenegotiateMyQuotes'
   | 'RenegotiateOthersQuotes'
+  | 'UpdateApprovalFlows'
+  | 'UpdateApprovalRules'
   | 'UpdateAssociates'
   | 'UpdateBusinessUnitDetails'
   | 'UpdateMyCarts'

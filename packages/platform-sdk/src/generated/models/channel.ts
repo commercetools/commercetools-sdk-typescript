@@ -47,13 +47,13 @@ export interface Channel extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -215,19 +215,19 @@ export interface ChannelReference {
   readonly obj?: Channel
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface ChannelResourceIdentifier {
   readonly typeId: 'channel'
   /**
-   *	Unique identifier of the referenced [Channel](ctp:api:type:Channel). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [Channel](ctp:api:type:Channel). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [Channel](ctp:api:type:Channel). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [Channel](ctp:api:type:Channel). Required if `id` is absent.
    *
    *
    */
@@ -246,7 +246,8 @@ export type ChannelRoleEnum =
   | string
 export interface ChannelUpdate {
   /**
-   *	Expected version of the Channel on which the changes should be applied. If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
+   *	Expected version of the Channel on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */

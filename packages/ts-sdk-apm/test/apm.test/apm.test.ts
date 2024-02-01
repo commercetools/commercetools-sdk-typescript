@@ -4,7 +4,6 @@ import {
   createTelemetryMiddleware,
 } from '../../src'
 
-jest.mock('newrelic', () => {})
 jest.mock('../../opentelemetry', () => {})
 
 function createTestRequest(options): MiddlewareRequest {
@@ -73,6 +72,12 @@ describe('apm', () => {
 
         expect(req['apm']()).toEqual({ a: 'apm-module' })
         expect(req['tracer']()).toEqual({ t: 'tracer-module' })
+
+        expect(req['apm']).toHaveReturned()
+        expect(req['tracer']).toHaveReturned()
+
+        expect(options.apm).toHaveBeenCalled()
+        expect(options.tracer).toHaveBeenCalled
       })
     }
 

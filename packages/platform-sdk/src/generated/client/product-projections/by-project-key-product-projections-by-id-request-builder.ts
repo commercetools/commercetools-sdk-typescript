@@ -53,4 +53,25 @@ export class ByProjectKeyProductProjectionsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Checks if the current or staged representation of a Product exists for a given `id`. Returns a `200 OK` status if the ProductProjection exists or a `404 Not Found` otherwise.
+   */
+  public head(methodArgs?: {
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'HEAD',
+        uriTemplate: '/{projectKey}/product-projections/{ID}',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+      },
+      this.args.executeRequest
+    )
+  }
 }

@@ -19,7 +19,7 @@ export class ByProjectKeyShippingMethodsMatchingCartLocationRequestBuilder {
     }
   ) {}
   /**
-   *	Retrieves all the ShippingMethods that can ship to the given [Location](/projects/zones#location)
+   *	Retrieves all the ShippingMethods that can ship to the given [Location](ctp:api:type:Location)
    *	with a `predicate` that matches the given Cart.
    *	Each ShippingMethod contains exactly one ShippingRate with the flag `isMatching` set to `true`.
    *	This ShippingRate is used when the ShippingMethod is [added to the Cart](ctp:api:type:CartSetShippingMethodAction).
@@ -41,6 +41,34 @@ export class ByProjectKeyShippingMethodsMatchingCartLocationRequestBuilder {
       {
         baseUri: this.args.baseUri,
         method: 'GET',
+        uriTemplate: '/{projectKey}/shipping-methods/matching-cart-location',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
+      },
+      this.args.executeRequest
+    )
+  }
+  /**
+   *	Checks if a ShippingMethod that can ship to the given [Location](ctp:api:type:Location) exists for the given Cart. Returns a `200 OK` status if the ShippingMethod exists or a `404 Not Found` otherwise.
+   */
+  public head(methodArgs: {
+    queryArgs: {
+      country: string
+      state?: string
+      cartId: string
+      [key: string]: QueryParam
+    }
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'HEAD',
         uriTemplate: '/{projectKey}/shipping-methods/matching-cart-location',
         pathVariables: this.args.pathArgs,
         headers: {

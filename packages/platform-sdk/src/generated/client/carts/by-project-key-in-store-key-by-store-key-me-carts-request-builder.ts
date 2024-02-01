@@ -63,6 +63,32 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeCartsRequestBuilder {
     )
   }
   /**
+   *	Checks if a Cart exists for a given Query Predicate. Returns a `200 OK` status if any Carts match the Query Predicate or a `404 Not Found` otherwise.
+   */
+  public head(methodArgs?: {
+    queryArgs?: {
+      where?: string | string[]
+      [key: string]: QueryParam
+    }
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'HEAD',
+        uriTemplate: '/{projectKey}/in-store/key={storeKey}/me/carts',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
+      },
+      this.args.executeRequest
+    )
+  }
+  /**
    *	The `store` field in the created [Cart](ctp:api:type:Cart) is set to the Store specified by the `storeKey` path parameter.
    *
    *	Specific Error Codes: [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError)

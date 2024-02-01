@@ -36,6 +36,7 @@ export class ByProjectKeyByResourceTypeByIDRequestBuilder {
       clientId?: string
       customerId?: string
       associateId?: string
+      businessUnit?: string
       type?: string
       source?: string
       changes?: string | string[]

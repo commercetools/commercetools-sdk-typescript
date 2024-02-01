@@ -20,7 +20,7 @@ import { Custom } from './customfields'
  */
 export interface StandalonePriceImport extends ImportResource {
   /**
-   *	User-defined unique identifier for the Standalone Price.
+   *	User-defined unique identifier for the Standalone Price. If a [StandalonePrice](/../api/projects/standalone-prices#standaloneprice) with this `key` exists, it will be updated with the imported data.
    *
    *
    */

@@ -42,6 +42,27 @@ export class ByProjectKeyReviewsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Checks if a Review exists for a given `key`. Returns a `200 OK` status if the Review exists or a `404 Not Found` otherwise.
+   */
+  public head(methodArgs?: {
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'HEAD',
+        uriTemplate: '/{projectKey}/reviews/key={key}',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+      },
+      this.args.executeRequest
+    )
+  }
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

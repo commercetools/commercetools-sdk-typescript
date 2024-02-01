@@ -47,13 +47,13 @@ export interface TaxCategory extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -169,19 +169,19 @@ export interface TaxCategoryReference {
   readonly obj?: TaxCategory
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [TaxCategory](ctp:api:type:TaxCategory).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [TaxCategory](ctp:api:type:TaxCategory). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface TaxCategoryResourceIdentifier {
   readonly typeId: 'tax-category'
   /**
-   *	Unique identifier of the referenced [TaxCategory](ctp:api:type:TaxCategory). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [TaxCategory](ctp:api:type:TaxCategory). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [TaxCategory](ctp:api:type:TaxCategory). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [TaxCategory](ctp:api:type:TaxCategory). Required if `id` is absent.
    *
    *
    */
@@ -189,7 +189,8 @@ export interface TaxCategoryResourceIdentifier {
 }
 export interface TaxCategoryUpdate {
   /**
-   *	Expected version of the TaxCategory on which the changes should be applied. If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
+   *	Expected version of the TaxCategory on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -230,7 +231,7 @@ export interface TaxRate {
    */
   readonly name: string
   /**
-   *	Tax rate. If subrates are used, the amount must be the sum of all subrates.
+   *	Tax rate. If subrates are used, the amount is the sum of all rates in `subRates`.
    *
    *
    */
@@ -254,7 +255,7 @@ export interface TaxRate {
    */
   readonly state?: string
   /**
-   *	Used to calculate the [taxPortions](/../api/projects/carts#taxedprice) field in a Cart or Order. It is useful if the total tax of a country (such as the US) is a combination of multiple taxes (such as state and local taxes).
+   *	Used to calculate the [taxPortions](/../api/projects/carts#taxedprice) field in a Cart or Order. It is useful if the total tax of a country (such as the US) is a combination of multiple taxes (such as state and local taxes). The total of all subrates equals the TaxRate `amount`.
    *
    *
    */
@@ -293,7 +294,7 @@ export interface TaxRateDraft {
    */
   readonly state?: string
   /**
-   *	Used to calculate the [taxPortions](/../api/projects/carts#taxedprice) field in a Cart or Order. It is useful if the total tax of a country (such as the US) is a combination of multiple taxes (such as state and local taxes).
+   *	Used to calculate the [taxPortions](/../api/projects/carts#taxedprice) field in a Cart or Order. It is useful if the total tax of a country (such as the US) is a combination of multiple taxes (such as state and local taxes). The total of all subrates must equal the TaxRate `amount`.
    *
    *
    */

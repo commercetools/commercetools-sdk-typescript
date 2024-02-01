@@ -17,6 +17,7 @@ import {
   InventoryMode,
   ItemShippingDetailsDraft,
   ItemShippingTarget,
+  ShippingMode,
   TaxMode,
 } from './cart'
 import { ChannelResourceIdentifier } from './channel'
@@ -49,7 +50,8 @@ import {
 
 export interface MyBusinessUnitAssociateDraft {
   /**
-   *	Expected version of the BusinessUnit on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *	Expected version of the BusinessUnit on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -71,7 +73,7 @@ export type MyBusinessUnitDraft = MyCompanyDraft | MyDivisionDraft
 export interface MyBusinessUnitUpdate {
   /**
    *	Expected version of the BusinessUnit on which the changes should be applied.
-   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -180,6 +182,12 @@ export interface MyCartDraft {
    */
   readonly itemShippingAddresses?: BaseAddress[]
   /**
+   *	- If set to `Single`, only a single Shipping Method can be added to the Cart.
+   *	- If set to `Multiple`, multiple Shipping Methods can be added to the Cart.
+   *
+   */
+  readonly shippingMode?: ShippingMode
+  /**
    *	`code` of the existing [DiscountCodes](ctp:api:type:DiscountCode) to add to the Cart.
    *
    *
@@ -218,7 +226,7 @@ export interface MyCartDraft {
 export interface MyCartUpdate {
   /**
    *	Expected version of the Cart on which the changes apply.
-   *	If it does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error is returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -426,7 +434,8 @@ export interface MyCustomerDraft {
 }
 export interface MyCustomerUpdate {
   /**
-   *	Expected version of the Customer on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *	Expected version of the Customer on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -759,7 +768,8 @@ export interface MyPaymentPagedQueryResponse {
 }
 export interface MyPaymentUpdate {
   /**
-   *	Expected version of the Payment on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *	Expected version of the Payment on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -816,7 +826,7 @@ export type MyQuoteState = 'Accepted' | 'Declined' | string
 export interface MyQuoteUpdate {
   /**
    *	Expected version of the [Quote](ctp:api:type:Quote) to which the changes should be applied.
-   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -883,7 +893,8 @@ export interface MyShoppingListDraft {
 }
 export interface MyShoppingListUpdate {
   /**
-   *	Expected version of the ShoppingList on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *	Expected version of the ShoppingList on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -1142,6 +1153,10 @@ export interface MyBusinessUnitRemoveShippingAddressIdAction {
    */
   readonly addressKey?: string
 }
+/**
+ *	Adding a Custom Field to an Address of a Business Unit generates the [BusinessUnitAddressCustomFieldAdded](ctp:api:type:BusinessUnitAddressCustomFieldAddedMessage) Message, removing one generates the [BusinessUnitAddressCustomFieldRemoved](ctp:api:type:BusinessUnitAddressCustomFieldRemovedMessage) Message, and updating an existing one generates the [BusinessUnitAddressCustomFieldChanged](ctp:api:type:BusinessUnitAddressCustomFieldChangedMessage) Message.
+ *
+ */
 export interface MyBusinessUnitSetAddressCustomFieldAction {
   readonly action: 'setAddressCustomField'
   /**
@@ -1165,6 +1180,10 @@ export interface MyBusinessUnitSetAddressCustomFieldAction {
    */
   readonly value?: any
 }
+/**
+ *	Adding or updating a Custom Type to an Address of a Business Unit generates the [BusinessUnitAddressCustomTypeSet](ctp:api:type:BusinessUnitAddressCustomTypeSetMessage) Message, and removing one generates the [BusinessUnitAddressCustomTypeRemoved](ctp:api:type:BusinessUnitAddressCustomTypeRemovedMessage) Message.
+ *
+ */
 export interface MyBusinessUnitSetAddressCustomTypeAction {
   readonly action: 'setAddressCustomType'
   /**
@@ -1201,6 +1220,10 @@ export interface MyBusinessUnitSetContactEmailAction {
    */
   readonly contactEmail?: string
 }
+/**
+ *	Adding a Custom Field to a Business Unit generates the [BusinessUnitCustomFieldAdded](ctp:api:type:BusinessUnitCustomFieldAddedMessage) Message, removing one generates the [BusinessUnitCustomFieldRemoved](ctp:api:type:BusinessUnitCustomFieldRemovedMessage) Message, and updating an existing one generates the [BusinessUnitCustomFieldChanged](ctp:api:type:BusinessUnitCustomFieldChangedMessage) Message.
+ *
+ */
 export interface MyBusinessUnitSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
@@ -1218,6 +1241,10 @@ export interface MyBusinessUnitSetCustomFieldAction {
    */
   readonly value?: any
 }
+/**
+ *	Adding or updating a Custom Type on a Business Unit generates the [BusinessUnitCustomTypeSet](ctp:api:type:BusinessUnitCustomTypeSetMessage) Message, removing one generates the [BusinessUnitCustomTypeRemoved](ctp:api:type:BusinessUnitCustomTypeRemovedMessage) Message.
+ *
+ */
 export interface MyBusinessUnitSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
@@ -1309,7 +1336,6 @@ export interface MyCartAddItemShippingAddressAction {
 /**
  *	If the Cart contains a [LineItem](ctp:api:type:LineItem) for a Product Variant with the same [LineItemMode](ctp:api:type:LineItemMode), [Custom Fields](/../api/projects/custom-fields), supply and distribution channel, then only the quantity of the existing Line Item is increased.
  *	If [LineItem](ctp:api:type:LineItem) `shippingDetails` is set, it is merged. All addresses will be present afterwards and, for address keys present in both shipping details, the quantity will be summed up.
- *	A new Line Item is added when the `externalPrice` or `externalTotalPrice` is set in this update action.
  *	The [LineItem](ctp:api:type:LineItem) price is set as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
  *
  *	If the Tax Rate is not set, a [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError) error is returned.
@@ -2042,6 +2068,10 @@ export interface MyCustomerSetCompanyNameAction {
    */
   readonly companyName?: string
 }
+/**
+ *	Adding a Custom Field to a Customer generates the [CustomerCustomFieldAdded](ctp:api:type:CustomerCustomFieldAddedMessage) Message, removing one generates the [CustomerCustomFieldRemoved](ctp:api:type:CustomerCustomFieldRemovedMessage) Message, and updating an existing one generates the [CustomerCustomFieldChanged](ctp:api:type:CustomerCustomFieldChangedMessage) Message.
+ *
+ */
 export interface MyCustomerSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
@@ -2059,6 +2089,10 @@ export interface MyCustomerSetCustomFieldAction {
    */
   readonly value?: any
 }
+/**
+ *	Adding or updating a Custom Type on a Customer generates the [CustomerCustomTypeSet](ctp:api:type:CustomerCustomTypeSetMessage) Message, removing one generates the [CustomerCustomTypeRemoved](ctp:api:type:CustomerCustomTypeRemovedMessage) Message.
+ *
+ */
 export interface MyCustomerSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
@@ -2130,7 +2164,7 @@ export interface MyCustomerSetDefaultShippingAddressAction {
   readonly addressKey?: string
 }
 /**
- *	Setting the first name of the Customer produces the [CustomerFirstNameSetMessage](ctp:api:type:CustomerFirstNameSetMessage).
+ *	Setting the first name of the Customer produces the [CustomerFirstNameSet](ctp:api:type:CustomerFirstNameSetMessage) Message.
  *
  */
 export interface MyCustomerSetFirstNameAction {
@@ -2144,7 +2178,7 @@ export interface MyCustomerSetFirstNameAction {
   readonly firstName?: string
 }
 /**
- *	Setting the last name of the Customer produces the [CustomerLastNameSetMessage](ctp:api:type:CustomerLastNameSetMessage).
+ *	Setting the last name of the Customer produces the [CustomerLastNameSet](ctp:api:type:CustomerLastNameSetMessage) Message.
  *
  */
 export interface MyCustomerSetLastNameAction {

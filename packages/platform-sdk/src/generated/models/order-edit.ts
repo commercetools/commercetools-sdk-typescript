@@ -129,20 +129,20 @@ export interface OrderEdit extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly createdBy?: CreatedBy
 }
 /**
- *	If the `editVersion` and/or `resourceVersion` do not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+ *	If the `editVersion` and/or `resourceVersion` do not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
  *
  */
 export interface OrderEditApply {
@@ -261,19 +261,19 @@ export interface OrderEditReference {
   readonly obj?: OrderEdit
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [OrderEdit](ctp:api:type:OrderEdit). Either `id` or `key` is required.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [OrderEdit](ctp:api:type:OrderEdit). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface OrderEditResourceIdentifier {
   readonly typeId: 'order-edit'
   /**
-   *	Unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit).
+   *	Unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit).
+   *	User-defined unique identifier of the referenced [OrderEdit](ctp:api:type:OrderEdit). Required if `id` is absent.
    *
    *
    */
@@ -351,7 +351,7 @@ export interface OrderEditPreviewSuccess {
 export interface OrderEditUpdate {
   /**
    *	Expected version of the Order Edit on which the changes should be applied.
-   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -798,6 +798,12 @@ export interface StagedOrderAddParcelToDeliveryAction {
    *
    */
   readonly items?: DeliveryItem[]
+  /**
+   *	Custom Fields for the Parcel.
+   *
+   *
+   */
+  readonly custom?: CustomFieldsDraft
 }
 export interface StagedOrderAddPaymentAction {
   readonly action: 'addPayment'

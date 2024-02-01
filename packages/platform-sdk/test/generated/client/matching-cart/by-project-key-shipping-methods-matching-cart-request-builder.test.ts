@@ -29,6 +29,15 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .matchingCart()
         .get({ queryArgs: { expand: 'expand', cartId: 'cartId' } }),
     },
+    {
+      method: 'head',
+      uri: '/test_projectKey/shipping-methods/matching-cart?cartId=cartId',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .shippingMethods()
+        .matchingCart()
+        .head({ queryArgs: { cartId: 'cartId' } }),
+    },
   ]
 }
 

@@ -41,13 +41,13 @@ export interface ProductDiscount extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -262,19 +262,19 @@ export interface ProductDiscountReference {
   readonly obj?: ProductDiscount
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductDiscount](ctp:api:type:ProductDiscount).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductDiscount](ctp:api:type:ProductDiscount). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface ProductDiscountResourceIdentifier {
   readonly typeId: 'product-discount'
   /**
-   *	Unique identifier of the referenced [ProductDiscount](ctp:api:type:ProductDiscount). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [ProductDiscount](ctp:api:type:ProductDiscount). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [ProductDiscount](ctp:api:type:ProductDiscount). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [ProductDiscount](ctp:api:type:ProductDiscount). Required if `id` is absent.
    *
    *
    */
@@ -282,7 +282,8 @@ export interface ProductDiscountResourceIdentifier {
 }
 export interface ProductDiscountUpdate {
   /**
-   *	Expected version of the ProductDiscount on which the changes should be applied. If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
+   *	Expected version of the ProductDiscount on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -332,7 +333,10 @@ export type ProductDiscountValueDraft =
 export interface ProductDiscountValueAbsoluteDraft {
   readonly type: 'absolute'
   /**
-   *	Money values in different currencies. An absolute [ProductDiscount](ctp:api:type:ProductDiscount) will only match a price if this array contains a value with the same currency. For example, if it contains 10€ and 15$, the matching € price will be decreased by 10€ and the matching $ price will be decreased by 15\$.
+   *	Money values in different currencies.
+   *	An absolute Product Discount will match a price only if the array contains a value with the same currency. For example, if it contains 10€ and 15$, the matching € price will be decreased by 10€ and the matching $ price will be decreased by 15$. If the array has multiple values of the same currency, the API returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
+   *
+   *	If the array is empty, the discount does not apply.
    *
    *
    */

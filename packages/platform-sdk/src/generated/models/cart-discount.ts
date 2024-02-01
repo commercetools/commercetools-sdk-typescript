@@ -50,13 +50,13 @@ export interface CartDiscount extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -134,7 +134,7 @@ export interface CartDiscount extends BaseResource {
    */
   readonly validUntil?: string
   /**
-   *	Indicates if the Discount can be used in connection with a [DiscountCode](ctp:api:type:DiscountCode).
+   *	Indicates if the Discount is used in connection with a [DiscountCode](ctp:api:type:DiscountCode).
    *
    *
    */
@@ -315,19 +315,19 @@ export interface CartDiscountReference {
   readonly obj?: CartDiscount
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [CartDiscount](ctp:api:type:CartDiscount).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [CartDiscount](ctp:api:type:CartDiscount). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface CartDiscountResourceIdentifier {
   readonly typeId: 'cart-discount'
   /**
-   *	Unique identifier of the referenced [CartDiscount](ctp:api:type:CartDiscount). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [CartDiscount](ctp:api:type:CartDiscount). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [CartDiscount](ctp:api:type:CartDiscount). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [CartDiscount](ctp:api:type:CartDiscount). Required if `id` is absent.
    *
    *
    */
@@ -337,6 +337,7 @@ export type CartDiscountTarget =
   | CartDiscountCustomLineItemsTarget
   | CartDiscountLineItemsTarget
   | CartDiscountShippingCostTarget
+  | CartDiscountTotalPriceTarget
   | MultiBuyCustomLineItemsTarget
   | MultiBuyLineItemsTarget
 /**
@@ -372,9 +373,17 @@ export interface CartDiscountLineItemsTarget {
 export interface CartDiscountShippingCostTarget {
   readonly type: 'shipping'
 }
+/**
+ *	Discount is applied to the total price of the [Cart](ctp:api:type:Cart).
+ *
+ */
+export interface CartDiscountTotalPriceTarget {
+  readonly type: 'totalPrice'
+}
 export interface CartDiscountUpdate {
   /**
-   *	Expected version of the CartDiscount on which the changes should be applied. If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
+   *	Expected version of the CartDiscount on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -432,7 +441,9 @@ export interface CartDiscountValueAbsoluteDraft {
   readonly type: 'absolute'
   /**
    *	Money values in different currencies.
-   *	An absolute Cart Discount will only match a price if this array contains a value with the same currency. If it contains 10€ and 15$, the matching € price will be decreased by 10€ and the matching $ price will be decreased by 15$.
+   *	An absolute Cart Discount will match a price only if the array contains a value with the same currency. For example, if it contains 10€ and 15$, the matching € price will be decreased by 10€ and the matching $ price will be decreased by 15$. If the array has multiple values of the same currency, the API returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
+   *
+   *	If the array is empty, the discount does not apply.
    *
    *
    */
@@ -459,7 +470,9 @@ export interface CartDiscountValueFixedDraft {
   readonly type: 'fixed'
   /**
    *	Money values provided either in [cent precision](ctp:api:type:Money) or [high precision](ctp:api:type:HighPrecisionMoneyDraft) for different currencies.
-   *	A fixed Cart Discount will only match a price if this array contains a value with the same currency. If it contains 10€ and 15$, the matching € price will be discounted by 10€ and the matching $ price will be discounted to 15$.
+   *	A fixed Cart Discount will match a price only if the array contains a value with the same currency. For example, if it contains 10€ and 15$, the matching € price will be discounted by 10€ and the matching $ price will be discounted to 15$. If the array has multiple values of the same currency, the API returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
+   *
+   *	If the array is empty, the discount does not apply.
    *
    *
    */
@@ -633,6 +646,8 @@ export type StackingMode = 'Stacking' | 'StopAfterThisDiscount' | string
 /**
  *	If a referenced Store does not exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error is returned.
  *
+ *	This action generates a [CartDiscountStoreAdded](ctp:api:type:CartDiscountStoreAddedMessage) Message.
+ *
  */
 export interface CartDiscountAddStoreAction {
   readonly action: 'addStore'
@@ -734,6 +749,8 @@ export interface CartDiscountChangeValueAction {
 /**
  *	If a referenced Store does not exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error is returned.
  *
+ *	This action generates a [CartDiscountStoreRemoved](ctp:api:type:CartDiscountStoreRemovedMessage) Message.
+ *
  */
 export interface CartDiscountRemoveStoreAction {
   readonly action: 'removeStore'
@@ -797,6 +814,8 @@ export interface CartDiscountSetKeyAction {
 }
 /**
  *	If a referenced Store does not exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error is returned.
+ *
+ *	This action generates a [CartDiscountStoresSet](ctp:api:type:CartDiscountStoresSetMessage) Message.
  *
  */
 export interface CartDiscountSetStoresAction {

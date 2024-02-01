@@ -4,6 +4,8 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { ApprovalFlow } from './approval-flow'
+import { ApprovalRule } from './approval-rule'
 import {
   AssociateRole,
   AssociateRoleKeyReference,
@@ -41,6 +43,8 @@ import { Channel, ChannelReference, ChannelResourceIdentifier } from './channel'
 import { CustomObject, CustomObjectReference } from './custom-object'
 import {
   Customer,
+  CustomerEmailTokenReference,
+  CustomerPasswordTokenReference,
   CustomerReference,
   CustomerResourceIdentifier,
 } from './customer'
@@ -61,7 +65,7 @@ import {
   InventoryEntryResourceIdentifier,
 } from './inventory'
 import { Message } from './message'
-import { Order, OrderReference } from './order'
+import { OrderReference, _Order } from './order'
 import {
   OrderEdit,
   OrderEditReference,
@@ -523,6 +527,8 @@ export interface BaseResource {
 }
 export type _BaseResource =
   | BaseResource
+  | ApprovalFlow
+  | ApprovalRule
   | AssociateRole
   | AttributeGroup
   | BusinessUnit
@@ -537,7 +543,7 @@ export type _BaseResource =
   | Extension
   | InventoryEntry
   | Message
-  | Order
+  | _Order
   | OrderEdit
   | Payment
   | Product
@@ -559,7 +565,7 @@ export type _BaseResource =
   | Type
   | Zone
 /**
- *	These objects represent information about which [API Client](/../api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/client-logging).
+ *	These objects represent information about which [API Client](/../api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/../api/general-concepts#client-logging).
  *
  */
 export interface ClientLogging {
@@ -570,7 +576,7 @@ export interface ClientLogging {
    */
   readonly clientId?: string
   /**
-   *	[External user ID](/../api/client-logging#external-user-ids) provided by `X-External-User-ID` HTTP Header.
+   *	[External user ID](/../api/general-concepts#external-user-ids) provided by `X-External-User-ID` HTTP Header.
    *
    *
    */
@@ -596,7 +602,7 @@ export interface ClientLogging {
 }
 export type _ClientLogging = ClientLogging | CreatedBy | LastModifiedBy
 /**
- *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+ *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
  */
 export interface CreatedBy extends ClientLogging {
   /**
@@ -606,7 +612,7 @@ export interface CreatedBy extends ClientLogging {
    */
   readonly clientId?: string
   /**
-   *	[External user ID](/../api/client-logging#external-user-ids) provided by `X-External-User-ID` HTTP Header.
+   *	[External user ID](/../api/general-concepts#external-user-ids) provided by `X-External-User-ID` HTTP Header or [`external_user_id:{externalUserId}`](/../api/scopes#external_user_idexternaluserid) scope.
    *
    *
    */
@@ -713,7 +719,7 @@ export type KeyReference =
   | BusinessUnitKeyReference
   | StoreKeyReference
 /**
- *	Present on resources modified after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+ *	Present on resources modified after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
  */
 export interface LastModifiedBy extends ClientLogging {
   /**
@@ -723,7 +729,7 @@ export interface LastModifiedBy extends ClientLogging {
    */
   readonly clientId?: string
   /**
-   *	[External user ID](/../api/client-logging#external-user-ids) provided by `X-External-User-ID` HTTP Header.
+   *	[External user ID](/../api/general-concepts#external-user-ids) provided by `X-External-User-ID` HTTP Header or [`external_user_id:{externalUserId}`](/../api/scopes#external_user_idexternaluserid) scope.
    *
    *
    */
@@ -1052,7 +1058,9 @@ export type Reference =
   | CategoryReference
   | ChannelReference
   | CustomObjectReference
+  | CustomerEmailTokenReference
   | CustomerGroupReference
+  | CustomerPasswordTokenReference
   | CustomerReference
   | DirectDiscountReference
   | DiscountCodeReference
@@ -1081,6 +1089,8 @@ export type Reference =
  *
  */
 export type ReferenceTypeId =
+  | 'approval-flow'
+  | 'approval-rule'
   | 'associate-role'
   | 'attribute-group'
   | 'business-unit'
@@ -1089,7 +1099,9 @@ export type ReferenceTypeId =
   | 'category'
   | 'channel'
   | 'customer'
+  | 'customer-email-token'
   | 'customer-group'
+  | 'customer-password-token'
   | 'direct-discount'
   | 'discount-code'
   | 'extension'

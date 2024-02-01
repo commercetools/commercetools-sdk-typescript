@@ -76,6 +76,22 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .get(),
     },
     {
+      method: 'head',
+      uri: '/test_projectKey/orders?where=where',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .orders()
+        .head({ queryArgs: { where: 'where' } }),
+    },
+    {
+      method: 'head',
+      uri: '/test_projectKey/orders',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .orders()
+        .head(),
+    },
+    {
       method: 'post',
       uri: '/test_projectKey/orders?expand=expand',
       request: apiRoot

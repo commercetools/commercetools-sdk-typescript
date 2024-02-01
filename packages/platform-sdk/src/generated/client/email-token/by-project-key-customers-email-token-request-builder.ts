@@ -18,6 +18,9 @@ export class ByProjectKeyCustomersEmailTokenRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Produces the [CustomerEmailTokenCreated](ctp:api:type:CustomerEmailTokenCreatedMessage) Message.
+   */
   public post(methodArgs: {
     body: CustomerCreateEmailToken
     headers?: {

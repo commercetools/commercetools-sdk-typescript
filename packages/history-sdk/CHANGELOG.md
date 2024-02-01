@@ -1,5 +1,68 @@
 # @commercetools/history-sdk
 
+## 4.1.0
+
+### Minor Changes
+
+- [#553](https://github.com/commercetools/commercetools-sdk-typescript/pull/553) [`8e0a312`](https://github.com/commercetools/commercetools-sdk-typescript/commit/8e0a312404020c2f14cb15786a262c78476b5152) Thanks [@github-actions](https://github.com/apps/github-actions)! - **Api changes**
+
+  <details>
+  <summary>Added QueryParameter(s)</summary>
+
+  - added query parameter `expand` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
+  - added query parameter `sort` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
+  - added query parameter `limit` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
+  - added query parameter `offset` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
+  - added query parameter `withTotal` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
+  - added query parameter `where` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
+  - added query parameter `/^var[.][a-zA-Z0-9]+$/` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
+  - added query parameter `expand` to method `post /{projectKey}/in-store/key={storeKey}/cart-discounts`
+  </details>
+
+  <details>
+  <summary>Changed MethodResponseBody(s)</summary>
+
+  - :warning: changed response body for `200: application/json` of method `get /{projectKey}/in-store/key={storeKey}/cart-discounts` from type `CartDiscount` to `CartDiscountPagedQueryResponse`
+  </details>
+
+## 4.0.0
+
+### Major Changes
+
+- [#551](https://github.com/commercetools/commercetools-sdk-typescript/pull/551) [`9e7939a`](https://github.com/commercetools/commercetools-sdk-typescript/commit/9e7939a1df234fd1f4f77c60f4ff75b31d7fc3fd) Thanks [@github-actions](https://github.com/apps/github-actions)! - BREAKING CHANGE:
+
+  - fix URI parameters to be URI encoded
+
+### Minor Changes
+
+- [#527](https://github.com/commercetools/commercetools-sdk-typescript/pull/527) [`00c6176`](https://github.com/commercetools/commercetools-sdk-typescript/commit/00c617692543f9a8d0ac64e81d583f89e002e81b) Thanks [@github-actions](https://github.com/apps/github-actions)! - **History changes**
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `businessUnit` to type `Record`
+  </details>
+
+  <details>
+  <summary>Changed Property(s)</summary>
+
+  - :warning: changed property `previousValue` of type `SetNameChange` from type `LocalizedString` to `string`
+  - :warning: changed property `nextValue` of type `SetNameChange` from type `LocalizedString` to `string`
+  </details>
+
+  <details>
+  <summary>Added QueryParameter(s)</summary>
+
+  - added query parameter `businessUnit` to method `get /{projectKey}`
+  - added query parameter `businessUnit` to method `get /{projectKey}/{resourceType}`
+  - added query parameter `businessUnit` to method `get /{projectKey}/{resourceType}/{ID}`
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`a6d0df2`](https://github.com/commercetools/commercetools-sdk-typescript/commit/a6d0df2034b72504db2aa2d13a8d3726d97cc881)]:
+  - @commercetools/sdk-client-v2@2.2.2
+
 ## 3.6.0
 
 ### Minor Changes

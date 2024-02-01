@@ -86,6 +86,32 @@ export class ByProjectKeyCustomObjectsRequestBuilder {
     )
   }
   /**
+   *	Checks if a CustomObject exists for a given Query Predicate. Returns a `200 OK` status if any CustomObjects match the Query Predicate or a `404 Not Found` otherwise.
+   */
+  public head(methodArgs?: {
+    queryArgs?: {
+      where?: string | string[]
+      [key: string]: QueryParam
+    }
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'HEAD',
+        uriTemplate: '/{projectKey}/custom-objects',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
+      },
+      this.args.executeRequest
+    )
+  }
+  /**
    *	If an object with the given container/key exists, the object will be replaced with the new value and the version is incremented.
    *	If the request contains a version and an object with the given container/key, then the version must match the version of the existing object. Concurrent updates to the same Custom Object returns a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error even if the version is not provided.
    *

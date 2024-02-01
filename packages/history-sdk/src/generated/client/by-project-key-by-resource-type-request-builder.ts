@@ -49,6 +49,7 @@ export class ByProjectKeyByResourceTypeRequestBuilder {
       clientId?: string
       customerId?: string
       associateId?: string
+      businessUnit?: string
       type?: string
       resourceKey?: string
       source?: string

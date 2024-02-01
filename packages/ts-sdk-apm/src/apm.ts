@@ -5,14 +5,19 @@ import type {
   Next,
   OTelemetryMiddlewareOptions,
 } from '../types/types'
-import packageJson from '../package.json'
 
 /**
  * default newrelic APM and
  * opentelemetry tracer modules
  */
 const defaultOptions = {
-  apm: () => require('newrelic'),
+  /**
+   * if this is to be used with newrelic, then
+   * pass this (apm) as an option in the `createTelemetryMiddleware`
+   * function e.g createTelemetryMiddleware({ apm: () => require('newrelic'), ... })
+   * Note: don't forget to install newrelic agent in your project `yarn add newrelic`
+   */
+  apm: () => {},
   tracer: () => require('../opentelemetry'),
 }
 
@@ -39,10 +44,6 @@ export default function createTelemetryMiddleware(
     (request: MiddlewareRequest, response: MiddlewareResponse) => {
       const nextRequest = {
         ...request,
-        headers: {
-          ...request.headers,
-          'User-Agent': `typescript-sdk-newrelic-middleware-${packageJson.version}`,
-        },
         ...options,
       }
 

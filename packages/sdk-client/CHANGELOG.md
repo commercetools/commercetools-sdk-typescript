@@ -1,5 +1,32 @@
 # @commercetools/sdk-client-v2
 
+## 2.3.0
+
+### Minor Changes
+
+- [#564](https://github.com/commercetools/commercetools-sdk-typescript/pull/564) [`db69db1`](https://github.com/commercetools/commercetools-sdk-typescript/commit/db69db1f2a1f6ca69858c272f3905b96b6180bd2) Thanks [@ajimae](https://github.com/ajimae)! - - remove newrelic as dependency in `@commercetools/ts-sdk-apm` package
+  - add useragent key with a default `typescript-sdk-apm-middleware` string
+  - add example express app on how to add `dynatrace` monitoring in the ts sdk
+
+## 2.2.3
+
+### Patch Changes
+
+- [#561](https://github.com/commercetools/commercetools-sdk-typescript/pull/561) [`d0424d9`](https://github.com/commercetools/commercetools-sdk-typescript/commit/d0424d9ed0acbf70ff22feac5800ae3f55f08dd9) Thanks [@jenschude](https://github.com/jenschude)! - Remove APM user agent version
+
+## 2.2.2
+
+### Patch Changes
+
+- [#545](https://github.com/commercetools/commercetools-sdk-typescript/pull/545) [`a6d0df2`](https://github.com/commercetools/commercetools-sdk-typescript/commit/a6d0df2034b72504db2aa2d13a8d3726d97cc881) Thanks [@ajimae](https://github.com/ajimae)! - - fix user-agent header
+  - remove User-Agent key from the middleware request header
+
+## 2.2.1
+
+### Patch Changes
+
+- [#548](https://github.com/commercetools/commercetools-sdk-typescript/pull/548) [`510838c`](https://github.com/commercetools/commercetools-sdk-typescript/commit/510838cdb1cd5e45f89022ad825a7688d419f2e0) Thanks [@ajimae](https://github.com/ajimae)! - add headersWithStringBody option to httpMiddlewareOptions
+
 ## 2.2.0
 
 ### Minor Changes

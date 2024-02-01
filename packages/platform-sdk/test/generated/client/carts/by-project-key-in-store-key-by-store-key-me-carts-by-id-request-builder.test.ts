@@ -34,6 +34,17 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .get(),
     },
     {
+      method: 'head',
+      uri: '/test_projectKey/in-store/key=test_storeKey/me/carts/test_ID',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .me()
+        .carts()
+        .withId({ ID: 'test_ID' })
+        .head(),
+    },
+    {
       method: 'post',
       uri: '/test_projectKey/in-store/key=test_storeKey/me/carts/test_ID?expand=expand',
       request: apiRoot

@@ -19,7 +19,7 @@ export class ByProjectKeyShippingMethodsMatchingOrdereditRequestBuilder {
     }
   ) {}
   /**
-   *	Retrieves all the ShippingMethods that can ship to the given [Location](/../api/projects/zones#location) for an [OrderEdit](/../api/projects/order-edits).
+   *	Retrieves all the ShippingMethods that can ship to the given [Location](ctp:api:type:Location) for an [OrderEdit](ctp:api:type:OrderEdit).
    *
    *	If the OrderEdit preview cannot be generated, an [EditPreviewFailed](ctp:api:type:EditPreviewFailedError) error is returned.
    *
@@ -39,6 +39,34 @@ export class ByProjectKeyShippingMethodsMatchingOrdereditRequestBuilder {
       {
         baseUri: this.args.baseUri,
         method: 'GET',
+        uriTemplate: '/{projectKey}/shipping-methods/matching-orderedit',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
+      },
+      this.args.executeRequest
+    )
+  }
+  /**
+   *	Checks if a ShippingMethod that can ship to the given [Location](ctp:api:type:Location) exists for the given [OrderEdit](ctp:api:type:OrderEdit). Returns a `200 OK` status if the ShippingMethod exists or a `404 Not Found` otherwise.
+   */
+  public head(methodArgs: {
+    queryArgs: {
+      orderEditId: string
+      country: string
+      state?: string
+      [key: string]: QueryParam
+    }
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'HEAD',
         uriTemplate: '/{projectKey}/shipping-methods/matching-orderedit',
         pathVariables: this.args.pathArgs,
         headers: {

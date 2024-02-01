@@ -4,6 +4,13 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { ApprovalFlow, ApprovalFlowStatus } from './approval-flow'
+import {
+  ApprovalRule,
+  ApprovalRuleStatus,
+  ApproverHierarchy,
+  RuleRequester,
+} from './approval-rule'
 import { AssociateRole, Permission } from './associate-role'
 import {
   Associate,
@@ -25,6 +32,7 @@ import {
   ShippingRateInput,
   TaxedItemPrice,
 } from './cart'
+import { CartDiscount } from './cart-discount'
 import { Category, CategoryReference } from './category'
 import { ChannelReference } from './channel'
 import {
@@ -48,6 +56,7 @@ import {
   Delivery,
   DeliveryItem,
   ItemState,
+  OrderReference,
   OrderState,
   Parcel,
   ParcelMeasurements,
@@ -107,6 +116,18 @@ export interface ContainerAndKey {
  *
  */
 export type Message =
+  | ApprovalFlowApprovedMessage
+  | ApprovalFlowCompletedMessage
+  | ApprovalFlowCreatedMessage
+  | ApprovalFlowRejectedMessage
+  | ApprovalRuleApproversSetMessage
+  | ApprovalRuleCreatedMessage
+  | ApprovalRuleDescriptionSetMessage
+  | ApprovalRuleKeySetMessage
+  | ApprovalRuleNameSetMessage
+  | ApprovalRulePredicateSetMessage
+  | ApprovalRuleRequestersSetMessage
+  | ApprovalRuleStatusSetMessage
   | AssociateRoleBuyerAssignableChangedMessage
   | AssociateRoleCreatedMessage
   | AssociateRoleDeletedMessage
@@ -116,6 +137,11 @@ export type Message =
   | AssociateRolePermissionsSetMessage
   | BusinessUnitAddressAddedMessage
   | BusinessUnitAddressChangedMessage
+  | BusinessUnitAddressCustomFieldAddedMessage
+  | BusinessUnitAddressCustomFieldChangedMessage
+  | BusinessUnitAddressCustomFieldRemovedMessage
+  | BusinessUnitAddressCustomTypeRemovedMessage
+  | BusinessUnitAddressCustomTypeSetMessage
   | BusinessUnitAddressRemovedMessage
   | BusinessUnitAssociateAddedMessage
   | BusinessUnitAssociateChangedMessage
@@ -126,6 +152,11 @@ export type Message =
   | BusinessUnitBillingAddressRemovedMessage
   | BusinessUnitContactEmailSetMessage
   | BusinessUnitCreatedMessage
+  | BusinessUnitCustomFieldAddedMessage
+  | BusinessUnitCustomFieldChangedMessage
+  | BusinessUnitCustomFieldRemovedMessage
+  | BusinessUnitCustomTypeRemovedMessage
+  | BusinessUnitCustomTypeSetMessage
   | BusinessUnitDefaultBillingAddressSetMessage
   | BusinessUnitDefaultShippingAddressSetMessage
   | BusinessUnitDeletedMessage
@@ -138,21 +169,43 @@ export type Message =
   | BusinessUnitStoreModeChangedMessage
   | BusinessUnitStoreRemovedMessage
   | BusinessUnitStoresSetMessage
+  | CartDiscountCreatedMessage
+  | CartDiscountDeletedMessage
+  | CartDiscountStoreAddedMessage
+  | CartDiscountStoreRemovedMessage
+  | CartDiscountStoresSetMessage
   | CategoryCreatedMessage
   | CategorySlugChangedMessage
   | CustomLineItemStateTransitionMessage
   | CustomerAddressAddedMessage
   | CustomerAddressChangedMessage
+  | CustomerAddressCustomFieldAddedMessage
+  | CustomerAddressCustomFieldChangedMessage
+  | CustomerAddressCustomFieldRemovedMessage
+  | CustomerAddressCustomTypeRemovedMessage
+  | CustomerAddressCustomTypeSetMessage
   | CustomerAddressRemovedMessage
   | CustomerCompanyNameSetMessage
   | CustomerCreatedMessage
+  | CustomerCustomFieldAddedMessage
+  | CustomerCustomFieldChangedMessage
+  | CustomerCustomFieldRemovedMessage
+  | CustomerCustomTypeRemovedMessage
+  | CustomerCustomTypeSetMessage
   | CustomerDateOfBirthSetMessage
   | CustomerDeletedMessage
   | CustomerEmailChangedMessage
+  | CustomerEmailTokenCreatedMessage
   | CustomerEmailVerifiedMessage
   | CustomerFirstNameSetMessage
+  | CustomerGroupCustomFieldAddedMessage
+  | CustomerGroupCustomFieldChangedMessage
+  | CustomerGroupCustomFieldRemovedMessage
+  | CustomerGroupCustomTypeRemovedMessage
+  | CustomerGroupCustomTypeSetMessage
   | CustomerGroupSetMessage
   | CustomerLastNameSetMessage
+  | CustomerPasswordTokenCreatedMessage
   | CustomerPasswordUpdatedMessage
   | CustomerTitleSetMessage
   | DeliveryAddedMessage
@@ -283,6 +336,912 @@ export type Message =
   | StoreProductSelectionsChangedMessage
   | StoreSupplyChannelsChangedMessage
 /**
+ *	Generated after an [approval in the Approval Flow](/projects/approval-flows#approve).
+ *
+ */
+export interface ApprovalFlowApprovedMessage {
+  readonly type: 'ApprovalFlowApproved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Customer](ctp:api:type:Customer) who approved the [Approval Flow](/projects/approval-flows).
+   *
+   *
+   */
+  readonly associate: CustomerReference
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Order](ctp:api:type:Order) that received the approval.
+   *
+   *
+   */
+  readonly order: OrderReference
+}
+/**
+ *	Generated after an [Approval Flow](ctp:api:type:ApprovalFlow) is completed and reaches a final status.
+ *
+ */
+export interface ApprovalFlowCompletedMessage {
+  readonly type: 'ApprovalFlowCompleted'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Final status of the [Approval Flow](ctp:api:type:ApprovalFlow).
+   *
+   *
+   */
+  readonly status: ApprovalFlowStatus
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Order](ctp:api:type:Order) related to the completed [Approval Flow](ctp:api:type:ApprovalFlow).
+   *
+   *
+   */
+  readonly order: OrderReference
+}
+/**
+ *	Generated after an [Approval Flow](ctp:api:type:ApprovalFlow) is created.
+ *
+ */
+export interface ApprovalFlowCreatedMessage {
+  readonly type: 'ApprovalFlowCreated'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The [Approval Flow](ctp:api:type:ApprovalFlow) that was created.
+   *
+   *
+   */
+  readonly approvalFlow: ApprovalFlow
+}
+/**
+ *	Generated after an [Approval Flow is rejected](/projects/approval-flows#reject).
+ *
+ */
+export interface ApprovalFlowRejectedMessage {
+  readonly type: 'ApprovalFlowRejected'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Customer](ctp:api:type:Customer) who rejected the [Approval Flow](/projects/approval-flows).
+   *
+   *
+   */
+  readonly associate: CustomerReference
+  /**
+   *	Description of the reason why the [Approval Flow](ctp:api:type:ApprovalFlow) was rejected.
+   *
+   *
+   */
+  readonly rejectionReason?: string
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Order](ctp:api:type:Order) that received the rejection.
+   *
+   *
+   */
+  readonly order: OrderReference
+}
+/**
+ *	Generated after a successful [Set Approvers](ctp:api:type:ApprovalRuleSetApproversAction) update action.
+ *
+ */
+export interface ApprovalRuleApproversSetMessage {
+  readonly type: 'ApprovalRuleApproversSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Approver hierarchy of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Approvers](ctp:api:type:ApprovalRuleSetApproversAction) update action.
+   *
+   *
+   */
+  readonly approvers: ApproverHierarchy
+  /**
+   *	Approver hierarchy of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Approvers](ctp:api:type:ApprovalRuleSetApproversAction) update action.
+   *
+   *
+   */
+  readonly oldApprovers: ApproverHierarchy
+}
+/**
+ *	Generated after an [Approval Rule](ctp:api:type:ApprovalRule) is created.
+ *
+ */
+export interface ApprovalRuleCreatedMessage {
+  readonly type: 'ApprovalRuleCreated'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The [Approval Rule](ctp:api:type:ApprovalRule) that was created.
+   *
+   *
+   */
+  readonly approvalRule: ApprovalRule
+}
+/**
+ *	Generated after a successful [Set Description](ctp:api:type:ApprovalRuleSetDescriptionAction) update action.
+ *
+ */
+export interface ApprovalRuleDescriptionSetMessage {
+  readonly type: 'ApprovalRuleDescriptionSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Description](ctp:api:type:ApprovalRuleSetDescriptionAction) update action.
+   *
+   *
+   */
+  readonly description?: string
+  /**
+   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Description](ctp:api:type:ApprovalRuleSetDescriptionAction) update action.
+   *
+   *
+   */
+  readonly oldDescription?: string
+}
+/**
+ *	Generated after a successful [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
+ *
+ */
+export interface ApprovalRuleKeySetMessage {
+  readonly type: 'ApprovalRuleKeySet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
+   *
+   *
+   */
+  readonly oldKey?: string
+}
+/**
+ *	Generated after a successful [Set Name](ctp:api:type:ApprovalRuleSetNameAction) update action.
+ *
+ */
+export interface ApprovalRuleNameSetMessage {
+  readonly type: 'ApprovalRuleNameSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Name](ctp:api:type:ApprovalRuleSetNameAction) update action.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	Name of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Name](ctp:api:type:ApprovalRuleSetNameAction) update action.
+   *
+   *
+   */
+  readonly oldName: string
+}
+/**
+ *	Generated after a successful [Set Predicate](ctp:api:type:ApprovalRuleSetPredicateAction) update action.
+ *
+ */
+export interface ApprovalRulePredicateSetMessage {
+  readonly type: 'ApprovalRulePredicateSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Predicate](ctp:api:type:ApprovalRuleSetPredicateAction) update action.
+   *
+   *
+   */
+  readonly predicate: string
+  /**
+   *	Name of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Predicate](ctp:api:type:ApprovalRuleSetPredicateAction) update action.
+   *
+   *
+   */
+  readonly oldPredicate: string
+}
+/**
+ *	Generated after a successful [Set Requester](ctp:api:type:ApprovalRuleSetRequestersAction) update action.
+ *
+ */
+export interface ApprovalRuleRequestersSetMessage {
+  readonly type: 'ApprovalRuleRequestersSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	RuleRequester of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Requester](ctp:api:type:ApprovalRuleSetRequestersAction) update action.
+   *
+   *
+   */
+  readonly requesters: RuleRequester[]
+  /**
+   *	RuleRequester of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Requester](ctp:api:type:ApprovalRuleSetRequestersAction) update action.
+   *
+   *
+   */
+  readonly oldRequesters: RuleRequester[]
+}
+/**
+ *	Generated after a successful [Set Status](ctp:api:type:ApprovalRuleSetStatusAction) update action.
+ *
+ */
+export interface ApprovalRuleStatusSetMessage {
+  readonly type: 'ApprovalRuleStatusSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Status of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Status](ctp:api:type:ApprovalRuleSetStatusAction) update action.
+   *
+   *
+   */
+  readonly status: ApprovalRuleStatus
+  /**
+   *	Status of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Status](ctp:api:type:ApprovalRuleSetStatusAction) update action.
+   *
+   *
+   */
+  readonly oldStatus: ApprovalRuleStatus
+}
+/**
  *	Generated after a successful [Change BuyerAssignable](ctp:api:type:AssociateRoleChangeBuyerAssignableAction) update action.
  *
  */
@@ -315,7 +1274,7 @@ export interface AssociateRoleBuyerAssignableChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -353,7 +1312,7 @@ export interface AssociateRoleBuyerAssignableChangedMessage {
   readonly buyerAssignable: boolean
 }
 /**
- *	Generated after a successful [Create AssociateRole](/projects/associate-roles#create-associaterole) request.
+ *	Generated after a successful [Create AssociateRole](ctp:api:endpoint:/{projectKey}/associate-roles:POST) request.
  *
  */
 export interface AssociateRoleCreatedMessage {
@@ -385,7 +1344,7 @@ export interface AssociateRoleCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -455,7 +1414,7 @@ export interface AssociateRoleDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -519,7 +1478,7 @@ export interface AssociateRoleNameChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -589,7 +1548,7 @@ export interface AssociateRolePermissionAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -659,7 +1618,7 @@ export interface AssociateRolePermissionRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -729,7 +1688,7 @@ export interface AssociateRolePermissionsSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -799,7 +1758,7 @@ export interface BusinessUnitAddressAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -869,7 +1828,7 @@ export interface BusinessUnitAddressChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -907,6 +1866,378 @@ export interface BusinessUnitAddressChangedMessage {
   readonly address: Address
 }
 /**
+ *	Generated after adding a Custom Field to an address of a Business Unit using the [Set Address CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action. If a Custom Field already exists with the same name, a [BusinessUnitAddressCustomFieldChanged](ctp:api:type:BusinessUnitAddressCustomFieldChangedMessage) Message is generated instead.
+ *
+ */
+export interface BusinessUnitAddressCustomFieldAddedMessage {
+  readonly type: 'BusinessUnitAddressCustomFieldAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that was added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after changing an existing Custom Field on an address of a Business Unit using the [Set Address CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action.
+ *
+ */
+export interface BusinessUnitAddressCustomFieldChangedMessage {
+  readonly type: 'BusinessUnitAddressCustomFieldChanged'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) before the [Set CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly oldValue?: any
+}
+/**
+ *	Generated after removing a Custom Field from an address of a Business Unit using the [Set Address CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action.
+ *
+ */
+export interface BusinessUnitAddressCustomFieldRemovedMessage {
+  readonly type: 'BusinessUnitAddressCustomFieldRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after removing a Custom Type from an address of a Business Unit using the [Set Custom Type in Address](ctp:api:type:BusinessUnitSetAddressCustomTypeAction) update action.
+ *
+ */
+export interface BusinessUnitAddressCustomTypeRemovedMessage {
+  readonly type: 'BusinessUnitAddressCustomTypeRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
+ *	Generated after adding a Custom Type to an address of a Business Unit using the [Set Custom Type in Address](ctp:api:type:BusinessUnitSetAddressCustomTypeAction) update action.
+ *
+ */
+export interface BusinessUnitAddressCustomTypeSetMessage {
+  readonly type: 'BusinessUnitAddressCustomTypeSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Custom Fields that were set.
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
  *	Generated after a successful [Remove Address](ctp:api:type:BusinessUnitRemoveAddressAction) update action.
  *
  */
@@ -939,7 +2270,7 @@ export interface BusinessUnitAddressRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1009,7 +2340,7 @@ export interface BusinessUnitAssociateAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1079,7 +2410,7 @@ export interface BusinessUnitAssociateChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1149,7 +2480,7 @@ export interface BusinessUnitAssociateModeChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1225,7 +2556,7 @@ export interface BusinessUnitAssociateRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1295,7 +2626,7 @@ export interface BusinessUnitAssociatesSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1365,7 +2696,7 @@ export interface BusinessUnitBillingAddressAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1435,7 +2766,7 @@ export interface BusinessUnitBillingAddressRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1505,7 +2836,7 @@ export interface BusinessUnitContactEmailSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1543,7 +2874,7 @@ export interface BusinessUnitContactEmailSetMessage {
   readonly contactEmail?: string
 }
 /**
- *	Generated after a successful [Create BusinessUnit](/projects/business-units#create-businessunit) request.
+ *	Generated after a successful [Create BusinessUnit](ctp:api:endpoint:/{projectKey}/business-units:POST) request.
  *
  */
 export interface BusinessUnitCreatedMessage {
@@ -1575,7 +2906,7 @@ export interface BusinessUnitCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1613,6 +2944,378 @@ export interface BusinessUnitCreatedMessage {
   readonly businessUnit: BusinessUnit
 }
 /**
+ *	Generated after adding a Custom Field to a Business Unit using the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action. If a Custom Field already exists with the same name, a [BusinessUnitCustomFieldChanged](ctp:api:type:BusinessUnitCustomFieldChangedMessage) Message is generated instead.
+ *
+ */
+export interface BusinessUnitCustomFieldAddedMessage {
+  readonly type: 'BusinessUnitCustomFieldAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that was added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after changing an existing Custom Field on a Business Unit using the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action.
+ *
+ */
+export interface BusinessUnitCustomFieldChangedMessage {
+  readonly type: 'BusinessUnitCustomFieldChanged'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) before the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly oldValue?: any
+}
+/**
+ *	Generated after removing a Custom Field from a Business Unit using the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action.
+ *
+ */
+export interface BusinessUnitCustomFieldRemovedMessage {
+  readonly type: 'BusinessUnitCustomFieldRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after removing a Custom Type from a Business Unit using the [Set Custom Type](ctp:api:type:BusinessUnitSetCustomTypeAction) update action.
+ *
+ */
+export interface BusinessUnitCustomTypeRemovedMessage {
+  readonly type: 'BusinessUnitCustomTypeRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
+ *	Generated after adding a Custom Type to a Business Unit using the [Set Custom Type](ctp:api:type:BusinessUnitSetCustomTypeAction) update action.
+ *
+ */
+export interface BusinessUnitCustomTypeSetMessage {
+  readonly type: 'BusinessUnitCustomTypeSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Custom Fields that were set.
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
  *	Generated after a successful [Set Default Billing Address](ctp:api:type:BusinessUnitSetDefaultBillingAddressAction) update action.
  *
  */
@@ -1645,7 +3348,7 @@ export interface BusinessUnitDefaultBillingAddressSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1715,7 +3418,7 @@ export interface BusinessUnitDefaultShippingAddressSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1785,7 +3488,7 @@ export interface BusinessUnitDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1849,7 +3552,7 @@ export interface BusinessUnitNameChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1919,7 +3622,7 @@ export interface BusinessUnitParentChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1995,7 +3698,7 @@ export interface BusinessUnitShippingAddressAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2065,7 +3768,7 @@ export interface BusinessUnitShippingAddressRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2135,7 +3838,7 @@ export interface BusinessUnitStatusChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2205,7 +3908,7 @@ export interface BusinessUnitStoreAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2275,7 +3978,7 @@ export interface BusinessUnitStoreModeChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2363,7 +4066,7 @@ export interface BusinessUnitStoreRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2433,7 +4136,7 @@ export interface BusinessUnitStoresSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2471,7 +4174,351 @@ export interface BusinessUnitStoresSetMessage {
   readonly stores: StoreKeyReference[]
 }
 /**
- *	Generated after a successful [Create Category](/../api/projects/categories#create-category) request.
+ *	Generated after a successful [Create CartDiscount](ctp:api:endpoint:/{projectKey}/cart-discounts:POST) request.
+ *
+ */
+export interface CartDiscountCreatedMessage {
+  readonly type: 'CartDiscountCreated'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The [Cart Discount](ctp:api:type:CartDiscount) that was created.
+   *
+   *
+   */
+  readonly cartDiscount: CartDiscount
+}
+/**
+ *	Generated after a successful [Delete CartDiscount](ctp:api:endpoint:/{projectKey}/cart-discounts/{id}:DELETE) request.
+ *
+ */
+export interface CartDiscountDeletedMessage {
+  readonly type: 'CartDiscountDeleted'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+}
+/**
+ *	Generated after a successful [Add Store](ctp:api:type:CartDiscountAddStoreAction) update action.
+ *
+ */
+export interface CartDiscountStoreAddedMessage {
+  readonly type: 'CartDiscountStoreAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The [Store](ctp:api:type:Store) that was added to the [Cart Discount](ctp:api:type:CartDiscount).
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+}
+/**
+ *	Generated after a successful [Remove Store](ctp:api:type:CartDiscountRemoveStoreAction) update action.
+ *
+ */
+export interface CartDiscountStoreRemovedMessage {
+  readonly type: 'CartDiscountStoreRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The [Store](ctp:api:type:Store) that was removed from the [Cart Discount](ctp:api:type:CartDiscount).
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+}
+/**
+ *	Generated after a successful [Set Stores](ctp:api:type:CartDiscountSetStoresAction) update action.
+ *
+ */
+export interface CartDiscountStoresSetMessage {
+  readonly type: 'CartDiscountStoresSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[Stores](ctp:api:type:Store) of the [Cart Discount](ctp:api:type:CartDiscount) after the [Set Stores](ctp:api:type:CartDiscountSetStoresAction) update action.
+   *
+   *
+   */
+  readonly stores: StoreKeyReference[]
+}
+/**
+ *	Generated after a successful [Create Category](ctp:api:endpoint:/{projectKey}/categories:POST) request.
  *
  */
 export interface CategoryCreatedMessage {
@@ -2503,7 +4550,7 @@ export interface CategoryCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2573,7 +4620,7 @@ export interface CategorySlugChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2649,7 +4696,7 @@ export interface CustomerAddressAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2719,7 +4766,7 @@ export interface CustomerAddressChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2757,6 +4804,380 @@ export interface CustomerAddressChangedMessage {
   readonly address: Address
 }
 /**
+ *	Generated after adding a Custom Field to an Address of a Customer using the [Set CustomField in Address](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
+ *	If a Custom Field already exists with the same name, a [CustomerAddressCustomFieldChanged](ctp:api:type:CustomerAddressCustomFieldChangedMessage) Message is generated instead.
+ *
+ */
+export interface CustomerAddressCustomFieldAddedMessage {
+  readonly type: 'CustomerAddressCustomFieldAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that was added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after changing an existing Custom Field on an Address of a Customer using the [Set CustomField in Address](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
+ *
+ */
+export interface CustomerAddressCustomFieldChangedMessage {
+  readonly type: 'CustomerAddressCustomFieldChanged'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) before the [Set CustomField](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
+   *	When there has not been a Custom Field with the `name` on the Customer Address before, a [Customer Address Custom Field Added](ctp:api:type:CustomerAddressCustomFieldAddedMessage) Message is generated instead.
+   *
+   *
+   */
+  readonly previousValue?: any
+}
+/**
+ *	Generated after removing a Custom Field from an Address of a Customer using the [Set CustomField in Address](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
+ *
+ */
+export interface CustomerAddressCustomFieldRemovedMessage {
+  readonly type: 'CustomerAddressCustomFieldRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after removing a Custom Type from an Address of a Customer using the [Set Custom Type in Address](ctp:api:type:CustomerSetAddressCustomTypeAction) update action.
+ *
+ */
+export interface CustomerAddressCustomTypeRemovedMessage {
+  readonly type: 'CustomerAddressCustomTypeRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly previousTypeId?: string
+}
+/**
+ *	Generated after adding a Custom Type to an Address of a Customer using the [Set Custom Type in Address](ctp:api:type:CustomerSetAddressCustomTypeAction) update action.
+ *
+ */
+export interface CustomerAddressCustomTypeSetMessage {
+  readonly type: 'CustomerAddressCustomTypeSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Custom Fields that have been set.
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly previousTypeId?: string
+}
+/**
  *	Generated after a successful [Remove Address](ctp:api:type:CustomerRemoveAddressAction) update action.
  *
  */
@@ -2789,7 +5210,7 @@ export interface CustomerAddressRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2859,7 +5280,7 @@ export interface CustomerCompanyNameSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2897,7 +5318,7 @@ export interface CustomerCompanyNameSetMessage {
   readonly companyName?: string
 }
 /**
- *	Generated after a successful [Create Customer](/../api/projects/customers#create-sign-up-customer) request.
+ *	Generated after a successful [Create Customer](ctp:api:endpoint:/{projectKey}/customers:POST) request.
  *
  */
 export interface CustomerCreatedMessage {
@@ -2929,7 +5350,7 @@ export interface CustomerCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2967,6 +5388,380 @@ export interface CustomerCreatedMessage {
   readonly customer: Customer
 }
 /**
+ *	Generated after adding a Custom Field to a Customer using the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
+ *	If a Custom Field already exists with the same name, a [CustomerCustomFieldChanged](ctp:api:type:CustomerCustomFieldChangedMessage) Message is generated instead.
+ *
+ */
+export interface CustomerCustomFieldAddedMessage {
+  readonly type: 'CustomerCustomFieldAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that was added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after changing an existing Custom Field on a Customer using the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
+ *
+ */
+export interface CustomerCustomFieldChangedMessage {
+  readonly type: 'CustomerCustomFieldChanged'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) before the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
+   *	When there has not been a Custom Field with the `name` on the Customer before, a [Customer Custom Field Added](ctp:api:type:CustomerCustomFieldAddedMessage) Message is generated instead.
+   *
+   *
+   */
+  readonly previousValue?: any
+}
+/**
+ *	Generated after removing a Custom Field from a Customer using the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
+ *
+ */
+export interface CustomerCustomFieldRemovedMessage {
+  readonly type: 'CustomerCustomFieldRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after removing a Custom Type from a Customer using the [Set Custom Type](ctp:api:type:CustomerSetCustomTypeAction) update action with empty parameters.
+ *
+ */
+export interface CustomerCustomTypeRemovedMessage {
+  readonly type: 'CustomerCustomTypeRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly previousTypeId?: string
+}
+/**
+ *	Generated after adding a Custom Type to a Customer using the [Set Custom Type](ctp:api:type:CustomerSetCustomTypeAction) update action.
+ *
+ */
+export interface CustomerCustomTypeSetMessage {
+  readonly type: 'CustomerCustomTypeSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Custom Fields that have been set.
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly previousTypeId?: string
+}
+/**
  *	Generated after a successful [Set Date of Birth](ctp:api:type:CustomerSetDateOfBirthAction) update action.
  *
  */
@@ -2999,7 +5794,7 @@ export interface CustomerDateOfBirthSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3069,7 +5864,7 @@ export interface CustomerDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3133,7 +5928,7 @@ export interface CustomerEmailChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3171,7 +5966,83 @@ export interface CustomerEmailChangedMessage {
   readonly email: string
 }
 /**
- *	Generated after a successful [Verify Customer's Email](/../api/projects/customers#verify-email-of-customer) request.
+ *	Generated after a successful [Create email token for Customer](ctp:api:endpoint:/{projectKey}/customers/email-token:POST) request. The `resource` property of the Message is a [CustomerEmailTokenReference](ctp:api:type:CustomerEmailTokenReference).
+ *
+ */
+export interface CustomerEmailTokenCreatedMessage {
+  readonly type: 'CustomerEmailTokenCreated'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Unique identifier of the Customer.
+   *
+   *
+   */
+  readonly customerId: string
+  /**
+   *	Date and time (UTC) the email token expires.
+   *
+   *
+   */
+  readonly expiresAt: string
+}
+/**
+ *	Generated after a successful [Verify Customer's Email](ctp:api:endpoint:/{projectKey}/customers/email/confirm:POST) request.
  *
  */
 export interface CustomerEmailVerifiedMessage {
@@ -3203,7 +6074,7 @@ export interface CustomerEmailVerifiedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3267,7 +6138,7 @@ export interface CustomerFirstNameSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3305,6 +6176,379 @@ export interface CustomerFirstNameSetMessage {
   readonly firstName?: string
 }
 /**
+ *	Generated after adding a Custom Field to a Customer Group using the [Set CustomField](ctp:api:type:CustomerGroupSetCustomFieldAction) update action.
+ *	If a Custom Field already exists with the same name, a [CustomerGroupCustomFieldChanged](ctp:api:type:CustomerGroupCustomFieldChangedMessage) Message is generated instead.
+ *
+ */
+export interface CustomerGroupCustomFieldAddedMessage {
+  readonly type: 'CustomerGroupCustomFieldAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that was added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after changing an existing Custom Field on a Customer Group using the [Set CustomField](ctp:api:type:CustomerGroupSetCustomFieldAction) update action.
+ *
+ */
+export interface CustomerGroupCustomFieldChangedMessage {
+  readonly type: 'CustomerGroupCustomFieldChanged'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:CustomerGroupSetCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) before the [Set CustomField](ctp:api:type:CustomerGroupSetCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly oldValue?: any
+}
+/**
+ *	Generated after removing a Custom Field from a Customer Group using the [Set CustomField](ctp:api:type:CustomerGroupSetCustomFieldAction) update action.
+ *
+ */
+export interface CustomerGroupCustomFieldRemovedMessage {
+  readonly type: 'CustomerGroupCustomFieldRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after removing a Custom Type from a Customer Group using the [Set Custom Type](ctp:api:type:CustomerGroupSetCustomTypeAction) update action with empty parameters.
+ *
+ */
+export interface CustomerGroupCustomTypeRemovedMessage {
+  readonly type: 'CustomerGroupCustomTypeRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
+ *	Generated after adding a Custom Type to a Customer Group using the [Set Custom Type](ctp:api:type:CustomerGroupSetCustomTypeAction) update action.
+ *
+ */
+export interface CustomerGroupCustomTypeSetMessage {
+  readonly type: 'CustomerGroupCustomTypeSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Custom Fields that have been set.
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
  *	Generated after a successful [Set Customer Group](ctp:api:type:CustomerSetCustomerGroupAction) update action.
  *
  */
@@ -3337,7 +6581,7 @@ export interface CustomerGroupSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3407,7 +6651,7 @@ export interface CustomerLastNameSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3445,7 +6689,83 @@ export interface CustomerLastNameSetMessage {
   readonly lastName?: string
 }
 /**
- *	Generated after a successful [Reset Customer's Password](/../api/projects/customers#reset-password-of-customer), [Reset Customer's Password in a Store](/../api/projects/customers#reset-password-of-customer-in-store), [Change Customer's Password](/../api/projects/customers#change-password-of-customer), or [Change Customer's Password in a Store](/../api/projects/customers#change-password-of-customer-in-store) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
+ *	Generated after a successful [Create password reset token for Customer](ctp:api:endpoint:/{projectKey}/customers/password-token:POST) request. The `resource` property of the Message is a [CustomerPasswordTokenReference](ctp:api:type:CustomerPasswordTokenReference).
+ *
+ */
+export interface CustomerPasswordTokenCreatedMessage {
+  readonly type: 'CustomerPasswordTokenCreated'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Unique identifier of the Customer.
+   *
+   *
+   */
+  readonly customerId: string
+  /**
+   *	Date and time (UTC) the password token expires.
+   *
+   *
+   */
+  readonly expiresAt: string
+}
+/**
+ *	Generated after a successful [Reset Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST), [Reset Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password/reset:POST), [Change Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password:POST), or [Change Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password:POST) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
  *
  */
 export interface CustomerPasswordUpdatedMessage {
@@ -3477,7 +6797,7 @@ export interface CustomerPasswordUpdatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3508,7 +6828,7 @@ export interface CustomerPasswordUpdatedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Whether the Customer's password was updated during the [Reset password](/../api/projects/customers#password-reset-of-customer) or [Change password](/../api/projects/customers#change-password-of-customer) flow.
+   *	Whether the Customer's password was updated during the [Reset password](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST) or [Change password](ctp:api:endpoint:/{projectKey}/customers/password:POST) flow.
    *
    *
    */
@@ -3547,7 +6867,7 @@ export interface CustomerTitleSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3585,7 +6905,7 @@ export interface CustomerTitleSetMessage {
   readonly title?: string
 }
 /**
- *	Generated after a successful [Create InventoryEntry](/../api/projects/inventory#create-inventoryentry) request.
+ *	Generated after a successful [Create InventoryEntry](ctp:api:endpoint:/{projectKey}/inventory:POST) request.
  *
  */
 export interface InventoryEntryCreatedMessage {
@@ -3617,7 +6937,7 @@ export interface InventoryEntryCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3687,7 +7007,7 @@ export interface InventoryEntryDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3732,7 +7052,7 @@ export interface InventoryEntryDeletedMessage {
 }
 /**
  *	Generated after a successful [Add Quantity](ctp:api:type:InventoryEntryAddQuantityAction), [Remove Quantity](ctp:api:type:InventoryEntryRemoveQuantityAction) or [Change Quantity](ctp:api:type:InventoryEntryChangeQuantityAction) update action.
- *	Inventory changes as a result of [Order creation](/../api/projects/orders#create-order) do not trigger this message.
+ *	Inventory changes as a result of [Order creation](ctp:api:endpoint:/{projectKey}/orders:POST) do not trigger this message.
  *
  */
 export interface InventoryEntryQuantitySetMessage {
@@ -3764,7 +7084,7 @@ export interface InventoryEntryQuantitySetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3982,7 +7302,7 @@ export interface CustomLineItemStateTransitionMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4082,7 +7402,7 @@ export interface DeliveryAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4158,7 +7478,7 @@ export interface DeliveryAddressSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4246,7 +7566,7 @@ export interface DeliveryItemsUpdatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4334,7 +7654,7 @@ export interface DeliveryRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4410,7 +7730,7 @@ export interface LineItemStateTransitionMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4510,7 +7830,7 @@ export interface OrderBillingAddressSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4554,7 +7874,7 @@ export interface OrderBillingAddressSetMessage {
   readonly oldAddress?: Address
 }
 /**
- *	Generated after a successful [Create Order](/../api/projects/orders#create-order) request.
+ *	Generated after a successful [Create Order](ctp:api:endpoint:/{projectKey}/orders:POST) request.
  *
  */
 export interface OrderCreatedMessage {
@@ -4586,7 +7906,7 @@ export interface OrderCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4656,7 +7976,7 @@ export interface OrderCustomFieldAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4687,7 +8007,7 @@ export interface OrderCustomFieldAddedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Name of the Custom Field that has been added.
+   *	Name of the Custom Field that was added.
    *
    *
    */
@@ -4731,7 +8051,7 @@ export interface OrderCustomFieldChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4762,13 +8082,13 @@ export interface OrderCustomFieldChangedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Name of the Custom Field that has been changed.
+   *	Name of the Custom Field that changed.
    *
    *
    */
   readonly name: string
   /**
-   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set Custom Field](ctp:api:type:OrderSetCustomFieldAction) update action.
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:OrderSetCustomFieldAction) update action.
    *
    *
    */
@@ -4814,7 +8134,7 @@ export interface OrderCustomFieldRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4845,7 +8165,7 @@ export interface OrderCustomFieldRemovedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Name of the Custom Field that has been removed.
+   *	Name of the Custom Field that was removed.
    *
    *
    */
@@ -4884,7 +8204,7 @@ export interface OrderCustomLineItemAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4954,7 +8274,7 @@ export interface OrderCustomLineItemDiscountSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5042,7 +8362,7 @@ export interface OrderCustomLineItemQuantityChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5130,7 +8450,7 @@ export interface OrderCustomLineItemRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5212,7 +8532,7 @@ export interface OrderCustomTypeRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5243,9 +8563,7 @@ export interface OrderCustomTypeRemovedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	`id` of the [Custom Type](ctp:api:type:Type) that has been removed.
-   *
-   *	Absent when there has not been a Custom Type before.
+   *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
    *
    *
    */
@@ -5284,7 +8602,7 @@ export interface OrderCustomTypeSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5320,9 +8638,7 @@ export interface OrderCustomTypeSetMessage {
    */
   readonly customFields: CustomFields
   /**
-   *	`id` of the previous [Custom Type](ctp:api:type:Type).
-   *
-   *	Absent when there has not been a Custom Type before.
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
    *
    *
    */
@@ -5361,7 +8677,7 @@ export interface OrderCustomerEmailSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5437,7 +8753,7 @@ export interface OrderCustomerGroupSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5513,7 +8829,7 @@ export interface OrderCustomerSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5601,7 +8917,7 @@ export interface OrderDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5671,7 +8987,7 @@ export interface OrderDiscountCodeAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5741,7 +9057,7 @@ export interface OrderDiscountCodeRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5811,7 +9127,7 @@ export interface OrderDiscountCodeStateSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5893,7 +9209,7 @@ export interface OrderEditAppliedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5969,7 +9285,7 @@ export interface OrderImportedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6039,7 +9355,7 @@ export interface OrderLineItemAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6115,7 +9431,7 @@ export interface OrderLineItemDiscountSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6176,7 +9492,8 @@ export interface OrderLineItemDiscountSetMessage {
    */
   readonly taxedPrice?: TaxedItemPrice
   /**
-   *	Taxed price of the Shipping Methods in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Total taxed prices based on the quantity of Line Item assigned to each [Shipping Method](ctp:api:type:ShippingMethod). Only applicable for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Automatically set after `perMethodTaxRate` is set.
    *
    *
    */
@@ -6215,7 +9532,7 @@ export interface OrderLineItemDistributionChannelSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6297,7 +9614,7 @@ export interface OrderLineItemRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6415,7 +9732,7 @@ export interface OrderPaymentAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6485,7 +9802,7 @@ export interface OrderPaymentStateChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6561,7 +9878,7 @@ export interface OrderPurchaseOrderNumberSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6637,7 +9954,7 @@ export interface OrderReturnShipmentStateChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6713,7 +10030,7 @@ export interface OrderShipmentStateChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6789,7 +10106,7 @@ export interface OrderShippingAddressSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6865,7 +10182,7 @@ export interface OrderShippingInfoSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6941,7 +10258,7 @@ export interface OrderShippingRateInputSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7017,7 +10334,7 @@ export interface OrderStateChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7093,7 +10410,7 @@ export interface OrderStateTransitionMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7175,7 +10492,7 @@ export interface OrderStoreSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7245,7 +10562,7 @@ export interface ParcelAddedToDeliveryMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7327,7 +10644,7 @@ export interface ParcelItemsUpdatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7421,7 +10738,7 @@ export interface ParcelMeasurementsUpdatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7509,7 +10826,7 @@ export interface ParcelRemovedFromDeliveryMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7591,7 +10908,7 @@ export interface ParcelTrackingDataUpdatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7647,7 +10964,7 @@ export interface ParcelTrackingDataUpdatedMessage {
   readonly shippingKey?: string
 }
 /**
- *	Generated after a successful [Create Payment](/../api/projects/payments#create-payment) request.
+ *	Generated after a successful [Create Payment](ctp:api:endpoint:/{projectKey}/payments:POST) request.
  *
  */
 export interface PaymentCreatedMessage {
@@ -7679,7 +10996,7 @@ export interface PaymentCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7749,7 +11066,7 @@ export interface PaymentInteractionAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7819,7 +11136,7 @@ export interface PaymentStatusInterfaceCodeSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7889,7 +11206,7 @@ export interface PaymentStatusStateTransitionMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7965,7 +11282,7 @@ export interface PaymentTransactionAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8035,7 +11352,7 @@ export interface PaymentTransactionStateChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8111,7 +11428,7 @@ export interface ProductAddedToCategoryMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8155,7 +11472,7 @@ export interface ProductAddedToCategoryMessage {
   readonly staged: boolean
 }
 /**
- *	Generated after a successful [Create Product](/../api/projects/products#create-product) request.
+ *	Generated after a successful [Create Product](ctp:api:endpoint:/{projectKey}/products:POST) request.
  *
  */
 export interface ProductCreatedMessage {
@@ -8187,7 +11504,7 @@ export interface ProductCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8257,7 +11574,7 @@ export interface ProductDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8333,7 +11650,7 @@ export interface ProductImageAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8415,7 +11732,7 @@ export interface ProductPriceAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8497,7 +11814,7 @@ export interface ProductPriceChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8591,7 +11908,7 @@ export interface ProductPriceDiscountsSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8703,7 +12020,7 @@ export interface ProductPriceExternalDiscountSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8803,7 +12120,7 @@ export interface ProductPriceKeySetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8895,7 +12212,7 @@ export interface ProductPriceModeSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8965,7 +12282,7 @@ export interface ProductPriceRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9047,7 +12364,7 @@ export interface ProductPricesSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9129,7 +12446,7 @@ export interface ProductPublishedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9211,7 +12528,7 @@ export interface ProductRemovedFromCategoryMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9287,7 +12604,7 @@ export interface ProductRevertedStagedChangesMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9325,7 +12642,7 @@ export interface ProductRevertedStagedChangesMessage {
   readonly removedImageUrls: string[]
 }
 /**
- *	Generated after a successful [Create Product Selection](/../api/projects/product-selections#create-product-selection) request.
+ *	Generated after a successful [Create Product Selection](ctp:api:endpoint:/{projectKey}/product-selections:POST) request.
  *
  */
 export interface ProductSelectionCreatedMessage {
@@ -9357,7 +12674,7 @@ export interface ProductSelectionCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9395,7 +12712,7 @@ export interface ProductSelectionCreatedMessage {
   readonly productSelection: ProductSelection
 }
 /**
- *	Generated after a successful [Delete Product Selection](/../api/projects/product-selections#delete-product-selection) request.
+ *	Generated after a successful [Delete Product Selection](/../api/projects/product-selections#delete-productselection) request.
  *
  */
 export interface ProductSelectionDeletedMessage {
@@ -9427,7 +12744,7 @@ export interface ProductSelectionDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9491,7 +12808,7 @@ export interface ProductSelectionProductAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9567,7 +12884,7 @@ export interface ProductSelectionProductExcludedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9643,7 +12960,7 @@ export interface ProductSelectionProductRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9713,7 +13030,7 @@ export interface ProductSelectionVariantExclusionChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9793,7 +13110,7 @@ export interface ProductSelectionVariantSelectionChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9873,7 +13190,7 @@ export interface ProductSlugChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9949,7 +13266,7 @@ export interface ProductStateTransitionMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10024,7 +13341,7 @@ export interface ProductUnpublishedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10088,7 +13405,7 @@ export interface ProductVariantAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10164,7 +13481,7 @@ export interface ProductVariantDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10208,7 +13525,7 @@ export interface ProductVariantDeletedMessage {
   readonly removedImageUrls: string[]
 }
 /**
- *	Generated after a successful [Create Quote](/../api/projects/quotes#create-quote) request.
+ *	Generated after a successful [Create Quote](ctp:api:endpoint:/{projectKey}/quotes:POST) request.
  *
  */
 export interface QuoteCreatedMessage {
@@ -10240,7 +13557,7 @@ export interface QuoteCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10310,7 +13627,7 @@ export interface QuoteCustomerChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10386,7 +13703,7 @@ export interface QuoteDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10450,7 +13767,7 @@ export interface QuoteRenegotiationRequestedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10488,7 +13805,7 @@ export interface QuoteRenegotiationRequestedMessage {
   readonly buyerComment?: string
 }
 /**
- *	Generated after a successful [Create QuoteRequest](/../api/projects/quote-requests#create-quoterequest) request.
+ *	Generated after a successful [Create QuoteRequest](ctp:api:endpoint:/{projectKey}/quote-requests:POST) request.
  *
  */
 export interface QuoteRequestCreatedMessage {
@@ -10520,7 +13837,7 @@ export interface QuoteRequestCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10590,7 +13907,7 @@ export interface QuoteRequestCustomerChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10666,7 +13983,7 @@ export interface QuoteRequestDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10730,7 +14047,7 @@ export interface QuoteRequestStateChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10806,7 +14123,7 @@ export interface QuoteRequestStateTransitionMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10888,7 +14205,7 @@ export interface QuoteStateChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10964,7 +14281,7 @@ export interface QuoteStateTransitionMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11046,7 +14363,7 @@ export interface ReturnInfoAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11116,7 +14433,7 @@ export interface ReturnInfoSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11154,7 +14471,7 @@ export interface ReturnInfoSetMessage {
   readonly returnInfo?: ReturnInfo[]
 }
 /**
- *	Generated after a successful [Create Review](/../api/projects/reviews#create-a-review) request.
+ *	Generated after a successful [Create Review](ctp:api:endpoint:/{projectKey}/reviews:POST) request.
  *
  */
 export interface ReviewCreatedMessage {
@@ -11186,7 +14503,7 @@ export interface ReviewCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11256,7 +14573,7 @@ export interface ReviewRatingSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11344,7 +14661,7 @@ export interface ReviewStateTransitionMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11412,7 +14729,7 @@ export interface ReviewStateTransitionMessage {
   readonly force: boolean
 }
 /**
- *	Generated after a successful [Create StagedQuote](/../api/projects/staged-quotes#create-stagedquote) request.
+ *	Generated after a successful [Create StagedQuote](ctp:api:endpoint:/{projectKey}/staged-quotes:POST) request.
  *
  */
 export interface StagedQuoteCreatedMessage {
@@ -11444,7 +14761,7 @@ export interface StagedQuoteCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11514,7 +14831,7 @@ export interface StagedQuoteDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11578,7 +14895,7 @@ export interface StagedQuoteSellerCommentSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11648,7 +14965,7 @@ export interface StagedQuoteStateChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11724,7 +15041,7 @@ export interface StagedQuoteStateTransitionMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11806,7 +15123,7 @@ export interface StagedQuoteValidToSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11876,7 +15193,7 @@ export interface StandalonePriceActiveChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11920,7 +15237,7 @@ export interface StandalonePriceActiveChangedMessage {
   readonly oldActive: boolean
 }
 /**
- *	Generated after a successful [Create StandalonePrice](/../api/projects/standalone-prices#create-standaloneprice) request.
+ *	Generated after a successful [Create StandalonePrice](ctp:api:endpoint:/{projectKey}/standalone-prices:POST) request.
  *
  */
 export interface StandalonePriceCreatedMessage {
@@ -11952,7 +15269,7 @@ export interface StandalonePriceCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12022,7 +15339,7 @@ export interface StandalonePriceDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12092,7 +15409,7 @@ export interface StandalonePriceDiscountSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12162,7 +15479,7 @@ export interface StandalonePriceExternalDiscountSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12232,7 +15549,7 @@ export interface StandalonePriceKeySetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12308,7 +15625,7 @@ export interface StandalonePriceStagedChangesAppliedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12378,7 +15695,7 @@ export interface StandalonePriceStagedChangesRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12448,7 +15765,7 @@ export interface StandalonePriceTierAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12518,7 +15835,7 @@ export interface StandalonePriceTierRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12588,7 +15905,7 @@ export interface StandalonePriceTiersSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12664,7 +15981,7 @@ export interface StandalonePriceValidFromAndUntilSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12752,7 +16069,7 @@ export interface StandalonePriceValidFromSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12828,7 +16145,7 @@ export interface StandalonePriceValidUntilSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12904,7 +16221,7 @@ export interface StandalonePriceValueChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12989,7 +16306,7 @@ export interface StoreCountriesChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -13033,7 +16350,7 @@ export interface StoreCountriesChangedMessage {
   readonly removedCountries?: StoreCountry[]
 }
 /**
- *	Generated after a successful [Create Store](/../api/projects/stores#create-store) request.
+ *	Generated after a successful [Create Store](ctp:api:endpoint:/{projectKey}/stores:POST) request.
  *
  */
 export interface StoreCreatedMessage {
@@ -13065,7 +16382,7 @@ export interface StoreCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -13139,7 +16456,7 @@ export interface StoreCreatedMessage {
   readonly custom?: CustomFields
 }
 /**
- *	Generated after a successful [Delete Store](/../api/projects/quote-requests#delete-quoterequest) request.
+ *	Generated after a successful [Delete Store](/../api/projects/stores#delete-store) request.
  *
  */
 export interface StoreDeletedMessage {
@@ -13171,7 +16488,7 @@ export interface StoreDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -13237,7 +16554,7 @@ export interface StoreDistributionChannelsChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -13312,7 +16629,7 @@ export interface StoreLanguagesChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -13388,7 +16705,7 @@ export interface StoreNameSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -13467,7 +16784,7 @@ export interface StoreProductSelectionsChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -13551,7 +16868,7 @@ export interface StoreSupplyChannelsChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -13635,6 +16952,18 @@ export interface UserProvidedIdentifiers {
   readonly containerAndKey?: ContainerAndKey
 }
 export type MessagePayload =
+  | ApprovalFlowApprovedMessagePayload
+  | ApprovalFlowCompletedMessagePayload
+  | ApprovalFlowCreatedMessagePayload
+  | ApprovalFlowRejectedMessagePayload
+  | ApprovalRuleApproversSetMessagePayload
+  | ApprovalRuleCreatedMessagePayload
+  | ApprovalRuleDescriptionSetMessagePayload
+  | ApprovalRuleKeySetMessagePayload
+  | ApprovalRuleNameSetMessagePayload
+  | ApprovalRulePredicateSetMessagePayload
+  | ApprovalRuleRequestersSetMessagePayload
+  | ApprovalRuleStatusSetMessagePayload
   | AssociateRoleBuyerAssignableChangedMessagePayload
   | AssociateRoleCreatedMessagePayload
   | AssociateRoleDeletedMessagePayload
@@ -13644,6 +16973,11 @@ export type MessagePayload =
   | AssociateRolePermissionsSetMessagePayload
   | BusinessUnitAddressAddedMessagePayload
   | BusinessUnitAddressChangedMessagePayload
+  | BusinessUnitAddressCustomFieldAddedMessagePayload
+  | BusinessUnitAddressCustomFieldChangedMessagePayload
+  | BusinessUnitAddressCustomFieldRemovedMessagePayload
+  | BusinessUnitAddressCustomTypeRemovedMessagePayload
+  | BusinessUnitAddressCustomTypeSetMessagePayload
   | BusinessUnitAddressRemovedMessagePayload
   | BusinessUnitAssociateAddedMessagePayload
   | BusinessUnitAssociateChangedMessagePayload
@@ -13654,6 +16988,11 @@ export type MessagePayload =
   | BusinessUnitBillingAddressRemovedMessagePayload
   | BusinessUnitContactEmailSetMessagePayload
   | BusinessUnitCreatedMessagePayload
+  | BusinessUnitCustomFieldAddedMessagePayload
+  | BusinessUnitCustomFieldChangedMessagePayload
+  | BusinessUnitCustomFieldRemovedMessagePayload
+  | BusinessUnitCustomTypeRemovedMessagePayload
+  | BusinessUnitCustomTypeSetMessagePayload
   | BusinessUnitDefaultBillingAddressSetMessagePayload
   | BusinessUnitDefaultShippingAddressSetMessagePayload
   | BusinessUnitDeletedMessagePayload
@@ -13666,21 +17005,43 @@ export type MessagePayload =
   | BusinessUnitStoreModeChangedMessagePayload
   | BusinessUnitStoreRemovedMessagePayload
   | BusinessUnitStoresSetMessagePayload
+  | CartDiscountCreatedMessagePayload
+  | CartDiscountDeletedMessagePayload
+  | CartDiscountStoreAddedMessagePayload
+  | CartDiscountStoreRemovedMessagePayload
+  | CartDiscountStoresSetMessagePayload
   | CategoryCreatedMessagePayload
   | CategorySlugChangedMessagePayload
   | CustomLineItemStateTransitionMessagePayload
   | CustomerAddressAddedMessagePayload
   | CustomerAddressChangedMessagePayload
+  | CustomerAddressCustomFieldAddedMessagePayload
+  | CustomerAddressCustomFieldChangedMessagePayload
+  | CustomerAddressCustomFieldRemovedMessagePayload
+  | CustomerAddressCustomTypeRemovedMessagePayload
+  | CustomerAddressCustomTypeSetMessagePayload
   | CustomerAddressRemovedMessagePayload
   | CustomerCompanyNameSetMessagePayload
   | CustomerCreatedMessagePayload
+  | CustomerCustomFieldAddedMessagePayload
+  | CustomerCustomFieldChangedMessagePayload
+  | CustomerCustomFieldRemovedMessagePayload
+  | CustomerCustomTypeRemovedMessagePayload
+  | CustomerCustomTypeSetMessagePayload
   | CustomerDateOfBirthSetMessagePayload
   | CustomerDeletedMessagePayload
   | CustomerEmailChangedMessagePayload
+  | CustomerEmailTokenCreatedMessagePayload
   | CustomerEmailVerifiedMessagePayload
   | CustomerFirstNameSetMessagePayload
+  | CustomerGroupCustomFieldAddedMessagePayload
+  | CustomerGroupCustomFieldChangedMessagePayload
+  | CustomerGroupCustomFieldRemovedMessagePayload
+  | CustomerGroupCustomTypeRemovedMessagePayload
+  | CustomerGroupCustomTypeSetMessagePayload
   | CustomerGroupSetMessagePayload
   | CustomerLastNameSetMessagePayload
+  | CustomerPasswordTokenCreatedMessagePayload
   | CustomerPasswordUpdatedMessagePayload
   | CustomerTitleSetMessagePayload
   | DeliveryAddedMessagePayload
@@ -13812,6 +17173,228 @@ export type MessagePayload =
   | StoreProductSelectionsChangedMessagePayload
   | StoreSupplyChannelsChangedMessagePayload
 /**
+ *	Generated after an [approval in the Approval Flow](/projects/approval-flows#approve).
+ *
+ */
+export interface ApprovalFlowApprovedMessagePayload {
+  readonly type: 'ApprovalFlowApproved'
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Customer](ctp:api:type:Customer) who approved the [Approval Flow](/projects/approval-flows).
+   *
+   *
+   */
+  readonly associate: CustomerReference
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Order](ctp:api:type:Order) that received the approval.
+   *
+   *
+   */
+  readonly order: OrderReference
+}
+/**
+ *	Generated after an [Approval Flow](ctp:api:type:ApprovalFlow) is completed and reaches a final status.
+ *
+ */
+export interface ApprovalFlowCompletedMessagePayload {
+  readonly type: 'ApprovalFlowCompleted'
+  /**
+   *	Final status of the [Approval Flow](ctp:api:type:ApprovalFlow).
+   *
+   *
+   */
+  readonly status: ApprovalFlowStatus
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Order](ctp:api:type:Order) related to the completed [Approval Flow](ctp:api:type:ApprovalFlow).
+   *
+   *
+   */
+  readonly order: OrderReference
+}
+/**
+ *	Generated after an [Approval Flow](ctp:api:type:ApprovalFlow) is created.
+ *
+ */
+export interface ApprovalFlowCreatedMessagePayload {
+  readonly type: 'ApprovalFlowCreated'
+  /**
+   *	The [Approval Flow](ctp:api:type:ApprovalFlow) that was created.
+   *
+   *
+   */
+  readonly approvalFlow: ApprovalFlow
+}
+/**
+ *	Generated after an [Approval Flow is rejected](/projects/approval-flows#reject).
+ *
+ */
+export interface ApprovalFlowRejectedMessagePayload {
+  readonly type: 'ApprovalFlowRejected'
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Customer](ctp:api:type:Customer) who rejected the [Approval Flow](/projects/approval-flows).
+   *
+   *
+   */
+  readonly associate: CustomerReference
+  /**
+   *	Description of the reason why the [Approval Flow](ctp:api:type:ApprovalFlow) was rejected.
+   *
+   *
+   */
+  readonly rejectionReason?: string
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Order](ctp:api:type:Order) that received the rejection.
+   *
+   *
+   */
+  readonly order: OrderReference
+}
+/**
+ *	Generated after a successful [Set Approvers](ctp:api:type:ApprovalRuleSetApproversAction) update action.
+ *
+ */
+export interface ApprovalRuleApproversSetMessagePayload {
+  readonly type: 'ApprovalRuleApproversSet'
+  /**
+   *	Approver hierarchy of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Approvers](ctp:api:type:ApprovalRuleSetApproversAction) update action.
+   *
+   *
+   */
+  readonly approvers: ApproverHierarchy
+  /**
+   *	Approver hierarchy of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Approvers](ctp:api:type:ApprovalRuleSetApproversAction) update action.
+   *
+   *
+   */
+  readonly oldApprovers: ApproverHierarchy
+}
+/**
+ *	Generated after an [Approval Rule](ctp:api:type:ApprovalRule) is created.
+ *
+ */
+export interface ApprovalRuleCreatedMessagePayload {
+  readonly type: 'ApprovalRuleCreated'
+  /**
+   *	The [Approval Rule](ctp:api:type:ApprovalRule) that was created.
+   *
+   *
+   */
+  readonly approvalRule: ApprovalRule
+}
+/**
+ *	Generated after a successful [Set Description](ctp:api:type:ApprovalRuleSetDescriptionAction) update action.
+ *
+ */
+export interface ApprovalRuleDescriptionSetMessagePayload {
+  readonly type: 'ApprovalRuleDescriptionSet'
+  /**
+   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Description](ctp:api:type:ApprovalRuleSetDescriptionAction) update action.
+   *
+   *
+   */
+  readonly description?: string
+  /**
+   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Description](ctp:api:type:ApprovalRuleSetDescriptionAction) update action.
+   *
+   *
+   */
+  readonly oldDescription?: string
+}
+/**
+ *	Generated after a successful [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
+ *
+ */
+export interface ApprovalRuleKeySetMessagePayload {
+  readonly type: 'ApprovalRuleKeySet'
+  /**
+   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
+   *
+   *
+   */
+  readonly oldKey?: string
+}
+/**
+ *	Generated after a successful [Set Name](ctp:api:type:ApprovalRuleSetNameAction) update action.
+ *
+ */
+export interface ApprovalRuleNameSetMessagePayload {
+  readonly type: 'ApprovalRuleNameSet'
+  /**
+   *	Name of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Name](ctp:api:type:ApprovalRuleSetNameAction) update action.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	Name of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Name](ctp:api:type:ApprovalRuleSetNameAction) update action.
+   *
+   *
+   */
+  readonly oldName: string
+}
+/**
+ *	Generated after a successful [Set Predicate](ctp:api:type:ApprovalRuleSetPredicateAction) update action.
+ *
+ */
+export interface ApprovalRulePredicateSetMessagePayload {
+  readonly type: 'ApprovalRulePredicateSet'
+  /**
+   *	Name of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Predicate](ctp:api:type:ApprovalRuleSetPredicateAction) update action.
+   *
+   *
+   */
+  readonly predicate: string
+  /**
+   *	Name of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Predicate](ctp:api:type:ApprovalRuleSetPredicateAction) update action.
+   *
+   *
+   */
+  readonly oldPredicate: string
+}
+/**
+ *	Generated after a successful [Set Requester](ctp:api:type:ApprovalRuleSetRequestersAction) update action.
+ *
+ */
+export interface ApprovalRuleRequestersSetMessagePayload {
+  readonly type: 'ApprovalRuleRequestersSet'
+  /**
+   *	RuleRequester of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Requester](ctp:api:type:ApprovalRuleSetRequestersAction) update action.
+   *
+   *
+   */
+  readonly requesters: RuleRequester[]
+  /**
+   *	RuleRequester of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Requester](ctp:api:type:ApprovalRuleSetRequestersAction) update action.
+   *
+   *
+   */
+  readonly oldRequesters: RuleRequester[]
+}
+/**
+ *	Generated after a successful [Set Status](ctp:api:type:ApprovalRuleSetStatusAction) update action.
+ *
+ */
+export interface ApprovalRuleStatusSetMessagePayload {
+  readonly type: 'ApprovalRuleStatusSet'
+  /**
+   *	Status of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Status](ctp:api:type:ApprovalRuleSetStatusAction) update action.
+   *
+   *
+   */
+  readonly status: ApprovalRuleStatus
+  /**
+   *	Status of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Status](ctp:api:type:ApprovalRuleSetStatusAction) update action.
+   *
+   *
+   */
+  readonly oldStatus: ApprovalRuleStatus
+}
+/**
  *	Generated after a successful [Change BuyerAssignable](ctp:api:type:AssociateRoleChangeBuyerAssignableAction) update action.
  *
  */
@@ -13825,7 +17408,7 @@ export interface AssociateRoleBuyerAssignableChangedMessagePayload {
   readonly buyerAssignable: boolean
 }
 /**
- *	Generated after a successful [Create AssociateRole](/projects/associate-roles#create-associaterole) request.
+ *	Generated after a successful [Create AssociateRole](ctp:api:endpoint:/{projectKey}/associate-roles:POST) request.
  *
  */
 export interface AssociateRoleCreatedMessagePayload {
@@ -13921,6 +17504,93 @@ export interface BusinessUnitAddressChangedMessagePayload {
    *
    */
   readonly address: Address
+}
+/**
+ *	Generated after adding a Custom Field to an address of a Business Unit using the [Set Address CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action. If a Custom Field already exists with the same name, a [BusinessUnitAddressCustomFieldChanged](ctp:api:type:BusinessUnitAddressCustomFieldChangedMessage) Message is generated instead.
+ *
+ */
+export interface BusinessUnitAddressCustomFieldAddedMessagePayload {
+  readonly type: 'BusinessUnitAddressCustomFieldAdded'
+  /**
+   *	Name of the Custom Field that was added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after changing an existing Custom Field on an address of a Business Unit using the [Set Address CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action.
+ *
+ */
+export interface BusinessUnitAddressCustomFieldChangedMessagePayload {
+  readonly type: 'BusinessUnitAddressCustomFieldChanged'
+  /**
+   *	Name of the Custom Field that changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) before the [Set CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly oldValue?: any
+}
+/**
+ *	Generated after removing a Custom Field from an address of a Business Unit using the [Set Address CustomField](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) update action.
+ *
+ */
+export interface BusinessUnitAddressCustomFieldRemovedMessagePayload {
+  readonly type: 'BusinessUnitAddressCustomFieldRemoved'
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after removing a Custom Type from an address of a Business Unit using the [Set Custom Type in Address](ctp:api:type:BusinessUnitSetAddressCustomTypeAction) update action.
+ *
+ */
+export interface BusinessUnitAddressCustomTypeRemovedMessagePayload {
+  readonly type: 'BusinessUnitAddressCustomTypeRemoved'
+  /**
+   *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
+ *	Generated after adding a Custom Type to an address of a Business Unit using the [Set Custom Type in Address](ctp:api:type:BusinessUnitSetAddressCustomTypeAction) update action.
+ *
+ */
+export interface BusinessUnitAddressCustomTypeSetMessagePayload {
+  readonly type: 'BusinessUnitAddressCustomTypeSet'
+  /**
+   *	The Custom Fields that were set.
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
 }
 /**
  *	Generated after a successful [Remove Address](ctp:api:type:BusinessUnitRemoveAddressAction) update action.
@@ -14046,7 +17716,7 @@ export interface BusinessUnitContactEmailSetMessagePayload {
   readonly contactEmail?: string
 }
 /**
- *	Generated after a successful [Create BusinessUnit](/projects/business-units#create-businessunit) request.
+ *	Generated after a successful [Create BusinessUnit](ctp:api:endpoint:/{projectKey}/business-units:POST) request.
  *
  */
 export interface BusinessUnitCreatedMessagePayload {
@@ -14057,6 +17727,93 @@ export interface BusinessUnitCreatedMessagePayload {
    *
    */
   readonly businessUnit: BusinessUnit
+}
+/**
+ *	Generated after adding a Custom Field to a Business Unit using the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action. If a Custom Field already exists with the same name, a [BusinessUnitCustomFieldChanged](ctp:api:type:BusinessUnitCustomFieldChangedMessage) Message is generated instead.
+ *
+ */
+export interface BusinessUnitCustomFieldAddedMessagePayload {
+  readonly type: 'BusinessUnitCustomFieldAdded'
+  /**
+   *	Name of the Custom Field that was added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after changing an existing Custom Field on a Business Unit using the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action.
+ *
+ */
+export interface BusinessUnitCustomFieldChangedMessagePayload {
+  readonly type: 'BusinessUnitCustomFieldChanged'
+  /**
+   *	Name of the Custom Field that changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) before the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly oldValue?: any
+}
+/**
+ *	Generated after removing a Custom Field from a Business Unit using the [Set CustomField](ctp:api:type:BusinessUnitSetCustomFieldAction) update action.
+ *
+ */
+export interface BusinessUnitCustomFieldRemovedMessagePayload {
+  readonly type: 'BusinessUnitCustomFieldRemoved'
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after removing a Custom Type from a Business Unit using the [Set Custom Type](ctp:api:type:BusinessUnitSetCustomTypeAction) update action.
+ *
+ */
+export interface BusinessUnitCustomTypeRemovedMessagePayload {
+  readonly type: 'BusinessUnitCustomTypeRemoved'
+  /**
+   *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
+ *	Generated after adding a Custom Type to a Business Unit using the [Set Custom Type](ctp:api:type:BusinessUnitSetCustomTypeAction) update action.
+ *
+ */
+export interface BusinessUnitCustomTypeSetMessagePayload {
+  readonly type: 'BusinessUnitCustomTypeSet'
+  /**
+   *	The Custom Fields that were set.
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
 }
 /**
  *	Generated after a successful [Set Default Billing Address](ctp:api:type:BusinessUnitSetDefaultBillingAddressAction) update action.
@@ -14233,7 +17990,66 @@ export interface BusinessUnitStoresSetMessagePayload {
   readonly stores: StoreKeyReference[]
 }
 /**
- *	Generated after a successful [Create Category](/../api/projects/categories#create-category) request.
+ *	Generated after a successful [Create CartDiscount](ctp:api:endpoint:/{projectKey}/cart-discounts:POST) request.
+ *
+ */
+export interface CartDiscountCreatedMessagePayload {
+  readonly type: 'CartDiscountCreated'
+  /**
+   *	The [Cart Discount](ctp:api:type:CartDiscount) that was created.
+   *
+   *
+   */
+  readonly cartDiscount: CartDiscount
+}
+/**
+ *	Generated after a successful [Delete CartDiscount](ctp:api:endpoint:/{projectKey}/cart-discounts/{id}:DELETE) request.
+ *
+ */
+export interface CartDiscountDeletedMessagePayload {
+  readonly type: 'CartDiscountDeleted'
+}
+/**
+ *	Generated after a successful [Add Store](ctp:api:type:CartDiscountAddStoreAction) update action.
+ *
+ */
+export interface CartDiscountStoreAddedMessagePayload {
+  readonly type: 'CartDiscountStoreAdded'
+  /**
+   *	The [Store](ctp:api:type:Store) that was added to the [Cart Discount](ctp:api:type:CartDiscount).
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+}
+/**
+ *	Generated after a successful [Remove Store](ctp:api:type:CartDiscountRemoveStoreAction) update action.
+ *
+ */
+export interface CartDiscountStoreRemovedMessagePayload {
+  readonly type: 'CartDiscountStoreRemoved'
+  /**
+   *	The [Store](ctp:api:type:Store) that was removed from the [Cart Discount](ctp:api:type:CartDiscount).
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+}
+/**
+ *	Generated after a successful [Set Stores](ctp:api:type:CartDiscountSetStoresAction) update action.
+ *
+ */
+export interface CartDiscountStoresSetMessagePayload {
+  readonly type: 'CartDiscountStoresSet'
+  /**
+   *	[Stores](ctp:api:type:Store) of the [Cart Discount](ctp:api:type:CartDiscount) after the [Set Stores](ctp:api:type:CartDiscountSetStoresAction) update action.
+   *
+   *
+   */
+  readonly stores: StoreKeyReference[]
+}
+/**
+ *	Generated after a successful [Create Category](ctp:api:endpoint:/{projectKey}/categories:POST) request.
  *
  */
 export interface CategoryCreatedMessagePayload {
@@ -14291,6 +18107,95 @@ export interface CustomerAddressChangedMessagePayload {
   readonly address: Address
 }
 /**
+ *	Generated after adding a Custom Field to an Address of a Customer using the [Set CustomField in Address](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
+ *	If a Custom Field already exists with the same name, a [CustomerAddressCustomFieldChanged](ctp:api:type:CustomerAddressCustomFieldChangedMessage) Message is generated instead.
+ *
+ */
+export interface CustomerAddressCustomFieldAddedMessagePayload {
+  readonly type: 'CustomerAddressCustomFieldAdded'
+  /**
+   *	Name of the Custom Field that was added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after changing an existing Custom Field on an Address of a Customer using the [Set CustomField in Address](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
+ *
+ */
+export interface CustomerAddressCustomFieldChangedMessagePayload {
+  readonly type: 'CustomerAddressCustomFieldChanged'
+  /**
+   *	Name of the Custom Field that changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) before the [Set CustomField](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
+   *	When there has not been a Custom Field with the `name` on the Customer Address before, a [Customer Address Custom Field Added](ctp:api:type:CustomerAddressCustomFieldAddedMessage) Message is generated instead.
+   *
+   *
+   */
+  readonly previousValue?: any
+}
+/**
+ *	Generated after removing a Custom Field from an Address of a Customer using the [Set CustomField in Address](ctp:api:type:CustomerSetAddressCustomFieldAction) update action.
+ *
+ */
+export interface CustomerAddressCustomFieldRemovedMessagePayload {
+  readonly type: 'CustomerAddressCustomFieldRemoved'
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after removing a Custom Type from an Address of a Customer using the [Set Custom Type in Address](ctp:api:type:CustomerSetAddressCustomTypeAction) update action.
+ *
+ */
+export interface CustomerAddressCustomTypeRemovedMessagePayload {
+  readonly type: 'CustomerAddressCustomTypeRemoved'
+  /**
+   *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly previousTypeId?: string
+}
+/**
+ *	Generated after adding a Custom Type to an Address of a Customer using the [Set Custom Type in Address](ctp:api:type:CustomerSetAddressCustomTypeAction) update action.
+ *
+ */
+export interface CustomerAddressCustomTypeSetMessagePayload {
+  readonly type: 'CustomerAddressCustomTypeSet'
+  /**
+   *	The Custom Fields that have been set.
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly previousTypeId?: string
+}
+/**
  *	Generated after a successful [Remove Address](ctp:api:type:CustomerRemoveAddressAction) update action.
  *
  */
@@ -14317,7 +18222,7 @@ export interface CustomerCompanyNameSetMessagePayload {
   readonly companyName?: string
 }
 /**
- *	Generated after a successful [Create Customer](/../api/projects/customers#create-sign-up-customer) request.
+ *	Generated after a successful [Create Customer](ctp:api:endpoint:/{projectKey}/customers:POST) request.
  *
  */
 export interface CustomerCreatedMessagePayload {
@@ -14328,6 +18233,95 @@ export interface CustomerCreatedMessagePayload {
    *
    */
   readonly customer: Customer
+}
+/**
+ *	Generated after adding a Custom Field to a Customer using the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
+ *	If a Custom Field already exists with the same name, a [CustomerCustomFieldChanged](ctp:api:type:CustomerCustomFieldChangedMessage) Message is generated instead.
+ *
+ */
+export interface CustomerCustomFieldAddedMessagePayload {
+  readonly type: 'CustomerCustomFieldAdded'
+  /**
+   *	Name of the Custom Field that was added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after changing an existing Custom Field on a Customer using the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
+ *
+ */
+export interface CustomerCustomFieldChangedMessagePayload {
+  readonly type: 'CustomerCustomFieldChanged'
+  /**
+   *	Name of the Custom Field that changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) before the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
+   *	When there has not been a Custom Field with the `name` on the Customer before, a [Customer Custom Field Added](ctp:api:type:CustomerCustomFieldAddedMessage) Message is generated instead.
+   *
+   *
+   */
+  readonly previousValue?: any
+}
+/**
+ *	Generated after removing a Custom Field from a Customer using the [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) update action.
+ *
+ */
+export interface CustomerCustomFieldRemovedMessagePayload {
+  readonly type: 'CustomerCustomFieldRemoved'
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after removing a Custom Type from a Customer using the [Set Custom Type](ctp:api:type:CustomerSetCustomTypeAction) update action with empty parameters.
+ *
+ */
+export interface CustomerCustomTypeRemovedMessagePayload {
+  readonly type: 'CustomerCustomTypeRemoved'
+  /**
+   *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly previousTypeId?: string
+}
+/**
+ *	Generated after adding a Custom Type to a Customer using the [Set Custom Type](ctp:api:type:CustomerSetCustomTypeAction) update action.
+ *
+ */
+export interface CustomerCustomTypeSetMessagePayload {
+  readonly type: 'CustomerCustomTypeSet'
+  /**
+   *	The Custom Fields that have been set.
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly previousTypeId?: string
 }
 /**
  *	Generated after a successful [Set Date of Birth](ctp:api:type:CustomerSetDateOfBirthAction) update action.
@@ -14363,7 +18357,26 @@ export interface CustomerEmailChangedMessagePayload {
   readonly email: string
 }
 /**
- *	Generated after a successful [Verify Customer's Email](/../api/projects/customers#verify-email-of-customer) request.
+ *	Generated after a successful [Create email token for Customer](ctp:api:endpoint:/{projectKey}/customers/email-token:POST) request. The `resource` property of the Message is a [CustomerEmailTokenReference](ctp:api:type:CustomerEmailTokenReference).
+ *
+ */
+export interface CustomerEmailTokenCreatedMessagePayload {
+  readonly type: 'CustomerEmailTokenCreated'
+  /**
+   *	Unique identifier of the Customer.
+   *
+   *
+   */
+  readonly customerId: string
+  /**
+   *	Date and time (UTC) the email token expires.
+   *
+   *
+   */
+  readonly expiresAt: string
+}
+/**
+ *	Generated after a successful [Verify Customer's Email](ctp:api:endpoint:/{projectKey}/customers/email/confirm:POST) request.
  *
  */
 export interface CustomerEmailVerifiedMessagePayload {
@@ -14381,6 +18394,94 @@ export interface CustomerFirstNameSetMessagePayload {
    *
    */
   readonly firstName?: string
+}
+/**
+ *	Generated after adding a Custom Field to a Customer Group using the [Set CustomField](ctp:api:type:CustomerGroupSetCustomFieldAction) update action.
+ *	If a Custom Field already exists with the same name, a [CustomerGroupCustomFieldChanged](ctp:api:type:CustomerGroupCustomFieldChangedMessage) Message is generated instead.
+ *
+ */
+export interface CustomerGroupCustomFieldAddedMessagePayload {
+  readonly type: 'CustomerGroupCustomFieldAdded'
+  /**
+   *	Name of the Custom Field that was added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after changing an existing Custom Field on a Customer Group using the [Set CustomField](ctp:api:type:CustomerGroupSetCustomFieldAction) update action.
+ *
+ */
+export interface CustomerGroupCustomFieldChangedMessagePayload {
+  readonly type: 'CustomerGroupCustomFieldChanged'
+  /**
+   *	Name of the Custom Field that changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:CustomerGroupSetCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) before the [Set CustomField](ctp:api:type:CustomerGroupSetCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly oldValue?: any
+}
+/**
+ *	Generated after removing a Custom Field from a Customer Group using the [Set CustomField](ctp:api:type:CustomerGroupSetCustomFieldAction) update action.
+ *
+ */
+export interface CustomerGroupCustomFieldRemovedMessagePayload {
+  readonly type: 'CustomerGroupCustomFieldRemoved'
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after removing a Custom Type from a Customer Group using the [Set Custom Type](ctp:api:type:CustomerGroupSetCustomTypeAction) update action with empty parameters.
+ *
+ */
+export interface CustomerGroupCustomTypeRemovedMessagePayload {
+  readonly type: 'CustomerGroupCustomTypeRemoved'
+  /**
+   *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
+ *	Generated after adding a Custom Type to a Customer Group using the [Set Custom Type](ctp:api:type:CustomerGroupSetCustomTypeAction) update action.
+ *
+ */
+export interface CustomerGroupCustomTypeSetMessagePayload {
+  readonly type: 'CustomerGroupCustomTypeSet'
+  /**
+   *	The Custom Fields that have been set.
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
 }
 /**
  *	Generated after a successful [Set Customer Group](ctp:api:type:CustomerSetCustomerGroupAction) update action.
@@ -14409,13 +18510,32 @@ export interface CustomerLastNameSetMessagePayload {
   readonly lastName?: string
 }
 /**
- *	Generated after a successful [Reset Customer's Password](/../api/projects/customers#reset-password-of-customer), [Reset Customer's Password in a Store](/../api/projects/customers#reset-password-of-customer-in-store), [Change Customer's Password](/../api/projects/customers#change-password-of-customer), or [Change Customer's Password in a Store](/../api/projects/customers#change-password-of-customer-in-store) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
+ *	Generated after a successful [Create password reset token for Customer](ctp:api:endpoint:/{projectKey}/customers/password-token:POST) request. The `resource` property of the Message is a [CustomerPasswordTokenReference](ctp:api:type:CustomerPasswordTokenReference).
+ *
+ */
+export interface CustomerPasswordTokenCreatedMessagePayload {
+  readonly type: 'CustomerPasswordTokenCreated'
+  /**
+   *	Unique identifier of the Customer.
+   *
+   *
+   */
+  readonly customerId: string
+  /**
+   *	Date and time (UTC) the password token expires.
+   *
+   *
+   */
+  readonly expiresAt: string
+}
+/**
+ *	Generated after a successful [Reset Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST), [Reset Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password/reset:POST), [Change Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password:POST), or [Change Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password:POST) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
  *
  */
 export interface CustomerPasswordUpdatedMessagePayload {
   readonly type: 'CustomerPasswordUpdated'
   /**
-   *	Whether the Customer's password was updated during the [Reset password](/../api/projects/customers#password-reset-of-customer) or [Change password](/../api/projects/customers#change-password-of-customer) flow.
+   *	Whether the Customer's password was updated during the [Reset password](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST) or [Change password](ctp:api:endpoint:/{projectKey}/customers/password:POST) flow.
    *
    *
    */
@@ -14435,7 +18555,7 @@ export interface CustomerTitleSetMessagePayload {
   readonly title?: string
 }
 /**
- *	Generated after a successful [Create InventoryEntry](/../api/projects/inventory#create-inventoryentry) request.
+ *	Generated after a successful [Create InventoryEntry](ctp:api:endpoint:/{projectKey}/inventory:POST) request.
  *
  */
 export interface InventoryEntryCreatedMessagePayload {
@@ -14468,7 +18588,7 @@ export interface InventoryEntryDeletedMessagePayload {
 }
 /**
  *	Generated after a successful [Add Quantity](ctp:api:type:InventoryEntryAddQuantityAction), [Remove Quantity](ctp:api:type:InventoryEntryRemoveQuantityAction) or [Change Quantity](ctp:api:type:InventoryEntryChangeQuantityAction) update action.
- *	Inventory changes as a result of [Order creation](/../api/projects/orders#create-order) do not trigger this message.
+ *	Inventory changes as a result of [Order creation](ctp:api:endpoint:/{projectKey}/orders:POST) do not trigger this message.
  *
  */
 export interface InventoryEntryQuantitySetMessagePayload {
@@ -14758,7 +18878,7 @@ export interface OrderBillingAddressSetMessagePayload {
   readonly oldAddress?: Address
 }
 /**
- *	Generated after a successful [Create Order](/../api/projects/orders#create-order) request.
+ *	Generated after a successful [Create Order](ctp:api:endpoint:/{projectKey}/orders:POST) request.
  *
  */
 export interface OrderCreatedMessagePayload {
@@ -14777,7 +18897,7 @@ export interface OrderCreatedMessagePayload {
 export interface OrderCustomFieldAddedMessagePayload {
   readonly type: 'OrderCustomFieldAdded'
   /**
-   *	Name of the Custom Field that has been added.
+   *	Name of the Custom Field that was added.
    *
    *
    */
@@ -14795,13 +18915,13 @@ export interface OrderCustomFieldAddedMessagePayload {
 export interface OrderCustomFieldChangedMessagePayload {
   readonly type: 'OrderCustomFieldChanged'
   /**
-   *	Name of the Custom Field that has been changed.
+   *	Name of the Custom Field that changed.
    *
    *
    */
   readonly name: string
   /**
-   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set Custom Field](ctp:api:type:OrderSetCustomFieldAction) update action.
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:OrderSetCustomFieldAction) update action.
    *
    *
    */
@@ -14821,7 +18941,7 @@ export interface OrderCustomFieldChangedMessagePayload {
 export interface OrderCustomFieldRemovedMessagePayload {
   readonly type: 'OrderCustomFieldRemoved'
   /**
-   *	Name of the Custom Field that has been removed.
+   *	Name of the Custom Field that was removed.
    *
    *
    */
@@ -14934,9 +19054,7 @@ export interface OrderCustomLineItemRemovedMessagePayload {
 export interface OrderCustomTypeRemovedMessagePayload {
   readonly type: 'OrderCustomTypeRemoved'
   /**
-   *	`id` of the [Custom Type](ctp:api:type:Type) that has been removed.
-   *
-   *	Absent when there has not been a Custom Type before.
+   *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
    *
    *
    */
@@ -14954,9 +19072,7 @@ export interface OrderCustomTypeSetMessagePayload {
    */
   readonly customFields: CustomFields
   /**
-   *	`id` of the previous [Custom Type](ctp:api:type:Type).
-   *
-   *	Absent when there has not been a Custom Type before.
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
    *
    *
    */
@@ -15183,7 +19299,8 @@ export interface OrderLineItemDiscountSetMessagePayload {
    */
   readonly taxedPrice?: TaxedItemPrice
   /**
-   *	Taxed price of the Shipping Methods in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Total taxed prices based on the quantity of Line Item assigned to each [Shipping Method](ctp:api:type:ShippingMethod). Only applicable for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Automatically set after `perMethodTaxRate` is set.
    *
    *
    */
@@ -15628,7 +19745,7 @@ export interface ParcelTrackingDataUpdatedMessagePayload {
   readonly shippingKey?: string
 }
 /**
- *	Generated after a successful [Create Payment](/../api/projects/payments#create-payment) request.
+ *	Generated after a successful [Create Payment](ctp:api:endpoint:/{projectKey}/payments:POST) request.
  *
  */
 export interface PaymentCreatedMessagePayload {
@@ -15737,7 +19854,7 @@ export interface ProductAddedToCategoryMessagePayload {
   readonly staged: boolean
 }
 /**
- *	Generated after a successful [Create Product](/../api/projects/products#create-product) request.
+ *	Generated after a successful [Create Product](ctp:api:endpoint:/{projectKey}/products:POST) request.
  *
  */
 export interface ProductCreatedMessagePayload {
@@ -16067,7 +20184,7 @@ export interface ProductRevertedStagedChangesMessagePayload {
   readonly removedImageUrls: string[]
 }
 /**
- *	Generated after a successful [Create Product Selection](/../api/projects/product-selections#create-product-selection) request.
+ *	Generated after a successful [Create Product Selection](ctp:api:endpoint:/{projectKey}/product-selections:POST) request.
  *
  */
 export interface ProductSelectionCreatedMessagePayload {
@@ -16080,7 +20197,7 @@ export interface ProductSelectionCreatedMessagePayload {
   readonly productSelection: ProductSelection
 }
 /**
- *	Generated after a successful [Delete Product Selection](/../api/projects/product-selections#delete-product-selection) request.
+ *	Generated after a successful [Delete Product Selection](/../api/projects/product-selections#delete-productselection) request.
  *
  */
 export interface ProductSelectionDeletedMessagePayload {
@@ -16266,7 +20383,7 @@ export interface ProductVariantDeletedMessagePayload {
   readonly removedImageUrls: string[]
 }
 /**
- *	Generated after a successful [Create Quote](/../api/projects/quotes#create-quote) request.
+ *	Generated after a successful [Create Quote](ctp:api:endpoint:/{projectKey}/quotes:POST) request.
  *
  */
 export interface QuoteCreatedMessagePayload {
@@ -16318,7 +20435,7 @@ export interface QuoteRenegotiationRequestedMessagePayload {
   readonly buyerComment?: string
 }
 /**
- *	Generated after a successful [Create QuoteRequest](/../api/projects/quote-requests#create-quoterequest) request.
+ *	Generated after a successful [Create QuoteRequest](ctp:api:endpoint:/{projectKey}/quote-requests:POST) request.
  *
  */
 export interface QuoteRequestCreatedMessagePayload {
@@ -16471,7 +20588,7 @@ export interface ReturnInfoSetMessagePayload {
   readonly returnInfo?: ReturnInfo[]
 }
 /**
- *	Generated after a successful [Create Review](/../api/projects/reviews#create-a-review) request.
+ *	Generated after a successful [Create Review](ctp:api:endpoint:/{projectKey}/reviews:POST) request.
  *
  */
 export interface ReviewCreatedMessagePayload {
@@ -16567,7 +20684,7 @@ export interface ShoppingListStoreSetMessagePayload {
   readonly store: StoreKeyReference
 }
 /**
- *	Generated after a successful [Create StagedQuote](/../api/projects/staged-quotes#create-stagedquote) request.
+ *	Generated after a successful [Create StagedQuote](ctp:api:endpoint:/{projectKey}/staged-quotes:POST) request.
  *
  */
 export interface StagedQuoteCreatedMessagePayload {
@@ -16676,7 +20793,7 @@ export interface StandalonePriceActiveChangedMessagePayload {
   readonly oldActive: boolean
 }
 /**
- *	Generated after a successful [Create StandalonePrice](/../api/projects/standalone-prices#create-standaloneprice) request.
+ *	Generated after a successful [Create StandalonePrice](ctp:api:endpoint:/{projectKey}/standalone-prices:POST) request.
  *
  */
 export interface StandalonePriceCreatedMessagePayload {
@@ -16934,7 +21051,7 @@ export interface StoreCountriesChangedMessagePayload {
   readonly removedCountries?: StoreCountry[]
 }
 /**
- *	Generated after a successful [Create Store](/../api/projects/stores#create-store) request.
+ *	Generated after a successful [Create Store](ctp:api:endpoint:/{projectKey}/stores:POST) request.
  *
  */
 export interface StoreCreatedMessagePayload {
@@ -16983,7 +21100,7 @@ export interface StoreCreatedMessagePayload {
   readonly custom?: CustomFields
 }
 /**
- *	Generated after a successful [Delete Store](/../api/projects/quote-requests#delete-quoterequest) request.
+ *	Generated after a successful [Delete Store](/../api/projects/stores#delete-store) request.
  *
  */
 export interface StoreDeletedMessagePayload {

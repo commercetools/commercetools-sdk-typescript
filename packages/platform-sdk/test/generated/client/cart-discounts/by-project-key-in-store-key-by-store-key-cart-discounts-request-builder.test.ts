@@ -13,12 +13,102 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
       method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/cart-discounts?expand=expand',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .cartDiscounts()
+        .get({ queryArgs: { expand: 'expand' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/cart-discounts?sort=sort',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .cartDiscounts()
+        .get({ queryArgs: { sort: 'sort' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/cart-discounts?limit=7',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .cartDiscounts()
+        .get({ queryArgs: { limit: 7 } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/cart-discounts?offset=3',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .cartDiscounts()
+        .get({ queryArgs: { offset: 3 } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/cart-discounts?withTotal=true',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .cartDiscounts()
+        .get({ queryArgs: { withTotal: true } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/cart-discounts?where=where',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .cartDiscounts()
+        .get({ queryArgs: { where: 'where' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/cart-discounts?var.varName=var.varName',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .cartDiscounts()
+        .get({ queryArgs: { 'var.varName': 'var.varName' } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/in-store/key=test_storeKey/cart-discounts',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
         .cartDiscounts()
         .get(),
+    },
+    {
+      method: 'head',
+      uri: '/test_projectKey/in-store/key=test_storeKey/cart-discounts?where=where',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .cartDiscounts()
+        .head({ queryArgs: { where: 'where' } }),
+    },
+    {
+      method: 'head',
+      uri: '/test_projectKey/in-store/key=test_storeKey/cart-discounts',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .cartDiscounts()
+        .head(),
+    },
+    {
+      method: 'post',
+      uri: '/test_projectKey/in-store/key=test_storeKey/cart-discounts?expand=expand',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .cartDiscounts()
+        .post({ body: null, headers: null, queryArgs: { expand: 'expand' } }),
     },
     {
       method: 'post',

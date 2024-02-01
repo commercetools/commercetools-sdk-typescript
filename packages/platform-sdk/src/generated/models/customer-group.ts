@@ -38,13 +38,13 @@ export interface CustomerGroup extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -149,19 +149,19 @@ export interface CustomerGroupReference {
   readonly obj?: CustomerGroup
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [CustomerGroup](ctp:api:type:CustomerGroup). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface CustomerGroupResourceIdentifier {
   readonly typeId: 'customer-group'
   /**
-   *	Unique identifier of the referenced [CustomerGroup](ctp:api:type:CustomerGroup). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [CustomerGroup](ctp:api:type:CustomerGroup). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [CustomerGroup](ctp:api:type:CustomerGroup). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [CustomerGroup](ctp:api:type:CustomerGroup). Required if `id` is absent.
    *
    *
    */
@@ -170,7 +170,7 @@ export interface CustomerGroupResourceIdentifier {
 export interface CustomerGroupUpdate {
   /**
    *	Expected version of the CustomerGroup on which the changes should be applied.
-   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */

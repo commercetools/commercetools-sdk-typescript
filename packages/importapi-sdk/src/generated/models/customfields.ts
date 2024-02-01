@@ -13,7 +13,7 @@ import {
 } from './common'
 
 /**
- *	The representation to be sent to the server when creating a resource with custom fields.
+ *	The representation to be sent to the server when creating a resource with Custom Fields.
  */
 export interface Custom {
   /**
@@ -22,19 +22,19 @@ export interface Custom {
    */
   readonly type: TypeKeyReference
   /**
-   *	The custom fields of this object.
+   *	The Custom Fields of this object.
    *
    */
   readonly fields?: FieldContainer
 }
 /**
- *	Maps the custom field names to the actual values.
+ *	Maps the Custom Field names to actual values.
  */
 export interface FieldContainer {
   [key: string]: CustomField
 }
 /**
- *	Provides the value for a custom field of a specific type.
+ *	Provides the value for a Custom Field of a specific type.
  */
 export type CustomField =
   | BooleanField

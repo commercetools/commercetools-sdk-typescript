@@ -480,6 +480,11 @@ export interface TimeSetAttribute {
  */
 export interface ProductVariantImport extends ImportResource {
   /**
+   *	User-defined unique identifier. If a [ProductVariant](/../api/projects/products#productvariant) with this `key` exists on the specified `product`, it will be updated with the imported data.
+   *
+   */
+  readonly key: string
+  /**
    *	Maps to `ProductVariant.sku`.
    *
    *
@@ -534,9 +539,8 @@ export interface ProductVariantImport extends ImportResource {
  */
 export interface ProductVariantPatch {
   /**
-   *	The [ProductVariant](/../api/projects/products#productvariant) to which this patch is applied.
-   *	The Reference to the [ProductVariant](/../api/projects/products#productvariant) with which the ProductVariantPatch is associated.
-   *	If referenced ProductVariant does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary ProductVariant is created.
+   *	Reference to the [ProductVariant](/../api/projects/products#productvariant) to update.
+   *	If the referenced ProductVariant does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary ProductVariant is created.
    *
    *
    */
@@ -557,6 +561,12 @@ export interface ProductVariantPatch {
    *
    */
   readonly staged?: boolean
+  /**
+   *	Reference to the [Product](/../api/projects/products#product) which contains the ProductVariant. Setting a value will batch process the import operations to minimize concurrency errors. If set, this field is required for every ProductVariantPatch in the [ProductVariantPatchRequest](ctp:import:type:ProductVariantPatchRequest).
+   *
+   *
+   */
+  readonly product?: ProductKeyReference
 }
 export interface Attributes {
   [key: string]: Attribute | null

@@ -91,6 +91,9 @@ export class ByProjectKeyCustomersRequestBuilder {
       baseUri: this.args.baseUri,
     })
   }
+  /**
+   *	Produces the [CustomerPasswordTokenCreated](ctp:api:type:CustomerPasswordTokenCreatedMessage) Message.
+   */
   public passwordToken(): ByProjectKeyCustomersPasswordTokenRequestBuilder {
     return new ByProjectKeyCustomersPasswordTokenRequestBuilder({
       pathArgs: {
@@ -143,6 +146,32 @@ export class ByProjectKeyCustomersRequestBuilder {
       {
         baseUri: this.args.baseUri,
         method: 'GET',
+        uriTemplate: '/{projectKey}/customers',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
+      },
+      this.args.executeRequest
+    )
+  }
+  /**
+   *	Checks if a Customer exists for a given Query Predicate. Returns a `200 OK` status if any Customers match the Query Predicate, or a `404 Not Found` otherwise.
+   */
+  public head(methodArgs?: {
+    queryArgs?: {
+      where?: string | string[]
+      [key: string]: QueryParam
+    }
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'HEAD',
         uriTemplate: '/{projectKey}/customers',
         pathVariables: this.args.pathArgs,
         headers: {

@@ -80,13 +80,13 @@ export interface Customer extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -461,6 +461,19 @@ export interface CustomerDraft {
    */
   readonly authenticationMode?: AuthenticationMode
 }
+/**
+ *	[Reference](ctp:api:type:Reference) to a [CustomerToken](ctp:api:type:CustomerToken) for email verification.
+ *
+ */
+export interface CustomerEmailTokenReference {
+  readonly typeId: 'customer-email-token'
+  /**
+   *	Unique identifier of the referenced [CustomerToken](ctp:api:type:CustomerToken).
+   *
+   *
+   */
+  readonly id: string
+}
 export interface CustomerEmailVerify {
   /**
    *	Expected version of the Customer.
@@ -516,6 +529,19 @@ export interface CustomerPagedQueryResponse {
   readonly results: Customer[]
 }
 /**
+ *	[Reference](ctp:api:type:Reference) to a [CustomerToken](ctp:api:type:CustomerToken) for password reset.
+ *
+ */
+export interface CustomerPasswordTokenReference {
+  readonly typeId: 'customer-password-token'
+  /**
+   *	Unique identifier of the referenced [CustomerToken](ctp:api:type:CustomerToken).
+   *
+   *
+   */
+  readonly id: string
+}
+/**
  *	[Reference](ctp:api:type:Reference) to a [Customer](ctp:api:type:Customer).
  *
  */
@@ -555,19 +581,19 @@ export interface CustomerResetPassword {
   readonly version?: number
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Customer](ctp:api:type:Customer). Either `id` or `key` is required.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Customer](ctp:api:type:Customer). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface CustomerResourceIdentifier {
   readonly typeId: 'customer'
   /**
-   *	Unique identifier of the referenced [Customer](ctp:api:type:Customer).
+   *	Unique identifier of the referenced [Customer](ctp:api:type:Customer). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [Customer](ctp:api:type:Customer).
+   *	User-defined unique identifier of the referenced [Customer](ctp:api:type:Customer). Required if `id` is absent.
    *
    *
    */
@@ -644,6 +670,24 @@ export interface CustomerToken {
    */
   readonly id: string
   /**
+   *	The `id` of the Customer.
+   *
+   *
+   */
+  readonly customerId: string
+  /**
+   *	Value of the token.
+   *
+   *
+   */
+  readonly value: string
+  /**
+   *	Date and time (UTC) the token expires.
+   *
+   *
+   */
+  readonly expiresAt: string
+  /**
    *	Date and time (UTC) the token was initially created.
    *
    *
@@ -655,28 +699,11 @@ export interface CustomerToken {
    *
    */
   readonly lastModifiedAt?: string
-  /**
-   *	The `id` of the Customer.
-   *
-   *
-   */
-  readonly customerId: string
-  /**
-   *	Date and time (UTC) the token expires.
-   *
-   *
-   */
-  readonly expiresAt: string
-  /**
-   *	Value of the token.
-   *
-   *
-   */
-  readonly value: string
 }
 export interface CustomerUpdate {
   /**
-   *	Expected version of the Customer on which the changes should be applied. If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *	Expected version of the Customer on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -884,7 +911,7 @@ export interface CustomerChangeAddressAction {
   readonly address: _BaseAddress
 }
 /**
- *	Changing the email of the Customer produces the [CustomerEmailChanged](ctp:api:type:CustomerEmailChangedMessage) Message.
+ *	Changes the `email` of the Customer and sets the `isEmailVerified` property to `false`. This update action generates a [CustomerEmailChanged](ctp:api:type:CustomerEmailChangedMessage) Message.
  *
  */
 export interface CustomerChangeEmailAction {
@@ -971,6 +998,10 @@ export interface CustomerRemoveStoreAction {
    */
   readonly store: StoreResourceIdentifier
 }
+/**
+ *	Adding a Custom Field to an Address of a Customer generates the [CustomerAddressCustomFieldAdded](ctp:api:type:CustomerAddressCustomFieldAddedMessage) Message, removing one generates the [CustomerAddressCustomFieldRemoved](ctp:api:type:CustomerAddressCustomFieldRemovedMessage) Message, and updating an existing one generates the [CustomerAddressCustomFieldChanged](ctp:api:type:CustomerAddressCustomFieldChangedMessage) Message.
+ *
+ */
 export interface CustomerSetAddressCustomFieldAction {
   readonly action: 'setAddressCustomField'
   /**
@@ -994,6 +1025,10 @@ export interface CustomerSetAddressCustomFieldAction {
    */
   readonly value?: any
 }
+/**
+ *	Adding or updating a Custom Type on an Address of a Customer generates the [CustomerAddressCustomTypeSet](ctp:api:type:CustomerAddressCustomTypeSetMessage) Message, and removing one generates the [CustomerAddressCustomTypeRemoved](ctp:api:type:CustomerAddressCustomTypeRemovedMessage) Message.
+ *
+ */
 export interface CustomerSetAddressCustomTypeAction {
   readonly action: 'setAddressCustomType'
   /**
@@ -1046,6 +1081,10 @@ export interface CustomerSetCompanyNameAction {
    */
   readonly companyName?: string
 }
+/**
+ *	Adding a Custom Field to a Customer generates the [CustomerCustomFieldAdded](ctp:api:type:CustomerCustomFieldAddedMessage) Message, removing one generates the [CustomerCustomFieldRemoved](ctp:api:type:CustomerCustomFieldRemovedMessage) Message, and updating an existing one generates the [CustomerCustomFieldChanged](ctp:api:type:CustomerCustomFieldChangedMessage) Message.
+ *
+ */
 export interface CustomerSetCustomFieldAction {
   readonly action: 'setCustomField'
   /**
@@ -1063,6 +1102,10 @@ export interface CustomerSetCustomFieldAction {
    */
   readonly value?: any
 }
+/**
+ *	Adding or updating a Custom Type on a Customer generates the [CustomerCustomTypeSet](ctp:api:type:CustomerCustomTypeSetMessage) Message, removing one generates the [CustomerCustomTypeRemoved](ctp:api:type:CustomerCustomTypeRemovedMessage) Message.
+ *
+ */
 export interface CustomerSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
@@ -1173,6 +1216,10 @@ export interface CustomerSetExternalIdAction {
    */
   readonly externalId?: string
 }
+/**
+ *	Setting the first name of the Customer produces the [CustomeFirstNameSet](ctp:api:type:CustomerFirstNameSetMessage) Message.
+ *
+ */
 export interface CustomerSetFirstNameAction {
   readonly action: 'setFirstName'
   /**
@@ -1192,7 +1239,7 @@ export interface CustomerSetKeyAction {
   readonly key?: string
 }
 /**
- *	Setting the last name of the Customer produces the [CustomerLastNameSetMessage](ctp:api:type:CustomerLastNameSetMessage).
+ *	Setting the last name of the Customer produces the [CustomerLastNameSet](ctp:api:type:CustomerLastNameSetMessage) Message.
  *
  */
 export interface CustomerSetLastNameAction {
@@ -1247,7 +1294,7 @@ export interface CustomerSetStoresAction {
   readonly stores?: StoreResourceIdentifier[]
 }
 /**
- *	Setting the title of the Customer produces the [CustomerTitleSetMessage](ctp:api:type:CustomerTitleSetMessage).
+ *	Setting the title of the Customer produces the [CustomerTitleSet](ctp:api:type:CustomerTitleSetMessage) Message.
  *
  */
 export interface CustomerSetTitleAction {

@@ -76,6 +76,12 @@ export interface Record {
    */
   readonly stores: KeyReference[]
   /**
+   *	Reference to the [Business Unit](ctp:api:type:BusinessUnit) associated with the [Change](ctp:history:type:Change).
+   *
+   *
+   */
+  readonly businessUnit?: KeyReference
+  /**
    *	`true` if no change was detected.
    *
    *	The version number of the resource can be increased even without any change in the resource.
@@ -208,7 +214,7 @@ export interface ModifiedBy {
    *	Indicates who performed the change.
    *
    *	- If the change was made by a user, the value is `"user"`.
-   *	- If the change was made by an API Client with or without an [external user ID](/client-logging#external-user-ids), the value is `"external-user"`.
+   *	- If the change was made by an API Client with or without an [external user ID](/general-concepts#external-user-ids), the value is `"external-user"`.
    *	- If the change was made by an [Associate](ctp:api:type:Associate), the value is `"associate"`.
    *
    *

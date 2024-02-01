@@ -116,4 +116,30 @@ export class ByProjectKeyProductProjectionsRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Checks if the current or staged representation of a Product exists for a given Query Predicate. Returns a `200 OK` status if any ProductProjections match the Query Predicate or a `404 Not Found` otherwise.
+   */
+  public head(methodArgs?: {
+    queryArgs?: {
+      where?: string | string[]
+      [key: string]: QueryParam
+    }
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<void> {
+    return new ApiRequest<void>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'HEAD',
+        uriTemplate: '/{projectKey}/product-projections',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
+      },
+      this.args.executeRequest
+    )
+  }
 }

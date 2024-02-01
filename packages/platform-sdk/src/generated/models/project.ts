@@ -163,7 +163,8 @@ export interface Project {
 }
 export interface ProjectUpdate {
   /**
-   *	Expected version of the Project on which the changes should be applied. If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
+   *	Expected version of the Project on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -227,7 +228,7 @@ export interface SearchIndexingConfigurationValues {
    */
   readonly lastModifiedAt?: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */

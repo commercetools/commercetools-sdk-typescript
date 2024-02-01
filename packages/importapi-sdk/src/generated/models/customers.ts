@@ -130,6 +130,11 @@ export interface CustomerAddress {
  */
 export interface CustomerImport extends ImportResource {
   /**
+   *	User-defined unique identifier. If a [Customer](/../api/projects/customers#customer) with this `key` exists, it will be updated with the imported data.
+   *
+   */
+  readonly key: string
+  /**
    *	Maps to `Customer.customerNumber`.
    *
    *

@@ -17,6 +17,7 @@ import {
   DirectDiscount,
   DiscountCodeInfo,
   DiscountedLineItemPortion,
+  DiscountOnTotalPrice,
   InventoryMode,
   ItemShippingDetailsDraft,
   LineItem,
@@ -740,6 +741,8 @@ export interface Order extends BaseResource {
   readonly customLineItems: CustomLineItem[]
   /**
    *	Sum of the `totalPrice` field of all [LineItems](ctp:api:type:LineItem) and [CustomLineItems](ctp:api:type:CustomLineItem), and if available, the `price` field of [ShippingInfo](ctp:api:type:ShippingInfo).
+   *	If a discount applies on `totalPrice`, this field holds the discounted value.
+   *
    *	Taxes are included if [TaxRate](ctp:api:type:TaxRate) `includedInPrice` is `true` for each price.
    *
    *
@@ -747,7 +750,9 @@ export interface Order extends BaseResource {
   readonly totalPrice: TypedMoney
   /**
    *	- For `Platform` [TaxMode](ctp:api:type:TaxMode), it is automatically set when a [shipping address is set](ctp:api:type:OrderSetShippingAddressAction).
-   *	- For `External` [TaxMode](ctp:api:type:TaxMode), it is automatically set when the external Tax Rate for all Line Items, Custom Line Items, and Shipping Methods in the Cart are set.
+   *	- For `External` [TaxMode](ctp:api:type:TaxMode), it is automatically set when `shippingAddress` and external Tax Rates for all Line Items, Custom Line Items, and Shipping Methods in the Cart are set.
+   *
+   *	If a discount applies on `totalPrice`, this field holds the discounted values.
    *
    *
    */
@@ -758,6 +763,11 @@ export interface Order extends BaseResource {
    *
    */
   readonly taxedShippingPrice?: TaxedPrice
+  /**
+   *	Discounts that apply on the total price of the Order.
+   *
+   */
+  readonly discountOnTotalPrice?: DiscountOnTotalPrice
   /**
    *	Indicates how Tax Rates are set.
    *
@@ -969,13 +979,13 @@ export interface Order extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1343,8 +1353,8 @@ export interface OrderReference {
 export interface OrderSearchQuery {}
 export type _OrderSearchQuery =
   | OrderSearchQuery
-  | OrderSearchCompoundExpression
-  | OrderSearchQueryExpression
+  | _OrderSearchCompoundExpression
+  | _OrderSearchQueryExpression
 export interface OrderSearchCompoundExpression extends OrderSearchQuery {}
 export type _OrderSearchCompoundExpression =
   | OrderSearchCompoundExpression
@@ -1502,7 +1512,7 @@ export type OrderState =
 export interface OrderUpdate {
   /**
    *	Expected version of the Order on which the changes should be applied.
-   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) will be returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -1971,7 +1981,7 @@ export type ReturnShipmentState =
   | 'Unusable'
   | string
 /**
- *	Indicates the shipment status of the Parcel.
+ *	Indicates the shipment status of the Order.
  *
  */
 export type ShipmentState =
@@ -2228,6 +2238,12 @@ export interface OrderAddParcelToDeliveryAction {
    *
    */
   readonly items?: DeliveryItem[]
+  /**
+   *	Custom Fields for the Parcel.
+   *
+   *
+   */
+  readonly custom?: CustomFieldsDraft
 }
 export interface OrderAddPaymentAction {
   readonly action: 'addPayment'
@@ -2382,6 +2398,7 @@ export interface OrderRemoveDeliveryAction {
 }
 /**
  *	An address can only be removed if it is not referenced in any [ItemShippingTarget](ctp:api:type:ItemShippingTarget) of the Cart.
+ *	In such case, change the Line Item shipping address to a different `addressKey` first using the [Set LineItemShippingDetails](ctp:api:type:OrderSetLineItemShippingDetailsAction) update action, before you remove the obsolete address.
  *
  */
 export interface OrderRemoveItemShippingAddressAction {
