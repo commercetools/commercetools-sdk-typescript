@@ -19,7 +19,7 @@ export class ByProjectKeyShippingMethodsMatchingOrdereditRequestBuilder {
     }
   ) {}
   /**
-   *	Retrieves all the ShippingMethods that can ship to the given [Location](/../api/projects/zones#location) for an [OrderEdit](/../api/projects/order-edits).
+   *	Retrieves all the ShippingMethods that can ship to the given [Location](ctp:api:type:Location) for an [OrderEdit](ctp:api:type:OrderEdit).
    *
    *	If the OrderEdit preview cannot be generated, an [EditPreviewFailed](ctp:api:type:EditPreviewFailedError) error is returned.
    *

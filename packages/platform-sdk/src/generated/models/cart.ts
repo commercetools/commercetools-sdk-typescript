@@ -436,6 +436,7 @@ export interface CartDraft {
   readonly billingAddress?: _BaseAddress
   /**
    *	Shipping address for a Cart with `Single` [ShippingMode](ctp:api:type:ShippingMode). Determines eligible [ShippingMethod](ctp:api:type:ShippingMethod) rates and Tax Rates of Line Items.
+   *	Must be one of the `itemShippingAddresses` when that field is also provided.
    *
    *
    */
@@ -734,7 +735,8 @@ export interface CustomLineItem {
    */
   readonly taxedPrice?: TaxedItemPrice
   /**
-   *	Taxed price of the Shipping Method that is automatically set after `perMethodTaxRate` is set.
+   *	Total taxed prices based on the quantity of the Custom Line Item assigned to each [Shipping Method](ctp:api:type:ShippingMethod). Only applicable for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Automatically set after `perMethodTaxRate` is set.
    *
    */
   readonly taxedPricePortions: MethodTaxedPrice[]
@@ -1264,7 +1266,7 @@ export interface ItemShippingTarget {
   /**
    *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
-   *	It connects Line Item quantities with individual shipping addresses.
+   *	It connects Line Item or Custom Line Item quantities with individual Shipping Methods.
    *
    */
   readonly shippingMethodKey?: string
@@ -1365,7 +1367,8 @@ export interface LineItem {
    */
   readonly taxedPrice?: TaxedItemPrice
   /**
-   *	Taxed price of the Shipping Method that is automatically set after `perMethodTaxRate` is set.
+   *	Total taxed prices based on the quantity of Line Item assigned to each [Shipping Method](ctp:api:type:ShippingMethod). Only applicable for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Automatically set after `perMethodTaxRate` is set.
    *
    */
   readonly taxedPricePortions: MethodTaxedPrice[]
@@ -1594,20 +1597,20 @@ export interface MethodTaxRate {
 }
 export interface MethodTaxedPrice {
   /**
-   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	User-defined unique identifier of the [Shipping Method](ctp:api:type:ShippingMethod) in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *
    *
    */
   readonly shippingMethodKey: string
   /**
-   *	Taxed price for the Shipping Method.
+   *	Total taxed price based on the quantity of the Line Item or Custom Line Item assigned to the Shipping Method identified by `shippingMethodKey`.
    *
    *
    */
   readonly taxedPrice?: TaxedItemPrice
 }
 /**
- *	Used for [replicating an existing Cart](/../api/projects/carts#replicate-cart) or Order.
+ *	Used for [replicating an existing Cart](ctp:api:endpoint:/{projectKey}/carts/replicate:POST) or Order.
  *
  */
 export interface ReplicaCartDraft {
@@ -2256,6 +2259,12 @@ export interface CartAddLineItemAction {
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
+  /**
+   *	Sets the external Tax Rates for individual Shipping Methods, if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode) and `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly perMethodExternalTaxRate?: MethodExternalTaxRateDraft[]
   /**
    *	Inventory mode specific to the Line Item only, and valid for the entire `quantity` of the Line Item.
    *	Set only if the inventory mode should be different from the `inventoryMode` specified on the [Cart](ctp:api:type:Cart).

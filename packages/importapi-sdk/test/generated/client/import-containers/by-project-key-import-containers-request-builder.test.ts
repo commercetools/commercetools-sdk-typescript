@@ -21,19 +21,19 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/import-containers?limit=0.26748633',
+      uri: '/test_projectKey/import-containers?limit=7',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
         .importContainers()
-        .get({ queryArgs: { limit: 0.26748633 } }),
+        .get({ queryArgs: { limit: 7 } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/import-containers?offset=0.7475848',
+      uri: '/test_projectKey/import-containers?offset=3',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
         .importContainers()
-        .get({ queryArgs: { offset: 0.7475848 } }),
+        .get({ queryArgs: { offset: 3 } }),
     },
     {
       method: 'get',
