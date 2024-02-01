@@ -22,6 +22,9 @@ export interface ImportSummary {
    */
   readonly total: number
 }
+/**
+ *	The number of resources in each [Processing State](/processing-state#processingstate).
+ */
 export interface OperationStates {
   /**
    *	The number of resources in the `processing` state.

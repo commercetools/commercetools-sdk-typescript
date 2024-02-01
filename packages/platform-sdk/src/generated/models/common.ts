@@ -65,7 +65,7 @@ import {
   InventoryEntryResourceIdentifier,
 } from './inventory'
 import { Message } from './message'
-import { Order, OrderReference } from './order'
+import { OrderReference, _Order } from './order'
 import {
   OrderEdit,
   OrderEditReference,
@@ -543,7 +543,7 @@ export type _BaseResource =
   | Extension
   | InventoryEntry
   | Message
-  | Order
+  | _Order
   | OrderEdit
   | Payment
   | Product

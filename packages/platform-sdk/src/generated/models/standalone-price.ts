@@ -386,7 +386,7 @@ export interface StandalonePriceApplyStagedChangesAction {
   readonly action: 'applyStagedChanges'
 }
 /**
- *	Updating the value of a [StandalonePrice](ctp:api:type:StandalonePrice) produces the [StandalonePriceActiveChangedMessage](ctp:api:type:StandalonePriceActiveChangedMessage).
+ *	Updating the value of a [StandalonePrice](ctp:api:type:StandalonePrice) produces the [StandalonePriceActiveChanged](ctp:api:type:StandalonePriceActiveChangedMessage) Message.
  *
  */
 export interface StandalonePriceChangeActiveAction {
