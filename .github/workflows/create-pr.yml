@@ -5,17 +5,48 @@ on:
 
 name: Create Changes PR
 
+# Declare default permissions as read only.
+permissions: read-all
+
 jobs:
   create_pr:
     name: Create/Update PR
 
     runs-on: ubuntu-latest
     steps:
+      # Get GitHub token via the CT SDKs App
+      - name: Generate GitHub token (via CT SDKs App)
+        id: generate_github_token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.CT_SDKS_APP_ID }}
+          private-key: ${{ secrets.CT_SDKS_APP_PEM }}
+
+      - name: Get App user
+        id: get_app_user
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_github_token.outputs.token }}
+        run: |
+          export GH_APP_USER=`gh api /users/ct-sdks%5Bbot%5D | jq .id`
+          echo "email=${GH_APP_USER}+ct-sdks[bot]@users.noreply.github.com" >> "$GITHUB_OUTPUT"
+
       - name: Checkout
         uses: actions/checkout@v4
-      - uses: jenschude/auto-create-pr-action@v0.3.1
+        with:
+          token: ${{ steps.generate_github_token.outputs.token }}
+
+
+      - uses: jenschude/auto-create-pr-action@a5369414c74963e6ec065dab49066d3711b8c1db
+        if: github.ref_name == 'gen-sdk-updates'
         with:
           request_title: "Update generated SDKs"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ steps.generate_github_token.outputs.token }}
+          label: automerge
           request_body: |
             - [ ] Changeset added
+            
+            ### Features
+            
+            ### Fixes
+            
+            ### Breaking changes
