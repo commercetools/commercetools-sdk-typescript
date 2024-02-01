@@ -1,0 +1,4 @@
+version = 1
+
+[merge]
+show_missing_automerge_label_message = false
