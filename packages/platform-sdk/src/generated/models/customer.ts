@@ -1216,6 +1216,10 @@ export interface CustomerSetExternalIdAction {
    */
   readonly externalId?: string
 }
+/**
+ *	Setting the first name of the Customer produces the [CustomeFirstNameSet](ctp:api:type:CustomerFirstNameSetMessage) Message.
+ *
+ */
 export interface CustomerSetFirstNameAction {
   readonly action: 'setFirstName'
   /**
@@ -1235,7 +1239,7 @@ export interface CustomerSetKeyAction {
   readonly key?: string
 }
 /**
- *	Setting the last name of the Customer produces the [CustomerLastNameSetMessage](ctp:api:type:CustomerLastNameSetMessage).
+ *	Setting the last name of the Customer produces the [CustomerLastNameSet](ctp:api:type:CustomerLastNameSetMessage) Message.
  *
  */
 export interface CustomerSetLastNameAction {
@@ -1290,7 +1294,7 @@ export interface CustomerSetStoresAction {
   readonly stores?: StoreResourceIdentifier[]
 }
 /**
- *	Setting the title of the Customer produces the [CustomerTitleSetMessage](ctp:api:type:CustomerTitleSetMessage).
+ *	Setting the title of the Customer produces the [CustomerTitleSet](ctp:api:type:CustomerTitleSetMessage) Message.
  *
  */
 export interface CustomerSetTitleAction {

@@ -295,7 +295,7 @@ export interface ShippingRate {
    */
   readonly price: TypedMoney
   /**
-   *	Shipping is free if the sum of the (Custom) Line Item Prices reaches the specified value.
+   *	[Free shipping](/../shipping-delivery-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
    *
    */
   readonly freeAbove?: TypedMoney
@@ -320,7 +320,7 @@ export interface ShippingRateDraft {
    */
   readonly price: _Money
   /**
-   *	Shipping is free if the sum of the (Custom) Line Item Prices reaches the specified value.
+   *	[Free shipping](/../shipping-delivery-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
    *
    */
   readonly freeAbove?: _Money
@@ -367,7 +367,7 @@ export interface CartClassificationTier {
 export interface CartScoreTier {
   readonly type: 'CartScore'
   /**
-   *	Abstract value for categorizing a Cart. The range starts at `0`. The default price covers `0`, tiers start at `1`. See [Using Tiered Shipping Rates](/../tutorials/shipping-rate) for details and examples.
+   *	Abstract value for categorizing a Cart. The range starts at `0`. The default price covers `0`, tiers start at `1`. See [Tiered shipping rates](/../api/shipping-delivery-overview#tiered-shipping-rates) for details and examples.
    *
    *
    */
