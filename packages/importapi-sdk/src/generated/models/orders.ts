@@ -693,7 +693,7 @@ export interface ScoreShippingRateInput {
  *	The data representation for an Order to be imported that is persisted as an [Order](/../api/projects/orders#top) in the Project.
  *
  *	In commercetools, you can import an Order using the
- *	[Create Order by Import](/../api/projects/orders-import#create-order-by-import)
+ *	[Create Order by Import](ctp:importapi:endpoint:/{projectKey}/orders/import:POST)
  *	endpoint method instead of creating it from a Cart.
  *
  *	An OrderImport is a snapshot of an order at the time it was imported.

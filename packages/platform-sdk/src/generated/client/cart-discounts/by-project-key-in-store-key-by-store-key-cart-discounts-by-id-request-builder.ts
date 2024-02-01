@@ -100,6 +100,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartDiscountsByIDRequestBuilder {
   /**
    *	To delete a CartDiscount, specify the `manage_cart_discounts:{projectKey}:{storeKey}` scope for all Stores associated with the CartDiscount.
    *
+   *	Deleting a Cart Discount produces the [CartDiscountDeleted](ctp:api:type:CartDiscountDeletedMessage) Message.
+   *
    */
   public delete(methodArgs: {
     queryArgs: {

@@ -103,6 +103,9 @@ export class ByProjectKeyCartDiscountsRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Creating a Cart Discount produces the [CartDiscountCreated](ctp:api:type:CartDiscountCreatedMessage) Message.
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

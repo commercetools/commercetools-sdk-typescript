@@ -646,6 +646,8 @@ export type StackingMode = 'Stacking' | 'StopAfterThisDiscount' | string
 /**
  *	If a referenced Store does not exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error is returned.
  *
+ *	This action generates a [CartDiscountStoreAdded](ctp:api:type:CartDiscountStoreAddedMessage) Message.
+ *
  */
 export interface CartDiscountAddStoreAction {
   readonly action: 'addStore'
@@ -747,6 +749,8 @@ export interface CartDiscountChangeValueAction {
 /**
  *	If a referenced Store does not exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error is returned.
  *
+ *	This action generates a [CartDiscountStoreRemoved](ctp:api:type:CartDiscountStoreRemovedMessage) Message.
+ *
  */
 export interface CartDiscountRemoveStoreAction {
   readonly action: 'removeStore'
@@ -810,6 +814,8 @@ export interface CartDiscountSetKeyAction {
 }
 /**
  *	If a referenced Store does not exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error is returned.
+ *
+ *	This action generates a [CartDiscountStoresSet](ctp:api:type:CartDiscountStoresSetMessage) Message.
  *
  */
 export interface CartDiscountSetStoresAction {

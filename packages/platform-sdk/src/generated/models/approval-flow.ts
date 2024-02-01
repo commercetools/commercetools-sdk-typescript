@@ -8,6 +8,7 @@ import { ApprovalRule, RuleApprover } from './approval-rule'
 import { Associate, BusinessUnitKeyReference } from './business-unit'
 import { BaseResource, CreatedBy, LastModifiedBy } from './common'
 import { OrderReference } from './order'
+import { CustomFields, FieldContainer, TypeResourceIdentifier } from './type'
 
 export interface ApprovalFlow extends BaseResource {
   /**
@@ -101,6 +102,12 @@ export interface ApprovalFlow extends BaseResource {
    *
    */
   readonly currentTierPendingApprovers: RuleApprover[]
+  /**
+   *	Custom Fields on the Approval Flow.
+   *
+   *
+   */
+  readonly custom?: CustomFields
 }
 export interface ApprovalFlowApproval {
   /**
@@ -199,6 +206,8 @@ export interface ApprovalFlowUpdate {
 export type ApprovalFlowUpdateAction =
   | ApprovalFlowApproveAction
   | ApprovalFlowRejectAction
+  | ApprovalFlowSetCustomFieldAction
+  | ApprovalFlowSetCustomTypeAction
 /**
  *	This update action allows an [Associate](ctp:api:type:Associate) to approve an Approval Flow. The process takes into account all [Associate Roles](ctp:api:type:AssociateRole) held by the Associate, aligning with the matched [Approval Rules](ctp:api:type:ApprovalRule) and their respective approver hierarchies.
  *
@@ -224,4 +233,37 @@ export interface ApprovalFlowRejectAction {
    *
    */
   readonly reason?: string
+}
+export interface ApprovalFlowSetCustomFieldAction {
+  readonly action: 'setCustomField'
+  /**
+   *	Name of the [Custom Field](ctp:api:type:CustomFields).
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
+   *
+   */
+  readonly value?: any
+}
+export interface ApprovalFlowSetCustomTypeAction {
+  readonly action: 'setCustomType'
+  /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the ApprovalFlow with [Custom Fields](ctp:api:type:CustomFields).
+   *	If absent, any existing Type and Custom Fields are removed from the ApprovalFlow.
+   *
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *	Sets the [Custom Fields](ctp:api:type:CustomFields) fields for the ApprovalFlow.
+   *
+   *
+   */
+  readonly fields?: FieldContainer
 }
