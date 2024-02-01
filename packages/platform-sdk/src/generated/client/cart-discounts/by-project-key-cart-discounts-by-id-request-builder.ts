@@ -89,6 +89,9 @@ export class ByProjectKeyCartDiscountsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deleting a Cart Discount produces the [CartDiscountDeleted](ctp:api:type:CartDiscountDeletedMessage) Message.
+   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

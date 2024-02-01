@@ -13,7 +13,7 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
       method: 'get',
-      uri: '/test_projectKey/import-containers/test_importContainerKey/import-operations?limit=0.26748633',
+      uri: '/test_projectKey/import-containers/test_importContainerKey/import-operations?limit=7',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
         .importContainers()
@@ -21,11 +21,11 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
           importContainerKey: 'test_importContainerKey',
         })
         .importOperations()
-        .get({ queryArgs: { limit: 0.26748633 } }),
+        .get({ queryArgs: { limit: 7 } }),
     },
     {
       method: 'get',
-      uri: '/test_projectKey/import-containers/test_importContainerKey/import-operations?offset=0.7475848',
+      uri: '/test_projectKey/import-containers/test_importContainerKey/import-operations?offset=3',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
         .importContainers()
@@ -33,7 +33,7 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
           importContainerKey: 'test_importContainerKey',
         })
         .importOperations()
-        .get({ queryArgs: { offset: 0.7475848 } }),
+        .get({ queryArgs: { offset: 3 } }),
     },
     {
       method: 'get',

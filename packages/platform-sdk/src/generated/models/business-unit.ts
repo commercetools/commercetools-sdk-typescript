@@ -1150,7 +1150,7 @@ export interface BusinessUnitSetCustomFieldAction {
 export interface BusinessUnitSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the BusinessUnit with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the BusinessUnit with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the BusinessUnit.
    *
    *
