@@ -74,13 +74,13 @@ export interface Store extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -267,19 +267,19 @@ export interface StoreReference {
   readonly obj?: Store
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Store](ctp:api:type:Store).
+ *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Store](ctp:api:type:Store). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface StoreResourceIdentifier {
   readonly typeId: 'store'
   /**
-   *	Unique ID of the referenced [Store](ctp:api:type:Store). Either `id` or `key` is required.
+   *	Unique ID of the referenced [Store](ctp:api:type:Store). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced [Store](ctp:api:type:Store). Either `id` or `key` is required.
+   *	Unique key of the referenced [Store](ctp:api:type:Store). Required if `id` is absent.
    *
    *
    */
@@ -287,7 +287,8 @@ export interface StoreResourceIdentifier {
 }
 export interface StoreUpdate {
   /**
-   *	Expected version of the Store on which the changes should be applied. If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
+   *	Expected version of the Store on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */

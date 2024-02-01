@@ -82,13 +82,13 @@ export interface StandalonePrice extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -333,7 +333,8 @@ export interface StandalonePriceResourceIdentifier {
 }
 export interface StandalonePriceUpdate {
   /**
-   *	Expected version of the StandalonePrice on which the changes should be applied. If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
+   *	Expected version of the StandalonePrice on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -385,7 +386,7 @@ export interface StandalonePriceApplyStagedChangesAction {
   readonly action: 'applyStagedChanges'
 }
 /**
- *	Updating the value of a [StandalonePrice](ctp:api:type:StandalonePrice) produces the [StandalonePriceActiveChangedMessage](ctp:api:type:StandalonePriceActiveChangedMessage).
+ *	Updating the value of a [StandalonePrice](ctp:api:type:StandalonePrice) produces the [StandalonePriceActiveChanged](ctp:api:type:StandalonePriceActiveChangedMessage) Message.
  *
  */
 export interface StandalonePriceChangeActiveAction {

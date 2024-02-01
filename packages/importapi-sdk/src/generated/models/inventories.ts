@@ -13,6 +13,11 @@ import { Custom } from './customfields'
  */
 export interface InventoryImport extends ImportResource {
   /**
+   *	User-defined unique identifier. If an [InventoryEntry](/../api/projects/inventory#inventoryentry) with this `key` exists, it will be updated with the imported data.
+   *
+   */
+  readonly key: string
+  /**
    *	Maps to `Inventory.sku`
    *
    *

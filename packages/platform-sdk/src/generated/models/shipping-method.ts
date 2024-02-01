@@ -62,13 +62,13 @@ export interface ShippingMethod extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -241,19 +241,19 @@ export interface ShippingMethodReference {
   readonly obj?: ShippingMethod
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface ShippingMethodResourceIdentifier {
   readonly typeId: 'shipping-method'
   /**
-   *	Unique identifier of the referenced [ShippingMethod](ctp:api:type:ShippingMethod). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [ShippingMethod](ctp:api:type:ShippingMethod). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [ShippingMethod](ctp:api:type:ShippingMethod). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [ShippingMethod](ctp:api:type:ShippingMethod). Required if `id` is absent.
    *
    *
    */
@@ -295,7 +295,7 @@ export interface ShippingRate {
    */
   readonly price: TypedMoney
   /**
-   *	Shipping is free if the sum of the (Custom) Line Item Prices reaches the specified value.
+   *	[Free shipping](/../shipping-delivery-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
    *
    */
   readonly freeAbove?: TypedMoney
@@ -320,7 +320,7 @@ export interface ShippingRateDraft {
    */
   readonly price: _Money
   /**
-   *	Shipping is free if the sum of the (Custom) Line Item Prices reaches the specified value.
+   *	[Free shipping](/../shipping-delivery-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
    *
    */
   readonly freeAbove?: _Money
@@ -367,7 +367,7 @@ export interface CartClassificationTier {
 export interface CartScoreTier {
   readonly type: 'CartScore'
   /**
-   *	Abstract value for categorizing a Cart. The range starts at `0`. The default price covers `0`, tiers start at `1`. See [Using Tiered Shipping Rates](/../tutorials/shipping-rate) for details and examples.
+   *	Abstract value for categorizing a Cart. The range starts at `0`. The default price covers `0`, tiers start at `1`. See [Tiered shipping rates](/../api/shipping-delivery-overview#tiered-shipping-rates) for details and examples.
    *
    *
    */

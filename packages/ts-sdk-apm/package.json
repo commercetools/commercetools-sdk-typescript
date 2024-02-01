@@ -1,6 +1,6 @@
 {
   "name": "@commercetools/ts-sdk-apm",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "commercetools typescript SDK application performance monitoring.",
   "main": "dist/commercetools-ts-sdk-apm.cjs.js",
   "module": "dist/commercetools-ts-sdk-apm.esm.js",
@@ -12,7 +12,6 @@
     "@opentelemetry/auto-instrumentations-node": "^0.38.0",
     "@opentelemetry/exporter-metrics-otlp-http": "^0.41.0",
     "@opentelemetry/sdk-node": "^0.41.0",
-    "newrelic": "^10.0.0",
     "uuid": "9.0.0"
   },
   "publishConfig": {

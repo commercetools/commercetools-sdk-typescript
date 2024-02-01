@@ -70,7 +70,7 @@ export interface AttributeDefinition {
    *
    *	Which exact features are available with this flag depends on the specific [AttributeType](ctp:api:type:AttributeType).
    *	The maximum size of a searchable field is **restricted** by the [Field content size limit](/../api/limits#field-content-size).
-   *	This constraint is enforced at both [Product creation](/../api/projects/products#create-product) and [Product update](/../api/projects/products#update-product).
+   *	This constraint is enforced at both [Product creation](ctp:api:endpoint:/{projectKey}/products:POST) and [Product update](/../api/projects/products#update-product).
    *	If the length of the input exceeds the maximum size, an [InvalidField](ctp:api:type:InvalidFieldError) error is returned.
    *
    */
@@ -177,7 +177,10 @@ export interface AttributePlainEnumValue {
  *
  */
 export type AttributeReferenceTypeId =
+  | 'associate-role'
+  | 'business-unit'
   | 'cart'
+  | 'cart-discount'
   | 'category'
   | 'channel'
   | 'customer'
@@ -328,13 +331,13 @@ export interface ProductType extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -448,19 +451,19 @@ export interface ProductTypeReference {
   readonly obj?: ProductType
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductType](ctp:api:type:ProductType).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductType](ctp:api:type:ProductType). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface ProductTypeResourceIdentifier {
   readonly typeId: 'product-type'
   /**
-   *	Unique identifier of the referenced [ProductType](ctp:api:type:ProductType). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [ProductType](ctp:api:type:ProductType). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [ProductType](ctp:api:type:ProductType). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [ProductType](ctp:api:type:ProductType). Required if `id` is absent.
    *
    *
    */
@@ -468,7 +471,8 @@ export interface ProductTypeResourceIdentifier {
 }
 export interface ProductTypeUpdate {
   /**
-   *	Expected version of the ProductType on which the changes should be applied. If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
+   *	Expected version of the ProductType on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */

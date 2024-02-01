@@ -50,13 +50,13 @@ export interface CartDiscount extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -315,19 +315,19 @@ export interface CartDiscountReference {
   readonly obj?: CartDiscount
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [CartDiscount](ctp:api:type:CartDiscount).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [CartDiscount](ctp:api:type:CartDiscount). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface CartDiscountResourceIdentifier {
   readonly typeId: 'cart-discount'
   /**
-   *	Unique identifier of the referenced [CartDiscount](ctp:api:type:CartDiscount). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [CartDiscount](ctp:api:type:CartDiscount). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [CartDiscount](ctp:api:type:CartDiscount). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [CartDiscount](ctp:api:type:CartDiscount). Required if `id` is absent.
    *
    *
    */
@@ -382,7 +382,8 @@ export interface CartDiscountTotalPriceTarget {
 }
 export interface CartDiscountUpdate {
   /**
-   *	Expected version of the CartDiscount on which the changes should be applied. If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
+   *	Expected version of the CartDiscount on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -645,6 +646,8 @@ export type StackingMode = 'Stacking' | 'StopAfterThisDiscount' | string
 /**
  *	If a referenced Store does not exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error is returned.
  *
+ *	This action generates a [CartDiscountStoreAdded](ctp:api:type:CartDiscountStoreAddedMessage) Message.
+ *
  */
 export interface CartDiscountAddStoreAction {
   readonly action: 'addStore'
@@ -746,6 +749,8 @@ export interface CartDiscountChangeValueAction {
 /**
  *	If a referenced Store does not exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error is returned.
  *
+ *	This action generates a [CartDiscountStoreRemoved](ctp:api:type:CartDiscountStoreRemovedMessage) Message.
+ *
  */
 export interface CartDiscountRemoveStoreAction {
   readonly action: 'removeStore'
@@ -809,6 +814,8 @@ export interface CartDiscountSetKeyAction {
 }
 /**
  *	If a referenced Store does not exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error is returned.
+ *
+ *	This action generates a [CartDiscountStoresSet](ctp:api:type:CartDiscountStoresSetMessage) Message.
  *
  */
 export interface CartDiscountSetStoresAction {

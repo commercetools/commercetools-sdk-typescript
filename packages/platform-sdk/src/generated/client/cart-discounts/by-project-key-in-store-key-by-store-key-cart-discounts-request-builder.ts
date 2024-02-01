@@ -3,7 +3,11 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { CartDiscount, CartDiscountDraft } from '../../models/cart-discount'
+import {
+  CartDiscount,
+  CartDiscountDraft,
+  CartDiscountPagedQueryResponse,
+} from '../../models/cart-discount'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyInStoreKeyByStoreKeyCartDiscountsByIDRequestBuilder } from './by-project-key-in-store-key-by-store-key-cart-discounts-by-id-request-builder'
@@ -49,11 +53,20 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartDiscountsRequestBuilder {
   }
 
   public get(methodArgs?: {
+    queryArgs?: {
+      expand?: string | string[]
+      sort?: string | string[]
+      limit?: number
+      offset?: number
+      withTotal?: boolean
+      where?: string | string[]
+      [key: string]: QueryParam
+    }
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<CartDiscount> {
-    return new ApiRequest<CartDiscount>(
+  }): ApiRequest<CartDiscountPagedQueryResponse> {
+    return new ApiRequest<CartDiscountPagedQueryResponse>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',
@@ -62,6 +75,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartDiscountsRequestBuilder {
         headers: {
           ...methodArgs?.headers,
         },
+        queryParams: methodArgs?.queryArgs,
       },
       this.args.executeRequest
     )
@@ -95,8 +109,14 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartDiscountsRequestBuilder {
   /**
    *	When using the endpoint, the Store specified in the path and the Stores specified in the payload's `stores` field are added to the CartDiscount.
    *
+   *	Creating a Cart Discount produces the [CartDiscountCreated](ctp:api:type:CartDiscountCreatedMessage) Message.
+   *
    */
   public post(methodArgs: {
+    queryArgs?: {
+      expand?: string | string[]
+      [key: string]: QueryParam
+    }
     body: CartDiscountDraft
     headers?: {
       [key: string]: string | string[]
@@ -112,6 +132,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartDiscountsRequestBuilder {
           'Content-Type': 'application/json',
           ...methodArgs?.headers,
         },
+        queryParams: methodArgs?.queryArgs,
         body: methodArgs?.body,
       },
       this.args.executeRequest

@@ -176,19 +176,19 @@ export interface BusinessUnitReference {
   readonly obj?: BusinessUnit
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [BusinessUnit](ctp:api:type:BusinessUnit).
+ *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [BusinessUnit](ctp:api:type:BusinessUnit). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface BusinessUnitResourceIdentifier {
   readonly typeId: 'business-unit'
   /**
-   *	Unique identifier of the referenced [BusinessUnit](ctp:api:type:BusinessUnit). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [BusinessUnit](ctp:api:type:BusinessUnit). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	Unique key of the referenced [BusinessUnit](ctp:api:type:BusinessUnit). Either `id` or `key` is required.
+   *	Unique key of the referenced [BusinessUnit](ctp:api:type:BusinessUnit). Required if `id` is absent.
    *
    *
    */
@@ -212,7 +212,7 @@ export type BusinessUnitType = 'Company' | 'Division' | string
 export interface BusinessUnitUpdate {
   /**
    *	Expected version of the BusinessUnit on which the changes should be applied.
-   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) error will be returned.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */
@@ -283,13 +283,13 @@ export interface Company {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -383,7 +383,7 @@ export interface Company {
    */
   readonly associates: Associate[]
   /**
-   *	Associates that are inherited from a parent Business Unit. This value of this field is [eventually consistent](/../api/general-concepts#eventual-consistency) and is only present when the `associateMode` is set to `ExplicitAndFromParent`.
+   *	Associates that are inherited from a parent Business Unit. The value of this field is [eventually consistent](/../api/general-concepts#eventual-consistency) and is only present when the `associateMode` is set to `ExplicitAndFromParent`.
    *
    *
    */
@@ -533,13 +533,13 @@ export interface Division {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -633,7 +633,7 @@ export interface Division {
    */
   readonly associates: Associate[]
   /**
-   *	Associates that are inherited from a parent Business Unit. This value of this field is [eventually consistent](/../api/general-concepts#eventual-consistency) and is only present when the `associateMode` is set to `ExplicitAndFromParent`.
+   *	Associates that are inherited from a parent Business Unit. The value of this field is [eventually consistent](/../api/general-concepts#eventual-consistency) and is only present when the `associateMode` is set to `ExplicitAndFromParent`.
    *
    *
    */
@@ -1150,7 +1150,7 @@ export interface BusinessUnitSetCustomFieldAction {
 export interface BusinessUnitSetCustomTypeAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the BusinessUnit with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the BusinessUnit with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the BusinessUnit.
    *
    *

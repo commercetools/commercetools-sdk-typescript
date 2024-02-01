@@ -532,6 +532,9 @@ export type CorrelationIdMiddlewareOptions = {
 //   apm: any
 // }
 
-export type TelemetryOptions<T> = {
-  createTelemetryMiddleware: (options?: Omit<T, 'createTelemetryMiddleware'>) => Middleware
+export type TelemetryOptions = {
+  apm?: Function;
+  tracer?: Function;
+  userAgent?: string;
+  createTelemetryMiddleware: (options?: Omit<TelemetryOptions, 'createTelemetryMiddleware'>) => Middleware
 }

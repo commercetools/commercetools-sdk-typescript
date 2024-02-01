@@ -230,6 +230,42 @@ export interface AttributeDefinition {
    */
   readonly isSearchable: boolean
 }
+/**
+ *	A localized enum value must be unique within the enum, else a [DuplicateEnumValues](ctp:api:type:DuplicateEnumValuesError) error is returned.
+ *
+ */
+export interface AttributeLocalizedEnumValue {
+  /**
+   *	Key of the value used as a programmatic identifier, for example in facets & filters.
+   *
+   *
+   */
+  readonly key: string
+  /**
+   *	Descriptive, localized label of the value.
+   *
+   *
+   */
+  readonly label: LocalizedString
+}
+/**
+ *	A plain enum value must be unique within the enum, else a [DuplicateEnumValues](ctp:api:type:DuplicateEnumValuesError) error is returned.
+ *
+ */
+export interface AttributePlainEnumValue {
+  /**
+   *	Key of the value used as a programmatic identifier, for example in facets & filters.
+   *
+   *
+   */
+  readonly key: string
+  /**
+   *	Descriptive label of the value.
+   *
+   *
+   */
+  readonly label: string
+}
 export interface AttributeType {
   /**
    *
@@ -255,7 +291,11 @@ export type BusinessUnitStoreMode = 'Explicit' | 'FromParent' | string
 export interface CategoryOrderHints {
   [key: string]: string
 }
-export type ChannelRole =
+/**
+ *	Describes the purpose and type of the Channel. A Channel can have one or more roles.
+ *
+ */
+export type ChannelRoleEnum =
   | 'InventorySupply'
   | 'OrderExport'
   | 'OrderImport'
@@ -992,13 +1032,24 @@ export type ShippingRateTierType =
   | string
 export type StackingMode = 'Stacking' | 'StopAfterThisDiscount' | string
 export type StagedQuoteState = 'Closed' | 'InProgress' | 'Sent' | string
-export type StateRole = 'Return' | 'ReviewIncludedInStatistics' | string
-export type StateType =
+/**
+ *	For some resource types, a State can fulfill the following predefined roles:
+ *
+ */
+export type StateRoleEnum = 'Return' | 'ReviewIncludedInStatistics' | string
+/**
+ *	Resource or object type the State can be assigned to.
+ *
+ */
+export type StateTypeEnum =
   | 'LineItemState'
   | 'OrderState'
   | 'PaymentState'
   | 'ProductState'
+  | 'QuoteRequestState'
+  | 'QuoteState'
   | 'ReviewState'
+  | 'StagedQuoteState'
   | string
 export interface StoreCountry {
   /**

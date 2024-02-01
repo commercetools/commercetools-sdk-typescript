@@ -32,6 +32,7 @@ import {
   ShippingRateInput,
   TaxedItemPrice,
 } from './cart'
+import { CartDiscount } from './cart-discount'
 import { Category, CategoryReference } from './category'
 import { ChannelReference } from './channel'
 import {
@@ -168,6 +169,11 @@ export type Message =
   | BusinessUnitStoreModeChangedMessage
   | BusinessUnitStoreRemovedMessage
   | BusinessUnitStoresSetMessage
+  | CartDiscountCreatedMessage
+  | CartDiscountDeletedMessage
+  | CartDiscountStoreAddedMessage
+  | CartDiscountStoreRemovedMessage
+  | CartDiscountStoresSetMessage
   | CategoryCreatedMessage
   | CategorySlugChangedMessage
   | CustomLineItemStateTransitionMessage
@@ -362,7 +368,7 @@ export interface ApprovalFlowApprovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -438,7 +444,7 @@ export interface ApprovalFlowCompletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -514,7 +520,7 @@ export interface ApprovalFlowCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -584,7 +590,7 @@ export interface ApprovalFlowRejectedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -666,7 +672,7 @@ export interface ApprovalRuleApproversSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -742,7 +748,7 @@ export interface ApprovalRuleCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -812,7 +818,7 @@ export interface ApprovalRuleDescriptionSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -888,7 +894,7 @@ export interface ApprovalRuleKeySetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -964,7 +970,7 @@ export interface ApprovalRuleNameSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1040,7 +1046,7 @@ export interface ApprovalRulePredicateSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1116,7 +1122,7 @@ export interface ApprovalRuleRequestersSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1192,7 +1198,7 @@ export interface ApprovalRuleStatusSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1268,7 +1274,7 @@ export interface AssociateRoleBuyerAssignableChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1306,7 +1312,7 @@ export interface AssociateRoleBuyerAssignableChangedMessage {
   readonly buyerAssignable: boolean
 }
 /**
- *	Generated after a successful [Create AssociateRole](/projects/associate-roles#create-associaterole) request.
+ *	Generated after a successful [Create AssociateRole](ctp:api:endpoint:/{projectKey}/associate-roles:POST) request.
  *
  */
 export interface AssociateRoleCreatedMessage {
@@ -1338,7 +1344,7 @@ export interface AssociateRoleCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1408,7 +1414,7 @@ export interface AssociateRoleDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1472,7 +1478,7 @@ export interface AssociateRoleNameChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1542,7 +1548,7 @@ export interface AssociateRolePermissionAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1612,7 +1618,7 @@ export interface AssociateRolePermissionRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1682,7 +1688,7 @@ export interface AssociateRolePermissionsSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1752,7 +1758,7 @@ export interface BusinessUnitAddressAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1822,7 +1828,7 @@ export interface BusinessUnitAddressChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1892,7 +1898,7 @@ export interface BusinessUnitAddressCustomFieldAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -1967,7 +1973,7 @@ export interface BusinessUnitAddressCustomFieldChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2049,7 +2055,7 @@ export interface BusinessUnitAddressCustomFieldRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2119,7 +2125,7 @@ export interface BusinessUnitAddressCustomTypeRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2189,7 +2195,7 @@ export interface BusinessUnitAddressCustomTypeSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2264,7 +2270,7 @@ export interface BusinessUnitAddressRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2334,7 +2340,7 @@ export interface BusinessUnitAssociateAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2404,7 +2410,7 @@ export interface BusinessUnitAssociateChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2474,7 +2480,7 @@ export interface BusinessUnitAssociateModeChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2550,7 +2556,7 @@ export interface BusinessUnitAssociateRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2620,7 +2626,7 @@ export interface BusinessUnitAssociatesSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2690,7 +2696,7 @@ export interface BusinessUnitBillingAddressAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2760,7 +2766,7 @@ export interface BusinessUnitBillingAddressRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2830,7 +2836,7 @@ export interface BusinessUnitContactEmailSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2868,7 +2874,7 @@ export interface BusinessUnitContactEmailSetMessage {
   readonly contactEmail?: string
 }
 /**
- *	Generated after a successful [Create BusinessUnit](/projects/business-units#create-businessunit) request.
+ *	Generated after a successful [Create BusinessUnit](ctp:api:endpoint:/{projectKey}/business-units:POST) request.
  *
  */
 export interface BusinessUnitCreatedMessage {
@@ -2900,7 +2906,7 @@ export interface BusinessUnitCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -2970,7 +2976,7 @@ export interface BusinessUnitCustomFieldAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3045,7 +3051,7 @@ export interface BusinessUnitCustomFieldChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3127,7 +3133,7 @@ export interface BusinessUnitCustomFieldRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3197,7 +3203,7 @@ export interface BusinessUnitCustomTypeRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3267,7 +3273,7 @@ export interface BusinessUnitCustomTypeSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3342,7 +3348,7 @@ export interface BusinessUnitDefaultBillingAddressSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3412,7 +3418,7 @@ export interface BusinessUnitDefaultShippingAddressSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3482,7 +3488,7 @@ export interface BusinessUnitDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3546,7 +3552,7 @@ export interface BusinessUnitNameChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3616,7 +3622,7 @@ export interface BusinessUnitParentChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3692,7 +3698,7 @@ export interface BusinessUnitShippingAddressAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3762,7 +3768,7 @@ export interface BusinessUnitShippingAddressRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3832,7 +3838,7 @@ export interface BusinessUnitStatusChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3902,7 +3908,7 @@ export interface BusinessUnitStoreAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -3972,7 +3978,7 @@ export interface BusinessUnitStoreModeChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4060,7 +4066,7 @@ export interface BusinessUnitStoreRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4130,7 +4136,7 @@ export interface BusinessUnitStoresSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4168,7 +4174,351 @@ export interface BusinessUnitStoresSetMessage {
   readonly stores: StoreKeyReference[]
 }
 /**
- *	Generated after a successful [Create Category](/../api/projects/categories#create-category) request.
+ *	Generated after a successful [Create CartDiscount](ctp:api:endpoint:/{projectKey}/cart-discounts:POST) request.
+ *
+ */
+export interface CartDiscountCreatedMessage {
+  readonly type: 'CartDiscountCreated'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The [Cart Discount](ctp:api:type:CartDiscount) that was created.
+   *
+   *
+   */
+  readonly cartDiscount: CartDiscount
+}
+/**
+ *	Generated after a successful [Delete CartDiscount](ctp:api:endpoint:/{projectKey}/cart-discounts/{id}:DELETE) request.
+ *
+ */
+export interface CartDiscountDeletedMessage {
+  readonly type: 'CartDiscountDeleted'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+}
+/**
+ *	Generated after a successful [Add Store](ctp:api:type:CartDiscountAddStoreAction) update action.
+ *
+ */
+export interface CartDiscountStoreAddedMessage {
+  readonly type: 'CartDiscountStoreAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The [Store](ctp:api:type:Store) that was added to the [Cart Discount](ctp:api:type:CartDiscount).
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+}
+/**
+ *	Generated after a successful [Remove Store](ctp:api:type:CartDiscountRemoveStoreAction) update action.
+ *
+ */
+export interface CartDiscountStoreRemovedMessage {
+  readonly type: 'CartDiscountStoreRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The [Store](ctp:api:type:Store) that was removed from the [Cart Discount](ctp:api:type:CartDiscount).
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+}
+/**
+ *	Generated after a successful [Set Stores](ctp:api:type:CartDiscountSetStoresAction) update action.
+ *
+ */
+export interface CartDiscountStoresSetMessage {
+  readonly type: 'CartDiscountStoresSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[Stores](ctp:api:type:Store) of the [Cart Discount](ctp:api:type:CartDiscount) after the [Set Stores](ctp:api:type:CartDiscountSetStoresAction) update action.
+   *
+   *
+   */
+  readonly stores: StoreKeyReference[]
+}
+/**
+ *	Generated after a successful [Create Category](ctp:api:endpoint:/{projectKey}/categories:POST) request.
  *
  */
 export interface CategoryCreatedMessage {
@@ -4200,7 +4550,7 @@ export interface CategoryCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4270,7 +4620,7 @@ export interface CategorySlugChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4346,7 +4696,7 @@ export interface CustomerAddressAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4416,7 +4766,7 @@ export interface CustomerAddressChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4487,7 +4837,7 @@ export interface CustomerAddressCustomFieldAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4562,7 +4912,7 @@ export interface CustomerAddressCustomFieldChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4645,7 +4995,7 @@ export interface CustomerAddressCustomFieldRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4715,7 +5065,7 @@ export interface CustomerAddressCustomTypeRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4785,7 +5135,7 @@ export interface CustomerAddressCustomTypeSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4860,7 +5210,7 @@ export interface CustomerAddressRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4930,7 +5280,7 @@ export interface CustomerCompanyNameSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -4968,7 +5318,7 @@ export interface CustomerCompanyNameSetMessage {
   readonly companyName?: string
 }
 /**
- *	Generated after a successful [Create Customer](/../api/projects/customers#create-sign-up-customer) request.
+ *	Generated after a successful [Create Customer](ctp:api:endpoint:/{projectKey}/customers:POST) request.
  *
  */
 export interface CustomerCreatedMessage {
@@ -5000,7 +5350,7 @@ export interface CustomerCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5071,7 +5421,7 @@ export interface CustomerCustomFieldAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5146,7 +5496,7 @@ export interface CustomerCustomFieldChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5229,7 +5579,7 @@ export interface CustomerCustomFieldRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5299,7 +5649,7 @@ export interface CustomerCustomTypeRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5369,7 +5719,7 @@ export interface CustomerCustomTypeSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5444,7 +5794,7 @@ export interface CustomerDateOfBirthSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5514,7 +5864,7 @@ export interface CustomerDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5578,7 +5928,7 @@ export interface CustomerEmailChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5616,7 +5966,7 @@ export interface CustomerEmailChangedMessage {
   readonly email: string
 }
 /**
- *	Generated after a successful [Create email token for Customer](/../api/projects/customers#create-email-token-for-customer) request. The `resource` property of the Message is a [CustomerEmailTokenReference](ctp:api:type:CustomerEmailTokenReference).
+ *	Generated after a successful [Create email token for Customer](ctp:api:endpoint:/{projectKey}/customers/email-token:POST) request. The `resource` property of the Message is a [CustomerEmailTokenReference](ctp:api:type:CustomerEmailTokenReference).
  *
  */
 export interface CustomerEmailTokenCreatedMessage {
@@ -5648,7 +5998,7 @@ export interface CustomerEmailTokenCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5692,7 +6042,7 @@ export interface CustomerEmailTokenCreatedMessage {
   readonly expiresAt: string
 }
 /**
- *	Generated after a successful [Verify Customer's Email](/../api/projects/customers#verify-email-of-customer) request.
+ *	Generated after a successful [Verify Customer's Email](ctp:api:endpoint:/{projectKey}/customers/email/confirm:POST) request.
  *
  */
 export interface CustomerEmailVerifiedMessage {
@@ -5724,7 +6074,7 @@ export interface CustomerEmailVerifiedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5788,7 +6138,7 @@ export interface CustomerFirstNameSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5859,7 +6209,7 @@ export interface CustomerGroupCustomFieldAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -5934,7 +6284,7 @@ export interface CustomerGroupCustomFieldChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6016,7 +6366,7 @@ export interface CustomerGroupCustomFieldRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6086,7 +6436,7 @@ export interface CustomerGroupCustomTypeRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6156,7 +6506,7 @@ export interface CustomerGroupCustomTypeSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6231,7 +6581,7 @@ export interface CustomerGroupSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6301,7 +6651,7 @@ export interface CustomerLastNameSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6339,7 +6689,7 @@ export interface CustomerLastNameSetMessage {
   readonly lastName?: string
 }
 /**
- *	Generated after a successful [Create password reset token for Customer](/../api/projects/customers#create-password-reset-token-for-customer) request.  The `resource` property of the Message is a [CustomerPasswordTokenReference](ctp:api:type:CustomerPasswordTokenReference).
+ *	Generated after a successful [Create password reset token for Customer](ctp:api:endpoint:/{projectKey}/customers/password-token:POST) request. The `resource` property of the Message is a [CustomerPasswordTokenReference](ctp:api:type:CustomerPasswordTokenReference).
  *
  */
 export interface CustomerPasswordTokenCreatedMessage {
@@ -6371,7 +6721,7 @@ export interface CustomerPasswordTokenCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6415,7 +6765,7 @@ export interface CustomerPasswordTokenCreatedMessage {
   readonly expiresAt: string
 }
 /**
- *	Generated after a successful [Reset Customer's Password](/../api/projects/customers#reset-password-of-customer), [Reset Customer's Password in a Store](/../api/projects/customers#reset-password-of-customer-in-store), [Change Customer's Password](/../api/projects/customers#change-password-of-customer), or [Change Customer's Password in a Store](/../api/projects/customers#change-password-of-customer-in-store) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
+ *	Generated after a successful [Reset Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST), [Reset Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password/reset:POST), [Change Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password:POST), or [Change Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password:POST) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
  *
  */
 export interface CustomerPasswordUpdatedMessage {
@@ -6447,7 +6797,7 @@ export interface CustomerPasswordUpdatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6478,7 +6828,7 @@ export interface CustomerPasswordUpdatedMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Whether the Customer's password was updated during the [Reset password](/../api/projects/customers#password-reset-of-customer) or [Change password](/../api/projects/customers#change-password-of-customer) flow.
+   *	Whether the Customer's password was updated during the [Reset password](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST) or [Change password](ctp:api:endpoint:/{projectKey}/customers/password:POST) flow.
    *
    *
    */
@@ -6517,7 +6867,7 @@ export interface CustomerTitleSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6555,7 +6905,7 @@ export interface CustomerTitleSetMessage {
   readonly title?: string
 }
 /**
- *	Generated after a successful [Create InventoryEntry](/../api/projects/inventory#create-inventoryentry) request.
+ *	Generated after a successful [Create InventoryEntry](ctp:api:endpoint:/{projectKey}/inventory:POST) request.
  *
  */
 export interface InventoryEntryCreatedMessage {
@@ -6587,7 +6937,7 @@ export interface InventoryEntryCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6657,7 +7007,7 @@ export interface InventoryEntryDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6702,7 +7052,7 @@ export interface InventoryEntryDeletedMessage {
 }
 /**
  *	Generated after a successful [Add Quantity](ctp:api:type:InventoryEntryAddQuantityAction), [Remove Quantity](ctp:api:type:InventoryEntryRemoveQuantityAction) or [Change Quantity](ctp:api:type:InventoryEntryChangeQuantityAction) update action.
- *	Inventory changes as a result of [Order creation](/../api/projects/orders#create-order) do not trigger this message.
+ *	Inventory changes as a result of [Order creation](ctp:api:endpoint:/{projectKey}/orders:POST) do not trigger this message.
  *
  */
 export interface InventoryEntryQuantitySetMessage {
@@ -6734,7 +7084,7 @@ export interface InventoryEntryQuantitySetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -6952,7 +7302,7 @@ export interface CustomLineItemStateTransitionMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7052,7 +7402,7 @@ export interface DeliveryAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7128,7 +7478,7 @@ export interface DeliveryAddressSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7216,7 +7566,7 @@ export interface DeliveryItemsUpdatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7304,7 +7654,7 @@ export interface DeliveryRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7380,7 +7730,7 @@ export interface LineItemStateTransitionMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7480,7 +7830,7 @@ export interface OrderBillingAddressSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7524,7 +7874,7 @@ export interface OrderBillingAddressSetMessage {
   readonly oldAddress?: Address
 }
 /**
- *	Generated after a successful [Create Order](/../api/projects/orders#create-order) request.
+ *	Generated after a successful [Create Order](ctp:api:endpoint:/{projectKey}/orders:POST) request.
  *
  */
 export interface OrderCreatedMessage {
@@ -7556,7 +7906,7 @@ export interface OrderCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7626,7 +7976,7 @@ export interface OrderCustomFieldAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7701,7 +8051,7 @@ export interface OrderCustomFieldChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7784,7 +8134,7 @@ export interface OrderCustomFieldRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7854,7 +8204,7 @@ export interface OrderCustomLineItemAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -7924,7 +8274,7 @@ export interface OrderCustomLineItemDiscountSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8012,7 +8362,7 @@ export interface OrderCustomLineItemQuantityChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8100,7 +8450,7 @@ export interface OrderCustomLineItemRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8182,7 +8532,7 @@ export interface OrderCustomTypeRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8252,7 +8602,7 @@ export interface OrderCustomTypeSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8327,7 +8677,7 @@ export interface OrderCustomerEmailSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8403,7 +8753,7 @@ export interface OrderCustomerGroupSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8479,7 +8829,7 @@ export interface OrderCustomerSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8567,7 +8917,7 @@ export interface OrderDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8637,7 +8987,7 @@ export interface OrderDiscountCodeAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8707,7 +9057,7 @@ export interface OrderDiscountCodeRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8777,7 +9127,7 @@ export interface OrderDiscountCodeStateSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8859,7 +9209,7 @@ export interface OrderEditAppliedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -8935,7 +9285,7 @@ export interface OrderImportedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9005,7 +9355,7 @@ export interface OrderLineItemAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9081,7 +9431,7 @@ export interface OrderLineItemDiscountSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9142,7 +9492,8 @@ export interface OrderLineItemDiscountSetMessage {
    */
   readonly taxedPrice?: TaxedItemPrice
   /**
-   *	Taxed price of the Shipping Methods in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Total taxed prices based on the quantity of Line Item assigned to each [Shipping Method](ctp:api:type:ShippingMethod). Only applicable for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Automatically set after `perMethodTaxRate` is set.
    *
    *
    */
@@ -9181,7 +9532,7 @@ export interface OrderLineItemDistributionChannelSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9263,7 +9614,7 @@ export interface OrderLineItemRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9381,7 +9732,7 @@ export interface OrderPaymentAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9451,7 +9802,7 @@ export interface OrderPaymentStateChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9527,7 +9878,7 @@ export interface OrderPurchaseOrderNumberSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9603,7 +9954,7 @@ export interface OrderReturnShipmentStateChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9679,7 +10030,7 @@ export interface OrderShipmentStateChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9755,7 +10106,7 @@ export interface OrderShippingAddressSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9831,7 +10182,7 @@ export interface OrderShippingInfoSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9907,7 +10258,7 @@ export interface OrderShippingRateInputSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -9983,7 +10334,7 @@ export interface OrderStateChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10059,7 +10410,7 @@ export interface OrderStateTransitionMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10141,7 +10492,7 @@ export interface OrderStoreSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10211,7 +10562,7 @@ export interface ParcelAddedToDeliveryMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10293,7 +10644,7 @@ export interface ParcelItemsUpdatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10387,7 +10738,7 @@ export interface ParcelMeasurementsUpdatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10475,7 +10826,7 @@ export interface ParcelRemovedFromDeliveryMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10557,7 +10908,7 @@ export interface ParcelTrackingDataUpdatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10613,7 +10964,7 @@ export interface ParcelTrackingDataUpdatedMessage {
   readonly shippingKey?: string
 }
 /**
- *	Generated after a successful [Create Payment](/../api/projects/payments#create-payment) request.
+ *	Generated after a successful [Create Payment](ctp:api:endpoint:/{projectKey}/payments:POST) request.
  *
  */
 export interface PaymentCreatedMessage {
@@ -10645,7 +10996,7 @@ export interface PaymentCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10715,7 +11066,7 @@ export interface PaymentInteractionAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10785,7 +11136,7 @@ export interface PaymentStatusInterfaceCodeSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10855,7 +11206,7 @@ export interface PaymentStatusStateTransitionMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -10931,7 +11282,7 @@ export interface PaymentTransactionAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11001,7 +11352,7 @@ export interface PaymentTransactionStateChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11077,7 +11428,7 @@ export interface ProductAddedToCategoryMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11121,7 +11472,7 @@ export interface ProductAddedToCategoryMessage {
   readonly staged: boolean
 }
 /**
- *	Generated after a successful [Create Product](/../api/projects/products#create-product) request.
+ *	Generated after a successful [Create Product](ctp:api:endpoint:/{projectKey}/products:POST) request.
  *
  */
 export interface ProductCreatedMessage {
@@ -11153,7 +11504,7 @@ export interface ProductCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11223,7 +11574,7 @@ export interface ProductDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11299,7 +11650,7 @@ export interface ProductImageAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11381,7 +11732,7 @@ export interface ProductPriceAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11463,7 +11814,7 @@ export interface ProductPriceChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11557,7 +11908,7 @@ export interface ProductPriceDiscountsSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11669,7 +12020,7 @@ export interface ProductPriceExternalDiscountSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11769,7 +12120,7 @@ export interface ProductPriceKeySetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11861,7 +12212,7 @@ export interface ProductPriceModeSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -11931,7 +12282,7 @@ export interface ProductPriceRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12013,7 +12364,7 @@ export interface ProductPricesSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12095,7 +12446,7 @@ export interface ProductPublishedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12177,7 +12528,7 @@ export interface ProductRemovedFromCategoryMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12253,7 +12604,7 @@ export interface ProductRevertedStagedChangesMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12291,7 +12642,7 @@ export interface ProductRevertedStagedChangesMessage {
   readonly removedImageUrls: string[]
 }
 /**
- *	Generated after a successful [Create Product Selection](/../api/projects/product-selections#create-productselection) request.
+ *	Generated after a successful [Create Product Selection](ctp:api:endpoint:/{projectKey}/product-selections:POST) request.
  *
  */
 export interface ProductSelectionCreatedMessage {
@@ -12323,7 +12674,7 @@ export interface ProductSelectionCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12393,7 +12744,7 @@ export interface ProductSelectionDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12457,7 +12808,7 @@ export interface ProductSelectionProductAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12533,7 +12884,7 @@ export interface ProductSelectionProductExcludedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12609,7 +12960,7 @@ export interface ProductSelectionProductRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12679,7 +13030,7 @@ export interface ProductSelectionVariantExclusionChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12759,7 +13110,7 @@ export interface ProductSelectionVariantSelectionChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12839,7 +13190,7 @@ export interface ProductSlugChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12915,7 +13266,7 @@ export interface ProductStateTransitionMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -12990,7 +13341,7 @@ export interface ProductUnpublishedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -13054,7 +13405,7 @@ export interface ProductVariantAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -13130,7 +13481,7 @@ export interface ProductVariantDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -13174,7 +13525,7 @@ export interface ProductVariantDeletedMessage {
   readonly removedImageUrls: string[]
 }
 /**
- *	Generated after a successful [Create Quote](/../api/projects/quotes#create-quote) request.
+ *	Generated after a successful [Create Quote](ctp:api:endpoint:/{projectKey}/quotes:POST) request.
  *
  */
 export interface QuoteCreatedMessage {
@@ -13206,7 +13557,7 @@ export interface QuoteCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -13276,7 +13627,7 @@ export interface QuoteCustomerChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -13352,7 +13703,7 @@ export interface QuoteDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -13416,7 +13767,7 @@ export interface QuoteRenegotiationRequestedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -13454,7 +13805,7 @@ export interface QuoteRenegotiationRequestedMessage {
   readonly buyerComment?: string
 }
 /**
- *	Generated after a successful [Create QuoteRequest](/../api/projects/quote-requests#create-quoterequest) request.
+ *	Generated after a successful [Create QuoteRequest](ctp:api:endpoint:/{projectKey}/quote-requests:POST) request.
  *
  */
 export interface QuoteRequestCreatedMessage {
@@ -13486,7 +13837,7 @@ export interface QuoteRequestCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -13556,7 +13907,7 @@ export interface QuoteRequestCustomerChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -13632,7 +13983,7 @@ export interface QuoteRequestDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -13696,7 +14047,7 @@ export interface QuoteRequestStateChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -13772,7 +14123,7 @@ export interface QuoteRequestStateTransitionMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -13854,7 +14205,7 @@ export interface QuoteStateChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -13930,7 +14281,7 @@ export interface QuoteStateTransitionMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -14012,7 +14363,7 @@ export interface ReturnInfoAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -14082,7 +14433,7 @@ export interface ReturnInfoSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -14120,7 +14471,7 @@ export interface ReturnInfoSetMessage {
   readonly returnInfo?: ReturnInfo[]
 }
 /**
- *	Generated after a successful [Create Review](/../api/projects/reviews#create-review) request.
+ *	Generated after a successful [Create Review](ctp:api:endpoint:/{projectKey}/reviews:POST) request.
  *
  */
 export interface ReviewCreatedMessage {
@@ -14152,7 +14503,7 @@ export interface ReviewCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -14222,7 +14573,7 @@ export interface ReviewRatingSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -14310,7 +14661,7 @@ export interface ReviewStateTransitionMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -14378,7 +14729,7 @@ export interface ReviewStateTransitionMessage {
   readonly force: boolean
 }
 /**
- *	Generated after a successful [Create StagedQuote](/../api/projects/staged-quotes#create-stagedquote) request.
+ *	Generated after a successful [Create StagedQuote](ctp:api:endpoint:/{projectKey}/staged-quotes:POST) request.
  *
  */
 export interface StagedQuoteCreatedMessage {
@@ -14410,7 +14761,7 @@ export interface StagedQuoteCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -14480,7 +14831,7 @@ export interface StagedQuoteDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -14544,7 +14895,7 @@ export interface StagedQuoteSellerCommentSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -14614,7 +14965,7 @@ export interface StagedQuoteStateChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -14690,7 +15041,7 @@ export interface StagedQuoteStateTransitionMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -14772,7 +15123,7 @@ export interface StagedQuoteValidToSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -14842,7 +15193,7 @@ export interface StandalonePriceActiveChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -14886,7 +15237,7 @@ export interface StandalonePriceActiveChangedMessage {
   readonly oldActive: boolean
 }
 /**
- *	Generated after a successful [Create StandalonePrice](/../api/projects/standalone-prices#create-standaloneprice) request.
+ *	Generated after a successful [Create StandalonePrice](ctp:api:endpoint:/{projectKey}/standalone-prices:POST) request.
  *
  */
 export interface StandalonePriceCreatedMessage {
@@ -14918,7 +15269,7 @@ export interface StandalonePriceCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -14988,7 +15339,7 @@ export interface StandalonePriceDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -15058,7 +15409,7 @@ export interface StandalonePriceDiscountSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -15128,7 +15479,7 @@ export interface StandalonePriceExternalDiscountSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -15198,7 +15549,7 @@ export interface StandalonePriceKeySetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -15274,7 +15625,7 @@ export interface StandalonePriceStagedChangesAppliedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -15344,7 +15695,7 @@ export interface StandalonePriceStagedChangesRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -15414,7 +15765,7 @@ export interface StandalonePriceTierAddedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -15484,7 +15835,7 @@ export interface StandalonePriceTierRemovedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -15554,7 +15905,7 @@ export interface StandalonePriceTiersSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -15630,7 +15981,7 @@ export interface StandalonePriceValidFromAndUntilSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -15718,7 +16069,7 @@ export interface StandalonePriceValidFromSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -15794,7 +16145,7 @@ export interface StandalonePriceValidUntilSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -15870,7 +16221,7 @@ export interface StandalonePriceValueChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -15955,7 +16306,7 @@ export interface StoreCountriesChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -15999,7 +16350,7 @@ export interface StoreCountriesChangedMessage {
   readonly removedCountries?: StoreCountry[]
 }
 /**
- *	Generated after a successful [Create Store](/../api/projects/stores#create-store) request.
+ *	Generated after a successful [Create Store](ctp:api:endpoint:/{projectKey}/stores:POST) request.
  *
  */
 export interface StoreCreatedMessage {
@@ -16031,7 +16382,7 @@ export interface StoreCreatedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -16105,7 +16456,7 @@ export interface StoreCreatedMessage {
   readonly custom?: CustomFields
 }
 /**
- *	Generated after a successful [Delete Store](/../api/projects/quote-requests#delete-quoterequest) request.
+ *	Generated after a successful [Delete Store](/../api/projects/stores#delete-store) request.
  *
  */
 export interface StoreDeletedMessage {
@@ -16137,7 +16488,7 @@ export interface StoreDeletedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -16203,7 +16554,7 @@ export interface StoreDistributionChannelsChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -16278,7 +16629,7 @@ export interface StoreLanguagesChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -16354,7 +16705,7 @@ export interface StoreNameSetMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -16433,7 +16784,7 @@ export interface StoreProductSelectionsChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -16517,7 +16868,7 @@ export interface StoreSupplyChannelsChangedMessage {
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -16654,6 +17005,11 @@ export type MessagePayload =
   | BusinessUnitStoreModeChangedMessagePayload
   | BusinessUnitStoreRemovedMessagePayload
   | BusinessUnitStoresSetMessagePayload
+  | CartDiscountCreatedMessagePayload
+  | CartDiscountDeletedMessagePayload
+  | CartDiscountStoreAddedMessagePayload
+  | CartDiscountStoreRemovedMessagePayload
+  | CartDiscountStoresSetMessagePayload
   | CategoryCreatedMessagePayload
   | CategorySlugChangedMessagePayload
   | CustomLineItemStateTransitionMessagePayload
@@ -17052,7 +17408,7 @@ export interface AssociateRoleBuyerAssignableChangedMessagePayload {
   readonly buyerAssignable: boolean
 }
 /**
- *	Generated after a successful [Create AssociateRole](/projects/associate-roles#create-associaterole) request.
+ *	Generated after a successful [Create AssociateRole](ctp:api:endpoint:/{projectKey}/associate-roles:POST) request.
  *
  */
 export interface AssociateRoleCreatedMessagePayload {
@@ -17360,7 +17716,7 @@ export interface BusinessUnitContactEmailSetMessagePayload {
   readonly contactEmail?: string
 }
 /**
- *	Generated after a successful [Create BusinessUnit](/projects/business-units#create-businessunit) request.
+ *	Generated after a successful [Create BusinessUnit](ctp:api:endpoint:/{projectKey}/business-units:POST) request.
  *
  */
 export interface BusinessUnitCreatedMessagePayload {
@@ -17634,7 +17990,66 @@ export interface BusinessUnitStoresSetMessagePayload {
   readonly stores: StoreKeyReference[]
 }
 /**
- *	Generated after a successful [Create Category](/../api/projects/categories#create-category) request.
+ *	Generated after a successful [Create CartDiscount](ctp:api:endpoint:/{projectKey}/cart-discounts:POST) request.
+ *
+ */
+export interface CartDiscountCreatedMessagePayload {
+  readonly type: 'CartDiscountCreated'
+  /**
+   *	The [Cart Discount](ctp:api:type:CartDiscount) that was created.
+   *
+   *
+   */
+  readonly cartDiscount: CartDiscount
+}
+/**
+ *	Generated after a successful [Delete CartDiscount](ctp:api:endpoint:/{projectKey}/cart-discounts/{id}:DELETE) request.
+ *
+ */
+export interface CartDiscountDeletedMessagePayload {
+  readonly type: 'CartDiscountDeleted'
+}
+/**
+ *	Generated after a successful [Add Store](ctp:api:type:CartDiscountAddStoreAction) update action.
+ *
+ */
+export interface CartDiscountStoreAddedMessagePayload {
+  readonly type: 'CartDiscountStoreAdded'
+  /**
+   *	The [Store](ctp:api:type:Store) that was added to the [Cart Discount](ctp:api:type:CartDiscount).
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+}
+/**
+ *	Generated after a successful [Remove Store](ctp:api:type:CartDiscountRemoveStoreAction) update action.
+ *
+ */
+export interface CartDiscountStoreRemovedMessagePayload {
+  readonly type: 'CartDiscountStoreRemoved'
+  /**
+   *	The [Store](ctp:api:type:Store) that was removed from the [Cart Discount](ctp:api:type:CartDiscount).
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+}
+/**
+ *	Generated after a successful [Set Stores](ctp:api:type:CartDiscountSetStoresAction) update action.
+ *
+ */
+export interface CartDiscountStoresSetMessagePayload {
+  readonly type: 'CartDiscountStoresSet'
+  /**
+   *	[Stores](ctp:api:type:Store) of the [Cart Discount](ctp:api:type:CartDiscount) after the [Set Stores](ctp:api:type:CartDiscountSetStoresAction) update action.
+   *
+   *
+   */
+  readonly stores: StoreKeyReference[]
+}
+/**
+ *	Generated after a successful [Create Category](ctp:api:endpoint:/{projectKey}/categories:POST) request.
  *
  */
 export interface CategoryCreatedMessagePayload {
@@ -17807,7 +18222,7 @@ export interface CustomerCompanyNameSetMessagePayload {
   readonly companyName?: string
 }
 /**
- *	Generated after a successful [Create Customer](/../api/projects/customers#create-sign-up-customer) request.
+ *	Generated after a successful [Create Customer](ctp:api:endpoint:/{projectKey}/customers:POST) request.
  *
  */
 export interface CustomerCreatedMessagePayload {
@@ -17942,7 +18357,7 @@ export interface CustomerEmailChangedMessagePayload {
   readonly email: string
 }
 /**
- *	Generated after a successful [Create email token for Customer](/../api/projects/customers#create-email-token-for-customer) request. The `resource` property of the Message is a [CustomerEmailTokenReference](ctp:api:type:CustomerEmailTokenReference).
+ *	Generated after a successful [Create email token for Customer](ctp:api:endpoint:/{projectKey}/customers/email-token:POST) request. The `resource` property of the Message is a [CustomerEmailTokenReference](ctp:api:type:CustomerEmailTokenReference).
  *
  */
 export interface CustomerEmailTokenCreatedMessagePayload {
@@ -17961,7 +18376,7 @@ export interface CustomerEmailTokenCreatedMessagePayload {
   readonly expiresAt: string
 }
 /**
- *	Generated after a successful [Verify Customer's Email](/../api/projects/customers#verify-email-of-customer) request.
+ *	Generated after a successful [Verify Customer's Email](ctp:api:endpoint:/{projectKey}/customers/email/confirm:POST) request.
  *
  */
 export interface CustomerEmailVerifiedMessagePayload {
@@ -18095,7 +18510,7 @@ export interface CustomerLastNameSetMessagePayload {
   readonly lastName?: string
 }
 /**
- *	Generated after a successful [Create password reset token for Customer](/../api/projects/customers#create-password-reset-token-for-customer) request.  The `resource` property of the Message is a [CustomerPasswordTokenReference](ctp:api:type:CustomerPasswordTokenReference).
+ *	Generated after a successful [Create password reset token for Customer](ctp:api:endpoint:/{projectKey}/customers/password-token:POST) request. The `resource` property of the Message is a [CustomerPasswordTokenReference](ctp:api:type:CustomerPasswordTokenReference).
  *
  */
 export interface CustomerPasswordTokenCreatedMessagePayload {
@@ -18114,13 +18529,13 @@ export interface CustomerPasswordTokenCreatedMessagePayload {
   readonly expiresAt: string
 }
 /**
- *	Generated after a successful [Reset Customer's Password](/../api/projects/customers#reset-password-of-customer), [Reset Customer's Password in a Store](/../api/projects/customers#reset-password-of-customer-in-store), [Change Customer's Password](/../api/projects/customers#change-password-of-customer), or [Change Customer's Password in a Store](/../api/projects/customers#change-password-of-customer-in-store) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
+ *	Generated after a successful [Reset Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST), [Reset Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password/reset:POST), [Change Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password:POST), or [Change Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password:POST) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
  *
  */
 export interface CustomerPasswordUpdatedMessagePayload {
   readonly type: 'CustomerPasswordUpdated'
   /**
-   *	Whether the Customer's password was updated during the [Reset password](/../api/projects/customers#password-reset-of-customer) or [Change password](/../api/projects/customers#change-password-of-customer) flow.
+   *	Whether the Customer's password was updated during the [Reset password](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST) or [Change password](ctp:api:endpoint:/{projectKey}/customers/password:POST) flow.
    *
    *
    */
@@ -18140,7 +18555,7 @@ export interface CustomerTitleSetMessagePayload {
   readonly title?: string
 }
 /**
- *	Generated after a successful [Create InventoryEntry](/../api/projects/inventory#create-inventoryentry) request.
+ *	Generated after a successful [Create InventoryEntry](ctp:api:endpoint:/{projectKey}/inventory:POST) request.
  *
  */
 export interface InventoryEntryCreatedMessagePayload {
@@ -18173,7 +18588,7 @@ export interface InventoryEntryDeletedMessagePayload {
 }
 /**
  *	Generated after a successful [Add Quantity](ctp:api:type:InventoryEntryAddQuantityAction), [Remove Quantity](ctp:api:type:InventoryEntryRemoveQuantityAction) or [Change Quantity](ctp:api:type:InventoryEntryChangeQuantityAction) update action.
- *	Inventory changes as a result of [Order creation](/../api/projects/orders#create-order) do not trigger this message.
+ *	Inventory changes as a result of [Order creation](ctp:api:endpoint:/{projectKey}/orders:POST) do not trigger this message.
  *
  */
 export interface InventoryEntryQuantitySetMessagePayload {
@@ -18463,7 +18878,7 @@ export interface OrderBillingAddressSetMessagePayload {
   readonly oldAddress?: Address
 }
 /**
- *	Generated after a successful [Create Order](/../api/projects/orders#create-order) request.
+ *	Generated after a successful [Create Order](ctp:api:endpoint:/{projectKey}/orders:POST) request.
  *
  */
 export interface OrderCreatedMessagePayload {
@@ -18884,7 +19299,8 @@ export interface OrderLineItemDiscountSetMessagePayload {
    */
   readonly taxedPrice?: TaxedItemPrice
   /**
-   *	Taxed price of the Shipping Methods in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Total taxed prices based on the quantity of Line Item assigned to each [Shipping Method](ctp:api:type:ShippingMethod). Only applicable for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Automatically set after `perMethodTaxRate` is set.
    *
    *
    */
@@ -19329,7 +19745,7 @@ export interface ParcelTrackingDataUpdatedMessagePayload {
   readonly shippingKey?: string
 }
 /**
- *	Generated after a successful [Create Payment](/../api/projects/payments#create-payment) request.
+ *	Generated after a successful [Create Payment](ctp:api:endpoint:/{projectKey}/payments:POST) request.
  *
  */
 export interface PaymentCreatedMessagePayload {
@@ -19438,7 +19854,7 @@ export interface ProductAddedToCategoryMessagePayload {
   readonly staged: boolean
 }
 /**
- *	Generated after a successful [Create Product](/../api/projects/products#create-product) request.
+ *	Generated after a successful [Create Product](ctp:api:endpoint:/{projectKey}/products:POST) request.
  *
  */
 export interface ProductCreatedMessagePayload {
@@ -19768,7 +20184,7 @@ export interface ProductRevertedStagedChangesMessagePayload {
   readonly removedImageUrls: string[]
 }
 /**
- *	Generated after a successful [Create Product Selection](/../api/projects/product-selections#create-productselection) request.
+ *	Generated after a successful [Create Product Selection](ctp:api:endpoint:/{projectKey}/product-selections:POST) request.
  *
  */
 export interface ProductSelectionCreatedMessagePayload {
@@ -19967,7 +20383,7 @@ export interface ProductVariantDeletedMessagePayload {
   readonly removedImageUrls: string[]
 }
 /**
- *	Generated after a successful [Create Quote](/../api/projects/quotes#create-quote) request.
+ *	Generated after a successful [Create Quote](ctp:api:endpoint:/{projectKey}/quotes:POST) request.
  *
  */
 export interface QuoteCreatedMessagePayload {
@@ -20019,7 +20435,7 @@ export interface QuoteRenegotiationRequestedMessagePayload {
   readonly buyerComment?: string
 }
 /**
- *	Generated after a successful [Create QuoteRequest](/../api/projects/quote-requests#create-quoterequest) request.
+ *	Generated after a successful [Create QuoteRequest](ctp:api:endpoint:/{projectKey}/quote-requests:POST) request.
  *
  */
 export interface QuoteRequestCreatedMessagePayload {
@@ -20172,7 +20588,7 @@ export interface ReturnInfoSetMessagePayload {
   readonly returnInfo?: ReturnInfo[]
 }
 /**
- *	Generated after a successful [Create Review](/../api/projects/reviews#create-review) request.
+ *	Generated after a successful [Create Review](ctp:api:endpoint:/{projectKey}/reviews:POST) request.
  *
  */
 export interface ReviewCreatedMessagePayload {
@@ -20268,7 +20684,7 @@ export interface ShoppingListStoreSetMessagePayload {
   readonly store: StoreKeyReference
 }
 /**
- *	Generated after a successful [Create StagedQuote](/../api/projects/staged-quotes#create-stagedquote) request.
+ *	Generated after a successful [Create StagedQuote](ctp:api:endpoint:/{projectKey}/staged-quotes:POST) request.
  *
  */
 export interface StagedQuoteCreatedMessagePayload {
@@ -20377,7 +20793,7 @@ export interface StandalonePriceActiveChangedMessagePayload {
   readonly oldActive: boolean
 }
 /**
- *	Generated after a successful [Create StandalonePrice](/../api/projects/standalone-prices#create-standaloneprice) request.
+ *	Generated after a successful [Create StandalonePrice](ctp:api:endpoint:/{projectKey}/standalone-prices:POST) request.
  *
  */
 export interface StandalonePriceCreatedMessagePayload {
@@ -20635,7 +21051,7 @@ export interface StoreCountriesChangedMessagePayload {
   readonly removedCountries?: StoreCountry[]
 }
 /**
- *	Generated after a successful [Create Store](/../api/projects/stores#create-store) request.
+ *	Generated after a successful [Create Store](ctp:api:endpoint:/{projectKey}/stores:POST) request.
  *
  */
 export interface StoreCreatedMessagePayload {
@@ -20684,7 +21100,7 @@ export interface StoreCreatedMessagePayload {
   readonly custom?: CustomFields
 }
 /**
- *	Generated after a successful [Delete Store](/../api/projects/quote-requests#delete-quoterequest) request.
+ *	Generated after a successful [Delete Store](/../api/projects/stores#delete-store) request.
  *
  */
 export interface StoreDeletedMessagePayload {

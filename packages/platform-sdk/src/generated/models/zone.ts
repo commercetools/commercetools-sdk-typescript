@@ -45,13 +45,13 @@ export interface Zone extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/client-logging#events-tracked).
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
    *
    *
    */
@@ -160,19 +160,19 @@ export interface ZoneReference {
   readonly obj?: Zone
 }
 /**
- *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Zone](ctp:api:type:Zone).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Zone](ctp:api:type:Zone). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface ZoneResourceIdentifier {
   readonly typeId: 'zone'
   /**
-   *	Unique identifier of the referenced [Zone](ctp:api:type:Zone). Either `id` or `key` is required.
+   *	Unique identifier of the referenced [Zone](ctp:api:type:Zone). Required if `key` is absent.
    *
    *
    */
   readonly id?: string
   /**
-   *	User-defined unique identifier of the referenced [Zone](ctp:api:type:Zone). Either `id` or `key` is required.
+   *	User-defined unique identifier of the referenced [Zone](ctp:api:type:Zone). Required if `id` is absent.
    *
    *
    */
@@ -180,7 +180,8 @@ export interface ZoneResourceIdentifier {
 }
 export interface ZoneUpdate {
   /**
-   *	Expected version of the Zone on which the changes should be applied. If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error is returned.
+   *	Expected version of the Zone on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:api:type:ConcurrentModificationError) error will be returned.
    *
    *
    */

@@ -480,6 +480,11 @@ export interface TimeSetAttribute {
  */
 export interface ProductVariantImport extends ImportResource {
   /**
+   *	User-defined unique identifier. If a [ProductVariant](/../api/projects/products#productvariant) with this `key` exists on the specified `product`, it will be updated with the imported data.
+   *
+   */
+  readonly key: string
+  /**
    *	Maps to `ProductVariant.sku`.
    *
    *

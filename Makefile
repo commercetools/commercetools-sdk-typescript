@@ -7,7 +7,7 @@ HISTORY_RAML ?= $(RAML_FILE)
 
 .PHONY: build build_api_sdk build_import_sdk build_import_sdk build_history_sdk gen_api_sdk gen_import_sdk gen_ml_sdk gen_history_sdk
 
-build: codegen_install gen_api_sdk gen_import_sdk gen_ml_sdk gen_history_sdk post_process prettify verify
+build: codegen_install gen_api_sdk gen_import_sdk gen_history_sdk post_process prettify verify
 build_api_sdk: codegen_install gen_api_sdk post_process prettify verify
 build_import_sdk: codegen_install gen_import_sdk post_process  prettify verify
 build_ml_sdk: codegen_install gen_ml_sdk post_process  prettify verify

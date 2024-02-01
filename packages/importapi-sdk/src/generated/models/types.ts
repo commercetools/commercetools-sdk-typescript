@@ -240,7 +240,7 @@ export interface FieldDefinition {
  */
 export interface TypeImport extends ImportResource {
   /**
-   *	User-defined unique identifier for the Type.
+   *	User-defined unique identifier for the Type. If a [Type](/../api/projects/types#type) with this `key` exists, it will be updated with the imported data.
    *
    *
    */
