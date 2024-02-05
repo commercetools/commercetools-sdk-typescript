@@ -295,7 +295,7 @@ export interface ShippingRate {
    */
   readonly price: TypedMoney
   /**
-   *	[Free shipping](/../shipping-delivery-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
+   *	[Free shipping](/../api/shipping-delivery-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
    *
    */
   readonly freeAbove?: TypedMoney
@@ -320,7 +320,7 @@ export interface ShippingRateDraft {
    */
   readonly price: _Money
   /**
-   *	[Free shipping](/../shipping-delivery-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
+   *	[Free shipping](/../api/shipping-delivery-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
    *
    */
   readonly freeAbove?: _Money
