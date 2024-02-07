@@ -30,6 +30,11 @@ export interface DiscountCode extends BaseResource {
    */
   readonly id: string
   /**
+   *	User-defined unique identifier of the DiscountCode.
+   *
+   */
+  readonly key?: string
+  /**
    *	Current version of the DiscountCode.
    *
    *
@@ -149,6 +154,11 @@ export interface DiscountCode extends BaseResource {
   readonly applicationVersion?: number
 }
 export interface DiscountCodeDraft {
+  /**
+   *	User-defined unique identifier for the DiscountCode.
+   *
+   */
+  readonly key?: string
   /**
    *	Name of the DiscountCode.
    *
@@ -324,6 +334,7 @@ export type DiscountCodeUpdateAction =
   | DiscountCodeSetCustomFieldAction
   | DiscountCodeSetCustomTypeAction
   | DiscountCodeSetDescriptionAction
+  | DiscountCodeSetKeyAction
   | DiscountCodeSetMaxApplicationsAction
   | DiscountCodeSetMaxApplicationsPerCustomerAction
   | DiscountCodeSetNameAction
@@ -405,6 +416,20 @@ export interface DiscountCodeSetDescriptionAction {
    *
    */
   readonly description?: LocalizedString
+}
+/**
+ *	This action generates a [DiscountCodeKeySet](ctp:api:type:DiscountCodeKeySetMessage) Message.
+ *
+ */
+export interface DiscountCodeSetKeyAction {
+  readonly action: 'setKey'
+  /**
+   *	Unique value to set.
+   *	If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly key?: string
 }
 export interface DiscountCodeSetMaxApplicationsAction {
   readonly action: 'setMaxApplications'

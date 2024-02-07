@@ -11,6 +11,7 @@ import {
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyDiscountCodesByIDRequestBuilder } from './by-project-key-discount-codes-by-id-request-builder'
+import { ByProjectKeyDiscountCodesKeyByKeyRequestBuilder } from './by-project-key-discount-codes-key-by-key-request-builder'
 /**
  **/
 export class ByProjectKeyDiscountCodesRequestBuilder {
@@ -27,6 +28,18 @@ export class ByProjectKeyDiscountCodesRequestBuilder {
     ID: string
   }): ByProjectKeyDiscountCodesByIDRequestBuilder {
     return new ByProjectKeyDiscountCodesByIDRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+        ...childPathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public withKey(childPathArgs: {
+    key: string
+  }): ByProjectKeyDiscountCodesKeyByKeyRequestBuilder {
+    return new ByProjectKeyDiscountCodesKeyByKeyRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
         ...childPathArgs,
@@ -94,7 +107,10 @@ export class ByProjectKeyDiscountCodesRequestBuilder {
     )
   }
   /**
+   *	Creating a Discount Code produces the [DiscountCodeCreated](ctp:api:type:DiscountCodeCreatedMessage) Message.
+   *
    *	Deprecated scope: `manage_orders:{projectKey}`
+   *
    */
   public post(methodArgs: {
     queryArgs?: {
