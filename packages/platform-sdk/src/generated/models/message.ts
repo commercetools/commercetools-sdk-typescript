@@ -50,7 +50,7 @@ import {
 } from './common'
 import { Customer, CustomerReference } from './customer'
 import { CustomerGroupReference } from './customer-group'
-import { DiscountCodeReference } from './discount-code'
+import { DiscountCode, DiscountCodeReference } from './discount-code'
 import { InventoryEntry } from './inventory'
 import {
   Delivery,
@@ -212,6 +212,9 @@ export type Message =
   | DeliveryAddressSetMessage
   | DeliveryItemsUpdatedMessage
   | DeliveryRemovedMessage
+  | DiscountCodeCreatedMessage
+  | DiscountCodeDeletedMessage
+  | DiscountCodeKeySetMessage
   | InventoryEntryCreatedMessage
   | InventoryEntryDeletedMessage
   | InventoryEntryQuantitySetMessage
@@ -6903,6 +6906,216 @@ export interface CustomerTitleSetMessage {
    *
    */
   readonly title?: string
+}
+/**
+ *	Generated after a successful [Create DiscountCode](ctp:api:endpoint:/{projectKey}/discount-codes:POST) request.
+ *
+ */
+export interface DiscountCodeCreatedMessage {
+  readonly type: 'DiscountCodeCreated'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The [Discount Code](ctp:api:type:DiscountCode) that was created.
+   *
+   *
+   */
+  readonly discountCode: DiscountCode
+}
+/**
+ *	Generated after a successful [Delete DiscountCode](ctp:api:endpoint:/{projectKey}/discount-codes/{id}:DELETE) request.
+ *
+ */
+export interface DiscountCodeDeletedMessage {
+  readonly type: 'DiscountCodeDeleted'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+}
+/**
+ *	Generated after a successful [Set Key](ctp:api:type:DiscountCodeSetKeyAction) update action.
+ *
+ */
+export interface DiscountCodeKeySetMessage {
+  readonly type: 'DiscountCodeKeySet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	`key` value of the [Discount Code](ctp:api:type:DiscountCode) after the [Set Key](ctp:api:type:DiscountCodeSetKeyAction) update action.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	`key` value of the [Discount Code](ctp:api:type:DiscountCode) before the [Set Key](ctp:api:type:DiscountCodeSetKeyAction) update action.
+   *
+   *
+   */
+  readonly oldKey?: string
 }
 /**
  *	Generated after a successful [Create InventoryEntry](ctp:api:endpoint:/{projectKey}/inventory:POST) request.
@@ -17048,6 +17261,9 @@ export type MessagePayload =
   | DeliveryAddressSetMessagePayload
   | DeliveryItemsUpdatedMessagePayload
   | DeliveryRemovedMessagePayload
+  | DiscountCodeCreatedMessagePayload
+  | DiscountCodeDeletedMessagePayload
+  | DiscountCodeKeySetMessagePayload
   | InventoryEntryCreatedMessagePayload
   | InventoryEntryDeletedMessagePayload
   | InventoryEntryQuantitySetMessagePayload
@@ -18553,6 +18769,45 @@ export interface CustomerTitleSetMessagePayload {
    *
    */
   readonly title?: string
+}
+/**
+ *	Generated after a successful [Create DiscountCode](ctp:api:endpoint:/{projectKey}/discount-codes:POST) request.
+ *
+ */
+export interface DiscountCodeCreatedMessagePayload {
+  readonly type: 'DiscountCodeCreated'
+  /**
+   *	The [Discount Code](ctp:api:type:DiscountCode) that was created.
+   *
+   *
+   */
+  readonly discountCode: DiscountCode
+}
+/**
+ *	Generated after a successful [Delete DiscountCode](ctp:api:endpoint:/{projectKey}/discount-codes/{id}:DELETE) request.
+ *
+ */
+export interface DiscountCodeDeletedMessagePayload {
+  readonly type: 'DiscountCodeDeleted'
+}
+/**
+ *	Generated after a successful [Set Key](ctp:api:type:DiscountCodeSetKeyAction) update action.
+ *
+ */
+export interface DiscountCodeKeySetMessagePayload {
+  readonly type: 'DiscountCodeKeySet'
+  /**
+   *	`key` value of the [Discount Code](ctp:api:type:DiscountCode) after the [Set Key](ctp:api:type:DiscountCodeSetKeyAction) update action.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	`key` value of the [Discount Code](ctp:api:type:DiscountCode) before the [Set Key](ctp:api:type:DiscountCodeSetKeyAction) update action.
+   *
+   *
+   */
+  readonly oldKey?: string
 }
 /**
  *	Generated after a successful [Create InventoryEntry](ctp:api:endpoint:/{projectKey}/inventory:POST) request.
