@@ -17,7 +17,15 @@ jobs:
         with:
           app_id: ${{ secrets.CT_CHANGESETS_APP_ID }}
           private_key: ${{ secrets.CT_CHANGESETS_APP_PEM }}
-          
+
+      - name: Get App user
+        id: get_app_user
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_github_token.outputs.token }}
+        run: |
+          export GH_APP_USER=`gh api /users/ct-changesets%5Bbot%5D | jq .id`
+          echo "email=${GH_APP_USER}+ct-changesets[bot]@users.noreply.github.com" >> "$GITHUB_OUTPUT"
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -90,15 +98,24 @@ jobs:
           SLACK_USERNAME: rtBot
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
+      - name: "Switch SDK to after release branch"
+        if: steps.changesets.outputs.published == 'true'
+        run: |
+          git fetch --depth=1 origin after-release || true
+          git checkout -B after-release origin/after-release || true
+          git checkout -B after-release
+          git log -1
+
       - name: "remove API reference commit SHA"
         if: steps.changesets.outputs.published == 'true'
         run: rm -rf reference.txt
         continue-on-error: true
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: stefanzweifel/git-auto-commit-action@8756aa072ef5b4a080af5dc8fef36c5d586e521d # v5.0.0
         if: steps.changesets.outputs.published == 'true'
         with:
+          file_pattern: 'reference.txt'
           commit_message: "chore: updating API ref SHA"
-          commit_user_name: automation-commercetools
-          commit_user_email: automation@commercetools.com
-          commit_author: Auto Mation <automation@commercetools.com>
+          commit_author: ct-changesets[bot] <${{ steps.get_app_user.outputs.email }}>
+          commit_user_name: ct-changesets[bot]
+          commit_user_email: ${{ steps.get_app_user.outputs.email }}
