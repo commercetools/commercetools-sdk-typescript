@@ -104,7 +104,7 @@ export type BusinessUnitAssociateMode =
  */
 export type BusinessUnitDraft = CompanyDraft | DivisionDraft
 /**
- *	[Reference](/../api/types#reference) to a [BusinessUnit](ctp:api:type:BusinessUnit) by its key.
+ *	[Reference](ctp:api:type:Reference) to a [BusinessUnit](ctp:api:type:BusinessUnit) by its key.
  *
  */
 export interface BusinessUnitKeyReference {
@@ -157,7 +157,7 @@ export interface BusinessUnitPagedQueryResponse {
   readonly results: BusinessUnit[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [BusinessUnit](ctp:api:type:BusinessUnit).
+ *	[Reference](ctp:api:type:Reference) to a [BusinessUnit](ctp:api:type:BusinessUnit).
  *
  */
 export interface BusinessUnitReference {
@@ -176,7 +176,7 @@ export interface BusinessUnitReference {
   readonly obj?: BusinessUnit
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [BusinessUnit](ctp:api:type:BusinessUnit). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [BusinessUnit](ctp:api:type:BusinessUnit). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface BusinessUnitResourceIdentifier {

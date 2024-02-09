@@ -141,7 +141,7 @@ export interface AttributeGroupPagedQueryResponse {
   readonly results: AttributeGroup[]
 }
 /**
- *	[Reference](/../api/types#reference) to an [AttributeGroup](ctp:api:type:AttributeGroup).
+ *	[Reference](ctp:api:type:Reference) to an [AttributeGroup](ctp:api:type:AttributeGroup).
  *
  */
 export interface AttributeGroupReference {
@@ -160,7 +160,7 @@ export interface AttributeGroupReference {
   readonly obj?: AttributeGroup
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to an [AttributeGroup](ctp:api:type:AttributeGroup). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [AttributeGroup](ctp:api:type:AttributeGroup). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface AttributeGroupResourceIdentifier {

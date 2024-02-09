@@ -294,7 +294,7 @@ export interface StandalonePricePagedQueryResponse {
   readonly results: StandalonePrice[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [StandalonePrice](ctp:api:type:StandalonePrice).
+ *	[Reference](ctp:api:type:Reference) to a [StandalonePrice](ctp:api:type:StandalonePrice).
  *
  */
 export interface StandalonePriceReference {
@@ -313,7 +313,7 @@ export interface StandalonePriceReference {
   readonly obj?: StandalonePrice
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [StandalonePrice](ctp:api:type:StandalonePrice).
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [StandalonePrice](ctp:api:type:StandalonePrice).
  *
  */
 export interface StandalonePriceResourceIdentifier {

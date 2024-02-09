@@ -113,7 +113,7 @@ export interface AssociateRoleDraft {
   readonly custom?: CustomFieldsDraft
 }
 /**
- *	[Reference](ctp:api:type:TypeReference) to an [AssociateRole](ctp:api:type:AssociateRole) by its key.
+ *	[Reference](ctp:api:type:Reference) to an [AssociateRole](ctp:api:type:AssociateRole) by its key.
  *
  */
 export interface AssociateRoleKeyReference {
@@ -166,7 +166,7 @@ export interface AssociateRolePagedQueryResponse {
   readonly results: AssociateRole[]
 }
 /**
- *	[Reference](ctp:api:type:TypeReference) to an [AssociateRole](ctp:api:type:AssociateRole).
+ *	[Reference](ctp:api:type:Reference) to an [AssociateRole](ctp:api:type:AssociateRole).
  *
  */
 export interface AssociateRoleReference {

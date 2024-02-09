@@ -195,7 +195,7 @@ export interface StoreDraft {
   readonly custom?: CustomFieldsDraft
 }
 /**
- *	[Reference](/../api/types#reference) to a [Store](ctp:api:type:Store) by its key.
+ *	[Reference](ctp:api:type:Reference) to a [Store](ctp:api:type:Store) by its key.
  *
  */
 export interface StoreKeyReference {
@@ -248,7 +248,7 @@ export interface StorePagedQueryResponse {
   readonly results: Store[]
 }
 /**
- *	[Reference](/../api/types#reference) to a [Store](ctp:api:type:Store).
+ *	[Reference](ctp:api:type:Reference) to a [Store](ctp:api:type:Store).
  *
  */
 export interface StoreReference {
@@ -267,7 +267,7 @@ export interface StoreReference {
   readonly obj?: Store
 }
 /**
- *	[ResourceIdentifier](/../api/types#resourceidentifier) to a [Store](ctp:api:type:Store). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Store](ctp:api:type:Store). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
 export interface StoreResourceIdentifier {
