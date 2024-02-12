@@ -4,11 +4,11 @@ aliases:
   - &restore_yarn_cache
     name: 'Restoring yarn cache'
     keys:
-      - v1-yarn-cache-{{ checksum "yarn.lock" }}
+      - yarn-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
 
   - &save_yarn_cache
     name: 'Saving yarn cache'
-    key: v1-yarn-cache-{{ checksum "yarn.lock" }}
+    key: yarn-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
     # Persisting to the workspace is always relative to the root which is our working directory.
     # https://circleci.com/docs/2.0/configuration-reference/#persist_to_workspace
     paths:
