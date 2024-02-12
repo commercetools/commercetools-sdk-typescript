@@ -80,7 +80,7 @@ jobs:
           GITHUB_TOKEN: ${{ steps.generate_github_token.outputs.token }}
 
       - name: Convert markdown to slack markdown
-        uses: LoveToKnow/slackify-markdown-action@v1.0.0
+        uses: LoveToKnow/slackify-markdown-action@v1.0.2
         id: markdown
         with:
           text: |
