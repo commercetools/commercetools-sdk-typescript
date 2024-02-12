@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/history-sdk",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "engines": {
     "node": ">=14"
   },
@@ -38,7 +38,7 @@
     "@commercetools/sdk-middleware-logger": "^3.0.0"
   },
   "devDependencies": {
-    "@commercetools/platform-sdk": "7.1.0",
+    "@commercetools/platform-sdk": "7.2.0",
     "@types/uuid": "9.0.2",
     "organize-imports-cli": "0.10.0",
     "tsconfig-replace-paths": "0.0.13",
