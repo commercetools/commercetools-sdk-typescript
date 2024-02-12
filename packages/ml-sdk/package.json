@@ -6,7 +6,7 @@
   "name": "@commercetools/ml-sdk",
   "version": "4.0.0",
   "engines": {
-    "node": ">=16"
+    "node": ">=14"
   },
   "description": "TypeScript SDK for Composable Commerce Machine Learning features",
   "keywords": [

@@ -6,7 +6,7 @@
   "name": "@commercetools/platform-sdk",
   "version": "7.1.0",
   "engines": {
-    "node": ">=16"
+    "node": ">=14"
   },
   "description": "TypeScript definitions and SDK for commercetools Composable Commerce",
   "keywords": ["commercetools", "composable commerce", "typescript", "sdk"],
