@@ -38,7 +38,7 @@
     "jest": "29.6.2",
     "jest-junit": "16.0.0",
     "jest-watch-typeahead": "2.2.2",
-    "lint-staged": "13.2.3",
+    "lint-staged": "15.2.2",
     "node-polyfill-webpack-plugin": "^2.0.0",
     "path-browserify": "^1.0.1",
     "prettier": "3.0.1",
