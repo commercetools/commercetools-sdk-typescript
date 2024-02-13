@@ -14,6 +14,7 @@ import {
   createProductDraft,
   deleteProduct,
 } from '../product/product-fixture'
+import { waitUntil } from '../../helpers/test-utils'
 
 describe('testing product projection API calls', () => {
   it('should get a product by Id', async () => {
@@ -145,7 +146,7 @@ describe('testing product projection API calls', () => {
     await deleteCategory(category)
   })
 
-  it.skip('should search a product by product projection', async () => {
+  it('should search a product by product projection', async () => {
     const category = await createCategory()
     const taxCategory = await createTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)
@@ -156,6 +157,22 @@ describe('testing product projection API calls', () => {
       false
     )
     const product = await createProduct(productDraft)
+
+    await waitUntil(async () => {
+      const productProjectionSearchResponse = await apiRoot
+        .productProjections()
+        .search()
+        .get({
+          queryArgs: {
+            facet: 'categories.id',
+            staged: true,
+          },
+        })
+        .execute()
+
+      return productProjectionSearchResponse.body.facets !== null
+    })
+
     const productProjectionSearchResponse = await apiRoot
       .productProjections()
       .search()
@@ -173,5 +190,5 @@ describe('testing product projection API calls', () => {
     await deleteProductType(productType)
     await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
-  })
+  }, 40_000)
 })
