@@ -5,10 +5,13 @@
 * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
 */
 
-//models
-//Root client that is used to access all the endpoints in the API
-export * from './client/api-root'
+// resources
+export * from './client/api-root'; //Root client that is used to access all the endpoints in the API
+export * from './client/by-project-key-by-resource-type-by-id-request-builder'
+export * from './client/by-project-key-by-resource-type-request-builder'
+export * from './client/by-project-key-request-builder'
 export * from './models/change'
+//models
 export * from './models/change-history'
 export * from './models/change-value'
 export * from './models/common'
