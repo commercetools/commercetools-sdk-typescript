@@ -75,7 +75,7 @@ jobs:
       - save_cache: *save_yarn_cache
       - run:
           name: Running integration tests
-          command: yarn test packages/platform-sdk/test/integration-tests
+          command: yarn test packages/platform-sdk/test/integration-tests --coverage
       - codecov/upload:
           file: coverage/clover.xml
           flags: integrationtests
