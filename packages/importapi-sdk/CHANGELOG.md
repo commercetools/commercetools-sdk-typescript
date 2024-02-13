@@ -1,5 +1,11 @@
 # @commercetools/importapi-sdk
 
+## 5.2.0
+
+### Minor Changes
+
+- [#602](https://github.com/commercetools/commercetools-sdk-typescript/pull/602) [`7a85bab`](https://github.com/commercetools/commercetools-sdk-typescript/commit/7a85bab874e7bba76ecd49e776a651cd02dc20f6) Thanks [@ajimae](https://github.com/ajimae)! - Add resources as global exports
+
 ## 5.1.0
 
 ### Minor Changes
