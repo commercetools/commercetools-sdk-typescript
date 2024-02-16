@@ -25,6 +25,7 @@ import {
   Price,
   Reference,
   TypedMoney,
+  TypedMoneyDraft,
   _BaseAddress,
   _Money,
 } from './common'
@@ -1068,17 +1069,31 @@ export interface DiscountOnTotalPrice {
 }
 export interface DiscountedLineItemPortion {
   /**
-   *	A [CartDiscountReference](ctp:api:type:CartDiscountReference) or [DirectDiscountReference](ctp:api:type:DirectDiscountReference) for the applicable discount on the Line Item.
+   *	A [CartDiscountReference](ctp:api:type:CartDiscountReference) or [DirectDiscountReference](ctp:api:type:DirectDiscountReference) of the applicable discount on the Line Item.
    *
    *
    */
   readonly discount: Reference
   /**
-   *	Money value of the discount applicable.
+   *	Money value of the applicable discount.
    *
    *
    */
   readonly discountedAmount: TypedMoney
+}
+export interface DiscountedLineItemPortionDraft {
+  /**
+   *	A [CartDiscountReference](ctp:api:type:CartDiscountReference) or [DirectDiscountReference](ctp:api:type:DirectDiscountReference) for the discount applicable on the Line Item.
+   *
+   *
+   */
+  readonly discount: Reference
+  /**
+   *	Money value for the discount applicable.
+   *
+   *
+   */
+  readonly discountedAmount: TypedMoneyDraft
 }
 export interface DiscountedLineItemPrice {
   /**
