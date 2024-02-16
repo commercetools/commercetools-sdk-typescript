@@ -16,7 +16,7 @@ import {
   CustomLineItemPriceMode,
   DirectDiscount,
   DiscountCodeInfo,
-  DiscountedLineItemPortion,
+  DiscountedLineItemPortionDraft,
   DiscountOnTotalPrice,
   InventoryMode,
   ItemShippingDetailsDraft,
@@ -568,7 +568,7 @@ export interface DiscountedLineItemPriceDraft {
    *
    *
    */
-  readonly includedDiscounts: DiscountedLineItemPortion[]
+  readonly includedDiscounts: DiscountedLineItemPortionDraft[]
 }
 export interface ItemState {
   /**
