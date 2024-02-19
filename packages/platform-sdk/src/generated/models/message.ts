@@ -10135,7 +10135,7 @@ export interface OrderPurchaseOrderNumberSetMessage {
   readonly oldPurchaseOrderNumber?: string
 }
 /**
- *	Generated after a successful [Set ReturnShipmentState](ctp:api:type:OrderSetReturnShipmentStateAction) update action.
+ *	Generated after a successful [Set ReturnShipmentState](ctp:api:type:OrderSetReturnShipmentStateAction) update action on [Orders](ctp:api:type:Order) and [Order Edits](ctp:api:type:OrderEdit).
  *
  */
 export interface OrderReturnShipmentStateChangedMessage {
@@ -10284,7 +10284,7 @@ export interface OrderShipmentStateChangedMessage {
    *
    *
    */
-  readonly oldShipmentState: ShipmentState
+  readonly oldShipmentState?: ShipmentState
 }
 /**
  *	Generated after a successful [Set Shipping Address](ctp:api:type:OrderSetShippingAddressAction) update action.
@@ -10588,7 +10588,7 @@ export interface OrderStateChangedMessage {
    *
    *
    */
-  readonly oldOrderState: OrderState
+  readonly oldOrderState?: OrderState
 }
 /**
  *	Generated after a successful [Transition State](ctp:api:type:OrderTransitionStateAction) update action.
@@ -19699,7 +19699,7 @@ export interface OrderPurchaseOrderNumberSetMessagePayload {
   readonly oldPurchaseOrderNumber?: string
 }
 /**
- *	Generated after a successful [Set ReturnShipmentState](ctp:api:type:OrderSetReturnShipmentStateAction) update action.
+ *	Generated after a successful [Set ReturnShipmentState](ctp:api:type:OrderSetReturnShipmentStateAction) update action on [Orders](ctp:api:type:Order) and [Order Edits](ctp:api:type:OrderEdit).
  *
  */
 export interface OrderReturnShipmentStateChangedMessagePayload {
@@ -19734,7 +19734,7 @@ export interface OrderShipmentStateChangedMessagePayload {
    *
    *
    */
-  readonly oldShipmentState: ShipmentState
+  readonly oldShipmentState?: ShipmentState
 }
 /**
  *	Generated after a successful [Set Shipping Address](ctp:api:type:OrderSetShippingAddressAction) update action.
@@ -19810,7 +19810,7 @@ export interface OrderStateChangedMessagePayload {
    *
    *
    */
-  readonly oldOrderState: OrderState
+  readonly oldOrderState?: OrderState
 }
 /**
  *	Generated after a successful [Transition State](ctp:api:type:OrderTransitionStateAction) update action.
