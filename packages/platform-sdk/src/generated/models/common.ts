@@ -850,6 +850,8 @@ export interface Price {
   /**
    *	Present if different Prices for certain [LineItem](ctp:api:type:LineItem) quantities have been specified.
    *
+   *	If `discounted` is present, the tiered Price is ignored for a Product Variant.
+   *
    *
    */
   readonly tiers?: PriceTier[]
@@ -921,6 +923,8 @@ export interface PriceDraft {
   readonly discounted?: DiscountedPriceDraft
   /**
    *	Set this field to specify different Prices for certain [LineItem](ctp:api:type:LineItem) quantities.
+   *
+   *	If `discounted` is set, the tiered Price is ignored for a Product Variant.
    *
    *
    */
@@ -1040,6 +1044,8 @@ export interface QueryPrice {
   readonly custom?: CustomFields
   /**
    *	Price tier applied when the minimum quantity for the [LineItem](ctp:api:type:LineItem) of a ProductVariant with the related Price is reached in a Cart.
+   *
+   *	If `discounted` is specified, the tiered Price is ignored for a Product Variant.
    *
    *
    */
