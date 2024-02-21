@@ -878,7 +878,7 @@ export interface CustomLineItemDraft {
    *
    *
    */
-  readonly priceMode: CustomLineItemPriceMode
+  readonly priceMode?: CustomLineItemPriceMode
 }
 /**
  *	Determines if Cart Discounts can be applied to a Custom Line Item in the Cart.
