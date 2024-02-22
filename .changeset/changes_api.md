@@ -17,6 +17,12 @@
 </details>
 
 <details>
+<summary>Added Property(s)</summary>
+
+- added property `totalTax` to type `TaxedPriceDraft`
+</details>
+
+<details>
 <summary>Required Property(s)</summary>
 
 - changed property `priceMode` of type `CustomLineItemDraft` to be optional

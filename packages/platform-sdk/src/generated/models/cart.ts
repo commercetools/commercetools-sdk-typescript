@@ -1999,6 +1999,12 @@ export interface TaxedPriceDraft {
    *
    */
   readonly taxPortions: TaxPortionDraft[]
+  /**
+   *	Total tax applicable for the Cart or Order.
+   *
+   *
+   */
+  readonly totalTax?: TypedMoneyDraft
 }
 /**
  *	If the Cart already contains a [CustomLineItem](ctp:api:type:CustomLineItem) with the same `slug`, `name`, `money`, `taxCategory`, `state`,
