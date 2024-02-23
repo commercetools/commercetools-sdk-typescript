@@ -878,7 +878,7 @@ export interface CustomLineItemDraft {
    *
    *
    */
-  readonly priceMode: CustomLineItemPriceMode
+  readonly priceMode?: CustomLineItemPriceMode
 }
 /**
  *	Determines if Cart Discounts can be applied to a Custom Line Item in the Cart.
@@ -1999,6 +1999,12 @@ export interface TaxedPriceDraft {
    *
    */
   readonly taxPortions: TaxPortionDraft[]
+  /**
+   *	Total tax applicable for the Cart or Order.
+   *
+   *
+   */
+  readonly totalTax?: TypedMoneyDraft
 }
 /**
  *	If the Cart already contains a [CustomLineItem](ctp:api:type:CustomLineItem) with the same `slug`, `name`, `money`, `taxCategory`, `state`,

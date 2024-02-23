@@ -143,6 +143,8 @@ export interface StandalonePrice extends BaseResource {
   /**
    *	Price tiers if any are defined.
    *
+   *	If `discounted` is present, the tiered Price is ignored for a Product Variant.
+   *
    *
    */
   readonly tiers?: PriceTier[]
@@ -228,6 +230,8 @@ export interface StandalonePriceDraft {
   readonly validUntil?: string
   /**
    *	Sets price tiers.
+   *
+   *	If `discounted` is set, the tiered Price is ignored for a Product Variant.
    *
    *
    */
