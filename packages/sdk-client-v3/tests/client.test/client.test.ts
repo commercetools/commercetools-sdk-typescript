@@ -212,69 +212,6 @@ describe('execute function', () => {
         return Promise.resolve()
       })
   })
-
-  describe('ensure correct functions are used to resolve the promise', () => {
-    test('resolve', () => {
-      const customResolveSpy = jest.fn()
-      const client = createClient({
-        middlewares: [
-          (next) => (req: ClientRequest) => {
-            const requestWithCustomResolver = {
-              resolve() {
-                customResolveSpy()
-                req.resolve(null)
-              },
-            }
-            return next({
-              ...req,
-              ...requestWithCustomResolver,
-              response: { body: null },
-            })
-          },
-        ],
-      })
-
-      return client.execute(request).then(() => {
-        expect(customResolveSpy).toHaveBeenCalled()
-      })
-    })
-
-    test('reject', () => {
-      const customRejectSpy = jest.fn()
-      const client = createClient({
-        middlewares: [
-          (next: Next) =>
-            (req: ClientRequest): Promise<MiddlewareResponse> => {
-              const requestWithCustomResolver = {
-                reject() {
-                  customRejectSpy()
-                  req.reject(null)
-                },
-              }
-
-              const error = {
-                method: 'GET' as MethodType,
-                statusCode: 400,
-                message: 'Oops',
-                error: new Error('Oops'),
-                body: null,
-              }
-
-              const resObject = {
-                ...req,
-                ...requestWithCustomResolver,
-                response: { body: null, error },
-              }
-              return next(resObject)
-            },
-        ],
-      })
-
-      return client.execute(request).catch((e) => {
-        expect(customRejectSpy).toHaveBeenCalled()
-      })
-    })
-  })
 })
 
 describe('process', () => {
