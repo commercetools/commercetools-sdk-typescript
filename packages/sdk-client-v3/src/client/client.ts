@@ -161,10 +161,6 @@ export default function createClient(middlewares: ClientOptions): Client {
         ...(response?.retryCount ? { retryCount: response.retryCount } : {}),
       } as MiddlewareResponse
 
-      if (res.error) {
-        throw res.error
-      }
-
       return res
     },
   }

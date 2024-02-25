@@ -37,9 +37,9 @@ describe('Concurrent Modification Middleware.', () => {
 
   test('should modify a request with a `409` status or error code.', async () => {
     const request = createTestRequest({ body: { version: 4 } })
-    const response = createTestResponse({
+    const errorResponse = createTestResponse({
       statusCode: 409,
-      body: { errors: [{ currentVersion: 5 }] }
+      error: { body: { errors: [{ currentVersion: 5 }] } },
     })
 
     // before the call version is 4
@@ -50,9 +50,9 @@ describe('Concurrent Modification Middleware.', () => {
       // expect(req.body.version).toEqual(4) // <<-------------------- first call
       // expect(req.body.version).toEqual(5) // <<-------------------- second call
       if (req.body.version === 5) {
-        return createTestResponse({statusCode: 200})
+        return createTestResponse({ statusCode: 200 })
       }
-      throw response
+      return errorResponse
     })
 
     await createConcurrentModificationMiddleware()(next)(request)
