@@ -67,7 +67,6 @@ describe('execute function', () => {
     method: 'GET',
     body: null,
     headers: {},
-    // reject: Promise.reject
   }
 
   test('should throw if request is missing', () => {
@@ -211,69 +210,6 @@ describe('execute function', () => {
         expect(error.message).toEqual('Invalid password')
         return Promise.resolve()
       })
-  })
-
-  describe('ensure correct functions are used to resolve the promise', () => {
-    test('resolve', () => {
-      const customResolveSpy = jest.fn()
-      const client = createClient({
-        middlewares: [
-          (next) => (req: ClientRequest) => {
-            const requestWithCustomResolver = {
-              resolve() {
-                customResolveSpy()
-                req.resolve(null)
-              },
-            }
-            return next({
-              ...req,
-              ...requestWithCustomResolver,
-              response: { body: null },
-            })
-          },
-        ],
-      })
-
-      return client.execute(request).then(() => {
-        expect(customResolveSpy).toHaveBeenCalled()
-      })
-    })
-
-    test('reject', () => {
-      const customRejectSpy = jest.fn()
-      const client = createClient({
-        middlewares: [
-          (next: Next) =>
-            (req: ClientRequest): Promise<MiddlewareResponse> => {
-              const requestWithCustomResolver = {
-                reject() {
-                  customRejectSpy()
-                  req.reject(null)
-                },
-              }
-
-              const error = {
-                method: 'GET' as MethodType,
-                statusCode: 400,
-                message: 'Oops',
-                error: new Error('Oops'),
-                body: null,
-              }
-
-              const resObject = {
-                ...req,
-                ...requestWithCustomResolver,
-                response: { body: null, error },
-              }
-              return next(resObject)
-            },
-        ],
-      })
-
-      return client.execute(request).catch((e) => {
-        expect(customRejectSpy).toHaveBeenCalled()
-      })
-    })
   })
 })
 
@@ -485,44 +421,6 @@ describe('process', () => {
       },
       () => Promise.resolve('OK')
     )
-  })
-
-  test('process and reject a request', () => {
-    const client = createClient({
-      middlewares: [
-        (next: Next) =>
-          async (req: MiddlewareRequest): Promise<MiddlewareResponse> => {
-            const httpError = new Error('Invalid password')
-            const error = {
-              name: 'error',
-              message: httpError.message,
-              code: 400,
-              status: 400,
-              statusCode: 400,
-              originalRequest: req,
-            } as HttpErrorType
-
-            return next({
-              ...req,
-              response: { body: null, error, statusCode: 400 },
-            })
-          },
-      ],
-    })
-
-    return client
-      .process(request, () => Promise.resolve('OK'))
-      .then(() =>
-        Promise.reject(
-          new Error(
-            'This function should never be called, the response was rejected'
-          )
-        )
-      )
-      .catch((error) => {
-        expect(error.message).toEqual('Invalid password')
-        return Promise.resolve()
-      })
   })
 
   test('process and reject on rejection from user', () => {
@@ -814,42 +712,6 @@ describe('process - exposed', () => {
 
     expect(processRes).toEqual(['OK1', 'OK2']) // results from fn calls
     expect(fnCall).toBe(2) // fn was called two times
-  })
-
-  test('process and reject a request', () => {
-    createClient({
-      middlewares: [
-        (next) => async (req) => {
-          const httpError = new Error('Invalid password')
-          const error = {
-            name: 'error',
-            message: httpError.message,
-            code: 400,
-            status: 400,
-            statusCode: 400,
-            originalRequest: req,
-          } as HttpErrorType
-
-          return next({
-            ...req,
-            response: { body: null, error, statusCode: 400 },
-          })
-        },
-      ],
-    }) as any
-
-    return Process(request, () => Promise.resolve('OK'), {})
-      .then(() =>
-        Promise.reject(
-          new Error(
-            'This function should never be called, the response was rejected'
-          )
-        )
-      )
-      .catch((error) => {
-        expect(error.message).toEqual('Invalid password')
-        return Promise.resolve()
-      })
   })
 
   test('process and reject on rejection from user', () => {

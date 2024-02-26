@@ -124,3 +124,58 @@ apiRoot
     /*...*/
   })
 ```
+
+## Create a client
+
+To create a client, use the `ClientBuilder` class. The `ClientBuilder` class provides a fluent API to configure the client.
+
+```ts
+const authMiddlewareOptions = {
+  credentials: {
+    clientId: 'xxx',
+    clientSecret: 'xxx',
+  },
+  host: 'https://auth.europe-west1.gcp.commercetools.com',
+  projectKey: 'xxx',
+}
+
+const httpMiddlewareOptions = {
+  host: 'https://api.europe-west1.gcp.commercetools.com',
+  httpClient: fetch,
+}
+
+const client = new ClientBuilder()
+  .withHttpMiddleware(httpMiddlewareOptions)
+  .withConcurrentModificationMiddleware()
+  .withClientCredentialsFlow(authMiddlewareOptions)
+  .build()
+```
+
+> [!WARNING]
+> Do not add the built-in middlewares using `withMiddleware` method. Adding by this method does not respect the ordering of the middlewares and could lead to unexpected behavior.
+
+```ts
+// WRONG CODE!!!!!
+const authMiddlewareOptions = {
+  credentials: {
+    clientId: 'xxx',
+    clientSecret: 'xxx',
+  },
+  host: 'https://auth.europe-west1.gcp.commercetools.com',
+  projectKey: 'xxx',
+}
+
+const httpMiddlewareOptions = {
+  host: 'https://api.europe-west1.gcp.commercetools.com',
+  httpClient: fetch,
+}
+
+const client = new ClientBuilder()
+  .withMiddleware(
+    createAuthMiddlewareForClientCredentialsFlow(authMiddlewareOptions)
+  )
+  .withMiddleware(createHttpMiddleware(httpMiddlewareOptions))
+  .withMiddleware(createConcurrentModificationMiddleware())
+  .build()
+// WRONG CODE!!!!!
+```
