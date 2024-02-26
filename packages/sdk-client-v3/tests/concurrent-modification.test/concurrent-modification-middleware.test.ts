@@ -37,7 +37,7 @@ describe('Concurrent Modification Middleware.', () => {
 
   test('should modify a request with a `409` status or error code.', async () => {
     const request = createTestRequest({ body: { version: 4 } })
-    const response = createTestResponse({
+    const errorResponse = createTestResponse({
       statusCode: 409,
       error: { body: { errors: [{ currentVersion: 5 }] } },
     })
@@ -49,8 +49,10 @@ describe('Concurrent Modification Middleware.', () => {
     const next = jest.fn((req) => {
       // expect(req.body.version).toEqual(4) // <<-------------------- first call
       // expect(req.body.version).toEqual(5) // <<-------------------- second call
-
-      return response
+      if (req.body.version === 5) {
+        return createTestResponse({ statusCode: 200 })
+      }
+      return errorResponse
     })
 
     await createConcurrentModificationMiddleware()(next)(request)
