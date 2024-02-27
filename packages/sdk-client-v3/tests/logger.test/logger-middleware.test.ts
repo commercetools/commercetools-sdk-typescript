@@ -92,7 +92,7 @@ describe('Logger Middleware', () => {
       includeResponseHeaders: false,
     }
 
-    const { request: req, headers, ...rest } = response
+    const { originalRequest: req, headers, ...rest } = response
 
     const originalResponse = await createLoggerMiddleware(
       loggerMiddlewareOptions
@@ -101,7 +101,7 @@ describe('Logger Middleware', () => {
     expect(loggerMiddlewareOptions.loggerFn).toHaveBeenCalledTimes(1)
     expect(loggerMiddlewareOptions.loggerFn).toHaveBeenCalledWith(rest)
     expect(response).toEqual(originalResponse)
-    expect(originalResponse.request).toBeTruthy()
+    expect(originalResponse.originalRequest).toBeTruthy()
     expect(originalResponse.headers).toBeTruthy()
     expect(originalResponse).toHaveProperty('request')
     expect(originalResponse).toHaveProperty('headers')

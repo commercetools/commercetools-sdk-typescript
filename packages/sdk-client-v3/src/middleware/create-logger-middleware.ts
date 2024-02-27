@@ -26,11 +26,11 @@ export default function createLoggerMiddleware(
       } = options || {}
 
       if (includeOriginalRequest && maskSensitiveHeaderData) {
-        maskAuthData(response.request)
+        maskAuthData(response.originalRequest)
       }
 
       if (!includeOriginalRequest) {
-        const { request, ...rest } = response
+        const { originalRequest, ...rest } = response
         response = rest
       }
 

@@ -16,7 +16,7 @@ export type MiddlewareResponse<T = unknown> = {
   error?: HttpErrorType;
   statusCode: number;
   headers?: Record<string, any>
-  request?: MiddlewareRequest;
+  originalRequest?: MiddlewareRequest;
 }
 
 export type HttpErrorType = {
