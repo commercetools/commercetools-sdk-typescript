@@ -1,5 +1,44 @@
 # @commercetools/platform-sdk
 
+## 7.4.0
+
+### Minor Changes
+
+- [#607](https://github.com/commercetools/commercetools-sdk-typescript/pull/607) [`c924c7c`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c924c7ca84188d4fe397fd35e667448896e7dd09) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `DiscountedLineItemPortionDraft`
+  </details>
+
+  <details>
+  <summary>Changed Property(s)</summary>
+
+  - :warning: changed property `includedDiscounts` of type `DiscountedLineItemPriceDraft` from type `DiscountedLineItemPortion[]` to `DiscountedLineItemPortionDraft[]`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `totalTax` to type `TaxedPriceDraft`
+  </details>
+
+  <details>
+  <summary>Required Property(s)</summary>
+
+  - changed property `priceMode` of type `CustomLineItemDraft` to be optional
+  - changed property `oldShipmentState` of type `OrderShipmentStateChangedMessage` to be optional
+  - changed property `oldOrderState` of type `OrderStateChangedMessage` to be optional
+  - changed property `oldShipmentState` of type `OrderShipmentStateChangedMessagePayload` to be optional
+  - changed property `oldOrderState` of type `OrderStateChangedMessagePayload` to be optional
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`f0028a3`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f0028a343fe3417bbc3caeb76cc6658a5d7bff73)]:
+  - @commercetools/ts-client@1.1.1
+
 ## 7.3.0
 
 ### Minor Changes
