@@ -6,6 +6,7 @@ export {
     createAuthMiddlewareForExistingTokenFlow,
     createAuthMiddlewareForPasswordFlow,
     createAuthMiddlewareForRefreshTokenFlow,
+    createConcurrentModificationMiddleware,
     createCorrelationIdMiddleware,
     createHttpMiddleware,
     createLoggerMiddleware,

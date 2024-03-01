@@ -161,12 +161,6 @@ export default function createClient(middlewares: ClientOptions): Client {
         ...(response?.retryCount ? { retryCount: response.retryCount } : {}),
       } as MiddlewareResponse
 
-      if (res.error) {
-        res.reject(res.error)
-        return res
-      }
-
-      res.resolve(res)
       return res
     },
   }
@@ -177,11 +171,13 @@ export default function createClient(middlewares: ClientOptions): Client {
     execute(request: ClientRequest): Promise<ClientResult> {
       validate('exec', request)
       return new Promise((resolve, reject) => {
-        return dispatch({
+        dispatch({
           reject,
           resolve,
           ...request,
         })
+          .then(resolve)
+          .catch(reject)
       })
     },
   }
