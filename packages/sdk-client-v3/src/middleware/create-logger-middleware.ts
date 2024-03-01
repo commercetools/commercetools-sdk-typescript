@@ -18,11 +18,9 @@ export default function createLoggerMiddleware(
 
       const {
         loggerFn = console.log,
-        // logLevel = 'ERROR',
         maskSensitiveHeaderData = true,
         includeOriginalRequest = true,
         includeResponseHeaders = true,
-        // includeRequestInErrorResponse
       } = options || {}
 
       if (includeOriginalRequest && maskSensitiveHeaderData) {
@@ -41,10 +39,8 @@ export default function createLoggerMiddleware(
 
       if (loggerFn && typeof loggerFn == 'function') {
         loggerFn(response)
-        // return originalResponse
       }
 
-      // console.log({ Response: response })
       return originalResponse
     }
   }
