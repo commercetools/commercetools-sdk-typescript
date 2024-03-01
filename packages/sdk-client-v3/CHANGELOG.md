@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 1.1.1
+
+### Patch Changes
+
+- [#620](https://github.com/commercetools/commercetools-sdk-typescript/pull/620) [`f0028a3`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f0028a343fe3417bbc3caeb76cc6658a5d7bff73) Thanks [@lojzatran](https://github.com/lojzatran)! - Fix issue with concurrent modification middleware functionality.
+
 ## 1.1.0
 
 ### Minor Changes

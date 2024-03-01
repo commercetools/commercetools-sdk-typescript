@@ -896,7 +896,7 @@ export interface ProductVariantAvailability {
    *
    *
    */
-  readonly isOnStock?: boolean
+  readonly isOnStock: boolean
   /**
    *	Number of days to restock a Product Variant once it is out of stock.
    *
@@ -909,6 +909,18 @@ export interface ProductVariantAvailability {
    *
    */
   readonly availableQuantity?: number
+  /**
+   *	Unique identifier of the [InventoryEntry](ctp:api:type:InventoryEntry).
+   *
+   *
+   */
+  readonly id?: string
+  /**
+   *	Current version of the [InventoryEntry](ctp:api:type:InventoryEntry).
+   *
+   *
+   */
+  readonly version?: number
 }
 export interface ProductVariantChannelAvailability {
   /**
