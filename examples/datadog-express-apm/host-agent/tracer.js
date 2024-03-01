@@ -5,5 +5,7 @@ function init() {
   tracer.init() // initialized in a different file to avoid hoisting.
 }
 
-module.exports.init = init
-module.exports.tracer = tracer
+module.exports = {
+  init,
+  tracer,
+}
