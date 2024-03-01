@@ -1,0 +1,11 @@
+{
+  "name": "container-agent",
+  "version": "1.0.0",
+  "main": "server.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "dd-trace": "^5.4.0",
+    "express": "^4.16.2"
+  }
+}
