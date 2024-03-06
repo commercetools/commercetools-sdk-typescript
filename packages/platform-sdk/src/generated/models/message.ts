@@ -290,6 +290,13 @@ export type Message =
   | ProductSelectionVariantSelectionChangedMessage
   | ProductSlugChangedMessage
   | ProductStateTransitionMessage
+  | ProductTailoringCreatedMessage
+  | ProductTailoringDeletedMessage
+  | ProductTailoringDescriptionSetMessage
+  | ProductTailoringNameSetMessage
+  | ProductTailoringPublishedMessage
+  | ProductTailoringSlugSetMessage
+  | ProductTailoringUnpublishedMessage
   | ProductUnpublishedMessage
   | ProductVariantAddedMessage
   | ProductVariantDeletedMessage
@@ -13522,6 +13529,648 @@ export interface ProductStateTransitionMessage {
   readonly force: boolean
 }
 /**
+ *	Generated after a successful [Create Product Tailoring](/../api/projects/product-tailoring#create-producttailoring) or
+ *	[Create Product Tailoring in Store](/../api/projects/product-tailoring#create-producttailoring-in-store) request.
+ *
+ */
+export interface ProductTailoringCreatedMessage {
+  readonly type: 'ProductTailoringCreated'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	User-defined unique identifier of the Product Tailoring.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The description of the [Product Tailoring](ctp:api:type:ProductTailoring) at the time of creation.
+   *
+   *
+   */
+  readonly description?: LocalizedString
+  /**
+   *	The name of the [Product Tailoring](ctp:api:type:ProductTailoring) at the time of creation.
+   *
+   *
+   */
+  readonly name?: LocalizedString
+  /**
+   *	The slug of the [Product Tailoring](ctp:api:type:ProductTailoring) at the time of creation.
+   *
+   *
+   */
+  readonly slug?: LocalizedString
+  /**
+   *	`true` if the ProductTailoring is published.
+   *
+   *
+   */
+  readonly published: boolean
+}
+/**
+ *	Generated after a successful [Delete Product Tailoring](/../api/projects/product-tailoring#delete-producttailoring) or
+ *	[Delete ProductTailoring assigned to Product in Store](/../api/projects/product-tailoring#delete-producttailoring-assigned-to-product-in-store) request.
+ *
+ */
+export interface ProductTailoringDeletedMessage {
+  readonly type: 'ProductTailoringDeleted'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+}
+/**
+ *	Generated after a successful Product Tailoring [Set Description](ctp:api:type:ProductTailoringSetDescriptionAction) update action.
+ *
+ */
+export interface ProductTailoringDescriptionSetMessage {
+  readonly type: 'ProductTailoringDescriptionSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The description of the [Product Tailoring](ctp:api:type:ProductTailoring) after the [Set Description](ctp:api:type:ProductTailoringSetDescriptionAction) update action.
+   *
+   *
+   */
+  readonly description?: LocalizedString
+  /**
+   *	The description of the [ProductTailoring](ctp:api:type:ProductTailoring) before the [Set Description](ctp:api:type:ProductTailoringSetDescriptionAction) update action.
+   *
+   *
+   */
+  readonly oldDescription?: LocalizedString
+}
+/**
+ *	Generated after a successful Product Tailoring [Set Name](ctp:api:type:ProductTailoringSetNameAction) update action.
+ *
+ */
+export interface ProductTailoringNameSetMessage {
+  readonly type: 'ProductTailoringNameSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The name of the [Product Tailoring](ctp:api:type:ProductTailoring) after the [Set Name](ctp:api:type:ProductTailoringSetNameAction) update action.
+   *
+   *
+   */
+  readonly name?: LocalizedString
+  /**
+   *	The name of the [ProductTailoring](ctp:api:type:ProductTailoring) before the [Set Name](ctp:api:type:ProductTailoringSetNameAction) update action.
+   *
+   *
+   */
+  readonly oldName?: LocalizedString
+}
+/**
+ *	Generated after a successful [Product Tailoring Publish](ctp:api:type:ProductTailoringPublishAction) update action.
+ *
+ */
+export interface ProductTailoringPublishedMessage {
+  readonly type: 'ProductTailoringPublished'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+}
+/**
+ *	Generated after a successful Product Tailoring [Set Slug](ctp:api:type:ProductTailoringSetSlugAction) update action.
+ *
+ */
+export interface ProductTailoringSlugSetMessage {
+  readonly type: 'ProductTailoringSlugSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The slug of the [Product Tailoring](ctp:api:type:ProductTailoring) after the [Set Slug](ctp:api:type:ProductTailoringSetSlugAction) update action.
+   *
+   *
+   */
+  readonly slug?: LocalizedString
+  /**
+   *	The slug of the [ProductTailoring](ctp:api:type:ProductTailoring) before the [Set Slug](ctp:api:type:ProductTailoringSetSlugAction) update action.
+   *
+   *
+   */
+  readonly oldSlug?: LocalizedString
+}
+/**
+ *	Generated after a successful [Product Tailoring Unpublish](ctp:api:type:ProductTailoringUnpublishAction) update action.
+ *
+ */
+export interface ProductTailoringUnpublishedMessage {
+  readonly type: 'ProductTailoringUnpublished'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Value of `createdBy`.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+}
+/**
  *	Generated after a successful [Unpublish Product](ctp:api:type:ProductUnpublishAction) update action.
  *
  */
@@ -17339,6 +17988,13 @@ export type MessagePayload =
   | ProductSelectionVariantSelectionChangedMessagePayload
   | ProductSlugChangedMessagePayload
   | ProductStateTransitionMessagePayload
+  | ProductTailoringCreatedMessagePayload
+  | ProductTailoringDeletedMessagePayload
+  | ProductTailoringDescriptionSetMessagePayload
+  | ProductTailoringNameSetMessagePayload
+  | ProductTailoringPublishedMessagePayload
+  | ProductTailoringSlugSetMessagePayload
+  | ProductTailoringUnpublishedMessagePayload
   | ProductUnpublishedMessagePayload
   | ProductVariantAddedMessagePayload
   | ProductVariantDeletedMessagePayload
@@ -20591,6 +21247,249 @@ export interface ProductStateTransitionMessagePayload {
    *
    */
   readonly force: boolean
+}
+/**
+ *	Generated after a successful [Create Product Tailoring](/../api/projects/product-tailoring#create-producttailoring) or
+ *	[Create Product Tailoring in Store](/../api/projects/product-tailoring#create-producttailoring-in-store) request.
+ *
+ */
+export interface ProductTailoringCreatedMessagePayload {
+  readonly type: 'ProductTailoringCreated'
+  /**
+   *	User-defined unique identifier of the Product Tailoring.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The description of the [Product Tailoring](ctp:api:type:ProductTailoring) at the time of creation.
+   *
+   *
+   */
+  readonly description?: LocalizedString
+  /**
+   *	The name of the [Product Tailoring](ctp:api:type:ProductTailoring) at the time of creation.
+   *
+   *
+   */
+  readonly name?: LocalizedString
+  /**
+   *	The slug of the [Product Tailoring](ctp:api:type:ProductTailoring) at the time of creation.
+   *
+   *
+   */
+  readonly slug?: LocalizedString
+  /**
+   *	`true` if the ProductTailoring is published.
+   *
+   *
+   */
+  readonly published: boolean
+}
+/**
+ *	Generated after a successful [Delete Product Tailoring](/../api/projects/product-tailoring#delete-producttailoring) or
+ *	[Delete ProductTailoring assigned to Product in Store](/../api/projects/product-tailoring#delete-producttailoring-assigned-to-product-in-store) request.
+ *
+ */
+export interface ProductTailoringDeletedMessagePayload {
+  readonly type: 'ProductTailoringDeleted'
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+}
+/**
+ *	Generated after a successful Product Tailoring [Set Description](ctp:api:type:ProductTailoringSetDescriptionAction) update action.
+ *
+ */
+export interface ProductTailoringDescriptionSetMessagePayload {
+  readonly type: 'ProductTailoringDescriptionSet'
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The description of the [Product Tailoring](ctp:api:type:ProductTailoring) after the [Set Description](ctp:api:type:ProductTailoringSetDescriptionAction) update action.
+   *
+   *
+   */
+  readonly description?: LocalizedString
+  /**
+   *	The description of the [ProductTailoring](ctp:api:type:ProductTailoring) before the [Set Description](ctp:api:type:ProductTailoringSetDescriptionAction) update action.
+   *
+   *
+   */
+  readonly oldDescription?: LocalizedString
+}
+/**
+ *	Generated after a successful Product Tailoring [Set Name](ctp:api:type:ProductTailoringSetNameAction) update action.
+ *
+ */
+export interface ProductTailoringNameSetMessagePayload {
+  readonly type: 'ProductTailoringNameSet'
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The name of the [Product Tailoring](ctp:api:type:ProductTailoring) after the [Set Name](ctp:api:type:ProductTailoringSetNameAction) update action.
+   *
+   *
+   */
+  readonly name?: LocalizedString
+  /**
+   *	The name of the [ProductTailoring](ctp:api:type:ProductTailoring) before the [Set Name](ctp:api:type:ProductTailoringSetNameAction) update action.
+   *
+   *
+   */
+  readonly oldName?: LocalizedString
+}
+/**
+ *	Generated after a successful [Product Tailoring Publish](ctp:api:type:ProductTailoringPublishAction) update action.
+ *
+ */
+export interface ProductTailoringPublishedMessagePayload {
+  readonly type: 'ProductTailoringPublished'
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+}
+/**
+ *	Generated after a successful Product Tailoring [Set Slug](ctp:api:type:ProductTailoringSetSlugAction) update action.
+ *
+ */
+export interface ProductTailoringSlugSetMessagePayload {
+  readonly type: 'ProductTailoringSlugSet'
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The slug of the [Product Tailoring](ctp:api:type:ProductTailoring) after the [Set Slug](ctp:api:type:ProductTailoringSetSlugAction) update action.
+   *
+   *
+   */
+  readonly slug?: LocalizedString
+  /**
+   *	The slug of the [ProductTailoring](ctp:api:type:ProductTailoring) before the [Set Slug](ctp:api:type:ProductTailoringSetSlugAction) update action.
+   *
+   *
+   */
+  readonly oldSlug?: LocalizedString
+}
+/**
+ *	Generated after a successful [Product Tailoring Unpublish](ctp:api:type:ProductTailoringUnpublishAction) update action.
+ *
+ */
+export interface ProductTailoringUnpublishedMessagePayload {
+  readonly type: 'ProductTailoringUnpublished'
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
 }
 /**
  *	Generated after a successful [Unpublish Product](ctp:api:type:ProductUnpublishAction) update action.

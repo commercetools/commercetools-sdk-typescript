@@ -89,6 +89,11 @@ import {
   ProductSelectionResourceIdentifier,
 } from './product-selection'
 import {
+  ProductTailoring,
+  ProductTailoringReference,
+  ProductTailoringResourceIdentifier,
+} from './product-tailoring'
+import {
   ProductType,
   ProductTypeReference,
   ProductTypeResourceIdentifier,
@@ -550,6 +555,7 @@ export type _BaseResource =
   | ProductDiscount
   | ProductProjection
   | ProductSelection
+  | ProductTailoring
   | ProductType
   | Quote
   | QuoteRequest
@@ -1077,6 +1083,7 @@ export type Reference =
   | ProductDiscountReference
   | ProductReference
   | ProductSelectionReference
+  | ProductTailoringReference
   | ProductTypeReference
   | QuoteReference
   | QuoteRequestReference
@@ -1120,6 +1127,7 @@ export type ReferenceTypeId =
   | 'product-discount'
   | 'product-price'
   | 'product-selection'
+  | 'product-tailoring'
   | 'product-type'
   | 'quote'
   | 'quote-request'
@@ -1158,6 +1166,7 @@ export type ResourceIdentifier =
   | ProductDiscountResourceIdentifier
   | ProductResourceIdentifier
   | ProductSelectionResourceIdentifier
+  | ProductTailoringResourceIdentifier
   | ProductTypeResourceIdentifier
   | QuoteRequestResourceIdentifier
   | QuoteResourceIdentifier

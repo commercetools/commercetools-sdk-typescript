@@ -43,6 +43,7 @@ import {
 } from './order'
 import { PaymentResourceIdentifier } from './payment'
 import { ProductVariant } from './product'
+import { ProductTailoringUpdateAction } from './product-tailoring'
 import { ProductTypeReference } from './product-type'
 import {
   ShippingMethodReference,
@@ -3684,6 +3685,21 @@ export interface CartUpdateItemShippingAddressAction {
    *
    */
   readonly address: _BaseAddress
+}
+export interface ProductTailoringUpdate {
+  /**
+   *	Expected version of the ProductTailoring on which the changes apply.
+   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) is returned.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	Update actions to be performed on the ProductTailoring.
+   *
+   *
+   */
+  readonly actions: ProductTailoringUpdateAction[]
 }
 /**
  *	The scope controls which part of the product information is published.
