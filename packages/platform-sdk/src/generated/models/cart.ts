@@ -1942,6 +1942,14 @@ export interface TaxedItemPrice {
    */
   readonly totalGross: CentPrecisionMoney
   /**
+   *	Taxable portions added to the total net price.
+   *
+   *	Calculated from the [TaxRates](ctp:api:type:TaxRate).
+   *
+   *
+   */
+  readonly taxPortions: TaxPortion[]
+  /**
    *	Total tax applicable for the Line Item or Custom Line Item.
    *	Automatically calculated as the difference between the `totalGross` and `totalNet` values.
    *
