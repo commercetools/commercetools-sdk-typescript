@@ -1,7 +1,7 @@
 import { apiRoot } from '../test-utils'
 import { createCategory, deleteCategory } from '../category/category-fixture'
 import {
-  createTaxCategory,
+  ensureTaxCategory,
   deleteTaxCategory,
 } from '../tax-category/tax-category-fixture'
 import {
@@ -19,7 +19,7 @@ import { waitUntil } from '../../helpers/test-utils'
 describe('testing product projection API calls', () => {
   it('should get a product by Id', async () => {
     const category = await createCategory()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
@@ -50,7 +50,7 @@ describe('testing product projection API calls', () => {
 
   it('should get a product by key', async () => {
     const category = await createCategory()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
@@ -117,7 +117,7 @@ describe('testing product projection API calls', () => {
 
   it('should query a product by product projection', async () => {
     const category = await createCategory()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
@@ -148,7 +148,7 @@ describe('testing product projection API calls', () => {
 
   it('should search a product by product projection', async () => {
     const category = await createCategory()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,

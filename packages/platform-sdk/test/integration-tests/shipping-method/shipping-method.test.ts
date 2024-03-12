@@ -9,7 +9,7 @@ import {
   ZoneResourceIdentifier,
 } from '../../../src'
 import {
-  createTaxCategory,
+  ensureTaxCategory,
   deleteTaxCategory,
 } from '../tax-category/tax-category-fixture'
 import { createZone, deleteZone } from '../zone/zone-fixture'
@@ -22,7 +22,7 @@ import {
 describe('testing shipping method API calls', () => {
   it('should create and delete a shipping method by ID', async () => {
     const zone = await createZone()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const taxCategoryResourceIdentifier: TaxCategoryResourceIdentifier = {
       typeId: 'tax-category',
       id: taxCategory.body.id,
@@ -76,7 +76,7 @@ describe('testing shipping method API calls', () => {
 
   it('should get a shipping method by ID', async () => {
     const zone = await createZone()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const shippingMethodDraft = await createShippingMethodDraft(
       taxCategory,
       zone
@@ -99,7 +99,7 @@ describe('testing shipping method API calls', () => {
 
   it('should get a shipping method by key', async () => {
     const zone = await createZone()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const shippingMethodDraft = await createShippingMethodDraft(
       taxCategory,
       zone
@@ -122,7 +122,7 @@ describe('testing shipping method API calls', () => {
 
   it('should query a shipping method', async () => {
     const zone = await createZone()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const shippingMethodDraft = await createShippingMethodDraft(
       taxCategory,
       zone
@@ -148,7 +148,7 @@ describe('testing shipping method API calls', () => {
 
   it('should update a shipping method by ID', async () => {
     const zone = await createZone()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const shippingMethodDraft = await createShippingMethodDraft(
       taxCategory,
       zone
@@ -184,7 +184,7 @@ describe('testing shipping method API calls', () => {
 
   it('should update a shipping method by key', async () => {
     const zone = await createZone()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const shippingMethodDraft = await createShippingMethodDraft(
       taxCategory,
       zone
@@ -220,7 +220,7 @@ describe('testing shipping method API calls', () => {
 
   it('should delete a shipping method by Key', async () => {
     const zone = await createZone()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const shippingMethodDraft = await createShippingMethodDraft(
       taxCategory,
       zone

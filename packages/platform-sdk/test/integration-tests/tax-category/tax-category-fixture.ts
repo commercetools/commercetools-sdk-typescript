@@ -27,16 +27,16 @@ export const ensureTaxCategory = async (
       .get()
       .execute()
   } catch (e) {
-    return await createTaxCategory(taxCategoryDraftBody)
+    return await createTaxCategory(taxCategoryDraftBody || taxCategoryDraft)
   }
 }
 
 export const createTaxCategory = async (
-  taxCategoryDraftBody?: TaxCategoryDraft
+  taxCategoryDraftBody: TaxCategoryDraft
 ) => {
   return await apiRoot
     .taxCategories()
-    .post({ body: taxCategoryDraftBody || taxCategoryDraft })
+    .post({ body: taxCategoryDraftBody })
     .execute()
 }
 

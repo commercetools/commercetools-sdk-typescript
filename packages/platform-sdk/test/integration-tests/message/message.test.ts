@@ -5,7 +5,7 @@ import {
 } from '../product/product-fixture'
 import { createCategory, deleteCategory } from '../category/category-fixture'
 import {
-  createTaxCategory,
+  ensureTaxCategory,
   deleteTaxCategory,
 } from '../tax-category/tax-category-fixture'
 import {
@@ -18,7 +18,7 @@ import { apiRoot } from '../test-utils'
 describe('testing message API calls', () => {
   it('should get a message', async () => {
     const category = await createCategory()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
@@ -39,7 +39,7 @@ describe('testing message API calls', () => {
 
   it('should get a message by Id', async () => {
     const category = await createCategory()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
