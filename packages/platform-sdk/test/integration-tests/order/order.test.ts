@@ -13,9 +13,8 @@ import {
   deleteProduct,
 } from '../product/product-fixture'
 import { createCart, deleteCart } from '../cart/cart-fixture'
-import { _OrderSearchQuery, CartDraft, OrderSearchRequest } from '../../../src'
+import { OrderSearchRequest } from '../../../src'
 import { ctpApiBuilder } from '../../helpers/ctp-api-helper'
-import { randomUUID } from 'crypto'
 import { waitUntil } from '../../helpers/test-utils'
 
 describe('testing order API calls', () => {
@@ -185,6 +184,7 @@ describe('testing order API calls', () => {
     await deleteCart(getCart)
     await deleteProduct(product)
     await deleteProductType(productType)
+    await deleteCategory(category)
   })
 
   it('should search a order', async () => {
