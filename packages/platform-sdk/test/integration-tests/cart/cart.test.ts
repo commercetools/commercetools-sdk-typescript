@@ -40,10 +40,7 @@ import {
 
 import { createType, deleteType } from '../type/type-fixture'
 import { createCategory, deleteCategory } from '../category/category-fixture'
-import {
-  ensureTaxCategory,
-  deleteTaxCategory,
-} from '../tax-category/tax-category-fixture'
+import { ensureTaxCategory } from '../tax-category/tax-category-fixture'
 import {
   createProductType,
   deleteProductType,
@@ -130,7 +127,6 @@ describe('testing cart API calls', () => {
     await deleteProduct(product1)
     await deleteProduct(product2)
     await deleteProductType(productType)
-    await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
   })
 
@@ -170,7 +166,6 @@ describe('testing cart API calls', () => {
     expect(cart.body.customLineItems).toHaveLength(1)
 
     await deleteCart(cart)
-    await deleteTaxCategory(taxCategory)
   })
 
   // query

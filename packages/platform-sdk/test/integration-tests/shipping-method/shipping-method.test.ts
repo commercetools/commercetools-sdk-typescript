@@ -8,10 +8,7 @@ import {
   ZoneRateDraft,
   ZoneResourceIdentifier,
 } from '../../../src'
-import {
-  ensureTaxCategory,
-  deleteTaxCategory,
-} from '../tax-category/tax-category-fixture'
+import { ensureTaxCategory } from '../tax-category/tax-category-fixture'
 import { createZone, deleteZone } from '../zone/zone-fixture'
 import {
   createShippingMethod,
@@ -68,7 +65,6 @@ describe('testing shipping method API calls', () => {
         queryArgs: { version: responseCreatedShippingMethod.body.version },
       })
       .execute()
-    await deleteTaxCategory(taxCategory)
     await deleteZone(zone)
 
     expect(responseShippingMethodDeleted.statusCode).toEqual(200)
@@ -93,7 +89,6 @@ describe('testing shipping method API calls', () => {
     expect(getShippingMethod.body.id).toEqual(shippingMethod.body.id)
 
     await deleteShippingMethod(shippingMethod)
-    await deleteTaxCategory(taxCategory)
     await deleteZone(zone)
   })
 
@@ -116,7 +111,6 @@ describe('testing shipping method API calls', () => {
     expect(getShippingMethod.body.key).toEqual(shippingMethod.body.key)
 
     await deleteShippingMethod(shippingMethod)
-    await deleteTaxCategory(taxCategory)
     await deleteZone(zone)
   })
 
@@ -142,7 +136,6 @@ describe('testing shipping method API calls', () => {
     )
 
     await deleteShippingMethod(shippingMethod)
-    await deleteTaxCategory(taxCategory)
     await deleteZone(zone)
   })
 
@@ -178,7 +171,6 @@ describe('testing shipping method API calls', () => {
     expect(updateShippingMethod.statusCode).toEqual(200)
 
     await deleteShippingMethod(updateShippingMethod)
-    await deleteTaxCategory(taxCategory)
     await deleteZone(zone)
   })
 
@@ -214,7 +206,6 @@ describe('testing shipping method API calls', () => {
     expect(updateShippingMethod.statusCode).toEqual(200)
 
     await deleteShippingMethod(updateShippingMethod)
-    await deleteTaxCategory(taxCategory)
     await deleteZone(zone)
   })
 
@@ -238,7 +229,6 @@ describe('testing shipping method API calls', () => {
       .execute()
 
     expect(responseShippingMethodDeleted.statusCode).toEqual(200)
-    await deleteTaxCategory(taxCategory)
     await deleteZone(zone)
   })
 })

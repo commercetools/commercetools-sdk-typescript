@@ -1,10 +1,7 @@
 import { apiRoot } from '../test-utils'
 import { createOrder, deleteOrder } from './order-fixture'
 import { createCategory, deleteCategory } from '../category/category-fixture'
-import {
-  ensureTaxCategory,
-  deleteTaxCategory,
-} from '../tax-category/tax-category-fixture'
+import { ensureTaxCategory } from '../tax-category/tax-category-fixture'
 import {
   createProductType,
   deleteProductType,
@@ -70,7 +67,6 @@ describe('testing order API calls', () => {
     await deleteCart(getCart)
     await deleteProduct(product)
     await deleteProductType(productType)
-    await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
   })
 
@@ -122,7 +118,6 @@ describe('testing order API calls', () => {
     await deleteCart(getCart)
     await deleteProduct(product)
     await deleteProductType(productType)
-    await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
   })
 
@@ -190,8 +185,6 @@ describe('testing order API calls', () => {
     await deleteCart(getCart)
     await deleteProduct(product)
     await deleteProductType(productType)
-    await deleteTaxCategory(taxCategory)
-    await deleteCategory(category)
   })
 
   it('should search a order', async () => {
@@ -287,7 +280,6 @@ describe('testing order API calls', () => {
     await deleteCart(getCart)
     await deleteProduct(product)
     await deleteProductType(productType)
-    await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
   }, 50_000)
 })

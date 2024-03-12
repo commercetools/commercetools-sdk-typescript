@@ -4,10 +4,7 @@ import {
   deleteProduct,
 } from '../product/product-fixture'
 import { createCategory, deleteCategory } from '../category/category-fixture'
-import {
-  ensureTaxCategory,
-  deleteTaxCategory,
-} from '../tax-category/tax-category-fixture'
+import { ensureTaxCategory } from '../tax-category/tax-category-fixture'
 import {
   createProductType,
   deleteProductType,
@@ -29,7 +26,6 @@ describe('testing message API calls', () => {
     const product = await createProduct(productDraft)
     await deleteProduct(product)
     await deleteProductType(productType)
-    await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
 
     const message = await apiRoot.messages().get().execute()
@@ -62,7 +58,6 @@ describe('testing message API calls', () => {
     expect(message.body.id).toEqual(messageId)
 
     await deleteProductType(productType)
-    await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
   })
 })
