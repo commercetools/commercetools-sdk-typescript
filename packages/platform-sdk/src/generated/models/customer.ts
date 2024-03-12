@@ -62,7 +62,7 @@ export interface Customer extends BaseResource {
    */
   readonly customerNumber?: string
   /**
-   *	Optional identifier for use in external systems like Customer Relationship Management (CRM) or Enterprise Resource Planning (ERP).
+   *	Optional identifier for use in external systems like customer relationship management (CRM) or enterprise resource planning (ERP).
    *
    *
    */
@@ -299,7 +299,7 @@ export interface CustomerDraft {
    */
   readonly customerNumber?: string
   /**
-   *	Optional identifier for use in external systems like Customer Relationship Management (CRM) or Enterprise Resource Planning (ERP).
+   *	Optional identifier for use in external systems like customer relationship management (CRM) or enterprise resource planning (ERP).
    *
    *
    */
