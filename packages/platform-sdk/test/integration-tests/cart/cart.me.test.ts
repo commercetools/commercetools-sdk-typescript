@@ -12,7 +12,7 @@ import fetch from 'node-fetch'
 import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
 import { createCategory } from '../category/category-fixture'
-import { createTaxCategory } from '../tax-category/tax-category-fixture'
+import { ensureTaxCategory } from '../tax-category/tax-category-fixture'
 import {
   createProductType,
   productTypeDraftForProduct,
@@ -76,7 +76,7 @@ describe('testing me endpoint cart', () => {
   // https://github.com/commercetools/commercetools-sdk-typescript/issues/446
   it('should expand active cart using me endpoint in a store', async () => {
     const category = await createCategory()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)
 
     const productDraft = await createProductDraft(

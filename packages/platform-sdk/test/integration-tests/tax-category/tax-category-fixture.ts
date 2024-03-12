@@ -12,9 +12,23 @@ const taxRate: TaxRateDraft = {
 }
 
 const taxCategoryDraft: TaxCategoryDraft = {
-  key: 'test-key-' + randomUUID(),
+  key: 'test-key-tax-category',
   name: 'test-name-' + randomUUID(),
   rates: [taxRate],
+}
+
+export const ensureTaxCategory = async (
+  taxCategoryDraftBody?: TaxCategoryDraft
+) => {
+  try {
+    return await apiRoot
+      .taxCategories()
+      .withKey({ key: taxCategoryDraftBody?.key || taxCategoryDraft.key })
+      .get()
+      .execute()
+  } catch (e) {
+    return await createTaxCategory(taxCategoryDraftBody)
+  }
 }
 
 export const createTaxCategory = async (
