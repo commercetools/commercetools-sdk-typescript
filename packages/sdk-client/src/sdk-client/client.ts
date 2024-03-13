@@ -10,7 +10,7 @@ import {
   ProcessOptions,
   SuccessResult,
 } from '../types/sdk.d'
-import { parseURLString } from '../utils'
+import { parseURLString, PAGE_LIMIT } from '../utils'
 import validate from './validate'
 
 let _options
@@ -39,15 +39,17 @@ export function process(
     )
 
   // Set default process options
-  const opt = {
+  const opt: ProcessOptions = {
+    limit: PAGE_LIMIT, // defaults
     total: Number.POSITIVE_INFINITY,
     accumulate: true,
     ...processOpt,
   }
 
   return new Promise((resolve: Function, reject: Function) => {
-    let _path,
-      _queryString = ''
+    let _path: string,
+      _queryString: string = ''
+
     if (request && request.uri) {
       const [path, queryString] = request.uri.split('?')
       _path = path
@@ -58,13 +60,13 @@ export function process(
     const requestQuery = { ...parseURLString<object>(_queryString) }
     const query = {
       // defaults
-      limit: 20,
+      limit: opt.limit,
       // merge given query params
       ...requestQuery,
     }
 
-    let hasFirstPageBeenProcessed = false
     let itemsToGet = opt.total
+    let hasFirstPageBeenProcessed = false
     const processPage = async (lastId?: string, acc: Array<any> = []) => {
       // Use the lesser value between limit and itemsToGet in query
       const limit = query.limit < itemsToGet ? query.limit : itemsToGet
@@ -100,7 +102,7 @@ export function process(
         }
 
         const result: any = await Promise.resolve(fn(payload))
-        let accumulated
+        let accumulated = []
         hasFirstPageBeenProcessed = true
 
         if (opt.accumulate) accumulated = acc.concat(result || [])

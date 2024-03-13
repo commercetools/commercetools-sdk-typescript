@@ -135,8 +135,9 @@ export type ClientResult = SuccessResult | HttpErrorType
 export type ProcessFn = (result: SuccessResult) => Promise<any>
 
 export type ProcessOptions = {
-  accumulate?: boolean
-  total?: number
+  limit?: number;
+  accumulate?: boolean;
+  total?: number;
 }
 
 export type Client = {
