@@ -41,7 +41,6 @@ We have a doc with a currated list of best practices designed to assist develope
 | ------------------------------------------ | --------------------------------------------------------------------- |
 | [`platform-sdk`](/packages/platform-sdk)   | [![platform-sdk Version][platform-sdk-icon]][platform-sdk-version]    |
 | [`importapi-sdk`](/packages/importapi-sdk) | [![importapi-sdk Version][importapi-sdk-icon]][importapi-sdk-version] |
-| [`ml-sdk`](/packages/ml-sdk)               | [![ml-sdk Version][ml-sdk-icon]][ml-sdk-version]                      |
 | [`history-sdk`](/packages/history-sdk)     | [![history-sdk Version][history-sdk-icon]][history-sdk-version]       |
 | [`sdk-client-v2`](/packages/sdk-client)    | [![client-sdk Version][sdk-client-icon]][sdk-client-version]          |
 
