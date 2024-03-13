@@ -48,8 +48,6 @@ We have a doc with a currated list of best practices designed to assist develope
 [platform-sdk-icon]: https://img.shields.io/npm/v/@commercetools/platform-sdk.svg?style=flat-square
 [importapi-sdk-version]: https://www.npmjs.com/package/@commercetools/importapi-sdk
 [importapi-sdk-icon]: https://img.shields.io/npm/v/@commercetools/importapi-sdk.svg?style=flat-square
-[ml-sdk-version]: https://www.npmjs.com/package/@commercetools/ml-sdk
-[ml-sdk-icon]: https://img.shields.io/npm/v/@commercetools/ml-sdk.svg?style=flat-square
 [history-sdk-version]: https://www.npmjs.com/package/@commercetools/history-sdk
 [history-sdk-icon]: https://img.shields.io/npm/v/@commercetools/history-sdk.svg?style=flat-square
 [sdk-client-version]: https://www.npmjs.com/package/@commercetools/sdk-client-v2
