@@ -136,6 +136,7 @@ export type ProcessFn = (result: SuccessResult) => Promise<any>
 
 export type ProcessOptions = {
   limit?: number;
+  sort?: string;
   accumulate?: boolean;
   total?: number;
 }

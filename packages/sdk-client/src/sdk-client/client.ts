@@ -89,7 +89,7 @@ export function process<T = any>(
       } as unknown as Record<string, string>).toString()
 
       const enhancedQuery = {
-        sort: 'id asc',
+        sort: opt.sort || 'id asc',
         withTotal: false,
         ...(lastId ? { where: `id > "${lastId}"` } : {}),
       }
