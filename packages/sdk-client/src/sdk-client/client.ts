@@ -10,10 +10,12 @@ import {
   ProcessOptions,
   SuccessResult,
 } from '../types/sdk.d'
-import { parseURLString, PAGE_LIMIT } from '../utils'
+import { parseURLString } from '../utils'
 import validate from './validate'
 
-let _options
+let _options: ClientOptions
+export const PAGE_LIMIT = 20
+
 function compose(...funcs: Array<Function>): Function {
   funcs = funcs.filter((func: Function): boolean => typeof func === 'function')
 
@@ -26,11 +28,21 @@ function compose(...funcs: Array<Function>): Function {
   )
 }
 
-export function process(
+export function process<T = any>(
   request: ClientRequest,
   fn: ProcessFn,
   processOpt: ProcessOptions
-): Promise<Array<Object>> {
+): Promise<
+  Array<{
+    statusCode: 200
+    body: {
+      limit: number
+      offset: number
+      count: number
+      results: T[]
+    }
+  }>
+> {
   validate('process', request, { allowedMethods: ['GET'] })
 
   if (typeof fn !== 'function')
@@ -65,8 +77,8 @@ export function process(
       ...requestQuery,
     }
 
-    let itemsToGet = opt.total
     let hasFirstPageBeenProcessed = false
+    let itemsToGet = opt.total
     const processPage = async (lastId?: string, acc: Array<any> = []) => {
       // Use the lesser value between limit and itemsToGet in query
       const limit = query.limit < itemsToGet ? query.limit : itemsToGet

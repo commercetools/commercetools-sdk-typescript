@@ -140,13 +140,24 @@ export type ProcessOptions = {
   total?: number;
 }
 
+export type ProcessResult<T = any> = Promise<Array<{
+  statusCode: number;
+  body: {
+    limit: number;
+    offset: number;
+    count: number;
+    total?: number;
+    results: T[];
+  }
+}>>
+
 export type Client = {
   execute: (request: ClientRequest) => Promise<any>
   process: (
     request: ClientRequest,
     fn: ProcessFn,
     processOpt: ProcessOptions
-  ) => Promise<any>
+  ) => ProcessResult;
 }
 
 export type ValiadateOption = {
