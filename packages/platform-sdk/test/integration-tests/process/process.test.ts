@@ -102,7 +102,7 @@ describe('integration test for process function', () => {
       .catch(fn)
   })
 
-  test('should process customer list using provided limit', async () => {
+  test('should process customer list using provided limit', () => {
     const projectKey = process.env.CTP_PROJECT_KEY
     const authMiddlewareOptions = {
       host: 'https://auth.europe-west1.gcp.commercetools.com',
