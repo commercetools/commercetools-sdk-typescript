@@ -12,6 +12,8 @@ import { ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder } from '../me/by-proje
 import { ByProjectKeyInStoreKeyByStoreKeyOrdersRequestBuilder } from '../orders/by-project-key-in-store-key-by-store-key-orders-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyProductProjectionsRequestBuilder } from '../product-projections/by-project-key-in-store-key-by-store-key-product-projections-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyProductSelectionAssignmentsRequestBuilder } from '../product-selection-assignments/by-project-key-in-store-key-by-store-key-product-selection-assignments-request-builder'
+import { ByProjectKeyInStoreKeyByStoreKeyProductTailoringRequestBuilder } from '../product-tailoring/by-project-key-in-store-key-by-store-key-product-tailoring-request-builder'
+import { ByProjectKeyInStoreKeyByStoreKeyProductsRequestBuilder } from '../products/by-project-key-in-store-key-by-store-key-products-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyShippingMethodsRequestBuilder } from '../shipping-methods/by-project-key-in-store-key-by-store-key-shipping-methods-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder } from '../shopping-lists/by-project-key-in-store-key-by-store-key-shopping-lists-request-builder'
 /**
@@ -132,6 +134,27 @@ export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
   }
   public cartDiscounts(): ByProjectKeyInStoreKeyByStoreKeyCartDiscountsRequestBuilder {
     return new ByProjectKeyInStoreKeyByStoreKeyCartDiscountsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	A Product Tailoring holds tailored data of Product in the Store.
+   */
+  public productTailoring(): ByProjectKeyInStoreKeyByStoreKeyProductTailoringRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyProductTailoringRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public products(): ByProjectKeyInStoreKeyByStoreKeyProductsRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyProductsRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },

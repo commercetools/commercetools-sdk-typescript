@@ -43,6 +43,7 @@ import {
 } from './order'
 import { PaymentResourceIdentifier } from './payment'
 import { ProductVariant } from './product'
+import { ProductTailoringUpdateAction } from './product-tailoring'
 import { ProductTypeReference } from './product-type'
 import {
   ShippingMethodReference,
@@ -1569,7 +1570,7 @@ export interface LineItemDraft {
   readonly custom?: CustomFieldsDraft
 }
 /**
- *	Indicates how a Line Item is added to a Cart.
+ *	Indicates how a Line Item was added to a Cart.
  *
  */
 export type LineItemMode = 'GiftLineItem' | 'Standard' | string
@@ -1940,6 +1941,14 @@ export interface TaxedItemPrice {
    *
    */
   readonly totalGross: CentPrecisionMoney
+  /**
+   *	Taxable portions added to the total net price.
+   *
+   *	Calculated from the [TaxRates](ctp:api:type:TaxRate).
+   *
+   *
+   */
+  readonly taxPortions: TaxPortion[]
   /**
    *	Total tax applicable for the Line Item or Custom Line Item.
    *	Automatically calculated as the difference between the `totalGross` and `totalNet` values.
@@ -3684,6 +3693,21 @@ export interface CartUpdateItemShippingAddressAction {
    *
    */
   readonly address: _BaseAddress
+}
+export interface ProductTailoringUpdate {
+  /**
+   *	Expected version of the ProductTailoring on which the changes apply.
+   *	If the expected version does not match the actual version, a [409 Conflict](/../api/errors#409-conflict) is returned.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	Update actions to be performed on the ProductTailoring.
+   *
+   *
+   */
+  readonly actions: ProductTailoringUpdateAction[]
 }
 /**
  *	The scope controls which part of the product information is published.

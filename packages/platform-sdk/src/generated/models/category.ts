@@ -97,7 +97,7 @@ export interface Category extends BaseResource {
    */
   readonly orderHint: string
   /**
-   *	Additional identifier for external systems like Customer Relationship Management (CRM) or Enterprise Resource Planning (ERP).
+   *	Additional identifier for external systems like customer relationship management (CRM) or enterprise resource planning (ERP).
    *
    *
    */
@@ -175,7 +175,7 @@ export interface CategoryDraft {
    */
   readonly orderHint?: string
   /**
-   *	Additional identifier for external systems like Customer Relationship Management (CRM) or Enterprise Resource Planning (ERP).
+   *	Additional identifier for external systems like customer relationship management (CRM) or enterprise resource planning (ERP).
    *
    *
    */
@@ -620,7 +620,7 @@ export interface CategorySetDescriptionAction {
   readonly description?: LocalizedString
 }
 /**
- *	This update action sets a new ID that can be used as an additional identifier for external systems like Customer Relationship Management (CRM) or Enterprise Resource Planning (ERP).
+ *	This update action sets a new ID that can be used as an additional identifier for external systems like customer relationship management (CRM) or enterprise resource planning (ERP).
  *
  */
 export interface CategorySetExternalIdAction {

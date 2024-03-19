@@ -41,7 +41,6 @@ We have a doc with a currated list of best practices designed to assist develope
 | ------------------------------------------ | --------------------------------------------------------------------- |
 | [`platform-sdk`](/packages/platform-sdk)   | [![platform-sdk Version][platform-sdk-icon]][platform-sdk-version]    |
 | [`importapi-sdk`](/packages/importapi-sdk) | [![importapi-sdk Version][importapi-sdk-icon]][importapi-sdk-version] |
-| [`ml-sdk`](/packages/ml-sdk)               | [![ml-sdk Version][ml-sdk-icon]][ml-sdk-version]                      |
 | [`history-sdk`](/packages/history-sdk)     | [![history-sdk Version][history-sdk-icon]][history-sdk-version]       |
 | [`sdk-client-v2`](/packages/sdk-client)    | [![client-sdk Version][sdk-client-icon]][sdk-client-version]          |
 
@@ -49,8 +48,6 @@ We have a doc with a currated list of best practices designed to assist develope
 [platform-sdk-icon]: https://img.shields.io/npm/v/@commercetools/platform-sdk.svg?style=flat-square
 [importapi-sdk-version]: https://www.npmjs.com/package/@commercetools/importapi-sdk
 [importapi-sdk-icon]: https://img.shields.io/npm/v/@commercetools/importapi-sdk.svg?style=flat-square
-[ml-sdk-version]: https://www.npmjs.com/package/@commercetools/ml-sdk
-[ml-sdk-icon]: https://img.shields.io/npm/v/@commercetools/ml-sdk.svg?style=flat-square
 [history-sdk-version]: https://www.npmjs.com/package/@commercetools/history-sdk
 [history-sdk-icon]: https://img.shields.io/npm/v/@commercetools/history-sdk.svg?style=flat-square
 [sdk-client-version]: https://www.npmjs.com/package/@commercetools/sdk-client-v2
