@@ -1570,7 +1570,7 @@ export interface LineItemDraft {
   readonly custom?: CustomFieldsDraft
 }
 /**
- *	Indicates how a Line Item is added to a Cart.
+ *	Indicates how a Line Item was added to a Cart.
  *
  */
 export type LineItemMode = 'GiftLineItem' | 'Standard' | string
