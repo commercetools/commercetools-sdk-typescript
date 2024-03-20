@@ -13,7 +13,9 @@ import {
 import { parseURLString } from '../utils'
 import validate from './validate'
 
-let _options
+let _options: ClientOptions
+export const PAGE_LIMIT = 20
+
 function compose(...funcs: Array<Function>): Function {
   funcs = funcs.filter((func: Function): boolean => typeof func === 'function')
 
@@ -26,11 +28,21 @@ function compose(...funcs: Array<Function>): Function {
   )
 }
 
-export function process(
+export function process<T = any>(
   request: ClientRequest,
   fn: ProcessFn,
   processOpt: ProcessOptions
-): Promise<Array<Object>> {
+): Promise<
+  Array<{
+    statusCode: 200
+    body: {
+      limit: number
+      offset: number
+      count: number
+      results: T[]
+    }
+  }>
+> {
   validate('process', request, { allowedMethods: ['GET'] })
 
   if (typeof fn !== 'function')
@@ -39,15 +51,17 @@ export function process(
     )
 
   // Set default process options
-  const opt = {
+  const opt: ProcessOptions = {
+    limit: PAGE_LIMIT, // defaults
     total: Number.POSITIVE_INFINITY,
     accumulate: true,
     ...processOpt,
   }
 
   return new Promise((resolve: Function, reject: Function) => {
-    let _path,
-      _queryString = ''
+    let _path: string,
+      _queryString: string = ''
+
     if (request && request.uri) {
       const [path, queryString] = request.uri.split('?')
       _path = path
@@ -58,7 +72,7 @@ export function process(
     const requestQuery = { ...parseURLString<object>(_queryString) }
     const query = {
       // defaults
-      limit: 20,
+      limit: opt.limit,
       // merge given query params
       ...requestQuery,
     }
@@ -75,7 +89,7 @@ export function process(
       } as unknown as Record<string, string>).toString()
 
       const enhancedQuery = {
-        sort: 'id asc',
+        sort: opt.sort || 'id asc',
         withTotal: false,
         ...(lastId ? { where: `id > "${lastId}"` } : {}),
       }
@@ -100,7 +114,7 @@ export function process(
         }
 
         const result: any = await Promise.resolve(fn(payload))
-        let accumulated
+        let accumulated = []
         hasFirstPageBeenProcessed = true
 
         if (opt.accumulate) accumulated = acc.concat(result || [])
