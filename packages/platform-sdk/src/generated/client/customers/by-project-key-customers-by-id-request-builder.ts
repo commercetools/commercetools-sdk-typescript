@@ -63,6 +63,9 @@ export class ByProjectKeyCustomersByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Simultaneously updating two Customers with the same email address can return a [LockedField](ctp:api:type:LockedFieldError) error.
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

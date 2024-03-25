@@ -88,6 +88,7 @@ export type ErrorObject =
   | InvalidSubjectError
   | InvalidTokenError
   | LanguageUsedInStoresError
+  | LockedFieldError
   | MatchingPriceNotFoundError
   | MaxCartDiscountsReachedError
   | MaxResourceLimitExceededError
@@ -1223,6 +1224,28 @@ export interface LanguageUsedInStoresError {
   readonly message: string
 }
 /**
+ *	Returned when two [Customers](ctp:api:type:Customer) are simultaneously created or updated with the same email address.
+ *
+ *	To confirm if the operation was successful, repeat the request.
+ *
+ */
+export interface LockedFieldError {
+  readonly code: 'LockedField'
+  [key: string]: any
+  /**
+   *	`"'$field' is locked by another request. Please try again later."`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	Field that is currently locked.
+   *
+   *
+   */
+  readonly field: string
+}
+/**
  *	Returned when the Product Variant does not have a Price according to the [Product](ctp:api:type:Product) `priceMode` value for a selected currency, country, Customer Group, or Channel.
  *
  *	The error is returned as a failed response to:
@@ -2018,6 +2041,7 @@ export type GraphQLErrorObject =
   | GraphQLInvalidSubjectError
   | GraphQLInvalidTokenError
   | GraphQLLanguageUsedInStoresError
+  | GraphQLLockedFieldError
   | GraphQLMatchingPriceNotFoundError
   | GraphQLMaxCartDiscountsReachedError
   | GraphQLMaxResourceLimitExceededError
@@ -2818,6 +2842,22 @@ export interface GraphQLInvalidTokenError {
 export interface GraphQLLanguageUsedInStoresError {
   readonly code: 'LanguageUsedInStores'
   [key: string]: any
+}
+/**
+ *	Returned when two [Customers](ctp:api:type:Customer) are simultaneously created or updated with the same email address.
+ *
+ *	To confirm if the operation was successful, repeat the request.
+ *
+ */
+export interface GraphQLLockedFieldError {
+  readonly code: 'LockedField'
+  [key: string]: any
+  /**
+   *	Field that is currently locked.
+   *
+   *
+   */
+  readonly field: string
 }
 /**
  *	Returned when the Product Variant does not have a Price according to the [Product](ctp:api:type:Product) `priceMode` value for a selected currency, country, Customer Group, or Channel.
