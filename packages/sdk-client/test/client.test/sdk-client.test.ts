@@ -2,13 +2,14 @@ import { Process, createClient, ClientBuilder } from '../../src'
 import { createApiBuilderFromCtpClient } from '../../../platform-sdk'
 import {
   ClientRequest,
+  ClientResponse,
   HttpErrorType,
   MiddlewareResponse,
 } from '../../src/types/sdk.d'
 import fetch from 'node-fetch'
 import { stringifyURLString, parseURLString } from '../../src/utils'
 
-const createPayloadResult = (tot, startingId = 0) => ({
+const createPayloadResult = (tot: number, startingId = 0) => ({
   count: tot,
   results: Array.from(Array(tot), (_, index) => ({
     id: String(index + 1 + startingId),
@@ -137,7 +138,7 @@ describe('execute', () => {
     })
   })
 
-  test('execute and reject a request', () => {
+  test('execute and reject a request', async () => {
     const client = createClient({
       middlewares: [
         (next) => (req, res) => {
@@ -147,23 +148,21 @@ describe('execute', () => {
       ],
     })
 
-    return client
-      .execute(request)
-      .then(() =>
-        Promise.reject(
-          new Error(
-            'This function should never be called, the response was rejected'
-          )
+    try {
+      await client.execute(request)
+      return await Promise.reject(
+        new Error(
+          'This function should never be called, the response was rejected'
         )
       )
-      .catch((error) => {
-        expect(error.message).toEqual('Invalid password')
-        return Promise.resolve()
-      })
+    } catch (error_1) {
+      expect(error_1.message).toEqual('Invalid password')
+      return await Promise.resolve()
+    }
   })
 
   describe('ensure correct functions are used to resolve the promise', () => {
-    test('resolve', () => {
+    test('resolve', async () => {
       const customResolveSpy = jest.fn()
       const client = createClient({
         middlewares: [
@@ -184,7 +183,7 @@ describe('execute', () => {
       })
     })
 
-    test('reject', () => {
+    test('reject', async () => {
       const customRejectSpy = jest.fn()
       const client = createClient({
         middlewares: [

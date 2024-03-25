@@ -1,5 +1,111 @@
 # @commercetools/platform-sdk
 
+## 7.5.0
+
+### Minor Changes
+
+- [#626](https://github.com/commercetools/commercetools-sdk-typescript/pull/626) [`774266d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/774266d736170f678154d72e5b52e794186979b0) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `ProductTailoringCreatedMessage`
+  - added type `ProductTailoringDeletedMessage`
+  - added type `ProductTailoringDescriptionSetMessage`
+  - added type `ProductTailoringNameSetMessage`
+  - added type `ProductTailoringPublishedMessage`
+  - added type `ProductTailoringSlugSetMessage`
+  - added type `ProductTailoringUnpublishedMessage`
+  - added type `ProductTailoringCreatedMessagePayload`
+  - added type `ProductTailoringDeletedMessagePayload`
+  - added type `ProductTailoringDescriptionSetMessagePayload`
+  - added type `ProductTailoringNameSetMessagePayload`
+  - added type `ProductTailoringPublishedMessagePayload`
+  - added type `ProductTailoringSlugSetMessagePayload`
+  - added type `ProductTailoringUnpublishedMessagePayload`
+  - added type `ProductTailoring`
+  - added type `ProductTailoringData`
+  - added type `ProductTailoringDraft`
+  - added type `ProductTailoringInStoreDraft`
+  - added type `ProductTailoringPagedQueryResponse`
+  - added type `ProductTailoringReference`
+  - added type `ProductTailoringResourceIdentifier`
+  - added type `ProductTailoringUpdate`
+  - added type `ProductTailoringUpdateAction`
+  - added type `ProductTailoringPublishAction`
+  - added type `ProductTailoringSetDescriptionAction`
+  - added type `ProductTailoringSetMetaAttributesAction`
+  - added type `ProductTailoringSetMetaDescriptionAction`
+  - added type `ProductTailoringSetMetaKeywordsAction`
+  - added type `ProductTailoringSetMetaTitleAction`
+  - added type `ProductTailoringSetNameAction`
+  - added type `ProductTailoringSetSlugAction`
+  - added type `ProductTailoringUnpublishAction`
+  </details>
+
+  <details>
+  <summary>Required Property(s)</summary>
+
+  - :warning: changed property `isOnStock` of type `ProductVariantAvailability` to be required
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `taxPortions` to type `TaxedItemPrice`
+  - added property `id` to type `ProductVariantAvailability`
+  - added property `version` to type `ProductVariantAvailability`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+
+  - added method `apiRoot.withProjectKey().productTailoring().get()`
+  - added method `apiRoot.withProjectKey().productTailoring().post()`
+  - added method `apiRoot.withProjectKey().productTailoring().withKey().get()`
+  - added method `apiRoot.withProjectKey().productTailoring().withKey().post()`
+  - added method `apiRoot.withProjectKey().productTailoring().withKey().delete()`
+  - added method `apiRoot.withProjectKey().productTailoring().withId().get()`
+  - added method `apiRoot.withProjectKey().productTailoring().withId().post()`
+  - added method `apiRoot.withProjectKey().productTailoring().withId().delete()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().productTailoring().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().productTailoring().post()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().products().withProductId().productTailoring().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().products().withProductId().productTailoring().post()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().products().withProductId().productTailoring().delete()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().products().withProductKey().productTailoring().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().products().withProductKey().productTailoring().post()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().products().withProductKey().productTailoring().delete()`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `product-tailoring` to type `ReferenceTypeId`
+  </details>
+
+  <details>
+  <summary>Added Resource(s)</summary>
+
+  - added resource `/{projectKey}/product-tailoring`
+  - added resource `/{projectKey}/product-tailoring/key={key}`
+  - added resource `/{projectKey}/product-tailoring/{ID}`
+  - added resource `/{projectKey}/in-store/key={storeKey}/product-tailoring`
+  - added resource `/{projectKey}/in-store/key={storeKey}/products`
+  - added resource `/{projectKey}/in-store/key={storeKey}/products/{productID}`
+  - added resource `/{projectKey}/in-store/key={storeKey}/products/key={productKey}`
+  - added resource `/{projectKey}/in-store/key={storeKey}/products/{productID}/product-tailoring`
+  - added resource `/{projectKey}/in-store/key={storeKey}/products/key={productKey}/product-tailoring`
+  </details>
+
+- [#645](https://github.com/commercetools/commercetools-sdk-typescript/pull/645) [`bfbdfe6`](https://github.com/commercetools/commercetools-sdk-typescript/commit/bfbdfe65042f2b8d011d40859c9542666187dd22) Thanks [@lojzatran](https://github.com/lojzatran)! - Add Datadog APM to SDK
+
+### Patch Changes
+
+- Updated dependencies [[`bfbdfe6`](https://github.com/commercetools/commercetools-sdk-typescript/commit/bfbdfe65042f2b8d011d40859c9542666187dd22), [`a000d70`](https://github.com/commercetools/commercetools-sdk-typescript/commit/a000d708a82b39ecfff26acfbb682dda9675e79f)]:
+  - @commercetools/ts-client@1.2.0
+  - @commercetools/sdk-client-v2@2.4.0
+
 ## 7.4.0
 
 ### Minor Changes

@@ -483,6 +483,8 @@ export interface CartDiscountValueGiftLineItem {
   /**
    *	Reference to a Product.
    *
+   *	A Gift Line Item can be present on a Cart even if the referenced Product is unpublished.
+   *
    *
    */
   readonly product: ProductReference
@@ -514,6 +516,8 @@ export interface CartDiscountValueGiftLineItemDraft {
   readonly type: 'giftLineItem'
   /**
    *	ResourceIdentifier of a Product.
+   *
+   *	A Gift Line Item is added to a Cart even if the referenced Product is unpublished.
    *
    *
    */
