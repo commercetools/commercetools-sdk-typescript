@@ -735,13 +735,14 @@ export interface SubscriptionDraft {
   readonly format?: DeliveryFormat
 }
 /**
- *	The health status of the Subscription that indicates whether messages are being delivered to the Destination.
+ *	The health status of the Subscription that indicates whether messages are being delivered.
  *
  */
 export type SubscriptionHealthStatus =
   | 'ConfigurationError'
   | 'ConfigurationErrorDeliveryStopped'
   | 'Healthy'
+  | 'ManuallySuspended'
   | 'TemporaryError'
   | string
 /**

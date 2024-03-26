@@ -5,6 +5,12 @@
 **Api changes**
 
 <details>
+<summary>Added Enum(s)</summary>
+
+- added enum `ManuallySuspended` to type `SubscriptionHealthStatus`
+</details>
+
+<details>
 <summary>Added Property(s)</summary>
 
 - added property `productsSearch` to type `SearchIndexingConfiguration`
