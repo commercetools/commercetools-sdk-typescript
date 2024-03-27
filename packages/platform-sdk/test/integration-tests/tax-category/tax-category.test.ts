@@ -4,6 +4,37 @@ import { TaxCategoryDraft, TaxRateDraft } from '../../../src'
 import { createTaxCategory, deleteTaxCategory } from './tax-category-fixture'
 
 describe('testing taxCategory API calls', () => {
+  let taxCategory
+
+  beforeEach(async () => {
+    const taxRate: TaxRateDraft = {
+      name: 'test-tax-rate-name-' + randomUUID(),
+      key: 'test-tax-rate-key-' + randomUUID(),
+      amount: 0.19,
+      includedInPrice: true,
+      country: 'DE',
+      state: 'Berlin',
+    }
+
+    const taxCategoryDraft: TaxCategoryDraft = {
+      key: 'test-key-' + randomUUID(),
+      name: 'test-name-' + randomUUID(),
+      rates: [taxRate],
+    }
+
+    taxCategory = await createTaxCategory(taxCategoryDraft)
+  })
+
+  afterEach(async () => {
+    const queryTaxCategory = await apiRoot
+      .taxCategories()
+      .withId({ ID: taxCategory.body.id })
+      .get()
+      .execute()
+
+    await deleteTaxCategory(queryTaxCategory)
+  })
+
   it('should create and delete a taxCategory by ID', async () => {
     const taxRate: TaxRateDraft = {
       name: 'test-tax-rate-name-' + randomUUID(),
@@ -40,8 +71,6 @@ describe('testing taxCategory API calls', () => {
   })
 
   it('should get a taxCategory by ID', async () => {
-    const taxCategory = await createTaxCategory()
-
     const getTaxCategory = await apiRoot
       .taxCategories()
       .withId({ ID: taxCategory.body.id })
@@ -50,13 +79,9 @@ describe('testing taxCategory API calls', () => {
 
     expect(getTaxCategory).not.toBe(null)
     expect(getTaxCategory.body.id).toEqual(taxCategory.body.id)
-
-    await deleteTaxCategory(getTaxCategory)
   })
 
   it('should get a taxCategory by key', async () => {
-    const taxCategory = await createTaxCategory()
-
     const getTaxCategory = await apiRoot
       .taxCategories()
       .withKey({ key: taxCategory.body.key })
@@ -65,12 +90,9 @@ describe('testing taxCategory API calls', () => {
 
     expect(getTaxCategory).not.toBe(null)
     expect(getTaxCategory.body.key).toEqual(taxCategory.body.key)
-
-    await deleteTaxCategory(getTaxCategory)
   })
 
   it('should query a taxCategory', async () => {
-    const taxCategory = await createTaxCategory()
     const queryTaxCategory = await apiRoot
       .taxCategories()
       .get({
@@ -81,13 +103,9 @@ describe('testing taxCategory API calls', () => {
       .execute()
     expect(queryTaxCategory).not.toBe(null)
     expect(queryTaxCategory.body.results[0].id).toEqual(taxCategory.body.id)
-
-    await deleteTaxCategory(taxCategory)
   })
 
   it('should update a taxCategory by Id', async () => {
-    const taxCategory = await createTaxCategory()
-
     const newKey = 'test-key-taxCategory' + randomUUID()
     const updateTaxCategory = await apiRoot
       .taxCategories()
@@ -108,13 +126,9 @@ describe('testing taxCategory API calls', () => {
     expect(updateTaxCategory.body.version).not.toBe(taxCategory.body.version)
     expect(updateTaxCategory.statusCode).toEqual(200)
     expect(updateTaxCategory.body.key).toEqual(newKey)
-
-    await deleteTaxCategory(updateTaxCategory)
   })
 
   it('should update a taxCategory by key', async () => {
-    const taxCategory = await createTaxCategory()
-
     const newKey = 'test-key-taxCategory' + randomUUID()
     const updateTaxCategory = await apiRoot
       .taxCategories()
@@ -135,7 +149,5 @@ describe('testing taxCategory API calls', () => {
     expect(updateTaxCategory.body.version).not.toBe(taxCategory.body.version)
     expect(updateTaxCategory.statusCode).toEqual(200)
     expect(updateTaxCategory.body.key).toEqual(newKey)
-
-    await deleteTaxCategory(updateTaxCategory)
   })
 })
