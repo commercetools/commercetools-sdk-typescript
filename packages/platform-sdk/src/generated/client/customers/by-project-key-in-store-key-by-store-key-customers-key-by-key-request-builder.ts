@@ -73,6 +73,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersKeyByKeyRequestBuilder {
   /**
    *	If the Customer exists in the Project but the `stores` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *
+   *	Simultaneously updating two Customers with the same email address can return a [LockedField](ctp:api:type:LockedFieldError) error.
+   *
    */
   public post(methodArgs: {
     queryArgs?: {

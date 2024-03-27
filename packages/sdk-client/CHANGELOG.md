@@ -1,5 +1,12 @@
 # @commercetools/sdk-client-v2
 
+## 2.4.0
+
+### Minor Changes
+
+- [#637](https://github.com/commercetools/commercetools-sdk-typescript/pull/637) [`a000d70`](https://github.com/commercetools/commercetools-sdk-typescript/commit/a000d708a82b39ecfff26acfbb682dda9675e79f) Thanks [@ajimae](https://github.com/ajimae)! - - add functionality to override limit value in process function
+  - add sort options to process function to override default value
+
 ## 2.3.0
 
 ### Minor Changes
