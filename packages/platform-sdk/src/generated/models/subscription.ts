@@ -650,13 +650,13 @@ export interface Subscription extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the Subscription.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Subscription.
    *
    *
    */
@@ -735,13 +735,14 @@ export interface SubscriptionDraft {
   readonly format?: DeliveryFormat
 }
 /**
- *	The health status of the Subscription that indicates whether messages are being delivered to the Destination.
+ *	The health status of the Subscription that indicates whether messages are being delivered.
  *
  */
 export type SubscriptionHealthStatus =
   | 'ConfigurationError'
   | 'ConfigurationErrorDeliveryStopped'
   | 'Healthy'
+  | 'ManuallySuspended'
   | 'TemporaryError'
   | string
 /**

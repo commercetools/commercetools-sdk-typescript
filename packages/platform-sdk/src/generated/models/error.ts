@@ -25,6 +25,7 @@ import {
 } from './customer-group'
 import { OrderEditPreviewFailure } from './order-edit'
 import { Attribute, ProductReference } from './product'
+import { ProductSearchErrorResponse } from './product-search'
 import { ProductVariantSelection } from './product-selection'
 import { StandalonePriceReference } from './standalone-price'
 import { StoreKeyReference } from './store'
@@ -790,7 +791,10 @@ export interface ErrorResponse {
    */
   readonly errors?: ErrorObject[]
 }
-export type _ErrorResponse = ErrorResponse | AuthErrorResponse
+export type _ErrorResponse =
+  | ErrorResponse
+  | AuthErrorResponse
+  | ProductSearchErrorResponse
 /**
  *	Represents errors related to authentication and authorization in a format conforming to the [OAuth 2.0 specification](https://datatracker.ietf.org/doc/html/rfc6749#section-5.2).
  *

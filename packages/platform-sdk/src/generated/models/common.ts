@@ -608,7 +608,7 @@ export interface ClientLogging {
 }
 export type _ClientLogging = ClientLogging | CreatedBy | LastModifiedBy
 /**
- *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+ *	IDs and references that created the resource. This is present on resources created after 1 February 2019 except for [events not tracked](/general-concepts#events-tracked).
  */
 export interface CreatedBy extends ClientLogging {
   /**
@@ -725,7 +725,7 @@ export type KeyReference =
   | BusinessUnitKeyReference
   | StoreKeyReference
 /**
- *	Present on resources modified after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+ *	IDs and references that last modified the resource. This is present on resources created or updated after 1 February 2019 except for [events not tracked](/general-concepts#events-tracked).
  */
 export interface LastModifiedBy extends ClientLogging {
   /**
