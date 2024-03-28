@@ -1,9 +1,6 @@
 import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
-import {
-  createTaxCategory,
-  deleteTaxCategory,
-} from '../tax-category/tax-category-fixture'
+import { ensureTaxCategory } from '../tax-category/tax-category-fixture'
 import {
   createProductType,
   deleteProductType,
@@ -35,7 +32,7 @@ import path from 'path'
 describe('testing product API calls', () => {
   it('should create and delete a product by ID', async () => {
     const category = await createCategory()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)
 
     const productTypeResourceIdentifier: ProductTypeResourceIdentifier = {
@@ -159,13 +156,12 @@ describe('testing product API calls', () => {
     expect(responseProductDeleted.statusCode).toEqual(200)
 
     await deleteProductType(productType)
-    await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
   })
 
   it('should get a product by Id', async () => {
     const category = await createCategory()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
@@ -186,13 +182,12 @@ describe('testing product API calls', () => {
 
     await deleteProduct(product)
     await deleteProductType(productType)
-    await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
   })
 
   it('should get a product by key', async () => {
     const category = await createCategory()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
@@ -213,13 +208,12 @@ describe('testing product API calls', () => {
 
     await deleteProduct(product)
     await deleteProductType(productType)
-    await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
   })
 
   it('should get a product by SKU using query predicates', async () => {
     const category = await createCategory()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
@@ -248,13 +242,12 @@ describe('testing product API calls', () => {
 
     await deleteProduct(product)
     await deleteProductType(productType)
-    await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
   })
 
   it('should update a product by Id', async () => {
     const category = await createCategory()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
@@ -285,13 +278,12 @@ describe('testing product API calls', () => {
 
     await deleteProduct(updateProduct)
     await deleteProductType(productType)
-    await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
   })
 
   it('should update a product by key', async () => {
     const category = await createCategory()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
@@ -322,13 +314,12 @@ describe('testing product API calls', () => {
 
     await deleteProduct(updateProduct)
     await deleteProductType(productType)
-    await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
   })
 
   it('should query a product', async () => {
     const category = await createCategory()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
@@ -350,7 +341,6 @@ describe('testing product API calls', () => {
 
     await deleteProduct(product)
     await deleteProductType(productType)
-    await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
   })
 
@@ -358,7 +348,7 @@ describe('testing product API calls', () => {
     const imagePath = path.resolve(`${__dirname}/resources/image.jpeg`)
     const imageFile = await fs.readFile(imagePath)
     const category = await createCategory()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
