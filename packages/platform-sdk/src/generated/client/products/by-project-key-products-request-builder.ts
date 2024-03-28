@@ -10,6 +10,7 @@ import {
 } from '../../models/product'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
+import { ByProjectKeyProductsSearchRequestBuilder } from '../search/by-project-key-products-search-request-builder'
 import { ByProjectKeyProductsByIDRequestBuilder } from './by-project-key-products-by-id-request-builder'
 import { ByProjectKeyProductsKeyByKeyRequestBuilder } from './by-project-key-products-key-by-key-request-builder'
 /**
@@ -43,6 +44,19 @@ export class ByProjectKeyProductsRequestBuilder {
       pathArgs: {
         ...this.args.pathArgs,
         ...childPathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	This endpoint provides high-performance search queries over Products. Product Search allows searching through all products with a current projection in your Project.
+   *
+   */
+  public search(): ByProjectKeyProductsSearchRequestBuilder {
+    return new ByProjectKeyProductsSearchRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
       },
       executeRequest: this.args.executeRequest,
       baseUri: this.args.baseUri,
