@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Button from './Button'
+import Button from './Button.vue'
 import { getApiRoot, projectKey } from '../sdk/ApiRoot'
 
 export default {
@@ -41,7 +41,7 @@ export default {
 
         this.toggle(this.isShown)
       } catch (e) {
-        console.eroor(e)
+        console.error(e)
       }
     },
     toggle(val) {

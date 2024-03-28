@@ -3,19 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
   },
   "dependencies": {
     "@commercetools/platform-sdk": "^2.2.0",
     "@commercetools/sdk-client-v2": "^1.0.2",
+    "vite-plugin-node-polyfills": "^0.21.0",
     "core-js": "^3.6.5",
     "node-fetch": "2.6.7",
     "vue": "^3.0.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~5.0.8",
-    "@vue/cli-service": "~5.0.8",
-    "@vue/compiler-sfc": "^3.0.0"
+    "@vitejs/plugin-vue": "^5.0.4",
+    "vite": "^5.2.6"
   }
 }
