@@ -9,14 +9,14 @@ import {
   deleteProduct,
 } from '../product/product-fixture'
 import { createCategory } from '../category/category-fixture'
-import { createTaxCategory } from '../tax-category/tax-category-fixture'
+import { ensureTaxCategory } from '../tax-category/tax-category-fixture'
 
 describe('Concurrent Modification Middleware', () => {
   let product
 
   beforeEach(async () => {
     const category = await createCategory()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)
 
     //Published product

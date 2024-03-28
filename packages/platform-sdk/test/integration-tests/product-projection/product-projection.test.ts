@@ -1,9 +1,6 @@
 import { apiRoot } from '../test-utils'
 import { createCategory, deleteCategory } from '../category/category-fixture'
-import {
-  createTaxCategory,
-  deleteTaxCategory,
-} from '../tax-category/tax-category-fixture'
+import { ensureTaxCategory } from '../tax-category/tax-category-fixture'
 import {
   createProductType,
   deleteProductType,
@@ -19,7 +16,7 @@ import { waitUntil } from '../../helpers/test-utils'
 describe('testing product projection API calls', () => {
   it('should get a product by Id', async () => {
     const category = await createCategory()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
@@ -44,13 +41,12 @@ describe('testing product projection API calls', () => {
 
     await deleteProduct(product)
     await deleteProductType(productType)
-    await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
   })
 
   it('should get a product by key', async () => {
     const category = await createCategory()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
@@ -111,13 +107,12 @@ describe('testing product projection API calls', () => {
 
     await deleteProduct(product)
     await deleteProductType(productType)
-    await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
   })
 
   it('should query a product by product projection', async () => {
     const category = await createCategory()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
@@ -142,13 +137,12 @@ describe('testing product projection API calls', () => {
 
     await deleteProduct(product)
     await deleteProductType(productType)
-    await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
   })
 
   it('should search a product by product projection', async () => {
     const category = await createCategory()
-    const taxCategory = await createTaxCategory()
+    const taxCategory = await ensureTaxCategory()
     const productType = await createProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
@@ -188,7 +182,6 @@ describe('testing product projection API calls', () => {
 
     await deleteProduct(product)
     await deleteProductType(productType)
-    await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
   }, 40_000)
 })

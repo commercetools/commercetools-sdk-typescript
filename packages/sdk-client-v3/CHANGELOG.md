@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 1.2.0
+
+### Minor Changes
+
+- [#645](https://github.com/commercetools/commercetools-sdk-typescript/pull/645) [`bfbdfe6`](https://github.com/commercetools/commercetools-sdk-typescript/commit/bfbdfe65042f2b8d011d40859c9542666187dd22) Thanks [@lojzatran](https://github.com/lojzatran)! - Add Datadog APM to SDK
+
 ## 1.1.1
 
 ### Patch Changes
