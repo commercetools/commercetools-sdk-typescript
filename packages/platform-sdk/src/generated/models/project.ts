@@ -69,6 +69,14 @@ export interface ExternalOAuth {
  *	Specifies the status of the [Order Search](/../api/projects/order-search) index.
  */
 export type OrderSearchStatus = 'Activated' | 'Deactivated' | string
+export type ProductSearchIndexingMode =
+  | 'ProductProjectionsSearch'
+  | 'ProductsSearch'
+  | string
+/**
+ *	Specifies the status of the [Product Search](/../api/projects/product-search) index.
+ */
+export type ProductSearchStatus = 'Activated' | 'Deactivated' | string
 export interface Project {
   /**
    *	Current version of the Project.
@@ -202,6 +210,11 @@ export interface SearchIndexingConfiguration {
    */
   readonly products?: SearchIndexingConfigurationValues
   /**
+   *	Configuration for the [Product Search](/../api/projects/product-search) feature.
+   *
+   */
+  readonly productsSearch?: SearchIndexingConfigurationValues
+  /**
    *	Configuration for the [Order Search](/../api/projects/order-search) feature.
    *
    */
@@ -228,7 +241,7 @@ export interface SearchIndexingConfigurationValues {
    */
   readonly lastModifiedAt?: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the SearchIndexingConfigurationValues.
    *
    *
    */
@@ -368,6 +381,12 @@ export interface ProjectChangeProductSearchIndexingEnabledAction {
    *
    */
   readonly enabled: boolean
+  /**
+   *	Controls whether the action should apply to [Product Projection Search](/../api/projects/products-search) or to [Product Search](/../api/projects/product-search).
+   *
+   *
+   */
+  readonly mode?: ProductSearchIndexingMode
 }
 export interface ProjectChangeShoppingListsConfigurationAction {
   readonly action: 'changeShoppingListsConfiguration'
