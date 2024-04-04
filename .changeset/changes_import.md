@@ -1,3 +1,7 @@
+---
+'@commercetools/importapi-sdk': minor
+---
+
 **Import changes**
 
 <details>
