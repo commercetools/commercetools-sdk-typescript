@@ -3,9 +3,9 @@ import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
 import fetch from 'node-fetch'
 
 describe('integration test for process function', () => {
-  test('should process customer list using provided limit', async () => {
-    const projectKey = process.env.CTP_PROJECT_KEY
-    const authMiddlewareOptions = {
+  const projectKey = process.env.CTP_PROJECT_KEY
+  function getAuthOptions(options: object = {}) {
+    return {
       host: 'https://auth.europe-west1.gcp.commercetools.com',
       projectKey,
       credentials: {
@@ -15,17 +15,23 @@ describe('integration test for process function', () => {
       oauthUri: process.env.adminAuthUrl || '',
       scopes: [`manage_project:${projectKey}`],
       fetch,
+      ...options,
     }
+  }
 
-    const httpMiddlewareOptions = {
+  function getHttpOptions(options: object = {}) {
+    return {
       host: 'https://api.europe-west1.gcp.commercetools.com',
       fetch,
+      ...options,
     }
+  }
 
+  test('should process customer list using provided limit', async () => {
     const client = new ClientBuilder()
       .withProjectKey(projectKey)
-      .withClientCredentialsFlow(authMiddlewareOptions)
-      .withHttpMiddleware(httpMiddlewareOptions)
+      .withClientCredentialsFlow(getAuthOptions())
+      .withHttpMiddleware(getHttpOptions())
       .build()
 
     const apiRoot = createApiBuilderFromCtpClient(client)
@@ -54,27 +60,10 @@ describe('integration test for process function', () => {
   })
 
   test('should process customer list using provided limit', async () => {
-    const projectKey = process.env.CTP_PROJECT_KEY
-    const authMiddlewareOptions = {
-      host: 'https://auth.europe-west1.gcp.commercetools.com',
-      projectKey,
-      credentials: {
-        clientId: process.env.CTP_CLIENT_ID || '',
-        clientSecret: process.env.CTP_CLIENT_SECRET || '',
-      },
-      scopes: [`manage_project:${projectKey}`],
-      fetch,
-    }
-
-    const httpMiddlewareOptions = {
-      host: 'https://api.europe-west1.gcp.commercetools.com',
-      fetch,
-    }
-
     const client = new ClientBuilder()
       .withProjectKey(projectKey)
-      .withClientCredentialsFlow(authMiddlewareOptions)
-      .withHttpMiddleware(httpMiddlewareOptions)
+      .withClientCredentialsFlow(getAuthOptions())
+      .withHttpMiddleware(getHttpOptions())
       .build()
 
     const apiRoot = createApiBuilderFromCtpClient(client)
@@ -103,27 +92,10 @@ describe('integration test for process function', () => {
   })
 
   test('should process customer list using provided limit', () => {
-    const projectKey = process.env.CTP_PROJECT_KEY
-    const authMiddlewareOptions = {
-      host: 'https://auth.europe-west1.gcp.commercetools.com',
-      projectKey,
-      credentials: {
-        clientId: process.env.CTP_CLIENT_ID || '',
-        clientSecret: process.env.CTP_CLIENT_SECRET || '',
-      },
-      scopes: [`manage_project:${projectKey}`],
-      fetch,
-    }
-
-    const httpMiddlewareOptions = {
-      host: 'https://api.europe-west1.gcp.commercetools.com',
-      fetch,
-    }
-
     const client = new ClientBuilder()
       .withProjectKey(projectKey)
-      .withClientCredentialsFlow(authMiddlewareOptions)
-      .withHttpMiddleware(httpMiddlewareOptions)
+      .withClientCredentialsFlow(getAuthOptions())
+      .withHttpMiddleware(getHttpOptions())
       .build()
 
     const apiRoot = createApiBuilderFromCtpClient(client)
@@ -147,6 +119,36 @@ describe('integration test for process function', () => {
         const id2 = response[0].body.results[1].id
 
         expect(id1 > id2).toBe(true)
+      })
+      .catch(fn)
+  })
+
+  test('should properly the `expan` args as a uri parameter', () => {
+    const client = new ClientBuilder()
+      .withProjectKey(projectKey)
+      .withClientCredentialsFlow(getAuthOptions())
+      .withHttpMiddleware(getHttpOptions())
+      .build()
+
+    const apiRoot = createApiBuilderFromCtpClient(client)
+
+    const request = apiRoot
+      .withProjectKey({ projectKey })
+      .categories()
+      .get({
+        queryArgs: {
+          limit: 2,
+          withTotal: false,
+          expand: ['parent', 'ancestors[*]'],
+        },
+      })
+      .clientRequest()
+
+    const fn = (data: any) => data
+    return client
+      .process(request, fn, {})
+      .then((response) => {
+        expect(response[0].statusCode).toEqual(200)
       })
       .catch(fn)
   })

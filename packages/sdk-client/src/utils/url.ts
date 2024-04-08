@@ -43,5 +43,5 @@ export function stringifyURLString(
       | URLSearchParams
   ) => string = urlStringifier
 ): string {
-  return urlStringifier(object)
+  return stringifier(object)
 }
