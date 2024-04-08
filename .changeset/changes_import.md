@@ -5,9 +5,11 @@
 **Import changes**
 
 <details>
-<summary>Added Enum(s)</summary>
+<summary>Added Resource(s)</summary>
 
-- added enum `discount-code` to type `ImportResourceType`
+- added resource `/{projectKey}/discount-codes`
+- added resource `/{projectKey}/discount-codes/import-containers`
+- added resource `/{projectKey}/discount-codes/import-containers/{importContainerKey}`
 </details>
 
 <details>
@@ -17,16 +19,14 @@
 </details>
 
 <details>
-<summary>Added Resource(s)</summary>
-
-- added resource `/{projectKey}/discount-codes`
-- added resource `/{projectKey}/discount-codes/import-containers`
-- added resource `/{projectKey}/discount-codes/import-containers/{importContainerKey}`
-</details>
-
-<details>
 <summary>Added Type(s)</summary>
 
 - added type `DiscountCodeImportRequest`
 - added type `DiscountCodeImport`
+</details>
+
+<details>
+<summary>Added Enum(s)</summary>
+
+- added enum `discount-code` to type `ImportResourceType`
 </details>
