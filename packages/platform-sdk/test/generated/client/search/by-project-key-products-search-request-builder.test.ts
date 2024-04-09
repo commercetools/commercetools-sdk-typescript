@@ -20,15 +20,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .search()
         .post({ body: null, headers: null }),
     },
-    {
-      method: 'head',
-      uri: '/test_projectKey/products/search',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .products()
-        .search()
-        .head(),
-    },
   ]
 }
 

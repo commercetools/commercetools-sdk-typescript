@@ -17,3 +17,9 @@
 - added type `Attribution`
 - added type `AttributionSource`
 </details>
+
+<details>
+<summary>Removed Method(s)</summary>
+
+- :warning: removed method `apiRoot.withProjectKey().products().search().head()`
+</details>

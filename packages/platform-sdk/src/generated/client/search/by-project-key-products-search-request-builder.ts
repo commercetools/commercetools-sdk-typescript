@@ -42,27 +42,4 @@ export class ByProjectKeyProductsSearchRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Checks whether a search index for the Project's Products exists.
-   *	Returns a `200 OK` status if the index exists, a `404 Not Found` error otherwise.
-   *
-   */
-  public head(methodArgs?: {
-    headers?: {
-      [key: string]: string | string[]
-    }
-  }): ApiRequest<void> {
-    return new ApiRequest<void>(
-      {
-        baseUri: this.args.baseUri,
-        method: 'HEAD',
-        uriTemplate: '/{projectKey}/products/search',
-        pathVariables: this.args.pathArgs,
-        headers: {
-          ...methodArgs?.headers,
-        },
-      },
-      this.args.executeRequest
-    )
-  }
 }
