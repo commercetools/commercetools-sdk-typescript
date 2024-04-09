@@ -38,13 +38,13 @@ export interface CartDiscount extends BaseResource {
    */
   readonly version: number
   /**
-   *	Date and time (UTC) for the CartDiscount was initially created.
+   *	Date and time (UTC) the CartDiscount was initially created.
    *
    *
    */
   readonly createdAt: string
   /**
-   *	Date and time (UTC) for the CartDiscount was last updated.
+   *	Date and time (UTC) the CartDiscount was last updated.
    *
    *
    */
