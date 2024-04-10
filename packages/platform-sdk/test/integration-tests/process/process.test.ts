@@ -123,7 +123,7 @@ describe('integration test for process function', () => {
       .catch(fn)
   })
 
-  test('should properly the `expan` args as a uri parameter', () => {
+  test('should properly the `expand` args as a uri parameter', () => {
     const client = new ClientBuilder()
       .withProjectKey(projectKey)
       .withClientCredentialsFlow(getAuthOptions())
