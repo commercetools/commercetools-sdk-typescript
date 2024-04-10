@@ -145,11 +145,8 @@ describe('integration test for process function', () => {
       .clientRequest()
 
     const fn = (data: any) => data
-    return client
-      .process(request, fn, {})
-      .then((response) => {
-        expect(response[0].statusCode).toEqual(200)
-      })
-      .catch(fn)
+    return client.process(request, fn, {}).then((response) => {
+      expect(response[0].statusCode).toEqual(200)
+    })
   })
 })
