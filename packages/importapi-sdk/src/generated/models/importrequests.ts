@@ -6,6 +6,7 @@
 
 import { CategoryImport } from './categories'
 import { CustomerImport } from './customers'
+import { DiscountCodeImport } from './discount-codes'
 import { ImportOperationStatus } from './importoperations'
 import { InventoryImport } from './inventories'
 import { OrderPatchImport } from './order-patches'
@@ -25,6 +26,7 @@ import { TypeImport } from './types'
 export type ImportRequest =
   | CategoryImportRequest
   | CustomerImportRequest
+  | DiscountCodeImportRequest
   | InventoryImportRequest
   | OrderImportRequest
   | OrderPatchImportRequest
@@ -215,4 +217,17 @@ export interface TypeImportRequest {
    *
    */
   readonly resources: TypeImport[]
+}
+/**
+ *	The request body to [import Discount Codes](#import-discount-codes). Contains data for [Discount Codes](/../api/projects/discountCodes#discountcode) to be created or updated in a Project.
+ *
+ */
+export interface DiscountCodeImportRequest {
+  readonly type: 'discount-code'
+  /**
+   *	The Discount Code import resources of this request.
+   *
+   *
+   */
+  readonly resources: DiscountCodeImport[]
 }

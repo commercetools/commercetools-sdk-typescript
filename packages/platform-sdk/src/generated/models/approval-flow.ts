@@ -117,7 +117,7 @@ export interface ApprovalFlowApproval {
    */
   readonly approver: Associate
   /**
-   *	Date and time (UTC) when the [Approval Flow](ctp:api:type:ApprovalFlow) was approved at.
+   *	Date and time (UTC) the [Approval Flow](ctp:api:type:ApprovalFlow) was approved.
    *
    *
    */
@@ -171,7 +171,7 @@ export interface ApprovalFlowRejection {
    */
   readonly rejecter: Associate
   /**
-   *	Date and time (UTC) when the [Approval Flow](ctp:api:type:ApprovalFlow) was rejected at.
+   *	Date and time (UTC) the [Approval Flow](ctp:api:type:ApprovalFlow) was rejected.
    *
    *
    */
