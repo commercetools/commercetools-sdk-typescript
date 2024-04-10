@@ -1,5 +1,36 @@
 # @commercetools/platform-sdk
 
+## 7.7.0
+
+### Minor Changes
+
+- [#670](https://github.com/commercetools/commercetools-sdk-typescript/pull/670) [`96c319a`](https://github.com/commercetools/commercetools-sdk-typescript/commit/96c319ace84ba80a04581a67e608d61008ddbebf) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `attributedTo` to type `CreatedBy`
+  - added property `attributedTo` to type `LastModifiedBy`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `Attribution`
+  - added type `AttributionSource`
+  </details>
+
+  <details>
+  <summary>Removed Method(s)</summary>
+
+  - :warning: removed method `apiRoot.withProjectKey().products().search().head()`
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`344fd2d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/344fd2d105f51a65a8a93f247ea9ea8f1a09b095)]:
+  - @commercetools/sdk-client-v2@2.4.1
+
 ## 7.6.0
 
 ### Minor Changes
