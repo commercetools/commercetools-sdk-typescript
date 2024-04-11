@@ -178,6 +178,18 @@ describe('client builder', () => {
     expect(clientWithTelemetryMiddleware.telemetryMiddleware).toBeTruthy()
   })
 
+  test('should create client with a custom logger function', () => {
+    const client = new ClientBuilder() as any
+    expect(client.loggerMiddleware).toBeFalsy()
+
+    const options = { logger: jest.fn() }
+    const clientWithLoggerMiddleware = client.withLoggerMiddleware(options)
+
+    expect(options.logger).toHaveBeenCalled()
+    expect(options.logger).toBeCalledTimes(1)
+    expect(clientWithLoggerMiddleware.withLoggerMiddleware).toBeTruthy()
+  })
+
   describe('builder method', () => {
     test('build client', () => {
       const client = new ClientBuilder()
@@ -199,6 +211,7 @@ describe('client builder', () => {
           tracer: jest.fn(),
           createTelemetryMiddleware: (): Middleware => jest.fn(),
         })
+        .withLoggerMiddleware({ logger: jest.fn() })
         .build()
 
       expect(client).toBeTruthy()

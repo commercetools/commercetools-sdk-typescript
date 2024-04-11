@@ -20,6 +20,7 @@ import {
   PasswordAuthMiddlewareOptions,
   QueueMiddlewareOptions,
   RefreshAuthMiddlewareOptions,
+  LoggerMiddlewareOptions,
   TelemetryOptions,
 } from '../types/sdk'
 
@@ -180,8 +181,9 @@ export default class ClientBuilder {
     return this
   }
 
-  withLoggerMiddleware() {
-    this.loggerMiddleware = createLoggerMiddleware()
+  withLoggerMiddleware(options?: LoggerMiddlewareOptions): ClientBuilder {
+    const { logger, ...rest } = options || {}
+    this.loggerMiddleware = options?.logger(rest) || createLoggerMiddleware()
     return this
   }
 
