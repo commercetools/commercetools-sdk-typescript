@@ -359,6 +359,12 @@ export type UserAgentMiddlewareOptions = {
   contactEmail?: string
 }
 
+export type GenericOmit<T, U extends string | number | symbol> = Omit<T, U>;
+export type LoggerMiddlewareOptions = {
+  [key: string]: any;
+  logger: (options?: GenericOmit<LoggerMiddlewareOptions, 'logger'>) => Middleware;
+}
+
 export type Next = (
   request: MiddlewareRequest,
   response: MiddlewareResponse
@@ -538,16 +544,9 @@ export type CorrelationIdMiddlewareOptions = {
   generate: () => string
 }
 
-// // TODO: specify specific options 
-// // export type ApmMiddlewareOptions = Record<string, any>
-// export type ApmMiddlewareOptions = {
-//   createApmMiddleware: (options?: any) => Middleware,
-//   apm: any
-// }
-
 export type TelemetryOptions = {
   apm?: Function;
   tracer?: Function;
   userAgent?: string;
-  createTelemetryMiddleware: (options?: Omit<TelemetryOptions, 'createTelemetryMiddleware'>) => Middleware
+  createTelemetryMiddleware: (options?: GenericOmit<TelemetryOptions, 'createTelemetryMiddleware'>) => Middleware
 }

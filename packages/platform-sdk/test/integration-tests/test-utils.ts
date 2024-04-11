@@ -3,6 +3,7 @@ import {
   TokenCache,
   TokenStore,
   TokenCacheOptions,
+  Client,
 } from '@commercetools/sdk-client-v2'
 import { ClientBuilder as ClientBuilderV3 } from '@commercetools/ts-client'
 import { createApiBuilderFromCtpClient } from '../../src'
