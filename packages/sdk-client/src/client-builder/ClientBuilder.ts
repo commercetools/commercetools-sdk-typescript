@@ -183,7 +183,9 @@ export default class ClientBuilder {
 
   withLoggerMiddleware(options?: LoggerMiddlewareOptions): ClientBuilder {
     const { logger, ...rest } = options || {}
-    this.loggerMiddleware = options?.logger(rest) || createLoggerMiddleware()
+    this.loggerMiddleware =
+      (typeof options?.logger == 'function' && options.logger(rest)) ||
+      createLoggerMiddleware()
     return this
   }
 
