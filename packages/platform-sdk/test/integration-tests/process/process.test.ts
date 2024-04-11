@@ -123,7 +123,7 @@ describe('integration test for process function', () => {
       .catch(fn)
   })
 
-  test('should properly the `expand` args as a uri parameter', () => {
+  test('should properly `expand` provided queryArgs as a uri parameter', async () => {
     const client = new ClientBuilder()
       .withProjectKey(projectKey)
       .withClientCredentialsFlow(getAuthOptions())
@@ -148,5 +148,5 @@ describe('integration test for process function', () => {
     return client.process(request, fn, {}).then((response) => {
       expect(response[0].statusCode).toEqual(200)
     })
-  })
+  }, 60000)
 })
