@@ -3,9 +3,6 @@ import {
   Next,
   ClientBuilder,
   ClientRequest,
-  LoggerMiddlewareOptions,
-  MiddlewareRequest,
-  MiddlewareResponse,
   Middleware,
 } from '@commercetools/sdk-client-v2'
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
