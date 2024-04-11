@@ -13,6 +13,7 @@
     "changeset": "changeset",
     "test:unit": "yarn test --testPathIgnorePatterns='packages/platform-sdk/test/integration-tests'",
     "test:integration": "jest --testPathPattern='packages/platform-sdk/test/integration-tests'",
+    "postbuild": "webpack --mode=production",
     "changeset:version-and-format": "changeset version && prettier --write --parser json '**/package.json'"
   },
   "workspaces": ["packages/*"],
