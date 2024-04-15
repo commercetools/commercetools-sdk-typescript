@@ -190,6 +190,34 @@ describe('client builder', () => {
     expect(clientWithLoggerMiddleware.withLoggerMiddleware).toBeTruthy()
   })
 
+  test('should create client with a before middleware function', () => {
+    const client = new ClientBuilder() as any
+    expect(client.beforeMiddleware).toBeFalsy()
+
+    const options = { middleware: jest.fn() }
+    const clientWithBeforeMiddleware =
+      client.withBeforeExecutionMiddleware(options)
+
+    expect(options.middleware).toHaveBeenCalled()
+    expect(options.middleware).toBeCalledTimes(1)
+    expect(
+      clientWithBeforeMiddleware.withBeforeExecutionMiddleware
+    ).toBeTruthy()
+  })
+
+  test('should create client with an after middleware function', () => {
+    const client = new ClientBuilder() as any
+    expect(client.afterMiddleware).toBeFalsy()
+
+    const options = { middleware: jest.fn() }
+    const clientWithAfterMiddleware =
+      client.withAfterExecutionMiddleware(options)
+
+    expect(options.middleware).toHaveBeenCalled()
+    expect(options.middleware).toBeCalledTimes(1)
+    expect(clientWithAfterMiddleware.withAfterExecutionMiddleware).toBeTruthy()
+  })
+
   describe('builder method', () => {
     test('build client', () => {
       const client = new ClientBuilder()
@@ -212,9 +240,13 @@ describe('client builder', () => {
           createTelemetryMiddleware: (): Middleware => jest.fn(),
         })
         .withLoggerMiddleware({ logger: jest.fn() })
+        .withBeforeExecutionMiddleware({ middleware: jest.fn() })
+        .withAfterExecutionMiddleware({ middleware: jest.fn() })
         .build()
 
       expect(client).toBeTruthy()
+      expect(client.execute).toBeTruthy()
+      expect(client.process).toBeTruthy()
       expect(typeof client).toEqual('object')
       expect(typeof client.execute).toEqual('function')
       expect(typeof client.process).toEqual('function')
