@@ -17,6 +17,8 @@ import {
   HttpUserAgentOptions,
   Middleware,
   Nullable,
+  BeforeExecutionMiddlewareOptions,
+  AfterExecutionMiddlewareOptions,
   PasswordAuthMiddlewareOptions,
   QueueMiddlewareOptions,
   RefreshAuthMiddlewareOptions,
@@ -41,6 +43,8 @@ export default class ClientBuilder {
   private loggerMiddleware: Nullable<Middleware>
   private queueMiddleware: Nullable<Middleware>
   private telemetryMiddleware: Nullable<Middleware>
+  private beforeMiddleware: Nullable<Middleware>
+  private afterMiddleware: Nullable<Middleware>
   private middlewares: Array<Middleware> = []
 
   withProjectKey(key: string): ClientBuilder {
@@ -211,6 +215,18 @@ export default class ClientBuilder {
     return this
   }
 
+  withBeforeExecutionMiddleware(options: BeforeExecutionMiddlewareOptions) {
+    const { middleware, ...rest } = options || {}
+    this.beforeMiddleware = options.middleware(rest)
+    return this
+  }
+
+  withAfterExecutionMiddleware(options: AfterExecutionMiddlewareOptions) {
+    const { middleware, ...rest } = options || {}
+    this.afterMiddleware = options.middleware(rest)
+    return this
+  }
+
   build(): Client {
     const middlewares = this.middlewares.slice()
 
@@ -219,8 +235,10 @@ export default class ClientBuilder {
       middlewares.push(this.correlationIdMiddleware)
     if (this.userAgentMiddleware) middlewares.push(this.userAgentMiddleware)
     if (this.authMiddleware) middlewares.push(this.authMiddleware)
+    if (this.beforeMiddleware) middlewares.push(this.beforeMiddleware)
     if (this.queueMiddleware) middlewares.push(this.queueMiddleware)
     if (this.httpMiddleware) middlewares.push(this.httpMiddleware)
+    if (this.afterMiddleware) middlewares.push(this.afterMiddleware)
     if (this.loggerMiddleware) middlewares.push(this.loggerMiddleware)
 
     return createClient({ middlewares })
