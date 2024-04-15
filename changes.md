@@ -1,6 +1,12 @@
 **Api changes**
 
 <details>
+<summary>Added Property(s)</summary>
+
+- added property `postFilter` to type `ProductSearchRequest`
+</details>
+
+<details>
 <summary>Required Property(s)</summary>
 
 - :warning: changed property `stores` of type `BusinessUnit` to be required
