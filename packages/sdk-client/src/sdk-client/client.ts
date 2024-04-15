@@ -10,7 +10,7 @@ import {
   ProcessOptions,
   SuccessResult,
 } from '../types/sdk.d'
-import { stringifyURLString, parseURLString } from '../utils'
+import { parseURLString, stringifyURLString } from '../utils'
 import validate from './validate'
 
 let _options: ClientOptions
