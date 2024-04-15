@@ -15,6 +15,7 @@ import {
   ExistingTokenMiddlewareOptions,
   HttpMiddlewareOptions,
   HttpUserAgentOptions,
+  LoggerMiddlewareOptions,
   Middleware,
   Nullable,
   BeforeExecutionMiddlewareOptions,
@@ -22,7 +23,6 @@ import {
   PasswordAuthMiddlewareOptions,
   QueueMiddlewareOptions,
   RefreshAuthMiddlewareOptions,
-  LoggerMiddlewareOptions,
   TelemetryOptions,
 } from '../types/sdk'
 
