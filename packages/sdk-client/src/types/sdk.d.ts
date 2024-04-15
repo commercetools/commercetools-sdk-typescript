@@ -544,6 +544,16 @@ export type CorrelationIdMiddlewareOptions = {
   generate: () => string
 }
 
+export type BeforeExecutionMiddlewareOptions = {
+  [key: string]: any;
+  middleware: (options?: GenericOmit<BeforeExecutionMiddlewareOptions, 'middleware'>) => Middleware
+}
+
+export type AfterExecutionMiddlewareOptions = {
+  [key: string]: any;
+  middleware: (options?: GenericOmit<AfterExecutionMiddlewareOptions, 'middleware'>) => Middleware
+}
+
 export type TelemetryOptions = {
   apm?: Function;
   tracer?: Function;

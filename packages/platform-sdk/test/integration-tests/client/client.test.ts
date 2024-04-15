@@ -106,4 +106,106 @@ describe('testing api root client', () => {
       .get()
       .execute()
   })
+
+  it('should create api root client with a `beforeMiddleware` function', async () => {
+    const authMiddlewareOptions = {
+      host: authURL,
+      projectKey,
+      credentials: {
+        clientId: clientId,
+        clientSecret: clientSecret,
+      },
+      scopes: [`manage_project:${projectKey}`],
+      fetch,
+    }
+
+    const httpMiddlewareOptions = {
+      host: apiURL,
+      headersWithStringBody: ['application/x-www-form-urlencoded'],
+      fetch,
+    }
+
+    const client = new ClientBuilder()
+      .withProjectKey(projectKey)
+      .withClientCredentialsFlow(authMiddlewareOptions)
+      .withHttpMiddleware(httpMiddlewareOptions)
+      .withBeforeExecutionMiddleware({
+        name: 'beforeMiddleware-fn',
+        middleware(o): Middleware {
+          return (next: Next): Next => {
+            return (req, res) => {
+              expect(o).toHaveProperty('name')
+              expect(o.name).toEqual('beforeMiddleware-fn')
+
+              expect(req.baseUri).toEqual(apiURL)
+              expect(req.uri).toMatch(projectKey)
+              expect(req.headers).toHaveProperty('Authorization')
+              expect(res.body).toBeUndefined()
+              expect(res.error).toBeUndefined()
+
+              next(req, res)
+            }
+          }
+        },
+      })
+      .build()
+
+    createApiBuilderFromCtpClient(client)
+      .withProjectKey({ projectKey })
+      .get()
+      .execute()
+  })
+
+  it('should create api root client with a `afterMiddleware` function', async () => {
+    const authMiddlewareOptions = {
+      host: authURL,
+      projectKey,
+      credentials: {
+        clientId: clientId,
+        clientSecret: clientSecret,
+      },
+      scopes: [`manage_project:${projectKey}`],
+      fetch,
+    }
+
+    const httpMiddlewareOptions = {
+      host: apiURL,
+      headersWithStringBody: ['application/x-www-form-urlencoded'],
+      fetch,
+    }
+
+    const client = new ClientBuilder()
+      .withProjectKey(projectKey)
+      .withClientCredentialsFlow(authMiddlewareOptions)
+      .withHttpMiddleware(httpMiddlewareOptions)
+      .withAfterExecutionMiddleware({
+        name: 'afterMiddleware-fn',
+        middleware(o): Middleware {
+          return (next: Next): Next => {
+            return (req, res) => {
+              expect(o).toHaveProperty('name')
+              expect(o.name).toEqual('afterMiddleware-fn')
+
+              expect(req.baseUri).toEqual(apiURL)
+              expect(req.uri).toMatch(projectKey)
+              expect(res.body).toBeTruthy()
+              expect(res).toHaveProperty('body.key', projectKey)
+              expect(res).toHaveProperty('body.name', 'typescript-sdk')
+              expect(res.body).toHaveProperty('carts')
+              expect(res.body).toHaveProperty('version')
+
+              expect(res.statusCode).toEqual(200)
+              expect(res.error).toBeUndefined()
+              next(req, res)
+            }
+          }
+        },
+      })
+      .build()
+
+    createApiBuilderFromCtpClient(client)
+      .withProjectKey({ projectKey })
+      .get()
+      .execute()
+  })
 })
