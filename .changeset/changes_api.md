@@ -5,6 +5,14 @@
 **Api changes**
 
 <details>
+<summary>Changed Property(s)</summary>
+
+- :warning: changed property `custom` of type `MyBusinessUnitDraft` from type `CustomFields` to `CustomFieldsDraft`
+- :warning: changed property `custom` of type `MyCompanyDraft` from type `CustomFields` to `CustomFieldsDraft`
+- :warning: changed property `custom` of type `MyDivisionDraft` from type `CustomFields` to `CustomFieldsDraft`
+</details>
+
+<details>
 <summary>Added Property(s)</summary>
 
 - added property `postFilter` to type `ProductSearchRequest`
