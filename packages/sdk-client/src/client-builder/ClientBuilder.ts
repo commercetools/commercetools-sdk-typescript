@@ -7,8 +7,10 @@ import { default as createLoggerMiddleware } from '../sdk-middleware-logger/logg
 import { default as createQueueMiddleware } from '../sdk-middleware-queue/queue'
 import { default as createUserAgentMiddleware } from '../sdk-middleware-user-agent/user-agent'
 import {
+  AfterExecutionMiddlewareOptions,
   AnonymousAuthMiddlewareOptions,
   AuthMiddlewareOptions,
+  BeforeExecutionMiddlewareOptions,
   Client,
   CorrelationIdMiddlewareOptions,
   Credentials,
@@ -18,8 +20,6 @@ import {
   LoggerMiddlewareOptions,
   Middleware,
   Nullable,
-  BeforeExecutionMiddlewareOptions,
-  AfterExecutionMiddlewareOptions,
   PasswordAuthMiddlewareOptions,
   QueueMiddlewareOptions,
   RefreshAuthMiddlewareOptions,
