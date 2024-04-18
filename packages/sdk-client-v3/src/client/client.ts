@@ -176,7 +176,13 @@ export default function createClient(middlewares: ClientOptions): Client {
           resolve,
           ...request,
         })
-          .then(resolve)
+          .then((res) => {
+            if (res.error) {
+              reject(res.error)
+            } else {
+              resolve(res)
+            }
+          })
           .catch(reject)
       })
     },
