@@ -4,34 +4,39 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import {
-  ProductPagedSearchResponse,
-  ProductSearchRequest,
-} from '../../models/product-search'
+  DiscountCodeImportRequest,
+  ImportResponse,
+} from '../../models/importrequests'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
-export class ByProjectKeyProductsSearchRequestBuilder {
+export class ByProjectKeyDiscountCodesImportContainersByImportContainerKeyRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
         projectKey: string
+        importContainerKey: string
       }
       executeRequest: executeRequest
       baseUri?: string
     }
   ) {}
+  /**
+   *	Creates a request for creating new Discount Codes or updating existing ones.
+   */
   public post(methodArgs: {
-    body: ProductSearchRequest
+    body: DiscountCodeImportRequest
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<ProductPagedSearchResponse> {
-    return new ApiRequest<ProductPagedSearchResponse>(
+  }): ApiRequest<ImportResponse> {
+    return new ApiRequest<ImportResponse>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',
-        uriTemplate: '/{projectKey}/products/search',
+        uriTemplate:
+          '/{projectKey}/discount-codes/import-containers/{importContainerKey}',
         pathVariables: this.args.pathArgs,
         headers: {
           'Content-Type': 'application/json',

@@ -41,7 +41,7 @@ export interface Record {
    */
   readonly modifiedBy: ModifiedBy
   /**
-   *	Date and time (UTC) when the change was made.
+   *	Date and time (UTC) the change was made.
    *
    */
   readonly modifiedAt: string

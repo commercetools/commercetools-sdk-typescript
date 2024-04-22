@@ -14,7 +14,7 @@ import { Attribute } from './productvariants'
  */
 export interface ErrorResponse {
   /**
-   *	The http status code of the response.
+   *	The HTTP status code of the response.
    *
    */
   readonly statusCode: number

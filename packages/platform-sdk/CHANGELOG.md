@@ -1,5 +1,135 @@
 # @commercetools/platform-sdk
 
+## 7.7.0
+
+### Minor Changes
+
+- [#670](https://github.com/commercetools/commercetools-sdk-typescript/pull/670) [`96c319a`](https://github.com/commercetools/commercetools-sdk-typescript/commit/96c319ace84ba80a04581a67e608d61008ddbebf) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `attributedTo` to type `CreatedBy`
+  - added property `attributedTo` to type `LastModifiedBy`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `Attribution`
+  - added type `AttributionSource`
+  </details>
+
+  <details>
+  <summary>Removed Method(s)</summary>
+
+  - :warning: removed method `apiRoot.withProjectKey().products().search().head()`
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`344fd2d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/344fd2d105f51a65a8a93f247ea9ea8f1a09b095)]:
+  - @commercetools/sdk-client-v2@2.4.1
+
+## 7.6.0
+
+### Minor Changes
+
+- [#651](https://github.com/commercetools/commercetools-sdk-typescript/pull/651) [`6ebb725`](https://github.com/commercetools/commercetools-sdk-typescript/commit/6ebb725fe18630282c7209ba88596fd2ac315122) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `ManuallySuspended` to type `SubscriptionHealthStatus`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `productsSearch` to type `SearchIndexingConfiguration`
+  - added property `mode` to type `ProjectChangeProductSearchIndexingEnabledAction`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+
+  - added method `apiRoot.withProjectKey().products().search().post()`
+  - added method `apiRoot.withProjectKey().products().search().head()`
+  </details>
+
+  <details>
+  <summary>Added Resource(s)</summary>
+
+  - added resource `/{projectKey}/products/search`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `LockedFieldError`
+  - added type `GraphQLLockedFieldError`
+  - added type `ProductPagedSearchResponse`
+  - added type `ProductSearchErrorResponse`
+  - added type `ProductSearchMatchingVariantEntry`
+  - added type `ProductSearchMatchingVariants`
+  - added type `ProductSearchProjectionParams`
+  - added type `ProductSearchRequest`
+  - added type `ProductSearchResult`
+  - added type `ProductSearchFacetCountExpression`
+  - added type `ProductSearchFacetCountLevelEnum`
+  - added type `ProductSearchFacetCountValue`
+  - added type `ProductSearchFacetDistinctBucketSortBy`
+  - added type `ProductSearchFacetDistinctBucketSortExpression`
+  - added type `ProductSearchFacetDistinctExpression`
+  - added type `ProductSearchFacetDistinctValue`
+  - added type `ProductSearchFacetExpression`
+  - added type `ProductSearchFacetRangesExpression`
+  - added type `ProductSearchFacetRangesFacetRange`
+  - added type `ProductSearchFacetRangesValue`
+  - added type `ProductSearchFacetResult`
+  - added type `ProductSearchFacetResultBucket`
+  - added type `ProductSearchFacetResultBucketEntry`
+  - added type `ProductSearchFacetResultCount`
+  - added type `ProductSearchFacetScope`
+  - added type `ProductSearchFacetScopeEnum`
+  - added type `ProductSearchIndexingMode`
+  - added type `ProductSearchStatus`
+  - added type `SearchAndExpression`
+  - added type `SearchAnyValue`
+  - added type `SearchCompoundExpression`
+  - added type `SearchDateRangeExpression`
+  - added type `SearchDateRangeValue`
+  - added type `SearchDateTimeRangeExpression`
+  - added type `SearchDateTimeRangeValue`
+  - added type `SearchExactExpression`
+  - added type `SearchExistsExpression`
+  - added type `SearchExistsValue`
+  - added type `SearchFieldType`
+  - added type `SearchFilterExpression`
+  - added type `SearchFullTextExpression`
+  - added type `SearchFullTextPrefixExpression`
+  - added type `SearchFullTextPrefixValue`
+  - added type `SearchFullTextValue`
+  - added type `SearchLongRangeExpression`
+  - added type `SearchLongRangeValue`
+  - added type `SearchMatchType`
+  - added type `SearchMatchingVariant`
+  - added type `SearchNotExpression`
+  - added type `SearchNumberRangeExpression`
+  - added type `SearchNumberRangeValue`
+  - added type `SearchOrExpression`
+  - added type `SearchPrefixExpression`
+  - added type `SearchQuery`
+  - added type `SearchQueryExpression`
+  - added type `SearchQueryExpressionValue`
+  - added type `SearchSortMode`
+  - added type `SearchSortOrder`
+  - added type `SearchSorting`
+  - added type `SearchTimeRangeExpression`
+  - added type `SearchTimeRangeValue`
+  - added type `SearchWildCardExpression`
+  </details>
+
 ## 7.5.0
 
 ### Minor Changes

@@ -1,5 +1,43 @@
 # @commercetools/importapi-sdk
 
+## 5.3.0
+
+### Minor Changes
+
+- [#670](https://github.com/commercetools/commercetools-sdk-typescript/pull/670) [`96c319a`](https://github.com/commercetools/commercetools-sdk-typescript/commit/96c319ace84ba80a04581a67e608d61008ddbebf) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Resource(s)</summary>
+
+  - added resource `/{projectKey}/discount-codes`
+  - added resource `/{projectKey}/discount-codes/import-containers`
+  - added resource `/{projectKey}/discount-codes/import-containers/{importContainerKey}`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+
+  - added method `apiRoot.withProjectKeyValue().discountCodes().importContainers().withImportContainerKeyValue().post()`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `DiscountCodeImportRequest`
+  - added type `DiscountCodeImport`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `discount-code` to type `ImportResourceType`
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`344fd2d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/344fd2d105f51a65a8a93f247ea9ea8f1a09b095)]:
+  - @commercetools/sdk-client-v2@2.4.1
+
 ## 5.2.0
 
 ### Minor Changes

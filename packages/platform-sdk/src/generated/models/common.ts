@@ -327,6 +327,24 @@ export interface AssetSource {
   readonly contentType?: string
 }
 /**
+ *	Indicates the source and method that indirectly created or modified the resource. This is present on resources created or updated after 1 April 2024.
+ */
+export interface Attribution {
+  /**
+   *	`id` of the [API Client](ctp:api:type:ApiClient) that created or modified the resource.
+   *
+   *
+   */
+  readonly clientId?: string
+  /**
+   *	Method used to initiate the creation or modification of the resource.
+   *
+   *
+   */
+  readonly source: AttributionSource
+}
+export type AttributionSource = 'Export' | 'Import' | string
+/**
  *	Polymorphic base type that represents a postal address and contact details.
  *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
  *	only differ in the data type for the optional `custom` field.
@@ -636,6 +654,12 @@ export interface CreatedBy extends ClientLogging {
    */
   readonly anonymousId?: string
   /**
+   *	Indicates if the resource was created indirectly.
+   *
+   *
+   */
+  readonly attributedTo?: Attribution
+  /**
    *	Indicates the [Customer](ctp:api:type:Customer) who created the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only present when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
    *
    *
@@ -752,6 +776,12 @@ export interface LastModifiedBy extends ClientLogging {
    *
    */
   readonly anonymousId?: string
+  /**
+   *	Indicates if the resource was modified indirectly.
+   *
+   *
+   */
+  readonly attributedTo?: Attribution
   /**
    *	Indicates the [Customer](ctp:api:type:Customer) who modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only present when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
    *

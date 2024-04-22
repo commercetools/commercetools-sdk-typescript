@@ -5,7 +5,7 @@
  */
 
 /**
- *	Possible values for the `fieldType` property on query expressions indicating the data type of the `field`.
+ *	Possible values for the `fieldType` property on [query expressions](/../api/search-query-language#query-expressions) indicating the data type of the `field`.
  */
 export type SearchFieldType =
   | 'boolean'
@@ -158,7 +158,7 @@ export interface SearchQueryExpressionValue {
    */
   readonly boost?: number
   /**
-   *	Possible values for the `fieldType` property on query expressions indicating the data type of the `field`.
+   *	Possible values for the `fieldType` property on [query expressions](/../api/search-query-language#query-expressions) indicating the data type of the `field`.
    *
    */
   readonly fieldType?: SearchFieldType

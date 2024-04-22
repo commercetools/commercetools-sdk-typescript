@@ -7565,7 +7565,7 @@ export interface CustomLineItemStateTransitionMessage {
    */
   readonly customLineItemKey?: string
   /**
-   *	Date and time (UTC) when the transition of the [Custom Line Item](ctp:api:type:CustomLineItem) [State](ctp:api:type:State) was performed.
+   *	Date and time (UTC) the transition of the [Custom Line Item](ctp:api:type:CustomLineItem) [State](ctp:api:type:State) was performed.
    *
    *
    */
@@ -7993,7 +7993,7 @@ export interface LineItemStateTransitionMessage {
    */
   readonly lineItemKey?: string
   /**
-   *	Date and time (UTC) when the transition of the [Line Item](ctp:api:type:LineItem) [State](ctp:api:type:State) was performed.
+   *	Date and time (UTC) the transition of the [Line Item](ctp:api:type:LineItem) [State](ctp:api:type:State) was performed.
    *
    *
    */
@@ -19602,7 +19602,7 @@ export interface CustomLineItemStateTransitionMessagePayload {
    */
   readonly customLineItemKey?: string
   /**
-   *	Date and time (UTC) when the transition of the [Custom Line Item](ctp:api:type:CustomLineItem) [State](ctp:api:type:State) was performed.
+   *	Date and time (UTC) the transition of the [Custom Line Item](ctp:api:type:CustomLineItem) [State](ctp:api:type:State) was performed.
    *
    *
    */
@@ -19745,7 +19745,7 @@ export interface LineItemStateTransitionMessagePayload {
    */
   readonly lineItemKey?: string
   /**
-   *	Date and time (UTC) when the transition of the [Line Item](ctp:api:type:LineItem) [State](ctp:api:type:State) was performed.
+   *	Date and time (UTC) the transition of the [Line Item](ctp:api:type:LineItem) [State](ctp:api:type:State) was performed.
    *
    *
    */
