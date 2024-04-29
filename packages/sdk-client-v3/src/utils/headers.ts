@@ -6,8 +6,8 @@ function parse(headers: JsonObject<any>) {
     let val = headers[key]
       ? headers[key]
       : typeof headers.get == 'function'
-      ? headers.get(key)
-      : null
+        ? headers.get(key)
+        : null
 
     if (val) result[key] = val
 
