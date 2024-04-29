@@ -520,9 +520,16 @@ export interface ProductVariantImport extends ImportResource {
    *	If `publish` is not set, the staged projection is set to the provided import data, but the current projection stays unchanged.
    *	However, if the import data contains no update, that is, if it matches the staged projection of the existing Product, the import induces no change in the existing Product whether `publish` is set or not.
    *
-   *
+   *	@deprecated
    */
   readonly publish?: boolean
+  /**
+   *	- Set to `false` to update both the [current and staged projections](/../api/projects/productProjections#current--staged) of the [Product](/../api/projects/products#product) with the new Product Variant data.
+   *	- Leave empty or set to `true` to only update the staged projection.
+   *
+   *
+   */
+  readonly staged?: boolean
   /**
    *	The [Product](/../api/projects/products#productvariant) to which this Product Variant belongs. Maps to `ProductVariant.product`.
    *	The Reference to the [Product](/../api/projects/products#product) with which the ProductVariant is associated.

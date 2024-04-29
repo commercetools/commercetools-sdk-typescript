@@ -1,5 +1,11 @@
 # @commercetools/sdk-client-v2
 
+## 2.4.1
+
+### Patch Changes
+
+- [#671](https://github.com/commercetools/commercetools-sdk-typescript/pull/671) [`344fd2d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/344fd2d105f51a65a8a93f247ea9ea8f1a09b095) Thanks [@ajimae](https://github.com/ajimae)! - Fix malformed uri error due to wrong object to uri serialization.
+
 ## 2.4.0
 
 ### Minor Changes

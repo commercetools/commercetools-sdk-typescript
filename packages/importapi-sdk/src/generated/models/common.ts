@@ -7,6 +7,7 @@
 import { CategoryImport } from './categories'
 import { CustomerImport } from './customers'
 import { Custom } from './customfields'
+import { DiscountCodeImport } from './discount-codes'
 import { InventoryImport } from './inventories'
 import { PriceImport } from './prices'
 import { ProductDraftImport } from './productdrafts'
@@ -179,6 +180,7 @@ export type _ImportResource =
   | ImportResource
   | CategoryImport
   | CustomerImport
+  | DiscountCodeImport
   | InventoryImport
   | PriceImport
   | ProductDraftImport
@@ -502,6 +504,7 @@ export interface PriceTier {
 export type ImportResourceType =
   | 'category'
   | 'customer'
+  | 'discount-code'
   | 'inventory'
   | 'order'
   | 'order-patch'

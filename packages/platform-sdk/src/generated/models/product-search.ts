@@ -46,7 +46,7 @@ export interface ProductPagedSearchResponse {
 }
 export interface ProductSearchErrorResponse extends ErrorResponse {
   /**
-   *	The http status code of the response.
+   *	The HTTP status code of the response.
    *
    */
   readonly statusCode: number
@@ -76,7 +76,7 @@ export interface ProductSearchMatchingVariantEntry {
 }
 export interface ProductSearchMatchingVariants {
   /**
-   *	Whether the search criteria definitely matches for all Variants of the returned Product, like for Product-level fields. Is always `false` for search expressions on Variant-level fields.
+   *	Whether the search criteria definitely matches all Variants of the returned Product, like for Product-level fields. Is always `false` for search expressions on Variant-level fields.
    *
    */
   readonly allMatched: boolean
@@ -133,7 +133,7 @@ export interface ProductSearchProjectionParams {
   /**
    *	`key` of an existing [Store](ctp:api:type:Store).
    *	If the Store has defined some languages, countries, distribution or supply Channels,
-   *	they are used for projections based on [locale](ctp:api:type:ProductProjectionLocales), [price](ctp:api:type:ProductProjectionPrices)
+   *	they are used for projections based on [locale](ctp:api:type:ProductProjectionLocales), [price](ctp:api:type:ProductProjectionPrices),
    *	and [inventory](ctp:api:type:ProductProjectionInventoryEntries).
    *	If the Store has defined [Product Selections](ctp:api:type:ProductSelection), they have no effect on the results of this query.
    *
@@ -144,6 +144,7 @@ export interface ProductSearchProjectionParams {
 export interface ProductSearchRequest {
   /**
    *	The search query against [searchable Product fields](/../api/projects/product-search#searchable-product-fields).
+   *
    *
    */
   readonly query?: _SearchQuery
@@ -181,6 +182,13 @@ export interface ProductSearchRequest {
    *
    */
   readonly facets?: ProductSearchFacetExpression[]
+  /**
+   *	Specify an additional filter on the result of the `query` after the API calculated `facets`.
+   *	This feature assists you in implementing faceted search.
+   *
+   *
+   */
+  readonly postFilter?: _SearchQuery
 }
 export interface ProductSearchResult {
   /**
@@ -202,6 +210,7 @@ export interface ProductSearchResult {
 export type ProductSearchFacetCountLevelEnum = 'products' | 'variants' | string
 export interface ProductSearchFacetCountValue {
   /**
+   *	Name of the count facet to appear in the [ProductSearchFacetResultCount](ctp:api:type:ProductSearchFacetResultCount).
    *
    */
   readonly name: string
@@ -236,7 +245,7 @@ export interface ProductSearchFacetDistinctBucketSortExpression {
 }
 export interface ProductSearchFacetDistinctValue {
   /**
-   *	Name of the distinct facet.
+   *	Name of the distinct facet to appear in the [ProductSearchFacetResultBucket](ctp:api:type:ProductSearchFacetResultBucket).
    *
    */
   readonly name: string
@@ -256,7 +265,8 @@ export interface ProductSearchFacetDistinctValue {
    */
   readonly level?: ProductSearchFacetCountLevelEnum
   /**
-   *	The field to facet on. Can be any searchable field on the [Product](ctp:api:type:Product).
+   *	The [searchable Product field](/api/projects/product-search#searchable-product-fields) to facet on.
+   *
    *
    */
   readonly field: string
@@ -344,7 +354,7 @@ export interface ProductSearchFacetRangesFacetRange {
 }
 export interface ProductSearchFacetRangesValue {
   /**
-   *	Name to assign the ranges facet.
+   *	Name of the ranges facet to appear in the [ProductSearchFacetResultBucket](ctp:api:type:ProductSearchFacetResultBucket).
    *
    */
   readonly name: string
@@ -364,7 +374,8 @@ export interface ProductSearchFacetRangesValue {
    */
   readonly level?: ProductSearchFacetCountLevelEnum
   /**
-   *	The field to facet on. Can be any searchable field on the [Product](ctp:api:type:Product).
+   *	The [searchable Product field](/api/projects/product-search#searchable-product-fields) to facet on.
+   *
    *
    */
   readonly field: string
@@ -396,6 +407,10 @@ export type _ProductSearchFacetResult =
   | ProductSearchFacetResult
   | ProductSearchFacetResultBucket
   | ProductSearchFacetResultCount
+/**
+ *	Result of a [distinct facet](/../api/projects/product-search#distinct-facets) or a [ranges facet](/../api/projects/product-search#ranges-facets).
+ *
+ */
 export interface ProductSearchFacetResultBucket
   extends ProductSearchFacetResult {
   /**
@@ -416,6 +431,10 @@ export interface ProductSearchFacetResultBucketEntry {
    */
   readonly count: number
 }
+/**
+ *	Result of a [count facet](/../api/projects/product-search#count-facets).
+ *
+ */
 export interface ProductSearchFacetResultCount
   extends ProductSearchFacetResult {
   /**

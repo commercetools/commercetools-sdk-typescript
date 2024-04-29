@@ -209,12 +209,12 @@ export interface Customer extends BaseResource {
   /**
    *	[Stores](ctp:api:type:Store) to which the Customer is assigned to.
    *
-   *	- If no Stores are specified, the Customer is a global customer, and can log in using the [Password Flow for global Customers](/../api/authorization#password-flow-for-global-customers).
+   *	- If `stores` is empty, the Customer is a global customer, and can log in using the [Password Flow for global Customers](/../api/authorization#password-flow-for-global-customers).
    *	- If any Stores are specified, the Customer can only log in using the [Password Flow for Customers in a Store](/../api/authorization#password-flow-for-customers-in-a-store) for those specific Stores.
    *
    *
    */
-  readonly stores?: StoreKeyReference[]
+  readonly stores: StoreKeyReference[]
   /**
    *	Indicates whether the `password` is required for the Customer.
    *
@@ -1291,7 +1291,7 @@ export interface CustomerSetStoresAction {
    *
    *
    */
-  readonly stores?: StoreResourceIdentifier[]
+  readonly stores: StoreResourceIdentifier[]
 }
 /**
  *	Setting the title of the Customer produces the [CustomerTitleSet](ctp:api:type:CustomerTitleSetMessage) Message.

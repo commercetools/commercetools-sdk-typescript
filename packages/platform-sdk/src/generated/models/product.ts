@@ -354,6 +354,8 @@ export interface ProductDraft {
   /**
    *	User-defined unique identifier for the Product.
    *
+   *	To update a Product using the [Import API](/../import-export/product), the Product `key` must match the pattern `^[A-Za-z0-9_-]{2,256}$`.
+   *
    *
    */
   readonly key?: string
@@ -2080,6 +2082,8 @@ export interface ProductSetKeyAction {
   readonly action: 'setKey'
   /**
    *	Value to set. If empty, any existing value will be removed.
+   *
+   *	To update a Product using the [Import API](/../import-export/product), the Product `key` must match the pattern `^[A-Za-z0-9_-]{2,256}$`.
    *
    *
    */
