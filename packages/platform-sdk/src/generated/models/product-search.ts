@@ -145,6 +145,7 @@ export interface ProductSearchRequest {
   /**
    *	The search query against [searchable Product fields](/../api/projects/product-search#searchable-product-fields).
    *
+   *
    */
   readonly query?: _SearchQuery
   /**
@@ -181,6 +182,13 @@ export interface ProductSearchRequest {
    *
    */
   readonly facets?: ProductSearchFacetExpression[]
+  /**
+   *	Specify an additional filter on the result of the `query` after the API calculated `facets`.
+   *	This feature assists you in implementing faceted search.
+   *
+   *
+   */
+  readonly postFilter?: _SearchQuery
 }
 export interface ProductSearchResult {
   /**

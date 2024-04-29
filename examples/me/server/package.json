@@ -15,7 +15,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.19.2",
     "lodash.defaultsdeep": "^4.6.1",
-    "ncrypt-js": "^2.0.0",
+    "ncrypt-js": "^2.1.0",
     "node-fetch": "2.6.7",
     "qss": "^2.0.3"
   },

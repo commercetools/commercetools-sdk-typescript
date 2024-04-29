@@ -297,7 +297,7 @@ export interface MyCompanyDraft {
    *
    *
    */
-  readonly custom?: CustomFields
+  readonly custom?: CustomFieldsDraft
   /**
    *	Addresses used by the Business Unit.
    *
@@ -499,7 +499,7 @@ export interface MyDivisionDraft {
    *
    *
    */
-  readonly custom?: CustomFields
+  readonly custom?: CustomFieldsDraft
   /**
    *	Addresses used by the Business Unit.
    *

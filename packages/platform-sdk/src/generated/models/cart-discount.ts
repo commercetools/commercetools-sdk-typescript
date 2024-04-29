@@ -836,7 +836,7 @@ export interface CartDiscountSetStoresAction {
    *
    *
    */
-  readonly stores?: StoreResourceIdentifier[]
+  readonly stores: StoreResourceIdentifier[]
 }
 export interface CartDiscountSetValidFromAction {
   readonly action: 'setValidFrom'

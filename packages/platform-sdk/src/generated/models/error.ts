@@ -1623,12 +1623,14 @@ export interface PendingOperationError {
   readonly message: string
 }
 /**
- *	Returned when the Price, Tax Rate, or Shipping Rate of some Line Items changed since they were last added to the Cart.
+ *	Returned when the Price or Tax Rate of some Line Items or Shipping Rate of some Shipping Methods changed since they were last added to the Cart.
  *
  *	The error is returned as a failed response to:
  *
  *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests on Orders.
  *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/me/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
+ *	- [Create Order from Quote](ctp:api:endpoint:/{projectKey}/orders/quotes:POST) request on Orders.
+ *	- [Create Order from Quote](ctp:api:endpoint:/{projectKey}/me/orders/quotes:POST) request on My Orders.
  *
  */
 export interface PriceChangedError {
@@ -3161,12 +3163,14 @@ export interface GraphQLPendingOperationError {
   [key: string]: any
 }
 /**
- *	Returned when the Price, Tax Rate, or Shipping Rate of some Line Items changed since they were last added to the Cart.
+ *	Returned when the Price or Tax Rate of some Line Items or Shipping Rate of some Shipping Methods changed since they were last added to the Cart.
  *
  *	The error is returned as a failed response to:
  *
  *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests on Orders.
  *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/me/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
+ *	- [Create Order from Quote](ctp:api:endpoint:/{projectKey}/orders/quotes:POST) request on Orders.
+ *	- [Create Order from Quote](ctp:api:endpoint:/{projectKey}/me/orders/quotes:POST) request on My Orders.
  *
  */
 export interface GraphQLPriceChangedError {
