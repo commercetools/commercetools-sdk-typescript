@@ -1,5 +1,14 @@
 # @commercetools/sdk-client-v2
 
+## 2.5.0
+
+### Minor Changes
+
+- [#676](https://github.com/commercetools/commercetools-sdk-typescript/pull/676) [`8b1aecc`](https://github.com/commercetools/commercetools-sdk-typescript/commit/8b1aecce5859248f3a90c8cc856db64d2932b5d5) Thanks [@ajimae](https://github.com/ajimae)! - Add custom logger function
+
+- [#679](https://github.com/commercetools/commercetools-sdk-typescript/pull/679) [`b8bc24d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/b8bc24df5db74feef7fb5743b6f24b425d43b738) Thanks [@ajimae](https://github.com/ajimae)! - - Add a before middleware function that runs before the coco api call is initiated
+  - Add an after middleware function that runs after the coco api call is done executing
+
 ## 2.4.1
 
 ### Patch Changes
