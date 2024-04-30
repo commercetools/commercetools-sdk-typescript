@@ -1,5 +1,43 @@
 # @commercetools/platform-sdk
 
+## 7.8.0
+
+### Minor Changes
+
+- [#680](https://github.com/commercetools/commercetools-sdk-typescript/pull/680) [`a00e693`](https://github.com/commercetools/commercetools-sdk-typescript/commit/a00e6939def06a4b435b05db28a903b5c945bb3c) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Changed Property(s)</summary>
+
+  - :warning: changed property `custom` of type `MyBusinessUnitDraft` from type `CustomFields` to `CustomFieldsDraft`
+  - :warning: changed property `custom` of type `MyCompanyDraft` from type `CustomFields` to `CustomFieldsDraft`
+  - :warning: changed property `custom` of type `MyDivisionDraft` from type `CustomFields` to `CustomFieldsDraft`
+  </details>
+
+  <details>
+  <summary>Required Property(s)</summary>
+
+  - :warning: changed property `stores` of type `BusinessUnit` to be required
+  - :warning: changed property `stores` of type `Company` to be required
+  - :warning: changed property `stores` of type `Division` to be required
+  - :warning: changed property `stores` of type `BusinessUnitSetStoresAction` to be required
+  - :warning: changed property `stores` of type `CartDiscountSetStoresAction` to be required
+  - :warning: changed property `stores` of type `Customer` to be required
+  - :warning: changed property `stores` of type `CustomerSetStoresAction` to be required
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `postFilter` to type `ProductSearchRequest`
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`8b1aecc`](https://github.com/commercetools/commercetools-sdk-typescript/commit/8b1aecce5859248f3a90c8cc856db64d2932b5d5), [`b8bc24d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/b8bc24df5db74feef7fb5743b6f24b425d43b738), [`a1b43c0`](https://github.com/commercetools/commercetools-sdk-typescript/commit/a1b43c048fac3eba3d53470314b61d36e74f0a51)]:
+  - @commercetools/sdk-client-v2@2.5.0
+  - @commercetools/ts-client@1.2.1
+
 ## 7.7.0
 
 ### Minor Changes

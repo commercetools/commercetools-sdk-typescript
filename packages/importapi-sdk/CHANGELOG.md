@@ -1,5 +1,30 @@
 # @commercetools/importapi-sdk
 
+## 5.4.0
+
+### Minor Changes
+
+- [#685](https://github.com/commercetools/commercetools-sdk-typescript/pull/685) [`88c5c05`](https://github.com/commercetools/commercetools-sdk-typescript/commit/88c5c05a2bc249192fb115b97ba79379c0fbd758) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>MarkDeprecated Property(s)</summary>
+
+  - marked property `PriceImport::publish` as deprecated
+  - marked property `ProductVariantImport::publish` as deprecated
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `staged` to type `PriceImport`
+  - added property `staged` to type `ProductVariantImport`
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`8b1aecc`](https://github.com/commercetools/commercetools-sdk-typescript/commit/8b1aecce5859248f3a90c8cc856db64d2932b5d5), [`b8bc24d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/b8bc24df5db74feef7fb5743b6f24b425d43b738)]:
+  - @commercetools/sdk-client-v2@2.5.0
+
 ## 5.3.0
 
 ### Minor Changes
