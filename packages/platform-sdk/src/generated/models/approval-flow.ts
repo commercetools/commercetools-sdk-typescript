@@ -30,7 +30,7 @@ export interface ApprovalFlow extends BaseResource {
    */
   readonly createdAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/general-concepts#events-tracked).
+   *	IDs and references that created the ApprovalFlow.
    *
    *
    */
@@ -42,7 +42,7 @@ export interface ApprovalFlow extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/general-concepts#events-tracked).
+   *	IDs and references that last modified the ApprovalFlow.
    *
    *
    */
@@ -117,7 +117,7 @@ export interface ApprovalFlowApproval {
    */
   readonly approver: Associate
   /**
-   *	Date and time (UTC) when the [Approval Flow](ctp:api:type:ApprovalFlow) was approved at.
+   *	Date and time (UTC) the [Approval Flow](ctp:api:type:ApprovalFlow) was approved.
    *
    *
    */
@@ -171,7 +171,7 @@ export interface ApprovalFlowRejection {
    */
   readonly rejecter: Associate
   /**
-   *	Date and time (UTC) when the [Approval Flow](ctp:api:type:ApprovalFlow) was rejected at.
+   *	Date and time (UTC) the [Approval Flow](ctp:api:type:ApprovalFlow) was rejected.
    *
    *
    */

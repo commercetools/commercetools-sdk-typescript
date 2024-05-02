@@ -21,9 +21,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyProductProjectionsKeyByKeyRequestBu
     }
   ) {}
   /**
-   *	Gets the current or staged representation of a [Product](ctp:api:type:Product) by its key from the specified [Store](ctp:api:type:Store).
+   *	Gets the current or staged representation of a [Product](ctp:api:type:Product) by its key in the specified [Store](ctp:api:type:Store).
    *	If the Store has defined some languages, countries, distribution, supply Channels, and/or Product Selection,
-   *	they are used for projections based on [locale](ctp:api:type:ProductProjectionLocales), [price](ctp:api:type:ProductProjectionPrices)
+   *	they are used for projections based on [locale](ctp:api:type:ProductProjectionLocales), [price](ctp:api:type:ProductProjectionPrices),
    *	and [inventory](ctp:api:type:ProductProjectionInventoryEntries).
    *
    *	If [ProductSelection](ctp:api:type:ProductSelection) is used, it affects the [availability of the Product](/projects/stores#products-available-in-store) in the specified Store.

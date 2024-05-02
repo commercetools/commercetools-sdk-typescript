@@ -170,13 +170,13 @@ export interface Product extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the Product.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Product.
    *
    *
    */
@@ -353,6 +353,8 @@ export interface ProductDraft {
   readonly slug: LocalizedString
   /**
    *	User-defined unique identifier for the Product.
+   *
+   *	To update a Product using the [Import API](/../import-export/product), the Product `key` must match the pattern `^[A-Za-z0-9_-]{2,256}$`.
    *
    *
    */
@@ -2080,6 +2082,8 @@ export interface ProductSetKeyAction {
   readonly action: 'setKey'
   /**
    *	Value to set. If empty, any existing value will be removed.
+   *
+   *	To update a Product using the [Import API](/../import-export/product), the Product `key` must match the pattern `^[A-Za-z0-9_-]{2,256}$`.
    *
    *
    */

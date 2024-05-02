@@ -62,7 +62,7 @@ export interface Customer extends BaseResource {
    */
   readonly customerNumber?: string
   /**
-   *	Optional identifier for use in external systems like Customer Relationship Management (CRM) or Enterprise Resource Planning (ERP).
+   *	Optional identifier for use in external systems like customer relationship management (CRM) or enterprise resource planning (ERP).
    *
    *
    */
@@ -80,13 +80,13 @@ export interface Customer extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the Customer.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Customer.
    *
    *
    */
@@ -209,12 +209,12 @@ export interface Customer extends BaseResource {
   /**
    *	[Stores](ctp:api:type:Store) to which the Customer is assigned to.
    *
-   *	- If no Stores are specified, the Customer is a global customer, and can log in using the [Password Flow for global Customers](/../api/authorization#password-flow-for-global-customers).
+   *	- If `stores` is empty, the Customer is a global customer, and can log in using the [Password Flow for global Customers](/../api/authorization#password-flow-for-global-customers).
    *	- If any Stores are specified, the Customer can only log in using the [Password Flow for Customers in a Store](/../api/authorization#password-flow-for-customers-in-a-store) for those specific Stores.
    *
    *
    */
-  readonly stores?: StoreKeyReference[]
+  readonly stores: StoreKeyReference[]
   /**
    *	Indicates whether the `password` is required for the Customer.
    *
@@ -299,7 +299,7 @@ export interface CustomerDraft {
    */
   readonly customerNumber?: string
   /**
-   *	Optional identifier for use in external systems like Customer Relationship Management (CRM) or Enterprise Resource Planning (ERP).
+   *	Optional identifier for use in external systems like customer relationship management (CRM) or enterprise resource planning (ERP).
    *
    *
    */
@@ -1291,7 +1291,7 @@ export interface CustomerSetStoresAction {
    *
    *
    */
-  readonly stores?: StoreResourceIdentifier[]
+  readonly stores: StoreResourceIdentifier[]
 }
 /**
  *	Setting the title of the Customer produces the [CustomerTitleSet](ctp:api:type:CustomerTitleSetMessage) Message.

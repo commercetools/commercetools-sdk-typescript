@@ -1,5 +1,17 @@
 # @commercetools/ts-client
 
+## 1.2.1
+
+### Patch Changes
+
+- [#684](https://github.com/commercetools/commercetools-sdk-typescript/pull/684) [`a1b43c0`](https://github.com/commercetools/commercetools-sdk-typescript/commit/a1b43c048fac3eba3d53470314b61d36e74f0a51) Thanks [@ajimae](https://github.com/ajimae)! - Fix bug 'Error not throw' for sdk-client-v3
+
+## 1.2.0
+
+### Minor Changes
+
+- [#645](https://github.com/commercetools/commercetools-sdk-typescript/pull/645) [`bfbdfe6`](https://github.com/commercetools/commercetools-sdk-typescript/commit/bfbdfe65042f2b8d011d40859c9542666187dd22) Thanks [@lojzatran](https://github.com/lojzatran)! - Add Datadog APM to SDK
+
 ## 1.1.1
 
 ### Patch Changes

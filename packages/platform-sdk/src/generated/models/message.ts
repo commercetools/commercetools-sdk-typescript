@@ -290,6 +290,13 @@ export type Message =
   | ProductSelectionVariantSelectionChangedMessage
   | ProductSlugChangedMessage
   | ProductStateTransitionMessage
+  | ProductTailoringCreatedMessage
+  | ProductTailoringDeletedMessage
+  | ProductTailoringDescriptionSetMessage
+  | ProductTailoringNameSetMessage
+  | ProductTailoringPublishedMessage
+  | ProductTailoringSlugSetMessage
+  | ProductTailoringUnpublishedMessage
   | ProductUnpublishedMessage
   | ProductVariantAddedMessage
   | ProductVariantDeletedMessage
@@ -365,13 +372,13 @@ export interface ApprovalFlowApprovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -441,13 +448,13 @@ export interface ApprovalFlowCompletedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -517,13 +524,13 @@ export interface ApprovalFlowCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -587,13 +594,13 @@ export interface ApprovalFlowRejectedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -669,13 +676,13 @@ export interface ApprovalRuleApproversSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -745,13 +752,13 @@ export interface ApprovalRuleCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -815,13 +822,13 @@ export interface ApprovalRuleDescriptionSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -891,13 +898,13 @@ export interface ApprovalRuleKeySetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -967,13 +974,13 @@ export interface ApprovalRuleNameSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -1043,13 +1050,13 @@ export interface ApprovalRulePredicateSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -1119,13 +1126,13 @@ export interface ApprovalRuleRequestersSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -1195,13 +1202,13 @@ export interface ApprovalRuleStatusSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -1271,13 +1278,13 @@ export interface AssociateRoleBuyerAssignableChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -1341,13 +1348,13 @@ export interface AssociateRoleCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -1411,13 +1418,13 @@ export interface AssociateRoleDeletedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -1475,13 +1482,13 @@ export interface AssociateRoleNameChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -1545,13 +1552,13 @@ export interface AssociateRolePermissionAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -1615,13 +1622,13 @@ export interface AssociateRolePermissionRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -1685,13 +1692,13 @@ export interface AssociateRolePermissionsSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -1755,13 +1762,13 @@ export interface BusinessUnitAddressAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -1825,13 +1832,13 @@ export interface BusinessUnitAddressChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -1895,13 +1902,13 @@ export interface BusinessUnitAddressCustomFieldAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -1970,13 +1977,13 @@ export interface BusinessUnitAddressCustomFieldChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -2052,13 +2059,13 @@ export interface BusinessUnitAddressCustomFieldRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -2122,13 +2129,13 @@ export interface BusinessUnitAddressCustomTypeRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -2192,13 +2199,13 @@ export interface BusinessUnitAddressCustomTypeSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -2267,13 +2274,13 @@ export interface BusinessUnitAddressRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -2337,13 +2344,13 @@ export interface BusinessUnitAssociateAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -2407,13 +2414,13 @@ export interface BusinessUnitAssociateChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -2477,13 +2484,13 @@ export interface BusinessUnitAssociateModeChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -2553,13 +2560,13 @@ export interface BusinessUnitAssociateRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -2623,13 +2630,13 @@ export interface BusinessUnitAssociatesSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -2693,13 +2700,13 @@ export interface BusinessUnitBillingAddressAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -2763,13 +2770,13 @@ export interface BusinessUnitBillingAddressRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -2833,13 +2840,13 @@ export interface BusinessUnitContactEmailSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -2903,13 +2910,13 @@ export interface BusinessUnitCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -2973,13 +2980,13 @@ export interface BusinessUnitCustomFieldAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -3048,13 +3055,13 @@ export interface BusinessUnitCustomFieldChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -3130,13 +3137,13 @@ export interface BusinessUnitCustomFieldRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -3200,13 +3207,13 @@ export interface BusinessUnitCustomTypeRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -3270,13 +3277,13 @@ export interface BusinessUnitCustomTypeSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -3345,13 +3352,13 @@ export interface BusinessUnitDefaultBillingAddressSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -3415,13 +3422,13 @@ export interface BusinessUnitDefaultShippingAddressSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -3485,13 +3492,13 @@ export interface BusinessUnitDeletedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -3549,13 +3556,13 @@ export interface BusinessUnitNameChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -3619,13 +3626,13 @@ export interface BusinessUnitParentChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -3695,13 +3702,13 @@ export interface BusinessUnitShippingAddressAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -3765,13 +3772,13 @@ export interface BusinessUnitShippingAddressRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -3835,13 +3842,13 @@ export interface BusinessUnitStatusChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -3905,13 +3912,13 @@ export interface BusinessUnitStoreAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -3975,13 +3982,13 @@ export interface BusinessUnitStoreModeChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -4063,13 +4070,13 @@ export interface BusinessUnitStoreRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -4133,13 +4140,13 @@ export interface BusinessUnitStoresSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -4203,13 +4210,13 @@ export interface CartDiscountCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -4273,13 +4280,13 @@ export interface CartDiscountDeletedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -4337,13 +4344,13 @@ export interface CartDiscountStoreAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -4407,13 +4414,13 @@ export interface CartDiscountStoreRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -4477,13 +4484,13 @@ export interface CartDiscountStoresSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -4547,13 +4554,13 @@ export interface CategoryCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -4617,13 +4624,13 @@ export interface CategorySlugChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -4693,13 +4700,13 @@ export interface CustomerAddressAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -4763,13 +4770,13 @@ export interface CustomerAddressChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -4834,13 +4841,13 @@ export interface CustomerAddressCustomFieldAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -4909,13 +4916,13 @@ export interface CustomerAddressCustomFieldChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -4992,13 +4999,13 @@ export interface CustomerAddressCustomFieldRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -5062,13 +5069,13 @@ export interface CustomerAddressCustomTypeRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -5132,13 +5139,13 @@ export interface CustomerAddressCustomTypeSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -5207,13 +5214,13 @@ export interface CustomerAddressRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -5277,13 +5284,13 @@ export interface CustomerCompanyNameSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -5347,13 +5354,13 @@ export interface CustomerCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -5418,13 +5425,13 @@ export interface CustomerCustomFieldAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -5493,13 +5500,13 @@ export interface CustomerCustomFieldChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -5576,13 +5583,13 @@ export interface CustomerCustomFieldRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -5646,13 +5653,13 @@ export interface CustomerCustomTypeRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -5716,13 +5723,13 @@ export interface CustomerCustomTypeSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -5791,13 +5798,13 @@ export interface CustomerDateOfBirthSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -5861,13 +5868,13 @@ export interface CustomerDeletedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -5925,13 +5932,13 @@ export interface CustomerEmailChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -5995,13 +6002,13 @@ export interface CustomerEmailTokenCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -6071,13 +6078,13 @@ export interface CustomerEmailVerifiedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -6135,13 +6142,13 @@ export interface CustomerFirstNameSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -6206,13 +6213,13 @@ export interface CustomerGroupCustomFieldAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -6281,13 +6288,13 @@ export interface CustomerGroupCustomFieldChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -6363,13 +6370,13 @@ export interface CustomerGroupCustomFieldRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -6433,13 +6440,13 @@ export interface CustomerGroupCustomTypeRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -6503,13 +6510,13 @@ export interface CustomerGroupCustomTypeSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -6578,13 +6585,13 @@ export interface CustomerGroupSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -6648,13 +6655,13 @@ export interface CustomerLastNameSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -6718,13 +6725,13 @@ export interface CustomerPasswordTokenCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -6794,13 +6801,13 @@ export interface CustomerPasswordUpdatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -6864,13 +6871,13 @@ export interface CustomerTitleSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -6934,13 +6941,13 @@ export interface DiscountCodeCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -7004,13 +7011,13 @@ export interface DiscountCodeDeletedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -7068,13 +7075,13 @@ export interface DiscountCodeKeySetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -7144,13 +7151,13 @@ export interface InventoryEntryCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -7214,13 +7221,13 @@ export interface InventoryEntryDeletedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -7291,13 +7298,13 @@ export interface InventoryEntryQuantitySetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -7509,13 +7516,13 @@ export interface CustomLineItemStateTransitionMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -7558,7 +7565,7 @@ export interface CustomLineItemStateTransitionMessage {
    */
   readonly customLineItemKey?: string
   /**
-   *	Date and time (UTC) when the transition of the [Custom Line Item](ctp:api:type:CustomLineItem) [State](ctp:api:type:State) was performed.
+   *	Date and time (UTC) the transition of the [Custom Line Item](ctp:api:type:CustomLineItem) [State](ctp:api:type:State) was performed.
    *
    *
    */
@@ -7609,13 +7616,13 @@ export interface DeliveryAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -7685,13 +7692,13 @@ export interface DeliveryAddressSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -7773,13 +7780,13 @@ export interface DeliveryItemsUpdatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -7861,13 +7868,13 @@ export interface DeliveryRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -7937,13 +7944,13 @@ export interface LineItemStateTransitionMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -7986,7 +7993,7 @@ export interface LineItemStateTransitionMessage {
    */
   readonly lineItemKey?: string
   /**
-   *	Date and time (UTC) when the transition of the [Line Item](ctp:api:type:LineItem) [State](ctp:api:type:State) was performed.
+   *	Date and time (UTC) the transition of the [Line Item](ctp:api:type:LineItem) [State](ctp:api:type:State) was performed.
    *
    *
    */
@@ -8037,13 +8044,13 @@ export interface OrderBillingAddressSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -8113,13 +8120,13 @@ export interface OrderCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -8183,13 +8190,13 @@ export interface OrderCustomFieldAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -8258,13 +8265,13 @@ export interface OrderCustomFieldChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -8341,13 +8348,13 @@ export interface OrderCustomFieldRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -8411,13 +8418,13 @@ export interface OrderCustomLineItemAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -8481,13 +8488,13 @@ export interface OrderCustomLineItemDiscountSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -8569,13 +8576,13 @@ export interface OrderCustomLineItemQuantityChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -8657,13 +8664,13 @@ export interface OrderCustomLineItemRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -8739,13 +8746,13 @@ export interface OrderCustomTypeRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -8809,13 +8816,13 @@ export interface OrderCustomTypeSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -8884,13 +8891,13 @@ export interface OrderCustomerEmailSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -8960,13 +8967,13 @@ export interface OrderCustomerGroupSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -9036,13 +9043,13 @@ export interface OrderCustomerSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -9124,13 +9131,13 @@ export interface OrderDeletedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -9194,13 +9201,13 @@ export interface OrderDiscountCodeAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -9264,13 +9271,13 @@ export interface OrderDiscountCodeRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -9334,13 +9341,13 @@ export interface OrderDiscountCodeStateSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -9416,13 +9423,13 @@ export interface OrderEditAppliedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -9492,13 +9499,13 @@ export interface OrderImportedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -9562,13 +9569,13 @@ export interface OrderLineItemAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -9638,13 +9645,13 @@ export interface OrderLineItemDiscountSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -9739,13 +9746,13 @@ export interface OrderLineItemDistributionChannelSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -9821,13 +9828,13 @@ export interface OrderLineItemRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -9939,13 +9946,13 @@ export interface OrderPaymentAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -10009,13 +10016,13 @@ export interface OrderPaymentStateChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -10085,13 +10092,13 @@ export interface OrderPurchaseOrderNumberSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -10161,13 +10168,13 @@ export interface OrderReturnShipmentStateChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -10237,13 +10244,13 @@ export interface OrderShipmentStateChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -10313,13 +10320,13 @@ export interface OrderShippingAddressSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -10389,13 +10396,13 @@ export interface OrderShippingInfoSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -10465,13 +10472,13 @@ export interface OrderShippingRateInputSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -10541,13 +10548,13 @@ export interface OrderStateChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -10617,13 +10624,13 @@ export interface OrderStateTransitionMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -10699,13 +10706,13 @@ export interface OrderStoreSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -10769,13 +10776,13 @@ export interface ParcelAddedToDeliveryMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -10851,13 +10858,13 @@ export interface ParcelItemsUpdatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -10945,13 +10952,13 @@ export interface ParcelMeasurementsUpdatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -11033,13 +11040,13 @@ export interface ParcelRemovedFromDeliveryMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -11115,13 +11122,13 @@ export interface ParcelTrackingDataUpdatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -11203,13 +11210,13 @@ export interface PaymentCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -11273,13 +11280,13 @@ export interface PaymentInteractionAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -11343,13 +11350,13 @@ export interface PaymentStatusInterfaceCodeSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -11413,13 +11420,13 @@ export interface PaymentStatusStateTransitionMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -11489,13 +11496,13 @@ export interface PaymentTransactionAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -11559,13 +11566,13 @@ export interface PaymentTransactionStateChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -11635,13 +11642,13 @@ export interface ProductAddedToCategoryMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -11711,13 +11718,13 @@ export interface ProductCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -11781,13 +11788,13 @@ export interface ProductDeletedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -11857,13 +11864,13 @@ export interface ProductImageAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -11939,13 +11946,13 @@ export interface ProductPriceAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -12021,13 +12028,13 @@ export interface ProductPriceChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -12115,13 +12122,13 @@ export interface ProductPriceDiscountsSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -12227,13 +12234,13 @@ export interface ProductPriceExternalDiscountSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -12327,13 +12334,13 @@ export interface ProductPriceKeySetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -12419,13 +12426,13 @@ export interface ProductPriceModeSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -12489,13 +12496,13 @@ export interface ProductPriceRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -12571,13 +12578,13 @@ export interface ProductPricesSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -12653,13 +12660,13 @@ export interface ProductPublishedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -12735,13 +12742,13 @@ export interface ProductRemovedFromCategoryMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -12811,13 +12818,13 @@ export interface ProductRevertedStagedChangesMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -12881,13 +12888,13 @@ export interface ProductSelectionCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -12951,13 +12958,13 @@ export interface ProductSelectionDeletedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -13015,13 +13022,13 @@ export interface ProductSelectionProductAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -13091,13 +13098,13 @@ export interface ProductSelectionProductExcludedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -13167,13 +13174,13 @@ export interface ProductSelectionProductRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -13237,13 +13244,13 @@ export interface ProductSelectionVariantExclusionChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -13317,13 +13324,13 @@ export interface ProductSelectionVariantSelectionChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -13397,13 +13404,13 @@ export interface ProductSlugChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -13473,13 +13480,13 @@ export interface ProductStateTransitionMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -13522,6 +13529,648 @@ export interface ProductStateTransitionMessage {
   readonly force: boolean
 }
 /**
+ *	Generated after a successful [Create Product Tailoring](/../api/projects/product-tailoring#create-producttailoring) or
+ *	[Create Product Tailoring in Store](/../api/projects/product-tailoring#create-producttailoring-in-store) request.
+ *
+ */
+export interface ProductTailoringCreatedMessage {
+  readonly type: 'ProductTailoringCreated'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	User-defined unique identifier of the Product Tailoring.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The description of the [Product Tailoring](ctp:api:type:ProductTailoring) at the time of creation.
+   *
+   *
+   */
+  readonly description?: LocalizedString
+  /**
+   *	The name of the [Product Tailoring](ctp:api:type:ProductTailoring) at the time of creation.
+   *
+   *
+   */
+  readonly name?: LocalizedString
+  /**
+   *	The slug of the [Product Tailoring](ctp:api:type:ProductTailoring) at the time of creation.
+   *
+   *
+   */
+  readonly slug?: LocalizedString
+  /**
+   *	`true` if the ProductTailoring is published.
+   *
+   *
+   */
+  readonly published: boolean
+}
+/**
+ *	Generated after a successful [Delete Product Tailoring](/../api/projects/product-tailoring#delete-producttailoring) or
+ *	[Delete ProductTailoring assigned to Product in Store](/../api/projects/product-tailoring#delete-producttailoring-assigned-to-product-in-store) request.
+ *
+ */
+export interface ProductTailoringDeletedMessage {
+  readonly type: 'ProductTailoringDeleted'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+}
+/**
+ *	Generated after a successful Product Tailoring [Set Description](ctp:api:type:ProductTailoringSetDescriptionAction) update action.
+ *
+ */
+export interface ProductTailoringDescriptionSetMessage {
+  readonly type: 'ProductTailoringDescriptionSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The description of the [Product Tailoring](ctp:api:type:ProductTailoring) after the [Set Description](ctp:api:type:ProductTailoringSetDescriptionAction) update action.
+   *
+   *
+   */
+  readonly description?: LocalizedString
+  /**
+   *	The description of the [ProductTailoring](ctp:api:type:ProductTailoring) before the [Set Description](ctp:api:type:ProductTailoringSetDescriptionAction) update action.
+   *
+   *
+   */
+  readonly oldDescription?: LocalizedString
+}
+/**
+ *	Generated after a successful Product Tailoring [Set Name](ctp:api:type:ProductTailoringSetNameAction) update action.
+ *
+ */
+export interface ProductTailoringNameSetMessage {
+  readonly type: 'ProductTailoringNameSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The name of the [Product Tailoring](ctp:api:type:ProductTailoring) after the [Set Name](ctp:api:type:ProductTailoringSetNameAction) update action.
+   *
+   *
+   */
+  readonly name?: LocalizedString
+  /**
+   *	The name of the [ProductTailoring](ctp:api:type:ProductTailoring) before the [Set Name](ctp:api:type:ProductTailoringSetNameAction) update action.
+   *
+   *
+   */
+  readonly oldName?: LocalizedString
+}
+/**
+ *	Generated after a successful [Product Tailoring Publish](ctp:api:type:ProductTailoringPublishAction) update action.
+ *
+ */
+export interface ProductTailoringPublishedMessage {
+  readonly type: 'ProductTailoringPublished'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+}
+/**
+ *	Generated after a successful Product Tailoring [Set Slug](ctp:api:type:ProductTailoringSetSlugAction) update action.
+ *
+ */
+export interface ProductTailoringSlugSetMessage {
+  readonly type: 'ProductTailoringSlugSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The slug of the [Product Tailoring](ctp:api:type:ProductTailoring) after the [Set Slug](ctp:api:type:ProductTailoringSetSlugAction) update action.
+   *
+   *
+   */
+  readonly slug?: LocalizedString
+  /**
+   *	The slug of the [ProductTailoring](ctp:api:type:ProductTailoring) before the [Set Slug](ctp:api:type:ProductTailoringSetSlugAction) update action.
+   *
+   *
+   */
+  readonly oldSlug?: LocalizedString
+}
+/**
+ *	Generated after a successful [Product Tailoring Unpublish](ctp:api:type:ProductTailoringUnpublishAction) update action.
+ *
+ */
+export interface ProductTailoringUnpublishedMessage {
+  readonly type: 'ProductTailoringUnpublished'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+}
+/**
  *	Generated after a successful [Unpublish Product](ctp:api:type:ProductUnpublishAction) update action.
  *
  */
@@ -13548,13 +14197,13 @@ export interface ProductUnpublishedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -13612,13 +14261,13 @@ export interface ProductVariantAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -13688,13 +14337,13 @@ export interface ProductVariantDeletedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -13764,13 +14413,13 @@ export interface QuoteCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -13834,13 +14483,13 @@ export interface QuoteCustomerChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -13910,13 +14559,13 @@ export interface QuoteDeletedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -13974,13 +14623,13 @@ export interface QuoteRenegotiationRequestedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -14044,13 +14693,13 @@ export interface QuoteRequestCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -14114,13 +14763,13 @@ export interface QuoteRequestCustomerChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -14190,13 +14839,13 @@ export interface QuoteRequestDeletedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -14254,13 +14903,13 @@ export interface QuoteRequestStateChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -14330,13 +14979,13 @@ export interface QuoteRequestStateTransitionMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -14412,13 +15061,13 @@ export interface QuoteStateChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -14488,13 +15137,13 @@ export interface QuoteStateTransitionMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -14570,13 +15219,13 @@ export interface ReturnInfoAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -14640,13 +15289,13 @@ export interface ReturnInfoSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -14710,13 +15359,13 @@ export interface ReviewCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -14780,13 +15429,13 @@ export interface ReviewRatingSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -14868,13 +15517,13 @@ export interface ReviewStateTransitionMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -14968,13 +15617,13 @@ export interface StagedQuoteCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -15038,13 +15687,13 @@ export interface StagedQuoteDeletedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -15102,13 +15751,13 @@ export interface StagedQuoteSellerCommentSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -15172,13 +15821,13 @@ export interface StagedQuoteStateChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -15248,13 +15897,13 @@ export interface StagedQuoteStateTransitionMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -15330,13 +15979,13 @@ export interface StagedQuoteValidToSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -15400,13 +16049,13 @@ export interface StandalonePriceActiveChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -15476,13 +16125,13 @@ export interface StandalonePriceCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -15546,13 +16195,13 @@ export interface StandalonePriceDeletedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -15616,13 +16265,13 @@ export interface StandalonePriceDiscountSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -15686,13 +16335,13 @@ export interface StandalonePriceExternalDiscountSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -15756,13 +16405,13 @@ export interface StandalonePriceKeySetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -15832,13 +16481,13 @@ export interface StandalonePriceStagedChangesAppliedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -15902,13 +16551,13 @@ export interface StandalonePriceStagedChangesRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -15972,13 +16621,13 @@ export interface StandalonePriceTierAddedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -16042,13 +16691,13 @@ export interface StandalonePriceTierRemovedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -16112,13 +16761,13 @@ export interface StandalonePriceTiersSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -16188,13 +16837,13 @@ export interface StandalonePriceValidFromAndUntilSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -16276,13 +16925,13 @@ export interface StandalonePriceValidFromSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -16352,13 +17001,13 @@ export interface StandalonePriceValidUntilSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -16428,13 +17077,13 @@ export interface StandalonePriceValueChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -16513,13 +17162,13 @@ export interface StoreCountriesChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -16589,13 +17238,13 @@ export interface StoreCreatedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -16695,13 +17344,13 @@ export interface StoreDeletedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -16761,13 +17410,13 @@ export interface StoreDistributionChannelsChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -16836,13 +17485,13 @@ export interface StoreLanguagesChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -16912,13 +17561,13 @@ export interface StoreNameSetMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -16991,13 +17640,13 @@ export interface StoreProductSelectionsChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -17075,13 +17724,13 @@ export interface StoreSupplyChannelsChangedMessage {
    */
   readonly lastModifiedAt: string
   /**
-   *	Value of `createdBy`.
+   *	IDs and references that last modified the Message.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Message.
    *
    *
    */
@@ -17339,6 +17988,13 @@ export type MessagePayload =
   | ProductSelectionVariantSelectionChangedMessagePayload
   | ProductSlugChangedMessagePayload
   | ProductStateTransitionMessagePayload
+  | ProductTailoringCreatedMessagePayload
+  | ProductTailoringDeletedMessagePayload
+  | ProductTailoringDescriptionSetMessagePayload
+  | ProductTailoringNameSetMessagePayload
+  | ProductTailoringPublishedMessagePayload
+  | ProductTailoringSlugSetMessagePayload
+  | ProductTailoringUnpublishedMessagePayload
   | ProductUnpublishedMessagePayload
   | ProductVariantAddedMessagePayload
   | ProductVariantDeletedMessagePayload
@@ -18946,7 +19602,7 @@ export interface CustomLineItemStateTransitionMessagePayload {
    */
   readonly customLineItemKey?: string
   /**
-   *	Date and time (UTC) when the transition of the [Custom Line Item](ctp:api:type:CustomLineItem) [State](ctp:api:type:State) was performed.
+   *	Date and time (UTC) the transition of the [Custom Line Item](ctp:api:type:CustomLineItem) [State](ctp:api:type:State) was performed.
    *
    *
    */
@@ -19089,7 +19745,7 @@ export interface LineItemStateTransitionMessagePayload {
    */
   readonly lineItemKey?: string
   /**
-   *	Date and time (UTC) when the transition of the [Line Item](ctp:api:type:LineItem) [State](ctp:api:type:State) was performed.
+   *	Date and time (UTC) the transition of the [Line Item](ctp:api:type:LineItem) [State](ctp:api:type:State) was performed.
    *
    *
    */
@@ -20591,6 +21247,249 @@ export interface ProductStateTransitionMessagePayload {
    *
    */
   readonly force: boolean
+}
+/**
+ *	Generated after a successful [Create Product Tailoring](/../api/projects/product-tailoring#create-producttailoring) or
+ *	[Create Product Tailoring in Store](/../api/projects/product-tailoring#create-producttailoring-in-store) request.
+ *
+ */
+export interface ProductTailoringCreatedMessagePayload {
+  readonly type: 'ProductTailoringCreated'
+  /**
+   *	User-defined unique identifier of the Product Tailoring.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The description of the [Product Tailoring](ctp:api:type:ProductTailoring) at the time of creation.
+   *
+   *
+   */
+  readonly description?: LocalizedString
+  /**
+   *	The name of the [Product Tailoring](ctp:api:type:ProductTailoring) at the time of creation.
+   *
+   *
+   */
+  readonly name?: LocalizedString
+  /**
+   *	The slug of the [Product Tailoring](ctp:api:type:ProductTailoring) at the time of creation.
+   *
+   *
+   */
+  readonly slug?: LocalizedString
+  /**
+   *	`true` if the ProductTailoring is published.
+   *
+   *
+   */
+  readonly published: boolean
+}
+/**
+ *	Generated after a successful [Delete Product Tailoring](/../api/projects/product-tailoring#delete-producttailoring) or
+ *	[Delete ProductTailoring assigned to Product in Store](/../api/projects/product-tailoring#delete-producttailoring-assigned-to-product-in-store) request.
+ *
+ */
+export interface ProductTailoringDeletedMessagePayload {
+  readonly type: 'ProductTailoringDeleted'
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+}
+/**
+ *	Generated after a successful Product Tailoring [Set Description](ctp:api:type:ProductTailoringSetDescriptionAction) update action.
+ *
+ */
+export interface ProductTailoringDescriptionSetMessagePayload {
+  readonly type: 'ProductTailoringDescriptionSet'
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The description of the [Product Tailoring](ctp:api:type:ProductTailoring) after the [Set Description](ctp:api:type:ProductTailoringSetDescriptionAction) update action.
+   *
+   *
+   */
+  readonly description?: LocalizedString
+  /**
+   *	The description of the [ProductTailoring](ctp:api:type:ProductTailoring) before the [Set Description](ctp:api:type:ProductTailoringSetDescriptionAction) update action.
+   *
+   *
+   */
+  readonly oldDescription?: LocalizedString
+}
+/**
+ *	Generated after a successful Product Tailoring [Set Name](ctp:api:type:ProductTailoringSetNameAction) update action.
+ *
+ */
+export interface ProductTailoringNameSetMessagePayload {
+  readonly type: 'ProductTailoringNameSet'
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The name of the [Product Tailoring](ctp:api:type:ProductTailoring) after the [Set Name](ctp:api:type:ProductTailoringSetNameAction) update action.
+   *
+   *
+   */
+  readonly name?: LocalizedString
+  /**
+   *	The name of the [ProductTailoring](ctp:api:type:ProductTailoring) before the [Set Name](ctp:api:type:ProductTailoringSetNameAction) update action.
+   *
+   *
+   */
+  readonly oldName?: LocalizedString
+}
+/**
+ *	Generated after a successful [Product Tailoring Publish](ctp:api:type:ProductTailoringPublishAction) update action.
+ *
+ */
+export interface ProductTailoringPublishedMessagePayload {
+  readonly type: 'ProductTailoringPublished'
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+}
+/**
+ *	Generated after a successful Product Tailoring [Set Slug](ctp:api:type:ProductTailoringSetSlugAction) update action.
+ *
+ */
+export interface ProductTailoringSlugSetMessagePayload {
+  readonly type: 'ProductTailoringSlugSet'
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	The slug of the [Product Tailoring](ctp:api:type:ProductTailoring) after the [Set Slug](ctp:api:type:ProductTailoringSetSlugAction) update action.
+   *
+   *
+   */
+  readonly slug?: LocalizedString
+  /**
+   *	The slug of the [ProductTailoring](ctp:api:type:ProductTailoring) before the [Set Slug](ctp:api:type:ProductTailoringSetSlugAction) update action.
+   *
+   *
+   */
+  readonly oldSlug?: LocalizedString
+}
+/**
+ *	Generated after a successful [Product Tailoring Unpublish](ctp:api:type:ProductTailoringUnpublishAction) update action.
+ *
+ */
+export interface ProductTailoringUnpublishedMessagePayload {
+  readonly type: 'ProductTailoringUnpublished'
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	User-defined unique identifier of the Product this Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
 }
 /**
  *	Generated after a successful [Unpublish Product](ctp:api:type:ProductUnpublishAction) update action.

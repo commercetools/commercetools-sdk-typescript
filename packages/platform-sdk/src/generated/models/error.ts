@@ -25,6 +25,7 @@ import {
 } from './customer-group'
 import { OrderEditPreviewFailure } from './order-edit'
 import { Attribute, ProductReference } from './product'
+import { ProductSearchErrorResponse } from './product-search'
 import { ProductVariantSelection } from './product-selection'
 import { StandalonePriceReference } from './standalone-price'
 import { StoreKeyReference } from './store'
@@ -88,6 +89,7 @@ export type ErrorObject =
   | InvalidSubjectError
   | InvalidTokenError
   | LanguageUsedInStoresError
+  | LockedFieldError
   | MatchingPriceNotFoundError
   | MaxCartDiscountsReachedError
   | MaxResourceLimitExceededError
@@ -789,7 +791,10 @@ export interface ErrorResponse {
    */
   readonly errors?: ErrorObject[]
 }
-export type _ErrorResponse = ErrorResponse | AuthErrorResponse
+export type _ErrorResponse =
+  | ErrorResponse
+  | AuthErrorResponse
+  | ProductSearchErrorResponse
 /**
  *	Represents errors related to authentication and authorization in a format conforming to the [OAuth 2.0 specification](https://datatracker.ietf.org/doc/html/rfc6749#section-5.2).
  *
@@ -1223,6 +1228,28 @@ export interface LanguageUsedInStoresError {
   readonly message: string
 }
 /**
+ *	Returned when two [Customers](ctp:api:type:Customer) are simultaneously created or updated with the same email address.
+ *
+ *	To confirm if the operation was successful, repeat the request.
+ *
+ */
+export interface LockedFieldError {
+  readonly code: 'LockedField'
+  [key: string]: any
+  /**
+   *	`"'$field' is locked by another request. Please try again later."`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	Field that is currently locked.
+   *
+   *
+   */
+  readonly field: string
+}
+/**
  *	Returned when the Product Variant does not have a Price according to the [Product](ctp:api:type:Product) `priceMode` value for a selected currency, country, Customer Group, or Channel.
  *
  *	The error is returned as a failed response to:
@@ -1596,12 +1623,14 @@ export interface PendingOperationError {
   readonly message: string
 }
 /**
- *	Returned when the Price, Tax Rate, or Shipping Rate of some Line Items changed since they were last added to the Cart.
+ *	Returned when the Price or Tax Rate of some Line Items or Shipping Rate of some Shipping Methods changed since they were last added to the Cart.
  *
  *	The error is returned as a failed response to:
  *
  *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests on Orders.
  *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/me/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
+ *	- [Create Order from Quote](ctp:api:endpoint:/{projectKey}/orders/quotes:POST) request on Orders.
+ *	- [Create Order from Quote](ctp:api:endpoint:/{projectKey}/me/orders/quotes:POST) request on My Orders.
  *
  */
 export interface PriceChangedError {
@@ -2018,6 +2047,7 @@ export type GraphQLErrorObject =
   | GraphQLInvalidSubjectError
   | GraphQLInvalidTokenError
   | GraphQLLanguageUsedInStoresError
+  | GraphQLLockedFieldError
   | GraphQLMatchingPriceNotFoundError
   | GraphQLMaxCartDiscountsReachedError
   | GraphQLMaxResourceLimitExceededError
@@ -2820,6 +2850,22 @@ export interface GraphQLLanguageUsedInStoresError {
   [key: string]: any
 }
 /**
+ *	Returned when two [Customers](ctp:api:type:Customer) are simultaneously created or updated with the same email address.
+ *
+ *	To confirm if the operation was successful, repeat the request.
+ *
+ */
+export interface GraphQLLockedFieldError {
+  readonly code: 'LockedField'
+  [key: string]: any
+  /**
+   *	Field that is currently locked.
+   *
+   *
+   */
+  readonly field: string
+}
+/**
  *	Returned when the Product Variant does not have a Price according to the [Product](ctp:api:type:Product) `priceMode` value for a selected currency, country, Customer Group, or Channel.
  *
  *	The error is returned as a failed response to:
@@ -3117,12 +3163,14 @@ export interface GraphQLPendingOperationError {
   [key: string]: any
 }
 /**
- *	Returned when the Price, Tax Rate, or Shipping Rate of some Line Items changed since they were last added to the Cart.
+ *	Returned when the Price or Tax Rate of some Line Items or Shipping Rate of some Shipping Methods changed since they were last added to the Cart.
  *
  *	The error is returned as a failed response to:
  *
  *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests on Orders.
  *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/me/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
+ *	- [Create Order from Quote](ctp:api:endpoint:/{projectKey}/orders/quotes:POST) request on Orders.
+ *	- [Create Order from Quote](ctp:api:endpoint:/{projectKey}/me/orders/quotes:POST) request on My Orders.
  *
  */
 export interface GraphQLPriceChangedError {

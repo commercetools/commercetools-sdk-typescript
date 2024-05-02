@@ -32,6 +32,7 @@ import { ByProjectKeyPaymentsRequestBuilder } from './payments/by-project-key-pa
 import { ByProjectKeyProductDiscountsRequestBuilder } from './product-discounts/by-project-key-product-discounts-request-builder'
 import { ByProjectKeyProductProjectionsRequestBuilder } from './product-projections/by-project-key-product-projections-request-builder'
 import { ByProjectKeyProductSelectionsRequestBuilder } from './product-selections/by-project-key-product-selections-request-builder'
+import { ByProjectKeyProductTailoringRequestBuilder } from './product-tailoring/by-project-key-product-tailoring-request-builder'
 import { ByProjectKeyProductTypesRequestBuilder } from './product-types/by-project-key-product-types-request-builder'
 import { ByProjectKeyProductsRequestBuilder } from './products/by-project-key-products-request-builder'
 import { ByProjectKeyQuoteRequestsRequestBuilder } from './quote-requests/by-project-key-quote-requests-request-builder'
@@ -313,6 +314,18 @@ export class ByProjectKeyRequestBuilder {
    */
   public productSelections(): ByProjectKeyProductSelectionsRequestBuilder {
     return new ByProjectKeyProductSelectionsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	Product tailoring are used to contextualize product data for specific stores.
+   */
+  public productTailoring(): ByProjectKeyProductTailoringRequestBuilder {
+    return new ByProjectKeyProductTailoringRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },

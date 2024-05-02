@@ -115,9 +115,16 @@ export interface PriceImport extends ImportResource {
   /**
    *	Only the [Embedded Price](/../api/projects/products#embedded-price) updates will be published to `staged` and `current` projection.
    *
-   *
+   *	@deprecated
    */
   readonly publish?: boolean
+  /**
+   *	- Set to `false` to update both the [current and staged projections](/../api/projects/productProjections#current--staged) of the [Product](/../api/projects/products#product) with the new Price data.
+   *	- Leave empty or set to `true` to only update the staged projection.
+   *
+   *
+   */
+  readonly staged?: boolean
   /**
    *	The tiered prices for this price.
    *

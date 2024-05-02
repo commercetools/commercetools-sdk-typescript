@@ -1,3 +1,17 @@
+function isDefined<T>(value: T | undefined | null): value is T {
+  return typeof value !== 'undefined' && value !== null
+}
+
+function clean<T = { [k: string]: any }>(value: T) {
+  if (!isDefined(value)) return ''
+  if (typeof value == 'string') return value
+  return Object.fromEntries(
+    Object.entries(value).filter(
+      ([_, value]) => ![null, undefined, ''].includes(value)
+    )
+  ) as T
+}
+
 function urlParser<T>(url: string | URLSearchParams): T {
   const object = {} as T
   const data = new URLSearchParams(url)
@@ -15,11 +29,14 @@ function urlParser<T>(url: string | URLSearchParams): T {
 function urlStringifier(
   object: string | Record<string, any> | Array<Array<string>> | URLSearchParams
 ): string {
+  object = clean(object)
+  if (!object) return ''
+
   const params = new URLSearchParams(object)
   for (const [key, value] of Object.entries(object)) {
     if (Array.isArray(value)) {
       params.delete(key)
-      value.filter(Boolean).forEach((v) => params.append(key, v))
+      value.filter(isDefined).forEach((v) => params.append(key, v))
     }
   }
 
@@ -43,5 +60,5 @@ export function stringifyURLString(
       | URLSearchParams
   ) => string = urlStringifier
 ): string {
-  return urlStringifier(object)
+  return stringifier(object)
 }

@@ -979,13 +979,13 @@ export interface Order extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the Order.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Order.
    *
    *
    */

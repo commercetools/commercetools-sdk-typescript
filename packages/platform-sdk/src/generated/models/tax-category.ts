@@ -47,13 +47,13 @@ export interface TaxCategory extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the TaxCategory.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the TaxCategory.
    *
    *
    */
@@ -294,7 +294,7 @@ export interface TaxRateDraft {
    */
   readonly state?: string
   /**
-   *	Used to calculate the [taxPortions](/../api/projects/carts#taxedprice) field in a Cart or Order. It is useful if the total tax of a country (such as the US) is a combination of multiple taxes (such as state and local taxes). The total of all subrates must equal the TaxRate `amount`.
+   *	Used to calculate the `taxPortions` field in a [Cart or Order](/../api/projects/carts#taxedprice) or [(Custom) Line Items](/../api/projects/carts#taxeditemprice). It is useful if the total tax of a country (such as the US) is a combination of multiple taxes (such as state and local taxes). The total of all subrates must equal the TaxRate `amount`.
    *
    *
    */

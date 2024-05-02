@@ -1,5 +1,279 @@
 # @commercetools/platform-sdk
 
+## 7.8.0
+
+### Minor Changes
+
+- [#680](https://github.com/commercetools/commercetools-sdk-typescript/pull/680) [`a00e693`](https://github.com/commercetools/commercetools-sdk-typescript/commit/a00e6939def06a4b435b05db28a903b5c945bb3c) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Changed Property(s)</summary>
+
+  - :warning: changed property `custom` of type `MyBusinessUnitDraft` from type `CustomFields` to `CustomFieldsDraft`
+  - :warning: changed property `custom` of type `MyCompanyDraft` from type `CustomFields` to `CustomFieldsDraft`
+  - :warning: changed property `custom` of type `MyDivisionDraft` from type `CustomFields` to `CustomFieldsDraft`
+  </details>
+
+  <details>
+  <summary>Required Property(s)</summary>
+
+  - :warning: changed property `stores` of type `BusinessUnit` to be required
+  - :warning: changed property `stores` of type `Company` to be required
+  - :warning: changed property `stores` of type `Division` to be required
+  - :warning: changed property `stores` of type `BusinessUnitSetStoresAction` to be required
+  - :warning: changed property `stores` of type `CartDiscountSetStoresAction` to be required
+  - :warning: changed property `stores` of type `Customer` to be required
+  - :warning: changed property `stores` of type `CustomerSetStoresAction` to be required
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `postFilter` to type `ProductSearchRequest`
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`8b1aecc`](https://github.com/commercetools/commercetools-sdk-typescript/commit/8b1aecce5859248f3a90c8cc856db64d2932b5d5), [`b8bc24d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/b8bc24df5db74feef7fb5743b6f24b425d43b738), [`a1b43c0`](https://github.com/commercetools/commercetools-sdk-typescript/commit/a1b43c048fac3eba3d53470314b61d36e74f0a51)]:
+  - @commercetools/sdk-client-v2@2.5.0
+  - @commercetools/ts-client@1.2.1
+
+## 7.7.0
+
+### Minor Changes
+
+- [#670](https://github.com/commercetools/commercetools-sdk-typescript/pull/670) [`96c319a`](https://github.com/commercetools/commercetools-sdk-typescript/commit/96c319ace84ba80a04581a67e608d61008ddbebf) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `attributedTo` to type `CreatedBy`
+  - added property `attributedTo` to type `LastModifiedBy`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `Attribution`
+  - added type `AttributionSource`
+  </details>
+
+  <details>
+  <summary>Removed Method(s)</summary>
+
+  - :warning: removed method `apiRoot.withProjectKey().products().search().head()`
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`344fd2d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/344fd2d105f51a65a8a93f247ea9ea8f1a09b095)]:
+  - @commercetools/sdk-client-v2@2.4.1
+
+## 7.6.0
+
+### Minor Changes
+
+- [#651](https://github.com/commercetools/commercetools-sdk-typescript/pull/651) [`6ebb725`](https://github.com/commercetools/commercetools-sdk-typescript/commit/6ebb725fe18630282c7209ba88596fd2ac315122) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `ManuallySuspended` to type `SubscriptionHealthStatus`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `productsSearch` to type `SearchIndexingConfiguration`
+  - added property `mode` to type `ProjectChangeProductSearchIndexingEnabledAction`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+
+  - added method `apiRoot.withProjectKey().products().search().post()`
+  - added method `apiRoot.withProjectKey().products().search().head()`
+  </details>
+
+  <details>
+  <summary>Added Resource(s)</summary>
+
+  - added resource `/{projectKey}/products/search`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `LockedFieldError`
+  - added type `GraphQLLockedFieldError`
+  - added type `ProductPagedSearchResponse`
+  - added type `ProductSearchErrorResponse`
+  - added type `ProductSearchMatchingVariantEntry`
+  - added type `ProductSearchMatchingVariants`
+  - added type `ProductSearchProjectionParams`
+  - added type `ProductSearchRequest`
+  - added type `ProductSearchResult`
+  - added type `ProductSearchFacetCountExpression`
+  - added type `ProductSearchFacetCountLevelEnum`
+  - added type `ProductSearchFacetCountValue`
+  - added type `ProductSearchFacetDistinctBucketSortBy`
+  - added type `ProductSearchFacetDistinctBucketSortExpression`
+  - added type `ProductSearchFacetDistinctExpression`
+  - added type `ProductSearchFacetDistinctValue`
+  - added type `ProductSearchFacetExpression`
+  - added type `ProductSearchFacetRangesExpression`
+  - added type `ProductSearchFacetRangesFacetRange`
+  - added type `ProductSearchFacetRangesValue`
+  - added type `ProductSearchFacetResult`
+  - added type `ProductSearchFacetResultBucket`
+  - added type `ProductSearchFacetResultBucketEntry`
+  - added type `ProductSearchFacetResultCount`
+  - added type `ProductSearchFacetScope`
+  - added type `ProductSearchFacetScopeEnum`
+  - added type `ProductSearchIndexingMode`
+  - added type `ProductSearchStatus`
+  - added type `SearchAndExpression`
+  - added type `SearchAnyValue`
+  - added type `SearchCompoundExpression`
+  - added type `SearchDateRangeExpression`
+  - added type `SearchDateRangeValue`
+  - added type `SearchDateTimeRangeExpression`
+  - added type `SearchDateTimeRangeValue`
+  - added type `SearchExactExpression`
+  - added type `SearchExistsExpression`
+  - added type `SearchExistsValue`
+  - added type `SearchFieldType`
+  - added type `SearchFilterExpression`
+  - added type `SearchFullTextExpression`
+  - added type `SearchFullTextPrefixExpression`
+  - added type `SearchFullTextPrefixValue`
+  - added type `SearchFullTextValue`
+  - added type `SearchLongRangeExpression`
+  - added type `SearchLongRangeValue`
+  - added type `SearchMatchType`
+  - added type `SearchMatchingVariant`
+  - added type `SearchNotExpression`
+  - added type `SearchNumberRangeExpression`
+  - added type `SearchNumberRangeValue`
+  - added type `SearchOrExpression`
+  - added type `SearchPrefixExpression`
+  - added type `SearchQuery`
+  - added type `SearchQueryExpression`
+  - added type `SearchQueryExpressionValue`
+  - added type `SearchSortMode`
+  - added type `SearchSortOrder`
+  - added type `SearchSorting`
+  - added type `SearchTimeRangeExpression`
+  - added type `SearchTimeRangeValue`
+  - added type `SearchWildCardExpression`
+  </details>
+
+## 7.5.0
+
+### Minor Changes
+
+- [#626](https://github.com/commercetools/commercetools-sdk-typescript/pull/626) [`774266d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/774266d736170f678154d72e5b52e794186979b0) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `ProductTailoringCreatedMessage`
+  - added type `ProductTailoringDeletedMessage`
+  - added type `ProductTailoringDescriptionSetMessage`
+  - added type `ProductTailoringNameSetMessage`
+  - added type `ProductTailoringPublishedMessage`
+  - added type `ProductTailoringSlugSetMessage`
+  - added type `ProductTailoringUnpublishedMessage`
+  - added type `ProductTailoringCreatedMessagePayload`
+  - added type `ProductTailoringDeletedMessagePayload`
+  - added type `ProductTailoringDescriptionSetMessagePayload`
+  - added type `ProductTailoringNameSetMessagePayload`
+  - added type `ProductTailoringPublishedMessagePayload`
+  - added type `ProductTailoringSlugSetMessagePayload`
+  - added type `ProductTailoringUnpublishedMessagePayload`
+  - added type `ProductTailoring`
+  - added type `ProductTailoringData`
+  - added type `ProductTailoringDraft`
+  - added type `ProductTailoringInStoreDraft`
+  - added type `ProductTailoringPagedQueryResponse`
+  - added type `ProductTailoringReference`
+  - added type `ProductTailoringResourceIdentifier`
+  - added type `ProductTailoringUpdate`
+  - added type `ProductTailoringUpdateAction`
+  - added type `ProductTailoringPublishAction`
+  - added type `ProductTailoringSetDescriptionAction`
+  - added type `ProductTailoringSetMetaAttributesAction`
+  - added type `ProductTailoringSetMetaDescriptionAction`
+  - added type `ProductTailoringSetMetaKeywordsAction`
+  - added type `ProductTailoringSetMetaTitleAction`
+  - added type `ProductTailoringSetNameAction`
+  - added type `ProductTailoringSetSlugAction`
+  - added type `ProductTailoringUnpublishAction`
+  </details>
+
+  <details>
+  <summary>Required Property(s)</summary>
+
+  - :warning: changed property `isOnStock` of type `ProductVariantAvailability` to be required
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `taxPortions` to type `TaxedItemPrice`
+  - added property `id` to type `ProductVariantAvailability`
+  - added property `version` to type `ProductVariantAvailability`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+
+  - added method `apiRoot.withProjectKey().productTailoring().get()`
+  - added method `apiRoot.withProjectKey().productTailoring().post()`
+  - added method `apiRoot.withProjectKey().productTailoring().withKey().get()`
+  - added method `apiRoot.withProjectKey().productTailoring().withKey().post()`
+  - added method `apiRoot.withProjectKey().productTailoring().withKey().delete()`
+  - added method `apiRoot.withProjectKey().productTailoring().withId().get()`
+  - added method `apiRoot.withProjectKey().productTailoring().withId().post()`
+  - added method `apiRoot.withProjectKey().productTailoring().withId().delete()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().productTailoring().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().productTailoring().post()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().products().withProductId().productTailoring().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().products().withProductId().productTailoring().post()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().products().withProductId().productTailoring().delete()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().products().withProductKey().productTailoring().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().products().withProductKey().productTailoring().post()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().products().withProductKey().productTailoring().delete()`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `product-tailoring` to type `ReferenceTypeId`
+  </details>
+
+  <details>
+  <summary>Added Resource(s)</summary>
+
+  - added resource `/{projectKey}/product-tailoring`
+  - added resource `/{projectKey}/product-tailoring/key={key}`
+  - added resource `/{projectKey}/product-tailoring/{ID}`
+  - added resource `/{projectKey}/in-store/key={storeKey}/product-tailoring`
+  - added resource `/{projectKey}/in-store/key={storeKey}/products`
+  - added resource `/{projectKey}/in-store/key={storeKey}/products/{productID}`
+  - added resource `/{projectKey}/in-store/key={storeKey}/products/key={productKey}`
+  - added resource `/{projectKey}/in-store/key={storeKey}/products/{productID}/product-tailoring`
+  - added resource `/{projectKey}/in-store/key={storeKey}/products/key={productKey}/product-tailoring`
+  </details>
+
+- [#645](https://github.com/commercetools/commercetools-sdk-typescript/pull/645) [`bfbdfe6`](https://github.com/commercetools/commercetools-sdk-typescript/commit/bfbdfe65042f2b8d011d40859c9542666187dd22) Thanks [@lojzatran](https://github.com/lojzatran)! - Add Datadog APM to SDK
+
+### Patch Changes
+
+- Updated dependencies [[`bfbdfe6`](https://github.com/commercetools/commercetools-sdk-typescript/commit/bfbdfe65042f2b8d011d40859c9542666187dd22), [`a000d70`](https://github.com/commercetools/commercetools-sdk-typescript/commit/a000d708a82b39ecfff26acfbb682dda9675e79f)]:
+  - @commercetools/ts-client@1.2.0
+  - @commercetools/sdk-client-v2@2.4.0
+
 ## 7.4.0
 
 ### Minor Changes

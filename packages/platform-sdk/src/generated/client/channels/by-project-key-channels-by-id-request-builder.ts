@@ -89,6 +89,10 @@ export class ByProjectKeyChannelsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Returns a [ReferenceExists](ctp:api:type:ReferenceExistsError) error if other resources reference the Channel to be deleted.
+   *
+   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

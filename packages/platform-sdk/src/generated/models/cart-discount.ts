@@ -38,25 +38,25 @@ export interface CartDiscount extends BaseResource {
    */
   readonly version: number
   /**
-   *	Date and time (UTC) for the CartDiscount was initially created.
+   *	Date and time (UTC) the CartDiscount was initially created.
    *
    *
    */
   readonly createdAt: string
   /**
-   *	Date and time (UTC) for the CartDiscount was last updated.
+   *	Date and time (UTC) the CartDiscount was last updated.
    *
    *
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the CartDiscount.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the CartDiscount.
    *
    *
    */
@@ -483,6 +483,8 @@ export interface CartDiscountValueGiftLineItem {
   /**
    *	Reference to a Product.
    *
+   *	A Gift Line Item can be present on a Cart even if the referenced Product is unpublished.
+   *
    *
    */
   readonly product: ProductReference
@@ -514,6 +516,8 @@ export interface CartDiscountValueGiftLineItemDraft {
   readonly type: 'giftLineItem'
   /**
    *	ResourceIdentifier of a Product.
+   *
+   *	A Gift Line Item is added to a Cart even if the referenced Product is unpublished.
    *
    *
    */
@@ -832,7 +836,7 @@ export interface CartDiscountSetStoresAction {
    *
    *
    */
-  readonly stores?: StoreResourceIdentifier[]
+  readonly stores: StoreResourceIdentifier[]
 }
 export interface CartDiscountSetValidFromAction {
   readonly action: 'setValidFrom'

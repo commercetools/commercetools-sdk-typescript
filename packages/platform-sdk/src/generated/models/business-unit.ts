@@ -283,13 +283,13 @@ export interface Company {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the BusinessUnit.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the BusinessUnit.
    *
    *
    */
@@ -315,7 +315,7 @@ export interface Company {
    *
    *
    */
-  readonly stores?: StoreKeyReference[]
+  readonly stores: StoreKeyReference[]
   /**
    *	Is always `Explicit` since a Company cannot have a parent Business Unit that Stores can be inherited from.
    *
@@ -533,13 +533,13 @@ export interface Division {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the BusinessUnit.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the BusinessUnit.
    *
    *
    */
@@ -565,7 +565,7 @@ export interface Division {
    *
    *
    */
-  readonly stores?: StoreKeyReference[]
+  readonly stores: StoreKeyReference[]
   /**
    *	Defines whether the Stores of the Division are set explicitly or inherited from a parent Business Unit.
    *
@@ -1236,5 +1236,5 @@ export interface BusinessUnitSetStoresAction {
    *
    *
    */
-  readonly stores?: StoreResourceIdentifier[]
+  readonly stores: StoreResourceIdentifier[]
 }

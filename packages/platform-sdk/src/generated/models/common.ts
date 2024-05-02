@@ -89,6 +89,11 @@ import {
   ProductSelectionResourceIdentifier,
 } from './product-selection'
 import {
+  ProductTailoring,
+  ProductTailoringReference,
+  ProductTailoringResourceIdentifier,
+} from './product-tailoring'
+import {
   ProductType,
   ProductTypeReference,
   ProductTypeResourceIdentifier,
@@ -322,6 +327,24 @@ export interface AssetSource {
   readonly contentType?: string
 }
 /**
+ *	Indicates the source and method that indirectly created or modified the resource. This is present on resources created or updated after 1 April 2024.
+ */
+export interface Attribution {
+  /**
+   *	`id` of the [API Client](ctp:api:type:ApiClient) that created or modified the resource.
+   *
+   *
+   */
+  readonly clientId?: string
+  /**
+   *	Method used to initiate the creation or modification of the resource.
+   *
+   *
+   */
+  readonly source: AttributionSource
+}
+export type AttributionSource = 'Export' | 'Import' | string
+/**
  *	Polymorphic base type that represents a postal address and contact details.
  *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
  *	only differ in the data type for the optional `custom` field.
@@ -550,6 +573,7 @@ export type _BaseResource =
   | ProductDiscount
   | ProductProjection
   | ProductSelection
+  | ProductTailoring
   | ProductType
   | Quote
   | QuoteRequest
@@ -602,7 +626,7 @@ export interface ClientLogging {
 }
 export type _ClientLogging = ClientLogging | CreatedBy | LastModifiedBy
 /**
- *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+ *	IDs and references that created the resource. This is present on resources created after 1 February 2019 except for [events not tracked](/general-concepts#events-tracked).
  */
 export interface CreatedBy extends ClientLogging {
   /**
@@ -629,6 +653,12 @@ export interface CreatedBy extends ClientLogging {
    *
    */
   readonly anonymousId?: string
+  /**
+   *	Indicates if the resource was created indirectly.
+   *
+   *
+   */
+  readonly attributedTo?: Attribution
   /**
    *	Indicates the [Customer](ctp:api:type:Customer) who created the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only present when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
    *
@@ -719,7 +749,7 @@ export type KeyReference =
   | BusinessUnitKeyReference
   | StoreKeyReference
 /**
- *	Present on resources modified after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+ *	IDs and references that last modified the resource. This is present on resources created or updated after 1 February 2019 except for [events not tracked](/general-concepts#events-tracked).
  */
 export interface LastModifiedBy extends ClientLogging {
   /**
@@ -746,6 +776,12 @@ export interface LastModifiedBy extends ClientLogging {
    *
    */
   readonly anonymousId?: string
+  /**
+   *	Indicates if the resource was modified indirectly.
+   *
+   *
+   */
+  readonly attributedTo?: Attribution
   /**
    *	Indicates the [Customer](ctp:api:type:Customer) who modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only present when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
    *
@@ -1077,6 +1113,7 @@ export type Reference =
   | ProductDiscountReference
   | ProductReference
   | ProductSelectionReference
+  | ProductTailoringReference
   | ProductTypeReference
   | QuoteReference
   | QuoteRequestReference
@@ -1120,6 +1157,7 @@ export type ReferenceTypeId =
   | 'product-discount'
   | 'product-price'
   | 'product-selection'
+  | 'product-tailoring'
   | 'product-type'
   | 'quote'
   | 'quote-request'
@@ -1158,6 +1196,7 @@ export type ResourceIdentifier =
   | ProductDiscountResourceIdentifier
   | ProductResourceIdentifier
   | ProductSelectionResourceIdentifier
+  | ProductTailoringResourceIdentifier
   | ProductTypeResourceIdentifier
   | QuoteRequestResourceIdentifier
   | QuoteResourceIdentifier
