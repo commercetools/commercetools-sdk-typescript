@@ -6,7 +6,7 @@ import {
 } from '../types/types'
 
 export default function createConcurrentModificationMiddleware(
-  customLogic?: (
+  modifierFunction?: (
     version: number,
     request: MiddlewareRequest,
     response: MiddlewareResponse
@@ -25,8 +25,8 @@ export default function createConcurrentModificationMiddleware(
 
         // update the resource version here
         if (version) {
-          if (customLogic) {
-            request.body = await customLogic(version, request, response)
+          if (modifierFunction) {
+            request.body = await modifierFunction(version, request, response)
           } else {
             request.body =
               typeof request.body == 'string'
