@@ -14,6 +14,8 @@ import {
   HttpUserAgentOptions,
   LoggerMiddlewareOptions,
   Middleware,
+  MiddlewareRequest,
+  MiddlewareResponse,
   Nullable,
   PasswordAuthMiddlewareOptions,
   QueueMiddlewareOptions,
@@ -221,8 +223,15 @@ export default class ClientBuilder {
     return this
   }
 
-  public withConcurrentModificationMiddleware(): ClientBuilder {
-    this.concurrentMiddleware = createConcurrentModificationMiddleware()
+  public withConcurrentModificationMiddleware(
+    customLogic?: (
+      version: number,
+      request: MiddlewareRequest,
+      response: MiddlewareResponse
+    ) => Promise<string>
+  ): ClientBuilder {
+    this.concurrentMiddleware =
+      createConcurrentModificationMiddleware(customLogic)
 
     return this
   }

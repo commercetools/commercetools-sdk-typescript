@@ -179,7 +179,7 @@ export default function createHttpMiddleware(
       }
 
       // Ensure body is a string if content type is application/{json|graphql}
-      const body: string | Buffer =
+      const body: { [p: string]: any } | string | Buffer =
         (constants.HEADERS_CONTENT_TYPES.indexOf(
           requestHeader['Content-Type'] as string
         ) > -1 &&
