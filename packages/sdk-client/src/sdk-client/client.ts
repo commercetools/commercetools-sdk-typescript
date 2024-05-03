@@ -99,9 +99,8 @@ export function process<T = any>(
       }
 
       try {
-        const payload: SuccessResult = await createClient(_options).execute(
-          enhancedRequest
-        )
+        const payload: SuccessResult =
+            await createClient(_options).execute(enhancedRequest)
 
         const { results, count: resultsLength } = payload.body
 

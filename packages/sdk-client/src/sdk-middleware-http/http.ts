@@ -289,8 +289,8 @@ export default function createHttpMiddleware({
                   ...(includeRequestInErrorResponse
                     ? { originalRequest: request }
                     : res.status === 404
-                    ? { uri: request.uri }
-                    : {}),
+                     ? { uri: request.uri }
+                     : {}),
                   retryCount,
                   headers: parseHeaders(res.headers),
                   ...(typeof parsed === 'object'
