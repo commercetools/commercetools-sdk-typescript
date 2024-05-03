@@ -10,7 +10,7 @@ export default function createConcurrentModificationMiddleware(
     version: number,
     request: MiddlewareRequest,
     response: MiddlewareResponse
-  ) => Promise<{ [key: string]: any } | string | Buffer>
+  ) => Promise<Record<string, any> | string | Buffer>
 ): Middleware {
   return (next: Next) => {
     return async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {

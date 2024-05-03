@@ -21,6 +21,7 @@ import {
   QueueMiddlewareOptions,
   RefreshAuthMiddlewareOptions,
 } from '../types/types'
+import { Buffer } from 'buffer'
 
 const {
   createAuthMiddlewareForPasswordFlow,
@@ -228,7 +229,7 @@ export default class ClientBuilder {
       version: number,
       request: MiddlewareRequest,
       response: MiddlewareResponse
-    ) => Promise<string>
+    ) => Promise<Record<string, any> | string | Buffer>
   ): ClientBuilder {
     this.concurrentMiddleware =
       createConcurrentModificationMiddleware(customLogic)
