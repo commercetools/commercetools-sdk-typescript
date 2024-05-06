@@ -25,5 +25,11 @@
   },
   "scripts": {
     "start": "node server"
+  },
+  "resolutions": {
+    "@opentelemetry/instrumentation": "0.45.0"
+  },
+  "overrides": {
+    "@opentelemetry/instrumentation": "0.45.0"
   }
 }

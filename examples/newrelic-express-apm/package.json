@@ -18,5 +18,11 @@
   },
   "scripts": {
     "start": "node -r ./newrelic server"
+  },
+  "resolutions": {
+    "axios": "0.28.0"
+  },
+  "overrides": {
+    "axios": "0.28.0"
   }
 }
