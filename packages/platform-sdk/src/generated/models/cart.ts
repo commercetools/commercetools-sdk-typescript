@@ -2566,7 +2566,8 @@ export interface CartChangeLineItemQuantityAction {
    */
   readonly quantity: number
   /**
-   *	Sets the [LineItem](ctp:api:type:LineItem) `price` to the given value when changing the quantity of a Line Item with the `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+   *	Required when the Line Item uses `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+   *	Sets the [LineItem](ctp:api:type:LineItem) `price` to the given value when changing the quantity of a Line Item.
    *
    *	The LineItem price is updated as described in LineItem Price selection.
    *
@@ -2575,6 +2576,7 @@ export interface CartChangeLineItemQuantityAction {
   readonly externalPrice?: _Money
   /**
    *	Sets the [LineItem](ctp:api:type:LineItem) `price` and `totalPrice` to the given value when changing the quantity of a Line Item with the `ExternalTotal` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+   *	If `externalTotalPrice` is not given and the `priceMode` is `ExternalTotal`, the external price is unset and the `priceMode` is set to `Platform`.
    *
    *
    */
