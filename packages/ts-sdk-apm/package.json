@@ -9,7 +9,7 @@
   "private": false,
   "dependencies": {
     "@opentelemetry/api": "^1.4.1",
-    "@opentelemetry/auto-instrumentations-node": "^0.45.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.46.0",
     "@opentelemetry/exporter-metrics-otlp-http": "^0.51.0",
     "@opentelemetry/sdk-node": "^0.51.0",
     "uuid": "9.0.1"
