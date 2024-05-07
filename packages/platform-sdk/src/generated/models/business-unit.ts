@@ -295,7 +295,7 @@ export interface Company {
    */
   readonly createdBy?: CreatedBy
   /**
-   *	User-defined unique identifier of the Business Unit.
+   *	User-defined unique and immutable identifier of the Business Unit.
    *
    *
    */
@@ -408,7 +408,7 @@ export interface Company {
 export interface CompanyDraft {
   readonly unitType: 'Company'
   /**
-   *	User-defined unique identifier for the Business Unit.
+   *	User-defined unique and immutable identifier for the Business Unit.
    *
    *
    */
@@ -545,7 +545,7 @@ export interface Division {
    */
   readonly createdBy?: CreatedBy
   /**
-   *	User-defined unique identifier of the Business Unit.
+   *	User-defined unique and immutable identifier of the Business Unit.
    *
    *
    */
@@ -659,7 +659,7 @@ export interface Division {
 export interface DivisionDraft {
   readonly unitType: 'Division'
   /**
-   *	User-defined unique identifier for the Business Unit.
+   *	User-defined unique and immutable identifier for the Business Unit.
    *
    *
    */
