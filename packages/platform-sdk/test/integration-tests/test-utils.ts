@@ -40,12 +40,12 @@ const httpMiddlewareOptions = {
   fetch,
 }
 
-const httpMiddlewareOptionsV3 = {
+export const httpMiddlewareOptionsV3 = {
   host: ctp_host,
   httpClient: fetch,
 }
 
-const authMiddlewareOptions = {
+export const authMiddlewareOptions = {
   host: authURL,
   projectKey,
   credentials: {

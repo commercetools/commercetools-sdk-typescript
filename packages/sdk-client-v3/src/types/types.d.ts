@@ -41,7 +41,7 @@ export interface ClientRequest {
   uriTemplate?: string
   pathVariables?: VariableMap
   queryParams?: VariableMap
-  body?: string | Buffer
+  body?: Record<string, any> | string | Buffer
   response?: ClientResponse
   resolve?: Function;
   reject?: Function;
@@ -279,7 +279,7 @@ export type IClientOptions = {
   method: MethodType;
   headers: Record<string, any>
   credentialsMode?: CredentialsMode;
-  body?: string | Buffer
+  body?: Record<string, any> | string | Buffer
   timeout?: number
   abortController?: AbortController
   includeOriginalRequest?: boolean
@@ -324,6 +324,6 @@ export type SuccessResult = {
   headers?: JsonObject<string>;
 }
 
-export type IResponse = Response & { statusCode?: number; data?: object } 
+export type IResponse = Response & { statusCode?: number; data?: object }
 
 export type executeRequest = (request: ClientRequest) => Promise<ClientResponse>
