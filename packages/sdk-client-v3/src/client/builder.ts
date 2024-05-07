@@ -3,6 +3,7 @@ import * as middleware from '../middleware'
 import { constants } from '../utils'
 import { default as createClient } from './client'
 
+import { Buffer } from 'buffer'
 import {
   AuthMiddlewareOptions,
   Client,
@@ -21,7 +22,6 @@ import {
   QueueMiddlewareOptions,
   RefreshAuthMiddlewareOptions,
 } from '../types/types'
-import { Buffer } from 'buffer'
 
 const {
   createAuthMiddlewareForPasswordFlow,

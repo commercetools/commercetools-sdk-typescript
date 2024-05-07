@@ -50,7 +50,7 @@ export interface AssociateRole extends BaseResource {
    */
   readonly createdBy?: CreatedBy
   /**
-   *	User-defined unique identifier of the AssociateRole.
+   *	User-defined unique and immutable identifier of the AssociateRole.
    *
    *
    */
@@ -82,7 +82,7 @@ export interface AssociateRole extends BaseResource {
 }
 export interface AssociateRoleDraft {
   /**
-   *	User-defined unique identifier for the AssociateRole.
+   *	User-defined unique and immutable identifier for the AssociateRole.
    *
    *
    */
