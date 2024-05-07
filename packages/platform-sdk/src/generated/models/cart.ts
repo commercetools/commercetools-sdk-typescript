@@ -12,6 +12,7 @@ import {
   CartDiscountReference,
   CartDiscountTarget,
   CartDiscountValue,
+  CartDiscountValueDraft,
 } from './cart-discount'
 import { ChannelReference, ChannelResourceIdentifier } from './channel'
 import {
@@ -989,7 +990,7 @@ export interface DirectDiscountDraft {
    *
    *
    */
-  readonly value: CartDiscountValue
+  readonly value: CartDiscountValueDraft
   /**
    *	Defines what segment of the Cart will be discounted.
    *
