@@ -34,7 +34,8 @@
   },
   "dependencies": {
     "buffer": "^6.0.3",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "typedoc": "^0.25.13"
   },
   "files": ["dist", "CHANGELOG.md"],
   "author": "Chukwuemeka Ajima <meeky.ae@gmail.com>",
@@ -55,6 +56,7 @@
   "scripts": {
     "organize_imports": "find src -type f -name '*.ts' | xargs organize-imports-cli",
     "postbuild": "yarn organize_imports",
-    "post_process_generate": "yarn organize_imports"
+    "post_process_generate": "yarn organize_imports",
+    "docs": "typedoc --out docs"
   }
 }

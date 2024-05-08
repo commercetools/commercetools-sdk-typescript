@@ -10,5 +10,14 @@
     "resolveJsonModule": true,
     "downlevelIteration": true
   },
-  "exclude": ["./examples/"]
+  "files": [],
+  "exclude": ["./examples/"],
+  "references": [
+    {
+      "path": "./packages/sdk-client"
+    },
+    {
+      "path": "./packages/sdk-client-v3"
+    }
+  ]
 }
