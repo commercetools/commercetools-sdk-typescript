@@ -41,6 +41,7 @@ jobs:
         uses: chrnorm/deployment-action@v2
         id: deployment
         with:
-          # token: ${{ steps.generate_github_token.outputs.token }}
+          token: ${{ steps.generate_github_token.outputs.token }}
           environment-url: https://commercetools.github.io/commercetools-sdk-typescript
           environment: production
+          repo: gh-pages
