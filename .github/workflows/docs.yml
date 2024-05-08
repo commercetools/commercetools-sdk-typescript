@@ -33,7 +33,7 @@ jobs:
           token: ${{ steps.generate_github_token.outputs.token }}
           force: false
 
-      - name: Create GitHub deployment
+      - name: Create GitHub deployment 🎉
         uses: chrnorm/deployment-action@v2
         id: deployment
         with:
