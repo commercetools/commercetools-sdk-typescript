@@ -11,7 +11,6 @@ for (const k in process.env) {
   define[`process.env.${k}`] = JSON.stringify(process.env[k])
 }
 
-console.log(define)
 require('esbuild')
   .build({
     entryPoints: ['src/App.tsx'],
