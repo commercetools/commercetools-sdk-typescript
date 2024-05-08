@@ -3,6 +3,7 @@ import * as middleware from '../middleware'
 import { constants } from '../utils'
 import { default as createClient } from './client'
 
+import { Buffer } from 'buffer'
 import {
   AuthMiddlewareOptions,
   Client,
@@ -14,6 +15,8 @@ import {
   HttpUserAgentOptions,
   LoggerMiddlewareOptions,
   Middleware,
+  MiddlewareRequest,
+  MiddlewareResponse,
   Nullable,
   PasswordAuthMiddlewareOptions,
   QueueMiddlewareOptions,
@@ -221,8 +224,15 @@ export default class ClientBuilder {
     return this
   }
 
-  public withConcurrentModificationMiddleware(): ClientBuilder {
-    this.concurrentMiddleware = createConcurrentModificationMiddleware()
+  public withConcurrentModificationMiddleware(
+    customLogic?: (
+      version: number,
+      request: MiddlewareRequest,
+      response: MiddlewareResponse
+    ) => Promise<Record<string, any> | string | Buffer>
+  ): ClientBuilder {
+    this.concurrentMiddleware =
+      createConcurrentModificationMiddleware(customLogic)
 
     return this
   }
