@@ -1,9 +1,13 @@
 name: docs
 on: [push]
 
-permissions:
-  contents: write
-  deployments: write
+
+permissions: write-all
+# permissions:
+#   contents: write
+#   deployments: write
+#   pull-requests: write
+#   repository-projects: write
 
 jobs:
   build-and-deploy:
