@@ -14,7 +14,8 @@
     "test:unit": "yarn test --testPathIgnorePatterns='packages/platform-sdk/test/integration-tests'",
     "test:integration": "jest --testPathPattern='packages/platform-sdk/test/integration-tests'",
     "postbuild": "webpack --mode=production",
-    "changeset:version-and-format": "changeset version && prettier --write --parser json '**/package.json'"
+    "changeset:version-and-format": "changeset version && prettier --write --parser json '**/package.json'",
+    "docs": "rm -rf docs;typedoc"
   },
   "workspaces": ["packages/*"],
   "dependencies": {
@@ -48,6 +49,7 @@
     "ts-jest": "29.1.2",
     "ts-loader": "^9.2.6",
     "tsc-files": "1.1.4",
+    "typedoc": "^0.25.13",
     "typescript": "5.4.5",
     "webpack": "^5.53.0",
     "webpack-cli": "^5.0.0",
