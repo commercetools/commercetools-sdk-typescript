@@ -1,47 +1,37 @@
 name: docs
 on: [push]
 
-
-permissions: write-all
-# permissions:
-#   contents: write
-#   deployments: write
-#   pull-requests: write
-#   repository-projects: write
-
 jobs:
-  build-and-deploy:
+  # Build job
+  build:
     concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
     steps:
-      # Get GitHub token via the CT SDKs App
-      - name: Generate GitHub token (via CT SDKs App)
-        id: generate_github_token
-        uses: actions/create-github-app-token@v1
-        with:
-          app-id: ${{ secrets.CT_SDKS_APP_ID }}
-          private-key: ${{ secrets.CT_SDKS_APP_PEM }}
+    - name: Checkout 🛎️
+      uses: actions/checkout@v4
 
-      - name: Checkout 🛎️
-        uses: actions/checkout@v4
+    - name: Install and Build 🔧
+      run: |
+        yarn install --frozen-lockfile
+        yarn docs
 
-      - name: Install and Build 🔧
-        run: |
-          yarn install --frozen-lockfile
-          yarn docs
+  # Deploy job
+  deploy:
+    needs: build
 
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: docs # The folder the action should deploy.
-          token: ${{ steps.generate_github_token.outputs.token }}
-          force: false
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
 
-      - name: Create GitHub deployment 🎉
-        uses: chrnorm/deployment-action@v2
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    # Specify runner + deployment step
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
         id: deployment
-        with:
-          token: ${{ steps.generate_github_token.outputs.token }}
-          environment-url: https://commercetools.github.io/commercetools-sdk-typescript
-          environment: production
-          repo: gh-pages
+        uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this actio
