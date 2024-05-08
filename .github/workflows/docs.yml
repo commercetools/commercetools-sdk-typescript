@@ -14,9 +14,14 @@ jobs:
       run: |
         yarn install --frozen-lockfile
         yarn docs
+    - uses: actions/upload-artifact@v4
+      with:
+        name: page
+        path: docs
 
   # Deploy job
   deploy:
+    runs-on: ubuntu-latest
     needs: build
 
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
@@ -30,10 +35,12 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     # Specify runner + deployment step
-    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Download 
+        uses: actions/download-artifact@v4
+        with:
+          name: page
+          path: .
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -42,7 +49,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: 'docs'
+          path: .
 
       - name: Deploy to GitHub Pages
         id: deployment
