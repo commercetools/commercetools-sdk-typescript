@@ -32,3 +32,11 @@ jobs:
           folder: docs # The folder the action should deploy.
           token: ${{ steps.generate_github_token.outputs.token }}
           force: false
+
+      - name: Create GitHub deployment
+        uses: chrnorm/deployment-action@v2
+        id: deployment
+        with:
+          token: ${{ steps.generate_github_token.outputs.token }}
+          environment-url: https://commercetools.github.io/commercetools-sdk-typescript
+          environment: production
