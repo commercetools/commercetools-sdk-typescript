@@ -10,7 +10,6 @@ on:
 jobs:
   # Build job
   build:
-    if: ${{ !startsWith(github.head_ref, 'changeset-release/') }}
     concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
     steps:
@@ -58,4 +57,4 @@ jobs:
 
       - name: Deploy to GitHub Pages 🚀
         id: deployment
-        uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this actio
+        uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this action
