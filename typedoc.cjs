@@ -1,6 +1,8 @@
 module.exports = {
-  entryPoints: ['packages/sdk-client/src'],
-  out: 'docs',
+  entryPoints: ['packages/sdk-client*'],
+  name: 'Typescript SDK Type Docs',
+  entryPointStrategy: 'packages',
+  includeVersion: false,
   visibilityFilters: {
     protected: true,
     private: true,
