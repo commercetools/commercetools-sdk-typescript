@@ -10,7 +10,6 @@
     "resolveJsonModule": true,
     "downlevelIteration": true
   },
-  "files": [],
   "exclude": ["./examples/"],
   "references": [
     {
