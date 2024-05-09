@@ -1,15 +1,16 @@
 name: SDK Type Docs Specification
 on:
+  push:
+    branches: master
+
   pull_request:
     branches:
       - master
 
-permissions: write-all
-
 jobs:
   # Build job
   build:
-    # don't run on changeset "Version Package" pull request
+    if: ${{ !startsWith(github.head_ref, 'changeset-release/') }}
     concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
     steps:
@@ -52,8 +53,9 @@ jobs:
       - name: Upload artifact 🗂
         uses: actions/upload-pages-artifact@v3
         with:
+          # Upload entire repository
           path: .
 
       - name: Deploy to GitHub Pages 🚀
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this actio
