@@ -8,7 +8,7 @@ jobs:
   # Build job
   build:
     # don't run on changeset "Version Package" pull request
-    if: ${{ !startsWith(github.head_ref, 'changeset-release/') }}
+    if: ${{ !startsWith(github.head_ref, 'changeset-release') }}
     concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
     steps:
