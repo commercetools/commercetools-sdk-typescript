@@ -58,7 +58,7 @@ executors:
 
   node_20:
     docker:
-      - image: cimg/node:20.12.2
+      - image: cimg/node:20.13.1
     working_directory: *working_directory
 
 
