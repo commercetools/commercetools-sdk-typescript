@@ -20,9 +20,13 @@
     "start": "node -r ./newrelic server"
   },
   "resolutions": {
-    "axios": "0.28.0"
+    "axios": "0.28.0",
+    "import-in-the-middle": "1.4.2",
+    "@opentelemetry/instrumentation": "0.41.2"
   },
   "overrides": {
-    "axios": "0.28.0"
+    "axios": "0.28.0",
+    "import-in-the-middle": "1.4.2",
+    "@opentelemetry/instrumentation": "0.41.2"
   }
 }
