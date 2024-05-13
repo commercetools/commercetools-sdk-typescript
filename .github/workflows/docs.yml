@@ -1,14 +1,13 @@
 name: SDK Type Docs Specification
 on:
-  pull_request:
-    branches:
-      - master
+  repository_dispatch:
+    types: [new_release]
 
 jobs:
   # Build job
   build:
-    # don't run on changeset "Version Package" pull request
-    if: ${{ !startsWith(github.head_ref, 'changeset-release/') }}
+    # run only when release succeeded
+    if: ${{ github.event.client_payload.published }}
     concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
     steps:
