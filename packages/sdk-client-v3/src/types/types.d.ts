@@ -280,11 +280,10 @@ export type ConcurrentModificationMiddlewareOptions = {
       response: MiddlewareResponse
   ) => Promise<Record<string, any> | string | Buffer>
 }
-export type GenericOmit<T, U extends string | number | symbol> = Omit<T, U>;
 
 export type BeforeExecutionMiddlewareOptions = {
   [key: string]: any;
-  middleware: (options?: GenericOmit<BeforeExecutionMiddlewareOptions, 'middleware'>) => Middleware
+  middleware: (options?: Omit<BeforeExecutionMiddlewareOptions, 'middleware'>) => Middleware
 }
 
 export type AfterExecutionMiddlewareOptions = {
@@ -295,7 +294,7 @@ export type TelemetryOptions = {
   apm?: Function;
   tracer?: Function;
   userAgent?: string;
-  createTelemetryMiddleware: (options?: GenericOmit<TelemetryOptions, 'createTelemetryMiddleware'>) => Middleware
+  createTelemetryMiddleware: (options?: Omit<TelemetryOptions, 'createTelemetryMiddleware'>) => Middleware
 }
 
 export type IClientOptions = {
