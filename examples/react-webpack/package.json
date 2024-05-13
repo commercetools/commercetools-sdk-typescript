@@ -39,9 +39,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "resolutions": {
-    "semver": "7.6.0"
+    "semver": "7.6.2"
   },
   "overrides": {
-    "semver": "7.6.0"
+    "semver": "7.6.2"
   }
 }
