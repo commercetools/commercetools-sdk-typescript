@@ -18,18 +18,17 @@ export default function createLoggerMiddleware(
 
       const {
         loggerFn = console.log,
-        // logLevel = 'ERROR',
         maskSensitiveHeaderData = true,
         includeOriginalRequest = true,
         includeResponseHeaders = true,
-        // includeRequestInErrorResponse
       } = options || {}
 
-      if (includeOriginalRequest && maskSensitiveHeaderData) {
-        maskAuthData(response.request)
-      }
-
-      if (!includeOriginalRequest) {
+      if (includeOriginalRequest) {
+        response.request = request
+        if (maskSensitiveHeaderData) {
+          maskAuthData(response.request)
+        }
+      } else {
         const { request, ...rest } = response
         response = rest
       }

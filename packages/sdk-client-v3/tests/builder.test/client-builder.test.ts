@@ -205,7 +205,6 @@ describe('Client Builder', () => {
         .withClientCredentialsFlow(authMiddlewareOptions)
         .withQueueMiddleware({ concurrency: 20 })
         .withLoggerMiddleware({ loggerFn: jest.fn() })
-        .withErrorMiddleware({})
         .withConcurrentModificationMiddleware()
         .withHttpMiddleware(httpMiddlewareOptions)
         .build()

@@ -236,11 +236,9 @@ export type HttpOptions = {
 export type LogLevel = 'INFO' | 'ERROR'
 
 export type LoggerMiddlewareOptions = {
-  logLevel?: LogLevel
   maskSensitiveHeaderData?: boolean
   includeOriginalRequest?: boolean
   includeResponseHeaders?: boolean
-  includeRequestInErrorResponse?: boolean
   loggerFn?: (options: MiddlewareResponse) => void
 }
 
@@ -273,6 +271,31 @@ export type QueueMiddlewareOptions = {
 
 export type ExistingTokenMiddlewareOptions = {
   force: boolean
+}
+
+export type ConcurrentModificationMiddlewareOptions = {
+  concurrentModificationHandlerFn?: (
+      version: number,
+      request: MiddlewareRequest,
+      response: MiddlewareResponse
+  ) => Promise<Record<string, any> | string | Buffer>
+}
+export type GenericOmit<T, U extends string | number | symbol> = Omit<T, U>;
+
+export type BeforeExecutionMiddlewareOptions = {
+  [key: string]: any;
+  middleware: (options?: GenericOmit<BeforeExecutionMiddlewareOptions, 'middleware'>) => Middleware
+}
+
+export type AfterExecutionMiddlewareOptions = {
+  [key: string]: any;
+  middleware: (options?: Omit<AfterExecutionMiddlewareOptions, 'middleware'>) => Middleware
+}
+export type TelemetryOptions = {
+  apm?: Function;
+  tracer?: Function;
+  userAgent?: string;
+  createTelemetryMiddleware: (options?: GenericOmit<TelemetryOptions, 'createTelemetryMiddleware'>) => Middleware
 }
 
 export type IClientOptions = {
