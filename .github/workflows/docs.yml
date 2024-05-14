@@ -1,5 +1,6 @@
 name: SDK Type Docs Specification
 on:
+  workflow_dispatch:
   repository_dispatch:
     types: [new_release]
 
@@ -7,7 +8,6 @@ jobs:
   # Build job
   build:
     # run only when release succeeded
-    if: ${{ github.event.client_payload.published }}
     concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
     steps:
