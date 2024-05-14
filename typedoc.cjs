@@ -1,5 +1,5 @@
 module.exports = {
-  entryPoints: ['packages/sdk-client*'],
+  entryPoints: ['packages/*'],
   name: 'Typescript SDK Type Docs',
   entryPointStrategy: 'packages',
   includeVersion: false,

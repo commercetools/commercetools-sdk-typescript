@@ -1,5 +1,5 @@
 {
-  "name": "Client v2",
+  "name": "APM",
   "extends": ["../../typedoc.base.json"],
   "entryPoints": ["src/index.ts"]
 }
