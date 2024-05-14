@@ -1,0 +1,5 @@
+{
+  "name": "Client v3",
+  "extends": ["../../typedoc.base.json"],
+  "entryPoints": ["src/index.ts"]
+}

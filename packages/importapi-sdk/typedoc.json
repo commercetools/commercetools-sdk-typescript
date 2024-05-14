@@ -1,0 +1,5 @@
+{
+  "name": "Import API SDK",
+  "extends": ["../../typedoc.base.json"],
+  "entryPoints": ["src/index.ts"]
+}
