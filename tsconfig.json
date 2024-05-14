@@ -10,6 +10,5 @@
     "resolveJsonModule": true,
     "downlevelIteration": true
   },
-  "exclude": ["./examples/"],
-  "files": ["global.d.ts"]
+  "exclude": ["./examples/"]
 }
