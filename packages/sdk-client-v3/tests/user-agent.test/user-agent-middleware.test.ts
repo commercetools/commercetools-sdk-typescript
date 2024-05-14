@@ -1,12 +1,8 @@
-import {
-  MiddlewareRequest,
-  MiddlewareResponse,
-  JsonObject,
-} from '../../src/types/types'
+import { MiddlewareRequest, JsonObject } from '../../src'
 import { createUserAgentMiddleware } from '../../src/middleware'
 
 describe('UserAgent', () => {
-  const option = { name: 'agentName', customAgent: 'customAgent' }
+  const option = { customAgent: 'customAgent' }
   const userAgentMiddleware = createUserAgentMiddleware(option)
   const request: MiddlewareRequest = {
     method: 'GET',

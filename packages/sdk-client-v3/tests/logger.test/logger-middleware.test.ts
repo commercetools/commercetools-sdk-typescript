@@ -6,7 +6,9 @@ function createTestRequest(options) {
     uri: '',
     method: 'GET',
     body: null,
-    headers: {},
+    headers: {
+      Authorization: 'token-12345',
+    },
     ...options,
   }
 }
