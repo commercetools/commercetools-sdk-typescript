@@ -164,7 +164,7 @@ describe('Before and after execution middlewares', () => {
     )
     await apiRootV3.get().execute()
 
-    // todo: expect(before).toHaveBeenCalledBefore(after)
+    expect(before).toHaveBeenCalledBefore(after)
     expect(beforeRequest.headers).toBeDefined()
     expect(beforeRequest.headers.Authorization).toMatch(
       /^Bearer [A-Za-z0-9\-_]+$/
