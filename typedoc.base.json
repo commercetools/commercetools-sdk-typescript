@@ -1,0 +1,12 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "kindSortOrder": [
+    "Project",
+    "Module",
+    "Class",
+    "Function",
+    "Interface",
+    "TypeAlias"
+  ],
+  "includeVersion": false
+}
