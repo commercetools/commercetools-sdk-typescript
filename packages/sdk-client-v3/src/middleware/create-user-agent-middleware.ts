@@ -14,8 +14,8 @@ export default function createUserAgentMiddleware(
   return (next: Next): Next =>
     async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {
       const userAgent = createUserAgent({
-        name: `commercetools-sdk-javascript-v3/${packageJson.version}`,
         ...options,
+        name: `${options.name ? options.name + '/' : ''}commercetools-sdk-javascript-v3/${packageJson.version}`,
       })
 
       const requestWithUserAgent = {
