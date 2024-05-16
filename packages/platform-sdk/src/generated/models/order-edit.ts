@@ -402,7 +402,7 @@ export interface OrderExcerpt {
 }
 export interface StagedOrder extends Order {}
 /**
- *	If the [edit was applied](ctp:api:endpoint:/{projectKey}/orders/edits/{id}/apply:POST), this cannot be updated.
+ *	The `stagedActions` field cannot be updated if the Order Edit `result` is [OrderEdit Applied](/projects/order-edits#orderedit-applied).
  *
  */
 export interface OrderEditAddStagedActionAction {
@@ -468,7 +468,7 @@ export interface OrderEditSetKeyAction {
   readonly key?: string
 }
 /**
- *	If the [edit is applied](ctp:api:endpoint:/{projectKey}/orders/edits/{id}/apply:POST), `stagedActions` cannot be updated.
+ *	The `stagedActions` field cannot be updated if the Order Edit `result` is [OrderEdit Applied](/projects/order-edits#orderedit-applied).
  *
  */
 export interface OrderEditSetStagedActionsAction {
