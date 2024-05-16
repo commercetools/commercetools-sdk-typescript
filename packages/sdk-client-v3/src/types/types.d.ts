@@ -233,12 +233,7 @@ export type HttpOptions = {
   httpClient: Function
 }
 
-export type LogLevel = 'INFO' | 'ERROR'
-
 export type LoggerMiddlewareOptions = {
-  maskSensitiveHeaderData?: boolean
-  includeOriginalRequest?: boolean
-  includeResponseHeaders?: boolean
   loggerFn?: (options: MiddlewareResponse) => void
 }
 

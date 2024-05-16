@@ -5,9 +5,7 @@ import {
   MiddlewareResponse,
   Next,
 } from '../types/types'
-import { maskAuthData } from '../utils'
 
-// error, info, success
 export default function createLoggerMiddleware(
   options?: LoggerMiddlewareOptions
 ): Middleware {
@@ -18,32 +16,12 @@ export default function createLoggerMiddleware(
 
       const {
         loggerFn = console.log,
-        maskSensitiveHeaderData = true,
-        includeOriginalRequest = true,
-        includeResponseHeaders = true,
       } = options || {}
-
-      if (includeOriginalRequest) {
-        response.request = request
-        if (maskSensitiveHeaderData) {
-          maskAuthData(response.request)
-        }
-      } else {
-        const { request, ...rest } = response
-        response = rest
-      }
-
-      if (!includeResponseHeaders) {
-        const { headers, ...rest } = response
-        response = rest
-      }
 
       if (loggerFn && typeof loggerFn == 'function') {
         loggerFn(response)
-        // return originalResponse
       }
 
-      // console.log({ Response: response })
       return originalResponse
     }
   }

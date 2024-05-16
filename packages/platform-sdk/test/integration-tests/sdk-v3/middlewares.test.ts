@@ -212,9 +212,6 @@ describe('Correlation ID and user agent middlewares', () => {
     const ctpClientV3 = new ClientBuilderV3()
       .withHttpMiddleware(httpMiddlewareOptions)
       .withLoggerMiddleware({
-        includeOriginalRequest: true,
-        maskSensitiveHeaderData: false,
-        includeResponseHeaders: false,
         loggerFn: (response) => {
           responseFromLoggerMiddleware = response
         },
