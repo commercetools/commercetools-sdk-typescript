@@ -38,6 +38,7 @@ async function executeRequest({
     abortController,
     maskSensitiveHeaderData,
     includeRequestInErrorResponse,
+    includeResponseHeaders,
   } = clientOptions
 
   try {
@@ -53,6 +54,10 @@ async function executeRequest({
       method: clientOptions.method,
       ...(clientOptions.body ? { body: clientOptions.body } : {}),
     } as HttpClientConfig)
+
+    if (!includeResponseHeaders) {
+      response.headers = null
+    }
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
       if (clientOptions.method == 'HEAD') {
@@ -101,7 +106,7 @@ async function executeRequest({
     }
   } catch (e) {
     // We know that this is a network error
-    const headers = getHeaders(e.response?.headers)
+    const headers = includeResponseHeaders ? getHeaders(e.response?.headers) : null
     const statusCode = e.response?.status || e.response?.data0 || 0
     const message = e.response?.data?.message
 
@@ -146,7 +151,8 @@ export default function createHttpMiddleware(
     retryConfig,
     getAbortController,
     includeOriginalRequest,
-    includeRequestInErrorResponse,
+    includeRequestInErrorResponse = true,
+    includeResponseHeaders = true,
     maskSensitiveHeaderData,
     httpClientOptions,
   } = options
@@ -202,6 +208,7 @@ export default function createHttpMiddleware(
         headers: requestHeader,
         includeRequestInErrorResponse,
         maskSensitiveHeaderData,
+        includeResponseHeaders,
         ...httpClientOptions,
       }
 

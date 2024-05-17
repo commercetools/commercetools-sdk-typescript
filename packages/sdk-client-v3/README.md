@@ -78,7 +78,6 @@ const client: Client = new ClientBuilder()
   .withHttpMiddleware(httpMiddlewareOptions)
   .withRetryMiddleware(retryOptions)
   .withMiddleware(middleware({})) // <<<------------------- add the custom middleware here
-  .withErrorMiddleware({})
   .build()
 
 const apiRoot = createApiBuilderFromCtpClient(client)
