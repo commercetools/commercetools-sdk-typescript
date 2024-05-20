@@ -80,5 +80,7 @@ export * from './models/types'
 //Common package
 export * from './shared/utils/common-types'
 export * from './shared/utils/middleware'
+export * from './shared/utils/requests-utils'
+export * from './shared/utils/uri-utils'
 
 
