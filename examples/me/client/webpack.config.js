@@ -1,3 +1,4 @@
+const path = require('path')
 const webpack = require('webpack')
 const Dotenv = require('dotenv-webpack')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
@@ -12,6 +13,9 @@ const generalConfig = {
   entry: './index.js',
   devServer: {
     historyApiFallback: true,
+    static: {
+      directory: __dirname,
+    },
   },
   plugins: [
     new CleanWebpackPlugin({
