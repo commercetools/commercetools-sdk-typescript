@@ -12,6 +12,9 @@ const generalConfig = {
   entry: './index.js',
   devServer: {
     historyApiFallback: true,
+    static: {
+      directory: __dirname,
+    },
   },
   plugins: [
     new CleanWebpackPlugin({
