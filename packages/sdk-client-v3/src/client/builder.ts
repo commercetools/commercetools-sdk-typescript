@@ -183,7 +183,7 @@ export default class ClientBuilder {
   public withHttpMiddleware(options: HttpMiddlewareOptions): ClientBuilder {
     this.httpMiddleware = createHttpMiddleware({
       host: options.host || constants.CTP_API_URL,
-      httpClient: options.httpClient || fetch,
+      httpClient: options.httpClient,
       ...options,
     })
 
