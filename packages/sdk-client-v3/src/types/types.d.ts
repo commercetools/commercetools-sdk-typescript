@@ -220,9 +220,9 @@ export type HttpMiddlewareOptions = {
   timeout?: number
   enableRetry?: boolean
   retryConfig?: RetryOptions
-  httpClient: Function
+  httpClient?: Function
   getAbortController?: () => AbortController
-  httpClientOptions?: object
+  httpClientOptions?: object // will be passed as a second argument to your httpClient function for configuration
 }
 
 export type RetryOptions = RetryMiddlewareOptions
@@ -242,6 +242,7 @@ export type RetryMiddlewareOptions = {
   maxRetries?: number
   retryDelay?: number
   maxDelay?: typeof Infinity
+  retryOnAbort?: boolean
   retryCodes?: Array<number | string>
 }
 
