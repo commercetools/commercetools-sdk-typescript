@@ -132,6 +132,8 @@ import {
   StagedOrderSetShippingAddressAndShippingMethodAction,
   StagedOrderSetShippingAddressCustomFieldAction,
   StagedOrderSetShippingAddressCustomTypeAction,
+  StagedOrderSetShippingCustomFieldAction,
+  StagedOrderSetShippingCustomTypeAction,
   StagedOrderSetShippingMethodAction,
   StagedOrderSetShippingMethodTaxAmountAction,
   StagedOrderSetShippingMethodTaxRateAction,
@@ -239,6 +241,8 @@ export type StagedOrderUpdateAction =
   | StagedOrderSetShippingAddressAndShippingMethodAction
   | StagedOrderSetShippingAddressCustomFieldAction
   | StagedOrderSetShippingAddressCustomTypeAction
+  | StagedOrderSetShippingCustomFieldAction
+  | StagedOrderSetShippingCustomTypeAction
   | StagedOrderSetShippingMethodAction
   | StagedOrderSetShippingMethodTaxAmountAction
   | StagedOrderSetShippingMethodTaxRateAction
@@ -1576,6 +1580,8 @@ export type OrderUpdateAction =
   | OrderSetShippingAddressAction
   | OrderSetShippingAddressCustomFieldAction
   | OrderSetShippingAddressCustomTypeAction
+  | OrderSetShippingCustomFieldAction
+  | OrderSetShippingCustomTypeAction
   | OrderSetStoreAction
   | OrderTransitionCustomLineItemStateAction
   | OrderTransitionLineItemStateAction
@@ -3309,6 +3315,59 @@ export interface OrderSetShippingAddressCustomTypeAction {
   readonly type?: TypeResourceIdentifier
   /**
    *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `shippingAddress`.
+   *
+   *
+   */
+  readonly fields?: FieldContainer
+}
+export interface OrderSetShippingCustomFieldAction {
+  readonly action: 'setShippingCustomField'
+  /**
+   *	The `shippingKey` of the [Shipping](ctp:api:type:Shipping) to customize. Used to specify which Shipping Method to customize
+   *	on a Order with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Leave this empty to customize the one and only ShippingMethod on a `Single` ShippingMode Order.
+   *
+   *
+   */
+  readonly shippingKey?: string
+  /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
+   *
+   */
+  readonly value?: any
+}
+/**
+ *	This action sets, overwrites, or removes any existing Custom Type and Custom Fields for the Order's `shippingMethod` or `shipping`.
+ *
+ */
+export interface OrderSetShippingCustomTypeAction {
+  readonly action: 'setShippingCustomType'
+  /**
+   *	The `shippingKey` of the [Shipping](ctp:api:type:Shipping) to customize. Used to specify which Shipping Method to customize
+   *	on a Order with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Leave this empty to customize the one and only ShippingMethod on a `Single` ShippingMode Order.
+   *
+   *
+   */
+  readonly shippingKey?: string
+  /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the specified ShippingMethod with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the ShippingMethod.
+   *
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `shippingMethod`.
    *
    *
    */
