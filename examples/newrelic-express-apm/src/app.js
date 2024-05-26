@@ -5,14 +5,22 @@ const cors = require('cors')
 config()
 
 const routes = require('./routes')
+const request = require('./utils/request')
+const agent = require('../agent')
 
 const app = express()
 const { NODE_ENV } = process.env
+const count = request()
 
 // Application-Level Middleware
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+app.use(function (req, res, next) {
+  const total = count()
+  agent.recordMetric(`Commercetools/Client/Request/Total`, total)
+})
 
 // Global error handler
 app.use((error, req, res, next) => {
