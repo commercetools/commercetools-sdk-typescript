@@ -264,3 +264,31 @@ describe('Telemetry Middleware', () => {
     expect(telemetryMiddlewareCalled).toHaveBeenCalled()
   })
 })
+
+describe('Custom middleware', () => {
+  test('Should call custom middleware', async () => {
+    const customMiddlewareCalled = jest.fn()
+
+    const createMiddleware = () => {
+      return (next: Next) => {
+        return (req: MiddlewareRequest) => {
+          customMiddlewareCalled()
+          return next(req)
+        }
+      }
+    }
+    const client = new ClientBuilder()
+        .withClientCredentialsFlow(authMiddlewareOptions)
+        .withHttpMiddleware(httpMiddlewareOptionsV3)
+        .withMiddleware(createMiddleware())
+        .build()
+
+    const apiRootV3 = createApiBuilderFromCtpClient(client).withProjectKey({
+      projectKey,
+    })
+
+    await apiRootV3.get().execute()
+
+    expect(customMiddlewareCalled).toHaveBeenCalled()
+  })
+})
