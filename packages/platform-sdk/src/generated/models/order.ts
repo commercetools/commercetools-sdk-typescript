@@ -633,7 +633,7 @@ export interface LineItemImportDraft {
    */
   readonly taxRate?: TaxRate
   /**
-   *	The Channel used to [select a Price](ctp:api:type:LineItemPriceSelection).
+   *	The Channel used to [select a Price](/../api/pricing-and-discounts-overview#line-item-price-selection).
    *	This Channel must have the `ProductDistribution` role.
    *
    */
@@ -709,7 +709,7 @@ export interface Order extends BaseResource {
   readonly customerEmail?: string
   /**
    *	[Reference](ctp:api:type:Reference) to the Customer Group of the Customer that the Order belongs to.
-   *	Used for [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+   *	Used for [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
    *
    */
   readonly customerGroup?: CustomerGroupReference
@@ -885,7 +885,7 @@ export interface Order extends BaseResource {
    */
   readonly paymentInfo?: PaymentInfo
   /**
-   *	Used for [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+   *	Used for [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
    *
    */
   readonly country?: string

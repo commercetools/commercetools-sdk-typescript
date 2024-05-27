@@ -479,7 +479,8 @@ export interface ProductPagedQueryResponse {
   readonly results: Product[]
 }
 /**
- *	This mode determines the type of Prices used for [Product Price Selection](ctp:api:type:ProductPriceSelection) and for [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *	This mode determines the type of Prices used for [price selection](/../api/pricing-and-discounts-overview#price-selection) by Line Items and Products.
+ *	For more information about the difference between the Prices, see [Pricing](/../api/pricing-and-discounts-overview).
  *
  */
 export type ProductPriceModeEnum = 'Embedded' | 'Standalone' | string
@@ -833,7 +834,7 @@ export interface ProductVariant {
    */
   readonly attributes?: Attribute[]
   /**
-   *	Only available when [Price selection](#price-selection) is used.
+   *	Only available when [price selection](/../api/pricing-and-discounts-overview#price-selection) is used.
    *	Cannot be used in a [Query Predicate](ctp:api:type:QueryPredicate).
    *
    *
@@ -868,7 +869,7 @@ export interface ProductVariant {
   readonly isMatchingVariant?: boolean
   /**
    *	Only available in response to a [Product Projection Search](ctp:api:type:ProductProjectionSearch) request
-   *	with [price selection](ctp:api:type:ProductPriceSelection).
+   *	with [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
    *	Can be used to sort, [filter](ctp:api:type:ProductProjectionSearchFilterScopedPrice), and facet.
    *
    *
@@ -876,7 +877,7 @@ export interface ProductVariant {
   readonly scopedPrice?: ScopedPrice
   /**
    *	Only available in response to a [Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request
-   *	with [price selection](ctp:api:type:ProductPriceSelection).
+   *	with [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
    *
    *
    */
@@ -2135,7 +2136,7 @@ export interface ProductSetMetaTitleAction {
   readonly staged?: boolean
 }
 /**
- *	Sets the key of an [Embedded Price](/projects/products#embedded-price). Produces the [ProductPriceKeySet](ctp:api:type:ProductPriceKeySetMessage) Message.
+ *	Sets the key of an [Embedded Price](ctp:api:type:Price). Produces the [ProductPriceKeySet](ctp:api:type:ProductPriceKeySetMessage) Message.
  *
  */
 export interface ProductSetPriceKeyAction {
@@ -2147,7 +2148,7 @@ export interface ProductSetPriceKeyAction {
    */
   readonly priceId: string
   /**
-   *	If `true`, only the staged [Embedded Price](/projects/products#embedded-price) is updated. If `false`, both the current and staged Embedded Price are updated.
+   *	If `true`, only the staged [Embedded Price](ctp:api:type:Price) is updated. If `false`, both the current and staged Embedded Price are updated.
    *
    *
    */

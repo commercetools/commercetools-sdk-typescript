@@ -31,7 +31,7 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
   }
 
   /**
-   *	If [Price selection](ctp:api:type:ProductPriceSelection) query parameters are provided, the selected Prices are added to the response.
+   *	If [Product price selection query parameters]](/../api/pricing-and-discounts-overview#product-price-selection) are provided, the selected Prices are added to the response.
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -117,7 +117,7 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	If [Price selection](ctp:api:type:ProductPriceSelection) query parameters are provided, the selected Prices are added to the response.
+   *	If [Product price selection query parameters](/../api/pricing-and-discounts-overview#product-price-selection) are provided, the selected Prices are added to the response.
    *	Produces the [ProductDeleted](/projects/messages#product-deleted) Message.
    */
   public delete(methodArgs: {

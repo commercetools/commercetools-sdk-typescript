@@ -101,25 +101,25 @@ export interface ProductSearchProjectionParams {
    */
   readonly staged?: boolean
   /**
-   *	The currency used for [Price selection](/projects/products#price-selection).
+   *	The currency used for [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
    *
    *
    */
   readonly priceCurrency?: string
   /**
-   *	The country used for [Price selection](/projects/products#price-selection). Can only be used **in conjunction with** the `priceCurrency` parameter.
+   *	The country used for [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection). Can only be used **in conjunction with** the `priceCurrency` parameter.
    *
    *
    */
   readonly priceCountry?: string
   /**
-   *	`id` of an existing [CustomerGroup](ctp:api:type:CustomerGroup) used for [Price selection](ctp:api:type:ProductPriceSelection). Can only be used **in conjunction with** the `priceCurrency` parameter.
+   *	`id` of an existing [CustomerGroup](ctp:api:type:CustomerGroup) used for [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection). Can only be used **in conjunction with** the `priceCurrency` parameter.
    *
    *
    */
   readonly priceCustomerGroup?: string
   /**
-   *	`id` of an existing [Channel](ctp:api:type:Channel) used for [Price selection](ctp:api:type:ProductPriceSelection). Can only be used **in conjunction with** the `priceCurrency` parameter.
+   *	`id` of an existing [Channel](ctp:api:type:Channel) used for [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection). Can only be used **in conjunction with** the `priceCurrency` parameter.
    *
    *
    */
