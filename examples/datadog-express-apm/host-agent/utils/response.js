@@ -30,7 +30,7 @@ class ResponseHandler {
     agent
       .init()
       .dogstatsd.increment(
-        `Commercetools/Client/Response/Success/${statusCode}`,
+        `Commercetools_Client_Response_Success_${statusCode}`,
         1,
         { env: 'dev' }
       )
@@ -64,7 +64,7 @@ class ResponseHandler {
     agent
       .init()
       .dogstatsd.increment(
-        `Commercetools/Client/Response/Error/${statusCode}`,
+        `Commercetools_Client_Response_Error_${statusCode}`,
         1,
         { env: 'dev' }
       )
