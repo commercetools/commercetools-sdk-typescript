@@ -1,5 +1,6 @@
 import {
   authMiddlewareOptions,
+  authMiddlewareOptionsV3,
   httpMiddlewareOptionsV3,
   projectKey,
 } from '../test-utils'
@@ -24,6 +25,9 @@ import {
 } from '@commercetools/ts-client/src'
 import { createApiBuilderFromCtpClient } from '../../../src'
 import { randomUUID } from 'crypto'
+
+import * as matchers from 'jest-extended'
+expect.extend(matchers)
 
 describe('Concurrent Modification Middleware', () => {
   let product
@@ -57,7 +61,7 @@ describe('Concurrent Modification Middleware', () => {
     const ctpClientV3 = new ClientBuilderV3()
       .withHttpMiddleware(httpMiddlewareOptionsV3)
       .withConcurrentModificationMiddleware()
-      .withClientCredentialsFlow(authMiddlewareOptions)
+      .withClientCredentialsFlow(authMiddlewareOptionsV3)
       .build()
 
     const apiRootV3 = createApiBuilderFromCtpClient(ctpClientV3).withProjectKey(
@@ -133,7 +137,7 @@ describe('Before and after execution middlewares', () => {
   it('should execute before execution middleware before after execution middleware', async () => {
     let beforeRequest
     let afterRequest
-    const before = jest.fn((options: BeforeExecutionMiddlewareOptions) => {
+    const before = jest.fn(() => {
       return (next: Next) => {
         return (req: MiddlewareRequest) => {
           beforeRequest = req
@@ -141,7 +145,7 @@ describe('Before and after execution middlewares', () => {
         }
       }
     })
-    const after = jest.fn((options: AfterExecutionMiddlewareOptions) => {
+    const after = jest.fn(() => {
       return (next: Next) => {
         return (req: MiddlewareRequest) => {
           afterRequest = req
@@ -196,8 +200,8 @@ describe('Correlation ID and user agent middlewares', () => {
     )
 
     const response = await apiRootV3.get().execute()
-    expect(response.headers['x-correlation-id'][0]).toEqual(correlationId)
-    expect(response.originalRequest.headers['User-Agent']).toContain(
+    expect(response.headers?.['x-correlation-id'][0]).toEqual(correlationId)
+    expect(response?.originalRequest?.headers?.['User-Agent']).toContain(
       'test-app/commercetools-sdk-javascript-v3'
     )
   })
@@ -216,7 +220,7 @@ describe('Correlation ID and user agent middlewares', () => {
           responseFromLoggerMiddleware = response
         },
       })
-      .withClientCredentialsFlow(authMiddlewareOptions)
+      .withClientCredentialsFlow(authMiddlewareOptionsV3)
       .build()
 
     const apiRootV3 = createApiBuilderFromCtpClient(ctpClientV3).withProjectKey(

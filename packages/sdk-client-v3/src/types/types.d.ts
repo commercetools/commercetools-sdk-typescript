@@ -111,7 +111,7 @@ export type TokenCacheOptions = {
 
 export type TokenStore = {
   token: string
-  expirationTime?: number
+  expirationTime: number
   refreshToken?: string
   tokenCacheKey?: TokenCacheOptions
 }
