@@ -1,11 +1,10 @@
+import { ClientBuilder } from '@commercetools/sdk-client-v2'
 import {
-  ClientBuilder,
+  HttpMiddlewareOptions,
   TokenCache,
   TokenStore,
   TokenCacheOptions,
-  Client,
-} from '@commercetools/sdk-client-v2'
-import { HttpMiddlewareOptions } from '@commercetools/ts-client'
+} from '@commercetools/ts-client'
 import { createApiBuilderFromCtpClient } from '../../src'
 import { requireEnvVar } from '../helpers/test-utils'
 const fetch = require('node-fetch')
@@ -31,7 +30,7 @@ function _tokenCache<T, V, S = TokenCacheOptions>(val: T): V {
 }
 
 const tokenCache = _tokenCache<TokenStore, TokenCache>({
-  token: null,
+  token: '',
   expirationTime: -1,
 })
 
@@ -55,6 +54,18 @@ export const authMiddlewareOptions = {
   tokenCache,
   scopes: [`manage_project:${projectKey}`],
   fetch,
+}
+
+export const authMiddlewareOptionsV3 = {
+  host: authURL,
+  projectKey,
+  credentials: {
+    clientId: clientId,
+    clientSecret: clientSecret,
+  },
+  tokenCache,
+  scopes: [`manage_project:${projectKey}`],
+  httpClient: fetch,
 }
 
 const ctpClient = new ClientBuilder()
