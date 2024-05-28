@@ -104,7 +104,10 @@ export class ByProjectKeyStandalonePricesRequestBuilder {
     )
   }
   /**
-   *	Produces the [StandalonePriceCreated](ctp:api:type:StandalonePriceCreatedMessage) Message.
+   *	Creating a Standalone Price produces the [StandalonePriceCreated](ctp:api:type:StandalonePriceCreatedMessage) Message.
+   *
+   *	- If the Standalone Price has the same price scope as an existing Standalone Price, a [DuplicateStandalonePriceScope](ctp:api:type:DuplicateStandalonePriceScopeError) error is returned.
+   *	- If the Standalone Price has overlapping validity periods within the same price scope, a [OverlappingStandalonePriceValidity](ctp:api:type:OverlappingStandalonePriceValidityError) error is returned. A Price without validity period does not conflict with a Price defined for a time period.
    *
    */
   public post(methodArgs: {

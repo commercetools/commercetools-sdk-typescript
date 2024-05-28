@@ -73,7 +73,9 @@ describe('UserAgent', () => {
     const userAgentMiddleware = createUserAgentMiddleware(option)
     const next = (req: MiddlewareRequest): any => {
       const headers: JsonObject<string> = req.headers
-      expect(headers['User-Agent']).toMatch(/^test\/commercetools-sdk-javascript-v3/)
+      expect(headers['User-Agent']).toMatch(
+        /^test\/commercetools-sdk-javascript-v3/
+      )
     }
 
     userAgentMiddleware(next)(request)
