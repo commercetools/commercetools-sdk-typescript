@@ -2822,7 +2822,7 @@ export interface CartSetBusinessUnitAction {
   readonly businessUnit: BusinessUnitResourceIdentifier
 }
 /**
- *	This update action results in the `taxedPrice` field being added to the Cart when the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode) is used.
+ *	Can be used if the Cart has the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode). This update action adds the `taxedPrice` field to the Cart and must be used after any price-affecting change occurs within the Cart.
  *
  */
 export interface CartSetCartTotalTaxAction {
@@ -3383,7 +3383,7 @@ export interface CartSetLineItemSupplyChannelAction {
   readonly supplyChannel?: ChannelResourceIdentifier
 }
 /**
- *	Can be used if the Cart has the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode).
+ *	Can be used if the Cart has the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode). This update action sets the `taxedPrice` and `taxRate` on a Line Item and must be used after any price-affecting change occurs.
  *
  */
 export interface CartSetLineItemTaxAmountAction {

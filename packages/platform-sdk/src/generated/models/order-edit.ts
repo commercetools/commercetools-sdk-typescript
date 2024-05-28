@@ -1951,7 +1951,7 @@ export interface StagedOrderSetLineItemShippingDetailsAction {
   readonly shippingDetails?: ItemShippingDetailsDraft
 }
 /**
- *	Can be used if the Cart has the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode).
+ *	Can be used if the Cart has the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode). This update action sets the `taxedPrice` and `taxRate` on a Line Item and must be used after any price-affecting change occurs.
  *
  */
 export interface StagedOrderSetLineItemTaxAmountAction {
