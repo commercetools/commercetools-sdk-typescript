@@ -16,26 +16,6 @@ Example to show how the Newrelic APM can be used in the TypeScript SDK.
 3. Create a `.env` file in this path, add and update the content of `.env.sample`, the `DD_API_KEY` is required
 4. Run `yarn install` (`npm` can also be used) to install all dependencies
 
-```bash
-# commercetools env
-CTP_PROJECT_KEY=<commercetools_project_key>
-CTP_CLIENT_ID=<commercetools_client_id>
-CTP_CLIENT_SECRET=<commercetools_client_secret>
-
-CTP_CLIENT_USERNAME=<customer_username>
-CTP_CLIENT_PASSWORD=<customer_password>
-
-# newrelic envs
-PORT=8000
-NEW_RELIC_APP_NAME=demo-monitoring-app
-NEW_RELIC_LICENSE_KEY=<new_relic_api_key>
-
-OTEL_EXPORTER_OTLP_ENDPOINT=https://otlp.eu01.nr-data.net:4317
-OTEL_TRACES_EXPORTER=none
-OTEL_EXPORTER_OTLP_HEADERS=api-key=<new_relic_api_key>
-OTEL_ATTRIBUTE_VALUE_LENGTH_LIMIT=4095
-```
-
 ### Start the server
 
 1. After the installation completes, run `yarn start` to start the development server.
