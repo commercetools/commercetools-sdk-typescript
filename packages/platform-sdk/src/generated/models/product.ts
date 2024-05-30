@@ -899,7 +899,7 @@ export interface ProductVariantAvailability {
    *
    *
    */
-  readonly isOnStock: boolean
+  readonly isOnStock?: boolean
   /**
    *	Number of days to restock a Product Variant once it is out of stock.
    *

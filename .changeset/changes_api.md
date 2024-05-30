@@ -16,6 +16,7 @@
 - changed property `stores` of type `BusinessUnit` to be optional
 - changed property `stores` of type `Company` to be optional
 - changed property `stores` of type `Division` to be optional
+- changed property `isOnStock` of type `ProductVariantAvailability` to be optional
 </details>
 
 <details>
