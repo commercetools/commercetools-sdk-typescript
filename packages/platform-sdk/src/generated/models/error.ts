@@ -1005,7 +1005,7 @@ export interface FeatureRemovedError {
 /**
  *	Returned when a server-side problem occurs before or after data persistence. In some cases, the requested action may successfully complete after the error is returned. Therefore, it is recommended to verify the status of the requested resource after receiving a 500 error.
  *
- *	If you encounter this error, report it using the [Support Portal](https://support.commercetools.com).
+ *	If you encounter this error, report it to the [Composable Commerce support team](https://support.commercetools.com).
  *
  */
 export interface GeneralError {
@@ -1610,7 +1610,7 @@ export interface OverlappingStandalonePriceValidityError {
  *	Returned when a previous conflicting operation is still pending and needs to finish before the request can succeed.
  *
  *	The client application should retry the request with exponential backoff up to a point where further delay is unacceptable.
- *	If the error persists, report it using the [Support Portal](https://support.commercetools.com).
+ *	If the error persists, report it to the [Composable Commerce support team](https://support.commercetools.com).
  *
  */
 export interface PendingOperationError {
@@ -2704,7 +2704,7 @@ export interface GraphQLFeatureRemovedError {
 /**
  *	Returned when a server-side problem occurs before or after data persistence. In some cases, the requested action may successfully complete after the error is returned. Therefore, it is recommended to verify the status of the requested resource after receiving a 500 error.
  *
- *	If you encounter this error, report it using the [Support Portal](https://support.commercetools.com).
+ *	If you encounter this error, report it to the [Composable Commerce support team](https://support.commercetools.com).
  *
  */
 export interface GraphQLGeneralError {
@@ -3155,7 +3155,7 @@ export interface GraphQLOverlappingStandalonePriceValidityError {
  *	Returned when a previous conflicting operation is still pending and needs to finish before the request can succeed.
  *
  *	The client application should retry the request with exponential backoff up to a point where further delay is unacceptable.
- *	If the error persists, report it using the [Support Portal](https://support.commercetools.com).
+ *	If the error persists, report it to the [Composable Commerce support team](https://support.commercetools.com).
  *
  */
 export interface GraphQLPendingOperationError {
