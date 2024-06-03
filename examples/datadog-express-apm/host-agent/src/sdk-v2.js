@@ -26,7 +26,7 @@ const httpMiddlewareOptions = {
   fetch,
 }
 
-// newrelic options
+// datadog options
 const agent = require('path').join(__dirname, '..', 'tracer.js')
 const telemetryOptions = {
   createTelemetryMiddleware,

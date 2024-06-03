@@ -29,11 +29,12 @@ class ResponseHandler {
 
     agent
       .init()
-      .dogstatsd.increment(
-        `Commercetools_Client_Response_Success_${statusCode}`,
-        1,
-        { env: 'dev' }
-      )
+      .dogstatsd.increment(`Commercetools_Client_Response`, 1, {
+        env: 'dev',
+        status_code: statusCode,
+        http_method: req.method,
+        success: true,
+      })
 
     return response.status(statusCode).json({
       ...responseBody,
@@ -63,11 +64,12 @@ class ResponseHandler {
 
     agent
       .init()
-      .dogstatsd.increment(
-        `Commercetools_Client_Response_Error_${statusCode}`,
-        1,
-        { env: 'dev' }
-      )
+      .dogstatsd.increment(`Commercetools_Client_Response`, 1, {
+        env: 'dev',
+        status_code: statusCode,
+        http_method: req.method,
+        success: false,
+      })
 
     return response.status(statusCode).json({
       ...responseBody,
