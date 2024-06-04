@@ -104,7 +104,7 @@ export type BusinessUnitAssociateMode =
  */
 export type BusinessUnitDraft = CompanyDraft | DivisionDraft
 /**
- *	[Reference](ctp:api:type:Reference) to a [BusinessUnit](ctp:api:type:BusinessUnit) by its key.
+ *	[KeyReference](ctp:api:type:KeyReference) to a [BusinessUnit](ctp:api:type:BusinessUnit).
  *
  */
 export interface BusinessUnitKeyReference {
