@@ -21831,7 +21831,7 @@ export interface ReviewStateTransitionMessagePayload {
 export interface ShoppingListStoreSetMessagePayload {
   readonly type: 'ShoppingListStoreSet'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Store](ctp:api:type:Store) by its key.
+   *	[KeyReference](ctp:api:type:KeyReference) to a [Store](ctp:api:type:Store).
    *
    *
    */
