@@ -53,12 +53,12 @@ executors:
 
   node_18:
     docker:
-      - image: cimg/node:18.20.2
+      - image: cimg/node:18.20.3
     working_directory: *working_directory
 
   node_20:
     docker:
-      - image: cimg/node:20.13.1
+      - image: cimg/node:20.14.0
     working_directory: *working_directory
 
 
