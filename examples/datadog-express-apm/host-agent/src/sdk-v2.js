@@ -10,10 +10,10 @@ const authMiddlewareOptions = {
   credentials: {
     clientId: process.env.CTP_CLIENT_ID,
     clientSecret: process.env.CTP_CLIENT_SECRET,
-    // user: {
-    //   username: process.env.CTP_CLIENT_USERNAME,
-    //   password: process.env.CTP_CLIENT_PASSWORD,
-    // },
+    user: {
+      username: process.env.CTP_CLIENT_USERNAME,
+      password: process.env.CTP_CLIENT_PASSWORD,
+    },
   },
   scopes: [`manage_project:${projectKey}`],
   fetch,
@@ -26,8 +26,8 @@ const httpMiddlewareOptions = {
   fetch,
 }
 
-// newrelic options
-const agent = require('path').join(__dirname, 'tracer.js')
+// datadog options
+const agent = require('path').join(__dirname, '..', 'tracer.js')
 const telemetryOptions = {
   createTelemetryMiddleware,
   userAgent: 'typescript-sdk-middleware-datadog',
