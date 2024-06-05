@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 2.0.0
+
+### Major Changes
+
+- [#708](https://github.com/commercetools/commercetools-sdk-typescript/pull/708) [`e7e5ac7`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e7e5ac73de07a8ce141ec0bc2b2abf492462ec73) Thanks [@lojzatran](https://github.com/lojzatran)! - Make ts-sdk-v3 consistent with v2
+
 ## 1.2.1
 
 ### Patch Changes

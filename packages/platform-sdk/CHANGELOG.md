@@ -1,5 +1,40 @@
 # @commercetools/platform-sdk
 
+## 7.9.0
+
+### Minor Changes
+
+- [#696](https://github.com/commercetools/commercetools-sdk-typescript/pull/696) [`3ab225d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3ab225da3e49d99e975c2469a1f884536e726b6c) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Changed Property(s)</summary>
+
+  - :warning: changed property `value` of type `DirectDiscountDraft` from type `CartDiscountValue` to `CartDiscountValueDraft`
+  </details>
+
+  <details>
+  <summary>Required Property(s)</summary>
+
+  - changed property `stores` of type `BusinessUnit` to be optional
+  - changed property `stores` of type `Company` to be optional
+  - changed property `stores` of type `Division` to be optional
+  - changed property `isOnStock` of type `ProductVariantAvailability` to be optional
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `StagedOrderSetShippingCustomFieldAction`
+  - added type `StagedOrderSetShippingCustomTypeAction`
+  - added type `OrderSetShippingCustomFieldAction`
+  - added type `OrderSetShippingCustomTypeAction`
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`e7e5ac7`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e7e5ac73de07a8ce141ec0bc2b2abf492462ec73)]:
+  - @commercetools/ts-client@2.0.0
+
 ## 7.8.0
 
 ### Minor Changes
