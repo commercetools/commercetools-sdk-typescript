@@ -50,7 +50,7 @@ export interface AssociateRole extends BaseResource {
    */
   readonly createdBy?: CreatedBy
   /**
-   *	User-defined unique identifier of the AssociateRole.
+   *	User-defined unique and immutable identifier of the AssociateRole.
    *
    *
    */
@@ -82,7 +82,7 @@ export interface AssociateRole extends BaseResource {
 }
 export interface AssociateRoleDraft {
   /**
-   *	User-defined unique identifier for the AssociateRole.
+   *	User-defined unique and immutable identifier for the AssociateRole.
    *
    *
    */
@@ -113,7 +113,7 @@ export interface AssociateRoleDraft {
   readonly custom?: CustomFieldsDraft
 }
 /**
- *	[Reference](ctp:api:type:Reference) to an [AssociateRole](ctp:api:type:AssociateRole) by its key.
+ *	[KeyReference](ctp:api:type:KeyReference) to an [AssociateRole](ctp:api:type:AssociateRole).
  *
  */
 export interface AssociateRoleKeyReference {

@@ -6,7 +6,9 @@ function createTestRequest(options) {
     uri: '',
     method: 'GET',
     body: null,
-    headers: {},
+    headers: {
+      Authorization: 'token-12345',
+    },
     ...options,
   }
 }
@@ -26,85 +28,6 @@ describe('Logger Middleware', () => {
     await createLoggerMiddleware(loggerMiddlewareOptions)(next)(request)
     expect(loggerMiddlewareOptions.loggerFn).toHaveBeenCalled()
     expect(loggerMiddlewareOptions.loggerFn).toHaveBeenCalledWith(response)
-  })
-
-  test('should not include original request in the response object.', async () => {
-    const request = createTestRequest({})
-    const next = (req): any => response
-    const loggerMiddlewareOptions = {
-      includeOriginalRequest: false,
-      loggerFn: jest.fn(),
-    }
-
-    const { request: req, ...rest } = response
-    await createLoggerMiddleware(loggerMiddlewareOptions)(next)(request)
-    expect(loggerMiddlewareOptions.loggerFn).toHaveBeenCalled()
-    expect(loggerMiddlewareOptions.loggerFn).toHaveBeenCalledWith(rest)
-  })
-
-  test('should not include `response headers` in the response object.', async () => {
-    const request = createTestRequest({})
-    const next = (req): any => response
-    const loggerMiddlewareOptions = {
-      includeResponseHeaders: false,
-      loggerFn: jest.fn(),
-    }
-
-    const { headers, ...rest } = response
-    await createLoggerMiddleware(loggerMiddlewareOptions)(next)(request)
-    expect(loggerMiddlewareOptions.loggerFn).toHaveBeenCalled()
-    expect(loggerMiddlewareOptions.loggerFn).toHaveBeenCalledTimes(1)
-    expect(loggerMiddlewareOptions.loggerFn).toHaveBeenCalledWith(rest)
-  })
-
-  test('should include original request and mask sensitive headers', async () => {
-    const request = createTestRequest({})
-
-    const next = (req): any => response
-    const loggerMiddlewareOptions = {
-      loggerFn: jest.fn(),
-      maskSensitiveHeaderData: true,
-      includeOriginalRequest: true,
-      includeResponseHeaders: true,
-    }
-
-    await createLoggerMiddleware(loggerMiddlewareOptions)(next)(request)
-    expect(loggerMiddlewareOptions.loggerFn).toHaveBeenCalled()
-    expect(loggerMiddlewareOptions.loggerFn).toHaveBeenCalledWith({
-      ...response,
-      request: {
-        ...response.request,
-        headers: {
-          ...response.request.headers,
-          Authorization: 'Bearer ********', // header `Authorization has been masked.
-        },
-      },
-    })
-  })
-
-  test('should return unaltered response [original] response.', async () => {
-    const request = createTestRequest({})
-    const next = (req): any => response
-    const loggerMiddlewareOptions = {
-      loggerFn: jest.fn(),
-      maskSensitiveHeaderData: true,
-      includeOriginalRequest: false,
-      includeResponseHeaders: false,
-    }
-
-    const { originalRequest: req, headers, ...rest } = response
-
-    const originalResponse = await createLoggerMiddleware(
-      loggerMiddlewareOptions
-    )(next)(request)
-    expect(loggerMiddlewareOptions.loggerFn).toHaveBeenCalled()
-    expect(loggerMiddlewareOptions.loggerFn).toHaveBeenCalledTimes(1)
-    expect(loggerMiddlewareOptions.loggerFn).toHaveBeenCalledWith(rest)
-    expect(response).toEqual(originalResponse)
-    expect(originalResponse.originalRequest).toBeTruthy()
-    expect(originalResponse.headers).toBeTruthy()
-    expect(originalResponse).toHaveProperty('request')
-    expect(originalResponse).toHaveProperty('headers')
   })
 
   test('should call `console.log` if a loggerFn was not provided.', async () => {

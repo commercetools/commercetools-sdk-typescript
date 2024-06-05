@@ -113,7 +113,7 @@ export interface PriceImport extends ImportResource {
    */
   readonly discounted?: DiscountedPrice
   /**
-   *	Only the [Embedded Price](/../api/projects/products#embedded-price) updates will be published to `staged` and `current` projection.
+   *	Only the [Embedded Price](/../api/types#price) updates will be published to `staged` and `current` projection.
    *
    *	@deprecated
    */
@@ -136,7 +136,7 @@ export interface PriceImport extends ImportResource {
    */
   readonly custom?: Custom
   /**
-   *	The ProductVariant in which this [Embedded Price](/../api/projects/products#embedded-price) is contained.
+   *	The ProductVariant in which this [Embedded Price](/../api/types#price) is contained.
    *	The Reference to the [ProductVariant](/../api/projects/products#productvariant) with which the [Price](/../api/types#price) is associated.
    *	If referenced ProductVariant does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary ProductVariant is created.
    *
@@ -144,7 +144,7 @@ export interface PriceImport extends ImportResource {
    */
   readonly productVariant: ProductVariantKeyReference
   /**
-   *	The Product in which the Product Variant containing this [Embedded Price](/../api/projects/products#embedded-price) is contained. Maps to `ProductVariant.product`.
+   *	The Product in which the Product Variant containing this [Embedded Price](/../api/types#price) is contained. Maps to `ProductVariant.product`.
    *	The Reference to the [Product](/../api/projects/products#product) with which the [Price](/../api/types#price) is associated.
    *	If referenced Product does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary Product is created.
    *

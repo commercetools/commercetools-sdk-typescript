@@ -41,7 +41,7 @@ export interface ClientRequest {
   uriTemplate?: string
   pathVariables?: VariableMap
   queryParams?: VariableMap
-  body?: string | Buffer
+  body?: Record<string, any> | string | Buffer
   response?: ClientResponse
   resolve?: Function;
   reject?: Function;
@@ -111,7 +111,7 @@ export type TokenCacheOptions = {
 
 export type TokenStore = {
   token: string
-  expirationTime?: number
+  expirationTime: number
   refreshToken?: string
   tokenCacheKey?: TokenCacheOptions
 }
@@ -233,14 +233,7 @@ export type HttpOptions = {
   httpClient: Function
 }
 
-export type LogLevel = 'INFO' | 'ERROR'
-
 export type LoggerMiddlewareOptions = {
-  logLevel?: LogLevel
-  maskSensitiveHeaderData?: boolean
-  includeOriginalRequest?: boolean
-  includeResponseHeaders?: boolean
-  includeRequestInErrorResponse?: boolean
   loggerFn?: (options: MiddlewareResponse) => void
 }
 
@@ -275,11 +268,35 @@ export type ExistingTokenMiddlewareOptions = {
   force: boolean
 }
 
+export type ConcurrentModificationMiddlewareOptions = {
+  concurrentModificationHandlerFn?: (
+      version: number,
+      request: MiddlewareRequest,
+      response: MiddlewareResponse
+  ) => Promise<Record<string, any> | string | Buffer>
+}
+
+export type BeforeExecutionMiddlewareOptions = {
+  [key: string]: any;
+  middleware: (options?: Omit<BeforeExecutionMiddlewareOptions, 'middleware'>) => Middleware
+}
+
+export type AfterExecutionMiddlewareOptions = {
+  [key: string]: any;
+  middleware: (options?: Omit<AfterExecutionMiddlewareOptions, 'middleware'>) => Middleware
+}
+export type TelemetryOptions = {
+  apm?: Function;
+  tracer?: Function;
+  userAgent?: string;
+  createTelemetryMiddleware: (options?: Omit<TelemetryOptions, 'createTelemetryMiddleware'>) => Middleware
+}
+
 export type IClientOptions = {
   method: MethodType;
   headers: Record<string, any>
   credentialsMode?: CredentialsMode;
-  body?: string | Buffer
+  body?: Record<string, any> | string | Buffer
   timeout?: number
   abortController?: AbortController
   includeOriginalRequest?: boolean
@@ -324,6 +341,6 @@ export type SuccessResult = {
   headers?: JsonObject<string>;
 }
 
-export type IResponse = Response & { statusCode?: number; data?: object } 
+export type IResponse = Response & { statusCode?: number; data?: object }
 
 export type executeRequest = (request: ClientRequest) => Promise<ClientResponse>

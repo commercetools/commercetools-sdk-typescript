@@ -4,11 +4,13 @@ import { constants } from '../utils'
 import { default as createClient } from './client'
 
 import {
+  AfterExecutionMiddlewareOptions,
   AuthMiddlewareOptions,
+  BeforeExecutionMiddlewareOptions,
   Client,
+  ConcurrentModificationMiddlewareOptions,
   CorrelationIdMiddlewareOptions,
   Credentials,
-  ErrorMiddlewareOptions,
   ExistingTokenMiddlewareOptions,
   HttpMiddlewareOptions,
   HttpUserAgentOptions,
@@ -18,6 +20,7 @@ import {
   PasswordAuthMiddlewareOptions,
   QueueMiddlewareOptions,
   RefreshAuthMiddlewareOptions,
+  TelemetryOptions,
 } from '../types/types'
 
 const {
@@ -33,8 +36,6 @@ const {
   createQueueMiddleware,
   createUserAgentMiddleware,
   createConcurrentModificationMiddleware,
-
-  createErrorMiddleware,
 } = middleware
 
 export default class ClientBuilder {
@@ -47,7 +48,9 @@ export default class ClientBuilder {
   private loggerMiddleware: Nullable<Middleware>
   private queueMiddleware: Nullable<Middleware>
   private concurrentMiddleware: Nullable<Middleware>
-  private errorMiddleware: Nullable<Middleware>
+  private telemetryMiddleware: Nullable<Middleware>
+  private beforeMiddleware: Nullable<Middleware>
+  private afterMiddleware: Nullable<Middleware>
 
   private middlewares: Array<Middleware> = []
 
@@ -221,35 +224,58 @@ export default class ClientBuilder {
     return this
   }
 
-  public withConcurrentModificationMiddleware(): ClientBuilder {
-    this.concurrentMiddleware = createConcurrentModificationMiddleware()
+  public withConcurrentModificationMiddleware(
+    options?: ConcurrentModificationMiddlewareOptions
+  ): ClientBuilder {
+    this.concurrentMiddleware = createConcurrentModificationMiddleware(
+      options?.concurrentModificationHandlerFn
+    )
 
     return this
   }
 
-  public withErrorMiddleware(options?: ErrorMiddlewareOptions): ClientBuilder {
-    this.errorMiddleware = createErrorMiddleware(options)
+  public withTelemetryMiddleware<T extends TelemetryOptions>(
+    options: T
+  ): ClientBuilder {
+    const { createTelemetryMiddleware, ...rest } = options
 
+    this.withUserAgentMiddleware({
+      customAgent: rest?.userAgent || 'typescript-sdk-apm-middleware',
+    })
+    this.telemetryMiddleware = createTelemetryMiddleware(rest)
+    return this
+  }
+
+  public withBeforeExecutionMiddleware(
+    options: BeforeExecutionMiddlewareOptions
+  ) {
+    const { middleware, ...rest } = options || {}
+    this.beforeMiddleware = options.middleware(rest)
+    return this
+  }
+
+  public withAfterExecutionMiddleware(
+    options: AfterExecutionMiddlewareOptions
+  ) {
+    const { middleware, ...rest } = options || {}
+    this.afterMiddleware = options.middleware(rest)
     return this
   }
 
   build(): Client {
     const middlewares = this.middlewares.slice()
 
-    /**
-     * - use default retry policy if not explicity added
-     * - add retry middleware to be used by concurrent modification
-     *   middleware if not explicitly added as part of the middleware
-     */
+    if (this.telemetryMiddleware) middlewares.push(this.telemetryMiddleware)
     if (this.correlationIdMiddleware)
       middlewares.push(this.correlationIdMiddleware)
     if (this.userAgentMiddleware) middlewares.push(this.userAgentMiddleware)
     if (this.authMiddleware) middlewares.push(this.authMiddleware)
+    if (this.beforeMiddleware) middlewares.push(this.beforeMiddleware)
     if (this.queueMiddleware) middlewares.push(this.queueMiddleware)
     if (this.loggerMiddleware) middlewares.push(this.loggerMiddleware)
-    if (this.errorMiddleware) middlewares.push(this.errorMiddleware)
     if (this.concurrentMiddleware) middlewares.push(this.concurrentMiddleware)
     if (this.httpMiddleware) middlewares.push(this.httpMiddleware)
+    if (this.afterMiddleware) middlewares.push(this.afterMiddleware)
 
     return createClient({ middlewares })
   }

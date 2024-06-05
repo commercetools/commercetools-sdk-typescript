@@ -195,7 +195,7 @@ export interface StoreDraft {
   readonly custom?: CustomFieldsDraft
 }
 /**
- *	[Reference](ctp:api:type:Reference) to a [Store](ctp:api:type:Store) by its key.
+ *	[KeyReference](ctp:api:type:KeyReference) to a [Store](ctp:api:type:Store).
  *
  */
 export interface StoreKeyReference {

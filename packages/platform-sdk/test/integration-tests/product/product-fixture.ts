@@ -130,6 +130,16 @@ export const createProduct = async (productDraft) => {
   return await apiRoot.products().post({ body: productDraft }).execute()
 }
 
+export const fetchAndDeleteProduct = async (productId: string) => {
+  const productGetResponse = await apiRoot
+    .products()
+    .withId({ ID: productId })
+    .get()
+    .execute()
+
+  return await deleteProduct(productGetResponse)
+}
+
 export const deleteProduct = async (product) => {
   let updateProduct: ClientResponse<Product>
   if (product.body?.masterData?.published) {

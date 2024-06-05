@@ -1,12 +1,8 @@
-import {
-  MiddlewareRequest,
-  MiddlewareResponse,
-  JsonObject,
-} from '../../src/types/types'
+import { MiddlewareRequest, JsonObject } from '../../src'
 import { createUserAgentMiddleware } from '../../src/middleware'
 
 describe('UserAgent', () => {
-  const option = { name: 'agentName', customAgent: 'customAgent' }
+  const option = { customAgent: 'customAgent' }
   const userAgentMiddleware = createUserAgentMiddleware(option)
   const request: MiddlewareRequest = {
     method: 'GET',
@@ -31,7 +27,7 @@ describe('UserAgent', () => {
     const next = (req: MiddlewareRequest): any => {
       const headers: JsonObject<string> = req.headers
       expect(headers.Authorization).toBe('123')
-      expect(headers['User-Agent']).toMatch('commercetools-sdk-javascript')
+      expect(headers['User-Agent']).toMatch(/^commercetools-sdk-javascript/)
     }
 
     userAgentMiddleware(next)(request)
@@ -42,7 +38,7 @@ describe('UserAgent', () => {
     const next = (req: MiddlewareRequest): any => {
       const headers: JsonObject<string> = req.headers
       expect(headers.Authorization).toBe('123')
-      expect(headers['User-Agent']).toMatch('commercetools-sdk-javascript')
+      expect(headers['User-Agent']).toMatch(/^commercetools-sdk-javascript/)
       expect(headers['User-Agent']).toMatch('node.js')
     }
 
@@ -54,7 +50,7 @@ describe('UserAgent', () => {
     const next = (req: MiddlewareRequest): any => {
       const headers: JsonObject<string> = req.headers
       expect(headers.Authorization).toBe('123')
-      expect(headers['User-Agent']).toMatch('commercetools-sdk-javascript')
+      expect(headers['User-Agent']).toMatch(/^commercetools-sdk-javascript/)
       expect(headers['User-Agent']).toMatch(process.version.slice(1))
     }
 
@@ -65,19 +61,21 @@ describe('UserAgent', () => {
     const next = (req: MiddlewareRequest): any => {
       const headers: JsonObject<string> = req.headers
       expect(headers.Authorization).toBe('123')
-      expect(headers['User-Agent']).toMatch('commercetools-sdk-javascript')
+      expect(headers['User-Agent']).toMatch(/^commercetools-sdk-javascript/)
       expect(headers['User-Agent']).toMatch('customAgent')
     }
 
     userAgentMiddleware(next)(request)
   })
 
-  test('should not override the name', () => {
+  test('should override the name', () => {
+    const option = { name: 'test' }
+    const userAgentMiddleware = createUserAgentMiddleware(option)
     const next = (req: MiddlewareRequest): any => {
       const headers: JsonObject<string> = req.headers
-      expect(headers.Authorization).toBe('123')
-      expect(headers['User-Agent']).toMatch('commercetools-sdk-javascript')
-      expect(headers['User-Agent']).toMatch('commercetools-sdk-javascript-v3/')
+      expect(headers['User-Agent']).toMatch(
+        /^test\/commercetools-sdk-javascript-v3/
+      )
     }
 
     userAgentMiddleware(next)(request)
@@ -87,7 +85,7 @@ describe('UserAgent', () => {
     const next = (req: MiddlewareRequest): any => {
       const headers: JsonObject<string> = req.headers
       expect(headers.Authorization).toBe('123')
-      expect(headers['User-Agent']).toMatch('commercetools-sdk-javascript')
+      expect(headers['User-Agent']).toMatch(/^commercetools-sdk-javascript/)
       expect(req.headers).toEqual(
         expect.objectContaining({
           ...request.headers,

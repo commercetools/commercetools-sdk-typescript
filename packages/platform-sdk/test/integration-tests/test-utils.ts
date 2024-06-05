@@ -1,11 +1,10 @@
+import { ClientBuilder } from '@commercetools/sdk-client-v2'
 import {
-  ClientBuilder,
+  HttpMiddlewareOptions,
   TokenCache,
   TokenStore,
   TokenCacheOptions,
-  Client,
-} from '@commercetools/sdk-client-v2'
-import { ClientBuilder as ClientBuilderV3 } from '@commercetools/ts-client'
+} from '@commercetools/ts-client'
 import { createApiBuilderFromCtpClient } from '../../src'
 import { requireEnvVar } from '../helpers/test-utils'
 const fetch = require('node-fetch')
@@ -31,7 +30,7 @@ function _tokenCache<T, V, S = TokenCacheOptions>(val: T): V {
 }
 
 const tokenCache = _tokenCache<TokenStore, TokenCache>({
-  token: null,
+  token: '',
   expirationTime: -1,
 })
 
@@ -40,12 +39,12 @@ const httpMiddlewareOptions = {
   fetch,
 }
 
-const httpMiddlewareOptionsV3 = {
+export const httpMiddlewareOptionsV3: HttpMiddlewareOptions = {
   host: ctp_host,
   httpClient: fetch,
 }
 
-const authMiddlewareOptions = {
+export const authMiddlewareOptions = {
   host: authURL,
   projectKey,
   credentials: {
@@ -57,6 +56,18 @@ const authMiddlewareOptions = {
   fetch,
 }
 
+export const authMiddlewareOptionsV3 = {
+  host: authURL,
+  projectKey,
+  credentials: {
+    clientId: clientId,
+    clientSecret: clientSecret,
+  },
+  tokenCache,
+  scopes: [`manage_project:${projectKey}`],
+  httpClient: fetch,
+}
+
 const ctpClient = new ClientBuilder()
   .withProjectKey(projectKey)
   .withClientCredentialsFlow(authMiddlewareOptions)
@@ -65,17 +76,5 @@ const ctpClient = new ClientBuilder()
   .build()
 
 export const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
-  projectKey,
-})
-
-const ctpClientV3 = new ClientBuilderV3()
-  .withHttpMiddleware(httpMiddlewareOptionsV3)
-  .withConcurrentModificationMiddleware()
-  .withClientCredentialsFlow(authMiddlewareOptions)
-  .build()
-
-export const apiRootV3 = createApiBuilderFromCtpClient(
-  ctpClientV3
-).withProjectKey({
   projectKey,
 })

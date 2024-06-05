@@ -14,20 +14,21 @@
     "test:unit": "yarn test --testPathIgnorePatterns='packages/platform-sdk/test/integration-tests'",
     "test:integration": "jest --testPathPattern='packages/platform-sdk/test/integration-tests'",
     "postbuild": "webpack --mode=production",
-    "changeset:version-and-format": "changeset version && prettier --write --parser json '**/package.json'"
+    "changeset:version-and-format": "changeset version && prettier --write --parser json '**/package.json'",
+    "docs": "rm -rf docs;typedoc"
   },
   "workspaces": ["packages/*"],
   "dependencies": {
-    "@babel/core": "7.24.4",
+    "@babel/core": "7.24.5",
     "@babel/plugin-proposal-class-properties": "7.18.6",
-    "@babel/preset-env": "7.24.4",
+    "@babel/preset-env": "7.24.5",
     "@babel/preset-typescript": "7.24.1",
     "@changesets/changelog-github": "0.5.0",
     "@changesets/cli": "2.27.1",
     "@commitlint/cli": "17.8.1",
     "@commitlint/config-conventional": "17.8.1",
     "@manypkg/cli": "0.21.4",
-    "@preconstruct/cli": "2.8.3",
+    "@preconstruct/cli": "2.8.4",
     "@types/jest": "29.5.12",
     "@types/node": "^20.0.0",
     "babel-jest": "29.7.0",
@@ -37,6 +38,7 @@
     "husky": "^8.0.0",
     "ignore-loader": "^0.1.2",
     "jest": "29.7.0",
+    "jest-extended": "^4.0.2",
     "jest-junit": "16.0.0",
     "jest-watch-typeahead": "2.2.2",
     "lint-staged": "13.3.0",
@@ -48,6 +50,7 @@
     "ts-jest": "29.1.2",
     "ts-loader": "^9.2.6",
     "tsc-files": "1.1.4",
+    "typedoc": "^0.25.13",
     "typescript": "5.4.5",
     "webpack": "^5.53.0",
     "webpack-cli": "^5.0.0",
@@ -59,5 +62,8 @@
   },
   "preconstruct": {
     "packages": ["packages/*"]
+  },
+  "resolutions": {
+    "glob-parent": "5.1.2"
   }
 }

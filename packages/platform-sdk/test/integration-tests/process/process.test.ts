@@ -134,12 +134,12 @@ describe('integration test for process function', () => {
 
     const request = apiRoot
       .withProjectKey({ projectKey })
-      .categories()
+      .states()
       .get({
         queryArgs: {
           limit: 2,
           withTotal: false,
-          expand: ['parent', 'ancestors[*]'],
+          expand: ['transitions[*]'],
         },
       })
       .clientRequest()
