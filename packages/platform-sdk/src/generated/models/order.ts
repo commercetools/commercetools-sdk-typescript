@@ -2085,14 +2085,12 @@ export interface SyncInfo {
 }
 export interface TaxedItemPriceDraft {
   /**
-   *	Draft type that stores amounts only in cent precision for the specified currency.
-   *
+   *	Draft object to store money in cent amounts for a specific currency.
    *
    */
   readonly totalNet: _Money
   /**
-   *	Draft type that stores amounts only in cent precision for the specified currency.
-   *
+   *	Draft object to store money in cent amounts for a specific currency.
    *
    */
   readonly totalGross: _Money
