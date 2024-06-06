@@ -797,8 +797,7 @@ export interface LocalizedString {
   [key: string]: string
 }
 /**
- *	Draft type that stores amounts only in cent precision for the specified currency.
- *
+ *	Draft object to store money in cent amounts for a specific currency.
  */
 export interface Money {
   /**
@@ -1285,8 +1284,7 @@ export interface ScopedPrice {
  */
 export type TypedMoney = CentPrecisionMoney | HighPrecisionMoney
 /**
- *	Object that stores cent amounts in a specific currency.
- *
+ *	Object that stores money in cent amounts of a specific currency.
  */
 export interface CentPrecisionMoney {
   readonly type: 'centPrecision'
@@ -1313,7 +1311,7 @@ export interface CentPrecisionMoney {
   readonly fractionDigits: number
 }
 /**
- *	Money object that stores an amount of a fraction of the smallest indivisible unit of the specified currency.
+ *	Object that stores money as a fraction of the smallest indivisible unit of a specific currency.
  */
 export interface HighPrecisionMoney {
   readonly type: 'highPrecision'
@@ -1379,7 +1377,7 @@ export interface CentPrecisionMoneyDraft {
   readonly fractionDigits?: number
 }
 /**
- *	Money draft object to store an amount of a fraction of the smallest indivisible unit of the specified currency.
+ *	Draft object to store money as a fraction of the smallest indivisible unit for a specific currency.
  */
 export interface HighPrecisionMoneyDraft {
   readonly type: 'highPrecision'

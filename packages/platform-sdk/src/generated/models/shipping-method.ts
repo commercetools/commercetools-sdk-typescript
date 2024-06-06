@@ -6,10 +6,10 @@
 
 import {
   BaseResource,
+  CentPrecisionMoney,
   CreatedBy,
   LastModifiedBy,
   LocalizedString,
-  TypedMoney,
   _Money,
 } from './common'
 import {
@@ -293,12 +293,12 @@ export interface ShippingRate {
    *	Currency amount of the ShippingRate.
    *
    */
-  readonly price: TypedMoney
+  readonly price: CentPrecisionMoney
   /**
    *	[Free shipping](/../api/shipping-delivery-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
    *
    */
-  readonly freeAbove?: TypedMoney
+  readonly freeAbove?: CentPrecisionMoney
   /**
    *	`true` if the ShippingRate matches given [Cart](ctp:api:type:Cart) or [Location](ctp:api:type:Location).
    *	Only appears in response to requests for [Get ShippingMethods for a Cart](ctp:api:endpoint:/{projectKey}/shipping-methods/matching-cart:GET) or

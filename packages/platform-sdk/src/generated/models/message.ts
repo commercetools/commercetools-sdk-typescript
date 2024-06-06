@@ -46,7 +46,7 @@ import {
   Price,
   PriceTier,
   Reference,
-  _Money,
+  TypedMoney,
 } from './common'
 import { Customer, CustomerReference } from './customer'
 import { CustomerGroupReference } from './customer-group'
@@ -9704,7 +9704,7 @@ export interface OrderLineItemDiscountSetMessage {
    *
    *
    */
-  readonly totalPrice: _Money
+  readonly totalPrice: CentPrecisionMoney
   /**
    *	[TaxedItemPrice](ctp:api:type:TaxedItemPrice) of the [Line Item](ctp:api:type:LineItem) after the Discount recalculation.
    *
@@ -17118,7 +17118,7 @@ export interface StandalonePriceValueChangedMessage {
    *
    *
    */
-  readonly value: _Money
+  readonly value: TypedMoney
   /**
    *	Whether the new value was applied to the current or the staged representation of the StandalonePrice. Staged changes are stored on the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice).
    *
@@ -17131,7 +17131,7 @@ export interface StandalonePriceValueChangedMessage {
    *
    *
    */
-  readonly oldValue?: _Money
+  readonly oldValue?: TypedMoney
 }
 /**
  *	Generated after a successful [Add Country](ctp:api:type:StoreAddCountryAction),
@@ -20202,7 +20202,7 @@ export interface OrderLineItemDiscountSetMessagePayload {
    *
    *
    */
-  readonly totalPrice: _Money
+  readonly totalPrice: CentPrecisionMoney
   /**
    *	[TaxedItemPrice](ctp:api:type:TaxedItemPrice) of the [Line Item](ctp:api:type:LineItem) after the Discount recalculation.
    *
@@ -22168,7 +22168,7 @@ export interface StandalonePriceValueChangedMessagePayload {
    *
    *
    */
-  readonly value: _Money
+  readonly value: TypedMoney
   /**
    *	Whether the new value was applied to the current or the staged representation of the StandalonePrice. Staged changes are stored on the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice).
    *
@@ -22181,7 +22181,7 @@ export interface StandalonePriceValueChangedMessagePayload {
    *
    *
    */
-  readonly oldValue?: _Money
+  readonly oldValue?: TypedMoney
 }
 /**
  *	Generated after a successful [Add Country](ctp:api:type:StoreAddCountryAction),
