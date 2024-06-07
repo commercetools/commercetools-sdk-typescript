@@ -797,8 +797,7 @@ export interface LocalizedString {
   [key: string]: string
 }
 /**
- *	Draft type that stores amounts only in cent precision for the specified currency.
- *
+ *	Draft object to store money in cent amounts for a specific currency.
  */
 export interface Money {
   /**
@@ -877,7 +876,7 @@ export interface Price {
   readonly validUntil?: string
   /**
    *	Is set if a [ProductDiscount](ctp:api:type:ProductDiscount) has been applied.
-   *	If set, the API uses the DiscountedPrice value for the [Line Item Price selection](ctp:api:type:LineItemPriceSelection).
+   *	If set, the API uses the DiscountedPrice value for the [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
    *	When a [relative discount](ctp:api:type:ProductDiscountValueRelative) has been applied and the fraction part of the DiscountedPrice `value` is 0.5, the `value` is rounded in favor of the customer with [half-down rounding](https://en.wikipedia.org/wiki/Rounding#Round_half_down).
    *
    *
@@ -1212,7 +1211,7 @@ export type ResourceIdentifier =
   | ZoneResourceIdentifier
 /**
  *	Scoped Price is contained in a [ProductVariant](ctp:api:type:ProductVariant) which is returned in response to a
- *	[Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request when [Scoped Price Search](ctp:api:type:ScopedPriceSearch) is used.
+ *	[Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request when [Scoped Price Search](/../api/pricing-and-discounts-overview#scoped-price-search) is used.
  *
  */
 export interface ScopedPrice {
@@ -1285,8 +1284,7 @@ export interface ScopedPrice {
  */
 export type TypedMoney = CentPrecisionMoney | HighPrecisionMoney
 /**
- *	Object that stores cent amounts in a specific currency.
- *
+ *	Object that stores money in cent amounts of a specific currency.
  */
 export interface CentPrecisionMoney {
   readonly type: 'centPrecision'
@@ -1313,7 +1311,7 @@ export interface CentPrecisionMoney {
   readonly fractionDigits: number
 }
 /**
- *	Money object that stores an amount of a fraction of the smallest indivisible unit of the specified currency.
+ *	Object that stores money as a fraction of the smallest indivisible unit of a specific currency.
  */
 export interface HighPrecisionMoney {
   readonly type: 'highPrecision'
@@ -1379,7 +1377,7 @@ export interface CentPrecisionMoneyDraft {
   readonly fractionDigits?: number
 }
 /**
- *	Money draft object to store an amount of a fraction of the smallest indivisible unit of the specified currency.
+ *	Draft object to store money as a fraction of the smallest indivisible unit for a specific currency.
  */
 export interface HighPrecisionMoneyDraft {
   readonly type: 'highPrecision'

@@ -14,9 +14,7 @@ export default function createLoggerMiddleware(
       let response = await next(request)
       const originalResponse = Object.assign({}, response)
 
-      const {
-        loggerFn = console.log,
-      } = options || {}
+      const { loggerFn = console.log } = options || {}
 
       if (loggerFn && typeof loggerFn == 'function') {
         loggerFn(response)

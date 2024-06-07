@@ -6,6 +6,8 @@ const {
 const { createApiBuilderFromCtpClient } = require('@commercetools/platform-sdk')
 const fetch = require('node-fetch')
 
+const agent = require('../../agent')
+
 const projectKey = process.env.CTP_PROJECT_KEY
 const authMiddlewareOptions = {
   host: 'https://auth.europe-west1.gcp.commercetools.com',
@@ -32,7 +34,7 @@ const httpMiddlewareOptions = {
 // newrelic options
 const telemetryOptions = {
   createTelemetryMiddleware,
-  apm: () => require('newrelic'),
+  apm: () => agent,
 }
 
 const client = new ClientBuilder()

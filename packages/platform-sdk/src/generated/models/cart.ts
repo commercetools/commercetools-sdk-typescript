@@ -99,7 +99,7 @@ export interface Cart extends BaseResource {
    */
   readonly customerEmail?: string
   /**
-   *	[Reference](ctp:api:type:Reference) to the Customer Group of the Customer that the Cart belongs to. Used for [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+   *	[Reference](ctp:api:type:Reference) to the Customer Group of the Customer that the Cart belongs to. Used for [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
    *
    *
    */
@@ -151,8 +151,8 @@ export interface Cart extends BaseResource {
   readonly totalPrice: CentPrecisionMoney
   /**
    *
-   *	- For a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode), it is automatically set when a [shipping address is set](ctp:api:type:CartSetShippingAddressAction).
-   *	- For a Cart with `External` [TaxMode](ctp:api:type:TaxMode), it is automatically set when `shippingAddress` and external Tax Rates for all Line Items, Custom Line Items, and Shipping Methods in the Cart are set.
+   *	- For a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode), it is automatically set when a [shipping address is set](ctp:api:type:CartSetShippingAddressAction). For Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode), all Line Items and Custom Line Items must be fully distributed between the Shipping Methods (via `shippingDetails`), otherwise `taxedPrice` is not automatically set.
+   *	- For a Cart with `External` [TaxMode](ctp:api:type:TaxMode), it is automatically set when `shippingAddress` and external Tax Rates for all Line Items, Custom Line Items, and Shipping Methods in the Cart are set. For Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode), all allocations must have their respective tax rates present in `perMethodTaxRate`, otherwise `taxedPrice` is not automatically set.
    *
    *	If a discount applies on `totalPrice`, this field holds the discounted values.
    *
@@ -283,7 +283,7 @@ export interface Cart extends BaseResource {
    */
   readonly paymentInfo?: PaymentInfo
   /**
-   *	Used for [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+   *	Used for [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
    *
    *
    */
@@ -363,7 +363,7 @@ export interface CartDraft {
    */
   readonly customerEmail?: string
   /**
-   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to the Customer Group of the Customer that the Cart belongs to. Used for [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to the Customer Group of the Customer that the Cart belongs to. Used for [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
    *
    *	It is automatically set if the Customer referenced in `customerId` belongs to a Customer Group.
    *	It can also be set explicitly when no `customerId` is present.
@@ -493,7 +493,7 @@ export interface CartDraft {
    */
   readonly discountCodes?: string[]
   /**
-   *	Used for [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+   *	Used for [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
    *	If used for [Create Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/carts:POST), the provided country must be one of the [Store's](ctp:api:type:Store) `countries`.
    *
    *
@@ -977,11 +977,7 @@ export interface DirectDiscount {
 /**
  *	Represents a [CartDiscount](ctp:api:type:CartDiscount) that can only be associated with a single Cart or Order.
  *
- *	Direct Discounts are always active and valid, and have the default `Stacking` [StackingMode](ctp:api:type:StackingMode).
- *	They apply in the order in which they are listed in the `directDiscounts` array of [Carts](ctp:api:type:Cart) or [Orders](ctp:api:type:Order), and do not have a sorting order like Cart Discounts.
- *
- *	If a Direct Discount is present, any matching Cart Discounts in the Project are ignored.
- *	Additionally, a Cart or Order supports either Discount Codes or Direct Discounts at the same time.
+ *	For an introduction to Direct Discounts and to understand how they work in Composable Commerce, see the [Direct Discounts overview](/pricing-and-discounts-overview#direct-discounts).
  *
  */
 export interface DirectDiscountDraft {
@@ -1415,7 +1411,7 @@ export interface LineItem {
    */
   readonly supplyChannel?: ChannelReference
   /**
-   *	Used to [select](ctp:api:type:LineItemPriceSelection) a Product Price. The referenced Channel has the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *	Used to [select](/../api/pricing-and-discounts-overview#line-item-price-selection) a Product Price. The referenced Channel has the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
    *
    */
@@ -1510,7 +1506,7 @@ export interface LineItemDraft {
    */
   readonly addedAt?: string
   /**
-   *	Used to [select](ctp:api:type:LineItemPriceSelection) a Product Price.
+   *	Used to [select](/../api/pricing-and-discounts-overview#line-item-price-selection) a Product Price.
    *	The referenced Channel must have the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
    *	If the Cart is bound to a [Store](ctp:api:type:Store) with `distributionChannels` set,
@@ -2202,7 +2198,7 @@ export interface CartAddItemShippingAddressAction {
  *	If the Cart contains a [LineItem](ctp:api:type:LineItem) for a Product Variant with the same [LineItemMode](ctp:api:type:LineItemMode), [Custom Fields](/../api/projects/custom-fields), supply and distribution channel, then only the quantity of the existing Line Item is increased.
  *	If [LineItem](ctp:api:type:LineItem) `shippingDetails` is set, it is merged. All addresses will be present afterwards and, for address keys present in both shipping details, the quantity will be summed up.
  *	A new Line Item is added when the `externalPrice` or `externalTotalPrice` is set in this update action.
- *	The [LineItem](ctp:api:type:LineItem) price is set as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *	The [LineItem](ctp:api:type:LineItem) price is set as described in [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
  *
  *	If the Tax Rate is not set, a [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError) error is returned.
  *
@@ -2258,7 +2254,7 @@ export interface CartAddLineItemAction {
    */
   readonly addedAt?: string
   /**
-   *	Used to [select](ctp:api:type:LineItemPriceSelection) a Product Price.
+   *	Used to [select](/../api/pricing-and-discounts-overview#line-item-price-selection) a Product Price.
    *	The Channel must have the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *	If the Cart is bound to a [Store](ctp:api:type:Store) with `distributionChannels` set, the Channel must match one of the Store's distribution channels.
    *
@@ -2541,7 +2537,7 @@ export interface CartChangeCustomLineItemQuantityAction {
  *	use this update action in combination with the [Set LineItem ShippingDetails](ctp:api:type:CartSetLineItemShippingDetailsAction) update action
  *	in a single Cart update command.
  *
- *	The [LineItem](ctp:api:type:LineItem) price is set as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *	The [LineItem](ctp:api:type:LineItem) price is set as described in [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
  *
  */
 export interface CartChangeLineItemQuantityAction {
@@ -2570,7 +2566,7 @@ export interface CartChangeLineItemQuantityAction {
    *	Required when the Line Item uses `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
    *	Sets the [LineItem](ctp:api:type:LineItem) `price` to the given value when changing the quantity of a Line Item.
    *
-   *	The LineItem price is updated as described in LineItem Price selection.
+   *	The LineItem price is updated as described in Line Item price selection.
    *
    *
    */
@@ -2694,7 +2690,7 @@ export interface CartRemoveItemShippingAddressAction {
   readonly addressKey: string
 }
 /**
- *	The [LineItem](ctp:api:type:LineItem) price is updated as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *	The [LineItem](ctp:api:type:LineItem) price is updated as described in [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
  *
  */
 export interface CartRemoveLineItemAction {
@@ -2826,7 +2822,7 @@ export interface CartSetBusinessUnitAction {
   readonly businessUnit: BusinessUnitResourceIdentifier
 }
 /**
- *	This update action results in the `taxedPrice` field being added to the Cart when the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode) is used.
+ *	Can be used if the Cart has the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode). This update action adds the `taxedPrice` field to the Cart and must be used after any price-affecting change occurs within the Cart.
  *
  */
 export interface CartSetCartTotalTaxAction {
@@ -3263,7 +3259,7 @@ export interface CartSetLineItemCustomTypeAction {
   readonly fields?: FieldContainer
 }
 /**
- *	Setting a distribution channel for a [LineItem](ctp:api:type:LineItem) can lead to an updated `price` as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *	Setting a distribution channel for a [LineItem](ctp:api:type:LineItem) can lead to an updated `price` as described in [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
  *
  */
 export interface CartSetLineItemDistributionChannelAction {
@@ -3387,7 +3383,7 @@ export interface CartSetLineItemSupplyChannelAction {
   readonly supplyChannel?: ChannelResourceIdentifier
 }
 /**
- *	Can be used if the Cart has the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode).
+ *	Can be used if the Cart has the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode). This update action sets the `taxedPrice` and `taxRate` on a Line Item and must be used after any price-affecting change occurs.
  *
  */
 export interface CartSetLineItemTaxAmountAction {
@@ -3492,7 +3488,7 @@ export interface CartSetLocaleAction {
 /**
  *	Setting the shipping address also sets the [TaxRate](ctp:api:type:TaxRate) of Line Items and calculates the [TaxedPrice](ctp:api:type:TaxedPrice).
  *
- *	If a matching price cannot be found for the given shipping address during [Line Item Price selection](ctp:api:type:LineItemPriceSelection),
+ *	If a matching price cannot be found for the given shipping address during [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection),
  *	a [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError) error is returned.
  *
  *	If you want to allow shipping to states inside a country that are not explicitly covered by a TaxRate,

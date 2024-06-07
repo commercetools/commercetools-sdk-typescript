@@ -46,7 +46,7 @@ import {
   Price,
   PriceTier,
   Reference,
-  _Money,
+  TypedMoney,
 } from './common'
 import { Customer, CustomerReference } from './customer'
 import { CustomerGroupReference } from './customer-group'
@@ -9704,7 +9704,7 @@ export interface OrderLineItemDiscountSetMessage {
    *
    *
    */
-  readonly totalPrice: _Money
+  readonly totalPrice: CentPrecisionMoney
   /**
    *	[TaxedItemPrice](ctp:api:type:TaxedItemPrice) of the [Line Item](ctp:api:type:LineItem) after the Discount recalculation.
    *
@@ -11989,7 +11989,7 @@ export interface ProductPriceAddedMessage {
    */
   readonly variantId: number
   /**
-   *	The [Embedded Price](/projects/products#embedded-price) that was added to the [ProductVariant](ctp:api:type:ProductVariant).
+   *	The Embedded Price that was added to the [ProductVariant](ctp:api:type:ProductVariant).
    *
    *
    */
@@ -12071,13 +12071,13 @@ export interface ProductPriceChangedMessage {
    */
   readonly variantId: number
   /**
-   *	The current [Embedded Price](/projects/products#embedded-price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *	The current Embedded Price before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
    *
    *
    */
   readonly oldPrice: Price
   /**
-   *	The [Embedded Price](/projects/products#embedded-price) after the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *	The Embedded Price after the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
    *
    *
    */
@@ -12089,7 +12089,7 @@ export interface ProductPriceChangedMessage {
    */
   readonly staged: boolean
   /**
-   *	The staged [Embedded Price](/projects/products#embedded-price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *	The staged Embedded Price before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
    *
    *
    */
@@ -12166,7 +12166,7 @@ export interface ProductPriceDiscountsSetMessage {
   readonly updatedPrices: ProductPriceDiscountsSetUpdatedPrice[]
 }
 /**
- *	Details about a [Embedded Price](/projects/products#embedded-price) that was updated due to a Discount. Specific to [Product Price Discounts Set](ctp:api:type:ProductPriceDiscountsSetMessage) Message.
+ *	Details about an [Embedded Price](ctp:api:type:Price) that was updated due to a Discount. Specific to [Product Price Discounts Set](ctp:api:type:ProductPriceDiscountsSetMessage) Message.
  *
  */
 export interface ProductPriceDiscountsSetUpdatedPrice {
@@ -12539,7 +12539,7 @@ export interface ProductPriceRemovedMessage {
    */
   readonly variantId: number
   /**
-   *	The [Embedded Price](/projects/products#embedded-price) that was removed from the [ProductVariant](ctp:api:type:ProductVariant).
+   *	The Embedded Price that was removed from the [ProductVariant](ctp:api:type:ProductVariant).
    *
    *
    */
@@ -17118,7 +17118,7 @@ export interface StandalonePriceValueChangedMessage {
    *
    *
    */
-  readonly value: _Money
+  readonly value: TypedMoney
   /**
    *	Whether the new value was applied to the current or the staged representation of the StandalonePrice. Staged changes are stored on the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice).
    *
@@ -17131,7 +17131,7 @@ export interface StandalonePriceValueChangedMessage {
    *
    *
    */
-  readonly oldValue?: _Money
+  readonly oldValue?: TypedMoney
 }
 /**
  *	Generated after a successful [Add Country](ctp:api:type:StoreAddCountryAction),
@@ -20202,7 +20202,7 @@ export interface OrderLineItemDiscountSetMessagePayload {
    *
    *
    */
-  readonly totalPrice: _Money
+  readonly totalPrice: CentPrecisionMoney
   /**
    *	[TaxedItemPrice](ctp:api:type:TaxedItemPrice) of the [Line Item](ctp:api:type:LineItem) after the Discount recalculation.
    *
@@ -20834,7 +20834,7 @@ export interface ProductPriceAddedMessagePayload {
    */
   readonly variantId: number
   /**
-   *	The [Embedded Price](/projects/products#embedded-price) that was added to the [ProductVariant](ctp:api:type:ProductVariant).
+   *	The Embedded Price that was added to the [ProductVariant](ctp:api:type:ProductVariant).
    *
    *
    */
@@ -20859,13 +20859,13 @@ export interface ProductPriceChangedMessagePayload {
    */
   readonly variantId: number
   /**
-   *	The current [Embedded Price](/projects/products#embedded-price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *	The current Embedded Price before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
    *
    *
    */
   readonly oldPrice: Price
   /**
-   *	The [Embedded Price](/projects/products#embedded-price) after the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *	The Embedded Price after the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
    *
    *
    */
@@ -20877,7 +20877,7 @@ export interface ProductPriceChangedMessagePayload {
    */
   readonly staged: boolean
   /**
-   *	The staged [Embedded Price](/projects/products#embedded-price) before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
+   *	The staged Embedded Price before the [Change Embedded Price](ctp:api:type:ProductChangePriceAction) update action.
    *
    *
    */
@@ -21000,7 +21000,7 @@ export interface ProductPriceRemovedMessagePayload {
    */
   readonly variantId: number
   /**
-   *	The [Embedded Price](/projects/products#embedded-price) that was removed from the [ProductVariant](ctp:api:type:ProductVariant).
+   *	The Embedded Price that was removed from the [ProductVariant](ctp:api:type:ProductVariant).
    *
    *
    */
@@ -21831,7 +21831,7 @@ export interface ReviewStateTransitionMessagePayload {
 export interface ShoppingListStoreSetMessagePayload {
   readonly type: 'ShoppingListStoreSet'
   /**
-   *	[Reference](ctp:api:type:Reference) to a [Store](ctp:api:type:Store) by its key.
+   *	[KeyReference](ctp:api:type:KeyReference) to a [Store](ctp:api:type:Store).
    *
    *
    */
@@ -22168,7 +22168,7 @@ export interface StandalonePriceValueChangedMessagePayload {
    *
    *
    */
-  readonly value: _Money
+  readonly value: TypedMoney
   /**
    *	Whether the new value was applied to the current or the staged representation of the StandalonePrice. Staged changes are stored on the [StagedStandalonePrice](ctp:api:type:StagedStandalonePrice).
    *
@@ -22181,7 +22181,7 @@ export interface StandalonePriceValueChangedMessagePayload {
    *
    *
    */
-  readonly oldValue?: _Money
+  readonly oldValue?: TypedMoney
 }
 /**
  *	Generated after a successful [Add Country](ctp:api:type:StoreAddCountryAction),

@@ -132,7 +132,7 @@ export interface ExtensionDraft {
    *	The maximum value is 10000 ms (10 seconds) for `payment` Extensions and 2000 ms (2 seconds) for all other Extensions.
    *
    *	This limit can be increased per Project after we review the performance impact.
-   *	Please contact our support via the [Support Portal](https://support.commercetools.com) and provide the Region, Project key, and use case.
+   *	Please contact the [Composable Commerce support team](https://support.commercetools.com) and provide the Region, Project key, and use case.
    *
    *
    */
@@ -347,7 +347,7 @@ export interface ExtensionSetTimeoutInMsAction {
    *	The maximum value is 10000 ms (10 seconds) for `payment` Extensions and 2000 ms (2 seconds) for all other Extensions.
    *
    *	This limit can be increased per Project after we review the performance impact.
-   *	Please contact our support via the [Support Portal](https://support.commercetools.com/) and provide the Region, Project key, and use case.
+   *	Please contact the [Composable Commerce support team](https://support.commercetools.com/) and provide the Region, Project key, and use case.
    *
    *
    */

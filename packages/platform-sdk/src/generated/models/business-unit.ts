@@ -104,7 +104,7 @@ export type BusinessUnitAssociateMode =
  */
 export type BusinessUnitDraft = CompanyDraft | DivisionDraft
 /**
- *	[Reference](ctp:api:type:Reference) to a [BusinessUnit](ctp:api:type:BusinessUnit) by its key.
+ *	[KeyReference](ctp:api:type:KeyReference) to a [BusinessUnit](ctp:api:type:BusinessUnit).
  *
  */
 export interface BusinessUnitKeyReference {
@@ -315,7 +315,7 @@ export interface Company {
    *
    *
    */
-  readonly stores: StoreKeyReference[]
+  readonly stores?: StoreKeyReference[]
   /**
    *	Is always `Explicit` since a Company cannot have a parent Business Unit that Stores can be inherited from.
    *
@@ -565,7 +565,7 @@ export interface Division {
    *
    *
    */
-  readonly stores: StoreKeyReference[]
+  readonly stores?: StoreKeyReference[]
   /**
    *	Defines whether the Stores of the Division are set explicitly or inherited from a parent Business Unit.
    *

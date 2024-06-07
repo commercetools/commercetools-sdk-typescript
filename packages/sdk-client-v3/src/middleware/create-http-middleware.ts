@@ -106,7 +106,9 @@ async function executeRequest({
     }
   } catch (e) {
     // We know that this is a network error
-    const headers = includeResponseHeaders ? getHeaders(e.response?.headers) : null
+    const headers = includeResponseHeaders
+      ? getHeaders(e.response?.headers)
+      : null
     const statusCode = e.response?.status || e.response?.data0 || 0
     const message = e.response?.data?.message
 

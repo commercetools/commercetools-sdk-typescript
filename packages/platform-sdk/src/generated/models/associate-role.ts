@@ -113,7 +113,7 @@ export interface AssociateRoleDraft {
   readonly custom?: CustomFieldsDraft
 }
 /**
- *	[Reference](ctp:api:type:Reference) to an [AssociateRole](ctp:api:type:AssociateRole) by its key.
+ *	[KeyReference](ctp:api:type:KeyReference) to an [AssociateRole](ctp:api:type:AssociateRole).
  *
  */
 export interface AssociateRoleKeyReference {

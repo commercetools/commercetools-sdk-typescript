@@ -43,6 +43,7 @@ export type ClientResponse<T = any> = {
   body: T
   statusCode?: number
   headers?: Object
+  originalRequest?: ClientRequest
 }
 
 export type executeRequest = (request: ClientRequest) => Promise<ClientResponse>

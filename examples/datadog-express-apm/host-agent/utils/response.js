@@ -1,4 +1,4 @@
-const agent = require('../../agent')
+const agent = require('../agent').default
 /**
  * @class Response
  *
@@ -27,10 +27,12 @@ class ResponseHandler {
       responseBody.data = data
     }
 
-    agent.recordMetric(
-      `Commercetools/Client/Response/Success/${statusCode}`,
-      statusCode
-    )
+    agent.init().dogstatsd.increment(`Commercetools_Client_Response`, 1, {
+      env: 'dev',
+      status_code: statusCode,
+      http_method: req.method,
+      success: true,
+    })
 
     return response.status(statusCode).json({
       ...responseBody,
@@ -58,10 +60,12 @@ class ResponseHandler {
       responseBody.data = data
     }
 
-    agent.recordMetric(
-      `Commercetools/Client/Response/Error/${statusCode}`,
-      statusCode
-    )
+    agent.init().dogstatsd.increment(`Commercetools_Client_Response`, 1, {
+      env: 'dev',
+      status_code: statusCode,
+      http_method: req.method,
+      success: false,
+    })
 
     return response.status(statusCode).json({
       ...responseBody,
