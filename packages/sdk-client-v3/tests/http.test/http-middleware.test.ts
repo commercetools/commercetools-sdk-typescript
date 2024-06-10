@@ -565,6 +565,42 @@ describe('Http Middleware.', () => {
       expect(response.error.message).toContain('aborted')
     })
 
+    test('should throw an error when httpClient is invalid', async () => {
+      const request = createTestRequest({
+        uri: '/test',
+        method: 'GET',
+      })
+
+      const testResponse = createTestResponse({
+        data: {},
+        statusCode: 503,
+      })
+
+      const next = (req: MiddlewareRequest) => {
+        return testResponse
+      }
+      const testError = new Error()
+
+      const httpMiddlewareOptions: HttpMiddlewareOptions = {
+        host: 'https://httpbin.org',
+        httpClient: jest.fn(() => {
+          throw testError
+        }),
+        timeout: 500,
+        enableRetry: true,
+        retryConfig: {
+          maxRetries: 2,
+          retryOnAbort: false,
+        },
+      }
+
+      try {
+        await createHttpMiddleware(httpMiddlewareOptions)(next)(request)
+      } catch (e) {
+        expect(e).toEqual(testError)
+      }
+    })
+
     test('should retry request on aborted when retryOnAbort=true', async () => {
       const testData = 'this is a string response data'
 
