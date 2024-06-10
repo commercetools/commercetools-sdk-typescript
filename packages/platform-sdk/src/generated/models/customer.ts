@@ -1188,8 +1188,6 @@ export interface CustomerSetDefaultBillingAddressAction {
  *	Sets the default shipping address from `addresses`.
  *	The action adds the `id` of the specified address to the `shippingAddressIds` if not contained already. Either `addressId` or `addressKey` is required.
  *
- *	If the Tax Category of the Cart [ShippingInfo](ctp:api:type:ShippingInfo) is missing the TaxRate matching country and state given in the `shippingAddress` of that Cart, a [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError) error is returned.
- *
  */
 export interface CustomerSetDefaultShippingAddressAction {
   readonly action: 'setDefaultShippingAddress'
