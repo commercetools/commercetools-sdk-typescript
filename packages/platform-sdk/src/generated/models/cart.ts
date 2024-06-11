@@ -1800,7 +1800,7 @@ export interface ShippingInfo {
   readonly shippingMethodState: ShippingMethodState
 }
 /**
- *	Determines whether a [ShippingMethod](ctp:api:type:ShippingMethod) is allowed for a Cart.
+ *	Determines whether the selected [ShippingMethod](ctp:api:type:ShippingMethod) is allowed for the Cart. For more information, see [Predicates](/shipping-delivery-overview#predicates).
  *
  */
 export type ShippingMethodState = 'DoesNotMatchCart' | 'MatchesCart' | string
