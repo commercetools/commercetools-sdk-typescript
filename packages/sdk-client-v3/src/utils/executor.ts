@@ -1,8 +1,11 @@
 import { HttpClientConfig, IResponse, TResponse } from '../types/types'
 import { calculateRetryDelay, sleep, validateRetryCodes } from '../utils'
 
-function predicate(retryCodes: Array<string | number>, response: any) {
-  return !(
+function hasResponseRetryCode(
+  retryCodes: Array<string | number>,
+  response: any
+) {
+  return (
     // retryCodes.includes(response?.error?.message) ||
     [503, ...retryCodes].includes(response?.status || response?.statusCode)
   )
@@ -70,31 +73,41 @@ export default async function executor(request: HttpClientConfig) {
       }
 
       async function executeWithRetry<T = any>(): Promise<T> {
-        const executeWithTryCatch = async (retryCodes) => {
+        const executeWithTryCatch = async (retryCodes, retryWhenAborted) => {
           let _response = {} as any
           try {
             _response = await execute()
-            if (predicate(retryCodes, _response)) return _response
+            if (
+              _response.status > 299 &&
+              hasResponseRetryCode(retryCodes, _response)
+            )
+              return { _response, shouldRetry: true }
           } catch (e) {
-            if (e.name.includes('AbortError')) {
-              _response = e
+            if (e.name.includes('AbortError') && retryWhenAborted) {
+              return { _response: e, shouldRetry: true }
             } else {
               throw e
             }
           }
-          return _response
+          return { _response, shouldRetry: false }
         }
 
+        const retryWhenAborted =
+          retryOnAbort || !abortController || !abortController.signal
         // first attempt
-        let _response = await executeWithTryCatch(retryCodes)
+        let { _response, shouldRetry } = await executeWithTryCatch(
+          retryCodes,
+          retryWhenAborted
+        )
         // retry attempts
-        while (
-          enableRetry &&
-          (retryOnAbort || !abortController || !abortController.signal) &&
-          retryCount < maxRetries
-        ) {
+        while (enableRetry && shouldRetry && retryCount < maxRetries) {
           retryCount++
-          _response = await executeWithTryCatch(retryCodes)
+          const execution = await executeWithTryCatch(
+            retryCodes,
+            retryWhenAborted
+          )
+          _response = execution._response
+          shouldRetry = execution.shouldRetry
 
           // delay next execution
           const timer = calculateRetryDelay({

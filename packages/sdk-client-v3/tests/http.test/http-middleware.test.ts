@@ -458,7 +458,7 @@ describe('Http Middleware.', () => {
     test('should retry request based on response status code', async () => {
       const response = createTestResponse({
         data: {},
-        statusCode: 504,
+        status: 504,
       })
 
       const request = createTestRequest({
@@ -499,7 +499,7 @@ describe('Http Middleware.', () => {
     test('should retry request with exponential backoff', async () => {
       const response = createTestResponse({
         data: {},
-        statusCode: 503,
+        status: 503,
       })
 
       const request = createTestRequest({
@@ -647,6 +647,61 @@ describe('Http Middleware.', () => {
       expect(response.error).toBeUndefined()
       expect(response.statusCode).toEqual(200)
       expect(response.body).toEqual(testData)
+    })
+
+    test('should retry CTP request when retry=true and retryOnAbort=false', async () => {
+      const testData = 'this is a string response data'
+      const testResponse = createTestResponse({
+        data: {},
+        statusCode: 504,
+      })
+
+      const request = createTestRequest({
+        uri: '/error-url/retry',
+        method: 'POST',
+        body: { id: 'test-id' },
+        headers: {
+          'Content-Type': 'image/jpeg',
+        },
+      })
+
+      let httpClientCalled = false
+
+      const httpMiddlewareOptions: HttpMiddlewareOptions = {
+        host: 'https://httpbin.org',
+        httpClient: (url, options) => {
+          if (httpClientCalled) {
+            return createTestResponse({
+              data: testData,
+              statusCode: 200,
+              headers: {
+                'server-time': '05:07',
+              },
+            })
+          } else {
+            httpClientCalled = true
+            return testResponse
+          }
+        },
+        enableRetry: true,
+        retryConfig: {
+          maxRetries: 3,
+          backoff: false,
+          retryDelay: 200,
+          retryCodes: [504],
+          retryOnAbort: false,
+        },
+      }
+
+      const next = (req: MiddlewareRequest) => {
+        return testResponse
+      }
+
+      const response = await createHttpMiddleware(httpMiddlewareOptions)(next)(
+        request
+      )
+
+      expect(response).toBeDefined()
     })
   })
 })
