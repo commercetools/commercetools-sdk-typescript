@@ -280,10 +280,10 @@ describe('Custom middleware', () => {
       }
     }
     const client = new ClientBuilder()
-        .withClientCredentialsFlow(authMiddlewareOptions)
-        .withHttpMiddleware(httpMiddlewareOptionsV3)
-        .withMiddleware(createMiddleware())
-        .build()
+      .withClientCredentialsFlow(authMiddlewareOptions)
+      .withHttpMiddleware(httpMiddlewareOptionsV3)
+      .withMiddleware(createMiddleware())
+      .build()
 
     const apiRootV3 = createApiBuilderFromCtpClient(client).withProjectKey({
       projectKey,
