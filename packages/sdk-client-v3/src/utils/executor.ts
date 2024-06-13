@@ -44,7 +44,7 @@ export default async function executor(request: HttpClientConfig) {
         backoff = true,
         retryDelay = 200,
         // If set to true reinitialize the abort controller when the timeout is reached and apply the retry config
-        retryOnAbort = false,
+        retryOnAbort = true,
       } = retryConfig || {}
 
       let result: string,
