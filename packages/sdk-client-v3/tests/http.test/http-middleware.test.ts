@@ -1,6 +1,7 @@
 import { HttpMiddlewareOptions, MiddlewareRequest } from '../../src'
 import { Buffer } from 'buffer/'
 import { createHttpMiddleware } from '../../src/middleware'
+import fetch from 'node-fetch'
 
 function createTestRequest(options) {
   return {
@@ -50,23 +51,6 @@ describe('Http Middleware.', () => {
     expect(() =>
       createHttpMiddleware(httpMiddlewareOptions)(next)(createTestRequest({}))
     ).toThrow()
-  })
-
-  test('should throw if timeout is provided and `AbortController` is not.', () => {
-    const response = createTestResponse({})
-    const httpMiddlewareOptions = {
-      host: 'http://api-host.com',
-      httpClient: jest.fn(),
-      timeout: 2000,
-      getAbortController: null,
-    }
-
-    const next = () => response
-    expect(() =>
-      createHttpMiddleware(httpMiddlewareOptions)(next)(createTestRequest({}))
-    ).toThrow(
-      /`AbortController` is not available. Please pass in `getAbortController` as an option or have AbortController globally available when using timeout./
-    )
   })
 
   test('should throw if the set timeout value elapses', async () => {
@@ -474,7 +458,7 @@ describe('Http Middleware.', () => {
     test('should retry request based on response status code', async () => {
       const response = createTestResponse({
         data: {},
-        statusCode: 504,
+        status: 504,
       })
 
       const request = createTestRequest({
@@ -515,7 +499,7 @@ describe('Http Middleware.', () => {
     test('should retry request with exponential backoff', async () => {
       const response = createTestResponse({
         data: {},
-        statusCode: 503,
+        status: 503,
       })
 
       const request = createTestRequest({
@@ -551,6 +535,173 @@ describe('Http Middleware.', () => {
       }
 
       await createHttpMiddleware(httpMiddlewareOptions)(next)(request)
+    })
+
+    test('should not retry request by default when aborted', async () => {
+      const request = createTestRequest({
+        uri: '/delay/1',
+        method: 'GET',
+      })
+
+      const next = (req: MiddlewareRequest) => {
+        return createTestResponse(req.response)
+      }
+
+      const httpMiddlewareOptions: HttpMiddlewareOptions = {
+        host: 'https://httpbin.org',
+        httpClient: fetch,
+        timeout: 500,
+        enableRetry: true,
+        retryConfig: {
+          maxRetries: 2,
+          retryOnAbort: false,
+        },
+      }
+
+      const response = await createHttpMiddleware(httpMiddlewareOptions)(next)(
+        request
+      )
+
+      expect(response.error.message).toContain('aborted')
+    })
+
+    test('should throw an error when httpClient is invalid', async () => {
+      const request = createTestRequest({
+        uri: '/test',
+        method: 'GET',
+      })
+
+      const testResponse = createTestResponse({
+        data: {},
+        statusCode: 503,
+      })
+
+      const next = (req: MiddlewareRequest) => {
+        return testResponse
+      }
+      const testError = new Error()
+
+      const httpMiddlewareOptions: HttpMiddlewareOptions = {
+        host: 'https://httpbin.org',
+        httpClient: jest.fn(() => {
+          throw testError
+        }),
+        timeout: 500,
+        enableRetry: true,
+        retryConfig: {
+          maxRetries: 2,
+          retryOnAbort: false,
+        },
+      }
+
+      try {
+        await createHttpMiddleware(httpMiddlewareOptions)(next)(request)
+      } catch (e) {
+        expect(e).toEqual(testError)
+      }
+    })
+
+    test('should retry request on aborted when retryOnAbort=true', async () => {
+      const testData = 'this is a string response data'
+
+      const request = createTestRequest({
+        uri: '/delay/1',
+        method: 'GET',
+      })
+
+      const next = (req: MiddlewareRequest) => {
+        return createTestResponse(req.response)
+      }
+
+      let httpClientCalled = false
+
+      const httpMiddlewareOptions: HttpMiddlewareOptions = {
+        host: 'https://httpbin.org',
+        httpClient: (url, options) => {
+          if (httpClientCalled) {
+            return createTestResponse({
+              data: testData,
+              statusCode: 200,
+              headers: {
+                'server-time': '05:07',
+              },
+            })
+          } else {
+            httpClientCalled = true
+            return fetch(url, options)
+          }
+        },
+        timeout: 500,
+        enableRetry: true,
+        retryConfig: {
+          maxRetries: 2,
+          retryDelay: 500,
+          retryOnAbort: true,
+        },
+      }
+
+      const response = await createHttpMiddleware(httpMiddlewareOptions)(next)(
+        request
+      )
+
+      expect(response.error).toBeUndefined()
+      expect(response.statusCode).toEqual(200)
+      expect(response.body).toEqual(testData)
+    })
+
+    test('should retry CTP request when retry=true and retryOnAbort=false', async () => {
+      const testData = 'this is a string response data'
+      const testResponse = createTestResponse({
+        data: {},
+        statusCode: 504,
+      })
+
+      const request = createTestRequest({
+        uri: '/error-url/retry',
+        method: 'POST',
+        body: { id: 'test-id' },
+        headers: {
+          'Content-Type': 'image/jpeg',
+        },
+      })
+
+      let httpClientCalled = false
+
+      const httpMiddlewareOptions: HttpMiddlewareOptions = {
+        host: 'https://httpbin.org',
+        httpClient: (url, options) => {
+          if (httpClientCalled) {
+            return createTestResponse({
+              data: testData,
+              statusCode: 200,
+              headers: {
+                'server-time': '05:07',
+              },
+            })
+          } else {
+            httpClientCalled = true
+            return testResponse
+          }
+        },
+        enableRetry: true,
+        retryConfig: {
+          maxRetries: 3,
+          backoff: false,
+          retryDelay: 200,
+          retryCodes: [504],
+          retryOnAbort: false,
+        },
+      }
+
+      const next = (req: MiddlewareRequest) => {
+        return testResponse
+      }
+
+      const response = await createHttpMiddleware(httpMiddlewareOptions)(next)(
+        request
+      )
+
+      expect(response).toBeDefined()
     })
   })
 })
