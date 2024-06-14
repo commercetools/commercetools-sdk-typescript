@@ -85,7 +85,7 @@ jobs:
           gh api --method POST /repos/commercetools/commercetools-typescript-sdk/dispatches -f "event_type=new_release"
 
       - name: Convert markdown to slack markdown
-        uses: LoveToKnow/slackify-markdown-action@v1.0.2
+        uses: LoveToKnow/slackify-markdown-action@v1.1.1
         id: markdown
         with:
           text: |
