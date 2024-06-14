@@ -21,6 +21,14 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeCartsByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Returns a Cart for a given `id` in a Store. Returns a `200 OK` status if the Cart exists, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *
+   *	If the Cart exists in the Project but does not belong to a Store, or the Cart's `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *
+   *	If the Cart exists in the Project but does not have a matching `customerId` or `anonymousId`, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError)  error.
+   *
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -44,9 +52,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeCartsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
-  /**
-   *	Checks ifa My Cart exists for a given `id`. Returns a `200 OK` status if the My Cart exists or a `404 Not Found` otherwise.
-   */
   public head(methodArgs?: {
     headers?: {
       [key: string]: string | string[]
@@ -66,7 +71,11 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeCartsByIDRequestBuilder {
     )
   }
   /**
-   *	If the Cart exists in the Project but does not have the `store` field, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *	Updates the Cart for a given `id` in a Store. Returns a `200 OK` status if the Cart exists, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *
+   *	If the Cart exists in the Project but does not belong to a Store, or the Cart's `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *
+   *	If the Cart exists in the Project but does not have a matching `customerId` or `anonymousId`, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError)  error.
    *
    */
   public post(methodArgs: {
@@ -95,6 +104,14 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeCartsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deletes the Cart for a given `id` in a Store. Returns a `200 OK` status if the Cart exists, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *
+   *	If the Cart exists in the Project but does not belong to a Store, or the Cart's `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *
+   *	If the Cart exists in the Project but does not have a matching `customerId` or `anonymousId`, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError)  error.
+   *
+   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

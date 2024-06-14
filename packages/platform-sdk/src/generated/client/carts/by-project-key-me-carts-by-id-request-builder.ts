@@ -20,6 +20,12 @@ export class ByProjectKeyMeCartsByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Returns a Cart for a given `id`. Returns a `200 OK` status if the Cart exists, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *
+   *	If the Cart exists in the Project but does not have a matching `customerId` or `anonymousId`, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -44,7 +50,10 @@ export class ByProjectKeyMeCartsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a Cart exists for a given `id`. Returns a `200 OK` status if the Cart exists or a `404 Not Found` otherwise.
+   *	Checks if a Cart exists for a given `id`. Returns a `200 OK` status if the Cart exists, or a `404 Not Found` otherwise.
+   *
+   *	If the Cart exists in the Project but does not have a matching `customerId` or `anonymousId`, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *
    */
   public head(methodArgs?: {
     headers?: {
@@ -64,6 +73,12 @@ export class ByProjectKeyMeCartsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Updates the Cart for a given `id`. Returns a `200 OK` status if the Cart exists, or a `404 Not Found` otherwise.
+   *
+   *	If the Cart exists in the Project but does not have a matching `customerId` or `anonymousId`, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -90,6 +105,12 @@ export class ByProjectKeyMeCartsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deletes the Cart for a given `id`. Returns a `200 OK` status if the Cart exists, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *
+   *	If the Cart exists in the Project but does not have a matching `customerId` or `anonymousId`, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *
+   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

@@ -72,7 +72,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder {
   }
 
   /**
-   *	Queries carts in a specific [Store](ctp:api:type:Store).
+   *	Queries Carts in a specific [Store](ctp:api:type:Store).
    */
   public get(methodArgs?: {
     queryArgs?: {
