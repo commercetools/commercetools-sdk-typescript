@@ -7,7 +7,7 @@
     "generate": "manypkg run generate && yarn format",
     "format": "prettier --write '**/*.{js,ts,json,md}'",
     "build": "preconstruct build",
-    "test": "jest --maxWorkers=1",
+    "test": "jest --runInBand",
     "coverage": "codecov",
     "typecheck": "tsc --noEmit",
     "changeset": "changeset",
