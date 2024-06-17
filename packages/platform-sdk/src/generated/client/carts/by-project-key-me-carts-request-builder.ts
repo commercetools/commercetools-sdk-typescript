@@ -56,6 +56,10 @@ export class ByProjectKeyMeCartsRequestBuilder {
     })
   }
 
+  /**
+   *	Returns all Carts that match a given Query Predicate and contain either a matching `customerId` or `anonymousId`.
+   *
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -85,7 +89,8 @@ export class ByProjectKeyMeCartsRequestBuilder {
     )
   }
   /**
-   *	Checks if a Cart exists for a given Query Predicate. Returns a `200 OK` status if any Carts match the Query Predicate or a `404 Not Found` otherwise.
+   *	Checks if a Cart exists that matches a given Query Predicate and contains either a matching `customerId` or `anonymousId`. Returns a `200 OK` status if the Cart exists, or a `404 Not Found` otherwise.
+   *
    */
   public head(methodArgs?: {
     queryArgs?: {
@@ -110,6 +115,10 @@ export class ByProjectKeyMeCartsRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Creates a Cart for a given `customerId` or `anonymousId`.
+   *
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

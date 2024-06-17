@@ -169,7 +169,7 @@ export interface StandalonePrice extends BaseResource {
   readonly staged?: StagedStandalonePrice
   /**
    *	If set to `true`, the StandalonePrice is considered during [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
-   *	If set to `false`, the StandalonePrice is not considered during [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
+   *	If set to `false`, the StandalonePrice is not considered during [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection) and any associated Line Items in a Cart cannot be ordered.
    *
    *
    */
@@ -250,7 +250,7 @@ export interface StandalonePriceDraft {
    */
   readonly staged?: StagedPriceDraft
   /**
-   *	Set to `false`, if the StandalonePrice should not be considered during [Prodct price selection](/../api/pricing-and-discounts-overview#product-price-selection).
+   *	Set to `false`, if the StandalonePrice should not be considered during [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
    *
    *
    */

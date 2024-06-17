@@ -649,7 +649,8 @@ export interface TypeChangeLabelAction {
    */
   readonly fieldName: string
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	New value to set.
+   *	Must not be empty.
    *
    *
    */

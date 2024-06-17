@@ -335,7 +335,7 @@ export type ShippingRatePriceTier =
   | CartScoreTier
   | CartValueTier
 /**
- *	Used when the ShippingRate maps to an abstract Cart categorization expressed by strings (for example, `Light`, `Medium`, or `Heavy`).
+ *	The [ShippingRate](ctp:api:type:ShippingRate) maps to an abstract Cart categorization expressed by strings (for example, `Light`, `Medium`, or `Heavy`).
  *
  */
 export interface CartClassificationTier {
@@ -360,7 +360,7 @@ export interface CartClassificationTier {
   readonly isMatching?: boolean
 }
 /**
- *	Used when the ShippingRate maps to an abstract Cart categorization expressed by integers (such as shipping scores or weight ranges).
+ *	The [ShippingRate](ctp:api:type:ShippingRate) maps to an abstract Cart categorization expressed by integers (such as shipping scores or weight ranges).
  *	Either `price` or `priceFunction` is required.
  *
  */
@@ -392,8 +392,9 @@ export interface CartScoreTier {
   readonly isMatching?: boolean
 }
 /**
- *	Used when the ShippingRate maps to the sum of [LineItem](ctp:api:type:LineItem) Prices.
- *	The value of the Cart is used to select a tier.
+ *
+ *	The [ShippingRate](ctp:api:type:ShippingRate) maps to the value of the Cart and is used to select a tier.
+ *	The value of the [Cart](ctp:api:type:Cart) is the sum of all Line Item totals and Custom Line Item totals (via the `totalPrice` field) after any Product Discounts and Cart Discounts have been applied.
  *	If chosen, it is not possible to set a value for the `shippingRateInput` on the [Cart](ctp:api:type:Cart).
  *	Tiers contain the `centAmount` (a value of `100` in the currency `USD` corresponds to `$ 1.00`), and start at `1`.'
  *

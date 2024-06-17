@@ -19,11 +19,6 @@ export function validateHttpOptions(options: HttpMiddlewareOptions) {
     throw new Error(
       'An `httpClient` is not available, please pass in a `fetch` or `axios` instance as an option or have them globally available.'
     )
-
-  if (options.timeout && !options.getAbortController)
-    throw new Error(
-      '`AbortController` is not available. Please pass in `getAbortController` as an option or have AbortController globally available when using timeout.'
-    )
 }
 
 /**
