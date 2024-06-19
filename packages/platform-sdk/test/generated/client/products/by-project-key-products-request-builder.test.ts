@@ -53,14 +53,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/products?localeProjection=localeProjection',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .products()
-        .get({ queryArgs: { localeProjection: 'localeProjection' } }),
-    },
-    {
-      method: 'get',
       uri: '/test_projectKey/products?expand=expand',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
@@ -177,18 +169,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
           body: null,
           headers: null,
           queryArgs: { priceChannel: 'priceChannel' },
-        }),
-    },
-    {
-      method: 'post',
-      uri: '/test_projectKey/products?localeProjection=localeProjection',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .products()
-        .post({
-          body: null,
-          headers: null,
-          queryArgs: { localeProjection: 'localeProjection' },
         }),
     },
     {
