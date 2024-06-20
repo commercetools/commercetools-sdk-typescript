@@ -1,6 +1,19 @@
 **Api changes**
 
 <details>
+<summary>Removed Enum(s)</summary>
+
+- :warning: removed enum `product-price` from type `ChangeSubscriptionResourceTypeId`
+</details>
+
+<details>
+<summary>Added Enum(s)</summary>
+
+- added enum `attribute-group` to type `ChangeSubscriptionResourceTypeId`
+- added enum `product-tailoring` to type `ChangeSubscriptionResourceTypeId`
+</details>
+
+<details>
 <summary>Changed Property(s)</summary>
 
 - :warning: changed property `value` of type `DirectDiscountDraft` from type `CartDiscountValue` to `CartDiscountValueDraft`
