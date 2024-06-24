@@ -13,6 +13,7 @@ import {
   QuoteRequestResourceIdentifier,
 } from './quote-request'
 import { StateReference, StateResourceIdentifier } from './state'
+import { StoreKeyReference } from './store'
 import {
   CustomFields,
   CustomFieldsDraft,
@@ -123,6 +124,12 @@ export interface StagedQuote extends BaseResource {
    *
    */
   readonly businessUnit?: BusinessUnitKeyReference
+  /**
+   *	The Store to which the [Buyer](/../api/quotes-overview#buyer) belongs.
+   *
+   *
+   */
+  readonly store?: StoreKeyReference
 }
 export interface StagedQuoteDraft {
   /**

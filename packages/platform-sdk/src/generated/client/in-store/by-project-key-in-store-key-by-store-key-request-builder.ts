@@ -14,8 +14,11 @@ import { ByProjectKeyInStoreKeyByStoreKeyProductProjectionsRequestBuilder } from
 import { ByProjectKeyInStoreKeyByStoreKeyProductSelectionAssignmentsRequestBuilder } from '../product-selection-assignments/by-project-key-in-store-key-by-store-key-product-selection-assignments-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyProductTailoringRequestBuilder } from '../product-tailoring/by-project-key-in-store-key-by-store-key-product-tailoring-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyProductsRequestBuilder } from '../products/by-project-key-in-store-key-by-store-key-products-request-builder'
+import { ByProjectKeyInStoreKeyByStoreKeyQuoteRequestsRequestBuilder } from '../quote-requests/by-project-key-in-store-key-by-store-key-quote-requests-request-builder'
+import { ByProjectKeyInStoreKeyByStoreKeyQuotesRequestBuilder } from '../quotes/by-project-key-in-store-key-by-store-key-quotes-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyShippingMethodsRequestBuilder } from '../shipping-methods/by-project-key-in-store-key-by-store-key-shipping-methods-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder } from '../shopping-lists/by-project-key-in-store-key-by-store-key-shopping-lists-request-builder'
+import { ByProjectKeyInStoreKeyByStoreKeyStagedQuotesRequestBuilder } from '../staged-quotes/by-project-key-in-store-key-by-store-key-staged-quotes-request-builder'
 /**
  **/
 export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
@@ -155,6 +158,42 @@ export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
   }
   public products(): ByProjectKeyInStoreKeyByStoreKeyProductsRequestBuilder {
     return new ByProjectKeyInStoreKeyByStoreKeyProductsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	A request for a Quote holds product variants and can be ordered.
+   */
+  public quoteRequests(): ByProjectKeyInStoreKeyByStoreKeyQuoteRequestsRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyQuoteRequestsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	A staged quote holds the negotiation between the [Buyer](/../api/quotes-overview#buyer) and the [Seller](/../api/quotes-overview#seller).
+   */
+  public stagedQuotes(): ByProjectKeyInStoreKeyByStoreKeyStagedQuotesRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyStagedQuotesRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	A quote holds the negotiated offer.
+   */
+  public quotes(): ByProjectKeyInStoreKeyByStoreKeyQuotesRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyQuotesRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },
