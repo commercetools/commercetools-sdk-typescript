@@ -5,13 +5,18 @@
  */
 
 import {
+  Asset,
+  AssetDraft,
+  AssetSource,
   BaseResource,
   CreatedBy,
+  Image,
   LastModifiedBy,
   LocalizedString,
 } from './common'
 import { ProductReference, ProductResourceIdentifier } from './product'
 import { StoreKeyReference, StoreResourceIdentifier } from './store'
+import { FieldContainer, TypeResourceIdentifier } from './type'
 
 /**
  *	A single ProductTailoring representation contains the _current_ and the _staged_ representation of its product data tailored per Store.
@@ -138,6 +143,12 @@ export interface ProductTailoringData {
    *
    */
   readonly slug?: LocalizedString
+  /**
+   *	Tailored Variants of the Product.
+   *
+   *
+   */
+  readonly variants?: ProductVariantTailoring[]
 }
 /**
  *	Contains all the tailored data of a Product.
@@ -205,6 +216,12 @@ export interface ProductTailoringDraft {
    *
    */
   readonly publish?: boolean
+  /**
+   *	Tailored Variants of the Product.
+   *
+   *
+   */
+  readonly variants?: ProductVariantTailoringDraft[]
 }
 /**
  *	Contains all the tailored data of a Product for a specific Store.
@@ -266,6 +283,12 @@ export interface ProductTailoringInStoreDraft {
    *
    */
   readonly publish?: boolean
+  /**
+   *	Tailored Variants of the Product.
+   *
+   *
+   */
+  readonly variants?: ProductVariantTailoringDraft[]
 }
 /**
  *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [ProductTailoring](ctp:api:type:ProductTailoring).
@@ -346,8 +369,25 @@ export interface ProductTailoringResourceIdentifier {
   readonly key?: string
 }
 export type ProductTailoringUpdateAction =
+  | ProductTailoringAddAssetAction
+  | ProductTailoringAddExternalImageAction
+  | ProductTailoringAddVariantAction
+  | ProductTailoringChangeAssetNameAction
+  | ProductTailoringChangeAssetOrderAction
+  | ProductTailoringMoveImageToPositionAction
   | ProductTailoringPublishAction
+  | ProductTailoringRemoveAssetAction
+  | ProductTailoringRemoveImageAction
+  | ProductTailoringRemoveVariantAction
+  | ProductTailoringSetAssetCustomFieldAction
+  | ProductTailoringSetAssetCustomTypeAction
+  | ProductTailoringSetAssetDescriptionAction
+  | ProductTailoringSetAssetKeyAction
+  | ProductTailoringSetAssetSourcesAction
+  | ProductTailoringSetAssetTagsAction
   | ProductTailoringSetDescriptionAction
+  | ProductTailoringSetExternalImagesAction
+  | ProductTailoringSetImageLabelAction
   | ProductTailoringSetMetaAttributesAction
   | ProductTailoringSetMetaDescriptionAction
   | ProductTailoringSetMetaKeywordsAction
@@ -356,12 +396,653 @@ export type ProductTailoringUpdateAction =
   | ProductTailoringSetSlugAction
   | ProductTailoringUnpublishAction
 /**
+ *	The tailoring of a [ProductVariant](ctp:api:type:ProductVariant).
+ *
+ */
+export interface ProductVariantTailoring {
+  /**
+   *	The `id` of the tailored [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly id: number
+  /**
+   *	Images of the tailored Product Variant.
+   *	If present, these images will override the images of the corresponding [ProductVariant](ctp:api:type:ProductVariant) in total.
+   *
+   *
+   */
+  readonly images?: Image[]
+  /**
+   *	Media assets of the tailored Product Variant.
+   *	If present, these assets will override the assets of the corresponding [ProductVariant](ctp:api:type:ProductVariant) in total.
+   *
+   *
+   */
+  readonly assets?: Asset[]
+}
+/**
+ *	Either `id` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
+ *
+ */
+export interface ProductVariantTailoringDraft {
+  /**
+   *	The `id` of the [ProductVariant](ctp:api:type:ProductVariant) to be tailored.
+   *
+   *
+   */
+  readonly id?: number
+  /**
+   *	The `sku` of the [ProductVariant](ctp:api:type:ProductVariant) to be tailored.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	Images of the tailored Product Variant.
+   *
+   *
+   */
+  readonly images?: Image[]
+  /**
+   *	Media assets of the tailored Product Variant.
+   *
+   *
+   */
+  readonly assets?: Asset[]
+}
+/**
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
+ *
+ */
+export interface ProductTailoringAddAssetAction {
+  readonly action: 'addAsset'
+  /**
+   *	The `id` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	The `sku` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	If `true`, only the staged `assets` are updated. If `false`, both the current and staged `assets` are updated.
+   *
+   *
+   */
+  readonly staged?: boolean
+  /**
+   *	Value to append.
+   *
+   *
+   */
+  readonly asset: AssetDraft
+  /**
+   *	Position in `assets` where the Asset should be put. When specified, the value must be between `0` and the total number of Assets minus `1`.
+   *
+   *
+   */
+  readonly position?: number
+}
+/**
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists. Produces the [ProductTailoringImageAdded](/projects/messages#product-tailoring-image-added) Message.
+ *
+ */
+export interface ProductTailoringAddExternalImageAction {
+  readonly action: 'addExternalImage'
+  /**
+   *	The `id` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	The `sku` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	Value to add to `images`.
+   *
+   *
+   */
+  readonly image: Image
+  /**
+   *	If `true`, only the staged `images` is updated. If `false`, both the current and staged `images` is updated.
+   *
+   *
+   */
+  readonly staged?: boolean
+}
+/**
+ *	Either `id` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
+ *	Produces the [ProductVariantTailoringAdded](ctp:api:type:ProductVariantTailoringAddedMessage) Message.
+ *
+ */
+export interface ProductTailoringAddVariantAction {
+  readonly action: 'addVariant'
+  /**
+   *	The `id` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly id?: number
+  /**
+   *	The `sku` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	Images for the Product Variant Tailoring.
+   *
+   *
+   */
+  readonly images?: Image[]
+  /**
+   *	Media assets for the Product Variant Tailoring.
+   *
+   *
+   */
+  readonly assets?: AssetDraft[]
+  /**
+   *	If `true` the new Product Variant Tailoring is only staged. If `false` the new Product Variant Tailoring is both current and staged.
+   *
+   *
+   */
+  readonly staged?: boolean
+}
+/**
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
+ *	The Asset to update must be specified using either `assetId` or `assetKey`.
+ *
+ */
+export interface ProductTailoringChangeAssetNameAction {
+  readonly action: 'changeAssetName'
+  /**
+   *	The `id` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	The `sku` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *
+   *
+   */
+  readonly staged?: boolean
+  /**
+   *	The `id` of the Asset to update.
+   *
+   *
+   */
+  readonly assetId?: string
+  /**
+   *	The `key` of the Asset to update.
+   *
+   *
+   */
+  readonly assetKey?: string
+  /**
+   *	New value to set. Must not be empty.
+   *
+   *
+   */
+  readonly name: LocalizedString
+}
+/**
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
+ *
+ */
+export interface ProductTailoringChangeAssetOrderAction {
+  readonly action: 'changeAssetOrder'
+  /**
+   *	The `id` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	The `sku` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	If `true`, only the staged `assets` is updated. If `false`, both the current and staged `assets` are updated.
+   *
+   *
+   */
+  readonly staged?: boolean
+  /**
+   *	All existing Asset `id`s of the ProductTailoringVariant in the desired new order.
+   *
+   *
+   */
+  readonly assetOrder: string[]
+}
+/**
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
+ *
+ */
+export interface ProductTailoringMoveImageToPositionAction {
+  readonly action: 'moveImageToPosition'
+  /**
+   *	The `id` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	The `sku` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	The URL of the image to update.
+   *
+   *
+   */
+  readonly imageUrl: string
+  /**
+   *	Position in `images` where the image should be moved. Must be between `0` and the total number of images minus `1`.
+   *
+   *
+   */
+  readonly position: number
+  /**
+   *	If `true`, only the staged `images` is updated. If `false`, both the current and staged `images` is updated.
+   *
+   *
+   */
+  readonly staged?: boolean
+}
+/**
  *	Publishes the `staged` data of the ProductTailoring to `current`. Sets `hasStagedChanges` to `false`.
  *	Generates the [ProductTailoringPublished](ctp:api:type:ProductTailoringPublishedMessage) Message.
  *
  */
 export interface ProductTailoringPublishAction {
   readonly action: 'publish'
+}
+/**
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
+ *	The Asset to remove must be specified using either `assetId` or `assetKey`.
+ *
+ */
+export interface ProductTailoringRemoveAssetAction {
+  readonly action: 'removeAsset'
+  /**
+   *	The `id` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	The `sku` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	If `true`, only the staged Asset is removed. If `false`, both the current and staged Asset is removed.
+   *
+   *
+   */
+  readonly staged?: boolean
+  /**
+   *	The `id` of the Asset to remove.
+   *
+   *
+   */
+  readonly assetId?: string
+  /**
+   *	The `key` of the Asset to remove.
+   *
+   *
+   */
+  readonly assetKey?: string
+}
+/**
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
+ *
+ */
+export interface ProductTailoringRemoveImageAction {
+  readonly action: 'removeImage'
+  /**
+   *	The `id` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	The `sku` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	The URL of the image to remove.
+   *
+   *
+   */
+  readonly imageUrl: string
+  /**
+   *	If `true`, only the staged image is removed. If `false`, both the current and staged image is removed.
+   *
+   *
+   */
+  readonly staged?: boolean
+}
+/**
+ *	Either `id` or `sku` is required.
+ *	Produces the [ProductVariantTailoringDeleted](ctp:api:type:ProductVariantTailoringRemovedMessage) Message.
+ *
+ */
+export interface ProductTailoringRemoveVariantAction {
+  readonly action: 'removeVariant'
+  /**
+   *	The `id` of the ProductVariant to remove from the Tailoring.
+   *
+   *
+   */
+  readonly id?: number
+  /**
+   *	The `sku` of the ProductVariant to remove from the Tailoring.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	If `true`, only the staged Product Variant Tailoring is removed. If `false`, both the current and staged Product Variant Tailoring is removed.
+   *
+   *
+   */
+  readonly staged?: boolean
+}
+/**
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
+ *	The [Asset](ctp:api:type:Asset) to update must be specified using either `assetId` or `assetKey`.
+ *
+ */
+export interface ProductTailoringSetAssetCustomFieldAction {
+  readonly action: 'setAssetCustomField'
+  /**
+   *	The `id` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	The `sku` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *
+   *
+   */
+  readonly staged?: boolean
+  /**
+   *	The `id` of the Asset to update.
+   *
+   *
+   */
+  readonly assetId?: string
+  /**
+   *	The `key` of the Asset to update.
+   *
+   *
+   */
+  readonly assetKey?: string
+  /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
+   *
+   */
+  readonly value?: any
+}
+/**
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
+ *	The [Asset](ctp:api:type:Asset) to update must be specified using either `assetId` or `assetKey`.
+ *
+ */
+export interface ProductTailoringSetAssetCustomTypeAction {
+  readonly action: 'setAssetCustomType'
+  /**
+   *	The `id` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	The `sku` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *
+   *
+   */
+  readonly staged?: boolean
+  /**
+   *	The `id` of the Asset to update.
+   *
+   *
+   */
+  readonly assetId?: string
+  /**
+   *	The `key` of the Asset to update.
+   *
+   *
+   */
+  readonly assetKey?: string
+  /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the Asset with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the Asset.
+   *
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Asset.
+   *
+   *
+   */
+  readonly fields?: FieldContainer
+}
+/**
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
+ *	The [Asset](ctp:api:type:Asset) to update must be specified using either `assetId` or `assetKey`.
+ *
+ */
+export interface ProductTailoringSetAssetDescriptionAction {
+  readonly action: 'setAssetDescription'
+  /**
+   *	The `id` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	The `sku` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *
+   *
+   */
+  readonly staged?: boolean
+  /**
+   *	The `id` of the Asset to update.
+   *
+   *
+   */
+  readonly assetId?: string
+  /**
+   *	The `key` of the Asset to update.
+   *
+   *
+   */
+  readonly assetKey?: string
+  /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly description?: LocalizedString
+}
+/**
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
+ *
+ */
+export interface ProductTailoringSetAssetKeyAction {
+  readonly action: 'setAssetKey'
+  /**
+   *	The `id` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	The `sku` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *
+   *
+   */
+  readonly staged?: boolean
+  /**
+   *	The `id` of the Asset to update.
+   *
+   *
+   */
+  readonly assetId: string
+  /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly assetKey?: string
+}
+/**
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
+ *	The [Asset](ctp:api:type:Asset) to update must be specified using either `assetId` or `assetKey`.
+ *
+ */
+export interface ProductTailoringSetAssetSourcesAction {
+  readonly action: 'setAssetSources'
+  /**
+   *	The `id` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	The `sku` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	If `true`, only the staged Asset is updated. If `false` both the current and staged Asset is updated.
+   *
+   *
+   */
+  readonly staged?: boolean
+  /**
+   *	The `id` of the Asset to update.
+   *
+   *
+   */
+  readonly assetId?: string
+  /**
+   *	The `key` of the Asset to update.
+   *
+   *
+   */
+  readonly assetKey?: string
+  /**
+   *	Value to set.
+   *
+   *
+   */
+  readonly sources: AssetSource[]
+}
+/**
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
+ *	The Asset to update must be specified using either `assetId` or `assetKey`.
+ *
+ */
+export interface ProductTailoringSetAssetTagsAction {
+  readonly action: 'setAssetTags'
+  /**
+   *	The `id` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	The `sku` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	If `true`, only the staged Asset is updated. If `false`, both the current and staged Asset is updated.
+   *
+   *
+   */
+  readonly staged?: boolean
+  /**
+   *	The `id` of the Asset to update.
+   *
+   *
+   */
+  readonly assetId?: string
+  /**
+   *	The `key` of the Asset to update.
+   *
+   *
+   */
+  readonly assetKey?: string
+  /**
+   *	Keywords for categorizing and organizing Assets.
+   *
+   *
+   */
+  readonly tags?: string[]
 }
 /**
  *	Generates the [ProductTailoringDescriptionSet](ctp:api:type:ProductTailoringDescriptionSetMessage) Message.
@@ -377,6 +1058,74 @@ export interface ProductTailoringSetDescriptionAction {
   readonly description?: LocalizedString
   /**
    *	If `true`, only the staged `description` is updated. If `false`, both the current and staged `description` are updated.
+   *
+   *
+   */
+  readonly staged?: boolean
+}
+/**
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists. Produces the [ProductTailoringImagesSet](/projects/messages#product-tailoring-images-set) Message.
+ *
+ */
+export interface ProductTailoringSetExternalImagesAction {
+  readonly action: 'setImages'
+  /**
+   *	The `id` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	The `sku` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	Value to set to `images`.
+   *
+   *
+   */
+  readonly images: Image[]
+  /**
+   *	If `true`, only the staged `images` is updated. If `false`, both the current and staged `images` is updated.
+   *
+   *
+   */
+  readonly staged?: boolean
+}
+/**
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
+ *
+ */
+export interface ProductTailoringSetImageLabelAction {
+  readonly action: 'setImageLabel'
+  /**
+   *	The `sku` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	The `id` of the tailored ProductVariant to update.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	The URL of the image to set the label.
+   *
+   *
+   */
+  readonly imageUrl: string
+  /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly label?: string
+  /**
+   *	If `true`, only the staged image is updated. If `false`, both the current and staged image is updated.
    *
    *
    */

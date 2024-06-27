@@ -96,6 +96,8 @@ export * from './client/extensions/by-project-key-extensions-key-by-key-request-
 export * from './client/extensions/by-project-key-extensions-request-builder'
 export * from './client/graphql/by-project-key-graphql-request-builder'
 export * from './client/health/by-project-key-subscriptions-by-id-health-request-builder'
+export * from './client/images/by-project-key-in-store-key-by-store-key-products-by-product-id-product-tailoring-images-request-builder'
+export * from './client/images/by-project-key-in-store-key-by-store-key-products-key-by-product-key-product-tailoring-images-request-builder'
 export * from './client/images/by-project-key-products-by-id-images-request-builder'
 export * from './client/import/by-project-key-orders-import-request-builder'
 export * from './client/in-business-unit/by-project-key-as-associate-by-associate-id-in-business-unit-key-by-business-unit-key-request-builder'

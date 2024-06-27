@@ -7,6 +7,7 @@ import { ProductTailoringUpdate } from '../../models/cart'
 import { ProductTailoring } from '../../models/product-tailoring'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
+import { ByProjectKeyInStoreKeyByStoreKeyProductsKeyByProductKeyProductTailoringImagesRequestBuilder } from '../images/by-project-key-in-store-key-by-store-key-products-key-by-product-key-product-tailoring-images-request-builder'
 /**
  **/
 export class ByProjectKeyInStoreKeyByStoreKeyProductsKeyByProductKeyProductTailoringRequestBuilder {
@@ -21,6 +22,18 @@ export class ByProjectKeyInStoreKeyByStoreKeyProductsKeyByProductKeyProductTailo
       baseUri?: string
     }
   ) {}
+  public images(): ByProjectKeyInStoreKeyByStoreKeyProductsKeyByProductKeyProductTailoringImagesRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyProductsKeyByProductKeyProductTailoringImagesRequestBuilder(
+      {
+        pathArgs: {
+          ...this.args.pathArgs,
+        },
+        executeRequest: this.args.executeRequest,
+        baseUri: this.args.baseUri,
+      }
+    )
+  }
+
   /**
    *	Gets the current or staged representation of a [Product Tailoring](ctp:api:type:ProductTailoring) by its Product key in the specified [Store](ctp:api:type:Store).
    *

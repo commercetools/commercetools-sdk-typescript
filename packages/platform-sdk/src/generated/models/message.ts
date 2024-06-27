@@ -85,6 +85,7 @@ import {
   ProductVariantExclusion,
   ProductVariantSelection,
 } from './product-selection'
+import { ProductVariantTailoring } from './product-tailoring'
 import { Quote, QuoteState } from './quote'
 import { QuoteRequest, QuoteRequestState } from './quote-request'
 import { Review } from './review'
@@ -293,6 +294,8 @@ export type Message =
   | ProductTailoringCreatedMessage
   | ProductTailoringDeletedMessage
   | ProductTailoringDescriptionSetMessage
+  | ProductTailoringImageAddedMessage
+  | ProductTailoringImagesSetMessage
   | ProductTailoringNameSetMessage
   | ProductTailoringPublishedMessage
   | ProductTailoringSlugSetMessage
@@ -300,6 +303,8 @@ export type Message =
   | ProductUnpublishedMessage
   | ProductVariantAddedMessage
   | ProductVariantDeletedMessage
+  | ProductVariantTailoringAddedMessage
+  | ProductVariantTailoringRemovedMessage
   | QuoteCreatedMessage
   | QuoteCustomerChangedMessage
   | QuoteDeletedMessage
@@ -13635,6 +13640,30 @@ export interface ProductTailoringCreatedMessage {
    */
   readonly slug?: LocalizedString
   /**
+   *	The metaTitle of the [Product Tailoring](ctp:api:type:ProductTailoring) at the time of creation.
+   *
+   *
+   */
+  readonly metaTitle?: LocalizedString
+  /**
+   *	The metaDescription of the [Product Tailoring](ctp:api:type:ProductTailoring) at the time of creation.
+   *
+   *
+   */
+  readonly metaDescription?: LocalizedString
+  /**
+   *	The metaKeywords of the [Product Tailoring](ctp:api:type:ProductTailoring) at the time of creation.
+   *
+   *
+   */
+  readonly metaKeywords?: LocalizedString
+  /**
+   *	The variants of the [Product Tailoring](ctp:api:type:ProductTailoring) at the time of creation.
+   *
+   *
+   */
+  readonly variants?: ProductVariantTailoring[]
+  /**
    *	`true` if the ProductTailoring is published.
    *
    *
@@ -13817,6 +13846,201 @@ export interface ProductTailoringDescriptionSetMessage {
    *
    */
   readonly oldDescription?: LocalizedString
+}
+/**
+ *	Generated after a successful [Add External Image](ctp:api:type:ProductTailoringAddExternalImageAction) update action
+ *	or after a successful [Upload Product Tailoring image](/projects/product-tailoring#upload-product-tailoring-image) request.
+ *
+ */
+export interface ProductTailoringImageAddedMessage {
+  readonly type: 'ProductTailoringImageAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	`key` of the tailored Product.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the tailored Product.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	`id` of the tailored [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	[Image](ctp:api:type:Image) that was added.
+   *
+   *
+   */
+  readonly image: Image
+}
+/**
+ *	Generated after a successful [Set Images](ctp:api:type:ProductTailoringSetExternalImagesAction) update action.
+ *
+ */
+export interface ProductTailoringImagesSetMessage {
+  readonly type: 'ProductTailoringImagesSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	`key` of the tailored Product.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	`id` of the tailored Product Variant.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	[Images](ctp:api:type:Image) on the tailored [Product Variant](ctp:api:type:ProductVariantTailoring) before the [Set Images](ctp:api:type:ProductTailoringSetExternalImagesAction) update action.
+   *
+   *
+   */
+  readonly oldImages?: Image[]
+  /**
+   *	[Images](ctp:api:type:Image) on the tailored [Product Variant](ctp:api:type:ProductVariantTailoring) after the [Set Images](ctp:api:type:ProductTailoringSetExternalImagesAction) update action.
+   *
+   *
+   */
+  readonly images?: Image[]
 }
 /**
  *	Generated after a successful Product Tailoring [Set Name](ctp:api:type:ProductTailoringSetNameAction) update action.
@@ -14385,6 +14609,194 @@ export interface ProductVariantDeletedMessage {
    *
    */
   readonly removedImageUrls: string[]
+}
+/**
+ *	Generated after a successful [Add ProductVariant Tailoring](ctp:api:type:ProductTailoringAddVariantAction) update action.
+ *
+ */
+export interface ProductVariantTailoringAddedMessage {
+  readonly type: 'ProductVariantTailoringAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	`key` of the tailored Product.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the tailored Product.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	`id` of the [ProductVariant](ctp:api:type:ProductVariant) added to the Tailoring.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	The [ProductVariantTailoring](ctp:api:type:ProductVariantTailoring) that was added to the ProductTailoring.
+   *
+   *
+   */
+  readonly variant: ProductVariantTailoring
+}
+/**
+ *	Generated after a successful [Remove ProductVariant Tailoring](ctp:api:type:ProductTailoringRemoveVariantAction) update action.
+ *
+ */
+export interface ProductVariantTailoringRemovedMessage {
+  readonly type: 'ProductVariantTailoringRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	`key` of the tailored Product.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	`id` of the [ProductVariant](ctp:api:type:ProductVariant) removed from the Tailoring.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	The [ProductVariantTailoring](ctp:api:type:ProductVariantTailoring) that was removed from the ProductTailoring.
+   *
+   *
+   */
+  readonly variant: ProductVariantTailoring
 }
 /**
  *	Generated after a successful [Create Quote](ctp:api:endpoint:/{projectKey}/quotes:POST) request.
@@ -17991,6 +18403,8 @@ export type MessagePayload =
   | ProductTailoringCreatedMessagePayload
   | ProductTailoringDeletedMessagePayload
   | ProductTailoringDescriptionSetMessagePayload
+  | ProductTailoringImageAddedMessagePayload
+  | ProductTailoringImagesSetMessagePayload
   | ProductTailoringNameSetMessagePayload
   | ProductTailoringPublishedMessagePayload
   | ProductTailoringSlugSetMessagePayload
@@ -17998,6 +18412,8 @@ export type MessagePayload =
   | ProductUnpublishedMessagePayload
   | ProductVariantAddedMessagePayload
   | ProductVariantDeletedMessagePayload
+  | ProductVariantTailoringAddedMessagePayload
+  | ProductVariantTailoringRemovedMessagePayload
   | QuoteCreatedMessagePayload
   | QuoteCustomerChangedMessagePayload
   | QuoteDeletedMessagePayload
@@ -21298,6 +21714,30 @@ export interface ProductTailoringCreatedMessagePayload {
    */
   readonly slug?: LocalizedString
   /**
+   *	The metaTitle of the [Product Tailoring](ctp:api:type:ProductTailoring) at the time of creation.
+   *
+   *
+   */
+  readonly metaTitle?: LocalizedString
+  /**
+   *	The metaDescription of the [Product Tailoring](ctp:api:type:ProductTailoring) at the time of creation.
+   *
+   *
+   */
+  readonly metaDescription?: LocalizedString
+  /**
+   *	The metaKeywords of the [Product Tailoring](ctp:api:type:ProductTailoring) at the time of creation.
+   *
+   *
+   */
+  readonly metaKeywords?: LocalizedString
+  /**
+   *	The variants of the [Product Tailoring](ctp:api:type:ProductTailoring) at the time of creation.
+   *
+   *
+   */
+  readonly variants?: ProductVariantTailoring[]
+  /**
    *	`true` if the ProductTailoring is published.
    *
    *
@@ -21366,6 +21806,87 @@ export interface ProductTailoringDescriptionSetMessagePayload {
    *
    */
   readonly oldDescription?: LocalizedString
+}
+/**
+ *	Generated after a successful [Add External Image](ctp:api:type:ProductTailoringAddExternalImageAction) update action
+ *	or after a successful [Upload Product Tailoring image](/projects/product-tailoring#upload-product-tailoring-image) request.
+ *
+ */
+export interface ProductTailoringImageAddedMessagePayload {
+  readonly type: 'ProductTailoringImageAdded'
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	`key` of the tailored Product.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the tailored Product.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	`id` of the tailored [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	[Image](ctp:api:type:Image) that was added.
+   *
+   *
+   */
+  readonly image: Image
+}
+/**
+ *	Generated after a successful [Set Images](ctp:api:type:ProductTailoringSetExternalImagesAction) update action.
+ *
+ */
+export interface ProductTailoringImagesSetMessagePayload {
+  readonly type: 'ProductTailoringImagesSet'
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	`key` of the tailored Product.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	`id` of the tailored Product Variant.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	[Images](ctp:api:type:Image) on the tailored [Product Variant](ctp:api:type:ProductVariantTailoring) before the [Set Images](ctp:api:type:ProductTailoringSetExternalImagesAction) update action.
+   *
+   *
+   */
+  readonly oldImages?: Image[]
+  /**
+   *	[Images](ctp:api:type:Image) on the tailored [Product Variant](ctp:api:type:ProductVariantTailoring) after the [Set Images](ctp:api:type:ProductTailoringSetExternalImagesAction) update action.
+   *
+   *
+   */
+  readonly images?: Image[]
 }
 /**
  *	Generated after a successful Product Tailoring [Set Name](ctp:api:type:ProductTailoringSetNameAction) update action.
@@ -21535,6 +22056,80 @@ export interface ProductVariantDeletedMessagePayload {
    *
    */
   readonly removedImageUrls: string[]
+}
+/**
+ *	Generated after a successful [Add ProductVariant Tailoring](ctp:api:type:ProductTailoringAddVariantAction) update action.
+ *
+ */
+export interface ProductVariantTailoringAddedMessagePayload {
+  readonly type: 'ProductVariantTailoringAdded'
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	`key` of the tailored Product.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the tailored Product.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	`id` of the [ProductVariant](ctp:api:type:ProductVariant) added to the Tailoring.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	The [ProductVariantTailoring](ctp:api:type:ProductVariantTailoring) that was added to the ProductTailoring.
+   *
+   *
+   */
+  readonly variant: ProductVariantTailoring
+}
+/**
+ *	Generated after a successful [Remove ProductVariant Tailoring](ctp:api:type:ProductTailoringRemoveVariantAction) update action.
+ *
+ */
+export interface ProductVariantTailoringRemovedMessagePayload {
+  readonly type: 'ProductVariantTailoringRemoved'
+  /**
+   *	The Store to which the Product Tailoring belongs.
+   *
+   *
+   */
+  readonly store: StoreKeyReference
+  /**
+   *	`key` of the tailored Product.
+   *
+   *
+   */
+  readonly productKey?: string
+  /**
+   *	Reference to the Product the Product Tailoring belongs to.
+   *
+   *
+   */
+  readonly product: ProductReference
+  /**
+   *	`id` of the [ProductVariant](ctp:api:type:ProductVariant) removed from the Tailoring.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	The [ProductVariantTailoring](ctp:api:type:ProductVariantTailoring) that was removed from the ProductTailoring.
+   *
+   *
+   */
+  readonly variant: ProductVariantTailoring
 }
 /**
  *	Generated after a successful [Create Quote](ctp:api:endpoint:/{projectKey}/quotes:POST) request.
