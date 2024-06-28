@@ -12,6 +12,16 @@ import { LastModifiedBy } from './common'
 import { MessagesConfiguration, MessagesConfigurationDraft } from './message'
 import { CustomFieldLocalizedEnumValue } from './type'
 
+/**
+ *	The current indexing status of Customer Search.
+ *
+ */
+export type CustomerIndexingStatus =
+  | 'Failed'
+  | 'Indexing'
+  | 'Ready'
+  | 'Scheduled'
+  | string
 export interface BusinessUnitConfiguration {
   /**
    *	Status of Business Units created using the [My Business Unit endpoint](ctp:api:endpoint:/{projectKey}/me/business-units:POST).
@@ -46,6 +56,12 @@ export interface CartsConfiguration {
    */
   readonly countryTaxRateFallbackEnabled?: boolean
 }
+/**
+ *	Specifies the status of the [Customer Search](/../api/projects/customer-search) index.
+ *	You can change the status using the [Change Customer Search Status](ctp:api:type:ProjectChangeCustomerSearchStatusAction) update action.
+ *
+ */
+export type CustomerSearchStatus = 'Activated' | 'Deactivated' | string
 /**
  *	Represents a RFC 7662 compliant [OAuth 2.0 Token Introspection](https://datatracker.ietf.org/doc/html/rfc7662) endpoint. For more information, see [Requesting an access token using an external OAuth 2.0 server](/../api/authorization#requesting-an-access-token-using-an-external-oauth-server).
  *
@@ -190,6 +206,7 @@ export type ProjectUpdateAction =
   | ProjectChangeCountriesAction
   | ProjectChangeCountryTaxRateFallbackEnabledAction
   | ProjectChangeCurrenciesAction
+  | ProjectChangeCustomerSearchStatusAction
   | ProjectChangeLanguagesAction
   | ProjectChangeMessagesConfigurationAction
   | ProjectChangeNameAction
@@ -333,6 +350,14 @@ export interface ProjectChangeCurrenciesAction {
    *
    */
   readonly currencies: string[]
+}
+export interface ProjectChangeCustomerSearchStatusAction {
+  readonly action: 'changeCustomerSearchStatus'
+  /**
+   *	Activates or deactivates the [Customer Search](/../api/projects/customer-search) feature. Activation will trigger building a search index for the Customers in the Project.
+   *
+   */
+  readonly status: CustomerSearchStatus
 }
 /**
  *	Removing a language used by a [Store](ctp:api:type:Store) returns a [LanguageUsedInStores](ctp:api:type:LanguageUsedInStoresError) error.

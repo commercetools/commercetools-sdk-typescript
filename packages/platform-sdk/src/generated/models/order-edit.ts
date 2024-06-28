@@ -725,7 +725,7 @@ export interface StagedOrderAddLineItemAction {
    */
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
   /**
-   *	External Tax Rate for the Line Item, if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+   *	Sets the external Tax Rate for the Line Item, if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode). If the Cart has `Multiple` [ShippingMode](ctp:api:type:ShippingMode), the Tax Rate is accepted but ignored.
    *
    *
    */

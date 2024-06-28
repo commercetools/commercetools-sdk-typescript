@@ -47,6 +47,8 @@
 <details>
 <summary>Added Resource(s)</summary>
 
+- added resource `/{projectKey}/customers/search`
+- added resource `/{projectKey}/customers/search/indexing-status`
 - added resource `/{projectKey}/in-store/key={storeKey}/quote-requests`
 - added resource `/{projectKey}/in-store/key={storeKey}/staged-quotes`
 - added resource `/{projectKey}/in-store/key={storeKey}/quotes`
@@ -77,6 +79,9 @@
 <details>
 <summary>Added Method(s)</summary>
 
+- added method `apiRoot.withProjectKey().customers().search().post()`
+- added method `apiRoot.withProjectKey().customers().search().head()`
+- added method `apiRoot.withProjectKey().customers().searchIndexingStatus().get()`
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().get()`
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().head()`
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().post()`
@@ -118,6 +123,12 @@
 <details>
 <summary>Added Type(s)</summary>
 
+- added type `CustomerIndexingProgress`
+- added type `CustomerIndexingStatus`
+- added type `CustomerPagedSearchResponse`
+- added type `CustomerSearchIndexingStatusResponse`
+- added type `CustomerSearchRequest`
+- added type `CustomerSearchResult`
 - added type `ProductTailoringImageAddedMessage`
 - added type `ProductTailoringImagesSetMessage`
 - added type `ProductVariantTailoringAddedMessage`
@@ -149,6 +160,8 @@
 - added type `ProductTailoringSetAssetTagsAction`
 - added type `ProductTailoringSetExternalImagesAction`
 - added type `ProductTailoringSetImageLabelAction`
+- added type `CustomerSearchStatus`
+- added type `ProjectChangeCustomerSearchStatusAction`
 </details>
 
 <details>
