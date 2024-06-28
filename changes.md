@@ -3,6 +3,12 @@
 <details>
 <summary>Added Property(s)</summary>
 
+- added property `approvalRuleMode` to type `BusinessUnit`
+- added property `approvalRuleMode` to type `BusinessUnitDraft`
+- added property `approvalRuleMode` to type `Company`
+- added property `approvalRuleMode` to type `CompanyDraft`
+- added property `approvalRuleMode` to type `Division`
+- added property `approvalRuleMode` to type `DivisionDraft`
 - added property `metaTitle` to type `ProductTailoringCreatedMessage`
 - added property `metaDescription` to type `ProductTailoringCreatedMessage`
 - added property `metaKeywords` to type `ProductTailoringCreatedMessage`
@@ -119,16 +125,20 @@
 <details>
 <summary>Added Type(s)</summary>
 
+- added type `BusinessUnitApprovalRuleMode`
+- added type `BusinessUnitChangeApprovalRuleModeAction`
 - added type `CustomerIndexingProgress`
 - added type `CustomerIndexingStatus`
 - added type `CustomerPagedSearchResponse`
 - added type `CustomerSearchIndexingStatusResponse`
 - added type `CustomerSearchRequest`
 - added type `CustomerSearchResult`
+- added type `BusinessUnitApprovalRuleModeChangedMessage`
 - added type `ProductTailoringImageAddedMessage`
 - added type `ProductTailoringImagesSetMessage`
 - added type `ProductVariantTailoringAddedMessage`
 - added type `ProductVariantTailoringRemovedMessage`
+- added type `BusinessUnitApprovalRuleModeChangedMessagePayload`
 - added type `ProductTailoringImageAddedMessagePayload`
 - added type `ProductTailoringImagesSetMessagePayload`
 - added type `ProductVariantTailoringAddedMessagePayload`
