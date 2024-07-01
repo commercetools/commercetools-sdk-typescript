@@ -91,6 +91,14 @@ export type AssociateRoleInheritanceMode = 'Disabled' | 'Enabled' | string
  */
 export type BusinessUnit = Company | Division
 /**
+ *	Determines whether a Business Unit can inherit [Approval Rules](/projects/approval-rules) from a parent. Only Business Units of type `Division` can use `ExplicitAndFromParent`.
+ *
+ */
+export type BusinessUnitApprovalRuleMode =
+  | 'Explicit'
+  | 'ExplicitAndFromParent'
+  | string
+/**
  *	Determines whether a Business Unit can inherit Associates from a parent.
  *
  */
@@ -231,6 +239,7 @@ export type BusinessUnitUpdateAction =
   | BusinessUnitAddShippingAddressIdAction
   | BusinessUnitAddStoreAction
   | BusinessUnitChangeAddressAction
+  | BusinessUnitChangeApprovalRuleModeAction
   | BusinessUnitChangeAssociateAction
   | BusinessUnitChangeAssociateModeAction
   | BusinessUnitChangeNameAction
@@ -317,7 +326,7 @@ export interface Company {
    */
   readonly stores?: StoreKeyReference[]
   /**
-   *	Is always `Explicit` since a Company cannot have a parent Business Unit that Stores can be inherited from.
+   *	The value of this field is always `Explicit` because a Company cannot have a parent Business Unit that Stores can be inherited from.
    *
    *
    */
@@ -371,7 +380,7 @@ export interface Company {
    */
   readonly defaultBillingAddressId?: string
   /**
-   *	Is always `Explicit` since a Company cannot have a parent Business Unit that Associates can be inherited from.
+   *	The value of this field is always `Explicit` because a Company cannot have a parent Business Unit that Associates can be inherited from.
    *
    *
    */
@@ -400,6 +409,12 @@ export interface Company {
    *
    */
   readonly topLevelUnit: BusinessUnitKeyReference
+  /**
+   *	The value of this field is always `Explicit` because a Company cannot have a parent Business Unit that Approval Rules can be inherited from.
+   *
+   *
+   */
+  readonly approvalRuleMode: BusinessUnitApprovalRuleMode
 }
 /**
  *	Draft type to represent the top level of a business. Contains the fields and values of the generic [BusinessUnitDraft](ctp:api:type:BusinessUnitDraft) that are used specifically for creating a [Company](ctp:api:type:Company).
@@ -462,6 +477,14 @@ export interface CompanyDraft {
    *
    */
   readonly associates?: AssociateDraft[]
+  /**
+   *	Determines whether the Business Unit can inherit Approval Rules from a parent.
+   *	For [Companies](ctp:api:type:BusinessUnitType), the value of this field is always `Explicit`.
+   *	For [Divisions](ctp:api:type:BusinessUnitType), the default value is `ExplicitAndFromParent`.
+   *
+   *
+   */
+  readonly approvalRuleMode?: BusinessUnitApprovalRuleMode
   /**
    *	Addresses used by the Business Unit.
    *
@@ -650,6 +673,12 @@ export interface Division {
    *
    */
   readonly topLevelUnit: BusinessUnitKeyReference
+  /**
+   *	Determines whether a Business Unit can inherit Approval Rules from a parent.
+   *
+   *
+   */
+  readonly approvalRuleMode: BusinessUnitApprovalRuleMode
 }
 /**
  *	Draft type to model divisions that are part of a [Company](ctp:api:type:Company) or a higher-order [Division](ctp:api:type:Division).
@@ -712,6 +741,12 @@ export interface DivisionDraft {
    *
    */
   readonly associates?: AssociateDraft[]
+  /**
+   *	Determines whether the Division can inherit Approval Rules from a parent.
+   *
+   *
+   */
+  readonly approvalRuleMode?: BusinessUnitApprovalRuleMode
   /**
    *	Addresses used by the Business Unit.
    *
@@ -887,6 +922,23 @@ export interface BusinessUnitChangeAddressAction {
    *
    */
   readonly address: _BaseAddress
+}
+/**
+ *	Updates [Approval Rules](/projects/approval-rules) inheritance behavior between Business Units.
+ *
+ *	Only Business Units of type `Division` can be changed to `ExplicitAndFromParent`.
+ *
+ *	This update action generates a [BusinessUnitApprovalRuleModeChanged](ctp:api:type:BusinessUnitApprovalRuleModeChangedMessage) Message.
+ *
+ */
+export interface BusinessUnitChangeApprovalRuleModeAction {
+  readonly action: 'changeApprovalRuleMode'
+  /**
+   *	The new value for `approvalRuleMode`.
+   *
+   *
+   */
+  readonly approvalRuleMode: BusinessUnitApprovalRuleMode
 }
 /**
  *	Updating the [Associate](ctp:api:type:Associate) on a [Business Unit](ctp:api:type:BusinessUnit) generates the [BusinessUnitAssociateChanged](ctp:api:type:BusinessUnitAssociateChangedMessage) Message.

@@ -3,6 +3,14 @@
 <details>
 <summary>Added Property(s)</summary>
 
+- added property `approvalRuleMode` to type `BusinessUnit`
+- added property `approvalRuleMode` to type `BusinessUnitDraft`
+- added property `approvalRuleMode` to type `Company`
+- added property `approvalRuleMode` to type `CompanyDraft`
+- added property `approvalRuleMode` to type `Division`
+- added property `approvalRuleMode` to type `DivisionDraft`
+- added property `customerGroupAssignments` to type `Customer`
+- added property `customerGroupAssignments` to type `CustomerDraft`
 - added property `metaTitle` to type `ProductTailoringCreatedMessage`
 - added property `metaDescription` to type `ProductTailoringCreatedMessage`
 - added property `metaKeywords` to type `ProductTailoringCreatedMessage`
@@ -43,6 +51,8 @@
 <details>
 <summary>Added Resource(s)</summary>
 
+- added resource `/{projectKey}/customers/search`
+- added resource `/{projectKey}/customers/search/indexing-status`
 - added resource `/{projectKey}/in-store/key={storeKey}/quote-requests`
 - added resource `/{projectKey}/in-store/key={storeKey}/staged-quotes`
 - added resource `/{projectKey}/in-store/key={storeKey}/quotes`
@@ -73,6 +83,9 @@
 <details>
 <summary>Added Method(s)</summary>
 
+- added method `apiRoot.withProjectKey().customers().search().post()`
+- added method `apiRoot.withProjectKey().customers().search().head()`
+- added method `apiRoot.withProjectKey().customers().searchIndexingStatus().get()`
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().get()`
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().head()`
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().post()`
@@ -114,10 +127,31 @@
 <details>
 <summary>Added Type(s)</summary>
 
+- added type `BusinessUnitApprovalRuleMode`
+- added type `BusinessUnitChangeApprovalRuleModeAction`
+- added type `CustomerIndexingProgress`
+- added type `CustomerIndexingStatus`
+- added type `CustomerPagedSearchResponse`
+- added type `CustomerSearchIndexingStatusResponse`
+- added type `CustomerSearchRequest`
+- added type `CustomerSearchResult`
+- added type `CustomerGroupAssignment`
+- added type `CustomerGroupAssignmentDraft`
+- added type `CustomerAddCustomerGroupAssignmentAction`
+- added type `CustomerRemoveCustomerGroupAssignmentAction`
+- added type `CustomerSetCustomerGroupAssignmentsAction`
+- added type `BusinessUnitApprovalRuleModeChangedMessage`
+- added type `CustomerGroupAssignmentAddedMessage`
+- added type `CustomerGroupAssignmentRemovedMessage`
+- added type `CustomerGroupAssignmentsSetMessage`
 - added type `ProductTailoringImageAddedMessage`
 - added type `ProductTailoringImagesSetMessage`
 - added type `ProductVariantTailoringAddedMessage`
 - added type `ProductVariantTailoringRemovedMessage`
+- added type `BusinessUnitApprovalRuleModeChangedMessagePayload`
+- added type `CustomerGroupAssignmentAddedMessagePayload`
+- added type `CustomerGroupAssignmentRemovedMessagePayload`
+- added type `CustomerGroupAssignmentsSetMessagePayload`
 - added type `ProductTailoringImageAddedMessagePayload`
 - added type `ProductTailoringImagesSetMessagePayload`
 - added type `ProductVariantTailoringAddedMessagePayload`
@@ -145,6 +179,8 @@
 - added type `ProductTailoringSetAssetTagsAction`
 - added type `ProductTailoringSetExternalImagesAction`
 - added type `ProductTailoringSetImageLabelAction`
+- added type `CustomerSearchStatus`
+- added type `ProjectChangeCustomerSearchStatusAction`
 </details>
 
 <details>
