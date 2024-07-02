@@ -275,6 +275,11 @@ export type Message =
   | ProductImageAddedMessage
   | ProductPriceAddedMessage
   | ProductPriceChangedMessage
+  | ProductPriceCustomFieldAddedMessage
+  | ProductPriceCustomFieldChangedMessage
+  | ProductPriceCustomFieldRemovedMessage
+  | ProductPriceCustomFieldsRemovedMessage
+  | ProductPriceCustomFieldsSetMessage
   | ProductPriceDiscountsSetMessage
   | ProductPriceExternalDiscountSetMessage
   | ProductPriceKeySetMessage
@@ -12179,6 +12184,458 @@ export interface ProductPriceChangedMessage {
   readonly oldStagedPrice?: Price
 }
 /**
+ *	Generated after adding a Custom Field to a Price using the [Set Price CustomField](ctp:api:type:ProductSetProductPriceCustomFieldAction) update action.
+ *
+ */
+export interface ProductPriceCustomFieldAddedMessage {
+  readonly type: 'ProductPriceCustomFieldAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Unique identifier of the [Price](ctp:api:type:Price) to which the Custom Field was added.
+   *
+   *
+   */
+  readonly priceId: string
+  /**
+   *	Unique identifier of the [ProductVariant](ctp:api:type:ProductVariant) to which the Price belongs.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
+   *
+   */
+  readonly staged: boolean
+  /**
+   *	Name of the Custom Field that was added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after changing an existing Custom Field on a Price using the [Set Price CustomField](ctp:api:type:ProductSetProductPriceCustomFieldAction) update action.
+ *
+ */
+export interface ProductPriceCustomFieldChangedMessage {
+  readonly type: 'ProductPriceCustomFieldChanged'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Unique identifier of the [Price](ctp:api:type:Price) of which the Custom Field was changed.
+   *
+   *
+   */
+  readonly priceId: string
+  /**
+   *	Unique identifier of the [ProductVariant](ctp:api:type:ProductVariant) to which the Price belongs.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
+   *
+   */
+  readonly staged: boolean
+  /**
+   *	Name of the Custom Field that was changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set Price CustomField](ctp:api:type:ProductSetProductPriceCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after removing a Custom Field from a Price using the [Set Price CustomField](ctp:api:type:ProductSetProductPriceCustomFieldAction) update action.
+ *
+ */
+export interface ProductPriceCustomFieldRemovedMessage {
+  readonly type: 'ProductPriceCustomFieldRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Unique identifier of the [Price](ctp:api:type:Price) from which the Custom Field was removed.
+   *
+   *
+   */
+  readonly priceId: string
+  /**
+   *	Unique identifier of the [ProductVariant](ctp:api:type:ProductVariant) to which the Price belongs.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
+   *
+   */
+  readonly staged: boolean
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after removing a Custom Type from a Price using the [Set Price Custom Type](ctp:api:type:ProductSetProductPriceCustomTypeAction) update action.
+ *
+ */
+export interface ProductPriceCustomFieldsRemovedMessage {
+  readonly type: 'ProductPriceCustomFieldsRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Unique identifier of the [Price](ctp:api:type:Price) from which the Custom Type was removed.
+   *
+   *
+   */
+  readonly priceId: string
+  /**
+   *	Unique identifier of the [ProductVariant](ctp:api:type:ProductVariant) to which the Price belongs.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
+   *
+   */
+  readonly staged: boolean
+}
+/**
+ *	Generated after a successful [Set Price Custom Type](ctp:api:type:ProductSetProductPriceCustomTypeAction) update action.
+ *
+ */
+export interface ProductPriceCustomFieldsSetMessage {
+  readonly type: 'ProductPriceCustomFieldsSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Unique identifier of the [Price](ctp:api:type:Price) on which the Custom Type was set.
+   *
+   *
+   */
+  readonly priceId: string
+  /**
+   *	Unique identifier of the [ProductVariant](ctp:api:type:ProductVariant) to which the Price belongs.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
+   *
+   */
+  readonly staged: boolean
+  /**
+   *	Custom Fields that were set.
+   *
+   *
+   */
+  readonly customField: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
  *	Generated after a Price is updated due to a [Product Discount](ctp:api:type:ProductDiscount).
  *
  */
@@ -18461,6 +18918,11 @@ export type MessagePayload =
   | ProductImageAddedMessagePayload
   | ProductPriceAddedMessagePayload
   | ProductPriceChangedMessagePayload
+  | ProductPriceCustomFieldAddedMessagePayload
+  | ProductPriceCustomFieldChangedMessagePayload
+  | ProductPriceCustomFieldRemovedMessagePayload
+  | ProductPriceCustomFieldsRemovedMessagePayload
+  | ProductPriceCustomFieldsSetMessagePayload
   | ProductPriceDiscountsSetMessagePayload
   | ProductPriceExternalDiscountSetMessagePayload
   | ProductPriceKeySetMessagePayload
@@ -21396,6 +21858,173 @@ export interface ProductPriceChangedMessagePayload {
    *
    */
   readonly oldStagedPrice?: Price
+}
+/**
+ *	Generated after adding a Custom Field to a Price using the [Set Price CustomField](ctp:api:type:ProductSetProductPriceCustomFieldAction) update action.
+ *
+ */
+export interface ProductPriceCustomFieldAddedMessagePayload {
+  readonly type: 'ProductPriceCustomFieldAdded'
+  /**
+   *	Unique identifier of the [Price](ctp:api:type:Price) to which the Custom Field was added.
+   *
+   *
+   */
+  readonly priceId: string
+  /**
+   *	Unique identifier of the [ProductVariant](ctp:api:type:ProductVariant) to which the Price belongs.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
+   *
+   */
+  readonly staged: boolean
+  /**
+   *	Name of the Custom Field that was added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after changing an existing Custom Field on a Price using the [Set Price CustomField](ctp:api:type:ProductSetProductPriceCustomFieldAction) update action.
+ *
+ */
+export interface ProductPriceCustomFieldChangedMessagePayload {
+  readonly type: 'ProductPriceCustomFieldChanged'
+  /**
+   *	Unique identifier of the [Price](ctp:api:type:Price) of which the Custom Field was changed.
+   *
+   *
+   */
+  readonly priceId: string
+  /**
+   *	Unique identifier of the [ProductVariant](ctp:api:type:ProductVariant) to which the Price belongs.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
+   *
+   */
+  readonly staged: boolean
+  /**
+   *	Name of the Custom Field that was changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set Price CustomField](ctp:api:type:ProductSetProductPriceCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after removing a Custom Field from a Price using the [Set Price CustomField](ctp:api:type:ProductSetProductPriceCustomFieldAction) update action.
+ *
+ */
+export interface ProductPriceCustomFieldRemovedMessagePayload {
+  readonly type: 'ProductPriceCustomFieldRemoved'
+  /**
+   *	Unique identifier of the [Price](ctp:api:type:Price) from which the Custom Field was removed.
+   *
+   *
+   */
+  readonly priceId: string
+  /**
+   *	Unique identifier of the [ProductVariant](ctp:api:type:ProductVariant) to which the Price belongs.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
+   *
+   */
+  readonly staged: boolean
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after removing a Custom Type from a Price using the [Set Price Custom Type](ctp:api:type:ProductSetProductPriceCustomTypeAction) update action.
+ *
+ */
+export interface ProductPriceCustomFieldsRemovedMessagePayload {
+  readonly type: 'ProductPriceCustomFieldsRemoved'
+  /**
+   *	Unique identifier of the [Price](ctp:api:type:Price) from which the Custom Type was removed.
+   *
+   *
+   */
+  readonly priceId: string
+  /**
+   *	Unique identifier of the [ProductVariant](ctp:api:type:ProductVariant) to which the Price belongs.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
+   *
+   */
+  readonly staged: boolean
+}
+/**
+ *	Generated after a successful [Set Price Custom Type](ctp:api:type:ProductSetProductPriceCustomTypeAction) update action.
+ *
+ */
+export interface ProductPriceCustomFieldsSetMessagePayload {
+  readonly type: 'ProductPriceCustomFieldsSet'
+  /**
+   *	Unique identifier of the [Price](ctp:api:type:Price) on which the Custom Type was set.
+   *
+   *
+   */
+  readonly priceId: string
+  /**
+   *	Unique identifier of the [ProductVariant](ctp:api:type:ProductVariant) to which the Price belongs.
+   *
+   *
+   */
+  readonly variantId: number
+  /**
+   *	Whether the update was only applied to the staged [Product Projection](ctp:api:type:ProductProjection).
+   *
+   *
+   */
+  readonly staged: boolean
+  /**
+   *	Custom Fields that were set.
+   *
+   *
+   */
+  readonly customField: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
 }
 /**
  *	Generated after a Price is updated due to a [Product Discount](ctp:api:type:ProductDiscount).
