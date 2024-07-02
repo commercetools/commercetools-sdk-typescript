@@ -1536,7 +1536,7 @@ export interface LineItemDraft {
    */
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
   /**
-   *	Sets the external Tax Rate for the Line Item, if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode) and `Single` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Sets the external Tax Rate for the Line Item, if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode) and `Single` [ShippingMode](ctp:api:type:ShippingMode). If the Cart has `Multiple` [ShippingMode](ctp:api:type:ShippingMode), the Tax Rate is accepted but ignored.
    *
    *
    */
@@ -2282,7 +2282,7 @@ export interface CartAddLineItemAction {
    */
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
   /**
-   *	External Tax Rate for the Line Item, if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode) and `Single` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Sets the external Tax Rate for the Line Item, if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode) and `Single` [ShippingMode](ctp:api:type:ShippingMode). If the Cart has `Multiple` [ShippingMode](ctp:api:type:ShippingMode), the Tax Rate is accepted but ignored.
    *
    *
    */

@@ -199,11 +199,15 @@ export interface DiscountCodeDraft {
   /**
    *	Number of times the DiscountCode can be applied.
    *
+   *	If not set, the DiscountCode can be applied any number of times.
+   *
    *
    */
   readonly maxApplications?: number
   /**
    *	Number of times the DiscountCode can be applied per Customer.
+   *
+   *	If not set, the DiscountCode can be applied any number of times.
    *
    *
    */
@@ -434,7 +438,9 @@ export interface DiscountCodeSetKeyAction {
 export interface DiscountCodeSetMaxApplicationsAction {
   readonly action: 'setMaxApplications'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set.
+   *
+   *	If empty, any existing value will be removed and the DiscountCode can be applied any number of times.
    *
    *
    */
@@ -443,7 +449,9 @@ export interface DiscountCodeSetMaxApplicationsAction {
 export interface DiscountCodeSetMaxApplicationsPerCustomerAction {
   readonly action: 'setMaxApplicationsPerCustomer'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set.
+   *
+   *	If empty, any existing value will be removed and the DiscountCode can be applied any number of times.
    *
    *
    */
