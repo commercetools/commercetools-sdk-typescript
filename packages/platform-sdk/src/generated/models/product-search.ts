@@ -135,7 +135,7 @@ export interface ProductSearchProjectionParams {
    *	If the Store has defined some languages, countries, distribution or supply Channels,
    *	they are used for projections based on [locale](ctp:api:type:ProductProjectionLocales), [price](ctp:api:type:ProductProjectionPrices),
    *	and [inventory](ctp:api:type:ProductProjectionInventoryEntries).
-   *	If the Store has defined [Product Selections](ctp:api:type:ProductSelection), they have no effect on the results of this query.
+   *	If the Store has defined [Product Selections](ctp:api:type:ProductSelection) or [Product Tailoring](ctp:api:type:ProductTailoring), they have no effect on the results of this query.
    *
    *
    */
