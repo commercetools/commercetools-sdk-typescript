@@ -1,5 +1,4 @@
 const esbuild = require('esbuild');
-const { exec } = require('child_process');
 
 const generalConfig = { minify: true, bundle: true, write: true }
 
