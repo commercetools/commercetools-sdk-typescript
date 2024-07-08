@@ -75,7 +75,7 @@ jobs:
       - restore_cache: *restore_yarn_cache_node_16
       - run:
           name: Installing dependencies
-          command: yarn install --frozen-lockfile
+          command: yarn install --ignore-engines --frozen-lockfile # temp ignore engine checks [will deprecate node v16 soon]
       - save_cache: *save_yarn_cache_node_16
       - run:
           name: Install example dependencies
