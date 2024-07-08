@@ -10,8 +10,9 @@ import {
   ProcessOptions,
   SuccessResult,
 } from '../types/sdk.d'
-import { parseURLString, stringifyURLString } from '../utils'
+import { parseURLString, stringifyURLString, time } from '../utils'
 import validate from './validate'
+import { newrelic, datadog } from '@commercetools/ts-sdk-apm'
 
 let _options: ClientOptions
 export const PAGE_LIMIT = 20
@@ -190,6 +191,20 @@ export default function createClient(options: ClientOptions): Client {
             error: undefined,
           }
         )
+
+        // collect metrics
+        const end = time()
+        const start = request.startTime
+
+        // record for newrelic
+        newrelic.recordMetric(`Commercetools/Client/Request/Total`, start - end)
+
+        // record for datadog
+        datadog
+          .init()
+          .dogstatsd.gauge(`Commercetools_Client_Request_Total`, start - end, {
+            env: 'dev',
+          })
       })
     },
   }

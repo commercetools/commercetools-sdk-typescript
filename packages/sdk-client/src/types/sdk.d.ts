@@ -93,6 +93,7 @@ export type Dispatch = (
 
 export type Middleware = (next: Dispatch) => Dispatch
 export interface ClientRequest {
+  startTime: number
   baseUri?: string
   uri?: string
   headers?: VariableMap
