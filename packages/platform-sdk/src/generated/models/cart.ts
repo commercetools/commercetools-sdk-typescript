@@ -2622,7 +2622,7 @@ export interface CartChangeTaxRoundingModeAction {
 }
 /**
  *	Changes the [CartState](ctp:api:type:CartState) from `Active` to `Frozen`. Results in a [Frozen Cart](ctp:api:type:FrozenCarts).
- *	Fails with [InvalidOperation](ctp:api:type:InvalidOperation) error when the Cart is empty.
+ *	Fails with [InvalidOperation](ctp:api:type:InvalidOperationError) error when the Cart is empty.
  *
  */
 export interface CartFreezeCartAction {
@@ -2756,6 +2756,10 @@ export interface CartRemoveShippingMethodAction {
    */
   readonly shippingKey: string
 }
+/**
+ *	If the Cart is already associated with a Customer, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+ *
+ */
 export interface CartSetAnonymousIdAction {
   readonly action: 'setAnonymousId'
   /**
@@ -3083,10 +3087,10 @@ export interface CartSetCustomerEmailAction {
   readonly email?: string
 }
 /**
- *	This update action can only be used if a Customer is not assigned to a Cart.
- *	If a Customer is already assigned, the Cart has the same Customer Group as the assigned Customer.
+ *	This update action can only be used if a Customer is not assigned to the Cart.
+ *	If a Customer is already assigned, the Cart uses the Customer Group of the assigned Customer.
  *
- *	Setting the Customer Group also updates the [LineItem](ctp:api:type:LineItem) `prices` according to the Customer Group.
+ *	To reflect the new Customer Group, this update action can result in [updates to the Cart](/api/carts-orders-overview#cart-updates). When this occurs, the following errors can be returned: [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError) and [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError).
  *
  */
 export interface CartSetCustomerGroupAction {

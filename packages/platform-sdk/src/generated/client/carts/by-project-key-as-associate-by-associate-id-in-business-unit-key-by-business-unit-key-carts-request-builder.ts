@@ -123,6 +123,13 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
    *	Creates a [Cart](ctp:api:type:Cart) in the [BusinessUnit](ctp:api:type:BusinessUnit) referenced by `businessUnitKey`. As such, the `businessUnit` field on [CartDraft](ctp:api:type:CartDraft) is ignored for this request.
    *	Creating a Cart can fail with an [InvalidOperation](ctp:api:type:InvalidOperationError) if the referenced [ShippingMethod](ctp:api:type:ShippingMethod) in the [CartDraft](ctp:api:type:CartDraft) has a predicate that does not match the Cart.
    *
+   *	Specific Error Codes:
+   *
+   *	- [DiscountCodeNonApplicable](ctp:api:type:DiscountCodeNonApplicableError)
+   *	- [InvalidItemShippingDetails](ctp:api:type:InvalidItemShippingDetailsError)
+   *	- [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError)
+   *	- [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError)
+   *
    */
   public post(methodArgs: {
     queryArgs?: {

@@ -32,6 +32,11 @@ export class ByProjectKeyMeCartsReplicateRequestBuilder {
    *
    *	If the Cart or Order to be replicated does not belong to the authenticated Customer, the API returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error
    *
+   *	Specific Error Codes:
+   *
+   *	- [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError)
+   *	- [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError)
+   *
    */
   public post(methodArgs: {
     body: ReplicaMyCartDraft

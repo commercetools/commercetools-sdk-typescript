@@ -529,11 +529,14 @@ export interface PaymentChangeTransactionTimestampAction {
    */
   readonly timestamp: string
 }
+/**
+ *	If the Payment is already associated with a Customer, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+ *
+ */
 export interface PaymentSetAnonymousIdAction {
   readonly action: 'setAnonymousId'
   /**
-   *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	Value to set. If empty, any existing value will be removed.
    *
    *
    */
