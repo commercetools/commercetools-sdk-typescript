@@ -98,7 +98,13 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeCartsRequestBuilder {
    *
    *	The `store` field in the created [Cart](ctp:api:type:Cart) is set to the Store specified by the `storeKey` path parameter.
    *
-   *	Specific Error Codes: [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError)
+   *	Specific Error Codes:
+   *
+   *	- [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError)
+   *	- [DiscountCodeNonApplicable](ctp:api:type:DiscountCodeNonApplicableError)
+   *	- [InvalidItemShippingDetails](ctp:api:type:InvalidItemShippingDetailsError)
+   *	- [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError)
+   *	- [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError)
    *
    */
   public post(methodArgs: {

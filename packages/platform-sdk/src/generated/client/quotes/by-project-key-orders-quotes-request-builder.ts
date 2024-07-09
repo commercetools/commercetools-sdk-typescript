@@ -23,11 +23,11 @@ export class ByProjectKeyOrdersQuotesRequestBuilder {
    *
    *	Specific Error Codes:
    *
-   *	- [OutOfStock](ctp:api:type:OutOfStockError)
-   *	- [PriceChanged](ctp:api:type:PriceChangedError)
+   *	- [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError)
    *	- [InvalidItemShippingDetails](ctp:api:type:InvalidItemShippingDetailsError)
    *	- [InvalidOperation](ctp:api:type:InvalidOperationError)
-   *	- [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError)
+   *	- [OutOfStock](ctp:api:type:OutOfStockError)
+   *	- [PriceChanged](ctp:api:type:PriceChangedError)
    *
    */
   public post(methodArgs: {

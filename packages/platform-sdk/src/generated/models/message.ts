@@ -9965,43 +9965,43 @@ export interface OrderLineItemRemovedMessage {
    */
   readonly lineItemKey?: string
   /**
-   *	Quantity of [Line Items](ctp:api:type:LineItem) that were removed during the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *	Quantity of [Line Items](ctp:api:type:LineItem) that were removed during the [Remove LineItem](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
    *
    *
    */
   readonly removedQuantity: number
   /**
-   *	[Line Item](ctp:api:type:LineItem) quantity after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *	[Line Item](ctp:api:type:LineItem) quantity after the [Remove LineItem](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
    *
    *
    */
   readonly newQuantity: number
   /**
-   *	[ItemStates](ctp:api:type:ItemState) after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *	[ItemStates](ctp:api:type:ItemState) after the [Remove LineItem](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
    *
    *
    */
   readonly newState: ItemState[]
   /**
-   *	`totalPrice` of the [Order](ctp:api:type:Order) after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *	`totalPrice` of the [Order](ctp:api:type:Order) after the [Remove LineItem](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
    *
    *
    */
   readonly newTotalPrice: CentPrecisionMoney
   /**
-   *	[TaxedItemPrice](ctp:api:type:TaxedItemPrice) of the [Order](ctp:api:type:Order) after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *	[TaxedItemPrice](ctp:api:type:TaxedItemPrice) of the [Order](ctp:api:type:Order) after the [Remove LineItem](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
    *
    *
    */
   readonly newTaxedPrice?: TaxedItemPrice
   /**
-   *	[Price](ctp:api:type:Price) of the [Order](ctp:api:type:Order) after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *	[Price](ctp:api:type:Price) of the [Order](ctp:api:type:Order) after the [Remove LineItem](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
    *
    *
    */
   readonly newPrice?: Price
   /**
-   *	[Shipping Details](ctp:api:type:ItemShippingDetails) of the [Order](ctp:api:type:Order) after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *	[Shipping Details](ctp:api:type:ItemShippingDetails) of the [Order](ctp:api:type:Order) after the [Remove LineItem](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
    *
    *
    */
@@ -21237,43 +21237,43 @@ export interface OrderLineItemRemovedMessagePayload {
    */
   readonly lineItemKey?: string
   /**
-   *	Quantity of [Line Items](ctp:api:type:LineItem) that were removed during the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *	Quantity of [Line Items](ctp:api:type:LineItem) that were removed during the [Remove LineItem](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
    *
    *
    */
   readonly removedQuantity: number
   /**
-   *	[Line Item](ctp:api:type:LineItem) quantity after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *	[Line Item](ctp:api:type:LineItem) quantity after the [Remove LineItem](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
    *
    *
    */
   readonly newQuantity: number
   /**
-   *	[ItemStates](ctp:api:type:ItemState) after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *	[ItemStates](ctp:api:type:ItemState) after the [Remove LineItem](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
    *
    *
    */
   readonly newState: ItemState[]
   /**
-   *	`totalPrice` of the [Order](ctp:api:type:Order) after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *	`totalPrice` of the [Order](ctp:api:type:Order) after the [Remove LineItem](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
    *
    *
    */
   readonly newTotalPrice: CentPrecisionMoney
   /**
-   *	[TaxedItemPrice](ctp:api:type:TaxedItemPrice) of the [Order](ctp:api:type:Order) after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *	[TaxedItemPrice](ctp:api:type:TaxedItemPrice) of the [Order](ctp:api:type:Order) after the [Remove LineItem](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
    *
    *
    */
   readonly newTaxedPrice?: TaxedItemPrice
   /**
-   *	[Price](ctp:api:type:Price) of the [Order](ctp:api:type:Order) after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *	[Price](ctp:api:type:Price) of the [Order](ctp:api:type:Order) after the [Remove LineItem](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
    *
    *
    */
   readonly newPrice?: Price
   /**
-   *	[Shipping Details](ctp:api:type:ItemShippingDetails) of the [Order](ctp:api:type:Order) after the [Remove Line Item](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
+   *	[Shipping Details](ctp:api:type:ItemShippingDetails) of the [Order](ctp:api:type:Order) after the [Remove LineItem](ctp:api:type:StagedOrderRemoveLineItemAction) update action.
    *
    *
    */

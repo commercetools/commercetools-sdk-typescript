@@ -127,6 +127,13 @@ export class ByProjectKeyCartsRequestBuilder {
    *	[ShippingMethod](ctp:api:type:ShippingMethod) referenced in the CartDraft
    *	has a `predicate` that does not match the Cart.
    *
+   *	Specific Error Codes:
+   *
+   *	- [DiscountCodeNonApplicable](ctp:api:type:DiscountCodeNonApplicableError)
+   *	- [InvalidItemShippingDetails](ctp:api:type:InvalidItemShippingDetailsError)
+   *	- [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError)
+   *	- [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError)
+   *
    */
   public post(methodArgs: {
     queryArgs?: {

@@ -118,6 +118,13 @@ export class ByProjectKeyMeCartsRequestBuilder {
   /**
    *	Creates a Cart for a given `customerId` or `anonymousId`.
    *
+   *	Specific Error Codes:
+   *
+   *	- [DiscountCodeNonApplicable](ctp:api:type:DiscountCodeNonApplicableError)
+   *	- [InvalidItemShippingDetails](ctp:api:type:InvalidItemShippingDetailsError)
+   *	- [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError)
+   *	- [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError)
+   *
    */
   public post(methodArgs: {
     queryArgs?: {

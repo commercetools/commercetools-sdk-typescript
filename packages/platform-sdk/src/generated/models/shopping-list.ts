@@ -740,6 +740,10 @@ export interface ShoppingListRemoveTextLineItemAction {
    */
   readonly quantity?: number
 }
+/**
+ *	If the Shopping List is already associated with a Customer, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+ *
+ */
 export interface ShoppingListSetAnonymousIdAction {
   readonly action: 'setAnonymousId'
   /**

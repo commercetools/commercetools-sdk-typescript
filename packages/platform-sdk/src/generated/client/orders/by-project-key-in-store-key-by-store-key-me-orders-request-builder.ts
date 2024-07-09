@@ -95,11 +95,15 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeOrdersRequestBuilder {
    *
    *	Specific Error Codes:
    *
+   *	- [AssociateMissingPermission](ctp:api:type:AssociateMissingPermissionError)
+   *	- [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError)
+   *	- [DiscountCodeNonApplicable](ctp:api:type:DiscountCodeNonApplicableError)
+   *	- [InvalidItemShippingDetails](ctp:api:type:InvalidItemShippingDetailsError)
+   *	- [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError)
+   *	- [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError)
    *	- [OutOfStock](ctp:api:type:OutOfStockError)
    *	- [PriceChanged](ctp:api:type:PriceChangedError)
-   *	- [DiscountCodeNonApplicable](ctp:api:type:DiscountCodeNonApplicableError)
-   *	- [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError)
-   *	- [AssociateMissingPermission](ctp:api:type:AssociateMissingPermissionError)
+   *	- [ShippingMethodDoesNotMatchCart](ctp:api:type:ShippingMethodDoesNotMatchCartError)
    *
    */
   public post(methodArgs: {

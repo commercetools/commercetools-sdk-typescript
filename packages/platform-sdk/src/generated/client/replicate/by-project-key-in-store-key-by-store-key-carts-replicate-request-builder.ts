@@ -26,6 +26,11 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsReplicateRequestBuilder {
    *
    *	The new Cart does not contain payments or deliveries. The [State](ctp:api:type:ItemState) of Line Items and Custom Line Items is reset to `initial`.
    *
+   *	Specific Error Codes:
+   *
+   *	- [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError)
+   *	- [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError)
+   *
    */
   public post(methodArgs: {
     body: ReplicaCartDraft

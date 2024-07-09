@@ -1125,6 +1125,8 @@ export interface CustomerSetCustomTypeAction {
 /**
  *	Setting the Customer Group of the Customer produces the [CustomerGroupSet](ctp:api:type:CustomerGroupSetMessage) Message.
  *
+ *	To reflect the new Customer Group, this update action can result in [updates](/api/carts-orders-overview#cart-updates) to the most recently modified active Cart. When this occurs, the following errors can be returned: [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError) and [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError).
+ *
  */
 export interface CustomerSetCustomerGroupAction {
   readonly action: 'setCustomerGroup'
