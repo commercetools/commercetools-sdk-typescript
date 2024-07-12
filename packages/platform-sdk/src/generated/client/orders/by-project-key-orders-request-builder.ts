@@ -166,6 +166,7 @@ export class ByProjectKeyOrdersRequestBuilder {
    *	- [DiscountCodeNonApplicable](ctp:api:type:DiscountCodeNonApplicableError)
    *	- [ShippingMethodDoesNotMatchCart](ctp:api:type:ShippingMethodDoesNotMatchCartError)
    *	- [InvalidItemShippingDetails](ctp:api:type:InvalidItemShippingDetailsError)
+   *	- [InvalidOperation](ctp:api:type:InvalidOperationError)
    *	- [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError)
    *	- [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError)
    *
