@@ -19,7 +19,7 @@ export class ByProjectKeyShippingMethodsMatchingLocationRequestBuilder {
     }
   ) {}
   /**
-   *	Retrieves all the ShippingMethods that can ship to the given [Location](/projects/zones#location).
+   *	Retrieves all the active ShippingMethods that can ship to the given [Location](/projects/zones#location).
    *	ShippingMethods that have a `predicate` defined are automatically disqualified.
    *	If the `currency` parameter is given, then the ShippingMethods must also have a rate defined in the specified currency.
    *	Each ShippingMethod contains at least one ShippingRate with the flag `isMatching` set to `true`.
@@ -54,7 +54,7 @@ export class ByProjectKeyShippingMethodsMatchingLocationRequestBuilder {
     )
   }
   /**
-   *	Checks if a ShippingMethod that can ship to the given [Location](ctp:api:type:Location) exists. Returns a `200 OK` status if the ShippingMethod exists or a `404 Not Found` otherwise.
+   *	Checks if an active ShippingMethod that can ship to the given [Location](ctp:api:type:Location) exists. Returns a `200 OK` status if the ShippingMethod exists or a `404 Not Found` otherwise.
    */
   public head(methodArgs: {
     queryArgs: {

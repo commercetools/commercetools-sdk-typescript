@@ -19,7 +19,7 @@ export class ByProjectKeyShippingMethodsMatchingOrdereditRequestBuilder {
     }
   ) {}
   /**
-   *	Retrieves all the ShippingMethods that can ship to the given [Location](ctp:api:type:Location) for an [OrderEdit](ctp:api:type:OrderEdit).
+   *	Retrieves all the active ShippingMethods that can ship to the given [Location](ctp:api:type:Location) for an [OrderEdit](ctp:api:type:OrderEdit).
    *
    *	If the OrderEdit preview cannot be generated, an [EditPreviewFailed](ctp:api:type:EditPreviewFailedError) error is returned.
    *
@@ -50,7 +50,7 @@ export class ByProjectKeyShippingMethodsMatchingOrdereditRequestBuilder {
     )
   }
   /**
-   *	Checks if a ShippingMethod that can ship to the given [Location](ctp:api:type:Location) exists for the given [OrderEdit](ctp:api:type:OrderEdit). Returns a `200 OK` status if the ShippingMethod exists or a `404 Not Found` otherwise.
+   *	Checks if an active ShippingMethod that can ship to the given [Location](ctp:api:type:Location) exists for the given [OrderEdit](ctp:api:type:OrderEdit). Returns a `200 OK` status if the ShippingMethod exists or a `404 Not Found` otherwise.
    */
   public head(methodArgs: {
     queryArgs: {

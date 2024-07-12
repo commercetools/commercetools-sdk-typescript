@@ -110,7 +110,15 @@ export interface ShippingMethod extends BaseResource {
    */
   readonly zoneRates: ZoneRate[]
   /**
-   *	If `true` this ShippingMethod is the [Project](ctp:api:type:Project)'s default ShippingMethod.
+   *	Indicates if the ShippingMethod is active.
+   *
+   *	If `true`, the ShippingMethod can be used during the creation or update of a Cart or Order.
+   *
+   *
+   */
+  readonly active: boolean
+  /**
+   *	If `true`, this ShippingMethod is the [Project](ctp:api:type:Project)'s default ShippingMethod.
    *
    */
   readonly isDefault: boolean
@@ -165,7 +173,13 @@ export interface ShippingMethodDraft {
    */
   readonly zoneRates: ZoneRateDraft[]
   /**
-   *	If `true` the ShippingMethod will be the [Project](ctp:api:type:Project)'s default ShippingMethod.
+   *	If set to `true`, the ShippingMethod can be used during the creation or update of a Cart or Order.
+   *
+   *
+   */
+  readonly active?: boolean
+  /**
+   *	If set to `true`, the ShippingMethod will be the [Project](ctp:api:type:Project)'s default ShippingMethod.
    *
    */
   readonly isDefault: boolean
@@ -276,6 +290,7 @@ export interface ShippingMethodUpdate {
 export type ShippingMethodUpdateAction =
   | ShippingMethodAddShippingRateAction
   | ShippingMethodAddZoneAction
+  | ShippingMethodChangeActiveAction
   | ShippingMethodChangeIsDefaultAction
   | ShippingMethodChangeNameAction
   | ShippingMethodChangeTaxCategoryAction
@@ -479,6 +494,17 @@ export interface ShippingMethodAddZoneAction {
    *
    */
   readonly zone: ZoneResourceIdentifier
+}
+export interface ShippingMethodChangeActiveAction {
+  readonly action: 'changeActive'
+  /**
+   *	Value to set.
+   *
+   *	If set to `false`, the ShippingMethod cannot be used during the creation or update of a Cart or Order.
+   *
+   *
+   */
+  readonly active: boolean
 }
 export interface ShippingMethodChangeIsDefaultAction {
   readonly action: 'changeIsDefault'
