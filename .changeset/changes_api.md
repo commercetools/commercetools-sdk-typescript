@@ -77,6 +77,7 @@
 
 - added enum `attribute-group` to type `ChangeSubscriptionResourceTypeId`
 - added enum `product-tailoring` to type `ChangeSubscriptionResourceTypeId`
+- added enum `cart-discount` to type `CustomFieldReferenceValue`
 </details>
 
 <details>

@@ -56,6 +56,7 @@ export type CustomFieldReferenceValue =
   | 'associate-role'
   | 'business-unit'
   | 'cart'
+  | 'cart-discount'
   | 'category'
   | 'channel'
   | 'customer'
