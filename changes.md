@@ -138,12 +138,14 @@
 
 - added type `BusinessUnitApprovalRuleMode`
 - added type `BusinessUnitChangeApprovalRuleModeAction`
+- added type `CartChangeLineItemsOrderAction`
 - added type `CustomerIndexingProgress`
 - added type `CustomerIndexingStatus`
 - added type `CustomerPagedSearchResponse`
 - added type `CustomerSearchIndexingStatusResponse`
 - added type `CustomerSearchRequest`
 - added type `CustomerSearchResult`
+- added type `MyCartChangeLineItemsOrderAction`
 - added type `BusinessUnitApprovalRuleModeChangedMessage`
 - added type `ProductPriceCustomFieldAddedMessage`
 - added type `ProductPriceCustomFieldChangedMessage`
