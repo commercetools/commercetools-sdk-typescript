@@ -44,13 +44,13 @@ export interface SearchKeyword {
    */
   readonly text: string
   /**
-   *	The tokenizer defines the tokens that are used to match against the [Suggest Query](/../products-suggestions#suggest-query) input.
+   *	The tokenizer defines the tokens that are used to match against the [Suggest Query](/../products-suggestions#query-suggestions) input.
    *
    */
   readonly suggestTokenizer?: SuggestTokenizer
 }
 /**
- *	The tokenizer defines the tokens that are used to match against the [Suggest Query](/../products-suggestions#suggest-query) input.
+ *	The tokenizer defines the tokens that are used to match against the [Suggest Query](/../products-suggestions#query-suggestions) input.
  *
  */
 export type SuggestTokenizer = CustomTokenizer | WhitespaceTokenizer

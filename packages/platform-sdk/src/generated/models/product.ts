@@ -324,7 +324,7 @@ export interface ProductData {
    */
   readonly variants: ProductVariant[]
   /**
-   *	Used by [Product Suggestions](ctp:api:type:ProductSuggestions), but is also considered for a full text search.
+   *	Used by [Product Suggestions](/projects/products-suggestions), but is also considered for a [full text search](/projects/products-search#full-text-search).
    *
    *
    */
@@ -414,7 +414,7 @@ export interface ProductDraft {
    */
   readonly taxCategory?: TaxCategoryResourceIdentifier
   /**
-   *	Used by [Product Suggestions](ctp:api:type:ProductSuggestions), but is also considered for a [full text search](/projects/products-search#full-text-search).
+   *	Used by [Product Suggestions](/projects/products-suggestions), but is also considered for a [full text search](/projects/products-search#full-text-search).
    *
    *
    */
@@ -1016,7 +1016,7 @@ export interface RangeFacetResult {
 }
 export interface SearchKeyword {
   /**
-   *	Text to return in the result of a [suggest query](ctp:api:type:ProductSuggestionsSuggestQuery).
+   *	Text to return in the [SuggestionResult](ctp:api:type:SuggestionResult).
    *
    *
    */
@@ -1029,7 +1029,8 @@ export interface SearchKeyword {
   readonly suggestTokenizer?: SuggestTokenizer
 }
 /**
- *	Search keywords are JSON objects primarily used by [Product Suggestions](ctp:api:type:ProductSuggestions), but are also considered for a full text search. The keys are of type [Locale](ctp:api:type:Locale), and the values are an array of [SearchKeyword](ctp:api:type:SearchKeyword).
+ *	Search keywords are JSON objects primarily used by [Product Suggestions](/projects/products-suggestions), but are also considered for a [full text search](/projects/products-search#full-text-search).
+ *	The keys are of type [Locale](ctp:api:type:Locale), and the values are an array of [SearchKeyword](ctp:api:type:SearchKeyword).
  *
  */
 export interface SearchKeywords {

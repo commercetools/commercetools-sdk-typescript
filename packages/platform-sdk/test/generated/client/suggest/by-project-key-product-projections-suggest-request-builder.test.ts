@@ -13,15 +13,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/suggest?fuzzy=true',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .productProjections()
-        .suggest()
-        .get({ queryArgs: { fuzzy: true } }),
-    },
-    {
-      method: 'get',
       uri: '/test_projectKey/product-projections/suggest?searchKeywords.locale=searchKeywords.locale',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
@@ -30,15 +21,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .get({
           queryArgs: { 'searchKeywords.locale': 'searchKeywords.locale' },
         }),
-    },
-    {
-      method: 'get',
-      uri: '/test_projectKey/product-projections/suggest?sort=sort',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .productProjections()
-        .suggest()
-        .get({ queryArgs: { sort: 'sort' } }),
     },
     {
       method: 'get',
@@ -51,21 +33,12 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/suggest?offset=3',
+      uri: '/test_projectKey/product-projections/suggest?fuzzy=true',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .suggest()
-        .get({ queryArgs: { offset: 3 } }),
-    },
-    {
-      method: 'get',
-      uri: '/test_projectKey/product-projections/suggest?withTotal=true',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .productProjections()
-        .suggest()
-        .get({ queryArgs: { withTotal: true } }),
+        .get({ queryArgs: { fuzzy: true } }),
     },
     {
       method: 'get',

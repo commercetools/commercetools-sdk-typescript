@@ -294,6 +294,28 @@ export interface OrderPagedSearchResponse {
    */
   readonly hits: Hit[]
 }
+/**
+ *	Possible values for the `customType` property on [query expressions](/../api/projects/order-search#query-expressions) indicating the data type of the `field`.
+ */
+export type OrderSearchCustomType =
+  | 'BooleanType'
+  | 'DateTimeType'
+  | 'DateType'
+  | 'EnumType'
+  | 'LocalizedEnumType'
+  | 'LocalizedStringType'
+  | 'NumberType'
+  | 'SetType.DateTimeType'
+  | 'SetType.DateType'
+  | 'SetType.EnumType'
+  | 'SetType.LocalizedEnumType'
+  | 'SetType.LocalizedStringType'
+  | 'SetType.NumberType'
+  | 'SetType.StringType'
+  | 'SetType.TimeType'
+  | 'StringType'
+  | 'TimeType'
+  | string
 export type OrderSearchMatchType = 'all' | 'any' | string
 export interface OrderSearchQueryExpressionValue {
   /**
@@ -305,9 +327,10 @@ export interface OrderSearchQueryExpressionValue {
    */
   readonly boost?: number
   /**
+   *	Possible values for the `customType` property on [query expressions](/../api/projects/order-search#query-expressions) indicating the data type of the `field`.
    *
    */
-  readonly customType?: string
+  readonly customType?: OrderSearchCustomType
 }
 export type _OrderSearchQueryExpressionValue =
   | OrderSearchQueryExpressionValue
@@ -1471,12 +1494,12 @@ export interface OrderSearchRequest {
    */
   readonly sort?: OrderSearchSorting[]
   /**
-   *	The maximum number of search results to be returned.
+   *	The maximum number of search results to be returned on one [page](#pagination).
    *
    */
   readonly limit?: number
   /**
-   *	The number of search results to be skipped in the response for pagination.
+   *	The number of search results to be skipped in the response for [pagination](#pagination).
    *
    */
   readonly offset?: number
