@@ -245,6 +245,7 @@ export type MyCartUpdateAction =
   | MyCartAddPaymentAction
   | MyCartApplyDeltaToLineItemShippingDetailsTargetsAction
   | MyCartChangeLineItemQuantityAction
+  | MyCartChangeLineItemsOrderAction
   | MyCartChangeTaxModeAction
   | MyCartRecalculateAction
   | MyCartRemoveDiscountCodeAction
@@ -1493,6 +1494,15 @@ export interface MyCartChangeLineItemQuantityAction {
    *
    */
   readonly quantity: number
+}
+export interface MyCartChangeLineItemsOrderAction {
+  readonly action: 'changeLineItemsOrder'
+  /**
+   *	All existing [LineItem](ctp:api:type:LineItem) `id`s of the [Cart](ctp:api:type:Cart) in the desired new order.
+   *
+   *
+   */
+  readonly lineItemOrder: string[]
 }
 /**
  *	- When `External` [TaxMode](ctp:api:type:TaxMode) is changed to `Platform` or `Disabled`, all previously set external Tax Rates are removed.

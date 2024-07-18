@@ -645,6 +645,7 @@ export type CartUpdateAction =
   | CartChangeCustomLineItemPriceModeAction
   | CartChangeCustomLineItemQuantityAction
   | CartChangeLineItemQuantityAction
+  | CartChangeLineItemsOrderAction
   | CartChangeTaxCalculationModeAction
   | CartChangeTaxModeAction
   | CartChangeTaxRoundingModeAction
@@ -2579,6 +2580,15 @@ export interface CartChangeLineItemQuantityAction {
    *
    */
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
+}
+export interface CartChangeLineItemsOrderAction {
+  readonly action: 'changeLineItemsOrder'
+  /**
+   *	All existing [LineItem](ctp:api:type:LineItem) `id`s in the desired new order.
+   *
+   *
+   */
+  readonly lineItemOrder: string[]
 }
 /**
  *	Changing the tax calculation mode leads to [recalculation of taxes](/../api/carts-orders-overview#cart-tax-calculation).
