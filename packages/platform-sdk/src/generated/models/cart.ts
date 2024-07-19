@@ -3123,7 +3123,9 @@ export interface CartSetCustomerGroupAction {
 export interface CartSetCustomerIdAction {
   readonly action: 'setCustomerId'
   /**
-   *	`id` of an existing [Customer](ctp:api:type:Customer). If empty, any value is removed.
+   *	`id` of an existing [Customer](ctp:api:type:Customer).
+   *	If the Customer is assigned to a [CustomerGroup](ctp:api:type:CustomerGroup), this update action also sets the value for the `customerGroup` field.
+   *	If empty, the update action removes the value for both `customerId` and `customerGroup`.
    *
    *
    */
