@@ -204,6 +204,7 @@ export type ExtensionResourceTypeId =
   | 'payment'
   | 'quote'
   | 'quote-request'
+  | 'shopping-list'
   | 'staged-quote'
   | string
 export interface ExtensionTrigger {

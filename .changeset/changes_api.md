@@ -101,6 +101,7 @@
 <details>
 <summary>Added Enum(s)</summary>
 
+- added enum `shopping-list` to type `ExtensionResourceTypeId`
 - added enum `attribute-group` to type `ChangeSubscriptionResourceTypeId`
 - added enum `product-tailoring` to type `ChangeSubscriptionResourceTypeId`
 - added enum `cart-discount` to type `CustomFieldReferenceValue`
