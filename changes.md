@@ -158,9 +158,11 @@
 <summary>Added Enum(s)</summary>
 
 - added enum `shopping-list` to type `ExtensionResourceTypeId`
+- added enum `customer-group` to type `AttributeReferenceTypeId`
 - added enum `attribute-group` to type `ChangeSubscriptionResourceTypeId`
 - added enum `product-tailoring` to type `ChangeSubscriptionResourceTypeId`
 - added enum `cart-discount` to type `CustomFieldReferenceValue`
+- added enum `customer-group` to type `CustomFieldReferenceValue`
 </details>
 
 <details>
@@ -232,6 +234,12 @@
 </details>
 
 **Import changes**
+
+<details>
+<summary>Added Enum(s)</summary>
+
+- added enum `customer-group` to type `CustomFieldReferenceValue`
+</details>
 
 <details>
 <summary>Deprecated Property(s)</summary>

@@ -169,6 +169,7 @@ export type CustomFieldReferenceValue =
   | 'category'
   | 'channel'
   | 'customer'
+  | 'customer-group'
   | 'key-value-document'
   | 'order'
   | 'product'
