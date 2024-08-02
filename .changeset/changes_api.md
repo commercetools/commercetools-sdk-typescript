@@ -99,6 +99,12 @@
 </details>
 
 <details>
+<summary>Removed Resource(s)</summary>
+
+- :warning: removed resource `/{projectKey}/me/carts/key={key}`
+</details>
+
+<details>
 <summary>Removed QueryParameter(s)</summary>
 
 - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products`
@@ -156,6 +162,17 @@
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().withId().head()`
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().withId().post()`
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().withId().delete()`
+</details>
+
+<details>
+<summary>Removed Method(s)</summary>
+
+- :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().get()`
+- :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().head()`
+- :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().post()`
+- :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().delete()`
+- :warning: removed method `apiRoot.withProjectKey().me().quoteRequests().withId().delete()`
+- :warning: removed method `apiRoot.withProjectKey().me().quoteRequests().withKey().delete()`
 </details>
 
 <details>

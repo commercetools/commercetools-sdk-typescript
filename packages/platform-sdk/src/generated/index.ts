@@ -55,7 +55,6 @@ export * from './client/carts/by-project-key-in-store-key-by-store-key-carts-req
 export * from './client/carts/by-project-key-in-store-key-by-store-key-me-carts-by-id-request-builder'
 export * from './client/carts/by-project-key-in-store-key-by-store-key-me-carts-request-builder'
 export * from './client/carts/by-project-key-me-carts-by-id-request-builder'
-export * from './client/carts/by-project-key-me-carts-key-by-key-request-builder'
 export * from './client/carts/by-project-key-me-carts-request-builder'
 export * from './client/categories/by-project-key-categories-by-id-request-builder'
 export * from './client/categories/by-project-key-categories-key-by-key-request-builder'

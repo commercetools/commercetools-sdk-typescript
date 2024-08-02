@@ -67,7 +67,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeCartsRequestBuilder {
     )
   }
   /**
-   *	Checks if a Cart exists for a Store that matches the given Query Predicate, and contains a matching `customerId` or `anonymousId`. Returns a `200 OK` status if any Carts match these conditions, or a `404 Not Found` otherwise.
+   *	Checks if a Cart exists for a Store that matches the given Query Predicate, and contains a matching `customerId` or `anonymousId`. Returns a `200 OK` status if any Carts match these conditions, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
    *
    */
   public head(methodArgs?: {
@@ -94,7 +94,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeCartsRequestBuilder {
     )
   }
   /**
-   *	Creates a Cart in the specified Store for a given `customerId` or `anonymousId`.
+   *
+   *	Creates a Cart in a Store for the Customer or anonymous user. The `customerId` or `anonymousId` field on the Cart is automatically set based on the [customer:{id}](/scopes#customer_idid) or [anonymous_id:{id}](/scopes#anonymous_idid) scope.
    *
    *	The `store` field in the created [Cart](ctp:api:type:Cart) is set to the Store specified by the `storeKey` path parameter.
    *

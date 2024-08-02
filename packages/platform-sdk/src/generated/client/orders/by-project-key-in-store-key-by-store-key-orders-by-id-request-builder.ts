@@ -21,7 +21,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersByIDRequestBuilder {
     }
   ) {}
   /**
-   *	If the Order exists in the Project but does not have the `store` field, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *	If the Order exists in the Project but does not have a `store` specified, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *
    */
   public get(methodArgs?: {
@@ -48,7 +48,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if an Order exists for a given `id`. Returns a `200 OK` status if the Order exists or a `404 Not Found` otherwise.
+   *	Checks if an Order exists for a given `id`. Returns a `200 OK` status if the Order exists or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -69,7 +69,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersByIDRequestBuilder {
     )
   }
   /**
-   *	If the Order exists in the Project but does not have the `store` field, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *	If the Order exists in the Project but does not have a `store` specified, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *
    */
   public post(methodArgs: {
@@ -99,7 +99,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersByIDRequestBuilder {
     )
   }
   /**
-   *	If the Order exists in the Project but does not have the `store` field, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *	If the Order exists in the Project but does not have a `store` specified, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *
    *	Deleting an Order produces the [OrderDeleted](ctp:api:type:OrderDeletedMessage) Message.
    *

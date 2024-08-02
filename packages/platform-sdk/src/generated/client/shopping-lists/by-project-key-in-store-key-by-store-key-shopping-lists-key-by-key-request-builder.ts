@@ -50,7 +50,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyShoppingListsKeyByKeyRequestBuilder
     )
   }
   /**
-   *	Checks if a ShoppingList exists for a given `key`. Returns a `200 OK` status if the ShoppingList exists or a `404 Not Found` otherwise.
+   *	Checks if a ShoppingList exists for a given `key`. Returns a `200 OK` status if the ShoppingList exists or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
    */
   public head(methodArgs?: {
     headers?: {

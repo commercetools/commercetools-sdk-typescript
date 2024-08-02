@@ -44,7 +44,7 @@ export class ByProjectKeyMeQuoteRequestsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Checks if my QuoteRequest exists for a given `key`. Returns a `200 OK` status if the QuoteRequest exists or a `404 Not Found` otherwise.
+   *	Checks if a QuoteRequest exists for a given `key`. Returns a `200 OK` status if the QuoteRequest exists or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -86,30 +86,6 @@ export class ByProjectKeyMeQuoteRequestsKeyByKeyRequestBuilder {
         },
         queryParams: methodArgs?.queryArgs,
         body: methodArgs?.body,
-      },
-      this.args.executeRequest
-    )
-  }
-  public delete(methodArgs: {
-    queryArgs: {
-      version: number
-      expand?: string | string[]
-      [key: string]: QueryParam
-    }
-    headers?: {
-      [key: string]: string | string[]
-    }
-  }): ApiRequest<QuoteRequest> {
-    return new ApiRequest<QuoteRequest>(
-      {
-        baseUri: this.args.baseUri,
-        method: 'DELETE',
-        uriTemplate: '/{projectKey}/me/quote-requests/key={key}',
-        pathVariables: this.args.pathArgs,
-        headers: {
-          ...methodArgs?.headers,
-        },
-        queryParams: methodArgs?.queryArgs,
       },
       this.args.executeRequest
     )

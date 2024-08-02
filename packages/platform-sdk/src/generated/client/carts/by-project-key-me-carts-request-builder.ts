@@ -9,7 +9,6 @@ import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyMeCartsReplicateRequestBuilder } from '../replicate/by-project-key-me-carts-replicate-request-builder'
 import { ByProjectKeyMeCartsByIDRequestBuilder } from './by-project-key-me-carts-by-id-request-builder'
-import { ByProjectKeyMeCartsKeyByKeyRequestBuilder } from './by-project-key-me-carts-key-by-key-request-builder'
 /**
  **/
 export class ByProjectKeyMeCartsRequestBuilder {
@@ -22,18 +21,6 @@ export class ByProjectKeyMeCartsRequestBuilder {
       baseUri?: string
     }
   ) {}
-  public withKey(childPathArgs: {
-    key: string
-  }): ByProjectKeyMeCartsKeyByKeyRequestBuilder {
-    return new ByProjectKeyMeCartsKeyByKeyRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-        ...childPathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
-  }
   public withId(childPathArgs: {
     ID: string
   }): ByProjectKeyMeCartsByIDRequestBuilder {
@@ -89,7 +76,7 @@ export class ByProjectKeyMeCartsRequestBuilder {
     )
   }
   /**
-   *	Checks if a Cart exists that matches a given Query Predicate and contains either a matching `customerId` or `anonymousId`. Returns a `200 OK` status if the Cart exists, or a `404 Not Found` otherwise.
+   *	Checks if a Cart exists that matches a given Query Predicate and contains either a matching `customerId` or `anonymousId`. Returns a `200 OK` status if the Cart exists, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
    *
    */
   public head(methodArgs?: {
@@ -116,7 +103,8 @@ export class ByProjectKeyMeCartsRequestBuilder {
     )
   }
   /**
-   *	Creates a Cart for a given `customerId` or `anonymousId`.
+   *
+   *	Creates a Cart for the Customer or anonymous user. The `customerId` or `anonymousId` field on the Cart is automatically set based on the [customer:{id}](/scopes#customer_idid) or [anonymous_id:{id}](/scopes#anonymous_idid) scope.
    *
    *	Specific Error Codes:
    *
