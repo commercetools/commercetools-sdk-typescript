@@ -81,7 +81,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyStagedQuotesRequestBuilder {
     )
   }
   /**
-   *	Checks if a StagedQuote exists for a given Query Predicate. Returns a `200 OK` status if any StagedQuotes match the Query Predicate or a `404 Not Found` otherwise.
+   *	Checks if a StagedQuote exists for a given Query Predicate. Returns a `200 OK` status if any StagedQuotes match the Query Predicate or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

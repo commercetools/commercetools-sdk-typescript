@@ -61,26 +61,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .withKey({ key: 'test_key' })
         .post({ body: null, headers: null }),
     },
-    {
-      method: 'delete',
-      uri: '/test_projectKey/me/quote-requests/key=test_key?version=2',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .me()
-        .quoteRequests()
-        .withKey({ key: 'test_key' })
-        .delete({ queryArgs: { version: 2 } }),
-    },
-    {
-      method: 'delete',
-      uri: '/test_projectKey/me/quote-requests/key=test_key?expand=expand&version=2',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .me()
-        .quoteRequests()
-        .withKey({ key: 'test_key' })
-        .delete({ queryArgs: { expand: 'expand', version: 2 } }),
-    },
   ]
 }
 

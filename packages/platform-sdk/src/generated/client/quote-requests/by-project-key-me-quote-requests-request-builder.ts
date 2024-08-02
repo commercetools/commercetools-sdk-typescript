@@ -49,6 +49,10 @@ export class ByProjectKeyMeQuoteRequestsRequestBuilder {
     })
   }
 
+  /**
+   *	Returns all Quote Requests that match a given Query Predicate. Returns a `200 OK` status if successful.
+   *
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -78,7 +82,8 @@ export class ByProjectKeyMeQuoteRequestsRequestBuilder {
     )
   }
   /**
-   *	Checks if my QuoteRequest exists for a given Query Predicate. Returns a `200 OK` status if any QuoteRequests match the Query Predicate or a `404 Not Found` otherwise.
+   *	Checks if a QuoteRequest exists for a given Query Predicate. Returns a `200 OK` status if any QuoteRequests match the Query Predicate or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *
    */
   public head(methodArgs?: {
     queryArgs?: {

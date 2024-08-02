@@ -103,7 +103,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder {
     )
   }
   /**
-   *	Checks if a Cart exists for a given Query Predicate. Returns a `200 OK` status if any Carts match the Query Predicate or a `404 Not Found` otherwise.
+   *	Checks if a Cart exists for a given Query Predicate. Returns a `200 OK` status if any Carts match the Query Predicate or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {
