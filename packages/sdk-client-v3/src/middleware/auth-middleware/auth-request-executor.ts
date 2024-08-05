@@ -5,6 +5,7 @@ import {
   IBuiltRequestParams,
   Task,
   TokenInfo,
+  TResponse,
 } from '../../types/types'
 import { calculateExpirationTime, executor, mergeAuthHeader } from '../../utils'
 import { buildRequestForRefreshTokenFlow } from './auth-request-builder'
@@ -152,8 +153,10 @@ export async function executeRequest(
     )
     /**
      * reject the error immediately
-     * and free up the middleware chain
+     * and free up the middleware chain and
+     * release the requestState by setting it to false
      */
+    requestState.set(false)
     request.reject({
       ...request,
       headers: { ...request.headers },
@@ -163,6 +166,10 @@ export async function executeRequest(
       },
     })
   } catch (error) {
+    /**
+     * on error release the state by setting it to false
+     */
+    requestState.set(false)
     return {
       ...request,
       headers: { ...request.headers },
