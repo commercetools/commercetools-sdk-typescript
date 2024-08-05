@@ -83,6 +83,8 @@ jobs:
         if: steps.changesets.outputs.published == 'true'
         run: |
           gh api --method POST /repos/commercetools/commercetools-typescript-sdk/dispatches -f "event_type=new_release"
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_github_token.outputs.token }}
 
       - name: Convert markdown to slack markdown
         uses: LoveToKnow/slackify-markdown-action@v1.1.1
