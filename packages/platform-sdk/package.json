@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/platform-sdk",
-  "version": "7.9.0",
+  "version": "7.10.0",
   "engines": {
     "node": ">=14"
   },
@@ -30,7 +30,7 @@
     "@commercetools/sdk-middleware-auth": "^7.0.0",
     "@commercetools/sdk-middleware-http": "^7.0.0",
     "@commercetools/sdk-middleware-logger": "^3.0.0",
-    "@commercetools/ts-client": "^2.0.0"
+    "@commercetools/ts-client": "^2.0.1"
   },
   "devDependencies": {
     "@types/uuid": "9.0.8",
