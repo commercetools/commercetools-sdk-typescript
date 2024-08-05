@@ -76,8 +76,8 @@ export async function executeRequest(
     (!tokenCacheObject.token ||
       (tokenCacheObject.token && Date.now() > tokenCacheObject.expirationTime))
   ) {
-    requestState.set(false)
     if (!userOption) {
+      requestState.set(false)
       throw new Error('Missing required options.')
     }
 
