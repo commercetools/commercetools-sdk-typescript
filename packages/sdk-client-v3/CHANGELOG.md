@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 2.0.1
+
+### Patch Changes
+
+- [#767](https://github.com/commercetools/commercetools-sdk-typescript/pull/767) [`d82a9e0`](https://github.com/commercetools/commercetools-sdk-typescript/commit/d82a9e0e6666e076183172a9229ffcda8e28905a) Thanks [@ajimae](https://github.com/ajimae)! - Fix issues with request state not being reset back to default on error when fetching token.
+
 ## 2.0.0
 
 ### Major Changes
