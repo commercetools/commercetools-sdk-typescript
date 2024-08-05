@@ -76,7 +76,11 @@ export async function executeRequest(
     (!tokenCacheObject.token ||
       (tokenCacheObject.token && Date.now() > tokenCacheObject.expirationTime))
   ) {
-    if (!userOption) throw new Error('Missing required options.')
+    requestState.set(false)
+    if (!userOption) {
+      throw new Error('Missing required options.')
+    }
+
     const opt: IBuiltRequestParams = {
       ...buildRequestForRefreshTokenFlow({
         ...userOption,
