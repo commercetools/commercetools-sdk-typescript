@@ -14,10 +14,12 @@
 
 
   <button id="btnDetails" onclick="getProjectDetails()">Get Project Details</button>
-  <p id="details"></p>
+  <pre>
+    <p id="details"></p>
+  </pre>
 
   <script>
-    (function() {
+    function getProjectDetails() {
       var oauthUri = 'https://auth.europe-west1.gcp.commercetools.com'
       var baseUri = 'https://api.europe-west1.gcp.commercetools.com'
       var credentials = {
@@ -37,9 +39,9 @@
         .get()
         .execute()
         .then(function ({ body }) {
-          window.document.getElementById('details').innerHTML = JSON.stringify(body);
+          window.document.getElementById('details').innerHTML = JSON.stringify(body, null, 2);
         })
-    }())
+    }
   </script>
 </body>
 
