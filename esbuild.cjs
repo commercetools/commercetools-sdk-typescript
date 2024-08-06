@@ -4,9 +4,9 @@ const generalConfig = { minify: true, bundle: true, write: true }
 
 const sdkClientConfig = esbuild.build(
   Object.assign({}, generalConfig, {
-    entryPoints: ['packages/platform-sdk/src/index.ts'],
-    globalName: 'window["@commercetools/platform-sdk"]',
-    outfile: 'packages/platform-sdk/dist/commercetools-platform-sdk.umd.js',
+    entryPoints: ['packages/sdk-client/src/index.ts'],
+    globalName: 'window["@commercetools/sdk-client-v2"]',
+    outfile: 'packages/sdk-client/dist/commercetools-sdk-client-v2.umd.js'
   })
 )
 
@@ -20,9 +20,9 @@ const sdkClientV3Config = esbuild.build(
 
 const platformSdkConfig = esbuild.build(
   Object.assign({}, generalConfig, {
-    entryPoints: ['packages/sdk-client/src/index.ts'],
-    globalName: 'window["@commercetools/sdk-client-v2"]',
-    outfile: 'packages/sdk-client/dist/commercetools-sdk-client-v2.umd.js'
+    entryPoints: ['packages/platform-sdk/src/index.ts'],
+    globalName: 'window["@commercetools/platform-sdk"]',
+    outfile: 'packages/platform-sdk/dist/commercetools-platform-sdk.umd.js',
   })
 )
 
