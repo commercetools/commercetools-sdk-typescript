@@ -5,7 +5,6 @@ import {
   IBuiltRequestParams,
   Task,
   TokenInfo,
-  TResponse,
 } from '../../types/types'
 import { calculateExpirationTime, executor, mergeAuthHeader } from '../../utils'
 import { buildRequestForRefreshTokenFlow } from './auth-request-builder'
