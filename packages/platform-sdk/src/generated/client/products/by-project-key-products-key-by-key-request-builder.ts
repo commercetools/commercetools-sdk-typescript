@@ -31,7 +31,7 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
   }
 
   /**
-   *	If [Product price selection query parameters]](/../api/pricing-and-discounts-overview#product-price-selection) are provided, the selected Prices are added to the response.
+   *	If [Product price selection query parameters](/../api/pricing-and-discounts-overview#product-price-selection) are provided, the selected Prices are added to the response.
    */
   public get(methodArgs?: {
     queryArgs?: {
