@@ -59,11 +59,11 @@ export async function executeRequest(
    */
   pendingTasks.push({ request, next })
 
-  // if a token is currently being fetched, then wait
-  if (requestState.get()) return
-
-  // signal that a token is being fetched
-  requestState.set(true)
+  // // if a token is currently being fetched, then wait
+  // if (requestState.get()) return
+  //
+  // // signal that a token is being fetched
+  // requestState.set(true)
 
   /**
    * use refreshToken flow if there is refresh-token
@@ -76,7 +76,7 @@ export async function executeRequest(
       (tokenCacheObject.token && Date.now() > tokenCacheObject.expirationTime))
   ) {
     if (!userOption) {
-      requestState.set(false)
+      // requestState.set(false)
       throw new Error('Missing required options.')
     }
 
@@ -122,7 +122,7 @@ export async function executeRequest(
       tokenCache.set({ token, expirationTime, refreshToken })
 
       // signal that a token fetch is complete
-      requestState.set(false)
+      // requestState.set(false)
 
       /**
        * Freeze and copy pending queue, reset
@@ -159,7 +159,7 @@ export async function executeRequest(
      * and free up the middleware chain and
      * release the requestState by setting it to false
      */
-    requestState.set(false)
+    // requestState.set(false)
     request.reject({
       ...request,
       headers: { ...request.headers },
@@ -172,7 +172,7 @@ export async function executeRequest(
     /**
      * on error release the state by setting it to false
      */
-    requestState.set(false)
+    // requestState.set(false)
     return {
       ...request,
       headers: { ...request.headers },

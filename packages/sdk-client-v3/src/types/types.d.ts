@@ -142,10 +142,7 @@ export type RefreshAuthMiddlewareOptions = {
   httpClient?: Function
 }
 
-export type RequestStateStore = {
-  get: () => RequestState
-  set: (requestState: RequestState) => void
-}
+export type RequestStateStore = any
 
 /* Request */
 type requestBaseOptions = {
