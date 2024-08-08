@@ -21,7 +21,12 @@ export default function createAuthMiddlewareForClientCredentialsFlow(
 ): Middleware {
   const requestState = new Mutex()
   const pendingTasks: Array<Task> = []
-  const tokenCache = options.tokenCache || null
+  const tokenCache =
+    options.tokenCache ||
+    store<TokenStore, TokenCache>({
+      token: '',
+      expirationTime: -1,
+    })
 
   const tokenCacheKey = buildTokenCacheKey(options)
   return (next: Next) => {
@@ -53,7 +58,7 @@ export default function createAuthMiddlewareForClientCredentialsFlow(
         await requestState.acquire()
         requestWithAuth = await executeRequest(requestOptions)
       } finally {
-        await requestState.release()
+        requestState.release()
       }
       if (requestWithAuth) {
         // make the request and inject the token into the header
