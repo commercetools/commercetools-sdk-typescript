@@ -56,25 +56,6 @@ describe('Auth request executor', () => {
       )
     })
 
-    // test('should return if a token is already being fetched', async () => {
-    //   const options = createTestExecutorOptions({
-    //     requestState: { get: jest.fn(() => true), set: jest.fn() },
-    //     tokenCache: {
-    //       set: jest.fn(),
-    //       get: jest.fn(() => ({
-    //         token: 'test-cached-token',
-    //         expirationTime: Date.now() - 999,
-    //       })),
-    //     },
-    //     httpClient: jest.fn(() => ({
-    //       statusCode: 200,
-    //       data: { statusCode: 200, access_token: 'test-access-token' },
-    //     })),
-    //   })
-
-    //   expect(await executeRequest(options)).toEqual(undefined)
-    // })
-
     test('should throw if userOptions are not provided for token refresh', () => {
       const options = createTestExecutorOptions({
         userOption: null,

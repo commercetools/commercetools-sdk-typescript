@@ -12,15 +12,8 @@ import { buildRequestForRefreshTokenFlow } from './auth-request-builder'
 export async function executeRequest(
   options: executeRequestOptions
 ): Promise<ClientRequest> {
-  const {
-    request,
-    httpClient,
-    tokenCache,
-    tokenCacheKey,
-    requestState,
-    userOption,
-    next,
-  } = options
+  const { request, httpClient, tokenCache, tokenCacheKey, userOption, next } =
+    options
 
   let url = options.url
   let body = options.body
@@ -59,12 +52,6 @@ export async function executeRequest(
    */
   pendingTasks.push({ request, next })
 
-  // // if a token is currently being fetched, then wait
-  // if (requestState.get()) return
-  //
-  // // signal that a token is being fetched
-  // requestState.set(true)
-
   /**
    * use refreshToken flow if there is refresh-token
    * and there's either no token or the token is expired
@@ -76,7 +63,6 @@ export async function executeRequest(
       (tokenCacheObject.token && Date.now() > tokenCacheObject.expirationTime))
   ) {
     if (!userOption) {
-      // requestState.set(false)
       throw new Error('Missing required options.')
     }
 
@@ -121,9 +107,6 @@ export async function executeRequest(
       // cache new generated token, refreshToken and expiration time
       tokenCache.set({ token, expirationTime, refreshToken })
 
-      // signal that a token fetch is complete
-      // requestState.set(false)
-
       /**
        * Freeze and copy pending queue, reset
        * original one for accepting new pending tasks
@@ -156,10 +139,8 @@ export async function executeRequest(
     )
     /**
      * reject the error immediately
-     * and free up the middleware chain and
-     * release the requestState by setting it to false
+     * and free up the middleware chain
      */
-    // requestState.set(false)
     request.reject({
       ...request,
       headers: { ...request.headers },
@@ -169,10 +150,6 @@ export async function executeRequest(
       },
     })
   } catch (error) {
-    /**
-     * on error release the state by setting it to false
-     */
-    // requestState.set(false)
     return {
       ...request,
       headers: { ...request.headers },
