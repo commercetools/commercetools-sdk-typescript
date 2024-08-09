@@ -49,6 +49,10 @@ export class ByProjectKeyMeBusinessUnitsRequestBuilder {
     })
   }
 
+  /**
+   *	Returns all of the authenticated Customer’s Business Units in a Project. Returns a `200 OK` status if successful, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -78,7 +82,8 @@ export class ByProjectKeyMeBusinessUnitsRequestBuilder {
     )
   }
   /**
-   *	Checks if a BusinessUnit exists for a given Query Predicate. Returns a `200 OK` status if any BusinessUnits match the Query Predicate or a `404 Not Found` otherwise.
+   *	Checks if a BusinessUnit exists for a given Query Predicate. Returns a `200 OK` status if any BusinessUnits match the Query Predicate and the Customer has access to them, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *
    */
   public head(methodArgs?: {
     queryArgs?: {

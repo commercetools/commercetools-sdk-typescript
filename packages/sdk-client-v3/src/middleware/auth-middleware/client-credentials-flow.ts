@@ -1,13 +1,11 @@
-import fetch from 'node-fetch'
 import { Mutex } from 'async-mutex'
+import fetch from 'node-fetch'
 import {
   AuthMiddlewareOptions,
   Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
   Next,
-  RequestState,
-  RequestStateStore,
   Task,
   TokenCache,
   TokenStore,

@@ -111,6 +111,16 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder {
     })
   }
 
+  /**
+   *	Returns a Customer for a given Query Predicate in a [Store](ctp:api:type:Store). Returns a `200 OK` status if successful.
+   *
+   *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
+   *
+   *	- If no Customer exists in the Store for the given Query Predicate.
+   *	- If a Customer exists in the Store for the given Query Predicate, but does not have an `id` value that matches the [customer:{id}](/scopes#customer_idid) scope.
+   *	- If a Customer exists for the given Query Predicate but is associated with a different Store than what is specified in the `manage_my_profile:{projectKey}:{storeKey}` scope.
+   *
+   */
   public get(methodArgs?: {
     queryArgs?: {
       sort?: string | string[]
@@ -139,6 +149,15 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Updates the Customer in a [Store](ctp:api:type:Store). Returns a `200 OK` status if successful.
+   *
+   *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
+   *
+   *	- If no Customer exists with the `id` specified in the [customer:{id}](/scopes#customer_idid) scope.
+   *	- If the Customer exists but is associated with a different Store than what is specified in the `manage_my_profile:{projectKey}:{storeKey}` scope.
+   *
+   */
   public post(methodArgs: {
     body: MyCustomerUpdate
     headers?: {
@@ -160,6 +179,15 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deletes the Customer in a [Store](ctp:api:type:Store). Returns a `200 OK` status if successful.
+   *
+   *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
+   *
+   *	- If no Customer exists with the `id` specified in the [customer:{id}](/scopes#customer_idid) scope.
+   *	- If the Customer exists but is associated with a different Store than what is specified in the `manage_my_profile:{projectKey}:{storeKey}` scope.
+   *
+   */
   public delete(methodArgs: {
     queryArgs: {
       version: number
