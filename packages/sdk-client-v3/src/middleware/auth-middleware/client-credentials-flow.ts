@@ -1,4 +1,5 @@
 import fetch from 'node-fetch'
+import { Mutex } from 'async-mutex'
 import {
   AuthMiddlewareOptions,
   Middleware,
@@ -18,7 +19,7 @@ import { executeRequest } from './auth-request-executor'
 export default function createAuthMiddlewareForClientCredentialsFlow(
   options: AuthMiddlewareOptions
 ): Middleware {
-  const requestState = store<RequestState, RequestStateStore>(false)
+  const requestState = new Mutex()
   const pendingTasks: Array<Task> = []
   const tokenCache =
     options.tokenCache ||
@@ -52,7 +53,13 @@ export default function createAuthMiddlewareForClientCredentialsFlow(
       }
 
       // make request to coco
-      const requestWithAuth = await executeRequest(requestOptions)
+      let requestWithAuth
+      try {
+        await requestState.acquire()
+        requestWithAuth = await executeRequest(requestOptions)
+      } finally {
+        requestState.release()
+      }
       if (requestWithAuth) {
         // make the request and inject the token into the header
         return next(requestWithAuth)

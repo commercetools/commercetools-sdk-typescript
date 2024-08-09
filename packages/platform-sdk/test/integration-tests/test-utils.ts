@@ -68,6 +68,13 @@ export const authMiddlewareOptionsV3 = {
   httpClient: fetch,
 }
 
+export function createTokenCache() {
+  return _tokenCache<TokenStore, TokenCache>({
+    token: '',
+    expirationTime: -1,
+  })
+}
+
 const ctpClient = new ClientBuilder()
   .withProjectKey(projectKey)
   .withClientCredentialsFlow(authMiddlewareOptions)
