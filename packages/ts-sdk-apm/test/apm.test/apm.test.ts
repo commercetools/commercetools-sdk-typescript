@@ -32,8 +32,8 @@ describe('apm', () => {
   describe('apm test - null tracer configurations', () => {
     const response = createTestResponse({})
     const telemetryMiddleware = createTelemetryMiddleware({
-      apm: null,
-      tracer: null,
+      apm: null as any,
+      tracer: null as any,
     })
 
     const next = (req: MiddlewareRequest) => {
