@@ -20,7 +20,12 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeEmailConfirmRequestBuilder {
     }
   ) {}
   /**
-   *	This is the last step in the [email verification process of a Customer](/../api/projects/customers#email-verification-of-customer-in-store).
+   *	This is the last step in the [email verification process of a Customer](/../api/projects/customers#email-verification-of-customer-in-store). Returns a `200 OK` status if successful.
+   *
+   *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
+   *
+   *	- If no Customer exists with the `id` specified in the [customer:{id}](/scopes#customer_idid) scope.
+   *	- If the Customer exists but is associated with a different Store than what is specified in the `manage_my_profile:{projectKey}:{storeKey}` scope.
    *
    */
   public post(methodArgs: {

@@ -240,6 +240,8 @@
 <details>
 <summary>Removed Method(s)</summary>
 
+- :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withId().delete()`
+- :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withKey().delete()`
 - :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().get()`
 - :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().head()`
 - :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().post()`

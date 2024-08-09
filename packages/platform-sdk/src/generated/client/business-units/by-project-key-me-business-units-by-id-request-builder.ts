@@ -20,6 +20,10 @@ export class ByProjectKeyMeBusinessUnitsByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Returns a Business Unit for a given `id`. Returns a `200 OK` status if the Business Unit exists and the Customer has access to it, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -44,7 +48,7 @@ export class ByProjectKeyMeBusinessUnitsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a BusinessUnit exists for a given `id`. Returns a `200 OK` status if the BusinessUnit exists or a `404 Not Found` otherwise.
+   *	Checks if a BusinessUnit exists for a given `id`. Returns a `200 OK` status if the BusinessUnit exists and the Customer has access to it, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -64,6 +68,10 @@ export class ByProjectKeyMeBusinessUnitsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Updates a Business Unit for a given `id`. Returns a `200 OK` status if the Business Unit exists and the Customer has access to it, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -86,30 +94,6 @@ export class ByProjectKeyMeBusinessUnitsByIDRequestBuilder {
         },
         queryParams: methodArgs?.queryArgs,
         body: methodArgs?.body,
-      },
-      this.args.executeRequest
-    )
-  }
-  public delete(methodArgs: {
-    queryArgs: {
-      version: number
-      expand?: string | string[]
-      [key: string]: QueryParam
-    }
-    headers?: {
-      [key: string]: string | string[]
-    }
-  }): ApiRequest<BusinessUnit> {
-    return new ApiRequest<BusinessUnit>(
-      {
-        baseUri: this.args.baseUri,
-        method: 'DELETE',
-        uriTemplate: '/{projectKey}/me/business-units/{ID}',
-        pathVariables: this.args.pathArgs,
-        headers: {
-          ...methodArgs?.headers,
-        },
-        queryParams: methodArgs?.queryArgs,
       },
       this.args.executeRequest
     )
