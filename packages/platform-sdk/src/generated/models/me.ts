@@ -792,7 +792,8 @@ export type MyPaymentUpdateAction =
   | MyPaymentSetTransactionCustomFieldAction
 export interface MyQuoteRequestDraft {
   /**
-   *	`id` of the Cart from which the Quote Request is created.
+   *	`id` of the Cart from which the Quote Request is created. Carts with [Discount Codes](ctp:api:type:DiscountCode) and Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode) are not supported.
+   *	The Cart must have a `shippingAddress` defined, otherwise an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned when [creating a Quote Request](ctp:api:endpoint:/{projectKey}/me/quote-requests:POST).
    *
    *
    */
