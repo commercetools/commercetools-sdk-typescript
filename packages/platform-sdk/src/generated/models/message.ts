@@ -213,6 +213,11 @@ export type Message =
   | CustomerTitleSetMessage
   | DeliveryAddedMessage
   | DeliveryAddressSetMessage
+  | DeliveryCustomFieldAddedMessage
+  | DeliveryCustomFieldChangedMessage
+  | DeliveryCustomFieldRemovedMessage
+  | DeliveryCustomTypeRemovedMessage
+  | DeliveryCustomTypeSetMessage
   | DeliveryItemsUpdatedMessage
   | DeliveryRemovedMessage
   | DiscountCodeCreatedMessage
@@ -7593,6 +7598,11 @@ export type OrderMessage =
   | CustomLineItemStateTransitionMessage
   | DeliveryAddedMessage
   | DeliveryAddressSetMessage
+  | DeliveryCustomFieldAddedMessage
+  | DeliveryCustomFieldChangedMessage
+  | DeliveryCustomFieldRemovedMessage
+  | DeliveryCustomTypeRemovedMessage
+  | DeliveryCustomTypeSetMessage
   | DeliveryItemsUpdatedMessage
   | DeliveryRemovedMessage
   | LineItemStateTransitionMessage
@@ -7877,7 +7887,7 @@ export interface DeliveryAddressSetMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Unique identifier of the [Parcel](ctp:api:type:Delivery).
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
    *
    *
    */
@@ -7900,6 +7910,409 @@ export interface DeliveryAddressSetMessage {
    *
    */
   readonly shippingKey?: string
+}
+/**
+ *	Generated after adding a Custom Field to a Delivery using the [Set CustomField](ctp:api:type:OrderSetDeliveryCustomFieldAction) update action.
+ *
+ */
+export interface DeliveryCustomFieldAddedMessage {
+  readonly type: 'DeliveryCustomFieldAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that was added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   */
+  readonly value: any
+  /**
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
+   *
+   *
+   */
+  readonly deliveryId: string
+}
+/**
+ *	Generated when an existing Custom Field on a Delivery has been changed using the [Set CustomField](ctp:api:type:OrderSetDeliveryCustomFieldAction) update action.
+ *
+ */
+export interface DeliveryCustomFieldChangedMessage {
+  readonly type: 'DeliveryCustomFieldChanged'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:OrderSetDeliveryCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) before the [Set CustomField](ctp:api:type:OrderSetDeliveryCustomFieldAction) update action.
+   *	When there has not been a Custom Field with the `name` on the Delivery before, a [Delivery Custom Field Added](ctp:api:type:DeliveryCustomFieldAddedMessage) Message is generated instead.
+   *
+   *
+   */
+  readonly previousValue?: any
+  /**
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
+   *
+   *
+   */
+  readonly deliveryId: string
+}
+/**
+ *	Generated when a Custom Field has been removed from the Delivery using the [Set CustomField](ctp:api:type:OrderSetDeliveryCustomFieldAction) update action.
+ *
+ */
+export interface DeliveryCustomFieldRemovedMessage {
+  readonly type: 'DeliveryCustomFieldRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
+   *
+   *
+   */
+  readonly deliveryId: string
+}
+/**
+ *	Generated after removing a Custom Type from a Delivery using the [Set Custom Type](ctp:api:type:OrderSetDeliveryCustomTypeAction) update action with empty parameters.
+ *
+ */
+export interface DeliveryCustomTypeRemovedMessage {
+  readonly type: 'DeliveryCustomTypeRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly previousTypeId?: string
+  /**
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
+   *
+   *
+   */
+  readonly deliveryId: string
+}
+/**
+ *	Generated after adding a Custom Type to a Delivery using the [Set Custom Type](ctp:api:type:OrderSetDeliveryCustomTypeAction) update action.
+ *
+ */
+export interface DeliveryCustomTypeSetMessage {
+  readonly type: 'DeliveryCustomTypeSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Custom Fields that have been set.
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly previousTypeId?: string
+  /**
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
+   *
+   *
+   */
+  readonly deliveryId: string
 }
 /**
  *	Generated after a successful [Set Delivery Items](ctp:api:type:OrderSetDeliveryItemsAction) update action.
@@ -18916,6 +19329,11 @@ export type MessagePayload =
   | CustomerTitleSetMessagePayload
   | DeliveryAddedMessagePayload
   | DeliveryAddressSetMessagePayload
+  | DeliveryCustomFieldAddedMessagePayload
+  | DeliveryCustomFieldChangedMessagePayload
+  | DeliveryCustomFieldRemovedMessagePayload
+  | DeliveryCustomTypeRemovedMessagePayload
+  | DeliveryCustomTypeSetMessagePayload
   | DeliveryItemsUpdatedMessagePayload
   | DeliveryRemovedMessagePayload
   | DiscountCodeCreatedMessagePayload
@@ -20635,6 +21053,11 @@ export type OrderMessagePayload =
   | CustomLineItemStateTransitionMessagePayload
   | DeliveryAddedMessagePayload
   | DeliveryAddressSetMessagePayload
+  | DeliveryCustomFieldAddedMessagePayload
+  | DeliveryCustomFieldChangedMessagePayload
+  | DeliveryCustomFieldRemovedMessagePayload
+  | DeliveryCustomTypeRemovedMessagePayload
+  | DeliveryCustomTypeSetMessagePayload
   | DeliveryItemsUpdatedMessagePayload
   | DeliveryRemovedMessagePayload
   | LineItemStateTransitionMessagePayload
@@ -20748,7 +21171,7 @@ export interface DeliveryAddedMessagePayload {
 export interface DeliveryAddressSetMessagePayload {
   readonly type: 'DeliveryAddressSet'
   /**
-   *	Unique identifier of the [Parcel](ctp:api:type:Delivery).
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
    *
    *
    */
@@ -20771,6 +21194,124 @@ export interface DeliveryAddressSetMessagePayload {
    *
    */
   readonly shippingKey?: string
+}
+/**
+ *	Generated after adding a Custom Field to a Delivery using the [Set CustomField](ctp:api:type:OrderSetDeliveryCustomFieldAction) update action.
+ *
+ */
+export interface DeliveryCustomFieldAddedMessagePayload {
+  readonly type: 'DeliveryCustomFieldAdded'
+  /**
+   *	Name of the Custom Field that was added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   */
+  readonly value: any
+  /**
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
+   *
+   *
+   */
+  readonly deliveryId: string
+}
+/**
+ *	Generated when an existing Custom Field on a Delivery has been changed using the [Set CustomField](ctp:api:type:OrderSetDeliveryCustomFieldAction) update action.
+ *
+ */
+export interface DeliveryCustomFieldChangedMessagePayload {
+  readonly type: 'DeliveryCustomFieldChanged'
+  /**
+   *	Name of the Custom Field that changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:OrderSetDeliveryCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) before the [Set CustomField](ctp:api:type:OrderSetDeliveryCustomFieldAction) update action.
+   *	When there has not been a Custom Field with the `name` on the Delivery before, a [Delivery Custom Field Added](ctp:api:type:DeliveryCustomFieldAddedMessage) Message is generated instead.
+   *
+   *
+   */
+  readonly previousValue?: any
+  /**
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
+   *
+   *
+   */
+  readonly deliveryId: string
+}
+/**
+ *	Generated when a Custom Field has been removed from the Delivery using the [Set CustomField](ctp:api:type:OrderSetDeliveryCustomFieldAction) update action.
+ *
+ */
+export interface DeliveryCustomFieldRemovedMessagePayload {
+  readonly type: 'DeliveryCustomFieldRemoved'
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
+   *
+   *
+   */
+  readonly deliveryId: string
+}
+/**
+ *	Generated after removing a Custom Type from a Delivery using the [Set Custom Type](ctp:api:type:OrderSetDeliveryCustomTypeAction) update action with empty parameters.
+ *
+ */
+export interface DeliveryCustomTypeRemovedMessagePayload {
+  readonly type: 'DeliveryCustomTypeRemoved'
+  /**
+   *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly previousTypeId?: string
+  /**
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
+   *
+   *
+   */
+  readonly deliveryId: string
+}
+/**
+ *	Generated after adding a Custom Type to a Delivery using the [Set Custom Type](ctp:api:type:OrderSetDeliveryCustomTypeAction) update action.
+ *
+ */
+export interface DeliveryCustomTypeSetMessagePayload {
+  readonly type: 'DeliveryCustomTypeSet'
+  /**
+   *	The Custom Fields that have been set.
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly previousTypeId?: string
+  /**
+   *	Unique identifier of the [Delivery](ctp:api:type:Delivery).
+   *
+   *
+   */
+  readonly deliveryId: string
 }
 /**
  *	Generated after a successful [Set Delivery Items](ctp:api:type:OrderSetDeliveryItemsAction) update action.
