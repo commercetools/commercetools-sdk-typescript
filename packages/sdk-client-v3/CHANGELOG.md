@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 2.0.2
+
+### Patch Changes
+
+- [#777](https://github.com/commercetools/commercetools-sdk-typescript/pull/777) [`38c7035`](https://github.com/commercetools/commercetools-sdk-typescript/commit/38c703557964a2355c4419b0bf8f0ea0a6361ce5) Thanks [@lojzatran](https://github.com/lojzatran)! - Bug fixes for @commercetools/ts-client
+
 ## 2.0.1
 
 ### Patch Changes
