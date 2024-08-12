@@ -86,6 +86,10 @@ export interface ProductSearchMatchingVariants {
    */
   readonly matchedVariants: ProductSearchMatchingVariantEntry[]
 }
+/**
+ *	The query parameters used for [data integration with Product Projection parameters](/../api/projects/product-search#with-product-projection-parameters).
+ *
+ */
 export interface ProductSearchProjectionParams {
   /**
    *	Expands a `value` of type [Reference](ctp:api:type:Reference) in a [ProductProjection](ctp:api:type:ProductProjection).
@@ -149,17 +153,21 @@ export interface ProductSearchRequest {
    */
   readonly query?: _SearchQuery
   /**
-   *	Controls how results to your query are sorted. If not provided, the results are sorted by relevance in descending order.
+   *	Controls how results to your query are [sorted](/../api/projects/product-search#sorting).
+   *	If not provided, the results are sorted by relevance score in descending order.
+   *
    *
    */
   readonly sort?: SearchSorting[]
   /**
-   *	The maximum number of search results to be returned.
+   *	The maximum number of search results to be returned in one [page](/../api/projects/product-search#pagination).
+   *
    *
    */
   readonly limit?: number
   /**
-   *	The number of search results to be skipped in the response for pagination.
+   *	The number of search results to be skipped in the response for [pagination](/../api/projects/product-search#pagination).
+   *
    *
    */
   readonly offset?: number
@@ -169,8 +177,7 @@ export interface ProductSearchRequest {
    */
   readonly markMatchingVariants?: boolean
   /**
-   *	Set this field to `{}` to get the [ProductProjection](ctp:api:type:ProductProjection) included in the [ProductSearchResult](ctp:api:type:ProductSearchResult).
-   *	Include query parameters for controlling [Reference Expansion](/../api/general-concepts#reference-expansion) or [projections](/../api/projects/productProjections#projection-dimensions) according to your needs.
+   *	Controls data integration [with Product Projection parameters](/../api/projects/product-search#with-product-projection-parameters).
    *	If not set, the result does not include the Product Projection.
    *
    *

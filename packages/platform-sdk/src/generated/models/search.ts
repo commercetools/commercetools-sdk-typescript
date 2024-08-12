@@ -311,13 +311,11 @@ export type SearchSortMode = 'avg' | 'max' | 'min' | 'sum' | string
 export type SearchSortOrder = 'asc' | 'desc' | string
 /**
  *	Sorting parameters provided with a Search request.
- *	Sorting allows you to control how results to your query are sorted.
- *	If no sorting is specified, the results are sorted by relevance in descending (`desc`) order.
  *
  */
 export interface SearchSorting {
   /**
-   *	Use any searchable field of the resource as sort criterion.
+   *	Use any searchable field of the resource as sort criterion, or `"score"` to sort by relevance score calculated by the API.
    *
    *
    */
