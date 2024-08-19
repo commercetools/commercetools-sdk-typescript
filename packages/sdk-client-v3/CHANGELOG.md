@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 2.0.3
+
+### Patch Changes
+
+- [#782](https://github.com/commercetools/commercetools-sdk-typescript/pull/782) [`238e99a`](https://github.com/commercetools/commercetools-sdk-typescript/commit/238e99a3600886c71db4770c128bfff6f37347a8) Thanks [@ajimae](https://github.com/ajimae)! - Fix error when retrying due to redacted oauth token.
+
 ## 2.0.2
 
 ### Patch Changes
