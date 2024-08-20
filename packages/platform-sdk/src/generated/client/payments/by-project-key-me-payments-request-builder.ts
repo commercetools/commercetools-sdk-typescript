@@ -36,6 +36,9 @@ export class ByProjectKeyMePaymentsRequestBuilder {
     })
   }
 
+  /**
+   *	Returns all [Payments](/projects/me-payments#mypayment) that match a given Query Predicate.
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -65,7 +68,7 @@ export class ByProjectKeyMePaymentsRequestBuilder {
     )
   }
   /**
-   *	Checks if a Payment exists for a given Query Predicate. Returns a `200 OK` status if any Payments match the Query Predicate or a `404 Not Found` otherwise.
+   *	Checks if a [Payment](/projects/me-payments#mypayment) exists for a given Query Predicate. Returns a `200 OK` status if any Payments match the Query Predicate or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {
@@ -91,6 +94,7 @@ export class ByProjectKeyMePaymentsRequestBuilder {
     )
   }
   /**
+   *	Creates a [Payment](/projects/me-payments#mypayment) for the Customer or an anonymous user.
    *	Creating a Payment produces the [PaymentCreated](ctp:api:type:PaymentCreatedMessage) Message.
    *
    */
