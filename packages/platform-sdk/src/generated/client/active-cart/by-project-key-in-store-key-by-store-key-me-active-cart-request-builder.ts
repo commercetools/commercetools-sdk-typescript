@@ -28,7 +28,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeActiveCartRequestBuilder {
    *
    *	- If no active Cart exists.
    *	- If an active Cart exists but does not have a `store` specified, or the `store` field references a different Store.
-   *	- If an active Cart exists but does not have a `customerId` that matches the [customer:{id}](/scopes#customer_idid) scope, or `anonymousId` that matches the [anonymous_id:{id}](/scopes#anonymous_idid) scope.
+   *	- If an active Cart exists but does not have a `customerId` that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope, or `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public get(methodArgs?: {
@@ -61,7 +61,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeActiveCartRequestBuilder {
    *
    *	- If no active Cart exists in a Store.
    *	- If an active Cart exists but does not have a `store` specified, or the `store` field references a different Store.
-   *	- If an active Cart exists but does not contain a `customerId` that matches the [customer:{id}](/scopes#customer_idid) scope, or `anonymousId` that matches the [anonymous_id:{id}](/scopes#anonymous_idid) scope.
+   *	- If an active Cart exists but does not contain a `customerId` that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope, or `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public head(methodArgs?: {

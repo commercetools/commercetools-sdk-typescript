@@ -55,7 +55,7 @@ export class ByProjectKeyMeShoppingListsRequestBuilder {
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *
    *	- If no ShoppingList exists for the given Query Predicate.
-   *	- If a ShoppingList exists but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#anonymous_idid) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#customer_idid) scope.
+   *	- If a ShoppingList exists but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public get(methodArgs?: {
@@ -92,7 +92,7 @@ export class ByProjectKeyMeShoppingListsRequestBuilder {
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *
    *	- If no ShoppingList exists for the given Query Predicate.
-   *	- If a ShoppingList exists but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#anonymous_idid) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#customer_idid) scope.
+   *	- If a ShoppingList exists but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public head(methodArgs?: {
@@ -119,7 +119,7 @@ export class ByProjectKeyMeShoppingListsRequestBuilder {
     )
   }
   /**
-   *	Creates a ShoppingList for the Customer or anonymous user. The `customerId` or `anonymousId` on the ShoppingList is automatically set based on the given [customer:{id}](/scopes#customer_idid) or [anonymous_id:{id}](/scopes#anonymous_idid) scope.
+   *	Creates a ShoppingList for the Customer or anonymous user. The `customerId` or `anonymousId` on the ShoppingList is automatically set based on the given [customer:{id}](/scopes#composable-commerce-oauth) or [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public post(methodArgs: {

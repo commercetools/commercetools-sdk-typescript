@@ -24,7 +24,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeEmailConfirmRequestBuilder {
    *
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *
-   *	- If no Customer exists with the `id` specified in the [customer:{id}](/scopes#customer_idid) scope.
+   *	- If no Customer exists with the `id` specified in the [customer:{id}](/scopes#composable-commerce-oauth) scope.
    *	- If the Customer exists but is associated with a different Store than what is specified in the `manage_my_profile:{projectKey}:{storeKey}` scope.
    *
    */

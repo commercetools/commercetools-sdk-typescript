@@ -117,7 +117,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder {
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *
    *	- If no Customer exists in the Store for the given Query Predicate.
-   *	- If a Customer exists in the Store for the given Query Predicate, but does not have an `id` value that matches the [customer:{id}](/scopes#customer_idid) scope.
+   *	- If a Customer exists in the Store for the given Query Predicate, but does not have an `id` value that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope.
    *	- If a Customer exists for the given Query Predicate but is associated with a different Store than what is specified in the `manage_my_profile:{projectKey}:{storeKey}` scope.
    *
    */
@@ -154,7 +154,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder {
    *
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *
-   *	- If no Customer exists with the `id` specified in the [customer:{id}](/scopes#customer_idid) scope.
+   *	- If no Customer exists with the `id` specified in the [customer:{id}](/scopes#composable-commerce-oauth) scope.
    *	- If the Customer exists but is associated with a different Store than what is specified in the `manage_my_profile:{projectKey}:{storeKey}` scope.
    *
    */
@@ -184,7 +184,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder {
    *
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *
-   *	- If no Customer exists with the `id` specified in the [customer:{id}](/scopes#customer_idid) scope.
+   *	- If no Customer exists with the `id` specified in the [customer:{id}](/scopes#composable-commerce-oauth) scope.
    *	- If the Customer exists but is associated with a different Store than what is specified in the `manage_my_profile:{projectKey}:{storeKey}` scope.
    *
    */

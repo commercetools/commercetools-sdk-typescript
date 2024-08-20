@@ -33,7 +33,7 @@ export class ByProjectKeyMessagesRequestBuilder {
   }
 
   /**
-   *	Deprecated scope: `view_orders:{projectKey}`
+   *	Deprecated OAuth 2.0 Scope: `view_orders:{projectKey}`
    */
   public get(methodArgs?: {
     queryArgs?: {

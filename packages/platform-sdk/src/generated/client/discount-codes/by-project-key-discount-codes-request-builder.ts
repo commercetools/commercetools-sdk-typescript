@@ -50,7 +50,7 @@ export class ByProjectKeyDiscountCodesRequestBuilder {
   }
 
   /**
-   *	Deprecated scope: `view_orders:{projectKey}`
+   *	Deprecated OAuth 2.0 Scope: `view_orders:{projectKey}`
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -109,7 +109,7 @@ export class ByProjectKeyDiscountCodesRequestBuilder {
   /**
    *	Creating a Discount Code produces the [DiscountCodeCreated](ctp:api:type:DiscountCodeCreatedMessage) Message.
    *
-   *	Deprecated scope: `manage_orders:{projectKey}`
+   *	Deprecated OAuth 2.0 Scope: `manage_orders:{projectKey}`
    *
    */
   public post(methodArgs: {

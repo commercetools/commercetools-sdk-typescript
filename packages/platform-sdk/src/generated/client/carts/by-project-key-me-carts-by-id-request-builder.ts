@@ -26,7 +26,7 @@ export class ByProjectKeyMeCartsByIDRequestBuilder {
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *
    *	- If no Cart exists for a given `id`.
-   *	- If the Cart exists but does not have a `customerId` that matches the [customer:{id}](/scopes#customer_idid) scope, or `anonymousId` that matches the [anonymous_id:{id}](/scopes#anonymous_idid) scope.
+   *	- If the Cart exists but does not have a `customerId` that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope, or `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public get(methodArgs?: {
@@ -58,7 +58,7 @@ export class ByProjectKeyMeCartsByIDRequestBuilder {
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *
    *	- If no Cart exists for a given `id`.
-   *	- If the Cart exists but does not have a `customerId` that matches the [customer:{id}](/scopes#customer_idid) scope, or `anonymousId` that matches the [anonymous_id:{id}](/scopes#anonymous_idid) scope.
+   *	- If the Cart exists but does not have a `customerId` that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope, or `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public head(methodArgs?: {
@@ -85,7 +85,7 @@ export class ByProjectKeyMeCartsByIDRequestBuilder {
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *
    *	- If no Cart exists for a given `id`.
-   *	- If the Cart exists but does not have a `customerId` that matches the [customer:{id}](/scopes#customer_idid) scope, or `anonymousId` that matches the [anonymous_id:{id}](/scopes#anonymous_idid) scope.
+   *	- If the Cart exists but does not have a `customerId` that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope, or `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public post(methodArgs: {
@@ -120,7 +120,7 @@ export class ByProjectKeyMeCartsByIDRequestBuilder {
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *
    *	- If no Cart exists for a given `id`.
-   *	- If the Cart exists but does not have a `customerId` that matches the [customer:{id}](/scopes#customer_idid) scope, or `anonymousId` that matches the [anonymous_id:{id}](/scopes#anonymous_idid) scope.
+   *	- If the Cart exists but does not have a `customerId` that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope, or `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public delete(methodArgs: {

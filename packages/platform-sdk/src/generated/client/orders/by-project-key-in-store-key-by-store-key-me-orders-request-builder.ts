@@ -35,7 +35,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeOrdersRequestBuilder {
   }
 
   /**
-   *	Returns all Orders in a Store that match a given Query Predicate and contain either a `customerId` that matches the [customer_id:{id}](/scopes#customer_idid) scope, or an `anonymousId` that matches the [anonymous_id:{id}](/scopes#anonymous_idid) scope.
+   *	Returns all Orders in a Store that match a given Query Predicate and contain either a `customerId` that matches the [customer_id:{id}](/scopes#composable-commerce-oauth) scope, or an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public get(methodArgs?: {
@@ -73,7 +73,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeOrdersRequestBuilder {
    *
    *	- If no Orders exist in the Store that match the Query Predicate.
    *	- If an Order matches the Query Predicate, but no `store` is specified, or the `store` field references a different Store.
-   *	- If an Order matches the Query Predicate, but does not have a `customerId` that matches the [customer:{id}](/scopes#customer_idid) scope, or an `anonymousId` that matches the [anonymous_id:{id}](/scopes#anonymous_idid) scope.
+   *	- If an Order matches the Query Predicate, but does not have a `customerId` that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope, or an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public head(methodArgs?: {
@@ -101,11 +101,11 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeOrdersRequestBuilder {
   }
   /**
    *
-   *	Creates an Order in a Store from a Cart for the Customer or anonymous user. The `customerId` or `anonymousId` field on the Order is automatically set based on the [customer:{id}](/scopes#customer_idid) or [anonymous_id:{id}](/scopes#anonymous_idid) scope.
+   *	Creates an Order in a Store from a Cart for the Customer or anonymous user. The `customerId` or `anonymousId` field on the Order is automatically set based on the [customer:{id}](/scopes#composable-commerce-oauth) or [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
    *
    *	The Cart must have a [shipping address set](ctp:api:type:CartSetShippingAddressAction) for taxes to be calculated. When creating [B2B Orders](/associates-overview#b2b-resources), the Customer must have the `CreateMyOrdersFromMyCarts` [Permission](ctp:api:type:Permission).
    *
-   *	If the Cart's `customerId` does not match the [customer:{id}](/scopes#customer_idid) scope, or the `anonymousId` does not match the [anonymous_id:{id}](/scopes#anonymous_idid) scope, a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned.
+   *	If the Cart's `customerId` does not match the [customer:{id}](/scopes#composable-commerce-oauth) scope, or the `anonymousId` does not match the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope, a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned.
    *
    *	Creating an Order produces the [OrderCreated](ctp:api:type:OrderCreatedMessage) Message.
    *

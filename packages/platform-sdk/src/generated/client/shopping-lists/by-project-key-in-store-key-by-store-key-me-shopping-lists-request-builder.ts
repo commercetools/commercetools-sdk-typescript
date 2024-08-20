@@ -61,7 +61,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsRequestBuilder {
    *
    *	- If no ShoppingLists exist in a Store.
    *	- If a ShoppingList exists but does not have a `store` specified, or the `store` field references a different Store.
-   *	- If a ShoppingList exists in a Store but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#anonymous_idid) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#customer_idid) scope.
+   *	- If a ShoppingList exists in a Store but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public get(methodArgs?: {
@@ -99,7 +99,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsRequestBuilder {
    *
    *	- If no ShoppingLists exist for a given Query Predicate in a Store.
    *	- If a ShoppingList matches the Query Predicate but does not have a `store` specified, or the `store` field references a different Store.
-   *	- If a ShoppingList exists in a Store but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#anonymous_idid) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#customer_idid) scope.
+   *	- If a ShoppingList exists in a Store but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public head(methodArgs?: {
@@ -127,7 +127,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsRequestBuilder {
   }
   /**
    *
-   *	Creates a ShoppingList in a Store for a Customer or anonymous user. The `customer` or `anonymousId` field on the ShoppingList is automatically set based on the given [customer:{id}](/scopes#customer_idid) or [anonymous_id:{id}](/scopes#anonymous_idid) scope.
+   *	Creates a ShoppingList in a Store for a Customer or anonymous user. The `customer` or `anonymousId` field on the ShoppingList is automatically set based on the given [customer:{id}](/scopes#composable-commerce-oauth) or [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
    *
    *	When using this endpoint, the `store` field of a ShoppingList is always set to the [Store](ctp:api:type:Store) specified in the path parameter.
    *
