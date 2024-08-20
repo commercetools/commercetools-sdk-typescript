@@ -167,7 +167,7 @@ export class ByProjectKeyMeRequestBuilder {
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *
    *	- If no Customer exists for the given Query Predicate.
-   *	- If a Customer exists for the given Query Predicate, but does not have an `id` value that matches the [customer:{id}](/scopes#customer_idid) scope.
+   *	- If a Customer exists for the given Query Predicate, but does not have an `id` value that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public get(methodArgs?: {
@@ -199,7 +199,7 @@ export class ByProjectKeyMeRequestBuilder {
     )
   }
   /**
-   *	Updates the Customer specified in the [customer:{id}](/scopes#customer_idid) scope. Returns a `200 OK` status if successful.
+   *	Updates the Customer specified in the [customer:{id}](/scopes#composable-commerce-oauth) scope. Returns a `200 OK` status if successful.
    *
    */
   public post(methodArgs: {
@@ -224,7 +224,7 @@ export class ByProjectKeyMeRequestBuilder {
     )
   }
   /**
-   *	Deletes the Customer specified in the [customer:{id}](/scopes#customer_idid) scope. Returns a `200 OK` status if successful.
+   *	Deletes the Customer specified in the [customer:{id}](/scopes#composable-commerce-oauth) scope. Returns a `200 OK` status if successful.
    */
   public delete(methodArgs: {
     queryArgs: {

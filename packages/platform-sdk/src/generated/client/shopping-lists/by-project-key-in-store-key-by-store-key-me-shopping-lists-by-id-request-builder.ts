@@ -28,7 +28,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsByIDRequestBuilder {
    *
    *	- If no ShoppingList matches the given `id` in a Store.
    *	- If a ShoppingList matches the given `id` but does not have a `store` specified, or the `store` field references a different Store.
-   *	- If a ShoppingList matches the given `id` in a Store but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#anonymous_idid) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#customer_idid) scope.
+   *	- If a ShoppingList matches the given `id` in a Store but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public get(methodArgs?: {
@@ -62,7 +62,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsByIDRequestBuilder {
    *
    *	- If no ShoppingList matches the given `id` in a Store.
    *	- If a ShoppingList matches the given `id` but does not have a `store` specified, or the `store` field references a different Store.
-   *	- If a ShoppingList matches the given `id` in a Store but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#anonymous_idid) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#customer_idid) scope.
+   *	- If a ShoppingList matches the given `id` in a Store but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public head(methodArgs?: {
@@ -91,7 +91,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsByIDRequestBuilder {
    *
    *	- If no ShoppingList matches the given `id` in a Store.
    *	- If a ShoppingList matches the given `id` but does not have a `store` specified, or the `store` field references a different Store.
-   *	- If a ShoppingList matches the given `id` in a Store but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#anonymous_idid) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#customer_idid) scope.
+   *	- If a ShoppingList matches the given `id` in a Store but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public post(methodArgs: {
@@ -128,7 +128,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsByIDRequestBuilder {
    *
    *	- If no ShoppingList matches the given `id` in a Store.
    *	- If a ShoppingList matches the given `id` but does not have a `store` specified, or the `store` field references a different Store.
-   *	- If a ShoppingList matches the given `id` in a Store but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#anonymous_idid) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#customer_idid) scope.
+   *	- If a ShoppingList matches the given `id` in a Store but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public delete(methodArgs: {
