@@ -275,6 +275,12 @@
 </details>
 
 <details>
+<summary>Added Type(s)</summary>
+
+- added type `ReferencedResourceNotFound`
+</details>
+
+<details>
 <summary>Added Enum(s)</summary>
 
 - added enum `customer-group` to type `CustomFieldReferenceValue`
