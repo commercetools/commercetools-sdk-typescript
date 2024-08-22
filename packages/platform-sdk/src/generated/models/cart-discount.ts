@@ -431,6 +431,12 @@ export interface CartDiscountValueAbsolute {
    *
    */
   readonly money: CentPrecisionMoney[]
+  /**
+   *	Determines how the discount is applied on [CartDiscountLineItemTarget](ctp:api:type:CartDiscountLineItemsTarget) and [CartDiscountCustomLineItemTarget](ctp:api:type:CartDiscountCustomLineItemsTarget).
+   *
+   *
+   */
+  readonly applicationMode?: DiscountApplicationMode
 }
 export type CartDiscountValueDraft =
   | CartDiscountValueAbsoluteDraft
@@ -448,6 +454,14 @@ export interface CartDiscountValueAbsoluteDraft {
    *
    */
   readonly money: Money[]
+  /**
+   *	Determines how the discount applies on [CartDiscountLineItemTarget](ctp:api:type:CartDiscountLineItemsTarget) and [CartDiscountCustomLineItemTarget](ctp:api:type:CartDiscountCustomLineItemsTarget).
+   *
+   *	If not set, the default behavior is `ProportionateDistribution`.
+   *
+   *
+   */
+  readonly applicationMode?: DiscountApplicationMode
 }
 /**
  *	Sets the [DiscountedLineItemPrice](ctp:api:type:DiscountedLineItemPrice) of the [CartDiscountLineItemsTarget](ctp:api:type:CartDiscountLineItemsTarget) or [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget) to the value specified in the `money` field, if it is lower than the current Line Item price for the same currency. If the Line Item price is already discounted to a price equal to or lower than the respective price in the `money` field, this Discount is not applied. If the `quantity` of the Line Item eligible for the Discount is greater than `1`, the fixed price discount is only applied to the Line Item portion for which the `money` value is lesser than their current price.
@@ -563,6 +577,15 @@ export interface CartDiscountValueRelativeDraft {
    */
   readonly permyriad: number
 }
+/**
+ *	This mode determines how absolute Discounts are applied on Line Items or Custom Line Items.
+ *
+ */
+export type DiscountApplicationMode =
+  | 'EvenDistribution'
+  | 'IndividualApplication'
+  | 'ProportionateDistribution'
+  | string
 /**
  *	This Discount target is similar to `MultiBuyLineItems`, but is applied on Custom Line Items instead of Line Items.
  *
