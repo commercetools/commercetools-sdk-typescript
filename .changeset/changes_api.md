@@ -47,6 +47,8 @@
 - added property `approvalRuleMode` to type `CompanyDraft`
 - added property `approvalRuleMode` to type `Division`
 - added property `approvalRuleMode` to type `DivisionDraft`
+- added property `applicationMode` to type `CartDiscountValueAbsolute`
+- added property `applicationMode` to type `CartDiscountValueAbsoluteDraft`
 - added property `addressId` to type `BusinessUnitAddressCustomFieldAddedMessage`
 - added property `addressId` to type `BusinessUnitAddressCustomFieldChangedMessage`
 - added property `addressId` to type `BusinessUnitAddressCustomFieldRemovedMessage`
@@ -126,6 +128,7 @@
 
 - added type `BusinessUnitApprovalRuleMode`
 - added type `BusinessUnitChangeApprovalRuleModeAction`
+- added type `DiscountApplicationMode`
 - added type `CartChangeLineItemsOrderAction`
 - added type `CustomerIndexingProgress`
 - added type `CustomerIndexingStatus`
