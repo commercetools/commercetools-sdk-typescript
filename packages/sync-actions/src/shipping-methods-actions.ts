@@ -17,6 +17,7 @@ export const baseActionsList: Array<UpdateAction> = [
   { action: 'changeIsDefault', key: 'isDefault' },
   { action: 'setPredicate', key: 'predicate' },
   { action: 'changeTaxCategory', key: 'taxCategory' },
+  { action: 'changeActive', key: 'active' },
 ]
 
 export const actionsMapBase: ActionMapBase = (diff, oldObj, newObj, config) => {

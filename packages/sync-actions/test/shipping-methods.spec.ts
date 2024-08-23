@@ -18,6 +18,7 @@ describe('Exports', () => {
       { action: 'changeIsDefault', key: 'isDefault' },
       { action: 'setPredicate', key: 'predicate' },
       { action: 'changeTaxCategory', key: 'taxCategory' },
+      { action: 'changeActive', key: 'active' },
     ])
   })
 })
@@ -55,6 +56,24 @@ describe('Actions', () => {
         {
           action: 'changeName',
           name: now.name,
+        },
+      ]
+      expect(actual).toEqual(expected)
+    })
+
+    test('should build `changeActive` action', () => {
+      const before = {
+        active: false,
+      }
+      const now = {
+        active: true,
+      }
+
+      const actual = shippingMethodsSync.buildActions(now, before)
+      const expected = [
+        {
+          action: 'changeActive',
+          active: now.active,
         },
       ]
       expect(actual).toEqual(expected)
@@ -170,6 +189,7 @@ describe('Actions', () => {
         predicate: 'id is not defined',
       }
 
+      // @ts-ignore
       const actual = shippingMethodsSync.buildActions(now, before)
       const expected = [
         {
@@ -188,6 +208,7 @@ describe('Actions', () => {
         taxCategory: { typeId: 'tax-category', id: 'id2' },
       }
 
+      // @ts-ignore
       const actual = shippingMethodsSync.buildActions(now, before)
       const expected = [
         { action: 'changeTaxCategory', taxCategory: now.taxCategory },
@@ -208,6 +229,7 @@ describe('Actions', () => {
         ],
       }
 
+      // @ts-ignore
       const actual = shippingMethodsSync.buildActions(now, before)
       const expected = [{ action: 'addZone', zone: now.zoneRates[1].zone }]
       expect(actual).toEqual(expected)
@@ -226,6 +248,7 @@ describe('Actions', () => {
         ],
       }
 
+      // @ts-ignore
       const actual = shippingMethodsSync.buildActions(now, before)
       const expected = [
         { action: 'addZone', zone: now.zoneRates[1].zone },
@@ -248,6 +271,7 @@ describe('Actions', () => {
         zoneRates: [{ zone: { typeId: 'zone', id: 'z1' } }],
       }
 
+      // @ts-ignore
       const actual = shippingMethodsSync.buildActions(now, before)
       const expected = [
         { action: 'removeZone', zone: before.zoneRates[1].zone },
@@ -267,6 +291,7 @@ describe('Actions', () => {
         zoneRates: [],
       }
 
+      // @ts-ignore
       const actual = shippingMethodsSync.buildActions(now, before)
       const expected = [
         { action: 'removeZone', zone: before.zoneRates[0].zone },
@@ -298,6 +323,7 @@ describe('Actions', () => {
         ],
       }
 
+      // @ts-ignore
       const actual = shippingMethodsSync.buildActions(now, before)
       const expected = [
         {
@@ -325,6 +351,7 @@ describe('Actions', () => {
         ],
       }
 
+      // @ts-ignore
       const actual = shippingMethodsSync.buildActions(now, before)
       const expected = [
         {
@@ -367,6 +394,7 @@ describe('Actions', () => {
         ],
       }
 
+      // @ts-ignore
       const actual = shippingMethodsSync.buildActions(now, before)
       const expected = [
         {
@@ -399,6 +427,7 @@ describe('Actions', () => {
         ],
       }
 
+      // @ts-ignore
       const actual = shippingMethodsSync.buildActions(now, before)
       const expected = [
         {
@@ -433,6 +462,7 @@ describe('Actions', () => {
         ],
       }
 
+      // @ts-ignore
       const actual = shippingMethodsSync.buildActions(now, before)
       const expected = [
         { action: 'removeZone', zone: before.zoneRates[0].zone },
@@ -471,6 +501,7 @@ describe('Actions', () => {
         ],
       }
 
+      // @ts-ignore
       const actual = shippingMethodsSync.buildActions(now, before)
       const expected = [
         {
@@ -514,6 +545,7 @@ describe('Actions', () => {
         ],
       }
 
+      // @ts-ignore
       const actual = shippingMethodsSync.buildActions(now, before)
       const expected = [
         {
@@ -564,6 +596,7 @@ describe('Actions', () => {
         ],
       }
 
+      // @ts-ignore
       const actual = shippingMethodsSync.buildActions(now, before)
       const expected = [
         { action: 'addZone', zone: now.zoneRates[1].zone },
@@ -606,6 +639,7 @@ describe('Actions', () => {
           },
         },
       }
+      // @ts-ignore
       const actual = shippingMethodsSync.buildActions(now, before)
       const expected = [{ action: 'setCustomType', ...now.custom }]
       expect(actual).toEqual(expected)
@@ -634,6 +668,7 @@ describe('Actions', () => {
           },
         },
       }
+      // @ts-ignore
       const actual = shippingMethodsSync.buildActions(now, before)
       const expected = [
         {

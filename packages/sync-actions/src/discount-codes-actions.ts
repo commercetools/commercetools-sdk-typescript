@@ -6,6 +6,7 @@ export const baseActionsList: Array<UpdateAction> = [
   { action: 'changeIsActive', key: 'isActive' },
   { action: 'setName', key: 'name' },
   { action: 'setDescription', key: 'description' },
+  { action: 'setKey', key: 'key' },
   { action: 'setCartPredicate', key: 'cartPredicate' },
   { action: 'setMaxApplications', key: 'maxApplications' },
   {

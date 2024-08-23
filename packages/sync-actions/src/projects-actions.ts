@@ -9,6 +9,15 @@ export const baseActionsList: Array<UpdateAction> = [
   { action: 'changeLanguages', key: 'languages' },
   { action: 'changeMessagesConfiguration', key: 'messagesConfiguration' },
   { action: 'setShippingRateInputType', key: 'shippingRateInputType' },
+  {
+    action: 'changeMyBusinessUnitStatusOnCreation',
+    key: 'myBusinessUnitStatusOnCreation',
+  },
+  {
+    action: 'setMyBusinessUnitAssociateRoleOnCreation',
+    key: 'myBusinessUnitAssociateRoleOnCreation',
+  },
+  { action: 'changeCustomerSearchStatus', key: 'customerSearchStatus' },
 ]
 
 export const actionsMapBase: ActionMapBase = (diff, oldObj, newObj, config) => {
