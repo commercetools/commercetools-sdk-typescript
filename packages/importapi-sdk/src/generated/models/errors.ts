@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
-import { ProcessingState } from './common'
+import { ProcessingState, ReferenceType } from './common'
 import { PriceImport } from './prices'
 import { Attribute } from './productvariants'
 
@@ -63,6 +63,7 @@ export type ErrorObject =
   | InvalidScopeError
   | InvalidStateTransitionError
   | InvalidTokenError
+  | ReferencedResourceNotFound
   | RequiredFieldError
   | ResourceCreationError
   | ResourceDeletionError
@@ -377,4 +378,35 @@ export interface GenericError {
    *
    */
   readonly message: string
+}
+/**
+ *	Returned when a resource referenced by a [Reference](/../api/types#reference) or a [ResourceIdentifier](/../api/types#resourceidentifier) could not be found.
+ *
+ */
+export interface ReferencedResourceNotFound {
+  readonly code: 'ReferencedResourceNotFound'
+  /**
+   *	`"The referenced object of type $typeId $predicate was not found. It either doesn't exist, or it can't be accessed from this endpoint (e.g., if the endpoint filters by store or customer account)."`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	Type of referenced resource.
+   *
+   *
+   */
+  readonly typeId: ReferenceType
+  /**
+   *	Unique identifier of the referenced resource, if known.
+   *
+   *
+   */
+  readonly id?: string
+  /**
+   *	User-defined unique identifier of the referenced resource, if known.
+   *
+   *
+   */
+  readonly key?: string
 }
