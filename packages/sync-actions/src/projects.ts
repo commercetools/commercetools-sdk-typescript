@@ -1,5 +1,8 @@
 import createBuildActions from './utils/create-build-actions'
-import createMapActionGroup from './utils/create-map-action-group'
+import createMapActionGroup, {
+  MapActionGroup,
+  MapActionResult,
+} from './utils/create-map-action-group'
 import {
   MessagesConfigurationDraft,
   Project,
@@ -16,7 +19,10 @@ import { SyncAction } from './types/update-actions'
 
 export const actionGroups = ['base', 'myBusinessUnit', 'customerSearch']
 
-function createChannelsMapActions(mapActionGroup, syncActionConfig) {
+function createChannelsMapActions(
+  mapActionGroup: MapActionGroup,
+  syncActionConfig?: SyncActionConfig
+): MapActionResult {
   return function doMapActions(diff, newObj, oldObj) {
     const allActions = []
 
