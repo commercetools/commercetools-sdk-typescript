@@ -4,7 +4,7 @@ import createBuildArrayActions, {
   CHANGE_ACTIONS,
   REMOVE_ACTIONS,
 } from './utils/create-build-array-actions'
-import { ActionMapBase } from './utils/create-map-action-group'
+import { ActionMap, ActionMapBase } from './utils/create-map-action-group'
 import { UpdateAction } from '@commercetools/sdk-client-v2'
 import { ZoneRate } from '@commercetools/platform-sdk'
 
@@ -39,7 +39,7 @@ const addShippingRates = (newZoneRate: ZoneRate) =>
       }))
     : []
 
-function actionsMapZoneRatesShippingRates(diff: any, oldObj: any, newObj: any) {
+const actionsMapZoneRatesShippingRates: ActionMap = (diff, oldObj, newObj) => {
   const handler = createBuildArrayActions('shippingRates', {
     [ADD_ACTIONS]: (newShippingRate) => ({
       action: 'addShippingRate',
@@ -68,7 +68,7 @@ function actionsMapZoneRatesShippingRates(diff: any, oldObj: any, newObj: any) {
   return handler(diff, oldObj, newObj)
 }
 
-export function actionsMapZoneRates(diff: any, oldObj: any, newObj: any) {
+export const actionsMapZoneRates: ActionMap = (diff, oldObj, newObj) => {
   const handler = createBuildArrayActions('zoneRates', {
     [ADD_ACTIONS]: (newZoneRate) => [
       {

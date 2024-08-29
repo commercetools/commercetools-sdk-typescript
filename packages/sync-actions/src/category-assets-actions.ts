@@ -8,12 +8,13 @@ import {
   CategoryRemoveAssetAction,
 } from '@commercetools/platform-sdk'
 import { UpdateAction } from '@commercetools/sdk-client-v2'
+import { ActionMap } from './utils/create-map-action-group'
 
 function toAssetIdentifier(asset: { id?: string; key?: string }) {
   return asset.id ? { assetId: asset.id } : { assetKey: asset.key }
 }
 
-export default function actionsMapAssets(diff: any, oldObj: any, newObj: any) {
+export const actionsMapAssets: ActionMap = (diff, oldObj, newObj) => {
   const handler = createBuildArrayActions('assets', {
     [ADD_ACTIONS]: (newAsset): CategoryAddAssetAction => ({
       action: 'addAsset',

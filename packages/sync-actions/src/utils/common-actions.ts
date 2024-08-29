@@ -1,5 +1,5 @@
 import clone, { notEmpty } from './clone'
-import { getDeltaValue, patch } from './diffpatcher'
+import { Delta, getDeltaValue, patch } from './diffpatcher'
 import { UpdateAction } from '@commercetools/sdk-client-v2'
 
 const normalizeValue = (value: any) =>
@@ -27,7 +27,7 @@ export function buildBaseAttributesActions({
   shouldOmitEmptyString,
 }: {
   actions: Array<UpdateAction>
-  diff: any
+  diff: Delta
   oldObj: any
   newObj: any
   shouldOmitEmptyString?: boolean
@@ -84,7 +84,7 @@ export function buildReferenceActions({
   newObj,
 }: {
   actions: Array<UpdateAction>
-  diff: any
+  diff: Delta
   oldObj: any
   newObj: any
 }): Array<{ action: string }> {

@@ -8,7 +8,7 @@ import { SyncAction } from './types/update-actions'
 import actionsMapCustom from './utils/action-map-custom'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'
-import { diff } from './utils/diffpatcher'
+import { Delta, diff } from './utils/diffpatcher'
 
 export const actionGroups = ['base']
 
@@ -17,9 +17,14 @@ function createProductSelectionsMapActions(
     type: string,
     fn: () => Array<UpdateAction>
   ) => Array<UpdateAction>
-): (diff: any, next: any, previous: any, options: any) => Array<UpdateAction> {
+): (
+  diff: Delta,
+  next: any,
+  previous: any,
+  options: any
+) => Array<UpdateAction> {
   return function doMapActions(
-    diff: any,
+    diff: Delta,
     next: any,
     previous: any
   ): Array<UpdateAction> {

@@ -81,7 +81,7 @@ function injectMissingPriceIds(
 }
 
 export default function createBuildActions<S, T extends UpdateAction>(
-  differ: any,
+  differ: (oldObj: any, newObj: any) => any | undefined,
   doMapActions: any,
   onBeforeDiff?: (before: DeepPartial<S>, now: DeepPartial<S>) => Array<any>,
   buildActionsConfig: any = {}

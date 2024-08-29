@@ -3,10 +3,10 @@ import createBuildArrayActions, {
   ADD_ACTIONS,
   CHANGE_ACTIONS,
 } from './utils/create-build-array-actions'
-import { getDeltaValue } from './utils/diffpatcher'
+import { Delta, getDeltaValue } from './utils/diffpatcher'
 import extractMatchingPairs from './utils/extract-matching-pairs'
 import findMatchingPairs from './utils/find-matching-pairs'
-import { ActionMapBase } from './utils/create-map-action-group'
+import { ActionMap, ActionMapBase } from './utils/create-map-action-group'
 import { UpdateAction } from '@commercetools/sdk-client-v2'
 
 const REGEX_NUMBER = new RegExp(/^\d+$/)
@@ -38,7 +38,7 @@ export const actionsMapBase: ActionMapBase = (diff, oldObj, newObj, config) => {
   })
 }
 
-export function actionsMapDeliveries(diff: any, oldObj: any, newObj: any) {
+export const actionsMapDeliveries: ActionMap = (diff, oldObj, newObj) => {
   const deliveriesDiff = diff.shippingInfo
   if (!deliveriesDiff) return []
 
@@ -54,7 +54,7 @@ export function actionsMapDeliveries(diff: any, oldObj: any, newObj: any) {
 }
 
 function _buildDeliveryParcelsAction(
-  diffedParcels: any,
+  diffedParcels: Delta,
   oldDelivery: any = {},
   newDelivery: any = {}
 ) {
@@ -114,7 +114,7 @@ function _buildDeliveryItemsAction(diffedItems: any, newDelivery: any = {}) {
 }
 
 export function actionsMapParcels(
-  diff: { shippingInfo: { deliveries: { [key: string]: any } } },
+  diff: Delta | undefined,
   oldObj: any,
   newObj: any,
   deliveryHashMap: any
@@ -139,7 +139,7 @@ export function actionsMapParcels(
       if (REGEX_UNDERSCORE_NUMBER.test(key) || REGEX_NUMBER.test(key)) {
         const [addParcelAction, removeParcelAction] =
           _buildDeliveryParcelsAction(
-            delivery.parcels,
+            (delivery as any).parcels,
             oldDelivery,
             newDelivery
           )
@@ -153,7 +153,7 @@ export function actionsMapParcels(
 }
 
 export function actionsMapDeliveryItems(
-  diff: { shippingInfo: { deliveries: { [key: string]: any } } },
+  diff: Delta,
   oldObj: any,
   newObj: any,
   deliveryHashMap: any
@@ -175,7 +175,7 @@ export function actionsMapDeliveryItems(
     )
     if (REGEX_UNDERSCORE_NUMBER.test(key) || REGEX_NUMBER.test(key)) {
       const [setDeliveryItemsAction] = _buildDeliveryItemsAction(
-        delivery.items,
+        (delivery as any).items,
         newDelivery
       )
       setDeliveryItemsActions = setDeliveryItemsActions.concat(
@@ -187,7 +187,7 @@ export function actionsMapDeliveryItems(
   return setDeliveryItemsActions
 }
 
-export function actionsMapReturnsInfo(diff: any, oldObj: any, newObj: any) {
+export const actionsMapReturnsInfo: ActionMap = (diff, oldObj, newObj) => {
   const returnInfoDiff = diff.returnInfo
   if (!returnInfoDiff) return []
 

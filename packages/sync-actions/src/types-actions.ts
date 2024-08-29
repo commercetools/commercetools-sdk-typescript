@@ -4,7 +4,7 @@ import createBuildArrayActions, {
   ADD_ACTIONS,
   CHANGE_ACTIONS,
 } from './utils/create-build-array-actions'
-import { getDeltaValue } from './utils/diffpatcher'
+import { Delta, getDeltaValue } from './utils/diffpatcher'
 import extractMatchingPairs from './utils/extract-matching-pairs'
 import { ActionMapBase } from './utils/create-map-action-group'
 import { UpdateAction } from '@commercetools/sdk-client-v2'
@@ -33,7 +33,7 @@ export const actionsMapBase: ActionMapBase = (diff, oldObj, newObj, config) => {
 function actionsMapEnums(
   fieldName: any,
   attributeType: any,
-  attributeDiff: any,
+  attributeDiff: Delta,
   previous: any,
   next: any
 ) {

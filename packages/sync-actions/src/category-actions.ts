@@ -2,7 +2,7 @@ import {
   buildBaseAttributesActions,
   buildReferenceActions,
 } from './utils/common-actions'
-import { ActionMapBase } from './utils/create-map-action-group'
+import { ActionMap, ActionMapBase } from './utils/create-map-action-group'
 import { UpdateAction } from '@commercetools/sdk-client-v2'
 
 export const baseActionsList: Array<UpdateAction> = [
@@ -36,7 +36,7 @@ export const actionsMapBase: ActionMapBase = (diff, oldObj, newObj, config) => {
   })
 }
 
-export function actionsMapReferences(diff: any, oldObj: any, newObj: any) {
+export const actionsMapReferences: ActionMap = (diff, oldObj, newObj) => {
   return buildReferenceActions({
     actions: referenceActionsList,
     diff,
@@ -45,7 +45,7 @@ export function actionsMapReferences(diff: any, oldObj: any, newObj: any) {
   })
 }
 
-export function actionsMapMeta(diff: any, oldObj: any, newObj: any) {
+export const actionsMapMeta: ActionMap = (diff, oldObj, newObj) => {
   return buildBaseAttributesActions({
     actions: metaActionsList,
     diff,

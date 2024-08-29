@@ -6,6 +6,7 @@
 //   { type: 'variants', group: 'ignore' },
 // ]
 import { ActionGroup, UpdateAction } from '@commercetools/sdk-client-v2'
+import { Delta } from './diffpatcher'
 
 export type MapActionGroup = (
   type: string,
@@ -13,14 +14,20 @@ export type MapActionGroup = (
 ) => Array<UpdateAction>
 
 export type MapActionResult = (
-  diff: any,
+  diff: Delta,
   newObj: any,
   oldObj: any,
   config?: any
 ) => Array<UpdateAction>
 
+export type ActionMap = (
+  diff: Delta,
+  oldObj: any,
+  newObj: any
+) => Array<UpdateAction>
+
 export type ActionMapBase = (
-  diff: any,
+  diff: Delta,
   oldObj: any,
   newObj: any,
   config?: { shouldOmitEmptyString?: boolean; [key: string]: any }

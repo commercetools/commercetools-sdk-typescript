@@ -1,3 +1,5 @@
+import { Delta } from './diffpatcher'
+
 const REGEX_NUMBER = new RegExp(/^\d+$/)
 const REGEX_UNDERSCORE_NUMBER = new RegExp(/^_\d+$/)
 
@@ -17,7 +19,7 @@ function preProcessCollection(collection: Array<any> = [], identifier = 'id') {
 
 // creates a hash of a location of an item in collection1 and collection2
 export default function findMatchingPairs(
-  diff: any,
+  diff: Delta | undefined,
   before: Array<any> = [],
   now: Array<any> = [],
   identifier: string = 'id'

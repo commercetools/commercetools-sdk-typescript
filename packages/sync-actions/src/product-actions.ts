@@ -11,7 +11,7 @@ import createBuildArrayActions, {
   ADD_ACTIONS,
   REMOVE_ACTIONS,
 } from './utils/create-build-array-actions'
-import { getDeltaValue } from './utils/diffpatcher'
+import { Delta, getDeltaValue } from './utils/diffpatcher'
 import extractMatchingPairs from './utils/extract-matching-pairs'
 import findMatchingPairs from './utils/find-matching-pairs'
 import {
@@ -69,7 +69,7 @@ const getIsRemoveAction = (key: string, resource: any) =>
 const getIsItemMovedAction = (key: string, resource: any) =>
   REGEX_UNDERSCORE_NUMBER.test(key) && Number(resource[2]) === 3
 
-function _buildSkuActions(variantDiff: any, oldVariant: any) {
+function _buildSkuActions(variantDiff: Delta, oldVariant: any) {
   if ({}.hasOwnProperty.call(variantDiff, 'sku')) {
     const newValue = getDeltaValue(variantDiff.sku)
     if (!newValue && !oldVariant.sku) return null
@@ -83,7 +83,7 @@ function _buildSkuActions(variantDiff: any, oldVariant: any) {
   return null
 }
 
-function _buildKeyActions(variantDiff: any, oldVariant: any) {
+function _buildKeyActions(variantDiff: Delta, oldVariant: any) {
   if ({}.hasOwnProperty.call(variantDiff, 'key')) {
     const newValue = getDeltaValue(variantDiff.key)
     if (!newValue && !oldVariant.key) return null
@@ -552,7 +552,7 @@ export const actionsMapBase: ActionMapBase = (diff, oldObj, newObj, config) => {
   })
 }
 
-export function actionsMapMeta(diff: any, oldObj: any, newObj: any) {
+export function actionsMapMeta(diff: Delta, oldObj: any, newObj: any) {
   return buildBaseAttributesActions({
     actions: metaActionsList,
     diff,
@@ -561,7 +561,7 @@ export function actionsMapMeta(diff: any, oldObj: any, newObj: any) {
   })
 }
 
-export function actionsMapAddVariants(diff: any, oldObj: any, newObj: any) {
+export function actionsMapAddVariants(diff: Delta, oldObj: any, newObj: any) {
   const handler = createBuildArrayActions('variants', {
     [ADD_ACTIONS]: (newObject: any) => ({
       ...newObject,
@@ -571,7 +571,11 @@ export function actionsMapAddVariants(diff: any, oldObj: any, newObj: any) {
   return handler(diff, oldObj, newObj)
 }
 
-export function actionsMapRemoveVariants(diff: any, oldObj: any, newObj: any) {
+export function actionsMapRemoveVariants(
+  diff: Delta,
+  oldObj: any,
+  newObj: any
+) {
   const handler = createBuildArrayActions('variants', {
     [REMOVE_ACTIONS]: ({ id }: { id: string }) => ({
       action: 'removeVariant',
@@ -581,7 +585,7 @@ export function actionsMapRemoveVariants(diff: any, oldObj: any, newObj: any) {
   return handler(diff, oldObj, newObj)
 }
 
-export function actionsMapReferences(diff: any, oldObj: any, newObj: any) {
+export function actionsMapReferences(diff: Delta, oldObj: any, newObj: any) {
   return buildReferenceActions({
     actions: referenceActionsList,
     diff,
@@ -621,7 +625,7 @@ export function actionsMapCategories(diff: {
   return [...removeFromCategoryActions, ...addToCategoryActions]
 }
 
-export function actionsMapCategoryOrderHints(diff: any) {
+export function actionsMapCategoryOrderHints(diff: Delta) {
   if (!diff.categoryOrderHints) return []
   // Ignore this pattern as its means no changes happened [{},0,0]
   if (Array.isArray(diff.categoryOrderHints)) return []
@@ -648,7 +652,7 @@ export function actionsMapCategoryOrderHints(diff: any) {
 }
 
 export function actionsMapAssets(
-  diff: any,
+  diff: Delta,
   oldObj: any,
   newObj: any,
   variantHashMap: any
@@ -685,7 +689,7 @@ export function actionsMapAssets(
 }
 
 export function actionsMapAttributes(
-  diff: any,
+  diff: Delta,
   oldObj: any,
   newObj: any,
   sameForAllAttributeNames: Array<any> = [],
@@ -735,7 +739,7 @@ export function actionsMapAttributes(
 }
 
 export function actionsMapImages(
-  diff: any,
+  diff: Delta,
   oldObj: any,
   newObj: any,
   variantHashMap: any
@@ -766,7 +770,7 @@ export function actionsMapImages(
 }
 
 export function actionsMapPrices(
-  diff: any,
+  diff: Delta,
   oldObj: any,
   newObj: any,
   variantHashMap: any,
@@ -808,7 +812,7 @@ export function actionsMapPrices(
 }
 
 export function actionsMapPricesCustom(
-  diff: any,
+  diff: Delta,
   oldObj: any,
   newObj: any,
   variantHashMap: any

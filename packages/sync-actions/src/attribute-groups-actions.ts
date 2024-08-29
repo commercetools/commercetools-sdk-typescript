@@ -5,7 +5,7 @@ import createBuildArrayActions, {
   REMOVE_ACTIONS,
 } from './utils/create-build-array-actions'
 import { UpdateAction } from '@commercetools/sdk-client-v2'
-import { ActionMapBase } from './utils/create-map-action-group'
+import { ActionMap, ActionMapBase } from './utils/create-map-action-group'
 import { AttributeReference } from '@commercetools/platform-sdk/src'
 
 const hasAttribute = (
@@ -29,7 +29,7 @@ export const actionsMapBase: ActionMapBase = (diff, oldObj, newObj, config) => {
   })
 }
 
-export function actionsMapAttributes(diff: any, oldObj: any, newObj: any) {
+export const actionsMapAttributes: ActionMap = (diff, oldObj, newObj) => {
   const handler = createBuildArrayActions('attributes', {
     [ADD_ACTIONS]: (newAttribute) => ({
       action: 'addAttribute',

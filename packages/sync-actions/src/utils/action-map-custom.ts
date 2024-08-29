@@ -1,4 +1,4 @@
-import { getDeltaValue } from './diffpatcher'
+import { Delta, getDeltaValue } from './diffpatcher'
 import { UpdateAction } from '@commercetools/sdk-client-v2'
 
 const Actions = {
@@ -6,11 +6,11 @@ const Actions = {
   setCustomField: 'setCustomField',
 }
 
-const hasSingleCustomFieldChanged = (diff: any) => Array.isArray(diff.custom)
-const haveMultipleCustomFieldsChanged = (diff: any) =>
+const hasSingleCustomFieldChanged = (diff: Delta) => Array.isArray(diff.custom)
+const haveMultipleCustomFieldsChanged = (diff: Delta) =>
   Boolean(diff.custom.fields)
-const hasCustomTypeChanged = (diff: any) => Boolean(diff.custom.type)
-const extractCustomType = (diff: any, previousObject: any) =>
+const hasCustomTypeChanged = (diff: Delta) => Boolean(diff.custom.type)
+const extractCustomType = (diff: Delta, previousObject: any) =>
   Array.isArray(diff.custom.type)
     ? getDeltaValue(diff.custom.type, previousObject)
     : diff.custom.type
@@ -24,7 +24,7 @@ const extractFieldValue = (newFields: any, fieldName: string) =>
   newFields[fieldName]
 
 export default function actionsMapCustom(
-  diff: any,
+  diff: Delta,
   newObj: any,
   oldObj: any,
   customProps: { actions: any; priceId?: string } = {

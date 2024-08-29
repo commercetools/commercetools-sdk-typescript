@@ -2,6 +2,7 @@
 // with es6 modules so we use require instead below
 // TODO create an issue here https://github.com/benjamine/jsondiffpatch/issues/new
 const DiffPatcher = require('jsondiffpatch').DiffPatcher
+import { Delta as DiffDelta } from 'jsondiffpatch'
 
 export function objectHash(obj: any, index: any) {
   const objIndex = `$$index:${index}`
@@ -31,7 +32,9 @@ const diffpatcher = new DiffPatcher({
   },
 })
 
-export function diff(oldObj: any, newObj: any) {
+export type Delta = DiffDelta | undefined
+
+export function diff(oldObj: any, newObj: any): Delta {
   return diffpatcher.diff(oldObj, newObj)
 }
 

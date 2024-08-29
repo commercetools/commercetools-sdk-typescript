@@ -1,7 +1,8 @@
 import findMatchingPairs from '../../src/utils/find-matching-pairs'
+import { Delta } from '../../src/utils/diffpatcher'
 
 describe('findMatchingPairs', () => {
-  let diff
+  let diff: Delta
   let newVariants
   let oldVariants
   beforeEach(() => {

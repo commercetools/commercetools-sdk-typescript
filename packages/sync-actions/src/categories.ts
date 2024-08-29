@@ -4,7 +4,7 @@ import type {
   SyncActionConfig,
   UpdateAction,
 } from '@commercetools/sdk-client-v2'
-import actionsMapAssets from './category-assets-actions'
+import { actionsMapAssets } from './category-assets-actions'
 import {
   actionsMapBase,
   actionsMapMeta,

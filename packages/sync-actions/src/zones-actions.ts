@@ -5,7 +5,7 @@ import createBuildArrayActions, {
   REMOVE_ACTIONS,
 } from './utils/create-build-array-actions'
 import { UpdateAction } from '@commercetools/sdk-client-v2'
-import { ActionMapBase } from './utils/create-map-action-group'
+import { ActionMap, ActionMapBase } from './utils/create-map-action-group'
 import { Location } from '@commercetools/platform-sdk'
 
 export const baseActionsList: Array<UpdateAction> = [
@@ -27,7 +27,7 @@ export const actionsMapBase: ActionMapBase = (diff, oldObj, newObj, config) => {
   })
 }
 
-export function actionsMapLocations(diff: any, oldObj: any, newObj: any) {
+export const actionsMapLocations: ActionMap = (diff, oldObj, newObj) => {
   const handler = createBuildArrayActions('locations', {
     [ADD_ACTIONS]: (newLocation) => ({
       action: 'addLocation',

@@ -1,11 +1,21 @@
 import createProjectsSync, { actionGroups, ProjectSync } from '../src/projects'
-import { baseActionsList } from '../src/projects-actions'
+import {
+  baseActionsList,
+  myBusinessUnitActionsList,
+  customerSearchActionsList,
+} from '../src/projects-actions'
+import { ActionGroup } from '@commercetools/sdk-client-v2'
 import { DeepPartial } from '../src/types/update-actions'
-import { Project } from '@commercetools/platform-sdk/src'
+import {
+  Project,
+  ProjectUpdateAction,
+  SearchIndexingConfiguration,
+  SearchIndexingConfigurationValues,
+} from '@commercetools/platform-sdk'
 
 describe('Exports', () => {
   test('action group list', () => {
-    expect(actionGroups).toEqual(['base'])
+    expect(actionGroups).toEqual(['base', 'myBusinessUnit', 'customerSearch'])
   })
 
   describe('action list', () => {
@@ -68,33 +78,33 @@ describe('Exports', () => {
     })
 
     test('should contain `changeMyBusinessUnitStatusOnCreation` action', () => {
-      expect(baseActionsList).toEqual(
+      expect(myBusinessUnitActionsList).toEqual(
         expect.arrayContaining([
           {
             action: 'changeMyBusinessUnitStatusOnCreation',
-            key: 'myBusinessUnitStatusOnCreation',
+            key: 'status',
           },
         ])
       )
     })
 
     test('should contain `setMyBusinessUnitAssociateRoleOnCreation` action', () => {
-      expect(baseActionsList).toEqual(
+      expect(myBusinessUnitActionsList).toEqual(
         expect.arrayContaining([
           {
             action: 'setMyBusinessUnitAssociateRoleOnCreation',
-            key: 'myBusinessUnitAssociateRoleOnCreation',
+            key: 'associateRole',
           },
         ])
       )
     })
 
     test('should contain `changeCustomerSearchStatus` action', () => {
-      expect(baseActionsList).toEqual(
+      expect(customerSearchActionsList).toEqual(
         expect.arrayContaining([
           {
             action: 'changeCustomerSearchStatus',
-            key: 'customerSearchStatus',
+            key: 'status',
           },
         ])
       )
@@ -109,52 +119,52 @@ describe('Actions', () => {
   })
 
   test('should build `changeName` action', () => {
-    const before = { name: 'nameBefore' }
-    const now = { name: 'nameAfter' }
+    const before: DeepPartial<Project> = { name: 'nameBefore' }
+    const now: DeepPartial<Project> = { name: 'nameAfter' }
     const actual = projectsSync.buildActions(now, before)
-    const expected = [
+    const expected: Array<ProjectUpdateAction> = [
       {
         action: 'changeName',
-        ...now,
+        name: now.name,
       },
     ]
     expect(actual).toEqual(expected)
   })
 
   test('should build `changeCurrencies` action', () => {
-    const before = { currencies: ['EUR', 'Dollar'] }
-    const now = { currencies: ['EUR'] }
+    const before: DeepPartial<Project> = { currencies: ['EUR', 'Dollar'] }
+    const now: DeepPartial<Project> = { currencies: ['EUR'] }
     const actual = projectsSync.buildActions(now, before)
-    const expected = [
+    const expected: Array<ProjectUpdateAction> = [
       {
         action: 'changeCurrencies',
-        ...now,
+        currencies: now.currencies,
       },
     ]
     expect(actual).toEqual(expected)
   })
 
   test('should build `changeCountries` action', () => {
-    const before = { countries: ['Germany', 'Spain'] }
-    const now = { countries: ['Germany'] }
+    const before: DeepPartial<Project> = { countries: ['Germany', 'Spain'] }
+    const now: DeepPartial<Project> = { countries: ['Germany'] }
     const actual = projectsSync.buildActions(now, before)
-    const expected = [
+    const expected: Array<ProjectUpdateAction> = [
       {
         action: 'changeCountries',
-        ...now,
+        countries: now.countries,
       },
     ]
     expect(actual).toEqual(expected)
   })
 
   test('should build `changeLanguages` action', () => {
-    const before = { languages: ['German', 'Dutch'] }
-    const now = { languages: ['Dutch'] }
+    const before: DeepPartial<Project> = { languages: ['German', 'Dutch'] }
+    const now: DeepPartial<Project> = { languages: ['Dutch'] }
     const actual = projectsSync.buildActions(now, before)
-    const expected = [
+    const expected: Array<ProjectUpdateAction> = [
       {
         action: 'changeLanguages',
-        ...now,
+        languages: now.languages,
       },
     ]
     expect(actual).toEqual(expected)
@@ -162,7 +172,7 @@ describe('Actions', () => {
 
   describe('setShippingRateInputType', () => {
     describe('given `shippingRateInputType` is of type `CartClassification`', () => {
-      const before: DeepPartial<ProjectSync> = {
+      const before: DeepPartial<Project> = {
         shippingRateInputType: {
           type: 'CartClassification',
           values: [
@@ -173,7 +183,7 @@ describe('Actions', () => {
         },
       }
       describe('given a value of `values` changes', () => {
-        const now: DeepPartial<ProjectSync> = {
+        const now: DeepPartial<Project> = {
           shippingRateInputType: {
             type: 'CartClassification',
             values: [
@@ -186,10 +196,17 @@ describe('Actions', () => {
 
         test('should build `setShippingRateInputType` action', () => {
           const actual = projectsSync.buildActions(now, before)
-          const expected = [
+          const expected: Array<ProjectUpdateAction> = [
             {
               action: 'setShippingRateInputType',
-              ...now,
+              shippingRateInputType: {
+                type: 'CartClassification',
+                values: [
+                  { key: 'Small', label: { en: 'Small', de: 'Klein' } },
+                  { key: 'Medium', label: { en: 'Medium', de: 'Mittel' } },
+                  { key: 'Big', label: { en: 'Big', de: 'Groß' } },
+                ],
+              },
             },
           ]
           expect(actual).toEqual(expected)
@@ -204,10 +221,12 @@ describe('Actions', () => {
 
         test('should build `setShippingRateInputType` action', () => {
           const actual = projectsSync.buildActions(now, before)
-          const expected = [
+          const expected: Array<ProjectUpdateAction> = [
             {
               action: 'setShippingRateInputType',
-              ...now,
+              shippingRateInputType: {
+                type: 'CartScore',
+              },
             },
           ]
           expect(actual).toEqual(expected)
@@ -222,10 +241,12 @@ describe('Actions', () => {
 
           test('should build `setShippingRateInputType` action', () => {
             const actual = projectsSync.buildActions(now, before)
-            const expected = [
+            const expected: Array<ProjectUpdateAction> = [
               {
                 action: 'setShippingRateInputType',
-                ...now,
+                shippingRateInputType: {
+                  type: 'CartScore',
+                },
               },
             ]
             expect(actual).toEqual(expected)
@@ -236,78 +257,111 @@ describe('Actions', () => {
   })
 
   test('should build `changeMessagesConfiguration` action', () => {
-    const before: DeepPartial<ProjectSync> = {
-      messagesConfiguration: { enabled: false },
+    const before: DeepPartial<Project> = {
+      messages: {
+        enabled: true,
+        deleteDaysAfterCreation: 20,
+      },
     }
-    const now: DeepPartial<ProjectSync> = {
-      messagesConfiguration: { enabled: true },
+    const now: DeepPartial<Project> = {
+      messages: {
+        enabled: false,
+        deleteDaysAfterCreation: 20,
+      },
     }
     const actual = projectsSync.buildActions(now, before)
-    const expected = [
+    const expected: Array<ProjectUpdateAction> = [
       {
         action: 'changeMessagesConfiguration',
-        ...now,
+        messagesConfiguration: { enabled: false, deleteDaysAfterCreation: 20 },
       },
     ]
     expect(actual).toEqual(expected)
   })
 
   test('should build `changeMyBusinessUnitStatusOnCreation` action', () => {
-    const before = {
-      myBusinessUnitStatusOnCreation: 'Active',
+    const actionGroupList: Array<ActionGroup> = [
+      { type: 'base', group: 'allow' },
+      { type: 'myBusinessUnit', group: 'allow' },
+      { type: 'customerSearch', group: 'ignore' },
+    ]
+    projectsSync = createProjectsSync(actionGroupList)
+    const before: DeepPartial<Project> = {
+      businessUnits: { myBusinessUnitStatusOnCreation: 'Active' },
     }
-    const now = {
-      myBusinessUnitStatusOnCreation: 'Deactive',
+    const now: DeepPartial<Project> = {
+      businessUnits: { myBusinessUnitStatusOnCreation: 'Deactive' },
     }
-    // @ts-ignore
     const actual = projectsSync.buildActions(now, before)
-    const expected = [
+    const expected: Array<ProjectUpdateAction> = [
       {
         action: 'changeMyBusinessUnitStatusOnCreation',
-        ...now,
+        status: 'Deactivated',
       },
     ]
     expect(actual).toEqual(expected)
   })
 
   test('should build `setMyBusinessUnitAssociateRoleOnCreation` action', () => {
-    const before = {
-      myBusinessUnitAssociateRoleOnCreation: {
-        typeId: 'associate-role',
-        key: 'old-role',
+    const before: DeepPartial<Project> = {
+      businessUnits: {
+        myBusinessUnitAssociateRoleOnCreation: {
+          typeId: 'associate-role',
+          key: 'old-role',
+        },
       },
     }
-    const now = {
-      myBusinessUnitAssociateRoleOnCreation: {
-        typeId: 'associate-role',
-        key: 'new-role',
+    const now: DeepPartial<Project> = {
+      businessUnits: {
+        myBusinessUnitAssociateRoleOnCreation: {
+          typeId: 'associate-role',
+          key: 'new-role',
+        },
       },
     }
-    // @ts-ignore
     const actual = projectsSync.buildActions(now, before)
-    const expected = [
+    const expected: Array<ProjectUpdateAction> = [
       {
         action: 'setMyBusinessUnitAssociateRoleOnCreation',
-        ...now,
+        associateRole: {
+          typeId: 'associate-role',
+          key: 'new-role',
+        },
       },
     ]
     expect(actual).toEqual(expected)
   })
 
   test('should build `changeCustomerSearchStatus` action', () => {
-    const before = {
-      customerSearchStatus: 'Activated',
+    const actionGroupList: Array<ActionGroup> = [
+      { type: 'base', group: 'allow' },
+      { type: 'myBusinessUnit', group: 'ignore' },
+      { type: 'customerSearch', group: 'allow' },
+    ]
+    projectsSync = createProjectsSync(actionGroupList)
+    const before: DeepPartial<
+      Project & {
+        searchIndexing: SearchIndexingConfiguration & {
+          customers: SearchIndexingConfigurationValues
+        }
+      }
+    > = {
+      searchIndexing: { customers: { status: 'Activated' } },
     }
-    const now = {
-      customerSearchStatus: 'Deactivated',
+    const now: DeepPartial<
+      Project & {
+        searchIndexing: SearchIndexingConfiguration & {
+          customers: SearchIndexingConfigurationValues
+        }
+      }
+    > = {
+      searchIndexing: { customers: { status: 'Deactivated' } },
     }
-
-    // @ts-ignore
     const actual = projectsSync.buildActions(now, before)
-    const expected = [
+    const expected: Array<ProjectUpdateAction> = [
       {
         action: 'changeCustomerSearchStatus',
-        ...now,
+        status: 'Deactivated',
       },
     ]
     expect(actual).toEqual(expected)

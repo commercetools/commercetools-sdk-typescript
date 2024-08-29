@@ -9,8 +9,8 @@ import createBuildArrayActions, {
   CHANGE_ACTIONS,
   REMOVE_ACTIONS,
 } from './utils/create-build-array-actions'
-import { patch } from './utils/diffpatcher'
-import { ActionMapBase } from './utils/create-map-action-group'
+import { Delta, patch } from './utils/diffpatcher'
+import { ActionMap, ActionMapBase } from './utils/create-map-action-group'
 import { UpdateAction } from '@commercetools/sdk-client-v2'
 
 const isEmptyValue = createIsEmptyValue([undefined, null, ''])
@@ -89,7 +89,7 @@ export const actionsMapSetDefaultBase: ActionMapBase = (
   })
 }
 
-export function actionsMapReferences(diff: any, oldObj: any, newObj: any) {
+export const actionsMapReferences: ActionMap = (diff, oldObj, newObj) => {
   return buildReferenceActions({
     actions: referenceActionsList,
     diff,
@@ -98,7 +98,7 @@ export function actionsMapReferences(diff: any, oldObj: any, newObj: any) {
   })
 }
 
-export function actionsMapAddresses(diff: any, oldObj: any, newObj: any) {
+export const actionsMapAddresses: ActionMap = (diff, oldObj, newObj) => {
   const handler = createBuildArrayActions('addresses', {
     [ADD_ACTIONS]: (newObject) => ({
       action: 'addAddress',
@@ -118,11 +118,7 @@ export function actionsMapAddresses(diff: any, oldObj: any, newObj: any) {
   return handler(diff, oldObj, newObj)
 }
 
-export function actionsMapBillingAddresses(
-  diff: any,
-  oldObj: any,
-  newObj: any
-) {
+export const actionsMapBillingAddresses: ActionMap = (diff, oldObj, newObj) => {
   const handler = createBuildArrayActions('billingAddressIds', {
     [ADD_ACTIONS]: (addressId) => ({
       action: 'addBillingAddressId',
@@ -137,11 +133,11 @@ export function actionsMapBillingAddresses(
   return handler(diff, oldObj, newObj)
 }
 
-export function actionsMapShippingAddresses(
-  diff: any,
-  oldObj: any,
-  newObj: any
-) {
+export const actionsMapShippingAddresses: ActionMap = (
+  diff,
+  oldObj,
+  newObj
+) => {
   const handler = createBuildArrayActions('shippingAddressIds', {
     [ADD_ACTIONS]: (addressId) => ({
       action: 'addShippingAddressId',
@@ -156,12 +152,11 @@ export function actionsMapShippingAddresses(
   return handler(diff, oldObj, newObj)
 }
 
-export function actionsMapAuthenticationModes(
-  diff: any,
-  oldObj: any,
-  newObj: any
-) {
-  // eslint-disable-next-line no-use-before-define
+export const actionsMapAuthenticationModes: ActionMap = (
+  diff,
+  oldObj,
+  newObj
+) => {
   return buildAuthenticationModeActions({
     actions: authenticationModeActionsList,
     diff,
@@ -177,7 +172,7 @@ function buildAuthenticationModeActions({
   newObj,
 }: {
   actions: Array<UpdateAction>
-  diff: any
+  diff: Delta
   oldObj: any
   newObj: any
 }) {

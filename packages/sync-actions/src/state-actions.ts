@@ -3,7 +3,7 @@ import createBuildArrayActions, {
   ADD_ACTIONS,
   REMOVE_ACTIONS,
 } from './utils/create-build-array-actions'
-import { ActionMapBase } from './utils/create-map-action-group'
+import { ActionMap, ActionMapBase } from './utils/create-map-action-group'
 import { UpdateAction } from '@commercetools/sdk-client-v2'
 
 export const baseActionsList: Array<UpdateAction> = [
@@ -25,7 +25,7 @@ export const actionsMapBase: ActionMapBase = (diff, oldObj, newObj, config) => {
   })
 }
 
-export function actionsMapRoles(diff: any, oldObj: any, newObj: any) {
+export const actionsMapRoles: ActionMap = (diff, oldObj, newObj) => {
   const buildArrayActions = createBuildArrayActions('roles', {
     [ADD_ACTIONS]: (newRole) => ({
       action: 'addRoles',

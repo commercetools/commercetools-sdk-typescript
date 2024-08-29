@@ -1,4 +1,5 @@
 import { UpdateAction } from '@commercetools/sdk-client-v2'
+import { Delta } from './diffpatcher'
 
 const REGEX_NUMBER = new RegExp(/^\d+$/)
 const REGEX_UNDERSCORE_NUMBER = new RegExp(/^_\d+$/)
@@ -77,7 +78,6 @@ function isRemoveAction(obj: any, key: string): boolean {
  *   [ADD_ACTIONS, REMOVE_ACTIONS, CHANGE_ACTIONS], each of
  *   which is a function. The function should accept the old + new arrays and
  *   return an action object.
- * @return {Array}        The generated array of actions
  */
 export default function createBuildArrayActions(
   key: string,
@@ -95,7 +95,7 @@ export default function createBuildArrayActions(
   }
 ) {
   return function buildArrayActions(
-    diff: any,
+    diff: Delta,
     oldObj: any,
     newObj: any
   ): Array<UpdateAction> {
