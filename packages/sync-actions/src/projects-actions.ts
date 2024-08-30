@@ -1,7 +1,8 @@
 import { buildBaseAttributesActions } from './utils/common-actions'
 import { ActionMap, ActionMapBase } from './utils/create-map-action-group'
+import { UpdateAction } from './types/update-actions'
 
-export const baseActionsList = [
+export const baseActionsList: Array<UpdateAction> = [
   { action: 'changeName', key: 'name' },
   { action: 'changeCurrencies', key: 'currencies' },
   { action: 'changeCountries', key: 'countries' },
@@ -14,7 +15,7 @@ export const baseActionsList = [
   { action: 'setShippingRateInputType', key: 'shippingRateInputType' },
 ]
 
-export const myBusinessUnitActionsList = [
+export const myBusinessUnitActionsList: Array<UpdateAction> = [
   {
     action: 'changeMyBusinessUnitStatusOnCreation',
     key: 'myBusinessUnitStatusOnCreation',
@@ -27,7 +28,7 @@ export const myBusinessUnitActionsList = [
   },
 ]
 
-export const customerSearchActionsList = [
+export const customerSearchActionsList: Array<UpdateAction> = [
   {
     action: 'changeCustomerSearchStatus',
     key: 'status',

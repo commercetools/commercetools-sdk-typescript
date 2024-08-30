@@ -48,11 +48,11 @@ export const setDefaultBaseActionsList: Array<UpdateAction> = [
   },
 ]
 
-export const referenceActionsList = [
+export const referenceActionsList: Array<UpdateAction> = [
   { action: 'setCustomerGroup', key: 'customerGroup' },
 ]
 
-export const authenticationModeActionsList = [
+export const authenticationModeActionsList: Array<UpdateAction> = [
   {
     action: 'setAuthenticationMode',
     key: 'authenticationMode',

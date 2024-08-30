@@ -20,7 +20,9 @@ export const metaActionsList: Array<UpdateAction> = [
   { action: 'setMetaDescription', key: 'metaDescription' },
 ]
 
-export const referenceActionsList = [{ action: 'changeParent', key: 'parent' }]
+export const referenceActionsList: Array<UpdateAction> = [
+  { action: 'changeParent', key: 'parent' },
+]
 
 /**
  * SYNC FUNCTIONS

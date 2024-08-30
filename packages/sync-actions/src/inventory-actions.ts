@@ -11,7 +11,7 @@ export const baseActionsList: Array<UpdateAction> = [
   { action: 'setExpectedDelivery', key: 'expectedDelivery' },
 ]
 
-export const referenceActionsList = [
+export const referenceActionsList: Array<UpdateAction> = [
   { action: 'setSupplyChannel', key: 'supplyChannel' },
 ]
 

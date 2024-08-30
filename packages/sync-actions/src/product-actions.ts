@@ -41,13 +41,13 @@ export const baseAssetActionsList: Array<UpdateAction> = [
   { action: 'setAssetSources', key: 'sources' },
 ]
 
-export const metaActionsList = [
+export const metaActionsList: Array<UpdateAction> = [
   { action: 'setMetaTitle', key: 'metaTitle' },
   { action: 'setMetaDescription', key: 'metaDescription' },
   { action: 'setMetaKeywords', key: 'metaKeywords' },
 ]
 
-export const referenceActionsList = [
+export const referenceActionsList: Array<UpdateAction> = [
   { action: 'setTaxCategory', key: 'taxCategory' },
   { action: 'transitionState', key: 'state' },
 ]
