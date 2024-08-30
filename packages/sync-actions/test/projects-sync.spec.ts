@@ -60,7 +60,8 @@ describe('Exports', () => {
         expect.arrayContaining([
           {
             action: 'changeMessagesConfiguration',
-            key: 'messagesConfiguration',
+            key: 'messages',
+            actionKey: 'messagesConfiguration',
           },
         ])
       )
@@ -82,7 +83,8 @@ describe('Exports', () => {
         expect.arrayContaining([
           {
             action: 'changeMyBusinessUnitStatusOnCreation',
-            key: 'status',
+            key: 'myBusinessUnitStatusOnCreation',
+            actionKey: 'status',
           },
         ])
       )
@@ -93,7 +95,8 @@ describe('Exports', () => {
         expect.arrayContaining([
           {
             action: 'setMyBusinessUnitAssociateRoleOnCreation',
-            key: 'associateRole',
+            key: 'myBusinessUnitAssociateRoleOnCreation',
+            actionKey: 'associateRole',
           },
         ])
       )
@@ -290,7 +293,7 @@ describe('Actions', () => {
       businessUnits: { myBusinessUnitStatusOnCreation: 'Active' },
     }
     const now: DeepPartial<Project> = {
-      businessUnits: { myBusinessUnitStatusOnCreation: 'Deactive' },
+      businessUnits: { myBusinessUnitStatusOnCreation: 'Deactivated' },
     }
     const actual = projectsSync.buildActions(now, before)
     const expected: Array<ProjectUpdateAction> = [
