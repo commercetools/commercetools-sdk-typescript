@@ -206,7 +206,7 @@ const generateUpdateActionsForAttributeEnumValues = (
 
   return [
     ...Object.values(
-      removedAttributeEnumValues.reduce(
+      removedAttributeEnumValues.reduce<{ [key: string]: any }>(
         (nextEnumUpdateActions, removedAttributeEnumValue) => {
           const removedAttributeEnumValueOfSameAttributeName =
             nextEnumUpdateActions[
