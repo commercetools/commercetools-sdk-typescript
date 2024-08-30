@@ -5,8 +5,8 @@ import createBuildArrayActions, {
   REMOVE_ACTIONS,
 } from './utils/create-build-array-actions'
 import { ActionMap, ActionMapBase } from './utils/create-map-action-group'
-import { UpdateAction } from '@commercetools/sdk-client-v2'
 import { ZoneRate } from '@commercetools/platform-sdk'
+import { UpdateAction } from './types/update-actions'
 
 export const baseActionsList: Array<UpdateAction> = [
   { action: 'setKey', key: 'key' },

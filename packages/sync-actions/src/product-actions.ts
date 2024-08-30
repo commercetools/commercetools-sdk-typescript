@@ -18,9 +18,8 @@ import {
   Asset,
   ProductRemoveFromCategoryAction,
 } from '@commercetools/platform-sdk'
-import { SyncActionConfig } from '@commercetools/sdk-client-v2/src'
-import { UpdateAction } from '@commercetools/sdk-client-v2'
 import { ActionMapBase } from './utils/create-map-action-group'
+import { UpdateAction } from './types/update-actions'
 
 const REGEX_NUMBER = new RegExp(/^\d+$/)
 const REGEX_UNDERSCORE_NUMBER = new RegExp(/^_\d+$/)
@@ -34,7 +33,7 @@ export const baseActionsList: Array<UpdateAction> = [
   { action: 'setPriceMode', key: 'priceMode' },
 ]
 
-export const baseAssetActionsList = [
+export const baseAssetActionsList: Array<UpdateAction> = [
   { action: 'setAssetKey', key: 'key', actionKey: 'assetKey' },
   { action: 'changeAssetName', key: 'name' },
   { action: 'setAssetDescription', key: 'description' },

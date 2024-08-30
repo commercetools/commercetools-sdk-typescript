@@ -1,4 +1,8 @@
-import { UpdateAction } from '@commercetools/sdk-client-v2'
+export type UpdateAction = {
+  action: string
+  [key: string]: any
+  actionKey?: string
+}
 
 export type SyncAction<
   R extends object | undefined,
@@ -17,3 +21,11 @@ export type DeepPartial<T> = T extends object
       [P in keyof T]?: DeepPartial<T[P]>
     }
   : T
+export type SyncActionConfig = {
+  shouldOmitEmptyString: boolean
+}
+
+export type ActionGroup = {
+  type: string
+  group: 'ignore' | 'allow'
+}

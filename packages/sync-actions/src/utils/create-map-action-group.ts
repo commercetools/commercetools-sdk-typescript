@@ -5,15 +5,23 @@
 //   { type: 'prices', group: 'allow' },
 //   { type: 'variants', group: 'ignore' },
 // ]
-import { ActionGroup, UpdateAction } from '@commercetools/sdk-client-v2'
 import { Delta } from './diffpatcher'
 
-export type MapActionGroup = (
+import {
+  ActionGroup,
+  SyncActionConfig,
+  UpdateAction,
+} from '../types/update-actions'
+
+type MapActionGroup = (
   type: string,
   fn: () => Array<UpdateAction>
 ) => Array<UpdateAction>
 
-export type MapActionResult = (
+export type MapAction = (
+  mapActionGroup: MapActionGroup,
+  syncActionConfig?: SyncActionConfig
+) => (
   diff: Delta,
   newObj: any,
   oldObj: any,

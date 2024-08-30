@@ -1,9 +1,11 @@
 import pricesSyncFn, { actionGroups } from '../src/prices'
+import { DeepPartial } from '../src/types/update-actions'
+import { StandalonePrice } from '@commercetools/platform-sdk'
 
 const pricesSync = pricesSyncFn()
 
-const dateNow = new Date()
-const twoWeeksFromNow = new Date(Date.now() + 12096e5)
+const dateNow = new Date().toString()
+const twoWeeksFromNow = new Date(Date.now() + 12096e5).toString()
 
 /* eslint-disable max-len */
 describe('price actions', () => {
@@ -12,14 +14,14 @@ describe('price actions', () => {
   })
 
   test('should not build actions if prices are not set', () => {
-    const before = {}
-    const now = {}
+    const before: DeepPartial<StandalonePrice> = {}
+    const now: DeepPartial<StandalonePrice> = {}
     const actions = pricesSync.buildActions(now, before)
     expect(actions).toEqual([])
   })
 
   test('should not build actions if now price is not set', () => {
-    const before = {
+    const before: DeepPartial<StandalonePrice> = {
       id: '9fe6610f',
       value: {
         type: 'centPrecision',
@@ -28,13 +30,13 @@ describe('price actions', () => {
         fractionDigits: 2,
       },
     }
-    const now = {}
+    const now: DeepPartial<StandalonePrice> = {}
     const actions = pricesSync.buildActions(now, before)
     expect(actions).toEqual([])
   })
 
   test('should not build actions if there is no change', () => {
-    const before = {
+    const before: DeepPartial<StandalonePrice> = {
       id: '9fe6610f',
       value: {
         type: 'centPrecision',
@@ -57,7 +59,7 @@ describe('price actions', () => {
       },
     }
 
-    const now = {
+    const now: DeepPartial<StandalonePrice> = {
       id: '9fe6610f',
       value: {
         type: 'centPrecision',
@@ -85,7 +87,7 @@ describe('price actions', () => {
 
   describe('changeValue', () => {
     test('should generate changeValue action', () => {
-      const before = {
+      const before: DeepPartial<StandalonePrice> = {
         id: '9fe6610f',
         value: {
           type: 'centPrecision',
@@ -95,7 +97,7 @@ describe('price actions', () => {
         },
       }
 
-      const now = {
+      const now: DeepPartial<StandalonePrice> = {
         id: '9fe6610f',
         value: {
           type: 'centPrecision',
@@ -122,7 +124,7 @@ describe('price actions', () => {
 
   describe('setDiscountedPrice', () => {
     test('should build `setDiscountedPrice` action for newly discounted', () => {
-      const before = {
+      const before: DeepPartial<StandalonePrice> = {
         id: '1010',
         value: { currencyCode: 'EGP', centAmount: 1000 },
         country: 'UK',
@@ -130,7 +132,7 @@ describe('price actions', () => {
         validUntil: twoWeeksFromNow,
       }
 
-      const now = {
+      const now: DeepPartial<StandalonePrice> = {
         id: '1010',
         value: { currencyCode: 'EGP', centAmount: 1000 },
         country: 'UK',
@@ -158,7 +160,7 @@ describe('price actions', () => {
     })
 
     test('should build `setDiscountedPrice` action for removed discounted', () => {
-      const before = {
+      const before: DeepPartial<StandalonePrice> = {
         id: '1010',
         value: { currencyCode: 'EGP', centAmount: 1000 },
         country: 'UK',
@@ -170,7 +172,7 @@ describe('price actions', () => {
         },
       }
 
-      const now = {
+      const now: DeepPartial<StandalonePrice> = {
         id: '1010',
         value: { currencyCode: 'EGP', centAmount: 1000 },
         country: 'UK',
@@ -190,7 +192,7 @@ describe('price actions', () => {
     })
 
     test('should build `setDiscountedPrice` action for changed value centAmount', () => {
-      const before = {
+      const before: DeepPartial<StandalonePrice> = {
         id: '1010',
         value: { currencyCode: 'GBP', centAmount: 1000 },
         country: 'UK',
@@ -202,7 +204,7 @@ describe('price actions', () => {
         },
       }
 
-      const now = {
+      const now: DeepPartial<StandalonePrice> = {
         id: '1010',
         value: { currencyCode: 'GBP', centAmount: 1000 },
         country: 'UK',
@@ -232,8 +234,8 @@ describe('price actions', () => {
 
   describe('setPriceTiers', () => {
     test('should  build `setPriceTiers` action if price tier are set', () => {
-      const before = {}
-      const now = {
+      const before: DeepPartial<StandalonePrice> = {}
+      const now: DeepPartial<StandalonePrice> = {
         id: '9fe6610f',
         value: {
           type: 'centPrecision',
@@ -282,7 +284,7 @@ describe('price actions', () => {
     })
 
     test('should  build `setPriceTiers` action for price tier change', () => {
-      const before = {
+      const before: DeepPartial<StandalonePrice> = {
         id: '9fe6610f',
         value: {
           type: 'centPrecision',
@@ -302,7 +304,7 @@ describe('price actions', () => {
           },
         ],
       }
-      const now = {
+      const now: DeepPartial<StandalonePrice> = {
         id: '9fe6610f',
         value: {
           type: 'centPrecision',
@@ -342,7 +344,7 @@ describe('price actions', () => {
     })
 
     test('should build `setPriceTiers` action for removed price tier', () => {
-      const before = {
+      const before: DeepPartial<StandalonePrice> = {
         id: '9fe6610f',
         value: {
           type: 'centPrecision',
@@ -372,7 +374,7 @@ describe('price actions', () => {
         ],
       }
 
-      const now = {
+      const now: DeepPartial<StandalonePrice> = {
         id: '9fe6610f',
         value: {
           type: 'centPrecision',
@@ -413,7 +415,7 @@ describe('price actions', () => {
     })
 
     test('should build `setPriceTiers` action when removed all price tier', () => {
-      const before = {
+      const before: DeepPartial<StandalonePrice> = {
         id: '9fe6610f',
         value: {
           type: 'centPrecision',
@@ -443,7 +445,7 @@ describe('price actions', () => {
         ],
       }
 
-      const now = {
+      const now: DeepPartial<StandalonePrice> = {
         id: '9fe6610f',
         value: {
           type: 'centPrecision',
@@ -464,7 +466,7 @@ describe('price actions', () => {
     })
 
     test('should not build `setPriceTiers` action when price tiers on now and then are equal', () => {
-      const before = {
+      const before: DeepPartial<StandalonePrice> = {
         id: '9fe6610f',
         value: {
           type: 'centPrecision',
@@ -494,7 +496,7 @@ describe('price actions', () => {
         ],
       }
 
-      const now = {
+      const now: DeepPartial<StandalonePrice> = {
         id: '9fe6610f',
         value: {
           type: 'centPrecision',
@@ -533,12 +535,12 @@ describe('price actions', () => {
     test('should build `setKey` action', () => {
       const key = 'test-key'
 
-      const before = {
+      const before: DeepPartial<StandalonePrice> = {
         id: '1010',
         key: undefined,
       }
 
-      const now = {
+      const now: DeepPartial<StandalonePrice> = {
         id: '1010',
         key,
       }
@@ -555,13 +557,13 @@ describe('price actions', () => {
 
   describe('setValidFrom', () => {
     test('should build `setValidFrom` action', () => {
-      const before = {
+      const before: DeepPartial<StandalonePrice> = {
         id: '1010',
         validFrom: dateNow,
         validUntil: dateNow,
       }
 
-      const now = {
+      const now: DeepPartial<StandalonePrice> = {
         id: '1010',
         validFrom: twoWeeksFromNow,
         validUntil: dateNow,
@@ -579,13 +581,13 @@ describe('price actions', () => {
 
   describe('setValidUntil', () => {
     test('should build `setValidUntil` action', () => {
-      const before = {
+      const before: DeepPartial<StandalonePrice> = {
         id: '1010',
         validFrom: dateNow,
         validUntil: dateNow,
       }
 
-      const now = {
+      const now: DeepPartial<StandalonePrice> = {
         id: '1010',
         validFrom: dateNow,
         validUntil: twoWeeksFromNow,
@@ -603,13 +605,13 @@ describe('price actions', () => {
 
   describe('setValidFromAndUntil', () => {
     it('should build `setValidFromAndUntil` action', () => {
-      const before = {
+      const before: DeepPartial<StandalonePrice> = {
         id: '1010',
         validFrom: dateNow,
         validUntil: dateNow,
       }
 
-      const now = {
+      const now: DeepPartial<StandalonePrice> = {
         id: '1010',
         validFrom: twoWeeksFromNow,
         validUntil: twoWeeksFromNow,
@@ -628,12 +630,12 @@ describe('price actions', () => {
 
   describe('changeActive', () => {
     test('should build `changeActive` action', () => {
-      const before = {
+      const before: DeepPartial<StandalonePrice> = {
         id: '1010',
         active: false,
       }
 
-      const now = {
+      const now: DeepPartial<StandalonePrice> = {
         id: '1010',
         active: true,
       }
@@ -650,7 +652,7 @@ describe('price actions', () => {
 
   describe('setCustomType', () => {
     test('should build `setCustomType` action without fields', () => {
-      const before = {
+      const before: DeepPartial<StandalonePrice> = {
         id: '888',
         value: { currencyCode: 'GBP', centAmount: 1000 },
         country: 'UK',
@@ -658,7 +660,7 @@ describe('price actions', () => {
         validUntil: twoWeeksFromNow,
       }
 
-      const now = {
+      const now: DeepPartial<StandalonePrice> = {
         id: '888',
         value: { currencyCode: 'GBP', centAmount: 1000 },
         country: 'UK',
@@ -685,7 +687,7 @@ describe('price actions', () => {
     })
 
     test('should build `setCustomType` action', () => {
-      const before = {
+      const before: DeepPartial<StandalonePrice> = {
         id: '999',
         value: { currencyCode: 'GBP', centAmount: 1000 },
         country: 'UK',
@@ -693,7 +695,7 @@ describe('price actions', () => {
         validUntil: twoWeeksFromNow,
       }
 
-      const now = {
+      const now: DeepPartial<StandalonePrice> = {
         // set price custom type and field
         id: '999',
         value: { currencyCode: 'GBP', centAmount: 1000 },
@@ -727,7 +729,7 @@ describe('price actions', () => {
     })
 
     test('should build `setCustomType` action which delete custom type', () => {
-      const before = {
+      const before: DeepPartial<StandalonePrice> = {
         id: '1111',
         value: { currencyCode: 'GBP', centAmount: 1000 },
         country: 'UK',
@@ -744,7 +746,7 @@ describe('price actions', () => {
         },
       }
 
-      const now = {
+      const now: DeepPartial<StandalonePrice> = {
         // remove price custom field and type
         id: '1111',
         value: { currencyCode: 'GBP', centAmount: 1000 },
@@ -764,7 +766,7 @@ describe('price actions', () => {
 
   describe('setCustomField', () => {
     test('should generate `setCustomField` actions', () => {
-      const before = {
+      const before: DeepPartial<StandalonePrice> = {
         value: {
           type: 'centPrecision',
           currencyCode: 'EUR',
@@ -784,7 +786,7 @@ describe('price actions', () => {
         },
       }
 
-      const now = {
+      const now: DeepPartial<StandalonePrice> = {
         value: {
           type: 'centPrecision',
           currencyCode: 'EUR',
@@ -820,7 +822,7 @@ describe('price actions', () => {
     })
 
     test('should build `setCustomField` action', () => {
-      const before = {
+      const before: DeepPartial<StandalonePrice> = {
         id: '1010',
         value: { currencyCode: 'GBP', centAmount: 1000 },
         country: 'UK',
@@ -837,7 +839,7 @@ describe('price actions', () => {
         },
       }
 
-      const now = {
+      const now: DeepPartial<StandalonePrice> = {
         id: '1010',
         value: { currencyCode: 'GBP', centAmount: 1000 },
         country: 'UK',
@@ -865,7 +867,7 @@ describe('price actions', () => {
     })
 
     test('should build three `setCustomField` action', () => {
-      const before = {
+      const before: DeepPartial<StandalonePrice> = {
         id: '1010',
         value: { currencyCode: 'GBP', centAmount: 1000 },
         country: 'UK',
@@ -885,7 +887,7 @@ describe('price actions', () => {
         },
       }
 
-      const now = {
+      const now: DeepPartial<StandalonePrice> = {
         id: '1010',
         value: { currencyCode: 'GBP', centAmount: 1000 },
         country: 'UK',

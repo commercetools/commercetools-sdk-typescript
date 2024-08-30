@@ -1,21 +1,21 @@
 import { Type, TypeUpdateAction } from '@commercetools/platform-sdk/src'
-import { SyncActionConfig, UpdateAction } from '@commercetools/sdk-client-v2'
 import { actionsMapBase, actionsMapFieldDefinitions } from './types-actions'
-import { SyncAction } from './types/update-actions'
+import {
+  ActionGroup,
+  SyncActionConfig,
+  SyncAction,
+  UpdateAction,
+} from './types/update-actions'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup, {
-  MapActionGroup,
-  MapActionResult,
+  MapAction,
 } from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
 import findMatchingPairs from './utils/find-matching-pairs'
 
 const actionGroups = ['base', 'fieldDefinitions']
 
-function createTypeMapActions(
-  mapActionGroup: MapActionGroup,
-  syncActionConfig?: SyncActionConfig
-): MapActionResult {
+const createTypeMapActions: MapAction = (mapActionGroup, syncActionConfig) => {
   return function doMapActions(diff, newObj, oldObj) {
     const allActions: Array<Array<UpdateAction>> = []
     allActions.push(

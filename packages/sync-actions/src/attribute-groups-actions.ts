@@ -4,9 +4,9 @@ import createBuildArrayActions, {
   CHANGE_ACTIONS,
   REMOVE_ACTIONS,
 } from './utils/create-build-array-actions'
-import { UpdateAction } from '@commercetools/sdk-client-v2'
 import { ActionMap, ActionMapBase } from './utils/create-map-action-group'
-import { AttributeReference } from '@commercetools/platform-sdk/src'
+import { AttributeReference } from '@commercetools/platform-sdk'
+import { UpdateAction } from './types/update-actions'
 
 const hasAttribute = (
   attributes: Array<AttributeReference>,

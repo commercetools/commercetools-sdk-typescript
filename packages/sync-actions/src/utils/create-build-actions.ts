@@ -1,8 +1,6 @@
-import { UpdateAction } from '@commercetools/sdk-client-v2'
 import { deepEqual } from 'fast-equals'
-import { DeepPartial } from '../types/update-actions'
+import { DeepPartial, UpdateAction } from '../types/update-actions'
 import { Price, ProductVariant } from '@commercetools/platform-sdk'
-import { MapActionResult } from './create-map-action-group'
 
 function applyOnBeforeDiff(
   before: any,

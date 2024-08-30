@@ -1,7 +1,6 @@
 import { Store, StoreUpdateAction } from '@commercetools/platform-sdk'
-import type { ActionGroup, UpdateAction } from '@commercetools/sdk-client-v2'
 import { actionsMapBase } from './stores-actions'
-import { SyncAction } from './types/update-actions'
+import { ActionGroup, SyncAction, UpdateAction } from './types/update-actions'
 import actionsMapCustom from './utils/action-map-custom'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup from './utils/create-map-action-group'

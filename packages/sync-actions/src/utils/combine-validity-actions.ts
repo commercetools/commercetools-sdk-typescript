@@ -1,4 +1,4 @@
-import { UpdateAction } from '@commercetools/sdk-client-v2'
+import { UpdateAction } from '../types/update-actions'
 
 const validityActions = ['setValidFrom', 'setValidUntil']
 

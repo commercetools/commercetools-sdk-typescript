@@ -1,6 +1,6 @@
 import clone, { notEmpty } from './clone'
 import { Delta, getDeltaValue, patch } from './diffpatcher'
-import { UpdateAction } from '@commercetools/sdk-client-v2'
+import { UpdateAction } from '../types/update-actions'
 
 const normalizeValue = (value: any) =>
   typeof value === 'string' ? value.trim() : value

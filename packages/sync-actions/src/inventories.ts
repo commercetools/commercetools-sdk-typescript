@@ -2,27 +2,26 @@ import {
   InventoryEntry,
   InventoryEntryUpdateAction,
 } from '@commercetools/platform-sdk'
-import type {
+import { actionsMapBase, actionsMapReferences } from './inventory-actions'
+import {
   ActionGroup,
   SyncActionConfig,
+  SyncAction,
   UpdateAction,
-} from '@commercetools/sdk-client-v2'
-import { actionsMapBase, actionsMapReferences } from './inventory-actions'
-import { SyncAction } from './types/update-actions'
+} from './types/update-actions'
 import actionsMapCustom from './utils/action-map-custom'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup, {
-  MapActionGroup,
-  MapActionResult,
+  MapAction,
 } from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
 
 export const actionGroups = ['base', 'references']
 
-function createInventoryMapActions(
-  mapActionGroup: MapActionGroup,
-  syncActionConfig?: SyncActionConfig
-): MapActionResult {
+const createInventoryMapActions: MapAction = (
+  mapActionGroup,
+  syncActionConfig
+) => {
   return function doMapActions(diff, newObj, oldObj) {
     const allActions: Array<Array<UpdateAction>> = []
     allActions.push(

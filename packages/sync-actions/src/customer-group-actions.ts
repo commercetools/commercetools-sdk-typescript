@@ -1,6 +1,6 @@
 import { buildBaseAttributesActions } from './utils/common-actions'
 import { ActionMapBase } from './utils/create-map-action-group'
-import { UpdateAction } from '@commercetools/sdk-client-v2'
+import { UpdateAction } from './types/update-actions'
 
 export const baseActionsList: Array<UpdateAction> = [
   { action: 'changeName', key: 'name' },

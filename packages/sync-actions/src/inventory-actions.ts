@@ -3,7 +3,7 @@ import {
   buildReferenceActions,
 } from './utils/common-actions'
 import { ActionMap, ActionMapBase } from './utils/create-map-action-group'
-import { UpdateAction } from '@commercetools/sdk-client-v2'
+import { UpdateAction } from './types/update-actions'
 
 export const baseActionsList: Array<UpdateAction> = [
   { action: 'changeQuantity', key: 'quantityOnStock', actionKey: 'quantity' },

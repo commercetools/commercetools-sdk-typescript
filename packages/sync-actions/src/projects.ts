@@ -1,7 +1,6 @@
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup, {
-  MapActionGroup,
-  MapActionResult,
+  MapAction,
 } from './utils/create-map-action-group'
 import {
   MessagesConfigurationDraft,
@@ -14,15 +13,18 @@ import {
   actionsMapCustomer,
 } from './projects-actions'
 import { diff } from './utils/diffpatcher'
-import { ActionGroup, SyncActionConfig } from '@commercetools/sdk-client-v2'
-import { SyncAction } from './types/update-actions'
+import {
+  ActionGroup,
+  SyncAction,
+  SyncActionConfig,
+} from './types/update-actions'
 
 export const actionGroups = ['base', 'myBusinessUnit', 'customerSearch']
 
-function createChannelsMapActions(
-  mapActionGroup: MapActionGroup,
-  syncActionConfig?: SyncActionConfig
-): MapActionResult {
+const createChannelsMapActions: MapAction = (
+  mapActionGroup,
+  syncActionConfig
+) => {
   return function doMapActions(diff, newObj, oldObj) {
     const allActions = []
 

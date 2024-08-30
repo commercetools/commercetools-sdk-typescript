@@ -11,7 +11,7 @@ import createBuildArrayActions, {
 } from './utils/create-build-array-actions'
 import { Delta, patch } from './utils/diffpatcher'
 import { ActionMap, ActionMapBase } from './utils/create-map-action-group'
-import { UpdateAction } from '@commercetools/sdk-client-v2'
+import { UpdateAction } from './types/update-actions'
 
 const isEmptyValue = createIsEmptyValue([undefined, null, ''])
 

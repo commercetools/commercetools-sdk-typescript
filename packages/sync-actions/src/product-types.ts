@@ -2,28 +2,25 @@ import {
   ProductType,
   ProductTypeUpdateAction,
 } from '@commercetools/platform-sdk'
-import type {
-  ActionGroup,
-  SyncActionConfig as BaseSyncActionConfig,
-  UpdateAction,
-} from '@commercetools/sdk-client-v2'
 import * as productTypeActions from './product-types-actions'
-import { NestedValues } from './product-types-actions'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup, {
-  MapActionGroup,
-  MapActionResult,
+  MapAction,
 } from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
+import {
+  ActionGroup,
+  SyncActionConfig as BaseSyncActionConfig,
+} from './types/update-actions'
 
 type SyncActionConfig = { withHints?: boolean } & BaseSyncActionConfig
 
 const actionGroups = ['base']
 
-function createProductTypeMapActions(
-  mapActionGroup: MapActionGroup,
-  syncActionConfig?: SyncActionConfig
-): MapActionResult {
+const createProductTypeMapActions: MapAction = (
+  mapActionGroup,
+  syncActionConfig
+) => {
   return function doMapActions(diff, newObj, oldObj, options) {
     return [
       // we support only base fields for the product type,

@@ -1,24 +1,20 @@
 import { Zone, ZoneUpdateAction } from '@commercetools/platform-sdk'
-import type {
+import {
   ActionGroup,
   SyncActionConfig,
+  SyncAction,
   UpdateAction,
-} from '@commercetools/sdk-client-v2'
-import { SyncAction } from './types/update-actions'
+} from './types/update-actions'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup, {
-  MapActionGroup,
-  MapActionResult,
+  MapAction,
 } from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
 import * as zonesActions from './zones-actions'
 
 export const actionGroups = ['base', 'locations']
 
-function createZonesMapActions(
-  mapActionGroup: MapActionGroup,
-  syncActionConfig?: SyncActionConfig
-): MapActionResult {
+const createZonesMapActions: MapAction = (mapActionGroup, syncActionConfig) => {
   return function doMapActions(diff, newObj, oldObj) {
     const allActions: Array<Array<UpdateAction>> = []
     allActions.push(

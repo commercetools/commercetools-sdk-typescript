@@ -1,5 +1,6 @@
 import { Delta, getDeltaValue } from './diffpatcher'
-import { UpdateAction } from '@commercetools/sdk-client-v2'
+
+import { UpdateAction } from '../types/update-actions'
 
 const Actions = {
   setCustomType: 'setCustomType',

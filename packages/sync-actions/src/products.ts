@@ -1,9 +1,4 @@
 import { ProductData, ProductUpdateAction } from '@commercetools/platform-sdk'
-import type {
-  ActionGroup,
-  SyncActionConfig,
-  UpdateAction,
-} from '@commercetools/sdk-client-v2'
 import {
   actionsMapAddVariants,
   actionsMapAssets,
@@ -19,12 +14,16 @@ import {
   actionsMapReferences,
   actionsMapRemoveVariants,
 } from './product-actions'
-import { SyncAction } from './types/update-actions'
+import {
+  ActionGroup,
+  SyncActionConfig,
+  SyncAction,
+  UpdateAction,
+} from './types/update-actions'
 import copyEmptyArrayProps from './utils/copy-empty-array-props'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup, {
-  MapActionGroup,
-  MapActionResult,
+  MapAction,
 } from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
 import findMatchingPairs from './utils/find-matching-pairs'
@@ -42,10 +41,10 @@ const actionGroups = [
   'categoryOrderHints',
 ]
 
-function createProductMapActions(
-  mapActionGroup: MapActionGroup,
-  syncActionConfig?: SyncActionConfig
-): MapActionResult {
+const createProductMapActions: MapAction = (
+  mapActionGroup,
+  syncActionConfig
+) => {
   return function doMapActions(diff, newObj, oldObj, options) {
     const allActions: Array<Array<UpdateAction>> = []
     const { sameForAllAttributeNames, enableDiscounted } = options

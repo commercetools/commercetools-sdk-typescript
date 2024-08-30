@@ -2,26 +2,25 @@ import {
   TaxCategory,
   TaxCategoryUpdateAction,
 } from '@commercetools/platform-sdk'
-import type {
+import { actionsMapBase, actionsMapRates } from './tax-categories-actions'
+import {
   ActionGroup,
   SyncActionConfig,
+  SyncAction,
   UpdateAction,
-} from '@commercetools/sdk-client-v2'
-import { actionsMapBase, actionsMapRates } from './tax-categories-actions'
-import { SyncAction } from './types/update-actions'
+} from './types/update-actions'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup, {
-  MapActionGroup,
-  MapActionResult,
+  MapAction,
 } from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
 
 export const actionGroups = ['base', 'rates']
 
-function createTaxCategoriesMapActions(
-  mapActionGroup: MapActionGroup,
-  syncActionConfig?: SyncActionConfig
-): MapActionResult {
+const createTaxCategoriesMapActions: MapAction = (
+  mapActionGroup,
+  syncActionConfig
+) => {
   return function doMapActions(diff, newObj, oldObj) {
     const allActions: Array<Array<UpdateAction>> = []
     allActions.push(

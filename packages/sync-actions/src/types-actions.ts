@@ -7,7 +7,7 @@ import createBuildArrayActions, {
 import { Delta, getDeltaValue } from './utils/diffpatcher'
 import extractMatchingPairs from './utils/extract-matching-pairs'
 import { ActionMapBase } from './utils/create-map-action-group'
-import { UpdateAction } from '@commercetools/sdk-client-v2'
+import { UpdateAction } from './types/update-actions'
 
 const REGEX_NUMBER = new RegExp(/^\d+$/)
 const REGEX_UNDERSCORE_NUMBER = new RegExp(/^_\d+$/)

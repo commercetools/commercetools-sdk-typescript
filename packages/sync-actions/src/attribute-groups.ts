@@ -2,27 +2,27 @@ import {
   AttributeGroup,
   AttributeGroupUpdateAction,
 } from '@commercetools/platform-sdk'
-import type {
-  ActionGroup,
-  SyncActionConfig,
-  UpdateAction,
-} from '@commercetools/sdk-client-v2'
+
 import {
   actionsMapAttributes,
   actionsMapBase,
 } from './attribute-groups-actions'
-import { SyncAction } from './types/update-actions'
+import {
+  ActionGroup,
+  SyncAction,
+  SyncActionConfig,
+  UpdateAction,
+} from './types/update-actions'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup, {
-  MapActionGroup,
-  MapActionResult,
+  MapAction,
 } from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
 
-function createAttributeGroupsMapActions(
-  mapActionGroup: MapActionGroup,
-  syncActionConfig?: SyncActionConfig
-): MapActionResult {
+const createAttributeGroupsMapActions: MapAction = (
+  mapActionGroup,
+  syncActionConfig
+) => {
   return function doMapActions(diff, newObj, oldObj) {
     const allActions: Array<Array<UpdateAction>> = []
     allActions.push(

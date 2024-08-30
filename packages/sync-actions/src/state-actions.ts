@@ -4,7 +4,7 @@ import createBuildArrayActions, {
   REMOVE_ACTIONS,
 } from './utils/create-build-array-actions'
 import { ActionMap, ActionMapBase } from './utils/create-map-action-group'
-import { UpdateAction } from '@commercetools/sdk-client-v2'
+import { UpdateAction } from './types/update-actions'
 
 export const baseActionsList: Array<UpdateAction> = [
   { action: 'changeKey', key: 'key' },

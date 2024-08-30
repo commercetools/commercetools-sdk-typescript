@@ -7,8 +7,9 @@ import {
   CategoryAddAssetAction,
   CategoryRemoveAssetAction,
 } from '@commercetools/platform-sdk'
-import { UpdateAction } from '@commercetools/sdk-client-v2'
 import { ActionMap } from './utils/create-map-action-group'
+
+import { UpdateAction } from './types/update-actions'
 
 function toAssetIdentifier(asset: { id?: string; key?: string }) {
   return asset.id ? { assetId: asset.id } : { assetKey: asset.key }

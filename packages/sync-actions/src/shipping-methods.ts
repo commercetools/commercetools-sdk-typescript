@@ -2,27 +2,26 @@ import {
   ShippingMethod,
   ShippingMethodUpdateAction,
 } from '@commercetools/platform-sdk'
-import type {
+import { actionsMapBase, actionsMapZoneRates } from './shipping-methods-actions'
+import {
   ActionGroup,
   SyncActionConfig,
+  SyncAction,
   UpdateAction,
-} from '@commercetools/sdk-client-v2'
-import { actionsMapBase, actionsMapZoneRates } from './shipping-methods-actions'
-import { SyncAction } from './types/update-actions'
+} from './types/update-actions'
 import actionsMapCustom from './utils/action-map-custom'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup, {
-  MapActionGroup,
-  MapActionResult,
+  MapAction,
 } from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
 
 export const actionGroups = ['base', 'zoneRates', 'custom']
 
-function createShippingMethodsMapActions(
-  mapActionGroup: MapActionGroup,
-  syncActionConfig?: SyncActionConfig
-): MapActionResult {
+const createShippingMethodsMapActions: MapAction = (
+  mapActionGroup,
+  syncActionConfig
+) => {
   return function doMapActions(diff, newObj, oldObj) {
     const allActions: Array<Array<UpdateAction>> = []
     allActions.push(

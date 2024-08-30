@@ -1,15 +1,14 @@
 import { State, StateUpdateAction } from '@commercetools/platform-sdk'
-import type {
+import { actionsMapBase, actionsMapRoles } from './state-actions'
+import {
   ActionGroup,
   SyncActionConfig,
+  SyncAction,
   UpdateAction,
-} from '@commercetools/sdk-client-v2'
-import { actionsMapBase, actionsMapRoles } from './state-actions'
-import { SyncAction } from './types/update-actions'
+} from './types/update-actions'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup, {
-  MapActionGroup,
-  MapActionResult,
+  MapAction,
 } from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
 
@@ -31,10 +30,10 @@ function groupRoleActions([actions]: Array<
   ].filter((action: UpdateAction): number => action.roles.length)
 }
 
-function createStatesMapActions(
-  mapActionGroup: MapActionGroup,
-  syncActionConfig?: SyncActionConfig
-): MapActionResult {
+const createStatesMapActions: MapAction = (
+  mapActionGroup,
+  syncActionConfig
+) => {
   return function doMapActions(diff, newObj, oldObj) {
     const baseActions: Array<Array<UpdateAction>> = []
     const roleActions: Array<Array<UpdateAction>> = []

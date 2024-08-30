@@ -2,27 +2,26 @@ import {
   ProductDiscount,
   ProductDiscountUpdateAction,
 } from '@commercetools/platform-sdk'
+import { actionsMapBase } from './product-discounts-actions'
 import {
   ActionGroup,
   SyncActionConfig,
+  SyncAction,
   UpdateAction,
-} from '@commercetools/sdk-client-v2'
-import { actionsMapBase } from './product-discounts-actions'
-import { SyncAction } from './types/update-actions'
+} from './types/update-actions'
 import combineValidityActions from './utils/combine-validity-actions'
 import createBuildActions from './utils/create-build-actions'
 import createMapActionGroup, {
-  MapActionGroup,
-  MapActionResult,
+  MapAction,
 } from './utils/create-map-action-group'
 import { diff } from './utils/diffpatcher'
 
 export const actionGroups = ['base']
 
-function createProductDiscountsMapActions(
-  mapActionGroup: MapActionGroup,
-  syncActionConfig?: SyncActionConfig
-): MapActionResult {
+const createProductDiscountsMapActions: MapAction = (
+  mapActionGroup,
+  syncActionConfig
+) => {
   return function doMapActions(diff, newObj, oldObj) {
     const allActions: Array<Array<UpdateAction>> = []
 

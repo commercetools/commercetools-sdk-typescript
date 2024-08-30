@@ -1,5 +1,6 @@
-import { UpdateAction } from '@commercetools/sdk-client-v2'
 import { Delta } from './diffpatcher'
+
+import { UpdateAction } from '../types/update-actions'
 
 const REGEX_NUMBER = new RegExp(/^\d+$/)
 const REGEX_UNDERSCORE_NUMBER = new RegExp(/^_\d+$/)
