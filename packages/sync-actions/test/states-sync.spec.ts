@@ -1,4 +1,4 @@
-import statesSyncFn, { actionGroups } from '../src/states'
+import { actionGroups, createSyncStates } from '../src/states'
 import { baseActionsList } from '../src/state-actions'
 import { DeepPartial } from '../src/types/update-actions'
 import { StateDraft } from '@commercetools/platform-sdk/src'
@@ -68,9 +68,9 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let statesSync = statesSyncFn()
+  let statesSync = createSyncStates()
   beforeEach(() => {
-    statesSync = statesSyncFn()
+    statesSync = createSyncStates()
   })
 
   test('should build `setName` action', () => {

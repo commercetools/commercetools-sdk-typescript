@@ -49,7 +49,7 @@ const createStatesMapActions: MapAction = (
   }
 }
 
-export default (
+export const createSyncStates = (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
 ): SyncAction<State, StateUpdateAction> => {

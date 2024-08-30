@@ -1,12 +1,12 @@
 import { DeepPartial } from '../src/types/update-actions'
-import productsSyncFn, { ProductSync } from '../src/products'
+import { createSyncProducts, ProductSync } from '../src/products'
 import { Asset } from '@commercetools/platform-sdk/src'
 
 /* eslint-disable max-len */
 describe('Actions', () => {
-  let productsSync = productsSyncFn()
+  let productsSync = createSyncProducts()
   beforeEach(() => {
-    productsSync = productsSyncFn()
+    productsSync = createSyncProducts()
   })
 
   test('should build attribute actions', () => {

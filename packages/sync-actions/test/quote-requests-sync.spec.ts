@@ -1,4 +1,4 @@
-import createQuoteRequestsSync, { actionGroups } from '../src/quote-requests'
+import { actionGroups, createSyncQuoteRequest } from '../src/quote-requests'
 import { baseActionsList } from '../src/quote-requests-actions'
 import { DeepPartial } from '../src/types/update-actions'
 import { QuoteRequest } from '@commercetools/platform-sdk/src'
@@ -26,9 +26,9 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let quoteRequestsSync = createQuoteRequestsSync()
+  let quoteRequestsSync = createSyncQuoteRequest()
   beforeEach(() => {
-    quoteRequestsSync = createQuoteRequestsSync()
+    quoteRequestsSync = createSyncQuoteRequest()
   })
 
   test('should build `changeQuoteRequestState` action', () => {

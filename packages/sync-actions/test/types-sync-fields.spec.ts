@@ -1,4 +1,4 @@
-import typesSyncFn from '../src/types'
+import { createSyncTypes } from '../src'
 import { TypeUpdateAction } from '@commercetools/platform-sdk/src'
 
 const createTestType = (custom) => ({
@@ -8,12 +8,12 @@ const createTestType = (custom) => ({
 })
 
 describe('Actions', () => {
-  let typesSync = typesSyncFn()
+  let typesSync = createSyncTypes()
   let updateActions: Array<TypeUpdateAction>
   let before
   let now
   beforeEach(() => {
-    typesSync = typesSyncFn()
+    typesSync = createSyncTypes()
   })
   describe('with new fields', () => {
     beforeEach(() => {

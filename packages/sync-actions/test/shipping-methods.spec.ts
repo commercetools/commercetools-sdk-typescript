@@ -1,4 +1,7 @@
-import shippingMethodsSyncFn, { actionGroups } from '../src/shipping-methods'
+import {
+  actionGroups,
+  createSyncShippingMethods,
+} from '../src/shipping-methods'
 import { baseActionsList } from '../src/shipping-methods-actions'
 import { DeepPartial } from '../src/types/update-actions'
 import { ShippingMethodDraft } from '@commercetools/platform-sdk/src'
@@ -24,9 +27,9 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let shippingMethodsSync = shippingMethodsSyncFn()
+  let shippingMethodsSync = createSyncShippingMethods()
   beforeEach(() => {
-    shippingMethodsSync = shippingMethodsSyncFn()
+    shippingMethodsSync = createSyncShippingMethods()
   })
 
   describe('base', () => {

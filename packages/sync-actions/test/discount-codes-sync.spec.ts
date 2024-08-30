@@ -1,4 +1,4 @@
-import discountCodesSyncFn, { actionGroups } from '../src/discount-codes'
+import { actionGroups, createSyncDiscountCodes } from '../src/discount-codes'
 import { baseActionsList } from '../src/discount-codes-actions'
 import { DeepPartial } from '../src/types/update-actions'
 import { DiscountCodeDraft } from '@commercetools/platform-sdk/src'
@@ -97,9 +97,9 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let discountCodesSync = discountCodesSyncFn()
+  let discountCodesSync = createSyncDiscountCodes()
   beforeEach(() => {
-    discountCodesSync = discountCodesSyncFn()
+    discountCodesSync = createSyncDiscountCodes()
   })
 
   test('should build `changeIsActive` action', () => {

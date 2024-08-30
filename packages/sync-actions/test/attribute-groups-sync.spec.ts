@@ -1,4 +1,4 @@
-import attributeGroupSyncFn from '../src/attribute-groups'
+import { createSyncAttributeGroups } from '../src'
 import { baseActionsList } from '../src/attribute-groups-actions'
 
 describe('Exports', () => {
@@ -12,9 +12,9 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let attributeGroupSync = attributeGroupSyncFn()
+  let attributeGroupSync = createSyncAttributeGroups()
   beforeEach(() => {
-    attributeGroupSync = attributeGroupSyncFn()
+    attributeGroupSync = createSyncAttributeGroups()
   })
 
   test('should build `changeName` action', () => {

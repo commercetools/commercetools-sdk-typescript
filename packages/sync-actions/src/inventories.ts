@@ -42,7 +42,7 @@ const createInventoryMapActions: MapAction = (
   }
 }
 
-export default (
+export const createSyncInventories = (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
 ): SyncAction<InventoryEntry, InventoryEntryUpdateAction> => {

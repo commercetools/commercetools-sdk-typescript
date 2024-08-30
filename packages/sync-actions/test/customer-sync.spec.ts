@@ -1,4 +1,4 @@
-import customerSyncFn, { actionGroups } from '../src/customers'
+import { actionGroups, createSyncCustomers } from '../src/customers'
 import {
   baseActionsList,
   setDefaultBaseActionsList,
@@ -66,9 +66,9 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let customerSync = customerSyncFn()
+  let customerSync = createSyncCustomers()
   beforeEach(() => {
-    customerSync = customerSyncFn()
+    customerSync = createSyncCustomers()
   })
 
   test('should build `setSalutation` action', () => {

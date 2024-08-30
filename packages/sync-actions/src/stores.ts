@@ -42,7 +42,7 @@ function createStoresMapActions(
   }
 }
 
-export default (
+export const createSyncStores = (
   actionGroupList?: Array<ActionGroup>
 ): SyncAction<Store, StoreUpdateAction> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)

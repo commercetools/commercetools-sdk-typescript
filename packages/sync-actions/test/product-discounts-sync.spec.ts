@@ -1,4 +1,7 @@
-import productDiscountsSyncFn, { actionGroups } from '../src/product-discounts'
+import {
+  actionGroups,
+  createSyncProductDiscounts,
+} from '../src/product-discounts'
 import { baseActionsList } from '../src/product-discounts-actions'
 import { DeepPartial } from '../src/types/update-actions'
 import { ProductDiscountDraft } from '@commercetools/platform-sdk/src'
@@ -78,9 +81,9 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let productDiscountsSync = productDiscountsSyncFn()
+  let productDiscountsSync = createSyncProductDiscounts()
   beforeEach(() => {
-    productDiscountsSync = productDiscountsSyncFn()
+    productDiscountsSync = createSyncProductDiscounts()
   })
 
   test('should build the `changeIsActive` action', () => {

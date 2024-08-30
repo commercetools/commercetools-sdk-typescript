@@ -1,4 +1,4 @@
-import inventorySyncFn, { actionGroups } from '../src/inventories'
+import { actionGroups, createSyncInventories } from '../src/inventories'
 import { baseActionsList, referenceActionsList } from '../src/inventory-actions'
 import { InventoryEntryDraft } from '@commercetools/platform-sdk/src'
 
@@ -27,9 +27,9 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let inventorySync = inventorySyncFn()
+  let inventorySync = createSyncInventories()
   beforeEach(() => {
-    inventorySync = inventorySyncFn()
+    inventorySync = createSyncInventories()
   })
 
   test('should build `changeQuantity` action', () => {

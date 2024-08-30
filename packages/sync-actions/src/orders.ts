@@ -1,5 +1,6 @@
 import {
   CustomFields,
+  Order,
   OrderUpdateAction,
   ReturnInfo,
   ShippingInfo,
@@ -88,10 +89,10 @@ export type OrderSync = {
   custom: CustomFields
 }
 
-export default (
+export const createSyncOrders = (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction<OrderSync, StagedOrderUpdateAction> => {
+): SyncAction<Order, StagedOrderUpdateAction> => {
   // actionGroupList contains information about which action groups
   // are allowed or ignored
 
@@ -105,7 +106,7 @@ export default (
   // It will return an empty array for ignored action groups
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createOrderMapActions(mapActionGroup, syncActionConfig)
-  const buildActions = createBuildActions<OrderSync, OrderUpdateAction>(
+  const buildActions = createBuildActions<Order, OrderUpdateAction>(
     diff,
     doMapActions
   )

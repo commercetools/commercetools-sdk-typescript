@@ -154,7 +154,7 @@ function moveMasterVariantsIntoVariants(before: any, now: any): Array<Object> {
 
 export type ProductSync = { key: string; id: string } & ProductData
 
-export default (
+export const createSyncProducts = (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
 ): SyncAction<ProductSync, ProductUpdateAction> => {

@@ -40,7 +40,7 @@ const createTypeMapActions: MapAction = (mapActionGroup, syncActionConfig) => {
   }
 }
 
-export default (
+export const createSyncTypes = (
   actionGroupList?: Array<any>,
   syncActionConfig?: SyncActionConfig
 ): SyncAction<Type, TypeUpdateAction> => {

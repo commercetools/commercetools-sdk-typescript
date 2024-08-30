@@ -39,7 +39,7 @@ const createAttributeGroupsMapActions: MapAction = (
   }
 }
 
-export default (
+export const createSyncAttributeGroups = (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
 ): SyncAction<AttributeGroup, AttributeGroupUpdateAction> => {

@@ -87,7 +87,7 @@ const createCustomerMapActions: MapAction = (
   }
 }
 
-export default (
+export const createSyncCustomers = (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
 ): SyncAction<Customer, CustomerUpdateAction> => {

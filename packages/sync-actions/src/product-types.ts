@@ -42,7 +42,7 @@ const createProductTypeMapActions: MapAction = (
   }
 }
 
-export default (
+export const createSyncProductTypes = (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
 ) => {

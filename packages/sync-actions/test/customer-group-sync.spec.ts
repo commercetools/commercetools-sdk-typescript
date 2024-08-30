@@ -1,4 +1,4 @@
-import customerGroupSyncFn, { actionGroups } from '../src/customer-group'
+import { actionGroups, createSyncCustomerGroup } from '../src/customer-group'
 import { baseActionsList } from '../src/customer-group-actions'
 import { DeepPartial } from '../src/types/update-actions'
 import {
@@ -32,9 +32,9 @@ describe('Customer Groups Exports', () => {
 })
 
 describe('Customer Groups Actions', () => {
-  let customerGroupSync = customerGroupSyncFn()
+  let customerGroupSync = createSyncCustomerGroup()
   beforeEach(() => {
-    customerGroupSync = customerGroupSyncFn()
+    customerGroupSync = createSyncCustomerGroup()
   })
 
   test('should build the `changeName` action', () => {

@@ -1,8 +1,8 @@
-import pricesSyncFn, { actionGroups } from '../src/prices'
+import { actionGroups, createSyncStandalonePrices } from '../src/prices'
 import { DeepPartial } from '../src/types/update-actions'
 import { StandalonePrice } from '@commercetools/platform-sdk'
 
-const pricesSync = pricesSyncFn()
+const pricesSync = createSyncStandalonePrices()
 
 const dateNow = new Date().toString()
 const twoWeeksFromNow = new Date(Date.now() + 12096e5).toString()

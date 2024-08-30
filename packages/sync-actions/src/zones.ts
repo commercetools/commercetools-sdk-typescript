@@ -31,7 +31,7 @@ const createZonesMapActions: MapAction = (mapActionGroup, syncActionConfig) => {
   }
 }
 
-export default (
+export const createSyncZones = (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
 ): SyncAction<Zone, ZoneUpdateAction> => {

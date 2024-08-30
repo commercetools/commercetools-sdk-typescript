@@ -1,4 +1,4 @@
-import categorySyncFn, { actionGroups } from '../src/categories'
+import { createSyncCategories, actionGroups } from '../src/categories'
 import { DeepPartial } from '../src/types/update-actions'
 import {
   baseActionsList,
@@ -45,9 +45,9 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let categorySync = categorySyncFn()
+  let categorySync = createSyncCategories()
   beforeEach(() => {
-    categorySync = categorySyncFn()
+    categorySync = createSyncCategories()
   })
 
   describe('custom fields', () => {

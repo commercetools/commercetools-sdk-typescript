@@ -1,5 +1,5 @@
 import clone from '../src/utils/clone'
-import createSyncProductTypes, { actionGroups } from '../src/product-types'
+import { createSyncProductTypes, actionGroups } from '../src/product-types'
 import {
   baseActionsList,
   generateBaseFieldsUpdateActions,

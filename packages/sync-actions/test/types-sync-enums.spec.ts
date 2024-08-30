@@ -1,4 +1,4 @@
-import typesSyncFn from '../src/types'
+import { createSyncTypes } from '../src/types'
 import { TypeUpdateAction } from '@commercetools/platform-sdk/src'
 
 const createTestType = (custom) => ({
@@ -10,10 +10,10 @@ const createTestType = (custom) => ({
 describe('Actions', () => {
   let before
   let now
-  let typesSync = typesSyncFn()
+  let typesSync = createSyncTypes()
   let updateActions: Array<TypeUpdateAction>
   beforeEach(() => {
-    typesSync = typesSyncFn()
+    typesSync = createSyncTypes()
   })
   describe('enum values', () => {
     describe('with new enum', () => {

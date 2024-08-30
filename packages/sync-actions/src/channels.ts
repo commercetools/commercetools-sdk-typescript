@@ -36,7 +36,7 @@ const createChannelsMapActions: MapAction = (
   }
 }
 
-export default (
+export const createSyncChannels = (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
 ): SyncAction<Channel, ChannelUpdateAction> => {

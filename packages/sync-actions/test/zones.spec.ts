@@ -1,4 +1,4 @@
-import zonesSyncFn, { actionGroups } from '../src/zones'
+import { actionGroups, createSyncZones } from '../src/zones'
 import { baseActionsList } from '../src/zones-actions'
 
 describe('Exports', () => {
@@ -16,9 +16,9 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let zonesSync = zonesSyncFn()
+  let zonesSync = createSyncZones()
   beforeEach(() => {
-    zonesSync = zonesSyncFn()
+    zonesSync = createSyncZones()
   })
 
   test('should build `changeName` action', () => {

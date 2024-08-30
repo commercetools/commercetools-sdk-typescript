@@ -1,4 +1,4 @@
-import taxCategorySyncFn, { actionGroups } from '../src/tax-categories'
+import { actionGroups, createSyncTaxCategories } from '../src/tax-categories'
 import { baseActionsList } from '../src/tax-categories-actions'
 import { DeepPartial } from '../src/types/update-actions'
 import { TaxCategory } from '@commercetools/platform-sdk/src'
@@ -18,9 +18,9 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let taxCategorySync = taxCategorySyncFn()
+  let taxCategorySync = createSyncTaxCategories()
   beforeEach(() => {
-    taxCategorySync = taxCategorySyncFn()
+    taxCategorySync = createSyncTaxCategories()
   })
 
   test('should build `changeName` action', () => {

@@ -36,7 +36,7 @@ const createQuotesMapActions: MapAction = (
   }
 }
 
-export default (
+export const createSyncQuote = (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
 ): SyncAction<Quote, QuoteUpdateAction> => {

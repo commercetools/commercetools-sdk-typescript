@@ -1,4 +1,4 @@
-import storesSyncFn, { actionGroups } from '../src/stores'
+import { actionGroups, createSyncStores } from '../src/stores'
 import { baseActionsList } from '../src/stores-actions'
 import { DeepPartial } from '../src/types/update-actions'
 import { Store } from '@commercetools/platform-sdk/src'
@@ -19,9 +19,9 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let storesSync = storesSyncFn()
+  let storesSync = createSyncStores()
   beforeEach(() => {
-    storesSync = storesSyncFn()
+    storesSync = createSyncStores()
   })
 
   test('should build `setName` action', () => {

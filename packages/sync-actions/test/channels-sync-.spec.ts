@@ -1,4 +1,4 @@
-import createChannelsSync, { actionGroups } from '../src/channels'
+import { createSyncChannels, actionGroups } from '../src/channels'
 import { baseActionsList } from '../src/channels-actions'
 import { DeepPartial } from '../src/types/update-actions'
 import { ChannelDraft } from '@commercetools/platform-sdk/src'
@@ -68,9 +68,9 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let channelsSync = createChannelsSync()
+  let channelsSync = createSyncChannels()
   beforeEach(() => {
-    channelsSync = createChannelsSync()
+    channelsSync = createSyncChannels()
   })
 
   test('should build `changeKey` action', () => {

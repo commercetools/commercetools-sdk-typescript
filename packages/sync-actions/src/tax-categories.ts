@@ -35,7 +35,7 @@ const createTaxCategoriesMapActions: MapAction = (
   }
 }
 
-export default (
+export const createSyncTaxCategories = (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
 ): SyncAction<TaxCategory, TaxCategoryUpdateAction> => {

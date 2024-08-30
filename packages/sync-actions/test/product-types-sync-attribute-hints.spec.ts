@@ -1,4 +1,4 @@
-import createSyncProductTypes from '../src/product-types'
+import { createSyncProductTypes } from '../src'
 import { ProductTypeUpdateAction } from '@commercetools/platform-sdk/src'
 import { AttributeEnumValues } from '../src/product-types-actions'
 

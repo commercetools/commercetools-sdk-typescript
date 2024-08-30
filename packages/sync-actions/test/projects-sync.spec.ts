@@ -1,4 +1,4 @@
-import createProjectsSync, { actionGroups } from '../src/projects'
+import { actionGroups, createSyncProjects } from '../src/projects'
 import {
   baseActionsList,
   myBusinessUnitActionsList,
@@ -116,9 +116,9 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let projectsSync = createProjectsSync()
+  let projectsSync = createSyncProjects()
   beforeEach(() => {
-    projectsSync = createProjectsSync()
+    projectsSync = createSyncProjects()
   })
 
   test('should build `changeName` action', () => {
@@ -288,7 +288,7 @@ describe('Actions', () => {
       { type: 'myBusinessUnit', group: 'allow' },
       { type: 'customerSearch', group: 'ignore' },
     ]
-    projectsSync = createProjectsSync(actionGroupList)
+    projectsSync = createSyncProjects(actionGroupList)
     const before: DeepPartial<Project> = {
       businessUnits: { myBusinessUnitStatusOnCreation: 'Active' },
     }
@@ -341,7 +341,7 @@ describe('Actions', () => {
       { type: 'myBusinessUnit', group: 'ignore' },
       { type: 'customerSearch', group: 'allow' },
     ]
-    projectsSync = createProjectsSync(actionGroupList)
+    projectsSync = createSyncProjects(actionGroupList)
     const before: DeepPartial<
       Project & {
         searchIndexing: SearchIndexingConfiguration & {

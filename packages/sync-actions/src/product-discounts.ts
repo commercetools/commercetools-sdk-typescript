@@ -34,7 +34,7 @@ const createProductDiscountsMapActions: MapAction = (
   }
 }
 
-export default (
+export const createSyncProductDiscounts = (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
 ): SyncAction<ProductDiscount, ProductDiscountUpdateAction> => {

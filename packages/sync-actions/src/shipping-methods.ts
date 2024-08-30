@@ -41,7 +41,7 @@ const createShippingMethodsMapActions: MapAction = (
   }
 }
 
-export default (
+export const createSyncShippingMethods = (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
 ): SyncAction<ShippingMethod, ShippingMethodUpdateAction> => {

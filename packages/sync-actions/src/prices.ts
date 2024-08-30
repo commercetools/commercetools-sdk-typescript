@@ -32,7 +32,7 @@ const createPriceMapActions: MapAction = (mapActionGroup, syncActionConfig) => {
   }
 }
 
-export default (
+export const createSyncStandalonePrices = (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
 ): SyncAction<StandalonePrice, StandalonePriceUpdateAction> => {

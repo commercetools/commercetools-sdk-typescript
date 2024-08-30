@@ -1,4 +1,4 @@
-import cartDiscountsSyncFn, { actionGroups } from '../src/cart-discounts'
+import { actionGroups, createSyncCartDiscounts } from '../src/cart-discounts'
 import { baseActionsList } from '../src/cart-discounts-actions'
 import { DeepPartial } from '../src/types/update-actions'
 import { CartDiscountDraft } from '@commercetools/platform-sdk/src'
@@ -111,9 +111,9 @@ describe('Cart Discounts Exports', () => {
 })
 
 describe('Cart Discounts Actions', () => {
-  let cartDiscountsSync = cartDiscountsSyncFn()
+  let cartDiscountsSync = createSyncCartDiscounts()
   beforeEach(() => {
-    cartDiscountsSync = cartDiscountsSyncFn()
+    cartDiscountsSync = createSyncCartDiscounts()
   })
 
   test('should build the `changeIsActive` action', () => {

@@ -45,7 +45,7 @@ export type StagedQuoteSync = {
   custom: CustomFields
 } & StagedQuote
 
-export default (
+export const createSyncStagedQuote = (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
 ): SyncAction<StagedQuoteSync, StagedQuoteUpdateAction> => {

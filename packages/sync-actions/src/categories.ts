@@ -56,7 +56,7 @@ const createCategoryMapActions: MapAction = (
   }
 }
 
-export default (
+export const createSyncCategories = (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
 ): SyncAction<Category, CategoryUpdateAction> => {

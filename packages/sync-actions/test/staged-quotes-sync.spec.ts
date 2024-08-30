@@ -1,5 +1,6 @@
-import createStagedQuotesSync, {
+import {
   actionGroups,
+  createSyncStagedQuote,
   StagedQuoteSync,
 } from '../src/staged-quotes'
 import { baseActionsList } from '../src/staged-quotes-actions'
@@ -42,9 +43,9 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let stagedQuotesSync = createStagedQuotesSync()
+  let stagedQuotesSync = createSyncStagedQuote()
   beforeEach(() => {
-    stagedQuotesSync = createStagedQuotesSync()
+    stagedQuotesSync = createSyncStagedQuote()
   })
 
   test('should build `changeQuoteState` action', () => {

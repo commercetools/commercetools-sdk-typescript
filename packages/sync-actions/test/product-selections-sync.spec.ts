@@ -1,6 +1,7 @@
 import { baseActionsList } from '../src/product-selections-actions'
-import productSelectionsSyncFn, {
+import {
   actionGroups,
+  createSyncProductSelections,
 } from '../src/product-selections'
 import { DeepPartial } from '../src/types/update-actions'
 import { ProductSelectionDraft } from '@commercetools/platform-sdk/src'
@@ -19,9 +20,9 @@ describe('Exports', () => {
 })
 
 describe('Actions', () => {
-  let productSelectionsSync = productSelectionsSyncFn()
+  let productSelectionsSync = createSyncProductSelections()
   beforeEach(() => {
-    productSelectionsSync = productSelectionsSyncFn()
+    productSelectionsSync = createSyncProductSelections()
   })
 
   test('should build `changeName` action', () => {

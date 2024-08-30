@@ -45,7 +45,7 @@ function createProductSelectionsMapActions(
   }
 }
 
-export default (
+export const createSyncProductSelections = (
   actionGroupList?: Array<ActionGroup>
 ): SyncAction<ProductSelection, ProductSelectionUpdateAction> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)

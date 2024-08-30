@@ -40,7 +40,7 @@ const createCartDiscountsMapActions: MapAction = (
   }
 }
 
-export default (
+export const createSyncCartDiscounts = (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
 ): SyncAction<CartDiscount, CartDiscountUpdateAction> => {
