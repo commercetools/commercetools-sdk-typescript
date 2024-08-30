@@ -17,6 +17,7 @@ import {
   ActionGroup,
   SyncAction,
   SyncActionConfig,
+  UpdateAction,
 } from './types/update-actions'
 
 export const actionGroups = ['base', 'myBusinessUnit', 'customerSearch']
@@ -26,7 +27,7 @@ const createChannelsMapActions: MapAction = (
   syncActionConfig
 ) => {
   return function doMapActions(diff, newObj, oldObj) {
-    const allActions = []
+    const allActions: Array<Array<UpdateAction>> = []
 
     allActions.push(
       mapActionGroup('base', () =>
@@ -50,20 +51,16 @@ const createChannelsMapActions: MapAction = (
   }
 }
 
-export type ProjectSync = {
-  messagesConfiguration: MessagesConfigurationDraft
-} & Project
-
 export default (
   actionGroupList?: Array<ActionGroup>,
   syncActionConfig?: SyncActionConfig
-): SyncAction<ProjectSync, ProjectUpdateAction> => {
+): SyncAction<Project, ProjectUpdateAction> => {
   const mapActionGroup = createMapActionGroup(actionGroupList)
   const doMapActions = createChannelsMapActions(
     mapActionGroup,
     syncActionConfig
   )
-  const buildActions = createBuildActions<ProjectSync, ProjectUpdateAction>(
+  const buildActions = createBuildActions<Project, ProjectUpdateAction>(
     diff,
     doMapActions
   )

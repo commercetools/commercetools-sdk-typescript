@@ -1,4 +1,4 @@
-import createProjectsSync, { actionGroups, ProjectSync } from '../src/projects'
+import createProjectsSync, { actionGroups } from '../src/projects'
 import {
   baseActionsList,
   myBusinessUnitActionsList,
