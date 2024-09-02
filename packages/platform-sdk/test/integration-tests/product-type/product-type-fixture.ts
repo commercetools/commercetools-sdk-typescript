@@ -1,6 +1,7 @@
 import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
 import { AttributeDefinitionDraft, ProductTypeDraft } from '../../../src'
+import { createTaxCategory } from '../tax-category/tax-category-fixture'
 
 const attributeDefinitionDraft: AttributeDefinitionDraft = {
   type: {
@@ -91,17 +92,38 @@ const productTypeDraft: ProductTypeDraft = {
 }
 
 export const productTypeDraftForProduct: ProductTypeDraft = {
-  key: 'test-productType-key-' + randomUUID(),
+  key: 'test-productTypeForProduct-key',
   name: 'test-name-productType-' + randomUUID(),
   description: 'test-productType-description-' + randomUUID(),
   attributes: attributeDefinitionDraftProduct,
 }
 
-export const createProductType = async (productTypeDraftBody?) => {
+export const ensureProductType = async (productTypeDraftBody?) => {
+  try {
+    return await apiRoot
+      .productTypes()
+      .withKey({ key: productTypeDraftBody?.key || productTypeDraft.key })
+      .get()
+      .execute()
+  } catch (e) {
+    return await createProductType(productTypeDraftBody || productTypeDraft)
+  }
+}
+
+const createProductType = async (productTypeDraftBody?) => {
   return await apiRoot
     .productTypes()
     .post({ body: productTypeDraftBody || productTypeDraft })
     .execute()
+}
+
+export const createRandomProductType = async () => {
+  return await createProductType({
+    key: 'test-productType-key-' + randomUUID(),
+    name: 'test-name-productType-' + randomUUID(),
+    description: 'test-productType-description-' + randomUUID(),
+    attributes: attributeDefinitionDraftProduct,
+  })
 }
 
 export const deleteProductType = async (responseCreatedProductType) => {
