@@ -3,8 +3,8 @@ import { createOrder, deleteOrder } from './order-fixture'
 import { createCategory, deleteCategory } from '../category/category-fixture'
 import { ensureTaxCategory } from '../tax-category/tax-category-fixture'
 import {
-  createProductType,
   deleteProductType,
+  ensureProductType,
   productTypeDraftForProduct,
 } from '../product-type/product-type-fixture'
 import {
@@ -21,7 +21,7 @@ describe('testing order API calls', () => {
   it('should get a order by Id', async () => {
     const category = await createCategory()
     const taxCategory = await ensureTaxCategory()
-    const productType = await createProductType(productTypeDraftForProduct)
+    const productType = await ensureProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
       taxCategory,
@@ -65,14 +65,13 @@ describe('testing order API calls', () => {
       .execute()
     await deleteCart(getCart)
     await deleteProduct(product)
-    await deleteProductType(productType)
     await deleteCategory(category)
   })
 
   it('should get a order by order number', async () => {
     const category = await createCategory()
     const taxCategory = await ensureTaxCategory()
-    const productType = await createProductType(productTypeDraftForProduct)
+    const productType = await ensureProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
       taxCategory,
@@ -116,14 +115,13 @@ describe('testing order API calls', () => {
       .execute()
     await deleteCart(getCart)
     await deleteProduct(product)
-    await deleteProductType(productType)
     await deleteCategory(category)
   })
 
   it('should update a order', async () => {
     const category = await createCategory()
     const taxCategory = await ensureTaxCategory()
-    const productType = await createProductType(productTypeDraftForProduct)
+    const productType = await ensureProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
       taxCategory,
@@ -183,7 +181,6 @@ describe('testing order API calls', () => {
       .execute()
     await deleteCart(getCart)
     await deleteProduct(product)
-    await deleteProductType(productType)
     await deleteCategory(category)
   })
 
@@ -208,7 +205,7 @@ describe('testing order API calls', () => {
 
     const category = await createCategory()
     const taxCategory = await ensureTaxCategory()
-    const productType = await createProductType(productTypeDraftForProduct)
+    const productType = await ensureProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
       taxCategory,
@@ -279,7 +276,6 @@ describe('testing order API calls', () => {
       .execute()
     await deleteCart(getCart)
     await deleteProduct(product)
-    await deleteProductType(productType)
     await deleteCategory(category)
   }, 50_000)
 })
