@@ -14,7 +14,7 @@ import { apiRoot } from '../test-utils'
 import { createCategory } from '../category/category-fixture'
 import { ensureTaxCategory } from '../tax-category/tax-category-fixture'
 import {
-  createProductType,
+  ensureProductType,
   productTypeDraftForProduct,
 } from '../product-type/product-type-fixture'
 import { createProduct, createProductDraft } from '../product/product-fixture'
@@ -76,8 +76,8 @@ describe('testing me endpoint cart', () => {
   // https://github.com/commercetools/commercetools-sdk-typescript/issues/446
   it('should expand active cart using me endpoint in a store', async () => {
     const category = await createCategory()
+    const productType = await ensureProductType(productTypeDraftForProduct)
     const taxCategory = await ensureTaxCategory()
-    const productType = await createProductType(productTypeDraftForProduct)
 
     const productDraft = await createProductDraft(
       category,

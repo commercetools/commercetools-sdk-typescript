@@ -2,8 +2,7 @@ import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
 import { ensureTaxCategory } from '../tax-category/tax-category-fixture'
 import {
-  createProductType,
-  deleteProductType,
+  ensureProductType,
   productTypeDraftForProduct,
 } from '../product-type/product-type-fixture'
 import {
@@ -33,7 +32,7 @@ describe('testing product API calls', () => {
   it('should create and delete a product by ID', async () => {
     const category = await createCategory()
     const taxCategory = await ensureTaxCategory()
-    const productType = await createProductType(productTypeDraftForProduct)
+    const productType = await ensureProductType(productTypeDraftForProduct)
 
     const productTypeResourceIdentifier: ProductTypeResourceIdentifier = {
       typeId: 'product-type',
@@ -155,14 +154,13 @@ describe('testing product API calls', () => {
 
     expect(responseProductDeleted.statusCode).toEqual(200)
 
-    await deleteProductType(productType)
     await deleteCategory(category)
   })
 
   it('should get a product by Id', async () => {
     const category = await createCategory()
     const taxCategory = await ensureTaxCategory()
-    const productType = await createProductType(productTypeDraftForProduct)
+    const productType = await ensureProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
       taxCategory,
@@ -181,14 +179,13 @@ describe('testing product API calls', () => {
     expect(getProduct.body.id).toEqual(product.body.id)
 
     await deleteProduct(product)
-    await deleteProductType(productType)
     await deleteCategory(category)
   })
 
   it('should get a product by key', async () => {
     const category = await createCategory()
     const taxCategory = await ensureTaxCategory()
-    const productType = await createProductType(productTypeDraftForProduct)
+    const productType = await ensureProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
       taxCategory,
@@ -207,14 +204,13 @@ describe('testing product API calls', () => {
     expect(getProduct.body.key).toEqual(product.body.key)
 
     await deleteProduct(product)
-    await deleteProductType(productType)
     await deleteCategory(category)
   })
 
   it('should get a product by SKU using query predicates', async () => {
     const category = await createCategory()
     const taxCategory = await ensureTaxCategory()
-    const productType = await createProductType(productTypeDraftForProduct)
+    const productType = await ensureProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
       taxCategory,
@@ -241,14 +237,13 @@ describe('testing product API calls', () => {
     expect(getProduct.body.results[0].key).toEqual(product.body.key)
 
     await deleteProduct(product)
-    await deleteProductType(productType)
     await deleteCategory(category)
   })
 
   it('should update a product by Id', async () => {
     const category = await createCategory()
     const taxCategory = await ensureTaxCategory()
-    const productType = await createProductType(productTypeDraftForProduct)
+    const productType = await ensureProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
       taxCategory,
@@ -277,14 +272,13 @@ describe('testing product API calls', () => {
     expect(updateProduct.statusCode).toEqual(200)
 
     await deleteProduct(updateProduct)
-    await deleteProductType(productType)
     await deleteCategory(category)
   })
 
   it('should update a product by key', async () => {
     const category = await createCategory()
     const taxCategory = await ensureTaxCategory()
-    const productType = await createProductType(productTypeDraftForProduct)
+    const productType = await ensureProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
       taxCategory,
@@ -313,14 +307,13 @@ describe('testing product API calls', () => {
     expect(updateProduct.statusCode).toEqual(200)
 
     await deleteProduct(updateProduct)
-    await deleteProductType(productType)
     await deleteCategory(category)
   })
 
   it('should query a product', async () => {
     const category = await createCategory()
     const taxCategory = await ensureTaxCategory()
-    const productType = await createProductType(productTypeDraftForProduct)
+    const productType = await ensureProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
       taxCategory,
@@ -340,7 +333,6 @@ describe('testing product API calls', () => {
     expect(queryProduct.body.results[0].id).toEqual(product.body.id)
 
     await deleteProduct(product)
-    await deleteProductType(productType)
     await deleteCategory(category)
   })
 
@@ -349,7 +341,7 @@ describe('testing product API calls', () => {
     const imageFile = await fs.readFile(imagePath)
     const category = await createCategory()
     const taxCategory = await ensureTaxCategory()
-    const productType = await createProductType(productTypeDraftForProduct)
+    const productType = await ensureProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
       taxCategory,
