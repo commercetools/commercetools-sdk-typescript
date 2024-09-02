@@ -5,37 +5,60 @@
 **Api changes**
 
 <details>
-<summary>Removed Resource(s)</summary>
+<summary>Removed Method(s)</summary>
 
-- :warning: removed resource `/{projectKey}/me/carts/key={key}`
+- :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withId().delete()`
+- :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withKey().delete()`
+- :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().get()`
+- :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().head()`
+- :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().post()`
+- :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().delete()`
+- :warning: removed method `apiRoot.withProjectKey().me().quoteRequests().withId().delete()`
+- :warning: removed method `apiRoot.withProjectKey().me().quoteRequests().withKey().delete()`
 </details>
 
 <details>
-<summary>Added Resource(s)</summary>
+<summary>Added Method(s)</summary>
 
-- added resource `/{projectKey}/customers/search`
-- added resource `/{projectKey}/customers/search/indexing-status`
-- added resource `/{projectKey}/in-store/key={storeKey}/quote-requests`
-- added resource `/{projectKey}/in-store/key={storeKey}/staged-quotes`
-- added resource `/{projectKey}/in-store/key={storeKey}/quotes`
-- added resource `/{projectKey}/in-store/key={storeKey}/orders/quotes`
-- added resource `/{projectKey}/in-store/key={storeKey}/products/{productID}/product-tailoring/images`
-- added resource `/{projectKey}/in-store/key={storeKey}/products/key={productKey}/product-tailoring/images`
-- added resource `/{projectKey}/in-store/key={storeKey}/quote-requests/key={key}`
-- added resource `/{projectKey}/in-store/key={storeKey}/quote-requests/{ID}`
-- added resource `/{projectKey}/in-store/key={storeKey}/staged-quotes/key={key}`
-- added resource `/{projectKey}/in-store/key={storeKey}/staged-quotes/{ID}`
-- added resource `/{projectKey}/in-store/key={storeKey}/quotes/key={key}`
-- added resource `/{projectKey}/in-store/key={storeKey}/quotes/{ID}`
-</details>
-
-<details>
-<summary>Required Property(s)</summary>
-
-- changed property `stores` of type `BusinessUnit` to be optional
-- changed property `stores` of type `Company` to be optional
-- changed property `stores` of type `Division` to be optional
-- changed property `isOnStock` of type `ProductVariantAvailability` to be optional
+- added method `apiRoot.withProjectKey().customers().search().post()`
+- added method `apiRoot.withProjectKey().customers().search().head()`
+- added method `apiRoot.withProjectKey().customers().searchIndexingStatus().get()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().get()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().head()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().post()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().stagedQuotes().get()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().stagedQuotes().head()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().stagedQuotes().post()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().get()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().head()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().post()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().orders().orderQuote().post()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().products().withProductId().productTailoring().images().post()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().products().withProductKey().productTailoring().images().post()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().withKey().get()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().withKey().head()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().withKey().post()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().withKey().delete()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().withId().get()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().withId().head()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().withId().post()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().withId().delete()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().stagedQuotes().withKey().get()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().stagedQuotes().withKey().head()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().stagedQuotes().withKey().post()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().stagedQuotes().withKey().delete()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().stagedQuotes().withId().get()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().stagedQuotes().withId().head()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().stagedQuotes().withId().post()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().stagedQuotes().withId().delete()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().withKey().get()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().withKey().head()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().withKey().post()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().withKey().delete()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().withId().get()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().withId().head()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().withId().post()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().withId().delete()`
 </details>
 
 <details>
@@ -86,6 +109,15 @@
 </details>
 
 <details>
+<summary>Required Property(s)</summary>
+
+- changed property `stores` of type `BusinessUnit` to be optional
+- changed property `stores` of type `Company` to be optional
+- changed property `stores` of type `Division` to be optional
+- changed property `isOnStock` of type `ProductVariantAvailability` to be optional
+</details>
+
+<details>
 <summary>Changed Property(s)</summary>
 
 - :warning: changed property `value` of type `DirectDiscountDraft` from type `CartDiscountValue` to `CartDiscountValueDraft`
@@ -104,23 +136,6 @@
 - :warning: changed property `customType` of type `OrderSearchStringValue` from type `string` to `OrderSearchCustomType`
 - :warning: changed property `price` of type `ShippingRate` from type `TypedMoney` to `CentPrecisionMoney`
 - :warning: changed property `freeAbove` of type `ShippingRate` from type `TypedMoney` to `CentPrecisionMoney`
-</details>
-
-<details>
-<summary>Removed Enum(s)</summary>
-
-- :warning: removed enum `product-price` from type `ChangeSubscriptionResourceTypeId`
-</details>
-
-<details>
-<summary>Added Enum(s)</summary>
-
-- added enum `shopping-list` to type `ExtensionResourceTypeId`
-- added enum `customer-group` to type `AttributeReferenceTypeId`
-- added enum `attribute-group` to type `ChangeSubscriptionResourceTypeId`
-- added enum `product-tailoring` to type `ChangeSubscriptionResourceTypeId`
-- added enum `cart-discount` to type `CustomFieldReferenceValue`
-- added enum `customer-group` to type `CustomFieldReferenceValue`
 </details>
 
 <details>
@@ -197,60 +212,45 @@
 </details>
 
 <details>
-<summary>Added Method(s)</summary>
+<summary>Removed Resource(s)</summary>
 
-- added method `apiRoot.withProjectKey().customers().search().post()`
-- added method `apiRoot.withProjectKey().customers().search().head()`
-- added method `apiRoot.withProjectKey().customers().searchIndexingStatus().get()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().get()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().head()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().post()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().stagedQuotes().get()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().stagedQuotes().head()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().stagedQuotes().post()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().get()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().head()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().post()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().orders().orderQuote().post()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().products().withProductId().productTailoring().images().post()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().products().withProductKey().productTailoring().images().post()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().withKey().get()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().withKey().head()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().withKey().post()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().withKey().delete()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().withId().get()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().withId().head()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().withId().post()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quoteRequests().withId().delete()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().stagedQuotes().withKey().get()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().stagedQuotes().withKey().head()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().stagedQuotes().withKey().post()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().stagedQuotes().withKey().delete()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().stagedQuotes().withId().get()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().stagedQuotes().withId().head()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().stagedQuotes().withId().post()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().stagedQuotes().withId().delete()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().withKey().get()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().withKey().head()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().withKey().post()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().withKey().delete()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().withId().get()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().withId().head()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().withId().post()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().quotes().withId().delete()`
+- :warning: removed resource `/{projectKey}/me/carts/key={key}`
 </details>
 
 <details>
-<summary>Removed Method(s)</summary>
+<summary>Added Resource(s)</summary>
 
-- :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withId().delete()`
-- :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withKey().delete()`
-- :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().get()`
-- :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().head()`
-- :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().post()`
-- :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().delete()`
-- :warning: removed method `apiRoot.withProjectKey().me().quoteRequests().withId().delete()`
-- :warning: removed method `apiRoot.withProjectKey().me().quoteRequests().withKey().delete()`
+- added resource `/{projectKey}/customers/search`
+- added resource `/{projectKey}/customers/search/indexing-status`
+- added resource `/{projectKey}/in-store/key={storeKey}/quote-requests`
+- added resource `/{projectKey}/in-store/key={storeKey}/staged-quotes`
+- added resource `/{projectKey}/in-store/key={storeKey}/quotes`
+- added resource `/{projectKey}/in-store/key={storeKey}/orders/quotes`
+- added resource `/{projectKey}/in-store/key={storeKey}/products/{productID}/product-tailoring/images`
+- added resource `/{projectKey}/in-store/key={storeKey}/products/key={productKey}/product-tailoring/images`
+- added resource `/{projectKey}/in-store/key={storeKey}/quote-requests/key={key}`
+- added resource `/{projectKey}/in-store/key={storeKey}/quote-requests/{ID}`
+- added resource `/{projectKey}/in-store/key={storeKey}/staged-quotes/key={key}`
+- added resource `/{projectKey}/in-store/key={storeKey}/staged-quotes/{ID}`
+- added resource `/{projectKey}/in-store/key={storeKey}/quotes/key={key}`
+- added resource `/{projectKey}/in-store/key={storeKey}/quotes/{ID}`
+</details>
+
+<details>
+<summary>Removed Enum(s)</summary>
+
+- :warning: removed enum `product-price` from type `ChangeSubscriptionResourceTypeId`
+</details>
+
+<details>
+<summary>Added Enum(s)</summary>
+
+- added enum `shopping-list` to type `ExtensionResourceTypeId`
+- added enum `customer-group` to type `AttributeReferenceTypeId`
+- added enum `attribute-group` to type `ChangeSubscriptionResourceTypeId`
+- added enum `product-tailoring` to type `ChangeSubscriptionResourceTypeId`
+- added enum `cart-discount` to type `CustomFieldReferenceValue`
+- added enum `customer-group` to type `CustomFieldReferenceValue`
 </details>
 
 <details>
