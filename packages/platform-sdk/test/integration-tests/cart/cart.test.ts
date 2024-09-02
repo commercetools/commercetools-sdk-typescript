@@ -42,8 +42,7 @@ import { createType, deleteType } from '../type/type-fixture'
 import { createCategory, deleteCategory } from '../category/category-fixture'
 import { ensureTaxCategory } from '../tax-category/tax-category-fixture'
 import {
-  createProductType,
-  deleteProductType,
+  ensureProductType,
   productTypeDraftForProduct,
 } from '../product-type/product-type-fixture'
 import {
@@ -85,7 +84,7 @@ describe('testing cart API calls', () => {
   it('should create a cart with line items', async () => {
     const category = await createCategory()
     const taxCategory = await ensureTaxCategory()
-    const productType = await createProductType(productTypeDraftForProduct)
+    const productType = await ensureProductType(productTypeDraftForProduct)
 
     //Published product
     const productDraft1 = await createProductDraft(
@@ -126,7 +125,6 @@ describe('testing cart API calls', () => {
     await deleteCart(cart)
     await deleteProduct(product1)
     await deleteProduct(product2)
-    await deleteProductType(productType)
     await deleteCategory(category)
   })
 

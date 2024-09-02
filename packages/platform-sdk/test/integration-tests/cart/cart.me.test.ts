@@ -14,7 +14,7 @@ import { apiRoot } from '../test-utils'
 import { createCategory } from '../category/category-fixture'
 import { ensureTaxCategory } from '../tax-category/tax-category-fixture'
 import {
-  createProductType,
+  ensureProductType,
   productTypeDraftForProduct,
 } from '../product-type/product-type-fixture'
 import { createProduct, createProductDraft } from '../product/product-fixture'
@@ -27,6 +27,7 @@ const apiUrl = requireEnvVar('CTP_API_URL')
 
 describe('testing me endpoint cart', () => {
   let anonymousApiRoot: ByProjectKeyRequestBuilder
+  let productType
 
   beforeAll(async () => {
     const ctpClient = new ClientBuilder()
@@ -55,6 +56,16 @@ describe('testing me endpoint cart', () => {
         .delete({ queryArgs: { version: cart.version } })
         .execute()
     }
+
+    productType = await ensureProductType(productTypeDraftForProduct)
+  })
+
+  afterAll(async () => {
+    await apiRoot
+      .productTypes()
+      .withId({ ID: productType.id })
+      .delete({ queryArgs: { version: productType.version } })
+      .execute()
   })
 
   it('should create cart using me endpoint and anonymous session', async () => {
@@ -77,7 +88,6 @@ describe('testing me endpoint cart', () => {
   it('should expand active cart using me endpoint in a store', async () => {
     const category = await createCategory()
     const taxCategory = await ensureTaxCategory()
-    const productType = await createProductType(productTypeDraftForProduct)
 
     const productDraft = await createProductDraft(
       category,
