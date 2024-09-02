@@ -5,7 +5,7 @@ import {
   projectKey,
 } from '../test-utils'
 import {
-  createProductType,
+  ensureProductType,
   productTypeDraftForProduct,
 } from '../product-type/product-type-fixture'
 import {
@@ -36,7 +36,7 @@ describe('Concurrent Modification Middleware', () => {
   beforeAll(async () => {
     category = await createCategory()
     taxCategory = await ensureTaxCategory()
-    productType = await createProductType(productTypeDraftForProduct)
+    productType = await ensureProductType(productTypeDraftForProduct)
   })
 
   beforeEach(async () => {
