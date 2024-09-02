@@ -1,7 +1,11 @@
 import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
 import { AttributeDefinitionDraft, ProductTypeDraft } from '../../../src'
-import { createProductType, deleteProductType } from './product-type-fixture'
+import {
+  ensureProductType,
+  deleteProductType,
+  createRandomProductType,
+} from './product-type-fixture'
 
 describe('testing product type API calls', () => {
   it('should create and delete a product type by ID', async () => {
@@ -45,7 +49,7 @@ describe('testing product type API calls', () => {
   })
 
   it('should get a product type by ID', async () => {
-    const productType = await createProductType()
+    const productType = await ensureProductType()
 
     const getProductType = await apiRoot
       .productTypes()
@@ -60,7 +64,7 @@ describe('testing product type API calls', () => {
   })
 
   it('should get a product type by key', async () => {
-    const productType = await createProductType()
+    const productType = await ensureProductType()
 
     const getProductType = await apiRoot
       .productTypes()
@@ -75,7 +79,7 @@ describe('testing product type API calls', () => {
   })
 
   it('should query a product type', async () => {
-    const productType = await createProductType()
+    const productType = await ensureProductType()
     const queryProductType = await apiRoot
       .productTypes()
       .get({
@@ -91,7 +95,7 @@ describe('testing product type API calls', () => {
   })
 
   it('should update a product type by Id', async () => {
-    const productType = await createProductType()
+    const productType = await createRandomProductType()
 
     const updateProductType = await apiRoot
       .productTypes()
@@ -116,7 +120,7 @@ describe('testing product type API calls', () => {
   })
 
   it('should update a product type by Key', async () => {
-    const productType = await createProductType()
+    const productType = await createRandomProductType()
 
     const updateProductType = await apiRoot
       .productTypes()
@@ -141,7 +145,7 @@ describe('testing product type API calls', () => {
   })
 
   it('should delete a product type by Key', async () => {
-    const productType = await createProductType()
+    const productType = await createRandomProductType()
 
     const responseProductTypeDeleted = await apiRoot
       .productTypes()
