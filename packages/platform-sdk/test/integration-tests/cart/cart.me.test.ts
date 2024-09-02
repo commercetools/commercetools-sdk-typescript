@@ -27,7 +27,6 @@ const apiUrl = requireEnvVar('CTP_API_URL')
 
 describe('testing me endpoint cart', () => {
   let anonymousApiRoot: ByProjectKeyRequestBuilder
-  let productType
 
   beforeAll(async () => {
     const ctpClient = new ClientBuilder()
@@ -56,16 +55,6 @@ describe('testing me endpoint cart', () => {
         .delete({ queryArgs: { version: cart.version } })
         .execute()
     }
-
-    productType = await ensureProductType(productTypeDraftForProduct)
-  })
-
-  afterAll(async () => {
-    await apiRoot
-      .productTypes()
-      .withId({ ID: productType.id })
-      .delete({ queryArgs: { version: productType.version } })
-      .execute()
   })
 
   it('should create cart using me endpoint and anonymous session', async () => {
@@ -87,6 +76,7 @@ describe('testing me endpoint cart', () => {
   // https://github.com/commercetools/commercetools-sdk-typescript/issues/446
   it('should expand active cart using me endpoint in a store', async () => {
     const category = await createCategory()
+    const productType = await ensureProductType(productTypeDraftForProduct)
     const taxCategory = await ensureTaxCategory()
 
     const productDraft = await createProductDraft(
