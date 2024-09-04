@@ -82,6 +82,7 @@
 - added property `metaDescription` to type `ProductTailoringCreatedMessage`
 - added property `metaKeywords` to type `ProductTailoringCreatedMessage`
 - added property `variants` to type `ProductTailoringCreatedMessage`
+- added property `staged` to type `ProductVariantDeletedMessage`
 - added property `addressId` to type `BusinessUnitAddressCustomFieldAddedMessagePayload`
 - added property `addressId` to type `BusinessUnitAddressCustomFieldChangedMessagePayload`
 - added property `addressId` to type `BusinessUnitAddressCustomFieldRemovedMessagePayload`
@@ -96,6 +97,7 @@
 - added property `metaDescription` to type `ProductTailoringCreatedMessagePayload`
 - added property `metaKeywords` to type `ProductTailoringCreatedMessagePayload`
 - added property `variants` to type `ProductTailoringCreatedMessagePayload`
+- added property `staged` to type `ProductVariantDeletedMessagePayload`
 - added property `variants` to type `ProductTailoringData`
 - added property `variants` to type `ProductTailoringDraft`
 - added property `variants` to type `ProductTailoringInStoreDraft`
