@@ -489,7 +489,7 @@ export interface ProductTailoringAddAssetAction {
   readonly position?: number
 }
 /**
- *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists. Produces the [ProductTailoringImageAdded](/projects/messages#product-tailoring-image-added) Message.
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists. Produces the [ProductTailoringImageAdded](/projects/messages/product-catalog-messages#product-tailoring-image-added) Message.
  *
  */
 export interface ProductTailoringAddExternalImageAction {
@@ -1064,7 +1064,7 @@ export interface ProductTailoringSetDescriptionAction {
   readonly staged?: boolean
 }
 /**
- *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists. Produces the [ProductTailoringImagesSet](/projects/messages#product-tailoring-images-set) Message.
+ *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists. Produces the [ProductTailoringImagesSet](/projects/messages/product-catalog-messages#product-tailoring-images-set) Message.
  *
  */
 export interface ProductTailoringSetExternalImagesAction {

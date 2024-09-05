@@ -1136,7 +1136,7 @@ export interface ProductAddAssetAction {
   readonly position?: number
 }
 /**
- *	Either `variantId` or `sku` is required. Produces the [ProductImageAdded](/projects/messages#product-image-added) Message.
+ *	Either `variantId` or `sku` is required. Produces the [ProductImageAdded](/projects/messages/product-catalog-messages#product-image-added) Message.
  *
  */
 export interface ProductAddExternalImageAction {
@@ -1199,7 +1199,7 @@ export interface ProductAddPriceAction {
   readonly staged?: boolean
 }
 /**
- *	Produces the [ProductAddedToCategory](/projects/messages#product-added-to-category) Message.
+ *	Produces the [ProductAddedToCategory](/projects/messages/product-catalog-messages#product-added-to-category) Message.
  */
 export interface ProductAddToCategoryAction {
   readonly action: 'addToCategory'
