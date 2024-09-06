@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 2.0.4
+
+### Patch Changes
+
+- [#803](https://github.com/commercetools/commercetools-sdk-typescript/pull/803) [`94a35e7`](https://github.com/commercetools/commercetools-sdk-typescript/commit/94a35e78924ce63df8727d95ddfaed071cd90140) Thanks [@ajimae](https://github.com/ajimae)! - Fix type error in executor function headers options
+
 ## 2.0.3
 
 ### Patch Changes
