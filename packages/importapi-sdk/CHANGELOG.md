@@ -1,5 +1,30 @@
 # @commercetools/importapi-sdk
 
+## 5.8.0
+
+### Minor Changes
+
+- [#797](https://github.com/commercetools/commercetools-sdk-typescript/pull/797) [`3ca2970`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3ca2970e7be09c72e022e142acfd70d894a80716) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `ReferencedResourceNotFound`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `customer-group` to type `CustomFieldReferenceValue`
+  </details>
+
+  <details>
+  <summary>Deprecated Property(s)</summary>
+
+  - property `PriceImport::publish` is removed
+  - property `ProductVariantImport::publish` is removed
+  </details>
+
 ## 5.7.0
 
 ### Minor Changes
