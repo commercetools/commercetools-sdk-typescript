@@ -88,7 +88,7 @@ export async function executeRequest(
       headers: {
         Authorization: `Basic ${basicAuth}`,
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Conent-Length': Buffer.byteLength(body).toString(),
+        'Content-Length': Buffer.byteLength(body).toString(),
       },
       httpClient,
       body,
