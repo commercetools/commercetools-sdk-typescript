@@ -1,11 +1,11 @@
+import { Mutex } from 'async-mutex'
 import {
+  ClientRequest,
   Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
   Next,
   RefreshAuthMiddlewareOptions,
-  RequestState,
-  RequestStateStore,
   Task,
 } from '../../types/types'
 import { store } from '../../utils'
@@ -23,7 +23,7 @@ export default function createAuthMiddlewareForRefreshTokenFlow(
     })
 
   const pendingTasks: Array<Task> = []
-  const requestState = store<RequestState, RequestStateStore>(false)
+  const requestState = new Mutex()
 
   return (next: Next) => {
     return async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {
@@ -46,7 +46,15 @@ export default function createAuthMiddlewareForRefreshTokenFlow(
       }
 
       // make request to coco
-      const requestWithAuth = await executeRequest(requestOptions)
+      let requestWithAuth: ClientRequest
+
+      try {
+        await requestState.acquire()
+        requestWithAuth = await executeRequest(requestOptions)
+      } finally {
+        requestState.release()
+      }
+
       if (requestWithAuth) {
         return next(requestWithAuth)
       }
