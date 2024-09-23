@@ -1,0 +1,901 @@
+import {
+  ProductAddToCategoryAction,
+  ProductVariant,
+} from '@commercetools/platform-sdk/src'
+import actionsMapCustom from './utils/action-map-custom'
+import {
+  buildBaseAttributesActions,
+  buildReferenceActions,
+} from './utils/common-actions'
+import createBuildArrayActions, {
+  ADD_ACTIONS,
+  REMOVE_ACTIONS,
+} from './utils/create-build-array-actions'
+import { Delta, getDeltaValue } from './utils/diffpatcher'
+import extractMatchingPairs from './utils/extract-matching-pairs'
+import findMatchingPairs from './utils/find-matching-pairs'
+import {
+  Asset,
+  ProductRemoveFromCategoryAction,
+} from '@commercetools/platform-sdk'
+import { ActionMapBase } from './utils/create-map-action-group'
+import { UpdateAction } from './types/update-actions'
+
+const REGEX_NUMBER = new RegExp(/^\d+$/)
+const REGEX_UNDERSCORE_NUMBER = new RegExp(/^_\d+$/)
+
+export const baseActionsList: Array<UpdateAction> = [
+  { action: 'changeName', key: 'name' },
+  { action: 'changeSlug', key: 'slug' },
+  { action: 'setDescription', key: 'description' },
+  { action: 'setSearchKeywords', key: 'searchKeywords' },
+  { action: 'setKey', key: 'key' },
+  { action: 'setPriceMode', key: 'priceMode' },
+]
+
+export const baseAssetActionsList: Array<UpdateAction> = [
+  { action: 'setAssetKey', key: 'key', actionKey: 'assetKey' },
+  { action: 'changeAssetName', key: 'name' },
+  { action: 'setAssetDescription', key: 'description' },
+  { action: 'setAssetTags', key: 'tags' },
+  { action: 'setAssetSources', key: 'sources' },
+]
+
+export const metaActionsList: Array<UpdateAction> = [
+  { action: 'setMetaTitle', key: 'metaTitle' },
+  { action: 'setMetaDescription', key: 'metaDescription' },
+  { action: 'setMetaKeywords', key: 'metaKeywords' },
+]
+
+export const referenceActionsList: Array<UpdateAction> = [
+  { action: 'setTaxCategory', key: 'taxCategory' },
+  { action: 'transitionState', key: 'state' },
+]
+
+/**
+ * HELPER FUNCTIONS
+ */
+
+const getIsAddAction = (key: string, resource: any) =>
+  REGEX_NUMBER.test(key) && Array.isArray(resource) && resource.length
+
+const getIsUpdateAction = (key: string, resource: any) =>
+  REGEX_NUMBER.test(key) && Object.keys(resource).length
+
+const getIsRemoveAction = (key: string, resource: any) =>
+  REGEX_UNDERSCORE_NUMBER.test(key) && Number(resource[2]) === 0
+
+const getIsItemMovedAction = (key: string, resource: any) =>
+  REGEX_UNDERSCORE_NUMBER.test(key) && Number(resource[2]) === 3
+
+function _buildSkuActions(variantDiff: Delta, oldVariant: any) {
+  if ({}.hasOwnProperty.call(variantDiff, 'sku')) {
+    const newValue = getDeltaValue(variantDiff.sku)
+    if (!newValue && !oldVariant.sku) return null
+
+    return {
+      action: 'setSku',
+      variantId: oldVariant.id,
+      sku: newValue || null,
+    }
+  }
+  return null
+}
+
+function _buildKeyActions(variantDiff: Delta, oldVariant: any) {
+  if ({}.hasOwnProperty.call(variantDiff, 'key')) {
+    const newValue = getDeltaValue(variantDiff.key)
+    if (!newValue && !oldVariant.key) return null
+
+    return {
+      action: 'setProductVariantKey',
+      variantId: oldVariant.id,
+      key: newValue || null,
+    }
+  }
+  return null
+}
+
+function _buildNewSetAttributeAction(
+  id: any,
+  el: any,
+  sameForAllAttributeNames: Array<any>
+) {
+  const attributeName = el && el.name
+  if (!attributeName) return undefined
+
+  let action = {
+    action: 'setAttribute',
+    variantId: id,
+    name: attributeName,
+    value: el.value,
+  }
+
+  if (sameForAllAttributeNames.indexOf(attributeName) !== -1) {
+    action = { ...action, action: 'setAttributeInAllVariants' }
+    delete action.variantId
+  }
+
+  return action
+}
+
+function _buildSetAttributeAction(
+  diffedValue: any,
+  oldVariant: any,
+  attribute: any,
+  sameForAllAttributeNames: Array<any>
+) {
+  if (!attribute) return undefined
+
+  let action: any = {
+    action: 'setAttribute',
+    variantId: oldVariant.id,
+    name: attribute.name,
+  }
+
+  // Used as original object for patching long diff text
+  const oldAttribute =
+    oldVariant.attributes.find((a: any) => a.name === attribute.name) || {}
+
+  if (sameForAllAttributeNames.indexOf(attribute.name) !== -1) {
+    action = { ...action, action: 'setAttributeInAllVariants' }
+    delete action.variantId
+  }
+
+  if (Array.isArray(diffedValue))
+    action.value = getDeltaValue(diffedValue, oldAttribute.value)
+  else if (typeof diffedValue === 'string')
+    // LText: value: {en: "", de: ""}
+    // Enum: value: {key: "foo", label: "Foo"}
+    // LEnum: value: {key: "foo", label: {en: "Foo", de: "Foo"}}
+    // Money: value: {centAmount: 123, currencyCode: ""}
+    // *: value: ""
+
+    // normal
+    action.value = getDeltaValue(diffedValue, oldAttribute.value)
+  else if (diffedValue.centAmount || diffedValue.currencyCode)
+    // Money
+    action.value = {
+      centAmount: diffedValue.centAmount
+        ? getDeltaValue(diffedValue.centAmount)
+        : attribute.value.centAmount,
+      currencyCode: diffedValue.currencyCode
+        ? getDeltaValue(diffedValue.currencyCode)
+        : attribute.value.currencyCode,
+    }
+  else if (diffedValue.key)
+    // Enum / LEnum (use only the key)
+    action.value = getDeltaValue(diffedValue.key)
+  else if (typeof diffedValue === 'object')
+    if ({}.hasOwnProperty.call(diffedValue, '_t') && diffedValue._t === 'a') {
+      // set-typed attribute
+      action = { ...action, value: attribute.value }
+    } else {
+      // LText
+
+      const updatedValue = Object.keys(diffedValue).reduce(
+        (acc, lang) => {
+          const patchedValue = getDeltaValue(diffedValue[lang], acc[lang])
+          return Object.assign(acc, { [lang]: patchedValue })
+        },
+        { ...oldAttribute.value }
+      )
+
+      action.value = updatedValue
+    }
+
+  return action
+}
+
+function _buildVariantImagesAction(
+  diffedImages: any,
+  oldVariant: any = {},
+  newVariant: any = {}
+) {
+  const actions: Array<any> = []
+  // generate a hashMap to be able to reference the right image from both ends
+  const matchingImagePairs = findMatchingPairs(
+    diffedImages,
+    oldVariant.images,
+    newVariant.images,
+    'url'
+  )
+  diffedImages &&
+    Object.entries(diffedImages).forEach(([key, image]) => {
+      const { oldObj, newObj } = extractMatchingPairs(
+        matchingImagePairs,
+        key,
+        oldVariant.images,
+        newVariant.images
+      )
+      if (REGEX_NUMBER.test(key)) {
+        // New image
+        if (Array.isArray(image) && image.length)
+          actions.push({
+            action: 'addExternalImage',
+            variantId: oldVariant.id,
+            image: getDeltaValue(image),
+          })
+        else if (typeof image === 'object')
+          if (
+            {}.hasOwnProperty.call(image, 'url') &&
+            (image as any).url.length === 2
+          ) {
+            // There is a new image, remove the old one first.
+            actions.push({
+              action: 'removeImage',
+              variantId: oldVariant.id,
+              imageUrl: oldObj.url,
+            })
+            actions.push({
+              action: 'addExternalImage',
+              variantId: oldVariant.id,
+              image: newObj,
+            })
+          } else if (
+            {}.hasOwnProperty.call(image, 'label') &&
+            ((image as any).label.length === 1 ||
+              (image as any).label.length === 2)
+          )
+            actions.push({
+              action: 'setImageLabel',
+              variantId: oldVariant.id,
+              imageUrl: oldObj.url,
+              label: getDeltaValue((image as any).label),
+            })
+      } else if (REGEX_UNDERSCORE_NUMBER.test(key))
+        if (Array.isArray(image) && image.length === 3) {
+          if (Number(image[2]) === 3)
+            // image position changed
+            actions.push({
+              action: 'moveImageToPosition',
+              variantId: oldVariant.id,
+              imageUrl: oldObj.url,
+              position: Number(image[1]),
+            })
+          else if (Number(image[2]) === 0)
+            // image removed
+            actions.push({
+              action: 'removeImage',
+              variantId: oldVariant.id,
+              imageUrl: oldObj.url,
+            })
+        }
+    })
+
+  return actions
+}
+
+function _buildVariantPricesAction(
+  diffedPrices: any,
+  oldVariant: any = {},
+  newVariant: any = {},
+  enableDiscounted = false
+) {
+  const addPriceActions: Array<any> = []
+  const changePriceActions: Array<any> = []
+  const removePriceActions: Array<any> = []
+
+  // generate a hashMap to be able to reference the right image from both ends
+  const matchingPricePairs = findMatchingPairs(
+    diffedPrices,
+    oldVariant.prices,
+    newVariant.prices
+  )
+  diffedPrices &&
+    Object.entries(diffedPrices).forEach(([key, price]) => {
+      const { oldObj, newObj } = extractMatchingPairs(
+        matchingPricePairs,
+        key,
+        oldVariant.prices,
+        newVariant.prices
+      )
+      if (getIsAddAction(key, price)) {
+        // Remove read-only fields
+        const patchedPrice = (price as any).map((p: any) => {
+          const shallowClone = { ...p }
+          if (enableDiscounted !== true) delete shallowClone.discounted
+          return shallowClone
+        })
+
+        addPriceActions.push({
+          action: 'addPrice',
+          variantId: oldVariant.id,
+          price: getDeltaValue(patchedPrice),
+        })
+        return
+      }
+
+      if (getIsUpdateAction(key, price)) {
+        // Remove the discounted field and make sure that the price
+        // still has other values, otherwise simply return
+        const filteredPrice = { ...(price as any) }
+        if (enableDiscounted !== true) delete filteredPrice.discounted
+        if (Object.keys(filteredPrice).length) {
+          // At this point price should have changed, simply pick the new one
+          const newPrice = { ...newObj }
+          if (enableDiscounted !== true) delete newPrice.discounted
+
+          changePriceActions.push({
+            action: 'changePrice',
+            priceId: oldObj.id,
+            price: newPrice,
+          })
+        }
+        return
+      }
+
+      if (getIsRemoveAction(key, price)) {
+        // price removed
+        removePriceActions.push({
+          action: 'removePrice',
+          priceId: oldObj.id,
+        })
+      }
+    })
+
+  return [addPriceActions, changePriceActions, removePriceActions]
+}
+
+function _buildVariantAttributesActions(
+  attributes: any,
+  oldVariant: any,
+  newVariant: any,
+  sameForAllAttributeNames: Array<any>
+) {
+  const actions: Array<any> = []
+
+  if (!attributes) return actions
+  attributes &&
+    Object.entries(attributes).forEach(([key, value]) => {
+      if (REGEX_NUMBER.test(key)) {
+        if (Array.isArray(value)) {
+          const { id } = oldVariant
+          const deltaValue = getDeltaValue(value)
+          const setAction = _buildNewSetAttributeAction(
+            id,
+            deltaValue,
+            sameForAllAttributeNames
+          )
+
+          if (setAction) actions.push(setAction)
+        } else if (newVariant.attributes) {
+          const setAction = _buildSetAttributeAction(
+            (value as any).value,
+            oldVariant,
+            newVariant.attributes[key],
+            sameForAllAttributeNames
+          )
+          if (setAction) actions.push(setAction)
+        }
+      } else if (REGEX_UNDERSCORE_NUMBER.test(key))
+        if (Array.isArray(value)) {
+          // Ignore pure array moves!
+          if (value.length === 3 && value[2] === 3) return
+
+          const { id } = oldVariant
+
+          let deltaValue = getDeltaValue(value)
+          if (!deltaValue)
+            if (value[0] && value[0].name)
+              // unset attribute if
+              deltaValue = { name: value[0].name }
+            else deltaValue = undefined
+
+          const setAction = _buildNewSetAttributeAction(
+            id,
+            deltaValue,
+            sameForAllAttributeNames
+          )
+
+          if (setAction) actions.push(setAction)
+        } else {
+          const index = key.substring(1)
+          if (newVariant.attributes) {
+            const setAction = _buildSetAttributeAction(
+              (value as any).value,
+              oldVariant,
+              newVariant.attributes[index],
+              sameForAllAttributeNames
+            )
+            if (setAction) actions.push(setAction)
+          }
+        }
+    })
+
+  return actions
+}
+
+function toAssetIdentifier(asset: Asset) {
+  const assetIdentifier = asset.id
+    ? { assetId: asset.id }
+    : { assetKey: asset.key }
+  return assetIdentifier
+}
+
+function toVariantIdentifier(variant: ProductVariant) {
+  const { id, sku } = variant
+  return id ? { variantId: id } : { sku }
+}
+
+function _buildVariantChangeAssetOrderAction(
+  diffAssets: any,
+  oldVariant: any,
+  newVariant: any
+) {
+  const isAssetOrderChanged = Object.entries(diffAssets).find((entry) =>
+    getIsItemMovedAction(entry[0], entry[1])
+  )
+  if (!isAssetOrderChanged) {
+    return []
+  }
+  const assetIdsBefore = oldVariant.assets.map((value: any) => value.id)
+  const assetIdsCurrent = newVariant.assets
+    .map((value: any) => value.id)
+    .filter((value: any) => value !== undefined)
+  const assetIdsToKeep = assetIdsCurrent.filter((value: any) =>
+    assetIdsBefore.includes(value)
+  )
+  const assetIdsToRemove = assetIdsBefore.filter(
+    (item: any) => !assetIdsToKeep.includes(item)
+  )
+  const changeAssetOrderAction = {
+    action: 'changeAssetOrder',
+    assetOrder: assetIdsToKeep.concat(assetIdsToRemove),
+    ...toVariantIdentifier(oldVariant),
+  }
+  return [changeAssetOrderAction]
+}
+
+function _buildVariantAssetsActions(
+  diffAssets: any,
+  oldVariant: any,
+  newVariant: any
+) {
+  const assetActions: Array<any> = []
+
+  // generate a hashMap to be able to reference the right asset from both ends
+  const matchingAssetPairs = findMatchingPairs(
+    diffAssets,
+    oldVariant.assets,
+    newVariant.assets
+  )
+
+  diffAssets &&
+    Object.entries(diffAssets).forEach(([key, asset]) => {
+      const { oldObj: oldAsset, newObj: newAsset } = extractMatchingPairs(
+        matchingAssetPairs,
+        key,
+        oldVariant.assets,
+        newVariant.assets
+      )
+
+      if (getIsAddAction(key, asset)) {
+        assetActions.push({
+          action: 'addAsset',
+          asset: getDeltaValue(asset),
+          ...toVariantIdentifier(newVariant),
+          position: Number(key),
+        })
+        return
+      }
+
+      if (getIsUpdateAction(key, asset)) {
+        // todo add changeAssetOrder
+        const basicActions = buildBaseAttributesActions({
+          actions: baseAssetActionsList,
+          diff: asset,
+          oldObj: oldAsset,
+          newObj: newAsset,
+        }).map((action) => {
+          // in case of 'setAssetKey' then the identifier will be only 'assetId'
+          if (action.action === 'setAssetKey') {
+            return {
+              ...action,
+              ...toVariantIdentifier(oldVariant),
+              assetId: oldAsset.id,
+            }
+          }
+
+          return {
+            ...action,
+            ...toVariantIdentifier(oldVariant),
+            ...toAssetIdentifier(oldAsset),
+          }
+        })
+        assetActions.push(...basicActions)
+
+        if ((asset as any).custom) {
+          const customActions = actionsMapCustom(asset, newAsset, oldAsset, {
+            actions: {
+              setCustomType: 'setAssetCustomType',
+              setCustomField: 'setAssetCustomField',
+            },
+            ...toVariantIdentifier(oldVariant),
+            ...toAssetIdentifier(oldAsset),
+          })
+          assetActions.push(...customActions)
+        }
+
+        return
+      }
+
+      if (getIsRemoveAction(key, asset)) {
+        assetActions.push({
+          action: 'removeAsset',
+          ...toAssetIdentifier(oldAsset),
+          ...toVariantIdentifier(oldVariant),
+        })
+      }
+    })
+
+  const changedAssetOrderAction = _buildVariantChangeAssetOrderAction(
+    diffAssets,
+    oldVariant,
+    newVariant
+  )
+  return [...changedAssetOrderAction, ...assetActions]
+}
+
+/**
+ * SYNC FUNCTIONS
+ */
+
+export const actionsMapBase: ActionMapBase = (diff, oldObj, newObj, config) => {
+  return buildBaseAttributesActions({
+    actions: baseActionsList,
+    diff,
+    oldObj,
+    newObj,
+    shouldOmitEmptyString: config?.shouldOmitEmptyString,
+  })
+}
+
+export function actionsMapMeta(diff: Delta, oldObj: any, newObj: any) {
+  return buildBaseAttributesActions({
+    actions: metaActionsList,
+    diff,
+    oldObj,
+    newObj,
+  })
+}
+
+export function actionsMapAddVariants(diff: Delta, oldObj: any, newObj: any) {
+  const handler = createBuildArrayActions('variants', {
+    [ADD_ACTIONS]: (newObject: any) => ({
+      ...newObject,
+      action: 'addVariant',
+    }),
+  })
+  return handler(diff, oldObj, newObj)
+}
+
+export function actionsMapRemoveVariants(
+  diff: Delta,
+  oldObj: any,
+  newObj: any
+) {
+  const handler = createBuildArrayActions('variants', {
+    [REMOVE_ACTIONS]: ({ id }: { id: string }) => ({
+      action: 'removeVariant',
+      id,
+    }),
+  })
+  return handler(diff, oldObj, newObj)
+}
+
+export function actionsMapReferences(diff: Delta, oldObj: any, newObj: any) {
+  return buildReferenceActions({
+    actions: referenceActionsList,
+    diff,
+    oldObj,
+    newObj,
+  })
+}
+
+export function actionsMapCategories(diff: {
+  categories?: { [key: string]: any }
+  [key: string]: any
+}): Array<ProductAddToCategoryAction | ProductRemoveFromCategoryAction> {
+  const actions: Array<any> = []
+  if (!diff.categories) return actions
+
+  const addToCategoryActions: Array<ProductAddToCategoryAction> = []
+  const removeFromCategoryActions: Array<ProductRemoveFromCategoryAction> = []
+
+  Object.entries(diff.categories).forEach(([key, category]) => {
+    if (Array.isArray(category)) {
+      const action: any = { category: category[0] }
+
+      if (category.length === 3) {
+        // Ignore pure array moves!
+        if (category[2] !== 3) {
+          action.action = 'removeFromCategory'
+          removeFromCategoryActions.push(action)
+        }
+      } else if (category.length === 1) {
+        action.action = 'addToCategory'
+        addToCategoryActions.push(action)
+      }
+    }
+  })
+
+  // Make sure `removeFromCategory` actions come first
+  return [...removeFromCategoryActions, ...addToCategoryActions]
+}
+
+export function actionsMapCategoryOrderHints(diff: Delta) {
+  if (!diff.categoryOrderHints) return []
+  // Ignore this pattern as its means no changes happened [{},0,0]
+  if (Array.isArray(diff.categoryOrderHints)) return []
+
+  return Object.keys(diff.categoryOrderHints).map((categoryId) => {
+    const hintChange = diff.categoryOrderHints[categoryId]
+
+    const action: any = {
+      action: 'setCategoryOrderHint',
+      categoryId,
+    }
+
+    if (hintChange.length === 1)
+      // item was added
+      action.orderHint = hintChange[0]
+    else if (hintChange.length === 2 && hintChange[1] !== 0)
+      // item was changed
+      action.orderHint = hintChange[1]
+
+    // else item was removed -> do not set 'orderHint' property
+
+    return action
+  })
+}
+
+export function actionsMapAssets(
+  diff: Delta,
+  oldObj: any,
+  newObj: any,
+  variantHashMap: any
+) {
+  let allAssetsActions: Array<any> = []
+
+  const { variants } = diff
+
+  if (variants)
+    Object.entries(variants as { [key: string]: ProductVariant }).forEach(
+      ([key, variant]) => {
+        const { oldObj: oldVariant, newObj: newVariant } = extractMatchingPairs(
+          variantHashMap,
+          key,
+          oldObj.variants,
+          newObj.variants
+        )
+        if (
+          variant.assets &&
+          (REGEX_UNDERSCORE_NUMBER.test(key) || REGEX_NUMBER.test(key))
+        ) {
+          const assetActions = _buildVariantAssetsActions(
+            variant.assets,
+            oldVariant,
+            newVariant
+          )
+
+          allAssetsActions = allAssetsActions.concat(assetActions)
+        }
+      }
+    )
+
+  return allAssetsActions
+}
+
+export function actionsMapAttributes(
+  diff: Delta,
+  oldObj: any,
+  newObj: any,
+  sameForAllAttributeNames: Array<any> = [],
+  variantHashMap: any
+) {
+  let actions: Array<any> = []
+  const { variants } = diff
+
+  if (variants)
+    Object.entries(variants).forEach(([key, variant]) => {
+      const { oldObj: oldVariant, newObj: newVariant } = extractMatchingPairs(
+        variantHashMap,
+        key,
+        oldObj.variants,
+        newObj.variants
+      )
+      if (REGEX_NUMBER.test(key) && !Array.isArray(variant)) {
+        const skuAction = _buildSkuActions(variant, oldVariant)
+        const keyAction = _buildKeyActions(variant, oldVariant)
+        if (skuAction) actions.push(skuAction)
+        if (keyAction) actions.push(keyAction)
+
+        const { attributes } = variant as any
+
+        const attrActions = _buildVariantAttributesActions(
+          attributes,
+          oldVariant,
+          newVariant,
+          sameForAllAttributeNames
+        )
+        actions = actions.concat(attrActions)
+      }
+    })
+
+  // Ensure that an action is unique.
+  // This is especially necessary for SFA attributes.
+  return actions.filter(
+    (b, index, self) =>
+      index ===
+      self.findIndex(
+        (a) =>
+          a.action === b.action &&
+          a.name === b.name &&
+          a.variantId === b.variantId
+      )
+  )
+}
+
+export function actionsMapImages(
+  diff: Delta,
+  oldObj: any,
+  newObj: any,
+  variantHashMap: any
+) {
+  let actions: Array<any> = []
+  const { variants } = diff
+  if (variants)
+    Object.entries(variants as { [key: string]: ProductVariant }).forEach(
+      ([key, variant]) => {
+        const { oldObj: oldVariant, newObj: newVariant } = extractMatchingPairs(
+          variantHashMap,
+          key,
+          oldObj.variants,
+          newObj.variants
+        )
+        if (REGEX_UNDERSCORE_NUMBER.test(key) || REGEX_NUMBER.test(key)) {
+          const vActions = _buildVariantImagesAction(
+            variant.images,
+            oldVariant,
+            newVariant
+          )
+          actions = actions.concat(vActions)
+        }
+      }
+    )
+
+  return actions
+}
+
+export function actionsMapPrices(
+  diff: Delta,
+  oldObj: any,
+  newObj: any,
+  variantHashMap: any,
+  enableDiscounted: any
+) {
+  let addPriceActions: Array<any> = []
+  let changePriceActions: Array<any> = []
+  let removePriceActions: Array<any> = []
+
+  const { variants } = diff
+
+  if (variants)
+    Object.entries(variants as { [key: string]: ProductVariant }).forEach(
+      ([key, variant]) => {
+        const { oldObj: oldVariant, newObj: newVariant } = extractMatchingPairs(
+          variantHashMap,
+          key,
+          oldObj.variants,
+          newObj.variants
+        )
+        if (REGEX_UNDERSCORE_NUMBER.test(key) || REGEX_NUMBER.test(key)) {
+          const [addPriceAction, changePriceAction, removePriceAction] =
+            _buildVariantPricesAction(
+              variant.prices,
+              oldVariant,
+              newVariant,
+              enableDiscounted
+            )
+
+          addPriceActions = addPriceActions.concat(addPriceAction)
+          changePriceActions = changePriceActions.concat(changePriceAction)
+          removePriceActions = removePriceActions.concat(removePriceAction)
+        }
+      }
+    )
+
+  // price actions need to be in this below order
+  return changePriceActions.concat(removePriceActions).concat(addPriceActions)
+}
+
+export function actionsMapPricesCustom(
+  diff: Delta,
+  oldObj: any,
+  newObj: any,
+  variantHashMap: any
+) {
+  let actions: Array<any> = []
+
+  const { variants } = diff
+
+  if (variants)
+    Object.entries(variants as { [key: string]: ProductVariant }).forEach(
+      ([key, variant]) => {
+        const { oldObj: oldVariant, newObj: newVariant } = extractMatchingPairs(
+          variantHashMap,
+          key,
+          oldObj.variants,
+          newObj.variants
+        )
+
+        if (
+          variant &&
+          variant.prices &&
+          (REGEX_UNDERSCORE_NUMBER.test(key) || REGEX_NUMBER.test(key))
+        ) {
+          const priceHashMap = findMatchingPairs(
+            variant.prices,
+            oldVariant.prices,
+            newVariant.prices
+          )
+
+          Object.entries(variant.prices).forEach(([key, price]) => {
+            const { oldObj: oldPrice, newObj: newPrice } = extractMatchingPairs(
+              priceHashMap,
+              key,
+              oldVariant.prices,
+              newVariant.prices
+            )
+
+            if (
+              price.custom &&
+              (REGEX_UNDERSCORE_NUMBER.test(key) || REGEX_NUMBER.test(key))
+            ) {
+              const generatedActions = actionsMapCustom(
+                price,
+                newPrice,
+                oldPrice,
+                {
+                  actions: {
+                    setCustomType: 'setProductPriceCustomType',
+                    setCustomField: 'setProductPriceCustomField',
+                  },
+                  priceId: oldPrice.id,
+                }
+              )
+
+              actions = actions.concat(generatedActions)
+            }
+          })
+        }
+      }
+    )
+
+  return actions
+}
+
+export function actionsMapMasterVariant(
+  oldObj: any,
+  newObj: any
+): Array<UpdateAction> {
+  const createChangeMasterVariantAction = (variantId: string) => ({
+    action: 'changeMasterVariant',
+    variantId,
+  })
+  const extractMasterVariantId = (fromObj: any) => {
+    const variants = Array.isArray(fromObj.variants) ? fromObj.variants : []
+
+    return variants[0] ? variants[0].id : undefined
+  }
+
+  const newMasterVariantId = extractMasterVariantId(newObj)
+  const oldMasterVariantId = extractMasterVariantId(oldObj)
+
+  // Old and new master master variant differ and a new master variant id exists
+  if (newMasterVariantId && oldMasterVariantId !== newMasterVariantId)
+    return [createChangeMasterVariantAction(newMasterVariantId)]
+
+  return []
+}

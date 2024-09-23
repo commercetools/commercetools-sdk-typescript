@@ -1,0 +1,414 @@
+import { actionGroups, createSyncDiscountCodes } from '../src/discount-codes'
+import { baseActionsList } from '../src/discount-codes-actions'
+import { DeepPartial } from '../src/types/update-actions'
+import { DiscountCodeDraft } from '@commercetools/platform-sdk/src'
+
+describe('Exports', () => {
+  test('action group list', () => {
+    expect(actionGroups).toEqual(['base', 'custom'])
+  })
+
+  describe('action list', () => {
+    test('should contain `changeIsActive` action', () => {
+      expect(baseActionsList).toEqual(
+        expect.arrayContaining([{ action: 'changeIsActive', key: 'isActive' }])
+      )
+    })
+
+    test('should contain `setName` action', () => {
+      expect(baseActionsList).toEqual(
+        expect.arrayContaining([{ action: 'setName', key: 'name' }])
+      )
+    })
+
+    test('should contain `setDescription` action', () => {
+      expect(baseActionsList).toEqual(
+        expect.arrayContaining([
+          {
+            action: 'setDescription',
+            key: 'description',
+          },
+        ])
+      )
+    })
+
+    test('should contain `setKey` action', () => {
+      expect(baseActionsList).toEqual(
+        expect.arrayContaining([
+          {
+            action: 'setKey',
+            key: 'key',
+          },
+        ])
+      )
+    })
+
+    test('should contain `setMaxApplications` action', () => {
+      expect(baseActionsList).toEqual(
+        expect.arrayContaining([
+          {
+            action: 'setMaxApplications',
+            key: 'maxApplications',
+          },
+        ])
+      )
+    })
+
+    test('should contain `setMaxApplicationsPerCustomer` action', () => {
+      expect(baseActionsList).toEqual(
+        expect.arrayContaining([
+          {
+            action: 'setMaxApplicationsPerCustomer',
+            key: 'maxApplicationsPerCustomer',
+          },
+        ])
+      )
+    })
+
+    test('should contain `changeCartDiscounts` action', () => {
+      expect(baseActionsList).toEqual(
+        expect.arrayContaining([
+          {
+            action: 'changeCartDiscounts',
+            key: 'cartDiscounts',
+          },
+        ])
+      )
+    })
+
+    test('should contain `setValidFrom` action', () => {
+      expect(baseActionsList).toEqual(
+        expect.arrayContaining([{ action: 'setValidFrom', key: 'validFrom' }])
+      )
+    })
+
+    test('should contain `setValidUntil` action', () => {
+      expect(baseActionsList).toEqual(
+        expect.arrayContaining([{ action: 'setValidUntil', key: 'validUntil' }])
+      )
+    })
+
+    test('should contain `changeGroups` action', () => {
+      expect(baseActionsList).toEqual(
+        expect.arrayContaining([{ action: 'changeGroups', key: 'groups' }])
+      )
+    })
+  })
+})
+
+describe('Actions', () => {
+  let discountCodesSync = createSyncDiscountCodes()
+  beforeEach(() => {
+    discountCodesSync = createSyncDiscountCodes()
+  })
+
+  test('should build `changeIsActive` action', () => {
+    const before = { isActive: false }
+    const now = { isActive: true }
+    const actual = discountCodesSync.buildActions(now, before)
+    const expected = [
+      {
+        action: 'changeIsActive',
+        isActive: true,
+      },
+    ]
+    expect(actual).toEqual(expected)
+  })
+
+  test('should build `setName` action', () => {
+    const before = {
+      name: { en: 'previous-en-name', de: 'previous-de-name' },
+    }
+    const now = {
+      name: { en: 'current-en-name', de: 'current-de-name' },
+    }
+
+    const actual = discountCodesSync.buildActions(now, before)
+    const expected = [
+      {
+        action: 'setName',
+        name: { en: 'current-en-name', de: 'current-de-name' },
+      },
+    ]
+    expect(actual).toEqual(expected)
+  })
+
+  test('should build `setDescription` action', () => {
+    const before = {
+      description: { en: 'old-en-description', de: 'old-de-description' },
+    }
+    const now = {
+      description: { en: 'new-en-description', de: 'new-de-description' },
+    }
+
+    const actual = discountCodesSync.buildActions(now, before)
+    const expected = [
+      {
+        action: 'setDescription',
+        description: { en: 'new-en-description', de: 'new-de-description' },
+      },
+    ]
+    expect(actual).toEqual(expected)
+  })
+
+  test('should build `setKey` action', () => {
+    const before = {
+      key: 'old-key',
+    }
+    const now = {
+      key: 'new-key',
+    }
+
+    const actual = discountCodesSync.buildActions(now, before)
+    const expected = [
+      {
+        action: 'setKey',
+        key: 'new-key',
+      },
+    ]
+    expect(actual).toEqual(expected)
+  })
+
+  test('should build `setCartPredicate` action', () => {
+    const before = { cartPredicate: 'old-cart-predicate' }
+    const now = { cartPredicate: 'new-cart-predicate' }
+    const actual = discountCodesSync.buildActions(now, before)
+    const expected = [
+      {
+        action: 'setCartPredicate',
+        cartPredicate: 'new-cart-predicate',
+      },
+    ]
+    expect(actual).toEqual(expected)
+  })
+
+  test('should build `setMaxApplications` action', () => {
+    const before = { maxApplications: 5 }
+    const now = { maxApplications: 10 }
+    const actual = discountCodesSync.buildActions(now, before)
+    const expected = [
+      {
+        action: 'setMaxApplications',
+        maxApplications: 10,
+      },
+    ]
+    expect(actual).toEqual(expected)
+  })
+
+  test('should build `setMaxApplicationsPerCustomer` action', () => {
+    const before = { maxApplicationsPerCustomer: 1 }
+    const now = { maxApplicationsPerCustomer: 3 }
+    const actual = discountCodesSync.buildActions(now, before)
+    const expected = [
+      {
+        action: 'setMaxApplicationsPerCustomer',
+        maxApplicationsPerCustomer: 3,
+      },
+    ]
+    expect(actual).toEqual(expected)
+  })
+
+  test('should build `changeCartDiscounts` action', () => {
+    const before: DeepPartial<DiscountCodeDraft> = {
+      cartDiscounts: [
+        {
+          typeId: 'cart-discount',
+          id: 'previous-cart-discount-id',
+        },
+        {
+          typeId: 'cart-discount',
+          id: 'another-previous-cart-discount-id',
+        },
+      ],
+    }
+    const now: DeepPartial<DiscountCodeDraft> = {
+      cartDiscounts: [
+        {
+          typeId: 'cart-discount',
+          id: 'previous-cart-discount-id',
+        },
+        {
+          typeId: 'cart-discount',
+          id: 'new-cart-discount-id-1',
+        },
+        {
+          typeId: 'cart-discount',
+          id: 'new-cart-discount-id-2',
+        },
+        {
+          typeId: 'cart-discount',
+          id: 'another-new-cart-discount-id-2',
+        },
+      ],
+    }
+
+    const actual = discountCodesSync.buildActions(now, before)
+    const expected = [
+      {
+        action: 'changeCartDiscounts',
+        cartDiscounts: [
+          {
+            typeId: 'cart-discount',
+            id: 'previous-cart-discount-id',
+          },
+          {
+            typeId: 'cart-discount',
+            id: 'new-cart-discount-id-1',
+          },
+          {
+            typeId: 'cart-discount',
+            id: 'new-cart-discount-id-2',
+          },
+          {
+            typeId: 'cart-discount',
+            id: 'another-new-cart-discount-id-2',
+          },
+        ],
+      },
+    ]
+    expect(actual).toEqual(expected)
+  })
+
+  test('should build the `setValidFrom` action', () => {
+    const before = {
+      validFrom: 'date1',
+    }
+
+    const now = {
+      validFrom: 'date2',
+    }
+
+    const expected = [
+      {
+        action: 'setValidFrom',
+        validFrom: 'date2',
+      },
+    ]
+    const actual = discountCodesSync.buildActions(now, before)
+    expect(actual).toEqual(expected)
+  })
+
+  test('should build the `setValidUntil` action', () => {
+    const before = {
+      validUntil: 'date1',
+    }
+
+    const now = {
+      validUntil: 'date2',
+    }
+
+    const expected = [
+      {
+        action: 'setValidUntil',
+        validUntil: 'date2',
+      },
+    ]
+    const actual = discountCodesSync.buildActions(now, before)
+    expect(actual).toEqual(expected)
+  })
+
+  test('should build the `setValidFromAndUntil` action when both `validFrom` and `validUntil` exist', () => {
+    const before = {
+      validFrom: 'date-1-From',
+      validUntil: 'date-1-Until',
+    }
+
+    const now = {
+      validFrom: 'date-2-From',
+      validUntil: 'date-2-Until',
+    }
+
+    const expected = [
+      {
+        action: 'setValidFromAndUntil',
+        validFrom: 'date-2-From',
+        validUntil: 'date-2-Until',
+      },
+    ]
+    const actual = discountCodesSync.buildActions(now, before)
+    expect(actual).toEqual(expected)
+  })
+
+  test('should build the `changeGroups` action', () => {
+    const before = {
+      groups: ['A'],
+    }
+
+    const now = {
+      groups: ['A', 'B'],
+    }
+
+    const expected = [
+      {
+        action: 'changeGroups',
+        groups: ['A', 'B'],
+      },
+    ]
+    const actual = discountCodesSync.buildActions(now, before)
+    expect(actual).toEqual(expected)
+  })
+
+  describe('custom fields', () => {
+    test('should build `setCustomType` action', () => {
+      const before: DeepPartial<DiscountCodeDraft> = {
+        custom: {
+          type: {
+            typeId: 'type',
+            id: 'customType1',
+          },
+          fields: {
+            customField1: true,
+          },
+        },
+      }
+      const now: DeepPartial<DiscountCodeDraft> = {
+        custom: {
+          type: {
+            typeId: 'type',
+            id: 'customType2',
+          },
+          fields: {
+            customField1: true,
+          },
+        },
+      }
+      const actual = discountCodesSync.buildActions(now, before)
+      const expected = [{ action: 'setCustomType', ...now.custom }]
+      expect(actual).toEqual(expected)
+    })
+  })
+
+  test('should build `setCustomField` action', () => {
+    const before: DeepPartial<DiscountCodeDraft> = {
+      custom: {
+        type: {
+          typeId: 'type',
+          id: 'customType1',
+        },
+        fields: {
+          customField1: false,
+        },
+      },
+    }
+    const now: DeepPartial<DiscountCodeDraft> = {
+      custom: {
+        type: {
+          typeId: 'type',
+          id: 'customType1',
+        },
+        fields: {
+          customField1: true,
+        },
+      },
+    }
+    const actual = discountCodesSync.buildActions(now, before)
+    const expected = [
+      {
+        action: 'setCustomField',
+        name: 'customField1',
+        value: true,
+      },
+    ]
+    expect(actual).toEqual(expected)
+  })
+})
