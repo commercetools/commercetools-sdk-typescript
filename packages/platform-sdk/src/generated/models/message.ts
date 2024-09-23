@@ -15617,6 +15617,13 @@ export interface ProductVariantDeletedMessage {
    *
    */
   readonly removedImageUrls: string[]
+  /**
+   *	If `true`, this message informs that only the staged ProductVariant has been removed by the update action.
+   *	If `false`, both the current and staged ProductVariant have been removed.
+   *
+   *
+   */
+  readonly staged: boolean
 }
 /**
  *	Generated after a successful [Add ProductVariant Tailoring](ctp:api:type:ProductTailoringAddVariantAction) update action.
@@ -23444,6 +23451,13 @@ export interface ProductVariantDeletedMessagePayload {
    *
    */
   readonly removedImageUrls: string[]
+  /**
+   *	If `true`, this message informs that only the staged ProductVariant has been removed by the update action.
+   *	If `false`, both the current and staged ProductVariant have been removed.
+   *
+   *
+   */
+  readonly staged: boolean
 }
 /**
  *	Generated after a successful [Add ProductVariant Tailoring](ctp:api:type:ProductTailoringAddVariantAction) update action.
