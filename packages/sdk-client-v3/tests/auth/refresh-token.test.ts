@@ -34,7 +34,7 @@ describe('Refresh Token Flow', () => {
   describe('Refresh token flow auth request builder', () => {
     test('should throw if `options` are not provided.', () => {
       new Promise((resolve, reject) => {
-        const middlewareOptions = null
+        const middlewareOptions: any = null
         expect(() =>
           buildRequestForRefreshTokenFlow(middlewareOptions)
         ).toThrow('Missing required options')
@@ -269,7 +269,7 @@ describe('Refresh Token Flow', () => {
     }))
 
   test('should fetch and store token in tokenCache object', () =>
-    new Promise((resolve, reject) => {
+    new Promise(async (resolve, reject) => {
       const response = createTestResponse({
         resolve,
         reject,
@@ -314,7 +314,7 @@ describe('Refresh Token Flow', () => {
         tokenCache,
       })
 
-      createAuthMiddlewareForRefreshTokenFlow(middlewareOptions)(next)(
+      await createAuthMiddlewareForRefreshTokenFlow(middlewareOptions)(next)(
         createTestRequest({})
       )
       expect(middlewareOptions.httpClient).toHaveBeenCalledTimes(1)

@@ -1,12 +1,12 @@
+import { Mutex } from 'async-mutex'
 import fetch from 'node-fetch'
 import {
+  ClientRequest,
   Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
   Next,
   PasswordAuthMiddlewareOptions,
-  RequestState,
-  RequestStateStore,
   Task,
 } from '../../types/types'
 import { buildTokenCacheKey, store } from '../../utils'
@@ -24,7 +24,7 @@ export default function createAuthMiddlewareForPasswordFlow(
     })
 
   const pendingTasks: Array<Task> = []
-  const requestState = store<RequestState, RequestStateStore>(false)
+  const requestState = new Mutex()
 
   const tokenCacheKey = buildTokenCacheKey(options)
 
@@ -50,7 +50,15 @@ export default function createAuthMiddlewareForPasswordFlow(
       }
 
       // make request to coco
-      const requestWithAuth = await executeRequest(requestOptions)
+      let requestWithAuth: ClientRequest
+
+      try {
+        await requestState.acquire()
+        requestWithAuth = await executeRequest(requestOptions)
+      } finally {
+        requestState.release()
+      }
+
       if (requestWithAuth) {
         return next(requestWithAuth)
       }

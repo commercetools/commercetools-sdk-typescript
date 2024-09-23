@@ -209,7 +209,7 @@ export type ExtensionResourceTypeId =
   | string
 export interface ExtensionTrigger {
   /**
-   *	`cart`, `order`, `payment`, `customer`, `quote-request`, `staged-quote`, `quote`, and `business-unit` are supported.
+   *	`cart`, `order`, `payment`, `customer`, `quote-request`, `staged-quote`, `quote`, `business-unit`, and `shopping-list` are supported.
    *
    *
    */
@@ -267,7 +267,7 @@ export interface GoogleCloudFunctionDestination {
 export interface HttpDestination {
   readonly type: 'HTTP'
   /**
-   *	URL to the target destination. If the Project is hosted in the China (AWS, Ningxia) Region, verify that the URL is not blocked due to firewall restrictions.
+   *	URL to the target destination.
    *
    *
    */
