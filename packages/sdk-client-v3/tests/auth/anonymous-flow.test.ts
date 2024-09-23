@@ -33,7 +33,7 @@ function createTestMiddlewareOptions(options) {
 describe('Anonymous Session Flow', () => {
   describe('Anonymous session flow', () => {
     test('should throw if `options` are not provided', () => {
-      const middlewareOptions = null
+      const middlewareOptions: any = null
 
       expect(() =>
         buildRequestForAnonymousSessionFlow(middlewareOptions)
@@ -202,7 +202,7 @@ describe('Anonymous Session Flow', () => {
     }))
 
   test('should not throw if `anonymousId` options is not provided.', () =>
-    new Promise((resolve, reject) => {
+    new Promise(async (resolve, reject) => {
       const response = createTestResponse({
         resolve,
         reject,
@@ -232,9 +232,9 @@ describe('Anonymous Session Flow', () => {
         },
       })
 
-      createAuthMiddlewareForAnonymousSessionFlow(middlewareOptions)(next)(
-        createTestRequest({})
-      )
+      await createAuthMiddlewareForAnonymousSessionFlow(middlewareOptions)(
+        next
+      )(createTestRequest({}))
 
       expect(middlewareOptions.httpClient).toHaveBeenCalled()
       expect(middlewareOptions.httpClient).toHaveBeenCalledTimes(1)

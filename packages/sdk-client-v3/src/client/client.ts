@@ -166,18 +166,19 @@ export default function createClient(middlewares: ClientOptions): Client {
     process,
     execute(request: ClientRequest): Promise<ClientResult> {
       validate('exec', request)
-      return new Promise((resolve, reject) => {
-        dispatch({ reject, resolve, ...request })
-          .then((res) => {
-            if (res.error) return reject(res.error)
+      return new Promise(async (resolve, reject) => {
+        try {
+          const response = await dispatch({ reject, resolve, ...request })
+          if (response.error) return reject(response.error)
 
-            if (res.originalRequest && _maskSensitiveHeaderData) {
-              res.originalRequest = maskAuthData(res.originalRequest)
-            }
+          if (response.originalRequest && _maskSensitiveHeaderData) {
+            response.originalRequest = maskAuthData(response.originalRequest)
+          }
 
-            resolve(res)
-          })
-          .catch(reject)
+          resolve(response)
+        } catch (err) {
+          reject(err)
+        }
       })
     },
   }

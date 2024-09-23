@@ -710,7 +710,7 @@ export interface GeoJsonPoint {
 }
 export interface Image {
   /**
-   *	URL of the image in its original size that must be unique within a single [ProductVariant](ctp:api:type:ProductVariant). If the Project is hosted in the China (AWS, Ningxia) Region, verify that the URL is not blocked due to firewall restrictions.
+   *	URL of the image in its original size that must be unique within a single [ProductVariant](ctp:api:type:ProductVariant).
    *
    *
    */

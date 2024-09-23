@@ -1,12 +1,12 @@
+import { Mutex } from 'async-mutex'
 import fetch from 'node-fetch'
 import {
   AuthMiddlewareOptions,
+  ClientRequest,
   Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
   Next,
-  RequestState,
-  RequestStateStore,
   Task,
   TokenCache,
   TokenStore,
@@ -19,7 +19,7 @@ export default function createAuthMiddlewareForAnonymousSessionFlow(
   options: AuthMiddlewareOptions
 ): Middleware {
   const pendingTasks: Array<Task> = []
-  const requestState = store<RequestState, RequestStateStore>(false)
+  const requestState = new Mutex()
   const tokenCache =
     options.tokenCache ||
     store<TokenStore, TokenCache>({
@@ -54,7 +54,14 @@ export default function createAuthMiddlewareForAnonymousSessionFlow(
       }
 
       // make request to coco
-      const requestWithAuth = await executeRequest(requestOptions)
+      let requestWithAuth: ClientRequest
+
+      try {
+        await requestState.acquire()
+        requestWithAuth = await executeRequest(requestOptions)
+      } finally {
+        requestState.release()
+      }
 
       if (requestWithAuth) {
         return next(requestWithAuth)
