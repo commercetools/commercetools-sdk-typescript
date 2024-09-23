@@ -70,7 +70,7 @@ export type CustomerSearchStatus = 'Activated' | 'Deactivated' | string
  */
 export interface ExternalOAuth {
   /**
-   *	URL with authorization header. If the Project is hosted in the China (AWS, Ningxia) Region, verify that the URL is not blocked due to firewall restrictions.
+   *	URL with authorization header.
    *
    *
    */

@@ -142,8 +142,6 @@ export type RefreshAuthMiddlewareOptions = {
   httpClient?: Function
 }
 
-export type RequestStateStore = any
-
 /* Request */
 type requestBaseOptions = {
   url: string
@@ -151,7 +149,7 @@ type requestBaseOptions = {
   basicAuth: string
   request: MiddlewareRequest
   tokenCache: TokenCache,
-  requestState: RequestStateStore,
+  requestState: unknown,
   pendingTasks: Array<Task>,
   tokenCacheKey?: TokenCacheOptions,
 }

@@ -475,13 +475,18 @@ export interface StandalonePriceSetCustomTypeAction {
   readonly fields?: FieldContainer
 }
 /**
- *	Discounts a Standalone Price. The referenced [ProductDiscount](ctp:api:type:ProductDiscount) in the discounted field must be of type external, active, and its predicate must match the referenced Price. Produces the [StandalonePriceExternalDiscountSet](ctp:api:type:StandalonePriceExternalDiscountSetMessage) Message.
+ *	Discounts a Standalone Price of a Product Variant on a published [Product](ctp:api:type:Product).
+ *	If the Product Variant does not exist or if it exists only in the staged representation of a Product, an [InvalidOperationError](ctp:api:type:InvalidOperationError) error is returned.
+ *
+ *	Produces the [StandalonePriceExternalDiscountSet](ctp:api:type:StandalonePriceExternalDiscountSetMessage) Message.
  *
  */
 export interface StandalonePriceSetDiscountedPriceAction {
   readonly action: 'setDiscountedPrice'
   /**
    *	Value to set. If empty, any existing value will be removed.
+   *
+   *	The referenced [ProductDiscount](ctp:api:type:ProductDiscount) must be of type external, active, and its predicate must match the referenced Price.
    *
    *
    */
