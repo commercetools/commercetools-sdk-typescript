@@ -1,5 +1,4 @@
 import AbortController from 'abort-controller'
-import { Buffer } from 'buffer/'
 
 export type Nullable<T> = T | null
 export type Keys = string | number | symbol
@@ -41,7 +40,7 @@ export interface ClientRequest {
   uriTemplate?: string
   pathVariables?: VariableMap
   queryParams?: VariableMap
-  body?: Record<string, any> | string | Buffer
+  body?: Record<string, any> | string | Uint8Array;
   response?: ClientResponse
   resolve?: Function;
   reject?: Function;
@@ -149,9 +148,10 @@ type requestBaseOptions = {
   basicAuth: string
   request: MiddlewareRequest
   tokenCache: TokenCache,
-  requestState: unknown,
-  pendingTasks: Array<Task>,
+  // requestState: unknown,
+  // pendingTasks: Array<Task>,
   tokenCacheKey?: TokenCacheOptions,
+  tokenCacheObject?: TokenStore
 }
 
 export type executeRequestOptions = requestBaseOptions & {
@@ -266,10 +266,10 @@ export type ExistingTokenMiddlewareOptions = {
 
 export type ConcurrentModificationMiddlewareOptions = {
   concurrentModificationHandlerFn?: (
-      version: number,
-      request: MiddlewareRequest,
-      response: MiddlewareResponse
-  ) => Promise<Record<string, any> | string | Buffer>
+    version: number,
+    request: MiddlewareRequest,
+    response: MiddlewareResponse
+  ) => Promise<Record<string, any> | string | Uint8Array>;
 }
 
 export type BeforeExecutionMiddlewareOptions = {
@@ -292,7 +292,7 @@ export type IClientOptions = {
   method: MethodType;
   headers: Record<string, any>
   credentialsMode?: CredentialsMode;
-  body?: Record<string, any> | string | Buffer
+  body?: Record<string, any> | string | Uint8Array;
   timeout?: number
   abortController?: AbortController
   includeOriginalRequest?: boolean

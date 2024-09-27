@@ -10,10 +10,11 @@ export default function createConcurrentModificationMiddleware(
     version: number,
     request: MiddlewareRequest,
     response: MiddlewareResponse
-  ) => Promise<Record<string, any> | string | Buffer>
+  ) => Promise<Record<string, any> | string | Uint8Array>
 ): Middleware {
   return (next: Next) => {
     return async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {
+      request['concurrent'] = true
       const response = await next(request)
       if (response.statusCode == 409) {
         /**
@@ -21,7 +22,7 @@ export default function createConcurrentModificationMiddleware(
          * from the error body and update
          * request with the currentVersion
          */
-        const version = response.error.body?.errors?.[0]?.currentVersion
+        const version = response.error?.body?.errors?.[0]?.currentVersion
 
         // update the resource version here
         if (version) {
@@ -34,11 +35,14 @@ export default function createConcurrentModificationMiddleware(
                 : { ...request.body, version }
           }
 
-          return next(request)
+          return next({ ...request, response })
         }
       }
 
-      return response
+      request.continue = true
+      delete request['concurrent']
+
+      return next({ ...request, response })
     }
   }
 }

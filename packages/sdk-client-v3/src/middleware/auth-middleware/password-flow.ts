@@ -1,15 +1,13 @@
-import { Mutex } from 'async-mutex'
 import fetch from 'node-fetch'
 import {
-  ClientRequest,
+  Next,
   Middleware,
+  TokenStore,
   MiddlewareRequest,
   MiddlewareResponse,
-  Next,
   PasswordAuthMiddlewareOptions,
-  Task,
 } from '../../types/types'
-import { buildTokenCacheKey, store } from '../../utils'
+import { buildTokenCacheKey, mergeAuthHeader, store } from '../../utils'
 import { buildRequestForPasswordFlow } from './auth-request-builder'
 import { executeRequest } from './auth-request-executor'
 
@@ -23,13 +21,13 @@ export default function createAuthMiddlewareForPasswordFlow(
       expirationTime: -1,
     })
 
-  const pendingTasks: Array<Task> = []
-  const requestState = new Mutex()
-
+  let tokenCacheObject: TokenStore
+  let tokenFetchPromise: Promise<void> | null = null
   const tokenCacheKey = buildTokenCacheKey(options)
 
   return (next: Next) => {
     return async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {
+      // if here is a token in the header, then move on to the next middleware
       if (
         request.headers &&
         (request.headers.Authorization || request.headers.authorization)
@@ -37,11 +35,22 @@ export default function createAuthMiddlewareForPasswordFlow(
         return next(request)
       }
 
+      /**
+       * If there is a token in the tokenCache, and it's not
+       * expired, append the token in the `Authorization` header.
+       */
+      tokenCacheObject = tokenCache.get(tokenCacheKey)
+      if (
+        tokenCacheObject &&
+        tokenCacheObject.token &&
+        Date.now() < tokenCacheObject.expirationTime
+      ) {
+        return next(mergeAuthHeader(tokenCacheObject.token, request))
+      }
+
       const requestOptions = {
         request,
-        requestState,
         tokenCache,
-        pendingTasks,
         tokenCacheKey,
         httpClient: options.httpClient || fetch,
         ...buildRequestForPasswordFlow(options),
@@ -49,18 +58,25 @@ export default function createAuthMiddlewareForPasswordFlow(
         next,
       }
 
-      // make request to coco
-      let requestWithAuth: ClientRequest
-
-      try {
-        await requestState.acquire()
-        requestWithAuth = await executeRequest(requestOptions)
-      } finally {
-        requestState.release()
+      // If a token is already being fetched, wait for it to finish
+      if (tokenFetchPromise) {
+        await tokenFetchPromise
+      } else {
+        // Otherwise, fetch the token and let others wait for this process to complete
+        tokenFetchPromise = executeRequest(requestOptions)
+        await tokenFetchPromise
+        tokenFetchPromise = null
       }
 
-      if (requestWithAuth) {
-        return next(requestWithAuth)
+      // Now the token is present in the tokenCache
+      tokenCacheObject = tokenCache.get(tokenCacheKey)
+
+      if (
+        tokenCacheObject &&
+        tokenCacheObject.token &&
+        Date.now() < tokenCacheObject.expirationTime
+      ) {
+        return next(mergeAuthHeader(tokenCacheObject.token, request))
       }
     }
   }

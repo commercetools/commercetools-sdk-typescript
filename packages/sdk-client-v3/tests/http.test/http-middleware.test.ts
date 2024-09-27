@@ -1,5 +1,4 @@
 import { HttpMiddlewareOptions, MiddlewareRequest } from '../../src'
-import { Buffer } from 'buffer/'
 import { createHttpMiddleware } from '../../src/middleware'
 import fetch from 'node-fetch'
 

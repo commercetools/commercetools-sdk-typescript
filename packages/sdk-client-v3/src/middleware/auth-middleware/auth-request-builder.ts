@@ -1,4 +1,3 @@
-import { Buffer } from 'buffer/'
 import {
   AuthMiddlewareOptions,
   IBuiltRequestParams,
@@ -27,9 +26,8 @@ export function buildRequestForClientCredentialsFlow(
     throw new Error('Missing required credentials (clientId, clientSecret)')
 
   const scope = options.scopes ? options.scopes.join(' ') : undefined
-  const basicAuth = Buffer.from(`${clientId}:${clientSecret}`).toString(
-    'base64'
-  )
+  const basicAuth = btoa(`${clientId}:${clientSecret}`)
+
   // This is mostly useful for internal testing purposes to be able to check
   // other oauth endpoints.
   const oauthUri = options.oauthUri || '/oauth/token'
@@ -93,11 +91,10 @@ export function buildRequestForRefreshTokenFlow(
   if (!(clientId && clientSecret))
     throw new Error('Missing required credentials (clientId, clientSecret)')
 
-  const basicAuth = Buffer.from(`${clientId}:${clientSecret}`).toString(
-    'base64'
-  )
-  // This is mostly useful for internal testing purposes to be able to check
-  // other oauth endpoints.
+  const basicAuth = btoa(`${clientId}:${clientSecret}`)
+
+  // This is mostly useful for internal testing
+  // purposes to be able to check other oauth endpoints.
   const oauthUri = options.oauthUri || '/oauth/token'
   const url = options.host.replace(/\/$/, '') + oauthUri
   const body = `grant_type=refresh_token&refresh_token=${encodeURIComponent(
@@ -137,10 +134,7 @@ export function buildRequestForPasswordFlow(
 
   const scope = (options.scopes || []).join(' ')
   const scopeStr = scope ? `&scope=${scope}` : ''
-
-  const basicAuth = Buffer.from(`${clientId}:${clientSecret}`).toString(
-    'base64'
-  )
+  const basicAuth = btoa(`${clientId}:${clientSecret}`)
 
   /**
    * This is mostly useful for internal testing purposes to be able to check

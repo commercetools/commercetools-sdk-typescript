@@ -16,6 +16,8 @@ export { default as calculateExpirationTime } from './tokenExpirationTime'
 export { default as store } from './tokenStore'
 export { parseURLString, stringifyURLString } from './url'
 export { default as userAgent } from './userAgent'
+export { default as responseCache } from './responseCache';
+export { default as byteLength } from './byteLength';
 export {
     validate,
     // validateUserAgentOptions,

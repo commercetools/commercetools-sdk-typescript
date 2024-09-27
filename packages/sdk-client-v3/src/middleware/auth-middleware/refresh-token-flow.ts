@@ -1,14 +1,12 @@
-import { Mutex } from 'async-mutex'
 import {
-  ClientRequest,
+  TokenStore,
   Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
   Next,
   RefreshAuthMiddlewareOptions,
-  Task,
 } from '../../types/types'
-import { store } from '../../utils'
+import { buildTokenCacheKey, mergeAuthHeader, store } from '../../utils'
 import { buildRequestForRefreshTokenFlow } from './auth-request-builder'
 import { executeRequest } from './auth-request-executor'
 
@@ -22,8 +20,9 @@ export default function createAuthMiddlewareForRefreshTokenFlow(
       tokenCacheKey: null,
     })
 
-  const pendingTasks: Array<Task> = []
-  const requestState = new Mutex()
+  let tokenCacheObject: TokenStore
+  let tokenFetchPromise: Promise<void> | null = null
+  const tokenCacheKey = buildTokenCacheKey(options)
 
   return (next: Next) => {
     return async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {
@@ -34,29 +33,47 @@ export default function createAuthMiddlewareForRefreshTokenFlow(
         return next(request)
       }
 
+      /**
+       * If there is a token in the tokenCache, and it's not
+       * expired, append the token in the `Authorization` header.
+       */
+      tokenCacheObject = tokenCache.get(tokenCacheKey)
+      if (
+        tokenCacheObject &&
+        tokenCacheObject.token &&
+        Date.now() < tokenCacheObject.expirationTime
+      ) {
+        return next(mergeAuthHeader(tokenCacheObject.token, request))
+      }
+
       // prepare request options
       const requestOptions = {
         request,
-        requestState,
         tokenCache,
-        pendingTasks,
         httpClient: options.httpClient || fetch,
         ...buildRequestForRefreshTokenFlow(options),
         next,
       }
 
-      // make request to coco
-      let requestWithAuth: ClientRequest
-
-      try {
-        await requestState.acquire()
-        requestWithAuth = await executeRequest(requestOptions)
-      } finally {
-        requestState.release()
+      // If a token is already being fetched, wait for it to finish
+      if (tokenFetchPromise) {
+        await tokenFetchPromise
+      } else {
+        // Otherwise, fetch the token and let others wait for this process to complete
+        tokenFetchPromise = executeRequest(requestOptions)
+        await tokenFetchPromise
+        tokenFetchPromise = null
       }
 
-      if (requestWithAuth) {
-        return next(requestWithAuth)
+      // Now the token is present in the tokenCache
+      tokenCacheObject = tokenCache.get(tokenCacheKey)
+
+      if (
+        tokenCacheObject &&
+        tokenCacheObject.token &&
+        Date.now() < tokenCacheObject.expirationTime
+      ) {
+        return next(mergeAuthHeader(tokenCacheObject.token, request))
       }
     }
   }

@@ -73,12 +73,15 @@ export default async function executor(request: HttpClientConfig) {
       }
 
       async function executeWithRetry<T = any>(): Promise<T> {
-        const executeWithTryCatch = async (retryCodes, retryWhenAborted) => {
+        const executeWithTryCatch = async (
+          retryCodes: (string | number)[],
+          retryWhenAborted: boolean
+        ) => {
           let _response = {} as any
           try {
             _response = await execute()
             if (
-              _response.status > 299 &&
+              _response.status > 399 &&
               hasResponseRetryCode(retryCodes, _response)
             )
               return { _response, shouldRetry: true }
