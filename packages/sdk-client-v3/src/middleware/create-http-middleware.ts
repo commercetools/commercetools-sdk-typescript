@@ -69,7 +69,7 @@ async function executeRequest({
       response.headers = null
     }
 
-    if (response.statusCode >= 200 && response.statusCode < 300) {
+    if (response.statusCode >= 200 && response.statusCode < 400) {
       if (clientOptions.method == 'HEAD') {
         const _result = {
           body: null,
@@ -257,7 +257,7 @@ export default function createHttpMiddleware(
       // get result from executed request
       const response = await executeRequest({ url, clientOptions, httpClient })
 
-      if (request['concurrent']) {
+      if (request['firstAttempt']) {
         return response
       }
 

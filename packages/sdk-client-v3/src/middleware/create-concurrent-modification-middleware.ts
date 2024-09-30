@@ -14,7 +14,7 @@ export default function createConcurrentModificationMiddleware(
 ): Middleware {
   return (next: Next) => {
     return async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {
-      request['concurrent'] = true
+      request['firsAttempt'] = true
       const response = await next(request)
       if (response.statusCode == 409) {
         /**
@@ -26,7 +26,7 @@ export default function createConcurrentModificationMiddleware(
 
         // update the resource version here
         if (version) {
-          if (modifierFunction) {
+          if (modifierFunction && typeof modifierFunction == 'function') {
             request.body = await modifierFunction(version, request, response)
           } else {
             request.body =
@@ -40,7 +40,7 @@ export default function createConcurrentModificationMiddleware(
       }
 
       request.continue = true
-      delete request['concurrent']
+      delete request['firstAttempt']
 
       return next({ ...request, response })
     }

@@ -1,4 +1,10 @@
+import { ClientResult } from '../../src'
 import { executeRequest } from '../../src/middleware/auth-middleware/auth-request-executor'
+
+type U<T> = {
+  get(): T
+  set(value: T): void
+}
 
 function createTestExecutorOptions(options) {
   return {
@@ -6,10 +12,10 @@ function createTestExecutorOptions(options) {
     body: 'this is a body',
     baseAuth: {},
     request: { resolve: jest.fn(), reject: jest.fn() },
-    pendingTasks: [],
     httpClient: jest.fn(),
     tokenCache: {},
     tokenCacheKey: {},
+    tokenCacheObject: {},
     requestState: { get: jest.fn(), set: jest.fn() },
     userOption: {
       host: 'test-host',
@@ -24,6 +30,18 @@ function createTestExecutorOptions(options) {
   }
 }
 
+function cache<T = ClientResult>(): U<T> {
+  let value: T
+  return {
+    set: jest.fn((response: T) => {
+      value = response
+    }),
+    get: jest.fn(() => {
+      return value
+    }),
+  }
+}
+
 describe('Auth request executor', () => {
   describe('Auth request executor - resolved response', () => {
     test('should throw if `httpClient` is not provided', () => {
@@ -31,183 +49,157 @@ describe('Auth request executor', () => {
       expect(executeRequest(options as any)).rejects.toEqual(expect.any(Error))
     })
 
-    // test.skip('should return early if token exists in `tokenCacheObject`', async () => {
-    //   const options = createTestExecutorOptions({
-    //     tokenCache: {
-    //       set: jest.fn(),
-    //       get: jest.fn(() => ({
-    //         token: 'test-cached-token',
-    //         expirationTime: Date.now() + 999,
-    //       })),
-    //     },
-    //     httpClient: jest.fn(() => ({
-    //       statusCode: 200,
-    //       data: { statusCode: 200, access_token: 'test-access-token' },
-    //     })),
-    //   })
+    test('should return early if token exists in `tokenCacheObject`', async () => {
+      const options = createTestExecutorOptions({
+        tokenCache: cache(),
+        httpClient: jest.fn(() => ({
+          statusCode: 200,
+          data: {
+            statusCode: 200,
+            access_token: 'test-access-token',
+            expirationTime: Date.now() - 999,
+          },
+        })),
+      })
 
-    //   const response = await executeRequest(options)
+      const response = await executeRequest(options)
 
-    //   expect(typeof response).toEqual('object')
-    //   expect(response).toHaveProperty('headers')
-    //   expect(typeof response.headers).toEqual('object')
-    //   expect(response.headers['Authorization']).toEqual(
-    //     'Bearer test-cached-token'
-    //   )
-    // })
+      expect(typeof response).toEqual('boolean')
+      expect(response).toEqual(true)
 
-    // test('should throw if userOptions are not provided for token refresh', () => {
-    //   const options = createTestExecutorOptions({
-    //     userOption: null,
-    //     tokenCache: {
-    //       set: jest.fn(),
-    //       get: jest.fn(() => ({
-    //         token: 'test-cached-token',
-    //         expirationTime: Date.now() - 999,
-    //         refreshToken: 'refresh-cache-token',
-    //       })),
-    //     },
-    //     httpClient: jest.fn(() => ({
-    //       statusCode: 200,
-    //       data: { statusCode: 200, access_token: 'test-access-token' },
-    //     })),
-    //   })
+      // test token cache
+      expect(typeof options.tokenCache.get()).toEqual('object')
+      expect(options.tokenCache.get().token).toEqual('test-access-token')
+      expect(options.tokenCache.get()).toHaveProperty('expirationTime')
+    })
 
-    //   expect(executeRequest(options)).rejects.toEqual(expect.any(Error))
-    // })
+    test('should throw if userOptions are not provided for token refresh', async () => {
+      const options = createTestExecutorOptions({
+        userOption: null,
+        tokenCacheObject: {
+          token: 'test-cached-token',
+          expirationTime: Date.now() - 999,
+          refreshToken: 'refresh-cache-token',
+        },
+        tokenCache: cache(),
+        httpClient: jest.fn(() => ({
+          statusCode: 200,
+          data: { statusCode: 200, access_token: 'test-access-token' },
+        })),
+      })
 
-    // test('should refresh token if token is expired and there is a refreshToken present in `tokenCacheObject`', async () => {
-    //   const task = {
-    //     request: { headers: { 'Content-Type': 'application/json' } },
-    //     next: jest.fn(),
-    //   }
+      await expect(async () => {
+        await executeRequest(options)
+      }).rejects.toThrow('Missing required options.')
+    })
 
-    //   const options = createTestExecutorOptions({
-    //     url: 'test-demo-uri',
-    //     pendingTasks: [task, task],
-    //     tokenCache: {
-    //       set: jest.fn(),
-    //       get: jest.fn(() => ({
-    //         token: 'test-cached-token',
-    //         expirationTime: Date.now() - 999,
-    //         refreshToken: 'refresh-cache-token',
-    //       })),
-    //     },
-    //     httpClient: jest.fn(() => ({
-    //       statusCode: 200,
-    //       data: { statusCode: 200, access_token: 'test-access-token' },
-    //     })),
-    //   })
+    test('should refresh token if token is expired and there is a refreshToken present in `tokenCacheObject`', async () => {
+      const options = createTestExecutorOptions({
+        url: 'test-demo-uri',
+        tokenCache: cache(),
+        tokenCacheObject: {
+          token: 'test-cached-token',
+          expirationTime: Date.now() - 999,
+          refreshToken: 'refresh-cache-token',
+        },
+        httpClient: jest.fn(() => ({
+          statusCode: 200,
+          data: {
+            statusCode: 200,
+            access_token: 'test-access-token',
+            refresh_token: 'refresh-access-token',
+          },
+        })),
+      })
 
-    //   expect(await executeRequest(options)).toEqual(undefined)
-    // })
+      const response = await executeRequest(options)
+      expect(typeof response).toEqual('boolean')
+      expect(response).toEqual(true)
 
-    //   test('should execute all pending tasks with a valid token', async () => {
-    //     const task = {
-    //       request: {
-    //         url: 'test-uri',
-    //         method: 'GET',
-    //         body: {},
-    //         headers: {
-    //           'Content-Type': 'application/json',
-    //         },
-    //       },
-    //       next: jest.fn(),
-    //     }
+      // test tokenCache
+      expect(options.tokenCache.get()).toHaveProperty('token')
+      expect(options.tokenCache.get()).toHaveProperty('expirationTime')
 
-    //     const options = createTestExecutorOptions({
-    //       url: 'test-demo-uri',
-    //       pendingTasks: [task, task],
-    //       tokenCache: {
-    //         set: jest.fn(),
-    //         get: jest.fn(() => ({
-    //           token: 'test-cached-token',
-    //           expirationTime: Date.now() - 999,
-    //           refreshToken: 'refresh-cache-token',
-    //         })),
-    //       },
-    //       httpClient: jest.fn(() => ({
-    //         statusCode: 200,
-    //         data: { statusCode: 200, access_token: 'test-access-token' },
-    //       })),
-    //     })
-
-    //     expect(await executeRequest(options)).toEqual(undefined)
-    //   })
-    // })
-
-    // describe('Auth request executor - rejected response', () => {
-    //   test('should reject if `statusCode` is within acceptable range', async () => {
-    //     const task = {
-    //       request: {
-    //         url: 'test-uri',
-    //         method: 'GET',
-    //         body: {},
-    //         headers: {
-    //           'Content-Type': 'application/json',
-    //         },
-    //       },
-    //       next: jest.fn(),
-    //     }
-
-    //     const options = createTestExecutorOptions({
-    //       url: 'test-demo-uri',
-    //       pendingTasks: [task],
-    //       tokenCache: {
-    //         set: jest.fn(),
-    //         get: jest.fn(() => ({
-    //           token: 'test-cached-token',
-    //           expirationTime: Date.now() - 999,
-    //           refreshToken: 'refresh-cache-token',
-    //         })),
-    //       },
-    //       httpClient: jest.fn(() => ({
-    //         statusCode: 400,
-    //         message: 'error fetching token',
-    //       })),
-    //     })
-
-    //     expect(await executeRequest(options)).toEqual(undefined)
+      expect(typeof options.tokenCache.get()).toEqual('object')
+      expect(options.tokenCache.get().token).toEqual('test-access-token')
+      expect(options.tokenCache.get().refreshToken).toEqual(
+        'refresh-access-token'
+      )
+    })
   })
 
-  // test('should throw on network error', async () => {
-  //   const task = {
-  //     request: {
-  //       url: 'test-uri',
-  //       method: 'GET',
-  //       body: {},
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     },
-  //     next: jest.fn(),
-  //   }
+  describe('Auth request executor - rejected response', () => {
+    test('should reject if `statusCode` is not within acceptable range', async () => {
+      const task = {
+        request: {
+          url: 'test-uri',
+          method: 'GET',
+          body: {},
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+        next: jest.fn(),
+      }
 
-  //   const options = createTestExecutorOptions({
-  //     url: 'test-demo-uri',
-  //     pendingTasks: [task],
-  //     tokenCache: {
-  //       set: jest.fn(),
-  //       get: jest.fn(() => ({
-  //         token: 'test-cached-token',
-  //         expirationTime: Date.now() - 999,
-  //         refreshToken: 'refresh-cache-token',
-  //       })),
-  //     },
-  //     httpClient: jest.fn(() => {
-  //       throw Error('an error occurred.')
-  //     }),
-  //   })
+      const options = createTestExecutorOptions({
+        url: 'test-demo-uri',
+        pendingTasks: [task],
+        tokenCache: {
+          set: jest.fn(),
+          get: jest.fn(() => ({
+            token: 'test-cached-token',
+            expirationTime: Date.now() - 999,
+            refreshToken: 'refresh-cache-token',
+          })),
+        },
+        httpClient: jest.fn(() => ({
+          statusCode: 400,
+          message: 'error fetching token',
+        })),
+      })
 
-  //   const errorResponse = await executeRequest(options)
-  //   expect(errorResponse).toHaveProperty('reject')
-  //   expect(errorResponse).toHaveProperty('resolve')
-  //   expect(errorResponse.response.body).toEqual(null)
-  //   expect(errorResponse.response.error).toBeTruthy()
-  //   expect(errorResponse.response.statusCode).toEqual(0)
-  //   expect(errorResponse.response.error.error.message).toMatch(
-  //     'an error occurred.'
-  //   )
-  // })
-  // })
+      /**
+       * return the rejected promise error
+       * response to the calling auth flow
+       */
+      expect(await executeRequest(options)).toEqual(undefined)
+    })
+
+    test('should throw on network error', async () => {
+      const task = {
+        request: {
+          url: 'test-uri',
+          method: 'GET',
+          body: {},
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+        next: jest.fn(),
+      }
+
+      const options = createTestExecutorOptions({
+        url: 'test-demo-uri',
+        pendingTasks: [task],
+        tokenCache: {
+          set: jest.fn(),
+          get: jest.fn(() => ({
+            token: 'test-cached-token',
+            expirationTime: Date.now() - 999,
+            refreshToken: 'refresh-cache-token',
+          })),
+        },
+        httpClient: jest.fn(() => {
+          throw Error('an error occurred.')
+        }),
+      })
+
+      /**
+       * return the rejected promise error
+       * response to the calling auth flow
+       */
+      expect(await executeRequest(options)).toEqual(undefined)
+    })
+  })
 })

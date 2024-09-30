@@ -17,13 +17,6 @@ function createTestResponse(options) {
   }
 }
 
-function createTestMiddlewareOptions(options) {
-  return {
-    authorization: 12345,
-    ...options,
-  }
-}
-
 describe('Existing Token Flow', () => {
   test('should throw an error if the provided authorization argument is not a string.', () => {
     new Promise((resolve, reject) => {
@@ -53,11 +46,6 @@ describe('Existing Token Flow', () => {
 
   test('should call the next middleware if token exists in header and `authorization` option is not provided.', () =>
     new Promise((resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
         expect(req.headers.Authorization).toBe('Bearer token')
@@ -65,7 +53,6 @@ describe('Existing Token Flow', () => {
         resolve(null)
       }
 
-      const request = createTestRequest({})
       createAuthMiddlewareForExistingTokenFlow('', { force: false })(next)(
         createTestRequest({ headers: { Authorization: 'Bearer token' } })
       )
@@ -73,11 +60,6 @@ describe('Existing Token Flow', () => {
 
   test('should use the provided auth token.', () =>
     new Promise((resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
         expect(req.headers.Authorization).toBe(

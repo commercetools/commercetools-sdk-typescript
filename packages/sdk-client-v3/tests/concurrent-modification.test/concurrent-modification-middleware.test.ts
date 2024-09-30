@@ -29,16 +29,23 @@ describe('Concurrent Modification Middleware.', () => {
 
     const res = await createConcurrentModificationMiddleware()(next)(request)
     expect(next).toHaveBeenCalled()
-    expect(next).toHaveBeenCalledTimes(1)
+    /**
+     * first call will be made to get a response
+     * which will then be checked for `409`, if false
+     * then call `next()` again (2nd call) to move on
+     */
+    expect(next).toHaveBeenCalledTimes(2)
     expect(next).toHaveBeenCalledWith(request)
 
     expect(res).toEqual(response)
   })
 
   test('should modify a request with a `409` status or error code.', async () => {
+    // we are trying to update with an outdated version (v2)
     const request = createTestRequest({ body: { version: 4 } })
     const errorResponse = createTestResponse({
       statusCode: 409,
+      // current version is at v5
       error: { body: { errors: [{ currentVersion: 5 }] } },
     })
 
@@ -47,11 +54,10 @@ describe('Concurrent Modification Middleware.', () => {
 
     // after the call that returned a 409
     const next = jest.fn((req) => {
-      // expect(req.body.version).toEqual(4) // <<-------------------- first call
-      // expect(req.body.version).toEqual(5) // <<-------------------- second call
       if (req.body.version === 5) {
         return createTestResponse({ statusCode: 200 })
       }
+
       return errorResponse
     })
 
@@ -64,10 +70,13 @@ describe('Concurrent Modification Middleware.', () => {
     expect(next).toHaveBeenNthCalledWith(1, request)
 
     // <------- second call use modified request body
-    expect(next).toHaveBeenNthCalledWith(2, {
-      ...request,
-      body: { ...request.body, version: 5 },
-    })
+    expect(next).toHaveBeenNthCalledWith(
+      2,
+      expect.objectContaining({
+        ...request,
+        body: { ...request.body, version: 5 },
+      })
+    )
   })
 
   test('should call the custom function with correct version', async () => {
@@ -79,8 +88,6 @@ describe('Concurrent Modification Middleware.', () => {
 
     // after the call that returned a 409
     const next = jest.fn((req) => {
-      // expect(req.body.version).toEqual(4) // <<-------------------- first call
-      // expect(req.body.version).toEqual(5) // <<-------------------- second call
       if (req.body.version === 5) {
         return createTestResponse({ statusCode: 200 })
       }
@@ -96,8 +103,16 @@ describe('Concurrent Modification Middleware.', () => {
     expect(callbackFn).toHaveBeenCalledTimes(1)
     expect(callbackFn).toHaveBeenCalledWith(
       5,
-      { body: '{"version":5}', headers: {}, method: 'GET', uri: '' },
-      { error: { body: { errors: [{ currentVersion: 5 }] } }, statusCode: 409 }
+      expect.objectContaining({
+        body: '{"version":5}',
+        headers: {},
+        method: 'GET',
+        uri: '',
+      }),
+      expect.objectContaining({
+        error: { body: { errors: [{ currentVersion: 5 }] } },
+        statusCode: 409,
+      })
     )
   })
 })

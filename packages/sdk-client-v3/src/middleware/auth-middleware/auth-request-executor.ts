@@ -13,7 +13,6 @@ export async function executeRequest(
     request,
     httpClient,
     tokenCache,
-    tokenCacheKey,
     userOption,
     tokenCacheObject,
     next,
@@ -70,7 +69,7 @@ export async function executeRequest(
       body,
     })
 
-    if (response.statusCode >= 200 && response.statusCode < 399) {
+    if (response.statusCode >= 200 && response.statusCode < 400) {
       const {
         access_token: token,
         expires_in: expiresIn,
@@ -94,7 +93,7 @@ export async function executeRequest(
      * reject the error immediately
      * and free up the middleware chain
      */
-    return request.reject({
+    request.reject({
       ...request,
       headers: { ...request.headers },
       response: {

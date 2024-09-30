@@ -11,12 +11,6 @@ function createTestRequest(options) {
   }
 }
 
-function createTestResponse(options) {
-  return {
-    ...options,
-  }
-}
-
 function createTestMiddlewareOptions(options) {
   return {
     host: 'https://auth.europe-west1.gcp.commercetools.com',
@@ -35,7 +29,7 @@ describe('Client Credentials Flow', () => {
       new Promise((resolve, reject) => {
         const middlewareOptions = null
         expect(() =>
-          buildRequestForClientCredentialsFlow(middlewareOptions)
+          buildRequestForClientCredentialsFlow(middlewareOptions as any)
         ).toThrow('Missing required options')
         resolve(null)
       })
@@ -141,15 +135,8 @@ describe('Client Credentials Flow', () => {
 
   test('should throw error if required `host` option is not provided.', () =>
     new Promise(async (resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
-        // expect()
-
         resolve(null)
       }
 
@@ -177,15 +164,8 @@ describe('Client Credentials Flow', () => {
 
   test('should throw error if required `credentials` option is not provided.', () =>
     new Promise(async (resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
-        // expect()
-
         resolve(null)
       }
 
@@ -212,15 +192,8 @@ describe('Client Credentials Flow', () => {
 
   test('should throw error if required `clientId` and `clientSecret` options are not provided.', () =>
     new Promise((resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
-        // expect()
-
         resolve(null)
       }
 
@@ -244,17 +217,11 @@ describe('Client Credentials Flow', () => {
           createTestRequest({})
         )
       ).toThrow('Missing required options.') // 'Missing required options.'
-
       resolve(null)
     }))
 
   test('should throw error if required `httpClient` is not a function', () =>
     new Promise((resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
 
@@ -271,11 +238,6 @@ describe('Client Credentials Flow', () => {
         },
       })
 
-      // expect(async () =>
-      //   await createAuthMiddlewareForClientCredentialsFlow(middlewareOptions)(next)(
-      //     createTestRequest({})
-      //   )
-      // ).toThrow('an `httpClient` is not available, please pass in a `fetch` or `axios` instance as an option or have them globally available.') // 'Missing required options.'
       expect(
         createAuthMiddlewareForClientCredentialsFlow(middlewareOptions)(next)(
           createTestRequest({})
@@ -287,11 +249,6 @@ describe('Client Credentials Flow', () => {
 
   test('should fetch token using client credentials and inject token in request headers', () =>
     new Promise((resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
         expect(req.headers.Authorization).toBe('Bearer xxx-xx')
@@ -314,16 +271,9 @@ describe('Client Credentials Flow', () => {
 
   test('should throw error if required options were not provided.', () =>
     new Promise((resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
         expect(req.headers.Authorization).toBe('Bearer xxx-xx')
-        // expect()
-
         resolve(null)
       }
 
@@ -350,11 +300,6 @@ describe('Client Credentials Flow', () => {
 
   test('should not call the auth server if Authorization is already present in the headers', () =>
     new Promise((resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
         expect(req.headers.Authorization).toBe('Bearer xxxx-xxx')
@@ -380,11 +325,6 @@ describe('Client Credentials Flow', () => {
 
   test('should fetch and store token in tokenCache object', () =>
     new Promise((resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
       const store = (value) => {
         let val = value
         return {
