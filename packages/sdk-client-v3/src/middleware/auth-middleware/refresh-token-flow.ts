@@ -22,7 +22,7 @@ export default function createAuthMiddlewareForRefreshTokenFlow(
     })
 
   let tokenCacheObject: TokenStore
-  let tokenFetchPromise: Promise<TokenCache> | null = null
+  let tokenFetchPromise: Promise<boolean> | null = null
   const tokenCacheKey = buildTokenCacheKey(options)
 
   return (next: Next) => {

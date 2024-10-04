@@ -25,7 +25,7 @@ export default function createConcurrentModificationMiddleware(
 
         // update the resource version here
         if (version) {
-          if (modifierFunction) {
+          if (modifierFunction && typeof modifierFunction == 'function') {
             request.body = await modifierFunction(version, request, response)
           } else {
             request.body =

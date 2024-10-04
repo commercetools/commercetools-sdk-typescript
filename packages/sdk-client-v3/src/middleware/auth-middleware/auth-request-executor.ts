@@ -78,7 +78,7 @@ export async function executeRequest(options: executeRequestOptions) {
 
       // cache new generated token, refreshToken and expiration time
       tokenCache.set({ token, expirationTime, refreshToken })
-      return Promise.resolve(tokenCache)
+      return Promise.resolve(true)
     }
 
     // bubble up the error for the catch block
