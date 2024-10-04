@@ -1,22 +1,19 @@
 import {
   executeRequestOptions,
   IBuiltRequestParams,
+  TokenCache,
   TokenInfo,
 } from '../../types/types'
-import { calculateExpirationTime, executor, byteLength } from '../../utils'
+import {
+  calculateExpirationTime,
+  createError,
+  executor,
+  byteLength,
+} from '../../utils'
 import { buildRequestForRefreshTokenFlow } from './auth-request-builder'
 
-export async function executeRequest(
-  options: executeRequestOptions
-): Promise<any> {
-  const {
-    request,
-    httpClient,
-    tokenCache,
-    userOption,
-    tokenCacheObject,
-    next,
-  } = options
+export async function executeRequest(options: executeRequestOptions) {
+  const { httpClient, tokenCache, userOption, tokenCacheObject } = options
 
   let url = options.url
   let body = options.body
@@ -69,7 +66,7 @@ export async function executeRequest(
       body,
     })
 
-    if (response.statusCode >= 200 && response.statusCode < 400) {
+    if (response.statusCode >= 200 && response.statusCode < 300) {
       const {
         access_token: token,
         expires_in: expiresIn,
@@ -81,39 +78,18 @@ export async function executeRequest(
 
       // cache new generated token, refreshToken and expiration time
       tokenCache.set({ token, expirationTime, refreshToken })
-      return Promise.resolve(true)
+      return Promise.resolve(tokenCache)
     }
 
-    const error = new Error(
-      response.data.message
-        ? response.data.message
-        : JSON.stringify(response.data)
-    )
-    /**
-     * reject the error immediately
-     * and free up the middleware chain
-     */
-    request.reject({
-      ...request,
-      headers: { ...request.headers },
-      response: {
-        statusCode: response.statusCode || response.data.statusCode,
-        error: { error, body: response },
-      },
+    // bubble up the error for the catch block
+    throw createError({
+      code: response.data.error,
+      statusCode: response.data.statusCode,
+      message: response.data.message,
+      error: response.data.errors,
     })
   } catch (error) {
-    request.reject({
-      ...request,
-      headers: { ...request.headers },
-      response: {
-        body: null,
-        statusCode: error.statusCode || 0,
-        error: {
-          ...response,
-          error,
-          body: response,
-        },
-      },
-    })
+    // throw error and free up the middleware chain
+    throw error
   }
 }

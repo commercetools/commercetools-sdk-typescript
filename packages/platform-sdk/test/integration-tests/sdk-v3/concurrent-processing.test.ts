@@ -31,8 +31,16 @@ describe('Concurrent processing in sdk v3', () => {
     const key2 = category2.body.key
 
     const [response1, response2] = await Promise.all([
-      apiRoot.categories().withKey({ key }).get().execute(),
-      apiRoot.categories().withKey({ key: key2 }).get().execute(),
+      apiRoot
+        .categories()
+        .withKey({ key: key as string })
+        .get()
+        .execute(),
+      apiRoot
+        .categories()
+        .withKey({ key: key2 as string })
+        .get()
+        .execute(),
     ])
 
     expect(response1.statusCode).toBe(200)

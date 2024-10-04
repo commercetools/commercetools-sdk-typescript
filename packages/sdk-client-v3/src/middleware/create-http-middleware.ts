@@ -15,19 +15,15 @@ import {
   TResponse,
 } from '../types/types'
 import {
-  byteLength,
   constants,
   createError,
   executor,
   getHeaders,
   isBuffer,
   maskAuthData,
-  responseCache,
+  byteLength,
   validateHttpOptions,
 } from '../utils'
-
-let result: ClientResult
-const cache = responseCache()
 
 async function executeRequest({
   url,
@@ -35,12 +31,6 @@ async function executeRequest({
   clientOptions,
 }: HttpOptions): Promise<ClientResult> {
   let timer: ReturnType<typeof setTimeout>
-
-  // don't make further api calls
-  if (clientOptions.request['continue']) {
-    delete clientOptions.request['continue']
-    return cache.get()
-  }
 
   const {
     timeout,
@@ -69,27 +59,22 @@ async function executeRequest({
       response.headers = null
     }
 
-    if (response.statusCode >= 200 && response.statusCode < 400) {
+    if (response.statusCode >= 200 && response.statusCode < 300) {
       if (clientOptions.method == 'HEAD') {
-        const _result = {
+        return {
           body: null,
           statusCode: response.statusCode,
           retryCount: response.retryCount,
           headers: getHeaders(response.headers),
         }
-
-        cache.set(_result)
-        return _result
       }
 
-      result = {
+      return {
         body: response.data,
         statusCode: response.statusCode,
         retryCount: response.retryCount,
         headers: getHeaders(response.headers),
       }
-
-      return result
     }
 
     const error: HttpErrorType = createError({
@@ -112,21 +97,19 @@ async function executeRequest({
      * handle non-ok (error) response
      * build error body
      */
-    result = {
+    return {
       body: response.data,
       code: response.statusCode,
       statusCode: response.statusCode,
       headers: getHeaders(response.headers),
       error,
     }
-
-    return result
   } catch (e) {
     // We know that this is a network error
     const headers = includeResponseHeaders
       ? getHeaders(e.response?.headers)
       : null
-    const statusCode = e.response?.status || e.response?.data || 0
+    const statusCode = e.response?.status || e.response?.data0 || 0
     const message = e.response?.data?.message
 
     const error: HttpErrorType = createError({
@@ -146,17 +129,11 @@ async function executeRequest({
         : { uri: request.uri }),
     })
 
-    result = {
+    throw {
       body: error,
       error,
     }
-
-    return result
   } finally {
-    /**
-     * finally cache the response
-     */
-    cache.set(result)
     clearTimeout(timer)
   }
 }
@@ -183,9 +160,7 @@ export default function createHttpMiddleware(
   } = options
 
   return (next: Next) => {
-    return async (
-      request: MiddlewareRequest
-    ): Promise<MiddlewareResponse | any> => {
+    return async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {
       let abortController: AbortController
 
       if (timeout || getAbortController)
@@ -256,10 +231,6 @@ export default function createHttpMiddleware(
 
       // get result from executed request
       const response = await executeRequest({ url, clientOptions, httpClient })
-
-      if (request['firstAttempt']) {
-        return response
-      }
 
       const responseWithRequest = {
         ...request,

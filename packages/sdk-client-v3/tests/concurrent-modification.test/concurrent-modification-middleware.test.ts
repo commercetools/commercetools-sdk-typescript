@@ -34,7 +34,7 @@ describe('Concurrent Modification Middleware.', () => {
      * which will then be checked for `409`, if false
      * then call `next()` again (2nd call) to move on
      */
-    expect(next).toHaveBeenCalledTimes(2)
+    expect(next).toHaveBeenCalledTimes(1)
     expect(next).toHaveBeenCalledWith(request)
 
     expect(res).toEqual(response)

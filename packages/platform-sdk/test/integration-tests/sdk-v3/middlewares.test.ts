@@ -37,9 +37,7 @@ describe('Concurrent Modification Middleware', () => {
     category = await createCategory()
     taxCategory = await ensureTaxCategory()
     productType = await ensureProductType(productTypeDraftForProduct)
-  })
 
-  beforeEach(async () => {
     // Published product
     const productDraft = await createProductDraft(
       category,
@@ -47,11 +45,12 @@ describe('Concurrent Modification Middleware', () => {
       productType,
       true
     )
+
     const productCreateResponse = await createProduct(productDraft)
     product = productCreateResponse.body
   })
 
-  afterEach(async () => {
+  afterAll(async () => {
     await fetchAndDeleteProduct(product.id)
   })
 
@@ -86,14 +85,64 @@ describe('Concurrent Modification Middleware', () => {
     expect(productUpdateResponse.statusCode).toBe(200)
   })
 
+  it('should trigger and fix a concurrent error', async () => {
+    async function fn(version: number, request: MiddlewareRequest, response) {
+      expect(response.statusCode).toEqual(409)
+      expect(response.error.name).toEqual('ConcurrentModification')
+
+      // update version
+      request.body = {
+        ...(request.body as object),
+        version,
+      }
+
+      return JSON.stringify(request.body)
+    }
+
+    const ctpClientV3 = new ClientBuilderV3()
+      .withHttpMiddleware(httpMiddlewareOptionsV3)
+      .withConcurrentModificationMiddleware({
+        concurrentModificationHandlerFn: fn,
+      })
+      .withClientCredentialsFlow(authMiddlewareOptionsV3)
+      .build()
+
+    const apiRootV3 = createApiBuilderFromCtpClient(ctpClientV3).withProjectKey(
+      {
+        projectKey,
+      }
+    )
+
+    const productUpdateResponse = await apiRootV3
+      .products()
+      .withId({ ID: product.id })
+      .post({
+        body: {
+          version: product.version - 2,
+          actions: [
+            {
+              action: 'changeName',
+              name: { en: 'test-name' + new Date().getTime() },
+            },
+          ],
+        },
+      })
+      .execute()
+
+    expect(productUpdateResponse.statusCode).toBe(200)
+  })
+
   it(`should retry the request with the custom logic provided`, async () => {
-    const handleConcurrentModification = async (version, request, response) => {
-      if (request.uri.includes('/products/')) {
+    const concurrentModificationHandlerFn = async (
+      version: number,
+      request: MiddlewareRequest,
+      response
+    ) => {
+      if ((request.uri as string).includes('/products/')) {
         ;(request.body as { [key: string]: any }).version = version
 
         expect(request).toEqual(
           expect.objectContaining({
-            firsAttempt: true,
             method: 'POST',
             uriTemplate: '/{projectKey}/products/{ID}',
             baseUri: 'https://api.europe-west1.gcp.commercetools.com',
@@ -101,8 +150,6 @@ describe('Concurrent Modification Middleware', () => {
         )
 
         expect(response.statusCode).toEqual(409)
-        expect(request['firsAttempt']).toEqual(true)
-
         return JSON.stringify(request.body)
       } else {
         throw new Error()
@@ -111,9 +158,7 @@ describe('Concurrent Modification Middleware', () => {
 
     const ctpClientV3 = new ClientBuilderV3()
       .withHttpMiddleware(httpMiddlewareOptionsV3)
-      .withConcurrentModificationMiddleware({
-        concurrentModificationHandlerFn: handleConcurrentModification,
-      })
+      .withConcurrentModificationMiddleware({ concurrentModificationHandlerFn })
       .withClientCredentialsFlow(authMiddlewareOptions)
       .build()
 
@@ -210,7 +255,7 @@ describe('Correlation ID and user agent middlewares', () => {
 
     const response = await apiRootV3.get().execute()
     expect(response.headers?.['x-correlation-id'][0]).toEqual(correlationId)
-    expect(response?.originalRequest.headers['User-Agent']).toContain(
+    expect((response?.originalRequest as any).headers['User-Agent']).toContain(
       'test-app/commercetools-sdk-javascript-v3'
     )
   })

@@ -5,6 +5,7 @@ import {
   MiddlewareResponse,
   Next,
   RefreshAuthMiddlewareOptions,
+  TokenCache,
 } from '../../types/types'
 import { buildTokenCacheKey, mergeAuthHeader, store } from '../../utils'
 import { buildRequestForRefreshTokenFlow } from './auth-request-builder'
@@ -21,7 +22,7 @@ export default function createAuthMiddlewareForRefreshTokenFlow(
     })
 
   let tokenCacheObject: TokenStore
-  let tokenFetchPromise: Promise<void> | null = null
+  let tokenFetchPromise: Promise<TokenCache> | null = null
   const tokenCacheKey = buildTokenCacheKey(options)
 
   return (next: Next) => {
@@ -67,14 +68,7 @@ export default function createAuthMiddlewareForRefreshTokenFlow(
 
       // Now the token is present in the tokenCache
       tokenCacheObject = tokenCache.get(tokenCacheKey)
-
-      if (
-        tokenCacheObject &&
-        tokenCacheObject.token &&
-        Date.now() < tokenCacheObject.expirationTime
-      ) {
-        return next(mergeAuthHeader(tokenCacheObject.token, request))
-      }
+      return next(mergeAuthHeader(tokenCacheObject.token, request))
     }
   }
 }

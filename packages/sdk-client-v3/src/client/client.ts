@@ -134,6 +134,8 @@ export default function createClient(middlewares: ClientOptions): Client {
   _options = middlewares
   validateClient(middlewares)
 
+  let _maskSensitiveHeaderData = false
+
   const resolver = {
     async resolve(rs: ClientRequest): Promise<ClientResult> {
       const {
@@ -143,6 +145,7 @@ export default function createClient(middlewares: ClientOptions): Client {
         ...request
       } = rs
       const { retryCount, ...rest } = response
+      _maskSensitiveHeaderData = maskSensitiveHeaderData
 
       const res = {
         body: null,
@@ -150,21 +153,10 @@ export default function createClient(middlewares: ClientOptions): Client {
         reject: rs.reject,
         resolve: rs.resolve,
         ...rest,
+        ...(includeOriginalRequest ? { originalRequest: request } : {}),
         ...(response?.retryCount ? { retryCount: response.retryCount } : {}),
-        ...(includeOriginalRequest
-          ? {
-              originalRequest: maskSensitiveHeaderData
-                ? maskAuthData(request)
-                : request,
-            }
-          : {}),
       } as MiddlewareResponse
 
-      if (res.error) {
-        rs.reject(res.error)
-      }
-
-      rs.resolve(res)
       return res
     },
   }
@@ -175,11 +167,18 @@ export default function createClient(middlewares: ClientOptions): Client {
     execute(request: ClientRequest): Promise<ClientResult> {
       validate('exec', request)
       return new Promise(async (resolve, reject) => {
-        return dispatch({
-          reject,
-          resolve,
-          ...request,
-        })
+        try {
+          const response = await dispatch({ reject, resolve, ...request })
+          if (response.error) return reject(response.error)
+
+          if (response.originalRequest && _maskSensitiveHeaderData) {
+            response.originalRequest = maskAuthData(response.originalRequest)
+          }
+
+          resolve(response)
+        } catch (err) {
+          reject(err)
+        }
       })
     },
   }

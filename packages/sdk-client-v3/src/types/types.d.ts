@@ -148,8 +148,6 @@ type requestBaseOptions = {
   basicAuth: string
   request: MiddlewareRequest
   tokenCache: TokenCache,
-  // requestState: unknown,
-  // pendingTasks: Array<Task>,
   tokenCacheKey?: TokenCacheOptions,
   tokenCacheObject?: TokenStore
 }

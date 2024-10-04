@@ -163,7 +163,12 @@ describe('Auth request executor', () => {
        * return the rejected promise error
        * response to the calling auth flow
        */
-      expect(await executeRequest(options)).toEqual(undefined)
+      try {
+        await executeRequest(options)
+      } catch (err) {
+        expect(err).toBeDefined()
+        expect(err.message).toEqual('error fetching token')
+      }
     })
 
     test('should throw on network error', async () => {
@@ -199,7 +204,12 @@ describe('Auth request executor', () => {
        * return the rejected promise error
        * response to the calling auth flow
        */
-      expect(await executeRequest(options)).toEqual(undefined)
+      try {
+        await executeRequest(options)
+      } catch (err) {
+        expect(err).toBeDefined()
+        expect(err.message).toEqual('an error occurred.')
+      }
     })
   })
 })
