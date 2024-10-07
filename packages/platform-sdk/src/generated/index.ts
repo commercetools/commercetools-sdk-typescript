@@ -314,6 +314,7 @@ export * from './models/store-country'
 export * from './models/subscription'
 export * from './models/tax-category'
 export * from './models/type'
+export * from './models/warning'
 export * from './models/zone'
 //Common package
 export * from './shared/utils/common-types'

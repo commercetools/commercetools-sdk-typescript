@@ -31,6 +31,7 @@ import {
   TaxCategoryResourceIdentifier,
 } from './tax-category'
 import { FieldContainer, TypeResourceIdentifier } from './type'
+import { WarningObject } from './warning'
 
 export interface Attribute {
   /**
@@ -225,6 +226,13 @@ export interface Product extends BaseResource {
    *
    */
   readonly priceMode?: ProductPriceModeEnum
+  /**
+   *	Warnings about processing of a request.
+   *	Appears in response to requests with response status code `202 Accepted`.
+   *
+   *
+   */
+  readonly warnings?: WarningObject[]
 }
 /**
  *	Contains the `current` and `staged` [ProductData](ctp:api:type:ProductData).

@@ -118,6 +118,7 @@ export type ErrorObject =
   | SearchExecutionFailureError
   | SearchFacetPathNotFoundError
   | SearchIndexingInProgressError
+  | SearchNotReadyError
   | SemanticErrorError
   | ShippingMethodDoesNotMatchCartError
   | StoreCartDiscountsLimitReachedError
@@ -1941,6 +1942,20 @@ export interface SearchIndexingInProgressError {
   readonly message: string
 }
 /**
+ *	Returned if the requested search service is not ready. The search might be deactivated or indexing is in progress.
+ *
+ */
+export interface SearchNotReadyError {
+  readonly code: 'SearchNotReady'
+  [key: string]: any
+  /**
+   *	`$Search is not ready. Check the indexing-status endpoint and that the feature has been activated in the project settings.`
+   *
+   *
+   */
+  readonly message: string
+}
+/**
  *	Returned when a [Discount predicate](/../api/predicates/predicate-operators) or [API Extension predicate](/../api/predicates/query#using-predicates-in-conditional-api-extensions) is not semantically correct.
  *
  */
@@ -2111,6 +2126,7 @@ export type GraphQLErrorObject =
   | GraphQLSearchExecutionFailureError
   | GraphQLSearchFacetPathNotFoundError
   | GraphQLSearchIndexingInProgressError
+  | GraphQLSearchNotReadyError
   | GraphQLSemanticErrorError
   | GraphQLShippingMethodDoesNotMatchCartError
   | GraphQLStoreCartDiscountsLimitReachedError
@@ -3422,6 +3438,14 @@ export interface GraphQLSearchFacetPathNotFoundError {
  */
 export interface GraphQLSearchIndexingInProgressError {
   readonly code: 'SearchIndexingInProgress'
+  [key: string]: any
+}
+/**
+ *	Returned if the requested search service is not ready. The search might be deactivated or indexing is in progress.
+ *
+ */
+export interface GraphQLSearchNotReadyError {
+  readonly code: 'SearchNotReady'
   [key: string]: any
 }
 /**

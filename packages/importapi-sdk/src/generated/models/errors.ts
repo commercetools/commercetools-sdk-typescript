@@ -57,6 +57,7 @@ export type ErrorObject =
   | InsufficientScopeError
   | InvalidCredentialsError
   | InvalidFieldError
+  | InvalidFieldsUpdateError
   | InvalidInput
   | InvalidJsonInput
   | InvalidOperation
@@ -233,6 +234,24 @@ export interface InvalidFieldError {
    *
    */
   readonly resourceIndex?: number
+}
+/**
+ *	Returned when a field cannot be updated.
+ *
+ */
+export interface InvalidFieldsUpdateError {
+  readonly code: 'InvalidFieldUpdate'
+  /**
+   *	`"The following fields are currently not supported for changes/updates"`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	Fields that cannot be updated.
+   *
+   */
+  readonly fields: string[]
 }
 /**
  *	An invalid JSON input has been sent to the service.

@@ -40,17 +40,23 @@ export interface StandalonePriceImport extends ImportResource {
   /**
    *	Sets the country for which this Price is valid.
    *
+   *	The value cannot be updated. Attempting to update the value will result in an [InvalidFieldsUpdate](/error#invalidfieldsupdateerror) error.
+   *
    *
    */
   readonly country?: string
   /**
    *	Sets the CustomerGroup for which this Price is valid.
    *
+   *	The value cannot be updated. Attempting to update the value will result in an [InvalidFieldsUpdate](/error#invalidfieldsupdateerror) error.
+   *
    *
    */
   readonly customerGroup?: CustomerGroupKeyReference
   /**
-   *	Sets the product distribution Channel for which this Price is valid
+   *	Sets the product distribution Channel for which this Price is valid.
+   *
+   *	The value cannot be updated. Attempting to update the value will result in an [InvalidFieldsUpdate](/error#invalidfieldsupdateerror) error.
    *
    *
    */

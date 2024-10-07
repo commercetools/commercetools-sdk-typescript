@@ -20,7 +20,16 @@ export class ByProjectKeyProductsByIDImagesRequestBuilder {
     }
   ) {}
   /**
-   *	Upload a JPEG, PNG and GIF file to a [ProductVariant](ctp:api:type:ProductVariant). The maximum file size of the image is 10MB. `variant` or `sku` is required to update a specific ProductVariant. The image is uploaded to the Master Variant if `variant` or `sku` are not included. Produces the [ProductImageAdded](/projects/messages/product-catalog-messages#product-image-added) Message when the `Small` version of the image has been uploaded to the CDN.
+   *	Uploads a JPEG, PNG, or a GIF image file to a [ProductVariant](ctp:api:type:ProductVariant).
+   *	The maximum file size of the image is **10MB**.
+   *	Either `variant` or `sku` is required to update a specific ProductVariant.
+   *	If neither is provided, the image is uploaded to the Master Variant of the Product.
+   *
+   *	The response status code depends on the size of the original image.
+   *	If the image is small, the API responds with `200 OK`, and if the image is larger, it responds with `202 Accepted`.
+   *	The Product returned with a `202 Accepted` status code contains a `warnings` field with an [ImageProcessingOngoing](ctp:api:type:ImageProcessingOngoingWarning) Warning.
+   *
+   *	Produces the [ProductImageAdded](/projects/messages/product-catalog-messages#product-image-added) Message.
    *
    */
   public post(methodArgs: {
@@ -31,9 +40,9 @@ export class ByProjectKeyProductsByIDImagesRequestBuilder {
       staged?: boolean
       [key: string]: QueryParam
     }
-    body: Buffer
-    headers: {
-      'Content-Type': 'image/jpeg' | 'image/png' | 'image/gif'
+    body: Buffer | Buffer | Buffer
+    headers?: {
+      'Content-Type': string | string[]
       [key: string]: string | string[]
     }
   }): ApiRequest<Product> {

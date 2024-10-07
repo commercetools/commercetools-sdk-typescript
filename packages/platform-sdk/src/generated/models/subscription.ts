@@ -358,7 +358,7 @@ export interface MessageDeliveryPayload {
   readonly payloadNotIncluded?: PayloadNotIncluded
 }
 /**
- *	For supported resources and message types, see [Message Types](/../api/projects/messages#message-types). Messages will be delivered even if the Messages Query HTTP API [is not enabled](/../api/projects/messages#enable-querying-messages-via-the-api).
+ *	Messages will be delivered even if the Messages Query HTTP API [is not enabled](/../api/projects/messages#enable-querying-messages-via-the-api).
  *
  *	For MessageSubscriptions, the format of the payload is [MessageDeliveryPayload](ctp:api:type:MessageDeliveryPayload).
  *
@@ -397,6 +397,7 @@ export type MessageSubscriptionResourceTypeId =
   | 'payment'
   | 'product'
   | 'product-selection'
+  | 'product-tailoring'
   | 'quote'
   | 'quote-request'
   | 'review'

@@ -293,6 +293,7 @@ export type ResourceTypeId =
   | 'payment-interface-interaction'
   | 'product-price'
   | 'product-selection'
+  | 'product-tailoring'
   | 'quote'
   | 'review'
   | 'shipping'
