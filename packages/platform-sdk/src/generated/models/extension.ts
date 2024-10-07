@@ -200,6 +200,7 @@ export type ExtensionResourceTypeId =
   | 'business-unit'
   | 'cart'
   | 'customer'
+  | 'customer-group'
   | 'order'
   | 'payment'
   | 'quote'

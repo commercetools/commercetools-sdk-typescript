@@ -89,10 +89,6 @@ export type ProductSearchIndexingMode =
   | 'ProductProjectionsSearch'
   | 'ProductsSearch'
   | string
-/**
- *	Specifies the status of the [Product Search](/../api/projects/product-search) index.
- */
-export type ProductSearchStatus = 'Activated' | 'Deactivated' | string
 export interface Project {
   /**
    *	Current version of the Project.
@@ -236,6 +232,11 @@ export interface SearchIndexingConfiguration {
    *
    */
   readonly orders?: SearchIndexingConfigurationValues
+  /**
+   *	Configuration for the [Customer Search](/../api/projects/customer-search) feature.
+   *
+   */
+  readonly customers?: SearchIndexingConfigurationValues
 }
 /**
  *	Status of resource indexing.

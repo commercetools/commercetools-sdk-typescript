@@ -18,6 +18,10 @@ export class ByProjectKeyCustomersSearchIndexingStatusRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Returns the indexing status of the Customer Search for a Project.
+   *
+   */
   public get(methodArgs?: {
     headers?: {
       [key: string]: string | string[]

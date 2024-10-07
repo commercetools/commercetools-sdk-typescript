@@ -17,6 +17,7 @@ import {
 import { ProductReference, ProductResourceIdentifier } from './product'
 import { StoreKeyReference, StoreResourceIdentifier } from './store'
 import { FieldContainer, TypeResourceIdentifier } from './type'
+import { WarningObject } from './warning'
 
 /**
  *	A single ProductTailoring representation contains the _current_ and the _staged_ representation of its product data tailored per Store.
@@ -100,6 +101,41 @@ export interface ProductTailoring extends BaseResource {
    *
    */
   readonly hasStagedChanges: boolean
+  /**
+   *	Warnings about processing of a request.
+   *	Appears in response to requests with response status code `202 Accepted`.
+   *
+   *
+   */
+  readonly warnings?: WarningObject[]
+}
+/**
+ *	The same rules for `name` and `value` apply as for [Attribute](ctp:api:type:Attribute) in Product Variants.
+ *
+ */
+export interface ProductTailoringAttribute {
+  /**
+   *	Name of the Attribute.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The [AttributeType](ctp:api:type:AttributeType) determines the format of the Attribute `value` to be provided:
+   *
+   *	- For [Enum Type](ctp:api:type:AttributeEnumType) and [Localized Enum Type](ctp:api:type:AttributeLocalizedEnumType),
+   *	  use the `key` of the [Plain Enum Value](ctp:api:type:AttributePlainEnumValue) or [Localized Enum Value](ctp:api:type:AttributeLocalizedEnumValue) objects,
+   *	  or the complete objects as `value`.
+   *	- For [Localizable Text Type](ctp:api:type:AttributeLocalizableTextType), use the [LocalizedString](ctp:api:type:LocalizedString) object as `value`.
+   *	- For [Money Type](ctp:api:type:AttributeMoneyType) Attributes, use the [Money](ctp:api:type:Money) object as `value`.
+   *	- For [Set Type](ctp:api:type:AttributeSetType) Attributes, use the entire `set` object  as `value`.
+   *	- For [Reference Type](ctp:api:type:AttributeReferenceType) Attributes, use the [Reference](ctp:api:type:Reference) object as `value`.
+   *
+   *	Tailoring of [Nested Type](ctp:api:type:AttributeNestedType) Attributes is not supported.
+   *
+   *
+   */
+  readonly value: any
 }
 /**
  *	Contains all the tailored data of a Product.
@@ -385,6 +421,8 @@ export type ProductTailoringUpdateAction =
   | ProductTailoringSetAssetKeyAction
   | ProductTailoringSetAssetSourcesAction
   | ProductTailoringSetAssetTagsAction
+  | ProductTailoringSetAttributeAction
+  | ProductTailoringSetAttributeInAllVariantsAction
   | ProductTailoringSetDescriptionAction
   | ProductTailoringSetExternalImagesAction
   | ProductTailoringSetImageLabelAction
@@ -420,6 +458,16 @@ export interface ProductVariantTailoring {
    *
    */
   readonly assets?: Asset[]
+  /**
+   *	Attributes of the tailored Product Variant.
+   *	If present, these Attributes are selectively merged into the `attributes` of the corresponding [ProductVariant](ctp:api:type:ProductVariant):
+   *
+   *	- If the ProductVariant contains an Attribute with the same `name`, its `value` is overwritten,
+   *	- otherwise the Attribute and its value are added to the ProductVariant.
+   *
+   *
+   */
+  readonly attributes?: ProductTailoringAttribute[]
 }
 /**
  *	Either `id` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
@@ -450,6 +498,16 @@ export interface ProductVariantTailoringDraft {
    *
    */
   readonly assets?: Asset[]
+  /**
+   *	Attributes of the tailored Product Variant according to the respective [AttributeDefinition](ctp:api:type:AttributeDefinition).
+   *	If provided, these Attributes are selectively merged into the `attributes` of the corresponding [ProductVariant](ctp:api:type:ProductVariant):
+   *
+   *	- If the ProductVariant contains an Attribute with the same `name`, its `value` is overwritten,
+   *	- otherwise the Attribute and its value are added to the ProductVariant.
+   *
+   *
+   */
+  readonly attributes?: ProductTailoringAttribute[]
 }
 /**
  *	Either `variantId` or `sku` is required to reference a [ProductVariant](ctp:api:type:ProductVariant) that exists.
@@ -551,6 +609,12 @@ export interface ProductTailoringAddVariantAction {
    */
   readonly assets?: AssetDraft[]
   /**
+   *	Attributes for the Product Variant Tailoring.
+   *
+   *
+   */
+  readonly attributes?: ProductTailoringAttribute[]
+  /**
    *	If `true` the new Product Variant Tailoring is only staged. If `false` the new Product Variant Tailoring is both current and staged.
    *
    *
@@ -626,7 +690,7 @@ export interface ProductTailoringChangeAssetOrderAction {
    */
   readonly staged?: boolean
   /**
-   *	All existing Asset `id`s of the ProductTailoringVariant in the desired new order.
+   *	All existing Asset `id`s of the ProductVariantTailoring in the desired new order.
    *
    *
    */
@@ -1043,6 +1107,94 @@ export interface ProductTailoringSetAssetTagsAction {
    *
    */
   readonly tags?: string[]
+}
+/**
+ *	Either `variantId` or `sku` is required.
+ *
+ */
+export interface ProductTailoringSetAttributeAction {
+  readonly action: 'setAttribute'
+  /**
+   *	The `id` of the ProductVariant to update.
+   *	Required if `sku` is absent.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	The `sku` of the ProductVariant to update.
+   *	Required if `variantId` is absent.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	The name of the Attribute to set.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	Value to set for the Attribute. If empty, any existing value will be removed.
+   *
+   *	The [AttributeType](ctp:api:type:AttributeType) determines the format of the Attribute `value` to be provided:
+   *
+   *	- For [Enum Type](ctp:api:type:AttributeEnumType) and [Localized Enum Type](ctp:api:type:AttributeLocalizedEnumType),
+   *	  use the `key` of the [Plain Enum Value](ctp:api:type:AttributePlainEnumValue) or [Localized Enum Value](ctp:api:type:AttributeLocalizedEnumValue) objects,
+   *	  or the complete objects as `value`.
+   *	- For [Localizable Text Type](ctp:api:type:AttributeLocalizableTextType), use the [LocalizedString](ctp:api:type:LocalizedString) object as `value`.
+   *	- For [Money Type](ctp:api:type:AttributeMoneyType) Attributes, use the [Money](ctp:api:type:Money) object as `value`.
+   *	- For [Set Type](ctp:api:type:AttributeSetType) Attributes, use the entire `set` object  as `value`.
+   *	- For [Reference Type](ctp:api:type:AttributeReferenceType) Attributes, use the [Reference](ctp:api:type:Reference) object as `value`.
+   *
+   *	Tailoring of [Nested Type](ctp:api:type:AttributeNestedType) Attributes is **not supported**.
+   *
+   *
+   */
+  readonly value?: any
+  /**
+   *	If `true`, only the staged Attribute is set. If `false`, both current and staged Attribute is set.
+   *
+   *
+   */
+  readonly staged?: boolean
+}
+/**
+ *	Adds, removes, or changes a tailored Attribute in all Product Variants of a Product at the same time.
+ *	This action is useful for setting tailored values for Attributes with the [Constraint](ctp:api:type:AttributeConstraintEnum) `SameForAll`.
+ */
+export interface ProductTailoringSetAttributeInAllVariantsAction {
+  readonly action: 'setAttributeInAllVariants'
+  /**
+   *	The name of the Attribute to set.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	Value to set for the Attributes. If empty, any existing value will be removed.
+   *
+   *	The [AttributeType](ctp:api:type:AttributeType) determines the format of the Attribute `value` to be provided:
+   *
+   *	- For [Enum Type](ctp:api:type:AttributeEnumType) and [Localized Enum Type](ctp:api:type:AttributeLocalizedEnumType),
+   *	  use the `key` of the [Plain Enum Value](ctp:api:type:AttributePlainEnumValue) or [Localized Enum Value](ctp:api:type:AttributeLocalizedEnumValue) objects,
+   *	  or the complete objects as `value`.
+   *	- For [Localizable Text Type](ctp:api:type:AttributeLocalizableTextType), use the [LocalizedString](ctp:api:type:LocalizedString) object as `value`.
+   *	- For [Money Type](ctp:api:type:AttributeMoneyType) Attributes, use the [Money](ctp:api:type:Money) object as `value`.
+   *	- For [Set Type](ctp:api:type:AttributeSetType) Attributes, use the entire `set` object  as `value`.
+   *	- For [Reference Type](ctp:api:type:AttributeReferenceType) Attributes, use the [Reference](ctp:api:type:Reference) object as `value`.
+   *
+   *	Tailoring of [Nested Type](ctp:api:type:AttributeNestedType) Attributes is **not supported**.
+   *
+   *
+   */
+  readonly value?: any
+  /**
+   *	If `true`, only the staged Attributes are set. If `false`, both the current and staged Attributes are set.
+   *
+   *
+   */
+  readonly staged?: boolean
 }
 /**
  *	Generates the [ProductTailoringDescriptionSet](ctp:api:type:ProductTailoringDescriptionSetMessage) Message.

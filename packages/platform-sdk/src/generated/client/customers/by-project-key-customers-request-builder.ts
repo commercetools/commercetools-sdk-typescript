@@ -142,10 +142,6 @@ export class ByProjectKeyCustomersRequestBuilder {
       baseUri: this.args.baseUri,
     })
   }
-  /**
-   *	This endpoint provides information on the status of a Customer search for a project
-   *
-   */
   public searchIndexingStatus(): ByProjectKeyCustomersSearchIndexingStatusRequestBuilder {
     return new ByProjectKeyCustomersSearchIndexingStatusRequestBuilder({
       pathArgs: {
