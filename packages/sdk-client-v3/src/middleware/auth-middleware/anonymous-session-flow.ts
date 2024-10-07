@@ -71,7 +71,7 @@ export default function createAuthMiddlewareForAnonymousSessionFlow(
         tokenFetchPromise = null
       }
 
-      // Now the token is present in the tokenCache
+      // Now the token is present in the tokenCache and can be accessed
       tokenCacheObject = tokenCache.get(tokenCacheKey)
       return next(mergeAuthHeader(tokenCacheObject.token, request))
     }
