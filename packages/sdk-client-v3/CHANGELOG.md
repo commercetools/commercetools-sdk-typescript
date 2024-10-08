@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 2.1.0
+
+### Minor Changes
+
+- [#814](https://github.com/commercetools/commercetools-sdk-typescript/pull/814) [`57a16d7`](https://github.com/commercetools/commercetools-sdk-typescript/commit/57a16d75ded60923bf080ef2270c3396fe8bc0e5) Thanks [@ajimae](https://github.com/ajimae)! - Restructure middleware logic
+
 ## 2.0.5
 
 ### Patch Changes
