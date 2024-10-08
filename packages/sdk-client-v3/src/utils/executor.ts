@@ -73,15 +73,19 @@ export default async function executor(request: HttpClientConfig) {
       }
 
       async function executeWithRetry<T = any>(): Promise<T> {
-        const executeWithTryCatch = async (retryCodes, retryWhenAborted) => {
+        const executeWithTryCatch = async (
+          retryCodes: (string | number)[],
+          retryWhenAborted: boolean
+        ) => {
           let _response = {} as any
           try {
             _response = await execute()
             if (
-              _response.status > 299 &&
+              _response.status > 399 &&
               hasResponseRetryCode(retryCodes, _response)
-            )
+            ) {
               return { _response, shouldRetry: true }
+            }
           } catch (e) {
             if (e.name.includes('AbortError') && retryWhenAborted) {
               return { _response: e, shouldRetry: true }
@@ -128,7 +132,9 @@ export default async function executor(request: HttpClientConfig) {
       try {
         // try to parse the `fetch` response as text
         if (response.text && typeof response.text == 'function') {
-          result = await response.text()
+          result =
+            (await response.text()) ||
+            response[Object.getOwnPropertySymbols(response)[1]]
           data = JSON.parse(result)
         } else {
           // axios response

@@ -1,56 +1,28 @@
-import { Buffer } from 'buffer/'
 import {
-  ClientRequest,
   executeRequestOptions,
   IBuiltRequestParams,
-  Task,
+  TokenCache,
   TokenInfo,
 } from '../../types/types'
-import { calculateExpirationTime, executor, mergeAuthHeader } from '../../utils'
+import {
+  calculateExpirationTime,
+  createError,
+  executor,
+  byteLength,
+} from '../../utils'
 import { buildRequestForRefreshTokenFlow } from './auth-request-builder'
 
-export async function executeRequest(
-  options: executeRequestOptions
-): Promise<ClientRequest> {
-  const { request, httpClient, tokenCache, tokenCacheKey, userOption, next } =
-    options
+export async function executeRequest(options: executeRequestOptions) {
+  const { httpClient, tokenCache, userOption, tokenCacheObject } = options
 
   let url = options.url
   let body = options.body
   let basicAuth = options.basicAuth
 
-  // get the pending object from option
-  let pendingTasks: Array<Task> = options.pendingTasks
-
   if (!httpClient || typeof httpClient !== 'function')
     throw new Error(
       'an `httpClient` is not available, please pass in a `fetch` or `axios` instance as an option or have them globally available.'
     )
-
-  /**
-   * If there is a token in the tokenCache, and it's not
-   * expired, append the token in the `Authorization` header.
-   */
-  const tokenCacheObject = tokenCache.get(tokenCacheKey)
-  if (
-    tokenCacheObject &&
-    tokenCacheObject.token &&
-    Date.now() < tokenCacheObject.expirationTime
-  ) {
-    const requestWithAuth = mergeAuthHeader(tokenCacheObject.token, request)
-
-    return {
-      ...requestWithAuth,
-    }
-  }
-
-  /**
-   * Keep pending tasks until a token is fetched
-   * Save next function as well, to call it once the token has been fetched, which prevents
-   * unexpected behaviour in a context in which the next function uses global vars
-   * or Promises to capture the token to hand it to other libraries, e.g. Apollo
-   */
-  pendingTasks.push({ request, next })
 
   /**
    * use refreshToken flow if there is refresh-token
@@ -88,7 +60,7 @@ export async function executeRequest(
       headers: {
         Authorization: `Basic ${basicAuth}`,
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Content-Length': Buffer.byteLength(body).toString(),
+        'Content-Length': byteLength(body),
       },
       httpClient,
       body,
@@ -106,62 +78,18 @@ export async function executeRequest(
 
       // cache new generated token, refreshToken and expiration time
       tokenCache.set({ token, expirationTime, refreshToken })
-
-      /**
-       * Freeze and copy pending queue, reset
-       * original one for accepting new pending tasks
-       */
-      const requestQueue = pendingTasks.slice()
-
-      // reset pendingTask queue
-      pendingTasks = []
-
-      if (requestQueue.length === 1) {
-        return mergeAuthHeader(token, requestQueue.pop().request)
-      }
-
-      // execute all pending tasks if any
-      for (let i = 0; i < requestQueue.length; i++) {
-        const task: Task = requestQueue[i]
-        const requestWithAuth = mergeAuthHeader(token, task.request)
-
-        // execute task
-        task.next(requestWithAuth)
-      }
-
-      return
+      return Promise.resolve(true)
     }
 
-    const error = new Error(
-      response.data.message
-        ? response.data.message
-        : JSON.stringify(response.data)
-    )
-    /**
-     * reject the error immediately
-     * and free up the middleware chain
-     */
-    request.reject({
-      ...request,
-      headers: { ...request.headers },
-      response: {
-        statusCode: response.statusCode || response.data.statusCode,
-        error: { error, body: response },
-      },
+    // bubble up the error for the catch block
+    throw createError({
+      code: response.data.error,
+      statusCode: response.data.statusCode,
+      message: response.data.message,
+      error: response.data.errors,
     })
   } catch (error) {
-    return {
-      ...request,
-      headers: { ...request.headers },
-      response: {
-        body: null,
-        statusCode: error.statusCode || 0,
-        error: {
-          ...response,
-          error,
-          body: response,
-        },
-      },
-    }
+    // throw error and free up the middleware chain
+    throw error
   }
 }

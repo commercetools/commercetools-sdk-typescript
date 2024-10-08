@@ -1,5 +1,4 @@
 import AbortController from 'abort-controller'
-import { Buffer } from 'buffer/'
 import {
   ClientResult,
   HttpClientConfig,
@@ -22,6 +21,7 @@ import {
   getHeaders,
   isBuffer,
   maskAuthData,
+  byteLength,
   validateHttpOptions,
 } from '../utils'
 
@@ -129,7 +129,7 @@ async function executeRequest({
         : { uri: request.uri }),
     })
 
-    return {
+    throw {
       body: error,
       error,
     }
@@ -187,7 +187,7 @@ export default function createHttpMiddleware(
       }
 
       // Ensure body is a string if content type is application/{json|graphql}
-      const body: Record<string, any> | string | Buffer =
+      const body: Record<string, any> | string | Uint8Array =
         (constants.HEADERS_CONTENT_TYPES.indexOf(
           requestHeader['Content-Type'] as string
         ) > -1 &&
@@ -197,9 +197,7 @@ export default function createHttpMiddleware(
           : JSON.stringify(request.body || undefined)
 
       if (body && (typeof body === 'string' || isBuffer(body))) {
-        requestHeader['Content-Length'] = Buffer.byteLength(
-          body as string
-        ).toString()
+        requestHeader['Content-Length'] = byteLength(body)
       }
 
       const clientOptions: HttpClientOptions = {

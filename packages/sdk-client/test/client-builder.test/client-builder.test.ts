@@ -199,7 +199,7 @@ describe('client builder', () => {
       client.withBeforeExecutionMiddleware(options)
 
     expect(options.middleware).toHaveBeenCalled()
-    expect(options.middleware).toBeCalledTimes(1)
+    expect(options.middleware).toHaveBeenCalledTimes(1)
     expect(
       clientWithBeforeMiddleware.withBeforeExecutionMiddleware
     ).toBeTruthy()
