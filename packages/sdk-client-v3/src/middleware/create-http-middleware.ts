@@ -15,13 +15,13 @@ import {
   TResponse,
 } from '../types/types'
 import {
+  byteLength,
   constants,
   createError,
   executor,
   getHeaders,
   isBuffer,
   maskAuthData,
-  byteLength,
   validateHttpOptions,
 } from '../utils'
 

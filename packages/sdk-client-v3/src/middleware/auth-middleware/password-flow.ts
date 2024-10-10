@@ -1,12 +1,11 @@
 import fetch from 'node-fetch'
 import {
-  Next,
   Middleware,
-  TokenStore,
   MiddlewareRequest,
   MiddlewareResponse,
+  Next,
   PasswordAuthMiddlewareOptions,
-  TokenCache,
+  TokenStore,
 } from '../../types/types'
 import { buildTokenCacheKey, mergeAuthHeader, store } from '../../utils'
 import { buildRequestForPasswordFlow } from './auth-request-builder'
