@@ -1,11 +1,10 @@
 import {
-  TokenStore,
   Middleware,
   MiddlewareRequest,
   MiddlewareResponse,
   Next,
   RefreshAuthMiddlewareOptions,
-  TokenCache,
+  TokenStore,
 } from '../../types/types'
 import { buildTokenCacheKey, mergeAuthHeader, store } from '../../utils'
 import { buildRequestForRefreshTokenFlow } from './auth-request-builder'

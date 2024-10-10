@@ -1,5 +1,4 @@
 import {
-  ClientResult,
   Middleware,
   MiddlewareRequest,
   Next,
