@@ -13,6 +13,7 @@
     "changeset": "changeset",
     "test:unit": "yarn test --testPathIgnorePatterns='packages/platform-sdk/test/integration-tests'",
     "test:integration": "jest --testPathPattern='packages/platform-sdk/test/integration-tests'",
+    "clean:integrationTest": "yarn ts-node packages/platform-sdk/test/integration-tests/CleanEverythingIntegrationTest.ts",
     "postbuild": "node esbuild.cjs",
     "changeset:version-and-format": "changeset version && prettier --write --parser json '**/package.json'",
     "docs": "rm -rf docs;typedoc"
