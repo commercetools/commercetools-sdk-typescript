@@ -20,6 +20,7 @@
 <details>
 <summary>Added Method(s)</summary>
 
+- added method `apiRoot.withProjectKey().productTailoring().head()`
 - added method `apiRoot.withProjectKey().customers().search().post()`
 - added method `apiRoot.withProjectKey().customers().search().head()`
 - added method `apiRoot.withProjectKey().customers().searchIndexingStatus().get()`
