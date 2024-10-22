@@ -265,6 +265,12 @@ export interface EventBridgeDestination {
    *
    */
   readonly accountId: string
+  /**
+   *	URN for the EventBridge destination.
+   *
+   *
+   */
+  readonly source: string
 }
 /**
  *	Destination for [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/) that can be used

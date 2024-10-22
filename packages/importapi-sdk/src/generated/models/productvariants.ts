@@ -491,7 +491,8 @@ export interface ProductVariantImport extends ImportResource {
    */
   readonly sku?: string
   /**
-   *	Maps to `ProductVariant.isMasterVariant`.
+   *	- When creating a new ProductVariant, set to `false`; otherwise, the import operation will fail with a [NewMasterVariantAdditionNotAllowed](/error#newmastervariantadditionnotallowederror) error.
+   *	- Set to `true` if the ProductVariant exists and you want to set this ProductVariant as the Master Variant.
    *
    *
    */
