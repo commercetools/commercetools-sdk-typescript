@@ -239,6 +239,7 @@
 - added property `active` to type `ShippingMethod`
 - added property `active` to type `ShippingMethodDraft`
 - added property `store` to type `StagedQuote`
+- added property `source` to type `EventBridgeDestination`
 </details>
 
 <details>
