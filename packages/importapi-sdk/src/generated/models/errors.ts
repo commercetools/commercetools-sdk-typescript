@@ -64,6 +64,7 @@ export type ErrorObject =
   | InvalidScopeError
   | InvalidStateTransitionError
   | InvalidTokenError
+  | NewMasterVariantAdditionNotAllowedError
   | ReferencedResourceNotFound
   | RequiredFieldError
   | ResourceCreationError
@@ -394,6 +395,19 @@ export interface ContentionError {
 export interface GenericError {
   readonly code: 'Generic'
   /**
+   *
+   */
+  readonly message: string
+}
+/**
+ *	Returned when attempting to create a ProductVariant and set it as the Master Variant in the same [ProductVariantImport](ctp:import:type:ProductVariantImport).
+ *
+ */
+export interface NewMasterVariantAdditionNotAllowedError {
+  readonly code: 'NewMasterVariantAdditionNotAllowed'
+  /**
+   *	`"Adding a new variant as master variant is not allowed."`
+   *
    *
    */
   readonly message: string
