@@ -157,6 +157,8 @@ export interface DiscountCodeDraft {
   /**
    *	User-defined unique identifier for the DiscountCode.
    *
+   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Discount Codes with the [Import API](/../import-export/) and the [Merchant Center](/../merchant-center/import-data).
+   *
    */
   readonly key?: string
   /**
