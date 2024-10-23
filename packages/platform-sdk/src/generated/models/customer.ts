@@ -286,6 +286,8 @@ export interface CustomerDraft {
    *	User-defined unique identifier for the Customer.
    *	The `key` field is preferred over `customerNumber` as it is mutable and provides more flexibility.
    *
+   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Customers with the [Import API](/../import-export/).
+   *
    *
    */
   readonly key?: string

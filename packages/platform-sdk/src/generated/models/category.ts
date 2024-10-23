@@ -213,6 +213,8 @@ export interface CategoryDraft {
   /**
    *	User-defined unique identifier for the Category.
    *
+   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Categories with the [Import API](/../import-export/) and the [Merchant Center](/../merchant-center/import-data).
+   *
    *
    */
   readonly key?: string
