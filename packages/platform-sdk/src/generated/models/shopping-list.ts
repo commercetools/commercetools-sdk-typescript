@@ -557,7 +557,7 @@ export interface ShoppingListAddLineItemAction {
    */
   readonly quantity?: number
   /**
-   *	Date and time the TextLineItem is added to the [ShoppingList](ctp:api:type:ShoppingList). If not set, the current date and time (UTC) is used.
+   *	Date and time the ShoppingListLineItem is added to the [ShoppingList](ctp:api:type:ShoppingList). If not set, the current date and time (UTC) is used.
    *
    *
    */

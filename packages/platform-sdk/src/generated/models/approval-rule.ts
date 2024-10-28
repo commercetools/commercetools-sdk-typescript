@@ -307,7 +307,6 @@ export interface ApproverConjunction {
 export interface ApproverConjunctionDraft {
   /**
    *	All of the nested disjunctions must be approved in order for the conjunction to be considered approved.
-   *	The total count of approvers across the nested disjunctions must not exceed 10.
    *
    *
    */

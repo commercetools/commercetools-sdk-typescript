@@ -1,14 +1,13 @@
 import {
   executeRequestOptions,
   IBuiltRequestParams,
-  TokenCache,
   TokenInfo,
 } from '../../types/types'
 import {
+  byteLength,
   calculateExpirationTime,
   createError,
   executor,
-  byteLength,
 } from '../../utils'
 import { buildRequestForRefreshTokenFlow } from './auth-request-builder'
 
