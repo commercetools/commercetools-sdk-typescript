@@ -1,7 +1,7 @@
 var Buffer = require('buffer/').Buffer
 
 export default function byteLength<T>(body: T): string {
-  if (typeof body === 'string') {
+  if (body && (typeof body === 'string' || body instanceof Uint8Array)) {
     return Buffer.byteLength(body)
   }
 
