@@ -1,3 +1,4 @@
+var Buffer = require('buffer/').Buffer
 import { byteLength } from '../../src/utils'
 
 describe('byteLength test', () => {
@@ -30,6 +31,21 @@ describe('byteLength test', () => {
     const str2 = JSON.stringify({ n: 'äëöü' })
     expect(byteLength(str2)).toEqual('16')
     expect(new TextEncoder().encode(str2).length.toString()).toEqual('16')
+  })
+
+  test('should return an accurate result of byte length of a string', () => {
+    const str = 'the string length is 23'
+    expect(byteLength(str)).toEqual('23')
+  })
+
+  test('should return an accurate result of byte length of a Buffer', () => {
+    const buffer = Buffer.from('the string length is 23')
+    expect(byteLength(buffer)).toEqual('23')
+  })
+
+  test('should return an accurate result of byte length of an object', () => {
+    const object = { 'byte-length': 18 }
+    expect(byteLength(object)).toEqual('18')
   })
 
   test('should return `0` is body is null', () => {
