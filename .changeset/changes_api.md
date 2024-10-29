@@ -1,3 +1,7 @@
+---
+'@commercetools/platform-sdk': minor
+---
+
 **Api changes**
 
 <details>
@@ -291,27 +295,4 @@
 - :warning: removed query parameter `sort` from method `get /{projectKey}/product-projections/suggest`
 - :warning: removed query parameter `offset` from method `get /{projectKey}/product-projections/suggest`
 - :warning: removed query parameter `withTotal` from method `get /{projectKey}/product-projections/suggest`
-</details>
-
-**Import changes**
-
-<details>
-<summary>Added Type(s)</summary>
-
-- added type `InvalidFieldsUpdateError`
-- added type `NewMasterVariantAdditionNotAllowedError`
-- added type `ReferencedResourceNotFound`
-</details>
-
-<details>
-<summary>Deprecated Property(s)</summary>
-
-- property `PriceImport::publish` is removed
-- property `ProductVariantImport::publish` is removed
-</details>
-
-<details>
-<summary>Added Enum(s)</summary>
-
-- added enum `customer-group` to type `CustomFieldReferenceValue`
 </details>
