@@ -176,11 +176,14 @@ const httpMiddlewareOptions = {
 }
 
 const logger = () => {
-  return (next) => {
-    return (request) => {
-      console.log(request, args)
-      return next(request)
-    }
+  return (next) => async (request) => {
+    // log request object
+    console.log('Request:', request)
+    const response = await next(request)
+
+    // log response object
+    console.log('Response', response)
+    return response
   }
 }
 
@@ -220,11 +223,14 @@ const httpMiddlewareOptions = {
 }
 
 const logger = () => {
-  return (next) => {
-    return (request) => {
-      console.log(request, args)
-      return next(request)
-    }
+  return (next) => async (request) => {
+    // log request object
+    console.log('Request:', request)
+    const response = await next(request)
+
+    // log response object
+    console.log('Response', response)
+    return response
   }
 }
 
