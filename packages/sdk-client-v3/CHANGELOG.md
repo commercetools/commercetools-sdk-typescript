@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 2.1.1
+
+### Patch Changes
+
+- [#835](https://github.com/commercetools/commercetools-sdk-typescript/pull/835) [`b2c62ba`](https://github.com/commercetools/commercetools-sdk-typescript/commit/b2c62ba105b7fb9fe2eb6a4ae1b95c8d5b67d428) Thanks [@ajimae](https://github.com/ajimae)! - Fix issues with counting special characters' length
+
 ## 2.1.0
 
 ### Minor Changes

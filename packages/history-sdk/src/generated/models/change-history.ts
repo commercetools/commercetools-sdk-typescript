@@ -203,13 +203,19 @@ export interface ErrorResponse {
  */
 export interface ModifiedBy {
   /**
-   *	[ID](/general-concepts#identifier) of the Merchant Center user who made the change.
-   *
-   *	Present only if the change was made in the Merchant Center.
+   *	`true` if the change was made using the Merchant Center or [ImpEx](https://impex.europe-west1.gcp.commercetools.com/).
    *
    *
    */
-  readonly id: string
+  readonly isPlatformClient: boolean
+  /**
+   *	[ID](/general-concepts#identifier) of the Merchant Center user who made the change.
+   *
+   *	Present only if `isPlatformClient` is `true`.
+   *
+   *
+   */
+  readonly id?: string
   /**
    *	Indicates who performed the change.
    *
@@ -248,12 +254,6 @@ export interface ModifiedBy {
    *
    */
   readonly associate?: Reference
-  /**
-   *	`true` if the change was made using the Merchant Center or [ImpEx](https://impex.europe-west1.gcp.commercetools.com/).
-   *
-   *
-   */
-  readonly isPlatformClient: boolean
 }
 /**
  *	Updates that are triggered automatically as a result of a user-initiated change.

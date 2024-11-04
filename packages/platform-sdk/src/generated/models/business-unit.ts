@@ -1154,7 +1154,7 @@ export interface BusinessUnitSetAddressCustomTypeAction {
 export interface BusinessUnitSetAssociatesAction {
   readonly action: 'setAssociates'
   /**
-   *	The new list of Associates. If not provided, any existing list is removed.
+   *	The new list of Associates. If empty, existing values will be removed.
    *
    *
    */

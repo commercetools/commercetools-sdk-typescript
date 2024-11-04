@@ -155,19 +155,19 @@ export interface ProductTailoringData {
    */
   readonly description?: LocalizedString
   /**
-   *	Tailored title of the Product used by external search engines for improved search engine performance.
+   *	Tailored title of the Product as displayed in search engine results.
    *
    *
    */
   readonly metaTitle?: LocalizedString
   /**
-   *	Tailored description of the Product used by external search engines for improved search engine performance.
+   *	Tailored description of the Product as displayed in search engine results.
    *
    *
    */
   readonly metaDescription?: LocalizedString
   /**
-   *	Tailored keywords related to the Product used by external search engines for improved search engine performance.
+   *	Tailored keywords related to the Product that are used by search engines.
    *
    *
    */
