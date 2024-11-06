@@ -210,7 +210,7 @@ export type ExtensionResourceTypeId =
   | string
 export interface ExtensionTrigger {
   /**
-   *	`cart`, `order`, `payment`, `customer`, `customer-group`, `quote-request`, `staged-quote`, `quote`, `business-unit`, and `shopping-list` are supported.
+   *	The resource that triggers the Extension.
    *
    *
    */
