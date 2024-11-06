@@ -138,7 +138,7 @@ export interface CloudEventsPayload {
 }
 export type DeliveryFormat = CloudEventsFormat | PlatformFormat
 /**
- *	The CloudEventsFormat can be used with any [Destination](#destination), and the payload is delivered in the `JSON Event Format`. [AzureEventGridDestination](ctp:api:type:AzureEventGridDestination) offers native support to filter and route CloudEvents.
+ *	The CloudEventsFormat can be used with any [Destination](#destination-1), and the payload is delivered in the `JSON Event Format`. [AzureEventGridDestination](ctp:api:type:AzureEventGridDestination) offers native support to filter and route CloudEvents.
  *
  */
 export interface CloudEventsFormat {
