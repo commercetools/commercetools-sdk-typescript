@@ -302,13 +302,13 @@ export interface ProductData {
    */
   readonly slug: LocalizedString
   /**
-   *	Title of the Product as displayed in search engine results.
+   *	Title of the Product as used by search engines.
    *
    *
    */
   readonly metaTitle?: LocalizedString
   /**
-   *	Description of the Product as displayed in search engine results below the meta title.
+   *	Description of the Product as used by search engines.
    *
    *
    */
@@ -388,13 +388,13 @@ export interface ProductDraft {
    */
   readonly categoryOrderHints?: CategoryOrderHints
   /**
-   *	Title of the Product as displayed in search engine results.
+   *	Title of the Product as used by search engines.
    *
    *
    */
   readonly metaTitle?: LocalizedString
   /**
-   *	Description of the Product as displayed in search engine results.
+   *	Description of the Product as used by search engines.
    *
    *
    */
