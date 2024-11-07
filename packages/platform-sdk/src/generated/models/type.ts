@@ -83,14 +83,14 @@ export interface CustomFields {
    */
   readonly type: TypeReference
   /**
-   *	Object containing the Custom Fields for the [customized resource or data type](/../api/projects/types#list-of-customizable-data-types).
+   *	Object containing the Custom Fields for the [customized resource or data type](/../api/projects/types#resourcetypeid).
    *
    *
    */
   readonly fields: FieldContainer
 }
 /**
- *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+ *	The representation used when creating or updating a [customizable data type](/../api/projects/types#resourcetypeid) with Custom Fields.
  *
  */
 export interface CustomFieldsDraft {
@@ -101,7 +101,7 @@ export interface CustomFieldsDraft {
    */
   readonly type: TypeResourceIdentifier
   /**
-   *	Object containing the Custom Fields for the [customized resource or data type](/../api/projects/types#list-of-customizable-data-types).
+   *	Object containing the Custom Fields for the [customized resource or data type](/../api/projects/types#resourcetypeid).
    *
    *
    */
@@ -267,7 +267,7 @@ export interface CustomFieldTimeType {
   readonly name: 'Time'
 }
 /**
- *	IDs indicating the [customizable resources and data types](/../api/projects/types#list-of-customizable-data-types).
+ *	With Types, you can model your own Custom Fields on the following resources and data types.
  *
  */
 export type ResourceTypeId =
