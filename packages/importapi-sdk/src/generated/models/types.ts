@@ -12,7 +12,7 @@ import { ImportResource, LocalizedString } from './common'
  */
 export type TypeTextInputHint = 'MultiLine' | 'SingleLine' | string
 /**
- *	IDs indicating the [customizable resources and data types](/../api/projects/types#list-of-customizable-data-types). Maps to `Type.resourceTypeId`.
+ *	With Types, you can model your own Custom Fields on the following resources and data types. Maps to `Type.resourceTypeId`.
  *
  */
 export type ResourceTypeId =
