@@ -155,13 +155,13 @@ export interface ProductTailoringData {
    */
   readonly description?: LocalizedString
   /**
-   *	Tailored title of the Product as used by search engines.
+   *	Tailored title of the Product that is used by search engines.
    *
    *
    */
   readonly metaTitle?: LocalizedString
   /**
-   *	Tailored description of the Product as used by search engines.
+   *	Tailored description of the Product that is used by search engines.
    *
    *
    */
@@ -222,19 +222,19 @@ export interface ProductTailoringDraft {
    */
   readonly description?: LocalizedString
   /**
-   *	Tailored title of the Product used by external search engines for improved search engine performance.
+   *	Tailored title of the Product that is used by search engines.
    *
    *
    */
   readonly metaTitle?: LocalizedString
   /**
-   *	Tailored description of the Product used by external search engines for improved search engine performance.
+   *	Tailored description of the Product that is used by search engines.
    *
    *
    */
   readonly metaDescription?: LocalizedString
   /**
-   *	Tailored keywords related to the Product used by external search engines for improved search engine performance.
+   *	Tailored keywords related to the Product that are used by search engines.
    *
    *
    */
@@ -289,19 +289,19 @@ export interface ProductTailoringInStoreDraft {
    */
   readonly description?: LocalizedString
   /**
-   *	Tailored title of the Product used by external search engines for improved search engine performance.
+   *	Tailored title of the Product that is used by search engines.
    *
    *
    */
   readonly metaTitle?: LocalizedString
   /**
-   *	Tailored description of the Product used by external search engines for improved search engine performance.
+   *	Tailored description of the Product that is used in search engine.
    *
    *
    */
   readonly metaDescription?: LocalizedString
   /**
-   *	Tailored keywords related to the Product used by external search engines for improved search engine performance.
+   *	Tailored keywords related to the Product that are used by search engines.
    *
    *
    */
