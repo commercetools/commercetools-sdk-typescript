@@ -51,6 +51,7 @@ export default function createAuthMiddlewareForRefreshTokenFlow(
         request,
         tokenCache,
         httpClient: options.httpClient || fetch,
+        httpClientOptions: options.httpClientOptions,
         ...buildRequestForRefreshTokenFlow(options),
         next,
       }

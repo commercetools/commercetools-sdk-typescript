@@ -98,8 +98,9 @@ export type AuthMiddlewareOptions = {
   scopes?: Array<string>
   // For internal usage only
   oauthUri?: string
-  httpClient?: Function
   tokenCache?: TokenCache
+  httpClient: Function
+  httpClientOptions?: object
 }
 
 export type TokenCacheOptions = {
@@ -138,7 +139,8 @@ export type RefreshAuthMiddlewareOptions = {
   tokenCache?: TokenCache,
   // For internal usage only
   oauthUri?: string
-  httpClient?: Function
+  httpClient: Function
+  httpClientOptions?: object
 }
 
 /* Request */
@@ -147,9 +149,10 @@ type requestBaseOptions = {
   body: string
   basicAuth: string
   request: MiddlewareRequest
-  tokenCache: TokenCache,
-  tokenCacheKey?: TokenCacheOptions,
+  tokenCache: TokenCache
+  tokenCacheKey?: TokenCacheOptions
   tokenCacheObject?: TokenStore
+  httpClientOptions?: object
 }
 
 export type executeRequestOptions = requestBaseOptions & {
@@ -160,10 +163,8 @@ export type executeRequestOptions = requestBaseOptions & {
 
 export type AuthMiddlewareBaseOptions = requestBaseOptions & {
   request: MiddlewareRequest
-  httpClient?: Function
+  httpClient: Function
 }
-
-export type RequestState = boolean
 
 export type Task = {
   request: MiddlewareRequest
@@ -187,7 +188,8 @@ export type PasswordAuthMiddlewareOptions = {
   tokenCache?: TokenCache,
   // For internal usage only
   oauthUri?: string
-  httpClient?: Function
+  httpClient: Function
+  httpClientOptions?: object
 }
 
 export type TokenInfo = {
@@ -214,8 +216,8 @@ export type HttpMiddlewareOptions = {
   enableRetry?: boolean
   retryConfig?: RetryOptions
   httpClient: Function
-  getAbortController?: () => AbortController
   httpClientOptions?: object // will be passed as a second argument to your httpClient function for configuration
+  getAbortController?: () => AbortController
 }
 
 export type RetryOptions = RetryMiddlewareOptions
@@ -297,6 +299,7 @@ export type IClientOptions = {
   enableRetry?: boolean
   retryConfig?: RetryOptions
   maskSensitiveHeaderData?: boolean
+  httpClientOptions?: object
 }
 
 export type HttpClientOptions = IClientOptions & Optional
