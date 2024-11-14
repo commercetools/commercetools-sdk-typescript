@@ -19,7 +19,7 @@ export class ByProjectKeyGraphqlRequestBuilder {
     }
   ) {}
   /**
-   *	Execute a GraphQL query
+   *	Execute a GraphQL request.
    */
   public post(methodArgs: {
     body: GraphQLRequest
@@ -34,7 +34,7 @@ export class ByProjectKeyGraphqlRequestBuilder {
         uriTemplate: '/{projectKey}/graphql',
         pathVariables: this.args.pathArgs,
         headers: {
-          'Content-Type': 'application/graphql',
+          'Content-Type': 'application/json',
           ...methodArgs?.headers,
         },
         body: methodArgs?.body,
