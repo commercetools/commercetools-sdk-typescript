@@ -156,7 +156,11 @@ export default async function executor(request: HttpClientConfig) {
      * http client config
      */
 
-    // we want to suppress axios internal error handling behaviour
+    /**
+     * we want to suppress axios internal
+     * error handling behaviour to make it
+     * consistent with native fetch.
+     */
     { validateStatus: (status: number) => true }
   )
 

@@ -190,7 +190,7 @@ describe('Concurrent Modification Middleware', () => {
 })
 
 describe('Http clients and http client options', () => {
-  it('Call the `httpClient` using the provided client options - [throw]', async () => {
+  it('Axios should throw error internally and cut off subsequent execution', async () => {
     let isCalled = false
 
     const after = () => {
@@ -207,7 +207,7 @@ describe('Http clients and http client options', () => {
       httpClient: axios,
       host: 'https://api.us-central1.gcp.commercetools.com', // should fail
       httpClientOptions: {
-        validateStatus: () => false,
+        validateStatus: () => false, // axios default
       },
     }
 
@@ -229,7 +229,7 @@ describe('Http clients and http client options', () => {
     expect(isCalled).toBe(false)
   })
 
-  it('Call the `httpClient` using the provided client options - [not throw]', async () => {
+  it('Axios Should not throw error internally, continue executions', async () => {
     let isCalled = false
 
     const after = () => {
@@ -250,7 +250,7 @@ describe('Http clients and http client options', () => {
       httpClient: axios,
       host: 'https://api.us-central1.gcp.commercetools.com', // should fail
       httpClientOptions: {
-        validateStatus: () => true,
+        validateStatus: () => true, // change axios default
       },
     }
 
