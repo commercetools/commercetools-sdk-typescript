@@ -4,6 +4,8 @@
 <summary>Changed Property(s)</summary>
 
 - :warning: changed property `value` of type `DirectDiscountDraft` from type `CartDiscountValue` to `CartDiscountValueDraft`
+- :warning: changed property `line` of type `GraphQLErrorLocation` from type `integer` to `number`
+- :warning: changed property `column` of type `GraphQLErrorLocation` from type `integer` to `number`
 - :warning: changed property `totalPrice` of type `OrderLineItemDiscountSetMessage` from type `Money` to `CentPrecisionMoney`
 - :warning: changed property `value` of type `StandalonePriceValueChangedMessage` from type `Money` to `TypedMoney`
 - :warning: changed property `oldValue` of type `StandalonePriceValueChangedMessage` from type `Money` to `TypedMoney`
