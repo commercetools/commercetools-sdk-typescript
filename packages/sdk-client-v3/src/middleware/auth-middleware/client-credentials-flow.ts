@@ -57,6 +57,7 @@ export default function createAuthMiddlewareForClientCredentialsFlow(
         tokenCacheKey,
         tokenCacheObject,
         httpClient: options.httpClient || fetch,
+        httpClientOptions: options.httpClientOptions,
         ...buildRequestForClientCredentialsFlow(options),
         next,
       }

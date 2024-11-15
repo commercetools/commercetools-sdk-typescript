@@ -20,9 +20,11 @@ import {
   MiddlewareRequest,
   Next,
   ClientBuilder,
+  type HttpMiddlewareOptions,
 } from '@commercetools/ts-client/src'
 import { createApiBuilderFromCtpClient } from '../../../src'
 import { randomUUID } from 'crypto'
+import axios from 'axios'
 
 import * as matchers from 'jest-extended'
 expect.extend(matchers)
@@ -184,6 +186,90 @@ describe('Concurrent Modification Middleware', () => {
       })
       .execute()
       .catch((e) => e)
+  })
+})
+
+describe('Http clients and http client options', () => {
+  it('Axios should throw error internally and cut off subsequent execution', async () => {
+    let isCalled = false
+
+    const after = () => {
+      return (next: Next) => {
+        return (request: MiddlewareRequest) => {
+          isCalled = true
+          return next(request)
+        }
+      }
+    }
+
+    const http: HttpMiddlewareOptions = {
+      ...httpMiddlewareOptionsV3,
+      httpClient: axios,
+      host: 'https://commercetools.com', // should fail (404 incorrect host)
+      httpClientOptions: {
+        validateStatus: () => false, // axios default
+      },
+    }
+
+    const v3Client = new ClientBuilderV3()
+      .withClientCredentialsFlow(authMiddlewareOptionsV3)
+      .withHttpMiddleware(http)
+      // should not be called (since axios will throw internal error)
+      .withAfterExecutionMiddleware({ middleware: after })
+      .build()
+
+    const api = createApiBuilderFromCtpClient(v3Client).withProjectKey({
+      projectKey,
+    })
+
+    await api
+      .get()
+      .execute()
+      .catch(() => null)
+    expect(isCalled).toBe(false)
+  })
+
+  it('Axios Should not throw error internally, continue executions', async () => {
+    let isCalled = false
+
+    const after = () => {
+      return (next: Next) => {
+        return (request: MiddlewareRequest) => {
+          isCalled = true
+          return next(request)
+        }
+      }
+    }
+
+    const auth = {
+      ...authMiddlewareOptionsV3,
+    }
+
+    const http: HttpMiddlewareOptions = {
+      ...httpMiddlewareOptionsV3,
+      httpClient: axios,
+      host: 'https://commercetools.com', // should fail (404 incorrect host)
+      httpClientOptions: {
+        validateStatus: () => true, // change axios default
+      },
+    }
+
+    const v3Client = new ClientBuilderV3()
+      .withClientCredentialsFlow(auth)
+      .withHttpMiddleware(http)
+      // should be called (since axios won't throw internal error)
+      .withAfterExecutionMiddleware({ middleware: after })
+      .build()
+
+    const api = createApiBuilderFromCtpClient(v3Client).withProjectKey({
+      projectKey,
+    })
+
+    await api
+      .get()
+      .execute()
+      .catch(() => null)
+    expect(isCalled).toBe(true)
   })
 })
 

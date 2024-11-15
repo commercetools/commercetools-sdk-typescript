@@ -20,5 +20,5 @@ export { default as userAgent } from './userAgent'
 export {
     validate,
     // validateUserAgentOptions,
-    validateClient, validateHttpOptions, validateRetryCodes
+    validateClient, validateHttpClientOptions, validateRetryCodes
 } from './validate'

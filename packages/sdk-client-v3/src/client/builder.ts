@@ -75,6 +75,7 @@ export default class ClientBuilder {
       host: oauthUri,
       projectKey: projectKey || this.projectKey,
       credentials,
+      httpClient: httpClient || fetch,
       scopes,
     }).withHttpMiddleware({
       host: baseUri,

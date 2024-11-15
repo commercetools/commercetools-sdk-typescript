@@ -56,6 +56,7 @@ export default function createAuthMiddlewareForAnonymousSessionFlow(
         tokenCache,
         tokenCacheKey,
         httpClient: options.httpClient || fetch,
+        httpClientOptions: options.httpClientOptions,
         ...buildRequestForAnonymousSessionFlow(options),
         userOption: options,
         next,

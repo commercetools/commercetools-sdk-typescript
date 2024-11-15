@@ -53,6 +53,7 @@ export default function createAuthMiddlewareForPasswordFlow(
         tokenCache,
         tokenCacheKey,
         httpClient: options.httpClient || fetch,
+        httpClientOptions: options.httpClientOptions,
         ...buildRequestForPasswordFlow(options),
         userOption: options,
         next,

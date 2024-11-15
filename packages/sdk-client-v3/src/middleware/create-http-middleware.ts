@@ -22,7 +22,7 @@ import {
   getHeaders,
   isBuffer,
   maskAuthData,
-  validateHttpOptions,
+  validateHttpClientOptions,
 } from '../utils'
 
 async function executeRequest({
@@ -142,7 +142,7 @@ export default function createHttpMiddleware(
   options: HttpMiddlewareOptions
 ): Middleware {
   // validate response
-  validateHttpOptions(options)
+  validateHttpClientOptions(options)
 
   const {
     host,
