@@ -13,6 +13,16 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
       method: 'get',
+      uri: '/test_projectKey/product-selections/key=test_key/products?where=where',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .productSelections()
+        .withKey({ key: 'test_key' })
+        .products()
+        .get({ queryArgs: { where: 'where' } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/product-selections/key=test_key/products?expand=expand',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
