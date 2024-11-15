@@ -205,7 +205,7 @@ describe('Http clients and http client options', () => {
     const http: HttpMiddlewareOptions = {
       ...httpMiddlewareOptionsV3,
       httpClient: axios,
-      host: 'https://api.us-central1.gcp.commercetools.com', // should fail
+      host: 'https://commercetools.com', // should fail (404 incorrect host)
       httpClientOptions: {
         validateStatus: () => false, // axios default
       },
@@ -248,7 +248,7 @@ describe('Http clients and http client options', () => {
     const http: HttpMiddlewareOptions = {
       ...httpMiddlewareOptionsV3,
       httpClient: axios,
-      host: 'https://api.us-central1.gcp.commercetools.com', // should fail
+      host: 'https://commercetools.com', // should fail (404 incorrect host)
       httpClientOptions: {
         validateStatus: () => true, // change axios default
       },
