@@ -295,6 +295,13 @@
 - :warning: removed query parameter `withTotal` from method `get /{projectKey}/product-projections/suggest`
 </details>
 
+<details>
+<summary>Added QueryParameter(s)</summary>
+
+- added query parameter `where` to method `get /{projectKey}/product-selections/key={key}/products`
+- added query parameter `where` to method `get /{projectKey}/product-selections/{ID}/products`
+</details>
+
 **Import changes**
 
 <details>
