@@ -53,7 +53,7 @@ export const authMiddlewareOptions = {
   },
   tokenCache,
   scopes: [`manage_project:${projectKey}`],
-  fetch,
+  httpClient: fetch,
 }
 
 export const authMiddlewareOptionsV3 = {

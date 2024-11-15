@@ -211,5 +211,61 @@ describe('Auth request executor', () => {
         expect(err.message).toEqual('an error occurred.')
       }
     })
+
+    test('should call the httpClient using the provided `httpClientOptions`', async () => {
+      const options = createTestExecutorOptions({
+        url: 'test-demo-uri',
+        tokenCache: cache(),
+        httpClientOptions: { name: 'httpClientOptions' },
+        httpClient: jest.fn(() => ({
+          statusCode: 200,
+          data: {
+            statusCode: 200,
+            access_token: 'test-access-token',
+          },
+        })),
+      })
+
+      await executeRequest(options)
+      expect(options.httpClient).toHaveBeenCalledWith(
+        options.url,
+        expect.objectContaining({
+          httpClientOptions: expect.objectContaining({
+            name: 'httpClientOptions',
+          }),
+        })
+      )
+    })
+
+    test('should inject header options using `httpClientOptions`', async () => {
+      const options = createTestExecutorOptions({
+        url: 'test-demo-uri',
+        tokenCache: cache(),
+        httpClientOptions: {
+          name: 'httpClientOptions',
+          headers: { withClientOptions: true },
+        },
+        httpClient: jest.fn(() => ({
+          statusCode: 200,
+          data: {
+            statusCode: 200,
+            access_token: 'test-access-token',
+          },
+        })),
+      })
+
+      await executeRequest(options)
+      expect(options.httpClient).toHaveBeenCalledWith(
+        options.url,
+        expect.objectContaining({
+          httpClientOptions: expect.objectContaining({
+            name: 'httpClientOptions',
+            headers: expect.objectContaining({
+              withClientOptions: true,
+            }),
+          }),
+        })
+      )
+    })
   })
 })

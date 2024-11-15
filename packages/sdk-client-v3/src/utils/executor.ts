@@ -56,11 +56,10 @@ export default async function executor(request: HttpClientConfig) {
 
       async function execute() {
         return httpClient(url, {
-          ...rest,
           ...options,
+          ...rest,
           headers: {
             ...rest.headers,
-            ...options.headers,
 
             // axios header encoding
             'Accept-Encoding': 'application/json',
@@ -156,7 +155,13 @@ export default async function executor(request: HttpClientConfig) {
      * middleware options or from
      * http client config
      */
-    {}
+
+    /**
+     * we want to suppress axios internal
+     * error handling behaviour to make it
+     * consistent with native fetch.
+     */
+    { validateStatus: (status: number) => true }
   )
 
   return data

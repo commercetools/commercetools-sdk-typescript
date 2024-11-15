@@ -31,6 +31,7 @@
     "@preconstruct/cli": "2.8.8",
     "@types/jest": "29.5.13",
     "@types/node": "^20.0.0",
+    "axios": "^1.7.7",
     "babel-jest": "29.7.0",
     "buffer": "^6.0.3",
     "clean-webpack-plugin": "^4.0.0",
