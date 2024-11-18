@@ -12,7 +12,7 @@
     "@opentelemetry/auto-instrumentations-node": "^0.52.0",
     "@opentelemetry/exporter-metrics-otlp-http": "^0.54.0",
     "@opentelemetry/sdk-node": "^0.54.0",
-    "uuid": "10.0.0"
+    "uuid": "11.0.3"
   },
   "publishConfig": {
     "access": "public"

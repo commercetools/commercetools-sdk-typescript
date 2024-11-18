@@ -42,7 +42,7 @@
     "@types/uuid": "10.0.0",
     "organize-imports-cli": "0.10.0",
     "tsconfig-replace-paths": "0.0.14",
-    "uuid": "10.0.0"
+    "uuid": "11.0.3"
   },
   "scripts": {
     "remove_path_alias": "tsconfig-replace-paths --project tsconfig-declarations.json -s ./src/generated -o ./src/generated",
