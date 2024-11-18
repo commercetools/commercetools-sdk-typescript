@@ -7,6 +7,7 @@ import {
   ChangeHistoryResourceType,
   PlatformInitiatedChange,
   RecordPagedQueryResponse,
+  Source,
 } from '../models/change-history'
 import { executeRequest, QueryParam } from '../shared/utils/common-types'
 import { ApiRequest } from '../shared/utils/requests-utils'
@@ -54,7 +55,7 @@ export class ByProjectKeyRequestBuilder {
       type?: string
       resourceId?: string
       resourceKey?: string
-      source?: string
+      source?: Source
       changes?: string | string[]
       stores?: string | string[]
       excludePlatformInitiatedChanges?:
