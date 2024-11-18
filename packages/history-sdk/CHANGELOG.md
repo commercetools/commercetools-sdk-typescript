@@ -1,5 +1,17 @@
 # @commercetools/history-sdk
 
+## 4.5.0
+
+### Minor Changes
+
+- [#844](https://github.com/commercetools/commercetools-sdk-typescript/pull/844) [`03e722b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/03e722bbdc795382f4d8325eeb196ed772bf21cd) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **History changes**
+
+  <details>
+  <summary>Required Property(s)</summary>
+
+  - changed property `id` of type `ModifiedBy` to be optional
+  </details>
+
 ## 4.4.0
 
 ### Minor Changes
