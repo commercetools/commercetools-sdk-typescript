@@ -1,5 +1,12 @@
 # @commercetools/ts-client
 
+## 2.1.2
+
+### Patch Changes
+
+- [#848](https://github.com/commercetools/commercetools-sdk-typescript/pull/848) [`39c5298`](https://github.com/commercetools/commercetools-sdk-typescript/commit/39c5298c8b6abb71bce47ef437e6e7359c3e8195) Thanks [@ajimae](https://github.com/ajimae)! - - add `httpClientOptions` to all supported `authMiddlewareOption` and `httpMiddlewareOptions`
+  - add options used for configuring the behaviour of the supported `httpClients` (fetch and axios)
+
 ## 2.1.1
 
 ### Patch Changes
