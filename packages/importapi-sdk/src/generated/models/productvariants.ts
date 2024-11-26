@@ -562,7 +562,10 @@ export interface ProductVariantPatch {
    */
   readonly staged?: boolean
   /**
-   *	Reference to the [Product](/../api/projects/products#product) which contains the ProductVariant. Setting a value will batch process the import operations to minimize concurrency errors. If set, this field is required for every ProductVariantPatch in the [ProductVariantPatchRequest](ctp:import:type:ProductVariantPatchRequest).
+   *	Reference to the [Product](/../api/projects/products#product) that contains the ProductVariant.
+   *
+   *	We recommend to set this value to minimize concurrency errors.
+   *	If set, this field is required for every ProductVariantPatch in the [ProductVariantPatchRequest](ctp:import:type:ProductVariantPatchRequest).
    *
    *
    */
