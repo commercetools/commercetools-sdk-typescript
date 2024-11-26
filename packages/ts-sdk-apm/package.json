@@ -9,10 +9,19 @@
   "private": false,
   "dependencies": {
     "@opentelemetry/api": "^1.4.1",
+<<<<<<< HEAD
     "@opentelemetry/auto-instrumentations-node": "^0.55.0",
     "@opentelemetry/exporter-metrics-otlp-http": "^0.57.0",
     "@opentelemetry/sdk-node": "^0.57.0",
     "uuid": "11.0.4"
+=======
+    "@opentelemetry/auto-instrumentations-node": "^0.52.0",
+    "@opentelemetry/exporter-metrics-otlp-http": "^0.54.0",
+    "@opentelemetry/sdk-node": "^0.54.0",
+    "dd-trace": "^5.28.0",
+    "newrelic": "^12.8.0",
+    "uuid": "11.0.3"
+>>>>>>> e56b2dfe (feat(custom-metric): record custom metric)
   },
   "publishConfig": {
     "access": "public"
@@ -51,5 +60,8 @@
     "organize_imports": "find src -type f -name '*.ts' | xargs organize-imports-cli",
     "postbuild": "yarn organize_imports",
     "post_process_generate": "yarn organize_imports"
+  },
+  "devDependencies": {
+    "@types/newrelic": "^9.14.6"
   }
 }
