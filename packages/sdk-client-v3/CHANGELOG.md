@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 2.1.3
+
+### Patch Changes
+
+- [#860](https://github.com/commercetools/commercetools-sdk-typescript/pull/860) [`878aacc`](https://github.com/commercetools/commercetools-sdk-typescript/commit/878aacc187bdd1f3e43ab545d8d2ed43c5f61586) Thanks [@ajimae](https://github.com/ajimae)! - delay first retry attempt by the provided retryDelay
+
 ## 2.1.2
 
 ### Patch Changes
