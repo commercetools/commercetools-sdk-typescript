@@ -105,23 +105,24 @@ export default async function executor(request: HttpClientConfig) {
         // retry attempts
         while (enableRetry && shouldRetry && retryCount < maxRetries) {
           retryCount++
+
+          // delay next retry attempt
+          await sleep(
+            calculateRetryDelay({
+              retryCount,
+              retryDelay,
+              maxRetries,
+              backoff,
+              maxDelay,
+            })
+          )
+
           const execution = await executeWithTryCatch(
             retryCodes,
             retryWhenAborted
           )
           _response = execution._response
           shouldRetry = execution.shouldRetry
-
-          // delay next execution
-          const timer = calculateRetryDelay({
-            retryCount,
-            retryDelay,
-            maxRetries,
-            backoff,
-            maxDelay,
-          })
-
-          await sleep(timer)
         }
 
         return _response
