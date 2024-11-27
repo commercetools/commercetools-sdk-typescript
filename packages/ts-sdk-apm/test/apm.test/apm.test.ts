@@ -1,12 +1,12 @@
 import {
-  type MiddlewareRequest,
-  type MiddlewareResponse,
-  createTelemetryMiddleware,
+  type MiddlewareRequestLegacy,
+  type MiddlewareResponseLegacy,
+  createTelemetryMiddlewareV2,
 } from '../../src'
 
 jest.mock('../../opentelemetry', () => {})
 
-function createTestRequest(options): MiddlewareRequest {
+function createTestRequest(options): MiddlewareRequestLegacy {
   return {
     uri: '',
     method: 'GET',
@@ -16,7 +16,7 @@ function createTestRequest(options): MiddlewareRequest {
   }
 }
 
-function createTestResponse(options): MiddlewareResponse {
+function createTestResponse(options): MiddlewareResponseLegacy {
   return {
     ...options,
   }
@@ -31,12 +31,12 @@ describe('apm', () => {
 
   describe('apm test - null tracer configurations', () => {
     const response = createTestResponse({})
-    const telemetryMiddleware = createTelemetryMiddleware({
-      apm: null,
-      tracer: null,
+    const telemetryMiddleware = createTelemetryMiddlewareV2({
+      apm: null as any,
+      tracer: null as any,
     })
 
-    const next = (req: MiddlewareRequest) => {
+    const next = (req: MiddlewareRequestLegacy) => {
       test('retains existing request (headers)', () => {
         expect(req.headers?.Authorization).toBe('123')
       })
@@ -60,9 +60,9 @@ describe('apm', () => {
     }
 
     const response = createTestResponse({})
-    const telemetryMiddleware = createTelemetryMiddleware(options)
+    const telemetryMiddleware = createTelemetryMiddlewareV2(options)
 
-    const next = (req: MiddlewareRequest) => {
+    const next = (req: MiddlewareRequestLegacy) => {
       test('adds an `apm` and `tracer` properties in request object', () => {
         expect(req['apm']).toBeTruthy()
         expect(req['tracer']).toBeTruthy()
