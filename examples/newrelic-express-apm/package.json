@@ -7,13 +7,14 @@
   "author": "chukwuemeka ajima",
   "private": false,
   "dependencies": {
-    "@commercetools/platform-sdk": "^4.11.0",
+    "@commercetools/platform-sdk": "latest",
     "@commercetools/sdk-client-v2": "^2.2.0",
-    "@commercetools/ts-client": "^2.1.2",
-    "@commercetools/ts-sdk-apm": "^1.0.0",
+    "@commercetools/ts-client": "latest",
+    "@commercetools/ts-sdk-apm": "latest",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.20.0",
+    "fetch": "^1.1.0",
     "newrelic": "^11.5.0",
     "node-fetch": "2.6.7"
   },
