@@ -3,7 +3,7 @@ export type MiddlewareRequest = ClientRequest
 
 export type Middleware = (next: Next) => (request: MiddlewareRequest) => Promise<MiddlewareResponse>
 
-export type Dispatch = (next: Next) => (request: MiddlewareRequest) => Promise<MiddlewareResponse>
+// export type Dispatch = (next: Next) => (request: MiddlewareRequest) => Promise<MiddlewareResponse>
 export type Next = (request: MiddlewareRequest) => Promise<MiddlewareResponse>
 
 export type MiddlewareResponse<T = unknown> = {
@@ -67,41 +67,16 @@ export type QueryParam =
   | boolean[]
   | undefined
 
-export type MethodType =
-  | 'ACL'
-  | 'BIND'
-  | 'CHECKOUT'
-  | 'CONNECT'
-  | 'COPY'
-  | 'DELETE'
+  export type MethodType =
   | 'GET'
   | 'HEAD'
-  | 'LINK'
-  | 'LOCK'
-  | 'M-SEARCH'
-  | 'MERGE'
-  | 'MKACTIVITY'
-  | 'MKCALENDAR'
-  | 'MKCOL'
-  | 'MOVE'
-  | 'NOTIFY'
-  | 'OPTIONS'
-  | 'PATCH'
   | 'POST'
-  | 'PROPFIND'
-  | 'PROPPATCH'
-  | 'PURGE'
   | 'PUT'
-  | 'REBIND'
-  | 'REPORT'
-  | 'SEARCH'
-  | 'SOURCE'
-  | 'SUBSCRIBE'
+  | 'PATCH'
+  | 'DELETE'
+  | 'CONNECT'
+  | 'OPTIONS'
   | 'TRACE'
-  | 'UNBIND'
-  | 'UNLINK'
-  | 'UNLOCK'
-  | 'UNSUBSCRIBE'
 
 export type TelemetryMiddlewareOptions = {
   apm?: Function;

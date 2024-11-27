@@ -494,6 +494,15 @@
   resolved "https://registry.npmjs.org/@commercetools/sdk-middleware-logger/-/sdk-middleware-logger-3.0.0.tgz"
   integrity sha512-DhMXAA2yIch/AaGxy7st85Z1HFmeLtHWGkr9z5rX4xKjan4PHGB/IE5saAR+SNGHhs6+1Lp8vZEHDo3tFqVLmg==
 
+"@commercetools/ts-client@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@commercetools/ts-client/-/ts-client-2.1.2.tgz#8b813350d06881e079bd56dccccb1321cc73a630"
+  integrity sha512-gTRMsrDb5XxhP7q+BJfV96QgQJrMqcQMgmKxzZwoXfnT4BwDgLW4B3fP0oJ4QX8OAZnMVgWr7GAr0Dck4xDnBg==
+  dependencies:
+    abort-controller "3.0.0"
+    buffer "^6.0.3"
+    node-fetch "^2.6.1"
+
 "@commercetools/ts-sdk-apm@^1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@commercetools/ts-sdk-apm/-/ts-sdk-apm-1.0.0.tgz"
@@ -2107,6 +2116,13 @@ abbrev@^2.0.0:
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-2.0.0.tgz#cf59829b8b4f03f89dda2771cb7f3653828c89bf"
   integrity sha512-6/mh1E2u2YgEsCHdY0Yx5oW+61gZU+1vXaoiHHrpKeuRNNgFvS+/jrwHiQhB5apAf5oB7UB7E19ol2R2LKH8hQ==
 
+abort-controller@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/abort-controller/-/abort-controller-3.0.0.tgz#eaf54d53b62bae4138e809ca225c8439a6efb392"
+  integrity sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==
+  dependencies:
+    event-target-shim "^5.0.0"
+
 accepts@~1.3.8:
   version "1.3.8"
   resolved "https://registry.npmjs.org/accepts/-/accepts-1.3.8.tgz"
@@ -2595,6 +2611,11 @@ etag@~1.8.1:
   version "1.8.1"
   resolved "https://registry.npmjs.org/etag/-/etag-1.8.1.tgz"
   integrity sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==
+
+event-target-shim@^5.0.0:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/event-target-shim/-/event-target-shim-5.0.1.tgz#5d4d3ebdf9583d63a5333ce2deb7480ab2b05789"
+  integrity sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==
 
 exponential-backoff@^3.1.1:
   version "3.1.1"

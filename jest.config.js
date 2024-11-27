@@ -24,5 +24,6 @@ module.exports = {
         ]
       : null,
   ].filter(Boolean),
+  setupFiles: ['<rootDir>/.jest/setEnvVars.js'],
   setupFilesAfterEnv: ['jest-extended/all'],
 }

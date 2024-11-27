@@ -16,9 +16,8 @@ const defaultOptions = {
    * if this is to be used with newrelic, then
    * pass this (apm) as an option in the `createTelemetryMiddleware`
    * function e.g createTelemetryMiddleware({ apm: () => require('newrelic'), ... })
-   * Note: don't forget to install newrelic agent in your project `yarn add newrelic`
    */
-  apm: () => {},
+  apm: () => require('newrelic'),
   tracer: () => require('../opentelemetry'),
 }
 

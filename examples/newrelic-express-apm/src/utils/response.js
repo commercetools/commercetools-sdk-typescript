@@ -1,4 +1,4 @@
-const agent = require('../../agent')
+const { newrelic } = require('@commercetools/ts-sdk-apm')
 /**
  * @class Response
  *
@@ -27,7 +27,7 @@ class ResponseHandler {
       responseBody.data = data
     }
 
-    agent.recordMetric(
+    newrelic.recordMetric(
       `Commercetools/Client/Response/Success/${statusCode}`,
       statusCode
     )
@@ -58,7 +58,7 @@ class ResponseHandler {
       responseBody.data = data
     }
 
-    agent.recordMetric(
+    newrelic.recordMetric(
       `Commercetools/Client/Response/Error/${statusCode}`,
       statusCode
     )
