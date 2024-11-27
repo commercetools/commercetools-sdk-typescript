@@ -9,6 +9,7 @@ import {
 } from '../../src'
 import { recordNewrelic, time } from '../../src/helpers'
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
+import fetch from 'node-fetch'
 
 jest.mock('../../opentelemetry', () => {})
 
