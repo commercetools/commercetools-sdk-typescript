@@ -130,7 +130,8 @@ async function executeRequest({
     })
 
     throw {
-      body: error,
+      // because body and error should be mutually exclusive
+      body: null,
       error,
     }
   } finally {
