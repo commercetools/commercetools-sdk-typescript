@@ -37,7 +37,7 @@ export interface DiscountCodeImport extends ImportResource {
   /**
    *	User-defined unique identifier of the DiscountCode that is used by the customer to apply the discount.
    *
-   *	The value cannot be updated. Attempting to update the value will result in an [InvalidFieldsUpdate](/error#invalidfieldsupdateerror) error.
+   *	The value cannot be updated. Attempting to update the value will result in an [InvalidFieldsUpdate](/import-export/error#invalidfieldsupdateerror) error.
    *
    *
    */
