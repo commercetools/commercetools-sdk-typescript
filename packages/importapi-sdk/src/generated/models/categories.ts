@@ -13,12 +13,12 @@ import {
 import { Custom } from './customfields'
 
 /**
- *	The data representation for a Category to be imported that is persisted as a [Category](/../api/projects/categories#category) in the Project.
+ *	The data representation for a Category to be imported that is persisted as a [Category](ctp:api:type:Category) in the Project.
  *
  */
 export interface CategoryImport extends ImportResource {
   /**
-   *	User-defined unique identifier. If a [Category](/../api/projects/categories#category) with this `key` exists, it will be updated with the imported data.
+   *	User-defined unique identifier. If a [Category](ctp:api:type:Category) with this `key` exists, it will be updated with the imported data.
    *
    */
   readonly key: string
@@ -43,8 +43,8 @@ export interface CategoryImport extends ImportResource {
   readonly description?: LocalizedString
   /**
    *	Maps to `Category.parent`.
-   *	The Reference to the parent [Category](/../api/projects/categories#category) with which the Category is associated.
-   *	If referenced Category does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary Category is created.
+   *	The Reference to the parent [Category](ctp:api:type:Category) with which the Category is associated.
+   *	If referenced Category does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary Category is created.
    *
    *
    */
@@ -80,6 +80,8 @@ export interface CategoryImport extends ImportResource {
    */
   readonly metaKeywords?: LocalizedString
   /**
+   *	Maps to `Category.assets`.
+   *
    *
    */
   readonly assets?: Asset[]

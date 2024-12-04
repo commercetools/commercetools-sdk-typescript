@@ -362,7 +362,7 @@ export interface ProductDraft {
   /**
    *	User-defined unique identifier for the Product.
    *
-   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Products with the [Import API](/../import-export/) and the [Merchant Center](/../merchant-center/import-data).
+   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Products with the [Import API](/../api/import-export/) and the [Merchant Center](/../merchant-center/import-data).
    *
    *	To update a Product using the Import API or Merchant Center, the Product `key` must match the pattern `^[A-Za-z0-9_-]{2,256}$`.
    *
@@ -2095,7 +2095,7 @@ export interface ProductSetKeyAction {
   /**
    *	Value to set. If empty, any existing value will be removed.
    *
-   *	To update a Product using the [Import API](/../import-export/) and the [Merchant Center](/../merchant-center/import-data), the Product `key` must match the pattern `^[A-Za-z0-9_-]{2,256}$`.
+   *	To update a Product using the [Import API](/../api/import-export/) and the [Merchant Center](/../merchant-center/import-data), the Product `key` must match the pattern `^[A-Za-z0-9_-]{2,256}$`.
    *
    *
    */
