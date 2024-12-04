@@ -1,3 +1,4 @@
+const { newrelic } = require('@commercetools/ts-sdk-apm')
 const { config } = require('dotenv')
 const express = require('express')
 const cors = require('cors')
@@ -6,7 +7,6 @@ config()
 
 const routes = require('./routes')
 const request = require('./utils/request')
-const agent = require('../agent')
 
 const app = express()
 const { NODE_ENV } = process.env
@@ -19,7 +19,8 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(function (req, res, next) {
   const total = count()
-  agent.recordMetric(`Commercetools/Client/Request/Total`, total)
+  newrelic.recordMetric(`Commercetools/Client/Request/Total`, total)
+  next()
 })
 
 // Global error handler
