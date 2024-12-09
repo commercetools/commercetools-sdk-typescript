@@ -311,7 +311,6 @@
 
 - added type `InvalidFieldsUpdateError`
 - added type `NewMasterVariantAdditionNotAllowedError`
-- added type `ReferencedResourceNotFound`
 </details>
 
 <details>
