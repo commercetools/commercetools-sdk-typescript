@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 2.1.4
+
+### Patch Changes
+
+- [#869](https://github.com/commercetools/commercetools-sdk-typescript/pull/869) [`c41025e`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c41025ed47a83b60d7cd7dc69121fb965bb66c24) Thanks [@barbara79](https://github.com/barbara79)! - fix client v3: make httpClient optional
+
 ## 2.1.3
 
 ### Patch Changes
