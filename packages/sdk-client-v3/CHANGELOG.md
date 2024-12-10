@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 2.1.5
+
+### Patch Changes
+
+- [#864](https://github.com/commercetools/commercetools-sdk-typescript/pull/864) [`2d622a1`](https://github.com/commercetools/commercetools-sdk-typescript/commit/2d622a144cc3d3d8d30129af863cde013a0d6102) Thanks [@ajimae](https://github.com/ajimae)! - Fix issue with sdk-client-v3 returning undefined body on error
+
 ## 2.1.4
 
 ### Patch Changes
