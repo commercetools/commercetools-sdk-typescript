@@ -173,12 +173,12 @@ export type AttributeConstraintEnum =
   | string
 export type TextInputHint = 'MultiLine' | 'SingleLine' | string
 /**
- *	The data representation for a ProductType to be imported that is persisted as a [ProductType](/../api/projects/productTypes#producttype) in the Project.
+ *	The data representation for a ProductType to be imported that is persisted as a [ProductType](ctp:api:type:ProductType) in the Project.
  *
  */
 export interface ProductTypeImport extends ImportResource {
   /**
-   *	User-defined unique identifier. If a [ProductType](/../api/projects/productTypes#producttype) with this `key` exists, it will be updated with the imported data.
+   *	User-defined unique identifier. If a [ProductType](ctp:api:type:ProductType) with this `key` exists, it will be updated with the imported data.
    *
    */
   readonly key: string
@@ -195,7 +195,7 @@ export interface ProductTypeImport extends ImportResource {
    */
   readonly description: string
   /**
-   *	The `attributes` of [ProductType](/../api/projects/productTypes#producttype).
+   *	The `attributes` of [ProductType](ctp:api:type:ProductType).
    *
    *
    */

@@ -417,14 +417,17 @@ export interface CustomObjectKeyReference {
    */
   readonly container: string
 }
+/**
+ *	References a resource which could not be resolved.
+ */
 export interface UnresolvedReferences {
   /**
+   *	The `key` of the resource.
    *
    */
   readonly key: string
   /**
-   *	The type of the referenced resource.
-   *
+   *	The type of resource.
    *
    */
   readonly typeId: ReferenceType
@@ -471,6 +474,7 @@ export interface Money {
 }
 export interface DiscountedPrice {
   /**
+   *	Money value of the discounted price.
    *
    */
   readonly value: TypedMoney
@@ -544,7 +548,7 @@ export type ReferenceType =
   | 'type'
   | string
 /**
- *	Every [Import Operation](/import-operation) is assigned one of the following states.
+ *	Every [Import Operation](ctp:import:type:ImportOperation) is assigned one of the following states.
  *
  */
 export type ProcessingState =

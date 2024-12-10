@@ -13,7 +13,7 @@ import { Custom } from './customfields'
 
 export type AuthenticationMode = 'ExternalAuth' | 'Password' | string
 /**
- *	Different from Address in that `key` is required and `id` is not supported.
+ *	Different from [Address](/types#address) in that `key` is required and `id` is not supported.
  *
  */
 export interface CustomerAddress {
@@ -25,96 +25,140 @@ export interface CustomerAddress {
    */
   readonly key: string
   /**
-   *
-   */
-  readonly title?: string
-  /**
-   *
-   */
-  readonly salutation?: string
-  /**
-   *
-   */
-  readonly firstName?: string
-  /**
-   *
-   */
-  readonly lastName?: string
-  /**
-   *
-   */
-  readonly streetName?: string
-  /**
-   *
-   */
-  readonly streetNumber?: string
-  /**
-   *
-   */
-  readonly additionalStreetInfo?: string
-  /**
-   *
-   */
-  readonly postalCode?: string
-  /**
-   *
-   */
-  readonly city?: string
-  /**
-   *
-   */
-  readonly region?: string
-  /**
-   *
-   */
-  readonly state?: string
-  /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Name of the country.
    *
    *
    */
   readonly country: string
   /**
+   *	Title of the contact, for example 'Dr.'
+   *
+   *
+   */
+  readonly title?: string
+  /**
+   *	Salutation of the contact, for example 'Mr.' or 'Ms.'
+   *
+   *
+   */
+  readonly salutation?: string
+  /**
+   *	Given name (first name) of the contact.
+   *
+   *
+   */
+  readonly firstName?: string
+  /**
+   *	Family name (last name) of the contact.
+   *
+   *
+   */
+  readonly lastName?: string
+  /**
+   *	Name of the street.
+   *
+   *
+   */
+  readonly streetName?: string
+  /**
+   *	Street number.
+   *
+   *
+   */
+  readonly streetNumber?: string
+  /**
+   *	Further information on the street address.
+   *
+   *
+   */
+  readonly additionalStreetInfo?: string
+  /**
+   *	Postal code.
+   *
+   *
+   */
+  readonly postalCode?: string
+  /**
+   *	Name of the city.
+   *
+   *
+   */
+  readonly city?: string
+  /**
+   *	Name of the region.
+   *
+   *
+   */
+  readonly region?: string
+  /**
+   *	Name of the state, for example, Colorado.
+   *
+   *
+   */
+  readonly state?: string
+  /**
+   *	Name of the company.
+   *
    *
    */
   readonly company?: string
   /**
+   *	Name of the department.
+   *
    *
    */
   readonly department?: string
   /**
+   *	Number or name of the building.
+   *
    *
    */
   readonly building?: string
   /**
+   *	Number or name of the apartment.
+   *
    *
    */
   readonly apartment?: string
   /**
+   *	Post office box number.
+   *
    *
    */
   readonly pOBox?: string
   /**
+   *	Phone number of the contact.
+   *
    *
    */
   readonly phone?: string
   /**
+   *	Mobile phone number of the contact.
+   *
    *
    */
   readonly mobile?: string
   /**
+   *	Email address of the contact.
+   *
    *
    */
   readonly email?: string
   /**
+   *	Fax number of the contact.
+   *
    *
    */
   readonly fax?: string
   /**
+   *	Further information on the Address.
+   *
    *
    */
   readonly additionalAddressInfo?: string
   /**
+   *	ID for the contact used in an external system.
+   *
    *
    */
   readonly externalId?: string
@@ -125,12 +169,12 @@ export interface CustomerAddress {
   readonly custom?: Custom
 }
 /**
- *	The data representation for a Customer to be imported that is persisted as a [Customer](/../api/projects/customers#top) in the Project.
+ *	The data representation for a Customer to be imported that is persisted as a [Customer](ctp:api:type:Customer) in the Project.
  *
  */
 export interface CustomerImport extends ImportResource {
   /**
-   *	User-defined unique identifier. If a [Customer](/../api/projects/customers#customer) with this `key` exists, it will be updated with the imported data.
+   *	User-defined unique identifier. If a [Customer](ctp:api:type:Customer) with this `key` exists, it will be updated with the imported data.
    *
    */
   readonly key: string
@@ -153,7 +197,7 @@ export interface CustomerImport extends ImportResource {
    */
   readonly password?: string
   /**
-   *	The References to the Stores with which the Customer is associated. If referenced Stores do not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary Stores are created.
+   *	The References to the Stores with which the Customer is associated. If referenced Stores do not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary Stores are created.
    *
    *
    */
@@ -219,8 +263,8 @@ export interface CustomerImport extends ImportResource {
    */
   readonly isEmailVerified?: boolean
   /**
-   *	The Reference to the [CustomerGroup](/../api/projects/customerGroups#customergroup) with which the Customer is associated.
-   *	If referenced CustomerGroup does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary CustomerGroup is created.
+   *	The Reference to the [CustomerGroup](ctp:api:type:CustomerGroup) with which the Customer is associated.
+   *	If referenced CustomerGroup does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary CustomerGroup is created.
    *
    *
    */
