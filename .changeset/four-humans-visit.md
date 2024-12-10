@@ -2,4 +2,4 @@
 "@commercetools/ts-client": patch
 ---
 
-DEVX-867 - client v3: make httpClient optional
+fix client v3: make httpClient optional
