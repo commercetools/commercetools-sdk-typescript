@@ -141,7 +141,7 @@ export default async function executor(request: HttpClientConfig) {
           data = response.data || response
         }
       } catch (err) {
-        data = result
+        throw err
       }
 
       return {
