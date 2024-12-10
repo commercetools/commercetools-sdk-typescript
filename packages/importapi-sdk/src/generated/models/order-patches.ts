@@ -214,8 +214,8 @@ export interface OrderField {
   readonly setParcelItems?: ParcelItems[]
 }
 /**
- *	Representation for an update of an [Order](/../api/projects/orders#order). Use this type to import updates for existing
- *	[Orders](/../api/projects/orders#order) in a Project.
+ *	Representation for an update of an [Order](ctp:api:type:Order). Use this type to import updates for existing
+ *	[Orders](ctp:api:type:Order) in a Project.
  *
  */
 export interface OrderPatchImport {
