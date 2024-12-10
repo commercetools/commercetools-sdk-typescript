@@ -18,7 +18,7 @@ export interface ImportOperation {
    */
   readonly version: number
   /**
-   *	The key of the [importContainer](/import-container#importcontainer).
+   *	The key of the [ImportContainer](ctp:import:type:ImportContainer).
    *
    */
   readonly importContainerKey: string
@@ -44,7 +44,7 @@ export interface ImportOperation {
    */
   readonly resourceVersion?: number
   /**
-   *	Contains an error if the import of the resource was not successful. See [Errors](/error).
+   *	Contains an error if the import of the resource was not successful. See [Errors](/import-export/error).
    *
    *
    */
@@ -121,7 +121,7 @@ export interface ImportOperationStatus {
   readonly state: ImportOperationState
   /**
    *	The validation errors for the [ImportOperation](#importoperation).
-   *	See [Errors](/error).
+   *	See [Errors](/import-export/error).
    *
    *
    */

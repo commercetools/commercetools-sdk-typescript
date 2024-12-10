@@ -684,6 +684,8 @@ export interface DiscountedPriceDraft {
   /**
    *	Sets the money value for the discounted price.
    *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
+   *
    *
    */
   readonly value: _Money
@@ -910,6 +912,8 @@ export interface PriceDraft {
   /**
    *	Money value of this Price.
    *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
+   *
    *
    */
   readonly value: _Money
@@ -1015,6 +1019,7 @@ export interface PriceTierDraft {
   readonly minimumQuantity: number
   /**
    *	Money value that applies when the `minimumQuantity` is greater than or equal to the [LineItem](ctp:api:type:LineItem) `quantity`.
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
    *
    *	The `currencyCode` of a Price tier must be the same as the `currencyCode` in the `value` of the related Price.
    *

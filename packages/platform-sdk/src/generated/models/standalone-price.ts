@@ -190,6 +190,8 @@ export interface StandalonePriceDraft {
   /**
    *	Sets the money value of this Price.
    *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
+   *
    *
    */
   readonly value: _Money
@@ -409,6 +411,8 @@ export interface StandalonePriceChangeValueAction {
   readonly action: 'changeValue'
   /**
    *	New value to set. Must not be empty.
+   *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
    *
    *
    */
