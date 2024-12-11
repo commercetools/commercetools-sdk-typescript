@@ -31,6 +31,20 @@ aliases:
     paths:
       - ~/.cache/yarn
 
+  # node version 22
+  - &restore_yarn_cache_node_22
+    name: 'Restoring yarn cache'
+    keys:
+      - yarn-cache-node_22-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
+
+  - &save_yarn_cache_node_22
+    name: 'Saving yarn cache'
+    key: yarn-cache-node_22-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
+    # Persisting to the workspace is always relative to the root which is our working directory.
+    # https://circleci.com/docs/2.0/configuration-reference/#persist_to_workspace
+    paths:
+      - ~/.cache/yarn
+
 # executors
 executors:
   node_18:
@@ -41,6 +55,11 @@ executors:
   node_20:
     docker:
       - image: cimg/node:20.14.0
+    working_directory: *working_directory
+
+  node_22:
+    docker:
+      - image: cimg/node:22.12.0
     working_directory: *working_directory
 
 
@@ -92,6 +111,22 @@ jobs:
           file: coverage/clover.xml
           flags: integrationtests
 
+  install_test_node_22:
+    executor: node_22
+    steps:
+      - checkout
+      - restore_cache: *restore_yarn_cache_node_22
+      - run:
+          name: Installing dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache: *save_yarn_cache_node_22
+      - run:
+          name: Running integration tests
+          command: yarn test packages/platform-sdk/test/integration-tests --coverage
+      - codecov/upload:
+          file: coverage/clover.xml
+          flags: integrationtests
+
 # workflows
 workflows:
   version: 2
@@ -103,3 +138,7 @@ workflows:
           context: org-global
           requires:
             - install_test_node_18
+      - install_test_node_22:
+          context: org-global
+          requires:
+            - install_test_node_22
