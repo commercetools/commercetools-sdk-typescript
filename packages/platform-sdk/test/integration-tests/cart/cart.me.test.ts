@@ -8,7 +8,6 @@ import {
 import { requireEnvVar } from '../../helpers/test-utils'
 import { ClientBuilder } from '@commercetools/sdk-client-v2'
 import { ByProjectKeyRequestBuilder } from '../../../src/generated/client/by-project-key-request-builder'
-import fetch from 'node-fetch'
 import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
 import { createCategory } from '../category/category-fixture'

@@ -5,7 +5,6 @@ import {
   projectKey,
 } from '../test-utils'
 import { createApiBuilderFromCtpClient } from '../../../src'
-import fetch from 'node-fetch'
 
 describe('testing error cases', () => {
   it('should throw error when a product type is not found', async () => {

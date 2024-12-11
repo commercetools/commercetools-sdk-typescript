@@ -3,7 +3,6 @@ import ClientBuilder from '../../src/client-builder/ClientBuilder'
 require('dotenv').config()
 
 export const projectKey = 'demo'
-const fetch = require('node-fetch')
 
 describe('client builder', () => {
   const authMiddlewareOptions = {

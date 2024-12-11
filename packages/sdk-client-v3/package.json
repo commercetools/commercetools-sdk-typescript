@@ -33,9 +33,7 @@
     "url": "https://github.com/commercetools/commercetools-sdk-typescript/issues"
   },
   "dependencies": {
-    "abort-controller": "3.0.0",
-    "buffer": "^6.0.3",
-    "node-fetch": "^2.6.1"
+    "buffer": "^6.0.3"
   },
   "files": ["dist", "CHANGELOG.md"],
   "author": "Chukwuemeka Ajima <meeky.ae@gmail.com>",

@@ -1,5 +1,4 @@
 import nock from 'nock'
-import fetch from 'node-fetch'
 import createAuthMiddlewareBase from '../../src/sdk-middleware-auth/base-auth-flow'
 import * as buildRequests from '../../src/sdk-middleware-auth/build-requests'
 import store from '../../src/sdk-middleware-auth/utils'

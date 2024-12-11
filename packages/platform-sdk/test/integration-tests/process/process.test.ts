@@ -1,6 +1,5 @@
 import { ClientBuilder } from '@commercetools/sdk-client-v2'
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
-import fetch from 'node-fetch'
 
 describe('integration test for process function', () => {
   const projectKey = process.env.CTP_PROJECT_KEY
