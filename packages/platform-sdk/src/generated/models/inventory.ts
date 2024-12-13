@@ -106,7 +106,7 @@ export interface InventoryEntryDraft {
   /**
    *	User-defined unique identifier for the InventoryEntry.
    *
-   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing InventoryEntries with the [Import API](/../import-export/) and the [Merchant Center](/../merchant-center/import-data).
+   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing InventoryEntries with the [Import API](/../import-export/overview) and the [Merchant Center](/../merchant-center/import-data).
    *
    *
    */
