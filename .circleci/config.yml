@@ -94,6 +94,12 @@ jobs:
       - run:
           name: Running tests
           command: yarn test --testPathIgnorePatterns='packages/platform-sdk/test/integration-tests'
+      - run:
+          name: Running integration tests
+          command: yarn test packages/platform-sdk/test/integration-tests --coverage
+      - codecov/upload:
+          file: coverage/clover.xml
+          flags: integrationtests
 
   install_test_node_20:
     executor: node_20
@@ -104,6 +110,17 @@ jobs:
           name: Installing dependencies
           command: yarn install --frozen-lockfile
       - save_cache: *save_yarn_cache_node_20
+      - run:
+          name: Building packages
+          command: yarn build
+      - run:
+          name: Running example tests
+          command: |
+            cd examples
+            yarn test
+      - run:
+          name: Running tests
+          command: yarn test --testPathIgnorePatterns='packages/platform-sdk/test/integration-tests'
       - run:
           name: Running integration tests
           command: yarn test packages/platform-sdk/test/integration-tests --coverage
@@ -120,6 +137,17 @@ jobs:
           name: Installing dependencies
           command: yarn install --frozen-lockfile
       - save_cache: *save_yarn_cache_node_22
+      - run:
+          name: Building packages
+          command: yarn build
+      - run:
+          name: Running example tests
+          command: |
+            cd examples
+            yarn test
+      - run:
+          name: Running tests
+          command: yarn test --testPathIgnorePatterns='packages/platform-sdk/test/integration-tests'
       - run:
           name: Running integration tests
           command: yarn test packages/platform-sdk/test/integration-tests --coverage
