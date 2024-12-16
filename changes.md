@@ -91,6 +91,7 @@
 <details>
 <summary>Added Resource(s)</summary>
 
+- added resource `/{projectKey}/channels/key={key}`
 - added resource `/{projectKey}/customers/search`
 - added resource `/{projectKey}/customers/search/indexing-status`
 - added resource `/{projectKey}/in-store/key={storeKey}/quote-requests`
@@ -227,6 +228,10 @@
 <summary>Added Method(s)</summary>
 
 - added method `apiRoot.withProjectKey().productTailoring().head()`
+- added method `apiRoot.withProjectKey().channels().withKey().get()`
+- added method `apiRoot.withProjectKey().channels().withKey().head()`
+- added method `apiRoot.withProjectKey().channels().withKey().post()`
+- added method `apiRoot.withProjectKey().channels().withKey().delete()`
 - added method `apiRoot.withProjectKey().customers().search().post()`
 - added method `apiRoot.withProjectKey().customers().search().head()`
 - added method `apiRoot.withProjectKey().customers().searchIndexingStatus().get()`

@@ -60,6 +60,7 @@ export * from './client/categories/by-project-key-categories-by-id-request-build
 export * from './client/categories/by-project-key-categories-key-by-key-request-builder'
 export * from './client/categories/by-project-key-categories-request-builder'
 export * from './client/channels/by-project-key-channels-by-id-request-builder'
+export * from './client/channels/by-project-key-channels-key-by-key-request-builder'
 export * from './client/channels/by-project-key-channels-request-builder'
 export * from './client/confirm/by-project-key-customers-email-confirm-request-builder'
 export * from './client/confirm/by-project-key-in-store-key-by-store-key-customers-email-confirm-request-builder'
