@@ -24,9 +24,10 @@ describe('header parser', () => {
   })
 
   test('should parse headers without header parser functions', () => {
-    const map = {}
     const headers = {
-      forEach: jest.fn(() => ({ 'Content-Type': 'application/json' })),
+      forEach: jest.fn((consumer) =>
+        consumer('application/json', 'Content-Type')
+      ),
     }
 
     expect(getHeaders(headers)).toEqual({ 'Content-Type': 'application/json' })
