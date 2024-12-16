@@ -141,4 +141,4 @@ workflows:
       - install_test_node_22:
           context: org-global
           requires:
-            - install_test_node_22
+            - install_test_node_20
