@@ -111,6 +111,11 @@ jobs:
           command: yarn install --frozen-lockfile
       - save_cache: *save_yarn_cache_node_20
       - run:
+          name: Install example dependencies
+          command: |
+            cd examples
+            yarn install --frozen-lockfile
+      - run:
           name: Building packages
           command: yarn build
       - run:
@@ -137,6 +142,11 @@ jobs:
           name: Installing dependencies
           command: yarn install --frozen-lockfile
       - save_cache: *save_yarn_cache_node_22
+      - run:
+          name: Install example dependencies
+          command: |
+            cd examples
+            yarn install --frozen-lockfile
       - run:
           name: Building packages
           command: yarn build
