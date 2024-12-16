@@ -3,71 +3,36 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import {
-  Channel,
-  ChannelDraft,
-  ChannelPagedQueryResponse,
-} from '../../models/channel'
+import { Channel, ChannelUpdate } from '../../models/channel'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
-import { ByProjectKeyChannelsByIDRequestBuilder } from './by-project-key-channels-by-id-request-builder'
-import { ByProjectKeyChannelsKeyByKeyRequestBuilder } from './by-project-key-channels-key-by-key-request-builder'
 /**
  **/
-export class ByProjectKeyChannelsRequestBuilder {
+export class ByProjectKeyChannelsKeyByKeyRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
         projectKey: string
+        key: string
       }
       executeRequest: executeRequest
       baseUri?: string
     }
   ) {}
-  public withId(childPathArgs: {
-    ID: string
-  }): ByProjectKeyChannelsByIDRequestBuilder {
-    return new ByProjectKeyChannelsByIDRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-        ...childPathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
-  }
-  public withKey(childPathArgs: {
-    key: string
-  }): ByProjectKeyChannelsKeyByKeyRequestBuilder {
-    return new ByProjectKeyChannelsKeyByKeyRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-        ...childPathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
-  }
-
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
-      sort?: string | string[]
-      limit?: number
-      offset?: number
-      withTotal?: boolean
-      where?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<ChannelPagedQueryResponse> {
-    return new ApiRequest<ChannelPagedQueryResponse>(
+  }): ApiRequest<Channel> {
+    return new ApiRequest<Channel>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',
-        uriTemplate: '/{projectKey}/channels',
+        uriTemplate: '/{projectKey}/channels/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
@@ -78,13 +43,9 @@ export class ByProjectKeyChannelsRequestBuilder {
     )
   }
   /**
-   *	Checks if a Channel exists for a given Query Predicate. Returns a `200 OK` status if any Channels match the Query Predicate or a `404 Not Found` otherwise.
+   *	Checks if a Channel exists for a given `key`. Returns a `200 OK` status if the Channel exists or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
-    queryArgs?: {
-      where?: string | string[]
-      [key: string]: QueryParam
-    }
     headers?: {
       [key: string]: string | string[]
     }
@@ -93,12 +54,11 @@ export class ByProjectKeyChannelsRequestBuilder {
       {
         baseUri: this.args.baseUri,
         method: 'HEAD',
-        uriTemplate: '/{projectKey}/channels',
+        uriTemplate: '/{projectKey}/channels/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
         },
-        queryParams: methodArgs?.queryArgs,
       },
       this.args.executeRequest
     )
@@ -108,7 +68,7 @@ export class ByProjectKeyChannelsRequestBuilder {
       expand?: string | string[]
       [key: string]: QueryParam
     }
-    body: ChannelDraft
+    body: ChannelUpdate
     headers?: {
       [key: string]: string | string[]
     }
@@ -117,7 +77,7 @@ export class ByProjectKeyChannelsRequestBuilder {
       {
         baseUri: this.args.baseUri,
         method: 'POST',
-        uriTemplate: '/{projectKey}/channels',
+        uriTemplate: '/{projectKey}/channels/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
           'Content-Type': 'application/json',
@@ -125,6 +85,34 @@ export class ByProjectKeyChannelsRequestBuilder {
         },
         queryParams: methodArgs?.queryArgs,
         body: methodArgs?.body,
+      },
+      this.args.executeRequest
+    )
+  }
+  /**
+   *	Returns a [ReferenceExists](ctp:api:type:ReferenceExistsError) error if other resources reference the Channel to be deleted.
+   *
+   */
+  public delete(methodArgs: {
+    queryArgs: {
+      version: number
+      expand?: string | string[]
+      [key: string]: QueryParam
+    }
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<Channel> {
+    return new ApiRequest<Channel>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'DELETE',
+        uriTemplate: '/{projectKey}/channels/key={key}',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
       },
       this.args.executeRequest
     )
