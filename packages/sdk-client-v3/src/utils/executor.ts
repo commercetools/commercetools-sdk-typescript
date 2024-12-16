@@ -36,7 +36,7 @@ export default async function executor(request: HttpClientConfig) {
 
   const data: TResponse = await executeHttpClientRequest(
     async (options: HttpClientConfig): Promise<TResponse> => {
-      const { enableRetry, retryConfig, abortController } = rest
+      const { enableRetry, retryConfig, timeout, abortController } = rest
       const {
         retryCodes = [],
         maxDelay = Infinity,
@@ -49,12 +49,19 @@ export default async function executor(request: HttpClientConfig) {
 
       let result: string,
         data: any,
-        retryCount: number = 0
+        retryCount: number = 0,
+        timer: ReturnType<typeof setTimeout>
 
       // validate the `retryCodes` option
       validateRetryCodes(retryCodes)
 
       async function execute() {
+        if (timeout) {
+          timer = setTimeout(() => {
+            abortController.abort()
+          }, timeout)
+        }
+
         return httpClient(url, {
           ...options,
           ...rest,
@@ -91,7 +98,10 @@ export default async function executor(request: HttpClientConfig) {
             } else {
               throw e
             }
+          } finally {
+            clearTimeout(timer)
           }
+
           return { _response, shouldRetry: false }
         }
 

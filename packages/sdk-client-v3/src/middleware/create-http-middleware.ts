@@ -30,23 +30,14 @@ async function executeRequest({
   httpClient,
   clientOptions,
 }: HttpOptions): Promise<ClientResult> {
-  let timer: ReturnType<typeof setTimeout>
-
   const {
-    timeout,
     request,
-    abortController,
     maskSensitiveHeaderData,
     includeRequestInErrorResponse,
     includeResponseHeaders,
   } = clientOptions
 
   try {
-    if (timeout)
-      timer = setTimeout(() => {
-        abortController.abort()
-      }, timeout)
-
     const response: TResponse = await executor({
       url,
       ...clientOptions,
@@ -134,8 +125,6 @@ async function executeRequest({
       body: null,
       error,
     }
-  } finally {
-    clearTimeout(timer)
   }
 }
 
