@@ -86,7 +86,11 @@ export default async function executor(request: HttpClientConfig) {
               return { _response, shouldRetry: true }
             }
           } catch (e) {
-            if (e.name.includes('AbortError') && retryWhenAborted) {
+            if (
+              (e.name.includes('AbortError') ||
+                e.name.includes('TimeoutError')) &&
+              retryWhenAborted
+            ) {
               return { _response: e, shouldRetry: true }
             } else {
               throw e
