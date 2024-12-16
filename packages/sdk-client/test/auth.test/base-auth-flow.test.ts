@@ -414,10 +414,12 @@ describe('Base Auth Flow', () => {
     nock(middlewareOptions.host)
       .persist() // <-- use the same interceptor for all requests
       .filteringRequestBody(/.*/, '*')
-      .post('/oauth/token', '*')
+      .post('/oauth/token', () => {
+        requestCount += 1
+        return true
+      })
       .delay(2000) // <-- Delay the response
       .reply(401, () => {
-        requestCount += 1
         return {
           message: 'invalid_client',
           error: 'invalid_client',
@@ -428,7 +430,7 @@ describe('Base Auth Flow', () => {
     const pendingTasks = []
 
     const startCreateBaseMiddleware = () =>
-      new Promise((resolve, reject) => {
+      new Promise(async (resolve, reject) => {
         expect(requestState.get()).toBe(false)
 
         // fire off promise returning function and change requestState to true
@@ -445,7 +447,6 @@ describe('Base Auth Flow', () => {
         )
 
         expect(requestState.get()).toBe(true)
-        expect(requestCount).toBe(1) // Make sure that nock runned the mocked request
 
         return start
       })
@@ -454,6 +455,7 @@ describe('Base Auth Flow', () => {
       // await promise failure which should set `requestState` to `false`
       await startCreateBaseMiddleware()
     } catch (error) {
+      expect(requestCount).toBe(1) // Make sure that nock runned the mocked request
       expect(requestState.get()).toBe(false)
     }
   })
