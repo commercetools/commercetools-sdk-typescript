@@ -1,4 +1,4 @@
-# Commercetools Composable Commerce (Improved) TypeScript SDK client (beta)
+# Commercetools Composable Commerce (Improved) TypeScript SDK client
 
 This is the new and improved Typescript SDK client.
 
