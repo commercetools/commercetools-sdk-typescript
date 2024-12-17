@@ -1,5 +1,6 @@
 import { HttpClientConfig, IResponse, TResponse } from '../types/types'
 import { calculateRetryDelay, sleep, validateRetryCodes } from '../utils'
+import AbortController from 'abort-controller'
 
 function hasResponseRetryCode(
   retryCodes: Array<string | number>,
@@ -36,7 +37,7 @@ export default async function executor(request: HttpClientConfig) {
 
   const data: TResponse = await executeHttpClientRequest(
     async (options: HttpClientConfig): Promise<TResponse> => {
-      const { enableRetry, retryConfig, timeout, abortController } = rest
+      const { enableRetry, retryConfig, timeout, getAbortController } = rest
       const {
         retryCodes = [],
         maxDelay = Infinity,
@@ -56,12 +57,6 @@ export default async function executor(request: HttpClientConfig) {
       validateRetryCodes(retryCodes)
 
       async function execute() {
-        if (timeout) {
-          timer = setTimeout(() => {
-            abortController.abort()
-          }, timeout)
-        }
-
         return httpClient(url, {
           ...options,
           ...rest,
@@ -78,12 +73,30 @@ export default async function executor(request: HttpClientConfig) {
         })
       }
 
+      function initializeAbortController() {
+        const abortController =
+          (getAbortController ? getAbortController() : null) ||
+          new AbortController()
+        rest.abortController = abortController
+        rest.signal = abortController.signal
+        return abortController
+      }
+
       async function executeWithRetry<T = any>(): Promise<T> {
         const executeWithTryCatch = async (
           retryCodes: (string | number)[],
           retryWhenAborted: boolean
         ) => {
           let _response = {} as any
+          if (timeout) {
+            let abortController = initializeAbortController()
+
+            timer = setTimeout(() => {
+              abortController.abort()
+              abortController = initializeAbortController()
+            }, timeout)
+          }
+
           try {
             _response = await execute()
             if (
@@ -105,12 +118,10 @@ export default async function executor(request: HttpClientConfig) {
           return { _response, shouldRetry: false }
         }
 
-        const retryWhenAborted =
-          retryOnAbort || !abortController || !abortController.signal
         // first attempt
         let { _response, shouldRetry } = await executeWithTryCatch(
           retryCodes,
-          retryWhenAborted
+          retryOnAbort
         )
         // retry attempts
         while (enableRetry && shouldRetry && retryCount < maxRetries) {
@@ -127,10 +138,7 @@ export default async function executor(request: HttpClientConfig) {
             })
           )
 
-          const execution = await executeWithTryCatch(
-            retryCodes,
-            retryWhenAborted
-          )
+          const execution = await executeWithTryCatch(retryCodes, retryOnAbort)
           _response = execution._response
           shouldRetry = execution.shouldRetry
         }

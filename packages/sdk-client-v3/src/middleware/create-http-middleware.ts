@@ -151,13 +151,6 @@ export default function createHttpMiddleware(
 
   return (next: Next) => {
     return async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {
-      let abortController: AbortController
-
-      if (timeout || getAbortController)
-        abortController =
-          (getAbortController ? getAbortController() : null) ||
-          new AbortController()
-
       const url = host.replace(/\/$/, '') + request.uri
       const requestHeader: JsonObject<QueryParam> = { ...request.headers }
 
@@ -206,13 +199,9 @@ export default function createHttpMiddleware(
         clientOptions.credentialsMode = credentialsMode
       }
 
-      if (abortController) {
-        clientOptions.signal = abortController.signal
-      }
-
       if (timeout) {
         clientOptions.timeout = timeout
-        clientOptions.abortController = abortController
+        clientOptions.getAbortController = getAbortController
       }
 
       if (body) {
