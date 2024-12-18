@@ -1,4 +1,3 @@
-import AbortController from 'abort-controller'
 import {
   ClientResult,
   HttpClientConfig,

@@ -1,6 +1,5 @@
 import { HttpClientConfig, IResponse, TResponse } from '../types/types'
 import { calculateRetryDelay, sleep, validateRetryCodes } from '../utils'
-import AbortController from 'abort-controller'
 
 function hasResponseRetryCode(
   retryCodes: Array<string | number>,
@@ -106,7 +105,11 @@ export default async function executor(request: HttpClientConfig) {
               return { _response, shouldRetry: true }
             }
           } catch (e) {
-            if (e.name.includes('AbortError') && retryWhenAborted) {
+            if (
+              (e.name.includes('AbortError') ||
+                e.name.includes('TimeoutError')) &&
+              retryWhenAborted
+            ) {
               return { _response: e, shouldRetry: true }
             } else {
               throw e

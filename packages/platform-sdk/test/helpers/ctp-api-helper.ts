@@ -3,7 +3,6 @@ import {
   createHttpClient,
   createClient,
 } from '@commercetools/sdk-client-v2'
-import fetch from 'node-fetch'
 import { requireEnvVar } from './test-utils'
 import {
   ApiRoot,

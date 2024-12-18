@@ -38,7 +38,6 @@ const {
   createHttpClient,
 } = require('@commercetools/sdk-client-v2')
 const { createApiBuilderFromCtpClient } = require('@commercetools/importapi-sdk')
-const fetch = require('node-fetch')
 
 const projectKey = 'mc-project-key'
 const authMiddlewareOptions = {
@@ -98,7 +97,6 @@ import {
   createAuthForClientCredentialsFlow,
 } from '@commercetools/sdk-client-v2'
 import { createApiBuilderFromCtpClient } from '@commercetools/importapi-sdk')
-import fetch from 'node-fetch'
 
 const projectKey = 'some_project_key'
 

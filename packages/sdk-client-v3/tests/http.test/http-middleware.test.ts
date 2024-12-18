@@ -1,6 +1,5 @@
 import { HttpMiddlewareOptions, MiddlewareRequest } from '../../src'
 import { createHttpMiddleware } from '../../src/middleware'
-import fetch from 'node-fetch'
 
 function createTestRequest(options) {
   return {

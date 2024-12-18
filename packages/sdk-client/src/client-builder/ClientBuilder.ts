@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 import { default as createClient } from '../sdk-client/client'
 import * as authMiddlewares from '../sdk-middleware-auth'
 import { default as createCorrelationIdMiddleware } from '../sdk-middleware-correlation-id/correlation-id'

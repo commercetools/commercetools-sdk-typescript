@@ -6,7 +6,6 @@ import {
   HttpErrorType,
   MiddlewareResponse,
 } from '../../src/types/sdk.d'
-import fetch from 'node-fetch'
 import { stringifyURLString, parseURLString } from '../../src/utils'
 
 const createPayloadResult = (tot: number, startingId = 0) => ({
