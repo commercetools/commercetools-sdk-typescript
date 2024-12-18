@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 2.1.6
+
+### Patch Changes
+
+- [#884](https://github.com/commercetools/commercetools-sdk-typescript/pull/884) [`3bfcd2e`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3bfcd2e5bae47499bb1694f594bf01d6caa190a2) Thanks [@ajimae](https://github.com/ajimae)! - [Fix][DEVX-514] Fix v3 AbortController Retry Reinitialization
+
 ## 2.1.5
 
 ### Patch Changes
