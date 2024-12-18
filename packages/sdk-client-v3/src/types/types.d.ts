@@ -293,6 +293,8 @@ export type IClientOptions = {
   body?: Record<string, any> | string | Uint8Array;
   timeout?: number
   abortController?: AbortController
+  signal?: AbortSignal,
+  getAbortController?: () => AbortController
   includeOriginalRequest?: boolean
   enableRetry?: boolean
   retryConfig?: RetryOptions

@@ -29,23 +29,14 @@ async function executeRequest({
   httpClient,
   clientOptions,
 }: HttpOptions): Promise<ClientResult> {
-  let timer: ReturnType<typeof setTimeout>
-
   const {
-    timeout,
     request,
-    abortController,
     maskSensitiveHeaderData,
     includeRequestInErrorResponse,
     includeResponseHeaders,
   } = clientOptions
 
   try {
-    if (timeout)
-      timer = setTimeout(() => {
-        abortController.abort()
-      }, timeout)
-
     const response: TResponse = await executor({
       url,
       ...clientOptions,
@@ -133,8 +124,6 @@ async function executeRequest({
       body: null,
       error,
     }
-  } finally {
-    clearTimeout(timer)
   }
 }
 
@@ -161,13 +150,6 @@ export default function createHttpMiddleware(
 
   return (next: Next) => {
     return async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {
-      let abortController: AbortController
-
-      if (timeout || getAbortController)
-        abortController =
-          (getAbortController ? getAbortController() : null) ||
-          new AbortController()
-
       const url = host.replace(/\/$/, '') + request.uri
       const requestHeader: JsonObject<QueryParam> = { ...request.headers }
 
@@ -216,13 +198,9 @@ export default function createHttpMiddleware(
         clientOptions.credentialsMode = credentialsMode
       }
 
-      if (abortController) {
-        clientOptions.signal = abortController.signal
-      }
-
       if (timeout) {
         clientOptions.timeout = timeout
-        clientOptions.abortController = abortController
+        clientOptions.getAbortController = getAbortController
       }
 
       if (body) {
