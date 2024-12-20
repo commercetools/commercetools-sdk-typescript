@@ -105,6 +105,8 @@ export default async function executor(request: HttpClientConfig) {
               return { _response, shouldRetry: true }
             }
           } catch (e) {
+            //  in nodejs v18, the error is AbortError, in nodejs v20, the error is TimeoutError
+            //  https://github.com/nodejs/undici/issues/2590
             if (
               (e.name.includes('AbortError') ||
                 e.name.includes('TimeoutError')) &&
