@@ -35,7 +35,6 @@
   "dependencies": {
     "abort-controller": "3.0.0",
     "buffer": "^6.0.3",
-    "lodash.clonedeep": "^4.5.0",
     "node-fetch": "^2.6.1"
   },
   "files": ["dist", "CHANGELOG.md"],

@@ -44,7 +44,6 @@
     "jest-junit": "16.0.0",
     "jest-watch-typeahead": "2.2.2",
     "lint-staged": "13.3.0",
-    "lodash.clonedeep": "^4.5.0",
     "node-polyfill-webpack-plugin": "^4.0.0",
     "path-browserify": "^1.0.1",
     "prettier": "3.3.3",

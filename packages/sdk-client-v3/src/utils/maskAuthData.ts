@@ -1,8 +1,7 @@
 import { MiddlewareRequest } from '../types/types'
-import cloneDeep from 'lodash.clonedeep'
 
 export default function maskAuthData(request: MiddlewareRequest) {
-  const _request = cloneDeep(request)
+  const _request = JSON.parse(JSON.stringify(request))
   if (_request?.headers) {
     if (_request.headers.Authorization) {
       _request.headers['Authorization'] = 'Bearer ********'
