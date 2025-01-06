@@ -336,6 +336,7 @@ export interface CartDiscountResourceIdentifier {
 export type CartDiscountTarget =
   | CartDiscountCustomLineItemsTarget
   | CartDiscountLineItemsTarget
+  | CartDiscountPatternTarget
   | CartDiscountShippingCostTarget
   | CartDiscountTotalPriceTarget
   | MultiBuyCustomLineItemsTarget
@@ -365,6 +366,48 @@ export interface CartDiscountLineItemsTarget {
    *
    */
   readonly predicate: string
+}
+/**
+ *	Pattern targets can be used to model Buy and Get discounts.
+ *
+ *	Unlike [CartDiscountLineItemsTarget](#cartdiscountlineitemstarget) and [CartDiscountCustomLineItemsTarget](#cartdiscountcustomlineitemstarget), it does not apply to a (Custom) Line Item as a whole, but to individual units of a (Custom) Line Item. The discounts can apply multiple times on the same cart, but each unit can be discounted only once.
+ *
+ */
+export interface CartDiscountPatternTarget {
+  readonly type: 'pattern'
+  /**
+   *	Units of a (Custom) Line Item that trigger a discount application.
+   *
+   *	Based on the availability of matching units, the `triggerPattern` can match multiple times, effecting the number of times the discount will be applied.
+   *	To further limit the discount application, set the `maxOccurrence`.
+   *
+   *	If empty or not set, the Discount will apply indefinitely.
+   *
+   *
+   */
+  readonly triggerPattern?: PatternComponent[]
+  /**
+   *	Units of (Custom) Line Items on which the Discount is applied.
+   *
+   *	Based on the availability of matching units and the limits from the `triggerPattern` or `maxOccurence`, the `targetPattern` can match multiple times.
+   *
+   *
+   */
+  readonly targetPattern: PatternComponent[]
+  /**
+   *	Maximum number of times the Discount can apply on a Cart.
+   *
+   *	If empty or not set, the Discount will apply indefinitely.
+   *
+   *
+   */
+  readonly maxOccurrence?: number
+  /**
+   *	Determines which of the matching units of (Custom) Line Items are discounted.
+   *
+   *
+   */
+  readonly selectionMode: SelectionMode
 }
 /**
  *	Discount is applied to the shipping costs of the [Cart](ctp:api:type:Cart).
@@ -475,6 +518,14 @@ export interface CartDiscountValueFixed {
    *
    */
   readonly money: TypedMoney[]
+  /**
+   *	Indicates how the discount is applied on [CartDiscountLineItemTarget](ctp:api:type:CartDiscountLineItemsTarget) or [CartDiscountCustomLineItemTarget](ctp:api:type:CartDiscountCustomLineItemsTarget).
+   *
+   *	For [CartDiscountPatternTarget](ctp:api:type:CartDiscountPatternTarget), the mode can also be `ProportionateDistribution` or `EvenDistribution`.
+   *
+   *
+   */
+  readonly applicationMode?: DiscountApplicationMode
 }
 /**
  *	Sets the [DiscountedLineItemPrice](ctp:api:type:DiscountedLineItemPrice) of the [CartDiscountLineItemsTarget](ctp:api:type:CartDiscountLineItemsTarget) or [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget) to the value specified in the `money` field, if it is lower than the current Line Item price for the same currency. If the Line Item price is already discounted to a price equal to or lower than the respective price in the `money` field, this Discount is not applied.
@@ -491,6 +542,14 @@ export interface CartDiscountValueFixedDraft {
    *
    */
   readonly money: TypedMoneyDraft[]
+  /**
+   *	Determines how the discount applies on [CartDiscountLineItemTarget](ctp:api:type:CartDiscountLineItemsTarget) or [CartDiscountCustomLineItemTarget](ctp:api:type:CartDiscountCustomLineItemsTarget).
+   *
+   *	For [CartDiscountPatternTarget](ctp:api:type:CartDiscountPatternTarget), you can also set the mode to `ProportionateDistribution` or `EvenDistribution`.
+   *
+   *
+   */
+  readonly applicationMode?: DiscountApplicationMode
 }
 export interface CartDiscountValueGiftLineItem {
   readonly type: 'giftLineItem'
@@ -659,6 +718,85 @@ export interface MultiBuyLineItemsTarget {
    *
    */
   readonly selectionMode: SelectionMode
+}
+/**
+ *	The pattern component it used to define a set of units based on some criteria. The criteria depends on the type of component used.
+ *
+ */
+export type PatternComponent = CountOnCustomLineItemUnits | CountOnLineItemUnits
+export interface CountOnCustomLineItemUnits {
+  readonly type: 'CountOnCustomLineItemUnits'
+  /**
+   *	Valid [CustomLineItem predicate](/../api/projects/predicates#customlineitem-field-identifiers) that determines the units participating in the Discount.
+   *
+   *
+   */
+  readonly predicate: string
+  /**
+   *	Minimum number of units of a Custom Line Item that match the predicate.
+   *
+   *
+   */
+  readonly minCount?: number
+  /**
+   *	Maximum number of units of a Custom Line Item that match the predicate.
+   *	There might be more units matching the predicate, but they will not be participating to the resulting set.
+   *
+   *	The value must be greater than or equal to `minCount`.
+   *	If not provided, the component will match all units that satisfy the predicate.
+   *
+   *
+   */
+  readonly maxCount?: number
+  /**
+   *	Number of units of a Custom Line Item to exclude on every application of the Discount.
+   *
+   *	Set only when configuring the `targetPattern`.
+   *
+   *	The units matched first (satisfying the pattern component) will be excluded from the resulting set.
+   *	The `minCount`and `maxCount` are considered only after the exclusion. Pattern components are matched only if any further units satisfying the pattern component exist.
+   *	For example, if 5 jeans are required but only 3 should be discounted, the `excludeCount` value must be 2.
+   *
+   *
+   */
+  readonly excludeCount?: number
+}
+export interface CountOnLineItemUnits {
+  readonly type: 'CountOnLineItemUnits'
+  /**
+   *	Valid [LineItem predicate](/../api/projects/predicates#lineitem-field-identifiers) that determines the units participating in the Discount.
+   *
+   *
+   */
+  readonly predicate: string
+  /**
+   *	Minimum number of units of a Line Item that match the predicate.
+   *
+   *
+   */
+  readonly minCount?: number
+  /**
+   *	Maximum number of units of a Line Item that match the predicate.
+   *	There might be more units matching the predicate, but they will not be participating to the resulting set.
+   *
+   *	The value must be greater than or equal to `minCount`.
+   *	If not provided, the component will match all units that satisfy the predicate.
+   *
+   *
+   */
+  readonly maxCount?: number
+  /**
+   *	Number of units of a Line Item to exclude on every application of the Discount.
+   *
+   *	Set only when configuring the `targetPattern`.
+   *
+   *	The units matched first (satisfying the pattern component) will be excluded from the resulting set.
+   *	The `minCount`and `maxCount` are considered only after the exclusion. Pattern components are matched only if any further units satisfying the pattern component exist.
+   *	For example, if 5 jeans are required but only 3 should be discounted, the `excludeCount` value must be 2.
+   *
+   *
+   */
+  readonly excludeCount?: number
 }
 /**
  *	Defines which matching items are to be discounted.

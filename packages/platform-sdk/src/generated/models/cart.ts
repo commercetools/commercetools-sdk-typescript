@@ -810,7 +810,7 @@ export interface CustomLineItem {
    */
   readonly shippingDetails?: ItemShippingDetails
   /**
-   *	Indicates whether Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget) are applied to the Custom Line Item.
+   *	Indicates whether Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget), [MultiBuyCustomLineItemsTarget](ctp:api:type:MultiBuyCustomLineItemsTarget), or [CartDiscountPatternTarget](ctp:api:type:CartDiscountPatternTarget) are applied to the Custom Line Item.
    *
    *
    */
@@ -875,8 +875,7 @@ export interface CustomLineItemDraft {
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
   /**
-   *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget)
-   *	are applied to the Custom Line Item.
+   *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget), [MultiBuyCustomLineItemsTarget](ctp:api:type:MultiBuyCustomLineItemsTarget), or [CartDiscountPatternTarget](ctp:api:type:CartDiscountPatternTarget) are applied to the Custom Line Item.
    *	- If `External`, Cart Discounts are not considered on the Custom Line Item.
    *
    *
@@ -2087,8 +2086,7 @@ export interface CartAddCustomLineItemAction {
    */
   readonly custom?: CustomFieldsDraft
   /**
-   *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget)
-   *	are applied to the Custom Line Item.
+   *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget), [MultiBuyCustomLineItemsTarget](ctp:api:type:MultiBuyCustomLineItemsTarget), or [CartDiscountPatternTarget](ctp:api:type:CartDiscountPatternTarget) are applied to the Custom Line Item.
    *	- If `External`, Cart Discounts are not considered on the Custom Line Item.
    *
    *
@@ -3069,6 +3067,12 @@ export interface CartSetCustomShippingMethodAction {
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
+  /**
+   *	Custom Fields for the custom Shipping Method.
+   *
+   *
+   */
+  readonly custom?: CustomFieldsDraft
 }
 export interface CartSetCustomTypeAction {
   readonly action: 'setCustomType'

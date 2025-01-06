@@ -3,15 +3,12 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import {
-  ProductPagedSearchResponse,
-  ProductSearchRequest,
-} from '../../models/product-search'
+import { BusinessUnitSearchIndexingStatusResponse } from '../../models/business-unit-search'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
-export class ByProjectKeyProductsSearchRequestBuilder {
+export class ByProjectKeyBusinessUnitsSearchIndexingStatusRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
@@ -22,27 +19,23 @@ export class ByProjectKeyProductsSearchRequestBuilder {
     }
   ) {}
   /**
-   *	If the indexing is in progress or the feature is inactive, an [ObjectNotFound](ctp:api:type:ObjectNotFoundError) error is returned.
-   *	If inactive, you can [reactivate](/../api/projects/product-search#activation-of-the-feature) it.
+   *	Returns the indexing status of the Business Unit Search for a Project.
    *
    */
-  public post(methodArgs: {
-    body: ProductSearchRequest
+  public get(methodArgs?: {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<ProductPagedSearchResponse> {
-    return new ApiRequest<ProductPagedSearchResponse>(
+  }): ApiRequest<BusinessUnitSearchIndexingStatusResponse> {
+    return new ApiRequest<BusinessUnitSearchIndexingStatusResponse>(
       {
         baseUri: this.args.baseUri,
-        method: 'POST',
-        uriTemplate: '/{projectKey}/products/search',
+        method: 'GET',
+        uriTemplate: '/{projectKey}/business-units/search/indexing-status',
         pathVariables: this.args.pathArgs,
         headers: {
-          'Content-Type': 'application/json',
           ...methodArgs?.headers,
         },
-        body: methodArgs?.body,
       },
       this.args.executeRequest
     )

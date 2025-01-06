@@ -3,15 +3,12 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import {
-  ProductPagedSearchResponse,
-  ProductSearchRequest,
-} from '../../models/product-search'
+import { GraphQLRequest, GraphQLResponse } from '../../models/graph-ql'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
-export class ByProjectKeyProductsSearchRequestBuilder {
+export class ByProjectKeyGraphqlRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
@@ -22,21 +19,19 @@ export class ByProjectKeyProductsSearchRequestBuilder {
     }
   ) {}
   /**
-   *	If the indexing is in progress or the feature is inactive, an [ObjectNotFound](ctp:api:type:ObjectNotFoundError) error is returned.
-   *	If inactive, you can [reactivate](/../api/projects/product-search#activation-of-the-feature) it.
-   *
+   *	Execute a GraphQL request.
    */
   public post(methodArgs: {
-    body: ProductSearchRequest
+    body: GraphQLRequest
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<ProductPagedSearchResponse> {
-    return new ApiRequest<ProductPagedSearchResponse>(
+  }): ApiRequest<GraphQLResponse> {
+    return new ApiRequest<GraphQLResponse>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',
-        uriTemplate: '/{projectKey}/products/search',
+        uriTemplate: '/{projectKey}/graphql',
         pathVariables: this.args.pathArgs,
         headers: {
           'Content-Type': 'application/json',

@@ -1,3 +1,7 @@
+---
+'@commercetools/platform-sdk': minor
+---
+
 **Api changes**
 
 <details>
@@ -340,58 +344,4 @@
 
 - added query parameter `where` to method `get /{projectKey}/product-selections/key={key}/products`
 - added query parameter `where` to method `get /{projectKey}/product-selections/{ID}/products`
-</details>
-
-**Import changes**
-
-<details>
-<summary>Added Type(s)</summary>
-
-- added type `InvalidFieldsUpdateError`
-- added type `NewMasterVariantAdditionNotAllowedError`
-</details>
-
-<details>
-<summary>Deprecated Property(s)</summary>
-
-- property `PriceImport::publish` is removed
-- property `ProductVariantImport::publish` is removed
-</details>
-
-<details>
-<summary>Added Enum(s)</summary>
-
-- added enum `customer-group` to type `CustomFieldReferenceValue`
-</details>
-
-**History changes**
-
-<details>
-<summary>Added Resource(s)</summary>
-
-- added resource `/{projectKey}/graphql`
-</details>
-
-<details>
-<summary>Added Method(s)</summary>
-
-- added method `apiRoot.withProjectKeyValue().graphql().post()`
-</details>
-
-<details>
-<summary>Added Type(s)</summary>
-
-- added type `GraphQLRequest`
-- added type `GraphQLResponse`
-- added type `GraphQLError`
-- added type `GraphQLErrorLocation`
-- added type `GraphQLVariablesMap`
-- added type `ChangeTargetPatternChangeValue`
-- added type `PatternComponent`
-</details>
-
-<details>
-<summary>Required Property(s)</summary>
-
-- changed property `id` of type `ModifiedBy` to be optional
 </details>
