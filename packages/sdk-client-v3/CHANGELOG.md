@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 2.1.7
+
+### Patch Changes
+
+- [#887](https://github.com/commercetools/commercetools-sdk-typescript/pull/887) [`3ee183a`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3ee183a3329012b4bcfe6eb7a6b0044232bbdb5d) Thanks [@lojzatran](https://github.com/lojzatran)! - fix(SUPPORT-30038): clone deep the request object
+
 ## 2.1.6
 
 ### Patch Changes
