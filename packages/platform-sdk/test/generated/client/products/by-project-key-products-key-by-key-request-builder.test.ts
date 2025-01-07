@@ -40,6 +40,19 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
+      uri: '/test_projectKey/products/key=test_key?priceCustomerGroupAssignments=priceCustomerGroupAssignments',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .products()
+        .withKey({ key: 'test_key' })
+        .get({
+          queryArgs: {
+            priceCustomerGroupAssignments: 'priceCustomerGroupAssignments',
+          },
+        }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/products/key=test_key?priceChannel=priceChannel',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
@@ -115,6 +128,21 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'post',
+      uri: '/test_projectKey/products/key=test_key?priceCustomerGroupAssignments=priceCustomerGroupAssignments',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .products()
+        .withKey({ key: 'test_key' })
+        .post({
+          body: null,
+          headers: null,
+          queryArgs: {
+            priceCustomerGroupAssignments: 'priceCustomerGroupAssignments',
+          },
+        }),
+    },
+    {
+      method: 'post',
       uri: '/test_projectKey/products/key=test_key?priceChannel=priceChannel',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
@@ -171,6 +199,20 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .withKey({ key: 'test_key' })
         .delete({
           queryArgs: { priceCustomerGroup: 'priceCustomerGroup', version: 2 },
+        }),
+    },
+    {
+      method: 'delete',
+      uri: '/test_projectKey/products/key=test_key?priceCustomerGroupAssignments=priceCustomerGroupAssignments&version=2',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .products()
+        .withKey({ key: 'test_key' })
+        .delete({
+          queryArgs: {
+            priceCustomerGroupAssignments: 'priceCustomerGroupAssignments',
+            version: 2,
+          },
         }),
     },
     {

@@ -1,3 +1,7 @@
+---
+'@commercetools/history-sdk': minor
+---
+
 **History changes**
 
 <details>

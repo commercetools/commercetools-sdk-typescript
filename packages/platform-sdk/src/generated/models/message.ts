@@ -49,7 +49,11 @@ import {
   Reference,
   TypedMoney,
 } from './common'
-import { Customer, CustomerReference } from './customer'
+import {
+  Customer,
+  CustomerGroupAssignment,
+  CustomerReference,
+} from './customer'
 import { CustomerGroupReference } from './customer-group'
 import { DiscountCode, DiscountCodeReference } from './discount-code'
 import { InventoryEntry } from './inventory'
@@ -202,6 +206,9 @@ export type Message =
   | CustomerEmailTokenCreatedMessage
   | CustomerEmailVerifiedMessage
   | CustomerFirstNameSetMessage
+  | CustomerGroupAssignmentAddedMessage
+  | CustomerGroupAssignmentRemovedMessage
+  | CustomerGroupAssignmentsSetMessage
   | CustomerGroupCustomFieldAddedMessage
   | CustomerGroupCustomFieldChangedMessage
   | CustomerGroupCustomFieldRemovedMessage
@@ -6341,6 +6348,216 @@ export interface CustomerFirstNameSetMessage {
    *
    */
   readonly firstName?: string
+}
+/**
+ *	Generated after a successful [Add CustomerGroupAssignment](ctp:api:type:CustomerAddCustomerGroupAssignmentAction) update action.
+ *
+ */
+export interface CustomerGroupAssignmentAddedMessage {
+  readonly type: 'CustomerGroupAssignmentAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[CustomerGroupAssignment](ctp:api:type:CustomerGroupAssignment) that was added during the [Add CustomerGroupAssignment](ctp:api:type:CustomerAddCustomerGroupAssignmentAction) update action.
+   *
+   *
+   */
+  readonly customerGroupAssignment: CustomerGroupAssignment
+}
+/**
+ *	Generated after a successful [Remove CustomerGroupAssignment](ctp:api:type:CustomerRemoveCustomerGroupAssignmentAction) update action.
+ *
+ */
+export interface CustomerGroupAssignmentRemovedMessage {
+  readonly type: 'CustomerGroupAssignmentRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[CustomerGroupAssignment](ctp:api:type:CustomerGroupAssignment) that was removed during the [Remove CustomerGroupAssignment](ctp:api:type:CustomerRemoveCustomerGroupAssignmentAction) update action.
+   *
+   *
+   */
+  readonly customerGroupAssignment: CustomerGroupReference
+}
+/**
+ *	Generated after a successful [Set CustomerGroupAssignments](ctp:api:type:CustomerSetCustomerGroupAssignmentsAction) update action.
+ *
+ */
+export interface CustomerGroupAssignmentsSetMessage {
+  readonly type: 'CustomerGroupAssignmentsSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	List of [CustomerGroupAssignments](ctp:api:type:CustomerGroupAssignment) that were set during the [Set CustomerGroupAssignments](ctp:api:type:CustomerSetCustomerGroupAssignmentsAction) update action.
+   *
+   *
+   */
+  readonly customerGroupAssignments?: CustomerGroupAssignment[]
 }
 /**
  *	Generated after adding a Custom Field to a Customer Group using the [Set CustomField](ctp:api:type:CustomerGroupSetCustomFieldAction) update action.
@@ -19471,6 +19688,9 @@ export type MessagePayload =
   | CustomerEmailTokenCreatedMessagePayload
   | CustomerEmailVerifiedMessagePayload
   | CustomerFirstNameSetMessagePayload
+  | CustomerGroupAssignmentAddedMessagePayload
+  | CustomerGroupAssignmentRemovedMessagePayload
+  | CustomerGroupAssignmentsSetMessagePayload
   | CustomerGroupCustomFieldAddedMessagePayload
   | CustomerGroupCustomFieldChangedMessagePayload
   | CustomerGroupCustomFieldRemovedMessagePayload
@@ -20937,6 +21157,45 @@ export interface CustomerFirstNameSetMessagePayload {
    *
    */
   readonly firstName?: string
+}
+/**
+ *	Generated after a successful [Add CustomerGroupAssignment](ctp:api:type:CustomerAddCustomerGroupAssignmentAction) update action.
+ *
+ */
+export interface CustomerGroupAssignmentAddedMessagePayload {
+  readonly type: 'CustomerGroupAssignmentAdded'
+  /**
+   *	[CustomerGroupAssignment](ctp:api:type:CustomerGroupAssignment) that was added during the [Add CustomerGroupAssignment](ctp:api:type:CustomerAddCustomerGroupAssignmentAction) update action.
+   *
+   *
+   */
+  readonly customerGroupAssignment: CustomerGroupAssignment
+}
+/**
+ *	Generated after a successful [Remove CustomerGroupAssignment](ctp:api:type:CustomerRemoveCustomerGroupAssignmentAction) update action.
+ *
+ */
+export interface CustomerGroupAssignmentRemovedMessagePayload {
+  readonly type: 'CustomerGroupAssignmentRemoved'
+  /**
+   *	[CustomerGroupAssignment](ctp:api:type:CustomerGroupAssignment) that was removed during the [Remove CustomerGroupAssignment](ctp:api:type:CustomerRemoveCustomerGroupAssignmentAction) update action.
+   *
+   *
+   */
+  readonly customerGroupAssignment: CustomerGroupReference
+}
+/**
+ *	Generated after a successful [Set CustomerGroupAssignments](ctp:api:type:CustomerSetCustomerGroupAssignmentsAction) update action.
+ *
+ */
+export interface CustomerGroupAssignmentsSetMessagePayload {
+  readonly type: 'CustomerGroupAssignmentsSet'
+  /**
+   *	List of [CustomerGroupAssignments](ctp:api:type:CustomerGroupAssignment) that were set during the [Set CustomerGroupAssignments](ctp:api:type:CustomerSetCustomerGroupAssignmentsAction) update action.
+   *
+   *
+   */
+  readonly customerGroupAssignments?: CustomerGroupAssignment[]
 }
 /**
  *	Generated after adding a Custom Field to a Customer Group using the [Set CustomField](ctp:api:type:CustomerGroupSetCustomFieldAction) update action.
