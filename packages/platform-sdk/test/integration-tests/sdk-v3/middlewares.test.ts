@@ -187,6 +187,61 @@ describe('Concurrent Modification Middleware', () => {
       .execute()
       .catch((e) => e)
   })
+
+  // https://commercetools.atlassian.net/browse/SUPPORT-30038
+  it('should retry with correct bearer token when maskSensitiveHeaderData is true', async () => {
+    async function concurrentModificationHandlerFn(
+      version: number,
+      request: MiddlewareRequest,
+      response
+    ) {
+      expect(request.headers.Authorization).toMatch(/^Bearer (?!\*+$)([^\s]+)$/)
+
+      // update version
+      request.body = {
+        ...(request.body as object),
+        version,
+      }
+
+      return JSON.stringify(request.body)
+    }
+
+    const ctpClientV3 = new ClientBuilderV3()
+      .withHttpMiddleware({
+        ...httpMiddlewareOptionsV3,
+        maskSensitiveHeaderData: true,
+      })
+      .withConcurrentModificationMiddleware({ concurrentModificationHandlerFn })
+      .withClientCredentialsFlow(authMiddlewareOptions)
+      .build()
+
+    const apiRootV3 = createApiBuilderFromCtpClient(ctpClientV3).withProjectKey(
+      {
+        projectKey,
+      }
+    )
+
+    try {
+      await apiRootV3
+        .products()
+        .withId({ ID: product.id })
+        .post({
+          body: {
+            version: +product.version + 1,
+            actions: [
+              {
+                action: 'changeName',
+                name: { en: 'test-name' + new Date().getTime() },
+              },
+            ],
+          },
+        })
+        .execute()
+    } catch (e) {
+      console.error(e)
+      throw e
+    }
+  })
 })
 
 describe('Http clients and http client options', () => {

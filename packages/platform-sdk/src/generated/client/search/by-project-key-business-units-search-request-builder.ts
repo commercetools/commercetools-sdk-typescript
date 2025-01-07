@@ -4,14 +4,14 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import {
-  CustomerPagedSearchResponse,
-  CustomerSearchRequest,
-} from '../../models/customer-search'
+  BusinessUnitPagedSearchResponse,
+  BusinessUnitSearchRequest,
+} from '../../models/business-unit-search'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
-export class ByProjectKeyCustomersSearchRequestBuilder {
+export class ByProjectKeyBusinessUnitsSearchRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
@@ -22,21 +22,20 @@ export class ByProjectKeyCustomersSearchRequestBuilder {
     }
   ) {}
   /**
-   *	If the initial indexing is in progress or the feature is inactive, a [SearchNotReady](ctp:api:type:SearchNotReadyError) error is returned.
-   *	If inactive, you can [reactivate](/../api/projects/customer-search#reactivate) it.
+   *	If the initial indexing is in progress or the feature is inactive, A [SearchNotReady](ctp:api:type:SearchNotReadyError) error is returned. If inactive, you can [reactivate](/../api/projects/business-unit-search#reactivate) it.
    *
    */
   public post(methodArgs: {
-    body: CustomerSearchRequest
+    body: BusinessUnitSearchRequest
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<CustomerPagedSearchResponse> {
-    return new ApiRequest<CustomerPagedSearchResponse>(
+  }): ApiRequest<BusinessUnitPagedSearchResponse> {
+    return new ApiRequest<BusinessUnitPagedSearchResponse>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',
-        uriTemplate: '/{projectKey}/customers/search',
+        uriTemplate: '/{projectKey}/business-units/search',
         pathVariables: this.args.pathArgs,
         headers: {
           'Content-Type': 'application/json',
@@ -48,7 +47,7 @@ export class ByProjectKeyCustomersSearchRequestBuilder {
     )
   }
   /**
-   *	Checks whether a search index of Customers exists for a Project.
+   *	Checks whether a search index of Business Units exists for a Project.
    *	Returns a `200 OK` if an index exists; otherwise, returns a `409 Conflict`.
    *
    */
@@ -61,7 +60,7 @@ export class ByProjectKeyCustomersSearchRequestBuilder {
       {
         baseUri: this.args.baseUri,
         method: 'HEAD',
-        uriTemplate: '/{projectKey}/customers/search',
+        uriTemplate: '/{projectKey}/business-units/search',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
