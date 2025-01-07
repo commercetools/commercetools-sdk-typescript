@@ -30,7 +30,7 @@
     "@manypkg/cli": "0.22.0",
     "@preconstruct/cli": "2.8.10",
     "@types/jest": "29.5.14",
-    "@types/node": "^20.0.0",
+    "@types/node": "^22.0.0",
     "axios": "^1.7.7",
     "babel-jest": "29.7.0",
     "buffer": "^6.0.3",
