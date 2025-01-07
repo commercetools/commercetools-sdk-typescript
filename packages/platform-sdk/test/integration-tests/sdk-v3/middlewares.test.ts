@@ -395,7 +395,7 @@ describe('Correlation ID and user agent middlewares', () => {
     )
 
     const response = await apiRootV3.get().execute()
-    expect(response.headers?.['x-correlation-id'][0]).toEqual(correlationId)
+    expect(response.headers?.['x-correlation-id']).toEqual(correlationId)
     expect((response?.originalRequest as any).headers['User-Agent']).toContain(
       'test-app/commercetools-sdk-javascript-v3'
     )

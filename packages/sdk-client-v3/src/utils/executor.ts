@@ -1,4 +1,3 @@
-import AbortController from 'abort-controller'
 import { HttpClientConfig, IResponse, TResponse } from '../types/types'
 import { calculateRetryDelay, sleep, validateRetryCodes } from '../utils'
 
@@ -106,7 +105,13 @@ export default async function executor(request: HttpClientConfig) {
               return { _response, shouldRetry: true }
             }
           } catch (e) {
-            if (e.name.includes('AbortError') && retryWhenAborted) {
+            //  in nodejs v18, the error is AbortError, in nodejs v20, the error is TimeoutError
+            //  https://github.com/nodejs/undici/issues/2590
+            if (
+              (e.name.includes('AbortError') ||
+                e.name.includes('TimeoutError')) &&
+              retryWhenAborted
+            ) {
               return { _response: e, shouldRetry: true }
             } else {
               throw e

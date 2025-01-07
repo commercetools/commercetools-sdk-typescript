@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 import * as middleware from '../middleware'
 import { constants } from '../utils'
 import { default as createClient } from './client'

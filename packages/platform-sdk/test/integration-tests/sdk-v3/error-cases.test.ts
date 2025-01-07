@@ -5,7 +5,6 @@ import {
   projectKey,
 } from '../test-utils'
 import { createApiBuilderFromCtpClient } from '../../../src'
-import fetch from 'node-fetch'
 import { TokenCache } from '@commercetools/ts-client'
 
 describe('testing error cases', () => {

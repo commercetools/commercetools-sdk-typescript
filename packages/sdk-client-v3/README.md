@@ -26,7 +26,6 @@ import {
   ClientBuilder,
 } from '@commercetools/ts-client'
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
-import fetch from 'node-fetch'
 
 const projectKey = 'mc-project-key'
 const authMiddlewareOptions = {
