@@ -1,4 +1,3 @@
-import AbortController from 'abort-controller'
 import { HttpClientConfig, IResponse, TResponse } from '../types/types'
 import { calculateRetryDelay, sleep, validateRetryCodes } from '../utils'
 
