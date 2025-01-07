@@ -35,7 +35,7 @@ jobs:
           token: ${{ steps.generate_github_token.outputs.token }}
 
       - name: Read .nvmrc
-        run: echo ::set-output name=NVMRC::$(cat .nvmrc)
+        run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
         id: nvm
 
       - name: Setup Node (uses version in .nvmrc)
@@ -45,7 +45,7 @@ jobs:
 
       - name: Get yarn cache
         id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
 
       - uses: actions/cache@v4
         with:
@@ -82,7 +82,7 @@ jobs:
       - name: Dispatch repository event
         if: steps.changesets.outputs.published == 'true'
         run: |
-          gh api --method POST /repos/commercetools/commercetools-typescript-sdk/dispatches -f "event_type=new_release"
+          gh api --method POST /repos/commercetools/commercetools-sdk-typescript/dispatches -f "event_type=new_release"
         env:
           GITHUB_TOKEN: ${{ steps.generate_github_token.outputs.token }}
 

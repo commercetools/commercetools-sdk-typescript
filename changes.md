@@ -21,6 +21,7 @@
 - :warning: changed property `customType` of type `OrderSearchQueryExpressionValue` from type `string` to `OrderSearchCustomType`
 - :warning: changed property `customType` of type `OrderSearchStringValue` from type `string` to `OrderSearchCustomType`
 - :warning: changed property `totalPrice` of type `Order` from type `TypedMoney` to `CentPrecisionMoney`
+- :warning: changed property `exact` of type `SearchExactExpression` from type `SearchAnyValue` to `SearchExactValue`
 - :warning: changed property `price` of type `ShippingRate` from type `TypedMoney` to `CentPrecisionMoney`
 - :warning: changed property `freeAbove` of type `ShippingRate` from type `TypedMoney` to `CentPrecisionMoney`
 </details>
@@ -46,6 +47,9 @@
 - added property `approvalRuleMode` to type `DivisionDraft`
 - added property `applicationMode` to type `CartDiscountValueAbsolute`
 - added property `applicationMode` to type `CartDiscountValueAbsoluteDraft`
+- added property `applicationMode` to type `CartDiscountValueFixed`
+- added property `applicationMode` to type `CartDiscountValueFixedDraft`
+- added property `custom` to type `CartSetCustomShippingMethodAction`
 - added property `addressId` to type `BusinessUnitAddressCustomFieldAddedMessage`
 - added property `addressId` to type `BusinessUnitAddressCustomFieldChangedMessage`
 - added property `addressId` to type `BusinessUnitAddressCustomFieldRemovedMessage`
@@ -76,12 +80,15 @@
 - added property `metaKeywords` to type `ProductTailoringCreatedMessagePayload`
 - added property `variants` to type `ProductTailoringCreatedMessagePayload`
 - added property `staged` to type `ProductVariantDeletedMessagePayload`
+- added property `custom` to type `StagedOrderSetCustomShippingMethodAction`
+- added property `custom` to type `StagedOrderSetShippingAddressAndCustomShippingMethodAction`
 - added property `warnings` to type `ProductTailoring`
 - added property `variants` to type `ProductTailoringData`
 - added property `variants` to type `ProductTailoringDraft`
 - added property `variants` to type `ProductTailoringInStoreDraft`
 - added property `warnings` to type `Product`
 - added property `customers` to type `SearchIndexingConfiguration`
+- added property `businessUnits` to type `SearchIndexingConfiguration`
 - added property `active` to type `ShippingMethod`
 - added property `active` to type `ShippingMethodDraft`
 - added property `store` to type `StagedQuote`
@@ -91,6 +98,8 @@
 <details>
 <summary>Added Resource(s)</summary>
 
+- added resource `/{projectKey}/business-units/search`
+- added resource `/{projectKey}/business-units/search/indexing-status`
 - added resource `/{projectKey}/channels/key={key}`
 - added resource `/{projectKey}/customers/search`
 - added resource `/{projectKey}/customers/search/indexing-status`
@@ -125,9 +134,19 @@
 
 - added type `ApprovalRuleSetCustomFieldAction`
 - added type `ApprovalRuleSetCustomTypeAction`
+- added type `BusinessUnitIndexingProgress`
+- added type `BusinessUnitIndexingStatus`
+- added type `BusinessUnitPagedSearchResponse`
+- added type `BusinessUnitSearchIndexingStatusResponse`
+- added type `BusinessUnitSearchRequest`
+- added type `BusinessUnitSearchResult`
 - added type `BusinessUnitApprovalRuleMode`
 - added type `BusinessUnitChangeApprovalRuleModeAction`
+- added type `CartDiscountPatternTarget`
+- added type `CountOnCustomLineItemUnits`
+- added type `CountOnLineItemUnits`
 - added type `DiscountApplicationMode`
+- added type `PatternComponent`
 - added type `CartChangeLineItemsOrderAction`
 - added type `CustomerIndexingProgress`
 - added type `CustomerIndexingStatus`
@@ -153,6 +172,9 @@
 - added type `ProductTailoringImagesSetMessage`
 - added type `ProductVariantTailoringAddedMessage`
 - added type `ProductVariantTailoringRemovedMessage`
+- added type `ShoppingListLineItemAddedMessage`
+- added type `ShoppingListLineItemRemovedMessage`
+- added type `ShoppingListMessage`
 - added type `BusinessUnitApprovalRuleModeChangedMessagePayload`
 - added type `DeliveryCustomFieldAddedMessagePayload`
 - added type `DeliveryCustomFieldChangedMessagePayload`
@@ -168,6 +190,9 @@
 - added type `ProductTailoringImagesSetMessagePayload`
 - added type `ProductVariantTailoringAddedMessagePayload`
 - added type `ProductVariantTailoringRemovedMessagePayload`
+- added type `ShoppingListLineItemAddedMessagePayload`
+- added type `ShoppingListLineItemRemovedMessagePayload`
+- added type `ShoppingListMessagePayload`
 - added type `StagedOrderSetShippingCustomFieldAction`
 - added type `StagedOrderSetShippingCustomTypeAction`
 - added type `OrderSearchCustomType`
@@ -195,8 +220,11 @@
 - added type `ProductTailoringSetAttributeInAllVariantsAction`
 - added type `ProductTailoringSetExternalImagesAction`
 - added type `ProductTailoringSetImageLabelAction`
+- added type `BusinessUnitSearchStatus`
 - added type `CustomerSearchStatus`
+- added type `ProjectChangeBusinessUnitSearchStatusAction`
 - added type `ProjectChangeCustomerSearchStatusAction`
+- added type `SearchExactValue`
 - added type `ShippingMethodChangeActiveAction`
 - added type `ImageProcessingOngoingWarning`
 - added type `WarningObject`
@@ -213,10 +241,12 @@
 
 - added enum `customer-group` to type `ExtensionResourceTypeId`
 - added enum `shopping-list` to type `ExtensionResourceTypeId`
+- added enum `Canceled` to type `ShipmentState`
 - added enum `customer-group` to type `AttributeReferenceTypeId`
 - added enum `attribute-group` to type `ChangeSubscriptionResourceTypeId`
 - added enum `product-tailoring` to type `ChangeSubscriptionResourceTypeId`
 - added enum `product-tailoring` to type `MessageSubscriptionResourceTypeId`
+- added enum `shopping-list` to type `MessageSubscriptionResourceTypeId`
 - added enum `approval-rule` to type `CustomFieldReferenceValue`
 - added enum `cart-discount` to type `CustomFieldReferenceValue`
 - added enum `customer-group` to type `CustomFieldReferenceValue`
@@ -228,6 +258,9 @@
 <summary>Added Method(s)</summary>
 
 - added method `apiRoot.withProjectKey().productTailoring().head()`
+- added method `apiRoot.withProjectKey().businessUnits().search().post()`
+- added method `apiRoot.withProjectKey().businessUnits().search().head()`
+- added method `apiRoot.withProjectKey().businessUnits().searchIndexingStatus().get()`
 - added method `apiRoot.withProjectKey().channels().withKey().get()`
 - added method `apiRoot.withProjectKey().channels().withKey().head()`
 - added method `apiRoot.withProjectKey().channels().withKey().post()`
@@ -332,6 +365,30 @@
 </details>
 
 **History changes**
+
+<details>
+<summary>Added Resource(s)</summary>
+
+- added resource `/{projectKey}/graphql`
+</details>
+
+<details>
+<summary>Added Method(s)</summary>
+
+- added method `apiRoot.withProjectKeyValue().graphql().post()`
+</details>
+
+<details>
+<summary>Added Type(s)</summary>
+
+- added type `GraphQLRequest`
+- added type `GraphQLResponse`
+- added type `GraphQLError`
+- added type `GraphQLErrorLocation`
+- added type `GraphQLVariablesMap`
+- added type `ChangeTargetPatternChangeValue`
+- added type `PatternComponent`
+</details>
 
 <details>
 <summary>Required Property(s)</summary>

@@ -1,5 +1,83 @@
 # @commercetools/importapi-sdk
 
+## 5.20.0
+
+### Minor Changes
+
+- [#891](https://github.com/commercetools/commercetools-sdk-typescript/pull/891) [`4a003ca`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4a003ca0f870ec7edb63d21e8fb2932b602fb876) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `InvalidFieldsUpdateError`
+  - added type `NewMasterVariantAdditionNotAllowedError`
+  </details>
+
+  <details>
+  <summary>Deprecated Property(s)</summary>
+
+  - property `PriceImport::publish` is removed
+  - property `ProductVariantImport::publish` is removed
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `customer-group` to type `CustomFieldReferenceValue`
+  </details>
+
+## 5.19.0
+
+### Minor Changes
+
+- [#890](https://github.com/commercetools/commercetools-sdk-typescript/pull/890) [`9da41f4`](https://github.com/commercetools/commercetools-sdk-typescript/commit/9da41f4118c60009eed56f64d833432d9c0c5403) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `InvalidFieldsUpdateError`
+  - added type `NewMasterVariantAdditionNotAllowedError`
+  </details>
+
+  <details>
+  <summary>Deprecated Property(s)</summary>
+
+  - property `PriceImport::publish` is removed
+  - property `ProductVariantImport::publish` is removed
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `customer-group` to type `CustomFieldReferenceValue`
+  </details>
+
+## 5.18.0
+
+### Minor Changes
+
+- [#878](https://github.com/commercetools/commercetools-sdk-typescript/pull/878) [`90ece88`](https://github.com/commercetools/commercetools-sdk-typescript/commit/90ece88d52bc1ff7d01c070bb9e548dd46eb2cda) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `InvalidFieldsUpdateError`
+  - added type `NewMasterVariantAdditionNotAllowedError`
+  </details>
+
+  <details>
+  <summary>Deprecated Property(s)</summary>
+
+  - property `PriceImport::publish` is removed
+  - property `ProductVariantImport::publish` is removed
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `customer-group` to type `CustomFieldReferenceValue`
+  </details>
+
 ## 5.17.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # @commercetools/ts-client
 
+## 2.1.7
+
+### Patch Changes
+
+- [#887](https://github.com/commercetools/commercetools-sdk-typescript/pull/887) [`3ee183a`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3ee183a3329012b4bcfe6eb7a6b0044232bbdb5d) Thanks [@lojzatran](https://github.com/lojzatran)! - fix(SUPPORT-30038): clone deep the request object
+
+## 2.1.6
+
+### Patch Changes
+
+- [#884](https://github.com/commercetools/commercetools-sdk-typescript/pull/884) [`3bfcd2e`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3bfcd2e5bae47499bb1694f594bf01d6caa190a2) Thanks [@ajimae](https://github.com/ajimae)! - [Fix][DEVX-514] Fix v3 AbortController Retry Reinitialization
+
 ## 2.1.5
 
 ### Patch Changes

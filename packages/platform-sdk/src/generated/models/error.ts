@@ -1498,14 +1498,16 @@ export interface NoMatchingProductDiscountFoundError {
   readonly message: string
 }
 /**
- *	Returned when the requested resource was not found.
+ *	Returned if the requested resource was not found or the Product Search index is [inactive](/../api/projects/product-search#activation-of-the-feature).
  *
  */
 export interface ObjectNotFoundError {
   readonly code: 'ObjectNotFound'
   [key: string]: any
   /**
-   *	`"A $resourceType with identifier $id was unexpectedly not found."`
+   *	`"A $resourceType with identifier $id was unexpectedly not found."` or
+   *
+   *	`"No index found for project"`
    *
    *
    */
@@ -3116,7 +3118,7 @@ export interface GraphQLNoMatchingProductDiscountFoundError {
   [key: string]: any
 }
 /**
- *	Returned when the requested resource was not found.
+ *	Returned if the requested resource was not found or the Product Search index is [inactive](/../api/projects/product-search#activation-of-the-feature).
  *
  */
 export interface GraphQLObjectNotFoundError {

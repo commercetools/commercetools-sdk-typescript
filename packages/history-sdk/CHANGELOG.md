@@ -1,5 +1,89 @@
 # @commercetools/history-sdk
 
+## 4.10.0
+
+### Minor Changes
+
+- [#891](https://github.com/commercetools/commercetools-sdk-typescript/pull/891) [`4a003ca`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4a003ca0f870ec7edb63d21e8fb2932b602fb876) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **History changes**
+
+  <details>
+  <summary>Added Resource(s)</summary>
+
+  - added resource `/{projectKey}/graphql`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+
+  - added method `apiRoot.withProjectKeyValue().graphql().post()`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `GraphQLRequest`
+  - added type `GraphQLResponse`
+  - added type `GraphQLError`
+  - added type `GraphQLErrorLocation`
+  - added type `GraphQLVariablesMap`
+  - added type `ChangeTargetPatternChangeValue`
+  - added type `PatternComponent`
+  </details>
+
+  <details>
+  <summary>Required Property(s)</summary>
+
+  - changed property `id` of type `ModifiedBy` to be optional
+  </details>
+
+## 4.9.0
+
+### Minor Changes
+
+- [#890](https://github.com/commercetools/commercetools-sdk-typescript/pull/890) [`9da41f4`](https://github.com/commercetools/commercetools-sdk-typescript/commit/9da41f4118c60009eed56f64d833432d9c0c5403) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **History changes**
+
+  <details>
+  <summary>Added Resource(s)</summary>
+
+  - added resource `/{projectKey}/graphql`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+
+  - added method `apiRoot.withProjectKeyValue().graphql().post()`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `GraphQLRequest`
+  - added type `GraphQLResponse`
+  - added type `GraphQLError`
+  - added type `GraphQLErrorLocation`
+  - added type `GraphQLVariablesMap`
+  - added type `ChangeTargetPatternChangeValue`
+  - added type `PatternComponent`
+  </details>
+
+  <details>
+  <summary>Required Property(s)</summary>
+
+  - changed property `id` of type `ModifiedBy` to be optional
+  </details>
+
+## 4.8.0
+
+### Minor Changes
+
+- [#878](https://github.com/commercetools/commercetools-sdk-typescript/pull/878) [`90ece88`](https://github.com/commercetools/commercetools-sdk-typescript/commit/90ece88d52bc1ff7d01c070bb9e548dd46eb2cda) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **History changes**
+
+  <details>
+  <summary>Required Property(s)</summary>
+
+  - changed property `id` of type `ModifiedBy` to be optional
+  </details>
+
 ## 4.7.0
 
 ### Minor Changes
