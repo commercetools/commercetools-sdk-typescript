@@ -13,6 +13,7 @@ import {
   QuoteRequestResourceIdentifier,
 } from './quote-request'
 import { StateReference, StateResourceIdentifier } from './state'
+import { StoreKeyReference } from './store'
 import {
   CustomFields,
   CustomFieldsDraft,
@@ -51,13 +52,13 @@ export interface StagedQuote extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the StagedQuote.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the StagedQuote.
    *
    *
    */
@@ -123,6 +124,12 @@ export interface StagedQuote extends BaseResource {
    *
    */
   readonly businessUnit?: BusinessUnitKeyReference
+  /**
+   *	The Store to which the [Buyer](/../api/quotes-overview#buyer) belongs.
+   *
+   *
+   */
+  readonly store?: StoreKeyReference
 }
 export interface StagedQuoteDraft {
   /**

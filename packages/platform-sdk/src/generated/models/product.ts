@@ -31,6 +31,7 @@ import {
   TaxCategoryResourceIdentifier,
 } from './tax-category'
 import { FieldContainer, TypeResourceIdentifier } from './type'
+import { WarningObject } from './warning'
 
 export interface Attribute {
   /**
@@ -170,13 +171,13 @@ export interface Product extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the Product.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Product.
    *
    *
    */
@@ -225,6 +226,13 @@ export interface Product extends BaseResource {
    *
    */
   readonly priceMode?: ProductPriceModeEnum
+  /**
+   *	Warnings about processing of a request.
+   *	Appears in response to requests with response status code `202 Accepted`.
+   *
+   *
+   */
+  readonly warnings?: WarningObject[]
 }
 /**
  *	Contains the `current` and `staged` [ProductData](ctp:api:type:ProductData).
@@ -294,13 +302,13 @@ export interface ProductData {
    */
   readonly slug: LocalizedString
   /**
-   *	Title of the Product displayed in search results.
+   *	Title of the Product as used by search engines.
    *
    *
    */
   readonly metaTitle?: LocalizedString
   /**
-   *	Description of the Product displayed in search results below the meta title.
+   *	Description of the Product as used by search engines.
    *
    *
    */
@@ -324,7 +332,7 @@ export interface ProductData {
    */
   readonly variants: ProductVariant[]
   /**
-   *	Used by [Product Suggestions](ctp:api:type:ProductSuggestions), but is also considered for a full text search.
+   *	Used by [Product Suggestions](/projects/products-suggestions), but is also considered for a [full text search](/projects/products-search#full-text-search).
    *
    *
    */
@@ -354,6 +362,10 @@ export interface ProductDraft {
   /**
    *	User-defined unique identifier for the Product.
    *
+   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Products with the [Import API](/../api/import-export/overview) and the [Merchant Center](/../merchant-center/import-data).
+   *
+   *	To update a Product using the Import API or Merchant Center, the Product `key` must match the pattern `^[A-Za-z0-9_-]{2,256}$`.
+   *
    *
    */
   readonly key?: string
@@ -376,13 +388,13 @@ export interface ProductDraft {
    */
   readonly categoryOrderHints?: CategoryOrderHints
   /**
-   *	Title of the Product displayed in search results.
+   *	Title of the Product as used by search engines.
    *
    *
    */
   readonly metaTitle?: LocalizedString
   /**
-   *	Description of the Product displayed in search results.
+   *	Description of the Product as used by search engines.
    *
    *
    */
@@ -412,7 +424,7 @@ export interface ProductDraft {
    */
   readonly taxCategory?: TaxCategoryResourceIdentifier
   /**
-   *	Used by [Product Suggestions](ctp:api:type:ProductSuggestions), but is also considered for a [full text search](/projects/products-search#full-text-search).
+   *	Used by [Product Suggestions](/projects/products-suggestions), but is also considered for a [full text search](/projects/products-search#full-text-search).
    *
    *
    */
@@ -477,7 +489,8 @@ export interface ProductPagedQueryResponse {
   readonly results: Product[]
 }
 /**
- *	This mode determines the type of Prices used for [Product Price Selection](ctp:api:type:ProductPriceSelection) and for [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *	This mode determines the type of Prices used for [price selection](/../api/pricing-and-discounts-overview#price-selection) by Line Items and Products.
+ *	For more information about the difference between the Prices, see [Pricing](/../api/pricing-and-discounts-overview).
  *
  */
 export type ProductPriceModeEnum = 'Embedded' | 'Standalone' | string
@@ -831,7 +844,7 @@ export interface ProductVariant {
    */
   readonly attributes?: Attribute[]
   /**
-   *	Only available when [Price selection](#price-selection) is used.
+   *	Only available when [price selection](/../api/pricing-and-discounts-overview#price-selection) is used.
    *	Cannot be used in a [Query Predicate](ctp:api:type:QueryPredicate).
    *
    *
@@ -866,7 +879,7 @@ export interface ProductVariant {
   readonly isMatchingVariant?: boolean
   /**
    *	Only available in response to a [Product Projection Search](ctp:api:type:ProductProjectionSearch) request
-   *	with [price selection](ctp:api:type:ProductPriceSelection).
+   *	with [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
    *	Can be used to sort, [filter](ctp:api:type:ProductProjectionSearchFilterScopedPrice), and facet.
    *
    *
@@ -874,14 +887,14 @@ export interface ProductVariant {
   readonly scopedPrice?: ScopedPrice
   /**
    *	Only available in response to a [Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request
-   *	with [price selection](ctp:api:type:ProductPriceSelection).
+   *	with [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
    *
    *
    */
   readonly scopedPriceDiscounted?: boolean
 }
 /**
- *	The [InventoryEntry](ctp:api:type:InventoryEntry) information of the Product Variant. If there is a supply [Channel](ctp:api:type:Channel) for the InventoryEntry, then `channels` is returned. If not, then `isOnStock`, `restockableInDays`, and `quantityOnStock` are returned.
+ *	The [InventoryEntry](ctp:api:type:InventoryEntry) information of the Product Variant. If there is a supply [Channel](ctp:api:type:Channel) for the InventoryEntry, then `channels` is returned. If not, then `isOnStock`, `restockableInDays`, and `availableQuantity` are returned.
  *
  */
 export interface ProductVariantAvailability {
@@ -896,7 +909,7 @@ export interface ProductVariantAvailability {
    *
    *
    */
-  readonly isOnStock: boolean
+  readonly isOnStock?: boolean
   /**
    *	Number of days to restock a Product Variant once it is out of stock.
    *
@@ -1013,7 +1026,7 @@ export interface RangeFacetResult {
 }
 export interface SearchKeyword {
   /**
-   *	Text to return in the result of a [suggest query](ctp:api:type:ProductSuggestionsSuggestQuery).
+   *	Text to return in the [SuggestionResult](ctp:api:type:SuggestionResult).
    *
    *
    */
@@ -1026,7 +1039,8 @@ export interface SearchKeyword {
   readonly suggestTokenizer?: SuggestTokenizer
 }
 /**
- *	Search keywords are JSON objects primarily used by [Product Suggestions](ctp:api:type:ProductSuggestions), but are also considered for a full text search. The keys are of type [Locale](ctp:api:type:Locale), and the values are an array of [SearchKeyword](ctp:api:type:SearchKeyword).
+ *	Search keywords are JSON objects primarily used by [Product Suggestions](/projects/products-suggestions), but are also considered for a [full text search](/projects/products-search#full-text-search).
+ *	The keys are of type [Locale](ctp:api:type:Locale), and the values are an array of [SearchKeyword](ctp:api:type:SearchKeyword).
  *
  */
 export interface SearchKeywords {
@@ -1132,7 +1146,7 @@ export interface ProductAddAssetAction {
   readonly position?: number
 }
 /**
- *	Either `variantId` or `sku` is required. Produces the [ProductImageAdded](/projects/messages#product-image-added) Message.
+ *	Either `variantId` or `sku` is required. Produces the [ProductImageAdded](/projects/messages/product-catalog-messages#product-image-added) Message.
  *
  */
 export interface ProductAddExternalImageAction {
@@ -1195,7 +1209,7 @@ export interface ProductAddPriceAction {
   readonly staged?: boolean
 }
 /**
- *	Produces the [ProductAddedToCategory](/projects/messages#product-added-to-category) Message.
+ *	Produces the [ProductAddedToCategory](/projects/messages/product-catalog-messages#product-added-to-category) Message.
  */
 export interface ProductAddToCategoryAction {
   readonly action: 'addToCategory'
@@ -2081,6 +2095,8 @@ export interface ProductSetKeyAction {
   /**
    *	Value to set. If empty, any existing value will be removed.
    *
+   *	To update a Product using the [Import API](/../api/import-export/overview) and the [Merchant Center](/../merchant-center/import-data), the Product `key` must match the pattern `^[A-Za-z0-9_-]{2,256}$`.
+   *
    *
    */
   readonly key?: string
@@ -2131,7 +2147,7 @@ export interface ProductSetMetaTitleAction {
   readonly staged?: boolean
 }
 /**
- *	Sets the key of an [Embedded Price](/projects/products#embedded-price). Produces the [ProductPriceKeySet](ctp:api:type:ProductPriceKeySetMessage) Message.
+ *	Sets the key of an [Embedded Price](ctp:api:type:Price). Produces the [ProductPriceKeySet](ctp:api:type:ProductPriceKeySetMessage) Message.
  *
  */
 export interface ProductSetPriceKeyAction {
@@ -2143,7 +2159,7 @@ export interface ProductSetPriceKeyAction {
    */
   readonly priceId: string
   /**
-   *	If `true`, only the staged [Embedded Price](/projects/products#embedded-price) is updated. If `false`, both the current and staged Embedded Price are updated.
+   *	If `true`, only the staged [Embedded Price](ctp:api:type:Price) is updated. If `false`, both the current and staged Embedded Price are updated.
    *
    *
    */
@@ -2365,7 +2381,10 @@ export interface ProductTransitionStateAction {
 /**
  *	Removes the current [projection](/../api/projects/productProjections#current--staged) of the Product. The staged projection is unaffected. To retrieve unpublished Products, the `staged` parameter must be set to `false` when [querying](ctp:api:endpoint:/{projectKey}/product-projections:GET)/[searching](/projects/products-search#product-projection-search) Product Projections. Produces the [ProductUnpublished](ctp:api:type:ProductUnpublishedMessage) Message.
  *
- *	Unpublished Products cannot be added to a Cart. However, if a Cart contains Line Items for Products that were added before the Product was unpublished, the Cart is unaffected and can still be used to create an Order. To prevent this, in addition to unpublishing the Product you should remove the Prices from the Product using [Remove Price](ctp:api:type:ProductRemovePriceAction) for Embedded Prices or [Delete StandalonePrice](/projects/standalone-prices#delete-standaloneprice) for Standalone Prices.
+ *	When a Product is unpublished, any associated Line Items already present in a Cart remain unaffected and can still be ordered. To prevent this, do the following:
+ *
+ *	- If the Product uses Embedded Prices, [remove the Embedded Prices](ctp:api:type:ProductRemovePriceAction) from the unpublished Product.
+ *	- If the Product uses Standalone Prices, [inactivate](ctp:api:type:StandalonePriceChangeActiveAction) or [delete](/projects/standalone-prices#delete-standaloneprice) the Standalone Prices.
  *
  */
 export interface ProductUnpublishAction {

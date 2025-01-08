@@ -33,6 +33,7 @@ export type ChangeSubscriptionResourceTypeId =
   | 'approval-flow'
   | 'approval-rule'
   | 'associate-role'
+  | 'attribute-group'
   | 'business-unit'
   | 'cart'
   | 'cart-discount'
@@ -51,8 +52,8 @@ export type ChangeSubscriptionResourceTypeId =
   | 'payment'
   | 'product'
   | 'product-discount'
-  | 'product-price'
   | 'product-selection'
+  | 'product-tailoring'
   | 'product-type'
   | 'quote'
   | 'quote-request'
@@ -69,7 +70,7 @@ export type ChangeSubscriptionResourceTypeId =
   | 'zone'
   | string
 /**
- *	The [CloudEventsFormat](ctp:api:type:CloudEventsFormat) represents event data in a way that conforms to a common specification. The message payload can be found inside the `data` field.
+ *	The [CloudEventsFormat](ctp:api:type:CloudEventsFormat) represents event data in a way that conforms to a common specification. The payload can be found inside the `data` field.
  *
  */
 export interface CloudEventsPayload {
@@ -137,7 +138,7 @@ export interface CloudEventsPayload {
 }
 export type DeliveryFormat = CloudEventsFormat | PlatformFormat
 /**
- *	The CloudEventsFormat can be used with any [Destination](#destination), and the payload is delivered in the `JSON Event Format`. [AzureEventGridDestination](ctp:api:type:AzureEventGridDestination) offers native support to filter and route CloudEvents.
+ *	The CloudEventsFormat can be used with any [Destination](#destination-1), and the payload is delivered in the `JSON Event Format`. [AzureEventGridDestination](ctp:api:type:AzureEventGridDestination) offers native support to filter and route CloudEvents.
  *
  */
 export interface CloudEventsFormat {
@@ -165,8 +166,8 @@ export type Destination =
   | SnsDestination
   | SqsDestination
 /**
- *	[Azure Event Grid](https://azure.microsoft.com/en-us/products/event-grid/) can be used to push messages to Azure Functions, HTTP endpoints (webhooks), and several other Azure tools. Event Grid can only be used with the [CloudEventsFormat](ctp:api:type:CloudEventsFormat).
- *	To set up a Subscription with Azure Event Grid, first create a topic in the [Azure Portal](https://azure.microsoft.com/en-us/get-started/azure-portal/). To allow Composable Commerce to push messages to your topic, provide an [access key](https://docs.microsoft.com/en-us/azure/event-grid/get-access-keys).
+ *	[Azure Event Grid](https://azure.microsoft.com/en-us/products/event-grid/) can be used to push notifications to Azure Functions, HTTP endpoints (webhooks), and several other Azure tools. Event Grid can only be used with the [CloudEventsFormat](ctp:api:type:CloudEventsFormat).
+ *	To set up a Subscription with Azure Event Grid, first create a topic in the [Azure Portal](https://azure.microsoft.com/en-us/get-started/azure-portal/). To allow Composable Commerce to push notifications to your topic, provide an [access key](https://docs.microsoft.com/en-us/azure/event-grid/get-access-keys).
  *
  */
 export interface AzureEventGridDestination {
@@ -185,7 +186,7 @@ export interface AzureEventGridDestination {
   readonly accessKey: string
 }
 /**
- *	[Azure Service Bus](https://azure.microsoft.com/en-us/products/service-bus/) can be used as a pull-queue with [Queues](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-queues-topics-subscriptions#queues), or to fan-out messages with [Topics and Subscriptions](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-queues-topics-subscriptions).
+ *	[Azure Service Bus](https://azure.microsoft.com/en-us/products/service-bus/) can be used as a pull-queue with [Queues](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-queues-topics-subscriptions#queues), or to fan-out notifications with [Topics and Subscriptions](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-queues-topics-subscriptions).
  *	To set up a Subscription with Azure Service Bus, first create a queue/topic in the [Azure Portal](https://azure.microsoft.com/en-us/get-started/azure-portal/) with a Shared Access Policy including the `Send` permission.
  *
  */
@@ -199,9 +200,9 @@ export interface AzureServiceBusDestination {
   readonly connectionString: string
 }
 /**
- *	This destination can be used to push events and messages to [Confluent Cloud](https://www.confluent.io/confluent-cloud/).
+ *	This destination can be used to push notifications to [Confluent Cloud](https://www.confluent.io/confluent-cloud/).
  *	To set up a Subscription of this type, first, create a topic in Confluent Cloud.
- *	Then, to allow Composable Commerce to push events and messages to your topic, generate [API keys](https://docs.confluent.io/cloud/current/access-management/authenticate/api-keys/api-keys.html) for your topic, and create the Subscription destination using the generated credentials.
+ *	Then, to allow Composable Commerce to push notifications to your topic, generate [API keys](https://docs.confluent.io/cloud/current/access-management/authenticate/api-keys/api-keys.html) for your topic, and create the Subscription destination using the generated credentials.
  *
  *	The Composable Commerce producer uses the following values: `SASL_SSL` for`security.protocol`, `PLAIN` for`sasl.mechanism`, and the default value (1048576) for `max.request.size`.
  *
@@ -264,12 +265,18 @@ export interface EventBridgeDestination {
    *
    */
   readonly accountId: string
+  /**
+   *	URN for the EventBridge destination.
+   *
+   *
+   */
+  readonly source: string
 }
 /**
  *	Destination for [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/) that can be used
  *	for [Pull subscriptions](https://cloud.google.com/pubsub/docs/pull) as well as for [Push subscriptions](https://cloud.google.com/pubsub/docs/push).
  *	The `topic` must give the `pubsub.topics.publish` permission to the service account `subscriptions@commercetools-platform.iam.gserviceaccount.com`.
- *	If used with the [CloudEventsFormat](#cloudeventsformat), the message conforms to the [PubSub Protocol Binding](https://github.com/google/knative-gcp/blob/master/docs/spec/pubsub-protocol-binding.md) of the [Structured Content Mode](https://github.com/google/knative-gcp/blob/master/docs/spec/pubsub-protocol-binding.md#32-structured-content-mode).
+ *	If used with the [CloudEventsFormat](#cloudeventsformat), the notification conforms to the [PubSub Protocol Binding](https://github.com/google/knative-gcp/blob/master/docs/spec/pubsub-protocol-binding.md) of the [Structured Content Mode](https://github.com/google/knative-gcp/blob/master/docs/spec/pubsub-protocol-binding.md#32-structured-content-mode).
  *
  */
 export interface GoogleCloudPubSubDestination {
@@ -295,13 +302,13 @@ export interface MessageDeliveryPayload {
   readonly notificationType: 'Message'
   /**
    *	`key` of the [Project](ctp:api:type:Project).
-   *	Useful in message processing if the Destination receives events from multiple Projects.
+   *	Useful for processing notifications if the Destination receives them from multiple Projects.
    *
    *
    */
   readonly projectKey: string
   /**
-   *	Reference to the resource that triggered the message.
+   *	Reference to the resource that triggered the notification.
    *
    *
    */
@@ -344,7 +351,7 @@ export interface MessageDeliveryPayload {
    */
   readonly sequenceNumber: number
   /**
-   *	Version of the resource on which the change was performed.
+   *	Version of the resource on which the update was performed.
    *
    *
    */
@@ -357,7 +364,7 @@ export interface MessageDeliveryPayload {
   readonly payloadNotIncluded?: PayloadNotIncluded
 }
 /**
- *	For supported resources and message types, see [Message Types](/../api/projects/messages#message-types). Messages will be delivered even if the Messages Query HTTP API [is not enabled](/../api/projects/messages#enable-querying-messages-via-the-api).
+ *	Messages will be delivered even if the Messages Query HTTP API [is not enabled](/../api/projects/messages#enable-querying-messages-via-the-api).
  *
  *	For MessageSubscriptions, the format of the payload is [MessageDeliveryPayload](ctp:api:type:MessageDeliveryPayload).
  *
@@ -396,9 +403,11 @@ export type MessageSubscriptionResourceTypeId =
   | 'payment'
   | 'product'
   | 'product-selection'
+  | 'product-tailoring'
   | 'quote'
   | 'quote-request'
   | 'review'
+  | 'shopping-list'
   | 'staged-quote'
   | 'standalone-price'
   | 'store'
@@ -432,13 +441,13 @@ export interface ResourceCreatedDeliveryPayload {
   readonly notificationType: 'ResourceCreated'
   /**
    *	`key` of the [Project](ctp:api:type:Project).
-   *	Useful in message processing if the Destination receives events from multiple Projects.
+   *	Useful for processing notifications if the Destination receives them from multiple Projects.
    *
    *
    */
   readonly projectKey: string
   /**
-   *	Reference to the resource that triggered the message.
+   *	Reference to the resource that triggered the notification.
    *
    *
    */
@@ -470,13 +479,13 @@ export interface ResourceDeletedDeliveryPayload {
   readonly notificationType: 'ResourceDeleted'
   /**
    *	`key` of the [Project](ctp:api:type:Project).
-   *	Useful in message processing if the Destination receives events from multiple Projects.
+   *	Useful for processing notifications if the Destination receives them from multiple Projects.
    *
    *
    */
   readonly projectKey: string
   /**
-   *	Reference to the resource that triggered the message.
+   *	Reference to the resource that triggered the notification.
    *
    *
    */
@@ -514,13 +523,13 @@ export interface ResourceUpdatedDeliveryPayload {
   readonly notificationType: 'ResourceUpdated'
   /**
    *	`key` of the [Project](ctp:api:type:Project).
-   *	Useful in message processing if the Destination receives events from multiple Projects.
+   *	Useful for processing notifications if the Destination receives them from multiple Projects.
    *
    *
    */
   readonly projectKey: string
   /**
-   *	Reference to the resource that triggered the message.
+   *	Reference to the resource that triggered the notification.
    *
    *
    */
@@ -553,7 +562,7 @@ export interface ResourceUpdatedDeliveryPayload {
 /**
  *	[AWS SNS](https://aws.amazon.com/sns/) can be used to push messages to AWS Lambda, HTTP endpoints (webhooks), or fan-out messages to SQS queues. The SQS queue must be a [Standard](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/standard-queues.html) queue type.
  *
- *	We recommend setting `authenticationMode` to `IAM`, to avoid unnecessary key management. For IAM authentication and before creating the Subscription, give permissions to the following user account: `arn:aws-cn:iam::417094354346:user/subscriptions` if the Project is hosted in the China (AWS, Ningxia) Region; `arn:aws:iam::362576667341:user/subscriptions` for all other [Regions](/../api/general-concepts#regions). Otherwise, a test message will not be sent.
+ *	We recommend setting `authenticationMode` to `IAM`, to avoid unnecessary key management. For IAM authentication and before creating the Subscription, give permissions to the following user account: `arn:aws:iam::362576667341:user/subscriptions`. Otherwise, a test notification will not be sent.
  *
  *	If you prefer to use `Credentials` for authentication, we recommend [creating an IAM user](https://docs.aws.amazon.com/sns/latest/dg/sns-setting-up.html#create-iam-user) with an `accessKey` and `accessSecret` pair specifically for each Subscription.
  *
@@ -587,7 +596,7 @@ export interface SnsDestination {
  *	[AWS SQS](https://aws.amazon.com/sqs/) is a pull-queue on AWS.
  *	The queue must be a [Standard](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/standard-queues.html) queue type with a `MaximumMessageSize` of `256 KB`.
  *
- *	We recommend setting `authenticationMode` to `IAM`, to avoid unnecessary key management. For IAM authentication and before creating the Subscription, give permissions to the following user account: `arn:aws-cn:iam::417094354346:user/subscriptions` if the Project is hosted in the China (AWS, Ningxia) Region; `arn:aws:iam::362576667341:user/subscriptions` for all other [Regions](/../api/general-concepts#regions). Otherwise, a test message will not be sent.
+ *	We recommend setting `authenticationMode` to `IAM`, to avoid unnecessary key management. For IAM authentication and before creating the Subscription, give permissions to the following user account: `arn:aws:iam::362576667341:user/subscriptions`. Otherwise, a test message will not be sent.
  *
  *	If you prefer to use `Credentials` for authentication, we recommend [creating an IAM user](https://docs.aws.amazon.com/sns/latest/dg/sns-setting-up.html#create-iam-user) with an `accessKey` and `accessSecret` pair specifically for each Subscription.
  *
@@ -650,25 +659,25 @@ export interface Subscription extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the Subscription.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Subscription.
    *
    *
    */
   readonly createdBy?: CreatedBy
   /**
-   *	Change notifications subscribed to.
+   *	Changes subscribed to.
    *
    *
    */
   readonly changes: ChangeSubscription[]
   /**
-   *	Messaging service to which the messages are to be sent.
+   *	Messaging service to which the notifications are sent.
    *
    *
    */
@@ -704,13 +713,13 @@ export interface Subscription extends BaseResource {
  */
 export interface SubscriptionDraft {
   /**
-   *	Change notifications to be subscribed to.
+   *	Changes to be subscribed to.
    *
    *
    */
   readonly changes?: ChangeSubscription[]
   /**
-   *	Messaging service to which the messages are sent.
+   *	Messaging service to which the notifications are sent.
    *
    *
    */
@@ -735,13 +744,14 @@ export interface SubscriptionDraft {
   readonly format?: DeliveryFormat
 }
 /**
- *	The health status of the Subscription that indicates whether messages are being delivered to the Destination.
+ *	The health status of the Subscription that indicates whether notifications are being delivered.
  *
  */
 export type SubscriptionHealthStatus =
   | 'ConfigurationError'
   | 'ConfigurationErrorDeliveryStopped'
   | 'Healthy'
+  | 'ManuallySuspended'
   | 'TemporaryError'
   | string
 /**
@@ -805,7 +815,7 @@ export type SubscriptionUpdateAction =
   | SubscriptionSetKeyAction
   | SubscriptionSetMessagesAction
 /**
- *	A test message is sent to ensure the correct configuration of the Destination. If the message cannot be delivered, the update will fail. The payload of the test message is a notification of type [ResourceCreated](ctp:api:type:ResourceCreatedDeliveryPayload) for the `resourceTypeId` `subscription`. The `status` will change to [Healthy](ctp:api:type:SubscriptionHealthStatus), if it isn't already.
+ *	A test notification is sent to ensure the correct configuration of the Destination. If the notification cannot be delivered, the update will fail. The payload of the test notification is of type [ResourceCreated](ctp:api:type:ResourceCreatedDeliveryPayload) for the `resourceTypeId` `subscription`. The `status` will change to [Healthy](ctp:api:type:SubscriptionHealthStatus), if it isn't already.
  *
  */
 export interface SubscriptionChangeDestinationAction {

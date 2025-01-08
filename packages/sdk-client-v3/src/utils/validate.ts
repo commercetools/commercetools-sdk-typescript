@@ -9,7 +9,7 @@ import {
  * validate some essential http options
  * @param options
  */
-export function validateHttpOptions(options: HttpMiddlewareOptions) {
+export function validateHttpClientOptions(options: HttpMiddlewareOptions) {
   if (!options.host)
     throw new Error(
       'Request `host` or `url` is missing or invalid, please pass in a valid host e.g `host: http://a-valid-host-url`'
@@ -20,10 +20,13 @@ export function validateHttpOptions(options: HttpMiddlewareOptions) {
       'An `httpClient` is not available, please pass in a `fetch` or `axios` instance as an option or have them globally available.'
     )
 
-  if (options.timeout && !options.getAbortController)
-    throw new Error(
-      '`AbortController` is not available. Please pass in `getAbortController` as an option or have AbortController globally available when using timeout.'
-    )
+  if (
+    options.httpClientOptions &&
+    Object.prototype.toString.call(options.httpClientOptions) !==
+      '[object Object]'
+  ) {
+    throw new Error('`httpClientOptions` must be an object type')
+  }
 }
 
 /**

@@ -24,6 +24,11 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
    *	Creates an Order from a [Quote](ctp:api:type:Cart) in a [BusinessUnit](ctp:api:type:BusinessUnit).
    *	Creating an Order fails with an [InvalidOperation](ctp:api:type:InvalidOperationError) if the Quote does not reference the same BusinessUnit as the `businessUnitKey` path parameter.
    *
+   *	Specific Error Codes:
+   *
+   *	- [InvalidItemShippingDetails](ctp:api:type:InvalidItemShippingDetailsError)
+   *	- [OutOfStock](ctp:api:type:OutOfStockError)
+   *
    */
   public post(methodArgs: {
     body: OrderFromQuoteDraft

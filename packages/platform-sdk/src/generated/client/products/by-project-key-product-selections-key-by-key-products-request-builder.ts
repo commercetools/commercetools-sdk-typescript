@@ -21,6 +21,7 @@ export class ByProjectKeyProductSelectionsKeyByKeyProductsRequestBuilder {
   ) {}
   public get(methodArgs?: {
     queryArgs?: {
+      where?: string | string[]
       expand?: string | string[]
       limit?: number
       offset?: number

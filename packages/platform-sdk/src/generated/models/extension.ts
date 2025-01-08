@@ -32,13 +32,13 @@ export interface Extension extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the Extension.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Extension.
    *
    *
    */
@@ -63,7 +63,7 @@ export interface Extension extends BaseResource {
   readonly triggers: ExtensionTrigger[]
   /**
    *	Maximum time (in milliseconds) that the Extension can respond within.
-   *	If no timeout is provided, the default value is used for all types of Extensions.
+   *	If no timeout is provided, the [default value](#time-limits) is used for all types of Extensions, including `payment` Extensions.
    *	The maximum value is 10000 ms (10 seconds) for `payment` Extensions and 2000 ms (2 seconds) for all other Extensions.
    *
    *
@@ -128,11 +128,11 @@ export interface ExtensionDraft {
   readonly triggers: ExtensionTrigger[]
   /**
    *	Maximum time (in milliseconds) the Extension can respond within.
-   *	If no timeout is provided, the default value is used for all types of Extensions.
+   *	If no timeout is provided, the [default value](/#time-limits) is used for all types of Extensions, including `payment` Extensions.
    *	The maximum value is 10000 ms (10 seconds) for `payment` Extensions and 2000 ms (2 seconds) for all other Extensions.
    *
    *	This limit can be increased per Project after we review the performance impact.
-   *	Please contact our support via the [Support Portal](https://support.commercetools.com) and provide the Region, Project key, and use case.
+   *	Please contact the [Composable Commerce support team](https://support.commercetools.com) and provide the Region, Project key, and use case.
    *
    *
    */
@@ -200,15 +200,17 @@ export type ExtensionResourceTypeId =
   | 'business-unit'
   | 'cart'
   | 'customer'
+  | 'customer-group'
   | 'order'
   | 'payment'
   | 'quote'
   | 'quote-request'
+  | 'shopping-list'
   | 'staged-quote'
   | string
 export interface ExtensionTrigger {
   /**
-   *	`cart`, `order`, `payment`, `customer`, `quote-request`, `staged-quote`, `quote`, and `business-unit` are supported.
+   *	The resource that triggers the Extension.
    *
    *
    */
@@ -266,7 +268,7 @@ export interface GoogleCloudFunctionDestination {
 export interface HttpDestination {
   readonly type: 'HTTP'
   /**
-   *	URL to the target destination. If the Project is hosted in the China (AWS, Ningxia) Region, verify that the URL is not blocked due to firewall restrictions.
+   *	URL to the target destination.
    *
    *
    */
@@ -343,11 +345,11 @@ export interface ExtensionSetTimeoutInMsAction {
   readonly action: 'setTimeoutInMs'
   /**
    *	Value to set. If not defined, the maximum value is used.
-   *	If no timeout is provided, the default value is used for all types of Extensions.
+   *	If no timeout is provided, the [default value](#time-limits) is used for all types of Extensions, including `payment` Extensions.
    *	The maximum value is 10000 ms (10 seconds) for `payment` Extensions and 2000 ms (2 seconds) for all other Extensions.
    *
    *	This limit can be increased per Project after we review the performance impact.
-   *	Please contact our support via the [Support Portal](https://support.commercetools.com/) and provide the Region, Project key, and use case.
+   *	Please contact the [Composable Commerce support team](https://support.commercetools.com/) and provide the Region, Project key, and use case.
    *
    *
    */

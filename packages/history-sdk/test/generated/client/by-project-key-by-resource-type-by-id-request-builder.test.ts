@@ -103,12 +103,12 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/test_resourceType/test_ID?source=source',
+      uri: '/test_projectKey/test_resourceType/test_ID?source=MerchantCenter',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
         .withResourceTypeValue({ resourceType: 'test_resourceType' })
         .withIDValue({ ID: 'test_ID' })
-        .get({ queryArgs: { source: 'source' } }),
+        .get({ queryArgs: { source: 'MerchantCenter' } }),
     },
     {
       method: 'get',

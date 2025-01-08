@@ -70,13 +70,13 @@ export interface QuoteRequest extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the QuoteRequest.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the QuoteRequest.
    *
    *
    */
@@ -250,7 +250,8 @@ export interface QuoteRequest extends BaseResource {
 export interface QuoteRequestDraft {
   /**
    *	Cart for which a Quote is requested.
-   *	Anonymous Carts, Carts with [Discount Codes](ctp:api:type:DiscountCode), or Carts with a `Multiple` [ShippingMode](ctp:api:type:ShippingMode) are not supported.
+   *	Anonymous Carts, Carts with [Discount Codes](ctp:api:type:DiscountCode), and Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode) are not supported.
+   *	The Cart must have a `shippingAddress` defined, otherwise an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned when [creating a Quote Request](ctp:api:endpoint:/{projectKey}/quote-requests:POST).
    *
    *
    */

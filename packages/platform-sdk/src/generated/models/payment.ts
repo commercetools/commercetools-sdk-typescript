@@ -43,13 +43,13 @@ export interface Payment extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the Payment.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Payment.
    *
    *
    */
@@ -529,11 +529,14 @@ export interface PaymentChangeTransactionTimestampAction {
    */
   readonly timestamp: string
 }
+/**
+ *	If the Payment is already associated with a Customer, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+ *
+ */
 export interface PaymentSetAnonymousIdAction {
   readonly action: 'setAnonymousId'
   /**
-   *	Value to set.
-   *	If empty, any existing value will be removed.
+   *	Value to set. If empty, any existing value will be removed.
    *
    *
    */

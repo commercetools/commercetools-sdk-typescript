@@ -1,6 +1,3 @@
-import AbortController from 'abort-controller'
-import { Buffer } from 'buffer/'
-
 export type Nullable<T> = T | null
 export type Keys = string | number | symbol
 export type JsonObject<T = unknown> = { [key in Keys]: T }
@@ -16,7 +13,7 @@ export type MiddlewareResponse<T = unknown> = {
   error?: HttpErrorType;
   statusCode: number;
   headers?: Record<string, any>
-  request?: MiddlewareRequest;
+  originalRequest?: MiddlewareRequest;
 }
 
 export type HttpErrorType = {
@@ -41,7 +38,7 @@ export interface ClientRequest {
   uriTemplate?: string
   pathVariables?: VariableMap
   queryParams?: VariableMap
-  body?: string | Buffer
+  body?: Record<string, any> | string | Uint8Array;
   response?: ClientResponse
   resolve?: Function;
   reject?: Function;
@@ -99,8 +96,9 @@ export type AuthMiddlewareOptions = {
   scopes?: Array<string>
   // For internal usage only
   oauthUri?: string
-  httpClient?: Function
   tokenCache?: TokenCache
+  httpClient?: Function
+  httpClientOptions?: object
 }
 
 export type TokenCacheOptions = {
@@ -111,7 +109,7 @@ export type TokenCacheOptions = {
 
 export type TokenStore = {
   token: string
-  expirationTime?: number
+  expirationTime: number
   refreshToken?: string
   tokenCacheKey?: TokenCacheOptions
 }
@@ -140,11 +138,7 @@ export type RefreshAuthMiddlewareOptions = {
   // For internal usage only
   oauthUri?: string
   httpClient?: Function
-}
-
-export type RequestStateStore = {
-  get: () => RequestState
-  set: (requestState: RequestState) => void
+  httpClientOptions?: object
 }
 
 /* Request */
@@ -153,15 +147,15 @@ type requestBaseOptions = {
   body: string
   basicAuth: string
   request: MiddlewareRequest
-  tokenCache: TokenCache,
-  requestState: RequestStateStore,
-  pendingTasks: Array<Task>,
-  tokenCacheKey?: TokenCacheOptions,
+  tokenCache: TokenCache
+  tokenCacheKey?: TokenCacheOptions
+  tokenCacheObject?: TokenStore
+  httpClientOptions?: object
 }
 
 export type executeRequestOptions = requestBaseOptions & {
   next: Next
-  httpClient: Function
+  httpClient?: Function
   userOption?: AuthMiddlewareOptions | PasswordAuthMiddlewareOptions
 }
 
@@ -169,8 +163,6 @@ export type AuthMiddlewareBaseOptions = requestBaseOptions & {
   request: MiddlewareRequest
   httpClient?: Function
 }
-
-export type RequestState = boolean
 
 export type Task = {
   request: MiddlewareRequest
@@ -195,6 +187,7 @@ export type PasswordAuthMiddlewareOptions = {
   // For internal usage only
   oauthUri?: string
   httpClient?: Function
+  httpClientOptions?: object
 }
 
 export type TokenInfo = {
@@ -220,9 +213,9 @@ export type HttpMiddlewareOptions = {
   timeout?: number
   enableRetry?: boolean
   retryConfig?: RetryOptions
-  httpClient: Function
+  httpClient?: Function
+  httpClientOptions?: object // will be passed as a second argument to your httpClient function for configuration
   getAbortController?: () => AbortController
-  httpClientOptions?: object
 }
 
 export type RetryOptions = RetryMiddlewareOptions
@@ -230,17 +223,10 @@ export type RetryOptions = RetryMiddlewareOptions
 export type HttpOptions = {
   url: string
   clientOptions: HttpClientOptions
-  httpClient: Function
+  httpClient?: Function
 }
 
-export type LogLevel = 'INFO' | 'ERROR'
-
 export type LoggerMiddlewareOptions = {
-  logLevel?: LogLevel
-  maskSensitiveHeaderData?: boolean
-  includeOriginalRequest?: boolean
-  includeResponseHeaders?: boolean
-  includeRequestInErrorResponse?: boolean
   loggerFn?: (options: MiddlewareResponse) => void
 }
 
@@ -249,6 +235,7 @@ export type RetryMiddlewareOptions = {
   maxRetries?: number
   retryDelay?: number
   maxDelay?: typeof Infinity
+  retryOnAbort?: boolean
   retryCodes?: Array<number | string>
 }
 
@@ -275,24 +262,51 @@ export type ExistingTokenMiddlewareOptions = {
   force: boolean
 }
 
+export type ConcurrentModificationMiddlewareOptions = {
+  concurrentModificationHandlerFn?: (
+    version: number,
+    request: MiddlewareRequest,
+    response: MiddlewareResponse
+  ) => Promise<Record<string, any> | string | Uint8Array>;
+}
+
+export type BeforeExecutionMiddlewareOptions = {
+  [key: string]: any;
+  middleware: (options?: Omit<BeforeExecutionMiddlewareOptions, 'middleware'>) => Middleware
+}
+
+export type AfterExecutionMiddlewareOptions = {
+  [key: string]: any;
+  middleware: (options?: Omit<AfterExecutionMiddlewareOptions, 'middleware'>) => Middleware
+}
+export type TelemetryOptions = {
+  apm?: Function;
+  tracer?: Function;
+  userAgent?: string;
+  createTelemetryMiddleware: (options?: Omit<TelemetryOptions, 'createTelemetryMiddleware'>) => Middleware
+}
+
 export type IClientOptions = {
   method: MethodType;
   headers: Record<string, any>
   credentialsMode?: CredentialsMode;
-  body?: string | Buffer
+  body?: Record<string, any> | string | Uint8Array;
   timeout?: number
   abortController?: AbortController
+  signal?: AbortSignal,
+  getAbortController?: () => AbortController
   includeOriginalRequest?: boolean
   enableRetry?: boolean
   retryConfig?: RetryOptions
   maskSensitiveHeaderData?: boolean
+  httpClientOptions?: object
 }
 
 export type HttpClientOptions = IClientOptions & Optional
 
 export type HttpClientConfig = IClientOptions & {
   url: string
-  httpClient: Function
+  httpClient?: Function
 }
 
 type TResponse = {
@@ -324,6 +338,6 @@ export type SuccessResult = {
   headers?: JsonObject<string>;
 }
 
-export type IResponse = Response & { statusCode?: number; data?: object } 
+export type IResponse = Response & { statusCode?: number; data?: object }
 
 export type executeRequest = (request: ClientRequest) => Promise<ClientResponse>

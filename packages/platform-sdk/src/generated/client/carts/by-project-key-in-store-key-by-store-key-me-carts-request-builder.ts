@@ -34,6 +34,10 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeCartsRequestBuilder {
     })
   }
 
+  /**
+   *	Returns all Carts that match a given Query Predicate and contain either a matching `customerId` or `anonymousId` in a Store.
+   *
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -63,7 +67,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeCartsRequestBuilder {
     )
   }
   /**
-   *	Checks if a Cart exists for a given Query Predicate. Returns a `200 OK` status if any Carts match the Query Predicate or a `404 Not Found` otherwise.
+   *	Checks if a Cart exists for a Store that matches the given Query Predicate, and contains a matching `customerId` or `anonymousId`. Returns a `200 OK` status if any Carts match these conditions, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *
    */
   public head(methodArgs?: {
     queryArgs?: {
@@ -89,9 +94,18 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeCartsRequestBuilder {
     )
   }
   /**
+   *
+   *	Creates a Cart in a Store for the Customer or anonymous user. The `customerId` or `anonymousId` field on the Cart is automatically set based on the [customer:{id}](/scopes#composable-commerce-oauth) or [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
+   *
    *	The `store` field in the created [Cart](ctp:api:type:Cart) is set to the Store specified by the `storeKey` path parameter.
    *
-   *	Specific Error Codes: [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError)
+   *	Specific Error Codes:
+   *
+   *	- [CountryNotConfiguredInStore](ctp:api:type:CountryNotConfiguredInStoreError)
+   *	- [DiscountCodeNonApplicable](ctp:api:type:DiscountCodeNonApplicableError)
+   *	- [InvalidItemShippingDetails](ctp:api:type:InvalidItemShippingDetailsError)
+   *	- [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError)
+   *	- [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError)
    *
    */
   public post(methodArgs: {

@@ -53,13 +53,13 @@ export interface DiscountCode extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the DiscountCode.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the DiscountCode.
    *
    *
    */
@@ -157,6 +157,8 @@ export interface DiscountCodeDraft {
   /**
    *	User-defined unique identifier for the DiscountCode.
    *
+   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Discount Codes with the [Import API](/../import-export/overview) and the [Merchant Center](/../merchant-center/import-data).
+   *
    */
   readonly key?: string
   /**
@@ -199,11 +201,15 @@ export interface DiscountCodeDraft {
   /**
    *	Number of times the DiscountCode can be applied.
    *
+   *	If not set, the DiscountCode can be applied any number of times.
+   *
    *
    */
   readonly maxApplications?: number
   /**
    *	Number of times the DiscountCode can be applied per Customer.
+   *
+   *	If not set, the DiscountCode can be applied any number of times.
    *
    *
    */
@@ -434,7 +440,9 @@ export interface DiscountCodeSetKeyAction {
 export interface DiscountCodeSetMaxApplicationsAction {
   readonly action: 'setMaxApplications'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set.
+   *
+   *	If empty, any existing value will be removed and the DiscountCode can be applied any number of times.
    *
    *
    */
@@ -443,7 +451,9 @@ export interface DiscountCodeSetMaxApplicationsAction {
 export interface DiscountCodeSetMaxApplicationsPerCustomerAction {
   readonly action: 'setMaxApplicationsPerCustomer'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set.
+   *
+   *	If empty, any existing value will be removed and the DiscountCode can be applied any number of times.
    *
    *
    */

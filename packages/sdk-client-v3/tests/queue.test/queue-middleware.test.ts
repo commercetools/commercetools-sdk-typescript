@@ -1,3 +1,4 @@
+import { MethodType } from '../../src'
 import { createQueueMiddleware } from '../../src/middleware'
 
 function createTestRequest(options) {
@@ -22,96 +23,158 @@ function createTestMiddlewareOptions(options) {
   }
 }
 
-describe('Queue', () => {
-  test('correctly enqueue / resolve tasks based on concurrency', () =>
-    new Promise((resolve) => {
-      const resolveSpy = jest.fn()
-      const rejectSpy = jest.fn()
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
-      const request = createTestRequest({
-        uri: '/foo/bar',
-        ...createTestMiddlewareOptions({
-          resolve: resolveSpy,
-          reject: rejectSpy,
-        }),
-      })
+describe('createQueueMiddleware', () => {
+  let next: jest.Mock
+  let middleware: ReturnType<typeof createQueueMiddleware>
 
-      const middlewareOptions = createTestMiddlewareOptions({ concurrency: 2 })
-      const queueMiddleware = createQueueMiddleware(middlewareOptions)
-      let count = 0
-      const responseArgs = []
-      const nextCount = (req): any => {
-        count += 1
-        responseArgs.push(req)
-      }
+  beforeEach(() => {
+    next = jest.fn(async (request) => {
+      await delay(100)
+      request.resolve('success') // Simulate resolving the request
+    })
 
-      // Trigger multiple concurrent dispatches (with max concurrency 2)
-      queueMiddleware(nextCount)(request)
-      queueMiddleware(nextCount)(request)
-      // First 2 tasks should be dispatched straight away
-      expect(count).toBe(2)
-      // Dispatch new tasks, they won't be executed though
-      queueMiddleware(nextCount)(request)
-      queueMiddleware(nextCount)(request)
-      // Until running tasks are resolved, no more task should run
-      expect(count).toBe(2)
-      // Resolve the first task. We expect a new task to be dispatched since
-      // there is a free slot
-      responseArgs[0].resolve()
-      expect(count).toBe(3)
-      // Reject the second task. We expect a new task to be dispatched since
-      // there is a free slot
-      responseArgs[1].reject()
-      expect(count).toBe(4)
-      // Trigger the remaining tasks
-      responseArgs[2].resolve()
-      responseArgs[3].reject()
-      expect(resolveSpy).toHaveBeenCalledTimes(2)
-      expect(rejectSpy).toHaveBeenCalledTimes(2)
-      // All good, end the test
-      resolve(null)
-    }))
+    middleware = createQueueMiddleware({ concurrency: 2 })
+  })
 
-  test('dispatch incoming tasks with default concurrency', () =>
-    new Promise((resolve) => {
-      const request = createTestRequest({
-        uri: '/foo/bar',
-      })
-      const response = createTestResponse(null)
-      const middlewareOptions = createTestMiddlewareOptions(null)
-      const queueMiddleware = createQueueMiddleware(middlewareOptions)
-      const nextSpy = jest.fn()
+  it('should resolve the queue if concurreny option is a zero value', async () => {
+    const promises: Array<Promise<void>> = []
 
-      // Trigger multiple concurrent dispatches (default 20)
-      queueMiddleware(nextSpy)(request)
-      queueMiddleware(nextSpy)(request)
-      queueMiddleware(nextSpy)(request)
-      queueMiddleware(nextSpy)(request)
-      queueMiddleware(nextSpy)(request)
-      // 5
-      queueMiddleware(nextSpy)(request)
-      queueMiddleware(nextSpy)(request)
-      queueMiddleware(nextSpy)(request)
-      queueMiddleware(nextSpy)(request)
-      queueMiddleware(nextSpy)(request)
-      // 10
-      queueMiddleware(nextSpy)(request)
-      queueMiddleware(nextSpy)(request)
-      queueMiddleware(nextSpy)(request)
-      queueMiddleware(nextSpy)(request)
-      queueMiddleware(nextSpy)(request)
-      // 15
-      queueMiddleware(nextSpy)(request)
-      queueMiddleware(nextSpy)(request)
-      queueMiddleware(nextSpy)(request)
-      queueMiddleware(nextSpy)(request)
-      queueMiddleware(nextSpy)(request)
-      // 20
-      queueMiddleware(nextSpy)(request)
+    const createRequest = (id: number) => ({
+      resolve: jest.fn(),
+      reject: jest.fn(),
+      method: 'GET' as MethodType,
+      id,
+    })
 
-      expect(nextSpy).toHaveBeenCalledTimes(20)
+    // Simulate 5 requests
+    for (let i = 0; i < 5; i++) {
+      const request = createRequest(i)
+      const middleware = createQueueMiddleware({ concurrency: 0 })
+      const promise = middleware(next)(request as any)
+      promises.push(promise as any)
+    }
 
-      // All good, end the test
-      resolve(null)
-    }))
+    await delay(50)
+    expect(next).toHaveBeenCalledTimes(5)
+
+    await Promise.all(promises)
+    expect(next).toHaveBeenCalledTimes(5)
+  })
+
+  it('should resolve the queue if concurreny option is a negative value', async () => {
+    const promises: Array<Promise<void>> = []
+
+    const createRequest = (id: number) => ({
+      resolve: jest.fn(),
+      reject: jest.fn(),
+      method: 'GET' as MethodType,
+      id,
+    })
+
+    // Simulate 5 requests
+    for (let i = 0; i < 5; i++) {
+      const request = createRequest(i)
+      const middleware = createQueueMiddleware({ concurrency: -1 })
+      const promise = middleware(next)(request as any)
+      promises.push(promise as any)
+    }
+
+    await delay(50)
+    expect(next).toHaveBeenCalledTimes(5)
+
+    await Promise.all(promises)
+    expect(next).toHaveBeenCalledTimes(5)
+  })
+
+  it('should process requests with concurrency limit', async () => {
+    const promises: Array<Promise<void>> = []
+
+    const createRequest = (id: number) => ({
+      resolve: jest.fn(),
+      reject: jest.fn(),
+      id,
+    })
+
+    // Simulate 5 requests
+    for (let i = 0; i < 5; i++) {
+      const request = createRequest(i)
+      const promise = middleware(next)(request as any)
+      promises.push(promise as any)
+    }
+
+    await delay(50)
+
+    // Ensure next is called exactly 2 times initially (due to concurrency limit of 2)
+    expect(next).toHaveBeenCalledTimes(2)
+
+    await Promise.all(promises)
+    expect(next).toHaveBeenCalledTimes(5)
+  })
+
+  it('should resolve requests in the correct order', async () => {
+    const createRequest = (id: number) => ({
+      resolve: jest.fn(),
+      reject: jest.fn(),
+      method: 'POST' as MethodType,
+      id,
+    })
+
+    let resolveOrder: number[] = []
+
+    next.mockImplementation(async (request) => {
+      await delay(100) // Simulate async task
+      resolveOrder.push(request.id) // Track resolution order
+      request.resolve(`success ${request.id}`)
+    })
+
+    const requests = [createRequest(1), createRequest(2), createRequest(3)]
+
+    const promise1 = middleware(next)(requests[0])
+    const promise2 = middleware(next)(requests[1])
+    const promise3 = middleware(next)(requests[2])
+
+    await delay(50)
+
+    expect(next).toHaveBeenCalledTimes(2)
+
+    await Promise.all([promise1, promise2, promise3])
+
+    expect(resolveOrder).toEqual([1, 2, 3])
+    expect(next).toHaveBeenCalledTimes(3)
+  })
+
+  it('should call resolve on successful completion', async () => {
+    const request = {
+      resolve: jest.fn(),
+      reject: jest.fn(),
+      method: 'POST' as MethodType,
+    }
+
+    await middleware(next)(request)
+
+    expect(request.resolve).toHaveBeenCalledWith('success')
+    expect(request.reject).not.toHaveBeenCalled()
+  })
+
+  it('should call reject on error', async () => {
+    next.mockImplementationOnce(async (request) => {
+      throw new Error('failure')
+    })
+
+    const request = {
+      resolve: jest.fn(),
+      reject: jest.fn(),
+      method: 'POST' as MethodType,
+    }
+
+    try {
+      await middleware(next)(request)
+    } catch (err) {
+      expect(err).toBeDefined()
+      expect(err.message).toEqual('failure')
+      expect(request.resolve).not.toHaveBeenCalled()
+    }
+  })
 })

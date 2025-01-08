@@ -11,12 +11,6 @@ function createTestRequest(options) {
   }
 }
 
-function createTestResponse(options) {
-  return {
-    ...options,
-  }
-}
-
 function createTestMiddlewareOptions(options) {
   return {
     host: 'https://auth.europe-west1.gcp.commercetools.com',
@@ -38,9 +32,9 @@ describe('Password Flow', () => {
     test('should throw if `options` are not provided.', () => {
       new Promise((resolve, reject) => {
         const middlewareOptions = null
-        expect(() => buildRequestForPasswordFlow(middlewareOptions)).toThrow(
-          'Missing required options'
-        ) // 'Missing required options.'
+        expect(() =>
+          buildRequestForPasswordFlow(middlewareOptions as any)
+        ).toThrow('Missing required options') // 'Missing required options.'
         resolve(null)
       })
     })
@@ -131,16 +125,8 @@ describe('Password Flow', () => {
 
   test('should throw if `user credentials` is not provided.', () => {
     new Promise((resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
-        // expect(req.headers.Authorization).toBe('Bearer xxx-xx')
-        // expect()
-
         resolve(null)
       }
 
@@ -168,11 +154,6 @@ describe('Password Flow', () => {
 
   test('should throw error if required `user` option is not provided.', () =>
     new Promise((resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
         expect(req.headers.Authorization).toBe('Bearer xxx-xx')
@@ -208,11 +189,6 @@ describe('Password Flow', () => {
 
   test('should throw error if required `username` and `password` options are not provided.', () =>
     new Promise((resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
         expect(req.headers.Authorization).toBe('Bearer xxx-xx')
@@ -251,11 +227,6 @@ describe('Password Flow', () => {
 
   test('should not call the auth server if Authorization is already present in the headers', () =>
     new Promise((resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
         expect(req.headers.Authorization).toBe('Bearer xxxx-xxx')
@@ -278,17 +249,11 @@ describe('Password Flow', () => {
         createTestRequest({ headers: { Authorization: 'Bearer xxxx-xxx' } })
       )
       expect(middlewareOptions.httpClient).toHaveBeenCalledTimes(0)
-
       resolve(null)
     }))
 
   test('should fetch and store token in tokenCache object', () =>
     new Promise((resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
       const store = (value) => {
         let val = value
         return {

@@ -20,7 +20,7 @@ export class ByProjectKeyDiscountCodesKeyByKeyRequestBuilder {
     }
   ) {}
   /**
-   *	Deprecated scope: `view_orders:{projectKey}`
+   *	Deprecated OAuth 2.0 Scope: `view_orders:{projectKey}`
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -67,7 +67,7 @@ export class ByProjectKeyDiscountCodesKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Deprecated scope: `manage_orders:{projectKey}`
+   *	Deprecated OAuth 2.0 Scope: `manage_orders:{projectKey}`
    */
   public post(methodArgs: {
     queryArgs?: {
@@ -98,7 +98,7 @@ export class ByProjectKeyDiscountCodesKeyByKeyRequestBuilder {
   /**
    *	Deleting a Discount Code produces the [DiscountCodeDeleted](ctp:api:type:DiscountCodeDeletedMessage) Message.
    *
-   *	Deprecated scope: `manage_orders:{projectKey}`
+   *	Deprecated OAuth 2.0 Scope: `manage_orders:{projectKey}`
    *
    */
   public delete(methodArgs: {

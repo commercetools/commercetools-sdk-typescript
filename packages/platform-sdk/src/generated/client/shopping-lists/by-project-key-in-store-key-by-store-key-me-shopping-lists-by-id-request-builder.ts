@@ -22,8 +22,13 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsByIDRequestBuilder {
     }
   ) {}
   /**
-   *	If a ShoppingList exists in a Project but does _not_ have the `store` field, or the `store` field references a different [Store](ctp:api:type:Store),
-   *	the [ResourceNotFound](/errors#404-not-found-1) error is returned.
+   *	Returns a ShoppingList for a given `id` in a Store. Returns `200 OK` status if successful.
+   *
+   *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
+   *
+   *	- If no ShoppingList matches the given `id` in a Store.
+   *	- If a ShoppingList matches the given `id` but does not have a `store` specified, or the `store` field references a different Store.
+   *	- If a ShoppingList matches the given `id` in a Store but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public get(methodArgs?: {
@@ -51,7 +56,14 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a ShoppingList exists for a given `id`. Returns a `200 OK` status if the ShoppingList exists or a `404 Not Found` otherwise.
+   *	Checks if a ShoppingList exists for a given `id` in a Store. Returns a `200 OK` status if successful.
+   *
+   *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
+   *
+   *	- If no ShoppingList matches the given `id` in a Store.
+   *	- If a ShoppingList matches the given `id` but does not have a `store` specified, or the `store` field references a different Store.
+   *	- If a ShoppingList matches the given `id` in a Store but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope.
+   *
    */
   public head(methodArgs?: {
     headers?: {
@@ -73,8 +85,13 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsByIDRequestBuilder {
     )
   }
   /**
-   *	If a ShoppingList exists in a Project but does _not_ have the `store` field, or the `store` field references a different [Store](ctp:api:type:Store),
-   *	the [ResourceNotFound](/errors#404-not-found-1) error is returned.
+   *	Updates a ShoppingList for a given `id` in a Store. Returns a `200 OK` status if successful.
+   *
+   *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
+   *
+   *	- If no ShoppingList matches the given `id` in a Store.
+   *	- If a ShoppingList matches the given `id` but does not have a `store` specified, or the `store` field references a different Store.
+   *	- If a ShoppingList matches the given `id` in a Store but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public post(methodArgs: {
@@ -105,8 +122,13 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsByIDRequestBuilder {
     )
   }
   /**
-   *	If a ShoppingList exists in a Project but does _not_ have the `store` field, or the `store` field references a different [Store](ctp:api:type:Store),
-   *	the [ResourceNotFound](/errors#404-not-found-1) error is returned.
+   *	Deletes the ShoppingList for a given `id` in a Store. Returns a `200 OK` status if successful.
+   *
+   *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
+   *
+   *	- If no ShoppingList matches the given `id` in a Store.
+   *	- If a ShoppingList matches the given `id` but does not have a `store` specified, or the `store` field references a different Store.
+   *	- If a ShoppingList matches the given `id` in a Store but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public delete(methodArgs: {

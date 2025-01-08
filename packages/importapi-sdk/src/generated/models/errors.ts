@@ -14,7 +14,7 @@ import { Attribute } from './productvariants'
  */
 export interface ErrorResponse {
   /**
-   *	The http status code of the response.
+   *	The HTTP status code of the response.
    *
    */
   readonly statusCode: number
@@ -45,6 +45,12 @@ export interface ErrorResponse {
    */
   readonly errors?: ErrorObject[]
 }
+/**
+ *	Base representation of an error response containing common fields to all errors.
+ *
+ *	An error response may contain additional fields depending on the type of an error, for example, `attribute` in [DuplicateAttributeValueError](#duplicateattributevalueerror).
+ *
+ */
 export type ErrorObject =
   | AccessDeniedError
   | ConcurrentModificationError
@@ -57,12 +63,14 @@ export type ErrorObject =
   | InsufficientScopeError
   | InvalidCredentialsError
   | InvalidFieldError
+  | InvalidFieldsUpdateError
   | InvalidInput
   | InvalidJsonInput
   | InvalidOperation
   | InvalidScopeError
   | InvalidStateTransitionError
   | InvalidTokenError
+  | NewMasterVariantAdditionNotAllowedError
   | RequiredFieldError
   | ResourceCreationError
   | ResourceDeletionError
@@ -74,6 +82,7 @@ export type ErrorObject =
 export interface AccessDeniedError {
   readonly code: 'access_denied'
   /**
+   *	A plain language description of the cause of an error.
    *
    */
   readonly message: string
@@ -85,6 +94,7 @@ export interface AccessDeniedError {
 export interface InvalidScopeError {
   readonly code: 'invalid_scope'
   /**
+   *	A plain language description of the cause of an error.
    *
    */
   readonly message: string
@@ -97,16 +107,18 @@ export interface InvalidScopeError {
 export interface InvalidOperation {
   readonly code: 'InvalidOperation'
   /**
+   *	A plain language description of the cause of an error.
    *
    */
   readonly message: string
 }
 /**
- *	The `Unique` [AttributeConstraintEnum](/../api/projects/productTypes#attributeconstraintenum) was violated.
+ *	The `Unique` [AttributeConstraintEnum](ctp:api:type:AttributeConstraintEnum) was violated.
  */
 export interface DuplicateAttributeValueError {
   readonly code: 'DuplicateAttributeValue'
   /**
+   *	A plain language description of the cause of an error.
    *
    */
   readonly message: string
@@ -117,11 +129,12 @@ export interface DuplicateAttributeValueError {
   readonly attribute: Attribute
 }
 /**
- *	The `CombinationUnique` [AttributeConstraintEnum](/../api/projects/productTypes#attributeconstraintenum) was violated.
+ *	The `CombinationUnique` [AttributeConstraintEnum](ctp:api:type:AttributeConstraintEnum) was violated.
  */
 export interface DuplicateAttributeValuesError {
   readonly code: 'DuplicateAttributeValues'
   /**
+   *	A plain language description of the cause of an error.
    *
    */
   readonly message: string
@@ -136,6 +149,7 @@ export interface DuplicateAttributeValuesError {
 export interface DuplicateFieldError {
   readonly code: 'DuplicateField'
   /**
+   *	A plain language description of the cause of an error.
    *
    */
   readonly message: string
@@ -151,13 +165,14 @@ export interface DuplicateFieldError {
   readonly duplicateValue?: any
 }
 /**
- *	The given combination of values of a [Product Variant](/../api/projects/products#productvariant) conflicts with an existing one.
- *	Every [Product Variant](/../api/projects/products#productvariant) must have a distinct combination of SKU, prices, and custom attribute values.
+ *	The given combination of values of a [Product Variant](ctp:api:type:ProductVariant) conflicts with an existing one.
+ *	Every [Product Variant](ctp:api:type:ProductVariant) must have a distinct combination of SKU, prices, and custom attribute values.
  *
  */
 export interface DuplicateVariantValuesError {
   readonly code: 'DuplicateVariantValues'
   /**
+   *	A plain language description of the cause of an error.
    *
    */
   readonly message: string
@@ -184,6 +199,7 @@ export interface VariantValues {
 export interface InsufficientScopeError {
   readonly code: 'insufficient_scope'
   /**
+   *	A plain language description of the cause of an error.
    *
    */
   readonly message: string
@@ -191,6 +207,7 @@ export interface InsufficientScopeError {
 export interface InvalidCredentialsError {
   readonly code: 'InvalidCredentials'
   /**
+   *	A plain language description of the cause of an error.
    *
    */
   readonly message: string
@@ -198,18 +215,20 @@ export interface InvalidCredentialsError {
 export interface InvalidTokenError {
   readonly code: 'invalid_token'
   /**
+   *	A plain language description of the cause of an error.
    *
    */
   readonly message: string
 }
 /**
  *	A given field is not supported.
- *	This error occurs, for example, if the field `variants`, which is not supported by [Product Import](/product#productimport), is sent to the Product Import endpoint.
+ *	This error occurs, for example, if the field `variants`, which is not supported by [Product Import](ctp:import:type:ProductImport), is sent to the Product Import endpoint.
  *
  */
 export interface InvalidFieldError {
   readonly code: 'InvalidField'
   /**
+   *	A plain language description of the cause of an error.
    *
    */
   readonly message: string
@@ -234,6 +253,24 @@ export interface InvalidFieldError {
   readonly resourceIndex?: number
 }
 /**
+ *	Returned when a field cannot be updated.
+ *
+ */
+export interface InvalidFieldsUpdateError {
+  readonly code: 'InvalidFieldUpdate'
+  /**
+   *	`"The following fields are currently not supported for changes/updates"`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	Fields that cannot be updated.
+   *
+   */
+  readonly fields: string[]
+}
+/**
  *	An invalid JSON input has been sent to the service.
  *	Either the JSON is syntactically incorrect or the JSON has an unexpected shape, for example, a required field is missing.
  *	The client application should validate the input according to the constraints described in the error message before sending the request again.
@@ -242,6 +279,7 @@ export interface InvalidFieldError {
 export interface InvalidJsonInput {
   readonly code: 'InvalidJsonInput'
   /**
+   *	A plain language description of the cause of an error.
    *
    */
   readonly message: string
@@ -254,6 +292,7 @@ export interface InvalidJsonInput {
 export interface InvalidInput {
   readonly code: 'InvalidInput'
   /**
+   *	A plain language description of the cause of an error.
    *
    */
   readonly message: string
@@ -261,6 +300,7 @@ export interface InvalidInput {
 export interface ResourceNotFoundError {
   readonly code: 'ResourceNotFound'
   /**
+   *	A plain language description of the cause of an error.
    *
    */
   readonly message: string
@@ -272,6 +312,7 @@ export interface ResourceNotFoundError {
 export interface ResourceCreationError {
   readonly code: 'ResourceCreation'
   /**
+   *	A plain language description of the cause of an error.
    *
    */
   readonly message: string
@@ -283,6 +324,7 @@ export interface ResourceCreationError {
 export interface ResourceUpdateError {
   readonly code: 'ResourceUpdate'
   /**
+   *	A plain language description of the cause of an error.
    *
    */
   readonly message: string
@@ -294,6 +336,7 @@ export interface ResourceUpdateError {
 export interface ResourceDeletionError {
   readonly code: 'ResourceDeletion'
   /**
+   *	A plain language description of the cause of an error.
    *
    */
   readonly message: string
@@ -308,6 +351,7 @@ export interface ResourceDeletionError {
 export interface RequiredFieldError {
   readonly code: 'RequiredField'
   /**
+   *	A plain language description of the cause of an error.
    *
    */
   readonly message: string
@@ -320,17 +364,18 @@ export interface RequiredFieldError {
 export interface InvalidStateTransitionError {
   readonly code: 'InvalidTransition'
   /**
+   *	A plain language description of the cause of an error.
    *
    */
   readonly message: string
   /**
-   *	Every [Import Operation](/import-operation) is assigned one of the following states.
+   *	Every [Import Operation](ctp:import:type:ImportOperation) is assigned one of the following states.
    *
    *
    */
   readonly currentState: ProcessingState
   /**
-   *	Every [Import Operation](/import-operation) is assigned one of the following states.
+   *	Every [Import Operation](ctp:import:type:ImportOperation) is assigned one of the following states.
    *
    *
    */
@@ -345,6 +390,7 @@ export interface InvalidStateTransitionError {
 export interface ConcurrentModificationError {
   readonly code: 'ConcurrentModification'
   /**
+   *	A plain language description of the cause of an error.
    *
    */
   readonly message: string
@@ -367,6 +413,7 @@ export interface ConcurrentModificationError {
 export interface ContentionError {
   readonly code: 'Contention'
   /**
+   *	A plain language description of the cause of an error.
    *
    */
   readonly message: string
@@ -374,6 +421,20 @@ export interface ContentionError {
 export interface GenericError {
   readonly code: 'Generic'
   /**
+   *	A plain language description of the cause of an error.
+   *
+   */
+  readonly message: string
+}
+/**
+ *	Returned when attempting to create a ProductVariant and set it as the Master Variant in the same [ProductVariantImport](ctp:import:type:ProductVariantImport).
+ *
+ */
+export interface NewMasterVariantAdditionNotAllowedError {
+  readonly code: 'NewMasterVariantAdditionNotAllowed'
+  /**
+   *	`"Adding a new variant as master variant is not allowed."`
+   *
    *
    */
   readonly message: string

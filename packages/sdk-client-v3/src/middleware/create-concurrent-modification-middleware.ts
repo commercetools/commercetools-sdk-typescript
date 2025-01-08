@@ -5,7 +5,13 @@ import {
   Next,
 } from '../types/types'
 
-export default function createConcurrentModificationMiddleware(): Middleware {
+export default function createConcurrentModificationMiddleware(
+  modifierFunction?: (
+    version: number,
+    request: MiddlewareRequest,
+    response: MiddlewareResponse
+  ) => Promise<Record<string, any> | string | Uint8Array>
+): Middleware {
   return (next: Next) => {
     return async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {
       const response = await next(request)
@@ -19,10 +25,14 @@ export default function createConcurrentModificationMiddleware(): Middleware {
 
         // update the resource version here
         if (version) {
-          request.body =
-            typeof request.body == 'string'
-              ? { ...JSON.parse(request.body), version }
-              : { ...request.body, version }
+          if (modifierFunction && typeof modifierFunction == 'function') {
+            request.body = await modifierFunction(version, request, response)
+          } else {
+            request.body =
+              typeof request.body == 'string'
+                ? { ...JSON.parse(request.body), version }
+                : { ...request.body, version }
+          }
 
           return next(request)
         }

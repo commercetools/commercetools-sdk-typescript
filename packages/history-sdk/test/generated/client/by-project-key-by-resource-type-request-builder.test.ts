@@ -101,11 +101,11 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/test_resourceType?source=source',
+      uri: '/test_projectKey/test_resourceType?source=MerchantCenter',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
         .withResourceTypeValue({ resourceType: 'test_resourceType' })
-        .get({ queryArgs: { source: 'source' } }),
+        .get({ queryArgs: { source: 'MerchantCenter' } }),
     },
     {
       method: 'get',

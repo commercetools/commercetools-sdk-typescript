@@ -24,4 +24,5 @@ module.exports = {
         ]
       : null,
   ].filter(Boolean),
+  setupFilesAfterEnv: ['jest-extended/all'],
 }

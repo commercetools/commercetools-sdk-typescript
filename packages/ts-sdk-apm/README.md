@@ -63,12 +63,9 @@ Example
 const telemetryOptions = {
   createTelemetryMiddleware, // coming from the `@commercetools/ts-sdk-apm or a custom implementation
   tracer: () =>
-    require(require('path').join(
-      __dirname,
-      '..',
-      '..',
-      'custom-telemetry-module.js'
-    )), // make sure the require takes in an absolute path to the custom tracer module.
+    require(
+      require('path').join(__dirname, '..', '..', 'custom-telemetry-module.js')
+    ), // make sure the require takes in an absolute path to the custom tracer module.
 }
 ```
 

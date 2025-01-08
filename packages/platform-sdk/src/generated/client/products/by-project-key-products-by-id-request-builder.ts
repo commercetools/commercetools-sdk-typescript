@@ -41,7 +41,7 @@ export class ByProjectKeyProductsByIDRequestBuilder {
   }
 
   /**
-   *	If [Price selection](ctp:api:type:ProductPriceSelection) query parameters are provided, the selected Prices are added to the response.
+   *	If [Product price selection query parameters](/../api/pricing-and-discounts-overview#product-price-selection) are provided, the selected Prices are added to the response.
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -49,7 +49,6 @@ export class ByProjectKeyProductsByIDRequestBuilder {
       priceCountry?: string
       priceCustomerGroup?: string
       priceChannel?: string
-      localeProjection?: string | string[]
       expand?: string | string[]
       [key: string]: QueryParam
     }
@@ -93,7 +92,7 @@ export class ByProjectKeyProductsByIDRequestBuilder {
     )
   }
   /**
-   *	If [Price selection](ctp:api:type:ProductPriceSelection) query parameters are provided, the selected Prices are added to the response.
+   *	If [Product price selection query parameters](/../api/pricing-and-discounts-overview#product-price-selection) are provided, the selected Prices are added to the response.
    *
    *	A failed response can return a [DuplicatePriceScope](ctp:api:type:DuplicatePriceScopeError), [DuplicateVariantValues](ctp:api:type:DuplicateVariantValuesError), [DuplicateAttributeValue](ctp:api:type:DuplicateAttributeValueError), or [DuplicateAttributeValues](ctp:api:type:DuplicateAttributeValuesError) error.
    */
@@ -103,7 +102,6 @@ export class ByProjectKeyProductsByIDRequestBuilder {
       priceCountry?: string
       priceCustomerGroup?: string
       priceChannel?: string
-      localeProjection?: string | string[]
       expand?: string | string[]
       [key: string]: QueryParam
     }
@@ -129,8 +127,8 @@ export class ByProjectKeyProductsByIDRequestBuilder {
     )
   }
   /**
-   *	If [Price selection](ctp:api:type:ProductPriceSelection) query parameters are provided, the selected Prices are added to the response.
-   *	Produces the [ProductDeleted](/projects/messages#product-deleted) Message.
+   *	If [Product price selection query parameters](/../api/pricing-and-discounts-overview#product-price-selection) are provided, the selected Prices are added to the response.
+   *	Produces the [ProductDeleted](/projects/messages/product-catalog-messages#product-deleted) Message.
    */
   public delete(methodArgs: {
     queryArgs: {
@@ -138,7 +136,6 @@ export class ByProjectKeyProductsByIDRequestBuilder {
       priceCountry?: string
       priceCustomerGroup?: string
       priceChannel?: string
-      localeProjection?: string | string[]
       version: number
       expand?: string | string[]
       [key: string]: QueryParam

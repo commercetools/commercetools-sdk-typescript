@@ -277,7 +277,6 @@ type HttpErrorType = {
 Proxies can be configured at the http client level in the JS/TS SDK, here we pass the proxy url/ip address
 
 ```ts
-import fetch from 'node-fetch'
 import HttpsProxyAgent from 'https-proxy-agent'
 
 const fetcherProxy = (url, fetchOptions = {}) => {
@@ -341,7 +340,7 @@ client
 
 ## Using HTTP client
 
-The JS/TS SDK uses [node-fetch](https://github.com/bitinn/node-fetch) and its close relatives like [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch), [whatwg-fetch](https://github.com/whatwg/fetch) or [unfetch](https://github.com/developit/unfetch).
+The JS/TS SDK uses [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) and its close relatives like [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch), [whatwg-fetch](https://github.com/whatwg/fetch) or [unfetch](https://github.com/developit/unfetch).
 It is important to also note that due to changes in version 3 of `node-fetch`, it is expected that all projects using the v3 of `node-fetch` within the SDK must be in ESM (.mjs) module system. The JS/TS SDK fully supports v2 of `node-fetch` without any restrictions.
 
 ## The `Process` Function

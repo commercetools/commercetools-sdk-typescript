@@ -6,8 +6,8 @@ function parse(headers: JsonObject<any>) {
     let val = headers[key]
       ? headers[key]
       : typeof headers.get == 'function'
-      ? headers.get(key)
-      : null
+        ? headers.get(key)
+        : null
 
     if (val) result[key] = val
 
@@ -28,7 +28,8 @@ export default function getHeaders(
 
   // whatwg-fetch
   const map: JsonObject<string> = {}
-  return headers.forEach(
-    (value: any, name: string | number) => (map[name] = value)
-  )
+  headers.forEach((value: any, name: string | number) => {
+    return (map[name] = value)
+  })
+  return map
 }

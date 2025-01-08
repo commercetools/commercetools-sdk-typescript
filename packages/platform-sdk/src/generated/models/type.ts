@@ -53,12 +53,15 @@ export interface CustomFieldLocalizedEnumValue {
  */
 export type CustomFieldReferenceValue =
   | 'approval-flow'
+  | 'approval-rule'
   | 'associate-role'
   | 'business-unit'
   | 'cart'
+  | 'cart-discount'
   | 'category'
   | 'channel'
   | 'customer'
+  | 'customer-group'
   | 'key-value-document'
   | 'order'
   | 'product'
@@ -80,14 +83,14 @@ export interface CustomFields {
    */
   readonly type: TypeReference
   /**
-   *	Object containing the Custom Fields for the [customized resource or data type](/../api/projects/types#list-of-customizable-data-types).
+   *	Object containing the Custom Fields for the [customized resource or data type](/../api/projects/types#resourcetypeid).
    *
    *
    */
   readonly fields: FieldContainer
 }
 /**
- *	The representation used when creating or updating a [customizable data type](/../api/projects/types#list-of-customizable-data-types) with Custom Fields.
+ *	The representation used when creating or updating a [customizable data type](/../api/projects/types#resourcetypeid) with Custom Fields.
  *
  */
 export interface CustomFieldsDraft {
@@ -98,7 +101,7 @@ export interface CustomFieldsDraft {
    */
   readonly type: TypeResourceIdentifier
   /**
-   *	Object containing the Custom Fields for the [customized resource or data type](/../api/projects/types#list-of-customizable-data-types).
+   *	Object containing the Custom Fields for the [customized resource or data type](/../api/projects/types#resourcetypeid).
    *
    *
    */
@@ -264,12 +267,13 @@ export interface CustomFieldTimeType {
   readonly name: 'Time'
 }
 /**
- *	IDs indicating the [customizable resources and data types](/../api/projects/types#list-of-customizable-data-types).
+ *	With Types, you can model your own Custom Fields on the following resources and data types.
  *
  */
 export type ResourceTypeId =
   | 'address'
   | 'approval-flow'
+  | 'approval-rule'
   | 'asset'
   | 'associate-role'
   | 'business-unit'
@@ -291,6 +295,7 @@ export type ResourceTypeId =
   | 'payment-interface-interaction'
   | 'product-price'
   | 'product-selection'
+  | 'product-tailoring'
   | 'quote'
   | 'review'
   | 'shipping'
@@ -325,13 +330,13 @@ export interface Type extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the Type.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Type.
    *
    *
    */
@@ -649,7 +654,8 @@ export interface TypeChangeLabelAction {
    */
   readonly fieldName: string
   /**
-   *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+   *	New value to set.
+   *	Must not be empty.
    *
    *
    */

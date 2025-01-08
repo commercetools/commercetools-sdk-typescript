@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 import { default as createClient } from '../sdk-client/client'
 import * as authMiddlewares from '../sdk-middleware-auth'
 import { default as createCorrelationIdMiddleware } from '../sdk-middleware-correlation-id/correlation-id'
@@ -7,14 +6,17 @@ import { default as createLoggerMiddleware } from '../sdk-middleware-logger/logg
 import { default as createQueueMiddleware } from '../sdk-middleware-queue/queue'
 import { default as createUserAgentMiddleware } from '../sdk-middleware-user-agent/user-agent'
 import {
+  AfterExecutionMiddlewareOptions,
   AnonymousAuthMiddlewareOptions,
   AuthMiddlewareOptions,
+  BeforeExecutionMiddlewareOptions,
   Client,
   CorrelationIdMiddlewareOptions,
   Credentials,
   ExistingTokenMiddlewareOptions,
   HttpMiddlewareOptions,
   HttpUserAgentOptions,
+  LoggerMiddlewareOptions,
   Middleware,
   Nullable,
   PasswordAuthMiddlewareOptions,
@@ -40,6 +42,8 @@ export default class ClientBuilder {
   private loggerMiddleware: Nullable<Middleware>
   private queueMiddleware: Nullable<Middleware>
   private telemetryMiddleware: Nullable<Middleware>
+  private beforeMiddleware: Nullable<Middleware>
+  private afterMiddleware: Nullable<Middleware>
   private middlewares: Array<Middleware> = []
 
   withProjectKey(key: string): ClientBuilder {
@@ -180,8 +184,11 @@ export default class ClientBuilder {
     return this
   }
 
-  withLoggerMiddleware() {
-    this.loggerMiddleware = createLoggerMiddleware()
+  withLoggerMiddleware(options?: LoggerMiddlewareOptions): ClientBuilder {
+    const { logger, ...rest } = options || {}
+    this.loggerMiddleware =
+      (typeof options?.logger == 'function' && options.logger(rest)) ||
+      createLoggerMiddleware()
     return this
   }
 
@@ -207,6 +214,18 @@ export default class ClientBuilder {
     return this
   }
 
+  withBeforeExecutionMiddleware(options: BeforeExecutionMiddlewareOptions) {
+    const { middleware, ...rest } = options || {}
+    this.beforeMiddleware = options.middleware(rest)
+    return this
+  }
+
+  withAfterExecutionMiddleware(options: AfterExecutionMiddlewareOptions) {
+    const { middleware, ...rest } = options || {}
+    this.afterMiddleware = options.middleware(rest)
+    return this
+  }
+
   build(): Client {
     const middlewares = this.middlewares.slice()
 
@@ -215,8 +234,10 @@ export default class ClientBuilder {
       middlewares.push(this.correlationIdMiddleware)
     if (this.userAgentMiddleware) middlewares.push(this.userAgentMiddleware)
     if (this.authMiddleware) middlewares.push(this.authMiddleware)
+    if (this.beforeMiddleware) middlewares.push(this.beforeMiddleware)
     if (this.queueMiddleware) middlewares.push(this.queueMiddleware)
     if (this.httpMiddleware) middlewares.push(this.httpMiddleware)
+    if (this.afterMiddleware) middlewares.push(this.afterMiddleware)
     if (this.loggerMiddleware) middlewares.push(this.loggerMiddleware)
 
     return createClient({ middlewares })

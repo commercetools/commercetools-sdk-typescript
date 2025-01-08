@@ -10,6 +10,7 @@ import {
 } from '../../models/product'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
+import { ByProjectKeyProductsSearchRequestBuilder } from '../search/by-project-key-products-search-request-builder'
 import { ByProjectKeyProductsByIDRequestBuilder } from './by-project-key-products-by-id-request-builder'
 import { ByProjectKeyProductsKeyByKeyRequestBuilder } from './by-project-key-products-key-by-key-request-builder'
 /**
@@ -48,9 +49,22 @@ export class ByProjectKeyProductsRequestBuilder {
       baseUri: this.args.baseUri,
     })
   }
+  /**
+   *	This endpoint provides high-performance search queries over Products. Product Search allows searching through all products with a current projection in your Project.
+   *
+   */
+  public search(): ByProjectKeyProductsSearchRequestBuilder {
+    return new ByProjectKeyProductsSearchRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
 
   /**
-   *	If [Price selection](ctp:api:type:ProductPriceSelection) query parameters are provided, the selected Prices are added to the response.
+   *	If [Product price selection query parameters](/../api/pricing-and-discounts-overview#product-price-selection) are provided, the selected Prices are added to the response.
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -59,7 +73,6 @@ export class ByProjectKeyProductsRequestBuilder {
       priceCountry?: string
       priceCustomerGroup?: string
       priceChannel?: string
-      localeProjection?: string | string[]
       expand?: string | string[]
       sort?: string | string[]
       limit?: number
@@ -113,8 +126,8 @@ export class ByProjectKeyProductsRequestBuilder {
   }
   /**
    *	To create a new Product, send a representation that is going to become the initial _staged_ and _current_ representation of the new Product in the catalog.
-   *	If [Price Selection](ctp:api:type:ProductPriceSelection) query parameters are provided, selected Prices will be added to the response.
-   *	Produces the [ProductCreated](/projects/messages#product-created) Message.
+   *	If [Product price selection query parameters](/../api/pricing-and-discounts-overview#product-price-selection) are provided, selected Prices will be added to the response.
+   *	Produces the [ProductCreated](/projects/messages/product-catalog-messages#product-created) Message.
    *
    */
   public post(methodArgs: {
@@ -123,7 +136,6 @@ export class ByProjectKeyProductsRequestBuilder {
       priceCountry?: string
       priceCustomerGroup?: string
       priceChannel?: string
-      localeProjection?: string | string[]
       expand?: string | string[]
       [key: string]: QueryParam
     }

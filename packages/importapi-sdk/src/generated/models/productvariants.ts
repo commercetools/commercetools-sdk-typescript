@@ -475,12 +475,12 @@ export interface TimeSetAttribute {
   readonly value: string[]
 }
 /**
- *	The data representation for a ProductVariant to be imported that is persisted as a [ProductVariant](/../api/projects/products#productvariant) in the Project.
+ *	The data representation for a ProductVariant to be imported that is persisted as a [ProductVariant](ctp:api:type:ProductVariant) in the Project.
  *
  */
 export interface ProductVariantImport extends ImportResource {
   /**
-   *	User-defined unique identifier. If a [ProductVariant](/../api/projects/products#productvariant) with this `key` exists on the specified `product`, it will be updated with the imported data.
+   *	User-defined unique identifier. If a [ProductVariant](ctp:api:type:ProductVariant) with this `key` exists on the specified `product`, it will be updated with the imported data.
    *
    */
   readonly key: string
@@ -491,14 +491,15 @@ export interface ProductVariantImport extends ImportResource {
    */
   readonly sku?: string
   /**
-   *	Maps to `ProductVariant.isMasterVariant`.
+   *	- When creating a new ProductVariant, set to `false`; otherwise, the import operation will fail with a [NewMasterVariantAdditionNotAllowed](ctp:import:type:NewMasterVariantAdditionNotAllowedError) error.
+   *	- Set to `true` if the ProductVariant exists and you want to set this ProductVariant as the Master Variant.
    *
    *
    */
   readonly isMasterVariant: boolean
   /**
    *	Maps to `ProductVariant.attributes`.
-   *	The referenced attribute must be defined in an already existing ProductType in the project, or the `state` of the [ImportOperation](/import-operation#importoperation) will be `unresolved`.
+   *	The referenced attribute must be defined in an already existing ProductType in the project, or the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be `unresolved`.
    *
    *
    */
@@ -516,53 +517,55 @@ export interface ProductVariantImport extends ImportResource {
    */
   readonly assets?: Asset[]
   /**
-   *	If `publish` is set to either `true` or `false`, both staged and current projections are set to the same value provided by the import data.
-   *	If `publish` is not set, the staged projection is set to the provided import data, but the current projection stays unchanged.
-   *	However, if the import data contains no update, that is, if it matches the staged projection of the existing Product, the import induces no change in the existing Product whether `publish` is set or not.
+   *	- Set to `false` to update both the [current and staged projections](/../api/projects/productProjections#current--staged) of the [Product](/../api/projects/products#product) with the new Product Variant data.
+   *	- Leave empty or set to `true` to only update the staged projection.
    *
    *
    */
-  readonly publish?: boolean
+  readonly staged?: boolean
   /**
-   *	The [Product](/../api/projects/products#productvariant) to which this Product Variant belongs. Maps to `ProductVariant.product`.
-   *	The Reference to the [Product](/../api/projects/products#product) with which the ProductVariant is associated.
-   *	If referenced Product does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary Product is created.
+   *	The [Product](ctp:api:type:ProductVariant) to which this Product Variant belongs. Maps to `ProductVariant.product`.
+   *	The Reference to the [Product](ctp:api:type:Product) with which the ProductVariant is associated.
+   *	If referenced Product does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary Product is created.
    *
    *
    */
   readonly product: ProductKeyReference
 }
 /**
- *	Representation for an update of a [ProductVariant](/../api/projects/products#productvariant). Use this type to import updates for existing
- *	[ProductVariants](/../api/projects/products#productvariant) in a Project.
+ *	Representation for an update of a [ProductVariant](ctp:api:type:ProductVariant). Use this type to import updates for existing
+ *	[ProductVariants](ctp:api:type:ProductVariant) in a Project.
  *
  */
 export interface ProductVariantPatch {
   /**
-   *	Reference to the [ProductVariant](/../api/projects/products#productvariant) to update.
-   *	If the referenced ProductVariant does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary ProductVariant is created.
+   *	Reference to the [ProductVariant](ctp:api:type:ProductVariant) to update.
+   *	If the referenced ProductVariant does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary ProductVariant is created.
    *
    *
    */
   readonly productVariant: ProductVariantKeyReference
   /**
    *	Maps to `ProductVariant.attributes`.
-   *	- The referenced Attribute must be defined in an existing [ProductType](/../api/projects/productTypes#producttype), or the `state` of the [ImportOperation](/import-operation#importoperation) will be `validationFailed`.
+   *	- The referenced Attribute must be defined in an existing [ProductType](ctp:api:type:ProductType), or the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be `validationFailed`.
    *	- Setting the value of a non-required Attribute to `null` will remove the Attribute.
-   *	- Attempting to set a `null` value to a required Attribute will make the import operation fail with an [InvalidOperation](/error#invalidoperation) error.
-   *	- Importing [LocalizableTextAttributes](/product-variant#localizabletextattribute) or [LocalizableTextSetAttributes](/product-variant#localizabletextsetattribute) follows an override pattern, meaning that omitted localized fields will be deleted, new fields will be created, and existing fields will be updated. You can also delete localized fields by setting their value to `null`.
+   *	- Attempting to set a `null` value to a required Attribute will make the import operation fail with an [InvalidOperation](ctp:import:type:InvalidOperation) error.
+   *	- Importing [LocalizableTextAttributes](ctp:import:type:LocalizableTextAttribute) or [LocalizableTextSetAttributes](ctp:import:type:LocalizableTextSetAttribute) follows an override pattern, meaning that omitted localized fields will be deleted, new fields will be created, and existing fields will be updated. You can also delete localized fields by setting their value to `null`.
    *
    *
    */
   readonly attributes?: Attributes
   /**
-   *	If `false`, the attribute changes are applied to both [current and staged projected representations](/../api/projects/productProjections#current--staged) of the [Product](/../api/projects/products#product).
+   *	If `false`, the attribute changes are applied to both [current and staged projected representations](/projects/productProjections#current--staged) of the [Product](ctp:api:type:Product).
    *
    *
    */
   readonly staged?: boolean
   /**
-   *	Reference to the [Product](/../api/projects/products#product) which contains the ProductVariant. Setting a value will batch process the import operations to minimize concurrency errors. If set, this field is required for every ProductVariantPatch in the [ProductVariantPatchRequest](ctp:import:type:ProductVariantPatchRequest).
+   *	Reference to the [Product](/../api/projects/products#product) that contains the ProductVariant.
+   *
+   *	We recommend to set this value to minimize concurrency errors.
+   *	If set, this field is required for every ProductVariantPatch in the [ProductVariantPatchRequest](ctp:import:type:ProductVariantPatchRequest).
    *
    *
    */

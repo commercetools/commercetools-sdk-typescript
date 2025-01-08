@@ -8,12 +8,12 @@ import { ChannelKeyReference, ImportResource } from './common'
 import { Custom } from './customfields'
 
 /**
- *	The data representation for an Inventory to be imported that is persisted as a [Inventory](/../api/projects/inventory#top) in the Project.
+ *	The data representation for an Inventory to be imported that is persisted as a [Inventory](ctp:api:type:InventoryEntry) in the Project.
  *
  */
 export interface InventoryImport extends ImportResource {
   /**
-   *	User-defined unique identifier. If an [InventoryEntry](/../api/projects/inventory#inventoryentry) with this `key` exists, it will be updated with the imported data.
+   *	User-defined unique identifier. If an [InventoryEntry](ctp:api:type:InventoryEntry) with this `key` exists, it will be updated with the imported data.
    *
    */
   readonly key: string

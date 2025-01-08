@@ -156,6 +156,9 @@ export class ByProjectKeyOrdersRequestBuilder {
    *
    *	Creating an Order produces the [OrderCreated](ctp:api:type:OrderCreatedMessage) Message.
    *
+   *	  If a server-side problem occurs, indicated by a 500 Internal Server Error HTTP response, the Order creation may still successfully complete after the error is returned.
+   *	  If you receive this error, you should verify the status of the Order by querying a unique identifier supplied during the creation request, such as the Order number.
+   *
    *	Specific Error Codes:
    *
    *	- [OutOfStock](ctp:api:type:OutOfStockError)
@@ -163,6 +166,7 @@ export class ByProjectKeyOrdersRequestBuilder {
    *	- [DiscountCodeNonApplicable](ctp:api:type:DiscountCodeNonApplicableError)
    *	- [ShippingMethodDoesNotMatchCart](ctp:api:type:ShippingMethodDoesNotMatchCartError)
    *	- [InvalidItemShippingDetails](ctp:api:type:InvalidItemShippingDetailsError)
+   *	- [InvalidOperation](ctp:api:type:InvalidOperationError)
    *	- [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError)
    *	- [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError)
    *

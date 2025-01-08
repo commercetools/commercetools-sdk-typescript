@@ -1,4 +1,5 @@
 // export { default as logger } from './logger'
+export { default as byteLength } from './byteLength'
 export * as constants from './constants'
 export { default as createError } from './createError'
 export { NetworkError } from './errors'
@@ -19,5 +20,5 @@ export { default as userAgent } from './userAgent'
 export {
     validate,
     // validateUserAgentOptions,
-    validateClient, validateHttpOptions, validateRetryCodes
+    validateClient, validateHttpClientOptions, validateRetryCodes
 } from './validate'

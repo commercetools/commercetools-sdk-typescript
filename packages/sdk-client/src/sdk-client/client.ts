@@ -10,7 +10,7 @@ import {
   ProcessOptions,
   SuccessResult,
 } from '../types/sdk.d'
-import { parseURLString } from '../utils'
+import { parseURLString, stringifyURLString } from '../utils'
 import validate from './validate'
 
 let _options: ClientOptions
@@ -83,29 +83,24 @@ export function process<T = any>(
       // Use the lesser value between limit and itemsToGet in query
       const limit = query.limit < itemsToGet ? query.limit : itemsToGet
       // const originalQueryString = qs.stringify({ ...query, limit }, qsOptions)
-      const originalQueryString = new URLSearchParams({
-        ...query,
-        limit,
-      } as unknown as Record<string, string>).toString()
+      const originalQueryString = stringifyURLString({ ...query, limit })
 
       const enhancedQuery = {
         sort: opt.sort || 'id asc',
         withTotal: false,
         ...(lastId ? { where: `id > "${lastId}"` } : {}),
       }
+
       // const enhancedQueryString = qs.stringify(enhancedQuery, qsOptions)
-      const enhancedQueryString = new URLSearchParams(
-        enhancedQuery as unknown as Record<string, string>
-      ).toString()
+      const enhancedQueryString = stringifyURLString(enhancedQuery)
       const enhancedRequest = {
         ...request,
         uri: `${_path}?${enhancedQueryString}&${originalQueryString}`,
       }
 
       try {
-        const payload: SuccessResult = await createClient(_options).execute(
-          enhancedRequest
-        )
+        const payload: SuccessResult =
+          await createClient(_options).execute(enhancedRequest)
 
         const { results, count: resultsLength } = payload.body
 

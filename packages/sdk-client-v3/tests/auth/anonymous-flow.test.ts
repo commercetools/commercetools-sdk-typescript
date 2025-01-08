@@ -11,12 +11,6 @@ function createTestRequest(options) {
   }
 }
 
-function createTestResponse(options) {
-  return {
-    ...options,
-  }
-}
-
 function createTestMiddlewareOptions(options) {
   return {
     host: 'https://auth.europe-west1.gcp.commercetools.com',
@@ -33,7 +27,7 @@ function createTestMiddlewareOptions(options) {
 describe('Anonymous Session Flow', () => {
   describe('Anonymous session flow', () => {
     test('should throw if `options` are not provided', () => {
-      const middlewareOptions = null
+      const middlewareOptions: any = null
 
       expect(() =>
         buildRequestForAnonymousSessionFlow(middlewareOptions)
@@ -61,15 +55,9 @@ describe('Anonymous Session Flow', () => {
 
   test('should fetch anonymous token and inject token in request headers', () =>
     new Promise((resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
         expect(req.headers.Authorization).toBe('Bearer xxx-xx')
-
         resolve(null)
       }
 
@@ -92,16 +80,9 @@ describe('Anonymous Session Flow', () => {
 
   test('should throw error if required `projectKey` option is not provided.', () =>
     new Promise(async (resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
         expect(req.headers.Authorization).toBe('Bearer xxx-xx')
-        // expect()
-
         resolve(null)
       }
 
@@ -128,15 +109,8 @@ describe('Anonymous Session Flow', () => {
 
   test('should throw error if required `host` option is not provided.', () =>
     new Promise(async (resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
-        // expect()
-
         resolve(null)
       }
 
@@ -164,11 +138,6 @@ describe('Anonymous Session Flow', () => {
 
   test('should throw error if required `clientId` and `clientSecret` options are not provided.', () =>
     new Promise((resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
         // expect()
@@ -202,12 +171,7 @@ describe('Anonymous Session Flow', () => {
     }))
 
   test('should not throw if `anonymousId` options is not provided.', () =>
-    new Promise((resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
+    new Promise(async (resolve, reject) => {
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
         expect(req.headers.Authorization).toBe('Bearer xxx-xx')
@@ -232,9 +196,9 @@ describe('Anonymous Session Flow', () => {
         },
       })
 
-      createAuthMiddlewareForAnonymousSessionFlow(middlewareOptions)(next)(
-        createTestRequest({})
-      )
+      await createAuthMiddlewareForAnonymousSessionFlow(middlewareOptions)(
+        next
+      )(createTestRequest({}))
 
       expect(middlewareOptions.httpClient).toHaveBeenCalled()
       expect(middlewareOptions.httpClient).toHaveBeenCalledTimes(1)
@@ -243,15 +207,9 @@ describe('Anonymous Session Flow', () => {
 
   test('should not call the auth server if Authorization is already present in the headers', () =>
     new Promise((resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
         expect(req.headers.Authorization).toBe('Bearer xxxx-xxx')
-
         resolve(null)
       }
 
@@ -273,11 +231,6 @@ describe('Anonymous Session Flow', () => {
 
   test('should fetch and store token in tokenCache object', () =>
     new Promise((resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
       const store = (value) => {
         let val = value
         return {

@@ -11,4 +11,12 @@
     "downlevelIteration": true
   },
   "exclude": ["./examples/"]
+  // "references": [
+  //   {
+  //     "path": "./packages/sdk-client"
+  //   },
+  //   {
+  //     "path": "./packages/sdk-client-v3"
+  //   }
+  // ]
 }

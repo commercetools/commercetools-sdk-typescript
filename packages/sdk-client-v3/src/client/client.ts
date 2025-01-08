@@ -90,9 +90,8 @@ export function process(
       }
 
       try {
-        const payload: ClientResult = await createClient(_options).execute(
-          enhancedRequest
-        )
+        const payload: ClientResult =
+          await createClient(_options).execute(enhancedRequest)
 
         const { results, count: resultsLength } = payload?.body || {}
 
@@ -135,6 +134,8 @@ export default function createClient(middlewares: ClientOptions): Client {
   _options = middlewares
   validateClient(middlewares)
 
+  let _maskSensitiveHeaderData = false
+
   const resolver = {
     async resolve(rs: ClientRequest): Promise<ClientResult> {
       const {
@@ -144,6 +145,7 @@ export default function createClient(middlewares: ClientOptions): Client {
         ...request
       } = rs
       const { retryCount, ...rest } = response
+      _maskSensitiveHeaderData = maskSensitiveHeaderData
 
       const res = {
         body: null,
@@ -151,13 +153,7 @@ export default function createClient(middlewares: ClientOptions): Client {
         reject: rs.reject,
         resolve: rs.resolve,
         ...rest,
-        ...(includeOriginalRequest
-          ? {
-              originalRequest: maskSensitiveHeaderData
-                ? maskAuthData(request)
-                : request,
-            }
-          : {}),
+        ...(includeOriginalRequest ? { originalRequest: request } : {}),
         ...(response?.retryCount ? { retryCount: response.retryCount } : {}),
       } as MiddlewareResponse
 
@@ -170,14 +166,19 @@ export default function createClient(middlewares: ClientOptions): Client {
     process,
     execute(request: ClientRequest): Promise<ClientResult> {
       validate('exec', request)
-      return new Promise((resolve, reject) => {
-        dispatch({
-          reject,
-          resolve,
-          ...request,
-        })
-          .then(resolve)
-          .catch(reject)
+      return new Promise(async (resolve, reject) => {
+        try {
+          const response = await dispatch({ reject, resolve, ...request })
+          if (response.error) return reject(response.error)
+
+          if (response.originalRequest && _maskSensitiveHeaderData) {
+            response.originalRequest = maskAuthData(response.originalRequest)
+          }
+
+          resolve(response)
+        } catch (err) {
+          reject(err)
+        }
       })
     },
   }

@@ -46,13 +46,13 @@ export interface Category extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the Category.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Category.
    *
    *
    */
@@ -212,6 +212,8 @@ export interface CategoryDraft {
   readonly assets?: AssetDraft[]
   /**
    *	User-defined unique identifier for the Category.
+   *
+   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Categories with the [Import API](/../import-export/overview) and the [Merchant Center](/../merchant-center/import-data).
    *
    *
    */

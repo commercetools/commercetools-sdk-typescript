@@ -1,13 +1,12 @@
+import { ClientBuilder } from '@commercetools/sdk-client-v2'
 import {
-  ClientBuilder,
+  HttpMiddlewareOptions,
   TokenCache,
   TokenStore,
   TokenCacheOptions,
-} from '@commercetools/sdk-client-v2'
-import { ClientBuilder as ClientBuilderV3 } from '@commercetools/ts-client'
+} from '@commercetools/ts-client'
 import { createApiBuilderFromCtpClient } from '../../src'
 import { requireEnvVar } from '../helpers/test-utils'
-const fetch = require('node-fetch')
 
 export const projectKey = requireEnvVar('CTP_PROJECT_KEY')
 const clientId = requireEnvVar('CTP_CLIENT_ID')
@@ -30,7 +29,7 @@ function _tokenCache<T, V, S = TokenCacheOptions>(val: T): V {
 }
 
 const tokenCache = _tokenCache<TokenStore, TokenCache>({
-  token: null,
+  token: '',
   expirationTime: -1,
 })
 
@@ -39,12 +38,12 @@ const httpMiddlewareOptions = {
   fetch,
 }
 
-const httpMiddlewareOptionsV3 = {
+export const httpMiddlewareOptionsV3: HttpMiddlewareOptions = {
   host: ctp_host,
   httpClient: fetch,
 }
 
-const authMiddlewareOptions = {
+export const authMiddlewareOptions = {
   host: authURL,
   projectKey,
   credentials: {
@@ -53,7 +52,26 @@ const authMiddlewareOptions = {
   },
   tokenCache,
   scopes: [`manage_project:${projectKey}`],
-  fetch,
+  httpClient: fetch,
+}
+
+export const authMiddlewareOptionsV3 = {
+  host: authURL,
+  projectKey,
+  credentials: {
+    clientId: clientId,
+    clientSecret: clientSecret,
+  },
+  tokenCache,
+  scopes: [`manage_project:${projectKey}`],
+  httpClient: fetch,
+}
+
+export function createTokenCache() {
+  return _tokenCache<TokenStore, TokenCache>({
+    token: '',
+    expirationTime: -1,
+  })
 }
 
 const ctpClient = new ClientBuilder()
@@ -64,17 +82,5 @@ const ctpClient = new ClientBuilder()
   .build()
 
 export const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
-  projectKey,
-})
-
-const ctpClientV3 = new ClientBuilderV3()
-  .withHttpMiddleware(httpMiddlewareOptionsV3)
-  .withConcurrentModificationMiddleware()
-  .withClientCredentialsFlow(authMiddlewareOptions)
-  .build()
-
-export const apiRootV3 = createApiBuilderFromCtpClient(
-  ctpClientV3
-).withProjectKey({
   projectKey,
 })

@@ -66,7 +66,7 @@ export interface AttributeDefinition {
    */
   readonly inputHint: TextInputHint
   /**
-   *	If `true`, the Attribute's values are available for the [Product Projections Search API](/../api/projects/products-search) for use in full-text search queries, filters, and facets.
+   *	If `true`, the Attribute's values are available in the [Product Projection Search](/../api/projects/products-search) or the [Product Search](/../api/projects/product-search) API for use in full-text search queries, filters, and facets.
    *
    *	Which exact features are available with this flag depends on the specific [AttributeType](ctp:api:type:AttributeType).
    *	The maximum size of a searchable field is **restricted** by the [Field content size limit](/../api/limits#field-content-size).
@@ -90,7 +90,7 @@ export interface AttributeDefinitionDraft {
    */
   readonly type: AttributeType
   /**
-   *	User-defined name of the Attribute that is unique with the [Project](ctp:api:type:Project).
+   *	User-defined name of the Attribute that is unique to the [Project](ctp:api:type:Project).
    *
    *	When using the same `name` for an Attribute in multiple ProductTypes, all fields of the AttributeDefinition of this Attribute must be the same across the ProductTypes, else an [AttributeDefinitionAlreadyExists](ctp:api:type:AttributeDefinitionAlreadyExistsError) error is returned.
    *	An exception to this are the values of an `enum` or `lenum` Type and sets thereof.
@@ -127,7 +127,7 @@ export interface AttributeDefinitionDraft {
    */
   readonly inputHint?: TextInputHint
   /**
-   *	Set to `true` if the Attribute's values should be available in the [Product Projections Search API](/../api/projects/products-search) and can be used in full-text search queries, filters, and facets.
+   *	Set to `true` if the Attribute's values should be available in the [Product Projection Search](/../api/projects/products-search) or the [Product Search](/../api/projects/product-search) API and can be used in full-text search queries, filters, and facets.
    *	Which exact features are available with this flag depends on the specific [AttributeType](ctp:api:type:AttributeType).
    *	The maximum size of a searchable field is **restricted** by the [Field content size limit](/../api/limits#field-content-size).
    *	This constraint is enforced at both Product creation and Product update.
@@ -184,6 +184,7 @@ export type AttributeReferenceTypeId =
   | 'category'
   | 'channel'
   | 'customer'
+  | 'customer-group'
   | 'key-value-document'
   | 'order'
   | 'product'
@@ -331,13 +332,13 @@ export interface ProductType extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the ProductType.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the ProductType.
    *
    *
    */
@@ -589,7 +590,7 @@ export interface ProductTypeChangeAttributeNameAction {
    */
   readonly attributeName: string
   /**
-   *	New user-defined name of the Attribute that is unique with the [Project](ctp:api:type:Project).
+   *	New user-defined name of the Attribute that is unique to the [Project](ctp:api:type:Project).
    *
    *	When using the same `name` for an Attribute in two or more ProductTypes, all fields of the AttributeDefinition of this Attribute must be the same across the ProductTypes. If not, an [AttributeDefinitionAlreadyExists](ctp:api:type:AttributeDefinitionAlreadyExistsError) error is returned.
    *	An exception to this are the values of an `enum` or `lenum` type and sets thereof.

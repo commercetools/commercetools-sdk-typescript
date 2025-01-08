@@ -1,5 +1,482 @@
 # @commercetools/importapi-sdk
 
+## 6.0.0
+
+### Major Changes
+
+- [#896](https://github.com/commercetools/commercetools-sdk-typescript/pull/896) [`f9b8cb6`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f9b8cb605d99fe5ece13bdc3c152eb4818e19b3b) Thanks [@lojzatran](https://github.com/lojzatran)! - Remove support of nodejs 16
+
+### Patch Changes
+
+- Updated dependencies [[`f9b8cb6`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f9b8cb605d99fe5ece13bdc3c152eb4818e19b3b)]:
+  - @commercetools/sdk-client-v2@3.0.0
+
+## 5.20.0
+
+### Minor Changes
+
+- [#891](https://github.com/commercetools/commercetools-sdk-typescript/pull/891) [`4a003ca`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4a003ca0f870ec7edb63d21e8fb2932b602fb876) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `InvalidFieldsUpdateError`
+  - added type `NewMasterVariantAdditionNotAllowedError`
+  </details>
+
+  <details>
+  <summary>Deprecated Property(s)</summary>
+
+  - property `PriceImport::publish` is removed
+  - property `ProductVariantImport::publish` is removed
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `customer-group` to type `CustomFieldReferenceValue`
+  </details>
+
+## 5.19.0
+
+### Minor Changes
+
+- [#890](https://github.com/commercetools/commercetools-sdk-typescript/pull/890) [`9da41f4`](https://github.com/commercetools/commercetools-sdk-typescript/commit/9da41f4118c60009eed56f64d833432d9c0c5403) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `InvalidFieldsUpdateError`
+  - added type `NewMasterVariantAdditionNotAllowedError`
+  </details>
+
+  <details>
+  <summary>Deprecated Property(s)</summary>
+
+  - property `PriceImport::publish` is removed
+  - property `ProductVariantImport::publish` is removed
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `customer-group` to type `CustomFieldReferenceValue`
+  </details>
+
+## 5.18.0
+
+### Minor Changes
+
+- [#878](https://github.com/commercetools/commercetools-sdk-typescript/pull/878) [`90ece88`](https://github.com/commercetools/commercetools-sdk-typescript/commit/90ece88d52bc1ff7d01c070bb9e548dd46eb2cda) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `InvalidFieldsUpdateError`
+  - added type `NewMasterVariantAdditionNotAllowedError`
+  </details>
+
+  <details>
+  <summary>Deprecated Property(s)</summary>
+
+  - property `PriceImport::publish` is removed
+  - property `ProductVariantImport::publish` is removed
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `customer-group` to type `CustomFieldReferenceValue`
+  </details>
+
+## 5.17.0
+
+### Minor Changes
+
+- [#865](https://github.com/commercetools/commercetools-sdk-typescript/pull/865) [`15e3913`](https://github.com/commercetools/commercetools-sdk-typescript/commit/15e3913bb9625e664ca7ecb13e4932c293ffc32b) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `InvalidFieldsUpdateError`
+  - added type `NewMasterVariantAdditionNotAllowedError`
+  </details>
+
+  <details>
+  <summary>Deprecated Property(s)</summary>
+
+  - property `PriceImport::publish` is removed
+  - property `ProductVariantImport::publish` is removed
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `customer-group` to type `CustomFieldReferenceValue`
+  </details>
+
+## 5.16.0
+
+### Minor Changes
+
+- [#853](https://github.com/commercetools/commercetools-sdk-typescript/pull/853) [`74f1c30`](https://github.com/commercetools/commercetools-sdk-typescript/commit/74f1c302b68aa741accfcf101138520c4488191e) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `InvalidFieldsUpdateError`
+  - added type `NewMasterVariantAdditionNotAllowedError`
+  - added type `ReferencedResourceNotFound`
+  </details>
+
+  <details>
+  <summary>Deprecated Property(s)</summary>
+
+  - property `PriceImport::publish` is removed
+  - property `ProductVariantImport::publish` is removed
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `customer-group` to type `CustomFieldReferenceValue`
+  </details>
+
+## 5.15.0
+
+### Minor Changes
+
+- [#844](https://github.com/commercetools/commercetools-sdk-typescript/pull/844) [`03e722b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/03e722bbdc795382f4d8325eeb196ed772bf21cd) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `InvalidFieldsUpdateError`
+  - added type `NewMasterVariantAdditionNotAllowedError`
+  - added type `ReferencedResourceNotFound`
+  </details>
+
+  <details>
+  <summary>Deprecated Property(s)</summary>
+
+  - property `PriceImport::publish` is removed
+  - property `ProductVariantImport::publish` is removed
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `customer-group` to type `CustomFieldReferenceValue`
+  </details>
+
+## 5.14.0
+
+### Minor Changes
+
+- [#837](https://github.com/commercetools/commercetools-sdk-typescript/pull/837) [`cd54482`](https://github.com/commercetools/commercetools-sdk-typescript/commit/cd544822e289be7c62d4287338f1fd943f1a5823) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `InvalidFieldsUpdateError`
+  - added type `NewMasterVariantAdditionNotAllowedError`
+  - added type `ReferencedResourceNotFound`
+  </details>
+
+  <details>
+  <summary>Deprecated Property(s)</summary>
+
+  - property `PriceImport::publish` is removed
+  - property `ProductVariantImport::publish` is removed
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `customer-group` to type `CustomFieldReferenceValue`
+  </details>
+
+## 5.13.0
+
+### Minor Changes
+
+- [#824](https://github.com/commercetools/commercetools-sdk-typescript/pull/824) [`7cfccb8`](https://github.com/commercetools/commercetools-sdk-typescript/commit/7cfccb85d9488caeac9c79dc8dd1021710f14e58) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `InvalidFieldsUpdateError`
+  - added type `NewMasterVariantAdditionNotAllowedError`
+  - added type `ReferencedResourceNotFound`
+  </details>
+
+  <details>
+  <summary>Deprecated Property(s)</summary>
+
+  - property `PriceImport::publish` is removed
+  - property `ProductVariantImport::publish` is removed
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `customer-group` to type `CustomFieldReferenceValue`
+  </details>
+
+## 5.12.0
+
+### Minor Changes
+
+- [#822](https://github.com/commercetools/commercetools-sdk-typescript/pull/822) [`19d492c`](https://github.com/commercetools/commercetools-sdk-typescript/commit/19d492cf32891312fa36aa1d2b73d484bea03b0c) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `InvalidFieldsUpdateError`
+  - added type `ReferencedResourceNotFound`
+  </details>
+
+  <details>
+  <summary>Deprecated Property(s)</summary>
+
+  - property `PriceImport::publish` is removed
+  - property `ProductVariantImport::publish` is removed
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `customer-group` to type `CustomFieldReferenceValue`
+  </details>
+
+## 5.11.0
+
+### Minor Changes
+
+- [#819](https://github.com/commercetools/commercetools-sdk-typescript/pull/819) [`2bfc210`](https://github.com/commercetools/commercetools-sdk-typescript/commit/2bfc210da948ac71c8e9e79f0524bb87c4602e85) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `InvalidFieldsUpdateError`
+  - added type `ReferencedResourceNotFound`
+  </details>
+
+  <details>
+  <summary>Deprecated Property(s)</summary>
+
+  - property `PriceImport::publish` is removed
+  - property `ProductVariantImport::publish` is removed
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `customer-group` to type `CustomFieldReferenceValue`
+  </details>
+
+## 5.10.0
+
+### Minor Changes
+
+- [#817](https://github.com/commercetools/commercetools-sdk-typescript/pull/817) [`8c32f09`](https://github.com/commercetools/commercetools-sdk-typescript/commit/8c32f09b02bafdad1ac60e41b5418c74b297d12d) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `InvalidFieldsUpdateError`
+  - added type `ReferencedResourceNotFound`
+  </details>
+
+  <details>
+  <summary>Deprecated Property(s)</summary>
+
+  - property `PriceImport::publish` is removed
+  - property `ProductVariantImport::publish` is removed
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `customer-group` to type `CustomFieldReferenceValue`
+  </details>
+
+## 5.9.0
+
+### Minor Changes
+
+- [#805](https://github.com/commercetools/commercetools-sdk-typescript/pull/805) [`b8489ba`](https://github.com/commercetools/commercetools-sdk-typescript/commit/b8489ba4fd76592d2f866d1f1edceb2db919c63a) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `ReferencedResourceNotFound`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `customer-group` to type `CustomFieldReferenceValue`
+  </details>
+
+  <details>
+  <summary>Deprecated Property(s)</summary>
+
+  - property `PriceImport::publish` is removed
+  - property `ProductVariantImport::publish` is removed
+  </details>
+
+## 5.8.0
+
+### Minor Changes
+
+- [#797](https://github.com/commercetools/commercetools-sdk-typescript/pull/797) [`3ca2970`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3ca2970e7be09c72e022e142acfd70d894a80716) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `ReferencedResourceNotFound`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `customer-group` to type `CustomFieldReferenceValue`
+  </details>
+
+  <details>
+  <summary>Deprecated Property(s)</summary>
+
+  - property `PriceImport::publish` is removed
+  - property `ProductVariantImport::publish` is removed
+  </details>
+
+## 5.7.0
+
+### Minor Changes
+
+- [#786](https://github.com/commercetools/commercetools-sdk-typescript/pull/786) [`f431518`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f431518cdac3bf31b6e526ac9a3fa7788a33e4a3) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `ReferencedResourceNotFound`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `customer-group` to type `CustomFieldReferenceValue`
+  </details>
+
+  <details>
+  <summary>Deprecated Property(s)</summary>
+
+  - property `PriceImport::publish` is removed
+  - property `ProductVariantImport::publish` is removed
+  </details>
+
+## 5.6.0
+
+### Minor Changes
+
+- [#774](https://github.com/commercetools/commercetools-sdk-typescript/pull/774) [`f37e181`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f37e181910d132150dbb9392c466f75546007b57) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Deprecated Property(s)</summary>
+
+  - property `PriceImport::publish` is removed
+  - property `ProductVariantImport::publish` is removed
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `customer-group` to type `CustomFieldReferenceValue`
+  </details>
+
+## 5.5.0
+
+### Minor Changes
+
+- [#764](https://github.com/commercetools/commercetools-sdk-typescript/pull/764) [`5869749`](https://github.com/commercetools/commercetools-sdk-typescript/commit/5869749b2f865303b9d165efcd68e8c92e44b741) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `customer-group` to type `CustomFieldReferenceValue`
+  </details>
+
+  <details>
+  <summary>Deprecated Property(s)</summary>
+
+  - property `PriceImport::publish` is removed
+  - property `ProductVariantImport::publish` is removed
+  </details>
+
+## 5.4.0
+
+### Minor Changes
+
+- [#685](https://github.com/commercetools/commercetools-sdk-typescript/pull/685) [`88c5c05`](https://github.com/commercetools/commercetools-sdk-typescript/commit/88c5c05a2bc249192fb115b97ba79379c0fbd758) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>MarkDeprecated Property(s)</summary>
+
+  - marked property `PriceImport::publish` as deprecated
+  - marked property `ProductVariantImport::publish` as deprecated
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `staged` to type `PriceImport`
+  - added property `staged` to type `ProductVariantImport`
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`8b1aecc`](https://github.com/commercetools/commercetools-sdk-typescript/commit/8b1aecce5859248f3a90c8cc856db64d2932b5d5), [`b8bc24d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/b8bc24df5db74feef7fb5743b6f24b425d43b738)]:
+  - @commercetools/sdk-client-v2@2.5.0
+
+## 5.3.0
+
+### Minor Changes
+
+- [#670](https://github.com/commercetools/commercetools-sdk-typescript/pull/670) [`96c319a`](https://github.com/commercetools/commercetools-sdk-typescript/commit/96c319ace84ba80a04581a67e608d61008ddbebf) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Resource(s)</summary>
+
+  - added resource `/{projectKey}/discount-codes`
+  - added resource `/{projectKey}/discount-codes/import-containers`
+  - added resource `/{projectKey}/discount-codes/import-containers/{importContainerKey}`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+
+  - added method `apiRoot.withProjectKeyValue().discountCodes().importContainers().withImportContainerKeyValue().post()`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `DiscountCodeImportRequest`
+  - added type `DiscountCodeImport`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `discount-code` to type `ImportResourceType`
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`344fd2d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/344fd2d105f51a65a8a93f247ea9ea8f1a09b095)]:
+  - @commercetools/sdk-client-v2@2.4.1
+
 ## 5.2.0
 
 ### Minor Changes

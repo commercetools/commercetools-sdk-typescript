@@ -19,10 +19,14 @@ export class ByProjectKeyMeActiveCartRequestBuilder {
     }
   ) {}
   /**
-   *	Retrieves the Customer's most recently modified active Cart.
+   *	Retrieves the Customer's most recently modified [active Cart](ctp:api:type:CartState). Returns a `200 OK` status if successful.
+   *
    *	Carts with `Merchant` or `Quote` [CartOrigin](ctp:api:type:CartOrigin) are ignored.
    *
-   *	If no active Cart exists, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
+   *
+   *	- If no active Cart exists.
+   *	- If an active Cart exists but does not have a `customerId` that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope, or `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public get(methodArgs?: {
@@ -49,7 +53,13 @@ export class ByProjectKeyMeActiveCartRequestBuilder {
     )
   }
   /**
-   *	Checks if an active Cart exists. Returns a `200 OK` status if an active Cart exists or a `404 Not Found` otherwise.
+   *	Checks if an active Cart exists. Returns a `200 OK` status if successful.
+   *
+   *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
+   *
+   *	- If no active Cart exists.
+   *	- If an active Cart exists but does not have a `customerId` that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope, or an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
+   *
    */
   public head(methodArgs?: {
     headers?: {

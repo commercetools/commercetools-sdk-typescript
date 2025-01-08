@@ -1,3 +1,4 @@
+const agent = require('../../agent')
 /**
  * @class Response
  *
@@ -26,6 +27,11 @@ class ResponseHandler {
       responseBody.data = data
     }
 
+    agent.recordMetric(
+      `Commercetools/Client/Response/Success/${statusCode}`,
+      statusCode
+    )
+
     return response.status(statusCode).json({
       ...responseBody,
     })
@@ -51,6 +57,11 @@ class ResponseHandler {
     if (data) {
       responseBody.data = data
     }
+
+    agent.recordMetric(
+      `Commercetools/Client/Response/Error/${statusCode}`,
+      statusCode
+    )
 
     return response.status(statusCode).json({
       ...responseBody,

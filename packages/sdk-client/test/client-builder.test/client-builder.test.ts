@@ -3,7 +3,6 @@ import ClientBuilder from '../../src/client-builder/ClientBuilder'
 require('dotenv').config()
 
 export const projectKey = 'demo'
-const fetch = require('node-fetch')
 
 describe('client builder', () => {
   const authMiddlewareOptions = {
@@ -178,6 +177,46 @@ describe('client builder', () => {
     expect(clientWithTelemetryMiddleware.telemetryMiddleware).toBeTruthy()
   })
 
+  test('should create client with a custom logger function', () => {
+    const client = new ClientBuilder() as any
+    expect(client.loggerMiddleware).toBeFalsy()
+
+    const options = { logger: jest.fn() }
+    const clientWithLoggerMiddleware = client.withLoggerMiddleware(options)
+
+    expect(options.logger).toHaveBeenCalled()
+    expect(options.logger).toBeCalledTimes(1)
+    expect(clientWithLoggerMiddleware.withLoggerMiddleware).toBeTruthy()
+  })
+
+  test('should create client with a before middleware function', () => {
+    const client = new ClientBuilder() as any
+    expect(client.beforeMiddleware).toBeFalsy()
+
+    const options = { middleware: jest.fn() }
+    const clientWithBeforeMiddleware =
+      client.withBeforeExecutionMiddleware(options)
+
+    expect(options.middleware).toHaveBeenCalled()
+    expect(options.middleware).toHaveBeenCalledTimes(1)
+    expect(
+      clientWithBeforeMiddleware.withBeforeExecutionMiddleware
+    ).toBeTruthy()
+  })
+
+  test('should create client with an after middleware function', () => {
+    const client = new ClientBuilder() as any
+    expect(client.afterMiddleware).toBeFalsy()
+
+    const options = { middleware: jest.fn() }
+    const clientWithAfterMiddleware =
+      client.withAfterExecutionMiddleware(options)
+
+    expect(options.middleware).toHaveBeenCalled()
+    expect(options.middleware).toBeCalledTimes(1)
+    expect(clientWithAfterMiddleware.withAfterExecutionMiddleware).toBeTruthy()
+  })
+
   describe('builder method', () => {
     test('build client', () => {
       const client = new ClientBuilder()
@@ -199,9 +238,14 @@ describe('client builder', () => {
           tracer: jest.fn(),
           createTelemetryMiddleware: (): Middleware => jest.fn(),
         })
+        .withLoggerMiddleware({ logger: jest.fn() })
+        .withBeforeExecutionMiddleware({ middleware: jest.fn() })
+        .withAfterExecutionMiddleware({ middleware: jest.fn() })
         .build()
 
       expect(client).toBeTruthy()
+      expect(client.execute).toBeTruthy()
+      expect(client.process).toBeTruthy()
       expect(typeof client).toEqual('object')
       expect(typeof client.execute).toEqual('function')
       expect(typeof client.process).toEqual('function')

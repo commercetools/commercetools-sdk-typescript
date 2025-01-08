@@ -129,13 +129,13 @@ export interface OrderEdit extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the OrderEdit.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the OrderEdit.
    *
    *
    */
@@ -402,7 +402,7 @@ export interface OrderExcerpt {
 }
 export interface StagedOrder extends Order {}
 /**
- *	If the [edit was applied](ctp:api:endpoint:/{projectKey}/orders/edits/{id}/apply:POST), this cannot be updated.
+ *	The `stagedActions` field cannot be updated if the Order Edit `result` is [OrderEdit Applied](/projects/order-edits#orderedit-applied).
  *
  */
 export interface OrderEditAddStagedActionAction {
@@ -468,7 +468,7 @@ export interface OrderEditSetKeyAction {
   readonly key?: string
 }
 /**
- *	If the [edit is applied](ctp:api:endpoint:/{projectKey}/orders/edits/{id}/apply:POST), `stagedActions` cannot be updated.
+ *	The `stagedActions` field cannot be updated if the Order Edit `result` is [OrderEdit Applied](/projects/order-edits#orderedit-applied).
  *
  */
 export interface OrderEditSetStagedActionsAction {
@@ -544,8 +544,7 @@ export interface StagedOrderAddCustomLineItemAction {
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
   /**
-   *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget)
-   *	are applied to the Custom Line Item.
+   *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget), [MultiBuyCustomLineItemsTarget](ctp:api:type:MultiBuyCustomLineItemsTarget), or [CartDiscountPatternTarget](ctp:api:type:CartDiscountPatternTarget) are applied to the Custom Line Item.
    *	- If `External`, Cart Discounts are not considered on the Custom Line Item.
    *
    *
@@ -642,7 +641,7 @@ export interface StagedOrderAddItemShippingAddressAction {
  *	If the Cart contains a [LineItem](ctp:api:type:LineItem) for a Product Variant with the same [LineItemMode](ctp:api:type:LineItemMode), [Custom Fields](/../api/projects/custom-fields), supply and distribution channel, then only the quantity of the existing Line Item is increased.
  *	If [LineItem](ctp:api:type:LineItem) `shippingDetails` is set, it is merged. All addresses will be present afterwards and, for address keys present in both shipping details, the quantity will be summed up.
  *	A new Line Item is added when the `externalPrice` or `externalTotalPrice` is set in this update action.
- *	The [LineItem](ctp:api:type:LineItem) price is set as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *	The [LineItem](ctp:api:type:LineItem) price is set as described in [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
  *
  *	If the Tax Rate is not set, a [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError) error is returned.
  *
@@ -698,7 +697,7 @@ export interface StagedOrderAddLineItemAction {
    */
   readonly addedAt?: string
   /**
-   *	Used to [select](/../api/carts-orders-overview#line-item-price-selection) a Product Price.
+   *	Used to [select](/../api/pricing-and-discounts-overview#line-item-price-selection) a Product Price.
    *	The Channel must have the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *	If the Cart is bound to a [Store](ctp:api:type:Store) with `distributionChannels` set, the Channel must match one of the Store's distribution channels.
    *
@@ -725,7 +724,7 @@ export interface StagedOrderAddLineItemAction {
    */
   readonly externalTotalPrice?: ExternalLineItemTotalPrice
   /**
-   *	External Tax Rate for the Line Item, if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+   *	Sets the external Tax Rate for the Line Item, if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode). If the Cart has `Multiple` [ShippingMode](ctp:api:type:ShippingMode), the Tax Rate is accepted but ignored.
    *
    *
    */
@@ -925,7 +924,7 @@ export interface StagedOrderChangeCustomLineItemQuantityAction {
  *
  *	To change the Line Item quantity and shipping details together, use this update action in combination with the [Set LineItem ShippingDetails](ctp:api:type:StagedOrderSetLineItemShippingDetailsAction) update action in a single Order update command.
  *
- *	The [LineItem](ctp:api:type:LineItem) price is updated as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *	The [LineItem](ctp:api:type:LineItem) price is updated as described in [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
  *
  */
 export interface StagedOrderChangeLineItemQuantityAction {
@@ -950,15 +949,17 @@ export interface StagedOrderChangeLineItemQuantityAction {
    */
   readonly quantity: number
   /**
-   *	Sets the [LineItem](ctp:api:type:LineItem) `price` to the given value when changing the quantity of a Line Item with the `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+   *	Required when the Line Item uses `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+   *	Sets the [LineItem](ctp:api:type:LineItem) `price` to the given value when changing the quantity of a Line Item.
    *
-   *	The [LineItem](ctp:api:type:LineItem) price is updated as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+   *	The [LineItem](ctp:api:type:LineItem) price is updated as described in [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
    *
    *
    */
   readonly externalPrice?: _Money
   /**
    *	Sets the [LineItem](ctp:api:type:LineItem) `price` and `totalPrice` to the given value when changing the quantity of a Line Item with the `ExternalTotal` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+   *	If `externalTotalPrice` is not given and the `priceMode` is `ExternalTotal`, the external price is unset and the `priceMode` is set to `Platform`.
    *
    *
    */
@@ -1162,7 +1163,7 @@ export interface StagedOrderRemoveItemShippingAddressAction {
   readonly addressKey: string
 }
 /**
- *	The [LineItem](ctp:api:type:LineItem) price is updated as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *	The [LineItem](ctp:api:type:LineItem) price is updated as described in [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
  *
  */
 export interface StagedOrderRemoveLineItemAction {
@@ -1497,6 +1498,12 @@ export interface StagedOrderSetCustomShippingMethodAction {
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
+  /**
+   *	Custom Fields for the custom Shipping Method.
+   *
+   *
+   */
+  readonly custom?: CustomFieldsDraft
 }
 export interface StagedOrderSetCustomTypeAction {
   readonly action: 'setCustomType'
@@ -1531,9 +1538,10 @@ export interface StagedOrderSetCustomerEmailAction {
   readonly email?: string
 }
 /**
- *	This update action can only be used if a Customer is not assigned to a Cart. If a Customer is already assigned, the Cart has the same Customer Group as the assigned Customer.
+ *	This update action can only be used if a Customer is not assigned to a Cart.
+ *	If a Customer is already assigned, the Cart uses the Customer Group of the assigned Customer.
  *
- *	Setting the Customer Group also updates the [LineItem](ctp:api:type:LineItem) `prices` according to the Customer Group.
+ *	To reflect the new Customer Group, this update action can result in [updates to the Cart](/../carts-orders-overview#cart-updates). When this occurs, the following errors can be returned: [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError) and [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError).
  *
  */
 export interface StagedOrderSetCustomerGroupAction {
@@ -1872,7 +1880,7 @@ export interface StagedOrderSetLineItemCustomTypeAction {
   readonly fields?: FieldContainer
 }
 /**
- *	Setting a distribution channel for a [LineItem](ctp:api:type:LineItem) can lead to an updated `price` as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *	Setting a distribution channel for a [LineItem](ctp:api:type:LineItem) can lead to an updated `price` as described in [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
  *
  *	Produces the [OrderLineItemDistributionChannelSet](ctp:api:type:OrderLineItemDistributionChannelSetMessage) Message.
  *
@@ -1949,7 +1957,7 @@ export interface StagedOrderSetLineItemShippingDetailsAction {
   readonly shippingDetails?: ItemShippingDetailsDraft
 }
 /**
- *	Can be used if the Cart has the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode).
+ *	Can be used if the Cart has the `ExternalAmount` [TaxMode](ctp:api:type:TaxMode). This update action sets the `taxedPrice` and `taxRate` on a Line Item and must be used after any price-affecting change occurs.
  *
  */
 export interface StagedOrderSetLineItemTaxAmountAction {
@@ -2424,6 +2432,12 @@ export interface StagedOrderSetShippingAddressAndCustomShippingMethodAction {
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
+  /**
+   *	Custom Fields for the custom Shipping Method.
+   *
+   *
+   */
+  readonly custom?: CustomFieldsDraft
 }
 /**
  *	Sets the shipping address and Shipping Method together to prevent an inconsistent state.
@@ -2478,6 +2492,59 @@ export interface StagedOrderSetShippingAddressCustomTypeAction {
   readonly type?: TypeResourceIdentifier
   /**
    *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `shippingAddress`.
+   *
+   *
+   */
+  readonly fields?: FieldContainer
+}
+export interface StagedOrderSetShippingCustomFieldAction {
+  readonly action: 'setShippingCustomField'
+  /**
+   *	The `shippingKey` of the [Shipping](ctp:api:type:Shipping) to customize. Used to specify which Shipping Method to customize
+   *	on a Order with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Leave this empty to customize the one and only ShippingMethod on a `Single` ShippingMode Order.
+   *
+   *
+   */
+  readonly shippingKey?: string
+  /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
+   *
+   */
+  readonly value?: any
+}
+/**
+ *	This action sets, overwrites, or removes any existing Custom Type and Custom Fields for the Order's `shippingMethod` or `shipping`.
+ *
+ */
+export interface StagedOrderSetShippingCustomTypeAction {
+  readonly action: 'setShippingCustomType'
+  /**
+   *	The `shippingKey` of the [Shipping](ctp:api:type:Shipping) to customize. Used to specify which Shipping Method to customize
+   *	on a Order with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Leave this empty to customize the one and only ShippingMethod on a `Single` ShippingMode Order.
+   *
+   *
+   */
+  readonly shippingKey?: string
+  /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the specified ShippingMethod with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the ShippingMethod.
+   *
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `shippingMethod`.
    *
    *
    */

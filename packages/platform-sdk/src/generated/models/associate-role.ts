@@ -38,19 +38,19 @@ export interface AssociateRole extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources updated after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the AssociateRole.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the AssociateRole.
    *
    *
    */
   readonly createdBy?: CreatedBy
   /**
-   *	User-defined unique identifier of the AssociateRole.
+   *	User-defined unique and immutable identifier of the AssociateRole.
    *
    *
    */
@@ -82,7 +82,7 @@ export interface AssociateRole extends BaseResource {
 }
 export interface AssociateRoleDraft {
   /**
-   *	User-defined unique identifier for the AssociateRole.
+   *	User-defined unique and immutable identifier for the AssociateRole.
    *
    *
    */
@@ -113,7 +113,7 @@ export interface AssociateRoleDraft {
   readonly custom?: CustomFieldsDraft
 }
 /**
- *	[Reference](ctp:api:type:Reference) to an [AssociateRole](ctp:api:type:AssociateRole) by its key.
+ *	[KeyReference](ctp:api:type:KeyReference) to an [AssociateRole](ctp:api:type:AssociateRole).
  *
  */
 export interface AssociateRoleKeyReference {

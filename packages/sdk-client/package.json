@@ -1,8 +1,8 @@
 {
   "name": "@commercetools/sdk-client-v2",
-  "version": "2.4.0",
+  "version": "3.0.0",
   "engines": {
-    "node": ">=14"
+    "node": ">=18"
   },
   "description": "commercetools Composable Commerce TypeScript SDK client.",
   "keywords": [
@@ -33,8 +33,7 @@
     "url": "https://github.com/commercetools/commercetools-sdk-typescript/issues"
   },
   "dependencies": {
-    "buffer": "^6.0.3",
-    "node-fetch": "^2.6.1"
+    "buffer": "^6.0.3"
   },
   "files": ["dist", "CHANGELOG.md"],
   "author": "Chukwuemeka Ajima <meeky.ae@gmail.com>",
@@ -45,16 +44,16 @@
     "./dist/commercetools-sdk-client-v2.esm.js": "./dist/commercetools-sdk-client-v2.browser.esm.js"
   },
   "devDependencies": {
-    "abort-controller": "3.0.0",
     "common-tags": "1.8.2",
-    "dotenv": "16.3.1",
-    "jest": "29.6.2",
-    "nock": "12.0.3",
+    "dotenv": "16.4.5",
+    "jest": "29.7.0",
+    "nock": "^14.0.0-beta.19",
     "organize-imports-cli": "0.10.0"
   },
   "scripts": {
     "organize_imports": "find src -type f -name '*.ts' | xargs organize-imports-cli",
     "postbuild": "yarn organize_imports",
-    "post_process_generate": "yarn organize_imports"
+    "post_process_generate": "yarn organize_imports",
+    "docs": "typedoc --out docs"
   }
 }

@@ -2,7 +2,6 @@ import { ClientBuilder } from '../../src'
 require('dotenv').config()
 
 export const projectKey = 'demo'
-const fetch = require('node-fetch')
 
 describe('Client Builder', () => {
   const authMiddlewareOptions = {
@@ -168,14 +167,6 @@ describe('Client Builder', () => {
     ).toBeTruthy()
   })
 
-  test('should create client with error middleware', () => {
-    const client = new ClientBuilder() as any
-    expect(client.errorMiddleware).toBeFalsy()
-
-    const clientWithErrorMiddleware = client.withErrorMiddleware({})
-    expect(clientWithErrorMiddleware.errorMiddleware).toBeTruthy()
-  })
-
   test('should create client with concurrent modification middleware', () => {
     const client = new ClientBuilder() as any
     expect(client.concurrentMiddleware).toBeFalsy()
@@ -205,7 +196,6 @@ describe('Client Builder', () => {
         .withClientCredentialsFlow(authMiddlewareOptions)
         .withQueueMiddleware({ concurrency: 20 })
         .withLoggerMiddleware({ loggerFn: jest.fn() })
-        .withErrorMiddleware({})
         .withConcurrentModificationMiddleware()
         .withHttpMiddleware(httpMiddlewareOptions)
         .build()

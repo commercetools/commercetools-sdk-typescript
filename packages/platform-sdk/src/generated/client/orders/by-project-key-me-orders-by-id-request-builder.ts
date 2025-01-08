@@ -19,6 +19,15 @@ export class ByProjectKeyMeOrdersByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Returns an Order for a given `id`. Returns a `200 OK` status if successful.
+   *
+   *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
+   *
+   *	- If no Order exists for the given `id`.
+   *	- If the Order exists but does not have either a `customerId` that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope, or an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
+   *
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -43,7 +52,13 @@ export class ByProjectKeyMeOrdersByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if an Order exists for a given `id`. Returns a `200 OK` status if the Order exists or a `404 Not Found` otherwise.
+   *	Checks if an Order exists for a given `id`. Returns a `200 OK` status if successful.
+   *
+   *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
+   *
+   *	- If no Order exists for the given `id`.
+   *	- If the Order exists but does not have either a `customerId` that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope, or an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
+   *
    */
   public head(methodArgs?: {
     headers?: {

@@ -20,6 +20,15 @@ export class ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Returns a ShoppingList for a given `key`. Returns a `200 OK` status if successful.
+   *
+   *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
+   *
+   *	- If no ShoppingList exists for the given `key`.
+   *	- If a ShoppingList exists but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope.
+   *
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -44,7 +53,13 @@ export class ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Checks if a ShoppingList exists for a given `key`. Returns a `200 OK` status if the ShoppingList exists or a `404 Not Found` otherwise.
+   *	Checks if a ShoppingList exists for a given `key`. Returns a `200 OK` status if successful.
+   *
+   *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
+   *
+   *	- If no ShoppingList exists for the given `key`.
+   *	- If a ShoppingList exists but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope.
+   *
    */
   public head(methodArgs?: {
     headers?: {
@@ -64,6 +79,15 @@ export class ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Updates a ShoppingList for a given `key`. Returns a `200 OK` status if successful.
+   *
+   *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
+   *
+   *	- If no ShoppingList exists for the given `key`.
+   *	- If a ShoppingList exists but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope.
+   *
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -90,6 +114,15 @@ export class ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deletes the ShoppingList for a given `key`. Returns a `200 OK` status if successful.
+   *
+   *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
+   *
+   *	- If no ShoppingList exists for the given `key`.
+   *	- If a ShoppingList exists but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope.
+   *
+   */
   public delete(methodArgs: {
     queryArgs: {
       expand?: string | string[]

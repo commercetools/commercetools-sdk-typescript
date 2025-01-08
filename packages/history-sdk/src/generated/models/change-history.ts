@@ -41,7 +41,7 @@ export interface Record {
    */
   readonly modifiedBy: ModifiedBy
   /**
-   *	Date and time (UTC) when the change was made.
+   *	Date and time (UTC) the change was made.
    *
    */
   readonly modifiedAt: string
@@ -128,8 +128,7 @@ export interface RecordPagedQueryResponse {
   readonly results: Record[]
 }
 /**
- *	This data type represents the supported resource types.
- *	The value must be one of the following:
+ *	Value of resource types supported in Change History.
  *
  */
 export type ChangeHistoryResourceType =
@@ -203,13 +202,19 @@ export interface ErrorResponse {
  */
 export interface ModifiedBy {
   /**
-   *	[ID](/general-concepts#identifier) of the Merchant Center user who made the change.
-   *
-   *	Present only if the change was made in the Merchant Center.
+   *	`true` if the change was made using the Merchant Center.
    *
    *
    */
-  readonly id: string
+  readonly isPlatformClient: boolean
+  /**
+   *	[ID](/general-concepts#identifier) of the Merchant Center user who made the change.
+   *
+   *	Present only if `isPlatformClient` is `true`.
+   *
+   *
+   */
+  readonly id?: string
   /**
    *	Indicates who performed the change.
    *
@@ -248,12 +253,6 @@ export interface ModifiedBy {
    *
    */
   readonly associate?: Reference
-  /**
-   *	`true` if the change was made using the Merchant Center or [ImpEx](https://impex.europe-west1.gcp.commercetools.com/).
-   *
-   *
-   */
-  readonly isPlatformClient: boolean
 }
 /**
  *	Updates that are triggered automatically as a result of a user-initiated change.
@@ -267,7 +266,7 @@ export type PlatformInitiatedChange =
   | 'setVariantAvailability'
   | string
 /**
- *	Values for the Source enumeration.
+ *	Source of change for the resource.
  */
 export type Source = 'ApiClient' | 'ImpEx' | 'MerchantCenter' | string
 export type UpdateType =

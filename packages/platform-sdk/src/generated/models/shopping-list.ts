@@ -109,13 +109,13 @@ export interface ShoppingList extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the ShoppingList.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the ShoppingList.
    *
    *
    */
@@ -523,6 +523,8 @@ export interface TextLineItemDraft {
  *	If the ShoppingList already contains a ShoppingListLineItem for the same Product Variant with the same Custom Fields, then only the quantity of the existing ShoppingListLineItem is increased.
  *	A ShoppingListLineItem with an empty `variantId` is not considered the same as a ShoppingListLineItem with a `variantId` currently referring to the Master Variant.
  *
+ *	Produces the [Shopping List Line Item Added](ctp:api:type:ShoppingListLineItemAddedMessage) Message.
+ *
  */
 export interface ShoppingListAddLineItemAction {
   readonly action: 'addLineItem'
@@ -557,7 +559,7 @@ export interface ShoppingListAddLineItemAction {
    */
   readonly quantity?: number
   /**
-   *	Date and time the TextLineItem is added to the [ShoppingList](ctp:api:type:ShoppingList). If not set, the current date and time (UTC) is used.
+   *	Date and time the ShoppingListLineItem is added to the [ShoppingList](ctp:api:type:ShoppingList). If not set, the current date and time (UTC) is used.
    *
    *
    */
@@ -698,6 +700,10 @@ export interface ShoppingListChangeTextLineItemsOrderAction {
    */
   readonly textLineItemOrder: string[]
 }
+/**
+ *	Produces the [Shopping List Line Item Removed](ctp:api:type:ShoppingListLineItemRemovedMessage) Message.
+ *
+ */
 export interface ShoppingListRemoveLineItemAction {
   readonly action: 'removeLineItem'
   /**
@@ -740,6 +746,10 @@ export interface ShoppingListRemoveTextLineItemAction {
    */
   readonly quantity?: number
 }
+/**
+ *	If the Shopping List is already associated with a Customer, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+ *
+ */
 export interface ShoppingListSetAnonymousIdAction {
   readonly action: 'setAnonymousId'
   /**

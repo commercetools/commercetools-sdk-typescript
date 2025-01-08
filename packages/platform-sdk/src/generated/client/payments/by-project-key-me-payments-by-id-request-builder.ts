@@ -19,6 +19,9 @@ export class ByProjectKeyMePaymentsByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Returns a [Payment](/projects/me-payments#mypayment) for a given `id`.
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -43,7 +46,7 @@ export class ByProjectKeyMePaymentsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a Payment exists for a given `id`. Returns a `200 OK` status if the Payment exists or a `404 Not Found` otherwise.
+   *	Checks if a [Payment](/projects/me-payments#mypayment) exists for a given `id`. Returns a `200 OK` status if the Payment exists or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -64,7 +67,8 @@ export class ByProjectKeyMePaymentsByIDRequestBuilder {
     )
   }
   /**
-   *	This endpoint can only update a Payment when it has no [Transactions](ctp:api:type:Transaction).
+   *	Updates a [Payment](/projects/me-payments#mypayment) for a given `id`.
+   *	You can only update a [Payment](/projects/me-payments#mypayment) if it has no [Transactions](ctp:api:type:Transaction).
    *
    */
   public post(methodArgs: {
@@ -94,7 +98,8 @@ export class ByProjectKeyMePaymentsByIDRequestBuilder {
     )
   }
   /**
-   *	This endpoint can only delete a Payment when it has no [Transactions](ctp:api:type:Transaction).
+   *	Deletes the [Payment](/projects/me-payments#mypayment) for a given `id`.
+   *	You can only delete a [Payment](/projects/me-payments#mypayment) if it has no [Transactions](ctp:api:type:Transaction).
    *
    */
   public delete(methodArgs: {

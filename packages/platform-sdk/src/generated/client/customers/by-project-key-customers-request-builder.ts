@@ -12,9 +12,11 @@ import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyCustomersEmailConfirmRequestBuilder } from '../confirm/by-project-key-customers-email-confirm-request-builder'
 import { ByProjectKeyCustomersEmailTokenRequestBuilder } from '../email-token/by-project-key-customers-email-token-request-builder'
+import { ByProjectKeyCustomersSearchIndexingStatusRequestBuilder } from '../indexing-status/by-project-key-customers-search-indexing-status-request-builder'
 import { ByProjectKeyCustomersPasswordTokenRequestBuilder } from '../password-token/by-project-key-customers-password-token-request-builder'
 import { ByProjectKeyCustomersPasswordRequestBuilder } from '../password/by-project-key-customers-password-request-builder'
 import { ByProjectKeyCustomersPasswordResetRequestBuilder } from '../reset/by-project-key-customers-password-reset-request-builder'
+import { ByProjectKeyCustomersSearchRequestBuilder } from '../search/by-project-key-customers-search-request-builder'
 import { ByProjectKeyCustomersByIDRequestBuilder } from './by-project-key-customers-by-id-request-builder'
 import { ByProjectKeyCustomersEmailTokenByEmailTokenRequestBuilder } from './by-project-key-customers-email-token-by-email-token-request-builder'
 import { ByProjectKeyCustomersKeyByKeyRequestBuilder } from './by-project-key-customers-key-by-key-request-builder'
@@ -122,6 +124,28 @@ export class ByProjectKeyCustomersRequestBuilder {
       pathArgs: {
         ...this.args.pathArgs,
         ...childPathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	This endpoint provides high-performance search queries over Customers.
+   *
+   */
+  public search(): ByProjectKeyCustomersSearchRequestBuilder {
+    return new ByProjectKeyCustomersSearchRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public searchIndexingStatus(): ByProjectKeyCustomersSearchIndexingStatusRequestBuilder {
+    return new ByProjectKeyCustomersSearchIndexingStatusRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
       },
       executeRequest: this.args.executeRequest,
       baseUri: this.args.baseUri,

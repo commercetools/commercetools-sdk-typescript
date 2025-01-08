@@ -31,7 +31,7 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
   }
 
   /**
-   *	If [Price selection](ctp:api:type:ProductPriceSelection) query parameters are provided, the selected Prices are added to the response.
+   *	If [Product price selection query parameters](/../api/pricing-and-discounts-overview#product-price-selection) are provided, the selected Prices are added to the response.
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -39,7 +39,6 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
       priceCountry?: string
       priceCustomerGroup?: string
       priceChannel?: string
-      localeProjection?: string | string[]
       expand?: string | string[]
       [key: string]: QueryParam
     }
@@ -91,7 +90,6 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
       priceCountry?: string
       priceCustomerGroup?: string
       priceChannel?: string
-      localeProjection?: string | string[]
       expand?: string | string[]
       [key: string]: QueryParam
     }
@@ -117,8 +115,8 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	If [Price selection](ctp:api:type:ProductPriceSelection) query parameters are provided, the selected Prices are added to the response.
-   *	Produces the [ProductDeleted](/projects/messages#product-deleted) Message.
+   *	If [Product price selection query parameters](/../api/pricing-and-discounts-overview#product-price-selection) are provided, the selected Prices are added to the response.
+   *	Produces the [ProductDeleted](/projects/messages/product-catalog-messages#product-deleted) Message.
    */
   public delete(methodArgs: {
     queryArgs: {
@@ -126,7 +124,6 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
       priceCountry?: string
       priceCustomerGroup?: string
       priceChannel?: string
-      localeProjection?: string | string[]
       version: number
       expand?: string | string[]
       [key: string]: QueryParam

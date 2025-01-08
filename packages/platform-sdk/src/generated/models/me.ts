@@ -194,7 +194,7 @@ export interface MyCartDraft {
    */
   readonly discountCodes?: string[]
   /**
-   *	Used for [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+   *	Used for [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
    *	If used for [Create Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/me/carts:POST), the provided country must be one of the [Store's](ctp:api:type:Store) `countries`.
    *
    *
@@ -245,6 +245,7 @@ export type MyCartUpdateAction =
   | MyCartAddPaymentAction
   | MyCartApplyDeltaToLineItemShippingDetailsTargetsAction
   | MyCartChangeLineItemQuantityAction
+  | MyCartChangeLineItemsOrderAction
   | MyCartChangeTaxModeAction
   | MyCartRecalculateAction
   | MyCartRemoveDiscountCodeAction
@@ -297,7 +298,7 @@ export interface MyCompanyDraft {
    *
    *
    */
-  readonly custom?: CustomFields
+  readonly custom?: CustomFieldsDraft
   /**
    *	Addresses used by the Business Unit.
    *
@@ -499,7 +500,7 @@ export interface MyDivisionDraft {
    *
    *
    */
-  readonly custom?: CustomFields
+  readonly custom?: CustomFieldsDraft
   /**
    *	Addresses used by the Business Unit.
    *
@@ -592,7 +593,7 @@ export interface MyLineItemDraft {
    */
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
-   *	Used to [select](ctp:api:type:LineItemPriceSelection) a Product Price.
+   *	Used to [select](/../api/pricing-and-discounts-overview#line-item-price-selection) a Product Price.
    *	The Channel must have the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *
    *	If the Cart is bound to a [Store](ctp:api:type:Store) with `distributionChannels` set,
@@ -791,7 +792,8 @@ export type MyPaymentUpdateAction =
   | MyPaymentSetTransactionCustomFieldAction
 export interface MyQuoteRequestDraft {
   /**
-   *	`id` of the Cart from which the Quote Request is created.
+   *	`id` of the Cart from which the Quote Request is created. Carts with [Discount Codes](ctp:api:type:DiscountCode) and Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode) are not supported.
+   *	The Cart must have a `shippingAddress` defined, otherwise an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned when [creating a Quote Request](ctp:api:endpoint:/{projectKey}/me/quote-requests:POST).
    *
    *
    */
@@ -1336,7 +1338,7 @@ export interface MyCartAddItemShippingAddressAction {
 /**
  *	If the Cart contains a [LineItem](ctp:api:type:LineItem) for a Product Variant with the same [LineItemMode](ctp:api:type:LineItemMode), [Custom Fields](/../api/projects/custom-fields), supply and distribution channel, then only the quantity of the existing Line Item is increased.
  *	If [LineItem](ctp:api:type:LineItem) `shippingDetails` is set, it is merged. All addresses will be present afterwards and, for address keys present in both shipping details, the quantity will be summed up.
- *	The [LineItem](ctp:api:type:LineItem) price is set as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *	The [LineItem](ctp:api:type:LineItem) price is set as described in [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
  *
  *	If the Tax Rate is not set, a [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError) error is returned.
  *
@@ -1393,7 +1395,7 @@ export interface MyCartAddLineItemAction {
    */
   readonly addedAt?: string
   /**
-   *	Used to [select](ctp:api:type:LineItemPriceSelection) a Product Price.
+   *	Used to [select](/../api/pricing-and-discounts-overview#line-item-price-selection) a Product Price.
    *	The Channel must have the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
    *	If the Cart is bound to a [Store](ctp:api:type:Store) with `distributionChannels` set, the Channel must match one of the Store's distribution channels.
    *
@@ -1494,6 +1496,15 @@ export interface MyCartChangeLineItemQuantityAction {
    */
   readonly quantity: number
 }
+export interface MyCartChangeLineItemsOrderAction {
+  readonly action: 'changeLineItemsOrder'
+  /**
+   *	All existing [LineItem](ctp:api:type:LineItem) `id`s of the [Cart](ctp:api:type:Cart) in the desired new order.
+   *
+   *
+   */
+  readonly lineItemOrder: string[]
+}
 /**
  *	- When `External` [TaxMode](ctp:api:type:TaxMode) is changed to `Platform` or `Disabled`, all previously set external Tax Rates are removed.
  *	- When set to `Platform`, Line Items, Custom Line Items, and Shipping Method require a Tax Category with a Tax Rate for the Cart's `shippingAddress`.
@@ -1550,7 +1561,7 @@ export interface MyCartRemoveItemShippingAddressAction {
   readonly addressKey: string
 }
 /**
- *	The [LineItem](ctp:api:type:LineItem) price is updated as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *	The [LineItem](ctp:api:type:LineItem) price is updated as described in [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
  *
  */
 export interface MyCartRemoveLineItemAction {
@@ -1760,7 +1771,7 @@ export interface MyCartSetLineItemCustomTypeAction {
   readonly fields?: FieldContainer
 }
 /**
- *	Setting a distribution channel for a [LineItem](ctp:api:type:LineItem) can lead to an updated `price` as described in [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+ *	Setting a distribution channel for a [LineItem](ctp:api:type:LineItem) can lead to an updated `price` as described in [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
  *
  */
 export interface MyCartSetLineItemDistributionChannelAction {
@@ -1849,7 +1860,7 @@ export interface MyCartSetLocaleAction {
 /**
  *	Setting the shipping address also sets the [TaxRate](ctp:api:type:TaxRate) of Line Items and calculates the [TaxedPrice](ctp:api:type:TaxedPrice).
  *
- *	If a matching price cannot be found for the given shipping address during [Line Item Price selection](ctp:api:type:LineItemPriceSelection),
+ *	If a matching price cannot be found for the given shipping address during [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection),
  *	a [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError) error is returned.
  *
  *	If you want to allow shipping to states inside a country that are not explicitly covered by a TaxRate,

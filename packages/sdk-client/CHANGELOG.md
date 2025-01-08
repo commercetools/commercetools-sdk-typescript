@@ -1,5 +1,26 @@
 # @commercetools/sdk-client-v2
 
+## 3.0.0
+
+### Major Changes
+
+- [#896](https://github.com/commercetools/commercetools-sdk-typescript/pull/896) [`f9b8cb6`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f9b8cb605d99fe5ece13bdc3c152eb4818e19b3b) Thanks [@lojzatran](https://github.com/lojzatran)! - Remove support of nodejs 16
+
+## 2.5.0
+
+### Minor Changes
+
+- [#676](https://github.com/commercetools/commercetools-sdk-typescript/pull/676) [`8b1aecc`](https://github.com/commercetools/commercetools-sdk-typescript/commit/8b1aecce5859248f3a90c8cc856db64d2932b5d5) Thanks [@ajimae](https://github.com/ajimae)! - Add custom logger function
+
+- [#679](https://github.com/commercetools/commercetools-sdk-typescript/pull/679) [`b8bc24d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/b8bc24df5db74feef7fb5743b6f24b425d43b738) Thanks [@ajimae](https://github.com/ajimae)! - - Add a before middleware function that runs before the coco api call is initiated
+  - Add an after middleware function that runs after the coco api call is done executing
+
+## 2.4.1
+
+### Patch Changes
+
+- [#671](https://github.com/commercetools/commercetools-sdk-typescript/pull/671) [`344fd2d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/344fd2d105f51a65a8a93f247ea9ea8f1a09b095) Thanks [@ajimae](https://github.com/ajimae)! - Fix malformed uri error due to wrong object to uri serialization.
+
 ## 2.4.0
 
 ### Minor Changes

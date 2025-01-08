@@ -39,12 +39,12 @@ import {
   AddressDraft,
   BaseAddress,
   BaseResource,
+  CentPrecisionMoney,
   CreatedBy,
   Image,
   LastModifiedBy,
   LocalizedString,
   PriceDraft,
-  TypedMoney,
   _BaseAddress,
   _Money,
 } from './common'
@@ -132,6 +132,8 @@ import {
   StagedOrderSetShippingAddressAndShippingMethodAction,
   StagedOrderSetShippingAddressCustomFieldAction,
   StagedOrderSetShippingAddressCustomTypeAction,
+  StagedOrderSetShippingCustomFieldAction,
+  StagedOrderSetShippingCustomTypeAction,
   StagedOrderSetShippingMethodAction,
   StagedOrderSetShippingMethodTaxAmountAction,
   StagedOrderSetShippingMethodTaxRateAction,
@@ -239,6 +241,8 @@ export type StagedOrderUpdateAction =
   | StagedOrderSetShippingAddressAndShippingMethodAction
   | StagedOrderSetShippingAddressCustomFieldAction
   | StagedOrderSetShippingAddressCustomTypeAction
+  | StagedOrderSetShippingCustomFieldAction
+  | StagedOrderSetShippingCustomTypeAction
   | StagedOrderSetShippingMethodAction
   | StagedOrderSetShippingMethodTaxAmountAction
   | StagedOrderSetShippingMethodTaxRateAction
@@ -290,6 +294,28 @@ export interface OrderPagedSearchResponse {
    */
   readonly hits: Hit[]
 }
+/**
+ *	Possible values for the `customType` property on [query expressions](/../api/projects/order-search#query-expressions) indicating the data type of the `field`.
+ */
+export type OrderSearchCustomType =
+  | 'BooleanType'
+  | 'DateTimeType'
+  | 'DateType'
+  | 'EnumType'
+  | 'LocalizedEnumType'
+  | 'LocalizedStringType'
+  | 'NumberType'
+  | 'SetType.DateTimeType'
+  | 'SetType.DateType'
+  | 'SetType.EnumType'
+  | 'SetType.LocalizedEnumType'
+  | 'SetType.LocalizedStringType'
+  | 'SetType.NumberType'
+  | 'SetType.StringType'
+  | 'SetType.TimeType'
+  | 'StringType'
+  | 'TimeType'
+  | string
 export type OrderSearchMatchType = 'all' | 'any' | string
 export interface OrderSearchQueryExpressionValue {
   /**
@@ -301,9 +327,10 @@ export interface OrderSearchQueryExpressionValue {
    */
   readonly boost?: number
   /**
+   *	Possible values for the `customType` property on [query expressions](/../api/projects/order-search#query-expressions) indicating the data type of the `field`.
    *
    */
-  readonly customType?: string
+  readonly customType?: OrderSearchCustomType
 }
 export type _OrderSearchQueryExpressionValue =
   | OrderSearchQueryExpressionValue
@@ -438,8 +465,7 @@ export interface CustomLineItemImportDraft {
    */
   readonly taxCategory?: TaxCategoryResourceIdentifier
   /**
-   *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget)
-   *	are applied to the Custom Line Item.
+   *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget), [MultiBuyCustomLineItemsTarget](ctp:api:type:MultiBuyCustomLineItemsTarget), or [CartDiscountPatternTarget](ctp:api:type:CartDiscountPatternTarget) are applied to the Custom Line Item.
    *	- If `External`, Cart Discounts are not considered on the Custom Line Item.
    *
    *
@@ -629,7 +655,7 @@ export interface LineItemImportDraft {
    */
   readonly taxRate?: TaxRate
   /**
-   *	The Channel used to [select a Price](ctp:api:type:LineItemPriceSelection).
+   *	The Channel used to [select a Price](/../api/pricing-and-discounts-overview#line-item-price-selection).
    *	This Channel must have the `ProductDistribution` role.
    *
    */
@@ -705,7 +731,7 @@ export interface Order extends BaseResource {
   readonly customerEmail?: string
   /**
    *	[Reference](ctp:api:type:Reference) to the Customer Group of the Customer that the Order belongs to.
-   *	Used for [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+   *	Used for [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
    *
    */
   readonly customerGroup?: CustomerGroupReference
@@ -747,7 +773,7 @@ export interface Order extends BaseResource {
    *
    *
    */
-  readonly totalPrice: TypedMoney
+  readonly totalPrice: CentPrecisionMoney
   /**
    *	- For `Platform` [TaxMode](ctp:api:type:TaxMode), it is automatically set when a [shipping address is set](ctp:api:type:OrderSetShippingAddressAction).
    *	- For `External` [TaxMode](ctp:api:type:TaxMode), it is automatically set when `shippingAddress` and external Tax Rates for all Line Items, Custom Line Items, and Shipping Methods in the Cart are set.
@@ -881,7 +907,7 @@ export interface Order extends BaseResource {
    */
   readonly paymentInfo?: PaymentInfo
   /**
-   *	Used for [LineItem Price selection](ctp:api:type:LineItemPriceSelection).
+   *	Used for [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
    *
    */
   readonly country?: string
@@ -979,13 +1005,13 @@ export interface Order extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the Order.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Order.
    *
    *
    */
@@ -1467,12 +1493,12 @@ export interface OrderSearchRequest {
    */
   readonly sort?: OrderSearchSorting[]
   /**
-   *	The maximum number of search results to be returned.
+   *	The maximum number of search results to be returned on one [page](#pagination).
    *
    */
   readonly limit?: number
   /**
-   *	The number of search results to be skipped in the response for pagination.
+   *	The number of search results to be skipped in the response for [pagination](#pagination).
    *
    */
   readonly offset?: number
@@ -1576,6 +1602,8 @@ export type OrderUpdateAction =
   | OrderSetShippingAddressAction
   | OrderSetShippingAddressCustomFieldAction
   | OrderSetShippingAddressCustomTypeAction
+  | OrderSetShippingCustomFieldAction
+  | OrderSetShippingCustomTypeAction
   | OrderSetStoreAction
   | OrderTransitionCustomLineItemStateAction
   | OrderTransitionLineItemStateAction
@@ -1986,6 +2014,7 @@ export type ReturnShipmentState =
  */
 export type ShipmentState =
   | 'Backorder'
+  | 'Canceled'
   | 'Delayed'
   | 'Delivered'
   | 'Partial'
@@ -2079,14 +2108,12 @@ export interface SyncInfo {
 }
 export interface TaxedItemPriceDraft {
   /**
-   *	Draft type that stores amounts only in cent precision for the specified currency.
-   *
+   *	Draft object to store money in cent amounts for a specific currency.
    *
    */
   readonly totalNet: _Money
   /**
-   *	Draft type that stores amounts only in cent precision for the specified currency.
-   *
+   *	Draft object to store money in cent amounts for a specific currency.
    *
    */
   readonly totalGross: _Money
@@ -3309,6 +3336,59 @@ export interface OrderSetShippingAddressCustomTypeAction {
   readonly type?: TypeResourceIdentifier
   /**
    *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `shippingAddress`.
+   *
+   *
+   */
+  readonly fields?: FieldContainer
+}
+export interface OrderSetShippingCustomFieldAction {
+  readonly action: 'setShippingCustomField'
+  /**
+   *	The `shippingKey` of the [Shipping](ctp:api:type:Shipping) to customize. Used to specify which Shipping Method to customize
+   *	on a Order with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Leave this empty to customize the one and only ShippingMethod on a `Single` ShippingMode Order.
+   *
+   *
+   */
+  readonly shippingKey?: string
+  /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
+   *
+   */
+  readonly value?: any
+}
+/**
+ *	This action sets, overwrites, or removes any existing Custom Type and Custom Fields for the Order's `shippingMethod` or `shipping`.
+ *
+ */
+export interface OrderSetShippingCustomTypeAction {
+  readonly action: 'setShippingCustomType'
+  /**
+   *	The `shippingKey` of the [Shipping](ctp:api:type:Shipping) to customize. Used to specify which Shipping Method to customize
+   *	on a Order with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Leave this empty to customize the one and only ShippingMethod on a `Single` ShippingMode Order.
+   *
+   *
+   */
+  readonly shippingKey?: string
+  /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the specified ShippingMethod with [Custom Fields](/../api/projects/custom-fields).
+   *	If absent, any existing Type and Custom Fields are removed from the ShippingMethod.
+   *
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `shippingMethod`.
    *
    *
    */

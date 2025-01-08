@@ -327,6 +327,24 @@ export interface AssetSource {
   readonly contentType?: string
 }
 /**
+ *	Indicates the source and method that indirectly created or modified the resource. This is present on resources created or updated after 1 April 2024.
+ */
+export interface Attribution {
+  /**
+   *	`id` of the [API Client](ctp:api:type:ApiClient) that created or modified the resource.
+   *
+   *
+   */
+  readonly clientId?: string
+  /**
+   *	Method used to initiate the creation or modification of the resource.
+   *
+   *
+   */
+  readonly source: AttributionSource
+}
+export type AttributionSource = 'Export' | 'Import' | string
+/**
  *	Polymorphic base type that represents a postal address and contact details.
  *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
  *	only differ in the data type for the optional `custom` field.
@@ -608,7 +626,7 @@ export interface ClientLogging {
 }
 export type _ClientLogging = ClientLogging | CreatedBy | LastModifiedBy
 /**
- *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+ *	IDs and references that created the resource. This is present on resources created after 1 February 2019 except for [events not tracked](/general-concepts#events-tracked).
  */
 export interface CreatedBy extends ClientLogging {
   /**
@@ -618,7 +636,7 @@ export interface CreatedBy extends ClientLogging {
    */
   readonly clientId?: string
   /**
-   *	[External user ID](/../api/general-concepts#external-user-ids) provided by `X-External-User-ID` HTTP Header or [`external_user_id:{externalUserId}`](/../api/scopes#external_user_idexternaluserid) scope.
+   *	[External user ID](/../api/general-concepts#external-user-ids) provided by the `X-External-User-ID` HTTP Header or `external_user_id:{externalUserId}` [scope](/../api/scopes#external-oauth).
    *
    *
    */
@@ -635,6 +653,12 @@ export interface CreatedBy extends ClientLogging {
    *
    */
   readonly anonymousId?: string
+  /**
+   *	Indicates if the resource was created indirectly.
+   *
+   *
+   */
+  readonly attributedTo?: Attribution
   /**
    *	Indicates the [Customer](ctp:api:type:Customer) who created the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only present when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
    *
@@ -659,6 +683,8 @@ export interface DiscountedPrice {
 export interface DiscountedPriceDraft {
   /**
    *	Sets the money value for the discounted price.
+   *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
    *
    *
    */
@@ -686,7 +712,7 @@ export interface GeoJsonPoint {
 }
 export interface Image {
   /**
-   *	URL of the image in its original size that must be unique within a single [ProductVariant](ctp:api:type:ProductVariant). If the Project is hosted in the China (AWS, Ningxia) Region, verify that the URL is not blocked due to firewall restrictions.
+   *	URL of the image in its original size that must be unique within a single [ProductVariant](ctp:api:type:ProductVariant).
    *
    *
    */
@@ -725,7 +751,7 @@ export type KeyReference =
   | BusinessUnitKeyReference
   | StoreKeyReference
 /**
- *	Present on resources modified after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+ *	IDs and references that last modified the resource. This is present on resources created or updated after 1 February 2019 except for [events not tracked](/general-concepts#events-tracked).
  */
 export interface LastModifiedBy extends ClientLogging {
   /**
@@ -735,7 +761,7 @@ export interface LastModifiedBy extends ClientLogging {
    */
   readonly clientId?: string
   /**
-   *	[External user ID](/../api/general-concepts#external-user-ids) provided by `X-External-User-ID` HTTP Header or [`external_user_id:{externalUserId}`](/../api/scopes#external_user_idexternaluserid) scope.
+   *	[External user ID](/../api/general-concepts#external-user-ids) provided by the `X-External-User-ID` HTTP Header or `external_user_id:{externalUserId}` [scope](/../api/scopes#external-oauth).
    *
    *
    */
@@ -753,6 +779,12 @@ export interface LastModifiedBy extends ClientLogging {
    */
   readonly anonymousId?: string
   /**
+   *	Indicates if the resource was modified indirectly.
+   *
+   *
+   */
+  readonly attributedTo?: Attribution
+  /**
    *	Indicates the [Customer](ctp:api:type:Customer) who modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only present when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
    *
    *
@@ -767,8 +799,7 @@ export interface LocalizedString {
   [key: string]: string
 }
 /**
- *	Draft type that stores amounts only in cent precision for the specified currency.
- *
+ *	Draft object to store money in cent amounts for a specific currency.
  */
 export interface Money {
   /**
@@ -847,7 +878,7 @@ export interface Price {
   readonly validUntil?: string
   /**
    *	Is set if a [ProductDiscount](ctp:api:type:ProductDiscount) has been applied.
-   *	If set, the API uses the DiscountedPrice value for the [Line Item Price selection](ctp:api:type:LineItemPriceSelection).
+   *	If set, the API uses the DiscountedPrice value for the [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
    *	When a [relative discount](ctp:api:type:ProductDiscountValueRelative) has been applied and the fraction part of the DiscountedPrice `value` is 0.5, the `value` is rounded in favor of the customer with [half-down rounding](https://en.wikipedia.org/wiki/Rounding#Round_half_down).
    *
    *
@@ -880,6 +911,8 @@ export interface PriceDraft {
   readonly key?: string
   /**
    *	Money value of this Price.
+   *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
    *
    *
    */
@@ -986,6 +1019,7 @@ export interface PriceTierDraft {
   readonly minimumQuantity: number
   /**
    *	Money value that applies when the `minimumQuantity` is greater than or equal to the [LineItem](ctp:api:type:LineItem) `quantity`.
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
    *
    *	The `currencyCode` of a Price tier must be the same as the `currencyCode` in the `value` of the related Price.
    *
@@ -1182,7 +1216,7 @@ export type ResourceIdentifier =
   | ZoneResourceIdentifier
 /**
  *	Scoped Price is contained in a [ProductVariant](ctp:api:type:ProductVariant) which is returned in response to a
- *	[Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request when [Scoped Price Search](ctp:api:type:ScopedPriceSearch) is used.
+ *	[Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request when [Scoped Price Search](/../api/pricing-and-discounts-overview#scoped-price-search) is used.
  *
  */
 export interface ScopedPrice {
@@ -1255,8 +1289,7 @@ export interface ScopedPrice {
  */
 export type TypedMoney = CentPrecisionMoney | HighPrecisionMoney
 /**
- *	Object that stores cent amounts in a specific currency.
- *
+ *	Object that stores money in cent amounts of a specific currency.
  */
 export interface CentPrecisionMoney {
   readonly type: 'centPrecision'
@@ -1283,7 +1316,7 @@ export interface CentPrecisionMoney {
   readonly fractionDigits: number
 }
 /**
- *	Money object that stores an amount of a fraction of the smallest indivisible unit of the specified currency.
+ *	Object that stores money as a fraction of the smallest indivisible unit of a specific currency.
  */
 export interface HighPrecisionMoney {
   readonly type: 'highPrecision'
@@ -1349,7 +1382,7 @@ export interface CentPrecisionMoneyDraft {
   readonly fractionDigits?: number
 }
 /**
- *	Money draft object to store an amount of a fraction of the smallest indivisible unit of the specified currency.
+ *	Draft object to store money as a fraction of the smallest indivisible unit for a specific currency.
  */
 export interface HighPrecisionMoneyDraft {
   readonly type: 'highPrecision'

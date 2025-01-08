@@ -1,5 +1,4 @@
 import { HttpMiddlewareOptions, MiddlewareRequest } from '../../src'
-import { Buffer } from 'buffer/'
 import { createHttpMiddleware } from '../../src/middleware'
 
 function createTestRequest(options) {
@@ -26,47 +25,45 @@ class FormDataMockClass {
 }
 
 describe('Http Middleware.', () => {
-  test('should throw if host is not provided.', () => {
+  test('should throw if host is not provided.', async () => {
     const response = createTestResponse({})
     const httpMiddlewareOptions = {
-      host: null,
+      host: null as any,
       httpClient: jest.fn(),
     }
 
-    const next = () => response
-    expect(() =>
-      createHttpMiddleware(httpMiddlewareOptions)(next)(createTestRequest({}))
-    ).toThrow()
+    try {
+      const next = () => response
+      await createHttpMiddleware(httpMiddlewareOptions)(next)(
+        createTestRequest({})
+      )
+    } catch (err) {
+      expect(err).toBeDefined()
+      expect(err.message).toMatch(
+        'Request `host` or `url` is missing or invalid'
+      )
+    }
   })
 
-  test('should throw if host is not provided.', () => {
+  test('should throw if httpClient is provided but not a function.', async () => {
     const response = createTestResponse({})
+
     const httpMiddlewareOptions = {
       host: 'http://api-host.com',
-      httpClient: null,
+      httpClient: null as any,
     }
 
-    const next = () => response
-    expect(() =>
-      createHttpMiddleware(httpMiddlewareOptions)(next)(createTestRequest({}))
-    ).toThrow()
-  })
-
-  test('should throw if timeout is provided and `AbortController` is not.', () => {
-    const response = createTestResponse({})
-    const httpMiddlewareOptions = {
-      host: 'http://api-host.com',
-      httpClient: jest.fn(),
-      timeout: 2000,
-      getAbortController: null,
+    try {
+      const next = () => response
+      await createHttpMiddleware(httpMiddlewareOptions)(next)(
+        createTestRequest({})
+      )
+    } catch (err) {
+      expect(err).toBeDefined()
+      expect(err.message).toMatch(
+        'An `httpClient` is not available, please pass in a `fetch` or `axios` instance'
+      )
     }
-
-    const next = () => response
-    expect(() =>
-      createHttpMiddleware(httpMiddlewareOptions)(next)(createTestRequest({}))
-    ).toThrow(
-      /`AbortController` is not available. Please pass in `getAbortController` as an option or have AbortController globally available when using timeout./
-    )
   })
 
   test('should throw if the set timeout value elapses', async () => {
@@ -81,12 +78,12 @@ describe('Http Middleware.', () => {
 
     const next = (req: MiddlewareRequest) => {
       expect(httpMiddlewareOptions.getAbortController).toHaveBeenCalled()
-      expect(req.response.error).toBeTruthy()
-      expect(req.response.code).toEqual(0)
-      expect(req.response.error.status).toEqual(0)
-      expect(req.response.statusCode).toEqual(0)
-      expect(req.response.error.name).toEqual('NetworkError')
-      expect(req.response.error.message).toEqual(
+      expect(req.response?.error).toBeTruthy()
+      expect(req.response?.code).toEqual(0)
+      expect(req.response?.error?.status).toEqual(0)
+      expect(req.response?.statusCode).toEqual(0)
+      expect(req.response?.error?.name).toEqual('NetworkError')
+      expect(req.response?.error?.message).toEqual(
         'Unexpected non-JSON error response'
       )
 
@@ -114,7 +111,7 @@ describe('Http Middleware.', () => {
 
     const next = (req: MiddlewareRequest) => {
       expect(typeof req.response).toEqual('object')
-      expect(req.response.statusCode).toEqual(200)
+      expect(req.response?.statusCode).toEqual(200)
       return response
     }
 
@@ -137,8 +134,8 @@ describe('Http Middleware.', () => {
 
     const next = (req: MiddlewareRequest) => {
       expect(typeof req.response).toEqual('object')
-      expect(typeof req.response.body).toEqual('string')
-      expect(req.response.statusCode).toEqual(200)
+      expect(typeof req.response?.body).toEqual('string')
+      expect(req.response?.statusCode).toEqual(200)
       return response
     }
 
@@ -163,8 +160,8 @@ describe('Http Middleware.', () => {
 
     const next = (req: MiddlewareRequest) => {
       expect(typeof req.response).toEqual('object')
-      expect(typeof req.response.body).toEqual('object')
-      expect(req.response.statusCode).toEqual(200)
+      expect(typeof req.response?.body).toEqual('object')
+      expect(req.response?.statusCode).toEqual(200)
       return response
     }
 
@@ -210,7 +207,7 @@ describe('Http Middleware.', () => {
     }
 
     const next = (req: MiddlewareRequest) => {
-      expect(req.response.body).toBeFalsy()
+      expect(req.response?.body).toBeFalsy()
       expect(req.method).toEqual('HEAD')
       return response
     }
@@ -241,10 +238,10 @@ describe('Http Middleware.', () => {
     }
 
     const next = (req: MiddlewareRequest) => {
-      expect(req.response.body).toBeDefined()
+      expect(req.response?.body).toBeDefined()
       expect(req.method).toEqual('POST')
       expect(Buffer.isBuffer(req.body)).toEqual(true)
-      expect(req.body.toString()).toEqual('buffer body')
+      expect(req.body?.toString()).toEqual('buffer body')
       return response
     }
 
@@ -279,8 +276,8 @@ describe('Http Middleware.', () => {
     }
 
     const next = (req: MiddlewareRequest) => {
-      expect(req.headers['Content-Type']).toEqual(null)
-      expect(req.response.body).toBeDefined()
+      expect(req.headers?.['Content-Type']).toEqual(null)
+      expect(req.response?.body).toBeDefined()
       expect(req.body).toHaveProperty('append')
       expect(req.method).toEqual('POST')
       return response
@@ -317,10 +314,10 @@ describe('Http Middleware.', () => {
     }
 
     const next = (req: MiddlewareRequest) => {
-      expect(req.response.error.originalRequest).toBeTruthy()
-      expect(req.response.error.originalRequest.headers.authorization).toEqual(
-        'Bearer ********'
-      )
+      expect(req.response?.error?.originalRequest).toBeTruthy()
+      expect(
+        req.response?.error?.originalRequest?.headers?.authorization
+      ).toEqual('Bearer ********')
       return response
     }
 
@@ -352,7 +349,7 @@ describe('Http Middleware.', () => {
     }
 
     const next = (req: MiddlewareRequest) => {
-      expect(req.headers['Content-Type']).toEqual('image/jpeg')
+      expect(req.headers?.['Content-Type']).toEqual('image/jpeg')
       expect(req.headers).toEqual({ 'Content-Type': 'image/jpeg' })
       return response
     }
@@ -384,25 +381,26 @@ describe('Http Middleware.', () => {
     }
 
     const next = (req: MiddlewareRequest) => {
-      expect(req.response.error).toBeTruthy()
-      expect(req.response.error.statusCode).toEqual(0)
-      expect(req.response.error.message).toEqual('httpClient is not a function')
-
       return response
     }
 
-    await createHttpMiddleware(httpMiddlewareOptions as any)(next)(request)
+    try {
+      await createHttpMiddleware(httpMiddlewareOptions as any)(next)(request)
+    } catch (err) {
+      expect(err).toBeDefined()
+      expect(err.error).toBeDefined()
+      expect(err.error.message).toEqual('httpClient is not a function')
+    }
   })
 
-  test('should return a parse a text encoded response as json', async () => {
+  test('should return a text encoded response as a parsed json', async () => {
     const _response = {
       data: {},
       statusCode: 200,
     }
 
     const response = createTestResponse({
-      // text: jest.fn(() => _response)
-      text: () => _response,
+      text: () => JSON.stringify(_response),
     })
 
     const request = createTestRequest({
@@ -422,12 +420,53 @@ describe('Http Middleware.', () => {
 
     const next = (req: MiddlewareRequest) => {
       expect(typeof req.response).toEqual('object')
-      expect(req.response.body).toEqual(_response)
+      expect(req.response?.body).toEqual(_response)
 
       return response
     }
 
     await createHttpMiddleware(httpMiddlewareOptions)(next)(request)
+  })
+
+  test('should throw an error if it is unable to parse a text response', async () => {
+    const _response = {
+      data: {},
+      statusCode: 200,
+    }
+
+    const response = createTestResponse({
+      text: () => _response, // this is not a text response
+    })
+
+    const request = createTestRequest({
+      uri: '/error-url/retry',
+      method: 'POST',
+      body: { id: 'test-id' },
+      headers: {
+        'Content-Type': 'image/jpeg',
+      },
+    })
+
+    const httpMiddlewareOptions: HttpMiddlewareOptions = {
+      host: 'http://api-host.com',
+      httpClient: jest.fn(() => response),
+      enableRetry: false,
+    }
+
+    const next = (req: MiddlewareRequest) => {
+      expect(typeof req.response).toEqual('object')
+      expect(req.response?.body).toEqual(_response)
+
+      return response
+    }
+
+    try {
+      await createHttpMiddleware(httpMiddlewareOptions)(next)(request)
+    } catch (e) {
+      expect(e.body).toEqual(null)
+      expect(e.error.statusCode).toEqual(0)
+      expect(e.error.name).toEqual('NetworkError')
+    }
   })
 
   describe('::retry test', () => {
@@ -459,22 +498,24 @@ describe('Http Middleware.', () => {
       }
 
       const next = (req: MiddlewareRequest) => {
-        expect(req.response.error.statusCode).toEqual(0)
-        expect(req.response.error.message).toEqual(
-          '`retryCodes` option must be an array of retry status (error) codes and/or messages.'
-        )
-        expect(req.response.error.name).toEqual('NetworkError')
-
         return response
       }
 
-      await createHttpMiddleware(httpMiddlewareOptions)(next)(request)
+      try {
+        await createHttpMiddleware(httpMiddlewareOptions)(next)(request)
+      } catch (err) {
+        expect(err).toBeDefined()
+        expect(err.error).toBeDefined()
+        expect(err.error.message).toEqual(
+          '`retryCodes` option must be an array of retry status (error) codes and/or messages.'
+        )
+      }
     })
 
     test('should retry request based on response status code', async () => {
       const response = createTestResponse({
         data: {},
-        statusCode: 504,
+        status: 504,
       })
 
       const request = createTestRequest({
@@ -499,11 +540,11 @@ describe('Http Middleware.', () => {
       }
 
       const next = (req: MiddlewareRequest) => {
-        expect(req.response.error.statusCode).toEqual(504)
-        expect(req.response.error.message).toBeTruthy()
-        expect(req.response.error.name).toEqual('HttpError')
-        expect(req.response.error.retryCount).toEqual(
-          httpMiddlewareOptions.retryConfig.maxRetries
+        expect(req.response?.error?.statusCode).toEqual(504)
+        expect(req.response?.error?.message).toBeTruthy()
+        expect(req.response?.error?.name).toEqual('HttpError')
+        expect(req.response?.error?.retryCount).toEqual(
+          httpMiddlewareOptions?.retryConfig?.maxRetries
         ) // 3
 
         return response
@@ -515,7 +556,7 @@ describe('Http Middleware.', () => {
     test('should retry request with exponential backoff', async () => {
       const response = createTestResponse({
         data: {},
-        statusCode: 503,
+        status: 503,
       })
 
       const request = createTestRequest({
@@ -540,17 +581,186 @@ describe('Http Middleware.', () => {
       }
 
       const next = (req: MiddlewareRequest) => {
-        expect(req.response.error.statusCode).toEqual(503)
-        expect(req.response.error.message).toBeTruthy()
-        expect(req.response.error.name).toEqual('ServiceUnavailable')
-        expect(req.response.error.retryCount).toEqual(
-          httpMiddlewareOptions.retryConfig.maxRetries
+        expect(req.response?.error?.statusCode).toEqual(503)
+        expect(req.response?.error?.message).toBeTruthy()
+        expect(req.response?.error?.name).toEqual('ServiceUnavailable')
+        expect(req.response?.error?.retryCount).toEqual(
+          httpMiddlewareOptions?.retryConfig?.maxRetries
         ) // 2
 
         return response
       }
 
       await createHttpMiddleware(httpMiddlewareOptions)(next)(request)
+    })
+
+    test('should not retry request by default when aborted', async () => {
+      const request = createTestRequest({
+        uri: '/delay/1',
+        method: 'GET',
+      })
+
+      const next = (req: MiddlewareRequest) => {
+        return createTestResponse(req.response)
+      }
+
+      const httpMiddlewareOptions: HttpMiddlewareOptions = {
+        host: 'https://httpbin.org',
+        httpClient: fetch,
+        timeout: 500,
+        enableRetry: true,
+        retryConfig: {
+          maxRetries: 2,
+          retryOnAbort: false,
+        },
+      }
+
+      try {
+        await createHttpMiddleware(httpMiddlewareOptions)(next)(request)
+      } catch (err) {
+        expect(err).toBeDefined()
+        expect(err.error).toBeDefined()
+        expect(err.error?.message).toContain('aborted')
+      }
+    })
+
+    test('should throw an error when httpClient is invalid', async () => {
+      const request = createTestRequest({
+        uri: '/test',
+        method: 'GET',
+      })
+
+      const testResponse = createTestResponse({
+        data: {},
+        statusCode: 503,
+      })
+
+      const next = (req: MiddlewareRequest) => {
+        return testResponse
+      }
+      const testError = new Error()
+
+      const httpMiddlewareOptions: HttpMiddlewareOptions = {
+        host: 'https://httpbin.org',
+        httpClient: jest.fn(() => {
+          throw testError
+        }),
+        timeout: 500,
+        enableRetry: true,
+        retryConfig: {
+          maxRetries: 2,
+          retryOnAbort: false,
+        },
+      }
+
+      try {
+        await createHttpMiddleware(httpMiddlewareOptions)(next)(request)
+      } catch (err) {
+        expect(err.error.body).toEqual(testError)
+      }
+    })
+
+    test('should retry request on aborted when retryOnAbort=true', async () => {
+      const testData = 'this is a string response data'
+
+      const request = createTestRequest({
+        uri: '/delay/1',
+        method: 'GET',
+      })
+
+      const next = (req: MiddlewareRequest) => {
+        return createTestResponse(req.response)
+      }
+
+      let httpClientCalled = false
+
+      const httpMiddlewareOptions: HttpMiddlewareOptions = {
+        host: 'https://httpbin.org',
+        httpClient: (url, options) => {
+          if (httpClientCalled) {
+            return createTestResponse({
+              data: testData,
+              statusCode: 200,
+              headers: {
+                'server-time': '05:07',
+              },
+            })
+          } else {
+            httpClientCalled = true
+            return fetch(url, options)
+          }
+        },
+        timeout: 500,
+        enableRetry: true,
+        retryConfig: {
+          maxRetries: 2,
+          retryDelay: 500,
+          retryOnAbort: true,
+        },
+      }
+
+      const response = await createHttpMiddleware(httpMiddlewareOptions)(next)(
+        request
+      )
+
+      expect(response.error).toBeUndefined()
+      expect(response.statusCode).toEqual(200)
+      expect(response.body).toEqual(testData)
+    })
+
+    test('should retry CTP request when retry=true and retryOnAbort=false', async () => {
+      const testData = 'this is a string response data'
+      const testResponse = createTestResponse({
+        data: {},
+        statusCode: 504,
+      })
+
+      const request = createTestRequest({
+        uri: '/error-url/retry',
+        method: 'POST',
+        body: { id: 'test-id' },
+        headers: {
+          'Content-Type': 'image/jpeg',
+        },
+      })
+
+      let httpClientCalled = false
+
+      const httpMiddlewareOptions: HttpMiddlewareOptions = {
+        host: 'https://httpbin.org',
+        httpClient: (url, options) => {
+          if (httpClientCalled) {
+            return createTestResponse({
+              data: testData,
+              statusCode: 200,
+              headers: {
+                'server-time': '05:07',
+              },
+            })
+          } else {
+            httpClientCalled = true
+            return testResponse
+          }
+        },
+        enableRetry: true,
+        retryConfig: {
+          maxRetries: 3,
+          backoff: false,
+          retryDelay: 200,
+          retryCodes: [504],
+          retryOnAbort: false,
+        },
+      }
+
+      const next = (req: MiddlewareRequest) => {
+        return testResponse
+      }
+
+      const response = await createHttpMiddleware(httpMiddlewareOptions)(next)(
+        request
+      )
+
+      expect(response).toBeDefined()
     })
   })
 })

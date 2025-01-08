@@ -6,10 +6,10 @@
 
 import {
   BaseResource,
+  CentPrecisionMoney,
   CreatedBy,
   LastModifiedBy,
   LocalizedString,
-  TypedMoney,
   _Money,
 } from './common'
 import {
@@ -62,13 +62,13 @@ export interface ShippingMethod extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the ShippingMethod.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the ShippingMethod.
    *
    *
    */
@@ -110,7 +110,15 @@ export interface ShippingMethod extends BaseResource {
    */
   readonly zoneRates: ZoneRate[]
   /**
-   *	If `true` this ShippingMethod is the [Project](ctp:api:type:Project)'s default ShippingMethod.
+   *	Indicates if the ShippingMethod is active.
+   *
+   *	If `true`, the ShippingMethod can be used during the creation or update of a Cart or Order.
+   *
+   *
+   */
+  readonly active: boolean
+  /**
+   *	If `true`, this ShippingMethod is the [Project](ctp:api:type:Project)'s default ShippingMethod.
    *
    */
   readonly isDefault: boolean
@@ -165,7 +173,13 @@ export interface ShippingMethodDraft {
    */
   readonly zoneRates: ZoneRateDraft[]
   /**
-   *	If `true` the ShippingMethod will be the [Project](ctp:api:type:Project)'s default ShippingMethod.
+   *	If set to `true`, the ShippingMethod can be used during the creation or update of a Cart or Order.
+   *
+   *
+   */
+  readonly active?: boolean
+  /**
+   *	If set to `true`, the ShippingMethod will be the [Project](ctp:api:type:Project)'s default ShippingMethod.
    *
    */
   readonly isDefault: boolean
@@ -276,6 +290,7 @@ export interface ShippingMethodUpdate {
 export type ShippingMethodUpdateAction =
   | ShippingMethodAddShippingRateAction
   | ShippingMethodAddZoneAction
+  | ShippingMethodChangeActiveAction
   | ShippingMethodChangeIsDefaultAction
   | ShippingMethodChangeNameAction
   | ShippingMethodChangeTaxCategoryAction
@@ -293,12 +308,12 @@ export interface ShippingRate {
    *	Currency amount of the ShippingRate.
    *
    */
-  readonly price: TypedMoney
+  readonly price: CentPrecisionMoney
   /**
    *	[Free shipping](/../api/shipping-delivery-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
    *
    */
-  readonly freeAbove?: TypedMoney
+  readonly freeAbove?: CentPrecisionMoney
   /**
    *	`true` if the ShippingRate matches given [Cart](ctp:api:type:Cart) or [Location](ctp:api:type:Location).
    *	Only appears in response to requests for [Get ShippingMethods for a Cart](ctp:api:endpoint:/{projectKey}/shipping-methods/matching-cart:GET) or
@@ -335,7 +350,7 @@ export type ShippingRatePriceTier =
   | CartScoreTier
   | CartValueTier
 /**
- *	Used when the ShippingRate maps to an abstract Cart categorization expressed by strings (for example, `Light`, `Medium`, or `Heavy`).
+ *	The [ShippingRate](ctp:api:type:ShippingRate) maps to an abstract Cart categorization expressed by strings (for example, `Light`, `Medium`, or `Heavy`).
  *
  */
 export interface CartClassificationTier {
@@ -360,7 +375,7 @@ export interface CartClassificationTier {
   readonly isMatching?: boolean
 }
 /**
- *	Used when the ShippingRate maps to an abstract Cart categorization expressed by integers (such as shipping scores or weight ranges).
+ *	The [ShippingRate](ctp:api:type:ShippingRate) maps to an abstract Cart categorization expressed by integers (such as shipping scores or weight ranges).
  *	Either `price` or `priceFunction` is required.
  *
  */
@@ -392,8 +407,9 @@ export interface CartScoreTier {
   readonly isMatching?: boolean
 }
 /**
- *	Used when the ShippingRate maps to the sum of [LineItem](ctp:api:type:LineItem) Prices.
- *	The value of the Cart is used to select a tier.
+ *
+ *	The [ShippingRate](ctp:api:type:ShippingRate) maps to the value of the Cart and is used to select a tier.
+ *	The value of the [Cart](ctp:api:type:Cart) is the sum of all Line Item totals and Custom Line Item totals (via the `totalPrice` field) after any Product Discounts and Cart Discounts have been applied.
  *	If chosen, it is not possible to set a value for the `shippingRateInput` on the [Cart](ctp:api:type:Cart).
  *	Tiers contain the `centAmount` (a value of `100` in the currency `USD` corresponds to `$ 1.00`), and start at `1`.'
  *
@@ -478,6 +494,17 @@ export interface ShippingMethodAddZoneAction {
    *
    */
   readonly zone: ZoneResourceIdentifier
+}
+export interface ShippingMethodChangeActiveAction {
+  readonly action: 'changeActive'
+  /**
+   *	Value to set.
+   *
+   *	If set to `false`, the ShippingMethod cannot be used during the creation or update of a Cart or Order.
+   *
+   *
+   */
+  readonly active: boolean
 }
 export interface ShippingMethodChangeIsDefaultAction {
   readonly action: 'changeIsDefault'

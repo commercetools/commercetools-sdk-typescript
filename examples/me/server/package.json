@@ -13,9 +13,9 @@
     "@commercetools/sdk-client-v2": "^0.2.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
-    "express": "^4.17.3",
+    "express": "^4.20.0",
     "lodash.defaultsdeep": "^4.6.1",
-    "ncrypt-js": "^2.0.0",
+    "ncrypt-js": "^2.1.0",
     "node-fetch": "2.6.7",
     "qss": "^2.0.3"
   },

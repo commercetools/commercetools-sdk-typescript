@@ -11,12 +11,6 @@ function createTestRequest(options) {
   }
 }
 
-function createTestResponse(options) {
-  return {
-    ...options,
-  }
-}
-
 function createTestMiddlewareOptions(options) {
   return {
     host: 'https://auth.europe-west1.gcp.commercetools.com',
@@ -34,7 +28,7 @@ describe('Refresh Token Flow', () => {
   describe('Refresh token flow auth request builder', () => {
     test('should throw if `options` are not provided.', () => {
       new Promise((resolve, reject) => {
-        const middlewareOptions = null
+        const middlewareOptions: any = null
         expect(() =>
           buildRequestForRefreshTokenFlow(middlewareOptions)
         ).toThrow('Missing required options')
@@ -43,204 +37,154 @@ describe('Refresh Token Flow', () => {
     })
   })
 
-  test('should throw if `credentials` is not provided.', () => {
-    new Promise((resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
+  test('should throw if `credentials` is not provided.', async () => {
+    const next = (req): any => {
+      expect(typeof req.headers).toBe('object')
+    }
 
-      const next = (req): any => {
-        expect(typeof req.headers).toBe('object')
-        resolve(null)
-      }
-
-      const middlewareOptions = createTestMiddlewareOptions({
-        host: 'http://demo-auth-url',
-        projectKey: 'demo-key',
-        httpClient: jest.fn(() => ({
-          data: {
-            access_token: 'xxx-xx',
-            expires_in: 6873735270,
-          },
-          statusCode: 200,
-          headers: {},
-        })),
-        credentials: null, // <------------- null
-      })
-
-      expect(
-        createAuthMiddlewareForRefreshTokenFlow(middlewareOptions)(next)(
-          createTestRequest({})
-        )
-      ).rejects.toEqual(expect.any(Error))
-      resolve(null)
+    const middlewareOptions = createTestMiddlewareOptions({
+      host: 'http://demo-auth-url',
+      projectKey: 'demo-key',
+      httpClient: jest.fn(() => ({
+        data: {
+          access_token: 'xxx-xx',
+          expires_in: 6873735270,
+        },
+        statusCode: 200,
+        headers: {},
+      })),
+      credentials: null, // <------------- null
     })
+
+    await expect(async () => {
+      await createAuthMiddlewareForRefreshTokenFlow(middlewareOptions)(next)(
+        createTestRequest({})
+      )
+    }).rejects.toThrow('Missing required options.')
   })
 
-  test('should throw error if required `projectKey` option is not provided.', () =>
-    new Promise(async (resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
+  test('should throw error if required `projectKey` option is not provided.', async () => {
+    const next = (req): any => {
+      expect(typeof req.headers).toBe('object')
+      expect(req.headers.Authorization).toBe('Bearer xxx-xx')
+    }
 
-      const next = (req): any => {
-        expect(typeof req.headers).toBe('object')
-        expect(req.headers.Authorization).toBe('Bearer xxx-xx')
-
-        resolve(null)
-      }
-
-      const middlewareOptions = createTestMiddlewareOptions({
-        host: 'http://demo-auth-url',
-        projectKey: null, // <--------------- null
-        httpClient: jest.fn(() => ({
-          data: {
-            access_token: 'xxx-xx',
-            expires_in: 6873735270,
-          },
-          statusCode: 200,
-          headers: {},
-        })),
-        credentials: {
-          clientId: '123',
-          clientSecret: 'secret',
+    const middlewareOptions = createTestMiddlewareOptions({
+      host: 'http://demo-auth-url',
+      projectKey: null, // <--------------- null
+      httpClient: jest.fn(() => ({
+        data: {
+          access_token: 'xxx-xx',
+          expires_in: 6873735270,
         },
-      })
+        statusCode: 200,
+        headers: {},
+      })),
+      credentials: {
+        clientId: '123',
+        clientSecret: 'secret',
+      },
+    })
 
-      expect(
-        createAuthMiddlewareForRefreshTokenFlow(middlewareOptions)(next)(
-          createTestRequest({})
-        )
-      ).rejects.toEqual(expect.any(Error))
-      resolve(null)
-    }))
+    await expect(async () => {
+      await createAuthMiddlewareForRefreshTokenFlow(middlewareOptions)(next)(
+        createTestRequest({})
+      )
+    }).rejects.toThrow('Missing required options.')
+  })
 
-  test('should throw error if required `refreshToken` option is not provided.', () =>
-    new Promise(async (resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
+  test('should throw error if required `refreshToken` option is not provided.', async () => {
+    const next = (req): any => {
+      expect(typeof req.headers).toBe('object')
+      expect(req.headers.Authorization).toBe('Bearer xxx-xx')
+    }
 
-      const next = (req): any => {
-        expect(typeof req.headers).toBe('object')
-        expect(req.headers.Authorization).toBe('Bearer xxx-xx')
-
-        resolve(null)
-      }
-
-      const middlewareOptions = createTestMiddlewareOptions({
-        projectKey: 'demo-key',
-        httpClient: jest.fn(() => ({
-          data: {
-            access_token: 'xxx-xx',
-            expires_in: 6873735270,
-          },
-          statusCode: 200,
-          headers: {},
-        })),
-        credentials: {
-          clientId: '123',
-          clientSecret: 'secret',
+    const middlewareOptions = createTestMiddlewareOptions({
+      projectKey: 'demo-key',
+      httpClient: jest.fn(() => ({
+        data: {
+          access_token: 'xxx-xx',
+          expires_in: 6873735270,
         },
-        refreshToken: null,
-      })
+        statusCode: 200,
+        headers: {},
+      })),
+      credentials: {
+        clientId: '123',
+        clientSecret: 'secret',
+      },
+      refreshToken: null,
+    })
 
-      expect(
-        createAuthMiddlewareForRefreshTokenFlow(middlewareOptions)(next)(
-          createTestRequest({})
-        )
-      ).rejects.toEqual(expect.any(Error))
-      resolve(null)
-    }))
+    await expect(async () => {
+      await createAuthMiddlewareForRefreshTokenFlow(middlewareOptions)(next)(
+        createTestRequest({})
+      )
+    }).rejects.toThrow('Missing required option (refreshToken)')
+  })
 
-  test('should throw error if required `host` option is not provided.', () =>
-    new Promise(async (resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
+  test('should throw error if required `host` option is not provided.', async () => {
+    const next = (req): any => {
+      expect(typeof req.headers).toBe('object')
+      expect(req.headers.Authorization).toBe('Bearer xxx-xx')
+    }
 
-      const next = (req): any => {
-        expect(typeof req.headers).toBe('object')
-        expect(req.headers.Authorization).toBe('Bearer xxx-xx')
-
-        resolve(null)
-      }
-
-      const middlewareOptions = createTestMiddlewareOptions({
-        host: null, // <------------- null
-        projectKey: 'demo-key',
-        httpClient: jest.fn(() => ({
-          data: {
-            access_token: 'xxx-xx',
-            expires_in: 6873735270,
-          },
-          statusCode: 200,
-          headers: {},
-        })),
-        credentials: {
-          clientId: '123',
-          clientSecret: 'secret',
+    const middlewareOptions = createTestMiddlewareOptions({
+      host: null, // <------------- null
+      projectKey: 'demo-key',
+      httpClient: jest.fn(() => ({
+        data: {
+          access_token: 'xxx-xx',
+          expires_in: 6873735270,
         },
-        refreshToken: null,
-      })
+        statusCode: 200,
+        headers: {},
+      })),
+      credentials: {
+        clientId: '123',
+        clientSecret: 'secret',
+      },
+      refreshToken: null,
+    })
 
-      expect(
-        createAuthMiddlewareForRefreshTokenFlow(middlewareOptions)(next)(
-          createTestRequest({})
-        )
-      ).rejects.toEqual(expect.any(Error))
-      resolve(null)
-    }))
+    await expect(async () => {
+      await createAuthMiddlewareForRefreshTokenFlow(middlewareOptions)(next)(
+        createTestRequest({})
+      )
+    }).rejects.toThrow('Missing required options.')
+  })
 
-  test('should throw error if required `clientId` and `clientSecret` options are not provided.', () =>
-    new Promise((resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
+  test('should throw error if required `clientId` and `clientSecret` options are not provided.', async () => {
+    const next = (req): any => {
+      expect(typeof req.headers).toBe('object')
+      expect(req.headers.Authorization).toBe('Bearer xxx-xx')
+    }
 
-      const next = (req): any => {
-        expect(typeof req.headers).toBe('object')
-        expect(req.headers.Authorization).toBe('Bearer xxx-xx')
-
-        resolve(null)
-      }
-
-      const middlewareOptions = createTestMiddlewareOptions({
-        projectKey: 'demo-key',
-        httpClient: jest.fn(() => ({
-          data: {
-            access_token: 'xxx-xx',
-            expires_in: 6873735270,
-          },
-          statusCode: 200,
-          headers: {},
-        })),
-        credentials: {
-          clientId: null,
-          clientSecret: null,
+    const middlewareOptions = createTestMiddlewareOptions({
+      projectKey: 'demo-key',
+      httpClient: jest.fn(() => ({
+        data: {
+          access_token: 'xxx-xx',
+          expires_in: 6873735270,
         },
-      })
+        statusCode: 200,
+        headers: {},
+      })),
+      credentials: {
+        clientId: null,
+        clientSecret: null,
+      },
+    })
 
-      expect(
-        createAuthMiddlewareForRefreshTokenFlow(middlewareOptions)(next)(
-          createTestRequest({})
-        )
-      ).rejects.toEqual(expect.any(Error))
-      resolve(null)
-    }))
+    await expect(async () => {
+      await createAuthMiddlewareForRefreshTokenFlow(middlewareOptions)(next)(
+        createTestRequest({})
+      )
+    }).rejects.toThrow('Missing required options.')
+  })
 
   test('should call the next function if Authorization is already present in the headers', () =>
     new Promise((resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
       const next = (req): any => {
         expect(typeof req.headers).toBe('object')
         expect(req.headers.Authorization).toBe('Bearer xxxx-xxx')
@@ -269,12 +213,7 @@ describe('Refresh Token Flow', () => {
     }))
 
   test('should fetch and store token in tokenCache object', () =>
-    new Promise((resolve, reject) => {
-      const response = createTestResponse({
-        resolve,
-        reject,
-      })
-
+    new Promise(async (resolve, reject) => {
       const store = (value) => {
         let val = value
         return {
@@ -314,7 +253,7 @@ describe('Refresh Token Flow', () => {
         tokenCache,
       })
 
-      createAuthMiddlewareForRefreshTokenFlow(middlewareOptions)(next)(
+      await createAuthMiddlewareForRefreshTokenFlow(middlewareOptions)(next)(
         createTestRequest({})
       )
       expect(middlewareOptions.httpClient).toHaveBeenCalledTimes(1)

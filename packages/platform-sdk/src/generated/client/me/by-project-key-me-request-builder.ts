@@ -161,6 +161,15 @@ export class ByProjectKeyMeRequestBuilder {
     })
   }
 
+  /**
+   *	Returns a Customer for a given Query Predicate. Returns a `200 OK` status if successful.
+   *
+   *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
+   *
+   *	- If no Customer exists for the given Query Predicate.
+   *	- If a Customer exists for the given Query Predicate, but does not have an `id` value that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope.
+   *
+   */
   public get(methodArgs?: {
     queryArgs?: {
       sort?: string | string[]
@@ -189,6 +198,10 @@ export class ByProjectKeyMeRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Updates the Customer specified in the [customer:{id}](/scopes#composable-commerce-oauth) scope. Returns a `200 OK` status if successful.
+   *
+   */
   public post(methodArgs: {
     body: MyCustomerUpdate
     headers?: {
@@ -210,6 +223,9 @@ export class ByProjectKeyMeRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deletes the Customer specified in the [customer:{id}](/scopes#composable-commerce-oauth) scope. Returns a `200 OK` status if successful.
+   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

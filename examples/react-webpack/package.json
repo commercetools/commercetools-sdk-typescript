@@ -37,5 +37,11 @@
     "build": "webpack --mode production",
     "start:dev": "webpack server --open --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "resolutions": {
+    "semver": "7.6.2"
+  },
+  "overrides": {
+    "semver": "7.6.2"
   }
 }

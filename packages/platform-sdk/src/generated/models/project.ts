@@ -12,6 +12,26 @@ import { LastModifiedBy } from './common'
 import { MessagesConfiguration, MessagesConfigurationDraft } from './message'
 import { CustomFieldLocalizedEnumValue } from './type'
 
+/**
+ *	The current indexing status of Business Unit Search.
+ *
+ */
+export type BusinessUnitIndexingStatus =
+  | 'Failed'
+  | 'Indexing'
+  | 'Ready'
+  | 'Scheduled'
+  | string
+/**
+ *	The current indexing status of Customer Search.
+ *
+ */
+export type CustomerIndexingStatus =
+  | 'Failed'
+  | 'Indexing'
+  | 'Ready'
+  | 'Scheduled'
+  | string
 export interface BusinessUnitConfiguration {
   /**
    *	Status of Business Units created using the [My Business Unit endpoint](ctp:api:endpoint:/{projectKey}/me/business-units:POST).
@@ -29,6 +49,12 @@ export interface BusinessUnitConfiguration {
  *	Default value for [Business Unit Status](ctp:api:type:BusinessUnitStatus) configured though [Project settings](/../api/projects/project#change-my-business-unit-status-on-creation).
  */
 export type BusinessUnitConfigurationStatus = 'Active' | 'Inactive' | string
+/**
+ *	Specifies the status of the [Business Unit Search](/../api/projects/business-unit-search) index.
+ *	You can change the status using the [Change Business Unit Search Status](ctp:api:type:ProjectChangeBusinessUnitSearchStatusAction) update action.
+ *
+ */
+export type BusinessUnitSearchStatus = 'Activated' | 'Deactivated' | string
 export interface CartsConfiguration {
   /**
    *	Default value for the `deleteDaysAfterLastModification` parameter of the [CartDraft](ctp:api:type:CartDraft) and [MyCartDraft](ctp:api:type:MyCartDraft).
@@ -47,6 +73,12 @@ export interface CartsConfiguration {
   readonly countryTaxRateFallbackEnabled?: boolean
 }
 /**
+ *	Specifies the status of the [Customer Search](/../api/projects/customer-search) index.
+ *	You can change the status using the [Change Customer Search Status](ctp:api:type:ProjectChangeCustomerSearchStatusAction) update action.
+ *
+ */
+export type CustomerSearchStatus = 'Activated' | 'Deactivated' | string
+/**
  *	Represents a RFC 7662 compliant [OAuth 2.0 Token Introspection](https://datatracker.ietf.org/doc/html/rfc7662) endpoint. For more information, see [Requesting an access token using an external OAuth 2.0 server](/../api/authorization#requesting-an-access-token-using-an-external-oauth-server).
  *
  *	You can only configure **one** external OAuth 2.0 endpoint per Project. To authenticate using multiple external services (such as social network logins), use a middle layer authentication service.
@@ -54,7 +86,7 @@ export interface CartsConfiguration {
  */
 export interface ExternalOAuth {
   /**
-   *	URL with authorization header. If the Project is hosted in the China (AWS, Ningxia) Region, verify that the URL is not blocked due to firewall restrictions.
+   *	URL with authorization header.
    *
    *
    */
@@ -69,6 +101,10 @@ export interface ExternalOAuth {
  *	Specifies the status of the [Order Search](/../api/projects/order-search) index.
  */
 export type OrderSearchStatus = 'Activated' | 'Deactivated' | string
+export type ProductSearchIndexingMode =
+  | 'ProductProjectionsSearch'
+  | 'ProductsSearch'
+  | string
 export interface Project {
   /**
    *	Current version of the Project.
@@ -177,11 +213,13 @@ export interface ProjectUpdate {
   readonly actions: ProjectUpdateAction[]
 }
 export type ProjectUpdateAction =
+  | ProjectChangeBusinessUnitSearchStatusAction
   | ProjectChangeBusinessUnitStatusOnCreationAction
   | ProjectChangeCartsConfigurationAction
   | ProjectChangeCountriesAction
   | ProjectChangeCountryTaxRateFallbackEnabledAction
   | ProjectChangeCurrenciesAction
+  | ProjectChangeCustomerSearchStatusAction
   | ProjectChangeLanguagesAction
   | ProjectChangeMessagesConfigurationAction
   | ProjectChangeNameAction
@@ -202,10 +240,25 @@ export interface SearchIndexingConfiguration {
    */
   readonly products?: SearchIndexingConfigurationValues
   /**
+   *	Configuration for the [Product Search](/../api/projects/product-search) feature.
+   *
+   */
+  readonly productsSearch?: SearchIndexingConfigurationValues
+  /**
    *	Configuration for the [Order Search](/../api/projects/order-search) feature.
    *
    */
   readonly orders?: SearchIndexingConfigurationValues
+  /**
+   *	Configuration for the [Customer Search](/../api/projects/customer-search) feature.
+   *
+   */
+  readonly customers?: SearchIndexingConfigurationValues
+  /**
+   *	Configuration for the [Business Unit Search](/../api/projects/business-unit-search) feature.
+   *
+   */
+  readonly businessUnits?: SearchIndexingConfigurationValues
 }
 /**
  *	Status of resource indexing.
@@ -228,7 +281,7 @@ export interface SearchIndexingConfigurationValues {
    */
   readonly lastModifiedAt?: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the SearchIndexingConfigurationValues.
    *
    *
    */
@@ -239,7 +292,7 @@ export type ShippingRateInputType =
   | CartScoreType
   | CartValueType
 /**
- *	Used when the ShippingRate maps to an abstract Cart categorization expressed by strings (for example, `Light`, `Medium`, or `Heavy`).
+ *	The [ShippingRate](ctp:api:type:ShippingRate) maps to an abstract Cart categorization expressed by strings (for example, `Light`, `Medium`, or `Heavy`).
  *	Only keys defined in the `values` array can be used to create a tier or to set a value of the `shippingRateInput` on the [Cart](ctp:api:type:Cart).
  *	Keys must be unique.
  *
@@ -253,15 +306,15 @@ export interface CartClassificationType {
   readonly values: CustomFieldLocalizedEnumValue[]
 }
 /**
- *	Used when the ShippingRate maps to an abstract Cart categorization expressed by integers (such as shipping scores or weight ranges).
+ *	The [ShippingRate](ctp:api:type:ShippingRate) maps to an abstract [Cart](ctp:api:type:Cart) categorization expressed by integers (such as shipping scores or weight ranges).
  *
  */
 export interface CartScoreType {
   readonly type: 'CartScore'
 }
 /**
- *	Used when the ShippingRate maps to the sum of [LineItem](ctp:api:type:LineItem) Prices.
- *	The value of the Cart is used to select a tier.
+ *	The [ShippingRate](ctp:api:type:ShippingRate) maps to the value of the Cart and is used to select a tier.
+ *	The value of the [Cart](ctp:api:type:Cart) is the sum of all Line Item totals and Custom Line Item totals (via the `totalPrice` field) after any Product Discounts and Cart Discounts have been applied.
  *	If chosen, it is not possible to set a value for the `shippingRateInput` on the [Cart](ctp:api:type:Cart).
  *
  */
@@ -276,6 +329,14 @@ export interface ShoppingListsConfiguration {
    *
    */
   readonly deleteDaysAfterLastModification?: number
+}
+export interface ProjectChangeBusinessUnitSearchStatusAction {
+  readonly action: 'changeBusinessUnitSearchStatus'
+  /**
+   *	Activates or deactivates the [Search Business Units](ctp:api:endpoint:/{projectKey}/business-units/search:POST) feature. Activation will trigger building a search index for the Business Units in the Project.
+   *
+   */
+  readonly status: BusinessUnitSearchStatus
 }
 export interface ProjectChangeBusinessUnitStatusOnCreationAction {
   readonly action: 'changeMyBusinessUnitStatusOnCreation'
@@ -320,6 +381,14 @@ export interface ProjectChangeCurrenciesAction {
    *
    */
   readonly currencies: string[]
+}
+export interface ProjectChangeCustomerSearchStatusAction {
+  readonly action: 'changeCustomerSearchStatus'
+  /**
+   *	Activates or deactivates the [Customer Search](/../api/projects/customer-search) feature. Activation will trigger building a search index for the Customers in the Project.
+   *
+   */
+  readonly status: CustomerSearchStatus
 }
 /**
  *	Removing a language used by a [Store](ctp:api:type:Store) returns a [LanguageUsedInStores](ctp:api:type:LanguageUsedInStoresError) error.
@@ -368,6 +437,12 @@ export interface ProjectChangeProductSearchIndexingEnabledAction {
    *
    */
   readonly enabled: boolean
+  /**
+   *	Controls whether the action should apply to [Product Projection Search](/../api/projects/products-search) or to [Product Search](/../api/projects/product-search).
+   *
+   *
+   */
+  readonly mode?: ProductSearchIndexingMode
 }
 export interface ProjectChangeShoppingListsConfigurationAction {
   readonly action: 'changeShoppingListsConfiguration'

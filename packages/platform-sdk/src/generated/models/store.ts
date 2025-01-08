@@ -74,13 +74,13 @@ export interface Store extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the Store.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the Store.
    *
    *
    */
@@ -195,7 +195,7 @@ export interface StoreDraft {
   readonly custom?: CustomFieldsDraft
 }
 /**
- *	[Reference](ctp:api:type:Reference) to a [Store](ctp:api:type:Store) by its key.
+ *	[KeyReference](ctp:api:type:KeyReference) to a [Store](ctp:api:type:Store).
  *
  */
 export interface StoreKeyReference {

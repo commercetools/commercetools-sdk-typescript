@@ -1,53 +1,60 @@
 import {
   Middleware,
   MiddlewareRequest,
-  MiddlewareResponse,
   Next,
   QueueMiddlewareOptions,
-  Task,
 } from '../types/types'
 
 export default function createQueueMiddleware({
   concurrency = 20,
 }: QueueMiddlewareOptions): Middleware {
   let runningCount = 0
-  const queue: Array<Task> = []
+  const queue: Array<() => void> = []
 
-  const dequeue = (next: Next): Promise<MiddlewareResponse> => {
+  const waitForSlot = (): Promise<void> => {
+    if (0 >= concurrency) return Promise.resolve()
+    return new Promise((resolve) => {
+      const tryNext = () => {
+        if (runningCount < concurrency) {
+          runningCount++
+          resolve()
+        } else {
+          queue.push(tryNext)
+        }
+      }
+      tryNext()
+    })
+  }
+
+  // Function to free up a slot after a request is completed
+  const freeSlot = () => {
     runningCount--
-    if (queue.length && runningCount <= concurrency) {
-      const nextTask = queue.shift()
-      runningCount++
-
-      return next(nextTask.request)
+    if (queue.length > 0) {
+      const nextInQueue = queue.shift()
+      if (nextInQueue) {
+        nextInQueue()
+      }
     }
   }
 
-  const enqueue = ({ request }: { request: MiddlewareRequest }) =>
-    queue.push({ request })
-
   return (next: Next) => (request: MiddlewareRequest) => {
-    // wrap and override resolve and reject functions
-    const patchedRequest = {
-      ...request,
-      resolve(data: any) {
-        request.resolve(data)
-        dequeue(next)
-      },
-      reject(error: any) {
-        request.reject(error)
-        dequeue(next)
-      },
-    }
+    return waitForSlot().then(() => {
+      const patchedRequest = {
+        ...request,
+        resolve(data: any) {
+          request.resolve(data)
+          freeSlot()
+        },
+        reject(error: any) {
+          request.reject(error)
+          freeSlot()
+        },
+      }
 
-    // enqueue requests
-    enqueue({ request: patchedRequest })
-
-    if (runningCount < concurrency) {
-      runningCount++
-      const nextTask = queue.shift()
-
-      return next(nextTask.request)
-    }
+      // Process the next middleware
+      return next(patchedRequest).finally(() => {
+        freeSlot()
+      })
+    })
   }
 }

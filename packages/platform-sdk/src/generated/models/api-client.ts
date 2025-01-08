@@ -37,7 +37,7 @@ export interface ApiClient {
    */
   readonly deleteAt?: string
   /**
-   *	Date and time (UTC) the APIClient was initially created at.
+   *	Date and time (UTC) the APIClient was initially created.
    *
    */
   readonly createdAt?: string

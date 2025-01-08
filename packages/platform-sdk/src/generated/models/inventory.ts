@@ -38,13 +38,13 @@ export interface InventoryEntry extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that last modified the InventoryEntry.
    *
    *
    */
   readonly lastModifiedBy?: LastModifiedBy
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/../api/general-concepts#events-tracked).
+   *	IDs and references that created the InventoryEntry.
    *
    *
    */
@@ -105,6 +105,8 @@ export interface InventoryEntryDraft {
   readonly sku: string
   /**
    *	User-defined unique identifier for the InventoryEntry.
+   *
+   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing InventoryEntries with the [Import API](/../import-export/overview) and the [Merchant Center](/../merchant-center/import-data).
    *
    *
    */

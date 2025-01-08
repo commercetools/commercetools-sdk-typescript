@@ -7,6 +7,7 @@
 import { CategoryImport } from './categories'
 import { CustomerImport } from './customers'
 import { Custom } from './customfields'
+import { DiscountCodeImport } from './discount-codes'
 import { InventoryImport } from './inventories'
 import { PriceImport } from './prices'
 import { ProductDraftImport } from './productdrafts'
@@ -179,6 +180,7 @@ export type _ImportResource =
   | ImportResource
   | CategoryImport
   | CustomerImport
+  | DiscountCodeImport
   | InventoryImport
   | PriceImport
   | ProductDraftImport
@@ -415,14 +417,17 @@ export interface CustomObjectKeyReference {
    */
   readonly container: string
 }
+/**
+ *	References a resource which could not be resolved.
+ */
 export interface UnresolvedReferences {
   /**
+   *	The `key` of the resource.
    *
    */
   readonly key: string
   /**
-   *	The type of the referenced resource.
-   *
+   *	The type of resource.
    *
    */
   readonly typeId: ReferenceType
@@ -469,6 +474,7 @@ export interface Money {
 }
 export interface DiscountedPrice {
   /**
+   *	Money value of the discounted price.
    *
    */
   readonly value: TypedMoney
@@ -502,6 +508,7 @@ export interface PriceTier {
 export type ImportResourceType =
   | 'category'
   | 'customer'
+  | 'discount-code'
   | 'inventory'
   | 'order'
   | 'order-patch'
@@ -541,7 +548,7 @@ export type ReferenceType =
   | 'type'
   | string
 /**
- *	Every [Import Operation](/import-operation) is assigned one of the following states.
+ *	Every [Import Operation](ctp:import:type:ImportOperation) is assigned one of the following states.
  *
  */
 export type ProcessingState =

@@ -94,15 +94,15 @@ export interface PriceImport extends ImportResource {
    */
   readonly validUntil?: string
   /**
-   *	The Reference to the [CustomerGroup](/../api/projects/customerGroups#customergroup) with which the [Price](/../api/types#price) is associated.
-   *	If referenced CustomerGroup does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary CustomerGroup is created.
+   *	The Reference to the [CustomerGroup](ctp:api:type:CustomerGroup) with which the [Price](/../api/types#price) is associated.
+   *	If referenced CustomerGroup does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary CustomerGroup is created.
    *
    *
    */
   readonly customerGroup?: CustomerGroupKeyReference
   /**
-   *	The Reference to the [Channel](/../api/projects/channels#channel) with which the [Price](/../api/types#price) is associated.
-   *	If referenced Channel does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary Channel is created.
+   *	The Reference to the [Channel](ctp:api:type:Channel) with which the [Price](/../api/types#price) is associated.
+   *	If referenced Channel does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary Channel is created.
    *
    *
    */
@@ -113,11 +113,12 @@ export interface PriceImport extends ImportResource {
    */
   readonly discounted?: DiscountedPrice
   /**
-   *	Only the [Embedded Price](/../api/projects/products#embedded-price) updates will be published to `staged` and `current` projection.
+   *	- Set to `false` to update both the [current and staged projections](/../api/projects/productProjections#current--staged) of the [Product](/../api/projects/products#product) with the new Price data.
+   *	- Leave empty or set to `true` to only update the staged projection.
    *
    *
    */
-  readonly publish?: boolean
+  readonly staged?: boolean
   /**
    *	The tiered prices for this price.
    *
@@ -129,17 +130,17 @@ export interface PriceImport extends ImportResource {
    */
   readonly custom?: Custom
   /**
-   *	The ProductVariant in which this [Embedded Price](/../api/projects/products#embedded-price) is contained.
-   *	The Reference to the [ProductVariant](/../api/projects/products#productvariant) with which the [Price](/../api/types#price) is associated.
-   *	If referenced ProductVariant does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary ProductVariant is created.
+   *	The ProductVariant in which this [Embedded Price](/types#price) is contained.
+   *	The Reference to the [ProductVariant](/projects/products#productvariant) with which the [Price](/types#price) is associated.
+   *	If the referenced ProductVariant does not exist, the `state` of the [ImportOperation](/import-export/import-operation#importoperation) will be set to `unresolved` until the necessary ProductVariant is created.
    *
    *
    */
   readonly productVariant: ProductVariantKeyReference
   /**
-   *	The Product in which the Product Variant containing this [Embedded Price](/../api/projects/products#embedded-price) is contained. Maps to `ProductVariant.product`.
-   *	The Reference to the [Product](/../api/projects/products#product) with which the [Price](/../api/types#price) is associated.
-   *	If referenced Product does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary Product is created.
+   *	The Product in which the Product Variant containing this [Embedded Price](/types#price) is contained. Maps to `ProductVariant.product`.
+   *	The Reference to the [Product](/projects/products#product) with which the [Price](/types#price) is associated.
+   *	If referenced Product does not exist, the `state` of the [ImportOperation](/import-export/import-operation#importoperation) will be set to `unresolved` until the necessary Product is created.
    *
    *
    */

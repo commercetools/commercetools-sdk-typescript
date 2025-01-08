@@ -1,5 +1,3 @@
-import AbortController from 'abort-controller'
-import { Buffer } from 'buffer/'
 import {
   ClientResult,
   HttpClientConfig,
@@ -16,13 +14,14 @@ import {
   TResponse,
 } from '../types/types'
 import {
+  byteLength,
   constants,
   createError,
   executor,
   getHeaders,
   isBuffer,
   maskAuthData,
-  validateHttpOptions,
+  validateHttpClientOptions,
 } from '../utils'
 
 async function executeRequest({
@@ -30,22 +29,14 @@ async function executeRequest({
   httpClient,
   clientOptions,
 }: HttpOptions): Promise<ClientResult> {
-  let timer: ReturnType<typeof setTimeout>
-
   const {
-    timeout,
     request,
-    abortController,
     maskSensitiveHeaderData,
     includeRequestInErrorResponse,
+    includeResponseHeaders,
   } = clientOptions
 
   try {
-    if (timeout)
-      timer = setTimeout(() => {
-        abortController.abort()
-      }, timeout)
-
     const response: TResponse = await executor({
       url,
       ...clientOptions,
@@ -53,6 +44,10 @@ async function executeRequest({
       method: clientOptions.method,
       ...(clientOptions.body ? { body: clientOptions.body } : {}),
     } as HttpClientConfig)
+
+    if (!includeResponseHeaders) {
+      response.headers = null
+    }
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
       if (clientOptions.method == 'HEAD') {
@@ -101,7 +96,9 @@ async function executeRequest({
     }
   } catch (e) {
     // We know that this is a network error
-    const headers = getHeaders(e.response?.headers)
+    const headers = includeResponseHeaders
+      ? getHeaders(e.response?.headers)
+      : null
     const statusCode = e.response?.status || e.response?.data0 || 0
     const message = e.response?.data?.message
 
@@ -122,12 +119,11 @@ async function executeRequest({
         : { uri: request.uri }),
     })
 
-    return {
-      body: error,
+    throw {
+      // because body and error should be mutually exclusive
+      body: null,
       error,
     }
-  } finally {
-    clearTimeout(timer)
   }
 }
 
@@ -135,7 +131,7 @@ export default function createHttpMiddleware(
   options: HttpMiddlewareOptions
 ): Middleware {
   // validate response
-  validateHttpOptions(options)
+  validateHttpClientOptions(options)
 
   const {
     host,
@@ -146,20 +142,14 @@ export default function createHttpMiddleware(
     retryConfig,
     getAbortController,
     includeOriginalRequest,
-    includeRequestInErrorResponse,
+    includeRequestInErrorResponse = true,
+    includeResponseHeaders = true,
     maskSensitiveHeaderData,
     httpClientOptions,
   } = options
 
   return (next: Next) => {
     return async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {
-      let abortController: AbortController
-
-      if (timeout || getAbortController)
-        abortController =
-          (getAbortController ? getAbortController() : null) ||
-          new AbortController()
-
       const url = host.replace(/\/$/, '') + request.uri
       const requestHeader: JsonObject<QueryParam> = { ...request.headers }
 
@@ -179,7 +169,7 @@ export default function createHttpMiddleware(
       }
 
       // Ensure body is a string if content type is application/{json|graphql}
-      const body: string | Buffer =
+      const body: Record<string, any> | string | Uint8Array =
         (constants.HEADERS_CONTENT_TYPES.indexOf(
           requestHeader['Content-Type'] as string
         ) > -1 &&
@@ -189,9 +179,7 @@ export default function createHttpMiddleware(
           : JSON.stringify(request.body || undefined)
 
       if (body && (typeof body === 'string' || isBuffer(body))) {
-        requestHeader['Content-Length'] = Buffer.byteLength(
-          body as string
-        ).toString()
+        requestHeader['Content-Length'] = byteLength(body)
       }
 
       const clientOptions: HttpClientOptions = {
@@ -202,6 +190,7 @@ export default function createHttpMiddleware(
         headers: requestHeader,
         includeRequestInErrorResponse,
         maskSensitiveHeaderData,
+        includeResponseHeaders,
         ...httpClientOptions,
       }
 
@@ -209,13 +198,9 @@ export default function createHttpMiddleware(
         clientOptions.credentialsMode = credentialsMode
       }
 
-      if (abortController) {
-        clientOptions.signal = abortController.signal
-      }
-
       if (timeout) {
         clientOptions.timeout = timeout
-        clientOptions.abortController = abortController
+        clientOptions.getAbortController = getAbortController
       }
 
       if (body) {

@@ -10,6 +10,7 @@ import {
 } from './associate-role'
 import { BusinessUnitKeyReference } from './business-unit'
 import { BaseResource, CreatedBy, LastModifiedBy } from './common'
+import { CustomFields, FieldContainer, TypeResourceIdentifier } from './type'
 
 export interface ApprovalRule extends BaseResource {
   /**
@@ -31,7 +32,7 @@ export interface ApprovalRule extends BaseResource {
    */
   readonly createdAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/general-concepts#events-tracked).
+   *	IDs and references that created the ApprovalRule.
    *
    *
    */
@@ -43,7 +44,7 @@ export interface ApprovalRule extends BaseResource {
    */
   readonly lastModifiedAt: string
   /**
-   *	Present on resources created after 1 February 2019 except for [events not tracked](/general-concepts#events-tracked).
+   *	IDs and references that last modified the ApprovalRule.
    *
    *
    */
@@ -96,6 +97,12 @@ export interface ApprovalRule extends BaseResource {
    *
    */
   readonly businessUnit: BusinessUnitKeyReference
+  /**
+   *	Custom Fields on the Approval Rule.
+   *
+   *
+   */
+  readonly custom?: CustomFields
 }
 export interface ApprovalRuleDraft {
   /**
@@ -203,6 +210,8 @@ export interface ApprovalRuleUpdate {
 }
 export type ApprovalRuleUpdateAction =
   | ApprovalRuleSetApproversAction
+  | ApprovalRuleSetCustomFieldAction
+  | ApprovalRuleSetCustomTypeAction
   | ApprovalRuleSetDescriptionAction
   | ApprovalRuleSetKeyAction
   | ApprovalRuleSetNameAction
@@ -221,6 +230,39 @@ export interface ApprovalRuleSetApproversAction {
    *
    */
   readonly approvers: ApproverHierarchyDraft
+}
+export interface ApprovalRuleSetCustomFieldAction {
+  readonly action: 'setCustomField'
+  /**
+   *	Name of the [Custom Field](ctp:api:type:CustomFields).
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	Removing a field that does not exist returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *
+   *
+   */
+  readonly value?: any
+}
+export interface ApprovalRuleSetCustomTypeAction {
+  readonly action: 'setCustomType'
+  /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the ApprovalRule with [Custom Fields](ctp:api:type:CustomFields).
+   *	If absent, any existing Type and Custom Fields are removed from the ApprovalRule.
+   *
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *	Sets the [Custom Fields](ctp:api:type:CustomFields) fields for the ApprovalRule.
+   *
+   *
+   */
+  readonly fields?: FieldContainer
 }
 /**
  *	Setting the description for an [Approval Rule](ctp:api:type:ApprovalRule) generates an [ApprovalRuleDescriptionSet](ctp:api:type:ApprovalRuleDescriptionSetMessage) Message.
@@ -307,7 +349,6 @@ export interface ApproverConjunction {
 export interface ApproverConjunctionDraft {
   /**
    *	All of the nested disjunctions must be approved in order for the conjunction to be considered approved.
-   *	The total count of approvers across the nested disjunctions must not exceed 10.
    *
    *
    */

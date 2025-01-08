@@ -6,6 +6,7 @@
 import { executeRequest } from '../shared/utils/common-types'
 import { ByProjectKeyCategoriesRequestBuilder } from './categories/by-project-key-categories-request-builder'
 import { ByProjectKeyCustomersRequestBuilder } from './customers/by-project-key-customers-request-builder'
+import { ByProjectKeyDiscountCodesRequestBuilder } from './discount-codes/by-project-key-discount-codes-request-builder'
 import { ByProjectKeyImportContainersRequestBuilder } from './import-containers/by-project-key-import-containers-request-builder'
 import { ByProjectKeyImportOperationsRequestBuilder } from './import-operations/by-project-key-import-operations-request-builder'
 import { ByProjectKeyInventoriesRequestBuilder } from './inventories/by-project-key-inventories-request-builder'
@@ -159,6 +160,15 @@ export class ByProjectKeyRequestBuilder {
   }
   public types(): ByProjectKeyTypesRequestBuilder {
     return new ByProjectKeyTypesRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public discountCodes(): ByProjectKeyDiscountCodesRequestBuilder {
+    return new ByProjectKeyDiscountCodesRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },

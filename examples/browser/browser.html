@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script src="../../packages/sdk-client/dist/commercetools-sdk-client-v2.umd.js"></script>
+  <script src="../../packages/sdk-client-v3/dist/commercetools-ts-client.umd.js"></script>
   <script src="../../packages/platform-sdk/dist/commercetools-platform-sdk.umd.js"></script>
 </head>
 
@@ -14,10 +14,12 @@
 
 
   <button id="btnDetails" onclick="getProjectDetails()">Get Project Details</button>
-  <p id="details"></p>
+  <pre>
+    <p id="details"></p>
+  </pre>
 
   <script>
-    (function() {
+    function getProjectDetails() {
       var oauthUri = 'https://auth.europe-west1.gcp.commercetools.com'
       var baseUri = 'https://api.europe-west1.gcp.commercetools.com'
       var credentials = {
@@ -25,7 +27,7 @@
         clientSecret: ''
       }
       var projectKey = '';
-      var { ClientBuilder } = this['@commercetools/sdk-client-v2']
+      var { ClientBuilder } = this['@commercetools/ts-client']
       var client = new ClientBuilder()
         .defaultClient(baseUri, credentials, oauthUri, projectKey)
         .build()
@@ -37,9 +39,9 @@
         .get()
         .execute()
         .then(function ({ body }) {
-          window.document.getElementById('details').innerHTML = JSON.stringify(body);
+          window.document.getElementById('details').innerHTML = JSON.stringify(body, null, 2);
         })
-    }())
+    }
   </script>
 </body>
 

@@ -30,15 +30,15 @@ import { Attribute } from './productvariants'
  */
 export interface ProductDraftImport extends ImportResource {
   /**
-   *	User-defined unique identifier. If a [Product](/../api/projects/products#product) with this `key` exists, it will be updated with the imported data.
+   *	User-defined unique identifier. If a [Product](ctp:api:type:Product) with this `key` exists, it will be updated with the imported data.
    *
    */
   readonly key: string
   /**
-   *	The `productType` of a [Product](/../api/projects/products#product).
+   *	The `productType` of a [Product](ctp:api:type:Product).
    *	Maps to `Product.productType`.
-   *	The Reference to the [ProductType](/../api/projects/productTypes#producttype) with which the ProductDraft is associated.
-   *	If referenced ProductType does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary ProductType is created.
+   *	The Reference to the [ProductType](ctp:api:type:ProductType) with which the ProductDraft is associated.
+   *	If referenced ProductType does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary ProductType is created.
    *
    *
    */
@@ -61,8 +61,8 @@ export interface ProductDraftImport extends ImportResource {
    */
   readonly description?: LocalizedString
   /**
-   *	The Reference to the [Categories](/../api/projects/categories#category) with which the ProductDraft is associated.
-   *	If referenced Categories do not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary Categories are created.
+   *	The Reference to the [Categories](ctp:api:type:Category) with which the ProductDraft is associated.
+   *	If referenced Categories do not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary Categories are created.
    *
    *
    */
@@ -116,8 +116,8 @@ export interface ProductDraftImport extends ImportResource {
    */
   readonly variants?: ProductVariantDraftImport[]
   /**
-   *	The Reference to the [TaxCategory](/../api/projects/taxCategories#taxcategory) with which the ProductDraft is associated.
-   *	If referenced TaxCategory does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary TaxCategory is created.
+   *	The Reference to the [TaxCategory](/projects/taxCategories#taxcategory) with which the ProductDraft is associated.
+   *	If referenced TaxCategory does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary TaxCategory is created.
    *
    *
    */
@@ -146,22 +146,20 @@ export interface ProductDraftImport extends ImportResource {
    */
   readonly searchKeywords?: SearchKeywords
   /**
-   *	The Reference to the [State](/../api/projects/states#state) with which the ProductDraft is associated.
-   *	If referenced State does not exist, the `state` of the [ImportOperation](/import-operation#importoperation) will be set to `unresolved` until the necessary State is created.
+   *	The Reference to the [State](/projects/states#state) with which the ProductDraft is associated.
+   *	If referenced State does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary State is created.
    *
    *
    */
   readonly state?: StateKeyReference
   /**
-   *	If `publish` is set to either `true` or `false`, both staged and current projections are set to the same value provided by the import data.
-   *	If `publish` is not set, the staged projection is set to the provided import data, but the current projection stays unchanged.
-   *	However, if the import data contains no update, that is, if it matches the staged projection of the existing Product, the import induces no change in the existing Product whether `publish` is set or not.
+   *	Determines the published status and current/staged projection of the Product. For more information, see [Managing the published state of Products](/import-export/best-practices#managing-the-published-state-of-products).
    *
    *
    */
   readonly publish?: boolean
   /**
-   *	Determines the type of Prices the API uses. See [ProductPriceMode](/../api/projects/products#productpricemode) for more details. If not provided, the existing `Product.priceMode` is not changed.
+   *	Determines the type of Prices the API uses. If not provided, the existing `Product.priceMode` is not changed.
    *
    *
    */
