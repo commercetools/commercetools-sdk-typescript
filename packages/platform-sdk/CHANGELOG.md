@@ -1,5 +1,17 @@
 # @commercetools/platform-sdk
 
+## 8.0.0
+
+### Major Changes
+
+- [#896](https://github.com/commercetools/commercetools-sdk-typescript/pull/896) [`f9b8cb6`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f9b8cb605d99fe5ece13bdc3c152eb4818e19b3b) Thanks [@lojzatran](https://github.com/lojzatran)! - Remove support of nodejs 16
+
+### Patch Changes
+
+- Updated dependencies [[`f9b8cb6`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f9b8cb605d99fe5ece13bdc3c152eb4818e19b3b)]:
+  - @commercetools/ts-client@3.0.0
+  - @commercetools/sdk-client-v2@3.0.0
+
 ## 7.25.0
 
 ### Minor Changes
