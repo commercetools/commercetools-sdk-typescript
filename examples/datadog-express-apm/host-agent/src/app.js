@@ -2,7 +2,7 @@ require('dotenv').config()
 const cors = require('cors')
 const express = require('express')
 
-const { apiRoot } = require('./sdk-v2')
+const { apiRoot } = require('./sdk-v3')
 const ResponseHandler = require('../utils/response')
 const request = require('../utils/request')
 const agent = require('../agent').default
@@ -22,75 +22,164 @@ app.use(function (req, res, next) {
   next()
 })
 
-app.get('/project', async function (req, res, next) {
-  const project = await apiRoot.get().execute()
+app.get('/project', async (req, res, next) => {
+  try {
+    const project = await apiRoot.get().execute()
 
-  if (project.statusCode == 200) {
+    // Log the full response for debugging
+    console.log('API Response for Project:', project)
+
+    if (!project || !project.body) {
+      console.error('API response is undefined or empty:', project)
+      return ResponseHandler.errorResponse(
+        req,
+        res,
+        500,
+        'Empty response from API for project',
+        project
+      )
+    }
+
+    if (project.statusCode !== 200) {
+      console.error(
+        'API response status code is not 200 for project:',
+        project.statusCode
+      )
+      return ResponseHandler.errorResponse(
+        req,
+        res,
+        project.statusCode,
+        'Error in API response for project',
+        project
+      )
+    }
+
+    // Return success response if status code is 200
     return ResponseHandler.successResponse(
+      req,
       res,
-      project.statusCode || project.body.statusCode,
-      project.message || project.body.message || 'success',
+      project.statusCode || 200, // Default to status code 200 if undefined
+      project.message || 'Success',
       project.body
     )
-  }
-
-  return ResponseHandler.errorResponse(
-    res,
-    project.statusCode || project.body.statusCode,
-    project.message || project.body.message || 'error',
-    project.body
-  )
-})
-
-app.get('/customers', async function (req, res, next) {
-  const customers = await apiRoot.customers().get().execute()
-
-  if (customers.statusCode == 200) {
-    return ResponseHandler.successResponse(
+  } catch (error) {
+    console.error('Error fetching project:', error)
+    return ResponseHandler.errorResponse(
+      req,
       res,
-      customers.statusCode || customers.body.statusCode,
-      customers.message || customers.body.message || 'success',
-      customers.body
+      500,
+      'Error fetching project',
+      { error: error.message }
     )
   }
-
-  return ResponseHandler.errorResponse(
-    res,
-    customers.statusCode || customers.body.statusCode,
-    customers.message || customers.body.message || 'error',
-    customers.body
-  )
 })
 
-app.get('/products', async function (req, res, next) {
-  const products = await apiRoot.products().get().execute()
+app.get('/customers', async (req, res, next) => {
+  try {
+    const response = await apiRoot.customers().get().execute()
 
-  if (products.statusCode == 200) {
-    return ResponseHandler.successResponse(
+    // Log the full response for debugging
+    console.log('API Response:', response)
+
+    if (!response || !response.body) {
+      console.error('API response is undefined or empty:', response)
+      return ResponseHandler.errorResponse(
+        req,
+        res,
+        500,
+        'Empty response from API',
+        response
+      )
+    }
+
+    if (response.statusCode !== 200) {
+      console.error('API response status code is not 200:', response.statusCode)
+      return ResponseHandler.errorResponse(
+        req,
+        res,
+        response.statusCode,
+        'Error in API response',
+        response
+      )
+    }
+
+    ResponseHandler.successResponse(
+      req,
       res,
-      products.statusCode || products.body.statusCode,
-      products.message || products.body.message || 'success',
+      response.statusCode || 200, // Use status code 200 if undefined
+      'Success',
+      response.body
+    )
+  } catch (error) {
+    console.error('Error fetching customers:', error)
+    ResponseHandler.errorResponse(req, res, 500, 'Error fetching customers', {
+      error: error.message,
+    })
+    next(error)
+  }
+})
+
+app.get('/products', async (req, res, next) => {
+  try {
+    const products = await apiRoot.products().get().execute()
+
+    // Log the full response for debugging
+    console.log('API Response for Products:', products)
+
+    if (!products || !products.body) {
+      console.error('API response is undefined or empty:', products)
+      return ResponseHandler.errorResponse(
+        req,
+        res,
+        500,
+        'Empty response from API for products',
+        products
+      )
+    }
+
+    if (products.statusCode !== 200) {
+      console.error(
+        'API response status code is not 200 for products:',
+        products.statusCode
+      )
+      return ResponseHandler.errorResponse(
+        req,
+        res,
+        products.statusCode,
+        'Error in API response for products',
+        products
+      )
+    }
+
+    // Return success response if status code is 200
+    return ResponseHandler.successResponse(
+      req,
+      res,
+      products.statusCode || 200, // Default to status code 200 if undefined
+      products.message || 'Success',
       products.body
     )
+  } catch (error) {
+    console.error('Error fetching products:', error)
+    return ResponseHandler.errorResponse(
+      req,
+      res,
+      500,
+      'Error fetching products',
+      { error: error.message }
+    )
   }
-
-  return ResponseHandler.errorResponse(
-    res,
-    products.statusCode || products.body.statusCode,
-    products.message || products.body.message || 'error',
-    products.body
-  )
 })
 
 app.use(function (err, req, res, next) {
-  return ResponseHandler.errorResponse(res, 500, 'server error', {
+  return ResponseHandler.errorResponse(req, res, 500, 'server error', {
     error: { message: 'server error', error: err },
   })
   next()
 })
 
 app.use('*', function (req, res) {
-  return ResponseHandler.errorResponse(res, 404, 'Not Found', {
+  return ResponseHandler.errorResponse(req, res, 404, 'Not Found', {
     error: { message: 'resource not found' },
   })
 })

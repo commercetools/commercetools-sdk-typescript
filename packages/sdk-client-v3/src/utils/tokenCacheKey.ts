@@ -4,7 +4,12 @@ export default function buildTokenCacheKey(
   options: AuthMiddlewareOptions
 ): TokenCacheOptions {
   if (!options?.credentials?.clientId || !options.projectKey || !options.host)
-    throw new Error('Missing required options.')
+    throw new Error(
+      'Missing required options.' +
+        options.projectKey +
+        options.credentials.clientId +
+        options.host
+    )
 
   return {
     clientId: options.credentials.clientId,
