@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/platform-sdk",
-  "version": "7.25.0",
+  "version": "8.0.0",
   "engines": {
     "node": ">=18"
   },
@@ -26,11 +26,11 @@
     "./dist/commercetools-platform-sdk.esm.js": "./dist/commercetools-platform-sdk.browser.esm.js"
   },
   "dependencies": {
-    "@commercetools/sdk-client-v2": "^2.5.0",
+    "@commercetools/sdk-client-v2": "^3.0.0",
     "@commercetools/sdk-middleware-auth": "^7.0.0",
     "@commercetools/sdk-middleware-http": "^7.0.0",
     "@commercetools/sdk-middleware-logger": "^3.0.0",
-    "@commercetools/ts-client": "^2.1.7"
+    "@commercetools/ts-client": "^3.0.0"
   },
   "devDependencies": {
     "@types/uuid": "10.0.0",
