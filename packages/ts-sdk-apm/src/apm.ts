@@ -53,7 +53,7 @@ export default function createTelemetryMiddleware(
       const response: MiddlewareResponse = await next(nextRequest)
       const response_time = time() - start
 
-      // send `response_time` to APMs
+      // send `response_time` to APM platforms
       recordNewrelic(response_time)
       recordDatadog(response_time, { env: 'dev' })
 
