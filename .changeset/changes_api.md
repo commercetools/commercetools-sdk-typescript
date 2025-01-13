@@ -13,6 +13,20 @@
 </details>
 
 <details>
+<summary>Required Property(s)</summary>
+
+- :warning: changed property `triggerPattern` of type `CartDiscountPatternTarget` to be required
+</details>
+
+<details>
+<summary>Added Property(s)</summary>
+
+- added property `inheritedStores` to type `BusinessUnit`
+- added property `inheritedStores` to type `Company`
+- added property `inheritedStores` to type `Division`
+</details>
+
+<details>
 <summary>Added Method(s)</summary>
 
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().businessUnits().get()`
@@ -26,12 +40,4 @@
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().businessUnits().withId().head()`
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().businessUnits().withId().post()`
 - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().businessUnits().withId().delete()`
-</details>
-
-<details>
-<summary>Added Property(s)</summary>
-
-- added property `inheritedStores` to type `BusinessUnit`
-- added property `inheritedStores` to type `Company`
-- added property `inheritedStores` to type `Division`
 </details>
