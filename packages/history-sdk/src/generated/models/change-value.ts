@@ -138,13 +138,13 @@ export interface ChangeTargetMultiBuyLineItemsChangeValue {
 export interface ChangeTargetPatternChangeValue {
   readonly type: 'pattern'
   /**
-   *	Units of a (Custom) Line Item that triggered the discount application.
+   *	Defines the set of units of (Custom) Line Items in a Cart that triggered the discount application.
    *
    *
    */
-  readonly triggerPattern?: PatternComponent[]
+  readonly triggerPattern: PatternComponent[]
   /**
-   *	Units of (Custom) Line Items on which the Discount is applied.
+   *	Defines the set of units of (Custom) Line Items in a Cart on which the Discount is applied.
    *
    *
    */
