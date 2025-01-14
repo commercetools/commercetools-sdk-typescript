@@ -14,12 +14,11 @@ class ProductController {
     const start = performance.now()
     const data = await this.productService.getProduct(req.body)
 
+    newrelic.recordMetric(
+      'Commercetools/Test/Response/Time/Total',
+      performance.now() - start
+    )
     if (data.statusCode == 200) {
-      const end = performance.now()
-      newrelic.recordMetric(
-        'Commercetools/Test/Response/Time/Total',
-        end - start
-      )
       return ResponseHandler.successResponse(
         res,
         data.statusCode || data.body.statusCode,
@@ -28,8 +27,6 @@ class ProductController {
       )
     }
 
-    const end = performance.now()
-    newrelic.recordMetric('Commercetools/Test/Response/Time/Total', end - start)
     return ResponseHandler.errorResponse(
       res,
       data.statusCode || data.body.statusCode,
