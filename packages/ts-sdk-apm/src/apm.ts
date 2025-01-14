@@ -54,8 +54,11 @@ export default function createTelemetryMiddleware(
       const response_time = time() - start
 
       // send `response_time` to APM platforms
-      recordNewrelic(response_time)
-      recordDatadog(response_time, { env: 'dev' })
+      if (options?.customMetrics) {
+        options.customMetrics.newrelic && recordNewrelic(response_time)
+        options.customMetrics.datadog &&
+          recordDatadog(response_time, { env: 'dev' })
+      }
 
       return response
     }

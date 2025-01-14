@@ -78,10 +78,16 @@ export type QueryParam =
   | 'OPTIONS'
   | 'TRACE'
 
+export type CustomMetric = {
+  newrelic?: boolean;
+  datadog?: boolean;
+}
+
 export type TelemetryMiddlewareOptions = {
   apm?: Function;
   tracer?: Function;
   userAgent?: string;
+  customMetrics?: CustomMetric;
   createTelemetryMiddleware: (options?: OTelemetryMiddlewareOptions) => Middleware
 }
 

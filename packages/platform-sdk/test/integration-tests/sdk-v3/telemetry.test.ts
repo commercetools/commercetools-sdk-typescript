@@ -1,8 +1,5 @@
 import { ClientBuilder } from '@commercetools/ts-client'
 import {
-  //   type MiddlewareRequestLegacy,
-  //   type MiddlewareResponseLegacy,
-  //   createTelemetryMiddlewareV2,
   MiddlewareRequest,
   OTelemetryMiddlewareOptions,
   Next,
@@ -10,7 +7,6 @@ import {
   newrelic,
 } from '@commercetools/ts-sdk-apm'
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
-// import fetch from 'node-fetch'
 
 const time = () => performance.now()
 
@@ -70,6 +66,100 @@ describe('custom metrics', () => {
     const telemetryOptions = {
       userAgent: 'typescript-sdk-middleware-newrelic',
       createTelemetryMiddleware: _middleware,
+    }
+
+    const client = new ClientBuilder()
+      .withTelemetryMiddleware(telemetryOptions)
+      .withAnonymousSessionFlow(authMiddlewareOptions)
+      .withHttpMiddleware(httpMiddlewareOptions)
+      .build()
+
+    const api = createApiBuilderFromCtpClient(client)
+    const result = await api.withProjectKey({ projectKey }).get().execute()
+
+    expect(typeof result).toEqual('object')
+    expect(result).toHaveProperty('response_time')
+    expect(typeof result['response_time']).toEqual('number')
+  })
+
+  it('should not record custom metric is option is not enabled', async () => {
+    const _middleware = (options?: OTelemetryMiddlewareOptions) => {
+      expect(options.customMetrics).toEqual(undefined)
+
+      return (next: Next) => {
+        return async (req: MiddlewareRequest) => {
+          const startTime = time()
+
+          const res = await next(req)
+
+          if (options?.customMetrics) {
+            const endTime = time()
+            const responseTime = endTime - startTime
+            res['response_time'] = responseTime
+
+            // simulate the actual `createTelemetryMiddleware` middleware
+            options.customMetrics.newrelic && recordNewrelic(responseTime)
+            options.customMetrics.datadog &&
+              recordDatadog(responseTime, { env: 'dev' })
+          }
+
+          return res
+        }
+      }
+    }
+
+    const telemetryOptions = {
+      userAgent: 'typescript-sdk-middleware-newrelic',
+      createTelemetryMiddleware: _middleware,
+    }
+
+    const client = new ClientBuilder()
+      .withTelemetryMiddleware(telemetryOptions)
+      .withAnonymousSessionFlow(authMiddlewareOptions)
+      .withHttpMiddleware(httpMiddlewareOptions)
+      .build()
+
+    const api = createApiBuilderFromCtpClient(client)
+    const result = await api.withProjectKey({ projectKey }).get().execute()
+
+    expect(typeof result).toEqual('object')
+    expect(result['response_time']).not.toBeDefined()
+    expect(typeof result['response_time']).toEqual('undefined')
+  })
+
+  it('should record custom metric is option is enabled', async () => {
+    const _middleware = (options?: OTelemetryMiddlewareOptions) => {
+      expect(typeof options.customMetrics).toEqual('object')
+      expect(options.customMetrics.newrelic).toEqual(true)
+
+      return (next: Next) => {
+        return async (req: MiddlewareRequest) => {
+          const startTime = time()
+
+          const res = await next(req)
+
+          if (options?.customMetrics) {
+            const endTime = time()
+            const responseTime = endTime - startTime
+            res['response_time'] = responseTime
+
+            // simulate the actual `createTelemetryMiddleware` middleware
+            options.customMetrics.newrelic && recordNewrelic(responseTime)
+            options.customMetrics.datadog &&
+              recordDatadog(responseTime, { env: 'dev' })
+          }
+
+          return res
+        }
+      }
+    }
+
+    const telemetryOptions = {
+      userAgent: 'typescript-sdk-middleware-newrelic',
+      createTelemetryMiddleware: _middleware,
+      customMetrics: {
+        newrelic: true,
+      },
     }
 
     const client = new ClientBuilder()

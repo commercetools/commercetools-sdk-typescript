@@ -22,6 +22,11 @@ const defaultOptions = {
   tracer: () => require('../opentelemetry'),
 }
 
+/**
+ * @deprecated use new `createTelemetryMiddleware`
+ * @param options
+ * @returns
+ */
 export default function createTelemetryMiddleware(
   options: OTelemetryMiddlewareOptions
 ): MiddlewareLegacy {

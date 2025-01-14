@@ -1,8 +1,5 @@
 const { ClientBuilder } = require('@commercetools/ts-client')
-// const { createTelemetryMiddleware } = require('@commercetools/ts-sdk-apm')
-const {
-  createTelemetryMiddleware,
-} = require('@commercetools/ts-sdk-apm/dist/commercetools-ts-sdk-apm.cjs.js')
+const { createTelemetryMiddleware } = require('@commercetools/ts-sdk-apm')
 const { createApiBuilderFromCtpClient } = require('@commercetools/platform-sdk')
 const fetch = require('node-fetch')
 
