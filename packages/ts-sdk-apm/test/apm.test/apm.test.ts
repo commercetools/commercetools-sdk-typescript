@@ -1,8 +1,5 @@
-import {
-  type MiddlewareRequest,
-  type MiddlewareResponse,
-  createTelemetryMiddleware,
-} from '../../src'
+import { ClientBuilder } from '@commercetools/ts-client'
+import { type MiddlewareRequest, createTelemetryMiddleware } from '../../src'
 
 jest.mock('../../opentelemetry', () => {})
 
@@ -16,7 +13,7 @@ function createTestRequest(options): MiddlewareRequest {
   }
 }
 
-function createTestResponse(options): MiddlewareResponse {
+function createTestResponse(options) {
   return {
     ...options,
   }
@@ -32,28 +29,34 @@ describe('apm', () => {
   describe('apm test - null tracer configurations', () => {
     const response = createTestResponse({})
     const telemetryMiddleware = createTelemetryMiddleware({
-      apm: null,
-      tracer: null,
+      apm: null as any,
+      tracer: null as any,
     })
 
-    const next = (req: MiddlewareRequest) => {
-      test('retains existing request (headers)', () => {
+    test('retains existing request (headers)', async () => {
+      const next = (req: MiddlewareRequest) => {
         expect(req.headers?.Authorization).toBe('123')
-      })
+        return response
+      }
 
-      test('should use default apm and tracing configurations', () => {
+      await telemetryMiddleware(next)(request)
+    })
+
+    test('should use default apm and tracing configurations', async () => {
+      const next = (req: MiddlewareRequest) => {
         expect(req['apm']).toBeTruthy()
         expect(req['tracer']).toBeTruthy()
 
         expect(typeof req['apm']).toEqual('function')
         expect(typeof req['tracer']).toEqual('function')
-      })
-    }
+        return response
+      }
 
-    telemetryMiddleware(next)(request, response)
+      await telemetryMiddleware(next)(request)
+    })
   })
 
-  describe('should use provided apm and tracer configurations', () => {
+  describe('apm test - non-null tracer configuration', () => {
     const options = {
       apm: jest.fn(() => ({ a: 'apm-module' })),
       tracer: jest.fn(() => ({ t: 'tracer-module' })),
@@ -62,8 +65,8 @@ describe('apm', () => {
     const response = createTestResponse({})
     const telemetryMiddleware = createTelemetryMiddleware(options)
 
-    const next = (req: MiddlewareRequest) => {
-      test('adds an `apm` and `tracer` properties in request object', () => {
+    test('adds an `apm` and `tracer` properties in request object', () => {
+      const next = async (req: MiddlewareRequest) => {
         expect(req['apm']).toBeTruthy()
         expect(req['tracer']).toBeTruthy()
 
@@ -78,9 +81,11 @@ describe('apm', () => {
 
         expect(options.apm).toHaveBeenCalled()
         expect(options.tracer).toHaveBeenCalled
-      })
-    }
 
-    telemetryMiddleware(next)(request, response)
+        return response
+      }
+
+      telemetryMiddleware(next)(request)
+    })
   })
 })

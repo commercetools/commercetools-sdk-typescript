@@ -21,7 +21,7 @@ Example to show how the Newrelic APM can be used in the TypeScript SDK.
 1. After the installation completes, run `yarn start` to start the development server.
 2. Curl or send a request using any HTTP client to the following endpoints:
 
-```http
+```
 - GET https://localhost:9000/project
 - GET https://localhost:9000/customers
 - GET https://localhost:9000/products

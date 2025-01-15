@@ -12,6 +12,7 @@ import {
 import { executeRequest, QueryParam } from '../shared/utils/common-types'
 import { ApiRequest } from '../shared/utils/requests-utils'
 import { ByProjectKeyByResourceTypeRequestBuilder } from './by-project-key-by-resource-type-request-builder'
+import { ByProjectKeyGraphqlRequestBuilder } from './graphql/by-project-key-graphql-request-builder'
 /**
  **/
 export class ByProjectKeyRequestBuilder {
@@ -24,6 +25,15 @@ export class ByProjectKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
+  public graphql(): ByProjectKeyGraphqlRequestBuilder {
+    return new ByProjectKeyGraphqlRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
   public withResourceTypeValue(childPathArgs: {
     resourceType: string
   }): ByProjectKeyByResourceTypeRequestBuilder {

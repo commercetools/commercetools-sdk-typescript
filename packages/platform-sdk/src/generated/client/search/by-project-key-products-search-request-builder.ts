@@ -21,6 +21,11 @@ export class ByProjectKeyProductsSearchRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	If the indexing is in progress or the feature is inactive, an [ObjectNotFound](ctp:api:type:ObjectNotFoundError) error is returned.
+   *	If inactive, you can [reactivate](/../api/projects/product-search#activation-of-the-feature) it.
+   *
+   */
   public post(methodArgs: {
     body: ProductSearchRequest
     headers?: {

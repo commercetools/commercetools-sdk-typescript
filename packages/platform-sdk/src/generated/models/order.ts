@@ -465,8 +465,7 @@ export interface CustomLineItemImportDraft {
    */
   readonly taxCategory?: TaxCategoryResourceIdentifier
   /**
-   *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget)
-   *	are applied to the Custom Line Item.
+   *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget), [MultiBuyCustomLineItemsTarget](ctp:api:type:MultiBuyCustomLineItemsTarget), or [CartDiscountPatternTarget](ctp:api:type:CartDiscountPatternTarget) are applied to the Custom Line Item.
    *	- If `External`, Cart Discounts are not considered on the Custom Line Item.
    *
    *
@@ -2015,6 +2014,7 @@ export type ReturnShipmentState =
  */
 export type ShipmentState =
   | 'Backorder'
+  | 'Canceled'
   | 'Delayed'
   | 'Delivered'
   | 'Partial'

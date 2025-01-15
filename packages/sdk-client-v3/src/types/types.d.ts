@@ -1,5 +1,3 @@
-import AbortController from 'abort-controller'
-
 export type Nullable<T> = T | null
 export type Keys = string | number | symbol
 export type JsonObject<T = unknown> = { [key in Keys]: T }
@@ -295,6 +293,8 @@ export type IClientOptions = {
   body?: Record<string, any> | string | Uint8Array;
   timeout?: number
   abortController?: AbortController
+  signal?: AbortSignal,
+  getAbortController?: () => AbortController
   includeOriginalRequest?: boolean
   enableRetry?: boolean
   retryConfig?: RetryOptions

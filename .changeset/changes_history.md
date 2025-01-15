@@ -7,5 +7,5 @@
 <details>
 <summary>Required Property(s)</summary>
 
-- changed property `id` of type `ModifiedBy` to be optional
+- :warning: changed property `triggerPattern` of type `ChangeTargetPatternChangeValue` to be required
 </details>

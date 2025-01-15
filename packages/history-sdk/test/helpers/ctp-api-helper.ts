@@ -8,7 +8,6 @@ import {
   createExecutorFromMiddlewares,
   executeRequest,
 } from '@commercetools/platform-sdk'
-import fetch from 'node-fetch'
 import { requireEnvVar } from './test-utils'
 
 const projectKey = requireEnvVar('CTP_PROJECT_KEY')

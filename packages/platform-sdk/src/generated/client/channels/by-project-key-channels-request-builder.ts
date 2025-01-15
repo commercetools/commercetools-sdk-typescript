@@ -11,6 +11,7 @@ import {
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 import { ByProjectKeyChannelsByIDRequestBuilder } from './by-project-key-channels-by-id-request-builder'
+import { ByProjectKeyChannelsKeyByKeyRequestBuilder } from './by-project-key-channels-key-by-key-request-builder'
 /**
  **/
 export class ByProjectKeyChannelsRequestBuilder {
@@ -27,6 +28,18 @@ export class ByProjectKeyChannelsRequestBuilder {
     ID: string
   }): ByProjectKeyChannelsByIDRequestBuilder {
     return new ByProjectKeyChannelsByIDRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+        ...childPathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public withKey(childPathArgs: {
+    key: string
+  }): ByProjectKeyChannelsKeyByKeyRequestBuilder {
+    return new ByProjectKeyChannelsKeyByKeyRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
         ...childPathArgs,

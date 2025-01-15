@@ -407,6 +407,7 @@ export type MessageSubscriptionResourceTypeId =
   | 'quote'
   | 'quote-request'
   | 'review'
+  | 'shopping-list'
   | 'staged-quote'
   | 'standalone-price'
   | 'store'

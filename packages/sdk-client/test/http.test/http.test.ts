@@ -1,6 +1,4 @@
 import nock from 'nock'
-import fetch from 'node-fetch'
-import AbortController from 'abort-controller'
 import { createHttpMiddleware } from '../../src/sdk-middleware-http'
 import { MiddlewareRequest, MiddlewareResponse } from '../../src/types/sdk.d'
 
@@ -547,7 +545,7 @@ describe('Http', () => {
           body: { foo: 'bar' },
           statusCode: 200,
           headers: {
-            'content-type': ['application/json'],
+            'content-type': 'application/json',
           },
         })
         resolve()
@@ -687,9 +685,7 @@ describe('Http', () => {
         expect(res.error.name).toBe('NetworkError')
         expect(res.error.headers).toBeUndefined()
         expect(res.error.originalRequest).toBeUndefined()
-        expect(res.error.message).toBe(
-          `request to ${testHost}/foo/bar failed, reason: Connection timeout`
-        )
+        expect(res.error.message).toBe('Connection timeout')
         expect(res.body).toBeUndefined()
         expect(res.statusCode).toBe(0)
         resolve()
@@ -719,9 +715,7 @@ describe('Http', () => {
         expect(res.error.name).toBe('NetworkError')
         expect(res.error.headers).toBeUndefined()
         expect(res.error.originalRequest).toBeDefined()
-        expect(res.error.message).toBe(
-          `request to ${testHost}/foo/bar failed, reason: Connection timeout`
-        )
+        expect(res.error.message).toBe('Connection timeout')
         expect(res.body).toBeUndefined()
         expect(res.statusCode).toBe(0)
         resolve()
@@ -1055,9 +1049,7 @@ describe('Http', () => {
         expect(res.error.name).toBe('NetworkError')
         expect(res.error.headers).toBeUndefined()
         expect(res.error.originalRequest).toBeDefined()
-        expect(res.error.message).toBe(
-          `request to ${testHost}/foo/bar failed, reason: Connection timeout`
-        )
+        expect(res.error.message).toBe(`Connection timeout`)
         expect(res.body).toBeUndefined()
         expect(res.statusCode).toBe(0)
         resolve()
@@ -1088,9 +1080,7 @@ describe('Http', () => {
           expect(res.error.headers).toBeUndefined()
           expect(res.error.originalRequest).toBeDefined()
           expect(res.error.retryCount).toBe(2)
-          expect(res.error.message).toBe(
-            `request to ${testHost}/foo/bar failed, reason: Connection timeout`
-          )
+          expect(res.error.message).toBe('Connection timeout')
           expect(res.body).toBeUndefined()
           expect(res.statusCode).toBe(0)
           resolve()
@@ -1351,9 +1341,7 @@ describe('Http', () => {
             expect(res.error.headers).toBeUndefined()
             expect(res.error.originalRequest).toBeDefined()
             expect(res.error.retryCount).toBe(2)
-            expect(res.error.message).toBe(
-              `request to ${testHost}/foo/bar failed, reason: Connection timeout`
-            )
+            expect(res.error.message).toBe('Connection timeout')
             expect(res.body).toBeUndefined()
             expect(res.statusCode).toBe(0)
             resolve()

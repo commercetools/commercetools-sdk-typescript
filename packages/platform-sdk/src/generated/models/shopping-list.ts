@@ -523,6 +523,8 @@ export interface TextLineItemDraft {
  *	If the ShoppingList already contains a ShoppingListLineItem for the same Product Variant with the same Custom Fields, then only the quantity of the existing ShoppingListLineItem is increased.
  *	A ShoppingListLineItem with an empty `variantId` is not considered the same as a ShoppingListLineItem with a `variantId` currently referring to the Master Variant.
  *
+ *	Produces the [Shopping List Line Item Added](ctp:api:type:ShoppingListLineItemAddedMessage) Message.
+ *
  */
 export interface ShoppingListAddLineItemAction {
   readonly action: 'addLineItem'
@@ -698,6 +700,10 @@ export interface ShoppingListChangeTextLineItemsOrderAction {
    */
   readonly textLineItemOrder: string[]
 }
+/**
+ *	Produces the [Shopping List Line Item Removed](ctp:api:type:ShoppingListLineItemRemovedMessage) Message.
+ *
+ */
 export interface ShoppingListRemoveLineItemAction {
   readonly action: 'removeLineItem'
   /**

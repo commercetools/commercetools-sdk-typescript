@@ -5,7 +5,7 @@ import {
   projectKey,
 } from '../test-utils'
 import { createApiBuilderFromCtpClient } from '../../../src'
-import fetch from 'node-fetch'
+import { TokenCache } from '@commercetools/ts-client'
 
 describe('testing error cases', () => {
   it('should throw error when a product type is not found', async () => {
@@ -63,4 +63,46 @@ describe('testing error cases', () => {
 
     expect(response.statusCode).toBe(200)
   })
+
+  // This test is skipped because currently I don‘t know how to verify its correctness, so this is only for manual testing
+  it.skip('should retry correctly multiple times when aborted', async () => {
+    const client = new ClientBuilderV3()
+      .withClientCredentialsFlow({
+        ...authMiddlewareOptionsV3,
+        projectKey: 'a',
+        credentials: {
+          clientId: 'test',
+          clientSecret: 'test',
+        },
+        tokenCache: {
+          set: (cache) => {
+            console.log(cache)
+          },
+          get: (tokenCacheKey) => {
+            return {
+              token: 'test',
+              expirationTime: 9934431427363,
+            }
+          },
+        } as TokenCache,
+      })
+      .withHttpMiddleware({
+        ...httpMiddlewareOptionsV3,
+        host: 'https://example.com:81',
+        enableRetry: true,
+        timeout: 10000,
+        retryConfig: {
+          retryOnAbort: true,
+          maxRetries: 4,
+          retryDelay: 400,
+          retryCodes: [401],
+        },
+      })
+      .build()
+
+    const apiRootV3 = createApiBuilderFromCtpClient(client).withProjectKey({
+      projectKey,
+    })
+    await apiRootV3.get().execute()
+  }, 999999999)
 })

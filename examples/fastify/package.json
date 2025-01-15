@@ -1,0 +1,16 @@
+{
+  "name": "fastify",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@commercetools/ts-client": "latest",
+    "@commercetools/platform-sdk": "latest",
+    "dotenv": "^16.4.7",
+    "fastify": "^5.2.0",
+    "node-fetch": "^2.6.1"
+  },
+  "scripts": {
+    "start": "node server"
+  }
+}

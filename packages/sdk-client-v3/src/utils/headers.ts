@@ -28,7 +28,8 @@ export default function getHeaders(
 
   // whatwg-fetch
   const map: JsonObject<string> = {}
-  return headers.forEach(
-    (value: any, name: string | number) => (map[name] = value)
-  )
+  headers.forEach((value: any, name: string | number) => {
+    return (map[name] = value)
+  })
+  return map
 }

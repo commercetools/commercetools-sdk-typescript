@@ -1,5 +1,4 @@
 import nock from 'nock'
-import fetch from 'node-fetch'
 import createAuthMiddlewareBase from '../../src/sdk-middleware-auth/base-auth-flow'
 import * as buildRequests from '../../src/sdk-middleware-auth/build-requests'
 import store from '../../src/sdk-middleware-auth/utils'
@@ -175,19 +174,19 @@ describe('Base Auth Flow', () => {
       let requestCount = 0
       nock(middlewareOptions.host)
         .persist() // <-- use the same interceptor for all requests
-        .log(() => {
-          requestCount += 1
-        }) // keep track of the request count
         .filteringRequestBody(/.*/, '*')
         .post('/oauth/token', '*')
-        .reply(200, () => ({
-          access_token: 'xxx',
-          // Return the first 2 requests with an expired token
-          expires_in:
-            requestCount < 2
-              ? 1 // <-- to ensure it expires
-              : Date.now() + 60 * 60 * 24,
-        }))
+        .reply(200, () => {
+          requestCount += 1
+          return {
+            access_token: 'xxx',
+            // Return the first 2 requests with an expired token
+            expires_in:
+              requestCount < 2
+                ? 1 // <-- to ensure it expires
+                : Date.now() + 60 * 60 * 24,
+          }
+        })
 
       const next = () => {
         expect(requestCount).toBe(2)
@@ -222,20 +221,20 @@ describe('Base Auth Flow', () => {
       let requestCount = 0
       nock(middlewareOptions.host)
         .persist() // <-- use the same interceptor for all requests
-        .log(() => {
-          requestCount += 1
-        }) // keep track of the request count
         .filteringRequestBody(/.*/, '*')
         .post('/oauth/token', '*')
-        .reply(200, () => ({
-          access_token: 'xxx',
-          refresh_token: 'foobar123',
-          // Return the first request with an expired token
-          expires_in:
-            requestCount < 2
-              ? 1 // <-- to ensure it expires
-              : Date.now() + 60 * 60 * 24,
-        }))
+        .reply(200, () => {
+          requestCount += 1
+          return {
+            access_token: 'xxx',
+            refresh_token: 'foobar123',
+            // Return the first request with an expired token
+            expires_in:
+              requestCount < 2
+                ? 1 // <-- to ensure it expires
+                : Date.now() + 60 * 60 * 24,
+          }
+        })
 
       const next = () => {
         expect(requestCount).toBe(2)
@@ -289,14 +288,14 @@ describe('Base Auth Flow', () => {
         let requestCount = 0
         nock(middlewareOptions.host)
           .persist() // <-- use the same interceptor for all requests
-          .log(() => {
-            requestCount += 1
-          }) // keep track of the request count
           .filteringRequestBody(/.*/, '*')
           .post('/oauth/token', '*')
-          .reply(200, {
-            access_token: 'xxx',
-            expires_in: Date.now() + 60 * 60 * 24,
+          .reply(200, () => {
+            requestCount += 1
+            return {
+              access_token: 'xxx',
+              expires_in: Date.now() + 60 * 60 * 24,
+            }
           })
 
         const next = () => {
@@ -348,14 +347,14 @@ describe('Base Auth Flow', () => {
       let requestCount = 0
       nock(middlewareOptions.host)
         .persist() // <-- use the same interceptor for all requests
-        .log(() => {
-          requestCount += 1
-        }) // keep track of the request count
         .filteringRequestBody(/.*/, '*')
         .post('/oauth/token', '*')
-        .reply(200, {
-          access_token: 'xxx',
-          expires_in: Date.now() + 60 * 60 * 24,
+        .reply(200, () => {
+          requestCount += 1
+          return {
+            access_token: 'xxx',
+            expires_in: Date.now() + 60 * 60 * 24,
+          }
         })
 
       let nextCount = 0
@@ -414,22 +413,24 @@ describe('Base Auth Flow', () => {
 
     nock(middlewareOptions.host)
       .persist() // <-- use the same interceptor for all requests
-      .log(() => {
-        requestCount += 1
-      }) // keep track of the request count
       .filteringRequestBody(/.*/, '*')
-      .post('/oauth/token', '*')
+      .post('/oauth/token', () => {
+        requestCount += 1
+        return true
+      })
       .delay(2000) // <-- Delay the response
-      .reply(401, {
-        message: 'invalid_client',
-        error: 'invalid_client',
+      .reply(401, () => {
+        return {
+          message: 'invalid_client',
+          error: 'invalid_client',
+        }
       })
 
     const requestState = store<RequestState, RequestStateStore>(false)
     const pendingTasks = []
 
     const startCreateBaseMiddleware = () =>
-      new Promise((resolve, reject) => {
+      new Promise(async (resolve, reject) => {
         expect(requestState.get()).toBe(false)
 
         // fire off promise returning function and change requestState to true
@@ -446,7 +447,6 @@ describe('Base Auth Flow', () => {
         )
 
         expect(requestState.get()).toBe(true)
-        expect(requestCount).toBe(1) // Make sure that nock runned the mocked request
 
         return start
       })
@@ -455,6 +455,7 @@ describe('Base Auth Flow', () => {
       // await promise failure which should set `requestState` to `false`
       await startCreateBaseMiddleware()
     } catch (error) {
+      expect(requestCount).toBe(1) // Make sure that nock runned the mocked request
       expect(requestState.get()).toBe(false)
     }
   })
@@ -465,14 +466,14 @@ describe('Base Auth Flow', () => {
       let requestCount = 0
       nock(middlewareOptions.host)
         .persist() // <-- use the same interceptor for all requests
-        .log(() => {
-          requestCount += 1
-        }) // keep track of the request count
         .filteringRequestBody(/.*/, '*')
         .post('/oauth/token', '*')
-        .reply(200, {
-          access_token: 'xxx',
-          expires_in: Date.now() + 60 * 60 * 24,
+        .reply(200, () => {
+          requestCount += 1
+          return {
+            access_token: 'xxx',
+            expires_in: Date.now() + 60 * 60 * 24,
+          }
         })
       const pendingTasks = []
       const tokenCache = store({})
@@ -582,14 +583,14 @@ describe('Base Auth Flow', () => {
         }
         nock(middlewareOptions.host)
           .persist() // <-- use the same interceptor for all requests
-          .log(() => {
-            requestCount += 1
-          }) // keep track of the request count
           .filteringRequestBody(/.*/, '*')
           .post('/oauth/token', '*')
-          .reply(200, {
-            access_token: 'xxx',
-            expires_in: Date.now() + 60 * 60 * 24,
+          .reply(200, () => {
+            requestCount += 1
+            return {
+              access_token: 'xxx',
+              expires_in: Date.now() + 60 * 60 * 24,
+            }
           })
 
         let nextCount = 0

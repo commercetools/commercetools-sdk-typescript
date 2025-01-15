@@ -90,6 +90,7 @@ import { ProductVariantTailoring } from './product-tailoring'
 import { Quote, QuoteState } from './quote'
 import { QuoteRequest, QuoteRequestState } from './quote-request'
 import { Review } from './review'
+import { ShoppingListLineItem } from './shopping-list'
 import { StagedQuote, StagedQuoteState } from './staged-quote'
 import { StagedStandalonePrice, StandalonePrice } from './standalone-price'
 import { StateReference } from './state'
@@ -333,6 +334,9 @@ export type Message =
   | ReviewCreatedMessage
   | ReviewRatingSetMessage
   | ReviewStateTransitionMessage
+  | ShoppingListLineItemAddedMessage
+  | ShoppingListLineItemRemovedMessage
+  | ShoppingListMessage
   | StagedQuoteCreatedMessage
   | StagedQuoteDeletedMessage
   | StagedQuoteSellerCommentSetMessage
@@ -17017,6 +17021,149 @@ export interface ReviewStateTransitionMessage {
    */
   readonly force: boolean
 }
+export type ShoppingListMessage =
+  | ShoppingListLineItemAddedMessage
+  | ShoppingListLineItemRemovedMessage
+/**
+ *	Generated after a successful [Add ShoppingListLineItem](ctp:api:type:ShoppingListAddLineItemAction) update action.
+ *
+ */
+export interface ShoppingListLineItemAddedMessage {
+  readonly type: 'ShoppingListLineItemAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[Line Item](ctp:api:type:ShoppingListLineItem) that was added to the [ShoppingList](ctp:api:type:ShoppingList).
+   *
+   *
+   */
+  readonly lineItem: ShoppingListLineItem
+}
+/**
+ *	Generated after a successful [Remove ShoppingListLineItem](ctp:api:type:ShoppingListRemoveLineItemAction) update action.
+ *
+ */
+export interface ShoppingListLineItemRemovedMessage {
+  readonly type: 'ShoppingListLineItemRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[Line Item](ctp:api:type:ShoppingListLineItem) that was removed from the [ShoppingList](ctp:api:type:ShoppingList).
+   *
+   *
+   */
+  readonly lineItem: ShoppingListLineItem
+}
 /**
  *	Generated after a successful [Create StagedQuote](ctp:api:endpoint:/{projectKey}/staged-quotes:POST) request.
  *
@@ -19456,6 +19603,9 @@ export type MessagePayload =
   | ReviewCreatedMessagePayload
   | ReviewRatingSetMessagePayload
   | ReviewStateTransitionMessagePayload
+  | ShoppingListLineItemAddedMessagePayload
+  | ShoppingListLineItemRemovedMessagePayload
+  | ShoppingListMessagePayload
   | ShoppingListStoreSetMessagePayload
   | StagedQuoteCreatedMessagePayload
   | StagedQuoteDeletedMessagePayload
@@ -23824,6 +23974,35 @@ export interface ReviewStateTransitionMessagePayload {
    *
    */
   readonly force: boolean
+}
+export type ShoppingListMessagePayload =
+  | ShoppingListLineItemAddedMessagePayload
+  | ShoppingListLineItemRemovedMessagePayload
+/**
+ *	Generated after a successful [Add ShoppingListLineItem](ctp:api:type:ShoppingListAddLineItemAction) update action.
+ *
+ */
+export interface ShoppingListLineItemAddedMessagePayload {
+  readonly type: 'ShoppingListLineItemAdded'
+  /**
+   *	[Line Item](ctp:api:type:ShoppingListLineItem) that was added to the [ShoppingList](ctp:api:type:ShoppingList).
+   *
+   *
+   */
+  readonly lineItem: ShoppingListLineItem
+}
+/**
+ *	Generated after a successful [Remove ShoppingListLineItem](ctp:api:type:ShoppingListRemoveLineItemAction) update action.
+ *
+ */
+export interface ShoppingListLineItemRemovedMessagePayload {
+  readonly type: 'ShoppingListLineItemRemoved'
+  /**
+   *	[Line Item](ctp:api:type:ShoppingListLineItem) that was removed from the [ShoppingList](ctp:api:type:ShoppingList).
+   *
+   *
+   */
+  readonly lineItem: ShoppingListLineItem
 }
 export interface ShoppingListStoreSetMessagePayload {
   readonly type: 'ShoppingListStoreSet'

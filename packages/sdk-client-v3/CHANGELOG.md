@@ -1,5 +1,35 @@
 # @commercetools/ts-client
 
+## 3.0.0
+
+### Major Changes
+
+- [#896](https://github.com/commercetools/commercetools-sdk-typescript/pull/896) [`f9b8cb6`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f9b8cb605d99fe5ece13bdc3c152eb4818e19b3b) Thanks [@lojzatran](https://github.com/lojzatran)! - Remove support of nodejs 16
+
+## 2.1.7
+
+### Patch Changes
+
+- [#887](https://github.com/commercetools/commercetools-sdk-typescript/pull/887) [`3ee183a`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3ee183a3329012b4bcfe6eb7a6b0044232bbdb5d) Thanks [@lojzatran](https://github.com/lojzatran)! - fix(SUPPORT-30038): clone deep the request object
+
+## 2.1.6
+
+### Patch Changes
+
+- [#884](https://github.com/commercetools/commercetools-sdk-typescript/pull/884) [`3bfcd2e`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3bfcd2e5bae47499bb1694f594bf01d6caa190a2) Thanks [@ajimae](https://github.com/ajimae)! - [Fix][DEVX-514] Fix v3 AbortController Retry Reinitialization
+
+## 2.1.5
+
+### Patch Changes
+
+- [#864](https://github.com/commercetools/commercetools-sdk-typescript/pull/864) [`2d622a1`](https://github.com/commercetools/commercetools-sdk-typescript/commit/2d622a144cc3d3d8d30129af863cde013a0d6102) Thanks [@ajimae](https://github.com/ajimae)! - Fix issue with sdk-client-v3 returning undefined body on error
+
+## 2.1.4
+
+### Patch Changes
+
+- [#869](https://github.com/commercetools/commercetools-sdk-typescript/pull/869) [`c41025e`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c41025ed47a83b60d7cd7dc69121fb965bb66c24) Thanks [@barbara79](https://github.com/barbara79)! - fix client v3: make httpClient optional
+
 ## 2.1.3
 
 ### Patch Changes

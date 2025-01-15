@@ -10,6 +10,8 @@ import {
 } from '../../models/business-unit'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
+import { ByProjectKeyBusinessUnitsSearchIndexingStatusRequestBuilder } from '../indexing-status/by-project-key-business-units-search-indexing-status-request-builder'
+import { ByProjectKeyBusinessUnitsSearchRequestBuilder } from '../search/by-project-key-business-units-search-request-builder'
 import { ByProjectKeyBusinessUnitsByIDRequestBuilder } from './by-project-key-business-units-by-id-request-builder'
 import { ByProjectKeyBusinessUnitsKeyByKeyRequestBuilder } from './by-project-key-business-units-key-by-key-request-builder'
 /**
@@ -43,6 +45,28 @@ export class ByProjectKeyBusinessUnitsRequestBuilder {
       pathArgs: {
         ...this.args.pathArgs,
         ...childPathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	This endpoint provides high-performance search queries over Business Units.
+   *
+   */
+  public search(): ByProjectKeyBusinessUnitsSearchRequestBuilder {
+    return new ByProjectKeyBusinessUnitsSearchRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public searchIndexingStatus(): ByProjectKeyBusinessUnitsSearchIndexingStatusRequestBuilder {
+    return new ByProjectKeyBusinessUnitsSearchIndexingStatusRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
       },
       executeRequest: this.args.executeRequest,
       baseUri: this.args.baseUri,

@@ -5,6 +5,7 @@ import type {
   Next,
   OTelemetryMiddlewareOptions,
 } from '../types/types'
+import { recordNewrelic, recordDatadog, time } from './helpers'
 
 /**
  * default newrelic APM and
@@ -15,9 +16,8 @@ const defaultOptions = {
    * if this is to be used with newrelic, then
    * pass this (apm) as an option in the `createTelemetryMiddleware`
    * function e.g createTelemetryMiddleware({ apm: () => require('newrelic'), ... })
-   * Note: don't forget to install newrelic agent in your project `yarn add newrelic`
    */
-  apm: () => {},
+  apm: () => require('newrelic'),
   tracer: () => require('../opentelemetry'),
 }
 
@@ -41,12 +41,25 @@ export default function createTelemetryMiddleware(
 
   trace() // expose tracing modules
   return (next: Next): Next =>
-    (request: MiddlewareRequest, response: MiddlewareResponse) => {
+    async (request: MiddlewareRequest) => {
+      // get start (high resolution milliseconds) timestamp
+      const start = time()
+
       const nextRequest = {
         ...request,
         ...options,
       }
 
-      next(nextRequest, response)
+      const response: MiddlewareResponse = await next(nextRequest)
+      const response_time = time() - start
+
+      // send `response_time` to APM platforms
+      if (options?.customMetrics) {
+        options.customMetrics.newrelic && recordNewrelic(response_time)
+        options.customMetrics.datadog &&
+          recordDatadog(response_time, { env: 'dev' })
+      }
+
+      return response
     }
 }

@@ -1,6 +1,5 @@
 import { HttpMiddlewareOptions, MiddlewareRequest } from '../../src'
 import { createHttpMiddleware } from '../../src/middleware'
-import fetch from 'node-fetch'
 
 function createTestRequest(options) {
   return {
@@ -394,14 +393,14 @@ describe('Http Middleware.', () => {
     }
   })
 
-  test('should return a parse a text encoded response as json', async () => {
+  test('should return a text encoded response as a parsed json', async () => {
     const _response = {
       data: {},
       statusCode: 200,
     }
 
     const response = createTestResponse({
-      text: () => _response,
+      text: () => JSON.stringify(_response),
     })
 
     const request = createTestRequest({
@@ -427,6 +426,47 @@ describe('Http Middleware.', () => {
     }
 
     await createHttpMiddleware(httpMiddlewareOptions)(next)(request)
+  })
+
+  test('should throw an error if it is unable to parse a text response', async () => {
+    const _response = {
+      data: {},
+      statusCode: 200,
+    }
+
+    const response = createTestResponse({
+      text: () => _response, // this is not a text response
+    })
+
+    const request = createTestRequest({
+      uri: '/error-url/retry',
+      method: 'POST',
+      body: { id: 'test-id' },
+      headers: {
+        'Content-Type': 'image/jpeg',
+      },
+    })
+
+    const httpMiddlewareOptions: HttpMiddlewareOptions = {
+      host: 'http://api-host.com',
+      httpClient: jest.fn(() => response),
+      enableRetry: false,
+    }
+
+    const next = (req: MiddlewareRequest) => {
+      expect(typeof req.response).toEqual('object')
+      expect(req.response?.body).toEqual(_response)
+
+      return response
+    }
+
+    try {
+      await createHttpMiddleware(httpMiddlewareOptions)(next)(request)
+    } catch (e) {
+      expect(e.body).toEqual(null)
+      expect(e.error.statusCode).toEqual(0)
+      expect(e.error.name).toEqual('NetworkError')
+    }
   })
 
   describe('::retry test', () => {

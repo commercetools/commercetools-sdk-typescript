@@ -1,3 +1,4 @@
+const { newrelic } = require('@commercetools/ts-sdk-apm')
 const ResponseHandler = require('../utils/response')
 
 /**
@@ -10,7 +11,13 @@ class ProductController {
   }
 
   async getProducts(req, res) {
+    const start = performance.now()
     const data = await this.productService.getProduct(req.body)
+
+    newrelic.recordMetric(
+      'GetProductsEndpoint/Response/Time/Total',
+      performance.now() - start
+    )
 
     if (data.statusCode == 200) {
       return ResponseHandler.successResponse(
@@ -20,6 +27,7 @@ class ProductController {
         data.body
       )
     }
+
     return ResponseHandler.errorResponse(
       res,
       data.statusCode || data.body.statusCode,

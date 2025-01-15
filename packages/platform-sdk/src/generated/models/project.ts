@@ -13,6 +13,16 @@ import { MessagesConfiguration, MessagesConfigurationDraft } from './message'
 import { CustomFieldLocalizedEnumValue } from './type'
 
 /**
+ *	The current indexing status of Business Unit Search.
+ *
+ */
+export type BusinessUnitIndexingStatus =
+  | 'Failed'
+  | 'Indexing'
+  | 'Ready'
+  | 'Scheduled'
+  | string
+/**
  *	The current indexing status of Customer Search.
  *
  */
@@ -39,6 +49,12 @@ export interface BusinessUnitConfiguration {
  *	Default value for [Business Unit Status](ctp:api:type:BusinessUnitStatus) configured though [Project settings](/../api/projects/project#change-my-business-unit-status-on-creation).
  */
 export type BusinessUnitConfigurationStatus = 'Active' | 'Inactive' | string
+/**
+ *	Specifies the status of the [Business Unit Search](/../api/projects/business-unit-search) index.
+ *	You can change the status using the [Change Business Unit Search Status](ctp:api:type:ProjectChangeBusinessUnitSearchStatusAction) update action.
+ *
+ */
+export type BusinessUnitSearchStatus = 'Activated' | 'Deactivated' | string
 export interface CartsConfiguration {
   /**
    *	Default value for the `deleteDaysAfterLastModification` parameter of the [CartDraft](ctp:api:type:CartDraft) and [MyCartDraft](ctp:api:type:MyCartDraft).
@@ -197,6 +213,7 @@ export interface ProjectUpdate {
   readonly actions: ProjectUpdateAction[]
 }
 export type ProjectUpdateAction =
+  | ProjectChangeBusinessUnitSearchStatusAction
   | ProjectChangeBusinessUnitStatusOnCreationAction
   | ProjectChangeCartsConfigurationAction
   | ProjectChangeCountriesAction
@@ -237,6 +254,11 @@ export interface SearchIndexingConfiguration {
    *
    */
   readonly customers?: SearchIndexingConfigurationValues
+  /**
+   *	Configuration for the [Business Unit Search](/../api/projects/business-unit-search) feature.
+   *
+   */
+  readonly businessUnits?: SearchIndexingConfigurationValues
 }
 /**
  *	Status of resource indexing.
@@ -307,6 +329,14 @@ export interface ShoppingListsConfiguration {
    *
    */
   readonly deleteDaysAfterLastModification?: number
+}
+export interface ProjectChangeBusinessUnitSearchStatusAction {
+  readonly action: 'changeBusinessUnitSearchStatus'
+  /**
+   *	Activates or deactivates the [Search Business Units](ctp:api:endpoint:/{projectKey}/business-units/search:POST) feature. Activation will trigger building a search index for the Business Units in the Project.
+   *
+   */
+  readonly status: BusinessUnitSearchStatus
 }
 export interface ProjectChangeBusinessUnitStatusOnCreationAction {
   readonly action: 'changeMyBusinessUnitStatusOnCreation'

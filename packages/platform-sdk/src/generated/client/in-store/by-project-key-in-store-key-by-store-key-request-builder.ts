@@ -4,6 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { executeRequest } from '../../shared/utils/common-types'
+import { ByProjectKeyInStoreKeyByStoreKeyBusinessUnitsRequestBuilder } from '../business-units/by-project-key-in-store-key-by-store-key-business-units-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCartDiscountsRequestBuilder } from '../cart-discounts/by-project-key-in-store-key-by-store-key-cart-discounts-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder } from '../carts/by-project-key-in-store-key-by-store-key-carts-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyCustomersRequestBuilder } from '../customers/by-project-key-in-store-key-by-store-key-customers-request-builder'
@@ -194,6 +195,18 @@ export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
    */
   public quotes(): ByProjectKeyInStoreKeyByStoreKeyQuotesRequestBuilder {
     return new ByProjectKeyInStoreKeyByStoreKeyQuotesRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	A Business Unit can represent a Company or a Division.
+   */
+  public businessUnits(): ByProjectKeyInStoreKeyByStoreKeyBusinessUnitsRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyBusinessUnitsRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },
