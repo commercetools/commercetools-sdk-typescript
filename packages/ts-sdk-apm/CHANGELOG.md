@@ -1,5 +1,11 @@
 # @commercetools/ts-sdk-apm
 
+## 3.1.0
+
+### Minor Changes
+
+- [#861](https://github.com/commercetools/commercetools-sdk-typescript/pull/861) [`e8a0e92`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e8a0e928e2ab48bd47d6ff6384f385b24e485755) Thanks [@ajimae](https://github.com/ajimae)! - Add custom metric
+
 ## 3.0.0
 
 ### Major Changes

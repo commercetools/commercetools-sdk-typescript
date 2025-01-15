@@ -1,5 +1,13 @@
 # @commercetools/ts-client
 
+## 3.0.1
+
+### Patch Changes
+
+- [#902](https://github.com/commercetools/commercetools-sdk-typescript/pull/902) [`a08c782`](https://github.com/commercetools/commercetools-sdk-typescript/commit/a08c78267518c5010940a1f0887319225c8beb6d) Thanks [@ajimae](https://github.com/ajimae)! - remove buffer module and replace with js native String.normalize function
+
+- [#841](https://github.com/commercetools/commercetools-sdk-typescript/pull/841) [`626c403`](https://github.com/commercetools/commercetools-sdk-typescript/commit/626c4035544c804db96a6e5f1c63f6ea9073c649) Thanks [@ajimae](https://github.com/ajimae)! - Improve README.md file
+
 ## 3.0.0
 
 ### Major Changes
