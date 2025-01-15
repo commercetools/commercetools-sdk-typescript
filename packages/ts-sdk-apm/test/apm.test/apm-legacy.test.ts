@@ -1,9 +1,12 @@
-import { ClientBuilder } from '@commercetools/ts-client'
-import { type MiddlewareRequest, createTelemetryMiddleware } from '../../src'
+import {
+  type MiddlewareRequestLegacy,
+  type NextLegacy,
+  createTelemetryMiddlewareLegacy,
+} from '../../src'
 
 jest.mock('../../opentelemetry', () => {})
 
-function createTestRequest(options): MiddlewareRequest {
+function createTestRequest(options): MiddlewareRequestLegacy {
   return {
     uri: '',
     method: 'GET',
@@ -26,33 +29,32 @@ describe('apm', () => {
     },
   })
 
+  // lagacy tests
   describe('apm test - null tracer configurations', () => {
     const response = createTestResponse({})
-    const telemetryMiddleware = createTelemetryMiddleware({
+    const telemetryMiddleware = createTelemetryMiddlewareLegacy({
       apm: null as any,
       tracer: null as any,
     })
 
     test('retains existing request (headers)', async () => {
-      const next = (req: MiddlewareRequest) => {
+      const next = (req: MiddlewareRequestLegacy) => {
         expect(req.headers?.Authorization).toBe('123')
-        return response
       }
 
-      await telemetryMiddleware(next)(request)
+      await telemetryMiddleware(next)(request, response)
     })
 
     test('should use default apm and tracing configurations', async () => {
-      const next = (req: MiddlewareRequest) => {
+      const next = (req: MiddlewareRequestLegacy) => {
         expect(req['apm']).toBeTruthy()
         expect(req['tracer']).toBeTruthy()
 
         expect(typeof req['apm']).toEqual('function')
         expect(typeof req['tracer']).toEqual('function')
-        return response
       }
 
-      await telemetryMiddleware(next)(request)
+      await telemetryMiddleware(next)(request, response)
     })
   })
 
@@ -63,10 +65,10 @@ describe('apm', () => {
     }
 
     const response = createTestResponse({})
-    const telemetryMiddleware = createTelemetryMiddleware(options)
+    const telemetryMiddleware = createTelemetryMiddlewareLegacy(options)
 
-    test('adds an `apm` and `tracer` properties in request object', () => {
-      const next = async (req: MiddlewareRequest) => {
+    test('adds an `apm` and `tracer` properties in request object', async () => {
+      const next = (req: MiddlewareRequestLegacy) => {
         expect(req['apm']).toBeTruthy()
         expect(req['tracer']).toBeTruthy()
 
@@ -81,11 +83,9 @@ describe('apm', () => {
 
         expect(options.apm).toHaveBeenCalled()
         expect(options.tracer).toHaveBeenCalled
-
-        return response
       }
 
-      telemetryMiddleware(next)(request)
+      await telemetryMiddleware(next)(request, response)
     })
   })
 })

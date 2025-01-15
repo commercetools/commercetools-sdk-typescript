@@ -1,11 +1,11 @@
 import type {
-  Middleware,
-  MiddlewareRequest,
-  MiddlewareResponse,
+  MiddlewareLegacy,
+  MiddlewareRequestLegacy,
+  MiddlewareResponseLegacy,
+  NextLegacy,
   Next,
   OTelemetryMiddlewareOptions,
 } from '../types/types'
-import { recordNewrelic, recordDatadog, time } from './helpers'
 
 /**
  * default newrelic APM and
@@ -16,14 +16,20 @@ const defaultOptions = {
    * if this is to be used with newrelic, then
    * pass this (apm) as an option in the `createTelemetryMiddleware`
    * function e.g createTelemetryMiddleware({ apm: () => require('newrelic'), ... })
+   * Note: don't forget to install newrelic agent in your project `yarn add newrelic`
    */
-  apm: () => require('newrelic'),
+  apm: () => {},
   tracer: () => require('../opentelemetry'),
 }
 
+/**
+ * @deprecated use new `createTelemetryMiddleware`
+ * @param options
+ * @returns
+ */
 export default function createTelemetryMiddleware(
   options: OTelemetryMiddlewareOptions
-): Middleware {
+): MiddlewareLegacy {
   // trace
   function trace() {
     // validate apm and tracer
@@ -40,26 +46,13 @@ export default function createTelemetryMiddleware(
   }
 
   trace() // expose tracing modules
-  return (next: Next): Next =>
-    async (request: MiddlewareRequest) => {
-      // get start (high resolution milliseconds) timestamp
-      const start = time()
-
+  return (next: NextLegacy): NextLegacy =>
+    (request: MiddlewareRequestLegacy, response: MiddlewareResponseLegacy) => {
       const nextRequest = {
         ...request,
         ...options,
       }
 
-      const response: MiddlewareResponse = await next(nextRequest)
-      const response_time = time() - start
-
-      // send `response_time` to APM platforms
-      if (options?.customMetrics) {
-        options.customMetrics.newrelic && recordNewrelic(response_time)
-        options.customMetrics.datadog &&
-          recordDatadog(response_time, { env: 'dev' })
-      }
-
-      return response
+      next(nextRequest, response)
     }
 }
