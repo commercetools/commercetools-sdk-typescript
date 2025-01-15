@@ -1,8 +1,5 @@
 const { ClientBuilder } = require('@commercetools/sdk-client-v2')
-// const { createTelemetryMiddleware } = require('@commercetools/ts-sdk-apm')
-const {
-  createTelemetryMiddleware,
-} = require('@commercetools/ts-sdk-apm/dist/commercetools-ts-sdk-apm.cjs.js')
+const { createTelemetryMiddleware } = require('@commercetools/ts-sdk-apm')
 const { createApiBuilderFromCtpClient } = require('@commercetools/platform-sdk')
 const fetch = require('node-fetch')
 
@@ -21,14 +18,14 @@ const authMiddlewareOptions = {
     },
   },
   scopes: [`manage_project:${projectKey}`],
-  fetch,
+  httpClient: fetch,
 }
 
 const httpMiddlewareOptions = {
   host: 'https://api.europe-west1.gcp.commercetools.com',
   includeRequestInErrorResponse: false,
   includeOriginalRequest: true,
-  fetch,
+  httpClient: fetch,
 }
 
 // newrelic options

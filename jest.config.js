@@ -9,7 +9,6 @@ module.exports = {
     '^.+\\.js$': 'babel-jest',
     '^.+\\.tsx?$': 'ts-jest',
   },
-  forceExit: true,
   testRegex: '\\.(test|spec)\\.[t]sx?$',
   moduleFileExtensions: ['ts', 'js', 'json'],
   collectCoverageFrom: ['**/integration-tests/**', '!**/generated/**'],
