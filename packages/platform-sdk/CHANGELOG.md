@@ -1,5 +1,54 @@
 # @commercetools/platform-sdk
 
+## 8.1.0
+
+### Minor Changes
+
+- [#900](https://github.com/commercetools/commercetools-sdk-typescript/pull/900) [`548c38e`](https://github.com/commercetools/commercetools-sdk-typescript/commit/548c38e62c540cc7ca4ee96c401238a8884f8d32) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Resource(s)</summary>
+
+  - added resource `/{projectKey}/in-store/key={storeKey}/business-units`
+  - added resource `/{projectKey}/in-store/key={storeKey}/business-units/key={key}`
+  - added resource `/{projectKey}/in-store/key={storeKey}/business-units/{ID}`
+  </details>
+
+  <details>
+  <summary>Required Property(s)</summary>
+
+  - :warning: changed property `triggerPattern` of type `CartDiscountPatternTarget` to be required
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `inheritedStores` to type `BusinessUnit`
+  - added property `inheritedStores` to type `Company`
+  - added property `inheritedStores` to type `Division`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().businessUnits().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().businessUnits().head()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().businessUnits().post()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().businessUnits().withKey().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().businessUnits().withKey().head()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().businessUnits().withKey().post()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().businessUnits().withKey().delete()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().businessUnits().withId().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().businessUnits().withId().head()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().businessUnits().withId().post()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().businessUnits().withId().delete()`
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`a08c782`](https://github.com/commercetools/commercetools-sdk-typescript/commit/a08c78267518c5010940a1f0887319225c8beb6d), [`626c403`](https://github.com/commercetools/commercetools-sdk-typescript/commit/626c4035544c804db96a6e5f1c63f6ea9073c649)]:
+  - @commercetools/ts-client@3.0.1
+
 ## 8.0.0
 
 ### Major Changes
