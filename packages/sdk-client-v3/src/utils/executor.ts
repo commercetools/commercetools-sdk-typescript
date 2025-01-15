@@ -36,7 +36,7 @@ export default async function executor(request: HttpClientConfig) {
 
   const data: TResponse = await executeHttpClientRequest(
     async (options: HttpClientConfig): Promise<TResponse> => {
-      const { enableRetry, retryConfig, abortController } = rest
+      const { enableRetry, retryConfig, timeout, getAbortController } = rest
       const {
         retryCodes = [],
         maxDelay = Infinity,
@@ -49,18 +49,18 @@ export default async function executor(request: HttpClientConfig) {
 
       let result: string,
         data: any,
-        retryCount: number = 0
+        retryCount: number = 0,
+        timer: ReturnType<typeof setTimeout>
 
       // validate the `retryCodes` option
       validateRetryCodes(retryCodes)
 
       async function execute() {
         return httpClient(url, {
-          ...rest,
           ...options,
+          ...rest,
           headers: {
             ...rest.headers,
-            ...options.headers,
 
             // axios header encoding
             'Accept-Encoding': 'application/json',
@@ -72,12 +72,30 @@ export default async function executor(request: HttpClientConfig) {
         })
       }
 
+      function initializeAbortController() {
+        const abortController =
+          (getAbortController ? getAbortController() : null) ||
+          new AbortController()
+        rest.abortController = abortController
+        rest.signal = abortController.signal
+        return abortController
+      }
+
       async function executeWithRetry<T = any>(): Promise<T> {
         const executeWithTryCatch = async (
           retryCodes: (string | number)[],
           retryWhenAborted: boolean
         ) => {
           let _response = {} as any
+          if (timeout) {
+            let abortController = initializeAbortController()
+
+            timer = setTimeout(() => {
+              abortController.abort()
+              abortController = initializeAbortController()
+            }, timeout)
+          }
+
           try {
             _response = await execute()
             if (
@@ -87,42 +105,47 @@ export default async function executor(request: HttpClientConfig) {
               return { _response, shouldRetry: true }
             }
           } catch (e) {
-            if (e.name.includes('AbortError') && retryWhenAborted) {
+            //  in nodejs v18, the error is AbortError, in nodejs v20, the error is TimeoutError
+            //  https://github.com/nodejs/undici/issues/2590
+            if (
+              (e.name.includes('AbortError') ||
+                e.name.includes('TimeoutError')) &&
+              retryWhenAborted
+            ) {
               return { _response: e, shouldRetry: true }
             } else {
               throw e
             }
+          } finally {
+            clearTimeout(timer)
           }
+
           return { _response, shouldRetry: false }
         }
 
-        const retryWhenAborted =
-          retryOnAbort || !abortController || !abortController.signal
         // first attempt
         let { _response, shouldRetry } = await executeWithTryCatch(
           retryCodes,
-          retryWhenAborted
+          retryOnAbort
         )
         // retry attempts
         while (enableRetry && shouldRetry && retryCount < maxRetries) {
           retryCount++
-          const execution = await executeWithTryCatch(
-            retryCodes,
-            retryWhenAborted
+
+          // delay next retry attempt
+          await sleep(
+            calculateRetryDelay({
+              retryCount,
+              retryDelay,
+              maxRetries,
+              backoff,
+              maxDelay,
+            })
           )
+
+          const execution = await executeWithTryCatch(retryCodes, retryOnAbort)
           _response = execution._response
           shouldRetry = execution.shouldRetry
-
-          // delay next execution
-          const timer = calculateRetryDelay({
-            retryCount,
-            retryDelay,
-            maxRetries,
-            backoff,
-            maxDelay,
-          })
-
-          await sleep(timer)
         }
 
         return _response
@@ -141,7 +164,7 @@ export default async function executor(request: HttpClientConfig) {
           data = response.data || response
         }
       } catch (err) {
-        data = result
+        throw err
       }
 
       return {
@@ -156,7 +179,13 @@ export default async function executor(request: HttpClientConfig) {
      * middleware options or from
      * http client config
      */
-    {}
+
+    /**
+     * we want to suppress axios internal
+     * error handling behaviour to make it
+     * consistent with native fetch.
+     */
+    { validateStatus: (status: number) => true }
   )
 
   return data

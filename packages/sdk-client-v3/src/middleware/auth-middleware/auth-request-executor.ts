@@ -12,7 +12,13 @@ import {
 import { buildRequestForRefreshTokenFlow } from './auth-request-builder'
 
 export async function executeRequest(options: executeRequestOptions) {
-  const { httpClient, tokenCache, userOption, tokenCacheObject } = options
+  const {
+    httpClient,
+    httpClientOptions,
+    tokenCache,
+    userOption,
+    tokenCacheObject,
+  } = options
 
   let url = options.url
   let body = options.body
@@ -62,6 +68,7 @@ export async function executeRequest(options: executeRequestOptions) {
         'Content-Length': byteLength(body),
       },
       httpClient,
+      httpClientOptions,
       body,
     })
 

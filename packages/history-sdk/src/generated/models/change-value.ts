@@ -4,6 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { PatternComponent } from './cart-discount'
 import {
   Address,
   DeliveryItem,
@@ -21,6 +22,7 @@ export type ChangeTargetChangeValue =
   | ChangeTargetLineItemsChangeValue
   | ChangeTargetMultiBuyCustomLineItemsChangeValue
   | ChangeTargetMultiBuyLineItemsChangeValue
+  | ChangeTargetPatternChangeValue
   | ChangeTargetShippingChangeValue
 export type ChangeValueChangeValue =
   | ChangeValueAbsoluteChangeValue
@@ -129,6 +131,35 @@ export interface ChangeTargetMultiBuyLineItemsChangeValue {
   readonly maxOccurrence: number
   /**
    *	SelectionMode based on which particular Line Items were discounted.
+   *
+   */
+  readonly selectionMode: SelectionMode
+}
+export interface ChangeTargetPatternChangeValue {
+  readonly type: 'pattern'
+  /**
+   *	Defines the set of units of (Custom) Line Items in a Cart that triggered the discount application.
+   *
+   *
+   */
+  readonly triggerPattern: PatternComponent[]
+  /**
+   *	Defines the set of units of (Custom) Line Items in a Cart on which the Discount is applied.
+   *
+   *
+   */
+  readonly targetPattern: PatternComponent[]
+  /**
+   *	Maximum number of times the Discount applies on a Cart.
+   *
+   *	If empty, the Discount applies indefinitely.
+   *
+   *
+   */
+  readonly maxOccurrence?: number
+  /**
+   *	Indicates which of the matching units of (Custom) Line Items were discounted.
+   *
    *
    */
   readonly selectionMode: SelectionMode

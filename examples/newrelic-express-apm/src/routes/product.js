@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const { ProductService } = require('../service')
 const { ProductController } = require('../controller')
-const { apiRoot } = require('../sdk-v2/sdk')
+const { apiRoot } = require('../sdk-v3/sdk')
 
 const productService = new ProductService({ apiRoot })
 const productController = new ProductController({ productService })

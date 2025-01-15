@@ -1,5 +1,3 @@
-import AbortController from 'abort-controller'
-
 export type Nullable<T> = T | null
 export type Keys = string | number | symbol
 export type JsonObject<T = unknown> = { [key in Keys]: T }
@@ -98,8 +96,9 @@ export type AuthMiddlewareOptions = {
   scopes?: Array<string>
   // For internal usage only
   oauthUri?: string
-  httpClient?: Function
   tokenCache?: TokenCache
+  httpClient?: Function
+  httpClientOptions?: object
 }
 
 export type TokenCacheOptions = {
@@ -139,6 +138,7 @@ export type RefreshAuthMiddlewareOptions = {
   // For internal usage only
   oauthUri?: string
   httpClient?: Function
+  httpClientOptions?: object
 }
 
 /* Request */
@@ -147,14 +147,15 @@ type requestBaseOptions = {
   body: string
   basicAuth: string
   request: MiddlewareRequest
-  tokenCache: TokenCache,
-  tokenCacheKey?: TokenCacheOptions,
+  tokenCache: TokenCache
+  tokenCacheKey?: TokenCacheOptions
   tokenCacheObject?: TokenStore
+  httpClientOptions?: object
 }
 
 export type executeRequestOptions = requestBaseOptions & {
   next: Next
-  httpClient: Function
+  httpClient?: Function
   userOption?: AuthMiddlewareOptions | PasswordAuthMiddlewareOptions
 }
 
@@ -162,8 +163,6 @@ export type AuthMiddlewareBaseOptions = requestBaseOptions & {
   request: MiddlewareRequest
   httpClient?: Function
 }
-
-export type RequestState = boolean
 
 export type Task = {
   request: MiddlewareRequest
@@ -188,6 +187,7 @@ export type PasswordAuthMiddlewareOptions = {
   // For internal usage only
   oauthUri?: string
   httpClient?: Function
+  httpClientOptions?: object
 }
 
 export type TokenInfo = {
@@ -213,9 +213,9 @@ export type HttpMiddlewareOptions = {
   timeout?: number
   enableRetry?: boolean
   retryConfig?: RetryOptions
-  httpClient: Function
-  getAbortController?: () => AbortController
+  httpClient?: Function
   httpClientOptions?: object // will be passed as a second argument to your httpClient function for configuration
+  getAbortController?: () => AbortController
 }
 
 export type RetryOptions = RetryMiddlewareOptions
@@ -223,7 +223,7 @@ export type RetryOptions = RetryMiddlewareOptions
 export type HttpOptions = {
   url: string
   clientOptions: HttpClientOptions
-  httpClient: Function
+  httpClient?: Function
 }
 
 export type LoggerMiddlewareOptions = {
@@ -293,17 +293,20 @@ export type IClientOptions = {
   body?: Record<string, any> | string | Uint8Array;
   timeout?: number
   abortController?: AbortController
+  signal?: AbortSignal,
+  getAbortController?: () => AbortController
   includeOriginalRequest?: boolean
   enableRetry?: boolean
   retryConfig?: RetryOptions
   maskSensitiveHeaderData?: boolean
+  httpClientOptions?: object
 }
 
 export type HttpClientOptions = IClientOptions & Optional
 
 export type HttpClientConfig = IClientOptions & {
   url: string
-  httpClient: Function
+  httpClient?: Function
 }
 
 type TResponse = {

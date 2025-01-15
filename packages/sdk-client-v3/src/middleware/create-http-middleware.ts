@@ -1,4 +1,3 @@
-import AbortController from 'abort-controller'
 import {
   ClientResult,
   HttpClientConfig,
@@ -22,7 +21,7 @@ import {
   getHeaders,
   isBuffer,
   maskAuthData,
-  validateHttpOptions,
+  validateHttpClientOptions,
 } from '../utils'
 
 async function executeRequest({
@@ -30,23 +29,14 @@ async function executeRequest({
   httpClient,
   clientOptions,
 }: HttpOptions): Promise<ClientResult> {
-  let timer: ReturnType<typeof setTimeout>
-
   const {
-    timeout,
     request,
-    abortController,
     maskSensitiveHeaderData,
     includeRequestInErrorResponse,
     includeResponseHeaders,
   } = clientOptions
 
   try {
-    if (timeout)
-      timer = setTimeout(() => {
-        abortController.abort()
-      }, timeout)
-
     const response: TResponse = await executor({
       url,
       ...clientOptions,
@@ -130,11 +120,10 @@ async function executeRequest({
     })
 
     throw {
-      body: error,
+      // because body and error should be mutually exclusive
+      body: null,
       error,
     }
-  } finally {
-    clearTimeout(timer)
   }
 }
 
@@ -142,7 +131,7 @@ export default function createHttpMiddleware(
   options: HttpMiddlewareOptions
 ): Middleware {
   // validate response
-  validateHttpOptions(options)
+  validateHttpClientOptions(options)
 
   const {
     host,
@@ -161,13 +150,6 @@ export default function createHttpMiddleware(
 
   return (next: Next) => {
     return async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {
-      let abortController: AbortController
-
-      if (timeout || getAbortController)
-        abortController =
-          (getAbortController ? getAbortController() : null) ||
-          new AbortController()
-
       const url = host.replace(/\/$/, '') + request.uri
       const requestHeader: JsonObject<QueryParam> = { ...request.headers }
 
@@ -216,13 +198,9 @@ export default function createHttpMiddleware(
         clientOptions.credentialsMode = credentialsMode
       }
 
-      if (abortController) {
-        clientOptions.signal = abortController.signal
-      }
-
       if (timeout) {
         clientOptions.timeout = timeout
-        clientOptions.abortController = abortController
+        clientOptions.getAbortController = getAbortController
       }
 
       if (body) {

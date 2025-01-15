@@ -39,12 +39,12 @@ import {
   AddressDraft,
   BaseAddress,
   BaseResource,
+  CentPrecisionMoney,
   CreatedBy,
   Image,
   LastModifiedBy,
   LocalizedString,
   PriceDraft,
-  TypedMoney,
   _BaseAddress,
   _Money,
 } from './common'
@@ -465,8 +465,7 @@ export interface CustomLineItemImportDraft {
    */
   readonly taxCategory?: TaxCategoryResourceIdentifier
   /**
-   *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget)
-   *	are applied to the Custom Line Item.
+   *	- If `Standard`, Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget), [MultiBuyCustomLineItemsTarget](ctp:api:type:MultiBuyCustomLineItemsTarget), or [CartDiscountPatternTarget](ctp:api:type:CartDiscountPatternTarget) are applied to the Custom Line Item.
    *	- If `External`, Cart Discounts are not considered on the Custom Line Item.
    *
    *
@@ -774,7 +773,7 @@ export interface Order extends BaseResource {
    *
    *
    */
-  readonly totalPrice: TypedMoney
+  readonly totalPrice: CentPrecisionMoney
   /**
    *	- For `Platform` [TaxMode](ctp:api:type:TaxMode), it is automatically set when a [shipping address is set](ctp:api:type:OrderSetShippingAddressAction).
    *	- For `External` [TaxMode](ctp:api:type:TaxMode), it is automatically set when `shippingAddress` and external Tax Rates for all Line Items, Custom Line Items, and Shipping Methods in the Cart are set.
@@ -2015,6 +2014,7 @@ export type ReturnShipmentState =
  */
 export type ShipmentState =
   | 'Backorder'
+  | 'Canceled'
   | 'Delayed'
   | 'Delivered'
   | 'Partial'

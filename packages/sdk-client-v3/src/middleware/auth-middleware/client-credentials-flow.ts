@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 import {
   AuthMiddlewareOptions,
   Middleware,
@@ -57,6 +56,7 @@ export default function createAuthMiddlewareForClientCredentialsFlow(
         tokenCacheKey,
         tokenCacheObject,
         httpClient: options.httpClient || fetch,
+        httpClientOptions: options.httpClientOptions,
         ...buildRequestForClientCredentialsFlow(options),
         next,
       }

@@ -1,6 +1,6 @@
 {
   "name": "@commercetools/ts-sdk-apm",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "commercetools typescript SDK application performance monitoring.",
   "main": "dist/commercetools-ts-sdk-apm.cjs.js",
   "module": "dist/commercetools-ts-sdk-apm.esm.js",
@@ -9,16 +9,18 @@
   "private": false,
   "dependencies": {
     "@opentelemetry/api": "^1.4.1",
-    "@opentelemetry/auto-instrumentations-node": "^0.50.0",
-    "@opentelemetry/exporter-metrics-otlp-http": "^0.53.0",
-    "@opentelemetry/sdk-node": "^0.53.0",
-    "uuid": "10.0.0"
+    "@opentelemetry/auto-instrumentations-node": "^0.55.0",
+    "@opentelemetry/exporter-metrics-otlp-http": "^0.57.0",
+    "@opentelemetry/sdk-node": "^0.57.0",
+    "dd-trace": "^5.31.0",
+    "newrelic": "^12.10.0",
+    "uuid": "11.0.4"
   },
   "publishConfig": {
     "access": "public"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=18"
   },
   "keywords": [
     "commercetools",
@@ -51,5 +53,8 @@
     "organize_imports": "find src -type f -name '*.ts' | xargs organize-imports-cli",
     "postbuild": "yarn organize_imports",
     "post_process_generate": "yarn organize_imports"
+  },
+  "devDependencies": {
+    "@types/newrelic": "^9.14.6"
   }
 }

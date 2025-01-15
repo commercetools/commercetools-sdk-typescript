@@ -326,6 +326,12 @@ export interface Company {
    */
   readonly stores?: StoreKeyReference[]
   /**
+   *	Stores that are inherited from a parent Business Unit. The value of this field is [eventually consistent](/../api/general-concepts#eventual-consistency) and is only present when the `storeMode` is set to `FromParent`.
+   *
+   *
+   */
+  readonly inheritedStores?: StoreKeyReference[]
+  /**
    *	The value of this field is always `Explicit` because a Company cannot have a parent Business Unit that Stores can be inherited from.
    *
    *
@@ -589,6 +595,12 @@ export interface Division {
    *
    */
   readonly stores?: StoreKeyReference[]
+  /**
+   *	Stores that are inherited from a parent Business Unit. The value of this field is [eventually consistent](/../api/general-concepts#eventual-consistency) and is only present when the `storeMode` is set to `FromParent`.
+   *
+   *
+   */
+  readonly inheritedStores?: StoreKeyReference[]
   /**
    *	Defines whether the Stores of the Division are set explicitly or inherited from a parent Business Unit.
    *

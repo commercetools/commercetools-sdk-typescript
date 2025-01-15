@@ -7,7 +7,6 @@ import {
 } from '@commercetools/ts-client'
 import { createApiBuilderFromCtpClient } from '../../src'
 import { requireEnvVar } from '../helpers/test-utils'
-const fetch = require('node-fetch')
 
 export const projectKey = requireEnvVar('CTP_PROJECT_KEY')
 const clientId = requireEnvVar('CTP_CLIENT_ID')
@@ -53,7 +52,7 @@ export const authMiddlewareOptions = {
   },
   tokenCache,
   scopes: [`manage_project:${projectKey}`],
-  fetch,
+  httpClient: fetch,
 }
 
 export const authMiddlewareOptionsV3 = {

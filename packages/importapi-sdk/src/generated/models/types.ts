@@ -12,7 +12,7 @@ import { ImportResource, LocalizedString } from './common'
  */
 export type TypeTextInputHint = 'MultiLine' | 'SingleLine' | string
 /**
- *	IDs indicating the [customizable resources and data types](/../api/projects/types#list-of-customizable-data-types). Maps to `Type.resourceTypeId`.
+ *	IDs indicating the [type of resource](ctp:api:type:ResourceTypeId). Maps to `Type.resourceTypeIds`.
  *
  */
 export type ResourceTypeId =
@@ -67,13 +67,13 @@ export interface CustomFieldBooleanType {
   readonly name: 'Boolean'
 }
 /**
- *	Field type for [DateTime](ctp:import:type:DateTime) values.
+ *	Field type for [DateTime](ctp:api:type:DateTime) values.
  */
 export interface CustomFieldDateTimeType {
   readonly name: 'DateTime'
 }
 /**
- *	Field type for [Date](ctp:import:type:Date) values.
+ *	Field type for [Date](ctp:api:type:Date) values.
  */
 export interface CustomFieldDateType {
   readonly name: 'Date'
@@ -131,13 +131,13 @@ export interface CustomFieldLocalizedEnumValue {
   readonly label: LocalizedString
 }
 /**
- *	Field type for [LocalizedString](ctp:import:type:LocalizedString) values.
+ *	Field type for [LocalizedString](ctp:api:type:LocalizedString) values.
  */
 export interface CustomFieldLocalizedStringType {
   readonly name: 'LocalizedString'
 }
 /**
- *	Field type for [CentPrecisionMoney](ctp:import:type:CentPrecisionMoney) values.
+ *	Field type for [CentPrecisionMoney](ctp:api:type:CentPrecisionMoney) values.
  */
 export interface CustomFieldMoneyType {
   readonly name: 'Money'
@@ -149,7 +149,7 @@ export interface CustomFieldNumberType {
   readonly name: 'Number'
 }
 /**
- *	Field type for [Reference](ctp:import:type:Reference) values.
+ *	Field type for [Reference](ctp:api:type:Reference) values.
  */
 export interface CustomFieldReferenceType {
   readonly name: 'Reference'
@@ -197,13 +197,13 @@ export interface CustomFieldStringType {
   readonly name: 'String'
 }
 /**
- *	Field type for [Time](ctp:import:type:Time) values.
+ *	Field type for [Time](ctp:api:type:Time) values.
  */
 export interface CustomFieldTimeType {
   readonly name: 'Time'
 }
 /**
- *	Defines a [Custom Field](/../api/projects/custom-fields) and its meta-information. Maps to `Type.FieldDefinition`.
+ *	Defines a [Custom Field](/projects/custom-fields) and its meta-information. Maps to `Type.FieldDefinition`.
  *
  */
 export interface FieldDefinition {
@@ -236,12 +236,12 @@ export interface FieldDefinition {
   readonly inputHint?: TypeTextInputHint
 }
 /**
- *	The data representation for a Type to be imported that is persisted as a [Type](/../api/projects/types#type) in the Project.
+ *	The data representation for a Type to be imported that is persisted as a [Type](ctp:api:type:Type) in the Project.
  *
  */
 export interface TypeImport extends ImportResource {
   /**
-   *	User-defined unique identifier for the Type. If a [Type](/../api/projects/types#type) with this `key` exists, it will be updated with the imported data.
+   *	User-defined unique identifier for the Type. If a [Type](ctp:api:type:Type) with this `key` exists, it will be updated with the imported data.
    *
    *
    */

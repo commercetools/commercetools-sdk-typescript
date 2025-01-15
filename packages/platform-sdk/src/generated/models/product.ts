@@ -302,13 +302,13 @@ export interface ProductData {
    */
   readonly slug: LocalizedString
   /**
-   *	Title of the Product as displayed in search engine results.
+   *	Title of the Product as used by search engines.
    *
    *
    */
   readonly metaTitle?: LocalizedString
   /**
-   *	Description of the Product as displayed in search engine results below the meta title.
+   *	Description of the Product as used by search engines.
    *
    *
    */
@@ -362,7 +362,7 @@ export interface ProductDraft {
   /**
    *	User-defined unique identifier for the Product.
    *
-   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Products with the [Import API](/../import-export/) and the [Merchant Center](/../merchant-center/import-data).
+   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Products with the [Import API](/../api/import-export/overview) and the [Merchant Center](/../merchant-center/import-data).
    *
    *	To update a Product using the Import API or Merchant Center, the Product `key` must match the pattern `^[A-Za-z0-9_-]{2,256}$`.
    *
@@ -388,13 +388,13 @@ export interface ProductDraft {
    */
   readonly categoryOrderHints?: CategoryOrderHints
   /**
-   *	Title of the Product as displayed in search engine results.
+   *	Title of the Product as used by search engines.
    *
    *
    */
   readonly metaTitle?: LocalizedString
   /**
-   *	Description of the Product as displayed in search engine results.
+   *	Description of the Product as used by search engines.
    *
    *
    */
@@ -894,7 +894,7 @@ export interface ProductVariant {
   readonly scopedPriceDiscounted?: boolean
 }
 /**
- *	The [InventoryEntry](ctp:api:type:InventoryEntry) information of the Product Variant. If there is a supply [Channel](ctp:api:type:Channel) for the InventoryEntry, then `channels` is returned. If not, then `isOnStock`, `restockableInDays`, and `quantityOnStock` are returned.
+ *	The [InventoryEntry](ctp:api:type:InventoryEntry) information of the Product Variant. If there is a supply [Channel](ctp:api:type:Channel) for the InventoryEntry, then `channels` is returned. If not, then `isOnStock`, `restockableInDays`, and `availableQuantity` are returned.
  *
  */
 export interface ProductVariantAvailability {
@@ -2095,7 +2095,7 @@ export interface ProductSetKeyAction {
   /**
    *	Value to set. If empty, any existing value will be removed.
    *
-   *	To update a Product using the [Import API](/../import-export/) and the [Merchant Center](/../merchant-center/import-data), the Product `key` must match the pattern `^[A-Za-z0-9_-]{2,256}$`.
+   *	To update a Product using the [Import API](/../api/import-export/overview) and the [Merchant Center](/../merchant-center/import-data), the Product `key` must match the pattern `^[A-Za-z0-9_-]{2,256}$`.
    *
    *
    */

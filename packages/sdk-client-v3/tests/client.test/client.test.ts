@@ -10,7 +10,6 @@ import {
   MethodType,
   ClientBuilder,
 } from '../../src'
-import fetch from 'node-fetch'
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
 import { stringifyURLString, parseURLString } from '../../src/utils'
 

@@ -4,19 +4,6 @@ version: 2.1
 aliases:
   - &working_directory ~/commercetools-sdk-typescript
 
-  # node version 16
-  - &restore_yarn_cache_node_16
-    name: 'Restoring yarn cache'
-    keys:
-      - yarn-cache-node_16-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
-
-  - &save_yarn_cache_node_16
-    name: 'Saving yarn cache'
-    key: yarn-cache-node_16-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
-    paths:
-      - ~/.cache/yarn
-
-
   # node version 18
   - &restore_yarn_cache_node_18
     name: 'Restoring yarn cache'
@@ -44,13 +31,22 @@ aliases:
     paths:
       - ~/.cache/yarn
 
+  # node version 22
+  - &restore_yarn_cache_node_22
+    name: 'Restoring yarn cache'
+    keys:
+      - yarn-cache-node_22-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
+
+  - &save_yarn_cache_node_22
+    name: 'Saving yarn cache'
+    key: yarn-cache-node_22-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
+    # Persisting to the workspace is always relative to the root which is our working directory.
+    # https://circleci.com/docs/2.0/configuration-reference/#persist_to_workspace
+    paths:
+      - ~/.cache/yarn
+
 # executors
 executors:
-  node_16:
-    docker:
-      - image: cimg/node:16.20.2
-    working_directory: *working_directory
-
   node_18:
     docker:
       - image: cimg/node:18.20.3
@@ -61,6 +57,11 @@ executors:
       - image: cimg/node:20.14.0
     working_directory: *working_directory
 
+  node_22:
+    docker:
+      - image: cimg/node:22.12.0
+    working_directory: *working_directory
+
 
 # orbs
 orbs:
@@ -68,32 +69,6 @@ orbs:
 
 # jobs
 jobs:
-  install_test_node_16:
-    executor: node_16
-    steps:
-      - checkout
-      - restore_cache: *restore_yarn_cache_node_16
-      - run:
-          name: Installing dependencies
-          command: yarn install --ignore-engines --frozen-lockfile # temp ignore engine checks [will deprecate node v16 soon]
-      - save_cache: *save_yarn_cache_node_16
-      - run:
-          name: Install example dependencies
-          command: |
-            cd examples
-            yarn install --frozen-lockfile
-      - run:
-          name: Building packages
-          command: yarn build
-      - run:
-          name: Running example tests
-          command: |
-            cd examples
-            yarn test
-      - run:
-          name: Running tests
-          command: yarn test --testPathIgnorePatterns='packages/platform-sdk/test/integration-tests'
-
   install_test_node_18:
     executor: node_18
     steps:
@@ -119,6 +94,12 @@ jobs:
       - run:
           name: Running tests
           command: yarn test --testPathIgnorePatterns='packages/platform-sdk/test/integration-tests'
+      - run:
+          name: Running integration tests
+          command: yarn test packages/platform-sdk/test/integration-tests --coverage
+      - codecov/upload:
+          file: coverage/clover.xml
+          flags: integrationtests
 
   install_test_node_20:
     executor: node_20
@@ -129,6 +110,54 @@ jobs:
           name: Installing dependencies
           command: yarn install --frozen-lockfile
       - save_cache: *save_yarn_cache_node_20
+      - run:
+          name: Install example dependencies
+          command: |
+            cd examples
+            yarn install --frozen-lockfile
+      - run:
+          name: Building packages
+          command: yarn build
+      - run:
+          name: Running example tests
+          command: |
+            cd examples
+            yarn test
+      - run:
+          name: Running tests
+          command: yarn test --testPathIgnorePatterns='packages/platform-sdk/test/integration-tests'
+      - run:
+          name: Running integration tests
+          command: yarn test packages/platform-sdk/test/integration-tests --coverage
+      - codecov/upload:
+          file: coverage/clover.xml
+          flags: integrationtests
+
+  install_test_node_22:
+    executor: node_22
+    steps:
+      - checkout
+      - restore_cache: *restore_yarn_cache_node_22
+      - run:
+          name: Installing dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache: *save_yarn_cache_node_22
+      - run:
+          name: Install example dependencies
+          command: |
+            cd examples
+            yarn install --frozen-lockfile
+      - run:
+          name: Building packages
+          command: yarn build
+      - run:
+          name: Running example tests
+          command: |
+            cd examples
+            yarn test
+      - run:
+          name: Running tests
+          command: yarn test --testPathIgnorePatterns='packages/platform-sdk/test/integration-tests'
       - run:
           name: Running integration tests
           command: yarn test packages/platform-sdk/test/integration-tests --coverage
@@ -141,13 +170,13 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - install_test_node_16:
-          context: org-global
       - install_test_node_18:
           context: org-global
-          # requires:
-          #   - install_test_node_16
       - install_test_node_20:
           context: org-global
           requires:
             - install_test_node_18
+      - install_test_node_22:
+          context: org-global
+          requires:
+            - install_test_node_20

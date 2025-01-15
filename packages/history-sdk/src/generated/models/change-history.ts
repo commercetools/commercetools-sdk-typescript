@@ -128,8 +128,7 @@ export interface RecordPagedQueryResponse {
   readonly results: Record[]
 }
 /**
- *	This data type represents the supported resource types.
- *	The value must be one of the following:
+ *	Value of resource types supported in Change History.
  *
  */
 export type ChangeHistoryResourceType =
@@ -203,7 +202,7 @@ export interface ErrorResponse {
  */
 export interface ModifiedBy {
   /**
-   *	`true` if the change was made using the Merchant Center or [ImpEx](https://impex.europe-west1.gcp.commercetools.com/).
+   *	`true` if the change was made using the Merchant Center.
    *
    *
    */
@@ -267,7 +266,7 @@ export type PlatformInitiatedChange =
   | 'setVariantAvailability'
   | string
 /**
- *	Values for the Source enumeration.
+ *	Source of change for the resource.
  */
 export type Source = 'ApiClient' | 'ImpEx' | 'MerchantCenter' | string
 export type UpdateType =

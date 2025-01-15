@@ -189,7 +189,8 @@ export interface ProductSelectionAssignment {
    */
   readonly productSelection: ProductSelectionReference
   /**
-   *	Define which Variants of the added Product will be included in the Product Selection.
+   *	Defines which particular Variants of the Product are included in the Product Selection.
+   *	If undefined all Variants of the referenced Product are included.
    *
    *	This field is only available for assignments to a Product Selection with `Individual` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
    *	The list of SKUs will be updated automatically on any change of those performed on the respective Product itself.
@@ -198,7 +199,8 @@ export interface ProductSelectionAssignment {
    */
   readonly variantSelection?: ProductVariantSelection
   /**
-   *	Defines which Variants of the Product will be excluded from the Product Selection.
+   *	Defines which particular Variants of the Product are excluded from the Product Selection.
+   *	If undefined all Variants of the referenced Product are excluded.
    *
    *	This field is only available for assignments to a Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
    *	The list of SKUs will be updated automatically on any change of those performed on the respective Product itself.

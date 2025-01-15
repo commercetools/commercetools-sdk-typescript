@@ -1,7 +1,7 @@
 import { MiddlewareRequest } from '../types/types'
 
 export default function maskAuthData(request: MiddlewareRequest) {
-  const _request = Object.assign({}, request)
+  const _request = JSON.parse(JSON.stringify(request))
   if (_request?.headers) {
     if (_request.headers.Authorization) {
       _request.headers['Authorization'] = 'Bearer ********'

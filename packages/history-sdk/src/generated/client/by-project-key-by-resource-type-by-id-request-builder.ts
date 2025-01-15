@@ -6,6 +6,7 @@
 import {
   PlatformInitiatedChange,
   RecordPagedQueryResponse,
+  Source,
 } from '../models/change-history'
 import { executeRequest, QueryParam } from '../shared/utils/common-types'
 import { ApiRequest } from '../shared/utils/requests-utils'
@@ -38,7 +39,7 @@ export class ByProjectKeyByResourceTypeByIDRequestBuilder {
       associateId?: string
       businessUnit?: string
       type?: string
-      source?: string
+      source?: Source
       changes?: string | string[]
       stores?: string | string[]
       excludePlatformInitiatedChanges?:

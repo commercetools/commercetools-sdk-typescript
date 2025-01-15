@@ -104,10 +104,10 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey?source=source',
+      uri: '/test_projectKey?source=MerchantCenter',
       request: apiRoot
         .withProjectKeyValue({ projectKey: 'test_projectKey' })
-        .get({ queryArgs: { source: 'source' } }),
+        .get({ queryArgs: { source: 'MerchantCenter' } }),
     },
     {
       method: 'get',

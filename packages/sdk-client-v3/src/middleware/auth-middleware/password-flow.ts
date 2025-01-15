@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 import {
   Middleware,
   MiddlewareRequest,
@@ -53,6 +52,7 @@ export default function createAuthMiddlewareForPasswordFlow(
         tokenCache,
         tokenCacheKey,
         httpClient: options.httpClient || fetch,
+        httpClientOptions: options.httpClientOptions,
         ...buildRequestForPasswordFlow(options),
         userOption: options,
         next,

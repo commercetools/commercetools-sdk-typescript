@@ -1,8 +1,10 @@
-var Buffer = require('buffer/').Buffer
-
 export default function byteLength<T>(body: T): string {
-  if (body && (typeof body === 'string' || body instanceof Uint8Array)) {
-    return Buffer.byteLength(body).toString()
+  if (body && typeof body === 'string') {
+    return body.normalize('NFD').length.toString()
+  }
+
+  if (body && body instanceof Uint8Array) {
+    return new TextDecoder().decode(body).length.toString()
   }
 
   if (body && typeof body === 'object') {
