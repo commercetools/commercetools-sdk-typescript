@@ -16,6 +16,7 @@
 <summary>Required Property(s)</summary>
 
 - :warning: changed property `triggerPattern` of type `CartDiscountPatternTarget` to be required
+- changed property `images` of type `ProductTailoringSetExternalImagesAction` to be optional
 </details>
 
 <details>

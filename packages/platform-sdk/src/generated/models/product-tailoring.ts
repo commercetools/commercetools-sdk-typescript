@@ -1234,11 +1234,14 @@ export interface ProductTailoringSetExternalImagesAction {
    */
   readonly sku?: string
   /**
-   *	Value to set to `images`.
+   *	Images of the tailored ProductVariant.
+   *
+   *	Don't provide this field if you want to remove all images from the tailored Product Variant.
+   *	Set to `[]` (empty) if you want to hide all images of the original ProductVariant on the tailored ProductVariant.
    *
    *
    */
-  readonly images: Image[]
+  readonly images?: Image[]
   /**
    *	If `true`, only the staged `images` is updated. If `false`, both the current and staged `images` is updated.
    *
