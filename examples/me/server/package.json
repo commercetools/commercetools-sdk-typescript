@@ -10,7 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "@commercetools/platform-sdk": "^1.19.0",
-    "@commercetools/sdk-client-v2": "^0.2.0",
+    "@commercetools/ts-client": "^3.0.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.20.0",
