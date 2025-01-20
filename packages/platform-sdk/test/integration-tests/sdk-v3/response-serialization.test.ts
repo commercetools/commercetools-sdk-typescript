@@ -48,7 +48,6 @@ describe('Response serialization test', () => {
       .head()
       .execute()
       .catch((error) => {
-        console.log(error)
         expect(error.statusCode).toEqual(404)
         expect(error.name).toEqual('NotFound')
         expect(error.method).toEqual('HEAD')
