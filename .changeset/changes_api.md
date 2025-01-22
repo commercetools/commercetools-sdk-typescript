@@ -5,11 +5,9 @@
 **Api changes**
 
 <details>
-<summary>Added Resource(s)</summary>
+<summary>Changed Property(s)</summary>
 
-- added resource `/{projectKey}/in-store/key={storeKey}/business-units`
-- added resource `/{projectKey}/in-store/key={storeKey}/business-units/key={key}`
-- added resource `/{projectKey}/in-store/key={storeKey}/business-units/{ID}`
+- :warning: changed property `discount` of type `DiscountedTotalPricePortion` from type `CartDiscountReference` to `Reference`
 </details>
 
 <details>
@@ -25,6 +23,14 @@
 - added property `inheritedStores` to type `BusinessUnit`
 - added property `inheritedStores` to type `Company`
 - added property `inheritedStores` to type `Division`
+</details>
+
+<details>
+<summary>Added Resource(s)</summary>
+
+- added resource `/{projectKey}/in-store/key={storeKey}/business-units`
+- added resource `/{projectKey}/in-store/key={storeKey}/business-units/key={key}`
+- added resource `/{projectKey}/in-store/key={storeKey}/business-units/{ID}`
 </details>
 
 <details>

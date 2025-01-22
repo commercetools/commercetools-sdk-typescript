@@ -1123,11 +1123,11 @@ export interface DiscountedLineItemPriceForQuantity {
 }
 export interface DiscountedTotalPricePortion {
   /**
-   *	Cart Discount related to the discounted price.
+   *	A [CartDiscountReference](ctp:api:type:CartDiscountReference) or [DirectDiscountReference](ctp:api:type:DirectDiscountReference) to the discount applied on the Cart `totalPrice`.
    *
    *
    */
-  readonly discount: CartDiscountReference
+  readonly discount: Reference
   /**
    *	Money value of the discount.
    *
