@@ -295,7 +295,7 @@ export interface OrderPagedSearchResponse {
   readonly hits: Hit[]
 }
 /**
- *	Possible values for the `customType` property on [query expressions](/../api/projects/order-search#query-expressions) indicating the data type of the `field`.
+ *	Possible values for the `customType` property on [simple expressions](/../api/projects/order-search#simple-expressions) indicating the data type of the `field`.
  */
 export type OrderSearchCustomType =
   | 'BooleanType'
@@ -327,7 +327,7 @@ export interface OrderSearchQueryExpressionValue {
    */
   readonly boost?: number
   /**
-   *	Possible values for the `customType` property on [query expressions](/../api/projects/order-search#query-expressions) indicating the data type of the `field`.
+   *	Possible values for the `customType` property on [simple expressions](/../api/projects/order-search#simple-expressions) indicating the data type of the `field`.
    *
    */
   readonly customType?: OrderSearchCustomType

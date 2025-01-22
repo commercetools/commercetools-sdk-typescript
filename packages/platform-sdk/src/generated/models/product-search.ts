@@ -64,24 +64,34 @@ export interface ProductSearchErrorResponse extends ErrorResponse {
 }
 export interface ProductSearchMatchingVariantEntry {
   /**
-   *	Unique identifier of the variant.
+   *	`id` of the [ProductVariant](ctp:api:type:ProductVariant) that matches the search query.
+   *
    *
    */
   readonly id: number
   /**
-   *	SKU of the matching variant.
+   *	`sku` of the ProductVariant that matches the search query.
+   *
    *
    */
   readonly sku?: string
 }
 export interface ProductSearchMatchingVariants {
   /**
-   *	Whether the search criteria definitely matches all Variants of the returned Product, like for Product-level fields. Is always `false` for search expressions on Variant-level fields.
+   *	`true` if all Variants of the returned Product match the search query, or if search query does not specify any expression for a [Product Variant field](/../api/projects/product-search#field-levels).
+   *
+   *	`false` if only a subset of the Product Variants match the search query.
+   *
+   *	Is always `false` for query expressions on Product Variant fields.
+   *
    *
    */
   readonly allMatched: boolean
   /**
-   *	The variants matching the search criteria or empty if all matched.
+   *	Identifiers of the Product Variants that match the search query.
+   *
+   *	Empty if all Product Variants of the returned Product match.
+   *
    *
    */
   readonly matchedVariants: ProductSearchMatchingVariantEntry[]
@@ -172,7 +182,10 @@ export interface ProductSearchRequest {
    */
   readonly offset?: number
   /**
-   *	The search can return Products where not all Product Variants match the search criteria. If `true`, the response will include a field called `matchingVariants` that contains the `sku` of Product Variants that match the search query. If the query does not specify any variant-level criteria, `matchingVariants` will be null signifying that all Product Variants are a match.
+   *	If `query` specifies an expression for a Product Variant field,
+   *	set this to `true` to get additional information for each returned Product about which Product Variants match the search query.
+   *	For details, see [matching variants](/../api/projects/product-search#matching-variants).
+   *
    *
    */
   readonly markMatchingVariants?: boolean
@@ -199,20 +212,25 @@ export interface ProductSearchRequest {
 }
 export interface ProductSearchResult {
   /**
-   *	Unique identifier of the Product.
+   *	`id` of the [Product](ctp:api:type:Product) that matches the search query.
+   *
    *
    */
   readonly id: string
   /**
-   *	Contains Product Projection data for Products matching the `projection` field in the Search Products request.
+   *	Information about which Product Variants match the search query.
+   *	Only present if `markMatchingVariants` is set to `true` in the [ProductSearchRequest](ctp:api:type:ProductSearchRequest).
    *
-   */
-  readonly productProjection?: ProductProjection
-  /**
-   *	Describes the variants that matched the search criteria.
    *
    */
   readonly matchingVariants?: ProductSearchMatchingVariants
+  /**
+   *	Projected data of the Product with `id`.
+   *	Only present if data integration [with Product Projection parameters](/../api/projects/product-search#with-product-projection-parameters) is requested.
+   *
+   *
+   */
+  readonly productProjection?: ProductProjection
 }
 export type ProductSearchFacetCountLevelEnum = 'products' | 'variants' | string
 export interface ProductSearchFacetCountValue {
