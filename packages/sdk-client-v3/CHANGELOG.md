@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 3.0.2
+
+### Patch Changes
+
+- [#914](https://github.com/commercetools/commercetools-sdk-typescript/pull/914) [`1dfdf4b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1dfdf4bceb41d26d69d3d45a083e15911bb36ce8) Thanks [@ajimae](https://github.com/ajimae)! - Fix issue with response serialization
+
 ## 3.0.1
 
 ### Patch Changes
