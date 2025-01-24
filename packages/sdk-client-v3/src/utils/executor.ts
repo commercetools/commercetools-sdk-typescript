@@ -157,7 +157,7 @@ export default async function executor(request: HttpClientConfig) {
         if (response.text && typeof response.text == 'function') {
           result =
             (await response.text()) ||
-            response[Object.getOwnPropertySymbols(response)[1]]
+            JSON.stringify(response[Object.getOwnPropertySymbols(response)[1]])
           data = JSON.parse(result)
         } else {
           // axios response
