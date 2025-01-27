@@ -8,6 +8,7 @@ Example to show how the Datadog APM can be used in the TypeScript SDK.
 - Your Project must have existing Products containing Variants, and at least one Customer.
 - If your Project is currently empty, you can install the [SUNRISE sample data](https://github.com/commercetools/commercetools-sunrise-data).
 - For Datadog setup, follow the instructions stated in our [official documentation website](https://docs.commercetools.com/sdk/observability/datadog#typescript-sdk) to properly install and set up the Datadog agent.
+  - Make sure that Node js has been installed as Integration to run this Demo application.
 
 ## Installation
 

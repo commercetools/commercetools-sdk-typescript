@@ -1,11 +1,11 @@
 require('dotenv').config()
+const agent = require('../agent').default
 const cors = require('cors')
 const express = require('express')
 
-const { apiRoot } = require('./sdk-v2')
+const { apiRoot } = require('./sdk-v3')
 const ResponseHandler = require('../utils/response')
 const request = require('../utils/request')
-const agent = require('../agent').default
 
 const app = express()
 const count = request()
@@ -25,7 +25,7 @@ app.use(function (req, res, next) {
 app.get('/project', async function (req, res, next) {
   const project = await apiRoot.get().execute()
 
-  if (project.statusCode == 200) {
+  if (project.statusCode === 200) {
     return ResponseHandler.successResponse(
       res,
       project.statusCode || project.body.statusCode,
@@ -45,7 +45,7 @@ app.get('/project', async function (req, res, next) {
 app.get('/customers', async function (req, res, next) {
   const customers = await apiRoot.customers().get().execute()
 
-  if (customers.statusCode == 200) {
+  if (customers.statusCode === 200) {
     return ResponseHandler.successResponse(
       res,
       customers.statusCode || customers.body.statusCode,
@@ -65,7 +65,7 @@ app.get('/customers', async function (req, res, next) {
 app.get('/products', async function (req, res, next) {
   const products = await apiRoot.products().get().execute()
 
-  if (products.statusCode == 200) {
+  if (products.statusCode === 200) {
     return ResponseHandler.successResponse(
       res,
       products.statusCode || products.body.statusCode,
