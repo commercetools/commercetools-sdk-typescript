@@ -38,7 +38,6 @@ const telemetryOptions = {
     datadog: true,
   },
 }
-console.log(telemetryOptions.tracer)
 
 const client = new ClientBuilder()
   .withClientCredentialsFlow(authMiddlewareOptions)

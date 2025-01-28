@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "datadog-express-apm",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
