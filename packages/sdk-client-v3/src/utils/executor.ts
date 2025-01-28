@@ -61,9 +61,6 @@ export default async function executor(request: HttpClientConfig) {
           ...rest,
           headers: {
             ...rest.headers,
-
-            // axios header encoding
-            'Accept-Encoding': 'application/json',
           },
 
           // for axios
