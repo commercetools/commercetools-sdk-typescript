@@ -28,7 +28,7 @@ const httpMiddlewareOptions = {
   httpClient: fetch,
 }
 
-// newrelic options
+// datadog options
 const telemetryOptions = {
   createTelemetryMiddleware,
   userAgent: 'typescript-sdk-middleware-datadog',
