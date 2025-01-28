@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 3.0.3
+
+### Patch Changes
+
+- [#920](https://github.com/commercetools/commercetools-sdk-typescript/pull/920) [`9e7987d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/9e7987dc70ece91ce372acdc41864ada789cec16) Thanks [@ajimae](https://github.com/ajimae)! - Remove the `Accept-Encoding` http header entry
+
 ## 3.0.2
 
 ### Patch Changes
