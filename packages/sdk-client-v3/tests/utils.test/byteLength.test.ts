@@ -33,6 +33,34 @@ describe('byteLength test', () => {
     expect(new TextEncoder().encode(str2).length.toString()).toEqual('16')
   })
 
+  test('should return the utf-8 encoded string length of non-ascii `ß` character', () => {
+    const str = 'Straße'
+    expect(byteLength(str)).toEqual('7')
+  })
+
+  test('should decode and return the length of a unique character', () => {
+    const str = '😎'
+    expect(byteLength(str)).toEqual('4')
+  })
+
+  test('should decode and return the length of some special character string', () => {
+    expect('帝'.length).toEqual(1)
+    expect('₦'.length).toEqual(1)
+    expect('₩'.length).toEqual(1)
+    expect('®'.length).toEqual(1)
+    expect('¾'.length).toEqual(1)
+    expect('‰'.length).toEqual(1)
+    expect('♠'.length).toEqual(1)
+
+    expect(byteLength('帝')).toEqual('3')
+    expect(byteLength('₦')).toEqual('3')
+    expect(byteLength('₩')).toEqual('3')
+    expect(byteLength('®')).toEqual('2')
+    expect(byteLength('¾')).toEqual('2')
+    expect(byteLength('‰')).toEqual('3')
+    expect(byteLength('♠')).toEqual('3')
+  })
+
   test('should return an accurate result of byte length of a string', () => {
     const str = 'the string length is 23'
     expect(byteLength(str)).toEqual('23')
