@@ -15,11 +15,15 @@ export default function createTelemetryMiddleware(
   function trace() {
     // validate apm and tracer
     if (!(options?.apm && typeof options.apm == 'function')) {
-      console.error('Apm is not a function.')
+      throw new Error(
+        'APM is missing or not a function. Please check your telemetry setup.'
+      )
     }
 
     if (!(options?.tracer && typeof options.tracer == 'function')) {
-      console.error('Tracer is not a function.')
+      throw new Error(
+        'Tracer is missing or not a function. Please check your telemetry setup.'
+      )
     }
   }
 
