@@ -1,5 +1,6 @@
 require('dotenv').config()
-const agent = require('../agent').default
+const agent = require('dd-trace').init()
+
 const cors = require('cors')
 const express = require('express')
 
@@ -16,7 +17,7 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(function (req, res, next) {
   const total = count()
-  agent.init().dogstatsd.gauge(`Commercetools_Client_Request_Total`, total, {
+  agent.dogstatsd.gauge(`Commercetools_Client_Request_Total`, total, {
     env: 'dev',
   })
   next()

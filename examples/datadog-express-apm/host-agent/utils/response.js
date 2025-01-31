@@ -1,4 +1,4 @@
-const agent = require('../agent').default
+const agent = require('dd-trace').default
 /**
  * @class Response
  *
