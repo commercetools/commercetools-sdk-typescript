@@ -1,16 +1,17 @@
 **Api changes**
 
 <details>
-<summary>Changed Property(s)</summary>
+<summary>Added Resource(s)</summary>
 
-- :warning: changed property `discount` of type `DiscountedTotalPricePortion` from type `CartDiscountReference` to `Reference`
+- added resource `/{projectKey}/in-store/key={storeKey}/business-units`
+- added resource `/{projectKey}/in-store/key={storeKey}/business-units/key={key}`
+- added resource `/{projectKey}/in-store/key={storeKey}/business-units/{ID}`
 </details>
 
 <details>
-<summary>Required Property(s)</summary>
+<summary>Changed Property(s)</summary>
 
-- :warning: changed property `triggerPattern` of type `CartDiscountPatternTarget` to be required
-- changed property `images` of type `ProductTailoringSetExternalImagesAction` to be optional
+- :warning: changed property `discount` of type `DiscountedTotalPricePortion` from type `CartDiscountReference` to `Reference`
 </details>
 
 <details>
@@ -22,11 +23,10 @@
 </details>
 
 <details>
-<summary>Added Resource(s)</summary>
+<summary>Required Property(s)</summary>
 
-- added resource `/{projectKey}/in-store/key={storeKey}/business-units`
-- added resource `/{projectKey}/in-store/key={storeKey}/business-units/key={key}`
-- added resource `/{projectKey}/in-store/key={storeKey}/business-units/{ID}`
+- changed property `images` of type `ProductTailoringSetExternalImagesAction` to be optional
+- :warning: changed property `triggerPattern` of type `CartDiscountPatternTarget` to be required
 </details>
 
 <details>
