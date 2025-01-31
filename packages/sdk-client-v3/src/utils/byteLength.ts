@@ -4,7 +4,7 @@ export default function byteLength<T>(body: T): string {
   }
 
   if (body && body instanceof Uint8Array) {
-    return new TextDecoder().decode(body).length.toString()
+    return body.byteLength.toString()
   }
 
   if (body && typeof body === 'object') {
