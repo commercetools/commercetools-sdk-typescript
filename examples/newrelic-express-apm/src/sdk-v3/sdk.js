@@ -1,9 +1,9 @@
-const { ClientBuilder } = require('@commercetools/sdk-client-v2')
+const { ClientBuilder } = require('@commercetools/ts-client')
 const { createTelemetryMiddleware } = require('@commercetools/ts-sdk-apm')
 const { createApiBuilderFromCtpClient } = require('@commercetools/platform-sdk')
 const fetch = require('node-fetch')
 
-const agent = require('../../agent')
+const agent = require('newrelic')
 
 const projectKey = process.env.CTP_PROJECT_KEY
 const authMiddlewareOptions = {
@@ -31,7 +31,11 @@ const httpMiddlewareOptions = {
 // newrelic options
 const telemetryOptions = {
   createTelemetryMiddleware,
+  userAgent: 'typescript-sdk-middleware-newrelic',
   apm: () => agent,
+  customMetrics: {
+    newrelic: true,
+  },
 }
 
 const client = new ClientBuilder()

@@ -1,16 +1,13 @@
-const { ClientBuilder } = require('@commercetools/sdk-client-v2')
-// const { createTelemetryMiddleware } = require('@commercetools/ts-sdk-apm')
-const {
-  createTelemetryMiddleware,
-} = require('@commercetools/ts-sdk-apm/dist/commercetools-ts-sdk-apm.cjs.js')
+const { ClientBuilder } = require('@commercetools/ts-client')
+const { createTelemetryMiddleware } = require('@commercetools/ts-sdk-apm')
 const { createApiBuilderFromCtpClient } = require('@commercetools/platform-sdk')
 const fetch = require('node-fetch')
 
-const agent = require('../../agent')
+const { tracer } = require('../tracer')
 
 const projectKey = process.env.CTP_PROJECT_KEY
 const authMiddlewareOptions = {
-  host: 'https://auth.europe-west1.gcp.commercetools.com',
+  host: process.env.CTP_AUTH_URL,
   projectKey,
   credentials: {
     clientId: process.env.CTP_CLIENT_ID,
@@ -21,24 +18,29 @@ const authMiddlewareOptions = {
     },
   },
   scopes: [`manage_project:${projectKey}`],
-  fetch,
+  httpClient: fetch,
 }
 
 const httpMiddlewareOptions = {
   host: 'https://api.europe-west1.gcp.commercetools.com',
   includeRequestInErrorResponse: false,
   includeOriginalRequest: true,
-  fetch,
+  httpClient: fetch,
 }
 
-// newrelic options
+// datadog options
 const telemetryOptions = {
   createTelemetryMiddleware,
-  apm: () => agent,
+  userAgent: 'typescript-sdk-middleware-datadog',
+  tracer: () => tracer.init(),
+  apm: () => require('dd-trace').init(),
+  customMetrics: {
+    datadog: true,
+  },
 }
 
 const client = new ClientBuilder()
-  .withPasswordFlow(authMiddlewareOptions)
+  .withClientCredentialsFlow(authMiddlewareOptions)
   .withHttpMiddleware(httpMiddlewareOptions)
   .withTelemetryMiddleware(telemetryOptions) // telemetry middleware
   .build()
