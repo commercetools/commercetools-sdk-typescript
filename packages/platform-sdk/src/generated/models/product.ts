@@ -1547,7 +1547,10 @@ export interface ProductRemoveFromCategoryAction {
   readonly staged?: boolean
 }
 /**
- *	Removes a Product image and deletes it from the Content Delivery Network (external images are not deleted). Deletion from the CDN is not instant, which means the image file itself will stay available for some time after the deletion. Either `variantId` or `sku` is required.
+ *	Removes a Product image and deletes it from the Content Delivery Network (CDN) if it had been [uploaded to our CDN](/../api/projects/products#upload-product-image).
+ *	External images will not be deleted.
+ *	The API deletes the removed image from the CDN in an [eventual consistent](/../api/general-concepts#eventual-consistency) way.
+ *	Either `variantId` or `sku` is required.
  *
  */
 export interface ProductRemoveImageAction {
