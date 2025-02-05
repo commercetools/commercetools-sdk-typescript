@@ -1,11 +1,12 @@
 function DefineError(statusCode: number, message: string, meta: object = {}) {
-  // eslint-disable-next-line no-multi-assign
-  this.status = this.statusCode = this.code = statusCode
+  this.code = meta['code'] ??= this.constructor.name
+  this.statusCode = statusCode
+  this.status = statusCode
   this.message = message
+
   Object.assign(this, meta)
 
   this.name = this.constructor.name
-  // eslint-disable-next-line no-proto
   this.constructor.prototype.__proto__ = Error.prototype
   if (Error.captureStackTrace) Error.captureStackTrace(this, this.constructor)
 }

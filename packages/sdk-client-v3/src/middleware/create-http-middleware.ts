@@ -68,11 +68,16 @@ async function executeRequest({
     }
 
     const error: HttpErrorType = createError({
+      code: response.data?.errors?.[0].code,
       message: response?.data?.message || response?.message,
       statusCode: response.statusCode || response?.data?.statusCode,
-      headers: getHeaders(response.headers),
       method: clientOptions.method,
+      headers: getHeaders(response.headers),
+      /**
+       * @deprecated use `error` instead
+       */
       body: response.data,
+      error: response.data,
       retryCount: response.retryCount,
       ...(includeRequestInErrorResponse
         ? {
@@ -83,33 +88,26 @@ async function executeRequest({
         : { uri: request.uri }),
     })
 
-    /**
-     * handle non-ok (error) response
-     * build error body
-     */
-    return {
-      body: response.data,
-      code: response.statusCode,
-      statusCode: response.statusCode,
-      headers: getHeaders(response.headers),
-      error,
-    }
+    return { error }
   } catch (e) {
     // We know that this is a network error
     const headers = includeResponseHeaders
       ? getHeaders(e.response?.headers)
       : null
-    const statusCode = e.response?.status || e.response?.data0 || 0
+    const statusCode = e.response?.status || e.response?.data || 0
     const message = e.response?.data?.message
 
     const error: HttpErrorType = createError({
       statusCode,
-      code: statusCode,
+      code: 'NetworkError',
       status: statusCode,
       message: message || e.message,
       headers,
+      /**
+       * @deprecated use `error` instead
+       */
       body: e.response?.data || e,
-      error: e.response?.data,
+      error: e.response?.data || e,
       ...(includeRequestInErrorResponse
         ? {
             originalRequest: maskSensitiveHeaderData

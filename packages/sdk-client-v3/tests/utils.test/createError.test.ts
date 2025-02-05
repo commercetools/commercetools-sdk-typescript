@@ -25,7 +25,7 @@ describe('createError', () => {
   test('a 404 error', () => {
     const _error = errorObject()
     const errorResponse = createError(_error)
-    expect(errorResponse.code).toEqual(404)
+    expect(errorResponse.code).toEqual('NotFound')
     expect(errorResponse.status).toEqual(404)
     expect(errorResponse.statusCode).toEqual(404)
     expect(errorResponse.name).toEqual('NotFound')
@@ -36,7 +36,7 @@ describe('createError', () => {
   test('a 400 error', () => {
     const _error = errorObject({ statusCode: 400, message: 'Bad request.' })
     const errorResponse = createError(_error)
-    expect(errorResponse.code).toEqual(400)
+    expect(errorResponse.code).toEqual('BadRequest')
     expect(errorResponse.status).toEqual(400)
     expect(errorResponse.statusCode).toEqual(400)
     expect(errorResponse.name).toEqual('BadRequest')
@@ -48,7 +48,7 @@ describe('createError', () => {
     const _error = errorObject({ statusCode: 0, message: 'Network error.' })
     const errorResponse = createError(_error)
 
-    expect(errorResponse.code).toEqual(0)
+    expect(errorResponse.code).toEqual('NetworkError')
     expect(errorResponse.status).toEqual(0)
     expect(errorResponse.statusCode).toEqual(0)
     expect(errorResponse.name).toEqual('NetworkError')
@@ -64,9 +64,9 @@ describe('createError', () => {
 
     const errorResponse = createError(_error)
 
-    expect(errorResponse.code).toEqual(401)
     expect(errorResponse.status).toEqual(401)
     expect(errorResponse.statusCode).toEqual(401)
+    expect(errorResponse.code).toEqual('Unauthorized')
     expect(errorResponse.name).toEqual('Unauthorized')
     expect(errorResponse.message).toEqual('Unauthorized client request.')
     expect(errorResponse instanceof Error).toEqual(true)
@@ -80,8 +80,8 @@ describe('createError', () => {
 
     const errorResponse = createError(_error)
 
-    expect(errorResponse.code).toEqual(403)
     expect(errorResponse.status).toEqual(403)
+    expect(errorResponse.code).toEqual('Forbidden')
     expect(errorResponse.statusCode).toEqual(403)
     expect(errorResponse.name).toEqual('Forbidden')
     expect(errorResponse.message).toEqual('Forbidden client request.')
@@ -96,9 +96,9 @@ describe('createError', () => {
 
     const errorResponse = createError(_error)
 
-    expect(errorResponse.code).toEqual(409)
     expect(errorResponse.status).toEqual(409)
     expect(errorResponse.statusCode).toEqual(409)
+    expect(errorResponse.code).toEqual('ConcurrentModification')
     expect(errorResponse.name).toEqual('ConcurrentModification')
     expect(errorResponse.message).toEqual('Concurrent modification error.')
     expect(errorResponse instanceof Error).toEqual(true)
@@ -112,9 +112,9 @@ describe('createError', () => {
 
     const errorResponse = createError(_error)
 
-    expect(errorResponse.code).toEqual(500)
     expect(errorResponse.status).toEqual(500)
     expect(errorResponse.statusCode).toEqual(500)
+    expect(errorResponse.code).toEqual('InternalServerError')
     expect(errorResponse.name).toEqual('InternalServerError')
     expect(errorResponse.message).toEqual('Internal server error.')
     expect(errorResponse instanceof Error).toEqual(true)
@@ -128,9 +128,9 @@ describe('createError', () => {
 
     const errorResponse = createError(_error)
 
-    expect(errorResponse.code).toEqual(503)
     expect(errorResponse.status).toEqual(503)
     expect(errorResponse.statusCode).toEqual(503)
+    expect(errorResponse.code).toEqual('ServiceUnavailable')
     expect(errorResponse.name).toEqual('ServiceUnavailable')
     expect(errorResponse.message).toEqual(
       'Service unavailable, try again later.'
@@ -146,9 +146,9 @@ describe('createError', () => {
 
     const errorResponse = createError(_error)
 
-    expect(errorResponse.code).toEqual(504)
     expect(errorResponse.status).toEqual(504)
     expect(errorResponse.statusCode).toEqual(504)
+    expect(errorResponse.code).toEqual('HttpError')
     expect(errorResponse.name).toEqual('HttpError')
     expect(errorResponse.message).toEqual('Gateway timeout.')
     expect(errorResponse instanceof Error).toEqual(true)
