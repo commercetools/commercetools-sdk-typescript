@@ -20,6 +20,8 @@
 - added property `inheritedStores` to type `BusinessUnit`
 - added property `inheritedStores` to type `Company`
 - added property `inheritedStores` to type `Division`
+- added property `businessUnit` to type `ShoppingList`
+- added property `businessUnit` to type `ShoppingListDraft`
 </details>
 
 <details>
@@ -27,6 +29,18 @@
 
 - changed property `images` of type `ProductTailoringSetExternalImagesAction` to be optional
 - :warning: changed property `triggerPattern` of type `CartDiscountPatternTarget` to be required
+</details>
+
+<details>
+<summary>Removed Type(s)</summary>
+
+- :warning: removed type `ProductSearchFacetScope`
+</details>
+
+<details>
+<summary>Added Type(s)</summary>
+
+- added type `ShoppingListSetBusinessUnitAction`
 </details>
 
 <details>

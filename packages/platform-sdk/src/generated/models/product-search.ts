@@ -232,6 +232,11 @@ export interface ProductSearchResult {
    */
   readonly productProjection?: ProductProjection
 }
+export enum ProductSearchFacetCountLevelEnumValues {
+  Products = 'products',
+  Variants = 'variants',
+}
+
 export type ProductSearchFacetCountLevelEnum = 'products' | 'variants' | string
 export interface ProductSearchFacetCountValue {
   /**
@@ -255,6 +260,11 @@ export interface ProductSearchFacetCountValue {
    */
   readonly level?: ProductSearchFacetCountLevelEnum
 }
+export enum ProductSearchFacetDistinctBucketSortByValues {
+  Count = 'count',
+  Key = 'key',
+}
+
 export type ProductSearchFacetDistinctBucketSortBy = 'count' | 'key' | string
 export interface ProductSearchFacetDistinctBucketSortExpression {
   /**
@@ -468,5 +478,9 @@ export interface ProductSearchFacetResultCount
    */
   readonly value: number
 }
-export type ProductSearchFacetScope = 'all' | 'query' | string
+export enum ProductSearchFacetScopeEnumValues {
+  All = 'all',
+  Query = 'query',
+}
+
 export type ProductSearchFacetScopeEnum = 'all' | 'query' | string

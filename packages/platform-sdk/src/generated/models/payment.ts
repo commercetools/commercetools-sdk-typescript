@@ -8,6 +8,8 @@ import {
   BaseResource,
   CentPrecisionMoney,
   CreatedBy,
+  IReference,
+  IResourceIdentifier,
   LastModifiedBy,
   LocalizedString,
   _Money,
@@ -235,7 +237,7 @@ export interface PaymentPagedQueryResponse {
  *	[Reference](ctp:api:type:Reference) to a [Payment](ctp:api:type:Payment).
  *
  */
-export interface PaymentReference {
+export interface PaymentReference extends IReference {
   readonly typeId: 'payment'
   /**
    *	Unique identifier of the referenced [Payment](ctp:api:type:Payment).
@@ -254,7 +256,7 @@ export interface PaymentReference {
  *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Payment](ctp:api:type:Payment). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
-export interface PaymentResourceIdentifier {
+export interface PaymentResourceIdentifier extends IResourceIdentifier {
   readonly typeId: 'payment'
   /**
    *	Unique identifier of the referenced [Payment](ctp:api:type:Payment). Required if `key` is absent.
@@ -341,6 +343,12 @@ export type PaymentUpdateAction =
   | PaymentSetTransactionCustomFieldAction
   | PaymentSetTransactionCustomTypeAction
   | PaymentTransitionStateAction
+export interface IPaymentUpdateAction {
+  /**
+   *
+   */
+  readonly action: string
+}
 /**
  *	Represents a financial transaction typically created as a result of a notification from the payment service.
  *
@@ -422,12 +430,27 @@ export interface TransactionDraft {
  *	Transactions can be in one of the following States:
  *
  */
+export enum TransactionStateValues {
+  Failure = 'Failure',
+  Initial = 'Initial',
+  Pending = 'Pending',
+  Success = 'Success',
+}
+
 export type TransactionState =
   | 'Failure'
   | 'Initial'
   | 'Pending'
   | 'Success'
   | string
+export enum TransactionTypeValues {
+  Authorization = 'Authorization',
+  CancelAuthorization = 'CancelAuthorization',
+  Charge = 'Charge',
+  Chargeback = 'Chargeback',
+  Refund = 'Refund',
+}
+
 export type TransactionType =
   | 'Authorization'
   | 'CancelAuthorization'
@@ -439,7 +462,8 @@ export type TransactionType =
  *	Adding a Payment interaction generates the [PaymentInteractionAdded](ctp:api:type:PaymentInteractionAddedMessage) Message.
  *
  */
-export interface PaymentAddInterfaceInteractionAction {
+export interface PaymentAddInterfaceInteractionAction
+  extends IPaymentUpdateAction {
   readonly action: 'addInterfaceInteraction'
   /**
    *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Type](ctp:api:type:Type).
@@ -458,7 +482,7 @@ export interface PaymentAddInterfaceInteractionAction {
  *	Adding a Transaction to a Payment generates the [PaymentTransactionAdded](ctp:api:type:PaymentTransactionAddedMessage) Message.
  *
  */
-export interface PaymentAddTransactionAction {
+export interface PaymentAddTransactionAction extends IPaymentUpdateAction {
   readonly action: 'addTransaction'
   /**
    *	Value to append to the `transactions` array.
@@ -471,7 +495,7 @@ export interface PaymentAddTransactionAction {
  *	Can be used to update the Payment if a customer changes the [Cart](ctp:api:type:Cart), or adds or removes a [CartDiscount](ctp:api:type:CartDiscount) during checkout.
  *
  */
-export interface PaymentChangeAmountPlannedAction {
+export interface PaymentChangeAmountPlannedAction extends IPaymentUpdateAction {
   readonly action: 'changeAmountPlanned'
   /**
    *	New value to set.
@@ -480,7 +504,8 @@ export interface PaymentChangeAmountPlannedAction {
    */
   readonly amount: _Money
 }
-export interface PaymentChangeTransactionInteractionIdAction {
+export interface PaymentChangeTransactionInteractionIdAction
+  extends IPaymentUpdateAction {
   readonly action: 'changeTransactionInteractionId'
   /**
    *	Unique identifier of the [Transaction](ctp:api:type:Transaction).
@@ -499,7 +524,8 @@ export interface PaymentChangeTransactionInteractionIdAction {
  *	Changing the [TransactionState](ctp:api:type:TransactionState) generates the [PaymentTransactionStateChanged](ctp:api:type:PaymentTransactionStateChangedMessage) Message.
  *
  */
-export interface PaymentChangeTransactionStateAction {
+export interface PaymentChangeTransactionStateAction
+  extends IPaymentUpdateAction {
   readonly action: 'changeTransactionState'
   /**
    *	Unique identifier of the [Transaction](ctp:api:type:Transaction).
@@ -514,7 +540,8 @@ export interface PaymentChangeTransactionStateAction {
    */
   readonly state: TransactionState
 }
-export interface PaymentChangeTransactionTimestampAction {
+export interface PaymentChangeTransactionTimestampAction
+  extends IPaymentUpdateAction {
   readonly action: 'changeTransactionTimestamp'
   /**
    *	Unique identifier of the [Transaction](ctp:api:type:Transaction).
@@ -533,7 +560,7 @@ export interface PaymentChangeTransactionTimestampAction {
  *	If the Payment is already associated with a Customer, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
  *
  */
-export interface PaymentSetAnonymousIdAction {
+export interface PaymentSetAnonymousIdAction extends IPaymentUpdateAction {
   readonly action: 'setAnonymousId'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -542,7 +569,7 @@ export interface PaymentSetAnonymousIdAction {
    */
   readonly anonymousId?: string
 }
-export interface PaymentSetCustomFieldAction {
+export interface PaymentSetCustomFieldAction extends IPaymentUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -559,7 +586,7 @@ export interface PaymentSetCustomFieldAction {
    */
   readonly value?: any
 }
-export interface PaymentSetCustomTypeAction {
+export interface PaymentSetCustomTypeAction extends IPaymentUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the Payment with [Custom Fields](/../api/projects/custom-fields).
@@ -575,7 +602,7 @@ export interface PaymentSetCustomTypeAction {
    */
   readonly fields?: FieldContainer
 }
-export interface PaymentSetCustomerAction {
+export interface PaymentSetCustomerAction extends IPaymentUpdateAction {
   readonly action: 'setCustomer'
   /**
    *	Value to set.
@@ -585,7 +612,7 @@ export interface PaymentSetCustomerAction {
    */
   readonly customer?: CustomerResourceIdentifier
 }
-export interface PaymentSetInterfaceIdAction {
+export interface PaymentSetInterfaceIdAction extends IPaymentUpdateAction {
   readonly action: 'setInterfaceId'
   /**
    *	Value to set.
@@ -595,7 +622,7 @@ export interface PaymentSetInterfaceIdAction {
    */
   readonly interfaceId: string
 }
-export interface PaymentSetKeyAction {
+export interface PaymentSetKeyAction extends IPaymentUpdateAction {
   readonly action: 'setKey'
   /**
    *	Value to set.
@@ -604,7 +631,8 @@ export interface PaymentSetKeyAction {
    */
   readonly key?: string
 }
-export interface PaymentSetMethodInfoInterfaceAction {
+export interface PaymentSetMethodInfoInterfaceAction
+  extends IPaymentUpdateAction {
   readonly action: 'setMethodInfoInterface'
   /**
    *	Value to set.
@@ -614,7 +642,7 @@ export interface PaymentSetMethodInfoInterfaceAction {
    */
   readonly interface: string
 }
-export interface PaymentSetMethodInfoMethodAction {
+export interface PaymentSetMethodInfoMethodAction extends IPaymentUpdateAction {
   readonly action: 'setMethodInfoMethod'
   /**
    *	Value to set.
@@ -624,7 +652,7 @@ export interface PaymentSetMethodInfoMethodAction {
    */
   readonly method?: string
 }
-export interface PaymentSetMethodInfoNameAction {
+export interface PaymentSetMethodInfoNameAction extends IPaymentUpdateAction {
   readonly action: 'setMethodInfoName'
   /**
    *	Value to set.
@@ -637,7 +665,8 @@ export interface PaymentSetMethodInfoNameAction {
 /**
  *	Produces the [PaymentStatusInterfaceCodeSet](ctp:api:type:PaymentStatusInterfaceCodeSetMessage) Message.
  */
-export interface PaymentSetStatusInterfaceCodeAction {
+export interface PaymentSetStatusInterfaceCodeAction
+  extends IPaymentUpdateAction {
   readonly action: 'setStatusInterfaceCode'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -646,7 +675,8 @@ export interface PaymentSetStatusInterfaceCodeAction {
    */
   readonly interfaceCode?: string
 }
-export interface PaymentSetStatusInterfaceTextAction {
+export interface PaymentSetStatusInterfaceTextAction
+  extends IPaymentUpdateAction {
   readonly action: 'setStatusInterfaceText'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -655,7 +685,8 @@ export interface PaymentSetStatusInterfaceTextAction {
    */
   readonly interfaceText: string
 }
-export interface PaymentSetTransactionCustomFieldAction {
+export interface PaymentSetTransactionCustomFieldAction
+  extends IPaymentUpdateAction {
   readonly action: 'setTransactionCustomField'
   /**
    *	Unique identifier of the [Transaction](ctp:api:type:Transaction).
@@ -678,7 +709,8 @@ export interface PaymentSetTransactionCustomFieldAction {
    */
   readonly value?: any
 }
-export interface PaymentSetTransactionCustomTypeAction {
+export interface PaymentSetTransactionCustomTypeAction
+  extends IPaymentUpdateAction {
   readonly action: 'setTransactionCustomType'
   /**
    *	Unique identifier of the [Transaction](ctp:api:type:Transaction). If the specified `transactionId` does not exist, the request will fail with an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
@@ -708,7 +740,7 @@ export interface PaymentSetTransactionCustomTypeAction {
  *	Transitioning the State of a Payment produces the [PaymentStatusStateTransition](ctp:api:type:PaymentStatusStateTransitionMessage) Message.
  *
  */
-export interface PaymentTransitionStateAction {
+export interface PaymentTransitionStateAction extends IPaymentUpdateAction {
   readonly action: 'transitionState'
   /**
    *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [State](ctp:api:type:State).

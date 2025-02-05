@@ -8,12 +8,26 @@
  *	Represents a warning related to the returned response.
  */
 export type WarningObject = ImageProcessingOngoingWarning
+export interface IWarningObject {
+  /**
+   *	Identifier for the type of warning.
+   *
+   *
+   */
+  readonly code: string
+  /**
+   *	Contains information about the returned response.
+   *
+   *
+   */
+  readonly message: string
+}
 /**
  *	Contained in responses to an [Upload Product image](/projects/products#upload-product-image) or an [Upload Product Tailoring image](/projects/product-tailoring#upload-product-tailoring-image) request with response status code `202 Accepted`.
  *	Indicates that the API is still creating the remaining sizes of the uploaded image. They will be available on the Content Delivery Network (CDN) soon.
  *
  */
-export interface ImageProcessingOngoingWarning {
+export interface ImageProcessingOngoingWarning extends IWarningObject {
   readonly code: 'ImageProcessingOngoing'
   /**
    *	`"The image processing is still ongoing."`

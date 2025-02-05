@@ -186,7 +186,19 @@ export interface AssociateRoleAssignment {
 /**
  *	Determines whether an [AssociateRoleAssignment](ctp:api:type:AssociateRoleAssignment) can be inherited by child Business Units.
  */
+export enum AssociateRoleInheritanceModeValues {
+  Disabled = 'Disabled',
+  Enabled = 'Enabled',
+}
+
 export type AssociateRoleInheritanceMode = 'Disabled' | 'Enabled' | string
+export enum AttributeConstraintEnumValues {
+  CombinationUnique = 'CombinationUnique',
+  None = 'None',
+  SameForAll = 'SameForAll',
+  Unique = 'Unique',
+}
+
 export type AttributeConstraintEnum =
   | 'CombinationUnique'
   | 'None'
@@ -272,10 +284,20 @@ export interface AttributeType {
    */
   readonly name: string
 }
+export enum AuthenticationModeValues {
+  ExternalAuth = 'ExternalAuth',
+  Password = 'Password',
+}
+
 export type AuthenticationMode = 'ExternalAuth' | 'Password' | string
 /**
  *	Determines whether a Business Unit can inherit Associates from a parent.
  */
+export enum BusinessUnitAssociateModeValues {
+  Explicit = 'Explicit',
+  ExplicitAndFromParent = 'ExplicitAndFromParent',
+}
+
 export type BusinessUnitAssociateMode =
   | 'Explicit'
   | 'ExplicitAndFromParent'
@@ -283,10 +305,20 @@ export type BusinessUnitAssociateMode =
 /**
  *	Indicates whether the Business Unit can be edited and used in [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quote Requests](ctp:api:type:QuoteRequest), or [Quotes](ctp:api:type:Quote).
  */
+export enum BusinessUnitStatusValues {
+  Active = 'Active',
+  Inactive = 'Inactive',
+}
+
 export type BusinessUnitStatus = 'Active' | 'Inactive' | string
 /**
  *	Defines whether the Stores of the Business Unit are set directly on the Business Unit or are inherited from its parent unit.
  */
+export enum BusinessUnitStoreModeValues {
+  Explicit = 'Explicit',
+  FromParent = 'FromParent',
+}
+
 export type BusinessUnitStoreMode = 'Explicit' | 'FromParent' | string
 export interface CategoryOrderHints {
   [key: string]: string
@@ -295,6 +327,14 @@ export interface CategoryOrderHints {
  *	Describes the purpose and type of the Channel. A Channel can have one or more roles.
  *
  */
+export enum ChannelRoleEnumValues {
+  InventorySupply = 'InventorySupply',
+  OrderExport = 'OrderExport',
+  OrderImport = 'OrderImport',
+  Primary = 'Primary',
+  ProductDistribution = 'ProductDistribution',
+}
+
 export type ChannelRoleEnum =
   | 'InventorySupply'
   | 'OrderExport'
@@ -393,6 +433,15 @@ export interface DiscountCodeInfo {
    */
   readonly state: DiscountCodeState
 }
+export enum DiscountCodeStateValues {
+  ApplicationStoppedByPreviousDiscount = 'ApplicationStoppedByPreviousDiscount',
+  DoesNotMatchCart = 'DoesNotMatchCart',
+  MatchesCart = 'MatchesCart',
+  MaxApplicationReached = 'MaxApplicationReached',
+  NotActive = 'NotActive',
+  NotValid = 'NotValid',
+}
+
 export type DiscountCodeState =
   | 'ApplicationStoppedByPreviousDiscount'
   | 'DoesNotMatchCart'
@@ -630,7 +679,19 @@ export interface Money {
    */
   readonly type: MoneyType
 }
+export enum MoneyTypeValues {
+  CentPrecision = 'centPrecision',
+  HighPrecision = 'highPrecision',
+}
+
 export type MoneyType = 'centPrecision' | 'highPrecision' | string
+export enum OrderStateValues {
+  Cancelled = 'Cancelled',
+  Complete = 'Complete',
+  Confirmed = 'Confirmed',
+  Open = 'Open',
+}
+
 export type OrderState =
   | 'Cancelled'
   | 'Complete'
@@ -683,6 +744,14 @@ export interface PaymentInfo {
    */
   readonly payments: Reference[]
 }
+export enum PaymentStateValues {
+  BalanceDue = 'BalanceDue',
+  CreditOwed = 'CreditOwed',
+  Failed = 'Failed',
+  Paid = 'Paid',
+  Pending = 'Pending',
+}
+
 export type PaymentState =
   | 'BalanceDue'
   | 'CreditOwed'
@@ -693,6 +762,45 @@ export type PaymentState =
 /**
  *	Permissions grant granular access to [Business Units](ctp:api:type:BusinessUnit), [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), and [Quote Requests](ctp:api:type:QuoteRequest).
  */
+export enum PermissionValues {
+  AcceptMyQuotes = 'AcceptMyQuotes',
+  AcceptOthersQuotes = 'AcceptOthersQuotes',
+  AddChildUnits = 'AddChildUnits',
+  CreateMyCarts = 'CreateMyCarts',
+  CreateMyOrdersFromMyCarts = 'CreateMyOrdersFromMyCarts',
+  CreateMyOrdersFromMyQuotes = 'CreateMyOrdersFromMyQuotes',
+  CreateMyQuoteRequestsFromMyCarts = 'CreateMyQuoteRequestsFromMyCarts',
+  CreateOrdersFromOthersCarts = 'CreateOrdersFromOthersCarts',
+  CreateOrdersFromOthersQuotes = 'CreateOrdersFromOthersQuotes',
+  CreateOthersCarts = 'CreateOthersCarts',
+  CreateQuoteRequestsFromOthersCarts = 'CreateQuoteRequestsFromOthersCarts',
+  DeclineMyQuotes = 'DeclineMyQuotes',
+  DeclineOthersQuotes = 'DeclineOthersQuotes',
+  DeleteMyCarts = 'DeleteMyCarts',
+  DeleteOthersCarts = 'DeleteOthersCarts',
+  ReassignMyQuotes = 'ReassignMyQuotes',
+  ReassignOthersQuotes = 'ReassignOthersQuotes',
+  RenegotiateMyQuotes = 'RenegotiateMyQuotes',
+  RenegotiateOthersQuotes = 'RenegotiateOthersQuotes',
+  UpdateAssociates = 'UpdateAssociates',
+  UpdateBusinessUnitDetails = 'UpdateBusinessUnitDetails',
+  UpdateMyCarts = 'UpdateMyCarts',
+  UpdateMyOrders = 'UpdateMyOrders',
+  UpdateMyQuoteRequests = 'UpdateMyQuoteRequests',
+  UpdateOthersCarts = 'UpdateOthersCarts',
+  UpdateOthersOrders = 'UpdateOthersOrders',
+  UpdateOthersQuoteRequests = 'UpdateOthersQuoteRequests',
+  UpdateParentUnit = 'UpdateParentUnit',
+  ViewMyCarts = 'ViewMyCarts',
+  ViewMyOrders = 'ViewMyOrders',
+  ViewMyQuoteRequests = 'ViewMyQuoteRequests',
+  ViewMyQuotes = 'ViewMyQuotes',
+  ViewOthersCarts = 'ViewOthersCarts',
+  ViewOthersOrders = 'ViewOthersOrders',
+  ViewOthersQuoteRequests = 'ViewOthersQuoteRequests',
+  ViewOthersQuotes = 'ViewOthersQuotes',
+}
+
 export type Permission =
   | 'AcceptMyQuotes'
   | 'AcceptOthersQuotes'
@@ -796,7 +904,20 @@ export interface ProductVariantSelection {
    */
   readonly skus: string[]
 }
+export enum ProductVariantSelectionTypeEnumValues {
+  Exclusion = 'exclusion',
+  Inclusion = 'inclusion',
+}
+
 export type ProductVariantSelectionTypeEnum = 'exclusion' | 'inclusion' | string
+export enum QuoteRequestStateValues {
+  Accepted = 'Accepted',
+  Cancelled = 'Cancelled',
+  Closed = 'Closed',
+  Rejected = 'Rejected',
+  Submitted = 'Submitted',
+}
+
 export type QuoteRequestState =
   | 'Accepted'
   | 'Cancelled'
@@ -804,6 +925,15 @@ export type QuoteRequestState =
   | 'Rejected'
   | 'Submitted'
   | string
+export enum QuoteStateValues {
+  Accepted = 'Accepted',
+  Declined = 'Declined',
+  DeclinedForRenegotiation = 'DeclinedForRenegotiation',
+  Failed = 'Failed',
+  Pending = 'Pending',
+  Withdrawn = 'Withdrawn',
+}
+
 export type QuoteState =
   | 'Accepted'
   | 'Declined'
@@ -822,6 +952,42 @@ export interface Reference {
    */
   readonly typeId: ReferenceTypeId
 }
+export enum ReferenceTypeIdValues {
+  AssociateRole = 'associate-role',
+  BusinessUnit = 'business-unit',
+  Cart = 'cart',
+  CartDiscount = 'cart-discount',
+  Category = 'category',
+  Channel = 'channel',
+  Customer = 'customer',
+  CustomerEmailToken = 'customer-email-token',
+  CustomerGroup = 'customer-group',
+  CustomerPasswordToken = 'customer-password-token',
+  DiscountCode = 'discount-code',
+  Extension = 'extension',
+  InventoryEntry = 'inventory-entry',
+  KeyValueDocument = 'key-value-document',
+  Order = 'order',
+  OrderEdit = 'order-edit',
+  Payment = 'payment',
+  Product = 'product',
+  ProductDiscount = 'product-discount',
+  ProductSelection = 'product-selection',
+  ProductType = 'product-type',
+  Quote = 'quote',
+  QuoteRequest = 'quote-request',
+  Review = 'review',
+  ShippingMethod = 'shipping-method',
+  ShoppingList = 'shopping-list',
+  StagedQuote = 'staged-quote',
+  State = 'state',
+  Store = 'store',
+  Subscription = 'subscription',
+  TaxCategory = 'tax-category',
+  Type = 'type',
+  Zone = 'zone',
+}
+
 export type ReferenceTypeId =
   | 'associate-role'
   | 'business-unit'
@@ -938,12 +1104,26 @@ export interface ReturnItem {
    */
   readonly createdAt: string
 }
+export enum ReturnPaymentStateValues {
+  Initial = 'Initial',
+  NonRefundable = 'NonRefundable',
+  NotRefunded = 'NotRefunded',
+  Refunded = 'Refunded',
+}
+
 export type ReturnPaymentState =
   | 'Initial'
   | 'NonRefundable'
   | 'NotRefunded'
   | 'Refunded'
   | string
+export enum ReturnShipmentStateValues {
+  Advised = 'Advised',
+  BackInStock = 'BackInStock',
+  Returned = 'Returned',
+  Unusable = 'Unusable',
+}
+
 export type ReturnShipmentState =
   | 'Advised'
   | 'BackInStock'
@@ -977,6 +1157,12 @@ export interface ReviewRatingStatistics {
    */
   readonly ratingsDistribution: any
 }
+export enum RoundingModeValues {
+  HalfDown = 'HalfDown',
+  HalfEven = 'HalfEven',
+  HalfUp = 'HalfUp',
+}
+
 export type RoundingMode = 'HalfDown' | 'HalfEven' | 'HalfUp' | string
 export interface SearchKeyword {
   /**
@@ -991,7 +1177,21 @@ export interface SearchKeyword {
 export interface SearchKeywords {
   [key: string]: SearchKeyword[]
 }
+export enum SelectionModeValues {
+  Cheapest = 'Cheapest',
+  MostExpensive = 'MostExpensive',
+}
+
 export type SelectionMode = 'Cheapest' | 'MostExpensive' | string
+export enum ShipmentStateValues {
+  Backorder = 'Backorder',
+  Delayed = 'Delayed',
+  Partial = 'Partial',
+  Pending = 'Pending',
+  Ready = 'Ready',
+  Shipped = 'Shipped',
+}
+
 export type ShipmentState =
   | 'Backorder'
   | 'Delayed'
@@ -1025,22 +1225,55 @@ export interface ShippingRatePriceTier {
    */
   readonly type: ShippingRateTierType
 }
+export enum ShippingRateTierTypeValues {
+  CartClassification = 'CartClassification',
+  CartScore = 'CartScore',
+  CartValue = 'CartValue',
+}
+
 export type ShippingRateTierType =
   | 'CartClassification'
   | 'CartScore'
   | 'CartValue'
   | string
+export enum StackingModeValues {
+  Stacking = 'Stacking',
+  StopAfterThisDiscount = 'StopAfterThisDiscount',
+}
+
 export type StackingMode = 'Stacking' | 'StopAfterThisDiscount' | string
+export enum StagedQuoteStateValues {
+  Closed = 'Closed',
+  InProgress = 'InProgress',
+  Sent = 'Sent',
+}
+
 export type StagedQuoteState = 'Closed' | 'InProgress' | 'Sent' | string
 /**
  *	For some resource types, a State can fulfill the following predefined roles:
  *
  */
+export enum StateRoleEnumValues {
+  Return = 'Return',
+  ReviewIncludedInStatistics = 'ReviewIncludedInStatistics',
+}
+
 export type StateRoleEnum = 'Return' | 'ReviewIncludedInStatistics' | string
 /**
  *	Resource or object type the State can be assigned to.
  *
  */
+export enum StateTypeEnumValues {
+  LineItemState = 'LineItemState',
+  OrderState = 'OrderState',
+  PaymentState = 'PaymentState',
+  ProductState = 'ProductState',
+  QuoteRequestState = 'QuoteRequestState',
+  QuoteState = 'QuoteState',
+  ReviewState = 'ReviewState',
+  StagedQuoteState = 'StagedQuoteState',
+}
+
 export type StateTypeEnum =
   | 'LineItemState'
   | 'OrderState'
@@ -1090,7 +1323,19 @@ export interface SyncInfo {
    */
   readonly syncedAt: string
 }
+export enum TaxCalculationModeValues {
+  LineItemLevel = 'LineItemLevel',
+  UnitPriceLevel = 'UnitPriceLevel',
+}
+
 export type TaxCalculationMode = 'LineItemLevel' | 'UnitPriceLevel' | string
+export enum TaxModeValues {
+  Disabled = 'Disabled',
+  External = 'External',
+  ExternalAmount = 'ExternalAmount',
+  Platform = 'Platform',
+}
+
 export type TaxMode =
   | 'Disabled'
   | 'External'
@@ -1157,6 +1402,11 @@ export interface TaxedPrice {
    */
   readonly totalGross: Money
 }
+export enum TextInputHintValues {
+  MultiLine = 'MultiLine',
+  SingleLine = 'SingleLine',
+}
+
 export type TextInputHint = 'MultiLine' | 'SingleLine' | string
 export interface TextLineItem {
   /**
@@ -1238,12 +1488,27 @@ export interface Transaction {
    */
   readonly state: TransactionState
 }
+export enum TransactionStateValues {
+  Failure = 'Failure',
+  Initial = 'Initial',
+  Pending = 'Pending',
+  Success = 'Success',
+}
+
 export type TransactionState =
   | 'Failure'
   | 'Initial'
   | 'Pending'
   | 'Success'
   | string
+export enum TransactionTypeValues {
+  Authorization = 'Authorization',
+  CancelAuthorization = 'CancelAuthorization',
+  Charge = 'Charge',
+  Chargeback = 'Chargeback',
+  Refund = 'Refund',
+}
+
 export type TransactionType =
   | 'Authorization'
   | 'CancelAuthorization'

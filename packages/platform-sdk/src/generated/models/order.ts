@@ -42,6 +42,7 @@ import {
   CentPrecisionMoney,
   CreatedBy,
   Image,
+  IReference,
   LastModifiedBy,
   LocalizedString,
   PriceDraft,
@@ -253,6 +254,12 @@ export type StagedOrderUpdateAction =
   | StagedOrderTransitionStateAction
   | StagedOrderUpdateItemShippingAddressAction
   | StagedOrderUpdateSyncInfoAction
+export interface IStagedOrderUpdateAction {
+  /**
+   *
+   */
+  readonly action: string
+}
 export interface Hit {
   /**
    *	Unique identifier of the Order.
@@ -297,6 +304,26 @@ export interface OrderPagedSearchResponse {
 /**
  *	Possible values for the `customType` property on [simple expressions](/../api/projects/order-search#simple-expressions) indicating the data type of the `field`.
  */
+export enum OrderSearchCustomTypeValues {
+  BooleanType = 'BooleanType',
+  DateTimeType = 'DateTimeType',
+  DateType = 'DateType',
+  EnumType = 'EnumType',
+  LocalizedEnumType = 'LocalizedEnumType',
+  LocalizedStringType = 'LocalizedStringType',
+  NumberType = 'NumberType',
+  SetTypeDateTimeType = 'SetType.DateTimeType',
+  SetTypeDateType = 'SetType.DateType',
+  SetTypeEnumType = 'SetType.EnumType',
+  SetTypeLocalizedEnumType = 'SetType.LocalizedEnumType',
+  SetTypeLocalizedStringType = 'SetType.LocalizedStringType',
+  SetTypeNumberType = 'SetType.NumberType',
+  SetTypeStringType = 'SetType.StringType',
+  SetTypeTimeType = 'SetType.TimeType',
+  StringType = 'StringType',
+  TimeType = 'TimeType',
+}
+
 export type OrderSearchCustomType =
   | 'BooleanType'
   | 'DateTimeType'
@@ -316,6 +343,11 @@ export type OrderSearchCustomType =
   | 'StringType'
   | 'TimeType'
   | string
+export enum OrderSearchMatchTypeValues {
+  All = 'all',
+  Any = 'any',
+}
+
 export type OrderSearchMatchType = 'all' | 'any' | string
 export interface OrderSearchQueryExpressionValue {
   /**
@@ -402,7 +434,19 @@ export interface OrderSearchNumberRangeValue
    */
   readonly lte?: number
 }
+export enum OrderSearchSortModeValues {
+  Avg = 'avg',
+  Max = 'max',
+  Min = 'min',
+  Sum = 'sum',
+}
+
 export type OrderSearchSortMode = 'avg' | 'max' | 'min' | 'sum' | string
+export enum OrderSearchSortOrderValues {
+  Asc = 'asc',
+  Desc = 'desc',
+}
+
 export type OrderSearchSortOrder = 'asc' | 'desc' | string
 export interface OrderSearchStringValue
   extends OrderSearchQueryExpressionValue {
@@ -1361,7 +1405,7 @@ export interface OrderPagedQueryResponse {
  *	[Reference](ctp:api:type:Reference) to an [Order](ctp:api:type:Order).
  *
  */
-export interface OrderReference {
+export interface OrderReference extends IReference {
   readonly typeId: 'order'
   /**
    *	Unique identifier of the referenced [Order](ctp:api:type:Order).
@@ -1529,6 +1573,13 @@ export interface OrderSearchSorting {
  *	Indicates the state of the Order.
  *
  */
+export enum OrderStateValues {
+  Cancelled = 'Cancelled',
+  Complete = 'Complete',
+  Confirmed = 'Confirmed',
+  Open = 'Open',
+}
+
 export type OrderState =
   | 'Cancelled'
   | 'Complete'
@@ -1610,6 +1661,12 @@ export type OrderUpdateAction =
   | OrderTransitionStateAction
   | OrderUpdateItemShippingAddressAction
   | OrderUpdateSyncInfoAction
+export interface IOrderUpdateAction {
+  /**
+   *
+   */
+  readonly action: string
+}
 /**
  *	Information regarding the appearance, content, and shipment of a Parcel.
  *
@@ -1725,6 +1782,14 @@ export interface PaymentInfo {
  *	Indicates the payment status for the Order.
  *
  */
+export enum PaymentStateValues {
+  BalanceDue = 'BalanceDue',
+  CreditOwed = 'CreditOwed',
+  Failed = 'Failed',
+  Paid = 'Paid',
+  Pending = 'Pending',
+}
+
 export type PaymentState =
   | 'BalanceDue'
   | 'CreditOwed'
@@ -1818,7 +1883,69 @@ export interface ReturnInfoDraft {
   readonly returnDate?: string
 }
 export type ReturnItem = CustomLineItemReturnItem | LineItemReturnItem
-export interface CustomLineItemReturnItem {
+export interface IReturnItem {
+  /**
+   *	Unique identifier of the Return Item.
+   *
+   *
+   */
+  readonly id: string
+  /**
+   *	User-defined unique identifier of the Return Item.
+   *
+   */
+  readonly key?: string
+  /**
+   *	Number of Line Items or Custom Line Items returned.
+   *
+   *
+   */
+  readonly quantity: number
+  /**
+   *
+   */
+  readonly type: string
+  /**
+   *	User-defined description for the return.
+   *
+   *
+   */
+  readonly comment?: string
+  /**
+   *	Shipment status of the Return Item.
+   *
+   *
+   */
+  readonly shipmentState: ReturnShipmentState
+  /**
+   *	Payment status of the Return Item:
+   *
+   *	- `NonRefundable`, for items in the `Advised` [ReturnShipmentState](ctp:api:type:ReturnShipmentState)
+   *	- `Initial`, for items in the `Returned` [ReturnShipmentState](ctp:api:type:ReturnShipmentState)
+   *
+   *
+   */
+  readonly paymentState: ReturnPaymentState
+  /**
+   *	Custom Fields of the Return Item.
+   *
+   *
+   */
+  readonly custom?: CustomFields
+  /**
+   *	Date and time (UTC) the Return Item was last updated.
+   *
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Date and time (UTC) the Return Item was intitially created.
+   *
+   *
+   */
+  readonly createdAt: string
+}
+export interface CustomLineItemReturnItem extends IReturnItem {
   readonly type: 'CustomLineItemReturnItem'
   /**
    *	Unique identifier of the Return Item.
@@ -1883,7 +2010,7 @@ export interface CustomLineItemReturnItem {
    */
   readonly customLineItemId: string
 }
-export interface LineItemReturnItem {
+export interface LineItemReturnItem extends IReturnItem {
   readonly type: 'LineItemReturnItem'
   /**
    *	Unique identifier of the Return Item.
@@ -1996,12 +2123,26 @@ export interface ReturnItemDraft {
    */
   readonly custom?: CustomFieldsDraft
 }
+export enum ReturnPaymentStateValues {
+  Initial = 'Initial',
+  NonRefundable = 'NonRefundable',
+  NotRefunded = 'NotRefunded',
+  Refunded = 'Refunded',
+}
+
 export type ReturnPaymentState =
   | 'Initial'
   | 'NonRefundable'
   | 'NotRefunded'
   | 'Refunded'
   | string
+export enum ReturnShipmentStateValues {
+  Advised = 'Advised',
+  BackInStock = 'BackInStock',
+  Returned = 'Returned',
+  Unusable = 'Unusable',
+}
+
 export type ReturnShipmentState =
   | 'Advised'
   | 'BackInStock'
@@ -2012,6 +2153,17 @@ export type ReturnShipmentState =
  *	Indicates the shipment status of the Order.
  *
  */
+export enum ShipmentStateValues {
+  Backorder = 'Backorder',
+  Canceled = 'Canceled',
+  Delayed = 'Delayed',
+  Delivered = 'Delivered',
+  Partial = 'Partial',
+  Pending = 'Pending',
+  Ready = 'Ready',
+  Shipped = 'Shipped',
+}
+
 export type ShipmentState =
   | 'Backorder'
   | 'Canceled'
@@ -2162,7 +2314,7 @@ export interface TrackingData {
  *	Produces the [Delivery Added](ctp:api:type:DeliveryAddedMessage) Message.
  *
  */
-export interface OrderAddDeliveryAction {
+export interface OrderAddDeliveryAction extends IOrderUpdateAction {
   readonly action: 'addDelivery'
   /**
    *	`key` of an existing [Delivery](ctp:api:type:Delivery).
@@ -2207,7 +2359,7 @@ export interface OrderAddDeliveryAction {
  *	Adds an address to an Order when shipping to multiple addresses is desired.
  *
  */
-export interface OrderAddItemShippingAddressAction {
+export interface OrderAddItemShippingAddressAction extends IOrderUpdateAction {
   readonly action: 'addItemShippingAddress'
   /**
    *	Address to append to `itemShippingAddresses`.
@@ -2223,7 +2375,7 @@ export interface OrderAddItemShippingAddressAction {
  *	Produces the [Parcel Added To Delivery](ctp:api:type:ParcelAddedToDeliveryMessage) Message.
  *
  */
-export interface OrderAddParcelToDeliveryAction {
+export interface OrderAddParcelToDeliveryAction extends IOrderUpdateAction {
   readonly action: 'addParcelToDelivery'
   /**
    *	`id` of an existing [Delivery](ctp:api:type:Delivery).
@@ -2272,7 +2424,7 @@ export interface OrderAddParcelToDeliveryAction {
    */
   readonly custom?: CustomFieldsDraft
 }
-export interface OrderAddPaymentAction {
+export interface OrderAddPaymentAction extends IOrderUpdateAction {
   readonly action: 'addPayment'
   /**
    *	Payment to add to the [PaymentInfo](ctp:api:type:PaymentInfo).
@@ -2286,7 +2438,7 @@ export interface OrderAddPaymentAction {
  *	Produces the [Return Info Added](ctp:api:type:ReturnInfoAddedMessage) Message.
  *
  */
-export interface OrderAddReturnInfoAction {
+export interface OrderAddReturnInfoAction extends IOrderUpdateAction {
   readonly action: 'addReturnInfo'
   /**
    *	Value to set.
@@ -2313,7 +2465,7 @@ export interface OrderAddReturnInfoAction {
  *	Produces the [Order State Changed](ctp:api:type:OrderStateChangedMessage) Message.
  *
  */
-export interface OrderChangeOrderStateAction {
+export interface OrderChangeOrderStateAction extends IOrderUpdateAction {
   readonly action: 'changeOrderState'
   /**
    *	New status of the Order.
@@ -2326,7 +2478,7 @@ export interface OrderChangeOrderStateAction {
  *	Produces the [Order Payment State Changed](ctp:api:type:OrderPaymentStateChangedMessage) Message.
  *
  */
-export interface OrderChangePaymentStateAction {
+export interface OrderChangePaymentStateAction extends IOrderUpdateAction {
   readonly action: 'changePaymentState'
   /**
    *	New payment status of the Order.
@@ -2339,7 +2491,7 @@ export interface OrderChangePaymentStateAction {
  *	Produces the [Order Shipment State Changed](ctp:api:type:OrderShipmentStateChangedMessage) Message.
  *
  */
-export interface OrderChangeShipmentStateAction {
+export interface OrderChangeShipmentStateAction extends IOrderUpdateAction {
   readonly action: 'changeShipmentState'
   /**
    *	New shipment status of the Order.
@@ -2353,7 +2505,8 @@ export interface OrderChangeShipmentStateAction {
  *	The `quantity` in the [ItemStates](ctp:api:type:ItemState) must match the sum of all Custom Line Item states' quantities.
  *
  */
-export interface OrderImportCustomLineItemStateAction {
+export interface OrderImportCustomLineItemStateAction
+  extends IOrderUpdateAction {
   readonly action: 'importCustomLineItemState'
   /**
    *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
@@ -2379,7 +2532,7 @@ export interface OrderImportCustomLineItemStateAction {
  *	The `quantity` in the [ItemStates](ctp:api:type:ItemState) must match the sum of all Line Items states' quantities.
  *
  */
-export interface OrderImportLineItemStateAction {
+export interface OrderImportLineItemStateAction extends IOrderUpdateAction {
   readonly action: 'importLineItemState'
   /**
    *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
@@ -2404,7 +2557,7 @@ export interface OrderImportLineItemStateAction {
  *	Produces the [DeliveryRemoved](ctp:api:type:DeliveryRemovedMessage) Message.
  *
  */
-export interface OrderRemoveDeliveryAction {
+export interface OrderRemoveDeliveryAction extends IOrderUpdateAction {
   readonly action: 'removeDelivery'
   /**
    *	`id` of an existing [Delivery](ctp:api:type:Delivery).
@@ -2428,7 +2581,8 @@ export interface OrderRemoveDeliveryAction {
  *	In such case, change the Line Item shipping address to a different `addressKey` first using the [Set LineItemShippingDetails](ctp:api:type:OrderSetLineItemShippingDetailsAction) update action, before you remove the obsolete address.
  *
  */
-export interface OrderRemoveItemShippingAddressAction {
+export interface OrderRemoveItemShippingAddressAction
+  extends IOrderUpdateAction {
   readonly action: 'removeItemShippingAddress'
   /**
    *	`key` of the Address to remove from `itemShippingAddresses`.
@@ -2441,7 +2595,8 @@ export interface OrderRemoveItemShippingAddressAction {
  *	Produces the [ParcelRemovedFromDelivery](ctp:api:type:ParcelRemovedFromDeliveryMessage) Message.
  *
  */
-export interface OrderRemoveParcelFromDeliveryAction {
+export interface OrderRemoveParcelFromDeliveryAction
+  extends IOrderUpdateAction {
   readonly action: 'removeParcelFromDelivery'
   /**
    *	`id` of an existing [Parcel](ctp:api:type:Parcel).
@@ -2460,7 +2615,7 @@ export interface OrderRemoveParcelFromDeliveryAction {
    */
   readonly parcelKey?: string
 }
-export interface OrderRemovePaymentAction {
+export interface OrderRemovePaymentAction extends IOrderUpdateAction {
   readonly action: 'removePayment'
   /**
    *	Payment to remove from the [PaymentInfo](ctp:api:type:PaymentInfo).
@@ -2475,7 +2630,7 @@ export interface OrderRemovePaymentAction {
  *	Produces the [Order Billing Address Set](ctp:api:type:OrderBillingAddressSetMessage) Message.
  *
  */
-export interface OrderSetBillingAddressAction {
+export interface OrderSetBillingAddressAction extends IOrderUpdateAction {
   readonly action: 'setBillingAddress'
   /**
    *	Value to set.
@@ -2485,7 +2640,8 @@ export interface OrderSetBillingAddressAction {
    */
   readonly address?: _BaseAddress
 }
-export interface OrderSetBillingAddressCustomFieldAction {
+export interface OrderSetBillingAddressCustomFieldAction
+  extends IOrderUpdateAction {
   readonly action: 'setBillingAddressCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -2502,7 +2658,8 @@ export interface OrderSetBillingAddressCustomFieldAction {
    */
   readonly value?: any
 }
-export interface OrderSetBillingAddressCustomTypeAction {
+export interface OrderSetBillingAddressCustomTypeAction
+  extends IOrderUpdateAction {
   readonly action: 'setBillingAddressCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the `billingAddress` with [Custom Fields](/../api/projects/custom-fields).
@@ -2518,7 +2675,7 @@ export interface OrderSetBillingAddressCustomTypeAction {
    */
   readonly fields?: FieldContainer
 }
-export interface OrderSetCustomFieldAction {
+export interface OrderSetCustomFieldAction extends IOrderUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -2535,7 +2692,8 @@ export interface OrderSetCustomFieldAction {
    */
   readonly value?: any
 }
-export interface OrderSetCustomLineItemCustomFieldAction {
+export interface OrderSetCustomLineItemCustomFieldAction
+  extends IOrderUpdateAction {
   readonly action: 'setCustomLineItemCustomField'
   /**
    *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
@@ -2564,7 +2722,8 @@ export interface OrderSetCustomLineItemCustomFieldAction {
    */
   readonly value?: any
 }
-export interface OrderSetCustomLineItemCustomTypeAction {
+export interface OrderSetCustomLineItemCustomTypeAction
+  extends IOrderUpdateAction {
   readonly action: 'setCustomLineItemCustomType'
   /**
    *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
@@ -2592,7 +2751,8 @@ export interface OrderSetCustomLineItemCustomTypeAction {
    */
   readonly fields?: FieldContainer
 }
-export interface OrderSetCustomLineItemShippingDetailsAction {
+export interface OrderSetCustomLineItemShippingDetailsAction
+  extends IOrderUpdateAction {
   readonly action: 'setCustomLineItemShippingDetails'
   /**
    *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
@@ -2614,7 +2774,7 @@ export interface OrderSetCustomLineItemShippingDetailsAction {
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
 }
-export interface OrderSetCustomTypeAction {
+export interface OrderSetCustomTypeAction extends IOrderUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the Order with [Custom Fields](/../api/projects/custom-fields).
@@ -2636,7 +2796,7 @@ export interface OrderSetCustomTypeAction {
  *	Produces the [Order Customer Email Set](ctp:api:type:OrderCustomerEmailSetMessage) Message.
  *
  */
-export interface OrderSetCustomerEmailAction {
+export interface OrderSetCustomerEmailAction extends IOrderUpdateAction {
   readonly action: 'setCustomerEmail'
   /**
    *	Value to set.
@@ -2653,7 +2813,7 @@ export interface OrderSetCustomerEmailAction {
  *	Produces the [OrderCustomerSet](ctp:api:type:OrderCustomerSetMessage) Message.
  *
  */
-export interface OrderSetCustomerIdAction {
+export interface OrderSetCustomerIdAction extends IOrderUpdateAction {
   readonly action: 'setCustomerId'
   /**
    *	`id` of an existing [Customer](ctp:api:type:Customer).
@@ -2667,7 +2827,7 @@ export interface OrderSetCustomerIdAction {
  *	Produces the [DeliveryAddressSet](ctp:api:type:DeliveryAddressSetMessage) Message.
  *
  */
-export interface OrderSetDeliveryAddressAction {
+export interface OrderSetDeliveryAddressAction extends IOrderUpdateAction {
   readonly action: 'setDeliveryAddress'
   /**
    *	`id` of an existing [Delivery](ctp:api:type:Delivery).
@@ -2693,7 +2853,8 @@ export interface OrderSetDeliveryAddressAction {
    */
   readonly address?: _BaseAddress
 }
-export interface OrderSetDeliveryAddressCustomFieldAction {
+export interface OrderSetDeliveryAddressCustomFieldAction
+  extends IOrderUpdateAction {
   readonly action: 'setDeliveryAddressCustomField'
   /**
    *	`id` of an existing [Delivery](ctp:api:type:Delivery).
@@ -2726,7 +2887,8 @@ export interface OrderSetDeliveryAddressCustomFieldAction {
    */
   readonly value?: any
 }
-export interface OrderSetDeliveryAddressCustomTypeAction {
+export interface OrderSetDeliveryAddressCustomTypeAction
+  extends IOrderUpdateAction {
   readonly action: 'setDeliveryAddressCustomType'
   /**
    *	`id` of an existing [Delivery](ctp:api:type:Delivery).
@@ -2758,7 +2920,7 @@ export interface OrderSetDeliveryAddressCustomTypeAction {
    */
   readonly fields?: FieldContainer
 }
-export interface OrderSetDeliveryCustomFieldAction {
+export interface OrderSetDeliveryCustomFieldAction extends IOrderUpdateAction {
   readonly action: 'setDeliveryCustomField'
   /**
    *	`id` of an existing [Delivery](ctp:api:type:Delivery).
@@ -2791,7 +2953,7 @@ export interface OrderSetDeliveryCustomFieldAction {
    */
   readonly value?: any
 }
-export interface OrderSetDeliveryCustomTypeAction {
+export interface OrderSetDeliveryCustomTypeAction extends IOrderUpdateAction {
   readonly action: 'setDeliveryCustomType'
   /**
    *	`id` of an existing [Delivery](ctp:api:type:Delivery).
@@ -2827,7 +2989,7 @@ export interface OrderSetDeliveryCustomTypeAction {
  *	Produces the [Delivery Items Updated](ctp:api:type:DeliveryItemsUpdatedMessage) Message.
  *
  */
-export interface OrderSetDeliveryItemsAction {
+export interface OrderSetDeliveryItemsAction extends IOrderUpdateAction {
   readonly action: 'setDeliveryItems'
   /**
    *	`id` of an existing [Delivery](ctp:api:type:Delivery).
@@ -2853,7 +3015,8 @@ export interface OrderSetDeliveryItemsAction {
    */
   readonly items: DeliveryItem[]
 }
-export interface OrderSetItemShippingAddressCustomFieldAction {
+export interface OrderSetItemShippingAddressCustomFieldAction
+  extends IOrderUpdateAction {
   readonly action: 'setItemShippingAddressCustomField'
   /**
    *	`key` of the [Address](ctp:api:type:Address) in `itemShippingAddresses`.
@@ -2876,7 +3039,8 @@ export interface OrderSetItemShippingAddressCustomFieldAction {
    */
   readonly value?: any
 }
-export interface OrderSetItemShippingAddressCustomTypeAction {
+export interface OrderSetItemShippingAddressCustomTypeAction
+  extends IOrderUpdateAction {
   readonly action: 'setItemShippingAddressCustomType'
   /**
    *	`key` of the [Address](ctp:api:type:Address) in `itemShippingAddresses`.
@@ -2898,7 +3062,7 @@ export interface OrderSetItemShippingAddressCustomTypeAction {
    */
   readonly fields?: FieldContainer
 }
-export interface OrderSetLineItemCustomFieldAction {
+export interface OrderSetLineItemCustomFieldAction extends IOrderUpdateAction {
   readonly action: 'setLineItemCustomField'
   /**
    *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
@@ -2927,7 +3091,7 @@ export interface OrderSetLineItemCustomFieldAction {
    */
   readonly value?: any
 }
-export interface OrderSetLineItemCustomTypeAction {
+export interface OrderSetLineItemCustomTypeAction extends IOrderUpdateAction {
   readonly action: 'setLineItemCustomType'
   /**
    *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
@@ -2955,7 +3119,8 @@ export interface OrderSetLineItemCustomTypeAction {
    */
   readonly fields?: FieldContainer
 }
-export interface OrderSetLineItemShippingDetailsAction {
+export interface OrderSetLineItemShippingDetailsAction
+  extends IOrderUpdateAction {
   readonly action: 'setLineItemShippingDetails'
   /**
    *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
@@ -2977,7 +3142,7 @@ export interface OrderSetLineItemShippingDetailsAction {
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
 }
-export interface OrderSetLocaleAction {
+export interface OrderSetLocaleAction extends IOrderUpdateAction {
   readonly action: 'setLocale'
   /**
    *	Value to set.
@@ -2988,7 +3153,7 @@ export interface OrderSetLocaleAction {
    */
   readonly locale?: string
 }
-export interface OrderSetOrderNumberAction {
+export interface OrderSetOrderNumberAction extends IOrderUpdateAction {
   readonly action: 'setOrderNumber'
   /**
    *	Value to set.
@@ -2999,7 +3164,7 @@ export interface OrderSetOrderNumberAction {
    */
   readonly orderNumber?: string
 }
-export interface OrderSetParcelCustomFieldAction {
+export interface OrderSetParcelCustomFieldAction extends IOrderUpdateAction {
   readonly action: 'setParcelCustomField'
   /**
    *	`id` of an existing [Parcel](ctp:api:type:Parcel).
@@ -3032,7 +3197,7 @@ export interface OrderSetParcelCustomFieldAction {
    */
   readonly value?: any
 }
-export interface OrderSetParcelCustomTypeAction {
+export interface OrderSetParcelCustomTypeAction extends IOrderUpdateAction {
   readonly action: 'setParcelCustomType'
   /**
    *	`id` of an existing [Parcel](ctp:api:type:Parcel).
@@ -3068,7 +3233,7 @@ export interface OrderSetParcelCustomTypeAction {
  *	Produces the [ParcelItemsUpdated](ctp:api:type:ParcelItemsUpdatedMessage) Message.
  *
  */
-export interface OrderSetParcelItemsAction {
+export interface OrderSetParcelItemsAction extends IOrderUpdateAction {
   readonly action: 'setParcelItems'
   /**
    *	`id` of an existing [Parcel](ctp:api:type:Parcel).
@@ -3098,7 +3263,7 @@ export interface OrderSetParcelItemsAction {
  *	Produces the [ParcelMeasurementsUpdated](ctp:api:type:ParcelMeasurementsUpdatedMessage) Message.
  *
  */
-export interface OrderSetParcelMeasurementsAction {
+export interface OrderSetParcelMeasurementsAction extends IOrderUpdateAction {
   readonly action: 'setParcelMeasurements'
   /**
    *	`id` of an existing [Parcel](ctp:api:type:Parcel).
@@ -3128,7 +3293,7 @@ export interface OrderSetParcelMeasurementsAction {
  *	Produces the [ParcelTrackingDataUpdated](ctp:api:type:ParcelTrackingDataUpdatedMessage) Message.
  *
  */
-export interface OrderSetParcelTrackingDataAction {
+export interface OrderSetParcelTrackingDataAction extends IOrderUpdateAction {
   readonly action: 'setParcelTrackingData'
   /**
    *	`id` of an existing [Parcel](ctp:api:type:Parcel).
@@ -3158,7 +3323,7 @@ export interface OrderSetParcelTrackingDataAction {
  *	Produces the [PurchaseOrderNumberSet](ctp:api:type:OrderPurchaseOrderNumberSetMessage) Message.
  *
  */
-export interface OrderSetPurchaseOrderNumberAction {
+export interface OrderSetPurchaseOrderNumberAction extends IOrderUpdateAction {
   readonly action: 'setPurchaseOrderNumber'
   /**
    *	Value to set.
@@ -3172,7 +3337,7 @@ export interface OrderSetPurchaseOrderNumberAction {
  *	Produces the [Return Info Set](ctp:api:type:ReturnInfoSetMessage) Message.
  *
  */
-export interface OrderSetReturnInfoAction {
+export interface OrderSetReturnInfoAction extends IOrderUpdateAction {
   readonly action: 'setReturnInfo'
   /**
    *	Value to set.
@@ -3182,7 +3347,8 @@ export interface OrderSetReturnInfoAction {
    */
   readonly items?: ReturnInfoDraft[]
 }
-export interface OrderSetReturnItemCustomFieldAction {
+export interface OrderSetReturnItemCustomFieldAction
+  extends IOrderUpdateAction {
   readonly action: 'setReturnItemCustomField'
   /**
    *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
@@ -3211,7 +3377,7 @@ export interface OrderSetReturnItemCustomFieldAction {
    */
   readonly value?: any
 }
-export interface OrderSetReturnItemCustomTypeAction {
+export interface OrderSetReturnItemCustomTypeAction extends IOrderUpdateAction {
   readonly action: 'setReturnItemCustomType'
   /**
    *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
@@ -3243,7 +3409,7 @@ export interface OrderSetReturnItemCustomTypeAction {
  *	To set a [ReturnPaymentState](ctp:api:type:ReturnPaymentState), the [Order](ctp:api:type:Order) `returnInfo` must have at least one [ReturnItem](ctp:api:type:ReturnItem).
  *
  */
-export interface OrderSetReturnPaymentStateAction {
+export interface OrderSetReturnPaymentStateAction extends IOrderUpdateAction {
   readonly action: 'setReturnPaymentState'
   /**
    *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
@@ -3270,7 +3436,7 @@ export interface OrderSetReturnPaymentStateAction {
  *	Produces the [Order Return Shipment State Changed](ctp:api:type:OrderReturnShipmentStateChangedMessage) Message.
  *
  */
-export interface OrderSetReturnShipmentStateAction {
+export interface OrderSetReturnShipmentStateAction extends IOrderUpdateAction {
   readonly action: 'setReturnShipmentState'
   /**
    *	`id` of the [ReturnItem](ctp:api:type:ReturnItem) to update. Either `returnItemId` or `returnItemKey` is required.
@@ -3298,7 +3464,7 @@ export interface OrderSetReturnShipmentStateAction {
  *	Produces the [Order Shipping Address Set](ctp:api:type:OrderShippingAddressSetMessage) Message.
  *
  */
-export interface OrderSetShippingAddressAction {
+export interface OrderSetShippingAddressAction extends IOrderUpdateAction {
   readonly action: 'setShippingAddress'
   /**
    *	Value to set.
@@ -3308,7 +3474,8 @@ export interface OrderSetShippingAddressAction {
    */
   readonly address?: _BaseAddress
 }
-export interface OrderSetShippingAddressCustomFieldAction {
+export interface OrderSetShippingAddressCustomFieldAction
+  extends IOrderUpdateAction {
   readonly action: 'setShippingAddressCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -3325,7 +3492,8 @@ export interface OrderSetShippingAddressCustomFieldAction {
    */
   readonly value?: any
 }
-export interface OrderSetShippingAddressCustomTypeAction {
+export interface OrderSetShippingAddressCustomTypeAction
+  extends IOrderUpdateAction {
   readonly action: 'setShippingAddressCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the `shippingAddress` with [Custom Fields](/../api/projects/custom-fields).
@@ -3341,7 +3509,7 @@ export interface OrderSetShippingAddressCustomTypeAction {
    */
   readonly fields?: FieldContainer
 }
-export interface OrderSetShippingCustomFieldAction {
+export interface OrderSetShippingCustomFieldAction extends IOrderUpdateAction {
   readonly action: 'setShippingCustomField'
   /**
    *	The `shippingKey` of the [Shipping](ctp:api:type:Shipping) to customize. Used to specify which Shipping Method to customize
@@ -3370,7 +3538,7 @@ export interface OrderSetShippingCustomFieldAction {
  *	This action sets, overwrites, or removes any existing Custom Type and Custom Fields for the Order's `shippingMethod` or `shipping`.
  *
  */
-export interface OrderSetShippingCustomTypeAction {
+export interface OrderSetShippingCustomTypeAction extends IOrderUpdateAction {
   readonly action: 'setShippingCustomType'
   /**
    *	The `shippingKey` of the [Shipping](ctp:api:type:Shipping) to customize. Used to specify which Shipping Method to customize
@@ -3403,7 +3571,7 @@ export interface OrderSetShippingCustomTypeAction {
  *	Returns a `400` error if `store` references the same Store the Order is currently assigned to, including if you try to remove the value when no Store is currently assigned.
  *
  */
-export interface OrderSetStoreAction {
+export interface OrderSetStoreAction extends IOrderUpdateAction {
   readonly action: 'setStore'
   /**
    *	Value to set.
@@ -3419,7 +3587,8 @@ export interface OrderSetStoreAction {
  *	Produces the [Custom Line Item State Transition](ctp:api:type:CustomLineItemStateTransitionMessage) Message.
  *
  */
-export interface OrderTransitionCustomLineItemStateAction {
+export interface OrderTransitionCustomLineItemStateAction
+  extends IOrderUpdateAction {
   readonly action: 'transitionCustomLineItemState'
   /**
    *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
@@ -3462,7 +3631,7 @@ export interface OrderTransitionCustomLineItemStateAction {
  *	Produces the [Line Item State Transition](ctp:api:type:LineItemStateTransitionMessage) Message.
  *
  */
-export interface OrderTransitionLineItemStateAction {
+export interface OrderTransitionLineItemStateAction extends IOrderUpdateAction {
   readonly action: 'transitionLineItemState'
   /**
    *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
@@ -3508,7 +3677,7 @@ export interface OrderTransitionLineItemStateAction {
  *	This update action produces the [Order State Transition](ctp:api:type:OrderStateTransitionMessage) Message.
  *
  */
-export interface OrderTransitionStateAction {
+export interface OrderTransitionStateAction extends IOrderUpdateAction {
   readonly action: 'transitionState'
   /**
    *	Value to set.
@@ -3528,7 +3697,8 @@ export interface OrderTransitionStateAction {
  *	Updates an address in `itemShippingAddresses` by keeping the Address `key`.
  *
  */
-export interface OrderUpdateItemShippingAddressAction {
+export interface OrderUpdateItemShippingAddressAction
+  extends IOrderUpdateAction {
   readonly action: 'updateItemShippingAddress'
   /**
    *	The new Address with the same `key` as the Address it will replace.
@@ -3537,7 +3707,7 @@ export interface OrderUpdateItemShippingAddressAction {
    */
   readonly address: _BaseAddress
 }
-export interface OrderUpdateSyncInfoAction {
+export interface OrderUpdateSyncInfoAction extends IOrderUpdateAction {
   readonly action: 'updateSyncInfo'
   /**
    *	Set this to identify an external order instance, file, or other resource.

@@ -54,14 +54,20 @@ export interface SearchKeyword {
  *
  */
 export type SuggestTokenizer = CustomTokenizer | WhitespaceTokenizer
-export interface CustomTokenizer {
+export interface ISuggestTokenizer {
+  /**
+   *
+   */
+  readonly type: string
+}
+export interface CustomTokenizer extends ISuggestTokenizer {
   readonly type: 'custom'
   /**
    *
    */
   readonly inputs: string[]
 }
-export interface WhitespaceTokenizer {
+export interface WhitespaceTokenizer extends ISuggestTokenizer {
   readonly type: 'whitespace'
 }
 /**
@@ -186,7 +192,7 @@ export interface ProductImport extends ImportResource {
    */
   readonly state?: StateKeyReference
   /**
-   *	Determines the published status and current/staged projection of the Product. For more information, see [Managing the published state of Products](/import-export/best-practices#managing-the-published-state-of-products).
+   *	Determines the published status and current/staged projection of the Product. For more information, see [Managing the published state of Products](/import-export/best-practices#manage-published-state-of-products).
    *
    *
    */
