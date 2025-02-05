@@ -23,7 +23,13 @@ export type Label =
   | ReviewLabel
   | StagedQuoteLabel
   | StringLabel
-export interface AssociateRoleLabel {
+export interface ILabel {
+  /**
+   *
+   */
+  readonly type: string
+}
+export interface AssociateRoleLabel extends ILabel {
   readonly type: 'AssociateRoleLabel'
   /**
    *	User-defined unique identifier of the [Associate Role](ctp:api:type:AssociateRole).
@@ -36,7 +42,7 @@ export interface AssociateRoleLabel {
    */
   readonly name: string
 }
-export interface BusinessUnitLabel {
+export interface BusinessUnitLabel extends ILabel {
   readonly type: 'BusinessUnitLabel'
   /**
    *	User-defined unique identifier of the [Business Unit](ctp:api:type:BusinessUnit).
@@ -49,7 +55,7 @@ export interface BusinessUnitLabel {
    */
   readonly name: string
 }
-export interface CustomObjectLabel {
+export interface CustomObjectLabel extends ILabel {
   readonly type: 'CustomObjectLabel'
   /**
    *	User-defined unique identifier of the CustomObject within the defined `container`.
@@ -64,7 +70,7 @@ export interface CustomObjectLabel {
    */
   readonly container: string
 }
-export interface CustomerLabel {
+export interface CustomerLabel extends ILabel {
   readonly type: 'CustomerLabel'
   /**
    *	Given name (first name) of the Customer.
@@ -85,7 +91,7 @@ export interface CustomerLabel {
    */
   readonly customerNumber: string
 }
-export interface LocalizedLabel {
+export interface LocalizedLabel extends ILabel {
   readonly type: 'LocalizedLabel'
   /**
    *	Changed value.
@@ -94,7 +100,7 @@ export interface LocalizedLabel {
    */
   readonly value: LocalizedString
 }
-export interface OrderLabel {
+export interface OrderLabel extends ILabel {
   readonly type: 'OrderLabel'
   /**
    *	Email address of the Customer that the Order belongs to.
@@ -109,7 +115,7 @@ export interface OrderLabel {
    */
   readonly orderNumber: string
 }
-export interface PaymentLabel {
+export interface PaymentLabel extends ILabel {
   readonly type: 'PaymentLabel'
   /**
    *	User-defined unique identifier of the Payment.
@@ -124,7 +130,7 @@ export interface PaymentLabel {
    */
   readonly amountPlanned: Money
 }
-export interface ProductLabel {
+export interface ProductLabel extends ILabel {
   readonly type: 'ProductLabel'
   /**
    *	User-defined identifier used in a deep-link URL for the Product.
@@ -139,7 +145,7 @@ export interface ProductLabel {
    */
   readonly name: LocalizedString
 }
-export interface QuoteLabel {
+export interface QuoteLabel extends ILabel {
   readonly type: 'QuoteLabel'
   /**
    *	User-defined unique identifier of the Quote.
@@ -166,7 +172,7 @@ export interface QuoteLabel {
    */
   readonly quoteRequest: Reference
 }
-export interface QuoteRequestLabel {
+export interface QuoteRequestLabel extends ILabel {
   readonly type: 'QuoteRequestLabel'
   /**
    *	User-defined unique identifier of the Quote Request.
@@ -181,7 +187,7 @@ export interface QuoteRequestLabel {
    */
   readonly customer: Reference
 }
-export interface ReviewLabel {
+export interface ReviewLabel extends ILabel {
   readonly type: 'ReviewLabel'
   /**
    *	User-defined unique identifier of the Review.
@@ -196,7 +202,7 @@ export interface ReviewLabel {
    */
   readonly title: string
 }
-export interface StagedQuoteLabel {
+export interface StagedQuoteLabel extends ILabel {
   readonly type: 'StagedQuoteLabel'
   /**
    *	User-defined unique identifier of the Staged Quote.
@@ -217,7 +223,7 @@ export interface StagedQuoteLabel {
    */
   readonly quoteRequest: Reference
 }
-export interface StringLabel {
+export interface StringLabel extends ILabel {
   readonly type: 'StringLabel'
   /**
    *	Changed value.

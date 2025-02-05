@@ -14,6 +14,8 @@ import {
   CreatedBy,
   DiscountedPriceDraft,
   Image,
+  IReference,
+  IResourceIdentifier,
   LastModifiedBy,
   LocalizedString,
   Price,
@@ -110,6 +112,12 @@ export type FacetResult =
   | FilteredFacetResult
   | RangeFacetResult
   | TermFacetResult
+export interface IFacetResult {
+  /**
+   *
+   */
+  readonly type: FacetTypes
+}
 export interface FacetResults {
   [key: string]: FacetResult
 }
@@ -127,8 +135,14 @@ export interface FacetTerm {
    */
   readonly productCount?: number
 }
+export enum FacetTypesValues {
+  Filter = 'filter',
+  Range = 'range',
+  Terms = 'terms',
+}
+
 export type FacetTypes = 'filter' | 'range' | 'terms' | string
-export interface FilteredFacetResult {
+export interface FilteredFacetResult extends IFacetResult {
   readonly type: 'filter'
   /**
    *
@@ -493,6 +507,11 @@ export interface ProductPagedQueryResponse {
  *	For more information about the difference between the Prices, see [Pricing](/../api/pricing-and-discounts-overview).
  *
  */
+export enum ProductPriceModeEnumValues {
+  Embedded = 'Embedded',
+  Standalone = 'Standalone',
+}
+
 export type ProductPriceModeEnum = 'Embedded' | 'Standalone' | string
 export interface ProductProjection extends BaseResource {
   /**
@@ -707,7 +726,7 @@ export interface ProductProjectionPagedSearchResponse {
  *	[Reference](ctp:api:type:Reference) to a [Product](ctp:api:type:Product).
  *
  */
-export interface ProductReference {
+export interface ProductReference extends IReference {
   readonly typeId: 'product'
   /**
    *	Unique identifier of the referenced [Product](ctp:api:type:Product).
@@ -726,7 +745,7 @@ export interface ProductReference {
  *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Product](ctp:api:type:Product). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
-export interface ProductResourceIdentifier {
+export interface ProductResourceIdentifier extends IResourceIdentifier {
   readonly typeId: 'product'
   /**
    *	Unique identifier of the referenced [Product](ctp:api:type:Product). Required if `key` is absent.
@@ -805,6 +824,12 @@ export type ProductUpdateAction =
   | ProductSetTaxCategoryAction
   | ProductTransitionStateAction
   | ProductUnpublishAction
+export interface IProductUpdateAction {
+  /**
+   *
+   */
+  readonly action: string
+}
 /**
  *	A concrete sellable good for which inventory can be tracked. Product Variants are generally mapped to specific SKUs.
  *
@@ -1017,7 +1042,7 @@ export interface ProductVariantDraft {
    */
   readonly assets?: AssetDraft[]
 }
-export interface RangeFacetResult {
+export interface RangeFacetResult extends IFacetResult {
   readonly type: 'range'
   /**
    *
@@ -1047,11 +1072,17 @@ export interface SearchKeywords {
   [key: string]: SearchKeyword[]
 }
 export type SuggestTokenizer = CustomTokenizer | WhitespaceTokenizer
+export interface ISuggestTokenizer {
+  /**
+   *
+   */
+  readonly type: string
+}
 /**
  *	Define arbitrary tokens that are used to match the input.
  *
  */
-export interface CustomTokenizer {
+export interface CustomTokenizer extends ISuggestTokenizer {
   readonly type: 'custom'
   /**
    *	Contains custom tokens.
@@ -1070,7 +1101,7 @@ export interface Suggestion {
 export interface SuggestionResult {
   [key: string]: Suggestion[]
 }
-export interface TermFacetResult {
+export interface TermFacetResult extends IFacetResult {
   readonly type: 'terms'
   /**
    *
@@ -1093,6 +1124,15 @@ export interface TermFacetResult {
    */
   readonly terms: FacetTerm[]
 }
+export enum TermFacetResultTypeValues {
+  Boolean = 'boolean',
+  Date = 'date',
+  Datetime = 'datetime',
+  Number = 'number',
+  Text = 'text',
+  Time = 'time',
+}
+
 export type TermFacetResultType =
   | 'boolean'
   | 'date'
@@ -1105,14 +1145,14 @@ export type TermFacetResultType =
  *	Creates tokens by splitting the `text` field in [SearchKeyword](ctp:api:type:SearchKeyword) by whitespaces.
  *
  */
-export interface WhitespaceTokenizer {
+export interface WhitespaceTokenizer extends ISuggestTokenizer {
   readonly type: 'whitespace'
 }
 /**
  *	Either `variantId` or `sku` is required.
  *
  */
-export interface ProductAddAssetAction {
+export interface ProductAddAssetAction extends IProductUpdateAction {
   readonly action: 'addAsset'
   /**
    *	The `id` of the ProductVariant to update.
@@ -1149,7 +1189,7 @@ export interface ProductAddAssetAction {
  *	Either `variantId` or `sku` is required. Produces the [ProductImageAdded](/projects/messages/product-catalog-messages#product-image-added) Message.
  *
  */
-export interface ProductAddExternalImageAction {
+export interface ProductAddExternalImageAction extends IProductUpdateAction {
   readonly action: 'addExternalImage'
   /**
    *	The `id` of the ProductVariant to update.
@@ -1181,7 +1221,7 @@ export interface ProductAddExternalImageAction {
  *	Either `variantId` or `sku` is required.
  *
  */
-export interface ProductAddPriceAction {
+export interface ProductAddPriceAction extends IProductUpdateAction {
   readonly action: 'addPrice'
   /**
    *	The `id` of the ProductVariant to update.
@@ -1211,7 +1251,7 @@ export interface ProductAddPriceAction {
 /**
  *	Produces the [ProductAddedToCategory](/projects/messages/product-catalog-messages#product-added-to-category) Message.
  */
-export interface ProductAddToCategoryAction {
+export interface ProductAddToCategoryAction extends IProductUpdateAction {
   readonly action: 'addToCategory'
   /**
    *	The Category to add.
@@ -1232,7 +1272,7 @@ export interface ProductAddToCategoryAction {
    */
   readonly staged?: boolean
 }
-export interface ProductAddVariantAction {
+export interface ProductAddVariantAction extends IProductUpdateAction {
   readonly action: 'addVariant'
   /**
    *	Value to set. Must be unique.
@@ -1280,7 +1320,7 @@ export interface ProductAddVariantAction {
  *	Either `variantId` or `sku` is required. The Asset to update must be specified using either `assetId` or `assetKey`.
  *
  */
-export interface ProductChangeAssetNameAction {
+export interface ProductChangeAssetNameAction extends IProductUpdateAction {
   readonly action: 'changeAssetName'
   /**
    *	The `id` of the ProductVariant to update.
@@ -1323,7 +1363,7 @@ export interface ProductChangeAssetNameAction {
  *	Either `variantId` or `sku` is required.
  *
  */
-export interface ProductChangeAssetOrderAction {
+export interface ProductChangeAssetOrderAction extends IProductUpdateAction {
   readonly action: 'changeAssetOrder'
   /**
    *	The `id` of the ProductVariant to update.
@@ -1355,7 +1395,7 @@ export interface ProductChangeAssetOrderAction {
  *	Either `variantId` or `sku` is required.
  *
  */
-export interface ProductChangeMasterVariantAction {
+export interface ProductChangeMasterVariantAction extends IProductUpdateAction {
   readonly action: 'changeMasterVariant'
   /**
    *	The `id` of the ProductVariant to become the Master Variant.
@@ -1376,7 +1416,7 @@ export interface ProductChangeMasterVariantAction {
    */
   readonly staged?: boolean
 }
-export interface ProductChangeNameAction {
+export interface ProductChangeNameAction extends IProductUpdateAction {
   readonly action: 'changeName'
   /**
    *	Value to set. Must not be empty.
@@ -1391,7 +1431,7 @@ export interface ProductChangeNameAction {
    */
   readonly staged?: boolean
 }
-export interface ProductChangePriceAction {
+export interface ProductChangePriceAction extends IProductUpdateAction {
   readonly action: 'changePrice'
   /**
    *	The `id` of the Embedded Price to update.
@@ -1415,7 +1455,7 @@ export interface ProductChangePriceAction {
 /**
  *	Produces the [ProductSlugChanged](ctp:api:type:ProductSlugChangedMessage) Message.
  */
-export interface ProductChangeSlugAction {
+export interface ProductChangeSlugAction extends IProductUpdateAction {
   readonly action: 'changeSlug'
   /**
    *	Value to set. Must not be empty. A Product can have the same slug for different [Locales](ctp:api:type:Locale), but it must be unique across the [Project](ctp:api:type:Project). Must match the pattern `^[A-Za-z0-9_-]{2,256}+$`.
@@ -1430,7 +1470,7 @@ export interface ProductChangeSlugAction {
    */
   readonly staged?: boolean
 }
-export interface ProductLegacySetSkuAction {
+export interface ProductLegacySetSkuAction extends IProductUpdateAction {
   readonly action: 'legacySetSku'
   /**
    *
@@ -1445,7 +1485,7 @@ export interface ProductLegacySetSkuAction {
  *	Either `variantId` or `sku` is required.
  *
  */
-export interface ProductMoveImageToPositionAction {
+export interface ProductMoveImageToPositionAction extends IProductUpdateAction {
   readonly action: 'moveImageToPosition'
   /**
    *	The `id` of the ProductVariant to update.
@@ -1482,7 +1522,7 @@ export interface ProductMoveImageToPositionAction {
  *	Publishes product data from the Product's staged projection to its current projection.
  *	Produces the [ProductPublished](ctp:api:type:ProductPublishedMessage) Message.
  */
-export interface ProductPublishAction {
+export interface ProductPublishAction extends IProductUpdateAction {
   readonly action: 'publish'
   /**
    *	`All` or `Prices`
@@ -1495,7 +1535,7 @@ export interface ProductPublishAction {
  *	Either `variantId` or `sku` is required. The Asset to remove must be specified using either `assetId` or `assetKey`.
  *
  */
-export interface ProductRemoveAssetAction {
+export interface ProductRemoveAssetAction extends IProductUpdateAction {
   readonly action: 'removeAsset'
   /**
    *	The `id` of the ProductVariant to update.
@@ -1531,7 +1571,7 @@ export interface ProductRemoveAssetAction {
 /**
  *	Produces the [ProductRemovedFromCategory](ctp:api:type:ProductRemovedFromCategoryMessage) Message.
  */
-export interface ProductRemoveFromCategoryAction {
+export interface ProductRemoveFromCategoryAction extends IProductUpdateAction {
   readonly action: 'removeFromCategory'
   /**
    *	The Category to remove.
@@ -1547,10 +1587,13 @@ export interface ProductRemoveFromCategoryAction {
   readonly staged?: boolean
 }
 /**
- *	Removes a Product image and deletes it from the Content Delivery Network (external images are not deleted). Deletion from the CDN is not instant, which means the image file itself will stay available for some time after the deletion. Either `variantId` or `sku` is required.
+ *	Removes a Product image and deletes it from the Content Delivery Network (CDN) if it had been [uploaded to our CDN](/../api/projects/products#upload-product-image).
+ *	External images will not be deleted.
+ *	The API deletes the removed image from the CDN in an [eventual consistent](/../api/general-concepts#eventual-consistency) way.
+ *	Either `variantId` or `sku` is required.
  *
  */
-export interface ProductRemoveImageAction {
+export interface ProductRemoveImageAction extends IProductUpdateAction {
   readonly action: 'removeImage'
   /**
    *	The `id` of the ProductVariant to update.
@@ -1577,7 +1620,7 @@ export interface ProductRemoveImageAction {
    */
   readonly staged?: boolean
 }
-export interface ProductRemovePriceAction {
+export interface ProductRemovePriceAction extends IProductUpdateAction {
   readonly action: 'removePrice'
   /**
    *	The `id` of the Embedded Price to remove.
@@ -1599,7 +1642,7 @@ export interface ProductRemovePriceAction {
  *	its SKU will be automatically removed from the respective [ProductVariantSelection](ctp:api:type:ProductVariantSelection).
  *
  */
-export interface ProductRemoveVariantAction {
+export interface ProductRemoveVariantAction extends IProductUpdateAction {
   readonly action: 'removeVariant'
   /**
    *	The `id` of the ProductVariant to remove.
@@ -1624,14 +1667,15 @@ export interface ProductRemoveVariantAction {
  *	Reverts the staged version of a Product to the current version. Produces the [ProductRevertedStagedChanges](ctp:api:type:ProductRevertedStagedChangesMessage) Message.
  *
  */
-export interface ProductRevertStagedChangesAction {
+export interface ProductRevertStagedChangesAction extends IProductUpdateAction {
   readonly action: 'revertStagedChanges'
 }
 /**
  *	Reverts the staged version of a ProductVariant to the current version.
  *
  */
-export interface ProductRevertStagedVariantChangesAction {
+export interface ProductRevertStagedVariantChangesAction
+  extends IProductUpdateAction {
   readonly action: 'revertStagedVariantChanges'
   /**
    *	The `id` of the ProductVariant to revert.
@@ -1644,7 +1688,7 @@ export interface ProductRevertStagedVariantChangesAction {
  *	Either `variantId` or `sku` is required. The [Asset](ctp:api:type:Asset) to update must be specified using either `assetId` or `assetKey`.
  *
  */
-export interface ProductSetAssetCustomFieldAction {
+export interface ProductSetAssetCustomFieldAction extends IProductUpdateAction {
   readonly action: 'setAssetCustomField'
   /**
    *	The `id` of the ProductVariant to update.
@@ -1695,7 +1739,7 @@ export interface ProductSetAssetCustomFieldAction {
  *	Either `variantId` or `sku` is required. The [Asset](ctp:api:type:Asset) to update must be specified using either `assetId` or `assetKey`.
  *
  */
-export interface ProductSetAssetCustomTypeAction {
+export interface ProductSetAssetCustomTypeAction extends IProductUpdateAction {
   readonly action: 'setAssetCustomType'
   /**
    *	The `id` of the ProductVariant to update.
@@ -1745,7 +1789,7 @@ export interface ProductSetAssetCustomTypeAction {
  *	Either `variantId` or `sku` is required. The [Asset](ctp:api:type:Asset) to update must be specified using either `assetId` or `assetKey`.
  *
  */
-export interface ProductSetAssetDescriptionAction {
+export interface ProductSetAssetDescriptionAction extends IProductUpdateAction {
   readonly action: 'setAssetDescription'
   /**
    *	The `id` of the ProductVariant to update.
@@ -1788,7 +1832,7 @@ export interface ProductSetAssetDescriptionAction {
  *	Either `variantId` or `sku` is required.
  *
  */
-export interface ProductSetAssetKeyAction {
+export interface ProductSetAssetKeyAction extends IProductUpdateAction {
   readonly action: 'setAssetKey'
   /**
    *	The `id` of the ProductVariant to update.
@@ -1825,7 +1869,7 @@ export interface ProductSetAssetKeyAction {
  *	Either `variantId` or `sku` is required. The [Asset](ctp:api:type:Asset) to update must be specified using either `assetId` or `assetKey`.
  *
  */
-export interface ProductSetAssetSourcesAction {
+export interface ProductSetAssetSourcesAction extends IProductUpdateAction {
   readonly action: 'setAssetSources'
   /**
    *	The `id` of the ProductVariant to update.
@@ -1868,7 +1912,7 @@ export interface ProductSetAssetSourcesAction {
  *	Either `variantId` or `sku` is required. The Asset to update must be specified using either `assetId` or `assetKey`.
  *
  */
-export interface ProductSetAssetTagsAction {
+export interface ProductSetAssetTagsAction extends IProductUpdateAction {
   readonly action: 'setAssetTags'
   /**
    *	The `id` of the ProductVariant to update.
@@ -1911,7 +1955,7 @@ export interface ProductSetAssetTagsAction {
  *	Either `variantId` or `sku` is required.
  *
  */
-export interface ProductSetAttributeAction {
+export interface ProductSetAttributeAction extends IProductUpdateAction {
   readonly action: 'setAttribute'
   /**
    *	The `id` of the ProductVariant to update.
@@ -1959,7 +2003,8 @@ export interface ProductSetAttributeAction {
  *	Adds, removes, or changes a Product Attribute in all Product Variants at the same time.
  *	This action is useful for setting values for Attributes with the [Constraint](ctp:api:type:AttributeConstraintEnum) `SameForAll`.
  */
-export interface ProductSetAttributeInAllVariantsAction {
+export interface ProductSetAttributeInAllVariantsAction
+  extends IProductUpdateAction {
   readonly action: 'setAttributeInAllVariants'
   /**
    *	The name of the Attribute to set.
@@ -1991,7 +2036,8 @@ export interface ProductSetAttributeInAllVariantsAction {
    */
   readonly staged?: boolean
 }
-export interface ProductSetCategoryOrderHintAction {
+export interface ProductSetCategoryOrderHintAction
+  extends IProductUpdateAction {
   readonly action: 'setCategoryOrderHint'
   /**
    *	The `id` of the Category to add the `orderHint`.
@@ -2012,7 +2058,7 @@ export interface ProductSetCategoryOrderHintAction {
    */
   readonly staged?: boolean
 }
-export interface ProductSetDescriptionAction {
+export interface ProductSetDescriptionAction extends IProductUpdateAction {
   readonly action: 'setDescription'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -2031,7 +2077,7 @@ export interface ProductSetDescriptionAction {
  *	Produces the [ProductPriceExternalDiscountSet](ctp:api:type:ProductPriceExternalDiscountSetMessage) Message.
  *
  */
-export interface ProductSetDiscountedPriceAction {
+export interface ProductSetDiscountedPriceAction extends IProductUpdateAction {
   readonly action: 'setDiscountedPrice'
   /**
    *	The `id` of the [Price](ctp:api:type:Price) to set the Discount.
@@ -2057,7 +2103,7 @@ export interface ProductSetDiscountedPriceAction {
  *	Either `variantId` or `sku` is required.
  *
  */
-export interface ProductSetImageLabelAction {
+export interface ProductSetImageLabelAction extends IProductUpdateAction {
   readonly action: 'setImageLabel'
   /**
    *	The `sku` of the ProductVariant to update.
@@ -2090,7 +2136,7 @@ export interface ProductSetImageLabelAction {
    */
   readonly staged?: boolean
 }
-export interface ProductSetKeyAction {
+export interface ProductSetKeyAction extends IProductUpdateAction {
   readonly action: 'setKey'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -2101,7 +2147,7 @@ export interface ProductSetKeyAction {
    */
   readonly key?: string
 }
-export interface ProductSetMetaDescriptionAction {
+export interface ProductSetMetaDescriptionAction extends IProductUpdateAction {
   readonly action: 'setMetaDescription'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -2116,7 +2162,7 @@ export interface ProductSetMetaDescriptionAction {
    */
   readonly staged?: boolean
 }
-export interface ProductSetMetaKeywordsAction {
+export interface ProductSetMetaKeywordsAction extends IProductUpdateAction {
   readonly action: 'setMetaKeywords'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -2131,7 +2177,7 @@ export interface ProductSetMetaKeywordsAction {
    */
   readonly staged?: boolean
 }
-export interface ProductSetMetaTitleAction {
+export interface ProductSetMetaTitleAction extends IProductUpdateAction {
   readonly action: 'setMetaTitle'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -2150,7 +2196,7 @@ export interface ProductSetMetaTitleAction {
  *	Sets the key of an [Embedded Price](ctp:api:type:Price). Produces the [ProductPriceKeySet](ctp:api:type:ProductPriceKeySetMessage) Message.
  *
  */
-export interface ProductSetPriceKeyAction {
+export interface ProductSetPriceKeyAction extends IProductUpdateAction {
   readonly action: 'setPriceKey'
   /**
    *	The `id` of the [Price](ctp:api:type:Price) to set the key.
@@ -2175,7 +2221,7 @@ export interface ProductSetPriceKeyAction {
  *	Controls whether the Prices of a Product Variant are embedded into the Product or standalone.
  *
  */
-export interface ProductSetPriceModeAction {
+export interface ProductSetPriceModeAction extends IProductUpdateAction {
   readonly action: 'setPriceMode'
   /**
    *	Specifies which type of Prices should be used when looking up a price for the Product.
@@ -2188,7 +2234,7 @@ export interface ProductSetPriceModeAction {
  *	Either `variantId` or `sku` is required.
  *
  */
-export interface ProductSetPricesAction {
+export interface ProductSetPricesAction extends IProductUpdateAction {
   readonly action: 'setPrices'
   /**
    *	The `id` of the ProductVariant to update.
@@ -2216,7 +2262,8 @@ export interface ProductSetPricesAction {
    */
   readonly staged?: boolean
 }
-export interface ProductSetProductPriceCustomFieldAction {
+export interface ProductSetProductPriceCustomFieldAction
+  extends IProductUpdateAction {
   readonly action: 'setProductPriceCustomField'
   /**
    *	The `id` of the Embedded Price to update.
@@ -2245,7 +2292,8 @@ export interface ProductSetProductPriceCustomFieldAction {
    */
   readonly value?: any
 }
-export interface ProductSetProductPriceCustomTypeAction {
+export interface ProductSetProductPriceCustomTypeAction
+  extends IProductUpdateAction {
   readonly action: 'setProductPriceCustomType'
   /**
    *	The `id` of the Embedded Price to update.
@@ -2277,7 +2325,8 @@ export interface ProductSetProductPriceCustomTypeAction {
  *	Either `variantId` or `sku` is required.
  *
  */
-export interface ProductSetProductVariantKeyAction {
+export interface ProductSetProductVariantKeyAction
+  extends IProductUpdateAction {
   readonly action: 'setProductVariantKey'
   /**
    *	The `id` of the ProductVariant to update.
@@ -2304,7 +2353,7 @@ export interface ProductSetProductVariantKeyAction {
    */
   readonly staged?: boolean
 }
-export interface ProductSetSearchKeywordsAction {
+export interface ProductSetSearchKeywordsAction extends IProductUpdateAction {
   readonly action: 'setSearchKeywords'
   /**
    *	Value to set.
@@ -2325,7 +2374,7 @@ export interface ProductSetSearchKeywordsAction {
  *	it will be automatically added or removed from the respective [ProductVariantSelection](ctp:api:type:ProductVariantSelection).
  *
  */
-export interface ProductSetSkuAction {
+export interface ProductSetSkuAction extends IProductUpdateAction {
   readonly action: 'setSku'
   /**
    *	The `id` of the ProductVariant to update.
@@ -2350,7 +2399,7 @@ export interface ProductSetSkuAction {
  *	Cannot be staged. Published Products are immediately updated.
  *
  */
-export interface ProductSetTaxCategoryAction {
+export interface ProductSetTaxCategoryAction extends IProductUpdateAction {
   readonly action: 'setTaxCategory'
   /**
    *	The Tax Category to set. If empty, any existing value will be removed.
@@ -2363,7 +2412,7 @@ export interface ProductSetTaxCategoryAction {
  *	If the existing [State](ctp:api:type:State) has set `transitions`, there must be a direct transition to the new State. If `transitions` is not set, no validation is performed. Produces the [ProductStateTransition](ctp:api:type:ProductStateTransitionMessage) Message.
  *
  */
-export interface ProductTransitionStateAction {
+export interface ProductTransitionStateAction extends IProductUpdateAction {
   readonly action: 'transitionState'
   /**
    *	The State to transition to. If there is no existing State, this must be an initial State.
@@ -2387,6 +2436,6 @@ export interface ProductTransitionStateAction {
  *	- If the Product uses Standalone Prices, [inactivate](ctp:api:type:StandalonePriceChangeActiveAction) or [delete](/projects/standalone-prices#delete-standaloneprice) the Standalone Prices.
  *
  */
-export interface ProductUnpublishAction {
+export interface ProductUnpublishAction extends IProductUpdateAction {
   readonly action: 'unpublish'
 }

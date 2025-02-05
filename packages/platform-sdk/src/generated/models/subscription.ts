@@ -10,6 +10,11 @@ import { UserProvidedIdentifiers } from './message'
 /**
  *	Defines the method of authentication for AWS SQS and SNS Destinations.
  */
+export enum AwsAuthenticationModeValues {
+  Credentials = 'Credentials',
+  Iam = 'IAM',
+}
+
 export type AwsAuthenticationMode = 'Credentials' | 'IAM' | string
 /**
  *	Notification about changes to a resource. The payload format differs for resource [creation](ctp:api:type:ResourceCreatedDeliveryPayload),
@@ -29,6 +34,47 @@ export interface ChangeSubscription {
  *	Resource types supported by [ChangeSubscriptions](ctp:api:type:ChangeSubscription):
  *
  */
+export enum ChangeSubscriptionResourceTypeIdValues {
+  ApprovalFlow = 'approval-flow',
+  ApprovalRule = 'approval-rule',
+  AssociateRole = 'associate-role',
+  AttributeGroup = 'attribute-group',
+  BusinessUnit = 'business-unit',
+  Cart = 'cart',
+  CartDiscount = 'cart-discount',
+  Category = 'category',
+  Channel = 'channel',
+  Customer = 'customer',
+  CustomerEmailToken = 'customer-email-token',
+  CustomerGroup = 'customer-group',
+  CustomerPasswordToken = 'customer-password-token',
+  DiscountCode = 'discount-code',
+  Extension = 'extension',
+  InventoryEntry = 'inventory-entry',
+  KeyValueDocument = 'key-value-document',
+  Order = 'order',
+  OrderEdit = 'order-edit',
+  Payment = 'payment',
+  Product = 'product',
+  ProductDiscount = 'product-discount',
+  ProductSelection = 'product-selection',
+  ProductTailoring = 'product-tailoring',
+  ProductType = 'product-type',
+  Quote = 'quote',
+  QuoteRequest = 'quote-request',
+  Review = 'review',
+  ShippingMethod = 'shipping-method',
+  ShoppingList = 'shopping-list',
+  StagedQuote = 'staged-quote',
+  StandalonePrice = 'standalone-price',
+  State = 'state',
+  Store = 'store',
+  Subscription = 'subscription',
+  TaxCategory = 'tax-category',
+  Type = 'type',
+  Zone = 'zone',
+}
+
 export type ChangeSubscriptionResourceTypeId =
   | 'approval-flow'
   | 'approval-rule'
@@ -137,11 +183,17 @@ export interface CloudEventsPayload {
   readonly data: DeliveryPayload
 }
 export type DeliveryFormat = CloudEventsFormat | PlatformFormat
+export interface IDeliveryFormat {
+  /**
+   *
+   */
+  readonly type: string
+}
 /**
  *	The CloudEventsFormat can be used with any [Destination](#destination-1), and the payload is delivered in the `JSON Event Format`. [AzureEventGridDestination](ctp:api:type:AzureEventGridDestination) offers native support to filter and route CloudEvents.
  *
  */
-export interface CloudEventsFormat {
+export interface CloudEventsFormat extends IDeliveryFormat {
   readonly type: 'CloudEvents'
   /**
    *
@@ -157,6 +209,33 @@ export type DeliveryPayload =
   | ResourceCreatedDeliveryPayload
   | ResourceDeletedDeliveryPayload
   | ResourceUpdatedDeliveryPayload
+export interface IDeliveryPayload {
+  /**
+   *	`key` of the [Project](ctp:api:type:Project).
+   *	Useful for processing notifications if the Destination receives them from multiple Projects.
+   *
+   *
+   */
+  readonly projectKey: string
+  /**
+   *	Identifies the payload.
+   *
+   *
+   */
+  readonly notificationType: string
+  /**
+   *	Reference to the resource that triggered the notification.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	User-defined unique identifiers of the resource.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+}
 export type Destination =
   | AzureEventGridDestination
   | AzureServiceBusDestination
@@ -165,12 +244,18 @@ export type Destination =
   | GoogleCloudPubSubDestination
   | SnsDestination
   | SqsDestination
+export interface IDestination {
+  /**
+   *
+   */
+  readonly type: string
+}
 /**
  *	[Azure Event Grid](https://azure.microsoft.com/en-us/products/event-grid/) can be used to push notifications to Azure Functions, HTTP endpoints (webhooks), and several other Azure tools. Event Grid can only be used with the [CloudEventsFormat](ctp:api:type:CloudEventsFormat).
  *	To set up a Subscription with Azure Event Grid, first create a topic in the [Azure Portal](https://azure.microsoft.com/en-us/get-started/azure-portal/). To allow Composable Commerce to push notifications to your topic, provide an [access key](https://docs.microsoft.com/en-us/azure/event-grid/get-access-keys).
  *
  */
-export interface AzureEventGridDestination {
+export interface AzureEventGridDestination extends IDestination {
   readonly type: 'EventGrid'
   /**
    *	URI of the topic.
@@ -190,7 +275,7 @@ export interface AzureEventGridDestination {
  *	To set up a Subscription with Azure Service Bus, first create a queue/topic in the [Azure Portal](https://azure.microsoft.com/en-us/get-started/azure-portal/) with a Shared Access Policy including the `Send` permission.
  *
  */
-export interface AzureServiceBusDestination {
+export interface AzureServiceBusDestination extends IDestination {
   readonly type: 'AzureServiceBus'
   /**
    *	SharedAccessKey is partially hidden on retrieval for security reasons.
@@ -207,7 +292,7 @@ export interface AzureServiceBusDestination {
  *	The Composable Commerce producer uses the following values: `SASL_SSL` for`security.protocol`, `PLAIN` for`sasl.mechanism`, and the default value (1048576) for `max.request.size`.
  *
  */
-export interface ConfluentCloudDestination {
+export interface ConfluentCloudDestination extends IDestination {
   readonly type: 'ConfluentCloud'
   /**
    *	URL to the bootstrap server including the port number in the format `<xxxxx>.<region>.<provider>.confluent.cloud:9092`.
@@ -251,7 +336,7 @@ export interface ConfluentCloudDestination {
  *	Once the Subscription is created, an equivalent "partner event source" is created in AWS EventBridge. This event source must be associated with an event bus for the Subscription setup to be complete.
  *
  */
-export interface EventBridgeDestination {
+export interface EventBridgeDestination extends IDestination {
   readonly type: 'EventBridge'
   /**
    *	AWS region that receives the events.
@@ -279,7 +364,7 @@ export interface EventBridgeDestination {
  *	If used with the [CloudEventsFormat](#cloudeventsformat), the notification conforms to the [PubSub Protocol Binding](https://github.com/google/knative-gcp/blob/master/docs/spec/pubsub-protocol-binding.md) of the [Structured Content Mode](https://github.com/google/knative-gcp/blob/master/docs/spec/pubsub-protocol-binding.md#32-structured-content-mode).
  *
  */
-export interface GoogleCloudPubSubDestination {
+export interface GoogleCloudPubSubDestination extends IDestination {
   readonly type: 'GoogleCloudPubSub'
   /**
    *	ID of the Google Cloud project that contains the Pub/Sub topic.
@@ -298,7 +383,7 @@ export interface GoogleCloudPubSubDestination {
  *	This payload is sent for a [MessageSubscription](ctp:api:type:MessageSubscription).
  *
  */
-export interface MessageDeliveryPayload {
+export interface MessageDeliveryPayload extends IDeliveryPayload {
   readonly notificationType: 'Message'
   /**
    *	`key` of the [Project](ctp:api:type:Project).
@@ -388,6 +473,31 @@ export interface MessageSubscription {
  *	Resource types supported by [MessageSubscriptions](ctp:api:type:MessageSubscription):
  *
  */
+export enum MessageSubscriptionResourceTypeIdValues {
+  ApprovalFlow = 'approval-flow',
+  ApprovalRule = 'approval-rule',
+  AssociateRole = 'associate-role',
+  BusinessUnit = 'business-unit',
+  Category = 'category',
+  Customer = 'customer',
+  CustomerEmailToken = 'customer-email-token',
+  CustomerGroup = 'customer-group',
+  CustomerPasswordToken = 'customer-password-token',
+  InventoryEntry = 'inventory-entry',
+  Order = 'order',
+  Payment = 'payment',
+  Product = 'product',
+  ProductSelection = 'product-selection',
+  ProductTailoring = 'product-tailoring',
+  Quote = 'quote',
+  QuoteRequest = 'quote-request',
+  Review = 'review',
+  ShoppingList = 'shopping-list',
+  StagedQuote = 'staged-quote',
+  StandalonePrice = 'standalone-price',
+  Store = 'store',
+}
+
 export type MessageSubscriptionResourceTypeId =
   | 'approval-flow'
   | 'approval-rule'
@@ -430,14 +540,14 @@ export interface PayloadNotIncluded {
  *	The PlatformFormat uses constructs that are similar to the ones used in the REST API, for example, on the [Messages Query HTTP API](/../api/projects/messages).
  *
  */
-export interface PlatformFormat {
+export interface PlatformFormat extends IDeliveryFormat {
   readonly type: 'Platform'
 }
 /**
  *	This payload is sent for a [ChangeSubscription](ctp:api:type:ChangeSubscription) when a resource is created.
  *
  */
-export interface ResourceCreatedDeliveryPayload {
+export interface ResourceCreatedDeliveryPayload extends IDeliveryPayload {
   readonly notificationType: 'ResourceCreated'
   /**
    *	`key` of the [Project](ctp:api:type:Project).
@@ -475,7 +585,7 @@ export interface ResourceCreatedDeliveryPayload {
  *	This payload is sent for a [ChangeSubscription](ctp:api:type:ChangeSubscription) when a resource is deleted.
  *
  */
-export interface ResourceDeletedDeliveryPayload {
+export interface ResourceDeletedDeliveryPayload extends IDeliveryPayload {
   readonly notificationType: 'ResourceDeleted'
   /**
    *	`key` of the [Project](ctp:api:type:Project).
@@ -519,7 +629,7 @@ export interface ResourceDeletedDeliveryPayload {
  *	This payload is sent for a [ChangeSubscription](ctp:api:type:ChangeSubscription) when a resource is updated. This includes updates by a background process, like a change in product availability.
  *
  */
-export interface ResourceUpdatedDeliveryPayload {
+export interface ResourceUpdatedDeliveryPayload extends IDeliveryPayload {
   readonly notificationType: 'ResourceUpdated'
   /**
    *	`key` of the [Project](ctp:api:type:Project).
@@ -569,7 +679,7 @@ export interface ResourceUpdatedDeliveryPayload {
  *	The IAM user should only have the `sns:Publish` permission on this topic.
  *
  */
-export interface SnsDestination {
+export interface SnsDestination extends IDestination {
   readonly type: 'SNS'
   /**
    *	Only present if `authenticationMode` is set to `Credentials`.
@@ -603,7 +713,7 @@ export interface SnsDestination {
  *	The IAM user should only have the `sqs:SendMessage` permission on this queue.
  *
  */
-export interface SqsDestination {
+export interface SqsDestination extends IDestination {
   readonly type: 'SQS'
   /**
    *	Only present if `authenticationMode` is set to `Credentials`.
@@ -747,6 +857,14 @@ export interface SubscriptionDraft {
  *	The health status of the Subscription that indicates whether notifications are being delivered.
  *
  */
+export enum SubscriptionHealthStatusValues {
+  ConfigurationError = 'ConfigurationError',
+  ConfigurationErrorDeliveryStopped = 'ConfigurationErrorDeliveryStopped',
+  Healthy = 'Healthy',
+  ManuallySuspended = 'ManuallySuspended',
+  TemporaryError = 'TemporaryError',
+}
+
 export type SubscriptionHealthStatus =
   | 'ConfigurationError'
   | 'ConfigurationErrorDeliveryStopped'
@@ -814,11 +932,18 @@ export type SubscriptionUpdateAction =
   | SubscriptionSetChangesAction
   | SubscriptionSetKeyAction
   | SubscriptionSetMessagesAction
+export interface ISubscriptionUpdateAction {
+  /**
+   *
+   */
+  readonly action: string
+}
 /**
  *	A test notification is sent to ensure the correct configuration of the Destination. If the notification cannot be delivered, the update will fail. The payload of the test notification is of type [ResourceCreated](ctp:api:type:ResourceCreatedDeliveryPayload) for the `resourceTypeId` `subscription`. The `status` will change to [Healthy](ctp:api:type:SubscriptionHealthStatus), if it isn't already.
  *
  */
-export interface SubscriptionChangeDestinationAction {
+export interface SubscriptionChangeDestinationAction
+  extends ISubscriptionUpdateAction {
   readonly action: 'changeDestination'
   /**
    *	New value to set. Must not be empty.
@@ -827,7 +952,8 @@ export interface SubscriptionChangeDestinationAction {
    */
   readonly destination: Destination
 }
-export interface SubscriptionSetChangesAction {
+export interface SubscriptionSetChangesAction
+  extends ISubscriptionUpdateAction {
   readonly action: 'setChanges'
   /**
    *	Value to set. Can only be unset if `messages` is set.
@@ -836,7 +962,7 @@ export interface SubscriptionSetChangesAction {
    */
   readonly changes?: ChangeSubscription[]
 }
-export interface SubscriptionSetKeyAction {
+export interface SubscriptionSetKeyAction extends ISubscriptionUpdateAction {
   readonly action: 'setKey'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -845,7 +971,8 @@ export interface SubscriptionSetKeyAction {
    */
   readonly key?: string
 }
-export interface SubscriptionSetMessagesAction {
+export interface SubscriptionSetMessagesAction
+  extends ISubscriptionUpdateAction {
   readonly action: 'setMessages'
   /**
    *	Value to set. Can only be unset if `changes` is set.
