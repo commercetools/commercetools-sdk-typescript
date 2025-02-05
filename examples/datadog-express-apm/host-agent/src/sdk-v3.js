@@ -30,7 +30,6 @@ const httpMiddlewareOptions = {
 const telemetryOptions = {
   createTelemetryMiddleware,
   tracer: async () => await import('dd-trace').init(),
-  // apm: () => require('dd-trace').init(),
   customMetrics: {
     datadog: true,
   },
