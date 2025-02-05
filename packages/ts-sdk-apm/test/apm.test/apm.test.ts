@@ -41,6 +41,19 @@ describe('apm', () => {
 
       await telemetryMiddleware(next)(request)
     })
+
+    test('should use default apm and tracing configurations', async () => {
+      const next = (req: MiddlewareRequest) => {
+        expect(req['apm']).toBeTruthy()
+        expect(req['tracer']).toBeTruthy()
+
+        expect(typeof req['apm']).toEqual('function')
+        expect(typeof req['tracer']).toEqual('function')
+        return response
+      }
+
+      await telemetryMiddleware(next)(request)
+    })
   })
 
   describe('apm test - non-null tracer configuration', () => {
