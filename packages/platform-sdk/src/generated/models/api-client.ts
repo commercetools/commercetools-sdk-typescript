@@ -6,7 +6,7 @@
 
 export interface ApiClient {
   /**
-   *	The OAuth2 `client_id` that can be used to [obtain an access token](/../api/authorization#requesting-an-access-token-using-the-composable-commerce-oauth-20-service).
+   *	The OAuth2 `client_id` that can be used to [obtain an access token](/../api/authorization#request-an-access-token-using-the-composable-commerce-oauth-20-service).
    *
    */
   readonly id: string
@@ -16,18 +16,18 @@ export interface ApiClient {
    */
   readonly name: string
   /**
-   *	Whitespace-separated list of [OAuth scopes](/../api/scopes) that can be used when [obtaining an access token](/../api/authorization#requesting-an-access-token-using-the-composable-commerce-oauth-20-service).
+   *	Whitespace-separated list of [OAuth scopes](/../api/scopes) that can be used when [obtaining an access token](/../api/authorization#request-an-access-token-using-the-composable-commerce-oauth-20-service).
    *
    */
   readonly scope: string
   /**
    *	Only shown once in the response of creating the APIClient.
-   *	This is the OAuth2 `client_secret` that can be used to [obtain an access token](/../api/authorization#requesting-an-access-token-using-the-composable-commerce-oauth-20-service).
+   *	This is the OAuth2 `client_secret` that can be used to [obtain an access token](/../api/authorization#request-an-access-token-using-the-composable-commerce-oauth-20-service).
    *
    */
   readonly secret?: string
   /**
-   *	Date of the last day this APIClient was used to [obtain an access token](/../api/authorization#requesting-an-access-token-using-the-composable-commerce-oauth-20-service).
+   *	Date of the last day this APIClient was used to [obtain an access token](/../api/authorization#request-an-access-token-using-the-composable-commerce-oauth-20-service).
    *
    */
   readonly lastUsedAt?: string
@@ -61,7 +61,7 @@ export interface ApiClientDraft {
    */
   readonly name: string
   /**
-   *	Whitespace-separated list of [OAuth scopes](/../api/scopes) that can be used when [obtaining an access token](/../api/authorization#requesting-an-access-token-using-the-composable-commerce-oauth-20-service).
+   *	Whitespace-separated list of [OAuth scopes](/../api/scopes) that can be used when [obtaining an access token](/../api/authorization#request-an-access-token-using-the-composable-commerce-oauth-20-service).
    *
    */
   readonly scope: string

@@ -5,7 +5,7 @@ import type {
   Next,
   OTelemetryMiddlewareOptions,
 } from '../types/types'
-import { recordNewrelic, recordDatadog, time } from './helpers'
+import { recordDatadog, recordNewrelic, time } from './helpers'
 
 /**
  * default newrelic APM and

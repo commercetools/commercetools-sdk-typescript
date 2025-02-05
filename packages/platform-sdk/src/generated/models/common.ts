@@ -343,6 +343,11 @@ export interface Attribution {
    */
   readonly source: AttributionSource
 }
+export enum AttributionSourceValues {
+  Export = 'Export',
+  Import = 'Import',
+}
+
 export type AttributionSource = 'Export' | 'Import' | string
 /**
  *	Polymorphic base type that represents a postal address and contact details.
@@ -701,7 +706,13 @@ export interface DiscountedPriceDraft {
  *
  */
 export type GeoJson = GeoJsonPoint
-export interface GeoJsonPoint {
+export interface IGeoJson {
+  /**
+   *
+   */
+  readonly type: string
+}
+export interface GeoJsonPoint extends IGeoJson {
   readonly type: 'Point'
   /**
    *	Longitude (stored on index `[0]`) and latitude (stored on index `[1]`) of the [Point](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.2).
@@ -750,6 +761,20 @@ export type KeyReference =
   | AssociateRoleKeyReference
   | BusinessUnitKeyReference
   | StoreKeyReference
+export interface IKeyReference {
+  /**
+   *	Type of referenced resource.
+   *
+   *
+   */
+  readonly typeId: ReferenceTypeId
+  /**
+   *	User-defined unique and immutable key of the referenced resource.
+   *
+   *
+   */
+  readonly key: string
+}
 /**
  *	IDs and references that last modified the resource. This is present on resources created or updated after 1 February 2019 except for [events not tracked](/general-concepts#events-tracked).
  */
@@ -822,6 +847,11 @@ export type _Money = Money | TypedMoney | TypedMoneyDraft
 /**
  *	Determines the type of money used.
  */
+export enum MoneyTypeValues {
+  CentPrecision = 'centPrecision',
+  HighPrecision = 'highPrecision',
+}
+
 export type MoneyType = 'centPrecision' | 'highPrecision' | string
 /**
  *	The representation for prices embedded in [LineItems](ctp:api:type:LineItem) and in [ProductVariants](ctp:api:type:ProductVariant) when the [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) is `Embedded`.
@@ -1131,10 +1161,67 @@ export type Reference =
   | TaxCategoryReference
   | TypeReference
   | ZoneReference
+export interface IReference {
+  /**
+   *	Type of referenced resource.
+   *
+   *
+   */
+  readonly typeId: ReferenceTypeId
+  /**
+   *	Unique ID of the referenced resource.
+   *
+   *
+   */
+  readonly id: string
+}
 /**
  *	Type of resource the value should reference. Supported resource type identifiers are:
  *
  */
+export enum ReferenceTypeIdValues {
+  ApprovalFlow = 'approval-flow',
+  ApprovalRule = 'approval-rule',
+  AssociateRole = 'associate-role',
+  AttributeGroup = 'attribute-group',
+  BusinessUnit = 'business-unit',
+  Cart = 'cart',
+  CartDiscount = 'cart-discount',
+  Category = 'category',
+  Channel = 'channel',
+  Customer = 'customer',
+  CustomerEmailToken = 'customer-email-token',
+  CustomerGroup = 'customer-group',
+  CustomerPasswordToken = 'customer-password-token',
+  DirectDiscount = 'direct-discount',
+  DiscountCode = 'discount-code',
+  Extension = 'extension',
+  InventoryEntry = 'inventory-entry',
+  KeyValueDocument = 'key-value-document',
+  Order = 'order',
+  OrderEdit = 'order-edit',
+  Payment = 'payment',
+  Product = 'product',
+  ProductDiscount = 'product-discount',
+  ProductPrice = 'product-price',
+  ProductSelection = 'product-selection',
+  ProductTailoring = 'product-tailoring',
+  ProductType = 'product-type',
+  Quote = 'quote',
+  QuoteRequest = 'quote-request',
+  Review = 'review',
+  ShippingMethod = 'shipping-method',
+  ShoppingList = 'shopping-list',
+  StagedQuote = 'staged-quote',
+  StandalonePrice = 'standalone-price',
+  State = 'state',
+  Store = 'store',
+  Subscription = 'subscription',
+  TaxCategory = 'tax-category',
+  Type = 'type',
+  Zone = 'zone',
+}
+
 export type ReferenceTypeId =
   | 'approval-flow'
   | 'approval-rule'
@@ -1214,6 +1301,26 @@ export type ResourceIdentifier =
   | TaxCategoryResourceIdentifier
   | TypeResourceIdentifier
   | ZoneResourceIdentifier
+export interface IResourceIdentifier {
+  /**
+   *	Type of referenced resource. If given, it must match the expected [ReferenceTypeId](ctp:api:type:ReferenceTypeId) of the referenced resource.
+   *
+   *
+   */
+  readonly typeId?: ReferenceTypeId
+  /**
+   *	Unique identifier of the referenced resource. Required if `key` is absent.
+   *
+   *
+   */
+  readonly id?: string
+  /**
+   *	User-defined unique identifier of the referenced resource. Required if `id` is absent.
+   *
+   *
+   */
+  readonly key?: string
+}
 /**
  *	Scoped Price is contained in a [ProductVariant](ctp:api:type:ProductVariant) which is returned in response to a
  *	[Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request when [Scoped Price Search](/../api/pricing-and-discounts-overview#scoped-price-search) is used.
@@ -1288,10 +1395,42 @@ export interface ScopedPrice {
  *
  */
 export type TypedMoney = CentPrecisionMoney | HighPrecisionMoney
+export interface ITypedMoney {
+  /**
+   *	Amount in the smallest indivisible unit of a currency, such as:
+   *
+   *	* Cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as `500`).
+   *	* The value in the major unit for currencies without minor units, like JPY (5 JPY is specified as `5`).
+   *
+   *
+   */
+  readonly centAmount: number
+  /**
+   *	Currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *
+   *
+   */
+  readonly currencyCode: string
+  /**
+   *	Type of money used.
+   *
+   *
+   */
+  readonly type: MoneyType
+  /**
+   *	Number of digits after the decimal separator.
+   *
+   *	* For [CentPrecisionMoney](ctp:api:type:CentPrecisionMoney), it is equal to the default number of fraction digits for a currency.
+   *	* For [HighPrecisionMoney](ctp:api:type:HighPrecisionMoney), it is greater than the default number of fraction digits for a currency.
+   *
+   *
+   */
+  readonly fractionDigits: number
+}
 /**
  *	Object that stores money in cent amounts of a specific currency.
  */
-export interface CentPrecisionMoney {
+export interface CentPrecisionMoney extends ITypedMoney {
   readonly type: 'centPrecision'
   /**
    *	Amount in the smallest indivisible unit of a currency, such as:
@@ -1318,7 +1457,7 @@ export interface CentPrecisionMoney {
 /**
  *	Object that stores money as a fraction of the smallest indivisible unit of a specific currency.
  */
-export interface HighPrecisionMoney {
+export interface HighPrecisionMoney extends ITypedMoney {
   readonly type: 'highPrecision'
   /**
    *	Amount in the smallest indivisible unit of a currency, such as:
@@ -1356,11 +1495,37 @@ export interface HighPrecisionMoney {
  *
  */
 export type TypedMoneyDraft = CentPrecisionMoneyDraft | HighPrecisionMoneyDraft
+export interface ITypedMoneyDraft {
+  /**
+   *	Amount in the smallest indivisible unit of a currency.
+   *
+   *
+   */
+  readonly centAmount?: number
+  /**
+   *	Currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *
+   *
+   */
+  readonly currencyCode: string
+  /**
+   *	Determines the type of money used.
+   *
+   *
+   */
+  readonly type?: MoneyType
+  /**
+   *	Number of fraction digits for a specified money.
+   *
+   *
+   */
+  readonly fractionDigits?: number
+}
 /**
  *	This draft type is the alternative to [Money](ctp:api:type:Money).
  *
  */
-export interface CentPrecisionMoneyDraft {
+export interface CentPrecisionMoneyDraft extends ITypedMoneyDraft {
   readonly type: 'centPrecision'
   /**
    *	Amount in the smallest indivisible unit of a currency.
@@ -1384,7 +1549,7 @@ export interface CentPrecisionMoneyDraft {
 /**
  *	Draft object to store money as a fraction of the smallest indivisible unit for a specific currency.
  */
-export interface HighPrecisionMoneyDraft {
+export interface HighPrecisionMoneyDraft extends ITypedMoneyDraft {
   readonly type: 'highPrecision'
   /**
    *	Amount in the smallest indivisible unit of a currency. This field is optional for high precision. If provided, it is checked for validity. Example:

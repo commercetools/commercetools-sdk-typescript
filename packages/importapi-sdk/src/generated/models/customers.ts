@@ -11,6 +11,11 @@ import {
 } from './common'
 import { Custom } from './customfields'
 
+export enum AuthenticationModeValues {
+  ExternalAuth = 'ExternalAuth',
+  Password = 'Password',
+}
+
 export type AuthenticationMode = 'ExternalAuth' | 'Password' | string
 /**
  *	Different from [Address](/types#address) in that `key` is required and `id` is not supported.

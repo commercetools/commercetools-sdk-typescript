@@ -1,4 +1,4 @@
-import { newrelic, datadog } from './lib/agents'
+import { datadog, newrelic } from './lib/agents'
 
 export const time = () => performance.now()
 
