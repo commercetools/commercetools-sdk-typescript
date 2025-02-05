@@ -33,7 +33,7 @@ export interface ClientRequest {
 
 export type ClientResponse<T = any> = {
   body: T
-  code?: number
+  code?: string
   statusCode?: number
   headers?: Record<string, any>
   error?: HttpErrorType
@@ -43,7 +43,7 @@ export type ClientResponse<T = any> = {
 export type HttpErrorType = {
   name?: string
   message: string
-  code?: number
+  code?: string
   status?: number
   method: MethodType
   statusCode: number
