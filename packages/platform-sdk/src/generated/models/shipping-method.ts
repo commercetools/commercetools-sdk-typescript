@@ -8,6 +8,8 @@ import {
   BaseResource,
   CentPrecisionMoney,
   CreatedBy,
+  IReference,
+  IResourceIdentifier,
   LastModifiedBy,
   LocalizedString,
   _Money,
@@ -239,7 +241,7 @@ export interface ShippingMethodPagedQueryResponse {
  *	[Reference](ctp:api:type:Reference) to a [ShippingMethod](ctp:api:type:ShippingMethod).
  *
  */
-export interface ShippingMethodReference {
+export interface ShippingMethodReference extends IReference {
   readonly typeId: 'shipping-method'
   /**
    *	Unique identifier of the referenced [ShippingMethod](ctp:api:type:ShippingMethod).
@@ -258,7 +260,7 @@ export interface ShippingMethodReference {
  *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ShippingMethod](ctp:api:type:ShippingMethod). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
-export interface ShippingMethodResourceIdentifier {
+export interface ShippingMethodResourceIdentifier extends IResourceIdentifier {
   readonly typeId: 'shipping-method'
   /**
    *	Unique identifier of the referenced [ShippingMethod](ctp:api:type:ShippingMethod). Required if `key` is absent.
@@ -303,6 +305,12 @@ export type ShippingMethodUpdateAction =
   | ShippingMethodSetLocalizedDescriptionAction
   | ShippingMethodSetLocalizedNameAction
   | ShippingMethodSetPredicateAction
+export interface IShippingMethodUpdateAction {
+  /**
+   *
+   */
+  readonly action: string
+}
 export interface ShippingRate {
   /**
    *	Currency amount of the ShippingRate.
@@ -349,11 +357,17 @@ export type ShippingRatePriceTier =
   | CartClassificationTier
   | CartScoreTier
   | CartValueTier
+export interface IShippingRatePriceTier {
+  /**
+   *
+   */
+  readonly type: ShippingRateTierType
+}
 /**
  *	The [ShippingRate](ctp:api:type:ShippingRate) maps to an abstract Cart categorization expressed by strings (for example, `Light`, `Medium`, or `Heavy`).
  *
  */
-export interface CartClassificationTier {
+export interface CartClassificationTier extends IShippingRatePriceTier {
   readonly type: 'CartClassification'
   /**
    *	`key` selected from the `values` of the [CartClassificationType](/projects/project#cartclassificationtype) configured in the Project.
@@ -379,7 +393,7 @@ export interface CartClassificationTier {
  *	Either `price` or `priceFunction` is required.
  *
  */
-export interface CartScoreTier {
+export interface CartScoreTier extends IShippingRatePriceTier {
   readonly type: 'CartScore'
   /**
    *	Abstract value for categorizing a Cart. The range starts at `0`. The default price covers `0`, tiers start at `1`. See [Tiered shipping rates](/../api/shipping-delivery-overview#tiered-shipping-rates) for details and examples.
@@ -414,7 +428,7 @@ export interface CartScoreTier {
  *	Tiers contain the `centAmount` (a value of `100` in the currency `USD` corresponds to `$ 1.00`), and start at `1`.'
  *
  */
-export interface CartValueTier {
+export interface CartValueTier extends IShippingRatePriceTier {
   readonly type: 'CartValue'
   /**
    *	Minimum total price of a Cart for which a shipping rate applies.
@@ -435,6 +449,12 @@ export interface CartValueTier {
    */
   readonly isMatching?: boolean
 }
+export enum ShippingRateTierTypeValues {
+  CartClassification = 'CartClassification',
+  CartScore = 'CartScore',
+  CartValue = 'CartValue',
+}
+
 export type ShippingRateTierType =
   | 'CartClassification'
   | 'CartScore'
@@ -472,7 +492,8 @@ export interface ZoneRateDraft {
    */
   readonly shippingRates: ShippingRateDraft[]
 }
-export interface ShippingMethodAddShippingRateAction {
+export interface ShippingMethodAddShippingRateAction
+  extends IShippingMethodUpdateAction {
   readonly action: 'addShippingRate'
   /**
    *	[Zone](ctp:api:type:Zone) to which the ShippingRate should be added.
@@ -486,7 +507,8 @@ export interface ShippingMethodAddShippingRateAction {
    */
   readonly shippingRate: ShippingRateDraft
 }
-export interface ShippingMethodAddZoneAction {
+export interface ShippingMethodAddZoneAction
+  extends IShippingMethodUpdateAction {
   readonly action: 'addZone'
   /**
    *	Value to add to `zoneRates`.
@@ -495,7 +517,8 @@ export interface ShippingMethodAddZoneAction {
    */
   readonly zone: ZoneResourceIdentifier
 }
-export interface ShippingMethodChangeActiveAction {
+export interface ShippingMethodChangeActiveAction
+  extends IShippingMethodUpdateAction {
   readonly action: 'changeActive'
   /**
    *	Value to set.
@@ -506,7 +529,8 @@ export interface ShippingMethodChangeActiveAction {
    */
   readonly active: boolean
 }
-export interface ShippingMethodChangeIsDefaultAction {
+export interface ShippingMethodChangeIsDefaultAction
+  extends IShippingMethodUpdateAction {
   readonly action: 'changeIsDefault'
   /**
    *	Value to set. Only one ShippingMethod can be default in a [Project](ctp:api:type:Project).
@@ -515,7 +539,8 @@ export interface ShippingMethodChangeIsDefaultAction {
    */
   readonly isDefault: boolean
 }
-export interface ShippingMethodChangeNameAction {
+export interface ShippingMethodChangeNameAction
+  extends IShippingMethodUpdateAction {
   readonly action: 'changeName'
   /**
    *	Unique value to set within a [Project](ctp:api:type:Project). Must not be empty.
@@ -523,7 +548,8 @@ export interface ShippingMethodChangeNameAction {
    */
   readonly name: string
 }
-export interface ShippingMethodChangeTaxCategoryAction {
+export interface ShippingMethodChangeTaxCategoryAction
+  extends IShippingMethodUpdateAction {
   readonly action: 'changeTaxCategory'
   /**
    *	Value to set.
@@ -531,7 +557,8 @@ export interface ShippingMethodChangeTaxCategoryAction {
    */
   readonly taxCategory: TaxCategoryResourceIdentifier
 }
-export interface ShippingMethodRemoveShippingRateAction {
+export interface ShippingMethodRemoveShippingRateAction
+  extends IShippingMethodUpdateAction {
   readonly action: 'removeShippingRate'
   /**
    *	[Zone](ctp:api:type:Zone) from which the ShippingRate should be removed.
@@ -545,7 +572,8 @@ export interface ShippingMethodRemoveShippingRateAction {
    */
   readonly shippingRate: ShippingRateDraft
 }
-export interface ShippingMethodRemoveZoneAction {
+export interface ShippingMethodRemoveZoneAction
+  extends IShippingMethodUpdateAction {
   readonly action: 'removeZone'
   /**
    *	Value to remove from `zoneRates`.
@@ -558,7 +586,8 @@ export interface ShippingMethodRemoveZoneAction {
  *	This action sets, overwrites, or removes any existing [Custom Field](/projects/custom-fields) for an existing ShippingMethod.
  *
  */
-export interface ShippingMethodSetCustomFieldAction {
+export interface ShippingMethodSetCustomFieldAction
+  extends IShippingMethodUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -575,7 +604,8 @@ export interface ShippingMethodSetCustomFieldAction {
    */
   readonly value?: any
 }
-export interface ShippingMethodSetCustomTypeAction {
+export interface ShippingMethodSetCustomTypeAction
+  extends IShippingMethodUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the ShippingMethod with [Custom Fields](/../api/projects/custom-fields).
@@ -591,7 +621,8 @@ export interface ShippingMethodSetCustomTypeAction {
    */
   readonly fields?: FieldContainer
 }
-export interface ShippingMethodSetDescriptionAction {
+export interface ShippingMethodSetDescriptionAction
+  extends IShippingMethodUpdateAction {
   readonly action: 'setDescription'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -599,7 +630,8 @@ export interface ShippingMethodSetDescriptionAction {
    */
   readonly description?: string
 }
-export interface ShippingMethodSetKeyAction {
+export interface ShippingMethodSetKeyAction
+  extends IShippingMethodUpdateAction {
   readonly action: 'setKey'
   /**
    *	If `key` is absent or `null`, the existing key, if any, will be removed.
@@ -607,7 +639,8 @@ export interface ShippingMethodSetKeyAction {
    */
   readonly key?: string
 }
-export interface ShippingMethodSetLocalizedDescriptionAction {
+export interface ShippingMethodSetLocalizedDescriptionAction
+  extends IShippingMethodUpdateAction {
   readonly action: 'setLocalizedDescription'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -615,7 +648,8 @@ export interface ShippingMethodSetLocalizedDescriptionAction {
    */
   readonly localizedDescription?: LocalizedString
 }
-export interface ShippingMethodSetLocalizedNameAction {
+export interface ShippingMethodSetLocalizedNameAction
+  extends IShippingMethodUpdateAction {
   readonly action: 'setLocalizedName'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -623,7 +657,8 @@ export interface ShippingMethodSetLocalizedNameAction {
    */
   readonly localizedName?: LocalizedString
 }
-export interface ShippingMethodSetPredicateAction {
+export interface ShippingMethodSetPredicateAction
+  extends IShippingMethodUpdateAction {
   readonly action: 'setPredicate'
   /**
    *	A valid [Cart predicate](/projects/predicates#cart-predicates). If `predicate` is absent or `null`, it is removed if it exists.

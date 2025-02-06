@@ -232,13 +232,25 @@ export interface LineItemImportDraft {
    */
   readonly custom?: Custom
 }
+export enum ShippingRateTierTypeValues {
+  CartClassification = 'CartClassification',
+  CartScore = 'CartScore',
+  CartValue = 'CartValue',
+}
+
 export type ShippingRateTierType =
   | 'CartClassification'
   | 'CartScore'
   | 'CartValue'
   | string
 export type ShippingRatePriceTier = CartClassificationTier
-export interface CartClassificationTier {
+export interface IShippingRatePriceTier {
+  /**
+   *
+   */
+  readonly type: ShippingRateTierType
+}
+export interface CartClassificationTier extends IShippingRatePriceTier {
   readonly type: 'CartClassification'
   /**
    *
@@ -391,6 +403,11 @@ export interface DiscountedLineItemPriceDraft {
    */
   readonly includedDiscounts: DiscountedLineItemPortion[]
 }
+export enum ShippingMethodStateValues {
+  DoesNotMatchCart = 'DoesNotMatchCart',
+  MatchesCart = 'MatchesCart',
+}
+
 export type ShippingMethodState = 'DoesNotMatchCart' | 'MatchesCart' | string
 /**
  *	Maps to an order's `shippingInfo` property. This field is usually populated by the cart assosciated with
@@ -567,6 +584,13 @@ export interface TaxedPrice {
 /**
  *	Maps to `Order.taxMode`
  */
+export enum TaxModeValues {
+  Disabled = 'Disabled',
+  External = 'External',
+  ExternalAmount = 'ExternalAmount',
+  Platform = 'Platform',
+}
+
 export type TaxMode =
   | 'Disabled'
   | 'External'
@@ -576,6 +600,13 @@ export type TaxMode =
 /**
  *	Maps to `Order.orderState`.
  */
+export enum OrderStateValues {
+  Cancelled = 'Cancelled',
+  Complete = 'Complete',
+  Confirmed = 'Confirmed',
+  Open = 'Open',
+}
+
 export type OrderState =
   | 'Cancelled'
   | 'Complete'
@@ -585,6 +616,15 @@ export type OrderState =
 /**
  *	Maps to `Order.shipmentState`.
  */
+export enum ShipmentStateValues {
+  Backorder = 'Backorder',
+  Delayed = 'Delayed',
+  Partial = 'Partial',
+  Pending = 'Pending',
+  Ready = 'Ready',
+  Shipped = 'Shipped',
+}
+
 export type ShipmentState =
   | 'Backorder'
   | 'Delayed'
@@ -596,6 +636,14 @@ export type ShipmentState =
 /**
  *	Maps to `Order.paymentState`.
  */
+export enum PaymentStateValues {
+  BalanceDue = 'BalanceDue',
+  CreditOwed = 'CreditOwed',
+  Failed = 'Failed',
+  Paid = 'Paid',
+  Pending = 'Pending',
+}
+
 export type PaymentState =
   | 'BalanceDue'
   | 'CreditOwed'
@@ -606,18 +654,39 @@ export type PaymentState =
 /**
  *	Maps to `Order.inventoryMode`.
  */
+export enum InventoryModeValues {
+  ReserveOnOrder = 'ReserveOnOrder',
+  TrackOnly = 'TrackOnly',
+}
+
 export type InventoryMode = 'ReserveOnOrder' | 'TrackOnly' | string
 /**
  *	Maps to `Order.taxRoundingMode`.
  */
+export enum RoundingModeValues {
+  HalfDown = 'HalfDown',
+  HalfEven = 'HalfEven',
+  HalfUp = 'HalfUp',
+}
+
 export type RoundingMode = 'HalfDown' | 'HalfEven' | 'HalfUp' | string
 /**
  *	Maps to `Order.taxCalculationMode`.
  */
+export enum TaxCalculationModeValues {
+  LineItemLevel = 'LineItemLevel',
+  UnitPriceLevel = 'UnitPriceLevel',
+}
+
 export type TaxCalculationMode = 'LineItemLevel' | 'UnitPriceLevel' | string
 /**
  *	Maps to `Order.origin`.
  */
+export enum CartOriginValues {
+  Customer = 'Customer',
+  Merchant = 'Merchant',
+}
+
 export type CartOrigin = 'Customer' | 'Merchant' | string
 export interface SyncInfo {
   /**
@@ -639,6 +708,15 @@ export interface SyncInfo {
 /**
  *	Maps to `DiscountCodeInfo.state`
  */
+export enum DiscountCodeStateValues {
+  ApplicationStoppedByPreviousDiscount = 'ApplicationStoppedByPreviousDiscount',
+  DoesNotMatchCart = 'DoesNotMatchCart',
+  MatchesCart = 'MatchesCart',
+  MaxApplicationReached = 'MaxApplicationReached',
+  NotActive = 'NotActive',
+  NotValid = 'NotValid',
+}
+
 export type DiscountCodeState =
   | 'ApplicationStoppedByPreviousDiscount'
   | 'DoesNotMatchCart'
@@ -659,11 +737,22 @@ export interface DiscountCodeInfo {
    */
   readonly state?: DiscountCodeState
 }
+export enum ShippingRateInputTypeValues {
+  Classification = 'Classification',
+  Score = 'Score',
+}
+
 export type ShippingRateInputType = 'Classification' | 'Score' | string
 export type ShippingRateInput =
   | ClassificationShippingRateInput
   | ScoreShippingRateInput
-export interface ClassificationShippingRateInput {
+export interface IShippingRateInput {
+  /**
+   *
+   */
+  readonly type: ShippingRateInputType
+}
+export interface ClassificationShippingRateInput extends IShippingRateInput {
   readonly type: 'Classification'
   /**
    *
@@ -682,7 +771,7 @@ export interface ClassificationShippingRateInput {
    */
   readonly label: LocalizedString
 }
-export interface ScoreShippingRateInput {
+export interface ScoreShippingRateInput extends IShippingRateInput {
   readonly type: 'Score'
   /**
    *

@@ -24,11 +24,23 @@ export type ChangeTargetChangeValue =
   | ChangeTargetMultiBuyLineItemsChangeValue
   | ChangeTargetPatternChangeValue
   | ChangeTargetShippingChangeValue
+export interface IChangeTargetChangeValue {
+  /**
+   *
+   */
+  readonly type: string
+}
 export type ChangeValueChangeValue =
   | ChangeValueAbsoluteChangeValue
   | ChangeValueExternalChangeValue
   | ChangeValueGiftLineItemChangeValue
   | ChangeValueRelativeChangeValue
+export interface IChangeValueChangeValue {
+  /**
+   *
+   */
+  readonly type: string
+}
 export interface AssetChangeValue {
   /**
    *	`id` of the [Asset](ctp:api:type:Asset).
@@ -63,7 +75,8 @@ export interface AttributeValue {
    */
   readonly value: any
 }
-export interface ChangeTargetCustomLineItemsChangeValue {
+export interface ChangeTargetCustomLineItemsChangeValue
+  extends IChangeTargetChangeValue {
   readonly type: 'customLineItems'
   /**
    *	Valid [CustomLineItem target predicate](/../api/projects/predicates#customlineitem-field-identifiers).
@@ -71,7 +84,8 @@ export interface ChangeTargetCustomLineItemsChangeValue {
    */
   readonly predicate: string
 }
-export interface ChangeTargetLineItemsChangeValue {
+export interface ChangeTargetLineItemsChangeValue
+  extends IChangeTargetChangeValue {
   readonly type: 'lineItems'
   /**
    *	Valid [LineItem target predicate](/../api/projects/predicates#lineitem-field-identifiers).
@@ -79,7 +93,8 @@ export interface ChangeTargetLineItemsChangeValue {
    */
   readonly predicate: string
 }
-export interface ChangeTargetMultiBuyCustomLineItemsChangeValue {
+export interface ChangeTargetMultiBuyCustomLineItemsChangeValue
+  extends IChangeTargetChangeValue {
   readonly type: 'multiBuyCustomLineItems'
   /**
    *	Valid [CustomLineItem target predicate](/../api/projects/predicates#customlineitem-field-identifiers).
@@ -107,7 +122,8 @@ export interface ChangeTargetMultiBuyCustomLineItemsChangeValue {
    */
   readonly selectionMode: SelectionMode
 }
-export interface ChangeTargetMultiBuyLineItemsChangeValue {
+export interface ChangeTargetMultiBuyLineItemsChangeValue
+  extends IChangeTargetChangeValue {
   readonly type: 'multiBuyLineItems'
   /**
    *	Valid [LineItem target predicate](/../api/projects/predicates#lineitem-field-identifiers).
@@ -135,7 +151,8 @@ export interface ChangeTargetMultiBuyLineItemsChangeValue {
    */
   readonly selectionMode: SelectionMode
 }
-export interface ChangeTargetPatternChangeValue {
+export interface ChangeTargetPatternChangeValue
+  extends IChangeTargetChangeValue {
   readonly type: 'pattern'
   /**
    *	Defines the set of units of (Custom) Line Items in a Cart that triggered the discount application.
@@ -164,10 +181,12 @@ export interface ChangeTargetPatternChangeValue {
    */
   readonly selectionMode: SelectionMode
 }
-export interface ChangeTargetShippingChangeValue {
+export interface ChangeTargetShippingChangeValue
+  extends IChangeTargetChangeValue {
   readonly type: 'shipping'
 }
-export interface ChangeValueAbsoluteChangeValue {
+export interface ChangeValueAbsoluteChangeValue
+  extends IChangeValueChangeValue {
   readonly type: 'absolute'
   /**
    *	Money values in different currencies.
@@ -175,10 +194,12 @@ export interface ChangeValueAbsoluteChangeValue {
    */
   readonly money: Money[]
 }
-export interface ChangeValueExternalChangeValue {
+export interface ChangeValueExternalChangeValue
+  extends IChangeValueChangeValue {
   readonly type: 'external'
 }
-export interface ChangeValueGiftLineItemChangeValue {
+export interface ChangeValueGiftLineItemChangeValue
+  extends IChangeValueChangeValue {
   readonly type: 'giftLineItem'
   /**
    *	Reference to a [Product](ctp:api:type:Product).
@@ -202,7 +223,8 @@ export interface ChangeValueGiftLineItemChangeValue {
    */
   readonly distributionChannel: Reference
 }
-export interface ChangeValueRelativeChangeValue {
+export interface ChangeValueRelativeChangeValue
+  extends IChangeValueChangeValue {
   readonly type: 'relative'
   /**
    *	Fraction (per ten thousand) the price is reduced by. For example, 1000 results in a 10% price reduction.

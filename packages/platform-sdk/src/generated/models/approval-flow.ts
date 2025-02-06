@@ -187,6 +187,12 @@ export interface ApprovalFlowRejection {
  *	Indicates whether the [Approval Flow](ctp:api:type:ApprovalFlow) is under review, approved, or rejected.
  *
  */
+export enum ApprovalFlowStatusValues {
+  Approved = 'Approved',
+  Pending = 'Pending',
+  Rejected = 'Rejected',
+}
+
 export type ApprovalFlowStatus = 'Approved' | 'Pending' | 'Rejected' | string
 export interface ApprovalFlowUpdate {
   /**
@@ -208,13 +214,19 @@ export type ApprovalFlowUpdateAction =
   | ApprovalFlowRejectAction
   | ApprovalFlowSetCustomFieldAction
   | ApprovalFlowSetCustomTypeAction
+export interface IApprovalFlowUpdateAction {
+  /**
+   *
+   */
+  readonly action: string
+}
 /**
  *	This update action allows an [Associate](ctp:api:type:Associate) to approve an Approval Flow. The process takes into account all [Associate Roles](ctp:api:type:AssociateRole) held by the Associate, aligning with the matched [Approval Rules](ctp:api:type:ApprovalRule) and their respective approver hierarchies.
  *
  *	When every required Associate has given their approval, the Approval Flow achieves a fully approved state, automatically updating its status to `Approved`. An Associate is eligible to approve only if their roles are within tiers of the Approval Rule hierarchy that are yet to be fully approved or rejected. As such, an Associate may be able to give their approval more than once.
  *
  */
-export interface ApprovalFlowApproveAction {
+export interface ApprovalFlowApproveAction extends IApprovalFlowUpdateAction {
   readonly action: 'approve'
 }
 /**
@@ -225,7 +237,7 @@ export interface ApprovalFlowApproveAction {
  *	An Associate is eligible to reject only if their roles are within tiers of the Approval Rule hierarchy that are yet to be rejected. An Associate may alter a prior approval into a rejection.
  *
  */
-export interface ApprovalFlowRejectAction {
+export interface ApprovalFlowRejectAction extends IApprovalFlowUpdateAction {
   readonly action: 'reject'
   /**
    *	The reason for the rejection of the [Approval Flow](ctp:api:type:ApprovalFlow).
@@ -234,7 +246,8 @@ export interface ApprovalFlowRejectAction {
    */
   readonly reason?: string
 }
-export interface ApprovalFlowSetCustomFieldAction {
+export interface ApprovalFlowSetCustomFieldAction
+  extends IApprovalFlowUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](ctp:api:type:CustomFields).
@@ -251,7 +264,8 @@ export interface ApprovalFlowSetCustomFieldAction {
    */
   readonly value?: any
 }
-export interface ApprovalFlowSetCustomTypeAction {
+export interface ApprovalFlowSetCustomTypeAction
+  extends IApprovalFlowUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the ApprovalFlow with [Custom Fields](ctp:api:type:CustomFields).

@@ -3,7 +3,6 @@ import type {
   MiddlewareRequestLegacy,
   MiddlewareResponseLegacy,
   NextLegacy,
-  Next,
   OTelemetryMiddlewareOptions,
 } from '../types/types'
 

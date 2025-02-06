@@ -7,6 +7,8 @@
 import {
   BaseResource,
   CreatedBy,
+  IReference,
+  IResourceIdentifier,
   LastModifiedBy,
   LocalizedString,
 } from './common'
@@ -51,6 +53,27 @@ export interface CustomFieldLocalizedEnumValue {
  *	Defines which resource type a [CustomFieldReferenceType](ctp:api:type:CustomFieldReferenceType) can reference.
  *
  */
+export enum CustomFieldReferenceValueValues {
+  ApprovalFlow = 'approval-flow',
+  ApprovalRule = 'approval-rule',
+  AssociateRole = 'associate-role',
+  BusinessUnit = 'business-unit',
+  Cart = 'cart',
+  CartDiscount = 'cart-discount',
+  Category = 'category',
+  Channel = 'channel',
+  Customer = 'customer',
+  CustomerGroup = 'customer-group',
+  KeyValueDocument = 'key-value-document',
+  Order = 'order',
+  Product = 'product',
+  ProductType = 'product-type',
+  Review = 'review',
+  ShippingMethod = 'shipping-method',
+  State = 'state',
+  Zone = 'zone',
+}
+
 export type CustomFieldReferenceValue =
   | 'approval-flow'
   | 'approval-rule'
@@ -160,32 +183,38 @@ export type FieldType =
   | CustomFieldSetType
   | CustomFieldStringType
   | CustomFieldTimeType
+export interface IFieldType {
+  /**
+   *
+   */
+  readonly name: string
+}
 /**
  *	Field type for Boolean values.
  *
  */
-export interface CustomFieldBooleanType {
+export interface CustomFieldBooleanType extends IFieldType {
   readonly name: 'Boolean'
 }
 /**
  *	Field type for [DateTime](ctp:api:type:DateTime) values.
  *
  */
-export interface CustomFieldDateTimeType {
+export interface CustomFieldDateTimeType extends IFieldType {
   readonly name: 'DateTime'
 }
 /**
  *	Field type for [Date](ctp:api:type:Date) values.
  *
  */
-export interface CustomFieldDateType {
+export interface CustomFieldDateType extends IFieldType {
   readonly name: 'Date'
 }
 /**
  *	Field type for enum values.
  *
  */
-export interface CustomFieldEnumType {
+export interface CustomFieldEnumType extends IFieldType {
   readonly name: 'Enum'
   /**
    *	Allowed values.
@@ -197,7 +226,7 @@ export interface CustomFieldEnumType {
  *	Field type for localized enum values.
  *
  */
-export interface CustomFieldLocalizedEnumType {
+export interface CustomFieldLocalizedEnumType extends IFieldType {
   readonly name: 'LocalizedEnum'
   /**
    *	Allowed values.
@@ -209,28 +238,28 @@ export interface CustomFieldLocalizedEnumType {
  *	Field type for [LocalizedString](ctp:api:type:LocalizedString) values.
  *
  */
-export interface CustomFieldLocalizedStringType {
+export interface CustomFieldLocalizedStringType extends IFieldType {
   readonly name: 'LocalizedString'
 }
 /**
  *	Field type for [CentPrecisionMoney](ctp:api:type:CentPrecisionMoney) values.
  *
  */
-export interface CustomFieldMoneyType {
+export interface CustomFieldMoneyType extends IFieldType {
   readonly name: 'Money'
 }
 /**
  *	Field type for number values.
  *
  */
-export interface CustomFieldNumberType {
+export interface CustomFieldNumberType extends IFieldType {
   readonly name: 'Number'
 }
 /**
  *	Field type for [Reference](ctp:api:type:Reference) values.
  *
  */
-export interface CustomFieldReferenceType {
+export interface CustomFieldReferenceType extends IFieldType {
   readonly name: 'Reference'
   /**
    *	Resource type the Custom Field can reference.
@@ -243,7 +272,7 @@ export interface CustomFieldReferenceType {
  *	Values of a SetType Custom Field are sets of values of the specified `elementType` (without duplicate elements).
  *
  */
-export interface CustomFieldSetType {
+export interface CustomFieldSetType extends IFieldType {
   readonly name: 'Set'
   /**
    *	Field type of the elements in the set.
@@ -256,20 +285,57 @@ export interface CustomFieldSetType {
  *	Field type for string values.
  *
  */
-export interface CustomFieldStringType {
+export interface CustomFieldStringType extends IFieldType {
   readonly name: 'String'
 }
 /**
  *	Field type for [Time](ctp:api:type:Time) values.
  *
  */
-export interface CustomFieldTimeType {
+export interface CustomFieldTimeType extends IFieldType {
   readonly name: 'Time'
 }
 /**
  *	With Types, you can model your own Custom Fields on the following resources and data types.
  *
  */
+export enum ResourceTypeIdValues {
+  Address = 'address',
+  ApprovalFlow = 'approval-flow',
+  ApprovalRule = 'approval-rule',
+  Asset = 'asset',
+  AssociateRole = 'associate-role',
+  BusinessUnit = 'business-unit',
+  CartDiscount = 'cart-discount',
+  Category = 'category',
+  Channel = 'channel',
+  CustomLineItem = 'custom-line-item',
+  Customer = 'customer',
+  CustomerGroup = 'customer-group',
+  DiscountCode = 'discount-code',
+  InventoryEntry = 'inventory-entry',
+  LineItem = 'line-item',
+  Order = 'order',
+  OrderDelivery = 'order-delivery',
+  OrderEdit = 'order-edit',
+  OrderParcel = 'order-parcel',
+  OrderReturnItem = 'order-return-item',
+  Payment = 'payment',
+  PaymentInterfaceInteraction = 'payment-interface-interaction',
+  ProductPrice = 'product-price',
+  ProductSelection = 'product-selection',
+  ProductTailoring = 'product-tailoring',
+  Quote = 'quote',
+  Review = 'review',
+  Shipping = 'shipping',
+  ShippingMethod = 'shipping-method',
+  ShoppingList = 'shopping-list',
+  ShoppingListTextLineItem = 'shopping-list-text-line-item',
+  StandalonePrice = 'standalone-price',
+  Store = 'store',
+  Transaction = 'transaction',
+}
+
 export type ResourceTypeId =
   | 'address'
   | 'approval-flow'
@@ -444,7 +510,7 @@ export interface TypePagedQueryResponse {
  *	[Reference](ctp:api:type:Reference) to a [Type](ctp:api:type:Type).
  *
  */
-export interface TypeReference {
+export interface TypeReference extends IReference {
   readonly typeId: 'type'
   /**
    *	Unique identifier of the referenced [Type](ctp:api:type:Type).
@@ -464,7 +530,7 @@ export interface TypeReference {
  *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) of a [Type](ctp:api:type:Type). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
-export interface TypeResourceIdentifier {
+export interface TypeResourceIdentifier extends IResourceIdentifier {
   readonly typeId: 'type'
   /**
    *	Unique identifier of the referenced [Type](ctp:api:type:Type). Required if `key` is absent.
@@ -483,6 +549,11 @@ export interface TypeResourceIdentifier {
  *	Provides a visual representation type for this field. It is only relevant for string-based field types like [CustomFieldStringType](ctp:api:type:CustomFieldStringType) and [CustomFieldLocalizedStringType](ctp:api:type:CustomFieldLocalizedStringType). Following values are supported:
  *
  */
+export enum TypeTextInputHintValues {
+  MultiLine = 'MultiLine',
+  SingleLine = 'SingleLine',
+}
+
 export type TypeTextInputHint = 'MultiLine' | 'SingleLine' | string
 export interface TypeUpdate {
   /**
@@ -514,12 +585,18 @@ export type TypeUpdateAction =
   | TypeChangeNameAction
   | TypeRemoveFieldDefinitionAction
   | TypeSetDescriptionAction
+export interface ITypeUpdateAction {
+  /**
+   *
+   */
+  readonly action: string
+}
 /**
  *	Adds a value to an [EnumType](ctp:api:type:CustomFieldEnumType).
  *	This update action can be used to update an [EnumType](ctp:api:type:CustomFieldEnumType) FieldDefinition and a [SetType](ctp:api:type:CustomFieldSetType) FieldDefinition of [EnumType](ctp:api:type:CustomFieldEnumType).
  *
  */
-export interface TypeAddEnumValueAction {
+export interface TypeAddEnumValueAction extends ITypeUpdateAction {
   readonly action: 'addEnumValue'
   /**
    *	`name` of the [Field Definition](ctp:api:type:FieldDefinition) to update.
@@ -539,7 +616,7 @@ export interface TypeAddEnumValueAction {
  *	If a Type that is already in use requires new fields, we recommend making them optional (`required` set to `false`) whenever possible. Alternatively, any new required fields should be added one at a time followed by an update to all the resources using the Type. This prevents validation errors caused by an entity missing more than one required custom field.
  *
  */
-export interface TypeAddFieldDefinitionAction {
+export interface TypeAddFieldDefinitionAction extends ITypeUpdateAction {
   readonly action: 'addFieldDefinition'
   /**
    *	Value to append to the array.
@@ -552,7 +629,7 @@ export interface TypeAddFieldDefinitionAction {
  *	This update action can be used to update a [LocalizedEnumType](ctp:api:type:CustomFieldLocalizedEnumType) FieldDefinition and a [SetType](ctp:api:type:CustomFieldSetType) FieldDefinition of [CustomFieldLocalizedEnumType](ctp:api:type:CustomFieldLocalizedEnumType).
  *
  */
-export interface TypeAddLocalizedEnumValueAction {
+export interface TypeAddLocalizedEnumValueAction extends ITypeUpdateAction {
   readonly action: 'addLocalizedEnumValue'
   /**
    *	`name` of the [FieldDefinition](ctp:api:type:FieldDefinition) to update.
@@ -570,7 +647,7 @@ export interface TypeAddLocalizedEnumValueAction {
  *	Changes the `label` of an [EnumValue](ctp:api:type:CustomFieldEnumValue) of an [EnumType](ctp:api:type:CustomFieldEnumType) FieldDefinition.
  *
  */
-export interface TypeChangeEnumValueLabelAction {
+export interface TypeChangeEnumValueLabelAction extends ITypeUpdateAction {
   readonly action: 'changeEnumValueLabel'
   /**
    *	`name` of the [FieldDefinition](ctp:api:type:FieldDefinition) to update.
@@ -591,7 +668,7 @@ export interface TypeChangeEnumValueLabelAction {
  *	This update action can be used to update an [EnumType](ctp:api:type:CustomFieldEnumType) FieldDefinition and a [SetType](ctp:api:type:CustomFieldSetType) FieldDefinition of [EnumType](ctp:api:type:CustomFieldEnumType).
  *
  */
-export interface TypeChangeEnumValueOrderAction {
+export interface TypeChangeEnumValueOrderAction extends ITypeUpdateAction {
   readonly action: 'changeEnumValueOrder'
   /**
    *	`name` of the [FieldDefinition](ctp:api:type:FieldDefinition) to update.
@@ -606,7 +683,8 @@ export interface TypeChangeEnumValueOrderAction {
    */
   readonly keys: string[]
 }
-export interface TypeChangeFieldDefinitionOrderAction {
+export interface TypeChangeFieldDefinitionOrderAction
+  extends ITypeUpdateAction {
   readonly action: 'changeFieldDefinitionOrder'
   /**
    *	Must match the set of `name`s of FieldDefinitions (up to order).
@@ -619,7 +697,7 @@ export interface TypeChangeFieldDefinitionOrderAction {
  *	Changes the `inputHint` of [CustomFieldStringType](ctp:api:type:CustomFieldStringType) [FieldDefinition](ctp:api:type:FieldDefinition), a [CustomFieldLocalizedStringType](ctp:api:type:CustomFieldLocalizedStringType) [FieldDefinition](ctp:api:type:FieldDefinition), and [CustomFieldSetType](ctp:api:type:CustomFieldSetType) [FieldDefinition](ctp:api:type:FieldDefinition) of these string-based FieldTypes.
  *
  */
-export interface TypeChangeInputHintAction {
+export interface TypeChangeInputHintAction extends ITypeUpdateAction {
   readonly action: 'changeInputHint'
   /**
    *	`name` of the [Field Definition](ctp:api:type:FieldDefinition) to update.
@@ -635,7 +713,7 @@ export interface TypeChangeInputHintAction {
    */
   readonly inputHint: TypeTextInputHint
 }
-export interface TypeChangeKeyAction {
+export interface TypeChangeKeyAction extends ITypeUpdateAction {
   readonly action: 'changeKey'
   /**
    *	New value to set.
@@ -645,7 +723,7 @@ export interface TypeChangeKeyAction {
    */
   readonly key: string
 }
-export interface TypeChangeLabelAction {
+export interface TypeChangeLabelAction extends ITypeUpdateAction {
   readonly action: 'changeLabel'
   /**
    *	Name of the [Field Definition](ctp:api:type:FieldDefinition) to update.
@@ -665,7 +743,8 @@ export interface TypeChangeLabelAction {
  *	Changes the `label` of a [LocalizedEnumValue](ctp:api:type:CustomFieldLocalizedEnumValue) of a [LocalizedEnumType](ctp:api:type:CustomFieldLocalizedEnumType) FieldDefinition.
  *
  */
-export interface TypeChangeLocalizedEnumValueLabelAction {
+export interface TypeChangeLocalizedEnumValueLabelAction
+  extends ITypeUpdateAction {
   readonly action: 'changeLocalizedEnumValueLabel'
   /**
    *	`name` of the [FieldDefinition](ctp:api:type:FieldDefinition) to update.
@@ -686,7 +765,8 @@ export interface TypeChangeLocalizedEnumValueLabelAction {
  *	This update action can be used to update a [LocalizedEnumType](ctp:api:type:CustomFieldLocalizedEnumType) FieldDefinition and a [SetType](ctp:api:type:CustomFieldSetType) of [LocalizedEnumType](ctp:api:type:CustomFieldLocalizedEnumType) FieldDefinitions.
  *
  */
-export interface TypeChangeLocalizedEnumValueOrderAction {
+export interface TypeChangeLocalizedEnumValueOrderAction
+  extends ITypeUpdateAction {
   readonly action: 'changeLocalizedEnumValueOrder'
   /**
    *	`name` of the [Field Definition](ctp:api:type:FieldDefinition) to update.
@@ -701,7 +781,7 @@ export interface TypeChangeLocalizedEnumValueOrderAction {
    */
   readonly keys: string[]
 }
-export interface TypeChangeNameAction {
+export interface TypeChangeNameAction extends ITypeUpdateAction {
   readonly action: 'changeName'
   /**
    *	New value to set.
@@ -711,7 +791,7 @@ export interface TypeChangeNameAction {
    */
   readonly name: LocalizedString
 }
-export interface TypeRemoveFieldDefinitionAction {
+export interface TypeRemoveFieldDefinitionAction extends ITypeUpdateAction {
   readonly action: 'removeFieldDefinition'
   /**
    *	`name` of the [FieldDefinition](ctp:api:type:FieldDefinition) to remove.
@@ -721,7 +801,7 @@ export interface TypeRemoveFieldDefinitionAction {
    */
   readonly fieldName: string
 }
-export interface TypeSetDescriptionAction {
+export interface TypeSetDescriptionAction extends ITypeUpdateAction {
   readonly action: 'setDescription'
   /**
    *	Value to set. If empty, any existing value will be removed.

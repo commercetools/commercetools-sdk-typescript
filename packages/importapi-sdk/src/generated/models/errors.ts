@@ -76,10 +76,22 @@ export type ErrorObject =
   | ResourceDeletionError
   | ResourceNotFoundError
   | ResourceUpdateError
+export interface IErrorObject {
+  /**
+   *	An error identifier.
+   *
+   */
+  readonly code: string
+  /**
+   *	A plain language description of the cause of an error.
+   *
+   */
+  readonly message: string
+}
 /**
  *	This is the generic error code for access denied. In case of a wrong scope, an [InvalidScopeError](#invalidscopeerror) will be returned.
  */
-export interface AccessDeniedError {
+export interface AccessDeniedError extends IErrorObject {
   readonly code: 'access_denied'
   /**
    *	A plain language description of the cause of an error.
@@ -91,7 +103,7 @@ export interface AccessDeniedError {
  *	The requested scope is invalid, unknown, malformed, or exceeds the scope granted by the resource owner.
  *
  */
-export interface InvalidScopeError {
+export interface InvalidScopeError extends IErrorObject {
   readonly code: 'invalid_scope'
   /**
    *	A plain language description of the cause of an error.
@@ -104,7 +116,7 @@ export interface InvalidScopeError {
  *	The client application should validate the constraints described in the error message before sending the request again.
  *
  */
-export interface InvalidOperation {
+export interface InvalidOperation extends IErrorObject {
   readonly code: 'InvalidOperation'
   /**
    *	A plain language description of the cause of an error.
@@ -115,7 +127,7 @@ export interface InvalidOperation {
 /**
  *	The `Unique` [AttributeConstraintEnum](ctp:api:type:AttributeConstraintEnum) was violated.
  */
-export interface DuplicateAttributeValueError {
+export interface DuplicateAttributeValueError extends IErrorObject {
   readonly code: 'DuplicateAttributeValue'
   /**
    *	A plain language description of the cause of an error.
@@ -131,7 +143,7 @@ export interface DuplicateAttributeValueError {
 /**
  *	The `CombinationUnique` [AttributeConstraintEnum](ctp:api:type:AttributeConstraintEnum) was violated.
  */
-export interface DuplicateAttributeValuesError {
+export interface DuplicateAttributeValuesError extends IErrorObject {
   readonly code: 'DuplicateAttributeValues'
   /**
    *	A plain language description of the cause of an error.
@@ -146,7 +158,7 @@ export interface DuplicateAttributeValuesError {
 /**
  *	The given value already exists for a field that is checked for unique values.
  */
-export interface DuplicateFieldError {
+export interface DuplicateFieldError extends IErrorObject {
   readonly code: 'DuplicateField'
   /**
    *	A plain language description of the cause of an error.
@@ -169,7 +181,7 @@ export interface DuplicateFieldError {
  *	Every [Product Variant](ctp:api:type:ProductVariant) must have a distinct combination of SKU, prices, and custom attribute values.
  *
  */
-export interface DuplicateVariantValuesError {
+export interface DuplicateVariantValuesError extends IErrorObject {
   readonly code: 'DuplicateVariantValues'
   /**
    *	A plain language description of the cause of an error.
@@ -196,7 +208,7 @@ export interface VariantValues {
    */
   readonly attributes: Attribute[]
 }
-export interface InsufficientScopeError {
+export interface InsufficientScopeError extends IErrorObject {
   readonly code: 'insufficient_scope'
   /**
    *	A plain language description of the cause of an error.
@@ -204,7 +216,7 @@ export interface InsufficientScopeError {
    */
   readonly message: string
 }
-export interface InvalidCredentialsError {
+export interface InvalidCredentialsError extends IErrorObject {
   readonly code: 'InvalidCredentials'
   /**
    *	A plain language description of the cause of an error.
@@ -212,7 +224,7 @@ export interface InvalidCredentialsError {
    */
   readonly message: string
 }
-export interface InvalidTokenError {
+export interface InvalidTokenError extends IErrorObject {
   readonly code: 'invalid_token'
   /**
    *	A plain language description of the cause of an error.
@@ -225,7 +237,7 @@ export interface InvalidTokenError {
  *	This error occurs, for example, if the field `variants`, which is not supported by [Product Import](ctp:import:type:ProductImport), is sent to the Product Import endpoint.
  *
  */
-export interface InvalidFieldError {
+export interface InvalidFieldError extends IErrorObject {
   readonly code: 'InvalidField'
   /**
    *	A plain language description of the cause of an error.
@@ -256,7 +268,7 @@ export interface InvalidFieldError {
  *	Returned when a field cannot be updated.
  *
  */
-export interface InvalidFieldsUpdateError {
+export interface InvalidFieldsUpdateError extends IErrorObject {
   readonly code: 'InvalidFieldUpdate'
   /**
    *	`"The following fields are currently not supported for changes/updates"`
@@ -276,7 +288,7 @@ export interface InvalidFieldsUpdateError {
  *	The client application should validate the input according to the constraints described in the error message before sending the request again.
  *
  */
-export interface InvalidJsonInput {
+export interface InvalidJsonInput extends IErrorObject {
   readonly code: 'InvalidJsonInput'
   /**
    *	A plain language description of the cause of an error.
@@ -289,7 +301,7 @@ export interface InvalidJsonInput {
  *	constraints described in the error message before sending the request again.
  *
  */
-export interface InvalidInput {
+export interface InvalidInput extends IErrorObject {
   readonly code: 'InvalidInput'
   /**
    *	A plain language description of the cause of an error.
@@ -297,7 +309,7 @@ export interface InvalidInput {
    */
   readonly message: string
 }
-export interface ResourceNotFoundError {
+export interface ResourceNotFoundError extends IErrorObject {
   readonly code: 'ResourceNotFound'
   /**
    *	A plain language description of the cause of an error.
@@ -309,7 +321,7 @@ export interface ResourceNotFoundError {
    */
   readonly resource?: any
 }
-export interface ResourceCreationError {
+export interface ResourceCreationError extends IErrorObject {
   readonly code: 'ResourceCreation'
   /**
    *	A plain language description of the cause of an error.
@@ -321,7 +333,7 @@ export interface ResourceCreationError {
    */
   readonly resource?: any
 }
-export interface ResourceUpdateError {
+export interface ResourceUpdateError extends IErrorObject {
   readonly code: 'ResourceUpdate'
   /**
    *	A plain language description of the cause of an error.
@@ -333,7 +345,7 @@ export interface ResourceUpdateError {
    */
   readonly resource?: any
 }
-export interface ResourceDeletionError {
+export interface ResourceDeletionError extends IErrorObject {
   readonly code: 'ResourceDeletion'
   /**
    *	A plain language description of the cause of an error.
@@ -348,7 +360,7 @@ export interface ResourceDeletionError {
 /**
  *	A required field is missing a value.
  */
-export interface RequiredFieldError {
+export interface RequiredFieldError extends IErrorObject {
   readonly code: 'RequiredField'
   /**
    *	A plain language description of the cause of an error.
@@ -361,7 +373,7 @@ export interface RequiredFieldError {
    */
   readonly field: string
 }
-export interface InvalidStateTransitionError {
+export interface InvalidStateTransitionError extends IErrorObject {
   readonly code: 'InvalidTransition'
   /**
    *	A plain language description of the cause of an error.
@@ -387,7 +399,7 @@ export interface InvalidStateTransitionError {
  *	The client application should resolve the conflict (with or without involving the end-user) before retrying the request.
  *
  */
-export interface ConcurrentModificationError {
+export interface ConcurrentModificationError extends IErrorObject {
   readonly code: 'ConcurrentModification'
   /**
    *	A plain language description of the cause of an error.
@@ -410,7 +422,7 @@ export interface ConcurrentModificationError {
    */
   readonly conflictedResource?: any
 }
-export interface ContentionError {
+export interface ContentionError extends IErrorObject {
   readonly code: 'Contention'
   /**
    *	A plain language description of the cause of an error.
@@ -418,7 +430,7 @@ export interface ContentionError {
    */
   readonly message: string
 }
-export interface GenericError {
+export interface GenericError extends IErrorObject {
   readonly code: 'Generic'
   /**
    *	A plain language description of the cause of an error.
@@ -430,7 +442,7 @@ export interface GenericError {
  *	Returned when attempting to create a ProductVariant and set it as the Master Variant in the same [ProductVariantImport](ctp:import:type:ProductVariantImport).
  *
  */
-export interface NewMasterVariantAdditionNotAllowedError {
+export interface NewMasterVariantAdditionNotAllowedError extends IErrorObject {
   readonly code: 'NewMasterVariantAdditionNotAllowed'
   /**
    *	`"Adding a new variant as master variant is not allowed."`
