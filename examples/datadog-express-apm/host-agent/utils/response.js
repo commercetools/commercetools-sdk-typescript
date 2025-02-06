@@ -1,4 +1,4 @@
-const agent = require('../agent').default
+const agent = require('dd-trace').default
 /**
  * @class Response
  *
@@ -30,7 +30,7 @@ class ResponseHandler {
     agent.init().dogstatsd.increment(`Commercetools_Client_Response`, 1, {
       env: 'dev',
       status_code: statusCode,
-      http_method: req.method,
+      http_method: response.req.method,
       success: true,
     })
 
@@ -43,7 +43,7 @@ class ResponseHandler {
    *
    * @description method to handle all error responses
    *
-   * @parma { response object }
+   * @param  response object
    * @param statusCode
    * @param message
    * @param data
@@ -63,7 +63,7 @@ class ResponseHandler {
     agent.init().dogstatsd.increment(`Commercetools_Client_Response`, 1, {
       env: 'dev',
       status_code: statusCode,
-      http_method: req.method,
+      http_method: response.req.method,
       success: false,
     })
 
