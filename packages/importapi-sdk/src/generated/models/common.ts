@@ -213,10 +213,22 @@ export type KeyReference =
   | StoreKeyReference
   | TaxCategoryKeyReference
   | TypeKeyReference
+export interface IKeyReference {
+  /**
+   *
+   */
+  readonly key: string
+  /**
+   *	The type of the referenced resource.
+   *
+   *
+   */
+  readonly typeId: ReferenceType
+}
 /**
  *	References a cart by key.
  */
-export interface CartKeyReference {
+export interface CartKeyReference extends IKeyReference {
   readonly typeId: 'cart'
   /**
    *
@@ -226,7 +238,7 @@ export interface CartKeyReference {
 /**
  *	References a cart discount by key.
  */
-export interface CartDiscountKeyReference {
+export interface CartDiscountKeyReference extends IKeyReference {
   readonly typeId: 'cart-discount'
   /**
    *
@@ -236,7 +248,7 @@ export interface CartDiscountKeyReference {
 /**
  *	References a category by key.
  */
-export interface CategoryKeyReference {
+export interface CategoryKeyReference extends IKeyReference {
   readonly typeId: 'category'
   /**
    *
@@ -246,7 +258,7 @@ export interface CategoryKeyReference {
 /**
  *	References a channel by key.
  */
-export interface ChannelKeyReference {
+export interface ChannelKeyReference extends IKeyReference {
   readonly typeId: 'channel'
   /**
    *
@@ -256,7 +268,7 @@ export interface ChannelKeyReference {
 /**
  *	References a customer by key.
  */
-export interface CustomerKeyReference {
+export interface CustomerKeyReference extends IKeyReference {
   readonly typeId: 'customer'
   /**
    *
@@ -266,7 +278,7 @@ export interface CustomerKeyReference {
 /**
  *	References a customer group by key.
  */
-export interface CustomerGroupKeyReference {
+export interface CustomerGroupKeyReference extends IKeyReference {
   readonly typeId: 'customer-group'
   /**
    *
@@ -276,7 +288,7 @@ export interface CustomerGroupKeyReference {
 /**
  *	References a discount code by key.
  */
-export interface DiscountCodeKeyReference {
+export interface DiscountCodeKeyReference extends IKeyReference {
   readonly typeId: 'discount-code'
   /**
    *
@@ -286,7 +298,7 @@ export interface DiscountCodeKeyReference {
 /**
  *	References an order by key.
  */
-export interface OrderKeyReference {
+export interface OrderKeyReference extends IKeyReference {
   readonly typeId: 'order'
   /**
    *
@@ -296,7 +308,7 @@ export interface OrderKeyReference {
 /**
  *	References a payment by key.
  */
-export interface PaymentKeyReference {
+export interface PaymentKeyReference extends IKeyReference {
   readonly typeId: 'payment'
   /**
    *
@@ -306,7 +318,7 @@ export interface PaymentKeyReference {
 /**
  *	References a price by key.
  */
-export interface PriceKeyReference {
+export interface PriceKeyReference extends IKeyReference {
   readonly typeId: 'price'
   /**
    *
@@ -316,7 +328,7 @@ export interface PriceKeyReference {
 /**
  *	References a product by key.
  */
-export interface ProductKeyReference {
+export interface ProductKeyReference extends IKeyReference {
   readonly typeId: 'product'
   /**
    *
@@ -326,7 +338,7 @@ export interface ProductKeyReference {
 /**
  *	References a product discount by key.
  */
-export interface ProductDiscountKeyReference {
+export interface ProductDiscountKeyReference extends IKeyReference {
   readonly typeId: 'product-discount'
   /**
    *
@@ -336,7 +348,7 @@ export interface ProductDiscountKeyReference {
 /**
  *	References a product type by key.
  */
-export interface ProductTypeKeyReference {
+export interface ProductTypeKeyReference extends IKeyReference {
   readonly typeId: 'product-type'
   /**
    *
@@ -346,7 +358,7 @@ export interface ProductTypeKeyReference {
 /**
  *	References a product variant by key.
  */
-export interface ProductVariantKeyReference {
+export interface ProductVariantKeyReference extends IKeyReference {
   readonly typeId: 'product-variant'
   /**
    *
@@ -356,7 +368,7 @@ export interface ProductVariantKeyReference {
 /**
  *	References a shipping method by key.
  */
-export interface ShippingMethodKeyReference {
+export interface ShippingMethodKeyReference extends IKeyReference {
   readonly typeId: 'shipping-method'
   /**
    *
@@ -366,7 +378,7 @@ export interface ShippingMethodKeyReference {
 /**
  *	References a state by key.
  */
-export interface StateKeyReference {
+export interface StateKeyReference extends IKeyReference {
   readonly typeId: 'state'
   /**
    *
@@ -376,7 +388,7 @@ export interface StateKeyReference {
 /**
  *	References a store by key.
  */
-export interface StoreKeyReference {
+export interface StoreKeyReference extends IKeyReference {
   readonly typeId: 'store'
   /**
    *
@@ -386,7 +398,7 @@ export interface StoreKeyReference {
 /**
  *	References a tax category by key.
  */
-export interface TaxCategoryKeyReference {
+export interface TaxCategoryKeyReference extends IKeyReference {
   readonly typeId: 'tax-category'
   /**
    *
@@ -396,7 +408,7 @@ export interface TaxCategoryKeyReference {
 /**
  *	References a type by key.
  */
-export interface TypeKeyReference {
+export interface TypeKeyReference extends IKeyReference {
   readonly typeId: 'type'
   /**
    *
@@ -406,7 +418,7 @@ export interface TypeKeyReference {
 /**
  *	References a key value document by key.
  */
-export interface CustomObjectKeyReference {
+export interface CustomObjectKeyReference extends IKeyReference {
   readonly typeId: 'key-value-document'
   /**
    *
@@ -432,9 +444,34 @@ export interface UnresolvedReferences {
    */
   readonly typeId: ReferenceType
 }
+export enum MoneyTypeValues {
+  CentPrecision = 'centPrecision',
+  HighPrecision = 'highPrecision',
+}
+
 export type MoneyType = 'centPrecision' | 'highPrecision' | string
 export type TypedMoney = HighPrecisionMoney | Money
-export interface HighPrecisionMoney {
+export interface ITypedMoney {
+  /**
+   *
+   */
+  readonly type: MoneyType
+  /**
+   *
+   */
+  readonly fractionDigits?: number
+  /**
+   *
+   */
+  readonly centAmount: number
+  /**
+   *	The currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *
+   *
+   */
+  readonly currencyCode: string
+}
+export interface HighPrecisionMoney extends ITypedMoney {
   readonly type: 'highPrecision'
   /**
    *
@@ -455,7 +492,7 @@ export interface HighPrecisionMoney {
    */
   readonly preciseAmount: number
 }
-export interface Money {
+export interface Money extends ITypedMoney {
   readonly type: 'centPrecision'
   /**
    *
@@ -505,6 +542,23 @@ export interface PriceTier {
  *	The resource types that can be imported.
  *
  */
+export enum ImportResourceTypeValues {
+  Category = 'category',
+  Customer = 'customer',
+  DiscountCode = 'discount-code',
+  Inventory = 'inventory',
+  Order = 'order',
+  OrderPatch = 'order-patch',
+  Price = 'price',
+  Product = 'product',
+  ProductDraft = 'product-draft',
+  ProductType = 'product-type',
+  ProductVariant = 'product-variant',
+  ProductVariantPatch = 'product-variant-patch',
+  StandalonePrice = 'standalone-price',
+  Type = 'type',
+}
+
 export type ImportResourceType =
   | 'category'
   | 'customer'
@@ -525,6 +579,29 @@ export type ImportResourceType =
  *	The type of the referenced resource.
  *
  */
+export enum ReferenceTypeValues {
+  Cart = 'cart',
+  CartDiscount = 'cart-discount',
+  Category = 'category',
+  Channel = 'channel',
+  Customer = 'customer',
+  CustomerGroup = 'customer-group',
+  DiscountCode = 'discount-code',
+  KeyValueDocument = 'key-value-document',
+  Order = 'order',
+  Payment = 'payment',
+  Price = 'price',
+  Product = 'product',
+  ProductDiscount = 'product-discount',
+  ProductType = 'product-type',
+  ProductVariant = 'product-variant',
+  ShippingMethod = 'shipping-method',
+  State = 'state',
+  Store = 'store',
+  TaxCategory = 'tax-category',
+  Type = 'type',
+}
+
 export type ReferenceType =
   | 'cart'
   | 'cart-discount'
@@ -551,6 +628,16 @@ export type ReferenceType =
  *	Every [Import Operation](ctp:import:type:ImportOperation) is assigned one of the following states.
  *
  */
+export enum ProcessingStateValues {
+  Canceled = 'canceled',
+  Imported = 'imported',
+  Processing = 'processing',
+  Rejected = 'rejected',
+  Unresolved = 'unresolved',
+  ValidationFailed = 'validationFailed',
+  WaitForMasterVariant = 'waitForMasterVariant',
+}
+
 export type ProcessingState =
   | 'canceled'
   | 'imported'
@@ -669,4 +756,9 @@ export interface Address {
    */
   readonly custom?: Custom
 }
+export enum ProductPriceModeEnumValues {
+  Embedded = 'Embedded',
+  Standalone = 'Standalone',
+}
+
 export type ProductPriceModeEnum = 'Embedded' | 'Standalone' | string

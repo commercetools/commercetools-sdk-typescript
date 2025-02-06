@@ -5,7 +5,13 @@
  */
 
 import { ChannelReference, ChannelResourceIdentifier } from './channel'
-import { BaseResource, CreatedBy, LastModifiedBy } from './common'
+import {
+  BaseResource,
+  CreatedBy,
+  IReference,
+  IResourceIdentifier,
+  LastModifiedBy,
+} from './common'
 import { CustomerReference, CustomerResourceIdentifier } from './customer'
 import { ProductReference, ProductResourceIdentifier } from './product'
 import { StateReference, StateResourceIdentifier } from './state'
@@ -264,7 +270,7 @@ export interface ReviewRatingStatistics {
  *	[Reference](ctp:api:type:Reference) to a [Review](ctp:api:type:Review).
  *
  */
-export interface ReviewReference {
+export interface ReviewReference extends IReference {
   readonly typeId: 'review'
   /**
    *	Unique identifier of the referenced [Review](ctp:api:type:Review).
@@ -283,7 +289,7 @@ export interface ReviewReference {
  *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Review](ctp:api:type:Review). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
-export interface ReviewResourceIdentifier {
+export interface ReviewResourceIdentifier extends IResourceIdentifier {
   readonly typeId: 'review'
   /**
    *	Unique identifier of the referenced [Review](ctp:api:type:Review). Required if `key` is absent.
@@ -324,7 +330,13 @@ export type ReviewUpdateAction =
   | ReviewSetTextAction
   | ReviewSetTitleAction
   | ReviewTransitionStateAction
-export interface ReviewSetAuthorNameAction {
+export interface IReviewUpdateAction {
+  /**
+   *
+   */
+  readonly action: string
+}
+export interface ReviewSetAuthorNameAction extends IReviewUpdateAction {
   readonly action: 'setAuthorName'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -333,7 +345,7 @@ export interface ReviewSetAuthorNameAction {
    */
   readonly authorName?: string
 }
-export interface ReviewSetCustomFieldAction {
+export interface ReviewSetCustomFieldAction extends IReviewUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -350,7 +362,7 @@ export interface ReviewSetCustomFieldAction {
    */
   readonly value?: any
 }
-export interface ReviewSetCustomTypeAction {
+export interface ReviewSetCustomTypeAction extends IReviewUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the Review with [Custom Fields](/../api/projects/custom-fields).
@@ -366,7 +378,7 @@ export interface ReviewSetCustomTypeAction {
    */
   readonly fields?: FieldContainer
 }
-export interface ReviewSetCustomerAction {
+export interface ReviewSetCustomerAction extends IReviewUpdateAction {
   readonly action: 'setCustomer'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -374,7 +386,7 @@ export interface ReviewSetCustomerAction {
    */
   readonly customer?: CustomerResourceIdentifier
 }
-export interface ReviewSetKeyAction {
+export interface ReviewSetKeyAction extends IReviewUpdateAction {
   readonly action: 'setKey'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -383,7 +395,7 @@ export interface ReviewSetKeyAction {
    */
   readonly key?: string
 }
-export interface ReviewSetLocaleAction {
+export interface ReviewSetLocaleAction extends IReviewUpdateAction {
   readonly action: 'setLocale'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -396,7 +408,7 @@ export interface ReviewSetLocaleAction {
  *	This update action produces the [ReviewRatingSet](ctp:api:type:ReviewRatingSetMessage) Message.
  *
  */
-export interface ReviewSetRatingAction {
+export interface ReviewSetRatingAction extends IReviewUpdateAction {
   readonly action: 'setRating'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -404,7 +416,7 @@ export interface ReviewSetRatingAction {
    */
   readonly rating?: number
 }
-export interface ReviewSetTargetAction {
+export interface ReviewSetTargetAction extends IReviewUpdateAction {
   readonly action: 'setTarget'
   /**
    *	Value to set, specified as [ProductResourceIdentifier](ctp:api:type:ProductResourceIdentifier) or [ChannelResourceIdentifier](ctp:api:type:ChannelResourceIdentifier), respectively. If empty, any existing value will be removed.
@@ -413,7 +425,7 @@ export interface ReviewSetTargetAction {
    */
   readonly target: ProductResourceIdentifier | ChannelResourceIdentifier
 }
-export interface ReviewSetTextAction {
+export interface ReviewSetTextAction extends IReviewUpdateAction {
   readonly action: 'setText'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -422,7 +434,7 @@ export interface ReviewSetTextAction {
    */
   readonly text?: string
 }
-export interface ReviewSetTitleAction {
+export interface ReviewSetTitleAction extends IReviewUpdateAction {
   readonly action: 'setTitle'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -435,7 +447,7 @@ export interface ReviewSetTitleAction {
  *	Transition to a new State. This update action produces the [Review State Transition](ctp:api:type:ReviewStateTransitionMessage) Message.
  *
  */
-export interface ReviewTransitionStateAction {
+export interface ReviewTransitionStateAction extends IReviewUpdateAction {
   readonly action: 'transitionState'
   /**
    *	Value to set. If there is no State yet, the new State must be an initial State. If the existing State has `transitions` set, there must be a direct transition to the new State. If `transitions` is not set, no validation is performed. If the new State does not have the [role](ctp:api:type:StateRoleEnum) `ReviewIncludedInStatistics`, the Review is not taken into account in the ratings statistics of the target.

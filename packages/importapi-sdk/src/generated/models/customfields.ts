@@ -59,10 +59,17 @@ export type CustomField =
   | StringSetField
   | TimeField
   | TimeSetField
+export interface ICustomField {
+  /**
+   *	The type of this field.
+   *
+   */
+  readonly type: string
+}
 /**
  *	A field with a boolean value.
  */
-export interface BooleanField {
+export interface BooleanField extends ICustomField {
   readonly type: 'Boolean'
   /**
    *
@@ -72,7 +79,7 @@ export interface BooleanField {
 /**
  *	A field with a string value.
  */
-export interface StringField {
+export interface StringField extends ICustomField {
   readonly type: 'String'
   /**
    *
@@ -82,7 +89,7 @@ export interface StringField {
 /**
  *	A field with a localized string value.
  */
-export interface LocalizedStringField {
+export interface LocalizedStringField extends ICustomField {
   readonly type: 'LocalizedString'
   /**
    *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
@@ -100,7 +107,7 @@ export interface LocalizedStringField {
 /**
  *	A field with an enum value.
  */
-export interface EnumField {
+export interface EnumField extends ICustomField {
   readonly type: 'Enum'
   /**
    *
@@ -110,7 +117,7 @@ export interface EnumField {
 /**
  *	A field with a localized enum value.
  */
-export interface LocalizedEnumField {
+export interface LocalizedEnumField extends ICustomField {
   readonly type: 'LocalizedEnum'
   /**
    *
@@ -120,7 +127,7 @@ export interface LocalizedEnumField {
 /**
  *	A field with a number value.
  */
-export interface NumberField {
+export interface NumberField extends ICustomField {
   readonly type: 'Number'
   /**
    *
@@ -130,7 +137,7 @@ export interface NumberField {
 /**
  *	A field with a money value.
  */
-export interface MoneyField {
+export interface MoneyField extends ICustomField {
   readonly type: 'Money'
   /**
    *
@@ -140,7 +147,7 @@ export interface MoneyField {
 /**
  *	A field with a date value.
  */
-export interface DateField {
+export interface DateField extends ICustomField {
   readonly type: 'Date'
   /**
    *
@@ -150,7 +157,7 @@ export interface DateField {
 /**
  *	A field with a time value.
  */
-export interface TimeField {
+export interface TimeField extends ICustomField {
   readonly type: 'Time'
   /**
    *
@@ -160,7 +167,7 @@ export interface TimeField {
 /**
  *	A field with a date time value.
  */
-export interface DateTimeField {
+export interface DateTimeField extends ICustomField {
   readonly type: 'DateTime'
   /**
    *
@@ -170,7 +177,7 @@ export interface DateTimeField {
 /**
  *	A field with a reference value.
  */
-export interface ReferenceField {
+export interface ReferenceField extends ICustomField {
   readonly type: 'Reference'
   /**
    *	References a resource by key
@@ -181,7 +188,7 @@ export interface ReferenceField {
 /**
  *	A field with a boolean set value.
  */
-export interface BooleanSetField {
+export interface BooleanSetField extends ICustomField {
   readonly type: 'BooleanSet'
   /**
    *
@@ -191,7 +198,7 @@ export interface BooleanSetField {
 /**
  *	A field with a string set value.
  */
-export interface StringSetField {
+export interface StringSetField extends ICustomField {
   readonly type: 'StringSet'
   /**
    *
@@ -201,7 +208,7 @@ export interface StringSetField {
 /**
  *	A field with a localized string set value.
  */
-export interface LocalizedStringSetField {
+export interface LocalizedStringSetField extends ICustomField {
   readonly type: 'LocalizedStringSet'
   /**
    *
@@ -211,7 +218,7 @@ export interface LocalizedStringSetField {
 /**
  *	A field with an enum set value.
  */
-export interface EnumSetField {
+export interface EnumSetField extends ICustomField {
   readonly type: 'EnumSet'
   /**
    *
@@ -221,7 +228,7 @@ export interface EnumSetField {
 /**
  *	A field with a localized enum set value.
  */
-export interface LocalizedEnumSetField {
+export interface LocalizedEnumSetField extends ICustomField {
   readonly type: 'LocalizedEnumSet'
   /**
    *
@@ -231,7 +238,7 @@ export interface LocalizedEnumSetField {
 /**
  *	A field with a number value.
  */
-export interface NumberSetField {
+export interface NumberSetField extends ICustomField {
   readonly type: 'NumberSet'
   /**
    *
@@ -241,7 +248,7 @@ export interface NumberSetField {
 /**
  *	A field with a money set value.
  */
-export interface MoneySetField {
+export interface MoneySetField extends ICustomField {
   readonly type: 'MoneySet'
   /**
    *
@@ -251,7 +258,7 @@ export interface MoneySetField {
 /**
  *	A field with a date set value.
  */
-export interface DateSetField {
+export interface DateSetField extends ICustomField {
   readonly type: 'DateSet'
   /**
    *
@@ -261,7 +268,7 @@ export interface DateSetField {
 /**
  *	A field with a time set value.
  */
-export interface TimeSetField {
+export interface TimeSetField extends ICustomField {
   readonly type: 'TimeSet'
   /**
    *
@@ -271,7 +278,7 @@ export interface TimeSetField {
 /**
  *	A field with a date time set value.
  */
-export interface DateTimeSetField {
+export interface DateTimeSetField extends ICustomField {
   readonly type: 'DateTimeSet'
   /**
    *
@@ -281,7 +288,7 @@ export interface DateTimeSetField {
 /**
  *	A field with a reference set value.
  */
-export interface ReferenceSetField {
+export interface ReferenceSetField extends ICustomField {
   readonly type: 'ReferenceSet'
   /**
    *

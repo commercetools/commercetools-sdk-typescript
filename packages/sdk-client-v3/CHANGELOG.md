@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 3.0.4
+
+### Patch Changes
+
+- [#922](https://github.com/commercetools/commercetools-sdk-typescript/pull/922) [`f59576b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f59576b1d23a85e5bcfea8360e8bfc641cbcdc87) Thanks [@ajimae](https://github.com/ajimae)! - Fix issues with non ascii encoded string length
+
 ## 3.0.3
 
 ### Patch Changes

@@ -8,6 +8,8 @@ import {
   BaseResource,
   CentPrecisionMoney,
   CreatedBy,
+  IReference,
+  IResourceIdentifier,
   LastModifiedBy,
   LocalizedString,
   Money,
@@ -246,7 +248,7 @@ export interface ProductDiscountPagedQueryResponse {
  *	[Reference](ctp:api:type:Reference) to a [ProductDiscount](ctp:api:type:ProductDiscount).
  *
  */
-export interface ProductDiscountReference {
+export interface ProductDiscountReference extends IReference {
   readonly typeId: 'product-discount'
   /**
    *	Unique identifier of the referenced [ProductDiscount](ctp:api:type:ProductDiscount).
@@ -265,7 +267,7 @@ export interface ProductDiscountReference {
  *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [ProductDiscount](ctp:api:type:ProductDiscount). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
-export interface ProductDiscountResourceIdentifier {
+export interface ProductDiscountResourceIdentifier extends IResourceIdentifier {
   readonly typeId: 'product-discount'
   /**
    *	Unique identifier of the referenced [ProductDiscount](ctp:api:type:ProductDiscount). Required if `key` is absent.
@@ -306,14 +308,26 @@ export type ProductDiscountUpdateAction =
   | ProductDiscountSetValidFromAction
   | ProductDiscountSetValidFromAndUntilAction
   | ProductDiscountSetValidUntilAction
+export interface IProductDiscountUpdateAction {
+  /**
+   *
+   */
+  readonly action: string
+}
 export type ProductDiscountValue =
   | ProductDiscountValueAbsolute
   | ProductDiscountValueExternal
   | ProductDiscountValueRelative
+export interface IProductDiscountValue {
+  /**
+   *
+   */
+  readonly type: string
+}
 /**
  *	Discounts the Product's Price by a fixed amount, defined by the `money` field.
  */
-export interface ProductDiscountValueAbsolute {
+export interface ProductDiscountValueAbsolute extends IProductDiscountValue {
   readonly type: 'absolute'
   /**
    *	Money values in different currencies. An absolute [ProductDiscount](ctp:api:type:ProductDiscount) will only match a price if this array contains a value with the same currency. For example, if it contains 10€ and 15$, the matching € price will be decreased by 10€ and the matching $ price will be decreased by 15\$.
@@ -326,11 +340,18 @@ export type ProductDiscountValueDraft =
   | ProductDiscountValueAbsoluteDraft
   | ProductDiscountValueExternalDraft
   | ProductDiscountValueRelativeDraft
+export interface IProductDiscountValueDraft {
+  /**
+   *
+   */
+  readonly type: string
+}
 /**
  *	Discounts the Product Price by a fixed amount, defined by the `money` field.
  *
  */
-export interface ProductDiscountValueAbsoluteDraft {
+export interface ProductDiscountValueAbsoluteDraft
+  extends IProductDiscountValueDraft {
   readonly type: 'absolute'
   /**
    *	Money values in different currencies.
@@ -347,7 +368,7 @@ export interface ProductDiscountValueAbsoluteDraft {
  *	Used when setting discounts using an external service.
  *
  */
-export interface ProductDiscountValueExternal {
+export interface ProductDiscountValueExternal extends IProductDiscountValue {
   readonly type: 'external'
 }
 /**
@@ -355,13 +376,14 @@ export interface ProductDiscountValueExternal {
  *	Use this when setting discounts using an external service.
  *
  */
-export interface ProductDiscountValueExternalDraft {
+export interface ProductDiscountValueExternalDraft
+  extends IProductDiscountValueDraft {
   readonly type: 'external'
 }
 /**
  *	Discounts the product price by a percentage, defined by the `permyriad` field.
  */
-export interface ProductDiscountValueRelative {
+export interface ProductDiscountValueRelative extends IProductDiscountValue {
   readonly type: 'relative'
   /**
    *	Fraction (per ten thousand) the price is reduced by. For example, `1000` will result in a 10% price reduction.
@@ -374,7 +396,8 @@ export interface ProductDiscountValueRelative {
  *	Discounts the Product Price by a percentage, defined by the `permyriad` field.
  *
  */
-export interface ProductDiscountValueRelativeDraft {
+export interface ProductDiscountValueRelativeDraft
+  extends IProductDiscountValueDraft {
   readonly type: 'relative'
   /**
    *	Fraction (per ten thousand) the price is reduced by. For example, `1000` will result in a 10% price reduction.
@@ -383,7 +406,8 @@ export interface ProductDiscountValueRelativeDraft {
    */
   readonly permyriad: number
 }
-export interface ProductDiscountChangeIsActiveAction {
+export interface ProductDiscountChangeIsActiveAction
+  extends IProductDiscountUpdateAction {
   readonly action: 'changeIsActive'
   /**
    *	New value to set.
@@ -393,7 +417,8 @@ export interface ProductDiscountChangeIsActiveAction {
    */
   readonly isActive: boolean
 }
-export interface ProductDiscountChangeNameAction {
+export interface ProductDiscountChangeNameAction
+  extends IProductDiscountUpdateAction {
   readonly action: 'changeName'
   /**
    *	New value to set. Must not be empty.
@@ -402,7 +427,8 @@ export interface ProductDiscountChangeNameAction {
    */
   readonly name: LocalizedString
 }
-export interface ProductDiscountChangePredicateAction {
+export interface ProductDiscountChangePredicateAction
+  extends IProductDiscountUpdateAction {
   readonly action: 'changePredicate'
   /**
    *	New value to set. Must be a valid [ProductDiscount predicate](/../api/projects/predicates#productdiscount-predicates).
@@ -411,7 +437,8 @@ export interface ProductDiscountChangePredicateAction {
    */
   readonly predicate: string
 }
-export interface ProductDiscountChangeSortOrderAction {
+export interface ProductDiscountChangeSortOrderAction
+  extends IProductDiscountUpdateAction {
   readonly action: 'changeSortOrder'
   /**
    *	New value to set.
@@ -423,7 +450,8 @@ export interface ProductDiscountChangeSortOrderAction {
    */
   readonly sortOrder: string
 }
-export interface ProductDiscountChangeValueAction {
+export interface ProductDiscountChangeValueAction
+  extends IProductDiscountUpdateAction {
   readonly action: 'changeValue'
   /**
    *	New value to set. Must not be empty.
@@ -432,7 +460,8 @@ export interface ProductDiscountChangeValueAction {
    */
   readonly value: ProductDiscountValueDraft
 }
-export interface ProductDiscountSetDescriptionAction {
+export interface ProductDiscountSetDescriptionAction
+  extends IProductDiscountUpdateAction {
   readonly action: 'setDescription'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -441,7 +470,8 @@ export interface ProductDiscountSetDescriptionAction {
    */
   readonly description?: LocalizedString
 }
-export interface ProductDiscountSetKeyAction {
+export interface ProductDiscountSetKeyAction
+  extends IProductDiscountUpdateAction {
   readonly action: 'setKey'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -450,7 +480,8 @@ export interface ProductDiscountSetKeyAction {
    */
   readonly key?: string
 }
-export interface ProductDiscountSetValidFromAction {
+export interface ProductDiscountSetValidFromAction
+  extends IProductDiscountUpdateAction {
   readonly action: 'setValidFrom'
   /**
    *	Value to set.
@@ -461,7 +492,8 @@ export interface ProductDiscountSetValidFromAction {
    */
   readonly validFrom?: string
 }
-export interface ProductDiscountSetValidFromAndUntilAction {
+export interface ProductDiscountSetValidFromAndUntilAction
+  extends IProductDiscountUpdateAction {
   readonly action: 'setValidFromAndUntil'
   /**
    *	Value to set.
@@ -478,7 +510,8 @@ export interface ProductDiscountSetValidFromAndUntilAction {
    */
   readonly validUntil?: string
 }
-export interface ProductDiscountSetValidUntilAction {
+export interface ProductDiscountSetValidUntilAction
+  extends IProductDiscountUpdateAction {
   readonly action: 'setValidUntil'
   /**
    *	Value to set.

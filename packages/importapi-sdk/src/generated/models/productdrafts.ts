@@ -153,7 +153,7 @@ export interface ProductDraftImport extends ImportResource {
    */
   readonly state?: StateKeyReference
   /**
-   *	Determines the published status and current/staged projection of the Product. For more information, see [Managing the published state of Products](/import-export/best-practices#managing-the-published-state-of-products).
+   *	Determines the published status and current/staged projection of the Product. For more information, see [Managing the published state of Products](/import-export/best-practices#manage-published-state-of-products).
    *
    *
    */

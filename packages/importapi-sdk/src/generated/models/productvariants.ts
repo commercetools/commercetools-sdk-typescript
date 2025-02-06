@@ -43,11 +43,25 @@ export type Attribute =
   | TextSetAttribute
   | TimeAttribute
   | TimeSetAttribute
+export interface IAttribute {
+  /**
+   *	The name of this attribute must match a name of the product types attribute definitions.
+   *	The name is required if this type is used in a product variant and must not be set when
+   *	used in a product variant patch.
+   *
+   *
+   */
+  readonly name?: string
+  /**
+   *
+   */
+  readonly type: string
+}
 /**
  *	This type represents an attribute whose value is either "true" or "false".
  *
  */
-export interface BooleanAttribute {
+export interface BooleanAttribute extends IAttribute {
   readonly type: 'boolean'
   /**
    *	The name of this attribute must match a name of the product types attribute definitions.
@@ -66,7 +80,7 @@ export interface BooleanAttribute {
  *	This type represents an attribute whose value is set of boolean values.
  *
  */
-export interface BooleanSetAttribute {
+export interface BooleanSetAttribute extends IAttribute {
   readonly type: 'boolean-set'
   /**
    *	The name of this attribute must match a name of the product types attribute definitions.
@@ -85,7 +99,7 @@ export interface BooleanSetAttribute {
  *	This type represents an attribute whose value is a date.
  *
  */
-export interface DateAttribute {
+export interface DateAttribute extends IAttribute {
   readonly type: 'date'
   /**
    *	The name of this attribute must match a name of the product types attribute definitions.
@@ -104,7 +118,7 @@ export interface DateAttribute {
  *	This type represents an attribute whose value is a set of dates.
  *
  */
-export interface DateSetAttribute {
+export interface DateSetAttribute extends IAttribute {
   readonly type: 'date-set'
   /**
    *	The name of this attribute must match a name of the product types attribute definitions.
@@ -123,7 +137,7 @@ export interface DateSetAttribute {
  *	This type represents an attribute whose value is a date with time.
  *
  */
-export interface DateTimeAttribute {
+export interface DateTimeAttribute extends IAttribute {
   readonly type: 'datetime'
   /**
    *	The name of this attribute must match a name of the product types attribute definitions.
@@ -142,7 +156,7 @@ export interface DateTimeAttribute {
  *	This type represents an attribute whose value is a set of dates with time.
  *
  */
-export interface DateTimeSetAttribute {
+export interface DateTimeSetAttribute extends IAttribute {
   readonly type: 'datetime-set'
   /**
    *	The name of this attribute must match a name of the product types attribute definitions.
@@ -162,7 +176,7 @@ export interface DateTimeSetAttribute {
  *	The attribute value refers to the key of the enum value.
  *
  */
-export interface EnumAttribute {
+export interface EnumAttribute extends IAttribute {
   readonly type: 'enum'
   /**
    *	The name of this attribute must match a name of the product types attribute definitions.
@@ -182,7 +196,7 @@ export interface EnumAttribute {
  *	The attribute value refers to the key of the enum value.
  *
  */
-export interface EnumSetAttribute {
+export interface EnumSetAttribute extends IAttribute {
   readonly type: 'enum-set'
   /**
    *	The name of this attribute must match a name of the product types attribute definitions.
@@ -202,7 +216,7 @@ export interface EnumSetAttribute {
  *	The attribute value refers to the key of the enum value.
  *
  */
-export interface LocalizableEnumAttribute {
+export interface LocalizableEnumAttribute extends IAttribute {
   readonly type: 'lenum'
   /**
    *	The name of this attribute must match a name of the product types attribute definitions.
@@ -222,7 +236,7 @@ export interface LocalizableEnumAttribute {
  *	The attribute value refers to the key of the enum value.
  *
  */
-export interface LocalizableEnumSetAttribute {
+export interface LocalizableEnumSetAttribute extends IAttribute {
   readonly type: 'lenum-set'
   /**
    *	The name of this attribute must match a name of the product types attribute definitions.
@@ -241,7 +255,7 @@ export interface LocalizableEnumSetAttribute {
  *	This type represents an attribute whose value is a localized text.
  *
  */
-export interface LocalizableTextAttribute {
+export interface LocalizableTextAttribute extends IAttribute {
   readonly type: 'ltext'
   /**
    *	The name of this attribute must match a name of the product types attribute definitions.
@@ -268,7 +282,7 @@ export interface LocalizableTextAttribute {
  *	This type represents an attribute whose value is a localized text.
  *
  */
-export interface LocalizableTextSetAttribute {
+export interface LocalizableTextSetAttribute extends IAttribute {
   readonly type: 'ltext-set'
   /**
    *	The name of this attribute must match a name of the product types attribute definitions.
@@ -287,7 +301,7 @@ export interface LocalizableTextSetAttribute {
  *	This type represents an attribute whose value is a money object.
  *
  */
-export interface MoneyAttribute {
+export interface MoneyAttribute extends IAttribute {
   readonly type: 'money'
   /**
    *	The name of this attribute must match a name of the product types attribute definitions.
@@ -306,7 +320,7 @@ export interface MoneyAttribute {
  *	This type represents an attribute whose value is a set of money objects.
  *
  */
-export interface MoneySetAttribute {
+export interface MoneySetAttribute extends IAttribute {
   readonly type: 'money-set'
   /**
    *	The name of this attribute must match a name of the product types attribute definitions.
@@ -325,7 +339,7 @@ export interface MoneySetAttribute {
  *	This type represents an attribute whose value is a number.
  *
  */
-export interface NumberAttribute {
+export interface NumberAttribute extends IAttribute {
   readonly type: 'number'
   /**
    *	The name of this attribute must match a name of the product types attribute definitions.
@@ -344,7 +358,7 @@ export interface NumberAttribute {
  *	This type represents an attribute whose value is a set of numbers.
  *
  */
-export interface NumberSetAttribute {
+export interface NumberSetAttribute extends IAttribute {
   readonly type: 'number-set'
   /**
    *	The name of this attribute must match a name of the product types attribute definitions.
@@ -363,7 +377,7 @@ export interface NumberSetAttribute {
  *	This type represents an attribute whose value is a key reference.
  *
  */
-export interface ReferenceAttribute {
+export interface ReferenceAttribute extends IAttribute {
   readonly type: 'reference'
   /**
    *	The name of this attribute must match a name of the product types attribute definitions.
@@ -383,7 +397,7 @@ export interface ReferenceAttribute {
  *	This type represents an attribute whose value is a set of references.
  *
  */
-export interface ReferenceSetAttribute {
+export interface ReferenceSetAttribute extends IAttribute {
   readonly type: 'reference-set'
   /**
    *	The name of this attribute must match a name of the product types attribute definitions.
@@ -402,7 +416,7 @@ export interface ReferenceSetAttribute {
  *	This type represents an attribute whose value is a string.
  *
  */
-export interface TextAttribute {
+export interface TextAttribute extends IAttribute {
   readonly type: 'text'
   /**
    *	The name of this attribute must match a name of the product types attribute definitions.
@@ -421,7 +435,7 @@ export interface TextAttribute {
  *	This type represents an attribute whose value is a set of strings.
  *
  */
-export interface TextSetAttribute {
+export interface TextSetAttribute extends IAttribute {
   readonly type: 'text-set'
   /**
    *	The name of this attribute must match a name of the product types attribute definitions.
@@ -440,7 +454,7 @@ export interface TextSetAttribute {
  *	This type represents an attribute whose value is a time.
  *
  */
-export interface TimeAttribute {
+export interface TimeAttribute extends IAttribute {
   readonly type: 'time'
   /**
    *	The name of this attribute must match a name of the product types attribute definitions.
@@ -459,7 +473,7 @@ export interface TimeAttribute {
  *	This type represents an attribute whose value is a set of times.
  *
  */
-export interface TimeSetAttribute {
+export interface TimeSetAttribute extends IAttribute {
   readonly type: 'time-set'
   /**
    *	The name of this attribute must match a name of the product types attribute definitions.
