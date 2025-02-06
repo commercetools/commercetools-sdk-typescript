@@ -23,6 +23,8 @@ import {
   Address,
   BaseResource,
   CreatedBy,
+  IReference,
+  IResourceIdentifier,
   LastModifiedBy,
   TypedMoney,
 } from './common'
@@ -339,7 +341,7 @@ export interface QuoteRequestPagedQueryResponse {
  *	[Reference](ctp:api:type:Reference) to a [QuoteRequest](ctp:api:type:QuoteRequest).
  *
  */
-export interface QuoteRequestReference {
+export interface QuoteRequestReference extends IReference {
   readonly typeId: 'quote-request'
   /**
    *	Unique ID of the referenced resource.
@@ -359,7 +361,7 @@ export interface QuoteRequestReference {
  *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [QuoteRequest](ctp:api:type:QuoteRequest).
  *
  */
-export interface QuoteRequestResourceIdentifier {
+export interface QuoteRequestResourceIdentifier extends IResourceIdentifier {
   readonly typeId: 'quote-request'
   /**
    *	Unique identifier of the referenced resource. Required if `key` is absent.
@@ -378,6 +380,14 @@ export interface QuoteRequestResourceIdentifier {
  *	Predefined states tracking the status of the Quote Request in the negotiation process.
  *
  */
+export enum QuoteRequestStateValues {
+  Accepted = 'Accepted',
+  Cancelled = 'Cancelled',
+  Closed = 'Closed',
+  Rejected = 'Rejected',
+  Submitted = 'Submitted',
+}
+
 export type QuoteRequestState =
   | 'Accepted'
   | 'Cancelled'
@@ -406,13 +416,20 @@ export type QuoteRequestUpdateAction =
   | QuoteRequestSetCustomFieldAction
   | QuoteRequestSetCustomTypeAction
   | QuoteRequestTransitionStateAction
+export interface IQuoteRequestUpdateAction {
+  /**
+   *
+   */
+  readonly action: string
+}
 /**
  *	Changes the owner of a Quote Request to a different Customer.
  *	Customer Group is not updated.
  *	This update action produces the [Quote Request Customer Changed](ctp:api:type:QuoteRequestCustomerChangedMessage) Message.
  *
  */
-export interface QuoteRequestChangeCustomerAction {
+export interface QuoteRequestChangeCustomerAction
+  extends IQuoteRequestUpdateAction {
   readonly action: 'changeCustomer'
   /**
    *	New Customer to own the Quote Request.
@@ -425,7 +442,8 @@ export interface QuoteRequestChangeCustomerAction {
  *	A Buyer is only allowed to cancel a Quote Request when it is in `Submitted` state.
  *
  */
-export interface QuoteRequestChangeQuoteRequestStateAction {
+export interface QuoteRequestChangeQuoteRequestStateAction
+  extends IQuoteRequestUpdateAction {
   readonly action: 'changeQuoteRequestState'
   /**
    *	New state to be set for the Quote Request.
@@ -433,7 +451,8 @@ export interface QuoteRequestChangeQuoteRequestStateAction {
    */
   readonly quoteRequestState: QuoteRequestState
 }
-export interface QuoteRequestSetCustomFieldAction {
+export interface QuoteRequestSetCustomFieldAction
+  extends IQuoteRequestUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -450,7 +469,8 @@ export interface QuoteRequestSetCustomFieldAction {
    */
   readonly value?: any
 }
-export interface QuoteRequestSetCustomTypeAction {
+export interface QuoteRequestSetCustomTypeAction
+  extends IQuoteRequestUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the QuoteRequest with [Custom Fields](/../api/projects/custom-fields).
@@ -470,7 +490,8 @@ export interface QuoteRequestSetCustomTypeAction {
  *	If the existing [State](ctp:api:type:State) has set `transitions`, there must be a direct transition to the new State. If `transitions` is not set, no validation is performed. This update action produces the [Quote Request State Transition](ctp:api:type:QuoteRequestStateTransitionMessage) Message.
  *
  */
-export interface QuoteRequestTransitionStateAction {
+export interface QuoteRequestTransitionStateAction
+  extends IQuoteRequestUpdateAction {
   readonly action: 'transitionState'
   /**
    *	Value to set.

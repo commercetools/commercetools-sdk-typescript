@@ -10,12 +10,20 @@ import {
 } from './associate-role'
 import { LastModifiedBy } from './common'
 import { MessagesConfiguration, MessagesConfigurationDraft } from './message'
+import { ShippingRateTierType } from './shipping-method'
 import { CustomFieldLocalizedEnumValue } from './type'
 
 /**
  *	The current indexing status of Business Unit Search.
  *
  */
+export enum BusinessUnitIndexingStatusValues {
+  Failed = 'Failed',
+  Indexing = 'Indexing',
+  Ready = 'Ready',
+  Scheduled = 'Scheduled',
+}
+
 export type BusinessUnitIndexingStatus =
   | 'Failed'
   | 'Indexing'
@@ -26,6 +34,13 @@ export type BusinessUnitIndexingStatus =
  *	The current indexing status of Customer Search.
  *
  */
+export enum CustomerIndexingStatusValues {
+  Failed = 'Failed',
+  Indexing = 'Indexing',
+  Ready = 'Ready',
+  Scheduled = 'Scheduled',
+}
+
 export type CustomerIndexingStatus =
   | 'Failed'
   | 'Indexing'
@@ -48,12 +63,22 @@ export interface BusinessUnitConfiguration {
 /**
  *	Default value for [Business Unit Status](ctp:api:type:BusinessUnitStatus) configured though [Project settings](/../api/projects/project#change-my-business-unit-status-on-creation).
  */
+export enum BusinessUnitConfigurationStatusValues {
+  Active = 'Active',
+  Inactive = 'Inactive',
+}
+
 export type BusinessUnitConfigurationStatus = 'Active' | 'Inactive' | string
 /**
  *	Specifies the status of the [Business Unit Search](/../api/projects/business-unit-search) index.
  *	You can change the status using the [Change Business Unit Search Status](ctp:api:type:ProjectChangeBusinessUnitSearchStatusAction) update action.
  *
  */
+export enum BusinessUnitSearchStatusValues {
+  Activated = 'Activated',
+  Deactivated = 'Deactivated',
+}
+
 export type BusinessUnitSearchStatus = 'Activated' | 'Deactivated' | string
 export interface CartsConfiguration {
   /**
@@ -77,9 +102,14 @@ export interface CartsConfiguration {
  *	You can change the status using the [Change Customer Search Status](ctp:api:type:ProjectChangeCustomerSearchStatusAction) update action.
  *
  */
+export enum CustomerSearchStatusValues {
+  Activated = 'Activated',
+  Deactivated = 'Deactivated',
+}
+
 export type CustomerSearchStatus = 'Activated' | 'Deactivated' | string
 /**
- *	Represents a RFC 7662 compliant [OAuth 2.0 Token Introspection](https://datatracker.ietf.org/doc/html/rfc7662) endpoint. For more information, see [Requesting an access token using an external OAuth 2.0 server](/../api/authorization#requesting-an-access-token-using-an-external-oauth-server).
+ *	Represents a RFC 7662 compliant [OAuth 2.0 Token Introspection](https://datatracker.ietf.org/doc/html/rfc7662) endpoint. For more information, see [Requesting an access token using an external OAuth 2.0 server](/../api/authorization#request-an-access-token-using-an-external-oauth-server).
  *
  *	You can only configure **one** external OAuth 2.0 endpoint per Project. To authenticate using multiple external services (such as social network logins), use a middle layer authentication service.
  *
@@ -100,7 +130,17 @@ export interface ExternalOAuth {
 /**
  *	Specifies the status of the [Order Search](/../api/projects/order-search) index.
  */
+export enum OrderSearchStatusValues {
+  Activated = 'Activated',
+  Deactivated = 'Deactivated',
+}
+
 export type OrderSearchStatus = 'Activated' | 'Deactivated' | string
+export enum ProductSearchIndexingModeValues {
+  ProductProjectionsSearch = 'ProductProjectionsSearch',
+  ProductsSearch = 'ProductsSearch',
+}
+
 export type ProductSearchIndexingMode =
   | 'ProductProjectionsSearch'
   | 'ProductsSearch'
@@ -229,6 +269,12 @@ export type ProjectUpdateAction =
   | ProjectSetBusinessUnitAssociateRoleOnCreationAction
   | ProjectSetExternalOAuthAction
   | ProjectSetShippingRateInputTypeAction
+export interface IProjectUpdateAction {
+  /**
+   *
+   */
+  readonly action: string
+}
 /**
  *	Controls indexing of resources to be provided on high performance read-only search endpoints.
  *
@@ -263,6 +309,12 @@ export interface SearchIndexingConfiguration {
 /**
  *	Status of resource indexing.
  */
+export enum SearchIndexingConfigurationStatusValues {
+  Activated = 'Activated',
+  Deactivated = 'Deactivated',
+  Indexing = 'Indexing',
+}
+
 export type SearchIndexingConfigurationStatus =
   | 'Activated'
   | 'Deactivated'
@@ -291,13 +343,19 @@ export type ShippingRateInputType =
   | CartClassificationType
   | CartScoreType
   | CartValueType
+export interface IShippingRateInputType {
+  /**
+   *
+   */
+  readonly type: ShippingRateTierType
+}
 /**
  *	The [ShippingRate](ctp:api:type:ShippingRate) maps to an abstract Cart categorization expressed by strings (for example, `Light`, `Medium`, or `Heavy`).
  *	Only keys defined in the `values` array can be used to create a tier or to set a value of the `shippingRateInput` on the [Cart](ctp:api:type:Cart).
  *	Keys must be unique.
  *
  */
-export interface CartClassificationType {
+export interface CartClassificationType extends IShippingRateInputType {
   readonly type: 'CartClassification'
   /**
    *	The classification items that can be used for specifying any [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
@@ -309,7 +367,7 @@ export interface CartClassificationType {
  *	The [ShippingRate](ctp:api:type:ShippingRate) maps to an abstract [Cart](ctp:api:type:Cart) categorization expressed by integers (such as shipping scores or weight ranges).
  *
  */
-export interface CartScoreType {
+export interface CartScoreType extends IShippingRateInputType {
   readonly type: 'CartScore'
 }
 /**
@@ -318,7 +376,7 @@ export interface CartScoreType {
  *	If chosen, it is not possible to set a value for the `shippingRateInput` on the [Cart](ctp:api:type:Cart).
  *
  */
-export interface CartValueType {
+export interface CartValueType extends IShippingRateInputType {
   readonly type: 'CartValue'
 }
 export interface ShoppingListsConfiguration {
@@ -330,7 +388,8 @@ export interface ShoppingListsConfiguration {
    */
   readonly deleteDaysAfterLastModification?: number
 }
-export interface ProjectChangeBusinessUnitSearchStatusAction {
+export interface ProjectChangeBusinessUnitSearchStatusAction
+  extends IProjectUpdateAction {
   readonly action: 'changeBusinessUnitSearchStatus'
   /**
    *	Activates or deactivates the [Search Business Units](ctp:api:endpoint:/{projectKey}/business-units/search:POST) feature. Activation will trigger building a search index for the Business Units in the Project.
@@ -338,7 +397,8 @@ export interface ProjectChangeBusinessUnitSearchStatusAction {
    */
   readonly status: BusinessUnitSearchStatus
 }
-export interface ProjectChangeBusinessUnitStatusOnCreationAction {
+export interface ProjectChangeBusinessUnitStatusOnCreationAction
+  extends IProjectUpdateAction {
   readonly action: 'changeMyBusinessUnitStatusOnCreation'
   /**
    *	Status for Business Units created using the [My Business Unit endpoint](ctp:api:endpoint:/{projectKey}/me/business-units:POST).
@@ -347,7 +407,8 @@ export interface ProjectChangeBusinessUnitStatusOnCreationAction {
    */
   readonly status: BusinessUnitConfigurationStatus
 }
-export interface ProjectChangeCartsConfigurationAction {
+export interface ProjectChangeCartsConfigurationAction
+  extends IProjectUpdateAction {
   readonly action: 'changeCartsConfiguration'
   /**
    *	Configuration for the [Carts](/../api/projects/carts) feature.
@@ -356,7 +417,7 @@ export interface ProjectChangeCartsConfigurationAction {
    */
   readonly cartsConfiguration: CartsConfiguration
 }
-export interface ProjectChangeCountriesAction {
+export interface ProjectChangeCountriesAction extends IProjectUpdateAction {
   readonly action: 'changeCountries'
   /**
    *	New value to set. Must not be empty.
@@ -365,7 +426,8 @@ export interface ProjectChangeCountriesAction {
    */
   readonly countries: string[]
 }
-export interface ProjectChangeCountryTaxRateFallbackEnabledAction {
+export interface ProjectChangeCountryTaxRateFallbackEnabledAction
+  extends IProjectUpdateAction {
   readonly action: 'changeCountryTaxRateFallbackEnabled'
   /**
    *	When `true`, country _- no state_ Tax Rate is used as fallback. See [CartsConfiguration](ctp:api:type:CartsConfiguration).
@@ -373,7 +435,7 @@ export interface ProjectChangeCountryTaxRateFallbackEnabledAction {
    */
   readonly countryTaxRateFallbackEnabled: boolean
 }
-export interface ProjectChangeCurrenciesAction {
+export interface ProjectChangeCurrenciesAction extends IProjectUpdateAction {
   readonly action: 'changeCurrencies'
   /**
    *	New value to set. Must not be empty.
@@ -382,7 +444,8 @@ export interface ProjectChangeCurrenciesAction {
    */
   readonly currencies: string[]
 }
-export interface ProjectChangeCustomerSearchStatusAction {
+export interface ProjectChangeCustomerSearchStatusAction
+  extends IProjectUpdateAction {
   readonly action: 'changeCustomerSearchStatus'
   /**
    *	Activates or deactivates the [Customer Search](/../api/projects/customer-search) feature. Activation will trigger building a search index for the Customers in the Project.
@@ -394,7 +457,7 @@ export interface ProjectChangeCustomerSearchStatusAction {
  *	Removing a language used by a [Store](ctp:api:type:Store) returns a [LanguageUsedInStores](ctp:api:type:LanguageUsedInStoresError) error.
  *
  */
-export interface ProjectChangeLanguagesAction {
+export interface ProjectChangeLanguagesAction extends IProjectUpdateAction {
   readonly action: 'changeLanguages'
   /**
    *	New value to set. Must not be empty.
@@ -403,7 +466,8 @@ export interface ProjectChangeLanguagesAction {
    */
   readonly languages: string[]
 }
-export interface ProjectChangeMessagesConfigurationAction {
+export interface ProjectChangeMessagesConfigurationAction
+  extends IProjectUpdateAction {
   readonly action: 'changeMessagesConfiguration'
   /**
    *	Configuration for the [Messages Query](/../api/projects/messages) feature.
@@ -411,7 +475,7 @@ export interface ProjectChangeMessagesConfigurationAction {
    */
   readonly messagesConfiguration: MessagesConfigurationDraft
 }
-export interface ProjectChangeNameAction {
+export interface ProjectChangeNameAction extends IProjectUpdateAction {
   readonly action: 'changeName'
   /**
    *	New value to set. Must not be empty.
@@ -420,7 +484,8 @@ export interface ProjectChangeNameAction {
    */
   readonly name: string
 }
-export interface ProjectChangeOrderSearchStatusAction {
+export interface ProjectChangeOrderSearchStatusAction
+  extends IProjectUpdateAction {
   readonly action: 'changeOrderSearchStatus'
   /**
    *	Activates or deactivates the [Order Search](/../api/projects/order-search) feature. Activation will trigger building a search index for the Orders in the Project.
@@ -428,7 +493,8 @@ export interface ProjectChangeOrderSearchStatusAction {
    */
   readonly status: OrderSearchStatus
 }
-export interface ProjectChangeProductSearchIndexingEnabledAction {
+export interface ProjectChangeProductSearchIndexingEnabledAction
+  extends IProjectUpdateAction {
   readonly action: 'changeProductSearchIndexingEnabled'
   /**
    *	- If `false`, the indexing of [Product](ctp:api:type:Product) information will stop and the [Product Projection Search](/../api/projects/products-search) as well as the [Product Suggestions](/../api/projects/products-suggestions) endpoint will not be available anymore for this Project. The Project's [SearchIndexingConfiguration](ctp:api:type:SearchIndexingConfiguration) `status` for `products` will be changed to `"Deactivated"`.
@@ -444,7 +510,8 @@ export interface ProjectChangeProductSearchIndexingEnabledAction {
    */
   readonly mode?: ProductSearchIndexingMode
 }
-export interface ProjectChangeShoppingListsConfigurationAction {
+export interface ProjectChangeShoppingListsConfigurationAction
+  extends IProjectUpdateAction {
   readonly action: 'changeShoppingListsConfiguration'
   /**
    *	Configuration for the [Shopping Lists](/../api/projects/shoppingLists) feature.
@@ -453,7 +520,8 @@ export interface ProjectChangeShoppingListsConfigurationAction {
    */
   readonly shoppingListsConfiguration: ShoppingListsConfiguration
 }
-export interface ProjectSetBusinessUnitAssociateRoleOnCreationAction {
+export interface ProjectSetBusinessUnitAssociateRoleOnCreationAction
+  extends IProjectUpdateAction {
   readonly action: 'setMyBusinessUnitAssociateRoleOnCreation'
   /**
    *	Default [Associate Role](ctp:api:type:AssociateRole) assigned to the Associate creating a Business Unit using the [My Business Unit endpoint](ctp:api:endpoint:/{projectKey}/me/business-units:POST).
@@ -462,7 +530,7 @@ export interface ProjectSetBusinessUnitAssociateRoleOnCreationAction {
    */
   readonly associateRole: AssociateRoleResourceIdentifier
 }
-export interface ProjectSetExternalOAuthAction {
+export interface ProjectSetExternalOAuthAction extends IProjectUpdateAction {
   readonly action: 'setExternalOAuth'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -471,7 +539,8 @@ export interface ProjectSetExternalOAuthAction {
    */
   readonly externalOAuth?: ExternalOAuth
 }
-export interface ProjectSetShippingRateInputTypeAction {
+export interface ProjectSetShippingRateInputTypeAction
+  extends IProjectUpdateAction {
   readonly action: 'setShippingRateInputType'
   /**
    *	Value to set. If empty, any existing value will be removed.

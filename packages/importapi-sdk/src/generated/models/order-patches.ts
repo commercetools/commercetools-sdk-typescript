@@ -10,6 +10,13 @@ import { DeliveryItem, ParcelMeasurements, TrackingData } from './orders'
 /**
  *	Maps to `ReturnItem.shipmentState`
  */
+export enum ReturnShipmentStateValues {
+  Advised = 'Advised',
+  BackInStock = 'BackInStock',
+  Returned = 'Returned',
+  Unusable = 'Unusable',
+}
+
 export type ReturnShipmentState =
   | 'Advised'
   | 'BackInStock'

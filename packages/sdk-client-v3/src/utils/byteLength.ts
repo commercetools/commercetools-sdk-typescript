@@ -1,10 +1,10 @@
 export default function byteLength<T>(body: T): string {
   if (body && typeof body === 'string') {
-    return body.normalize('NFD').length.toString()
+    return new TextEncoder().encode(body).length.toString()
   }
 
   if (body && body instanceof Uint8Array) {
-    return new TextDecoder().decode(body).length.toString()
+    return body.byteLength.toString()
   }
 
   if (body && typeof body === 'object') {

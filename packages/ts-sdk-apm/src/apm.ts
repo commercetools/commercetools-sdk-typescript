@@ -5,21 +5,8 @@ import type {
   Next,
   OTelemetryMiddlewareOptions,
 } from '../types/types'
-import { recordNewrelic, recordDatadog, time } from './helpers'
-
-/**
- * default newrelic APM and
- * opentelemetry tracer modules
- */
-const defaultOptions = {
-  /**
-   * if this is to be used with newrelic, then
-   * pass this (apm) as an option in the `createTelemetryMiddleware`
-   * function e.g createTelemetryMiddleware({ apm: () => require('newrelic'), ... })
-   */
-  apm: () => require('newrelic'),
-  tracer: () => require('../opentelemetry'),
-}
+import { time } from './helpers/performanceHelper'
+import { recordDatadog } from './helpers/datadogHelper'
 
 export default function createTelemetryMiddleware(
   options: OTelemetryMiddlewareOptions
@@ -28,18 +15,16 @@ export default function createTelemetryMiddleware(
   function trace() {
     // validate apm and tracer
     if (!(options?.apm && typeof options.apm == 'function')) {
-      options.apm = defaultOptions.apm
+      options.apm = () => {}
     }
 
     if (!(options?.tracer && typeof options.tracer == 'function')) {
-      options.tracer = defaultOptions.tracer
+      options.tracer = () => {}
     }
-
-    options.apm()
-    options.tracer()
   }
 
   trace() // expose tracing modules
+
   return (next: Next): Next =>
     async (request: MiddlewareRequest) => {
       // get start (high resolution milliseconds) timestamp
@@ -55,9 +40,14 @@ export default function createTelemetryMiddleware(
 
       // send `response_time` to APM platforms
       if (options?.customMetrics) {
-        options.customMetrics.newrelic && recordNewrelic(response_time)
-        options.customMetrics.datadog &&
-          recordDatadog(response_time, { env: 'dev' })
+        if (options.customMetrics.datadog) {
+          recordDatadog(response_time, { env: process.env.NODE_ENV || 'dev' })
+        }
+        if (options.customMetrics.newrelic) {
+          // Lazy load New Relic only if necessary otherwise it will require to have set the env variable NEW_RELIC_APP_NAME
+          const { recordNewRelic } = await import('./helpers/newRelicHelper.js')
+          recordNewRelic(response_time)
+        }
       }
 
       return response

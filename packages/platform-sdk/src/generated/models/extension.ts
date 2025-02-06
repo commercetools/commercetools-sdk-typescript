@@ -74,6 +74,11 @@ export interface Extension extends BaseResource {
  *	An Extension gets called during any of the following requests of an API call, but before the result is persisted.
  *
  */
+export enum ExtensionActionValues {
+  Create = 'Create',
+  Update = 'Update',
+}
+
 export type ExtensionAction = 'Create' | 'Update' | string
 /**
  *	Generic type for destinations.
@@ -82,11 +87,17 @@ export type ExtensionDestination =
   | AWSLambdaDestination
   | GoogleCloudFunctionDestination
   | HttpDestination
+export interface IExtensionDestination {
+  /**
+   *
+   */
+  readonly type: string
+}
 /**
  *	We recommend creating an Identify and Access Management (IAM) user with an `accessKey` and `accessSecret` pair, specifically for each Extension that only has the `lambda:InvokeFunction` permission on this function.
  *
  */
-export interface AWSLambdaDestination {
+export interface AWSLambdaDestination extends IExtensionDestination {
   readonly type: 'AWSLambda'
   /**
    *	Amazon Resource Name (ARN) of the Lambda function in the format `arn:aws:lambda:<region>:<accountid>:function:<functionName>`. Use the format `arn:aws:lambda:<region>:<accountid>:function:<functionName>:<functionAlias/version>` to point to a specific version of the function.
@@ -196,6 +207,19 @@ export interface ExtensionPagedQueryResponse {
  *	Extensions are available for:
  *
  */
+export enum ExtensionResourceTypeIdValues {
+  BusinessUnit = 'business-unit',
+  Cart = 'cart',
+  Customer = 'customer',
+  CustomerGroup = 'customer-group',
+  Order = 'order',
+  Payment = 'payment',
+  Quote = 'quote',
+  QuoteRequest = 'quote-request',
+  ShoppingList = 'shopping-list',
+  StagedQuote = 'staged-quote',
+}
+
 export type ExtensionResourceTypeId =
   | 'business-unit'
   | 'cart'
@@ -248,11 +272,17 @@ export type ExtensionUpdateAction =
   | ExtensionChangeTriggersAction
   | ExtensionSetKeyAction
   | ExtensionSetTimeoutInMsAction
+export interface IExtensionUpdateAction {
+  /**
+   *
+   */
+  readonly action: string
+}
 /**
  *	For GoogleCloudFunction destinations, you need to grant permissions to the `extensions@commercetools-platform.iam.gserviceaccount.com` service account to invoke your function. If your function's version is 1st gen, grant the service account the IAM role `Cloud Functions Invoker`. For version 2nd gen, assign the IAM role `Cloud Run Invoker` using the Cloud Run console.
  *
  */
-export interface GoogleCloudFunctionDestination {
+export interface GoogleCloudFunctionDestination extends IExtensionDestination {
   readonly type: 'GoogleCloudFunction'
   /**
    *	URL to the target function.
@@ -265,7 +295,7 @@ export interface GoogleCloudFunctionDestination {
  *	We recommend an encrypted `HTTPS` connection for production setups. However, we also accept unencrypted `HTTP` connections for development purposes. HTTP redirects will not be followed and cache headers will be ignored.
  *
  */
-export interface HttpDestination {
+export interface HttpDestination extends IExtensionDestination {
   readonly type: 'HTTP'
   /**
    *	URL to the target destination.
@@ -283,13 +313,20 @@ export interface HttpDestination {
 export type HttpDestinationAuthentication =
   | AuthorizationHeaderAuthentication
   | AzureFunctionsAuthentication
+export interface IHttpDestinationAuthentication {
+  /**
+   *
+   */
+  readonly type: string
+}
 /**
  *	The `Authorization` header will be set to the content of `headerValue`. The authentication scheme (such as `Basic` or `Bearer`) should be included in the `headerValue`.
  *
  *	For example, the `headerValue` for [Basic Authentication](https://datatracker.ietf.org/doc/html/rfc7617) should be set to `Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==`.
  *
  */
-export interface AuthorizationHeaderAuthentication {
+export interface AuthorizationHeaderAuthentication
+  extends IHttpDestinationAuthentication {
   readonly type: 'AuthorizationHeader'
   /**
    *	Partially hidden on retrieval for security reasons.
@@ -305,7 +342,8 @@ export interface AuthorizationHeaderAuthentication {
  *	`https://foo.azurewebsites.net/api/bar?code=secret`.
  *
  */
-export interface AzureFunctionsAuthentication {
+export interface AzureFunctionsAuthentication
+  extends IHttpDestinationAuthentication {
   readonly type: 'AzureFunctions'
   /**
    *	Partially hidden on retrieval for security reasons.
@@ -314,7 +352,8 @@ export interface AzureFunctionsAuthentication {
    */
   readonly key: string
 }
-export interface ExtensionChangeDestinationAction {
+export interface ExtensionChangeDestinationAction
+  extends IExtensionUpdateAction {
   readonly action: 'changeDestination'
   /**
    *	New value to set. Must not be empty.
@@ -323,7 +362,7 @@ export interface ExtensionChangeDestinationAction {
    */
   readonly destination: ExtensionDestination
 }
-export interface ExtensionChangeTriggersAction {
+export interface ExtensionChangeTriggersAction extends IExtensionUpdateAction {
   readonly action: 'changeTriggers'
   /**
    *	New value to set. Must not be empty.
@@ -332,7 +371,7 @@ export interface ExtensionChangeTriggersAction {
    */
   readonly triggers: ExtensionTrigger[]
 }
-export interface ExtensionSetKeyAction {
+export interface ExtensionSetKeyAction extends IExtensionUpdateAction {
   readonly action: 'setKey'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -341,7 +380,7 @@ export interface ExtensionSetKeyAction {
    */
   readonly key?: string
 }
-export interface ExtensionSetTimeoutInMsAction {
+export interface ExtensionSetTimeoutInMsAction extends IExtensionUpdateAction {
   readonly action: 'setTimeoutInMs'
   /**
    *	Value to set. If not defined, the maximum value is used.

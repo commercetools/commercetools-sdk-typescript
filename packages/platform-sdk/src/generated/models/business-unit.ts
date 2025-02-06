@@ -12,6 +12,9 @@ import {
   Address,
   BaseAddress,
   CreatedBy,
+  IKeyReference,
+  IReference,
+  IResourceIdentifier,
   LastModifiedBy,
   _BaseAddress,
 } from './common'
@@ -84,16 +87,189 @@ export interface AssociateRoleAssignmentDraft {
  *	Determines whether an [AssociateRoleAssignment](ctp:api:type:AssociateRoleAssignment) can be inherited by child Business Units.
  *
  */
+export enum AssociateRoleInheritanceModeValues {
+  Disabled = 'Disabled',
+  Enabled = 'Enabled',
+}
+
 export type AssociateRoleInheritanceMode = 'Disabled' | 'Enabled' | string
 /**
  *	Generic type to model the fields that all types of Business Units have in common.
  *
  */
 export type BusinessUnit = Company | Division
+export interface IBusinessUnit {
+  /**
+   *	Unique identifier of the Business Unit.
+   *
+   *
+   */
+  readonly id: string
+  /**
+   *	Current version of the Business Unit.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Business Unit was initially created.
+   *
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Date and time (UTC) the Business Unit was last updated.
+   *
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the BusinessUnit.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the BusinessUnit.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	User-defined unique and immutable identifier of the Business Unit.
+   *
+   *
+   */
+  readonly key: string
+  /**
+   *	Indicates whether the Business Unit can be edited and used in [Orders](/../api/projects/orders).
+   *
+   *
+   */
+  readonly status: BusinessUnitStatus
+  /**
+   *	References to [Stores](ctp:api:type:Store) the Business Unit is associated with. Only present when `storeMode` is `Explicit`.
+   *
+   *	If the Business Unit has Stores defined, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), or [Quote Requests](ctp:api:type:QuoteRequest) must belong to one of the Business Unit's Stores.
+   *
+   *	If the Business Unit has no Stores, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), or [Quote Requests](ctp:api:type:QuoteRequest) must not belong to any Store.
+   *
+   *
+   */
+  readonly stores?: StoreKeyReference[]
+  /**
+   *	Stores that are inherited from a parent Business Unit. The value of this field is [eventually consistent](/../api/general-concepts#eventual-consistency) and is only present when the `storeMode` is set to `FromParent`.
+   *
+   *
+   */
+  readonly inheritedStores?: StoreKeyReference[]
+  /**
+   *	Defines whether the Stores of the Business Unit are set directly on the Business Unit or are inherited from a parent.
+   *
+   *
+   */
+  readonly storeMode: BusinessUnitStoreMode
+  /**
+   *	Type of the Business Unit indicating its position in a hierarchy.
+   *
+   *
+   */
+  readonly unitType: BusinessUnitType
+  /**
+   *	Name of the Business Unit.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	Email address of the Business Unit.
+   *
+   *
+   */
+  readonly contactEmail?: string
+  /**
+   *	Custom Fields for the Business Unit.
+   *
+   *
+   */
+  readonly custom?: CustomFields
+  /**
+   *	Addresses used by the Business Unit.
+   *
+   *
+   */
+  readonly addresses: Address[]
+  /**
+   *	Unique identifiers of addresses used as shipping addresses.
+   *
+   *
+   */
+  readonly shippingAddressIds?: string[]
+  /**
+   *	Unique identifier of the address used as the default shipping address.
+   *
+   *
+   */
+  readonly defaultShippingAddressId?: string
+  /**
+   *	Unique identifiers of addresses used as billing addresses.
+   *
+   *
+   */
+  readonly billingAddressIds?: string[]
+  /**
+   *	Unique identifier of the address used as the default billing address.
+   *
+   *
+   */
+  readonly defaultBillingAddressId?: string
+  /**
+   *	Set to `Explicit` to prevent the Business Unit inheriting Associates from a parent, set to `ExplicitAndFromParent` to enable inheritance.
+   *
+   *
+   */
+  readonly associateMode: BusinessUnitAssociateMode
+  /**
+   *	Associates that are part of the Business Unit in specific [roles](ctp:api:type:AssociateRole).
+   *
+   *
+   */
+  readonly associates: Associate[]
+  /**
+   *	Associates that are inherited from a parent Business Unit. The value of this field is [eventually consistent](/../api/general-concepts#eventual-consistency) and is only present when the `associateMode` is set to `ExplicitAndFromParent`.
+   *
+   *
+   */
+  readonly inheritedAssociates?: InheritedAssociate[]
+  /**
+   *	Parent unit of the Business Unit. Only present when the `unitType` is `Division`.
+   *
+   *
+   */
+  readonly parentUnit?: BusinessUnitKeyReference
+  /**
+   *	Top-level unit of the Business Unit. The top-level unit is of `unitType` `Company`.
+   *
+   *
+   */
+  readonly topLevelUnit: BusinessUnitKeyReference
+  /**
+   *	Determines whether the Business Unit can inherit Approval Rules from a parent.
+   *	Always `Explicit` for [Companies](ctp:api:type:BusinessUnitType) and defaults to `ExplicitAndFromParent` for [Divisions](ctp:api:type:BusinessUnitType).
+   *
+   *
+   */
+  readonly approvalRuleMode: BusinessUnitApprovalRuleMode
+}
 /**
  *	Determines whether a Business Unit can inherit [Approval Rules](/projects/approval-rules) from a parent. Only Business Units of type `Division` can use `ExplicitAndFromParent`.
  *
  */
+export enum BusinessUnitApprovalRuleModeValues {
+  Explicit = 'Explicit',
+  ExplicitAndFromParent = 'ExplicitAndFromParent',
+}
+
 export type BusinessUnitApprovalRuleMode =
   | 'Explicit'
   | 'ExplicitAndFromParent'
@@ -102,6 +278,11 @@ export type BusinessUnitApprovalRuleMode =
  *	Determines whether a Business Unit can inherit Associates from a parent.
  *
  */
+export enum BusinessUnitAssociateModeValues {
+  Explicit = 'Explicit',
+  ExplicitAndFromParent = 'ExplicitAndFromParent',
+}
+
 export type BusinessUnitAssociateMode =
   | 'Explicit'
   | 'ExplicitAndFromParent'
@@ -111,11 +292,120 @@ export type BusinessUnitAssociateMode =
  *
  */
 export type BusinessUnitDraft = CompanyDraft | DivisionDraft
+export interface IBusinessUnitDraft {
+  /**
+   *	User-defined unique and immutable identifier for the Business Unit.
+   *
+   *
+   */
+  readonly key: string
+  /**
+   *	Indicates whether the Business Unit can be edited and used in [Orders](/../api/projects/orders).
+   *
+   *
+   */
+  readonly status?: BusinessUnitStatus
+  /**
+   *	Sets the [Stores](ctp:api:type:Store) the Business Unit is associated with. Can only be set when `storeMode` is `Explicit`.
+   *	Defaults to empty for [Companies](ctp:api:type:BusinessUnitType) and not set for [Divisions](ctp:api:type:BusinessUnitType).
+   *
+   *	If the Business Unit has Stores defined, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), or [Quote Requests](ctp:api:type:QuoteRequest) must belong to one of the Business Unit's Stores.
+   *
+   *	If the Business Unit has no Stores, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), or [Quote Requests](ctp:api:type:QuoteRequest) must not belong to any Store.
+   *
+   *
+   */
+  readonly stores?: StoreResourceIdentifier[]
+  /**
+   *	Defines whether the Stores of the Business Unit are set directly on the Business Unit or are inherited from a parent.
+   *	`storeMode` is always `Explicit` for [Companies](ctp:api:type:BusinessUnitType) and defaults to `FromParent` for [Divisions](ctp:api:type:BusinessUnitType).
+   *
+   *
+   */
+  readonly storeMode?: BusinessUnitStoreMode
+  /**
+   *	Type of the Business Unit indicating its position in a hierarchy.
+   *
+   *
+   */
+  readonly unitType: BusinessUnitType
+  /**
+   *	Name of the Business Unit.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	Email address of the Business Unit.
+   *
+   *
+   */
+  readonly contactEmail?: string
+  /**
+   *	Determines whether the Business Unit can inherit Associates from a parent.
+   *	Always `Explicit` for [Companies](ctp:api:type:BusinessUnitType) and defaults to `ExplicitAndFromParent` for [Divisions](ctp:api:type:BusinessUnitType).
+   *
+   *
+   */
+  readonly associateMode?: BusinessUnitAssociateMode
+  /**
+   *	List of members that are part of the Business Unit in specific [roles](ctp:api:type:AssociateRole).
+   *
+   *
+   */
+  readonly associates?: AssociateDraft[]
+  /**
+   *	Determines whether the Business Unit can inherit Approval Rules from a parent.
+   *	For [Companies](ctp:api:type:BusinessUnitType), the value of this field is always `Explicit`.
+   *	For [Divisions](ctp:api:type:BusinessUnitType), the default value is `ExplicitAndFromParent`.
+   *
+   *
+   */
+  readonly approvalRuleMode?: BusinessUnitApprovalRuleMode
+  /**
+   *	Addresses used by the Business Unit.
+   *
+   *
+   */
+  readonly addresses?: BaseAddress[]
+  /**
+   *	Indexes of entries in `addresses` to set as shipping addresses.
+   *	The `shippingAddressIds` of the [Customer](ctp:api:type:Customer) will be replaced by these addresses.
+   *
+   *
+   */
+  readonly shippingAddresses?: number[]
+  /**
+   *	Index of the entry in `addresses` to set as the default shipping address.
+   *
+   *
+   */
+  readonly defaultShippingAddress?: number
+  /**
+   *	Indexes of entries in `addresses` to set as billing addresses.
+   *	The `billingAddressIds` of the [Customer](ctp:api:type:Customer) will be replaced by these addresses.
+   *
+   *
+   */
+  readonly billingAddresses?: number[]
+  /**
+   *	Index of the entry in `addresses` to set as the default billing address.
+   *
+   *
+   */
+  readonly defaultBillingAddress?: number
+  /**
+   *	Custom Fields for the Business Unit.
+   *
+   *
+   */
+  readonly custom?: CustomFieldsDraft
+}
 /**
  *	[KeyReference](ctp:api:type:KeyReference) to a [BusinessUnit](ctp:api:type:BusinessUnit).
  *
  */
-export interface BusinessUnitKeyReference {
+export interface BusinessUnitKeyReference extends IKeyReference {
   readonly typeId: 'business-unit'
   /**
    *	Unique and immutable key of the referenced [BusinessUnit](ctp:api:type:BusinessUnit).
@@ -168,7 +458,7 @@ export interface BusinessUnitPagedQueryResponse {
  *	[Reference](ctp:api:type:Reference) to a [BusinessUnit](ctp:api:type:BusinessUnit).
  *
  */
-export interface BusinessUnitReference {
+export interface BusinessUnitReference extends IReference {
   readonly typeId: 'business-unit'
   /**
    *	Unique identifier of the referenced [BusinessUnit](ctp:api:type:BusinessUnit).
@@ -187,7 +477,7 @@ export interface BusinessUnitReference {
  *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [BusinessUnit](ctp:api:type:BusinessUnit). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
-export interface BusinessUnitResourceIdentifier {
+export interface BusinessUnitResourceIdentifier extends IResourceIdentifier {
   readonly typeId: 'business-unit'
   /**
    *	Unique identifier of the referenced [BusinessUnit](ctp:api:type:BusinessUnit). Required if `key` is absent.
@@ -206,16 +496,31 @@ export interface BusinessUnitResourceIdentifier {
  *	Indicates whether the Business Unit can be edited and used in [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quote Requests](ctp:api:type:QuoteRequest), or [Quotes](ctp:api:type:Quote).
  *
  */
+export enum BusinessUnitStatusValues {
+  Active = 'Active',
+  Inactive = 'Inactive',
+}
+
 export type BusinessUnitStatus = 'Active' | 'Inactive' | string
 /**
  *	Defines whether the Stores of the Business Unit are set directly on the Business Unit or are inherited from its parent unit.
  *
  */
+export enum BusinessUnitStoreModeValues {
+  Explicit = 'Explicit',
+  FromParent = 'FromParent',
+}
+
 export type BusinessUnitStoreMode = 'Explicit' | 'FromParent' | string
 /**
  *	The type of the Business Unit indicating its position in a hierarchy.
  *
  */
+export enum BusinessUnitTypeValues {
+  Company = 'Company',
+  Division = 'Division',
+}
+
 export type BusinessUnitType = 'Company' | 'Division' | string
 export interface BusinessUnitUpdate {
   /**
@@ -260,12 +565,18 @@ export type BusinessUnitUpdateAction =
   | BusinessUnitSetDefaultShippingAddressAction
   | BusinessUnitSetStoreModeAction
   | BusinessUnitSetStoresAction
+export interface IBusinessUnitUpdateAction {
+  /**
+   *
+   */
+  readonly action: string
+}
 /**
  *	Business Unit type to represent the top level of a business.
  *	Contains specific fields and values that differentiate a Company from the generic [BusinessUnit](ctp:api:type:BusinessUnit).
  *
  */
-export interface Company {
+export interface Company extends IBusinessUnit {
   readonly unitType: 'Company'
   /**
    *	Unique identifier of the Business Unit.
@@ -426,7 +737,7 @@ export interface Company {
  *	Draft type to represent the top level of a business. Contains the fields and values of the generic [BusinessUnitDraft](ctp:api:type:BusinessUnitDraft) that are used specifically for creating a [Company](ctp:api:type:Company).
  *
  */
-export interface CompanyDraft {
+export interface CompanyDraft extends IBusinessUnitDraft {
   readonly unitType: 'Company'
   /**
    *	User-defined unique and immutable identifier for the Business Unit.
@@ -535,7 +846,7 @@ export interface CompanyDraft {
  *	Contains specific fields and values that differentiate a Division from the generic [BusinessUnit](ctp:api:type:BusinessUnit).
  *
  */
-export interface Division {
+export interface Division extends IBusinessUnit {
   readonly unitType: 'Division'
   /**
    *	Unique identifier of the Business Unit.
@@ -697,7 +1008,7 @@ export interface Division {
  *	Contains the fields and values of the generic [BusinessUnitDraft](ctp:api:type:BusinessUnitDraft) that are used specifically for creating a Division.
  *
  */
-export interface DivisionDraft {
+export interface DivisionDraft extends IBusinessUnitDraft {
   readonly unitType: 'Division'
   /**
    *	User-defined unique and immutable identifier for the Business Unit.
@@ -836,7 +1147,8 @@ export interface InheritedAssociateRoleAssignment {
  *	Adding an address to a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitAddressAdded](ctp:api:type:BusinessUnitAddressAddedMessage) Message.
  *
  */
-export interface BusinessUnitAddAddressAction {
+export interface BusinessUnitAddAddressAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'addAddress'
   /**
    *	Address to add to the addresses of the [Business Unit](ctp:api:type:BusinessUnit).
@@ -849,7 +1161,8 @@ export interface BusinessUnitAddAddressAction {
  *	Adding an Associate to a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitAssociateAdded](ctp:api:type:BusinessUnitAssociateAddedMessage) Message.
  *
  */
-export interface BusinessUnitAddAssociateAction {
+export interface BusinessUnitAddAssociateAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'addAssociate'
   /**
    *	The Associate to add.
@@ -862,7 +1175,8 @@ export interface BusinessUnitAddAssociateAction {
  *	Adding a billing address to a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitBillingAddressAdded](ctp:api:type:BusinessUnitBillingAddressAddedMessage) Message.
  *
  */
-export interface BusinessUnitAddBillingAddressIdAction {
+export interface BusinessUnitAddBillingAddressIdAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'addBillingAddressId'
   /**
    *	ID of the address to add as a billing address. Either `addressId` or `addressKey` is required.
@@ -881,7 +1195,8 @@ export interface BusinessUnitAddBillingAddressIdAction {
  *	Adding a shipping address to a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitShippingAddressAdded](ctp:api:type:BusinessUnitShippingAddressAddedMessage) Message.
  *
  */
-export interface BusinessUnitAddShippingAddressIdAction {
+export interface BusinessUnitAddShippingAddressIdAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'addShippingAddressId'
   /**
    *	ID of the address to add as a shipping address. Either `addressId` or `addressKey` is required.
@@ -901,7 +1216,7 @@ export interface BusinessUnitAddShippingAddressIdAction {
  *	Only applicable when `storeMode` is `Explicit`.
  *
  */
-export interface BusinessUnitAddStoreAction {
+export interface BusinessUnitAddStoreAction extends IBusinessUnitUpdateAction {
   readonly action: 'addStore'
   /**
    *	[Store](ctp:api:type:Store) to add.
@@ -914,7 +1229,8 @@ export interface BusinessUnitAddStoreAction {
  *	Changing the address on a Business Unit generates the [BusinessUnitAddressChanged](ctp:api:type:BusinessUnitAddressChangedMessage) Message.
  *
  */
-export interface BusinessUnitChangeAddressAction {
+export interface BusinessUnitChangeAddressAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'changeAddress'
   /**
    *	ID of the address to change. Either `addressId` or `addressKey` is required.
@@ -943,7 +1259,8 @@ export interface BusinessUnitChangeAddressAction {
  *	This update action generates a [BusinessUnitApprovalRuleModeChanged](ctp:api:type:BusinessUnitApprovalRuleModeChangedMessage) Message.
  *
  */
-export interface BusinessUnitChangeApprovalRuleModeAction {
+export interface BusinessUnitChangeApprovalRuleModeAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'changeApprovalRuleMode'
   /**
    *	The new value for `approvalRuleMode`.
@@ -956,7 +1273,8 @@ export interface BusinessUnitChangeApprovalRuleModeAction {
  *	Updating the [Associate](ctp:api:type:Associate) on a [Business Unit](ctp:api:type:BusinessUnit) generates the [BusinessUnitAssociateChanged](ctp:api:type:BusinessUnitAssociateChangedMessage) Message.
  *
  */
-export interface BusinessUnitChangeAssociateAction {
+export interface BusinessUnitChangeAssociateAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'changeAssociate'
   /**
    *	New version of an existing Associate.
@@ -970,7 +1288,8 @@ export interface BusinessUnitChangeAssociateAction {
  *	This update action generates a [BusinessUnitAssociateModeChanged](ctp:api:type:BusinessUnitAssociateModeChangedMessage) Message.
  *
  */
-export interface BusinessUnitChangeAssociateModeAction {
+export interface BusinessUnitChangeAssociateModeAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'changeAssociateMode'
   /**
    *	The new value for `associateMode`.
@@ -983,7 +1302,8 @@ export interface BusinessUnitChangeAssociateModeAction {
  *	Updating the name on a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitNameChanged](ctp:api:type:BusinessUnitNameChangedMessage) Message.
  *
  */
-export interface BusinessUnitChangeNameAction {
+export interface BusinessUnitChangeNameAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'changeName'
   /**
    *	New name to set.
@@ -996,7 +1316,8 @@ export interface BusinessUnitChangeNameAction {
  *	Changing the parent of a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitParentChanged](ctp:api:type:BusinessUnitParentChangedMessage) Message.
  *
  */
-export interface BusinessUnitChangeParentUnitAction {
+export interface BusinessUnitChangeParentUnitAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'changeParentUnit'
   /**
    *	New parent unit of the [Business Unit](ctp:api:type:BusinessUnit). The new parent unit must have the same top-level unit as the old parent unit.
@@ -1009,7 +1330,8 @@ export interface BusinessUnitChangeParentUnitAction {
  *	Changing the status of a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitStatusChanged](ctp:api:type:BusinessUnitStatusChangedMessage) Message.
  *
  */
-export interface BusinessUnitChangeStatusAction {
+export interface BusinessUnitChangeStatusAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'changeStatus'
   /**
    *	New status to set.
@@ -1022,7 +1344,8 @@ export interface BusinessUnitChangeStatusAction {
  *	Removing the address from a [Business Unit](ctp:api:type:BusinessUnit) generates the [BusinessUnitAddressRemoved](ctp:api:type:BusinessUnitAddressRemovedMessage) Message.
  *
  */
-export interface BusinessUnitRemoveAddressAction {
+export interface BusinessUnitRemoveAddressAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'removeAddress'
   /**
    *	ID of the address to be removed. Either `addressId` or `addressKey` is required.
@@ -1041,7 +1364,8 @@ export interface BusinessUnitRemoveAddressAction {
  *	Removing an [Associate](ctp:api:type:Associate) from a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitAssociateRemoved](ctp:api:type:BusinessUnitAssociateRemovedMessage) Message.
  *
  */
-export interface BusinessUnitRemoveAssociateAction {
+export interface BusinessUnitRemoveAssociateAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'removeAssociate'
   /**
    *	[Associate](ctp:api:type:Associate) to remove.
@@ -1054,7 +1378,8 @@ export interface BusinessUnitRemoveAssociateAction {
  *	Removing a billing address from a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitBillingAddressRemoved](ctp:api:type:BusinessUnitBillingAddressRemovedMessage) Message.
  *
  */
-export interface BusinessUnitRemoveBillingAddressIdAction {
+export interface BusinessUnitRemoveBillingAddressIdAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'removeBillingAddressId'
   /**
    *	ID of the address to be removed from `billingAddressIds`. Either `addressId` or `addressKey` is required.
@@ -1073,7 +1398,8 @@ export interface BusinessUnitRemoveBillingAddressIdAction {
  *	Removing a shipping address from a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitShippingAddressRemoved](ctp:api:type:BusinessUnitShippingAddressRemovedMessage) Message.
  *
  */
-export interface BusinessUnitRemoveShippingAddressIdAction {
+export interface BusinessUnitRemoveShippingAddressIdAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'removeShippingAddressId'
   /**
    *	ID of the address to be removed from `shippingAddressIds`. Either `addressId` or `addressKey` is required.
@@ -1097,7 +1423,8 @@ export interface BusinessUnitRemoveShippingAddressIdAction {
  *	Only applicable when `storeMode` is `Explicit`.
  *
  */
-export interface BusinessUnitRemoveStoreAction {
+export interface BusinessUnitRemoveStoreAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'removeStore'
   /**
    *	[Store](ctp:api:type:Store) to remove.
@@ -1110,7 +1437,8 @@ export interface BusinessUnitRemoveStoreAction {
  *	Adding a Custom Field to an Address of a Business Unit generates the [BusinessUnitAddressCustomFieldAdded](ctp:api:type:BusinessUnitAddressCustomFieldAddedMessage) Message, removing one generates the [BusinessUnitAddressCustomFieldRemoved](ctp:api:type:BusinessUnitAddressCustomFieldRemovedMessage) Message, and updating an existing one generates the [BusinessUnitAddressCustomFieldChanged](ctp:api:type:BusinessUnitAddressCustomFieldChangedMessage) Message.
  *
  */
-export interface BusinessUnitSetAddressCustomFieldAction {
+export interface BusinessUnitSetAddressCustomFieldAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'setAddressCustomField'
   /**
    *	ID of the address to be extended.
@@ -1137,7 +1465,8 @@ export interface BusinessUnitSetAddressCustomFieldAction {
  *	Adding or updating a Custom Type on an Address of a Business Unit generates the [BusinessUnitAddressCustomTypeSet](ctp:api:type:BusinessUnitAddressCustomTypeSetMessage) Message, and removing one generates the [BusinessUnitAddressCustomTypeRemoved](ctp:api:type:BusinessUnitAddressCustomTypeRemovedMessage) Message.
  *
  */
-export interface BusinessUnitSetAddressCustomTypeAction {
+export interface BusinessUnitSetAddressCustomTypeAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'setAddressCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the `address` with [Custom Fields](/../api/projects/custom-fields).
@@ -1163,7 +1492,8 @@ export interface BusinessUnitSetAddressCustomTypeAction {
  *	Changes the Associates of a [Business Unit](ctp:api:type:BusinessUnit), generates a [BusinessUnitAssociatesSet](ctp:api:type:BusinessUnitAssociatesSetMessage) Message.
  *
  */
-export interface BusinessUnitSetAssociatesAction {
+export interface BusinessUnitSetAssociatesAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'setAssociates'
   /**
    *	The new list of Associates. If empty, existing values will be removed.
@@ -1176,7 +1506,8 @@ export interface BusinessUnitSetAssociatesAction {
  *	Setting the contact email on a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitContactEmailSet](ctp:api:type:BusinessUnitContactEmailSetMessage) Message.
  *
  */
-export interface BusinessUnitSetContactEmailAction {
+export interface BusinessUnitSetContactEmailAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'setContactEmail'
   /**
    *	Email to set.
@@ -1190,7 +1521,8 @@ export interface BusinessUnitSetContactEmailAction {
  *	Adding a Custom Field to a Business Unit generates the [BusinessUnitCustomFieldAdded](ctp:api:type:BusinessUnitCustomFieldAddedMessage) Message, removing one generates the [BusinessUnitCustomFieldRemoved](ctp:api:type:BusinessUnitCustomFieldRemovedMessage) Message, and updating an existing one generates the [BusinessUnitCustomFieldChanged](ctp:api:type:BusinessUnitCustomFieldChangedMessage) Message.
  *
  */
-export interface BusinessUnitSetCustomFieldAction {
+export interface BusinessUnitSetCustomFieldAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields) to add, update, or remove.
@@ -1211,7 +1543,8 @@ export interface BusinessUnitSetCustomFieldAction {
  *	Adding or updating a Custom Type on a Business Unit generates the [BusinessUnitCustomTypeSet](ctp:api:type:BusinessUnitCustomTypeSetMessage) Message, removing one generates the [BusinessUnitCustomTypeRemoved](ctp:api:type:BusinessUnitCustomTypeRemovedMessage) Message.
  *
  */
-export interface BusinessUnitSetCustomTypeAction {
+export interface BusinessUnitSetCustomTypeAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the BusinessUnit with [Custom Fields](ctp:api:type:CustomFields).
@@ -1231,7 +1564,8 @@ export interface BusinessUnitSetCustomTypeAction {
  *	Setting the default billing address on a [Business Unit](ctp:api:type:BusinessUnit) generates the [BusinessUnitDefaultBillingAddressSet](ctp:api:type:BusinessUnitDefaultBillingAddressSetMessage) Message.
  *
  */
-export interface BusinessUnitSetDefaultBillingAddressAction {
+export interface BusinessUnitSetDefaultBillingAddressAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'setDefaultBillingAddress'
   /**
    *	ID of the address to add as a billing address. Either `addressId` or `addressKey` is required.
@@ -1250,7 +1584,8 @@ export interface BusinessUnitSetDefaultBillingAddressAction {
  *	Setting the default shipping address on a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitDefaultShippingAddressSet](ctp:api:type:BusinessUnitDefaultShippingAddressSetMessage) Message.
  *
  */
-export interface BusinessUnitSetDefaultShippingAddressAction {
+export interface BusinessUnitSetDefaultShippingAddressAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'setDefaultShippingAddress'
   /**
    *	ID of the address to add as a shipping address. Either `addressId` or `addressKey` is required.
@@ -1270,7 +1605,8 @@ export interface BusinessUnitSetDefaultShippingAddressAction {
  *	This update action generates a [BusinessUnitStoreModeChanged](ctp:api:type:BusinessUnitStoreModeChangedMessage) Message.
  *
  */
-export interface BusinessUnitSetStoreModeAction {
+export interface BusinessUnitSetStoreModeAction
+  extends IBusinessUnitUpdateAction {
   readonly action: 'setStoreMode'
   /**
    *	Set to `Explicit` to specify Stores for the Business Unit. Set to `FromParent` to inherit Stores from a parent.
@@ -1293,7 +1629,7 @@ export interface BusinessUnitSetStoreModeAction {
  *	Setting the Stores on a Business Unit generates a [BusinessUnitStoresSet](ctp:api:type:BusinessUnitStoresSetMessage) Message.
  *
  */
-export interface BusinessUnitSetStoresAction {
+export interface BusinessUnitSetStoresAction extends IBusinessUnitUpdateAction {
   readonly action: 'setStores'
   /**
    *	[Stores](ctp:api:type:Store) to set. Overrides the current list of Stores.

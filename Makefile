@@ -2,7 +2,6 @@ SHELL := /bin/bash
 CHANGES_PENDING := `git status --porcelain -- ':(exclude)*gen.properties' | grep -c ^ || true`
 API_RAML ?= $(RAML_FILE)
 IMPORT_RAML ?= $(RAML_FILE)
-ML_RAML ?= $(RAML_FILE)
 HISTORY_RAML ?= $(RAML_FILE)
 
 .PHONY: build build_api_sdk build_import_sdk build_import_sdk build_history_sdk gen_api_sdk gen_import_sdk gen_history_sdk
