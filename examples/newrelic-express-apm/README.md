@@ -12,7 +12,7 @@ Example to show how the Newrelic APM can be used in the TypeScript SDK.
 ## Installation
 
 1. Clone/Download the example folder.
-2. Navigate to the path `newrelic-express-apm/host-agent/`.
+2. Navigate to the path `newrelic-express-apm/`.
 3. Create a `.env` file in this path, add and update the content of `.env.sample`, the `DD_API_KEY` is required
 4. Run `yarn install` (`npm` can also be used) to install all dependencies
 
