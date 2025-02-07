@@ -55,6 +55,6 @@
     "post_process_generate": "yarn organize_imports"
   },
   "devDependencies": {
-    "@types/newrelic": "^9.14.6"
+    "@types/newrelic": "9.14.7"
   }
 }
