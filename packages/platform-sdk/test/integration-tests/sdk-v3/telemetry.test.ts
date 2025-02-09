@@ -3,9 +3,9 @@ import {
   MiddlewareRequest,
   OTelemetryMiddlewareOptions,
   Next,
-  datadog,
-  newrelic,
 } from '@commercetools/ts-sdk-apm'
+import datadog from 'dd-trace'
+import newrelic from 'newrelic'
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
 
 const time = () => performance.now()

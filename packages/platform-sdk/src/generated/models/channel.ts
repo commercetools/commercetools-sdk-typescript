@@ -9,6 +9,8 @@ import {
   BaseResource,
   CreatedBy,
   GeoJson,
+  IReference,
+  IResourceIdentifier,
   LastModifiedBy,
   LocalizedString,
   _BaseAddress,
@@ -198,7 +200,7 @@ export interface ChannelPagedQueryResponse {
  *	[Reference](ctp:api:type:Reference) to a [Channel](ctp:api:type:Channel).
  *
  */
-export interface ChannelReference {
+export interface ChannelReference extends IReference {
   readonly typeId: 'channel'
   /**
    *	Unique identifier of the referenced [Channel](ctp:api:type:Channel).
@@ -218,7 +220,7 @@ export interface ChannelReference {
  *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Channel](ctp:api:type:Channel). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
-export interface ChannelResourceIdentifier {
+export interface ChannelResourceIdentifier extends IResourceIdentifier {
   readonly typeId: 'channel'
   /**
    *	Unique identifier of the referenced [Channel](ctp:api:type:Channel). Required if `key` is absent.
@@ -237,6 +239,14 @@ export interface ChannelResourceIdentifier {
  *	Describes the purpose and type of the Channel. A Channel can have one or more roles.
  *
  */
+export enum ChannelRoleEnumValues {
+  InventorySupply = 'InventorySupply',
+  OrderExport = 'OrderExport',
+  OrderImport = 'OrderImport',
+  Primary = 'Primary',
+  ProductDistribution = 'ProductDistribution',
+}
+
 export type ChannelRoleEnum =
   | 'InventorySupply'
   | 'OrderExport'
@@ -272,7 +282,13 @@ export type ChannelUpdateAction =
   | ChannelSetCustomTypeAction
   | ChannelSetGeoLocationAction
   | ChannelSetRolesAction
-export interface ChannelAddRolesAction {
+export interface IChannelUpdateAction {
+  /**
+   *
+   */
+  readonly action: string
+}
+export interface ChannelAddRolesAction extends IChannelUpdateAction {
   readonly action: 'addRoles'
   /**
    *	Value to append to the array.
@@ -281,7 +297,7 @@ export interface ChannelAddRolesAction {
    */
   readonly roles: ChannelRoleEnum[]
 }
-export interface ChannelChangeDescriptionAction {
+export interface ChannelChangeDescriptionAction extends IChannelUpdateAction {
   readonly action: 'changeDescription'
   /**
    *	New value to set. Must not be empty.
@@ -290,7 +306,7 @@ export interface ChannelChangeDescriptionAction {
    */
   readonly description: LocalizedString
 }
-export interface ChannelChangeKeyAction {
+export interface ChannelChangeKeyAction extends IChannelUpdateAction {
   readonly action: 'changeKey'
   /**
    *	New value to set. Must not be empty.
@@ -299,7 +315,7 @@ export interface ChannelChangeKeyAction {
    */
   readonly key: string
 }
-export interface ChannelChangeNameAction {
+export interface ChannelChangeNameAction extends IChannelUpdateAction {
   readonly action: 'changeName'
   /**
    *	New value to set. Must not be empty.
@@ -308,7 +324,7 @@ export interface ChannelChangeNameAction {
    */
   readonly name: LocalizedString
 }
-export interface ChannelRemoveRolesAction {
+export interface ChannelRemoveRolesAction extends IChannelUpdateAction {
   readonly action: 'removeRoles'
   /**
    *	Value to remove from the array.
@@ -317,7 +333,7 @@ export interface ChannelRemoveRolesAction {
    */
   readonly roles: ChannelRoleEnum[]
 }
-export interface ChannelSetAddressAction {
+export interface ChannelSetAddressAction extends IChannelUpdateAction {
   readonly action: 'setAddress'
   /**
    *	Value to set. If empty, any existing value will be removed.
@@ -326,7 +342,8 @@ export interface ChannelSetAddressAction {
    */
   readonly address?: _BaseAddress
 }
-export interface ChannelSetAddressCustomFieldAction {
+export interface ChannelSetAddressCustomFieldAction
+  extends IChannelUpdateAction {
   readonly action: 'setAddressCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -343,7 +360,8 @@ export interface ChannelSetAddressCustomFieldAction {
    */
   readonly value?: any
 }
-export interface ChannelSetAddressCustomTypeAction {
+export interface ChannelSetAddressCustomTypeAction
+  extends IChannelUpdateAction {
   readonly action: 'setAddressCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the `address` with [Custom Fields](/../api/projects/custom-fields).
@@ -359,7 +377,7 @@ export interface ChannelSetAddressCustomTypeAction {
    */
   readonly fields?: FieldContainer
 }
-export interface ChannelSetCustomFieldAction {
+export interface ChannelSetCustomFieldAction extends IChannelUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -376,7 +394,7 @@ export interface ChannelSetCustomFieldAction {
    */
   readonly value?: any
 }
-export interface ChannelSetCustomTypeAction {
+export interface ChannelSetCustomTypeAction extends IChannelUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the Channel with [Custom Fields](/../api/projects/custom-fields).
@@ -392,7 +410,7 @@ export interface ChannelSetCustomTypeAction {
    */
   readonly fields?: FieldContainer
 }
-export interface ChannelSetGeoLocationAction {
+export interface ChannelSetGeoLocationAction extends IChannelUpdateAction {
   readonly action: 'setGeoLocation'
   /**
    *	Value to set.
@@ -401,7 +419,7 @@ export interface ChannelSetGeoLocationAction {
    */
   readonly geoLocation?: GeoJson
 }
-export interface ChannelSetRolesAction {
+export interface ChannelSetRolesAction extends IChannelUpdateAction {
   readonly action: 'setRoles'
   /**
    *	Value to set. If not specified, then `InventorySupply` is assigned by default.
