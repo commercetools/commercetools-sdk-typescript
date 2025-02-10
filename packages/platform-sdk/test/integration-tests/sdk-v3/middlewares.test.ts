@@ -115,26 +115,23 @@ describe('Concurrent Modification Middleware', () => {
       }
     )
 
-    try {
-      const productUpdateResponse = await apiRootV3
-        .products()
-        .withId({ ID: product.id })
-        .post({
-          body: {
-            version: product.version - 2,
-            actions: [
-              {
-                action: 'changeName',
-                name: { en: 'test-name' + new Date().getTime() },
-              },
-            ],
-          },
-        })
-        .execute()
-      expect(productUpdateResponse.statusCode).toBe(200)
-    } catch (e) {
-      /** noop */
-    }
+    const productUpdateResponse = await apiRootV3
+      .products()
+      .withId({ ID: product.id })
+      .post({
+        body: {
+          version: product.version - 2,
+          actions: [
+            {
+              action: 'changeName',
+              name: { en: 'test-name' + new Date().getTime() },
+            },
+          ],
+        },
+      })
+      .execute()
+
+    expect(productUpdateResponse.statusCode).toBe(200)
   })
 
   it(`should retry the request with the custom logic provided`, async () => {
@@ -240,7 +237,7 @@ describe('Concurrent Modification Middleware', () => {
         })
         .execute()
     } catch (e) {
-      /** noop */
+      throw e
     }
   })
 })

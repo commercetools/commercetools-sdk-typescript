@@ -88,13 +88,17 @@ async function executeRequest({
         : { uri: request.uri }),
     })
 
-    return { error }
+    return { ...error, error }
   } catch (e) {
     // We know that this is a network error
     const headers = includeResponseHeaders
       ? getHeaders(e.response?.headers)
       : null
-    const statusCode = e.response?.status || e.response?.data || 0
+    const statusCode =
+      e.response?.status ||
+      e.response?.statusCode ||
+      e.response?.data.statusCode ||
+      0
     const message = e.response?.data?.message
 
     const error: HttpErrorType = createError({
