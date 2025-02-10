@@ -2,7 +2,7 @@ require('dotenv').config()
 const cors = require('cors')
 const express = require('express')
 
-const { apiRoot } = require('./sdk-v2')
+const { apiRoot } = require('./sdk-v3')
 
 const app = express()
 

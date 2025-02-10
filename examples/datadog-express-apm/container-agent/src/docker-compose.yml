@@ -1,7 +1,7 @@
-version: '3.5'
 services:
   app:
-    build: .
+    build:
+      context: ..
     environment:
       - DD_ENV
       - DD_TRACE_DEBUG
