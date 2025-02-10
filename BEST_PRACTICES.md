@@ -141,7 +141,7 @@ const client = new ClientBuilder()
 The queue middleware can be used to control/throttle concurrent requests to a certain amount (limit), this is useful as it restricts the amount of HTTP requests to the platform, if properly implemented can boost performance.
 
 ```ts
-import { ClientBuilder } from '@commercetools/sdk-client-v2'
+import { ClientBuilder } from '@commercetools/ts-client'
 
 const client = new ClientBuilder()
   .withProjectKey(projectKey)
@@ -157,7 +157,7 @@ const client = new ClientBuilder()
 In the Typescript SDK by default token are automatically fetched using the client credentials flow and injected in the request header. When a request is made, if the token in the header is expired or unavailable, the auth-middleware checks for this and automatically calls the platform to generate a new token and inject it in the header. Hence, no action is required by the customer in handling tokens when using the TS SDK.
 
 ```ts
-import { ClientBuilder } from '@commercetools/sdk-client-v2'
+import { ClientBuilder } from '@commercetools/ts-client'
 
 const client = new ClientBuilder()
   .withProjectKey(projectKey)
@@ -190,7 +190,7 @@ The client can be created once and reused throughout the application by creating
 
 ```ts
 // client.ts
-import ClientBuilder from '@commercetools/sdk-client-v2'
+import ClientBuilder from '@commercetools/ts-client'
 import createApiBuilderFromCtpClient from '@commercetools/platform-sdk'
 ...
 
@@ -233,7 +233,7 @@ In the JS/TS SDK the connection tears down automatically after each request-resp
 The JS/TS client can be customized in a variety of ways, this can be achieved by passing in middleware options that can take different parameter values.
 
 ```ts
-import ClientBuilder from '@commercetools/sdk-client-v2'
+import ClientBuilder from '@commercetools/ts-client'
 ...
 
 // see [this](https://commercetools.github.io/nodejs/sdk/api/#middlewares) on how to configure these options
@@ -252,7 +252,7 @@ const client = new ClientBuilder()
 Internally the JS/TS SDK implements some helper functions that are connected with error handling, given an error code and message, an error object can be constructed.
 
 ```ts
-import { getErrorByCode } from '@commercetools/sdk-client-v2'
+import { getErrorByCode } from '@commercetools/ts-client'
 
 const ErrorType = getErrorByCode(400)
 const error = new ErrorType('Oops this is an error')
@@ -300,7 +300,7 @@ The SDK is capable of logging events including success and error responses occur
 import {
   type Client,
   ClientBuilder
-} from '@commercetools/sdk-client-v2'
+} from '@commercetools/ts-client'
 
 cont client: Client = new ClientBuilder()
   .withClientCredentialsFlow(...)
@@ -316,7 +316,7 @@ cont client: Client = new ClientBuilder()
 Requests can be made directly to the platform in different ways, here we will be seeing some of those ways requests can be made directly to the platform. Sometimes the SDK doesn't provide methods to include specific requests to the platform, in this case, we can manually construct the request and send it directly to the platform. In this situation, we can use the execute function to make this call.
 
 ```ts
-import { ClientBuilder } from '@commercetools/sdk-client-v2'
+import { ClientBuilder } from '@commercetools/ts-client'
 
 cont client = new ClientBuilder()
   .withClientCredentialsFlow(...)
@@ -348,7 +348,7 @@ It is important to also note that due to changes in version 3 of `node-fetch`, i
 The JS/TS SDK exposes a `Process` function that can be called to process batch requests. This function takes a request parameter, a callback that will be called on each batch request and an option that is an object with key `total` and a boolean `accumulate`.
 
 ```ts
-import { Process, ClientBuilder } from '@commercetools/sdk-client-v2'
+import { Process, ClientBuilder } from '@commercetools/ts-client'
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
 
 ...
