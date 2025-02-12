@@ -134,7 +134,7 @@ export type Message =
   | AssociateRoleBuyerAssignableChangedMessage
   | AssociateRoleCreatedMessage
   | AssociateRoleDeletedMessage
-  | AssociateRoleNameChangedMessage
+  | AssociateRoleNameSetMessage
   | AssociateRolePermissionAddedMessage
   | AssociateRolePermissionRemovedMessage
   | AssociateRolePermissionsSetMessage
@@ -1545,7 +1545,7 @@ export interface AssociateRoleDeletedMessage extends IMessage {
  *	Generated after a successful [Set Name](ctp:api:type:AssociateRoleSetNameAction) update action.
  *
  */
-export interface AssociateRoleNameChangedMessage extends IMessage {
+export interface AssociateRoleNameSetMessage extends IMessage {
   readonly type: 'AssociateRoleNameSet'
   /**
    *	Unique identifier of the Message. Can be used to track which Messages have been processed.
@@ -19603,7 +19603,7 @@ export type MessagePayload =
   | AssociateRoleBuyerAssignableChangedMessagePayload
   | AssociateRoleCreatedMessagePayload
   | AssociateRoleDeletedMessagePayload
-  | AssociateRoleNameChangedMessagePayload
+  | AssociateRoleNameSetMessagePayload
   | AssociateRolePermissionAddedMessagePayload
   | AssociateRolePermissionRemovedMessagePayload
   | AssociateRolePermissionsSetMessagePayload
@@ -20106,8 +20106,7 @@ export interface AssociateRoleDeletedMessagePayload extends IMessagePayload {
  *	Generated after a successful [Set Name](ctp:api:type:AssociateRoleSetNameAction) update action.
  *
  */
-export interface AssociateRoleNameChangedMessagePayload
-  extends IMessagePayload {
+export interface AssociateRoleNameSetMessagePayload extends IMessagePayload {
   readonly type: 'AssociateRoleNameSet'
   /**
    *	Updated name of the [AssociateRole](ctp:api:type:AssociateRole).
