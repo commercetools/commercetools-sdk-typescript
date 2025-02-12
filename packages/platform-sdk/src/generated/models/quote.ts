@@ -113,7 +113,7 @@ export interface Quote extends BaseResource {
    */
   readonly customerGroup?: CustomerGroupReference
   /**
-   *	Expiration date for the Quote.
+   *	Expiration date for the Quote. Once a Quote expires, it cannot be ordered.
    *
    *
    */
@@ -456,7 +456,7 @@ export interface QuoteChangeCustomerAction extends IQuoteUpdateAction {
 export interface QuoteChangeQuoteStateAction extends IQuoteUpdateAction {
   readonly action: 'changeQuoteState'
   /**
-   *	New state to be set for the Quote.
+   *	New state to be set for the Quote, except `DeclinedForRenegotiation`. The `DeclinedForRenegotiation` state can be set only when performing a [renegotiation request](ctp:api:type:QuoteRequestQuoteRenegotiationAction).
    *
    */
   readonly quoteState: QuoteState
