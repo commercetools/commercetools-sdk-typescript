@@ -1135,7 +1135,8 @@ export interface OrderFromCartDraft {
 export interface OrderFromQuoteDraft {
   /**
    *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to the Quote from which the Order is created.
-   *	If the referenced [Quote](ctp:api:type:Quote) has expired (`validTo` check) or its `quoteState` is `Accepted`, `Declined`, or `Withdrawn`, the Order creation will fail.
+   *
+   *	The [Quote](ctp:api:type:Quote) must have the `Pending` [state](ctp:api:type:QuoteState) and must be valid (not past the `validTo` date).
    *
    *
    */
