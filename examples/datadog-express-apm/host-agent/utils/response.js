@@ -27,7 +27,7 @@ class ResponseHandler {
       responseBody.data = data
     }
 
-    agent.init().dogstatsd.increment(`Commercetools_Client_Response`, 1, {
+    agent.init().dogstatsd.increment(`ct_success_response_count`, 1, {
       env: 'dev',
       status_code: statusCode,
       http_method: response.req.method,
@@ -43,7 +43,7 @@ class ResponseHandler {
    *
    * @description method to handle all error responses
    *
-   * @param  response object
+   * @param response object
    * @param statusCode
    * @param message
    * @param data
@@ -60,7 +60,7 @@ class ResponseHandler {
       responseBody.data = data
     }
 
-    agent.init().dogstatsd.increment(`Commercetools_Client_Response`, 1, {
+    agent.init().dogstatsd.increment(`ct_error_response_count`, 1, {
       env: 'dev',
       status_code: statusCode,
       http_method: response.req.method,
