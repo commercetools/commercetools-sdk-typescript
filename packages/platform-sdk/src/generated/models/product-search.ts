@@ -250,7 +250,7 @@ export interface ProductSearchFacetCountValue {
    */
   readonly scope?: ProductSearchFacetScopeEnum
   /**
-   *	Additional filtering expression to apply to the search result before calculating the facet.
+   *	Additional filtering expression to apply to the facet result before calculating the facet.
    *
    */
   readonly filter?: _SearchQuery
@@ -290,7 +290,7 @@ export interface ProductSearchFacetDistinctValue {
    */
   readonly scope?: ProductSearchFacetScopeEnum
   /**
-   *	Additional filtering expression to apply to the search result before calculating the facet.
+   *	Additional filtering expression to apply to the facet result before calculating the facet.
    *
    */
   readonly filter?: _SearchQuery
@@ -399,7 +399,7 @@ export interface ProductSearchFacetRangesValue {
    */
   readonly scope?: ProductSearchFacetScopeEnum
   /**
-   *	Additional filtering expression to apply to the search result before calculating the facet.
+   *	Additional filtering expression to apply to the facet result before calculating the facet.
    *
    */
   readonly filter?: _SearchQuery

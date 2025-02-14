@@ -1676,8 +1676,8 @@ export interface PendingOperationError extends IErrorObject {
  *
  *	The error is also returned as a failed response to:
  *
- *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST), [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST), and [Create Order from Quote](ctp:api:endpoint:/{projectKey}/orders/quotes:POST) requests on Orders.
- *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/me/orders:POST), [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST), and [Create Order from Quote](ctp:api:endpoint:/{projectKey}/me/orders/quotes:POST) requests on My Orders.
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests on Orders.
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/me/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
  *	- [Create Order from Cart in BusinessUnit](ctp:api:endpoint:/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/orders:POST) request on Associate Orders.
  *
  */
@@ -3300,8 +3300,8 @@ export interface GraphQLPendingOperationError extends IGraphQLErrorObject {
  *
  *	The error is also returned as a failed response to:
  *
- *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST), [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST), and [Create Order from Quote](ctp:api:endpoint:/{projectKey}/orders/quotes:POST) requests on Orders.
- *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/me/orders:POST), [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST), and [Create Order from Quote](ctp:api:endpoint:/{projectKey}/me/orders/quotes:POST) requests on My Orders.
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests on Orders.
+ *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/me/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
  *	- [Create Order from Cart in BusinessUnit](ctp:api:endpoint:/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/orders:POST) request on Associate Orders.
  *
  */

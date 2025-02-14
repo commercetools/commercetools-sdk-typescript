@@ -5,8 +5,8 @@ import type {
   Next,
   OTelemetryMiddlewareOptions,
 } from '../types/types'
-import { time } from './helpers/performanceHelper'
 import { recordDatadog } from './helpers/datadogHelper'
+import { time } from './helpers/performanceHelper'
 
 export default function createTelemetryMiddleware(
   options: OTelemetryMiddlewareOptions
