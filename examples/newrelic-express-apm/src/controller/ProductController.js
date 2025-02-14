@@ -19,7 +19,7 @@ class ProductController {
       performance.now() - start
     )
 
-    if (data.statusCode == 200) {
+    if (data.statusCode === 200) {
       return ResponseHandler.successResponse(
         res,
         data.statusCode || data.body.statusCode,
