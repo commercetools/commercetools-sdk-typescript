@@ -381,7 +381,7 @@ export interface CustomerDraft {
    */
   readonly dateOfBirth?: string
   /**
-   *	Company name of the Customer. When representing a company as a Customer, [Business Units](ctp:api:type:BusinessUnit) provide extended funtionality.
+   *	Company name of the Customer. When representing a company as a Customer, [Business Units](ctp:api:type:BusinessUnit) provide extended functionality.
    *
    *
    */
@@ -1246,7 +1246,7 @@ export interface CustomerSetExternalIdAction extends ICustomerUpdateAction {
   readonly externalId?: string
 }
 /**
- *	Setting the first name of the Customer produces the [CustomeFirstNameSet](ctp:api:type:CustomerFirstNameSetMessage) Message.
+ *	Setting the first name of the Customer produces the [CustomerFirstNameSet](ctp:api:type:CustomerFirstNameSetMessage) Message.
  *
  */
 export interface CustomerSetFirstNameAction extends ICustomerUpdateAction {

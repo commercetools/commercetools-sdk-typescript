@@ -13,3 +13,17 @@
 - added type `AssociateRoleNameSetMessage`
 - added type `AssociateRoleNameSetMessagePayload`
 </details>
+
+**History changes**
+
+<details>
+<summary>Added Enum(s)</summary>
+
+- added enum `setAssetKey` to type `UpdateType`
+</details>
+
+<details>
+<summary>Removed Enum(s)</summary>
+
+- :warning: removed enum `setAsssetKey` from type `UpdateType`
+</details>
