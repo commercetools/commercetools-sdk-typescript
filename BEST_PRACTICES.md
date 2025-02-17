@@ -73,27 +73,9 @@ There are tests within the SDK [repository](https://github.com/commercetools/com
 
 ## How to effectively use JS/TS SDK middlewares
 
-The JS/TS SDK has a couple of middlewares that can be used to create the client. Also, it is important to note that in the v2 of the SDK, the order in which the middleware builder methods are invoked is immaterial. E.g The two code snippets below will produce the same result, irrespective of the order of the chained middleware builder methods.
+Middleware is used to add functionality to the request object in the TypeScript SDK. You can add middleware when creating the TypeScript SDK client. Multiple middleware can be added using a chain of middleware builder methods.
 
-```ts
-const client = new ClientBuilder()
-  .withHttpMiddleware(httpMiddlewareOptions)
-  .withProjectKey(projectKey)
-  .withUserAgentMiddleware()
-  .withClientCredentialsFlow(authMiddlewareOptions)
-  .withLoggerMiddleware()
-  .build()
-```
-
-```ts
-const client = new ClientBuilder()
-  .withLoggerMiddleware()
-  .withHttpMiddleware(httpMiddlewareOptions)
-  .withUserAgentMiddleware()
-  .withClientCredentialsFlow(authMiddlewareOptions)
-  .withProjectKey(projectKey)
-  .build()
-```
+Please check [here](https://docs.commercetools.com/sdk/ts-sdk-middleware-v3) for more details.
 
 ## How to reuse client (connection)
 
