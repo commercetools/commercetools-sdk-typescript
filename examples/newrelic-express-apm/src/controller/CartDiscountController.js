@@ -12,7 +12,7 @@ class CartDiscountController {
   async createCartDiscount(req, res) {
     const data = await this.cartDiscountService.createCartDiscount(req.body)
 
-    if (data.statusCode == 201 || data.statusCode == 200) {
+    if (data.statusCode === 201 || data.statusCode === 200) {
       return ResponseHandler.successResponse(
         res,
         data.statusCode || data.body.statusCode,
@@ -32,7 +32,7 @@ class CartDiscountController {
   async getCartDiscount(req, res) {
     const data = await this.cartDiscountService.getCartDiscount(req.body.id)
 
-    if (data.statusCode == 200) {
+    if (data.statusCode === 200) {
       return ResponseHandler.successResponse(
         res,
         data.statusCode || data.body.statusCode,

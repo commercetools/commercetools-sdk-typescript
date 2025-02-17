@@ -12,7 +12,7 @@ class CustomerController {
   async getCustomers(req, res) {
     const data = await this.customerService.getCustomers(req.body)
 
-    if (data.statusCode == 200) {
+    if (data.statusCode === 200) {
       return ResponseHandler.successResponse(
         res,
         data.statusCode || data.body.statusCode,
