@@ -1,29 +1,29 @@
 **Api changes**
 
 <details>
-<summary>Removed Type(s)</summary>
-
-- :warning: removed type `AssociateRoleNameChangedMessage`
-- :warning: removed type `AssociateRoleNameChangedMessagePayload`
-</details>
-
-<details>
 <summary>Added Type(s)</summary>
 
 - added type `AssociateRoleNameSetMessage`
 - added type `AssociateRoleNameSetMessagePayload`
 </details>
 
-**History changes**
-
 <details>
-<summary>Added Enum(s)</summary>
+<summary>Removed Type(s)</summary>
 
-- added enum `setAssetKey` to type `UpdateType`
+- :warning: removed type `AssociateRoleNameChangedMessage`
+- :warning: removed type `AssociateRoleNameChangedMessagePayload`
 </details>
+
+**History changes**
 
 <details>
 <summary>Removed Enum(s)</summary>
 
 - :warning: removed enum `setAsssetKey` from type `UpdateType`
+</details>
+
+<details>
+<summary>Added Enum(s)</summary>
+
+- added enum `setAssetKey` to type `UpdateType`
 </details>
