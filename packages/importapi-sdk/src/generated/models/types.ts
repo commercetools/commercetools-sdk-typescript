@@ -10,11 +10,49 @@ import { ImportResource, LocalizedString } from './common'
  *	Provides a visual representation type for this field. It is only relevant for string-based field types like [CustomFieldStringType](ctp:import:type:CustomFieldStringType) and [CustomFieldLocalizedStringType](ctp:import:type:CustomFieldLocalizedStringType).
  *
  */
+export enum TypeTextInputHintValues {
+  MultiLine = 'MultiLine',
+  SingleLine = 'SingleLine',
+}
+
 export type TypeTextInputHint = 'MultiLine' | 'SingleLine' | string
 /**
  *	IDs indicating the [type of resource](ctp:api:type:ResourceTypeId). Maps to `Type.resourceTypeIds`.
  *
  */
+export enum ResourceTypeIdValues {
+  Address = 'address',
+  Asset = 'asset',
+  BusinessUnit = 'business-unit',
+  CartDiscount = 'cart-discount',
+  Category = 'category',
+  Channel = 'channel',
+  CustomLineItem = 'custom-line-item',
+  Customer = 'customer',
+  CustomerGroup = 'customer-group',
+  DiscountCode = 'discount-code',
+  InventoryEntry = 'inventory-entry',
+  LineItem = 'line-item',
+  Order = 'order',
+  OrderDelivery = 'order-delivery',
+  OrderEdit = 'order-edit',
+  OrderParcel = 'order-parcel',
+  OrderReturnItem = 'order-return-item',
+  Payment = 'payment',
+  PaymentInterfaceInteraction = 'payment-interface-interaction',
+  ProductPrice = 'product-price',
+  ProductSelection = 'product-selection',
+  Quote = 'quote',
+  Review = 'review',
+  Shipping = 'shipping',
+  ShippingMethod = 'shipping-method',
+  ShoppingList = 'shopping-list',
+  ShoppingListTextLineItem = 'shopping-list-text-line-item',
+  StandalonePrice = 'standalone-price',
+  Store = 'store',
+  Transaction = 'transaction',
+}
+
 export type ResourceTypeId =
   | 'address'
   | 'asset'
@@ -60,28 +98,34 @@ export type FieldType =
   | CustomFieldSetType
   | CustomFieldStringType
   | CustomFieldTimeType
+export interface IFieldType {
+  /**
+   *
+   */
+  readonly name: string
+}
 /**
  *	Field type for Boolean values.
  */
-export interface CustomFieldBooleanType {
+export interface CustomFieldBooleanType extends IFieldType {
   readonly name: 'Boolean'
 }
 /**
  *	Field type for [DateTime](ctp:api:type:DateTime) values.
  */
-export interface CustomFieldDateTimeType {
+export interface CustomFieldDateTimeType extends IFieldType {
   readonly name: 'DateTime'
 }
 /**
  *	Field type for [Date](ctp:api:type:Date) values.
  */
-export interface CustomFieldDateType {
+export interface CustomFieldDateType extends IFieldType {
   readonly name: 'Date'
 }
 /**
  *	Field type for enum values.
  */
-export interface CustomFieldEnumType {
+export interface CustomFieldEnumType extends IFieldType {
   readonly name: 'Enum'
   /**
    *	Allowed values.
@@ -107,7 +151,7 @@ export interface CustomFieldEnumValue {
 /**
  *	Field type for localized enum values.
  */
-export interface CustomFieldLocalizedEnumType {
+export interface CustomFieldLocalizedEnumType extends IFieldType {
   readonly name: 'LocalizedEnum'
   /**
    *	Allowed values.
@@ -133,25 +177,25 @@ export interface CustomFieldLocalizedEnumValue {
 /**
  *	Field type for [LocalizedString](ctp:api:type:LocalizedString) values.
  */
-export interface CustomFieldLocalizedStringType {
+export interface CustomFieldLocalizedStringType extends IFieldType {
   readonly name: 'LocalizedString'
 }
 /**
  *	Field type for [CentPrecisionMoney](ctp:api:type:CentPrecisionMoney) values.
  */
-export interface CustomFieldMoneyType {
+export interface CustomFieldMoneyType extends IFieldType {
   readonly name: 'Money'
 }
 /**
  *	Field type for number values.
  */
-export interface CustomFieldNumberType {
+export interface CustomFieldNumberType extends IFieldType {
   readonly name: 'Number'
 }
 /**
  *	Field type for [Reference](ctp:api:type:Reference) values.
  */
-export interface CustomFieldReferenceType {
+export interface CustomFieldReferenceType extends IFieldType {
   readonly name: 'Reference'
   /**
    *	Resource type the Custom Field can reference.
@@ -162,6 +206,24 @@ export interface CustomFieldReferenceType {
 /**
  *	Defines which resource type a [CustomFieldReferenceType](ctp:import:type:CustomFieldReferenceType) can reference.
  */
+export enum CustomFieldReferenceValueValues {
+  AssociateRole = 'associate-role',
+  BusinessUnit = 'business-unit',
+  Cart = 'cart',
+  Category = 'category',
+  Channel = 'channel',
+  Customer = 'customer',
+  CustomerGroup = 'customer-group',
+  KeyValueDocument = 'key-value-document',
+  Order = 'order',
+  Product = 'product',
+  ProductType = 'product-type',
+  Review = 'review',
+  ShippingMethod = 'shipping-method',
+  State = 'state',
+  Zone = 'zone',
+}
+
 export type CustomFieldReferenceValue =
   | 'associate-role'
   | 'business-unit'
@@ -182,7 +244,7 @@ export type CustomFieldReferenceValue =
 /**
  *	Values of a SetType Custom Field are sets of values of the specified `elementType` (without duplicate elements).
  */
-export interface CustomFieldSetType {
+export interface CustomFieldSetType extends IFieldType {
   readonly name: 'Set'
   /**
    *	Field type of the elements in the set.
@@ -193,13 +255,13 @@ export interface CustomFieldSetType {
 /**
  *	Field type for string values.
  */
-export interface CustomFieldStringType {
+export interface CustomFieldStringType extends IFieldType {
   readonly name: 'String'
 }
 /**
  *	Field type for [Time](ctp:api:type:Time) values.
  */
-export interface CustomFieldTimeType {
+export interface CustomFieldTimeType extends IFieldType {
   readonly name: 'Time'
 }
 /**

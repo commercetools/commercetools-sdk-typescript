@@ -107,6 +107,11 @@ export interface ImportOperationPagedResponse {
  *	Describes the validation state of a newly created [ImportOperation](#importoperation).
  *
  */
+export enum ImportOperationStateValues {
+  Processing = 'processing',
+  ValidationFailed = 'validationFailed',
+}
+
 export type ImportOperationState = 'processing' | 'validationFailed' | string
 export interface ImportOperationStatus {
   /**

@@ -1,5 +1,17 @@
 # @commercetools/ts-sdk-apm
 
+## 3.2.0
+
+### Minor Changes
+
+- [#933](https://github.com/commercetools/commercetools-sdk-typescript/pull/933) [`be7e9d3`](https://github.com/commercetools/commercetools-sdk-typescript/commit/be7e9d39fb01c696ecb5c5056e50f1376900405d) Thanks [@ajimae](https://github.com/ajimae)! - Release latest typescript apm monitoring package
+
+## 3.1.0
+
+### Minor Changes
+
+- [#861](https://github.com/commercetools/commercetools-sdk-typescript/pull/861) [`e8a0e92`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e8a0e928e2ab48bd47d6ff6384f385b24e485755) Thanks [@ajimae](https://github.com/ajimae)! - Add custom metric
+
 ## 3.0.0
 
 ### Major Changes

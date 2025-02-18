@@ -61,9 +61,6 @@ export default async function executor(request: HttpClientConfig) {
           ...rest,
           headers: {
             ...rest.headers,
-
-            // axios header encoding
-            'Accept-Encoding': 'application/json',
           },
 
           // for axios
@@ -157,7 +154,7 @@ export default async function executor(request: HttpClientConfig) {
         if (response.text && typeof response.text == 'function') {
           result =
             (await response.text()) ||
-            response[Object.getOwnPropertySymbols(response)[1]]
+            JSON.stringify(response[Object.getOwnPropertySymbols(response)[1]])
           data = JSON.parse(result)
         } else {
           // axios response

@@ -1,4 +1,9 @@
-import { ClientBuilder, Credentials } from '@commercetools/sdk-client-v2'
+// import { ClientBuilder, Credentials } from '@commercetools/sdk-client-v2'
+import {
+  ClientBuilder,
+  Credentials,
+  Client as ClientSDK,
+} from '@commercetools/ts-client'
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
 
 const userClientBuilder = new ClientBuilder()
@@ -58,7 +63,7 @@ class Client {
     return this.projectKey
   }
 
-  getApiRoot(client) {
+  getApiRoot(client: ClientSDK) {
     return createApiBuilderFromCtpClient(client)
   }
 }

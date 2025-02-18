@@ -1,5 +1,17 @@
 # @commercetools/history-sdk
 
+## 5.1.0
+
+### Minor Changes
+
+- [#907](https://github.com/commercetools/commercetools-sdk-typescript/pull/907) [`c5344e3`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c5344e33e0cb7583f8235c1fb0cfa22393e12a42) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **History changes**
+
+  <details>
+  <summary>Required Property(s)</summary>
+
+  - :warning: changed property `triggerPattern` of type `ChangeTargetPatternChangeValue` to be required
+  </details>
+
 ## 5.0.0
 
 ### Major Changes

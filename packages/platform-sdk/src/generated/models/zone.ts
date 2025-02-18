@@ -4,7 +4,13 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
-import { BaseResource, CreatedBy, LastModifiedBy } from './common'
+import {
+  BaseResource,
+  CreatedBy,
+  IReference,
+  IResourceIdentifier,
+  LastModifiedBy,
+} from './common'
 
 /**
  *	A geographical location representing a country and optionally a state within this country.  A location can only be assigned to one Zone.
@@ -144,7 +150,7 @@ export interface ZonePagedQueryResponse {
  *	[Reference](ctp:api:type:Reference) to a [Zone](ctp:api:type:Zone).
  *
  */
-export interface ZoneReference {
+export interface ZoneReference extends IReference {
   readonly typeId: 'zone'
   /**
    *	Unique identifier of the referenced [Zone](ctp:api:type:Zone).
@@ -163,7 +169,7 @@ export interface ZoneReference {
  *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Zone](ctp:api:type:Zone). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
-export interface ZoneResourceIdentifier {
+export interface ZoneResourceIdentifier extends IResourceIdentifier {
   readonly typeId: 'zone'
   /**
    *	Unique identifier of the referenced [Zone](ctp:api:type:Zone). Required if `key` is absent.
@@ -199,7 +205,13 @@ export type ZoneUpdateAction =
   | ZoneRemoveLocationAction
   | ZoneSetDescriptionAction
   | ZoneSetKeyAction
-export interface ZoneAddLocationAction {
+export interface IZoneUpdateAction {
+  /**
+   *
+   */
+  readonly action: string
+}
+export interface ZoneAddLocationAction extends IZoneUpdateAction {
   readonly action: 'addLocation'
   /**
    *	Location to be added to the Zone.
@@ -207,7 +219,7 @@ export interface ZoneAddLocationAction {
    */
   readonly location: Location
 }
-export interface ZoneChangeNameAction {
+export interface ZoneChangeNameAction extends IZoneUpdateAction {
   readonly action: 'changeName'
   /**
    *	New name of the Zone.
@@ -215,7 +227,7 @@ export interface ZoneChangeNameAction {
    */
   readonly name: string
 }
-export interface ZoneRemoveLocationAction {
+export interface ZoneRemoveLocationAction extends IZoneUpdateAction {
   readonly action: 'removeLocation'
   /**
    *	Location to be removed from the Zone.
@@ -223,7 +235,7 @@ export interface ZoneRemoveLocationAction {
    */
   readonly location: Location
 }
-export interface ZoneSetDescriptionAction {
+export interface ZoneSetDescriptionAction extends IZoneUpdateAction {
   readonly action: 'setDescription'
   /**
    *	Description of the Zone.
@@ -231,7 +243,7 @@ export interface ZoneSetDescriptionAction {
    */
   readonly description?: string
 }
-export interface ZoneSetKeyAction {
+export interface ZoneSetKeyAction extends IZoneUpdateAction {
   readonly action: 'setKey'
   /**
    *	If `key` is absent or `null`, the existing key, if any, will be removed.

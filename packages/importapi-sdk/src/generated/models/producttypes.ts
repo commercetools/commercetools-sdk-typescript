@@ -75,16 +75,22 @@ export type AttributeType =
   | AttributeSetType
   | AttributeTextType
   | AttributeTimeType
-export interface AttributeBooleanType {
+export interface IAttributeType {
+  /**
+   *
+   */
+  readonly name: string
+}
+export interface AttributeBooleanType extends IAttributeType {
   readonly name: 'boolean'
 }
-export interface AttributeDateTimeType {
+export interface AttributeDateTimeType extends IAttributeType {
   readonly name: 'datetime'
 }
-export interface AttributeDateType {
+export interface AttributeDateType extends IAttributeType {
   readonly name: 'date'
 }
-export interface AttributeEnumType {
+export interface AttributeEnumType extends IAttributeType {
   readonly name: 'enum'
   /**
    *
@@ -101,10 +107,10 @@ export interface AttributePlainEnumValue {
    */
   readonly label: string
 }
-export interface AttributeLocalizableTextType {
+export interface AttributeLocalizableTextType extends IAttributeType {
   readonly name: 'ltext'
 }
-export interface AttributeLocalizedEnumType {
+export interface AttributeLocalizedEnumType extends IAttributeType {
   readonly name: 'lenum'
   /**
    *
@@ -129,10 +135,10 @@ export interface AttributeLocalizedEnumValue {
    */
   readonly label: LocalizedString
 }
-export interface AttributeMoneyType {
+export interface AttributeMoneyType extends IAttributeType {
   readonly name: 'money'
 }
-export interface AttributeNestedType {
+export interface AttributeNestedType extends IAttributeType {
   readonly name: 'nested'
   /**
    *	References a product type by key.
@@ -140,10 +146,10 @@ export interface AttributeNestedType {
    */
   readonly typeReference: ProductTypeKeyReference
 }
-export interface AttributeNumberType {
+export interface AttributeNumberType extends IAttributeType {
   readonly name: 'number'
 }
-export interface AttributeReferenceType {
+export interface AttributeReferenceType extends IAttributeType {
   readonly name: 'reference'
   /**
    *	The type of the referenced resource.
@@ -152,25 +158,37 @@ export interface AttributeReferenceType {
    */
   readonly referenceTypeId: ReferenceType
 }
-export interface AttributeSetType {
+export interface AttributeSetType extends IAttributeType {
   readonly name: 'set'
   /**
    *
    */
   readonly elementType: AttributeType
 }
-export interface AttributeTextType {
+export interface AttributeTextType extends IAttributeType {
   readonly name: 'text'
 }
-export interface AttributeTimeType {
+export interface AttributeTimeType extends IAttributeType {
   readonly name: 'time'
 }
+export enum AttributeConstraintEnumValues {
+  CombinationUnique = 'CombinationUnique',
+  None = 'None',
+  SameForAll = 'SameForAll',
+  Unique = 'Unique',
+}
+
 export type AttributeConstraintEnum =
   | 'CombinationUnique'
   | 'None'
   | 'SameForAll'
   | 'Unique'
   | string
+export enum TextInputHintValues {
+  MultiLine = 'MultiLine',
+  SingleLine = 'SingleLine',
+}
+
 export type TextInputHint = 'MultiLine' | 'SingleLine' | string
 /**
  *	The data representation for a ProductType to be imported that is persisted as a [ProductType](ctp:api:type:ProductType) in the Project.

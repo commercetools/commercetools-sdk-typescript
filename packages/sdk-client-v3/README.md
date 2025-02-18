@@ -23,6 +23,9 @@ import {
   type MiddlewareRequest,
   type MiddlewareResponse,
   type Client,
+  createHttpMiddleware,
+  createConcurrentModificationMiddleware,
+  createAuthMiddlewareForClientCredentialsFlow,
   ClientBuilder,
 } from '@commercetools/ts-client'
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
@@ -49,7 +52,12 @@ const retryOptions = {
   maxRetries: 3,
   retryDelay: 200,
   backoff: true,
-  retryCodes: [200],
+  retryCodes: [503],
+}
+
+const loggerFn = (response) => {
+  // log response object
+  console.log(response)
 }
 
 // custom middleware
@@ -67,15 +75,11 @@ function middleware(options) {
 
 const client: Client = new ClientBuilder()
   .withPasswordFlow(authMiddlewareOptions)
-  .withLoggerMiddleware({
-    includeOriginalRequest: false,
-    includeResponseHeaders: false,
-  })
+  .withLoggerMiddleware({ loggerFn })
   .withCorrelationIdMiddleware({
     generate: () => 'fake-correlation-id' + Math.floor(Math.random() + 2),
   })
   .withHttpMiddleware(httpMiddlewareOptions)
-  .withRetryMiddleware(retryOptions)
   .withMiddleware(middleware({})) // <<<------------------- add the custom middleware here
   .build()
 
@@ -149,11 +153,13 @@ const client = new ClientBuilder()
   .build()
 ```
 
-> [!WARNING]
-> Do not add the built-in middlewares using `withMiddleware` method. Adding by this method does not respect the ordering of the middlewares and could lead to unexpected behavior.
+<!-- > [!WARNING]
+> Do not add the built-in middlewares using `withMiddleware` method. Adding by this method does not respect the ordering of the middlewares and could lead to unexpected behavior. -->
+
+The `withMiddleware` method can be used to add middleware functions (both built-in and custom middleware) in an ordered fashion.
 
 ```ts
-// WRONG CODE!!!!!
+// Example
 const authMiddlewareOptions = {
   credentials: {
     clientId: 'xxx',
@@ -168,12 +174,76 @@ const httpMiddlewareOptions = {
   httpClient: fetch,
 }
 
+const logger = () => {
+  return (next) => async (request) => {
+    // log request object
+    console.log('Request:', request)
+    const response = await next(request)
+
+    // log response object
+    console.log('Response', response)
+    return response
+  }
+}
+
 const client = new ClientBuilder()
   .withMiddleware(
     createAuthMiddlewareForClientCredentialsFlow(authMiddlewareOptions)
   )
   .withMiddleware(createHttpMiddleware(httpMiddlewareOptions))
   .withMiddleware(createConcurrentModificationMiddleware())
+  .withMiddleware(logger())
   .build()
-// WRONG CODE!!!!!
 ```
+
+This will add the middleware in an ordered fashion starting with the:
+
+1. createAuthMiddlewareForClientCredentialsFlow
+2. createHttpMiddleware
+3. createConcurrentModificationMiddleware
+4. logger
+
+Note that when using the `withMiddleware` function to add a custom middleware along side other in built middleware functions, it will add the custom middleware to the start of the execution chain.
+
+```ts
+// Example
+const authMiddlewareOptions = {
+  credentials: {
+    clientId: 'xxx',
+    clientSecret: 'xxx',
+  },
+  host: 'https://auth.europe-west1.gcp.commercetools.com',
+  projectKey: 'xxx',
+}
+
+const httpMiddlewareOptions = {
+  host: 'https://api.europe-west1.gcp.commercetools.com',
+  httpClient: fetch,
+}
+
+const logger = () => {
+  return (next) => async (request) => {
+    // log request object
+    console.log('Request:', request)
+    const response = await next(request)
+
+    // log response object
+    console.log('Response', response)
+    return response
+  }
+}
+
+const client = new ClientBuilder()
+  .withClientCredentialsFlow(authMiddlewareOptions)
+  .withHttpMiddleware(httpMiddlewareOptions)
+  .withConcurrentModificationMiddleware()
+  .withMiddleware(logger())
+  .build()
+```
+
+The order of execution is as follows:
+
+1. withMiddleware <------ the custom middleware
+2. withClientCredentialsFlow
+3. withHttpMiddleware
+4. withConcurrentModificationMiddleware

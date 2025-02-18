@@ -1,4 +1,4 @@
-const { ClientBuilder } = require('@commercetools/sdk-client-v2')
+const { ClientBuilder } = require('@commercetools/ts-client')
 const { createTelemetryMiddleware } = require('@commercetools/ts-sdk-apm')
 const { createApiBuilderFromCtpClient } = require('@commercetools/platform-sdk')
 const fetch = require('node-fetch')
@@ -16,23 +16,23 @@ const authMiddlewareOptions = {
     },
   },
   scopes: [`manage_project:${projectKey}`],
-  fetch,
+  httpClient: fetch,
 }
 
 const httpMiddlewareOptions = {
   host: 'https://api.europe-west1.gcp.commercetools.com',
   includeRequestInErrorResponse: false,
   includeOriginalRequest: true,
-  fetch,
+  httpClient: fetch,
 }
 
 // datadog options
-const agent = require('path').join(__dirname, '..', 'tracer.js')
 const telemetryOptions = {
   createTelemetryMiddleware,
-  userAgent: 'typescript-sdk-middleware-datadog',
-  tracer: require(agent).init(),
-  // apm: () => require('dd-trace').init()
+  tracer: async () => await import('dd-trace').init(),
+  customMetrics: {
+    datadog: true,
+  },
 }
 
 const client = new ClientBuilder()

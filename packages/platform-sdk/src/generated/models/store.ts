@@ -8,6 +8,9 @@ import { ChannelReference, ChannelResourceIdentifier } from './channel'
 import {
   BaseResource,
   CreatedBy,
+  IKeyReference,
+  IReference,
+  IResourceIdentifier,
   LastModifiedBy,
   LocalizedString,
 } from './common'
@@ -198,7 +201,7 @@ export interface StoreDraft {
  *	[KeyReference](ctp:api:type:KeyReference) to a [Store](ctp:api:type:Store).
  *
  */
-export interface StoreKeyReference {
+export interface StoreKeyReference extends IKeyReference {
   readonly typeId: 'store'
   /**
    *	Unique and immutable key of the referenced [Store](ctp:api:type:Store).
@@ -251,7 +254,7 @@ export interface StorePagedQueryResponse {
  *	[Reference](ctp:api:type:Reference) to a [Store](ctp:api:type:Store).
  *
  */
-export interface StoreReference {
+export interface StoreReference extends IReference {
   readonly typeId: 'store'
   /**
    *	Unique ID of the referenced [Store](ctp:api:type:Store).
@@ -270,7 +273,7 @@ export interface StoreReference {
  *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Store](ctp:api:type:Store). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
-export interface StoreResourceIdentifier {
+export interface StoreResourceIdentifier extends IResourceIdentifier {
   readonly typeId: 'store'
   /**
    *	Unique ID of the referenced [Store](ctp:api:type:Store). Required if `key` is absent.
@@ -318,12 +321,18 @@ export type StoreUpdateAction =
   | StoreSetNameAction
   | StoreSetProductSelectionsAction
   | StoreSetSupplyChannelsAction
+export interface IStoreUpdateAction {
+  /**
+   *
+   */
+  readonly action: string
+}
 /**
  *	This update action produces the [StoreCountriesChanged](ctp:api:type:StoreCountriesChangedMessage) Message.
  *	It has no effect if the given country is already present in a Store.
  *
  */
-export interface StoreAddCountryAction {
+export interface StoreAddCountryAction extends IStoreUpdateAction {
   readonly action: 'addCountry'
   /**
    *	Value to append to `countries`.
@@ -339,7 +348,7 @@ export interface StoreAddCountryAction {
  *	Adding a [Channel](ctp:api:type:Channel) without the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum) returns a [MissingRoleOnChannel](ctp:api:type:MissingRoleOnChannelError) error.
  *
  */
-export interface StoreAddDistributionChannelAction {
+export interface StoreAddDistributionChannelAction extends IStoreUpdateAction {
   readonly action: 'addDistributionChannel'
   /**
    *	Value to append.
@@ -352,7 +361,7 @@ export interface StoreAddDistributionChannelAction {
  *	To make all included Products available to your customers of a given Store, add the [Product Selections](/../api/projects/product-selections) to the respective Store. This action has no effect if the given Product Selection is already present in the Store and has the same `active` flag.
  *
  */
-export interface StoreAddProductSelectionAction {
+export interface StoreAddProductSelectionAction extends IStoreUpdateAction {
   readonly action: 'addProductSelection'
   /**
    *	Product Selection to add to the Store either activated or deactivated.
@@ -375,7 +384,7 @@ export interface StoreAddProductSelectionAction {
  *	Adding a [Channel](ctp:api:type:Channel) without the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum) returns a [MissingRoleOnChannel](ctp:api:type:MissingRoleOnChannelError) error.
  *
  */
-export interface StoreAddSupplyChannelAction {
+export interface StoreAddSupplyChannelAction extends IStoreUpdateAction {
   readonly action: 'addSupplyChannel'
   /**
    *	Value to append.
@@ -388,7 +397,7 @@ export interface StoreAddSupplyChannelAction {
  *	[ProductSelection](ctp:api:type:ProductSelection) in a Store can be activated or deactivated using this update action.
  *
  */
-export interface StoreChangeProductSelectionAction {
+export interface StoreChangeProductSelectionAction extends IStoreUpdateAction {
   readonly action: 'changeProductSelectionActive'
   /**
    *	Current Product Selection of the Store to be activated or deactivated.
@@ -408,7 +417,7 @@ export interface StoreChangeProductSelectionAction {
  *	It has no effect if a given country is not present in a Store.
  *
  */
-export interface StoreRemoveCountryAction {
+export interface StoreRemoveCountryAction extends IStoreUpdateAction {
   readonly action: 'removeCountry'
   /**
    *	Value to remove from `countries`.
@@ -421,7 +430,8 @@ export interface StoreRemoveCountryAction {
  *	This update action produces the [StoreDistributionChannelsChanged](ctp:api:type:StoreDistributionChannelsChangedMessage) Message.
  *
  */
-export interface StoreRemoveDistributionChannelAction {
+export interface StoreRemoveDistributionChannelAction
+  extends IStoreUpdateAction {
   readonly action: 'removeDistributionChannel'
   /**
    *	Value to remove. ResourceIdentifier of a Channel with the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
@@ -434,7 +444,7 @@ export interface StoreRemoveDistributionChannelAction {
  *	This action has no effect if the given Product Selection is not in the Store.
  *
  */
-export interface StoreRemoveProductSelectionAction {
+export interface StoreRemoveProductSelectionAction extends IStoreUpdateAction {
   readonly action: 'removeProductSelection'
   /**
    *	Value to remove. The removed Product Selection is made offline.
@@ -447,7 +457,7 @@ export interface StoreRemoveProductSelectionAction {
  *	This update action produces the [StoreSupplyChannelsChanged](ctp:api:type:StoreSupplyChannelsChangedMessage) Message.
  *
  */
-export interface StoreRemoveSupplyChannelAction {
+export interface StoreRemoveSupplyChannelAction extends IStoreUpdateAction {
   readonly action: 'removeSupplyChannel'
   /**
    *	Value to remove. ResourceIdentifier of a Channel with the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
@@ -460,7 +470,7 @@ export interface StoreRemoveSupplyChannelAction {
  *	This update action produces the [StoreCountriesChanged](ctp:api:type:StoreCountriesChangedMessage) Message.
  *
  */
-export interface StoreSetCountriesAction {
+export interface StoreSetCountriesAction extends IStoreUpdateAction {
   readonly action: 'setCountries'
   /**
    *	New value to set.
@@ -469,7 +479,7 @@ export interface StoreSetCountriesAction {
    */
   readonly countries?: StoreCountry[]
 }
-export interface StoreSetCustomFieldAction {
+export interface StoreSetCustomFieldAction extends IStoreUpdateAction {
   readonly action: 'setCustomField'
   /**
    *	Name of the [Custom Field](/../api/projects/custom-fields).
@@ -486,7 +496,7 @@ export interface StoreSetCustomFieldAction {
    */
   readonly value?: any
 }
-export interface StoreSetCustomTypeAction {
+export interface StoreSetCustomTypeAction extends IStoreUpdateAction {
   readonly action: 'setCustomType'
   /**
    *	Defines the [Type](ctp:api:type:Type) that extends the Store with [Custom Fields](/../api/projects/custom-fields).
@@ -508,7 +518,7 @@ export interface StoreSetCustomTypeAction {
  *	Setting a [Channel](ctp:api:type:Channel) without the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum) returns a [MissingRoleOnChannel](ctp:api:type:MissingRoleOnChannelError) error.
  *
  */
-export interface StoreSetDistributionChannelsAction {
+export interface StoreSetDistributionChannelsAction extends IStoreUpdateAction {
   readonly action: 'setDistributionChannels'
   /**
    *	Value to set.
@@ -523,7 +533,7 @@ export interface StoreSetDistributionChannelsAction {
  *	Adding a language other than the ones defined in the [Project](ctp:api:type:Project) returns a [ProjectNotConfiguredForLanguages](ctp:api:type:ProjectNotConfiguredForLanguagesError) error.
  *
  */
-export interface StoreSetLanguagesAction {
+export interface StoreSetLanguagesAction extends IStoreUpdateAction {
   readonly action: 'setLanguages'
   /**
    *	Value to set.
@@ -536,7 +546,7 @@ export interface StoreSetLanguagesAction {
  *	This update action produces the [StoreNameSet](ctp:api:type:StoreNameSetMessage) Message.
  *
  */
-export interface StoreSetNameAction {
+export interface StoreSetNameAction extends IStoreUpdateAction {
   readonly action: 'setName'
   /**
    *	Value to set.
@@ -549,7 +559,7 @@ export interface StoreSetNameAction {
  *	Instead of adding or removing [Product Selections](/../api/projects/product-selections) individually, you can also change all the Store's Product Selections in one go using this update action. The Store will only contain the Product Selections specified in the request.
  *
  */
-export interface StoreSetProductSelectionsAction {
+export interface StoreSetProductSelectionsAction extends IStoreUpdateAction {
   readonly action: 'setProductSelections'
   /**
    *	Value to set.
@@ -567,7 +577,7 @@ export interface StoreSetProductSelectionsAction {
  *	Setting a [Channel](ctp:api:type:Channel) without the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum) returns a [MissingRoleOnChannel](ctp:api:type:MissingRoleOnChannelError) error.
  *
  */
-export interface StoreSetSupplyChannelsAction {
+export interface StoreSetSupplyChannelsAction extends IStoreUpdateAction {
   readonly action: 'setSupplyChannels'
   /**
    *	Value to set.

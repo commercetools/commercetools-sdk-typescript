@@ -1,7 +1,7 @@
 import {
-  createAuthForPasswordFlow,
-  createAuthForAnonymousSessionFlow,
-} from '@commercetools/sdk-client-v2'
+  createAuthMiddlewareForPasswordFlow as createAuthForPasswordFlow,
+  createAuthMiddlewareForAnonymousSessionFlow as createAuthForAnonymousSessionFlow,
+} from '@commercetools/ts-client'
 import fetch from 'node-fetch'
 
 let _credentials = null
@@ -27,7 +27,7 @@ export function getOptions(
         },
       },
       scopes: [`manage_project:${process.env.CTP_PROJECT_KEY}`],
-      fetch,
+      httpClient: fetch,
     })
   } else {
     authMiddleware = createAuthForAnonymousSessionFlow({
@@ -38,7 +38,7 @@ export function getOptions(
         clientSecret: process.env.CTP_CLIENT_SECRET || '',
       },
       scopes: [`manage_project:${process.env.CTP_PROJECT_KEY}`],
-      fetch,
+      httpClient: fetch,
     })
   }
 

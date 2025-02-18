@@ -1,5 +1,31 @@
 # @commercetools/ts-client
 
+## 3.0.4
+
+### Patch Changes
+
+- [#922](https://github.com/commercetools/commercetools-sdk-typescript/pull/922) [`f59576b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f59576b1d23a85e5bcfea8360e8bfc641cbcdc87) Thanks [@ajimae](https://github.com/ajimae)! - Fix issues with non ascii encoded string length
+
+## 3.0.3
+
+### Patch Changes
+
+- [#920](https://github.com/commercetools/commercetools-sdk-typescript/pull/920) [`9e7987d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/9e7987dc70ece91ce372acdc41864ada789cec16) Thanks [@ajimae](https://github.com/ajimae)! - Remove the `Accept-Encoding` http header entry
+
+## 3.0.2
+
+### Patch Changes
+
+- [#914](https://github.com/commercetools/commercetools-sdk-typescript/pull/914) [`1dfdf4b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1dfdf4bceb41d26d69d3d45a083e15911bb36ce8) Thanks [@ajimae](https://github.com/ajimae)! - Fix issue with response serialization
+
+## 3.0.1
+
+### Patch Changes
+
+- [#902](https://github.com/commercetools/commercetools-sdk-typescript/pull/902) [`a08c782`](https://github.com/commercetools/commercetools-sdk-typescript/commit/a08c78267518c5010940a1f0887319225c8beb6d) Thanks [@ajimae](https://github.com/ajimae)! - remove buffer module and replace with js native String.normalize function
+
+- [#841](https://github.com/commercetools/commercetools-sdk-typescript/pull/841) [`626c403`](https://github.com/commercetools/commercetools-sdk-typescript/commit/626c4035544c804db96a6e5f1c63f6ea9073c649) Thanks [@ajimae](https://github.com/ajimae)! - Improve README.md file
+
 ## 3.0.0
 
 ### Major Changes

@@ -19,7 +19,10 @@ export class ByProjectKeyCustomersEmailTokenRequestBuilder {
     }
   ) {}
   /**
-   *	Produces the [CustomerEmailTokenCreated](ctp:api:type:CustomerEmailTokenCreatedMessage) Message.
+   *	Use this method to create an email token for a global Customer during their [email verification process](/../api/customers-overview#customer-email-verification).
+   *
+   *	Creating an email token for the Customer produces the [CustomerEmailTokenCreated](ctp:api:type:CustomerEmailTokenCreatedMessage) Message.
+   *
    */
   public post(methodArgs: {
     body: CustomerCreateEmailToken

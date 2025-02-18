@@ -7,6 +7,8 @@
 import {
   BaseResource,
   CreatedBy,
+  IReference,
+  IResourceIdentifier,
   LastModifiedBy,
   LocalizedString,
 } from './common'
@@ -144,7 +146,7 @@ export interface AttributeGroupPagedQueryResponse {
  *	[Reference](ctp:api:type:Reference) to an [AttributeGroup](ctp:api:type:AttributeGroup).
  *
  */
-export interface AttributeGroupReference {
+export interface AttributeGroupReference extends IReference {
   readonly typeId: 'attribute-group'
   /**
    *	Platform-generated unique identifier of the referenced [AttributeGroup](ctp:api:type:AttributeGroup).
@@ -163,7 +165,7 @@ export interface AttributeGroupReference {
  *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [AttributeGroup](ctp:api:type:AttributeGroup). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
  *
  */
-export interface AttributeGroupResourceIdentifier {
+export interface AttributeGroupResourceIdentifier extends IResourceIdentifier {
   readonly typeId: 'attribute-group'
   /**
    *	Platform-generated unique identifier of the referenced [AttributeGroup](ctp:api:type:AttributeGroup). Required if `key` is absent.
@@ -200,6 +202,12 @@ export type AttributeGroupUpdateAction =
   | AttributeGroupSetAttributesAction
   | AttributeGroupSetDescriptionAction
   | AttributeGroupSetKeyAction
+export interface IAttributeGroupUpdateAction {
+  /**
+   *
+   */
+  readonly action: string
+}
 export interface AttributeReference {
   /**
    *	The Attribute's `name` as given in its [AttributeDefinition](ctp:api:type:AttributeDefinition).
@@ -208,7 +216,8 @@ export interface AttributeReference {
    */
   readonly key: string
 }
-export interface AttributeGroupAddAttributeAction {
+export interface AttributeGroupAddAttributeAction
+  extends IAttributeGroupUpdateAction {
   readonly action: 'addAttribute'
   /**
    *	Value to add.
@@ -217,7 +226,8 @@ export interface AttributeGroupAddAttributeAction {
    */
   readonly attribute: AttributeReference
 }
-export interface AttributeGroupChangeNameAction {
+export interface AttributeGroupChangeNameAction
+  extends IAttributeGroupUpdateAction {
   readonly action: 'changeName'
   /**
    *	New value to set.
@@ -227,7 +237,8 @@ export interface AttributeGroupChangeNameAction {
    */
   readonly name: LocalizedString
 }
-export interface AttributeGroupRemoveAttributeAction {
+export interface AttributeGroupRemoveAttributeAction
+  extends IAttributeGroupUpdateAction {
   readonly action: 'removeAttribute'
   /**
    *	Value to remove.
@@ -236,7 +247,8 @@ export interface AttributeGroupRemoveAttributeAction {
    */
   readonly attribute: AttributeReference
 }
-export interface AttributeGroupSetAttributesAction {
+export interface AttributeGroupSetAttributesAction
+  extends IAttributeGroupUpdateAction {
   readonly action: 'setAttributes'
   /**
    *	New unique values to set.
@@ -245,7 +257,8 @@ export interface AttributeGroupSetAttributesAction {
    */
   readonly attributes: AttributeReference[]
 }
-export interface AttributeGroupSetDescriptionAction {
+export interface AttributeGroupSetDescriptionAction
+  extends IAttributeGroupUpdateAction {
   readonly action: 'setDescription'
   /**
    *	Value to set.
@@ -255,7 +268,8 @@ export interface AttributeGroupSetDescriptionAction {
    */
   readonly description?: LocalizedString
 }
-export interface AttributeGroupSetKeyAction {
+export interface AttributeGroupSetKeyAction
+  extends IAttributeGroupUpdateAction {
   readonly action: 'setKey'
   /**
    *	If `key` is absent or `null`, the existing key, if any, will be removed.

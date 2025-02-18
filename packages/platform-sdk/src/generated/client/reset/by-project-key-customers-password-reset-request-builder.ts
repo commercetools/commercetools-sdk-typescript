@@ -19,6 +19,10 @@ export class ByProjectKeyCustomersPasswordResetRequestBuilder {
     }
   ) {}
   /**
+   *	Use this method to reset a global Customer's password during their [password reset process](/../api/customers-overview#customer-password-reset).
+   *
+   *	After the password is reset, any previously issued access and/or refresh tokens created through the [password flow](/authorization#password-flow) or [refresh token flow](/authorization#refresh-token-flow) are invalidated.
+   *
    *	Resetting the password of the Customer produces the [CustomerPasswordUpdated](ctp:api:type:CustomerPasswordUpdatedMessage) Message with `reset=true`.
    *
    */

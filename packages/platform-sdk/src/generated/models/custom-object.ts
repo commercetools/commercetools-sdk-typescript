@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
-import { BaseResource, CreatedBy, LastModifiedBy } from './common'
+import { BaseResource, CreatedBy, IReference, LastModifiedBy } from './common'
 
 export interface CustomObject extends BaseResource {
   /**
@@ -136,7 +136,7 @@ export interface CustomObjectPagedQueryResponse {
  *	[Reference](ctp:api:type:Reference) to a [CustomObject](ctp:api:type:CustomObject).
  *
  */
-export interface CustomObjectReference {
+export interface CustomObjectReference extends IReference {
   readonly typeId: 'key-value-document'
   /**
    *	Unique identifier of the referenced [CustomObject](ctp:api:type:CustomObject).
