@@ -1,3 +1,9 @@
+---
+'@commercetools/platform-sdk': minor
+---
+
+**Api changes**
+
 <details>
 <summary>Added Type(s)</summary>
 
