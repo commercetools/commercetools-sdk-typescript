@@ -182,8 +182,8 @@ The client can be created once and reused throughout the application by creating
 
 ```ts
 // client.ts
-import ClientBuilder from '@commercetools/ts-client';
-import createApiBuilderFromCtpClient from '@commercetools/platform-sdk';
+import ClientBuilder from '@commercetools/ts-client'
+import createApiBuilderFromCtpClient from '@commercetools/platform-sdk'
 ...
 
 const clientObject = new ClientBuilder()
@@ -280,12 +280,12 @@ This logger is a middleware that can be added when building the client using the
 ```ts
 import { ClientBuilder } from '@commercetools/ts-client'
 
-cont client: Client = new ClientBuilder()
-        //... other configuration...
+const client: Client = new ClientBuilder()
+  //... other configuration...
   .withLoggerMiddleware() // Log the request / response at this point in the middleware chain, before it gets to the http-middleware
-  .withHttpMiddleware(...)
+  .withHttpMiddleware(httpMiddlewareOptions)
   .withLoggerMiddleware() // Log the request / response after it's being handled by the http-middleware
-        //... more configuration...
+  //... more configuration...
   .build()
 ```
 
@@ -324,28 +324,28 @@ import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
 //...
 
 const apiRoot = new ClientBuilder()
-    .withProjectKey(projectKey)
-    .withClientCredentialsFlow(authMiddlewareOptions)
-    .withHttpMiddleware(httpMiddlewareOptions)
-    .build()
+  .withProjectKey(projectKey)
+  .withClientCredentialsFlow(authMiddlewareOptions)
+  .withHttpMiddleware(httpMiddlewareOptions)
+  .build()
 
 // prepare the batch request here.
-const request = await apiRoot.categories().withId({ ID: 'category-id-1' }).get().request
+const request = await apiRoot.categories().withId({ ID: 'category-id-1' }).get()
+  .request
 
 // this can be any custom batch processing function
 const processFn = (data) => data
 const opt = {
-  total: 10 // total request to be processed
+  total: 10, // total request to be processed
   accumulate: true, // accumulate all the processed result into an array, default `true`
 }
 
 Process(request, processFn, opt)
-        .then((response) => {
-  // response is an array of processed results
-            expect(response[0].body.key).toEqual(process.env.CTP_PROJECT_KEY)
-          })
-        .catch(console.error)
-
+  .then((response) => {
+    // response is an array of processed results
+    expect(response[0].body.key).toEqual(process.env.CTP_PROJECT_KEY)
+  })
+  .catch(console.error)
 ```
 
 See this [test](https://github.com/commercetools/commercetools-sdk-typescript/blob/master/packages/sdk-client-v3/tests/client.test/client.test.ts) file for more examples on how to use the `Process` function.
