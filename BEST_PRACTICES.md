@@ -167,7 +167,7 @@ This can easily be accomplished in a simple and straightforward way, see example
 
 ```ts
 const httpMiddlewareOptions = {
-  host: '<your-host-here>',
+  host: process.env.CTP_API_HOST,
   includeRequestInErrorResponse: true,
   includeOriginalRequest: true,
   httpClient: fetch,
