@@ -1910,7 +1910,7 @@ export interface ScoreShippingRateInput extends IShippingRateInput {
   readonly score: number
 }
 /**
- *	Generic type holding specifc ShippingRateInputDraft types.
+ *	Generic type holding specific ShippingRateInputDraft types.
  */
 export type ShippingRateInputDraft =
   | ClassificationShippingRateInputDraft
@@ -2432,7 +2432,7 @@ export interface CartAddShippingMethodAction extends ICartUpdateAction {
    */
   readonly shippingKey: string
   /**
-   *	RecourceIdentifier to a [ShippingMethod](ctp:api:type:ShippingMethod) to add to the Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	ResourceIdentifier to a [ShippingMethod](ctp:api:type:ShippingMethod) to add to the Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *	If the referenced Shipping Method has a predicate that does not match the Cart, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
