@@ -184,7 +184,7 @@ The client can be created once and reused throughout the application by creating
 // client.ts
 import ClientBuilder from '@commercetools/ts-client'
 import createApiBuilderFromCtpClient from '@commercetools/platform-sdk'
-...
+//...
 
 const clientObject = new ClientBuilder()
 export default clientObject
