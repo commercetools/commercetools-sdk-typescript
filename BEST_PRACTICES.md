@@ -80,12 +80,20 @@ import { ClientBuilder } from '@commercetools/ts-client'
 
 const projectKey = 'your-project-key'
 const authMiddlewareOptions = {
-  /*... your auth options... */
+  host: process.env.CTP_API_HOST,
+  projectKey,
+  credentials: {
+    clientId: process.env.CTP_CLIENT_ID,
+    clientSecret: process.env.CTP_CLIENT_SECRET,
+  },
+  scopes: [process.env.CTP_API_SCOPES],
+  httpClient: fetch,
 }
+
 const httpMiddlewareOptions = {
-  host: 'https://api.europe-west1.gcp.commercetools.com',
-  includeRequestInErrorResponse: true,
-  includeOriginalRequest: true,
+  host: process.env.CTP_API_HOST,
+  includeRequestInErrorResponse: true, // Include request in error responses
+  includeOriginalRequest: true, // Include request in successful responses
   httpClient: fetch,
 }
 
@@ -174,8 +182,8 @@ The client can be created once and reused throughout the application by creating
 
 ```ts
 // client.ts
-import ClientBuilder from '@commercetools/ts-client'
-import createApiBuilderFromCtpClient from '@commercetools/platform-sdk'
+import ClientBuilder from '@commercetools/ts-client';
+import createApiBuilderFromCtpClient from '@commercetools/platform-sdk';
 ...
 
 const clientObject = new ClientBuilder()
@@ -183,7 +191,7 @@ export default clientObject
 
 // apiroot.ts
 import clientObject from '../apiroot.ts'
-...
+
 function getClient(options) {
   const client = clientObject
     .withProjectKey(options.projectKey)
@@ -198,8 +206,8 @@ function getClient(options) {
 const options = {
   projectKey: 'some-project-key',
   authMiddlewareOptions: {...},
-  httpMiddlewareOptions: {...}
-  ...
+  httpMiddlewareOptions: {...},
+  //...
 }
 
 const apiRoot = createApiBuilderFromCtpClient(getClient(options)).withProjectKey({ projectKey: options.projectKey })
@@ -253,16 +261,15 @@ Proxies can be configured at the HTTP client level in the Commercetools JS/TS SD
 import HttpsProxyAgent from 'https-proxy-agent'
 
 const fetcherProxy = (url, fetchOptions = {}) => {
-   fetchOptions.agent = new HttpsProxyAgent('proxy-url/ip-address') // http://76.253.101.51:8080
-   return fetch(url, fetchOptions)
+  fetchOptions.agent = new HttpsProxyAgent('proxy-url/ip-address') // http://76.253.101.51:8080
+  return fetch(url, fetchOptions)
 }
 
 const httpMiddlewareOptions = {
-  ...
-  fetch: fetcherProxy
-  ...
+  //...
+  fetch: fetcherProxy,
+  //...
 }
-
 ```
 
 ## Logging
