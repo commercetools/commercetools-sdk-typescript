@@ -294,7 +294,7 @@ export interface IOrderEditResult {
   readonly type: string
 }
 /**
- *	Result of a succesful application of `stagedActions` to the Order.
+ *	Result of a successful application of `stagedActions` to the Order.
  *
  */
 export interface OrderEditApplied extends IOrderEditResult {

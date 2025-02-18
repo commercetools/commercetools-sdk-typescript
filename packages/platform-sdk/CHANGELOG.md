@@ -1,5 +1,42 @@
 # @commercetools/platform-sdk
 
+## 8.2.0
+
+### Minor Changes
+
+- [#925](https://github.com/commercetools/commercetools-sdk-typescript/pull/925) [`624c5b2`](https://github.com/commercetools/commercetools-sdk-typescript/commit/624c5b2074073abc45676553b73e666bf16e1985) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Changed Property(s)</summary>
+
+  - :warning: changed property `discount` of type `DiscountedTotalPricePortion` from type `CartDiscountReference` to `Reference`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `businessUnit` to type `ShoppingList`
+  - added property `businessUnit` to type `ShoppingListDraft`
+  </details>
+
+  <details>
+  <summary>Required Property(s)</summary>
+
+  - changed property `images` of type `ProductTailoringSetExternalImagesAction` to be optional
+  </details>
+
+  <details>
+  <summary>Removed Type(s)</summary>
+
+  - :warning: removed type `ProductSearchFacetScope`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `ShoppingListSetBusinessUnitAction`
+  </details>
+
 ## 8.1.0
 
 ### Minor Changes

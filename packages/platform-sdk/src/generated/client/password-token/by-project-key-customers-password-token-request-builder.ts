@@ -21,6 +21,12 @@ export class ByProjectKeyCustomersPasswordTokenRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Use this method to create a password reset token for a global Customer during their [password reset process](/../api/customers-overview#customer-password-reset).
+   *
+   *	Creating a password reset token does not invalidate existing tokens.
+   *
+   */
   public post(methodArgs: {
     body: CustomerCreatePasswordResetToken
     headers?: {

@@ -19,6 +19,10 @@ export class ByProjectKeyCustomersEmailTokenByEmailTokenRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Use this method to retrieve a global Customer's details by using the email token during their [email verification process](/../api/customers-overview#customer-email-verification).
+   *
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]

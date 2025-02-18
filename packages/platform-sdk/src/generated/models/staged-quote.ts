@@ -94,7 +94,7 @@ export interface StagedQuote extends BaseResource {
    */
   readonly quotationCart: CartReference
   /**
-   *	Expiration date for the Quote.
+   *	Expiration date for the Quote. Once a Quote expires, it cannot be ordered.
    *
    *
    */

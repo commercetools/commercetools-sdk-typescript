@@ -298,7 +298,7 @@ export interface CustomerDraft {
    *	User-defined unique identifier for the Customer.
    *	The `key` field is preferred over `customerNumber` as it is mutable and provides more flexibility.
    *
-   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Customers with the [Import API](/../import-export/overview).
+   *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Customers with the [Import API](/../api/import-export/overview).
    *
    *
    */
@@ -381,7 +381,7 @@ export interface CustomerDraft {
    */
   readonly dateOfBirth?: string
   /**
-   *	Company name of the Customer. When representing a company as a Customer, [Business Units](ctp:api:type:BusinessUnit) provide extended funtionality.
+   *	Company name of the Customer. When representing a company as a Customer, [Business Units](ctp:api:type:BusinessUnit) provide extended functionality.
    *
    *
    */
@@ -1246,7 +1246,7 @@ export interface CustomerSetExternalIdAction extends ICustomerUpdateAction {
   readonly externalId?: string
 }
 /**
- *	Setting the first name of the Customer produces the [CustomeFirstNameSet](ctp:api:type:CustomerFirstNameSetMessage) Message.
+ *	Setting the first name of the Customer produces the [CustomerFirstNameSet](ctp:api:type:CustomerFirstNameSetMessage) Message.
  *
  */
 export interface CustomerSetFirstNameAction extends ICustomerUpdateAction {

@@ -1,6 +1,6 @@
 {
   "name": "@commercetools/ts-sdk-apm",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "commercetools typescript SDK application performance monitoring.",
   "main": "dist/commercetools-ts-sdk-apm.cjs.js",
   "module": "dist/commercetools-ts-sdk-apm.esm.js",
@@ -55,6 +55,6 @@
     "post_process_generate": "yarn organize_imports"
   },
   "devDependencies": {
-    "@types/newrelic": "^9.14.6"
+    "@types/newrelic": "9.14.7"
   }
 }

@@ -397,7 +397,7 @@ export interface CartDiscountPatternTarget extends ICartDiscountTarget {
   /**
    *	Defines the set of units of (Custom) Line Items in a Cart on which the Discount is applied.
    *
-   *	Based on the availability of matching units and the limits from the `triggerPattern` or `maxOccurence`, the `targetPattern` can match multiple times.
+   *	Based on the availability of matching units and the limits from the `triggerPattern` or `maxOccurrence`, the `targetPattern` can match multiple times.
    *
    *	This array cannot be empty.
    *

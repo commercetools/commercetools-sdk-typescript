@@ -1406,6 +1406,8 @@ export interface LineItem {
    *	Total price of this Line Item equalling `price` multiplied by `quantity`. If the Line Item is discounted, the total price is the `discountedPricePerQuantity` multiplied by `quantity`.
    *	Includes taxes if the [TaxRate](ctp:api:type:TaxRate) `includedInPrice` is `true`.
    *
+   *	If `ExternalPrice` [LineItemPriceMode](#ctp:api:type:LineItemPriceMode) is used with high-precision money, then the total price is rounded by using the `HalfEven` rounding mode.
+   *
    *
    */
   readonly totalPrice: CentPrecisionMoney
@@ -1908,7 +1910,7 @@ export interface ScoreShippingRateInput extends IShippingRateInput {
   readonly score: number
 }
 /**
- *	Generic type holding specifc ShippingRateInputDraft types.
+ *	Generic type holding specific ShippingRateInputDraft types.
  */
 export type ShippingRateInputDraft =
   | ClassificationShippingRateInputDraft
@@ -2430,7 +2432,7 @@ export interface CartAddShippingMethodAction extends ICartUpdateAction {
    */
   readonly shippingKey: string
   /**
-   *	RecourceIdentifier to a [ShippingMethod](ctp:api:type:ShippingMethod) to add to the Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	ResourceIdentifier to a [ShippingMethod](ctp:api:type:ShippingMethod) to add to the Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
    *	If the referenced Shipping Method has a predicate that does not match the Cart, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
