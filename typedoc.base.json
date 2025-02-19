@@ -8,5 +8,8 @@
     "Interface",
     "TypeAlias"
   ],
-  "includeVersion": false
+  "includeVersion": false,
+  "compilerOptions": {
+    "skipLibCheck": true
+  }
 }
