@@ -1,4 +1,3 @@
-// import { validateUserAgentOptions } from '../utils'
 import { HttpUserAgentOptions } from '../types/types'
 
 /*
@@ -20,7 +19,6 @@ function getSystemInfo(): string {
   const nodeVersion: string = process?.version.slice(1) || 'unknow' // unknow environment like  React Native etc
   const platformInfo = `(${process.platform}; ${process.arch})`
 
-  // return `node.js/${nodeVersion}`
   return `node.js/${nodeVersion} ${platformInfo}`
 }
 
@@ -28,7 +26,6 @@ export default function createUserAgent(options: HttpUserAgentOptions) {
   let libraryInfo: string | null = null
   let contactInfo: string | null = null
 
-  // validateUserAgentOptions(options)
   if (!options) {
     throw new Error('Missing required option `name`')
   }

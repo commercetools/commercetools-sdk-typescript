@@ -14,7 +14,7 @@
 
 - [Best Practices](#best-practices)
   - [Client Initialization](#client-initialization)
-  - [How to effectively use Commercetools JS/TS SDK middlewares](#how-to-effectively-use-commercetools-jsts-sdk-middlewares)
+  - [How to effectively use commercetools JS/TS SDK middlewares](#how-to-effectively-use-commercetools-jsts-sdk-middlewares)
   - [How to reuse client (connection)](#how-to-reuse-client-connection)
   - [Configuring the timeout parameter](#configuring-the-timeout-parameter)
   - [The Queue middleware](#the-queue-middleware)
@@ -30,8 +30,6 @@
   - [Using HTTP client](#using-http-client)
   - [The `Process` Function](#the-process-function)
   - [How to read or write fields not included in the SDK](#how-to-read-or-write-fields-not-included-in-the-sdk)
-
-#
 
 # General
 
@@ -106,7 +104,7 @@ const client = new ClientBuilder()
   .build()
 ```
 
-## How to effectively use Commercetools JS/TS SDK middlewares
+## How to effectively use commercetools JS/TS SDK middlewares
 
 Middleware is used to add functionality to the request object in the TypeScript SDK. You can add middleware when creating the TypeScript SDK client. Multiple middleware can be added using a chain of middleware builder methods.
 
@@ -228,30 +226,7 @@ To see how to configure the available middleware options and their configuration
 
 ## Error Handling
 
-The commercetools JS/TS SDK provides helper functions for handling API errors.
-`getErrorByCode` retrieves a constructor function (a class) for a specific HTTP error type (for example 400 Bad Request, 404 Not Found). You then use this constructor with `new` to create an instance of the error.
-
-```ts
-import { getErrorByCode, HttpErrorType } from '@commercetools/ts-client'
-
-try {
-  const BadRequestError = getErrorByCode(400)
-
-  if (BadRequestError) {
-    throw new BadRequestError('Invalid request data')
-  }
-} catch (error) {
-  if (error instanceof BadRequestError) {
-    console.error('Bad Request:', error.message, error.statusCode)
-  } else if (error instanceof Error) {
-    console.error('Generic Error:', error.message)
-  } else if (error as HttpErrorType) {
-    console.error('HTTP Error:', error.message, error.statusCode, error.body)
-  } else {
-    console.error('Unknown error:', error)
-  }
-}
-```
+The commercetools JS/TS SDK client v3 has internal error handling built into the client, so it doesn't require any additional setup from the customer.
 
 ## Configuring proxies
 
