@@ -278,7 +278,7 @@ The commercetools JS/TS SDK is capable of logging events including success and e
 This logger is a middleware that can be added when building the client using the `withLoggerMiddleware()` function. The middleware can be added at different levels in the client builder to log events at those levels.
 
 ```ts
-import { ClientBuilder } from '@commercetools/ts-client'
+import { ClientBuilder, type Client } from '@commercetools/ts-client'
 
 const client: Client = new ClientBuilder()
   // other included middleware
