@@ -144,7 +144,7 @@ The queue middleware can be used to control/throttle concurrent requests to a ce
 
 ```ts
 const client = new ClientBuilder()
-  //... other configuration...
+  // ...other included middleware
   .withQueueMiddleware({ concurrency: 5 }) // defaults to 20 concurrent requests
   //... more configuration...
   .build()
@@ -218,17 +218,17 @@ In this way we are sure only a single instance of the client is created and reus
 
 ## Closing Client Connection
 
-In the Commercetools JS/TS SDK the connection tears down automatically after each request-response cycle and doesn't need the customer to manually close down the connection.
+In the commercetools JS/TS SDK the connection tears down automatically after each request-response cycle and doesn't need the customer to manually close down the connection.
 
 ## Customizing the Client
 
-The Commercetools JS/TS client can be customized in a variety of ways, this can be achieved by passing in middleware options that can take different parameter values.
+The commercetools JS/TS client can be customized in a variety of ways, this can be achieved by passing in middleware options that can take different parameter values.
 Refer to the [Client Initialization](#client-initialization) section for details on how to create the client.
 To see how to configure the available middleware options and their configurations, see [this documentation](https://commercetools.github.io/nodejs/sdk/api/#middlewares).
 
 ## Error Handling
 
-The Commercetools JS/TS SDK provides helper functions for handling API errors.
+The commercetools JS/TS SDK provides helper functions for handling API errors.
 `getErrorByCode` retrieves a constructor function (a class) for a specific HTTP error type (for example 400 Bad Request, 404 Not Found). You then use this constructor with `new` to create an instance of the error.
 
 ```ts
@@ -255,37 +255,37 @@ try {
 
 ## Configuring proxies
 
-Proxies can be configured at the HTTP client level in the Commercetools JS/TS SDK, here we pass the proxy url/ip address
+Proxies can be configured at the HTTP client level in the commercetools JS/TS SDK, here we pass the proxy url/ip address
 
 ```ts
 import HttpsProxyAgent from 'https-proxy-agent'
 
 const fetcherProxy = (url, fetchOptions = {}) => {
-  fetchOptions.agent = new HttpsProxyAgent('proxy-url/ip-address') // http://76.253.101.51:8080
+  fetchOptions.agent = new HttpsProxyAgent('proxy-url/ip-address') // e.g http://76.253.101.51:8080
   return fetch(url, fetchOptions)
 }
 
 const httpMiddlewareOptions = {
   //...
-  fetch: fetcherProxy,
+  httpClient: fetcherProxy,
   //...
 }
 ```
 
 ## Logging
 
-The Commercetools JS/TS SDK is capable of logging events including success and error responses occurring within the request-response cycle.
+The commercetools JS/TS SDK is capable of logging events including success and error responses occurring within the request-response cycle.
 This logger is a middleware that can be added when building the client using the `withLoggerMiddleware()` function. The middleware can be added at different levels in the client builder to log events at those levels.
 
 ```ts
 import { ClientBuilder } from '@commercetools/ts-client'
 
 const client: Client = new ClientBuilder()
-  //... other configuration...
+  // other included middleware
   .withLoggerMiddleware() // Log the request / response at this point in the middleware chain, before it gets to the http-middleware
   .withHttpMiddleware(httpMiddlewareOptions)
   .withLoggerMiddleware() // Log the request / response after it's being handled by the http-middleware
-  //... more configuration...
+  // other included middleware
   .build()
 ```
 
@@ -310,12 +310,12 @@ client
 
 ## Using HTTP client
 
-The Commercetools JS/TS SDK uses [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) and its close relatives like [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch), [whatwg-fetch](https://github.com/whatwg/fetch) or [unfetch](https://github.com/developit/unfetch).
+The commercetools JS/TS SDK uses [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) and its close relatives like [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch), [whatwg-fetch](https://github.com/whatwg/fetch) or [unfetch](https://github.com/developit/unfetch).
 It is important to also note that due to changes in version 3 of `node-fetch`, it is expected that all projects using the v3 of `node-fetch` within the SDK must be in ESM (.mjs) module system. The JS/TS SDK fully supports v2 of `node-fetch` without any restrictions.
 
 ## The `Process` Function
 
-The Commercetools JS/TS SDK exposes a `Process` function that can be called to process batch requests. This function takes a request parameter, a callback that will be called on each batch request and an option that is an object with key `total` and a boolean `accumulate`.
+The commercetools JS/TS SDK exposes a `Process` function that can be called to process batch requests. This function takes a request parameter, a callback that will be called on each batch request and an option that is an object with key `total` and a boolean `accumulate`.
 
 ```ts
 import { Process, ClientBuilder } from '@commercetools/ts-client'
@@ -330,8 +330,7 @@ const apiRoot = new ClientBuilder()
   .build()
 
 // prepare the batch request here.
-const request = await apiRoot.categories().withId({ ID: 'category-id-1' }).get()
-  .request
+const request = await apiRoot.categories().withId({ ID: 'category-id-1' }).get().clientRequest
 
 // this can be any custom batch processing function
 const processFn = (data) => data

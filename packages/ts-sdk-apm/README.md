@@ -47,16 +47,16 @@ const client = new ClientBuilder()
 
 ## Using a custom (user-defined options)
 
-All monitoring and tracing functionality is implemented by default.
-The `telemetryOptions` accepts three function parameters: `createTelemetryMiddleware`, `apm` and `tracer`. The `createTelemetryMiddleware` and `tracer` parameters can be custom-implemented.
-Additionally, `customMetrics` can be set up to prevent unnecessary instantiation and calls to both Datadog and New Relic if they are not used within the same application.
+All monitoring and tracing functionality are implemented by default.
+The `telemetryOptions` accepts four configuration options: `createTelemetryMiddleware`, `apm`, `tracer` and `customMetrics`. The `createTelemetryMiddleware` and `tracer` parameters can be custom-implemented.
+Additionally, `customMetrics` can be included to record custom metrics based on available APM. For example, if we want to record and send custom metrics to Newrelic, we can set the `newrelic` field to `true` in the customMetrics configuration option same goes for datadog. For collecting custom metrics only Newrelic and Datadog are currently supported.
 
 ```typescript
 type telemetryOptions = {
   createTelemetryMiddleware: (options: Omit<telemetryOptions, 'createTelemetryMiddleware'>) => Middleware,
   apm?: () => typeof require('newrelic'),
   tracer?: () => typeof require('/absolute-path-to-a-tracer(opentelemetry)-module'),
-  customMetrics: {
+  customMetrics?: {
       newrelic?: true;
       datadog?: false; // it can be omitted
     }
