@@ -44,7 +44,7 @@ We have a doc with a currated list of best practices designed to assist develope
 | [`platform-sdk`](/packages/platform-sdk)   | [![platform-sdk Version][platform-sdk-icon]][platform-sdk-version]    |
 | [`importapi-sdk`](/packages/importapi-sdk) | [![importapi-sdk Version][importapi-sdk-icon]][importapi-sdk-version] |
 | [`history-sdk`](/packages/history-sdk)     | [![history-sdk Version][history-sdk-icon]][history-sdk-version]       |
-| [`sdk-client-v2`](/packages/sdk-client)    | [![client-sdk Version][sdk-client-icon]][sdk-client-version]          |
+| [`ts-client`](/packages/sdk-client-v3)     | [![client-sdk Version][sdk-client-icon]][sdk-client-version]          |
 
 [platform-sdk-version]: https://www.npmjs.com/package/@commercetools/platform-sdk
 [platform-sdk-icon]: https://img.shields.io/npm/v/@commercetools/platform-sdk.svg?style=flat-square
@@ -52,5 +52,5 @@ We have a doc with a currated list of best practices designed to assist develope
 [importapi-sdk-icon]: https://img.shields.io/npm/v/@commercetools/importapi-sdk.svg?style=flat-square
 [history-sdk-version]: https://www.npmjs.com/package/@commercetools/history-sdk
 [history-sdk-icon]: https://img.shields.io/npm/v/@commercetools/history-sdk.svg?style=flat-square
-[sdk-client-version]: https://www.npmjs.com/package/@commercetools/sdk-client-v2
-[sdk-client-icon]: https://img.shields.io/npm/v/@commercetools/sdk-client-v2.svg?style=flat-square
+[sdk-client-version]: https://www.npmjs.com/package/@commercetools/ts-client
+[sdk-client-icon]: https://img.shields.io/npm/v/@commercetools/ts-client.svg?style=flat-square
