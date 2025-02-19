@@ -191,7 +191,7 @@ export default clientObject
 
 // apiroot.ts
 import clientObject from '../apiroot.ts'
-
+//...
 function getClient(options) {
   const client = clientObject
     .withProjectKey(options.projectKey)
@@ -224,7 +224,7 @@ In the commercetools JS/TS SDK the connection tears down automatically after eac
 
 The commercetools JS/TS client can be customized in a variety of ways, this can be achieved by passing in middleware options that can take different parameter values.
 Refer to the [Client Initialization](#client-initialization) section for details on how to create the client.
-To see how to configure the available middleware options and their configurations, see [this documentation](https://commercetools.github.io/nodejs/sdk/api/#middlewares).
+To see how to configure the available middleware options and their configurations, please check [the official documentation](https://docs.commercetools.com/sdk/ts-sdk-middleware-v3).
 
 ## Error Handling
 
@@ -330,7 +330,8 @@ const apiRoot = new ClientBuilder()
   .build()
 
 // prepare the batch request here.
-const request = await apiRoot.categories().withId({ ID: 'category-id-1' }).get().clientRequest
+const request = await apiRoot.categories().withId({ ID: 'category-id-1' }).get()
+  .clientRequest
 
 // this can be any custom batch processing function
 const processFn = (data) => data
