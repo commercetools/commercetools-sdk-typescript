@@ -5,10 +5,7 @@ function hasResponseRetryCode(
   retryCodes: Array<string | number>,
   response: any
 ) {
-  return (
-    // retryCodes.includes(response?.error?.message) ||
-    [503, ...retryCodes].includes(response?.status || response?.statusCode)
-  )
+  return [503, ...retryCodes].includes(response?.status || response?.statusCode)
 }
 
 async function executeHttpClientRequest(

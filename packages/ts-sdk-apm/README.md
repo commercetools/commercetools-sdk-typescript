@@ -26,7 +26,7 @@ Import the package and add it to the SDK client using `withTelemetryMiddleware()
 
 ```typescript
 // import the @commercetools/ts-sdk-apm package
-import { ClientBuilder } from '@commercetools/sdk-client-v2'
+import { ClientBuilder } from '@commercetools/ts-client'
 import { createTelemetryMiddleware } from '@commercetools/ts-sdk-apm'
 
 // newrelic options
@@ -47,13 +47,19 @@ const client = new ClientBuilder()
 
 ## Using a custom (user-defined options)
 
-All the monitoring and tracing functionality has been implemented by default however, the `telemetryOptions` accepts three function parameters `createTelemetryMiddleware`, `apm` and `tracer`, the `createTelemetryMiddleware` and `tracer` can be custom implemented.
+All monitoring and tracing functionality are implemented by default.
+The `telemetryOptions` accepts four configuration options: `createTelemetryMiddleware`, `apm`, `tracer` and `customMetrics`. The `createTelemetryMiddleware` and `tracer` parameters can be custom-implemented.
+Additionally, `customMetrics` can be included to record custom metrics based on available APM. For example, if we want to record and send custom metrics to Newrelic, we can set the `newrelic` field to `true` in the customMetrics configuration option same goes for datadog. For collecting custom metrics only Newrelic and Datadog are currently supported.
 
 ```typescript
 type telemetryOptions = {
-  createTelemetryMiddleware: (options: Omit<telemetryOptions, 'createTelemetryMiddleware'>) => Middleware;
-  apm?: () => typeof require('newrelic');
-  tracer?: () => typeof require('/absolute-path-to-a-tracer(opentelemetry)-module')
+  createTelemetryMiddleware: (options: Omit<telemetryOptions, 'createTelemetryMiddleware'>) => Middleware,
+  apm?: () => typeof require('newrelic'),
+  tracer?: () => typeof require('/absolute-path-to-a-tracer(opentelemetry)-module'),
+  customMetrics?: {
+      newrelic?: true;
+      datadog?: false; // it can be omitted
+    }
 }
 ```
 
@@ -66,6 +72,9 @@ const telemetryOptions = {
     require(
       require('path').join(__dirname, '..', '..', 'custom-telemetry-module.js')
     ), // make sure the require takes in an absolute path to the custom tracer module.
+  customMetrics: {
+    datadog: true,
+  },
 }
 ```
 
