@@ -410,7 +410,7 @@ export enum ShippingMethodStateValues {
 
 export type ShippingMethodState = 'DoesNotMatchCart' | 'MatchesCart' | string
 /**
- *	Maps to an order's `shippingInfo` property. This field is usually populated by the cart assosciated with
+ *	Maps to an order's `shippingInfo` property. This field is usually populated by the cart associated with
  *	the order, but when importing orders you must provide a draft representation as a part of the OrderImport.
  *
  */
@@ -442,7 +442,7 @@ export interface ShippingInfoImportDraft {
    */
   readonly shippingMethod?: ShippingMethodKeyReference
   /**
-   *	Note that you can not add a `DeliveryItem` on import, as `LineItems` and `CustomLineItems` are not yet referencable by an `id`.
+   *	Note that you can not add a `DeliveryItem` on import, as `LineItems` and `CustomLineItems` are not yet referenceable by an `id`.
    *
    */
   readonly deliveries?: Delivery[]

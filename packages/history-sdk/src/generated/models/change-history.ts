@@ -451,9 +451,9 @@ export enum UpdateTypeValues {
   SetAssetCustomField = 'setAssetCustomField',
   SetAssetCustomType = 'setAssetCustomType',
   SetAssetDescription = 'setAssetDescription',
+  SetAssetKey = 'setAssetKey',
   SetAssetSources = 'setAssetSources',
   SetAssetTags = 'setAssetTags',
-  SetAsssetKey = 'setAsssetKey',
   SetAttribute = 'setAttribute',
   SetAuthenticationMode = 'setAuthenticationMode',
   SetAuthorName = 'setAuthorName',
@@ -727,9 +727,9 @@ export type UpdateType =
   | 'setAssetCustomField'
   | 'setAssetCustomType'
   | 'setAssetDescription'
+  | 'setAssetKey'
   | 'setAssetSources'
   | 'setAssetTags'
-  | 'setAsssetKey'
   | 'setAttribute'
   | 'setAuthenticationMode'
   | 'setAuthorName'

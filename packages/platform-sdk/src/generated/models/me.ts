@@ -1460,7 +1460,7 @@ export interface MyCartAddItemShippingAddressAction
   /**
    *	Address to append to `itemShippingAddresses`.
    *
-   *	The new address must have a key that is unique accross this Cart.
+   *	The new address must have a key that is unique across this Cart.
    *
    *
    */

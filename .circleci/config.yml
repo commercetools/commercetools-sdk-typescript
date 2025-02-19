@@ -93,13 +93,7 @@ jobs:
             yarn test
       - run:
           name: Running tests
-          command: yarn test --testPathIgnorePatterns='packages/platform-sdk/test/integration-tests'
-      - run:
-          name: Running integration tests
-          command: yarn test packages/platform-sdk/test/integration-tests --coverage
-      - codecov/upload:
-          file: coverage/clover.xml
-          flags: integrationtests
+          command: yarn test:unit
 
   install_test_node_20:
     executor: node_20
@@ -125,13 +119,7 @@ jobs:
             yarn test
       - run:
           name: Running tests
-          command: yarn test --testPathIgnorePatterns='packages/platform-sdk/test/integration-tests'
-      - run:
-          name: Running integration tests
-          command: yarn test packages/platform-sdk/test/integration-tests --coverage
-      - codecov/upload:
-          file: coverage/clover.xml
-          flags: integrationtests
+          command: yarn test:unit
 
   install_test_node_22:
     executor: node_22
@@ -157,13 +145,10 @@ jobs:
             yarn test
       - run:
           name: Running tests
-          command: yarn test --testPathIgnorePatterns='packages/platform-sdk/test/integration-tests'
-      - run:
-          name: Running integration tests
-          command: yarn test packages/platform-sdk/test/integration-tests --coverage
+          command: yarn test --coverage
       - codecov/upload:
           file: coverage/clover.xml
-          flags: integrationtests
+          flags: 'test-coverage'
 
 # workflows
 workflows:
@@ -174,9 +159,8 @@ workflows:
           context: org-global
       - install_test_node_20:
           context: org-global
-          requires:
-            - install_test_node_18
       - install_test_node_22:
           context: org-global
           requires:
+            - install_test_node_18
             - install_test_node_20
