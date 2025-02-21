@@ -1,5 +1,4 @@
 export { ClientBuilder, createClient, Process } from './client'
-
 export {
     createAuthMiddlewareForAnonymousSessionFlow,
     createAuthMiddlewareForClientCredentialsFlow,
@@ -14,3 +13,4 @@ export {
     createUserAgentMiddleware
 } from './middleware'
 export * from './types/types.d'
+
