@@ -3,7 +3,6 @@ export type MiddlewareRequest = ClientRequest
 
 export type Middleware = (next: Next) => (request: MiddlewareRequest) => Promise<MiddlewareResponse>
 
-// export type Dispatch = (next: Next) => (request: MiddlewareRequest) => Promise<MiddlewareResponse>
 export type Next = (request: MiddlewareRequest) => Promise<MiddlewareResponse>
 
 export type MiddlewareResponse<T = unknown> = {

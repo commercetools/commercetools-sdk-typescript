@@ -9,7 +9,6 @@ export type TRetryPolicy = {
 export default function calculateRetryDelay({
   retryCount,
   retryDelay,
-  // maxRetries,
   backoff,
   maxDelay,
 }: TRetryPolicy): number {

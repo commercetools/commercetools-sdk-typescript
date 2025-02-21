@@ -19,6 +19,8 @@ export class ByProjectKeyCustomersEmailConfirmRequestBuilder {
     }
   ) {}
   /**
+   *	Use this method to verify a global Customer's email during their [email verification process](/../api/customers-overview#customer-email-verification).
+   *
    *	Verifying the email of the Customer produces the [CustomerEmailVerified](ctp:api:type:CustomerEmailVerifiedMessage) Message.
    *
    */
