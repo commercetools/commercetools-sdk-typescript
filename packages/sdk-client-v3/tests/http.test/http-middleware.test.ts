@@ -18,7 +18,7 @@ function createTestResponse(options) {
 }
 
 class FormDataMockClass {
-  append
+  append: jest.Mock<object>
   constructor() {
     this.append = jest.fn()
   }
@@ -79,9 +79,9 @@ describe('Http Middleware.', () => {
     const next = (req: MiddlewareRequest) => {
       expect(httpMiddlewareOptions.getAbortController).toHaveBeenCalled()
       expect(req.response?.error).toBeTruthy()
-      expect(req.response?.code).toEqual(0)
+      expect(req.response?.error?.code).toEqual('NetworkError')
       expect(req.response?.error?.status).toEqual(0)
-      expect(req.response?.statusCode).toEqual(0)
+      expect(req.response?.error?.statusCode).toEqual(0)
       expect(req.response?.error?.name).toEqual('NetworkError')
       expect(req.response?.error?.message).toEqual(
         'Unexpected non-JSON error response'
