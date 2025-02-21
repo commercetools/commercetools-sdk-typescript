@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/importapi-sdk",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "engines": {
     "node": ">=18"
   },

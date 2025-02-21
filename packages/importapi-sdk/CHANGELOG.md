@@ -1,5 +1,11 @@
 # @commercetools/importapi-sdk
 
+## 6.1.0
+
+### Minor Changes
+
+- [#936](https://github.com/commercetools/commercetools-sdk-typescript/pull/936) [`f702837`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f702837c3ec7fde11641c94abb5ed4dab138acf9) Thanks [@barbara79](https://github.com/barbara79)! - updated documentation with client v3
+
 ## 6.0.0
 
 ### Major Changes
