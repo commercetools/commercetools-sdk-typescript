@@ -1,13 +1,20 @@
 services:
   app:
     build:
-      context: ..
+      context: .
+    env_file:
+      - ./src/.env
     environment:
+      - DD_SITE=${DD_SITE}
+      - DD_API_KEY=${DD_API_KEY}
+      - NODE_ENV=production
       - DD_ENV
       - DD_TRACE_DEBUG
       - DD_TRACE_ENABLED
       - DD_LOGS_INJECTION=true
       - DD_AGENT_HOST=agent
+    ports:
+      - "9000:9000"
     labels:
       com.datadoghq.ad.logs: '[{"source": "docker", "service": "user"}]'
   agent:
@@ -22,9 +29,9 @@ services:
       - DD_APM_ANALYZED_SPANS=api-gateway|express.request=1,auth|express.request=1,user|express.request=1
       - DD_BIND_HOST=0.0.0.0
       - DD_LOGS_ENABLED=true
-      - DD_API_KEY
       - DD_DD_URL
-      - DD_APM_DD_URL
+      - DD_SITE=${DD_SITE}
+      - DD_API_KEY=${DD_API_KEY}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /proc/:/host/proc/:ro

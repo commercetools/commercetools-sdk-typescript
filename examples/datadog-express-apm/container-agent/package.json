@@ -5,13 +5,13 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@commercetools/platform-sdk": "^8.1.0",
+    "@commercetools/platform-sdk": "^8.2.0",
     "@commercetools/ts-client": "^3.0.4",
-    "@commercetools/ts-sdk-apm": "^3.1.0",
+    "@commercetools/ts-sdk-apm": "^3.2.0",
     "cors": "^2.8.5",
     "dd-trace": "^5.4.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^2.7.0"
   }
 }
