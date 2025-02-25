@@ -5,7 +5,7 @@ const fetch = require('node-fetch')
 
 const projectKey = process.env.CTP_PROJECT_KEY
 const authMiddlewareOptions = {
-  host: 'https://auth.europe-west1.gcp.commercetools.com',
+  host: process.env.CTP_AUTH_URL,
   projectKey,
   credentials: {
     clientId: process.env.CTP_CLIENT_ID,
@@ -20,7 +20,7 @@ const authMiddlewareOptions = {
 }
 
 const httpMiddlewareOptions = {
-  host: 'https://api.europe-west1.gcp.commercetools.com',
+  host: process.env.CTP_API_URL,
   includeRequestInErrorResponse: false,
   includeOriginalRequest: true,
   httpClient: fetch,

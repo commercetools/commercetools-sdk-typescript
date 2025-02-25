@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:20-alpine
 
 RUN apk add --no-cache tini git
 
@@ -6,14 +6,17 @@ ENV NODE_ENV=production
 
 WORKDIR /usr/src/app
 
-COPY package.json yarn.lock /usr/src/app/
+COPY package.json yarn.lock ./
 RUN yarn --pure-lockfile && yarn cache clean
 
-COPY src /usr/src/app/src/
-COPY server.js /usr/src/app/
+COPY src ./src/
+COPY server.js ./
+COPY src/datadog.yaml /etc/datadog-agent/datadog.yaml
+RUN chmod 644 /etc/datadog-agent/datadog.yaml
 
-EXPOSE 8080
 USER node
 
+EXPOSE 8080
+
 ENTRYPOINT ["/sbin/tini", "--"]
-CMD [ "node", "server" ]
+CMD [ "node", "server.js" ]
