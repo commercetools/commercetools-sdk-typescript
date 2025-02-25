@@ -3,7 +3,7 @@ services:
     build:
       context: .
     env_file:
-      - ./src/.env
+      - .env
     environment:
       - DD_SITE=${DD_SITE}
       - DD_API_KEY=${DD_API_KEY}
