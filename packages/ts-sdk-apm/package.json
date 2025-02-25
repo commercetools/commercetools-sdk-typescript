@@ -14,7 +14,7 @@
     "@opentelemetry/sdk-node": "^0.57.0",
     "dd-trace": "^5.31.0",
     "newrelic": "^12.10.0",
-    "uuid": "11.0.5"
+    "uuid": "11.1.0"
   },
   "publishConfig": {
     "access": "public"
