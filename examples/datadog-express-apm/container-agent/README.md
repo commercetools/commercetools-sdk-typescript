@@ -20,7 +20,7 @@ Example to show how the Datadog APM can be used in the TypeScript SDK.
 
 ### Start the application
 
-1. After the installation completes, run `docker compose up` in the `src` folder to start the development server.
+1. After the installation completes, run `docker compose up` in the root folder to start the development server.
 2. Curl or send a request using any HTTP client to the following endpoints:
 
 ```http
