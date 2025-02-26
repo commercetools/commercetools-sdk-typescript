@@ -16,7 +16,7 @@ RUN chmod 644 /etc/datadog-agent/datadog.yaml
 
 USER node
 
-EXPOSE 8080
+EXPOSE 9000
 
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD [ "node", "server.js" ]
