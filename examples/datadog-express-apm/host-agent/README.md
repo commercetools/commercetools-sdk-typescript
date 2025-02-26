@@ -14,7 +14,7 @@ Example to show how the Datadog APM can be used in the TypeScript SDK.
 
 1. Clone/Download the example folder.
 2. Navigate to the path `datadog-express-apm/host-agent/`.
-3. Create a `.env` file in the src folder by copying the contents of `.env.sample`, then update the values as needed. The `DD_API_KEY` variable is required.
+3. Create a `.env` file in the src folder by copying the contents of `.env.sample`, then update the values as needed. The variables required to run the demo app are: `CTP_PROJECT_KEY`, `CTP_CLIENT_ID`, `CTP_CLIENT_SECRET`,`CTP_AUTH_URL`,`CTP_API_URL` and `DD_API_KEY` (Datadog API Key).
    - Make sure that the `name` in the `package.json` matches with the `DD_SERVICE` environment variable value.
 4. Run `yarn install` (`npm` can also be used) to install all dependencies
 

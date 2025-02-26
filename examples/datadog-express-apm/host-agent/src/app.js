@@ -30,7 +30,7 @@ app.get('/project', async function (req, res, next) {
     return ResponseHandler.successResponse(
       res,
       project.statusCode || project.body.statusCode,
-      project.message || project.body.message,
+      project.message || project.body.message || 'success',
       project.body
     )
   }
@@ -38,7 +38,7 @@ app.get('/project', async function (req, res, next) {
   return ResponseHandler.errorResponse(
     res,
     project.statusCode || project.body.statusCode,
-    project.message || project.body.message,
+    project.message || project.body.message || 'error',
     project.body
   )
 })
@@ -50,7 +50,7 @@ app.get('/customers', async function (req, res, next) {
     return ResponseHandler.successResponse(
       res,
       customers.statusCode || customers.body.statusCode,
-      customers.message || customers.body.message,
+      customers.message || customers.body.message || 'success',
       customers.body
     )
   }
@@ -58,7 +58,7 @@ app.get('/customers', async function (req, res, next) {
   return ResponseHandler.errorResponse(
     res,
     customers.statusCode || customers.body.statusCode,
-    customers.message || customers.body.message,
+    customers.message || customers.body.message || 'error',
     customers.body
   )
 })
@@ -70,7 +70,7 @@ app.get('/products', async function (req, res, next) {
     return ResponseHandler.successResponse(
       res,
       products.statusCode || products.body.statusCode,
-      products.message || products.body.message,
+      products.message || products.body.message || 'success',
       products.body
     )
   }
@@ -78,7 +78,7 @@ app.get('/products', async function (req, res, next) {
   return ResponseHandler.errorResponse(
     res,
     products.statusCode || products.body.statusCode,
-    products.message || products.body.message,
+    products.message || products.body.message || 'error',
     products.body
   )
 })
