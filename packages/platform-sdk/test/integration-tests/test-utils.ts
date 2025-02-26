@@ -16,7 +16,7 @@ const ctp_host = requireEnvVar('CTP_API_URL')
 
 export const SORT_ORDER = parseFloat(Math.random().toFixed(5)).toString()
 
-function _tokenCache<T, V, S = TokenCacheOptions>(val: T): V {
+export function _tokenCache<T, V, S = TokenCacheOptions>(val: T): V {
   let initialVal = val
   return {
     get(TokenCacheOption?: S) {
