@@ -24,7 +24,6 @@ describe('auth-request-processor', () => {
     })
 
     const next = async (req: MiddlewareRequest) => {
-      console.log(req, '>>>>>-->')
       expect(req.headers.Authorization).toEqual('Bearer token')
       return req as unknown as Promise<MiddlewareResponse<unknown>>
     }
