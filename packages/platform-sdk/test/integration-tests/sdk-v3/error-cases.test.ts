@@ -4,7 +4,7 @@ import {
   TokenCache,
   Next,
   TokenStore,
-} from '@commercetools/ts-client'
+} from '@commercetools/ts-client/src'
 import {
   authMiddlewareOptionsV3,
   httpMiddlewareOptionsV3,
@@ -150,9 +150,10 @@ describe('testing error cases', () => {
   })
 
   it('should retry to fetch a valid token on 401 error and save to cache - [invalid token in cache]', async () => {
+    const expirationTime = Date.now() * 2
     const tokenCache = _tokenCache<TokenStore, TokenCache>({
       token: 'x-invalid-token',
-      expirationTime: -1,
+      expirationTime,
     })
 
     const authOptions = {
@@ -175,7 +176,7 @@ describe('testing error cases', () => {
       }
     )
 
-    expect(tokenCache.get().expirationTime).toEqual(-1)
+    expect(tokenCache.get().expirationTime).toEqual(expirationTime)
     expect(tokenCache.get().token).toEqual('x-invalid-token')
 
     await apiRootV3.get().execute()
