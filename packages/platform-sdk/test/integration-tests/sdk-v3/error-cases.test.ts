@@ -183,4 +183,41 @@ describe('testing error cases', () => {
     expect(tokenCache.get().expirationTime).toBeGreaterThan(-1)
     expect(tokenCache.get().token).not.toEqual('x-invalid-token')
   })
+
+  it('should simulate concurrent token fetch request', async () => {
+    const expirationTime = -1 // simulate an expired token
+    const tokenCache = _tokenCache<TokenStore, TokenCache>({
+      token: 'an-expired-token',
+      expirationTime,
+    })
+
+    const authOptions = {
+      ...authMiddlewareOptionsV3,
+      /**
+       * simulate the present of an
+       * invalid token in the tokenCache
+       */
+      tokenCache,
+    }
+
+    const ctpClientV3 = new ClientBuilderV3()
+      .withClientCredentialsFlow(authOptions)
+      .withHttpMiddleware(httpMiddlewareOptionsV3)
+      .build()
+
+    const apiRootV3 = createApiBuilderFromCtpClient(ctpClientV3).withProjectKey(
+      {
+        projectKey,
+      }
+    )
+
+    expect(tokenCache.get().expirationTime).toEqual(expirationTime)
+    expect(tokenCache.get().token).toEqual('an-expired-token')
+
+    await apiRootV3.get().execute()
+    await apiRootV3.get().execute()
+    await apiRootV3.get().execute()
+    expect(tokenCache.get().expirationTime).toBeGreaterThan(-1)
+    expect(tokenCache.get().token).not.toEqual('an-expired-token')
+  })
 })
