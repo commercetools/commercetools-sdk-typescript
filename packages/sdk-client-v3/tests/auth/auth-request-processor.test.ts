@@ -1,9 +1,4 @@
-import {
-  MiddlewareRequest,
-  MiddlewareResponse,
-  TokenCacheOptions,
-  TokenStore,
-} from '../../src'
+import { MiddlewareRequest, MiddlewareResponse } from '../../src'
 import { authProcessor } from '../../src/middleware/auth-middleware/auth-request-processor'
 
 function createTestRequest(options) {
