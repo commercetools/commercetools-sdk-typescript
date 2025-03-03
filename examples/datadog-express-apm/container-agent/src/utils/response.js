@@ -4,7 +4,6 @@
  * @description class to handle all http response
  */
 module.exports = class ResponseHandler {
-  private agent: any
   constructor(agent) {
     this.agent = agent
   }
@@ -19,7 +18,7 @@ module.exports = class ResponseHandler {
    *
    * @return response JSON
    */
-  static successResponse = (response, statusCode, message, data) => {
+  successResponse = (response, statusCode, message, data) => {
     const responseBody = { status: 'success' }
 
     if (message !== '') {
@@ -53,7 +52,7 @@ module.exports = class ResponseHandler {
    *
    * @return response JSON
    */
-  static errorResponse = (response, statusCode, message, data) => {
+  errorResponse = (response, statusCode, message, data) => {
     const responseBody = { status: 'error' }
     if (message !== '') {
       responseBody.message = message
