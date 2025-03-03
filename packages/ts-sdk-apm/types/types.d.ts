@@ -3,7 +3,6 @@ export type MiddlewareRequest = ClientRequest
 
 export type Middleware = (next: Next) => (request: MiddlewareRequest) => Promise<MiddlewareResponse>
 
-// export type Dispatch = (next: Next) => (request: MiddlewareRequest) => Promise<MiddlewareResponse>
 export type Next = (request: MiddlewareRequest) => Promise<MiddlewareResponse>
 
 export type MiddlewareResponse<T = unknown> = {
@@ -33,7 +32,7 @@ export interface ClientRequest {
 
 export type ClientResponse<T = any> = {
   body: T
-  code?: number
+  code?: string
   statusCode?: number
   headers?: Record<string, any>
   error?: HttpErrorType
@@ -43,7 +42,7 @@ export type ClientResponse<T = any> = {
 export type HttpErrorType = {
   name?: string
   message: string
-  code?: number
+  code?: string
   status?: number
   method: MethodType
   statusCode: number

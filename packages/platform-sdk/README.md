@@ -5,20 +5,20 @@
 ### Browser environment
 
 ```html
-<script src="https://unpkg.com/@commercetools/sdk-client-v2@latest/dist/commercetools-sdk-client-v2.umd.js"></script>
+<script src="https://unpkg.com/@commercetools/ts-client@latest/dist/commercetools-sdk-client-v3.umd.js"></script>
 <script src="https://unpkg.com/@commercetools/platform-sdk@latest/dist/commercetools-platform-sdk.umd.js"></script>
 ```
 
 ```html
 <script>
-  // global: @commercetools/sdk-client-v2
+  // global: @commercetools/ts-client
   // global: @commercetools/platform-sdk
   ;(function () {
-    //  We can now access the sdk-client-v2 and platform-sdk object as:
-    //  const { ClientBuilder } = this['@commercetools/sdk-client-v2']
+    //  We can now access the ts-client and platform-sdk object as:
+    //  const { ClientBuilder } = this['@commercetools/ts-client']
     //  const { createApiBuilderFromCtpClient } = this['@commercetools/platform-sdk']
     //  or
-    //  const { ClientBuilder } = window['@commercetools/sdk-client-v2']
+    //  const { ClientBuilder } = window['@commercetools/ts-client']
     //  const { createApiBuilderFromCtpClient } = window['@commercetools/platform-sdk']
   })()
 </script>
@@ -29,7 +29,7 @@ See full usage example [here](https://github.com/commercetools/commercetools-sdk
 ### Node environment
 
 ```bash
-npm install --save @commercetools/sdk-client-v2
+npm install --save @commercetools/ts-client
 npm install --save @commercetools/platform-sdk
 ```
 
@@ -38,7 +38,7 @@ const {
   ClientBuilder,
   createAuthForClientCredentialsFlow,
   createHttpClient,
-} = require('@commercetools/sdk-client-v2')
+} = require('@commercetools/ts-client')
 const { createApiBuilderFromCtpClient } = require('@commercetools/platform-sdk')
 
 const projectKey = 'mc-project-key'
@@ -120,12 +120,12 @@ apiRoot
   })
 
 // -----------------------------------------------------------------------
-// The sdk-client-v2 also has support for the old syntax
+// The ts-client also has support for the old syntax
 import {
   createClient,
   createHttpClient,
   createAuthForClientCredentialsFlow,
-} from '@commercetools/sdk-client-v2'
+} from '@commercetools/ts-client'
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
 
 const projectKey = 'some_project_key'

@@ -18,13 +18,13 @@ export type MiddlewareResponse<T = unknown> = {
 
 export type HttpErrorType = {
   name?: string
-  message: string
-  code?: number
+  message?: string
+  code?: string
   status?: number
   method: MethodType
   statusCode: number
   originalRequest?: ClientRequest
-  body: JsonObject
+  body?: JsonObject
   retryCount?: number
   headers?: Record<string, any>
   [key: string]: any
@@ -72,8 +72,8 @@ export type VariableMap = {
 }
 
 export type ClientResponse<T = any> = {
-  body: T
-  code?: number
+  body?: T
+  code?: string
   statusCode?: number
   headers?: Record<string, any>
   error?: HttpErrorType

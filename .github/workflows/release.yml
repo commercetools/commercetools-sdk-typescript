@@ -82,9 +82,10 @@ jobs:
       - name: Dispatch repository event
         if: steps.changesets.outputs.published == 'true'
         run: |
-          gh api --method POST /repos/commercetools/commercetools-sdk-typescript/dispatches -f "event_type=new_release"
-        env:
-          GITHUB_TOKEN: ${{ steps.generate_github_token.outputs.token }}
+          curl -X POST -H "Authorization: token ${{ steps.generate_github_token.outputs.token }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/${{ github.repository }}/actions/workflows/docs.yml/dispatches \
+          -d '{"ref":"main", "event_type":"new_release_published"}'
 
       - name: Convert markdown to slack markdown
         uses: LoveToKnow/slackify-markdown-action@v1.1.1

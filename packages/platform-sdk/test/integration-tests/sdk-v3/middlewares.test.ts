@@ -192,8 +192,7 @@ describe('Concurrent Modification Middleware', () => {
   it('should retry with correct bearer token when maskSensitiveHeaderData is true', async () => {
     async function concurrentModificationHandlerFn(
       version: number,
-      request: MiddlewareRequest,
-      response
+      request: MiddlewareRequest
     ) {
       expect(request.headers.Authorization).toMatch(/^Bearer (?!\*+$)([^\s]+)$/)
 
@@ -238,7 +237,6 @@ describe('Concurrent Modification Middleware', () => {
         })
         .execute()
     } catch (e) {
-      console.error(e)
       throw e
     }
   })
