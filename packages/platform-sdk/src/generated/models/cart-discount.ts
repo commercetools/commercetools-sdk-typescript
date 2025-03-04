@@ -519,9 +519,9 @@ export interface CartDiscountValueAbsoluteDraft
   readonly type: 'absolute'
   /**
    *	Money values in different currencies.
-   *	An absolute Cart Discount will match a price only if the array contains a value with the same currency. For example, if it contains 10€ and 15$, the matching € price will be decreased by 10€ and the matching $ price will be decreased by 15$. If the array has multiple values of the same currency, the API returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
+   *	An absolute Cart Discount will match a price only if the array contains a value with the same currency. For example, if it contains 10€ and 15$, the matching € price will be decreased by 10€ and the matching $ price will be decreased by 15$.
    *
-   *	If the array is empty, the discount does not apply.
+   *	If the array is empty or has multiple values of the same currency, the API returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *
    *
    */
@@ -564,9 +564,9 @@ export interface CartDiscountValueFixedDraft extends ICartDiscountValueDraft {
   readonly type: 'fixed'
   /**
    *	Money values provided either in [cent precision](ctp:api:type:Money) or [high precision](ctp:api:type:HighPrecisionMoneyDraft) for different currencies.
-   *	A fixed Cart Discount will match a price only if the array contains a value with the same currency. For example, if it contains 10€ and 15$, the matching € price will be discounted by 10€ and the matching $ price will be discounted to 15$. If the array has multiple values of the same currency, the API returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
+   *	A fixed Cart Discount will match a price only if the array contains a value with the same currency. For example, if it contains 10€ and 15$, the matching € price will be discounted by 10€ and the matching $ price will be discounted to 15$.
    *
-   *	If the array is empty, the discount does not apply.
+   *	If the array is empty or has multiple values of the same currency, the API returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *
    *
    */
