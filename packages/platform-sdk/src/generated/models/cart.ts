@@ -309,6 +309,12 @@ export interface Cart extends BaseResource {
    */
   readonly custom?: CustomFields
   /**
+   *	Indicates if a combination of discount types can apply on a Cart.
+   *
+   *
+   */
+  readonly discountTypeCombination?: DiscountTypeCombination
+  /**
    *	Number of days after which an active Cart is deleted since its last modification. Configured in [Project settings](ctp:api:type:CartsConfiguration).
    *
    *
@@ -1099,6 +1105,26 @@ export interface DiscountOnTotalPrice {
    *
    */
   readonly discountedGrossAmount?: TypedMoney
+}
+export type DiscountTypeCombination = BestDeal | Stacking
+export interface IDiscountTypeCombination {
+  /**
+   *
+   */
+  readonly type: string
+}
+/**
+ *	Indicates the best deal logic applies to a Cart or Order and indicates the discount type that offers the best deal.
+ *
+ */
+export interface BestDeal extends IDiscountTypeCombination {
+  readonly type: 'BestDeal'
+  /**
+   *	Discount type that offers the best deal; the value can be `product-discount` or `cart-discount`.
+   *
+   *
+   */
+  readonly chosenDiscountType: string
 }
 export interface DiscountedLineItemPortion {
   /**
@@ -1939,6 +1965,13 @@ export interface ScoreShippingRateInputDraft extends IShippingRateInputDraft {
    *
    */
   readonly score: number
+}
+/**
+ *	Indicates both Product Discounts and Cart Discounts apply to a Cart and Order.
+ *
+ */
+export interface Stacking extends IDiscountTypeCombination {
+  readonly type: 'Stacking'
 }
 /**
  *	Determines in which [Tax calculation mode](/carts-orders-overview#tax-calculation-mode) taxed prices are calculated.
