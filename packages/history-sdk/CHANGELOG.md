@@ -1,5 +1,25 @@
 # @commercetools/history-sdk
 
+## 5.2.0
+
+### Minor Changes
+
+- [#941](https://github.com/commercetools/commercetools-sdk-typescript/pull/941) [`745f2c0`](https://github.com/commercetools/commercetools-sdk-typescript/commit/745f2c06e2cd0b32486e09ab53fdde43c31ef6d3) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **History changes**
+
+  <details>
+  <summary>Removed Enum(s)</summary>
+
+  - :warning: removed enum `setAsssetKey` from type `UpdateType`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `setAssetKey` to type `UpdateType`
+  </details>
+
+- [#936](https://github.com/commercetools/commercetools-sdk-typescript/pull/936) [`f702837`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f702837c3ec7fde11641c94abb5ed4dab138acf9) Thanks [@barbara79](https://github.com/barbara79)! - updated documentation with client v3
+
 ## 5.1.0
 
 ### Minor Changes

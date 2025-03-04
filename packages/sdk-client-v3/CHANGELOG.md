@@ -1,5 +1,15 @@
 # @commercetools/ts-client
 
+## 3.1.0
+
+### Minor Changes
+
+- [#936](https://github.com/commercetools/commercetools-sdk-typescript/pull/936) [`f702837`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f702837c3ec7fde11641c94abb5ed4dab138acf9) Thanks [@barbara79](https://github.com/barbara79)! - updated documentation with client v3
+
+### Patch Changes
+
+- [#924](https://github.com/commercetools/commercetools-sdk-typescript/pull/924) [`e002f9d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e002f9d643d5fe59b00f7057a1e13dd6a039339a) Thanks [@ajimae](https://github.com/ajimae)! - map returned error code field to commercetools error response code
+
 ## 3.0.4
 
 ### Patch Changes
