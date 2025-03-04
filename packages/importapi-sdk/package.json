@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/importapi-sdk",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "engines": {
     "node": ">=18"
   },
@@ -41,7 +41,7 @@
     "@types/uuid": "10.0.0",
     "organize-imports-cli": "0.10.0",
     "tsconfig-replace-paths": "0.0.14",
-    "uuid": "11.0.5"
+    "uuid": "11.1.0"
   },
   "scripts": {
     "remove_path_alias": "tsconfig-replace-paths --project tsconfig-declarations.json -s ./src/generated -o ./src/generated",

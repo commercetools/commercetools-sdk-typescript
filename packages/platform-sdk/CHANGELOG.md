@@ -1,5 +1,43 @@
 # @commercetools/platform-sdk
 
+## 8.3.0
+
+### Minor Changes
+
+- [#938](https://github.com/commercetools/commercetools-sdk-typescript/pull/938) [`e56d293`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e56d293bd599426084e7ec367f618bf4abbcfbda) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `BestDeal`
+  - added type `DiscountTypeCombination`
+  - added type `Stacking`
+  - added type `AssociateRoleNameSetMessage`
+  - added type `AssociateRoleNameSetMessagePayload`
+  </details>
+
+  <details>
+  <summary>Removed Type(s)</summary>
+
+  - :warning: removed type `AssociateRoleNameChangedMessage`
+  - :warning: removed type `AssociateRoleNameChangedMessagePayload`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `discountTypeCombination` to type `Cart`
+  - added property `discountTypeCombination` to type `StagedOrder`
+  - added property `discountTypeCombination` to type `Order`
+  </details>
+
+- [#936](https://github.com/commercetools/commercetools-sdk-typescript/pull/936) [`f702837`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f702837c3ec7fde11641c94abb5ed4dab138acf9) Thanks [@barbara79](https://github.com/barbara79)! - updated documentation with client v3
+
+### Patch Changes
+
+- Updated dependencies [[`f702837`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f702837c3ec7fde11641c94abb5ed4dab138acf9), [`e002f9d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e002f9d643d5fe59b00f7057a1e13dd6a039339a)]:
+  - @commercetools/ts-client@3.1.0
+
 ## 8.2.0
 
 ### Minor Changes
