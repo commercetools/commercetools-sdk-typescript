@@ -18,6 +18,7 @@ import {
   DiscountCodeInfo,
   DiscountedLineItemPortionDraft,
   DiscountOnTotalPrice,
+  DiscountTypeCombination,
   InventoryMode,
   ItemShippingDetailsDraft,
   LineItem,
@@ -1018,6 +1019,12 @@ export interface Order extends BaseResource {
    *
    */
   readonly returnInfo?: ReturnInfo[]
+  /**
+   *	Indicates if a combination of discount types can apply on an Order.
+   *
+   *
+   */
+  readonly discountTypeCombination?: DiscountTypeCombination
   /**
    *	Internal-only field.
    *	@deprecated
