@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(function (req, res, next) {
   const total = count()
-  agent.dogstatsd.gauge(`Commercetools_Client_Request_Total`, total, {
+  agent.dogstatsd.gauge(`ct_request_count`, total, {
     env: 'dev',
   })
   next()

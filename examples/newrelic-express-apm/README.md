@@ -13,7 +13,7 @@ Example to show how the Newrelic APM can be used in the TypeScript SDK.
 
 1. Clone/Download the example folder.
 2. Navigate to the path `newrelic-express-apm/`.
-3. Create a `.env` file in this path, add and update the content of `.env.sample`, the `NEW_RELIC_LICENSE_KEY` is required
+3. Create a `.env` file in this path, add and update the content of `.env.sample`.The variables required to run the demo app are: `CTP_PROJECT_KEY`, `CTP_CLIENT_ID`, `CTP_CLIENT_SECRET`,`CTP_AUTH_URL`,`CTP_API_URL` and `NEW_RELIC_LICENSE_KEY`(NewRelic API Key).
 4. Run `yarn install` (`npm` can also be used) to install all dependencies
 
 ### Start the server

@@ -1,38 +1,34 @@
-const { ClientBuilder } = require('@commercetools/sdk-client-v2')
+const { ClientBuilder } = require('@commercetools/ts-client')
 const { createTelemetryMiddleware } = require('@commercetools/ts-sdk-apm')
 const { createApiBuilderFromCtpClient } = require('@commercetools/platform-sdk')
 const fetch = require('node-fetch')
 
 const projectKey = process.env.CTP_PROJECT_KEY
 const authMiddlewareOptions = {
-  host: 'https://auth.europe-west1.gcp.commercetools.com',
+  host: process.env.CTP_AUTH_URL,
   projectKey,
   credentials: {
     clientId: process.env.CTP_CLIENT_ID,
     clientSecret: process.env.CTP_CLIENT_SECRET,
-    // user: {
-    //   username: process.env.CTP_CLIENT_USERNAME,
-    //   password: process.env.CTP_CLIENT_PASSWORD,
-    // },
   },
   scopes: [`manage_project:${projectKey}`],
-  fetch,
+  httpClient: fetch,
 }
 
 const httpMiddlewareOptions = {
-  host: 'https://api.europe-west1.gcp.commercetools.com',
+  host: process.env.CTP_API_URL,
   includeRequestInErrorResponse: false,
   includeOriginalRequest: true,
-  fetch,
+  httpClient: fetch,
 }
 
-// newrelic options
-const agent = require('path').join(__dirname, 'tracer.js')
+// Datadog telemetry options
 const telemetryOptions = {
   createTelemetryMiddleware,
-  userAgent: 'typescript-sdk-middleware-datadog',
-  tracer: require(agent).init(),
-  // apm: () => require('dd-trace').init()
+  // tracer is already initialized in the app.js
+  customMetrics: {
+    datadog: true,
+  },
 }
 
 const client = new ClientBuilder()

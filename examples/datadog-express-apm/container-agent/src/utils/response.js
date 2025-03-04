@@ -1,10 +1,12 @@
-const agent = require('dd-trace').default
 /**
  * @class Response
  *
  * @description class to handle all http response
  */
-class ResponseHandler {
+module.exports = class ResponseHandler {
+  constructor(agent) {
+    this.agent = agent
+  }
   /**
    *
    * @description method to handle all success responses
@@ -16,7 +18,7 @@ class ResponseHandler {
    *
    * @return response JSON
    */
-  static successResponse = (response, statusCode, message, data) => {
+  successResponse = (response, statusCode, message, data) => {
     const responseBody = { status: 'success' }
 
     if (message !== '') {
@@ -27,7 +29,7 @@ class ResponseHandler {
       responseBody.data = data
     }
 
-    agent.init().dogstatsd.increment(`ct_success_response_count`, 1, {
+    this.agent.init().dogstatsd.increment(`ct_success_response_count`, 1, {
       env: 'dev',
       status_code: statusCode,
       http_method: response.req.method,
@@ -50,7 +52,7 @@ class ResponseHandler {
    *
    * @return response JSON
    */
-  static errorResponse = (response, statusCode, message, data) => {
+  errorResponse = (response, statusCode, message, data) => {
     const responseBody = { status: 'error' }
     if (message !== '') {
       responseBody.message = message
@@ -60,7 +62,7 @@ class ResponseHandler {
       responseBody.data = data
     }
 
-    agent.init().dogstatsd.increment(`ct_error_response_count`, 1, {
+    this.agent.init().dogstatsd.increment(`ct_error_response_count`, 1, {
       env: 'dev',
       status_code: statusCode,
       http_method: response.req.method,
@@ -72,5 +74,3 @@ class ResponseHandler {
     })
   }
 }
-
-module.exports = ResponseHandler
