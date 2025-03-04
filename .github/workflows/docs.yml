@@ -1,8 +1,11 @@
 name: SDK Type Docs Specification
 on:
   # run only when release succeeded
-  repository_dispatch:
-    types: [new_release_published]
+  workflow_dispatch:
+    inputs:
+      event:
+        description: "TypeDoc deploy"
+        required: true
 
 jobs:
   # Build job
