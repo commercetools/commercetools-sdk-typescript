@@ -37,7 +37,7 @@ export async function authProcessor<T extends AuthMiddlewareOptions>(
    * @param r MiddlewareResponse
    * @returns response
    */
-  const _0x191 = async (r: MiddlewareResponse) => {
+  const checkAndRetryUnauthorizedError = async (r: MiddlewareResponse) => {
     let _response = Object.assign({}, r)
 
     if (_response.statusCode == 401) {
@@ -57,7 +57,7 @@ export async function authProcessor<T extends AuthMiddlewareOptions>(
     (request.headers.Authorization || request.headers.authorization)
   ) {
     // move on
-    return _0x191(await next(request))
+    return checkAndRetryUnauthorizedError(await next(request))
   }
 
   /**
@@ -70,7 +70,9 @@ export async function authProcessor<T extends AuthMiddlewareOptions>(
     tokenCacheObject.token &&
     Date.now() < tokenCacheObject.expirationTime
   ) {
-    return _0x191(await next(mergeAuthHeader(tokenCacheObject.token, request)))
+    return checkAndRetryUnauthorizedError(
+      await next(mergeAuthHeader(tokenCacheObject.token, request))
+    )
   }
 
   // If a token is already being fetched, wait for it to finish
