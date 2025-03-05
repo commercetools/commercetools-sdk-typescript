@@ -33,7 +33,7 @@ export async function authProcessor<T extends AuthMiddlewareOptions>(
   }
 
   /**
-   * check to see if the respnse for 401 errors
+   * check to see if the response for 401 errors
    * @param r MiddlewareResponse
    * @returns response
    */
