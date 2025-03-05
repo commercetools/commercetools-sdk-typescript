@@ -16,7 +16,7 @@ const ctp_host = requireEnvVar('CTP_API_URL')
 
 export const SORT_ORDER = parseFloat(Math.random().toFixed(5)).toString()
 
-export function _tokenCache<T, V, S = TokenCacheOptions>(val: T): V {
+export function tokenStore<T, V, S = TokenCacheOptions>(val: T): V {
   let initialVal = val
   return {
     get(TokenCacheOption?: S) {
@@ -28,7 +28,7 @@ export function _tokenCache<T, V, S = TokenCacheOptions>(val: T): V {
   } as V
 }
 
-const tokenCache = _tokenCache<TokenStore, TokenCache>({
+const tokenCache = tokenStore<TokenStore, TokenCache>({
   token: '',
   expirationTime: -1,
 })
@@ -68,7 +68,7 @@ export const authMiddlewareOptionsV3 = {
 }
 
 export function createTokenCache() {
-  return _tokenCache<TokenStore, TokenCache>({
+  return tokenStore<TokenStore, TokenCache>({
     token: '',
     expirationTime: -1,
   })

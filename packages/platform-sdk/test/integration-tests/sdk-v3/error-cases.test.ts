@@ -9,7 +9,7 @@ import {
   authMiddlewareOptionsV3,
   httpMiddlewareOptionsV3,
   projectKey,
-  _tokenCache,
+  tokenStore,
 } from '../test-utils'
 import { createApiBuilderFromCtpClient } from '../../../src'
 
@@ -151,7 +151,7 @@ describe('testing error cases', () => {
 
   it('should retry to fetch a valid token on 401 error and save to cache - [invalid token in cache]', async () => {
     const expirationTime = Date.now() * 2
-    const tokenCache = _tokenCache<TokenStore, TokenCache>({
+    const tokenCache = tokenStore<TokenStore, TokenCache>({
       token: 'x-invalid-token',
       expirationTime,
     })
@@ -186,7 +186,7 @@ describe('testing error cases', () => {
 
   it('should simulate concurrent token fetch request', async () => {
     const expirationTime = -1 // simulate an expired token
-    const tokenCache = _tokenCache<TokenStore, TokenCache>({
+    const tokenCache = tokenStore<TokenStore, TokenCache>({
       token: 'an-expired-token',
       expirationTime,
     })
