@@ -35,6 +35,52 @@ describe('Refresh Token Flow', () => {
         resolve(null)
       })
     })
+
+    test('should throw if `host` is not provided.', () => {
+      new Promise((resolve, reject) => {
+        expect(() =>
+          buildRequestForRefreshTokenFlow(
+            createTestMiddlewareOptions({ host: null })
+          )
+        ).toThrow('Missing required option (host)')
+        resolve(null)
+      })
+    })
+
+    test('should throw if `credentials` is not provided.', () => {
+      new Promise((resolve, reject) => {
+        expect(() =>
+          buildRequestForRefreshTokenFlow(
+            createTestMiddlewareOptions({ projectKey: null })
+          )
+        ).toThrow('Missing required option (projectKey)')
+        resolve(null)
+      })
+    })
+
+    test('should throw if `credentials` is not provided.', () => {
+      new Promise((resolve, reject) => {
+        expect(() =>
+          buildRequestForRefreshTokenFlow(
+            createTestMiddlewareOptions({ credentials: null })
+          )
+        ).toThrow('Missing required option (credentials)')
+        resolve(null)
+      })
+    })
+
+    test('should throw if `client credentials [clientId & clientSecret]` are not provided.', () => {
+      new Promise((resolve, reject) => {
+        expect(() =>
+          buildRequestForRefreshTokenFlow(
+            createTestMiddlewareOptions({
+              credentials: { clientId: null, clientSecret: null },
+            })
+          )
+        ).toThrow('Missing required credentials (clientId, clientSecret)')
+        resolve(null)
+      })
+    })
   })
 
   test('should throw if `credentials` is not provided.', async () => {
@@ -174,6 +220,7 @@ describe('Refresh Token Flow', () => {
         clientId: null,
         clientSecret: null,
       },
+      scopes: ['demo-key:mange-project'],
     })
 
     await expect(async () => {
