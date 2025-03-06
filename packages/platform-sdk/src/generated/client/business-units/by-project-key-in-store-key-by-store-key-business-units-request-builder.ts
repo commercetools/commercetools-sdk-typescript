@@ -10,6 +10,8 @@ import {
 } from '../../models/business-unit'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
+import { ByProjectKeyInStoreKeyByStoreKeyBusinessUnitsByBusinessUnitIdAssociatesByAssociateIdRequestBuilder } from '../associates/by-project-key-in-store-key-by-store-key-business-units-by-business-unit-id-associates-by-associate-id-request-builder'
+import { ByProjectKeyInStoreKeyByStoreKeyBusinessUnitsKeyByKeyAssociatesByAssociateIdRequestBuilder } from '../associates/by-project-key-in-store-key-by-store-key-business-units-key-by-key-associates-by-associate-id-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyBusinessUnitsByIDRequestBuilder } from './by-project-key-in-store-key-by-store-key-business-units-by-id-request-builder'
 import { ByProjectKeyInStoreKeyByStoreKeyBusinessUnitsKeyByKeyRequestBuilder } from './by-project-key-in-store-key-by-store-key-business-units-key-by-key-request-builder'
 /**
@@ -50,6 +52,36 @@ export class ByProjectKeyInStoreKeyByStoreKeyBusinessUnitsRequestBuilder {
       executeRequest: this.args.executeRequest,
       baseUri: this.args.baseUri,
     })
+  }
+  public keyWithKeyValueAssociatesWithAssociateIdValue(childPathArgs: {
+    key: string
+    associateId: string
+  }): ByProjectKeyInStoreKeyByStoreKeyBusinessUnitsKeyByKeyAssociatesByAssociateIdRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyBusinessUnitsKeyByKeyAssociatesByAssociateIdRequestBuilder(
+      {
+        pathArgs: {
+          ...this.args.pathArgs,
+          ...childPathArgs,
+        },
+        executeRequest: this.args.executeRequest,
+        baseUri: this.args.baseUri,
+      }
+    )
+  }
+  public withBusinessUnitIdValueAssociatesWithAssociateIdValue(childPathArgs: {
+    businessUnitId: string
+    associateId: string
+  }): ByProjectKeyInStoreKeyByStoreKeyBusinessUnitsByBusinessUnitIdAssociatesByAssociateIdRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyBusinessUnitsByBusinessUnitIdAssociatesByAssociateIdRequestBuilder(
+      {
+        pathArgs: {
+          ...this.args.pathArgs,
+          ...childPathArgs,
+        },
+        executeRequest: this.args.executeRequest,
+        baseUri: this.args.baseUri,
+      }
+    )
   }
 
   public get(methodArgs?: {

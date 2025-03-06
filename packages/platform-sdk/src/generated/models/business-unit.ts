@@ -5,8 +5,10 @@
  */
 
 import {
+  AssociateRole,
   AssociateRoleKeyReference,
   AssociateRoleResourceIdentifier,
+  Permission,
 } from './associate-role'
 import {
   Address,
@@ -287,6 +289,36 @@ export type BusinessUnitAssociateMode =
   | 'Explicit'
   | 'ExplicitAndFromParent'
   | string
+/**
+ *	Information about all roles and permissions of an Associate in a [BusinessUnit](ctp:api:type:BusinessUnit).
+ *
+ */
+export interface BusinessUnitAssociateResponse {
+  /**
+   *	The Customer that acts as an Associate in the Business Unit.
+   *
+   *
+   */
+  readonly customer: CustomerReference
+  /**
+   *	Roles assigned to Associates in the Business Unit.
+   *
+   *
+   */
+  readonly associateRoles: AssociateRole[]
+  /**
+   *	Roles inherited by Associates from the parent Business Unit.
+   *
+   *
+   */
+  readonly inheritedAssociateRoles: AssociateRole[]
+  /**
+   *	Permissions the Associate has in the Business Unit.
+   *
+   *
+   */
+  readonly permissions: Permission[]
+}
 /**
  *	Generic draft type to model those fields all Business Units have in common. The additional fields required for creating a [Company](ctp:api:type:Company) or [Division](ctp:api:type:Division) are represented on [CompanyDraft](ctp:api:type:CompanyDraft) and [DivisionDraft](ctp:api:type:DivisionDraft).
  *
