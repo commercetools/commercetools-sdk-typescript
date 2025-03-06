@@ -242,7 +242,7 @@ export type ShippingRateTierType =
   | 'CartClassification'
   | 'CartScore'
   | 'CartValue'
-  | string
+  | (string & {})
 export type ShippingRatePriceTier = CartClassificationTier
 export interface IShippingRatePriceTier {
   /**
@@ -408,7 +408,10 @@ export enum ShippingMethodStateValues {
   MatchesCart = 'MatchesCart',
 }
 
-export type ShippingMethodState = 'DoesNotMatchCart' | 'MatchesCart' | string
+export type ShippingMethodState =
+  | 'DoesNotMatchCart'
+  | 'MatchesCart'
+  | (string & {})
 /**
  *	Maps to an order's `shippingInfo` property. This field is usually populated by the cart associated with
  *	the order, but when importing orders you must provide a draft representation as a part of the OrderImport.
@@ -596,7 +599,7 @@ export type TaxMode =
   | 'External'
   | 'ExternalAmount'
   | 'Platform'
-  | string
+  | (string & {})
 /**
  *	Maps to `Order.orderState`.
  */
@@ -612,7 +615,7 @@ export type OrderState =
   | 'Complete'
   | 'Confirmed'
   | 'Open'
-  | string
+  | (string & {})
 /**
  *	Maps to `Order.shipmentState`.
  */
@@ -632,7 +635,7 @@ export type ShipmentState =
   | 'Pending'
   | 'Ready'
   | 'Shipped'
-  | string
+  | (string & {})
 /**
  *	Maps to `Order.paymentState`.
  */
@@ -650,7 +653,7 @@ export type PaymentState =
   | 'Failed'
   | 'Paid'
   | 'Pending'
-  | string
+  | (string & {})
 /**
  *	Maps to `Order.inventoryMode`.
  */
@@ -659,7 +662,7 @@ export enum InventoryModeValues {
   TrackOnly = 'TrackOnly',
 }
 
-export type InventoryMode = 'ReserveOnOrder' | 'TrackOnly' | string
+export type InventoryMode = 'ReserveOnOrder' | 'TrackOnly' | (string & {})
 /**
  *	Maps to `Order.taxRoundingMode`.
  */
@@ -669,7 +672,7 @@ export enum RoundingModeValues {
   HalfUp = 'HalfUp',
 }
 
-export type RoundingMode = 'HalfDown' | 'HalfEven' | 'HalfUp' | string
+export type RoundingMode = 'HalfDown' | 'HalfEven' | 'HalfUp' | (string & {})
 /**
  *	Maps to `Order.taxCalculationMode`.
  */
@@ -678,7 +681,10 @@ export enum TaxCalculationModeValues {
   UnitPriceLevel = 'UnitPriceLevel',
 }
 
-export type TaxCalculationMode = 'LineItemLevel' | 'UnitPriceLevel' | string
+export type TaxCalculationMode =
+  | 'LineItemLevel'
+  | 'UnitPriceLevel'
+  | (string & {})
 /**
  *	Maps to `Order.origin`.
  */
@@ -687,7 +693,7 @@ export enum CartOriginValues {
   Merchant = 'Merchant',
 }
 
-export type CartOrigin = 'Customer' | 'Merchant' | string
+export type CartOrigin = 'Customer' | 'Merchant' | (string & {})
 export interface SyncInfo {
   /**
    *	Maps to `SyncInfo.channel`
@@ -724,7 +730,7 @@ export type DiscountCodeState =
   | 'MaxApplicationReached'
   | 'NotActive'
   | 'NotValid'
-  | string
+  | (string & {})
 export interface DiscountCodeInfo {
   /**
    *	References a discount code by key.
@@ -742,7 +748,7 @@ export enum ShippingRateInputTypeValues {
   Score = 'Score',
 }
 
-export type ShippingRateInputType = 'Classification' | 'Score' | string
+export type ShippingRateInputType = 'Classification' | 'Score' | (string & {})
 export type ShippingRateInput =
   | ClassificationShippingRateInput
   | ScoreShippingRateInput

@@ -191,7 +191,10 @@ export enum AssociateRoleInheritanceModeValues {
   Enabled = 'Enabled',
 }
 
-export type AssociateRoleInheritanceMode = 'Disabled' | 'Enabled' | string
+export type AssociateRoleInheritanceMode =
+  | 'Disabled'
+  | 'Enabled'
+  | (string & {})
 export enum AttributeConstraintEnumValues {
   CombinationUnique = 'CombinationUnique',
   None = 'None',
@@ -204,7 +207,7 @@ export type AttributeConstraintEnum =
   | 'None'
   | 'SameForAll'
   | 'Unique'
-  | string
+  | (string & {})
 export interface AttributeDefinition {
   /**
    *
@@ -289,7 +292,7 @@ export enum AuthenticationModeValues {
   Password = 'Password',
 }
 
-export type AuthenticationMode = 'ExternalAuth' | 'Password' | string
+export type AuthenticationMode = 'ExternalAuth' | 'Password' | (string & {})
 /**
  *	Determines whether a Business Unit can inherit Associates from a parent.
  */
@@ -301,7 +304,7 @@ export enum BusinessUnitAssociateModeValues {
 export type BusinessUnitAssociateMode =
   | 'Explicit'
   | 'ExplicitAndFromParent'
-  | string
+  | (string & {})
 /**
  *	Indicates whether the Business Unit can be edited and used in [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quote Requests](ctp:api:type:QuoteRequest), or [Quotes](ctp:api:type:Quote).
  */
@@ -310,7 +313,7 @@ export enum BusinessUnitStatusValues {
   Inactive = 'Inactive',
 }
 
-export type BusinessUnitStatus = 'Active' | 'Inactive' | string
+export type BusinessUnitStatus = 'Active' | 'Inactive' | (string & {})
 /**
  *	Defines whether the Stores of the Business Unit are set directly on the Business Unit or are inherited from its parent unit.
  */
@@ -319,7 +322,7 @@ export enum BusinessUnitStoreModeValues {
   FromParent = 'FromParent',
 }
 
-export type BusinessUnitStoreMode = 'Explicit' | 'FromParent' | string
+export type BusinessUnitStoreMode = 'Explicit' | 'FromParent' | (string & {})
 export interface CategoryOrderHints {
   [key: string]: string
 }
@@ -341,7 +344,7 @@ export type ChannelRoleEnum =
   | 'OrderImport'
   | 'Primary'
   | 'ProductDistribution'
-  | string
+  | (string & {})
 export interface CustomFields {
   /**
    *
@@ -449,7 +452,7 @@ export type DiscountCodeState =
   | 'MaxApplicationReached'
   | 'NotActive'
   | 'NotValid'
-  | string
+  | (string & {})
 export interface DiscountedLineItemPortion {
   /**
    *
@@ -684,7 +687,7 @@ export enum MoneyTypeValues {
   HighPrecision = 'highPrecision',
 }
 
-export type MoneyType = 'centPrecision' | 'highPrecision' | string
+export type MoneyType = 'centPrecision' | 'highPrecision' | (string & {})
 export enum OrderStateValues {
   Cancelled = 'Cancelled',
   Complete = 'Complete',
@@ -697,7 +700,7 @@ export type OrderState =
   | 'Complete'
   | 'Confirmed'
   | 'Open'
-  | string
+  | (string & {})
 export interface Parcel {
   /**
    *
@@ -758,7 +761,7 @@ export type PaymentState =
   | 'Failed'
   | 'Paid'
   | 'Pending'
-  | string
+  | (string & {})
 /**
  *	Permissions grant granular access to [Business Units](ctp:api:type:BusinessUnit), [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), and [Quote Requests](ctp:api:type:QuoteRequest).
  */
@@ -838,7 +841,7 @@ export type Permission =
   | 'ViewOthersOrders'
   | 'ViewOthersQuoteRequests'
   | 'ViewOthersQuotes'
-  | string
+  | (string & {})
 export interface Price {
   /**
    *
@@ -909,7 +912,10 @@ export enum ProductVariantSelectionTypeEnumValues {
   Inclusion = 'inclusion',
 }
 
-export type ProductVariantSelectionTypeEnum = 'exclusion' | 'inclusion' | string
+export type ProductVariantSelectionTypeEnum =
+  | 'exclusion'
+  | 'inclusion'
+  | (string & {})
 export enum QuoteRequestStateValues {
   Accepted = 'Accepted',
   Cancelled = 'Cancelled',
@@ -924,7 +930,7 @@ export type QuoteRequestState =
   | 'Closed'
   | 'Rejected'
   | 'Submitted'
-  | string
+  | (string & {})
 export enum QuoteStateValues {
   Accepted = 'Accepted',
   Declined = 'Declined',
@@ -941,7 +947,7 @@ export type QuoteState =
   | 'Failed'
   | 'Pending'
   | 'Withdrawn'
-  | string
+  | (string & {})
 export interface Reference {
   /**
    *
@@ -1022,7 +1028,7 @@ export type ReferenceTypeId =
   | 'tax-category'
   | 'type'
   | 'zone'
-  | string
+  | (string & {})
 export interface Reservation {
   /**
    *
@@ -1116,7 +1122,7 @@ export type ReturnPaymentState =
   | 'NonRefundable'
   | 'NotRefunded'
   | 'Refunded'
-  | string
+  | (string & {})
 export enum ReturnShipmentStateValues {
   Advised = 'Advised',
   BackInStock = 'BackInStock',
@@ -1129,7 +1135,7 @@ export type ReturnShipmentState =
   | 'BackInStock'
   | 'Returned'
   | 'Unusable'
-  | string
+  | (string & {})
 export interface ReviewRatingStatistics {
   /**
    *	Average rating of one target This number is rounded with 5 decimals.
@@ -1163,7 +1169,7 @@ export enum RoundingModeValues {
   HalfUp = 'HalfUp',
 }
 
-export type RoundingMode = 'HalfDown' | 'HalfEven' | 'HalfUp' | string
+export type RoundingMode = 'HalfDown' | 'HalfEven' | 'HalfUp' | (string & {})
 export interface SearchKeyword {
   /**
    *
@@ -1182,7 +1188,7 @@ export enum SelectionModeValues {
   MostExpensive = 'MostExpensive',
 }
 
-export type SelectionMode = 'Cheapest' | 'MostExpensive' | string
+export type SelectionMode = 'Cheapest' | 'MostExpensive' | (string & {})
 export enum ShipmentStateValues {
   Backorder = 'Backorder',
   Delayed = 'Delayed',
@@ -1199,7 +1205,7 @@ export type ShipmentState =
   | 'Pending'
   | 'Ready'
   | 'Shipped'
-  | string
+  | (string & {})
 export interface ShippingRate {
   /**
    *
@@ -1235,20 +1241,20 @@ export type ShippingRateTierType =
   | 'CartClassification'
   | 'CartScore'
   | 'CartValue'
-  | string
+  | (string & {})
 export enum StackingModeValues {
   Stacking = 'Stacking',
   StopAfterThisDiscount = 'StopAfterThisDiscount',
 }
 
-export type StackingMode = 'Stacking' | 'StopAfterThisDiscount' | string
+export type StackingMode = 'Stacking' | 'StopAfterThisDiscount' | (string & {})
 export enum StagedQuoteStateValues {
   Closed = 'Closed',
   InProgress = 'InProgress',
   Sent = 'Sent',
 }
 
-export type StagedQuoteState = 'Closed' | 'InProgress' | 'Sent' | string
+export type StagedQuoteState = 'Closed' | 'InProgress' | 'Sent' | (string & {})
 /**
  *	For some resource types, a State can fulfill the following predefined roles:
  *
@@ -1258,7 +1264,10 @@ export enum StateRoleEnumValues {
   ReviewIncludedInStatistics = 'ReviewIncludedInStatistics',
 }
 
-export type StateRoleEnum = 'Return' | 'ReviewIncludedInStatistics' | string
+export type StateRoleEnum =
+  | 'Return'
+  | 'ReviewIncludedInStatistics'
+  | (string & {})
 /**
  *	Resource or object type the State can be assigned to.
  *
@@ -1283,7 +1292,7 @@ export type StateTypeEnum =
   | 'QuoteState'
   | 'ReviewState'
   | 'StagedQuoteState'
-  | string
+  | (string & {})
 export interface StoreCountry {
   /**
    *	Two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
@@ -1328,7 +1337,10 @@ export enum TaxCalculationModeValues {
   UnitPriceLevel = 'UnitPriceLevel',
 }
 
-export type TaxCalculationMode = 'LineItemLevel' | 'UnitPriceLevel' | string
+export type TaxCalculationMode =
+  | 'LineItemLevel'
+  | 'UnitPriceLevel'
+  | (string & {})
 export enum TaxModeValues {
   Disabled = 'Disabled',
   External = 'External',
@@ -1341,7 +1353,7 @@ export type TaxMode =
   | 'External'
   | 'ExternalAmount'
   | 'Platform'
-  | string
+  | (string & {})
 /**
  *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
  */
@@ -1407,7 +1419,7 @@ export enum TextInputHintValues {
   SingleLine = 'SingleLine',
 }
 
-export type TextInputHint = 'MultiLine' | 'SingleLine' | string
+export type TextInputHint = 'MultiLine' | 'SingleLine' | (string & {})
 export interface TextLineItem {
   /**
    *
@@ -1500,7 +1512,7 @@ export type TransactionState =
   | 'Initial'
   | 'Pending'
   | 'Success'
-  | string
+  | (string & {})
 export enum TransactionTypeValues {
   Authorization = 'Authorization',
   CancelAuthorization = 'CancelAuthorization',
@@ -1515,7 +1527,7 @@ export type TransactionType =
   | 'Charge'
   | 'Chargeback'
   | 'Refund'
-  | string
+  | (string & {})
 export interface Variant {
   /**
    *

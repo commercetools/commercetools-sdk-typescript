@@ -681,7 +681,7 @@ export type DiscountApplicationMode =
   | 'EvenDistribution'
   | 'IndividualApplication'
   | 'ProportionateDistribution'
-  | string
+  | (string & {})
 /**
  *	This Discount target is similar to `MultiBuyLineItems`, but is applied on Custom Line Items instead of Line Items.
  *
@@ -850,7 +850,7 @@ export enum SelectionModeValues {
   MostExpensive = 'MostExpensive',
 }
 
-export type SelectionMode = 'Cheapest' | 'MostExpensive' | string
+export type SelectionMode = 'Cheapest' | 'MostExpensive' | (string & {})
 /**
  *	Describes how the Cart Discount interacts with other Discounts.
  *
@@ -860,7 +860,7 @@ export enum StackingModeValues {
   StopAfterThisDiscount = 'StopAfterThisDiscount',
 }
 
-export type StackingMode = 'Stacking' | 'StopAfterThisDiscount' | string
+export type StackingMode = 'Stacking' | 'StopAfterThisDiscount' | (string & {})
 /**
  *	If a referenced Store does not exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error is returned.
  *

@@ -197,7 +197,7 @@ export enum ApprovalRuleStatusValues {
   Inactive = 'Inactive',
 }
 
-export type ApprovalRuleStatus = 'Active' | 'Inactive' | string
+export type ApprovalRuleStatus = 'Active' | 'Inactive' | (string & {})
 export interface ApprovalRuleUpdate {
   /**
    *	Expected version of the [ApprovalRule](ctp:api:type:ApprovalRule) to which the changes should be applied.

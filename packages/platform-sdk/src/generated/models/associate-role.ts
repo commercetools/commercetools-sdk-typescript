@@ -325,7 +325,7 @@ export type Permission =
   | 'ViewOthersOrders'
   | 'ViewOthersQuoteRequests'
   | 'ViewOthersQuotes'
-  | string
+  | (string & {})
 /**
  *	Adding a Permission to an [AssociateRole](ctp:api:type:AssociateRole) generates an [AssociateRolePermissionAdded](ctp:api:type:AssociateRolePermissionAddedMessage) Message.
  *

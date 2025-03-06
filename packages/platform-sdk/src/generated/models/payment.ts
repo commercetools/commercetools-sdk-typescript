@@ -442,7 +442,7 @@ export type TransactionState =
   | 'Initial'
   | 'Pending'
   | 'Success'
-  | string
+  | (string & {})
 export enum TransactionTypeValues {
   Authorization = 'Authorization',
   CancelAuthorization = 'CancelAuthorization',
@@ -457,7 +457,7 @@ export type TransactionType =
   | 'Charge'
   | 'Chargeback'
   | 'Refund'
-  | string
+  | (string & {})
 /**
  *	Adding a Payment interaction generates the [PaymentInteractionAdded](ctp:api:type:PaymentInteractionAddedMessage) Message.
  *

@@ -545,7 +545,7 @@ export enum CartOriginValues {
   Quote = 'Quote',
 }
 
-export type CartOrigin = 'Customer' | 'Merchant' | 'Quote' | string
+export type CartOrigin = 'Customer' | 'Merchant' | 'Quote' | (string & {})
 /**
  *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [Cart](ctp:api:type:Cart).
  *
@@ -635,7 +635,12 @@ export enum CartStateValues {
   Ordered = 'Ordered',
 }
 
-export type CartState = 'Active' | 'Frozen' | 'Merged' | 'Ordered' | string
+export type CartState =
+  | 'Active'
+  | 'Frozen'
+  | 'Merged'
+  | 'Ordered'
+  | (string & {})
 export interface CartUpdate {
   /**
    *	Expected version of the Cart on which the changes apply.
@@ -918,7 +923,7 @@ export enum CustomLineItemPriceModeValues {
   Standard = 'Standard',
 }
 
-export type CustomLineItemPriceMode = 'External' | 'Standard' | string
+export type CustomLineItemPriceMode = 'External' | 'Standard' | (string & {})
 export interface CustomShippingDraft {
   /**
    *	User-defined unique identifier of the custom Shipping Method in the Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
@@ -1077,7 +1082,7 @@ export type DiscountCodeState =
   | 'MaxApplicationReached'
   | 'NotActive'
   | 'NotValid'
-  | string
+  | (string & {})
 export interface DiscountOnTotalPrice {
   /**
    *	Money value of the discount on the total price of the Cart or Order.
@@ -1290,7 +1295,11 @@ export enum InventoryModeValues {
   TrackOnly = 'TrackOnly',
 }
 
-export type InventoryMode = 'None' | 'ReserveOnOrder' | 'TrackOnly' | string
+export type InventoryMode =
+  | 'None'
+  | 'ReserveOnOrder'
+  | 'TrackOnly'
+  | (string & {})
 export interface ItemShippingDetails {
   /**
    *	Holds information on the quantity of Line Items or Custom Line Items and the address it is shipped.
@@ -1645,7 +1654,7 @@ export enum LineItemModeValues {
   Standard = 'Standard',
 }
 
-export type LineItemMode = 'GiftLineItem' | 'Standard' | string
+export type LineItemMode = 'GiftLineItem' | 'Standard' | (string & {})
 /**
  *	This mode indicates how the price is set for the Line Item.
  *
@@ -1660,7 +1669,7 @@ export type LineItemPriceMode =
   | 'ExternalPrice'
   | 'ExternalTotal'
   | 'Platform'
-  | string
+  | (string & {})
 export interface MethodExternalTaxRateDraft {
   /**
    *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
@@ -1731,7 +1740,7 @@ export enum RoundingModeValues {
   HalfUp = 'HalfUp',
 }
 
-export type RoundingMode = 'HalfDown' | 'HalfEven' | 'HalfUp' | string
+export type RoundingMode = 'HalfDown' | 'HalfEven' | 'HalfUp' | (string & {})
 export interface Shipping {
   /**
    *	User-defined unique identifier of the Shipping in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
@@ -1895,13 +1904,16 @@ export enum ShippingMethodStateValues {
   MatchesCart = 'MatchesCart',
 }
 
-export type ShippingMethodState = 'DoesNotMatchCart' | 'MatchesCart' | string
+export type ShippingMethodState =
+  | 'DoesNotMatchCart'
+  | 'MatchesCart'
+  | (string & {})
 export enum ShippingModeValues {
   Multiple = 'Multiple',
   Single = 'Single',
 }
 
-export type ShippingMode = 'Multiple' | 'Single' | string
+export type ShippingMode = 'Multiple' | 'Single' | (string & {})
 export type ShippingRateInput =
   | ClassificationShippingRateInput
   | ScoreShippingRateInput
@@ -1982,7 +1994,10 @@ export enum TaxCalculationModeValues {
   UnitPriceLevel = 'UnitPriceLevel',
 }
 
-export type TaxCalculationMode = 'LineItemLevel' | 'UnitPriceLevel' | string
+export type TaxCalculationMode =
+  | 'LineItemLevel'
+  | 'UnitPriceLevel'
+  | (string & {})
 /**
  *	Indicates how taxes are set on the Cart.
  *
@@ -1999,7 +2014,7 @@ export type TaxMode =
   | 'External'
   | 'ExternalAmount'
   | 'Platform'
-  | string
+  | (string & {})
 /**
  *	The tax portions are calculated from the [TaxRates](ctp:api:type:TaxRate).
  *	If a Tax Rate has [SubRates](ctp:api:type:SubRate), they are used and can be identified by name.
@@ -3886,4 +3901,4 @@ export enum ProductPublishScopeValues {
   Prices = 'Prices',
 }
 
-export type ProductPublishScope = 'All' | 'Prices' | string
+export type ProductPublishScope = 'All' | 'Prices' | (string & {})

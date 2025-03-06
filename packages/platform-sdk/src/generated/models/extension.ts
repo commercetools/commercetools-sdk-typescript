@@ -79,7 +79,7 @@ export enum ExtensionActionValues {
   Update = 'Update',
 }
 
-export type ExtensionAction = 'Create' | 'Update' | string
+export type ExtensionAction = 'Create' | 'Update' | (string & {})
 /**
  *	Generic type for destinations.
  */
@@ -231,7 +231,7 @@ export type ExtensionResourceTypeId =
   | 'quote-request'
   | 'shopping-list'
   | 'staged-quote'
-  | string
+  | (string & {})
 export interface ExtensionTrigger {
   /**
    *	The resource that triggers the Extension.

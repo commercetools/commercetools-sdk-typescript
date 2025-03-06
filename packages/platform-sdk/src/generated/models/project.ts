@@ -29,7 +29,7 @@ export type BusinessUnitIndexingStatus =
   | 'Indexing'
   | 'Ready'
   | 'Scheduled'
-  | string
+  | (string & {})
 /**
  *	The current indexing status of Customer Search.
  *
@@ -46,7 +46,7 @@ export type CustomerIndexingStatus =
   | 'Indexing'
   | 'Ready'
   | 'Scheduled'
-  | string
+  | (string & {})
 export interface BusinessUnitConfiguration {
   /**
    *	Status of Business Units created using the [My Business Unit endpoint](ctp:api:endpoint:/{projectKey}/me/business-units:POST).
@@ -68,7 +68,10 @@ export enum BusinessUnitConfigurationStatusValues {
   Inactive = 'Inactive',
 }
 
-export type BusinessUnitConfigurationStatus = 'Active' | 'Inactive' | string
+export type BusinessUnitConfigurationStatus =
+  | 'Active'
+  | 'Inactive'
+  | (string & {})
 /**
  *	Specifies the status of the [Business Unit Search](/../api/projects/business-unit-search) index.
  *	You can change the status using the [Change Business Unit Search Status](ctp:api:type:ProjectChangeBusinessUnitSearchStatusAction) update action.
@@ -79,7 +82,10 @@ export enum BusinessUnitSearchStatusValues {
   Deactivated = 'Deactivated',
 }
 
-export type BusinessUnitSearchStatus = 'Activated' | 'Deactivated' | string
+export type BusinessUnitSearchStatus =
+  | 'Activated'
+  | 'Deactivated'
+  | (string & {})
 export interface CartsConfiguration {
   /**
    *	Default value for the `deleteDaysAfterLastModification` parameter of the [CartDraft](ctp:api:type:CartDraft) and [MyCartDraft](ctp:api:type:MyCartDraft).
@@ -107,7 +113,7 @@ export enum CustomerSearchStatusValues {
   Deactivated = 'Deactivated',
 }
 
-export type CustomerSearchStatus = 'Activated' | 'Deactivated' | string
+export type CustomerSearchStatus = 'Activated' | 'Deactivated' | (string & {})
 /**
  *	Represents a RFC 7662 compliant [OAuth 2.0 Token Introspection](https://datatracker.ietf.org/doc/html/rfc7662) endpoint. For more information, see [Requesting an access token using an external OAuth 2.0 server](/../api/authorization#request-an-access-token-using-an-external-oauth-server).
  *
@@ -135,7 +141,7 @@ export enum OrderSearchStatusValues {
   Deactivated = 'Deactivated',
 }
 
-export type OrderSearchStatus = 'Activated' | 'Deactivated' | string
+export type OrderSearchStatus = 'Activated' | 'Deactivated' | (string & {})
 export enum ProductSearchIndexingModeValues {
   ProductProjectionsSearch = 'ProductProjectionsSearch',
   ProductsSearch = 'ProductsSearch',
@@ -144,7 +150,7 @@ export enum ProductSearchIndexingModeValues {
 export type ProductSearchIndexingMode =
   | 'ProductProjectionsSearch'
   | 'ProductsSearch'
-  | string
+  | (string & {})
 export interface Project {
   /**
    *	Current version of the Project.
@@ -319,7 +325,7 @@ export type SearchIndexingConfigurationStatus =
   | 'Activated'
   | 'Deactivated'
   | 'Indexing'
-  | string
+  | (string & {})
 export interface SearchIndexingConfigurationValues {
   /**
    *	Current status of resource indexing. Present on Projects from 1 February 2019.

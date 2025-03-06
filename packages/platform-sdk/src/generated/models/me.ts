@@ -924,7 +924,7 @@ export enum MyQuoteStateValues {
   Declined = 'Declined',
 }
 
-export type MyQuoteState = 'Accepted' | 'Declined' | string
+export type MyQuoteState = 'Accepted' | 'Declined' | (string & {})
 export interface MyQuoteUpdate {
   /**
    *	Expected version of the [Quote](ctp:api:type:Quote) to which the changes should be applied.
