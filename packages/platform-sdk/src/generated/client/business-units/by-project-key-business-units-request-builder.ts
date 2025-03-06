@@ -10,6 +10,8 @@ import {
 } from '../../models/business-unit'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
+import { ByProjectKeyBusinessUnitsByBusinessUnitIdAssociatesByAssociateIdRequestBuilder } from '../associates/by-project-key-business-units-by-business-unit-id-associates-by-associate-id-request-builder'
+import { ByProjectKeyBusinessUnitsKeyByKeyAssociatesByAssociateIdRequestBuilder } from '../associates/by-project-key-business-units-key-by-key-associates-by-associate-id-request-builder'
 import { ByProjectKeyBusinessUnitsSearchIndexingStatusRequestBuilder } from '../indexing-status/by-project-key-business-units-search-indexing-status-request-builder'
 import { ByProjectKeyBusinessUnitsSearchRequestBuilder } from '../search/by-project-key-business-units-search-request-builder'
 import { ByProjectKeyBusinessUnitsByIDRequestBuilder } from './by-project-key-business-units-by-id-request-builder'
@@ -49,6 +51,36 @@ export class ByProjectKeyBusinessUnitsRequestBuilder {
       executeRequest: this.args.executeRequest,
       baseUri: this.args.baseUri,
     })
+  }
+  public keyWithKeyValueAssociatesWithAssociateIdValue(childPathArgs: {
+    key: string
+    associateId: string
+  }): ByProjectKeyBusinessUnitsKeyByKeyAssociatesByAssociateIdRequestBuilder {
+    return new ByProjectKeyBusinessUnitsKeyByKeyAssociatesByAssociateIdRequestBuilder(
+      {
+        pathArgs: {
+          ...this.args.pathArgs,
+          ...childPathArgs,
+        },
+        executeRequest: this.args.executeRequest,
+        baseUri: this.args.baseUri,
+      }
+    )
+  }
+  public withBusinessUnitIdValueAssociatesWithAssociateIdValue(childPathArgs: {
+    businessUnitId: string
+    associateId: string
+  }): ByProjectKeyBusinessUnitsByBusinessUnitIdAssociatesByAssociateIdRequestBuilder {
+    return new ByProjectKeyBusinessUnitsByBusinessUnitIdAssociatesByAssociateIdRequestBuilder(
+      {
+        pathArgs: {
+          ...this.args.pathArgs,
+          ...childPathArgs,
+        },
+        executeRequest: this.args.executeRequest,
+        baseUri: this.args.baseUri,
+      }
+    )
   }
   /**
    *	This endpoint provides high-performance search queries over Business Units.
