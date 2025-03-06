@@ -253,7 +253,7 @@ export type ChannelRoleEnum =
   | 'OrderImport'
   | 'Primary'
   | 'ProductDistribution'
-  | string
+  | (string & {})
 export interface ChannelUpdate {
   /**
    *	Expected version of the Channel on which the changes should be applied.

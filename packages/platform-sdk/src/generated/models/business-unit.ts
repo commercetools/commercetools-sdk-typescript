@@ -94,7 +94,10 @@ export enum AssociateRoleInheritanceModeValues {
   Enabled = 'Enabled',
 }
 
-export type AssociateRoleInheritanceMode = 'Disabled' | 'Enabled' | string
+export type AssociateRoleInheritanceMode =
+  | 'Disabled'
+  | 'Enabled'
+  | (string & {})
 /**
  *	Generic type to model the fields that all types of Business Units have in common.
  *
@@ -275,7 +278,7 @@ export enum BusinessUnitApprovalRuleModeValues {
 export type BusinessUnitApprovalRuleMode =
   | 'Explicit'
   | 'ExplicitAndFromParent'
-  | string
+  | (string & {})
 /**
  *	Determines whether a Business Unit can inherit Associates from a parent.
  *
@@ -288,7 +291,7 @@ export enum BusinessUnitAssociateModeValues {
 export type BusinessUnitAssociateMode =
   | 'Explicit'
   | 'ExplicitAndFromParent'
-  | string
+  | (string & {})
 /**
  *	Information about all roles and permissions of an Associate in a [BusinessUnit](ctp:api:type:BusinessUnit).
  *
@@ -533,7 +536,7 @@ export enum BusinessUnitStatusValues {
   Inactive = 'Inactive',
 }
 
-export type BusinessUnitStatus = 'Active' | 'Inactive' | string
+export type BusinessUnitStatus = 'Active' | 'Inactive' | (string & {})
 /**
  *	Defines whether the Stores of the Business Unit are set directly on the Business Unit or are inherited from its parent unit.
  *
@@ -543,7 +546,7 @@ export enum BusinessUnitStoreModeValues {
   FromParent = 'FromParent',
 }
 
-export type BusinessUnitStoreMode = 'Explicit' | 'FromParent' | string
+export type BusinessUnitStoreMode = 'Explicit' | 'FromParent' | (string & {})
 /**
  *	The type of the Business Unit indicating its position in a hierarchy.
  *
@@ -553,7 +556,7 @@ export enum BusinessUnitTypeValues {
   Division = 'Division',
 }
 
-export type BusinessUnitType = 'Company' | 'Division' | string
+export type BusinessUnitType = 'Company' | 'Division' | (string & {})
 export interface BusinessUnitUpdate {
   /**
    *	Expected version of the BusinessUnit on which the changes should be applied.

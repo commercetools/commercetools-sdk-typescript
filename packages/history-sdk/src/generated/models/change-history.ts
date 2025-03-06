@@ -187,7 +187,7 @@ export type ChangeHistoryResourceType =
   | 'tax-category'
   | 'type'
   | 'zone'
-  | string
+  | (string & {})
 /**
  *	This type consists of one enum value:
  *
@@ -196,7 +196,7 @@ export enum DateStringFilterValues {
   Now = 'now',
 }
 
-export type DateStringFilter = 'now' | string
+export type DateStringFilter = 'now' | (string & {})
 export interface ErrorObject {
   /**
    *
@@ -306,7 +306,7 @@ export type PlatformInitiatedChange =
   | 'setApplicationVersion'
   | 'setIsValid'
   | 'setVariantAvailability'
-  | string
+  | (string & {})
 /**
  *	Source of change for the resource.
  */
@@ -316,7 +316,7 @@ export enum SourceValues {
   MerchantCenter = 'MerchantCenter',
 }
 
-export type Source = 'ApiClient' | 'ImpEx' | 'MerchantCenter' | string
+export type Source = 'ApiClient' | 'ImpEx' | 'MerchantCenter' | (string & {})
 export enum UpdateTypeValues {
   AddAddress = 'addAddress',
   AddAsset = 'addAsset',
@@ -867,4 +867,4 @@ export type UpdateType =
   | 'updateItemShippingAddress'
   | 'updateSyncInfo'
   | 'verifyEmail'
-  | string
+  | (string & {})

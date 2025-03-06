@@ -343,13 +343,13 @@ export type OrderSearchCustomType =
   | 'SetType.TimeType'
   | 'StringType'
   | 'TimeType'
-  | string
+  | (string & {})
 export enum OrderSearchMatchTypeValues {
   All = 'all',
   Any = 'any',
 }
 
-export type OrderSearchMatchType = 'all' | 'any' | string
+export type OrderSearchMatchType = 'all' | 'any' | (string & {})
 export interface OrderSearchQueryExpressionValue {
   /**
    *
@@ -442,13 +442,13 @@ export enum OrderSearchSortModeValues {
   Sum = 'sum',
 }
 
-export type OrderSearchSortMode = 'avg' | 'max' | 'min' | 'sum' | string
+export type OrderSearchSortMode = 'avg' | 'max' | 'min' | 'sum' | (string & {})
 export enum OrderSearchSortOrderValues {
   Asc = 'asc',
   Desc = 'desc',
 }
 
-export type OrderSearchSortOrder = 'asc' | 'desc' | string
+export type OrderSearchSortOrder = 'asc' | 'desc' | (string & {})
 export interface OrderSearchStringValue
   extends OrderSearchQueryExpressionValue {
   /**
@@ -1593,7 +1593,7 @@ export type OrderState =
   | 'Complete'
   | 'Confirmed'
   | 'Open'
-  | string
+  | (string & {})
 export interface OrderUpdate {
   /**
    *	Expected version of the Order on which the changes should be applied.
@@ -1804,7 +1804,7 @@ export type PaymentState =
   | 'Failed'
   | 'Paid'
   | 'Pending'
-  | string
+  | (string & {})
 /**
  *	Contains the Product Variant to be used in the [LineItemImportDraft](ctp:api:type:LineItemImportDraft).
  *
@@ -2143,7 +2143,7 @@ export type ReturnPaymentState =
   | 'NonRefundable'
   | 'NotRefunded'
   | 'Refunded'
-  | string
+  | (string & {})
 export enum ReturnShipmentStateValues {
   Advised = 'Advised',
   BackInStock = 'BackInStock',
@@ -2156,7 +2156,7 @@ export type ReturnShipmentState =
   | 'BackInStock'
   | 'Returned'
   | 'Unusable'
-  | string
+  | (string & {})
 /**
  *	Indicates the shipment status of the Order.
  *
@@ -2181,7 +2181,7 @@ export type ShipmentState =
   | 'Pending'
   | 'Ready'
   | 'Shipped'
-  | string
+  | (string & {})
 /**
  *	Becomes the `shippingInfo` of the imported Order.
  *

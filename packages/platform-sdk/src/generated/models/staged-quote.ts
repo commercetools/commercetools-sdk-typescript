@@ -268,7 +268,7 @@ export enum StagedQuoteStateValues {
   Sent = 'Sent',
 }
 
-export type StagedQuoteState = 'Closed' | 'InProgress' | 'Sent' | string
+export type StagedQuoteState = 'Closed' | 'InProgress' | 'Sent' | (string & {})
 export interface StagedQuoteUpdate {
   /**
    *	Expected version of the [StagedQuote](ctp:api:type:StagedQuote) to which the changes should be applied.

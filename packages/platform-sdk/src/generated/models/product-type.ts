@@ -29,12 +29,12 @@ export type AttributeConstraintEnum =
   | 'None'
   | 'SameForAll'
   | 'Unique'
-  | string
+  | (string & {})
 export enum AttributeConstraintEnumDraftValues {
   None = 'None',
 }
 
-export type AttributeConstraintEnumDraft = 'None' | string
+export type AttributeConstraintEnumDraft = 'None' | (string & {})
 /**
  *	Describes a Product Attribute and allows you to define meta-information associated with the Attribute (like whether it should be searchable, or its constraints).
  *
@@ -225,7 +225,7 @@ export type AttributeReferenceTypeId =
   | 'shipping-method'
   | 'state'
   | 'zone'
-  | string
+  | (string & {})
 /**
  *	Umbrella type for specific attribute types discriminated by property `name`.
  */
@@ -559,7 +559,7 @@ export enum TextInputHintValues {
   SingleLine = 'SingleLine',
 }
 
-export type TextInputHint = 'MultiLine' | 'SingleLine' | string
+export type TextInputHint = 'MultiLine' | 'SingleLine' | (string & {})
 export interface ProductTypeAddAttributeDefinitionAction
   extends IProductTypeUpdateAction {
   readonly action: 'addAttributeDefinition'

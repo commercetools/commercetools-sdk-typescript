@@ -15,7 +15,7 @@ export enum TypeTextInputHintValues {
   SingleLine = 'SingleLine',
 }
 
-export type TypeTextInputHint = 'MultiLine' | 'SingleLine' | string
+export type TypeTextInputHint = 'MultiLine' | 'SingleLine' | (string & {})
 /**
  *	IDs indicating the [type of resource](ctp:api:type:ResourceTypeId). Maps to `Type.resourceTypeIds`.
  *
@@ -84,7 +84,7 @@ export type ResourceTypeId =
   | 'standalone-price'
   | 'store'
   | 'transaction'
-  | string
+  | (string & {})
 export type FieldType =
   | CustomFieldBooleanType
   | CustomFieldDateTimeType
@@ -240,7 +240,7 @@ export type CustomFieldReferenceValue =
   | 'shipping-method'
   | 'state'
   | 'zone'
-  | string
+  | (string & {})
 /**
  *	Values of a SetType Custom Field are sets of values of the specified `elementType` (without duplicate elements).
  */

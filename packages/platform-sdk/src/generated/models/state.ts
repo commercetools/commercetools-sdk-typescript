@@ -236,7 +236,10 @@ export enum StateRoleEnumValues {
   ReviewIncludedInStatistics = 'ReviewIncludedInStatistics',
 }
 
-export type StateRoleEnum = 'Return' | 'ReviewIncludedInStatistics' | string
+export type StateRoleEnum =
+  | 'Return'
+  | 'ReviewIncludedInStatistics'
+  | (string & {})
 /**
  *	Resource or object type the State can be assigned to.
  *
@@ -261,7 +264,7 @@ export type StateTypeEnum =
   | 'QuoteState'
   | 'ReviewState'
   | 'StagedQuoteState'
-  | string
+  | (string & {})
 export interface StateUpdate {
   /**
    *	Expected version of the State on which the changes should be applied.

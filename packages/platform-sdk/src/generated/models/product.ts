@@ -141,7 +141,7 @@ export enum FacetTypesValues {
   Terms = 'terms',
 }
 
-export type FacetTypes = 'filter' | 'range' | 'terms' | string
+export type FacetTypes = 'filter' | 'range' | 'terms' | (string & {})
 export interface FilteredFacetResult extends IFacetResult {
   readonly type: 'filter'
   /**
@@ -512,7 +512,7 @@ export enum ProductPriceModeEnumValues {
   Standalone = 'Standalone',
 }
 
-export type ProductPriceModeEnum = 'Embedded' | 'Standalone' | string
+export type ProductPriceModeEnum = 'Embedded' | 'Standalone' | (string & {})
 export interface ProductProjection extends BaseResource {
   /**
    *	Unique identifier of the [Product](ctp:api:type:Product).
@@ -1140,7 +1140,7 @@ export type TermFacetResultType =
   | 'number'
   | 'text'
   | 'time'
-  | string
+  | (string & {})
 /**
  *	Creates tokens by splitting the `text` field in [SearchKeyword](ctp:api:type:SearchKeyword) by whitespaces.
  *

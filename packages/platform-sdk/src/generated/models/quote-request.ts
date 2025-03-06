@@ -394,7 +394,7 @@ export type QuoteRequestState =
   | 'Closed'
   | 'Rejected'
   | 'Submitted'
-  | string
+  | (string & {})
 export interface QuoteRequestUpdate {
   /**
    *	Expected version of the [QuoteRequest](ctp:api:type:QuoteRequest) to which the changes should be applied.

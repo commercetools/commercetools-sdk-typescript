@@ -410,7 +410,7 @@ export type QuoteState =
   | 'Pending'
   | 'RenegotiationAddressed'
   | 'Withdrawn'
-  | string
+  | (string & {})
 export interface QuoteUpdate {
   /**
    *	Expected version of the [Quote](ctp:api:type:Quote) to which the changes should be applied.

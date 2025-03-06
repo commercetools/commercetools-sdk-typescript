@@ -183,13 +183,13 @@ export type AttributeConstraintEnum =
   | 'None'
   | 'SameForAll'
   | 'Unique'
-  | string
+  | (string & {})
 export enum TextInputHintValues {
   MultiLine = 'MultiLine',
   SingleLine = 'SingleLine',
 }
 
-export type TextInputHint = 'MultiLine' | 'SingleLine' | string
+export type TextInputHint = 'MultiLine' | 'SingleLine' | (string & {})
 /**
  *	The data representation for a ProductType to be imported that is persisted as a [ProductType](ctp:api:type:ProductType) in the Project.
  *

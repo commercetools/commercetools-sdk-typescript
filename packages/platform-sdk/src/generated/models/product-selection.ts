@@ -242,7 +242,10 @@ export enum ProductSelectionModeValues {
   IndividualExclusion = 'IndividualExclusion',
 }
 
-export type ProductSelectionMode = 'Individual' | 'IndividualExclusion' | string
+export type ProductSelectionMode =
+  | 'Individual'
+  | 'IndividualExclusion'
+  | (string & {})
 /**
  *	[PagedQueryResult](/general-concepts#pagedqueryresult) containing an array of [ProductSelection](ctp:api:type:ProductSelection).
  *
@@ -454,7 +457,7 @@ export type ProductVariantSelectionTypeEnum =
   | 'includeAllExcept'
   | 'includeOnly'
   | 'inclusion'
-  | string
+  | (string & {})
 /**
  *	[PagedQueryResult](/general-concepts#pagedqueryresult) containing an array of [ProductSelectionAssignment](ctp:api:type:ProductSelectionAssignment).
  *
