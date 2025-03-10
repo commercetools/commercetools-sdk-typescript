@@ -55,13 +55,13 @@ export type SearchFieldType =
   | 'set_time'
   | 'text'
   | 'time'
-  | string
+  | (string & {})
 export enum SearchMatchTypeValues {
   All = 'all',
   Any = 'any',
 }
 
-export type SearchMatchType = 'all' | 'any' | string
+export type SearchMatchType = 'all' | 'any' | (string & {})
 export interface SearchMatchingVariant {
   /**
    *	Unique identifier of the variant.
@@ -365,13 +365,13 @@ export enum SearchSortModeValues {
   Sum = 'sum',
 }
 
-export type SearchSortMode = 'avg' | 'max' | 'min' | 'sum' | string
+export type SearchSortMode = 'avg' | 'max' | 'min' | 'sum' | (string & {})
 export enum SearchSortOrderValues {
   Asc = 'asc',
   Desc = 'desc',
 }
 
-export type SearchSortOrder = 'asc' | 'desc' | string
+export type SearchSortOrder = 'asc' | 'desc' | (string & {})
 /**
  *	Sorting parameters provided with a Search request.
  *

@@ -237,7 +237,10 @@ export enum ProductSearchFacetCountLevelEnumValues {
   Variants = 'variants',
 }
 
-export type ProductSearchFacetCountLevelEnum = 'products' | 'variants' | string
+export type ProductSearchFacetCountLevelEnum =
+  | 'products'
+  | 'variants'
+  | (string & {})
 export interface ProductSearchFacetCountValue {
   /**
    *	Name of the count facet to appear in the [ProductSearchFacetResultCount](ctp:api:type:ProductSearchFacetResultCount).
@@ -265,7 +268,10 @@ export enum ProductSearchFacetDistinctBucketSortByValues {
   Key = 'key',
 }
 
-export type ProductSearchFacetDistinctBucketSortBy = 'count' | 'key' | string
+export type ProductSearchFacetDistinctBucketSortBy =
+  | 'count'
+  | 'key'
+  | (string & {})
 export interface ProductSearchFacetDistinctBucketSortExpression {
   /**
    *	Defines whether to sort by bucket count or key.
@@ -483,4 +489,4 @@ export enum ProductSearchFacetScopeEnumValues {
   Query = 'query',
 }
 
-export type ProductSearchFacetScopeEnum = 'all' | 'query' | string
+export type ProductSearchFacetScopeEnum = 'all' | 'query' | (string & {})

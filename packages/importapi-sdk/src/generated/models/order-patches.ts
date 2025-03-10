@@ -22,7 +22,7 @@ export type ReturnShipmentState =
   | 'BackInStock'
   | 'Returned'
   | 'Unusable'
-  | string
+  | (string & {})
 export interface ReturnItemDraft {
   /**
    *

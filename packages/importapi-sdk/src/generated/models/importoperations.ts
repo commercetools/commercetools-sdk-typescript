@@ -112,7 +112,10 @@ export enum ImportOperationStateValues {
   ValidationFailed = 'validationFailed',
 }
 
-export type ImportOperationState = 'processing' | 'validationFailed' | string
+export type ImportOperationState =
+  | 'processing'
+  | 'validationFailed'
+  | (string & {})
 export interface ImportOperationStatus {
   /**
    *	The ID of the [ImportOperation](#importoperation).

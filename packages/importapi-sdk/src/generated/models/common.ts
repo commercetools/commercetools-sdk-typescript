@@ -449,7 +449,7 @@ export enum MoneyTypeValues {
   HighPrecision = 'highPrecision',
 }
 
-export type MoneyType = 'centPrecision' | 'highPrecision' | string
+export type MoneyType = 'centPrecision' | 'highPrecision' | (string & {})
 export type TypedMoney = HighPrecisionMoney | Money
 export interface ITypedMoney {
   /**
@@ -574,7 +574,7 @@ export type ImportResourceType =
   | 'product-variant-patch'
   | 'standalone-price'
   | 'type'
-  | string
+  | (string & {})
 /**
  *	The type of the referenced resource.
  *
@@ -623,7 +623,7 @@ export type ReferenceType =
   | 'store'
   | 'tax-category'
   | 'type'
-  | string
+  | (string & {})
 /**
  *	Every [Import Operation](ctp:import:type:ImportOperation) is assigned one of the following states.
  *
@@ -646,7 +646,7 @@ export type ProcessingState =
   | 'unresolved'
   | 'validationFailed'
   | 'waitForMasterVariant'
-  | string
+  | (string & {})
 export interface Address {
   /**
    *
@@ -761,4 +761,4 @@ export enum ProductPriceModeEnumValues {
   Standalone = 'Standalone',
 }
 
-export type ProductPriceModeEnum = 'Embedded' | 'Standalone' | string
+export type ProductPriceModeEnum = 'Embedded' | 'Standalone' | (string & {})

@@ -16,7 +16,7 @@ export enum AuthenticationModeValues {
   Password = 'Password',
 }
 
-export type AuthenticationMode = 'ExternalAuth' | 'Password' | string
+export type AuthenticationMode = 'ExternalAuth' | 'Password' | (string & {})
 /**
  *	Different from [Address](/types#address) in that `key` is required and `id` is not supported.
  *

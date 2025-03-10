@@ -459,7 +459,7 @@ export type ShippingRateTierType =
   | 'CartClassification'
   | 'CartScore'
   | 'CartValue'
-  | string
+  | (string & {})
 /**
  *	Defines shipping rates in different currencies for a specific [Zone](ctp:api:type:Zone).
  *

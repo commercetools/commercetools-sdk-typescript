@@ -1,5 +1,11 @@
 # @commercetools/history-sdk
 
+## 5.2.1
+
+### Patch Changes
+
+- [#961](https://github.com/commercetools/commercetools-sdk-typescript/pull/961) [`28f0578`](https://github.com/commercetools/commercetools-sdk-typescript/commit/28f057841fcfd26b30ff41167dc88ada3c143371) Thanks [@ajimae](https://github.com/ajimae)! - Release changes for type modification
+
 ## 5.2.0
 
 ### Minor Changes

@@ -15,7 +15,7 @@ export enum AwsAuthenticationModeValues {
   Iam = 'IAM',
 }
 
-export type AwsAuthenticationMode = 'Credentials' | 'IAM' | string
+export type AwsAuthenticationMode = 'Credentials' | 'IAM' | (string & {})
 /**
  *	Notification about changes to a resource. The payload format differs for resource [creation](ctp:api:type:ResourceCreatedDeliveryPayload),
  *	[update](ctp:api:type:ResourceUpdatedDeliveryPayload),
@@ -114,7 +114,7 @@ export type ChangeSubscriptionResourceTypeId =
   | 'tax-category'
   | 'type'
   | 'zone'
-  | string
+  | (string & {})
 /**
  *	The [CloudEventsFormat](ctp:api:type:CloudEventsFormat) represents event data in a way that conforms to a common specification. The payload can be found inside the `data` field.
  *
@@ -521,7 +521,7 @@ export type MessageSubscriptionResourceTypeId =
   | 'staged-quote'
   | 'standalone-price'
   | 'store'
-  | string
+  | (string & {})
 export interface PayloadNotIncluded {
   /**
    *	Reason the payload is not included. For example, the payload is too large, or its content is not supported by the Subscription destination.
@@ -871,7 +871,7 @@ export type SubscriptionHealthStatus =
   | 'Healthy'
   | 'ManuallySuspended'
   | 'TemporaryError'
-  | string
+  | (string & {})
 /**
  *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [Subscription](ctp:api:type:Subscription).
  *
