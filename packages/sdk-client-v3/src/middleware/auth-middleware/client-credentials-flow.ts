@@ -7,9 +7,9 @@ import {
   TokenCache,
   TokenStore,
 } from '../../types/types'
-import { buildTokenCacheKey, mergeAuthHeader, store } from '../../utils'
+import { buildTokenCacheKey, store } from '../../utils'
 import { buildRequestForClientCredentialsFlow } from './auth-request-builder'
-import { executeRequest } from './auth-request-executor'
+import { authProcessor } from './auth-request-processor'
 
 export default function createAuthMiddlewareForClientCredentialsFlow(
   options: AuthMiddlewareOptions
@@ -27,53 +27,16 @@ export default function createAuthMiddlewareForClientCredentialsFlow(
 
   return (next: Next) => {
     return async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {
-      // if here is a token in the header, then move on to the next middleware
-      if (
-        request.headers &&
-        (request.headers.Authorization || request.headers.authorization)
-      ) {
-        // move on
-        return next(request)
-      }
-
-      /**
-       * If there is a token in the tokenCache, and it's not
-       * expired, append the token in the `Authorization` header.
-       */
-      tokenCacheObject = tokenCache.get(tokenCacheKey)
-      if (
-        tokenCacheObject &&
-        tokenCacheObject.token &&
-        Date.now() < tokenCacheObject.expirationTime
-      ) {
-        return next(mergeAuthHeader(tokenCacheObject.token, request))
-      }
-
-      // prepare request options
-      const requestOptions = {
+      return authProcessor(
         request,
-        tokenCache,
-        tokenCacheKey,
+        tokenFetchPromise,
         tokenCacheObject,
-        httpClient: options.httpClient || fetch,
-        httpClientOptions: options.httpClientOptions,
-        ...buildRequestForClientCredentialsFlow(options),
-        next,
-      }
-
-      // If a token is already being fetched, wait for it to finish
-      if (tokenFetchPromise) {
-        await tokenFetchPromise
-      } else {
-        // Otherwise, fetch the token and let others wait for this process to complete
-        tokenFetchPromise = executeRequest(requestOptions)
-        await tokenFetchPromise
-        tokenFetchPromise = null
-      }
-
-      // Now the token is present in the tokenCache
-      tokenCacheObject = tokenCache.get(tokenCacheKey)
-      return next(mergeAuthHeader(tokenCacheObject.token, request))
+        tokenCacheKey,
+        tokenCache,
+        buildRequestForClientCredentialsFlow,
+        options,
+        next
+      )
     }
   }
 }
