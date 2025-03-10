@@ -1,5 +1,42 @@
 # @commercetools/platform-sdk
 
+## 8.5.0
+
+### Minor Changes
+
+- [#963](https://github.com/commercetools/commercetools-sdk-typescript/pull/963) [`1c731e1`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1c731e14a773769dab8af8c0a943715d3771b1ea) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `BusinessUnitAssociateResponse`
+  </details>
+
+  <details>
+  <summary>Added Resource(s)</summary>
+
+  - added resource `/{projectKey}/business-units/key={key}/associates/{associateId}`
+  - added resource `/{projectKey}/business-units/{businessUnitId}/associates/{associateId}`
+  - added resource `/{projectKey}/in-store/key={storeKey}/business-units/key={key}/associates/{associateId}`
+  - added resource `/{projectKey}/in-store/key={storeKey}/business-units/{businessUnitId}/associates/{associateId}`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+
+  - added method `apiRoot.withProjectKey().businessUnits().keyWithKeyValueAssociatesWithAssociateIdValue().get()`
+  - added method `apiRoot.withProjectKey().businessUnits().withBusinessUnitIdValueAssociatesWithAssociateIdValue().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().businessUnits().keyWithKeyValueAssociatesWithAssociateIdValue().get()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().businessUnits().withBusinessUnitIdValueAssociatesWithAssociateIdValue().get()`
+  </details>
+
+  <details>
+  <summary>MarkDeprecated Property(s)</summary>
+
+  - marked property `CountOnCustomLineItemUnits::excludeCount` as deprecated
+  - marked property `CountOnLineItemUnits::excludeCount` as deprecated
+  </details>
+
 ## 8.4.0
 
 ### Minor Changes
