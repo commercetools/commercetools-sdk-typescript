@@ -1,5 +1,20 @@
 # @commercetools/platform-sdk
 
+## 8.6.0
+
+### Minor Changes
+
+- [#972](https://github.com/commercetools/commercetools-sdk-typescript/pull/972) [`3cd9051`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3cd9051bd67a8a70eb43c8998ab96d8651d49615) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `OrderBusinessUnitSetMessage`
+  - added type `OrderBusinessUnitSetMessagePayload`
+  - added type `StagedOrderSetBusinessUnitAction`
+  - added type `OrderSetBusinessUnitAction`
+  </details>
+
 ## 8.5.0
 
 ### Minor Changes
