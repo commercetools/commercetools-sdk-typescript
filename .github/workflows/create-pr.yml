@@ -6,8 +6,10 @@ on:
 
 name: Create Changes PR
 
-# Declare default permissions as read only.
-permissions: read-all
+# Declare default permissions.
+permissions:
+  actions: write
+  contents: write
 
 jobs:
   create_pr:
