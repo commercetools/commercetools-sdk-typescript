@@ -86,6 +86,7 @@ import {
   StagedOrderSetBillingAddressAction,
   StagedOrderSetBillingAddressCustomFieldAction,
   StagedOrderSetBillingAddressCustomTypeAction,
+  StagedOrderSetBusinessUnitAction,
   StagedOrderSetCountryAction,
   StagedOrderSetCustomerEmailAction,
   StagedOrderSetCustomerGroupAction,
@@ -195,6 +196,7 @@ export type StagedOrderUpdateAction =
   | StagedOrderSetBillingAddressAction
   | StagedOrderSetBillingAddressCustomFieldAction
   | StagedOrderSetBillingAddressCustomTypeAction
+  | StagedOrderSetBusinessUnitAction
   | StagedOrderSetCountryAction
   | StagedOrderSetCustomFieldAction
   | StagedOrderSetCustomLineItemCustomFieldAction
@@ -1627,6 +1629,7 @@ export type OrderUpdateAction =
   | OrderSetBillingAddressAction
   | OrderSetBillingAddressCustomFieldAction
   | OrderSetBillingAddressCustomTypeAction
+  | OrderSetBusinessUnitAction
   | OrderSetCustomFieldAction
   | OrderSetCustomLineItemCustomFieldAction
   | OrderSetCustomLineItemCustomTypeAction
@@ -2682,6 +2685,23 @@ export interface OrderSetBillingAddressCustomTypeAction
    *
    */
   readonly fields?: FieldContainer
+}
+/**
+ *	Updates the Business Unit on the Order. Setting the Order's `businessUnit` does not recalculate prices or discounts on the Order.
+ *
+ *	Produces the [OrderBusinessUnitSet](ctp:api:type:OrderBusinessUnitSetMessage) Message.
+ *
+ */
+export interface OrderSetBusinessUnitAction extends IOrderUpdateAction {
+  readonly action: 'setBusinessUnit'
+  /**
+   *	New Business Unit to assign to the Order. If empty, any existing value is removed.
+   *
+   *	If the referenced Business Unit does not exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error is returned.
+   *
+   *
+   */
+  readonly businessUnit?: BusinessUnitResourceIdentifier
 }
 export interface OrderSetCustomFieldAction extends IOrderUpdateAction {
   readonly action: 'setCustomField'
