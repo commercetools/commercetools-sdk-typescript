@@ -387,9 +387,9 @@ export interface CartDiscountPatternTarget extends ICartDiscountTarget {
    *	Defines the set of units of (Custom) Line Items in a Cart that trigger a discount application.
    *
    *	Based on the availability of matching units, the `triggerPattern` can match multiple times, limiting the number of maximum times the discount will be applied.
-   *	To further limit the discount application, set the `maxOccurrence`.
+   *	The units matched in the `triggerPattern` are excluded and not considered for the `targetPattern`.
    *
-   *	If empty, the Discount will apply indefinitely.
+   *	To further limit the discount application, set the `maxOccurrence`.
    *
    *
    */
@@ -800,7 +800,7 @@ export interface CountOnCustomLineItemUnits extends IPatternComponent {
    *	The `minCount`and `maxCount` are considered only after the exclusion. Pattern components are matched only if any further units satisfying the pattern component exist.
    *	For example, if 5 jeans are required but only 3 should be discounted, the `excludeCount` value must be 2.
    *
-   *
+   *	@deprecated
    */
   readonly excludeCount?: number
 }
@@ -837,7 +837,7 @@ export interface CountOnLineItemUnits extends IPatternComponent {
    *	The `minCount`and `maxCount` are considered only after the exclusion. Pattern components are matched only if any further units satisfying the pattern component exist.
    *	For example, if 5 jeans are required but only 3 should be discounted, the `excludeCount` value must be 2.
    *
-   *
+   *	@deprecated
    */
   readonly excludeCount?: number
 }
