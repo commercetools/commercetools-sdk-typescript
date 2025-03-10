@@ -229,6 +229,7 @@ export type Message =
   | InventoryEntryQuantitySetMessage
   | LineItemStateTransitionMessage
   | OrderBillingAddressSetMessage
+  | OrderBusinessUnitSetMessage
   | OrderCreatedMessage
   | OrderCustomFieldAddedMessage
   | OrderCustomFieldChangedMessage
@@ -7676,6 +7677,7 @@ export type OrderMessage =
   | DeliveryRemovedMessage
   | LineItemStateTransitionMessage
   | OrderBillingAddressSetMessage
+  | OrderBusinessUnitSetMessage
   | OrderCreatedMessage
   | OrderCustomFieldAddedMessage
   | OrderCustomFieldChangedMessage
@@ -8787,6 +8789,82 @@ export interface OrderBillingAddressSetMessage extends IOrderMessage {
    *
    */
   readonly oldAddress?: Address
+}
+/**
+ *	Generated after a successful [Set Business Unit](ctp:api:type:OrderSetBusinessUnitAction) update action on Orders or [Set Business Unit](ctp:api:type:StagedOrderSetBusinessUnitAction) update action on Order Edits.
+ *
+ */
+export interface OrderBusinessUnitSetMessage extends IOrderMessage {
+  readonly type: 'OrderBusinessUnitSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[BusinessUnit](ctp:api:type:BusinessUnit) on the [Order](ctp:api:type:Order) after the [Set Business Unit](ctp:api:type:OrderSetBusinessUnitAction) update action on Orders or [Set Business Unit](ctp:api:type:StagedOrderSetBusinessUnitAction) update action on Order Edits.
+   *
+   *
+   */
+  readonly businessUnit?: BusinessUnitKeyReference
+  /**
+   *	[BusinessUnit](ctp:api:type:BusinessUnit) on the [Order](ctp:api:type:Order) before the [Set Business Unit](ctp:api:type:OrderSetBusinessUnitAction) update action on Orders or [Set Business Unit](ctp:api:type:StagedOrderSetBusinessUnitAction) update action on Order Edits.
+   *
+   *
+   */
+  readonly oldbusinessUnit?: BusinessUnitKeyReference
 }
 /**
  *	Generated after a successful [Create Order](ctp:api:endpoint:/{projectKey}/orders:POST) request.
@@ -19698,6 +19776,7 @@ export type MessagePayload =
   | InventoryEntryQuantitySetMessagePayload
   | LineItemStateTransitionMessagePayload
   | OrderBillingAddressSetMessagePayload
+  | OrderBusinessUnitSetMessagePayload
   | OrderCreatedMessagePayload
   | OrderCustomFieldAddedMessagePayload
   | OrderCustomFieldChangedMessagePayload
@@ -21481,6 +21560,7 @@ export type OrderMessagePayload =
   | DeliveryRemovedMessagePayload
   | LineItemStateTransitionMessagePayload
   | OrderBillingAddressSetMessagePayload
+  | OrderBusinessUnitSetMessagePayload
   | OrderCreatedMessagePayload
   | OrderCustomFieldAddedMessagePayload
   | OrderCustomFieldChangedMessagePayload
@@ -21858,6 +21938,26 @@ export interface OrderBillingAddressSetMessagePayload
    *
    */
   readonly oldAddress?: Address
+}
+/**
+ *	Generated after a successful [Set Business Unit](ctp:api:type:OrderSetBusinessUnitAction) update action on Orders or [Set Business Unit](ctp:api:type:StagedOrderSetBusinessUnitAction) update action on Order Edits.
+ *
+ */
+export interface OrderBusinessUnitSetMessagePayload
+  extends IOrderMessagePayload {
+  readonly type: 'OrderBusinessUnitSet'
+  /**
+   *	[BusinessUnit](ctp:api:type:BusinessUnit) on the [Order](ctp:api:type:Order) after the [Set Business Unit](ctp:api:type:OrderSetBusinessUnitAction) update action on Orders or [Set Business Unit](ctp:api:type:StagedOrderSetBusinessUnitAction) update action on Order Edits.
+   *
+   *
+   */
+  readonly businessUnit?: BusinessUnitKeyReference
+  /**
+   *	[BusinessUnit](ctp:api:type:BusinessUnit) on the [Order](ctp:api:type:Order) before the [Set Business Unit](ctp:api:type:OrderSetBusinessUnitAction) update action on Orders or [Set Business Unit](ctp:api:type:StagedOrderSetBusinessUnitAction) update action on Order Edits.
+   *
+   *
+   */
+  readonly oldbusinessUnit?: BusinessUnitKeyReference
 }
 /**
  *	Generated after a successful [Create Order](ctp:api:endpoint:/{projectKey}/orders:POST) request.

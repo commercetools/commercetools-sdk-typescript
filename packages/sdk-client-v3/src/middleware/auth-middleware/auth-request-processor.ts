@@ -1,15 +1,15 @@
-import { executeRequest } from './auth-request-executor'
 import {
   AuthMiddlewareOptions,
   IBuiltRequestParams,
   MiddlewareRequest,
   MiddlewareResponse,
   Next,
-  TokenCacheOptions,
   TokenCache,
+  TokenCacheOptions,
   TokenStore,
 } from '../../types/types'
 import { mergeAuthHeader } from '../../utils'
+import { executeRequest } from './auth-request-executor'
 
 export async function authProcessor<T extends AuthMiddlewareOptions>(
   request: MiddlewareRequest,
