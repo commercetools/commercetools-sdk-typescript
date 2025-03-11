@@ -21,6 +21,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsKeyByKeyRequestBuilder {
     }
   ) {}
   /**
+   *
+   *	Retrieves a Cart with the provided `key` in a [Store](ctp:api:type:Store).
+   *
    *	If the Cart exists in the Project but does not have a `store` specified, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *
    *	To ensure the Cart is up-to-date with current values (such as Prices and Discounts), use the [Recalculate](ctp:api:type:CartRecalculateAction) update action.
@@ -50,7 +53,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Checks if a Cart exists for a given `key`. Returns a `200 OK` status if the Cart exists or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *	Checks if a Cart exists for the provided `key` in a [Store](ctp:api:type:Store). Returns a `200 OK` status if the Cart exists or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -71,6 +74,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsKeyByKeyRequestBuilder {
     )
   }
   /**
+   *	Updates a Cart in a [Store](ctp:api:type:Store) using one or more [update actions](/../projects/carts#update-actions).
+   *
    *	If the Cart exists in the Project but does not have a `store` specified, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *
    */
@@ -101,6 +106,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsKeyByKeyRequestBuilder {
     )
   }
   /**
+   *	Deletes a Cart in a [Store](ctp:api:type:Store).
+   *
    *	If the Cart exists in the Project but does not have a `store` specified, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *
    */

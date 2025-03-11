@@ -68,6 +68,9 @@ export class ByProjectKeyCartsRequestBuilder {
     })
   }
 
+  /**
+   *	Retrieves all Carts in the Project.
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -97,7 +100,7 @@ export class ByProjectKeyCartsRequestBuilder {
     )
   }
   /**
-   *	Checks if a Cart exists for a given Query Predicate. Returns a `200 OK` status if any Carts match the Query Predicate, or a `404 Not Found` otherwise.
+   *	Checks if one or more Carts exist for the provided query predicate. Returns a `200 OK` status if any Carts match the query predicate, or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {
@@ -123,6 +126,9 @@ export class ByProjectKeyCartsRequestBuilder {
     )
   }
   /**
+   *
+   *	Creates a Cart in the Project.
+   *
    *	If the referenced [ShippingMethod](ctp:api:type:ShippingMethod) in the [CartDraft](ctp:api:type:CartDraft) has a predicate that does not match, or if the Shipping Method is not active, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *	Specific Error Codes:
