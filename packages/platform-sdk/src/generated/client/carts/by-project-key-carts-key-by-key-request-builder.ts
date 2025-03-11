@@ -69,7 +69,7 @@ export class ByProjectKeyCartsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Updates a Cart in the Project using one or more [update actions](/../projects/carts#update-actions).
+   *	Updates a Cart in the Project using one or more [update actions](/../api/projects/carts#update-actions).
    */
   public post(methodArgs: {
     queryArgs?: {
