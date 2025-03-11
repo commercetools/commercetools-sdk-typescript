@@ -20,6 +20,7 @@ export class ByProjectKeyCartsKeyByKeyRequestBuilder {
     }
   ) {}
   /**
+   *	Retrieves a Cart with the provided `key`.
    *	To ensure the Cart is up-to-date with current values (such as Prices and Discounts), use the [Recalculate](ctp:api:type:CartRecalculateAction) update action.
    *
    */
@@ -47,7 +48,7 @@ export class ByProjectKeyCartsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Checks if a Cart exists for a given `key`. Returns a `200 OK` status if the Cart exists or a `404 Not Found` otherwise.
+   *	Checks if a Cart exists for the provided `key`. Returns a `200 OK` status if the Cart exists or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -67,6 +68,9 @@ export class ByProjectKeyCartsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Updates a Cart in the Project using one or more [update actions](/../projects/carts#update-actions).
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -93,6 +97,9 @@ export class ByProjectKeyCartsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deletes a Cart in the Project.
+   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

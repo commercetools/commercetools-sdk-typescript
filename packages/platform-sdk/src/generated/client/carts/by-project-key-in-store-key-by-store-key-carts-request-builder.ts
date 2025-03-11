@@ -72,7 +72,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder {
   }
 
   /**
-   *	Queries Carts in a specific [Store](ctp:api:type:Store).
+   *	Retrieves all Carts in a [Store](ctp:api:type:Store).
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -103,7 +103,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder {
     )
   }
   /**
-   *	Checks if a Cart exists for a given Query Predicate. Returns a `200 OK` status if any Carts match the Query Predicate or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *	Checks if one or more Carts exist for the provided query predicate in a [Store](ctp:api:type:Store). Returns a `200 OK` status if any Carts match the query predicate or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {
@@ -129,7 +129,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder {
     )
   }
   /**
-   *	Creates a [Cart](ctp:api:type:Cart) in the [Store](ctp:api:type:Store) specified by `storeKey`.
+   *	Creates a Cart in a [Store](ctp:api:type:Store).
    *
    *	If the referenced [ShippingMethod](ctp:api:type:ShippingMethod) in the [CartDraft](ctp:api:type:CartDraft) has a predicate that does not match, or if the Shipping Method is not active, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
