@@ -22,7 +22,7 @@ import { FieldContainer, TypeResourceIdentifier } from './type'
 import { WarningObject } from './warning'
 
 /**
- *	A single ProductTailoring representation contains the _current_ and the _staged_ representation of its product data tailored per Store.
+ *	A single ProductTailoring representation contains the _current_ and the _staged_ representation of its product information tailored per Store.
  *
  */
 export interface ProductTailoring extends BaseResource {
@@ -80,7 +80,9 @@ export interface ProductTailoring extends BaseResource {
    */
   readonly product: ProductReference
   /**
-   *	`true` if the ProductTailoring is published.
+   *	If `true`, the tailored information contained in the `current` [ProductTailoringData](ctp:api:type:ProductTailoringData) is provided when [retrieving the ProductProjection in Store](/../api/projects/product-tailoring#retrieve-product-projection-with-tailored-information).
+   *	For information not part of the ProductTailoringData, the original information contained in the [ProductData](ctp:api:type:ProductData) is provided.
+   *	If `false`, only the original information contained in the ProductData is provided.
    *
    *
    */
@@ -140,7 +142,7 @@ export interface ProductTailoringAttribute {
   readonly value: any
 }
 /**
- *	Contains all the tailored data of a Product.
+ *	Contains all the tailored information of a Product.
  *
  */
 export interface ProductTailoringData {
@@ -189,7 +191,7 @@ export interface ProductTailoringData {
   readonly variants?: ProductVariantTailoring[]
 }
 /**
- *	Contains all the tailored data of a Product.
+ *	Contains the information to be tailored for a Product.
  *
  */
 export interface ProductTailoringDraft {
@@ -249,7 +251,8 @@ export interface ProductTailoringDraft {
    */
   readonly slug?: LocalizedString
   /**
-   *	If `true`, the ProductTailoring is published immediately.
+   *	Set to `true` to [publish](/../api/projects/product-tailoring#stage-and-publish-tailored-product-information) the ProductTailoring immediately.
+   *	Otherwise, the tailored product information is just staged.
    *
    *
    */
@@ -262,7 +265,7 @@ export interface ProductTailoringDraft {
   readonly variants?: ProductVariantTailoringDraft[]
 }
 /**
- *	Contains all the tailored data of a Product for a specific Store.
+ *	Contains all the tailored information of a Product for a specific Store.
  *
  */
 export interface ProductTailoringInStoreDraft {
