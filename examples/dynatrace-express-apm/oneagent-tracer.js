@@ -25,7 +25,7 @@ const {
 
 const DT_API_URL = `https://${process.env.DYNATRACE_ENV_ID}.live.dynatrace.com/api/v2/otlp` // TODO: Provide your SaaS/Managed URL here
 const DT_API_TOKEN = process.env['DT_OPEN_TOKEN'] // TODO: Provide the OpenTelemetry-scoped access token here
-
+console.log('OpenTelemetry initialization started')
 // ===== GENERAL SETUP =====
 registerInstrumentations({
   instrumentations: [getNodeAutoInstrumentations()],
@@ -88,3 +88,4 @@ meterProvider.addMetricReader(metricReader)
 
 // Set this MeterProvider to be global to the app being instrumented.
 opentelemetry.metrics.setGlobalMeterProvider(meterProvider)
+console.log('OpenTelemetry initialization completed')

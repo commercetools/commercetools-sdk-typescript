@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const { CustomerService } = require('../service')
 const { CustomerController } = require('../controller')
-const { apiRoot } = require('../sdk-v2/sdk')
+const { apiRoot } = require('../sdk-v3/sdk')
 
 const customerService = new CustomerService({ apiRoot })
 const customerController = new CustomerController({ customerService })
