@@ -32,7 +32,7 @@ class CartController {
   async getActiveCart(req, res) {
     const data = await this.cartService.getActiveCart()
 
-    if (data.statusCode == 200) {
+    if (data.statusCode === 200) {
       return ResponseHandler.successResponse(
         res,
         data.statusCode || data.body.statusCode,

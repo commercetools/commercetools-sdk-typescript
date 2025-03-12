@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const { CartDiscountService } = require('../service')
 const { CartDiscountController } = require('../controller')
-const { apiRoot } = require('../sdk-v2/sdk')
+const { apiRoot } = require('../sdk-v3/sdk')
 
 const cartDiscountService = new CartDiscountService({ apiRoot })
 const cartDiscountController = new CartDiscountController({

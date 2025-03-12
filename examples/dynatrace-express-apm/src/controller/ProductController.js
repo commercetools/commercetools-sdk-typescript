@@ -12,7 +12,7 @@ class ProductController {
   async getProducts(req, res) {
     const data = await this.productService.getProduct(req.body)
 
-    if (data.statusCode == 200) {
+    if (data.statusCode === 200) {
       return ResponseHandler.successResponse(
         res,
         data.statusCode || data.body.statusCode,
