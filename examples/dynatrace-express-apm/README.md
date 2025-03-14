@@ -13,7 +13,7 @@ Example to show how the Dynatrace APM can be used in the TypeScript SDK.
 
 1. Clone/Download the example folder.
 2. Navigate to the path `dynatrace-express-apm`.
-3. Create a `.env` file in the src folder by copying the contents of `.env.sample`, then update the values as needed. The variables required to run the demo app are: `CTP_PROJECT_KEY`, `CTP_CLIENT_ID`, `CTP_CLIENT_SECRET`,`CTP_AUTH_URL`,`CTP_API_URL` and `DYNATRACE_ENV_ID` (Dynatrace environment ID) and `DT_OPEN_TOKEN` (Dynatrace Token).
+3. Create a `.env` file in the src folder by copying the contents of `.env.sample`, then update the values as needed. The variables required to run the demo app are: `CTP_PROJECT_KEY`, `CTP_CLIENT_ID`, `CTP_CLIENT_SECRET`,`CTP_AUTH_URL`,`CTP_API_URL` and `DT_ENV_ID` (Dynatrace environment ID) and `DT_OPEN_TOKEN` (Dynatrace Token).
 4. Run `yarn install` (`npm` can also be used) to install all dependencies
 
 ### Start the application
