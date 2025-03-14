@@ -14,7 +14,7 @@ class CartService {
 
   async createCartForCurrentCustomer(cartDraft) {
     const cart = await this.getActiveCart()
-    if (cart?.statusCode == 200) return cart
+    if (cart?.statusCode === 200) return cart
     return this.apiRoot
       .me()
       .carts()

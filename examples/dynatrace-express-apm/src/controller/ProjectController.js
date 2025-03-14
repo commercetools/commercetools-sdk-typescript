@@ -12,7 +12,7 @@ class ProjectController {
   async getProject(req, res) {
     const data = await this.projectService.getProject(req.body)
 
-    if (data.statusCode == 200) {
+    if (data.statusCode === 200) {
       return ResponseHandler.successResponse(
         res,
         data.statusCode || data.body.statusCode,
