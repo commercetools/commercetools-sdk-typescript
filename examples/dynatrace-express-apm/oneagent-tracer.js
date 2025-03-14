@@ -23,7 +23,7 @@ const {
   getNodeAutoInstrumentations,
 } = require('@opentelemetry/auto-instrumentations-node')
 
-const DT_API_URL = `https://${process.env.DYNATRACE_ENV_ID}.live.dynatrace.com/api/v2/otlp` // TODO: Provide your SaaS/Managed URL here
+const DT_API_URL = `https://${process.env.DT_ENV_ID}.live.dynatrace.com/api/v2/otlp` // TODO: Provide your SaaS/Managed URL here
 const DT_API_TOKEN = process.env['DT_OPEN_TOKEN'] // TODO: Provide the OpenTelemetry-scoped access token here
 
 // ===== GENERAL SETUP =====
