@@ -4,6 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { BusinessUnitResourceIdentifier } from './business-unit'
 import {
   CustomLineItemPriceMode,
   DirectDiscountDraft,
@@ -1329,6 +1330,24 @@ export interface StagedOrderSetBillingAddressCustomTypeAction
    *
    */
   readonly fields?: FieldContainer
+}
+/**
+ *	Updates the Business Unit on the Order. Setting the Order's `businessUnit` does not recalculate prices or discounts on the Order.
+ *
+ *	Produces the [OrderBusinessUnitSet](ctp:api:type:OrderBusinessUnitSetMessage) Message.
+ *
+ */
+export interface StagedOrderSetBusinessUnitAction
+  extends IStagedOrderUpdateAction {
+  readonly action: 'setBusinessUnit'
+  /**
+   *	New Business Unit to assign to the Order. If empty, any existing value is removed.
+   *
+   *	If the referenced Business Unit does not exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error is returned.
+   *
+   *
+   */
+  readonly businessUnit?: BusinessUnitResourceIdentifier
 }
 /**
  *	Setting the country can lead to changes in the [LineItem](ctp:api:type:LineItem) prices.

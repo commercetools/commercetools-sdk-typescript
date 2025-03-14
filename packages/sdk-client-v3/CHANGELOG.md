@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 3.2.0
+
+### Minor Changes
+
+- [#950](https://github.com/commercetools/commercetools-sdk-typescript/pull/950) [`e5d107d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e5d107df12aed11cf9486e9da976330b5664fe25) Thanks [@ajimae](https://github.com/ajimae)! - Add retry for 401 errors
+
 ## 3.1.1
 
 ### Patch Changes

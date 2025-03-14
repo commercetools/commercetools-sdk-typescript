@@ -10,6 +10,7 @@ import { ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyC
 import { ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyOrdersRequestBuilder } from '../orders/by-project-key-as-associate-by-associate-id-in-business-unit-key-by-business-unit-key-orders-request-builder'
 import { ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyQuoteRequestsRequestBuilder } from '../quote-requests/by-project-key-as-associate-by-associate-id-in-business-unit-key-by-business-unit-key-quote-requests-request-builder'
 import { ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyQuotesRequestBuilder } from '../quotes/by-project-key-as-associate-by-associate-id-in-business-unit-key-by-business-unit-key-quotes-request-builder'
+import { ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyShoppingListsRequestBuilder } from '../shopping-lists/by-project-key-as-associate-by-associate-id-in-business-unit-key-by-business-unit-key-shopping-lists-request-builder'
 /**
  **/
 export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyRequestBuilder {
@@ -59,6 +60,21 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
    */
   public carts(): ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyCartsRequestBuilder {
     return new ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyCartsRequestBuilder(
+      {
+        pathArgs: {
+          ...this.args.pathArgs,
+        },
+        executeRequest: this.args.executeRequest,
+        baseUri: this.args.baseUri,
+      }
+    )
+  }
+  /**
+   *	shopping-lists e.g. for wishlist support
+   *
+   */
+  public shoppingLists(): ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyShoppingListsRequestBuilder {
+    return new ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyShoppingListsRequestBuilder(
       {
         pathArgs: {
           ...this.args.pathArgs,

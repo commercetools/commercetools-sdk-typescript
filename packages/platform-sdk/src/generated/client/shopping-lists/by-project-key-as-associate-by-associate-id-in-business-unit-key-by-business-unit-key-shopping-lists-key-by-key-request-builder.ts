@@ -3,17 +3,18 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { Cart, CartUpdate } from '../../models/cart'
+import { ShoppingList, ShoppingListUpdate } from '../../models/shopping-list'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
-export class ByProjectKeyInStoreKeyByStoreKeyCartsKeyByKeyRequestBuilder {
+export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnitKeyShoppingListsKeyByKeyRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
         projectKey: string
-        storeKey: string
+        associateId: string
+        businessUnitKey: string
         key: string
       }
       executeRequest: executeRequest
@@ -21,12 +22,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsKeyByKeyRequestBuilder {
     }
   ) {}
   /**
-   *
-   *	Retrieves a Cart with the provided `key` in a [Store](ctp:api:type:Store).
-   *
-   *	If the Cart exists in the Project but does not have a `store` specified, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
-   *
-   *	To ensure the Cart is up-to-date with current values (such as Prices and Discounts), use the [Recalculate](ctp:api:type:CartRecalculateAction) update action.
+   *	If the ShoppingList exists in the Project but does not reference the requested [BusinessUnit](ctp:api:type:BusinessUnit), this method returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *
    */
   public get(methodArgs?: {
@@ -37,12 +33,13 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsKeyByKeyRequestBuilder {
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<Cart> {
-    return new ApiRequest<Cart>(
+  }): ApiRequest<ShoppingList> {
+    return new ApiRequest<ShoppingList>(
       {
         baseUri: this.args.baseUri,
         method: 'GET',
-        uriTemplate: '/{projectKey}/in-store/key={storeKey}/carts/key={key}',
+        uriTemplate:
+          '/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/shopping-lists/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
@@ -53,7 +50,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Checks if a Cart exists for the provided `key` in a [Store](ctp:api:type:Store). Returns a `200 OK` status if the Cart exists or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *	Checks if a ShoppingList exists for a given `key`. Returns a `200 OK` if the ShoppingList exists; otherwise, returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *
    */
   public head(methodArgs?: {
     headers?: {
@@ -64,7 +62,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsKeyByKeyRequestBuilder {
       {
         baseUri: this.args.baseUri,
         method: 'HEAD',
-        uriTemplate: '/{projectKey}/in-store/key={storeKey}/carts/key={key}',
+        uriTemplate:
+          '/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/shopping-lists/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
@@ -74,9 +73,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Updates a Cart in a [Store](ctp:api:type:Store) using one or more [update actions](/../api/projects/carts#update-actions).
-   *
-   *	If the Cart exists in the Project but does not have a `store` specified, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *	If the Shopping List exists in the [Project](ctp:api:type:Project) but does not reference the requested [BusinessUnit](ctp:api:type:BusinessUnit), this method returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *
    */
   public post(methodArgs: {
@@ -84,16 +81,17 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsKeyByKeyRequestBuilder {
       expand?: string | string[]
       [key: string]: QueryParam
     }
-    body: CartUpdate
+    body: ShoppingListUpdate
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<Cart> {
-    return new ApiRequest<Cart>(
+  }): ApiRequest<ShoppingList> {
+    return new ApiRequest<ShoppingList>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',
-        uriTemplate: '/{projectKey}/in-store/key={storeKey}/carts/key={key}',
+        uriTemplate:
+          '/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/shopping-lists/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
           'Content-Type': 'application/json',
@@ -106,27 +104,26 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Deletes a Cart in a [Store](ctp:api:type:Store).
-   *
-   *	If the Cart exists in the Project but does not have a `store` specified, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *	If the ShoppingList exists in the Project but does not reference the requested [BusinessUnit](ctp:api:type:BusinessUnit), this method returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *
    */
   public delete(methodArgs: {
     queryArgs: {
+      expand?: string | string[]
       dataErasure?: boolean
       version: number
-      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<Cart> {
-    return new ApiRequest<Cart>(
+  }): ApiRequest<ShoppingList> {
+    return new ApiRequest<ShoppingList>(
       {
         baseUri: this.args.baseUri,
         method: 'DELETE',
-        uriTemplate: '/{projectKey}/in-store/key={storeKey}/carts/key={key}',
+        uriTemplate:
+          '/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/shopping-lists/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
           ...methodArgs?.headers,
