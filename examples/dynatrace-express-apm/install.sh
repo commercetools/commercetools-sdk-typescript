@@ -14,5 +14,5 @@ yarn add \
   @opentelemetry/semantic-conventions \
   @opentelemetry/auto-instrumentations-node \
   @commercetools/platform-sdk \
-  @commercetools/sdk-client-v2 \
+  @commercetools/ts-client \
   @commercetools/ts-sdk-apm

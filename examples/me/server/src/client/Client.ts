@@ -1,4 +1,3 @@
-// import { ClientBuilder, Credentials } from '@commercetools/sdk-client-v2'
 import {
   ClientBuilder,
   Credentials,

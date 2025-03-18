@@ -25,7 +25,7 @@ const reader = configureDynatraceMetricExport(
       { key: 'default-dim', value: 'default-dim-value' },
     ],
     // If no OneAgent is available locally, export directly to the Dynatrace server:
-    url: `https://${process.env['DYNATRACE_ENV_ID']}.live.dynatrace.com/api/v2/metrics/ingest`,
+    url: `https://${process.env['DT_ENV_ID']}.live.dynatrace.com/api/v2/metrics/ingest`,
     apiToken: process.env['DT_OPEN_TOKEN'],
   },
   // metric reader configuration
