@@ -3,7 +3,7 @@ import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
 
 export const projectKey = import.meta.env.VITE_CTP_PROJECT_KEY
 const authMiddlewareOptions = {
-  host: 'https://auth.europe-west1.gcp.commercetools.com',
+  host: import.meta.env.VITE_AUTH_URL,
   projectKey,
   credentials: {
     clientId: import.meta.env.VITE_CTP_CLIENT_ID,
@@ -14,14 +14,14 @@ const authMiddlewareOptions = {
 }
 
 const httpMiddlewareOptions = {
-  host: 'https://api.europe-west1.gcp.commercetools.com',
+  host: import.meta.env.VITE_API_URL,
   httpClient: fetch,
 }
 
 const client = new ClientBuilder()
   .withClientCredentialsFlow(authMiddlewareOptions)
   .withHttpMiddleware(httpMiddlewareOptions)
-  // .withLoggerMiddleware()
+  .withLoggerMiddleware()
   .build()
 
 export const getApiRoot = () => {
