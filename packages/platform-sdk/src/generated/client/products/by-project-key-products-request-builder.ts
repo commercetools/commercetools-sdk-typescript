@@ -72,6 +72,7 @@ export class ByProjectKeyProductsRequestBuilder {
       priceCurrency?: string
       priceCountry?: string
       priceCustomerGroup?: string
+      priceCustomerGroupAssignments?: string | string[]
       priceChannel?: string
       expand?: string | string[]
       sort?: string | string[]
@@ -135,6 +136,7 @@ export class ByProjectKeyProductsRequestBuilder {
       priceCurrency?: string
       priceCountry?: string
       priceCustomerGroup?: string
+      priceCustomerGroupAssignments?: string | string[]
       priceChannel?: string
       expand?: string | string[]
       [key: string]: QueryParam

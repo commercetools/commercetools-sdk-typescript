@@ -31,6 +31,7 @@ export class ByProjectKeyProductProjectionsKeyByKeyRequestBuilder {
       priceCurrency?: string
       priceCountry?: string
       priceCustomerGroup?: string
+      priceCustomerGroupAssignments?: string | string[]
       priceChannel?: string
       localeProjection?: string | string[]
       storeProjection?: string

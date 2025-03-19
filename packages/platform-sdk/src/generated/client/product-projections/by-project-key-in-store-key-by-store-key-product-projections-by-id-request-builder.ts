@@ -39,6 +39,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyProductProjectionsByIDRequestBuilde
       priceCurrency?: string
       priceCountry?: string
       priceCustomerGroup?: string
+      priceCustomerGroupAssignments?: string | string[]
       priceChannel?: string
       localeProjection?: string | string[]
       expand?: string | string[]
