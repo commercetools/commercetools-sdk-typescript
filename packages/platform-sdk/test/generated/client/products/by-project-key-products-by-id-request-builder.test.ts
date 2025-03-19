@@ -40,6 +40,19 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
+      uri: '/test_projectKey/products/test_ID?priceCustomerGroupAssignments=priceCustomerGroupAssignments',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .products()
+        .withId({ ID: 'test_ID' })
+        .get({
+          queryArgs: {
+            priceCustomerGroupAssignments: 'priceCustomerGroupAssignments',
+          },
+        }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/products/test_ID?priceChannel=priceChannel',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
@@ -115,6 +128,21 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'post',
+      uri: '/test_projectKey/products/test_ID?priceCustomerGroupAssignments=priceCustomerGroupAssignments',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .products()
+        .withId({ ID: 'test_ID' })
+        .post({
+          body: null,
+          headers: null,
+          queryArgs: {
+            priceCustomerGroupAssignments: 'priceCustomerGroupAssignments',
+          },
+        }),
+    },
+    {
+      method: 'post',
       uri: '/test_projectKey/products/test_ID?priceChannel=priceChannel',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
@@ -171,6 +199,20 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .withId({ ID: 'test_ID' })
         .delete({
           queryArgs: { priceCustomerGroup: 'priceCustomerGroup', version: 2 },
+        }),
+    },
+    {
+      method: 'delete',
+      uri: '/test_projectKey/products/test_ID?priceCustomerGroupAssignments=priceCustomerGroupAssignments&version=2',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .products()
+        .withId({ ID: 'test_ID' })
+        .delete({
+          queryArgs: {
+            priceCustomerGroupAssignments: 'priceCustomerGroupAssignments',
+            version: 2,
+          },
         }),
     },
     {

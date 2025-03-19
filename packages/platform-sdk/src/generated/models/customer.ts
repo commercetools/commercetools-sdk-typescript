@@ -233,6 +233,12 @@ export interface Customer extends BaseResource {
    *
    */
   readonly authenticationMode: AuthenticationMode
+  /**
+   *	Customer Groups that the Customer belongs to.
+   *
+   *
+   */
+  readonly customerGroupAssignments?: CustomerGroupAssignment[]
 }
 export interface CustomerChangePassword {
   /**
@@ -474,6 +480,12 @@ export interface CustomerDraft {
    *
    */
   readonly authenticationMode?: AuthenticationMode
+  /**
+   *	Customer Groups to assign the Customer to.
+   *
+   *
+   */
+  readonly customerGroupAssignments?: CustomerGroupAssignmentDraft[]
 }
 /**
  *	[Reference](ctp:api:type:Reference) to a [CustomerToken](ctp:api:type:CustomerToken) for email verification.
@@ -501,6 +513,22 @@ export interface CustomerEmailVerify {
    *
    */
   readonly tokenValue: string
+}
+export interface CustomerGroupAssignment {
+  /**
+   *	Reference to a Customer Group.
+   *
+   *
+   */
+  readonly customerGroup: CustomerGroupReference
+}
+export interface CustomerGroupAssignmentDraft {
+  /**
+   *	ResourceIdentifier of a Customer Group.
+   *
+   *
+   */
+  readonly customerGroup: CustomerGroupResourceIdentifier
 }
 /**
  *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [Customer](ctp:api:type:Customer).
@@ -732,12 +760,14 @@ export interface CustomerUpdate {
 export type CustomerUpdateAction =
   | CustomerAddAddressAction
   | CustomerAddBillingAddressIdAction
+  | CustomerAddCustomerGroupAssignmentAction
   | CustomerAddShippingAddressIdAction
   | CustomerAddStoreAction
   | CustomerChangeAddressAction
   | CustomerChangeEmailAction
   | CustomerRemoveAddressAction
   | CustomerRemoveBillingAddressIdAction
+  | CustomerRemoveCustomerGroupAssignmentAction
   | CustomerRemoveShippingAddressIdAction
   | CustomerRemoveStoreAction
   | CustomerSetAddressCustomFieldAction
@@ -747,6 +777,7 @@ export type CustomerUpdateAction =
   | CustomerSetCustomFieldAction
   | CustomerSetCustomTypeAction
   | CustomerSetCustomerGroupAction
+  | CustomerSetCustomerGroupAssignmentsAction
   | CustomerSetCustomerNumberAction
   | CustomerSetDateOfBirthAction
   | CustomerSetDefaultBillingAddressAction
@@ -873,6 +904,20 @@ export interface CustomerAddBillingAddressIdAction
   readonly addressKey?: string
 }
 /**
+ *	Assigns a Customer Group to a Customer. This action generates the [CustomerGroupAssignmentAdded](ctp:api:type:CustomerGroupAssignmentAddedMessage) Message.
+ *
+ */
+export interface CustomerAddCustomerGroupAssignmentAction
+  extends ICustomerUpdateAction {
+  readonly action: 'addCustomerGroupAssignment'
+  /**
+   *	Customer Group to assign the Customer to.
+   *
+   *
+   */
+  readonly customerGroupAssignment: CustomerGroupAssignmentDraft
+}
+/**
  *	Adds an Address from the `addresses` array to `shippingAddressIds`. Either `addressId` or `addressKey` is required.
  *
  */
@@ -986,6 +1031,20 @@ export interface CustomerRemoveBillingAddressIdAction
    *
    */
   readonly addressKey?: string
+}
+/**
+ *	Unassigns a Customer Group from a Customer. This action generates the [CustomerGroupAssignmentRemoved](ctp:api:type:CustomerGroupAssignmentRemovedMessage) Message.
+ *
+ */
+export interface CustomerRemoveCustomerGroupAssignmentAction
+  extends ICustomerUpdateAction {
+  readonly action: 'removeCustomerGroupAssignment'
+  /**
+   *	Customer Group to unassign the Customer from.
+   *
+   *
+   */
+  readonly customerGroup: CustomerGroupResourceIdentifier
 }
 /**
  *	Removes a shipping address from `shippingAddressesIds`.
@@ -1164,6 +1223,20 @@ export interface CustomerSetCustomerGroupAction extends ICustomerUpdateAction {
    *
    */
   readonly customerGroup?: CustomerGroupResourceIdentifier
+}
+/**
+ *	Assigns multiple Customer Groups to a Customer. This action generates the [CustomerGroupAssignmentsSetMessage](ctp:api:type:CustomerGroupAssignmentsSetMessage) Message.
+ *
+ */
+export interface CustomerSetCustomerGroupAssignmentsAction
+  extends ICustomerUpdateAction {
+  readonly action: 'setCustomerGroupAssignments'
+  /**
+   *	Customer Groups to assign the Customer to.
+   *
+   *
+   */
+  readonly customerGroupAssignments: CustomerGroupAssignmentDraft[]
 }
 /**
  *	Sets a new ID that can be used to refer to a Customer in a human-reabable way (for use in emails, invoices, etc).

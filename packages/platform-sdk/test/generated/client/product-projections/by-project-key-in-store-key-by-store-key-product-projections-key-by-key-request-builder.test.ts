@@ -53,6 +53,20 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections/key=test_key?priceCustomerGroupAssignments=priceCustomerGroupAssignments',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .productProjections()
+        .withKey({ key: 'test_key' })
+        .get({
+          queryArgs: {
+            priceCustomerGroupAssignments: 'priceCustomerGroupAssignments',
+          },
+        }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/in-store/key=test_storeKey/product-projections/key=test_key?priceChannel=priceChannel',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })

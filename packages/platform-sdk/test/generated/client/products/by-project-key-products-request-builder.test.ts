@@ -45,6 +45,18 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
+      uri: '/test_projectKey/products?priceCustomerGroupAssignments=priceCustomerGroupAssignments',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .products()
+        .get({
+          queryArgs: {
+            priceCustomerGroupAssignments: 'priceCustomerGroupAssignments',
+          },
+        }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/products?priceChannel=priceChannel',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
@@ -157,6 +169,20 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
           body: null,
           headers: null,
           queryArgs: { priceCustomerGroup: 'priceCustomerGroup' },
+        }),
+    },
+    {
+      method: 'post',
+      uri: '/test_projectKey/products?priceCustomerGroupAssignments=priceCustomerGroupAssignments',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .products()
+        .post({
+          body: null,
+          headers: null,
+          queryArgs: {
+            priceCustomerGroupAssignments: 'priceCustomerGroupAssignments',
+          },
         }),
     },
     {
