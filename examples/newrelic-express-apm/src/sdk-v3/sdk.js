@@ -39,7 +39,7 @@ const telemetryOptions = {
 }
 
 const client = new ClientBuilder()
-  .withPasswordFlow(authMiddlewareOptions)
+  .withClientCredentialsFlow(authMiddlewareOptions)
   .withHttpMiddleware(httpMiddlewareOptions)
   .withTelemetryMiddleware(telemetryOptions) // telemetry middleware
   .build()
