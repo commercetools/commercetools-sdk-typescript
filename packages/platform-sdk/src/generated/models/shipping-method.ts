@@ -120,7 +120,8 @@ export interface ShippingMethod extends BaseResource {
    */
   readonly active: boolean
   /**
-   *	If `true`, this ShippingMethod is the [Project](ctp:api:type:Project)'s default ShippingMethod.
+   *	If `true`, this ShippingMethod is the [Project](ctp:api:type:Project)'s default ShippingMethod. When retrieving [matching Shipping Methods](/projects/shippingMethods#get-matching-shipping-methods), it is returned as the first item in the array. This flag does not automatically apply the Shipping Method to Carts.
+   *
    *
    */
   readonly isDefault: boolean
@@ -181,7 +182,8 @@ export interface ShippingMethodDraft {
    */
   readonly active?: boolean
   /**
-   *	If set to `true`, the ShippingMethod will be the [Project](ctp:api:type:Project)'s default ShippingMethod.
+   *	If set to `true`, the ShippingMethod will be the [Project](ctp:api:type:Project)'s default ShippingMethod. When retrieving [matching Shipping Methods](/projects/shippingMethods#get-matching-shipping-methods), it is returned as the first item in the array. This flag does not automatically apply the Shipping Method to Carts.
+   *
    *
    */
   readonly isDefault: boolean

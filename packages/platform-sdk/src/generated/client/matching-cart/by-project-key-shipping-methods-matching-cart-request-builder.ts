@@ -22,6 +22,7 @@ export class ByProjectKeyShippingMethodsMatchingCartRequestBuilder {
    *	Retrieves all the active ShippingMethods that can ship to the shipping address of the given Cart.
    *	Each ShippingMethod contains exactly one ShippingRate with the flag `isMatching` set to `true`.
    *	This ShippingRate is used when the ShippingMethod is [added to the Cart](ctp:api:type:CartSetShippingMethodAction).
+   *	If a matching ShippingMethod has `isDefault` set to `true`, it is returned as the first item in the array.
    *
    */
   public get(methodArgs: {
@@ -49,7 +50,7 @@ export class ByProjectKeyShippingMethodsMatchingCartRequestBuilder {
     )
   }
   /**
-   *	Checks if an active ShippingMethod exists for the given Cart. Returns a `200 OK` status if the ShippingMethod exists or a `404 Not Found` otherwise.
+   *	Checks if an active ShippingMethod exists for the given Cart. If a matching ShippingMethod has `isDefault` set to `true`, it is returned as the first item in the array. Returns a `200 OK` status if the ShippingMethod exists or a `404 Not Found` otherwise.
    */
   public head(methodArgs: {
     queryArgs: {
