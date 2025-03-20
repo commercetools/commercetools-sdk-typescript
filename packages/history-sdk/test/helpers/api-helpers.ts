@@ -1,13 +1,5 @@
-import {
-  createClient,
-  createAuthForClientCredentialsFlow,
-  createHttpClient,
-} from '@commercetools/sdk-client-v2'
-import {
-  ApiRoot,
-  createExecutorFromMiddlewares,
-  executeRequest,
-} from './../../src'
+import { ClientBuilder } from '@commercetools/ts-client'
+import { createApiBuilderFromCtpClient } from '../../src'
 import { requireEnvVar } from './test-utils'
 
 const projectKey = requireEnvVar('CTP_PROJECT_KEY')
@@ -16,30 +8,26 @@ const clientSecret = requireEnvVar('CTP_CLIENT_SECRET')
 const authURL = requireEnvVar('CTP_AUTH_URL')
 const ctp_host = requireEnvVar('CTP_HISTORY_URL')
 
-const authMiddleware = createAuthForClientCredentialsFlow({
+const authMiddleware = {
   host: authURL,
   projectKey,
   credentials: {
     clientId,
     clientSecret,
   },
-  fetch,
-})
+  httpClient: fetch,
+}
 
-const httpMiddleware = createHttpClient({
+const httpMiddleware = {
   host: ctp_host,
-  fetch,
-})
+  httpClient: fetch,
+}
 
-const ctpClient = createClient({
-  middlewares: [authMiddleware, httpMiddleware],
-})
+const ctpClient = new ClientBuilder()
+  .withClientCredentialsFlow(authMiddleware)
+  .withHttpMiddleware(httpMiddleware)
+  .build()
 
-const executor: executeRequest = createExecutorFromMiddlewares(
-  ctpClient.execute
-)
-
-export const ctpApiBuilder = new ApiRoot({
-  executeRequest: executor,
-  baseUri: ctp_host,
-}).withProjectKeyValue({ projectKey })
+export const ctpApiBuilder = createApiBuilderFromCtpClient(
+  ctpClient
+).withProjectKeyValue({ projectKey })
