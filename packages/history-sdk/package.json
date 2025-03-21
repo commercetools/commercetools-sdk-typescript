@@ -34,7 +34,7 @@
   "dependencies": {
     "@commercetools/sdk-client-v2": "^3.0.0",
     "@commercetools/sdk-middleware-auth": "^7.0.0",
-    "@commercetools/sdk-middleware-http": "^7.0.0",
+    "@commercetools/sdk-middleware-http": "^8.0.0",
     "@commercetools/sdk-middleware-logger": "^3.0.0"
   },
   "devDependencies": {
