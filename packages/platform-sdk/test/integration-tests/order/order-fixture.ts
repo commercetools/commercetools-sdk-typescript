@@ -44,14 +44,3 @@ export const deleteOrder = async (order) => {
     })
     .execute()
 }
-
-export const deleteOrderEdit = async (order) => {
-  return await apiRoot
-    .orders()
-    .edits()
-    .withId({ ID: order.body.id })
-    .delete({
-      queryArgs: { version: order.body.version },
-    })
-    .execute()
-}

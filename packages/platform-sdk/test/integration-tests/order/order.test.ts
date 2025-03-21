@@ -277,5 +277,5 @@ describe('testing order API calls', () => {
     await deleteCart(getCart)
     await deleteProduct(product)
     await deleteCategory(category)
-  }, 50_000)
+  })
 })

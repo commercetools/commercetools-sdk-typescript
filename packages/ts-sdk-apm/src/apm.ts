@@ -45,7 +45,7 @@ export default function createTelemetryMiddleware(
         }
         if (options.customMetrics.newrelic) {
           // Lazy load New Relic only if necessary otherwise it will require to have set the env variable NEW_RELIC_APP_NAME
-          const { recordNewRelic } = await import('./helpers/newRelicHelper.js')
+          const { recordNewRelic } = require('./helpers/newRelicHelper')
           recordNewRelic(response_time)
         }
       }

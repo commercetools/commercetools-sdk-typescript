@@ -32,10 +32,7 @@
     "./dist/commercetools-history-sdk.esm.js": "./dist/commercetools-history-sdk.browser.esm.js"
   },
   "dependencies": {
-    "@commercetools/sdk-client-v2": "^3.0.0",
-    "@commercetools/sdk-middleware-auth": "^7.0.0",
-    "@commercetools/sdk-middleware-http": "^7.0.0",
-    "@commercetools/sdk-middleware-logger": "^3.0.0"
+    "@commercetools/ts-client": "^3.2.0"
   },
   "devDependencies": {
     "@commercetools/platform-sdk": "8.5.0",

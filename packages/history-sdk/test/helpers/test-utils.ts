@@ -6,12 +6,6 @@ export function requireEnvVar(varName: string): string {
   return value
 }
 
-export async function sleep(millis: number) {
-  return new Promise((resolve, error) => {
-    setTimeout(resolve, millis)
-  })
-}
-
 export const scopes = [
   'view_audit_log:demo-1',
   'manage_api_clients:demo-1',

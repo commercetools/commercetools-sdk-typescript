@@ -10,9 +10,15 @@ module.exports = {
     '^.+\\.tsx?$': 'ts-jest',
   },
   testRegex: '\\.(test|spec)\\.[t]sx?$',
+  testPathIgnorePatterns: ['/sdk-client/'],
   moduleFileExtensions: ['ts', 'js', 'json'],
   coverageDirectory: 'coverage',
-  coveragePathIgnorePatterns: ['/node_modules/', '/dist/', '/generated/'],
+  coveragePathIgnorePatterns: [
+    '/sdk-client/',
+    '/node_modules/',
+    '/dist/',
+    '/generated/',
+  ],
   watchPlugins: ['jest-watch-typeahead/filename'],
   reporters: [
     'default',

@@ -1,11 +1,11 @@
-import { ClientBuilder } from '@commercetools/sdk-client-v2'
 import {
   HttpMiddlewareOptions,
   TokenCache,
   TokenStore,
   TokenCacheOptions,
+  ClientBuilder,
 } from '@commercetools/ts-client'
-import { createApiBuilderFromCtpClient } from '../../src'
+import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
 import { requireEnvVar } from '../helpers/test-utils'
 
 export const projectKey = requireEnvVar('CTP_PROJECT_KEY')
@@ -78,7 +78,6 @@ const ctpClient = new ClientBuilder()
   .withProjectKey(projectKey)
   .withClientCredentialsFlow(authMiddlewareOptions)
   .withHttpMiddleware(httpMiddlewareOptions)
-  // .withLoggerMiddleware()
   .build()
 
 export const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
