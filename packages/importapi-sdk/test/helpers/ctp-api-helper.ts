@@ -6,7 +6,7 @@ const projectKey = requireEnvVar('CTP_PROJECT_KEY')
 const clientId = requireEnvVar('CTP_CLIENT_ID')
 const clientSecret = requireEnvVar('CTP_CLIENT_SECRET')
 const authURL = requireEnvVar('CTP_AUTH_URL')
-const ctp_host = requireEnvVar('CTP_HISTORY_URL')
+const ctp_host = requireEnvVar('CTP_IMPORT_URL')
 
 const authMiddleware = {
   host: authURL,

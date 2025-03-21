@@ -1,4 +1,3 @@
-// import { ClientBuilder } from '@commercetools/sdk-client-v2'
 import {
   HttpMiddlewareOptions,
   TokenCache,
