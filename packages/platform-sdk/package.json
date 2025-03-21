@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/platform-sdk",
-  "version": "8.5.0",
+  "version": "8.6.0",
   "engines": {
     "node": ">=18"
   },
