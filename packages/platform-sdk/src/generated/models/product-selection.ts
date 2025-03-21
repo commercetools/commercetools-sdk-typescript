@@ -98,10 +98,9 @@ export interface AssignedProductSelectionPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/general-concepts#strong-consistency).
-   *	Unlike other endpoints, the Product Selection endpoint does not return this field by default.
-   *	To get `total`, pass the query parameter `withTotal` set to `true`.
-   *	When the results are filtered with a [Query Predicate](/predicates/query), `total` is subject to a [limit](/limits#queries).
+   *	Present only when the `withTotal` query parameter is set to `true`.
+   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
    *
    *
    */
@@ -272,8 +271,8 @@ export interface ProductSelectionPagedQueryResponse {
   /**
    *	Total number of results matching the query.
    *	This number is an estimation that is not [strongly consistent](/general-concepts#strong-consistency).
-   *	Unlike other endpoints, the Product Selection endpoint does not return this field by default.
-   *	To get `total`, pass the query parameter `withTotal` set to `true`.
+   *	This field is returned by default.
+   *	For improved performance, calculating this field can be deactivated by using the query parameter `withTotal=false`.
    *	When the results are filtered with a [Query Predicate](/predicates/query), `total` is subject to a [limit](/limits#queries).
    *
    *
@@ -311,10 +310,9 @@ export interface ProductSelectionProductPagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/general-concepts#strong-consistency).
-   *	Unlike other endpoints, the Product Selection endpoint does not return this field by default.
-   *	To get `total`, pass the query parameter `withTotal` set to `true`.
-   *	When the results are filtered with a [Query Predicate](/predicates/query), `total` is subject to a [limit](/limits#queries).
+   *	Present only when the `withTotal` query parameter is set to `true`.
+   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
    *
    *
    */
@@ -483,10 +481,9 @@ export interface ProductsInStorePagedQueryResponse {
   readonly count: number
   /**
    *	Total number of results matching the query.
-   *	This number is an estimation that is not [strongly consistent](/general-concepts#strong-consistency).
-   *	Unlike other endpoints, the Product Selection endpoint does not return this field by default.
-   *	To get `total`, pass the query parameter `withTotal` set to `true`.
-   *	When the results are filtered with a [Query Predicate](/predicates/query), `total` is subject to a [limit](/limits#queries).
+   *	Present only when the `withTotal` query parameter is set to `true`.
+   *	This number is an estimation that is not [strongly consistent](/../api/general-concepts#strong-consistency).
+   *	When the results are filtered with a [Query Predicate](/../api/predicates/query), `total` is subject to a [limit](/../api/limits#queries).
    *
    *
    */

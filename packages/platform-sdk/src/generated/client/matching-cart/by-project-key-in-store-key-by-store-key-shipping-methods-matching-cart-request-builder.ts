@@ -23,6 +23,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyShippingMethodsMatchingCartRequestB
    *	Retrieves all the active ShippingMethods that can ship to the shipping address of the given Cart in a given [Store](ctp:api:type:Store).
    *	Each ShippingMethod contains exactly one ShippingRate with the flag `isMatching` set to `true`.
    *	This ShippingRate is used when the ShippingMethod is [added to the Cart](ctp:api:type:CartSetShippingMethodAction).
+   *	If a matching ShippingMethod has `isDefault` set to `true`, it is returned as the first item in the array.
    *
    */
   public get(methodArgs: {

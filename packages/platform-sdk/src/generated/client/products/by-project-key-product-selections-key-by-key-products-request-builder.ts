@@ -22,10 +22,10 @@ export class ByProjectKeyProductSelectionsKeyByKeyProductsRequestBuilder {
   public get(methodArgs?: {
     queryArgs?: {
       where?: string | string[]
+      withTotal?: boolean
       expand?: string | string[]
       limit?: number
       offset?: number
-      withTotal?: boolean
       sort?: string | string[]
       [key: string]: QueryParam
     }

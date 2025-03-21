@@ -13,6 +13,16 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
   return [
     {
       method: 'get',
+      uri: '/test_projectKey/products/test_ID/product-selections?withTotal=true',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .products()
+        .withId({ ID: 'test_ID' })
+        .productSelections()
+        .get({ queryArgs: { withTotal: true } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/products/test_ID/product-selections?expand=expand',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
@@ -50,16 +60,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .withId({ ID: 'test_ID' })
         .productSelections()
         .get({ queryArgs: { offset: 3 } }),
-    },
-    {
-      method: 'get',
-      uri: '/test_projectKey/products/test_ID/product-selections?withTotal=true',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .products()
-        .withId({ ID: 'test_ID' })
-        .productSelections()
-        .get({ queryArgs: { withTotal: true } }),
     },
     {
       method: 'get',
