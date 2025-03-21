@@ -604,9 +604,15 @@ describe('Http Middleware.', () => {
         return createTestResponse(req.response)
       }
 
+      const returnAfterMs = (ms: number = 1000) => {
+        return new Promise((resolve) => {
+          setTimeout(() => resolve({ statusCode: 200 }), ms)
+        })
+      }
+
       const httpMiddlewareOptions: HttpMiddlewareOptions = {
         host: 'https://httpbin.org',
-        httpClient: fetch,
+        httpClient: jest.fn(returnAfterMs),
         timeout: 500,
         enableRetry: true,
         retryConfig: {

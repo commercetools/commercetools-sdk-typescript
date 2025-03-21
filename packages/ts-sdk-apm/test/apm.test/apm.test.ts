@@ -1,7 +1,15 @@
-import { ClientBuilder } from '@commercetools/ts-client'
+import { ClientBuilder, Next } from '@commercetools/ts-client'
 import { type MiddlewareRequest, createTelemetryMiddleware } from '../../src'
+import { recordDatadog } from '../../src/helpers/datadogHelper'
+import datadog from 'dd-trace'
 
 jest.mock('../../opentelemetry', () => {})
+jest.mock('dd-trace', () => ({
+  init: jest.fn(),
+  dogstatsd: {
+    gauge: jest.fn(),
+  },
+}))
 
 function createTestRequest(options): MiddlewareRequest {
   return {
@@ -86,6 +94,44 @@ describe('apm', () => {
       }
 
       telemetryMiddleware(next)(request)
+    })
+  })
+
+  describe('metric recordings', () => {
+    test('should record `datadog` metrics', () => {
+      recordDatadog(200, { env: 'telemetry-service' })
+
+      expect(datadog.dogstatsd.gauge).toHaveBeenCalledWith(
+        'Commercetools_Client_Response_Total',
+        200,
+        { env: 'telemetry-service' }
+      )
+    })
+
+    test('should only record datadog data', async () => {
+      const next = async (req: any) => ({
+        statusCode: 200,
+        ...req,
+      })
+
+      const res = await createTelemetryMiddleware({
+        customMetrics: { datadog: true, newrelic: false },
+      })(next)({ method: 'POST' })
+
+      expect(res.statusCode).toEqual(200)
+    })
+
+    test('should only record newrelic data', async () => {
+      const next = async (req: any) => ({
+        statusCode: 200,
+        ...req,
+      })
+
+      const res = await createTelemetryMiddleware({
+        customMetrics: { datadog: false, newrelic: true },
+      })(next)({ method: 'POST' })
+
+      expect(res.statusCode).toEqual(200)
     })
   })
 })
