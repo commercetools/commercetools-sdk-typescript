@@ -2,7 +2,8 @@
   "name": "commercetools-sdk-typescript",
   "private": true,
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "husky",
+    "preinstall": "npx only-allow yarn",
     "postinstall": "manypkg check && preconstruct dev",
     "generate": "manypkg run generate && yarn format",
     "format": "prettier --write '**/*.{js,ts,json,md}'",
@@ -25,9 +26,7 @@
   "preconstruct": {
     "packages": ["packages/*"]
   },
-  "resolutions": {
-    "glob-parent": "6.0.2"
-  },
+  "packageManager": "yarn@1.22.22",
   "devDependencies": {
     "@babel/core": "7.26.10",
     "@babel/plugin-proposal-class-properties": "7.18.6",

@@ -12,7 +12,7 @@
     "@commercetools/ts-sdk-apm": "latest",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
-    "express": "^4.20.0",
+    "express": "^4.21.2",
     "newrelic": "^11.23.2",
     "node-fetch": "2.6.7"
   },
@@ -20,12 +20,12 @@
     "start": "node -r ./newrelic server"
   },
   "resolutions": {
-    "axios": "0.28.0",
+    "axios": "1.8.4",
     "import-in-the-middle": "1.4.2",
     "@opentelemetry/instrumentation": "0.41.2"
   },
   "overrides": {
-    "axios": "0.28.0",
+    "axios": "1.8.4",
     "import-in-the-middle": "1.4.2",
     "@opentelemetry/instrumentation": "0.41.2"
   }
