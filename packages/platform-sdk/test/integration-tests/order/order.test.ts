@@ -18,6 +18,10 @@ import { ctpApiBuilder } from '../../helpers/ctp-api-helper'
 import { waitUntil } from '../../helpers/test-utils'
 
 describe('testing order API calls', () => {
+  beforeAll(() => {
+    jest.setTimeout(120000)
+  })
+
   it('should get a order by Id', async () => {
     const category = await createCategory()
     const taxCategory = await ensureTaxCategory()
@@ -185,7 +189,6 @@ describe('testing order API calls', () => {
   })
 
   it('should search a order', async () => {
-    jest.setTimeout(120000)
     let project = await ctpApiBuilder.get().execute()
 
     if (project.body.searchIndexing.orders.status === 'Deactivated') {
