@@ -789,7 +789,7 @@ export interface Order extends BaseResource {
    */
   readonly anonymousId?: string
   /**
-   *	[Reference](ctp:api:type:Reference) to a Business Unit the Order belongs to.
+   *	[Reference](ctp:api:type:Reference) to a Business Unit the Order belongs to. Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects.
    *
    *
    */
@@ -1231,7 +1231,7 @@ export interface OrderImportDraft {
   readonly customerGroup?: CustomerGroupResourceIdentifier
   /**
    *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to the Business Unit the Order should belong to.
-   *	When the `customerId` of the Order is also set, the [Customer](ctp:api:type:Customer) must be an [Associate](ctp:api:type:Associate) of the Business Unit.
+   *	When the `customerId` of the Order is also set, the [Customer](ctp:api:type:Customer) must be an [Associate](ctp:api:type:Associate) of the Business Unit. Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects.
    *
    *
    */
