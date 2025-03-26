@@ -202,6 +202,13 @@ describe('testing order API calls', () => {
           },
         })
         .execute()
+      await waitUntil(async () => {
+        project = await ctpApiBuilder.get().execute()
+        console.log(
+          `Index status: ${project.body.searchIndexing.orders.status}`
+        )
+        return project.body.searchIndexing.orders.status === 'Activated'
+      }, 15)
     }
 
     const category = await createCategory()
