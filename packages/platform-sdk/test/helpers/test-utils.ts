@@ -9,9 +9,7 @@ export function requireEnvVar(varName: string): string {
 export async function waitUntil(
   waitCondition: () => Promise<boolean>,
   maxRetry: number = 10,
-  maxWaitingTimePerRetryInMs: number = process.version.startsWith('v22')
-    ? 40000
-    : 32000
+  maxWaitingTimePerRetryInMs: number = 40000
 ) {
   let counter = 0
   while (true) {
