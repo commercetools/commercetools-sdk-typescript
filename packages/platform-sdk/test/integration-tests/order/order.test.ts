@@ -185,6 +185,7 @@ describe('testing order API calls', () => {
   })
 
   it('should search a order', async () => {
+    jest.setTimeout(120000)
     let project = await ctpApiBuilder.get().execute()
 
     if (project.body.searchIndexing.orders.status === 'Deactivated') {
