@@ -35,12 +35,13 @@ describe('apm', () => {
 
   describe('apm test - null tracer configurations', () => {
     const response = createTestResponse({})
-    const telemetryMiddleware = createTelemetryMiddleware({
-      apm: null as any,
-      tracer: null as any,
-    })
 
     test('retains existing request (headers)', async () => {
+      const telemetryMiddleware = createTelemetryMiddleware({
+        apm: null as any,
+        tracer: null as any,
+      })
+
       const next = (req: MiddlewareRequest) => {
         expect(req.headers?.Authorization).toBe('123')
         return response
@@ -50,6 +51,10 @@ describe('apm', () => {
     })
 
     test('should use default apm and tracing configurations', async () => {
+      const telemetryMiddleware = createTelemetryMiddleware({
+        apm: null as any,
+        tracer: null as any,
+      })
       const next = (req: MiddlewareRequest) => {
         expect(req['apm']).toBeTruthy()
         expect(req['tracer']).toBeTruthy()
