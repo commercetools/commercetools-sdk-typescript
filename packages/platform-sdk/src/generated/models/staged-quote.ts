@@ -125,7 +125,7 @@ export interface StagedQuote extends BaseResource {
    */
   readonly purchaseOrderNumber?: string
   /**
-   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Staged Quote.
+   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Staged Quote. Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects.
    *
    *
    */

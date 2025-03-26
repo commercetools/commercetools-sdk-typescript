@@ -76,7 +76,7 @@ export interface Record {
    */
   readonly stores: KeyReference[]
   /**
-   *	Reference to the [Business Unit](ctp:api:type:BusinessUnit) associated with the [Change](ctp:history:type:Change).
+   *	Reference to the [Business Unit](ctp:api:type:BusinessUnit) associated with the [Change](ctp:history:type:Change). Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects.
    *
    *
    */
@@ -281,7 +281,7 @@ export interface ModifiedBy {
    */
   readonly customer?: Reference
   /**
-   *	The [Associate](ctp:api:type:Associate) who made the change in the context of a [Business Unit](ctp:api:type:BusinessUnit). Present only if the Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
+   *	The [Associate](ctp:api:type:Associate) who made the change in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
    *
    *
    */

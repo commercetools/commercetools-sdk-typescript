@@ -264,7 +264,7 @@ export interface Quote extends BaseResource {
    */
   readonly purchaseOrderNumber?: string
   /**
-   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Quote.
+   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Quote. Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects.
    *
    *
    */

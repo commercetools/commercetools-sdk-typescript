@@ -243,7 +243,7 @@ export interface QuoteRequest extends BaseResource {
    */
   readonly cart?: CartReference
   /**
-   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Quote Request.
+   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Quote Request. Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects.
    *
    *
    */
