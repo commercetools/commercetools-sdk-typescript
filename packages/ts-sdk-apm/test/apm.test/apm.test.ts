@@ -69,7 +69,7 @@ describe('apm', () => {
   })
 
   describe('apm test - non-null tracer configuration', () => {
-    test('adds an `apm` and `tracer` properties in request object', () => {
+    test('adds an `apm` and `tracer` properties in request object', async () => {
       const options = {
         apm: jest.fn(() => ({ a: 'apm-module' })),
         tracer: jest.fn(() => ({ t: 'tracer-module' })),
@@ -97,7 +97,7 @@ describe('apm', () => {
         return response
       }
 
-      telemetryMiddleware(next)(request)
+      await telemetryMiddleware(next)(request)
     })
 
     test('should ensure `apm` function is being called', async () => {
