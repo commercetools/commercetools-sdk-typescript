@@ -19,7 +19,7 @@ Example to show how the Newrelic APM can be used in the TypeScript SDK.
 
 ### Start the server
 
-1. After the installation completes, run `yarn start` to start the development server, instead to use the OpenTelemetry collector run `node -r ./opentelemetry server.js`.
+1. After the installation completes, run `yarn start` to start the development server. To use the OpenTelemetry collector instead, run `node -r ./opentelemetry server.js`.
 2. Curl or send a request using any HTTP client to the following endpoints:
 
 ```
