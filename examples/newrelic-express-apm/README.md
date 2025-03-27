@@ -13,12 +13,13 @@ Example to show how the Newrelic APM can be used in the TypeScript SDK.
 
 1. Clone/Download the example folder.
 2. Navigate to the path `newrelic-express-apm/`.
-3. Create a `.env` file in this path, add and update the content of `.env.sample`.The variables required to run the demo app are: `CTP_PROJECT_KEY`, `CTP_CLIENT_ID`, `CTP_CLIENT_SECRET`,`CTP_AUTH_URL`,`CTP_API_URL` and `NEW_RELIC_LICENSE_KEY`(NewRelic API Key).
-4. Run `yarn install` (`npm` can also be used) to install all dependencies
+3. Create a `.env` file in this path, and populate it with the required environment variables. These variables include: `CTP_PROJECT_KEY`, `CTP_CLIENT_ID`, `CTP_CLIENT_SECRET`, `CTP_AUTH_URL`, `CTP_API_URL`, `NEW_RELIC_LICENSE_KEY` (NewRelic API Key). If you wish to enable OpenTelemetry tracing, also include the necessary `OTEL_` variables from the `.env.sample` file. Replace the placeholder values in the `.env` file with your actual credentials.
+4. For different settings of the OpenTelemetry collector, please set the `opentelemetry.js` file according to your requirements.
+5. Run `yarn install` (`npm` can also be used) to install all dependencies
 
 ### Start the server
 
-1. After the installation completes, run `yarn start` to start the development server.
+1. After the installation completes, run `yarn start` to start the development server. To use the OpenTelemetry collector instead, run `node -r ./opentelemetry server.js`.
 2. Curl or send a request using any HTTP client to the following endpoints:
 
 ```

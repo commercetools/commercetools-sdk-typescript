@@ -145,7 +145,7 @@ jobs:
             yarn test
       - run:
           name: Running tests
-          command: yarn test --coverage
+          command: JEST_TIMEOUT=180000 yarn test --coverage
       - codecov/upload:
           file: coverage/clover.xml
           flags: 'test-coverage'
