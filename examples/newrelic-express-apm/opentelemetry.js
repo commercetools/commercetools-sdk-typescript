@@ -21,7 +21,7 @@ const {
 } = require('@opentelemetry/sdk-metrics')
 const api = require('@opentelemetry/api')
 
-// enable logging ONLY for developement
+// enable logging ONLY for development
 // this is useful for debugging instrumentation issues
 // remove from production after issues (if any) are resolved
 // view more logging levels here: https://github.com/open-telemetry/opentelemetry-js-api/blob/main/src/diag/types.ts#L67
