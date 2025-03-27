@@ -8,7 +8,7 @@ export function requireEnvVar(varName: string): string {
 
 export async function waitUntil(
   waitCondition: () => Promise<boolean>,
-  maxRetry: number = 10,
+  maxRetry: number = 30,
   maxWaitingTimePerRetryInMs: number = 40000
 ) {
   let counter = 0
