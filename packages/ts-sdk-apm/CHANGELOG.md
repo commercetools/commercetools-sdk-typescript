@@ -1,5 +1,11 @@
 # @commercetools/ts-sdk-apm
 
+## 3.3.2
+
+### Patch Changes
+
+- [#1002](https://github.com/commercetools/commercetools-sdk-typescript/pull/1002) [`6a842db`](https://github.com/commercetools/commercetools-sdk-typescript/commit/6a842db96c51a9ac9bf53b19050acfff961a5fa4) Thanks [@ajimae](https://github.com/ajimae)! - fix issue with tracer functions not being called
+
 ## 3.3.1
 
 ### Patch Changes
