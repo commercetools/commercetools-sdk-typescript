@@ -26,7 +26,7 @@ const api = require('@opentelemetry/api')
 // remove from production after issues (if any) are resolved
 // view more logging levels here: https://github.com/open-telemetry/opentelemetry-js-api/blob/main/src/diag/types.ts#L67
 
-if (process.env.NODE_ENV == 'development') {
+if (process.env.NODE_ENV === 'development') {
   api.diag.setLogger(
     new api.DiagConsoleLogger(),
     api.DiagLogLevel.INFO,
