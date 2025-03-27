@@ -9,7 +9,8 @@ const {
 } = require('@opentelemetry/auto-instrumentations-node')
 const { Resource } = require('@opentelemetry/resources')
 const {
-  SemanticResourceAttributes,
+  SEMRESATTRS_SERVICE_INSTANCE_ID,
+  SEMRESATTRS_SERVICE_NAME,
 } = require('@opentelemetry/semantic-conventions')
 const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-http')
 const {
@@ -39,8 +40,8 @@ if (process.env.NODE_ENV === 'development') {
 //    service. This collection of attributes will be associated with all
 //    telemetry generated from this service (traces, metrics, logs).
 const resource = new Resource({
-  [SemanticResourceAttributes.SERVICE_INSTANCE_ID]: uuidv4(),
-  [SemanticResourceAttributes.SERVICE_NAME]: process.env['NEW_RELIC_APP_NAME'],
+  [SEMRESATTRS_SERVICE_INSTANCE_ID]: uuidv4(),
+  [SEMRESATTRS_SERVICE_NAME]: process.env['NEW_RELIC_APP_NAME'],
 })
 
 // Enable auto-instrumentation from the meta package.
