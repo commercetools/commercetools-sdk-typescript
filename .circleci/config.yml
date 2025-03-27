@@ -123,7 +123,6 @@ jobs:
 
   install_test_node_22:
     executor: node_22
-    resource_class: large
     steps:
       - checkout
       - restore_cache: *restore_yarn_cache_node_22
