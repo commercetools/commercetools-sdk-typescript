@@ -16,12 +16,12 @@ export const createCustomerGroup = async (
     .execute()
 }
 
-export const deleteCustomerGroup = async (responseCreatedCustomerGroup) => {
+export const deleteCustomerGroup = async (customerGroup) => {
   return await apiRoot
     .customerGroups()
-    .withId({ ID: responseCreatedCustomerGroup.body.id })
+    .withId({ ID: customerGroup.body.id })
     .delete({
-      queryArgs: { version: responseCreatedCustomerGroup.body.version },
+      queryArgs: { version: customerGroup.body.version },
     })
     .execute()
 }
