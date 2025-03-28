@@ -26,3 +26,27 @@ export async function waitUntil(
     }
   }
 }
+
+export const sleep = async (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms))
+
+export const waitForIndexing = async (
+  fetchResource: () => Promise<any>,
+  timeout = 30000,
+  interval = 10000
+) => {
+  const start = Date.now()
+  while (Date.now() - start < timeout) {
+    try {
+      const result = await fetchResource()
+      if (result) return result // Resource is now indexed
+    } catch (e) {
+      /** noop */
+    }
+
+    // sleep
+    await sleep(interval)
+  }
+
+  throw new Error('Resource did not indexed within timeout')
+}

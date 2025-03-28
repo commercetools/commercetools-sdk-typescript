@@ -141,14 +141,14 @@ export const fetchAndDeleteProduct = async (productId: string) => {
 }
 
 export const deleteProduct = async (product) => {
-  let updateProduct: ClientResponse<Product>
-  if (product.body?.masterData?.published) {
+  let updateProduct: ClientResponse<Product> = product
+  if (updateProduct.body?.masterData?.published) {
     updateProduct = await apiRoot
       .products()
-      .withId({ ID: product.body.id })
+      .withId({ ID: updateProduct.body.id })
       .post({
         body: {
-          version: product.body.version,
+          version: updateProduct.body.version,
           actions: [
             {
               action: 'unpublish',
@@ -158,13 +158,12 @@ export const deleteProduct = async (product) => {
       })
       .execute()
   }
-  const productToDelete = updateProduct ? updateProduct : product
 
-  return await apiRoot
+  await apiRoot
     .products()
-    .withId({ ID: productToDelete.body.id })
+    .withId({ ID: updateProduct.body.id })
     .delete({
-      queryArgs: { version: productToDelete.body.version },
+      queryArgs: { version: updateProduct.body.version },
     })
     .execute()
 }

@@ -1,6 +1,9 @@
 import { apiRoot } from '../test-utils'
 import { createCategory, deleteCategory } from '../category/category-fixture'
-import { ensureTaxCategory } from '../tax-category/tax-category-fixture'
+import {
+  deleteTaxCategory,
+  ensureTaxCategory,
+} from '../tax-category/tax-category-fixture'
 import {
   ensureProductType,
   productTypeDraftForProduct,
@@ -13,18 +16,25 @@ import {
 import { waitUntil } from '../../helpers/test-utils'
 
 describe('testing product projection API calls', () => {
-  it('should get a product by Id', async () => {
-    const category = await createCategory()
-    const taxCategory = await ensureTaxCategory()
-    const productType = await ensureProductType(productTypeDraftForProduct)
-    const productDraft = await createProductDraft(
+  let category, taxCategory, productType, product
+  it('should create a product', async () => {
+    category = await createCategory()
+    taxCategory = await ensureTaxCategory()
+    productType = await ensureProductType(productTypeDraftForProduct)
+
+    const productDraft = createProductDraft(
       category,
       taxCategory,
       productType,
       false
     )
-    const product = await createProduct(productDraft)
 
+    product = await createProduct(productDraft)
+    expect(product.body).toBeDefined()
+    expect(product.statusCode).toEqual(201)
+  })
+
+  it('should get a product by Id', async () => {
     const productProjectionResponse = await apiRoot
       .productProjections()
       .withId({ ID: product.body.id })
@@ -37,23 +47,9 @@ describe('testing product projection API calls', () => {
 
     expect(productProjectionResponse).not.toBe(null)
     expect(productProjectionResponse.body.id).toEqual(product.body.id)
-
-    await deleteProduct(product)
-    await deleteCategory(category)
   })
 
   it('should get a product by key', async () => {
-    const category = await createCategory()
-    const taxCategory = await ensureTaxCategory()
-    const productType = await ensureProductType(productTypeDraftForProduct)
-    const productDraft = await createProductDraft(
-      category,
-      taxCategory,
-      productType,
-      false
-    )
-    const product = await createProduct(productDraft)
-
     const productProjectionResponse = await apiRoot
       .productProjections()
       .withKey({ key: product.body.key })
@@ -102,22 +98,9 @@ describe('testing product projection API calls', () => {
         (attribute) => attribute.name === 'test-enum'
       )[0].value
     ).toEqual({ key: 'test', label: 'test' })
-
-    await deleteProduct(product)
-    await deleteCategory(category)
   })
 
   it('should query a product by product projection', async () => {
-    const category = await createCategory()
-    const taxCategory = await ensureTaxCategory()
-    const productType = await ensureProductType(productTypeDraftForProduct)
-    const productDraft = await createProductDraft(
-      category,
-      taxCategory,
-      productType,
-      false
-    )
-    const product = await createProduct(productDraft)
     const productProjectionQueryResponse = await apiRoot
       .productProjections()
       .get({
@@ -131,23 +114,9 @@ describe('testing product projection API calls', () => {
     expect(productProjectionQueryResponse.body.results[0].id).toEqual(
       product.body.id
     )
-
-    await deleteProduct(product)
-    await deleteCategory(category)
   })
 
   it('should search a product by product projection', async () => {
-    const category = await createCategory()
-    const taxCategory = await ensureTaxCategory()
-    const productType = await ensureProductType(productTypeDraftForProduct)
-    const productDraft = await createProductDraft(
-      category,
-      taxCategory,
-      productType,
-      false
-    )
-    const product = await createProduct(productDraft)
-
     await waitUntil(async () => {
       const productProjectionSearchResponse = await apiRoot
         .productProjections()
@@ -175,8 +144,11 @@ describe('testing product projection API calls', () => {
       .execute()
     expect(productProjectionSearchResponse).not.toBe(null)
     expect(productProjectionSearchResponse.body.facets).not.toBe(null)
+  }, 40_000)
 
+  afterAll(async () => {
     await deleteProduct(product)
     await deleteCategory(category)
-  }, 40_000)
+    await deleteTaxCategory(taxCategory)
+  })
 })
