@@ -11,7 +11,7 @@ const cartDraft: CartDraft = {
     state: 'Berlin',
   },
 }
-export const createCartDraftWithCustomer = async (customer) => {
+export const createCartDraftWithCustomer = (customer) => {
   const cartDraft: CartDraft = {
     key: 'test-cart-key-' + randomUUID(),
     currency: 'EUR',

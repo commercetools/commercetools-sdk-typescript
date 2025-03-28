@@ -13,8 +13,11 @@ import {
   createProductDraft,
   fetchAndDeleteProduct,
 } from '../product/product-fixture'
-import { createCategory } from '../category/category-fixture'
-import { ensureTaxCategory } from '../tax-category/tax-category-fixture'
+import { createCategory, deleteCategory } from '../category/category-fixture'
+import {
+  deleteTaxCategory,
+  ensureTaxCategory,
+} from '../tax-category/tax-category-fixture'
 import {
   ClientBuilder as ClientBuilderV3,
   MiddlewareRequest,
@@ -54,6 +57,8 @@ describe('Concurrent Modification Middleware', () => {
 
   afterAll(async () => {
     await fetchAndDeleteProduct(product.id)
+    await deleteCategory(category)
+    await deleteTaxCategory(taxCategory)
   })
 
   it('should not retry if the first attempt returned a `200` status code.', async () => {
