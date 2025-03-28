@@ -250,15 +250,23 @@ export interface IAttributeType {
   readonly name: string
 }
 /**
- *	Attribute type for Boolean values. Valid values for the Attribute are `true` and `false` (JSON Boolean).
+ *	Attribute type for boolean values. Valid values for the Attribute are `true` and `false`.
  *
  */
 export interface AttributeBooleanType extends IAttributeType {
   readonly name: 'boolean'
 }
+/**
+ *	Attribute type for [DateTime](ctp:api:type:DateTime) type values.
+ *
+ */
 export interface AttributeDateTimeType extends IAttributeType {
   readonly name: 'datetime'
 }
+/**
+ *	Attribute type for [Date](ctp:api:type:Date) type values.
+ *
+ */
 export interface AttributeDateType extends IAttributeType {
   readonly name: 'date'
 }
@@ -276,7 +284,7 @@ export interface AttributeEnumType extends IAttributeType {
   readonly values: AttributePlainEnumValue[]
 }
 /**
- *	Attribute type for [LocalizedString](ctp:api:type:LocalizedString) values.
+ *	Attribute type for [LocalizedString](ctp:api:type:LocalizedString) type values.
  *
  */
 export interface AttributeLocalizableTextType extends IAttributeType {
@@ -295,6 +303,10 @@ export interface AttributeLocalizedEnumType extends IAttributeType {
    */
   readonly values: AttributeLocalizedEnumValue[]
 }
+/**
+ *	Attribute type for [Money](ctp:api:type:Money) type values.
+ *
+ */
 export interface AttributeMoneyType extends IAttributeType {
   readonly name: 'money'
 }
@@ -311,9 +323,17 @@ export interface AttributeNestedType extends IAttributeType {
    */
   readonly typeReference: ProductTypeReference
 }
+/**
+ *	Attribute type for numeric values.
+ *
+ */
 export interface AttributeNumberType extends IAttributeType {
   readonly name: 'number'
 }
+/**
+ *	Attribute type for [Reference](ctp:api:type:Reference) type values.
+ *
+ */
 export interface AttributeReferenceType extends IAttributeType {
   readonly name: 'reference'
   /**
@@ -336,12 +356,16 @@ export interface AttributeSetType extends IAttributeType {
   readonly elementType: AttributeType
 }
 /**
- *	Attribute type for plain text values.
+ *	Attribute type for plain text string values.
  *
  */
 export interface AttributeTextType extends IAttributeType {
   readonly name: 'text'
 }
+/**
+ *	Attribute type for [Time](ctp:api:type:Time) type values.
+ *
+ */
 export interface AttributeTimeType extends IAttributeType {
   readonly name: 'time'
 }

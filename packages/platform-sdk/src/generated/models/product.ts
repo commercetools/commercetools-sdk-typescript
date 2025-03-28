@@ -68,42 +68,72 @@ export interface CategoryOrderHints {
 }
 export interface FacetRange {
   /**
+   *	The range's lower endpoint.
+   *
+   *	`0` represents -∞.
+   *
    *
    */
   readonly from: number
   /**
+   *	The range's lower endpoint.
+   *
+   *	An empty string represents -∞.
+   *
    *
    */
   readonly fromStr: string
   /**
+   *	The range's upper endpoint.
+   *
+   *	`0` represents +∞.
+   *
    *
    */
   readonly to: number
   /**
+   *	The range's upper endpoint.
+   *
+   *	An empty string represents +∞.
+   *
    *
    */
   readonly toStr: string
   /**
+   *	Number of [ProductVariants](ctp:api:type:ProductVariant) for which the values in a field fall into the specified range.
+   *
    *
    */
   readonly count: number
   /**
+   *	Number of [Products](ctp:api:type:Product) for which the values in a field fall into the specified range.
+   *
+   *	Present only if the `counting products` [extension](/projects/products-search#counting-products) is enabled.
+   *
    *
    */
   readonly productCount?: number
   /**
+   *	Sum of all values contained in the range.
+   *
    *
    */
   readonly total: number
   /**
+   *	Minimum value within the range.
+   *
    *
    */
   readonly min: number
   /**
+   *	Maximum value within the range.
+   *
    *
    */
   readonly max: number
   /**
+   *	Arithmetic mean of the values within the range.
+   *
    *
    */
   readonly mean: number
@@ -123,14 +153,21 @@ export interface FacetResults {
 }
 export interface FacetTerm {
   /**
+   *	Value for the field specified in the [term facet expression](/../api/projects/products-search#term-facet-expression) for which at least one [ProductVariant](ctp:api:type:ProductVariant) could be found.
+   *
    *
    */
   readonly term: any
   /**
+   *	Number of [ProductVariants](ctp:api:type:ProductVariant) for which the `term` applies.
+   *
    *
    */
   readonly count: number
   /**
+   *	Number of [Products](ctp:api:type:Product) for which the `term` applies.
+   *	Only available if the `counting products` [extension](/../api/projects/products-search#counting-products) is enabled.
+   *
    *
    */
   readonly productCount?: number
@@ -145,10 +182,16 @@ export type FacetTypes = 'filter' | 'range' | 'terms' | (string & {})
 export interface FilteredFacetResult extends IFacetResult {
   readonly type: 'filter'
   /**
+   *	Number of [ProductVariants](ctp:api:type:ProductVariant) matching the value specified in [filtered facet expression](/../api/projects/products-search#filtered-facet-expression).
+   *
    *
    */
   readonly count: number
   /**
+   *	Number of [Products](ctp:api:type:Product) matching the value specified in [filtered facet expression](/../api/projects/products-search#filtered-facet-expression).
+   *
+   *	Present only if the `counting products` [extension](/projects/products-search#counting-products) is enabled.
+   *
    *
    */
   readonly productCount?: number
@@ -692,35 +735,51 @@ export interface ProductProjectionPagedQueryResponse {
    */
   readonly results: ProductProjection[]
 }
+/**
+ *	The response returned to a [Product Projection Search](/../api/projects/products-search#product-projection-search) request.
+ *	The object contains the [query results](/../api/projects/products-search#query-results) with Product Projections where at least one ProductVariant matches the search query, as well as the [facet results](/../api/projects/products-search#facet-results), if requested.
+ *
+ */
 export interface ProductProjectionPagedSearchResponse {
   /**
-   *	Number of [results requested](/../api/general-concepts#limit).
+   *	The maximum number of results returned on a [page](/../api/projects/products-search#pagination).
    *
    *
    */
   readonly limit: number
   /**
-   *
-   */
-  readonly count: number
-  /**
-   *
-   */
-  readonly total?: number
-  /**
-   *	Number of [elements skipped](/../api/general-concepts#offset).
+   *	The starting point for the retrieved [paginated](/../api/projects/products-search#pagination) result.
    *
    *
    */
   readonly offset: number
   /**
+   *	Actual number of results returned.
+   *
+   *
+   */
+  readonly count: number
+  /**
+   *	Total number of results matching the query.
+   *
+   *
+   */
+  readonly total?: number
+  /**
+   *	[ProductProjections](ctp:api:type:ProductProjection) where at least one [ProductVariant](ctp:api:type:ProductVariant) matches the search query, provided with the `text.{language}` and/or `filter.query` or `filter` query parameter.
+   *	If the query parameter `markMatchingVariants=true` was provided with the request, the [matching variants](/../api/projects/products-search#matching-variants) are marked as such.
+   *
    *
    */
   readonly results: ProductProjection[]
   /**
+   *	Facet results for each [facet expression](/../api/projects/products-search#facets) specified in the search request.
+   *
+   *	Only present if at least one `facet` parameter was provided with the search request.
+   *
    *
    */
-  readonly facets: FacetResults
+  readonly facets?: FacetResults
 }
 /**
  *	[Reference](ctp:api:type:Reference) to a [Product](ctp:api:type:Product).
@@ -1045,6 +1104,8 @@ export interface ProductVariantDraft {
 export interface RangeFacetResult extends IFacetResult {
   readonly type: 'range'
   /**
+   *	Statistical data over values for `date`, `time`, `datetime`, `number`, and `money` type fields.
+   *
    *
    */
   readonly ranges: FacetRange[]
@@ -1104,26 +1165,47 @@ export interface SuggestionResult {
 export interface TermFacetResult extends IFacetResult {
   readonly type: 'terms'
   /**
+   *	Data type to which the facet is applied.
+   *
    *
    */
   readonly dataType: TermFacetResultType
   /**
+   *	Number of [ProductVariants](ctp:api:type:ProductVariant) that have no value for the specified [term facet expression](/../api/projects/products-search#term-facet-expression).
+   *
    *
    */
   readonly missing: number
   /**
+   *	Number of terms matching the [term facet expression](/../api/projects/products-search#term-facet-expression).
+   *
+   *	- If the expression refers to Product fields like `categories.id` and `reviewRatingStatistics.count`, the value represents the number of Products.
+   *	- If the expression is defined for fields specific to Product Variants, for example, `variants.attributes.{name}`, the value represents the number of Product Variants matching the expression.
+   *
    *
    */
   readonly total: number
   /**
+   *	Number of terms not represented in this object (such as the number of terms beyond the [limit](/limits#product-projection-search)).
+   *
    *
    */
   readonly other: number
   /**
+   *	Values for the field specified in [term facet expression](/../api/projects/products-search#term-facet-expression) for which at least one [ProductVariant](ctp:api:type:ProductVariant) could be found.
+   *
+   *	By default, facet terms are returned in a descending order of their `count`.
+   *
+   *	If the term facet expression specifies to count [Products](ctp:api:type:Product) through the `counting products` [extension](/projects/products-search#counting-products), then facet terms are returned in a descending order of their `productCount`.
+   *
    *
    */
   readonly terms: FacetTerm[]
 }
+/**
+ *	Data type to which the facet is applied.
+ *
+ */
 export enum TermFacetResultTypeValues {
   Boolean = 'boolean',
   Date = 'date',

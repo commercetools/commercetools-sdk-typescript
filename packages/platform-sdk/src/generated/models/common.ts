@@ -147,6 +147,11 @@ import {
 } from './type'
 import { Zone, ZoneReference, ZoneResourceIdentifier } from './zone'
 
+/**
+ *	Each query endpoint returns a paged query response containing the actual resources matching the query predicate plus information about [pagination](#paging).
+ *	This documents the fields all query responses have in common, for specific response types, see the respective API reference pages.
+ *
+ */
 export interface PagedQueryResponse {
   /**
    *	Number of [results requested](/../api/general-concepts#limit).
@@ -177,10 +182,15 @@ export interface PagedQueryResponse {
    */
   readonly total?: number
   /**
+   *	The resources matching the query predicate.
+   *	Each query endpoint returns resources of its specific type.
+   *
    *
    */
   readonly results: BaseResource[]
   /**
+   *	Object containing supplementary information about the results.
+   *
    *
    */
   readonly meta?: any

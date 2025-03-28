@@ -19,7 +19,9 @@ export class ByProjectKeyProductProjectionsSearchRequestBuilder {
     }
   ) {}
   /**
-   *	Product Projection Search
+   *	For implementing funnel search on Product Listing Pages where users select multiple filters, use this POST method.
+   *	To avoid URL length restrictions, this method passes the same query parameters as defined in the [GET](ctp:api:endpoint:/{projectKey}/product-projections/search:GET) method, within the request body in URL-encoded format.
+   *
    */
   public post(methodArgs: {
     body: string
@@ -43,21 +45,25 @@ export class ByProjectKeyProductProjectionsSearchRequestBuilder {
     )
   }
   /**
-   *	Product Projection Search
+   *	This method appends query parameters to the URL.
+   *	The maximum allowed URL length is 8192 characters.
+   *	Exceeding this limit will result in URL truncation, potentially leading to unexpected results.
+   *	For funnel searches on Product Listing Pages, where users select multiple filters, we recommend the [POST](ctp:api:endpoint:/{projectKey}/product-projections/search:POST) method which passes the query parameters within the request body, avoiding URL length restrictions.
+   *
    */
   public get(methodArgs?: {
     queryArgs?: {
+      markMatchingVariants?: boolean
       fuzzy?: boolean
       fuzzyLevel?: number
-      markMatchingVariants?: boolean
-      filter?: string | string[]
-      'filter.facets'?: string | string[]
       'filter.query'?: string | string[]
+      filter?: string | string[]
       facet?: string | string[]
+      'filter.facets'?: string | string[]
+      expand?: string | string[]
       sort?: string | string[]
       limit?: number
       offset?: number
-      withTotal?: boolean
       staged?: boolean
       priceCurrency?: string
       priceCountry?: string
@@ -66,7 +72,6 @@ export class ByProjectKeyProductProjectionsSearchRequestBuilder {
       priceChannel?: string
       localeProjection?: string | string[]
       storeProjection?: string
-      expand?: string | string[]
       [key: string]: QueryParam
     }
     headers?: {
