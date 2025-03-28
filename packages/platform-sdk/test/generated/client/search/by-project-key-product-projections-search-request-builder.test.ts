@@ -22,6 +22,24 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
+      uri: '/test_projectKey/product-projections/search?markMatchingVariants=true',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .productProjections()
+        .search()
+        .get({ queryArgs: { markMatchingVariants: true } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/product-projections/search?text.locale=text.locale',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .productProjections()
+        .search()
+        .get({ queryArgs: { 'text.locale': 'text.locale' } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/product-projections/search?fuzzy=true',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
@@ -40,12 +58,12 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?markMatchingVariants=true',
+      uri: '/test_projectKey/product-projections/search?filter.query=filter.query',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .search()
-        .get({ queryArgs: { markMatchingVariants: true } }),
+        .get({ queryArgs: { 'filter.query': 'filter.query' } }),
     },
     {
       method: 'get',
@@ -58,24 +76,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?filter.facets=filter.facets',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .productProjections()
-        .search()
-        .get({ queryArgs: { 'filter.facets': 'filter.facets' } }),
-    },
-    {
-      method: 'get',
-      uri: '/test_projectKey/product-projections/search?filter.query=filter.query',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .productProjections()
-        .search()
-        .get({ queryArgs: { 'filter.query': 'filter.query' } }),
-    },
-    {
-      method: 'get',
       uri: '/test_projectKey/product-projections/search?facet=facet',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
@@ -85,12 +85,21 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/search?text.locale=text.locale',
+      uri: '/test_projectKey/product-projections/search?filter.facets=filter.facets',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
         .search()
-        .get({ queryArgs: { 'text.locale': 'text.locale' } }),
+        .get({ queryArgs: { 'filter.facets': 'filter.facets' } }),
+    },
+    {
+      method: 'get',
+      uri: '/test_projectKey/product-projections/search?expand=expand',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .productProjections()
+        .search()
+        .get({ queryArgs: { expand: 'expand' } }),
     },
     {
       method: 'get',
@@ -118,15 +127,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .productProjections()
         .search()
         .get({ queryArgs: { offset: 3 } }),
-    },
-    {
-      method: 'get',
-      uri: '/test_projectKey/product-projections/search?withTotal=true',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .productProjections()
-        .search()
-        .get({ queryArgs: { withTotal: true } }),
     },
     {
       method: 'get',
@@ -203,15 +203,6 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .productProjections()
         .search()
         .get({ queryArgs: { storeProjection: 'storeProjection' } }),
-    },
-    {
-      method: 'get',
-      uri: '/test_projectKey/product-projections/search?expand=expand',
-      request: apiRoot
-        .withProjectKey({ projectKey: 'test_projectKey' })
-        .productProjections()
-        .search()
-        .get({ queryArgs: { expand: 'expand' } }),
     },
     {
       method: 'get',

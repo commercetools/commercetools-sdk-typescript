@@ -176,7 +176,7 @@ export interface CloudEventsPayload {
    */
   readonly dataref?: string
   /**
-   *	[MessageDeliveryPayload](ctp:api:type:MessageDeliveryPayload), [ResourceCreatedDeliveryPayload](ctp:api:type:ResourceCreatedDeliveryPayload), [ResourceUpdatedDeliveryPayload](ctp:api:type:ResourceUpdatedDeliveryPayload), or [ResourceDeletedDeliveryPayload](ctp:api:type:ResourceDeletedDeliveryPayload).
+   *	[MessageDeliveryPayload](ctp:api:type:MessageDeliveryPayload), [ResourceCreatedDeliveryPayload](ctp:api:type:ResourceCreatedDeliveryPayload), [ResourceUpdatedDeliveryPayload](ctp:api:type:ResourceUpdatedDeliveryPayload), or [ResourceDeletedDeliveryPayload](ctp:api:type:ResourceDeletedDeliveryPayload), [EventDeliveryPayload](ctp:api:type:EventDeliveryPayload).
    *
    *
    */
@@ -205,36 +205,18 @@ export interface CloudEventsFormat extends IDeliveryFormat {
  *
  */
 export type DeliveryPayload =
+  | EventDeliveryPayload
   | MessageDeliveryPayload
   | ResourceCreatedDeliveryPayload
   | ResourceDeletedDeliveryPayload
   | ResourceUpdatedDeliveryPayload
 export interface IDeliveryPayload {
   /**
-   *	`key` of the [Project](ctp:api:type:Project).
-   *	Useful for processing notifications if the Destination receives them from multiple Projects.
-   *
-   *
-   */
-  readonly projectKey: string
-  /**
    *	Identifies the payload.
    *
    *
    */
   readonly notificationType: string
-  /**
-   *	Reference to the resource that triggered the notification.
-   *
-   *
-   */
-  readonly resource: Reference
-  /**
-   *	User-defined unique identifiers of the resource.
-   *
-   *
-   */
-  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
 }
 export type Destination =
   | AzureEventGridDestination
@@ -358,6 +340,93 @@ export interface EventBridgeDestination extends IDestination {
   readonly source: string
 }
 /**
+ *	This payload is sent for an [EventSubscription](ctp:api:type:EventSubscription).
+ *
+ */
+export interface EventDeliveryPayload extends IDeliveryPayload {
+  readonly notificationType: 'Event'
+  /**
+   *	Unique identifier of the Event.
+   *
+   *
+   */
+  readonly id: string
+  /**
+   *	The type of Event that has occurred.
+   *
+   *
+   */
+  readonly type: EventType
+  /**
+   *	The type of resource targeted by the Event.
+   *
+   *
+   */
+  readonly resourceType: string
+  /**
+   *	The data describing the event that has taken place.
+   *
+   *
+   */
+  readonly data: any
+  /**
+   *	Date and time (UTC) the resource was initially created.
+   *
+   *
+   */
+  readonly createdAt: string
+}
+/**
+ *	For EventSubscription, the format of the payload is custom for each specific notification.
+ *
+ */
+export interface EventSubscription {
+  /**
+   *	Unique identifier for the type of resource, for example, `import-api`.
+   *
+   *
+   */
+  readonly resourceTypeId: EventSubscriptionResourceTypeId
+  /**
+   *	Must contain valid event types for the resource.
+   *	For example, for resource type `import-api` the event type `ImportContainerCreated` is valid.
+   *	If no `types` are given, the Subscription will receive all events for this resource.
+   *
+   *
+   */
+  readonly types?: EventType[]
+}
+/**
+ *	Resource types supported by [EventSubscriptions](ctp:api:type:EventSubscription).
+ *
+ */
+export enum EventSubscriptionResourceTypeIdValues {
+  ImportApi = 'import-api',
+}
+
+export type EventSubscriptionResourceTypeId = 'import-api' | (string & {})
+/**
+ *	Type of events supported by [EventSubscriptions](ctp:api:type:EventSubscription).
+ *
+ */
+export enum EventTypeValues {
+  ImportContainerCreated = 'ImportContainerCreated',
+  ImportContainerDeleted = 'ImportContainerDeleted',
+  ImportOperationRejected = 'ImportOperationRejected',
+  ImportUnresolved = 'ImportUnresolved',
+  ImportValidationFailed = 'ImportValidationFailed',
+  ImportWaitForMasterVariant = 'ImportWaitForMasterVariant',
+}
+
+export type EventType =
+  | 'ImportContainerCreated'
+  | 'ImportContainerDeleted'
+  | 'ImportOperationRejected'
+  | 'ImportUnresolved'
+  | 'ImportValidationFailed'
+  | 'ImportWaitForMasterVariant'
+  | (string & {})
+/**
  *	Destination for [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/) that can be used
  *	for [Pull subscriptions](https://cloud.google.com/pubsub/docs/pull) as well as for [Push subscriptions](https://cloud.google.com/pubsub/docs/push).
  *	The `topic` must give the `pubsub.topics.publish` permission to the service account `subscriptions@commercetools-platform.iam.gserviceaccount.com`.
@@ -386,25 +455,6 @@ export interface GoogleCloudPubSubDestination extends IDestination {
 export interface MessageDeliveryPayload extends IDeliveryPayload {
   readonly notificationType: 'Message'
   /**
-   *	`key` of the [Project](ctp:api:type:Project).
-   *	Useful for processing notifications if the Destination receives them from multiple Projects.
-   *
-   *
-   */
-  readonly projectKey: string
-  /**
-   *	Reference to the resource that triggered the notification.
-   *
-   *
-   */
-  readonly resource: Reference
-  /**
-   *	User-defined unique identifiers of the resource.
-   *
-   *
-   */
-  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
-  /**
    *	Unique ID of the message.
    *
    *
@@ -416,6 +466,13 @@ export interface MessageDeliveryPayload extends IDeliveryPayload {
    *
    */
   readonly version: number
+  /**
+   *	`key` of the [Project](ctp:api:type:Project).
+   *	Useful for processing notifications if the Destination receives them from multiple Projects.
+   *
+   *
+   */
+  readonly projectKey: string
   /**
    *	Date and time (UTC) the resource was initially created.
    *
@@ -441,6 +498,18 @@ export interface MessageDeliveryPayload extends IDeliveryPayload {
    *
    */
   readonly resourceVersion: number
+  /**
+   *	Reference to the resource that triggered the notification.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	User-defined unique identifiers of the resource.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
    *	If the payload does not fit into the size limit or its format is not accepted by the messaging service, the `payloadNotIncluded` field is present.
    *
@@ -805,6 +874,12 @@ export interface Subscription extends BaseResource {
    */
   readonly messages: MessageSubscription[]
   /**
+   *	Events subscribed to.
+   *
+   *
+   */
+  readonly events: EventSubscription[]
+  /**
    *	Format in which the payload is delivered.
    *
    *
@@ -846,6 +921,12 @@ export interface SubscriptionDraft {
    *
    */
   readonly messages?: MessageSubscription[]
+  /**
+   *	Events to be subscribed to.
+   *
+   *
+   */
+  readonly events?: EventSubscription[]
   /**
    *	Format in which the payload is delivered. When not provided, the [PlatformFormat](ctp:api:type:PlatformFormat) is selected by default.
    *
@@ -930,6 +1011,7 @@ export interface SubscriptionUpdate {
 export type SubscriptionUpdateAction =
   | SubscriptionChangeDestinationAction
   | SubscriptionSetChangesAction
+  | SubscriptionSetEventsAction
   | SubscriptionSetKeyAction
   | SubscriptionSetMessagesAction
 export interface ISubscriptionUpdateAction {
@@ -956,11 +1038,20 @@ export interface SubscriptionSetChangesAction
   extends ISubscriptionUpdateAction {
   readonly action: 'setChanges'
   /**
-   *	Value to set. Can only be unset if `messages` is set.
+   *	Value to set. Can only be unset if either `messages` or `events` is set.
    *
    *
    */
   readonly changes?: ChangeSubscription[]
+}
+export interface SubscriptionSetEventsAction extends ISubscriptionUpdateAction {
+  readonly action: 'setEvents'
+  /**
+   *	Value to set. Can only be unset if either `messages` or `changes` is set.
+   *
+   *
+   */
+  readonly messages?: EventSubscription[]
 }
 export interface SubscriptionSetKeyAction extends ISubscriptionUpdateAction {
   readonly action: 'setKey'
@@ -975,7 +1066,7 @@ export interface SubscriptionSetMessagesAction
   extends ISubscriptionUpdateAction {
   readonly action: 'setMessages'
   /**
-   *	Value to set. Can only be unset if `changes` is set.
+   *	Value to set. Can only be unset if either `changes` or `events` is set.
    *
    *
    */

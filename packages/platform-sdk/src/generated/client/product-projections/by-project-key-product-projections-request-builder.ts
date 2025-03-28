@@ -22,13 +22,6 @@ export class ByProjectKeyProductProjectionsRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	This endpoint provides high performance search queries over ProductProjections. The query result contains the
-   *	ProductProjections for which at least one ProductVariant matches the search query. This means that variants can
-   *	be included in the result also for which the search query does not match. To determine which ProductVariants match
-   *	the search query, the returned ProductProjections include the additional field isMatchingVariant.
-   *
-   */
   public search(): ByProjectKeyProductProjectionsSearchRequestBuilder {
     return new ByProjectKeyProductProjectionsSearchRequestBuilder({
       pathArgs: {

@@ -1038,11 +1038,16 @@ export interface GeneralError extends IErrorObject {
    */
   readonly message: string
 }
+/**
+ *	This error occurs when your [API Client](/../api/projects/api-clients) does not have the [OAuth scope](/../api/scopes) required for the endpoint.
+ *	Use an API Client with the required permissions for this endpoint instead.
+ *
+ */
 export interface InsufficientScopeError extends IErrorObject {
   readonly code: 'insufficient_scope'
   [key: string]: any
   /**
-   *	Plain text description of the cause of the error.
+   *	`"Insufficient scope. One of the following scopes is missing:"`
    *
    *
    */
@@ -2808,6 +2813,11 @@ export interface GraphQLGeneralError extends IGraphQLErrorObject {
   readonly code: 'General'
   [key: string]: any
 }
+/**
+ *	This error occurs when your [API Client](/../api/projects/api-clients) does not have the [OAuth scope](/../api/scopes) required for the endpoint.
+ *	Use an API Client with the required permissions for this endpoint instead.
+ *
+ */
 export interface GraphQLInsufficientScopeError extends IGraphQLErrorObject {
   readonly code: 'insufficient_scope'
   [key: string]: any
