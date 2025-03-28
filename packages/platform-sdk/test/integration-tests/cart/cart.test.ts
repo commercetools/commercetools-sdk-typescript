@@ -87,13 +87,13 @@ describe('testing cart API calls', () => {
     const productType = await ensureProductType(productTypeDraftForProduct)
 
     //Published product
-    const productDraft1 = await createProductDraft(
+    const productDraft1 = createProductDraft(
       category,
       taxCategory,
       productType,
       true
     )
-    const productDraft2 = await createProductDraft(
+    const productDraft2 = createProductDraft(
       category,
       taxCategory,
       productType,
