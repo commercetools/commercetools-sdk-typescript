@@ -17,7 +17,7 @@ function getSystemInfo(): string {
   if (isBrowser()) return window.navigator.userAgent
 
   const nodeVersion: string = process?.version?.slice(1) || 'unknow' // unknow environment like  React Native etc
-  const platformInfo = `(${process?.platform}; ${process?.arch})`
+  const platformInfo = `(${process?.platform || ''}; ${process?.arch || ''})`
 
   return `node.js/${nodeVersion} ${platformInfo}`
 }
