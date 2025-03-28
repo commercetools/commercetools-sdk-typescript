@@ -12,6 +12,7 @@ import {
   deleteCustomerGroup,
 } from '../customer-group/customer-group-fixture'
 import { createStore, deleteStore } from '../store/store-fixture'
+import { createCustomer } from './customer-fixture'
 
 describe('testing customer API calls', () => {
   let customerGroup, customer, store
@@ -37,7 +38,7 @@ describe('testing customer API calls', () => {
       addresses: address,
     }
 
-    customer = await apiRoot.customers().post({ body: customerDraft }).execute()
+    customer = await createCustomer(customerDraft)
 
     expect(customer.statusCode).toEqual(201)
     expect(customer.body.customer).toBeDefined()
