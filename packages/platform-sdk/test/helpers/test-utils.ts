@@ -39,7 +39,7 @@ export const waitForIndexing = async (
   while (Date.now() - start < timeout) {
     try {
       const result = await fetchResource()
-      if (result) return result // Resource is now indexed
+      if (result) return result
     } catch (e) {
       /** noop */
     }
@@ -48,6 +48,5 @@ export const waitForIndexing = async (
     await sleep(interval)
   }
 
-  /* istanbul ignore next */
   throw new Error('Resource did not indexed within timeout')
 }
