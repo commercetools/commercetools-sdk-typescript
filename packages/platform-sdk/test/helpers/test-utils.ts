@@ -48,5 +48,6 @@ export const waitForIndexing = async (
     await sleep(interval)
   }
 
+  /* istanbul ignore next */
   throw new Error('Resource did not indexed within timeout')
 }
