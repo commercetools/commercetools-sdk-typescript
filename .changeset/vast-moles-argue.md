@@ -2,4 +2,4 @@
 '@commercetools/ts-client': patch
 ---
 
-Fix typographical error in cient user agent
+Fix typographical error in client user agent
