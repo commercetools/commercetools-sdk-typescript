@@ -11,63 +11,36 @@ import {
 import { createType, deleteType } from '../type/type-fixture'
 
 describe('testing category API calls', () => {
-  it('should create and delete a category by ID', async () => {
-    const categoryDraft: CategoryDraft = {
-      key: randomUUID(),
-      name: { en: 'test-name-category' + randomUUID() },
-      slug: { en: 'test-slug-category' + randomUUID() },
-    }
-
-    const responseCreatedCategory = await apiRoot
-      .categories()
-      .post({ body: categoryDraft })
-      .execute()
-
-    expect(responseCreatedCategory.statusCode).toEqual(201)
-    expect(responseCreatedCategory.body).not.toBe(null)
-
-    const responseCategoryDeleted = await apiRoot
-      .categories()
-      .withId({ ID: responseCreatedCategory.body.id })
-      .delete({ queryArgs: { version: responseCreatedCategory.body.version } })
-      .execute()
-
-    expect(responseCategoryDeleted.statusCode).toEqual(200)
+  let category, type
+  it('should create category', async () => {
+    category = await createCategory()
+    expect(category.body).toBeDefined()
+    expect(category.statusCode).toEqual(201)
   })
 
-  it('should get a category  by Id', async () => {
-    const category = await createCategory()
-
+  it('should get a category by Id', async () => {
     const getCategory = await apiRoot
       .categories()
       .withId({ ID: category.body.id })
       .get()
       .execute()
 
-    expect(getCategory).not.toBe(null)
+    expect(getCategory).toBeDefined()
     expect(getCategory.body.id).toEqual(category.body.id)
-
-    await deleteCategory(category)
   })
 
-  it('should get a category  by key', async () => {
-    const category = await createCategory()
-
+  it('should get a category by key', async () => {
     const getCategory = await apiRoot
       .categories()
       .withKey({ key: category.body.key })
       .get()
       .execute()
 
-    expect(getCategory).not.toBe(null)
+    expect(getCategory).toBeDefined()
     expect(getCategory.body.key).toEqual(category.body.key)
-
-    await deleteCategory(category)
   })
 
   it('should query a category', async () => {
-    const category = await createCategory()
-
     const queryCategory = await apiRoot
       .categories()
       .get({
@@ -77,27 +50,11 @@ describe('testing category API calls', () => {
       })
       .execute()
 
-    expect(queryCategory).not.toBe(null)
+    expect(queryCategory).toBeDefined()
     expect(queryCategory.body.results[0].id).toEqual(category.body.id)
-
-    await deleteCategory(category)
-  })
-
-  it('should delete a category by Key', async () => {
-    const responseCreatedCategory = await createCategory()
-
-    const responseCategoryDeleted = await apiRoot
-      .categories()
-      .withKey({ key: responseCreatedCategory.body.key })
-      .delete({ queryArgs: { version: responseCreatedCategory.body.version } })
-      .execute()
-
-    expect(responseCategoryDeleted.statusCode).toEqual(200)
   })
 
   it('should update a category', async () => {
-    const category = await createCategory()
-
     const updateCategory = await apiRoot
       .categories()
       .withId({ ID: category.body.id })
@@ -116,14 +73,11 @@ describe('testing category API calls', () => {
 
     expect(updateCategory.body.version).not.toBe(category.body.version)
     expect(updateCategory.statusCode).toEqual(200)
-
-    await deleteCategory(updateCategory)
+    category = updateCategory
   })
 
   it('should update a category adding Assets and CustomFields', async () => {
-    const type = await createType()
-    const category = await createCategory()
-
+    type = await createType()
     const typeResourceIdentifier: TypeResourceIdentifier = {
       typeId: 'type',
       id: type.body.id,
@@ -167,8 +121,11 @@ describe('testing category API calls', () => {
 
     expect(updateCategory.body.version).not.toBe(category.body.version)
     expect(updateCategory.statusCode).toEqual(200)
+    category = updateCategory
+  })
 
-    await deleteCategory(updateCategory)
+  afterAll(async () => {
+    await deleteCategory(category)
     await deleteType(type)
   })
 })

@@ -81,9 +81,7 @@ describe('testing error cases', () => {
           clientSecret: 'test',
         },
         tokenCache: {
-          set: (cache) => {
-            console.log(cache)
-          },
+          set: (cache) => {},
           get: (tokenCacheKey) => {
             return {
               token: 'test',

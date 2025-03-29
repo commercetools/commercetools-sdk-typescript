@@ -12,40 +12,30 @@ const taxRate: TaxRateDraft = {
 }
 
 const taxCategoryDraft: TaxCategoryDraft = {
-  key: 'test-key-tax-category',
+  key: 'test-key-tax-category-' + randomUUID(),
   name: 'test-name-' + randomUUID(),
   rates: [taxRate],
 }
 
 export const ensureTaxCategory = async (
   taxCategoryDraftBody?: TaxCategoryDraft
-) => {
-  try {
-    return await apiRoot
-      .taxCategories()
-      .withKey({ key: taxCategoryDraftBody?.key || taxCategoryDraft.key })
-      .get()
-      .execute()
-  } catch (e) {
-    return await createTaxCategory(taxCategoryDraftBody || taxCategoryDraft)
-  }
-}
+) =>
+  apiRoot
+    .taxCategories()
+    .withKey({ key: taxCategoryDraftBody?.key || taxCategoryDraft.key })
+    .get()
+    .execute()
+    .catch(() => createTaxCategory(taxCategoryDraftBody || taxCategoryDraft))
 
 export const createTaxCategory = async (
   taxCategoryDraftBody: TaxCategoryDraft
-) => {
-  return await apiRoot
-    .taxCategories()
-    .post({ body: taxCategoryDraftBody })
-    .execute()
-}
+) => apiRoot.taxCategories().post({ body: taxCategoryDraftBody }).execute()
 
-export const deleteTaxCategory = async (responseCreatedTaxCategory) => {
-  return apiRoot
+export const deleteTaxCategory = async (taxCategory) =>
+  apiRoot
     .taxCategories()
-    .withId({ ID: responseCreatedTaxCategory.body.id })
+    .withId({ ID: taxCategory.body.id })
     .delete({
-      queryArgs: { version: responseCreatedTaxCategory.body.version },
+      queryArgs: { version: taxCategory.body.version },
     })
     .execute()
-}

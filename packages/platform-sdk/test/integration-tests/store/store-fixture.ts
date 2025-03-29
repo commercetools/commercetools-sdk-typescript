@@ -10,12 +10,12 @@ export const createStore = async () => {
   return await apiRoot.stores().post({ body: storeDraft }).execute()
 }
 
-export const deleteStore = async (responseCreatedStore) => {
+export const deleteStore = async (store) => {
   return await apiRoot
     .stores()
-    .withId({ ID: responseCreatedStore.body.id })
+    .withId({ ID: store.body.id })
     .delete({
-      queryArgs: { version: responseCreatedStore.body.version },
+      queryArgs: { version: store.body.version },
     })
     .execute()
 }

@@ -1,46 +1,39 @@
-import { ClientBuilder } from '@commercetools/ts-client'
-import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
+import {
+  createProduct,
+  createProductDraft,
+  deleteProduct,
+} from '../product/product-fixture'
+import { createCategory, deleteCategory } from '../category/category-fixture'
+import { ensureProductType } from '../product-type/product-type-fixture'
+import {
+  deleteTaxCategory,
+  ensureTaxCategory,
+} from '../tax-category/tax-category-fixture'
+import { apiRoot } from '../test-utils'
 
 describe('Image Upload Tests', () => {
-  const projectKey = process.env.CTP_PROJECT_KEY
-  const authMiddlewareOptions = {
-    projectKey,
-    host: 'https://auth.europe-west1.gcp.commercetools.com',
-    credentials: {
-      clientId: process.env.CTP_CLIENT_ID || '',
-      clientSecret: process.env.CTP_CLIENT_SECRET || '',
-    },
-    oauthUri: process.env.adminAuthUrl || '',
-    scopes: [`manage_project:${projectKey}`],
-    httpClient: fetch,
-  }
-
-  const httpMiddlewareOptions = {
-    host: 'https://api.europe-west1.gcp.commercetools.com',
-    httpClient: fetch,
-  }
-
   const getImage = async (url: string) => {
     const response = await fetch(url)
     return Buffer.from(await response.arrayBuffer())
   }
 
-  const client = new ClientBuilder()
-    .withClientCredentialsFlow(authMiddlewareOptions)
-    .withHttpMiddleware(httpMiddlewareOptions)
-    .build()
-
-  const api = createApiBuilderFromCtpClient(client)
+  let product, category, taxCategory
   test('upload a product image', async () => {
-    const getProductID = async () => {
-      return api.withProjectKey({ projectKey }).products().get().execute()
-    }
+    category = await createCategory()
+    const productType = await ensureProductType()
+    taxCategory = await ensureTaxCategory()
 
-    const ID = (await getProductID()).body.results[0].id
-    const uploadResponse = await api
-      .withProjectKey({ projectKey })
+    const productDraft = createProductDraft(
+      category,
+      taxCategory,
+      productType,
+      true
+    )
+
+    product = await createProduct(productDraft)
+    const uploadResponse = await apiRoot
       .products()
-      .withId({ ID })
+      .withId({ ID: product.body.id })
       .images()
       .post({
         headers: {
@@ -55,7 +48,14 @@ describe('Image Upload Tests', () => {
       })
       .execute()
 
-    expect(uploadResponse.body.id).toEqual(ID)
     expect(uploadResponse.statusCode).toEqual(200)
+    expect(uploadResponse.body.id).toEqual(product.body.id)
+    product = uploadResponse
+  })
+
+  afterAll(async () => {
+    await deleteProduct(product)
+    await deleteTaxCategory(taxCategory)
+    await deleteCategory(category)
   })
 })
