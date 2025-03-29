@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 3.2.2
+
+### Patch Changes
+
+- [#1011](https://github.com/commercetools/commercetools-sdk-typescript/pull/1011) [`008f9df`](https://github.com/commercetools/commercetools-sdk-typescript/commit/008f9dfa4fd9ad82c9cdfe90ac4235389d6182b1) Thanks [@ajimae](https://github.com/ajimae)! - Fix typographical error in client user agent
+
 ## 3.2.1
 
 ### Patch Changes
