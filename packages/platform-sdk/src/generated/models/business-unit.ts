@@ -600,6 +600,7 @@ export type BusinessUnitUpdateAction =
   | BusinessUnitSetDefaultShippingAddressAction
   | BusinessUnitSetStoreModeAction
   | BusinessUnitSetStoresAction
+  | BusinessUnitSetUnitTypeAction
 export interface IBusinessUnitUpdateAction {
   /**
    *
@@ -1348,14 +1349,17 @@ export interface BusinessUnitChangeNameAction
   readonly name: string
 }
 /**
- *	Changing the parent of a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitParentChanged](ctp:api:type:BusinessUnitParentChangedMessage) Message.
+ *	This action generates a [BusinessUnitParentChanged](ctp:api:type:BusinessUnitParentChangedMessage) Message.
  *
  */
 export interface BusinessUnitChangeParentUnitAction
   extends IBusinessUnitUpdateAction {
   readonly action: 'changeParentUnit'
   /**
-   *	New parent unit of the [Business Unit](ctp:api:type:BusinessUnit). The new parent unit must have the same top-level unit as the old parent unit.
+   *	New parent unit of the [Business Unit](ctp:api:type:BusinessUnit).
+   *	It must be associated with the same Stores, as the old parent unit.
+   *
+   *	The Business Unit `inheritedAssociates` and `inheritedStores` field values will be [eventually consistent](/../api/general-concepts#eventual-consistency).
    *
    *
    */
@@ -1672,4 +1676,26 @@ export interface BusinessUnitSetStoresAction extends IBusinessUnitUpdateAction {
    *
    */
   readonly stores: StoreResourceIdentifier[]
+}
+/**
+ *	This action generates a [BusinessUnitTypeSet](ctp:api:type:BusinessUnitTypeSetMessage) Message.
+ *
+ */
+export interface BusinessUnitSetUnitTypeAction
+  extends IBusinessUnitUpdateAction {
+  readonly action: 'setUnitType'
+  /**
+   *	New type of the [Business Unit](ctp:api:type:BusinessUnit).
+   *
+   *	If `unitType="Company"`, the Business Unit `storeMode`, `associateMode`, and `approvalRuleMode` field values must be `Explicit`.
+   *
+   *
+   */
+  readonly unitType: BusinessUnitType
+  /**
+   *	New parent unit for the [Business Unit](ctp:api:type:BusinessUnit), if `unitType="Division"`.
+   *
+   *
+   */
+  readonly parentUnit?: BusinessUnitResourceIdentifier
 }
