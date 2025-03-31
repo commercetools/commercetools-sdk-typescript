@@ -373,8 +373,8 @@ export interface CartDraft {
   /**
    *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to the Customer Group of the Customer that the Cart belongs to. Used for [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
    *
-   *	It is automatically set if the Customer referenced in `customerId` belongs to a Customer Group.
-   *	It can also be set explicitly when no `customerId` is present.
+   *	You can set either a `customerId` or a `customerGroup`.
+   *	If the Customer referenced in `customerId` belongs to a Customer Group then `customerGroup` is set automatically.
    *
    *
    */
