@@ -148,7 +148,7 @@ import {
 import { Zone, ZoneReference, ZoneResourceIdentifier } from './zone'
 
 /**
- *	Each query endpoint returns a paged query response containing the actual resources matching the query predicate plus information about [pagination](#paging).
+ *	Each query endpoint returns a paged query response containing the actual resources matching the query predicate plus information about [pagination](#pagination).
  *	This documents the fields all query responses have in common, for specific response types, see the respective API reference pages.
  *
  */
