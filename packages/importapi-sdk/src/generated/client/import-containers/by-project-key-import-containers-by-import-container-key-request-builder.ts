@@ -48,7 +48,7 @@ export class ByProjectKeyImportContainersByImportContainerKeyRequestBuilder {
   }
 
   /**
-   *	Updates the import container given by the key.
+   *	Updates the Import Container given by the key.
    */
   public put(methodArgs: {
     body: ImportContainerUpdateDraft
@@ -72,7 +72,7 @@ export class ByProjectKeyImportContainersByImportContainerKeyRequestBuilder {
     )
   }
   /**
-   *	Retrieves the import container given by the key.
+   *	Retrieves the Import Container given by the key.
    */
   public get(methodArgs?: {
     headers?: {
@@ -93,7 +93,10 @@ export class ByProjectKeyImportContainersByImportContainerKeyRequestBuilder {
     )
   }
   /**
-   *	Deletes the import container given by the key.
+   *	Deletes the Import Container specified by the `importContainerKey`.
+   *
+   *	Generates the [ImportContainerDeleted](/projects/events#import-container-deleted-event) Event.
+   *
    */
   public delete(methodArgs?: {
     headers?: {
