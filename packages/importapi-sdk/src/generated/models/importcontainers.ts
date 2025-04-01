@@ -63,7 +63,7 @@ export interface ImportContainerDraft {
   readonly resourceType?: ImportResourceType
 }
 /**
- *	The representation sent to the server when updating an import container.
+ *	The representation sent to the server when updating an Import Container.
  *
  */
 export interface ImportContainerUpdateDraft {
