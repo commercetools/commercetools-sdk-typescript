@@ -45,7 +45,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyQuoteRequestsKeyByKeyRequestBuilder
     )
   }
   /**
-   *	Checks if a QuoteRequest exists for a given `key`. Returns a `200 OK` status if the QuoteRequest exists or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *	Checks if a QuoteRequest exists for a given `key`. Returns a `200 OK` status if the QuoteRequest exists or [Not Found](/../api/errors#404-not-found) otherwise.
    */
   public head(methodArgs?: {
     headers?: {
