@@ -82,7 +82,7 @@ export class ByProjectKeyCategoriesRequestBuilder {
     )
   }
   /**
-   *	Checks if a Category exists for on a given Query Predicate. Returns a `200 OK` status if any Categories match the Query Predicate or a `404 Not Found` otherwise.
+   *	Checks if one or more Categories exist for the provided query predicate. Returns a `200 OK` status if any Categories match the query predicate, or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

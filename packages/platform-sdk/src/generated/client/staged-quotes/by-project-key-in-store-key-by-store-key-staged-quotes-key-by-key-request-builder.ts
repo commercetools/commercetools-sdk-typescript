@@ -45,7 +45,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyStagedQuotesKeyByKeyRequestBuilder 
     )
   }
   /**
-   *	Checks if a StagedQuote exists for a given `key`. Returns a `200 OK` status if the StagedQuote exists or [Not Found](/../api/errors#404-not-found) otherwise.
+   *	Checks if a StagedQuote exists with the provided `key`. Returns a `200 OK` status if the StagedQuote exists or [Not Found](/../api/errors#404-not-found) otherwise.
    */
   public head(methodArgs?: {
     headers?: {

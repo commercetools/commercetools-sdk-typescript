@@ -43,7 +43,7 @@ export class ByProjectKeyQuotesKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Checks if a Quote exists for a given `key`. Returns a `200 OK` status if the Quote exists or a `404 Not Found` otherwise.
+   *	Checks if a Quote exists with the provided `key`. Returns a `200 OK` status if the Quote exists or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     headers?: {

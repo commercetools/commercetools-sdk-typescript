@@ -47,7 +47,7 @@ export class ByProjectKeyMeBusinessUnitsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Checks if a BusinessUnit exists for a given `key`. Returns a `200 OK` status if the Business Unit exists and the Customer has access to it, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *	Checks if a BusinessUnit exists with the provided `key`. Returns a `200 OK` status if the Business Unit exists and the Customer has access to it, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
    */
   public head(methodArgs?: {
     headers?: {

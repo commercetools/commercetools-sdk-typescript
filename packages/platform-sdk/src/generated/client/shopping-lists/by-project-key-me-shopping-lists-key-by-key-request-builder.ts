@@ -53,7 +53,7 @@ export class ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Checks if a ShoppingList exists for a given `key`. Returns a `200 OK` status if successful.
+   *	Checks if a ShoppingList exists with the provided `key`. Returns a `200 OK` status if successful.
    *
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *

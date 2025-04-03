@@ -78,7 +78,7 @@ export class ByProjectKeyTaxCategoriesRequestBuilder {
     )
   }
   /**
-   *	Checks if a TaxCategory exists for a given Query Predicate. Returns a `200 OK` status if any TaxCategories match the Query Predicate, or a `404 Not Found` otherwise.
+   *	Checks if one or more Tax Categories exist for the provided query predicate. Returns a `200 OK` status if any TaxCategories match the query predicate, or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

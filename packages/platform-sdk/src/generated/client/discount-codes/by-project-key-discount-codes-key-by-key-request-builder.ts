@@ -46,7 +46,7 @@ export class ByProjectKeyDiscountCodesKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Checks if a DiscountCode exists for a given `key`. Returns a `200 OK` status if the DiscountCode exists or a `404 Not Found` otherwise.
+   *	Checks if a DiscountCode exists with the provided `key`. Returns a `200 OK` status if the DiscountCode exists or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     headers?: {

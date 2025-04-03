@@ -50,7 +50,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyShoppingListsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a ShoppingList exists for a given `id`. Returns a `200 OK` status if the ShoppingList exists or [Not Found](/../api/errors#404-not-found) otherwise.
+   *	Checks if a ShoppingList exists with the provided `id`. Returns a `200 OK` status if the ShoppingList exists or [Not Found](/../api/errors#404-not-found) otherwise.
    */
   public head(methodArgs?: {
     headers?: {
