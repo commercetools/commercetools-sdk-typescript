@@ -81,7 +81,7 @@ export class ByProjectKeyMeOrdersRequestBuilder {
     )
   }
   /**
-   *	Checks if an Order exists for a given Query Predicate. Returns a `200 OK` status if successful.
+   *	Checks if one or more Orders exist for the provided query predicate. Returns a `200 OK` status if successful.
    *
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *

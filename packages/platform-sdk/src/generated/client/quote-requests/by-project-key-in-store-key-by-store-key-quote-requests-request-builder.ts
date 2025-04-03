@@ -81,7 +81,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyQuoteRequestsRequestBuilder {
     )
   }
   /**
-   *	Checks if a QuoteRequest exists for a given Query Predicate. Returns a `200 OK` status if any QuoteRequests match the Query Predicate or [Not Found](/../api/errors#404-not-found) otherwise.
+   *	Checks if one or more QuoteRequests exist for the provided query predicate. Returns a `200 OK` status if any QuoteRequests match the query predicate, or [Not Found](/../api/errors#404-not-found) otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

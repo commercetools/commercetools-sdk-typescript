@@ -91,7 +91,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersRequestBuilder {
     )
   }
   /**
-   *	Checks if an Order exists for a given Query Predicate. Returns a `200 OK` status if any Orders match the Query Predicate or [Not Found](/../api/errors#404-not-found) otherwise.
+   *	Checks if one or more Orders exist for the provided query predicate. Returns a `200 OK` status if any Orders match the query predicate, or [Not Found](/../api/errors#404-not-found) otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

@@ -54,7 +54,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeOrdersByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if an Order exists for a given `id` in a Store. Returns a `200 OK` status if successful.
+   *	Checks if an Order exists with the provided `id` in a Store. Returns a `200 OK` status if successful.
    *
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *

@@ -44,7 +44,7 @@ export class ByProjectKeyMeQuotesByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a Quote exists for a given `id`. Returns a `200 OK` status if the Quote exists or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *	Checks if a Quote exists with the provided `id`. Returns a `200 OK` status if the Quote exists or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
    */
   public head(methodArgs?: {
     headers?: {

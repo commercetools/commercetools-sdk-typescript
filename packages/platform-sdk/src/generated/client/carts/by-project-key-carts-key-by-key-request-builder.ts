@@ -48,7 +48,7 @@ export class ByProjectKeyCartsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Checks if a Cart exists for the provided `key`. Returns a `200 OK` status if the Cart exists or [Not Found](/../api/errors#404-not-found) otherwise.
+   *	Checks if a Cart exists with the provided `key`. Returns a `200 OK` status if the Cart exists or [Not Found](/../api/errors#404-not-found) otherwise.
    */
   public head(methodArgs?: {
     headers?: {

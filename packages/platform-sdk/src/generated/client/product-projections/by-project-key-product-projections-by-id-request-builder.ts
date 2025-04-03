@@ -55,7 +55,7 @@ export class ByProjectKeyProductProjectionsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if the current or staged representation of a Product exists for a given `id`. Returns a `200 OK` status if the ProductProjection exists or a `404 Not Found` otherwise.
+   *	Checks if the current or staged representation of a Product exists with the provided `id`. Returns a `200 OK` status if the ProductProjection exists or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     headers?: {
