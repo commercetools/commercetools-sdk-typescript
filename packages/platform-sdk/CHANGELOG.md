@@ -1,5 +1,44 @@
 # @commercetools/platform-sdk
 
+## 8.8.0
+
+### Minor Changes
+
+- [#1017](https://github.com/commercetools/commercetools-sdk-typescript/pull/1017) [`5efac68`](https://github.com/commercetools/commercetools-sdk-typescript/commit/5efac683f31d6add5205f1cdd8477b1af9c934cb) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Changed Type(s)</summary>
+
+  - :warning: changed type `DeliveryPayload` from type `object` to `SubscriptionNotification`
+  - :warning: changed type `EventDeliveryPayload` from type `DeliveryPayload` to `SubscriptionNotification`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `BusinessUnitSetUnitTypeAction`
+  - added type `BaseEvent`
+  - added type `BusinessUnitTopLevelUnitSetMessage`
+  - added type `BusinessUnitTypeSetMessage`
+  - added type `BusinessUnitTopLevelUnitSetMessagePayload`
+  - added type `BusinessUnitTypeSetMessagePayload`
+  - added type `SubscriptionNotification`
+  </details>
+
+  <details>
+  <summary>Removed Property(s)</summary>
+
+  - :warning: removed property `data` from type `Event`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `projectKey` to type `DeliveryPayload`
+  - added property `resource` to type `DeliveryPayload`
+  - added property `resourceUserProvidedIdentifiers` to type `DeliveryPayload`
+  </details>
+
 ## 8.7.0
 
 ### Minor Changes
