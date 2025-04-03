@@ -10,14 +10,7 @@ import { EventSubscriptionResourceTypeId, EventType } from './subscription'
  *	Base representation of an Event containing common fields to all [Event Types](#eventtype).
  *
  */
-export type Event =
-  | ImportContainerCreatedEvent
-  | ImportContainerDeletedEvent
-  | ImportOperationRejectedEvent
-  | ImportUnresolvedEvent
-  | ImportValidationFailedEvent
-  | ImportWaitForMasterVariantEvent
-export interface IEvent {
+export interface BaseEvent {
   /**
    *	Unique identifier of the Event.
    *
@@ -52,6 +45,45 @@ export interface IEvent {
   readonly createdAt: string
 }
 /**
+ *	Base representation of an Event containing common fields to all [Event Types](#eventtype).
+ *
+ */
+export type Event =
+  | ImportContainerCreatedEvent
+  | ImportContainerDeletedEvent
+  | ImportOperationRejectedEvent
+  | ImportUnresolvedEvent
+  | ImportValidationFailedEvent
+  | ImportWaitForMasterVariantEvent
+export interface IEvent {
+  /**
+   *	Unique identifier of the Event.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly notificationType: string
+  /**
+   *	The type of resource targeted by the Event.
+   *
+   *
+   */
+  readonly resourceType: EventSubscriptionResourceTypeId
+  /**
+   *	The type of Event that has occurred.
+   *
+   *
+   */
+  readonly type: EventType
+  /**
+   *	Date and time (UTC) the Event was generated.
+   *
+   */
+  readonly createdAt: string
+}
+/**
  *	Generated when an [Import Container](ctp:import:type:ImportContainer) is created.
  */
 export interface ImportContainerCreatedEvent extends IEvent {
@@ -70,16 +102,16 @@ export interface ImportContainerCreatedEvent extends IEvent {
    */
   readonly resourceType: EventSubscriptionResourceTypeId
   /**
+   *	Date and time (UTC) the Event was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
    *	An object containing details of the created Import Container.
    *
    *
    */
   readonly data: ImportContainerCreatedEventData
-  /**
-   *	Date and time (UTC) the Event was generated.
-   *
-   */
-  readonly createdAt: string
 }
 /**
  *	The `data` of the [Import Container Created Event](ctp:api:type:ImportContainerCreatedEvent).
@@ -129,16 +161,16 @@ export interface ImportContainerDeletedEvent extends IEvent {
    */
   readonly resourceType: EventSubscriptionResourceTypeId
   /**
+   *	Date and time (UTC) the Event was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
    *	An object containing details of the deleted Import Container.
    *
    *
    */
   readonly data: ImportContainerDeletedEventData
-  /**
-   *	Date and time (UTC) the Event was generated.
-   *
-   */
-  readonly createdAt: string
 }
 /**
  *	The `data` of the [Import Container Deleted Event](ctp:api:type:ImportContainerDeletedEvent).
@@ -176,16 +208,16 @@ export interface ImportOperationRejectedEvent extends IEvent {
    */
   readonly resourceType: EventSubscriptionResourceTypeId
   /**
+   *	Date and time (UTC) the Event was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
    *	An object containing details of the Import Operation with the `rejected` state.
    *
    *
    */
   readonly data: ImportOperationRejectedEventData
-  /**
-   *	Date and time (UTC) the Event was generated.
-   *
-   */
-  readonly createdAt: string
 }
 /**
  *	The `data` of the [Import Operation Rejected Event](ctp:api:type:ImportOperationRejectedEvent).
@@ -217,16 +249,16 @@ export interface ImportUnresolvedEvent extends IEvent {
    */
   readonly resourceType: EventSubscriptionResourceTypeId
   /**
+   *	Date and time (UTC) the Event was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
    *	An object containing details of the Import Operation with the `unresolved` state.
    *
    *
    */
   readonly data: ImportUnresolvedEventData
-  /**
-   *	Date and time (UTC) the Event was generated.
-   *
-   */
-  readonly createdAt: string
 }
 /**
  *	The `data` of the [Import Unresolved Event](ctp:api:type:ImportUnresolvedEvent).
@@ -270,16 +302,16 @@ export interface ImportValidationFailedEvent extends IEvent {
    */
   readonly resourceType: EventSubscriptionResourceTypeId
   /**
+   *	Date and time (UTC) the Event was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
    *	An object containing details of the Import Operation with the `validationFailed` state.
    *
    *
    */
   readonly data: ImportValidationFailedEventData
-  /**
-   *	Date and time (UTC) the Event was generated.
-   *
-   */
-  readonly createdAt: string
 }
 /**
  *	The `data` of the [Import Validation Failed Event](ctp:api:type:ImportValidationFailedEvent).
@@ -323,16 +355,16 @@ export interface ImportWaitForMasterVariantEvent extends IEvent {
    */
   readonly resourceType: EventSubscriptionResourceTypeId
   /**
+   *	Date and time (UTC) the Event was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
    *	An object containing details of the Import Operation with the `waitForMasterVariant` state.
    *
    *
    */
   readonly data: ImportWaitForMasterVariantEventData
-  /**
-   *	Date and time (UTC) the Event was generated.
-   *
-   */
-  readonly createdAt: string
 }
 /**
  *	The `data` of the [Import Wait For Master Variant Event](ctp:api:type:ImportWaitForMasterVariantEvent).

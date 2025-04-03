@@ -200,24 +200,6 @@ export interface CloudEventsFormat extends IDeliveryFormat {
    */
   readonly cloudEventsVersion: string
 }
-/**
- *	All payloads for the [PlatformFormat](ctp:api:type:PlatformFormat) share these common fields.
- *
- */
-export type DeliveryPayload =
-  | EventDeliveryPayload
-  | MessageDeliveryPayload
-  | ResourceCreatedDeliveryPayload
-  | ResourceDeletedDeliveryPayload
-  | ResourceUpdatedDeliveryPayload
-export interface IDeliveryPayload {
-  /**
-   *	Identifies the payload.
-   *
-   *
-   */
-  readonly notificationType: string
-}
 export type Destination =
   | AzureEventGridDestination
   | AzureServiceBusDestination
@@ -340,43 +322,6 @@ export interface EventBridgeDestination extends IDestination {
   readonly source: string
 }
 /**
- *	This payload is sent for an [EventSubscription](ctp:api:type:EventSubscription).
- *
- */
-export interface EventDeliveryPayload extends IDeliveryPayload {
-  readonly notificationType: 'Event'
-  /**
-   *	Unique identifier of the Event.
-   *
-   *
-   */
-  readonly id: string
-  /**
-   *	The type of Event that has occurred.
-   *
-   *
-   */
-  readonly type: EventType
-  /**
-   *	The type of resource targeted by the Event.
-   *
-   *
-   */
-  readonly resourceType: string
-  /**
-   *	The data describing the event that has taken place.
-   *
-   *
-   */
-  readonly data: any
-  /**
-   *	Date and time (UTC) the resource was initially created.
-   *
-   *
-   */
-  readonly createdAt: string
-}
-/**
  *	For EventSubscription, the format of the payload is custom for each specific notification.
  *
  */
@@ -447,75 +392,6 @@ export interface GoogleCloudPubSubDestination extends IDestination {
    *
    */
   readonly topic: string
-}
-/**
- *	This payload is sent for a [MessageSubscription](ctp:api:type:MessageSubscription).
- *
- */
-export interface MessageDeliveryPayload extends IDeliveryPayload {
-  readonly notificationType: 'Message'
-  /**
-   *	Unique ID of the message.
-   *
-   *
-   */
-  readonly id: string
-  /**
-   *	Last seen version of the resource.
-   *
-   *
-   */
-  readonly version: number
-  /**
-   *	`key` of the [Project](ctp:api:type:Project).
-   *	Useful for processing notifications if the Destination receives them from multiple Projects.
-   *
-   *
-   */
-  readonly projectKey: string
-  /**
-   *	Date and time (UTC) the resource was initially created.
-   *
-   *
-   */
-  readonly createdAt: string
-  /**
-   *	Date and time (UTC) the resource was last modified.
-   *
-   *
-   */
-  readonly lastModifiedAt: string
-  /**
-   *	Used to ensure all messages of the resource are processed in correct order.
-   *	The `sequenceNumber` of the next message of the resource is a successor of the `sequenceNumber` of the current message.
-   *
-   *
-   */
-  readonly sequenceNumber: number
-  /**
-   *	Version of the resource on which the update was performed.
-   *
-   *
-   */
-  readonly resourceVersion: number
-  /**
-   *	Reference to the resource that triggered the notification.
-   *
-   *
-   */
-  readonly resource: Reference
-  /**
-   *	User-defined unique identifiers of the resource.
-   *
-   *
-   */
-  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
-  /**
-   *	If the payload does not fit into the size limit or its format is not accepted by the messaging service, the `payloadNotIncluded` field is present.
-   *
-   *
-   */
-  readonly payloadNotIncluded?: PayloadNotIncluded
 }
 /**
  *	Messages will be delivered even if the Messages Query HTTP API [is not enabled](/../api/projects/messages#enable-querying-messages-via-the-api).
@@ -611,132 +487,6 @@ export interface PayloadNotIncluded {
  */
 export interface PlatformFormat extends IDeliveryFormat {
   readonly type: 'Platform'
-}
-/**
- *	This payload is sent for a [ChangeSubscription](ctp:api:type:ChangeSubscription) when a resource is created.
- *
- */
-export interface ResourceCreatedDeliveryPayload extends IDeliveryPayload {
-  readonly notificationType: 'ResourceCreated'
-  /**
-   *	`key` of the [Project](ctp:api:type:Project).
-   *	Useful for processing notifications if the Destination receives them from multiple Projects.
-   *
-   *
-   */
-  readonly projectKey: string
-  /**
-   *	Reference to the resource that triggered the notification.
-   *
-   *
-   */
-  readonly resource: Reference
-  /**
-   *	User-defined unique identifiers of the resource.
-   *
-   *
-   */
-  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
-  /**
-   *	Last seen version of the resource.
-   *
-   *
-   */
-  readonly version: number
-  /**
-   *	Date and time (UTC) the resource was last modified.
-   *
-   *
-   */
-  readonly modifiedAt: string
-}
-/**
- *	This payload is sent for a [ChangeSubscription](ctp:api:type:ChangeSubscription) when a resource is deleted.
- *
- */
-export interface ResourceDeletedDeliveryPayload extends IDeliveryPayload {
-  readonly notificationType: 'ResourceDeleted'
-  /**
-   *	`key` of the [Project](ctp:api:type:Project).
-   *	Useful for processing notifications if the Destination receives them from multiple Projects.
-   *
-   *
-   */
-  readonly projectKey: string
-  /**
-   *	Reference to the resource that triggered the notification.
-   *
-   *
-   */
-  readonly resource: Reference
-  /**
-   *	User-defined unique identifiers of the resource.
-   *
-   *
-   */
-  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
-  /**
-   *	Last seen version of the resource.
-   *
-   *
-   */
-  readonly version: number
-  /**
-   *	Date and time (UTC) the resource was last deleted.
-   *
-   *
-   */
-  readonly modifiedAt: string
-  /**
-   *	`true` if the `dataErasure` [parameter](/../api/gdpr#data-erasure-of-personal-data) on the `DELETE` request was set to `true`.
-   *
-   *
-   */
-  readonly dataErasure?: boolean
-}
-/**
- *	This payload is sent for a [ChangeSubscription](ctp:api:type:ChangeSubscription) when a resource is updated. This includes updates by a background process, like a change in product availability.
- *
- */
-export interface ResourceUpdatedDeliveryPayload extends IDeliveryPayload {
-  readonly notificationType: 'ResourceUpdated'
-  /**
-   *	`key` of the [Project](ctp:api:type:Project).
-   *	Useful for processing notifications if the Destination receives them from multiple Projects.
-   *
-   *
-   */
-  readonly projectKey: string
-  /**
-   *	Reference to the resource that triggered the notification.
-   *
-   *
-   */
-  readonly resource: Reference
-  /**
-   *	User-defined unique identifiers of the resource.
-   *
-   *
-   */
-  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
-  /**
-   *	Last seen version of the resource.
-   *
-   *
-   */
-  readonly version: number
-  /**
-   *	Version of the resource before the update.
-   *
-   *
-   */
-  readonly oldVersion: number
-  /**
-   *	Date and time (UTC) the resource was last updated.
-   *
-   *
-   */
-  readonly modifiedAt: string
 }
 /**
  *	[AWS SNS](https://aws.amazon.com/sns/) can be used to push messages to AWS Lambda, HTTP endpoints (webhooks), or fan-out messages to SQS queues. The SQS queue must be a [Standard](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/standard-queues.html) queue type.
@@ -953,6 +703,293 @@ export type SubscriptionHealthStatus =
   | 'ManuallySuspended'
   | 'TemporaryError'
   | (string & {})
+/**
+ *	All payloads for the [PlatformFormat](ctp:api:type:PlatformFormat) share these common fields.
+ *
+ */
+export type SubscriptionNotification =
+  | DeliveryPayload
+  | EventDeliveryPayload
+  | MessageDeliveryPayload
+  | ResourceCreatedDeliveryPayload
+  | ResourceDeletedDeliveryPayload
+  | ResourceUpdatedDeliveryPayload
+export interface ISubscriptionNotification {
+  /**
+   *	Identifies the payload.
+   *
+   *
+   */
+  readonly notificationType: string
+}
+/**
+ *	All payloads for the [PlatformFormat](ctp:api:type:PlatformFormat) share these common fields.
+ *
+ */
+export type DeliveryPayload =
+  | MessageDeliveryPayload
+  | ResourceCreatedDeliveryPayload
+  | ResourceDeletedDeliveryPayload
+  | ResourceUpdatedDeliveryPayload
+export interface IDeliveryPayload {
+  /**
+   *	Identifies the payload.
+   *
+   *
+   */
+  readonly notificationType: string
+  /**
+   *	`key` of the [Project](ctp:api:type:Project).
+   *	Useful for processing notifications if the Destination receives them from multiple Projects.
+   *
+   *
+   */
+  readonly projectKey: string
+  /**
+   *	Reference to the resource that triggered the notification.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	User-defined unique identifiers of the resource.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+}
+/**
+ *	This payload is sent for an [EventSubscription](ctp:api:type:EventSubscription).
+ *
+ */
+export interface EventDeliveryPayload extends ISubscriptionNotification {
+  readonly notificationType: 'Event'
+  /**
+   *	Unique identifier of the Event.
+   *
+   *
+   */
+  readonly id: string
+  /**
+   *	The type of Event that has occurred.
+   *
+   *
+   */
+  readonly type: EventType
+  /**
+   *	The type of resource targeted by the Event.
+   *
+   *
+   */
+  readonly resourceType: string
+  /**
+   *	The data describing the event that has taken place.
+   *
+   *
+   */
+  readonly data: any
+  /**
+   *	Date and time (UTC) the resource was initially created.
+   *
+   *
+   */
+  readonly createdAt: string
+}
+/**
+ *	This payload is sent for a [MessageSubscription](ctp:api:type:MessageSubscription).
+ *
+ */
+export interface MessageDeliveryPayload extends IDeliveryPayload {
+  readonly notificationType: 'Message'
+  /**
+   *	`key` of the [Project](ctp:api:type:Project).
+   *	Useful for processing notifications if the Destination receives them from multiple Projects.
+   *
+   *
+   */
+  readonly projectKey: string
+  /**
+   *	Reference to the resource that triggered the notification.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	User-defined unique identifiers of the resource.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Unique ID of the message.
+   *
+   *
+   */
+  readonly id: string
+  /**
+   *	Last seen version of the resource.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the resource was initially created.
+   *
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Date and time (UTC) the resource was last modified.
+   *
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	Used to ensure all messages of the resource are processed in correct order.
+   *	The `sequenceNumber` of the next message of the resource is a successor of the `sequenceNumber` of the current message.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	Version of the resource on which the update was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	If the payload does not fit into the size limit or its format is not accepted by the messaging service, the `payloadNotIncluded` field is present.
+   *
+   *
+   */
+  readonly payloadNotIncluded?: PayloadNotIncluded
+}
+/**
+ *	This payload is sent for a [ChangeSubscription](ctp:api:type:ChangeSubscription) when a resource is created.
+ *
+ */
+export interface ResourceCreatedDeliveryPayload extends IDeliveryPayload {
+  readonly notificationType: 'ResourceCreated'
+  /**
+   *	`key` of the [Project](ctp:api:type:Project).
+   *	Useful for processing notifications if the Destination receives them from multiple Projects.
+   *
+   *
+   */
+  readonly projectKey: string
+  /**
+   *	Reference to the resource that triggered the notification.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	User-defined unique identifiers of the resource.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Last seen version of the resource.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the resource was last modified.
+   *
+   *
+   */
+  readonly modifiedAt: string
+}
+/**
+ *	This payload is sent for a [ChangeSubscription](ctp:api:type:ChangeSubscription) when a resource is deleted.
+ *
+ */
+export interface ResourceDeletedDeliveryPayload extends IDeliveryPayload {
+  readonly notificationType: 'ResourceDeleted'
+  /**
+   *	`key` of the [Project](ctp:api:type:Project).
+   *	Useful for processing notifications if the Destination receives them from multiple Projects.
+   *
+   *
+   */
+  readonly projectKey: string
+  /**
+   *	Reference to the resource that triggered the notification.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	User-defined unique identifiers of the resource.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Last seen version of the resource.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the resource was last deleted.
+   *
+   *
+   */
+  readonly modifiedAt: string
+  /**
+   *	`true` if the `dataErasure` [parameter](/../api/gdpr#data-erasure-of-personal-data) on the `DELETE` request was set to `true`.
+   *
+   *
+   */
+  readonly dataErasure?: boolean
+}
+/**
+ *	This payload is sent for a [ChangeSubscription](ctp:api:type:ChangeSubscription) when a resource is updated. This includes updates by a background process, like a change in product availability.
+ *
+ */
+export interface ResourceUpdatedDeliveryPayload extends IDeliveryPayload {
+  readonly notificationType: 'ResourceUpdated'
+  /**
+   *	`key` of the [Project](ctp:api:type:Project).
+   *	Useful for processing notifications if the Destination receives them from multiple Projects.
+   *
+   *
+   */
+  readonly projectKey: string
+  /**
+   *	Reference to the resource that triggered the notification.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	User-defined unique identifiers of the resource.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Last seen version of the resource.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	Version of the resource before the update.
+   *
+   *
+   */
+  readonly oldVersion: number
+  /**
+   *	Date and time (UTC) the resource was last updated.
+   *
+   *
+   */
+  readonly modifiedAt: string
+}
 /**
  *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [Subscription](ctp:api:type:Subscription).
  *
