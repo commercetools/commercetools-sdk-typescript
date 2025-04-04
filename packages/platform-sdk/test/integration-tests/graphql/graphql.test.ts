@@ -1,6 +1,9 @@
 import { apiRoot } from '../test-utils'
 import { createCategory, deleteCategory } from '../category/category-fixture'
-import { ensureTaxCategory } from '../tax-category/tax-category-fixture'
+import {
+  deleteTaxCategory,
+  ensureTaxCategory,
+} from '../tax-category/tax-category-fixture'
 import {
   deleteProductType,
   ensureProductType,
@@ -14,18 +17,19 @@ import {
 import { GraphQLRequest } from '../../../src'
 
 describe('testing graphQL API calls', () => {
+  let category, taxCategory, productType, product
   it('should make a graphQL request with string', async () => {
-    const category = await createCategory()
-    const taxCategory = await ensureTaxCategory()
-    const productType = await ensureProductType(productTypeDraftForProduct)
+    category = await createCategory()
+    taxCategory = await ensureTaxCategory()
+    productType = await ensureProductType(productTypeDraftForProduct)
     const productDraft = await createProductDraft(
       category,
       taxCategory,
       productType,
       false
     )
-    const product = await createProduct(productDraft)
 
+    product = await createProduct(productDraft)
     const query =
       'query ProductId {\n' +
       '    products {\n' +
@@ -46,8 +50,12 @@ describe('testing graphQL API calls', () => {
       .execute()
 
     expect(graphQLResponse).not.toBe(null)
+  })
 
+  afterAll(async () => {
     await deleteProduct(product)
+    await deleteProductType(productType)
     await deleteCategory(category)
+    await deleteTaxCategory(taxCategory)
   })
 })

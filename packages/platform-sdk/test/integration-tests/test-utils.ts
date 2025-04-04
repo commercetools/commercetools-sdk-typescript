@@ -4,6 +4,7 @@ import {
   TokenStore,
   TokenCacheOptions,
   ClientBuilder,
+  type ClientResponse,
 } from '@commercetools/ts-client'
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
 import { requireEnvVar } from '../helpers/test-utils'
@@ -83,3 +84,5 @@ const ctpClient = new ClientBuilder()
 export const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
   projectKey,
 })
+
+export { type ClientResponse }

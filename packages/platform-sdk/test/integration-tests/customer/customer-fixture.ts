@@ -29,28 +29,18 @@ export const createCustomerDraft = (customerGroup) => {
   return customerDraft
 }
 
-export const createCustomer = async (customerDraft) => {
-  return await apiRoot.customers().post({ body: customerDraft }).execute()
-}
-
-export const deleteCustomerFromUpdatableObject = async (
-  responseCreatedCustomer
-) => {
-  return await apiRoot
-    .customers()
-    .withId({ ID: responseCreatedCustomer.body.id })
-    .delete({
-      queryArgs: { version: responseCreatedCustomer.body.version },
-    })
-    .execute()
+export const createCustomer = async (_customerDraft) => {
+  return apiRoot.customers().post({ body: _customerDraft }).execute()
 }
 
 export const deleteCustomer = async (customer) => {
   return await apiRoot
     .customers()
-    .withId({ ID: customer.body.customer.id })
+    .withId({ ID: customer.body.id || customer.body.customer.id })
     .delete({
-      queryArgs: { version: customer.body.customer.version },
+      queryArgs: {
+        version: customer.body.version || customer.body.customer.version,
+      },
     })
     .execute()
 }
