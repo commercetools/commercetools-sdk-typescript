@@ -1,5 +1,66 @@
 # @commercetools/platform-sdk
 
+## 8.7.0
+
+### Minor Changes
+
+- [#1007](https://github.com/commercetools/commercetools-sdk-typescript/pull/1007) [`fd17cfd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/fd17cfd577957b96855e42dd792ff493d22ea361) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `Event`
+  - added type `ImportContainerCreatedEvent`
+  - added type `ImportContainerCreatedEventData`
+  - added type `ImportContainerDeletedEvent`
+  - added type `ImportContainerDeletedEventData`
+  - added type `ImportOperationRejectedEvent`
+  - added type `ImportOperationRejectedEventData`
+  - added type `ImportUnresolvedEvent`
+  - added type `ImportUnresolvedEventData`
+  - added type `ImportValidationFailedEvent`
+  - added type `ImportValidationFailedEventData`
+  - added type `ImportWaitForMasterVariantEvent`
+  - added type `ImportWaitForMasterVariantEventData`
+  - added type `EventDeliveryPayload`
+  - added type `EventSubscription`
+  - added type `EventSubscriptionResourceTypeId`
+  - added type `EventType`
+  - added type `SubscriptionSetEventsAction`
+  </details>
+
+  <details>
+  <summary>Required Property(s)</summary>
+
+  - changed property `facets` of type `ProductProjectionPagedSearchResponse` to be optional
+  </details>
+
+  <details>
+  <summary>Removed Property(s)</summary>
+
+  - :warning: removed property `projectKey` from type `DeliveryPayload`
+  - :warning: removed property `resource` from type `DeliveryPayload`
+  - :warning: removed property `resourceUserProvidedIdentifiers` from type `DeliveryPayload`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `events` to type `Subscription`
+  - added property `events` to type `SubscriptionDraft`
+  </details>
+
+  <details>
+  <summary>Removed QueryParameter(s)</summary>
+
+  - :warning: removed query parameter `withTotal` from method `get /{projectKey}/product-projections/search`
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`7473c1c`](https://github.com/commercetools/commercetools-sdk-typescript/commit/7473c1cf55532db04cf1b67536f5680bee8afcae)]:
+  - @commercetools/ts-client@3.2.1
+
 ## 8.6.0
 
 ### Minor Changes

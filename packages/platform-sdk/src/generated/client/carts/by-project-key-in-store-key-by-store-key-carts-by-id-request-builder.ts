@@ -52,7 +52,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a Cart exists for the provided `id` in a Store. Returns a `200 OK` status if the Cart exists or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *	Checks if a Cart exists for the provided `id` in a Store. Returns a `200 OK` status if the Cart exists or [Not Found](/../api/errors#404-not-found) otherwise.
    */
   public head(methodArgs?: {
     headers?: {

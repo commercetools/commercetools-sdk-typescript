@@ -22,13 +22,6 @@ export class ByProjectKeyProductProjectionsRequestBuilder {
       baseUri?: string
     }
   ) {}
-  /**
-   *	This endpoint provides high performance search queries over ProductProjections. The query result contains the
-   *	ProductProjections for which at least one ProductVariant matches the search query. This means that variants can
-   *	be included in the result also for which the search query does not match. To determine which ProductVariants match
-   *	the search query, the returned ProductProjections include the additional field isMatchingVariant.
-   *
-   */
   public search(): ByProjectKeyProductProjectionsSearchRequestBuilder {
     return new ByProjectKeyProductProjectionsSearchRequestBuilder({
       pathArgs: {
@@ -118,7 +111,7 @@ export class ByProjectKeyProductProjectionsRequestBuilder {
     )
   }
   /**
-   *	Checks if the current or staged representation of a Product exists for a given Query Predicate. Returns a `200 OK` status if any ProductProjections match the Query Predicate or a `404 Not Found` otherwise.
+   *	Checks if the current or staged representation of a Product exists for the provided query predicate. Returns a `200 OK` status if any ProductProjections match the query predicate, or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

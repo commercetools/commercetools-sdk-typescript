@@ -21,7 +21,7 @@ import { StandalonePriceImport } from './standalone-prices'
 import { TypeImport } from './types'
 
 /**
- *	An import request batches multiple import resources of the same import resource type for processing by an import container.
+ *	An import request batches multiple import resources of the same import resource type for processing by an Import Container.
  *
  */
 export type ImportRequest =

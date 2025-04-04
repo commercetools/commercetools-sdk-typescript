@@ -78,7 +78,7 @@ export class ByProjectKeyReviewsRequestBuilder {
     )
   }
   /**
-   *	Checks if a Review exists for a given Query Predicate. Returns a `200 OK` status if any Reviews match the Query Predicate or a `404 Not Found` otherwise.
+   *	Checks if one or more Reviews exist for the provided query predicate. Returns a `200 OK` status if any Reviews match the query predicate, or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

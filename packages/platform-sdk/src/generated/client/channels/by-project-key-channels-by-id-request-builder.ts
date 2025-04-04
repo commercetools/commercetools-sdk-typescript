@@ -43,7 +43,7 @@ export class ByProjectKeyChannelsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a Channel exists for a given `id`. Returns a `200 OK` status if the Channel exists or a `404 Not Found` otherwise.
+   *	Checks if a Channel exists with the provided `id`. Returns a `200 OK` status if the Channel exists or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     headers?: {

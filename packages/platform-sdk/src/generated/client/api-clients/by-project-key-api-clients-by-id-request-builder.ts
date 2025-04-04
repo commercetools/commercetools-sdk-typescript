@@ -38,7 +38,7 @@ export class ByProjectKeyApiClientsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if an API Client exists for a given `id`. Returns a `200 OK` status if the API Client exists or a `404 Not Found` otherwise.
+   *	Checks if an API Client exists with the provided `id`. Returns a `200 OK` status if the API Client exists or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     headers?: {

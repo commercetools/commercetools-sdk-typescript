@@ -37,7 +37,10 @@ export class ByProjectKeyImportContainersRequestBuilder {
   }
 
   /**
-   *	Creates a new import container.
+   *	Creates a new Import Container.
+   *
+   *	Generates the [ImportContainerCreated](/projects/events#import-container-created-event) Event.
+   *
    */
   public post(methodArgs: {
     body: ImportContainerDraft
@@ -61,7 +64,7 @@ export class ByProjectKeyImportContainersRequestBuilder {
     )
   }
   /**
-   *	Retrieves all import containers of a given project key.
+   *	Retrieves all Import Containers of a given project key.
    */
   public get(methodArgs?: {
     queryArgs?: {

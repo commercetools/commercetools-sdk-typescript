@@ -43,7 +43,7 @@ export class ByProjectKeyAssociateRolesByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if an AssociateRole exists for a given `id`. Returns a `200 OK` status if the AssociateRole exists or a `404 Not Found` otherwise.
+   *	Checks if an AssociateRole exists with the provided `id`. Returns a `200 OK` status if the AssociateRole exists or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     headers?: {

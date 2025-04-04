@@ -68,7 +68,7 @@ export class ByProjectKeyMePaymentsRequestBuilder {
     )
   }
   /**
-   *	Checks if a [Payment](/projects/me-payments#mypayment) exists for a given Query Predicate. Returns a `200 OK` status if any Payments match the Query Predicate or a `404 Not Found` otherwise.
+   *	Checks if a [Payment](/projects/me-payments#mypayment) exists for the provided query predicate. Returns a `200 OK` status if any Payments match the query predicate, or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

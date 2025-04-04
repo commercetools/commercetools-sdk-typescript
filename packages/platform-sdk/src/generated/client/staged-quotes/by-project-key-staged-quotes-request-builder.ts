@@ -78,7 +78,7 @@ export class ByProjectKeyStagedQuotesRequestBuilder {
     )
   }
   /**
-   *	Checks if a StagedQuote exists for a given Query Predicate. Returns a `200 OK` status if any StagedQuotes match the Query Predicate or a `404 Not Found` otherwise.
+   *	Checks if one or more StagedQuotes exist for the provided query predicate. Returns a `200 OK` status if any StagedQuotes match the query predicate, or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

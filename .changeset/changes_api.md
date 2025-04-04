@@ -1,3 +1,7 @@
+---
+'@commercetools/platform-sdk': minor
+---
+
 **Api changes**
 
 <details>

@@ -50,7 +50,7 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
     )
   }
   /**
-   *	Checks if a ShoppingList exists for a given `key`. Returns a `200 OK` if the ShoppingList exists; otherwise, returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *	Checks if a ShoppingList exists with the provided `key`. Returns a `200 OK` if the ShoppingList exists; otherwise, returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *
    */
   public head(methodArgs?: {

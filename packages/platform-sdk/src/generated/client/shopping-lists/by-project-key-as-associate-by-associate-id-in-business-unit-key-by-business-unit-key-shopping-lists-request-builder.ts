@@ -85,7 +85,7 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
     )
   }
   /**
-   *	Checks if a ShoppingList exists for a given Query Predicate. Returns a `200 OK` if any ShoppingLists match the Query Predicate; otherwise, returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *	Checks if one or more ShoppingLists exist for the provided query predicate. Returns a `200 OK` if any ShoppingLists match the Query Predicate; otherwise, returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *
    */
   public head(methodArgs?: {

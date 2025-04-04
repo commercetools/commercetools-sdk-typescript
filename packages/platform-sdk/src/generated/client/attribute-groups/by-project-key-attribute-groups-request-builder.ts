@@ -78,7 +78,7 @@ export class ByProjectKeyAttributeGroupsRequestBuilder {
     )
   }
   /**
-   *	Checks if an AttributeGroup exists for a given Query Predicate. Returns `200 OK` status if any AttributeGroups match the Query Predicate or a `404 Not Found` otherwise.
+   *	Checks if one or more AttributeGroups exist for the provided query predicate. Returns `200 OK` status if any AttributeGroups match the query predicate, or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

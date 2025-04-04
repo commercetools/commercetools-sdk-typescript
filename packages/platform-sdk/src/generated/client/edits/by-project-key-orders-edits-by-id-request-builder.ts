@@ -54,7 +54,7 @@ export class ByProjectKeyOrdersEditsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if an OrderEdit exists for a given `id`. Returns a `200 OK` status if the OrderEdit exists or a `404 Not Found` otherwise.
+   *	Checks if an OrderEdit exists with the provided `id`. Returns a `200 OK` status if the OrderEdit exists or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     headers?: {

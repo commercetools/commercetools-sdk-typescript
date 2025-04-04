@@ -20,6 +20,7 @@ import {
   BusinessUnitKeyReference,
   BusinessUnitStatus,
   BusinessUnitStoreMode,
+  BusinessUnitType,
 } from './business-unit'
 import {
   CustomLineItem,
@@ -177,6 +178,8 @@ export type Message =
   | BusinessUnitStoreModeChangedMessage
   | BusinessUnitStoreRemovedMessage
   | BusinessUnitStoresSetMessage
+  | BusinessUnitTopLevelUnitSetMessage
+  | BusinessUnitTypeSetMessage
   | CartDiscountCreatedMessage
   | CartDiscountDeletedMessage
   | CartDiscountStoreAddedMessage
@@ -4382,6 +4385,170 @@ export interface BusinessUnitStoresSetMessage extends IMessage {
    *
    */
   readonly stores: StoreKeyReference[]
+}
+/**
+ *	Generated when a [Business Unit](ctp:api:type:BusinessUnit) `topLevelUnit` is modified due to a hierarchy change after a successful [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) or [Change Parent Unit](ctp:api:type:BusinessUnitChangeParentUnitAction) update action.
+ *
+ */
+export interface BusinessUnitTopLevelUnitSetMessage extends IMessage {
+  readonly type: 'BusinessUnitTopLevelUnitSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Top-level unit of the [Business Unit](ctp:api:type:BusinessUnit) after the [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) or [Change Parent Unit](ctp:api:type:BusinessUnitChangeParentUnitAction) update action.
+   *
+   *
+   */
+  readonly topLevelUnit: BusinessUnitKeyReference
+  /**
+   *	Top-level unit of the [Business Unit](ctp:api:type:BusinessUnit) before the [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) or [Change Parent Unit](ctp:api:type:BusinessUnitChangeParentUnitAction) update action.
+   *
+   *
+   */
+  readonly oldTopLevelUnit: BusinessUnitKeyReference
+}
+/**
+ *	Generated after a successful [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) update action.
+ *
+ */
+export interface BusinessUnitTypeSetMessage extends IMessage {
+  readonly type: 'BusinessUnitTypeSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Parent unit of the [Business Unit](ctp:api:type:BusinessUnit) after the [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) update action.
+   *
+   *
+   */
+  readonly parentUnit?: BusinessUnitKeyReference
+  /**
+   *	Parent unit of the [Business Unit](ctp:api:type:BusinessUnit) before the [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) update action.
+   *
+   *
+   */
+  readonly oldParentUnit?: BusinessUnitKeyReference
+  /**
+   *	Type of the [Business Unit](ctp:api:type:BusinessUnit) after the [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) update action.
+   *
+   *
+   */
+  readonly unitType: BusinessUnitType
+  /**
+   *	Type of the [Business Unit](ctp:api:type:BusinessUnit) before the [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) update action.
+   *
+   *
+   */
+  readonly oldUnitType: BusinessUnitType
 }
 /**
  *	Generated after a successful [Create CartDiscount](ctp:api:endpoint:/{projectKey}/cart-discounts:POST) request.
@@ -19937,6 +20104,8 @@ export type MessagePayload =
   | BusinessUnitStoreModeChangedMessagePayload
   | BusinessUnitStoreRemovedMessagePayload
   | BusinessUnitStoresSetMessagePayload
+  | BusinessUnitTopLevelUnitSetMessagePayload
+  | BusinessUnitTypeSetMessagePayload
   | CartDiscountCreatedMessagePayload
   | CartDiscountDeletedMessagePayload
   | CartDiscountStoreAddedMessagePayload
@@ -21044,6 +21213,57 @@ export interface BusinessUnitStoresSetMessagePayload extends IMessagePayload {
    *
    */
   readonly stores: StoreKeyReference[]
+}
+/**
+ *	Generated when a [Business Unit](ctp:api:type:BusinessUnit) `topLevelUnit` is modified due to a hierarchy change after a successful [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) or [Change Parent Unit](ctp:api:type:BusinessUnitChangeParentUnitAction) update action.
+ *
+ */
+export interface BusinessUnitTopLevelUnitSetMessagePayload
+  extends IMessagePayload {
+  readonly type: 'BusinessUnitTopLevelUnitSet'
+  /**
+   *	Top-level unit of the [Business Unit](ctp:api:type:BusinessUnit) after the [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) or [Change Parent Unit](ctp:api:type:BusinessUnitChangeParentUnitAction) update action.
+   *
+   *
+   */
+  readonly topLevelUnit: BusinessUnitKeyReference
+  /**
+   *	Top-level unit of the [Business Unit](ctp:api:type:BusinessUnit) before the [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) or [Change Parent Unit](ctp:api:type:BusinessUnitChangeParentUnitAction) update action.
+   *
+   *
+   */
+  readonly oldTopLevelUnit: BusinessUnitKeyReference
+}
+/**
+ *	Generated after a successful [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) update action.
+ *
+ */
+export interface BusinessUnitTypeSetMessagePayload extends IMessagePayload {
+  readonly type: 'BusinessUnitTypeSet'
+  /**
+   *	Parent unit of the [Business Unit](ctp:api:type:BusinessUnit) after the [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) update action.
+   *
+   *
+   */
+  readonly parentUnit?: BusinessUnitKeyReference
+  /**
+   *	Parent unit of the [Business Unit](ctp:api:type:BusinessUnit) before the [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) update action.
+   *
+   *
+   */
+  readonly oldParentUnit?: BusinessUnitKeyReference
+  /**
+   *	Type of the [Business Unit](ctp:api:type:BusinessUnit) after the [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) update action.
+   *
+   *
+   */
+  readonly unitType: BusinessUnitType
+  /**
+   *	Type of the [Business Unit](ctp:api:type:BusinessUnit) before the [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) update action.
+   *
+   *
+   */
+  readonly oldUnitType: BusinessUnitType
 }
 /**
  *	Generated after a successful [Create CartDiscount](ctp:api:endpoint:/{projectKey}/cart-discounts:POST) request.
