@@ -17,16 +17,14 @@ export const createInventoryDraft = (channel) => {
   return inventoryDraft
 }
 
-export const createInventory = async (inventoryDraft) => {
-  return await apiRoot.inventory().post({ body: inventoryDraft }).execute()
-}
+export const createInventory = async (inventoryDraft) =>
+  apiRoot.inventory().post({ body: inventoryDraft }).execute()
 
-export const deleteInventory = async (inventory) => {
-  return await apiRoot
+export const deleteInventory = async (inventory) =>
+  apiRoot
     .inventory()
     .withId({ ID: inventory.body.id })
     .delete({
       queryArgs: { version: inventory.body.version },
     })
     .execute()
-}

@@ -49,7 +49,7 @@ describe('testing graphQL API calls', () => {
       })
       .execute()
 
-    expect(graphQLResponse).not.toBe(null)
+    expect(graphQLResponse).toBeDefined()
   })
 
   afterAll(async () => {

@@ -123,7 +123,7 @@ describe('custom metrics', () => {
     const result = await api.withProjectKey({ projectKey }).get().execute()
 
     expect(typeof result).toEqual('object')
-    expect(result['response_time']).not.toBeDefined()
+    expect(result['response_time']).toBeUndefined()
     expect(typeof result['response_time']).toEqual('undefined')
   })
 

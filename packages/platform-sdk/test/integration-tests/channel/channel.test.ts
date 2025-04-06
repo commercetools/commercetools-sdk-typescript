@@ -4,7 +4,8 @@ import { ChannelDraft, GeoJson } from '../../../src'
 import { createChannel, deleteChannel } from './channel-fixture'
 
 describe('testing channel API calls', () => {
-  it('should create and delete a channel by ID', async () => {
+  let channel
+  it('should create a channel', async () => {
     const geolocation: GeoJson = {
       type: 'Point',
       coordinates: [13.0, 51.0],
@@ -15,25 +16,13 @@ describe('testing channel API calls', () => {
       geoLocation: geolocation,
     }
 
-    const responseCreatedChannel = await apiRoot
-      .channels()
-      .post({ body: channelDraft })
-      .execute()
+    channel = await apiRoot.channels().post({ body: channelDraft }).execute()
 
-    expect(responseCreatedChannel.statusCode).toEqual(201)
-    expect(responseCreatedChannel.body).not.toBe(null)
-
-    const responseChannelDeleted = await apiRoot
-      .channels()
-      .withId({ ID: responseCreatedChannel.body.id })
-      .delete({ queryArgs: { version: responseCreatedChannel.body.version } })
-      .execute()
-
-    expect(responseChannelDeleted.statusCode).toEqual(200)
+    expect(channel.body).toBeDefined()
+    expect(channel.statusCode).toEqual(201)
   })
 
   it('should update a channel by Id', async () => {
-    const channel = await createChannel()
     const geoLocation: GeoJson = {
       type: 'Point',
       coordinates: [0, 0],
@@ -55,25 +44,20 @@ describe('testing channel API calls', () => {
       })
       .execute()
 
-    expect(updateChannel.body.version).not.toBe(channel.body.version)
     expect(updateChannel.statusCode).toEqual(200)
-
-    await deleteChannel(updateChannel)
+    expect(updateChannel.body.version).not.toEqual(channel.body.version)
+    channel = updateChannel
   })
 
   it('should get a channel by Id', async () => {
-    const channel = await createChannel()
-
     const getChannel = await apiRoot
       .channels()
       .withId({ ID: channel.body.id })
       .get()
       .execute()
 
-    expect(getChannel).not.toBe(null)
+    expect(getChannel).toBeDefined()
     expect(getChannel.body.id).toEqual(channel.body.id)
-
-    await deleteChannel(channel)
   })
 
   it('should query channels', async () => {
@@ -88,9 +72,11 @@ describe('testing channel API calls', () => {
       })
       .execute()
 
-    expect(queryChannel).not.toBe(null)
+    expect(queryChannel).toBeDefined()
     expect(queryChannel.body.results[0].id).toEqual(channel.body.id)
+  })
 
+  afterAll(async () => {
     await deleteChannel(channel)
   })
 })

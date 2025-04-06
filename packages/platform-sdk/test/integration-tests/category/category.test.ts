@@ -71,7 +71,7 @@ describe('testing category API calls', () => {
       })
       .execute()
 
-    expect(updateCategory.body.version).not.toBe(category.body.version)
+    expect(updateCategory.body.version).not.toEqual(category.body.version)
     expect(updateCategory.statusCode).toEqual(200)
     category = updateCategory
   })
@@ -119,7 +119,7 @@ describe('testing category API calls', () => {
       })
       .execute()
 
-    expect(updateCategory.body.version).not.toBe(category.body.version)
+    expect(updateCategory.body.version).not.toEqual(category.body.version)
     expect(updateCategory.statusCode).toEqual(200)
     category = updateCategory
   })

@@ -6,16 +6,14 @@ const storeDraft: StoreDraft = {
   key: randomUUID(),
 }
 
-export const createStore = async () => {
-  return await apiRoot.stores().post({ body: storeDraft }).execute()
-}
+export const createStore = async () =>
+  apiRoot.stores().post({ body: storeDraft }).execute()
 
-export const deleteStore = async (store) => {
-  return await apiRoot
+export const deleteStore = async (store) =>
+  apiRoot
     .stores()
     .withId({ ID: store.body.id })
     .delete({
       queryArgs: { version: store.body.version },
     })
     .execute()
-}

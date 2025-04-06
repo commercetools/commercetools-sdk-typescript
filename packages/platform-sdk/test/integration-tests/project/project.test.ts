@@ -20,7 +20,7 @@ describe('testing project API calls', () => {
       })
       .execute()
 
-    expect(updateProject.body.version).not.toBe(null)
+    expect(updateProject.body.version).toBeDefined()
     expect(updateProject.statusCode).toEqual(200)
   })
 })

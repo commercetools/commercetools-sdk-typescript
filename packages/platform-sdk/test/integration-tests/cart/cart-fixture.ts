@@ -22,12 +22,11 @@ export const createCartDraftWithCustomer = (customer) => {
   return cartDraft
 }
 
-export const createCart = async (cartDraftBody?) => {
-  return await apiRoot
+export const createCart = async (cartDraftBody?) =>
+  apiRoot
     .carts()
     .post({ body: cartDraftBody || cartDraft })
     .execute()
-}
 
 export const deleteCart = async (cart) => {
   // get latest cart

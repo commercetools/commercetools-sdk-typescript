@@ -74,12 +74,11 @@ const typeDraft: TypeDraft = {
   fieldDefinitions,
 }
 
-export const createType = async (typeDraftBody?: TypeDraft) => {
-  return await apiRoot
+export const createType = async (typeDraftBody?: TypeDraft) =>
+  apiRoot
     .types()
     .post({ body: typeDraftBody || typeDraft })
     .execute()
-}
 
 export const deleteType = async (responseCreatedType) => {
   try {
@@ -89,7 +88,7 @@ export const deleteType = async (responseCreatedType) => {
       .get()
       .execute()
 
-    return await apiRoot
+    return apiRoot
       .types()
       .withId({ ID: type.id })
       .delete({ queryArgs: { version: type.version } })

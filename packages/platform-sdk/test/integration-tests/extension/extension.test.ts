@@ -1,9 +1,11 @@
 import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
 import { ExtensionDraft, HttpDestination } from '../../../src'
+import { deleteExtension } from './extension-fixture'
 
 describe('testing extension API calls', () => {
-  it('should create and delete an extension by ID', async () => {
+  let extension
+  it('should create an extension', async () => {
     const httpDestination: HttpDestination = {
       type: 'HTTP',
       url: 'http://www.commercetools.com',
@@ -20,22 +22,16 @@ describe('testing extension API calls', () => {
       ],
     }
 
-    const responseCreatedExtension = await apiRoot
+    extension = await apiRoot
       .extensions()
       .post({ body: extensionDraft })
       .execute()
 
-    expect(responseCreatedExtension.statusCode).toEqual(201)
-    expect(responseCreatedExtension.body).not.toBe(null)
+    expect(extension.body).toBeDefined()
+    expect(extension.statusCode).toEqual(201)
+  })
 
-    const responseExtensionDeleted = await apiRoot
-      .extensions()
-      .withId({ ID: responseCreatedExtension.body.id })
-      .delete({
-        queryArgs: { version: responseCreatedExtension.body.version },
-      })
-      .execute()
-
-    expect(responseExtensionDeleted.statusCode).toEqual(200)
+  afterAll(async () => {
+    await deleteExtension(extension)
   })
 })

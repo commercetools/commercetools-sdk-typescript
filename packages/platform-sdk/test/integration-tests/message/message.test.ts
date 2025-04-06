@@ -31,7 +31,7 @@ describe('testing message API calls', () => {
     product = await createProduct(productDraft)
     message = await apiRoot.messages().get().execute()
 
-    expect(message.body.results).not.toBe(null)
+    expect(message.body.results).toBeDefined()
   })
 
   it('should get a message by Id', async () => {
@@ -49,7 +49,7 @@ describe('testing message API calls', () => {
         .get()
         .execute()
 
-      expect(_message.body).not.toBe(null)
+      expect(_message.body).toBeDefined()
       expect(_message.body.id).toEqual(messageId)
     } catch (e) {
       /** noop */

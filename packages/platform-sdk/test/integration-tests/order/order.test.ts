@@ -47,7 +47,7 @@ describe('testing order API calls', () => {
 
     cart = updatedCartWithProduct
     order = await createOrder(updatedCartWithProduct)
-    expect(order).not.toBe(null)
+    expect(order).toBeDefined()
     expect(order.body.id).toBeDefined()
   })
 
@@ -58,7 +58,7 @@ describe('testing order API calls', () => {
       .get()
       .execute()
 
-    expect(getOrder).not.toBe(null)
+    expect(getOrder).toBeDefined()
     expect(getOrder.body.id).toEqual(order.body.id)
   })
 
@@ -87,7 +87,7 @@ describe('testing order API calls', () => {
       .execute()
 
     expect(_order.statusCode).toEqual(200)
-    expect(_order.body.version).not.toBe(order.body.version)
+    expect(_order.body.version).not.toEqual(order.body.version)
     order = _order
   })
 

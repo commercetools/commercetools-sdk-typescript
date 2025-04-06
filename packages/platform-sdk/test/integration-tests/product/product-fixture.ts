@@ -126,9 +126,8 @@ export const createProductDraft = (
   return productDraft
 }
 
-export const createProduct = async (productDraft) => {
-  return await apiRoot.products().post({ body: productDraft }).execute()
-}
+export const createProduct = async (productDraft) =>
+  apiRoot.products().post({ body: productDraft }).execute()
 
 export const fetchAndDeleteProduct = async (productId: string) => {
   const productGetResponse = await apiRoot
@@ -137,7 +136,7 @@ export const fetchAndDeleteProduct = async (productId: string) => {
     .get()
     .execute()
 
-  return await deleteProduct(productGetResponse)
+  return deleteProduct(productGetResponse)
 }
 
 export const deleteProduct = async (product) => {

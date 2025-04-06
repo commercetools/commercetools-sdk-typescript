@@ -17,12 +17,11 @@ export const createOrder = async (cart) => {
   return apiRoot.orders().post({ body: orderFromCartDraft }).execute()
 }
 
-export const deleteOrder = async (order) => {
-  return await apiRoot
+export const deleteOrder = async (order) =>
+  apiRoot
     .orders()
     .withId({ ID: order.body.id })
     .delete({
       queryArgs: { version: order.body.version },
     })
     .execute()
-}

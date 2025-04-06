@@ -2,15 +2,12 @@ import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
 import { ChannelResourceIdentifier, InventoryEntryDraft } from '../../../src'
 import { createChannel, deleteChannel } from '../channel/channel-fixture'
-import {
-  createInventory,
-  createInventoryDraft,
-  deleteInventory,
-} from './inventory-fixture'
+import { deleteInventory } from './inventory-fixture'
 
 describe('testing inventory API calls', () => {
-  it('should create and delete an inventory by ID', async () => {
-    const channel = await createChannel()
+  let inventory, channel
+  it('should create an inventory', async () => {
+    channel = await createChannel()
     const channelResourceIdentifier: ChannelResourceIdentifier = {
       typeId: 'channel',
       id: channel.body.id,
@@ -22,47 +19,27 @@ describe('testing inventory API calls', () => {
       quantityOnStock: 10,
     }
 
-    const responseCreatedInventory = await apiRoot
+    inventory = await apiRoot
       .inventory()
       .post({ body: inventoryDraft })
       .execute()
 
-    expect(responseCreatedInventory.statusCode).toEqual(201)
-    expect(responseCreatedInventory.body).not.toBe(null)
-
-    const responseInventoryDeleted = await apiRoot
-      .inventory()
-      .withId({ ID: responseCreatedInventory.body.id })
-      .delete({
-        queryArgs: { version: responseCreatedInventory.body.version },
-      })
-      .execute()
-
-    expect(responseInventoryDeleted.statusCode).toEqual(200)
-
-    await deleteChannel(channel)
+    expect(inventory.body).toBeDefined()
+    expect(inventory.statusCode).toEqual(201)
   })
 
   it('should get an inventory by ID', async () => {
-    const channel = await createChannel()
-    const inventoryDraft = await createInventoryDraft(channel)
-    const inventory = await createInventory(inventoryDraft)
     const getInventory = await apiRoot
       .inventory()
       .withId({ ID: inventory.body.id })
       .get()
       .execute()
-    expect(getInventory).not.toBe(null)
-    expect(getInventory.body.id).toEqual(inventory.body.id)
 
-    await deleteInventory(inventory)
-    await deleteChannel(channel)
+    expect(getInventory).toBeDefined()
+    expect(getInventory.body.id).toEqual(inventory.body.id)
   })
 
   it('should query a inventory by SKU', async () => {
-    const channel = await createChannel()
-    const inventoryDraft = await createInventoryDraft(channel)
-    const inventory = await createInventory(inventoryDraft)
     const getInventory = await apiRoot
       .inventory()
       .get({
@@ -71,18 +48,12 @@ describe('testing inventory API calls', () => {
         },
       })
       .execute()
-    expect(getInventory).not.toBe(null)
-    expect(getInventory.body.results[0].sku).toEqual(inventory.body.sku)
 
-    await deleteInventory(inventory)
-    await deleteChannel(channel)
+    expect(getInventory).toBeDefined()
+    expect(getInventory.body.results[0].sku).toEqual(inventory.body.sku)
   })
 
   it('should update a inventory setting restockable', async () => {
-    const channel = await createChannel()
-    const inventoryDraft = await createInventoryDraft(channel)
-    const inventory = await createInventory(inventoryDraft)
-
     const updateInventory = await apiRoot
       .inventory()
       .withId({ ID: inventory.body.id })
@@ -99,10 +70,12 @@ describe('testing inventory API calls', () => {
       })
       .execute()
 
-    expect(updateInventory.body.version).not.toBe(inventory.body.version)
     expect(updateInventory.statusCode).toEqual(200)
+    expect(updateInventory.body.version).not.toEqual(inventory.body.version)
+  })
 
-    await deleteInventory(updateInventory)
+  afterAll(async () => {
+    await deleteInventory(inventory)
     await deleteChannel(channel)
   })
 })

@@ -104,7 +104,7 @@ describe('testing taxCategory API calls', () => {
       })
       .execute()
 
-    expect(updateTaxCategory.body.version).not.toBe(taxCategory.body.version)
+    expect(updateTaxCategory.body.version).not.toEqual(taxCategory.body.version)
     expect(updateTaxCategory.statusCode).toEqual(200)
     expect(updateTaxCategory.body.key).toEqual(newKey)
     taxCategory = updateTaxCategory

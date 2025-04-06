@@ -155,6 +155,5 @@ describe('testing shopping list API calls', () => {
   afterAll(async () => {
     await deleteCustomer(customer)
     await deleteCustomerGroup(customerGroup)
-    // await deleteShoppingList(shoppingList)
   })
 })

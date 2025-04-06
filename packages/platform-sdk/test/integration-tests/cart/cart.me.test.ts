@@ -12,10 +12,7 @@ import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
 import { createCategory } from '../category/category-fixture'
 import { ensureTaxCategory } from '../tax-category/tax-category-fixture'
-import {
-  ensureProductType,
-  productTypeDraftForProduct,
-} from '../product-type/product-type-fixture'
+import { ensureProductType } from '../product-type/product-type-fixture'
 import {
   createProduct,
   createProductDraft,
@@ -39,6 +36,7 @@ describe('testing me endpoint cart', () => {
         credentials: {
           clientId: clientId,
           clientSecret: clientSecret,
+          anonymousId: 'anonymous-id-' + randomUUID(),
         },
         scopes: [`manage_project:${projectKey}`],
         fetch,
@@ -72,8 +70,8 @@ describe('testing me endpoint cart', () => {
       })
       .execute()
 
-    expect(responseCartCreate.statusCode).toBe(201)
-    expect(responseCartCreate.body).not.toBeNull()
+    expect(responseCartCreate.body).toBeDefined()
+    expect(responseCartCreate.statusCode).toEqual(201)
   })
 
   // https://github.com/commercetools/commercetools-sdk-typescript/issues/446
@@ -136,12 +134,7 @@ describe('testing me endpoint cart', () => {
       .withId({ ID: cart.body.id })
       .delete({ queryArgs: { version: cart.body.version } })
       .execute()
-    // TODO: we need a password flow access token for this action
-    // await anonymousApiRoot
-    //   .inStoreKeyWithStoreKeyValue({ storeKey: storeDraft.key })
-    //   .me()
-    //   .delete({ queryArgs: { version: responseActiveCarts.body.version } })
-    //   .execute()
+
     await anonymousApiRoot
       .stores()
       .withId({ ID: store.body.id })

@@ -21,17 +21,12 @@ export const createDiscountCodeDraft = (cartDiscount) => {
   return discountCodeDraft
 }
 
-export const createDiscountCode = async (discountCodeDraft) => {
-  return await apiRoot
-    .discountCodes()
-    .post({ body: discountCodeDraft })
-    .execute()
-}
+export const createDiscountCode = async (discountCodeDraft) =>
+  apiRoot.discountCodes().post({ body: discountCodeDraft }).execute()
 
-export const deleteDiscountCode = async (discountCode) => {
-  return await apiRoot
+export const deleteDiscountCode = async (discountCode) =>
+  apiRoot
     .discountCodes()
     .withId({ ID: discountCode.body.id })
     .delete({ queryArgs: { version: discountCode.body.version } })
     .execute()
-}

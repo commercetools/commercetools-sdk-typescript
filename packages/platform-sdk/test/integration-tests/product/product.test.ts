@@ -149,7 +149,7 @@ describe('testing product API calls', () => {
       .get()
       .execute()
 
-    expect(getProduct).not.toBe(null)
+    expect(getProduct).toBeDefined()
     expect(getProduct.body.id).toEqual(product.body.id)
   })
 
@@ -160,7 +160,7 @@ describe('testing product API calls', () => {
       .get()
       .execute()
 
-    expect(getProduct).not.toBe(null)
+    expect(getProduct).toBeDefined()
     expect(getProduct.body.key).toEqual(product.body.key)
   })
 
@@ -223,7 +223,7 @@ describe('testing product API calls', () => {
       .execute()
 
     expect(_product.statusCode).toEqual(200)
-    expect(_product.body.version).not.toBe(product.body.version)
+    expect(_product.body.version).not.toEqual(product.body.version)
     product = _product
   })
 
@@ -244,7 +244,7 @@ describe('testing product API calls', () => {
     const imagePath = path.resolve(`${__dirname}/resources/image.jpeg`)
     const imageFile = await fs.readFile(imagePath)
     const _product = product.body
-    const fileName = randomUUID()
+    const fileName = 'image-file-name'
 
     const responseImageUpload: ClientResponse<Product> = await apiRoot
       .products()
@@ -259,12 +259,14 @@ describe('testing product API calls', () => {
         headers: { 'Content-Type': 'image/jpeg' },
       })
       .execute()
-    expect(responseImageUpload.statusCode).toEqual(200)
-    expect(
+
+    const img =
       responseImageUpload.body.masterData.staged.masterVariant.images.find(
         (image) => image.url.includes(fileName)
       )
-    ).not.toBeNull()
+
+    expect(img).toBeDefined()
+    expect(responseImageUpload.statusCode).toEqual(200)
 
     // update our global product
     product = responseImageUpload

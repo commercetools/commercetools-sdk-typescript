@@ -42,17 +42,12 @@ export const createShippingMethodDraft = (taxCategory, zone) => {
   return shippingMethodDraft
 }
 
-export const createShippingMethod = async (shippingMethodDraft) => {
-  return await apiRoot
-    .shippingMethods()
-    .post({ body: shippingMethodDraft })
-    .execute()
-}
+export const createShippingMethod = async (shippingMethodDraft) =>
+  apiRoot.shippingMethods().post({ body: shippingMethodDraft }).execute()
 
-export const deleteShippingMethod = async (shippingMethod) => {
-  return await apiRoot
+export const deleteShippingMethod = async (shippingMethod) =>
+  apiRoot
     .shippingMethods()
     .withId({ ID: shippingMethod.body.id })
     .delete({ queryArgs: { version: shippingMethod.body.version } })
     .execute()
-}

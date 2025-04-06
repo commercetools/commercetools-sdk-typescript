@@ -5,16 +5,12 @@ import {
   createCartDiscount,
   deleteCartDiscount,
 } from '../cart-discount/cart-discount-fixture'
-import {
-  createDiscountCode,
-  createDiscountCodeDraft,
-  deleteDiscountCode,
-} from './discount-code-fixture'
+import { deleteDiscountCode } from './discount-code-fixture'
 
 describe('testing discount code API calls', () => {
-  it('should create and delete a discount code by ID', async () => {
-    const cartDiscount = await createCartDiscount()
-
+  let cartDiscount, discountCode
+  it('should create a discount code', async () => {
+    cartDiscount = await createCartDiscount()
     const cartDiscountResourceIdentifier: CartDiscountResourceIdentifier[] = [
       {
         typeId: 'cart-discount',
@@ -30,45 +26,27 @@ describe('testing discount code API calls', () => {
       isActive: false,
     }
 
-    const responseCreatedDiscountCode = await apiRoot
+    discountCode = await apiRoot
       .discountCodes()
       .post({ body: discountCodeDraft })
       .execute()
 
-    expect(responseCreatedDiscountCode.statusCode).toEqual(201)
-    expect(responseCreatedDiscountCode.body).not.toBe(null)
-
-    const responseDiscountCodeDeleted = await apiRoot
-      .discountCodes()
-      .withId({ ID: responseCreatedDiscountCode.body.id })
-      .delete({
-        queryArgs: { version: responseCreatedDiscountCode.body.version },
-      })
-      .execute()
-    await deleteCartDiscount(cartDiscount)
-    expect(responseDiscountCodeDeleted.statusCode).toEqual(200)
+    expect(discountCode.body).toBeDefined()
+    expect(discountCode.statusCode).toEqual(201)
   })
 
   it('should get a discount code by ID', async () => {
-    const cartDiscount = await createCartDiscount()
-    const discountCodeDraft = await createDiscountCodeDraft(cartDiscount)
-    const discountCode = await createDiscountCode(discountCodeDraft)
     const getDiscountCode = await apiRoot
       .discountCodes()
       .withId({ ID: discountCode.body.id })
       .get()
       .execute()
-    expect(getDiscountCode).not.toBe(null)
-    expect(getDiscountCode.body.id).toEqual(discountCode.body.id)
 
-    await deleteDiscountCode(discountCode)
-    await deleteCartDiscount(cartDiscount)
+    expect(getDiscountCode).toBeDefined()
+    expect(getDiscountCode.body.id).toEqual(discountCode.body.id)
   })
 
   it('should query a discount code', async () => {
-    const cartDiscount = await createCartDiscount()
-    const discountCodeDraft = await createDiscountCodeDraft(cartDiscount)
-    const discountCode = await createDiscountCode(discountCodeDraft)
     const queryDiscountCode = await apiRoot
       .discountCodes()
       .get({
@@ -77,18 +55,12 @@ describe('testing discount code API calls', () => {
         },
       })
       .execute()
-    expect(queryDiscountCode).not.toBe(null)
-    expect(queryDiscountCode.body.results[0].id).toEqual(discountCode.body.id)
 
-    await deleteDiscountCode(discountCode)
-    await deleteCartDiscount(cartDiscount)
+    expect(queryDiscountCode).toBeDefined()
+    expect(queryDiscountCode.body.results[0].id).toEqual(discountCode.body.id)
   })
 
   it('should update a discount code by ID', async () => {
-    const cartDiscount = await createCartDiscount()
-    const discountCodeDraft = await createDiscountCodeDraft(cartDiscount)
-    const discountCode = await createDiscountCode(discountCodeDraft)
-
     const updateDiscountCode = await apiRoot
       .discountCodes()
       .withId({ ID: discountCode.body.id })
@@ -105,10 +77,16 @@ describe('testing discount code API calls', () => {
       })
       .execute()
 
-    expect(updateDiscountCode.body.version).not.toBe(cartDiscount.body.version)
     expect(updateDiscountCode.statusCode).toEqual(200)
+    expect(updateDiscountCode.body.version).not.toEqual(
+      cartDiscount.body.version
+    )
 
-    await deleteDiscountCode(updateDiscountCode)
+    discountCode = updateDiscountCode
+  })
+
+  afterAll(async () => {
+    await deleteDiscountCode(discountCode)
     await deleteCartDiscount(cartDiscount)
   })
 })

@@ -1,9 +1,11 @@
 import { randomUUID } from 'crypto'
-import { apiRoot } from '../test-utils'
+import { StandalonePrice } from '@commercetools/platform-sdk'
+import { apiRoot, ClientResponse } from '../test-utils'
 
 describe('testing standalone prices API calls', function () {
-  it('should create and delete a standalone price by ID', async function () {
-    const responseCreatedStandalonePrices = await apiRoot
+  let standalonePrice: ClientResponse<StandalonePrice>
+  it('should create a standalone price', async function () {
+    standalonePrice = await apiRoot
       .standalonePrices()
       .post({
         body: {
@@ -16,16 +18,31 @@ describe('testing standalone prices API calls', function () {
       })
       .execute()
 
-    expect(responseCreatedStandalonePrices.statusCode).toEqual(201)
+    expect(standalonePrice.statusCode).toEqual(201)
+  })
 
-    const responseDeletedStandalonePrices = await apiRoot
+  it('should get a standalone price', async () => {
+    const _standalonePrice = await apiRoot
       .standalonePrices()
-      .withId({ ID: responseCreatedStandalonePrices.body.id })
-      .delete({
-        queryArgs: { version: responseCreatedStandalonePrices.body.version },
-      })
+      .withId({ ID: standalonePrice.body.id })
+      .get()
       .execute()
 
-    expect(responseDeletedStandalonePrices.statusCode).toEqual(200)
+    expect(_standalonePrice.statusCode).toEqual(200)
+  })
+
+  afterAll(async () => {
+    // retrieve latest standalonePrice
+    const _standalonePrice = await apiRoot
+      .standalonePrices()
+      .withId({ ID: standalonePrice.body.id })
+      .get()
+      .execute()
+
+    await apiRoot
+      .standalonePrices()
+      .withId({ ID: _standalonePrice.body.id })
+      .delete({ queryArgs: { version: _standalonePrice.body.version } })
+      .execute()
   })
 })

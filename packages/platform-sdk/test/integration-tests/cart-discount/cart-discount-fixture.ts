@@ -25,18 +25,17 @@ const cartDiscountDraft: CartDiscountDraft = {
   requiresDiscountCode: true,
 }
 
-export const createCartDiscount = async (cartDiscountDraftBody?) => {
-  return await apiRoot
+export const createCartDiscount = async (cartDiscountDraftBody?) =>
+  apiRoot
     .cartDiscounts()
     .post({ body: cartDiscountDraftBody || cartDiscountDraft })
     .execute()
-}
-export const deleteCartDiscount = async (responseCreatedCartDiscount) => {
-  return await apiRoot
+
+export const deleteCartDiscount = async (responseCreatedCartDiscount) =>
+  apiRoot
     .cartDiscounts()
     .withId({ ID: responseCreatedCartDiscount.body.id })
     .delete({
       queryArgs: { version: responseCreatedCartDiscount.body.version },
     })
     .execute()
-}

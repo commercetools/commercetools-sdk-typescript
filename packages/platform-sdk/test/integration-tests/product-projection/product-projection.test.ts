@@ -45,7 +45,7 @@ describe('testing product projection API calls', () => {
       })
       .execute()
 
-    expect(productProjectionResponse).not.toBe(null)
+    expect(productProjectionResponse).toBeDefined()
     expect(productProjectionResponse.body.id).toEqual(product.body.id)
   })
 
@@ -60,7 +60,7 @@ describe('testing product projection API calls', () => {
       })
       .execute()
 
-    expect(productProjectionResponse).not.toBe(null)
+    expect(productProjectionResponse).toBeDefined()
     expect(productProjectionResponse.body.key).toEqual(product.body.key)
     //attributes
     expect(
@@ -110,7 +110,7 @@ describe('testing product projection API calls', () => {
         },
       })
       .execute()
-    expect(productProjectionQueryResponse).not.toBe(null)
+    expect(productProjectionQueryResponse).toBeDefined()
     expect(productProjectionQueryResponse.body.results[0].id).toEqual(
       product.body.id
     )
@@ -142,8 +142,8 @@ describe('testing product projection API calls', () => {
         },
       })
       .execute()
-    expect(productProjectionSearchResponse).not.toBe(null)
-    expect(productProjectionSearchResponse.body.facets).not.toBe(null)
+    expect(productProjectionSearchResponse).toBeDefined()
+    expect(productProjectionSearchResponse.body.facets).toBeDefined()
   }, 40_000)
 
   afterAll(async () => {

@@ -20,19 +20,14 @@ const subscriptionDraft: SubscriptionDraft = {
   changes: [changeSubscription],
 }
 
-export const createSubscription = async () => {
-  return await apiRoot
-    .subscriptions()
-    .post({ body: subscriptionDraft })
-    .execute()
-}
+export const createSubscription = async () =>
+  apiRoot.subscriptions().post({ body: subscriptionDraft }).execute()
 
-export const deleteSubscription = async (responseCreatedSubscription) => {
-  return await apiRoot
+export const deleteSubscription = async (responseCreatedSubscription) =>
+  apiRoot
     .subscriptions()
     .withId({ ID: responseCreatedSubscription.body.id })
     .delete({
       queryArgs: { version: responseCreatedSubscription.body.version },
     })
     .execute()
-}

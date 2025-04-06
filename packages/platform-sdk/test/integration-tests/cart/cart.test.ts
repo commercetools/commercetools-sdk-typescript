@@ -60,11 +60,11 @@ describe('testing cart API calls', () => {
     productType,
     product1,
     product2,
-    cart1,
-    cart2,
-    cart3,
-    cart4,
-    cart5,
+    cart,
+    cartWithLineItems,
+    cartWithCustomLineItems,
+    cartWithCustomerID,
+    cartWithDiscountCode,
     customerGroup,
     customer,
     type,
@@ -94,10 +94,10 @@ describe('testing cart API calls', () => {
       country: 'DE',
     }
 
-    cart1 = await createCart(cartDraft)
+    cart = await createCart(cartDraft)
 
-    expect(cart1.body.id).toBeDefined()
-    expect(Object.keys(cart1.body.itemShippingAddresses)).toHaveLength(3)
+    expect(cart.body.id).toBeDefined()
+    expect(Object.keys(cart.body.itemShippingAddresses)).toHaveLength(3)
   })
 
   it('should create a cart with line items', async () => {
@@ -137,10 +137,10 @@ describe('testing cart API calls', () => {
       lineItems: lineItemDraft,
     }
 
-    cart2 = await createCart(cartDraft)
+    cartWithLineItems = await createCart(cartDraft)
 
-    expect(cart2.body.id).toBeDefined()
-    expect(cart2.body.lineItems).toHaveLength(2)
+    expect(cartWithLineItems.body.id).toBeDefined()
+    expect(cartWithLineItems.body.lineItems).toHaveLength(2)
   })
 
   it('should create a cart with custom line items', async () => {
@@ -173,32 +173,32 @@ describe('testing cart API calls', () => {
       customLineItems: customLineItemDraft,
     }
 
-    cart3 = await createCart(cartDraft)
-    expect(cart3.body.id).toBeDefined()
-    expect(cart3.body.customLineItems).toHaveLength(1)
+    cartWithCustomLineItems = await createCart(cartDraft)
+    expect(cartWithCustomLineItems.body.id).toBeDefined()
+    expect(cartWithCustomLineItems.body.customLineItems).toHaveLength(1)
   })
 
   // query
   it('should get a cart by Id', async () => {
     const getCart = await apiRoot
       .carts()
-      .withId({ ID: cart1.body.id })
+      .withId({ ID: cart.body.id })
       .get()
       .execute()
 
     expect(getCart).toBeDefined()
-    expect(getCart.body.id).toEqual(cart1.body.id)
+    expect(getCart.body.id).toEqual(cart.body.id)
   })
 
   it('should get a cart by key', async () => {
     const getCart = await apiRoot
       .carts()
-      .withKey({ key: cart1.body.key })
+      .withKey({ key: cart.body.key })
       .get()
       .execute()
 
     expect(getCart).toBeDefined()
-    expect(getCart.body.key).toEqual(cart1.body.key)
+    expect(getCart.body.key).toEqual(cart.body.key)
   })
 
   it('should query a cart by customer ID with predicates', async () => {
@@ -206,7 +206,7 @@ describe('testing cart API calls', () => {
     const customerDraft = createCustomerDraft(customerGroup)
     customer = await createCustomer(customerDraft)
     const cartDraftWithCustomer = createCartDraftWithCustomer(customer)
-    cart4 = await createCart(cartDraftWithCustomer)
+    cartWithCustomerID = await createCart(cartDraftWithCustomer)
     const queryCart = await apiRoot
       .carts()
       .get({
@@ -221,7 +221,7 @@ describe('testing cart API calls', () => {
       .execute()
 
     expect(queryCart).toBeDefined()
-    expect(queryCart.body.results[0].id).toEqual(cart4.body.id)
+    expect(queryCart.body.results[0].id).toEqual(cartWithCustomerID.body.id)
 
     const queryCart2 = await apiRoot
       .carts()
@@ -244,7 +244,7 @@ describe('testing cart API calls', () => {
       .get()
       .execute()
     expect(getCart).toBeDefined()
-    expect(getCart.body.id).toEqual(cart4.body.id)
+    expect(getCart.body.id).toEqual(cartWithCustomerID.body.id)
   })
 
   it('should expand discount code reference', async () => {
@@ -306,7 +306,7 @@ describe('testing cart API calls', () => {
 
     expect(updateCart.statusCode).toEqual(200)
     expect(updateCart.body.version).not.toEqual(_cart5.body.version)
-    cart5 = updateCart
+    cartWithDiscountCode = updateCart
   })
 
   //update
@@ -325,10 +325,10 @@ describe('testing cart API calls', () => {
 
     const updateCart = await apiRoot
       .carts()
-      .withKey({ key: cart1.body.key })
+      .withKey({ key: cart.body.key })
       .post({
         body: {
-          version: cart1.body.version,
+          version: cart.body.version,
           actions: [
             {
               action: 'setCustomType',
@@ -339,9 +339,9 @@ describe('testing cart API calls', () => {
         },
       })
       .execute()
-    expect(updateCart.body.version).not.toBe(cart1.body.version)
+    expect(updateCart.body.version).not.toBe(cart.body.version)
     expect(updateCart.statusCode).toEqual(200)
-    cart1 = updateCart
+    cart = updateCart
   })
 
   it('should update the cart adding item shipping address', async () => {
@@ -352,10 +352,10 @@ describe('testing cart API calls', () => {
 
     const updateCart = await apiRoot
       .carts()
-      .withKey({ key: cart1.body.key })
+      .withKey({ key: cart.body.key })
       .post({
         body: {
-          version: cart1.body.version,
+          version: cart.body.version,
           actions: [
             {
               action: 'addItemShippingAddress',
@@ -367,9 +367,9 @@ describe('testing cart API calls', () => {
       .execute()
 
     expect(updateCart.statusCode).toEqual(200)
-    expect(updateCart.body.version).not.toEqual(cart1.body.version)
+    expect(updateCart.body.version).not.toEqual(cart.body.version)
     expect(Object.keys(updateCart.body.itemShippingAddresses)).toHaveLength(4)
-    cart1 = updateCart
+    cart = updateCart
   })
 
   afterAll(async () => {
@@ -380,11 +380,11 @@ describe('testing cart API calls', () => {
     await deleteProduct(product1)
     await deleteProduct(product2)
 
-    await deleteCart(cart1)
-    await deleteCart(cart2)
-    await deleteCart(cart3)
-    await deleteCart(cart4)
-    await deleteCart(cart5)
+    await deleteCart(cart)
+    await deleteCart(cartWithLineItems)
+    await deleteCart(cartWithCustomLineItems)
+    await deleteCart(cartWithCustomerID)
+    await deleteCart(cartWithDiscountCode)
 
     await deleteCategory(category)
     await deleteTaxCategory(taxCategory)
