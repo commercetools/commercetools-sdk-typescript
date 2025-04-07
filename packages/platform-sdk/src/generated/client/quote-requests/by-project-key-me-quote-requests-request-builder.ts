@@ -50,7 +50,7 @@ export class ByProjectKeyMeQuoteRequestsRequestBuilder {
   }
 
   /**
-   *	Returns all Quote Requests that match a given Query Predicate. Returns a `200 OK` status if successful.
+   *	Retrieves Quote Requests for the authenticated Customer. Returns a `200 OK` status if successful.
    *
    */
   public get(methodArgs?: {

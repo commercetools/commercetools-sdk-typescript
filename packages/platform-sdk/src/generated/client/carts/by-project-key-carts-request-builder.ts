@@ -69,7 +69,7 @@ export class ByProjectKeyCartsRequestBuilder {
   }
 
   /**
-   *	Retrieves all Carts in the Project.
+   *	Retrieves Carts in the Project.
    */
   public get(methodArgs?: {
     queryArgs?: {

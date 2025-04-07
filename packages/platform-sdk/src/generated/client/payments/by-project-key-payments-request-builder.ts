@@ -50,7 +50,7 @@ export class ByProjectKeyPaymentsRequestBuilder {
   }
 
   /**
-   *	Retrieves all Payments in the Project.
+   *	Retrieves Payments in the Project.
    */
   public get(methodArgs?: {
     queryArgs?: {
