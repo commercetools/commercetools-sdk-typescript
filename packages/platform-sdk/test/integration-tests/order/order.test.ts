@@ -46,7 +46,8 @@ describe('testing order API calls', () => {
       .execute()
 
     cart = updatedCartWithProduct
-    order = await createOrder(updatedCartWithProduct)
+    order = await createOrder(cart)
+
     expect(order).toBeDefined()
     expect(order.body.id).toBeDefined()
   })

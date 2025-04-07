@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto'
-import { StandalonePrice } from '@commercetools/platform-sdk'
+import { StandalonePrice } from '../../../src'
 import { apiRoot, ClientResponse } from '../test-utils'
 
 describe('testing standalone prices API calls', function () {
