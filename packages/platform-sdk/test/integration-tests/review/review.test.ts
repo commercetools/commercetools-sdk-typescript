@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
 import { ReviewDraft } from '../../../src'
-import { createReview, deleteReview } from './review-fixture'
+import { deleteReview } from './review-fixture'
 
 describe('testing review API calls', () => {
   let review

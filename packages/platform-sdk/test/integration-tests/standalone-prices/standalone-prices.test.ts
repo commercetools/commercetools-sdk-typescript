@@ -1,6 +1,7 @@
 import { randomUUID } from 'crypto'
 import { StandalonePrice } from '../../../src'
 import { apiRoot, ClientResponse } from '../test-utils'
+import { sleep } from '../../helpers/test-utils'
 
 describe('testing standalone prices API calls', function () {
   let standalonePrice: ClientResponse<StandalonePrice>
@@ -39,6 +40,7 @@ describe('testing standalone prices API calls', function () {
       .get()
       .execute()
 
+    await sleep(1000)
     await apiRoot
       .standalonePrices()
       .withId({ ID: _standalonePrice.body.id })

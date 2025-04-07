@@ -1,7 +1,7 @@
 import { apiRoot } from '../test-utils'
 import { randomUUID } from 'crypto'
 import { CustomObjectDraft } from '../../../src'
-import { createCustomObject, deleteCustomObject } from './custom-object-fixture'
+import { deleteCustomObject } from './custom-object-fixture'
 
 describe('testing customObject API calls', () => {
   let customObject

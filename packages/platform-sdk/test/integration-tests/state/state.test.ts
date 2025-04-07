@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
 import { StateDraft } from '../../../src'
-import { createState, deleteState } from './state-fixture'
+import { deleteState } from './state-fixture'
 
 describe('testing state API calls', () => {
   let state

@@ -1,11 +1,7 @@
 import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
 import { AttributeDefinitionDraft, ProductTypeDraft } from '../../../src'
-import {
-  ensureProductType,
-  deleteProductType,
-  createRandomProductType,
-} from './product-type-fixture'
+import { deleteProductType } from './product-type-fixture'
 
 describe('testing product type API calls', () => {
   let productType

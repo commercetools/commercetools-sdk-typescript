@@ -10,11 +10,7 @@ import {
 } from '../../../src'
 import { ensureTaxCategory } from '../tax-category/tax-category-fixture'
 import { createZone, deleteZone } from '../zone/zone-fixture'
-import {
-  createShippingMethod,
-  createShippingMethodDraft,
-  deleteShippingMethod,
-} from './shipping-method-fixture'
+import { deleteShippingMethod } from './shipping-method-fixture'
 
 describe('testing shipping method API calls', () => {
   let shippingMethod, zone

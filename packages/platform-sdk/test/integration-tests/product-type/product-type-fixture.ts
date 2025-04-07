@@ -110,14 +110,6 @@ export const ensureProductType = async (
 const createProductType = async (productTypeDraftBody = productTypeDraft) =>
   apiRoot.productTypes().post({ body: productTypeDraftBody }).execute()
 
-export const createRandomProductType = async () =>
-  createProductType({
-    key: 'test-productType-key-' + randomUUID(),
-    name: 'test-name-productType-' + randomUUID(),
-    description: 'test-productType-description-' + randomUUID(),
-    attributes: attributeDefinitionDraftProduct,
-  })
-
 export const deleteProductType = async (responseCreatedProductType) =>
   apiRoot
     .productTypes()

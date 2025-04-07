@@ -17,9 +17,6 @@ export const createInventoryDraft = (channel) => {
   return inventoryDraft
 }
 
-export const createInventory = async (inventoryDraft) =>
-  apiRoot.inventory().post({ body: inventoryDraft }).execute()
-
 export const deleteInventory = async (inventory) =>
   apiRoot
     .inventory()
