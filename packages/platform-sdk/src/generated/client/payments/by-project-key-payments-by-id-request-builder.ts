@@ -19,6 +19,9 @@ export class ByProjectKeyPaymentsByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Retrieves a Payment with the provided `id`.
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -43,7 +46,7 @@ export class ByProjectKeyPaymentsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a Payment exists with the provided `id`. Returns a `200 OK` status if the Payment exists or a `404 Not Found` otherwise.
+   *	Checks if a Payment exists with the provided `id`. Returns a `200 OK` status if the Payment exists, or [Not Found](/../api/errors#404-not-found) otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -63,6 +66,9 @@ export class ByProjectKeyPaymentsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Updates a Payment in the Project using one or more [update actions](/../api/projects/payments#update-actions).
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -89,6 +95,9 @@ export class ByProjectKeyPaymentsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deletes a Payment in the Project.
+   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean
