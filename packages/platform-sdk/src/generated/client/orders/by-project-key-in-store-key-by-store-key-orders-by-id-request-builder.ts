@@ -21,6 +21,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersByIDRequestBuilder {
     }
   ) {}
   /**
+   *	Retrieves an Order with the provided `id` in a [Store](ctp:api:type:Store).
    *	If the Order exists in the Project but does not have a `store` specified, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *
    */
@@ -48,7 +49,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if an Order exists with the provided `id`. Returns a `200 OK` status if the Order exists or [Not Found](/../api/errors#404-not-found) otherwise.
+   *	Checks if an Order exists with the provided `id` in a [Store](ctp:api:type:Store). Returns a `200 OK` status if the Order exists or [Not Found](/../api/errors#404-not-found) otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -69,6 +70,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersByIDRequestBuilder {
     )
   }
   /**
+   *	Updates an Order in a [Store](ctp:api:type:Store) using one or more [update actions](/../api/projects/orders#update-actions).
    *	If the Order exists in the Project but does not have a `store` specified, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *
    */
@@ -99,6 +101,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersByIDRequestBuilder {
     )
   }
   /**
+   *	Deletes an Order in a [Store](ctp:api:type:Store).
    *	If the Order exists in the Project but does not have a `store` specified, or the `store` field references a different Store, this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *
    *	Deleting an Order produces the [OrderDeleted](ctp:api:type:OrderDeletedMessage) Message.

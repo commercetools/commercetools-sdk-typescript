@@ -44,12 +44,12 @@ export class ByProjectKeyMeOrdersRequestBuilder {
   }
 
   /**
-   *	Returns all Orders that match a given Query Predicate.
+   *	Retrieves Orders for the authenticated Customer or anonymous user.
    *
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *
-   *	- If no Orders exist for a given Query Predicate.
-   *	- If the Order exists but does not have a `customerId` that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope, or `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
+   *	- If no Orders exist for the provided query predicate.
+   *	- If an Order exists but does not have a `customerId` that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope, or `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
   public get(methodArgs?: {
@@ -81,11 +81,11 @@ export class ByProjectKeyMeOrdersRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more Orders exist for the provided query predicate. Returns a `200 OK` status if successful.
+   *	Checks if one or more Orders exist for the provided query predicate for the authenticated Customer or anonymous user. Returns a `200 OK` status if successful.
    *
-   *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
+   *	A [Not Found](/../api/errors#404-not-found) error is returned in the following scenarios:
    *
-   *	- If no Order exists that matches the Query Predicate.
+   *	- If no Orders exist that match the provided query predicate.
    *	- If one or more Orders exist but don't have either a `customerId` that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope, or an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */
