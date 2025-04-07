@@ -16,7 +16,8 @@ const money: _Money = {
 }
 
 describe('testing payment API calls', () => {
-  it('should create and delete a payment by ID', async () => {
+  let payment, type
+  it('should create a payment', async () => {
     const paymentMethodInfo: PaymentMethodInfo = {
       paymentInterface: 'testInterface',
       name: { en: 'test-name-paymentMethodInfo' + randomUUID() },
@@ -29,36 +30,21 @@ describe('testing payment API calls', () => {
       paymentMethodInfo,
     }
 
-    const responseCreatedPayment = await apiRoot
-      .payments()
-      .post({ body: paymentDraft })
-      .execute()
+    payment = await apiRoot.payments().post({ body: paymentDraft }).execute()
 
-    expect(responseCreatedPayment.statusCode).toEqual(201)
-    expect(responseCreatedPayment.body).not.toBe(null)
-
-    const responsePaymentDeleted = await apiRoot
-      .payments()
-      .withId({ ID: responseCreatedPayment.body.id })
-      .delete({
-        queryArgs: { version: responseCreatedPayment.body.version },
-      })
-      .execute()
-
-    expect(responsePaymentDeleted.statusCode).toEqual(200)
+    expect(payment.body).toBeDefined()
+    expect(payment.statusCode).toEqual(201)
   })
 
   it('should get an payment by ID', async () => {
-    const payment = await createPayment()
     const getPayment = await apiRoot
       .payments()
       .withId({ ID: payment.body.id })
       .get()
       .execute()
-    expect(getPayment).not.toBe(null)
-    expect(getPayment.body.id).toEqual(payment.body.id)
 
-    await deletePayment(payment)
+    expect(getPayment).toBeDefined()
+    expect(getPayment.body.id).toEqual(payment.body.id)
   })
 
   it('should get a payment by key', async () => {
@@ -69,15 +55,12 @@ describe('testing payment API calls', () => {
       .withKey({ key: payment.body.key })
       .get()
       .execute()
-    expect(getPayment).not.toBe(null)
-    expect(getPayment.body.key).toEqual(payment.body.key)
 
-    await deletePayment(payment)
+    expect(getPayment).toBeDefined()
+    expect(getPayment.body.key).toEqual(payment.body.key)
   })
 
   it('should query a payment', async () => {
-    const payment = await createPayment()
-
     const queryPayment = await apiRoot
       .payments()
       .get({
@@ -87,15 +70,11 @@ describe('testing payment API calls', () => {
       })
       .execute()
 
-    expect(queryPayment).not.toBe(null)
+    expect(queryPayment).toBeDefined()
     expect(queryPayment.body.results[0].id).toEqual(payment.body.id)
-
-    await deletePayment(payment)
   })
 
   it('should update a payment adding transaction', async () => {
-    const payment = await createPayment()
-
     const transactionDraft: TransactionDraft = {
       type: 'Charge',
       amount: money,
@@ -117,16 +96,13 @@ describe('testing payment API calls', () => {
       })
       .execute()
 
-    expect(updatePayment.body.version).not.toBe(payment.body.version)
     expect(updatePayment.statusCode).toEqual(200)
-
-    await deletePayment(updatePayment)
+    expect(updatePayment.body.version).not.toEqual(payment.body.version)
+    payment = updatePayment
   })
 
   it('should update a payment adding interface interaction', async () => {
-    const type = await createType()
-    const payment = await createPayment()
-
+    type = await createType()
     const typeResourceIdentifier: TypeResourceIdentifier = {
       typeId: 'type',
       id: type.body.id,
@@ -151,17 +127,12 @@ describe('testing payment API calls', () => {
       })
       .execute()
 
-    expect(updatePayment.body.version).not.toBe(payment.body.version)
     expect(updatePayment.statusCode).toEqual(200)
-
-    await deletePayment(updatePayment)
-    await deleteType(type)
+    expect(updatePayment.body.version).not.toEqual(payment.body.version)
+    payment = updatePayment
   })
 
   it('should update a payment setting custom field', async () => {
-    const type = await createType()
-    const payment = await createPayment()
-
     const typeResourceIdentifier: TypeResourceIdentifier = {
       typeId: 'type',
       id: type.body.id,
@@ -186,6 +157,9 @@ describe('testing payment API calls', () => {
       })
       .execute()
 
+    expect(updatePaymentWithType).toBeDefined()
+    expect(updatePaymentWithType).not.toEqual(payment.body.version)
+
     const updatePaymentWithCustomField = await apiRoot
       .payments()
       .withId({ ID: payment.body.id })
@@ -203,13 +177,17 @@ describe('testing payment API calls', () => {
       })
       .execute()
 
-    expect(updatePaymentWithCustomField.body.version).not.toBe(
+    expect(updatePaymentWithCustomField.statusCode).toEqual(200)
+    expect(updatePaymentWithCustomField.body.custom.fields).toBeDefined()
+    expect(updatePaymentWithCustomField.body.version).not.toEqual(
       payment.body.version
     )
-    expect(updatePaymentWithCustomField.statusCode).toEqual(200)
-    expect(updatePaymentWithCustomField.body.custom.fields).not.toBe(null)
 
-    await deletePayment(updatePaymentWithCustomField)
+    payment = updatePaymentWithCustomField
+  })
+
+  afterAll(async () => {
+    await deletePayment(payment)
     await deleteType(type)
   })
 })

@@ -9,19 +9,17 @@ const customerGroupDraft: CustomerGroupDraft = {
 
 export const createCustomerGroup = async (
   customerGroupDraftBody?: CustomerGroupDraft
-) => {
-  return await apiRoot
+) =>
+  apiRoot
     .customerGroups()
     .post({ body: customerGroupDraftBody || customerGroupDraft })
     .execute()
-}
 
-export const deleteCustomerGroup = async (responseCreatedCustomerGroup) => {
-  return await apiRoot
+export const deleteCustomerGroup = async (customerGroup) =>
+  apiRoot
     .customerGroups()
-    .withId({ ID: responseCreatedCustomerGroup.body.id })
+    .withId({ ID: customerGroup.body.id })
     .delete({
-      queryArgs: { version: responseCreatedCustomerGroup.body.version },
+      queryArgs: { version: customerGroup.body.version },
     })
     .execute()
-}

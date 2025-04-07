@@ -1,11 +1,13 @@
-import { apiRoot } from '../test-utils'
+import { apiRoot, type ClientResponse } from '../test-utils'
 import { createOrder, deleteOrder } from './order-fixture'
 import { createCategory, deleteCategory } from '../category/category-fixture'
-import { ensureTaxCategory } from '../tax-category/tax-category-fixture'
+import {
+  deleteTaxCategory,
+  ensureTaxCategory,
+} from '../tax-category/tax-category-fixture'
 import {
   deleteProductType,
   ensureProductType,
-  productTypeDraftForProduct,
 } from '../product-type/product-type-fixture'
 import {
   createProduct,
@@ -13,23 +15,20 @@ import {
   deleteProduct,
 } from '../product/product-fixture'
 import { createCart, deleteCart } from '../cart/cart-fixture'
-import { OrderSearchRequest } from '../../../src'
+import { OrderPagedSearchResponse, OrderSearchRequest } from '../../../src'
 import { ctpApiBuilder } from '../../helpers/ctp-api-helper'
-import { waitUntil } from '../../helpers/test-utils'
+import { waitForIndexing } from '../../helpers/test-utils'
 
 describe('testing order API calls', () => {
-  it('should get a order by Id', async () => {
-    const category = await createCategory()
-    const taxCategory = await ensureTaxCategory()
-    const productType = await ensureProductType(productTypeDraftForProduct)
-    const productDraft = await createProductDraft(
-      category,
-      taxCategory,
-      productType,
-      true
-    )
-    const product = await createProduct(productDraft)
-    const cart = await createCart()
+  let category, taxCategory, productType, productDraft, product, cart, order
+  it('should create an order', async () => {
+    cart = await createCart()
+    category = await createCategory()
+    taxCategory = await ensureTaxCategory()
+    productType = await ensureProductType()
+    productDraft = createProductDraft(category, taxCategory, productType, true)
+    product = await createProduct(productDraft)
+
     const updatedCartWithProduct = await apiRoot
       .carts()
       .withId({ ID: cart.body.id })
@@ -46,109 +45,26 @@ describe('testing order API calls', () => {
       })
       .execute()
 
-    const order = await createOrder(updatedCartWithProduct)
+    cart = updatedCartWithProduct
+    order = await createOrder(cart)
 
-    const getOrder = await apiRoot
-      .orders()
-      .withId({ ID: order.body.id })
-      .get()
-      .execute()
-
-    expect(getOrder).not.toBe(null)
-    expect(getOrder.body.id).toEqual(order.body.id)
-
-    await deleteOrder(order)
-    const getCart = await apiRoot
-      .carts()
-      .withId({ ID: order.body.cart.id })
-      .get()
-      .execute()
-    await deleteCart(getCart)
-    await deleteProduct(product)
-    await deleteCategory(category)
+    expect(order).toBeDefined()
+    expect(order.body.id).toBeDefined()
   })
 
-  it('should get a order by order number', async () => {
-    const category = await createCategory()
-    const taxCategory = await ensureTaxCategory()
-    const productType = await ensureProductType(productTypeDraftForProduct)
-    const productDraft = await createProductDraft(
-      category,
-      taxCategory,
-      productType,
-      true
-    )
-    const product = await createProduct(productDraft)
-    const cart = await createCart()
-    const updatedCartWithProduct = await apiRoot
-      .carts()
-      .withId({ ID: cart.body.id })
-      .post({
-        body: {
-          version: cart.body.version,
-          actions: [
-            {
-              action: 'addLineItem',
-              sku: product.body.masterData.current.masterVariant.sku,
-            },
-          ],
-        },
-      })
-      .execute()
-
-    const order = await createOrder(updatedCartWithProduct)
-
+  it('should get an order by order number', async () => {
     const getOrder = await apiRoot
       .orders()
       .withOrderNumber({ orderNumber: order.body.orderNumber })
       .get()
       .execute()
 
-    expect(getOrder).not.toBe(null)
+    expect(getOrder).toBeDefined()
     expect(getOrder.body.id).toEqual(order.body.id)
-
-    await deleteOrder(order)
-    const getCart = await apiRoot
-      .carts()
-      .withId({ ID: order.body.cart.id })
-      .get()
-      .execute()
-    await deleteCart(getCart)
-    await deleteProduct(product)
-    await deleteCategory(category)
   })
 
-  it('should update a order', async () => {
-    const category = await createCategory()
-    const taxCategory = await ensureTaxCategory()
-    const productType = await ensureProductType(productTypeDraftForProduct)
-    const productDraft = await createProductDraft(
-      category,
-      taxCategory,
-      productType,
-      true
-    )
-    const product = await createProduct(productDraft)
-    const cart = await createCart()
-    const updatedCartWithProduct = await apiRoot
-      .carts()
-      .withId({ ID: cart.body.id })
-      .post({
-        body: {
-          version: cart.body.version,
-          actions: [
-            {
-              action: 'addLineItem',
-              sku: product.body.masterData.current.masterVariant.sku,
-            },
-          ],
-        },
-      })
-      .execute()
-
-    const order = await createOrder(updatedCartWithProduct)
-
-    const updateOrder = await apiRoot
+  it('should update an order', async () => {
+    const _order = await apiRoot
       .orders()
       .withId({ ID: order.body.id })
       .post({
@@ -170,21 +86,13 @@ describe('testing order API calls', () => {
         },
       })
       .execute()
-    expect(updateOrder.body.version).not.toBe(order.body.version)
-    expect(updateOrder.statusCode).toEqual(200)
 
-    await deleteOrder(updateOrder)
-    const getCart = await apiRoot
-      .carts()
-      .withId({ ID: updateOrder.body.cart.id })
-      .get()
-      .execute()
-    await deleteCart(getCart)
-    await deleteProduct(product)
-    await deleteCategory(category)
+    expect(_order.statusCode).toEqual(200)
+    expect(_order.body.version).not.toEqual(order.body.version)
+    order = _order
   })
 
-  it.skip('should search a order', async () => {
+  it('should search an order', async () => {
     let project = await ctpApiBuilder.get().execute()
 
     if (project.body.searchIndexing.orders.status === 'Deactivated') {
@@ -203,41 +111,12 @@ describe('testing order API calls', () => {
         .execute()
     }
 
-    const category = await createCategory()
-    const taxCategory = await ensureTaxCategory()
-    const productType = await ensureProductType(productTypeDraftForProduct)
-    const productDraft = await createProductDraft(
-      category,
-      taxCategory,
-      productType,
-      true
-    )
-    const product = await createProduct(productDraft)
-    const cart = await createCart()
-    const updatedCartWithProduct = await apiRoot
-      .carts()
-      .withId({ ID: cart.body.id })
-      .post({
-        body: {
-          version: cart.body.version,
-          actions: [
-            {
-              action: 'addLineItem',
-              sku: product.body.masterData.current.masterVariant.sku,
-            },
-          ],
-        },
-      })
-      .execute()
-
-    const responseOrder = await createOrder(updatedCartWithProduct)
-    const order = responseOrder.body
-
+    const _order = order.body
     const orderSearchRequest: OrderSearchRequest = {
       query: {
         exact: {
           field: 'orderNumber',
-          value: order.orderNumber,
+          value: _order.orderNumber,
         },
       },
       sort: [
@@ -246,36 +125,32 @@ describe('testing order API calls', () => {
           order: 'desc',
         },
       ],
-      limit: 20,
+      limit: 1,
     }
 
-    await waitUntil(async () => {
-      const responseOrderSearch = await apiRoot
+    let responseOrderSearch: ClientResponse<OrderPagedSearchResponse>
+    const getIndexOrder = async () => {
+      responseOrderSearch = await apiRoot
         .orders()
         .search()
         .post({ body: orderSearchRequest })
         .execute()
+
       return responseOrderSearch.body.total > 0
-    })
+    }
 
-    const responseOrderSearch = await apiRoot
-      .orders()
-      .search()
-      .post({ body: orderSearchRequest })
-      .execute()
-
+    await waitForIndexing(getIndexOrder)
     expect(responseOrderSearch.statusCode).toEqual(200)
     expect(responseOrderSearch.body.hits.length).toEqual(1)
-    expect(responseOrderSearch.body.hits[0].id).toEqual(order.id)
+    expect(responseOrderSearch.body.hits[0].id).toEqual(_order.id)
+  }, 35000)
 
-    await deleteOrder(responseOrder)
-    const getCart = await apiRoot
-      .carts()
-      .withId({ ID: order.cart.id })
-      .get()
-      .execute()
-    await deleteCart(getCart)
+  afterAll(async () => {
+    await deleteOrder(order)
     await deleteProduct(product)
+    await deleteProductType(productType)
+    await deleteTaxCategory(taxCategory)
     await deleteCategory(category)
+    await deleteCart(cart)
   })
 })

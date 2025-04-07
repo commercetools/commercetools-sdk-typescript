@@ -12,11 +12,12 @@ import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
 import { createCategory } from '../category/category-fixture'
 import { ensureTaxCategory } from '../tax-category/tax-category-fixture'
+import { ensureProductType } from '../product-type/product-type-fixture'
 import {
-  ensureProductType,
-  productTypeDraftForProduct,
-} from '../product-type/product-type-fixture'
-import { createProduct, createProductDraft } from '../product/product-fixture'
+  createProduct,
+  createProductDraft,
+  deleteProduct,
+} from '../product/product-fixture'
 
 const projectKey = requireEnvVar('CTP_PROJECT_KEY')
 const clientId = requireEnvVar('CTP_CLIENT_ID')
@@ -35,6 +36,7 @@ describe('testing me endpoint cart', () => {
         credentials: {
           clientId: clientId,
           clientSecret: clientSecret,
+          anonymousId: 'anonymous-id-' + randomUUID(),
         },
         scopes: [`manage_project:${projectKey}`],
         fetch,
@@ -68,17 +70,17 @@ describe('testing me endpoint cart', () => {
       })
       .execute()
 
-    expect(responseCartCreate.statusCode).toBe(201)
-    expect(responseCartCreate.body).not.toBeNull()
+    expect(responseCartCreate.body).toBeDefined()
+    expect(responseCartCreate.statusCode).toEqual(201)
   })
 
   // https://github.com/commercetools/commercetools-sdk-typescript/issues/446
   it('should expand active cart using me endpoint in a store', async () => {
     const category = await createCategory()
-    const productType = await ensureProductType(productTypeDraftForProduct)
+    const productType = await ensureProductType()
     const taxCategory = await ensureTaxCategory()
 
-    const productDraft = await createProductDraft(
+    const productDraft = createProductDraft(
       category,
       taxCategory,
       productType,
@@ -97,9 +99,8 @@ describe('testing me endpoint cart', () => {
       key: randomUUID(),
     }
 
-    await apiRoot.stores().post({ body: storeDraft }).execute()
-
-    await anonymousApiRoot
+    const store = await apiRoot.stores().post({ body: storeDraft }).execute()
+    const cart = await anonymousApiRoot
       .inStoreKeyWithStoreKeyValue({ storeKey: storeDraft.key })
       .me()
       .carts()
@@ -123,5 +124,21 @@ describe('testing me endpoint cart', () => {
     expect(responseActiveCarts.body.lineItems[0].productType.obj.name).toEqual(
       productType.body.name
     )
+
+    // clean
+    await deleteProduct(product)
+    await anonymousApiRoot
+      .inStoreKeyWithStoreKeyValue({ storeKey: storeDraft.key })
+      .me()
+      .carts()
+      .withId({ ID: cart.body.id })
+      .delete({ queryArgs: { version: cart.body.version } })
+      .execute()
+
+    await anonymousApiRoot
+      .stores()
+      .withId({ ID: store.body.id })
+      .delete({ queryArgs: { version: store.body.version } })
+      .execute()
   })
 })

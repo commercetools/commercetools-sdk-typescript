@@ -1,6 +1,9 @@
 import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
-import { ensureTaxCategory } from '../tax-category/tax-category-fixture'
+import {
+  deleteTaxCategory,
+  ensureTaxCategory,
+} from '../tax-category/tax-category-fixture'
 import {
   ensureProductType,
   productTypeDraftForProduct,
@@ -20,19 +23,16 @@ import {
   TaxCategoryResourceIdentifier,
 } from '../../../src'
 import { createCategory, deleteCategory } from '../category/category-fixture'
-import {
-  createProduct,
-  createProductDraft,
-  deleteProduct,
-} from './product-fixture'
+import { deleteProduct } from './product-fixture'
 import fs from 'node:fs/promises'
 import path from 'path'
 
 describe('testing product API calls', () => {
-  it('should create and delete a product by ID', async () => {
-    const category = await createCategory()
-    const taxCategory = await ensureTaxCategory()
-    const productType = await ensureProductType(productTypeDraftForProduct)
+  let category, taxCategory, productType, product: ClientResponse<Product>
+  it('should create a product', async () => {
+    category = await createCategory()
+    taxCategory = await ensureTaxCategory()
+    productType = await ensureProductType(productTypeDraftForProduct)
 
     const productTypeResourceIdentifier: ProductTypeResourceIdentifier = {
       typeId: 'product-type',
@@ -136,89 +136,35 @@ describe('testing product API calls', () => {
       publish: false,
     }
 
-    const responseCreatedProduct = await apiRoot
-      .products()
-      .post({ body: productDraft })
-      .execute()
+    product = await apiRoot.products().post({ body: productDraft }).execute()
 
-    expect(responseCreatedProduct.statusCode).toEqual(201)
-    expect(responseCreatedProduct.body).not.toBe(null)
-
-    const responseProductDeleted = await apiRoot
-      .products()
-      .withId({ ID: responseCreatedProduct.body.id })
-      .delete({
-        queryArgs: { version: responseCreatedProduct.body.version },
-      })
-      .execute()
-
-    expect(responseProductDeleted.statusCode).toEqual(200)
-
-    await deleteCategory(category)
+    expect(product.body).toBeDefined()
+    expect(product.statusCode).toEqual(201)
   })
 
   it('should get a product by Id', async () => {
-    const category = await createCategory()
-    const taxCategory = await ensureTaxCategory()
-    const productType = await ensureProductType(productTypeDraftForProduct)
-    const productDraft = await createProductDraft(
-      category,
-      taxCategory,
-      productType,
-      false
-    )
-    const product = await createProduct(productDraft)
-
     const getProduct = await apiRoot
       .products()
       .withId({ ID: product.body.id })
       .get()
       .execute()
 
-    expect(getProduct).not.toBe(null)
+    expect(getProduct).toBeDefined()
     expect(getProduct.body.id).toEqual(product.body.id)
-
-    await deleteProduct(product)
-    await deleteCategory(category)
   })
 
   it('should get a product by key', async () => {
-    const category = await createCategory()
-    const taxCategory = await ensureTaxCategory()
-    const productType = await ensureProductType(productTypeDraftForProduct)
-    const productDraft = await createProductDraft(
-      category,
-      taxCategory,
-      productType,
-      false
-    )
-    const product = await createProduct(productDraft)
-
     const getProduct = await apiRoot
       .products()
       .withKey({ key: product.body.key })
       .get()
       .execute()
 
-    expect(getProduct).not.toBe(null)
+    expect(getProduct).toBeDefined()
     expect(getProduct.body.key).toEqual(product.body.key)
-
-    await deleteProduct(product)
-    await deleteCategory(category)
   })
 
   it('should get a product by SKU using query predicates', async () => {
-    const category = await createCategory()
-    const taxCategory = await ensureTaxCategory()
-    const productType = await ensureProductType(productTypeDraftForProduct)
-    const productDraft = await createProductDraft(
-      category,
-      taxCategory,
-      productType,
-      false
-    )
-    const product = await createProduct(productDraft)
-
     const sku = product.body.masterData.current.masterVariant.sku
     const getProduct = await apiRoot
       .productProjections()
@@ -232,27 +178,13 @@ describe('testing product API calls', () => {
       })
       .execute()
 
-    expect(getProduct).not.toBe(null)
+    expect(getProduct).toBeDefined()
     expect(getProduct.body.results.length).toEqual(1)
     expect(getProduct.body.results[0].key).toEqual(product.body.key)
-
-    await deleteProduct(product)
-    await deleteCategory(category)
   })
 
   it('should update a product by Id', async () => {
-    const category = await createCategory()
-    const taxCategory = await ensureTaxCategory()
-    const productType = await ensureProductType(productTypeDraftForProduct)
-    const productDraft = await createProductDraft(
-      category,
-      taxCategory,
-      productType,
-      false
-    )
-    const product = await createProduct(productDraft)
-
-    const updateProduct = await apiRoot
+    const _product = await apiRoot
       .products()
       .withId({ ID: product.body.id })
       .post({
@@ -268,26 +200,13 @@ describe('testing product API calls', () => {
       })
       .execute()
 
-    expect(updateProduct.body.version).not.toBe(product.body.version)
-    expect(updateProduct.statusCode).toEqual(200)
-
-    await deleteProduct(updateProduct)
-    await deleteCategory(category)
+    expect(_product.statusCode).toEqual(200)
+    expect(_product.body.version).not.toEqual(product.body.version)
+    product = _product
   })
 
   it('should update a product by key', async () => {
-    const category = await createCategory()
-    const taxCategory = await ensureTaxCategory()
-    const productType = await ensureProductType(productTypeDraftForProduct)
-    const productDraft = await createProductDraft(
-      category,
-      taxCategory,
-      productType,
-      false
-    )
-    const product = await createProduct(productDraft)
-
-    const updateProduct = await apiRoot
+    const _product = await apiRoot
       .products()
       .withKey({ key: product.body.key })
       .post({
@@ -303,24 +222,12 @@ describe('testing product API calls', () => {
       })
       .execute()
 
-    expect(updateProduct.body.version).not.toBe(product.body.version)
-    expect(updateProduct.statusCode).toEqual(200)
-
-    await deleteProduct(updateProduct)
-    await deleteCategory(category)
+    expect(_product.statusCode).toEqual(200)
+    expect(_product.body.version).not.toEqual(product.body.version)
+    product = _product
   })
 
   it('should query a product', async () => {
-    const category = await createCategory()
-    const taxCategory = await ensureTaxCategory()
-    const productType = await ensureProductType(productTypeDraftForProduct)
-    const productDraft = await createProductDraft(
-      category,
-      taxCategory,
-      productType,
-      false
-    )
-    const product = await createProduct(productDraft)
     const queryProduct = await apiRoot
       .products()
       .get({
@@ -329,47 +236,45 @@ describe('testing product API calls', () => {
         },
       })
       .execute()
-    expect(queryProduct).not.toBe(null)
+    expect(queryProduct).toBeDefined()
     expect(queryProduct.body.results[0].id).toEqual(product.body.id)
-
-    await deleteProduct(product)
-    await deleteCategory(category)
   })
 
   it('should upload an image to a product variant', async () => {
     const imagePath = path.resolve(`${__dirname}/resources/image.jpeg`)
     const imageFile = await fs.readFile(imagePath)
-    const category = await createCategory()
-    const taxCategory = await ensureTaxCategory()
-    const productType = await ensureProductType(productTypeDraftForProduct)
-    const productDraft = await createProductDraft(
-      category,
-      taxCategory,
-      productType,
-      false
-    )
-    const productResponse = await createProduct(productDraft)
-    const product = productResponse.body
-    const fileName = randomUUID()
+    const _product = product.body
+    const fileName = 'image-file-name'
 
     const responseImageUpload: ClientResponse<Product> = await apiRoot
       .products()
-      .withId({ ID: product.id })
+      .withId({ ID: _product.id })
       .images()
       .post({
         body: imageFile,
         queryArgs: {
-          sku: product.masterData.staged.masterVariant.sku,
+          sku: _product.masterData.staged.masterVariant.sku,
           filename: fileName,
         },
         headers: { 'Content-Type': 'image/jpeg' },
       })
       .execute()
-    expect(responseImageUpload.statusCode).toEqual(200)
-    expect(
+
+    const img =
       responseImageUpload.body.masterData.staged.masterVariant.images.find(
         (image) => image.url.includes(fileName)
       )
-    ).not.toBeNull()
+
+    expect(img).toBeDefined()
+    expect(responseImageUpload.statusCode).toEqual(200)
+
+    // update our global product
+    product = responseImageUpload
+  })
+
+  afterAll(async () => {
+    await deleteProduct(product)
+    await deleteCategory(category)
+    await deleteTaxCategory(taxCategory)
   })
 })

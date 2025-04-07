@@ -20,6 +20,6 @@ describe('testing me endpoint customer', () => {
       })
       .execute()
     expect(responseLoginMe.statusCode).toBe(200)
-    expect(responseLoginMe.body).not.toBe(null)
+    expect(responseLoginMe.body).toBeDefined()
   })
 })

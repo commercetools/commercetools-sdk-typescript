@@ -3,44 +3,25 @@ import { apiRoot } from '../test-utils'
 import { CartResourceIdentifier, OrderFromCartDraft } from '../../../src'
 
 export const createOrder = async (cart) => {
-  const updateCart = await apiRoot
-    .carts()
-    .withKey({ key: cart.body.key })
-    .post({
-      body: {
-        version: cart.body.version,
-        actions: [
-          {
-            action: 'setShippingAddress',
-            address: {
-              country: 'DE',
-              state: 'Berlin',
-            },
-          },
-        ],
-      },
-    })
-    .execute()
   const cartResourceIdentifier: CartResourceIdentifier = {
     typeId: 'cart',
-    id: updateCart.body.id,
+    id: cart.body.id,
   }
 
   const orderFromCartDraft: OrderFromCartDraft = {
     cart: cartResourceIdentifier,
-    version: updateCart.body.version,
+    version: cart.body.version,
     orderNumber: randomUUID(),
   }
 
-  return await apiRoot.orders().post({ body: orderFromCartDraft }).execute()
+  return apiRoot.orders().post({ body: orderFromCartDraft }).execute()
 }
 
-export const deleteOrder = async (order) => {
-  return await apiRoot
+export const deleteOrder = async (order) =>
+  apiRoot
     .orders()
     .withId({ ID: order.body.id })
     .delete({
       queryArgs: { version: order.body.version },
     })
     .execute()
-}

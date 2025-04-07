@@ -32,17 +32,12 @@ export const createShoppingListDraft = (customer) => {
   return shoppingListDraft
 }
 
-export const createShoppingList = async (shoppingListDraft) => {
-  return await apiRoot
-    .shoppingLists()
-    .post({ body: shoppingListDraft })
-    .execute()
-}
+export const createShoppingList = async (shoppingListDraft) =>
+  apiRoot.shoppingLists().post({ body: shoppingListDraft }).execute()
 
-export const deleteShoppingList = async (shoppingList) => {
-  return await apiRoot
+export const deleteShoppingList = async (shoppingList) =>
+  apiRoot
     .shoppingLists()
     .withId({ ID: shoppingList.body.id })
     .delete({ queryArgs: { version: shoppingList.body.version } })
     .execute()
-}

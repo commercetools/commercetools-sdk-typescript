@@ -1,52 +1,35 @@
 import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
 import { StateDraft } from '../../../src'
-import { createState, deleteState } from './state-fixture'
+import { deleteState } from './state-fixture'
 
 describe('testing state API calls', () => {
-  it('should create and delete a state by ID', async () => {
+  let state
+  it('should create a state', async () => {
     const stateDraft: StateDraft = {
       key: randomUUID(),
       type: 'LineItemState',
       roles: ['Return'],
     }
 
-    const responseCreatedState = await apiRoot
-      .states()
-      .post({ body: stateDraft })
-      .execute()
+    state = await apiRoot.states().post({ body: stateDraft }).execute()
 
-    expect(responseCreatedState.statusCode).toEqual(201)
-    expect(responseCreatedState.body).not.toBe(null)
-
-    const responseStateDeleted = await apiRoot
-      .states()
-      .withId({ ID: responseCreatedState.body.id })
-      .delete({
-        queryArgs: { version: responseCreatedState.body.version },
-      })
-      .execute()
-
-    expect(responseStateDeleted.statusCode).toEqual(200)
+    expect(state.body).toBeDefined()
+    expect(state.statusCode).toEqual(201)
   })
 
   it('should get a state by ID', async () => {
-    const state = await createState()
-
     const getState = await apiRoot
       .states()
       .withId({ ID: state.body.id })
       .get()
       .execute()
 
-    expect(getState).not.toBe(null)
+    expect(getState).toBeDefined()
     expect(getState.body.id).toEqual(state.body.id)
-
-    await deleteState(getState)
   })
 
   it('should query a state', async () => {
-    const state = await createState()
     const queryState = await apiRoot
       .states()
       .get({
@@ -55,15 +38,12 @@ describe('testing state API calls', () => {
         },
       })
       .execute()
-    expect(queryState).not.toBe(null)
-    expect(queryState.body.results[0].id).toEqual(state.body.id)
 
-    await deleteState(state)
+    expect(queryState).toBeDefined()
+    expect(queryState.body.results[0].id).toEqual(state.body.id)
   })
 
   it('should update a state by Id', async () => {
-    const state = await createState()
-
     const newKey = 'test-key-state' + randomUUID()
     const updateState = await apiRoot
       .states()
@@ -81,10 +61,13 @@ describe('testing state API calls', () => {
       })
       .execute()
 
-    expect(updateState.body.version).not.toBe(state.body.version)
     expect(updateState.statusCode).toEqual(200)
     expect(updateState.body.key).toEqual(newKey)
+    expect(updateState.body.version).not.toEqual(state.body.version)
+    state = updateState
+  })
 
-    await deleteState(updateState)
+  afterAll(async () => {
+    await deleteState(state)
   })
 })

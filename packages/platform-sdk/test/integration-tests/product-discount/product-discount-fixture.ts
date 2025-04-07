@@ -19,12 +19,8 @@ const productDiscountDraft: ProductDiscountDraft = {
   isActive: false,
 }
 
-export const createProductDiscount = async () => {
-  return await apiRoot
-    .productDiscounts()
-    .post({ body: productDiscountDraft })
-    .execute()
-}
+export const createProductDiscount = async () =>
+  apiRoot.productDiscounts().post({ body: productDiscountDraft }).execute()
 
 export const deleteProductDiscount = async (responseCreatedProductDiscount) => {
   const productDiscount = await apiRoot

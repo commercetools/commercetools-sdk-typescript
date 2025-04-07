@@ -1,7 +1,6 @@
 import { randomUUID } from 'crypto'
 import { apiRoot } from '../test-utils'
 import { AttributeDefinitionDraft, ProductTypeDraft } from '../../../src'
-import { createTaxCategory } from '../tax-category/tax-category-fixture'
 
 const attributeDefinitionDraft: AttributeDefinitionDraft = {
   type: {
@@ -85,53 +84,37 @@ const attributeDefinitionDraftProduct: AttributeDefinitionDraft[] = [
 ]
 
 const productTypeDraft: ProductTypeDraft = {
-  key: 'test-productTypeDraft' + randomUUID(),
+  key: 'test-productTypeDraft-' + randomUUID(),
   name: 'test-name-productType-' + randomUUID(),
   description: randomUUID(),
   attributes: [attributeDefinitionDraft],
 }
 
 export const productTypeDraftForProduct: ProductTypeDraft = {
-  key: 'test-productTypeForProduct-key',
+  key: 'test-productTypeForProduct-key-' + randomUUID(),
   name: 'test-name-productType-' + randomUUID(),
   description: 'test-productType-description-' + randomUUID(),
   attributes: attributeDefinitionDraftProduct,
 }
 
-export const ensureProductType = async (productTypeDraftBody?) => {
-  try {
-    return await apiRoot
-      .productTypes()
-      .withKey({ key: productTypeDraftBody?.key || productTypeDraft.key })
-      .get()
-      .execute()
-  } catch (e) {
-    return await createProductType(productTypeDraftBody || productTypeDraft)
-  }
-}
-
-const createProductType = async (productTypeDraftBody?) => {
-  return await apiRoot
+export const ensureProductType = async (
+  productTypeDraftBody = productTypeDraftForProduct
+) =>
+  apiRoot
     .productTypes()
-    .post({ body: productTypeDraftBody || productTypeDraft })
+    .withKey({ key: productTypeDraftBody?.key })
+    .get()
     .execute()
-}
+    .catch(() => createProductType(productTypeDraftBody))
 
-export const createRandomProductType = async () => {
-  return await createProductType({
-    key: 'test-productType-key-' + randomUUID(),
-    name: 'test-name-productType-' + randomUUID(),
-    description: 'test-productType-description-' + randomUUID(),
-    attributes: attributeDefinitionDraftProduct,
-  })
-}
+const createProductType = async (productTypeDraftBody = productTypeDraft) =>
+  apiRoot.productTypes().post({ body: productTypeDraftBody }).execute()
 
-export const deleteProductType = async (responseCreatedProductType) => {
-  return await apiRoot
+export const deleteProductType = async (responseCreatedProductType) =>
+  apiRoot
     .productTypes()
     .withId({ ID: responseCreatedProductType.body.id })
     .delete({
       queryArgs: { version: responseCreatedProductType.body.version },
     })
     .execute()
-}

@@ -6,8 +6,12 @@ const cartDraft: CartDraft = {
   key: 'test-cart-key-' + randomUUID(),
   currency: 'EUR',
   country: 'DE',
+  shippingAddress: {
+    country: 'DE',
+    state: 'Berlin',
+  },
 }
-export const createCartDraftWithCustomer = async (customer) => {
+export const createCartDraftWithCustomer = (customer) => {
   const cartDraft: CartDraft = {
     key: 'test-cart-key-' + randomUUID(),
     currency: 'EUR',
@@ -18,19 +22,26 @@ export const createCartDraftWithCustomer = async (customer) => {
   return cartDraft
 }
 
-export const createCart = async (cartDraftBody?) => {
-  return await apiRoot
+export const createCart = async (cartDraftBody?) =>
+  apiRoot
     .carts()
     .post({ body: cartDraftBody || cartDraft })
     .execute()
-}
 
 export const deleteCart = async (cart) => {
-  return await apiRoot
+  // get latest cart
+  const _cart = await apiRoot
+    .carts()
+    .withId({ ID: cart.body.id })
+    .get()
+    .execute()
+
+  // delete cart
+  await apiRoot
     .carts()
     .withId({ ID: cart.body.id })
     .delete({
-      queryArgs: { version: cart.body.version },
+      queryArgs: { version: _cart.body.version },
     })
     .execute()
 }

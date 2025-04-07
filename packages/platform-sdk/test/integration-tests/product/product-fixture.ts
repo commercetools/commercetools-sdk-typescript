@@ -126,9 +126,8 @@ export const createProductDraft = (
   return productDraft
 }
 
-export const createProduct = async (productDraft) => {
-  return await apiRoot.products().post({ body: productDraft }).execute()
-}
+export const createProduct = async (productDraft) =>
+  apiRoot.products().post({ body: productDraft }).execute()
 
 export const fetchAndDeleteProduct = async (productId: string) => {
   const productGetResponse = await apiRoot
@@ -137,18 +136,18 @@ export const fetchAndDeleteProduct = async (productId: string) => {
     .get()
     .execute()
 
-  return await deleteProduct(productGetResponse)
+  return deleteProduct(productGetResponse)
 }
 
 export const deleteProduct = async (product) => {
-  let updateProduct: ClientResponse<Product>
-  if (product.body?.masterData?.published) {
+  let updateProduct: ClientResponse<Product> = product
+  if (updateProduct.body?.masterData?.published) {
     updateProduct = await apiRoot
       .products()
-      .withId({ ID: product.body.id })
+      .withId({ ID: updateProduct.body.id })
       .post({
         body: {
-          version: product.body.version,
+          version: updateProduct.body.version,
           actions: [
             {
               action: 'unpublish',
@@ -158,13 +157,12 @@ export const deleteProduct = async (product) => {
       })
       .execute()
   }
-  const productToDelete = updateProduct ? updateProduct : product
 
-  return await apiRoot
+  await apiRoot
     .products()
-    .withId({ ID: productToDelete.body.id })
+    .withId({ ID: updateProduct.body.id })
     .delete({
-      queryArgs: { version: productToDelete.body.version },
+      queryArgs: { version: updateProduct.body.version },
     })
     .execute()
 }

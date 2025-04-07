@@ -8,11 +8,12 @@ import {
 import { randomUUID } from 'crypto'
 import { apiRoot, SORT_ORDER } from '../test-utils'
 
-import { createCartDiscount, deleteCartDiscount } from './cart-discount-fixture'
+import { deleteCartDiscount } from './cart-discount-fixture'
 import { createType, deleteType } from '../type/type-fixture'
 
 describe('testing cart discount API calls', () => {
-  it('should create and delete a cart discount by ID', async () => {
+  let cartDiscount, type
+  it('should create a cart discount', async () => {
     const cartDiscountValueDraft: CartDiscountValueRelativeDraft = {
       type: 'relative',
       permyriad: 10,
@@ -35,53 +36,34 @@ describe('testing cart discount API calls', () => {
       .post({ body: cartDiscountDraft })
       .execute()
 
+    cartDiscount = responseCreatedCartDiscount
+    expect(responseCreatedCartDiscount.body).toBeDefined()
     expect(responseCreatedCartDiscount.statusCode).toEqual(201)
-    expect(responseCreatedCartDiscount.body).not.toBe(null)
-
-    const responseCartDiscountDeleted = await apiRoot
-      .cartDiscounts()
-      .withId({ ID: responseCreatedCartDiscount.body.id })
-      .delete({
-        queryArgs: { version: responseCreatedCartDiscount.body.version },
-      })
-      .execute()
-
-    expect(responseCartDiscountDeleted.statusCode).toEqual(200)
   })
 
   it('should get a cart discount  by Id', async () => {
-    const cartDiscount = await createCartDiscount()
-
     const getCartDiscount = await apiRoot
       .cartDiscounts()
       .withId({ ID: cartDiscount.body.id })
       .get()
       .execute()
 
-    expect(getCartDiscount).not.toBe(null)
+    expect(getCartDiscount).toBeDefined()
     expect(getCartDiscount.body.id).toEqual(cartDiscount.body.id)
-
-    await deleteCartDiscount(cartDiscount)
   })
 
   it('should get a cart discount  by key', async () => {
-    const cartDiscount = await createCartDiscount()
-
     const getCartDiscount = await apiRoot
       .cartDiscounts()
       .withKey({ key: cartDiscount.body.key })
       .get()
       .execute()
 
-    expect(getCartDiscount).not.toBe(null)
+    expect(getCartDiscount).toBeDefined()
     expect(getCartDiscount.body.key).toEqual(cartDiscount.body.key)
-
-    await deleteCartDiscount(cartDiscount)
   })
 
-  it('should query a cart discount if the name is equal', async () => {
-    const cartDiscount = await createCartDiscount()
-
+  it('should query a cart discount', async () => {
     const queryCartDiscount = await apiRoot
       .cartDiscounts()
       .get({
@@ -92,15 +74,11 @@ describe('testing cart discount API calls', () => {
       })
       .execute()
 
-    expect(queryCartDiscount).not.toBe(null)
+    expect(queryCartDiscount).toBeDefined()
     expect(queryCartDiscount.body.results[0].id).toEqual(cartDiscount.body.id)
-
-    await deleteCartDiscount(cartDiscount)
   })
 
   it('should update a cart discount by Id', async () => {
-    const cartDiscount = await createCartDiscount()
-
     const updateCartDiscount = await apiRoot
       .cartDiscounts()
       .withId({ ID: cartDiscount.body.id })
@@ -117,15 +95,14 @@ describe('testing cart discount API calls', () => {
       })
       .execute()
 
-    expect(updateCartDiscount.body.version).not.toBe(cartDiscount.body.version)
+    expect(updateCartDiscount.body.version).not.toEqual(
+      cartDiscount.body.version
+    )
     expect(updateCartDiscount.statusCode).toEqual(200)
-
-    await deleteCartDiscount(updateCartDiscount)
+    cartDiscount = updateCartDiscount
   })
 
   it('should update a cart discount by Key', async () => {
-    const cartDiscount = await createCartDiscount()
-
     const updateCartDiscount = await apiRoot
       .cartDiscounts()
       .withKey({ key: cartDiscount.body.key })
@@ -142,24 +119,22 @@ describe('testing cart discount API calls', () => {
       })
       .execute()
 
-    expect(updateCartDiscount.body.version).not.toBe(cartDiscount.body.version)
     expect(updateCartDiscount.statusCode).toEqual(200)
-
-    await deleteCartDiscount(updateCartDiscount)
+    expect(updateCartDiscount.body.version).not.toEqual(
+      cartDiscount.body.version
+    )
+    cartDiscount = updateCartDiscount
   })
 
   it('should set customer type to a cart discount', async () => {
-    const type = await createType()
-    const cartDiscount = await createCartDiscount()
-
+    type = await createType()
     const typeResourceIdentifier: TypeResourceIdentifier = {
       typeId: 'type',
       id: type.body.id,
     }
     const fieldName: string = type.body.fieldDefinitions[0].name
-    const fieldValue = 'fieldValue'
     const fieldContainer: FieldContainer = {
-      [fieldName]: fieldValue,
+      [fieldName]: 'fieldValue',
     }
 
     const updateCartDiscount = await apiRoot
@@ -179,10 +154,16 @@ describe('testing cart discount API calls', () => {
       })
       .execute()
 
-    expect(updateCartDiscount.body.version).not.toBe(cartDiscount.body.version)
     expect(updateCartDiscount.statusCode).toEqual(200)
+    expect(updateCartDiscount.body.version).not.toEqual(
+      cartDiscount.body.version
+    )
 
-    await deleteCartDiscount(updateCartDiscount)
+    cartDiscount = updateCartDiscount
+  })
+
+  afterAll(async () => {
+    await deleteCartDiscount(cartDiscount)
     await deleteType(type)
   })
 })

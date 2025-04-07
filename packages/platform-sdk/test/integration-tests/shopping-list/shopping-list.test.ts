@@ -14,17 +14,13 @@ import {
   createCustomerGroup,
   deleteCustomerGroup,
 } from '../customer-group/customer-group-fixture'
-import {
-  createShoppingList,
-  createShoppingListDraft,
-  deleteShoppingList,
-} from './shopping-list-fixture'
 
 describe('testing shopping list API calls', () => {
-  it('should create and delete a shopping list by ID', async () => {
-    const customerGroup = await createCustomerGroup()
-    const customerDraft = await createCustomerDraft(customerGroup)
-    const customer = await createCustomer(customerDraft)
+  let customerGroup, customer, shoppingList
+  it('should create a shopping list', async () => {
+    customerGroup = await createCustomerGroup()
+    const customerDraft = createCustomerDraft(customerGroup)
+    customer = await createCustomer(customerDraft)
 
     const customerResourceIdentifier: CustomerResourceIdentifier = {
       typeId: 'customer',
@@ -47,75 +43,38 @@ describe('testing shopping list API calls', () => {
       deleteDaysAfterLastModification: 2,
     }
 
-    const responseCreatedShoppingList = await apiRoot
+    shoppingList = await apiRoot
       .shoppingLists()
       .post({ body: shoppingListDraft })
       .execute()
 
-    expect(responseCreatedShoppingList.statusCode).toEqual(201)
-    expect(responseCreatedShoppingList.body).not.toBe(null)
-
-    const responseShoppingListDeleted = await apiRoot
-      .shoppingLists()
-      .withId({ ID: responseCreatedShoppingList.body.id })
-      .delete({
-        queryArgs: { version: responseCreatedShoppingList.body.version },
-      })
-      .execute()
-    await deleteCustomer(customer)
-    await deleteCustomerGroup(customerGroup)
-
-    expect(responseShoppingListDeleted.statusCode).toEqual(200)
+    expect(shoppingList.body).toBeDefined()
+    expect(shoppingList.statusCode).toEqual(201)
   })
 
   it('should get a shopping list by ID', async () => {
-    const customerGroup = await createCustomerGroup()
-    const customerDraft = await createCustomerDraft(customerGroup)
-    const customer = await createCustomer(customerDraft)
-
-    const shoppingListDraft = await createShoppingListDraft(customer)
-    const shoppingList = await createShoppingList(shoppingListDraft)
     const queryShoppingList = await apiRoot
       .shoppingLists()
       .withId({ ID: shoppingList.body.id })
       .get()
       .execute()
 
-    expect(queryShoppingList).not.toBe(null)
+    expect(queryShoppingList).toBeDefined()
     expect(queryShoppingList.body.id).toEqual(shoppingList.body.id)
-
-    await deleteShoppingList(shoppingList)
-    await deleteCustomer(customer)
-    await deleteCustomerGroup(customerGroup)
   })
 
   it('should get a shopping list by key', async () => {
-    const customerGroup = await createCustomerGroup()
-    const customerDraft = await createCustomerDraft(customerGroup)
-    const customer = await createCustomer(customerDraft)
-
-    const shoppingListDraft = await createShoppingListDraft(customer)
-    const shoppingList = await createShoppingList(shoppingListDraft)
     const queryShoppingList = await apiRoot
       .shoppingLists()
       .withKey({ key: shoppingList.body.key })
       .get()
       .execute()
 
-    expect(queryShoppingList).not.toBe(null)
+    expect(queryShoppingList).toBeDefined()
     expect(queryShoppingList.body.key).toEqual(shoppingList.body.key)
-
-    await deleteShoppingList(shoppingList)
-    await deleteCustomer(customer)
-    await deleteCustomerGroup(customerGroup)
   })
 
   it('should query a shopping list', async () => {
-    const customerGroup = await createCustomerGroup()
-    const customerDraft = await createCustomerDraft(customerGroup)
-    const customer = await createCustomer(customerDraft)
-    const shoppingListDraft = await createShoppingListDraft(customer)
-    const shoppingList = await createShoppingList(shoppingListDraft)
     const queryShoppingList = await apiRoot
       .shoppingLists()
       .get({
@@ -124,21 +83,12 @@ describe('testing shopping list API calls', () => {
         },
       })
       .execute()
-    expect(queryShoppingList).not.toBe(null)
-    expect(queryShoppingList.body.results[0].id).toEqual(shoppingList.body.id)
 
-    await deleteShoppingList(shoppingList)
-    await deleteCustomer(customer)
-    await deleteCustomerGroup(customerGroup)
+    expect(queryShoppingList).toBeDefined()
+    expect(queryShoppingList.body.results[0].id).toEqual(shoppingList.body.id)
   })
 
   it('should update a shopping list by ID', async () => {
-    const customerGroup = await createCustomerGroup()
-    const customerDraft = await createCustomerDraft(customerGroup)
-    const customer = await createCustomer(customerDraft)
-    const shoppingListDraft = await createShoppingListDraft(customer)
-    const shoppingList = await createShoppingList(shoppingListDraft)
-
     const newKey = 'test-new-key-' + randomUUID()
     const updateShoppingList = await apiRoot
       .shoppingLists()
@@ -156,21 +106,14 @@ describe('testing shopping list API calls', () => {
       })
       .execute()
 
-    expect(updateShoppingList.body.version).not.toBe(shoppingList.body.version)
     expect(updateShoppingList.statusCode).toEqual(200)
-
-    await deleteShoppingList(updateShoppingList)
-    await deleteCustomer(customer)
-    await deleteCustomerGroup(customerGroup)
+    expect(updateShoppingList.body.version).not.toEqual(
+      shoppingList.body.version
+    )
+    shoppingList = updateShoppingList
   })
 
   it('should update a shopping list by key', async () => {
-    const customerGroup = await createCustomerGroup()
-    const customerDraft = await createCustomerDraft(customerGroup)
-    const customer = await createCustomer(customerDraft)
-    const shoppingListDraft = await createShoppingListDraft(customer)
-    const shoppingList = await createShoppingList(shoppingListDraft)
-
     const newKey = 'test-new-key-' + randomUUID()
     const updateShoppingList = await apiRoot
       .shoppingLists()
@@ -188,21 +131,14 @@ describe('testing shopping list API calls', () => {
       })
       .execute()
 
-    expect(updateShoppingList.body.version).not.toBe(shoppingList.body.version)
     expect(updateShoppingList.statusCode).toEqual(200)
-
-    await deleteShoppingList(updateShoppingList)
-    await deleteCustomer(customer)
-    await deleteCustomerGroup(customerGroup)
+    expect(updateShoppingList.body.version).not.toEqual(
+      shoppingList.body.version
+    )
+    shoppingList = updateShoppingList
   })
 
   it('should delete a shopping list by Key', async () => {
-    const customerGroup = await createCustomerGroup()
-    const customerDraft = await createCustomerDraft(customerGroup)
-    const customer = await createCustomer(customerDraft)
-    const shoppingListDraft = await createShoppingListDraft(customer)
-    const shoppingList = await createShoppingList(shoppingListDraft)
-
     const responseShoppingListDeleted = await apiRoot
       .shoppingLists()
       .withKey({ key: shoppingList.body.key })
@@ -214,6 +150,9 @@ describe('testing shopping list API calls', () => {
       .execute()
 
     expect(responseShoppingListDeleted.statusCode).toEqual(200)
+  })
+
+  afterAll(async () => {
     await deleteCustomer(customer)
     await deleteCustomerGroup(customerGroup)
   })

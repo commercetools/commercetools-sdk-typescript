@@ -10,15 +10,12 @@ import {
 } from '../../../src'
 import { ensureTaxCategory } from '../tax-category/tax-category-fixture'
 import { createZone, deleteZone } from '../zone/zone-fixture'
-import {
-  createShippingMethod,
-  createShippingMethodDraft,
-  deleteShippingMethod,
-} from './shipping-method-fixture'
+import { deleteShippingMethod } from './shipping-method-fixture'
 
 describe('testing shipping method API calls', () => {
-  it('should create and delete a shipping method by ID', async () => {
-    const zone = await createZone()
+  let shippingMethod, zone
+  it('should create a shipping method', async () => {
+    zone = await createZone()
     const taxCategory = await ensureTaxCategory()
     const taxCategoryResourceIdentifier: TaxCategoryResourceIdentifier = {
       typeId: 'tax-category',
@@ -50,78 +47,38 @@ describe('testing shipping method API calls', () => {
       isDefault: false,
     }
 
-    const responseCreatedShippingMethod = await apiRoot
+    shippingMethod = await apiRoot
       .shippingMethods()
       .post({ body: shippingMethodDraft })
       .execute()
 
-    expect(responseCreatedShippingMethod.statusCode).toEqual(201)
-    expect(responseCreatedShippingMethod.body).not.toBe(null)
-
-    const responseShippingMethodDeleted = await apiRoot
-      .shippingMethods()
-      .withId({ ID: responseCreatedShippingMethod.body.id })
-      .delete({
-        queryArgs: { version: responseCreatedShippingMethod.body.version },
-      })
-      .execute()
-    await deleteZone(zone)
-
-    expect(responseShippingMethodDeleted.statusCode).toEqual(200)
+    expect(shippingMethod.body).toBeDefined()
+    expect(shippingMethod.statusCode).toEqual(201)
   })
 
   it('should get a shipping method by ID', async () => {
-    const zone = await createZone()
-    const taxCategory = await ensureTaxCategory()
-    const shippingMethodDraft = await createShippingMethodDraft(
-      taxCategory,
-      zone
-    )
-    const shippingMethod = await createShippingMethod(shippingMethodDraft)
-
     const getShippingMethod = await apiRoot
       .shippingMethods()
       .withId({ ID: shippingMethod.body.id })
       .get()
       .execute()
 
-    expect(getShippingMethod).not.toBe(null)
+    expect(getShippingMethod).toBeDefined()
     expect(getShippingMethod.body.id).toEqual(shippingMethod.body.id)
-
-    await deleteShippingMethod(shippingMethod)
-    await deleteZone(zone)
   })
 
   it('should get a shipping method by key', async () => {
-    const zone = await createZone()
-    const taxCategory = await ensureTaxCategory()
-    const shippingMethodDraft = await createShippingMethodDraft(
-      taxCategory,
-      zone
-    )
-    const shippingMethod = await createShippingMethod(shippingMethodDraft)
-
     const getShippingMethod = await apiRoot
       .shippingMethods()
       .withKey({ key: shippingMethod.body.key })
       .get()
       .execute()
 
-    expect(getShippingMethod).not.toBe(null)
+    expect(getShippingMethod).toBeDefined()
     expect(getShippingMethod.body.key).toEqual(shippingMethod.body.key)
-
-    await deleteShippingMethod(shippingMethod)
-    await deleteZone(zone)
   })
 
   it('should query a shipping method', async () => {
-    const zone = await createZone()
-    const taxCategory = await ensureTaxCategory()
-    const shippingMethodDraft = await createShippingMethodDraft(
-      taxCategory,
-      zone
-    )
-    const shippingMethod = await createShippingMethod(shippingMethodDraft)
     const queryShippingMethod = await apiRoot
       .shippingMethods()
       .get({
@@ -130,24 +87,13 @@ describe('testing shipping method API calls', () => {
         },
       })
       .execute()
-    expect(queryShippingMethod).not.toBe(null)
+    expect(queryShippingMethod).toBeDefined()
     expect(queryShippingMethod.body.results[0].id).toEqual(
       shippingMethod.body.id
     )
-
-    await deleteShippingMethod(shippingMethod)
-    await deleteZone(zone)
   })
 
   it('should update a shipping method by ID', async () => {
-    const zone = await createZone()
-    const taxCategory = await ensureTaxCategory()
-    const shippingMethodDraft = await createShippingMethodDraft(
-      taxCategory,
-      zone
-    )
-    const shippingMethod = await createShippingMethod(shippingMethodDraft)
-
     const newKey = 'test-new-key-' + randomUUID()
     const updateShippingMethod = await apiRoot
       .shippingMethods()
@@ -165,24 +111,14 @@ describe('testing shipping method API calls', () => {
       })
       .execute()
 
-    expect(updateShippingMethod.body.version).not.toBe(
+    expect(updateShippingMethod.statusCode).toEqual(200)
+    expect(updateShippingMethod.body.version).not.toEqual(
       shippingMethod.body.version
     )
-    expect(updateShippingMethod.statusCode).toEqual(200)
-
-    await deleteShippingMethod(updateShippingMethod)
-    await deleteZone(zone)
+    shippingMethod = updateShippingMethod
   })
 
   it('should update a shipping method by key', async () => {
-    const zone = await createZone()
-    const taxCategory = await ensureTaxCategory()
-    const shippingMethodDraft = await createShippingMethodDraft(
-      taxCategory,
-      zone
-    )
-    const shippingMethod = await createShippingMethod(shippingMethodDraft)
-
     const newKey = 'test-new-key-' + randomUUID()
     const updateShippingMethod = await apiRoot
       .shippingMethods()
@@ -200,35 +136,16 @@ describe('testing shipping method API calls', () => {
       })
       .execute()
 
-    expect(updateShippingMethod.body.version).not.toBe(
+    expect(updateShippingMethod.statusCode).toEqual(200)
+    expect(updateShippingMethod.body.version).not.toEqual(
       shippingMethod.body.version
     )
-    expect(updateShippingMethod.statusCode).toEqual(200)
 
-    await deleteShippingMethod(updateShippingMethod)
-    await deleteZone(zone)
+    shippingMethod = updateShippingMethod
   })
 
-  it('should delete a shipping method by Key', async () => {
-    const zone = await createZone()
-    const taxCategory = await ensureTaxCategory()
-    const shippingMethodDraft = await createShippingMethodDraft(
-      taxCategory,
-      zone
-    )
-    const shippingMethod = await createShippingMethod(shippingMethodDraft)
-
-    const responseShippingMethodDeleted = await apiRoot
-      .shippingMethods()
-      .withKey({ key: shippingMethod.body.key })
-      .delete({
-        queryArgs: {
-          version: shippingMethod.body.version,
-        },
-      })
-      .execute()
-
-    expect(responseShippingMethodDeleted.statusCode).toEqual(200)
+  afterAll(async () => {
+    await deleteShippingMethod(shippingMethod)
     await deleteZone(zone)
   })
 })
