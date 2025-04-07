@@ -19,6 +19,9 @@ export class ByProjectKeyShoppingListsKeyByKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Retrieves a ShoppingList with the provided `key`.
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -43,7 +46,7 @@ export class ByProjectKeyShoppingListsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Checks if a ShoppingList exists with the provided `key`. Returns a `200 OK` status if the ShoppingList exists or a `404 Not Found` otherwise.
+   *	Checks if a ShoppingList exists with the provided `key`. Returns a `200 OK` status if the ShoppingList exists, or [Not Found](/../api/errors#404-not-found) otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -63,6 +66,9 @@ export class ByProjectKeyShoppingListsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Updates a ShoppingList in the Project using one or more [update actions](/../api/projects/shoppingLists#update-actions).
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -89,6 +95,9 @@ export class ByProjectKeyShoppingListsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deletes a ShoppingList in the Project.
+   */
   public delete(methodArgs: {
     queryArgs: {
       expand?: string | string[]

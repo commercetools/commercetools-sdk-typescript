@@ -52,6 +52,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder {
     })
   }
 
+  /**
+   *	Retrieves all ShoppingLists in a [Store](ctp:api:type:Store).
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -81,7 +84,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more ShoppingLists exist for the provided query predicate. Returns a `200 OK` status if any ShoppingLists match the query predicate, or [Not Found](/../api/errors#404-not-found) otherwise.
+   *	Checks if one or more ShoppingLists exist for the provided query predicate in a [Store](ctp:api:type:Store). Returns a `200 OK` status if any ShoppingLists match the query predicate or [Not Found](/../api/errors#404-not-found) otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {
@@ -107,6 +110,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder {
     )
   }
   /**
+   *	Creates a ShoppingList in a [Store](ctp:api:type:Store).
    *	When using this endpoint, the `store` field of a ShoppingList is always set to the [Store](ctp:api:type:Store) specified in the path parameter.
    *
    */

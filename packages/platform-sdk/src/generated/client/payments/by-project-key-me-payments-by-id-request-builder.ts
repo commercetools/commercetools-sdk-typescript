@@ -20,7 +20,7 @@ export class ByProjectKeyMePaymentsByIDRequestBuilder {
     }
   ) {}
   /**
-   *	Returns a [Payment](/projects/me-payments#mypayment) for a given `id`.
+   *	Retrieves a [Payment](/projects/me-payments#mypayment) with the provided `id` for the authenticated Customer or anonymous user.
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -46,7 +46,7 @@ export class ByProjectKeyMePaymentsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a [Payment](/projects/me-payments#mypayment) exists with the provided `id`. Returns a `200 OK` status if the Payment exists or a `404 Not Found` otherwise.
+   *	Checks if a [Payment](/projects/me-payments#mypayment) exists with the provided `id` for the authenticated Customer or anonymous user. Returns a `200 OK` status if the Payment exists, or [Not Found](/../api/errors#404-not-found) otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -67,8 +67,8 @@ export class ByProjectKeyMePaymentsByIDRequestBuilder {
     )
   }
   /**
-   *	Updates a [Payment](/projects/me-payments#mypayment) for a given `id`.
-   *	You can only update a [Payment](/projects/me-payments#mypayment) if it has no [Transactions](ctp:api:type:Transaction).
+   *	Updates a [Payment](/projects/me-payments#mypayment) for the authenticated Customer or anonymous user using one or more [update actions](/../api/projects/me-payments#update-actions).
+   *	You can only update a Payment if it has no [Transactions](ctp:api:type:Transaction).
    *
    */
   public post(methodArgs: {
@@ -98,8 +98,8 @@ export class ByProjectKeyMePaymentsByIDRequestBuilder {
     )
   }
   /**
-   *	Deletes the [Payment](/projects/me-payments#mypayment) for a given `id`.
-   *	You can only delete a [Payment](/projects/me-payments#mypayment) if it has no [Transactions](ctp:api:type:Transaction).
+   *	Deletes a [Payment](/projects/me-payments#mypayment) with the provided `id` for the authenticated Customer or anonymous user.
+   *	You can only delete a Payment if it has no [Transactions](ctp:api:type:Transaction).
    *
    */
   public delete(methodArgs: {

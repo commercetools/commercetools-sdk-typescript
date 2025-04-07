@@ -49,6 +49,9 @@ export class ByProjectKeyShoppingListsRequestBuilder {
     })
   }
 
+  /**
+   *	Retrieves all ShoppingLists in the Project.
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -103,6 +106,9 @@ export class ByProjectKeyShoppingListsRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Create a ShoppingList in the Project.
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
