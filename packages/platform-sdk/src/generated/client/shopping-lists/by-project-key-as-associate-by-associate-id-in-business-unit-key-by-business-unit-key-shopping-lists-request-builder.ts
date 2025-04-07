@@ -55,6 +55,9 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
     )
   }
 
+  /**
+   *	Retrieves all ShoppingLists in a [BusinessUnit](ctp:api:type:BusinessUnit).
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -85,7 +88,7 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
     )
   }
   /**
-   *	Checks if one or more ShoppingLists exist for the provided query predicate. Returns a `200 OK` if any ShoppingLists match the Query Predicate; otherwise, returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
+   *	Checks if one or more ShoppingLists exist for the provided query predicate in a [BusinessUnit](ctp:api:type:BusinessUnit). Returns a `200 OK` if any ShoppingLists match the query predicate; otherwise, returns [Not Found](/../api/errors#404-not-found).
    *
    */
   public head(methodArgs?: {

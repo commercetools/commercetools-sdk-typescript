@@ -21,7 +21,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyShoppingListsByIDRequestBuilder {
     }
   ) {}
   /**
-   *	If a ShoppingList exists in a Project but does _not_ have the `store` field, or the `store` field references a different [Store](ctp:api:type:Store),
+   *	Retrieves a ShoppingList with the provided `id` in a [Store](ctp:api:type:Store).
+   *	If a ShoppingList exists in a Project but does _not_ have the `store` field, or the `store` field references a different Store,
    *	the [ResourceNotFound](/errors#404-not-found-1) error is returned.
    *
    */
@@ -50,7 +51,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyShoppingListsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a ShoppingList exists with the provided `id`. Returns a `200 OK` status if the ShoppingList exists or [Not Found](/../api/errors#404-not-found) otherwise.
+   *	Checks if a ShoppingList exists with the provided `id` in a [Store](ctp:api:type:Store). Returns a `200 OK` status if the ShoppingList exists or [Not Found](/../api/errors#404-not-found) otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -72,7 +73,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyShoppingListsByIDRequestBuilder {
     )
   }
   /**
-   *	If a ShoppingList exists in a Project but does _not_ have the `store` field, or the `store` field references a different [Store](ctp:api:type:Store),
+   *	Updates a ShoppingList in a [Store](ctp:api:type:Store) using one or more [update actions](/../api/projects/shoppingLists#update-actions).
+   *	If a ShoppingList exists in a Project but does _not_ have the `store` field, or the `store` field references a different Store,
    *	the [ResourceNotFound](/errors#404-not-found-1) error is returned.
    *
    */
@@ -104,7 +106,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyShoppingListsByIDRequestBuilder {
     )
   }
   /**
-   *	If a ShoppingList exists in a Project but does _not_ have the `store` field, or the `store` field references a different [Store](ctp:api:type:Store),
+   *	Deletes a ShoppingList in a [Store](ctp:api:type:Store).
+   *	If a ShoppingList exists in a Project but does _not_ have the `store` field, or the `store` field references a different Store,
    *	the [ResourceNotFound](/errors#404-not-found-1) error is returned.
    *
    */
