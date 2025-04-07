@@ -56,7 +56,7 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
   }
 
   /**
-   *	Retrieves all ShoppingLists in a [BusinessUnit](ctp:api:type:BusinessUnit).
+   *	Retrieves ShoppingLists in a [BusinessUnit](ctp:api:type:BusinessUnit).
    */
   public get(methodArgs?: {
     queryArgs?: {

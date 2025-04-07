@@ -50,7 +50,7 @@ export class ByProjectKeyShoppingListsRequestBuilder {
   }
 
   /**
-   *	Retrieves all ShoppingLists in the Project.
+   *	Retrieves ShoppingLists in the Project.
    */
   public get(methodArgs?: {
     queryArgs?: {

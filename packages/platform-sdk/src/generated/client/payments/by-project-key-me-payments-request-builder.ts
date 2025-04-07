@@ -37,7 +37,7 @@ export class ByProjectKeyMePaymentsRequestBuilder {
   }
 
   /**
-   *	Retrieves all [Payments](/projects/me-payments#mypayment) for the authenticated Customer or anonymous user.
+   *	Retrieves [Payments](/projects/me-payments#mypayment) for the authenticated Customer or anonymous user.
    */
   public get(methodArgs?: {
     queryArgs?: {

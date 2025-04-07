@@ -35,7 +35,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeCartsRequestBuilder {
   }
 
   /**
-   *	Returns all Carts that match a given Query Predicate and contain either a matching `customerId` or `anonymousId` in a Store.
+   *	Retrieves Carts for the authenticated Customer or anonymous user in a [Store](ctp:api:type:Store).
    *
    */
   public get(methodArgs?: {

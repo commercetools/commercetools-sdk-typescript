@@ -19,7 +19,7 @@ export class ByProjectKeyShippingMethodsMatchingOrdereditRequestBuilder {
     }
   ) {}
   /**
-   *	Retrieves all the active ShippingMethods that can ship to the given [Location](ctp:api:type:Location) for an [OrderEdit](ctp:api:type:OrderEdit).
+   *	Retrieves the active ShippingMethods that can ship to the given [Location](ctp:api:type:Location) for an [OrderEdit](ctp:api:type:OrderEdit).
    *	If a matching ShippingMethod has `isDefault` set to `true`, it is returned as the first item in the array.
    *	If the OrderEdit preview cannot be generated, an [EditPreviewFailed](ctp:api:type:EditPreviewFailedError) error is returned.
    *

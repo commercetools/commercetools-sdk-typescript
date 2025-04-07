@@ -53,7 +53,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder {
   }
 
   /**
-   *	Retrieves all ShoppingLists in a [Store](ctp:api:type:Store).
+   *	Retrieves ShoppingLists in a [Store](ctp:api:type:Store).
    */
   public get(methodArgs?: {
     queryArgs?: {
