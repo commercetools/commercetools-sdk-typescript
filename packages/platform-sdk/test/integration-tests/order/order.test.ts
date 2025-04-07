@@ -22,12 +22,12 @@ import { waitForIndexing } from '../../helpers/test-utils'
 describe('testing order API calls', () => {
   let category, taxCategory, productType, productDraft, product, cart, order
   it('should create an order', async () => {
+    cart = await createCart()
     category = await createCategory()
     taxCategory = await ensureTaxCategory()
     productType = await ensureProductType()
     productDraft = createProductDraft(category, taxCategory, productType, true)
     product = await createProduct(productDraft)
-    cart = await createCart()
 
     const updatedCartWithProduct = await apiRoot
       .carts()
