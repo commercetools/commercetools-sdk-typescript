@@ -5,7 +5,6 @@ import {
   TokenCacheOptions,
   ClientBuilder,
   type ClientResponse,
-  type ClientResult,
 } from '@commercetools/ts-client'
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
 import { requireEnvVar } from '../helpers/test-utils'
