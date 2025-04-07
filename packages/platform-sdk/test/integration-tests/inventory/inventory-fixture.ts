@@ -1,21 +1,4 @@
 import { apiRoot } from '../test-utils'
-import { randomUUID } from 'crypto'
-import { ChannelResourceIdentifier, InventoryEntryDraft } from '../../../src'
-
-export const createInventoryDraft = (channel) => {
-  const channelResourceIdentifier: ChannelResourceIdentifier = {
-    typeId: 'channel',
-    id: channel.body.id,
-  }
-
-  const inventoryDraft: InventoryEntryDraft = {
-    sku: randomUUID(),
-    supplyChannel: channelResourceIdentifier,
-    quantityOnStock: 10,
-  }
-
-  return inventoryDraft
-}
 
 export const deleteInventory = async (inventory) =>
   apiRoot

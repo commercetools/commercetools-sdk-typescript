@@ -40,7 +40,7 @@ describe('testing standalone prices API calls', function () {
       .get()
       .execute()
 
-    await sleep(1000)
+    await sleep(500)
     await apiRoot
       .standalonePrices()
       .withId({ ID: _standalonePrice.body.id })
