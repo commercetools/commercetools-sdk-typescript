@@ -19,6 +19,9 @@ export class ByProjectKeyOrdersByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Retrieves an Order with the provided `id`.
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -63,6 +66,9 @@ export class ByProjectKeyOrdersByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Updates an Order in the Project using one or more [update actions](/../api/projects/orders#update-actions).
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -90,6 +96,7 @@ export class ByProjectKeyOrdersByIDRequestBuilder {
     )
   }
   /**
+   *	Deletes an Order in the Project.
    *	Deleting an Order produces the [OrderDeleted](ctp:api:type:OrderDeletedMessage) Message.
    *
    */

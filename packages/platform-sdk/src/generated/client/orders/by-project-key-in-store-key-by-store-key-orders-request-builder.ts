@@ -62,6 +62,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersRequestBuilder {
     })
   }
 
+  /**
+   *	Retrieves Orders in a [Store](ctp:api:type:Store).
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -91,7 +94,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more Orders exist for the provided query predicate. Returns a `200 OK` status if any Orders match the query predicate, or [Not Found](/../api/errors#404-not-found) otherwise.
+   *	Checks if one or more Orders exist for the provided query predicate in a [Store](ctp:api:type:Store). Returns a `200 OK` status if any Orders match the query predicate, or [Not Found](/../api/errors#404-not-found) otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {
@@ -117,6 +120,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersRequestBuilder {
     )
   }
   /**
+   *	Creates an Order from a Cart in a [Store](ctp:api:type:Store).
    *	Before you create an Order, the Cart must have a [shipping address set](ctp:api:type:CartSetShippingAddressAction).
    *	The shipping address is used for tax calculation for a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode).
    *

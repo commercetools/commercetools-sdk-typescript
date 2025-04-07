@@ -30,6 +30,9 @@ export class ByProjectKeyOrdersEditsByIDRequestBuilder {
     })
   }
 
+  /**
+   *	Retrieves an OrderEdit with the provided `id`.
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -74,6 +77,9 @@ export class ByProjectKeyOrdersEditsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Updates an OrderEdit in the Project using one or more [update actions](/../api/projects/order-edits#update-actions).
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -100,6 +106,9 @@ export class ByProjectKeyOrdersEditsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deletes an OrderEdit in the Project.
+   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

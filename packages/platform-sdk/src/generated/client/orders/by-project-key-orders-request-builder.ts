@@ -96,6 +96,9 @@ export class ByProjectKeyOrdersRequestBuilder {
     })
   }
 
+  /**
+   *	Retrieves Orders in the Project.
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -151,6 +154,7 @@ export class ByProjectKeyOrdersRequestBuilder {
     )
   }
   /**
+   *	Creates an Order from a Cart.
    *	Before you create an Order, the Cart must have a [shipping address set](ctp:api:type:CartSetShippingAddressAction).
    *	The shipping address is used for tax calculation for a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode).
    *

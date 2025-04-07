@@ -19,6 +19,9 @@ export class ByProjectKeyOrdersOrderNumberByOrderNumberRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Retrieves an Order with the provided `orderNumber`.
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -43,7 +46,7 @@ export class ByProjectKeyOrdersOrderNumberByOrderNumberRequestBuilder {
     )
   }
   /**
-   *	Checks if an Order exists for a given `orderNumber`. Returns a `200 OK` status if the Order exists or a `404 Not Found` otherwise.
+   *	Checks if an Order exists with the provided `orderNumber`. Returns a `200 OK` status if the Order exists or a `404 Not Found` otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -63,6 +66,9 @@ export class ByProjectKeyOrdersOrderNumberByOrderNumberRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Updates an Order in the Project using one or more [update actions](/../api/projects/orders#update-actions).
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -90,6 +96,7 @@ export class ByProjectKeyOrdersOrderNumberByOrderNumberRequestBuilder {
     )
   }
   /**
+   *	Deletes an Order in the Project.
    *	Deleting an Order produces the [OrderDeleted](ctp:api:type:OrderDeletedMessage) Message.
    *
    */

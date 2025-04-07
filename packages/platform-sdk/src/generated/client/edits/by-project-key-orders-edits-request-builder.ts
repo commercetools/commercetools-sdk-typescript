@@ -49,6 +49,9 @@ export class ByProjectKeyOrdersEditsRequestBuilder {
     })
   }
 
+  /**
+   *	Retrieves OrderEdits in the Project.
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -104,6 +107,7 @@ export class ByProjectKeyOrdersEditsRequestBuilder {
     )
   }
   /**
+   *	Creates an OrderEdit in the Project.
    *	You can either create multiple Order Edits for an Order and apply them sequentially to an Order, or create multiple Order Edits parallelly (as alternatives to each other) and apply one of them to the Order.
    *
    *	You can only create an Order Edit if the [InventoryMode](/projects/carts#inventorymode) of the Order and its [LineItems](/projects/carts#lineitem) is `None`.
