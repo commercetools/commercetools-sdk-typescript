@@ -44,7 +44,7 @@ export class ByProjectKeyMeCartsRequestBuilder {
   }
 
   /**
-   *	Returns all Carts that match a given Query Predicate and contain either a matching `customerId` or `anonymousId`.
+   *	Retrieves Carts for the authenticated Customer or anonymous user.
    *
    */
   public get(methodArgs?: {

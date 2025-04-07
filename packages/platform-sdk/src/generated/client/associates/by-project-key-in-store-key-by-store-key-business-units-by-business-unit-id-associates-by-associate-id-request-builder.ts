@@ -22,7 +22,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyBusinessUnitsByBusinessUnitIdAssoci
     }
   ) {}
   /**
-   *	Retrieves all roles and permissions of an Associate in a Business Unit in a Store.
+   *	Retrieves roles and permissions of an Associate in a Business Unit in a Store.
    *
    */
   public get(methodArgs?: {

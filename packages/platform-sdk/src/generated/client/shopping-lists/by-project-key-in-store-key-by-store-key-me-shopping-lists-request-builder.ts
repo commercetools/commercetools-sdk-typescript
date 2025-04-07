@@ -55,7 +55,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsRequestBuilder {
   }
 
   /**
-   *	Retrieves all ShoppingLists for the authenticated Customer or anonymous user in a [Store](ctp:api:type:Store). Returns `200 OK` status if successful.
+   *	Retrieves ShoppingLists for the authenticated Customer or anonymous user in a [Store](ctp:api:type:Store). Returns `200 OK` status if successful.
    *
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *

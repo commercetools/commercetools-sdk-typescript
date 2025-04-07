@@ -21,7 +21,7 @@ export class ByProjectKeyBusinessUnitsByBusinessUnitIdAssociatesByAssociateIdReq
     }
   ) {}
   /**
-   *	Retrieves all roles and permissions of an Associate in a Business Unit.
+   *	Retrieves roles and permissions of an Associate in a Business Unit.
    *
    */
   public get(methodArgs?: {
