@@ -1098,6 +1098,8 @@ export interface DiscountOnTotalPrice {
   readonly includedDiscounts: DiscountedTotalPricePortion[]
   /**
    *	Money value of the discount on the total net price of the Cart or Order.
+   *
+   *	The same percentage of discount applies as on the `discountedAmount`.
    *	Present only when `taxedPrice` of the Cart or Order exists.
    *
    *
@@ -1105,6 +1107,8 @@ export interface DiscountOnTotalPrice {
   readonly discountedNetAmount?: TypedMoney
   /**
    *	Money value of the discount on the total gross price of the Cart or Order.
+   *
+   *	The same percentage of discount applies as on the `discountedAmount`.
    *	Present only when `taxedPrice` of the Cart or Order exists.
    *
    *
