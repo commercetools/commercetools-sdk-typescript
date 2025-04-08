@@ -1,5 +1,5 @@
-import { Money, StandalonePrice, StandalonePriceDraft } from '../../../src'
-import { apiRoot, ClientResponse } from '../test-utils' // your initialized ProjectApiRoot
+import { StandalonePrice, StandalonePriceDraft } from '../../../src'
+import { apiRoot, ClientResponse } from '../test-utils'
 import { randomString } from '../test-utils'
 
 export class StandalonePricesFixtures {
