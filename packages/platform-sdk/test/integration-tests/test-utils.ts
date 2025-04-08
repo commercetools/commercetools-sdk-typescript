@@ -85,4 +85,14 @@ export const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
   projectKey,
 })
 
+export function randomString(length = 8) {
+  return Math.random()
+    .toString(36)
+    .substring(2, 2 + length)
+}
+
+export function randomInt(min = 0, max = 1000) {
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
 export { type ClientResponse }
