@@ -126,8 +126,9 @@ export const createProductDraft = (
   return productDraft
 }
 
-export const createProduct = async (productDraft) =>
-  apiRoot.products().post({ body: productDraft }).execute()
+export const createProduct = async (productDraft) => {
+  return await apiRoot.products().post({ body: productDraft }).execute()
+}
 
 export const fetchAndDeleteProduct = async (productId: string) => {
   const productGetResponse = await apiRoot
@@ -136,18 +137,18 @@ export const fetchAndDeleteProduct = async (productId: string) => {
     .get()
     .execute()
 
-  return deleteProduct(productGetResponse)
+  return await deleteProduct(productGetResponse)
 }
 
 export const deleteProduct = async (product) => {
-  let updateProduct: ClientResponse<Product> = product
-  if (updateProduct.body?.masterData?.published) {
+  let updateProduct: ClientResponse<Product>
+  if (product.body?.masterData?.published) {
     updateProduct = await apiRoot
       .products()
-      .withId({ ID: updateProduct.body.id })
+      .withId({ ID: product.body.id })
       .post({
         body: {
-          version: updateProduct.body.version,
+          version: product.body.version,
           actions: [
             {
               action: 'unpublish',
@@ -158,11 +159,24 @@ export const deleteProduct = async (product) => {
       .execute()
   }
 
-  await apiRoot
-    .products()
-    .withId({ ID: updateProduct.body.id })
-    .delete({
-      queryArgs: { version: updateProduct.body.version },
-    })
-    .execute()
+  const productToDelete = updateProduct ? updateProduct : product
+  const ensureDeletion = async (version: number) => {
+    return apiRoot
+      .products()
+      .withId({ ID: productToDelete.body.id })
+      .delete({
+        queryArgs: { version },
+      })
+      .execute()
+  }
+
+  try {
+    const version = productToDelete.body.version
+    await ensureDeletion(version)
+  } catch (e) {
+    if (e.statusCode == 409) {
+      const version = e.error.errors[0].currentVersion
+      await ensureDeletion(version)
+    }
+  }
 }

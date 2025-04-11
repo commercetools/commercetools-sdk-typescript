@@ -24,6 +24,9 @@ export type HttpErrorType = {
   method: MethodType
   statusCode: number
   originalRequest?: ClientRequest
+  /**
+    * @deprecated
+    */
   body?: JsonObject
   retryCount?: number
   headers?: Record<string, any>
@@ -328,7 +331,18 @@ export type Client = {
 
 export type ProcessFn = (result: ClientResult) => Promise<unknown>
 export type ProcessOptions = { accumulate?: boolean; total?: number }
-export type ErrorMiddlewareOptions = {}
+
+export type ErrorHandlerOptions = {
+  error: HttpErrorType
+  request: MiddlewareRequest
+  response: MiddlewareResponse
+  next: Next
+}
+
+export type ErrorMiddlewareOptions = {
+  handler?: (args: ErrorHandlerOptions) => Promise<MiddlewareResponse>
+}
+
 export type SuccessResult = {
   body: {
     results: Record<string | number, Record<string, any>>;
