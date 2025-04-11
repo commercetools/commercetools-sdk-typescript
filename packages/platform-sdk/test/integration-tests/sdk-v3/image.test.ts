@@ -47,7 +47,7 @@ describe('Image Upload Tests', () => {
     const ID = product.body.id
     const uploadResponse = await apiRoot
       .products()
-      .withId({ ID: product.body.id })
+      .withId({ ID })
       .images()
       .post({
         headers: {
@@ -62,15 +62,8 @@ describe('Image Upload Tests', () => {
       })
       .execute()
 
+    expect(uploadResponse.body.id).toEqual(ID)
     expect(uploadResponse.statusCode).toEqual(200)
-    expect(uploadResponse.body.id).toEqual(product.body.id)
-    product = uploadResponse
-  })
-
-  afterAll(async () => {
-    await deleteProduct(product)
-    await deleteTaxCategory(taxCategory)
-    await deleteCategory(category)
   })
 
   afterAll(async () => {
