@@ -44,11 +44,11 @@ export class StandalonePricesFixtures {
       const version = standalonePriceObject.body?.version
       await removeResource(version!)
     } catch (e) {
-      /* istanbul ignore file */
+      /* istanbul ignore next */
       if (e.statusCode == 409) {
-        /* istanbul ignore file */
+        /* istanbul ignore next */
         const version = e.error.errors[0].currentVersion
-        /* istanbul ignore file */
+        /* istanbul ignore next */
         await removeResource(version)
       }
     }
