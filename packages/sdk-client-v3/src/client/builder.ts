@@ -10,6 +10,7 @@ import {
   ConcurrentModificationMiddlewareOptions,
   CorrelationIdMiddlewareOptions,
   Credentials,
+  ErrorMiddlewareOptions,
   ExistingTokenMiddlewareOptions,
   HttpMiddlewareOptions,
   HttpUserAgentOptions,
@@ -35,6 +36,8 @@ const {
   createQueueMiddleware,
   createUserAgentMiddleware,
   createConcurrentModificationMiddleware,
+
+  createErrorMiddleware,
 } = middleware
 
 export default class ClientBuilder {
@@ -50,6 +53,7 @@ export default class ClientBuilder {
   private telemetryMiddleware: Nullable<Middleware>
   private beforeMiddleware: Nullable<Middleware>
   private afterMiddleware: Nullable<Middleware>
+  private errorMiddleware: Nullable<Middleware>
 
   private middlewares: Array<Middleware> = []
 
@@ -89,6 +93,11 @@ export default class ClientBuilder {
 
   public withMiddleware(middleware: Middleware): ClientBuilder {
     this.middlewares.push(middleware)
+    return this
+  }
+
+  public withErrorMiddleware(options?: ErrorMiddlewareOptions): ClientBuilder {
+    this.errorMiddleware = createErrorMiddleware(options)
     return this
   }
 
@@ -269,6 +278,7 @@ export default class ClientBuilder {
     if (this.correlationIdMiddleware)
       middlewares.push(this.correlationIdMiddleware)
     if (this.userAgentMiddleware) middlewares.push(this.userAgentMiddleware)
+    if (this.errorMiddleware) middlewares.push(this.errorMiddleware)
     if (this.authMiddleware) middlewares.push(this.authMiddleware)
     if (this.beforeMiddleware) middlewares.push(this.beforeMiddleware)
     if (this.queueMiddleware) middlewares.push(this.queueMiddleware)

@@ -1,4 +1,5 @@
 import { createErrorMiddleware } from '../../src/middleware'
+import { ErrorHandlerOptions, MiddlewareRequest } from '../../src'
 
 function createTestRequest(options) {
   return {
@@ -20,7 +21,7 @@ describe('Error Middleware.', () => {
   test('should properly structure an error response.', async () => {
     const request = createTestRequest({})
     const response = createTestResponse({
-      body: null,
+      code: 'invalid_request',
       error: {
         statusCode: 400,
         message: 'unknown user input.',
@@ -36,15 +37,54 @@ describe('Error Middleware.', () => {
     expect(res).toEqual(
       expect.objectContaining({
         ...response,
-        statusCode: response.error.statusCode,
-        headers: response.error.headers,
-        body: null,
-        error: {
-          ...response.error,
-          body: response.error,
-        },
       })
     )
+  })
+
+  test('should update the request object before calling `next`', async () => {
+    const request = createTestRequest({
+      method: 'GET',
+      host: 'http://app.not-found-url.com',
+    })
+
+    const response = createTestResponse({
+      code: 'NotFound',
+      message: 'uri not found',
+      statusCode: 404,
+      body: null,
+      error: {
+        statusCode: 404,
+        message: 'not_found',
+      },
+    })
+
+    const handler = (args: ErrorHandlerOptions) => {
+      if (args.error && args.error.statusCode == 404) {
+        args.request.host = 'http://app.working-url.com'
+        args.request.method = 'POST'
+      }
+
+      return args.next(args.request)
+    }
+
+    expect(request.method).toEqual('GET')
+    expect(response.statusCode).toEqual(404)
+    expect(request.host).toEqual('http://app.not-found-url.com')
+
+    const next = (req: MiddlewareRequest) => {
+      return {
+        ...req,
+        ...response,
+        originalRequest: {
+          uri: req.host,
+          method: req.method,
+        },
+      }
+    }
+
+    const res = await createErrorMiddleware({ handler })(next)(request)
+    expect(res.originalRequest.uri).toEqual('http://app.working-url.com')
+    expect(res.originalRequest.method).toEqual('POST')
   })
 
   test('should move over non error responses and call the `next` middleware.', async () => {
