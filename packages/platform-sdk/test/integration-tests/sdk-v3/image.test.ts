@@ -1,15 +1,19 @@
+import { randomUUID } from 'crypto'
 import {
-  createProduct,
-  createProductDraft,
-  deleteProduct,
-} from '../product/product-fixture'
-import { createCategory, deleteCategory } from '../category/category-fixture'
-import { ensureProductType } from '../product-type/product-type-fixture'
+  _Money,
+  Product,
+  ProductDraft,
+  ProductTypeResourceIdentifier,
+  ClientResponse,
+  ProductType,
+} from '../../../src'
 import {
-  deleteTaxCategory,
-  ensureTaxCategory,
-} from '../tax-category/tax-category-fixture'
+  deleteProductType,
+  ensureProductType,
+  productTypeDraftForProduct,
+} from '../product-type/product-type-fixture'
 import { apiRoot } from '../test-utils'
+import { deleteProduct } from '../product/product-fixture'
 
 describe('Image Upload Tests', () => {
   const getImage = async (url: string) => {
@@ -17,23 +21,33 @@ describe('Image Upload Tests', () => {
     return Buffer.from(await response.arrayBuffer())
   }
 
-  let product, category, taxCategory
+  let product: ClientResponse<Product>, productType: ClientResponse<ProductType>
+  test('create a product', async () => {
+    productType = await ensureProductType(productTypeDraftForProduct)
+
+    const productTypeResourceIdentifier: ProductTypeResourceIdentifier = {
+      typeId: 'product-type',
+      id: productType.body.id,
+    }
+
+    const productDraft: ProductDraft = {
+      key: 'radom-product-key',
+      name: { en: 'test-product-name' + randomUUID() },
+      productType: productTypeResourceIdentifier,
+      slug: { en: 'test-product-slug' + randomUUID() },
+    }
+
+    product = await apiRoot.products().post({ body: productDraft }).execute()
+
+    expect(product.body).toBeDefined()
+    expect(product.statusCode).toEqual(201)
+  })
+
   test('upload a product image', async () => {
-    category = await createCategory()
-    const productType = await ensureProductType()
-    taxCategory = await ensureTaxCategory()
-
-    const productDraft = createProductDraft(
-      category,
-      taxCategory,
-      productType,
-      true
-    )
-
-    product = await createProduct(productDraft)
+    const ID = product.body.id
     const uploadResponse = await apiRoot
       .products()
-      .withId({ ID: product.body.id })
+      .withId({ ID })
       .images()
       .post({
         headers: {
@@ -48,14 +62,12 @@ describe('Image Upload Tests', () => {
       })
       .execute()
 
+    expect(uploadResponse.body.id).toEqual(ID)
     expect(uploadResponse.statusCode).toEqual(200)
-    expect(uploadResponse.body.id).toEqual(product.body.id)
-    product = uploadResponse
   })
 
   afterAll(async () => {
     await deleteProduct(product)
-    await deleteTaxCategory(taxCategory)
-    await deleteCategory(category)
+    await deleteProductType(productType)
   })
 })

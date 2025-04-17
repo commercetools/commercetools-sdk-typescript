@@ -12,6 +12,7 @@ import {
   tokenStore,
 } from '../test-utils'
 import { createApiBuilderFromCtpClient } from '../../../src'
+import { ErrorHandlerOptions } from '@commercetools/ts-client'
 
 describe('testing error cases', () => {
   it('should throw error when a product type is not found', async () => {
@@ -110,7 +111,7 @@ describe('testing error cases', () => {
     await apiRootV3.get().execute()
   }, 999999999)
 
-  it('should retry to fetch a valid token on 401 error and save to cache - [invalid header token]', async () => {
+  it('should re(try) to fetch a valid token on 401 error and save to cache - [invalid header token]', async () => {
     const invalidToken = 'invalid-token'
 
     const _middleware = () => {
@@ -219,5 +220,100 @@ describe('testing error cases', () => {
 
     expect(tokenCache.get().expirationTime).toBeGreaterThan(-1)
     expect(tokenCache.get().token).not.toEqual('an-expired-token')
+  })
+
+  it('should move to next middleware for non error response', async () => {
+    const ctpClientV3 = new ClientBuilderV3()
+      .withClientCredentialsFlow(authMiddlewareOptionsV3)
+      .withHttpMiddleware(httpMiddlewareOptionsV3)
+      .withErrorMiddleware()
+      .build()
+
+    const apiRootV3 = createApiBuilderFromCtpClient(ctpClientV3).withProjectKey(
+      {
+        projectKey,
+      }
+    )
+
+    const response = await apiRootV3.get().execute()
+    expect(response.body.key).toEqual(projectKey)
+    expect(response.statusCode).toEqual(200)
+  })
+
+  it('should still pass on the error if handler is not a function', async () => {
+    const middleware = () => {
+      return (next: Next) => {
+        return (request: MiddlewareRequest) => {
+          // induce a 404 by rewriting the uri
+          expect(request.uri).toEqual(`/${projectKey}`)
+          request.uri = '/invalid-uri-404'
+          expect(request.uri).toEqual('/invalid-uri-404')
+          return next(request)
+        }
+      }
+    }
+
+    const ctpClientV3 = new ClientBuilderV3()
+      .withMiddleware(middleware())
+      .withClientCredentialsFlow(authMiddlewareOptionsV3)
+      .withHttpMiddleware(httpMiddlewareOptionsV3)
+      .withErrorMiddleware({ handler: 'not-a-function' as any })
+      .build()
+
+    const apiRootV3 = createApiBuilderFromCtpClient(ctpClientV3).withProjectKey(
+      {
+        projectKey,
+      }
+    )
+
+    const response = await apiRootV3
+      .get()
+      .execute()
+      .catch((err) => err)
+
+    expect(response.message).toEqual(`URI not found: /invalid-uri-404`)
+    expect(response.statusCode).toEqual(404)
+  })
+
+  it('should handle an error response, using custom handler', async () => {
+    const middleware = () => {
+      return (next: Next) => {
+        return (request: MiddlewareRequest) => {
+          // induce a 404 by rewriting the uri
+          expect(request.uri).toEqual(`/${projectKey}`)
+          request.uri = '/invalid-uri-404'
+          expect(request.uri).toEqual('/invalid-uri-404')
+          return next(request)
+        }
+      }
+    }
+
+    const handler = (args: ErrorHandlerOptions) => {
+      expect(args.response.error.message).toEqual(
+        `URI not found: /invalid-uri-404`
+      )
+      expect(args.response.statusCode).toEqual(404)
+
+      // we can correct the incorrect uri
+      args.request.uri = `/${projectKey}`
+      return args.next(args.request)
+    }
+
+    const ctpClientV3 = new ClientBuilderV3()
+      .withMiddleware(middleware())
+      .withClientCredentialsFlow(authMiddlewareOptionsV3)
+      .withHttpMiddleware(httpMiddlewareOptionsV3)
+      .withErrorMiddleware({ handler })
+      .build()
+
+    const apiRootV3 = createApiBuilderFromCtpClient(ctpClientV3).withProjectKey(
+      {
+        projectKey,
+      }
+    )
+
+    const response = await apiRootV3.get().execute()
+    expect(response.body.key).toEqual(projectKey)
+    expect(response.statusCode).toEqual(200)
   })
 })
