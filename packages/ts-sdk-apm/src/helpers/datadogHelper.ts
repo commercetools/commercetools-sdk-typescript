@@ -8,5 +8,5 @@ export const recordDatadog = (
   metric: number,
   tags?: { [tag: string]: string | number }
 ): void => {
-  datadog.dogstatsd.gauge(`Commercetools_Client_Response_Total`, metric, tags)
+  datadog.dogstatsd.gauge(`client_response_time`, metric, tags)
 }
