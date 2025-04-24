@@ -10,7 +10,8 @@ export {
     createHttpMiddleware,
     createLoggerMiddleware,
     createQueueMiddleware,
-    createUserAgentMiddleware
+    createUserAgentMiddleware,
+    createErrorMiddleware
 } from './middleware'
 export * from './types/types.d'
 
