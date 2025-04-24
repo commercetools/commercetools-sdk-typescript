@@ -23,7 +23,7 @@ export default function createTelemetryMiddleware(
      * Note: don't forget to install newrelic agent in your project `yarn add newrelic`
      */
     apm: () => {},
-    tracer: () => require('../opentelemetry'),
+    tracer: () => import('../opentelemetry.js'),
   }
 
   // trace
@@ -44,14 +44,13 @@ export default function createTelemetryMiddleware(
   trace() // expose tracing modules
   return (next: Next): Next =>
     async (request: MiddlewareRequest) => {
-      // get start (high resolution milliseconds) timestamp
-      const start = time()
-
       const nextRequest = {
         ...request,
         ...options,
       }
 
+      // start (high resolution milliseconds) timestamp
+      const start = time()
       const response: MiddlewareResponse = await next(nextRequest)
       const response_time = time() - start
 
@@ -61,7 +60,8 @@ export default function createTelemetryMiddleware(
       }
 
       if (options?.customMetrics && options.customMetrics.newrelic) {
-        const { recordNewRelic } = require('./helpers/newRelicHelper')
+        // @ts-ignore
+        const { recordNewRelic } = await import('./helpers/newRelicHelper.ts')
         recordNewRelic(response_time)
       }
 

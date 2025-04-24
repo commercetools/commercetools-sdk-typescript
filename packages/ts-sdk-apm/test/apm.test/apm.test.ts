@@ -140,7 +140,7 @@ describe('apm', () => {
       recordDatadog(200, { env: 'telemetry-service' })
 
       expect(datadog.dogstatsd.gauge).toHaveBeenCalledWith(
-        'Commercetools_Client_Response_Total',
+        'client_response_time',
         200,
         { env: 'telemetry-service' }
       )
