@@ -6,12 +6,10 @@ export {
     createAuthMiddlewareForPasswordFlow,
     createAuthMiddlewareForRefreshTokenFlow,
     createConcurrentModificationMiddleware,
-    createCorrelationIdMiddleware,
-    createHttpMiddleware,
+    createCorrelationIdMiddleware, createErrorMiddleware, createHttpMiddleware,
     createLoggerMiddleware,
     createQueueMiddleware,
-    createUserAgentMiddleware,
-    createErrorMiddleware
+    createUserAgentMiddleware
 } from './middleware'
 export * from './types/types.d'
 
