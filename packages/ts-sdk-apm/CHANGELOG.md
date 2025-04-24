@@ -1,5 +1,12 @@
 # @commercetools/ts-sdk-apm
 
+## 4.0.0
+
+### Major Changes
+
+- [#1044](https://github.com/commercetools/commercetools-sdk-typescript/pull/1044) [`29967a3`](https://github.com/commercetools/commercetools-sdk-typescript/commit/29967a3e5957bd2fc35d90ad95d8e8f2917565e4) Thanks [@ajimae](https://github.com/ajimae)! - - fix issue with missing module
+  - remove deprecated and legacy apm modules
+
 ## 3.3.2
 
 ### Patch Changes
