@@ -79,7 +79,7 @@ export interface AttributeDefinition {
    */
   readonly inputHint: TextInputHint
   /**
-   *	If `true`, the Attribute's values are available in the [Product Search](/../api/projects/product-search) or the [Product Projection Search](/../api/projects/products-search) API for use in full-text search queries, filters, and facets.
+   *	If `true`, the Attribute's values are available in the [Product Search](/../api/projects/product-search) or the [Product Projection Search](/../api/projects/product-projection-search) API for use in full-text search queries, filters, and facets.
    *
    *	Which exact features are available with this flag depends on the specific [AttributeType](ctp:api:type:AttributeType).
    *	The maximum size of a searchable field is **restricted** by the [Field content size limit](/../api/limits#field-content-size).
@@ -140,7 +140,7 @@ export interface AttributeDefinitionDraft {
    */
   readonly inputHint?: TextInputHint
   /**
-   *	Set to `true` if the Attribute's values should be available in the [Product Search](/../api/projects/product-search) or the [Product Projection Search](/../api/projects/products-search) API and can be used in full-text search queries, filters, and facets.
+   *	Set to `true` if the Attribute's values should be available in the [Product Search](/../api/projects/product-search) or the [Product Projection Search](/../api/projects/product-projection-search) API and can be used in full-text search queries, filters, and facets.
    *	Which exact features are available with this flag depends on the specific [AttributeType](ctp:api:type:AttributeType).
    *	The maximum size of a searchable field is **restricted** by the [Field content size limit](/../api/limits#field-content-size).
    *	This constraint is enforced at both Product creation and Product update.
