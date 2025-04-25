@@ -2041,7 +2041,7 @@ export interface StoreCartDiscountsLimitReachedError extends IErrorObject {
   readonly stores: StoreKeyReference[]
 }
 /**
- *	Returned when a [Discount predicate](/../api/predicates/predicate-operators), [API Extension predicate](/../api/predicates/query#use-predicates-in-conditional-api-extensions), or [search query](/../api/projects/products-search) does not have the correct syntax.
+ *	Returned when a [Discount predicate](/../api/predicates/predicate-operators), [API Extension predicate](/../api/predicates/query#use-predicates-in-conditional-api-extensions), or [search query](/../api/projects/product-projection-search) does not have the correct syntax.
  *
  */
 export interface SyntaxErrorError extends IErrorObject {
@@ -3565,7 +3565,7 @@ export interface GraphQLStoreCartDiscountsLimitReachedError
   readonly stores: StoreKeyReference[]
 }
 /**
- *	Returned when a [Discount predicate](/../api/predicates/predicate-operators), [API Extension predicate](/../api/predicates/query#use-predicates-in-conditional-api-extensions), or [search query](/../api/projects/products-search) does not have the correct syntax.
+ *	Returned when a [Discount predicate](/../api/predicates/predicate-operators), [API Extension predicate](/../api/predicates/query#use-predicates-in-conditional-api-extensions), or [search query](/../api/projects/product-projection-search) does not have the correct syntax.
  *
  */
 export interface GraphQLSyntaxErrorError extends IGraphQLErrorObject {

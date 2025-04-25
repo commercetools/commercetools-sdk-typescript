@@ -108,7 +108,7 @@ export interface FacetRange {
   /**
    *	Number of [Products](ctp:api:type:Product) for which the values in a field fall into the specified range.
    *
-   *	Present only if the `counting products` [extension](/projects/products-search#counting-products) is enabled.
+   *	Present only if the `counting products` [extension](/projects/product-projection-search#counting-products) is enabled.
    *
    *
    */
@@ -153,7 +153,7 @@ export interface FacetResults {
 }
 export interface FacetTerm {
   /**
-   *	Value for the field specified in the [term facet expression](/../api/projects/products-search#term-facet-expression) for which at least one [ProductVariant](ctp:api:type:ProductVariant) could be found.
+   *	Value for the field specified in the [term facet expression](/../api/projects/product-projection-search#term-facet-expression) for which at least one [ProductVariant](ctp:api:type:ProductVariant) could be found.
    *
    *
    */
@@ -166,7 +166,7 @@ export interface FacetTerm {
   readonly count: number
   /**
    *	Number of [Products](ctp:api:type:Product) for which the `term` applies.
-   *	Only available if the `counting products` [extension](/../api/projects/products-search#counting-products) is enabled.
+   *	Only available if the `counting products` [extension](/../api/projects/product-projection-search#counting-products) is enabled.
    *
    *
    */
@@ -182,15 +182,15 @@ export type FacetTypes = 'filter' | 'range' | 'terms' | (string & {})
 export interface FilteredFacetResult extends IFacetResult {
   readonly type: 'filter'
   /**
-   *	Number of [ProductVariants](ctp:api:type:ProductVariant) matching the value specified in [filtered facet expression](/../api/projects/products-search#filtered-facet-expression).
+   *	Number of [ProductVariants](ctp:api:type:ProductVariant) matching the value specified in [filtered facet expression](/../api/projects/product-projection-search#filtered-facet-expression).
    *
    *
    */
   readonly count: number
   /**
-   *	Number of [Products](ctp:api:type:Product) matching the value specified in [filtered facet expression](/../api/projects/products-search#filtered-facet-expression).
+   *	Number of [Products](ctp:api:type:Product) matching the value specified in [filtered facet expression](/../api/projects/product-projection-search#filtered-facet-expression).
    *
-   *	Present only if the `counting products` [extension](/projects/products-search#counting-products) is enabled.
+   *	Present only if the `counting products` [extension](/projects/product-projection-search#counting-products) is enabled.
    *
    *
    */
@@ -389,7 +389,7 @@ export interface ProductData {
    */
   readonly variants: ProductVariant[]
   /**
-   *	Used by [Product Suggestions](/projects/products-suggestions), but is also considered for a [full text search](/projects/products-search#full-text-search).
+   *	Used by [Product Suggestions](/projects/products-suggestions), but is also considered for a [full text search](/projects/product-projection-search#full-text-search).
    *
    *
    */
@@ -481,7 +481,7 @@ export interface ProductDraft {
    */
   readonly taxCategory?: TaxCategoryResourceIdentifier
   /**
-   *	Used by [Product Suggestions](/projects/products-suggestions), but is also considered for a [full text search](/projects/products-search#full-text-search).
+   *	Used by [Product Suggestions](/projects/products-suggestions), but is also considered for a [full text search](/projects/product-projection-search#full-text-search).
    *
    *
    */
@@ -736,19 +736,19 @@ export interface ProductProjectionPagedQueryResponse {
   readonly results: ProductProjection[]
 }
 /**
- *	The response returned to a [Product Projection Search](/../api/projects/products-search#product-projection-search) request.
- *	The object contains the [query results](/../api/projects/products-search#query-results) with Product Projections where at least one ProductVariant matches the search query, as well as the [facet results](/../api/projects/products-search#facet-results), if requested.
+ *	The response returned to a [Product Projection Search](/../api/projects/product-projection-search#product-projection-search) request.
+ *	The object contains the [query results](/../api/projects/product-projection-search#query-results) with Product Projections where at least one ProductVariant matches the search query, as well as the [facet results](/../api/projects/product-projection-search#facet-results), if requested.
  *
  */
 export interface ProductProjectionPagedSearchResponse {
   /**
-   *	The maximum number of results returned on a [page](/../api/projects/products-search#pagination).
+   *	The maximum number of results returned on a [page](/../api/projects/product-projection-search#pagination).
    *
    *
    */
   readonly limit: number
   /**
-   *	The starting point for the retrieved [paginated](/../api/projects/products-search#pagination) result.
+   *	The starting point for the retrieved [paginated](/../api/projects/product-projection-search#pagination) result.
    *
    *
    */
@@ -767,13 +767,13 @@ export interface ProductProjectionPagedSearchResponse {
   readonly total?: number
   /**
    *	[ProductProjections](ctp:api:type:ProductProjection) where at least one [ProductVariant](ctp:api:type:ProductVariant) matches the search query, provided with the `text.{language}` and/or `filter.query` or `filter` query parameter.
-   *	If the query parameter `markMatchingVariants=true` was provided with the request, the [matching variants](/../api/projects/products-search#matching-variants) are marked as such.
+   *	If the query parameter `markMatchingVariants=true` was provided with the request, the [matching variants](/../api/projects/product-projection-search#matching-variants) are marked as such.
    *
    *
    */
   readonly results: ProductProjection[]
   /**
-   *	Facet results for each [facet expression](/../api/projects/products-search#facets) specified in the search request.
+   *	Facet results for each [facet expression](/../api/projects/product-projection-search#facets) specified in the search request.
    *
    *	Only present if at least one `facet` parameter was provided with the search request.
    *
@@ -1125,7 +1125,7 @@ export interface SearchKeyword {
   readonly suggestTokenizer?: SuggestTokenizer
 }
 /**
- *	Search keywords are JSON objects primarily used by [Product Suggestions](/projects/products-suggestions), but are also considered for a [full text search](/projects/products-search#full-text-search).
+ *	Search keywords are JSON objects primarily used by [Product Suggestions](/projects/products-suggestions), but are also considered for a [full text search](/projects/product-projection-search#full-text-search).
  *	The keys are of type [Locale](ctp:api:type:Locale), and the values are an array of [SearchKeyword](ctp:api:type:SearchKeyword).
  *
  */
@@ -1171,13 +1171,13 @@ export interface TermFacetResult extends IFacetResult {
    */
   readonly dataType: TermFacetResultType
   /**
-   *	Number of [ProductVariants](ctp:api:type:ProductVariant) that have no value for the specified [term facet expression](/../api/projects/products-search#term-facet-expression).
+   *	Number of [ProductVariants](ctp:api:type:ProductVariant) that have no value for the specified [term facet expression](/../api/projects/product-projection-search#term-facet-expression).
    *
    *
    */
   readonly missing: number
   /**
-   *	Number of terms matching the [term facet expression](/../api/projects/products-search#term-facet-expression).
+   *	Number of terms matching the [term facet expression](/../api/projects/product-projection-search#term-facet-expression).
    *
    *	- If the expression refers to Product fields like `categories.id` and `reviewRatingStatistics.count`, the value represents the number of Products.
    *	- If the expression is defined for fields specific to Product Variants, for example, `variants.attributes.{name}`, the value represents the number of Product Variants matching the expression.
@@ -1192,11 +1192,11 @@ export interface TermFacetResult extends IFacetResult {
    */
   readonly other: number
   /**
-   *	Values for the field specified in [term facet expression](/../api/projects/products-search#term-facet-expression) for which at least one [ProductVariant](ctp:api:type:ProductVariant) could be found.
+   *	Values for the field specified in [term facet expression](/../api/projects/product-projection-search#term-facet-expression) for which at least one [ProductVariant](ctp:api:type:ProductVariant) could be found.
    *
    *	By default, facet terms are returned in a descending order of their `count`.
    *
-   *	If the term facet expression specifies to count [Products](ctp:api:type:Product) through the `counting products` [extension](/projects/products-search#counting-products), then facet terms are returned in a descending order of their `productCount`.
+   *	If the term facet expression specifies to count [Products](ctp:api:type:Product) through the `counting products` [extension](/projects/product-projection-search#counting-products), then facet terms are returned in a descending order of their `productCount`.
    *
    *
    */
@@ -2510,7 +2510,7 @@ export interface ProductTransitionStateAction extends IProductUpdateAction {
   readonly force?: boolean
 }
 /**
- *	Removes the current [projection](/../api/projects/productProjections#current--staged) of the Product. The staged projection is unaffected. To retrieve unpublished Products, the `staged` parameter must be set to `false` when [querying](ctp:api:endpoint:/{projectKey}/product-projections:GET)/[searching](/projects/products-search#product-projection-search) Product Projections. Produces the [ProductUnpublished](ctp:api:type:ProductUnpublishedMessage) Message.
+ *	Removes the current [projection](/../api/projects/productProjections#current--staged) of the Product. The staged projection is unaffected. To retrieve unpublished Products, the `staged` parameter must be set to `false` when [querying](ctp:api:endpoint:/{projectKey}/product-projections:GET)/[searching](/projects/product-projection-search#product-projection-search) Product Projections. Produces the [ProductUnpublished](ctp:api:type:ProductUnpublishedMessage) Message.
  *
  *	When a Product is unpublished, any associated Line Items already present in a Cart remain unaffected and can still be ordered. To prevent this, do the following:
  *
