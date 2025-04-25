@@ -9,7 +9,6 @@ import {
   AssociateRoleAssignmentDraft,
   BusinessUnitResourceIdentifier,
   BusinessUnitType,
-  BusinessUnitUpdateAction,
 } from './business-unit'
 import {
   CartReference,
@@ -148,7 +147,7 @@ export interface MyBusinessUnitUpdate {
    *
    *
    */
-  readonly actions: BusinessUnitUpdateAction[]
+  readonly actions: MyBusinessUnitUpdateAction[]
 }
 export type MyBusinessUnitUpdateAction =
   | MyBusinessUnitAddAddressAction
