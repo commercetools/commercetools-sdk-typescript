@@ -264,6 +264,14 @@ export interface ShoppingListLineItem {
    */
   readonly productType: ProductTypeReference
   /**
+   *	Whether the related [Product](ctp:api:type:Product) is published or not.
+   *
+   *	This data is updated in an [eventual consistent manner](/general-concepts#eventual-consistency) when the Product's published status changes.
+   *
+   *
+   */
+  readonly published: boolean
+  /**
    *	Number of Products in the ShoppingListLineItem.
    *
    *
