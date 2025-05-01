@@ -439,7 +439,7 @@ export interface ProductDraft {
    */
   readonly categories?: CategoryResourceIdentifier[]
   /**
-   *	Numerical values to allow ordering of Products within a specified Category.
+   *	Numerical values to allow ordering of Products within specified Categories. If the referenced Categories are not also assigned in the `categories` field, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */
@@ -2122,7 +2122,7 @@ export interface ProductSetCategoryOrderHintAction
   extends IProductUpdateAction {
   readonly action: 'setCategoryOrderHint'
   /**
-   *	The `id` of the Category to add the `orderHint`.
+   *	The `id` of the Category to add the `orderHint`. If this Category is not assigned to the Product, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */
