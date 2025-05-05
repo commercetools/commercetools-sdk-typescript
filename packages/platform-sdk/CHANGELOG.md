@@ -1,5 +1,23 @@
 # @commercetools/platform-sdk
 
+## 8.9.0
+
+### Minor Changes
+
+- [#1048](https://github.com/commercetools/commercetools-sdk-typescript/pull/1048) [`fef9a76`](https://github.com/commercetools/commercetools-sdk-typescript/commit/fef9a76c84ee2e8e1dc63a8aa36b4f2c3983bf06) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `published` to type `ShoppingListLineItem`
+  </details>
+
+  <details>
+  <summary>Changed Property(s)</summary>
+
+  - :warning: changed property `actions` of type `MyBusinessUnitUpdate` from type `BusinessUnitUpdateAction[]` to `MyBusinessUnitUpdateAction[]`
+  </details>
+
 ## 8.8.0
 
 ### Minor Changes
