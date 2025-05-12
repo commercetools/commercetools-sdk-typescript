@@ -278,7 +278,7 @@ export interface MyCartDraft {
    */
   readonly locale?: string
   /**
-   *	Number of days after which a Cart with `Active` [CartState](ctp:api:type:CartState) is deleted since its last modification.
+   *	Number of days after the last modification before a Cart is deleted.
    *	If not provided, the default value for this field configured in [Project settings](ctp:api:type:CartsConfiguration) is assigned.
    *
    *	Create a [ChangeSubscription](ctp:api:type:ChangeSubscription) for Carts to receive a [ResourceDeletedDeliveryPayload](ctp:api:type:ResourceDeletedDeliveryPayload) upon deletion of the Cart.
@@ -1831,7 +1831,7 @@ export interface MyCartSetCustomerEmailAction extends IMyCartUpdateAction {
   readonly email?: string
 }
 /**
- *	Number of days after which a Cart with `Active` [CartState](ctp:api:type:CartState) is deleted since its last modification.
+ *	Number of days after the last modification before a Cart is deleted.
  *
  *	If a [ChangeSubscription](ctp:api:type:ChangeSubscription) exists for Carts, a [ResourceDeletedDeliveryPayload](ctp:api:type:ResourceDeletedDeliveryPayload) is sent.
  *
