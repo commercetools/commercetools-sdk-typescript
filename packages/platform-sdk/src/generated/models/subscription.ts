@@ -600,12 +600,6 @@ export interface Subscription extends BaseResource {
    */
   readonly createdBy?: CreatedBy
   /**
-   *	Changes subscribed to.
-   *
-   *
-   */
-  readonly changes: ChangeSubscription[]
-  /**
    *	Messaging service to which the notifications are sent.
    *
    *
@@ -623,6 +617,12 @@ export interface Subscription extends BaseResource {
    *
    */
   readonly messages: MessageSubscription[]
+  /**
+   *	Changes subscribed to.
+   *
+   *
+   */
+  readonly changes: ChangeSubscription[]
   /**
    *	Events subscribed to.
    *
@@ -643,16 +643,10 @@ export interface Subscription extends BaseResource {
   readonly status: SubscriptionHealthStatus
 }
 /**
- *	Either `messages` or `changes` must be set.
+ *	Either `messages`, `changes`, or `events` must be set.
  *
  */
 export interface SubscriptionDraft {
-  /**
-   *	Changes to be subscribed to.
-   *
-   *
-   */
-  readonly changes?: ChangeSubscription[]
   /**
    *	Messaging service to which the notifications are sent.
    *
@@ -671,6 +665,12 @@ export interface SubscriptionDraft {
    *
    */
   readonly messages?: MessageSubscription[]
+  /**
+   *	Changes to be subscribed to.
+   *
+   *
+   */
+  readonly changes?: ChangeSubscription[]
   /**
    *	Events to be subscribed to.
    *
