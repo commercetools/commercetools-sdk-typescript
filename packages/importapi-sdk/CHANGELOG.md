@@ -1,5 +1,30 @@
 # @commercetools/importapi-sdk
 
+## 6.2.0
+
+### Minor Changes
+
+- [#1064](https://github.com/commercetools/commercetools-sdk-typescript/pull/1064) [`eaaad59`](https://github.com/commercetools/commercetools-sdk-typescript/commit/eaaad59b073929feed42adcfc72035fc36d66632) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `/^[a-zA-Z]{2,3}(?:-[a-zA-Z]{4})?(?:-(?:[a-zA-Z]{2}|\d{3}))?$/` to type `SearchKeywords`
+  - added property `/^[a-zA-Z]{2,3}(?:-[a-zA-Z]{4})?(?:-(?:[a-zA-Z]{2}|\d{3}))?$/` to type `LocalizedString`
+  </details>
+
+  <details>
+  <summary>Removed Property(s)</summary>
+
+  - :warning: removed property `/^[a-z]{2}(-[A-Z]{2})?$/` from type `SearchKeywords`
+  - :warning: removed property `/^[a-z]{2}(-[A-Z]{2})?$/` from type `LocalizedString`
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`3d61678`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3d61678549f5a77690b330fac0b28012acbfbfb0)]:
+  - @commercetools/ts-client@3.3.1
+
 ## 6.1.1
 
 ### Patch Changes

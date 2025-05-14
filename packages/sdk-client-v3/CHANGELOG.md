@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 3.3.1
+
+### Patch Changes
+
+- [#1066](https://github.com/commercetools/commercetools-sdk-typescript/pull/1066) [`3d61678`](https://github.com/commercetools/commercetools-sdk-typescript/commit/3d61678549f5a77690b330fac0b28012acbfbfb0) Thanks [@ajimae](https://github.com/ajimae)! - Improve typescript types definitions
+
 ## 3.3.0
 
 ### Minor Changes
