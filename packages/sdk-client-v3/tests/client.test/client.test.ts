@@ -4,10 +4,8 @@ import {
   createClient,
   MiddlewareRequest,
   MiddlewareResponse,
-  HttpErrorType,
   Process,
   Client,
-  MethodType,
   ClientBuilder,
 } from '../../src'
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
@@ -302,7 +300,7 @@ describe('process', () => {
     })
 
     return client
-      .process(request, () => Promise.resolve('OK'))
+      .process(request, () => Promise.resolve('OK' as any))
       .then((response) => {
         expect(response).toEqual(['OK', 'OK', 'OK'])
       })
@@ -360,7 +358,7 @@ describe('process', () => {
     })
 
     return client
-      .process(request, () => Promise.resolve('OK'), { total: 46 })
+      .process(request, () => Promise.resolve('OK' as any), { total: 46 })
       .then((response) => {
         expect(response).toEqual(['OK', 'OK', 'OK'])
       })
@@ -418,7 +416,7 @@ describe('process', () => {
           limit: 5,
         })}`,
       },
-      () => Promise.resolve('OK')
+      () => Promise.resolve('OK') as any
     )
   })
 
@@ -529,7 +527,7 @@ describe('process - exposed', () => {
       ],
     })
 
-    return Process(request, () => Promise.resolve('OK'), {}).then(
+    return Process(request, () => Promise.resolve('OK') as any, {}).then(
       (response) => {
         expect(response).toEqual(['OK', 'OK', 'OK'])
       }
@@ -582,11 +580,11 @@ describe('process - exposed', () => {
       ],
     })
 
-    return Process(request, () => Promise.resolve('OK'), { total: 46 }).then(
-      (response) => {
-        expect(response).toEqual(['OK', 'OK', 'OK'])
-      }
-    )
+    return Process(request, () => Promise.resolve('OK') as any, {
+      total: 46,
+    }).then((response) => {
+      expect(response).toEqual(['OK', 'OK', 'OK'])
+    })
   })
 
   test('process and resolve pagination by preserving original query', () => {
@@ -635,7 +633,7 @@ describe('process - exposed', () => {
           limit: 5,
         })}`,
       },
-      () => Promise.resolve('OK'),
+      () => Promise.resolve('OK') as any,
       {}
     )
   })
@@ -688,7 +686,7 @@ describe('process - exposed', () => {
     })
 
     let fnCall = 0
-    const processRes = await Process(
+    const processRes = await Process<{ results: [] }>(
       {
         ...request,
         uri: `${request.uri}?${stringifyURLString({
@@ -698,11 +696,11 @@ describe('process - exposed', () => {
         })}`,
       },
       (res) => {
-        expect(res.body.results).toEqual(reqStubs[fnCall].body.results)
+        expect(res.body?.results).toEqual(reqStubs[fnCall].body.results)
         expect(fnCall).toBeLessThan(2) // should not call fn if the last page is empty
 
         fnCall += 1
-        return Promise.resolve(`OK${fnCall}`)
+        return Promise.resolve(`OK${fnCall}`) as any
       },
       {
         accumulate: true,
@@ -713,7 +711,7 @@ describe('process - exposed', () => {
     expect(fnCall).toBe(2) // fn was called two times
   })
 
-  test('process and reject on rejection from user', () => {
+  test('process and reject on rejection from user', async () => {
     createClient({
       middlewares: [
         (next) =>

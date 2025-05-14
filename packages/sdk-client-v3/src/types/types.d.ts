@@ -25,9 +25,10 @@ export type HttpErrorType = {
   statusCode: number
   originalRequest?: ClientRequest
   /**
-    * @deprecated
+    * @deprecated use `error` instead
     */
   body?: JsonObject
+  error?: JsonObject
   retryCount?: number
   headers?: Record<string, any>
   [key: string]: any
@@ -83,7 +84,7 @@ export type ClientResponse<T = any> = {
   retryCount?: number
 }
 
-export type ClientResult = ClientResponse
+export type ClientResult<T extends object = any> = ClientResponse<T>
 export type ClientOptions = { middlewares: Array<Middleware> }
 
 export type Credentials = {
@@ -322,15 +323,20 @@ type TResponse = {
 
 export type Client = {
   execute(request: ClientRequest): Promise<ClientResult>
-  process: (
+  process<T extends object = any>(
     request: ClientRequest,
-    fn: ProcessFn,
+    fn: ProcessFn<T>,
     processOpt?: ProcessOptions
-  ) => Promise<unknown>
+  ): Promise<Array<T> | Array<void>>
 }
 
-export type ProcessFn = (result: ClientResult) => Promise<unknown>
-export type ProcessOptions = { accumulate?: boolean; total?: number }
+export type ProcessFn<T extends object> = (result: ClientResult<T>) => Promise<ClientResult<T>>
+export type ProcessOptions = {
+  limit?: number;
+  sort?: string;
+  accumulate?: boolean;
+  total?: number;
+}
 
 export type ErrorHandlerOptions = {
   error: HttpErrorType
@@ -343,9 +349,9 @@ export type ErrorMiddlewareOptions = {
   handler?: (args: ErrorHandlerOptions) => Promise<MiddlewareResponse>
 }
 
-export type SuccessResult = {
+export type SuccessResult<T extends Record<string | number, Record<string, any>>> = {
   body: {
-    results: Record<string | number, Record<string, any>>;
+    results: Array<T>;
     count: number;
   };
   statusCode: number;

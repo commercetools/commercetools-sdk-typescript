@@ -9,6 +9,7 @@ import {
   Client,
   ClientOptions,
   ClientRequest,
+  ClientResponse,
   ClientResult,
   Dispatch,
   Middleware,
@@ -35,11 +36,11 @@ function compose({
 
 // process batch requests
 let _options: ClientOptions
-export function process(
+export function process<T extends object = any>(
   request: ClientRequest,
-  fn: ProcessFn,
+  fn: ProcessFn<T>,
   processOpt?: ProcessOptions
-): Promise<Array<ClientRequest>> {
+): Promise<Array<T>> {
   validate('process', request, { allowedMethods: ['GET'] })
 
   if (typeof fn !== 'function')
@@ -90,8 +91,9 @@ export function process(
       }
 
       try {
-        const payload: ClientResult =
-          await createClient(_options).execute(enhancedRequest)
+        const payload: ClientResult = await createClient(_options).execute(
+          enhancedRequest
+        )
 
         const { results, count: resultsLength } = payload?.body || {}
 
