@@ -9,7 +9,6 @@ import {
   Client,
   ClientOptions,
   ClientRequest,
-  ClientResponse,
   ClientResult,
   Dispatch,
   Middleware,
@@ -91,9 +90,8 @@ export function process<T extends object = any>(
       }
 
       try {
-        const payload: ClientResult = await createClient(_options).execute(
-          enhancedRequest
-        )
+        const payload: ClientResult =
+          await createClient(_options).execute(enhancedRequest)
 
         const { results, count: resultsLength } = payload?.body || {}
 
