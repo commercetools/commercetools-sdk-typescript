@@ -48,12 +48,12 @@ export interface IImportRequest {
   readonly type: ImportResourceType
 }
 /**
- *	A list of the ID's and validation statuses of newly created [ImportOperations](#importoperation).
- *	Used as a response at each resource-specific import endpoint, for example, at [Import Categories](ctp:import:type:CategoryImport) and [Import ProductTypes](ctp:import:type:ProductTypeImport).
+ *	The response of each resource import endpoint, such as [Import Categories](ctp:import:type:CategoryImport) and [Import ProductTypes](ctp:import:type:ProductTypeImport).
  *
  */
 export interface ImportResponse {
   /**
+   *	A list of the ID's and validation statuses of new [ImportOperations](#importoperation).
    *
    */
   readonly operationStatus: ImportOperationStatus[]
