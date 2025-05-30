@@ -116,6 +116,9 @@ export type ImportOperationState =
   | 'processing'
   | 'validationFailed'
   | (string & {})
+/**
+ *	The ID and validation status of a new [ImportOperation](#importoperation).
+ */
 export interface ImportOperationStatus {
   /**
    *	The ID of the [ImportOperation](#importoperation).
