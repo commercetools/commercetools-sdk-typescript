@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/platform-sdk",
-  "version": "8.9.0",
+  "version": "8.10.0",
   "engines": {
     "node": ">=18"
   },
@@ -26,7 +26,7 @@
     "./dist/commercetools-platform-sdk.esm.js": "./dist/commercetools-platform-sdk.browser.esm.js"
   },
   "dependencies": {
-    "@commercetools/ts-client": "^3.2.1"
+    "@commercetools/ts-client": "^3.4.0"
   },
   "devDependencies": {
     "@types/uuid": "10.0.0",

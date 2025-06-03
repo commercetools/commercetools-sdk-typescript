@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 3.4.0
+
+### Minor Changes
+
+- [#1074](https://github.com/commercetools/commercetools-sdk-typescript/pull/1074) [`7aabe1f`](https://github.com/commercetools/commercetools-sdk-typescript/commit/7aabe1f5e5d74682d2e95a18db0a1bb6c3ed69ed) Thanks [@ajimae](https://github.com/ajimae)! - new sdk release
+
 ## 3.3.1
 
 ### Patch Changes
