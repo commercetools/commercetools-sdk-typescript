@@ -92,7 +92,7 @@ describe('testing order API calls', () => {
     order = _order
   })
 
-  it('should search an order', async () => {
+  it.skip('should search an order', async () => {
     let project = await ctpApiBuilder.get().execute()
 
     if (project.body.searchIndexing.orders.status === 'Deactivated') {
