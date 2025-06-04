@@ -4,6 +4,10 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { CartReference } from './cart'
+import { ErrorObject } from './error'
+import { OrderReference } from './order'
+import { PaymentReference } from './payment'
 import { EventSubscriptionResourceTypeId, EventType } from './subscription'
 
 /**
@@ -49,6 +53,15 @@ export interface BaseEvent {
  *
  */
 export type Event =
+  | CheckoutOrderCreationFailedEvent
+  | CheckoutPaymentAuthorizationCancelledEvent
+  | CheckoutPaymentAuthorizationFailedEvent
+  | CheckoutPaymentAuthorizedEvent
+  | CheckoutPaymentCancelAuthorizationFailedEvent
+  | CheckoutPaymentChargeFailedEvent
+  | CheckoutPaymentChargedEvent
+  | CheckoutPaymentRefundFailedEvent
+  | CheckoutPaymentRefundedEvent
   | ImportContainerCreatedEvent
   | ImportContainerDeletedEvent
   | ImportOperationRejectedEvent
@@ -84,6 +97,285 @@ export interface IEvent {
   readonly createdAt: string
 }
 /**
+ *	Generated when an order creation attempt fails in Checkout. This event includes information about why the order could not be created.
+ *
+ */
+export interface CheckoutOrderCreationFailedEvent extends IEvent {
+  readonly type: 'CheckoutOrderCreationFailed'
+  /**
+   *	Unique identifier of the Event.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly notificationType: string
+  /**
+   *
+   */
+  readonly resourceType: EventSubscriptionResourceTypeId
+  /**
+   *	Date and time (UTC) the Event was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	An object containing details of the order which could not be created.
+   *
+   *
+   */
+  readonly data: CheckoutMessageOrderPayloadBaseData
+}
+/**
+ *	Generated when a payment authorization is successfully cancelled in Checkout. This event indicates that the payment is cancelled before it is charged.
+ *
+ */
+export interface CheckoutPaymentAuthorizationCancelledEvent extends IEvent {
+  readonly type: 'CheckoutPaymentAuthorizationCancelled'
+  /**
+   *	Unique identifier of the Event.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly notificationType: string
+  /**
+   *
+   */
+  readonly resourceType: EventSubscriptionResourceTypeId
+  /**
+   *	Date and time (UTC) the Event was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	An object containing details of the payment authorization that was cancelled.
+   *
+   *
+   */
+  readonly data: CheckoutMessagePaymentsPayloadBaseData
+}
+/**
+ *	Generated when an attempt to authorize a payment fails in Checkout. This failure could result from insufficient funds, incorrect payment details, expired cards, or risk related rejections.
+ *
+ */
+export interface CheckoutPaymentAuthorizationFailedEvent extends IEvent {
+  readonly type: 'CheckoutPaymentAuthorizationFailed'
+  /**
+   *	Unique identifier of the Event.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly notificationType: string
+  /**
+   *
+   */
+  readonly resourceType: EventSubscriptionResourceTypeId
+  /**
+   *	Date and time (UTC) the Event was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	An object containing details of the payment authorization that failed.
+   *
+   *
+   */
+  readonly data: CheckoutMessagePaymentsPayloadBaseData
+}
+/**
+ *	Generated when a payment is successfully authorized in Checkout. This event indicates the payment has been validated and the amount has been reserved but not yet charged.
+ *
+ */
+export interface CheckoutPaymentAuthorizedEvent extends IEvent {
+  readonly type: 'CheckoutPaymentAuthorized'
+  /**
+   *	Unique identifier of the Event.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly notificationType: string
+  /**
+   *
+   */
+  readonly resourceType: EventSubscriptionResourceTypeId
+  /**
+   *	Date and time (UTC) the Event was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	An object containing details of the successful payment authorization.
+   *
+   *
+   */
+  readonly data: CheckoutMessagePaymentsPayloadBaseData
+}
+/**
+ *	Generated when an attempt to cancel a payment authorization fails in Checkout. This could happen if the authorization has already been expired, been captured already or no longer valid.
+ *
+ */
+export interface CheckoutPaymentCancelAuthorizationFailedEvent extends IEvent {
+  readonly type: 'CheckoutPaymentCancelAuthorizationFailed'
+  /**
+   *	Unique identifier of the Event.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly notificationType: string
+  /**
+   *
+   */
+  readonly resourceType: EventSubscriptionResourceTypeId
+  /**
+   *	Date and time (UTC) the Event was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	An object containing details of the payment authorization that could not be cancelled.
+   *
+   *
+   */
+  readonly data: CheckoutMessagePaymentsPayloadBaseData
+}
+/**
+ *	Generated when an attempt to charge a payment fails in Checkout. Even if a payment was previously authorized, charging it may still fail.
+ *
+ */
+export interface CheckoutPaymentChargeFailedEvent extends IEvent {
+  readonly type: 'CheckoutPaymentChargeFailed'
+  /**
+   *	Unique identifier of the Event.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly notificationType: string
+  /**
+   *
+   */
+  readonly resourceType: EventSubscriptionResourceTypeId
+  /**
+   *	Date and time (UTC) the Event was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	An object containing details of the failed payment charge.
+   *
+   *
+   */
+  readonly data: CheckoutMessagePaymentsPayloadBaseData
+}
+/**
+ *	Generated when a payment is successfully charged in Checkout. This event indicates that the authorized amount has been successfully debited from your customer's account.
+ *
+ */
+export interface CheckoutPaymentChargedEvent extends IEvent {
+  readonly type: 'CheckoutPaymentCharged'
+  /**
+   *	Unique identifier of the Event.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly notificationType: string
+  /**
+   *
+   */
+  readonly resourceType: EventSubscriptionResourceTypeId
+  /**
+   *	Date and time (UTC) the Event was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	An object containing details of the successful payment charge.
+   *
+   *
+   */
+  readonly data: CheckoutMessagePaymentsPayloadBaseData
+}
+/**
+ *	Generated when an attempt to refund a payment refund fails in Checkout. This failure indicates that the planned refund amount was not successfully sent to your customer’s account.
+ *
+ */
+export interface CheckoutPaymentRefundFailedEvent extends IEvent {
+  readonly type: 'CheckoutPaymentRefundFailed'
+  /**
+   *	Unique identifier of the Event.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly notificationType: string
+  /**
+   *
+   */
+  readonly resourceType: EventSubscriptionResourceTypeId
+  /**
+   *	Date and time (UTC) the Event was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	An object containing details of the failed payment refund attempt.
+   *
+   *
+   */
+  readonly data: CheckoutMessagePaymentsPayloadBaseData
+}
+/**
+ *	Generated when a payment is successfully refunded in Checkout. This event confirms that the refund has been processed and sent to your customer.
+ *
+ */
+export interface CheckoutPaymentRefundedEvent extends IEvent {
+  readonly type: 'CheckoutPaymentRefunded'
+  /**
+   *	Unique identifier of the Event.
+   *
+   */
+  readonly id: string
+  /**
+   *
+   */
+  readonly notificationType: string
+  /**
+   *
+   */
+  readonly resourceType: EventSubscriptionResourceTypeId
+  /**
+   *	Date and time (UTC) the Event was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	An object containing details of the successful payment refund.
+   *
+   *
+   */
+  readonly data: CheckoutMessagePaymentsPayloadBaseData
+}
+/**
  *	Generated when an [Import Container](ctp:import:type:ImportContainer) is created.
  */
 export interface ImportContainerCreatedEvent extends IEvent {
@@ -112,35 +404,6 @@ export interface ImportContainerCreatedEvent extends IEvent {
    *
    */
   readonly data: ImportContainerCreatedEventData
-}
-/**
- *	The `data` of the [Import Container Created Event](ctp:api:type:ImportContainerCreatedEvent).
- */
-export interface ImportContainerCreatedEventData {
-  /**
-   *	The `key` of the created Import Container.
-   *
-   *
-   */
-  readonly key: string
-  /**
-   *	The `version` of the created Import Container.
-   *
-   *
-   */
-  readonly version: number
-  /**
-   *	Date and time (UTC) the Import Container was created.
-   *
-   *
-   */
-  readonly createdAt: string
-  /**
-   *	Date and time (UTC) the Import Container was last updated.
-   *
-   *
-   */
-  readonly lastModifiedAt: string
 }
 /**
  *	Generated when an [Import Container](ctp:import:type:ImportContainer) is deleted.
@@ -173,23 +436,6 @@ export interface ImportContainerDeletedEvent extends IEvent {
   readonly data: ImportContainerDeletedEventData
 }
 /**
- *	The `data` of the [Import Container Deleted Event](ctp:api:type:ImportContainerDeletedEvent).
- */
-export interface ImportContainerDeletedEventData {
-  /**
-   *	The `key` of the deleted Import Container.
-   *
-   *
-   */
-  readonly key: string
-  /**
-   *	The `version` of the deleted Import Container.
-   *
-   *
-   */
-  readonly version: number
-}
-/**
  *	Generated when an [Import Operation](ctp:import:type:ImportOperation) has the `rejected` [ProcessingState](ctp:import:type:ProcessingState).
  */
 export interface ImportOperationRejectedEvent extends IEvent {
@@ -218,17 +464,6 @@ export interface ImportOperationRejectedEvent extends IEvent {
    *
    */
   readonly data: ImportOperationRejectedEventData
-}
-/**
- *	The `data` of the [Import Operation Rejected Event](ctp:api:type:ImportOperationRejectedEvent).
- */
-export interface ImportOperationRejectedEventData {
-  /**
-   *	The `id` of the Import Operation with the `rejected` state.
-   *
-   *
-   */
-  readonly id: string
 }
 /**
  *	Generated when an [Import Operation](ctp:import:type:ImportOperation) has the `unresolved` [ProcessingState](ctp:import:type:ProcessingState).
@@ -261,29 +496,6 @@ export interface ImportUnresolvedEvent extends IEvent {
   readonly data: ImportUnresolvedEventData
 }
 /**
- *	The `data` of the [Import Unresolved Event](ctp:api:type:ImportUnresolvedEvent).
- */
-export interface ImportUnresolvedEventData {
-  /**
-   *	The `id` of the Import Operation with the `unresolved` state.
-   *
-   *
-   */
-  readonly id: string
-  /**
-   *	The `version` of the Import Operation with the `unresolved` state.
-   *
-   *
-   */
-  readonly version: number
-  /**
-   *	The `key` of the Import Container.
-   *
-   *
-   */
-  readonly importContainerKey: string
-}
-/**
  *	Generated when an [Import Operation](ctp:import:type:ImportOperation) has the `validationFailed` [ProcessingState](ctp:import:type:ProcessingState).
  */
 export interface ImportValidationFailedEvent extends IEvent {
@@ -314,29 +526,6 @@ export interface ImportValidationFailedEvent extends IEvent {
   readonly data: ImportValidationFailedEventData
 }
 /**
- *	The `data` of the [Import Validation Failed Event](ctp:api:type:ImportValidationFailedEvent).
- */
-export interface ImportValidationFailedEventData {
-  /**
-   *	The `id` of the Import Operation with the `validationFailed` state.
-   *
-   *
-   */
-  readonly id: string
-  /**
-   *	The `version` of the Import Operation with the `validationFailed` state.
-   *
-   *
-   */
-  readonly version: number
-  /**
-   *	The `key` of the Import Container.
-   *
-   *
-   */
-  readonly importContainerKey: string
-}
-/**
  *	Generated when an [Import Operation](ctp:import:type:ImportOperation) has the `waitForMasterVariant` [ProcessingState](ctp:import:type:ProcessingState).
  */
 export interface ImportWaitForMasterVariantEvent extends IEvent {
@@ -365,6 +554,173 @@ export interface ImportWaitForMasterVariantEvent extends IEvent {
    *
    */
   readonly data: ImportWaitForMasterVariantEventData
+}
+/**
+ *	The `data` payload of all related order event messages.
+ */
+export interface CheckoutMessageOrderPayloadBaseData {
+  /**
+   *	`key` of the [Project](ctp:api:type:Project) where the order would belong to.
+   *
+   *
+   */
+  readonly projectKey: string
+  /**
+   *	The [Cart](ctp:api:type:Cart) on which the change or action was performed.
+   *
+   *
+   */
+  readonly cart: CartReference
+  /**
+   *	The [Payments](ctp:api:type:Payment) on which the change or action was performed.
+   *
+   *
+   */
+  readonly payments: PaymentReference[]
+  /**
+   *	Errors associated with the order event.
+   *
+   *
+   */
+  readonly errors: ErrorObject[]
+}
+/**
+ *	The `data` payload of all payment related event messages.
+ */
+export interface CheckoutMessagePaymentsPayloadBaseData {
+  /**
+   *	`key` of the [Project](ctp:api:type:Project) where the payment was made.
+   *
+   *
+   */
+  readonly projectKey: string
+  /**
+   *	The [Payment](ctp:api:type:Payment) on which the change or action was performed.
+   *
+   *
+   */
+  readonly payment: PaymentReference
+  /**
+   *	`id` of the [Transaction](/../api/projects/payments#transaction).
+   *
+   *
+   */
+  readonly transactionId: string
+  /**
+   *	The [Cart](ctp:api:type:Cart) on which the change or action was performed.
+   *
+   *
+   */
+  readonly cart?: CartReference
+  /**
+   *	The [Order](ctp:api:type:Order) on which the change or action was performed.
+   *
+   *
+   */
+  readonly order?: OrderReference
+}
+/**
+ *	The `data` of the [Import Container Created Event](ctp:api:type:ImportContainerCreatedEvent).
+ */
+export interface ImportContainerCreatedEventData {
+  /**
+   *	The `key` of the created Import Container.
+   *
+   *
+   */
+  readonly key: string
+  /**
+   *	The `version` of the created Import Container.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Import Container was created.
+   *
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Date and time (UTC) the Import Container was last updated.
+   *
+   *
+   */
+  readonly lastModifiedAt: string
+}
+/**
+ *	The `data` of the [Import Container Deleted Event](ctp:api:type:ImportContainerDeletedEvent).
+ */
+export interface ImportContainerDeletedEventData {
+  /**
+   *	The `key` of the deleted Import Container.
+   *
+   *
+   */
+  readonly key: string
+  /**
+   *	The `version` of the deleted Import Container.
+   *
+   *
+   */
+  readonly version: number
+}
+/**
+ *	The `data` of the [Import Operation Rejected Event](ctp:api:type:ImportOperationRejectedEvent).
+ */
+export interface ImportOperationRejectedEventData {
+  /**
+   *	The `id` of the Import Operation with the `rejected` state.
+   *
+   *
+   */
+  readonly id: string
+}
+/**
+ *	The `data` of the [Import Unresolved Event](ctp:api:type:ImportUnresolvedEvent).
+ */
+export interface ImportUnresolvedEventData {
+  /**
+   *	The `id` of the Import Operation with the `unresolved` state.
+   *
+   *
+   */
+  readonly id: string
+  /**
+   *	The `version` of the Import Operation with the `unresolved` state.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	The `key` of the Import Container.
+   *
+   *
+   */
+  readonly importContainerKey: string
+}
+/**
+ *	The `data` of the [Import Validation Failed Event](ctp:api:type:ImportValidationFailedEvent).
+ */
+export interface ImportValidationFailedEventData {
+  /**
+   *	The `id` of the Import Operation with the `validationFailed` state.
+   *
+   *
+   */
+  readonly id: string
+  /**
+   *	The `version` of the Import Operation with the `validationFailed` state.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	The `key` of the Import Container.
+   *
+   *
+   */
+  readonly importContainerKey: string
 }
 /**
  *	The `data` of the [Import Wait For Master Variant Event](ctp:api:type:ImportWaitForMasterVariantEvent).
