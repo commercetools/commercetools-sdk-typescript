@@ -327,7 +327,7 @@ export interface EventBridgeDestination extends IDestination {
  */
 export interface EventSubscription {
   /**
-   *	Unique identifier for the type of resource, for example, `import-api`.
+   *	Unique identifier for the type of resource.
    *
    *
    */
@@ -335,7 +335,7 @@ export interface EventSubscription {
   /**
    *	Must contain valid event types for the resource.
    *	For example, for resource type `import-api` the event type `ImportContainerCreated` is valid.
-   *	If no `types` are given, the Subscription will receive all events for this resource.
+   *	If no `types` are given, the Subscription will receive all events for the defined resource type.
    *
    *
    */
@@ -346,15 +346,28 @@ export interface EventSubscription {
  *
  */
 export enum EventSubscriptionResourceTypeIdValues {
+  Checkout = 'checkout',
   ImportApi = 'import-api',
 }
 
-export type EventSubscriptionResourceTypeId = 'import-api' | (string & {})
+export type EventSubscriptionResourceTypeId =
+  | 'checkout'
+  | 'import-api'
+  | (string & {})
 /**
  *	Type of events supported by [EventSubscriptions](ctp:api:type:EventSubscription).
  *
  */
 export enum EventTypeValues {
+  CheckoutOrderCreationFailed = 'CheckoutOrderCreationFailed',
+  CheckoutPaymentAuthorizationCancelled = 'CheckoutPaymentAuthorizationCancelled',
+  CheckoutPaymentAuthorizationFailed = 'CheckoutPaymentAuthorizationFailed',
+  CheckoutPaymentAuthorized = 'CheckoutPaymentAuthorized',
+  CheckoutPaymentCancelAuthorizationFailed = 'CheckoutPaymentCancelAuthorizationFailed',
+  CheckoutPaymentChargeFailed = 'CheckoutPaymentChargeFailed',
+  CheckoutPaymentCharged = 'CheckoutPaymentCharged',
+  CheckoutPaymentRefundFailed = 'CheckoutPaymentRefundFailed',
+  CheckoutPaymentRefunded = 'CheckoutPaymentRefunded',
   ImportContainerCreated = 'ImportContainerCreated',
   ImportContainerDeleted = 'ImportContainerDeleted',
   ImportOperationRejected = 'ImportOperationRejected',
@@ -364,6 +377,15 @@ export enum EventTypeValues {
 }
 
 export type EventType =
+  | 'CheckoutOrderCreationFailed'
+  | 'CheckoutPaymentAuthorizationCancelled'
+  | 'CheckoutPaymentAuthorizationFailed'
+  | 'CheckoutPaymentAuthorized'
+  | 'CheckoutPaymentCancelAuthorizationFailed'
+  | 'CheckoutPaymentChargeFailed'
+  | 'CheckoutPaymentCharged'
+  | 'CheckoutPaymentRefundFailed'
+  | 'CheckoutPaymentRefunded'
   | 'ImportContainerCreated'
   | 'ImportContainerDeleted'
   | 'ImportOperationRejected'
