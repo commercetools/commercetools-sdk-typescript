@@ -70,6 +70,8 @@ export type ErrorObject =
   | EnumKeyDoesNotExistError
   | EnumValueIsUsedError
   | EnumValuesMustMatchError
+  | ExpiredCustomerEmailTokenError
+  | ExpiredCustomerPasswordTokenError
   | ExtensionBadResponseError
   | ExtensionNoResponseError
   | ExtensionPredicateEvaluationFailedError
@@ -837,6 +839,44 @@ export interface AuthErrorResponse extends ErrorResponse {
    *
    */
   readonly errors: ErrorObject[]
+}
+/**
+ *	Returned when the provided email token of the Customer has expired.
+ *
+ *	The error is returned as a failed response to:
+ *
+ *	- [Get Customer by email token](ctp:api:endpoint:/{projectKey}/customers/email-token={emailToken}:GET) and [Get Customer in Store by email token](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/email-token={emailToken}:GET) requests
+ *	- [Verify email of Customer](ctp:api:endpoint:/{projectKey}/customers/email/confirm:POST) and [Verify email of Customer in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/email/confirm:POST) requests
+ *
+ */
+export interface ExpiredCustomerEmailTokenError extends IErrorObject {
+  readonly code: 'ExpiredCustomerEmailToken'
+  [key: string]: any
+  /**
+   *	`"The given email token has expired."`
+   *
+   *
+   */
+  readonly message: string
+}
+/**
+ *	Returned when the provided password token of the Customer has expired.
+ *
+ *	The error is returned as a failed response to:
+ *
+ *	- [Get Customer by password token](ctp:api:endpoint:/{projectKey}/customers/password-token={passwordToken}:GET) and [Get Customer in Store by password token](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password-token={passwordToken}:GET) requests
+ *	- [Reset password of Customer](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST) and [Reset password of Customer in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password/reset:POST) requests
+ *
+ */
+export interface ExpiredCustomerPasswordTokenError extends IErrorObject {
+  readonly code: 'ExpiredCustomerPasswordToken'
+  [key: string]: any
+  /**
+   *	`"The given password token has expired."`
+   *
+   *
+   */
+  readonly message: string
 }
 /**
  *	Returned when the response from the API Extension could not be parsed successfully (such as a `500` HTTP status code, or an invalid JSON response).
@@ -2102,6 +2142,8 @@ export type GraphQLErrorObject =
   | GraphQLEnumKeyDoesNotExistError
   | GraphQLEnumValueIsUsedError
   | GraphQLEnumValuesMustMatchError
+  | GraphQLExpiredCustomerEmailTokenError
+  | GraphQLExpiredCustomerPasswordTokenError
   | GraphQLExtensionBadResponseError
   | GraphQLExtensionNoResponseError
   | GraphQLExtensionPredicateEvaluationFailedError
@@ -2676,6 +2718,34 @@ export interface GraphQLEnumValueIsUsedError extends IGraphQLErrorObject {
  */
 export interface GraphQLEnumValuesMustMatchError extends IGraphQLErrorObject {
   readonly code: 'EnumValuesMustMatch'
+  [key: string]: any
+}
+/**
+ *	Returned when the provided email token of the Customer has expired.
+ *
+ *	The error is returned as a failed response to:
+ *
+ *	- [Get Customer by email token](ctp:api:endpoint:/{projectKey}/customers/email-token={emailToken}:GET) and [Get Customer in Store by email token](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/email-token={emailToken}:GET) requests
+ *	- [Verify email of Customer](ctp:api:endpoint:/{projectKey}/customers/email/confirm:POST) and [Verify email of Customer in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/email/confirm:POST) requests
+ *
+ */
+export interface GraphQLExpiredCustomerEmailTokenError
+  extends IGraphQLErrorObject {
+  readonly code: 'ExpiredCustomerEmailToken'
+  [key: string]: any
+}
+/**
+ *	Returned when the provided password token of the Customer has expired.
+ *
+ *	The error is returned as a failed response to:
+ *
+ *	- [Get Customer by password token](ctp:api:endpoint:/{projectKey}/customers/password-token={passwordToken}:GET) and [Get Customer in Store by password token](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password-token={passwordToken}:GET) requests
+ *	- [Reset password of Customer](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST) and [Reset password of Customer in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password/reset:POST) requests
+ *
+ */
+export interface GraphQLExpiredCustomerPasswordTokenError
+  extends IGraphQLErrorObject {
+  readonly code: 'ExpiredCustomerPasswordToken'
   [key: string]: any
 }
 /**

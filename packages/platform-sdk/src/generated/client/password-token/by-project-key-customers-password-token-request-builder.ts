@@ -24,7 +24,8 @@ export class ByProjectKeyCustomersPasswordTokenRequestBuilder {
   /**
    *	Use this method to create a password reset token for a global Customer during their [password reset process](/../api/customers-overview#customer-password-reset).
    *
-   *	Creating a password reset token does not invalidate existing tokens.
+   *	Creating a password reset token for the Customer produces the [CustomerPasswordTokenCreated](ctp:api:type:CustomerPasswordTokenCreatedMessage) Message.
+   *	The Message will include the token's value, if the token's validity is 60 minutes or less.
    *
    */
   public post(methodArgs: {

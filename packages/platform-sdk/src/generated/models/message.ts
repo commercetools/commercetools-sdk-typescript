@@ -1032,13 +1032,13 @@ export interface ApprovalRuleKeySetMessage extends IMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
+   *	`key` value of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
    *
    *
    */
   readonly key?: string
   /**
-   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
+   *	`key` value of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
    *
    *
    */
@@ -6373,7 +6373,7 @@ export interface CustomerEmailChangedMessage extends IMessage {
   readonly email: string
 }
 /**
- *	Generated after a successful [Create email token for Customer](ctp:api:endpoint:/{projectKey}/customers/email-token:POST) request. The `resource` property of the Message is a [CustomerEmailTokenReference](ctp:api:type:CustomerEmailTokenReference).
+ *	Generated after a successful [Create email token for Customer](ctp:api:endpoint:/{projectKey}/customers/email-token:POST) or [Create email token for Customer in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/email-token:POST) request. The `resource` property of the Message is a [CustomerEmailTokenReference](ctp:api:type:CustomerEmailTokenReference).
  *
  */
 export interface CustomerEmailTokenCreatedMessage extends IMessage {
@@ -6447,6 +6447,18 @@ export interface CustomerEmailTokenCreatedMessage extends IMessage {
    *
    */
   readonly expiresAt: string
+  /**
+   *	Value of the token, present only if the token's validity is 60 minutes or less.
+   *
+   *
+   */
+  readonly value?: string
+  /**
+   *	If `true`, all email tokens issued previously for the Customer are invalidated.
+   *
+   *
+   */
+  readonly invalidateOlderTokens: boolean
 }
 /**
  *	Generated after a successful [Verify Customer's Email](ctp:api:endpoint:/{projectKey}/customers/email/confirm:POST) request.
@@ -7306,7 +7318,7 @@ export interface CustomerLastNameSetMessage extends IMessage {
   readonly lastName?: string
 }
 /**
- *	Generated after a successful [Create password reset token for Customer](ctp:api:endpoint:/{projectKey}/customers/password-token:POST) request. The `resource` property of the Message is a [CustomerPasswordTokenReference](ctp:api:type:CustomerPasswordTokenReference).
+ *	Generated after a successful [Create password reset token for Customer](ctp:api:endpoint:/{projectKey}/customers/password-token:POST) or [Create password reset token for Customer in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password-token:POST) request. The `resource` property of the Message is a [CustomerPasswordTokenReference](ctp:api:type:CustomerPasswordTokenReference).
  *
  */
 export interface CustomerPasswordTokenCreatedMessage extends IMessage {
@@ -7380,6 +7392,18 @@ export interface CustomerPasswordTokenCreatedMessage extends IMessage {
    *
    */
   readonly expiresAt: string
+  /**
+   *	Value of the token, present only if the token's validity is 60 minutes or less.
+   *
+   *
+   */
+  readonly value?: string
+  /**
+   *	If `true`, all password tokens issued previously for the Customer are invalidated.
+   *
+   *
+   */
+  readonly invalidateOlderTokens: boolean
 }
 /**
  *	Generated after a successful [Reset Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST), [Reset Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password/reset:POST), [Change Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password:POST), or [Change Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password:POST) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.
@@ -20446,13 +20470,13 @@ export interface ApprovalRuleDescriptionSetMessagePayload
 export interface ApprovalRuleKeySetMessagePayload extends IMessagePayload {
   readonly type: 'ApprovalRuleKeySet'
   /**
-   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
+   *	`key` value of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
    *
    *
    */
   readonly key?: string
   /**
-   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
+   *	`key` value of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
    *
    *
    */
@@ -21673,7 +21697,7 @@ export interface CustomerEmailChangedMessagePayload extends IMessagePayload {
   readonly email: string
 }
 /**
- *	Generated after a successful [Create email token for Customer](ctp:api:endpoint:/{projectKey}/customers/email-token:POST) request. The `resource` property of the Message is a [CustomerEmailTokenReference](ctp:api:type:CustomerEmailTokenReference).
+ *	Generated after a successful [Create email token for Customer](ctp:api:endpoint:/{projectKey}/customers/email-token:POST) or [Create email token for Customer in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/email-token:POST) request. The `resource` property of the Message is a [CustomerEmailTokenReference](ctp:api:type:CustomerEmailTokenReference).
  *
  */
 export interface CustomerEmailTokenCreatedMessagePayload
@@ -21691,6 +21715,18 @@ export interface CustomerEmailTokenCreatedMessagePayload
    *
    */
   readonly expiresAt: string
+  /**
+   *	Value of the token, present only if the token's validity is 60 minutes or less.
+   *
+   *
+   */
+  readonly value?: string
+  /**
+   *	If `true`, all email tokens issued previously for the Customer are invalidated.
+   *
+   *
+   */
+  readonly invalidateOlderTokens: boolean
 }
 /**
  *	Generated after a successful [Verify Customer's Email](ctp:api:endpoint:/{projectKey}/customers/email/confirm:POST) request.
@@ -21874,7 +21910,7 @@ export interface CustomerLastNameSetMessagePayload extends IMessagePayload {
   readonly lastName?: string
 }
 /**
- *	Generated after a successful [Create password reset token for Customer](ctp:api:endpoint:/{projectKey}/customers/password-token:POST) request. The `resource` property of the Message is a [CustomerPasswordTokenReference](ctp:api:type:CustomerPasswordTokenReference).
+ *	Generated after a successful [Create password reset token for Customer](ctp:api:endpoint:/{projectKey}/customers/password-token:POST) or [Create password reset token for Customer in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password-token:POST) request. The `resource` property of the Message is a [CustomerPasswordTokenReference](ctp:api:type:CustomerPasswordTokenReference).
  *
  */
 export interface CustomerPasswordTokenCreatedMessagePayload
@@ -21892,6 +21928,18 @@ export interface CustomerPasswordTokenCreatedMessagePayload
    *
    */
   readonly expiresAt: string
+  /**
+   *	Value of the token, present only if the token's validity is 60 minutes or less.
+   *
+   *
+   */
+  readonly value?: string
+  /**
+   *	If `true`, all password tokens issued previously for the Customer are invalidated.
+   *
+   *
+   */
+  readonly invalidateOlderTokens: boolean
 }
 /**
  *	Generated after a successful [Reset Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password/reset:POST), [Reset Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password/reset:POST), [Change Customer's Password](ctp:api:endpoint:/{projectKey}/customers/password:POST), or [Change Customer's Password in a Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/customers/password:POST) request. This Message is also produced during equivalent requests to the [My Customer Profile](/../api/projects/me-profile) endpoint.

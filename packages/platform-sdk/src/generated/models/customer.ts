@@ -284,6 +284,12 @@ export interface CustomerCreateEmailToken {
    *
    */
   readonly ttlMinutes: number
+  /**
+   *	If set to `true`, all email tokens issued previously for the Customer will be invalidated.
+   *
+   *
+   */
+  readonly invalidateOlderTokens?: boolean
 }
 export interface CustomerCreatePasswordResetToken {
   /**
@@ -298,6 +304,12 @@ export interface CustomerCreatePasswordResetToken {
    *
    */
   readonly ttlMinutes?: number
+  /**
+   *	If set to `true`, all password tokens issued previously for the Customer will be invalidated.
+   *
+   *
+   */
+  readonly invalidateOlderTokens?: boolean
 }
 export interface CustomerDraft {
   /**
@@ -729,6 +741,12 @@ export interface CustomerToken {
    *
    */
   readonly expiresAt: string
+  /**
+   *	If `true`, all tokens issued previously for the Customer will be invalidated.
+   *
+   *
+   */
+  readonly invalidateOlderTokens: boolean
   /**
    *	Date and time (UTC) the token was initially created.
    *

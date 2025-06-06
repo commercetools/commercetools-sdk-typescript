@@ -26,6 +26,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyCustomersEmailConfirmRequestBuilder
    *
    *	If the Customer exists in the Project but the `stores` field references a different [Store](ctp:api:type:Store), this method returns a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error.
    *
+   *	After the email is verified, all email tokens issued previously through the [email verification flow](/../api/projects/customers#email-verification-of-customer) are invalidated. This invalidation of tokens is [eventually consistent](/../api/general-concepts#eventual-consistency).
+   *
    */
   public post(methodArgs: {
     body: CustomerEmailVerify

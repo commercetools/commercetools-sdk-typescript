@@ -23,6 +23,8 @@ export class ByProjectKeyCustomersEmailConfirmRequestBuilder {
    *
    *	Verifying the email of the Customer produces the [CustomerEmailVerified](ctp:api:type:CustomerEmailVerifiedMessage) Message.
    *
+   *	After the email is verified, all email tokens issued previously through the [email verification flow](/../api/projects/customers#email-verification-of-customer) are invalidated. This invalidation of tokens is [eventually consistent](/../api/general-concepts#eventual-consistency).
+   *
    */
   public post(methodArgs: {
     body: CustomerEmailVerify

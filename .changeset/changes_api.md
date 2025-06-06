@@ -7,6 +7,10 @@
 <details>
 <summary>Added Type(s)</summary>
 
+- added type `ExpiredCustomerEmailTokenError`
+- added type `ExpiredCustomerPasswordTokenError`
+- added type `GraphQLExpiredCustomerEmailTokenError`
+- added type `GraphQLExpiredCustomerPasswordTokenError`
 - added type `CheckoutOrderCreationFailedEvent`
 - added type `CheckoutPaymentAuthorizationCancelledEvent`
 - added type `CheckoutPaymentAuthorizationFailedEvent`
@@ -18,6 +22,22 @@
 - added type `CheckoutPaymentRefundedEvent`
 - added type `CheckoutMessageOrderPayloadBaseData`
 - added type `CheckoutMessagePaymentsPayloadBaseData`
+</details>
+
+<details>
+<summary>Added Property(s)</summary>
+
+- added property `invalidateOlderTokens` to type `CustomerCreateEmailToken`
+- added property `invalidateOlderTokens` to type `CustomerCreatePasswordResetToken`
+- added property `invalidateOlderTokens` to type `CustomerToken`
+- added property `value` to type `CustomerEmailTokenCreatedMessage`
+- added property `invalidateOlderTokens` to type `CustomerEmailTokenCreatedMessage`
+- added property `value` to type `CustomerPasswordTokenCreatedMessage`
+- added property `invalidateOlderTokens` to type `CustomerPasswordTokenCreatedMessage`
+- added property `value` to type `CustomerEmailTokenCreatedMessagePayload`
+- added property `invalidateOlderTokens` to type `CustomerEmailTokenCreatedMessagePayload`
+- added property `value` to type `CustomerPasswordTokenCreatedMessagePayload`
+- added property `invalidateOlderTokens` to type `CustomerPasswordTokenCreatedMessagePayload`
 </details>
 
 <details>

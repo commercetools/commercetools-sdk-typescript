@@ -22,6 +22,7 @@ export class ByProjectKeyCustomersEmailTokenRequestBuilder {
    *	Use this method to create an email token for a global Customer during their [email verification process](/../api/customers-overview#customer-email-verification).
    *
    *	Creating an email token for the Customer produces the [CustomerEmailTokenCreated](ctp:api:type:CustomerEmailTokenCreatedMessage) Message.
+   *	The Message will include the token's value, if the token's validity is 60 minutes or less.
    *
    */
   public post(methodArgs: {
