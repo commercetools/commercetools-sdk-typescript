@@ -1,5 +1,5 @@
 ---
-'@commercetools/sdk-client-v3': patch
+'@commercetools/ts-client': patch
 ---
 
 **Bug Fix**
