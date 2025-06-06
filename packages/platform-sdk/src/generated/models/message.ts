@@ -1032,13 +1032,13 @@ export interface ApprovalRuleKeySetMessage extends IMessage {
    */
   readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
   /**
-   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
+   *	`key` value of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
    *
    *
    */
   readonly key?: string
   /**
-   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
+   *	`key` value of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
    *
    *
    */
@@ -20470,13 +20470,13 @@ export interface ApprovalRuleDescriptionSetMessagePayload
 export interface ApprovalRuleKeySetMessagePayload extends IMessagePayload {
   readonly type: 'ApprovalRuleKeySet'
   /**
-   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
+   *	`key` value of the [ApprovalRule](ctp:api:type:ApprovalRule) after the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
    *
    *
    */
   readonly key?: string
   /**
-   *	Description of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
+   *	`key` value of the [ApprovalRule](ctp:api:type:ApprovalRule) before the [Set Key](ctp:api:type:ApprovalRuleSetKeyAction) update action.
    *
    *
    */
