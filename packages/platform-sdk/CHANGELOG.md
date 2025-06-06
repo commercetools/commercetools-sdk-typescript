@@ -1,5 +1,67 @@
 # @commercetools/platform-sdk
 
+## 8.11.0
+
+### Minor Changes
+
+- [#1077](https://github.com/commercetools/commercetools-sdk-typescript/pull/1077) [`a313308`](https://github.com/commercetools/commercetools-sdk-typescript/commit/a3133084bd43b1d74dde3c57c9af1f0a094f939c) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `ExpiredCustomerEmailTokenError`
+  - added type `ExpiredCustomerPasswordTokenError`
+  - added type `GraphQLExpiredCustomerEmailTokenError`
+  - added type `GraphQLExpiredCustomerPasswordTokenError`
+  - added type `CheckoutOrderCreationFailedEvent`
+  - added type `CheckoutPaymentAuthorizationCancelledEvent`
+  - added type `CheckoutPaymentAuthorizationFailedEvent`
+  - added type `CheckoutPaymentAuthorizedEvent`
+  - added type `CheckoutPaymentCancelAuthorizationFailedEvent`
+  - added type `CheckoutPaymentChargeFailedEvent`
+  - added type `CheckoutPaymentChargedEvent`
+  - added type `CheckoutPaymentRefundFailedEvent`
+  - added type `CheckoutPaymentRefundedEvent`
+  - added type `CheckoutMessageOrderPayloadBaseData`
+  - added type `CheckoutMessagePaymentsPayloadBaseData`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `invalidateOlderTokens` to type `CustomerCreateEmailToken`
+  - added property `invalidateOlderTokens` to type `CustomerCreatePasswordResetToken`
+  - added property `invalidateOlderTokens` to type `CustomerToken`
+  - added property `value` to type `CustomerEmailTokenCreatedMessage`
+  - added property `invalidateOlderTokens` to type `CustomerEmailTokenCreatedMessage`
+  - added property `value` to type `CustomerPasswordTokenCreatedMessage`
+  - added property `invalidateOlderTokens` to type `CustomerPasswordTokenCreatedMessage`
+  - added property `value` to type `CustomerEmailTokenCreatedMessagePayload`
+  - added property `invalidateOlderTokens` to type `CustomerEmailTokenCreatedMessagePayload`
+  - added property `value` to type `CustomerPasswordTokenCreatedMessagePayload`
+  - added property `invalidateOlderTokens` to type `CustomerPasswordTokenCreatedMessagePayload`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `checkout` to type `EventSubscriptionResourceTypeId`
+  - added enum `CheckoutOrderCreationFailed` to type `EventType`
+  - added enum `CheckoutPaymentAuthorizationCancelled` to type `EventType`
+  - added enum `CheckoutPaymentAuthorizationFailed` to type `EventType`
+  - added enum `CheckoutPaymentAuthorized` to type `EventType`
+  - added enum `CheckoutPaymentCancelAuthorizationFailed` to type `EventType`
+  - added enum `CheckoutPaymentCharged` to type `EventType`
+  - added enum `CheckoutPaymentChargeFailed` to type `EventType`
+  - added enum `CheckoutPaymentRefunded` to type `EventType`
+  - added enum `CheckoutPaymentRefundFailed` to type `EventType`
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`2a458b3`](https://github.com/commercetools/commercetools-sdk-typescript/commit/2a458b348a705f4a63befb04bd2680de45fe1c13)]:
+  - @commercetools/ts-client@3.4.1
+
 ## 8.10.0
 
 ### Minor Changes

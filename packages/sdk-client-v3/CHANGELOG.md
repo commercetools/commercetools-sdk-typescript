@@ -1,5 +1,13 @@
 # @commercetools/ts-client
 
+## 3.4.1
+
+### Patch Changes
+
+- [#1080](https://github.com/commercetools/commercetools-sdk-typescript/pull/1080) [`2a458b3`](https://github.com/commercetools/commercetools-sdk-typescript/commit/2a458b348a705f4a63befb04bd2680de45fe1c13) Thanks [@bartschriever](https://github.com/bartschriever)! - **Bug Fix**
+
+  Fixed a potential undefined error in the correlation ID middleware by adding optional chaining when checking for the custom generate function. This prevents the middleware from throwing an error when options are not provided.
+
 ## 3.4.0
 
 ### Minor Changes
