@@ -15,7 +15,7 @@ export default function createCorrelationIdMiddleware(
       headers: {
         ...request.headers,
         'X-Correlation-ID':
-          options.generate && typeof options.generate == 'function'
+          options?.generate && typeof options.generate == 'function'
             ? options.generate()
             : generate(),
       },
