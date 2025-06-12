@@ -799,7 +799,7 @@ export interface CustomLineItem {
    */
   readonly quantity: number
   /**
-   *	State of the Custom Line Item in the [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order).
+   *	Tracks specific quantities of the Custom Line Item within a given State. When a Custom Line Item is added to a Cart, its full quantity is set to the built-in "Initial" state. State transitions for Custom Line Items are managed on the [Order](ctp:api:type:Order).
    *
    *
    */
@@ -1469,7 +1469,7 @@ export interface LineItem {
    */
   readonly taxedPricePortions: MethodTaxedPrice[]
   /**
-   *	State of the Line Item in the [Cart](ctp:api:type:Cart) or the [Order](ctp:api:type:Order).
+   *	Tracks specific quantities of the Line Item within a given State. When a Line Item is added to a Cart, its full quantity is set to the built-in "Initial" state. State transitions for Line Items are managed on the [Order](ctp:api:type:Order).
    *
    *
    */
