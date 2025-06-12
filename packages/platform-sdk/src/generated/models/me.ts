@@ -986,7 +986,7 @@ export interface MyShoppingListDraft {
    */
   readonly custom?: CustomFieldsDraft
   /**
-   *	Number of days after which the ShoppingList will be automatically deleted if it has not been modified. If not set, the [default value](ctp:api:type:ShoppingListsConfiguration) configured in the [Project](ctp:api:type:Project) is used.
+   *	Number of days after the last modification before a ShoppingList is deleted. If not set, the [default value](ctp:api:type:ShoppingListsConfiguration) configured in the [Project](ctp:api:type:Project) is used.
    *
    *
    */
@@ -2779,11 +2779,15 @@ export interface MyShoppingListSetCustomTypeAction
    */
   readonly fields?: FieldContainer
 }
+/**
+ *	Number of days after the last modification before a Shopping List is deleted.
+ *
+ */
 export interface MyShoppingListSetDeleteDaysAfterLastModificationAction
   extends IMyShoppingListUpdateAction {
   readonly action: 'setDeleteDaysAfterLastModification'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If not provided, the default value for this field configured in [Project settings](ctp:api:type:ShoppingListsConfiguration) is assigned.
    *
    *
    */
