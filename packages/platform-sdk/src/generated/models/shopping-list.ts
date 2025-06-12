@@ -81,7 +81,8 @@ export interface ShoppingList extends BaseResource {
    */
   readonly textLineItems: TextLineItem[]
   /**
-   *	Number of days after which the ShoppingList will be automatically deleted if it has not been modified.
+   *	Number of days after the last modification before a ShoppingList is deleted. If not set, the [default value](ctp:api:type:ShoppingListsConfiguration) configured in the [Project](ctp:api:type:Project) is used.
+   *
    *
    */
   readonly deleteDaysAfterLastModification?: number
@@ -171,7 +172,7 @@ export interface ShoppingListDraft {
    */
   readonly anonymousId?: string
   /**
-   *	Number of days after which the ShoppingList will be automatically deleted if it has not been modified. If not set, the [default value](ctp:api:type:ShoppingListsConfiguration) configured in the [Project](ctp:api:type:Project) is used.
+   *	Number of days after the last modification before a ShoppingList is deleted. If not set, the [default value](ctp:api:type:ShoppingListsConfiguration) configured in the [Project](ctp:api:type:Project) is used.
    *
    *
    */
@@ -862,11 +863,15 @@ export interface ShoppingListSetCustomerAction
    */
   readonly customer?: CustomerResourceIdentifier
 }
+/**
+ *	Number of days after the last modification before a Shopping List is deleted.
+ *
+ */
 export interface ShoppingListSetDeleteDaysAfterLastModificationAction
   extends IShoppingListUpdateAction {
   readonly action: 'setDeleteDaysAfterLastModification'
   /**
-   *	Value to set. If empty, any existing value will be removed.
+   *	Value to set. If not provided, the default value for this field configured in [Project settings](ctp:api:type:ShoppingListsConfiguration) is assigned.
    *
    *
    */
