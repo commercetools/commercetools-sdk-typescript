@@ -3790,7 +3790,7 @@ export interface CartSetShippingMethodAction extends ICartUpdateAction {
    *	Value to set.
    *	If empty, any existing value is removed.
    *
-   *	If the referenced Shipping Method has a predicate that does not match the Cart, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *	If the referenced Shipping Method is inactive, or has a predicate that does not match the Cart, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */
