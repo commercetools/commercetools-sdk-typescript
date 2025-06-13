@@ -6,6 +6,7 @@ on:
       event:
         description: "TypeDoc deploy"
         required: true
+permissions: {}
 
 jobs:
   # Build job
