@@ -59,9 +59,7 @@ export interface Attribute {
   readonly value: any
 }
 /**
- *	JSON object where the key is a [Category](ctp:api:type:Category) `id` and the value is an order hint.
- *	Allows controlling the order of Products and how they appear in Categories. Products with no order hint have an order score below `0`. Order hints are non-unique.
- *	If a subset of Products have the same value for order hint in a specific category, the behavior is undetermined.
+ *	JSON object where the keys are [Category](ctp:api:type:Category) `id`, and the values are order hint values: strings representing a number between `0` and `1`, but not ending in `0`. Order hints allow controlling the order of Products and how they appear in Categories. Products without order hints have an order score below `0`. Order hints are not unique. If a subset of Products have the same value for order hint in a specific category, the behavior is undetermined.
  */
 export interface CategoryOrderHints {
   [key: string]: string
@@ -1052,7 +1050,7 @@ export interface ProductVariantChannelAvailability {
   readonly version: number
 }
 /**
- *	JSON object where the key is a supply [Channel](ctp:api:type:Channel) `id` and the value is the [ProductVariantChannelAvailability](ctp:api:type:ProductVariantChannelAvailability) of the [InventoryEntry](ctp:api:type:InventoryEntry).
+ *	JSON object where the keys are supply [Channel](/projects/channels) `id`, and the values are [ProductVariantChannelAvailability](/projects/products#productvariantchannelavailability).
  *
  */
 export interface ProductVariantChannelAvailabilityMap {
@@ -1125,8 +1123,7 @@ export interface SearchKeyword {
   readonly suggestTokenizer?: SuggestTokenizer
 }
 /**
- *	Search keywords are JSON objects primarily used by [Product Suggestions](/projects/products-suggestions), but are also considered for a [full text search](/projects/product-projection-search#full-text-search).
- *	The keys are of type [Locale](ctp:api:type:Locale), and the values are an array of [SearchKeyword](ctp:api:type:SearchKeyword).
+ *	Although search keywords are primarily used by [Product Suggestions](/projects/products-suggestions), they are also considered for a [full text search](/projects/products-search#full-text-search). The keys are of type [Locale](ctp:api:type:Locale), and the values are an array of [SearchKeyword](ctp:api:type:SearchKeyword).
  *
  */
 export interface SearchKeywords {
