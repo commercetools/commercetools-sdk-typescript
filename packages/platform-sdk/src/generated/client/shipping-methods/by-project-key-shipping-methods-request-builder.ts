@@ -41,7 +41,7 @@ export class ByProjectKeyShippingMethodsRequestBuilder {
     })
   }
   /**
-   *	Get ShippingMethods for a cart
+   *	Get ShippingMethods for a Cart
    */
   public matchingCart(): ByProjectKeyShippingMethodsMatchingCartRequestBuilder {
     return new ByProjectKeyShippingMethodsMatchingCartRequestBuilder({
@@ -53,7 +53,7 @@ export class ByProjectKeyShippingMethodsRequestBuilder {
     })
   }
   /**
-   *	Get ShippingMethods for a cart and location
+   *	Get ShippingMethods for a Cart and Location
    */
   public matchingCartLocation(): ByProjectKeyShippingMethodsMatchingCartLocationRequestBuilder {
     return new ByProjectKeyShippingMethodsMatchingCartLocationRequestBuilder({
@@ -65,7 +65,7 @@ export class ByProjectKeyShippingMethodsRequestBuilder {
     })
   }
   /**
-   *	Get ShippingMethods for an order edit
+   *	Get ShippingMethods for an Order Edit
    */
   public matchingOrderedit(): ByProjectKeyShippingMethodsMatchingOrdereditRequestBuilder {
     return new ByProjectKeyShippingMethodsMatchingOrdereditRequestBuilder({
@@ -77,7 +77,7 @@ export class ByProjectKeyShippingMethodsRequestBuilder {
     })
   }
   /**
-   *	Get ShippingMethods for a location
+   *	Get ShippingMethods for a Location
    */
   public matchingLocation(): ByProjectKeyShippingMethodsMatchingLocationRequestBuilder {
     return new ByProjectKeyShippingMethodsMatchingLocationRequestBuilder({
