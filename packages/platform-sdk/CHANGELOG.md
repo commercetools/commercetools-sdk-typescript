@@ -1,5 +1,31 @@
 # @commercetools/platform-sdk
 
+## 8.12.0
+
+### Minor Changes
+
+- [#1101](https://github.com/commercetools/commercetools-sdk-typescript/pull/1101) [`5befd14`](https://github.com/commercetools/commercetools-sdk-typescript/commit/5befd141cb61cf4a75253037d304934d730111fe) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Removed Property(s)</summary>
+
+  - :warning: removed property `/[0-9].[0-9]*[1-9]/` from type `CategoryOrderHints`
+  - :warning: removed property `//` from type `ProductVariantChannelAvailabilityMap`
+  </details>
+
+  <details>
+  <summary>Changed Property(s)</summary>
+
+  - :warning: changed property `filter` of type `SearchSorting` from type `SearchQueryExpression` to `SearchQuery`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/` to type `CategoryOrderHints`
+  - added property `/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/` to type `ProductVariantChannelAvailabilityMap`
+  </details>
+
 ## 8.11.0
 
 ### Minor Changes
