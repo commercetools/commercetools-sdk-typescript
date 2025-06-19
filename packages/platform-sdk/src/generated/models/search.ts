@@ -413,7 +413,7 @@ export interface SearchSorting {
    *
    *
    */
-  readonly filter?: _SearchQueryExpression
+  readonly filter?: _SearchQuery
 }
 export interface SearchTimeRangeExpression extends SearchQueryExpression {
   /**
