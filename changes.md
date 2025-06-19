@@ -8,6 +8,12 @@
 </details>
 
 <details>
+<summary>Changed Property(s)</summary>
+
+- :warning: changed property `filter` of type `SearchSorting` from type `SearchQueryExpression` to `SearchQuery`
+</details>
+
+<details>
 <summary>Added Property(s)</summary>
 
 - added property `/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/` to type `CategoryOrderHints`
