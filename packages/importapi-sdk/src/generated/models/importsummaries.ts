@@ -5,13 +5,13 @@
  */
 
 /**
- *	Describes the status of an [ImportContainer](ctp:import:type:ImportContainer) by the number of resources in each [Processing State](ctp:import:type:ProcessingState).
+ *	Describes the status of an [ImportContainer](ctp:import:type:ImportContainer) by the number of resources in each [ProcessingState](ctp:import:type:ProcessingState).
  *	Can be used to monitor the import progress per [Import Container](ctp:import:type:ImportContainer).
  *
  */
 export interface ImportSummary {
   /**
-   *	The import status of an [ImportContainer](ctp:import:type:ImportContainer) given by the number of resources in each [Processing State](ctp:import:type:ProcessingState).
+   *	The import status of an [ImportContainer](ctp:import:type:ImportContainer) given by the number of resources in each [ProcessingState](ctp:import:type:ProcessingState).
    *
    *
    */
@@ -23,7 +23,7 @@ export interface ImportSummary {
   readonly total: number
 }
 /**
- *	The number of resources in each [Processing State](ctp:import:type:ProcessingState).
+ *	The number of resources in each [ProcessingState](ctp:import:type:ProcessingState).
  */
 export interface OperationStates {
   /**
