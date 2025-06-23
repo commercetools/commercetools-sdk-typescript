@@ -18,6 +18,10 @@ import {
   TypedMoney,
   TypedMoneyDraft,
 } from './common'
+import {
+  DiscountGroupReference,
+  DiscountGroupResourceIdentifier,
+} from './discount-group'
 import { ProductReference, ProductResourceIdentifier } from './product'
 import { StoreKeyReference, StoreResourceIdentifier } from './store'
 import {
@@ -102,10 +106,11 @@ export interface CartDiscount extends BaseResource {
    */
   readonly target?: CartDiscountTarget
   /**
-   *	Value between `0` and `1`.
-   *	All matching CartDiscounts are applied to a Cart in the order defined by this field.
-   *	A Discount with a higher sortOrder is prioritized.
-   *	The sort order is unambiguous among all CartDiscounts.
+   *	Value between `0` and `1` that determines the order in which the CartDiscounts are applied; a CartDiscount with a higher value is prioritized.
+   *
+   *	It is unique among all CartDiscounts and DiscountGroups.
+   *
+   *	If the CartDiscount is part of a DiscountGroup, it uses the sort order of the DiscountGroup.
    *
    *
    */
@@ -160,6 +165,12 @@ export interface CartDiscount extends BaseResource {
    *
    */
   readonly custom?: CustomFields
+  /**
+   *	Reference to a DiscountGroup that the CartDiscount belongs to.
+   *
+   *
+   */
+  readonly discountGroup?: DiscountGroupReference
 }
 export interface CartDiscountDraft {
   /**
@@ -201,13 +212,15 @@ export interface CartDiscountDraft {
    */
   readonly target?: CartDiscountTarget
   /**
-   *	Value between `0` and `1`.
-   *	A Discount with a higher sortOrder is prioritized.
-   *	The sort order must be unambiguous among all CartDiscounts.
+   *	Value between `0` and `1` that determines the order in which the CartDiscounts will be applied; a CartDiscount with a higher value will be prioritized.
+   *
+   *	It must be unique among all CartDiscounts and DiscountGroups.
+   *
+   *	If the CartDiscount is part of a DiscountGroup, it will use the sort order of the DiscountGroup.
    *
    *
    */
-  readonly sortOrder: string
+  readonly sortOrder?: string
   /**
    *	- If defined, the Cart Discount applies on [Carts](ctp:api:type:Cart) having a [Store](ctp:api:type:Store) matching any Store defined for this field.
    *	- If not defined, the Cart Discount applies on all Carts, irrespective of a Store.
@@ -256,6 +269,12 @@ export interface CartDiscountDraft {
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	Reference to a DiscountGroup that the CartDiscount must belong to.
+   *
+   *
+   */
+  readonly discountGroup?: DiscountGroupResourceIdentifier
 }
 /**
  *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [CartDiscount](ctp:api:type:CartDiscount).
@@ -463,6 +482,7 @@ export type CartDiscountUpdateAction =
   | CartDiscountSetCustomFieldAction
   | CartDiscountSetCustomTypeAction
   | CartDiscountSetDescriptionAction
+  | CartDiscountSetDiscountGroupAction
   | CartDiscountSetKeyAction
   | CartDiscountSetStoresAction
   | CartDiscountSetValidFromAction
@@ -1033,6 +1053,25 @@ export interface CartDiscountSetDescriptionAction
    *
    */
   readonly description?: LocalizedString
+}
+export interface CartDiscountSetDiscountGroupAction
+  extends ICartDiscountUpdateAction {
+  readonly action: 'setDiscountGroup'
+  /**
+   *	Reference to a DiscountGroup that the Cart Discount must belong to.
+   *	If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly discountGroup?: DiscountGroupResourceIdentifier
+  /**
+   *	New value to set (between `0` and `1`) that determines the order in which the CartDiscounts are applied; a CartDiscount with a higher value is prioritized.
+   *
+   *	Required if `discountGroup` is absent. If `discountGroup` is set, the CartDiscount will use the sort order of the DiscountGroup.
+   *
+   *
+   */
+  readonly sortOrder?: string
 }
 export interface CartDiscountSetKeyAction extends ICartDiscountUpdateAction {
   readonly action: 'setKey'

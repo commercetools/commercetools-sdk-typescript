@@ -19,6 +19,7 @@ import { ByProjectKeyCustomObjectsRequestBuilder } from './custom-objects/by-pro
 import { ByProjectKeyCustomerGroupsRequestBuilder } from './customer-groups/by-project-key-customer-groups-request-builder'
 import { ByProjectKeyCustomersRequestBuilder } from './customers/by-project-key-customers-request-builder'
 import { ByProjectKeyDiscountCodesRequestBuilder } from './discount-codes/by-project-key-discount-codes-request-builder'
+import { ByProjectKeyDiscountGroupsRequestBuilder } from './discount-groups/by-project-key-discount-groups-request-builder'
 import { ByProjectKeyExtensionsRequestBuilder } from './extensions/by-project-key-extensions-request-builder'
 import { ByProjectKeyGraphqlRequestBuilder } from './graphql/by-project-key-graphql-request-builder'
 import { ByProjectKeyInBusinessUnitKeyByBusinessUnitKeyRequestBuilder } from './in-business-unit/by-project-key-in-business-unit-key-by-business-unit-key-request-builder'
@@ -184,6 +185,18 @@ export class ByProjectKeyRequestBuilder {
    */
   public discountCodes(): ByProjectKeyDiscountCodesRequestBuilder {
     return new ByProjectKeyDiscountCodesRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	Discount groups are used to group the discounts that are applied to a cart or an order.
+   */
+  public discountGroups(): ByProjectKeyDiscountGroupsRequestBuilder {
+    return new ByProjectKeyDiscountGroupsRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },

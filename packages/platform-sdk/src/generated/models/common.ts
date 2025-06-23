@@ -58,6 +58,11 @@ import {
   DiscountCodeReference,
   DiscountCodeResourceIdentifier,
 } from './discount-code'
+import {
+  DiscountGroup,
+  DiscountGroupReference,
+  DiscountGroupResourceIdentifier,
+} from './discount-group'
 import { Extension } from './extension'
 import {
   InventoryEntry,
@@ -578,6 +583,7 @@ export type _BaseResource =
   | Customer
   | CustomerGroup
   | DiscountCode
+  | DiscountGroup
   | Extension
   | InventoryEntry
   | Message
@@ -1150,6 +1156,7 @@ export type Reference =
   | CustomerReference
   | DirectDiscountReference
   | DiscountCodeReference
+  | DiscountGroupReference
   | InventoryEntryReference
   | OrderEditReference
   | OrderReference
@@ -1205,6 +1212,7 @@ export enum ReferenceTypeIdValues {
   CustomerPasswordToken = 'customer-password-token',
   DirectDiscount = 'direct-discount',
   DiscountCode = 'discount-code',
+  DiscountGroup = 'discount-group',
   Extension = 'extension',
   InventoryEntry = 'inventory-entry',
   KeyValueDocument = 'key-value-document',
@@ -1248,6 +1256,7 @@ export type ReferenceTypeId =
   | 'customer-password-token'
   | 'direct-discount'
   | 'discount-code'
+  | 'discount-group'
   | 'extension'
   | 'inventory-entry'
   | 'key-value-document'
@@ -1291,6 +1300,7 @@ export type ResourceIdentifier =
   | CustomerGroupResourceIdentifier
   | CustomerResourceIdentifier
   | DiscountCodeResourceIdentifier
+  | DiscountGroupResourceIdentifier
   | InventoryEntryResourceIdentifier
   | OrderEditResourceIdentifier
   | PaymentResourceIdentifier
