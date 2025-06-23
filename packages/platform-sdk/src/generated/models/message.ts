@@ -57,6 +57,7 @@ import {
 } from './customer'
 import { CustomerGroupReference } from './customer-group'
 import { DiscountCode, DiscountCodeReference } from './discount-code'
+import { DiscountGroup } from './discount-group'
 import { InventoryEntry } from './inventory'
 import {
   Delivery,
@@ -234,6 +235,10 @@ export type Message =
   | DiscountCodeCreatedMessage
   | DiscountCodeDeletedMessage
   | DiscountCodeKeySetMessage
+  | DiscountGroupCreatedMessage
+  | DiscountGroupDeletedMessage
+  | DiscountGroupKeySetMessage
+  | DiscountGroupSortOrderSetMessage
   | InventoryEntryCreatedMessage
   | InventoryEntryDeletedMessage
   | InventoryEntryQuantitySetMessage
@@ -7754,6 +7759,292 @@ export interface DiscountCodeKeySetMessage extends IMessage {
    *
    */
   readonly oldKey?: string
+}
+/**
+ *	Generated after a successful [Create DiscountGroup](ctp:api:endpoint:/{projectKey}/discount-groups:POST) request.
+ *
+ */
+export interface DiscountGroupCreatedMessage extends IMessage {
+  readonly type: 'DiscountGroupCreated'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The DiscountGroup that was created.
+   *
+   *
+   */
+  readonly discountGroup: DiscountGroup
+}
+/**
+ *	Generated after a successful [Delete DiscountGroup](ctp:api:endpoint:/{projectKey}/discount-groups/{id}:DELETE) request.
+ *
+ */
+export interface DiscountGroupDeletedMessage extends IMessage {
+  readonly type: 'DiscountGroupDeleted'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+}
+/**
+ *	Generated after a successful [Set Key](ctp:api:type:DiscountGroupSetKeyAction) update action.
+ *
+ */
+export interface DiscountGroupKeySetMessage extends IMessage {
+  readonly type: 'DiscountGroupKeySet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	`key` value of the [DiscountGroup](ctp:api:type:DiscountGroup) after the [Set Key](ctp:api:type:DiscountGroupSetKeyAction) update action.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	`key` value of the [DiscountGroup](ctp:api:type:DiscountGroup) before the [Set Key](ctp:api:type:DiscountGroupSetKeyAction) update action.
+   *
+   *
+   */
+  readonly oldKey?: string
+}
+/**
+ *	Generated after a successful [Set SortOrder](ctp:api:type:DiscountGroupSetSortOrderAction) update action.
+ *
+ */
+export interface DiscountGroupSortOrderSetMessage extends IMessage {
+  readonly type: 'DiscountGroupSortOrderSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	`sortOrder` value of the [DiscountGroup](ctp:api:type:DiscountGroup) after the [Set SortOrder](ctp:api:type:DiscountGroupSetSortOrderAction) update action.
+   *
+   *
+   */
+  readonly sortOrder?: string
+  /**
+   *	`sortOrder` value of the [DiscountGroup](ctp:api:type:DiscountGroup) before the [Set SortOrder](ctp:api:type:DiscountGroupSetSortOrderAction) update action.
+   *
+   *
+   */
+  readonly oldSortOrder?: string
 }
 /**
  *	Generated after a successful [Create InventoryEntry](ctp:api:endpoint:/{projectKey}/inventory:POST) request.
@@ -20184,6 +20475,10 @@ export type MessagePayload =
   | DiscountCodeCreatedMessagePayload
   | DiscountCodeDeletedMessagePayload
   | DiscountCodeKeySetMessagePayload
+  | DiscountGroupCreatedMessagePayload
+  | DiscountGroupDeletedMessagePayload
+  | DiscountGroupKeySetMessagePayload
+  | DiscountGroupSortOrderSetMessagePayload
   | InventoryEntryCreatedMessagePayload
   | InventoryEntryDeletedMessagePayload
   | InventoryEntryQuantitySetMessagePayload
@@ -22005,6 +22300,65 @@ export interface DiscountCodeKeySetMessagePayload extends IMessagePayload {
    *
    */
   readonly oldKey?: string
+}
+/**
+ *	Generated after a successful [Create DiscountGroup](ctp:api:endpoint:/{projectKey}/discount-groups:POST) request.
+ *
+ */
+export interface DiscountGroupCreatedMessagePayload extends IMessagePayload {
+  readonly type: 'DiscountGroupCreated'
+  /**
+   *	The DiscountGroup that was created.
+   *
+   *
+   */
+  readonly discountGroup: DiscountGroup
+}
+/**
+ *	Generated after a successful [Delete DiscountGroup](ctp:api:endpoint:/{projectKey}/discount-groups/{id}:DELETE) request.
+ *
+ */
+export interface DiscountGroupDeletedMessagePayload extends IMessagePayload {
+  readonly type: 'DiscountGroupDeleted'
+}
+/**
+ *	Generated after a successful [Set Key](ctp:api:type:DiscountGroupSetKeyAction) update action.
+ *
+ */
+export interface DiscountGroupKeySetMessagePayload extends IMessagePayload {
+  readonly type: 'DiscountGroupKeySet'
+  /**
+   *	`key` value of the [DiscountGroup](ctp:api:type:DiscountGroup) after the [Set Key](ctp:api:type:DiscountGroupSetKeyAction) update action.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	`key` value of the [DiscountGroup](ctp:api:type:DiscountGroup) before the [Set Key](ctp:api:type:DiscountGroupSetKeyAction) update action.
+   *
+   *
+   */
+  readonly oldKey?: string
+}
+/**
+ *	Generated after a successful [Set SortOrder](ctp:api:type:DiscountGroupSetSortOrderAction) update action.
+ *
+ */
+export interface DiscountGroupSortOrderSetMessagePayload
+  extends IMessagePayload {
+  readonly type: 'DiscountGroupSortOrderSet'
+  /**
+   *	`sortOrder` value of the [DiscountGroup](ctp:api:type:DiscountGroup) after the [Set SortOrder](ctp:api:type:DiscountGroupSetSortOrderAction) update action.
+   *
+   *
+   */
+  readonly sortOrder?: string
+  /**
+   *	`sortOrder` value of the [DiscountGroup](ctp:api:type:DiscountGroup) before the [Set SortOrder](ctp:api:type:DiscountGroupSetSortOrderAction) update action.
+   *
+   *
+   */
+  readonly oldSortOrder?: string
 }
 /**
  *	Generated after a successful [Create InventoryEntry](ctp:api:endpoint:/{projectKey}/inventory:POST) request.

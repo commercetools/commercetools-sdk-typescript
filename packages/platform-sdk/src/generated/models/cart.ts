@@ -1063,10 +1063,13 @@ export interface DiscountCodeInfo {
 /**
  *	Indicates the state of a Discount Code in a Cart.
  *
- *	If an Order is created from a Cart with a state other than `MatchesCart`, a [DiscountCodeNonApplicable](ctp:api:type:DiscountCodeNonApplicableError) error is returned.
+ *	If an Order is created from a Cart with a state other than `MatchesCart` or `ApplicationStoppedByGroupBestDeal`, a [DiscountCodeNonApplicable](ctp:api:type:DiscountCodeNonApplicableError) error is returned.
+ *
+ *	For Orders created from a Cart with a `ApplicationStoppedByGroupBestDeal` state, the discount code is not applied.
  *
  */
 export enum DiscountCodeStateValues {
+  ApplicationStoppedByGroupBestDeal = 'ApplicationStoppedByGroupBestDeal',
   ApplicationStoppedByPreviousDiscount = 'ApplicationStoppedByPreviousDiscount',
   DoesNotMatchCart = 'DoesNotMatchCart',
   MatchesCart = 'MatchesCart',
@@ -1076,6 +1079,7 @@ export enum DiscountCodeStateValues {
 }
 
 export type DiscountCodeState =
+  | 'ApplicationStoppedByGroupBestDeal'
   | 'ApplicationStoppedByPreviousDiscount'
   | 'DoesNotMatchCart'
   | 'MatchesCart'

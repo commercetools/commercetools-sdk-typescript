@@ -437,6 +437,7 @@ export interface DiscountCodeInfo {
   readonly state: DiscountCodeState
 }
 export enum DiscountCodeStateValues {
+  ApplicationStoppedByGroupBestDeal = 'ApplicationStoppedByGroupBestDeal',
   ApplicationStoppedByPreviousDiscount = 'ApplicationStoppedByPreviousDiscount',
   DoesNotMatchCart = 'DoesNotMatchCart',
   MatchesCart = 'MatchesCart',
@@ -446,6 +447,7 @@ export enum DiscountCodeStateValues {
 }
 
 export type DiscountCodeState =
+  | 'ApplicationStoppedByGroupBestDeal'
   | 'ApplicationStoppedByPreviousDiscount'
   | 'DoesNotMatchCart'
   | 'MatchesCart'

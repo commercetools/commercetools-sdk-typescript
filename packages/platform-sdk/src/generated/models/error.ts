@@ -372,7 +372,7 @@ export interface CountryNotConfiguredInStoreError extends IErrorObject {
   readonly country: string
 }
 /**
- *	Returned when the Cart contains a Discount Code with a [DiscountCodeState](ctp:api:type:DiscountCodeState) other than `MatchesCart`.
+ *	Returned when the Cart contains a Discount Code with a [DiscountCodeState](ctp:api:type:DiscountCodeState) other than `MatchesCart` or `ApplicationStoppedByGroupBestDeal`.
  *
  *	The error is returned as a failed response to:
  *
@@ -2390,7 +2390,7 @@ export interface GraphQLCountryNotConfiguredInStoreError
   readonly country: string
 }
 /**
- *	Returned when the Cart contains a Discount Code with a [DiscountCodeState](ctp:api:type:DiscountCodeState) other than `MatchesCart`.
+ *	Returned when the Cart contains a Discount Code with a [DiscountCodeState](ctp:api:type:DiscountCodeState) other than `MatchesCart` or `ApplicationStoppedByGroupBestDeal`.
  *
  *	The error is returned as a failed response to:
  *
