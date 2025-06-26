@@ -387,7 +387,7 @@ export interface ProductData {
    */
   readonly variants: ProductVariant[]
   /**
-   *	Used by [Product Suggestions](/projects/products-suggestions), but is also considered for a [full text search](/projects/product-projection-search#full-text-search).
+   *	Used by [Search Term Suggestions](/projects/search-term-suggestions), but is also considered for a [full text search](/projects/product-projection-search#full-text-search) in the Product Projection Search API.
    *
    *
    */
@@ -485,7 +485,7 @@ export interface ProductDraft {
    */
   readonly taxCategory?: TaxCategoryResourceIdentifier
   /**
-   *	Used by [Product Suggestions](/projects/products-suggestions), but is also considered for a [full text search](/projects/product-projection-search#full-text-search).
+   *	Used by [Search Term Suggestions](/projects/search-term-suggestions), but is also considered for a [full text search](/projects/product-projection-search#full-text-search) in the Product Projection Search API.
    *
    *
    */
@@ -655,7 +655,7 @@ export interface ProductProjection extends BaseResource {
    */
   readonly metaKeywords?: LocalizedString
   /**
-   *	Used by [Product Suggestions](/../api/projects/products-suggestions), but is also considered for a [full text search](ctp:api:type:FullTextSearch).
+   *	Used by [Search Term Suggestions](/../api/projects/search-term-suggestions), but is also considered for a [full text search](/projects/product-projection-search#full-text-search) in the Product Projection Search API.
    *
    *
    */
@@ -1142,7 +1142,8 @@ export interface SearchKeyword {
   readonly suggestTokenizer?: SuggestTokenizer
 }
 /**
- *	Although search keywords are primarily used by [Product Suggestions](/projects/products-suggestions), they are also considered for a [full text search](/projects/products-search#full-text-search). The keys are of type [Locale](ctp:api:type:Locale), and the values are an array of [SearchKeyword](ctp:api:type:SearchKeyword).
+ *	Search keywords are JSON objects primarily used by [Search Term Suggestions](/projects/search-term-suggestions), but are also considered for a [full text search](/projects/product-projection-search#full-text-search) in the Product Projection Search API.
+ *	The keys are of type [Locale](ctp:api:type:Locale), and the values are an array of [SearchKeyword](ctp:api:type:SearchKeyword).
  *
  */
 export interface SearchKeywords {
