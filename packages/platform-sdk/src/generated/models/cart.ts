@@ -1549,6 +1549,7 @@ export interface LineItem {
 }
 /**
  *	For Product Variant identification, either the `productId` and `variantId`, or `sku` must be provided.
+ *	Product Attributes are merged with Variant Attributes to ensure the full Attribute context of the Product Variant.
  *
  */
 export interface LineItemDraft {
@@ -2805,8 +2806,8 @@ export interface CartFreezeCartAction extends ICartUpdateAction {
 export interface CartRecalculateAction extends ICartUpdateAction {
   readonly action: 'recalculate'
   /**
-   *	- Leave empty or set to `false` to only update the Prices and TaxRates of the Line Items.
-   *	- Set to `true` to update the Line Items' product data (like `name`, `variant` and `productType`) also.
+   *	- Leave empty or set as `false` to update only the Prices and TaxRates of the Line Items.
+   *	- Set as `true` to update the Product data (such as `name`, `variant`, `productType`, and Product Attributes) of the Line Items.
    *
    *
    */

@@ -92,7 +92,10 @@ import {
   ProductVariantExclusion,
   ProductVariantSelection,
 } from './product-selection'
-import { ProductVariantTailoring } from './product-tailoring'
+import {
+  ProductTailoringAttribute,
+  ProductVariantTailoring,
+} from './product-tailoring'
 import { Quote, QuoteState } from './quote'
 import { QuoteRequest, QuoteRequestState } from './quote-request'
 import { Review } from './review'
@@ -15587,6 +15590,13 @@ export interface ProductTailoringCreatedMessage extends IMessage {
    */
   readonly variants?: ProductVariantTailoring[]
   /**
+   *	Attributes of the tailored Product.
+   *	If available, these Attributes are selectively merged into the `attributes` of the corresponding [Product](ctp:api:type:Product). If the Product contains an Attribute with the same `name`, then its `value` is overwritten. Otherwise, the Attribute and its `value` are added to the Product.
+   *
+   *
+   */
+  readonly attributes?: ProductTailoringAttribute[]
+  /**
    *	`true` if the ProductTailoring is published.
    *
    *
@@ -24588,6 +24598,13 @@ export interface ProductTailoringCreatedMessagePayload extends IMessagePayload {
    *
    */
   readonly variants?: ProductVariantTailoring[]
+  /**
+   *	Attributes of the tailored Product.
+   *	If available, these Attributes are selectively merged into the `attributes` of the corresponding [Product](ctp:api:type:Product). If the Product contains an Attribute with the same `name`, then its `value` is overwritten. Otherwise, the Attribute and its `value` are added to the Product.
+   *
+   *
+   */
+  readonly attributes?: ProductTailoringAttribute[]
   /**
    *	`true` if the ProductTailoring is published.
    *

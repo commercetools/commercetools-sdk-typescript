@@ -189,6 +189,13 @@ export interface ProductTailoringData {
    *
    */
   readonly variants?: ProductVariantTailoring[]
+  /**
+   *	Attributes of the tailored Product.
+   *	If available, these Attributes are selectively merged into the `attributes` of the corresponding [Product](ctp:api:type:Product). If the Product contains an Attribute with the same `name`, then its `value` is overwritten. Otherwise, the Attribute and its `value` are added to the Product.
+   *
+   *
+   */
+  readonly attributes?: ProductTailoringAttribute[]
 }
 /**
  *	Contains the information to be tailored for a Product.
@@ -263,6 +270,13 @@ export interface ProductTailoringDraft {
    *
    */
   readonly variants?: ProductVariantTailoringDraft[]
+  /**
+   *	Attributes of the tailored Product.
+   *	If provided, these Attributes are selectively merged into the `attributes` of the corresponding [Product](ctp:api:type:Product). If the Product contains an Attribute with the same `name`, then its `value` is overwritten. Otherwise, the Attribute and its `value` are added to the Product.
+   *
+   *
+   */
+  readonly attributes?: ProductTailoringAttribute[]
 }
 /**
  *	Contains all the tailored information of a Product for a specific Store.
@@ -330,6 +344,13 @@ export interface ProductTailoringInStoreDraft {
    *
    */
   readonly variants?: ProductVariantTailoringDraft[]
+  /**
+   *	Attributes of the tailored Product.
+   *	If provided, these Attributes are selectively merged into the `attributes` of the corresponding [Product](ctp:api:type:Product). If the Product contains an Attribute with the same `name`, then its `value` is overwritten. Otherwise, the Attribute and its `value` are added to the Product.
+   *
+   *
+   */
+  readonly attributes?: ProductTailoringAttribute[]
 }
 /**
  *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [ProductTailoring](ctp:api:type:ProductTailoring).
@@ -436,6 +457,7 @@ export type ProductTailoringUpdateAction =
   | ProductTailoringSetMetaKeywordsAction
   | ProductTailoringSetMetaTitleAction
   | ProductTailoringSetNameAction
+  | ProductTailoringSetProductAttributeAction
   | ProductTailoringSetSlugAction
   | ProductTailoringUnpublishAction
 export interface IProductTailoringUpdateAction {
@@ -1412,6 +1434,39 @@ export interface ProductTailoringSetNameAction
   readonly name?: LocalizedString
   /**
    *	If `true`, only the staged `name` is updated. If `false`, both the current and staged `name` are updated.
+   *
+   *
+   */
+  readonly staged?: boolean
+}
+export interface ProductTailoringSetProductAttributeAction
+  extends IProductTailoringUpdateAction {
+  readonly action: 'setProductAttribute'
+  /**
+   *	Name of the Attribute to set.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	Value to set for the Attribute. If empty, then any existing value will be removed.
+   *
+   *	[AttributeType](ctp:api:type:AttributeType) determines the format of the Attribute `value` to be provided:
+   *
+   *	- For [Enum Type](ctp:api:type:AttributeEnumType) and [Localized Enum Type](ctp:api:type:AttributeLocalizedEnumType),
+   *	  use either the `key` of the [Plain Enum Value](ctp:api:type:AttributePlainEnumValue) or [Localized Enum Value](ctp:api:type:AttributeLocalizedEnumValue) object or the complete object as `value`.
+   *	- For [Localizable Text Type](ctp:api:type:AttributeLocalizableTextType), use the [LocalizedString](ctp:api:type:LocalizedString) object as `value`.
+   *	- For [Money Type](ctp:api:type:AttributeMoneyType) Attributes, use the [Money](ctp:api:type:Money) object as `value`.
+   *	- For [Set Type](ctp:api:type:AttributeSetType) Attributes, use the entire `set` object  as `value`.
+   *	- For [Reference Type](ctp:api:type:AttributeReferenceType) Attributes, use the [Reference](ctp:api:type:Reference) object as `value`.
+   *
+   *	Tailoring of [Nested Type](ctp:api:type:AttributeNestedType) Attributes is **not supported**.
+   *
+   *
+   */
+  readonly value?: any
+  /**
+   *	If `true`, then only the staged Attribute is set. If `false`, then both the current and staged Attributes are set.
    *
    *
    */

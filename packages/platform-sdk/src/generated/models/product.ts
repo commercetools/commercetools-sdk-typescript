@@ -392,6 +392,12 @@ export interface ProductData {
    *
    */
   readonly searchKeywords: SearchKeywords
+  /**
+   *	Attributes according to the respective [AttributeDefinition](ctp:api:type:AttributeDefinition).
+   *
+   *
+   */
+  readonly attributes: Attribute[]
 }
 export interface ProductDraft {
   /**
@@ -502,6 +508,12 @@ export interface ProductDraft {
    *
    */
   readonly priceMode?: ProductPriceModeEnum
+  /**
+   *	Attributes according to the respective [AttributeDefinition](ctp:api:type:AttributeDefinitionDraft).
+   *
+   *
+   */
+  readonly attributes?: Attribute[]
 }
 /**
  *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [Product](ctp:api:type:Product).
@@ -696,6 +708,12 @@ export interface ProductProjection extends BaseResource {
    *
    */
   readonly priceMode?: ProductPriceModeEnum
+  /**
+   *	Attributes according to the respective [AttributeDefinition](ctp:api:type:AttributeDefinitionDraft).
+   *
+   *
+   */
+  readonly attributes: Attribute[]
 }
 export interface ProductProjectionPagedQueryResponse {
   /**
@@ -873,6 +891,7 @@ export type ProductUpdateAction =
   | ProductSetPriceKeyAction
   | ProductSetPriceModeAction
   | ProductSetPricesAction
+  | ProductSetProductAttributeAction
   | ProductSetProductPriceCustomFieldAction
   | ProductSetProductPriceCustomTypeAction
   | ProductSetProductVariantKeyAction
@@ -2049,7 +2068,7 @@ export interface ProductSetAttributeAction extends IProductUpdateAction {
    */
   readonly sku?: string
   /**
-   *	The name of the Attribute to set.
+   *	Name of the Attribute to set.
    *
    *
    */
@@ -2059,9 +2078,7 @@ export interface ProductSetAttributeAction extends IProductUpdateAction {
    *
    *	The [AttributeType](ctp:api:type:AttributeType) determines the format of the Attribute `value` to be provided:
    *
-   *	- For [Enum Type](ctp:api:type:AttributeEnumType) and [Localized Enum Type](ctp:api:type:AttributeLocalizedEnumType),
-   *	  use the `key` of the [Plain Enum Value](ctp:api:type:AttributePlainEnumValue) or [Localized Enum Value](ctp:api:type:AttributeLocalizedEnumValue) objects,
-   *	  or the complete objects as `value`.
+   *	- For [Enum Type](ctp:api:type:AttributeEnumType) and [Localized Enum Type](ctp:api:type:AttributeLocalizedEnumType), use the `key` of the [Plain Enum Value](ctp:api:type:AttributePlainEnumValue) or [Localized Enum Value](ctp:api:type:AttributeLocalizedEnumValue) object or the complete object as `value`.
    *	- For [Localizable Text Type](ctp:api:type:AttributeLocalizableTextType), use the [LocalizedString](ctp:api:type:LocalizedString) object as `value`.
    *	- For [Money Type](ctp:api:type:AttributeMoneyType) Attributes, use the [Money](ctp:api:type:Money) object as `value`.
    *	- For [Set Type](ctp:api:type:AttributeSetType) Attributes, use the entire `set` object  as `value`.
@@ -2072,21 +2089,21 @@ export interface ProductSetAttributeAction extends IProductUpdateAction {
    */
   readonly value?: any
   /**
-   *	If `true`, only the staged Attribute is set. If `false`, both current and staged Attribute is set.
+   *	If `true`, only the staged Attribute is set. If `false`, both the current and staged Attributes are set.
    *
    *
    */
   readonly staged?: boolean
 }
 /**
- *	Adds, removes, or changes a Product Attribute in all Product Variants at the same time.
+ *	Adds, removes, or changes a Variant Attribute in all Product Variants at the same time.
  *	This action is useful for setting values for Attributes with the [Constraint](ctp:api:type:AttributeConstraintEnum) `SameForAll`.
  */
 export interface ProductSetAttributeInAllVariantsAction
   extends IProductUpdateAction {
   readonly action: 'setAttributeInAllVariants'
   /**
-   *	The name of the Attribute to set.
+   *	Name of the Attribute to set.
    *
    *
    */
@@ -2336,6 +2353,36 @@ export interface ProductSetPricesAction extends IProductUpdateAction {
   readonly prices: PriceDraft[]
   /**
    *	If `true`, only the staged ProductVariant is updated. If `false`, both the current and staged ProductVariant are updated.
+   *
+   *
+   */
+  readonly staged?: boolean
+}
+export interface ProductSetProductAttributeAction extends IProductUpdateAction {
+  readonly action: 'setProductAttribute'
+  /**
+   *	Name of the Product Attribute to set.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	Value to set for the Attribute. If empty, any existing value will be removed.
+   *
+   *	The [AttributeType](ctp:api:type:AttributeType) determines the format of the Attribute `value` to be provided:
+   *
+   *	- For [Enum Type](ctp:api:type:AttributeEnumType) and [Localized Enum Type](ctp:api:type:AttributeLocalizedEnumType), use the `key` of the [Plain Enum Value](ctp:api:type:AttributePlainEnumValue) or [Localized Enum Value](ctp:api:type:AttributeLocalizedEnumValue) object or the complete object as `value`.
+   *	- For [Localizable Text Type](ctp:api:type:AttributeLocalizableTextType), use the [LocalizedString](ctp:api:type:LocalizedString) object as `value`.
+   *	- For [Money Type](ctp:api:type:AttributeMoneyType) Attributes, use the [Money](ctp:api:type:Money) object as `value`.
+   *	- For [Set Type](ctp:api:type:AttributeSetType) Attributes, use the entire `set` object  as `value`.
+   *	- For [Nested Type](ctp:api:type:AttributeNestedType) Attributes, use the list of values of all Attributes of the nested Product as `value`.
+   *	- For [Reference Type](ctp:api:type:AttributeReferenceType) Attributes, use the [Reference](ctp:api:type:Reference) object as `value`.
+   *
+   *
+   */
+  readonly value?: any
+  /**
+   *	If `true`, only the staged Attribute is set. If `false`, both the current and staged Attributes are set.
    *
    *
    */

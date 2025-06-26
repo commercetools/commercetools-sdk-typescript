@@ -13,6 +13,7 @@ import {
   StateKeyReference,
   TaxCategoryKeyReference,
 } from './common'
+import { Attribute } from './productvariants'
 
 /**
  *	Search keywords are primarily used by the suggester but are also considered for the full-text search. SearchKeywords is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag). The value to a language tag key is an array of SearchKeyword for the specific language.
@@ -118,6 +119,10 @@ export interface ProductImport extends ImportResource {
    *
    */
   readonly categories?: CategoryKeyReference[]
+  /**
+   *
+   */
+  readonly attributes?: Attribute[]
   /**
    *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
    *	```json
