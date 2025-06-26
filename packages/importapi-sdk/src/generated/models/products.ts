@@ -45,13 +45,13 @@ export interface SearchKeyword {
    */
   readonly text: string
   /**
-   *	The tokenizer defines the tokens that are used to match against the [Suggest Query](/../products-suggestions#query-suggestions) input.
+   *	The tokenizer defines the tokens that are used for [search term suggestions](/projects/search-term-suggestions).
    *
    */
   readonly suggestTokenizer?: SuggestTokenizer
 }
 /**
- *	The tokenizer defines the tokens that are used to match against the [Suggest Query](/../products-suggestions#query-suggestions) input.
+ *	The tokenizer defines the tokens that are used for [search term suggestions](/projects/search-term-suggestions).
  *
  */
 export type SuggestTokenizer = CustomTokenizer | WhitespaceTokenizer
