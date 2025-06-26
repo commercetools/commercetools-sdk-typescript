@@ -161,6 +161,7 @@ export interface LineItemProductVariantImportDraft {
  *
  *	You cannot create an Order that includes line item operations that do not exist in the Project or have been deleted.
  *	Products and Product Variants referenced by a line item must already exist in the Project.
+ *	Product Attributes are merged with Variant Attributes to ensure the full Attribute context of the Product Variant.
  *
  */
 export interface LineItemImportDraft {

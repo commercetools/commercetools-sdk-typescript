@@ -60,7 +60,17 @@ export interface AttributeDefinition {
    *
    */
   readonly isSearchable?: boolean
+  /**
+   *
+   */
+  readonly level?: AttributeLevel
 }
+export enum AttributeLevelValues {
+  Product = 'Product',
+  Variant = 'Variant',
+}
+
+export type AttributeLevel = 'Product' | 'Variant' | (string & {})
 export type AttributeType =
   | AttributeBooleanType
   | AttributeDateTimeType

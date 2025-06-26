@@ -1549,6 +1549,7 @@ export interface LineItem {
 }
 /**
  *	For Product Variant identification, either the `productId` and `variantId`, or `sku` must be provided.
+ *	Product Attributes are merged with Variant Attributes to ensure the full Attribute context of the Product Variant.
  *
  */
 export interface LineItemDraft {
@@ -2746,7 +2747,7 @@ export interface CartChangeLineItemsOrderAction extends ICartUpdateAction {
   readonly lineItemOrder: string[]
 }
 /**
- *	Changing the tax calculation mode leads to [recalculation of taxes](/../api/carts-orders-overview#cart-tax-calculation).
+ *	Changing the tax calculation mode leads to [recalculation of taxes](/../api/carts-orders-overview#taxes).
  *
  */
 export interface CartChangeTaxCalculationModeAction extends ICartUpdateAction {
@@ -2773,7 +2774,7 @@ export interface CartChangeTaxModeAction extends ICartUpdateAction {
   readonly taxMode: TaxMode
 }
 /**
- *	Changing the tax rounding mode leads to [recalculation of taxes](/../api/carts-orders-overview#cart-tax-calculation).
+ *	Changing the tax rounding mode leads to [recalculation of taxes](/../api/carts-orders-overview#taxes).
  *
  */
 export interface CartChangeTaxRoundingModeAction extends ICartUpdateAction {
@@ -2794,7 +2795,7 @@ export interface CartFreezeCartAction extends ICartUpdateAction {
   readonly action: 'freezeCart'
 }
 /**
- *	This update action does not set any Cart field in particular, but it triggers several [Cart updates](/../api/carts-orders-overview#cart-updates)
+ *	This update action does not set any Cart field in particular, but it triggers several [Cart updates](/../api/carts-orders-overview#update-a-cart)
  *	to bring prices and discounts to the latest state. Those can become stale over time when no Cart updates have been performed for a while and
  *	prices on related Products have changed in the meanwhile.
  *
@@ -2805,8 +2806,8 @@ export interface CartFreezeCartAction extends ICartUpdateAction {
 export interface CartRecalculateAction extends ICartUpdateAction {
   readonly action: 'recalculate'
   /**
-   *	- Leave empty or set to `false` to only update the Prices and TaxRates of the Line Items.
-   *	- Set to `true` to update the Line Items' product data (like `name`, `variant` and `productType`) also.
+   *	- Leave empty or set as `false` to update only the Prices and TaxRates of the Line Items.
+   *	- Set as `true` to update the Product data (such as `name`, `variant`, `productType`, and Product Attributes) of the Line Items.
    *
    *
    */
@@ -3268,7 +3269,7 @@ export interface CartSetCustomerEmailAction extends ICartUpdateAction {
  *	This update action can only be used if a Customer is not assigned to the Cart.
  *	If a Customer is already assigned, the Cart uses the Customer Group of the assigned Customer.
  *
- *	To reflect the new Customer Group, this update action can result in [updates to the Cart](/api/carts-orders-overview#cart-updates). When this occurs, the following errors can be returned: [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError) and [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError).
+ *	To reflect the new Customer Group, this update action can result in [updates to the Cart](/api/carts-orders-overview#update-a-cart). When this occurs, the following errors can be returned: [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError) and [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError).
  *
  */
 export interface CartSetCustomerGroupAction extends ICartUpdateAction {
@@ -3546,7 +3547,7 @@ export interface CartSetLineItemShippingDetailsAction
   readonly shippingDetails?: ItemShippingDetailsDraft
 }
 /**
- *	Performing this action has no impact on inventory that should be reserved.
+ *	Performing this action does not reserve stock. Stock is only reserved at Order creation if the [InventoryMode](ctp:api:type:InventoryMode) of the Cart is `TrackOnly` or `ReserveOnOrder`.
  *
  */
 export interface CartSetLineItemSupplyChannelAction extends ICartUpdateAction {

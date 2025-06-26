@@ -1034,7 +1034,7 @@ export interface StagedOrderChangeShipmentStateAction
   readonly shipmentState: ShipmentState
 }
 /**
- *	Changing the tax calculation mode leads to [recalculation of taxes](/../api/carts-orders-overview#cart-tax-calculation).
+ *	Changing the tax calculation mode leads to [recalculation of taxes](/../api/carts-orders-overview#taxes).
  *
  */
 export interface StagedOrderChangeTaxCalculationModeAction
@@ -1063,7 +1063,7 @@ export interface StagedOrderChangeTaxModeAction
   readonly taxMode: TaxMode
 }
 /**
- *	Changing the tax rounding mode leads to [recalculation of taxes](/../api/carts-orders-overview#cart-tax-calculation).
+ *	Changing the tax rounding mode leads to [recalculation of taxes](/../api/carts-orders-overview#taxes).
  *
  */
 export interface StagedOrderChangeTaxRoundingModeAction
@@ -1612,7 +1612,7 @@ export interface StagedOrderSetCustomerEmailAction
  *	This update action can only be used if a Customer is not assigned to a Cart.
  *	If a Customer is already assigned, the Cart uses the Customer Group of the assigned Customer.
  *
- *	To reflect the new Customer Group, this update action can result in [updates to the Cart](/../api/carts-orders-overview#cart-updates). When this occurs, the following errors can be returned: [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError) and [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError).
+ *	To reflect the new Customer Group, this update action can result in [updates to the Cart](/../api/carts-orders-overview#update-a-cart). When this occurs, the following errors can be returned: [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError) and [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError).
  *
  */
 export interface StagedOrderSetCustomerGroupAction

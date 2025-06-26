@@ -1652,7 +1652,7 @@ export interface MyCartChangeTaxModeAction extends IMyCartUpdateAction {
   readonly taxMode: TaxMode
 }
 /**
- *	This update action does not set any Cart field in particular, but it triggers several [Cart updates](/../api/carts-orders-overview#cart-updates)
+ *	This update action does not set any Cart field in particular, but it triggers several [Cart updates](/../api/carts-orders-overview#update-a-cart)
  *	to bring prices and discounts to the latest state. Those can become stale over time when no Cart updates have been performed for a while and
  *	prices on related Products have changed in the meanwhile.
  *
@@ -1957,7 +1957,7 @@ export interface MyCartSetLineItemShippingDetailsAction
   readonly shippingDetails?: ItemShippingDetailsDraft
 }
 /**
- *	Performing this action has no impact on inventory that should be reserved.
+ *	Performing this action does not reserve stock. Stock is only reserved at Order creation if the [InventoryMode](ctp:api:type:InventoryMode) of the Cart is `TrackOnly` or `ReserveOnOrder`.
  *
  */
 export interface MyCartSetLineItemSupplyChannelAction

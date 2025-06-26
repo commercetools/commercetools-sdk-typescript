@@ -36,7 +36,7 @@ export enum AttributeConstraintEnumDraftValues {
 
 export type AttributeConstraintEnumDraft = 'None' | (string & {})
 /**
- *	Describes a Product Attribute and allows you to define meta-information associated with the Attribute (like whether it should be searchable, or its constraints).
+ *	Describes an Attribute and allows you to define meta-information associated with the Attribute (like whether it should be searchable, or its constraints).
  *
  */
 export interface AttributeDefinition {
@@ -61,6 +61,12 @@ export interface AttributeDefinition {
    *
    */
   readonly isRequired: boolean
+  /**
+   *	Specifies whether the Attribute is defined at the Product or Variant level.
+   *
+   *
+   */
+  readonly level: AttributeLevelEnum
   /**
    *	Specifies how Attributes are validated across all variants of a Product.
    *
@@ -122,7 +128,14 @@ export interface AttributeDefinitionDraft {
    */
   readonly isRequired: boolean
   /**
+   *	Specifies whether the Attribute is defined at the Product or Variant level.
+   *
+   *
+   */
+  readonly level?: AttributeLevelEnum
+  /**
    *	Specifies how an Attribute or a combination of Attributes should be validated across all variants of a Product.
+   *	If the Attribute is defined at Product level, then `attributeConstraint` must be `None`. Otherwise, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */
@@ -149,6 +162,12 @@ export interface AttributeDefinitionDraft {
    */
   readonly isSearchable?: boolean
 }
+export enum AttributeLevelEnumValues {
+  Product = 'Product',
+  Variant = 'Variant',
+}
+
+export type AttributeLevelEnum = 'Product' | 'Variant' | (string & {})
 /**
  *	A localized enum value must be unique within the enum, else a [DuplicateEnumValues](ctp:api:type:DuplicateEnumValuesError) error is returned.
  *
@@ -744,7 +763,7 @@ export interface ProductTypeChangeInputHintAction
   readonly newValue: TextInputHint
 }
 /**
- *	Following this update the Products are reindexed asynchronously to reflect this change on the search endpoint. When enabling search on an existing Attribute type definition, the constraint regarding the maximum size of a searchable Attribute will not be enforced. Instead, Product AttributeDefinitions exceeding this limit will be treated as not searchable and will not be available for full-text search.
+ *	Following this update the Products are reindexed asynchronously to reflect this change on the search endpoint. When enabling search on an existing Attribute type definition, the constraint regarding the maximum size of a searchable Attribute will not be enforced. Instead, AttributeDefinitions exceeding this limit will be treated as not searchable and will not be available for full-text search.
  *
  */
 export interface ProductTypeChangeIsSearchableAction
