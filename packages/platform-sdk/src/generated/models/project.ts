@@ -8,6 +8,7 @@ import {
   AssociateRoleKeyReference,
   AssociateRoleResourceIdentifier,
 } from './associate-role'
+import { RoundingMode } from './cart'
 import { LastModifiedBy } from './common'
 import { MessagesConfiguration, MessagesConfigurationDraft } from './message'
 import { ShippingRateTierType } from './shipping-method'
@@ -102,6 +103,20 @@ export interface CartsConfiguration {
    *
    */
   readonly countryTaxRateFallbackEnabled?: boolean
+  /**
+   *	Default value for the `priceRoundingMode` parameter of the [CartDraft](ctp:api:type:CartDraft).
+   *	Indicates how the total prices on [LineItems](ctp:api:type:LineItem) and [CustomLineItems](ctp:api:type:CustomLineItem) are rounded when calculated.
+   *
+   *
+   */
+  readonly priceRoundingMode?: RoundingMode
+  /**
+   *	Default value for the `taxRoundingMode` parameter of the [CartDraft](ctp:api:type:CartDraft).
+   *	Indicates how monetary values are rounded when calculating taxes for `taxedPrice`.
+   *
+   *
+   */
+  readonly taxRoundingMode?: RoundingMode
 }
 /**
  *	Specifies the status of the [Customer Search](/../api/projects/customer-search) index.
@@ -270,8 +285,10 @@ export type ProjectUpdateAction =
   | ProjectChangeMessagesConfigurationAction
   | ProjectChangeNameAction
   | ProjectChangeOrderSearchStatusAction
+  | ProjectChangePriceRoundingModeAction
   | ProjectChangeProductSearchIndexingEnabledAction
   | ProjectChangeShoppingListsConfigurationAction
+  | ProjectChangeTaxRoundingModeAction
   | ProjectSetBusinessUnitAssociateRoleOnCreationAction
   | ProjectSetExternalOAuthAction
   | ProjectSetShippingRateInputTypeAction
@@ -499,6 +516,15 @@ export interface ProjectChangeOrderSearchStatusAction
    */
   readonly status: OrderSearchStatus
 }
+export interface ProjectChangePriceRoundingModeAction
+  extends IProjectUpdateAction {
+  readonly action: 'changePriceRoundingMode'
+  /**
+   *	Project-level default rounding mode for calculating the total prices on [LineItems](ctp:api:type:LineItem) and [CustomLineItems](ctp:api:type:CustomLineItem). See [CartsConfiguration](ctp:api:type:CartsConfiguration).
+   *
+   */
+  readonly priceRoundingMode: RoundingMode
+}
 export interface ProjectChangeProductSearchIndexingEnabledAction
   extends IProjectUpdateAction {
   readonly action: 'changeProductSearchIndexingEnabled'
@@ -525,6 +551,15 @@ export interface ProjectChangeShoppingListsConfigurationAction
    *
    */
   readonly shoppingListsConfiguration: ShoppingListsConfiguration
+}
+export interface ProjectChangeTaxRoundingModeAction
+  extends IProjectUpdateAction {
+  readonly action: 'changeTaxRoundingMode'
+  /**
+   *	Project-level default rounding mode for tax calculation. See [CartsConfiguration](ctp:api:type:CartsConfiguration).
+   *
+   */
+  readonly taxRoundingMode: RoundingMode
 }
 export interface ProjectSetBusinessUnitAssociateRoleOnCreationAction
   extends IProjectUpdateAction {

@@ -167,6 +167,12 @@ export interface QuoteRequest extends BaseResource {
    */
   readonly taxMode: TaxMode
   /**
+   *	When calculating total prices on [LineItems](ctp:api:type:LineItem) and [CustomLineItems](ctp:api:type:CustomLineItem), the selected mode is used for rounding.
+   *
+   *
+   */
+  readonly priceRoundingMode: RoundingMode
+  /**
    *	When calculating taxes for `taxedPrice`, the selected mode is used for rounding.
    *
    *

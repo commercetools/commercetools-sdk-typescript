@@ -70,6 +70,7 @@ import {
   StagedOrderChangeLineItemQuantityAction,
   StagedOrderChangeOrderStateAction,
   StagedOrderChangePaymentStateAction,
+  StagedOrderChangePriceRoundingModeAction,
   StagedOrderChangeShipmentStateAction,
   StagedOrderChangeTaxCalculationModeAction,
   StagedOrderChangeTaxModeAction,
@@ -180,6 +181,7 @@ export type StagedOrderUpdateAction =
   | StagedOrderChangeLineItemQuantityAction
   | StagedOrderChangeOrderStateAction
   | StagedOrderChangePaymentStateAction
+  | StagedOrderChangePriceRoundingModeAction
   | StagedOrderChangeShipmentStateAction
   | StagedOrderChangeTaxCalculationModeAction
   | StagedOrderChangeTaxModeAction
@@ -842,6 +844,11 @@ export interface Order extends BaseResource {
    */
   readonly discountOnTotalPrice?: DiscountOnTotalPrice
   /**
+   *	Indicates how the total prices on [LineItems](ctp:api:type:LineItem) and [CustomLineItems](ctp:api:type:CustomLineItem) are rounded when calculated.
+   *
+   */
+  readonly priceRoundingMode?: RoundingMode
+  /**
    *	Indicates how Tax Rates are set.
    *
    *
@@ -1274,6 +1281,12 @@ export interface OrderImportDraft {
    *
    */
   readonly taxedPrice?: TaxedPriceDraft
+  /**
+   *	Determines how the total prices on [LineItems](ctp:api:type:LineItem) and [CustomLineItems](ctp:api:type:CustomLineItem) are rounded when calculated.
+   *
+   *
+   */
+  readonly priceRoundingMode?: RoundingMode
   /**
    *	Determines how monetary values are rounded when calculating taxes for `taxedPrice`.
    *

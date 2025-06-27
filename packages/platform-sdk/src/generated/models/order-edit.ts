@@ -1020,6 +1020,20 @@ export interface StagedOrderChangePaymentStateAction
   readonly paymentState: PaymentState
 }
 /**
+ *	Changing the price rounding mode leads to [recalculation of taxes](/../api/carts-orders-overview#taxes).
+ *
+ */
+export interface StagedOrderChangePriceRoundingModeAction
+  extends IStagedOrderUpdateAction {
+  readonly action: 'changePriceRoundingMode'
+  /**
+   *	New value to set.
+   *
+   *
+   */
+  readonly priceRoundingMode: RoundingMode
+}
+/**
  *	Produces the [Order Shipment State Changed](ctp:api:type:OrderShipmentStateChangedMessage) Message.
  *
  */

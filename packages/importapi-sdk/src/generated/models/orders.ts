@@ -665,7 +665,7 @@ export enum InventoryModeValues {
 
 export type InventoryMode = 'ReserveOnOrder' | 'TrackOnly' | (string & {})
 /**
- *	Maps to `Order.taxRoundingMode`.
+ *	The rounding mode representation used in `Order.priceRoundingMode` and `Order.taxRoundingMode`.
  */
 export enum RoundingModeValues {
   HalfDown = 'HalfDown',

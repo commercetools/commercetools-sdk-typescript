@@ -178,7 +178,13 @@ export interface Cart extends BaseResource {
    */
   readonly taxMode: TaxMode
   /**
-   *	Indicates how monetary values are rounded when calculating taxes for `taxedPrice`.
+   *	Indicates how the total prices on [LineItems](ctp:api:type:LineItem) and [CustomLineItems](ctp:api:type:CustomLineItem) are rounded when calculated. Configured in [Project settings](ctp:api:type:CartsConfiguration).
+   *
+   *
+   */
+  readonly priceRoundingMode: RoundingMode
+  /**
+   *	Indicates how monetary values are rounded when calculating taxes for `taxedPrice`. Configured in [Project settings](ctp:api:type:CartsConfiguration).
    *
    *
    */
@@ -422,7 +428,13 @@ export interface CartDraft {
    */
   readonly externalTaxRateForShippingMethod?: ExternalTaxRateDraft
   /**
-   *	Determines how monetary values are rounded when calculating taxes for `taxedPrice`.
+   *	Determines how the total prices on [LineItems](ctp:api:type:LineItem) and [CustomLineItems](ctp:api:type:CustomLineItem) are rounded when calculated. If not set, the [default value](ctp:api:type:CartsConfiguration) configured in the [Project](ctp:api:type:Project) is used.
+   *
+   *
+   */
+  readonly priceRoundingMode?: RoundingMode
+  /**
+   *	Determines how monetary values are rounded when calculating taxes for `taxedPrice`. If not set, the [default value](ctp:api:type:CartsConfiguration) configured in the [Project](ctp:api:type:Project) is used.
    *
    *
    */
@@ -672,6 +684,7 @@ export type CartUpdateAction =
   | CartChangeCustomLineItemQuantityAction
   | CartChangeLineItemQuantityAction
   | CartChangeLineItemsOrderAction
+  | CartChangePriceRoundingModeAction
   | CartChangeTaxCalculationModeAction
   | CartChangeTaxModeAction
   | CartChangeTaxRoundingModeAction
@@ -2745,6 +2758,19 @@ export interface CartChangeLineItemsOrderAction extends ICartUpdateAction {
    *
    */
   readonly lineItemOrder: string[]
+}
+/**
+ *	Changing the price rounding mode leads to [recalculation of taxes](/../api/carts-orders-overview#taxes).
+ *
+ */
+export interface CartChangePriceRoundingModeAction extends ICartUpdateAction {
+  readonly action: 'changePriceRoundingMode'
+  /**
+   *	New value to set.
+   *
+   *
+   */
+  readonly priceRoundingMode: RoundingMode
 }
 /**
  *	Changing the tax calculation mode leads to [recalculation of taxes](/../api/carts-orders-overview#taxes).
