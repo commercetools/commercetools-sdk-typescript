@@ -4,6 +4,7 @@
 <summary>Added Type(s)</summary>
 
 - added type `CartDiscountSetDiscountGroupAction`
+- added type `CartChangePriceRoundingModeAction`
 - added type `DiscountGroup`
 - added type `DiscountGroupDraft`
 - added type `DiscountGroupPagedQueryResponse`
@@ -23,9 +24,12 @@
 - added type `DiscountGroupDeletedMessagePayload`
 - added type `DiscountGroupKeySetMessagePayload`
 - added type `DiscountGroupSortOrderSetMessagePayload`
+- added type `StagedOrderChangePriceRoundingModeAction`
 - added type `ProductTailoringSetProductAttributeAction`
 - added type `AttributeLevelEnum`
 - added type `ProductSetProductAttributeAction`
+- added type `ProjectChangePriceRoundingModeAction`
+- added type `ProjectChangeTaxRoundingModeAction`
 </details>
 
 <details>
@@ -60,8 +64,13 @@
 
 - added property `discountGroup` to type `CartDiscount`
 - added property `discountGroup` to type `CartDiscountDraft`
+- added property `priceRoundingMode` to type `Cart`
+- added property `priceRoundingMode` to type `CartDraft`
 - added property `attributes` to type `ProductTailoringCreatedMessage`
 - added property `attributes` to type `ProductTailoringCreatedMessagePayload`
+- added property `priceRoundingMode` to type `StagedOrder`
+- added property `priceRoundingMode` to type `Order`
+- added property `priceRoundingMode` to type `OrderImportDraft`
 - added property `attributes` to type `ProductTailoringData`
 - added property `attributes` to type `ProductTailoringDraft`
 - added property `attributes` to type `ProductTailoringInStoreDraft`
@@ -72,6 +81,10 @@
 - added property `attributes` to type `ProductDraft`
 - added property `attributes` to type `ProductProjection`
 - added property `/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/` to type `ProductVariantChannelAvailabilityMap`
+- added property `priceRoundingMode` to type `CartsConfiguration`
+- added property `taxRoundingMode` to type `CartsConfiguration`
+- added property `priceRoundingMode` to type `QuoteRequest`
+- added property `priceRoundingMode` to type `Quote`
 </details>
 
 <details>
