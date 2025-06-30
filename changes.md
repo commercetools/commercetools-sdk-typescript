@@ -45,6 +45,7 @@
 
 - :warning: removed property `/[0-9].[0-9]*[1-9]/` from type `CategoryOrderHints`
 - :warning: removed property `//` from type `ProductVariantChannelAvailabilityMap`
+- :warning: removed property `messages` from type `SubscriptionSetEventsAction`
 </details>
 
 <details>
@@ -85,6 +86,7 @@
 - added property `taxRoundingMode` to type `CartsConfiguration`
 - added property `priceRoundingMode` to type `QuoteRequest`
 - added property `priceRoundingMode` to type `Quote`
+- added property `events` to type `SubscriptionSetEventsAction`
 </details>
 
 <details>
