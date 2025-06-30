@@ -1110,7 +1110,7 @@ export interface SubscriptionSetEventsAction extends ISubscriptionUpdateAction {
    *
    *
    */
-  readonly messages?: EventSubscription[]
+  readonly events?: EventSubscription[]
 }
 export interface SubscriptionSetKeyAction extends ISubscriptionUpdateAction {
   readonly action: 'setKey'
