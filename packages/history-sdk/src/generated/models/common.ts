@@ -978,6 +978,7 @@ export enum ReferenceTypeIdValues {
   Order = 'order',
   OrderEdit = 'order-edit',
   Payment = 'payment',
+  PaymentMethod = 'payment-method',
   Product = 'product',
   ProductDiscount = 'product-discount',
   ProductSelection = 'product-selection',
@@ -1014,6 +1015,7 @@ export type ReferenceTypeId =
   | 'order'
   | 'order-edit'
   | 'payment'
+  | 'payment-method'
   | 'product'
   | 'product-discount'
   | 'product-selection'

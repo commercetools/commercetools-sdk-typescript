@@ -82,6 +82,11 @@ import {
   TransactionState,
 } from './payment'
 import {
+  PaymentMethod,
+  PaymentMethodStatus,
+  PaymentMethodToken,
+} from './payment-method'
+import {
   ProductPriceModeEnum,
   ProductProjection,
   ProductReference,
@@ -290,6 +295,31 @@ export type Message =
   | ParcelTrackingDataUpdatedMessage
   | PaymentCreatedMessage
   | PaymentInteractionAddedMessage
+  | PaymentInterfaceIdSetMessage
+  | PaymentMethodCreatedMessage
+  | PaymentMethodCustomFieldAddedMessage
+  | PaymentMethodCustomFieldChangedMessage
+  | PaymentMethodCustomFieldRemovedMessage
+  | PaymentMethodCustomTypeRemovedMessage
+  | PaymentMethodCustomTypeSetMessage
+  | PaymentMethodDefaultSetMessage
+  | PaymentMethodDeletedMessage
+  | PaymentMethodInfoCustomFieldAddedMessage
+  | PaymentMethodInfoCustomFieldChangedMessage
+  | PaymentMethodInfoCustomFieldRemovedMessage
+  | PaymentMethodInfoCustomTypeRemovedMessage
+  | PaymentMethodInfoCustomTypeSetMessage
+  | PaymentMethodInfoInterfaceAccountSetMessage
+  | PaymentMethodInfoInterfaceSetMessage
+  | PaymentMethodInfoMethodSetMessage
+  | PaymentMethodInfoNameSetMessage
+  | PaymentMethodInfoTokenSetMessage
+  | PaymentMethodInterfaceAccountSetMessage
+  | PaymentMethodKeySetMessage
+  | PaymentMethodMethodSetMessage
+  | PaymentMethodNameSetMessage
+  | PaymentMethodPaymentInterfaceSetMessage
+  | PaymentMethodPaymentMethodStatusSetMessage
   | PaymentStatusInterfaceCodeSetMessage
   | PaymentStatusStateTransitionMessage
   | PaymentTransactionAddedMessage
@@ -12801,6 +12831,1876 @@ export interface PaymentInteractionAddedMessage extends IMessage {
   readonly interaction: CustomFields
 }
 /**
+ *	Generated after a successful [Set InterfaceId](ctp:api:type:PaymentSetInterfaceIdAction) update action.
+ *
+ */
+export interface PaymentInterfaceIdSetMessage extends IMessage {
+  readonly type: 'PaymentInterfaceIdSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Interface ID of the Payment after the [Set InterfaceId](ctp:api:type:PaymentSetInterfaceIdAction) update action.
+   *
+   *
+   */
+  readonly interfaceId?: string
+  /**
+   *	Interface ID of the Payment before the [Set InterfaceId](ctp:api:type:PaymentSetInterfaceIdAction) update action.
+   *
+   *
+   */
+  readonly oldInterfaceId?: string
+}
+/**
+ *	Generated after a successful [Create PaymentMethod](ctp:api:endpoint:/{projectKey}/payment-methods:POST) request.
+ *
+ */
+export interface PaymentMethodCreatedMessage extends IMessage {
+  readonly type: 'PaymentMethodCreated'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[PaymentMethod](ctp:api:type:PaymentMethod) that was created.
+   *
+   *
+   */
+  readonly paymentMethod: PaymentMethod
+}
+/**
+ *	Generated after adding a Custom Field to a Payment Method using the [Set CustomField](ctp:api:type:PaymentMethodSetCustomFieldAction) update action. If a Custom Field already exists with the same name, a [PaymentMethodCustomFieldChanged](ctp:api:type:PaymentMethodCustomFieldChangedMessage) Message is generated instead.
+ *
+ */
+export interface PaymentMethodCustomFieldAddedMessage extends IMessage {
+  readonly type: 'PaymentMethodCustomFieldAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that was added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after changing an existing Custom Field on a Payment Method using the [Set CustomField](ctp:api:type:PaymentMethodSetCustomFieldAction) update action.
+ *
+ */
+export interface PaymentMethodCustomFieldChangedMessage extends IMessage {
+  readonly type: 'PaymentMethodCustomFieldChanged'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:PaymentMethodSetCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) before the [Set CustomField](ctp:api:type:PaymentMethodSetCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly oldValue?: any
+}
+/**
+ *	Generated after removing a Custom Field from a Payment Method using the [Set CustomField](ctp:api:type:PaymentMethodSetCustomFieldAction) update action.
+ *
+ */
+export interface PaymentMethodCustomFieldRemovedMessage extends IMessage {
+  readonly type: 'PaymentMethodCustomFieldRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after removing a Custom Type from a Payment Method using the [Set Custom Type](ctp:api:type:PaymentMethodSetCustomTypeAction) update action.
+ *
+ */
+export interface PaymentMethodCustomTypeRemovedMessage extends IMessage {
+  readonly type: 'PaymentMethodCustomTypeRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
+ *	Generated after adding a Custom Type to a Payment Method using the [Set Custom Type](ctp:api:type:PaymentMethodSetCustomTypeAction) update action.
+ *
+ */
+export interface PaymentMethodCustomTypeSetMessage extends IMessage {
+  readonly type: 'PaymentMethodCustomTypeSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Custom Fields that were set.
+   *
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
+ *	Generated after a successful [Set Default](ctp:api:type:PaymentMethodSetDefaultAction) update action.
+ *
+ */
+export interface PaymentMethodDefaultSetMessage extends IMessage {
+  readonly type: 'PaymentMethodDefaultSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Default Payment Method after the [Set Default](ctp:api:type:PaymentMethodSetDefaultAction) update action.
+   *
+   *
+   */
+  readonly default: boolean
+  /**
+   *	Default Payment Method before the [Set Default](ctp:api:type:PaymentMethodSetDefaultAction) update action.
+   *
+   *
+   */
+  readonly oldDefault: boolean
+}
+/**
+ *	Generated after a successful [Delete PaymentMethod](/projects/payment-methods#delete-paymentmethod) request.
+ *
+ */
+export interface PaymentMethodDeletedMessage extends IMessage {
+  readonly type: 'PaymentMethodDeleted'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The [PaymentMethod](ctp:api:type:PaymentMethod) that was deleted.
+   *
+   *
+   */
+  readonly paymentMethod: PaymentMethod
+}
+/**
+ *	Generated after adding a Custom Field to a PaymentMethodInfo using the [Set MethodInfo CustomField](ctp:api:type:PaymentSetMethodInfoCustomFieldAction) update action on Payments and the [Set MethodInfo CustomField](ctp:api:type:MyPaymentSetMethodInfoCustomFieldAction) update action on My Payments. If a Custom Field already exists with the same name, a [PaymentMethodInfoCustomFieldChanged](ctp:api:type:PaymentMethodInfoCustomFieldChangedMessage) Message is generated instead.
+ *
+ */
+export interface PaymentMethodInfoCustomFieldAddedMessage extends IMessage {
+  readonly type: 'PaymentMethodInfoCustomFieldAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that was added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after changing an existing Custom Field on a PaymentMethodInfo using the [Set MethodInfo CustomField](ctp:api:type:PaymentSetMethodInfoCustomFieldAction) update action on Payments and the [Set MethodInfo CustomField](ctp:api:type:MyPaymentSetMethodInfoCustomFieldAction) update action on My Payments.
+ *
+ */
+export interface PaymentMethodInfoCustomFieldChangedMessage extends IMessage {
+  readonly type: 'PaymentMethodInfoCustomFieldChanged'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:PaymentSetMethodInfoCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after removing a Custom Field from a PaymentMethodInfo using the [Set MethodInfo CustomField](ctp:api:type:PaymentSetMethodInfoCustomFieldAction) update action on Payments and the [Set MethodInfo CustomField](ctp:api:type:MyPaymentSetMethodInfoCustomFieldAction) update action on My Payments.
+ *
+ */
+export interface PaymentMethodInfoCustomFieldRemovedMessage extends IMessage {
+  readonly type: 'PaymentMethodInfoCustomFieldRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after removing Custom Fields from a PaymentMethodInfo using the [Set MethodInfo Custom Type](ctp:api:type:PaymentSetMethodInfoCustomTypeAction) update action on Payments and the [Set MethodInfo Custom Type](ctp:api:type:MyPaymentSetMethodInfoCustomTypeAction) update action on My Payments.
+ *
+ */
+export interface PaymentMethodInfoCustomTypeRemovedMessage extends IMessage {
+  readonly type: 'PaymentMethodInfoCustomTypeRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	`id` of the [Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
+ *	Generated after adding Custom Fields to a PaymentMethodInfo using the [Set MethodInfo Custom Type](ctp:api:type:PaymentSetMethodInfoCustomTypeAction) update action on Payments and the [Set MethodInfo Custom Type](ctp:api:type:MyPaymentSetMethodInfoCustomTypeAction) update action on My Payments.
+ *
+ */
+export interface PaymentMethodInfoCustomTypeSetMessage extends IMessage {
+  readonly type: 'PaymentMethodInfoCustomTypeSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Custom Fields that were set.
+   *
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
+ *	Generated after a successful [Set MethodInfo InterfaceAccount](ctp:api:type:PaymentSetMethodInfoInterfaceAccountAction) update action on Payments and [Set MethodInfo InterfaceAccount](ctp:api:type:MyPaymentSetMethodInfoInterfaceAccountAction) update action on My Payments.
+ *
+ */
+export interface PaymentMethodInfoInterfaceAccountSetMessage extends IMessage {
+  readonly type: 'PaymentMethodInfoInterfaceAccountSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Interface account of the Payment Method after the [Set MethodInfo InterfaceAccount](ctp:api:type:PaymentSetMethodInfoInterfaceAccountAction) update action.
+   *
+   *
+   */
+  readonly interfaceAccount?: string
+  /**
+   *	Interface account of the Payment Method before the [Set MethodInfo InterfaceAccount](ctp:api:type:PaymentSetMethodInfoInterfaceAccountAction) update action.
+   *
+   *
+   */
+  readonly oldInterfaceAccount?: string
+}
+/**
+ *	Generated after a successful [Set MethodInfo Interface](ctp:api:type:PaymentSetMethodInfoInterfaceAction) update action.
+ *
+ */
+export interface PaymentMethodInfoInterfaceSetMessage extends IMessage {
+  readonly type: 'PaymentMethodInfoInterfaceSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Payment interface of the Payment Method after the [Set MethodInfo Interface](ctp:api:type:PaymentSetMethodInfoInterfaceAction) update action.
+   *
+   *
+   */
+  readonly interface?: string
+  /**
+   *	Payment interface of the Payment Method before the [Set MethodInfo Interface](ctp:api:type:PaymentSetMethodInfoInterfaceAction) update action.
+   *
+   *
+   */
+  readonly oldInterface?: string
+}
+/**
+ *	Generated after a successful [Set MethodInfo Method](ctp:api:type:PaymentSetMethodInfoMethodAction) update action.
+ *
+ */
+export interface PaymentMethodInfoMethodSetMessage extends IMessage {
+  readonly type: 'PaymentMethodInfoMethodSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Payment Method after the [Set MethodInfo Method](ctp:api:type:PaymentSetMethodInfoMethodAction) update action.
+   *
+   *
+   */
+  readonly method?: string
+  /**
+   *	Payment Method before the [Set MethodInfo Method](ctp:api:type:PaymentSetMethodInfoMethodAction) update action.
+   *
+   *
+   */
+  readonly oldMethod?: string
+}
+/**
+ *	Generated after a successful [Set MethodInfo Name](ctp:api:type:PaymentSetMethodInfoNameAction) update action.
+ *
+ */
+export interface PaymentMethodInfoNameSetMessage extends IMessage {
+  readonly type: 'PaymentMethodInfoNameSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Payment Method after the [Set MethodInfo Name](ctp:api:type:PaymentSetMethodInfoNameAction) update action.
+   *
+   *
+   */
+  readonly name?: LocalizedString
+  /**
+   *	Name of the Payment Method before the [Set MethodInfo Name](ctp:api:type:PaymentSetMethodInfoNameAction) update action.
+   *
+   *
+   */
+  readonly oldName?: LocalizedString
+}
+/**
+ *	Generated after a successful [Set MethodInfo Token](ctp:api:type:PaymentSetMethodInfoTokenAction) update action.
+ *
+ */
+export interface PaymentMethodInfoTokenSetMessage extends IMessage {
+  readonly type: 'PaymentMethodInfoTokenSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Token of the Payment Method after the [Set MethodInfo Token](ctp:api:type:PaymentSetMethodInfoTokenAction) update action.
+   *
+   *
+   */
+  readonly token?: PaymentMethodToken
+  /**
+   *	Token of the Payment Method before the [Set MethodInfo Token](ctp:api:type:PaymentSetMethodInfoTokenAction) update action.
+   *
+   *
+   */
+  readonly oldToken?: PaymentMethodToken
+}
+/**
+ *	Generated after a successful [Set InterfaceAccount](ctp:api:type:PaymentMethodSetInterfaceAccountAction) update action.
+ *
+ */
+export interface PaymentMethodInterfaceAccountSetMessage extends IMessage {
+  readonly type: 'PaymentMethodInterfaceAccountSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Interface account of the Payment Method after the [Set InterfaceAccount](ctp:api:type:PaymentMethodSetInterfaceAccountAction) update action.
+   *
+   *
+   */
+  readonly interfaceAccount?: string
+  /**
+   *	Interface account of the Payment Method before the [Set InterfaceAccount](ctp:api:type:PaymentMethodSetInterfaceAccountAction) update action.
+   *
+   *
+   */
+  readonly oldInterfaceAccount?: string
+}
+/**
+ *	Generated after a successful [Set Key](ctp:api:type:PaymentMethodSetKeyAction) update action.
+ *
+ */
+export interface PaymentMethodKeySetMessage extends IMessage {
+  readonly type: 'PaymentMethodKeySet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	`key` value of the [PaymentMethod](ctp:api:type:PaymentMethod) after the [Set Key](ctp:api:type:PaymentMethodSetKeyAction) update action.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	`key` value of the [PaymentMethod](ctp:api:type:PaymentMethod) before the [Set Key](ctp:api:type:PaymentMethodSetKeyAction) update action.
+   *
+   *
+   */
+  readonly oldKey?: string
+}
+/**
+ *	Generated after a successful [Set Method](ctp:api:type:PaymentMethodSetMethodAction) update action.
+ *
+ */
+export interface PaymentMethodMethodSetMessage extends IMessage {
+  readonly type: 'PaymentMethodMethodSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Payment Method after the [Set Method](ctp:api:type:PaymentMethodSetMethodAction) update action.
+   *
+   *
+   */
+  readonly method?: string
+  /**
+   *	Payment Method before the [Set Method](ctp:api:type:PaymentMethodSetMethodAction) update action.
+   *
+   *
+   */
+  readonly oldMethod?: string
+}
+/**
+ *	Generated after a successful [Set Name](ctp:api:type:PaymentMethodSetNameAction) update action.
+ *
+ */
+export interface PaymentMethodNameSetMessage extends IMessage {
+  readonly type: 'PaymentMethodNameSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Payment Method after the [Set Name](ctp:api:type:PaymentMethodSetNameAction) update action.
+   *
+   *
+   */
+  readonly name?: LocalizedString
+  /**
+   *	Name of the Payment Method before the [Set Name](ctp:api:type:PaymentMethodSetNameAction) update action.
+   *
+   *
+   */
+  readonly oldName?: LocalizedString
+}
+/**
+ *	Generated after a successful [Set PaymentInterface](ctp:api:type:PaymentMethodSetPaymentInterfaceAction) update action.
+ *
+ */
+export interface PaymentMethodPaymentInterfaceSetMessage extends IMessage {
+  readonly type: 'PaymentMethodPaymentInterfaceSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Payment interface of the Payment Method after the [Set PaymentInterface](ctp:api:type:PaymentMethodSetPaymentInterfaceAction) update action.
+   *
+   *
+   */
+  readonly paymentInterface?: string
+  /**
+   *	Payment interface of the Payment Method before the [Set PaymentInterface](ctp:api:type:PaymentMethodSetPaymentInterfaceAction) update action.
+   *
+   *
+   */
+  readonly oldPaymentInterface?: string
+}
+/**
+ *	Generated after a successful [Set PaymentMethodStatus](ctp:api:type:PaymentMethodSetPaymentMethodStatusAction) update action.
+ *
+ */
+export interface PaymentMethodPaymentMethodStatusSetMessage extends IMessage {
+  readonly type: 'PaymentMethodPaymentMethodStatusSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Status of the Payment Method after the [Set PaymentMethodStatus](ctp:api:type:PaymentMethodSetPaymentMethodStatusAction) update action.
+   *
+   *
+   */
+  readonly status?: PaymentMethodStatus
+  /**
+   *	Status of the Payment Method before the [Set PaymentMethodStatus](ctp:api:type:PaymentMethodSetPaymentMethodStatusAction) update action.
+   *
+   *
+   */
+  readonly oldStatus?: PaymentMethodStatus
+}
+/**
  *	Generated after a successful [Set StatusInterfaceCode](ctp:api:type:PaymentSetStatusInterfaceCodeAction) update action.
  *
  */
@@ -20537,6 +22437,31 @@ export type MessagePayload =
   | ParcelTrackingDataUpdatedMessagePayload
   | PaymentCreatedMessagePayload
   | PaymentInteractionAddedMessagePayload
+  | PaymentInterfaceIdSetMessagePayload
+  | PaymentMethodCreatedMessagePayload
+  | PaymentMethodCustomFieldAddedMessagePayload
+  | PaymentMethodCustomFieldChangedMessagePayload
+  | PaymentMethodCustomFieldRemovedMessagePayload
+  | PaymentMethodCustomTypeRemovedMessagePayload
+  | PaymentMethodCustomTypeSetMessagePayload
+  | PaymentMethodDefaultSetMessagePayload
+  | PaymentMethodDeletedMessagePayload
+  | PaymentMethodInfoCustomFieldAddedMessagePayload
+  | PaymentMethodInfoCustomFieldChangedMessagePayload
+  | PaymentMethodInfoCustomFieldRemovedMessagePayload
+  | PaymentMethodInfoCustomTypeRemovedMessagePayload
+  | PaymentMethodInfoCustomTypeSetMessagePayload
+  | PaymentMethodInfoInterfaceAccountSetMessagePayload
+  | PaymentMethodInfoInterfaceSetMessagePayload
+  | PaymentMethodInfoMethodSetMessagePayload
+  | PaymentMethodInfoNameSetMessagePayload
+  | PaymentMethodInfoTokenSetMessagePayload
+  | PaymentMethodInterfaceAccountSetMessagePayload
+  | PaymentMethodKeySetMessagePayload
+  | PaymentMethodMethodSetMessagePayload
+  | PaymentMethodNameSetMessagePayload
+  | PaymentMethodPaymentInterfaceSetMessagePayload
+  | PaymentMethodPaymentMethodStatusSetMessagePayload
   | PaymentStatusInterfaceCodeSetMessagePayload
   | PaymentStatusStateTransitionMessagePayload
   | PaymentTransactionAddedMessagePayload
@@ -23773,6 +25698,469 @@ export interface PaymentInteractionAddedMessagePayload extends IMessagePayload {
    *
    */
   readonly interaction: CustomFields
+}
+/**
+ *	Generated after a successful [Set InterfaceId](ctp:api:type:PaymentSetInterfaceIdAction) update action.
+ *
+ */
+export interface PaymentInterfaceIdSetMessagePayload extends IMessagePayload {
+  readonly type: 'PaymentInterfaceIdSet'
+  /**
+   *	Interface ID of the Payment after the [Set InterfaceId](ctp:api:type:PaymentSetInterfaceIdAction) update action.
+   *
+   *
+   */
+  readonly interfaceId?: string
+  /**
+   *	Interface ID of the Payment before the [Set InterfaceId](ctp:api:type:PaymentSetInterfaceIdAction) update action.
+   *
+   *
+   */
+  readonly oldInterfaceId?: string
+}
+/**
+ *	Generated after a successful [Create PaymentMethod](ctp:api:endpoint:/{projectKey}/payment-methods:POST) request.
+ *
+ */
+export interface PaymentMethodCreatedMessagePayload extends IMessagePayload {
+  readonly type: 'PaymentMethodCreated'
+  /**
+   *	[PaymentMethod](ctp:api:type:PaymentMethod) that was created.
+   *
+   *
+   */
+  readonly paymentMethod: PaymentMethod
+}
+/**
+ *	Generated after adding a Custom Field to a Payment Method using the [Set CustomField](ctp:api:type:PaymentMethodSetCustomFieldAction) update action. If a Custom Field already exists with the same name, a [PaymentMethodCustomFieldChanged](ctp:api:type:PaymentMethodCustomFieldChangedMessage) Message is generated instead.
+ *
+ */
+export interface PaymentMethodCustomFieldAddedMessagePayload
+  extends IMessagePayload {
+  readonly type: 'PaymentMethodCustomFieldAdded'
+  /**
+   *	Name of the Custom Field that was added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after changing an existing Custom Field on a Payment Method using the [Set CustomField](ctp:api:type:PaymentMethodSetCustomFieldAction) update action.
+ *
+ */
+export interface PaymentMethodCustomFieldChangedMessagePayload
+  extends IMessagePayload {
+  readonly type: 'PaymentMethodCustomFieldChanged'
+  /**
+   *	Name of the Custom Field that changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:PaymentMethodSetCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) before the [Set CustomField](ctp:api:type:PaymentMethodSetCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly oldValue?: any
+}
+/**
+ *	Generated after removing a Custom Field from a Payment Method using the [Set CustomField](ctp:api:type:PaymentMethodSetCustomFieldAction) update action.
+ *
+ */
+export interface PaymentMethodCustomFieldRemovedMessagePayload
+  extends IMessagePayload {
+  readonly type: 'PaymentMethodCustomFieldRemoved'
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after removing a Custom Type from a Payment Method using the [Set Custom Type](ctp:api:type:PaymentMethodSetCustomTypeAction) update action.
+ *
+ */
+export interface PaymentMethodCustomTypeRemovedMessagePayload
+  extends IMessagePayload {
+  readonly type: 'PaymentMethodCustomTypeRemoved'
+  /**
+   *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
+ *	Generated after adding a Custom Type to a Payment Method using the [Set Custom Type](ctp:api:type:PaymentMethodSetCustomTypeAction) update action.
+ *
+ */
+export interface PaymentMethodCustomTypeSetMessagePayload
+  extends IMessagePayload {
+  readonly type: 'PaymentMethodCustomTypeSet'
+  /**
+   *	The Custom Fields that were set.
+   *
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
+ *	Generated after a successful [Set Default](ctp:api:type:PaymentMethodSetDefaultAction) update action.
+ *
+ */
+export interface PaymentMethodDefaultSetMessagePayload extends IMessagePayload {
+  readonly type: 'PaymentMethodDefaultSet'
+  /**
+   *	Default Payment Method after the [Set Default](ctp:api:type:PaymentMethodSetDefaultAction) update action.
+   *
+   *
+   */
+  readonly default: boolean
+  /**
+   *	Default Payment Method before the [Set Default](ctp:api:type:PaymentMethodSetDefaultAction) update action.
+   *
+   *
+   */
+  readonly oldDefault: boolean
+}
+/**
+ *	Generated after a successful [Delete PaymentMethod](/projects/payment-methods#delete-paymentmethod) request.
+ *
+ */
+export interface PaymentMethodDeletedMessagePayload extends IMessagePayload {
+  readonly type: 'PaymentMethodDeleted'
+  /**
+   *	The [PaymentMethod](ctp:api:type:PaymentMethod) that was deleted.
+   *
+   *
+   */
+  readonly paymentMethod: PaymentMethod
+}
+/**
+ *	Generated after adding a Custom Field to a PaymentMethodInfo using the [Set MethodInfo CustomField](ctp:api:type:PaymentSetMethodInfoCustomFieldAction) update action on Payments and the [Set MethodInfo CustomField](ctp:api:type:MyPaymentSetMethodInfoCustomFieldAction) update action on My Payments. If a Custom Field already exists with the same name, a [PaymentMethodInfoCustomFieldChanged](ctp:api:type:PaymentMethodInfoCustomFieldChangedMessage) Message is generated instead.
+ *
+ */
+export interface PaymentMethodInfoCustomFieldAddedMessagePayload
+  extends IMessagePayload {
+  readonly type: 'PaymentMethodInfoCustomFieldAdded'
+  /**
+   *	Name of the Custom Field that was added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after changing an existing Custom Field on a PaymentMethodInfo using the [Set MethodInfo CustomField](ctp:api:type:PaymentSetMethodInfoCustomFieldAction) update action on Payments and the [Set MethodInfo CustomField](ctp:api:type:MyPaymentSetMethodInfoCustomFieldAction) update action on My Payments.
+ *
+ */
+export interface PaymentMethodInfoCustomFieldChangedMessagePayload
+  extends IMessagePayload {
+  readonly type: 'PaymentMethodInfoCustomFieldChanged'
+  /**
+   *	Name of the Custom Field that changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:PaymentSetMethodInfoCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated after removing a Custom Field from a PaymentMethodInfo using the [Set MethodInfo CustomField](ctp:api:type:PaymentSetMethodInfoCustomFieldAction) update action on Payments and the [Set MethodInfo CustomField](ctp:api:type:MyPaymentSetMethodInfoCustomFieldAction) update action on My Payments.
+ *
+ */
+export interface PaymentMethodInfoCustomFieldRemovedMessagePayload
+  extends IMessagePayload {
+  readonly type: 'PaymentMethodInfoCustomFieldRemoved'
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after removing Custom Fields from a PaymentMethodInfo using the [Set MethodInfo Custom Type](ctp:api:type:PaymentSetMethodInfoCustomTypeAction) update action on Payments and the [Set MethodInfo Custom Type](ctp:api:type:MyPaymentSetMethodInfoCustomTypeAction) update action on My Payments.
+ *
+ */
+export interface PaymentMethodInfoCustomTypeRemovedMessagePayload
+  extends IMessagePayload {
+  readonly type: 'PaymentMethodInfoCustomTypeRemoved'
+  /**
+   *	`id` of the [Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
+ *	Generated after adding Custom Fields to a PaymentMethodInfo using the [Set MethodInfo Custom Type](ctp:api:type:PaymentSetMethodInfoCustomTypeAction) update action on Payments and the [Set MethodInfo Custom Type](ctp:api:type:MyPaymentSetMethodInfoCustomTypeAction) update action on My Payments.
+ *
+ */
+export interface PaymentMethodInfoCustomTypeSetMessagePayload
+  extends IMessagePayload {
+  readonly type: 'PaymentMethodInfoCustomTypeSet'
+  /**
+   *	The Custom Fields that were set.
+   *
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly oldTypeId?: string
+}
+/**
+ *	Generated after a successful [Set MethodInfo InterfaceAccount](ctp:api:type:PaymentSetMethodInfoInterfaceAccountAction) update action on Payments and [Set MethodInfo InterfaceAccount](ctp:api:type:MyPaymentSetMethodInfoInterfaceAccountAction) update action on My Payments.
+ *
+ */
+export interface PaymentMethodInfoInterfaceAccountSetMessagePayload
+  extends IMessagePayload {
+  readonly type: 'PaymentMethodInfoInterfaceAccountSet'
+  /**
+   *	Interface account of the Payment Method after the [Set MethodInfo InterfaceAccount](ctp:api:type:PaymentSetMethodInfoInterfaceAccountAction) update action.
+   *
+   *
+   */
+  readonly interfaceAccount?: string
+  /**
+   *	Interface account of the Payment Method before the [Set MethodInfo InterfaceAccount](ctp:api:type:PaymentSetMethodInfoInterfaceAccountAction) update action.
+   *
+   *
+   */
+  readonly oldInterfaceAccount?: string
+}
+/**
+ *	Generated after a successful [Set MethodInfo Interface](ctp:api:type:PaymentSetMethodInfoInterfaceAction) update action.
+ *
+ */
+export interface PaymentMethodInfoInterfaceSetMessagePayload
+  extends IMessagePayload {
+  readonly type: 'PaymentMethodInfoInterfaceSet'
+  /**
+   *	Payment interface of the Payment Method after the [Set MethodInfo Interface](ctp:api:type:PaymentSetMethodInfoInterfaceAction) update action.
+   *
+   *
+   */
+  readonly interface?: string
+  /**
+   *	Payment interface of the Payment Method before the [Set MethodInfo Interface](ctp:api:type:PaymentSetMethodInfoInterfaceAction) update action.
+   *
+   *
+   */
+  readonly oldInterface?: string
+}
+/**
+ *	Generated after a successful [Set MethodInfo Method](ctp:api:type:PaymentSetMethodInfoMethodAction) update action.
+ *
+ */
+export interface PaymentMethodInfoMethodSetMessagePayload
+  extends IMessagePayload {
+  readonly type: 'PaymentMethodInfoMethodSet'
+  /**
+   *	Payment Method after the [Set MethodInfo Method](ctp:api:type:PaymentSetMethodInfoMethodAction) update action.
+   *
+   *
+   */
+  readonly method?: string
+  /**
+   *	Payment Method before the [Set MethodInfo Method](ctp:api:type:PaymentSetMethodInfoMethodAction) update action.
+   *
+   *
+   */
+  readonly oldMethod?: string
+}
+/**
+ *	Generated after a successful [Set MethodInfo Name](ctp:api:type:PaymentSetMethodInfoNameAction) update action.
+ *
+ */
+export interface PaymentMethodInfoNameSetMessagePayload
+  extends IMessagePayload {
+  readonly type: 'PaymentMethodInfoNameSet'
+  /**
+   *	Name of the Payment Method after the [Set MethodInfo Name](ctp:api:type:PaymentSetMethodInfoNameAction) update action.
+   *
+   *
+   */
+  readonly name?: LocalizedString
+  /**
+   *	Name of the Payment Method before the [Set MethodInfo Name](ctp:api:type:PaymentSetMethodInfoNameAction) update action.
+   *
+   *
+   */
+  readonly oldName?: LocalizedString
+}
+/**
+ *	Generated after a successful [Set MethodInfo Token](ctp:api:type:PaymentSetMethodInfoTokenAction) update action.
+ *
+ */
+export interface PaymentMethodInfoTokenSetMessagePayload
+  extends IMessagePayload {
+  readonly type: 'PaymentMethodInfoTokenSet'
+  /**
+   *	Token of the Payment Method after the [Set MethodInfo Token](ctp:api:type:PaymentSetMethodInfoTokenAction) update action.
+   *
+   *
+   */
+  readonly token?: PaymentMethodToken
+  /**
+   *	Token of the Payment Method before the [Set MethodInfo Token](ctp:api:type:PaymentSetMethodInfoTokenAction) update action.
+   *
+   *
+   */
+  readonly oldToken?: PaymentMethodToken
+}
+/**
+ *	Generated after a successful [Set InterfaceAccount](ctp:api:type:PaymentMethodSetInterfaceAccountAction) update action.
+ *
+ */
+export interface PaymentMethodInterfaceAccountSetMessagePayload
+  extends IMessagePayload {
+  readonly type: 'PaymentMethodInterfaceAccountSet'
+  /**
+   *	Interface account of the Payment Method after the [Set InterfaceAccount](ctp:api:type:PaymentMethodSetInterfaceAccountAction) update action.
+   *
+   *
+   */
+  readonly interfaceAccount?: string
+  /**
+   *	Interface account of the Payment Method before the [Set InterfaceAccount](ctp:api:type:PaymentMethodSetInterfaceAccountAction) update action.
+   *
+   *
+   */
+  readonly oldInterfaceAccount?: string
+}
+/**
+ *	Generated after a successful [Set Key](ctp:api:type:PaymentMethodSetKeyAction) update action.
+ *
+ */
+export interface PaymentMethodKeySetMessagePayload extends IMessagePayload {
+  readonly type: 'PaymentMethodKeySet'
+  /**
+   *	`key` value of the [PaymentMethod](ctp:api:type:PaymentMethod) after the [Set Key](ctp:api:type:PaymentMethodSetKeyAction) update action.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	`key` value of the [PaymentMethod](ctp:api:type:PaymentMethod) before the [Set Key](ctp:api:type:PaymentMethodSetKeyAction) update action.
+   *
+   *
+   */
+  readonly oldKey?: string
+}
+/**
+ *	Generated after a successful [Set Method](ctp:api:type:PaymentMethodSetMethodAction) update action.
+ *
+ */
+export interface PaymentMethodMethodSetMessagePayload extends IMessagePayload {
+  readonly type: 'PaymentMethodMethodSet'
+  /**
+   *	Payment Method after the [Set Method](ctp:api:type:PaymentMethodSetMethodAction) update action.
+   *
+   *
+   */
+  readonly method?: string
+  /**
+   *	Payment Method before the [Set Method](ctp:api:type:PaymentMethodSetMethodAction) update action.
+   *
+   *
+   */
+  readonly oldMethod?: string
+}
+/**
+ *	Generated after a successful [Set Name](ctp:api:type:PaymentMethodSetNameAction) update action.
+ *
+ */
+export interface PaymentMethodNameSetMessagePayload extends IMessagePayload {
+  readonly type: 'PaymentMethodNameSet'
+  /**
+   *	Name of the Payment Method after the [Set Name](ctp:api:type:PaymentMethodSetNameAction) update action.
+   *
+   *
+   */
+  readonly name?: LocalizedString
+  /**
+   *	Name of the Payment Method before the [Set Name](ctp:api:type:PaymentMethodSetNameAction) update action.
+   *
+   *
+   */
+  readonly oldName?: LocalizedString
+}
+/**
+ *	Generated after a successful [Set PaymentInterface](ctp:api:type:PaymentMethodSetPaymentInterfaceAction) update action.
+ *
+ */
+export interface PaymentMethodPaymentInterfaceSetMessagePayload
+  extends IMessagePayload {
+  readonly type: 'PaymentMethodPaymentInterfaceSet'
+  /**
+   *	Payment interface of the Payment Method after the [Set PaymentInterface](ctp:api:type:PaymentMethodSetPaymentInterfaceAction) update action.
+   *
+   *
+   */
+  readonly paymentInterface?: string
+  /**
+   *	Payment interface of the Payment Method before the [Set PaymentInterface](ctp:api:type:PaymentMethodSetPaymentInterfaceAction) update action.
+   *
+   *
+   */
+  readonly oldPaymentInterface?: string
+}
+/**
+ *	Generated after a successful [Set PaymentMethodStatus](ctp:api:type:PaymentMethodSetPaymentMethodStatusAction) update action.
+ *
+ */
+export interface PaymentMethodPaymentMethodStatusSetMessagePayload
+  extends IMessagePayload {
+  readonly type: 'PaymentMethodPaymentMethodStatusSet'
+  /**
+   *	Status of the Payment Method after the [Set PaymentMethodStatus](ctp:api:type:PaymentMethodSetPaymentMethodStatusAction) update action.
+   *
+   *
+   */
+  readonly status?: PaymentMethodStatus
+  /**
+   *	Status of the Payment Method before the [Set PaymentMethodStatus](ctp:api:type:PaymentMethodSetPaymentMethodStatusAction) update action.
+   *
+   *
+   */
+  readonly oldStatus?: PaymentMethodStatus
 }
 /**
  *	Generated after a successful [Set StatusInterfaceCode](ctp:api:type:PaymentSetStatusInterfaceCodeAction) update action.

@@ -77,6 +77,7 @@ import {
   OrderEditResourceIdentifier,
 } from './order-edit'
 import { Payment, PaymentReference, PaymentResourceIdentifier } from './payment'
+import { PaymentMethod, PaymentMethodReference } from './payment-method'
 import {
   Product,
   ProductProjection,
@@ -590,6 +591,7 @@ export type _BaseResource =
   | _Order
   | OrderEdit
   | Payment
+  | PaymentMethod
   | Product
   | ProductDiscount
   | ProductProjection
@@ -1160,6 +1162,7 @@ export type Reference =
   | InventoryEntryReference
   | OrderEditReference
   | OrderReference
+  | PaymentMethodReference
   | PaymentReference
   | ProductDiscountReference
   | ProductReference
@@ -1219,6 +1222,7 @@ export enum ReferenceTypeIdValues {
   Order = 'order',
   OrderEdit = 'order-edit',
   Payment = 'payment',
+  PaymentMethod = 'payment-method',
   Product = 'product',
   ProductDiscount = 'product-discount',
   ProductPrice = 'product-price',
@@ -1263,6 +1267,7 @@ export type ReferenceTypeId =
   | 'order'
   | 'order-edit'
   | 'payment'
+  | 'payment-method'
   | 'product'
   | 'product-discount'
   | 'product-price'
