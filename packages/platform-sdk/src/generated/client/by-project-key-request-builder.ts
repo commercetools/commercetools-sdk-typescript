@@ -29,6 +29,7 @@ import { ByProjectKeyLoginRequestBuilder } from './login/by-project-key-login-re
 import { ByProjectKeyMeRequestBuilder } from './me/by-project-key-me-request-builder'
 import { ByProjectKeyMessagesRequestBuilder } from './messages/by-project-key-messages-request-builder'
 import { ByProjectKeyOrdersRequestBuilder } from './orders/by-project-key-orders-request-builder'
+import { ByProjectKeyPaymentMethodsRequestBuilder } from './payment-methods/by-project-key-payment-methods-request-builder'
 import { ByProjectKeyPaymentsRequestBuilder } from './payments/by-project-key-payments-request-builder'
 import { ByProjectKeyProductDiscountsRequestBuilder } from './product-discounts/by-project-key-product-discounts-request-builder'
 import { ByProjectKeyProductProjectionsRequestBuilder } from './product-projections/by-project-key-product-projections-request-builder'
@@ -257,6 +258,18 @@ export class ByProjectKeyRequestBuilder {
    */
   public orders(): ByProjectKeyOrdersRequestBuilder {
     return new ByProjectKeyOrdersRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	A PaymentMethod stores details about the method and the PSP
+   */
+  public paymentMethods(): ByProjectKeyPaymentMethodsRequestBuilder {
+    return new ByProjectKeyPaymentMethodsRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },

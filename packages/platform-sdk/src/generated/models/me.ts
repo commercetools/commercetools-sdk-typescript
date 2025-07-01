@@ -33,6 +33,7 @@ import { DiscountCodeReference } from './discount-code'
 import { OrderReference } from './order'
 import {
   PaymentMethodInfo,
+  PaymentMethodInfoDraft,
   PaymentResourceIdentifier,
   Transaction,
   TransactionDraft,
@@ -795,7 +796,7 @@ export interface MyPaymentDraft {
    *
    *
    */
-  readonly paymentMethodInfo?: PaymentMethodInfo
+  readonly paymentMethodInfo?: PaymentMethodInfoDraft
   /**
    *	Custom Fields for the Payment.
    *
@@ -868,6 +869,9 @@ export type MyPaymentUpdateAction =
   | MyPaymentAddTransactionAction
   | MyPaymentChangeAmountPlannedAction
   | MyPaymentSetCustomFieldAction
+  | MyPaymentSetMethodInfoCustomFieldAction
+  | MyPaymentSetMethodInfoCustomTypeAction
+  | MyPaymentSetMethodInfoInterfaceAccountAction
   | MyPaymentSetMethodInfoInterfaceAction
   | MyPaymentSetMethodInfoMethodAction
   | MyPaymentSetMethodInfoNameAction
@@ -2448,6 +2452,63 @@ export interface MyPaymentSetCustomFieldAction extends IMyPaymentUpdateAction {
    *
    */
   readonly value?: any
+}
+/**
+ *	Adding a Custom Field to a PaymentMethodInfo generates the [PaymentMethodInfoCustomFieldAdded](ctp:api:type:PaymentMethodInfoCustomFieldAddedMessage) Message, removing one generates the [PaymentMethodInfoCustomFieldRemoved](ctp:api:type:PaymentMethodInfoCustomFieldRemovedMessage) Message, and updating an existing one generates the [PaymentMethodInfoCustomFieldChanged](ctp:api:type:PaymentMethodInfoCustomFieldChangedMessage) Message.
+ *
+ */
+export interface MyPaymentSetMethodInfoCustomFieldAction
+  extends IMyPaymentUpdateAction {
+  readonly action: 'setMethodInfoCustomField'
+  /**
+   *	Name of the [Custom Field](/../api/projects/custom-fields).
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	If `value` is absent or `null`, this field will be removed if it exists.
+   *	If `value` is provided, it is set for the field defined by `name`.
+   *	Trying to remove a field that does not exist will fail with an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
+   *
+   *
+   */
+  readonly value?: any
+}
+/**
+ *	Adding or updating a Custom Type on a PaymentMethodInfo generates the [PaymentMethodInfoCustomTypeSet](ctp:api:type:PaymentMethodInfoCustomTypeSetMessage) Message, removing one generates the [PaymentMethodInfoCustomTypeRemoved](ctp:api:type:PaymentMethodInfoCustomTypeRemovedMessage) Message.
+ *
+ */
+export interface MyPaymentSetMethodInfoCustomTypeAction
+  extends IMyPaymentUpdateAction {
+  readonly action: 'setMethodInfoCustomType'
+  /**
+   *	Defines the [Type](ctp:api:type:Type) that extends the `paymentMethodInfo` with [Custom Fields](/../api/projects/custom-fields).
+   *
+   *
+   */
+  readonly type?: TypeResourceIdentifier
+  /**
+   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the `paymentMethodInfo`.
+   *
+   *
+   */
+  readonly fields?: FieldContainer
+}
+/**
+ *	This action generates the [PaymentMethodInfoInterfaceAccountSet](ctp:api:type:PaymentMethodInfoInterfaceAccountSetMessage) Message.
+ *
+ */
+export interface MyPaymentSetMethodInfoInterfaceAccountAction
+  extends IMyPaymentUpdateAction {
+  readonly action: 'setMethodInfoInterfaceAccount'
+  /**
+   *	New account or instance of the payment interface.
+   *	If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly interfaceAccount?: string
 }
 export interface MyPaymentSetMethodInfoInterfaceAction
   extends IMyPaymentUpdateAction {
