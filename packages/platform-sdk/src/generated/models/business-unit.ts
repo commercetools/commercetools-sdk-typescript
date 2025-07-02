@@ -1333,6 +1333,12 @@ export interface BusinessUnitChangeAssociateModeAction
    *
    */
   readonly associateMode: BusinessUnitAssociateMode
+  /**
+   *	If set to `true` during a change to `associateMode="Explicit"`, all inherited Associates will be converted to explicit Associates.
+   *
+   *
+   */
+  readonly makeInheritedAssociatesExplicit: boolean
 }
 /**
  *	Updating the name on a [Business Unit](ctp:api:type:BusinessUnit) generates a [BusinessUnitNameChanged](ctp:api:type:BusinessUnitNameChangedMessage) Message.

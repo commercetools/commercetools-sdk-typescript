@@ -16,6 +16,7 @@
 <details>
 <summary>Added Property(s)</summary>
 
+- added property `makeInheritedAssociatesExplicit` to type `BusinessUnitChangeAssociateModeAction`
 - added property `discountGroup` to type `CartDiscount`
 - added property `discountGroup` to type `CartDiscountDraft`
 - added property `priceRoundingMode` to type `Cart`
