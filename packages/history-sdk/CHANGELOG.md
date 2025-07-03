@@ -1,5 +1,18 @@
 # @commercetools/history-sdk
 
+## 5.4.0
+
+### Minor Changes
+
+- [#1107](https://github.com/commercetools/commercetools-sdk-typescript/pull/1107) [`8ec7476`](https://github.com/commercetools/commercetools-sdk-typescript/commit/8ec74760134be5e75ec95ad77746f54218cefd2f) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **History changes**
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `ApplicationStoppedByGroupBestDeal` to type `DiscountCodeState`
+  - added enum `payment-method` to type `ReferenceTypeId`
+  </details>
+
 ## 5.3.0
 
 ### Minor Changes

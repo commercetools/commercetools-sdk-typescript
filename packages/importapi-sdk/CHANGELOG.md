@@ -1,5 +1,25 @@
 # @commercetools/importapi-sdk
 
+## 6.4.0
+
+### Minor Changes
+
+- [#1109](https://github.com/commercetools/commercetools-sdk-typescript/pull/1109) [`b889bbc`](https://github.com/commercetools/commercetools-sdk-typescript/commit/b889bbcf39372e615da220632755c8e105e58bae) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `attributes` to type `ProductImport`
+  - added property `attributes` to type `ProductDraftImport`
+  - added property `level` to type `AttributeDefinition`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `AttributeLevel`
+  </details>
+
 ## 6.3.0
 
 ### Minor Changes
