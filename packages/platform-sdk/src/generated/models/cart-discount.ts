@@ -447,7 +447,7 @@ export interface CartDiscountShippingCostTarget extends ICartDiscountTarget {
 }
 /**
  *	Discount is applied to the total price of the [Cart](ctp:api:type:Cart).
- *	The same percentage of discount applies on the [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order) `taxedPrice`.
+ *	The same percentage of discount applies on the [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order) `taxedPrice` and `taxedShippingPrice`.
  *
  */
 export interface CartDiscountTotalPriceTarget extends ICartDiscountTarget {
