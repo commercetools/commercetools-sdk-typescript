@@ -7,6 +7,43 @@
 import { ImportResourceType } from './common'
 
 /**
+ *	The strategy of the retention policy. Used to determine how the ImportContainer should be retained.
+ */
+export enum StrategyEnumValues {
+  Ttl = 'ttl',
+}
+
+export type StrategyEnum = 'ttl' | (string & {})
+/**
+ *	The retention policy of the ImportContainer. If not set, the ImportContainer does not expire.
+ */
+export type RetentionPolicy = TimeToLiveRetentionPolicy
+export interface IRetentionPolicy {
+  /**
+   *	The strategy of the retention policy. Used to determine how the ImportContainer should be retained.
+   *
+   */
+  readonly strategy: StrategyEnum
+}
+export interface TimeToLiveConfig {
+  /**
+   *	The time to live of the ImportContainer. Used to generate the `expiresAt` value of the ImportContainer. The lowest accepted value is `1h` and the highest accepted value is `30d`.
+   *
+   */
+  readonly timeToLive: string
+}
+/**
+ *	Set a time to live retention policy for the ImportContainer.
+ */
+export interface TimeToLiveRetentionPolicy extends IRetentionPolicy {
+  readonly strategy: 'ttl'
+  /**
+   *	The configuration of the time to live retention policy.
+   *
+   */
+  readonly config: TimeToLiveConfig
+}
+/**
  *	Serves as the entry point of resources.
  *	An Import Container is not resource type-specific.
  *
@@ -14,8 +51,6 @@ import { ImportResourceType } from './common'
 export interface ImportContainer {
   /**
    *	User-defined unique identifier for the ImportContainer.
-   *	Keys can only contain alphanumeric characters (a-Z, 0-9), underscores and hyphens (_, -).
-   *
    *
    */
   readonly key: string
@@ -32,15 +67,25 @@ export interface ImportContainer {
    */
   readonly version: number
   /**
-   *	The time when the ImportContainer was created.
+   *	The retention policy of the ImportContainer.
+   *
+   */
+  readonly retentionPolicy?: RetentionPolicy
+  /**
+   *	Date and time (UTC) the ImportContainer was initially created.
    *
    */
   readonly createdAt: string
   /**
-   *	The last time when the ImportContainer was modified.
+   *	Date and time (UTC) the ImportContainer was last updated.
    *
    */
   readonly lastModifiedAt: string
+  /**
+   *	Date and time (UTC) the ImportContainer is automatically deleted. Only present if a `retentionPolicy` is set. ImportContainers without `expiresAt` are permanent until [manually deleted](#delete-importcontainer).
+   *
+   */
+  readonly expiresAt?: string
 }
 /**
  *	The representation sent to the server when creating an [ImportContainer](#importcontainer).
@@ -49,8 +94,6 @@ export interface ImportContainer {
 export interface ImportContainerDraft {
   /**
    *	User-defined unique identifier of the ImportContainer.
-   *	Keys can only contain alphanumeric characters (a-Z, 0-9), underscores and hyphens (_, -).
-   *
    *
    */
   readonly key: string
@@ -61,6 +104,11 @@ export interface ImportContainerDraft {
    *
    */
   readonly resourceType?: ImportResourceType
+  /**
+   *	Set a retention policy to automatically delete the ImportContainer after a defined period.
+   *
+   */
+  readonly retentionPolicy?: RetentionPolicy
 }
 /**
  *	The representation sent to the server when updating an Import Container.
