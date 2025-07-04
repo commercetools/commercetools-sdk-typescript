@@ -60,12 +60,6 @@ export interface IAttribute {
    *
    */
   readonly type: string
-  /**
-   *	The actual value of the Attribute compliant to the `type`, see specific [attribute types](ctp:import:type;Attribute).
-   *
-   *
-   */
-  readonly value: any
 }
 /**
  *	This type represents an attribute whose value is either "true" or "false".
