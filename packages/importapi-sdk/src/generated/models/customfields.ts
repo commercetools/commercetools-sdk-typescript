@@ -8,7 +8,6 @@ import {
   KeyReference,
   LocalizedString,
   Money,
-  TypedMoney,
   TypeKeyReference,
 } from './common'
 
@@ -17,7 +16,7 @@ import {
  */
 export interface Custom {
   /**
-   *	The type that provides the field definitions for this object.
+   *	The [Type](ctp:api:type:Type) that provides the field definitions for this object. If the referenced Type does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Type is created.
    *
    */
   readonly type: TypeKeyReference
@@ -72,77 +71,24 @@ export interface ICustomField {
 export interface BooleanField extends ICustomField {
   readonly type: 'Boolean'
   /**
+   *	`true` or `false`
+   *
    *
    */
   readonly value: boolean
 }
 /**
- *	A field with a string value.
+ *	A field with a boolean set value.
  */
-export interface StringField extends ICustomField {
-  readonly type: 'String'
+export interface BooleanSetField extends ICustomField {
+  readonly type: 'BooleanSet'
   /**
-   *
-   */
-  readonly value: string
-}
-/**
- *	A field with a localized string value.
- */
-export interface LocalizedStringField extends ICustomField {
-  readonly type: 'LocalizedString'
-  /**
-   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
-   *	```json
-   *	{
-   *	  "de": "Hundefutter",
-   *	  "en": "dog food"
-   *	}
-   *	```
+   *	JSON array of boolean values without duplicates.
+   *	The order of items in the array is not fixed.
    *
    *
    */
-  readonly value: LocalizedString
-}
-/**
- *	A field with an enum value.
- */
-export interface EnumField extends ICustomField {
-  readonly type: 'Enum'
-  /**
-   *
-   */
-  readonly value: string
-}
-/**
- *	A field with a localized enum value.
- */
-export interface LocalizedEnumField extends ICustomField {
-  readonly type: 'LocalizedEnum'
-  /**
-   *
-   */
-  readonly value: string
-}
-/**
- *	A field with a number value.
- */
-export interface NumberField extends ICustomField {
-  readonly type: 'Number'
-  /**
-   *
-   */
-  readonly value: number
-}
-/**
- *	A field with a money value.
- */
-export interface MoneyField extends ICustomField {
-  readonly type: 'Money'
-  /**
-   *
-   */
-  readonly value: TypedMoney
+  readonly value: boolean[]
 }
 /**
  *	A field with a date value.
@@ -150,19 +96,24 @@ export interface MoneyField extends ICustomField {
 export interface DateField extends ICustomField {
   readonly type: 'Date'
   /**
+   *	A date in the format `YYYY-MM-DD`.
+   *
    *
    */
   readonly value: string
 }
 /**
- *	A field with a time value.
+ *	A field with a date set value.
  */
-export interface TimeField extends ICustomField {
-  readonly type: 'Time'
+export interface DateSetField extends ICustomField {
+  readonly type: 'DateSet'
   /**
+   *	JSON array of date values in the format `YYYY-MM-DD` without duplicates.
+   *	The order of items in the array is not fixed.
+   *
    *
    */
-  readonly value: string
+  readonly value: string[]
 }
 /**
  *	A field with a date time value.
@@ -170,9 +121,158 @@ export interface TimeField extends ICustomField {
 export interface DateTimeField extends ICustomField {
   readonly type: 'DateTime'
   /**
+   *	A date with time in the format `YYYY-MM-DDTHH:mm:ss.SSSZ`.
+   *	The time zone is optional and defaults to UTC if not specified.
+   *	If the time zone is specified, it must be in the format `±HH:mm` or `Z` for UTC.
+   *
    *
    */
   readonly value: string
+}
+/**
+ *	A field with a date time set value.
+ */
+export interface DateTimeSetField extends ICustomField {
+  readonly type: 'DateTimeSet'
+  /**
+   *	JSON array of date time values in the format `YYYY-MM-DDTHH:mm:ss.SSSZ` without duplicates.
+   *	The time zone is optional and defaults to UTC if not specified.
+   *	If the time zone is specified, it must be in the format `±HH:mm` or `Z` for UTC.
+   *	The order of items in the array is not fixed.
+   *
+   *
+   */
+  readonly value: string[]
+}
+/**
+ *	A field with an enum value.
+ */
+export interface EnumField extends ICustomField {
+  readonly type: 'Enum'
+  /**
+   *	The key of the enum value.
+   *	Must be a `key` of one of the [CustomFieldEnumValues](ctp:api:type:CustomFieldEnumValue) defined in the [CustomFieldEnumType](ctp:api:type:CustomFieldEnumType).
+   *
+   *
+   */
+  readonly value: string
+}
+/**
+ *	A field with an enum set value.
+ */
+export interface EnumSetField extends ICustomField {
+  readonly type: 'EnumSet'
+  /**
+   *	JSON array of enum values, each represented by its key.
+   *	Each key must match the key of a [CustomFieldLocalizedEnumValue](ctp:api:type:CustomFieldEnumValue) in the [CustomFieldEnumType](ctp:api:type:CustomFieldEnumType).
+   *	The order of items in the array is not fixed.
+   *
+   *
+   */
+  readonly value: string[]
+}
+/**
+ *	A field with a localized enum value.
+ */
+export interface LocalizedEnumField extends ICustomField {
+  readonly type: 'LocalizedEnum'
+  /**
+   *	The key of the localized enum value.
+   *	Must match the key of a [CustomFieldLocalizedEnumValue](ctp:api:type:CustomFieldLocalizedEnumValue) in the [CustomFieldLocalizedEnumType](ctp:api:type:CustomFieldLocalizedEnumType).
+   *
+   *
+   */
+  readonly value: string
+}
+/**
+ *	A field with a localized enum set value.
+ */
+export interface LocalizedEnumSetField extends ICustomField {
+  readonly type: 'LocalizedEnumSet'
+  /**
+   *	JSON array of localized enum values, each represented by its key.
+   *	Each key must match the key of an [CustomFieldLocalizedEnumValue](ctp:api:type:CustomFieldLocalizedEnumValue) in the [CustomFieldLocalizedEnumType](ctp:api:type:CustomFieldLocalizedEnumType).
+   *	The order of items in the array is not fixed.
+   *
+   *
+   */
+  readonly value: string[]
+}
+/**
+ *	A field with a localized string value.
+ */
+export interface LocalizedStringField extends ICustomField {
+  readonly type: 'LocalizedString'
+  /**
+   *	A localized string.
+   *
+   *
+   */
+  readonly value: LocalizedString
+}
+/**
+ *	A field with a localized string set value.
+ */
+export interface LocalizedStringSetField extends ICustomField {
+  readonly type: 'LocalizedStringSet'
+  /**
+   *	JSON array of localized strings.
+   *	The order of items in the array is not fixed.
+   *
+   *
+   */
+  readonly value: LocalizedString[]
+}
+/**
+ *	A field with a money value.
+ */
+export interface MoneyField extends ICustomField {
+  readonly type: 'Money'
+  /**
+   *	A money value in cent precision format.
+   *
+   *
+   */
+  readonly value: Money
+}
+/**
+ *	A field with a money set value.
+ */
+export interface MoneySetField extends ICustomField {
+  readonly type: 'MoneySet'
+  /**
+   *	JSON array of money values in cent precision format.
+   *	The order of items in the array is not fixed.
+   *
+   *
+   */
+  readonly value: Money[]
+}
+/**
+ *	A field with a number value.
+ */
+export interface NumberField extends ICustomField {
+  readonly type: 'Number'
+  /**
+   *	A number value.
+   *	Can be an integer or a floating-point number.
+   *
+   *
+   */
+  readonly value: number
+}
+/**
+ *	A field with a number value.
+ */
+export interface NumberSetField extends ICustomField {
+  readonly type: 'NumberSet'
+  /**
+   *	JSON array of integer or floating-point number values.
+   *	The order of items in the array is not fixed.
+   *
+   *
+   */
+  readonly value: number[]
 }
 /**
  *	A field with a reference value.
@@ -186,14 +286,29 @@ export interface ReferenceField extends ICustomField {
   readonly value: KeyReference
 }
 /**
- *	A field with a boolean set value.
+ *	A field with a reference set value.
  */
-export interface BooleanSetField extends ICustomField {
-  readonly type: 'BooleanSet'
+export interface ReferenceSetField extends ICustomField {
+  readonly type: 'ReferenceSet'
   /**
+   *	JSON array of references, each referencing an existing resource by key.
+   *	The order of items in the array is not fixed.
+   *
    *
    */
-  readonly value: boolean[]
+  readonly value: KeyReference[]
+}
+/**
+ *	A field with a string value.
+ */
+export interface StringField extends ICustomField {
+  readonly type: 'String'
+  /**
+   *	A text value.
+   *
+   *
+   */
+  readonly value: string
 }
 /**
  *	A field with a string set value.
@@ -201,69 +316,26 @@ export interface BooleanSetField extends ICustomField {
 export interface StringSetField extends ICustomField {
   readonly type: 'StringSet'
   /**
+   *	JSON array of strings.
+   *	The order of items in the array is not fixed.
+   *
    *
    */
   readonly value: string[]
 }
 /**
- *	A field with a localized string set value.
+ *	A field with a time value.
  */
-export interface LocalizedStringSetField extends ICustomField {
-  readonly type: 'LocalizedStringSet'
+export interface TimeField extends ICustomField {
+  readonly type: 'Time'
   /**
+   *	A time value in the format `HH:mm:ss.SSS`.
+   *	The time zone is optional and defaults to UTC if not specified.
+   *	If the time zone is specified, it must be in the format `±HH:mm` or `Z` for UTC.
+   *
    *
    */
-  readonly value: LocalizedString[]
-}
-/**
- *	A field with an enum set value.
- */
-export interface EnumSetField extends ICustomField {
-  readonly type: 'EnumSet'
-  /**
-   *
-   */
-  readonly value: string[]
-}
-/**
- *	A field with a localized enum set value.
- */
-export interface LocalizedEnumSetField extends ICustomField {
-  readonly type: 'LocalizedEnumSet'
-  /**
-   *
-   */
-  readonly value: string[]
-}
-/**
- *	A field with a number value.
- */
-export interface NumberSetField extends ICustomField {
-  readonly type: 'NumberSet'
-  /**
-   *
-   */
-  readonly value: number[]
-}
-/**
- *	A field with a money set value.
- */
-export interface MoneySetField extends ICustomField {
-  readonly type: 'MoneySet'
-  /**
-   *
-   */
-  readonly value: Money[]
-}
-/**
- *	A field with a date set value.
- */
-export interface DateSetField extends ICustomField {
-  readonly type: 'DateSet'
-  /**
-   *
-   */
-  readonly value: string[]
+  readonly value: string
 }
 /**
  *	A field with a time set value.
@@ -271,27 +343,12 @@ export interface DateSetField extends ICustomField {
 export interface TimeSetField extends ICustomField {
   readonly type: 'TimeSet'
   /**
+   *	JSON array of time values in the format `HH:mm:ss.SSS`.
+   *	The time zone is optional and defaults to UTC if not specified.
+   *	If the time zone is specified, it must be in the format `±HH:mm` or `Z` for UTC.
+   *	The order of items in the array is not fixed.
+   *
    *
    */
   readonly value: string[]
-}
-/**
- *	A field with a date time set value.
- */
-export interface DateTimeSetField extends ICustomField {
-  readonly type: 'DateTimeSet'
-  /**
-   *
-   */
-  readonly value: string[]
-}
-/**
- *	A field with a reference set value.
- */
-export interface ReferenceSetField extends ICustomField {
-  readonly type: 'ReferenceSet'
-  /**
-   *
-   */
-  readonly value: KeyReference[]
 }

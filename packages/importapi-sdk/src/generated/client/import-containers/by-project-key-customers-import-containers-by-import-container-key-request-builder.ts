@@ -23,7 +23,7 @@ export class ByProjectKeyCustomersImportContainersByImportContainerKeyRequestBui
     }
   ) {}
   /**
-   *	Creates a request for creating new Customers or updating existing ones.
+   *	Creates an Import Request for Customers.
    */
   public post(methodArgs: {
     body: CustomerImportRequest

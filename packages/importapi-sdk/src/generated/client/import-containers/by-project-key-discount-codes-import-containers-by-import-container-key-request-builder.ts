@@ -23,7 +23,7 @@ export class ByProjectKeyDiscountCodesImportContainersByImportContainerKeyReques
     }
   ) {}
   /**
-   *	Creates a request for creating new Discount Codes or updating existing ones.
+   *	Creates an Import Request for Discount Codes.
    */
   public post(methodArgs: {
     body: DiscountCodeImportRequest

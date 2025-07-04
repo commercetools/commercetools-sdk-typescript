@@ -48,7 +48,7 @@ export class ByProjectKeyImportContainersByImportContainerKeyRequestBuilder {
   }
 
   /**
-   *	Updates the Import Container given by the key.
+   *	Updates an [ImportContainer](ctp:import:type:ImportContainer) in the Project.
    */
   public put(methodArgs: {
     body: ImportContainerUpdateDraft
@@ -72,7 +72,7 @@ export class ByProjectKeyImportContainersByImportContainerKeyRequestBuilder {
     )
   }
   /**
-   *	Retrieves the Import Container given by the key.
+   *	Retrieves an [ImportContainer](ctp:import:type:ImportContainer) with the provided `importContainerKey`.
    */
   public get(methodArgs?: {
     headers?: {
@@ -93,7 +93,7 @@ export class ByProjectKeyImportContainersByImportContainerKeyRequestBuilder {
     )
   }
   /**
-   *	Deletes the Import Container specified by the `importContainerKey`.
+   *	Deletes an Import Container in the Project.
    *
    *	Generates the [ImportContainerDeleted](/projects/events#import-container-deleted-event) Event.
    *

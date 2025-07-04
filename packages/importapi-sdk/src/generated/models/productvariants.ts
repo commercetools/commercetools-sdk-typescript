@@ -10,14 +10,13 @@ import {
   ImportResource,
   KeyReference,
   LocalizedString,
+  Money,
   ProductKeyReference,
   ProductVariantKeyReference,
-  TypedMoney,
 } from './common'
 
 /**
- *	This type represents the value of an attribute of a product variant.
- *	The name and type property must match the name and type property of an attribute definition of the product type.
+ *	Represents the value of an Attribute of a Product Variant.
  *
  */
 export type Attribute =
@@ -45,17 +44,28 @@ export type Attribute =
   | TimeSetAttribute
 export interface IAttribute {
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
   readonly name?: string
   /**
+   *	Must match `type` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
+   *	The type is required if this type is used in a product variant and must not be set when
+   *	used in a product variant patch.
+   *
    *
    */
   readonly type: string
+  /**
+   *	The actual value of the Attribute compliant to the `type`, see specific [attribute types](ctp:import:type;Attribute).
+   *
+   *
+   */
+  readonly value: any
 }
 /**
  *	This type represents an attribute whose value is either "true" or "false".
@@ -64,14 +74,17 @@ export interface IAttribute {
 export interface BooleanAttribute extends IAttribute {
   readonly type: 'boolean'
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
   readonly name?: string
   /**
+   *	`true` or `false`
+   *
    *
    */
   readonly value: boolean
@@ -83,14 +96,17 @@ export interface BooleanAttribute extends IAttribute {
 export interface BooleanSetAttribute extends IAttribute {
   readonly type: 'boolean-set'
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
   readonly name?: string
   /**
+   *	A set of boolean values.
+   *
    *
    */
   readonly value: boolean[]
@@ -102,14 +118,17 @@ export interface BooleanSetAttribute extends IAttribute {
 export interface DateAttribute extends IAttribute {
   readonly type: 'date'
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
   readonly name?: string
   /**
+   *	A date in the format `YYYY-MM-DD`.
+   *
    *
    */
   readonly value: string
@@ -121,14 +140,17 @@ export interface DateAttribute extends IAttribute {
 export interface DateSetAttribute extends IAttribute {
   readonly type: 'date-set'
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
   readonly name?: string
   /**
+   *	A set of dates in the format `YYYY-MM-DD`.
+   *
    *
    */
   readonly value: string[]
@@ -140,14 +162,19 @@ export interface DateSetAttribute extends IAttribute {
 export interface DateTimeAttribute extends IAttribute {
   readonly type: 'datetime'
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
   readonly name?: string
   /**
+   *	A date with time in the format `YYYY-MM-DDTHH:mm:ss.SSSZ`.
+   *	The time zone is optional and defaults to UTC if not specified.
+   *	If the time zone is specified, it must be in the format `±HH:mm` or `Z` for UTC.
+   *
    *
    */
   readonly value: string
@@ -159,14 +186,19 @@ export interface DateTimeAttribute extends IAttribute {
 export interface DateTimeSetAttribute extends IAttribute {
   readonly type: 'datetime-set'
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
   readonly name?: string
   /**
+   *	A set of dates with time in the format `YYYY-MM-DDTHH:mm:ss.SSSZ`.
+   *	The time zone is optional and defaults to UTC if not specified.
+   *	If the time zone is specified, it must be in the format `±HH:mm` or `Z` for UTC.
+   *
    *
    */
   readonly value: string[]
@@ -179,14 +211,18 @@ export interface DateTimeSetAttribute extends IAttribute {
 export interface EnumAttribute extends IAttribute {
   readonly type: 'enum'
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
   readonly name?: string
   /**
+   *	The key of the enum value.
+   *	Must match the key of an [AttributePlainEnumValue](ctp:api:type:AttributePlainEnumValue) in the Product Type.
+   *
    *
    */
   readonly value: string
@@ -199,14 +235,18 @@ export interface EnumAttribute extends IAttribute {
 export interface EnumSetAttribute extends IAttribute {
   readonly type: 'enum-set'
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
   readonly name?: string
   /**
+   *	A set of enum values, each represented by its key.
+   *	Each key must match the key of an [AttributePlainEnumValue](ctp:api:type:AttributePlainEnumValue) in the Product Type.
+   *
    *
    */
   readonly value: string[]
@@ -219,14 +259,18 @@ export interface EnumSetAttribute extends IAttribute {
 export interface LocalizableEnumAttribute extends IAttribute {
   readonly type: 'lenum'
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
   readonly name?: string
   /**
+   *	The key of the localized enum value.
+   *	Must match the key of an [AttributeLocalizedEnumValue](ctp:api:type:AttributeLocalizedEnumValue) in the Product Type.
+   *
    *
    */
   readonly value: string
@@ -239,14 +283,18 @@ export interface LocalizableEnumAttribute extends IAttribute {
 export interface LocalizableEnumSetAttribute extends IAttribute {
   readonly type: 'lenum-set'
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
   readonly name?: string
   /**
+   *	A set of localized enum values, each represented by its key.
+   *	Each key must match the key of an [AttributeLocalizedEnumValue](ctp:api:type:AttributeLocalizedEnumValue) in the Product Type.
+   *
    *
    */
   readonly value: string[]
@@ -258,21 +306,16 @@ export interface LocalizableEnumSetAttribute extends IAttribute {
 export interface LocalizableTextAttribute extends IAttribute {
   readonly type: 'ltext'
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
   readonly name?: string
   /**
-   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
-   *	```json
-   *	{
-   *	  "de": "Hundefutter",
-   *	  "en": "dog food"
-   *	}
-   *	```
+   *	A localized string.
    *
    *
    */
@@ -285,14 +328,17 @@ export interface LocalizableTextAttribute extends IAttribute {
 export interface LocalizableTextSetAttribute extends IAttribute {
   readonly type: 'ltext-set'
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
   readonly name?: string
   /**
+   *	A set of localized strings.
+   *
    *
    */
   readonly value: LocalizedString[]
@@ -304,17 +350,20 @@ export interface LocalizableTextSetAttribute extends IAttribute {
 export interface MoneyAttribute extends IAttribute {
   readonly type: 'money'
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
   readonly name?: string
   /**
+   *	A money value in cent precision format.
+   *
    *
    */
-  readonly value: TypedMoney
+  readonly value: Money
 }
 /**
  *	This type represents an attribute whose value is a set of money objects.
@@ -323,17 +372,20 @@ export interface MoneyAttribute extends IAttribute {
 export interface MoneySetAttribute extends IAttribute {
   readonly type: 'money-set'
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
   readonly name?: string
   /**
+   *	A set of money values in cent precision format.
+   *
    *
    */
-  readonly value: TypedMoney[]
+  readonly value: Money[]
 }
 /**
  *	This type represents an attribute whose value is a number.
@@ -342,14 +394,18 @@ export interface MoneySetAttribute extends IAttribute {
 export interface NumberAttribute extends IAttribute {
   readonly type: 'number'
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
   readonly name?: string
   /**
+   *	A number value.
+   *	Can be an integer or a floating-point number.
+   *
    *
    */
   readonly value: number
@@ -361,14 +417,18 @@ export interface NumberAttribute extends IAttribute {
 export interface NumberSetAttribute extends IAttribute {
   readonly type: 'number-set'
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
   readonly name?: string
   /**
+   *	A set of number values.
+   *	Each value can be an integer or a floating-point number.
+   *
    *
    */
   readonly value: number[]
@@ -380,9 +440,10 @@ export interface NumberSetAttribute extends IAttribute {
 export interface ReferenceAttribute extends IAttribute {
   readonly type: 'reference'
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
@@ -400,14 +461,18 @@ export interface ReferenceAttribute extends IAttribute {
 export interface ReferenceSetAttribute extends IAttribute {
   readonly type: 'reference-set'
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
   readonly name?: string
   /**
+   *	A set of references, each referencing a resource by key.
+   *	Each reference must match the key of an existing resource in the project.
+   *
    *
    */
   readonly value: KeyReference[]
@@ -419,14 +484,17 @@ export interface ReferenceSetAttribute extends IAttribute {
 export interface TextAttribute extends IAttribute {
   readonly type: 'text'
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
   readonly name?: string
   /**
+   *	A text value.
+   *
    *
    */
   readonly value: string
@@ -438,14 +506,17 @@ export interface TextAttribute extends IAttribute {
 export interface TextSetAttribute extends IAttribute {
   readonly type: 'text-set'
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
   readonly name?: string
   /**
+   *	A set of text values.
+   *
    *
    */
   readonly value: string[]
@@ -457,14 +528,19 @@ export interface TextSetAttribute extends IAttribute {
 export interface TimeAttribute extends IAttribute {
   readonly type: 'time'
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
   readonly name?: string
   /**
+   *	A time value in the format `HH:mm:ss.SSS`.
+   *	The time zone is optional and defaults to UTC if not specified.
+   *	If the time zone is specified, it must be in the format `±HH:mm` or `Z` for UTC.
+   *
    *
    */
   readonly value: string
@@ -476,25 +552,30 @@ export interface TimeAttribute extends IAttribute {
 export interface TimeSetAttribute extends IAttribute {
   readonly type: 'time-set'
   /**
-   *	The name of this attribute must match a name of the product types attribute definitions.
-   *	The name is required if this type is used in a product variant and must not be set when
-   *	used in a product variant patch.
+   *	Required if used for [ProductVariantImport](ctp:import:type:ProductVariantImport).
+   *	Must not be set if used for [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
+   *
+   *	Must match `name` of an [AttributeDefinition](ctp:api:type:AttributeDefinition) of the Product Type.
    *
    *
    */
   readonly name?: string
   /**
+   *	A set of time values in the format `HH:mm:ss.SSS`.
+   *	The time zone is optional and defaults to UTC if not specified.
+   *	If the time zone is specified, it must be in the format `±HH:mm` or `Z` for UTC.
+   *
    *
    */
   readonly value: string[]
 }
 /**
- *	The data representation for a ProductVariant to be imported that is persisted as a [ProductVariant](ctp:api:type:ProductVariant) in the Project.
+ *	Represents the data used to import a ProductVariant. Once imported, this data is persisted as a [ProductVariant](ctp:api:type:ProductVariant) in the Project.
  *
  */
 export interface ProductVariantImport extends ImportResource {
   /**
-   *	User-defined unique identifier. If a [ProductVariant](ctp:api:type:ProductVariant) with this `key` exists on the specified `product`, it will be updated with the imported data.
+   *	User-defined unique identifier. If a [ProductVariant](ctp:api:type:ProductVariant) with this `key` exists on the specified `product`, it is updated with the imported data.
    *
    */
   readonly key: string
@@ -531,30 +612,26 @@ export interface ProductVariantImport extends ImportResource {
    */
   readonly assets?: Asset[]
   /**
-   *	- Set to `false` to update both the [current and staged projections](/../api/projects/productProjections#current--staged) of the [Product](/../api/projects/products#product) with the new Product Variant data.
+   *	- Set to `false` to update both the [current and staged projections](/../api/projects/productProjections#current--staged) of the [Product](ctp:api:type:Product) with the new Product Variant data.
    *	- Leave empty or set to `true` to only update the staged projection.
    *
    *
    */
   readonly staged?: boolean
   /**
-   *	The [Product](ctp:api:type:ProductVariant) to which this Product Variant belongs. Maps to `ProductVariant.product`.
-   *	The Reference to the [Product](ctp:api:type:Product) with which the ProductVariant is associated.
-   *	If referenced Product does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary Product is created.
+   *	The [Product](ctp:api:type:ProductVariant) containing this ProductVariant. If the referenced Product does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Product is created.
    *
    *
    */
   readonly product: ProductKeyReference
 }
 /**
- *	Representation for an update of a [ProductVariant](ctp:api:type:ProductVariant). Use this type to import updates for existing
- *	[ProductVariants](ctp:api:type:ProductVariant) in a Project.
+ *	Represents the data used to update a [ProductVariant](ctp:api:type:ProductVariant).
  *
  */
 export interface ProductVariantPatch {
   /**
    *	Reference to the [ProductVariant](ctp:api:type:ProductVariant) to update.
-   *	If the referenced ProductVariant does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary ProductVariant is created.
    *
    *
    */
@@ -564,7 +641,7 @@ export interface ProductVariantPatch {
    *	- The referenced Attribute must be defined in an existing [ProductType](ctp:api:type:ProductType), or the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be `validationFailed`.
    *	- Setting the value of a non-required Attribute to `null` will remove the Attribute.
    *	- Attempting to set a `null` value to a required Attribute will make the import operation fail with an [InvalidOperation](ctp:import:type:InvalidOperation) error.
-   *	- Importing [LocalizableTextAttributes](ctp:import:type:LocalizableTextAttribute) or [LocalizableTextSetAttributes](ctp:import:type:LocalizableTextSetAttribute) follows an override pattern, meaning that omitted localized fields will be deleted, new fields will be created, and existing fields will be updated. You can also delete localized fields by setting their value to `null`.
+   *	- Importing [LocalizableTextAttributes](ctp:import:type:LocalizableTextAttribute) or [LocalizableTextSetAttributes](ctp:import:type:LocalizableTextSetAttribute) follows an override pattern, meaning that omitted localized fields will be deleted, new fields will be created, and existing fields will be updated. You can delete localized fields by setting their value to `null`.
    *
    *
    */
@@ -576,10 +653,12 @@ export interface ProductVariantPatch {
    */
   readonly staged?: boolean
   /**
-   *	Reference to the [Product](/../api/projects/products#product) that contains the ProductVariant.
+   *	Reference to the [Product](ctp:api:type:Product) that contains the ProductVariant.
    *
    *	We recommend to set this value to minimize concurrency errors.
    *	If set, this field is required for every ProductVariantPatch in the [ProductVariantPatchRequest](ctp:import:type:ProductVariantPatchRequest).
+   *
+   *	If the referenced Product does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Product is created.
    *
    *
    */

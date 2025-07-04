@@ -21,7 +21,7 @@ export class ByProjectKeyImportContainersByImportContainerKeyImportOperationsReq
     }
   ) {}
   /**
-   *	Retrieves all [ImportOperations](ctp:import:type:ImportOperation) of a given ImportContainer key.
+   *	Retrieves all ImportOperations within an [ImportContainer](ctp:import:type:ImportContainer).
    *
    */
   public get(methodArgs?: {

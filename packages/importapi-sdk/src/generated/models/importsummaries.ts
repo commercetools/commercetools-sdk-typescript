@@ -5,59 +5,58 @@
  */
 
 /**
- *	Describes the status of an [ImportContainer](ctp:import:type:ImportContainer) by the number of resources in each [ProcessingState](ctp:import:type:ProcessingState).
- *	Can be used to monitor the import progress per [Import Container](ctp:import:type:ImportContainer).
+ *	The current status of [ImportOperations](ctp:import:type:ImportOperation) in an [ImportContainer](ctp:import:type:ImportContainer).
  *
  */
 export interface ImportSummary {
   /**
-   *	The import status of an [ImportContainer](ctp:import:type:ImportContainer) given by the number of resources in each [ProcessingState](ctp:import:type:ProcessingState).
+   *	The current [ProcessingStates](ctp:import:type:ProcessingState) of ImportOperations in an ImportContainer.
    *
    *
    */
   readonly states: OperationStates
   /**
-   *	The total number of [ImportOperations](ctp:import:type:ImportOperation) received for this Import Summary.
+   *	The total number of ImportOperations in `states`.
    *
    */
   readonly total: number
 }
 /**
- *	The number of resources in each [ProcessingState](ctp:import:type:ProcessingState).
+ *	The number of [ImportOperations](ctp:import:type:ImportOperation) in each [ProcessingState](ctp:import:type:ProcessingState).
  */
 export interface OperationStates {
   /**
-   *	The number of resources in the `processing` state.
+   *	The number of ImportOperations in the `processing` state.
    *
    */
   readonly processing: number
   /**
-   *	The number of resources in the `validationFailed` state.
+   *	The number of ImportOperations in the `validationFailed` state.
    *
    */
   readonly validationFailed: number
   /**
-   *	The number of resources in the `unresolved` state.
+   *	The number of ImportOperations in the `unresolved` state.
    *
    */
   readonly unresolved: number
   /**
-   *	The number of resources in the `waitForMasterVariant` state.
+   *	The number of ImportOperations in the `waitForMasterVariant` state.
    *
    */
   readonly waitForMasterVariant: number
   /**
-   *	The number of resources in the `imported` state.
+   *	The number of ImportOperations in the `imported` state.
    *
    */
   readonly imported: number
   /**
-   *	The number of resources in the `rejected` state.
+   *	The number of ImportOperations in the `rejected` state.
    *
    */
   readonly rejected: number
   /**
-   *	The number of resources in the `canceled` state.
+   *	The number of ImportOperations in the `canceled` state.
    *
    */
   readonly canceled: number

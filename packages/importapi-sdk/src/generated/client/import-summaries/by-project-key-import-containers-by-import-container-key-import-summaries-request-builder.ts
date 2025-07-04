@@ -20,7 +20,7 @@ export class ByProjectKeyImportContainersByImportContainerKeyImportSummariesRequ
     }
   ) {}
   /**
-   *	Retrieves an [ImportSummary](ctp:import:type:ImportSummary) for the given Import Container. An [ImportSummary](ctp:import:type:ImportSummary) is calculated on demand.
+   *	Retrieves an [ImportSummary](ctp:import:type:ImportSummary) for the [ImportContainer](ctp:import:type:ImportContainer) with the provided `importContainerKey`.
    *
    */
   public get(methodArgs?: {

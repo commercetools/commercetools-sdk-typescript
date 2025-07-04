@@ -7,63 +7,59 @@
 import { ImportResourceType } from './common'
 
 /**
- *	Serves as the entry point of resources.
- *	An Import Container is not resource type-specific.
+ *	Contains the resources to be imported. Unless `resourceType` is specified, the ImportContainer can import all of the supported [ImportResourceTypes](ctp:import:type:ImportResourceType).
  *
  */
 export interface ImportContainer {
   /**
-   *	User-defined unique identifier for the ImportContainer.
-   *	Keys can only contain alphanumeric characters (a-Z, 0-9), underscores and hyphens (_, -).
+   *	User-defined unique identifier of the ImportContainer.
    *
    *
    */
   readonly key: string
   /**
-   *	The [resource type](#importresourcetype) the ImportContainer is able to handle.
-   *	If not present, the ImportContainer is able to import all of the supported [ImportResourceTypes](#importresourcetype).
+   *	The [resource type](ctp:import:type:ImportResourceType) the ImportContainer supports. If not present, the ImportContainer can import all of the supported [ImportResourceTypes](ctp:import:type:ImportResourceType).
    *
    *
    */
   readonly resourceType?: ImportResourceType
   /**
-   *	The version of the ImportContainer.
+   *	Current version of the ImportContainer.
    *
    */
   readonly version: number
   /**
-   *	The time when the ImportContainer was created.
+   *	Date and time (UTC) the ImportContainer was created.
    *
    */
   readonly createdAt: string
   /**
-   *	The last time when the ImportContainer was modified.
+   *	Date and time (UTC) the ImportContainer was last updated.
    *
    */
   readonly lastModifiedAt: string
 }
 /**
- *	The representation sent to the server when creating an [ImportContainer](#importcontainer).
+ *	The representation sent to the server to create an [ImportContainer](#importcontainer).
  *
  */
 export interface ImportContainerDraft {
   /**
    *	User-defined unique identifier of the ImportContainer.
-   *	Keys can only contain alphanumeric characters (a-Z, 0-9), underscores and hyphens (_, -).
    *
    *
    */
   readonly key: string
   /**
-   *	The [resource type](#importresourcetype) to be imported.
-   *	If not given, the ImportContainer is able to import all of the supported [ImportResourceTypes](#importresourcetype).
+   *	The resource type the ImportContainer will accept.
+   *	If not specified, the ImportContainer can import all of the supported ImportResourceTypes.
    *
    *
    */
   readonly resourceType?: ImportResourceType
 }
 /**
- *	The representation sent to the server when updating an Import Container.
+ *	The representation sent to the server when updating an ImportContainer.
  *
  */
 export interface ImportContainerUpdateDraft {
@@ -73,16 +69,15 @@ export interface ImportContainerUpdateDraft {
    */
   readonly version: number
   /**
-   *	The [resource type](#importresourcetype) to be imported.
-   *	If not given, the ImportContainer is able to import all of the supported [ImportResourceTypes](#importresourcetype).
+   *	The [resource type](ctp:import:type:ImportResourceType) to be imported.
+   *	If not given, the ImportContainer is able to import all of the supported [ImportResourceTypes](ctp:import:type:ImportResourceType).
    *
    *
    */
   readonly resourceType?: ImportResourceType
 }
 /**
- *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) for [ImportContainers](#importcontainer).
- *	Used as a response to a query request for [ImportContainers](#importcontainer).
+ *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [ImportContainer](ctp:import:type:ImportContainer).
  *
  */
 export interface ImportContainerPagedResponse {
@@ -98,17 +93,18 @@ export interface ImportContainerPagedResponse {
    */
   readonly offset: number
   /**
-   *	The actual number of results returned.
+   *	Actual number of results returned.
    *
    */
   readonly count: number
   /**
-   *	The total number of results matching the query.
+   *	Total number of results matching the query.
    *
    */
   readonly total: number
   /**
-   *	The array of Import Containers matching the query.
+   *	[ImportContainers](ctp:import:type:ImportContainer) matching the query.
+   *
    *
    */
   readonly results: ImportContainer[]

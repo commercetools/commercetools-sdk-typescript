@@ -18,13 +18,13 @@ export enum AuthenticationModeValues {
 
 export type AuthenticationMode = 'ExternalAuth' | 'Password' | (string & {})
 /**
- *	Different from [Address](/types#address) in that `key` is required and `id` is not supported.
+ *	Different from [Address](ctp:api:type:Address) in that `key` is required and `id` is not supported.
  *
  */
 export interface CustomerAddress {
   /**
    *	User-defined identifier for the address.
-   *	Must follow the pattern `[a-zA-Z0-9_\-]{2,256}` and must be unique per customer.
+   *	Must be unique per customer.
    *
    *
    */
@@ -174,12 +174,12 @@ export interface CustomerAddress {
   readonly custom?: Custom
 }
 /**
- *	The data representation for a Customer to be imported that is persisted as a [Customer](ctp:api:type:Customer) in the Project.
+ *	Represents the data used to import a Customer. Once imported, this data is persisted as a [Customer](ctp:api:type:Customer) in the Project.
  *
  */
 export interface CustomerImport extends ImportResource {
   /**
-   *	User-defined unique identifier. If a [Customer](ctp:api:type:Customer) with this `key` exists, it will be updated with the imported data.
+   *	User-defined unique identifier. If a [Customer](ctp:api:type:Customer) with this `key` exists, it is updated with the imported data.
    *
    */
   readonly key: string
@@ -196,13 +196,13 @@ export interface CustomerImport extends ImportResource {
    */
   readonly email: string
   /**
-   *	Required when `authenticationMode` is set to `Password`. Maps to `Customer.password`.
+   *	Maps to `Customer.password`. Required when `authenticationMode` is set to `Password`.
    *
    *
    */
   readonly password?: string
   /**
-   *	The References to the Stores with which the Customer is associated. If referenced Stores do not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary Stores are created.
+   *	Maps to `Customer.stores`. If the referenced [Stores](ctp:api:type:Store) do not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Stores are created.
    *
    *
    */
@@ -268,8 +268,7 @@ export interface CustomerImport extends ImportResource {
    */
   readonly isEmailVerified?: boolean
   /**
-   *	The Reference to the [CustomerGroup](ctp:api:type:CustomerGroup) with which the Customer is associated.
-   *	If referenced CustomerGroup does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary CustomerGroup is created.
+   *	Maps to `Customer.customerGroup`. If the referenced [CustomerGroup](ctp:api:type:CustomerGroup) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced CustomerGroup is created.
    *
    *
    */
@@ -281,25 +280,25 @@ export interface CustomerImport extends ImportResource {
    */
   readonly addresses?: CustomerAddress[]
   /**
-   *	The index of the address in the addresses array. The `defaultBillingAddressId` of the customer will be set to the ID of that address.
+   *	Index of the address in the `addresses` array to use as the default billing address. The `defaultBillingAddressId` of the Customer will be set to the `id` of that address.
    *
    *
    */
   readonly defaultBillingAddress?: number
   /**
-   *	The indices of the billing addresses in the addresses array. The `billingAddressIds` of the customer will be set to the IDs of that addresses.
+   *	Indices of the billing addresses in the `addresses` array. The `billingAddressIds` of the Customer will be set to the `id` of these addresses.
    *
    *
    */
   readonly billingAddresses?: number[]
   /**
-   *	The index of the address in the addresses array. The `defaultShippingAddressId` of the customer will be set to the ID of that address.
+   *	The index of the address in the `addresses` array. The `defaultShippingAddressId` of the Customer will be set to the `id` of that address.
    *
    *
    */
   readonly defaultShippingAddress?: number
   /**
-   *	The indices of the shipping addresses in the addresses array. The `shippingAddressIds` of the customer will be set to the IDs of that addresses.
+   *	Indices of the shipping addresses in the `addresses` array. The `shippingAddressIds` of the Customer will be set to the `id` of these addresses.
    *
    *
    */
@@ -311,7 +310,7 @@ export interface CustomerImport extends ImportResource {
    */
   readonly locale?: string
   /**
-   *	The Custom Fields for this Customer.
+   *	Maps to `Customer.custom`.
    *
    *
    */

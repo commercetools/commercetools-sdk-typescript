@@ -219,7 +219,7 @@ export interface UpdateAction {
 }
 export interface Asset {
   /**
-   *	Unique identifier of the Asset.
+   *	Unique identifier of the Asset. Not required when importing Assets using the [Import API](/import-export/import-resources).
    *
    *
    */

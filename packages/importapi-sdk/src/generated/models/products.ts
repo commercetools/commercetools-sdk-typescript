@@ -72,49 +72,43 @@ export interface WhitespaceTokenizer extends ISuggestTokenizer {
   readonly type: 'whitespace'
 }
 /**
- *	The data representation for a Product to be imported that is persisted as a [Product](ctp:api:type:Product) in the Project.
+ *	Represents the data used to import a Product. Once imported, this data is persisted as a [Product](ctp:api:type:Product) in the Project.
  *
- *	This is the minimal representation required for creating a [Product](ctp:api:type:Product) in commercetools.
+ *	This is the minimal representation required for creating a Product in Composable Commerce.
  *
  */
 export interface ProductImport extends ImportResource {
   /**
-   *	User-defined unique identifier. If a [Product](ctp:api:type:Product) with this `key` exists, it will be updated with the imported data.
+   *	User-defined unique identifier. If a [Product](ctp:api:type:Product) with this `key` exists, it is updated with the imported data.
    *
    */
   readonly key: string
   /**
-   *	Maps to `Product.name`.
+   *	Maps to `ProductData.name`.
    *
    *
    */
   readonly name: LocalizedString
   /**
-   *	The `productType` of a [Product](ctp:api:type:Product).
-   *	Maps to `Product.productType`.
-   *	The Reference to the [ProductType](ctp:api:type:ProductType) with which the Product is associated.
-   *	If referenced ProductType does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary ProductType is created.
+   *	Maps to `Product.productType`. If the referenced [ProductType](ctp:api:type:ProductType) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced ProductType is created.
    *
    *
    */
   readonly productType: ProductTypeKeyReference
   /**
-   *	Human-readable identifiers usually used as deep-link URL to the related product. Each slug must be unique across a Project,
-   *	but a product can have the same slug for different languages. Allowed are alphabetic, numeric, underscore (_) and hyphen (-) characters.
+   *	Maps to `ProductData.slug`.
    *
    *
    */
   readonly slug: LocalizedString
   /**
-   *	Maps to `Product.description`.
+   *	Maps to `ProductData.description`.
    *
    *
    */
   readonly description?: LocalizedString
   /**
-   *	Maps to `Product.categories`.
-   *	The References to the [Categories](ctp:api:type:Category) with which the Product is associated.
-   *	If referenced Categories do not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary Categories are created.
+   *	Maps to `ProductData.categories`. If the referenced [Categories](ctp:api:type:Category) do not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Categories are created.
    *
    *
    */
@@ -124,74 +118,37 @@ export interface ProductImport extends ImportResource {
    */
   readonly attributes?: Attribute[]
   /**
-   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
-   *	```json
-   *	{
-   *	  "de": "Hundefutter",
-   *	  "en": "dog food"
-   *	}
-   *	```
+   *	Maps to `ProductData.metaTitle`.
    *
    *
    */
   readonly metaTitle?: LocalizedString
   /**
-   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
-   *	```json
-   *	{
-   *	  "de": "Hundefutter",
-   *	  "en": "dog food"
-   *	}
-   *	```
+   *	Maps to `ProductData.metaDescription`.
    *
    *
    */
   readonly metaDescription?: LocalizedString
   /**
-   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
-   *	```json
-   *	{
-   *	  "de": "Hundefutter",
-   *	  "en": "dog food"
-   *	}
-   *	```
+   *	Maps to `ProductData.metaKeywords`.
    *
    *
    */
   readonly metaKeywords?: LocalizedString
   /**
-   *	The Reference to the [TaxCategory](/projects/taxCategories#taxcategory) with which the Product is associated.
-   *	If referenced TaxCategory does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary TaxCategory is created.
+   *	Maps to `Product.taxCategory`. If the referenced [TaxCategory](ctp:api:type:TaxCategory) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced TaxCategory is created.
    *
    *
    */
   readonly taxCategory?: TaxCategoryKeyReference
   /**
-   *	Search keywords are primarily used by the suggester but are also considered for the full-text search. SearchKeywords is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag). The value to a language tag key is an array of SearchKeyword for the specific language.
-   *	```json
-   *	{
-   *	  "en": [
-   *	    { "text": "Multi tool" },
-   *	    { "text": "Swiss Army Knife", "suggestTokenizer": { "type": "whitespace" } }
-   *	  ],
-   *	  "de": [
-   *	    {
-   *	      "text": "Schweizer Messer",
-   *	      "suggestTokenizer": {
-   *	        "type": "custom",
-   *	        "inputs": ["schweizer messer", "offiziersmesser", "sackmesser"]
-   *	      }
-   *	    }
-   *	  ]
-   *	}
-   *	```
+   *	Maps to `ProductData.searchKeywords`.
    *
    *
    */
   readonly searchKeywords?: SearchKeywords
   /**
-   *	The Reference to the [State](/projects/states#state) with which the Product is associated.
-   *	If referenced State does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary State is created.
+   *	Maps to `Product.state`. If the referenced [State](ctp:api:type:State) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced State is created.
    *
    *
    */
@@ -203,7 +160,7 @@ export interface ProductImport extends ImportResource {
    */
   readonly publish?: boolean
   /**
-   *	Determines the type of Prices the API uses. If not provided, the existing `Product.priceMode` is not changed.
+   *	Maps to `Product.priceMode`.
    *
    *
    */
