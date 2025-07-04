@@ -1,5 +1,28 @@
 # @commercetools/importapi-sdk
 
+## 6.5.0
+
+### Minor Changes
+
+- [#1123](https://github.com/commercetools/commercetools-sdk-typescript/pull/1123) [`0bf8af3`](https://github.com/commercetools/commercetools-sdk-typescript/commit/0bf8af3f386de0bed5878754a79bd6cdf769d9b5) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `retentionPolicy` to type `ImportContainer`
+  - added property `expiresAt` to type `ImportContainer`
+  - added property `retentionPolicy` to type `ImportContainerDraft`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `StrategyEnum`
+  - added type `RetentionPolicy`
+  - added type `TimeToLiveConfig`
+  - added type `TimeToLiveRetentionPolicy`
+  </details>
+
 ## 6.4.0
 
 ### Minor Changes
