@@ -23,7 +23,7 @@ export class ByProjectKeyProductDraftsImportContainersByImportContainerKeyReques
     }
   ) {}
   /**
-   *	Creates a request for creating new ProductDrafts or updating existing ones.
+   *	Creates an Import Request for Products.
    *
    */
   public post(methodArgs: {

@@ -5,13 +5,13 @@
  */
 import {
   ImportResponse,
-  OrderPatchImportRequest,
+  ProductSelectionImportRequest,
 } from '../../models/importrequests'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
-export class ByProjectKeyOrderPatchesImportContainersByImportContainerKeyRequestBuilder {
+export class ByProjectKeyProductSelectionsImportContainersByImportContainerKeyRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
@@ -23,10 +23,10 @@ export class ByProjectKeyOrderPatchesImportContainersByImportContainerKeyRequest
     }
   ) {}
   /**
-   *	Creates an Import Request for updating Orders.
+   *	Creates an Import Request for Product Selections.
    */
   public post(methodArgs: {
-    body: OrderPatchImportRequest
+    body: ProductSelectionImportRequest
     headers?: {
       [key: string]: string | string[]
     }
@@ -36,7 +36,7 @@ export class ByProjectKeyOrderPatchesImportContainersByImportContainerKeyRequest
         baseUri: this.args.baseUri,
         method: 'POST',
         uriTemplate:
-          '/{projectKey}/order-patches/import-containers/{importContainerKey}',
+          '/{projectKey}/product-selections/import-containers/{importContainerKey}',
         pathVariables: this.args.pathArgs,
         headers: {
           'Content-Type': 'application/json',

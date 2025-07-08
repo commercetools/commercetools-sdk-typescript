@@ -20,7 +20,7 @@ export class ByProjectKeyImportOperationsByIdRequestBuilder {
     }
   ) {}
   /**
-   *	Retrieves the [ImportOperation](ctp:import:type:ImportOperation) of a given ID.
+   *	Retrieves an ImportOperation with the provided `id`.
    *
    */
   public get(methodArgs?: {

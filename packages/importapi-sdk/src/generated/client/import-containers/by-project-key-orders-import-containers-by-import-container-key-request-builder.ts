@@ -20,7 +20,7 @@ export class ByProjectKeyOrdersImportContainersByImportContainerKeyRequestBuilde
     }
   ) {}
   /**
-   *	Creates a request for creating new Orders.
+   *	Creates an Import Request for creating Orders.
    */
   public post(methodArgs: {
     body: OrderImportRequest

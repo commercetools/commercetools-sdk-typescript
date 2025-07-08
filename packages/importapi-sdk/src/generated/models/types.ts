@@ -7,7 +7,7 @@
 import { ImportResource, LocalizedString } from './common'
 
 /**
- *	Provides a visual representation type for this field. It is only relevant for string-based field types like [CustomFieldStringType](ctp:import:type:CustomFieldStringType) and [CustomFieldLocalizedStringType](ctp:import:type:CustomFieldLocalizedStringType).
+ *	Provides a visual representation type for this field. It is only relevant for string-based field types like [CustomFieldStringType](ctp:api:type:CustomFieldStringType) and [CustomFieldLocalizedStringType](ctp:api:type:CustomFieldLocalizedStringType).
  *
  */
 export enum TypeTextInputHintValues {
@@ -85,6 +85,11 @@ export type ResourceTypeId =
   | 'store'
   | 'transaction'
   | (string & {})
+/**
+ *	Defines the data type of a Custom Field. Maps to `Type.FieldDefinition.type`.
+ *	The `discriminator` is used to determine the type of the field.
+ *
+ */
 export type FieldType =
   | CustomFieldBooleanType
   | CustomFieldDateTimeType
@@ -100,6 +105,8 @@ export type FieldType =
   | CustomFieldTimeType
 export interface IFieldType {
   /**
+   *	Name of the field type. Must be unique for a given [ResourceTypeId](ctp:import:type:ResourceTypeId). In case there is a FieldDefinition with the same `name` in another Type, both FieldDefinitions must have the same `type`. This value cannot be changed after the Type is imported.
+   *
    *
    */
   readonly name: string
@@ -291,19 +298,19 @@ export interface FieldDefinition {
    */
   readonly required: boolean
   /**
-   *	Provides a visual representation type for this field. It is only relevant for string-based field types like [CustomFieldStringType](ctp:import:type:CustomFieldStringType) and [CustomFieldLocalizedStringType](ctp:import:type:CustomFieldLocalizedStringType).
+   *	Provides a visual representation type for this field. It is only relevant for string-based field types like [CustomFieldStringType](ctp:api:type:CustomFieldStringType) and [CustomFieldLocalizedStringType](ctp:api:type:CustomFieldLocalizedStringType).
    *
    *
    */
   readonly inputHint?: TypeTextInputHint
 }
 /**
- *	The data representation for a Type to be imported that is persisted as a [Type](ctp:api:type:Type) in the Project.
+ *	Represents the data used to import a Type. Once imported, this data is persisted as a [Type](ctp:api:type:Type) in the Project.
  *
  */
 export interface TypeImport extends ImportResource {
   /**
-   *	User-defined unique identifier for the Type. If a [Type](ctp:api:type:Type) with this `key` exists, it will be updated with the imported data.
+   *	User-defined unique identifier for the Type. If a [Type](ctp:api:type:Type) with this `key` exists, it is updated with the imported data.
    *
    *
    */
