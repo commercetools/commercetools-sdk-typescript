@@ -1,5 +1,5 @@
 import {
-  executeRequestOptions,
+  ExecuteRequestOptions,
   IBuiltRequestParams,
   TokenInfo,
 } from '../../types/types'
@@ -11,13 +11,14 @@ import {
 } from '../../utils'
 import { buildRequestForRefreshTokenFlow } from './auth-request-builder'
 
-export async function executeRequest(options: executeRequestOptions) {
+export async function executeRequest(options: ExecuteRequestOptions) {
   const {
     httpClient,
     httpClientOptions,
     tokenCache,
     userOption,
     tokenCacheObject,
+    tokenCacheKey,
   } = options
 
   let url = options.url
@@ -83,7 +84,8 @@ export async function executeRequest(options: executeRequestOptions) {
       const expirationTime = calculateExpirationTime(expiresIn)
 
       // cache new generated token, refreshToken and expiration time
-      tokenCache.set({ token, expirationTime, refreshToken })
+      const cache = { token, expirationTime, refreshToken }
+      await tokenCache.set(cache, tokenCacheKey)
       return Promise.resolve(true)
     }
 

@@ -119,8 +119,8 @@ export type TokenStore = {
 }
 
 export type TokenCache = {
-  get: (tokenCacheOptions?: TokenCacheOptions) => TokenStore
-  set: (cache: TokenStore, tokenCacheOptions?: TokenCacheOptions) => void
+  get: (tokenCacheOptions?: TokenCacheOptions) => Promise<TokenStore>
+  set: (cache: TokenStore, tokenCacheOptions?: TokenCacheOptions) => Promise<void>
 }
 
 export type IBuiltRequestParams = {
@@ -146,7 +146,7 @@ export type RefreshAuthMiddlewareOptions = {
 }
 
 /* Request */
-type requestBaseOptions = {
+type RequestBaseOptions = {
   url: string
   body: string
   basicAuth: string
@@ -157,13 +157,13 @@ type requestBaseOptions = {
   httpClientOptions?: object
 }
 
-export type executeRequestOptions = requestBaseOptions & {
+export type ExecuteRequestOptions = RequestBaseOptions & {
   next: Next
   httpClient?: Function
   userOption?: AuthMiddlewareOptions | PasswordAuthMiddlewareOptions
 }
 
-export type AuthMiddlewareBaseOptions = requestBaseOptions & {
+export type AuthMiddlewareBaseOptions = RequestBaseOptions & {
   request: MiddlewareRequest
   httpClient?: Function
 }

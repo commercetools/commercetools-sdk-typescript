@@ -36,8 +36,8 @@ describe('auth-request-processor', () => {
         host: '',
       },
       {
-        set: () => {},
-        get: () => ({
+        set: async () => {},
+        get: async () => ({
           token: 'token',
           expirationTime: 99999,
         }),

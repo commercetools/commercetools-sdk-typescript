@@ -1,9 +1,12 @@
+import fs from 'node:fs'
+import path from 'node:path'
+
 import { ClientResult } from '../../src'
 import { executeRequest } from '../../src/middleware/auth-middleware/auth-request-executor'
 
-type U<T> = {
+type U<T, K> = {
   get(): T
-  set(value: T): void
+  set(value: T, key: K): void
 }
 
 function createTestExecutorOptions(options) {
@@ -30,10 +33,10 @@ function createTestExecutorOptions(options) {
   }
 }
 
-function cache<T = ClientResult>(): U<T> {
+function cache<T = ClientResult, K = object>(): U<T, K> {
   let value: T
   return {
-    set: jest.fn((response: T) => {
+    set: jest.fn((response: T, key: K) => {
       value = response
     }),
     get: jest.fn(() => {
@@ -125,6 +128,51 @@ describe('Auth request executor', () => {
       expect(options.tokenCache.get().refreshToken).toEqual(
         'refresh-access-token'
       )
+    })
+
+    test('should call the tokenStore `set` method with both the cache and cacheKey', async () => {
+      const tokenCacheKey = {
+        host: 'test-host',
+        projectKey: 'test-project-key',
+        clientId: 'test-client-id',
+      }
+
+      const options = createTestExecutorOptions({
+        url: 'test-demo-uri',
+        tokenCache: {
+          ...cache(),
+          async set(cache, key) {
+            // cache assertions
+            expect(cache).toBeDefined()
+            expect(typeof cache).toEqual('object')
+
+            // tokenCacheKey assertions
+            expect(key).toBeDefined()
+            expect(typeof key).toEqual('object')
+            expect(key.host).toEqual(tokenCacheKey.host)
+            expect(key.projectKey).toEqual(tokenCacheKey.projectKey)
+            expect(key.clientId).toEqual(tokenCacheKey.clientId)
+          },
+        },
+        tokenCacheKey,
+        tokenCacheObject: {
+          token: 'test-cached-token',
+          expirationTime: Date.now() - 999,
+          refreshToken: 'refresh-cache-token',
+        },
+        httpClient: jest.fn(() => ({
+          statusCode: 200,
+          data: {
+            statusCode: 200,
+            access_token: 'test-access-token',
+            refresh_token: 'refresh-access-token',
+          },
+        })),
+      })
+
+      const response = await executeRequest(options)
+      expect(typeof response).toEqual('boolean')
+      expect(response).toEqual(true)
     })
   })
 
@@ -266,6 +314,67 @@ describe('Auth request executor', () => {
           }),
         })
       )
+    })
+  })
+
+  describe('Async TokenStore accessor functions', () => {
+    const file = path.join(__dirname, './cache.json')
+    afterAll(() => {
+      // unlink the file
+      fs.promises.unlink(file)
+    })
+
+    async function get() {
+      try {
+        const json = await fs.promises.readFile(file, { encoding: 'utf-8' })
+        return JSON.parse(json)
+      } catch (e) {
+        /** noop */
+      }
+    }
+
+    async function set(val: object, key: object) {
+      try {
+        await fs.promises.writeFile(file, JSON.stringify(val))
+      } catch (e) {
+        /** noop */
+      }
+    }
+
+    test('Should test async behaviour of the tokenStore', async () => {
+      const data = {
+        statusCode: 200,
+        access_token: 'async-test-access-token',
+        refresh_token: 'async-refresh-access-token',
+      }
+
+      const _cache = () => {
+        return { set, get }
+      }
+
+      const options = createTestExecutorOptions({
+        url: 'async-test-demo-uri',
+        tokenCache: _cache(),
+        tokenCacheKey: {
+          host: 'async-test-host',
+          projectKey: 'async-test-project-key',
+          clientId: 'async-test-client-id',
+        },
+        httpClient: jest.fn(() => ({
+          statusCode: 200,
+          data,
+        })),
+      })
+
+      const response = await executeRequest(options)
+      expect(typeof response).toEqual('boolean')
+      expect(response).toEqual(true)
+
+      const store = await _cache().get()
+
+      expect(typeof store).toEqual('object')
+      expect(store.token).toEqual(data.access_token)
+      expect(store.refreshToken).toEqual(data.refresh_token)
     })
   })
 })
