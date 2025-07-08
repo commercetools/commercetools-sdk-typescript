@@ -13,6 +13,7 @@ import { InventoryImport } from './inventories'
 import { OrderPatchImport } from './order-patches'
 import { OrderImport } from './orders'
 import { PriceImport } from './prices'
+import { ProductSelectionImport } from './product-selections'
 import { ProductDraftImport } from './productdrafts'
 import { ProductImport } from './products'
 import { ProductTypeImport } from './producttypes'
@@ -34,6 +35,7 @@ export type ImportRequest =
   | PriceImportRequest
   | ProductDraftImportRequest
   | ProductImportRequest
+  | ProductSelectionImportRequest
   | ProductTypeImportRequest
   | ProductVariantImportRequest
   | ProductVariantPatchRequest
@@ -48,18 +50,18 @@ export interface IImportRequest {
   readonly type: ImportResourceType
 }
 /**
- *	The response of each resource import endpoint, such as [Import Categories](ctp:import:type:CategoryImport) and [Import ProductTypes](ctp:import:type:ProductTypeImport).
+ *	The response of each Import Request.
  *
  */
 export interface ImportResponse {
   /**
-   *	A list of the ID's and validation statuses of new [ImportOperations](#importoperation).
+   *	The identifiers and status of the [ImportOperations](ctp:import:type:ImportOperation) created by the ImportRequest.
    *
    */
   readonly operationStatus: ImportOperationStatus[]
 }
 /**
- *	The request body to [import Categories](#import-categories). Contains data for [Categories](ctp:api:type:Category) to be created or updated in a Project.
+ *	The request body to [import Categories](ctp:import:endpoint:/{projectKey}/categories/import-containers/{importContainerKey}:POST). Contains data for [Categories](ctp:api:type:Category) to be created or updated in a Project.
  *
  */
 export interface CategoryImportRequest extends IImportRequest {
@@ -72,7 +74,7 @@ export interface CategoryImportRequest extends IImportRequest {
   readonly resources: CategoryImport[]
 }
 /**
- *	The request body to [import Products](#import-products). Contains data for [Products](ctp:api:type:Product) to be created or updated in a Project.
+ *	The request body to [import Products](ctp:import:endpoint:/{projectKey}/products/import-containers/{importContainerKey}:POST). Contains data for [Products](ctp:api:type:Product) to be created or updated in a Project.
  *
  */
 export interface ProductImportRequest extends IImportRequest {
@@ -85,7 +87,7 @@ export interface ProductImportRequest extends IImportRequest {
   readonly resources: ProductImport[]
 }
 /**
- *	The request body to [import ProductDrafts](#import-productdrafts). Contains data for [Products](ctp:api:type:Product) to be created or updated in a Project.
+ *	The request body to [import ProductDrafts](ctp:import:endpoint:/{projectKey}/product-drafts/import-containers/{importContainerKey}:POST). Contains data for [Products](ctp:api:type:Product) to be created or updated in a Project.
  *
  */
 export interface ProductDraftImportRequest extends IImportRequest {
@@ -98,7 +100,7 @@ export interface ProductDraftImportRequest extends IImportRequest {
   readonly resources: ProductDraftImport[]
 }
 /**
- *	The request body to [import ProductTypes](#import-producttypes). Contains data for [ProductTypes](ctp:api:type:ProductType) to be created or updated in a Project.
+ *	The request body to [import ProductTypes](ctp:import:endpoint:/{projectKey}/product-types/import-containers/{importContainerKey}:POST). Contains data for [ProductTypes](ctp:api:type:ProductType) to be created or updated in a Project.
  *
  */
 export interface ProductTypeImportRequest extends IImportRequest {
@@ -111,7 +113,7 @@ export interface ProductTypeImportRequest extends IImportRequest {
   readonly resources: ProductTypeImport[]
 }
 /**
- *	The request body to [import ProductVariants](#import-productvariants). Contains data for [ProductVariants](ctp:api:type:ProductVariant) to be created or updated in a Project.
+ *	The request body to [import ProductVariants](ctp:import:endpoint:/{projectKey}/product-variants/import-containers/{importContainerKey}:POST). Contains data for [ProductVariants](ctp:api:type:ProductVariant) to be created or updated in a Project.
  *
  */
 export interface ProductVariantImportRequest extends IImportRequest {
@@ -124,7 +126,7 @@ export interface ProductVariantImportRequest extends IImportRequest {
   readonly resources: ProductVariantImport[]
 }
 /**
- *	The request body to [import Embedded Prices](#import-embedded-prices). Contains data for [Embedded Prices](/../api/types#price) to be created or updated in a Project.
+ *	The request body to [import Embedded Prices](ctp:import:endpoint:/{projectKey}/prices/import-containers/{importContainerKey}:POST). Contains data for [Embedded Prices](/../api/types#price) to be created or updated in a Project.
  *
  */
 export interface PriceImportRequest extends IImportRequest {
@@ -137,7 +139,7 @@ export interface PriceImportRequest extends IImportRequest {
   readonly resources: PriceImport[]
 }
 /**
- *	The request body to [import Standalone Prices](#import-standalone-prices). Contains data for [Standalone Prices](ctp:api:type:StandalonePrice) to be created or updated in a Project.
+ *	The request body to [import Standalone Prices](ctp:import:endpoint:/{projectKey}/standalone-prices/import-containers/{importContainerKey}:POST). Contains data for [Standalone Prices](ctp:api:type:StandalonePrice) to be created or updated in a Project.
  *
  */
 export interface StandalonePriceImportRequest extends IImportRequest {
@@ -150,7 +152,7 @@ export interface StandalonePriceImportRequest extends IImportRequest {
   readonly resources: StandalonePriceImport[]
 }
 /**
- *	The request body to [import Orders](#import-orders). Contains data for [Orders](ctp:api:type:Order) to be created in a Project.
+ *	The request body to [import Orders](ctp:import:endpoint:/{projectKey}/orders/import-containers/{importContainerKey}:POST). Contains data for [Orders](ctp:api:type:Order) to be created in a Project.
  *
  */
 export interface OrderImportRequest extends IImportRequest {
@@ -163,7 +165,7 @@ export interface OrderImportRequest extends IImportRequest {
   readonly resources: OrderImport[]
 }
 /**
- *	The request body to [import OrderPatches](#import-orderpatches). The data to be imported are represented by [OrderPatchImport](#orderpatchimport).
+ *	The request body to [import OrderPatches](ctp:import:endpoint:/{projectKey}/order-patches/import-containers/{importContainerKey}:POST). The data to be imported are represented by [OrderPatchImport](ctp:import:type:OrderPatchImport).
  *
  */
 export interface OrderPatchImportRequest extends IImportRequest {
@@ -176,7 +178,7 @@ export interface OrderPatchImportRequest extends IImportRequest {
   readonly patches: OrderPatchImport[]
 }
 /**
- *	The request body to [import ProductVariantPatches](#import-productvariantpatches). The data to be imported are represented by [ProductVariantPatch](#productvariantpatch).
+ *	The request body to [import ProductVariantPatches](ctp:import:endpoint:/{projectKey}/product-variant-patches/import-containers/{importContainerKey}:POST). The data to be imported are represented by [ProductVariantPatch](ctp:import:type:ProductVariantPatch).
  *
  */
 export interface ProductVariantPatchRequest extends IImportRequest {
@@ -189,7 +191,7 @@ export interface ProductVariantPatchRequest extends IImportRequest {
   readonly patches: ProductVariantPatch[]
 }
 /**
- *	The request body to [import Customers](#import-customers). Contains data for [Customers](ctp:api:type:Customer) to be created or updated in a Project.
+ *	The request body to [import Customers](ctp:import:endpoint:/{projectKey}/customers/import-containers/{importContainerKey}:POST). Contains data for [Customers](ctp:api:type:Customer) to be created or updated in a Project.
  *
  */
 export interface CustomerImportRequest extends IImportRequest {
@@ -202,7 +204,7 @@ export interface CustomerImportRequest extends IImportRequest {
   readonly resources: CustomerImport[]
 }
 /**
- *	The request body to [import Inventories](#import-inventory). Contains data for [InventoryEntries](ctp:api:type:InventoryEntry) to be created or updated in a commercetools Project.
+ *	The request body to [import Inventories](ctp:import:endpoint:/{projectKey}/inventories/import-containers/{importContainerKey}:POST). Contains data for [InventoryEntries](ctp:api:type:InventoryEntry) to be created or updated in a commercetools Project.
  *
  */
 export interface InventoryImportRequest extends IImportRequest {
@@ -215,7 +217,7 @@ export interface InventoryImportRequest extends IImportRequest {
   readonly resources: InventoryImport[]
 }
 /**
- *	The request body to [import Types](#import-types). Contains data for [Types](ctp:api:type:Type) to be created or updated in a Project.
+ *	The request body to [import Types](ctp:import:endpoint:/{projectKey}/types/import-containers/{importContainerKey}:POST). Contains data for [Types](ctp:api:type:Type) to be created or updated in a Project.
  *
  */
 export interface TypeImportRequest extends IImportRequest {
@@ -228,7 +230,7 @@ export interface TypeImportRequest extends IImportRequest {
   readonly resources: TypeImport[]
 }
 /**
- *	The request body to [import Discount Codes](#import-discount-codes). Contains data for [Discount Codes](/../api/projects/discountCodes#discountcode) to be created or updated in a Project.
+ *	The request body to [import DiscountCodes](ctp:import:endpoint:/{projectKey}/discount-codes/import-containers/{importContainerKey}:POST). Contains data for [Discount Codes](ctp:api:type:DiscountCode) to be created or updated in a Project.
  *
  */
 export interface DiscountCodeImportRequest extends IImportRequest {
@@ -239,4 +241,17 @@ export interface DiscountCodeImportRequest extends IImportRequest {
    *
    */
   readonly resources: DiscountCodeImport[]
+}
+/**
+ *	The request body to [import Product Selections](ctp:import:endpoint:/{projectKey}/product-selections/import-containers/{importContainerKey}:POST). Contains data for [Product Selections](ctp:api:type:ProductSelection) to be created or updated in a Project.
+ *
+ */
+export interface ProductSelectionImportRequest extends IImportRequest {
+  readonly type: 'product-selection'
+  /**
+   *	The Product Selection import resources of this request.
+   *
+   *
+   */
+  readonly resources: ProductSelectionImport[]
 }

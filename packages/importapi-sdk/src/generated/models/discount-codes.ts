@@ -12,12 +12,12 @@ import {
 import { Custom } from './customfields'
 
 /**
- *	The data representation for a Discount Code to be imported that is persisted as a [Discount Code](/../api/projects/discountCodes#discountcode) in the Project.
+ *	Represents the data used to import a DiscountCode. Once imported, this data is persisted as a [DiscountCode](ctp:api:type:DiscountCode) in the Project.
  *
  */
 export interface DiscountCodeImport extends ImportResource {
   /**
-   *	User-defined unique identifier. If a [Discount Code](/../api/projects/discountCodes#discountcode) with this `key` exists, it will be updated with the imported data.
+   *	User-defined unique identifier. If a [DiscountCode](ctp:api:type:DiscountCode) with this `key` exists, it is updated with the imported data.
    *
    *
    */
@@ -35,63 +35,61 @@ export interface DiscountCodeImport extends ImportResource {
    */
   readonly description?: LocalizedString
   /**
-   *	User-defined unique identifier of the DiscountCode that is used by the customer to apply the discount.
-   *
-   *	The value cannot be updated. Attempting to update the value will result in an [InvalidFieldsUpdate](/import-export/error#invalidfieldsupdateerror) error.
+   *	Maps to `DiscountCode.code`. This value cannot be updated. Attempting to update this value will result in an [InvalidFieldsUpdate](/import-export/error#invalidfieldsupdateerror) error.
    *
    *
    */
   readonly code: string
   /**
-   *	Reference to CartDiscounts that can be applied to the Cart once the DiscountCode is applied.
+   *	Maps to `DiscountCode.cartDiscounts`. If the referenced [CartDiscounts](ctp:api:type:CartDiscount) do not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced CartDiscounts are created.
    *
    *
    */
   readonly cartDiscounts: CartDiscountKeyReference[]
   /**
-   *	DiscountCode can only be applied to Carts that match this predicate.
+   *	Maps to `DiscountCode.cartPredicate`.
    *
    *
    */
   readonly cartPredicate?: string
   /**
-   *	Indicates if the DiscountCode is active and can be applied to the Cart.
+   *	Maps to `DiscountCode.isActive`.
    *
    *
    */
   readonly isActive: boolean
   /**
-   *	Number of times the DiscountCode can be applied. DiscountCode application is counted at the time of Order creation or update. However, Order cancellation or deletion does not decrement the count.
+   *	Maps to `DiscountCode.maxApplications`.
    *
    *
    */
   readonly maxApplications?: number
   /**
-   *	Number of times the DiscountCode can be applied per Customer (anonymous Carts are not supported). DiscountCode application is counted at the time of Order creation or update. However, Order cancellation or deletion does not decrement the count.
+   *	Maps to `DiscountCode.maxApplicationsPerCustomer`.
    *
    *
    */
   readonly maxApplicationsPerCustomer?: number
   /**
-   *	Groups to which the DiscountCode belongs.
+   *	Maps to `DiscountCode.groups`.
    *
    *
    */
   readonly groups?: string[]
   /**
-   *	Date and time (UTC) from which the DiscountCode is effective.
+   *	Maps to `DiscountCode.validFrom`.
    *
    *
    */
   readonly validFrom?: string
   /**
-   *	Date and time (UTC) until which the DiscountCode is effective.
+   *	Maps to `DiscountCode.validUntil`.
    *
    *
    */
   readonly validUntil?: string
   /**
-   *	Custom Fields of the DiscountCode.
+   *	Maps to `DiscountCode.custom`.
    *
    *
    */

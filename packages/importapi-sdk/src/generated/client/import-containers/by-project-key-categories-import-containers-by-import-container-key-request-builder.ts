@@ -23,7 +23,7 @@ export class ByProjectKeyCategoriesImportContainersByImportContainerKeyRequestBu
     }
   ) {}
   /**
-   *	Creates a request for creating new Categories or updating existing ones.
+   *	Creates an Import Request for Categories.
    */
   public post(methodArgs: {
     body: CategoryImportRequest

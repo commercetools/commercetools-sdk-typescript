@@ -13,50 +13,45 @@ import {
 
 export interface AttributeDefinition {
   /**
+   *	Describes the Type of the Attribute.
    *
    */
   readonly type: AttributeType
   /**
+   *	User-defined name of the Attribute that is unique within the [Project](ctp:api:type:Project).
+   *
    *
    */
   readonly name: string
   /**
-   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
-   *	```json
-   *	{
-   *	  "de": "Hundefutter",
-   *	  "en": "dog food"
-   *	}
-   *	```
-   *
+   *	Human-readable label for the Attribute.
    *
    */
   readonly label: LocalizedString
   /**
+   *	If `true`, the Attribute must have a value on a [ProductVariant](ctp:api:type:ProductVariant).
    *
    */
   readonly isRequired: boolean
   /**
+   *	Specifies how Attributes are validated across all variants of a Product.
+   *
    *
    */
   readonly attributeConstraint?: AttributeConstraintEnum
   /**
-   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
-   *	```json
-   *	{
-   *	  "de": "Hundefutter",
-   *	  "en": "dog food"
-   *	}
-   *	```
+   *	Provides additional Attribute information to aid content managers configure Product details.
    *
    *
    */
   readonly inputTip?: LocalizedString
   /**
+   *	Provides a visual representation directive for values of this Attribute (only relevant for [AttributeTextType](ctp:api:type:AttributeTextType) and [AttributeLocalizableTextType](ctp:api:type:AttributeLocalizableTextType)).
    *
    */
   readonly inputHint?: TextInputHint
   /**
+   *	If `true`, the Attribute's values are available in the [Product Search](/../api/projects/product-search) or the [Product Projection Search](/../api/projects/product-projection-search) API for use in full-text search queries, filters, and facets.
    *
    */
   readonly isSearchable?: boolean
@@ -151,7 +146,7 @@ export interface AttributeMoneyType extends IAttributeType {
 export interface AttributeNestedType extends IAttributeType {
   readonly name: 'nested'
   /**
-   *	References a product type by key.
+   *	References a ProductType by `key`.
    *
    */
   readonly typeReference: ProductTypeKeyReference
@@ -162,7 +157,7 @@ export interface AttributeNumberType extends IAttributeType {
 export interface AttributeReferenceType extends IAttributeType {
   readonly name: 'reference'
   /**
-   *	The type of the referenced resource.
+   *	Type of referenced resource.
    *
    *
    */
@@ -201,12 +196,12 @@ export enum TextInputHintValues {
 
 export type TextInputHint = 'MultiLine' | 'SingleLine' | (string & {})
 /**
- *	The data representation for a ProductType to be imported that is persisted as a [ProductType](ctp:api:type:ProductType) in the Project.
+ *	Represents the data used to import a ProductType. Once imported, this data is persisted as a [ProductType](ctp:api:type:ProductType) in the Project.
  *
  */
 export interface ProductTypeImport extends ImportResource {
   /**
-   *	User-defined unique identifier. If a [ProductType](ctp:api:type:ProductType) with this `key` exists, it will be updated with the imported data.
+   *	User-defined unique identifier. If a [ProductType](ctp:api:type:ProductType) with this `key` exists, it is updated with the imported data.
    *
    */
   readonly key: string

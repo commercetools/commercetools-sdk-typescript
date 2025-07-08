@@ -28,43 +28,44 @@ import { Custom } from './customfields'
 import { SubRate, TaxRate } from './prices'
 import { Attribute } from './productvariants'
 
-/**
- *	The item's state.
- *
- */
 export interface ItemState {
   /**
+   *	Number of Line Items or Custom Line Items in this State.
+   *
    *
    */
   readonly quantity: number
   /**
-   *	Maps to `ItemState.state`.
+   *	State of the Line Items or Custom Line Items in a custom workflow. If the referenced [State](ctp:api:type:State) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced State is created.
    *
    *
    */
   readonly state: StateKeyReference
 }
 /**
- *	The item's shipping target.
+ *	Determines the address (as a reference to an address in `itemShippingAddresses`) and the quantity shipped to the address.
  *
  */
 export interface ItemShippingTarget {
   /**
-   *	Maps to `ItemShippingTarget.addressKey`.
+   *	Key of the address in the [Cart](ctp:api:type:Cart) `itemShippingAddresses`. Duplicate address keys are not allowed.
    *
    *
    */
   readonly addressKey: string
   /**
-   *	Maps to `ItemShippingTarget.quantity`.
+   *	Quantity of Line Items or Custom Line Items shipped to the address with the specified `addressKey`.
    *
    *
    */
   readonly quantity: number
 }
+/**
+ *	The sum of the `targets` must match the quantity of the Line Items or Custom Line Items
+ */
 export interface ItemShippingDetailsDraft {
   /**
-   *	Maps to `ItemShippingDetailsDraft.targets`.
+   *	Holds information on the quantity of Line Items or Custom Line Items and the address it is shipped.
    *
    *
    */
@@ -96,13 +97,13 @@ export interface LineItemPrice {
    */
   readonly validUntil?: string
   /**
-   *	References a customer group by key.
+   *	Maps to `Price.customerGroup`. References a customer group by key. If the referenced [CustomerGroup](ctp:api:type:CustomerGroup) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced CustomerGroup is created.
    *
    *
    */
   readonly customerGroup?: CustomerGroupKeyReference
   /**
-   *	References a channel by key.
+   *	Maps to `Price.channel`. References a channel by key. If the referenced [Channel](ctp:api:type:Channel) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Channel is created.
    *
    *
    */
@@ -113,7 +114,7 @@ export interface LineItemPrice {
    */
   readonly discounted?: DiscountedPrice
   /**
-   *	The tiered prices for this price.
+   *	Maps to `Price.tiers`.
    *
    */
   readonly tiers?: PriceTier[]
@@ -126,7 +127,7 @@ export interface LineItemPrice {
 }
 export interface LineItemProductVariantImportDraft {
   /**
-   *	Maps to `ProductVariant.product`.
+   *	Maps to `ProductVariant.product`. If the referenced [ProductVariant](ctp:api:type:ProductVariant) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced ProductVariant is created.
    *
    *
    */
@@ -166,7 +167,7 @@ export interface LineItemProductVariantImportDraft {
  */
 export interface LineItemImportDraft {
   /**
-   *	Maps to `LineItem.productId`.
+   *	Maps to `LineItem.productId`. If the referenced [Product](ctp:api:type:Product) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Product is created.
    *
    *
    */
@@ -196,21 +197,19 @@ export interface LineItemImportDraft {
    */
   readonly quantity: number
   /**
+   *	Maps to `LineItem.state`.
+   *
    *
    */
   readonly state?: ItemState[]
   /**
-   *	Maps to `LineItem.supplyChannel`.
-   *	The Reference to the Supply [Channel](ctp:api:type:Channel) with which the LineItem is associated.
-   *	If referenced Supply Channel does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary Supply Channel is created.
+   *	Maps to `LineItem.supplyChannel`. If the referenced [Channel](ctp:api:type:Channel) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Channel is created.
    *
    *
    */
   readonly supplyChannel?: ChannelKeyReference
   /**
-   *	Maps to `LineItem.distributionChannel`.
-   *	The Reference to the Distribution [Channel](ctp:api:type:Channel) with which the LineItem is associated.
-   *	If referenced CustomerGroup does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary Distribution Channel is created.
+   *	Maps to `LineItem.distributionChannel`. If the referenced [Channel](ctp:api:type:Channel) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Channel is created.
    *
    *
    */
@@ -222,13 +221,13 @@ export interface LineItemImportDraft {
    */
   readonly taxRate?: TaxRate
   /**
-   *	Maps to LineItem.shippingDetails.
+   *	Maps to `LineItem.shippingDetails`.
    *
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
   /**
-   *	Custom Fields for this Line Item.
+   *	Maps to `LineItem.custom`.
    *
    */
   readonly custom?: Custom
@@ -272,134 +271,183 @@ export interface CartClassificationTier extends IShippingRatePriceTier {
 }
 export interface ShippingRateDraft {
   /**
+   *	Currency amount of the ShippingRate.
    *
    */
   readonly price: Money
   /**
+   *	Free shipping is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
    *
    */
   readonly freeAbove?: Money
   /**
+   *	Price tiers for the ShippingRate.
    *
    */
   readonly tiers?: ShippingRatePriceTier[]
 }
 export interface ParcelMeasurements {
   /**
+   *	Height of the Parcel.
+   *
    *
    */
   readonly heightInMillimeter?: number
   /**
+   *	Length of the Parcel.
+   *
    *
    */
   readonly lengthInMillimeter?: number
   /**
+   *	Width of the Parcel.
+   *
    *
    */
   readonly widthInMillimeter?: number
   /**
+   *	Weight of the Parcel.
+   *
    *
    */
   readonly weightInGram?: number
 }
 export interface TrackingData {
   /**
+   *	Identifier to track the Parcel.
+   *
    *
    */
   readonly trackingId?: string
   /**
+   *	Name of the carrier that delivers the Parcel.
+   *
    *
    */
   readonly carrier?: string
   /**
+   *	Name of the provider that serves as facade to several carriers.
+   *
    *
    */
   readonly provider?: string
   /**
+   *	Transaction identifier with the `provider`.
+   *
    *
    */
   readonly providerTransaction?: string
   /**
+   *	- If `true`, the Parcel is being returned.
+   *	- If `false`, the Parcel is being delivered to the customer.
+   *
    *
    */
   readonly isReturn?: boolean
 }
 export interface DeliveryItem {
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) or [CustomLineItem](ctp:api:type:CustomLineItem) delivered.
+   *
    *
    */
   readonly id: string
   /**
+   *	Number of Line Items or Custom Line Items delivered.
+   *
    *
    */
   readonly quantity: number
 }
 export interface Parcel {
   /**
+   *	Unique identifier of the Parcel.
    *
    */
   readonly id: string
   /**
+   *	Date and time (UTC) the Parcel was created.
+   *
    *
    */
   readonly createdAt: string
   /**
+   *	Information about the dimensions of the Parcel.
+   *
    *
    */
   readonly measurements?: ParcelMeasurements
   /**
+   *	Shipment tracking information of the Parcel.
+   *
    *
    */
   readonly trackingData?: TrackingData
   /**
+   *	Line Items or Custom Line Items delivered in this Parcel.
+   *
    *
    */
   readonly items?: DeliveryItem[]
   /**
-   *	The representation to be sent to the server when creating a resource with Custom Fields.
+   *	Custom Fields of the Parcel.
+   *
    *
    */
   readonly custom?: Custom
 }
 export interface Delivery {
   /**
+   *	Unique identifier of the Delivery.
    *
    */
   readonly id: string
   /**
+   *	Date and time (UTC) the Delivery was created.
+   *
    *
    */
   readonly createdAt: string
   /**
+   *	Line Items or Custom Line Items that are delivered.
+   *
    *
    */
   readonly items: DeliveryItem[]
   /**
+   *	Information regarding the appearance, content, and shipment of a Parcel.
+   *
    *
    */
   readonly parcels: Parcel[]
   /**
+   *	Address to which Parcels are delivered.
+   *
    *
    */
   readonly address?: Address
 }
 export interface DiscountedLineItemPortion {
   /**
-   *	References a cart discount by key.
+   *	References a cart discount by key. If the referenced [CartDiscount](ctp:api:type:CartDiscount) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced CartDiscount is created.
    *
    */
   readonly discount: CartDiscountKeyReference
   /**
+   *	Money value for the discount applicable.
    *
    */
   readonly discountedAmount: Money
 }
 export interface DiscountedLineItemPriceDraft {
   /**
+   *	Discounted money value.
+   *
    *
    */
   readonly value: Money
   /**
+   *	Discounts to be applied.
    *
    */
   readonly includedDiscounts: DiscountedLineItemPortion[]
@@ -414,73 +462,95 @@ export type ShippingMethodState =
   | 'MatchesCart'
   | (string & {})
 /**
- *	Maps to an order's `shippingInfo` property. This field is usually populated by the cart associated with
- *	the order, but when importing orders you must provide a draft representation as a part of the OrderImport.
+ *	Maps to an Order's `shippingInfo` property. This field is usually populated by the Cart associated with the Order, but when importing Orders you must provide a draft representation as a part of the OrderImport.
  *
  */
 export interface ShippingInfoImportDraft {
   /**
+   *	Maps to `shippingInfo.shippingMethodName`.
    *
    */
   readonly shippingMethodName: string
   /**
+   *	Maps to `shippingInfo.price`.
    *
    */
   readonly price: TypedMoney
   /**
+   *	Used to determine the price.
    *
    */
   readonly shippingRate: ShippingRateDraft
   /**
+   *	Maps to `shippingInfo.taxRate`.
    *
    */
   readonly taxRate?: TaxRate
   /**
-   *	References a tax category by key.
+   *	Maps to `shippingInfo.taxCategory`. If the referenced [TaxCategory](ctp:api:type:TaxCategory) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced TaxCategory is created.
    *
    */
   readonly taxCategory?: TaxCategoryKeyReference
   /**
-   *	References a shipping method by key.
+   *	Maps to `shippingInfo.shippingMethod`. If the referenced [ShippingMethod](ctp:api:type:ShippingMethod) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced ShippingMethod is created.
    *
    */
   readonly shippingMethod?: ShippingMethodKeyReference
   /**
-   *	Note that you can not add a `DeliveryItem` on import, as `LineItems` and `CustomLineItems` are not yet referenceable by an `id`.
+   *	Maps to `shippingInfo.deliveries`. You cannot add a `DeliveryItem` on import, as `LineItems` and `CustomLineItems` are not yet referenceable by an `id`.
    *
    */
   readonly deliveries?: Delivery[]
   /**
+   *	Maps to `shippingInfo.discountedPrice`.
    *
    */
   readonly discountedPrice?: DiscountedLineItemPriceDraft
   /**
+   *	Maps to `shippingInfo.shippingMethodState`.
    *
    */
   readonly shippingMethodState?: ShippingMethodState
 }
 export interface ExternalTaxRateDraft {
   /**
+   *	Name of the Tax Rate.
+   *
    *
    */
   readonly name: string
   /**
+   *	Percentage in the range of 0-1.
+   *
+   *	- If no `subRates` are specified, a value must be defined.
+   *	- If `subRates` are specified, this can be omitted or its value must be the sum of all `subRates` amounts.
+   *
    *
    */
   readonly amount?: number
   /**
+   *	Country for which the tax applies.
+   *
    *
    */
   readonly country: string
   /**
+   *	State within the specified country.
+   *
    *
    */
   readonly state?: string
   /**
+   *	Used when the total tax is a combination of multiple taxes (for example, local, state/provincial, and/or federal taxes). The total of all subrates must equal the TaxRate `amount`.
+   *	These subrates are used to calculate the `taxPortions` field of a [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order) and the `taxedPrice` field of [LineItems](ctp:api:type:LineItem), [CustomLineItems](ctp:api:type:CustomLineItem), and [ShippingInfos](ctp:api:type:ShippingInfo).
+   *
    *
    */
   readonly subRates?: SubRate[]
   /**
+   *	- If set to `false`, the related price is considered the net price and the provided `amount` is applied to calculate the gross price.
+   *	- If set to `true`, the related price is considered the gross price, and the provided `amount` is applied to calculate the net price.
+   *
    *
    */
   readonly includedInPrice?: boolean
@@ -497,73 +567,94 @@ export interface CustomLineItemTaxedPrice {
 }
 export interface CustomLineItemDraft {
   /**
-   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
-   *	```json
-   *	{
-   *	  "de": "Hundefutter",
-   *	  "en": "dog food"
-   *	}
-   *	```
+   *	Maps to `CustomLineItem.name`.
    *
    *
    */
   readonly name: LocalizedString
   /**
+   *	Maps to `CustomLineItem.money`.
+   *
    *
    */
   readonly money: TypedMoney
   /**
+   *	Maps to `CustomLineItem.taxedPrice`.
+   *
    *
    */
   readonly taxedPrice?: CustomLineItemTaxedPrice
   /**
+   *	Maps to `CustomLineItem.totalPrice`.
+   *
    *
    */
   readonly totalPrice: TypedMoney
   /**
+   *	Maps to `CustomLineItem.slug`.
+   *
    *
    */
   readonly slug: string
   /**
+   *	Maps to `CustomLineItem.quantity`.
+   *
    *
    */
   readonly quantity: number
   /**
+   *	Maps to `CustomLineItem.state`.
+   *
    *
    */
   readonly state?: ItemState[]
   /**
-   *	References a tax category by key.
+   *	Maps to `CustomLineItem.taxCategory`. References a tax category by key. If the referenced [TaxCategory](ctp:api:type:TaxCategory) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced TaxCategory is created.
+   *
    *
    */
   readonly taxCategory?: TaxCategoryKeyReference
   /**
+   *	Maps to `CustomLineItem.taxRate`.
+   *
    *
    */
   readonly taxRate?: TaxRate
   /**
+   *	External Tax Rate for the Custom Line Item if the Cart has the `External` [TaxMode](ctp:api:type:TaxMode).
+   *
    *
    */
   readonly externalTaxRate?: ExternalTaxRateDraft
   /**
+   *	Maps to `CustomLineItem.discountedPricePerQuantity`.
+   *
    *
    */
   readonly discountedPricePerQuantity?: DiscountedLineItemPriceDraft[]
   /**
+   *	Maps to `CustomLineItem.shippingDetails`.
+   *
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
 }
 export interface TaxPortion {
   /**
+   *	Name of the tax portion.
+   *
    *
    */
   readonly name?: string
   /**
+   *	A number in the range 0-1.
+   *
    *
    */
   readonly rate: number
   /**
+   *	Money value of the tax portion.
+   *
    *
    */
   readonly amount: TypedMoney
@@ -697,7 +788,7 @@ export enum CartOriginValues {
 export type CartOrigin = 'Customer' | 'Merchant' | (string & {})
 export interface SyncInfo {
   /**
-   *	Maps to `SyncInfo.channel`
+   *	Maps to `SyncInfo.channel`. If the referenced [Channel](ctp:api:type:Channel) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Channel is created.
    *
    */
   readonly channel: ChannelKeyReference
@@ -734,7 +825,7 @@ export type DiscountCodeState =
   | (string & {})
 export interface DiscountCodeInfo {
   /**
-   *	References a discount code by key.
+   *	References a DiscountCode by key. If the referenced [DiscountCode](ctp:api:type:DiscountCode) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced DiscountCode is created.
    *
    */
   readonly discountCode: DiscountCodeKeyReference
@@ -786,9 +877,7 @@ export interface ScoreShippingRateInput extends IShippingRateInput {
   readonly score: number
 }
 /**
- *	The data representation for an Order to be imported that is persisted as an [Order](ctp:api:type:Order) in the Project.
- *
- *	In commercetools, you can import an Order using the [Create Order by Import](/projects/orders-import#create-order-by-import) endpoint method instead of creating it from a Cart.
+ *	Represents the data used to import an Order. Once imported, this data is persisted as an [Order](ctp:api:type:Order) in the Project.
  *
  *	An OrderImport is a snapshot of an order at the time it was imported.
  *
@@ -801,6 +890,8 @@ export interface OrderImport {
    */
   readonly orderNumber: string
   /**
+   *	`key` of the [Customer](ctp:api:type:Customer) that the Order belongs to. If the referenced Customer does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Customer is created.
+   *
    *
    */
   readonly customer?: CustomerKeyReference
@@ -847,7 +938,7 @@ export interface OrderImport {
    */
   readonly billingAddress?: Address
   /**
-   *	Maps to `Order.customerGroup`.
+   *	Maps to `Order.customerGroup`. If the referenced [CustomerGroup](ctp:api:type:CustomerGroup) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced CustomerGroup is created.
    *
    *
    */
@@ -925,13 +1016,13 @@ export interface OrderImport {
    */
   readonly itemShippingAddresses?: Address[]
   /**
-   *	Reference to the Store in which the Order is associated. If referenced Store does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary Store exists.
+   *	Maps to `Order.store`. If the referenced [Store](ctp:api:type:Store) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Store is created.
    *
    *
    */
   readonly store?: StoreKeyReference
   /**
-   *	Reference to a State in a custom workflow.
+   *	Maps to `Order.state`. If the referenced [State](ctp:api:type:State) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced State is created.
    *
    *
    */

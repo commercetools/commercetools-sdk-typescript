@@ -20,7 +20,7 @@ export class ByProjectKeyPricesImportContainersByImportContainerKeyRequestBuilde
     }
   ) {}
   /**
-   *	Creates a request for creating new Prices or updating existing ones.
+   *	Creates an Import Request for Prices.
    */
   public post(methodArgs: {
     body: PriceImportRequest

@@ -25,125 +25,174 @@ export type ReturnShipmentState =
   | (string & {})
 export interface ReturnItemDraft {
   /**
+   *	Number of Line Items or Custom Line Items to return.
+   *
    *
    */
   readonly quantity: number
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to return.
+   *
+   *	Required if Line Items are returned, to create a [LineItemReturnItem](ctp:api:type:LineItemReturnItem).
+   *
    *
    */
   readonly lineItemId?: string
   /**
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to return.
+   *
+   *	Required if Custom Line Items are returned, to create a [CustomLineItemReturnItem](ctp:api:type:CustomLineItemReturnItem).
+   *
    *
    */
   readonly customLineItemId?: string
   /**
+   *	User-defined description for the return.
+   *
    *
    */
   readonly comment?: string
   /**
-   *	Maps to `ReturnItem.shipmentState`
+   *	Shipment status of the item to be returned.
+   *
    *
    */
   readonly shipmentState: ReturnShipmentState
 }
 export interface ReturnInfo {
   /**
+   *	Information on the Line Items or Custom Line Items returned.
+   *
    *
    */
   readonly items: ReturnItemDraft[]
   /**
-   *	Maps to `ReturnInfo.returnTrackingId`
+   *	User-defined identifier to track the return.
+   *
    *
    */
   readonly returnTrackingId?: string
   /**
-   *	Maps to `ReturnInfo.returnDate`
+   *	Date and time (UTC) the return is initiated.
+   *
    *
    */
   readonly returnDate?: string
 }
 export interface DeliveryParcel {
   /**
+   *	Unique identifier of the Delivery.
    *
    */
   readonly deliveryId: string
   /**
+   *	Information about the dimensions of the Parcel.
+   *
    *
    */
   readonly measurements?: ParcelMeasurements
   /**
+   *	Shipment tracking information of the Parcel.
+   *
    *
    */
   readonly trackingData?: TrackingData
   /**
+   *	Line Items or Custom Line Items delivered in this Parcel.
+   *
    *
    */
   readonly items?: DeliveryItem[]
 }
 export interface DeliveryParcelDraft {
   /**
+   *	Information about the dimensions for the Parcel.
+   *
    *
    */
   readonly measurements?: ParcelMeasurements
   /**
+   *	Shipment tracking information for the Parcel.
+   *
    *
    */
   readonly trackingData?: TrackingData
   /**
+   *	Line Items or Custom Line Items delivered in this Parcel.
+   *
    *
    */
   readonly items?: DeliveryItem[]
 }
 export interface DeliveryDraft {
   /**
+   *	Line Items or Custom Line Items to deliver. It can also be specified individually for each [Parcel](ctp:api:type:Parcel).
+   *
    *
    */
   readonly items: DeliveryItem[]
   /**
+   *	Address to which the Parcels are delivered.
+   *
    *
    */
   readonly address?: Address
   /**
+   *	Information regarding the appearance, content, and shipment of a parcel.
+   *
    *
    */
   readonly parcels: DeliveryParcelDraft[]
 }
 export interface DeliveryAddressDraft {
   /**
+   *	Unique identifier of the Delivery.
    *
    */
   readonly deliveryId: string
   /**
+   *	Address to which Parcels are delivered.
    *
    */
   readonly address?: Address
 }
 export interface ParcelMeasurementDraft {
   /**
+   *	`id` of an existing [Parcel](ctp:api:type:Parcel).
+   *
    *
    */
   readonly parcelId: string
   /**
+   *	Information about the dimensions of the Parcel.
+   *
    *
    */
   readonly measurements?: ParcelMeasurements
 }
 export interface ParcelTrackingData {
   /**
+   *	`id` of an existing [Parcel](ctp:api:type:Parcel).
+   *
    *
    */
   readonly parcelId: string
   /**
+   *	Information that helps track a Parcel.
+   *
    *
    */
   readonly trackingData?: TrackingData
 }
 export interface ParcelItems {
   /**
+   *	`id` of an existing [Parcel](ctp:api:type:Parcel).
+   *
    *
    */
   readonly parcelId: string
   /**
+   *	Items in the Parcel.
    *
    */
   readonly items?: DeliveryItem[]
@@ -156,6 +205,8 @@ export interface RemoveDeliveryDraft {
 }
 export interface RemoveParcelFromDeliveryDraft {
   /**
+   *	`id` of the [Parcel](ctp:api:type:Parcel) to be removed from the Delivery.
+   *
    *
    */
   readonly parcelId: string
@@ -221,19 +272,18 @@ export interface OrderField {
   readonly setParcelItems?: ParcelItems[]
 }
 /**
- *	Representation for an update of an [Order](ctp:api:type:Order). Use this type to import updates for existing
- *	[Orders](ctp:api:type:Order) in a Project.
+ *	Represents the data used to update an [Order](ctp:api:type:Order) in a Project.
  *
  */
 export interface OrderPatchImport {
   /**
-   *	Maps to `Order.orderNumber`, String that uniquely identifies an order, unique across a project.
+   *	User-defined unique identifier. If an [Order](ctp:api:type:Order) with this `orderNumber` exists, it is updated with the imported data.
    *
    *
    */
   readonly orderNumber: string
   /**
-   *	Each field referenced must be defined in an already existing order in the project or the import operation state is set to `validationFailed`.
+   *	Each field referenced must be defined in an existing [Order](ctp:api:type:Order) or the [ImportOperationState](ctp:import:type:ImportOperationState) is set to `validationFailed`.
    *
    *
    */

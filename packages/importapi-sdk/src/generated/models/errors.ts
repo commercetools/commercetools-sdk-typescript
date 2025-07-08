@@ -196,6 +196,7 @@ export interface DuplicateVariantValuesError extends IErrorObject {
 }
 export interface VariantValues {
   /**
+   *	The SKU of the Product Variant.
    *
    */
   readonly sku?: string
@@ -260,6 +261,7 @@ export interface InvalidFieldError extends IErrorObject {
    */
   readonly allowedValues?: any[]
   /**
+   *	The index of the resource in the import request that contains the invalid field.
    *
    */
   readonly resourceIndex?: number
@@ -317,6 +319,7 @@ export interface ResourceNotFoundError extends IErrorObject {
    */
   readonly message: string
   /**
+   *	The resource that was not found.
    *
    */
   readonly resource?: any
@@ -329,6 +332,7 @@ export interface ResourceCreationError extends IErrorObject {
    */
   readonly message: string
   /**
+   *	The resource that was created.
    *
    */
   readonly resource?: any
@@ -341,6 +345,7 @@ export interface ResourceUpdateError extends IErrorObject {
    */
   readonly message: string
   /**
+   *	The resource that was updated.
    *
    */
   readonly resource?: any
@@ -353,6 +358,7 @@ export interface ResourceDeletionError extends IErrorObject {
    */
   readonly message: string
   /**
+   *	The resource that was deleted.
    *
    */
   readonly resource?: any

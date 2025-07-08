@@ -15,66 +15,65 @@ import {
 import { Custom } from './customfields'
 
 /**
- *	The data representation for a Standalone Price to be imported that is persisted as a [Standalone Price](ctp:api:type:StandalonePrice)) in the Project.
+ *	Represents the data used to import a StandalonePrice. Once imported, this data is persisted as a [StandalonePrice](ctp:api:type:StandalonePrice)) in the Project.
  *
  */
 export interface StandalonePriceImport extends ImportResource {
   /**
-   *	User-defined unique identifier for the Standalone Price. If a [StandalonePrice](ctp:api:type:StandalonePrice)) with this `key` exists, it will be updated with the imported data.
+   *	User-defined unique identifier for the StandalonePrice. If a [StandalonePrice](ctp:api:type:StandalonePrice)) with this `key` exists, it is updated with the imported data.
    *
    *
    */
   readonly key: string
   /**
-   *	Identifies the ProductVariant to which this Standalone Price is associated. This value is not validated to exist in Product Variants.
+   *	Maps to `StandalonePrice.sku`. This value is not validated to exist in Product Variants.
    *
    *
    */
   readonly sku: string
   /**
-   *	Sets the money value of this Price.
+   *	Maps to `StandalonePrice.value`.
    *
    *
    */
   readonly value: TypedMoney
   /**
-   *	Sets the country for this Price, if the Price does not yet have a country.
-   *
-   *	The country cannot be updated. Attempting to update the an existing country will result in an [InvalidFieldsUpdate](/import-export/error#invalidfieldsupdateerror) error.
+   *	Maps to `StandalonePrice.country`. This value cannot be updated. Attempting to update this value will result in an [InvalidFieldsUpdate](/import-export/error#invalidfieldsupdateerror) error.
    *
    *
    */
   readonly country?: string
   /**
-   *	Sets the CustomerGroup for this Price, if the Price does not yet have a CustomerGroup.
+   *	Maps to `StandalonePrice.customerGroup`. If the referenced [CustomerGroup](ctp:api:type:CustomerGroup) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced CustomerGroup is created.
    *
-   *	The CustomerGroup cannot be updated. Attempting to update an existing CustomerGroup will result in an [InvalidFieldsUpdate](/import-export/error#invalidfieldsupdateerror) error.
+   *	This value cannot be updated. Attempting to update this value will result in an [InvalidFieldsUpdate](/import-export/error#invalidfieldsupdateerror) error.
    *
    *
    */
   readonly customerGroup?: CustomerGroupKeyReference
   /**
-   *	Sets the product distribution Channel for this Price, if the Price does not yet have a Channel.
+   *	Maps to `StandalonePrice.channel`. If the referenced [Channel](ctp:api:type:Channel) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Channel is created.
    *
-   *	The Channel cannot be updated. Attempting to update an existing Channel will result in an [InvalidFieldsUpdate](/import-export/error#invalidfieldsupdateerror) error.
+   *	This value cannot be updated. Attempting to update this value will result in an [InvalidFieldsUpdate](/import-export/error#invalidfieldsupdateerror) error.
    *
    *
    */
   readonly channel?: ChannelKeyReference
   /**
-   *	Sets the date from which the Price is valid.
+   *	Maps to `StandalonePrice.validFrom`.
    *
    *
    */
   readonly validFrom?: string
   /**
-   *	Sets the date until the Price is valid.
+   *	Maps to `StandalonePrice.validUntil`.
    *
    *
    */
   readonly validUntil?: string
   /**
-   *	Sets price tiers.
+   *	Maps to `StandalonePrice.tiers`.
+   *
    *
    */
   readonly tiers?: PriceTier[]
@@ -84,7 +83,7 @@ export interface StandalonePriceImport extends ImportResource {
    */
   readonly discounted?: DiscountedPrice
   /**
-   *	Custom Fields for the StandalonePrice.
+   *	Maps to `StandalonePrice.custom`.
    *
    */
   readonly custom?: Custom

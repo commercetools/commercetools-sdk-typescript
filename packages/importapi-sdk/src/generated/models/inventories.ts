@@ -8,47 +8,47 @@ import { ChannelKeyReference, ImportResource } from './common'
 import { Custom } from './customfields'
 
 /**
- *	The data representation for an Inventory to be imported that is persisted as a [Inventory](ctp:api:type:InventoryEntry) in the Project.
+ *	Represents the data used to import an InventoryEntry. Once imported, this data is persisted as a [InventoryEntry](ctp:api:type:InventoryEntry) in the Project.
  *
  */
 export interface InventoryImport extends ImportResource {
   /**
-   *	User-defined unique identifier. If an [InventoryEntry](ctp:api:type:InventoryEntry) with this `key` exists, it will be updated with the imported data.
+   *	User-defined unique identifier. If an [InventoryEntry](ctp:api:type:InventoryEntry) with this `key` exists, it is updated with the imported data.
    *
    */
   readonly key: string
   /**
-   *	Maps to `Inventory.sku`
+   *	Maps to `InventoryEntry.sku`
    *
    *
    */
   readonly sku: string
   /**
-   *	Maps to `Inventory.quantityOnStock`
+   *	Maps to `InventoryEntry.quantityOnStock`
    *
    *
    */
   readonly quantityOnStock: number
   /**
-   *	Maps to `Inventory.restockableInDays`
+   *	Maps to `InventoryEntry.restockableInDays`
    *
    *
    */
   readonly restockableInDays?: number
   /**
-   *	Maps to `Inventory.expectedDelivery`
+   *	Maps to `InventoryEntry.expectedDelivery`
    *
    *
    */
   readonly expectedDelivery?: string
   /**
-   *	Maps to `Inventory.supplyChannel`
+   *	Maps to `InventoryEntry.supplyChannel`. If the referenced [Channel](ctp:api:type:Channel) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Channel is created.
    *
    *
    */
   readonly supplyChannel?: ChannelKeyReference
   /**
-   *	Maps to `Inventory.custom`.
+   *	Maps to `InventoryEntry.custom`.
    *
    *
    */

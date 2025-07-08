@@ -23,7 +23,7 @@ export class ByProjectKeyProductsImportContainersByImportContainerKeyRequestBuil
     }
   ) {}
   /**
-   *	Creates a request for creating new Products or updating existing ones.
+   *	Creates an Import Request for Products.
    */
   public post(methodArgs: {
     body: ProductImportRequest

@@ -20,7 +20,7 @@ export class ByProjectKeyTypesImportContainersByImportContainerKeyRequestBuilder
     }
   ) {}
   /**
-   *	Creates a request for creating new Type or updating existing ones.
+   *	Creates an Import Request for Types.
    */
   public post(methodArgs: {
     body: TypeImportRequest

@@ -10,6 +10,7 @@ import { Custom } from './customfields'
 import { DiscountCodeImport } from './discount-codes'
 import { InventoryImport } from './inventories'
 import { PriceImport } from './prices'
+import { ProductSelectionImport } from './product-selections'
 import { ProductDraftImport } from './productdrafts'
 import { ProductImport } from './products'
 import { ProductTypeImport } from './producttypes'
@@ -30,35 +31,22 @@ export interface Asset {
    */
   readonly sources: AssetSource[]
   /**
-   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
-   *	```json
-   *	{
-   *	  "de": "Hundefutter",
-   *	  "en": "dog food"
-   *	}
-   *	```
-   *
+   *	Name of the Asset.
    *
    */
   readonly name: LocalizedString
   /**
-   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
-   *	```json
-   *	{
-   *	  "de": "Hundefutter",
-   *	  "en": "dog food"
-   *	}
-   *	```
-   *
+   *	Description of the Asset.
    *
    */
   readonly description?: LocalizedString
   /**
+   *	Keywords for categorizing and organizing Assets.
    *
    */
   readonly tags?: string[]
   /**
-   *	The representation to be sent to the server when creating a resource with custom fields.
+   *	Custom Fields defined for the Asset.
    *
    */
   readonly custom?: Custom
@@ -185,6 +173,7 @@ export type _ImportResource =
   | PriceImport
   | ProductDraftImport
   | ProductImport
+  | ProductSelectionImport
   | ProductTypeImport
   | ProductVariantImport
   | StandalonePriceImport
@@ -215,82 +204,108 @@ export type KeyReference =
   | TypeKeyReference
 export interface IKeyReference {
   /**
+   *	User-defined unique identifier of the referenced resource.
+   *	If the referenced resource does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced resource is created.
+   *
    *
    */
   readonly key: string
   /**
-   *	The type of the referenced resource.
+   *	Type of referenced resource.
    *
    *
    */
   readonly typeId: ReferenceType
 }
 /**
- *	References a cart by key.
+ *	Used by the [Import API](/import-export/overview) to identify a Cart
  */
 export interface CartKeyReference extends IKeyReference {
   readonly typeId: 'cart'
   /**
+   *	User-defined unique identifier of the referenced Cart.
    *
    */
   readonly key: string
 }
 /**
- *	References a cart discount by key.
+ *	Used by the [Import API](/import-export/overview) to identify a CartDiscount.
  */
 export interface CartDiscountKeyReference extends IKeyReference {
   readonly typeId: 'cart-discount'
   /**
+   *	User-defined unique identifier of the referenced CartDiscount.
    *
    */
   readonly key: string
 }
 /**
- *	References a category by key.
+ *	Used by the [Import API](/import-export/overview) to identify a Category.
  */
 export interface CategoryKeyReference extends IKeyReference {
   readonly typeId: 'category'
   /**
+   *	User-defined unique identifier of the referenced Category.
    *
    */
   readonly key: string
 }
 /**
- *	References a channel by key.
+ *	Used by the [Import API](/import-export/overview) to identify a Channel.
  */
 export interface ChannelKeyReference extends IKeyReference {
   readonly typeId: 'channel'
   /**
+   *	User-defined unique identifier of the referenced Channel.
    *
    */
   readonly key: string
 }
 /**
- *	References a customer by key.
+ *	Used by the [Import API](/import-export/overview) to identify a Customer.
  */
 export interface CustomerKeyReference extends IKeyReference {
   readonly typeId: 'customer'
   /**
+   *	User-defined unique identifier of the referenced Customer.
    *
    */
   readonly key: string
 }
 /**
- *	References a customer group by key.
+ *	Used by the [Import API](/import-export/overview) to identify a CustomerGroup.
  */
 export interface CustomerGroupKeyReference extends IKeyReference {
   readonly typeId: 'customer-group'
   /**
+   *	User-defined unique identifier of the referenced CustomerGroup.
    *
    */
   readonly key: string
 }
 /**
- *	References a discount code by key.
+ *	Used by the [Import API](/import-export/overview) to identify a CustomObject.
+ */
+export interface CustomObjectKeyReference extends IKeyReference {
+  readonly typeId: 'key-value-document'
+  /**
+   *	User-defined unique identifier of the referenced CustomObject.
+   *
+   */
+  readonly key: string
+  /**
+   *	The `container` of the referenced CustomObject.
+   *
+   */
+  readonly container: string
+}
+/**
+ *	Used by the [Import API](/import-export/overview) to identify a DiscountCode.
  */
 export interface DiscountCodeKeyReference extends IKeyReference {
   readonly typeId: 'discount-code'
   /**
+   *	User-defined unique identifier of the referenced DiscountCode.
    *
    */
   readonly key: string
@@ -301,149 +316,156 @@ export interface DiscountCodeKeyReference extends IKeyReference {
 export interface OrderKeyReference extends IKeyReference {
   readonly typeId: 'order'
   /**
+   *	User-defined unique identifier of the referenced resource.
+   *	If the referenced resource does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced resource is created.
+   *
    *
    */
   readonly key: string
 }
 /**
- *	References a payment by key.
+ *	Used by the [Import API](/import-export/overview) to identify a Payment.
  */
 export interface PaymentKeyReference extends IKeyReference {
   readonly typeId: 'payment'
   /**
+   *	User-defined unique identifier of the referenced Payment.
    *
    */
   readonly key: string
 }
 /**
- *	References a price by key.
+ *	Used by the [Import API](/import-export/overview) to identify an Embedded Price.
  */
 export interface PriceKeyReference extends IKeyReference {
   readonly typeId: 'price'
   /**
+   *	User-defined unique identifier of the referenced Embedded Price.
    *
    */
   readonly key: string
 }
 /**
- *	References a product by key.
+ *	Used by the [Import API](/import-export/overview) to identify a Product.
  */
 export interface ProductKeyReference extends IKeyReference {
   readonly typeId: 'product'
   /**
+   *	User-defined unique identifier of the referenced Product.
    *
    */
   readonly key: string
 }
 /**
- *	References a product discount by key.
+ *	Used by the [Import API](/import-export/overview) to identify a ProductDiscount.
  */
 export interface ProductDiscountKeyReference extends IKeyReference {
   readonly typeId: 'product-discount'
   /**
+   *	User-defined unique identifier of the referenced ProductDiscount.
    *
    */
   readonly key: string
 }
 /**
- *	References a product type by key.
+ *	Used by the [Import API](/import-export/overview) to identify a ProductType.
  */
 export interface ProductTypeKeyReference extends IKeyReference {
   readonly typeId: 'product-type'
   /**
+   *	User-defined unique identifier of the referenced ProductType.
    *
    */
   readonly key: string
 }
 /**
- *	References a product variant by key.
+ *	Used by the [Import API](/import-export/overview) to identify a ProductVariant.
  */
 export interface ProductVariantKeyReference extends IKeyReference {
   readonly typeId: 'product-variant'
   /**
+   *	User-defined unique identifier of the referenced ProductVariant.
    *
    */
   readonly key: string
 }
 /**
- *	References a shipping method by key.
+ *	Used by the [Import API](/import-export/overview) to identify a ShippingMethod.
  */
 export interface ShippingMethodKeyReference extends IKeyReference {
   readonly typeId: 'shipping-method'
   /**
+   *	User-defined unique identifier of the referenced ShippingMethod.
    *
    */
   readonly key: string
 }
 /**
- *	References a state by key.
+ *	Used by the [Import API](/import-export/overview) to identify a State.
  */
 export interface StateKeyReference extends IKeyReference {
   readonly typeId: 'state'
   /**
+   *	User-defined unique identifier of the referenced State.
    *
    */
   readonly key: string
 }
 /**
- *	References a store by key.
+ *	Used by the [Import API](/import-export/overview) to identify a Store.
  */
 export interface StoreKeyReference extends IKeyReference {
   readonly typeId: 'store'
   /**
+   *	User-defined unique identifier of the referenced Store.
    *
    */
   readonly key: string
 }
 /**
- *	References a tax category by key.
+ *	Used by the [Import API](/import-export/overview) to identify a TaxCategory.
  */
 export interface TaxCategoryKeyReference extends IKeyReference {
   readonly typeId: 'tax-category'
   /**
+   *	User-defined unique identifier of the referenced TaxCategory.
    *
    */
   readonly key: string
 }
 /**
- *	References a type by key.
+ *	Used by the [Import API](/import-export/overview) to identify a Type.
  */
 export interface TypeKeyReference extends IKeyReference {
   readonly typeId: 'type'
   /**
+   *	User-defined unique identifier of the referenced Type.
    *
    */
   readonly key: string
 }
 /**
- *	References a key value document by key.
- */
-export interface CustomObjectKeyReference extends IKeyReference {
-  readonly typeId: 'key-value-document'
-  /**
-   *
-   */
-  readonly key: string
-  /**
-   *
-   */
-  readonly container: string
-}
-/**
- *	References a resource which could not be resolved.
+ *	Contains a reference to a resource which does not exist. For example, if a Category is imported with a parent Category that does not exist, the reference to the parent Category is an unresolved reference.
  */
 export interface UnresolvedReferences {
   /**
-   *	The `key` of the resource.
+   *	`key` of the unresolved resource.
+   *
    *
    */
   readonly key: string
   /**
-   *	The type of resource.
+   *	Type of the unresolved resource.
    *
    */
   readonly typeId: ReferenceType
 }
+/**
+ *	The type of money.
+ *	The `centPrecision` type is used for currencies with minor units, such as EUR and USD.
+ *	The `highPrecision` type is used for currencies without minor units, such as JPY.
+ *
+ */
 export enum MoneyTypeValues {
   CentPrecision = 'centPrecision',
   HighPrecision = 'highPrecision',
@@ -453,14 +475,24 @@ export type MoneyType = 'centPrecision' | 'highPrecision' | (string & {})
 export type TypedMoney = HighPrecisionMoney | Money
 export interface ITypedMoney {
   /**
+   *	The type of money. The `centPrecision` type is used for currencies with minor units, such as EUR and USD. The `highPrecision` type is used for currencies without minor units, such as JPY.
    *
    */
   readonly type: MoneyType
   /**
+   *	The number of fraction digits of the money value.
+   *	This is used to determine how many digits are after the decimal point.
+   *	For example, for EUR and USD, this is `2`, and for JPY, this is `0`.
+   *
    *
    */
   readonly fractionDigits?: number
   /**
+   *	Amount in the smallest indivisible unit of a currency, such as:
+   *
+   *	* Cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as `500`).
+   *	* The value in the major unit for currencies without minor units, like JPY (5 JPY is specified as `5`).
+   *
    *
    */
   readonly centAmount: number
@@ -474,10 +506,19 @@ export interface ITypedMoney {
 export interface HighPrecisionMoney extends ITypedMoney {
   readonly type: 'highPrecision'
   /**
+   *	The number of fraction digits of the money value.
+   *	This is used to determine how many digits are after the decimal point.
+   *	For example, for EUR and USD, this is `2`, and for JPY, this is `0`.
+   *
    *
    */
   readonly fractionDigits?: number
   /**
+   *	Amount in the smallest indivisible unit of a currency, such as:
+   *
+   *	* Cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as `500`).
+   *	* The value in the major unit for currencies without minor units, like JPY (5 JPY is specified as `5`).
+   *
    *
    */
   readonly centAmount: number
@@ -495,10 +536,19 @@ export interface HighPrecisionMoney extends ITypedMoney {
 export interface Money extends ITypedMoney {
   readonly type: 'centPrecision'
   /**
+   *	The number of fraction digits of the money value.
+   *	This is used to determine how many digits are after the decimal point.
+   *	For example, for EUR and USD, this is `2`, and for JPY, this is `0`.
+   *
    *
    */
   readonly fractionDigits?: number
   /**
+   *	Amount in the smallest indivisible unit of a currency, such as:
+   *
+   *	* Cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as `500`).
+   *	* The value in the major unit for currencies without minor units, like JPY (5 JPY is specified as `5`).
+   *
    *
    */
   readonly centAmount: number
@@ -516,7 +566,7 @@ export interface DiscountedPrice {
    */
   readonly value: TypedMoney
   /**
-   *	Reference to a ProductDiscount.
+   *	Reference to a ProductDiscount. If the referenced [ProductDiscount](ctp:api:type:ProductDiscount) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced ProductDiscount is created.
    *
    */
   readonly discount: ProductDiscountKeyReference
@@ -552,6 +602,7 @@ export enum ImportResourceTypeValues {
   Price = 'price',
   Product = 'product',
   ProductDraft = 'product-draft',
+  ProductSelection = 'product-selection',
   ProductType = 'product-type',
   ProductVariant = 'product-variant',
   ProductVariantPatch = 'product-variant-patch',
@@ -569,6 +620,7 @@ export type ImportResourceType =
   | 'price'
   | 'product'
   | 'product-draft'
+  | 'product-selection'
   | 'product-type'
   | 'product-variant'
   | 'product-variant-patch'
@@ -576,7 +628,7 @@ export type ImportResourceType =
   | 'type'
   | (string & {})
 /**
- *	The type of the referenced resource.
+ *	Type of referenced resource.
  *
  */
 export enum ReferenceTypeValues {
@@ -649,109 +701,160 @@ export type ProcessingState =
   | (string & {})
 export interface Address {
   /**
+   *	Unique identifier of the Address.
+   *
+   *	It is not recommended to set it manually since the API overwrites this ID when creating an Address for a [Customer](ctp:api:type:Customer).
+   *	Use `key` instead and omit this field from the request to let the API generate the ID for the Address.
+   *
    *
    */
   readonly id?: string
   /**
+   *	User-defined identifier of the Address that must be unique when multiple addresses are referenced in [BusinessUnits](ctp:api:type:BusinessUnit), [Customers](ctp:api:type:Customer), and `itemShippingAddresses` (LineItem-specific addresses) of a [Cart](ctp:api:type:Cart), [Order](ctp:api:type:Order), [QuoteRequest](ctp:api:type:QuoteRequest), or [Quote](ctp:api:type:Quote).
+   *
    *
    */
   readonly key?: string
   /**
+   *	Title of the contact, for example 'Dr.'
+   *
    *
    */
   readonly title?: string
   /**
+   *	Salutation of the contact, for example 'Mr.' or 'Ms.'
+   *
    *
    */
   readonly salutation?: string
   /**
+   *	Given name (first name) of the contact.
+   *
    *
    */
   readonly firstName?: string
   /**
+   *	Family name (last name) of the contact.
+   *
    *
    */
   readonly lastName?: string
   /**
+   *	Name of the street.
+   *
    *
    */
   readonly streetName?: string
   /**
+   *	Street number.
+   *
    *
    */
   readonly streetNumber?: string
   /**
+   *	Further information on the street address.
+   *
    *
    */
   readonly additionalStreetInfo?: string
   /**
+   *	Postal code.
+   *
    *
    */
   readonly postalCode?: string
   /**
+   *	Name of the city.
+   *
    *
    */
   readonly city?: string
   /**
+   *	Name of the region.
+   *
    *
    */
   readonly region?: string
   /**
+   *	Name of the state, for example, Colorado.
+   *
    *
    */
   readonly state?: string
   /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Name of the country.
    *
    *
    */
   readonly country: string
   /**
+   *	Name of the company.
+   *
    *
    */
   readonly company?: string
   /**
+   *	Name of the department.
+   *
    *
    */
   readonly department?: string
   /**
+   *	Number or name of the building.
+   *
    *
    */
   readonly building?: string
   /**
+   *	Number or name of the apartment.
+   *
    *
    */
   readonly apartment?: string
   /**
+   *	Post office box number.
+   *
    *
    */
   readonly pOBox?: string
   /**
+   *	Phone number of the contact.
+   *
    *
    */
   readonly phone?: string
   /**
+   *	Mobile phone number of the contact.
+   *
    *
    */
   readonly mobile?: string
   /**
+   *	Email address of the contact.
+   *
    *
    */
   readonly email?: string
   /**
+   *	Fax number of the contact.
+   *
    *
    */
   readonly fax?: string
   /**
+   *	Further information on the Address.
+   *
    *
    */
   readonly additionalAddressInfo?: string
   /**
+   *	ID for the contact used in an external system.
+   *
    *
    */
   readonly externalId?: string
   /**
-   *	Custom Fields defined for the Address. Custom Fields can only be applied to `shippingAddress`.
+   *	Custom Fields defined for the Address.
    *
    */
   readonly custom?: Custom

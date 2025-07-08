@@ -13,12 +13,12 @@ import {
 import { Custom } from './customfields'
 
 /**
- *	The data representation for a Category to be imported that is persisted as a [Category](ctp:api:type:Category) in the Project.
+ *	Represents the data used to import a Category. Once imported, this data is persisted as a [Category](ctp:api:type:Category) in the Project.
  *
  */
 export interface CategoryImport extends ImportResource {
   /**
-   *	User-defined unique identifier. If a [Category](ctp:api:type:Category) with this `key` exists, it will be updated with the imported data.
+   *	User-defined unique identifier. If a [Category](ctp:api:type:Category) with this `key` exists, it is updated with the imported data.
    *
    */
   readonly key: string
@@ -29,8 +29,7 @@ export interface CategoryImport extends ImportResource {
    */
   readonly name: LocalizedString
   /**
-   *	Maps to `Category.slug`.
-   *	Must match the pattern `[-a-zA-Z0-9_]{2,256}`.
+   *	Maps to `Category.slug`. Must match the pattern `^[A-Za-z0-9_-]{2,256}+$`.
    *
    *
    */
@@ -42,9 +41,7 @@ export interface CategoryImport extends ImportResource {
    */
   readonly description?: LocalizedString
   /**
-   *	Maps to `Category.parent`.
-   *	The Reference to the parent [Category](ctp:api:type:Category) with which the Category is associated.
-   *	If referenced Category does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary Category is created.
+   *	Maps to `Category.parent`. If the referenced [Category](ctp:api:type:Category) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Category is created.
    *
    *
    */
@@ -86,7 +83,7 @@ export interface CategoryImport extends ImportResource {
    */
   readonly assets?: Asset[]
   /**
-   *	The custom fields for this Category.
+   *	Maps to `Category.custom`.
    *
    */
   readonly custom?: Custom

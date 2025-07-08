@@ -23,7 +23,7 @@ export class ByProjectKeyProductVariantsImportContainersByImportContainerKeyRequ
     }
   ) {}
   /**
-   *	Creates a request for creating new ProductVariants or updating existing ones.
+   *	Creates an Import Request for ProductVariants.
    */
   public post(methodArgs: {
     body: ProductVariantImportRequest
