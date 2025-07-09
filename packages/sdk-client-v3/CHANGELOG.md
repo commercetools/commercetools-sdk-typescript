@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 4.0.0
+
+### Major Changes
+
+- [#1126](https://github.com/commercetools/commercetools-sdk-typescript/pull/1126) [`98415e1`](https://github.com/commercetools/commercetools-sdk-typescript/commit/98415e159e68fc59d7fcdb11cd406e9995fa4430) Thanks [@ajimae](https://github.com/ajimae)! - Add support for async token cache stores
+
 ## 3.4.1
 
 ### Patch Changes
