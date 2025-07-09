@@ -1,5 +1,12 @@
 # @commercetools/history-sdk
 
+## 5.4.1
+
+### Patch Changes
+
+- Updated dependencies [[`98415e1`](https://github.com/commercetools/commercetools-sdk-typescript/commit/98415e159e68fc59d7fcdb11cd406e9995fa4430)]:
+  - @commercetools/ts-client@4.0.0
+
 ## 5.4.0
 
 ### Minor Changes

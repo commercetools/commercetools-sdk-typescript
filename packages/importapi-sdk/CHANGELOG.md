@@ -1,5 +1,67 @@
 # @commercetools/importapi-sdk
 
+## 6.5.0
+
+### Minor Changes
+
+- [#1123](https://github.com/commercetools/commercetools-sdk-typescript/pull/1123) [`0bf8af3`](https://github.com/commercetools/commercetools-sdk-typescript/commit/0bf8af3f386de0bed5878754a79bd6cdf769d9b5) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `product-selection` to type `ImportResourceType`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `retentionPolicy` to type `ImportContainer`
+  - added property `expiresAt` to type `ImportContainer`
+  - added property `retentionPolicy` to type `ImportContainerDraft`
+  </details>
+
+  <details>
+  <summary>Changed Property(s)</summary>
+
+  - :warning: changed property `country` of type `ExternalTaxRateDraft` from type `string` to `CountryCode`
+  - :warning: changed property `value` of type `MoneySetField` from type `Money[]` to `TypedMoney[]`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+
+  - added method `apiRoot.withProjectKeyValue().productSelections().importContainers().withImportContainerKeyValue().post()`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `StrategyEnum`
+  - added type `RetentionPolicy`
+  - added type `TimeToLiveConfig`
+  - added type `TimeToLiveRetentionPolicy`
+  - added type `ProductSelectionImportRequest`
+  - added type `VariantSelectionType`
+  - added type `VariantSelection`
+  - added type `VariantExclusion`
+  - added type `ProductSelectionAssignment`
+  - added type `ProductSelectionMode`
+  - added type `ProductSelectionImport`
+  </details>
+
+  <details>
+  <summary>Added Resource(s)</summary>
+
+  - added resource `/{projectKey}/product-selections`
+  - added resource `/{projectKey}/product-selections/import-containers`
+  - added resource `/{projectKey}/product-selections/import-containers/{importContainerKey}`
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`98415e1`](https://github.com/commercetools/commercetools-sdk-typescript/commit/98415e159e68fc59d7fcdb11cd406e9995fa4430)]:
+  - @commercetools/ts-client@4.0.0
+
 ## 6.4.0
 
 ### Minor Changes
