@@ -23,7 +23,7 @@ export class ByProjectKeyProductVariantPatchesImportContainersByImportContainerK
     }
   ) {}
   /**
-   *	Creates a new import request for Product Variant Patches.
+   *	Creates an Import Request for updating Product Variants.
    *	Returns an [InvalidField](ctp:import:type:InvalidFieldError) error if the [ProductVariantPatchRequest](ctp:import:type:ProductVariantPatchRequest) contains patches with and without the `product` field set.
    *
    */

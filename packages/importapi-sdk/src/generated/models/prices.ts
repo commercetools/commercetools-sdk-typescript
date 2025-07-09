@@ -18,6 +18,8 @@ import { Custom } from './customfields'
 
 export interface SubRate {
   /**
+   *	Name of the SubRate.
+   *
    *
    */
   readonly name: string
@@ -59,12 +61,12 @@ export interface TaxRate {
   readonly subRates?: SubRate[]
 }
 /**
- *	The data representation for a price to be imported that is persisted as a [Price](/../api/types#price) in the Project.
+ *	Represents the data used to import an [Embedded Price](/../api/pricing-and-discounts-overview#embedded-prices) . Once imported, this data is persisted as a [Price](/../api/types#price) in a Product Variant.
  *
  */
 export interface PriceImport extends ImportResource {
   /**
-   *	User-defined unique identifier for the Embedded Price. If a [Price](/../api/types#price) with this `key` exists on the specified `productVariant`, it will be updated with the imported data.
+   *	User-defined unique identifier for the Embedded Price. If a [Price](/../api/types#price) with this `key` exists on the specified `productVariant`, it is updated with the imported data.
    *
    *
    */
@@ -94,15 +96,13 @@ export interface PriceImport extends ImportResource {
    */
   readonly validUntil?: string
   /**
-   *	The Reference to the [CustomerGroup](ctp:api:type:CustomerGroup) with which the [Price](/../api/types#price) is associated.
-   *	If referenced CustomerGroup does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary CustomerGroup is created.
+   *	Maps to `Price.customerGroup`. If the referenced [CustomerGroup](ctp:api:type:CustomerGroup) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced CustomerGroup is created.
    *
    *
    */
   readonly customerGroup?: CustomerGroupKeyReference
   /**
-   *	The Reference to the [Channel](ctp:api:type:Channel) with which the [Price](/../api/types#price) is associated.
-   *	If referenced Channel does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary Channel is created.
+   *	Maps to `Price.channel`. If the referenced [Channel](ctp:api:type:Channel) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Channel is created.
    *
    *
    */
@@ -113,7 +113,7 @@ export interface PriceImport extends ImportResource {
    */
   readonly discounted?: DiscountedPrice
   /**
-   *	- Set to `false` to update both the [current and staged projections](/../api/projects/productProjections#current--staged) of the [Product](/../api/projects/products#product) with the new Price data.
+   *	- Set to `false` to update both the [current and staged projections](/../api/projects/productProjections#current--staged) of the [Product](ctp:api:type:Product) with the new Price data.
    *	- Leave empty or set to `true` to only update the staged projection.
    *
    *
@@ -125,22 +125,18 @@ export interface PriceImport extends ImportResource {
    */
   readonly tiers?: PriceTier[]
   /**
-   *	The custom fields for this price.
+   *	Maps to `Price.custom`.
    *
    */
   readonly custom?: Custom
   /**
-   *	The ProductVariant in which this [Embedded Price](/types#price) is contained.
-   *	The Reference to the [ProductVariant](/projects/products#productvariant) with which the [Price](/types#price) is associated.
-   *	If the referenced ProductVariant does not exist, the `state` of the [ImportOperation](/import-export/import-operation#importoperation) will be set to `unresolved` until the necessary ProductVariant is created.
+   *	The [ProductVariant](ctp:api:type:ProductVariant) which contains this Embedded Price. If the referenced ProductVariant does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced ProductVariant is created.
    *
    *
    */
   readonly productVariant: ProductVariantKeyReference
   /**
-   *	The Product in which the Product Variant containing this [Embedded Price](/types#price) is contained. Maps to `ProductVariant.product`.
-   *	The Reference to the [Product](/projects/products#product) with which the [Price](/types#price) is associated.
-   *	If referenced Product does not exist, the `state` of the [ImportOperation](/import-export/import-operation#importoperation) will be set to `unresolved` until the necessary Product is created.
+   *	The [Product](ctp:api:type:Product) which contains the `productVariant`. If the referenced Product does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Product is created.
    *
    *
    */

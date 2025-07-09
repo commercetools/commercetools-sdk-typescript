@@ -23,7 +23,7 @@ export class ByProjectKeyStandalonePricesImportContainersByImportContainerKeyReq
     }
   ) {}
   /**
-   *	Creates a request for creating new Standalone Prices or updating existing ones.
+   *	Creates an Import Request for Standalone Prices.
    */
   public post(methodArgs: {
     body: StandalonePriceImportRequest

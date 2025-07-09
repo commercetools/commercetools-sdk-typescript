@@ -23,7 +23,7 @@ export class ByProjectKeyInventoriesImportContainersByImportContainerKeyRequestB
     }
   ) {}
   /**
-   *	Creates a request for creating new Inventories or updating existing ones.
+   *	Creates an Import Request for InventoryEntries.
    */
   public post(methodArgs: {
     body: InventoryImportRequest

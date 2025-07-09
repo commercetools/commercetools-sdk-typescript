@@ -14,6 +14,7 @@ import { ByProjectKeyOrderPatchesRequestBuilder } from './order-patches/by-proje
 import { ByProjectKeyOrdersRequestBuilder } from './orders/by-project-key-orders-request-builder'
 import { ByProjectKeyPricesRequestBuilder } from './prices/by-project-key-prices-request-builder'
 import { ByProjectKeyProductDraftsRequestBuilder } from './product-drafts/by-project-key-product-drafts-request-builder'
+import { ByProjectKeyProductSelectionsRequestBuilder } from './product-selections/by-project-key-product-selections-request-builder'
 import { ByProjectKeyProductTypesRequestBuilder } from './product-types/by-project-key-product-types-request-builder'
 import { ByProjectKeyProductVariantPatchesRequestBuilder } from './product-variant-patches/by-project-key-product-variant-patches-request-builder'
 import { ByProjectKeyProductVariantsRequestBuilder } from './product-variants/by-project-key-product-variants-request-builder'
@@ -169,6 +170,15 @@ export class ByProjectKeyRequestBuilder {
   }
   public discountCodes(): ByProjectKeyDiscountCodesRequestBuilder {
     return new ByProjectKeyDiscountCodesRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public productSelections(): ByProjectKeyProductSelectionsRequestBuilder {
+    return new ByProjectKeyProductSelectionsRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },

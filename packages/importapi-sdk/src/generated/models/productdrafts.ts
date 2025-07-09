@@ -30,39 +30,34 @@ import { Attribute } from './productvariants'
  */
 export interface ProductDraftImport extends ImportResource {
   /**
-   *	User-defined unique identifier. If a [Product](ctp:api:type:Product) with this `key` exists, it will be updated with the imported data.
+   *	User-defined unique identifier. If a [Product](ctp:api:type:Product) with this `key` exists, it is updated with the imported data.
    *
    */
   readonly key: string
   /**
-   *	The `productType` of a [Product](ctp:api:type:Product).
-   *	Maps to `Product.productType`.
-   *	The Reference to the [ProductType](ctp:api:type:ProductType) with which the ProductDraft is associated.
-   *	If referenced ProductType does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary ProductType is created.
+   *	Maps to `Product.productType`. If the referenced [ProductType](ctp:api:type:ProductType) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced ProductType is created.
    *
    *
    */
   readonly productType: ProductTypeKeyReference
   /**
+   *	Maps to `ProductData.name`.
    *
    */
   readonly name: LocalizedString
   /**
-   *	Human-readable identifiers usually used as deep-link URL to the related product. Each slug must be unique across a project,
-   *	but a product can have the same slug for different languages. Allowed are alphabetic, numeric, underscore (_) and hyphen (-) characters.
-   *
+   *	Maps to `ProductData.slug`.
    *
    */
   readonly slug: LocalizedString
   /**
-   *	Maps to `Product.description`.
+   *	Maps to `ProductData.description`.
    *
    *
    */
   readonly description?: LocalizedString
   /**
-   *	The Reference to the [Categories](ctp:api:type:Category) with which the ProductDraft is associated.
-   *	If referenced Categories do not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary Categories are created.
+   *	Maps to `ProductData.categories`. If the referenced [Categories](ctp:api:type:Category) do not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Categories are created.
    *
    *
    */
@@ -72,86 +67,49 @@ export interface ProductDraftImport extends ImportResource {
    */
   readonly attributes?: Attribute[]
   /**
-   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
-   *	```json
-   *	{
-   *	  "de": "Hundefutter",
-   *	  "en": "dog food"
-   *	}
-   *	```
+   *	Maps to `ProductData.metaTitle`.
    *
    *
    */
   readonly metaTitle?: LocalizedString
   /**
-   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
-   *	```json
-   *	{
-   *	  "de": "Hundefutter",
-   *	  "en": "dog food"
-   *	}
-   *	```
+   *	Maps to `ProductData.metaDescription`.
    *
    *
    */
   readonly metaDescription?: LocalizedString
   /**
-   *	A localized string is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag), and the values the corresponding strings used for that language.
-   *	```json
-   *	{
-   *	  "de": "Hundefutter",
-   *	  "en": "dog food"
-   *	}
-   *	```
+   *	Maps to `ProductData.metaKeywords`.
    *
    *
    */
   readonly metaKeywords?: LocalizedString
   /**
-   *	The master Product variant.
-   *	Required if the `variants` array contains a Product Variant.
+   *	The master ProductVariant.
+   *	Required if `variants` contains at least one ProductVariant.
    *
    *
    */
   readonly masterVariant?: ProductVariantDraftImport
   /**
-   *	An array of related Product Variants.
+   *	An array of related ProductVariants.
    *
    */
   readonly variants?: ProductVariantDraftImport[]
   /**
-   *	The Reference to the [TaxCategory](/projects/taxCategories#taxcategory) with which the ProductDraft is associated.
-   *	If referenced TaxCategory does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary TaxCategory is created.
+   *	Maps to `Product.taxCategory`. If the referenced [TaxCategory](ctp:api:type:TaxCategory) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced TaxCategory is created.
    *
    *
    */
   readonly taxCategory?: TaxCategoryKeyReference
   /**
-   *	Search keywords are primarily used by the suggester but are also considered for the full-text search. SearchKeywords is a JSON object where the keys are of [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag). The value to a language tag key is an array of SearchKeyword for the specific language.
-   *	```json
-   *	{
-   *	  "en": [
-   *	    { "text": "Multi tool" },
-   *	    { "text": "Swiss Army Knife", "suggestTokenizer": { "type": "whitespace" } }
-   *	  ],
-   *	  "de": [
-   *	    {
-   *	      "text": "Schweizer Messer",
-   *	      "suggestTokenizer": {
-   *	        "type": "custom",
-   *	        "inputs": ["schweizer messer", "offiziersmesser", "sackmesser"]
-   *	      }
-   *	    }
-   *	  ]
-   *	}
-   *	```
+   *	Maps to `ProductData.searchKeywords`.
    *
    *
    */
   readonly searchKeywords?: SearchKeywords
   /**
-   *	The Reference to the [State](/projects/states#state) with which the ProductDraft is associated.
-   *	If referenced State does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the necessary State is created.
+   *	Maps to `Product.state`. If the referenced [State](ctp:api:type:State) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced State is created.
    *
    *
    */
@@ -163,7 +121,7 @@ export interface ProductDraftImport extends ImportResource {
    */
   readonly publish?: boolean
   /**
-   *	Determines the type of Prices the API uses. If not provided, the existing `Product.priceMode` is not changed.
+   *	Maps to `Product.priceMode`. If not provided, the existing `Product.priceMode` is not changed.
    *
    *
    */
@@ -175,26 +133,39 @@ export interface ProductDraftImport extends ImportResource {
  */
 export interface ProductVariantDraftImport {
   /**
+   *	User-defined unique SKU of the Product Variant.
+   *
    *
    */
   readonly sku?: string
   /**
+   *	User-defined unique identifier for the ProductVariant.
+   *
    *
    */
   readonly key: string
   /**
+   *	The Embedded Prices for the Product Variant.
+   *	Each Price must have its unique Price scope (with same currency, country, Customer Group, Channel, `validFrom` and `validUntil`).
+   *
    *
    */
   readonly prices?: PriceDraftImport[]
   /**
+   *	Attributes according to the respective AttributeDefinition.
+   *
    *
    */
   readonly attributes?: Attribute[]
   /**
+   *	Images for the Product Variant.
+   *
    *
    */
   readonly images?: Image[]
   /**
+   *	Media assets for the Product Variant.
+   *
    *
    */
   readonly assets?: Asset[]
@@ -205,40 +176,42 @@ export interface ProductVariantDraftImport {
  */
 export interface PriceDraftImport {
   /**
+   *	Money value of this Price.
    *
    */
   readonly value: TypedMoney
   /**
-   *	A two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-   *
+   *	Set this field if this Price is only valid for the specified country.
    *
    */
   readonly country?: string
   /**
-   *	References a customer group by key.
+   *	Set this field if this Price is only valid for the referenced [CustomerGroup](ctp:api:type:CustomerGroup). If the referenced CustomerGroup does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced CustomerGroup is created.
    *
    */
   readonly customerGroup?: CustomerGroupKeyReference
   /**
-   *	References a channel by key.
+   *	Set this field if this Price is only valid for the referenced `ProductDistribution` [Channel](ctp:api:type:Channel). If the referenced Channel does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Channel is created.
    *
    */
   readonly channel?: ChannelKeyReference
   /**
+   *	Set this field if this Price is only valid from the specified date and time. Must be at least 1 ms earlier than `validUntil`.
    *
    */
   readonly validFrom?: string
   /**
+   *	Set this field if this Price is only valid until the specified date and time. Must be at least 1 ms later than `validFrom`.
    *
    */
   readonly validUntil?: string
   /**
-   *	The custom fields for this category.
+   *	Custom Fields for the Embedded Price.
    *
    */
   readonly custom?: Custom
   /**
-   *	Sets a discounted price from an external service.
+   *	Set this field to add a DiscountedPrice from an **external service**.
    *
    */
   readonly discounted?: DiscountedPrice
