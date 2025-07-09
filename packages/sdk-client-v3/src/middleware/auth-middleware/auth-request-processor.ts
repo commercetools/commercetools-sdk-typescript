@@ -25,6 +25,7 @@ export async function authProcessor<T extends AuthMiddlewareOptions>(
   const requestOptions = {
     request,
     tokenCache,
+    tokenCacheKey,
     httpClient: options.httpClient || fetch,
     httpClientOptions: options.httpClientOptions,
     ...builder(options),
@@ -45,7 +46,7 @@ export async function authProcessor<T extends AuthMiddlewareOptions>(
       await tokenFetchPromise
       tokenFetchPromise = null
 
-      tokenCacheObject = tokenCache.get(tokenCacheKey)
+      tokenCacheObject = await tokenCache.get(tokenCacheKey)
       _response = await next(mergeAuthHeader(tokenCacheObject.token, request))
     }
 
@@ -64,7 +65,7 @@ export async function authProcessor<T extends AuthMiddlewareOptions>(
    * If there is a token in the tokenCache, and it's not
    * expired, append the token in the `Authorization` header.
    */
-  tokenCacheObject = tokenCache.get(tokenCacheKey)
+  tokenCacheObject = await tokenCache.get(tokenCacheKey)
   if (
     tokenCacheObject &&
     tokenCacheObject.token &&
@@ -86,6 +87,6 @@ export async function authProcessor<T extends AuthMiddlewareOptions>(
   }
 
   // Now the token is present in the tokenCache and can be accessed
-  tokenCacheObject = tokenCache.get(tokenCacheKey)
+  tokenCacheObject = await tokenCache.get(tokenCacheKey)
   return next(mergeAuthHeader(tokenCacheObject.token, request))
 }

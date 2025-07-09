@@ -82,8 +82,8 @@ describe('testing error cases', () => {
           clientSecret: 'test',
         },
         tokenCache: {
-          set: (cache) => {},
-          get: (tokenCacheKey) => {
+          set: async (cache) => {},
+          get: async (tokenCacheKey) => {
             return {
               token: 'test',
               expirationTime: 9934431427363,
@@ -175,12 +175,12 @@ describe('testing error cases', () => {
       }
     )
 
-    expect(tokenCache.get().expirationTime).toEqual(expirationTime)
-    expect(tokenCache.get().token).toEqual('x-invalid-token')
+    expect((await tokenCache.get()).expirationTime).toEqual(expirationTime)
+    expect((await tokenCache.get()).token).toEqual('x-invalid-token')
 
     await apiRootV3.get().execute()
-    expect(tokenCache.get().expirationTime).toBeGreaterThan(-1)
-    expect(tokenCache.get().token).not.toEqual('x-invalid-token')
+    expect((await tokenCache.get()).expirationTime).toBeGreaterThan(-1)
+    expect((await tokenCache.get()).token).not.toEqual('x-invalid-token')
   })
 
   it('should simulate concurrent token fetch request', async () => {
@@ -210,16 +210,16 @@ describe('testing error cases', () => {
       }
     )
 
-    expect(tokenCache.get().expirationTime).toEqual(expirationTime)
-    expect(tokenCache.get().token).toEqual('an-expired-token')
+    expect((await tokenCache.get()).expirationTime).toEqual(expirationTime)
+    expect((await tokenCache.get()).token).toEqual('an-expired-token')
 
     const fetch1 = apiRootV3.get().execute()
     const fetch2 = apiRootV3.get().execute()
     const fetch3 = apiRootV3.get().execute()
     await Promise.all([fetch1, fetch2, fetch3])
 
-    expect(tokenCache.get().expirationTime).toBeGreaterThan(-1)
-    expect(tokenCache.get().token).not.toEqual('an-expired-token')
+    expect((await tokenCache.get()).expirationTime).toBeGreaterThan(-1)
+    expect((await tokenCache.get()).token).not.toEqual('an-expired-token')
   })
 
   it('should move to next middleware for non error response', async () => {
