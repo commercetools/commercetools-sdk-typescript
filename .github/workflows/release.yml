@@ -38,28 +38,8 @@ jobs:
           # https://github.community/t/action-does-not-trigger-another-on-push-tag-action/17148/8
           token: ${{ steps.generate_github_token.outputs.token }}
 
-      - name: Read .nvmrc
-        run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
-        id: nvm
-
-      - name: Setup Node (uses version in .nvmrc)
-        uses: actions/setup-node@v4
-        with:
-          node-version: '${{ steps.nvm.outputs.NVMRC }}'
-
-      - name: Get yarn cache
-        id: yarn-cache
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-
-      - uses: actions/cache@v4
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+      - name: Setup
+        uses: ./.github/actions/ci
 
       - name: Creating .npmrc
         run: |

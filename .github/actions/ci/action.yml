@@ -1,0 +1,26 @@
+name: CI
+
+description: Shared action to install dependencies
+
+runs:
+  using: composite
+
+  steps:
+    - name: Read .nvmrc
+      id: nvm
+      run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+      shell: bash
+
+    - name: Setup Node.js
+      uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020  # v4.4.0
+      with:
+        node-version-file: ".nvmrc"
+        cache: "yarn"
+
+    # Whenever on a changeset versioning PR
+    # Then installing can not fail with lockfile changes
+    # Because the package.json for integration test changes.
+
+    - name: Install
+      run: yarn install --immutable
+      shell: bash
