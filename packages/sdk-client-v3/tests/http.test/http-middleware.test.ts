@@ -95,6 +95,29 @@ describe('Http Middleware.', () => {
     )
   })
 
+  // test('should throw if httpClient is provided but not a function.', async () => {
+  test('throw when a non-array option is passed as headersWithStringBody in the httpMiddlewareOptions', async () => {
+    const response = createTestResponse({})
+
+    const httpMiddlewareOptions = {
+      host: 'http://api-host.com',
+      httpClient: jest.fn(() => response),
+      headersWithStringBody: null,
+    }
+
+    try {
+      const next = () => response
+      await createHttpMiddleware(httpMiddlewareOptions)(next)(
+        createTestRequest({})
+      )
+    } catch (err) {
+      expect(err).toBeDefined()
+      expect(err.message).toMatch(
+        '`headersWithStringBody` option must be an array of strings'
+      )
+    }
+  })
+
   test('should execute a GET request and return a json body.', async () => {
     const response = createTestResponse({
       body: {},
@@ -467,6 +490,89 @@ describe('Http Middleware.', () => {
       expect(e.error.statusCode).toEqual(0)
       expect(e.error.name).toEqual('NetworkError')
     }
+  })
+
+  test('should have no effect on a string body.', async () => {
+    const _response = {
+      data: { id: 'resource-id-123' },
+      statusCode: 200,
+    }
+
+    const response = createTestResponse({
+      text: () => Promise.resolve(JSON.stringify(_response)), // this is not a text response
+    })
+
+    const request = createTestRequest({
+      uri: '/test-custom-header',
+      method: 'POST',
+      body: 'this is a string body',
+      headers: {
+        'Content-Type': 'foo',
+      },
+    })
+
+    const httpMiddlewareOptions: HttpMiddlewareOptions = {
+      host: 'http://api-host.com',
+      httpClient: jest.fn(() => response),
+      headersWithStringBody: ['foo'],
+    }
+
+    const next = (req: MiddlewareRequest) => {
+      expect(req.body).toBeDefined()
+      expect(typeof req.body).toEqual('string')
+      return response
+    }
+
+    await createHttpMiddleware(httpMiddlewareOptions)(next)(request)
+  })
+
+  test('should stringify request body if header is included and body is not a string.', async () => {
+    const _response = {
+      data: { id: 'resource-id-123' },
+      statusCode: 200,
+    }
+
+    const response = createTestResponse({
+      text: () => Promise.resolve(JSON.stringify(_response)),
+    })
+
+    function _fetch(url: string, options: ResponseInit) {
+      expect(url).toBeDefined()
+      expect(options).toBeDefined()
+      return response
+    }
+
+    const request = createTestRequest({
+      uri: '/test-custom-header',
+      method: 'POST',
+      body: { text: 'this is not a string body' },
+      headers: {
+        'Content-Type': 'bar',
+      },
+    })
+
+    const httpMiddlewareOptions: HttpMiddlewareOptions = {
+      host: 'http://api-host.com',
+      headersWithStringBody: ['bar'],
+      httpClient: jest
+        .fn()
+        .mockImplementation((url: string, fetchOptions: RequestInit) => {
+          /**
+           * just before the request is sent over to the
+           * server the string should already be stringified
+           */
+          expect(fetchOptions.body).toBe('{"text":"this is not a string body"}')
+          return _fetch(url, fetchOptions)
+        }),
+    }
+
+    const next = (req: MiddlewareRequest) => {
+      expect(req.body).toBeDefined()
+      expect(typeof req.body).toEqual('object')
+      return response
+    }
+
+    await createHttpMiddleware(httpMiddlewareOptions)(next)(request)
   })
 
   describe('::retry test', () => {
