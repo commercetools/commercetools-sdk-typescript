@@ -65,7 +65,7 @@ executors:
 
 # orbs
 orbs:
-  codecov: codecov/codecov@4.2.0
+  codecov: codecov/codecov@5.4.3
 
 # jobs
 jobs:
