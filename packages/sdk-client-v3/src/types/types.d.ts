@@ -119,7 +119,7 @@ export type TokenStore = {
 }
 
 export type TokenCache = {
-  get: (tokenCacheOptions?: TokenCacheOptions) => Promise<TokenStore>
+  get: (tokenCacheOptions?: TokenCacheOptions) => Promise<TokenStore | undefined>
   set: (cache: TokenStore, tokenCacheOptions?: TokenCacheOptions) => Promise<void>
 }
 
