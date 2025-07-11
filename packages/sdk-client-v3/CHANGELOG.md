@@ -1,5 +1,16 @@
 # @commercetools/ts-client
 
+## 4.0.1
+
+### Patch Changes
+
+- [#1131](https://github.com/commercetools/commercetools-sdk-typescript/pull/1131) [`0a08d42`](https://github.com/commercetools/commercetools-sdk-typescript/commit/0a08d42385a1aba20c413431cb176a68fd3c3eec) Thanks [@ajimae](https://github.com/ajimae)! - Add an `undefined` union type to tokenCache get method return type
+
+  ```diff
+  - get: (tokenCacheOptions?: TokenCacheOptions) => Promise<TokenStore>
+  + get: (tokenCacheOptions?: TokenCacheOptions) => Promise<TokenStore | undefined>
+  ```
+
 ## 4.0.0
 
 ### Major Changes
