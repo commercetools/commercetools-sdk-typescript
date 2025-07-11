@@ -4,7 +4,7 @@
 
 Add an `undefined` union type to tokenCache get method return type
 
-```git
+```diff
 - get: (tokenCacheOptions?: TokenCacheOptions) => Promise<TokenStore>
 + get: (tokenCacheOptions?: TokenCacheOptions) => Promise<TokenStore | undefined>
 ```
