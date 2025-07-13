@@ -1,0 +1,131 @@
+name: Qa
+
+permissions:
+  contents: read
+  pull-requests: write
+
+on:
+  push:
+    branches:
+      - 'master'
+      - '!changeset-release/**'
+
+  pull_request:
+      
+jobs:
+  immutable-install:
+    if: ${{ !startsWith(github.ref, 'refs/heads/changeset-release/') }}
+    name: Immutable Install
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Setup
+        uses: ./.github/actions/ci
+
+      # The shared install action does not respect the
+      # `--immutable` flag, so we need to run it here.
+      - name: Install with lockfile
+        run: yarn install --immutable
+
+  linting:
+    if: ${{ !startsWith(github.ref, 'refs/heads/changeset-release/') }}
+    name: Linting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Setup
+        uses: ./.github/actions/ci
+
+      - name: Lint
+        run: yarn format
+
+  type-checking:
+    if: ${{ !startsWith(github.ref, 'refs/heads/changeset-release/') }}
+    name: Type checking
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Setup
+        uses: ./.github/actions/ci
+
+      - name: TypeScript
+        run:  yarn typecheck
+
+  testing:
+    if: ${{ !startsWith(github.ref, 'refs/heads/changeset-release/') }}
+    name: Testing
+    needs: [immutable-install, linting, type-checking]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Setup
+        uses: ./.github/actions/ci
+
+      - name: Build
+        run: yarn build
+
+      - uses: oNaiPs/secrets-to-env-action@ec46a22bfc9b37e014b627b3208b07eb8909ea0f # v1.5
+        with:
+          secrets: ${{ toJSON(secrets) }}
+
+      - name: Test (Examples)
+        run: |
+          cd examples
+          yarn install --immutable
+          yarn test
+
+      - name: Test (Unit)
+        run: yarn test:unit
+
+      - name: Test (Integration)
+        run: yarn test --coverage
+
+      - name: Upload Coverage Report
+        uses: codecov/codecov-action@v5 #2db07e317924c76f654a414629d71c65876882e2 v5.4.3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: test-coverage
+
+  regression-testing:
+    if: ${{ !startsWith(github.ref, 'refs/heads/changeset-release/') }}
+    name: Regression Testing
+    needs: [testing]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [18, 20]
+      fail-fast: true
+      max-parallel: 1
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Setup
+        uses: ./.github/actions/ci
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: ${{ matrix.version }}
+
+      - name: Build
+        run: yarn build
+
+      - uses: oNaiPs/secrets-to-env-action@ec46a22bfc9b37e014b627b3208b07eb8909ea0f # v1.5
+        with:
+          secrets: ${{ toJSON(secrets) }}
+
+      - name: Integration tests
+        run: yarn test
