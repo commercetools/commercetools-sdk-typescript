@@ -96,13 +96,13 @@ describe('Http Middleware.', () => {
   })
 
   // test('should throw if httpClient is provided but not a function.', async () => {
-  test('throw when a non-array option is passed as headersWithStringBody in the httpMiddlewareOptions', async () => {
+  test('throw when a non-array option is passed as stringBodyContentTypes in the httpMiddlewareOptions', async () => {
     const response = createTestResponse({})
 
     const httpMiddlewareOptions = {
       host: 'http://api-host.com',
       httpClient: jest.fn(() => response),
-      headersWithStringBody: null,
+      stringBodyContentTypes: null,
     }
 
     try {
@@ -113,7 +113,7 @@ describe('Http Middleware.', () => {
     } catch (err) {
       expect(err).toBeDefined()
       expect(err.message).toMatch(
-        '`headersWithStringBody` option must be an array of strings'
+        '`stringBodyContentTypes` option must be an array of strings'
       )
     }
   })
@@ -514,7 +514,7 @@ describe('Http Middleware.', () => {
     const httpMiddlewareOptions: HttpMiddlewareOptions = {
       host: 'http://api-host.com',
       httpClient: jest.fn(() => response),
-      headersWithStringBody: ['foo'],
+      stringBodyContentTypes: ['foo'],
     }
 
     const next = (req: MiddlewareRequest) => {
@@ -553,7 +553,7 @@ describe('Http Middleware.', () => {
 
     const httpMiddlewareOptions: HttpMiddlewareOptions = {
       host: 'http://api-host.com',
-      headersWithStringBody: ['bar'],
+      stringBodyContentTypes: ['bar'],
       httpClient: jest
         .fn()
         .mockImplementation((url: string, fetchOptions: RequestInit) => {

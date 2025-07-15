@@ -149,7 +149,7 @@ export default function createHttpMiddleware(
     includeResponseHeaders = true,
     maskSensitiveHeaderData,
     httpClientOptions,
-    headersWithStringBody = [],
+    stringBodyContentTypes = [],
   } = options
 
   return (next: Next) => {
@@ -158,7 +158,7 @@ export default function createHttpMiddleware(
       const requestHeader: JsonObject<QueryParam> = { ...request.headers }
 
       // validate custom header
-      validateStringBodyHeaderOptions(headersWithStringBody)
+      validateStringBodyHeaderOptions(stringBodyContentTypes)
 
       // validate header
       if (
@@ -177,9 +177,10 @@ export default function createHttpMiddleware(
 
       // Ensure body is a string if content type is application/{json|graphql}
       const body: Record<string, any> | string | Uint8Array =
-        ([...constants.HEADERS_CONTENT_TYPES, ...headersWithStringBody].indexOf(
-          requestHeader['Content-Type'] as string
-        ) > -1 &&
+        ([
+          ...constants.HEADERS_CONTENT_TYPES,
+          ...stringBodyContentTypes,
+        ].indexOf(requestHeader['Content-Type'] as string) > -1 &&
           typeof request.body === 'string') ||
         isBuffer(request.body)
           ? request.body

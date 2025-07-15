@@ -89,11 +89,11 @@ export function validate(
  * @param option
  */
 export function validateStringBodyHeaderOptions(
-  headersWithStringBody: string[]
+  stringBodyContentTypes: string[]
 ) {
-  if (!Array.isArray(headersWithStringBody)) {
+  if (!Array.isArray(stringBodyContentTypes)) {
     throw new Error(
-      '`headersWithStringBody` option must be an array of strings'
+      '`stringBodyContentTypes` option must be an array of strings'
     )
   }
 }
