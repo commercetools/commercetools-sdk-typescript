@@ -84,3 +84,16 @@ export function validate(
       `The "${funcName}" Request object requires a valid method. See https://commercetools.github.io/nodejs/sdk/Glossary.html#clientrequest`
     )
 }
+
+/**
+ * @param option
+ */
+export function validateStringBodyHeaderOptions(
+  stringBodyContentTypes: string[]
+) {
+  if (!Array.isArray(stringBodyContentTypes)) {
+    throw new Error(
+      '`stringBodyContentTypes` option must be an array of strings'
+    )
+  }
+}

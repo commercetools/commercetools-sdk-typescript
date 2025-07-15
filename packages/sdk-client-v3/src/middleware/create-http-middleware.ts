@@ -22,6 +22,7 @@ import {
   isBuffer,
   maskAuthData,
   validateHttpClientOptions,
+  validateStringBodyHeaderOptions,
 } from '../utils'
 
 async function executeRequest({
@@ -132,7 +133,7 @@ async function executeRequest({
 export default function createHttpMiddleware(
   options: HttpMiddlewareOptions
 ): Middleware {
-  // validate response
+  // validate options
   validateHttpClientOptions(options)
 
   const {
@@ -148,12 +149,16 @@ export default function createHttpMiddleware(
     includeResponseHeaders = true,
     maskSensitiveHeaderData,
     httpClientOptions,
+    stringBodyContentTypes = [],
   } = options
 
   return (next: Next) => {
     return async (request: MiddlewareRequest): Promise<MiddlewareResponse> => {
       const url = host.replace(/\/$/, '') + request.uri
       const requestHeader: JsonObject<QueryParam> = { ...request.headers }
+
+      // validate custom header
+      validateStringBodyHeaderOptions(stringBodyContentTypes)
 
       // validate header
       if (
@@ -172,9 +177,10 @@ export default function createHttpMiddleware(
 
       // Ensure body is a string if content type is application/{json|graphql}
       const body: Record<string, any> | string | Uint8Array =
-        (constants.HEADERS_CONTENT_TYPES.indexOf(
-          requestHeader['Content-Type'] as string
-        ) > -1 &&
+        ([
+          ...constants.HEADERS_CONTENT_TYPES,
+          ...stringBodyContentTypes,
+        ].indexOf(requestHeader['Content-Type'] as string) > -1 &&
           typeof request.body === 'string') ||
         isBuffer(request.body)
           ? request.body
