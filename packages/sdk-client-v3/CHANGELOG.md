@@ -1,5 +1,14 @@
 # @commercetools/ts-client
 
+## 4.1.0
+
+### Minor Changes
+
+- [#1129](https://github.com/commercetools/commercetools-sdk-typescript/pull/1129) [`7ccd784`](https://github.com/commercetools/commercetools-sdk-typescript/commit/7ccd784e438235756545c425ddee4e2829b52fc0) Thanks [@ajimae](https://github.com/ajimae)! - Add custom `stringBodyContentTypes` to `HttpMiddlewareOptions`
+  Sometimes we might want to `stringify` a request body before sending it over to
+  server, this functionality allows the user to add custom `header` entries that
+  forces the request body to be `stringified` before it's sent over to the backend.
+
 ## 4.0.1
 
 ### Patch Changes
