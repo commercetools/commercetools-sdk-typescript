@@ -72,7 +72,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeOrdersRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more Orders exist for the provided query predicate in a [Store](ctp:api:type:Store) for the authenticated Customer or anonymous user. Returns a `200 OK` status if successful.
+   *	Checks if one or more Orders exist for the provided query predicate in a [Store](ctp:api:type:Store) for the authenticated Customer or anonymous user. Returns a `200` status if successful.
    *
    *	A [Not Found](/../api/errors#404-not-found) error is returned in the following scenarios:
    *

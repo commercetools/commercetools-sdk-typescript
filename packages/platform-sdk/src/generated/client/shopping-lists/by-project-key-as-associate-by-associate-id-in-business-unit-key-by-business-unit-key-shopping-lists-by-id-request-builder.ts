@@ -52,7 +52,7 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
     )
   }
   /**
-   *	Checks if a ShoppingList exists with the provided `id` in a [BusinessUnit](ctp:api:type:BusinessUnit). Returns a `200 OK` if the ShoppingList exists; otherwise, returns [Not Found](/../api/errors#404-not-found).
+   *	Checks if a ShoppingList exists with the provided `id` in a [BusinessUnit](ctp:api:type:BusinessUnit). Returns a `200` status if the ShoppingList exists, or a `404` status otherwise.
    *
    */
   public head(methodArgs?: {

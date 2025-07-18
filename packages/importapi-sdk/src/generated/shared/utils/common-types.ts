@@ -37,13 +37,41 @@ export interface ClientRequest {
   pathVariables?: VariableMap
   queryParams?: VariableMap
   body?: any
+  response?: ClientResponse
+  resolve?: (value: unknown) => void
+  reject?: (reason?: any) => void
+  [key: string]: any
+}
+
+export type Keys = string | number | symbol
+export type JsonObject<T = unknown> = { [key in Keys]: T }
+
+export type HttpErrorType = {
+  name?: string
+  message?: string
+  code?: string
+  status?: number
+  method: MethodType
+  statusCode: number
+  originalRequest?: ClientRequest
+  /**
+   * @deprecated use `error` instead
+   */
+  body?: JsonObject
+  error?: JsonObject
+  retryCount?: number
+  headers?: Record<string, any>
+  [key: string]: any
 }
 
 export type ClientResponse<T = any> = {
   body: T
+  code?: string
   statusCode?: number
-  headers?: Object
+  headers?: Record<string, any>
   originalRequest?: ClientRequest
+  error?: HttpErrorType
+  retryCount?: number
 }
 
 export type executeRequest = (request: ClientRequest) => Promise<ClientResponse>

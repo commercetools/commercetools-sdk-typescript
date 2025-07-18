@@ -94,7 +94,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more Orders exist for the provided query predicate in a [Store](ctp:api:type:Store). Returns a `200 OK` status if any Orders match the query predicate, or [Not Found](/../api/errors#404-not-found) otherwise.
+   *	Checks if one or more Orders exist for the provided query predicate in a [Store](ctp:api:type:Store). Returns a `200` status if any Orders match the query predicate, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

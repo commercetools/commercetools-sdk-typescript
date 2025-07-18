@@ -53,7 +53,7 @@ export class ByProjectKeyShippingMethodsMatchingCartLocationRequestBuilder {
     )
   }
   /**
-   *	Checks if an active ShippingMethod that can ship to the given [Location](ctp:api:type:Location) exists for the given Cart. Returns a `200 OK` status if the ShippingMethod exists or a `404 Not Found` otherwise.
+   *	Checks if an active ShippingMethod that can ship to the given [Location](ctp:api:type:Location) exists for the given Cart. Returns a `200` status if the ShippingMethod exists, or a `404` status otherwise.
    */
   public head(methodArgs: {
     queryArgs: {

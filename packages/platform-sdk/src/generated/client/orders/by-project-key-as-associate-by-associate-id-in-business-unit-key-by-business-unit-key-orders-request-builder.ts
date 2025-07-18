@@ -100,7 +100,7 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
     )
   }
   /**
-   *	Checks if one or more Orders exist with provided query predicate in a [BusinessUnit](ctp:api:type:BusinessUnit). Returns a `200 OK` status if any Orders match the query predicate, or a `404 Not Found` otherwise.
+   *	Checks if one or more Orders exist with provided query predicate in a [BusinessUnit](ctp:api:type:BusinessUnit). Returns a `200` status if any Orders match the query predicate, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

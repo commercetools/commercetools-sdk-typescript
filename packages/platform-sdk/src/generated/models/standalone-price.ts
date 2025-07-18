@@ -24,6 +24,10 @@ import {
   CustomerGroupResourceIdentifier,
 } from './customer-group'
 import {
+  RecurrencePolicyReference,
+  RecurrencePolicyResourceIdentifier,
+} from './recurrence-policy'
+import {
   CustomFields,
   CustomFieldsDraft,
   FieldContainer,
@@ -176,6 +180,12 @@ export interface StandalonePrice extends BaseResource {
    *
    */
   readonly active: boolean
+  /**
+   *	[RecurrencePolicy](ctp:api:type:RecurrencePolicy) for which this Price is valid.
+   *
+   *
+   */
+  readonly recurrencePolicy?: RecurrencePolicyReference
 }
 export interface StandalonePriceDraft {
   /**
@@ -247,6 +257,12 @@ export interface StandalonePriceDraft {
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	[RecurrencePolicy](ctp:api:type:RecurrencePolicy) for which this Price is valid.
+   *
+   *
+   */
+  readonly recurrencePolicy?: RecurrencePolicyResourceIdentifier
   /**
    *	Staged changes for the StandalonePrice.
    *

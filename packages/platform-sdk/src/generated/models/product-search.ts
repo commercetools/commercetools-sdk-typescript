@@ -356,6 +356,7 @@ export type _ProductSearchFacetExpression =
   | ProductSearchFacetCountExpression
   | ProductSearchFacetDistinctExpression
   | ProductSearchFacetRangesExpression
+  | ProductSearchFacetStatsExpression
 export interface ProductSearchFacetCountExpression
   extends ProductSearchFacetExpression {
   /**
@@ -455,6 +456,7 @@ export type _ProductSearchFacetResult =
   | ProductSearchFacetResult
   | ProductSearchFacetResultBucket
   | ProductSearchFacetResultCount
+  | ProductSearchFacetResultStats
 /**
  *	Result of a [distinct facet](/../api/projects/product-search#distinct-facets) or a [ranges facet](/../api/projects/product-search#ranges-facets).
  *
@@ -491,9 +493,86 @@ export interface ProductSearchFacetResultCount
    */
   readonly value: number
 }
+/**
+ *	Result of a [stats facet](/../api/projects/product-search#stats-facets).
+ *	The data type of `min` `max`, `mean`, and `sum` matches the data type of the `field` in the [facet expression](ctp:api:type:ProductSearchFacetStatsExpression).
+ *
+ */
+export interface ProductSearchFacetResultStats
+  extends ProductSearchFacetResult {
+  /**
+   *	The minimum value of the field, scoped to the faceted results.
+   *
+   *
+   */
+  readonly min: any
+  /**
+   *	The maximum value of the field, scoped to the faceted results.
+   *
+   */
+  readonly max: any
+  /**
+   *	The average value of the field calculated as `sum` / `count`.
+   *
+   *	Only returned for number fields.
+   *
+   *
+   */
+  readonly mean?: any
+  /**
+   *	The sum of values of the field that match the [facet expression](ctp:api:type:ProductSearchFacetStatsExpression).
+   *
+   *	Only returned for number fields.
+   *
+   *
+   */
+  readonly sum?: any
+  /**
+   *	The total number of values counted that match the facet expression.
+   *
+   *
+   */
+  readonly count: number
+}
 export enum ProductSearchFacetScopeEnumValues {
   All = 'all',
   Query = 'query',
 }
 
 export type ProductSearchFacetScopeEnum = 'all' | 'query' | (string & {})
+export interface ProductSearchFacetStatsExpression
+  extends ProductSearchFacetExpression {
+  /**
+   *	Definition of the stats facet.
+   *
+   */
+  readonly stats: ProductSearchFacetStatsValue
+}
+export interface ProductSearchFacetStatsValue {
+  /**
+   *	Name of the stats facet to appear in the [ProductSearchFacetResultStats](ctp:api:type:ProductSearchFacetResultStats).
+   *
+   */
+  readonly name: string
+  /**
+   *	Whether the facet must consider only the Products resulting from the search (`query`) or all the Products (`all`).
+   *
+   */
+  readonly scope?: ProductSearchFacetScopeEnum
+  /**
+   *	Additional filtering expression to apply to the search result before calculating the facet.
+   *
+   */
+  readonly filter?: _SearchQuery
+  /**
+   *	The [searchable Product field](/api/projects/product-search#searchable-product-fields) to facet on.
+   *
+   *
+   */
+  readonly field: string
+  /**
+   *	If the `field` is not standard, this must be the Attribute type.
+   *
+   */
+  readonly fieldType?: SearchFieldType
+}

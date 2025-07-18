@@ -46,7 +46,7 @@ export class ByProjectKeyAttributeGroupsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if an AttributeGroup exists with the provided `id`. Returns a `200 OK` status if the AttributeGroup exists or a `404 Not Found` otherwise.
+   *	Checks if an AttributeGroup exists with the provided `id`. Returns a `200` status if the AttributeGroup exists, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     headers?: {

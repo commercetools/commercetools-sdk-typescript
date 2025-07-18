@@ -74,7 +74,7 @@ export class ByProjectKeyTypesRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more Types exist for the provided query predicate. Returns a `200 OK` status if any Types match the query predicate, or a `404 Not Found` otherwise.
+   *	Checks if one or more Types exist for the provided query predicate. Returns a `200` status if any Types match the query predicate, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

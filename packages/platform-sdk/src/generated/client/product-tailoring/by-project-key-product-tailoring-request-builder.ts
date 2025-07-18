@@ -78,7 +78,7 @@ export class ByProjectKeyProductTailoringRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more ProductTailorings exist for the provided query predicate. Returns a `200 OK` status if any ProductTailoring match the query predicate, or a `404 Not Found` otherwise.
+   *	Checks if one or more ProductTailorings exist for the provided query predicate. Returns a `200` status if any ProductTailoring match the query predicate, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

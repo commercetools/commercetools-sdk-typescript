@@ -21,7 +21,7 @@ export class ByProjectKeyMeCartsByIDRequestBuilder {
     }
   ) {}
   /**
-   *	Returns a Cart for a given `id`. Returns a `200 OK` status if successful.
+   *	Returns a Cart for a given `id`. Returns a `200` status if successful.
    *
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *
@@ -53,7 +53,7 @@ export class ByProjectKeyMeCartsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a Cart exists with the provided `id`. Returns a `200 OK` status if the Cart exists.
+   *	Checks if a Cart exists with the provided `id`. Returns a `200` status if the Cart exists.
    *
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *
@@ -80,7 +80,7 @@ export class ByProjectKeyMeCartsByIDRequestBuilder {
     )
   }
   /**
-   *	Updates the Cart for a given `id`. Returns a `200 OK` status if successful.
+   *	Updates the Cart for a given `id`. Returns a `200` status if successful.
    *
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *
@@ -115,7 +115,7 @@ export class ByProjectKeyMeCartsByIDRequestBuilder {
     )
   }
   /**
-   *	Deletes the Cart for a given `id`. Returns a `200 OK` status if successful.
+   *	Deletes the Cart for a given `id`. Returns a `200` status if successful.
    *
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *

@@ -40,6 +40,7 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
       priceCustomerGroup?: string
       priceCustomerGroupAssignments?: string | string[]
       priceChannel?: string
+      priceRecurrencePolicy?: string
       expand?: string | string[]
       [key: string]: QueryParam
     }
@@ -62,7 +63,7 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Checks if a Product exists with the provided `key`. Returns a `200 OK` status if the Product exists or a `404 Not Found` otherwise.
+   *	Checks if a Product exists with the provided `key`. Returns a `200` status if the Product exists, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -92,6 +93,7 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
       priceCustomerGroup?: string
       priceCustomerGroupAssignments?: string | string[]
       priceChannel?: string
+      priceRecurrencePolicy?: string
       expand?: string | string[]
       [key: string]: QueryParam
     }
@@ -127,6 +129,7 @@ export class ByProjectKeyProductsKeyByKeyRequestBuilder {
       priceCustomerGroup?: string
       priceCustomerGroupAssignments?: string | string[]
       priceChannel?: string
+      priceRecurrencePolicy?: string
       version: number
       expand?: string | string[]
       [key: string]: QueryParam

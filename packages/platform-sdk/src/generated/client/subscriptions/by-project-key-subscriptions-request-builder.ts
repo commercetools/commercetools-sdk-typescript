@@ -77,7 +77,7 @@ export class ByProjectKeySubscriptionsRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more Subscriptions exist for the provided query predicate. Returns a `200 OK` status if any Subscriptions match the query predicate, or a `404 Not Found` otherwise.
+   *	Checks if one or more Subscriptions exist for the provided query predicate. Returns a `200` status if any Subscriptions match the query predicate, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

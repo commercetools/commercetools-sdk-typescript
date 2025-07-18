@@ -155,9 +155,9 @@ export interface IBusinessUnit {
   /**
    *	References to [Stores](ctp:api:type:Store) the Business Unit is associated with. Only present when `storeMode` is `Explicit`.
    *
-   *	If the Business Unit has Stores defined, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must belong to one of the Business Unit's Stores.
+   *	If the Business Unit has Stores defined, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Recurring Orders](ctp:api:type:RecurringOrder), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must belong to one of the Business Unit's Stores.
    *
-   *	If the Business Unit has no Stores, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must not belong to any Store.
+   *	If the Business Unit has no Stores, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Recurring Orders](ctp:api:type:RecurringOrder), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must not belong to any Store.
    *
    *
    */
@@ -344,9 +344,9 @@ export interface IBusinessUnitDraft {
    *	Sets the [Stores](ctp:api:type:Store) the Business Unit is associated with. Can only be set when `storeMode` is `Explicit`.
    *	Defaults to empty for [Companies](ctp:api:type:BusinessUnitType) and not set for [Divisions](ctp:api:type:BusinessUnitType).
    *
-   *	If the Business Unit has Stores defined, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must belong to one of the Business Unit's Stores.
+   *	If the Business Unit has Stores defined, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Recurring Orders](ctp:api:type:RecurringOrder), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must belong to one of the Business Unit's Stores.
    *
-   *	If the Business Unit has no Stores, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must not belong to any Store.
+   *	If the Business Unit has no Stores, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Recurring Orders](ctp:api:type:RecurringOrder), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must not belong to any Store.
    *
    *
    */
@@ -665,9 +665,9 @@ export interface Company extends IBusinessUnit {
   /**
    *	References to [Stores](ctp:api:type:Store) the Business Unit is associated with. Only present when `storeMode` is `Explicit`.
    *
-   *	If the Business Unit has Stores defined, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must belong to one of the Business Unit's Stores.
+   *	If the Business Unit has Stores defined, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Recurring Orders](ctp:api:type:RecurringOrder), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must belong to one of the Business Unit's Stores.
    *
-   *	If the Business Unit has no Stores, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must not belong to any Store.
+   *	If the Business Unit has no Stores, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Recurring Orders](ctp:api:type:RecurringOrder), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must not belong to any Store.
    *
    *
    */
@@ -791,9 +791,9 @@ export interface CompanyDraft extends IBusinessUnitDraft {
    *	Sets the [Stores](ctp:api:type:Store) the Business Unit is associated with. Can only be set when `storeMode` is `Explicit`.
    *	Defaults to empty for [Companies](ctp:api:type:BusinessUnitType) and not set for [Divisions](ctp:api:type:BusinessUnitType).
    *
-   *	If the Business Unit has Stores defined, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must belong to one of the Business Unit's Stores.
+   *	If the Business Unit has Stores defined, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Recurring Orders](ctp:api:type:RecurringOrder), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must belong to one of the Business Unit's Stores.
    *
-   *	If the Business Unit has no Stores, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must not belong to any Store.
+   *	If the Business Unit has no Stores, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Recurring Orders](ctp:api:type:RecurringOrder), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must not belong to any Store.
    *
    *
    */
@@ -935,9 +935,9 @@ export interface Division extends IBusinessUnit {
   /**
    *	References to [Stores](ctp:api:type:Store) the Business Unit is associated with. Only present when `storeMode` is `Explicit`.
    *
-   *	If the Business Unit has Stores defined, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must belong to one of the Business Unit's Stores.
+   *	If the Business Unit has Stores defined, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Recurring Orders](ctp:api:type:RecurringOrder), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must belong to one of the Business Unit's Stores.
    *
-   *	If the Business Unit has no Stores, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must not belong to any Store.
+   *	If the Business Unit has no Stores, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Recurring Orders](ctp:api:type:RecurringOrder), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must not belong to any Store.
    *
    *
    */
@@ -1062,9 +1062,9 @@ export interface DivisionDraft extends IBusinessUnitDraft {
    *	Sets the [Stores](ctp:api:type:Store) the Business Unit is associated with. Can only be set when `storeMode` is `Explicit`.
    *	Defaults to empty for [Companies](ctp:api:type:BusinessUnitType) and not set for [Divisions](ctp:api:type:BusinessUnitType).
    *
-   *	If the Business Unit has Stores defined, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must belong to one of the Business Unit's Stores.
+   *	If the Business Unit has Stores defined, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Recurring Orders](ctp:api:type:RecurringOrder), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must belong to one of the Business Unit's Stores.
    *
-   *	If the Business Unit has no Stores, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must not belong to any Store.
+   *	If the Business Unit has no Stores, then all of its [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Recurring Orders](ctp:api:type:RecurringOrder), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), or [Shopping Lists](ctp:api:type:ShoppingList) must not belong to any Store.
    *
    *
    */

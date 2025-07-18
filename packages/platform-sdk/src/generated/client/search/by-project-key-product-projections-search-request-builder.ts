@@ -70,6 +70,7 @@ export class ByProjectKeyProductProjectionsSearchRequestBuilder {
       priceCustomerGroup?: string
       priceCustomerGroupAssignments?: string | string[]
       priceChannel?: string
+      priceRecurrencePolicy?: string
       localeProjection?: string | string[]
       storeProjection?: string
       [key: string]: QueryParam

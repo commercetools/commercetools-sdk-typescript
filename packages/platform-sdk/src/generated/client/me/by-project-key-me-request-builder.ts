@@ -162,7 +162,7 @@ export class ByProjectKeyMeRequestBuilder {
   }
 
   /**
-   *	Returns a Customer for a given Query Predicate. Returns a `200 OK` status if successful.
+   *	Returns a Customer for a given Query Predicate. Returns a `200` status if successful.
    *
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *
@@ -199,7 +199,7 @@ export class ByProjectKeyMeRequestBuilder {
     )
   }
   /**
-   *	Updates the Customer specified in the [customer:{id}](/scopes#composable-commerce-oauth) scope. Returns a `200 OK` status if successful.
+   *	Updates the Customer specified in the [customer:{id}](/scopes#composable-commerce-oauth) scope. Returns a `200` status if successful.
    *
    */
   public post(methodArgs: {
@@ -224,7 +224,7 @@ export class ByProjectKeyMeRequestBuilder {
     )
   }
   /**
-   *	Deletes the Customer specified in the [customer:{id}](/scopes#composable-commerce-oauth) scope. Returns a `200 OK` status if successful.
+   *	Deletes the Customer specified in the [customer:{id}](/scopes#composable-commerce-oauth) scope. Returns a `200` status if successful.
    */
   public delete(methodArgs: {
     queryArgs: {

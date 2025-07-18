@@ -39,6 +39,8 @@ import { ByProjectKeyProductTypesRequestBuilder } from './product-types/by-proje
 import { ByProjectKeyProductsRequestBuilder } from './products/by-project-key-products-request-builder'
 import { ByProjectKeyQuoteRequestsRequestBuilder } from './quote-requests/by-project-key-quote-requests-request-builder'
 import { ByProjectKeyQuotesRequestBuilder } from './quotes/by-project-key-quotes-request-builder'
+import { ByProjectKeyRecurrencePoliciesRequestBuilder } from './recurrence-policies/by-project-key-recurrence-policies-request-builder'
+import { ByProjectKeyRecurringOrdersRequestBuilder } from './recurring-orders/by-project-key-recurring-orders-request-builder'
 import { ByProjectKeyReviewsRequestBuilder } from './reviews/by-project-key-reviews-request-builder'
 import { ByProjectKeyShippingMethodsRequestBuilder } from './shipping-methods/by-project-key-shipping-methods-request-builder'
 import { ByProjectKeyShoppingListsRequestBuilder } from './shopping-lists/by-project-key-shopping-lists-request-builder'
@@ -410,6 +412,31 @@ export class ByProjectKeyRequestBuilder {
     })
   }
   /**
+   *	A Recurring Order can be created from an Order, usually after a checkout process has been completed or directly via the Recurring Orders API.
+   *
+   */
+  public recurringOrders(): ByProjectKeyRecurringOrdersRequestBuilder {
+    return new ByProjectKeyRecurringOrdersRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	A Recurrence Policy is a configuration of a schedule.
+   */
+  public recurrencePolicies(): ByProjectKeyRecurrencePoliciesRequestBuilder {
+    return new ByProjectKeyRecurrencePoliciesRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
    *	Reviews are used to evaluate products and channels.
    */
   public reviews(): ByProjectKeyReviewsRequestBuilder {
@@ -622,7 +649,7 @@ export class ByProjectKeyRequestBuilder {
     )
   }
   /**
-   *	Checks if a Project exists for a given `projectKey`. Returns a `200 OK` status if the Project exists or a `404 Not Found` otherwise.
+   *	Checks if a Project exists for a given `projectKey`. Returns a `200` status if the Project exists, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     headers?: {

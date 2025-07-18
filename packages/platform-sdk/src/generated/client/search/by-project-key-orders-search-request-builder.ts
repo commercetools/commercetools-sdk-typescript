@@ -44,7 +44,7 @@ export class ByProjectKeyOrdersSearchRequestBuilder {
   }
   /**
    *	Checks whether a search index for the Project's Orders exists.
-   *	Returns a `200 OK` status if the index exists or a `404 Not Found` error otherwise.
+   *	Returns a `200` status if the index exists, or a `404` status otherwise.
    *
    */
   public head(methodArgs?: {

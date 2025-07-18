@@ -43,7 +43,7 @@ export class ByProjectKeyTaxCategoriesByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a TaxCategory exists with the provided `id`. Returns a `200 OK` status if the TaxCategory exists or a `404 Not Found` otherwise.
+   *	Checks if a TaxCategory exists with the provided `id`. Returns a `200` status if the TaxCategory exists, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     headers?: {

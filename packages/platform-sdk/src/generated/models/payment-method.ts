@@ -65,7 +65,7 @@ export interface PaymentMethod extends BaseResource {
    */
   readonly businessUnit?: BusinessUnitKeyReference
   /**
-   *	Payment Method used for the Payment—for example, a credit card or cash advance.
+   *	Payment Method used for the Payment—for example, a credit card or direct debit.
    *
    *
    */
@@ -163,7 +163,7 @@ export interface PaymentMethodDraft {
    */
   readonly businessUnit?: BusinessUnitResourceIdentifier
   /**
-   *	Payment method to use for the Payment—for example, a credit card or cash advance.
+   *	Payment method to use for the Payment—for example, a credit card or direct debit.
    *
    *
    */
@@ -417,7 +417,7 @@ export interface PaymentMethodSetMethodAction
   extends IPaymentMethodUpdateAction {
   readonly action: 'setMethod'
   /**
-   *	New payment method—for example, a credit card or cash advance.
+   *	New payment method—for example, a credit card or direct debit.
    *	If empty, any existing value will be removed.
    *
    *

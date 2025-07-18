@@ -100,7 +100,7 @@ export class ByProjectKeyCartsRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more Carts exist for the provided query predicate. Returns a `200 OK` status if any Carts match the query predicate, or [Not Found](/../api/errors#404-not-found) otherwise.
+   *	Checks if one or more Carts exist for the provided query predicate. Returns a `200` status if any Carts match the query predicate, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

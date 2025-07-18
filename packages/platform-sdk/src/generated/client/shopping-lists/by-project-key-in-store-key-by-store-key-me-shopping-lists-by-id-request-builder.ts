@@ -56,7 +56,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a ShoppingList exists with the provided `id` for the authenticated Customer or anonymous user in a [Store](ctp:api:type:Store). Returns a `200 OK` status if successful.
+   *	Checks if a ShoppingList exists with the provided `id` for the authenticated Customer or anonymous user in a [Store](ctp:api:type:Store). Returns a `200` status if successful.
    *
    *	A [Not Found](/../api/errors#404-not-found) error is returned in the following scenarios:
    *
@@ -85,7 +85,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsByIDRequestBuilder {
     )
   }
   /**
-   *	Updates a ShoppingList for the authenticated Customer or anonymous user in a [Store](ctp:api:type:Store) using one or more [update actions](/../api/projects/me-shoppingLists#update-actions). Returns a `200 OK` status if successful.
+   *	Updates a ShoppingList for the authenticated Customer or anonymous user in a [Store](ctp:api:type:Store) using one or more [update actions](/../api/projects/me-shoppingLists#update-actions). Returns a `200` status if successful.
    *
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *
@@ -122,7 +122,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeShoppingListsByIDRequestBuilder {
     )
   }
   /**
-   *	Deletes a ShoppingList in a [Store](ctp:api:type:Store). Returns a `200 OK` status if successful.
+   *	Deletes a ShoppingList in a [Store](ctp:api:type:Store). Returns a `200` status if successful.
    *
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *

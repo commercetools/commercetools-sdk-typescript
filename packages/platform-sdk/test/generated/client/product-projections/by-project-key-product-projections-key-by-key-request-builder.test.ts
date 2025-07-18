@@ -71,6 +71,15 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
+      uri: '/test_projectKey/product-projections/key=test_key?priceRecurrencePolicy=priceRecurrencePolicy',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .productProjections()
+        .withKey({ key: 'test_key' })
+        .get({ queryArgs: { priceRecurrencePolicy: 'priceRecurrencePolicy' } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/product-projections/key=test_key?localeProjection=localeProjection',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })

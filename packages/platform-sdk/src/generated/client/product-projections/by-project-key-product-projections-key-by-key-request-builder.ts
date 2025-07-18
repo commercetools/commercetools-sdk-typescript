@@ -33,6 +33,7 @@ export class ByProjectKeyProductProjectionsKeyByKeyRequestBuilder {
       priceCustomerGroup?: string
       priceCustomerGroupAssignments?: string | string[]
       priceChannel?: string
+      priceRecurrencePolicy?: string
       localeProjection?: string | string[]
       storeProjection?: string
       expand?: string | string[]
@@ -57,7 +58,7 @@ export class ByProjectKeyProductProjectionsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Checks if the current or staged representation of a Product exists with the provided `key`. Returns a `200 OK` status if the ProductProjection exists or a `404 Not Found` otherwise.
+   *	Checks if the current or staged representation of a Product exists with the provided `key`. Returns a `200` status if the ProductProjection exists, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     headers?: {

@@ -41,6 +41,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyProductProjectionsByIDRequestBuilde
       priceCustomerGroup?: string
       priceCustomerGroupAssignments?: string | string[]
       priceChannel?: string
+      priceRecurrencePolicy?: string
       localeProjection?: string | string[]
       expand?: string | string[]
       [key: string]: QueryParam
@@ -65,7 +66,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyProductProjectionsByIDRequestBuilde
     )
   }
   /**
-   *	Checks if the current or staged representations of a Product exists with the provided `id` in the specified [Store](ctp:api:type:Store). Returns a `200 OK` status if the ProductProjection exists or a `404 Not Found` otherwise.
+   *	Checks if the current or staged representations of a Product exists with the provided `id` in the specified [Store](ctp:api:type:Store). Returns a `200` status if the ProductProjection exists, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     headers?: {

@@ -112,7 +112,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder {
   }
 
   /**
-   *	Returns a Customer for a given Query Predicate in a [Store](ctp:api:type:Store). Returns a `200 OK` status if successful.
+   *	Returns a Customer for a given Query Predicate in a [Store](ctp:api:type:Store). Returns a `200` status if successful.
    *
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *
@@ -150,7 +150,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder {
     )
   }
   /**
-   *	Updates the Customer in a [Store](ctp:api:type:Store). Returns a `200 OK` status if successful.
+   *	Updates the Customer in a [Store](ctp:api:type:Store). Returns a `200` status if successful.
    *
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *
@@ -180,7 +180,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder {
     )
   }
   /**
-   *	Deletes the Customer in a [Store](ctp:api:type:Store). Returns a `200 OK` status if successful.
+   *	Deletes the Customer in a [Store](ctp:api:type:Store). Returns a `200` status if successful.
    *
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *

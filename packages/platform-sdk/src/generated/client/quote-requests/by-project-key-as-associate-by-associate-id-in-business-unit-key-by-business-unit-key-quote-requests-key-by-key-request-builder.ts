@@ -50,7 +50,7 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
     )
   }
   /**
-   *	Checks if a QuoteRequest exists with the provided `key`. Returns a `200 OK` status if the QuoteRequest exists or a `404 Not Found` otherwise.
+   *	Checks if a QuoteRequest exists with the provided `key`. Returns a `200` status if the QuoteRequest exists, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     headers?: {

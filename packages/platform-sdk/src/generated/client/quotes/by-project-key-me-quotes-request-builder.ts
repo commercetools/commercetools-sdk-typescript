@@ -74,7 +74,7 @@ export class ByProjectKeyMeQuotesRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more Quotes exist for the provided query predicate. Returns a `200 OK` status if any Quotes match the query predicate, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *	Checks if one or more Quotes exist for the provided query predicate. Returns a `200` status if any Quotes match the query predicate, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {
