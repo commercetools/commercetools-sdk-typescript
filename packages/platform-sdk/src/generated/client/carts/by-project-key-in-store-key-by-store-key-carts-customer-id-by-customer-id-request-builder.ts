@@ -53,7 +53,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsCustomerIdByCustomerIdRequestB
     )
   }
   /**
-   *	Checks if one or more Carts exist for a Customer in a [Store](ctp:api:type:Store). Returns a `200 OK` status if the Cart exists or [Not Found](/../api/errors#404-not-found) otherwise.
+   *	Checks if one or more Carts exist for a Customer in a [Store](ctp:api:type:Store). Returns a `200` status if the Cart exists, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     headers?: {

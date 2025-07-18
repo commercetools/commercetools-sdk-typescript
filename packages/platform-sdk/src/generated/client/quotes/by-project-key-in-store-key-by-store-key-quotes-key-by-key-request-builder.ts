@@ -44,7 +44,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyQuotesKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Checks if a Quote exists with the provided `key`. Returns a `200 OK` status if the Quote exists or [Not Found](/../api/errors#404-not-found) otherwise.
+   *	Checks if a Quote exists with the provided `key`. Returns a `200` status if the Quote exists, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     headers?: {

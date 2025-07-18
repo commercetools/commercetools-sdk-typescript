@@ -74,6 +74,7 @@ export class ByProjectKeyProductsRequestBuilder {
       priceCustomerGroup?: string
       priceCustomerGroupAssignments?: string | string[]
       priceChannel?: string
+      priceRecurrencePolicy?: string
       expand?: string | string[]
       sort?: string | string[]
       limit?: number
@@ -100,7 +101,7 @@ export class ByProjectKeyProductsRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more Products exist for the provided query predicate. Returns a `200 OK` status if any Products match the query predicate, or a `404 Not Found` otherwise.
+   *	Checks if one or more Products exist for the provided query predicate. Returns a `200` status if any Products match the query predicate, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {
@@ -138,6 +139,7 @@ export class ByProjectKeyProductsRequestBuilder {
       priceCustomerGroup?: string
       priceCustomerGroupAssignments?: string | string[]
       priceChannel?: string
+      priceRecurrencePolicy?: string
       expand?: string | string[]
       [key: string]: QueryParam
     }

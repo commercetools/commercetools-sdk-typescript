@@ -56,6 +56,10 @@ import {
 } from './order'
 import { PaymentResourceIdentifier } from './payment'
 import {
+  CustomLineItemRecurrenceInfoDraft,
+  LineItemRecurrenceInfoDraft,
+} from './recurring-order'
+import {
   ShippingMethodResourceIdentifier,
   ShippingRateDraft,
 } from './shipping-method'
@@ -574,6 +578,12 @@ export interface StagedOrderAddCustomLineItemAction
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	Recurring Order and frequency data.
+   *
+   *
+   */
+  readonly recurrenceInfo?: CustomLineItemRecurrenceInfoDraft
 }
 /**
  *	A [Delivery](ctp:api:type:Delivery) can only be added to an [Order](ctp:api:type:Order) if
@@ -768,6 +778,12 @@ export interface StagedOrderAddLineItemAction extends IStagedOrderUpdateAction {
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	Recurring Order and frequency data.
+   *
+   *
+   */
+  readonly recurrenceInfo?: LineItemRecurrenceInfoDraft
 }
 /**
  *	To add a Parcel, at least one [Delivery](ctp:api:type:Delivery) must exist.

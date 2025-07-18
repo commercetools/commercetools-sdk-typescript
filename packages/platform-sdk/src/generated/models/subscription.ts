@@ -62,6 +62,8 @@ export enum ChangeSubscriptionResourceTypeIdValues {
   ProductType = 'product-type',
   Quote = 'quote',
   QuoteRequest = 'quote-request',
+  RecurrencePolicy = 'recurrence-policy',
+  RecurringOrder = 'recurring-order',
   Review = 'review',
   ShippingMethod = 'shipping-method',
   ShoppingList = 'shopping-list',
@@ -103,6 +105,8 @@ export type ChangeSubscriptionResourceTypeId =
   | 'product-type'
   | 'quote'
   | 'quote-request'
+  | 'recurrence-policy'
+  | 'recurring-order'
   | 'review'
   | 'shipping-method'
   | 'shopping-list'

@@ -83,7 +83,7 @@ export class ByProjectKeyPaymentMethodsRequestBuilder {
   }
   /**
    *	Checks if one or more PaymentMethods exist for the provided query predicate.
-   *	Returns a `200 OK` status if any PaymentMethods match the query predicate; otherwise, returns a [Not Found](/../api/errors#404-not-found).
+   *	Returns a `200` status if any PaymentMethods match the query predicate, or a `404` status otherwise.
    *
    */
   public head(methodArgs?: {

@@ -52,7 +52,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyShippingMethodsMatchingCartRequestB
     )
   }
   /**
-   *	Checks if an active ShippingMethod that can ship to the shipping address of the given Cart exists in the given [Store](ctp:api:type:Store). Returns a `200 OK` status if the ShippingMethod exists or a `404 Not Found` otherwise.
+   *	Checks if an active ShippingMethod that can ship to the shipping address of the given Cart exists in the given [Store](ctp:api:type:Store). Returns a `200` status if the ShippingMethod exists, or a `404` status otherwise.
    */
   public head(methodArgs: {
     queryArgs: {

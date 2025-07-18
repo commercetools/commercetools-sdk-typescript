@@ -46,7 +46,7 @@ export class ByProjectKeyOrdersByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if an Order exists with the provided `id`. Returns a `200 OK` status if the Order exists or a `404 Not Found` otherwise.
+   *	Checks if an Order exists with the provided `id`. Returns a `200` status if the Order exists, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     headers?: {

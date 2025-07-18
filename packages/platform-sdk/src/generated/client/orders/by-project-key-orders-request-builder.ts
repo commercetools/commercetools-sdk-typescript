@@ -128,7 +128,7 @@ export class ByProjectKeyOrdersRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more Orders exist for the provided query predicate. Returns a `200 OK` status if any Orders match the query predicate, or a `404 Not Found` otherwise.
+   *	Checks if one or more Orders exist for the provided query predicate. Returns a `200` status if any Orders match the query predicate, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {
@@ -160,7 +160,7 @@ export class ByProjectKeyOrdersRequestBuilder {
    *
    *	The shipping address is used for tax calculation for a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode).
    *
-   *	Creating an Order produces the [OrderCreated](ctp:api:type:OrderCreatedMessage) Message.
+   *	Creating an Order produces the [OrderCreated](ctp:api:type:OrderCreatedMessage) Message. If the Order is created from a Recurring Order schedule, the [OrderCreatedFromRecurringOrder](ctp:api:type:OrderCreatedFromRecurringOrderMessage) Message is generated.
    *
    *	If a server-side problem occurs, indicated by a 500 Internal Server Error HTTP response, the Order creation may still successfully complete after the error is returned.
    *	If you receive this error, you should verify the status of the Order by querying a unique identifier supplied during the creation request, such as the Order number.

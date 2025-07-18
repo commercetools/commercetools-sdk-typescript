@@ -34,10 +34,19 @@ export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
     }
   ) {}
   /**
-   *	A shopping cart holds product variants and can be ordered.
+   *	A Business Unit can represent a Company or a Division.
    */
-  public carts(): ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder {
-    return new ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder({
+  public businessUnits(): ByProjectKeyInStoreKeyByStoreKeyBusinessUnitsRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyBusinessUnitsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public cartDiscounts(): ByProjectKeyInStoreKeyByStoreKeyCartDiscountsRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyCartDiscountsRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },
@@ -46,19 +55,10 @@ export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
     })
   }
   /**
-   *	An order can be created from a cart, usually after a checkout process has been completed.
+   *	A shopping cart holds product variants and can be ordered.
    */
-  public orders(): ByProjectKeyInStoreKeyByStoreKeyOrdersRequestBuilder {
-    return new ByProjectKeyInStoreKeyByStoreKeyOrdersRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
-  }
-  public me(): ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder {
-    return new ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder({
+  public carts(): ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyCartsRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },
@@ -80,20 +80,8 @@ export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
       baseUri: this.args.baseUri,
     })
   }
-  /**
-   *	Retrieves the authenticated customer.
-   */
-  public login(): ByProjectKeyInStoreKeyByStoreKeyLoginRequestBuilder {
-    return new ByProjectKeyInStoreKeyByStoreKeyLoginRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
-  }
-  public shippingMethods(): ByProjectKeyInStoreKeyByStoreKeyShippingMethodsRequestBuilder {
-    return new ByProjectKeyInStoreKeyByStoreKeyShippingMethodsRequestBuilder({
+  public me(): ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyMeRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },
@@ -102,11 +90,10 @@ export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
     })
   }
   /**
-   *	shopping-lists e.g. for wishlist support
-   *
+   *	An order can be created from a cart, usually after a checkout process has been completed.
    */
-  public shoppingLists(): ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder {
-    return new ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder({
+  public orders(): ByProjectKeyInStoreKeyByStoreKeyOrdersRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyOrdersRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },
@@ -135,15 +122,6 @@ export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
         baseUri: this.args.baseUri,
       }
     )
-  }
-  public cartDiscounts(): ByProjectKeyInStoreKeyByStoreKeyCartDiscountsRequestBuilder {
-    return new ByProjectKeyInStoreKeyByStoreKeyCartDiscountsRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
   }
   /**
    *	A Product Tailoring holds tailored data of Product in the Store.
@@ -179,6 +157,40 @@ export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
     })
   }
   /**
+   *	A quote holds the negotiated offer.
+   */
+  public quotes(): ByProjectKeyInStoreKeyByStoreKeyQuotesRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyQuotesRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public shippingMethods(): ByProjectKeyInStoreKeyByStoreKeyShippingMethodsRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyShippingMethodsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
+   *	shopping-lists e.g. for wishlist support
+   *
+   */
+  public shoppingLists(): ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  /**
    *	A staged quote holds the negotiation between the [Buyer](/../api/quotes-overview#buyer) and the [Seller](/../api/quotes-overview#seller).
    */
   public stagedQuotes(): ByProjectKeyInStoreKeyByStoreKeyStagedQuotesRequestBuilder {
@@ -191,22 +203,10 @@ export class ByProjectKeyInStoreKeyByStoreKeyRequestBuilder {
     })
   }
   /**
-   *	A quote holds the negotiated offer.
+   *	Retrieves the authenticated customer.
    */
-  public quotes(): ByProjectKeyInStoreKeyByStoreKeyQuotesRequestBuilder {
-    return new ByProjectKeyInStoreKeyByStoreKeyQuotesRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
-  }
-  /**
-   *	A Business Unit can represent a Company or a Division.
-   */
-  public businessUnits(): ByProjectKeyInStoreKeyByStoreKeyBusinessUnitsRequestBuilder {
-    return new ByProjectKeyInStoreKeyByStoreKeyBusinessUnitsRequestBuilder({
+  public login(): ByProjectKeyInStoreKeyByStoreKeyLoginRequestBuilder {
+    return new ByProjectKeyInStoreKeyByStoreKeyLoginRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },
