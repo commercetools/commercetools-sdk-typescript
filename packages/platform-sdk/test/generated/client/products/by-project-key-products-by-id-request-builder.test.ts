@@ -62,6 +62,15 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
+      uri: '/test_projectKey/products/test_ID?priceRecurrencePolicy=priceRecurrencePolicy',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .products()
+        .withId({ ID: 'test_ID' })
+        .get({ queryArgs: { priceRecurrencePolicy: 'priceRecurrencePolicy' } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/products/test_ID?expand=expand',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
@@ -156,6 +165,19 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'post',
+      uri: '/test_projectKey/products/test_ID?priceRecurrencePolicy=priceRecurrencePolicy',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .products()
+        .withId({ ID: 'test_ID' })
+        .post({
+          body: null,
+          headers: null,
+          queryArgs: { priceRecurrencePolicy: 'priceRecurrencePolicy' },
+        }),
+    },
+    {
+      method: 'post',
       uri: '/test_projectKey/products/test_ID?expand=expand',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
@@ -223,6 +245,20 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
         .products()
         .withId({ ID: 'test_ID' })
         .delete({ queryArgs: { priceChannel: 'priceChannel', version: 2 } }),
+    },
+    {
+      method: 'delete',
+      uri: '/test_projectKey/products/test_ID?priceRecurrencePolicy=priceRecurrencePolicy&version=2',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .products()
+        .withId({ ID: 'test_ID' })
+        .delete({
+          queryArgs: {
+            priceRecurrencePolicy: 'priceRecurrencePolicy',
+            version: 2,
+          },
+        }),
     },
     {
       method: 'delete',

@@ -84,7 +84,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyShoppingListsRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more ShoppingLists exist for the provided query predicate in a [Store](ctp:api:type:Store). Returns a `200 OK` status if any ShoppingLists match the query predicate or [Not Found](/../api/errors#404-not-found) otherwise.
+   *	Checks if one or more ShoppingLists exist for the provided query predicate in a [Store](ctp:api:type:Store). Returns a `200` status if any ShoppingLists match the query predicate or, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

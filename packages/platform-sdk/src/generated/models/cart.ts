@@ -49,6 +49,12 @@ import { ProductVariant } from './product'
 import { ProductTailoringUpdateAction } from './product-tailoring'
 import { ProductTypeReference } from './product-type'
 import {
+  CustomLineItemRecurrenceInfo,
+  CustomLineItemRecurrenceInfoDraft,
+  LineItemRecurrenceInfo,
+  LineItemRecurrenceInfoDraft,
+} from './recurring-order'
+import {
   ShippingMethodReference,
   ShippingMethodResourceIdentifier,
   ShippingRate,
@@ -557,9 +563,15 @@ export enum CartOriginValues {
   Customer = 'Customer',
   Merchant = 'Merchant',
   Quote = 'Quote',
+  RecurringOrder = 'RecurringOrder',
 }
 
-export type CartOrigin = 'Customer' | 'Merchant' | 'Quote' | (string & {})
+export type CartOrigin =
+  | 'Customer'
+  | 'Merchant'
+  | 'Quote'
+  | 'RecurringOrder'
+  | (string & {})
 /**
  *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with results containing an array of [Cart](ctp:api:type:Cart).
  *
@@ -708,6 +720,7 @@ export type CartUpdateAction =
   | CartSetCustomFieldAction
   | CartSetCustomLineItemCustomFieldAction
   | CartSetCustomLineItemCustomTypeAction
+  | CartSetCustomLineItemRecurrenceInfoAction
   | CartSetCustomLineItemShippingDetailsAction
   | CartSetCustomLineItemTaxAmountAction
   | CartSetCustomLineItemTaxRateAction
@@ -726,6 +739,7 @@ export type CartUpdateAction =
   | CartSetLineItemDistributionChannelAction
   | CartSetLineItemInventoryModeAction
   | CartSetLineItemPriceAction
+  | CartSetLineItemRecurrenceInfoAction
   | CartSetLineItemShippingDetailsAction
   | CartSetLineItemSupplyChannelAction
   | CartSetLineItemTaxAmountAction
@@ -862,6 +876,12 @@ export interface CustomLineItem {
    *
    */
   readonly priceMode: CustomLineItemPriceMode
+  /**
+   *	Recurring Order and frequency data.
+   *
+   *
+   */
+  readonly recurrenceInfo?: CustomLineItemRecurrenceInfo
 }
 export interface CustomLineItemDraft {
   /**
@@ -928,6 +948,12 @@ export interface CustomLineItemDraft {
    *
    */
   readonly priceMode?: CustomLineItemPriceMode
+  /**
+   *	Recurring Order and frequency data.
+   *
+   *
+   */
+  readonly recurrenceInfo?: CustomLineItemRecurrenceInfoDraft
 }
 /**
  *	Determines if Cart Discounts can be applied to a Custom Line Item in the Cart.
@@ -1561,6 +1587,12 @@ export interface LineItem {
    *
    */
   readonly lastModifiedAt?: string
+  /**
+   *	Recurring Order and frequency data.
+   *
+   *
+   */
+  readonly recurrenceInfo?: LineItemRecurrenceInfo
 }
 /**
  *	For Product Variant identification, either the `productId` and `variantId`, or `sku` must be provided.
@@ -1668,6 +1700,12 @@ export interface LineItemDraft {
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	Recurring Order and frequency data.
+   *
+   *
+   */
+  readonly recurrenceInfo?: LineItemRecurrenceInfoDraft
 }
 /**
  *	Indicates how a Line Item was added to a Cart.
@@ -2259,6 +2297,12 @@ export interface CartAddCustomLineItemAction extends ICartUpdateAction {
    *
    */
   readonly priceMode?: CustomLineItemPriceMode
+  /**
+   *	Recurring Order and frequency data.
+   *
+   *
+   */
+  readonly recurrenceInfo?: CustomLineItemRecurrenceInfoDraft
 }
 /**
  *	To add a custom Shipping Method (independent of the [ShippingMethods](ctp:api:type:ShippingMethod) managed through
@@ -2474,6 +2518,12 @@ export interface CartAddLineItemAction extends ICartUpdateAction {
    *
    */
   readonly shippingDetails?: ItemShippingDetailsDraft
+  /**
+   *	Recurring Order and frequency data.
+   *
+   *
+   */
+  readonly recurrenceInfo?: LineItemRecurrenceInfoDraft
   /**
    *	Custom Fields for the Line Item.
    *
@@ -3135,6 +3185,34 @@ export interface CartSetCustomLineItemCustomTypeAction
    */
   readonly fields?: FieldContainer
 }
+/**
+ *	Sets the recurrence information on the [CustomLineItem](ctp:api:type:CustomLineItem).
+ *	If the Cart is already associated with a Recurring Order, this action will fail.
+ *
+ */
+export interface CartSetCustomLineItemRecurrenceInfoAction
+  extends ICartUpdateAction {
+  readonly action: 'setCustomLineItemRecurrenceInfo'
+  /**
+   *	`id` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemId?: string
+  /**
+   *	`key` of the [CustomLineItem](ctp:api:type:CustomLineItem) to update. Either `customLineItemId` or `customLineItemKey` is required.
+   *
+   *
+   */
+  readonly customLineItemKey?: string
+  /**
+   *	Value to set.
+   *	If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly recurrenceInfo?: CustomLineItemRecurrenceInfoDraft
+}
 export interface CartSetCustomLineItemShippingDetailsAction
   extends ICartUpdateAction {
   readonly action: 'setCustomLineItemShippingDetails'
@@ -3550,6 +3628,33 @@ export interface CartSetLineItemPriceAction extends ICartUpdateAction {
    *
    */
   readonly externalPrice?: _Money
+}
+/**
+ *	Sets the recurrence information on the [LineItem](ctp:api:type:LineItem).
+ *	If the Cart is already associated with a Recurring Order, this action will fail.
+ *
+ */
+export interface CartSetLineItemRecurrenceInfoAction extends ICartUpdateAction {
+  readonly action: 'setLineItemRecurrenceInfo'
+  /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemId?: string
+  /**
+   *	`key` of the [LineItem](ctp:api:type:LineItem) to update. Either `lineItemId` or `lineItemKey` is required.
+   *
+   *
+   */
+  readonly lineItemKey?: string
+  /**
+   *	Value to set.
+   *	If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly recurrenceInfo?: LineItemRecurrenceInfoDraft
 }
 export interface CartSetLineItemShippingDetailsAction
   extends ICartUpdateAction {

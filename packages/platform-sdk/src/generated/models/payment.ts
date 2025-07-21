@@ -188,7 +188,7 @@ export interface PaymentMethodInfo {
    */
   readonly paymentInterface?: string
   /**
-   *	Payment method used—for example, a credit card or cash advance.
+   *	Payment method used—for example, a credit card or direct debit.
    *
    *
    */
@@ -229,7 +229,7 @@ export interface PaymentMethodInfoDraft {
    */
   readonly paymentInterface?: string
   /**
-   *	Payment method to use—for example, a credit card or cash advance.
+   *	Payment method to use—for example, a credit card or direct debit.
    *
    *
    */
@@ -725,7 +725,7 @@ export interface PaymentSetMethodInfoAction extends IPaymentUpdateAction {
    */
   readonly paymentInterface?: string
   /**
-   *	Payment method to use—for example, a credit card or cash advance.
+   *	Payment method to use—for example, a credit card or direct debit.
    *	If empty, any existing value will be removed.
    *
    *	Setting this field is equivalent to the `setMethodInfoMethod` action and will generate the [PaymentMethodInfoMethodSet](ctp:api:type:PaymentMethodInfoMethodSetMessage) Message.

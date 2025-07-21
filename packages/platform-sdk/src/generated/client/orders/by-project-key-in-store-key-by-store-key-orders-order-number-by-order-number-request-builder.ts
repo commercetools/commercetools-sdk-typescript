@@ -50,7 +50,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyOrdersOrderNumberByOrderNumberReque
     )
   }
   /**
-   *	Checks if an Order exists with the provided `orderNumber` in a [Store](ctp:api:type:Store). Returns a `200 OK` status if the Order exists or [Not Found](/../api/errors#404-not-found) otherwise.
+   *	Checks if an Order exists with the provided `orderNumber` in a [Store](ctp:api:type:Store). Returns a `200` status if the Order exists, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     headers?: {

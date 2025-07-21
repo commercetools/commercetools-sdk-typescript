@@ -65,6 +65,14 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
+      uri: '/test_projectKey/products?priceRecurrencePolicy=priceRecurrencePolicy',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .products()
+        .get({ queryArgs: { priceRecurrencePolicy: 'priceRecurrencePolicy' } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/products?expand=expand',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
@@ -195,6 +203,18 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
           body: null,
           headers: null,
           queryArgs: { priceChannel: 'priceChannel' },
+        }),
+    },
+    {
+      method: 'post',
+      uri: '/test_projectKey/products?priceRecurrencePolicy=priceRecurrencePolicy',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .products()
+        .post({
+          body: null,
+          headers: null,
+          queryArgs: { priceRecurrencePolicy: 'priceRecurrencePolicy' },
         }),
     },
     {

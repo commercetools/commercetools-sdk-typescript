@@ -103,6 +103,12 @@ import {
 } from './product-tailoring'
 import { Quote, QuoteState } from './quote'
 import { QuoteRequest, QuoteRequestState } from './quote-request'
+import { RecurrencePolicySchedule } from './recurrence-policy'
+import {
+  RecurringOrder,
+  RecurringOrderReference,
+  RecurringOrderState,
+} from './recurring-order'
 import { Review } from './review'
 import { ShoppingListLineItem } from './shopping-list'
 import { StagedQuote, StagedQuoteState } from './staged-quote'
@@ -253,6 +259,7 @@ export type Message =
   | LineItemStateTransitionMessage
   | OrderBillingAddressSetMessage
   | OrderBusinessUnitSetMessage
+  | OrderCreatedFromRecurringOrderMessage
   | OrderCreatedMessage
   | OrderCustomFieldAddedMessage
   | OrderCustomFieldChangedMessage
@@ -378,6 +385,17 @@ export type Message =
   | QuoteRequestStateTransitionMessage
   | QuoteStateChangedMessage
   | QuoteStateTransitionMessage
+  | RecurringOrderCreatedMessage
+  | RecurringOrderCustomFieldAddedMessage
+  | RecurringOrderCustomFieldChangedMessage
+  | RecurringOrderCustomFieldRemovedMessage
+  | RecurringOrderCustomTypeRemovedMessage
+  | RecurringOrderCustomTypeSetMessage
+  | RecurringOrderKeySetMessage
+  | RecurringOrderScheduleSetMessage
+  | RecurringOrderStartsAtSetMessage
+  | RecurringOrderStateChangedMessage
+  | RecurringOrderStateTransitionMessage
   | ReturnInfoAddedMessage
   | ReturnInfoSetMessage
   | ReviewCreatedMessage
@@ -8410,6 +8428,7 @@ export type OrderMessage =
   | LineItemStateTransitionMessage
   | OrderBillingAddressSetMessage
   | OrderBusinessUnitSetMessage
+  | OrderCreatedFromRecurringOrderMessage
   | OrderCreatedMessage
   | OrderCustomFieldAddedMessage
   | OrderCustomFieldChangedMessage
@@ -9597,6 +9616,82 @@ export interface OrderBusinessUnitSetMessage extends IOrderMessage {
    *
    */
   readonly oldbusinessUnit?: BusinessUnitKeyReference
+}
+/**
+ *	Generated after an Order is successfully created according to the defined schedule of a Recurring Order.
+ *
+ */
+export interface OrderCreatedFromRecurringOrderMessage extends IOrderMessage {
+  readonly type: 'OrderCreatedFromRecurringOrder'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[Order](ctp:api:type:Order) that was created.
+   *
+   *
+   */
+  readonly order: _Order
+  /**
+   *	Reference to the origin [Recurring Order](ctp:api:type:RecurringOrder).
+   *
+   *
+   */
+  readonly recurringOrderRef: RecurringOrderReference
 }
 /**
  *	Generated after a successful [Create Order](ctp:api:endpoint:/{projectKey}/orders:POST) request.
@@ -19445,6 +19540,835 @@ export interface QuoteStateTransitionMessage extends IMessage {
   readonly force: boolean
 }
 /**
+ *	Generated after a successful [Create RecurringOrder](ctp:api:endpoint:/{projectKey}/recurring-orders:POST) request.
+ *
+ */
+export interface RecurringOrderCreatedMessage extends IMessage {
+  readonly type: 'RecurringOrderCreated'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[RecurringOrder](ctp:api:type:RecurringOrder) that was created.
+   *
+   *
+   */
+  readonly order: RecurringOrder
+}
+/**
+ *	Generated after adding a Custom Field using the [Set CustomField](ctp:api:type:RecurringOrderSetCustomFieldAction).
+ *
+ */
+export interface RecurringOrderCustomFieldAddedMessage extends IMessage {
+  readonly type: 'RecurringOrderCustomFieldAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that was added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated when an existing Custom Field has been changed using the [Set CustomField](ctp:api:type:RecurringOrderSetCustomFieldAction) action.
+ *
+ */
+export interface RecurringOrderCustomFieldChangedMessage extends IMessage {
+  readonly type: 'RecurringOrderCustomFieldChanged'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:RecurringOrderSetCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) before the [Set CustomField](ctp:api:type:RecurringOrderSetCustomFieldAction) update action.
+   *	When there has not been a Custom Field with the `name` on the Order before, an [Order Custom Field Added](ctp:api:type:RecurringOrderCustomFieldAddedMessage) Message is generated instead.
+   *
+   *
+   */
+  readonly previousValue?: any
+}
+/**
+ *	Generated when a Custom Field has been removed from the Order using the [Set CustomField](ctp:api:type:RecurringOrderSetCustomFieldAction) action.
+ *
+ */
+export interface RecurringOrderCustomFieldRemovedMessage extends IMessage {
+  readonly type: 'RecurringOrderCustomFieldRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after a successful [Set Custom Type](ctp:api:type:RecurringOrderSetCustomTypeAction) with empty parameters.
+ *
+ */
+export interface RecurringOrderCustomTypeRemovedMessage extends IMessage {
+  readonly type: 'RecurringOrderCustomTypeRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly previousTypeId?: string
+}
+/**
+ *	Generated after a successful [Set Custom Type](ctp:api:type:RecurringOrderSetCustomTypeAction).
+ *
+ */
+export interface RecurringOrderCustomTypeSetMessage extends IMessage {
+  readonly type: 'RecurringOrderCustomTypeSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The Custom Fields that have been set.
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly previousTypeId?: string
+}
+/**
+ *	Generated after a successful [Set Key](ctp:api:type:RecurringOrderSetKeyAction) update action.
+ *
+ */
+export interface RecurringOrderKeySetMessage extends IMessage {
+  readonly type: 'RecurringOrderKeySet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	`key` value of the [RecurringOrder](ctp:api:type:RecurringOrder) after the [Set Key](ctp:api:type:RecurringOrderSetKeyAction) update action.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	`key` value of the [RecurringOrder](ctp:api:type:RecurringOrder) before the [Set Key](ctp:api:type:RecurringOrderSetKeyAction) update action.
+   *
+   *
+   */
+  readonly oldKey?: string
+}
+/**
+ *	Generated after a successful [Set Schedule](ctp:api:type:RecurringOrderSetScheduleAction) update action.
+ *
+ */
+export interface RecurringOrderScheduleSetMessage extends IMessage {
+  readonly type: 'RecurringOrderScheduleSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[Schedule](ctp:api:type:RecurrencePolicySchedule) of the Recurring Order after the [Set Schedule](ctp:api:type:RecurringOrderSetScheduleAction) update action.
+   *
+   *
+   */
+  readonly recurrencePolicySchedule: RecurrencePolicySchedule
+  /**
+   *	[Schedule](ctp:api:type:RecurrencePolicySchedule) of the Recurring Order before the [Set Schedule](ctp:api:type:RecurringOrderSetScheduleAction) update action.
+   *
+   *
+   */
+  readonly oldRecurrencePolicySchedule: RecurrencePolicySchedule
+}
+/**
+ *	Generated after a successful [Set Starts At](ctp:api:type:RecurringOrderSetStartsAtAction) update action.
+ *
+ */
+export interface RecurringOrderStartsAtSetMessage extends IMessage {
+  readonly type: 'RecurringOrderStartsAtSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Start date and time of the Recurring Order after the [Set Starts At](ctp:api:type:RecurringOrderSetStartsAtAction) update action.
+   *
+   *
+   */
+  readonly startsAt: string
+  /**
+   *	Start date and time of the Recurring Order before the [Set Starts At](ctp:api:type:RecurringOrderSetStartsAtAction) update action.
+   *
+   *
+   */
+  readonly oldStartsAt: string
+}
+/**
+ *	Generated after a successful [Set RecurringOrderState](ctp:api:type:RecurringOrderSetStateAction) update action.
+ *
+ */
+export interface RecurringOrderStateChangedMessage extends IMessage {
+  readonly type: 'RecurringOrderStateChanged'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[RecurringOrderState](ctp:api:type:RecurringOrderState) after the [Set RecurringOrderState](ctp:api:type:RecurringOrderSetStateAction) update action.
+   *
+   *
+   */
+  readonly state: RecurringOrderState
+  /**
+   *	[RecurringOrderState](ctp:api:type:RecurringOrderState) before the [Set RecurringOrderState](ctp:api:type:RecurringOrderSetStateAction) update action.
+   *
+   *
+   */
+  readonly oldState?: RecurringOrderState
+}
+/**
+ *	Generated after a successful [Transition State](ctp:api:type:RecurringOrderTransitionStateAction) update action.
+ *
+ */
+export interface RecurringOrderStateTransitionMessage extends IMessage {
+  readonly type: 'RecurringOrderStateTransition'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[RecurringOrderState](ctp:api:type:RecurringOrderState) after the [Transition State](ctp:api:type:RecurringOrderTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly state: StateReference
+  /**
+   *	[RecurringOrderState](ctp:api:type:RecurringOrderState) before the [Transition State](ctp:api:type:RecurringOrderTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly oldState?: StateReference
+  /**
+   *	Whether [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:RecurringOrderTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly force: boolean
+}
+/**
  *	Generated after a successful [Add ReturnInfo](ctp:api:type:OrderAddReturnInfoAction) update action.
  *
  */
@@ -22395,6 +23319,7 @@ export type MessagePayload =
   | LineItemStateTransitionMessagePayload
   | OrderBillingAddressSetMessagePayload
   | OrderBusinessUnitSetMessagePayload
+  | OrderCreatedFromRecurringOrderMessagePayload
   | OrderCreatedMessagePayload
   | OrderCustomFieldAddedMessagePayload
   | OrderCustomFieldChangedMessagePayload
@@ -22520,6 +23445,17 @@ export type MessagePayload =
   | QuoteRequestStateTransitionMessagePayload
   | QuoteStateChangedMessagePayload
   | QuoteStateTransitionMessagePayload
+  | RecurringOrderCreatedMessagePayload
+  | RecurringOrderCustomFieldAddedMessagePayload
+  | RecurringOrderCustomFieldChangedMessagePayload
+  | RecurringOrderCustomFieldRemovedMessagePayload
+  | RecurringOrderCustomTypeRemovedMessagePayload
+  | RecurringOrderCustomTypeSetMessagePayload
+  | RecurringOrderKeySetMessagePayload
+  | RecurringOrderScheduleSetMessagePayload
+  | RecurringOrderStartsAtSetMessagePayload
+  | RecurringOrderStateChangedMessagePayload
+  | RecurringOrderStateTransitionMessagePayload
   | ReturnInfoAddedMessagePayload
   | ReturnInfoSetMessagePayload
   | ReviewCreatedMessagePayload
@@ -24380,6 +25316,7 @@ export type OrderMessagePayload =
   | LineItemStateTransitionMessagePayload
   | OrderBillingAddressSetMessagePayload
   | OrderBusinessUnitSetMessagePayload
+  | OrderCreatedFromRecurringOrderMessagePayload
   | OrderCreatedMessagePayload
   | OrderCustomFieldAddedMessagePayload
   | OrderCustomFieldChangedMessagePayload
@@ -24777,6 +25714,26 @@ export interface OrderBusinessUnitSetMessagePayload
    *
    */
   readonly oldbusinessUnit?: BusinessUnitKeyReference
+}
+/**
+ *	Generated after an Order is successfully created according to the defined schedule of a Recurring Order.
+ *
+ */
+export interface OrderCreatedFromRecurringOrderMessagePayload
+  extends IOrderMessagePayload {
+  readonly type: 'OrderCreatedFromRecurringOrder'
+  /**
+   *	[Order](ctp:api:type:Order) that was created.
+   *
+   *
+   */
+  readonly order: _Order
+  /**
+   *	Reference to the origin [Recurring Order](ctp:api:type:RecurringOrder).
+   *
+   *
+   */
+  readonly recurringOrderRef: RecurringOrderReference
 }
 /**
  *	Generated after a successful [Create Order](ctp:api:endpoint:/{projectKey}/orders:POST) request.
@@ -27579,6 +28536,217 @@ export interface QuoteStateTransitionMessagePayload extends IMessagePayload {
   readonly oldState?: StateReference
   /**
    *	Whether [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:QuoteTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly force: boolean
+}
+/**
+ *	Generated after a successful [Create RecurringOrder](ctp:api:endpoint:/{projectKey}/recurring-orders:POST) request.
+ *
+ */
+export interface RecurringOrderCreatedMessagePayload extends IMessagePayload {
+  readonly type: 'RecurringOrderCreated'
+  /**
+   *	[RecurringOrder](ctp:api:type:RecurringOrder) that was created.
+   *
+   *
+   */
+  readonly order: RecurringOrder
+}
+/**
+ *	Generated after adding a Custom Field using the [Set CustomField](ctp:api:type:RecurringOrderSetCustomFieldAction).
+ *
+ */
+export interface RecurringOrderCustomFieldAddedMessagePayload
+  extends IMessagePayload {
+  readonly type: 'RecurringOrderCustomFieldAdded'
+  /**
+   *	Name of the Custom Field that was added.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The added [CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType).
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Generated when an existing Custom Field has been changed using the [Set CustomField](ctp:api:type:RecurringOrderSetCustomFieldAction) action.
+ *
+ */
+export interface RecurringOrderCustomFieldChangedMessagePayload
+  extends IMessagePayload {
+  readonly type: 'RecurringOrderCustomFieldChanged'
+  /**
+   *	Name of the Custom Field that changed.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) after the [Set CustomField](ctp:api:type:RecurringOrderSetCustomFieldAction) update action.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	[CustomFieldValue](ctp:api:type:CustomFieldValue) based on the [FieldType](ctp:api:type:FieldType) before the [Set CustomField](ctp:api:type:RecurringOrderSetCustomFieldAction) update action.
+   *	When there has not been a Custom Field with the `name` on the Order before, an [Order Custom Field Added](ctp:api:type:RecurringOrderCustomFieldAddedMessage) Message is generated instead.
+   *
+   *
+   */
+  readonly previousValue?: any
+}
+/**
+ *	Generated when a Custom Field has been removed from the Order using the [Set CustomField](ctp:api:type:RecurringOrderSetCustomFieldAction) action.
+ *
+ */
+export interface RecurringOrderCustomFieldRemovedMessagePayload
+  extends IMessagePayload {
+  readonly type: 'RecurringOrderCustomFieldRemoved'
+  /**
+   *	Name of the Custom Field that was removed.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Generated after a successful [Set Custom Type](ctp:api:type:RecurringOrderSetCustomTypeAction) with empty parameters.
+ *
+ */
+export interface RecurringOrderCustomTypeRemovedMessagePayload
+  extends IMessagePayload {
+  readonly type: 'RecurringOrderCustomTypeRemoved'
+  /**
+   *	`id` of the [Custom Type](ctp:api:type:Type) that was removed. Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly previousTypeId?: string
+}
+/**
+ *	Generated after a successful [Set Custom Type](ctp:api:type:RecurringOrderSetCustomTypeAction).
+ *
+ */
+export interface RecurringOrderCustomTypeSetMessagePayload
+  extends IMessagePayload {
+  readonly type: 'RecurringOrderCustomTypeSet'
+  /**
+   *	The Custom Fields that have been set.
+   *
+   */
+  readonly customFields: CustomFields
+  /**
+   *	`id` of the previous [Custom Type](ctp:api:type:Type). Absent if there was no previous Custom Type present.
+   *
+   *
+   */
+  readonly previousTypeId?: string
+}
+/**
+ *	Generated after a successful [Set Key](ctp:api:type:RecurringOrderSetKeyAction) update action.
+ *
+ */
+export interface RecurringOrderKeySetMessagePayload extends IMessagePayload {
+  readonly type: 'RecurringOrderKeySet'
+  /**
+   *	`key` value of the [RecurringOrder](ctp:api:type:RecurringOrder) after the [Set Key](ctp:api:type:RecurringOrderSetKeyAction) update action.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	`key` value of the [RecurringOrder](ctp:api:type:RecurringOrder) before the [Set Key](ctp:api:type:RecurringOrderSetKeyAction) update action.
+   *
+   *
+   */
+  readonly oldKey?: string
+}
+/**
+ *	Generated after a successful [Set Schedule](ctp:api:type:RecurringOrderSetScheduleAction) update action.
+ *
+ */
+export interface RecurringOrderScheduleSetMessagePayload
+  extends IMessagePayload {
+  readonly type: 'RecurringOrderScheduleSet'
+  /**
+   *	[Schedule](ctp:api:type:RecurrencePolicySchedule) of the Recurring Order after the [Set Schedule](ctp:api:type:RecurringOrderSetScheduleAction) update action.
+   *
+   *
+   */
+  readonly recurrencePolicySchedule: RecurrencePolicySchedule
+  /**
+   *	[Schedule](ctp:api:type:RecurrencePolicySchedule) of the Recurring Order before the [Set Schedule](ctp:api:type:RecurringOrderSetScheduleAction) update action.
+   *
+   *
+   */
+  readonly oldRecurrencePolicySchedule: RecurrencePolicySchedule
+}
+/**
+ *	Generated after a successful [Set Starts At](ctp:api:type:RecurringOrderSetStartsAtAction) update action.
+ *
+ */
+export interface RecurringOrderStartsAtSetMessagePayload
+  extends IMessagePayload {
+  readonly type: 'RecurringOrderStartsAtSet'
+  /**
+   *	Start date and time of the Recurring Order after the [Set Starts At](ctp:api:type:RecurringOrderSetStartsAtAction) update action.
+   *
+   *
+   */
+  readonly startsAt: string
+  /**
+   *	Start date and time of the Recurring Order before the [Set Starts At](ctp:api:type:RecurringOrderSetStartsAtAction) update action.
+   *
+   *
+   */
+  readonly oldStartsAt: string
+}
+/**
+ *	Generated after a successful [Set RecurringOrderState](ctp:api:type:RecurringOrderSetStateAction) update action.
+ *
+ */
+export interface RecurringOrderStateChangedMessagePayload
+  extends IMessagePayload {
+  readonly type: 'RecurringOrderStateChanged'
+  /**
+   *	[RecurringOrderState](ctp:api:type:RecurringOrderState) after the [Set RecurringOrderState](ctp:api:type:RecurringOrderSetStateAction) update action.
+   *
+   *
+   */
+  readonly state: RecurringOrderState
+  /**
+   *	[RecurringOrderState](ctp:api:type:RecurringOrderState) before the [Set RecurringOrderState](ctp:api:type:RecurringOrderSetStateAction) update action.
+   *
+   *
+   */
+  readonly oldState?: RecurringOrderState
+}
+/**
+ *	Generated after a successful [Transition State](ctp:api:type:RecurringOrderTransitionStateAction) update action.
+ *
+ */
+export interface RecurringOrderStateTransitionMessagePayload
+  extends IMessagePayload {
+  readonly type: 'RecurringOrderStateTransition'
+  /**
+   *	[RecurringOrderState](ctp:api:type:RecurringOrderState) after the [Transition State](ctp:api:type:RecurringOrderTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly state: StateReference
+  /**
+   *	[RecurringOrderState](ctp:api:type:RecurringOrderState) before the [Transition State](ctp:api:type:RecurringOrderTransitionStateAction) update action.
+   *
+   *
+   */
+  readonly oldState?: StateReference
+  /**
+   *	Whether [State](ctp:api:type:State) transition validations were turned off during the [Transition State](ctp:api:type:RecurringOrderTransitionStateAction) update action.
    *
    *
    */

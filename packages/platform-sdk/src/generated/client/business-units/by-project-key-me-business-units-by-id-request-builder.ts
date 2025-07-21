@@ -21,7 +21,7 @@ export class ByProjectKeyMeBusinessUnitsByIDRequestBuilder {
     }
   ) {}
   /**
-   *	Returns a Business Unit for a given `id`. Returns a `200 OK` status if the Business Unit exists and the Customer has access to it, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *	Returns a Business Unit for a given `id`. Returns a `200` status if the Business Unit exists and the Customer has access to it, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
    *
    */
   public get(methodArgs?: {
@@ -48,7 +48,7 @@ export class ByProjectKeyMeBusinessUnitsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a BusinessUnit exists with the provided `id`. Returns a `200 OK` status if the BusinessUnit exists and the Customer has access to it, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *	Checks if a BusinessUnit exists with the provided `id`. Returns a `200` status if the BusinessUnit exists and the Customer has access to it, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -69,7 +69,7 @@ export class ByProjectKeyMeBusinessUnitsByIDRequestBuilder {
     )
   }
   /**
-   *	Updates a Business Unit for a given `id`. Returns a `200 OK` status if the Business Unit exists and the Customer has access to it, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *	Updates a Business Unit for a given `id`. Returns a `200` status if the Business Unit exists and the Customer has access to it, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
    *
    */
   public post(methodArgs: {

@@ -993,6 +993,13 @@ export interface ProductVariant {
    *
    */
   readonly scopedPriceDiscounted?: boolean
+  /**
+   *	Only available when [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection) is used.
+   *	Cannot be used in a [Query Predicate](ctp:api:type:QueryPredicate).
+   *
+   *
+   */
+  readonly recurrencePrices?: Price[]
 }
 /**
  *	The [InventoryEntry](ctp:api:type:InventoryEntry) information of the Product Variant. If there is a supply [Channel](ctp:api:type:Channel) for the InventoryEntry, then `channels` is returned. If not, then `isOnStock`, `restockableInDays`, and `availableQuantity` are returned.

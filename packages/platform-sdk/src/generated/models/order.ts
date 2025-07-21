@@ -152,6 +152,7 @@ import {
 import { PaymentReference, PaymentResourceIdentifier } from './payment'
 import { Attribute } from './product'
 import { QuoteReference, QuoteResourceIdentifier } from './quote'
+import { RecurringOrderReference } from './recurring-order'
 import {
   ShippingMethodResourceIdentifier,
   ShippingRateDraft,
@@ -992,6 +993,12 @@ export interface Order extends BaseResource {
    *
    */
   readonly quote?: QuoteReference
+  /**
+   *	[Reference](ctp:api:type:Reference) to the RecurringOrder that generated this Order.
+   *
+   *
+   */
+  readonly recurringOrder?: RecurringOrderReference
   /**
    *	Current status of the Order.
    *

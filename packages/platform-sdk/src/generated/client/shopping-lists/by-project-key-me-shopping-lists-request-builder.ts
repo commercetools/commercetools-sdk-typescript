@@ -50,7 +50,7 @@ export class ByProjectKeyMeShoppingListsRequestBuilder {
   }
 
   /**
-   *	Retrieves ShoppingLists for the authenticated Customer or anonymous user. Returns a `200 OK` status if successful.
+   *	Retrieves ShoppingLists for the authenticated Customer or anonymous user. Returns a `200` status if successful.
    *
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *
@@ -87,7 +87,7 @@ export class ByProjectKeyMeShoppingListsRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more ShoppingLists exist for the provided query predicate for the authenticated Customer or anonymous user. Returns a `200 OK` status if successful.
+   *	Checks if one or more ShoppingLists exist for the provided query predicate for the authenticated Customer or anonymous user. Returns a `200` status if successful.
    *
    *	A [Not Found](/../api/errors#404-not-found) error is returned in the following scenarios:
    *

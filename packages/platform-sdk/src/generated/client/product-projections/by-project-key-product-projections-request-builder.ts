@@ -82,6 +82,7 @@ export class ByProjectKeyProductProjectionsRequestBuilder {
       priceCustomerGroup?: string
       priceCustomerGroupAssignments?: string | string[]
       priceChannel?: string
+      priceRecurrencePolicy?: string
       localeProjection?: string | string[]
       storeProjection?: string
       expand?: string | string[]
@@ -111,7 +112,7 @@ export class ByProjectKeyProductProjectionsRequestBuilder {
     )
   }
   /**
-   *	Checks if the current or staged representation of a Product exists for the provided query predicate. Returns a `200 OK` status if any ProductProjections match the query predicate, or a `404 Not Found` otherwise.
+   *	Checks if the current or staged representation of a Product exists for the provided query predicate. Returns a `200` status if any ProductProjections match the query predicate, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

@@ -46,7 +46,7 @@ export class ByProjectKeyShippingMethodsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a ShippingMethod exists with the provided `id`. Returns a `200 OK` status if the ShippingMethod exists or a `404 Not Found` otherwise.
+   *	Checks if a ShippingMethod exists with the provided `id`. Returns a `200` status if the ShippingMethod exists, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     headers?: {

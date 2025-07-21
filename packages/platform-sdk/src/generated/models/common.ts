@@ -110,6 +110,16 @@ import {
   QuoteRequestReference,
   QuoteRequestResourceIdentifier,
 } from './quote-request'
+import {
+  RecurrencePolicy,
+  RecurrencePolicyReference,
+  RecurrencePolicyResourceIdentifier,
+} from './recurrence-policy'
+import {
+  RecurringOrder,
+  RecurringOrderReference,
+  RecurringOrderResourceIdentifier,
+} from './recurring-order'
 import { Review, ReviewReference, ReviewResourceIdentifier } from './review'
 import {
   ShippingMethod,
@@ -600,6 +610,8 @@ export type _BaseResource =
   | ProductType
   | Quote
   | QuoteRequest
+  | RecurrencePolicy
+  | RecurringOrder
   | Review
   | ShippingMethod
   | ShoppingList
@@ -946,6 +958,12 @@ export interface Price {
    *
    */
   readonly custom?: CustomFields
+  /**
+   *	[Recurrence Policy](ctp:api:type:RecurrencePolicy) for which this Price is valid.
+   *
+   *
+   */
+  readonly recurrencePolicy?: RecurrencePolicyReference
 }
 /**
  *	The draft representation for prices to be embedded into [ProductVariantDrafts](ctp:api:type:ProductVariantDraft) when the [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) is `Embedded`. For the `Standalone` ProductPriceMode use [StandalonePriceDraft](ctp:api:type:StandalonePriceDraft).
@@ -1022,6 +1040,12 @@ export interface PriceDraft {
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	[RecurrencePolicy](ctp:api:type:RecurrencePolicy) for which this Price is valid.
+   *
+   *
+   */
+  readonly recurrencePolicy?: RecurrencePolicyResourceIdentifier
 }
 /**
  *	A Price tier is selected instead of the default Price when a certain quantity of the [ProductVariant](ctp:api:type:ProductVariant) is [added to a Cart](/projects/carts#add-lineitem) and ordered.
@@ -1171,6 +1195,8 @@ export type Reference =
   | ProductTypeReference
   | QuoteReference
   | QuoteRequestReference
+  | RecurrencePolicyReference
+  | RecurringOrderReference
   | ReviewReference
   | ShippingMethodReference
   | ShoppingListReference
@@ -1231,6 +1257,8 @@ export enum ReferenceTypeIdValues {
   ProductType = 'product-type',
   Quote = 'quote',
   QuoteRequest = 'quote-request',
+  RecurrencePolicy = 'recurrence-policy',
+  RecurringOrder = 'recurring-order',
   Review = 'review',
   ShippingMethod = 'shipping-method',
   ShoppingList = 'shopping-list',
@@ -1276,6 +1304,8 @@ export type ReferenceTypeId =
   | 'product-type'
   | 'quote'
   | 'quote-request'
+  | 'recurrence-policy'
+  | 'recurring-order'
   | 'review'
   | 'shipping-method'
   | 'shopping-list'
@@ -1316,6 +1346,8 @@ export type ResourceIdentifier =
   | ProductTypeResourceIdentifier
   | QuoteRequestResourceIdentifier
   | QuoteResourceIdentifier
+  | RecurrencePolicyResourceIdentifier
+  | RecurringOrderResourceIdentifier
   | ReviewResourceIdentifier
   | ShippingMethodResourceIdentifier
   | ShoppingListResourceIdentifier

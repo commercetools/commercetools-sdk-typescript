@@ -81,7 +81,7 @@ export class ByProjectKeyPaymentsRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more Payments exist for the provided query predicate. Returns a `200 OK` status if any Payments match the query predicate, or [Not Found](/../api/errors#404-not-found) otherwise.
+   *	Checks if one or more Payments exist for the provided query predicate. Returns a `200` status if any Payments match the query predicate, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {

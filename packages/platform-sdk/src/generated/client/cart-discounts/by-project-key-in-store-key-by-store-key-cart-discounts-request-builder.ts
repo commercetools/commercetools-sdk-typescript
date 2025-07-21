@@ -81,7 +81,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartDiscountsRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more CartDiscounts exist for the provided query predicate. Returns a `200 OK` status if any CartDiscounts match the query predicate, or a `404 Not Found` otherwise.
+   *	Checks if one or more CartDiscounts exist for the provided query predicate. Returns a `200` status if any CartDiscounts match the query predicate, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {
