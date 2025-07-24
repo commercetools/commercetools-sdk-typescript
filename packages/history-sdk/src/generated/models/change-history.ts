@@ -6,12 +6,13 @@
 
 import { Change } from './change'
 import { KeyReference, Reference, ResourceIdentifier } from './common'
+import { TooManyRequestsError } from './error'
 import { Label } from './label'
 
 /**
  *	Captures the differences between the previous and next version of a resource.
  *
- *	The maximum number of Records that can be stored and their retention period are subject to a [limit](/../api/limits#records).
+ *	The maximum number of Records that can be stored and their retention period are subject to a [limit](/../api/limits#change-history).
  *
  */
 export interface Record {
@@ -207,6 +208,7 @@ export interface ErrorObject {
    */
   readonly message: string
 }
+export type _ErrorObject = ErrorObject | TooManyRequestsError
 export interface ErrorResponse {
   /**
    *

@@ -391,6 +391,7 @@ export type Message =
   | RecurringOrderCustomFieldRemovedMessage
   | RecurringOrderCustomTypeRemovedMessage
   | RecurringOrderCustomTypeSetMessage
+  | RecurringOrderDeletedMessage
   | RecurringOrderKeySetMessage
   | RecurringOrderScheduleSetMessage
   | RecurringOrderStartsAtSetMessage
@@ -19983,6 +19984,76 @@ export interface RecurringOrderCustomTypeSetMessage extends IMessage {
   readonly previousTypeId?: string
 }
 /**
+ *	Generated after a successful [Delete RecurringOrder](/../api/projects/recurring-orders#delete-recurringorder) request.
+ *
+ */
+export interface RecurringOrderDeletedMessage extends IMessage {
+  readonly type: 'RecurringOrderDeleted'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[RecurringOrder](ctp:api:type:RecurringOrder) that was deleted.
+   *
+   *
+   */
+  readonly recurringOrder: RecurringOrder
+}
+/**
  *	Generated after a successful [Set Key](ctp:api:type:RecurringOrderSetKeyAction) update action.
  *
  */
@@ -23451,6 +23522,7 @@ export type MessagePayload =
   | RecurringOrderCustomFieldRemovedMessagePayload
   | RecurringOrderCustomTypeRemovedMessagePayload
   | RecurringOrderCustomTypeSetMessagePayload
+  | RecurringOrderDeletedMessagePayload
   | RecurringOrderKeySetMessagePayload
   | RecurringOrderScheduleSetMessagePayload
   | RecurringOrderStartsAtSetMessagePayload
@@ -28646,6 +28718,19 @@ export interface RecurringOrderCustomTypeSetMessagePayload
    *
    */
   readonly previousTypeId?: string
+}
+/**
+ *	Generated after a successful [Delete RecurringOrder](/../api/projects/recurring-orders#delete-recurringorder) request.
+ *
+ */
+export interface RecurringOrderDeletedMessagePayload extends IMessagePayload {
+  readonly type: 'RecurringOrderDeleted'
+  /**
+   *	[RecurringOrder](ctp:api:type:RecurringOrder) that was deleted.
+   *
+   *
+   */
+  readonly recurringOrder: RecurringOrder
 }
 /**
  *	Generated after a successful [Set Key](ctp:api:type:RecurringOrderSetKeyAction) update action.

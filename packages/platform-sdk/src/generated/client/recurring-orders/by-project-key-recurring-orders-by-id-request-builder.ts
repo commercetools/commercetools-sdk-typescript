@@ -101,4 +101,33 @@ export class ByProjectKeyRecurringOrdersByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deletes a Recurring Order in the Project.
+   *
+   */
+  public delete(methodArgs: {
+    queryArgs: {
+      dataErasure?: boolean
+      version: number
+      expand?: string | string[]
+      [key: string]: QueryParam
+    }
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<RecurringOrder> {
+    return new ApiRequest<RecurringOrder>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'DELETE',
+        uriTemplate: '/{projectKey}/recurring-orders/{ID}',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
+      },
+      this.args.executeRequest
+    )
+  }
 }

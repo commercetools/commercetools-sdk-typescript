@@ -1,3 +1,7 @@
+---
+'@commercetools/platform-sdk': minor
+---
+
 **Api changes**
 
 <details>
@@ -26,20 +30,4 @@
 - :warning: changed property `deleteDaysAfterLastModification` of type `ShoppingList` from type `number` to `integer`
 - :warning: changed property `deleteDaysAfterLastModification` of type `ShoppingListDraft` from type `number` to `integer`
 - :warning: changed property `deleteDaysAfterLastModification` of type `ShoppingListSetDeleteDaysAfterLastModificationAction` from type `number` to `integer`
-</details>
-
-**History changes**
-
-<details>
-<summary>Added Type(s)</summary>
-
-- added type `TooManyRequestsError`
-- added type `GraphQLTooManyRequestsError`
-- added type `GraphQLErrorObject`
-</details>
-
-<details>
-<summary>Changed Property(s)</summary>
-
-- :warning: changed property `extensions` of type `GraphQLError` from type `object` to `GraphQLErrorObject`
 </details>
