@@ -19,12 +19,15 @@ export class ByProjectKeyShippingMethodsMatchingLocationRequestBuilder {
     }
   ) {}
   /**
-   *	Retrieves the active ShippingMethods that can ship to the given [Location](/projects/zones#location).
-   *	ShippingMethods that have a `predicate` defined are automatically disqualified.
-   *	If the `currency` parameter is given, then the ShippingMethods must also have a rate defined in the specified currency.
-   *	Each ShippingMethod contains at least one ShippingRate with the flag `isMatching` set to `true`.
-   *	If the `currency` parameter is given, exactly one ShippingRate will contain it.
-   *	If a matching ShippingMethod has `isDefault` set to `true`, it is returned as the first item in the array.
+   *	Retrieves the active ShippingMethods that can ship to the provided [Location](/projects/zones#location).
+   *
+   *	The following applies:
+   *
+   *	- ShippingMethods that have a `predicate` defined are automatically disqualified.
+   *	- If the `currency` parameter is provided, then the ShippingMethods must also have a rate defined in the specified currency.
+   *	- Each ShippingMethod contains at least one ShippingRate with the flag `isMatching` set to `true`.
+   *	- If the `currency` parameter is provided, exactly one ShippingRate will contain it.
+   *	- If a matching ShippingMethod has `isDefault` set to `true`, it is returned as the first item in the array.
    *
    */
   public get(methodArgs: {
@@ -55,7 +58,7 @@ export class ByProjectKeyShippingMethodsMatchingLocationRequestBuilder {
     )
   }
   /**
-   *	Checks if an active ShippingMethod that can ship to the given [Location](ctp:api:type:Location) exists. Returns a `200` status if the ShippingMethod exists, or a `404` status otherwise.
+   *	Checks if an active ShippingMethod that can ship to the provided [Location](ctp:api:type:Location) exists. Returns a `200 OK` status if the ShippingMethod exists or a [Not Found](/../api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs: {
     queryArgs: {

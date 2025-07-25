@@ -22,6 +22,9 @@ export class ByProjectKeyShippingMethodsByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Retrieves a ShippingMethod with the provided `id`.
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -46,7 +49,7 @@ export class ByProjectKeyShippingMethodsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a ShippingMethod exists with the provided `id`. Returns a `200` status if the ShippingMethod exists, or a `404` status otherwise.
+   *	Checks if a ShippingMethod exists with the provided `id`. Returns a `200 OK` status if the ShippingMethod exists or a [Not Found](/../api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -66,6 +69,9 @@ export class ByProjectKeyShippingMethodsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Updates a ShippingMethod in the Project using one or more [update actions](/../api/projects/shippingMethods#update-actions).
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -92,6 +98,9 @@ export class ByProjectKeyShippingMethodsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deletes a ShippingMethod in the Project.
+   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

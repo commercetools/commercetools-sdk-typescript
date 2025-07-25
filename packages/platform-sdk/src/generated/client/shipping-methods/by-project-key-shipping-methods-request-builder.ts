@@ -41,7 +41,7 @@ export class ByProjectKeyShippingMethodsRequestBuilder {
     })
   }
   /**
-   *	Get ShippingMethods for a Cart
+   *	Get matching ShippingMethods for a Cart
    */
   public matchingCart(): ByProjectKeyShippingMethodsMatchingCartRequestBuilder {
     return new ByProjectKeyShippingMethodsMatchingCartRequestBuilder({
@@ -53,7 +53,7 @@ export class ByProjectKeyShippingMethodsRequestBuilder {
     })
   }
   /**
-   *	Get ShippingMethods for a Cart and Location
+   *	Get matching ShippingMethods for a Cart and Location
    */
   public matchingCartLocation(): ByProjectKeyShippingMethodsMatchingCartLocationRequestBuilder {
     return new ByProjectKeyShippingMethodsMatchingCartLocationRequestBuilder({
@@ -65,7 +65,7 @@ export class ByProjectKeyShippingMethodsRequestBuilder {
     })
   }
   /**
-   *	Get ShippingMethods for an Order Edit
+   *	Get matching ShippingMethods for an OrderEdit
    */
   public matchingOrderedit(): ByProjectKeyShippingMethodsMatchingOrdereditRequestBuilder {
     return new ByProjectKeyShippingMethodsMatchingOrdereditRequestBuilder({
@@ -77,7 +77,7 @@ export class ByProjectKeyShippingMethodsRequestBuilder {
     })
   }
   /**
-   *	Get ShippingMethods for a Location
+   *	Get matching ShippingMethods for a Location
    */
   public matchingLocation(): ByProjectKeyShippingMethodsMatchingLocationRequestBuilder {
     return new ByProjectKeyShippingMethodsMatchingLocationRequestBuilder({
@@ -101,6 +101,9 @@ export class ByProjectKeyShippingMethodsRequestBuilder {
     })
   }
 
+  /**
+   *	Retrieves all ShippingMethods in the Project.
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -130,7 +133,7 @@ export class ByProjectKeyShippingMethodsRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more ShippingMethods exist for the provided query predicate. Returns a `200` status if any ShippingMethods match the query predicate, or a `404` status otherwise.
+   *	Checks if one or more ShippingMethods exist for the provided query predicate. Returns a `200 OK` status if any ShippingMethods match the query predicate or a [Not Found](/../api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {
@@ -155,6 +158,9 @@ export class ByProjectKeyShippingMethodsRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Creates a ShippingMethod in the Project.
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

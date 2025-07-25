@@ -19,6 +19,9 @@ export class ByProjectKeyZonesByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Retrieves a Zone with the provided `id`.
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -43,7 +46,7 @@ export class ByProjectKeyZonesByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a Zone exists with the provided `id`. Returns a `200` status if the Zone exists, or a `404` status otherwise.
+   *	Checks if a Zone exists with the provided `id`. Returns a `200 OK` status if the Zone exists or a [Not Found](/../api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -89,6 +92,9 @@ export class ByProjectKeyZonesByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deletes a Zone in the Project.
+   */
   public delete(methodArgs: {
     queryArgs: {
       version: number

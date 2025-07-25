@@ -19,7 +19,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyShippingMethodsRequestBuilder {
     }
   ) {}
   /**
-   *	Get ShippingMethods for a cart in a store
+   *	Get matching ShippingMethods for a Cart in a Store
    */
   public matchingCart(): ByProjectKeyInStoreKeyByStoreKeyShippingMethodsMatchingCartRequestBuilder {
     return new ByProjectKeyInStoreKeyByStoreKeyShippingMethodsMatchingCartRequestBuilder(

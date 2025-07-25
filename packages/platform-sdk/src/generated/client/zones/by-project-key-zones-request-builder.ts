@@ -45,6 +45,9 @@ export class ByProjectKeyZonesRequestBuilder {
     })
   }
 
+  /**
+   *	Retrieves all Zones in the Project.
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -74,7 +77,7 @@ export class ByProjectKeyZonesRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more Zones exist for the provided query predicate. Returns a `200` status if any Zones match the query predicate, or a `404` status otherwise.
+   *	Checks if one or more Zones exist for the provided query predicate. Returns a `200 OK` status if any Zones match the query predicate, or a [Not Found](/../api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {
@@ -99,6 +102,9 @@ export class ByProjectKeyZonesRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Creates a Zone in the Project.
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
