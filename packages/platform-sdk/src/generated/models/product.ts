@@ -393,7 +393,8 @@ export interface ProductData {
    */
   readonly searchKeywords: SearchKeywords
   /**
-   *	Attributes according to the respective [AttributeDefinition](ctp:api:type:AttributeDefinition).
+   *	Product Attributes according to the respective [AttributeDefinition](ctp:api:type:AttributeDefinition).
+   *	**Not supported** by [Product Projection Search](/projects/product-projection-search).
    *
    *
    */
@@ -509,7 +510,8 @@ export interface ProductDraft {
    */
   readonly priceMode?: ProductPriceModeEnum
   /**
-   *	Attributes according to the respective [AttributeDefinition](ctp:api:type:AttributeDefinitionDraft).
+   *	Product Attributes according to the respective [AttributeDefinition](ctp:api:type:AttributeDefinitionDraft).
+   *	**Not supported** by [Product Projection Search](/projects/product-projection-search).
    *
    *
    */
@@ -939,7 +941,7 @@ export interface ProductVariant {
    */
   readonly prices?: Price[]
   /**
-   *	Attributes of the Product Variant.
+   *	Variant Attributes according to the respective [AttributeDefinition](ctp:api:type:AttributeDefinition).
    *
    *
    */
@@ -1107,7 +1109,7 @@ export interface ProductVariantDraft {
    */
   readonly prices?: PriceDraft[]
   /**
-   *	Attributes according to the respective [AttributeDefinition](ctp:api:type:AttributeDefinition).
+   *	Variant Attributes according to the respective [AttributeDefinition](ctp:api:type:AttributeDefinition).
    *
    *
    */
