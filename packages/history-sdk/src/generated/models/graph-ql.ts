@@ -4,6 +4,8 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { GraphQLErrorObject } from './error'
+
 /**
  *	The query, operation name, and variables that are sent to the GraphQL API.
  */
@@ -63,7 +65,7 @@ export interface GraphQLError {
    *	Dictionary with additional information where applicable.
    *
    */
-  readonly extensions: any
+  readonly extensions: GraphQLErrorObject
 }
 /**
  *	Represents the location within your query where the error occurred.

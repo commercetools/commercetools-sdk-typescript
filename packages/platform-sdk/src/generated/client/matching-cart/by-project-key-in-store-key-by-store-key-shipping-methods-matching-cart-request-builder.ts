@@ -20,9 +20,10 @@ export class ByProjectKeyInStoreKeyByStoreKeyShippingMethodsMatchingCartRequestB
     }
   ) {}
   /**
-   *	Retrieves the active ShippingMethods that can ship to the shipping address of the given Cart in a given [Store](ctp:api:type:Store).
-   *	Each ShippingMethod contains exactly one ShippingRate with the flag `isMatching` set to `true`.
-   *	This ShippingRate is used when the ShippingMethod is [added to the Cart](ctp:api:type:CartSetShippingMethodAction).
+   *	Retrieves the active ShippingMethods that can ship to the shipping address of the provided Cart in a [Store](ctp:api:type:Store).
+   *
+   *	Each ShippingMethod contains exactly one ShippingRate with the flag `isMatching` set to `true`. This ShippingRate is used when the ShippingMethod is [added to the Cart](ctp:api:type:CartSetShippingMethodAction).
+   *
    *	If a matching ShippingMethod has `isDefault` set to `true`, it is returned as the first item in the array.
    *
    */
@@ -52,7 +53,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyShippingMethodsMatchingCartRequestB
     )
   }
   /**
-   *	Checks if an active ShippingMethod that can ship to the shipping address of the given Cart exists in the given [Store](ctp:api:type:Store). Returns a `200` status if the ShippingMethod exists, or a `404` status otherwise.
+   *	Checks if an active ShippingMethod that can ship to the shipping address of the provided Cart exists in a [Store](ctp:api:type:Store). Returns a `200 OK` status if the ShippingMethod exists or a [Not Found](/../api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs: {
     queryArgs: {
