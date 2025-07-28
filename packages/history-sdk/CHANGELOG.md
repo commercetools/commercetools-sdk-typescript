@@ -1,5 +1,27 @@
 # @commercetools/history-sdk
 
+## 5.5.0
+
+### Minor Changes
+
+- [#1135](https://github.com/commercetools/commercetools-sdk-typescript/pull/1135) [`e46b15e`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e46b15ee15b2910bc16a49bc4ed9695ca0f6ce8d) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **History changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `TooManyRequestsError`
+  - added type `GraphQLTooManyRequestsError`
+  - added type `GraphQLErrorObject`
+  </details>
+
+  <details>
+  <summary>Changed Property(s)</summary>
+
+  - :warning: changed property `extensions` of type `GraphQLError` from type `object` to `GraphQLErrorObject`
+  </details>
+
+- [#1140](https://github.com/commercetools/commercetools-sdk-typescript/pull/1140) [`7c8b972`](https://github.com/commercetools/commercetools-sdk-typescript/commit/7c8b9720037996099ebed2c8b1f72d1bc480a894) Thanks [@ajimae](https://github.com/ajimae)! - Update and unify common type definitions
+
 ## 5.4.1
 
 ### Patch Changes

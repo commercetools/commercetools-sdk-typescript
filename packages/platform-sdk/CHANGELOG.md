@@ -1,5 +1,36 @@
 # @commercetools/platform-sdk
 
+## 8.13.0
+
+### Minor Changes
+
+- [#1135](https://github.com/commercetools/commercetools-sdk-typescript/pull/1135) [`e46b15e`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e46b15ee15b2910bc16a49bc4ed9695ca0f6ce8d) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `RecurringOrderDeletedMessage`
+  - added type `RecurringOrderExpiresAtSetMessage`
+  - added type `RecurringOrderDeletedMessagePayload`
+  - added type `RecurringOrderExpiresAtSetMessagePayload`
+  - added type `RecurringOrderSetExpiresAtAction`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+
+  - added method `apiRoot.withProjectKey().recurringOrders().withId().delete()`
+  - added method `apiRoot.withProjectKey().recurringOrders().withKey().delete()`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `expiresAt` to type `RecurringOrderDraft`
+  </details>
+
+- [#1140](https://github.com/commercetools/commercetools-sdk-typescript/pull/1140) [`7c8b972`](https://github.com/commercetools/commercetools-sdk-typescript/commit/7c8b9720037996099ebed2c8b1f72d1bc480a894) Thanks [@ajimae](https://github.com/ajimae)! - Update and unify common type definitions
+
 ## 8.12.1
 
 ### Patch Changes
