@@ -1,5 +1,11 @@
 # @commercetools/importapi-sdk
 
+## 6.6.0
+
+### Minor Changes
+
+- [#1140](https://github.com/commercetools/commercetools-sdk-typescript/pull/1140) [`7c8b972`](https://github.com/commercetools/commercetools-sdk-typescript/commit/7c8b9720037996099ebed2c8b1f72d1bc480a894) Thanks [@ajimae](https://github.com/ajimae)! - Update and unify common type definitions
+
 ## 6.5.0
 
 ### Minor Changes
