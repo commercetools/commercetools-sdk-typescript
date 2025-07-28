@@ -270,6 +270,12 @@ export interface RecurringOrderDraft {
    */
   readonly startsAt: string
   /**
+   *	Date and time (UTC) when the RecurringOrder will expire.
+   *
+   *
+   */
+  readonly expiresAt?: string
+  /**
    *	State for the RecurringOrder in a custom workflow.
    *
    *
@@ -453,6 +459,7 @@ export interface RecurringOrderUpdate {
 export type RecurringOrderUpdateAction =
   | RecurringOrderSetCustomFieldAction
   | RecurringOrderSetCustomTypeAction
+  | RecurringOrderSetExpiresAtAction
   | RecurringOrderSetKeyAction
   | RecurringOrderSetOrderSkipConfigurationAction
   | RecurringOrderSetScheduleAction
@@ -569,6 +576,22 @@ export interface RecurringOrderSetCustomTypeAction
   readonly fields?: FieldContainer
 }
 /**
+ *	Setting the expiration date and time generates the [RecurringOrderExpiresAtSet](ctp:api:type:RecurringOrderExpiresAtSetMessage) Message.
+ *
+ */
+export interface RecurringOrderSetExpiresAtAction
+  extends IRecurringOrderUpdateAction {
+  readonly action: 'setExpiresAt'
+  /**
+   *	Date and time (UTC) the Recurring Order should expire. If empty, any existing value will be removed.
+   *
+   *	If the date or time is extended or removed when the [RecurringOrderState](ctp:api:type:RecurringOrderState) is `Expired`, the state will be updated to `Active`.
+   *
+   *
+   */
+  readonly expiresAt?: string
+}
+/**
  *	This update action generates the [RecurringOrderKeySet](ctp:api:type:RecurringOrderKeySetMessage) Message.
  *
  */
@@ -593,7 +616,7 @@ export interface RecurringOrderSetOrderSkipConfigurationAction
    */
   readonly skipConfiguration?: SkipConfigurationDraft
   /**
-   *	Date and time (UTC) the Recurring Order will resume and start to generate new orders.
+   *	Date and time (UTC) the Recurring Order will expire and stop generating new orders.
    *
    *
    */
