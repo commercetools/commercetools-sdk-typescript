@@ -2762,6 +2762,8 @@ export interface CartChangeCustomLineItemQuantityAction
  *
  *	The [LineItem](ctp:api:type:LineItem) price is set as described in [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
  *
+ *	This action is subject to [InventoryEntry](ctp:api:type:InventoryEntry) min/max restrictions when applicable. For more information, see [Quantity limits](/../api/carts-orders-overview#quantity-limits).
+ *
  */
 export interface CartChangeLineItemQuantityAction extends ICartUpdateAction {
   readonly action: 'changeLineItemQuantity'
@@ -3681,6 +3683,8 @@ export interface CartSetLineItemShippingDetailsAction
 }
 /**
  *	Performing this action does not reserve stock. Stock is only reserved at Order creation if the [InventoryMode](ctp:api:type:InventoryMode) of the Cart is `TrackOnly` or `ReserveOnOrder`.
+ *
+ *	This action is subject to [InventoryEntry](ctp:api:type:InventoryEntry) min/max restrictions when applicable. For more information, see [Quantity limits](/../api/carts-orders-overview#quantity-limits).
  *
  */
 export interface CartSetLineItemSupplyChannelAction extends ICartUpdateAction {
