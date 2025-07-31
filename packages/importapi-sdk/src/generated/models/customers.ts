@@ -196,7 +196,7 @@ export interface CustomerImport extends ImportResource {
    */
   readonly email: string
   /**
-   *	Maps to `Customer.password`. Required when `authenticationMode` is set to `Password`.
+   *	Maps to `Customer.password`. Required when `authenticationMode` is set to `Password`. This field is only used when creating new Customers, and is ignored when updating Customers. However, due to the Import API's [upsert behavior](/../import-export/overview#how-are-resources-created-or-updated), a non-empty value must still be provided when updating Customers.
    *
    *
    */
