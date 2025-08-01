@@ -36,7 +36,7 @@ jobs:
       - name: Run Semgrep
         run: semgrep scan --sarif --output=semgrep.sarif --config=p/auto --config=p/dockerfile --config=p/typescript --config=p/javascript --metrics=off --verbose
       - name: Upload SARIF file for GitHub Advanced Security Dashboard
-        uses: github/codeql-action/upload-sarif@3de706a4a34b7e2fe37e4a10aecbdd3ec5dc0664 # CodeQL Bundle v2.16.1
+        uses: github/codeql-action/upload-sarif@7273f08caa1dcf2c2837f362f1982de0ab4dc344 # CodeQL Bundle v2.16.1
         with:
           sarif_file: semgrep.sarif
         if: always()
