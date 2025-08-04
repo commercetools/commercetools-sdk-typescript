@@ -49,6 +49,7 @@ export enum ChangeSubscriptionResourceTypeIdValues {
   CustomerGroup = 'customer-group',
   CustomerPasswordToken = 'customer-password-token',
   DiscountCode = 'discount-code',
+  DiscountGroup = 'discount-group',
   Extension = 'extension',
   InventoryEntry = 'inventory-entry',
   KeyValueDocument = 'key-value-document',
@@ -92,6 +93,7 @@ export type ChangeSubscriptionResourceTypeId =
   | 'customer-group'
   | 'customer-password-token'
   | 'discount-code'
+  | 'discount-group'
   | 'extension'
   | 'inventory-entry'
   | 'key-value-document'

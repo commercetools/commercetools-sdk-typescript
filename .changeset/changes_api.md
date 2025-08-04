@@ -18,3 +18,9 @@
 - added property `minCartQuantity` to type `InventoryEntryDraft`
 - added property `maxCartQuantity` to type `InventoryEntryDraft`
 </details>
+
+<details>
+<summary>Added Enum(s)</summary>
+
+- added enum `discount-group` to type `ChangeSubscriptionResourceTypeId`
+</details>
