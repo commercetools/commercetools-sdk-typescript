@@ -500,6 +500,8 @@ export interface CustomLineItemImportDraft {
   /**
    *	The cost of individual items in the Custom Line Item. The amount can be negative.
    *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
+   *
    */
   readonly money: _Money
   /**

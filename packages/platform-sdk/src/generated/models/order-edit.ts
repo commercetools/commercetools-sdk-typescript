@@ -519,6 +519,8 @@ export interface StagedOrderAddCustomLineItemAction
   /**
    *	Money value of the Custom Line Item. The value can be negative.
    *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
+   *
    *
    */
   readonly money: _Money
@@ -744,6 +746,8 @@ export interface StagedOrderAddLineItemAction extends IStagedOrderUpdateAction {
   /**
    *	Sets the [LineItem](ctp:api:type:LineItem) `price` value, and the `priceMode` to `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
    *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
+   *
    *
    */
   readonly externalPrice?: _Money
@@ -927,6 +931,8 @@ export interface StagedOrderChangeCustomLineItemMoneyAction
    *	Must not be empty.
    *	Can be a negative amount.
    *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
+   *
    *
    */
   readonly money: _Money
@@ -995,6 +1001,8 @@ export interface StagedOrderChangeLineItemQuantityAction
    *	Sets the [LineItem](ctp:api:type:LineItem) `price` to the given value when changing the quantity of a Line Item.
    *
    *	The [LineItem](ctp:api:type:LineItem) price is updated as described in [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
+   *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
    *
    *
    */
@@ -1258,6 +1266,8 @@ export interface StagedOrderRemoveLineItemAction
   readonly quantity?: number
   /**
    *	Sets the [LineItem](ctp:api:type:LineItem) `price` to the given value when decreasing the quantity of a Line Item with the `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+   *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
    *
    *
    */
@@ -2045,6 +2055,8 @@ export interface StagedOrderSetLineItemPriceAction
   /**
    *	Value to set.
    *	If `externalPrice` is not given and the `priceMode` is `ExternalPrice`, the external price is unset and the `priceMode` is set to `Platform`.
+   *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
    *
    *
    */

@@ -1745,6 +1745,8 @@ export interface MyCartRemoveLineItemAction extends IMyCartUpdateAction {
   /**
    *	Sets the [LineItem](ctp:api:type:LineItem) `price` to the given value when decreasing the quantity of a Line Item with the `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
    *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
+   *
    *
    */
   readonly externalPrice?: _Money
