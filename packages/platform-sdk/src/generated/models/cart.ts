@@ -906,6 +906,8 @@ export interface CustomLineItemDraft {
    *	Money value of the Custom Line Item.
    *	The value can be negative.
    *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
+   *
    *
    */
   readonly money: _Money
@@ -1253,6 +1255,8 @@ export interface DiscountedTotalPricePortion {
 export interface ExternalLineItemTotalPrice {
   /**
    *	Price of the Line Item.
+   *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
    *
    *
    */
@@ -1659,6 +1663,8 @@ export interface LineItemDraft {
   readonly supplyChannel?: ChannelResourceIdentifier
   /**
    *	Sets the [LineItem](ctp:api:type:LineItem) `price` value, and the `priceMode` to `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+   *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
    *
    *
    */
@@ -2236,6 +2242,8 @@ export interface CartAddCustomLineItemAction extends ICartUpdateAction {
    *	Money value of the Custom Line Item.
    *	The value can be negative.
    *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
+   *
    *
    */
   readonly money: _Money
@@ -2484,6 +2492,8 @@ export interface CartAddLineItemAction extends ICartUpdateAction {
   /**
    *	Sets the [LineItem](ctp:api:type:LineItem) `price` value, and the `priceMode` to `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
    *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
+   *
    *
    */
   readonly externalPrice?: _Money
@@ -2688,6 +2698,8 @@ export interface CartChangeCustomLineItemMoneyAction extends ICartUpdateAction {
   /**
    *	Value to set. Must not be empty. Can be a negative amount.
    *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
+   *
    *
    */
   readonly money: _Money
@@ -2762,6 +2774,8 @@ export interface CartChangeCustomLineItemQuantityAction
  *
  *	The [LineItem](ctp:api:type:LineItem) price is set as described in [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
  *
+ *	This action is subject to [InventoryEntry](ctp:api:type:InventoryEntry) min/max restrictions when applicable. For more information, see [Quantity limits](/../api/carts-orders-overview#quantity-limits).
+ *
  */
 export interface CartChangeLineItemQuantityAction extends ICartUpdateAction {
   readonly action: 'changeLineItemQuantity'
@@ -2790,6 +2804,8 @@ export interface CartChangeLineItemQuantityAction extends ICartUpdateAction {
    *	Sets the [LineItem](ctp:api:type:LineItem) `price` to the given value when changing the quantity of a Line Item.
    *
    *	The LineItem price is updated as described in Line Item price selection.
+   *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
    *
    *
    */
@@ -2961,6 +2977,8 @@ export interface CartRemoveLineItemAction extends ICartUpdateAction {
   readonly quantity?: number
   /**
    *	Sets the [LineItem](ctp:api:type:LineItem) `price` to the given value when decreasing the quantity of a Line Item with the `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+   *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
    *
    *
    */
@@ -3625,6 +3643,8 @@ export interface CartSetLineItemPriceAction extends ICartUpdateAction {
    *	Value to set.
    *	If `externalPrice` is not given and the `priceMode` is `ExternalPrice`, the external price is unset and the `priceMode` is set to `Platform`.
    *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
+   *
    *
    */
   readonly externalPrice?: _Money
@@ -3681,6 +3701,8 @@ export interface CartSetLineItemShippingDetailsAction
 }
 /**
  *	Performing this action does not reserve stock. Stock is only reserved at Order creation if the [InventoryMode](ctp:api:type:InventoryMode) of the Cart is `TrackOnly` or `ReserveOnOrder`.
+ *
+ *	This action is subject to [InventoryEntry](ctp:api:type:InventoryEntry) min/max restrictions when applicable. For more information, see [Quantity limits](/../api/carts-orders-overview#quantity-limits).
  *
  */
 export interface CartSetLineItemSupplyChannelAction extends ICartUpdateAction {

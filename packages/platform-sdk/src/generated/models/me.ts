@@ -1625,6 +1625,8 @@ export interface MyCartApplyDeltaToLineItemShippingDetailsTargetsAction
  *	it will be changed to `ExternalPrice` and the existing `externalPrice` value, i.e. `LineItem.price`, will be retained.
  *	The LineItem total will be calculated by the system instead, so that the `externalTotalPrice` will be dropped.
  *
+ *	This action is subject to [InventoryEntry](ctp:api:type:InventoryEntry) min/max restrictions when applicable. For more information, see [Quantity limits](/../api/carts-orders-overview#quantity-limits).
+ *
  */
 export interface MyCartChangeLineItemQuantityAction
   extends IMyCartUpdateAction {
@@ -1742,6 +1744,8 @@ export interface MyCartRemoveLineItemAction extends IMyCartUpdateAction {
   readonly quantity?: number
   /**
    *	Sets the [LineItem](ctp:api:type:LineItem) `price` to the given value when decreasing the quantity of a Line Item with the `ExternalPrice` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+   *
+   *	To set the money value in high precision, use [HighPrecisionMoneyDraft](ctp:api:type:HighPrecisionMoneyDraft).
    *
    *
    */
@@ -2036,6 +2040,8 @@ export interface MyCartSetLineItemShippingDetailsAction
 }
 /**
  *	Performing this action does not reserve stock. Stock is only reserved at Order creation if the [InventoryMode](ctp:api:type:InventoryMode) of the Cart is `TrackOnly` or `ReserveOnOrder`.
+ *
+ *	This action is subject to [InventoryEntry](ctp:api:type:InventoryEntry) min/max restrictions when applicable. For more information, see [Quantity limits](/../api/carts-orders-overview#quantity-limits).
  *
  */
 export interface MyCartSetLineItemSupplyChannelAction
