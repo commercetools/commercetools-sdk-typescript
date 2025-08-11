@@ -24,7 +24,7 @@ export type AwsAuthenticationMode = 'Credentials' | 'IAM' | (string & {})
  */
 export interface ChangeSubscription {
   /**
-   *	Unique identifier for the type of resource, for example, `cart`.
+   *	Unique identifier for the type of resource, for example, `order`.
    *
    *
    */
