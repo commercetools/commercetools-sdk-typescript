@@ -219,6 +219,8 @@ export type Message =
   | CustomerCustomTypeRemovedMessage
   | CustomerCustomTypeSetMessage
   | CustomerDateOfBirthSetMessage
+  | CustomerDefaultBillingAddressSetMessage
+  | CustomerDefaultShippingAddressSetMessage
   | CustomerDeletedMessage
   | CustomerEmailChangedMessage
   | CustomerEmailTokenCreatedMessage
@@ -236,6 +238,7 @@ export type Message =
   | CustomerLastNameSetMessage
   | CustomerPasswordTokenCreatedMessage
   | CustomerPasswordUpdatedMessage
+  | CustomerStoresSetMessage
   | CustomerTitleSetMessage
   | DeliveryAddedMessage
   | DeliveryAddressSetMessage
@@ -6297,6 +6300,146 @@ export interface CustomerDateOfBirthSetMessage extends IMessage {
   readonly dateOfBirth?: string
 }
 /**
+ *	Generated after a successful [Set Default Billing Address](ctp:api:type:CustomerSetDefaultBillingAddressAction) update action.
+ *
+ */
+export interface CustomerDefaultBillingAddressSetMessage extends IMessage {
+  readonly type: 'CustomerDefaultBillingAddressSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The address that was set as the default billing address.
+   *
+   *
+   */
+  readonly address?: Address
+}
+/**
+ *	Generated after a successful [Set Default Shipping Address](ctp:api:type:CustomerSetDefaultShippingAddressAction) update action.
+ *
+ */
+export interface CustomerDefaultShippingAddressSetMessage extends IMessage {
+  readonly type: 'CustomerDefaultShippingAddressSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The address that was set as the default shipping address.
+   *
+   *
+   */
+  readonly address?: Address
+}
+/**
  *	Generated after a successful [Delete Customer](/../api/projects/customers#delete-customer) request.
  *
  */
@@ -7532,6 +7675,82 @@ export interface CustomerPasswordUpdatedMessage extends IMessage {
    *
    */
   readonly reset: boolean
+}
+/**
+ *	Generated after a successful [Set Stores](ctp:api:type:CustomerSetStoresAction) update action.
+ *
+ */
+export interface CustomerStoresSetMessage extends IMessage {
+  readonly type: 'CustomerStoresSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The [Stores](ctp:api:type:Store) the [Customer](ctp:api:type:Customer) is associated with after the [Set Stores](ctp:api:type:CustomerSetStoresAction) update action.
+   *
+   *
+   */
+  readonly stores: StoreKeyReference[]
+  /**
+   *	The [Stores](ctp:api:type:Store) the [Customer](ctp:api:type:Customer) was associated with before the [Set Stores](ctp:api:type:CustomerSetStoresAction) update action.
+   *
+   *
+   */
+  readonly oldStores: StoreKeyReference[]
 }
 /**
  *	Generated after a successful [Set Title](ctp:api:type:CustomerSetTitleAction) update action.
@@ -23427,6 +23646,8 @@ export type MessagePayload =
   | CustomerCustomTypeRemovedMessagePayload
   | CustomerCustomTypeSetMessagePayload
   | CustomerDateOfBirthSetMessagePayload
+  | CustomerDefaultBillingAddressSetMessagePayload
+  | CustomerDefaultShippingAddressSetMessagePayload
   | CustomerDeletedMessagePayload
   | CustomerEmailChangedMessagePayload
   | CustomerEmailTokenCreatedMessagePayload
@@ -23444,6 +23665,7 @@ export type MessagePayload =
   | CustomerLastNameSetMessagePayload
   | CustomerPasswordTokenCreatedMessagePayload
   | CustomerPasswordUpdatedMessagePayload
+  | CustomerStoresSetMessagePayload
   | CustomerTitleSetMessagePayload
   | DeliveryAddedMessagePayload
   | DeliveryAddressSetMessagePayload
@@ -24993,6 +25215,34 @@ export interface CustomerDateOfBirthSetMessagePayload extends IMessagePayload {
   readonly dateOfBirth?: string
 }
 /**
+ *	Generated after a successful [Set Default Billing Address](ctp:api:type:CustomerSetDefaultBillingAddressAction) update action.
+ *
+ */
+export interface CustomerDefaultBillingAddressSetMessagePayload
+  extends IMessagePayload {
+  readonly type: 'CustomerDefaultBillingAddressSet'
+  /**
+   *	The address that was set as the default billing address.
+   *
+   *
+   */
+  readonly address?: Address
+}
+/**
+ *	Generated after a successful [Set Default Shipping Address](ctp:api:type:CustomerSetDefaultShippingAddressAction) update action.
+ *
+ */
+export interface CustomerDefaultShippingAddressSetMessagePayload
+  extends IMessagePayload {
+  readonly type: 'CustomerDefaultShippingAddressSet'
+  /**
+   *	The address that was set as the default shipping address.
+   *
+   *
+   */
+  readonly address?: Address
+}
+/**
  *	Generated after a successful [Delete Customer](/../api/projects/customers#delete-customer) request.
  *
  */
@@ -25269,6 +25519,25 @@ export interface CustomerPasswordUpdatedMessagePayload extends IMessagePayload {
    *
    */
   readonly reset: boolean
+}
+/**
+ *	Generated after a successful [Set Stores](ctp:api:type:CustomerSetStoresAction) update action.
+ *
+ */
+export interface CustomerStoresSetMessagePayload extends IMessagePayload {
+  readonly type: 'CustomerStoresSet'
+  /**
+   *	The [Stores](ctp:api:type:Store) the [Customer](ctp:api:type:Customer) is associated with after the [Set Stores](ctp:api:type:CustomerSetStoresAction) update action.
+   *
+   *
+   */
+  readonly stores: StoreKeyReference[]
+  /**
+   *	The [Stores](ctp:api:type:Store) the [Customer](ctp:api:type:Customer) was associated with before the [Set Stores](ctp:api:type:CustomerSetStoresAction) update action.
+   *
+   *
+   */
+  readonly oldStores: StoreKeyReference[]
 }
 /**
  *	Generated after a successful [Set Title](ctp:api:type:CustomerSetTitleAction) update action.
