@@ -1294,6 +1294,8 @@ export interface CustomerSetDateOfBirthAction extends ICustomerUpdateAction {
  *	Sets the default billing address from `addresses`.
  *	The action adds the `id` of the specified Address to the `billingAddressIds` if not contained already. Either `addressId` or `addressKey` is required.
  *
+ *	This action generates the [CustomerDefaultBillingAddressSet](ctp:api:type:CustomerDefaultBillingAddressSetMessage) Message.
+ *
  */
 export interface CustomerSetDefaultBillingAddressAction
   extends ICustomerUpdateAction {
@@ -1314,6 +1316,8 @@ export interface CustomerSetDefaultBillingAddressAction
 /**
  *	Sets the default shipping address from `addresses`.
  *	The action adds the `id` of the specified address to the `shippingAddressIds` if not contained already. Either `addressId` or `addressKey` is required.
+ *
+ *	This action generates the [CustomerDefaultShippingAddressSet](ctp:api:type:CustomerDefaultShippingAddressSetMessage) Message.
  *
  */
 export interface CustomerSetDefaultShippingAddressAction
@@ -1408,6 +1412,8 @@ export interface CustomerSetSalutationAction extends ICustomerUpdateAction {
 /**
  *	Sets the Stores the Customer account is associated with.
  *	If no Stores are specified, the Customer becomes a [global Customer](/../api/customers-overview#global-versus-store-specific-customers).
+ *
+ *	This action generates the [CustomerStoresSet](ctp:api:type:CustomerStoresSetMessage) Message.
  *
  */
 export interface CustomerSetStoresAction extends ICustomerUpdateAction {
