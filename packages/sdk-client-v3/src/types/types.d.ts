@@ -323,7 +323,7 @@ type TResponse = {
 }
 
 export type Client = {
-  execute(request: ClientRequest): Promise<ClientResult>
+  execute<T extends object = any>(request: ClientRequest): Promise<ClientResult<T>>
   process<T extends object = any>(
     request: ClientRequest,
     fn: ProcessFn<T>,
