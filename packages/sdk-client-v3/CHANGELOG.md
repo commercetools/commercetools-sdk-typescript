@@ -1,5 +1,16 @@
 # @commercetools/ts-client
 
+## 4.2.0
+
+### Minor Changes
+
+- [#1149](https://github.com/commercetools/commercetools-sdk-typescript/pull/1149) [`af65db6`](https://github.com/commercetools/commercetools-sdk-typescript/commit/af65db6a26fb8d96c0edcccdf720a850c30f9888) Thanks [@ajimae](https://github.com/ajimae)! - add generic type to `execute` method
+
+  ```diff
+  - execute(request: ClientRequest): Promise<ClientResult>
+  + execute<T extends object = any>(request: ClientRequest): Promise<ClientResult<T>>
+  ```
+
 ## 4.1.0
 
 ### Minor Changes

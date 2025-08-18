@@ -1,5 +1,43 @@
 # @commercetools/platform-sdk
 
+## 8.14.0
+
+### Minor Changes
+
+- [`c487f7c`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c487f7c0e339b4bf493036ceacf50891574f2b8b) Thanks [@ct-sdks[bot]](https://github.com/ct-sdks%5Bbot%5D)! - **Api changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `InventoryEntrySetInventoryLimitsAction`
+  - added type `CustomerDefaultBillingAddressSetMessage`
+  - added type `CustomerDefaultShippingAddressSetMessage`
+  - added type `CustomerStoresSetMessage`
+  - added type `CustomerDefaultBillingAddressSetMessagePayload`
+  - added type `CustomerDefaultShippingAddressSetMessagePayload`
+  - added type `CustomerStoresSetMessagePayload`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `minCartQuantity` to type `InventoryEntry`
+  - added property `maxCartQuantity` to type `InventoryEntry`
+  - added property `minCartQuantity` to type `InventoryEntryDraft`
+  - added property `maxCartQuantity` to type `InventoryEntryDraft`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `discount-group` to type `ChangeSubscriptionResourceTypeId`
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`af65db6`](https://github.com/commercetools/commercetools-sdk-typescript/commit/af65db6a26fb8d96c0edcccdf720a850c30f9888)]:
+  - @commercetools/ts-client@4.2.0
+
 ## 8.13.0
 
 ### Minor Changes
