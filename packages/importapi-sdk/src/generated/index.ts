@@ -7,10 +7,13 @@
 
 // resources
 export * from './client/api-root'; //Root client that is used to access all the endpoints in the API
+export * from './client/business-units/by-project-key-business-units-request-builder'
 export * from './client/by-project-key-request-builder'
 export * from './client/categories/by-project-key-categories-request-builder'
 export * from './client/customers/by-project-key-customers-request-builder'
 export * from './client/discount-codes/by-project-key-discount-codes-request-builder'
+export * from './client/import-containers/by-project-key-business-units-import-containers-by-import-container-key-request-builder'
+export * from './client/import-containers/by-project-key-business-units-import-containers-request-builder'
 export * from './client/import-containers/by-project-key-categories-import-containers-by-import-container-key-request-builder'
 export * from './client/import-containers/by-project-key-categories-import-containers-request-builder'
 export * from './client/import-containers/by-project-key-customers-import-containers-by-import-container-key-request-builder'
@@ -59,6 +62,7 @@ export * from './client/product-variants/by-project-key-product-variants-request
 export * from './client/products/by-project-key-products-request-builder'
 export * from './client/standalone-prices/by-project-key-standalone-prices-request-builder'
 export * from './client/types/by-project-key-types-request-builder'
+export * from './models/business-units'
 export * from './models/categories'
 export * from './models/common'
 export * from './models/customers'
