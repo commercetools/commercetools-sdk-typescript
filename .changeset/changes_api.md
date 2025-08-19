@@ -17,6 +17,13 @@
 </details>
 
 <details>
+<summary>Added Method(s)</summary>
+
+- added method `apiRoot.withProjectKey().recurrencePolicies().withKey().delete()`
+- added method `apiRoot.withProjectKey().recurrencePolicies().withId().delete()`
+</details>
+
+<details>
 <summary>Added Property(s)</summary>
 
 - added property `minCartQuantity` to type `InventoryEntry`
