@@ -4,6 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+import { BusinessUnitImport } from './business-units'
 import { CategoryImport } from './categories'
 import { ImportResourceType } from './common'
 import { CustomerImport } from './customers'
@@ -26,6 +27,7 @@ import { TypeImport } from './types'
  *
  */
 export type ImportRequest =
+  | BusinessUnitImportRequest
   | CategoryImportRequest
   | CustomerImportRequest
   | DiscountCodeImportRequest
@@ -43,7 +45,7 @@ export type ImportRequest =
   | TypeImportRequest
 export interface IImportRequest {
   /**
-   *	The resource types that can be imported.
+   *	The resource type that can be imported.
    *
    *
    */
@@ -254,4 +256,17 @@ export interface ProductSelectionImportRequest extends IImportRequest {
    *
    */
   readonly resources: ProductSelectionImport[]
+}
+/**
+ *	The request body to [import Business Units](ctp:import:endpoint:/{projectKey}/business-units/import-containers/{importContainerKey}:POST). Contains data for [Business Units](ctp:api:type:BusinessUnit) to be created or updated in a Project.
+ *
+ */
+export interface BusinessUnitImportRequest extends IImportRequest {
+  readonly type: 'business-unit'
+  /**
+   *	The Business Unit import resources of this request. Can contain [CompanyBusinessUnitImport](ctp:import:type:CompanyBusinessUnitImport) or [DivisionBusinessUnitImport](ctp:import:type:DivisionBusinessUnitImport).
+   *
+   *
+   */
+  readonly resources: BusinessUnitImport[]
 }

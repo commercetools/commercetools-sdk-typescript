@@ -182,6 +182,8 @@ export type _ImportResource =
  *	References a resource by key.
  */
 export type KeyReference =
+  | AssociateRoleKeyReference
+  | BusinessUnitKeyReference
   | CartDiscountKeyReference
   | CartKeyReference
   | CategoryKeyReference
@@ -445,6 +447,28 @@ export interface TypeKeyReference extends IKeyReference {
   readonly key: string
 }
 /**
+ *	References an Associate Role by its key.
+ */
+export interface AssociateRoleKeyReference extends IKeyReference {
+  readonly typeId: 'associate-role'
+  /**
+   *	User-defined unique identifier of the referenced Type.
+   *
+   */
+  readonly key: string
+}
+/**
+ *	References a business unit by its key.
+ */
+export interface BusinessUnitKeyReference extends IKeyReference {
+  readonly typeId: 'business-unit'
+  /**
+   *	User-defined unique identifier of the referenced Type.
+   *
+   */
+  readonly key: string
+}
+/**
  *	Contains a reference to a resource which does not exist. For example, if a Category is imported with a parent Category that does not exist, the reference to the parent Category is an unresolved reference.
  */
 export interface UnresolvedReferences {
@@ -589,10 +613,11 @@ export interface PriceTier {
   readonly value: TypedMoney
 }
 /**
- *	The resource types that can be imported.
+ *	The resource type that can be imported.
  *
  */
 export enum ImportResourceTypeValues {
+  BusinessUnit = 'business-unit',
   Category = 'category',
   Customer = 'customer',
   DiscountCode = 'discount-code',
@@ -611,6 +636,7 @@ export enum ImportResourceTypeValues {
 }
 
 export type ImportResourceType =
+  | 'business-unit'
   | 'category'
   | 'customer'
   | 'discount-code'
@@ -632,6 +658,8 @@ export type ImportResourceType =
  *
  */
 export enum ReferenceTypeValues {
+  AssociateRole = 'associate-role',
+  BusinessUnit = 'business-unit',
   Cart = 'cart',
   CartDiscount = 'cart-discount',
   Category = 'category',
@@ -655,6 +683,8 @@ export enum ReferenceTypeValues {
 }
 
 export type ReferenceType =
+  | 'associate-role'
+  | 'business-unit'
   | 'cart'
   | 'cart-discount'
   | 'category'

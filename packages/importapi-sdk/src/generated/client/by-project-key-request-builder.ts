@@ -4,6 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { executeRequest } from '../shared/utils/common-types'
+import { ByProjectKeyBusinessUnitsRequestBuilder } from './business-units/by-project-key-business-units-request-builder'
 import { ByProjectKeyCategoriesRequestBuilder } from './categories/by-project-key-categories-request-builder'
 import { ByProjectKeyCustomersRequestBuilder } from './customers/by-project-key-customers-request-builder'
 import { ByProjectKeyDiscountCodesRequestBuilder } from './discount-codes/by-project-key-discount-codes-request-builder'
@@ -179,6 +180,15 @@ export class ByProjectKeyRequestBuilder {
   }
   public productSelections(): ByProjectKeyProductSelectionsRequestBuilder {
     return new ByProjectKeyProductSelectionsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public businessUnits(): ByProjectKeyBusinessUnitsRequestBuilder {
+    return new ByProjectKeyBusinessUnitsRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },
