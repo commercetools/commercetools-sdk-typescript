@@ -21,7 +21,6 @@ export async function executeRequest(options: ExecuteRequestOptions) {
     tokenCacheKey,
     request,
   } = options
-  console.log(request, '====>')
 
   let url = options.url
   let body = options.body
