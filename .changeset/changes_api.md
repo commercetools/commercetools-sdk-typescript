@@ -5,6 +5,15 @@
 **Api changes**
 
 <details>
+<summary>Added Property(s)</summary>
+
+- added property `minCartQuantity` to type `InventoryEntry`
+- added property `maxCartQuantity` to type `InventoryEntry`
+- added property `minCartQuantity` to type `InventoryEntryDraft`
+- added property `maxCartQuantity` to type `InventoryEntryDraft`
+</details>
+
+<details>
 <summary>Added Type(s)</summary>
 
 - added type `InventoryEntrySetInventoryLimitsAction`
@@ -17,12 +26,10 @@
 </details>
 
 <details>
-<summary>Added Property(s)</summary>
+<summary>Added Method(s)</summary>
 
-- added property `minCartQuantity` to type `InventoryEntry`
-- added property `maxCartQuantity` to type `InventoryEntry`
-- added property `minCartQuantity` to type `InventoryEntryDraft`
-- added property `maxCartQuantity` to type `InventoryEntryDraft`
+- added method `apiRoot.withProjectKey().recurrencePolicies().withKey().delete()`
+- added method `apiRoot.withProjectKey().recurrencePolicies().withId().delete()`
 </details>
 
 <details>

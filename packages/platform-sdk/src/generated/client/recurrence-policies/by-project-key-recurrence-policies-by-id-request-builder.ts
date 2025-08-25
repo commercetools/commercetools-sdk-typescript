@@ -101,4 +101,34 @@ export class ByProjectKeyRecurrencePoliciesByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deletes a Recurrence Policy in the Project.
+   *
+   *	A Recurrence Policy can be deleted only if it is not referenced by any Embedded Price, Standalone Price, or (Custom) Line Item, otherwise a [ReferenceExists](ctp:api:type:ReferenceExistsError) error is returned.
+   *
+   */
+  public delete(methodArgs: {
+    queryArgs: {
+      version: number
+      expand?: string | string[]
+      [key: string]: QueryParam
+    }
+    headers?: {
+      [key: string]: string | string[]
+    }
+  }): ApiRequest<RecurrencePolicy> {
+    return new ApiRequest<RecurrencePolicy>(
+      {
+        baseUri: this.args.baseUri,
+        method: 'DELETE',
+        uriTemplate: '/{projectKey}/recurrence-policies/{ID}',
+        pathVariables: this.args.pathArgs,
+        headers: {
+          ...methodArgs?.headers,
+        },
+        queryParams: methodArgs?.queryArgs,
+      },
+      this.args.executeRequest
+    )
+  }
 }
