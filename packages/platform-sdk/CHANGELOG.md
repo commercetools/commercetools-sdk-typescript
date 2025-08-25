@@ -1,5 +1,50 @@
 # @commercetools/platform-sdk
 
+## 8.15.0
+
+### Minor Changes
+
+- [#1151](https://github.com/commercetools/commercetools-sdk-typescript/pull/1151) [`55ba0ac`](https://github.com/commercetools/commercetools-sdk-typescript/commit/55ba0acd11fbd95b56bb75c93a7310850a95b4b8) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `minCartQuantity` to type `InventoryEntry`
+  - added property `maxCartQuantity` to type `InventoryEntry`
+  - added property `minCartQuantity` to type `InventoryEntryDraft`
+  - added property `maxCartQuantity` to type `InventoryEntryDraft`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `InventoryEntrySetInventoryLimitsAction`
+  - added type `CustomerDefaultBillingAddressSetMessage`
+  - added type `CustomerDefaultShippingAddressSetMessage`
+  - added type `CustomerStoresSetMessage`
+  - added type `CustomerDefaultBillingAddressSetMessagePayload`
+  - added type `CustomerDefaultShippingAddressSetMessagePayload`
+  - added type `CustomerStoresSetMessagePayload`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+
+  - added method `apiRoot.withProjectKey().recurrencePolicies().withKey().delete()`
+  - added method `apiRoot.withProjectKey().recurrencePolicies().withId().delete()`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `discount-group` to type `ChangeSubscriptionResourceTypeId`
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`0a6ea36`](https://github.com/commercetools/commercetools-sdk-typescript/commit/0a6ea364b2acd57d5e517ca21511de5f77bca6f0)]:
+  - @commercetools/ts-client@4.2.1
+
 ## 8.14.0
 
 ### Minor Changes
