@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 4.2.1
+
+### Patch Changes
+
+- [#1154](https://github.com/commercetools/commercetools-sdk-typescript/pull/1154) [`0a6ea36`](https://github.com/commercetools/commercetools-sdk-typescript/commit/0a6ea364b2acd57d5e517ca21511de5f77bca6f0) Thanks [@ajimae](https://github.com/ajimae)! - Add meta-headers to auth http requests
+
 ## 4.2.0
 
 ### Minor Changes
