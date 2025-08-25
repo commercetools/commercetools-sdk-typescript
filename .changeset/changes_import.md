@@ -24,17 +24,17 @@
 </details>
 
 <details>
-<summary>Added Method(s)</summary>
-
-- added method `apiRoot.withProjectKeyValue().businessUnits().importContainers().withImportContainerKeyValue().post()`
-</details>
-
-<details>
 <summary>Added Resource(s)</summary>
 
 - added resource `/{projectKey}/business-units`
 - added resource `/{projectKey}/business-units/import-containers`
 - added resource `/{projectKey}/business-units/import-containers/{importContainerKey}`
+</details>
+
+<details>
+<summary>Added Method(s)</summary>
+
+- added method `apiRoot.withProjectKeyValue().businessUnits().importContainers().withImportContainerKeyValue().post()`
 </details>
 
 <details>

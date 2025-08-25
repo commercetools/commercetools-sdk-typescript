@@ -1,6 +1,15 @@
 **Api changes**
 
 <details>
+<summary>Added Property(s)</summary>
+
+- added property `minCartQuantity` to type `InventoryEntry`
+- added property `maxCartQuantity` to type `InventoryEntry`
+- added property `minCartQuantity` to type `InventoryEntryDraft`
+- added property `maxCartQuantity` to type `InventoryEntryDraft`
+</details>
+
+<details>
 <summary>Added Type(s)</summary>
 
 - added type `InventoryEntrySetInventoryLimitsAction`
@@ -17,15 +26,6 @@
 
 - added method `apiRoot.withProjectKey().recurrencePolicies().withKey().delete()`
 - added method `apiRoot.withProjectKey().recurrencePolicies().withId().delete()`
-</details>
-
-<details>
-<summary>Added Property(s)</summary>
-
-- added property `minCartQuantity` to type `InventoryEntry`
-- added property `maxCartQuantity` to type `InventoryEntry`
-- added property `minCartQuantity` to type `InventoryEntryDraft`
-- added property `maxCartQuantity` to type `InventoryEntryDraft`
 </details>
 
 <details>
@@ -56,17 +56,17 @@
 </details>
 
 <details>
-<summary>Added Method(s)</summary>
-
-- added method `apiRoot.withProjectKeyValue().businessUnits().importContainers().withImportContainerKeyValue().post()`
-</details>
-
-<details>
 <summary>Added Resource(s)</summary>
 
 - added resource `/{projectKey}/business-units`
 - added resource `/{projectKey}/business-units/import-containers`
 - added resource `/{projectKey}/business-units/import-containers/{importContainerKey}`
+</details>
+
+<details>
+<summary>Added Method(s)</summary>
+
+- added method `apiRoot.withProjectKeyValue().businessUnits().importContainers().withImportContainerKeyValue().post()`
 </details>
 
 <details>
