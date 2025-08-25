@@ -19,6 +19,7 @@ export async function executeRequest(options: ExecuteRequestOptions) {
     userOption,
     tokenCacheObject,
     tokenCacheKey,
+    request,
   } = options
 
   let url = options.url
@@ -64,6 +65,7 @@ export async function executeRequest(options: ExecuteRequestOptions) {
       url,
       method: 'POST',
       headers: {
+        ...request.headers,
         Authorization: `Basic ${basicAuth}`,
         'Content-Type': 'application/x-www-form-urlencoded',
         'Content-Length': byteLength(body),
