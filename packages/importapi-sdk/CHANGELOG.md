@@ -1,5 +1,57 @@
 # @commercetools/importapi-sdk
 
+## 6.7.0
+
+### Minor Changes
+
+- [#1151](https://github.com/commercetools/commercetools-sdk-typescript/pull/1151) [`55ba0ac`](https://github.com/commercetools/commercetools-sdk-typescript/commit/55ba0acd11fbd95b56bb75c93a7310850a95b4b8) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `AssociateRoleKeyReference`
+  - added type `BusinessUnitKeyReference`
+  - added type `BusinessUnitImportRequest`
+  - added type `AssociateRoleInheritanceMode`
+  - added type `BusinessUnitStatus`
+  - added type `BusinessUnitAssociateMode`
+  - added type `BusinessUnitApprovalRuleMode`
+  - added type `BusinessUnitStoreMode`
+  - added type `BusinessUnitType`
+  - added type `AssociateRoleAssignmentDraft`
+  - added type `AssociateDraft`
+  - added type `BusinessUnitImport`
+  - added type `CompanyBusinessUnitImport`
+  - added type `DivisionBusinessUnitImport`
+  </details>
+
+  <details>
+  <summary>Added Resource(s)</summary>
+
+  - added resource `/{projectKey}/business-units`
+  - added resource `/{projectKey}/business-units/import-containers`
+  - added resource `/{projectKey}/business-units/import-containers/{importContainerKey}`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+
+  - added method `apiRoot.withProjectKeyValue().businessUnits().importContainers().withImportContainerKeyValue().post()`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+
+  - added enum `business-unit` to type `ImportResourceType`
+  - added enum `associate-role` to type `ReferenceType`
+  - added enum `business-unit` to type `ReferenceType`
+  </details>
+
+### Patch Changes
+
+- Updated dependencies [[`0a6ea36`](https://github.com/commercetools/commercetools-sdk-typescript/commit/0a6ea364b2acd57d5e517ca21511de5f77bca6f0)]:
+  - @commercetools/ts-client@4.2.1
+
 ## 6.6.0
 
 ### Minor Changes
