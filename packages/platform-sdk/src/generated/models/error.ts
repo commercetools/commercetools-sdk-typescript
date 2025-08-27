@@ -94,6 +94,7 @@ export type ErrorObject =
   | LockedFieldError
   | MatchingPriceNotFoundError
   | MaxCartDiscountsReachedError
+  | MaxDiscountGroupsReachedError
   | MaxResourceLimitExceededError
   | MaxStoreReferencesReachedError
   | MissingRoleOnChannelError
@@ -1407,6 +1408,25 @@ export interface MaxCartDiscountsReachedError extends IErrorObject {
   readonly message: string
 }
 /**
+ *	Returned when a Discount Group cannot be created or activated as the [limit](/../api/limits#discount-groups) for active Discount Groups has been reached.
+ *
+ *	The error is returned as a failed response to:
+ *
+ *	- [Create DiscountGroup](ctp:api:endpoint:/{projectKey}/discount-groups:POST) request
+ *	- [Set IsActive](ctp:api:type:DiscountGroupSetIsActiveAction) update action
+ *
+ */
+export interface MaxDiscountGroupsReachedError extends IErrorObject {
+  readonly code: 'MaxDiscountGroupsReached'
+  [key: string]: any
+  /**
+   *	`"Maximum number of active discount groups reached ($max)."`
+   *
+   *
+   */
+  readonly message: string
+}
+/**
  *	Returned when a resource type cannot be created as it has reached its [limits](/../api/limits).
  *
  *	The limits must be adjusted for this resource before sending the request again.
@@ -2166,6 +2186,7 @@ export type GraphQLErrorObject =
   | GraphQLLockedFieldError
   | GraphQLMatchingPriceNotFoundError
   | GraphQLMaxCartDiscountsReachedError
+  | GraphQLMaxDiscountGroupsReachedError
   | GraphQLMaxResourceLimitExceededError
   | GraphQLMaxStoreReferencesReachedError
   | GraphQLMissingRoleOnChannelError
@@ -3124,6 +3145,20 @@ export interface GraphQLMatchingPriceNotFoundError extends IGraphQLErrorObject {
 export interface GraphQLMaxCartDiscountsReachedError
   extends IGraphQLErrorObject {
   readonly code: 'MaxCartDiscountsReached'
+  [key: string]: any
+}
+/**
+ *	Returned when a Discount Group cannot be created or activated as the [limit](/../api/limits#discount-groups) for active Discount Groups has been reached.
+ *
+ *	The error is returned as a failed response to:
+ *
+ *	- [Create DiscountGroup](ctp:api:endpoint:/{projectKey}/discount-groups:POST) request
+ *	- [Set IsActive](ctp:api:type:DiscountGroupSetIsActiveAction) update action
+ *
+ */
+export interface GraphQLMaxDiscountGroupsReachedError
+  extends IGraphQLErrorObject {
+  readonly code: 'MaxDiscountGroupsReached'
   [key: string]: any
 }
 /**
