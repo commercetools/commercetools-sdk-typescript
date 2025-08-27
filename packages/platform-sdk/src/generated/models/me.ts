@@ -276,8 +276,7 @@ export interface MyCartDraft {
    */
   readonly country?: string
   /**
-   *	Languages of the Cart.
-   *	Can only contain languages supported by the [Project](ctp:api:type:Project).
+   *	Language of the Cart. Must be one of the languages supported by the [Project](ctp:api:type:Project).
    *
    *
    */
