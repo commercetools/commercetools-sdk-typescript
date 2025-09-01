@@ -383,13 +383,15 @@ export interface CustomerDraft {
    */
   readonly anonymousCartId?: string
   /**
-   *	Identifies a [Cart](ctp:api:type:Cart) that will be assigned to the new Customer.
+   *	Assigns the Customer to the specified Cart.
    *
    *
    */
   readonly anonymousCart?: CartResourceIdentifier
   /**
-   *	Identifies Carts and Orders belonging to an anonymous session that will be assigned to the new Customer.
+   *	Assigns the Customer to all [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [ShoppingLists](ctp:api:type:ShoppingList), and [Payments](ctp:api:type:Payment) with the same `anonymousId`.
+   *
+   *	If `anonymousCart` is provided, this value must match the `anonymousId` of the anonymous [Cart](ctp:api:type:Cart); otherwise, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */
@@ -668,7 +670,11 @@ export interface CustomerSignInResult {
   readonly customer: Customer
   /**
    *	Cart associated with the Customer.
-   *	If empty, the Customer does not have a Cart assigned.
+   *
+   *	The Cart is recalculated to remove invalid Line Items and apply the latest prices, taxes, and discounts.
+   *	During these updates, the following errors can be returned: [MatchingPriceNotFound](ctp:api:type:MatchingPriceNotFoundError) and [MissingTaxRateForCountry](ctp:api:type:MissingTaxRateForCountryError).
+   *
+   *	For more information, see [Cart updates](/../api/carts-orders-overview#update-a-cart).
    *
    *
    */
@@ -694,7 +700,7 @@ export interface CustomerSignin {
    */
   readonly anonymousCartId?: string
   /**
-   *	Identifies a [Cart](ctp:api:type:Cart) that will be assigned to the Customer.
+   *	Assigns the Customer to the specified Cart.
    *
    *
    */
@@ -707,9 +713,9 @@ export interface CustomerSignin {
    */
   readonly anonymousCartSignInMode?: AnonymousCartSignInMode
   /**
-   *	If both `anonymousCart` and `anonymousId` are provided, the `anonymousId` on the CustomerSignin must match that of the anonymous [Cart](ctp:api:type:Cart).
-   *	Otherwise a [400 Bad Request](ctp:api:type:InvalidOperationError) `Invalid Operation` error is returned with the message:
-   *	"Cart with the ID cart-id does not have the expected anonymousId.".
+   *	Assigns the Customer to all [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [ShoppingLists](ctp:api:type:ShoppingList), and [Payments](ctp:api:type:Payment) with the same `anonymousId`.
+   *
+   *	If `anonymousCart` is provided, this value must match the `anonymousId` of the anonymous [Cart](ctp:api:type:Cart); otherwise, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
    *
    *
    */
