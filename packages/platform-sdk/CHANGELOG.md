@@ -1,5 +1,28 @@
 # @commercetools/platform-sdk
 
+## 8.16.0
+
+### Minor Changes
+
+- [#1156](https://github.com/commercetools/commercetools-sdk-typescript/pull/1156) [`976ea7e`](https://github.com/commercetools/commercetools-sdk-typescript/commit/976ea7e699b19fb28bde96ac4e0f73841122d1ca) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Property(s)</summary>
+
+  - added property `isActive` to type `DiscountGroup`
+  - added property `isActive` to type `DiscountGroupDraft`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+
+  - added type `DiscountGroupSetIsActiveAction`
+  - added type `MaxDiscountGroupsReachedError`
+  - added type `GraphQLMaxDiscountGroupsReachedError`
+  - added type `DiscountGroupIsActiveSetMessage`
+  - added type `DiscountGroupIsActiveSetMessagePayload`
+  </details>
+
 ## 8.15.0
 
 ### Minor Changes
