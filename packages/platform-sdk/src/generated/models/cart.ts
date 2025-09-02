@@ -1176,7 +1176,7 @@ export interface IDiscountTypeCombination {
 export interface BestDeal extends IDiscountTypeCombination {
   readonly type: 'BestDeal'
   /**
-   *	Discount type that offers the best deal; the value can be `product-discount` or `cart-discount`.
+   *	Discount type that offers the best deal; the value can be `ProductDiscount` or `CartDiscount`.
    *
    *
    */
