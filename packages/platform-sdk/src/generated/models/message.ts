@@ -17291,7 +17291,7 @@ export interface ProductSelectionProductAddedMessage extends IMessage {
    *
    *
    */
-  readonly variantSelection: ProductVariantSelection
+  readonly variantSelection?: ProductVariantSelection
 }
 /**
  *	Generated after a successful [Exclude Product](ctp:api:type:ProductSelectionExcludeProductAction) update action.
@@ -17367,7 +17367,7 @@ export interface ProductSelectionProductExcludedMessage extends IMessage {
    *
    *
    */
-  readonly variantExclusion: ProductVariantExclusion
+  readonly variantExclusion?: ProductVariantExclusion
 }
 /**
  *	Generated after a successful [Remove Product](ctp:api:type:ProductSelectionRemoveProductAction) update action.
@@ -17513,12 +17513,12 @@ export interface ProductSelectionVariantExclusionChangedMessage
    *	Product Variant Exclusion before the [Set Variant Exclusion](ctp:api:type:ProductSelectionSetVariantExclusionAction) update action.
    *
    */
-  readonly oldVariantExclusion: ProductVariantExclusion
+  readonly oldVariantExclusion?: ProductVariantExclusion
   /**
    *	Product Variant Exclusion after the [Set Variant Exclusion](ctp:api:type:ProductSelectionSetVariantExclusionAction) update action.
    *
    */
-  readonly newVariantExclusion: ProductVariantExclusion
+  readonly newVariantExclusion?: ProductVariantExclusion
 }
 /**
  *	Generated after a successful [Set Variant Selection](ctp:api:type:ProductSelectionSetVariantSelectionAction) update action.
@@ -17594,12 +17594,12 @@ export interface ProductSelectionVariantSelectionChangedMessage
    *	Product Variant Selection before the [Set Variant Selection](ctp:api:type:ProductSelectionSetVariantSelectionAction) update action.
    *
    */
-  readonly oldVariantSelection: ProductVariantSelection
+  readonly oldVariantSelection?: ProductVariantSelection
   /**
    *	Product Variant Selection after the [Set Variant Selection](ctp:api:type:ProductSelectionSetVariantSelectionAction) update action.
    *
    */
-  readonly newVariantSelection: ProductVariantSelection
+  readonly newVariantSelection?: ProductVariantSelection
 }
 /**
  *	Generated after a successful [Change Slug](ctp:api:type:ProductChangeSlugAction) update action.
@@ -28266,7 +28266,7 @@ export interface ProductSelectionProductAddedMessagePayload
    *
    *
    */
-  readonly variantSelection: ProductVariantSelection
+  readonly variantSelection?: ProductVariantSelection
 }
 /**
  *	Generated after a successful [Exclude Product](ctp:api:type:ProductSelectionExcludeProductAction) update action.
@@ -28286,7 +28286,7 @@ export interface ProductSelectionProductExcludedMessagePayload
    *
    *
    */
-  readonly variantExclusion: ProductVariantExclusion
+  readonly variantExclusion?: ProductVariantExclusion
 }
 /**
  *	Generated after a successful [Remove Product](ctp:api:type:ProductSelectionRemoveProductAction) update action.
@@ -28319,12 +28319,12 @@ export interface ProductSelectionVariantExclusionChangedMessagePayload
    *	Product Variant Exclusion before the [Set Variant Exclusion](ctp:api:type:ProductSelectionSetVariantExclusionAction) update action.
    *
    */
-  readonly oldVariantExclusion: ProductVariantExclusion
+  readonly oldVariantExclusion?: ProductVariantExclusion
   /**
    *	Product Variant Exclusion after the [Set Variant Exclusion](ctp:api:type:ProductSelectionSetVariantExclusionAction) update action.
    *
    */
-  readonly newVariantExclusion: ProductVariantExclusion
+  readonly newVariantExclusion?: ProductVariantExclusion
 }
 /**
  *	Generated after a successful [Set Variant Selection](ctp:api:type:ProductSelectionSetVariantSelectionAction) update action.
@@ -28343,12 +28343,12 @@ export interface ProductSelectionVariantSelectionChangedMessagePayload
    *	Product Variant Selection before the [Set Variant Selection](ctp:api:type:ProductSelectionSetVariantSelectionAction) update action.
    *
    */
-  readonly oldVariantSelection: ProductVariantSelection
+  readonly oldVariantSelection?: ProductVariantSelection
   /**
    *	Product Variant Selection after the [Set Variant Selection](ctp:api:type:ProductSelectionSetVariantSelectionAction) update action.
    *
    */
-  readonly newVariantSelection: ProductVariantSelection
+  readonly newVariantSelection?: ProductVariantSelection
 }
 /**
  *	Generated after a successful [Change Slug](ctp:api:type:ProductChangeSlugAction) update action.
