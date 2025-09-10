@@ -1,5 +1,28 @@
 # @commercetools/platform-sdk
 
+## 8.17.0
+
+### Minor Changes
+
+- [#1163](https://github.com/commercetools/commercetools-sdk-typescript/pull/1163) [`f7658fe`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f7658fe066dd88c971c7e92973e67dc7029e7f3b) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Required Property(s)</summary>
+
+  - changed property `variantSelection` of type `ProductSelectionProductAddedMessage` to be optional
+  - changed property `variantExclusion` of type `ProductSelectionProductExcludedMessage` to be optional
+  - changed property `oldVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessage` to be optional
+  - changed property `newVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessage` to be optional
+  - changed property `oldVariantSelection` of type `ProductSelectionVariantSelectionChangedMessage` to be optional
+  - changed property `newVariantSelection` of type `ProductSelectionVariantSelectionChangedMessage` to be optional
+  - changed property `variantSelection` of type `ProductSelectionProductAddedMessagePayload` to be optional
+  - changed property `variantExclusion` of type `ProductSelectionProductExcludedMessagePayload` to be optional
+  - changed property `oldVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessagePayload` to be optional
+  - changed property `newVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessagePayload` to be optional
+  - changed property `oldVariantSelection` of type `ProductSelectionVariantSelectionChangedMessagePayload` to be optional
+  - changed property `newVariantSelection` of type `ProductSelectionVariantSelectionChangedMessagePayload` to be optional
+  </details>
+
 ## 8.16.0
 
 ### Minor Changes
