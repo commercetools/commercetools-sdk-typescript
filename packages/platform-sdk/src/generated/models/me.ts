@@ -1087,6 +1087,11 @@ export interface MyTransactionDraft {
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	Identifier used by the payment service that processes the Payment (for example, a PSP) in the current transaction.
+   *
+   */
+  readonly interfaceId?: string
 }
 export interface ReplicaMyCartDraft {
   /**
