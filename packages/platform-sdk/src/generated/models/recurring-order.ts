@@ -488,7 +488,7 @@ export interface ISkipConfiguration {
  *
  */
 export interface Counter extends ISkipConfiguration {
-  readonly type: 'counter'
+  readonly type: 'Counter'
   /**
    *	Number of Orders that will be skipped.
    *
@@ -524,7 +524,7 @@ export interface ISkipConfigurationDraft {
  *
  */
 export interface CounterDraft extends ISkipConfigurationDraft {
-  readonly type: 'counter'
+  readonly type: 'Counter'
   /**
    *	Number of Orders that will be skipped.
    *
@@ -610,7 +610,7 @@ export interface RecurringOrderSetOrderSkipConfigurationAction
   extends IRecurringOrderUpdateAction {
   readonly action: 'setOrderSkipConfiguration'
   /**
-   *	Configuration for skipping the next orders of the [Recurring Order](ctp:api:type:RecurringOrder).
+   *	Configuration for skipping future orders of the [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
    */
