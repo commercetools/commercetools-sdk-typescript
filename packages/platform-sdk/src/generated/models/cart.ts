@@ -3427,6 +3427,8 @@ export interface CartSetCustomerIdAction extends ICartUpdateAction {
 /**
  *	Number of days after the last modification before a Cart is deleted.
  *
+ *	Carts with [CartOrigin](ctp:api:type:CartOrigin) `RecurringOrder` are not affected by this update action.
+ *
  *	If a [ChangeSubscription](ctp:api:type:ChangeSubscription) exists for Carts, a [ResourceDeletedDeliveryPayload](ctp:api:type:ResourceDeletedDeliveryPayload) is sent.
  *
  */
