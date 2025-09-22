@@ -1,0 +1,48 @@
+{
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "name": "@commercetools/checkout-sdk",
+  "version": "0.0.0",
+  "engines": {
+    "node": ">=18"
+  },
+  "description": "Typescript SDK for Composable Commerce Checkout API",
+  "keywords": [
+    "commercetools",
+    "composable commerce",
+    "typescript",
+    "sdk",
+    "checkout"
+  ],
+  "homepage": "https://github.com/commercetools/commercetools-typescript-sdks/packages/checkout-sdk",
+  "bugs": "https://github.com/commercetools/commercetools-typescript-sdks/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commercetools/commercetools-typescript-sdks.git"
+  },
+  "files": ["dist", "CHANGELOG.md"],
+  "author": "Ajima Chukwuemeka",
+  "license": "MIT",
+  "main": "dist/commercetools-checkout-sdk.cjs.js",
+  "module": "dist/commercetools-checkout-sdk.esm.js",
+  "browser": {
+    "./dist/commercetools-checkout-sdk.cjs.js": "./dist/commercetools-checkout-sdk.browser.cjs.js",
+    "./dist/commercetools-checkout-sdk.esm.js": "./dist/commercetools-checkout-sdk.browser.esm.js"
+  },
+  "dependencies": {
+    "@commercetools/ts-client": "^4.2.1"
+  },
+  "devDependencies": {
+    "organize-imports-cli": "0.10.0",
+    "tsconfig-replace-paths": "0.0.14"
+  },
+  "scripts": {
+    "remove_path_alias": "tsconfig-replace-paths --project tsconfig-declarations.json -s ./src/generated -o ./src/generated",
+    "organize_imports": "find src/generated -type f -name '*.ts' | xargs organize-imports-cli",
+    "post_process_generate": "yarn remove_path_alias && yarn organize_imports",
+    "generate-ts-sdk": "rmf-codegen generate ${CHECKOUT_API_REF} -o src/generated -t typescript_client",
+    "generate": "yarn generate-ts-sdk && yarn post_process_generate"
+  }
+}

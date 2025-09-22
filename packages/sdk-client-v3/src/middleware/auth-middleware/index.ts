@@ -9,5 +9,5 @@ export {
     createAuthMiddlewareForAnonymousSessionFlow,
     createAuthMiddlewareForClientCredentialsFlow,
     createAuthMiddlewareForRefreshTokenFlow,
-    createAuthMiddlewareForExistingTokenFlow
+    createAuthMiddlewareForExistingTokenFlow,
 }
