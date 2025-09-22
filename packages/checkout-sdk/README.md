@@ -75,96 +75,98 @@ const client = new ClientBuilder()
 const apiRoot = createApiBuilderFromCtpClient(client)
 
 // calling the checkout-sdk functions
-// get project details
-// apiRoot
-//   .withProjectKey({ projectKey })
-//   .recommendations()
-//   .projectCategories()
-//   .withProductId({
-//     productId: product.id,
-//   })
-//   .get()
-//   .execute()
-//   .then((x) => {
-//     /*...*/
-//   })
+// create a new transaction using the checkout sdk
+apiRoot
+  .withProjectKey({ projectKey })
+  .transactions()
+  .post({
+    body: {
+      application: {
+        typeId: 'application',
+        key: 'checkout-application-key',
+      },
+      transactionItems: [
+        {
+          paymentIntegration: {
+            typeId: 'payment-integration',
+            id: 'payment-integration-id',
+          },
+          amount: {
+            centAmount: 1000,
+            currencyCode: 'EUR',
+          },
+        },
+      ],
+      cart: {
+        typeId: 'cart',
+        id: 'cart-id',
+      },
+    },
+  })
+  .execute()
+  .then(...)
+  .catch(...)
 
-// apiRoot
-//   .withProjectKey({ projectKey })
-//   .imageSearch()
-//   .post({
-//     queryArgs: {
-//       limit: 20,
-//     },
-//     body: image,
-//     headers: {
-//       'Content-Type': 'image/jpeg',
-//     },
-//   })
-//   .execute()
-//   .then((x) => {
-//     /*...*/
-//   })
-
-// -----------------------------------------------------------------------
+-----------------------------------------------------------------------
 // The ts-client also has support for the old syntax
-// import {
-//   createClient,
-//   createHttpClient,
-//   createAuthForClientCredentialsFlow,
-// } from '@commercetools/ts-client'
-// import { createApiBuilderFromCtpClient } from '@commercetools/checkout-sdk'
+import {
+  createClient,
+  createHttpClient,
+  createAuthForClientCredentialsFlow,
+} from '@commercetools/ts-client'
+import { createApiBuilderFromCtpClient } from '@commercetools/checkout-sdk'
 
-// const projectKey = 'some_project_key'
+const projectKey = 'some_project_key'
 
-// const authMiddleware = createAuthForClientCredentialsFlow({
-//   host: 'https://auth.europe-west1.gcp.commercetools.com',
-//   projectKey,
-//   credentials: {
-//     clientId: 'some_id',
-//     clientSecret: 'some_secret',
-//   },
-//   fetch,
-// })
+const authMiddleware = createAuthForClientCredentialsFlow({
+  host: 'https://auth.europe-west1.gcp.commercetools.com',
+  projectKey,
+  credentials: {
+    clientId: 'some_id',
+    clientSecret: 'some_secret',
+  },
+  httpClient: fetch,
+})
 
-// const httpMiddleware = createHttpClient({
-//   host: 'https://checkout.europe-west1.gcp.commercetools.com',
-//   fetch,
-// })
+const httpMiddleware = createHttpClient({
+  host: 'https://checkout.europe-west1.gcp.commercetools.com',
+  httpClient: fetch,
+})
 
-// const ctpClient = createClient({
-//   middlewares: [authMiddleware, httpMiddleware],
-// })
+const ctpClient = createClient({
+  middlewares: [authMiddleware, httpMiddleware],
+})
 
-// const apiRoot = createApiBuilderFromCtpClient(ctpClient)
+const apiRoot = createApiBuilderFromCtpClient(ctpClient)
 
-// apiRoot
-//   .withProjectKey({ projectKey })
-//   .recommendations()
-//   .projectCategories()
-//   .withProductId({
-//     productId: product.id,
-//   })
-//   .get()
-//   .execute()
-//   .then((x) => {
-//     /*...*/
-//   })
-
-// apiRoot
-//   .withProjectKey({ projectKey })
-//   .imageSearch()
-//   .post({
-//     queryArgs: {
-//       limit: 20,
-//     },
-//     body: image,
-//     headers: {
-//       'Content-Type': 'image/jpeg',
-//     },
-//   })
-//   .execute()
-//   .then((x) => {
-//     /*...*/
-//   })
+apiRoot
+  .withProjectKey({ projectKey })
+  .transactions()
+  .post({
+    body: {
+      application: {
+        typeId: 'application',
+        key: 'checkout-application-key',
+      },
+      transactionItems: [
+        {
+          paymentIntegration: {
+            typeId: 'payment-integration',
+            id: 'payment-integration-id',
+          },
+          amount: {
+            centAmount: 1000,
+            currencyCode: 'EUR',
+          },
+        },
+      ],
+      cart: {
+        typeId: 'cart',
+        id: 'cart-id',
+      },
+    },
+  })
+  .execute()
+  .then(...)
+  .catch(...)
 ```
