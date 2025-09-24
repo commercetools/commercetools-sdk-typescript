@@ -31,7 +31,7 @@ jobs:
           echo "email=${GH_APP_USER}+ct-changesets[bot]@users.noreply.github.com" >> "$GITHUB_OUTPUT"
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           # Pass a personal access token (using our CT Changesets App) to be able to trigger other workflows
           # https://help.github.com/en/actions/reference/events-that-trigger-workflows#triggering-new-workflows-using-a-personal-access-token
