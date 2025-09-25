@@ -1,5 +1,3 @@
-import ApiClient from "./Client"
+import ApiClient from './Client'
 
-export {
-  ApiClient
-}
+export { ApiClient }

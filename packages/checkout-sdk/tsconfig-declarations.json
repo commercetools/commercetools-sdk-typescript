@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "commonjs",
+    "declaration": true,
+    "declarationMap": false,
+    "isolatedModules": false,
+    "noEmit": false,
+    "allowJs": false,
+    "emitDeclarationOnly": true,
+    "paths": {
+      "~/*": ["./src/*"],
+      "*": ["./src/generated/*"],
+      "models/*": ["./src/generated/models/*"],
+      "client/*": ["./src/generated/client/*"],
+      "shared/*": ["./src/generated/shared/*"]
+    }
+  }
+}

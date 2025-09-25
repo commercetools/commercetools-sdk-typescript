@@ -12,4 +12,3 @@ export {
     createUserAgentMiddleware
 } from './middleware'
 export * from './types/types.d'
-
