@@ -3,7 +3,6 @@
 ## Contents
 
 - [General](#general)
-
   - [Use up-to-date SDK](#use-up-to-date-sdk)
   - [Documentation](#documentation)
   - [Issues](#issues)
