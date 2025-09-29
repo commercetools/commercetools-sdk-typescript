@@ -34,6 +34,7 @@ export class ByProjectKeyProductProjectionsByIDRequestBuilder {
       priceRecurrencePolicy?: string
       localeProjection?: string | string[]
       storeProjection?: string
+      'filter[attributes]'?: string | string[]
       expand?: string | string[]
       [key: string]: QueryParam
     }

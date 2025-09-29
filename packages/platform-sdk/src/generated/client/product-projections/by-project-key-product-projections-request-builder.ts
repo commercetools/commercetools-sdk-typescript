@@ -85,6 +85,7 @@ export class ByProjectKeyProductProjectionsRequestBuilder {
       priceRecurrencePolicy?: string
       localeProjection?: string | string[]
       storeProjection?: string
+      'filter[attributes]'?: string | string[]
       expand?: string | string[]
       sort?: string | string[]
       limit?: number
