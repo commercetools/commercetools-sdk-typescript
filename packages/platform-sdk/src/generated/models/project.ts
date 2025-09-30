@@ -132,6 +132,28 @@ export enum CustomerSearchStatusValues {
 
 export type CustomerSearchStatus = 'Activated' | 'Deactivated' | (string & {})
 /**
+ *	Defines how Product Discounts and Cart Discounts are combined for every Cart in a Project.
+ *
+ */
+export enum DiscountCombinationModeValues {
+  BestDeal = 'BestDeal',
+  Stacking = 'Stacking',
+}
+
+export type DiscountCombinationMode = 'BestDeal' | 'Stacking' | (string & {})
+/**
+ *	Holds the configuration for behavior of Product and Cart Discounts.
+ *
+ */
+export interface DiscountsConfiguration {
+  /**
+   *	Indicates how Product Discounts and Cart Discounts should be combined. Default value is `Stacking`.
+   *
+   *
+   */
+  readonly discountCombinationMode: DiscountCombinationMode
+}
+/**
  *	Represents a RFC 7662 compliant [OAuth 2.0 Token Introspection](https://datatracker.ietf.org/doc/html/rfc7662) endpoint. For more information, see [Requesting an access token using an external OAuth 2.0 server](/../api/authorization#request-an-access-token-using-an-external-oauth-server).
  *
  *	You can only configure **one** external OAuth 2.0 endpoint per Project. To authenticate using multiple external services (such as social network logins), use a middle layer authentication service.
@@ -259,6 +281,12 @@ export interface Project {
    *
    */
   readonly businessUnits?: BusinessUnitConfiguration
+  /**
+   *	Holds configuration specific to discounts, including how Product and Cart Discounts are combined in every Cart of the Project.
+   *
+   *
+   */
+  readonly discounts: DiscountsConfiguration
 }
 export interface ProjectUpdate {
   /**
@@ -292,6 +320,7 @@ export type ProjectUpdateAction =
   | ProjectChangeShoppingListsConfigurationAction
   | ProjectChangeTaxRoundingModeAction
   | ProjectSetBusinessUnitAssociateRoleOnCreationAction
+  | ProjectSetDiscountsConfigurationAction
   | ProjectSetExternalOAuthAction
   | ProjectSetShippingRateInputTypeAction
 export interface IProjectUpdateAction {
@@ -572,6 +601,16 @@ export interface ProjectSetBusinessUnitAssociateRoleOnCreationAction
    *
    */
   readonly associateRole: AssociateRoleResourceIdentifier
+}
+export interface ProjectSetDiscountsConfigurationAction
+  extends IProjectUpdateAction {
+  readonly action: 'setDiscountsConfiguration'
+  /**
+   *	Configuration for the behavior of Cart and Product Discounts in the Project.
+   *
+   *
+   */
+  readonly discountsConfiguration: DiscountsConfiguration
 }
 export interface ProjectSetExternalOAuthAction extends IProjectUpdateAction {
   readonly action: 'setExternalOAuth'
