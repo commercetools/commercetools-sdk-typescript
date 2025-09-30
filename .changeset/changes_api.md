@@ -10,6 +10,9 @@
 - added type `PaymentTransactionInterfaceIdSetMessage`
 - added type `PaymentTransactionInterfaceIdSetMessagePayload`
 - added type `PaymentSetTransactionInterfaceIdAction`
+- added type `DiscountCombinationMode`
+- added type `DiscountsConfiguration`
+- added type `ProjectSetDiscountsConfigurationAction`
 - added type `SearchFuzzyExpression`
 - added type `SearchFuzzyValue`
 </details>
@@ -56,5 +59,6 @@
 - added property `interfaceId` to type `MyTransactionDraft`
 - added property `interfaceId` to type `Transaction`
 - added property `interfaceId` to type `TransactionDraft`
+- added property `discounts` to type `Project`
 - added property `skipConfigurationInputDraft` to type `RecurringOrderSetOrderSkipConfigurationAction`
 </details>
