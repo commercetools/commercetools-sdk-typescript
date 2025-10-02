@@ -677,6 +677,15 @@ export interface CartDiscountValueRelative extends ICartDiscountValue {
    *
    */
   readonly permyriad: number
+  /**
+   *	Indicates how the discount applies when using [CartDiscountPatternTarget](ctp:api:type:CartDiscountPatternTarget).
+   *
+   *	- If the mode is `IndividualApplication`, the discounted percentage is applied on each unit's price. The units matching the `triggerPattern` are not considered.
+   *	- If the mode is `ProportionateDistribution` and `EvenDistribution` the discounted value is calculated from the total value of the units matching the `targetPattern` and distributed among the units matching the `targetPattern` or `triggerPattern`. These modes are allowed only if [CartDiscountPatternTarget](ctp:api:type:CartDiscountPatternTarget) `triggerPattern` is non-empty.
+   *
+   *
+   */
+  readonly applicationMode?: DiscountApplicationMode
 }
 export interface CartDiscountValueRelativeDraft
   extends ICartDiscountValueDraft {
@@ -687,9 +696,18 @@ export interface CartDiscountValueRelativeDraft
    *
    */
   readonly permyriad: number
+  /**
+   *	Determines how the discount applies when using [CartDiscountPatternTarget](ctp:api:type:CartDiscountPatternTarget).
+   *
+   *	- If the mode is `IndividualApplication`, the discounted percentage is applied on each unit's price. The units matching the `triggerPattern` are not considered.
+   *	- If the mode is `ProportionateDistribution` and `EvenDistribution` the discounted value is calculated from the total value of the units matching the `targetPattern` and distributed among the units matching the `targetPattern` or `triggerPattern`. These modes are allowed only if [CartDiscountPatternTarget](ctp:api:type:CartDiscountPatternTarget) `triggerPattern` is non-empty.
+   *
+   *
+   */
+  readonly applicationMode?: DiscountApplicationMode
 }
 /**
- *	This mode determines how absolute Discounts are applied on Line Items or Custom Line Items.
+ *	This mode determines how Discounts are distributed among items in a Cart.
  *
  */
 export enum DiscountApplicationModeValues {
@@ -973,6 +991,10 @@ export interface CartDiscountChangeTargetAction
   /**
    *	New value to set.
    *
+   *	For a [CartDiscountValueRelative](ctp:api:type:CartDiscountValueRelative), if `applicationMode` is set, the target must be [CartDiscountPatternTarget](ctp:api:type:CartDiscountPatternTarget).
+   *	If `applicationMode` is `ProportionateDistribution` or `EvenDistribution`, the [CartDiscountPatternTarget](ctp:api:type:CartDiscountPatternTarget) `triggerPattern` must be non-empty.
+   *	If either conditions are not met, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
    *
    */
   readonly target: CartDiscountTarget
@@ -987,6 +1009,7 @@ export interface CartDiscountChangeValueAction
   readonly action: 'changeValue'
   /**
    *	New value to set.
+   *
    *	When trying to set a [CartDiscountValueGiftLineItemDraft](ctp:api:type:CartDiscountValueGiftLineItemDraft) an [InvalidInput](ctp:api:type:InvalidInputError) error is returned.
    *
    *
