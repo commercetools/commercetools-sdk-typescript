@@ -413,6 +413,7 @@ export type PaymentUpdateAction =
   | PaymentSetStatusInterfaceTextAction
   | PaymentSetTransactionCustomFieldAction
   | PaymentSetTransactionCustomTypeAction
+  | PaymentSetTransactionInterfaceIdAction
   | PaymentTransitionStateAction
 export interface IPaymentUpdateAction {
   /**
@@ -462,6 +463,11 @@ export interface Transaction {
    *
    */
   readonly custom?: CustomFields
+  /**
+   *	Identifier used by the payment service that processes the Payment (for example, a PSP) in the current transaction.
+   *
+   */
+  readonly interfaceId?: string
 }
 export interface TransactionDraft {
   /**
@@ -496,6 +502,11 @@ export interface TransactionDraft {
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	Identifier used by the payment service that processes the Payment (for example, a PSP) in the current transaction.
+   *
+   */
+  readonly interfaceId?: string
 }
 /**
  *	Transactions can be in one of the following States:
@@ -956,6 +967,27 @@ export interface PaymentSetTransactionCustomTypeAction
    *
    */
   readonly fields?: FieldContainer
+}
+/**
+ *	Setting the transaction interface ID produces the [PaymentTransactionInterfaceIdSet](ctp:api:type:PaymentTransactionInterfaceIdSetMessage) Message.
+ *
+ */
+export interface PaymentSetTransactionInterfaceIdAction
+  extends IPaymentUpdateAction {
+  readonly action: 'setTransactionInterfaceId'
+  /**
+   *	Unique identifier of the [Transaction](ctp:api:type:Transaction).
+   *
+   *
+   */
+  readonly transactionId: string
+  /**
+   *	Identifier used by the payment service that processes the Payment (for example, a PSP) in the current transaction. It must be unique across all transactions.
+   *	If `interfaceId` is absent, this field will be removed from the specified Transaction, if it exists.
+   *
+   *
+   */
+  readonly interfaceId?: string
 }
 /**
  *	If the Payment has no current [State](ctp:api:type:State), `initial` must be `true` for the new State.

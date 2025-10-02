@@ -29,14 +29,14 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           persist-credentials: false
 
       - name: Run Semgrep
         run: semgrep scan --sarif --output=semgrep.sarif --config=p/auto --config=p/dockerfile --config=p/typescript --config=p/javascript --metrics=off --verbose
       - name: Upload SARIF file for GitHub Advanced Security Dashboard
-        uses: github/codeql-action/upload-sarif@3de706a4a34b7e2fe37e4a10aecbdd3ec5dc0664 # CodeQL Bundle v2.16.1
+        uses: github/codeql-action/upload-sarif@7f44048739d1ed01dcd72086ab991988a34a30d0 # CodeQL Bundle v2.16.1
         with:
           sarif_file: semgrep.sarif
         if: always()
