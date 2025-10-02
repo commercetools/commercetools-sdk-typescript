@@ -1,5 +1,41 @@
 # @commercetools/platform-sdk
 
+## 8.17.0
+
+### Minor Changes
+
+- [#1163](https://github.com/commercetools/commercetools-sdk-typescript/pull/1163) [`f7658fe`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f7658fe066dd88c971c7e92973e67dc7029e7f3b) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Required Property(s)</summary>
+  - changed property `variantSelection` of type `ProductSelectionProductAddedMessage` to be optional
+  - changed property `variantExclusion` of type `ProductSelectionProductExcludedMessage` to be optional
+  - changed property `oldVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessage` to be optional
+  - changed property `newVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessage` to be optional
+  - changed property `oldVariantSelection` of type `ProductSelectionVariantSelectionChangedMessage` to be optional
+  - changed property `newVariantSelection` of type `ProductSelectionVariantSelectionChangedMessage` to be optional
+  - changed property `variantSelection` of type `ProductSelectionProductAddedMessagePayload` to be optional
+  - changed property `variantExclusion` of type `ProductSelectionProductExcludedMessagePayload` to be optional
+  - changed property `oldVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessagePayload` to be optional
+  - changed property `newVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessagePayload` to be optional
+  - changed property `oldVariantSelection` of type `ProductSelectionVariantSelectionChangedMessagePayload` to be optional
+  - changed property `newVariantSelection` of type `ProductSelectionVariantSelectionChangedMessagePayload` to be optional
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `interfaceId` to type `MyTransactionDraft`
+  - added property `interfaceId` to type `Transaction`
+  - added property `interfaceId` to type `TransactionDraft`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `PaymentTransactionInterfaceIdSetMessage`
+  - added type `PaymentTransactionInterfaceIdSetMessagePayload`
+  - added type `PaymentSetTransactionInterfaceIdAction`
+  </details>
+
 ## 8.16.0
 
 ### Minor Changes
@@ -8,14 +44,12 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `isActive` to type `DiscountGroup`
   - added property `isActive` to type `DiscountGroupDraft`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `DiscountGroupSetIsActiveAction`
   - added type `MaxDiscountGroupsReachedError`
   - added type `GraphQLMaxDiscountGroupsReachedError`
@@ -31,7 +65,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `minCartQuantity` to type `InventoryEntry`
   - added property `maxCartQuantity` to type `InventoryEntry`
   - added property `minCartQuantity` to type `InventoryEntryDraft`
@@ -40,7 +73,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `InventoryEntrySetInventoryLimitsAction`
   - added type `CustomerDefaultBillingAddressSetMessage`
   - added type `CustomerDefaultShippingAddressSetMessage`
@@ -52,14 +84,12 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().recurrencePolicies().withKey().delete()`
   - added method `apiRoot.withProjectKey().recurrencePolicies().withId().delete()`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `discount-group` to type `ChangeSubscriptionResourceTypeId`
   </details>
 
@@ -76,7 +106,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `InventoryEntrySetInventoryLimitsAction`
   - added type `CustomerDefaultBillingAddressSetMessage`
   - added type `CustomerDefaultShippingAddressSetMessage`
@@ -88,7 +117,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `minCartQuantity` to type `InventoryEntry`
   - added property `maxCartQuantity` to type `InventoryEntry`
   - added property `minCartQuantity` to type `InventoryEntryDraft`
@@ -97,7 +125,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `discount-group` to type `ChangeSubscriptionResourceTypeId`
   </details>
 
@@ -114,7 +141,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `RecurringOrderDeletedMessage`
   - added type `RecurringOrderExpiresAtSetMessage`
   - added type `RecurringOrderDeletedMessagePayload`
@@ -124,14 +150,12 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().recurringOrders().withId().delete()`
   - added method `apiRoot.withProjectKey().recurringOrders().withKey().delete()`
   </details>
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `expiresAt` to type `RecurringOrderDraft`
   </details>
 
@@ -152,7 +176,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `ApplicationStoppedByGroupBestDeal` to type `DiscountCodeState`
   - added enum `discount-group` to type `ReferenceTypeId`
   - added enum `payment-method` to type `ReferenceTypeId`
@@ -161,7 +184,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `makeInheritedAssociatesExplicit` to type `BusinessUnitChangeAssociateModeAction`
   - added property `discountGroup` to type `CartDiscount`
   - added property `discountGroup` to type `CartDiscountDraft`
@@ -194,7 +216,6 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `paymentMethodInfo` of type `MyPaymentDraft` from type `PaymentMethodInfo` to `PaymentMethodInfoDraft`
   - :warning: changed property `paymentMethodInfo` of type `PaymentDraft` from type `PaymentMethodInfo` to `PaymentMethodInfoDraft`
   - :warning: changed property `filter` of type `SearchSorting` from type `SearchQueryExpression` to `SearchQuery`
@@ -202,13 +223,11 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `sortOrder` of type `CartDiscountDraft` to be optional
   </details>
 
   <details>
   <summary>Removed Property(s)</summary>
-
   - :warning: removed property `/[0-9].[0-9]*[1-9]/` from type `CategoryOrderHints`
   - :warning: removed property `//` from type `ProductVariantChannelAvailabilityMap`
   - :warning: removed property `messages` from type `SubscriptionSetEventsAction`
@@ -216,7 +235,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().discountGroups().get()`
   - added method `apiRoot.withProjectKey().discountGroups().head()`
   - added method `apiRoot.withProjectKey().discountGroups().post()`
@@ -243,7 +261,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `CartDiscountSetDiscountGroupAction`
   - added type `CartChangePriceRoundingModeAction`
   - added type `DiscountGroup`
@@ -351,7 +368,6 @@
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/discount-groups`
   - added resource `/{projectKey}/payment-methods`
   - added resource `/{projectKey}/discount-groups/key={key}`
@@ -368,7 +384,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `ExpiredCustomerEmailTokenError`
   - added type `ExpiredCustomerPasswordTokenError`
   - added type `GraphQLExpiredCustomerEmailTokenError`
@@ -388,7 +403,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `invalidateOlderTokens` to type `CustomerCreateEmailToken`
   - added property `invalidateOlderTokens` to type `CustomerCreatePasswordResetToken`
   - added property `invalidateOlderTokens` to type `CustomerToken`
@@ -404,7 +418,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `checkout` to type `EventSubscriptionResourceTypeId`
   - added enum `CheckoutOrderCreationFailed` to type `EventType`
   - added enum `CheckoutPaymentAuthorizationCancelled` to type `EventType`
@@ -441,13 +454,11 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `published` to type `ShoppingListLineItem`
   </details>
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `actions` of type `MyBusinessUnitUpdate` from type `BusinessUnitUpdateAction[]` to `MyBusinessUnitUpdateAction[]`
   </details>
 
@@ -459,14 +470,12 @@
 
   <details>
   <summary>Changed Type(s)</summary>
-
   - :warning: changed type `DeliveryPayload` from type `object` to `SubscriptionNotification`
   - :warning: changed type `EventDeliveryPayload` from type `DeliveryPayload` to `SubscriptionNotification`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `BusinessUnitSetUnitTypeAction`
   - added type `BaseEvent`
   - added type `BusinessUnitTopLevelUnitSetMessage`
@@ -478,13 +487,11 @@
 
   <details>
   <summary>Removed Property(s)</summary>
-
   - :warning: removed property `data` from type `Event`
   </details>
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `projectKey` to type `DeliveryPayload`
   - added property `resource` to type `DeliveryPayload`
   - added property `resourceUserProvidedIdentifiers` to type `DeliveryPayload`
@@ -498,7 +505,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `Event`
   - added type `ImportContainerCreatedEvent`
   - added type `ImportContainerCreatedEventData`
@@ -521,13 +527,11 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `facets` of type `ProductProjectionPagedSearchResponse` to be optional
   </details>
 
   <details>
   <summary>Removed Property(s)</summary>
-
   - :warning: removed property `projectKey` from type `DeliveryPayload`
   - :warning: removed property `resource` from type `DeliveryPayload`
   - :warning: removed property `resourceUserProvidedIdentifiers` from type `DeliveryPayload`
@@ -535,14 +539,12 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `events` to type `Subscription`
   - added property `events` to type `SubscriptionDraft`
   </details>
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `withTotal` from method `get /{projectKey}/product-projections/search`
   </details>
 
@@ -559,7 +561,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `ViewMyShoppingLists` to type `Permission`
   - added enum `ViewOthersShoppingLists` to type `Permission`
   - added enum `UpdateMyShoppingLists` to type `Permission`
@@ -572,7 +573,6 @@
 
   <details>
   <summary>Added QueryParameter(s)</summary>
-
   - added query parameter `priceCustomerGroupAssignments` to method `get /{projectKey}/products`
   - added query parameter `priceCustomerGroupAssignments` to method `post /{projectKey}/products`
   - added query parameter `priceCustomerGroupAssignments` to method `get /{projectKey}/product-projections`
@@ -591,7 +591,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `CustomerGroupAssignment`
   - added type `CustomerGroupAssignmentDraft`
   - added type `CustomerAddCustomerGroupAssignmentAction`
@@ -611,7 +610,6 @@
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/shopping-lists`
   - added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/shopping-lists/key={key}`
   - added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/shopping-lists/{ID}`
@@ -619,7 +617,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().asAssociate().withAssociateIdValue().inBusinessUnitKeyWithBusinessUnitKeyValue().shoppingLists().get()`
   - added method `apiRoot.withProjectKey().asAssociate().withAssociateIdValue().inBusinessUnitKeyWithBusinessUnitKeyValue().shoppingLists().head()`
   - added method `apiRoot.withProjectKey().asAssociate().withAssociateIdValue().inBusinessUnitKeyWithBusinessUnitKeyValue().shoppingLists().post()`
@@ -635,7 +632,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `customerGroupAssignments` to type `Customer`
   - added property `customerGroupAssignments` to type `CustomerDraft`
   - added property `priceCustomerGroupAssignments` to type `ProductSearchProjectionParams`
@@ -649,13 +645,11 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `BusinessUnitAssociateResponse`
   </details>
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/business-units/key={key}/associates/{associateId}`
   - added resource `/{projectKey}/business-units/{businessUnitId}/associates/{associateId}`
   - added resource `/{projectKey}/in-store/key={storeKey}/business-units/key={key}/associates/{associateId}`
@@ -664,7 +658,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().businessUnits().keyWithKeyValueAssociatesWithAssociateIdValue().get()`
   - added method `apiRoot.withProjectKey().businessUnits().withBusinessUnitIdValueAssociatesWithAssociateIdValue().get()`
   - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().businessUnits().keyWithKeyValueAssociatesWithAssociateIdValue().get()`
@@ -673,7 +666,6 @@
 
   <details>
   <summary>MarkDeprecated Property(s)</summary>
-
   - marked property `CountOnCustomLineItemUnits::excludeCount` as deprecated
   - marked property `CountOnLineItemUnits::excludeCount` as deprecated
   </details>
@@ -686,13 +678,11 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `BusinessUnitAssociateResponse`
   </details>
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/business-units/key={key}/associates/{associateId}`
   - added resource `/{projectKey}/business-units/{businessUnitId}/associates/{associateId}`
   - added resource `/{projectKey}/in-store/key={storeKey}/business-units/key={key}/associates/{associateId}`
@@ -701,7 +691,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().businessUnits().keyWithKeyValueAssociatesWithAssociateIdValue().get()`
   - added method `apiRoot.withProjectKey().businessUnits().withBusinessUnitIdValueAssociatesWithAssociateIdValue().get()`
   - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().businessUnits().keyWithKeyValueAssociatesWithAssociateIdValue().get()`
@@ -723,7 +712,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `BestDeal`
   - added type `DiscountTypeCombination`
   - added type `Stacking`
@@ -733,14 +721,12 @@
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `AssociateRoleNameChangedMessage`
   - :warning: removed type `AssociateRoleNameChangedMessagePayload`
   </details>
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `discountTypeCombination` to type `Cart`
   - added property `discountTypeCombination` to type `StagedOrder`
   - added property `discountTypeCombination` to type `Order`
@@ -761,32 +747,27 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `discount` of type `DiscountedTotalPricePortion` from type `CartDiscountReference` to `Reference`
   </details>
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `businessUnit` to type `ShoppingList`
   - added property `businessUnit` to type `ShoppingListDraft`
   </details>
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `images` of type `ProductTailoringSetExternalImagesAction` to be optional
   </details>
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `ProductSearchFacetScope`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `ShoppingListSetBusinessUnitAction`
   </details>
 
@@ -798,7 +779,6 @@
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/in-store/key={storeKey}/business-units`
   - added resource `/{projectKey}/in-store/key={storeKey}/business-units/key={key}`
   - added resource `/{projectKey}/in-store/key={storeKey}/business-units/{ID}`
@@ -806,13 +786,11 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - :warning: changed property `triggerPattern` of type `CartDiscountPatternTarget` to be required
   </details>
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `inheritedStores` to type `BusinessUnit`
   - added property `inheritedStores` to type `Company`
   - added property `inheritedStores` to type `Division`
@@ -820,7 +798,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().businessUnits().get()`
   - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().businessUnits().head()`
   - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().businessUnits().post()`
@@ -859,7 +836,6 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `value` of type `DirectDiscountDraft` from type `CartDiscountValue` to `CartDiscountValueDraft`
   - :warning: changed property `line` of type `GraphQLErrorLocation` from type `integer` to `number`
   - :warning: changed property `column` of type `GraphQLErrorLocation` from type `integer` to `number`
@@ -885,7 +861,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `stores` of type `BusinessUnit` to be optional
   - changed property `stores` of type `Company` to be optional
   - changed property `stores` of type `Division` to be optional
@@ -894,7 +869,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `custom` to type `ApprovalRule`
   - added property `approvalRuleMode` to type `BusinessUnit`
   - added property `approvalRuleMode` to type `BusinessUnitDraft`
@@ -954,7 +928,6 @@
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/business-units/search`
   - added resource `/{projectKey}/business-units/search/indexing-status`
   - added resource `/{projectKey}/channels/key={key}`
@@ -976,19 +949,16 @@
 
   <details>
   <summary>Removed Resource(s)</summary>
-
   - :warning: removed resource `/{projectKey}/me/carts/key={key}`
   </details>
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `ProductSearchStatus`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `ApprovalRuleSetCustomFieldAction`
   - added type `ApprovalRuleSetCustomTypeAction`
   - added type `BusinessUnitIndexingProgress`
@@ -1089,13 +1059,11 @@
 
   <details>
   <summary>Removed Enum(s)</summary>
-
   - :warning: removed enum `product-price` from type `ChangeSubscriptionResourceTypeId`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `ExtensionResourceTypeId`
   - added enum `shopping-list` to type `ExtensionResourceTypeId`
   - added enum `Canceled` to type `ShipmentState`
@@ -1113,7 +1081,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().productTailoring().head()`
   - added method `apiRoot.withProjectKey().businessUnits().search().post()`
   - added method `apiRoot.withProjectKey().businessUnits().search().head()`
@@ -1165,7 +1132,6 @@
 
   <details>
   <summary>Removed Method(s)</summary>
-
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withId().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withKey().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().get()`
@@ -1178,7 +1144,6 @@
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `post /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products/key={key}`
@@ -1194,7 +1159,6 @@
 
   <details>
   <summary>Added QueryParameter(s)</summary>
-
   - added query parameter `where` to method `get /{projectKey}/product-selections/key={key}/products`
   - added query parameter `where` to method `get /{projectKey}/product-selections/{ID}/products`
   </details>
@@ -1207,7 +1171,6 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `value` of type `DirectDiscountDraft` from type `CartDiscountValue` to `CartDiscountValueDraft`
   - :warning: changed property `line` of type `GraphQLErrorLocation` from type `integer` to `number`
   - :warning: changed property `column` of type `GraphQLErrorLocation` from type `integer` to `number`
@@ -1233,7 +1196,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `stores` of type `BusinessUnit` to be optional
   - changed property `stores` of type `Company` to be optional
   - changed property `stores` of type `Division` to be optional
@@ -1242,7 +1204,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `custom` to type `ApprovalRule`
   - added property `approvalRuleMode` to type `BusinessUnit`
   - added property `approvalRuleMode` to type `BusinessUnitDraft`
@@ -1302,7 +1263,6 @@
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/business-units/search`
   - added resource `/{projectKey}/business-units/search/indexing-status`
   - added resource `/{projectKey}/channels/key={key}`
@@ -1324,19 +1284,16 @@
 
   <details>
   <summary>Removed Resource(s)</summary>
-
   - :warning: removed resource `/{projectKey}/me/carts/key={key}`
   </details>
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `ProductSearchStatus`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `ApprovalRuleSetCustomFieldAction`
   - added type `ApprovalRuleSetCustomTypeAction`
   - added type `BusinessUnitIndexingProgress`
@@ -1437,13 +1394,11 @@
 
   <details>
   <summary>Removed Enum(s)</summary>
-
   - :warning: removed enum `product-price` from type `ChangeSubscriptionResourceTypeId`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `ExtensionResourceTypeId`
   - added enum `shopping-list` to type `ExtensionResourceTypeId`
   - added enum `Canceled` to type `ShipmentState`
@@ -1461,7 +1416,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().productTailoring().head()`
   - added method `apiRoot.withProjectKey().businessUnits().search().post()`
   - added method `apiRoot.withProjectKey().businessUnits().search().head()`
@@ -1513,7 +1467,6 @@
 
   <details>
   <summary>Removed Method(s)</summary>
-
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withId().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withKey().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().get()`
@@ -1526,7 +1479,6 @@
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `post /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products/key={key}`
@@ -1542,7 +1494,6 @@
 
   <details>
   <summary>Added QueryParameter(s)</summary>
-
   - added query parameter `where` to method `get /{projectKey}/product-selections/key={key}/products`
   - added query parameter `where` to method `get /{projectKey}/product-selections/{ID}/products`
   </details>
@@ -1562,7 +1513,6 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `value` of type `DirectDiscountDraft` from type `CartDiscountValue` to `CartDiscountValueDraft`
   - :warning: changed property `line` of type `GraphQLErrorLocation` from type `integer` to `number`
   - :warning: changed property `column` of type `GraphQLErrorLocation` from type `integer` to `number`
@@ -1587,7 +1537,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `stores` of type `BusinessUnit` to be optional
   - changed property `stores` of type `Company` to be optional
   - changed property `stores` of type `Division` to be optional
@@ -1596,7 +1545,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `custom` to type `ApprovalRule`
   - added property `approvalRuleMode` to type `BusinessUnit`
   - added property `approvalRuleMode` to type `BusinessUnitDraft`
@@ -1650,7 +1598,6 @@
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/channels/key={key}`
   - added resource `/{projectKey}/customers/search`
   - added resource `/{projectKey}/customers/search/indexing-status`
@@ -1670,19 +1617,16 @@
 
   <details>
   <summary>Removed Resource(s)</summary>
-
   - :warning: removed resource `/{projectKey}/me/carts/key={key}`
   </details>
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `ProductSearchStatus`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `ApprovalRuleSetCustomFieldAction`
   - added type `ApprovalRuleSetCustomTypeAction`
   - added type `BusinessUnitApprovalRuleMode`
@@ -1764,13 +1708,11 @@
 
   <details>
   <summary>Removed Enum(s)</summary>
-
   - :warning: removed enum `product-price` from type `ChangeSubscriptionResourceTypeId`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `ExtensionResourceTypeId`
   - added enum `shopping-list` to type `ExtensionResourceTypeId`
   - added enum `customer-group` to type `AttributeReferenceTypeId`
@@ -1786,7 +1728,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().productTailoring().head()`
   - added method `apiRoot.withProjectKey().channels().withKey().get()`
   - added method `apiRoot.withProjectKey().channels().withKey().head()`
@@ -1835,7 +1776,6 @@
 
   <details>
   <summary>Removed Method(s)</summary>
-
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withId().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withKey().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().get()`
@@ -1848,7 +1788,6 @@
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `post /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products/key={key}`
@@ -1864,7 +1803,6 @@
 
   <details>
   <summary>Added QueryParameter(s)</summary>
-
   - added query parameter `where` to method `get /{projectKey}/product-selections/key={key}/products`
   - added query parameter `where` to method `get /{projectKey}/product-selections/{ID}/products`
   </details>
@@ -1882,7 +1820,6 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `value` of type `DirectDiscountDraft` from type `CartDiscountValue` to `CartDiscountValueDraft`
   - :warning: changed property `line` of type `GraphQLErrorLocation` from type `integer` to `number`
   - :warning: changed property `column` of type `GraphQLErrorLocation` from type `integer` to `number`
@@ -1907,7 +1844,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `stores` of type `BusinessUnit` to be optional
   - changed property `stores` of type `Company` to be optional
   - changed property `stores` of type `Division` to be optional
@@ -1916,7 +1852,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `custom` to type `ApprovalRule`
   - added property `approvalRuleMode` to type `BusinessUnit`
   - added property `approvalRuleMode` to type `BusinessUnitDraft`
@@ -1970,7 +1905,6 @@
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/customers/search`
   - added resource `/{projectKey}/customers/search/indexing-status`
   - added resource `/{projectKey}/in-store/key={storeKey}/quote-requests`
@@ -1989,19 +1923,16 @@
 
   <details>
   <summary>Removed Resource(s)</summary>
-
   - :warning: removed resource `/{projectKey}/me/carts/key={key}`
   </details>
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `ProductSearchStatus`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `ApprovalRuleSetCustomFieldAction`
   - added type `ApprovalRuleSetCustomTypeAction`
   - added type `BusinessUnitApprovalRuleMode`
@@ -2083,13 +2014,11 @@
 
   <details>
   <summary>Removed Enum(s)</summary>
-
   - :warning: removed enum `product-price` from type `ChangeSubscriptionResourceTypeId`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `ExtensionResourceTypeId`
   - added enum `shopping-list` to type `ExtensionResourceTypeId`
   - added enum `customer-group` to type `AttributeReferenceTypeId`
@@ -2105,7 +2034,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().productTailoring().head()`
   - added method `apiRoot.withProjectKey().customers().search().post()`
   - added method `apiRoot.withProjectKey().customers().search().head()`
@@ -2150,7 +2078,6 @@
 
   <details>
   <summary>Removed Method(s)</summary>
-
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withId().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withKey().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().get()`
@@ -2163,7 +2090,6 @@
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `post /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products/key={key}`
@@ -2179,7 +2105,6 @@
 
   <details>
   <summary>Added QueryParameter(s)</summary>
-
   - added query parameter `where` to method `get /{projectKey}/product-selections/key={key}/products`
   - added query parameter `where` to method `get /{projectKey}/product-selections/{ID}/products`
   </details>
@@ -2197,7 +2122,6 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `value` of type `DirectDiscountDraft` from type `CartDiscountValue` to `CartDiscountValueDraft`
   - :warning: changed property `line` of type `GraphQLErrorLocation` from type `integer` to `number`
   - :warning: changed property `column` of type `GraphQLErrorLocation` from type `integer` to `number`
@@ -2222,7 +2146,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `stores` of type `BusinessUnit` to be optional
   - changed property `stores` of type `Company` to be optional
   - changed property `stores` of type `Division` to be optional
@@ -2231,7 +2154,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `custom` to type `ApprovalRule`
   - added property `approvalRuleMode` to type `BusinessUnit`
   - added property `approvalRuleMode` to type `BusinessUnitDraft`
@@ -2285,7 +2207,6 @@
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/customers/search`
   - added resource `/{projectKey}/customers/search/indexing-status`
   - added resource `/{projectKey}/in-store/key={storeKey}/quote-requests`
@@ -2304,19 +2225,16 @@
 
   <details>
   <summary>Removed Resource(s)</summary>
-
   - :warning: removed resource `/{projectKey}/me/carts/key={key}`
   </details>
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `ProductSearchStatus`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `ApprovalRuleSetCustomFieldAction`
   - added type `ApprovalRuleSetCustomTypeAction`
   - added type `BusinessUnitApprovalRuleMode`
@@ -2398,13 +2316,11 @@
 
   <details>
   <summary>Removed Enum(s)</summary>
-
   - :warning: removed enum `product-price` from type `ChangeSubscriptionResourceTypeId`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `ExtensionResourceTypeId`
   - added enum `shopping-list` to type `ExtensionResourceTypeId`
   - added enum `customer-group` to type `AttributeReferenceTypeId`
@@ -2420,7 +2336,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().productTailoring().head()`
   - added method `apiRoot.withProjectKey().customers().search().post()`
   - added method `apiRoot.withProjectKey().customers().search().head()`
@@ -2465,7 +2380,6 @@
 
   <details>
   <summary>Removed Method(s)</summary>
-
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withId().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withKey().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().get()`
@@ -2478,7 +2392,6 @@
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `post /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products/key={key}`
@@ -2494,7 +2407,6 @@
 
   <details>
   <summary>Added QueryParameter(s)</summary>
-
   - added query parameter `where` to method `get /{projectKey}/product-selections/key={key}/products`
   - added query parameter `where` to method `get /{projectKey}/product-selections/{ID}/products`
   </details>
@@ -2512,7 +2424,6 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `value` of type `DirectDiscountDraft` from type `CartDiscountValue` to `CartDiscountValueDraft`
   - :warning: changed property `line` of type `GraphQLErrorLocation` from type `integer` to `number`
   - :warning: changed property `column` of type `GraphQLErrorLocation` from type `integer` to `number`
@@ -2535,7 +2446,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `stores` of type `BusinessUnit` to be optional
   - changed property `stores` of type `Company` to be optional
   - changed property `stores` of type `Division` to be optional
@@ -2544,7 +2454,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `custom` to type `ApprovalRule`
   - added property `approvalRuleMode` to type `BusinessUnit`
   - added property `approvalRuleMode` to type `BusinessUnitDraft`
@@ -2598,7 +2507,6 @@
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/customers/search`
   - added resource `/{projectKey}/customers/search/indexing-status`
   - added resource `/{projectKey}/in-store/key={storeKey}/quote-requests`
@@ -2617,19 +2525,16 @@
 
   <details>
   <summary>Removed Resource(s)</summary>
-
   - :warning: removed resource `/{projectKey}/me/carts/key={key}`
   </details>
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `ProductSearchStatus`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `ApprovalRuleSetCustomFieldAction`
   - added type `ApprovalRuleSetCustomTypeAction`
   - added type `BusinessUnitApprovalRuleMode`
@@ -2711,13 +2616,11 @@
 
   <details>
   <summary>Removed Enum(s)</summary>
-
   - :warning: removed enum `product-price` from type `ChangeSubscriptionResourceTypeId`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `ExtensionResourceTypeId`
   - added enum `shopping-list` to type `ExtensionResourceTypeId`
   - added enum `customer-group` to type `AttributeReferenceTypeId`
@@ -2733,7 +2636,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().productTailoring().head()`
   - added method `apiRoot.withProjectKey().customers().search().post()`
   - added method `apiRoot.withProjectKey().customers().search().head()`
@@ -2778,7 +2680,6 @@
 
   <details>
   <summary>Removed Method(s)</summary>
-
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withId().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withKey().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().get()`
@@ -2791,7 +2692,6 @@
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `post /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products/key={key}`
@@ -2807,7 +2707,6 @@
 
   <details>
   <summary>Added QueryParameter(s)</summary>
-
   - added query parameter `where` to method `get /{projectKey}/product-selections/key={key}/products`
   - added query parameter `where` to method `get /{projectKey}/product-selections/{ID}/products`
   </details>
@@ -2825,7 +2724,6 @@
 
   <details>
   <summary>Removed Method(s)</summary>
-
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withId().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withKey().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().get()`
@@ -2838,7 +2736,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().productTailoring().head()`
   - added method `apiRoot.withProjectKey().customers().search().post()`
   - added method `apiRoot.withProjectKey().customers().search().head()`
@@ -2883,7 +2780,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `ApprovalRuleSetCustomFieldAction`
   - added type `ApprovalRuleSetCustomTypeAction`
   - added type `BusinessUnitApprovalRuleMode`
@@ -2965,13 +2861,11 @@
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `ProductSearchStatus`
   </details>
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/customers/search`
   - added resource `/{projectKey}/customers/search/indexing-status`
   - added resource `/{projectKey}/in-store/key={storeKey}/quote-requests`
@@ -2990,19 +2884,16 @@
 
   <details>
   <summary>Removed Resource(s)</summary>
-
   - :warning: removed resource `/{projectKey}/me/carts/key={key}`
   </details>
 
   <details>
   <summary>Removed Enum(s)</summary>
-
   - :warning: removed enum `product-price` from type `ChangeSubscriptionResourceTypeId`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `ExtensionResourceTypeId`
   - added enum `shopping-list` to type `ExtensionResourceTypeId`
   - added enum `customer-group` to type `AttributeReferenceTypeId`
@@ -3018,7 +2909,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `custom` to type `ApprovalRule`
   - added property `approvalRuleMode` to type `BusinessUnit`
   - added property `approvalRuleMode` to type `BusinessUnitDraft`
@@ -3072,7 +2962,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `stores` of type `BusinessUnit` to be optional
   - changed property `stores` of type `Company` to be optional
   - changed property `stores` of type `Division` to be optional
@@ -3081,7 +2970,6 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `value` of type `DirectDiscountDraft` from type `CartDiscountValue` to `CartDiscountValueDraft`
   - :warning: changed property `totalPrice` of type `OrderLineItemDiscountSetMessage` from type `Money` to `CentPrecisionMoney`
   - :warning: changed property `value` of type `StandalonePriceValueChangedMessage` from type `Money` to `TypedMoney`
@@ -3102,7 +2990,6 @@
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `post /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products/key={key}`
@@ -3124,7 +3011,6 @@
 
   <details>
   <summary>Removed Method(s)</summary>
-
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withId().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withKey().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().get()`
@@ -3137,7 +3023,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().productTailoring().head()`
   - added method `apiRoot.withProjectKey().customers().search().post()`
   - added method `apiRoot.withProjectKey().customers().search().head()`
@@ -3182,7 +3067,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `BusinessUnitApprovalRuleMode`
   - added type `BusinessUnitChangeApprovalRuleModeAction`
   - added type `DiscountApplicationMode`
@@ -3262,13 +3146,11 @@
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `ProductSearchStatus`
   </details>
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/customers/search`
   - added resource `/{projectKey}/customers/search/indexing-status`
   - added resource `/{projectKey}/in-store/key={storeKey}/quote-requests`
@@ -3287,19 +3169,16 @@
 
   <details>
   <summary>Removed Resource(s)</summary>
-
   - :warning: removed resource `/{projectKey}/me/carts/key={key}`
   </details>
 
   <details>
   <summary>Removed Enum(s)</summary>
-
   - :warning: removed enum `product-price` from type `ChangeSubscriptionResourceTypeId`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `ExtensionResourceTypeId`
   - added enum `shopping-list` to type `ExtensionResourceTypeId`
   - added enum `customer-group` to type `AttributeReferenceTypeId`
@@ -3313,7 +3192,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `approvalRuleMode` to type `BusinessUnit`
   - added property `approvalRuleMode` to type `BusinessUnitDraft`
   - added property `approvalRuleMode` to type `Company`
@@ -3366,7 +3244,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `stores` of type `BusinessUnit` to be optional
   - changed property `stores` of type `Company` to be optional
   - changed property `stores` of type `Division` to be optional
@@ -3375,7 +3252,6 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `value` of type `DirectDiscountDraft` from type `CartDiscountValue` to `CartDiscountValueDraft`
   - :warning: changed property `totalPrice` of type `OrderLineItemDiscountSetMessage` from type `Money` to `CentPrecisionMoney`
   - :warning: changed property `value` of type `StandalonePriceValueChangedMessage` from type `Money` to `TypedMoney`
@@ -3396,7 +3272,6 @@
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `post /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products/key={key}`
@@ -3423,7 +3298,6 @@
 
   <details>
   <summary>Removed Method(s)</summary>
-
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withId().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withKey().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().get()`
@@ -3436,7 +3310,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().customers().search().post()`
   - added method `apiRoot.withProjectKey().customers().search().head()`
   - added method `apiRoot.withProjectKey().customers().searchIndexingStatus().get()`
@@ -3480,7 +3353,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `BusinessUnitApprovalRuleMode`
   - added type `BusinessUnitChangeApprovalRuleModeAction`
   - added type `DiscountApplicationMode`
@@ -3560,13 +3432,11 @@
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `ProductSearchStatus`
   </details>
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/customers/search`
   - added resource `/{projectKey}/customers/search/indexing-status`
   - added resource `/{projectKey}/in-store/key={storeKey}/quote-requests`
@@ -3585,19 +3455,16 @@
 
   <details>
   <summary>Removed Resource(s)</summary>
-
   - :warning: removed resource `/{projectKey}/me/carts/key={key}`
   </details>
 
   <details>
   <summary>Removed Enum(s)</summary>
-
   - :warning: removed enum `product-price` from type `ChangeSubscriptionResourceTypeId`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `ExtensionResourceTypeId`
   - added enum `shopping-list` to type `ExtensionResourceTypeId`
   - added enum `customer-group` to type `AttributeReferenceTypeId`
@@ -3611,7 +3478,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `approvalRuleMode` to type `BusinessUnit`
   - added property `approvalRuleMode` to type `BusinessUnitDraft`
   - added property `approvalRuleMode` to type `Company`
@@ -3663,7 +3529,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `stores` of type `BusinessUnit` to be optional
   - changed property `stores` of type `Company` to be optional
   - changed property `stores` of type `Division` to be optional
@@ -3672,7 +3537,6 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `value` of type `DirectDiscountDraft` from type `CartDiscountValue` to `CartDiscountValueDraft`
   - :warning: changed property `totalPrice` of type `OrderLineItemDiscountSetMessage` from type `Money` to `CentPrecisionMoney`
   - :warning: changed property `value` of type `StandalonePriceValueChangedMessage` from type `Money` to `TypedMoney`
@@ -3693,7 +3557,6 @@
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `post /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products/key={key}`
@@ -3715,7 +3578,6 @@
 
   <details>
   <summary>Removed Method(s)</summary>
-
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withId().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withKey().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().get()`
@@ -3728,7 +3590,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().customers().search().post()`
   - added method `apiRoot.withProjectKey().customers().search().head()`
   - added method `apiRoot.withProjectKey().customers().searchIndexingStatus().get()`
@@ -3772,7 +3633,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `BusinessUnitApprovalRuleMode`
   - added type `BusinessUnitChangeApprovalRuleModeAction`
   - added type `DiscountApplicationMode`
@@ -3852,13 +3712,11 @@
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `ProductSearchStatus`
   </details>
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/customers/search`
   - added resource `/{projectKey}/customers/search/indexing-status`
   - added resource `/{projectKey}/in-store/key={storeKey}/quote-requests`
@@ -3877,19 +3735,16 @@
 
   <details>
   <summary>Removed Resource(s)</summary>
-
   - :warning: removed resource `/{projectKey}/me/carts/key={key}`
   </details>
 
   <details>
   <summary>Removed Enum(s)</summary>
-
   - :warning: removed enum `product-price` from type `ChangeSubscriptionResourceTypeId`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `ExtensionResourceTypeId`
   - added enum `shopping-list` to type `ExtensionResourceTypeId`
   - added enum `customer-group` to type `AttributeReferenceTypeId`
@@ -3903,7 +3758,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `approvalRuleMode` to type `BusinessUnit`
   - added property `approvalRuleMode` to type `BusinessUnitDraft`
   - added property `approvalRuleMode` to type `Company`
@@ -3955,7 +3809,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `stores` of type `BusinessUnit` to be optional
   - changed property `stores` of type `Company` to be optional
   - changed property `stores` of type `Division` to be optional
@@ -3964,7 +3817,6 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `value` of type `DirectDiscountDraft` from type `CartDiscountValue` to `CartDiscountValueDraft`
   - :warning: changed property `totalPrice` of type `OrderLineItemDiscountSetMessage` from type `Money` to `CentPrecisionMoney`
   - :warning: changed property `value` of type `StandalonePriceValueChangedMessage` from type `Money` to `TypedMoney`
@@ -3985,7 +3837,6 @@
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `post /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products/key={key}`
@@ -4012,7 +3863,6 @@
 
   <details>
   <summary>Removed Method(s)</summary>
-
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withId().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withKey().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().get()`
@@ -4025,7 +3875,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().customers().search().post()`
   - added method `apiRoot.withProjectKey().customers().search().head()`
   - added method `apiRoot.withProjectKey().customers().searchIndexingStatus().get()`
@@ -4069,7 +3918,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `BusinessUnitApprovalRuleMode`
   - added type `BusinessUnitChangeApprovalRuleModeAction`
   - added type `DiscountApplicationMode`
@@ -4149,13 +3997,11 @@
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `ProductSearchStatus`
   </details>
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/customers/search`
   - added resource `/{projectKey}/customers/search/indexing-status`
   - added resource `/{projectKey}/in-store/key={storeKey}/quote-requests`
@@ -4174,19 +4020,16 @@
 
   <details>
   <summary>Removed Resource(s)</summary>
-
   - :warning: removed resource `/{projectKey}/me/carts/key={key}`
   </details>
 
   <details>
   <summary>Removed Enum(s)</summary>
-
   - :warning: removed enum `product-price` from type `ChangeSubscriptionResourceTypeId`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `ExtensionResourceTypeId`
   - added enum `shopping-list` to type `ExtensionResourceTypeId`
   - added enum `customer-group` to type `AttributeReferenceTypeId`
@@ -4200,7 +4043,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `approvalRuleMode` to type `BusinessUnit`
   - added property `approvalRuleMode` to type `BusinessUnitDraft`
   - added property `approvalRuleMode` to type `Company`
@@ -4252,7 +4094,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `stores` of type `BusinessUnit` to be optional
   - changed property `stores` of type `Company` to be optional
   - changed property `stores` of type `Division` to be optional
@@ -4261,7 +4102,6 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `value` of type `DirectDiscountDraft` from type `CartDiscountValue` to `CartDiscountValueDraft`
   - :warning: changed property `totalPrice` of type `OrderLineItemDiscountSetMessage` from type `Money` to `CentPrecisionMoney`
   - :warning: changed property `value` of type `StandalonePriceValueChangedMessage` from type `Money` to `TypedMoney`
@@ -4282,7 +4122,6 @@
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `post /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products/key={key}`
@@ -4304,7 +4143,6 @@
 
   <details>
   <summary>Removed Method(s)</summary>
-
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withId().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withKey().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().get()`
@@ -4317,7 +4155,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().customers().search().post()`
   - added method `apiRoot.withProjectKey().customers().search().head()`
   - added method `apiRoot.withProjectKey().customers().searchIndexingStatus().get()`
@@ -4361,7 +4198,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `approvalRuleMode` to type `BusinessUnit`
   - added property `approvalRuleMode` to type `BusinessUnitDraft`
   - added property `approvalRuleMode` to type `Company`
@@ -4410,7 +4246,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `stores` of type `BusinessUnit` to be optional
   - changed property `stores` of type `Company` to be optional
   - changed property `stores` of type `Division` to be optional
@@ -4419,7 +4254,6 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `value` of type `DirectDiscountDraft` from type `CartDiscountValue` to `CartDiscountValueDraft`
   - :warning: changed property `totalPrice` of type `OrderLineItemDiscountSetMessage` from type `Money` to `CentPrecisionMoney`
   - :warning: changed property `value` of type `StandalonePriceValueChangedMessage` from type `Money` to `TypedMoney`
@@ -4440,7 +4274,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `BusinessUnitApprovalRuleMode`
   - added type `BusinessUnitChangeApprovalRuleModeAction`
   - added type `DiscountApplicationMode`
@@ -4513,13 +4346,11 @@
 
   <details>
   <summary>Removed Resource(s)</summary>
-
   - :warning: removed resource `/{projectKey}/me/carts/key={key}`
   </details>
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/customers/search`
   - added resource `/{projectKey}/customers/search/indexing-status`
   - added resource `/{projectKey}/in-store/key={storeKey}/quote-requests`
@@ -4538,13 +4369,11 @@
 
   <details>
   <summary>Removed Enum(s)</summary>
-
   - :warning: removed enum `product-price` from type `ChangeSubscriptionResourceTypeId`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `shopping-list` to type `ExtensionResourceTypeId`
   - added enum `customer-group` to type `AttributeReferenceTypeId`
   - added enum `attribute-group` to type `ChangeSubscriptionResourceTypeId`
@@ -4555,7 +4384,6 @@
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `post /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products/key={key}`
@@ -4582,7 +4410,6 @@
 
   <details>
   <summary>Removed Method(s)</summary>
-
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withId().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withKey().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().get()`
@@ -4595,7 +4422,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().customers().search().post()`
   - added method `apiRoot.withProjectKey().customers().search().head()`
   - added method `apiRoot.withProjectKey().customers().searchIndexingStatus().get()`
@@ -4639,7 +4465,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `approvalRuleMode` to type `BusinessUnit`
   - added property `approvalRuleMode` to type `BusinessUnitDraft`
   - added property `approvalRuleMode` to type `Company`
@@ -4688,7 +4513,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `stores` of type `BusinessUnit` to be optional
   - changed property `stores` of type `Company` to be optional
   - changed property `stores` of type `Division` to be optional
@@ -4697,7 +4521,6 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `value` of type `DirectDiscountDraft` from type `CartDiscountValue` to `CartDiscountValueDraft`
   - :warning: changed property `totalPrice` of type `OrderLineItemDiscountSetMessage` from type `Money` to `CentPrecisionMoney`
   - :warning: changed property `value` of type `StandalonePriceValueChangedMessage` from type `Money` to `TypedMoney`
@@ -4718,7 +4541,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `BusinessUnitApprovalRuleMode`
   - added type `BusinessUnitChangeApprovalRuleModeAction`
   - added type `DiscountApplicationMode`
@@ -4791,13 +4613,11 @@
 
   <details>
   <summary>Removed Resource(s)</summary>
-
   - :warning: removed resource `/{projectKey}/me/carts/key={key}`
   </details>
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/customers/search`
   - added resource `/{projectKey}/customers/search/indexing-status`
   - added resource `/{projectKey}/in-store/key={storeKey}/quote-requests`
@@ -4816,13 +4636,11 @@
 
   <details>
   <summary>Removed Enum(s)</summary>
-
   - :warning: removed enum `product-price` from type `ChangeSubscriptionResourceTypeId`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `shopping-list` to type `ExtensionResourceTypeId`
   - added enum `customer-group` to type `AttributeReferenceTypeId`
   - added enum `attribute-group` to type `ChangeSubscriptionResourceTypeId`
@@ -4833,7 +4651,6 @@
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `post /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products/key={key}`
@@ -4860,7 +4677,6 @@
 
   <details>
   <summary>Removed Method(s)</summary>
-
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withId().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withKey().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().get()`
@@ -4873,7 +4689,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().customers().search().post()`
   - added method `apiRoot.withProjectKey().customers().search().head()`
   - added method `apiRoot.withProjectKey().customers().searchIndexingStatus().get()`
@@ -4917,7 +4732,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `approvalRuleMode` to type `BusinessUnit`
   - added property `approvalRuleMode` to type `BusinessUnitDraft`
   - added property `approvalRuleMode` to type `Company`
@@ -4964,7 +4778,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `stores` of type `BusinessUnit` to be optional
   - changed property `stores` of type `Company` to be optional
   - changed property `stores` of type `Division` to be optional
@@ -4973,7 +4786,6 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `value` of type `DirectDiscountDraft` from type `CartDiscountValue` to `CartDiscountValueDraft`
   - :warning: changed property `totalPrice` of type `OrderLineItemDiscountSetMessage` from type `Money` to `CentPrecisionMoney`
   - :warning: changed property `value` of type `StandalonePriceValueChangedMessage` from type `Money` to `TypedMoney`
@@ -4994,7 +4806,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `BusinessUnitApprovalRuleMode`
   - added type `BusinessUnitChangeApprovalRuleModeAction`
   - added type `DiscountApplicationMode`
@@ -5067,13 +4878,11 @@
 
   <details>
   <summary>Removed Resource(s)</summary>
-
   - :warning: removed resource `/{projectKey}/me/carts/key={key}`
   </details>
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/customers/search`
   - added resource `/{projectKey}/customers/search/indexing-status`
   - added resource `/{projectKey}/in-store/key={storeKey}/quote-requests`
@@ -5092,13 +4901,11 @@
 
   <details>
   <summary>Removed Enum(s)</summary>
-
   - :warning: removed enum `product-price` from type `ChangeSubscriptionResourceTypeId`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `shopping-list` to type `ExtensionResourceTypeId`
   - added enum `customer-group` to type `AttributeReferenceTypeId`
   - added enum `attribute-group` to type `ChangeSubscriptionResourceTypeId`
@@ -5109,7 +4916,6 @@
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `post /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products/key={key}`
@@ -5131,13 +4937,11 @@
 
   <details>
   <summary>Removed Resource(s)</summary>
-
   - :warning: removed resource `/{projectKey}/me/carts/key={key}`
   </details>
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/customers/search`
   - added resource `/{projectKey}/customers/search/indexing-status`
   - added resource `/{projectKey}/in-store/key={storeKey}/quote-requests`
@@ -5156,7 +4960,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `stores` of type `BusinessUnit` to be optional
   - changed property `stores` of type `Company` to be optional
   - changed property `stores` of type `Division` to be optional
@@ -5165,7 +4968,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `approvalRuleMode` to type `BusinessUnit`
   - added property `approvalRuleMode` to type `BusinessUnitDraft`
   - added property `approvalRuleMode` to type `Company`
@@ -5210,7 +5012,6 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `value` of type `DirectDiscountDraft` from type `CartDiscountValue` to `CartDiscountValueDraft`
   - :warning: changed property `totalPrice` of type `OrderLineItemDiscountSetMessage` from type `Money` to `CentPrecisionMoney`
   - :warning: changed property `value` of type `StandalonePriceValueChangedMessage` from type `Money` to `TypedMoney`
@@ -5231,13 +5032,11 @@
 
   <details>
   <summary>Removed Enum(s)</summary>
-
   - :warning: removed enum `product-price` from type `ChangeSubscriptionResourceTypeId`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `shopping-list` to type `ExtensionResourceTypeId`
   - added enum `customer-group` to type `AttributeReferenceTypeId`
   - added enum `attribute-group` to type `ChangeSubscriptionResourceTypeId`
@@ -5248,7 +5047,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `BusinessUnitApprovalRuleMode`
   - added type `BusinessUnitChangeApprovalRuleModeAction`
   - added type `CartChangeLineItemsOrderAction`
@@ -5320,7 +5118,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().customers().search().post()`
   - added method `apiRoot.withProjectKey().customers().search().head()`
   - added method `apiRoot.withProjectKey().customers().searchIndexingStatus().get()`
@@ -5364,7 +5161,6 @@
 
   <details>
   <summary>Removed Method(s)</summary>
-
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withId().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().businessUnits().withKey().delete()`
   - :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().get()`
@@ -5377,7 +5173,6 @@
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `post /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products/key={key}`
@@ -5404,7 +5199,6 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `value` of type `DirectDiscountDraft` from type `CartDiscountValue` to `CartDiscountValueDraft`
   - :warning: changed property `totalPrice` of type `OrderLineItemDiscountSetMessage` from type `Money` to `CentPrecisionMoney`
   - :warning: changed property `value` of type `StandalonePriceValueChangedMessage` from type `Money` to `TypedMoney`
@@ -5425,7 +5219,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `stores` of type `BusinessUnit` to be optional
   - changed property `stores` of type `Company` to be optional
   - changed property `stores` of type `Division` to be optional
@@ -5434,7 +5227,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `approvalRuleMode` to type `BusinessUnit`
   - added property `approvalRuleMode` to type `BusinessUnitDraft`
   - added property `approvalRuleMode` to type `Company`
@@ -5479,7 +5271,6 @@
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/customers/search`
   - added resource `/{projectKey}/customers/search/indexing-status`
   - added resource `/{projectKey}/in-store/key={storeKey}/quote-requests`
@@ -5498,13 +5289,11 @@
 
   <details>
   <summary>Removed Resource(s)</summary>
-
   - :warning: removed resource `/{projectKey}/me/carts/key={key}`
   </details>
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `post /{projectKey}/products`
   - :warning: removed query parameter `localeProjection` from method `get /{projectKey}/products/key={key}`
@@ -5520,7 +5309,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().customers().search().post()`
   - added method `apiRoot.withProjectKey().customers().search().head()`
   - added method `apiRoot.withProjectKey().customers().searchIndexingStatus().get()`
@@ -5564,7 +5352,6 @@
 
   <details>
   <summary>Removed Method(s)</summary>
-
   - :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().get()`
   - :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().head()`
   - :warning: removed method `apiRoot.withProjectKey().me().carts().withKey().post()`
@@ -5575,7 +5362,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `shopping-list` to type `ExtensionResourceTypeId`
   - added enum `customer-group` to type `AttributeReferenceTypeId`
   - added enum `attribute-group` to type `ChangeSubscriptionResourceTypeId`
@@ -5586,13 +5372,11 @@
 
   <details>
   <summary>Removed Enum(s)</summary>
-
   - :warning: removed enum `product-price` from type `ChangeSubscriptionResourceTypeId`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `BusinessUnitApprovalRuleMode`
   - added type `BusinessUnitChangeApprovalRuleModeAction`
   - added type `CartChangeLineItemsOrderAction`
@@ -5665,13 +5449,11 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `value` of type `DirectDiscountDraft` from type `CartDiscountValue` to `CartDiscountValueDraft`
   </details>
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `stores` of type `BusinessUnit` to be optional
   - changed property `stores` of type `Company` to be optional
   - changed property `stores` of type `Division` to be optional
@@ -5680,7 +5462,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `StagedOrderSetShippingCustomFieldAction`
   - added type `StagedOrderSetShippingCustomTypeAction`
   - added type `OrderSetShippingCustomFieldAction`
@@ -5700,7 +5481,6 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `custom` of type `MyBusinessUnitDraft` from type `CustomFields` to `CustomFieldsDraft`
   - :warning: changed property `custom` of type `MyCompanyDraft` from type `CustomFields` to `CustomFieldsDraft`
   - :warning: changed property `custom` of type `MyDivisionDraft` from type `CustomFields` to `CustomFieldsDraft`
@@ -5708,7 +5488,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - :warning: changed property `stores` of type `BusinessUnit` to be required
   - :warning: changed property `stores` of type `Company` to be required
   - :warning: changed property `stores` of type `Division` to be required
@@ -5720,7 +5499,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `postFilter` to type `ProductSearchRequest`
   </details>
 
@@ -5738,21 +5516,18 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `attributedTo` to type `CreatedBy`
   - added property `attributedTo` to type `LastModifiedBy`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `Attribution`
   - added type `AttributionSource`
   </details>
 
   <details>
   <summary>Removed Method(s)</summary>
-
   - :warning: removed method `apiRoot.withProjectKey().products().search().head()`
   </details>
 
@@ -5769,33 +5544,28 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `ManuallySuspended` to type `SubscriptionHealthStatus`
   </details>
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `productsSearch` to type `SearchIndexingConfiguration`
   - added property `mode` to type `ProjectChangeProductSearchIndexingEnabledAction`
   </details>
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().products().search().post()`
   - added method `apiRoot.withProjectKey().products().search().head()`
   </details>
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/products/search`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `LockedFieldError`
   - added type `GraphQLLockedFieldError`
   - added type `ProductPagedSearchResponse`
@@ -5868,7 +5638,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `ProductTailoringCreatedMessage`
   - added type `ProductTailoringDeletedMessage`
   - added type `ProductTailoringDescriptionSetMessage`
@@ -5905,13 +5674,11 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - :warning: changed property `isOnStock` of type `ProductVariantAvailability` to be required
   </details>
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `taxPortions` to type `TaxedItemPrice`
   - added property `id` to type `ProductVariantAvailability`
   - added property `version` to type `ProductVariantAvailability`
@@ -5919,7 +5686,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().productTailoring().get()`
   - added method `apiRoot.withProjectKey().productTailoring().post()`
   - added method `apiRoot.withProjectKey().productTailoring().withKey().get()`
@@ -5940,13 +5706,11 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `product-tailoring` to type `ReferenceTypeId`
   </details>
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/product-tailoring`
   - added resource `/{projectKey}/product-tailoring/key={key}`
   - added resource `/{projectKey}/product-tailoring/{ID}`
@@ -5974,25 +5738,21 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `DiscountedLineItemPortionDraft`
   </details>
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `includedDiscounts` of type `DiscountedLineItemPriceDraft` from type `DiscountedLineItemPortion[]` to `DiscountedLineItemPortionDraft[]`
   </details>
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `totalTax` to type `TaxedPriceDraft`
   </details>
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `priceMode` of type `CustomLineItemDraft` to be optional
   - changed property `oldShipmentState` of type `OrderShipmentStateChangedMessage` to be optional
   - changed property `oldOrderState` of type `OrderStateChangedMessage` to be optional
@@ -6019,14 +5779,12 @@
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `NotEnabledError`
   - :warning: removed type `GraphQLNotEnabledError`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `ApprovalFlowSetCustomFieldAction`
   - added type `ApprovalFlowSetCustomTypeAction`
   - added type `DiscountCodeSetKeyAction`
@@ -6050,7 +5808,6 @@
 
   <details>
   <summary>Added QueryParameter(s)</summary>
-
   - added query parameter `expand` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
   - added query parameter `sort` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
   - added query parameter `limit` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
@@ -6063,7 +5820,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().discountCodes().withKey().get()`
   - added method `apiRoot.withProjectKey().discountCodes().withKey().head()`
   - added method `apiRoot.withProjectKey().discountCodes().withKey().post()`
@@ -6072,7 +5828,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `custom` to type `ApprovalFlow`
   - added property `perMethodExternalTaxRate` to type `CartAddLineItemAction`
   - added property `key` to type `DiscountCode`
@@ -6082,7 +5837,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `associate-role` to type `AttributeReferenceTypeId`
   - added enum `business-unit` to type `AttributeReferenceTypeId`
   - added enum `cart-discount` to type `AttributeReferenceTypeId`
@@ -6092,13 +5846,11 @@
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/discount-codes/key={key}`
   </details>
 
   <details>
   <summary>Changed MethodResponseBody(s)</summary>
-
   - :warning: changed response body for `200: application/json` of method `get /{projectKey}/in-store/key={storeKey}/cart-discounts` from type `CartDiscount` to `CartDiscountPagedQueryResponse`
   </details>
 
@@ -6110,7 +5862,6 @@
 
   <details>
   <summary>Added QueryParameter(s)</summary>
-
   - added query parameter `expand` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
   - added query parameter `sort` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
   - added query parameter `limit` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
@@ -6123,7 +5874,6 @@
 
   <details>
   <summary>Changed MethodResponseBody(s)</summary>
-
   - :warning: changed response body for `200: application/json` of method `get /{projectKey}/in-store/key={storeKey}/cart-discounts` from type `CartDiscount` to `CartDiscountPagedQueryResponse`
   </details>
 
@@ -6132,7 +5882,6 @@
 ### Major Changes
 
 - [#551](https://github.com/commercetools/commercetools-sdk-typescript/pull/551) [`9e7939a`](https://github.com/commercetools/commercetools-sdk-typescript/commit/9e7939a1df234fd1f4f77c60f4ff75b31d7fc3fd) Thanks [@github-actions](https://github.com/apps/github-actions)! - BREAKING CHANGE:
-
   - fix URI parameters to be URI encoded
 
 ### Minor Changes
@@ -6141,7 +5890,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `discountOnTotalPrice` to type `Cart`
   - added property `discountOnTotalPrice` to type `StagedOrder`
   - added property `custom` to type `StagedOrderAddParcelToDeliveryAction`
@@ -6151,7 +5899,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `CreateApprovalRules` to type `Permission`
   - added enum `UpdateApprovalRules` to type `Permission`
   - added enum `UpdateApprovalFlows` to type `Permission`
@@ -6170,7 +5917,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `ApprovalFlow`
   - added type `ApprovalFlowApproval`
   - added type `ApprovalFlowApproveAction`
@@ -6270,13 +6016,11 @@
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `CustomerMessagePayload`
   </details>
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().head()`
   - added method `apiRoot.withProjectKey().associateRoles().head()`
   - added method `apiRoot.withProjectKey().businessUnits().head()`
@@ -6454,7 +6198,6 @@
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-rules`
   - added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-flows`
   - added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/approval-rules/{ID}`
@@ -6475,7 +6218,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `textLineItemId` of type `MyShoppingListChangeTextLineItemNameAction` to be optional
   - changed property `textLineItemId` of type `MyShoppingListChangeTextLineItemQuantityAction` to be optional
   - changed property `lineItemId` of type `MyShoppingListRemoveLineItemAction` to be optional
@@ -6498,7 +6240,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `perMethodExternalTaxRate` to type `LineItemDraft`
   - added property `key` to type `MyShoppingListAddLineItemAction`
   - added property `key` to type `MyShoppingListAddTextLineItemAction`
@@ -6532,7 +6273,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `MethodExternalTaxRateDraft`
   - added type `QuoteRenegotiationRequestedMessage`
   - added type `StandalonePriceStagedChangesRemovedMessage`
@@ -6544,7 +6284,6 @@
 
   <details>
   <summary>Removed Method(s)</summary>
-
   - :warning: removed method `apiRoot.withProjectKey().me().payments().withKey().get()`
   - :warning: removed method `apiRoot.withProjectKey().me().payments().withKey().post()`
   - :warning: removed method `apiRoot.withProjectKey().me().payments().withKey().delete()`
@@ -6552,13 +6291,11 @@
 
   <details>
   <summary>Removed Resource(s)</summary>
-
   - :warning: removed resource `/{projectKey}/me/payments/key={key}`
   </details>
 
   <details>
   <summary>Removed Enum(s)</summary>
-
   - :warning: removed enum `Failed` from type `QuoteState`
   </details>
 
@@ -6572,14 +6309,12 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `money` of type `CartDiscountValueFixed` from type `CentPrecisionMoney[]` to `TypedMoney[]`
   - :warning: changed property `money` of type `CartDiscountValueFixedDraft` from type `Money[]` to `TypedMoneyDraft[]`
   </details>
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `taxedPricePortions` to type `CustomLineItem`
   - added property `customLineItemKey` to type `CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction`
   - added property `customLineItemKey` to type `CartChangeCustomLineItemMoneyAction`
@@ -6657,7 +6392,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - :warning: changed property `associateRoleAssignments` of type `AssociateDraft` to be required
   - :warning: changed property `paymentState` of type `StagedOrderChangePaymentStateAction` to be required
   - :warning: changed property `shipmentState` of type `StagedOrderChangeShipmentStateAction` to be required
@@ -6710,7 +6444,6 @@
 
   <details>
   <summary>Deprecated Property(s)</summary>
-
   - property `Associate::roles` is removed
   - property `AssociateDraft::roles` is removed
   - property `IndividualExclusionProductSelectionType::type` is removed
@@ -6722,14 +6455,12 @@
 
   <details>
   <summary>Added QueryParameter(s)</summary>
-
   - added query parameter `where` to method `get /{projectKey}/in-store/key={storeKey}/product-selection-assignments`
   - added query parameter `/^var[.][a-zA-Z0-9]+$/` to method `get /{projectKey}/in-store/key={storeKey}/product-selection-assignments`
   </details>
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `expand` from method `get /{projectKey}/subscriptions`
   - :warning: removed query parameter `expand` from method `post /{projectKey}/subscriptions`
   - :warning: removed query parameter `expand` from method `get /{projectKey}/extensions`
@@ -6750,7 +6481,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `ContentTooLargeError`
   - added type `GraphQLContentTooLargeError`
   - added type `BusinessUnitParentChangedMessage`
@@ -6771,7 +6501,6 @@
 
   <details>
   <summary>Deprecated Type(s)</summary>
-
   - type `AssociateRoleDeprecated` is removed
   - type `IndividualExclusionProductSelectionType` is removed
   - type `IndividualProductSelectionType` is removed
@@ -6781,7 +6510,6 @@
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `BusinessUnitParentUnitChangedMessage`
   - :warning: removed type `BusinessUnitParentUnitChangedMessagePayload`
   - :warning: removed type `OrderResourceIdentifier`
@@ -6789,7 +6517,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `associate-role` to type `ChangeSubscriptionResourceTypeId`
   </details>
 
@@ -6803,7 +6530,6 @@
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/in-store/key={storeKey}/cart-discounts`
   - added resource `/{projectKey}/in-store/key={storeKey}/cart-discounts/key={key}`
   - added resource `/{projectKey}/in-store/key={storeKey}/cart-discounts/{ID}`
@@ -6811,7 +6537,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `stores` to type `CartDiscount`
   - added property `stores` to type `CartDiscountDraft`
   - added property `key` to type `CustomLineItem`
@@ -6823,14 +6548,12 @@
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `CartSetDeliveryAddressCustomFieldAction`
   - :warning: removed type `CartSetDeliveryAddressCustomTypeAction`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `CartDiscountAddStoreAction`
   - added type `CartDiscountRemoveStoreAction`
   - added type `CartDiscountSetStoresAction`
@@ -6844,7 +6567,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().cartDiscounts().get()`
   - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().cartDiscounts().post()`
   - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().cartDiscounts().withKey().get()`
@@ -6865,7 +6587,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `perMethodTaxRate` to type `CustomLineItem`
   - added property `key` to type `LineItem`
   - added property `key` to type `LineItemDraft`
@@ -6930,7 +6651,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `lineItemId` of type `CartApplyDeltaToLineItemShippingDetailsTargetsAction` to be optional
   - changed property `lineItemId` of type `CartChangeLineItemQuantityAction` to be optional
   - changed property `lineItemId` of type `CartRemoveLineItemAction` to be optional
@@ -6982,27 +6702,23 @@
 
   <details>
   <summary>Deprecated Property(s)</summary>
-
   - property `MyCartChangeLineItemQuantityAction::externalPrice` is removed
   - property `MyCartChangeLineItemQuantityAction::externalTotalPrice` is removed
   </details>
 
   <details>
   <summary>Deprecated Type(s)</summary>
-
   - type `ProductVariantSelectionExclusion` is removed
   - type `ProductVariantSelectionInclusion` is removed
   </details>
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `MyCartSetDirectDiscountsAction`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `StandalonePriceTierAddedMessage`
   - added type `StandalonePriceTierRemovedMessage`
   - added type `StandalonePriceTiersSetMessage`
@@ -7026,7 +6742,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `associate-role` to type `CustomFieldReferenceValue`
   - added enum `business-unit` to type `CustomFieldReferenceValue`
   </details>
@@ -7035,7 +6750,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `associate-role` to type `CustomFieldReferenceValue`
   - added enum `business-unit` to type `CustomFieldReferenceValue`
   </details>
@@ -7044,32 +6758,27 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `variantSelection` to type `AddProductChange`
   </details>
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `resource` of type `Record` from type `Reference` to `ResourceIdentifier`
   </details>
 
   <details>
   <summary>Added QueryParameter(s)</summary>
-
   - added query parameter `resourceKey` to method `get /{projectKey}`
   - added query parameter `resourceKey` to method `get /{projectKey}/{resourceType}`
   </details>
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `resourceId` from method `get /{projectKey}/{resourceType}`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `AddAssociateChange`
   - added type `AddProductSelectionChange`
   - added type `Associate`
@@ -7099,7 +6808,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `business-unit` to type `ChangeHistoryResourceType`
   - added enum `addAssociate` to type `UpdateType`
   - added enum `addCustomLineItem` to type `UpdateType`
@@ -7190,7 +6898,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `shippingKey` to type `CartSetShippingMethodTaxAmountAction`
   - added property `shippingKey` to type `CartSetShippingMethodTaxRateAction`
   - added property `deliveryKey` to type `StagedOrderAddDeliveryAction`
@@ -7222,7 +6929,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `deliveryId` of type `StagedOrderAddParcelToDeliveryAction` to be optional
   - changed property `deliveryId` of type `StagedOrderRemoveDeliveryAction` to be optional
   - changed property `deliveryId` of type `StagedOrderSetDeliveryAddressAction` to be optional
@@ -7243,7 +6949,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `CartSetLineItemInventoryModeAction`
   - added type `MoneyOverflowError`
   - added type `GraphQLMoneyOverflowError`
@@ -7258,13 +6963,11 @@
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/carts/replicate`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `ReassignMyQuotes` to type `Permission`
   - added enum `ReassignOthersQuotes` to type `Permission`
   - added enum `RenegotiationAddressed` to type `QuoteState`
@@ -7272,7 +6975,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().asAssociate().withAssociateIdValue().inBusinessUnitKeyWithBusinessUnitKeyValue().carts().replicate().post()`
   </details>
 
@@ -7292,7 +6994,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `associateRoleAssignments` to type `MyBusinessUnitAssociateDraft`
   </details>
 
@@ -7306,13 +7007,11 @@
 
   <details>
   <summary>Changed Type(s)</summary>
-
   - :warning: changed type `AssociateRole` from type `string` to `BaseResource`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `AssociateRoleDraft`
   - added type `AssociateRoleKeyReference`
   - added type `AssociateRolePagedQueryResponse`
@@ -7359,7 +7058,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `associate-role` to type `ReferenceTypeId`
   - added enum `associate-role` to type `MessageSubscriptionResourceTypeId`
   - added enum `associate-role` to type `ResourceTypeId`
@@ -7367,7 +7065,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `associateRoleAssignments` to type `Associate`
   - added property `associateRoleAssignments` to type `AssociateDraft`
   - added property `associateMode` to type `BusinessUnit`
@@ -7384,21 +7081,18 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `roles` of type `Associate` from type `AssociateRole[]` to `AssociateRoleDeprecated[]`
   - :warning: changed property `roles` of type `AssociateDraft` from type `AssociateRole[]` to `AssociateRoleDeprecated[]`
   </details>
 
   <details>
   <summary>MarkDeprecated Property(s)</summary>
-
   - marked property `Associate::roles` as deprecated
   - marked property `AssociateDraft::roles` as deprecated
   </details>
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/as-associate`
   - added resource `/{projectKey}/associate-roles`
   - added resource `/{projectKey}/as-associate/{associateId}`
@@ -7425,7 +7119,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().associateRoles().get()`
   - added method `apiRoot.withProjectKey().associateRoles().post()`
   - added method `apiRoot.withProjectKey().asAssociate().withAssociateIdValue().businessUnits().get()`
@@ -7472,13 +7165,11 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `type` to type `ImportResourceType`
   </details>
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/types`
   - added resource `/{projectKey}/types/import-containers`
   - added resource `/{projectKey}/types/import-containers/{importContainerKey}`
@@ -7486,13 +7177,11 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKeyValue().types().importContainers().withImportContainerKeyValue().post()`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `TypeImportRequest`
   - added type `TypeTextInputHint`
   - added type `ResourceTypeId`
@@ -7520,19 +7209,16 @@
 
   <details>
   <summary>Added QueryParameter(s)</summary>
-
   - added query parameter `resourceTypes` to method `get /{projectKey}`
   </details>
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `resourceType` from method `get /{projectKey}`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `SetCountriesChange`
   - added type `SetPurchaseOrderNumberChange`
   - added type `StoreCountry`
@@ -7556,14 +7242,12 @@
 
   <details>
   <summary>MarkDeprecated Type(s)</summary>
-
   - marked type `ProductVariantSelectionExclusion` as deprecated
   - marked type `ProductVariantSelectionInclusion` as deprecated
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `GraphQLAnonymousIdAlreadyInUseError`
   - added type `GraphQLAttributeDefinitionAlreadyExistsError`
   - added type `GraphQLAttributeDefinitionTypeConflictError`
@@ -7649,7 +7333,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `individualExclusion` to type `ProductSelectionTypeEnum`
   - added enum `includeOnly` to type `ProductVariantSelectionTypeEnum`
   - added enum `includeAllExcept` to type `ProductVariantSelectionTypeEnum`
@@ -7657,14 +7340,12 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `productSelection` of type `ProductSelectionCreatedMessage` from type `IndividualProductSelectionType` to `ProductSelectionType`
   - :warning: changed property `productSelection` of type `ProductSelectionCreatedMessagePayload` from type `IndividualProductSelectionType` to `ProductSelectionType`
   </details>
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `extensions` to type `GraphQLError`
   - added property `variantExclusion` to type `AssignedProductReference`
   - added property `variantExclusion` to type `AssignedProductSelection`
@@ -7674,7 +7355,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `roles` of type `AssociateDraft` to be optional
   - changed property `path` of type `GraphQLError` to be optional
   </details>
@@ -7689,13 +7369,11 @@
 ### Minor Changes
 
 - [#432](https://github.com/commercetools/commercetools-sdk-typescript/pull/432) [`d06e0c5`](https://github.com/commercetools/commercetools-sdk-typescript/commit/d06e0c58f4b9a8f69bbde63f906cc905c878aa2d) Thanks [@ajimae](https://github.com/ajimae)! - ### Removed Properties
-
   - :warning: removed property `externalTaxRate` from type `MyCartAddLineItemAction`
   - :warning: removed property `externalPrice` from type `MyCartAddLineItemAction`
   - :warning: removed property `externalTotalPrice` from type `MyCartAddLineItemAction`
 
   ### Changed Properties
-
   - :warning: changed property `stores` of type `BusinessUnitDraft` from type `StoreKeyReference[]` to `StoreResourceIdentifier[]`
   - :warning: changed property `stores` of type `CompanyDraft` from type `StoreKeyReference[]` to `StoreResourceIdentifier[]`
   - :warning: changed property `stores` of type `DivisionDraft` from type `StoreKeyReference[]` to `StoreResourceIdentifier[]`
@@ -7735,7 +7413,6 @@
   - :warning: changed property `locale` of type `MyCartSetLocaleAction` from type `string` to `Locale`
 
   ### Required Properties
-
   - :warning: changed property `inventoryMode` of type `Cart` to be required
   - :warning: changed property `itemShippingAddresses` of type `Cart` to be required
   - :warning: changed property `discountCodes` of type `Cart` to be required
@@ -7751,7 +7428,6 @@
   - changed property `quantity` of type `MyLineItemDraft` to be optional
 
   ### Added Properties
-
   - added property `shippingDetails` to type `CartAddCustomLineItemAction`
   - added property `addedAt` to type `CartAddLineItemAction`
   - added property `inventoryMode` to type `CartAddLineItemAction`
@@ -7766,19 +7442,15 @@
   - added property `purchaseOrderNumber` to type `StagedQuote`
 
   ### Added Resources
-
   - added resource `/{projectKey}/me/orders/quotes`
 
   ### Added Method
-
   - added method `apiRoot.withProjectKey().me().orders().quotes().post()`
 
   ### Removed Type
-
   - :warning: removed type `CountryNotConfiguredInStore`
 
   ### Added Types
-
   - added type `CartSetBusinessUnitAction`
   - added type `CountryNotConfiguredInStoreError`
   - added type `GoogleCloudFunctionDestination`
@@ -7790,13 +7462,11 @@
   - added type `OrderSetPurchaseOrderNumberAction`
 
   ### Added QueryParameters
-
   - added query parameter `sort` to method `get /{projectKey}/product-selections/key={key}/products`
   - added query parameter `sort` to method `get /{projectKey}/product-selections/{ID}/products`
   - added query parameter `expand` to method `get /{projectKey}/in-store/key={storeKey}/me/active-cart`
 
   ### Added Enum(s)
-
   - added enum `shipping` to type `ResourceTypeId`
 
 ### Patch Changes
@@ -7811,7 +7481,6 @@
 - [#411](https://github.com/commercetools/commercetools-sdk-typescript/pull/411) [`393f1f9`](https://github.com/commercetools/commercetools-sdk-typescript/commit/393f1f95359890673eb947682c76ab3ca9a290f0) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
 
   ## Changes
-
   - added property `defaultShippingAddressId` to type `BusinessUnit`
   - added property `defaultShippingAddress` to type `BusinessUnitDraft`
   - added property `defaultShippingAddressId` to type `Company`
@@ -7830,13 +7499,11 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `discounted` of type `StagedStandalonePrice` to be optional
   </details>
 
   <details>
   <summary>Removed Property(s)</summary>
-
   - :warning: removed property `defaultShipingAddressId` from type `BusinessUnit`
   - :warning: removed property `defaultShipingAddress` from type `BusinessUnitDraft`
   - :warning: removed property `defaultShipingAddressId` from type `Company`
@@ -7853,20 +7520,17 @@
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `ProductPriceSetMessage`
   - :warning: removed type `ProductPriceSetMessagePayload`
   </details>
 
   <details>
   <summary>Deprecated Type(s)</summary>
-
   - type `IronMqDestination` is removed
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `CartFreezeCartAction`
   - added type `CartUnfreezeCartAction`
   - added type `DuplicatePriceKeyError`
@@ -7882,19 +7546,16 @@
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/shipping-methods/matching-cart-location`
   </details>
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().shippingMethods().matchingCartLocation().get()`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `Frozen` to type `CartState`
   </details>
 
@@ -7902,7 +7563,6 @@
 
   <details>
   <summary>Deprecated Property(s)</summary>
-
   - property `MissingAttributes::attributeCount` is removed
   - property `MissingAttributes::attributeCoverage` is removed
   - property `MissingAttributesMeta::productLevel` is removed
@@ -7921,7 +7581,6 @@
 
   <details>
   <summary>Deprecated Type(s)</summary>
-
   - type `AttributeCount` is removed
   - type `AttributeCoverage` is removed
   - type `MissingAttributesDetails` is removed
@@ -7950,7 +7609,6 @@
 
   <details>
   <summary>Deprecated Resource(s)</summary>
-
   - resource `/{projectKey}/missing-data` is removed
   - resource `/{projectKey}/missing-data/attributes` is removed
   - resource `/{projectKey}/missing-data/images` is removed
@@ -7965,7 +7623,6 @@
 
   <details>
   <summary>Deprecated Method(s)</summary>
-
   - method `post /{projectKey}/missing-data/attributes` is removed
   - method `post /{projectKey}/missing-data/images` is removed
   - method `post /{projectKey}/missing-data/prices` is removed
@@ -7988,13 +7645,11 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `amount` of type `Transaction` from type `TypedMoney` to `CentPrecisionMoney`
   </details>
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `defaultShippingAddressId` to type `BusinessUnit`
   - added property `defaultShippingAddress` to type `BusinessUnitDraft`
   - added property `defaultShippingAddressId` to type `Company`
@@ -8013,13 +7668,11 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `discounted` of type `StagedStandalonePrice` to be optional
   </details>
 
   <details>
   <summary>Removed Property(s)</summary>
-
   - :warning: removed property `defaultShipingAddressId` from type `BusinessUnit`
   - :warning: removed property `defaultShipingAddress` from type `BusinessUnitDraft`
   - :warning: removed property `defaultShipingAddressId` from type `Company`
@@ -8036,20 +7689,17 @@
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `ProductPriceSetMessage`
   - :warning: removed type `ProductPriceSetMessagePayload`
   </details>
 
   <details>
   <summary>Deprecated Type(s)</summary>
-
   - type `IronMqDestination` is removed
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `CartFreezeCartAction`
   - added type `CartUnfreezeCartAction`
   - added type `DuplicatePriceKeyError`
@@ -8065,19 +7715,16 @@
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/shipping-methods/matching-cart-location`
   </details>
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().shippingMethods().matchingCartLocation().get()`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `Frozen` to type `CartState`
   </details>
 
@@ -8088,7 +7735,6 @@
 - [#371](https://github.com/commercetools/commercetools-sdk-typescript/pull/371) [`f6bd1fe`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f6bd1fe02773974d1e95a50a986e846698a95322) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
 
   #### Summary
-
   - The get method of `ByProjectKeyInStoreKeyByStoreKeyProductProjectionsByIDRequestBuilder` class now supports an optional `stage` property
     - [Diff link](packages/platform-sdk/src/generated/client/product-projections/by-project-key-in-store-key-by-store-key-product-projections-by-id-request-builder.ts)
   - The get method of `ByProjectKeyInStoreKeyByStoreKeyProductProjectionsKeyByKeyRequestBuilder` class now supports an optional `stage` property
@@ -8204,7 +7850,6 @@
 - [#347](https://github.com/commercetools/commercetools-sdk-typescript/pull/347) [`f0e84dd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f0e84ddb2e34b908385a380175c6da596db6817a) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
 
   Add `quotes()` method for the `My Quote endpoint`
-
   - [Diff Link](https://github.com/commercetools/commercetools-sdk-typescript/pull/347/files#diff-17ea32dc184ca17b337fbf5e126f27f16651feadc9c879fae88db2580537cf8eR142)
 
   **Usage:**
@@ -8219,15 +7864,12 @@
   ```
 
   Add `ByProjectKeyMeQuotesByIDRequestBuilder` class for `quotes-request` model
-
   - [Diff Link](https://github.com/commercetools/commercetools-sdk-typescript/pull/347/files#diff-a5bab13a41c9ece596cf0fcc545109385e16b6b1877755e58d8ec064125e2041R12)
 
   Add `ByProjectKeyMeQuotesKeyByKeyRequestBuilder` class for `quotes-request` model
-
   - [Diff Link](https://github.com/commercetools/commercetools-sdk-typescript/pull/347/files#diff-034feddaefb558f6391d5238391e177290d7f018904308b2884dfa016c81bc0dR12)
 
   Add `ByProjectKeyMeQuotesRequestBuilder` class for `quotes-request` model
-
   - [Diff Link](https://github.com/commercetools/commercetools-sdk-typescript/pull/347/files#diff-26e9b7a9cef621eaf88d81d1e2bb61858402450c444e1fe4d11bde5b51d22638R13)
 
 ### Patch Changes
@@ -8267,18 +7909,15 @@
 ### Major Changes
 
 - [#291](https://github.com/commercetools/commercetools-sdk-typescript/pull/291) [`cde61f4`](https://github.com/commercetools/commercetools-sdk-typescript/commit/cde61f45563970ca1648496198268976e4f83d8e) Thanks [@github-actions](https://github.com/apps/github-actions)! - ### History API
-
   - add support for quotes
   - add support for authentication mode
   - add product selection support
 
   ### Import API
-
   - add support for inventory imports
   - remove import sink endpoints
 
   ### Platform API
-
   - add support for quotes
   - fix localeProjection query parameter type
   - add missing query parameters to product selection assigment
@@ -8291,13 +7930,11 @@
 - [#302](https://github.com/commercetools/commercetools-sdk-typescript/pull/302) [`69da036`](https://github.com/commercetools/commercetools-sdk-typescript/commit/69da036f75595831a20503bc17aa292857cecdb9) Thanks [@github-actions](https://github.com/apps/github-actions)! - ### Platform API
 
   #### Features
-
   - add LocaleprojectingTrait, StoreprojectingTrait
   - quotes to extension resource types
   - support InventoryMode for cart line items
 
   #### Fixes
-
   - removed `localeProjection` & `priceSelection` parameter from PriceselectingTrait as they are not applying to all endpoints using price selection
 
 ## 2.8.0
@@ -8305,13 +7942,11 @@
 ### Minor Changes
 
 - [#258](https://github.com/commercetools/commercetools-sdk-typescript/pull/258) [`ba52d38`](https://github.com/commercetools/commercetools-sdk-typescript/commit/ba52d38a0a00299de61f554ae753cfb984401d79) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
-
   - add support for Standalone Prices
 
 ### Patch Changes
 
 - [#266](https://github.com/commercetools/commercetools-sdk-typescript/pull/266) [`fd29fa7`](https://github.com/commercetools/commercetools-sdk-typescript/commit/fd29fa759f906040d76a889c2d3fbfbdf2ac6617) Thanks [@github-actions](https://github.com/apps/github-actions)! - Platform SDK updates:
-
   - Fix /me/email/confirm arguments and return type (https://github.com/commercetools/commercetools-sdk-typescript/issues/274)
 
 ## 2.7.0
@@ -8330,7 +7965,6 @@
 ### Minor Changes
 
 - [#241](https://github.com/commercetools/commercetools-sdk-typescript/pull/241) [`85f5be3`](https://github.com/commercetools/commercetools-sdk-typescript/commit/85f5be349a9b0fa46539259981bfd8d5fc2ffdc6) Thanks [@ajimae](https://github.com/ajimae)! - Releasing the TS SDK with the following changelogs
-
   - added functionalities to extend client user agent
   - custom field added to OrderFromCardDraft
 
@@ -8379,11 +8013,9 @@
 - [#177](https://github.com/commercetools/commercetools-sdk-typescript/pull/177) [`9389a07`](https://github.com/commercetools/commercetools-sdk-typescript/commit/9389a07fa89f94049e1b3b7dbeb74adce0d0a60b) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
 
   ### Features
-
   - Add support for product selection (beta)
 
   ### Fixes
-
   - Fix returnItemDraft type of field `custom` to `CustomFieldsDraft`
 
 ## 2.2.0
