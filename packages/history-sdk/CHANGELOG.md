@@ -1,5 +1,16 @@
 # @commercetools/history-sdk
 
+## 5.6.0
+
+### Minor Changes
+
+- [#1182](https://github.com/commercetools/commercetools-sdk-typescript/pull/1182) [`f3200d7`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f3200d7fda6fd65f3227d72d7f046cb70e9fc812) Thanks [@ShipilA](https://github.com/ShipilA)! - Regular release
+
+### Patch Changes
+
+- Updated dependencies [[`f3200d7`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f3200d7fda6fd65f3227d72d7f046cb70e9fc812)]:
+  - @commercetools/ts-client@4.3.0
+
 ## 5.5.0
 
 ### Minor Changes
@@ -8,7 +19,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `TooManyRequestsError`
   - added type `GraphQLTooManyRequestsError`
   - added type `GraphQLErrorObject`
@@ -16,7 +26,6 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `extensions` of type `GraphQLError` from type `object` to `GraphQLErrorObject`
   </details>
 
@@ -37,7 +46,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `ApplicationStoppedByGroupBestDeal` to type `DiscountCodeState`
   - added enum `payment-method` to type `ReferenceTypeId`
   </details>
@@ -67,13 +75,11 @@
 
   <details>
   <summary>Removed Enum(s)</summary>
-
   - :warning: removed enum `setAsssetKey` from type `UpdateType`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `setAssetKey` to type `UpdateType`
   </details>
 
@@ -87,7 +93,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - :warning: changed property `triggerPattern` of type `ChangeTargetPatternChangeValue` to be required
   </details>
 
@@ -110,19 +115,16 @@
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/graphql`
   </details>
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKeyValue().graphql().post()`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `GraphQLRequest`
   - added type `GraphQLResponse`
   - added type `GraphQLError`
@@ -134,7 +136,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `id` of type `ModifiedBy` to be optional
   </details>
 
@@ -146,19 +147,16 @@
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/graphql`
   </details>
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKeyValue().graphql().post()`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `GraphQLRequest`
   - added type `GraphQLResponse`
   - added type `GraphQLError`
@@ -170,7 +168,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `id` of type `ModifiedBy` to be optional
   </details>
 
@@ -182,7 +179,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `id` of type `ModifiedBy` to be optional
   </details>
 
@@ -194,7 +190,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `id` of type `ModifiedBy` to be optional
   </details>
 
@@ -206,7 +201,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `id` of type `ModifiedBy` to be optional
   </details>
 
@@ -218,7 +212,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `id` of type `ModifiedBy` to be optional
   </details>
 
@@ -230,7 +223,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `id` of type `ModifiedBy` to be optional
   </details>
 
@@ -248,7 +240,6 @@
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `ChannelRole`
   - :warning: removed type `StateRole`
   - :warning: removed type `StateType`
@@ -256,7 +247,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `AttributeLocalizedEnumValue`
   - added type `AttributePlainEnumValue`
   - added type `ChannelRoleEnum`
@@ -266,7 +256,6 @@
 
   <details>
   <summary>Removed Property(s)</summary>
-
   - :warning: removed property `previousValue` from type `AddAddressChange`
   - :warning: removed property `previousValue` from type `AddLocationChange`
   - :warning: removed property `nextValue` from type `RemoveLocationChange`
@@ -275,7 +264,6 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `previousValue` of type `AddChannelRolesChange` from type `ChannelRole[]` to `ChannelRoleEnum[]`
   - :warning: changed property `nextValue` of type `AddChannelRolesChange` from type `ChannelRole[]` to `ChannelRoleEnum[]`
   - :warning: changed property `nextValue` of type `AddLocalizedEnumValueChange` from type `LocalizedEnumValue` to `AttributeLocalizedEnumValue`
@@ -302,7 +290,6 @@
 
   <details>
   <summary>Added QueryParameter(s)</summary>
-
   - added query parameter `expand` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
   - added query parameter `sort` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
   - added query parameter `limit` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
@@ -315,7 +302,6 @@
 
   <details>
   <summary>Changed MethodResponseBody(s)</summary>
-
   - :warning: changed response body for `200: application/json` of method `get /{projectKey}/in-store/key={storeKey}/cart-discounts` from type `CartDiscount` to `CartDiscountPagedQueryResponse`
   </details>
 
@@ -324,7 +310,6 @@
 ### Major Changes
 
 - [#551](https://github.com/commercetools/commercetools-sdk-typescript/pull/551) [`9e7939a`](https://github.com/commercetools/commercetools-sdk-typescript/commit/9e7939a1df234fd1f4f77c60f4ff75b31d7fc3fd) Thanks [@github-actions](https://github.com/apps/github-actions)! - BREAKING CHANGE:
-
   - fix URI parameters to be URI encoded
 
 ### Minor Changes
@@ -333,20 +318,17 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `businessUnit` to type `Record`
   </details>
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `previousValue` of type `SetNameChange` from type `LocalizedString` to `string`
   - :warning: changed property `nextValue` of type `SetNameChange` from type `LocalizedString` to `string`
   </details>
 
   <details>
   <summary>Added QueryParameter(s)</summary>
-
   - added query parameter `businessUnit` to method `get /{projectKey}`
   - added query parameter `businessUnit` to method `get /{projectKey}/{resourceType}`
   - added query parameter `businessUnit` to method `get /{projectKey}/{resourceType}/{ID}`
@@ -365,7 +347,6 @@
 
   <details>
   <summary>Added QueryParameter(s)</summary>
-
   - added query parameter `associateId` to method `get /{projectKey}`
   - added query parameter `associateId` to method `get /{projectKey}/{resourceType}`
   - added query parameter `associateId` to method `get /{projectKey}/{resourceType}/{ID}`
@@ -373,7 +354,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `associate` to type `ModifiedBy`
   </details>
 
@@ -385,7 +365,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `AddInheritedAssociateChange`
   - added type `AssociateRoleLabel`
   - added type `ChangeBuyerAssignableChange`
@@ -400,7 +379,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `associate-role` to type `ChangeHistoryResourceType`
   </details>
 
@@ -414,7 +392,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `perMethodTaxRate` to type `CustomLineItem`
   - added property `key` to type `LineItem`
   - added property `key` to type `LineItemDraft`
@@ -479,7 +456,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `lineItemId` of type `CartApplyDeltaToLineItemShippingDetailsTargetsAction` to be optional
   - changed property `lineItemId` of type `CartChangeLineItemQuantityAction` to be optional
   - changed property `lineItemId` of type `CartRemoveLineItemAction` to be optional
@@ -531,27 +507,23 @@
 
   <details>
   <summary>Deprecated Property(s)</summary>
-
   - property `MyCartChangeLineItemQuantityAction::externalPrice` is removed
   - property `MyCartChangeLineItemQuantityAction::externalTotalPrice` is removed
   </details>
 
   <details>
   <summary>Deprecated Type(s)</summary>
-
   - type `ProductVariantSelectionExclusion` is removed
   - type `ProductVariantSelectionInclusion` is removed
   </details>
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `MyCartSetDirectDiscountsAction`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `StandalonePriceTierAddedMessage`
   - added type `StandalonePriceTierRemovedMessage`
   - added type `StandalonePriceTiersSetMessage`
@@ -575,7 +547,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `associate-role` to type `CustomFieldReferenceValue`
   - added enum `business-unit` to type `CustomFieldReferenceValue`
   </details>
@@ -584,7 +555,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `associate-role` to type `CustomFieldReferenceValue`
   - added enum `business-unit` to type `CustomFieldReferenceValue`
   </details>
@@ -593,32 +563,27 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `variantSelection` to type `AddProductChange`
   </details>
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `resource` of type `Record` from type `Reference` to `ResourceIdentifier`
   </details>
 
   <details>
   <summary>Added QueryParameter(s)</summary>
-
   - added query parameter `resourceKey` to method `get /{projectKey}`
   - added query parameter `resourceKey` to method `get /{projectKey}/{resourceType}`
   </details>
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `resourceId` from method `get /{projectKey}/{resourceType}`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `AddAssociateChange`
   - added type `AddProductSelectionChange`
   - added type `Associate`
@@ -648,7 +613,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `business-unit` to type `ChangeHistoryResourceType`
   - added enum `addAssociate` to type `UpdateType`
   - added enum `addCustomLineItem` to type `UpdateType`
@@ -753,13 +717,11 @@
 
   <details>
   <summary>Changed Type(s)</summary>
-
   - :warning: changed type `AssociateRole` from type `string` to `BaseResource`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `AssociateRoleDraft`
   - added type `AssociateRoleKeyReference`
   - added type `AssociateRolePagedQueryResponse`
@@ -806,7 +768,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `associate-role` to type `ReferenceTypeId`
   - added enum `associate-role` to type `MessageSubscriptionResourceTypeId`
   - added enum `associate-role` to type `ResourceTypeId`
@@ -814,7 +775,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `associateRoleAssignments` to type `Associate`
   - added property `associateRoleAssignments` to type `AssociateDraft`
   - added property `associateMode` to type `BusinessUnit`
@@ -831,21 +791,18 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `roles` of type `Associate` from type `AssociateRole[]` to `AssociateRoleDeprecated[]`
   - :warning: changed property `roles` of type `AssociateDraft` from type `AssociateRole[]` to `AssociateRoleDeprecated[]`
   </details>
 
   <details>
   <summary>MarkDeprecated Property(s)</summary>
-
   - marked property `Associate::roles` as deprecated
   - marked property `AssociateDraft::roles` as deprecated
   </details>
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/as-associate`
   - added resource `/{projectKey}/associate-roles`
   - added resource `/{projectKey}/as-associate/{associateId}`
@@ -872,7 +829,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().associateRoles().get()`
   - added method `apiRoot.withProjectKey().associateRoles().post()`
   - added method `apiRoot.withProjectKey().asAssociate().withAssociateIdValue().businessUnits().get()`
@@ -919,13 +875,11 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `type` to type `ImportResourceType`
   </details>
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/types`
   - added resource `/{projectKey}/types/import-containers`
   - added resource `/{projectKey}/types/import-containers/{importContainerKey}`
@@ -933,13 +887,11 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKeyValue().types().importContainers().withImportContainerKeyValue().post()`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `TypeImportRequest`
   - added type `TypeTextInputHint`
   - added type `ResourceTypeId`
@@ -967,19 +919,16 @@
 
   <details>
   <summary>Added QueryParameter(s)</summary>
-
   - added query parameter `resourceTypes` to method `get /{projectKey}`
   </details>
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `resourceType` from method `get /{projectKey}`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `SetCountriesChange`
   - added type `SetPurchaseOrderNumberChange`
   - added type `StoreCountry`
@@ -1002,7 +951,6 @@
 - [#371](https://github.com/commercetools/commercetools-sdk-typescript/pull/371) [`f6bd1fe`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f6bd1fe02773974d1e95a50a986e846698a95322) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
 
   #### Summary
-
   - The get method of `ByProjectKeyInStoreKeyByStoreKeyProductProjectionsByIDRequestBuilder` class now supports an optional `stage` property
     - [Diff link](packages/platform-sdk/src/generated/client/product-projections/by-project-key-in-store-key-by-store-key-product-projections-by-id-request-builder.ts)
   - The get method of `ByProjectKeyInStoreKeyByStoreKeyProductProjectionsKeyByKeyRequestBuilder` class now supports an optional `stage` property
@@ -1121,18 +1069,15 @@
 ### Minor Changes
 
 - [#291](https://github.com/commercetools/commercetools-sdk-typescript/pull/291) [`cde61f4`](https://github.com/commercetools/commercetools-sdk-typescript/commit/cde61f45563970ca1648496198268976e4f83d8e) Thanks [@github-actions](https://github.com/apps/github-actions)! - ### History API
-
   - add support for quotes
   - add support for authentication mode
   - add product selection support
 
   ### Import API
-
   - add support for inventory imports
   - remove import sink endpoints
 
   ### Platform API
-
   - add support for quotes
   - fix localeProjection query parameter type
   - add missing query parameters to product selection assigment
@@ -1145,11 +1090,9 @@
 ### Patch Changes
 
 - [#258](https://github.com/commercetools/commercetools-sdk-typescript/pull/258) [`ba52d38`](https://github.com/commercetools/commercetools-sdk-typescript/commit/ba52d38a0a00299de61f554ae753cfb984401d79) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
-
   - add support for Standalone Prices
 
 * [#266](https://github.com/commercetools/commercetools-sdk-typescript/pull/266) [`fd29fa7`](https://github.com/commercetools/commercetools-sdk-typescript/commit/fd29fa759f906040d76a889c2d3fbfbdf2ac6617) Thanks [@github-actions](https://github.com/apps/github-actions)! - Platform SDK updates:
-
   - Fix /me/email/confirm arguments and return type (https://github.com/commercetools/commercetools-sdk-typescript/issues/274)
 
 ## 2.5.0
@@ -1168,7 +1111,6 @@
 ### Minor Changes
 
 - [#241](https://github.com/commercetools/commercetools-sdk-typescript/pull/241) [`85f5be3`](https://github.com/commercetools/commercetools-sdk-typescript/commit/85f5be349a9b0fa46539259981bfd8d5fc2ffdc6) Thanks [@ajimae](https://github.com/ajimae)! - Releasing the TS SDK with the following changelogs
-
   - added functionalities to extend client user agent
   - custom field added to OrderFromCardDraft
 
