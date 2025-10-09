@@ -556,6 +556,19 @@ export interface CartDraft {
   readonly custom?: CustomFieldsDraft
 }
 /**
+ *	Determines how to manually merge an anonymous Cart with an existing Customer Cart.
+ *
+ */
+export enum CartMergeModeValues {
+  MergeWithExistingCustomerCart = 'MergeWithExistingCustomerCart',
+  UseAsNewActiveCustomerCart = 'UseAsNewActiveCustomerCart',
+}
+
+export type CartMergeMode =
+  | 'MergeWithExistingCustomerCart'
+  | 'UseAsNewActiveCustomerCart'
+  | (string & {})
+/**
  *	Indicates who created the Cart.
  *
  */
@@ -1738,6 +1751,38 @@ export type LineItemPriceMode =
   | 'ExternalTotal'
   | 'Platform'
   | (string & {})
+/**
+ *	Used for merging an anonymous Cart with a Customer Cart with the [Merge Cart](ctp:api:endpoint:/{projectKey}/carts/customer-id={customerId}/merge:POST) and [Merge Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/carts/customer-id={customerId}/merge:POST) endpoints. Either `anonymousCart` or `anonymousId` is required.
+ *
+ */
+export interface MergeCartDraft {
+  /**
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to the anonymous [Cart](ctp:api:type:Cart) to be merged. Required if `anonymousId` is not provided.
+   *
+   *
+   */
+  readonly anonymousCart?: CartResourceIdentifier
+  /**
+   *	Determines how to merge the anonymous Cart with the existing Customer Cart.
+   *
+   *
+   */
+  readonly mergeMode?: CartMergeMode
+  /**
+   *	- If `true`, the [LineItem](ctp:api:type:LineItem) Product data (`name`, `variant`, and `productType`) of the returned Cart will be updated.
+   *	- If `false`, only the prices, discounts, and tax rates will be updated.
+   *
+   *
+   */
+  readonly updateProductData?: boolean
+  /**
+   *	Assigns the Customer to the [Carts](ctp:api:type:Cart) that have the same `anonymousId`. Required if `anonymousCart` is not provided.
+   *	If both `anonymousCart` and `anonymousId` are provided, this value must match the `anonymousId` of the anonymous [Cart](ctp:api:type:Cart) otherwise, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
+   *
+   */
+  readonly anonymousId?: string
+}
 export interface MethodExternalTaxRateDraft {
   /**
    *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).

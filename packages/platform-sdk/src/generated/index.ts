@@ -131,6 +131,8 @@ export * from './client/matching/by-project-key-product-discounts-matching-reque
 export * from './client/me/by-project-key-in-business-unit-key-by-business-unit-key-me-request-builder'
 export * from './client/me/by-project-key-in-store-key-by-store-key-me-request-builder'
 export * from './client/me/by-project-key-me-request-builder'
+export * from './client/merge/by-project-key-carts-customer-id-by-customer-id-merge-request-builder'
+export * from './client/merge/by-project-key-in-store-key-by-store-key-carts-customer-id-by-customer-id-merge-request-builder'
 export * from './client/messages/by-project-key-messages-by-id-request-builder'
 export * from './client/messages/by-project-key-messages-request-builder'
 export * from './client/orders/by-project-key-as-associate-by-associate-id-in-business-unit-key-by-business-unit-key-orders-by-id-request-builder'

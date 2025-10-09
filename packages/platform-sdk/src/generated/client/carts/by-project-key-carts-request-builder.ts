@@ -6,6 +6,7 @@
 import { Cart, CartDraft, CartPagedQueryResponse } from '../../models/cart'
 import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
+import { ByProjectKeyCartsCustomerIdByCustomerIdMergeRequestBuilder } from '../merge/by-project-key-carts-customer-id-by-customer-id-merge-request-builder'
 import { ByProjectKeyCartsReplicateRequestBuilder } from '../replicate/by-project-key-carts-replicate-request-builder'
 import { ByProjectKeyCartsByIDRequestBuilder } from './by-project-key-carts-by-id-request-builder'
 import { ByProjectKeyCartsCustomerIdByCustomerIdRequestBuilder } from './by-project-key-carts-customer-id-by-customer-id-request-builder'
@@ -35,6 +36,18 @@ export class ByProjectKeyCartsRequestBuilder {
     customerId: string
   }): ByProjectKeyCartsCustomerIdByCustomerIdRequestBuilder {
     return new ByProjectKeyCartsCustomerIdByCustomerIdRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+        ...childPathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public customerIdWithCustomerIdValueMerge(childPathArgs: {
+    customerId: string
+  }): ByProjectKeyCartsCustomerIdByCustomerIdMergeRequestBuilder {
+    return new ByProjectKeyCartsCustomerIdByCustomerIdMergeRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
         ...childPathArgs,
