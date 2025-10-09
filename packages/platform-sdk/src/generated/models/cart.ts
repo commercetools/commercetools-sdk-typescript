@@ -3798,6 +3798,7 @@ export interface CartSetLineItemTaxRateAction extends ICartUpdateAction {
 }
 /**
  *	Sets the [LineItem](ctp:api:type:LineItem) `totalPrice` and `price`, and changes the `priceMode` to `ExternalTotal` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+ *	Cannot be used on Gift Line Items (see [LineItemMode](ctp:api:type:LineItemMode)).
  *
  */
 export interface CartSetLineItemTotalPriceAction extends ICartUpdateAction {
