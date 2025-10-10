@@ -264,11 +264,11 @@ export interface RecurringOrderDraft {
    */
   readonly cartVersion: number
   /**
-   *	Date and time (UTC) when the RecurringOrder will start.
+   *	Date and time (UTC) when the RecurringOrder will start. When specified, the date and time must be in the future. If not specified, the recurring order will start immediately.
    *
    *
    */
-  readonly startsAt: string
+  readonly startsAt?: string
   /**
    *	Date and time (UTC) when the RecurringOrder will expire.
    *
@@ -614,7 +614,7 @@ export interface RecurringOrderSetOrderSkipConfigurationAction
    *
    *
    */
-  readonly skipConfiguration?: SkipConfigurationDraft
+  readonly skipConfigurationInputDraft?: SkipConfigurationDraft
   /**
    *	Date and time (UTC) the Recurring Order will expire and stop generating new orders.
    *

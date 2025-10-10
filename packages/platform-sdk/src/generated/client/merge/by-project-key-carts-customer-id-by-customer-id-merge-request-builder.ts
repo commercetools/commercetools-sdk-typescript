@@ -3,37 +3,39 @@
  * Please don't change this file manually but run `rmf-codegen generate raml_file_path -o output_path -t typescript_client` to update it.
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
-import { ImportResponse, PriceImportRequest } from '../../models/importrequests'
+import { Cart, MergeCartDraft } from '../../models/cart'
 import { executeRequest } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
-export class ByProjectKeyPricesImportContainersByImportContainerKeyRequestBuilder {
+export class ByProjectKeyCartsCustomerIdByCustomerIdMergeRequestBuilder {
   constructor(
     protected readonly args: {
       pathArgs: {
         projectKey: string
-        importContainerKey: string
+        customerId: string
       }
       executeRequest: executeRequest
       baseUri?: string
     }
   ) {}
   /**
-   *	Creates an Import Request for Embedded Prices.
+   *	Merges items from an anonymous Cart into the most recently modified active Cart of a Customer. If no active Cart exists, a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned.
+   *
+   *	For more information, see [Merge behavior](/../api/carts-orders-overview#merge-behavior).
+   *
    */
   public post(methodArgs: {
-    body: PriceImportRequest
+    body: MergeCartDraft
     headers?: {
       [key: string]: string | string[]
     }
-  }): ApiRequest<ImportResponse> {
-    return new ApiRequest<ImportResponse>(
+  }): ApiRequest<Cart> {
+    return new ApiRequest<Cart>(
       {
         baseUri: this.args.baseUri,
         method: 'POST',
-        uriTemplate:
-          '/{projectKey}/prices/import-containers/{importContainerKey}',
+        uriTemplate: '/{projectKey}/carts/customer-id={customerId}/merge',
         pathVariables: this.args.pathArgs,
         headers: {
           'Content-Type': 'application/json',

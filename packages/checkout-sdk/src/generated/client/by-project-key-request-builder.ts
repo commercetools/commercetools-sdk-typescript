@@ -4,6 +4,8 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { executeRequest } from '../shared/utils/common-types'
+import { ByProjectKeyApplicationsRequestBuilder } from './applications/by-project-key-applications-request-builder'
+import { ByProjectKeyPaymentIntegrationsRequestBuilder } from './payment-integrations/by-project-key-payment-integrations-request-builder'
 import { ByProjectKeyPaymentIntentsRequestBuilder } from './payment-intents/by-project-key-payment-intents-request-builder'
 import { ByProjectKeyTransactionsRequestBuilder } from './transactions/by-project-key-transactions-request-builder'
 /**
@@ -29,6 +31,24 @@ export class ByProjectKeyRequestBuilder {
   }
   public transactions(): ByProjectKeyTransactionsRequestBuilder {
     return new ByProjectKeyTransactionsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public paymentIntegrations(): ByProjectKeyPaymentIntegrationsRequestBuilder {
+    return new ByProjectKeyPaymentIntegrationsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public applications(): ByProjectKeyApplicationsRequestBuilder {
+    return new ByProjectKeyApplicationsRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },

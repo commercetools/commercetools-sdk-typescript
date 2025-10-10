@@ -4,7 +4,10 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
-import { ApplicationResourceIdentifier } from './application'
+import {
+  ApplicationReference,
+  ApplicationResourceIdentifier,
+} from './application'
 import { CartReference, CartResourceIdentifier, OrderReference } from './cart'
 import { Amount } from './common'
 import { PaymentReference } from './payment'
@@ -34,11 +37,11 @@ export interface Transaction {
    */
   readonly version: number
   /**
-   *	[Application](/connectors-and-applications#applications) for which the payment must be executed.
+   *	[Application](ctp:checkout:type:Application) for which the payment must be executed.
    *
    *
    */
-  readonly application: ApplicationResourceIdentifier
+  readonly application: ApplicationReference
   /**
    *	Transaction Item associated with the Transaction.
    *
@@ -77,7 +80,7 @@ export interface TransactionDraft {
    */
   readonly key?: string
   /**
-   *	[Application](/connectors-and-applications#applications) for which the payment is executed.
+   *	[Application](ctp:checkout:type:Application) for which the payment is executed.
    *
    *
    */
@@ -88,7 +91,7 @@ export interface TransactionDraft {
    */
   readonly transactionItems: TransactionItemDraft[]
   /**
-   *	[Cart](/../api/projects/carts#cart) for which the payment must be executed.
+   *	[Cart](ctp:api:type:Cart) for which the payment must be executed.
    *
    *
    */
@@ -123,12 +126,12 @@ export interface TransactionItem {
    */
   readonly amount?: Amount
   /**
-   *	Reference to the [Payment](/../api/projects/payments#payment) associated with the Transaction Item.
+   *	Reference to the [Payment](ctp:api:type:Payment) associated with the Transaction Item.
    *
    */
   readonly payment?: PaymentReference
   /**
-   *	Reference to the [Payment Integration](/connectors-and-applications#payment-integrations) to use to execute the payment.
+   *	Reference to the [Payment Integration](ctp:checkout:type:PaymentIntegration) to use to execute the payment.
    *
    */
   readonly paymentIntegration: PaymentIntegrationReference

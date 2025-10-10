@@ -4,10 +4,292 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
-import { IReference, IResourceIdentifier } from './common'
+import { IReference, IResourceIdentifier, LocalizedString } from './common'
+import {
+  CreatedBy,
+  LastModifiedBy,
+  PaymentComponentType,
+} from './payment-integration'
 
+export interface AllowedOrigins {
+  /**
+   *	Indicates whether all the origin URLs are allowed or not.
+   *
+   *
+   */
+  readonly allowAll: boolean
+  /**
+   *	Value of the URL to set. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly origins?: string[]
+}
+export interface Application {
+  /**
+   *	Unique identifier of the Application.
+   *
+   *
+   */
+  readonly id: string
+  /**
+   *	Current version of the Application.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	User-defined unique identifier of the Application. `MinLength: 2 ​MaxLength: 256 ​Pattern: ^[A-Za-z0-9_-]+$`
+   *
+   *
+   */
+  readonly key: string
+  /**
+   *	Indicates whether the Application is active or not.
+   *
+   *
+   */
+  readonly status?: ApplicationStatus
+  /**
+   *	Name of the Application.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	Description of the Application.
+   *
+   *
+   */
+  readonly description?: string
+  /**
+   *	Details of the application logo. It is required if the `mode = CompleteFlow`.
+   *
+   *
+   */
+  readonly logo?: ApplicationLogo
+  /**
+   *	List of countries that the Application supports. Each country is represented by two-digit country code as per ISO 3166-1 alpha-2.
+   *
+   *
+   */
+  readonly countries: string[]
+  /**
+   *	Allowed origin URLs for the Application.
+   *
+   *
+   */
+  readonly allowedOrigins: AllowedOrigins
+  /**
+   *	Checkout mode to use for the Application.
+   *
+   *
+   */
+  readonly mode: ApplicationMode
+  /**
+   *	Sets the payment configuration options of the Application.
+   *
+   *
+   */
+  readonly paymentsConfiguration: PaymentsConfiguration
+  /**
+   *	User agreements to display. It is only applicable if the `mode` is `CompleteFlow`.
+   *
+   *
+   */
+  readonly agreements?: ApplicationAgreement[]
+  /**
+   *	Sets the discounts configuration options of the Application. It is only applicable if the `mode` is `CompleteFlow`.
+   *
+   *
+   */
+  readonly discountsConfiguration?: DiscountsConfiguration
+  /**
+   *	Date and time (UTC) the Application was initially created.
+   *
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	IDs and references that created the Application.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Date and time (UTC) the Application was last updated.
+   *
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Application.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+}
+export interface ApplicationAgreement {
+  /**
+   *	Unique identifier of the ApplicationAgreement.
+   *
+   *
+   */
+  readonly id: string
+  /**
+   *	Unique name identifier for the ApplicationAgreement.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	Type of agreement.
+   *
+   *
+   */
+  readonly type: ApplicationAgreementType
+  /**
+   *	Indicates whether the agreement is active or not.
+   *
+   *
+   */
+  readonly status: ApplicationAgreementStatus
+  /**
+   *	Text to display in checkout in Markdown format.
+   *
+   *
+   */
+  readonly text: LocalizedString
+}
+export interface ApplicationAgreementDraft {
+  /**
+   *	Unique name for identifying the agreement.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	Type of agreement.
+   *
+   *
+   */
+  readonly type: ApplicationAgreementType
+  /**
+   *	Indicates whether the agreement is active or not.
+   *
+   *
+   */
+  readonly status: ApplicationAgreementStatus
+  /**
+   *	Text to display in checkout in Markdown format.
+   *
+   *
+   */
+  readonly text: LocalizedString
+}
+export enum ApplicationAgreementStatusValues {
+  Active = 'Active',
+  Inactive = 'Inactive',
+}
+
+export type ApplicationAgreementStatus = 'Active' | 'Inactive' | (string & {})
+export enum ApplicationAgreementTypeValues {
+  MandatoryCheckbox = 'MandatoryCheckbox',
+  Text = 'Text',
+}
+
+export type ApplicationAgreementType =
+  | 'MandatoryCheckbox'
+  | 'Text'
+  | (string & {})
+export interface ApplicationDraft {
+  /**
+   *	User-defined unique identifier of the Application. `MinLength: 2 ​MaxLength: 256 ​Pattern: ^[A-Za-z0-9_-]+$`
+   *
+   *
+   */
+  readonly key: string
+  /**
+   *	Indicates whether the Application is active or not.
+   *
+   *
+   */
+  readonly status?: ApplicationStatus
+  /**
+   *	Name of the Application.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	Description of the Application.
+   *
+   *
+   */
+  readonly description?: string
+  /**
+   *	Details of the Application logo. It is required if the `mode` is `CompleteFlow`.
+   *
+   *
+   */
+  readonly logo?: ApplicationLogo
+  /**
+   *	List of countries that the Application supports. Each country is represented by two-digit country code as per ISO 3166-1 alpha-2.
+   *
+   *
+   */
+  readonly countries: string[]
+  /**
+   *	Allowed origin URLs for the Application.
+   *
+   *
+   */
+  readonly allowedOrigins: AllowedOrigins
+  /**
+   *	Checkout mode to use for the Application.
+   *
+   *
+   */
+  readonly mode: ApplicationMode
+  /**
+   *	Sets the payment configuration options of the Application.
+   *
+   *
+   */
+  readonly paymentsConfiguration: PaymentsConfiguration
+  /**
+   *	User agreements to display. It is only applicable if the `mode` is `CompleteFlow`.
+   *
+   *
+   */
+  readonly agreements?: ApplicationAgreement[]
+  /**
+   *	Sets the discounts configuration options of the Application. It is only applicable if the `mode` is `CompleteFlow`.
+   *
+   *
+   */
+  readonly discountsConfiguration?: DiscountsConfiguration
+}
 /**
- *	Reference to an [Application](/connectors-and-applications#applications).
+ *	Details of the Application logo. It is required if the `mode` is `CompleteFlow`.
+ *
+ */
+export interface ApplicationLogo {
+  /**
+   *	URL of the logo.
+   *
+   *
+   */
+  readonly url?: string
+}
+export enum ApplicationModeValues {
+  CompleteFlow = 'CompleteFlow',
+  PaymentOnly = 'PaymentOnly',
+}
+
+export type ApplicationMode = 'CompleteFlow' | 'PaymentOnly' | (string & {})
+/**
+ *	Reference to an [Application](ctp:checkout:type:Application).
  *
  */
 export interface ApplicationReference extends IReference {
@@ -20,7 +302,7 @@ export interface ApplicationReference extends IReference {
   readonly id: string
 }
 /**
- *	Resource identifier to an [Application](/connectors-and-applications#applications). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/errors#invalidjsoninput) error is returned.
+ *	Resource identifier to an [Application](ctp:checkout:type:Application). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/errors#invalidjsoninput) error is returned.
  *
  */
 export interface ApplicationResourceIdentifier extends IResourceIdentifier {
@@ -37,4 +319,372 @@ export interface ApplicationResourceIdentifier extends IResourceIdentifier {
    *
    */
   readonly key?: string
+}
+export enum ApplicationStatusValues {
+  Active = 'Active',
+  Inactive = 'Inactive',
+}
+
+export type ApplicationStatus = 'Active' | 'Inactive' | (string & {})
+/**
+ *	Base type for all Application update actions.
+ *
+ */
+export type ApplicationUpdateAction =
+  | AddAllowedOriginUpdateAction
+  | AddApplicationAgreementUpdateAction
+  | AddCountryUpdateAction
+  | RemoveAllowedOriginUpdateAction
+  | RemoveApplicationAgreementUpdateAction
+  | RemoveCountryUpdateAction
+  | ReorderApplicationAgreementUpdateAction
+  | SetActivePaymentComponentTypeUpdateAction
+  | SetAllowAllOriginsUpdateAction
+  | SetAllowedOriginsUpdateAction
+  | SetApplicationAgreementNameUpdateAction
+  | SetApplicationAgreementStatusUpdateAction
+  | SetApplicationAgreementTextUpdateAction
+  | SetApplicationAgreementTypeUpdateAction
+  | SetApplicationAgreementsUpdateAction
+  | SetApplicationLogoUpdateAction
+  | SetApplicationNameUpdateAction
+  | SetApplicationStatusUpdateAction
+  | SetCountriesUpdateAction
+  | SetDescriptionUpdateAction
+  | SetDiscountsConfigurationUpdateAction
+  | SetPaymentReturnUrlUpdateAction
+  | SetPaymentsConfigurationUpdateAction
+export interface IApplicationUpdateAction {
+  /**
+   *	Type of update action to be performed on the Application.
+   *
+   *
+   */
+  readonly action: string
+}
+/**
+ *	Update actions for Applications.
+ *
+ */
+export interface ApplicationUpdateActions {
+  /**
+   *	Expected version of the Application on which the changes should be applied.
+   *	If the expected version does not match the actual version, a [ConcurrentModification](ctp:checkout:type:ConcurrentModificationError) error will be returned.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	Update actions to be performed on the Application.
+   *
+   *
+   */
+  readonly actions: ApplicationUpdateAction[]
+}
+export interface DiscountsConfiguration {
+  /**
+   *	Indicates if the buyer is able to apply discounts to the cart. It is only applicable if the `mode = CompleteFlow`.
+   *
+   *
+   */
+  readonly allowDiscounts: boolean
+}
+/**
+ *	Paginated result containing Application.
+ *
+ */
+export interface PaginatedApplication {
+  /**
+   *	Number of results requested.
+   *
+   *
+   */
+  readonly limit: number
+  /**
+   *	Number of elements skipped.
+   *
+   *
+   */
+  readonly offset: number
+  /**
+   *	Actual number of results returned.
+   *
+   *
+   */
+  readonly count: number
+  /**
+   *	Total number of results matching the query.
+   *
+   *
+   */
+  readonly total: number
+  /**
+   *	Applications matching the query.
+   *
+   *
+   */
+  readonly results: Application[]
+}
+export interface PaymentsConfiguration {
+  /**
+   *	URL where the buyer will be redirected back to after an offsite payment.
+   *
+   *
+   */
+  readonly paymentReturnUrl?: string
+  /**
+   *	Indicates the type of payment components that the Application will use.
+   *
+   *
+   */
+  readonly activePaymentComponentType: PaymentComponentType
+}
+export interface AddAllowedOriginUpdateAction extends IApplicationUpdateAction {
+  readonly action: 'addAllowedOrigin'
+  /**
+   *	Origin URL to add to the allowed origins list.
+   *
+   *
+   */
+  readonly origin: string
+}
+export interface AddApplicationAgreementUpdateAction
+  extends IApplicationUpdateAction {
+  readonly action: 'addAgreement'
+  /**
+   *	Agreement to add to the Application.
+   *
+   *
+   */
+  readonly agreement: ApplicationAgreementDraft
+}
+export interface AddCountryUpdateAction extends IApplicationUpdateAction {
+  readonly action: 'addCountry'
+  /**
+   *	Country to add. Represented by two-digit country code as per ISO 3166-1 alpha-2.
+   *
+   *
+   */
+  readonly country: string
+}
+export interface RemoveAllowedOriginUpdateAction
+  extends IApplicationUpdateAction {
+  readonly action: 'removeAllowedOrigin'
+  /**
+   *	Origin URL to remove from the allowed origins list.
+   *
+   *
+   */
+  readonly origin: string
+}
+export interface RemoveApplicationAgreementUpdateAction
+  extends IApplicationUpdateAction {
+  readonly action: 'removeAgreement'
+  /**
+   *	ID of the agreement to remove from the Application.
+   *
+   *
+   */
+  readonly agreementId: string
+}
+export interface RemoveCountryUpdateAction extends IApplicationUpdateAction {
+  readonly action: 'removeCountry'
+  /**
+   *	Country to remove. Represented by two-digit country code as per ISO 3166-1 alpha-2.
+   *
+   *
+   */
+  readonly country: string
+}
+export interface ReorderApplicationAgreementUpdateAction
+  extends IApplicationUpdateAction {
+  readonly action: 'reorderAgreement'
+  /**
+   *	Array of agreement IDs.
+   *
+   *
+   */
+  readonly agreementIds: string[]
+}
+export interface SetActivePaymentComponentTypeUpdateAction
+  extends IApplicationUpdateAction {
+  readonly action: 'setActivePaymentComponentType'
+  /**
+   *	Type of payment components that the Application will use.
+   *
+   *
+   */
+  readonly activePaymentComponentType: PaymentComponentType
+}
+export interface SetAllowAllOriginsUpdateAction
+  extends IApplicationUpdateAction {
+  readonly action: 'setAllowAllOrigins'
+  /**
+   *	Whether to allow all origins or not.
+   *
+   *
+   */
+  readonly allowAll: boolean
+}
+export interface SetAllowedOriginsUpdateAction
+  extends IApplicationUpdateAction {
+  readonly action: 'setAllowedOrigins'
+  /**
+   *	New allowed origins configuration.
+   *
+   *
+   */
+  readonly allowedOrigins: AllowedOrigins
+}
+export interface SetApplicationAgreementNameUpdateAction
+  extends IApplicationUpdateAction {
+  readonly action: 'setAgreementName'
+  /**
+   *	ID of the agreement to update.
+   *
+   *
+   */
+  readonly agreementId: string
+  /**
+   *	New name for the agreement.
+   *
+   *
+   */
+  readonly name: string
+}
+export interface SetApplicationAgreementStatusUpdateAction
+  extends IApplicationUpdateAction {
+  readonly action: 'setAgreementStatus'
+  /**
+   *	ID of the agreement to update.
+   *
+   *
+   */
+  readonly agreementId: string
+  /**
+   *	New status for the agreement.
+   *
+   *
+   */
+  readonly status: ApplicationAgreementStatus
+}
+export interface SetApplicationAgreementTextUpdateAction
+  extends IApplicationUpdateAction {
+  readonly action: 'setAgreementText'
+  /**
+   *	ID of the agreement to update.
+   *
+   *
+   */
+  readonly agreementId: string
+  /**
+   *	New text for the agreement.
+   *
+   *
+   */
+  readonly text: LocalizedString
+}
+export interface SetApplicationAgreementTypeUpdateAction
+  extends IApplicationUpdateAction {
+  readonly action: 'setAgreementType'
+  /**
+   *	ID of the agreement to update.
+   *
+   *
+   */
+  readonly agreementId: string
+  /**
+   *	New type for the agreement.
+   *
+   *
+   */
+  readonly type: ApplicationAgreementType
+}
+export interface SetApplicationAgreementsUpdateAction
+  extends IApplicationUpdateAction {
+  readonly action: 'setAgreements'
+  /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly agreements?: ApplicationAgreementDraft[]
+}
+export interface SetApplicationLogoUpdateAction
+  extends IApplicationUpdateAction {
+  readonly action: 'setApplicationLogo'
+  /**
+   *	New logo to assign to the Application, which must be a valid url.
+   *
+   *
+   */
+  readonly logo: ApplicationLogo
+}
+export interface SetApplicationNameUpdateAction
+  extends IApplicationUpdateAction {
+  readonly action: 'setName'
+  /**
+   *	New name to assign to the Application.
+   *
+   *
+   */
+  readonly name: string
+}
+export interface SetApplicationStatusUpdateAction
+  extends IApplicationUpdateAction {
+  readonly action: 'setStatus'
+  /**
+   *	New status to assign to the Application.
+   *
+   *
+   */
+  readonly status: ApplicationStatus
+}
+export interface SetCountriesUpdateAction extends IApplicationUpdateAction {
+  readonly action: 'setCountries'
+  /**
+   *	Sets a list of countries to the Application. Each country is represented by two-digit country code as per ISO 3166-1 alpha-2.
+   *
+   *
+   */
+  readonly countries: string[]
+}
+export interface SetDescriptionUpdateAction extends IApplicationUpdateAction {
+  readonly action: 'setDescription'
+  /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly description: LocalizedString
+}
+export interface SetDiscountsConfigurationUpdateAction
+  extends IApplicationUpdateAction {
+  readonly action: 'setDiscountsConfiguration'
+  /**
+   *	New discounts configuration for the Application.
+   *
+   *
+   */
+  readonly discountsConfiguration: DiscountsConfiguration
+}
+export interface SetPaymentReturnUrlUpdateAction
+  extends IApplicationUpdateAction {
+  readonly action: 'setPaymentReturnUrl'
+  /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly paymentReturnUrl?: string
+}
+export interface SetPaymentsConfigurationUpdateAction
+  extends IApplicationUpdateAction {
+  readonly action: 'setPaymentsConfiguration'
+  /**
+   *	New payments configuration for the Application.
+   *
+   *
+   */
+  readonly paymentsConfiguration: PaymentsConfiguration
 }
