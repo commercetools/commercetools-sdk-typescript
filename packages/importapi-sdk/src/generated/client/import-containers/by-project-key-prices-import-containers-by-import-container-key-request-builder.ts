@@ -20,7 +20,7 @@ export class ByProjectKeyPricesImportContainersByImportContainerKeyRequestBuilde
     }
   ) {}
   /**
-   *	Creates an Import Request for Prices.
+   *	Creates an Import Request for Embedded Prices.
    */
   public post(methodArgs: {
     body: PriceImportRequest
