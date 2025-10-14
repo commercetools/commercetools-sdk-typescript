@@ -3014,8 +3014,8 @@ export interface CartRemoveLineItemAction extends ICartUpdateAction {
    */
   readonly lineItemKey?: string
   /**
-   *	Amount to subtract from the LineItem's `quantity`.
-   *	If absent, the LineItem is removed from the Cart.
+   *	Amount to subtract from the LineItem quantity.
+   *	If omitted, the LineItem is removed from the Cart.
    *
    *
    */
