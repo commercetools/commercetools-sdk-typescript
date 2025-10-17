@@ -8631,6 +8631,12 @@ export interface InventoryEntryQuantitySetMessage extends IMessage {
    */
   readonly newAvailableQuantity: number
   /**
+   *	SKU of the [InventoryEntry](ctp:api:type:InventoryEntry) for which the quantity was updated.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
    *	[Reference](ctp:api:type:Reference) to the [Channel](ctp:api:type:Channel) where the [InventoryEntry](ctp:api:type:InventoryEntry) quantity was set.
    *
    *
@@ -25896,6 +25902,12 @@ export interface InventoryEntryQuantitySetMessagePayload
    *
    */
   readonly newAvailableQuantity: number
+  /**
+   *	SKU of the [InventoryEntry](ctp:api:type:InventoryEntry) for which the quantity was updated.
+   *
+   *
+   */
+  readonly sku?: string
   /**
    *	[Reference](ctp:api:type:Reference) to the [Channel](ctp:api:type:Channel) where the [InventoryEntry](ctp:api:type:InventoryEntry) quantity was set.
    *

@@ -21,6 +21,13 @@
 - added resource `/{projectKey}/in-store/key={storeKey}/carts/customer-id={customerId}/merge`
 </details>
 
+<details>
+<summary>Added Property(s)</summary>
+
+- added property `sku` to type `InventoryEntryQuantitySetMessage`
+- added property `sku` to type `InventoryEntryQuantitySetMessagePayload`
+</details>
+
 **Checkout changes**
 
 <details>
