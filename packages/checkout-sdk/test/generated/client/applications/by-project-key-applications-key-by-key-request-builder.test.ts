@@ -40,12 +40,12 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'delete',
-      uri: '/test_projectKey/applications/key=test_key',
+      uri: '/test_projectKey/applications/key=test_key?version=2',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .applications()
         .withKey({ key: 'test_key' })
-        .delete({ body: null, headers: null }),
+        .delete({ queryArgs: { version: 2 } }),
     },
   ]
 }

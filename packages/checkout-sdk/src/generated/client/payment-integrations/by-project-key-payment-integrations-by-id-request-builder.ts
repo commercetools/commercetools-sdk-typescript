@@ -7,7 +7,7 @@ import {
   PaymentIntegration,
   PaymentIntegrationUpdateActions,
 } from '../../models/payment-integration'
-import { executeRequest } from '../../shared/utils/common-types'
+import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
@@ -90,7 +90,10 @@ export class ByProjectKeyPaymentIntegrationsByIdRequestBuilder {
     )
   }
   public delete(methodArgs: {
-    body: PaymentIntegration
+    queryArgs: {
+      version: number
+      [key: string]: QueryParam
+    }
     headers?: {
       [key: string]: string | string[]
     }
@@ -102,10 +105,9 @@ export class ByProjectKeyPaymentIntegrationsByIdRequestBuilder {
         uriTemplate: '/{projectKey}/payment-integrations/{id}',
         pathVariables: this.args.pathArgs,
         headers: {
-          'Content-Type': 'application/json',
           ...methodArgs?.headers,
         },
-        body: methodArgs?.body,
+        queryParams: methodArgs?.queryArgs,
       },
       this.args.executeRequest
     )

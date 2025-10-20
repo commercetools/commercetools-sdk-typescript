@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 import { Application, ApplicationUpdateActions } from '../../models/application'
-import { executeRequest } from '../../shared/utils/common-types'
+import { executeRequest, QueryParam } from '../../shared/utils/common-types'
 import { ApiRequest } from '../../shared/utils/requests-utils'
 /**
  **/
@@ -90,7 +90,10 @@ export class ByProjectKeyApplicationsKeyByKeyRequestBuilder {
     )
   }
   public delete(methodArgs: {
-    body: Application
+    queryArgs: {
+      version: number
+      [key: string]: QueryParam
+    }
     headers?: {
       [key: string]: string | string[]
     }
@@ -102,10 +105,9 @@ export class ByProjectKeyApplicationsKeyByKeyRequestBuilder {
         uriTemplate: '/{projectKey}/applications/key={key}',
         pathVariables: this.args.pathArgs,
         headers: {
-          'Content-Type': 'application/json',
           ...methodArgs?.headers,
         },
-        body: methodArgs?.body,
+        queryParams: methodArgs?.queryArgs,
       },
       this.args.executeRequest
     )
