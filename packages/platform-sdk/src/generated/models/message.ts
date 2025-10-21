@@ -58,6 +58,7 @@ import {
 import { CustomerGroupReference } from './customer-group'
 import { DiscountCode, DiscountCodeReference } from './discount-code'
 import { DiscountGroup } from './discount-group'
+import { RecurringOrderFailureError } from './error'
 import { InventoryEntry } from './inventory'
 import {
   Delivery,
@@ -398,6 +399,7 @@ export type Message =
   | RecurringOrderCustomTypeSetMessage
   | RecurringOrderDeletedMessage
   | RecurringOrderExpiresAtSetMessage
+  | RecurringOrderFailedMessage
   | RecurringOrderKeySetMessage
   | RecurringOrderScheduleSetMessage
   | RecurringOrderStartsAtSetMessage
@@ -20516,6 +20518,100 @@ export interface RecurringOrderExpiresAtSetMessage extends IMessage {
   readonly oldExpiresAt: string
 }
 /**
+ *	Generated after a [RecurringOrder](ctp:api:type:RecurringOrder) failed to process an Order.
+ *
+ */
+export interface RecurringOrderFailedMessage extends IMessage {
+  readonly type: 'RecurringOrderFailed'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	ID of the [Cart](ctp:api:type:Cart) used in the failed Order creation attempt.
+   *
+   *
+   */
+  readonly cartId: string
+  /**
+   *	Date and time (UTC) when the Order creation attempt failed.
+   *
+   *
+   */
+  readonly failedAt: string
+  /**
+   *	Description of why the Order creation failed, such as insufficient stock.
+   *
+   *
+   */
+  readonly failureReason: string
+  /**
+   *	Date and time (UTC) the Order was scheduled to be created.
+   *
+   *
+   */
+  readonly orderScheduledAt: string
+  /**
+   *	Errors due to which the Order creation failed.
+   *
+   *
+   */
+  readonly errors?: RecurringOrderFailureError[]
+}
+/**
  *	Generated after a successful [Set Key](ctp:api:type:RecurringOrderSetKeyAction) update action.
  *
  */
@@ -23991,6 +24087,7 @@ export type MessagePayload =
   | RecurringOrderCustomTypeSetMessagePayload
   | RecurringOrderDeletedMessagePayload
   | RecurringOrderExpiresAtSetMessagePayload
+  | RecurringOrderFailedMessagePayload
   | RecurringOrderKeySetMessagePayload
   | RecurringOrderScheduleSetMessagePayload
   | RecurringOrderStartsAtSetMessagePayload
@@ -29318,6 +29415,43 @@ export interface RecurringOrderExpiresAtSetMessagePayload
    *
    */
   readonly oldExpiresAt: string
+}
+/**
+ *	Generated after a [RecurringOrder](ctp:api:type:RecurringOrder) failed to process an Order.
+ *
+ */
+export interface RecurringOrderFailedMessagePayload extends IMessagePayload {
+  readonly type: 'RecurringOrderFailed'
+  /**
+   *	ID of the [Cart](ctp:api:type:Cart) used in the failed Order creation attempt.
+   *
+   *
+   */
+  readonly cartId: string
+  /**
+   *	Date and time (UTC) when the Order creation attempt failed.
+   *
+   *
+   */
+  readonly failedAt: string
+  /**
+   *	Description of why the Order creation failed, such as insufficient stock.
+   *
+   *
+   */
+  readonly failureReason: string
+  /**
+   *	Date and time (UTC) the Order was scheduled to be created.
+   *
+   *
+   */
+  readonly orderScheduledAt: string
+  /**
+   *	Errors due to which the Order creation failed.
+   *
+   *
+   */
+  readonly errors?: RecurringOrderFailureError[]
 }
 /**
  *	Generated after a successful [Set Key](ctp:api:type:RecurringOrderSetKeyAction) update action.

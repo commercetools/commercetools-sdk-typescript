@@ -112,6 +112,7 @@ export type ErrorObject =
   | ProjectNotConfiguredForLanguagesError
   | QueryComplexityLimitExceededError
   | QueryTimedOutError
+  | RecurringOrderFailureError
   | ReferenceExistsError
   | ReferencedResourceNotFoundError
   | RequiredFieldError
@@ -1868,6 +1869,26 @@ export interface QueryTimedOutError extends IErrorObject {
   readonly message: string
 }
 /**
+ *	Returned when a subsequent Order for a [Recurring Order](ctp:api:type:RecurringOrder) could not be processed.
+ *
+ */
+export interface RecurringOrderFailureError extends IErrorObject {
+  readonly code: 'RecurringOrderFailure'
+  [key: string]: any
+  /**
+   *	Plain text description of the error.
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	Details about the error's cause and the entities involved.
+   *
+   *
+   */
+  readonly details: any
+}
+/**
  *	Returned when a resource cannot be deleted because it is being referenced by another resource.
  *
  */
@@ -2204,6 +2225,7 @@ export type GraphQLErrorObject =
   | GraphQLProjectNotConfiguredForLanguagesError
   | GraphQLQueryComplexityLimitExceededError
   | GraphQLQueryTimedOutError
+  | GraphQLRecurringOrderFailureError
   | GraphQLReferenceExistsError
   | GraphQLReferencedResourceNotFoundError
   | GraphQLRequiredFieldError
@@ -3506,6 +3528,20 @@ export interface GraphQLQueryComplexityLimitExceededError
 export interface GraphQLQueryTimedOutError extends IGraphQLErrorObject {
   readonly code: 'QueryTimedOut'
   [key: string]: any
+}
+/**
+ *	Returned when a subsequent Order for a [Recurring Order](ctp:api:type:RecurringOrder) could not be processed.
+ *
+ */
+export interface GraphQLRecurringOrderFailureError extends IGraphQLErrorObject {
+  readonly code: 'RecurringOrderFailure'
+  [key: string]: any
+  /**
+   *	Details about the error's cause and the entities involved.
+   *
+   *
+   */
+  readonly details: any
 }
 /**
  *	Returned when a resource cannot be deleted because it is being referenced by another resource.

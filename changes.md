@@ -5,6 +5,10 @@
 
 - added type `CartMergeMode`
 - added type `MergeCartDraft`
+- added type `RecurringOrderFailureError`
+- added type `GraphQLRecurringOrderFailureError`
+- added type `RecurringOrderFailedMessage`
+- added type `RecurringOrderFailedMessagePayload`
 </details>
 
 <details>
