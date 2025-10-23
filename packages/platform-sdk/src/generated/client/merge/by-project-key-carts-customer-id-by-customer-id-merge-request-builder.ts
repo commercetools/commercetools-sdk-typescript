@@ -20,8 +20,7 @@ export class ByProjectKeyCartsCustomerIdByCustomerIdMergeRequestBuilder {
     }
   ) {}
   /**
-   *	Merges items from an anonymous Cart into the most recently modified active Cart of a Customer. If no active Cart exists, a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned.
-   *
+   *	Merges items from an anonymous Cart into the most recently modified active Cart of a Customer. If no active Cart exists, the anonymous Cart becomes the Customer's active Cart.
    *	For more information, see [Merge behavior](/../api/carts-orders-overview#merge-behavior).
    *
    */
