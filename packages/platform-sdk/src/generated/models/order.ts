@@ -1974,7 +1974,7 @@ export interface IReturnItem {
    */
   readonly lastModifiedAt: string
   /**
-   *	Date and time (UTC) the Return Item was intitially created.
+   *	Date and time (UTC) the Return Item was initially created.
    *
    *
    */
@@ -2033,7 +2033,7 @@ export interface CustomLineItemReturnItem extends IReturnItem {
    */
   readonly lastModifiedAt: string
   /**
-   *	Date and time (UTC) the Return Item was intitially created.
+   *	Date and time (UTC) the Return Item was initially created.
    *
    *
    */
@@ -2098,7 +2098,7 @@ export interface LineItemReturnItem extends IReturnItem {
    */
   readonly lastModifiedAt: string
   /**
-   *	Date and time (UTC) the Return Item was intitially created.
+   *	Date and time (UTC) the Return Item was initially created.
    *
    *
    */

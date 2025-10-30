@@ -11,7 +11,11 @@
 - added type `MergeCartDraft`
 - added type `RecurringOrderFailureError`
 - added type `GraphQLRecurringOrderFailureError`
+- added type `CartFrozenMessage`
+- added type `CartUnfrozenMessage`
 - added type `RecurringOrderFailedMessage`
+- added type `CartFrozenMessagePayload`
+- added type `CartUnfrozenMessagePayload`
 - added type `RecurringOrderFailedMessagePayload`
 </details>
 

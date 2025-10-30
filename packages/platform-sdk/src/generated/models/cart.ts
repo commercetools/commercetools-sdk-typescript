@@ -2426,8 +2426,10 @@ export interface CartAddCustomShippingMethodAction extends ICartUpdateAction {
 }
 /**
  *	Adds a [DiscountCode](ctp:api:type:DiscountCode) to the Cart to activate the related [Cart Discounts](/../api/projects/cartDiscounts).
- *	Adding a Discount Code is only possible if no [DirectDiscount](ctp:api:type:DirectDiscount) has been applied to the Cart.
- *	Discount Codes can be added to [frozen Carts](ctp:api:type:FrozenCarts), but their [DiscountCodeState](ctp:api:type:DiscountCodeState) is then `DoesNotMatchCart`.
+ *	If the related Cart Discounts are inactive or invalid, or belong to a different Store than the Cart, a [DiscountCodeNonApplicableError](ctp:api:type:DiscountCodeNonApplicableError) is returned.
+ *
+ *	A Discount Code can be added only if no [DirectDiscount](ctp:api:type:DirectDiscount) has been applied to the Cart.
+ *	For [frozen Carts](ctp:api:type:FrozenCarts), the [DiscountCodeState](ctp:api:type:DiscountCodeState) must be `DoesNotMatchCart` when adding a Discount Code.
  *
  *	The maximum number of Discount Codes in a Cart is restricted by a [limit](/../api/limits#carts).
  *
@@ -2928,6 +2930,8 @@ export interface CartChangeTaxRoundingModeAction extends ICartUpdateAction {
 /**
  *	Changes the [CartState](ctp:api:type:CartState) from `Active` to `Frozen`. Results in a [Frozen Cart](ctp:api:type:FrozenCarts).
  *	Fails with [InvalidOperation](ctp:api:type:InvalidOperationError) error when the Cart is empty.
+ *
+ *	Freezing a Cart produces the [CartFrozen](ctp:api:type:CartFrozenMessage) Message.
  *
  */
 export interface CartFreezeCartAction extends ICartUpdateAction {
@@ -4072,6 +4076,8 @@ export interface CartSetShippingRateInputAction extends ICartUpdateAction {
 /**
  *	Changes the [CartState](ctp:api:type:CartState) from `Frozen` to `Active`. Reactivates a [Frozen Cart](ctp:api:type:FrozenCarts).
  *	This action updates all prices in the Cart according to latest Prices on related Product Variants and Shipping Methods and by applying all discounts currently being active and applicable for the Cart.
+ *
+ *	Unfreezing a Cart produces the [CartUnfrozen](ctp:api:type:CartUnfrozenMessage) Message.
  *
  */
 export interface CartUnfreezeCartAction extends ICartUpdateAction {

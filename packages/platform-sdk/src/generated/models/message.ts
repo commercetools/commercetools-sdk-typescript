@@ -201,6 +201,8 @@ export type Message =
   | CartDiscountStoreAddedMessage
   | CartDiscountStoreRemovedMessage
   | CartDiscountStoresSetMessage
+  | CartFrozenMessage
+  | CartUnfrozenMessage
   | CategoryCreatedMessage
   | CategorySlugChangedMessage
   | CustomLineItemStateTransitionMessage
@@ -4958,6 +4960,134 @@ export interface CartDiscountStoresSetMessage extends IMessage {
    *
    */
   readonly stores: StoreKeyReference[]
+}
+/**
+ *	Generated after a successful [Freeze Cart](ctp:api:type:CartFreezeCartAction) update action.
+ *
+ */
+export interface CartFrozenMessage extends IMessage {
+  readonly type: 'CartFrozen'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+}
+/**
+ *	Generated after a successful [Unfreeze Cart](ctp:api:type:CartUnfreezeCartAction) update action.
+ *
+ */
+export interface CartUnfrozenMessage extends IMessage {
+  readonly type: 'CartUnfrozen'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
 }
 /**
  *	Generated after a successful [Create Category](ctp:api:endpoint:/{projectKey}/categories:POST) request.
@@ -23889,6 +24019,8 @@ export type MessagePayload =
   | CartDiscountStoreAddedMessagePayload
   | CartDiscountStoreRemovedMessagePayload
   | CartDiscountStoresSetMessagePayload
+  | CartFrozenMessagePayload
+  | CartUnfrozenMessagePayload
   | CategoryCreatedMessagePayload
   | CategorySlugChangedMessagePayload
   | CustomLineItemStateTransitionMessagePayload
@@ -25151,6 +25283,20 @@ export interface CartDiscountStoresSetMessagePayload extends IMessagePayload {
    *
    */
   readonly stores: StoreKeyReference[]
+}
+/**
+ *	Generated after a successful [Freeze Cart](ctp:api:type:CartFreezeCartAction) update action.
+ *
+ */
+export interface CartFrozenMessagePayload extends IMessagePayload {
+  readonly type: 'CartFrozen'
+}
+/**
+ *	Generated after a successful [Unfreeze Cart](ctp:api:type:CartUnfreezeCartAction) update action.
+ *
+ */
+export interface CartUnfrozenMessagePayload extends IMessagePayload {
+  readonly type: 'CartUnfrozen'
 }
 /**
  *	Generated after a successful [Create Category](ctp:api:endpoint:/{projectKey}/categories:POST) request.

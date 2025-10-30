@@ -812,7 +812,7 @@ export interface CartNotFound extends IResponseMessage {
  *
  */
 export interface CartWithExistingPayment extends IResponseMessage {
-  readonly code: 'cart_with_exisiting_payment'
+  readonly code: 'cart_with_existing_payment'
   /**
    *	\`error`
    *
