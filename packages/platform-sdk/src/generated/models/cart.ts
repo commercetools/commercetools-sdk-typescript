@@ -1183,7 +1183,7 @@ export interface IDiscountTypeCombination {
   readonly type: string
 }
 /**
- *	Indicates the best deal logic applies to a Cart or Order and indicates the discount type that offers the best deal.
+ *	Indicates if a Product Discount or Cart Discount offers the best deal for a Cart or Order.
  *
  */
 export interface BestDeal extends IDiscountTypeCombination {
