@@ -2459,6 +2459,10 @@ export interface OrderAddParcelToDeliveryAction extends IOrderUpdateAction {
    */
   readonly custom?: CustomFieldsDraft
 }
+/**
+ *	Produces the [Order Payment Added](ctp:api:type:OrderPaymentAddedMessage) Message.
+ *
+ */
 export interface OrderAddPaymentAction extends IOrderUpdateAction {
   readonly action: 'addPayment'
   /**
@@ -2650,6 +2654,10 @@ export interface OrderRemoveParcelFromDeliveryAction
    */
   readonly parcelKey?: string
 }
+/**
+ *	Produces the [Order Payment Removed](ctp:api:type:OrderPaymentRemovedMessage) Message.
+ *
+ */
 export interface OrderRemovePaymentAction extends IOrderUpdateAction {
   readonly action: 'removePayment'
   /**

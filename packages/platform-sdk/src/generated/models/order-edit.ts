@@ -847,6 +847,10 @@ export interface StagedOrderAddParcelToDeliveryAction
    */
   readonly custom?: CustomFieldsDraft
 }
+/**
+ *	Produces the [Order Payment Added](ctp:api:type:OrderPaymentAddedMessage) Message.
+ *
+ */
 export interface StagedOrderAddPaymentAction extends IStagedOrderUpdateAction {
   readonly action: 'addPayment'
   /**
@@ -1311,6 +1315,10 @@ export interface StagedOrderRemoveParcelFromDeliveryAction
    */
   readonly parcelKey?: string
 }
+/**
+ *	Produces the [Order Payment Removed](ctp:api:type:OrderPaymentRemovedMessage) Message.
+ *
+ */
 export interface StagedOrderRemovePaymentAction
   extends IStagedOrderUpdateAction {
   readonly action: 'removePayment'

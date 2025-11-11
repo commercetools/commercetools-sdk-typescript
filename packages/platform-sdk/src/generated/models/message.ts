@@ -292,6 +292,7 @@ export type Message =
   | OrderLineItemRemovedMessage
   | OrderMessage
   | OrderPaymentAddedMessage
+  | OrderPaymentRemovedMessage
   | OrderPaymentStateChangedMessage
   | OrderPurchaseOrderNumberSetMessage
   | OrderReturnShipmentStateChangedMessage
@@ -12026,7 +12027,83 @@ export interface OrderPaymentAddedMessage extends IMessage {
    *
    *
    */
-  readonly payment: PaymentReference
+  readonly paymentRef: PaymentReference
+}
+/**
+ *	Generated after a successful [Remove Payment](ctp:api:type:OrderRemovePaymentAction) update action or when a [Payment](ctp:api:type:Payment) is removed via [Order Edits](ctp:api:type:StagedOrderRemovePaymentAction).
+ *
+ */
+export interface OrderPaymentRemovedMessage extends IMessage {
+  readonly type: 'OrderPaymentRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	[Payment](ctp:api:type:Payment) that was removed from the [Order](ctp:api:type:Order).
+   *
+   *
+   */
+  readonly paymentRef: PaymentReference
+  /**
+   *	Indicates whether the removal of the Payment resulted in no Payments remaining on the Order. The value is `true` if all Payments have been removed (none remain), and `false` if there are still Payments associated with the Order after the removal.
+   *
+   *
+   */
+  readonly removedPaymentInfo: boolean
 }
 /**
  *	Generated after a successful [Change PaymentState](ctp:api:type:OrderChangePaymentStateAction) update action.
@@ -24110,6 +24187,7 @@ export type MessagePayload =
   | OrderLineItemRemovedMessagePayload
   | OrderMessagePayload
   | OrderPaymentAddedMessagePayload
+  | OrderPaymentRemovedMessagePayload
   | OrderPaymentStateChangedMessagePayload
   | OrderPurchaseOrderNumberSetMessagePayload
   | OrderReturnShipmentStateChangedMessagePayload
@@ -27133,7 +27211,26 @@ export interface OrderPaymentAddedMessagePayload extends IMessagePayload {
    *
    *
    */
-  readonly payment: PaymentReference
+  readonly paymentRef: PaymentReference
+}
+/**
+ *	Generated after a successful [Remove Payment](ctp:api:type:OrderRemovePaymentAction) update action or when a [Payment](ctp:api:type:Payment) is removed via [Order Edits](ctp:api:type:StagedOrderRemovePaymentAction).
+ *
+ */
+export interface OrderPaymentRemovedMessagePayload extends IMessagePayload {
+  readonly type: 'OrderPaymentRemoved'
+  /**
+   *	[Payment](ctp:api:type:Payment) that was removed from the [Order](ctp:api:type:Order).
+   *
+   *
+   */
+  readonly paymentRef: PaymentReference
+  /**
+   *	Indicates whether the removal of the Payment resulted in no Payments remaining on the Order. The value is `true` if all Payments have been removed (none remain), and `false` if there are still Payments associated with the Order after the removal.
+   *
+   *
+   */
+  readonly removedPaymentInfo: boolean
 }
 /**
  *	Generated after a successful [Change PaymentState](ctp:api:type:OrderChangePaymentStateAction) update action.
