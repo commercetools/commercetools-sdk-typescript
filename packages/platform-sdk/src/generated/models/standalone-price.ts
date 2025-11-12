@@ -466,7 +466,7 @@ export interface StandalonePriceRemovePriceTierAction
    *
    *
    */
-  readonly tierMinimumQuantity: number
+  readonly minimumQuantity: number
 }
 /**
  *	Removes all staged changes from the StandalonePrice.

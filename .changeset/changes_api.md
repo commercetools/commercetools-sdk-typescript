@@ -33,6 +33,7 @@
 
 - :warning: removed property `payment` from type `OrderPaymentAddedMessage`
 - :warning: removed property `payment` from type `OrderPaymentAddedMessagePayload`
+- :warning: removed property `tierMinimumQuantity` from type `StandalonePriceRemovePriceTierAction`
 </details>
 
 <details>
@@ -42,6 +43,7 @@
 - added property `paymentRef` to type `OrderPaymentAddedMessage`
 - added property `sku` to type `InventoryEntryQuantitySetMessagePayload`
 - added property `paymentRef` to type `OrderPaymentAddedMessagePayload`
+- added property `minimumQuantity` to type `StandalonePriceRemovePriceTierAction`
 </details>
 
 <details>
