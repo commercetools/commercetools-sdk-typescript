@@ -4,7 +4,7 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
-import { LocalizedString, Money, Reference } from './common'
+import { LocalizedString, Reference, _Money } from './common'
 
 /**
  *	Provides descriptive information specific to the resource.
@@ -128,7 +128,7 @@ export interface PaymentLabel extends ILabel {
    *
    *
    */
-  readonly amountPlanned: Money
+  readonly amountPlanned: _Money
 }
 export interface ProductLabel extends ILabel {
   readonly type: 'ProductLabel'

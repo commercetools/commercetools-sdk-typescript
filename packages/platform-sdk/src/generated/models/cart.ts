@@ -556,6 +556,19 @@ export interface CartDraft {
   readonly custom?: CustomFieldsDraft
 }
 /**
+ *	Determines how to manually merge an anonymous Cart with an existing Customer Cart.
+ *
+ */
+export enum CartMergeModeValues {
+  MergeWithExistingCustomerCart = 'MergeWithExistingCustomerCart',
+  UseAsNewActiveCustomerCart = 'UseAsNewActiveCustomerCart',
+}
+
+export type CartMergeMode =
+  | 'MergeWithExistingCustomerCart'
+  | 'UseAsNewActiveCustomerCart'
+  | (string & {})
+/**
  *	Indicates who created the Cart.
  *
  */
@@ -1170,7 +1183,7 @@ export interface IDiscountTypeCombination {
   readonly type: string
 }
 /**
- *	Indicates the best deal logic applies to a Cart or Order and indicates the discount type that offers the best deal.
+ *	Indicates if a Product Discount or Cart Discount offers the best deal for a Cart or Order.
  *
  */
 export interface BestDeal extends IDiscountTypeCombination {
@@ -1738,6 +1751,38 @@ export type LineItemPriceMode =
   | 'ExternalTotal'
   | 'Platform'
   | (string & {})
+/**
+ *	Used for merging an anonymous Cart with a Customer Cart with the [Merge Cart](ctp:api:endpoint:/{projectKey}/carts/customer-id={customerId}/merge:POST) and [Merge Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/carts/customer-id={customerId}/merge:POST) endpoints. Either `anonymousCart` or `anonymousId` is required.
+ *
+ */
+export interface MergeCartDraft {
+  /**
+   *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to the anonymous [Cart](ctp:api:type:Cart) to be merged. Required if `anonymousId` is not provided.
+   *
+   *
+   */
+  readonly anonymousCart?: CartResourceIdentifier
+  /**
+   *	Determines how to merge the anonymous Cart with the existing Customer Cart.
+   *
+   *
+   */
+  readonly mergeMode?: CartMergeMode
+  /**
+   *	- If `true`, the [LineItem](ctp:api:type:LineItem) Product data (`name`, `variant`, and `productType`) of the returned Cart will be updated.
+   *	- If `false`, only the prices, discounts, and tax rates will be updated.
+   *
+   *
+   */
+  readonly updateProductData?: boolean
+  /**
+   *	Assigns the Customer to the [Carts](ctp:api:type:Cart) that have the same `anonymousId`. Required if `anonymousCart` is not provided.
+   *	If both `anonymousCart` and `anonymousId` are provided, this value must match the `anonymousId` of the anonymous [Cart](ctp:api:type:Cart) otherwise, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
+   *
+   *
+   */
+  readonly anonymousId?: string
+}
 export interface MethodExternalTaxRateDraft {
   /**
    *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
@@ -2381,8 +2426,10 @@ export interface CartAddCustomShippingMethodAction extends ICartUpdateAction {
 }
 /**
  *	Adds a [DiscountCode](ctp:api:type:DiscountCode) to the Cart to activate the related [Cart Discounts](/../api/projects/cartDiscounts).
- *	Adding a Discount Code is only possible if no [DirectDiscount](ctp:api:type:DirectDiscount) has been applied to the Cart.
- *	Discount Codes can be added to [frozen Carts](ctp:api:type:FrozenCarts), but their [DiscountCodeState](ctp:api:type:DiscountCodeState) is then `DoesNotMatchCart`.
+ *	If the related Cart Discounts are inactive or invalid, or belong to a different Store than the Cart, a [DiscountCodeNonApplicableError](ctp:api:type:DiscountCodeNonApplicableError) is returned.
+ *
+ *	A Discount Code can be added only if no [DirectDiscount](ctp:api:type:DirectDiscount) has been applied to the Cart.
+ *	For [frozen Carts](ctp:api:type:FrozenCarts), the [DiscountCodeState](ctp:api:type:DiscountCodeState) must be `DoesNotMatchCart` when adding a Discount Code.
  *
  *	The maximum number of Discount Codes in a Cart is restricted by a [limit](/../api/limits#carts).
  *
@@ -2884,6 +2931,8 @@ export interface CartChangeTaxRoundingModeAction extends ICartUpdateAction {
  *	Changes the [CartState](ctp:api:type:CartState) from `Active` to `Frozen`. Results in a [Frozen Cart](ctp:api:type:FrozenCarts).
  *	Fails with [InvalidOperation](ctp:api:type:InvalidOperationError) error when the Cart is empty.
  *
+ *	Freezing a Cart produces the [CartFrozen](ctp:api:type:CartFrozenMessage) Message.
+ *
  */
 export interface CartFreezeCartAction extends ICartUpdateAction {
   readonly action: 'freezeCart'
@@ -2969,8 +3018,8 @@ export interface CartRemoveLineItemAction extends ICartUpdateAction {
    */
   readonly lineItemKey?: string
   /**
-   *	Amount to subtract from the LineItem's `quantity`.
-   *	If absent, the LineItem is removed from the Cart.
+   *	Amount to subtract from the LineItem quantity.
+   *	If omitted, the LineItem is removed from the Cart.
    *
    *
    */
@@ -3427,6 +3476,8 @@ export interface CartSetCustomerIdAction extends ICartUpdateAction {
 /**
  *	Number of days after the last modification before a Cart is deleted.
  *
+ *	Carts with [CartOrigin](ctp:api:type:CartOrigin) `RecurringOrder` are not affected by this update action.
+ *
  *	If a [ChangeSubscription](ctp:api:type:ChangeSubscription) exists for Carts, a [ResourceDeletedDeliveryPayload](ctp:api:type:ResourceDeletedDeliveryPayload) is sent.
  *
  */
@@ -3796,6 +3847,7 @@ export interface CartSetLineItemTaxRateAction extends ICartUpdateAction {
 }
 /**
  *	Sets the [LineItem](ctp:api:type:LineItem) `totalPrice` and `price`, and changes the `priceMode` to `ExternalTotal` [LineItemPriceMode](ctp:api:type:LineItemPriceMode).
+ *	Cannot be used on Gift Line Items (see [LineItemMode](ctp:api:type:LineItemMode)).
  *
  */
 export interface CartSetLineItemTotalPriceAction extends ICartUpdateAction {
@@ -4024,6 +4076,8 @@ export interface CartSetShippingRateInputAction extends ICartUpdateAction {
 /**
  *	Changes the [CartState](ctp:api:type:CartState) from `Frozen` to `Active`. Reactivates a [Frozen Cart](ctp:api:type:FrozenCarts).
  *	This action updates all prices in the Cart according to latest Prices on related Product Variants and Shipping Methods and by applying all discounts currently being active and applicable for the Cart.
+ *
+ *	Unfreezing a Cart produces the [CartUnfrozen](ctp:api:type:CartUnfrozenMessage) Message.
  *
  */
 export interface CartUnfreezeCartAction extends ICartUpdateAction {

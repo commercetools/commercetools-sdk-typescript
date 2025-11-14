@@ -40,6 +40,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyProductProjectionsByIDRequestBuilde
       priceChannel?: string
       priceRecurrencePolicy?: string
       localeProjection?: string | string[]
+      'filter[attributes]'?: string | string[]
       expand?: string | string[]
       [key: string]: QueryParam
     }

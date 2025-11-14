@@ -8,14 +8,23 @@
  *	This is the representation of a single error.
  */
 export type ErrorObject =
+  | ConcurrentModificationError
   | ConnectorFailedError
+  | DuplicateFieldWithConflictingResourceError
   | GeneralError
+  | InvalidFieldError
   | InvalidInputError
   | InvalidJsonInputError
+  | InvalidOperationError
+  | MaxResourceLimitExceededError
+  | MissingProjectKeyError
   | MultipleActionsNotAllowedError
   | PaymentFailureError
+  | ReferencedResourceNotFoundError
   | RequiredFieldError
   | ResourceNotFoundError
+  | ServiceUnavailableError
+  | SyntaxErrorError
 export interface IErrorObject {
   /**
    *	Error identifier.
@@ -31,6 +40,38 @@ export interface IErrorObject {
   readonly message: string
 }
 /**
+ *	Returned when the request conflicts with the current state of the involved resources. Typically, the request attempts to modify a resource that is out of date (that is modified by another client since it was last retrieved).
+ *	The client application should resolve the conflict (with or without involving the end user) before retrying the request.
+ *
+ */
+export interface ConcurrentModificationError extends IErrorObject {
+  readonly code: 'ConcurrentModification'
+  /**
+   *	`"Object $resourceId has a different version than expected. Expected: $expectedVersion - Actual: $currentVersion."`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	The ID of the resource that has a version conflict.
+   *
+   *
+   */
+  readonly resourceId: string
+  /**
+   *	Expected version of the resource.
+   *
+   *
+   */
+  readonly expectedVersion: number
+  /**
+   *	Current version of the resource.
+   *
+   *
+   */
+  readonly currentVersion: number
+}
+/**
  *	Returned when the payment [Connector](/connectors-and-applications#payment-connectors) cannot be reached.
  *
  */
@@ -42,6 +83,46 @@ export interface ConnectorFailedError extends IErrorObject {
    *
    */
   readonly message: string
+}
+/**
+ *	Returned when a field value conflicts with an existing value stored in a particular resource causing a duplicate.
+ *
+ */
+export interface DuplicateFieldWithConflictingResourceError
+  extends IErrorObject {
+  readonly code: 'DuplicateFieldWithConflictingResource'
+  /**
+   *	`"A duplicate value $duplicateValue exists for field $field in request."`
+   *
+   *
+   */
+  readonly message: string
+}
+/**
+ *	Base representation of an error response containing common fields to all errors.
+ *
+ */
+export interface ErrorResponse {
+  /**
+   *	HTTP status code corresponding to the error.
+   *
+   *
+   */
+  readonly statusCode: number
+  /**
+   *	First error message in the `errors` array.
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	Errors returned for a request.
+   *
+   *	A single error response can contain multiple errors if the errors are related to the same HTTP status code such as `400`.
+   *
+   *
+   */
+  readonly errors?: ErrorObject[]
 }
 /**
  *	Returned when a server-side problem occurs. In some cases, the requested action may successfully complete after the error is returned. Therefore, it is recommended to verify the status of the requested resource after receiving a 500 error.
@@ -59,7 +140,38 @@ export interface GeneralError extends IErrorObject {
   readonly message: string
 }
 /**
- *	Returned when input is not valid.
+ *	Returned when a field has an invalid value.
+ *
+ */
+export interface InvalidFieldError extends IErrorObject {
+  readonly code: 'InvalidField'
+  /**
+   *	`"The value $invalidValue is not valid for field $field."`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	Name of the field with the invalid value.
+   *
+   *
+   */
+  readonly field: string
+  /**
+   *	Value invalid for the field.
+   *
+   *
+   */
+  readonly invalidValue: any
+  /**
+   *	Fixed set of allowed values for the field, if any.
+   *
+   *
+   */
+  readonly allowedValues?: string[]
+}
+/**
+ *	Returned when an invalid input has been sent.
  *
  */
 export interface InvalidInputError extends IErrorObject {
@@ -90,7 +202,62 @@ export interface InvalidJsonInputError extends IErrorObject {
    *	Further explanation about why the JSON is invalid.
    *
    */
-  readonly detailedErrorMessage: string
+  readonly detailedErrorMessage?: string
+}
+/**
+ *	Returned when the resources involved in the request are not in a valid state for the operation.
+ *
+ *	The client application should validate the constraints described in the error message before sending the request.
+ *
+ */
+export interface InvalidOperationError extends IErrorObject {
+  readonly code: 'InvalidOperation'
+  /**
+   *	Description of the error.
+   *
+   *
+   */
+  readonly message: string
+}
+/**
+ *	Returned when a resource type cannot be created as it has reached its [limits](/limits).
+ *
+ *	The limits must be adjusted for this resource before sending the request again.
+ *
+ */
+export interface MaxResourceLimitExceededError extends IErrorObject {
+  readonly code: 'MaxResourceLimitExceeded'
+  /**
+   *	`"You have exceeded the limit of $limit resources of type $resourceTypeId."`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	The limit that was exceeded.
+   *
+   *
+   */
+  readonly limit: number
+  /**
+   *	The resource type that reached its limit.
+   *
+   *
+   */
+  readonly resourceTypeId: string
+}
+/**
+ *	Returned when the project key is missing from the request.
+ *
+ */
+export interface MissingProjectKeyError extends IErrorObject {
+  readonly code: 'MissingProjectKey'
+  /**
+   *	`"Missing project key in the request path."`
+   *
+   *
+   */
+  readonly message: string
 }
 /**
  *	Returned when `actions` in the request body contains more than one object.
@@ -119,6 +286,37 @@ export interface PaymentFailureError extends IErrorObject {
   readonly message: string
 }
 /**
+ *	Returned when a resource referenced by a [Reference](ctp:checkout:type:Reference) or a [ResourceIdentifier](ctp:checkout:type:ResourceIdentifier) could not be found.
+ *
+ */
+export interface ReferencedResourceNotFoundError extends IErrorObject {
+  readonly code: 'ReferencedResourceNotFound'
+  /**
+   *	`"The referenced object of type $typeId $id || key was not found. It either doesn't exist, or it can't be accessed from this endpoint (e.g., if the endpoint filters by store or customer account)."`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	Type of referenced resource.
+   *
+   *
+   */
+  readonly typeId: string
+  /**
+   *	Unique identifier of the referenced resource, if known.
+   *
+   *
+   */
+  readonly id?: string
+  /**
+   *	User-defined unique identifier of the referenced resource, if known.
+   *
+   *
+   */
+  readonly key?: string
+}
+/**
  *	Returned when a value is not defined for a required field.
  *
  */
@@ -144,7 +342,45 @@ export interface RequiredFieldError extends IErrorObject {
 export interface ResourceNotFoundError extends IErrorObject {
   readonly code: 'ResourceNotFound'
   /**
-   *	`"The Resource with ID $resourceId was not found."`
+   *	`"The Resource with $resourceIdentifier $resourceId was not found."`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	The identifier type used (e.g., `id`, `key`).
+   *
+   *
+   */
+  readonly resourceIdentifier: string
+  /**
+   *	The actual identifier value.
+   *
+   *
+   */
+  readonly resourceId: string
+}
+/**
+ *	Returned when the service is unavailable, for example when the Notification Service is down.
+ *
+ */
+export interface ServiceUnavailableError extends IErrorObject {
+  readonly code: 'ServiceUnavailable'
+  /**
+   *	`"Service is unavailable."`
+   *
+   *
+   */
+  readonly message: string
+}
+/**
+ *	Returned when a [Payment Predicate](/payment-integration-predicates) does not have the correct syntax.
+ *
+ */
+export interface SyntaxErrorError extends IErrorObject {
+  readonly code: 'SyntaxError'
+  /**
+   *	`"Syntax error while parsing $fieldDefinition."`
    *
    *
    */

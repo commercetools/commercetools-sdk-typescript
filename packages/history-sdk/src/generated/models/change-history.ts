@@ -5,7 +5,7 @@
  */
 
 import { Change } from './change'
-import { KeyReference, Reference, ResourceIdentifier } from './common'
+import { KeyReference, Reference, _ResourceIdentifier } from './common'
 import { TooManyRequestsError } from './error'
 import { Label } from './label'
 
@@ -69,7 +69,7 @@ export interface Record {
    *
    *
    */
-  readonly resource: ResourceIdentifier
+  readonly resource: _ResourceIdentifier
   /**
    *	References to the [Stores](ctp:api:type:Store) associated with the [Change](ctp:history:type:Change).
    *
@@ -293,20 +293,46 @@ export interface ModifiedBy {
  *	Updates that are triggered automatically as a result of a user-initiated change.
  */
 export enum PlatformInitiatedChangeValues {
+  AddInheritedAssociate = 'addInheritedAssociate',
+  ChangeIncludedInStatistics = 'changeIncludedInStatistics',
+  ChangeInheritedAssociate = 'changeInheritedAssociate',
+  ChangeLastVariantId = 'changeLastVariantId',
   ChangeLineItemName = 'changeLineItemName',
+  ChangeLineItemPublished = 'changeLineItemPublished',
   ChangeReviewRatingStatistics = 'changeReviewRatingStatistics',
+  ChangeTopLevelUnit = 'changeTopLevelUnit',
   ExcludeAll = 'excludeAll',
+  RemoveInheritedAssociate = 'removeInheritedAssociate',
+  SetAncestors = 'setAncestors',
   SetApplicationVersion = 'setApplicationVersion',
+  SetInheritedAssociates = 'setInheritedAssociates',
+  SetInheritedStores = 'setInheritedStores',
   SetIsValid = 'setIsValid',
+  SetLineItemDeactivatedAt = 'setLineItemDeactivatedAt',
+  SetProductCount = 'setProductCount',
+  SetReservations = 'setReservations',
   SetVariantAvailability = 'setVariantAvailability',
 }
 
 export type PlatformInitiatedChange =
+  | 'addInheritedAssociate'
+  | 'changeIncludedInStatistics'
+  | 'changeInheritedAssociate'
+  | 'changeLastVariantId'
   | 'changeLineItemName'
+  | 'changeLineItemPublished'
   | 'changeReviewRatingStatistics'
+  | 'changeTopLevelUnit'
   | 'excludeAll'
+  | 'removeInheritedAssociate'
+  | 'setAncestors'
   | 'setApplicationVersion'
+  | 'setInheritedAssociates'
+  | 'setInheritedStores'
   | 'setIsValid'
+  | 'setLineItemDeactivatedAt'
+  | 'setProductCount'
+  | 'setReservations'
   | 'setVariantAvailability'
   | (string & {})
 /**
@@ -352,7 +378,6 @@ export enum UpdateTypeValues {
   AddTransaction = 'addTransaction',
   AddVariant = 'addVariant',
   ChangeAddress = 'changeAddress',
-  ChangeAmountAuthorized = 'changeAmountAuthorized',
   ChangeAmountPlanned = 'changeAmountPlanned',
   ChangeAssetName = 'changeAssetName',
   ChangeAssetOrder = 'changeAssetOrder',
@@ -628,7 +653,6 @@ export type UpdateType =
   | 'addTransaction'
   | 'addVariant'
   | 'changeAddress'
-  | 'changeAmountAuthorized'
   | 'changeAmountPlanned'
   | 'changeAssetName'
   | 'changeAssetOrder'
