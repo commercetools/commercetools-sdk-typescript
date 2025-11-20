@@ -147,7 +147,7 @@ export interface FieldDefinition {
   /**
    *	Name of the Custom Field to define.
    *	Must be unique for a given [ResourceTypeId](ctp:api:type:ResourceTypeId).
-   *	In case there is a FieldDefinition with the same `name` in another [Type](ctp:api:type:Type), both FieldDefinitions must have the same `type`.
+   *	If a FieldDefinition with the same `name` is defined in another [Type](ctp:api:type:Type) for the same [ResourceTypeId](ctp:api:type:ResourceTypeId), then both FieldDefinitions must have the same `type`.
    *
    *
    */
@@ -185,6 +185,7 @@ export type FieldType =
   | CustomFieldTimeType
 export interface IFieldType {
   /**
+   *	Discriminator that determines the type of the field.
    *
    */
   readonly name: string
