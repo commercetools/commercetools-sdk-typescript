@@ -864,7 +864,6 @@ export type ProductUpdateAction =
   | ProductChangeNameAction
   | ProductChangePriceAction
   | ProductChangeSlugAction
-  | ProductLegacySetSkuAction
   | ProductMoveImageToPositionAction
   | ProductPublishAction
   | ProductRemoveAssetAction
@@ -1577,17 +1576,6 @@ export interface ProductChangeSlugAction extends IProductUpdateAction {
    *
    */
   readonly staged?: boolean
-}
-export interface ProductLegacySetSkuAction extends IProductUpdateAction {
-  readonly action: 'legacySetSku'
-  /**
-   *
-   */
-  readonly sku?: string
-  /**
-   *
-   */
-  readonly variantId: number
 }
 /**
  *	Either `variantId` or `sku` is required.

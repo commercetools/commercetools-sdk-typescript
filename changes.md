@@ -18,6 +18,12 @@
 </details>
 
 <details>
+<summary>Deprecated Type(s)</summary>
+
+- type `ProductLegacySetSkuAction` is removed
+</details>
+
+<details>
 <summary>Added Method(s)</summary>
 
 - added method `apiRoot.withProjectKey().carts().customerIdWithCustomerIdValueMerge().post()`

@@ -530,7 +530,9 @@ export interface AddAssetChange extends IChange {
   readonly variant: string
 }
 /**
- *	Change triggered by the [Add Associate](ctp:api:type:BusinessUnitAddAssociateAction) update action.
+ *	This Change is no longer triggered by the [Add Associate](ctp:api:type:BusinessUnitAddAssociateAction) update action.
+ *	It has been deprecated and replaced by the [SetAssociatesChange](ctp:history:type:SetAssociatesChange).
+ *
  */
 export interface AddAssociateChange extends IChange {
   readonly type: 'AddAssociateChange'
@@ -924,7 +926,9 @@ export interface AddPlainEnumValueChange extends IChange {
   readonly attributeName: string
 }
 /**
- *	Change triggered by the [Add Price](ctp:api:type:ProductAddPriceAction) update action.
+ *	This Change is no longer triggered by the [Add Price](ctp:api:type:ProductAddPriceAction) update action.
+ *	It has been deprecated and replaced by the [SetPricesChange](ctp:history:type:SetPricesChange).
+ *
  */
 export interface AddPriceChange extends IChange {
   readonly type: 'AddPriceChange'
@@ -982,7 +986,9 @@ export interface AddProductChange extends IChange {
   readonly variantSelection: ProductVariantSelection
 }
 /**
- *	Change triggered by the [Add Product Selection](ctp:api:type:StoreAddProductSelectionAction) update action.
+ *	This Change is no longer triggered by the [Add Product Selection](ctp:api:type:StoreAddProductSelectionAction) update action.
+ *	It has been deprecated and replaced by the [SetProductSelectionsChange](ctp:history:type:SetProductSelectionsChange).
+ *
  */
 export interface AddProductSelectionChange extends IChange {
   readonly type: 'AddProductSelectionChange'
@@ -1084,7 +1090,9 @@ export interface AddShoppingListLineItemChange extends IChange {
   readonly nextValue: ShoppingListLineItem
 }
 /**
- *	Change triggered by the [Add State roles](ctp:api:type:StateAddRolesAction) update action.
+ *	This Change is no longer triggered by the [Add State roles](ctp:api:type:StateAddRolesAction) update action.
+ *	It has been deprecated and replaced by the [SetStateRolesChange](ctp:history:type:SetStateRolesChange).
+ *
  */
 export interface AddStateRolesChange extends IChange {
   readonly type: 'AddStateRolesChange'
@@ -1232,7 +1240,9 @@ export interface ChangeAddressChange extends IChange {
   readonly nextValue: Address
 }
 /**
- *	This change is initiated by background processes after the [Change AmountPlanned](ctp:api:type:PaymentChangeAmountPlannedAction) update action is performed.
+ *	This change is no longer initiated by background processes after the [Change AmountPlanned](ctp:api:type:PaymentChangeAmountPlannedAction) update action is performed.
+ *	It has been deprecated since the corresponding field on the Payment does not exist anymore.
+ *
  */
 export interface ChangeAmountAuthorizedChange extends IChange {
   readonly type: 'ChangeAmountAuthorizedChange'
@@ -2999,7 +3009,9 @@ export interface RemoveAssetChange extends IChange {
   readonly variant: string
 }
 /**
- *	Change triggered by the [Remove Associate](ctp:api:type:BusinessUnitRemoveAssociateAction) update action.
+ *	This Change is no longer triggered by the [Remove Associate](ctp:api:type:BusinessUnitRemoveAssociateAction) update action.
+ *	It has been deprecated and replaced by the [SetAssociatesChange](ctp:history:type:SetAssociatesChange).
+ *
  */
 export interface RemoveAssociateChange extends IChange {
   readonly type: 'RemoveAssociateChange'
@@ -3369,7 +3381,9 @@ export interface RemovePaymentChange extends IChange {
   readonly nextValue: PaymentInfo
 }
 /**
- *	Change triggered by the [Remove Embedded Price](ctp:api:type:ProductRemovePriceAction) update action.
+ *	This Change is no longer triggered by the [Remove Embedded Price](ctp:api:type:ProductRemovePriceAction) update action.
+ *	It has been deprecated and replaced by the [SetPricesChange](ctp:history:type:SetPricesChange).
+ *
  */
 export interface RemovePriceChange extends IChange {
   readonly type: 'RemovePriceChange'
@@ -3427,7 +3441,9 @@ export interface RemoveProductChange extends IChange {
   readonly previousValue: Reference
 }
 /**
- *	Change triggered by the [Remove Product Selection](ctp:api:type:StoreRemoveProductSelectionAction) update action.
+ *	This Change is no longer triggered by the [Remove Product Selection](ctp:api:type:StoreRemoveProductSelectionAction) update action.
+ *	It has been deprecated and replaced by the [SetProductSelectionsChange](ctp:history:type:SetProductSelectionsChange).
+ *
  */
 export interface RemoveProductSelectionChange extends IChange {
   readonly type: 'RemoveProductSelectionChange'
@@ -3507,7 +3523,9 @@ export interface RemoveShoppingListLineItemChange extends IChange {
   readonly nextValue: ShoppingListLineItem
 }
 /**
- *	Change triggered by the [Remove State roles](ctp:api:type:StateRemoveRolesAction) update action.
+ *	This Change is no longer triggered by the [Remove State roles](ctp:api:type:StateRemoveRolesAction) update action.
+ *	It has been deprecated and replaced by the [SetStateRolesChange](ctp:history:type:SetStateRolesChange).
+ *
  */
 export interface RemoveStateRolesChange extends IChange {
   readonly type: 'RemoveStateRolesChange'
