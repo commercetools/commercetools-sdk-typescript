@@ -1551,8 +1551,7 @@ export interface MissingTaxRateForCountryError extends IErrorObject {
   readonly state?: string
 }
 /**
- *	Returned when a [Money](ctp:api:type:Money) operation overflows the 64-bit integer range.
- *	See [Money usage](/types#usage) for more information.
+ *	Returned when a money operation overflows the 64-bit integer range.
  *
  */
 export interface MoneyOverflowError extends IErrorObject {
@@ -3288,8 +3287,7 @@ export interface GraphQLMissingTaxRateForCountryError
   readonly state?: string
 }
 /**
- *	Returned when a [Money](ctp:api:type:Money) operation overflows the 64-bit integer range.
- *	See [Money usage](/types#usage) for more information.
+ *	Returned when a money operation overflows the 64-bit integer range.
  *
  */
 export interface GraphQLMoneyOverflowError extends IGraphQLErrorObject {

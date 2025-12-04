@@ -862,6 +862,8 @@ export interface Money {
    *	* Cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as `500`).
    *	* The value in the major unit for currencies without minor units, like JPY (5 JPY is specified as `5`).
    *
+   *	`centAmount` is represented as 64-bit integers. If this limit is exceeded, a [MoneyOverflow](/errors#moneyoverflow) error will be returned.
+   *
    *
    */
   readonly centAmount: number
@@ -1461,6 +1463,8 @@ export interface ITypedMoney {
    *	* Cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as `500`).
    *	* The value in the major unit for currencies without minor units, like JPY (5 JPY is specified as `5`).
    *
+   *	`centAmount` is represented as 64-bit integers. If this limit is exceeded, a [MoneyOverflow](/errors#moneyoverflow) error will be returned.
+   *
    *
    */
   readonly centAmount: number
@@ -1497,6 +1501,8 @@ export interface CentPrecisionMoney extends ITypedMoney {
    *	* Cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as `500`).
    *	* The value in the major unit for currencies without minor units, like JPY (5 JPY is specified as `5`).
    *
+   *	`centAmount` is represented as 64-bit integers. If this limit is exceeded, a [MoneyOverflow](/errors#moneyoverflow) error will be returned.
+   *
    *
    */
   readonly centAmount: number
@@ -1523,6 +1529,8 @@ export interface HighPrecisionMoney extends ITypedMoney {
    *
    *	* Cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as `500`).
    *	* The value in the major unit for currencies without minor units, like JPY (5 JPY is specified as `5`).
+   *
+   *	`centAmount` is represented as 64-bit integers. If this limit is exceeded, a [MoneyOverflow](/errors#moneyoverflow) error will be returned.
    *
    *
    */
@@ -1615,6 +1623,8 @@ export interface HighPrecisionMoneyDraft extends ITypedMoneyDraft {
    *
    *	A Price of 1.015 USD can be rounded either to 1.01 USD or 1.02 USD. If it lies outside of this range, an error message stating that centAmount must be rounded correctly will be returned.
    *
+   *	`centAmount` is represented as 64-bit integers. If this limit is exceeded, a [MoneyOverflow](/errors#moneyoverflow) error will be returned.
+   *
    *	If `centAmount` is not provided, the API calculates the value automatically using the default rounding mode half even.
    *
    *
@@ -1634,6 +1644,8 @@ export interface HighPrecisionMoneyDraft extends ITypedMoneyDraft {
   readonly fractionDigits: number
   /**
    *	Amount in 1 / (10 ^ `fractionDigits`) of a currency.
+   *
+   *	`preciseAmount` is represented as 64-bit integers. If this limit is exceeded, a [MoneyOverflow](/errors#moneyoverflow) error will be returned.
    *
    *
    */
