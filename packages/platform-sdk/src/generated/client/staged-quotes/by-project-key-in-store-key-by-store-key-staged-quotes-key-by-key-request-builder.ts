@@ -20,6 +20,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyStagedQuotesKeyByKeyRequestBuilder 
       baseUri?: string
     }
   ) {}
+  /**
+   *	Retrieves a StagedQuote with the provided `key` in a [Store](ctp:api:type:Store).
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -45,7 +48,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyStagedQuotesKeyByKeyRequestBuilder 
     )
   }
   /**
-   *	Checks if a StagedQuote exists with the provided `key`. Returns a `200` status if the StagedQuote exists, or a `404` status otherwise.
+   *	Checks if a StagedQuote exists with the provided `key` in a [Store](ctp:api:type:Store). Returns a `200` status if the StagedQuote exists, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -66,6 +69,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyStagedQuotesKeyByKeyRequestBuilder 
       this.args.executeRequest
     )
   }
+  /**
+   *	Updates a StagedQuote in a [Store](ctp:api:type:Store).
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -93,6 +99,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyStagedQuotesKeyByKeyRequestBuilder 
       this.args.executeRequest
     )
   }
+  /**
+   *	Deletes a StagedQuote in a [Store](ctp:api:type:Store).
+   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

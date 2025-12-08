@@ -20,6 +20,10 @@ export class ByProjectKeyMeQuoteRequestsKeyByKeyRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Retrieves a QuoteRequest with the provided `key` for the authenticated Customer.
+   *
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -44,7 +48,9 @@ export class ByProjectKeyMeQuoteRequestsKeyByKeyRequestBuilder {
     )
   }
   /**
-   *	Checks if a QuoteRequest exists with the provided `key`. Returns a `200` status if the QuoteRequest exists, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *	Checks if a QuoteRequest exists with the provided `key` for the authenticated Customer.
+   *	Returns a `200 OK` status if the QuoteRequest exists or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *
    */
   public head(methodArgs?: {
     headers?: {
@@ -64,6 +70,10 @@ export class ByProjectKeyMeQuoteRequestsKeyByKeyRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Updates a QuoteRequest for the authenticated Customer using one or more [update actions](/../api/projects/quote-requests#update-actions).
+   *
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

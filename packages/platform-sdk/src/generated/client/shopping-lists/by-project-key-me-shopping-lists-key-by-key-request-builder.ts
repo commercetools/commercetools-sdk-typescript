@@ -119,7 +119,7 @@ export class ByProjectKeyMeShoppingListsKeyByKeyRequestBuilder {
    *
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *
-   *	- If no ShoppingList exists for the provided `key`.
+   *	- If no ShoppingList exists with the provided `key`.
    *	- If a ShoppingList exists but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */

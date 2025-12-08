@@ -22,6 +22,7 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
     }
   ) {}
   /**
+   *	Retrieves a Quote with the provided `key` in a BusinessUnit.
    *	If the Quote exists in the [Project](ctp:api:type:Project) but does not reference the requested [BusinessUnit](ctp:api:type:BusinessUnit), this method returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *
    */
@@ -50,7 +51,7 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
     )
   }
   /**
-   *	Checks if a Quote exists with the provided `key`. Returns a `200` status if the Quote exists, or a `404` status otherwise.
+   *	Checks if a Quote exists with the provided `key` in a BusinessUnit. Returns a `200 OK` status if the Quote exists, or a [Not Found](/../api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -72,6 +73,7 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
     )
   }
   /**
+   *	Updates a Quote in a BusinessUnit using one or more [update actions](/../api/projects/quotes#update-actions).
    *	If the Quote exists in the [Project](ctp:api:type:Project) but does not reference the requested [BusinessUnit](ctp:api:type:BusinessUnit), this method returns an [InvalidOperation](ctp:api:type:InvalidOperationError) error.
    *
    */
