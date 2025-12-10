@@ -2257,7 +2257,7 @@ export interface MyCustomerRemoveAddressAction extends IMyCustomerUpdateAction {
   readonly addressKey?: string
 }
 /**
- *	Removes an existing billing address from `billingAddressesIds`.
+ *	Removes an existing billing address from `billingAddressIds`.
  *	If the billing address is the default billing address, the `defaultBillingAddressId` is unset. Either `addressId` or `addressKey` is required.
  *
  */
@@ -2265,20 +2265,20 @@ export interface MyCustomerRemoveBillingAddressIdAction
   extends IMyCustomerUpdateAction {
   readonly action: 'removeBillingAddressId'
   /**
-   *	`id` of the [Address](ctp:api:type:Address) to remove from `billingAddressesIds`.
+   *	`id` of the [Address](ctp:api:type:Address) to remove from `billingAddressIds`.
    *
    *
    */
   readonly addressId?: string
   /**
-   *	`key` of the [Address](ctp:api:type:Address) to remove from `billingAddressesIds`.
+   *	`key` of the [Address](ctp:api:type:Address) to remove from `billingAddressIds`.
    *
    *
    */
   readonly addressKey?: string
 }
 /**
- *	Removes an existing shipping address from `shippingAddressesIds`.
+ *	Removes an existing shipping address from `shippingAddressIds`.
  *	If the shipping address is the default shipping address, the `defaultShippingAddressId` is unset. Either `addressId` or `addressKey` is required.
  *
  */
@@ -2286,13 +2286,13 @@ export interface MyCustomerRemoveShippingAddressIdAction
   extends IMyCustomerUpdateAction {
   readonly action: 'removeShippingAddressId'
   /**
-   *	`id` of the [Address](ctp:api:type:Address) to remove from `shippingAddressesIds`.
+   *	`id` of the [Address](ctp:api:type:Address) to remove from `shippingAddressIds`.
    *
    *
    */
   readonly addressId?: string
   /**
-   *	`key` of the [Address](ctp:api:type:Address) to remove from `shippingAddressesIds`.
+   *	`key` of the [Address](ctp:api:type:Address) to remove from `shippingAddressIds`.
    *
    *
    */

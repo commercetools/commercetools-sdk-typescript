@@ -3060,7 +3060,7 @@ export interface RemoveBillingAddressIdChange extends IChange {
    */
   readonly nextValue: string[]
   /**
-   *	Address removed from `billingAddressesIds`.
+   *	Address removed from `billingAddressIds`.
    *
    */
   readonly address: Address
@@ -3497,7 +3497,7 @@ export interface RemoveShippingAddressIdChange extends IChange {
    */
   readonly nextValue: string[]
   /**
-   *	Address removed from `shippingAddressesIds`.
+   *	Address removed from `shippingAddressIds`.
    *
    */
   readonly address: Address

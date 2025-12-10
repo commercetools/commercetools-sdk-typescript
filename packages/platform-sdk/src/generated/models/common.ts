@@ -227,6 +227,16 @@ export interface UpdateAction {
    */
   readonly action: string
 }
+/**
+ *	Indicates the role of an address.
+ *
+ */
+export enum AddressRoleValues {
+  Billing = 'Billing',
+  Shipping = 'Shipping',
+}
+
+export type AddressRole = 'Billing' | 'Shipping' | (string & {})
 export interface Asset {
   /**
    *	Unique identifier of the Asset. Not required when importing Assets using the [Import API](/import-export/import-resources).
