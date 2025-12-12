@@ -33,16 +33,22 @@
 </details>
 
 <details>
+<summary>MarkDeprecated Type(s)</summary>
+
+- marked type `ProductSearchProjectionParams` as deprecated
+</details>
+
+<details>
 <summary>Deprecated Type(s)</summary>
 
 - type `ProductLegacySetSkuAction` is removed
 </details>
 
 <details>
-<summary>Added Method(s)</summary>
+<summary>MarkDeprecated Property(s)</summary>
 
-- added method `apiRoot.withProjectKey().carts().customerIdWithCustomerIdValueMerge().post()`
-- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().carts().customerIdWithCustomerIdValueMerge().post()`
+- marked property `ProductSearchRequest::productProjectionParameters` as deprecated
+- marked property `ProductSearchResult::productProjection` as deprecated
 </details>
 
 <details>
@@ -82,6 +88,13 @@
 - added property `sku` to type `InventoryEntryQuantitySetMessagePayload`
 - added property `paymentRef` to type `OrderPaymentAddedMessagePayload`
 - added property `minimumQuantity` to type `StandalonePriceRemovePriceTierAction`
+</details>
+
+<details>
+<summary>Added Method(s)</summary>
+
+- added method `apiRoot.withProjectKey().carts().customerIdWithCustomerIdValueMerge().post()`
+- added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().carts().customerIdWithCustomerIdValueMerge().post()`
 </details>
 
 <details>
