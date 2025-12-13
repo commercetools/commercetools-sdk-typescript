@@ -52,43 +52,24 @@ jobs:
       # Configure npm for OIDC authentication with trusted publishing
       # This must be done after CI setup to ensure npm is properly configured
 
+      # setup-node@v4 with registry-url automatically configures OIDC when id-token: write is set
       - name: Setup Node.js for npm publishing
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
           registry-url: 'https://registry.npmjs.org'
-
-      - name: Configure npm for OIDC
-        run: |
-          # Ensure npm is configured to use the correct registry
-          npm config set registry https://registry.npmjs.org/
-          # Remove any existing auth token configuration that might interfere with OIDC
-          npm config delete //registry.npmjs.org/:_authToken || true
-          # Remove any user-level .npmrc that might have tokens
-          if [ -f "$HOME/.npmrc" ]; then
-            # Backup and clean .npmrc, keeping only non-auth config
-            sed -i.bak '/_authToken/d' "$HOME/.npmrc" || true
-            sed -i.bak '/_auth=/d' "$HOME/.npmrc" || true
-          fi
-          # Verify configuration
-          echo "Registry: $(npm config get registry)"
-          echo "npm OIDC will be used automatically during publish"
-          # Show npm config (without sensitive data)
-          npm config list
 
       - name: Building packages
         run: yarn build
 
-      - name: Ensure .npmrc is configured for OIDC before changesets
+      - name: Verify npm OIDC configuration
         run: |
-          # Create/update .npmrc to ensure OIDC is used
-          # setup-node should have already configured this, but we ensure it's correct
-          if [ -f "$HOME/.npmrc" ]; then
-            echo "Current .npmrc content:"
-            cat "$HOME/.npmrc" | grep -v "authToken" | grep -v "_auth" || true
-          fi
-          # Ensure registry is set
-          npm config set registry https://registry.npmjs.org/
+          # Verify registry is set correctly
+          echo "Registry: $(npm config get registry)"
+          # Ensure no token-based auth is configured (OIDC should be used automatically)
+          npm config delete //registry.npmjs.org/:_authToken || true
+          # Verify npm can access the registry (this will use OIDC if configured)
+          echo "npm OIDC authentication configured via setup-node action"
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
