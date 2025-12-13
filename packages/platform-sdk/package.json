@@ -10,11 +10,11 @@
   },
   "description": "TypeScript definitions and SDK for commercetools Composable Commerce",
   "keywords": ["commercetools", "composable commerce", "typescript", "sdk"],
-  "homepage": "https://github.com/commercetools/commercetools-typescript-sdks",
-  "bugs": "https://github.com/commercetools/commercetools-typescript-sdks/issues",
+  "homepage": "https://github.com/commercetools/commercetools-sdk-typescript",
+  "bugs": "https://github.com/commercetools/commercetools-sdk-typescript/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/commercetools/commercetools-typescript-sdks.git"
+    "url": "https://github.com/commercetools/commercetools-sdk-typescript.git"
   },
   "files": ["dist", "CHANGELOG.md"],
   "author": "Achraf Beniasaad",
