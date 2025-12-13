@@ -1,8 +1,8 @@
 import { ctpApiBuilder as ctpApiRoot } from '../helpers/ctp-api-helper'
-import { ctpApiBuilder } from '../helpers/api-helpers'
+import { ctpApiBuilder, Transaction } from '../helpers/api-helpers'
 
 describe('::transaction', () => {
-  let cart: any
+  let cart: any, transactions: Transaction
 
   afterAll(async () => {
     const updatedCart = await ctpApiRoot
@@ -31,7 +31,7 @@ describe('::transaction', () => {
   })
 
   it('should create a transaction using created cart', async () => {
-    const transactions = await ctpApiBuilder
+    const _transactions = await ctpApiBuilder
       .transactions()
       .post({
         body: {
@@ -59,7 +59,19 @@ describe('::transaction', () => {
       })
       .execute()
 
-    expect(transactions).toBeDefined()
-    expect(transactions.statusCode).toEqual(201)
+    expect(_transactions).toBeDefined()
+    expect(_transactions.statusCode).toEqual(201)
+    transactions = _transactions.body
+  })
+
+  it('should retrieve a transaction using ID', async () => {
+    const _transaction = await ctpApiBuilder
+      .transactions()
+      .withId({ id: transactions.id })
+      .get()
+      .execute()
+
+    expect(_transaction).toBeDefined()
+    expect(_transaction.statusCode).toEqual(200)
   })
 })
