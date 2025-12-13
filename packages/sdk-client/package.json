@@ -1,6 +1,6 @@
 {
   "name": "@commercetools/sdk-client-v2",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "engines": {
     "node": ">=18"
   },
