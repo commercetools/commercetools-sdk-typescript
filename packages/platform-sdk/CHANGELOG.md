@@ -1,5 +1,16 @@
 # @commercetools/platform-sdk
 
+## 8.20.0
+
+### Minor Changes
+
+- [#1201](https://github.com/commercetools/commercetools-sdk-typescript/pull/1201) [`f7c3101`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f7c31015ae0e18111c31fcdb3baee8e964bad99b) Thanks [@ajimae](https://github.com/ajimae)! - release packages
+
+### Patch Changes
+
+- Updated dependencies [[`f7c3101`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f7c31015ae0e18111c31fcdb3baee8e964bad99b)]:
+  - @commercetools/ts-client@4.5.0
+
 ## 8.19.0
 
 ### Minor Changes

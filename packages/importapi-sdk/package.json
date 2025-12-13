@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/importapi-sdk",
-  "version": "6.9.0",
+  "version": "6.10.0",
   "engines": {
     "node": ">=18"
   },
@@ -32,7 +32,7 @@
     "./dist/commercetools-importapi-sdk.esm.js": "./dist/commercetools-importapi-sdk.browser.esm.js"
   },
   "dependencies": {
-    "@commercetools/ts-client": "^4.4.0"
+    "@commercetools/ts-client": "^4.5.0"
   },
   "devDependencies": {
     "@types/uuid": "10.0.0",
