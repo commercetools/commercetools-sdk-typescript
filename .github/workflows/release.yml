@@ -41,14 +41,14 @@ jobs:
       - name: Setup
         uses: ./.github/actions/ci
 
-      - name: Creating .npmrc
-        run: |
-          cat << EOF > "$HOME/.npmrc"
-            email=npmjs@commercetools.com
-            //registry.npmjs.org/:_authToken=$NPM_TOKEN
-          EOF
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # - name: Creating .npmrc
+      #   run: |
+      #     cat << EOF > "$HOME/.npmrc"
+      #       email=npmjs@commercetools.com
+      #       //registry.npmjs.org/:_authToken=$NPM_TOKEN
+      #     EOF
+      #   env:
+      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Building packages
         run: yarn build
@@ -59,7 +59,7 @@ jobs:
         with:
           publish: yarn changeset publish
           version: yarn changeset:version-and-format
-          commit: 'ci(changesets): version packages'
+          commit: "ci(changesets): version packages"
         env:
           GITHUB_TOKEN: ${{ steps.generate_github_token.outputs.token }}
 
@@ -109,7 +109,7 @@ jobs:
         if: steps.changesets.outputs.published == 'true'
         with:
           branch: after-release
-          file_pattern: 'reference.txt'
+          file_pattern: "reference.txt"
           commit_message: "chore: updating API ref SHA"
           commit_author: ct-changesets[bot] <${{ steps.get_app_user.outputs.email }}>
           commit_user_name: ct-changesets[bot]
