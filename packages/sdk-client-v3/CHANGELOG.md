@@ -1,5 +1,15 @@
 # @commercetools/ts-client
 
+## 4.4.0
+
+### Minor Changes
+
+- [#1191](https://github.com/commercetools/commercetools-sdk-typescript/pull/1191) [`2898e78`](https://github.com/commercetools/commercetools-sdk-typescript/commit/2898e7831c731b611628e6516d99e19fa32d402e) Thanks [@ShipilA](https://github.com/ShipilA)! - Regular release
+
+### Patch Changes
+
+- [#1199](https://github.com/commercetools/commercetools-sdk-typescript/pull/1199) [`e2fb7fd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e2fb7fd778f849f2a1da7f5abf0643c699bb8968) Thanks [@ajimae](https://github.com/ajimae)! - Fix issue with undefined response body
+
 ## 4.3.0
 
 ### Minor Changes
