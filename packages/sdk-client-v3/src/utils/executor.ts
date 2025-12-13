@@ -146,12 +146,22 @@ export default async function executor(request: HttpClientConfig) {
       }
 
       const response: IResponse = await executeWithRetry()
+
+      // check if it's a HEAD request, then return
+      if (rest.method == 'HEAD') {
+        return {
+          data: null,
+          retryCount,
+          statusCode: response.status || response.statusCode || data.statusCode,
+          headers: response.headers,
+        }
+      }
+
       try {
         // try to parse the `fetch` response as text
         if (response.text && typeof response.text == 'function') {
-          result =
-            (await response.text()) ||
-            JSON.stringify(response[Object.getOwnPropertySymbols(response)[1]])
+          result = await response.text()
+
           data = JSON.parse(result)
         } else {
           // axios response
