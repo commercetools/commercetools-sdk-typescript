@@ -1,5 +1,11 @@
 # @commercetools/sdk-client-v2
 
+## 3.1.0
+
+### Minor Changes
+
+- [#1201](https://github.com/commercetools/commercetools-sdk-typescript/pull/1201) [`f7c3101`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f7c31015ae0e18111c31fcdb3baee8e964bad99b) Thanks [@ajimae](https://github.com/ajimae)! - release packages
+
 ## 3.0.0
 
 ### Major Changes
@@ -130,7 +136,6 @@
 - [#347](https://github.com/commercetools/commercetools-sdk-typescript/pull/347) [`f0e84dd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f0e84ddb2e34b908385a380175c6da596db6817a) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
 
   Add `quotes()` method for the `My Quote endpoint`
-
   - [Diff Link](https://github.com/commercetools/commercetools-sdk-typescript/pull/347/files#diff-17ea32dc184ca17b337fbf5e126f27f16651feadc9c879fae88db2580537cf8eR142)
 
   **Usage:**
@@ -145,15 +150,12 @@
   ```
 
   Add `ByProjectKeyMeQuotesByIDRequestBuilder` class for `quotes-request` model
-
   - [Diff Link](https://github.com/commercetools/commercetools-sdk-typescript/pull/347/files#diff-a5bab13a41c9ece596cf0fcc545109385e16b6b1877755e58d8ec064125e2041R12)
 
   Add `ByProjectKeyMeQuotesKeyByKeyRequestBuilder` class for `quotes-request` model
-
   - [Diff Link](https://github.com/commercetools/commercetools-sdk-typescript/pull/347/files#diff-034feddaefb558f6391d5238391e177290d7f018904308b2884dfa016c81bc0dR12)
 
   Add `ByProjectKeyMeQuotesRequestBuilder` class for `quotes-request` model
-
   - [Diff Link](https://github.com/commercetools/commercetools-sdk-typescript/pull/347/files#diff-26e9b7a9cef621eaf88d81d1e2bb61858402450c444e1fe4d11bde5b51d22638R13)
 
 ## 2.0.0
@@ -194,7 +196,6 @@
 ### Minor Changes
 
 - [#241](https://github.com/commercetools/commercetools-sdk-typescript/pull/241) [`85f5be3`](https://github.com/commercetools/commercetools-sdk-typescript/commit/85f5be349a9b0fa46539259981bfd8d5fc2ffdc6) Thanks [@ajimae](https://github.com/ajimae)! - Releasing the TS SDK with the following changelogs
-
   - added functionalities to extend client user agent
   - custom field added to OrderFromCardDraft
 
