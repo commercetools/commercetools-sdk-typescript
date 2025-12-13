@@ -82,6 +82,7 @@ jobs:
           GITHUB_TOKEN: ${{ steps.generate_github_token.outputs.token }}
           # Ensure npm uses OIDC authentication
           NPM_CONFIG_REGISTRY: 'https://registry.npmjs.org'
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Dispatch repository event
         if: steps.changesets.outputs.published == 'true'

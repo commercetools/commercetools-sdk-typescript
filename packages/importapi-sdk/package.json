@@ -20,7 +20,7 @@
   "bugs": "https://github.com/commercetools/commercetools-sdk-typescript/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/commercetools/commercetools-sdk-typescript.git"
+    "url": "https://github.com/commercetools/commercetools-sdk-typescript"
   },
   "files": ["dist", "CHANGELOG.md"],
   "author": "Achraf Beniasaad",
