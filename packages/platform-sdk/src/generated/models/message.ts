@@ -183,6 +183,9 @@ export type Message =
   | BusinessUnitCustomFieldRemovedMessage
   | BusinessUnitCustomTypeRemovedMessage
   | BusinessUnitCustomTypeSetMessage
+  | BusinessUnitCustomerGroupAssignmentAddedMessage
+  | BusinessUnitCustomerGroupAssignmentRemovedMessage
+  | BusinessUnitCustomerGroupAssignmentsSetMessage
   | BusinessUnitDefaultBillingAddressSetMessage
   | BusinessUnitDefaultShippingAddressSetMessage
   | BusinessUnitDeletedMessage
@@ -3613,6 +3616,225 @@ export interface BusinessUnitCustomTypeSetMessage extends IMessage {
    *
    */
   readonly oldTypeId?: string
+}
+/**
+ *	Generated after a successful [Add CustomerGroupAssignment](ctp:api:type:BusinessUnitAddCustomerGroupAssignmentAction) update action.
+ *
+ */
+export interface BusinessUnitCustomerGroupAssignmentAddedMessage
+  extends IMessage {
+  readonly type: 'BusinessUnitCustomerGroupAssignmentAdded'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Customer Group assigned to the Business Unit during the [Add CustomerGroupAssignment](ctp:api:type:BusinessUnitAddCustomerGroupAssignmentAction) update action.
+   *
+   *
+   */
+  readonly customerGroupAssignment: CustomerGroupAssignment
+}
+/**
+ *	Generated after a successful [Remove CustomerGroupAssignment](ctp:api:type:BusinessUnitRemoveCustomerGroupAssignmentAction) update action.
+ *
+ */
+export interface BusinessUnitCustomerGroupAssignmentRemovedMessage
+  extends IMessage {
+  readonly type: 'BusinessUnitCustomerGroupAssignmentRemoved'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Customer Group unassigned from the Business Unit during the [Remove CustomerGroupAssignment](ctp:api:type:BusinessUnitRemoveCustomerGroupAssignmentAction) update action.
+   *
+   *
+   */
+  readonly customerGroupAssignment: CustomerGroupAssignment
+}
+/**
+ *	Generated after a successful [Set CustomerGroupAssignments](ctp:api:type:BusinessUnitSetCustomerGroupAssignmentsAction) update action.
+ *
+ */
+export interface BusinessUnitCustomerGroupAssignmentsSetMessage
+  extends IMessage {
+  readonly type: 'BusinessUnitCustomerGroupAssignmentsSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	Customer Groups assigned to the Business Unit during the [Set CustomerGroupAssignments](ctp:api:type:BusinessUnitSetCustomerGroupAssignmentsAction) update action.
+   *
+   *
+   */
+  readonly customerGroupAssignments?: CustomerGroupAssignment[]
+  /**
+   *	Customer Groups assigned to the Business Unit before the [Set CustomerGroupAssignments](ctp:api:type:BusinessUnitSetCustomerGroupAssignmentsAction) update action.
+   *
+   *
+   */
+  readonly oldCustomerGroupAssignments?: CustomerGroupAssignment[]
 }
 /**
  *	Generated after a successful [Set Default Billing Address](ctp:api:type:BusinessUnitSetDefaultBillingAddressAction) update action.
@@ -24475,6 +24697,9 @@ export type MessagePayload =
   | BusinessUnitCustomFieldRemovedMessagePayload
   | BusinessUnitCustomTypeRemovedMessagePayload
   | BusinessUnitCustomTypeSetMessagePayload
+  | BusinessUnitCustomerGroupAssignmentAddedMessagePayload
+  | BusinessUnitCustomerGroupAssignmentRemovedMessagePayload
+  | BusinessUnitCustomerGroupAssignmentsSetMessagePayload
   | BusinessUnitDefaultBillingAddressSetMessagePayload
   | BusinessUnitDefaultShippingAddressSetMessagePayload
   | BusinessUnitDeletedMessagePayload
@@ -25483,6 +25708,54 @@ export interface BusinessUnitCustomTypeSetMessagePayload
    *
    */
   readonly oldTypeId?: string
+}
+/**
+ *	Generated after a successful [Add CustomerGroupAssignment](ctp:api:type:BusinessUnitAddCustomerGroupAssignmentAction) update action.
+ *
+ */
+export interface BusinessUnitCustomerGroupAssignmentAddedMessagePayload
+  extends IMessagePayload {
+  readonly type: 'BusinessUnitCustomerGroupAssignmentAdded'
+  /**
+   *	Customer Group assigned to the Business Unit during the [Add CustomerGroupAssignment](ctp:api:type:BusinessUnitAddCustomerGroupAssignmentAction) update action.
+   *
+   *
+   */
+  readonly customerGroupAssignment: CustomerGroupAssignment
+}
+/**
+ *	Generated after a successful [Remove CustomerGroupAssignment](ctp:api:type:BusinessUnitRemoveCustomerGroupAssignmentAction) update action.
+ *
+ */
+export interface BusinessUnitCustomerGroupAssignmentRemovedMessagePayload
+  extends IMessagePayload {
+  readonly type: 'BusinessUnitCustomerGroupAssignmentRemoved'
+  /**
+   *	Customer Group unassigned from the Business Unit during the [Remove CustomerGroupAssignment](ctp:api:type:BusinessUnitRemoveCustomerGroupAssignmentAction) update action.
+   *
+   *
+   */
+  readonly customerGroupAssignment: CustomerGroupAssignment
+}
+/**
+ *	Generated after a successful [Set CustomerGroupAssignments](ctp:api:type:BusinessUnitSetCustomerGroupAssignmentsAction) update action.
+ *
+ */
+export interface BusinessUnitCustomerGroupAssignmentsSetMessagePayload
+  extends IMessagePayload {
+  readonly type: 'BusinessUnitCustomerGroupAssignmentsSet'
+  /**
+   *	Customer Groups assigned to the Business Unit during the [Set CustomerGroupAssignments](ctp:api:type:BusinessUnitSetCustomerGroupAssignmentsAction) update action.
+   *
+   *
+   */
+  readonly customerGroupAssignments?: CustomerGroupAssignment[]
+  /**
+   *	Customer Groups assigned to the Business Unit before the [Set CustomerGroupAssignments](ctp:api:type:BusinessUnitSetCustomerGroupAssignmentsAction) update action.
+   *
+   *
+   */
+  readonly oldCustomerGroupAssignments?: CustomerGroupAssignment[]
 }
 /**
  *	Generated after a successful [Set Default Billing Address](ctp:api:type:BusinessUnitSetDefaultBillingAddressAction) update action.
