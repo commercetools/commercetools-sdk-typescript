@@ -50,6 +50,13 @@
 </details>
 
 <details>
+<summary>Added Enum(s)</summary>
+
+- added enum `payment-method` to type `ResourceTypeId`
+- added enum `payment-method-info` to type `ResourceTypeId`
+</details>
+
+<details>
 <summary>MarkDeprecated Property(s)</summary>
 
 - marked property `ProductSearchRequest::productProjectionParameters` as deprecated

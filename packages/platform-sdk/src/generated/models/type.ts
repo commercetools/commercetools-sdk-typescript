@@ -323,6 +323,8 @@ export enum ResourceTypeIdValues {
   OrderReturnItem = 'order-return-item',
   Payment = 'payment',
   PaymentInterfaceInteraction = 'payment-interface-interaction',
+  PaymentMethod = 'payment-method',
+  PaymentMethodInfo = 'payment-method-info',
   ProductPrice = 'product-price',
   ProductSelection = 'product-selection',
   ProductTailoring = 'product-tailoring',
@@ -361,6 +363,8 @@ export type ResourceTypeId =
   | 'order-return-item'
   | 'payment'
   | 'payment-interface-interaction'
+  | 'payment-method'
+  | 'payment-method-info'
   | 'product-price'
   | 'product-selection'
   | 'product-tailoring'
