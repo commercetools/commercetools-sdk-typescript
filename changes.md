@@ -50,6 +50,13 @@
 </details>
 
 <details>
+<summary>Removed Type(s)</summary>
+
+- :warning: removed type `MyCartSetCustomLineItemRecurrenceInfoAction`
+- :warning: removed type `MyCartSetLineItemRecurrenceInfoAction`
+</details>
+
+<details>
 <summary>Added Enum(s)</summary>
 
 - added enum `payment-method` to type `ResourceTypeId`
