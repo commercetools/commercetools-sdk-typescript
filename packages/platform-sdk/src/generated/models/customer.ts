@@ -175,7 +175,7 @@ export interface Customer extends BaseResource {
    *
    *
    */
-  readonly shippingAddressIds?: string[]
+  readonly shippingAddressIds: string[]
   /**
    *	ID of the address in `addresses` used as the default billing address.
    *
@@ -187,7 +187,7 @@ export interface Customer extends BaseResource {
    *
    *
    */
-  readonly billingAddressIds?: string[]
+  readonly billingAddressIds: string[]
   /**
    *	Indicates whether the email address of the Customer is [verified](#email-verification-of-customer).
    *
@@ -207,7 +207,7 @@ export interface Customer extends BaseResource {
    *
    *
    */
-  readonly customerGroupAssignments?: CustomerGroupAssignment[]
+  readonly customerGroupAssignments: CustomerGroupAssignment[]
   /**
    *	Custom Fields for the Customer.
    *

@@ -528,6 +528,32 @@ export interface DeliveryItem {
    */
   readonly quantity: number
 }
+/**
+ *	Represents a [CartDiscount](ctp:api:type:CartDiscount) that is only associated with a single Cart or Order.
+ *
+ */
+export interface DirectDiscount {
+  /**
+   *	Unique identifier of the Direct Discount.
+   *
+   *
+   */
+  readonly id: string
+  /**
+   *	Effect of the Discount on the Cart.
+   *
+   *
+   */
+  readonly value: CartDiscountValue
+  /**
+   *	Segment of the Cart that is discounted.
+   *
+   *	Empty when the `value` is set to `giftLineItem`.
+   *
+   *
+   */
+  readonly target?: CartDiscountTarget
+}
 export interface DiscountCodeInfo {
   /**
    *	Discount Code associated with the Cart or Order.
@@ -610,6 +636,33 @@ export interface DiscountedLineItemPriceForQuantity {
    *
    */
   readonly discountedPrice: DiscountedLineItemPrice
+}
+export type DiscountTypeCombination = BestDeal | Stacking
+export interface IDiscountTypeCombination {
+  /**
+   *
+   */
+  readonly type: string
+}
+/**
+ *	Indicates if a Product Discount or Cart Discount offers the best deal for a Cart or Order.
+ *
+ */
+export interface BestDeal extends IDiscountTypeCombination {
+  readonly type: 'BestDeal'
+  /**
+   *	Discount type that offers the best deal; the value can be `ProductDiscount` or `CartDiscount`.
+   *
+   *
+   */
+  readonly chosenDiscountType: string
+}
+/**
+ *	Indicates both Product Discounts and Cart Discounts apply to a Cart and Order.
+ *
+ */
+export interface Stacking extends IDiscountTypeCombination {
+  readonly type: 'Stacking'
 }
 /**
  *	Defines a [Custom Field](/../api/projects/custom-fields) and its meta-information.
@@ -1656,6 +1709,7 @@ export interface ResourceIdentifier {
 export type _ResourceIdentifier =
   | ResourceIdentifier
   | BusinessUnitResourceIdentifier
+  | ZoneResourceIdentifier
 /**
  *	Stores information about returns connected to an Order.
  *
@@ -3749,4 +3803,22 @@ export interface ClientLogging {
    *
    */
   readonly associate?: CustomerReference
+}
+/**
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Zone](ctp:api:type:Zone). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *
+ */
+export interface ZoneResourceIdentifier extends ResourceIdentifier {
+  /**
+   *	Unique identifier of the referenced [Zone](ctp:api:type:Zone). Required if `key` is absent.
+   *
+   *
+   */
+  readonly id?: string
+  /**
+   *	User-defined unique identifier of the referenced [Zone](ctp:api:type:Zone). Required if `id` is absent.
+   *
+   *
+   */
+  readonly key?: string
 }

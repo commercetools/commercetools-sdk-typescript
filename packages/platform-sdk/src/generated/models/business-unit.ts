@@ -223,7 +223,7 @@ export interface IBusinessUnit {
    *
    *
    */
-  readonly shippingAddressIds?: string[]
+  readonly shippingAddressIds: string[]
   /**
    *	Unique identifier of the address used as the default shipping address.
    *
@@ -235,7 +235,7 @@ export interface IBusinessUnit {
    *
    *
    */
-  readonly billingAddressIds?: string[]
+  readonly billingAddressIds: string[]
   /**
    *	Unique identifier of the address used as the default billing address.
    *
@@ -746,7 +746,7 @@ export interface Company extends IBusinessUnit {
    *
    *
    */
-  readonly shippingAddressIds?: string[]
+  readonly shippingAddressIds: string[]
   /**
    *	Unique identifier of the address used as the default shipping address.
    *
@@ -758,7 +758,7 @@ export interface Company extends IBusinessUnit {
    *
    *
    */
-  readonly billingAddressIds?: string[]
+  readonly billingAddressIds: string[]
   /**
    *	Unique identifier of the address used as the default billing address.
    *
@@ -1032,7 +1032,7 @@ export interface Division extends IBusinessUnit {
    *
    *
    */
-  readonly shippingAddressIds?: string[]
+  readonly shippingAddressIds: string[]
   /**
    *	Unique identifier of the address used as the default shipping address.
    *
@@ -1044,7 +1044,7 @@ export interface Division extends IBusinessUnit {
    *
    *
    */
-  readonly billingAddressIds?: string[]
+  readonly billingAddressIds: string[]
   /**
    *	Unique identifier of the address used as the default billing address.
    *

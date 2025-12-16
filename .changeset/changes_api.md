@@ -63,6 +63,15 @@
 <details>
 <summary>Required Property(s)</summary>
 
+- :warning: changed property `shippingAddressIds` of type `BusinessUnit` to be required
+- :warning: changed property `billingAddressIds` of type `BusinessUnit` to be required
+- :warning: changed property `shippingAddressIds` of type `Company` to be required
+- :warning: changed property `billingAddressIds` of type `Company` to be required
+- :warning: changed property `shippingAddressIds` of type `Division` to be required
+- :warning: changed property `billingAddressIds` of type `Division` to be required
+- :warning: changed property `shippingAddressIds` of type `Customer` to be required
+- :warning: changed property `billingAddressIds` of type `Customer` to be required
+- :warning: changed property `customerGroupAssignments` of type `Customer` to be required
 - :warning: changed property `customerGroupAssignments` of type `CustomerGroupAssignmentsSetMessage` to be required
 - :warning: changed property `customerGroupAssignments` of type `CustomerGroupAssignmentsSetMessagePayload` to be required
 </details>

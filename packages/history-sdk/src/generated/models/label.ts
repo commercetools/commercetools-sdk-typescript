@@ -21,7 +21,9 @@ export type Label =
   | QuoteLabel
   | QuoteRequestLabel
   | ReviewLabel
+  | ShippingMethodLabel
   | StagedQuoteLabel
+  | StandalonePriceLabel
   | StringLabel
 export interface ILabel {
   /**
@@ -202,6 +204,21 @@ export interface ReviewLabel extends ILabel {
    */
   readonly title: string
 }
+export interface ShippingMethodLabel extends ILabel {
+  readonly type: 'ShippingMethodLabel'
+  /**
+   *	User-defined unique identifier of the Shipping Method.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	Unique name identifier of the Shipping Method.
+   *
+   *
+   */
+  readonly name: string
+}
 export interface StagedQuoteLabel extends ILabel {
   readonly type: 'StagedQuoteLabel'
   /**
@@ -231,4 +248,19 @@ export interface StringLabel extends ILabel {
    *
    */
   readonly value: string
+}
+export interface StandalonePriceLabel extends ILabel {
+  readonly type: 'StandalonePriceLabel'
+  /**
+   *	User-defined unique identifier of the Standalone Price.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	Unique Product SKU variant identifier to which the Standalone Price is associated.
+   *
+   *
+   */
+  readonly sku: string
 }

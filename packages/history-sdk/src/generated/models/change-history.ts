@@ -152,8 +152,10 @@ export enum ChangeHistoryResourceTypeValues {
   Quote = 'quote',
   QuoteRequest = 'quote-request',
   Review = 'review',
+  ShippingMethod = 'shipping-method',
   ShoppingList = 'shopping-list',
   StagedQuote = 'staged-quote',
+  StandalonePrice = 'standalone-price',
   State = 'state',
   Store = 'store',
   TaxCategory = 'tax-category',
@@ -181,8 +183,10 @@ export type ChangeHistoryResourceType =
   | 'quote'
   | 'quote-request'
   | 'review'
+  | 'shipping-method'
   | 'shopping-list'
   | 'staged-quote'
+  | 'standalone-price'
   | 'state'
   | 'store'
   | 'tax-category'
@@ -371,14 +375,19 @@ export enum UpdateTypeValues {
   AddProperty = 'addProperty',
   AddReturnInfo = 'addReturnInfo',
   AddRoles = 'addRoles',
+  AddShipping = 'addShipping',
   AddShippingAddressId = 'addShippingAddressId',
+  AddShippingRate = 'addShippingRate',
   AddTaxRate = 'addTaxRate',
   AddTextLineItem = 'addTextLineItem',
   AddToCategory = 'addToCategory',
   AddTransaction = 'addTransaction',
   AddVariant = 'addVariant',
+  AddZone = 'addZone',
+  ChangeActive = 'changeActive',
   ChangeAddress = 'changeAddress',
   ChangeAmountPlanned = 'changeAmountPlanned',
+  ChangeApprovalRuleMode = 'changeApprovalRuleMode',
   ChangeAssetName = 'changeAssetName',
   ChangeAssetOrder = 'changeAssetOrder',
   ChangeAssociate = 'changeAssociate',
@@ -388,21 +397,29 @@ export enum UpdateTypeValues {
   ChangeAttributeOrderByName = 'changeAttributeOrderByName',
   ChangeCartDiscounts = 'changeCartDiscounts',
   ChangeCartPredicate = 'changeCartPredicate',
+  ChangeCustomLineItemPriceRoundingMode = 'changeCustomLineItemPriceRoundingMode',
   ChangeCustomLineItemQuantity = 'changeCustomLineItemQuantity',
+  ChangeCustomer = 'changeCustomer',
   ChangeDescription = 'changeDescription',
+  ChangeDiscountTypeCombination = 'changeDiscountTypeCombination',
   ChangeEmail = 'changeEmail',
   ChangeEnumKey = 'changeEnumKey',
   ChangeEnumValueLabel = 'changeEnumValueLabel',
   ChangeEnumValueOrder = 'changeEnumValueOrder',
   ChangeFieldDefinitionOrder = 'changeFieldDefinitionOrder',
   ChangeGroups = 'changeGroups',
+  ChangeIncludedInStatistics = 'changeIncludedInStatistics',
   ChangeInitial = 'changeInitial',
   ChangeInputHint = 'changeInputHint',
   ChangeIsActive = 'changeIsActive',
+  ChangeIsDefault = 'changeIsDefault',
   ChangeIsSearchable = 'changeIsSearchable',
   ChangeKey = 'changeKey',
   ChangeLabel = 'changeLabel',
+  ChangeLastVariantId = 'changeLastVariantId',
   ChangeLineItemName = 'changeLineItemName',
+  ChangeLineItemPriceRoundingMode = 'changeLineItemPriceRoundingMode',
+  ChangeLineItemPublished = 'changeLineItemPublished',
   ChangeLineItemQuantity = 'changeLineItemQuantity',
   ChangeLineItemsOrder = 'changeLineItemsOrder',
   ChangeLocalizedEnumValueLabel = 'changeLocalizedEnumValueLabel',
@@ -417,6 +434,7 @@ export enum UpdateTypeValues {
   ChangePlainEnumValueLabel = 'changePlainEnumValueLabel',
   ChangePredicate = 'changePredicate',
   ChangePrice = 'changePrice',
+  ChangePriceRoundingMode = 'changePriceRoundingMode',
   ChangeProductSelectionActive = 'changeProductSelectionActive',
   ChangeQuantity = 'changeQuantity',
   ChangeQuoteRequestState = 'changeQuoteRequestState',
@@ -431,16 +449,19 @@ export enum UpdateTypeValues {
   ChangeStatus = 'changeStatus',
   ChangeTarget = 'changeTarget',
   ChangeTaxCalculationMode = 'changeTaxCalculationMode',
+  ChangeTaxCategory = 'changeTaxCategory',
   ChangeTaxMode = 'changeTaxMode',
   ChangeTaxRoundingMode = 'changeTaxRoundingMode',
   ChangeTextLineItemName = 'changeTextLineItemName',
   ChangeTextLineItemQuantity = 'changeTextLineItemQuantity',
   ChangeTextLineItemsOrder = 'changeTextLineItemsOrder',
+  ChangeTopLevelUnit = 'changeTopLevelUnit',
   ChangeTransactionInteractionId = 'changeTransactionInteractionId',
   ChangeTransactionState = 'changeTransactionState',
   ChangeTransactionTimestamp = 'changeTransactionTimestamp',
   ChangeType = 'changeType',
   ChangeValue = 'changeValue',
+  ExcludeProduct = 'excludeProduct',
   MoveImageToPosition = 'moveImageToPosition',
   Publish = 'publish',
   RemoveAddress = 'removeAddress',
@@ -465,14 +486,21 @@ export enum UpdateTypeValues {
   RemoveProductSelection = 'removeProductSelection',
   RemoveProperty = 'removeProperty',
   RemoveRoles = 'removeRoles',
+  RemoveShipping = 'removeShipping',
   RemoveShippingAddressId = 'removeShippingAddressId',
+  RemoveShippingRate = 'removeShippingRate',
   RemoveTaxRate = 'removeTaxRate',
   RemoveTextLineItem = 'removeTextLineItem',
   RemoveVariant = 'removeVariant',
+  RemoveZone = 'removeZone',
+  ReplaceTaxRate = 'replaceTaxRate',
   RequestQuoteRenegotiation = 'requestQuoteRenegotiation',
+  RevertStagedChanges = 'revertStagedChanges',
+  RevertStagedVariantChanges = 'revertStagedVariantChanges',
   SetAddress = 'setAddress',
   SetAddressCustomField = 'setAddressCustomField',
   SetAddressCustomType = 'setAddressCustomType',
+  SetAncestors = 'setAncestors',
   SetAnonymousId = 'setAnonymousId',
   SetApplicationVersion = 'setApplicationVersion',
   SetAssetCustomField = 'setAssetCustomField',
@@ -481,10 +509,14 @@ export enum UpdateTypeValues {
   SetAssetKey = 'setAssetKey',
   SetAssetSources = 'setAssetSources',
   SetAssetTags = 'setAssetTags',
+  SetAssociates = 'setAssociates',
   SetAttribute = 'setAttribute',
   SetAuthenticationMode = 'setAuthenticationMode',
   SetAuthorName = 'setAuthorName',
   SetBillingAddress = 'setBillingAddress',
+  SetBillingAddressCustomField = 'setBillingAddressCustomField',
+  SetBillingAddressCustomType = 'setBillingAddressCustomType',
+  SetBusinessUnit = 'setBusinessUnit',
   SetCartPredicate = 'setCartPredicate',
   SetCategoryOrderHint = 'setCategoryOrderHint',
   SetCompanyName = 'setCompanyName',
@@ -494,6 +526,8 @@ export enum UpdateTypeValues {
   SetCustomField = 'setCustomField',
   SetCustomLineItemCustomField = 'setCustomLineItemCustomField',
   SetCustomLineItemCustomType = 'setCustomLineItemCustomType',
+  SetCustomLineItemDiscountedPrice = 'setCustomLineItemDiscountedPrice',
+  SetCustomLineItemDiscountedPricePerQuantity = 'setCustomLineItemDiscountedPricePerQuantity',
   SetCustomLineItemMoney = 'setCustomLineItemMoney',
   SetCustomLineItemShippingDetails = 'setCustomLineItemShippingDetails',
   SetCustomLineItemTaxAmount = 'setCustomLineItemTaxAmount',
@@ -506,6 +540,7 @@ export enum UpdateTypeValues {
   SetCustomer = 'setCustomer',
   SetCustomerEmail = 'setCustomerEmail',
   SetCustomerGroup = 'setCustomerGroup',
+  SetCustomerGroupAssignments = 'setCustomerGroupAssignments',
   SetCustomerId = 'setCustomerId',
   SetCustomerNumber = 'setCustomerNumber',
   SetDateOfBirth = 'setDateOfBirth',
@@ -513,8 +548,14 @@ export enum UpdateTypeValues {
   SetDefaultShippingAddress = 'setDefaultShippingAddress',
   SetDeleteDaysAfterLastModification = 'setDeleteDaysAfterLastModification',
   SetDeliveryAddress = 'setDeliveryAddress',
+  SetDeliveryAddressCustomField = 'setDeliveryAddressCustomField',
+  SetDeliveryAddressCustomType = 'setDeliveryAddressCustomType',
+  SetDeliveryCustomField = 'setDeliveryCustomField',
+  SetDeliveryCustomType = 'setDeliveryCustomType',
   SetDeliveryItems = 'setDeliveryItems',
   SetDescription = 'setDescription',
+  SetDirectDiscounts = 'setDirectDiscounts',
+  SetDiscountOnTotalPrice = 'setDiscountOnTotalPrice',
   SetDiscountedPrice = 'setDiscountedPrice',
   SetDistributionChannels = 'setDistributionChannels',
   SetExpectedDelivery = 'setExpectedDelivery',
@@ -522,9 +563,13 @@ export enum UpdateTypeValues {
   SetFirstName = 'setFirstName',
   SetGeoLocation = 'setGeoLocation',
   SetImageLabel = 'setImageLabel',
+  SetInheritedAssociates = 'setInheritedAssociates',
+  SetInheritedStores = 'setInheritedStores',
   SetInputTip = 'setInputTip',
   SetInterfaceId = 'setInterfaceId',
   SetIsValid = 'setIsValid',
+  SetItemShippingAddressCustomField = 'setItemShippingAddressCustomField',
+  SetItemShippingAddressCustomType = 'setItemShippingAddressCustomType',
   SetKey = 'setKey',
   SetLanguages = 'setLanguages',
   SetLastName = 'setLastName',
@@ -543,8 +588,11 @@ export enum UpdateTypeValues {
   SetLineItemTaxedPrice = 'setLineItemTaxedPrice',
   SetLineItemTotalPrice = 'setLineItemTotalPrice',
   SetLocale = 'setLocale',
+  SetLocalizedDescription = 'setLocalizedDescription',
+  SetLocalizedName = 'setLocalizedName',
   SetMaxApplications = 'setMaxApplications',
   SetMaxApplicationsPerCustomer = 'setMaxApplicationsPerCustomer',
+  SetMaxCartQuantity = 'setMaxCartQuantity',
   SetMetaDescription = 'setMetaDescription',
   SetMetaKeywords = 'setMetaKeywords',
   SetMetaTitle = 'setMetaTitle',
@@ -552,16 +600,24 @@ export enum UpdateTypeValues {
   SetMethodInfoMethod = 'setMethodInfoMethod',
   SetMethodInfoName = 'setMethodInfoName',
   SetMiddleName = 'setMiddleName',
+  SetMinCartQuantity = 'setMinCartQuantity',
   SetName = 'setName',
   SetOrderNumber = 'setOrderNumber',
   SetOrderTaxedPrice = 'setOrderTaxedPrice',
   SetOrderTotalPrice = 'setOrderTotalPrice',
   SetOrderTotalTax = 'setOrderTotalTax',
+  SetParcelCustomField = 'setParcelCustomField',
+  SetParcelCustomType = 'setParcelCustomType',
   SetParcelItems = 'setParcelItems',
   SetParcelMeasurements = 'setParcelMeasurements',
   SetParcelTrackingData = 'setParcelTrackingData',
   SetPassword = 'setPassword',
+  SetPredicate = 'setPredicate',
+  SetPriceKey = 'setPriceKey',
+  SetPriceMode = 'setPriceMode',
+  SetPriceTiers = 'setPriceTiers',
   SetPrices = 'setPrices',
+  SetProductAttribute = 'setProductAttribute',
   SetProductCount = 'setProductCount',
   SetProductPriceCustomField = 'setProductPriceCustomField',
   SetProductPriceCustomType = 'setProductPriceCustomType',
@@ -570,8 +626,12 @@ export enum UpdateTypeValues {
   SetProperty = 'setProperty',
   SetPurchaseOrderNumber = 'setPurchaseOrderNumber',
   SetRating = 'setRating',
+  SetReferences = 'setReferences',
   SetReservations = 'setReservations',
   SetRestockableInDays = 'setRestockableInDays',
+  SetReturnInfo = 'setReturnInfo',
+  SetReturnItemCustomField = 'setReturnItemCustomField',
+  SetReturnItemCustomType = 'setReturnItemCustomType',
   SetReturnPaymentState = 'setReturnPaymentState',
   SetReturnShipmentState = 'setReturnShipmentState',
   SetRoles = 'setRoles',
@@ -579,10 +639,16 @@ export enum UpdateTypeValues {
   SetSearchKeywords = 'setSearchKeywords',
   SetSellerComment = 'setSellerComment',
   SetShippingAddress = 'setShippingAddress',
+  SetShippingAddressCustomField = 'setShippingAddressCustomField',
+  SetShippingAddressCustomType = 'setShippingAddressCustomType',
+  SetShippingCustomField = 'setShippingCustomField',
+  SetShippingCustomType = 'setShippingCustomType',
+  SetShippingInfoDiscountedPrice = 'setShippingInfoDiscountedPrice',
   SetShippingInfoPrice = 'setShippingInfoPrice',
   SetShippingInfoTaxedPrice = 'setShippingInfoTaxedPrice',
   SetShippingMethod = 'setShippingMethod',
   SetShippingMethodTaxAmount = 'setShippingMethodTaxAmount',
+  SetShippingMethodTaxCategory = 'setShippingMethodTaxCategory',
   SetShippingMethodTaxRate = 'setShippingMethodTaxRate',
   SetShippingRate = 'setShippingRate',
   SetShippingRateInput = 'setShippingRateInput',
@@ -597,18 +663,23 @@ export enum UpdateTypeValues {
   SetSupplyChannels = 'setSupplyChannels',
   SetTarget = 'setTarget',
   SetTaxCategory = 'setTaxCategory',
+  SetTaxedShippingPrice = 'setTaxedShippingPrice',
   SetText = 'setText',
   SetTextLineItemCustomField = 'setTextLineItemCustomField',
   SetTextLineItemCustomType = 'setTextLineItemCustomType',
   SetTextLineItemDescription = 'setTextLineItemDescription',
   SetTitle = 'setTitle',
+  SetTransactionCustomField = 'setTransactionCustomField',
+  SetTransactionCustomType = 'setTransactionCustomType',
   SetTransitions = 'setTransitions',
+  SetUnitType = 'setUnitType',
   SetValidFrom = 'setValidFrom',
   SetValidFromAndUntil = 'setValidFromAndUntil',
   SetValidTo = 'setValidTo',
   SetValidUntil = 'setValidUntil',
   SetValue = 'setValue',
   SetVariantAvailability = 'setVariantAvailability',
+  SetVariantExclusion = 'setVariantExclusion',
   SetVariantSelection = 'setVariantSelection',
   SetVatId = 'setVatId',
   TransitionCustomLineItemState = 'transitionCustomLineItemState',
@@ -646,14 +717,19 @@ export type UpdateType =
   | 'addProperty'
   | 'addReturnInfo'
   | 'addRoles'
+  | 'addShipping'
   | 'addShippingAddressId'
+  | 'addShippingRate'
   | 'addTaxRate'
   | 'addTextLineItem'
   | 'addToCategory'
   | 'addTransaction'
   | 'addVariant'
+  | 'addZone'
+  | 'changeActive'
   | 'changeAddress'
   | 'changeAmountPlanned'
+  | 'changeApprovalRuleMode'
   | 'changeAssetName'
   | 'changeAssetOrder'
   | 'changeAssociate'
@@ -663,21 +739,29 @@ export type UpdateType =
   | 'changeAttributeOrderByName'
   | 'changeCartDiscounts'
   | 'changeCartPredicate'
+  | 'changeCustomLineItemPriceRoundingMode'
   | 'changeCustomLineItemQuantity'
+  | 'changeCustomer'
   | 'changeDescription'
+  | 'changeDiscountTypeCombination'
   | 'changeEmail'
   | 'changeEnumKey'
   | 'changeEnumValueLabel'
   | 'changeEnumValueOrder'
   | 'changeFieldDefinitionOrder'
   | 'changeGroups'
+  | 'changeIncludedInStatistics'
   | 'changeInitial'
   | 'changeInputHint'
   | 'changeIsActive'
+  | 'changeIsDefault'
   | 'changeIsSearchable'
   | 'changeKey'
   | 'changeLabel'
+  | 'changeLastVariantId'
   | 'changeLineItemName'
+  | 'changeLineItemPriceRoundingMode'
+  | 'changeLineItemPublished'
   | 'changeLineItemQuantity'
   | 'changeLineItemsOrder'
   | 'changeLocalizedEnumValueLabel'
@@ -692,6 +776,7 @@ export type UpdateType =
   | 'changePlainEnumValueLabel'
   | 'changePredicate'
   | 'changePrice'
+  | 'changePriceRoundingMode'
   | 'changeProductSelectionActive'
   | 'changeQuantity'
   | 'changeQuoteRequestState'
@@ -706,16 +791,19 @@ export type UpdateType =
   | 'changeStatus'
   | 'changeTarget'
   | 'changeTaxCalculationMode'
+  | 'changeTaxCategory'
   | 'changeTaxMode'
   | 'changeTaxRoundingMode'
   | 'changeTextLineItemName'
   | 'changeTextLineItemQuantity'
   | 'changeTextLineItemsOrder'
+  | 'changeTopLevelUnit'
   | 'changeTransactionInteractionId'
   | 'changeTransactionState'
   | 'changeTransactionTimestamp'
   | 'changeType'
   | 'changeValue'
+  | 'excludeProduct'
   | 'moveImageToPosition'
   | 'publish'
   | 'removeAddress'
@@ -740,14 +828,21 @@ export type UpdateType =
   | 'removeProductSelection'
   | 'removeProperty'
   | 'removeRoles'
+  | 'removeShipping'
   | 'removeShippingAddressId'
+  | 'removeShippingRate'
   | 'removeTaxRate'
   | 'removeTextLineItem'
   | 'removeVariant'
+  | 'removeZone'
+  | 'replaceTaxRate'
   | 'requestQuoteRenegotiation'
+  | 'revertStagedChanges'
+  | 'revertStagedVariantChanges'
   | 'setAddress'
   | 'setAddressCustomField'
   | 'setAddressCustomType'
+  | 'setAncestors'
   | 'setAnonymousId'
   | 'setApplicationVersion'
   | 'setAssetCustomField'
@@ -756,10 +851,14 @@ export type UpdateType =
   | 'setAssetKey'
   | 'setAssetSources'
   | 'setAssetTags'
+  | 'setAssociates'
   | 'setAttribute'
   | 'setAuthenticationMode'
   | 'setAuthorName'
   | 'setBillingAddress'
+  | 'setBillingAddressCustomField'
+  | 'setBillingAddressCustomType'
+  | 'setBusinessUnit'
   | 'setCartPredicate'
   | 'setCategoryOrderHint'
   | 'setCompanyName'
@@ -769,6 +868,8 @@ export type UpdateType =
   | 'setCustomField'
   | 'setCustomLineItemCustomField'
   | 'setCustomLineItemCustomType'
+  | 'setCustomLineItemDiscountedPrice'
+  | 'setCustomLineItemDiscountedPricePerQuantity'
   | 'setCustomLineItemMoney'
   | 'setCustomLineItemShippingDetails'
   | 'setCustomLineItemTaxAmount'
@@ -781,6 +882,7 @@ export type UpdateType =
   | 'setCustomer'
   | 'setCustomerEmail'
   | 'setCustomerGroup'
+  | 'setCustomerGroupAssignments'
   | 'setCustomerId'
   | 'setCustomerNumber'
   | 'setDateOfBirth'
@@ -788,8 +890,14 @@ export type UpdateType =
   | 'setDefaultShippingAddress'
   | 'setDeleteDaysAfterLastModification'
   | 'setDeliveryAddress'
+  | 'setDeliveryAddressCustomField'
+  | 'setDeliveryAddressCustomType'
+  | 'setDeliveryCustomField'
+  | 'setDeliveryCustomType'
   | 'setDeliveryItems'
   | 'setDescription'
+  | 'setDirectDiscounts'
+  | 'setDiscountOnTotalPrice'
   | 'setDiscountedPrice'
   | 'setDistributionChannels'
   | 'setExpectedDelivery'
@@ -797,9 +905,13 @@ export type UpdateType =
   | 'setFirstName'
   | 'setGeoLocation'
   | 'setImageLabel'
+  | 'setInheritedAssociates'
+  | 'setInheritedStores'
   | 'setInputTip'
   | 'setInterfaceId'
   | 'setIsValid'
+  | 'setItemShippingAddressCustomField'
+  | 'setItemShippingAddressCustomType'
   | 'setKey'
   | 'setLanguages'
   | 'setLastName'
@@ -818,8 +930,11 @@ export type UpdateType =
   | 'setLineItemTaxedPrice'
   | 'setLineItemTotalPrice'
   | 'setLocale'
+  | 'setLocalizedDescription'
+  | 'setLocalizedName'
   | 'setMaxApplications'
   | 'setMaxApplicationsPerCustomer'
+  | 'setMaxCartQuantity'
   | 'setMetaDescription'
   | 'setMetaKeywords'
   | 'setMetaTitle'
@@ -827,16 +942,24 @@ export type UpdateType =
   | 'setMethodInfoMethod'
   | 'setMethodInfoName'
   | 'setMiddleName'
+  | 'setMinCartQuantity'
   | 'setName'
   | 'setOrderNumber'
   | 'setOrderTaxedPrice'
   | 'setOrderTotalPrice'
   | 'setOrderTotalTax'
+  | 'setParcelCustomField'
+  | 'setParcelCustomType'
   | 'setParcelItems'
   | 'setParcelMeasurements'
   | 'setParcelTrackingData'
   | 'setPassword'
+  | 'setPredicate'
+  | 'setPriceKey'
+  | 'setPriceMode'
+  | 'setPriceTiers'
   | 'setPrices'
+  | 'setProductAttribute'
   | 'setProductCount'
   | 'setProductPriceCustomField'
   | 'setProductPriceCustomType'
@@ -845,8 +968,12 @@ export type UpdateType =
   | 'setProperty'
   | 'setPurchaseOrderNumber'
   | 'setRating'
+  | 'setReferences'
   | 'setReservations'
   | 'setRestockableInDays'
+  | 'setReturnInfo'
+  | 'setReturnItemCustomField'
+  | 'setReturnItemCustomType'
   | 'setReturnPaymentState'
   | 'setReturnShipmentState'
   | 'setRoles'
@@ -854,10 +981,16 @@ export type UpdateType =
   | 'setSearchKeywords'
   | 'setSellerComment'
   | 'setShippingAddress'
+  | 'setShippingAddressCustomField'
+  | 'setShippingAddressCustomType'
+  | 'setShippingCustomField'
+  | 'setShippingCustomType'
+  | 'setShippingInfoDiscountedPrice'
   | 'setShippingInfoPrice'
   | 'setShippingInfoTaxedPrice'
   | 'setShippingMethod'
   | 'setShippingMethodTaxAmount'
+  | 'setShippingMethodTaxCategory'
   | 'setShippingMethodTaxRate'
   | 'setShippingRate'
   | 'setShippingRateInput'
@@ -872,18 +1005,23 @@ export type UpdateType =
   | 'setSupplyChannels'
   | 'setTarget'
   | 'setTaxCategory'
+  | 'setTaxedShippingPrice'
   | 'setText'
   | 'setTextLineItemCustomField'
   | 'setTextLineItemCustomType'
   | 'setTextLineItemDescription'
   | 'setTitle'
+  | 'setTransactionCustomField'
+  | 'setTransactionCustomType'
   | 'setTransitions'
+  | 'setUnitType'
   | 'setValidFrom'
   | 'setValidFromAndUntil'
   | 'setValidTo'
   | 'setValidUntil'
   | 'setValue'
   | 'setVariantAvailability'
+  | 'setVariantExclusion'
   | 'setVariantSelection'
   | 'setVatId'
   | 'transitionCustomLineItemState'
