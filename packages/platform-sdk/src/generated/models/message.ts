@@ -20823,7 +20823,7 @@ export interface RecurringOrderCreatedMessage extends IMessage {
    *
    *
    */
-  readonly order: RecurringOrder
+  readonly recurringOrder: RecurringOrder
 }
 /**
  *	Generated after adding a Custom Field using the [Set CustomField](ctp:api:type:RecurringOrderSetCustomFieldAction).
@@ -30318,7 +30318,7 @@ export interface RecurringOrderCreatedMessagePayload extends IMessagePayload {
    *
    *
    */
-  readonly order: RecurringOrder
+  readonly recurringOrder: RecurringOrder
 }
 /**
  *	Generated after adding a Custom Field using the [Set CustomField](ctp:api:type:RecurringOrderSetCustomFieldAction).

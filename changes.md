@@ -90,7 +90,9 @@
 <summary>Removed Property(s)</summary>
 
 - :warning: removed property `payment` from type `OrderPaymentAddedMessage`
+- :warning: removed property `order` from type `RecurringOrderCreatedMessage`
 - :warning: removed property `payment` from type `OrderPaymentAddedMessagePayload`
+- :warning: removed property `order` from type `RecurringOrderCreatedMessagePayload`
 - :warning: removed property `tierMinimumQuantity` from type `StandalonePriceRemovePriceTierAction`
 </details>
 
@@ -112,6 +114,7 @@
 - added property `oldCustomerGroupAssignments` to type `CustomerGroupAssignmentsSetMessage`
 - added property `sku` to type `InventoryEntryQuantitySetMessage`
 - added property `paymentRef` to type `OrderPaymentAddedMessage`
+- added property `recurringOrder` to type `RecurringOrderCreatedMessage`
 - added property `addressRoles` to type `BusinessUnitAddressChangedMessagePayload`
 - added property `addressRoles` to type `BusinessUnitAddressRemovedMessagePayload`
 - added property `addressRoles` to type `CustomerAddressChangedMessagePayload`
@@ -121,6 +124,7 @@
 - added property `oldCustomerGroupAssignments` to type `CustomerGroupAssignmentsSetMessagePayload`
 - added property `sku` to type `InventoryEntryQuantitySetMessagePayload`
 - added property `paymentRef` to type `OrderPaymentAddedMessagePayload`
+- added property `recurringOrder` to type `RecurringOrderCreatedMessagePayload`
 - added property `minimumQuantity` to type `StandalonePriceRemovePriceTierAction`
 </details>
 
