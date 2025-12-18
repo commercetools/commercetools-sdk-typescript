@@ -295,7 +295,7 @@ export interface Product extends BaseResource {
  */
 export interface ProductCatalogData {
   /**
-   *	`true` if the Product is published.
+   *	If `true`, the `current` representation of the Product is retrievable in the [Product Projection](/projects/productProjections) endpoints and indexed for [Product Search](/../api/projects/product-search).
    *
    *
    */
@@ -498,7 +498,9 @@ export interface ProductDraft {
    */
   readonly state?: StateResourceIdentifier
   /**
-   *	If `true`, the Product is published immediately to the current projection.
+   *	If `true`, the platform sets the `published` flag on the resulting [ProductCatalogData](ctp:api:type:ProductCatalogData) to `true`.
+   *	This makes the current representation retrievable in [Product Projection](/projects/productProjections) endpoints and indexes it for [Product Search](/../api/projects/product-search).
+   *	You can also set this flag later using the [Publish](/projects/products#publish) update action.
    *
    *
    */
@@ -1615,7 +1617,9 @@ export interface ProductMoveImageToPositionAction extends IProductUpdateAction {
   readonly staged?: boolean
 }
 /**
- *	Publishes product data from the Product's staged projection to its current projection.
+ *	Copies the product data from the Product's staged representation to its current representation and sets the `published` flag on the resulting [ProductCatalogData](ctp:api:type:ProductCatalogData) to `true`.
+ *	This makes the current representation retrievable in [Product Projection](/projects/productProjections) endpoints and indexes it for [Product Search](/../api/projects/product-search).
+ *
  *	Produces the [ProductPublished](ctp:api:type:ProductPublishedMessage) Message.
  */
 export interface ProductPublishAction extends IProductUpdateAction {
@@ -2552,7 +2556,11 @@ export interface ProductTransitionStateAction extends IProductUpdateAction {
   readonly force?: boolean
 }
 /**
- *	Removes the current [projection](/../api/projects/productProjections#current--staged) of the Product. The staged projection is unaffected. To retrieve unpublished Products, the `staged` parameter must be set to `false` when [querying](ctp:api:endpoint:/{projectKey}/product-projections:GET)/[searching](/projects/product-projection-search#product-projection-search) Product Projections. Produces the [ProductUnpublished](ctp:api:type:ProductUnpublishedMessage) Message.
+ *	Sets the `published` flag on the [ProductCatalogData](ctp:api:type:ProductCatalogData) to `false`.
+ *	This makes the [current](/../api/projects/productProjections#current--staged) representation of a Product unavailable in [Product Projection](/projects/productProjections) endpoints by default, and excludes it from [Product Search](/../api/projects/product-search).
+ *	To retrieve unpublished Products on Product Projection endpoints, set parameter `staged=true`.
+ *
+ *	Produces the [ProductUnpublished](ctp:api:type:ProductUnpublishedMessage) Message.
  *
  *	When a Product is unpublished, any associated Line Items already present in a Cart remain unaffected and can still be ordered. To prevent this, do the following:
  *
