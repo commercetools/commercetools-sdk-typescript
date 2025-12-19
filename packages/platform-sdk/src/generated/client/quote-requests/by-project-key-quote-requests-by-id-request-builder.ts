@@ -19,6 +19,9 @@ export class ByProjectKeyQuoteRequestsByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Retrieves a QuoteRequest with the provided `id`.
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -43,7 +46,7 @@ export class ByProjectKeyQuoteRequestsByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a QuoteRequest exists with the provided `id`. Returns a `200` status if the QuoteRequest exists, or a `404` status otherwise.
+   *	Checks if a QuoteRequest exists with the provided `id`. Returns a `200 OK` status if the QuoteRequest exists, or a [Not Found](/../api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -63,6 +66,9 @@ export class ByProjectKeyQuoteRequestsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Updates a QuoteRequest in the Project using one or more [update actions](/../api/projects/quote-requests#update-actions).
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -89,6 +95,9 @@ export class ByProjectKeyQuoteRequestsByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deletes a QuoteRequest in the Project.
+   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

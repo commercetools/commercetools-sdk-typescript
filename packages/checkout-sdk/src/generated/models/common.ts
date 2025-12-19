@@ -17,7 +17,7 @@ import {
 } from './payment-integration'
 
 /**
- *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+ *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ApplicationReference](ctp:checkout:type:ApplicationReference).
  *
  */
 export type Reference =
@@ -47,6 +47,7 @@ export interface IReference {
 export enum ReferenceTypeIdValues {
   Application = 'application',
   Cart = 'cart',
+  Deployment = 'deployment',
   Order = 'order',
   Payment = 'payment',
   PaymentIntegration = 'payment-integration',
@@ -55,14 +56,15 @@ export enum ReferenceTypeIdValues {
 export type ReferenceTypeId =
   | 'application'
   | 'cart'
+  | 'deployment'
   | 'order'
   | 'payment'
   | 'payment-integration'
   | (string & {})
 /**
- *	Draft type to create a [Reference](ctp:api:type:Reference) or a [KeyReference](ctp:api:type:KeyReference) to a resource. Provide either the `id` or (wherever supported) the `key` of the resource to reference, but depending on the API endpoint the response returns either a Reference or a KeyReference. For example, the field `parent` of a [CategoryDraft](ctp:api:type:CategoryDraft) takes a ResourceIdentifier for its value while the value of the corresponding field of a [Category](ctp:api:type:Category) is a Reference.
+ *	Draft type to create a [Reference](ctp:checkout:type:Reference) to a resource. Provide either the `id` or (wherever supported) the `key` of the resource to reference, but depending on the API endpoint the response returns a Reference.
  *
- *	Each resource type has its corresponding ResourceIdentifier, like [ChannelResourceIdentifier](ctp:api:type:ChannelResourceIdentifier).
+ *	Each resource type has its corresponding ResourceIdentifier, like [PaymentResourceIdentifier](ctp:checkout:type:PaymentResourceIdentifier).
  *
  */
 export type ResourceIdentifier =
@@ -73,7 +75,7 @@ export type ResourceIdentifier =
   | PaymentResourceIdentifier
 export interface IResourceIdentifier {
   /**
-   *	Type of referenced resource. If given, it must match the expected [ReferenceTypeId](/../api/types#ctp:api:type:ReferenceTypeId) of the referenced resource.
+   *	Type of referenced resource. If given, it must match the expected [ReferenceTypeId](ctp:checkout:type:ReferenceTypeId) of the referenced resource.
    *
    *
    */
@@ -111,6 +113,20 @@ export interface Amount {
    *
    */
   readonly currencyCode: string
+}
+/**
+ *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+ *
+ */
+export interface LocalizedString {
+  [key: string]: string
+}
+/**
+ *	A localized URL that provides different URL values for different locales.
+ *
+ */
+export interface LocalizedUrl {
+  [key: string]: string
 }
 /**
  *	The Region in which the Checkout application is [hosted](/hosts-and-authorization).

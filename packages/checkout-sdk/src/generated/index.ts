@@ -7,7 +7,13 @@
 
 // resources
 export * from './client/api-root'; //Root client that is used to access all the endpoints in the API
+export * from './client/applications/by-project-key-applications-by-id-request-builder'
+export * from './client/applications/by-project-key-applications-key-by-key-request-builder'
+export * from './client/applications/by-project-key-applications-request-builder'
 export * from './client/by-project-key-request-builder'
+export * from './client/payment-integrations/by-project-key-payment-integrations-by-id-request-builder'
+export * from './client/payment-integrations/by-project-key-payment-integrations-key-by-key-request-builder'
+export * from './client/payment-integrations/by-project-key-payment-integrations-request-builder'
 export * from './client/payment-intents/by-project-key-payment-intents-by-payment-id-request-builder'
 export * from './client/payment-intents/by-project-key-payment-intents-request-builder'
 export * from './client/transactions/by-project-key-transactions-by-id-request-builder'
@@ -21,6 +27,7 @@ export * from './models/error'
 export * from './models/order'
 export * from './models/payment'
 export * from './models/payment-integration'
+export * from './models/payment-integration-draft'
 export * from './models/payment-intents'
 export * from './models/responses'
 export * from './models/transaction'

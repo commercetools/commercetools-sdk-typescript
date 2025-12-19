@@ -55,6 +55,9 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
     )
   }
 
+  /**
+   *	Retrieves all QuoteRequests in a BusinessUnit.
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -85,7 +88,7 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
     )
   }
   /**
-   *	Checks if one or more QuoteRequests exist for the provided query predicate. Returns a `200` status if any QuoteRequests match the query predicate, or a `404` status otherwise.
+   *	Checks if one or more QuoteRequests exist for the provided query predicate in a BusinessUnit. Returns a `200 OK` status if any QuoteRequests match the query predicate, or a [Not Found](/../api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {
@@ -112,7 +115,9 @@ export class ByProjectKeyAsAssociateByAssociateIdInBusinessUnitKeyByBusinessUnit
     )
   }
   /**
-   *	Creates a QuoteRequest in a [BusinessUnit](ctp:api:type:BusinessUnit). Creating QuoteRequest fails with an [InvalidOperation](ctp:api:type:InvalidOperationError) if the Cart does not reference the same BusinessUnit as the `businessUnitKey` path parameter.
+   *	Creates a QuoteRequest in a BusinessUnit.
+   *	Creating QuoteRequest fails with an [InvalidOperation](ctp:api:type:InvalidOperationError) if the Cart does not reference the same BusinessUnit as the `businessUnitKey` path parameter.
+   *
    */
   public post(methodArgs: {
     queryArgs?: {

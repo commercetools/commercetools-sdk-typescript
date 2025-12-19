@@ -52,6 +52,8 @@ export class ByProjectKeyRecurrencePoliciesRequestBuilder {
   /**
    *	Retrieves Recurrence Policies in the Project.
    *
+   *	The `view_recurring_orders:{projectKey}` scope is deprecated for use on this endpoint. Update your clients to use the `view_recurrence_policies:{projectKey}` scope instead. For more information, see the [Deprecations and removals](/api/deprecations-and-removals#recurrence-policies) list.
+   *
    */
   public get(methodArgs?: {
     queryArgs?: {
@@ -84,6 +86,8 @@ export class ByProjectKeyRecurrencePoliciesRequestBuilder {
   /**
    *	Checks if one or more Recurrence Policies exist for the provided query predicate. Returns a `200` status if any Recurrence Policies match the query predicate, or a [NotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
    *
+   *	The `view_recurring_orders:{projectKey}` scope is deprecated for use on this endpoint. Update your clients to use the `view_recurrence_policies:{projectKey}` scope instead. For more information, see the [Deprecations and removals](/api/deprecations-and-removals#recurrence-policies) list.
+   *
    */
   public head(methodArgs?: {
     queryArgs?: {
@@ -110,6 +114,8 @@ export class ByProjectKeyRecurrencePoliciesRequestBuilder {
   }
   /**
    *	Creates a Recurrence Policy in the Project.
+   *
+   *	The `manage_recurring_orders:{projectKey}` scope is deprecated for use on this endpoint. Update your clients to use the `manage_recurrence_policies:{projectKey}` scope instead. For more information, see the [Deprecations and removals](/api/deprecations-and-removals#recurrence-policies) list.
    *
    */
   public post(methodArgs: {

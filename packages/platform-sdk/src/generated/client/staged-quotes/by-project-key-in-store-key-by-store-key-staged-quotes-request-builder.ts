@@ -52,6 +52,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyStagedQuotesRequestBuilder {
     })
   }
 
+  /**
+   *	Retrieves StagedQuotes in a [Store](ctp:api:type:Store).
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -81,7 +84,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyStagedQuotesRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more StagedQuotes exist for the provided query predicate. Returns a `200` status if any StagedQuotes match the query predicate, or a `404` status otherwise.
+   *	Checks if one or more StagedQuotes exist for the provided query predicate in a [Store](ctp:api:type:Store). Returns a `200` status if any StagedQuotes match the query predicate, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {
@@ -106,6 +109,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyStagedQuotesRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Creates a StagedQuote in a [Store](ctp:api:type:Store).
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

@@ -112,6 +112,7 @@ export type ErrorObject =
   | ProjectNotConfiguredForLanguagesError
   | QueryComplexityLimitExceededError
   | QueryTimedOutError
+  | RecurringOrderFailureError
   | ReferenceExistsError
   | ReferencedResourceNotFoundError
   | RequiredFieldError
@@ -377,12 +378,14 @@ export interface CountryNotConfiguredInStoreError extends IErrorObject {
  *
  *	The error is returned as a failed response to:
  *
- *	- [Create Cart](ctp:api:endpoint:/{projectKey}/carts:POST) and [Create Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/carts:POST) requests and [Add DiscountCode](ctp:api:type:CartAddDiscountCodeAction) update action on Carts.
- *	- [Create Cart](ctp:api:endpoint:/{projectKey}/me/carts:POST) and [Create Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/me/carts:POST) requests and [Add DiscountCode](ctp:api:type:MyCartAddDiscountCodeAction) update action on My Carts.
+ *	- [Create Cart](ctp:api:endpoint:/{projectKey}/carts:POST) and [Create Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/carts:POST) requests.
+ *	- [Create Cart](ctp:api:endpoint:/{projectKey}/me/carts:POST) and [Create Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/me/carts:POST) requests.
  *	- [Create Cart in BusinessUnit](ctp:api:endpoint:/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/carts:POST) request on Associate Carts.
  *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests on Orders.
  *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/me/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
- *	- [Add DiscountCode](ctp:api:type:StagedOrderAddDiscountCodeAction) update action on Order Edits.
+ *	- [Add DiscountCode](ctp:api:type:CartAddDiscountCodeAction) update action on Carts, if the associated Cart Discounts are inactive or invalid, or belongs to a different Store than the Cart.
+ *	- [Add DiscountCode](ctp:api:type:MyCartAddDiscountCodeAction) update action on My Carts, if the associated Cart Discounts are inactive or invalid, or belongs to a different Store than the Cart.
+ *	- [Add DiscountCode](ctp:api:type:StagedOrderAddDiscountCodeAction) update action on Order Edits, if the associated Cart Discounts are inactive or invalid, or belongs to a different Store than the Order.
  *	- [Create Order from Cart in BusinessUnit](ctp:api:endpoint:/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/orders:POST) request on Associate Orders.
  *
  */
@@ -1548,8 +1551,7 @@ export interface MissingTaxRateForCountryError extends IErrorObject {
   readonly state?: string
 }
 /**
- *	Returned when a [Money](ctp:api:type:Money) operation overflows the 64-bit integer range.
- *	See [Money usage](/types#usage) for more information.
+ *	Returned when a money operation overflows the 64-bit integer range.
  *
  */
 export interface MoneyOverflowError extends IErrorObject {
@@ -1866,6 +1868,26 @@ export interface QueryTimedOutError extends IErrorObject {
    *
    */
   readonly message: string
+}
+/**
+ *	Returned when a subsequent Order for a [Recurring Order](ctp:api:type:RecurringOrder) could not be processed.
+ *
+ */
+export interface RecurringOrderFailureError extends IErrorObject {
+  readonly code: 'RecurringOrderFailure'
+  [key: string]: any
+  /**
+   *	Plain text description of the error.
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	Details about the error's cause and the entities involved.
+   *
+   *
+   */
+  readonly details: any
 }
 /**
  *	Returned when a resource cannot be deleted because it is being referenced by another resource.
@@ -2204,6 +2226,7 @@ export type GraphQLErrorObject =
   | GraphQLProjectNotConfiguredForLanguagesError
   | GraphQLQueryComplexityLimitExceededError
   | GraphQLQueryTimedOutError
+  | GraphQLRecurringOrderFailureError
   | GraphQLReferenceExistsError
   | GraphQLReferencedResourceNotFoundError
   | GraphQLRequiredFieldError
@@ -2415,12 +2438,14 @@ export interface GraphQLCountryNotConfiguredInStoreError
  *
  *	The error is returned as a failed response to:
  *
- *	- [Create Cart](ctp:api:endpoint:/{projectKey}/carts:POST) and [Create Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/carts:POST) requests and [Add DiscountCode](ctp:api:type:CartAddDiscountCodeAction) update action on Carts.
- *	- [Create Cart](ctp:api:endpoint:/{projectKey}/me/carts:POST) and [Create Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/me/carts:POST) requests and [Add DiscountCode](ctp:api:type:MyCartAddDiscountCodeAction) update action on My Carts.
+ *	- [Create Cart](ctp:api:endpoint:/{projectKey}/carts:POST) and [Create Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/carts:POST) requests.
+ *	- [Create Cart](ctp:api:endpoint:/{projectKey}/me/carts:POST) and [Create Cart in Store](ctp:api:endpoint:/{projectKey}/in-store/key={storeKey}/me/carts:POST) requests.
  *	- [Create Cart in BusinessUnit](ctp:api:endpoint:/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/carts:POST) request on Associate Carts.
  *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/orders:POST) requests on Orders.
  *	- [Create Order from Cart](ctp:api:endpoint:/{projectKey}/me/orders:POST) and [Create Order in Store from Cart](ctp:api:endpoint:/{projectKey}/in-store/me/orders:POST) requests on My Orders.
- *	- [Add DiscountCode](ctp:api:type:StagedOrderAddDiscountCodeAction) update action on Order Edits.
+ *	- [Add DiscountCode](ctp:api:type:CartAddDiscountCodeAction) update action on Carts, if the associated Cart Discounts are inactive or invalid, or belongs to a different Store than the Cart.
+ *	- [Add DiscountCode](ctp:api:type:MyCartAddDiscountCodeAction) update action on My Carts, if the associated Cart Discounts are inactive or invalid, or belongs to a different Store than the Cart.
+ *	- [Add DiscountCode](ctp:api:type:StagedOrderAddDiscountCodeAction) update action on Order Edits, if the associated Cart Discounts are inactive or invalid, or belongs to a different Store than the Order.
  *	- [Create Order from Cart in BusinessUnit](ctp:api:endpoint:/{projectKey}/as-associate/{associateId}/in-business-unit/key={businessUnitKey}/orders:POST) request on Associate Orders.
  *
  */
@@ -3262,8 +3287,7 @@ export interface GraphQLMissingTaxRateForCountryError
   readonly state?: string
 }
 /**
- *	Returned when a [Money](ctp:api:type:Money) operation overflows the 64-bit integer range.
- *	See [Money usage](/types#usage) for more information.
+ *	Returned when a money operation overflows the 64-bit integer range.
  *
  */
 export interface GraphQLMoneyOverflowError extends IGraphQLErrorObject {
@@ -3506,6 +3530,20 @@ export interface GraphQLQueryComplexityLimitExceededError
 export interface GraphQLQueryTimedOutError extends IGraphQLErrorObject {
   readonly code: 'QueryTimedOut'
   [key: string]: any
+}
+/**
+ *	Returned when a subsequent Order for a [Recurring Order](ctp:api:type:RecurringOrder) could not be processed.
+ *
+ */
+export interface GraphQLRecurringOrderFailureError extends IGraphQLErrorObject {
+  readonly code: 'RecurringOrderFailure'
+  [key: string]: any
+  /**
+   *	Details about the error's cause and the entities involved.
+   *
+   *
+   */
+  readonly details: any
 }
 /**
  *	Returned when a resource cannot be deleted because it is being referenced by another resource.
