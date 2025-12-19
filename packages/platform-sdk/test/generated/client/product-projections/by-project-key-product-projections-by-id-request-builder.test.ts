@@ -98,7 +98,7 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
-      uri: '/test_projectKey/product-projections/test_ID?filter[attributes]=filter[attributes]',
+      uri: '/test_projectKey/product-projections/test_ID?filter%5Battributes%5D=filter%5Battributes%5D',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })
         .productProjections()
