@@ -28,6 +28,7 @@ const ctpClient = new ClientBuilder()
   .withHttpMiddleware(httpMiddleware)
   .build()
 
+export type { Transaction } from '../../src'
 export const ctpApiBuilder = createApiBuilderFromCtpClient(
   ctpClient,
   'https://checkout.europe-west1.gcp.commercetools.com'

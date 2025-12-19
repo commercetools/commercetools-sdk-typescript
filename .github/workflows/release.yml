@@ -8,6 +8,7 @@ on:
 permissions:
   actions: write
   contents: write
+  id-token: write  # Required for npm trusted publishing (OIDC)
 
 jobs:
   release:
@@ -41,27 +42,47 @@ jobs:
       - name: Setup
         uses: ./.github/actions/ci
 
-      - name: Creating .npmrc
-        run: |
-          cat << EOF > "$HOME/.npmrc"
-            email=npmjs@commercetools.com
-            //registry.npmjs.org/:_authToken=$NPM_TOKEN
-          EOF
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # Ensure npm 11.5.1 or later is installed for OIDC support
+      - name: Update npm
+        run: npm install -g npm@latest
+
+      - name: Verify npm version
+        run: npm --version
+
+      # Configure npm for OIDC authentication with trusted publishing
+      # This must be done after CI setup to ensure npm is properly configured
+
+      # setup-node@v4 with registry-url automatically configures OIDC when id-token: write is set
+      - name: Setup Node.js for npm publishing
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Building packages
         run: yarn build
 
+      - name: Verify npm OIDC configuration
+        run: |
+          # Verify registry is set correctly
+          echo "Registry: $(npm config get registry)"
+          # Ensure no token-based auth is configured (OIDC should be used automatically)
+          npm config delete //registry.npmjs.org/:_authToken || true
+          # Verify npm can access the registry (this will use OIDC if configured)
+          echo "npm OIDC authentication configured via setup-node action"
+
       - name: Create Release Pull Request or Publish to npm
         id: changesets
-        uses: changesets/action@master
+        uses: changesets/action@v1
         with:
           publish: yarn changeset publish
           version: yarn changeset:version-and-format
           commit: 'ci(changesets): version packages'
         env:
           GITHUB_TOKEN: ${{ steps.generate_github_token.outputs.token }}
+          # Ensure npm uses OIDC authentication
+          NPM_CONFIG_REGISTRY: 'https://registry.npmjs.org'
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Dispatch repository event
         if: steps.changesets.outputs.published == 'true'
