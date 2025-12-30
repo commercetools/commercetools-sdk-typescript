@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 4.8.0
+
+### Minor Changes
+
+- [#1209](https://github.com/commercetools/commercetools-sdk-typescript/pull/1209) [`77c6132`](https://github.com/commercetools/commercetools-sdk-typescript/commit/77c61328d222dbbbde3e79c63c2bb76df3f012a6) Thanks [@ajimae](https://github.com/ajimae)! - release all packages
+
 ## 4.7.0
 
 ### Minor Changes
