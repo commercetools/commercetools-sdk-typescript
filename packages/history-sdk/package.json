@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/history-sdk",
-  "version": "5.10.0",
+  "version": "5.11.0",
   "engines": {
     "node": ">=18"
   },
@@ -32,10 +32,10 @@
     "./dist/commercetools-history-sdk.esm.js": "./dist/commercetools-history-sdk.browser.esm.js"
   },
   "dependencies": {
-    "@commercetools/ts-client": "^4.7.0"
+    "@commercetools/ts-client": "^4.8.0"
   },
   "devDependencies": {
-    "@commercetools/platform-sdk": "8.22.0",
+    "@commercetools/platform-sdk": "8.23.0",
     "@types/uuid": "10.0.0",
     "organize-imports-cli": "0.10.0",
     "tsconfig-replace-paths": "0.0.14",
