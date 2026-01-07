@@ -876,6 +876,15 @@
 - added type `SetSortingInfoUpdateAction`
 - added type `SetStatusUpdateAction`
 - added type `SetTypeUpdateAction`
+- added type `ExpressContainerNotFound`
+- added type `ExpressMultipleContainersFound`
+- added type `ExpressPaymentCancelled`
+- added type `ExpressPaymentCompleted`
+- added type `ExpressPaymentFailed`
+- added type `ExpressPaymentIntegrationNotAvailable`
+- added type `ExpressPaymentInterrupted`
+- added type `ExpressPaymentStarted`
+- added type `NoExpressPaymentIntegrations`
 </details>
 
 <details>
