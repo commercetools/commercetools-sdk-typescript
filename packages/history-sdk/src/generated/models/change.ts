@@ -6751,6 +6751,7 @@ export interface SetPropertyChange extends IChange {
 /**
  *	Change triggered by the following update actions:
  *
+ *	- [Set Purchase Order Number](ctp:api:type:CartSetPurchaseOrderNumberAction) on Carts.
  *	- [Set Purchase Order Number](ctp:api:type:OrderSetPurchaseOrderNumberAction) on Orders.
  *	- [Set Purchase Order Number](ctp:api:type:StagedOrderSetPurchaseOrderNumberAction) on Staged Orders.
  *

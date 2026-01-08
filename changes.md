@@ -8,6 +8,7 @@
 - added type `BusinessUnitSetCustomerGroupAssignmentsAction`
 - added type `CartMergeMode`
 - added type `MergeCartDraft`
+- added type `CartSetPurchaseOrderNumberAction`
 - added type `AddressRole`
 - added type `RecurringOrderFailureError`
 - added type `GraphQLRecurringOrderFailureError`
@@ -15,6 +16,7 @@
 - added type `BusinessUnitCustomerGroupAssignmentRemovedMessage`
 - added type `BusinessUnitCustomerGroupAssignmentsSetMessage`
 - added type `CartFrozenMessage`
+- added type `CartPurchaseOrderNumberSetMessage`
 - added type `CartUnfrozenMessage`
 - added type `CustomerBillingAddressAddedMessage`
 - added type `CustomerBillingAddressRemovedMessage`
@@ -27,6 +29,7 @@
 - added type `BusinessUnitCustomerGroupAssignmentRemovedMessagePayload`
 - added type `BusinessUnitCustomerGroupAssignmentsSetMessagePayload`
 - added type `CartFrozenMessagePayload`
+- added type `CartPurchaseOrderNumberSetMessagePayload`
 - added type `CartUnfrozenMessagePayload`
 - added type `CustomerBillingAddressAddedMessagePayload`
 - added type `CustomerBillingAddressRemovedMessagePayload`
@@ -105,6 +108,8 @@
 - added property `customerGroupAssignments` to type `CompanyDraft`
 - added property `customerGroupAssignments` to type `Division`
 - added property `customerGroupAssignments` to type `DivisionDraft`
+- added property `purchaseOrderNumber` to type `Cart`
+- added property `purchaseOrderNumber` to type `CartDraft`
 - added property `addressRoles` to type `BusinessUnitAddressChangedMessage`
 - added property `addressRoles` to type `BusinessUnitAddressRemovedMessage`
 - added property `addressRoles` to type `CustomerAddressChangedMessage`

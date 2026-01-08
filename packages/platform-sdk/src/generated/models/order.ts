@@ -1118,9 +1118,11 @@ export interface OrderFromCartDraft {
    */
   readonly orderNumber?: string
   /**
-   *	User-defined identifier for a purchase Order.
+   *	User-defined identifier for a purchase order.
    *
-   *	It is typically set by the [Buyer](ctp:api:type:Buyer) and can be used with [Quotes](/quotes-overview) to track the purchase Order during the [quote and order flow](/../api/quotes-overview#intended-workflow).
+   *	It is typically set by the [Buyer](ctp:api:type:Buyer) or Merchant to track the purchase order during the [quote and order flow](/../api/quotes-overview#intended-workflow).
+   *
+   *	If not provided, the `purchaseOrderNumber` from the referenced [Cart](ctp:api:type:Cart) is used.
    *
    */
   readonly purchaseOrderNumber?: string
