@@ -335,6 +335,13 @@ export interface Cart extends BaseResource {
    */
   readonly deleteDaysAfterLastModification?: number
   /**
+   *	User-defined identifier of a purchase order.
+   *
+   *	It is typically set by the [Buyer](ctp:api:type:Buyer) or Merchant to track the purchase order during the [quote and order flow](/../api/quotes-overview#intended-workflow).
+   *
+   */
+  readonly purchaseOrderNumber?: string
+  /**
    *	Date and time (UTC) the Cart was initially created.
    *
    *
@@ -554,6 +561,13 @@ export interface CartDraft {
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	User-defined identifier of a purchase order.
+   *
+   *	It is typically set by the [Buyer](ctp:api:type:Buyer) or Merchant to track the purchase order during the [quote and order flow](/../api/quotes-overview#intended-workflow).
+   *
+   */
+  readonly purchaseOrderNumber?: string
 }
 /**
  *	Determines how to manually merge an anonymous Cart with an existing Customer Cart.
@@ -759,6 +773,7 @@ export type CartUpdateAction =
   | CartSetLineItemTaxRateAction
   | CartSetLineItemTotalPriceAction
   | CartSetLocaleAction
+  | CartSetPurchaseOrderNumberAction
   | CartSetShippingAddressAction
   | CartSetShippingAddressCustomFieldAction
   | CartSetShippingAddressCustomTypeAction
@@ -3882,6 +3897,20 @@ export interface CartSetLocaleAction extends ICartUpdateAction {
    *
    */
   readonly locale?: string
+}
+/**
+ *	Updates the `purchaseOrderNumber` field and produces the [CartPurchaseOrderNumberSet](ctp:api:type:CartPurchaseOrderNumberSetMessage) Message.
+ *
+ */
+export interface CartSetPurchaseOrderNumberAction extends ICartUpdateAction {
+  readonly action: 'setPurchaseOrderNumber'
+  /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly purchaseOrderNumber?: string
 }
 /**
  *	Setting the shipping address also sets the [TaxRate](ctp:api:type:TaxRate) of Line Items and calculates the [TaxedPrice](ctp:api:type:TaxedPrice).

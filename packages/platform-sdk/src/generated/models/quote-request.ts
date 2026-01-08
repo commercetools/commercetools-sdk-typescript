@@ -237,7 +237,7 @@ export interface QuoteRequest extends BaseResource {
   readonly state?: StateReference
   /**
    *	Identifier for a purchase order, usually in a B2B context.
-   *	The Purchase Order Number is typically entered by the [Buyer](/quotes-overview#buyer).
+   *	The purchase order number is typically entered by the [Buyer](/quotes-overview#buyer).
    *
    *
    */
@@ -297,8 +297,9 @@ export interface QuoteRequestDraft {
   readonly state?: StateReference
   /**
    *	Identifier for a purchase order, usually in a B2B context.
-   *	The Purchase Order Number is typically entered by the [Buyer](/quotes-overview#buyer).
+   *	The purchase order number is typically entered by the [Buyer](/quotes-overview#buyer).
    *
+   *	If not provided, the `purchaseOrderNumber` from the referenced [Cart](ctp:api:type:Cart) is used.
    *
    */
   readonly purchaseOrderNumber?: string

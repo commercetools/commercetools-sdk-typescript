@@ -23,6 +23,14 @@ export type Message =
   | DiscountCodeNotApplicable
   | ErrorLoadingAllPaymentIntegrations
   | ExpiredSession
+  | ExpressContainerNotFound
+  | ExpressMultipleContainersFound
+  | ExpressPaymentCancelled
+  | ExpressPaymentCompleted
+  | ExpressPaymentFailed
+  | ExpressPaymentIntegrationNotAvailable
+  | ExpressPaymentInterrupted
+  | ExpressPaymentStarted
   | ExternalTermsAndConditionsPending
   | FailedToRefreshSession
   | GiftCardBalanceError
@@ -37,6 +45,7 @@ export type Message =
   | InvalidLocale
   | InvalidMode
   | MultipleVendorButtonContainers
+  | NoExpressPaymentIntegrations
   | NoPaymentIntegrations
   | NoShippingMethods
   | NonOrderableCartError
@@ -196,6 +205,28 @@ export interface ExpiredSession extends IMessage {
   readonly severity: string
   /**
    *	Session is expired.
+   *
+   */
+  readonly message: string
+  /**
+   *	Unique identifier of the event.
+   *
+   */
+  readonly correlationId: string
+}
+/**
+ *	Generated when the Express Payments process is interrupted by the seller's callback.
+ *
+ */
+export interface ExpressPaymentInterrupted extends IMessage {
+  readonly code: 'express_payment_interrupted'
+  /**
+   *	\`info`
+   *
+   */
+  readonly severity: string
+  /**
+   *	Express Payments process was interrupted by a callback.
    *
    */
   readonly message: string
@@ -470,6 +501,28 @@ export interface MultipleVendorButtonContainers extends IMessage {
   readonly correlationId: string
 }
 /**
+ *	Generated when no express payment integrations are configured.
+ *
+ */
+export interface NoExpressPaymentIntegrations extends IMessage {
+  readonly code: 'no_express_payment_integrations'
+  /**
+   *	\`error`
+   *
+   */
+  readonly severity: string
+  /**
+   *	There are no Express Payments integrations configured.
+   *
+   */
+  readonly message: string
+  /**
+   *	Unique identifier of the event.
+   *
+   */
+  readonly correlationId: string
+}
+/**
  *	Generated when no payment integration is set up for an [Application](/connectors-and-applications#applications). Add at least one Payment integration to the Application in the Merchant Center.
  *
  */
@@ -591,6 +644,13 @@ export type ResponseMessage =
   | ConnectorError
   | DeprecatedFields
   | DiscountCodeNotApplicable
+  | ExpressContainerNotFound
+  | ExpressMultipleContainersFound
+  | ExpressPaymentCancelled
+  | ExpressPaymentCompleted
+  | ExpressPaymentFailed
+  | ExpressPaymentIntegrationNotAvailable
+  | ExpressPaymentStarted
   | GiftCardBalanceSuccess
   | InvalidLocale
   | NoShippingMethods
@@ -938,6 +998,196 @@ export interface DiscountCodeNotApplicable extends IResponseMessage {
   readonly correlationId: string
   /**
    *	Contains the `cartId` and `discountCode` properties.
+   *
+   */
+  readonly payload: any
+}
+/**
+ *	Generated when the container element specified in the `expressId` option is not found in the DOM.
+ *
+ */
+export interface ExpressContainerNotFound extends IResponseMessage {
+  readonly code: 'express_container_not_found'
+  /**
+   *	\`error`
+   *
+   */
+  readonly severity: string
+  /**
+   *	Express container not found.
+   *
+   */
+  readonly message: string
+  /**
+   *	Unique identifier of the event.
+   *
+   */
+  readonly correlationId: string
+  /**
+   *	Contains the `id` of the container that was not found.
+   *
+   */
+  readonly payload: any
+}
+/**
+ *	Generated when multiple elements with the `data-ctc-express` attribute are found without an `expressId` specified. Use the `expressId` option to specify which container to use.
+ *
+ */
+export interface ExpressMultipleContainersFound extends IResponseMessage {
+  readonly code: 'express_multiple_containers_found'
+  /**
+   *	\`error`
+   *
+   */
+  readonly severity: string
+  /**
+   *	Multiple elements with data-ctc-express attribute found. Use expressId to specify which container to use.
+   *
+   */
+  readonly message: string
+  /**
+   *	Unique identifier of the event.
+   *
+   */
+  readonly correlationId: string
+  /**
+   *	Contains the `count` property indicating the number of containers found.
+   *
+   */
+  readonly payload: any
+}
+/**
+ *	Generated when the customer cancels the Express Payments process.
+ *
+ */
+export interface ExpressPaymentCancelled extends IResponseMessage {
+  readonly code: 'express_payment_cancelled'
+  /**
+   *	\`info`
+   *
+   */
+  readonly severity: string
+  /**
+   *	Express Payments process cancelled.
+   *
+   */
+  readonly message: string
+  /**
+   *	Unique identifier of the event.
+   *
+   */
+  readonly correlationId: string
+  /**
+   *	Contains the `paymentReference` and `method` object with the `type` property (if available).
+   *
+   */
+  readonly payload: any
+}
+/**
+ *	Generated when the Express Payments process is completed.
+ *
+ */
+export interface ExpressPaymentCompleted extends IResponseMessage {
+  readonly code: 'express_payment_completed'
+  /**
+   *	\`info`
+   *
+   */
+  readonly severity: string
+  /**
+   *	Express payment for `{orderId}` completed.
+   *
+   */
+  readonly message: string
+  /**
+   *	Unique identifier of the event.
+   *
+   */
+  readonly correlationId: string
+  /**
+   *	Contains the `order` object with the `id` property.
+   *
+   */
+  readonly payload: any
+}
+/**
+ *	Generated when the Express Payments process fails.
+ *
+ */
+export interface ExpressPaymentFailed extends IResponseMessage {
+  readonly code: 'express_payment_failed'
+  /**
+   *	\`error`
+   *
+   */
+  readonly severity: string
+  /**
+   *	Express payment failed.
+   *
+   */
+  readonly message: string
+  /**
+   *	Unique identifier of the event.
+   *
+   */
+  readonly correlationId: string
+  /**
+   *	Contains the `paymentReference`, `error`, and `method` object with the `type` property (if available).
+   *
+   */
+  readonly payload: any
+}
+/**
+ *	Generated when a requested Express Payments integration is not available. This can happen when using `mountMethod()` with a payment method that is not configured or not available for the current session.
+ *
+ */
+export interface ExpressPaymentIntegrationNotAvailable
+  extends IResponseMessage {
+  readonly code: 'express_payment_integration_not_available'
+  /**
+   *	\`warn`
+   *
+   */
+  readonly severity: string
+  /**
+   *	Express Payments integration not available.
+   *
+   */
+  readonly message: string
+  /**
+   *	Unique identifier of the event.
+   *
+   */
+  readonly correlationId: string
+  /**
+   *	Contains the `integration` object with the `type` property indicating the requested payment integration type, and `availableMethods` array listing the available payment methods.
+   *
+   */
+  readonly payload: any
+}
+/**
+ *	Generated when the customer clicks an Express Payments button and the Express Payment process starts.
+ *
+ */
+export interface ExpressPaymentStarted extends IResponseMessage {
+  readonly code: 'express_payment_started'
+  /**
+   *	\`info`
+   *
+   */
+  readonly severity: string
+  /**
+   *	Express payment started.
+   *
+   */
+  readonly message: string
+  /**
+   *	Unique identifier of the event.
+   *
+   */
+  readonly correlationId: string
+  /**
+   *	Contains the `integration` object with the `type` property.
    *
    */
   readonly payload: any
