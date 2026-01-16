@@ -10,9 +10,12 @@
 - added type `BusinessUnitAddCustomerGroupAssignmentAction`
 - added type `BusinessUnitRemoveCustomerGroupAssignmentAction`
 - added type `BusinessUnitSetCustomerGroupAssignmentsAction`
+- added type `CartLock`
 - added type `CartMergeMode`
 - added type `MergeCartDraft`
+- added type `CartLockCartAction`
 - added type `CartSetPurchaseOrderNumberAction`
+- added type `CartUnlockCartAction`
 - added type `AddressRole`
 - added type `RecurringOrderFailureError`
 - added type `GraphQLRecurringOrderFailureError`
@@ -112,6 +115,7 @@
 - added property `customerGroupAssignments` to type `CompanyDraft`
 - added property `customerGroupAssignments` to type `Division`
 - added property `customerGroupAssignments` to type `DivisionDraft`
+- added property `lock` to type `Cart`
 - added property `purchaseOrderNumber` to type `Cart`
 - added property `purchaseOrderNumber` to type `CartDraft`
 - added property `addressRoles` to type `BusinessUnitAddressChangedMessage`

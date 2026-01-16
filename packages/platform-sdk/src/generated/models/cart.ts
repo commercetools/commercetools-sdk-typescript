@@ -329,6 +329,12 @@ export interface Cart extends BaseResource {
    */
   readonly discountTypeCombination?: DiscountTypeCombination
   /**
+   *	Indicates whether the Cart has been [locked](/../api/carts-orders-overview#lock-a-cart), preventing edits.
+   *
+   *
+   */
+  readonly lock?: CartLock
+  /**
    *	Number of days after the last modification before a Cart is deleted. Configured in [Project settings](ctp:api:type:CartsConfiguration).
    *
    *
@@ -570,6 +576,26 @@ export interface CartDraft {
   readonly purchaseOrderNumber?: string
 }
 /**
+ *	Indicates that the Cart is [locked](/../api/carts-orders-overview#lock-a-cart) to prevent changes.
+ *	Provides metadata about when the lock was created and which
+ *	[API Client](ctp:api:type:ApiClient) initiated it.
+ *
+ */
+export interface CartLock {
+  /**
+   *	Date and time (UTC) the Cart was locked.
+   *
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	`id` of the [API Client](ctp:api:type:ApiClient) that locked the Cart.
+   *
+   *
+   */
+  readonly clientId: string
+}
+/**
  *	Determines how to manually merge an anonymous Cart with an existing Customer Cart.
  *
  */
@@ -730,6 +756,7 @@ export type CartUpdateAction =
   | CartChangeTaxModeAction
   | CartChangeTaxRoundingModeAction
   | CartFreezeCartAction
+  | CartLockCartAction
   | CartRecalculateAction
   | CartRemoveCustomLineItemAction
   | CartRemoveDiscountCodeAction
@@ -784,6 +811,7 @@ export type CartUpdateAction =
   | CartSetShippingMethodTaxRateAction
   | CartSetShippingRateInputAction
   | CartUnfreezeCartAction
+  | CartUnlockCartAction
   | CartUpdateItemShippingAddressAction
 export interface ICartUpdateAction {
   /**
@@ -2953,6 +2981,15 @@ export interface CartFreezeCartAction extends ICartUpdateAction {
   readonly action: 'freezeCart'
 }
 /**
+ *	[Locks](/../api/carts-orders-overview#lock-a-cart) a Cart, preventing all updates from API Clients without an elevated [OAuth 2.0 Scope](/../api/scopes).
+ *	This action sets the Cart's `lock` [field](/projects/carts#cart) which identifies the API Client that locked the Cart and when the lock was applied.
+ *	This action requires an additional OAuth 2.0 Scope `manage_locked_carts`.
+ *
+ */
+export interface CartLockCartAction extends ICartUpdateAction {
+  readonly action: 'lockCart'
+}
+/**
  *	This update action does not set any Cart field in particular, but it triggers several [Cart updates](/../api/carts-orders-overview#update-a-cart)
  *	to bring prices and discounts to the latest state. Those can become stale over time when no Cart updates have been performed for a while and
  *	prices on related Products have changed in the meanwhile.
@@ -4111,6 +4148,14 @@ export interface CartSetShippingRateInputAction extends ICartUpdateAction {
  */
 export interface CartUnfreezeCartAction extends ICartUpdateAction {
   readonly action: 'unfreezeCart'
+}
+/**
+ *	Unlocks a Cart, removing all update restrictions that are in place while a Cart is [locked](/../api/carts-orders-overview#lock-a-cart).
+ *	This action requires an additional OAuth 2.0 Scope `manage_locked_carts`.
+ *
+ */
+export interface CartUnlockCartAction extends ICartUpdateAction {
+  readonly action: 'unlockCart'
 }
 /**
  *	Updates an address in `itemShippingAddresses` by keeping the Address `key`.
