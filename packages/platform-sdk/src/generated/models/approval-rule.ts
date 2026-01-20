@@ -429,7 +429,7 @@ export interface RuleApproverDraft {
 }
 export interface RuleRequester {
   /**
-   *	The [Associate Role](ctp:api:type:AssociateRole) that an [Associate](ctp:api:type) must hold for the Approval Rule to apply to the Orders they create.
+   *	The [Associate Role](ctp:api:type:AssociateRole) that an [Associate](ctp:api:type:Associate) must hold for the Approval Rule to apply to the Orders they create.
    *
    *
    */
@@ -437,7 +437,7 @@ export interface RuleRequester {
 }
 export interface RuleRequesterDraft {
   /**
-   *	The [Associate Role](ctp:api:type:AssociateRole) that an [Associate](ctp:api:type) must hold for the Approval Rule to apply to the Orders they create.
+   *	The [Associate Role](ctp:api:type:AssociateRole) that an [Associate](ctp:api:type:Associate) must hold for the Approval Rule to apply to the Orders they create.
    *
    *
    */
