@@ -216,6 +216,12 @@ export interface Cart extends BaseResource {
    */
   readonly cartState: CartState
   /**
+   *	Determines freezing behavior when `cartState` is `Frozen`.
+   *
+   *
+   */
+  readonly freezeStrategy?: FreezeStrategy
+  /**
    *	Billing address associated with the Cart.
    *
    *
@@ -1394,6 +1400,16 @@ export interface ExternalTaxRateDraft {
    */
   readonly subRates?: SubRate[]
 }
+/**
+ *	Indicates how a [Cart](ctp:api:type:Cart) freeze behaves. For detailed behavior on each of these strategies, see [Freeze a Cart](/../api/carts-orders-overview#freeze-a-cart).
+ *
+ */
+export enum FreezeStrategyValues {
+  HardFreeze = 'HardFreeze',
+  SoftFreeze = 'SoftFreeze',
+}
+
+export type FreezeStrategy = 'HardFreeze' | 'SoftFreeze' | (string & {})
 /**
  *	Indicates how Line Items in a Cart are tracked.
  *
@@ -2971,14 +2987,25 @@ export interface CartChangeTaxRoundingModeAction extends ICartUpdateAction {
   readonly taxRoundingMode: RoundingMode
 }
 /**
- *	Changes the [CartState](ctp:api:type:CartState) from `Active` to `Frozen`. Results in a [Frozen Cart](ctp:api:type:FrozenCarts).
- *	Fails with [InvalidOperation](ctp:api:type:InvalidOperationError) error when the Cart is empty.
  *
- *	Freezing a Cart produces the [CartFrozen](ctp:api:type:CartFrozenMessage) Message.
+ *	Freezes the Cart based on the provided [FreezeStrategy](ctp:api:type:FreezeStrategy).
+ *
+ *	The following behavior occurs:
+ *	  - Changes the Cart State from `Active` to `Frozen`.
+ *	  - Sets the corresponding [FreezeStrategy](ctp:api:type:FreezeStrategy) on the Cart's `freezeStrategy` field.
+ *	  - Produces the [CartFrozen](ctp:api:type:CartFrozenMessage) Message.
+ *
+ *	If the Cart is empty, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
  *
  */
 export interface CartFreezeCartAction extends ICartUpdateAction {
   readonly action: 'freezeCart'
+  /**
+   *	Strategy that determines the freezing behavior.
+   *
+   *
+   */
+  readonly strategy?: FreezeStrategy
 }
 /**
  *	[Locks](/../api/carts-orders-overview#lock-a-cart) a Cart, preventing all updates from API Clients without an elevated [OAuth 2.0 Scope](/../api/scopes).
@@ -3429,6 +3456,9 @@ export interface CartSetCustomLineItemTaxRateAction extends ICartUpdateAction {
  *
  *	To unset a custom Shipping Method on a Cart, use the [Set ShippingMethod](ctp:api:type:CartSetShippingMethodAction) update action
  *	without the `shippingMethod` field instead.
+ *
+ *	This update is not allowed when the Cart is [frozen](/../api/carts-orders-overview#freeze-a-cart) with
+ *	the `HardFreeze` [FreezeStrategy](ctp:api:type:FreezeStrategy).
  *
  */
 export interface CartSetCustomShippingMethodAction extends ICartUpdateAction {
@@ -4060,6 +4090,8 @@ export interface CartSetShippingCustomTypeAction extends ICartUpdateAction {
 }
 /**
  *	To set the Cart's Shipping Method the Cart must have the `Single` [ShippingMode](ctp:api:type:ShippingMode) and a `shippingAddress`.
+ *
+ *	This update is not allowed when the Cart is [frozen](/../api/carts-orders-overview#freeze-a-cart) with the `HardFreeze` [FreezeStrategy](ctp:api:type:FreezeStrategy).
  *
  */
 export interface CartSetShippingMethodAction extends ICartUpdateAction {
