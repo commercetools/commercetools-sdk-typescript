@@ -30,7 +30,7 @@ export interface Record {
    */
   readonly previousVersion: number
   /**
-   *	Indicates the type of change.
+   *	Indicates the change type.
    *	For creation, update, or deletion, the value is `"ResourceCreated"`, `"ResourceUpdated"`, or `"ResourceDeleted"` respectively.
    *
    *

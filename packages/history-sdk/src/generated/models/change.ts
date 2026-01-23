@@ -500,7 +500,7 @@ export interface IChange {
    */
   readonly type: string
   /**
-   *	[Type of change](#type-of-change) on a resource that is similar to the update action it relates to, where possible.
+   *	Change type on a resource that is similar to the update action it relates to, where possible.
    *	It is not a unique identifier for the data structure, for example, the `setDescription` change can occur with a localized and non-localized representation.
    *
    *	[Records](ctp:history:type:Record) can be filtered by this value using the `changes` query parameter.
@@ -7364,7 +7364,11 @@ export interface SetStoreModeChange extends IChange {
   readonly nextValue: BusinessUnitStoreMode
 }
 /**
- *	Change triggered by the [Set Stores](ctp:api:type:CustomerSetStoresAction) update action.
+ *	Change triggered by the following update actions:
+ *	- [Set Stores](ctp:api:type:BusinessUnitSetStoresAction) on Business Units.
+ *	- [Set Stores](ctp:api:type:CartDiscountSetStoresAction) on Cart Discounts.
+ *	- [Set Stores](ctp:api:type:CustomerSetStoresAction) on Customers.
+ *
  */
 export interface SetStoresChange extends IChange {
   readonly type: 'SetStoresChange'
