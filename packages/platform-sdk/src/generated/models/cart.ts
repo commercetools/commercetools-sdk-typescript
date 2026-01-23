@@ -602,7 +602,7 @@ export interface CartLock {
   readonly clientId: string
 }
 /**
- *	Determines how to manually merge an anonymous Cart with an existing Customer Cart.
+ *	Determines how to manually merge an anonymous Cart with an existing Customer Cart. For more information about merge mode behaviors, merge rules, and tax recalculation, see [Merge a Cart](/../api/carts-orders-overview#merge-a-cart).
  *
  */
 export enum CartMergeModeValues {
