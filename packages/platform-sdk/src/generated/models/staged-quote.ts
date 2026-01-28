@@ -118,7 +118,7 @@ export interface StagedQuote extends BaseResource {
    */
   readonly state?: StateReference
   /**
-   *	The Purchase Order Number is typically set by the [Buyer](/quotes-overview#buyer) on a [QuoteRequest](ctp:api:type:QuoteRequest) to
+   *	The purchase order number is typically set by the [Buyer](/quotes-overview#buyer) on a [QuoteRequest](ctp:api:type:QuoteRequest) to
    *	track the purchase order during the [quote and order flow](/../api/quotes-overview#intended-workflow).
    *
    *

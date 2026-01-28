@@ -27,6 +27,10 @@ import {
   TypeResourceIdentifier,
 } from './type'
 
+/**
+ *	Determines how an anonymous Cart is handled when a Customer signs in. For more information, see [Cart merge during sign-in and sign-up](/../api/customers-overview#cart-merge-during-sign-in-and-sign-up).
+ *
+ */
 export enum AnonymousCartSignInModeValues {
   MergeWithExistingCustomerCart = 'MergeWithExistingCustomerCart',
   UseAsNewActiveCustomerCart = 'UseAsNewActiveCustomerCart',

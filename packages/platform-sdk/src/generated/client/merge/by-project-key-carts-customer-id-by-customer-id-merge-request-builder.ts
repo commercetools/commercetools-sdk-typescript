@@ -21,7 +21,7 @@ export class ByProjectKeyCartsCustomerIdByCustomerIdMergeRequestBuilder {
   ) {}
   /**
    *	Merges items from an anonymous Cart into the most recently modified active Cart of a Customer. If no active Cart exists, the anonymous Cart becomes the Customer's active Cart.
-   *	For more information, see [Merge behavior](/../api/carts-orders-overview#merge-behavior).
+   *	For more information about merge mode behaviors, merge rules, and tax recalculation, see [Merge a Cart](/../api/carts-orders-overview#merge-a-cart).
    *
    */
   public post(methodArgs: {

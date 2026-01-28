@@ -5,9 +5,9 @@ that if the NodeJS runtime provides support only to version X and newer, we will
 
 Unless decided otherwise by our case-by-case analysis, we will adhere to the following principles:
 
-* We provide support for the current and two previous major versions of our SDKs.
-* We will provide bug fixes and security patches for older versions of our SDKs on a case-by-case basis.
-* We will provide support for versions of our SDKs with the first major version being released a year ago or not older
+- We provide support for the current and two previous major versions of our SDKs.
+- We will provide bug fixes and security patches for older versions of our SDKs on a case-by-case basis.
+- We will provide support for versions of our SDKs with the first major version being released a year ago or not older
   than two major versions.
 
 ## Extraordinary Circumstances
@@ -15,8 +15,8 @@ Unless decided otherwise by our case-by-case analysis, we will adhere to the fol
 In extraordinary circumstances, we may provide support for older versions of our SDKs.
 Examples of extraordinary circumstances include:
 
-* A critical security vulnerability that affects an older version of our SDK.
-* A major change in the underlying platform that requires us to update an older version of our SDK.
+- A critical security vulnerability that affects an older version of our SDK.
+- A major change in the underlying platform that requires us to update an older version of our SDK.
 
 We will evaluate requests for support in extraordinary circumstances on a case-by-case basis.
 
