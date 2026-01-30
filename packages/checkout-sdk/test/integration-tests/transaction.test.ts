@@ -62,9 +62,7 @@ describe('::transaction', () => {
     expect(_transactions).toBeDefined()
     expect(_transactions.statusCode).toEqual(201)
     transactions = _transactions.body
-  })
 
-  it('should retrieve a transaction using ID', async () => {
     const _transaction = await ctpApiBuilder
       .transactions()
       .withId({ id: transactions.id })

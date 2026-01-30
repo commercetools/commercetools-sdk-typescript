@@ -23,6 +23,10 @@ import {
   DiscountGroupResourceIdentifier,
 } from './discount-group'
 import { ProductReference, ProductResourceIdentifier } from './product'
+import {
+  RecurringOrderScope,
+  RecurringOrderScopeDraft,
+} from './recurring-order'
 import { StoreKeyReference, StoreResourceIdentifier } from './store'
 import {
   CustomFields,
@@ -171,6 +175,14 @@ export interface CartDiscount extends BaseResource {
    *
    */
   readonly discountGroup?: DiscountGroupReference
+  /**
+   *	Scope of the Cart Discount for Recurring Orders.
+   *
+   *	The default is [NonRecurringOrdersOnly](ctp:api:type:NonRecurringOrdersOnly).
+   *
+   *
+   */
+  readonly recurringOrderScope: RecurringOrderScope
 }
 export interface CartDiscountDraft {
   /**
@@ -275,6 +287,14 @@ export interface CartDiscountDraft {
    *
    */
   readonly discountGroup?: DiscountGroupResourceIdentifier
+  /**
+   *	Scope of the Cart Discount for Recurring Orders.
+   *
+   *	If not set, the default is [NonRecurringOrdersOnlyDraft](ctp:api:type:NonRecurringOrdersOnlyDraft).
+   *
+   *
+   */
+  readonly recurringOrderScope?: RecurringOrderScopeDraft
 }
 /**
  *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [CartDiscount](ctp:api:type:CartDiscount).
@@ -484,6 +504,7 @@ export type CartDiscountUpdateAction =
   | CartDiscountSetDescriptionAction
   | CartDiscountSetDiscountGroupAction
   | CartDiscountSetKeyAction
+  | CartDiscountSetRecurringOrderScopeAction
   | CartDiscountSetStoresAction
   | CartDiscountSetValidFromAction
   | CartDiscountSetValidFromAndUntilAction
@@ -1104,6 +1125,20 @@ export interface CartDiscountSetKeyAction extends ICartDiscountUpdateAction {
    *
    */
   readonly key?: string
+}
+/**
+ *	Sets the scope of the Cart Discount for Recurring Orders.
+ *
+ */
+export interface CartDiscountSetRecurringOrderScopeAction
+  extends ICartDiscountUpdateAction {
+  readonly action: 'setRecurringOrderScope'
+  /**
+   *	Scope of the Cart Discount for Recurring Orders.
+   *
+   *
+   */
+  readonly recurringOrderScope: RecurringOrderScopeDraft
 }
 /**
  *	If a referenced Store does not exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error is returned.

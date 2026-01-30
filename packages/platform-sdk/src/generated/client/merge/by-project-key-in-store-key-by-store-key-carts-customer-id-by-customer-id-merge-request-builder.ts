@@ -25,7 +25,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyCartsCustomerIdByCustomerIdMergeReq
    *
    *	If the Cart exists in the Project but does not have a `store` specified, or the `store` field references a different Store, a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned.
    *
-   *	For more information, see [Merge behavior](/../api/carts-orders-overview#merge-behavior).
+   *	For more information about merge mode behaviors, merge rules, and tax recalculation, see [Merge a Cart](/../api/carts-orders-overview#merge-a-cart).
    *
    */
   public post(methodArgs: {

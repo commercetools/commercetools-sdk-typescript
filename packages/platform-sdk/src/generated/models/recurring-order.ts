@@ -533,6 +533,109 @@ export interface CounterDraft extends ISkipConfigurationDraft {
   readonly totalToSkip: number
 }
 /**
+ *	Indicates the scope of Cart Discounts for recurring Orders.
+ *
+ */
+export type RecurringOrderScope =
+  | AnyOrder
+  | ApplicableRecurrencePolicies
+  | NonRecurringOrdersOnly
+  | RecurringOrdersOnly
+export interface IRecurringOrderScope {
+  /**
+   *
+   */
+  readonly type: string
+}
+/**
+ *	Cart Discounts are applied to recurring and non-recurring Orders.
+ *
+ */
+export interface AnyOrder extends IRecurringOrderScope {
+  readonly type: 'AnyOrder'
+}
+/**
+ *	Cart Discounts are applied to recurring Orders that match the Recurrence Policies.
+ *
+ */
+export interface ApplicableRecurrencePolicies extends IRecurringOrderScope {
+  readonly type: 'ApplicableRecurrencePolicies'
+  /**
+   *	Recurrence Policies for which the Cart Discount is valid.
+   *
+   *
+   */
+  readonly recurrencePolicies: RecurrencePolicyReference[]
+}
+/**
+ *	Cart Discounts are applied to non-recurring Orders.
+ *
+ */
+export interface NonRecurringOrdersOnly extends IRecurringOrderScope {
+  readonly type: 'NonRecurringOrdersOnly'
+}
+/**
+ *	Defines the scope of Cart Discounts for recurring Orders.
+ *
+ */
+export type RecurringOrderScopeDraft =
+  | AnyOrderDraft
+  | ApplicableRecurrencePoliciesDraft
+  | NonRecurringOrdersOnlyDraft
+  | RecurringOrdersOnlyDraft
+export interface IRecurringOrderScopeDraft {
+  /**
+   *
+   */
+  readonly type: string
+}
+/**
+ *	Applies Cart Discounts to recurring and non-recurring Orders.
+ *
+ */
+export interface AnyOrderDraft extends IRecurringOrderScopeDraft {
+  readonly type: 'AnyOrder'
+}
+/**
+ *	Applies Cart Discounts to recurring Orders that match the Recurrence Policies.
+ *
+ */
+export interface ApplicableRecurrencePoliciesDraft
+  extends IRecurringOrderScopeDraft {
+  readonly type: 'ApplicableRecurrencePolicies'
+  /**
+   *	Recurrence Policies for which the Cart Discount is valid.
+   *
+   *	If a Recurrence Policy does not exist, a [ReferencedResourceNotFound](ctp:api:type:ReferencedResourceNotFoundError) error will be returned.
+   *
+   *	If fewer or more Recurrence Policies are provided, an [InvalidOperation](ctp:api:type:InvalidOperationError) error will be returned.
+   *
+   *
+   */
+  readonly recurrencePolicies: RecurrencePolicyResourceIdentifier[]
+}
+/**
+ *	Applies Cart Discounts to non-recurring Orders.
+ *
+ */
+export interface NonRecurringOrdersOnlyDraft extends IRecurringOrderScopeDraft {
+  readonly type: 'NonRecurringOrdersOnly'
+}
+/**
+ *	Cart Discounts are applied to recurring Orders.
+ *
+ */
+export interface RecurringOrdersOnly extends IRecurringOrderScope {
+  readonly type: 'RecurringOrdersOnly'
+}
+/**
+ *	Applies Cart Discounts to recurring Orders.
+ *
+ */
+export interface RecurringOrdersOnlyDraft extends IRecurringOrderScopeDraft {
+  readonly type: 'RecurringOrdersOnly'
+}
+/**
  *	Adding a Custom Field to a Recurring Order generates the [RecurringOrderCustomFieldAdded](ctp:api:type:RecurringOrderCustomFieldAddedMessage) Message, removing one generates the [RecurringOrderCustomFieldRemoved](ctp:api:type:RecurringOrderCustomFieldRemovedMessage) Message, and updating an existing one generates the [RecurringOrderCustomFieldChanged](ctp:api:type:RecurringOrderCustomFieldChangedMessage) Message.
  *
  */

@@ -500,7 +500,7 @@ export interface IChange {
    */
   readonly type: string
   /**
-   *	[Type of change](#type-of-change) on a resource that is similar to the update action it relates to, where possible.
+   *	Change type on a resource that is similar to the update action it relates to, where possible.
    *	It is not a unique identifier for the data structure, for example, the `setDescription` change can occur with a localized and non-localized representation.
    *
    *	[Records](ctp:history:type:Record) can be filtered by this value using the `changes` query parameter.
@@ -524,13 +524,6 @@ export interface AddAddressChange extends IChange {
    */
   readonly nextValue: Address
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Add Asset](ctp:api:type:CategoryAddAssetAction) on Categories.
- *	- [Add Asset](ctp:api:type:ProductAddAssetAction) on Products.
- *
- */
 export interface AddAssetChange extends IChange {
   readonly type: 'AddAssetChange'
   /**
@@ -828,13 +821,6 @@ export interface AddItemShippingAddressesChange extends IChange {
    */
   readonly nextValue: Address
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Add LocalizableEnumValue to AttributeDefinition](ctp:api:type:ProductTypeAddLocalizedEnumValueAction) on Product Types.
- *	- [Add LocalizedEnumValue to FieldDefinition](ctp:api:type:TypeAddLocalizedEnumValueAction) on Types.
- *
- */
 export interface AddLocalizedEnumValueChange extends IChange {
   readonly type: 'AddLocalizedEnumValueChange'
   /**
@@ -1317,13 +1303,6 @@ export interface ChangeAmountPlannedChange extends IChange {
    */
   readonly nextValue: _Money
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Change Asset Name](ctp:api:type:CategoryChangeAssetNameAction) on Categories.
- *	- [Change Asset Name](ctp:api:type:ProductChangeAssetNameAction) on Products.
- *
- */
 export interface ChangeAssetNameChange extends IChange {
   readonly type: 'ChangeAssetNameChange'
   /**
@@ -1363,13 +1342,6 @@ export interface ChangeAssetNameChange extends IChange {
    */
   readonly variant: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Change Asset Order](ctp:api:type:CategoryChangeAssetOrderAction) on Categories.
- *	- [Change Asset Order](ctp:api:type:ProductChangeAssetOrderAction) on Products.
- *
- */
 export interface ChangeAssetOrderChange extends IChange {
   readonly type: 'ChangeAssetOrderChange'
   /**
@@ -1787,13 +1759,6 @@ export interface ChangeInitialChange extends IChange {
    */
   readonly nextValue: boolean
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Change AttributeDefinition InputHint](ctp:api:type:ProductTypeChangeInputHintAction) on Product Types.
- *	- [Change InputHint](ctp:api:type:TypeChangeInputHintAction) on Types.
- *
- */
 export interface ChangeInputHintChange extends IChange {
   readonly type: 'ChangeInputHintChange'
   /**
@@ -1821,14 +1786,6 @@ export interface ChangeInputHintChange extends IChange {
    */
   readonly attributeName: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Change IsActive](ctp:api:type:CartDiscountChangeIsActiveAction) on Cart Discounts.
- *	- [Change IsActive](ctp:api:type:DiscountCodeChangeIsActiveAction) on Discount Codes.
- *	- [Change IsActive](ctp:api:type:ProductDiscountChangeIsActiveAction) on Product Discounts.
- *
- */
 export interface ChangeIsActiveChange extends IChange {
   readonly type: 'ChangeIsActiveChange'
   /**
@@ -1871,14 +1828,6 @@ export interface ChangeIsSearchableChange extends IChange {
    */
   readonly attributeName: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Change Key](ctp:api:type:ChannelChangeKeyAction) on Channels.
- *	- [Change State key](ctp:api:type:StateChangeKeyAction) on States.
- *	- [Change Key](ctp:api:type:TypeChangeKeyAction) on Types.
- *
- */
 export interface ChangeKeyChange extends IChange {
   readonly type: 'ChangeKeyChange'
   /**
@@ -1896,13 +1845,6 @@ export interface ChangeKeyChange extends IChange {
    */
   readonly nextValue: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Change AttributeDefinition Label](ctp:api:type:ProductTypeChangeLabelAction) on Product Types.
- *	- [Change FieldDefinition Label](ctp:api:type:TypeChangeLabelAction) on Types.
- *
- */
 export interface ChangeLabelChange extends IChange {
   readonly type: 'ChangeLabelChange'
   /**
@@ -1982,13 +1924,6 @@ export interface ChangeLocalizedDescriptionChange extends IChange {
    */
   readonly nextValue: LocalizedString
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Change the label of a LocalizedEnumValue](ctp:api:type:ProductTypeChangeLocalizedEnumValueLabelAction) on Product Types.
- *	- [Change LocalizedEnumValue Label](ctp:api:type:TypeChangeLocalizedEnumValueLabelAction) on Types.
- *
- */
 export interface ChangeLocalizedEnumValueLabelChange extends IChange {
   readonly type: 'ChangeLocalizedEnumValueLabelChange'
   /**
@@ -2021,13 +1956,6 @@ export interface ChangeLocalizedEnumValueLabelChange extends IChange {
    */
   readonly valueKey: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Change the order of LocalizedEnumValues](ctp:api:type:ProductTypeChangeLocalizedEnumValueOrderAction) on Product Types.
- *	- [Change the order of LocalizedEnumValues](ctp:api:type:TypeChangeLocalizedEnumValueOrderAction) on Types.
- *
- */
 export interface ChangeLocalizedEnumValueOrderChange extends IChange {
   readonly type: 'ChangeLocalizedEnumValueOrderChange'
   /**
@@ -2055,19 +1983,6 @@ export interface ChangeLocalizedEnumValueOrderChange extends IChange {
    */
   readonly attributeName: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Change Name](ctp:api:type:CartDiscountChangeNameAction) on Cart Discounts.
- *	- [Change Name](ctp:api:type:CategoryChangeNameAction) on Categories.
- *	- [Change Name](ctp:api:type:ChannelChangeNameAction) on Channels.
- *	- [Change Product Name](ctp:api:type:ProductChangeNameAction) on Products.
- *	- [Change Name](ctp:api:type:ProductDiscountChangeNameAction) on Product Discounts.
- *	- [Change Name](ctp:api:type:ProductSelectionChangeNameAction) on Product Selections.
- *	- [Change Name](ctp:api:type:ShoppingListChangeNameAction) on Shopping Lists.
- *	- [Change Name](ctp:api:type:ZoneChangeNameAction) on Zones.
- *
- */
 export interface ChangeLocalizedNameChange extends IChange {
   readonly type: 'ChangeLocalizedNameChange'
   /**
@@ -2114,15 +2029,6 @@ export interface ChangeMasterVariantChange extends IChange {
    */
   readonly catalogData: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Change Name](ctp:api:type:CustomerGroupChangeNameAction) on Customer Groups.
- *	- [Change Name](ctp:api:type:ProductTypeChangeNameAction) on Product Types.
- *	- [Change Name](ctp:api:type:TaxCategoryChangeNameAction) on Tax Categories.
- *	- [Change Name](ctp:api:type:ZoneChangeNameAction) on Zones.
- *
- */
 export interface ChangeNameChange extends IChange {
   readonly type: 'ChangeNameChange'
   /**
@@ -2560,13 +2466,6 @@ export interface ChangeShoppingListLineItemsOrderChange extends IChange {
    */
   readonly nextValue: ShoppingListLineItemValue[]
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Change Slug](ctp:api:type:CategoryChangeSlugAction) on Categories.
- *	- [Change Slug](ctp:api:type:ProductChangeSlugAction) on Products.
- *
- */
 export interface ChangeSlugChange extends IChange {
   readonly type: 'ChangeSlugChange'
   /**
@@ -2593,13 +2492,6 @@ export interface ChangeSlugChange extends IChange {
    */
   readonly catalogData: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Change Sort Order](ctp:api:type:CartDiscountChangeSortOrderAction) on Cart Discounts.
- *	- [Change Sort Order](ctp:api:type:ProductDiscountChangeSortOrderAction) on Product Discounts.
- *
- */
 export interface ChangeSortOrderChange extends IChange {
   readonly type: 'ChangeSortOrderChange'
   /**
@@ -2922,13 +2814,6 @@ export interface ChangeTransactionTimestampChange extends IChange {
    */
   readonly transaction: TransactionChangeValue
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Change Value](ctp:api:type:CartDiscountChangeValueAction) on Cart Discounts.
- *	- [Change Value](ctp:api:type:ProductDiscountChangeValueAction) on Product Discounts.
- *
- */
 export interface ChangeValueChange extends IChange {
   readonly type: 'ChangeValueChange'
   /**
@@ -3014,13 +2899,6 @@ export interface RemoveAddressChange extends IChange {
    */
   readonly previousValue: Address
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Remove Asset](ctp:api:type:CategoryRemoveAssetAction) on Categories.
- *	- [Remove Asset](ctp:api:type:ProductRemoveAssetAction) on Products.
- *
- */
 export interface RemoveAssetChange extends IChange {
   readonly type: 'RemoveAssetChange'
   /**
@@ -3696,13 +3574,6 @@ export interface SetAddressChange extends IChange {
    */
   readonly nextValue: Address
 }
-/**
- *	Change triggered by the following update actions:
- *	- [Set Address Custom Field](ctp:api:type:BusinessUnitSetAddressCustomFieldAction) on Business Units.
- *	- [Set Address Custom Field](ctp:api:type:CustomerSetAddressCustomFieldAction) on Customers.
- *	- [Set Address Custom Field](ctp:api:type:ChannelSetAddressCustomFieldAction) on Channels.
- *
- */
 export interface SetAddressCustomFieldChange extends IChange {
   readonly type: 'SetAddressCustomFieldChange'
   /**
@@ -3737,13 +3608,6 @@ export interface SetAddressCustomFieldChange extends IChange {
    */
   readonly nextValue: any
 }
-/**
- *	Change triggered by the following update actions:
- *	- [Set Address Custom Type](ctp:api:type:BusinessUnitSetAddressCustomTypeAction) on Business Units.
- *	- [Set Address Custom Type](ctp:api:type:CustomerSetAddressCustomTypeAction) on Customers.
- *	- [Set Address Custom Type](ctp:api:type:ChannelSetAddressCustomTypeAction) on Channels.
- *
- */
 export interface SetAddressCustomTypeChange extends IChange {
   readonly type: 'SetAddressCustomTypeChange'
   /**
@@ -3767,13 +3631,6 @@ export interface SetAddressCustomTypeChange extends IChange {
    */
   readonly nextValue: CustomFields
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set AnonymousId](ctp:api:type:PaymentSetAnonymousIdAction) on Payments.
- *	- [Set AnonymousId](ctp:api:type:ShoppingListSetAnonymousIdAction) on Shopping Lists.
- *
- */
 export interface SetAnonymousIdChange extends IChange {
   readonly type: 'SetAnonymousIdChange'
   /**
@@ -3811,13 +3668,6 @@ export interface SetApplicationVersionChange extends IChange {
    */
   readonly nextValue: number
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set Asset CustomField](ctp:api:type:CategorySetAssetCustomFieldAction) on Categories.
- *	- [Set Asset CustomField](ctp:api:type:ProductSetAssetCustomFieldAction) on Products.
- *
- */
 export interface SetAssetCustomFieldChange extends IChange {
   readonly type: 'SetAssetCustomFieldChange'
   /**
@@ -3868,13 +3718,6 @@ export interface SetAssetCustomFieldChange extends IChange {
    */
   readonly variant: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set Asset Custom Type](ctp:api:type:CategorySetAssetCustomTypeAction) on Categories.
- *	- [Set Asset Custom Type](ctp:api:type:ProductSetAssetCustomTypeAction) on Products.
- *
- */
 export interface SetAssetCustomTypeChange extends IChange {
   readonly type: 'SetAssetCustomTypeChange'
   /**
@@ -3914,13 +3757,6 @@ export interface SetAssetCustomTypeChange extends IChange {
    */
   readonly variant: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set Asset Description](ctp:api:type:CategorySetAssetDescriptionAction) on Categories.
- *	- [Set Asset Description](ctp:api:type:ProductSetAssetDescriptionAction) on Products.
- *
- */
 export interface SetAssetDescriptionChange extends IChange {
   readonly type: 'SetAssetDescriptionChange'
   /**
@@ -3960,13 +3796,6 @@ export interface SetAssetDescriptionChange extends IChange {
    */
   readonly variant: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set Asset Key](ctp:api:type:CategorySetAssetKeyAction) on Categories.
- *	- [Set Asset Key](ctp:api:type:ProductSetAssetKeyAction) on Products.
- *
- */
 export interface SetAssetKeyChange extends IChange {
   readonly type: 'SetAssetKeyChange'
   /**
@@ -4006,13 +3835,6 @@ export interface SetAssetKeyChange extends IChange {
    */
   readonly variant: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set Asset Sources](ctp:api:type:CategorySetAssetSourcesAction) on Categories.
- *	- [Set Asset Sources](ctp:api:type:ProductSetAssetSourcesAction) on Products.
- *
- */
 export interface SetAssetSourcesChange extends IChange {
   readonly type: 'SetAssetSourcesChange'
   /**
@@ -4052,13 +3874,6 @@ export interface SetAssetSourcesChange extends IChange {
    */
   readonly variant: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Change Asset Tags](ctp:api:type:CategorySetAssetTagsAction) on Categories.
- *	- [Change Asset Tags](ctp:api:type:ProductSetAssetTagsAction) on Products.
- *
- */
 export interface SetAssetTagsChange extends IChange {
   readonly type: 'SetAssetTagsChange'
   /**
@@ -4374,29 +4189,6 @@ export interface SetCountryChange extends IChange {
    */
   readonly nextValue: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set CustomField](ctp:api:type:CartDiscountSetCustomFieldAction) on Cart Discounts.
- *	- [Set CustomField](ctp:api:type:CategorySetCustomFieldAction) on Categories.
- *	- [Set CustomField](ctp:api:type:ChannelSetCustomFieldAction) on Channels.
- *	- [Set CustomField](ctp:api:type:CustomerSetCustomFieldAction) on Customers.
- *	- [Set CustomField](ctp:api:type:CustomerGroupSetCustomFieldAction) on Customer Groups.
- *	- [Set CustomField](ctp:api:type:DiscountCodeSetCustomFieldAction) on Discount Codes.
- *	- [Set CustomField](ctp:api:type:InventoryEntrySetCustomFieldAction) on Inventories.
- *	- [Set CustomField](ctp:api:type:OrderSetCustomFieldAction) on Orders.
- *	- [Set CustomField](ctp:api:type:OrderEditSetCustomFieldAction) on Order Edits.
- *	- [Set CustomField](ctp:api:type:PaymentSetCustomFieldAction) on Payments.
- *	- [Set CustomField](ctp:api:type:ProductSelectionSetCustomFieldAction) on Product Selections.
- *	- [Set CustomField](ctp:api:type:QuoteSetCustomFieldAction) on Quotes.
- *	- [Set CustomField](ctp:api:type:QuoteRequestSetCustomFieldAction) on Quote Requests.
- *	- [Set CustomField](ctp:api:type:ReviewSetCustomFieldAction) on Reviews.
- *	- [Set CustomField](ctp:api:type:ShoppingListSetCustomFieldAction) on Shopping Lists.
- *	- [Set CustomField](ctp:api:type:StagedOrderSetCustomFieldAction) on Staged Orders.
- *	- [Set CustomField](ctp:api:type:StagedQuoteSetCustomFieldAction) on Staged Quotes.
- *	- [Set CustomField](ctp:api:type:StoreSetCustomFieldAction) on Stores.
- *
- */
 export interface SetCustomFieldChange extends IChange {
   readonly type: 'SetCustomFieldChange'
   /**
@@ -4750,29 +4542,6 @@ export interface SetCustomShippingMethodChange extends IChange {
    */
   readonly nextValue: CustomShippingMethodChangeValue
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set Custom Type](ctp:api:type:CartDiscountSetCustomTypeAction) on Cart Discounts.
- *	- [Set Custom Type](ctp:api:type:CategorySetCustomTypeAction) on Categories.
- *	- [Set Custom Type](ctp:api:type:ChannelSetCustomTypeAction) on Channels.
- *	- [Set Custom Type](ctp:api:type:CustomerSetCustomTypeAction) on Customers.
- *	- [Set Custom Type](ctp:api:type:CustomerGroupSetCustomTypeAction) on Customer Groups.
- *	- [Set Custom Type](ctp:api:type:DiscountCodeSetCustomTypeAction) on Discount Codes.
- *	- [Set Custom Type](ctp:api:type:InventoryEntrySetCustomTypeAction) on Inventories.
- *	- [Set Custom Type](ctp:api:type:OrderSetCustomTypeAction) on Orders.
- *	- [Set Custom Type](ctp:api:type:OrderEditSetCustomTypeAction) on Order Edits.
- *	- [Set Custom Type](ctp:api:type:StagedOrderSetCustomTypeAction) on Staged Orders.
- *	- [Set Custom Type](ctp:api:type:PaymentSetCustomTypeAction) on Payments.
- *	- [Set Custom Type](ctp:api:type:ProductSelectionSetCustomTypeAction) on Product Selections.
- *	- [Set Custom Type](ctp:api:type:QuoteSetCustomTypeAction) on Quotes.
- *	- [Set Custom Type](ctp:api:type:StagedQuoteSetCustomTypeAction) on Staged Quotes.
- *	- [Set Custom Type](ctp:api:type:QuoteRequestSetCustomTypeAction) on Quote Requests.
- *	- [Set Custom Type](ctp:api:type:ReviewSetCustomTypeAction) on Reviews.
- *	- [Set Custom Type](ctp:api:type:ShoppingListSetCustomTypeAction) on Shopping Lists.
- *	- [Set Custom Type](ctp:api:type:StoreSetCustomTypeAction) on Stores.
- *
- */
 export interface SetCustomTypeChange extends IChange {
   readonly type: 'SetCustomTypeChange'
   /**
@@ -4790,14 +4559,6 @@ export interface SetCustomTypeChange extends IChange {
    */
   readonly nextValue: CustomFields
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set Customer](ctp:api:type:PaymentSetCustomerAction) on Payments.
- *	- [Set Customer](ctp:api:type:ReviewSetCustomerAction) on Reviews.
- *	- [Set Customer](ctp:api:type:ShoppingListSetCustomerAction) on Shopping Lists.
- *
- */
 export interface SetCustomerChange extends IChange {
   readonly type: 'SetCustomerChange'
   /**
@@ -4839,12 +4600,6 @@ export interface SetCustomerEmailChange extends IChange {
    */
   readonly nextValue: string
 }
-/**
- *	Change triggered by the following update actions:
- *	  - [Set CustomerGroup](ctp:api:type:CustomerSetCustomerGroupAction) on Customers.
- *	  - [Set CustomerGroup](ctp:api:type:StagedOrderSetCustomerGroupAction) on Order Edits.
- *
- */
 export interface SetCustomerGroupChange extends IChange {
   readonly type: 'SetCustomerGroupChange'
   /**
@@ -5046,13 +4801,6 @@ export interface SetDeliveryItemsChange extends IChange {
    */
   readonly deliveryId: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set Description](ctp:api:type:TaxCategorySetDescriptionAction) on Tax Categories.
- *	- [Set Description](ctp:api:type:ZoneSetDescriptionAction) on Zones.
- *
- */
 export interface SetDescriptionChange extends IChange {
   readonly type: 'SetDescriptionChange'
   /**
@@ -5168,13 +4916,6 @@ export interface SetExpectedDeliveryChange extends IChange {
    */
   readonly nextValue: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set External ID](ctp:api:type:CategorySetExternalIdAction) on Categories.
- *	- [Set External ID](ctp:api:type:CustomerSetExternalIdAction) on Customers.
- *
- */
 export interface SetExternalIdChange extends IChange {
   readonly type: 'SetExternalIdChange'
   /**
@@ -5334,25 +5075,6 @@ export interface SetIsValidChange extends IChange {
    */
   readonly nextValue: boolean
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set Key](ctp:api:type:CartDiscountSetKeyAction) on Cart Discounts.
- *	- [Set Key](ctp:api:type:CategorySetKeyAction) on Categories.
- *	- [Set Key](ctp:api:type:CustomerSetKeyAction) on Customers.
- *	- [Set Key](ctp:api:type:CustomerGroupSetKeyAction) on Customer Groups.
- *	- [Set Key](ctp:api:type:DiscountCodeSetKeyAction) on Discount Codes.
- *	- [Set Key](ctp:api:type:InventoryEntrySetKeyAction) on Inventories.
- *	- [Set Key](ctp:api:type:PaymentSetKeyAction) on Payments.
- *	- [Set Key](ctp:api:type:ProductSetKeyAction) on Products.
- *	- [Set Key](ctp:api:type:ProductDiscountSetKeyAction) on Product Discounts.
- *	- [Set Key](ctp:api:type:ProductSelectionSetKeyAction) on Product Selections.
- *	- [Set Key](ctp:api:type:ProductTypeSetKeyAction) on Product Types.
- *	- [Set Key](ctp:api:type:ReviewSetKeyAction) on Reviews.
- *	- [Set Key](ctp:api:type:ShoppingListSetKeyAction) on Shopping Lists.
- *	- [Set Key](ctp:api:type:ZoneSetKeyAction) on Zones.
- *
- */
 export interface SetKeyChange extends IChange {
   readonly type: 'SetKeyChange'
   /**
@@ -5864,15 +5586,6 @@ export interface SetLineItemTotalPriceChange extends IChange {
    */
   readonly variant: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set Locale](ctp:api:type:CustomerSetLocaleAction) on Customers.
- *	- [Set Locale](ctp:api:type:OrderSetLocaleAction) on Orders.
- *	- [Set Locale](ctp:api:type:StagedOrderSetLocaleAction) on Staged Orders.
- *	- [Set Locale](ctp:api:type:ReviewSetLocaleAction) on Reviews.
- *
- */
 export interface SetLocaleChange extends IChange {
   readonly type: 'SetLocaleChange'
   /**
@@ -5890,19 +5603,6 @@ export interface SetLocaleChange extends IChange {
    */
   readonly nextValue: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set Description](ctp:api:type:CartDiscountSetDescriptionAction) on Cart Discounts.
- *	- [Set Description](ctp:api:type:CategorySetDescriptionAction) on Categories.
- *	- [Set Description](ctp:api:type:DiscountCodeSetDescriptionAction) on Discount Codes.
- *	- [Set Description](ctp:api:type:ProductSetDescriptionAction) on Products.
- *	- [Set Description](ctp:api:type:ProductDiscountSetDescriptionAction) on Product Discounts.
- *	- [Set Description](ctp:api:type:ShoppingListSetDescriptionAction) on Shopping Lists.
- *	- [Set Description](ctp:api:type:StateSetDescriptionAction) on States.
- *	- [Set Description](ctp:api:type:TypeSetDescriptionAction) on Types.
- *
- */
 export interface SetLocalizedDescriptionChange extends IChange {
   readonly type: 'SetLocalizedDescriptionChange'
   /**
@@ -5960,13 +5660,6 @@ export interface SetMaxApplicationsPerCustomerChange extends IChange {
    */
   readonly nextValue: number
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set Meta Description](ctp:api:type:CategorySetMetaDescriptionAction) on Categories.
- *	- [Set Meta Description](ctp:api:type:ProductSetMetaDescriptionAction) on Products.
- *
- */
 export interface SetMetaDescriptionChange extends IChange {
   readonly type: 'SetMetaDescriptionChange'
   /**
@@ -5993,13 +5686,6 @@ export interface SetMetaDescriptionChange extends IChange {
    */
   readonly catalogData: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set Meta Keywords](ctp:api:type:CategorySetMetaKeywordsAction) on Categories.
- *	- [Set Meta Keywords](ctp:api:type:ProductSetMetaKeywordsAction) on Products.
- *
- */
 export interface SetMetaKeywordsChange extends IChange {
   readonly type: 'SetMetaKeywordsChange'
   /**
@@ -6026,13 +5712,6 @@ export interface SetMetaKeywordsChange extends IChange {
    */
   readonly catalogData: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set Meta Title](ctp:api:type:CategorySetMetaTitleAction) on Categories.
- *	- [Set Meta Title](ctp:api:type:ProductSetMetaTitleAction) on Products.
- *
- */
 export interface SetMetaTitleChange extends IChange {
   readonly type: 'SetMetaTitleChange'
   /**
@@ -6159,14 +5838,6 @@ export interface SetNameChange extends IChange {
    */
   readonly nextValue: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set Name](ctp:api:type:DiscountCodeSetNameAction) on Discount Codes.
- *	- [Set State Name](ctp:api:type:StateSetNameAction) on States.
- *	- [Set Name](ctp:api:type:StoreSetNameAction) on Stores.
- *
- */
 export interface SetLocalizedNameChange extends IChange {
   readonly type: 'SetLocalizedNameChange'
   /**
@@ -7318,13 +6989,6 @@ export interface SetStatusInterfaceTextChange extends IChange {
    */
   readonly nextValue: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set Store](ctp:api:type:OrderSetStoreAction) on Orders.
- *	- [Set Store](ctp:api:type:ShoppingListSetStoreAction) on Shopping Lists.
- *
- */
 export interface SetStoreChange extends IChange {
   readonly type: 'SetStoreChange'
   /**
@@ -7362,9 +7026,6 @@ export interface SetStoreModeChange extends IChange {
    */
   readonly nextValue: BusinessUnitStoreMode
 }
-/**
- *	Change triggered by the [Set Stores](ctp:api:type:CustomerSetStoresAction) update action.
- */
 export interface SetStoresChange extends IChange {
   readonly type: 'SetStoresChange'
   /**
@@ -7588,13 +7249,6 @@ export interface SetTextLineItemDescriptionChange extends IChange {
    */
   readonly textLineItem: TextLineItemValue
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set Title](ctp:api:type:CustomerSetTitleAction) on Customers.
- *	- [Set Title](ctp:api:type:ReviewSetTitleAction) on Reviews.
- *
- */
 export interface SetTitleChange extends IChange {
   readonly type: 'SetTitleChange'
   /**
@@ -7642,14 +7296,6 @@ export interface SetTransitionsChange extends IChange {
    */
   readonly removedItems: Reference[]
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set Valid From and Until](ctp:api:type:CartDiscountSetValidFromAndUntilAction) on Cart Discounts.
- *	- [Set Valid From and Until](ctp:api:type:DiscountCodeSetValidFromAndUntilAction) on Discount Codes.
- *	- [Set Valid From and Until](ctp:api:type:ProductDiscountSetValidFromAndUntilAction) on Product Discounts.
- *
- */
 export interface SetValidFromAndUntilChange extends IChange {
   readonly type: 'SetValidFromAndUntilChange'
   /**
@@ -7667,14 +7313,6 @@ export interface SetValidFromAndUntilChange extends IChange {
    */
   readonly nextValue: ValidFromAndUntilValue
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set Valid From](ctp:api:type:CartDiscountSetValidFromAction) on Cart Discounts.
- *	- [Set Valid From](ctp:api:type:DiscountCodeSetValidFromAction) on Discount Codes.
- *	- [Set Valid From](ctp:api:type:ProductDiscountSetValidFromAction) on Product Discounts.
- *
- */
 export interface SetValidFromChange extends IChange {
   readonly type: 'SetValidFromChange'
   /**
@@ -7712,14 +7350,6 @@ export interface SetValidToChange extends IChange {
    */
   readonly nextValue: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Set Valid Until](ctp:api:type:CartDiscountSetValidUntilAction) on Cart Discounts.
- *	- [Set Valid Until](ctp:api:type:DiscountCodeSetValidUntilAction) on Discount Codes.
- *	- [Set Valid Until](ctp:api:type:ProductDiscountSetValidUntilAction) on Product Discounts.
- *
- */
 export interface SetValidUntilChange extends IChange {
   readonly type: 'SetValidUntilChange'
   /**
@@ -7917,20 +7547,6 @@ export interface TransitionLineItemStateChange extends IChange {
    */
   readonly stateId: string
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Transition State](ctp:api:type:OrderTransitionStateAction) on Orders.
- *	- [Transition State](ctp:api:type:StagedOrderTransitionStateAction) on Staged Orders.
- *	- [Transition State](ctp:api:type:PaymentTransitionStateAction) on Payments.
- *	- [Transition State](ctp:api:type:ProductTransitionStateAction) on Products.
- *	- [Transition State](ctp:api:type:QuoteTransitionStateAction) on Quotes.
- *	- [Transition State](ctp:api:type:StagedQuoteTransitionStateAction) on Staged Quotes.
- *	- [Transition State](ctp:api:type:QuoteRequestTransitionStateAction) on Quote Requests.
- *	- [Transition State](ctp:api:type:ReviewTransitionStateAction) on Reviews.
- *	- [Transition State](ctp:api:type:StateSetTransitionsAction) on States.
- *
- */
 export interface TransitionStateChange extends IChange {
   readonly type: 'TransitionStateChange'
   /**
@@ -8050,13 +7666,6 @@ export interface ChangeApprovalRuleModeChange extends IChange {
    */
   readonly nextValue: BusinessUnitApprovalRuleMode
 }
-/**
- *	Change triggered by the following update actions:
- *
- *	- [Change Customer](ctp:api:type:QuoteChangeCustomerAction) on Quotes
- *	- [Change Customer](ctp:api:type:QuoteRequestChangeCustomerAction) on Quote Requests
- *
- */
 export interface ChangeCustomerChange extends IChange {
   readonly type: 'ChangeCustomerChange'
   /**
@@ -9373,10 +8982,7 @@ export interface SetInheritedAssociatesChange extends IChange {
   readonly nextValue: InheritedAssociate[]
 }
 /**
- *	Change triggered by the following update actions:
- *
- *	- [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) on Business Units
- *	- [Change Parent Unit](ctp:api:type:BusinessUnitChangeParentUnitAction) on Business Units
+ *	Change triggered by the [Set Unit Type](ctp:api:type:BusinessUnitSetUnitTypeAction) or [Change Parent Unit](ctp:api:type:BusinessUnitChangeParentUnitAction) update actions.
  *
  */
 export interface ChangeTopLevelUnitChange extends IChange {
@@ -9516,14 +9122,6 @@ export interface SetDirectDiscountsChange extends IChange {
    */
   readonly nextValue: DirectDiscount[]
 }
-/**
- *	Change is triggered when an entity referenced in a discount predicate is modified during the following actions:
- *
- *	- [Change Predicate](ctp:api:type:ProductDiscountChangePredicateAction) on Product Discounts
- *	- [Change Cart Predicate](ctp:api:type:CartDiscountChangeCartPredicateAction) on Cart Discounts
- *	- [Change Cart Predicate](ctp:api:type:DiscountCodeSetCartPredicateAction) on Discount Codes
- *
- */
 export interface SetReferencesChange extends IChange {
   readonly type: 'SetReferencesChange'
   /**
