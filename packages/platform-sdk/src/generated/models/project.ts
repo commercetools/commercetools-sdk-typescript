@@ -94,7 +94,6 @@ export interface CartsConfiguration {
    *	- If a [ChangeSubscription](ctp:api:type:ChangeSubscription) for Carts exists, a [ResourceDeletedDeliveryPayload](ctp:api:type:ResourceDeletedDeliveryPayload) is sent upon deletion of a Cart.
    *	- Carts with [CartOrigin](ctp:api:type:CartOrigin) `Quote` or `RecurringOrder` are not affected by this configuration value.
    *	- Changing this value doesn't affect the retention of existing Carts. To update an existing Cart's retention use [`setDeleteDaysAfterLastModification`](/projects/carts#set-deletedaysafterlastmodification) on the Carts API.
-   *	- This field may not be present on Projects created before January 2020.
    *
    *
    */
@@ -252,7 +251,7 @@ export interface Project {
    */
   readonly carts: CartsConfiguration
   /**
-   *	Holds the configuration for the [Shopping Lists](/../api/projects/shoppingLists) feature. This field may not be present on Projects created before January 2020.
+   *	Holds the configuration for the [Shopping Lists](/../api/projects/shoppingLists) feature.
    *
    *
    */
@@ -436,7 +435,6 @@ export interface CartValueType extends IShippingRateInputType {
 export interface ShoppingListsConfiguration {
   /**
    *	Default value for the `deleteDaysAfterLastModification` parameter of the [ShoppingListDraft](ctp:api:type:ShoppingListDraft).
-   *	This field may not be present on Projects created before January 2020.
    *
    *
    */
