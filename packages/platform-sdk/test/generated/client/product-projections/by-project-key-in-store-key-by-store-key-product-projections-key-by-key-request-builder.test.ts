@@ -97,6 +97,16 @@ export function getRequestsWithMethodParameters(): RequestWithMethod[] {
     },
     {
       method: 'get',
+      uri: '/test_projectKey/in-store/key=test_storeKey/product-projections/key=test_key?filter%5Battributes%5D=filter%5Battributes%5D',
+      request: apiRoot
+        .withProjectKey({ projectKey: 'test_projectKey' })
+        .inStoreKeyWithStoreKeyValue({ storeKey: 'test_storeKey' })
+        .productProjections()
+        .withKey({ key: 'test_key' })
+        .get({ queryArgs: { 'filter[attributes]': 'filter[attributes]' } }),
+    },
+    {
+      method: 'get',
       uri: '/test_projectKey/in-store/key=test_storeKey/product-projections/key=test_key?expand=expand',
       request: apiRoot
         .withProjectKey({ projectKey: 'test_projectKey' })

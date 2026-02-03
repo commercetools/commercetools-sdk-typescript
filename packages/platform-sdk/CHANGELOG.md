@@ -1,5 +1,242 @@
 # @commercetools/platform-sdk
 
+## 8.23.0
+
+### Minor Changes
+
+- [#1173](https://github.com/commercetools/commercetools-sdk-typescript/pull/1173) [`5373452`](https://github.com/commercetools/commercetools-sdk-typescript/commit/537345234ffd3fa9a3cb9c6f5b152ccc675230e7) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `BusinessUnitAddCustomerGroupAssignmentAction`
+  - added type `BusinessUnitRemoveCustomerGroupAssignmentAction`
+  - added type `BusinessUnitSetCustomerGroupAssignmentsAction`
+  - added type `CartMergeMode`
+  - added type `MergeCartDraft`
+  - added type `AddressRole`
+  - added type `RecurringOrderFailureError`
+  - added type `GraphQLRecurringOrderFailureError`
+  - added type `BusinessUnitCustomerGroupAssignmentAddedMessage`
+  - added type `BusinessUnitCustomerGroupAssignmentRemovedMessage`
+  - added type `BusinessUnitCustomerGroupAssignmentsSetMessage`
+  - added type `CartFrozenMessage`
+  - added type `CartUnfrozenMessage`
+  - added type `CustomerBillingAddressAddedMessage`
+  - added type `CustomerBillingAddressRemovedMessage`
+  - added type `CustomerExternalIdSetMessage`
+  - added type `CustomerShippingAddressAddedMessage`
+  - added type `CustomerShippingAddressRemovedMessage`
+  - added type `OrderPaymentRemovedMessage`
+  - added type `RecurringOrderFailedMessage`
+  - added type `BusinessUnitCustomerGroupAssignmentAddedMessagePayload`
+  - added type `BusinessUnitCustomerGroupAssignmentRemovedMessagePayload`
+  - added type `BusinessUnitCustomerGroupAssignmentsSetMessagePayload`
+  - added type `CartFrozenMessagePayload`
+  - added type `CartUnfrozenMessagePayload`
+  - added type `CustomerBillingAddressAddedMessagePayload`
+  - added type `CustomerBillingAddressRemovedMessagePayload`
+  - added type `CustomerExternalIdSetMessagePayload`
+  - added type `CustomerShippingAddressAddedMessagePayload`
+  - added type `CustomerShippingAddressRemovedMessagePayload`
+  - added type `OrderPaymentRemovedMessagePayload`
+  - added type `RecurringOrderFailedMessagePayload`
+  </details>
+
+  <details>
+  <summary>MarkDeprecated Type(s)</summary>
+  - marked type `ProductSearchProjectionParams` as deprecated
+  </details>
+
+  <details>
+  <summary>Deprecated Type(s)</summary>
+  - type `ProductLegacySetSkuAction` is removed
+  </details>
+
+  <details>
+  <summary>Removed Type(s)</summary>
+  - :warning: removed type `MyCartSetCustomLineItemRecurrenceInfoAction`
+  - :warning: removed type `MyCartSetLineItemRecurrenceInfoAction`
+  </details>
+
+  <details>
+  <summary>Added Enum(s)</summary>
+  - added enum `payment-method` to type `ResourceTypeId`
+  - added enum `payment-method-info` to type `ResourceTypeId`
+  </details>
+
+  <details>
+  <summary>MarkDeprecated Property(s)</summary>
+  - marked property `ProductSearchRequest::productProjectionParameters` as deprecated
+  - marked property `ProductSearchResult::productProjection` as deprecated
+  </details>
+
+  <details>
+  <summary>Required Property(s)</summary>
+  - :warning: changed property `shippingAddressIds` of type `BusinessUnit` to be required
+  - :warning: changed property `billingAddressIds` of type `BusinessUnit` to be required
+  - :warning: changed property `shippingAddressIds` of type `Company` to be required
+  - :warning: changed property `billingAddressIds` of type `Company` to be required
+  - :warning: changed property `shippingAddressIds` of type `Division` to be required
+  - :warning: changed property `billingAddressIds` of type `Division` to be required
+  - :warning: changed property `shippingAddressIds` of type `Customer` to be required
+  - :warning: changed property `billingAddressIds` of type `Customer` to be required
+  - :warning: changed property `customerGroupAssignments` of type `Customer` to be required
+  - :warning: changed property `customerGroupAssignments` of type `CustomerGroupAssignmentsSetMessage` to be required
+  - :warning: changed property `customerGroupAssignments` of type `CustomerGroupAssignmentsSetMessagePayload` to be required
+  </details>
+
+  <details>
+  <summary>Removed Property(s)</summary>
+  - :warning: removed property `payment` from type `OrderPaymentAddedMessage`
+  - :warning: removed property `order` from type `RecurringOrderCreatedMessage`
+  - :warning: removed property `payment` from type `OrderPaymentAddedMessagePayload`
+  - :warning: removed property `order` from type `RecurringOrderCreatedMessagePayload`
+  - :warning: removed property `tierMinimumQuantity` from type `StandalonePriceRemovePriceTierAction`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `customerGroupAssignments` to type `BusinessUnit`
+  - added property `customerGroupAssignments` to type `BusinessUnitDraft`
+  - added property `customerGroupAssignments` to type `Company`
+  - added property `customerGroupAssignments` to type `CompanyDraft`
+  - added property `customerGroupAssignments` to type `Division`
+  - added property `customerGroupAssignments` to type `DivisionDraft`
+  - added property `addressRoles` to type `BusinessUnitAddressChangedMessage`
+  - added property `addressRoles` to type `BusinessUnitAddressRemovedMessage`
+  - added property `addressRoles` to type `CustomerAddressChangedMessage`
+  - added property `addressRoles` to type `CustomerAddressRemovedMessage`
+  - added property `email` to type `CustomerDeletedMessage`
+  - added property `oldEmail` to type `CustomerEmailChangedMessage`
+  - added property `oldCustomerGroupAssignments` to type `CustomerGroupAssignmentsSetMessage`
+  - added property `sku` to type `InventoryEntryQuantitySetMessage`
+  - added property `paymentRef` to type `OrderPaymentAddedMessage`
+  - added property `recurringOrder` to type `RecurringOrderCreatedMessage`
+  - added property `addressRoles` to type `BusinessUnitAddressChangedMessagePayload`
+  - added property `addressRoles` to type `BusinessUnitAddressRemovedMessagePayload`
+  - added property `addressRoles` to type `CustomerAddressChangedMessagePayload`
+  - added property `addressRoles` to type `CustomerAddressRemovedMessagePayload`
+  - added property `email` to type `CustomerDeletedMessagePayload`
+  - added property `oldEmail` to type `CustomerEmailChangedMessagePayload`
+  - added property `oldCustomerGroupAssignments` to type `CustomerGroupAssignmentsSetMessagePayload`
+  - added property `sku` to type `InventoryEntryQuantitySetMessagePayload`
+  - added property `paymentRef` to type `OrderPaymentAddedMessagePayload`
+  - added property `recurringOrder` to type `RecurringOrderCreatedMessagePayload`
+  - added property `minimumQuantity` to type `StandalonePriceRemovePriceTierAction`
+  </details>
+
+  <details>
+  <summary>Added Method(s)</summary>
+  - added method `apiRoot.withProjectKey().carts().customerIdWithCustomerIdValueMerge().post()`
+  - added method `apiRoot.withProjectKey().inStoreKeyWithStoreKeyValue().carts().customerIdWithCustomerIdValueMerge().post()`
+  </details>
+
+  <details>
+  <summary>Added Resource(s)</summary>
+  - added resource `/{projectKey}/carts/customer-id={customerId}/merge`
+  - added resource `/{projectKey}/in-store/key={storeKey}/carts/customer-id={customerId}/merge`
+  </details>
+
+- [#1209](https://github.com/commercetools/commercetools-sdk-typescript/pull/1209) [`77c6132`](https://github.com/commercetools/commercetools-sdk-typescript/commit/77c61328d222dbbbde3e79c63c2bb76df3f012a6) Thanks [@ajimae](https://github.com/ajimae)! - release all packages
+
+### Patch Changes
+
+- Updated dependencies [[`77c6132`](https://github.com/commercetools/commercetools-sdk-typescript/commit/77c61328d222dbbbde3e79c63c2bb76df3f012a6)]:
+  - @commercetools/ts-client@4.8.0
+
+## 8.22.0
+
+### Minor Changes
+
+- [#1205](https://github.com/commercetools/commercetools-sdk-typescript/pull/1205) [`1ceb53b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1ceb53bf00457494ad061d7fe77a8d1b5a010d04) Thanks [@ajimae](https://github.com/ajimae)! - release packages
+
+### Patch Changes
+
+- [#1205](https://github.com/commercetools/commercetools-sdk-typescript/pull/1205) [`1ceb53b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1ceb53bf00457494ad061d7fe77a8d1b5a010d04) Thanks [@ajimae](https://github.com/ajimae)! - release packages
+
+- [#1205](https://github.com/commercetools/commercetools-sdk-typescript/pull/1205) [`1ceb53b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1ceb53bf00457494ad061d7fe77a8d1b5a010d04) Thanks [@ajimae](https://github.com/ajimae)! - release changeset
+
+- Updated dependencies [[`1ceb53b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1ceb53bf00457494ad061d7fe77a8d1b5a010d04), [`1ceb53b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1ceb53bf00457494ad061d7fe77a8d1b5a010d04), [`1ceb53b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1ceb53bf00457494ad061d7fe77a8d1b5a010d04)]:
+  - @commercetools/ts-client@4.7.0
+
+## 8.21.0
+
+### Minor Changes
+
+- [#1203](https://github.com/commercetools/commercetools-sdk-typescript/pull/1203) [`e0b0fcc`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e0b0fccaed4812c0ac47b0c8c4724e81174b0255) Thanks [@ajimae](https://github.com/ajimae)! - release packages
+
+### Patch Changes
+
+- [#1203](https://github.com/commercetools/commercetools-sdk-typescript/pull/1203) [`e0b0fcc`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e0b0fccaed4812c0ac47b0c8c4724e81174b0255) Thanks [@ajimae](https://github.com/ajimae)! - release changeset
+
+- Updated dependencies [[`e0b0fcc`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e0b0fccaed4812c0ac47b0c8c4724e81174b0255), [`e0b0fcc`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e0b0fccaed4812c0ac47b0c8c4724e81174b0255)]:
+  - @commercetools/ts-client@4.6.0
+
+## 8.20.0
+
+### Minor Changes
+
+- [#1201](https://github.com/commercetools/commercetools-sdk-typescript/pull/1201) [`f7c3101`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f7c31015ae0e18111c31fcdb3baee8e964bad99b) Thanks [@ajimae](https://github.com/ajimae)! - release packages
+
+### Patch Changes
+
+- Updated dependencies [[`f7c3101`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f7c31015ae0e18111c31fcdb3baee8e964bad99b)]:
+  - @commercetools/ts-client@4.5.0
+
+## 8.19.0
+
+### Minor Changes
+
+- [#1191](https://github.com/commercetools/commercetools-sdk-typescript/pull/1191) [`2898e78`](https://github.com/commercetools/commercetools-sdk-typescript/commit/2898e7831c731b611628e6516d99e19fa32d402e) Thanks [@ShipilA](https://github.com/ShipilA)! - **Api changes**
+
+  <details>
+  <summary>Required Property(s)</summary>
+  - changed property `variantSelection` of type `ProductSelectionProductAddedMessage` to be optional
+  - changed property `variantExclusion` of type `ProductSelectionProductExcludedMessage` to be optional
+  - changed property `oldVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessage` to be optional
+  - changed property `newVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessage` to be optional
+  - changed property `oldVariantSelection` of type `ProductSelectionVariantSelectionChangedMessage` to be optional
+  - changed property `newVariantSelection` of type `ProductSelectionVariantSelectionChangedMessage` to be optional
+  - changed property `variantSelection` of type `ProductSelectionProductAddedMessagePayload` to be optional
+  - changed property `variantExclusion` of type `ProductSelectionProductExcludedMessagePayload` to be optional
+  - changed property `oldVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessagePayload` to be optional
+  - changed property `newVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessagePayload` to be optional
+  - changed property `oldVariantSelection` of type `ProductSelectionVariantSelectionChangedMessagePayload` to be optional
+  - changed property `newVariantSelection` of type `ProductSelectionVariantSelectionChangedMessagePayload` to be optional
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `interfaceId` to type `MyTransactionDraft`
+  - added property `interfaceId` to type `Transaction`
+  - added property `interfaceId` to type `TransactionDraft`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `PaymentTransactionInterfaceIdSetMessage`
+  - added type `PaymentTransactionInterfaceIdSetMessagePayload`
+  - added type `PaymentSetTransactionInterfaceIdAction`
+  </details>
+
+- [#1191](https://github.com/commercetools/commercetools-sdk-typescript/pull/1191) [`2898e78`](https://github.com/commercetools/commercetools-sdk-typescript/commit/2898e7831c731b611628e6516d99e19fa32d402e) Thanks [@ShipilA](https://github.com/ShipilA)! - Regular release
+
+### Patch Changes
+
+- Updated dependencies [[`e2fb7fd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e2fb7fd778f849f2a1da7f5abf0643c699bb8968), [`2898e78`](https://github.com/commercetools/commercetools-sdk-typescript/commit/2898e7831c731b611628e6516d99e19fa32d402e)]:
+  - @commercetools/ts-client@4.4.0
+
+## 8.18.0
+
+### Minor Changes
+
+- [#1182](https://github.com/commercetools/commercetools-sdk-typescript/pull/1182) [`f3200d7`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f3200d7fda6fd65f3227d72d7f046cb70e9fc812) Thanks [@ShipilA](https://github.com/ShipilA)! - Regular release
+
+### Patch Changes
+
+- Updated dependencies [[`f3200d7`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f3200d7fda6fd65f3227d72d7f046cb70e9fc812)]:
+  - @commercetools/ts-client@4.3.0
+
 ## 8.17.0
 
 ### Minor Changes

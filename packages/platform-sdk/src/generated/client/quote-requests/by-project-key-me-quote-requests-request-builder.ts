@@ -50,7 +50,8 @@ export class ByProjectKeyMeQuoteRequestsRequestBuilder {
   }
 
   /**
-   *	Retrieves Quote Requests for the authenticated Customer. Returns a `200` status if successful.
+   *	Retrieves all QuoteRequests for the authenticated Customer.
+   *	Returns a `200 OK` status if successful.
    *
    */
   public get(methodArgs?: {
@@ -82,7 +83,8 @@ export class ByProjectKeyMeQuoteRequestsRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more QuoteRequests exist for the provided query predicate. Returns a `200` status if any QuoteRequests match the query predicate, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
+   *	Checks if one or more QuoteRequests exist for the provided query predicate for the authenticated Customer.
+   *	Returns a `200 OK` status if any QuoteRequests match the query predicate, or a [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error otherwise.
    *
    */
   public head(methodArgs?: {
@@ -108,6 +110,10 @@ export class ByProjectKeyMeQuoteRequestsRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Creates a QuoteRequest for the authenticated Customer.
+   *
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

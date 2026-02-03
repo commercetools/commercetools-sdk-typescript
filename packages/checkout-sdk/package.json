@@ -4,7 +4,7 @@
     "access": "public"
   },
   "name": "@commercetools/checkout-sdk",
-  "version": "1.0.0",
+  "version": "1.5.0",
   "engines": {
     "node": ">=18"
   },
@@ -16,11 +16,11 @@
     "sdk",
     "checkout"
   ],
-  "homepage": "https://github.com/commercetools/commercetools-typescript-sdks/packages/checkout-sdk",
-  "bugs": "https://github.com/commercetools/commercetools-typescript-sdks/issues",
+  "homepage": "https://github.com/commercetools/commercetools-sdk-typescript/packages/checkout-sdk",
+  "bugs": "https://github.com/commercetools/commercetools-sdk-typescript/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/commercetools/commercetools-typescript-sdks.git"
+    "url": "https://github.com/commercetools/commercetools-sdk-typescript"
   },
   "files": ["dist", "CHANGELOG.md"],
   "author": "Ajima Chukwuemeka",
@@ -32,7 +32,7 @@
     "./dist/commercetools-checkout-sdk.esm.js": "./dist/commercetools-checkout-sdk.browser.esm.js"
   },
   "dependencies": {
-    "@commercetools/ts-client": "^4.2.1"
+    "@commercetools/ts-client": "^4.8.0"
   },
   "devDependencies": {
     "organize-imports-cli": "0.10.0",

@@ -1,5 +1,103 @@
 # @commercetools/importapi-sdk
 
+## 6.13.0
+
+### Minor Changes
+
+- [#1209](https://github.com/commercetools/commercetools-sdk-typescript/pull/1209) [`77c6132`](https://github.com/commercetools/commercetools-sdk-typescript/commit/77c61328d222dbbbde3e79c63c2bb76df3f012a6) Thanks [@ajimae](https://github.com/ajimae)! - release all packages
+
+### Patch Changes
+
+- Updated dependencies [[`77c6132`](https://github.com/commercetools/commercetools-sdk-typescript/commit/77c61328d222dbbbde3e79c63c2bb76df3f012a6)]:
+  - @commercetools/ts-client@4.8.0
+
+## 6.12.0
+
+### Minor Changes
+
+- [#1205](https://github.com/commercetools/commercetools-sdk-typescript/pull/1205) [`1ceb53b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1ceb53bf00457494ad061d7fe77a8d1b5a010d04) Thanks [@ajimae](https://github.com/ajimae)! - release packages
+
+### Patch Changes
+
+- Updated dependencies [[`1ceb53b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1ceb53bf00457494ad061d7fe77a8d1b5a010d04), [`1ceb53b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1ceb53bf00457494ad061d7fe77a8d1b5a010d04), [`1ceb53b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1ceb53bf00457494ad061d7fe77a8d1b5a010d04)]:
+  - @commercetools/ts-client@4.7.0
+
+## 6.11.0
+
+### Minor Changes
+
+- [#1203](https://github.com/commercetools/commercetools-sdk-typescript/pull/1203) [`e0b0fcc`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e0b0fccaed4812c0ac47b0c8c4724e81174b0255) Thanks [@ajimae](https://github.com/ajimae)! - release packages
+
+### Patch Changes
+
+- Updated dependencies [[`e0b0fcc`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e0b0fccaed4812c0ac47b0c8c4724e81174b0255), [`e0b0fcc`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e0b0fccaed4812c0ac47b0c8c4724e81174b0255)]:
+  - @commercetools/ts-client@4.6.0
+
+## 6.10.0
+
+### Minor Changes
+
+- [#1201](https://github.com/commercetools/commercetools-sdk-typescript/pull/1201) [`f7c3101`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f7c31015ae0e18111c31fcdb3baee8e964bad99b) Thanks [@ajimae](https://github.com/ajimae)! - release packages
+
+### Patch Changes
+
+- Updated dependencies [[`f7c3101`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f7c31015ae0e18111c31fcdb3baee8e964bad99b)]:
+  - @commercetools/ts-client@4.5.0
+
+## 6.9.0
+
+### Minor Changes
+
+- [#1191](https://github.com/commercetools/commercetools-sdk-typescript/pull/1191) [`2898e78`](https://github.com/commercetools/commercetools-sdk-typescript/commit/2898e7831c731b611628e6516d99e19fa32d402e) Thanks [@ShipilA](https://github.com/ShipilA)! - **Api changes**
+
+  <details>
+  <summary>Required Property(s)</summary>
+  - changed property `variantSelection` of type `ProductSelectionProductAddedMessage` to be optional
+  - changed property `variantExclusion` of type `ProductSelectionProductExcludedMessage` to be optional
+  - changed property `oldVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessage` to be optional
+  - changed property `newVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessage` to be optional
+  - changed property `oldVariantSelection` of type `ProductSelectionVariantSelectionChangedMessage` to be optional
+  - changed property `newVariantSelection` of type `ProductSelectionVariantSelectionChangedMessage` to be optional
+  - changed property `variantSelection` of type `ProductSelectionProductAddedMessagePayload` to be optional
+  - changed property `variantExclusion` of type `ProductSelectionProductExcludedMessagePayload` to be optional
+  - changed property `oldVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessagePayload` to be optional
+  - changed property `newVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessagePayload` to be optional
+  - changed property `oldVariantSelection` of type `ProductSelectionVariantSelectionChangedMessagePayload` to be optional
+  - changed property `newVariantSelection` of type `ProductSelectionVariantSelectionChangedMessagePayload` to be optional
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `interfaceId` to type `MyTransactionDraft`
+  - added property `interfaceId` to type `Transaction`
+  - added property `interfaceId` to type `TransactionDraft`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `PaymentTransactionInterfaceIdSetMessage`
+  - added type `PaymentTransactionInterfaceIdSetMessagePayload`
+  - added type `PaymentSetTransactionInterfaceIdAction`
+  </details>
+
+- [#1191](https://github.com/commercetools/commercetools-sdk-typescript/pull/1191) [`2898e78`](https://github.com/commercetools/commercetools-sdk-typescript/commit/2898e7831c731b611628e6516d99e19fa32d402e) Thanks [@ShipilA](https://github.com/ShipilA)! - Regular release
+
+### Patch Changes
+
+- Updated dependencies [[`e2fb7fd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e2fb7fd778f849f2a1da7f5abf0643c699bb8968), [`2898e78`](https://github.com/commercetools/commercetools-sdk-typescript/commit/2898e7831c731b611628e6516d99e19fa32d402e)]:
+  - @commercetools/ts-client@4.4.0
+
+## 6.8.0
+
+### Minor Changes
+
+- [#1182](https://github.com/commercetools/commercetools-sdk-typescript/pull/1182) [`f3200d7`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f3200d7fda6fd65f3227d72d7f046cb70e9fc812) Thanks [@ShipilA](https://github.com/ShipilA)! - Regular release
+
+### Patch Changes
+
+- Updated dependencies [[`f3200d7`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f3200d7fda6fd65f3227d72d7f046cb70e9fc812)]:
+  - @commercetools/ts-client@4.3.0
+
 ## 6.7.0
 
 ### Minor Changes
@@ -8,7 +106,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `AssociateRoleKeyReference`
   - added type `BusinessUnitKeyReference`
   - added type `BusinessUnitImportRequest`
@@ -27,7 +124,6 @@
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/business-units`
   - added resource `/{projectKey}/business-units/import-containers`
   - added resource `/{projectKey}/business-units/import-containers/{importContainerKey}`
@@ -35,13 +131,11 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKeyValue().businessUnits().importContainers().withImportContainerKeyValue().post()`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `business-unit` to type `ImportResourceType`
   - added enum `associate-role` to type `ReferenceType`
   - added enum `business-unit` to type `ReferenceType`
@@ -66,13 +160,11 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `product-selection` to type `ImportResourceType`
   </details>
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `retentionPolicy` to type `ImportContainer`
   - added property `expiresAt` to type `ImportContainer`
   - added property `retentionPolicy` to type `ImportContainerDraft`
@@ -80,20 +172,17 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `country` of type `ExternalTaxRateDraft` from type `string` to `CountryCode`
   - :warning: changed property `value` of type `MoneySetField` from type `Money[]` to `TypedMoney[]`
   </details>
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKeyValue().productSelections().importContainers().withImportContainerKeyValue().post()`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `StrategyEnum`
   - added type `RetentionPolicy`
   - added type `TimeToLiveConfig`
@@ -109,7 +198,6 @@
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/product-selections`
   - added resource `/{projectKey}/product-selections/import-containers`
   - added resource `/{projectKey}/product-selections/import-containers/{importContainerKey}`
@@ -128,7 +216,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `attributes` to type `ProductImport`
   - added property `attributes` to type `ProductDraftImport`
   - added property `level` to type `AttributeDefinition`
@@ -136,7 +223,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `AttributeLevel`
   </details>
 
@@ -159,14 +245,12 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `/^[a-zA-Z]{2,3}(?:-[a-zA-Z]{4})?(?:-(?:[a-zA-Z]{2}|\d{3}))?$/` to type `SearchKeywords`
   - added property `/^[a-zA-Z]{2,3}(?:-[a-zA-Z]{4})?(?:-(?:[a-zA-Z]{2}|\d{3}))?$/` to type `LocalizedString`
   </details>
 
   <details>
   <summary>Removed Property(s)</summary>
-
   - :warning: removed property `/^[a-z]{2}(-[A-Z]{2})?$/` from type `SearchKeywords`
   - :warning: removed property `/^[a-z]{2}(-[A-Z]{2})?$/` from type `LocalizedString`
   </details>
@@ -207,21 +291,18 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `InvalidFieldsUpdateError`
   - added type `NewMasterVariantAdditionNotAllowedError`
   </details>
 
   <details>
   <summary>Deprecated Property(s)</summary>
-
   - property `PriceImport::publish` is removed
   - property `ProductVariantImport::publish` is removed
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `CustomFieldReferenceValue`
   </details>
 
@@ -233,21 +314,18 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `InvalidFieldsUpdateError`
   - added type `NewMasterVariantAdditionNotAllowedError`
   </details>
 
   <details>
   <summary>Deprecated Property(s)</summary>
-
   - property `PriceImport::publish` is removed
   - property `ProductVariantImport::publish` is removed
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `CustomFieldReferenceValue`
   </details>
 
@@ -259,21 +337,18 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `InvalidFieldsUpdateError`
   - added type `NewMasterVariantAdditionNotAllowedError`
   </details>
 
   <details>
   <summary>Deprecated Property(s)</summary>
-
   - property `PriceImport::publish` is removed
   - property `ProductVariantImport::publish` is removed
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `CustomFieldReferenceValue`
   </details>
 
@@ -285,21 +360,18 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `InvalidFieldsUpdateError`
   - added type `NewMasterVariantAdditionNotAllowedError`
   </details>
 
   <details>
   <summary>Deprecated Property(s)</summary>
-
   - property `PriceImport::publish` is removed
   - property `ProductVariantImport::publish` is removed
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `CustomFieldReferenceValue`
   </details>
 
@@ -311,7 +383,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `InvalidFieldsUpdateError`
   - added type `NewMasterVariantAdditionNotAllowedError`
   - added type `ReferencedResourceNotFound`
@@ -319,14 +390,12 @@
 
   <details>
   <summary>Deprecated Property(s)</summary>
-
   - property `PriceImport::publish` is removed
   - property `ProductVariantImport::publish` is removed
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `CustomFieldReferenceValue`
   </details>
 
@@ -338,7 +407,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `InvalidFieldsUpdateError`
   - added type `NewMasterVariantAdditionNotAllowedError`
   - added type `ReferencedResourceNotFound`
@@ -346,14 +414,12 @@
 
   <details>
   <summary>Deprecated Property(s)</summary>
-
   - property `PriceImport::publish` is removed
   - property `ProductVariantImport::publish` is removed
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `CustomFieldReferenceValue`
   </details>
 
@@ -365,7 +431,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `InvalidFieldsUpdateError`
   - added type `NewMasterVariantAdditionNotAllowedError`
   - added type `ReferencedResourceNotFound`
@@ -373,14 +438,12 @@
 
   <details>
   <summary>Deprecated Property(s)</summary>
-
   - property `PriceImport::publish` is removed
   - property `ProductVariantImport::publish` is removed
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `CustomFieldReferenceValue`
   </details>
 
@@ -392,7 +455,6 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `InvalidFieldsUpdateError`
   - added type `NewMasterVariantAdditionNotAllowedError`
   - added type `ReferencedResourceNotFound`
@@ -400,14 +462,12 @@
 
   <details>
   <summary>Deprecated Property(s)</summary>
-
   - property `PriceImport::publish` is removed
   - property `ProductVariantImport::publish` is removed
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `CustomFieldReferenceValue`
   </details>
 
@@ -419,21 +479,18 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `InvalidFieldsUpdateError`
   - added type `ReferencedResourceNotFound`
   </details>
 
   <details>
   <summary>Deprecated Property(s)</summary>
-
   - property `PriceImport::publish` is removed
   - property `ProductVariantImport::publish` is removed
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `CustomFieldReferenceValue`
   </details>
 
@@ -445,21 +502,18 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `InvalidFieldsUpdateError`
   - added type `ReferencedResourceNotFound`
   </details>
 
   <details>
   <summary>Deprecated Property(s)</summary>
-
   - property `PriceImport::publish` is removed
   - property `ProductVariantImport::publish` is removed
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `CustomFieldReferenceValue`
   </details>
 
@@ -471,21 +525,18 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `InvalidFieldsUpdateError`
   - added type `ReferencedResourceNotFound`
   </details>
 
   <details>
   <summary>Deprecated Property(s)</summary>
-
   - property `PriceImport::publish` is removed
   - property `ProductVariantImport::publish` is removed
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `CustomFieldReferenceValue`
   </details>
 
@@ -497,19 +548,16 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `ReferencedResourceNotFound`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `CustomFieldReferenceValue`
   </details>
 
   <details>
   <summary>Deprecated Property(s)</summary>
-
   - property `PriceImport::publish` is removed
   - property `ProductVariantImport::publish` is removed
   </details>
@@ -522,19 +570,16 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `ReferencedResourceNotFound`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `CustomFieldReferenceValue`
   </details>
 
   <details>
   <summary>Deprecated Property(s)</summary>
-
   - property `PriceImport::publish` is removed
   - property `ProductVariantImport::publish` is removed
   </details>
@@ -547,19 +592,16 @@
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `ReferencedResourceNotFound`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `CustomFieldReferenceValue`
   </details>
 
   <details>
   <summary>Deprecated Property(s)</summary>
-
   - property `PriceImport::publish` is removed
   - property `ProductVariantImport::publish` is removed
   </details>
@@ -572,14 +614,12 @@
 
   <details>
   <summary>Deprecated Property(s)</summary>
-
   - property `PriceImport::publish` is removed
   - property `ProductVariantImport::publish` is removed
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `CustomFieldReferenceValue`
   </details>
 
@@ -591,13 +631,11 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `customer-group` to type `CustomFieldReferenceValue`
   </details>
 
   <details>
   <summary>Deprecated Property(s)</summary>
-
   - property `PriceImport::publish` is removed
   - property `ProductVariantImport::publish` is removed
   </details>
@@ -610,14 +648,12 @@
 
   <details>
   <summary>MarkDeprecated Property(s)</summary>
-
   - marked property `PriceImport::publish` as deprecated
   - marked property `ProductVariantImport::publish` as deprecated
   </details>
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `staged` to type `PriceImport`
   - added property `staged` to type `ProductVariantImport`
   </details>
@@ -635,7 +671,6 @@
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/discount-codes`
   - added resource `/{projectKey}/discount-codes/import-containers`
   - added resource `/{projectKey}/discount-codes/import-containers/{importContainerKey}`
@@ -643,20 +678,17 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKeyValue().discountCodes().importContainers().withImportContainerKeyValue().post()`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `DiscountCodeImportRequest`
   - added type `DiscountCodeImport`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `discount-code` to type `ImportResourceType`
   </details>
 
@@ -679,7 +711,6 @@
 
   <details>
   <summary>Added QueryParameter(s)</summary>
-
   - added query parameter `expand` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
   - added query parameter `sort` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
   - added query parameter `limit` to method `get /{projectKey}/in-store/key={storeKey}/cart-discounts`
@@ -692,7 +723,6 @@
 
   <details>
   <summary>Changed MethodResponseBody(s)</summary>
-
   - :warning: changed response body for `200: application/json` of method `get /{projectKey}/in-store/key={storeKey}/cart-discounts` from type `CartDiscount` to `CartDiscountPagedQueryResponse`
   </details>
 
@@ -701,7 +731,6 @@
 ### Major Changes
 
 - [#551](https://github.com/commercetools/commercetools-sdk-typescript/pull/551) [`9e7939a`](https://github.com/commercetools/commercetools-sdk-typescript/commit/9e7939a1df234fd1f4f77c60f4ff75b31d7fc3fd) Thanks [@github-actions](https://github.com/apps/github-actions)! - BREAKING CHANGE:
-
   - fix URI parameters to be URI encoded
 
 ### Minor Changes
@@ -710,7 +739,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `product` to type `ProductVariantPatch`
   </details>
 
@@ -727,7 +755,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `canceled` to type `ProcessingState`
   </details>
 
@@ -741,7 +768,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `perMethodTaxRate` to type `CustomLineItem`
   - added property `key` to type `LineItem`
   - added property `key` to type `LineItemDraft`
@@ -806,7 +832,6 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `lineItemId` of type `CartApplyDeltaToLineItemShippingDetailsTargetsAction` to be optional
   - changed property `lineItemId` of type `CartChangeLineItemQuantityAction` to be optional
   - changed property `lineItemId` of type `CartRemoveLineItemAction` to be optional
@@ -858,27 +883,23 @@
 
   <details>
   <summary>Deprecated Property(s)</summary>
-
   - property `MyCartChangeLineItemQuantityAction::externalPrice` is removed
   - property `MyCartChangeLineItemQuantityAction::externalTotalPrice` is removed
   </details>
 
   <details>
   <summary>Deprecated Type(s)</summary>
-
   - type `ProductVariantSelectionExclusion` is removed
   - type `ProductVariantSelectionInclusion` is removed
   </details>
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `MyCartSetDirectDiscountsAction`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `StandalonePriceTierAddedMessage`
   - added type `StandalonePriceTierRemovedMessage`
   - added type `StandalonePriceTiersSetMessage`
@@ -902,7 +923,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `associate-role` to type `CustomFieldReferenceValue`
   - added enum `business-unit` to type `CustomFieldReferenceValue`
   </details>
@@ -911,7 +931,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `associate-role` to type `CustomFieldReferenceValue`
   - added enum `business-unit` to type `CustomFieldReferenceValue`
   </details>
@@ -920,32 +939,27 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `variantSelection` to type `AddProductChange`
   </details>
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `resource` of type `Record` from type `Reference` to `ResourceIdentifier`
   </details>
 
   <details>
   <summary>Added QueryParameter(s)</summary>
-
   - added query parameter `resourceKey` to method `get /{projectKey}`
   - added query parameter `resourceKey` to method `get /{projectKey}/{resourceType}`
   </details>
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `resourceId` from method `get /{projectKey}/{resourceType}`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `AddAssociateChange`
   - added type `AddProductSelectionChange`
   - added type `Associate`
@@ -975,7 +989,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `business-unit` to type `ChangeHistoryResourceType`
   - added enum `addAssociate` to type `UpdateType`
   - added enum `addCustomLineItem` to type `UpdateType`
@@ -1080,13 +1093,11 @@
 
   <details>
   <summary>Changed Type(s)</summary>
-
   - :warning: changed type `AssociateRole` from type `string` to `BaseResource`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `AssociateRoleDraft`
   - added type `AssociateRoleKeyReference`
   - added type `AssociateRolePagedQueryResponse`
@@ -1133,7 +1144,6 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `associate-role` to type `ReferenceTypeId`
   - added enum `associate-role` to type `MessageSubscriptionResourceTypeId`
   - added enum `associate-role` to type `ResourceTypeId`
@@ -1141,7 +1151,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `associateRoleAssignments` to type `Associate`
   - added property `associateRoleAssignments` to type `AssociateDraft`
   - added property `associateMode` to type `BusinessUnit`
@@ -1158,21 +1167,18 @@
 
   <details>
   <summary>Changed Property(s)</summary>
-
   - :warning: changed property `roles` of type `Associate` from type `AssociateRole[]` to `AssociateRoleDeprecated[]`
   - :warning: changed property `roles` of type `AssociateDraft` from type `AssociateRole[]` to `AssociateRoleDeprecated[]`
   </details>
 
   <details>
   <summary>MarkDeprecated Property(s)</summary>
-
   - marked property `Associate::roles` as deprecated
   - marked property `AssociateDraft::roles` as deprecated
   </details>
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/as-associate`
   - added resource `/{projectKey}/associate-roles`
   - added resource `/{projectKey}/as-associate/{associateId}`
@@ -1199,7 +1205,6 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().associateRoles().get()`
   - added method `apiRoot.withProjectKey().associateRoles().post()`
   - added method `apiRoot.withProjectKey().asAssociate().withAssociateIdValue().businessUnits().get()`
@@ -1246,13 +1251,11 @@
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `type` to type `ImportResourceType`
   </details>
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/types`
   - added resource `/{projectKey}/types/import-containers`
   - added resource `/{projectKey}/types/import-containers/{importContainerKey}`
@@ -1260,13 +1263,11 @@
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKeyValue().types().importContainers().withImportContainerKeyValue().post()`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `TypeImportRequest`
   - added type `TypeTextInputHint`
   - added type `ResourceTypeId`
@@ -1294,19 +1295,16 @@
 
   <details>
   <summary>Added QueryParameter(s)</summary>
-
   - added query parameter `resourceTypes` to method `get /{projectKey}`
   </details>
 
   <details>
   <summary>Removed QueryParameter(s)</summary>
-
   - :warning: removed query parameter `resourceType` from method `get /{projectKey}`
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `SetCountriesChange`
   - added type `SetPurchaseOrderNumberChange`
   - added type `StoreCountry`
@@ -1330,7 +1328,6 @@
 
   <details>
   <summary>Added Property(s)</summary>
-
   - added property `custom` to type `Parcel`
   </details>
 
@@ -1344,17 +1341,14 @@
 ### Minor Changes
 
 - [#432](https://github.com/commercetools/commercetools-sdk-typescript/pull/432) [`d06e0c5`](https://github.com/commercetools/commercetools-sdk-typescript/commit/d06e0c58f4b9a8f69bbde63f906cc905c878aa2d) Thanks [@ajimae](https://github.com/ajimae)! - ### Required Properties
-
   - changed property `password` of type `CustomerImport` to be optional
 
   ### Added Properties
-
   - added property `authenticationMode` to type `CustomerImport`
   - added property `state` to type `OrderImport`
   - added property `custom` to type `Address`
 
   ### Added Type
-
   - added type `AuthenticationMode`
 
 ### Patch Changes
@@ -1369,7 +1363,6 @@
 - [#411](https://github.com/commercetools/commercetools-sdk-typescript/pull/411) [`393f1f9`](https://github.com/commercetools/commercetools-sdk-typescript/commit/393f1f95359890673eb947682c76ab3ca9a290f0) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
 
   ## Changes
-
   - added property `defaultShippingAddressId` to type `BusinessUnit`
   - added property `defaultShippingAddress` to type `BusinessUnitDraft`
   - added property `defaultShippingAddressId` to type `Company`
@@ -1388,13 +1381,11 @@
 
   <details>
   <summary>Required Property(s)</summary>
-
   - changed property `discounted` of type `StagedStandalonePrice` to be optional
   </details>
 
   <details>
   <summary>Removed Property(s)</summary>
-
   - :warning: removed property `defaultShipingAddressId` from type `BusinessUnit`
   - :warning: removed property `defaultShipingAddress` from type `BusinessUnitDraft`
   - :warning: removed property `defaultShipingAddressId` from type `Company`
@@ -1411,20 +1402,17 @@
 
   <details>
   <summary>Removed Type(s)</summary>
-
   - :warning: removed type `ProductPriceSetMessage`
   - :warning: removed type `ProductPriceSetMessagePayload`
   </details>
 
   <details>
   <summary>Deprecated Type(s)</summary>
-
   - type `IronMqDestination` is removed
   </details>
 
   <details>
   <summary>Added Type(s)</summary>
-
   - added type `CartFreezeCartAction`
   - added type `CartUnfreezeCartAction`
   - added type `DuplicatePriceKeyError`
@@ -1440,19 +1428,16 @@
 
   <details>
   <summary>Added Resource(s)</summary>
-
   - added resource `/{projectKey}/shipping-methods/matching-cart-location`
   </details>
 
   <details>
   <summary>Added Method(s)</summary>
-
   - added method `apiRoot.withProjectKey().shippingMethods().matchingCartLocation().get()`
   </details>
 
   <details>
   <summary>Added Enum(s)</summary>
-
   - added enum `Frozen` to type `CartState`
   </details>
 
@@ -1460,7 +1445,6 @@
 
   <details>
   <summary>Deprecated Property(s)</summary>
-
   - property `MissingAttributes::attributeCount` is removed
   - property `MissingAttributes::attributeCoverage` is removed
   - property `MissingAttributesMeta::productLevel` is removed
@@ -1479,7 +1463,6 @@
 
   <details>
   <summary>Deprecated Type(s)</summary>
-
   - type `AttributeCount` is removed
   - type `AttributeCoverage` is removed
   - type `MissingAttributesDetails` is removed
@@ -1508,7 +1491,6 @@
 
   <details>
   <summary>Deprecated Resource(s)</summary>
-
   - resource `/{projectKey}/missing-data` is removed
   - resource `/{projectKey}/missing-data/attributes` is removed
   - resource `/{projectKey}/missing-data/images` is removed
@@ -1523,7 +1505,6 @@
 
   <details>
   <summary>Deprecated Method(s)</summary>
-
   - method `post /{projectKey}/missing-data/attributes` is removed
   - method `post /{projectKey}/missing-data/images` is removed
   - method `post /{projectKey}/missing-data/prices` is removed
@@ -1613,18 +1594,15 @@
 ### Major Changes
 
 - [#291](https://github.com/commercetools/commercetools-sdk-typescript/pull/291) [`cde61f4`](https://github.com/commercetools/commercetools-sdk-typescript/commit/cde61f45563970ca1648496198268976e4f83d8e) Thanks [@github-actions](https://github.com/apps/github-actions)! - ### History API
-
   - add support for quotes
   - add support for authentication mode
   - add product selection support
 
   ### Import API
-
   - add support for inventory imports
   - remove import sink endpoints
 
   ### Platform API
-
   - add support for quotes
   - fix localeProjection query parameter type
   - add missing query parameters to product selection assigment
@@ -1637,11 +1615,9 @@
 ### Patch Changes
 
 - [#258](https://github.com/commercetools/commercetools-sdk-typescript/pull/258) [`ba52d38`](https://github.com/commercetools/commercetools-sdk-typescript/commit/ba52d38a0a00299de61f554ae753cfb984401d79) Thanks [@github-actions](https://github.com/apps/github-actions)! - Update generated SDKs
-
   - add support for Standalone Prices
 
 * [#266](https://github.com/commercetools/commercetools-sdk-typescript/pull/266) [`fd29fa7`](https://github.com/commercetools/commercetools-sdk-typescript/commit/fd29fa759f906040d76a889c2d3fbfbdf2ac6617) Thanks [@github-actions](https://github.com/apps/github-actions)! - Platform SDK updates:
-
   - Fix /me/email/confirm arguments and return type (https://github.com/commercetools/commercetools-sdk-typescript/issues/274)
 
 ## 2.5.0
@@ -1660,7 +1636,6 @@
 ### Minor Changes
 
 - [#241](https://github.com/commercetools/commercetools-sdk-typescript/pull/241) [`85f5be3`](https://github.com/commercetools/commercetools-sdk-typescript/commit/85f5be349a9b0fa46539259981bfd8d5fc2ffdc6) Thanks [@ajimae](https://github.com/ajimae)! - Releasing the TS SDK with the following changelogs
-
   - added functionalities to extend client user agent
   - custom field added to OrderFromCardDraft
 

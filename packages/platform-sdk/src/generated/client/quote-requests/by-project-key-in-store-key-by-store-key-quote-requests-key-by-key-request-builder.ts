@@ -20,6 +20,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyQuoteRequestsKeyByKeyRequestBuilder
       baseUri?: string
     }
   ) {}
+  /**
+   *	Retrieves a QuoteRequest with the provided `key` in a [Store](ctp:api:type:Store).
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -45,7 +48,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyQuoteRequestsKeyByKeyRequestBuilder
     )
   }
   /**
-   *	Checks if a QuoteRequest exists with the provided `key`. Returns a `200` status if the QuoteRequest exists, or a `404` status otherwise.
+   *	Checks if a QuoteRequest exists with the provided `key` in a [Store](ctp:api:type:Store). Returns a `200` status if the QuoteRequest exists, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -66,6 +69,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyQuoteRequestsKeyByKeyRequestBuilder
       this.args.executeRequest
     )
   }
+  /**
+   *	Updates a QuoteRequest in a [Store](ctp:api:type:Store).
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -93,6 +99,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyQuoteRequestsKeyByKeyRequestBuilder
       this.args.executeRequest
     )
   }
+  /**
+   *	Deletes a QuoteRequest in a [Store](ctp:api:type:Store).
+   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

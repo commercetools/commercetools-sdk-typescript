@@ -1,6 +1,6 @@
 {
   "name": "@commercetools/ts-sdk-apm",
-  "version": "4.0.0",
+  "version": "4.4.0",
   "description": "commercetools typescript SDK application performance monitoring.",
   "main": "dist/commercetools-ts-sdk-apm.cjs.js",
   "module": "dist/commercetools-ts-sdk-apm.esm.js",
@@ -32,11 +32,11 @@
     "opentelemetry",
     "tracing"
   ],
-  "homepage": "https://github.com/commercetools/commercetools-typescript-sdks",
-  "bugs": "https://github.com/commercetools/commercetools-typescript-sdks/issues",
+  "homepage": "https://github.com/commercetools/commercetools-sdk-typescript",
+  "bugs": "https://github.com/commercetools/commercetools-sdk-typescript/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/commercetools/commercetools-typescript-sdks.git"
+    "url": "https://github.com/commercetools/commercetools-sdk-typescript"
   },
   "files": [
     "dist",

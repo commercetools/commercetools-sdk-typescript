@@ -88,13 +88,13 @@ export interface ProductTailoring extends BaseResource {
    */
   readonly published: boolean
   /**
-   *	Current (published) data of the ProductTailoring.
+   *	Current data of the ProductTailoring returned in the [Product Projection](/projects/productProjections) response when the ProductTailoring is published.
    *
    *
    */
   readonly current: ProductTailoringData
   /**
-   *	Staged (unpublished) data of the ProductTailoring.
+   *	Staged data of the ProductTailoring. This data is not returned in the Product Projection response by default.
    *
    *
    */

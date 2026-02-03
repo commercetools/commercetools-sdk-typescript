@@ -20,7 +20,16 @@ export class ByProjectKeyProductProjectionsByIDRequestBuilder {
     }
   ) {}
   /**
-   *	Gets the current or staged representation of a [Product](ctp:api:type:Product) by its ID. When used with an API Client that has the `view_published_products:{projectKey}` scope, this endpoint only returns published (current) Product Projections.
+   *	Retrieves the [projected](/../api/projects/productProjections#projection-dimensions) representation of a [Product](ctp:api:type:Product) by its ID.
+   *
+   *	By default, this endpoint returns the `current` representation of Products where the `published` flag is `true`.
+   *	If a Product is unpublished (`published=false`), the endpoint returns a [Not Found](/../api/errors#404-not-found) error.
+   *
+   *	Required access scopes:
+   *
+   *	- To retrieve the current representation of published Products (published data), the `view_published_products:{projectKey}` scope is required.
+   *
+   *	- To retrieve the staged representation of Products (draft data) or access unpublished Products, the API Client must have the `view_products:{projectKey}` scope.
    *
    */
   public get(methodArgs?: {
@@ -34,6 +43,7 @@ export class ByProjectKeyProductProjectionsByIDRequestBuilder {
       priceRecurrencePolicy?: string
       localeProjection?: string | string[]
       storeProjection?: string
+      'filter[attributes]'?: string | string[]
       expand?: string | string[]
       [key: string]: QueryParam
     }

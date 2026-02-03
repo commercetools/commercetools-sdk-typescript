@@ -4,10 +4,315 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
-import { IReference, IResourceIdentifier } from './common'
+import { ApplicationReference } from './application'
+import {
+  IReference,
+  IResourceIdentifier,
+  LocalizedString,
+  LocalizedUrl,
+  Reference,
+} from './common'
 
 /**
- *	Reference to a [Payment Integration](/connectors-and-applications#payment-integrations).
+ *	Information regarding IDs and references that created the Payment Integration.
+ *
+ */
+export interface CreatedBy {
+  /**
+   *	ID of the API client that created the PaymentIntegration.
+   *
+   *
+   */
+  readonly clientId?: string
+  /**
+   *	External user ID that created the PaymentIntegration.
+   *
+   *
+   */
+  readonly externalUserId?: string
+  /**
+   *	Customer reference if created by a customer.
+   *
+   *
+   */
+  readonly customer?: Reference
+  /**
+   *	Anonymous ID if created by an anonymous user.
+   *
+   *
+   */
+  readonly anonymousId?: string
+}
+/**
+ *	Information regarding IDs and references that last modified the Payment Integration.
+ *
+ */
+export interface LastModifiedBy {
+  /**
+   *	ID of the API client that last modified the PaymentIntegration.
+   *
+   *
+   */
+  readonly clientId?: string
+  /**
+   *	Session ID associated with the modification of the PaymentIntegration.
+   *
+   *
+   */
+  readonly sessionId?: string
+  /**
+   *	External user ID that last modified the PaymentIntegration.
+   *
+   *
+   */
+  readonly externalUserId?: string
+  /**
+   *	Anonymous ID if the resource was last modified by an anonymous user.
+   *
+   *
+   */
+  readonly anonymousId?: string
+  /**
+   *	Customer reference or customer ID if the resource was last modified by a customer.
+   *
+   *
+   */
+  readonly customer?: Reference
+  /**
+   *	Associate (customer) reference if the resource was last modified by an associate.
+   *
+   *
+   */
+  readonly associate?: Reference
+  /**
+   *	User reference if the resource was last modified by a platform user.
+   *
+   *
+   */
+  readonly user?: Reference
+  /**
+   *	Indicates whether the resource was last modified by a platform client.
+   *
+   *
+   */
+  readonly isPlatformClient?: boolean
+}
+/**
+ *	Configuration for automated reversal of payments.
+ *
+ */
+export interface AutomatedReversalConfiguration {
+  /**
+   *	Indicates whether the automated reversal configuration is active or not.
+   *
+   *
+   */
+  readonly status: string
+  /**
+   *	Cart-based predicate in JSONata format to determine when automated reversal should be applied.
+   *
+   *
+   */
+  readonly predicate?: string
+}
+/**
+ *	Reference to a connector deployment for the payment integration.
+ *
+ */
+export interface ConnectorDeploymentReference {
+  /**
+   *	Unique identifier of the referenced Connect Deployment.
+   *
+   *
+   */
+  readonly id: string
+  /**
+   *	Type identifier, always `deployment` for Connector deployment references.
+   *
+   *
+   */
+  readonly typeId: string
+}
+/**
+ *	Display information for the payment integration in the UI.
+ *
+ */
+export interface DisplayInfo {
+  /**
+   *	Label of the payment method displayed in the UI.
+   *
+   *
+   */
+  readonly label?: LocalizedString
+  /**
+   *	Logo of the payment method displayed in the UI.
+   *
+   *
+   */
+  readonly logoUrl?: LocalizedUrl
+  /**
+   *	Description of the payment method displayed in the UI.
+   *
+   *
+   */
+  readonly description?: LocalizedString
+  /**
+   *	Text of the Pay button displayed in the UI when paying with the payment method.
+   *
+   *
+   */
+  readonly payButtonText?: LocalizedString
+}
+/**
+ *	Paginated result containing PaymentIntegrations.
+ *
+ */
+export interface PaginatedPaymentIntegration {
+  /**
+   *	Number of results requested.
+   *
+   *
+   */
+  readonly limit: number
+  /**
+   *	Number of elements skipped.
+   *
+   *
+   */
+  readonly offset: number
+  /**
+   *	Actual number of results returned.
+   *
+   *
+   */
+  readonly count: number
+  /**
+   *	Total number of results matching the query.
+   *
+   *
+   */
+  readonly total: number
+  /**
+   *	PaymentIntegrations matching the query.
+   *
+   *
+   */
+  readonly results: PaymentIntegration[]
+}
+export enum PaymentComponentTypeValues {
+  Component = 'Component',
+  DropIn = 'DropIn',
+}
+
+export type PaymentComponentType = 'Component' | 'DropIn' | (string & {})
+export interface PaymentIntegration {
+  /**
+   *	Unique identifier of the PaymentIntegration.
+   *
+   *
+   */
+  readonly id: string
+  /**
+   *	Current version of the PaymentIntegration.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	User-defined unique identifier of the PaymentIntegration. `MinLength: 2 ​MaxLength: 256 ​Pattern: ^[A-Za-z0-9_-]+$`
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	Reference to an Application associated with the PaymentIntegration.
+   *
+   *
+   */
+  readonly application: ApplicationReference
+  /**
+   *	Indicates whether the Payment Integration is active or not.
+   *
+   *
+   */
+  readonly status?: PaymentIntegrationStatus
+  /**
+   *	Type of the PaymentIntegration, for example, card, Paypal, or Applepay. This field must be same as used by the payment service provider (PSP) and must be supported by the Connector.
+   *
+   *	Use `drop-in` for drop-in Payment Integrations.
+   *
+   *
+   */
+  readonly type: string
+  /**
+   *	Name of the PaymentIntegration in the Merchant Center.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	Predicate in JSONata format. Applies only when `componentType` is `Component`.
+   *
+   *
+   */
+  readonly predicate?: string
+  /**
+   *	Indicates the component type of Payment Integration.
+   *
+   *
+   */
+  readonly componentType: PaymentComponentType
+  /**
+   *	Connector deployment info for the Payment Integration.
+   *
+   *
+   */
+  readonly connectorDeployment: ConnectorDeploymentReference
+  /**
+   *	Customization for the information that is displayed in the UI. Applies only when `componentType` is `Component`
+   *
+   *
+   */
+  readonly displayInfo?: DisplayInfo
+  /**
+   *	Sorting information of the Payment Integration.
+   *
+   *
+   */
+  readonly sortingInfo?: SortingInfo
+  /**
+   *	Configuration of the Payment Integration automatic reversal.
+   *
+   *
+   */
+  readonly automatedReversalConfiguration?: AutomatedReversalConfiguration
+  /**
+   *	Date and time (UTC) the PaymentIntegration was initially created.
+   *
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	IDs and references that created the PaymentIntegration.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Date and time (UTC) the PaymentIntegration was last updated.
+   *
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the PaymentIntegration.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+}
+/**
+ *	Reference to a [Payment Integration](ctp:checkout:type:PaymentIntegration).
  *
  */
 export interface PaymentIntegrationReference extends IReference {
@@ -20,7 +325,7 @@ export interface PaymentIntegrationReference extends IReference {
   readonly id: string
 }
 /**
- *	Resource identifier to a [Payment Integration](/connectors-and-applications#payment-integrations). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/errors#invalidjsoninput) error is returned.
+ *	Resource identifier to a [Payment Integration](ctp:checkout:type:PaymentIntegration). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/errors#invalidjsoninput) error is returned.
  *
  */
 export interface PaymentIntegrationResourceIdentifier
@@ -38,4 +343,272 @@ export interface PaymentIntegrationResourceIdentifier
    *
    */
   readonly key?: string
+}
+export enum PaymentIntegrationStatusValues {
+  Active = 'Active',
+  Inactive = 'Inactive',
+}
+
+export type PaymentIntegrationStatus = 'Active' | 'Inactive' | (string & {})
+export enum PaymentIntegrationTypeValues {
+  GiftCard = 'GiftCard',
+  Psp = 'Psp',
+}
+
+export type PaymentIntegrationType = 'GiftCard' | 'Psp' | (string & {})
+export interface SortingInfo {
+  /**
+   *	Sorting priority of the Payment Integration.
+   *
+   *
+   */
+  readonly priority: number
+}
+/**
+ *	Base type for all PaymentIntegration update actions.
+ *
+ */
+export type PaymentIntegrationUpdateAction =
+  | SetAutomatedReversalConfigurationPredicateUpdateAction
+  | SetAutomatedReversalConfigurationStatusUpdateAction
+  | SetAutomatedReversalConfigurationUpdateAction
+  | SetConnectorDeploymentUpdateAction
+  | SetDisplayInfoDescriptionUpdateAction
+  | SetDisplayInfoLabelUpdateAction
+  | SetDisplayInfoLogoUrlUpdateAction
+  | SetDisplayInfoPayButtonTextUpdateAction
+  | SetDisplayInfoUpdateAction
+  | SetKeyUpdateAction
+  | SetNameUpdateAction
+  | SetPredicateUpdateAction
+  | SetSortingInfoUpdateAction
+  | SetStatusUpdateAction
+  | SetTypeUpdateAction
+export interface IPaymentIntegrationUpdateAction {
+  /**
+   *	Type of update action to be performed on the PaymentIntegration.
+   *
+   *
+   */
+  readonly action: string
+}
+/**
+ *	PaymentIntegrationUpdateActions
+ *
+ */
+export interface PaymentIntegrationUpdateActions {
+  /**
+   *	Expected version of the PaymentIntegration on which the changes should be applied. If the expected version does not match the actual version, a [ConcurrentModification](ctp:checkout:type:ConcurrentModificationError) error will be returned.
+   *
+   *
+   */
+  readonly version: number
+  /**
+   *	Update actions to be performed on the PaymentIntegration.
+   *
+   *
+   */
+  readonly actions: PaymentIntegrationUpdateAction[]
+}
+/**
+ *	Sets the automated reversal configuration predicate of a PaymentIntegration.
+ *
+ */
+export interface SetAutomatedReversalConfigurationPredicateUpdateAction
+  extends IPaymentIntegrationUpdateAction {
+  readonly action: 'setAutomatedReversalConfigurationPredicate'
+  /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly predicate?: string
+}
+/**
+ *	Sets the automated reversal configuration status of a PaymentIntegration.
+ *
+ */
+export interface SetAutomatedReversalConfigurationStatusUpdateAction
+  extends IPaymentIntegrationUpdateAction {
+  readonly action: 'setAutomatedReversalConfigurationStatus'
+  /**
+   *	Value to set as the automated reversal configuration status of the PaymentIntegration.
+   *
+   *
+   */
+  readonly status: string
+}
+/**
+ *	Sets the automated reversal configuration of a PaymentIntegration.
+ *
+ */
+export interface SetAutomatedReversalConfigurationUpdateAction
+  extends IPaymentIntegrationUpdateAction {
+  readonly action: 'setAutomatedReversalConfiguration'
+  /**
+   *	Value to set as the automated reversal configuration of the PaymentIntegration.
+   *
+   *
+   */
+  readonly automatedReversalConfiguration?: AutomatedReversalConfiguration
+}
+/**
+ *	Sets the connector deployment reference of a PaymentIntegration.
+ *
+ */
+export interface SetConnectorDeploymentUpdateAction
+  extends IPaymentIntegrationUpdateAction {
+  readonly action: 'setConnectorDeployment'
+  /**
+   *	Value to set as the connector deployment reference of the PaymentIntegration.
+   *
+   *
+   */
+  readonly connectorDeployment: ConnectorDeploymentReference
+}
+/**
+ *	Sets the display info description of a PaymentIntegration.
+ *
+ */
+export interface SetDisplayInfoDescriptionUpdateAction
+  extends IPaymentIntegrationUpdateAction {
+  readonly action: 'setDisplayInfoDescription'
+  /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly description?: LocalizedString
+}
+/**
+ *	Sets the display info label of a PaymentIntegration.
+ *
+ */
+export interface SetDisplayInfoLabelUpdateAction
+  extends IPaymentIntegrationUpdateAction {
+  readonly action: 'setDisplayInfoLabel'
+  /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly label?: LocalizedString
+}
+/**
+ *	Sets the display info logo URL of a PaymentIntegration.
+ *
+ */
+export interface SetDisplayInfoLogoUrlUpdateAction
+  extends IPaymentIntegrationUpdateAction {
+  readonly action: 'setDisplayInfoLogoUrl'
+  /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly logoUrl?: LocalizedString
+}
+/**
+ *	Sets the display info pay button text of a PaymentIntegration.
+ *
+ */
+export interface SetDisplayInfoPayButtonTextUpdateAction
+  extends IPaymentIntegrationUpdateAction {
+  readonly action: 'setDisplayInfoPayButtonText'
+  /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly payButtonText?: LocalizedString
+}
+export interface SetDisplayInfoUpdateAction
+  extends IPaymentIntegrationUpdateAction {
+  readonly action: 'setDisplayInfo'
+  /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly displayInfo?: DisplayInfo
+}
+/**
+ *	Sets or unsets the key of a PaymentIntegration.
+ *
+ */
+export interface SetKeyUpdateAction extends IPaymentIntegrationUpdateAction {
+  readonly action: 'setKey'
+  /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly key?: string
+}
+/**
+ *	Sets the name of a PaymentIntegration.
+ *
+ */
+export interface SetNameUpdateAction extends IPaymentIntegrationUpdateAction {
+  readonly action: 'setName'
+  /**
+   *	Value to set as the name of the PaymentIntegration.
+   *
+   *
+   */
+  readonly name: string
+}
+/**
+ *	Sets the predicate of a PaymentIntegration.
+ *
+ */
+export interface SetPredicateUpdateAction
+  extends IPaymentIntegrationUpdateAction {
+  readonly action: 'setPredicate'
+  /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly predicate?: string
+}
+/**
+ *	Sets the sorting info of a PaymentIntegration.
+ *
+ */
+export interface SetSortingInfoUpdateAction
+  extends IPaymentIntegrationUpdateAction {
+  readonly action: 'setSortingInfo'
+  /**
+   *	Value to set. If empty, any existing value will be removed.
+   *
+   *
+   */
+  readonly sortingInfo?: SortingInfo
+}
+/**
+ *	Sets the status of a PaymentIntegration.
+ *
+ */
+export interface SetStatusUpdateAction extends IPaymentIntegrationUpdateAction {
+  readonly action: 'setStatus'
+  /**
+   *	Value to set as the status of the PaymentIntegration.
+   *
+   *
+   */
+  readonly status: PaymentIntegrationStatus
+}
+/**
+ *	Sets the type of a PaymentIntegration.
+ *
+ */
+export interface SetTypeUpdateAction extends IPaymentIntegrationUpdateAction {
+  readonly action: 'setType'
+  /**
+   *	Value to set as the type of the PaymentIntegration.
+   *
+   *
+   */
+  readonly type: string
 }

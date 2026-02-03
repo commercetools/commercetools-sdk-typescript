@@ -119,6 +119,7 @@ export type _SearchQueryExpression =
   | SearchExistsExpression
   | SearchFullTextExpression
   | SearchFullTextPrefixExpression
+  | SearchFuzzyExpression
   | SearchLongRangeExpression
   | SearchNumberRangeExpression
   | SearchPrefixExpression
@@ -159,6 +160,12 @@ export interface SearchFullTextPrefixExpression extends SearchQueryExpression {
    *
    */
   readonly fullTextPrefix: SearchFullTextPrefixValue
+}
+export interface SearchFuzzyExpression extends SearchQueryExpression {
+  /**
+   *
+   */
+  readonly fuzzy: SearchFuzzyValue
 }
 export interface SearchLongRangeExpression extends SearchQueryExpression {
   /**
@@ -202,6 +209,7 @@ export type _SearchQueryExpressionValue =
   | SearchExistsValue
   | SearchFullTextPrefixValue
   | SearchFullTextValue
+  | SearchFuzzyValue
   | SearchLongRangeValue
   | SearchNumberRangeValue
   | SearchTimeRangeValue
@@ -313,6 +321,36 @@ export interface SearchFullTextValue extends SearchQueryExpressionValue {
    */
   readonly language?: string
   /**
+   *
+   */
+  readonly mustMatch?: SearchMatchType
+}
+export interface SearchFuzzyValue extends SearchQueryExpressionValue {
+  /**
+   *	The search term to find fuzzy matches for. If multiple terms are provided (separated by whitespace), the fuzziness level is applied to each term individually.
+   *
+   *
+   */
+  readonly value: any
+  /**
+   *	The maximum fuzziness level desired for the search term. Allowed values are `0`, `1`, and `2`. The API automatically adjusts the effective fuzziness level based on the length of the search term if it exceeds the maximum allowed for the given string length according to the following rules:
+   *
+   *	* Terms with 1-2 characters: 0 (exact match)
+   *	* Terms with 3-5 characters: 1 (up to one difference is allowed)
+   *	* Terms with more than 5 characters: 2 (up to two differences are allowed)
+   *
+   *
+   */
+  readonly level: number
+  /**
+   *	Language of the localized value. Must be provided when the field is of type `localizedTextField`. The provided Locale must be one of the Project's languages.
+   *
+   *
+   */
+  readonly language?: string
+  /**
+   *	Controls whether all of the provided terms must match (`all`, default) or any of those (`any`).
+   *
    *
    */
   readonly mustMatch?: SearchMatchType

@@ -4,187 +4,139 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
+/**
+ *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+ *
+ */
 export interface LocalizedString {
   [key: string]: string
 }
-export interface Address {
-  /**
-   *	Unique ID of the Address.
-   *
-   */
-  readonly id: string
-  /**
-   *
-   */
-  readonly key: string
-  /**
-   *
-   */
-  readonly title: string
-  /**
-   *
-   */
-  readonly salutation: string
-  /**
-   *
-   */
-  readonly firstName: string
-  /**
-   *
-   */
-  readonly lastName: string
-  /**
-   *
-   */
-  readonly streetName: string
-  /**
-   *
-   */
-  readonly streetNumber: string
-  /**
-   *
-   */
-  readonly additionalStreetInfo: string
-  /**
-   *
-   */
-  readonly postalCode: string
-  /**
-   *
-   */
-  readonly city: string
-  /**
-   *
-   */
-  readonly region: string
-  /**
-   *
-   */
-  readonly state: string
-  /**
-   *	Two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-   *
-   *
-   */
-  readonly country: string
-  /**
-   *
-   */
-  readonly company: string
-  /**
-   *
-   */
-  readonly department: string
-  /**
-   *
-   */
-  readonly building: string
-  /**
-   *
-   */
-  readonly apartment: string
-  /**
-   *
-   */
-  readonly pOBox: string
-  /**
-   *
-   */
-  readonly phone: string
-  /**
-   *
-   */
-  readonly mobile: string
-  /**
-   *
-   */
-  readonly email: string
-  /**
-   *
-   */
-  readonly fax: string
-  /**
-   *
-   */
-  readonly additionalAddressInfo: string
-  /**
-   *
-   */
-  readonly externalId: string
-}
 export interface Asset {
   /**
+   *	Unique identifier of the Asset. Not required when importing Assets using the [Import API](/import-export/import-resources).
+   *
    *
    */
   readonly id: string
   /**
+   *
+   */
+  readonly sources: AssetSource[]
+  /**
+   *	Name of the Asset.
+   *
    *
    */
   readonly name: LocalizedString
   /**
+   *	Description of the Asset.
+   *
    *
    */
-  readonly description: LocalizedString
+  readonly description?: LocalizedString
   /**
+   *	Keywords for categorizing and organizing Assets.
+   *
    *
    */
-  readonly custom: CustomFields
+  readonly tags?: string[]
   /**
+   *	Custom Fields defined for the Asset.
+   *
    *
    */
-  readonly key: string
+  readonly custom?: CustomFields
+  /**
+   *	User-defined identifier of the Asset. It is unique per [Category](ctp:api:type:Category) or [ProductVariant](ctp:api:type:ProductVariant).
+   *
+   *
+   */
+  readonly key?: string
 }
+/**
+ *	Dimensions of the Asset source specified by the number of pixels.
+ *
+ */
 export interface AssetDimensions {
   /**
+   *	Width of the Asset source.
+   *
    *
    */
   readonly w: number
   /**
+   *	Height of the Asset source.
+   *
    *
    */
   readonly h: number
 }
+/**
+ *	Representation of an [Asset](#asset) in a specific format, for example a video in a certain encoding, or an image in a certain resolution.
+ *
+ */
 export interface AssetSource {
   /**
+   *	URI of the AssetSource.
+   *
    *
    */
   readonly uri: string
   /**
+   *	User-defined identifier of the AssetSource. Must be unique per [Asset](ctp:api:type:Asset).
    *
    */
-  readonly key: string
+  readonly key?: string
   /**
+   *	Width and height of the AssetSource.
+   *
    *
    */
-  readonly dimensions: AssetDimensions
+  readonly dimensions?: AssetDimensions
   /**
+   *	Indicates the type of content, for example `application/pdf`.
+   *
    *
    */
-  readonly contentType: string
+  readonly contentType?: string
 }
 export interface Associate {
   /**
+   *	Roles assigned to the Associate within a Business Unit.
+   *
    *
    */
   readonly associateRoleAssignments: AssociateRoleAssignment[]
   /**
+   *	Deprecated type. Use `associateRoleAssignments` instead.
+   *
    *
    */
-  readonly customer: Reference
+  readonly roles?: AssociateRoleDeprecated[]
+  /**
+   *	The [Customer](ctp:api:type:Customer) that acts as an Associate in the Business Unit.
+   *
+   *
+   */
+  readonly customer: CustomerReference
 }
 export interface AssociateRoleAssignment {
   /**
+   *	Role the Associate holds within a Business Unit.
+   *
    *
    */
-  readonly associateRole: KeyReference
+  readonly associateRole: AssociateRoleKeyReference
   /**
-   *	Determines whether an [AssociateRoleAssignment](ctp:api:type:AssociateRoleAssignment) can be inherited by child Business Units.
+   *	Determines whether the AssociateRoleAssignment can be inherited by child Business Units.
+   *
    *
    */
   readonly inheritance: AssociateRoleInheritanceMode
 }
 /**
  *	Determines whether an [AssociateRoleAssignment](ctp:api:type:AssociateRoleAssignment) can be inherited by child Business Units.
+ *
  */
 export enum AssociateRoleInheritanceModeValues {
   Disabled = 'Disabled',
@@ -195,6 +147,10 @@ export type AssociateRoleInheritanceMode =
   | 'Disabled'
   | 'Enabled'
   | (string & {})
+/**
+ *	Specifies how an Attribute (or a set of Attributes) should be validated across all variants of a Product:
+ *
+ */
 export enum AttributeConstraintEnumValues {
   CombinationUnique = 'CombinationUnique',
   None = 'None',
@@ -210,37 +166,57 @@ export type AttributeConstraintEnum =
   | (string & {})
 export interface AttributeDefinition {
   /**
+   *	Describes the Type of the Attribute.
    *
    */
   readonly type: AttributeType
   /**
-   *	The unique name of the attribute used in the API. The name must be between two and 256 characters long and can contain the ASCII letters A to Z in lowercase or uppercase, digits, underscores (`_`) and the hyphen-minus (`-`). When using the same `name` for an attribute in two or more product types all fields of the AttributeDefinition of this attribute need to be the same across the product types, otherwise an AttributeDefinitionAlreadyExists error code will be returned. An exception to this are the values of an `enum` or `lenum` type and sets thereof.
+   *	User-defined name of the Attribute that is unique within the [Project](ctp:api:type:Project).
+   *
    *
    */
   readonly name: string
   /**
+   *	Human-readable label for the Attribute.
    *
    */
   readonly label: LocalizedString
   /**
-   *	Whether the attribute is required to have a value.
+   *	If `true`, the Attribute must have a value on a [ProductVariant](ctp:api:type:ProductVariant).
    *
    */
   readonly isRequired: boolean
   /**
+   *	Specifies whether the Attribute is defined at the Product or Variant level.
+   *
+   *
+   */
+  readonly level: AttributeLevelEnum
+  /**
+   *	Specifies how Attributes are validated across all variants of a Product.
+   *
    *
    */
   readonly attributeConstraint: AttributeConstraintEnum
   /**
+   *	Provides additional Attribute information to aid content managers configure Product details.
+   *
    *
    */
-  readonly inputTip: LocalizedString
+  readonly inputTip?: LocalizedString
   /**
+   *	Provides a visual representation directive for values of this Attribute (only relevant for [AttributeTextType](ctp:api:type:AttributeTextType) and [AttributeLocalizableTextType](ctp:api:type:AttributeLocalizableTextType)).
    *
    */
   readonly inputHint: TextInputHint
   /**
-   *	Whether the attribute's values should generally be enabled in product search. This determines whether the value is stored in products for matching terms in the context of full-text search queries  and can be used in facets & filters as part of product search queries. The exact features that are enabled/disabled with this flag depend on the concrete attribute type and are described there. The max size of a searchable field is **restricted to 10922 characters**. This constraint is enforced at both product creation and product update. If the length of the input exceeds the maximum size an InvalidField error is returned.
+   *	If `true`, the Attribute's values are available in the [Product Search](/../api/projects/product-search) or the [Product Projection Search](/../api/projects/product-projection-search) API for use in full-text search queries, filters, and facets.
+   *	However, if an Attribute's `level` is set as `Product`, then Product Projection Search does **not support** the Attribute.
+   *
+   *	The exact features that are available with this flag depend on the specific [AttributeType](ctp:api:type:AttributeType).
+   *	The maximum size of a searchable field is **restricted** by the [Field content size limit](/../api/limits#field-content-size).
+   *	This constraint is enforced at both [Product creation](ctp:api:endpoint:/{projectKey}/products:POST) and [Product update](/../api/projects/products#update-product).
+   *	If the length of the input exceeds the maximum size, an [InvalidField](ctp:api:type:InvalidFieldError) error is returned.
    *
    */
   readonly isSearchable: boolean
@@ -281,6 +257,9 @@ export interface AttributePlainEnumValue {
    */
   readonly label: string
 }
+/**
+ *	Umbrella type for specific attribute types discriminated by property `name`.
+ */
 export interface AttributeType {
   /**
    *
@@ -295,6 +274,7 @@ export enum AuthenticationModeValues {
 export type AuthenticationMode = 'ExternalAuth' | 'Password' | (string & {})
 /**
  *	Determines whether a Business Unit can inherit Associates from a parent.
+ *
  */
 export enum BusinessUnitAssociateModeValues {
   Explicit = 'Explicit',
@@ -307,6 +287,7 @@ export type BusinessUnitAssociateMode =
   | (string & {})
 /**
  *	Indicates whether the Business Unit can be edited and used in [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quote Requests](ctp:api:type:QuoteRequest), or [Quotes](ctp:api:type:Quote).
+ *
  */
 export enum BusinessUnitStatusValues {
   Active = 'Active',
@@ -316,6 +297,7 @@ export enum BusinessUnitStatusValues {
 export type BusinessUnitStatus = 'Active' | 'Inactive' | (string & {})
 /**
  *	Defines whether the Stores of the Business Unit are set directly on the Business Unit or are inherited from its parent unit.
+ *
  */
 export enum BusinessUnitStoreModeValues {
   Explicit = 'Explicit',
@@ -323,6 +305,9 @@ export enum BusinessUnitStoreModeValues {
 }
 
 export type BusinessUnitStoreMode = 'Explicit' | 'FromParent' | (string & {})
+/**
+ *	JSON object where the keys are [Category](ctp:api:type:Category) `id`, and the values are order hint values: strings representing a number between `0` and `1`, but not ending in `0`. Order hints allow controlling the order of Products and how they appear in Categories. Products without order hints have an order score below `0`. Order hints are not unique. If a subset of Products have the same value for order hint in a specific category, the behavior is undetermined.
+ */
 export interface CategoryOrderHints {
   [key: string]: string
 }
@@ -345,97 +330,252 @@ export type ChannelRoleEnum =
   | 'Primary'
   | 'ProductDistribution'
   | (string & {})
+/**
+ *	Serves as value of the `custom` field on a resource or data type customized with a [Type](ctp:api:type:Type).
+ *
+ */
 export interface CustomFields {
   /**
+   *	Reference to the [Type](ctp:api:type:Type) that holds the [FieldDefinitions](ctp:api:type:FieldDefinition) for the Custom Fields.
+   *
    *
    */
-  readonly type: Reference
+  readonly type: TypeReference
   /**
-   *	A valid JSON object, based on FieldDefinition.
+   *	Object containing the Custom Fields for the [customized resource or data type](/../api/projects/types#resourcetypeid).
+   *
    *
    */
-  readonly fields: any
+  readonly fields: FieldContainer
 }
+/**
+ *	A generic item that can be added to the Cart but is not bound to a Product that can be used for discounts (negative money), vouchers, complex cart rules, additional services, or fees.
+ *	You control the lifecycle of this item.
+ *
+ */
 export interface CustomLineItem {
   /**
-   *	The unique ID of this CustomLineItem.
+   *	Unique identifier of the Custom Line Item.
+   *
    *
    */
   readonly id: string
   /**
+   *	User-defined unique identifier of the Custom Line Item.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	Name of the Custom Line Item.
+   *
    *
    */
   readonly name: LocalizedString
   /**
+   *	Money value of the Custom Line Item.
+   *
    *
    */
-  readonly money: Money
+  readonly money: TypedMoney
   /**
+   *	Automatically set after the `taxRate` is set.
+   *
    *
    */
-  readonly taxedPrice: TaxedItemPrice
+  readonly taxedPrice?: TaxedItemPrice
   /**
+   *	Total taxed prices based on the quantity of the Custom Line Item assigned to each [Shipping Method](ctp:api:type:ShippingMethod). Only applicable for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Automatically set after `perMethodTaxRate` is set.
    *
    */
-  readonly totalPrice: Money
+  readonly taxedPricePortions: MethodTaxedPrice[]
   /**
-   *	A unique String in the cart to identify this CustomLineItem.
+   *	Total price of the Custom Line Item (`money` multiplied by `quantity`).
+   *	If the Custom Line Item is discounted, the total price is `discountedPricePerQuantity` multiplied by `quantity`.
+   *
+   *	Includes taxes if the [TaxRate](ctp:api:type:TaxRate) `includedInPrice` is `true`.
+   *
+   *
+   */
+  readonly totalPrice: CentPrecisionMoney
+  /**
+   *	User-defined identifier used in a deep-link URL for the Custom Line Item.
+   *	It matches the pattern `[a-zA-Z0-9_-]{2,256}`.
+   *
    *
    */
   readonly slug: string
   /**
-   *	The amount of a CustomLineItem in the cart. Must be a positive integer.
+   *	Number of Custom Line Items in the [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order).
+   *
    *
    */
   readonly quantity: number
+  /**
+   *	Tracks specific quantities of the Custom Line Item within a given State. When a Custom Line Item is added to a Cart, its full quantity is set to the built-in "Initial" state. State transitions for Custom Line Items are managed on the [Order](ctp:api:type:Order).
+   *
+   *
+   */
+  readonly state: ItemState[]
+  /**
+   *	Used to select a Tax Rate when a Cart has the `Platform` [TaxMode](ctp:api:type:TaxMode).
+   *
+   *
+   */
+  readonly taxCategory?: TaxCategoryReference
+  /**
+   *	- For a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode), the `taxRate` of Custom Line Items is set automatically once a shipping address is set. The rate is based on the [TaxCategory](ctp:api:type:TaxCategory) that applies for the shipping address.
+   *	- For a Cart with `External` TaxMode, the `taxRate` of Custom Line Items can be set using [ExternalTaxRateDraft](ctp:api:type:ExternalTaxRateDraft).
+   *
+   *
+   */
+  readonly taxRate?: TaxRate
+  /**
+   *	Tax Rate per Shipping Method for a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode). For a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode) it is automatically set after the [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction).
+   *	For a Cart with `External` [TaxMode](ctp:api:type:TaxMode), the Tax Rate must be set with [ExternalTaxRateDraft](ctp:api:type:ExternalTaxRateDraft).
+   *
+   */
+  readonly perMethodTaxRate: MethodTaxRate[]
+  /**
+   *	Discounted price of a single quantity of the Custom Line Item.
+   *
+   *
+   */
+  readonly discountedPricePerQuantity: DiscountedLineItemPriceForQuantity[]
+  /**
+   *	Custom Fields of the Custom Line Item.
+   *
+   *
+   */
+  readonly custom?: CustomFields
+  /**
+   *	Container for Custom Line Item-specific addresses.
+   *
+   *
+   */
+  readonly shippingDetails?: ItemShippingDetails
+  /**
+   *	Indicates whether Cart Discounts with a matching [CartDiscountCustomLineItemsTarget](ctp:api:type:CartDiscountCustomLineItemsTarget), [MultiBuyCustomLineItemsTarget](ctp:api:type:MultiBuyCustomLineItemsTarget), or [CartDiscountPatternTarget](ctp:api:type:CartDiscountPatternTarget) are applied to the Custom Line Item.
+   *
+   *
+   */
+  readonly priceMode: CustomLineItemPriceMode
+  /**
+   *	Recurring Order and frequency data.
+   *
+   *
+   */
+  readonly recurrenceInfo?: CustomLineItemRecurrenceInfo
 }
+/**
+ *	Contains information on how items are shipped to Customers, for example, a delivery note.
+ *
+ */
 export interface Delivery {
   /**
+   *	Unique identifier of the Delivery.
    *
    */
   readonly id: string
   /**
+   *	User-defined unique identifier of the Delivery.
+   *
+   */
+  readonly key?: string
+  /**
+   *	Date and time (UTC) the Delivery was created.
+   *
    *
    */
   readonly createdAt: string
   /**
+   *	Line Items or Custom Line Items that are delivered.
+   *
    *
    */
   readonly items: DeliveryItem[]
   /**
+   *	Information regarding the appearance, content, and shipment of a Parcel.
+   *
    *
    */
   readonly parcels: Parcel[]
   /**
+   *	Address to which Parcels are delivered.
+   *
    *
    */
   readonly address?: Address
   /**
-   *	Custom Fields for the Transaction.
+   *	Custom Fields of the Delivery.
+   *
    *
    */
   readonly custom?: CustomFields
 }
 export interface DeliveryItem {
   /**
+   *	`id` of the [LineItem](ctp:api:type:LineItem) or [CustomLineItem](ctp:api:type:CustomLineItem) delivered.
+   *
    *
    */
   readonly id: string
   /**
+   *	Number of Line Items or Custom Line Items delivered.
+   *
    *
    */
   readonly quantity: number
 }
-export interface DiscountCodeInfo {
+/**
+ *	Represents a [CartDiscount](ctp:api:type:CartDiscount) that is only associated with a single Cart or Order.
+ *
+ */
+export interface DirectDiscount {
   /**
+   *	Unique identifier of the Direct Discount.
+   *
    *
    */
-  readonly discountCode: Reference
+  readonly id: string
   /**
+   *	Effect of the Discount on the Cart.
+   *
+   *
+   */
+  readonly value: CartDiscountValue
+  /**
+   *	Segment of the Cart that is discounted.
+   *
+   *	Empty when the `value` is set to `giftLineItem`.
+   *
+   *
+   */
+  readonly target?: CartDiscountTarget
+}
+export interface DiscountCodeInfo {
+  /**
+   *	Discount Code associated with the Cart or Order.
+   *
+   *
+   */
+  readonly discountCode: DiscountCodeReference
+  /**
+   *	Indicates the state of the Discount Code applied to the Cart or Order.
+   *
    *
    */
   readonly state: DiscountCodeState
 }
+/**
+ *	Indicates the state of a Discount Code in a Cart.
+ *
+ *	If an Order is created from a Cart with a state other than `MatchesCart` or `ApplicationStoppedByGroupBestDeal`, a [DiscountCodeNonApplicable](ctp:api:type:DiscountCodeNonApplicableError) error is returned.
+ *
+ *	For Orders created from a Cart with a `ApplicationStoppedByGroupBestDeal` state, the discount code is not applied.
+ *
+ */
 export enum DiscountCodeStateValues {
   ApplicationStoppedByGroupBestDeal = 'ApplicationStoppedByGroupBestDeal',
   ApplicationStoppedByPreviousDiscount = 'ApplicationStoppedByPreviousDiscount',
@@ -457,52 +597,109 @@ export type DiscountCodeState =
   | (string & {})
 export interface DiscountedLineItemPortion {
   /**
+   *	A [CartDiscountReference](ctp:api:type:CartDiscountReference) or [DirectDiscountReference](ctp:api:type:DirectDiscountReference) of the applicable discount on the Line Item.
+   *
    *
    */
   readonly discount: Reference
   /**
+   *	Money value of the applicable discount.
+   *
    *
    */
-  readonly discountedAmount: Money
+  readonly discountedAmount: TypedMoney
 }
 export interface DiscountedLineItemPrice {
   /**
+   *	Money value of the discounted Line Item or Custom Line Item.
+   *
    *
    */
-  readonly value: Money
+  readonly value: TypedMoney
   /**
+   *	Discount applicable on the Line Item or Custom Line Item.
+   *
    *
    */
   readonly includedDiscounts: DiscountedLineItemPortion[]
 }
 export interface DiscountedLineItemPriceForQuantity {
   /**
+   *	Number of Line Items or Custom Line Items in the Cart.
+   *
    *
    */
   readonly quantity: number
   /**
+   *	Discounted price of the Line Item or Custom Line Item.
+   *
    *
    */
   readonly discountedPrice: DiscountedLineItemPrice
 }
+export type DiscountTypeCombination = BestDeal | Stacking
+export interface IDiscountTypeCombination {
+  /**
+   *
+   */
+  readonly type: string
+}
+/**
+ *	Indicates if a Product Discount or Cart Discount offers the best deal for a Cart or Order.
+ *
+ */
+export interface BestDeal extends IDiscountTypeCombination {
+  readonly type: 'BestDeal'
+  /**
+   *	Discount type that offers the best deal; the value can be `ProductDiscount` or `CartDiscount`.
+   *
+   *
+   */
+  readonly chosenDiscountType: string
+}
+/**
+ *	Indicates both Product Discounts and Cart Discounts apply to a Cart and Order.
+ *
+ */
+export interface Stacking extends IDiscountTypeCombination {
+  readonly type: 'Stacking'
+}
+/**
+ *	Defines a [Custom Field](/../api/projects/custom-fields) and its meta-information.
+ *	This FieldDefinition is similar to an [AttributeDefinition](ctp:api:type:AttributeDefinition) of [Product Types](/../api/projects/productTypes).
+ *
+ */
 export interface FieldDefinition {
   /**
+   *	Data type of the Custom Field to define.
    *
    */
   readonly type: FieldType
   /**
-   *	The name of the field. The name must be between two and 36 characters long and can contain the ASCII letters A to Z in lowercase or uppercase, digits, underscores (`_`) and the hyphen-minus (`-`). The name must be unique for a given resource type ID. In case there is a field with the same name in another type it has to have the same FieldType also.
+   *	Name of the Custom Field to define.
+   *	Must be unique for a given [ResourceTypeId](ctp:api:type:ResourceTypeId).
+   *	In case there is a FieldDefinition with the same `name` in another [Type](ctp:api:type:Type), both FieldDefinitions must have the same `type`.
+   *
    *
    */
   readonly name: string
   /**
+   *	A human-readable label for the field.
    *
    */
   readonly label: LocalizedString
   /**
+   *	Defines whether the field is required to have a value.
    *
    */
-  readonly inputHint: TextInputHint
+  readonly required: boolean
+  /**
+   *	Defines the visual representation of the field in user interfaces like the Merchant Center.
+   *	It is only relevant for string-based [FieldTypes](ctp:api:type:FieldType) like [CustomFieldStringType](ctp:api:type:CustomFieldStringType) and [CustomFieldLocalizedStringType](ctp:api:type:CustomFieldLocalizedStringType).
+   *
+   *
+   */
+  readonly inputHint?: TypeTextInputHint
 }
 export interface FieldType {
   /**
@@ -510,186 +707,382 @@ export interface FieldType {
    */
   readonly name: string
 }
-export interface GeoLocation {
-  /**
-   *
-   */
-  readonly type: string
-  /**
-   *
-   */
-  readonly coordinates: number[]
-}
 export interface Image {
   /**
+   *	URL of the image in its original size that must be unique within a single [ProductVariant](ctp:api:type:ProductVariant).
+   *
    *
    */
   readonly url: string
   /**
+   *	Dimensions of the original image.
+   *
    *
    */
   readonly dimensions: ImageDimensions
   /**
+   *	Custom label for the image.
+   *
    *
    */
-  readonly label: string
+  readonly label?: string
 }
 export interface ImageDimensions {
   /**
+   *	Width of the image.
    *
    */
   readonly w: number
   /**
+   *	Height of the image.
    *
    */
   readonly h: number
 }
 export interface InheritedAssociate {
   /**
+   *	Inherited roles of the Associate within a Business Unit.
+   *
    *
    */
   readonly associateRoleAssignments: InheritedAssociateRoleAssignment[]
   /**
+   *	The [Customer](ctp:api:type:Customer) that acts as an Associate in the Business Unit.
+   *
    *
    */
-  readonly customer: Reference
+  readonly customer: CustomerReference
 }
 export interface InheritedAssociateRoleAssignment {
   /**
+   *	Inherited role the Associate holds within a Business Unit.
+   *
    *
    */
-  readonly associateRole: KeyReference
+  readonly associateRole: AssociateRoleKeyReference
   /**
+   *	Reference to the parent Business Unit where the assignment is defined explicitly.
+   *
    *
    */
-  readonly source: KeyReference
+  readonly source: BusinessUnitKeyReference
 }
 export interface ItemShippingDetails {
   /**
+   *	Holds information on the quantity of Line Items or Custom Line Items and the address it is shipped.
+   *
    *
    */
   readonly targets: ItemShippingTarget[]
   /**
-   *	true if the quantity of the (custom) line item is equal to the sum of the sub-quantities in `targets`, `false` otherwise. A cart cannot be ordered when the value is `false`. The error InvalidItemShippingDetails will be triggered.
+   *	- `true` if the quantity of Line Items or Custom Line Items is equal to the sum of sub-quantities defined in `targets`.
+   *	- `false` if the quantity of Line Items or Custom Line Items is not equal to the sum of sub-quantities defined in `targets`.
+   *	  Ordering a Cart when the value is `false` returns an [InvalidItemShippingDetails](ctp:api:type:InvalidItemShippingDetailsError) error.
+   *
    *
    */
   readonly valid: boolean
 }
+/**
+ *	Determines the address (as a reference to an address in `itemShippingAddresses`) and the quantity shipped to the address.
+ *
+ *	If multiple shipping addresses are present for a Line Item or Custom Line Item, sub-quantities must be specified.
+ *	An array of addresses and sub-quantities is stored per Line Item or Custom Line Item.
+ *
+ */
 export interface ItemShippingTarget {
   /**
-   *	The key of the address in the cart's `itemShippingAddresses`
+   *	Key of the address in the [Cart](ctp:api:type:Cart) `itemShippingAddresses`.
+   *	Duplicate address keys are not allowed.
+   *
    *
    */
   readonly addressKey: string
   /**
-   *	The quantity of items that should go to the address with the specified `addressKey`. Only positive values are allowed. Using `0` as quantity is also possible in a draft object, but the element will not be present in the resulting ItemShippingDetails.
+   *	Quantity of Line Items or Custom Line Items shipped to the address with the specified `addressKey`.
+   *
+   *	If a quantity is updated to `0` when defining [ItemShippingDetailsDraft](ctp:api:type:ItemShippingDetailsDraft), the `targets` are removed from a Line Item or Custom Line Item in the resulting [ItemShippingDetails](ctp:api:type:ItemShippingDetails).
+   *
    *
    */
   readonly quantity: number
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *	It connects Line Item or Custom Line Item quantities with individual Shipping Methods.
+   *
+   */
+  readonly shippingMethodKey?: string
 }
 export interface ItemState {
   /**
+   *	Number of Line Items or Custom Line Items in this State.
+   *
    *
    */
   readonly quantity: number
   /**
+   *	State of the Line Items or Custom Line Items in a custom workflow.
+   *
    *
    */
-  readonly state: Reference
+  readonly state: StateReference
 }
-export interface KeyReference {
+/**
+ *	A KeyReference represents a loose reference to another resource in the same Project identified by the resource's `key` field. If available, the `key` is immutable and mandatory. KeyReferences do not support [Reference Expansion](/general-concepts#reference-expansion).
+ *
+ */
+export type KeyReference =
+  | AssociateRoleKeyReference
+  | BusinessUnitKeyReference
+  | StoreKeyReference
+export interface IKeyReference {
   /**
+   *	Type of referenced resource.
    *
-   */
-  readonly key: string
-  /**
    *
    */
   readonly typeId: ReferenceTypeId
+  /**
+   *	User-defined unique and immutable key of the referenced resource.
+   *
+   *
+   */
+  readonly key: string
 }
+/**
+ *	The representation of a [Line Item](/../api/carts-orders-overview#line-items) in a [Cart](ctp:api:type:Cart) or in an [Order](ctp:api:type:Order).
+ *
+ */
 export interface LineItem {
   /**
+   *	Unique identifier of the LineItem.
    *
-   */
-  readonly addedAt: string
-  /**
-   *
-   */
-  readonly custom: CustomFields
-  /**
    *
    */
   readonly id: string
   /**
+   *	User-defined unique identifier of the LineItem.
+   *
    *
    */
-  readonly name: LocalizedString
+  readonly key?: string
   /**
+   *	`id` of the [Product](ctp:api:type:Product) the Line Item is based on.
+   *
    *
    */
   readonly productId: string
   /**
+   *	`key` of the [Product](ctp:api:type:Product).
+   *
+   *	This field is only present on:
+   *
+   *	- Line Items in a [Cart](ctp:api:type:Cart) when the `key` is available on that specific Product at the time the LineItem was created or updated on the Cart.
+   *	- Line Items in an [Order](ctp:api:type:Order) when the `key` is available on the specific Product at the time the Order was created from the Cart.
+   *
+   *	Present on resources created or updated after 3 December 2021.
+   *
    *
    */
-  readonly productSlug: LocalizedString
+  readonly productKey?: string
   /**
+   *	Name of the Product.
+   *
    *
    */
-  readonly productType: Reference
+  readonly name: LocalizedString
   /**
+   *	`slug` of the current version of the Product. Updated automatically if the `slug` changes. Empty if the Product has been deleted.
+   *	The `productSlug` field of LineItem is not expanded when using [Reference Expansion](/../api/general-concepts#reference-expansion).
+   *
+   *
+   */
+  readonly productSlug?: LocalizedString
+  /**
+   *	Product Type of the Product.
+   *
+   *
+   */
+  readonly productType: ProductTypeReference
+  /**
+   *	Holds the data of the Product Variant added to the Cart.
+   *
+   *	The data is saved at the time the Product Variant is added to the Cart and is not updated automatically when Product Variant data changes.
+   *	Must be updated using the [Recalculate](ctp:api:type:CartRecalculateAction) update action.
+   *
+   *
+   */
+  readonly variant: ProductVariant
+  /**
+   *	Price of a Line Item selected from the Product Variant according to the [Product](ctp:api:type:Product) `priceMode`. If the `priceMode` is `Embedded` [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) and the `variant` field hasn't been updated, the price may not correspond to a price in `variant.prices`.
+   *
+   *
+   */
+  readonly price: Price
+  /**
+   *	Number of Line Items of the given Product Variant present in the [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order).
+   *
    *
    */
   readonly quantity: number
   /**
+   *	Total price of this Line Item equalling `price` multiplied by `quantity`. If the Line Item is discounted, the total price is the `discountedPricePerQuantity` multiplied by `quantity`.
+   *	Includes taxes if the [TaxRate](ctp:api:type:TaxRate) `includedInPrice` is `true`.
+   *
+   *	If `ExternalPrice` [LineItemPriceMode](#ctp:api:type:LineItemPriceMode) is used with high-precision money, then the total price is rounded by using the `HalfEven` rounding mode.
+   *
    *
    */
-  readonly variant: Variant
+  readonly totalPrice: CentPrecisionMoney
   /**
+   *	Discounted price of a single quantity of the Line Item.
+   *
    *
    */
-  readonly variantId: number
+  readonly discountedPricePerQuantity: DiscountedLineItemPriceForQuantity[]
+  /**
+   *	Automatically set after `taxRate` is set.
+   *
+   *
+   */
+  readonly taxedPrice?: TaxedItemPrice
+  /**
+   *	Total taxed prices based on the quantity of Line Item assigned to each [Shipping Method](ctp:api:type:ShippingMethod). Only applicable for Carts with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *	Automatically set after `perMethodTaxRate` is set.
+   *
+   */
+  readonly taxedPricePortions: MethodTaxedPrice[]
+  /**
+   *	Tracks specific quantities of the Line Item within a given State. When a Line Item is added to a Cart, its full quantity is set to the built-in "Initial" state. State transitions for Line Items are managed on the [Order](ctp:api:type:Order).
+   *
+   *
+   */
+  readonly state: ItemState[]
+  /**
+   *	- For a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode), the `taxRate` of Line Items is set automatically once a shipping address is set. The rate is based on the [TaxCategory](ctp:api:type:TaxCategory) that applies for the shipping address.
+   *	- For a Cart with `External` TaxMode, the `taxRate` of Line Items can be set using [ExternalTaxRateDraft](ctp:api:type:ExternalTaxRateDraft).
+   *
+   *
+   */
+  readonly taxRate?: TaxRate
+  /**
+   *	Tax Rate per Shipping Method for a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode). For a Cart with `Platform` [TaxMode](ctp:api:type:TaxMode) it is automatically set after the [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction).
+   *	For a Cart with `External` [TaxMode](ctp:api:type:TaxMode), the Tax Rate must be set with [ExternalTaxRateDraft](ctp:api:type:ExternalTaxRateDraft).
+   *
+   */
+  readonly perMethodTaxRate: MethodTaxRate[]
+  /**
+   *	Identifies [Inventory entries](/../api/projects/inventory) that are reserved. The referenced Channel has the `InventorySupply` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *
+   *
+   */
+  readonly supplyChannel?: ChannelReference
+  /**
+   *	Used to [select](/../api/pricing-and-discounts-overview#line-item-price-selection) a Product Price. The referenced Channel has the `ProductDistribution` [ChannelRoleEnum](ctp:api:type:ChannelRoleEnum).
+   *
+   *
+   */
+  readonly distributionChannel?: ChannelReference
+  /**
+   *	Indicates how the Price for the Line Item is set.
+   *
+   *
+   */
+  readonly priceMode: LineItemPriceMode
+  /**
+   *	Indicates how the Line Item is added to the Cart.
+   *
+   *
+   */
+  readonly lineItemMode: LineItemMode
+  /**
+   *	Inventory mode specific to this Line Item only, and valid for the entire `quantity` of the Line Item.
+   *	Only present if the inventory mode is different from the `inventoryMode` specified on the [Cart](ctp:api:type:Cart).
+   *
+   *
+   */
+  readonly inventoryMode?: InventoryMode
+  /**
+   *	Container for Line Item-specific addresses.
+   *
+   *
+   */
+  readonly shippingDetails?: ItemShippingDetails
+  /**
+   *	Custom Fields of the Line Item.
+   *
+   *
+   */
+  readonly custom?: CustomFields
+  /**
+   *	Date and time (UTC) the Line Item was added to the Cart.
+   *
+   *
+   */
+  readonly addedAt?: string
+  /**
+   *	Date and time (UTC) the Line Item was last updated.
+   *
+   *
+   */
+  readonly lastModifiedAt?: string
+  /**
+   *	Recurring Order and frequency data.
+   *
+   *
+   */
+  readonly recurrenceInfo?: LineItemRecurrenceInfo
 }
 /**
- *	Shape of the value for `addLocation` and `removeLocation` actions
+ *	A geographical location representing a country and optionally a state within this country.  A location can only be assigned to one Zone.
  */
 export interface Location {
   /**
-   *	Two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-   *
+   *	Country code of the geographic location.
    *
    */
   readonly country: string
   /**
+   *	State within the country.
    *
    */
-  readonly state: string
+  readonly state?: string
 }
+/**
+ *	Draft object to store money in cent amounts for a specific currency.
+ */
 export interface Money {
+  /**
+   *	Amount in the smallest indivisible unit of a currency, such as:
+   *
+   *	* Cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as `500`).
+   *	* The value in the major unit for currencies without minor units, like JPY (5 JPY is specified as `5`).
+   *
+   *
+   */
+  readonly centAmount: number
   /**
    *	Currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
    *
    *
    */
   readonly currencyCode: string
-  /**
-   *
-   */
-  readonly centAmount: number
-  /**
-   *
-   */
-  readonly fractionDigits: number
-  /**
-   *
-   */
-  readonly type: MoneyType
 }
+export type _Money = Money | TypedMoney
+/**
+ *	Determines the type of money used.
+ */
 export enum MoneyTypeValues {
   CentPrecision = 'centPrecision',
   HighPrecision = 'highPrecision',
 }
 
 export type MoneyType = 'centPrecision' | 'highPrecision' | (string & {})
+/**
+ *	Indicates the state of the Order.
+ *
+ */
 export enum OrderStateValues {
   Cancelled = 'Cancelled',
   Complete = 'Complete',
@@ -703,52 +1096,90 @@ export type OrderState =
   | 'Confirmed'
   | 'Open'
   | (string & {})
+/**
+ *	Information regarding the appearance, content, and shipment of a Parcel.
+ *
+ */
 export interface Parcel {
   /**
+   *	Unique identifier of the Parcel.
    *
    */
   readonly id: string
   /**
+   *	User-defined unique identifier of the Parcel.
+   *
+   */
+  readonly key?: string
+  /**
+   *	Date and time (UTC) the Parcel was created.
+   *
    *
    */
   readonly createdAt: string
   /**
+   *	Information about the dimensions of the Parcel.
+   *
    *
    */
-  readonly measurements: ParcelMeasurements
+  readonly measurements?: ParcelMeasurements
   /**
+   *	Shipment tracking information of the Parcel.
+   *
    *
    */
-  readonly trackingData: TrackingData
+  readonly trackingData?: TrackingData
   /**
+   *	Line Items or Custom Line Items delivered in this Parcel.
+   *
    *
    */
-  readonly items: DeliveryItem[]
+  readonly items?: DeliveryItem[]
+  /**
+   *	Custom Fields of the Parcel.
+   *
+   *
+   */
+  readonly custom?: CustomFields
 }
 export interface ParcelMeasurements {
   /**
+   *	Height of the Parcel.
+   *
    *
    */
-  readonly heightInMillimeter: number
+  readonly heightInMillimeter?: number
   /**
+   *	Length of the Parcel.
+   *
    *
    */
-  readonly lengthInMillimeter: number
+  readonly lengthInMillimeter?: number
   /**
+   *	Width of the Parcel.
+   *
    *
    */
-  readonly widthInMillimeter: number
+  readonly widthInMillimeter?: number
   /**
+   *	Weight of the Parcel.
+   *
    *
    */
-  readonly weightInGram: number
+  readonly weightInGram?: number
 }
 export interface PaymentInfo {
   /**
+   *	[References](ctp:api:type:Reference) to the Payments associated with the Order.
+   *
    *
    */
-  readonly payments: Reference[]
+  readonly payments: PaymentReference[]
 }
+/**
+ *	Indicates the payment status for the Order.
+ *
+ */
 export enum PaymentStateValues {
   BalanceDue = 'BalanceDue',
   CreditOwed = 'CreditOwed',
@@ -765,159 +1196,312 @@ export type PaymentState =
   | 'Pending'
   | (string & {})
 /**
- *	Permissions grant granular access to [Business Units](ctp:api:type:BusinessUnit), [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), and [Quote Requests](ctp:api:type:QuoteRequest).
+ *	Permissions grant granular access to [Approval Rules](ctp:api:type:ApprovalRule), [Approval Flows](ctp:api:type:ApprovalFlow), [Business Units](ctp:api:type:BusinessUnit), [Carts](ctp:api:type:Cart), [Orders](ctp:api:type:Order), [Quotes](ctp:api:type:Quote), [Quote Requests](ctp:api:type:QuoteRequest), and [Shopping Lists](ctp:api:type:ShoppingList).
+ *
  */
 export enum PermissionValues {
   AcceptMyQuotes = 'AcceptMyQuotes',
   AcceptOthersQuotes = 'AcceptOthersQuotes',
   AddChildUnits = 'AddChildUnits',
+  CreateApprovalRules = 'CreateApprovalRules',
   CreateMyCarts = 'CreateMyCarts',
   CreateMyOrdersFromMyCarts = 'CreateMyOrdersFromMyCarts',
   CreateMyOrdersFromMyQuotes = 'CreateMyOrdersFromMyQuotes',
   CreateMyQuoteRequestsFromMyCarts = 'CreateMyQuoteRequestsFromMyCarts',
+  CreateMyShoppingLists = 'CreateMyShoppingLists',
   CreateOrdersFromOthersCarts = 'CreateOrdersFromOthersCarts',
   CreateOrdersFromOthersQuotes = 'CreateOrdersFromOthersQuotes',
   CreateOthersCarts = 'CreateOthersCarts',
+  CreateOthersShoppingLists = 'CreateOthersShoppingLists',
   CreateQuoteRequestsFromOthersCarts = 'CreateQuoteRequestsFromOthersCarts',
   DeclineMyQuotes = 'DeclineMyQuotes',
   DeclineOthersQuotes = 'DeclineOthersQuotes',
   DeleteMyCarts = 'DeleteMyCarts',
+  DeleteMyShoppingLists = 'DeleteMyShoppingLists',
   DeleteOthersCarts = 'DeleteOthersCarts',
+  DeleteOthersShoppingLists = 'DeleteOthersShoppingLists',
   ReassignMyQuotes = 'ReassignMyQuotes',
   ReassignOthersQuotes = 'ReassignOthersQuotes',
   RenegotiateMyQuotes = 'RenegotiateMyQuotes',
   RenegotiateOthersQuotes = 'RenegotiateOthersQuotes',
+  UpdateApprovalFlows = 'UpdateApprovalFlows',
+  UpdateApprovalRules = 'UpdateApprovalRules',
   UpdateAssociates = 'UpdateAssociates',
   UpdateBusinessUnitDetails = 'UpdateBusinessUnitDetails',
   UpdateMyCarts = 'UpdateMyCarts',
   UpdateMyOrders = 'UpdateMyOrders',
   UpdateMyQuoteRequests = 'UpdateMyQuoteRequests',
+  UpdateMyShoppingLists = 'UpdateMyShoppingLists',
   UpdateOthersCarts = 'UpdateOthersCarts',
   UpdateOthersOrders = 'UpdateOthersOrders',
   UpdateOthersQuoteRequests = 'UpdateOthersQuoteRequests',
+  UpdateOthersShoppingLists = 'UpdateOthersShoppingLists',
   UpdateParentUnit = 'UpdateParentUnit',
   ViewMyCarts = 'ViewMyCarts',
   ViewMyOrders = 'ViewMyOrders',
   ViewMyQuoteRequests = 'ViewMyQuoteRequests',
   ViewMyQuotes = 'ViewMyQuotes',
+  ViewMyShoppingLists = 'ViewMyShoppingLists',
   ViewOthersCarts = 'ViewOthersCarts',
   ViewOthersOrders = 'ViewOthersOrders',
   ViewOthersQuoteRequests = 'ViewOthersQuoteRequests',
   ViewOthersQuotes = 'ViewOthersQuotes',
+  ViewOthersShoppingLists = 'ViewOthersShoppingLists',
 }
 
 export type Permission =
   | 'AcceptMyQuotes'
   | 'AcceptOthersQuotes'
   | 'AddChildUnits'
+  | 'CreateApprovalRules'
   | 'CreateMyCarts'
   | 'CreateMyOrdersFromMyCarts'
   | 'CreateMyOrdersFromMyQuotes'
   | 'CreateMyQuoteRequestsFromMyCarts'
+  | 'CreateMyShoppingLists'
   | 'CreateOrdersFromOthersCarts'
   | 'CreateOrdersFromOthersQuotes'
   | 'CreateOthersCarts'
+  | 'CreateOthersShoppingLists'
   | 'CreateQuoteRequestsFromOthersCarts'
   | 'DeclineMyQuotes'
   | 'DeclineOthersQuotes'
   | 'DeleteMyCarts'
+  | 'DeleteMyShoppingLists'
   | 'DeleteOthersCarts'
+  | 'DeleteOthersShoppingLists'
   | 'ReassignMyQuotes'
   | 'ReassignOthersQuotes'
   | 'RenegotiateMyQuotes'
   | 'RenegotiateOthersQuotes'
+  | 'UpdateApprovalFlows'
+  | 'UpdateApprovalRules'
   | 'UpdateAssociates'
   | 'UpdateBusinessUnitDetails'
   | 'UpdateMyCarts'
   | 'UpdateMyOrders'
   | 'UpdateMyQuoteRequests'
+  | 'UpdateMyShoppingLists'
   | 'UpdateOthersCarts'
   | 'UpdateOthersOrders'
   | 'UpdateOthersQuoteRequests'
+  | 'UpdateOthersShoppingLists'
   | 'UpdateParentUnit'
   | 'ViewMyCarts'
   | 'ViewMyOrders'
   | 'ViewMyQuoteRequests'
   | 'ViewMyQuotes'
+  | 'ViewMyShoppingLists'
   | 'ViewOthersCarts'
   | 'ViewOthersOrders'
   | 'ViewOthersQuoteRequests'
   | 'ViewOthersQuotes'
+  | 'ViewOthersShoppingLists'
   | (string & {})
+/**
+ *	The representation for prices embedded in [LineItems](ctp:api:type:LineItem) and in [ProductVariants](ctp:api:type:ProductVariant) when the [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) is `Embedded`.
+ *	For the `Standalone` ProductPriceMode refer to [StandalonePrice](ctp:api:type:StandalonePrice).
+ */
 export interface Price {
   /**
+   *	Unique identifier of this Price.
+   *
    *
    */
   readonly id: string
   /**
+   *	User-defined identifier of the Price. It is unique per [ProductVariant](ctp:api:type:ProductVariant).
+   *
    *
    */
-  readonly value: Money
+  readonly key?: string
+  /**
+   *	Money value of this Price.
+   *
+   *
+   */
+  readonly value: TypedMoney
+  /**
+   *	Country for which this Price is valid.
+   *
+   *
+   */
+  readonly country?: string
+  /**
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) for which this Price is valid.
+   *
+   *
+   */
+  readonly customerGroup?: CustomerGroupReference
+  /**
+   *	`ProductDistribution` [Channel](ctp:api:type:Channel) for which this Price is valid.
+   *
+   *
+   */
+  readonly channel?: ChannelReference
+  /**
+   *	Date and time from which this Price is valid.
+   *
+   *
+   */
+  readonly validFrom?: string
+  /**
+   *	Date and time until this Price is valid. Prices that are no longer valid are not automatically removed, but they can be [removed](ctp:api:type:ProductRemovePriceAction) if necessary.
+   *
+   *
+   */
+  readonly validUntil?: string
+  /**
+   *	Is set if a [ProductDiscount](ctp:api:type:ProductDiscount) has been applied.
+   *	If set, the API uses the DiscountedPrice value for the [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
+   *	When a [relative discount](ctp:api:type:ProductDiscountValueRelative) has been applied and the fraction part of the DiscountedPrice `value` is 0.5, the `value` is rounded in favor of the customer with [half-down rounding](https://en.wikipedia.org/wiki/Rounding#Rounding_half_down).
+   *
+   *
+   */
+  readonly discounted?: DiscountedPrice
+  /**
+   *	Present if different Prices for certain [LineItem](ctp:api:type:LineItem) quantities have been specified.
+   *
+   *	If `discounted` is present, the tiered Price is ignored for a Product Variant.
+   *
+   *
+   */
+  readonly tiers?: PriceTier[]
+  /**
+   *	Custom Fields defined for the Price.
+   *
+   *
+   */
+  readonly custom?: CustomFields
+  /**
+   *	[Recurrence Policy](ctp:api:type:RecurrencePolicy) for which this Price is valid.
+   *
+   *
+   */
+  readonly recurrencePolicy?: RecurrencePolicyReference
 }
 export interface ProductSelectionSetting {
   /**
+   *	Reference to a ProductSelection.
    *
    */
-  readonly productSelection: Reference
+  readonly productSelection: ProductSelectionReference
   /**
+   *	If `true`, all Products assigned to this Product Selection are part of the Store's assortment.
    *
    */
   readonly active: boolean
 }
+/**
+ *	The [InventoryEntry](ctp:api:type:InventoryEntry) information of the Product Variant. If there is a supply [Channel](ctp:api:type:Channel) for the InventoryEntry, then `channels` is returned. If not, then `isOnStock`, `restockableInDays`, and `availableQuantity` are returned.
+ *
+ */
 export interface ProductVariantAvailability {
   /**
+   *	For each [InventoryEntry](ctp:api:type:InventoryEntry) with a supply Channel, an entry is added to `channels`.
+   *
    *
    */
-  readonly isOnStock: boolean
+  readonly channels?: ProductVariantChannelAvailabilityMap
   /**
+   *	Indicates whether a Product Variant is in stock.
+   *
    *
    */
-  readonly restockableInDays: number
+  readonly isOnStock?: boolean
   /**
+   *	Number of days to restock a Product Variant once it is out of stock.
+   *
    *
    */
-  readonly availableQuantity: number
+  readonly restockableInDays?: number
   /**
+   *	Number of items of the Product Variant that are in stock.
+   *
    *
    */
-  readonly channels: ProductVariantChannelAvailabilityMap
+  readonly availableQuantity?: number
+  /**
+   *	Unique identifier of the [InventoryEntry](ctp:api:type:InventoryEntry).
+   *
+   *
+   */
+  readonly id?: string
+  /**
+   *	Current version of the [InventoryEntry](ctp:api:type:InventoryEntry).
+   *
+   *
+   */
+  readonly version?: number
 }
 export interface ProductVariantChannelAvailability {
   /**
+   *	Indicates whether a Product Variant is in stock in a specified [Channel](ctp:api:type:Channel).
+   *
    *
    */
-  readonly isOnStock: boolean
+  readonly isOnStock?: boolean
   /**
+   *	Number of days to restock a Product Variant once it is out of stock in a specified [Channel](ctp:api:type:Channel).
+   *
    *
    */
-  readonly restockableInDays: number
+  readonly restockableInDays?: number
   /**
+   *	Number of items of this Product Variant that are in stock in a specified [Channel](ctp:api:type:Channel).
+   *
    *
    */
-  readonly availableQuantity: number
+  readonly availableQuantity?: number
+  /**
+   *	Unique identifier of the [InventoryEntry](ctp:api:type:InventoryEntry).
+   *
+   *
+   */
+  readonly id: string
+  /**
+   *	Current version of the [InventoryEntry](ctp:api:type:InventoryEntry).
+   *
+   *
+   */
+  readonly version: number
 }
+/**
+ *	JSON object where the keys are supply [Channel](/projects/channels) `id`, and the values are [ProductVariantChannelAvailability](/projects/products#productvariantchannelavailability).
+ *
+ */
 export interface ProductVariantChannelAvailabilityMap {
   [key: string]: ProductVariantChannelAvailability
 }
+/**
+ *	Polymorphic base type for Product Variant Selections. The actual type is determined by the `type` field.
+ *
+ */
 export interface ProductVariantSelection {
   /**
+   *	Determines whether the SKUs are to be included in, or excluded from, the Product Selection.
+   *
    *
    */
   readonly type: ProductVariantSelectionTypeEnum
-  /**
-   *
-   */
-  readonly skus: string[]
 }
 export enum ProductVariantSelectionTypeEnumValues {
   Exclusion = 'exclusion',
+  IncludeAllExcept = 'includeAllExcept',
+  IncludeOnly = 'includeOnly',
   Inclusion = 'inclusion',
 }
 
 export type ProductVariantSelectionTypeEnum =
   | 'exclusion'
+  | 'includeAllExcept'
+  | 'includeOnly'
   | 'inclusion'
   | (string & {})
+/**
+ *	Predefined states tracking the status of the Quote Request in the negotiation process.
+ *
+ */
 export enum QuoteRequestStateValues {
   Accepted = 'Accepted',
   Cancelled = 'Cancelled',
@@ -933,12 +1517,16 @@ export type QuoteRequestState =
   | 'Rejected'
   | 'Submitted'
   | (string & {})
+/**
+ *	Predefined states tracking the status of the Quote.
+ *
+ */
 export enum QuoteStateValues {
   Accepted = 'Accepted',
   Declined = 'Declined',
   DeclinedForRenegotiation = 'DeclinedForRenegotiation',
-  Failed = 'Failed',
   Pending = 'Pending',
+  RenegotiationAddressed = 'RenegotiationAddressed',
   Withdrawn = 'Withdrawn',
 }
 
@@ -946,22 +1534,54 @@ export type QuoteState =
   | 'Accepted'
   | 'Declined'
   | 'DeclinedForRenegotiation'
-  | 'Failed'
   | 'Pending'
+  | 'RenegotiationAddressed'
   | 'Withdrawn'
   | (string & {})
-export interface Reference {
+/**
+ *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+ *
+ */
+export type Reference =
+  | CartDiscountReference
+  | CategoryReference
+  | ChannelReference
+  | CustomerGroupReference
+  | CustomerReference
+  | DiscountCodeReference
+  | PaymentReference
+  | ProductDiscountReference
+  | ProductReference
+  | ProductSelectionReference
+  | ProductTypeReference
+  | RecurrencePolicyReference
+  | ShippingMethodReference
+  | StateReference
+  | TaxCategoryReference
+  | TypeReference
+export interface IReference {
   /**
+   *	Type of referenced resource.
    *
-   */
-  readonly id: string
-  /**
    *
    */
   readonly typeId: ReferenceTypeId
+  /**
+   *	Unique ID of the referenced resource.
+   *
+   *
+   */
+  readonly id: string
 }
+/**
+ *	Type of resource the value should reference. Supported resource type identifiers are:
+ *
+ */
 export enum ReferenceTypeIdValues {
+  ApprovalFlow = 'approval-flow',
+  ApprovalRule = 'approval-rule',
   AssociateRole = 'associate-role',
+  AttributeGroup = 'attribute-group',
   BusinessUnit = 'business-unit',
   Cart = 'cart',
   CartDiscount = 'cart-discount',
@@ -971,7 +1591,9 @@ export enum ReferenceTypeIdValues {
   CustomerEmailToken = 'customer-email-token',
   CustomerGroup = 'customer-group',
   CustomerPasswordToken = 'customer-password-token',
+  DirectDiscount = 'direct-discount',
   DiscountCode = 'discount-code',
+  DiscountGroup = 'discount-group',
   Extension = 'extension',
   InventoryEntry = 'inventory-entry',
   KeyValueDocument = 'key-value-document',
@@ -981,14 +1603,19 @@ export enum ReferenceTypeIdValues {
   PaymentMethod = 'payment-method',
   Product = 'product',
   ProductDiscount = 'product-discount',
+  ProductPrice = 'product-price',
   ProductSelection = 'product-selection',
+  ProductTailoring = 'product-tailoring',
   ProductType = 'product-type',
   Quote = 'quote',
   QuoteRequest = 'quote-request',
+  RecurrencePolicy = 'recurrence-policy',
+  RecurringOrder = 'recurring-order',
   Review = 'review',
   ShippingMethod = 'shipping-method',
   ShoppingList = 'shopping-list',
   StagedQuote = 'staged-quote',
+  StandalonePrice = 'standalone-price',
   State = 'state',
   Store = 'store',
   Subscription = 'subscription',
@@ -998,7 +1625,10 @@ export enum ReferenceTypeIdValues {
 }
 
 export type ReferenceTypeId =
+  | 'approval-flow'
+  | 'approval-rule'
   | 'associate-role'
+  | 'attribute-group'
   | 'business-unit'
   | 'cart'
   | 'cart-discount'
@@ -1008,7 +1638,9 @@ export type ReferenceTypeId =
   | 'customer-email-token'
   | 'customer-group'
   | 'customer-password-token'
+  | 'direct-discount'
   | 'discount-code'
+  | 'discount-group'
   | 'extension'
   | 'inventory-entry'
   | 'key-value-document'
@@ -1018,14 +1650,19 @@ export type ReferenceTypeId =
   | 'payment-method'
   | 'product'
   | 'product-discount'
+  | 'product-price'
   | 'product-selection'
+  | 'product-tailoring'
   | 'product-type'
   | 'quote'
   | 'quote-request'
+  | 'recurrence-policy'
+  | 'recurring-order'
   | 'review'
   | 'shipping-method'
   | 'shopping-list'
   | 'staged-quote'
+  | 'standalone-price'
   | 'state'
   | 'store'
   | 'subscription'
@@ -1039,6 +1676,8 @@ export interface Reservation {
    */
   readonly quantity: number
   /**
+   *	A Reference represents a loose reference to another resource in the same Project identified by its `id`. The `typeId` indicates the type of the referenced resource. Each resource type has its corresponding Reference type, like [ChannelReference](ctp:api:type:ChannelReference).  A referenced resource can be embedded through [Reference Expansion](/general-concepts#reference-expansion). The expanded reference is the value of an additional `obj` field then.
+   *
    *
    */
   readonly owner: Reference
@@ -1055,37 +1694,61 @@ export interface ResourceIdentifier {
   /**
    *
    */
-  readonly id: string
+  readonly id?: string
   /**
    *
    */
-  readonly key: string
+  readonly key?: string
   /**
+   *	Type of resource the value should reference. Supported resource type identifiers are:
+   *
    *
    */
   readonly typeId: ReferenceTypeId
 }
+export type _ResourceIdentifier =
+  | ResourceIdentifier
+  | BusinessUnitResourceIdentifier
+  | ZoneResourceIdentifier
+/**
+ *	Stores information about returns connected to an Order.
+ *
+ */
 export interface ReturnInfo {
   /**
+   *	Information on the Line Items or Custom Line Items returned.
+   *
    *
    */
   readonly items: ReturnItem[]
   /**
-   *	Identifies, which return tracking ID is connected to this particular return.
+   *	User-defined identifier to track the return.
+   *
    *
    */
-  readonly returnTrackingId: string
+  readonly returnTrackingId?: string
   /**
+   *	Date and time (UTC) the return is initiated.
+   *
    *
    */
-  readonly returnDate: string
+  readonly returnDate?: string
 }
 export interface ReturnItem {
   /**
+   *	Unique identifier of the Return Item.
+   *
    *
    */
   readonly id: string
   /**
+   *	User-defined unique identifier of the Return Item.
+   *
+   */
+  readonly key?: string
+  /**
+   *	Number of Line Items or Custom Line Items returned.
+   *
    *
    */
   readonly quantity: number
@@ -1094,22 +1757,41 @@ export interface ReturnItem {
    */
   readonly type: string
   /**
+   *	User-defined description for the return.
+   *
    *
    */
-  readonly comment: string
+  readonly comment?: string
   /**
+   *	Shipment status of the Return Item.
+   *
    *
    */
   readonly shipmentState: ReturnShipmentState
   /**
+   *	Payment status of the Return Item:
+   *
+   *	- `NonRefundable`, for items in the `Advised` [ReturnShipmentState](ctp:api:type:ReturnShipmentState)
+   *	- `Initial`, for items in the `Returned` [ReturnShipmentState](ctp:api:type:ReturnShipmentState)
+   *
    *
    */
   readonly paymentState: ReturnPaymentState
   /**
+   *	Custom Fields of the Return Item.
+   *
+   *
+   */
+  readonly custom?: CustomFields
+  /**
+   *	Date and time (UTC) the Return Item was last updated.
+   *
    *
    */
   readonly lastModifiedAt: string
   /**
+   *	Date and time (UTC) the Return Item was initially created.
+   *
    *
    */
   readonly createdAt: string
@@ -1142,7 +1824,8 @@ export type ReturnShipmentState =
   | (string & {})
 export interface ReviewRatingStatistics {
   /**
-   *	Average rating of one target This number is rounded with 5 decimals.
+   *	Average rating of one target
+   *	This number is rounded with 5 decimals.
    *
    */
   readonly averageRating: number
@@ -1162,11 +1845,17 @@ export interface ReviewRatingStatistics {
    */
   readonly count: number
   /**
-   *	The full distribution of the ratings. The keys are the different ratings and the values are the count of reviews having this rating. Only the used ratings appear in this object.
+   *	Full distribution of the ratings.
+   *	The keys are the different ratings and the values are the count of reviews having this rating.
+   *	Only the used ratings appear in this object.
    *
    */
   readonly ratingsDistribution: any
 }
+/**
+ *	Determines how monetary values are rounded.
+ *
+ */
 export enum RoundingModeValues {
   HalfDown = 'HalfDown',
   HalfEven = 'HalfEven',
@@ -1176,26 +1865,45 @@ export enum RoundingModeValues {
 export type RoundingMode = 'HalfDown' | 'HalfEven' | 'HalfUp' | (string & {})
 export interface SearchKeyword {
   /**
+   *	Text to return in the [SuggestionResult](ctp:api:type:SuggestionResult).
+   *
    *
    */
   readonly text: string
   /**
+   *	If no tokenizer is defined, the `text` is used as a single token.
+   *
    *
    */
-  readonly suggestTokenizer: SuggestTokenizer
+  readonly suggestTokenizer?: SuggestTokenizer
 }
+/**
+ *	Search keywords are JSON objects primarily used by [Search Term Suggestions](/projects/search-term-suggestions), but are also considered for a [full text search](/projects/product-projection-search#full-text-search) in the Product Projection Search API.
+ *	The keys are of type [Locale](ctp:api:type:Locale), and the values are an array of [SearchKeyword](ctp:api:type:SearchKeyword).
+ *
+ */
 export interface SearchKeywords {
   [key: string]: SearchKeyword[]
 }
+/**
+ *	Defines which matching items are to be discounted.
+ *
+ */
 export enum SelectionModeValues {
   Cheapest = 'Cheapest',
   MostExpensive = 'MostExpensive',
 }
 
 export type SelectionMode = 'Cheapest' | 'MostExpensive' | (string & {})
+/**
+ *	Indicates the shipment status of the Order.
+ *
+ */
 export enum ShipmentStateValues {
   Backorder = 'Backorder',
+  Canceled = 'Canceled',
   Delayed = 'Delayed',
+  Delivered = 'Delivered',
   Partial = 'Partial',
   Pending = 'Pending',
   Ready = 'Ready',
@@ -1204,7 +1912,9 @@ export enum ShipmentStateValues {
 
 export type ShipmentState =
   | 'Backorder'
+  | 'Canceled'
   | 'Delayed'
+  | 'Delivered'
   | 'Partial'
   | 'Pending'
   | 'Ready'
@@ -1212,19 +1922,25 @@ export type ShipmentState =
   | (string & {})
 export interface ShippingRate {
   /**
+   *	Currency amount of the ShippingRate.
    *
    */
-  readonly price: Money
+  readonly price: CentPrecisionMoney
   /**
+   *	[Free shipping](/../api/shipping-delivery-overview#free-shipping) is applied if the sum of the (Custom) Line Item Prices reaches the specified value.
    *
    */
-  readonly freeAbove: Money
+  readonly freeAbove?: CentPrecisionMoney
   /**
-   *	Only appears in response to requests for ShippingMethods by Cart or location to mark this shipping rate as one that matches the Cart or location.
+   *	`true` if the ShippingRate matches given [Cart](ctp:api:type:Cart) or [Location](ctp:api:type:Location).
+   *	Only appears in response to requests for [Get ShippingMethods for a Cart](ctp:api:endpoint:/{projectKey}/shipping-methods/matching-cart:GET) or
+   *	[Get ShippingMethods for a Location](ctp:api:endpoint:/{projectKey}/shipping-methods/matching-location:GET).
+   *
    *
    */
-  readonly isMatching: boolean
+  readonly isMatching?: boolean
   /**
+   *	Price tiers for the ShippingRate.
    *
    */
   readonly tiers: ShippingRatePriceTier[]
@@ -1246,12 +1962,20 @@ export type ShippingRateTierType =
   | 'CartScore'
   | 'CartValue'
   | (string & {})
+/**
+ *	Describes how the Cart Discount interacts with other Discounts.
+ *
+ */
 export enum StackingModeValues {
   Stacking = 'Stacking',
   StopAfterThisDiscount = 'StopAfterThisDiscount',
 }
 
 export type StackingMode = 'Stacking' | 'StopAfterThisDiscount' | (string & {})
+/**
+ *	Predefined states tracking the status of the Staged Quote.
+ *
+ */
 export enum StagedQuoteStateValues {
   Closed = 'Closed',
   InProgress = 'InProgress',
@@ -1307,8 +2031,13 @@ export interface StoreCountry {
    */
   readonly code: string
 }
+/**
+ *	It is used to calculate the [taxPortions](/../api/projects/carts#taxedprice) field in a Cart or Order.
+ */
 export interface SubRate {
   /**
+   *	Name of the SubRate.
+   *
    *
    */
   readonly name: string
@@ -1323,21 +2052,34 @@ export interface SuggestTokenizer {
    */
   readonly type: string
 }
+/**
+ *	Contains synchronization activity information of the Order (like export or import).
+ *
+ */
 export interface SyncInfo {
   /**
+   *	Connection to a synchronization destination.
+   *
    *
    */
-  readonly channel: Reference
+  readonly channel: ChannelReference
   /**
-   *	Can be used to reference an external order instance, file etc.
+   *	Identifier of an external order instance, file, or other resource.
+   *
    *
    */
-  readonly externalId: string
+  readonly externalId?: string
   /**
+   *	Date and time (UTC) the information was synced.
+   *
    *
    */
   readonly syncedAt: string
 }
+/**
+ *	Determines in which [Tax calculation mode](/carts-orders-overview#tax-calculation-mode) taxed prices are calculated.
+ *
+ */
 export enum TaxCalculationModeValues {
   LineItemLevel = 'LineItemLevel',
   UnitPriceLevel = 'UnitPriceLevel',
@@ -1347,6 +2089,10 @@ export type TaxCalculationMode =
   | 'LineItemLevel'
   | 'UnitPriceLevel'
   | (string & {})
+/**
+ *	Indicates how taxes are set on the Cart.
+ *
+ */
 export enum TaxModeValues {
   Disabled = 'Disabled',
   External = 'External',
@@ -1360,123 +2106,215 @@ export type TaxMode =
   | 'ExternalAmount'
   | 'Platform'
   | (string & {})
-/**
- *	Shape of the value for `addTaxRate` and `removeTaxRate` actions
- */
 export interface TaxRate {
   /**
-   *	The ID is always set if the tax rate is part of a TaxCategory. The external tax rates in a Cart do not contain an `id`.
+   *	Present if the TaxRate is part of a [TaxCategory](ctp:api:type:TaxCategory).
+   *	Absent for external TaxRates in [LineItem](ctp:api:type:LineItem), [CustomLineItem](ctp:api:type:CustomLineItem), and [ShippingInfo](ctp:api:type:ShippingInfo).
+   *
    *
    */
-  readonly id: string
+  readonly id?: string
   /**
+   *	User-defined unique identifier of the TaxRate.
+   *	Present when set using [TaxRateDraft](ctp:api:type:TaxRateDraft). Not available for external TaxRates created using [ExternalTaxRateDraft](ctp:api:type:ExternalTaxRateDraft).
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	Name of the TaxRate.
+   *
    *
    */
   readonly name: string
   /**
-   *	Percentage in the range of [0..1]. The sum of the amounts of all `subRates`, if there are any.
+   *	Tax rate. If subrates are used, the amount is the sum of all rates in `subRates`.
+   *
    *
    */
   readonly amount: number
   /**
+   *	If `true`, tax is included in [Embedded Prices](ctp:api:type:Price) or [Standalone Prices](ctp:api:type:StandalonePrice), and the `taxedPrice` is present on [LineItems](ctp:api:type:LineItem). In this case, the `totalNet` price on [TaxedPrice](ctp:api:type:TaxedPrice) includes the TaxRate.
+   *
    *
    */
   readonly includedInPrice: boolean
   /**
-   *	Two-digit country code as per [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+   *	Country in which the tax rate is applied in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
    *
    *
    */
   readonly country: string
   /**
-   *	The state in the country
+   *	State within the country, such as Texas in the United States.
+   *
    *
    */
-  readonly state: string
+  readonly state?: string
   /**
+   *	Used when the total tax is a combination of multiple taxes (for example, local, state/provincial, and/or federal taxes). The total of all subrates must equal the TaxRate `amount`.
+   *	These subrates are used to calculate the `taxPortions` field of a [Cart](ctp:api:type:Cart) or [Order](ctp:api:type:Order) and the `taxedPrice` field of [LineItems](ctp:api:type:LineItem), [CustomLineItems](ctp:api:type:CustomLineItem), and [ShippingInfos](ctp:api:type:ShippingInfo).
+   *
    *
    */
-  readonly subRates: SubRate[]
+  readonly subRates?: SubRate[]
 }
 export interface TaxedItemPrice {
   /**
+   *	Total net amount of the Line Item or Custom Line Item.
+   *
    *
    */
-  readonly totalNet: Money
+  readonly totalNet: CentPrecisionMoney
   /**
+   *	Total gross amount of the Line Item or Custom Line Item.
+   *
    *
    */
-  readonly totalGross: Money
+  readonly totalGross: CentPrecisionMoney
+  /**
+   *	Taxable portions added to the total net price.
+   *
+   *	Calculated from the [TaxRates](ctp:api:type:TaxRate).
+   *
+   *
+   */
+  readonly taxPortions: TaxPortion[]
+  /**
+   *	Total tax applicable for the Line Item or Custom Line Item.
+   *	Automatically calculated as the difference between the `totalGross` and `totalNet` values.
+   *
+   *
+   */
+  readonly totalTax?: CentPrecisionMoney
 }
 export interface TaxedPrice {
   /**
-   *	Total net price of the Order.
+   *	Total net price of the Cart or Order.
+   *
    *
    */
-  readonly totalNet: Money
+  readonly totalNet: CentPrecisionMoney
   /**
-   *	Total gross price of the Order.
+   *	Total gross price of the Cart or Order.
+   *
    *
    */
-  readonly totalGross: Money
+  readonly totalGross: CentPrecisionMoney
+  /**
+   *	Taxable portions added to the total net price.
+   *
+   *	Calculated from the [TaxRates](ctp:api:type:TaxRate).
+   *
+   *
+   */
+  readonly taxPortions: TaxPortion[]
+  /**
+   *	Total tax applicable for the Cart or Order.
+   *
+   *	Automatically calculated as the difference between the `totalGross` and `totalNet` values.
+   *
+   *
+   */
+  readonly totalTax?: CentPrecisionMoney
 }
+/**
+ *	A text input hint is a string with one of the following values:
+ *
+ */
 export enum TextInputHintValues {
   MultiLine = 'MultiLine',
   SingleLine = 'SingleLine',
 }
 
 export type TextInputHint = 'MultiLine' | 'SingleLine' | (string & {})
+/**
+ *	TextLineItems are Line Items that use text values instead of references to Products.
+ *
+ */
 export interface TextLineItem {
   /**
+   *	Date and time (UTC) the TextLineItem was added to the [ShoppingList](ctp:api:type:ShoppingList).
+   *
    *
    */
   readonly addedAt: string
   /**
+   *	Custom Fields of the TextLineItem.
+   *
    *
    */
-  readonly custom: CustomFields
+  readonly custom?: CustomFields
   /**
+   *	Description of the TextLineItem.
+   *
    *
    */
-  readonly description: LocalizedString
+  readonly description?: LocalizedString
   /**
+   *	Unique identifier of the TextLineItem.
    *
    */
   readonly id: string
   /**
+   *	User-defined identifier of the TextLineItem. It is unique per [ShoppingList](ctp:api:type:ShoppingList).
+   *
+   */
+  readonly key?: string
+  /**
+   *	Name of the TextLineItem.
+   *
    *
    */
   readonly name: LocalizedString
   /**
+   *	Number of entries in the TextLineItem.
+   *
    *
    */
   readonly quantity: number
 }
+/**
+ *	Information that helps track a Parcel.
+ *
+ */
 export interface TrackingData {
   /**
-   *	The ID to track one parcel.
+   *	Identifier to track the Parcel.
+   *
    *
    */
-  readonly trackingId: string
+  readonly trackingId?: string
   /**
-   *	The carrier that delivers the parcel.
+   *	Name of the carrier that delivers the Parcel.
+   *
    *
    */
-  readonly carrier: string
+  readonly carrier?: string
   /**
+   *	Name of the provider that serves as facade to several carriers.
+   *
    *
    */
-  readonly provider: string
+  readonly provider?: string
   /**
+   *	Transaction identifier with the `provider`.
+   *
    *
    */
-  readonly providerTransaction: string
+  readonly providerTransaction?: string
   /**
-   *	Flag to distinguish if the parcel is on the way to the customer (false) or on the way back (true).
+   *	- If `true`, the Parcel is being returned.
+   *	- If `false`, the Parcel is being delivered to the customer.
+   *
    *
    */
-  readonly isReturn: boolean
+  readonly isReturn?: boolean
 }
+/**
+ *	Represents a financial transaction typically created as a result of a notification from the payment service.
+ *
+ */
 export interface Transaction {
   /**
    *	Unique identifier of the Transaction.
@@ -1484,28 +2322,42 @@ export interface Transaction {
    */
   readonly id: string
   /**
-   *	Time at which the transaction took place.
+   *	Date and time (UTC) the Transaction took place.
    *
    */
-  readonly timestamp: string
+  readonly timestamp?: string
   /**
+   *	Type of the Transaction. For example, `Authorization`.
    *
    */
   readonly type: TransactionType
   /**
+   *	Money value of the Transaction.
+   *
    *
    */
-  readonly amount: Money
+  readonly amount: CentPrecisionMoney
   /**
-   *	Identifier used by the interface that manages the transaction (usually the PSP). If a matching interaction was logged in the `interfaceInteractions` array, the corresponding interaction should be findable with this ID.
+   *	Identifier used by the interface that manages the Transaction (usually the PSP).
+   *	If a matching interaction was logged in the `interfaceInteractions` array, the corresponding interaction can be found with this ID.
    *
    */
-  readonly interactionId: string
+  readonly interactionId?: string
   /**
+   *	State of the Transaction.
    *
    */
   readonly state: TransactionState
+  /**
+   *	Custom Fields defined for the Transaction.
+   *
+   */
+  readonly custom?: CustomFields
 }
+/**
+ *	Transactions can be in one of the following States:
+ *
+ */
 export enum TransactionStateValues {
   Failure = 'Failure',
   Initial = 'Initial',
@@ -1547,4 +2399,1426 @@ export interface Variant {
    *
    */
   readonly key: string
+}
+export interface Attribute {
+  /**
+   *	Name of the Attribute.
+   *
+   *
+   */
+  readonly name: string
+  /**
+   *	The [AttributeType](ctp:api:type:AttributeType) determines the format of the Attribute `value` to be provided:
+   *
+   *	- For [Enum Type](ctp:api:type:AttributeEnumType) and [Localized Enum Type](ctp:api:type:AttributeLocalizedEnumType),
+   *	  use the `key` of the [Plain Enum Value](ctp:api:type:AttributePlainEnumValue) or [Localized Enum Value](ctp:api:type:AttributeLocalizedEnumValue) objects,
+   *	  or the complete objects as `value`.
+   *	- For [Localizable Text Type](ctp:api:type:AttributeLocalizableTextType), use the [LocalizedString](ctp:api:type:LocalizedString) object as `value`.
+   *	- For [Money Type](ctp:api:type:AttributeMoneyType) Attributes, use the [Money](ctp:api:type:Money) object as `value`.
+   *	- For [Set Type](ctp:api:type:AttributeSetType) Attributes, use the entire `set` object  as `value`.
+   *	- For [Nested Type](ctp:api:type:AttributeNestedType) Attributes, use the list of values of all Attributes of the nested Product as `value`.
+   *	- For [Reference Type](ctp:api:type:AttributeReferenceType) Attributes, use the [Reference](ctp:api:type:Reference) object as `value`.
+   *
+   *
+   */
+  readonly value: any
+}
+/**
+ *	Determines whether a Business Unit can inherit [Approval Rules](/projects/approval-rules) from a parent. Only Business Units of type `Division` can use `ExplicitAndFromParent`.
+ *
+ */
+export enum BusinessUnitApprovalRuleModeValues {
+  Explicit = 'Explicit',
+  ExplicitAndFromParent = 'ExplicitAndFromParent',
+}
+
+export type BusinessUnitApprovalRuleMode =
+  | 'Explicit'
+  | 'ExplicitAndFromParent'
+  | (string & {})
+/**
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [BusinessUnit](ctp:api:type:BusinessUnit). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *
+ */
+export interface BusinessUnitResourceIdentifier extends ResourceIdentifier {
+  /**
+   *	Unique identifier of the referenced [BusinessUnit](ctp:api:type:BusinessUnit). Required if `key` is absent.
+   *
+   *
+   */
+  readonly id?: string
+  /**
+   *	Unique key of the referenced [BusinessUnit](ctp:api:type:BusinessUnit). Required if `id` is absent.
+   *
+   *
+   */
+  readonly key?: string
+}
+/**
+ *	The type of the Business Unit indicating its position in a hierarchy.
+ *
+ */
+export enum BusinessUnitTypeValues {
+  Company = 'Company',
+  Division = 'Division',
+}
+
+export type BusinessUnitType = 'Company' | 'Division' | (string & {})
+/**
+ *	Defines an allowed value of a [CustomFieldEnumType](ctp:api:type:CustomFieldEnumType) field.
+ *
+ */
+export interface CustomFieldEnumValue {
+  /**
+   *	Key of the value used as a programmatic identifier.
+   *
+   *
+   */
+  readonly key: string
+  /**
+   *	Descriptive label of the value.
+   *
+   *
+   */
+  readonly label: string
+}
+/**
+ *	Defines an allowed value of a [CustomFieldLocalizedEnumType](ctp:api:type:CustomFieldLocalizedEnumType) field.
+ *
+ */
+export interface CustomFieldLocalizedEnumValue {
+  /**
+   *	Key of the value used as a programmatic identifier.
+   *
+   *
+   */
+  readonly key: string
+  /**
+   *	Descriptive localized label of the value.
+   *
+   *
+   */
+  readonly label: LocalizedString
+}
+export interface CustomerGroupAssignment {
+  /**
+   *	Reference to a Customer Group.
+   *
+   *
+   */
+  readonly customerGroup: CustomerGroupReference
+}
+export interface DiscountOnTotalPrice {
+  /**
+   *	Money value of the discount on the total price of the Cart or Order.
+   *
+   *
+   */
+  readonly discountedAmount: TypedMoney
+  /**
+   *	Discounts that impact the total price of the Cart or Order.
+   *
+   *
+   */
+  readonly includedDiscounts: DiscountedTotalPricePortion[]
+  /**
+   *	Money value of the discount on the total net price of the Cart or Order.
+   *
+   *	The same percentage of discount applies as on the `discountedAmount`.
+   *	Present only when `taxedPrice` of the Cart or Order exists.
+   *
+   *
+   */
+  readonly discountedNetAmount?: TypedMoney
+  /**
+   *	Money value of the discount on the total gross price of the Cart or Order.
+   *
+   *	The same percentage of discount applies as on the `discountedAmount`.
+   *	Present only when `taxedPrice` of the Cart or Order exists.
+   *
+   *
+   */
+  readonly discountedGrossAmount?: TypedMoney
+}
+export interface DiscountedTotalPricePortion {
+  /**
+   *	A [CartDiscountReference](ctp:api:type:CartDiscountReference) or [DirectDiscountReference](ctp:api:type:DirectDiscountReference) to the discount applied on the Cart `totalPrice`.
+   *
+   *
+   */
+  readonly discount: Reference
+  /**
+   *	Money value of the discount.
+   *
+   *
+   */
+  readonly discountedAmount: TypedMoney
+}
+/**
+ *	This mode determines the type of Prices used for [price selection](/../api/pricing-and-discounts-overview#price-selection) by Line Items and Products.
+ *	For more information about the difference between the Prices, see [Pricing](/../api/pricing-and-discounts-overview).
+ *
+ */
+export enum ProductPriceModeEnumValues {
+  Embedded = 'Embedded',
+  Standalone = 'Standalone',
+}
+
+export type ProductPriceModeEnum = 'Embedded' | 'Standalone' | (string & {})
+/**
+ *	Only Product Variants with the explicitly listed SKUs are part of a Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
+ *
+ */
+export interface ProductVariantExclusion {
+  /**
+   *	Non-empty array of SKUs representing Product Variants to be included in the Product Selection with `IndividualExclusion` [ProductSelectionMode](ctp:api:type:ProductSelectionMode).
+   *
+   *
+   */
+  readonly skus: string[]
+}
+export interface Shipping {
+  /**
+   *	User-defined unique identifier of the Shipping in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingKey: string
+  /**
+   *	Automatically set when the [Shipping Method is added](ctp:api:type:CartAddShippingMethodAction).
+   *
+   *
+   */
+  readonly shippingInfo: ShippingInfo
+  /**
+   *	Determines the shipping rates and Tax Rates of associated Line Items.
+   *
+   *
+   */
+  readonly shippingAddress: Address
+  /**
+   *	Used as an input to select a [ShippingRatePriceTier](ctp:api:type:ShippingRatePriceTier).
+   *	The data type of this field depends on the `shippingRateInputType.type` configured in the [Project](ctp:api:type:Project):
+   *
+   *	- If `CartClassification`, it is [ClassificationShippingRateInput](ctp:api:type:ClassificationShippingRateInput).
+   *	- If `CartScore`, it is [ScoreShippingRateInput](ctp:api:type:ScoreShippingRateInput).
+   *	- If `CartValue`, it cannot be used.
+   *
+   *
+   */
+  readonly shippingRateInput?: ShippingRateInput
+  /**
+   *	Custom Fields of Shipping with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingCustomFields?: CustomFields
+}
+export interface ShippingInfo {
+  /**
+   *	Name of the Shipping Method.
+   *
+   *
+   */
+  readonly shippingMethodName: string
+  /**
+   *	Determined based on the [ShippingRate](ctp:api:type:ShippingRate) and its tiered prices, and either the sum of [LineItem](ctp:api:type:LineItem) prices or the `shippingRateInput` field.
+   *
+   *
+   */
+  readonly price: CentPrecisionMoney
+  /**
+   *	Used to determine the price.
+   *
+   *
+   */
+  readonly shippingRate: ShippingRate
+  /**
+   *	Automatically set after the `taxRate` is set.
+   *
+   *
+   */
+  readonly taxedPrice?: TaxedItemPrice
+  /**
+   *	Automatically set in the `Platform` [TaxMode](ctp:api:type:TaxMode) after the [shipping address is set](ctp:api:type:CartSetShippingAddressAction).
+   *
+   *	For the `External` [TaxMode](ctp:api:type:TaxMode) the Tax Rate must be set explicitly with the [ExternalTaxRateDraft](ctp:api:type:ExternalTaxRateDraft).
+   *
+   *
+   */
+  readonly taxRate?: TaxRate
+  /**
+   *	Used to select a Tax Rate when a Cart has the `Platform` [TaxMode](ctp:api:type:TaxMode).
+   *
+   *
+   */
+  readonly taxCategory?: TaxCategoryReference
+  /**
+   *	Not set if a custom Shipping Method is used.
+   *
+   *
+   */
+  readonly shippingMethod?: ShippingMethodReference
+  /**
+   *	Information on how items are delivered to customers.
+   *
+   *
+   */
+  readonly deliveries?: Delivery[]
+  /**
+   *	Discounted price of the Shipping Method.
+   *
+   *
+   */
+  readonly discountedPrice?: DiscountedLineItemPrice
+  /**
+   *	Indicates whether the [ShippingMethod](ctp:api:type:ShippingMethod) referenced in this ShippingInfo is allowed for the Cart.
+   *
+   *
+   */
+  readonly shippingMethodState: ShippingMethodState
+}
+export interface ShippingRateInput {
+  /**
+   *
+   */
+  readonly type: string
+}
+/**
+ *	ShoppingListLineItems are Line Items that contain references to [ProductVariants](ctp:api:type:ProductVariant) in a [Product](ctp:api:type:Product).
+ *
+ *	In addition to standard [Reference Expansion](/general-concepts#reference-expansion), a ShoppingListLineItem offers expansion on `productSlug` and `variant`, defined with the query parameter `expand`.
+ *
+ */
+export interface ShoppingListLineItem {
+  /**
+   *	Date and time (UTC) the ShoppingListLineItem was added to the ShoppingList.
+   *
+   *
+   */
+  readonly addedAt: string
+  /**
+   *	Custom Fields of the ShoppingListLineItem.
+   *
+   *
+   */
+  readonly custom?: CustomFields
+  /**
+   *	If the Product or Product Variant is deleted, `deactivatedAt` is the date and time (UTC) of deletion.
+   *
+   *	This data is updated in an [eventual consistent manner](/general-concepts#eventual-consistency) when the Product Variant cannot be ordered anymore.
+   *
+   *
+   */
+  readonly deactivatedAt?: string
+  /**
+   *	Unique identifier of the ShoppingListLineItem.
+   *
+   */
+  readonly id: string
+  /**
+   *	User-defined identifier of the ShoppingListLineItem. It is unique per [ShoppingList](ctp:api:type:ShoppingList).
+   *
+   */
+  readonly key?: string
+  /**
+   *	Name of the Product.
+   *
+   *	This data is updated in an [eventual consistent manner](/general-concepts#eventual-consistency) when the Product's name changes.
+   *
+   *
+   */
+  readonly name: LocalizedString
+  /**
+   *	Unique identifier of a [Product](ctp:api:type:Product).
+   *
+   *
+   */
+  readonly productId: string
+  /**
+   *	The Product Type defining the Attributes of the [Product](ctp:api:type:Product).
+   *
+   *
+   */
+  readonly productType: ProductTypeReference
+  /**
+   *	Whether the related [Product](ctp:api:type:Product) is published or not.
+   *
+   *	This data is updated in an [eventual consistent manner](/general-concepts#eventual-consistency) when the Product's published status changes.
+   *
+   *
+   */
+  readonly published: boolean
+  /**
+   *	Number of Products in the ShoppingListLineItem.
+   *
+   *
+   */
+  readonly quantity: number
+  /**
+   *	`id` of the [ProductVariant](ctp:api:type:ProductVariant) the ShoppingListLineItem refers to. If not set, the ShoppingListLineItem refers to the Master Variant.
+   *
+   *
+   */
+  readonly variantId?: number
+  /**
+   *	Data of the [ProductVariant](ctp:api:type:ProductVariant).  This data includes all the Product Attributes and Variant Attributes to ensure the full Attribute context of the Product Variant.
+   *
+   *	Returned when expanded using `expand=lineItems[*].variant`. You cannot expand only a single element of the array.
+   *
+   *
+   */
+  readonly variant?: ProductVariant
+  /**
+   *	Slug of the current [ProductData](ctp:api:type:ProductData).
+   *
+   *	Returned when expanded using `expand=lineItems[*].productSlug`. You cannot expand only a single element of the array.
+   *
+   *
+   */
+  readonly productSlug?: LocalizedString
+}
+/**
+ *	Provides a visual representation type for this field. It is only relevant for string-based field types like [CustomFieldStringType](ctp:api:type:CustomFieldStringType) and [CustomFieldLocalizedStringType](ctp:api:type:CustomFieldLocalizedStringType). Following values are supported:
+ *
+ */
+export enum TypeTextInputHintValues {
+  MultiLine = 'MultiLine',
+  SingleLine = 'SingleLine',
+}
+
+export type TypeTextInputHint = 'MultiLine' | 'SingleLine' | (string & {})
+/**
+ *	Base polymorphic read-only money type that stores currency in cent precision or high precision, that is in sub-cents.
+ *
+ */
+export type TypedMoney = CentPrecisionMoney
+export interface ITypedMoney {
+  /**
+   *	Amount in the smallest indivisible unit of a currency, such as:
+   *
+   *	* Cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as `500`).
+   *	* The value in the major unit for currencies without minor units, like JPY (5 JPY is specified as `5`).
+   *
+   *
+   */
+  readonly centAmount: number
+  /**
+   *	Currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *
+   *
+   */
+  readonly currencyCode: string
+  /**
+   *	Type of money used.
+   *
+   *
+   */
+  readonly type: MoneyType
+  /**
+   *	Number of digits after the decimal separator.
+   *
+   *	* For [CentPrecisionMoney](ctp:api:type:CentPrecisionMoney), it is equal to the default number of fraction digits for a currency.
+   *	* For [HighPrecisionMoney](ctp:api:type:HighPrecisionMoney), it is greater than the default number of fraction digits for a currency.
+   *
+   *
+   */
+  readonly fractionDigits: number
+}
+/**
+ *	Object that stores money in cent amounts of a specific currency.
+ */
+export interface CentPrecisionMoney extends ITypedMoney {
+  readonly type: 'centPrecision'
+  /**
+   *	Amount in the smallest indivisible unit of a currency, such as:
+   *
+   *	* Cents for EUR and USD, pence for GBP, or centime for CHF (5 CHF is specified as `500`).
+   *	* The value in the major unit for currencies without minor units, like JPY (5 JPY is specified as `5`).
+   *
+   *
+   */
+  readonly centAmount: number
+  /**
+   *	Currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *
+   *
+   */
+  readonly currencyCode: string
+  /**
+   *	The number of default fraction digits for the given currency, like `2` for EUR or `0` for JPY.
+   *
+   *
+   */
+  readonly fractionDigits: number
+}
+export interface DiscountedPrice {
+  /**
+   *	Money value of the discounted price.
+   *
+   *
+   */
+  readonly value: TypedMoney
+  /**
+   *	[ProductDiscount](ctp:api:type:ProductDiscount) related to the discounted price.
+   *
+   *
+   */
+  readonly discount: ProductDiscountReference
+}
+/**
+ *	Determines whether the selected [ShippingMethod](ctp:api:type:ShippingMethod) is allowed for the Cart. For more information, see [Predicates](/shipping-delivery-overview#predicates).
+ *
+ */
+export enum ShippingMethodStateValues {
+  DoesNotMatchCart = 'DoesNotMatchCart',
+  MatchesCart = 'MatchesCart',
+}
+
+export type ShippingMethodState =
+  | 'DoesNotMatchCart'
+  | 'MatchesCart'
+  | (string & {})
+/**
+ *	Roles defining how an [Associate](ctp:api:type:Associate) can interact with a Business Unit.
+ *
+ */
+export enum AssociateRoleDeprecatedValues {
+  Admin = 'Admin',
+  Buyer = 'Buyer',
+}
+
+export type AssociateRoleDeprecated = 'Admin' | 'Buyer' | (string & {})
+/**
+ *	[KeyReference](ctp:api:type:KeyReference) to an [AssociateRole](ctp:api:type:AssociateRole).
+ *
+ */
+export interface AssociateRoleKeyReference extends IKeyReference {
+  readonly typeId: 'associate-role'
+  /**
+   *	Unique and immutable key of the referenced [AssociateRole](ctp:api:type:AssociateRole).
+   *
+   *
+   */
+  readonly key: string
+}
+export enum AttributeLevelEnumValues {
+  Product = 'Product',
+  Variant = 'Variant',
+}
+
+export type AttributeLevelEnum = 'Product' | 'Variant' | (string & {})
+/**
+ *	Polymorphic base type that represents a postal address and contact details.
+ *	Depending on the read or write action, it can be either [Address](ctp:api:type:Address) or [AddressDraft](ctp:api:type:AddressDraft) that
+ *	only differ in the data type for the optional `custom` field.
+ *
+ */
+export interface BaseAddress {
+  /**
+   *	Unique identifier of the Address.
+   *
+   *	It is not recommended to set it manually since the API overwrites this ID when creating an Address for a [Customer](ctp:api:type:Customer).
+   *	Use `key` instead and omit this field from the request to let the API generate the ID for the Address.
+   *
+   *
+   */
+  readonly id?: string
+  /**
+   *	User-defined identifier of the Address that must be unique when multiple addresses are referenced in [BusinessUnits](ctp:api:type:BusinessUnit), [Customers](ctp:api:type:Customer), and `itemShippingAddresses` (LineItem-specific addresses) of a [Cart](ctp:api:type:Cart), [Order](ctp:api:type:Order), [QuoteRequest](ctp:api:type:QuoteRequest), or [Quote](ctp:api:type:Quote).
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	Name of the country.
+   *
+   *
+   */
+  readonly country: string
+  /**
+   *	Title of the contact, for example 'Dr.'
+   *
+   *
+   */
+  readonly title?: string
+  /**
+   *	Salutation of the contact, for example 'Mr.' or 'Ms.'
+   *
+   *
+   */
+  readonly salutation?: string
+  /**
+   *	Given name (first name) of the contact.
+   *
+   *
+   */
+  readonly firstName?: string
+  /**
+   *	Family name (last name) of the contact.
+   *
+   *
+   */
+  readonly lastName?: string
+  /**
+   *	Name of the street.
+   *
+   *
+   */
+  readonly streetName?: string
+  /**
+   *	Street number.
+   *
+   *
+   */
+  readonly streetNumber?: string
+  /**
+   *	Further information on the street address.
+   *
+   *
+   */
+  readonly additionalStreetInfo?: string
+  /**
+   *	Postal code.
+   *
+   *
+   */
+  readonly postalCode?: string
+  /**
+   *	Name of the city.
+   *
+   *
+   */
+  readonly city?: string
+  /**
+   *	Name of the region.
+   *
+   *
+   */
+  readonly region?: string
+  /**
+   *	Name of the state, for example, Colorado.
+   *
+   *
+   */
+  readonly state?: string
+  /**
+   *	Name of the company.
+   *
+   *
+   */
+  readonly company?: string
+  /**
+   *	Name of the department.
+   *
+   *
+   */
+  readonly department?: string
+  /**
+   *	Number or name of the building.
+   *
+   *
+   */
+  readonly building?: string
+  /**
+   *	Number or name of the apartment.
+   *
+   *
+   */
+  readonly apartment?: string
+  /**
+   *	Post office box number.
+   *
+   *
+   */
+  readonly pOBox?: string
+  /**
+   *	Phone number of the contact.
+   *
+   *
+   */
+  readonly phone?: string
+  /**
+   *	Mobile phone number of the contact.
+   *
+   *
+   */
+  readonly mobile?: string
+  /**
+   *	Email address of the contact.
+   *
+   *
+   */
+  readonly email?: string
+  /**
+   *	Fax number of the contact.
+   *
+   *
+   */
+  readonly fax?: string
+  /**
+   *	Further information on the Address.
+   *
+   *
+   */
+  readonly additionalAddressInfo?: string
+  /**
+   *	ID for the contact used in an external system.
+   *
+   *
+   */
+  readonly externalId?: string
+}
+export type _BaseAddress = BaseAddress | Address
+/**
+ *	Address type returned by read methods.
+ *	Optionally, the `custom` field can be present in addition to the fields of a [BaseAddress](ctp:api:type:BaseAddress).
+ *
+ */
+export interface Address extends BaseAddress {
+  /**
+   *	Custom Fields defined for the Address.
+   *
+   */
+  readonly custom?: CustomFields
+}
+/**
+ *	[KeyReference](ctp:api:type:KeyReference) to a [BusinessUnit](ctp:api:type:BusinessUnit).
+ *
+ */
+export interface BusinessUnitKeyReference extends IKeyReference {
+  readonly typeId: 'business-unit'
+  /**
+   *	Unique and immutable key of the referenced [BusinessUnit](ctp:api:type:BusinessUnit).
+   *
+   *
+   */
+  readonly key: string
+}
+/**
+ *	[Reference](ctp:api:type:Reference) to a [CartDiscount](ctp:api:type:CartDiscount).
+ *
+ */
+export interface CartDiscountReference extends IReference {
+  readonly typeId: 'cart-discount'
+  /**
+   *	Unique identifier of the referenced [CartDiscount](ctp:api:type:CartDiscount).
+   *
+   *
+   */
+  readonly id: string
+}
+export interface CartDiscountTarget {
+  /**
+   *
+   */
+  readonly type: string
+}
+export interface CartDiscountValue {
+  /**
+   *
+   */
+  readonly type: string
+}
+/**
+ *	[Reference](ctp:api:type:Reference) to a [Category](ctp:api:type:Category).
+ *
+ */
+export interface CategoryReference extends IReference {
+  readonly typeId: 'category'
+  /**
+   *	Unique identifier of the referenced [Category](ctp:api:type:Category).
+   *
+   *
+   */
+  readonly id: string
+}
+/**
+ *	[Reference](ctp:api:type:Reference) to a [Channel](ctp:api:type:Channel).
+ *
+ */
+export interface ChannelReference extends IReference {
+  readonly typeId: 'channel'
+  /**
+   *	Unique identifier of the referenced [Channel](ctp:api:type:Channel).
+   *
+   *
+   */
+  readonly id: string
+}
+/**
+ *	Determines if Cart Discounts can be applied to a Custom Line Item in the Cart.
+ *
+ */
+export enum CustomLineItemPriceModeValues {
+  External = 'External',
+  Standard = 'Standard',
+}
+
+export type CustomLineItemPriceMode = 'External' | 'Standard' | (string & {})
+/**
+ *	Information about recurring orders and frequencies.
+ *
+ */
+export interface CustomLineItemRecurrenceInfo {
+  /**
+   *	[Reference](ctp:api:type:Reference) to a RecurrencePolicy.
+   *
+   *
+   */
+  readonly recurrencePolicy: RecurrencePolicyReference
+}
+/**
+ *	[Reference](ctp:api:type:Reference) to a [CustomerGroup](ctp:api:type:CustomerGroup).
+ *
+ */
+export interface CustomerGroupReference extends IReference {
+  readonly typeId: 'customer-group'
+  /**
+   *	Unique identifier of the referenced [CustomerGroup](ctp:api:type:CustomerGroup).
+   *
+   *
+   */
+  readonly id: string
+}
+/**
+ *	[Reference](ctp:api:type:Reference) to a [Customer](ctp:api:type:Customer).
+ *
+ */
+export interface CustomerReference extends IReference {
+  readonly typeId: 'customer'
+  /**
+   *	Unique identifier of the referenced [Customer](ctp:api:type:Customer).
+   *
+   *
+   */
+  readonly id: string
+}
+/**
+ *	[Reference](ctp:api:type:Reference) to a [DiscountCode](ctp:api:type:DiscountCode).
+ *
+ */
+export interface DiscountCodeReference extends IReference {
+  readonly typeId: 'discount-code'
+  /**
+   *	Unique identifier of the referenced [DiscountCode](ctp:api:type:DiscountCode).
+   *
+   *
+   */
+  readonly id: string
+}
+export interface FieldContainer {
+  [key: string]: any
+}
+/**
+ *	GeoJSON Geometry represents a [Geometry Object](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1) as defined in the GeoJSON standard.
+ *
+ */
+export type GeoJson = GeoLocation
+export interface IGeoJson {
+  /**
+   *
+   */
+  readonly type: string
+}
+export interface GeoLocation extends IGeoJson {
+  readonly type: 'Point'
+  /**
+   *
+   */
+  readonly coordinates: number[]
+}
+/**
+ *	Indicates how Line Items in a Cart are tracked.
+ *
+ */
+export enum InventoryModeValues {
+  None = 'None',
+  ReserveOnOrder = 'ReserveOnOrder',
+  TrackOnly = 'TrackOnly',
+}
+
+export type InventoryMode =
+  | 'None'
+  | 'ReserveOnOrder'
+  | 'TrackOnly'
+  | (string & {})
+/**
+ *	Indicates how a Line Item was added to a Cart.
+ *
+ */
+export enum LineItemModeValues {
+  GiftLineItem = 'GiftLineItem',
+  Standard = 'Standard',
+}
+
+export type LineItemMode = 'GiftLineItem' | 'Standard' | (string & {})
+/**
+ *	This mode indicates how the price is set for the Line Item.
+ *
+ */
+export enum LineItemPriceModeValues {
+  ExternalPrice = 'ExternalPrice',
+  ExternalTotal = 'ExternalTotal',
+  Platform = 'Platform',
+}
+
+export type LineItemPriceMode =
+  | 'ExternalPrice'
+  | 'ExternalTotal'
+  | 'Platform'
+  | (string & {})
+/**
+ *	Information about recurring orders and frequencies.
+ *
+ */
+export interface LineItemRecurrenceInfo {
+  /**
+   *	[Reference](ctp:api:type:Reference) to a RecurrencePolicy.
+   *
+   *
+   */
+  readonly recurrencePolicy: RecurrencePolicyReference
+  /**
+   *	Indicates how the price of a line item will be selected during order creation.
+   *
+   *
+   */
+  readonly priceSelectionMode: PriceSelectionMode
+}
+export interface MethodTaxRate {
+  /**
+   *	User-defined unique identifier of the Shipping Method in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingMethodKey: string
+  /**
+   *	Tax Rate for the Shipping Method.
+   *
+   *
+   */
+  readonly taxRate?: TaxRate
+}
+export interface MethodTaxedPrice {
+  /**
+   *	User-defined unique identifier of the [Shipping Method](ctp:api:type:ShippingMethod) in a Cart with `Multiple` [ShippingMode](ctp:api:type:ShippingMode).
+   *
+   *
+   */
+  readonly shippingMethodKey: string
+  /**
+   *	Total taxed price based on the quantity of the Line Item or Custom Line Item assigned to the Shipping Method identified by `shippingMethodKey`.
+   *
+   *
+   */
+  readonly taxedPrice?: TaxedItemPrice
+}
+/**
+ *	[Reference](ctp:api:type:Reference) to a [Payment](ctp:api:type:Payment).
+ *
+ */
+export interface PaymentReference extends IReference {
+  readonly typeId: 'payment'
+  /**
+   *	Unique identifier of the referenced [Payment](ctp:api:type:Payment).
+   *
+   *
+   */
+  readonly id: string
+}
+/**
+ *	Indicates how the price of a [Line Item](ctp:api:type:LineItem) or [Custom Line Item](ctp:api:type:CustomLineItem) is selected during Order creation.
+ *
+ */
+export enum PriceSelectionModeValues {
+  Dynamic = 'Dynamic',
+  Fixed = 'Fixed',
+}
+
+export type PriceSelectionMode = 'Dynamic' | 'Fixed' | (string & {})
+/**
+ *	A Price tier is selected instead of the default Price when a certain quantity of the [ProductVariant](ctp:api:type:ProductVariant) is [added to a Cart](/projects/carts#add-lineitem) and ordered.
+ *	_For   If no Price tier is found for the Order quantity, the base Price is used.
+ *	A Price tier is applied for the entire quantity of a Product Variant put as [LineItem](/projects/carts#lineitem) in a Cart as soon as the minimum quantity for the Price tier is reached.
+ *	The Price tier is applied per Line Item of the Product Variant. If, for example, the same Product Variant appears in the same Cart as several Line Items, (what can be achieved by different values of a Custom Field on the Line Items) for each Line Item the minimum quantity must be reached to get the Price tier.
+ *
+ */
+export interface PriceTier {
+  /**
+   *	Minimum quantity this Price tier is valid for.
+   *
+   *	The minimum quantity is always greater than or equal to 2. The base Price is interpreted as valid for a minimum quantity equal to 1.
+   *	A [Price](ctp:api:type:Price) or [StandalonePrice](ctp:api:type:StandalonePrice) cannot contain more than one tier with the same `minimumQuantity`.
+   *
+   *
+   */
+  readonly minimumQuantity: number
+  /**
+   *	Money value that applies when the `minimumQuantity` is greater than or equal to the [LineItem](ctp:api:type:LineItem) `quantity`.
+   *
+   *	The `currencyCode` of a Price tier is always the same as the `currencyCode` in the `value` of the related Price.
+   *
+   *
+   */
+  readonly value: TypedMoney
+}
+/**
+ *	[Reference](ctp:api:type:Reference) to a [ProductDiscount](ctp:api:type:ProductDiscount).
+ *
+ */
+export interface ProductDiscountReference extends IReference {
+  readonly typeId: 'product-discount'
+  /**
+   *	Unique identifier of the referenced [ProductDiscount](ctp:api:type:ProductDiscount).
+   *
+   *
+   */
+  readonly id: string
+}
+export interface ProductDiscountValue {
+  /**
+   *
+   */
+  readonly type: string
+}
+/**
+ *	[Reference](ctp:api:type:Reference) to a [Product](ctp:api:type:Product).
+ *
+ */
+export interface ProductReference extends IReference {
+  readonly typeId: 'product'
+  /**
+   *	Unique identifier of the referenced [Product](ctp:api:type:Product).
+   *
+   *
+   */
+  readonly id: string
+}
+/**
+ *	[Reference](ctp:api:type:Reference) to a [ProductSelection](ctp:api:type:ProductSelection).
+ *
+ */
+export interface ProductSelectionReference extends IReference {
+  readonly typeId: 'product-selection'
+  /**
+   *	Unique identifier of the referenced [ProductSelection](ctp:api:type:ProductSelection).
+   *
+   *
+   */
+  readonly id: string
+}
+/**
+ *	[Reference](ctp:api:type:Reference) to a [ProductType](ctp:api:type:ProductType).
+ *
+ */
+export interface ProductTypeReference extends IReference {
+  readonly typeId: 'product-type'
+  /**
+   *	Unique identifier of the referenced [ProductType](ctp:api:type:ProductType).
+   *
+   *
+   */
+  readonly id: string
+}
+/**
+ *	A concrete sellable good for which inventory can be tracked. Product Variants are generally mapped to specific SKUs.
+ *
+ */
+export interface ProductVariant {
+  /**
+   *	A unique, sequential identifier of the Product Variant within the Product.
+   *
+   *
+   */
+  readonly id: number
+  /**
+   *	User-defined unique SKU of the Product Variant.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	User-defined unique identifier of the ProductVariant.
+   *
+   *	This is different from [Product](ctp:api:type:Product) `key`.
+   *
+   *
+   */
+  readonly key?: string
+  /**
+   *	The Embedded Prices of the Product Variant.
+   *	Cannot contain two Prices of the same Price scope (with same currency, country, Customer Group, Channel, `validFrom` and `validUntil`).
+   *
+   *
+   */
+  readonly prices?: Price[]
+  /**
+   *	Variant Attributes according to the respective [AttributeDefinition](ctp:api:type:AttributeDefinition).
+   *
+   *
+   */
+  readonly attributes?: Attribute[]
+  /**
+   *	Only available when [price selection](/../api/pricing-and-discounts-overview#price-selection) is used.
+   *	Cannot be used in a [Query Predicate](ctp:api:type:QueryPredicate).
+   *
+   *
+   */
+  readonly price?: Price
+  /**
+   *	Images of the Product Variant.
+   *
+   *
+   */
+  readonly images?: Image[]
+  /**
+   *	Media assets of the Product Variant.
+   *
+   *
+   */
+  readonly assets?: Asset[]
+  /**
+   *	Set if the Product Variant is tracked by [Inventory](ctp:api:type:InventoryEntry).
+   *	Can be used as an optimization to reduce calls to the Inventory service.
+   *	May not contain the latest Inventory State (it is [eventually consistent](/general-concepts#eventual-consistency)).
+   *
+   *
+   */
+  readonly availability?: ProductVariantAvailability
+  /**
+   *	`true` if the Product Variant matches the search query.
+   *	Only available in response to a [Product Projection Search](ctp:api:type:ProductProjectionSearch) request.
+   *
+   *
+   */
+  readonly isMatchingVariant?: boolean
+  /**
+   *	Only available in response to a [Product Projection Search](ctp:api:type:ProductProjectionSearch) request
+   *	with [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
+   *	Can be used to sort, [filter](ctp:api:type:ProductProjectionSearchFilterScopedPrice), and facet.
+   *
+   *
+   */
+  readonly scopedPrice?: ScopedPrice
+  /**
+   *	Only available in response to a [Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request
+   *	with [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
+   *
+   *
+   */
+  readonly scopedPriceDiscounted?: boolean
+  /**
+   *	Only available when [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection) is used.
+   *	Cannot be used in a [Query Predicate](ctp:api:type:QueryPredicate).
+   *
+   *
+   */
+  readonly recurrencePrices?: Price[]
+}
+/**
+ *	[Reference](ctp:api:type:Reference) to a [RecurrencePolicy](ctp:api:type:RecurrencePolicy).
+ *
+ */
+export interface RecurrencePolicyReference extends IReference {
+  readonly typeId: 'recurrence-policy'
+  /**
+   *	Unique identifier of the referenced [RecurrencePolicy](ctp:api:type:RecurrencePolicy).
+   *
+   *
+   */
+  readonly id: string
+}
+/**
+ *	With Types, you can model your own Custom Fields on the following resources and data types.
+ *
+ */
+export enum ResourceTypeIdValues {
+  Address = 'address',
+  ApprovalFlow = 'approval-flow',
+  ApprovalRule = 'approval-rule',
+  Asset = 'asset',
+  AssociateRole = 'associate-role',
+  BusinessUnit = 'business-unit',
+  CartDiscount = 'cart-discount',
+  Category = 'category',
+  Channel = 'channel',
+  CustomLineItem = 'custom-line-item',
+  Customer = 'customer',
+  CustomerGroup = 'customer-group',
+  DiscountCode = 'discount-code',
+  InventoryEntry = 'inventory-entry',
+  LineItem = 'line-item',
+  Order = 'order',
+  OrderDelivery = 'order-delivery',
+  OrderEdit = 'order-edit',
+  OrderParcel = 'order-parcel',
+  OrderReturnItem = 'order-return-item',
+  Payment = 'payment',
+  PaymentInterfaceInteraction = 'payment-interface-interaction',
+  ProductPrice = 'product-price',
+  ProductSelection = 'product-selection',
+  ProductTailoring = 'product-tailoring',
+  Quote = 'quote',
+  RecurringOrder = 'recurring-order',
+  Review = 'review',
+  Shipping = 'shipping',
+  ShippingMethod = 'shipping-method',
+  ShoppingList = 'shopping-list',
+  ShoppingListTextLineItem = 'shopping-list-text-line-item',
+  StandalonePrice = 'standalone-price',
+  Store = 'store',
+  Transaction = 'transaction',
+}
+
+export type ResourceTypeId =
+  | 'address'
+  | 'approval-flow'
+  | 'approval-rule'
+  | 'asset'
+  | 'associate-role'
+  | 'business-unit'
+  | 'cart-discount'
+  | 'category'
+  | 'channel'
+  | 'custom-line-item'
+  | 'customer'
+  | 'customer-group'
+  | 'discount-code'
+  | 'inventory-entry'
+  | 'line-item'
+  | 'order'
+  | 'order-delivery'
+  | 'order-edit'
+  | 'order-parcel'
+  | 'order-return-item'
+  | 'payment'
+  | 'payment-interface-interaction'
+  | 'product-price'
+  | 'product-selection'
+  | 'product-tailoring'
+  | 'quote'
+  | 'recurring-order'
+  | 'review'
+  | 'shipping'
+  | 'shipping-method'
+  | 'shopping-list'
+  | 'shopping-list-text-line-item'
+  | 'standalone-price'
+  | 'store'
+  | 'transaction'
+  | (string & {})
+/**
+ *	Scoped Price is contained in a [ProductVariant](ctp:api:type:ProductVariant) which is returned in response to a
+ *	[Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request when [Scoped Price Search](/../api/pricing-and-discounts-overview#scoped-price-search) is used.
+ *
+ */
+export interface ScopedPrice {
+  /**
+   *	Platform-generated unique identifier of the Price.
+   *
+   *
+   */
+  readonly id: string
+  /**
+   *	Original value of the Price.
+   *
+   *
+   */
+  readonly value: TypedMoney
+  /**
+   *	If available, either the original price `value` or `discounted` value.
+   *
+   *
+   */
+  readonly currentValue: TypedMoney
+  /**
+   *	Country code of the geographic location.
+   *
+   *
+   */
+  readonly country?: string
+  /**
+   *	Reference to a CustomerGroup.
+   *
+   *
+   */
+  readonly customerGroup?: CustomerGroupReference
+  /**
+   *	Reference to a Channel.
+   *
+   *
+   */
+  readonly channel?: ChannelReference
+  /**
+   *	Date and time from which the Price is valid.
+   *
+   *
+   */
+  readonly validFrom?: string
+  /**
+   *	Date and time until which the Price is valid.
+   *
+   *
+   */
+  readonly validUntil?: string
+  /**
+   *	Is set when a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists. If set, the [Cart](ctp:api:type:Cart) uses the discounted value for the [Cart Price calculation](ctp:api:type:CartAddLineItemAction).
+   *
+   *	When a [relative Product Discount](ctp:api:type:ProductDiscountValueRelative) is applied and the fractional part of the discounted Price is 0.5, the discounted Price is [rounded half down](https://en.wikipedia.org/wiki/Rounding#Rounding_half_down) in favor of the Customer.
+   *
+   *
+   */
+  readonly discounted?: DiscountedPrice
+  /**
+   *	Custom Fields for the Price.
+   *
+   *
+   */
+  readonly custom?: CustomFields
+}
+/**
+ *	[Reference](ctp:api:type:Reference) to a [ShippingMethod](ctp:api:type:ShippingMethod).
+ *
+ */
+export interface ShippingMethodReference extends IReference {
+  readonly typeId: 'shipping-method'
+  /**
+   *	Unique identifier of the referenced [ShippingMethod](ctp:api:type:ShippingMethod).
+   *
+   *
+   */
+  readonly id: string
+}
+/**
+ *	[Reference](ctp:api:type:Reference) to a [State](ctp:api:type:State).
+ *
+ */
+export interface StateReference extends IReference {
+  readonly typeId: 'state'
+  /**
+   *	Unique identifier of the referenced [State](ctp:api:type:State).
+   *
+   *
+   */
+  readonly id: string
+}
+/**
+ *	[KeyReference](ctp:api:type:KeyReference) to a [Store](ctp:api:type:Store).
+ *
+ */
+export interface StoreKeyReference extends IKeyReference {
+  readonly typeId: 'store'
+  /**
+   *	Unique and immutable key of the referenced [Store](ctp:api:type:Store).
+   *
+   *
+   */
+  readonly key: string
+}
+/**
+ *	[Reference](ctp:api:type:Reference) to a [TaxCategory](ctp:api:type:TaxCategory).
+ *
+ */
+export interface TaxCategoryReference extends IReference {
+  readonly typeId: 'tax-category'
+  /**
+   *	Unique identifier of the referenced [TaxCategory](ctp:api:type:TaxCategory).
+   *
+   *
+   */
+  readonly id: string
+}
+/**
+ *	The tax portions are calculated from the [TaxRates](ctp:api:type:TaxRate).
+ *	If a Tax Rate has [SubRates](ctp:api:type:SubRate), they are used and can be identified by name.
+ *	Tax portions from Line Items with the same `rate` and `name` are accumulated to the same tax portion.
+ *
+ */
+export interface TaxPortion {
+  /**
+   *	Name of the tax portion.
+   *
+   *
+   */
+  readonly name?: string
+  /**
+   *	A number in the range 0-1.
+   *
+   *
+   */
+  readonly rate: number
+  /**
+   *	Money value of the tax portion.
+   *
+   *
+   */
+  readonly amount: CentPrecisionMoney
+}
+/**
+ *	[Reference](ctp:api:type:Reference) to a [Type](ctp:api:type:Type).
+ *
+ */
+export interface TypeReference extends IReference {
+  readonly typeId: 'type'
+  /**
+   *	Unique identifier of the referenced [Type](ctp:api:type:Type).
+   *
+   *
+   */
+  readonly id: string
+}
+/**
+ *	These objects represent information about which [API Client](/../api/projects/api-clients) created or modified a resource. For more information, see [Client Logging](/../api/general-concepts#client-logging).
+ *
+ */
+export interface ClientLogging {
+  /**
+   *	`id` of the [API Client](ctp:api:type:ApiClient) which created the resource.
+   *
+   *
+   */
+  readonly clientId?: string
+  /**
+   *	[External user ID](/../api/general-concepts#external-user-ids) provided by `X-External-User-ID` HTTP Header.
+   *
+   *
+   */
+  readonly externalUserId?: string
+  /**
+   *	Indicates the [Customer](ctp:api:type:Customer) who modified the resource using a token from the [password flow](/authorization#password-flow).
+   *
+   *
+   */
+  readonly customer?: CustomerReference
+  /**
+   *	Indicates that the resource was modified during an [anonymous session](ctp:api:type:AnonymousSession) with the logged ID.
+   *
+   *
+   */
+  readonly anonymousId?: string
+  /**
+   *	Indicates the [Customer](ctp:api:type:Customer) who created or modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
+   *
+   *
+   */
+  readonly associate?: CustomerReference
+}
+/**
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to a [Zone](ctp:api:type:Zone). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *
+ */
+export interface ZoneResourceIdentifier extends ResourceIdentifier {
+  /**
+   *	Unique identifier of the referenced [Zone](ctp:api:type:Zone). Required if `key` is absent.
+   *
+   *
+   */
+  readonly id?: string
+  /**
+   *	User-defined unique identifier of the referenced [Zone](ctp:api:type:Zone). Required if `id` is absent.
+   *
+   *
+   */
+  readonly key?: string
 }

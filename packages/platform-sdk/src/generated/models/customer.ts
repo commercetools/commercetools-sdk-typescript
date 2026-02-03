@@ -175,7 +175,7 @@ export interface Customer extends BaseResource {
    *
    *
    */
-  readonly shippingAddressIds?: string[]
+  readonly shippingAddressIds: string[]
   /**
    *	ID of the address in `addresses` used as the default billing address.
    *
@@ -187,7 +187,7 @@ export interface Customer extends BaseResource {
    *
    *
    */
-  readonly billingAddressIds?: string[]
+  readonly billingAddressIds: string[]
   /**
    *	Indicates whether the email address of the Customer is [verified](#email-verification-of-customer).
    *
@@ -207,7 +207,7 @@ export interface Customer extends BaseResource {
    *
    *
    */
-  readonly customerGroupAssignments?: CustomerGroupAssignment[]
+  readonly customerGroupAssignments: CustomerGroupAssignment[]
   /**
    *	Custom Fields for the Customer.
    *
@@ -1042,7 +1042,7 @@ export interface CustomerRemoveAddressAction extends ICustomerUpdateAction {
   readonly addressKey?: string
 }
 /**
- *	Removes a billing address from `billingAddressesIds`.
+ *	Removes a billing address from `billingAddressIds`.
  *	If the billing address is the default billing address, the `defaultBillingAddressId` is unset. Either `addressId` or `addressKey` is required.
  *
  */
@@ -1050,13 +1050,13 @@ export interface CustomerRemoveBillingAddressIdAction
   extends ICustomerUpdateAction {
   readonly action: 'removeBillingAddressId'
   /**
-   *	`id` of the [Address](ctp:api:type:Address) to remove from `billingAddressesIds`.
+   *	`id` of the [Address](ctp:api:type:Address) to remove from `billingAddressIds`.
    *
    *
    */
   readonly addressId?: string
   /**
-   *	`key` of the [Address](ctp:api:type:Address) to remove from `billingAddressesIds`.
+   *	`key` of the [Address](ctp:api:type:Address) to remove from `billingAddressIds`.
    *
    *
    */
@@ -1077,7 +1077,7 @@ export interface CustomerRemoveCustomerGroupAssignmentAction
   readonly customerGroup: CustomerGroupResourceIdentifier
 }
 /**
- *	Removes a shipping address from `shippingAddressesIds`.
+ *	Removes a shipping address from `shippingAddressIds`.
  *	If the shipping address is the default shipping address, the `defaultShippingAddressId` is unset. Either `addressId` or `addressKey` is required.
  *
  */
@@ -1085,13 +1085,13 @@ export interface CustomerRemoveShippingAddressIdAction
   extends ICustomerUpdateAction {
   readonly action: 'removeShippingAddressId'
   /**
-   *	`id` of the [Address](ctp:api:type:Address) to remove from `shippingAddressesIds`.
+   *	`id` of the [Address](ctp:api:type:Address) to remove from `shippingAddressIds`.
    *
    *
    */
   readonly addressId?: string
   /**
-   *	`key` of the [Address](ctp:api:type:Address) to remove from `shippingAddressesIds`.
+   *	`key` of the [Address](ctp:api:type:Address) to remove from `shippingAddressIds`.
    *
    *
    */
@@ -1342,6 +1342,10 @@ export interface CustomerSetDefaultShippingAddressAction
    */
   readonly addressKey?: string
 }
+/**
+ *	This action generates the [CustomerExternalIdSet](ctp:api:type:CustomerExternalIdSetMessage) Message.
+ *
+ */
 export interface CustomerSetExternalIdAction extends ICustomerUpdateAction {
   readonly action: 'setExternalId'
   /**

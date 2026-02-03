@@ -49,6 +49,9 @@ export class ByProjectKeyStagedQuotesRequestBuilder {
     })
   }
 
+  /**
+   *	Retrieves all StagedQuotes in the Project.
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -78,7 +81,7 @@ export class ByProjectKeyStagedQuotesRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more StagedQuotes exist for the provided query predicate. Returns a `200` status if any StagedQuotes match the query predicate, or a `404` status otherwise.
+   *	Checks if one or more StagedQuotes exist for the provided query predicate. Returns a `200 OK` status if any StagedQuotes match the query predicate or a [Not Found](/../api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {
@@ -103,6 +106,9 @@ export class ByProjectKeyStagedQuotesRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Creates a StagedQuote in the Project.
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

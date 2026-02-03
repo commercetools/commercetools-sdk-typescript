@@ -591,6 +591,8 @@ export interface StagedOrderAddCustomLineItemAction
  *	A [Delivery](ctp:api:type:Delivery) can only be added to an [Order](ctp:api:type:Order) if
  *	its `shippingInfo` (for `shippingMode` = `Single`), or its `shipping` (for `shippingMode` = `Multiple`) exists.
  *
+ *	Multiple Deliveries can be added to the same Order to represent split or partial shipments. However, the API doesn't validate that the cumulative quantities of Line Items or Custom Line Items across all Deliveries match or stay within the originally ordered quantities. For more information, see [Multiple Deliveries](/../api/shipping-delivery-overview#multiple-deliveries) on the Shipping and Delivery overview page.
+ *
  *	Produces the [Delivery Added](ctp:api:type:DeliveryAddedMessage) Message.
  *
  */
@@ -636,8 +638,10 @@ export interface StagedOrderAddDeliveryAction extends IStagedOrderUpdateAction {
   readonly custom?: CustomFieldsDraft
 }
 /**
- *	Adds a [DiscountCode](ctp:api:type:DiscountCode) to the Cart to activate the related [Cart Discounts](/../api/projects/cartDiscounts).
- *	Adding a Discount Code is only possible if no [DirectDiscount](ctp:api:type:DirectDiscount) has been applied to the Order.
+ *	Adds a [DiscountCode](ctp:api:type:DiscountCode) to the Order to activate the related [Cart Discounts](/../api/projects/cartDiscounts).
+ *	If the related Cart Discounts are inactive or invalid, or belong to a different Store than the Order, a [DiscountCodeNonApplicableError](ctp:api:type:DiscountCodeNonApplicableError) is returned.
+ *
+ *	A Discount Code can be added only if no [DirectDiscount](ctp:api:type:DirectDiscount) has been applied to the Order.
  *
  *	The maximum number of Discount Codes in a Cart is restricted by a [limit](/../api/limits#carts).
  *
@@ -845,6 +849,10 @@ export interface StagedOrderAddParcelToDeliveryAction
    */
   readonly custom?: CustomFieldsDraft
 }
+/**
+ *	Produces the [Order Payment Added](ctp:api:type:OrderPaymentAddedMessage) Message.
+ *
+ */
 export interface StagedOrderAddPaymentAction extends IStagedOrderUpdateAction {
   readonly action: 'addPayment'
   /**
@@ -1258,8 +1266,8 @@ export interface StagedOrderRemoveLineItemAction
    */
   readonly lineItemKey?: string
   /**
-   *	New value to set.
-   *	If absent or `0`, the Line Item is removed from the Cart.
+   *	Amount to subtract from the LineItem quantity.
+   *	If omitted, the LineItem is removed from the Order.
    *
    *
    */
@@ -1309,6 +1317,10 @@ export interface StagedOrderRemoveParcelFromDeliveryAction
    */
   readonly parcelKey?: string
 }
+/**
+ *	Produces the [Order Payment Removed](ctp:api:type:OrderPaymentRemovedMessage) Message.
+ *
+ */
 export interface StagedOrderRemovePaymentAction
   extends IStagedOrderUpdateAction {
   readonly action: 'removePayment'

@@ -45,6 +45,9 @@ export class ByProjectKeyQuotesRequestBuilder {
     })
   }
 
+  /**
+   *	Retrieves all Quotes in the Project.
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -74,7 +77,7 @@ export class ByProjectKeyQuotesRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more Quotes exist for the provided query predicate. Returns a `200` status if any Quotes match the query predicate, or a `404` status otherwise.
+   *	Checks if one or more Quotes exist for the provided query predicate. Returns a `200 OK` status if any Quotes match the query predicate, or a [Not Found](/../api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {
@@ -99,6 +102,9 @@ export class ByProjectKeyQuotesRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Creates a Quote in the Project.
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

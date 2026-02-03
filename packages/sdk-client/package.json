@@ -1,6 +1,6 @@
 {
   "name": "@commercetools/sdk-client-v2",
-  "version": "3.0.0",
+  "version": "3.3.0",
   "engines": {
     "node": ">=18"
   },
@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/commercetools/commercetools-sdk-typescript.git"
+    "url": "https://github.com/commercetools/commercetools-sdk-typescript"
   },
   "bugs": {
     "url": "https://github.com/commercetools/commercetools-sdk-typescript/issues"

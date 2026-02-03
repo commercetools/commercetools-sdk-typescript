@@ -1,5 +1,55 @@
 # @commercetools/ts-client
 
+## 4.8.0
+
+### Minor Changes
+
+- [#1209](https://github.com/commercetools/commercetools-sdk-typescript/pull/1209) [`77c6132`](https://github.com/commercetools/commercetools-sdk-typescript/commit/77c61328d222dbbbde3e79c63c2bb76df3f012a6) Thanks [@ajimae](https://github.com/ajimae)! - release all packages
+
+## 4.7.0
+
+### Minor Changes
+
+- [#1205](https://github.com/commercetools/commercetools-sdk-typescript/pull/1205) [`1ceb53b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1ceb53bf00457494ad061d7fe77a8d1b5a010d04) Thanks [@ajimae](https://github.com/ajimae)! - release packages
+
+### Patch Changes
+
+- [#1205](https://github.com/commercetools/commercetools-sdk-typescript/pull/1205) [`1ceb53b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1ceb53bf00457494ad061d7fe77a8d1b5a010d04) Thanks [@ajimae](https://github.com/ajimae)! - release packages
+
+- [#1205](https://github.com/commercetools/commercetools-sdk-typescript/pull/1205) [`1ceb53b`](https://github.com/commercetools/commercetools-sdk-typescript/commit/1ceb53bf00457494ad061d7fe77a8d1b5a010d04) Thanks [@ajimae](https://github.com/ajimae)! - release changeset
+
+## 4.6.0
+
+### Minor Changes
+
+- [#1203](https://github.com/commercetools/commercetools-sdk-typescript/pull/1203) [`e0b0fcc`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e0b0fccaed4812c0ac47b0c8c4724e81174b0255) Thanks [@ajimae](https://github.com/ajimae)! - release packages
+
+### Patch Changes
+
+- [#1203](https://github.com/commercetools/commercetools-sdk-typescript/pull/1203) [`e0b0fcc`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e0b0fccaed4812c0ac47b0c8c4724e81174b0255) Thanks [@ajimae](https://github.com/ajimae)! - release changeset
+
+## 4.5.0
+
+### Minor Changes
+
+- [#1201](https://github.com/commercetools/commercetools-sdk-typescript/pull/1201) [`f7c3101`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f7c31015ae0e18111c31fcdb3baee8e964bad99b) Thanks [@ajimae](https://github.com/ajimae)! - release packages
+
+## 4.4.0
+
+### Minor Changes
+
+- [#1191](https://github.com/commercetools/commercetools-sdk-typescript/pull/1191) [`2898e78`](https://github.com/commercetools/commercetools-sdk-typescript/commit/2898e7831c731b611628e6516d99e19fa32d402e) Thanks [@ShipilA](https://github.com/ShipilA)! - Regular release
+
+### Patch Changes
+
+- [#1199](https://github.com/commercetools/commercetools-sdk-typescript/pull/1199) [`e2fb7fd`](https://github.com/commercetools/commercetools-sdk-typescript/commit/e2fb7fd778f849f2a1da7f5abf0643c699bb8968) Thanks [@ajimae](https://github.com/ajimae)! - Fix issue with undefined response body
+
+## 4.3.0
+
+### Minor Changes
+
+- [#1182](https://github.com/commercetools/commercetools-sdk-typescript/pull/1182) [`f3200d7`](https://github.com/commercetools/commercetools-sdk-typescript/commit/f3200d7fda6fd65f3227d72d7f046cb70e9fc812) Thanks [@ShipilA](https://github.com/ShipilA)! - Regular release
+
 ## 4.2.1
 
 ### Patch Changes

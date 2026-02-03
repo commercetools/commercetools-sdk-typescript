@@ -57,7 +57,7 @@ export class ByProjectKeyMeShoppingListsByIDRequestBuilder {
    *
    *	A [Not Found](/../api/errors#404-not-found) error is returned in the following scenarios:
    *
-   *	- If no ShoppingList exists for the provided `id`.
+   *	- If no ShoppingList exists with the provided `id`.
    *	- If a ShoppingList exists but does not contain either an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope, or a `customer` with `id` value that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope.
    *
    */

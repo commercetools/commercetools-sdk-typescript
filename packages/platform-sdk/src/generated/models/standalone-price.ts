@@ -156,7 +156,7 @@ export interface StandalonePrice extends BaseResource {
   readonly tiers?: PriceTier[]
   /**
    *	Set if a matching [ProductDiscount](ctp:api:type:ProductDiscount) exists. If set, the API uses the `discounted` value for the [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection).
-   *	When a [relative discount](/../api/projects/productDiscounts#productdiscountvaluerelative) is applied and the fraction part of the `discounted` price is 0.5, the discounted price is rounded in favor of the customer with the [half down rounding](https://en.wikipedia.org/wiki/Rounding#Round_half_down).
+   *	When a [relative discount](/../api/projects/productDiscounts#productdiscountvaluerelative) is applied and the fraction part of the `discounted` price is 0.5, the discounted price is rounded in favor of the customer with the [half down rounding](https://en.wikipedia.org/wiki/Rounding#Rounding_half_down).
    *
    *	If an [absolute discount](ctp:api:type:ProductDiscountValueAbsolute) value exceeds the price of the Product Variant, the discounted price is a negative value.
    *
@@ -466,7 +466,7 @@ export interface StandalonePriceRemovePriceTierAction
    *
    *
    */
-  readonly tierMinimumQuantity: number
+  readonly minimumQuantity: number
 }
 /**
  *	Removes all staged changes from the StandalonePrice.

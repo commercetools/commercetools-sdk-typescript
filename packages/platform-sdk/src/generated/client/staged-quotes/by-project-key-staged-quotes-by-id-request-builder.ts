@@ -19,6 +19,9 @@ export class ByProjectKeyStagedQuotesByIDRequestBuilder {
       baseUri?: string
     }
   ) {}
+  /**
+   *	Retrieves a StagedQuote with the provided `id`.
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -43,7 +46,7 @@ export class ByProjectKeyStagedQuotesByIDRequestBuilder {
     )
   }
   /**
-   *	Checks if a StagedQuote exists with the provided `id`. Returns a `200` status if the StagedQuote exists, or a `404` status otherwise.
+   *	Checks if a StagedQuote exists with the provided `id`. Returns a `200 OK` status if the StagedQuote exists, or a [Not Found](/../api/errors#404-not-found) error otherwise.
    */
   public head(methodArgs?: {
     headers?: {
@@ -63,6 +66,9 @@ export class ByProjectKeyStagedQuotesByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Updates a StagedQuote in the Project using one or more [update actions](/../api/projects/staged-quotes#update-actions).
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]
@@ -89,6 +95,9 @@ export class ByProjectKeyStagedQuotesByIDRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Deletes a StagedQuote in the Project.
+   */
   public delete(methodArgs: {
     queryArgs: {
       dataErasure?: boolean

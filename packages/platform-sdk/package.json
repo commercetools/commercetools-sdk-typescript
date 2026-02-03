@@ -4,17 +4,17 @@
     "access": "public"
   },
   "name": "@commercetools/platform-sdk",
-  "version": "8.17.0",
+  "version": "8.23.0",
   "engines": {
     "node": ">=18"
   },
   "description": "TypeScript definitions and SDK for commercetools Composable Commerce",
   "keywords": ["commercetools", "composable commerce", "typescript", "sdk"],
-  "homepage": "https://github.com/commercetools/commercetools-typescript-sdks",
-  "bugs": "https://github.com/commercetools/commercetools-typescript-sdks/issues",
+  "homepage": "https://github.com/commercetools/commercetools-sdk-typescript",
+  "bugs": "https://github.com/commercetools/commercetools-sdk-typescript/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/commercetools/commercetools-typescript-sdks.git"
+    "url": "https://github.com/commercetools/commercetools-sdk-typescript"
   },
   "files": ["dist", "CHANGELOG.md"],
   "author": "Achraf Beniasaad",
@@ -26,7 +26,7 @@
     "./dist/commercetools-platform-sdk.esm.js": "./dist/commercetools-platform-sdk.browser.esm.js"
   },
   "dependencies": {
-    "@commercetools/ts-client": "^4.2.1"
+    "@commercetools/ts-client": "^4.8.0"
   },
   "devDependencies": {
     "@types/uuid": "10.0.0",

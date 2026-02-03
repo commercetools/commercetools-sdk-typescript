@@ -46,6 +46,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyQuotesRequestBuilder {
     })
   }
 
+  /**
+   *	Retrieves Quotes in a [Store](ctp:api:type:Store).
+   */
   public get(methodArgs?: {
     queryArgs?: {
       expand?: string | string[]
@@ -75,7 +78,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyQuotesRequestBuilder {
     )
   }
   /**
-   *	Checks if one or more Quotes exist for the provided query predicate. Returns a `200` status if any Quotes match the query predicate, or a `404` status otherwise.
+   *	Checks if one or more Quotes exist for the provided query predicate in a [Store](ctp:api:type:Store). Returns a `200` status if any Quotes match the query predicate, or a `404` status otherwise.
    */
   public head(methodArgs?: {
     queryArgs?: {
@@ -100,6 +103,9 @@ export class ByProjectKeyInStoreKeyByStoreKeyQuotesRequestBuilder {
       this.args.executeRequest
     )
   }
+  /**
+   *	Creates a Quote in a [Store](ctp:api:type:Store).
+   */
   public post(methodArgs: {
     queryArgs?: {
       expand?: string | string[]

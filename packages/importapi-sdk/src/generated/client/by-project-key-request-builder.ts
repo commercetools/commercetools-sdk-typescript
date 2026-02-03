@@ -52,8 +52,35 @@ export class ByProjectKeyRequestBuilder {
       baseUri: this.args.baseUri,
     })
   }
+  public businessUnits(): ByProjectKeyBusinessUnitsRequestBuilder {
+    return new ByProjectKeyBusinessUnitsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
   public categories(): ByProjectKeyCategoriesRequestBuilder {
     return new ByProjectKeyCategoriesRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public customers(): ByProjectKeyCustomersRequestBuilder {
+    return new ByProjectKeyCustomersRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
+  public discountCodes(): ByProjectKeyDiscountCodesRequestBuilder {
+    return new ByProjectKeyDiscountCodesRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },
@@ -70,8 +97,8 @@ export class ByProjectKeyRequestBuilder {
       baseUri: this.args.baseUri,
     })
   }
-  public standalonePrices(): ByProjectKeyStandalonePricesRequestBuilder {
-    return new ByProjectKeyStandalonePricesRequestBuilder({
+  public inventories(): ByProjectKeyInventoriesRequestBuilder {
+    return new ByProjectKeyInventoriesRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },
@@ -124,6 +151,15 @@ export class ByProjectKeyRequestBuilder {
       baseUri: this.args.baseUri,
     })
   }
+  public productSelections(): ByProjectKeyProductSelectionsRequestBuilder {
+    return new ByProjectKeyProductSelectionsRequestBuilder({
+      pathArgs: {
+        ...this.args.pathArgs,
+      },
+      executeRequest: this.args.executeRequest,
+      baseUri: this.args.baseUri,
+    })
+  }
   public orders(): ByProjectKeyOrdersRequestBuilder {
     return new ByProjectKeyOrdersRequestBuilder({
       pathArgs: {
@@ -142,17 +178,8 @@ export class ByProjectKeyRequestBuilder {
       baseUri: this.args.baseUri,
     })
   }
-  public customers(): ByProjectKeyCustomersRequestBuilder {
-    return new ByProjectKeyCustomersRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
-  }
-  public inventories(): ByProjectKeyInventoriesRequestBuilder {
-    return new ByProjectKeyInventoriesRequestBuilder({
+  public standalonePrices(): ByProjectKeyStandalonePricesRequestBuilder {
+    return new ByProjectKeyStandalonePricesRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },
@@ -162,33 +189,6 @@ export class ByProjectKeyRequestBuilder {
   }
   public types(): ByProjectKeyTypesRequestBuilder {
     return new ByProjectKeyTypesRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
-  }
-  public discountCodes(): ByProjectKeyDiscountCodesRequestBuilder {
-    return new ByProjectKeyDiscountCodesRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
-  }
-  public productSelections(): ByProjectKeyProductSelectionsRequestBuilder {
-    return new ByProjectKeyProductSelectionsRequestBuilder({
-      pathArgs: {
-        ...this.args.pathArgs,
-      },
-      executeRequest: this.args.executeRequest,
-      baseUri: this.args.baseUri,
-    })
-  }
-  public businessUnits(): ByProjectKeyBusinessUnitsRequestBuilder {
-    return new ByProjectKeyBusinessUnitsRequestBuilder({
       pathArgs: {
         ...this.args.pathArgs,
       },
