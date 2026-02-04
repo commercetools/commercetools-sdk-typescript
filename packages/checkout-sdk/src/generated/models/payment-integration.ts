@@ -202,9 +202,14 @@ export interface PaginatedPaymentIntegration {
 export enum PaymentComponentTypeValues {
   Component = 'Component',
   DropIn = 'DropIn',
+  Express = 'Express',
 }
 
-export type PaymentComponentType = 'Component' | 'DropIn' | (string & {})
+export type PaymentComponentType =
+  | 'Component'
+  | 'DropIn'
+  | 'Express'
+  | (string & {})
 export interface PaymentIntegration {
   /**
    *	Unique identifier of the PaymentIntegration.

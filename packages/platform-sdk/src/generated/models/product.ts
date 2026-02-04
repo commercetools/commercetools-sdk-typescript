@@ -194,13 +194,6 @@ export interface FilteredFacetResult extends IFacetResult {
    */
   readonly productCount?: number
 }
-/**
- *	An abstract sellable good with a set of Attributes defined by a Product Type.
- *	Products themselves are not sellable. Instead, they act as a parent structure for Product Variants.
- *	Each Product must have at least one Product Variant, which is called the Master Variant.
- *	A single Product representation contains the _current_ and the _staged_ representation of its product data.
- *
- */
 export interface Product extends BaseResource {
   /**
    *	Unique identifier of the Product.
@@ -289,10 +282,6 @@ export interface Product extends BaseResource {
    */
   readonly warnings?: WarningObject[]
 }
-/**
- *	Contains the `current` and `staged` [ProductData](ctp:api:type:ProductData).
- *
- */
 export interface ProductCatalogData {
   /**
    *	If `true`, the `current` representation of the Product is retrievable in the [Product Projection](/projects/productProjections) endpoints and indexed for [Product Search](/../api/projects/product-search).
@@ -319,10 +308,6 @@ export interface ProductCatalogData {
    */
   readonly hasStagedChanges: boolean
 }
-/**
- *	Contains all the data of a Product and its Product Variants.
- *
- */
 export interface ProductData {
   /**
    *	Name of the Product.
@@ -425,8 +410,6 @@ export interface ProductDraft {
    *	User-defined unique identifier for the Product.
    *
    *	This field is optional for backwards compatibility reasons, but we strongly recommend setting it. Keys are mandatory for importing Products with the [Import API](/../api/import-export/overview) and the [Merchant Center](/../merchant-center/import-data).
-   *
-   *	To update a Product using the Import API or Merchant Center, the Product `key` must match the pattern `^[A-Za-z0-9_-]{2,256}$`.
    *
    *
    */
@@ -909,10 +892,6 @@ export interface IProductUpdateAction {
    */
   readonly action: string
 }
-/**
- *	A concrete sellable good for which inventory can be tracked. Product Variants are generally mapped to specific SKUs.
- *
- */
 export interface ProductVariant {
   /**
    *	A unique, sequential identifier of the Product Variant within the Product.
@@ -1085,10 +1064,6 @@ export interface ProductVariantChannelAvailability {
 export interface ProductVariantChannelAvailabilityMap {
   [key: string]: ProductVariantChannelAvailability
 }
-/**
- *	Creates a Product Variant when included in the `masterVariant` and `variants` fields of the [ProductDraft](ctp:api:type:ProductDraft).
- *
- */
 export interface ProductVariantDraft {
   /**
    *	User-defined unique SKU of the Product Variant.
