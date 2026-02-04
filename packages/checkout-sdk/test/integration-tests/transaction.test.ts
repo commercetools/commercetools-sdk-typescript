@@ -71,5 +71,5 @@ describe('::transaction', () => {
 
     expect(_transaction).toBeDefined()
     expect(_transaction.statusCode).toEqual(200)
-  })
+  }, 30000)
 })
