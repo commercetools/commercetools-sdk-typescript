@@ -216,6 +216,12 @@ export interface Cart extends BaseResource {
    */
   readonly cartState: CartState
   /**
+   *	Determines freezing behavior when `cartState` is `Frozen`.
+   *
+   *
+   */
+  readonly freezeStrategy?: FreezeStrategy
+  /**
    *	Billing address associated with the Cart.
    *
    *
@@ -329,11 +335,24 @@ export interface Cart extends BaseResource {
    */
   readonly discountTypeCombination?: DiscountTypeCombination
   /**
+   *	Indicates whether the Cart has been [locked](/../api/carts-orders-overview#lock-a-cart), preventing edits.
+   *
+   *
+   */
+  readonly lock?: CartLock
+  /**
    *	Number of days after the last modification before a Cart is deleted. Configured in [Project settings](ctp:api:type:CartsConfiguration).
    *
    *
    */
   readonly deleteDaysAfterLastModification?: number
+  /**
+   *	User-defined identifier of a purchase order.
+   *
+   *	It is typically set by the [Buyer](ctp:api:type:Buyer) or Merchant to track the purchase order during the [quote and order flow](/../api/quotes-overview#intended-workflow).
+   *
+   */
+  readonly purchaseOrderNumber?: string
   /**
    *	Date and time (UTC) the Cart was initially created.
    *
@@ -554,9 +573,36 @@ export interface CartDraft {
    *
    */
   readonly custom?: CustomFieldsDraft
+  /**
+   *	User-defined identifier of a purchase order.
+   *
+   *	It is typically set by the [Buyer](ctp:api:type:Buyer) or Merchant to track the purchase order during the [quote and order flow](/../api/quotes-overview#intended-workflow).
+   *
+   */
+  readonly purchaseOrderNumber?: string
 }
 /**
- *	Determines how to manually merge an anonymous Cart with an existing Customer Cart.
+ *	Indicates that the Cart is [locked](/../api/carts-orders-overview#lock-a-cart) to prevent changes.
+ *	Provides metadata about when the lock was created and which
+ *	[API Client](ctp:api:type:ApiClient) initiated it.
+ *
+ */
+export interface CartLock {
+  /**
+   *	Date and time (UTC) the Cart was locked.
+   *
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	`id` of the [API Client](ctp:api:type:ApiClient) that locked the Cart.
+   *
+   *
+   */
+  readonly clientId: string
+}
+/**
+ *	Determines how to manually merge an anonymous Cart with an existing Customer Cart. For more information about merge mode behaviors, merge rules, and tax recalculation, see [Merge a Cart](/../api/carts-orders-overview#merge-a-cart).
  *
  */
 export enum CartMergeModeValues {
@@ -716,6 +762,7 @@ export type CartUpdateAction =
   | CartChangeTaxModeAction
   | CartChangeTaxRoundingModeAction
   | CartFreezeCartAction
+  | CartLockCartAction
   | CartRecalculateAction
   | CartRemoveCustomLineItemAction
   | CartRemoveDiscountCodeAction
@@ -759,6 +806,7 @@ export type CartUpdateAction =
   | CartSetLineItemTaxRateAction
   | CartSetLineItemTotalPriceAction
   | CartSetLocaleAction
+  | CartSetPurchaseOrderNumberAction
   | CartSetShippingAddressAction
   | CartSetShippingAddressCustomFieldAction
   | CartSetShippingAddressCustomTypeAction
@@ -769,6 +817,7 @@ export type CartUpdateAction =
   | CartSetShippingMethodTaxRateAction
   | CartSetShippingRateInputAction
   | CartUnfreezeCartAction
+  | CartUnlockCartAction
   | CartUpdateItemShippingAddressAction
 export interface ICartUpdateAction {
   /**
@@ -1351,6 +1400,16 @@ export interface ExternalTaxRateDraft {
    */
   readonly subRates?: SubRate[]
 }
+/**
+ *	Indicates how a [Cart](ctp:api:type:Cart) freeze behaves. For detailed behavior on each of these strategies, see [Freeze a Cart](/../api/carts-orders-overview#freeze-a-cart).
+ *
+ */
+export enum FreezeStrategyValues {
+  HardFreeze = 'HardFreeze',
+  SoftFreeze = 'SoftFreeze',
+}
+
+export type FreezeStrategy = 'HardFreeze' | 'SoftFreeze' | (string & {})
 /**
  *	Indicates how Line Items in a Cart are tracked.
  *
@@ -2928,14 +2987,34 @@ export interface CartChangeTaxRoundingModeAction extends ICartUpdateAction {
   readonly taxRoundingMode: RoundingMode
 }
 /**
- *	Changes the [CartState](ctp:api:type:CartState) from `Active` to `Frozen`. Results in a [Frozen Cart](ctp:api:type:FrozenCarts).
- *	Fails with [InvalidOperation](ctp:api:type:InvalidOperationError) error when the Cart is empty.
  *
- *	Freezing a Cart produces the [CartFrozen](ctp:api:type:CartFrozenMessage) Message.
+ *	Freezes the Cart based on the provided [FreezeStrategy](ctp:api:type:FreezeStrategy).
+ *
+ *	The following behavior occurs:
+ *	  - Changes the Cart State from `Active` to `Frozen`.
+ *	  - Sets the corresponding [FreezeStrategy](ctp:api:type:FreezeStrategy) on the Cart's `freezeStrategy` field.
+ *	  - Produces the [CartFrozen](ctp:api:type:CartFrozenMessage) Message.
+ *
+ *	If the Cart is empty, an [InvalidOperation](ctp:api:type:InvalidOperationError) error is returned.
  *
  */
 export interface CartFreezeCartAction extends ICartUpdateAction {
   readonly action: 'freezeCart'
+  /**
+   *	Strategy that determines the freezing behavior.
+   *
+   *
+   */
+  readonly strategy?: FreezeStrategy
+}
+/**
+ *	[Locks](/../api/carts-orders-overview#lock-a-cart) a Cart, preventing all updates from API Clients without an elevated [OAuth 2.0 Scope](/../api/scopes).
+ *	This action sets the Cart's `lock` [field](/projects/carts#cart) which identifies the API Client that locked the Cart and when the lock was applied.
+ *	This action requires an additional OAuth 2.0 Scope `manage_locked_carts`.
+ *
+ */
+export interface CartLockCartAction extends ICartUpdateAction {
+  readonly action: 'lockCart'
 }
 /**
  *	This update action does not set any Cart field in particular, but it triggers several [Cart updates](/../api/carts-orders-overview#update-a-cart)
@@ -3377,6 +3456,9 @@ export interface CartSetCustomLineItemTaxRateAction extends ICartUpdateAction {
  *
  *	To unset a custom Shipping Method on a Cart, use the [Set ShippingMethod](ctp:api:type:CartSetShippingMethodAction) update action
  *	without the `shippingMethod` field instead.
+ *
+ *	This update is not allowed when the Cart is [frozen](/../api/carts-orders-overview#freeze-a-cart) with
+ *	the `HardFreeze` [FreezeStrategy](ctp:api:type:FreezeStrategy).
  *
  */
 export interface CartSetCustomShippingMethodAction extends ICartUpdateAction {
@@ -3884,6 +3966,20 @@ export interface CartSetLocaleAction extends ICartUpdateAction {
   readonly locale?: string
 }
 /**
+ *	Updates the `purchaseOrderNumber` field and produces the [CartPurchaseOrderNumberSet](ctp:api:type:CartPurchaseOrderNumberSetMessage) Message.
+ *
+ */
+export interface CartSetPurchaseOrderNumberAction extends ICartUpdateAction {
+  readonly action: 'setPurchaseOrderNumber'
+  /**
+   *	Value to set.
+   *	If empty, any existing value is removed.
+   *
+   *
+   */
+  readonly purchaseOrderNumber?: string
+}
+/**
  *	Setting the shipping address also sets the [TaxRate](ctp:api:type:TaxRate) of Line Items and calculates the [TaxedPrice](ctp:api:type:TaxedPrice).
  *
  *	If a matching price cannot be found for the given shipping address during [Line Item price selection](/../api/pricing-and-discounts-overview#line-item-price-selection),
@@ -3995,6 +4091,8 @@ export interface CartSetShippingCustomTypeAction extends ICartUpdateAction {
 /**
  *	To set the Cart's Shipping Method the Cart must have the `Single` [ShippingMode](ctp:api:type:ShippingMode) and a `shippingAddress`.
  *
+ *	This update is not allowed when the Cart is [frozen](/../api/carts-orders-overview#freeze-a-cart) with the `HardFreeze` [FreezeStrategy](ctp:api:type:FreezeStrategy).
+ *
  */
 export interface CartSetShippingMethodAction extends ICartUpdateAction {
   readonly action: 'setShippingMethod'
@@ -4082,6 +4180,14 @@ export interface CartSetShippingRateInputAction extends ICartUpdateAction {
  */
 export interface CartUnfreezeCartAction extends ICartUpdateAction {
   readonly action: 'unfreezeCart'
+}
+/**
+ *	Unlocks a Cart, removing all update restrictions that are in place while a Cart is [locked](/../api/carts-orders-overview#lock-a-cart).
+ *	This action requires an additional OAuth 2.0 Scope `manage_locked_carts`.
+ *
+ */
+export interface CartUnlockCartAction extends ICartUpdateAction {
+  readonly action: 'unlockCart'
 }
 /**
  *	Updates an address in `itemShippingAddresses` by keeping the Address `key`.
