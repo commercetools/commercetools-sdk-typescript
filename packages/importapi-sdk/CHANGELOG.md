@@ -1,5 +1,50 @@
 # @commercetools/importapi-sdk
 
+## 6.14.0
+
+### Minor Changes
+
+- [#1219](https://github.com/commercetools/commercetools-sdk-typescript/pull/1219) [`c665e6d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c665e6d12fe11e66baa303059869bca2b7364b1c) Thanks [@ShipilA](https://github.com/ShipilA)! - **Api changes**
+
+  <details>
+  <summary>Required Property(s)</summary>
+  - changed property `variantSelection` of type `ProductSelectionProductAddedMessage` to be optional
+  - changed property `variantExclusion` of type `ProductSelectionProductExcludedMessage` to be optional
+  - changed property `oldVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessage` to be optional
+  - changed property `newVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessage` to be optional
+  - changed property `oldVariantSelection` of type `ProductSelectionVariantSelectionChangedMessage` to be optional
+  - changed property `newVariantSelection` of type `ProductSelectionVariantSelectionChangedMessage` to be optional
+  - changed property `variantSelection` of type `ProductSelectionProductAddedMessagePayload` to be optional
+  - changed property `variantExclusion` of type `ProductSelectionProductExcludedMessagePayload` to be optional
+  - changed property `oldVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessagePayload` to be optional
+  - changed property `newVariantExclusion` of type `ProductSelectionVariantExclusionChangedMessagePayload` to be optional
+  - changed property `oldVariantSelection` of type `ProductSelectionVariantSelectionChangedMessagePayload` to be optional
+  - changed property `newVariantSelection` of type `ProductSelectionVariantSelectionChangedMessagePayload` to be optional
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `interfaceId` to type `MyTransactionDraft`
+  - added property `interfaceId` to type `Transaction`
+  - added property `interfaceId` to type `TransactionDraft`
+  </details>
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `PaymentTransactionInterfaceIdSetMessage`
+  - added type `PaymentTransactionInterfaceIdSetMessagePayload`
+  - added type `PaymentSetTransactionInterfaceIdAction`
+  </details>
+
+- [#1219](https://github.com/commercetools/commercetools-sdk-typescript/pull/1219) [`c665e6d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c665e6d12fe11e66baa303059869bca2b7364b1c) Thanks [@ShipilA](https://github.com/ShipilA)! - Regular release
+
+### Patch Changes
+
+- [#1219](https://github.com/commercetools/commercetools-sdk-typescript/pull/1219) [`c665e6d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c665e6d12fe11e66baa303059869bca2b7364b1c) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release
+
+- Updated dependencies [[`c665e6d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c665e6d12fe11e66baa303059869bca2b7364b1c), [`c665e6d`](https://github.com/commercetools/commercetools-sdk-typescript/commit/c665e6d12fe11e66baa303059869bca2b7364b1c)]:
+  - @commercetools/ts-client@4.9.0
+
 ## 6.13.0
 
 ### Minor Changes
