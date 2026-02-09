@@ -129,3 +129,15 @@ jobs:
 
       - name: Integration tests
         run: yarn test
+
+
+      # 👇 CLEANUP — ALWAYS RUNS
+      - name: Cleanup commercetools data
+        if: always()
+        uses: ./.github/actions/cu
+        env:
+          CTP_PROJECT_KEY: ${{ secrets.CTP_PROJECT_KEY }}
+          CTP_CLIENT_ID: ${{ secrets.CTP_CLIENT_ID }}
+          CTP_CLIENT_SECRET: ${{ secrets.CTP_CLIENT_SECRET }}
+          CTP_AUTH_URL: ${{ secrets.CTP_AUTH_URL }}
+          CTP_API_URL: ${{ secrets.CTP_API_URL }}
