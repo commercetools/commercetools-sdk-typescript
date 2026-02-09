@@ -141,8 +141,11 @@ jobs:
     if: always()
 
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/cu
         env:
-          CT_PROJECT_KEY: ${{ secrets.CT_PROJECT_KEY }}
-          CT_CLIENT_ID: ${{ secrets.CT_CLIENT_ID }}
-          CT_CLIENT_SECRET: ${{ secrets.CT_CLIENT_SECRET }}
+          CTP_PROJECT_KEY: ${{ secrets.CTP_PROJECT_KEY }}
+          CTP_CLIENT_ID: ${{ secrets.CTP_CLIENT_ID }}
+          CTP_CLIENT_SECRET: ${{ secrets.CTP_CLIENT_SECRET }}
+          CTP_AUTH_URL: ${{ secrets.CTP_AUTH_URL }}
+          CTP_API_URL: ${{ secrets.CTP_API_URL }}

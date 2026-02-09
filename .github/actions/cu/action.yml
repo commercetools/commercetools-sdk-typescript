@@ -15,7 +15,6 @@ runs:
       with:
         repository: commercetools/commercetools-sunrise-data
         path: sunrise-data
-        # token: ${{ secrets.GH_PAT }} # uncomment if private
 
     - name: Setup Node.js
       uses: actions/setup-node@v4
