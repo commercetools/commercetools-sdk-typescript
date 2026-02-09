@@ -7,11 +7,11 @@ permissions:
 on:
   push:
     branches:
-      - 'master'
-      - '!changeset-release/**'
+      - "master"
+      - "!changeset-release/**"
 
   pull_request:
-      
+
 jobs:
   immutable-install:
     if: ${{ !startsWith(github.ref, 'refs/heads/changeset-release/') }}
@@ -58,7 +58,7 @@ jobs:
         uses: ./.github/actions/ci
 
       - name: TypeScript
-        run:  yarn typecheck
+        run: yarn typecheck
 
   testing:
     if: ${{ !startsWith(github.ref, 'refs/heads/changeset-release/') }}
@@ -99,7 +99,7 @@ jobs:
           flags: test-coverage
 
   regression-testing:
-    if: ${{ !startsWith(github.ref, 'refs/heads/changeset-release/') }}
+    if: ${{ github.ref != 'refs/heads/master' && !startsWith(github.ref, 'refs/heads/changeset-release/')}}
     name: Regression Testing
     needs: [testing]
     runs-on: ubuntu-latest
@@ -130,14 +130,19 @@ jobs:
       - name: Integration tests
         run: yarn test
 
+  cleanup:
+    name: cleanup resource
+    runs-on: ubuntu-latest
 
-      # 👇 CLEANUP — ALWAYS RUNS
-      - name: Cleanup commercetools data
-        if: always()
-        uses: ./.github/actions/cu
+    # wait for test job
+    needs: [testing, regression-testing]
+
+    # ALWAYS run, even if test failed
+    if: always()
+
+    steps:
+      - uses: ./.github/actions/cu
         env:
-          CTP_PROJECT_KEY: ${{ secrets.CTP_PROJECT_KEY }}
-          CTP_CLIENT_ID: ${{ secrets.CTP_CLIENT_ID }}
-          CTP_CLIENT_SECRET: ${{ secrets.CTP_CLIENT_SECRET }}
-          CTP_AUTH_URL: ${{ secrets.CTP_AUTH_URL }}
-          CTP_API_URL: ${{ secrets.CTP_API_URL }}
+          CT_PROJECT_KEY: ${{ secrets.CT_PROJECT_KEY }}
+          CT_CLIENT_ID: ${{ secrets.CT_CLIENT_ID }}
+          CT_CLIENT_SECRET: ${{ secrets.CT_CLIENT_SECRET }}
