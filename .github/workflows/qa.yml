@@ -143,9 +143,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/cu
-        env:
-          CTP_PROJECT_KEY: ${{ secrets.CTP_PROJECT_KEY }}
-          CTP_CLIENT_ID: ${{ secrets.CTP_CLIENT_ID }}
-          CTP_CLIENT_SECRET: ${{ secrets.CTP_CLIENT_SECRET }}
-          CTP_AUTH_URL: ${{ secrets.CTP_AUTH_URL }}
-          CTP_API_URL: ${{ secrets.CTP_API_URL }}
+      - uses: oNaiPs/secrets-to-env-action@ec46a22bfc9b37e014b627b3208b07eb8909ea0f # v1.5
+        with:
+          secrets: ${{ toJSON(secrets) }}
