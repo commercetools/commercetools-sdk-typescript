@@ -229,6 +229,94 @@ export interface IApprovalRuleUpdateAction {
    */
   readonly action: string
 }
+export interface ApproverConjunction {
+  /**
+   *	All of the nested disjunctions must be approved in order for the conjunction to be considered approved.
+   *
+   *
+   */
+  readonly and: ApproverDisjunction[]
+}
+export interface ApproverConjunctionDraft {
+  /**
+   *	All of the nested disjunctions must be approved in order for the conjunction to be considered approved.
+   *
+   *
+   */
+  readonly and: ApproverDisjunctionDraft[]
+}
+export interface ApproverDisjunction {
+  /**
+   *	Any of the nested approvers must approve in order for the disjunction to be considered approved.
+   *
+   *
+   */
+  readonly or: RuleApprover[]
+}
+export interface ApproverDisjunctionDraft {
+  /**
+   *	Any of the nested approvers must approve in order for the disjunction to be considered approved.
+   *
+   *
+   */
+  readonly or: RuleApproverDraft[]
+}
+/**
+ *	Describes the order in which [Associates](ctp:api:type:Associate) can approve the matched [Order](ctp:api:type:Order).
+ *
+ */
+export interface ApproverHierarchy {
+  /**
+   *	All of the nested conjunctions must be approved in order for the hierarchy to be considered approved.
+   *
+   *
+   */
+  readonly tiers: ApproverConjunction[]
+}
+/**
+ *	Describes the sequence in which [Associates](ctp:api:type:Associate) can approve an [Order](ctp:api:type:Order).
+ *
+ */
+export interface ApproverHierarchyDraft {
+  /**
+   *	Nested conjunctions representing tiers of approvers in a hierarchy.
+   *
+   *
+   */
+  readonly tiers: ApproverConjunctionDraft[]
+}
+export interface RuleApprover {
+  /**
+   *	The Associate Role that is allowed to approve at a given stage in the approval process.
+   *
+   *
+   */
+  readonly associateRole: AssociateRoleKeyReference
+}
+export interface RuleApproverDraft {
+  /**
+   *	Any Associate with this Role can approve.
+   *
+   *
+   */
+  readonly associateRole: AssociateRoleResourceIdentifier
+}
+export interface RuleRequester {
+  /**
+   *	The [Associate Role](ctp:api:type:AssociateRole) that an [Associate](ctp:api:type:Associate) must hold for the Approval Rule to apply to the Orders they create.
+   *
+   *
+   */
+  readonly associateRole: AssociateRoleKeyReference
+}
+export interface RuleRequesterDraft {
+  /**
+   *	The [Associate Role](ctp:api:type:AssociateRole) that an [Associate](ctp:api:type:Associate) must hold for the Approval Rule to apply to the Orders they create.
+   *
+   *
+   */
+  readonly associateRole: AssociateRoleResourceIdentifier
+}
 /**
  *	Setting the approvers for an [Approval Rule](ctp:api:type:ApprovalRule) generates an [ApprovalRuleApproversSet](ctp:api:type:ApprovalRuleApproversSetMessage) Message.
  *
@@ -354,92 +442,4 @@ export interface ApprovalRuleSetStatusAction extends IApprovalRuleUpdateAction {
    *
    */
   readonly status: ApprovalRuleStatus
-}
-export interface ApproverConjunction {
-  /**
-   *	All of the nested disjunctions must be approved in order for the conjunction to be considered approved.
-   *
-   *
-   */
-  readonly and: ApproverDisjunction[]
-}
-export interface ApproverConjunctionDraft {
-  /**
-   *	All of the nested disjunctions must be approved in order for the conjunction to be considered approved.
-   *
-   *
-   */
-  readonly and: ApproverDisjunctionDraft[]
-}
-export interface ApproverDisjunction {
-  /**
-   *	Any of the nested approvers must approve in order for the disjunction to be considered approved.
-   *
-   *
-   */
-  readonly or: RuleApprover[]
-}
-export interface ApproverDisjunctionDraft {
-  /**
-   *	Any of the nested approvers must approve in order for the disjunction to be considered approved.
-   *
-   *
-   */
-  readonly or: RuleApproverDraft[]
-}
-/**
- *	Describes the order in which [Associates](ctp:api:type:Associate) can approve the matched [Order](ctp:api:type:Order).
- *
- */
-export interface ApproverHierarchy {
-  /**
-   *	All of the nested conjunctions must be approved in order for the hierarchy to be considered approved.
-   *
-   *
-   */
-  readonly tiers: ApproverConjunction[]
-}
-/**
- *	Describes the sequence in which [Associates](ctp:api:type:Associate) can approve an [Order](ctp:api:type:Order).
- *
- */
-export interface ApproverHierarchyDraft {
-  /**
-   *	Nested conjunctions representing tiers of approvers in a hierarchy.
-   *
-   *
-   */
-  readonly tiers: ApproverConjunctionDraft[]
-}
-export interface RuleApprover {
-  /**
-   *	The Associate Role that is allowed to approve at a given stage in the approval process.
-   *
-   *
-   */
-  readonly associateRole: AssociateRoleKeyReference
-}
-export interface RuleApproverDraft {
-  /**
-   *	Any Associate with this Role can approve.
-   *
-   *
-   */
-  readonly associateRole: AssociateRoleResourceIdentifier
-}
-export interface RuleRequester {
-  /**
-   *	The [Associate Role](ctp:api:type:AssociateRole) that an [Associate](ctp:api:type:Associate) must hold for the Approval Rule to apply to the Orders they create.
-   *
-   *
-   */
-  readonly associateRole: AssociateRoleKeyReference
-}
-export interface RuleRequesterDraft {
-  /**
-   *	The [Associate Role](ctp:api:type:AssociateRole) that an [Associate](ctp:api:type:Associate) must hold for the Approval Rule to apply to the Orders they create.
-   *
-   *
-   */
-  readonly associateRole: AssociateRoleResourceIdentifier
 }
