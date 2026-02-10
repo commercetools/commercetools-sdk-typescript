@@ -7,11 +7,11 @@ permissions:
 on:
   push:
     branches:
-      - 'master'
-      - '!changeset-release/**'
+      - "master"
+      - "!changeset-release/**"
 
   pull_request:
-      
+
 jobs:
   immutable-install:
     if: ${{ !startsWith(github.ref, 'refs/heads/changeset-release/') }}
@@ -58,7 +58,7 @@ jobs:
         uses: ./.github/actions/ci
 
       - name: TypeScript
-        run:  yarn typecheck
+        run: yarn typecheck
 
   testing:
     if: ${{ !startsWith(github.ref, 'refs/heads/changeset-release/') }}
@@ -99,7 +99,7 @@ jobs:
           flags: test-coverage
 
   regression-testing:
-    if: ${{ !startsWith(github.ref, 'refs/heads/changeset-release/') }}
+    if: ${{ github.ref != 'refs/heads/master' && !startsWith(github.ref, 'refs/heads/changeset-release/')}}
     name: Regression Testing
     needs: [testing]
     runs-on: ubuntu-latest
@@ -129,3 +129,20 @@ jobs:
 
       - name: Integration tests
         run: yarn test
+
+  cleanup:
+    name: cleanup resource
+    runs-on: ubuntu-latest
+
+    # wait for test job
+    needs: [testing, regression-testing]
+
+    # ALWAYS run, even if test failed
+    if: always()
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oNaiPs/secrets-to-env-action@ec46a22bfc9b37e014b627b3208b07eb8909ea0f # v1.5
+        with:
+          secrets: ${{ toJSON(secrets) }}
+      - uses: ./.github/actions/cu
