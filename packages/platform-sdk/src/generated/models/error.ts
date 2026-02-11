@@ -27,6 +27,10 @@ import { OrderEditPreviewFailure } from './order-edit'
 import { Attribute, ProductReference } from './product'
 import { ProductSearchErrorResponse } from './product-search'
 import { ProductVariantSelection } from './product-selection'
+import {
+  RecurrencePolicyReference,
+  RecurrencePolicyResourceIdentifier,
+} from './recurrence-policy'
 import { StandalonePriceReference } from './standalone-price'
 import { StoreKeyReference } from './store'
 
@@ -70,6 +74,7 @@ export type ErrorObject =
   | EnumKeyDoesNotExistError
   | EnumValueIsUsedError
   | EnumValuesMustMatchError
+  | ExactLockConflictError
   | ExpiredCustomerEmailTokenError
   | ExpiredCustomerPasswordTokenError
   | ExtensionBadResponseError
@@ -127,6 +132,7 @@ export type ErrorObject =
   | ShippingMethodDoesNotMatchCartError
   | StoreCartDiscountsLimitReachedError
   | SyntaxErrorError
+  | ValidityLockConflictError
 export interface IErrorObject {
   [key: string]: any
   /**
@@ -843,6 +849,74 @@ export interface AuthErrorResponse extends ErrorResponse {
    *
    */
   readonly errors: ErrorObject[]
+}
+/**
+ *	Returned when a modification is already in progress for the exact combination of SKU and price scope fields for a Standalone Price.
+ *	Retry the same request after 300 ms.
+ *
+ *	The error is returned as a failed response to:
+ *	- [Create StandalonePrice](ctp:api:endpoint:/{projectKey}/standalone-prices:POST)
+ *	- [Update StandalonePrice by ID](ctp:api:endpoint:/{projectKey}/standalone-prices/{id}:POST)
+ *	- [Update StandalonePrice by Key](ctp:api:endpoint:/{projectKey}/standalone-prices/key={key}:POST)
+ *
+ */
+export interface ExactLockConflictError extends IErrorObject {
+  readonly code: 'ExactLockConflict'
+  [key: string]: any
+  /**
+   *	`"Modification already in progress for the combination of SKU and price scope fields."`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	SKU for which the modification conflict occurred.
+   *
+   *
+   */
+  readonly sku: string
+  /**
+   *	Currency code of the Standalone Price.
+   *
+   *
+   */
+  readonly currency: string
+  /**
+   *	Country code of the geographic location.
+   *
+   *
+   */
+  readonly country?: string
+  /**
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) for which the Standalone Price is valid.
+   *
+   *
+   */
+  readonly customerGroup?: CustomerGroupResourceIdentifier
+  /**
+   *	[Channel](ctp:api:type:Channel) for which the Standalone Price is valid.
+   *
+   *
+   */
+  readonly channel?: ChannelResourceIdentifier
+  /**
+   *	Date and time (UTC) from which the Standalone Price is valid.
+   *
+   *
+   */
+  readonly validFrom?: string
+  /**
+   *	Date and time (UTC) until which the Standalone Price is valid.
+   *
+   *
+   */
+  readonly validUntil?: string
+  /**
+   *	[RecurrencePolicy](ctp:api:type:RecurrencePolicy) that applies to the Standalone Price.
+   *
+   *
+   */
+  readonly recurrencePolicy?: RecurrencePolicyReference
 }
 /**
  *	Returned when the provided email token of the Customer has expired.
@@ -2136,6 +2210,62 @@ export interface SyntaxErrorError extends IErrorObject {
    */
   readonly message: string
 }
+/**
+ *	Returned when a modification is already in progress for the combination of SKU and price scope fields (but potentially different validity period) for a Standalone Price.
+ *	Retry the same request after 300 ms.
+ *
+ *	The error is returned as a failed response to:
+ *	- [Create StandalonePrice](ctp:api:endpoint:/{projectKey}/standalone-prices:POST)
+ *	- [Update StandalonePrice by ID](ctp:api:endpoint:/{projectKey}/standalone-prices/{id}:POST)
+ *	- [Update StandalonePrice by Key](ctp:api:endpoint:/{projectKey}/standalone-prices/key={key}:POST)
+ *
+ */
+export interface ValidityLockConflictError extends IErrorObject {
+  readonly code: 'ValidityLockConflict'
+  [key: string]: any
+  /**
+   *	`"Modification already in progress for the combination of SKU, price scope fields (but potentially different validity period). Please retry after the current operation completes."`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	SKU for which the modification conflict occurred.
+   *
+   *
+   */
+  readonly sku: string
+  /**
+   *	Currency code of the Standalone Price.
+   *
+   *
+   */
+  readonly currency: string
+  /**
+   *	Country code of the geographic location.
+   *
+   *
+   */
+  readonly country?: string
+  /**
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) for which the Standalone Price is valid.
+   *
+   *
+   */
+  readonly customerGroup?: CustomerGroupResourceIdentifier
+  /**
+   *	[Channel](ctp:api:type:Channel) for which the Standalone Price is valid.
+   *
+   *
+   */
+  readonly channel?: ChannelResourceIdentifier
+  /**
+   *	[RecurrencePolicy](ctp:api:type:RecurrencePolicy) for which the Standalone Price is valid.
+   *
+   *
+   */
+  readonly recurrencePolicy?: RecurrencePolicyResourceIdentifier
+}
 export interface VariantValues {
   /**
    *	SKU of the [ProductVariant](ctp:api:type:ProductVariant).
@@ -2184,6 +2314,7 @@ export type GraphQLErrorObject =
   | GraphQLEnumKeyDoesNotExistError
   | GraphQLEnumValueIsUsedError
   | GraphQLEnumValuesMustMatchError
+  | GraphQLExactLockConflictError
   | GraphQLExpiredCustomerEmailTokenError
   | GraphQLExpiredCustomerPasswordTokenError
   | GraphQLExtensionBadResponseError
@@ -2241,6 +2372,7 @@ export type GraphQLErrorObject =
   | GraphQLShippingMethodDoesNotMatchCartError
   | GraphQLStoreCartDiscountsLimitReachedError
   | GraphQLSyntaxErrorError
+  | GraphQLValidityLockConflictError
 export interface IGraphQLErrorObject {
   [key: string]: any
   /**
@@ -2765,6 +2897,68 @@ export interface GraphQLEnumValueIsUsedError extends IGraphQLErrorObject {
 export interface GraphQLEnumValuesMustMatchError extends IGraphQLErrorObject {
   readonly code: 'EnumValuesMustMatch'
   [key: string]: any
+}
+/**
+ *	Returned when a modification is already in progress for the exact combination of SKU and price scope fields for a Standalone Price.
+ *	Retry the same request after 300 ms.
+ *
+ *	The error is returned as a failed response to:
+ *	- [Create StandalonePrice](ctp:api:endpoint:/{projectKey}/standalone-prices:POST)
+ *	- [Update StandalonePrice by ID](ctp:api:endpoint:/{projectKey}/standalone-prices/{id}:POST)
+ *	- [Update StandalonePrice by Key](ctp:api:endpoint:/{projectKey}/standalone-prices/key={key}:POST)
+ *
+ */
+export interface GraphQLExactLockConflictError extends IGraphQLErrorObject {
+  readonly code: 'ExactLockConflict'
+  [key: string]: any
+  /**
+   *	SKU for which the modification conflict occurred.
+   *
+   *
+   */
+  readonly sku: string
+  /**
+   *	Currency code of the Standalone Price.
+   *
+   *
+   */
+  readonly currency: string
+  /**
+   *	Country code of the geographic location.
+   *
+   *
+   */
+  readonly country?: string
+  /**
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) for which the Standalone Price is valid.
+   *
+   *
+   */
+  readonly customerGroup?: CustomerGroupResourceIdentifier
+  /**
+   *	[Channel](ctp:api:type:Channel) for which the Standalone Price is valid.
+   *
+   *
+   */
+  readonly channel?: ChannelResourceIdentifier
+  /**
+   *	Date and time (UTC) from which the Standalone Price is valid.
+   *
+   *
+   */
+  readonly validFrom?: string
+  /**
+   *	Date and time (UTC) until which the Standalone Price is valid.
+   *
+   *
+   */
+  readonly validUntil?: string
+  /**
+   *	[RecurrencePolicy](ctp:api:type:RecurrencePolicy) that applies to the Standalone Price.
+   *
+   *
+   */
+  readonly recurrencePolicy?: RecurrencePolicyReference
 }
 /**
  *	Returned when the provided email token of the Customer has expired.
@@ -3714,4 +3908,54 @@ export interface GraphQLStoreCartDiscountsLimitReachedError
 export interface GraphQLSyntaxErrorError extends IGraphQLErrorObject {
   readonly code: 'SyntaxError'
   [key: string]: any
+}
+/**
+ *	Returned when a modification is already in progress for the combination of SKU and price scope fields (but potentially different validity period) for a Standalone Price.
+ *	Retry the same request after 300 ms.
+ *
+ *	The error is returned as a failed response to:
+ *	- [Create StandalonePrice](ctp:api:endpoint:/{projectKey}/standalone-prices:POST)
+ *	- [Update StandalonePrice by ID](ctp:api:endpoint:/{projectKey}/standalone-prices/{id}:POST)
+ *	- [Update StandalonePrice by Key](ctp:api:endpoint:/{projectKey}/standalone-prices/key={key}:POST)
+ *
+ */
+export interface GraphQLValidityLockConflictError extends IGraphQLErrorObject {
+  readonly code: 'ValidityLockConflict'
+  [key: string]: any
+  /**
+   *	SKU for which the modification conflict occurred.
+   *
+   *
+   */
+  readonly sku: string
+  /**
+   *	Currency code of the Standalone Price.
+   *
+   *
+   */
+  readonly currency: string
+  /**
+   *	Country code of the geographic location.
+   *
+   *
+   */
+  readonly country?: string
+  /**
+   *	[CustomerGroup](ctp:api:type:CustomerGroup) for which the Standalone Price is valid.
+   *
+   *
+   */
+  readonly customerGroup?: CustomerGroupResourceIdentifier
+  /**
+   *	[Channel](ctp:api:type:Channel) for which the Standalone Price is valid.
+   *
+   *
+   */
+  readonly channel?: ChannelResourceIdentifier
+  /**
+   *	[RecurrencePolicy](ctp:api:type:RecurrencePolicy) for which the Standalone Price is valid.
+   *
+   *
+   */
+  readonly recurrencePolicy?: RecurrencePolicyResourceIdentifier
 }
