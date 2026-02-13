@@ -2395,7 +2395,7 @@ export interface OrderAddDeliveryAction extends IOrderUpdateAction {
   readonly custom?: CustomFieldsDraft
 }
 /**
- *	Adds an address to an Order when shipping to multiple addresses is desired.
+ *	Adds an address to the `itemShippingAddresses` of an Order. Use this action when shipping is defined per item. For example, when shipping items to multiple addresses or when using different Shipping Methods, even if all items share the same address.
  *
  */
 export interface OrderAddItemShippingAddressAction extends IOrderUpdateAction {
