@@ -213,7 +213,7 @@ export interface Customer extends BaseResource {
    */
   readonly customerGroupAssignments: CustomerGroupAssignment[]
   /**
-   *	Custom Fields for the Customer.
+   *	Custom Fields of the Customer.
    *
    *
    */

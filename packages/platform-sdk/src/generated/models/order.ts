@@ -536,7 +536,7 @@ export interface CustomLineItemImportDraft {
    */
   readonly state?: ItemState[]
   /**
-   *	Custom Fields of the CustomLineItem.
+   *	Custom Fields for the CustomLineItem.
    *
    *
    */
@@ -737,7 +737,7 @@ export interface LineItemImportDraft {
    */
   readonly state?: ItemState[]
   /**
-   *	Custom Fields of the LineItem.
+   *	Custom Fields for the LineItem.
    *
    *
    */

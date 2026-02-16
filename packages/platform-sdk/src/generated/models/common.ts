@@ -1163,7 +1163,7 @@ export interface QueryPrice {
    */
   readonly discounted?: DiscountedPriceDraft
   /**
-   *	Custom Fields for the Price.
+   *	Custom Fields of the Price.
    *
    *
    */
@@ -1455,7 +1455,7 @@ export interface ScopedPrice {
    */
   readonly discounted?: DiscountedPrice
   /**
-   *	Custom Fields for the Price.
+   *	Custom Fields of the Price.
    *
    *
    */
