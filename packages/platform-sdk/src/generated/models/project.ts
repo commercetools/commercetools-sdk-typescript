@@ -131,7 +131,7 @@ export enum CustomerSearchStatusValues {
 
 export type CustomerSearchStatus = 'Activated' | 'Deactivated' | (string & {})
 /**
- *	Defines how Product Discounts and Cart Discounts are combined for every Line Item in a Cart.
+ *	Defines how Product Discounts and Cart Discounts are combined for Line Items in every Cart of the Project.
  *
  */
 export enum DiscountCombinationModeValues {
