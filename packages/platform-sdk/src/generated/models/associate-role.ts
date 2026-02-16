@@ -81,7 +81,7 @@ export interface AssociateRole extends BaseResource {
    */
   readonly permissions: Permission[]
   /**
-   *	Custom Fields for the AssociateRole.
+   *	Custom Fields of the AssociateRole.
    *
    *
    */

@@ -342,7 +342,7 @@ export interface CustomFields {
    */
   readonly type: TypeReference
   /**
-   *	Object containing the Custom Fields for the [customized resource or data type](/../api/projects/types#resourcetypeid).
+   *	Object containing the Custom Fields of the [customized resource or data type](/../api/projects/types#resourcetypeid).
    *
    *
    */
@@ -3671,7 +3671,7 @@ export interface ScopedPrice {
    */
   readonly discounted?: DiscountedPrice
   /**
-   *	Custom Fields for the Price.
+   *	Custom Fields of the Price.
    *
    *
    */

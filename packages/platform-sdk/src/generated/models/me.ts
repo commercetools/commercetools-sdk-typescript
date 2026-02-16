@@ -1077,7 +1077,7 @@ export interface MyTransactionDraft {
    */
   readonly interactionId?: string
   /**
-   *	Custom Fields of the Transaction.
+   *	Custom Fields for the Transaction.
    *
    *
    */

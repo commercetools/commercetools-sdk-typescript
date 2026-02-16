@@ -164,7 +164,7 @@ export interface StandalonePrice extends BaseResource {
    */
   readonly discounted?: DiscountedPrice
   /**
-   *	Custom Fields for the StandalonePrice.
+   *	Custom Fields of the StandalonePrice.
    *
    *
    */

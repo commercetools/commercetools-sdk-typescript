@@ -105,7 +105,7 @@ export interface Payment extends BaseResource {
    */
   readonly interfaceInteractions: CustomFields[]
   /**
-   *	Custom Fields for the Payment.
+   *	Custom Fields of the Payment.
    *
    *
    */
@@ -498,7 +498,7 @@ export interface TransactionDraft {
    */
   readonly state?: TransactionState
   /**
-   *	Custom Fields of the Transaction.
+   *	Custom Fields for the Transaction.
    *
    */
   readonly custom?: CustomFieldsDraft

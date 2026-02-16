@@ -106,7 +106,7 @@ export interface CustomFields {
    */
   readonly type: TypeReference
   /**
-   *	Object containing the Custom Fields for the [customized resource or data type](/../api/projects/types#resourcetypeid).
+   *	Object containing the Custom Fields of the [customized resource or data type](/../api/projects/types#resourcetypeid).
    *
    *
    */

@@ -123,7 +123,7 @@ export interface Category extends BaseResource {
    */
   readonly metaKeywords?: LocalizedString
   /**
-   *	Custom Fields for the Category.
+   *	Custom Fields of the Category.
    *
    *
    */
