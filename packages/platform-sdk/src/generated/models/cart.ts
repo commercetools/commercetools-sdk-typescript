@@ -1276,6 +1276,8 @@ export interface DiscountedLineItemPrice {
   /**
    *	Money value of the discounted Line Item or Custom Line Item.
    *
+   *	When multiple discounts from `includedDiscounts` apply, they are applied sequentially based on the `sortOrder` of their associated [Cart Discounts](ctp:api:type:CartDiscount) (discounts with higher `sortOrder` values are applied first). The Cart's `priceRoundingMode` field ([RoundingMode](ctp:api:type:RoundingMode)) is applied after each discount calculation, so rounding occurs after each discount step rather than only once on the final cumulative amount.
+   *
    *
    */
   readonly value: TypedMoney
@@ -1295,6 +1297,8 @@ export interface DiscountedLineItemPriceForQuantity {
   readonly quantity: number
   /**
    *	Discounted price of the Line Item or Custom Line Item.
+   *
+   *	When multiple [Cart Discounts](ctp:api:type:CartDiscount) apply to the same Line Item, the discounts are applied sequentially in the order determined by their `sortOrder` values (higher values are applied first). The [price rounding mode](ctp:api:type:RoundingMode) specified by the Cart's `priceRoundingMode` field is applied after each individual discount is calculated, not after all discounts have been applied cumulatively. This means that rounding occurs at each step of the discount calculation process.
    *
    *
    */
