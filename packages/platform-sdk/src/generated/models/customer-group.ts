@@ -68,7 +68,7 @@ export interface CustomerGroup extends BaseResource {
    */
   readonly name: string
   /**
-   *	Custom Fields for the CustomerGroup.
+   *	Custom Fields of the CustomerGroup.
    *
    *
    */
