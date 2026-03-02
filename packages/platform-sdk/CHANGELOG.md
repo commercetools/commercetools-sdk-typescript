@@ -1,5 +1,26 @@
 # @commercetools/platform-sdk
 
+## 8.25.0
+
+### Minor Changes
+
+- [#1231](https://github.com/commercetools/commercetools-sdk-typescript/pull/1231) [`0dc71fe`](https://github.com/commercetools/commercetools-sdk-typescript/commit/0dc71feed0e596e3dcb2f2d91366464d4fe5d6aa) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Api changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `ExactLockConflictError`
+  - added type `ValidityLockConflictError`
+  - added type `GraphQLExactLockConflictError`
+  - added type `GraphQLValidityLockConflictError`
+  </details>
+
+- [#1239](https://github.com/commercetools/commercetools-sdk-typescript/pull/1239) [`4d930a0`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4d930a0c084ae6a4404cee8c893442aeb258c484) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release
+
+### Patch Changes
+
+- Updated dependencies [[`4d930a0`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4d930a0c084ae6a4404cee8c893442aeb258c484)]:
+  - @commercetools/ts-client@4.9.1
+
 ## 8.24.0
 
 ### Minor Changes
