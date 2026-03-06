@@ -54,7 +54,7 @@ jobs:
 
       # setup-node@v4 with registry-url automatically configures OIDC when id-token: write is set
       - name: Setup Node.js for npm publishing
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: "24"
           registry-url: "https://registry.npmjs.org"
