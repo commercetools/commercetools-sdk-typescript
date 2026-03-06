@@ -1,5 +1,18 @@
 # @commercetools/checkout-sdk
 
+## 1.7.0
+
+### Minor Changes
+
+- [#1242](https://github.com/commercetools/commercetools-sdk-typescript/pull/1242) [`a8ef9d1`](https://github.com/commercetools/commercetools-sdk-typescript/commit/a8ef9d120da12d814166620590132a758e816fb8) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Checkout changes**
+
+  <details>
+  <summary>Added Type(s)</summary>
+  - added type `CountryCode`
+  - added type `CurrencyCode`
+  - added type `Locale`
+  </details>
+
 ## 1.6.0
 
 ### Minor Changes
