@@ -1,3 +1,7 @@
+---
+'@commercetools/checkout-sdk': minor
+---
+
 **Checkout changes**
 
 <details>
