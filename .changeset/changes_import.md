@@ -1,3 +1,7 @@
+---
+'@commercetools/importapi-sdk': minor
+---
+
 **Import changes**
 
 <details>
@@ -10,14 +14,4 @@
 <summary>Added Property(s)</summary>
 
 - added property `partiallyImported` to type `OperationStates`
-</details>
-
-**Checkout changes**
-
-<details>
-<summary>Added Type(s)</summary>
-
-- added type `CountryCode`
-- added type `CurrencyCode`
-- added type `Locale`
 </details>

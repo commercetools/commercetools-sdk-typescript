@@ -713,6 +713,7 @@ export type ReferenceType =
 export enum ProcessingStateValues {
   Canceled = 'canceled',
   Imported = 'imported',
+  PartiallyImported = 'partiallyImported',
   Processing = 'processing',
   Rejected = 'rejected',
   Unresolved = 'unresolved',
@@ -723,6 +724,7 @@ export enum ProcessingStateValues {
 export type ProcessingState =
   | 'canceled'
   | 'imported'
+  | 'partiallyImported'
   | 'processing'
   | 'rejected'
   | 'unresolved'
