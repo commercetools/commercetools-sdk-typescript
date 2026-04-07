@@ -30,6 +30,7 @@ export * from './models/payment-integration'
 export * from './models/payment-integration-draft'
 export * from './models/payment-intents'
 export * from './models/responses'
+export * from './models/scalar-types'
 export * from './models/transaction'
 //Common package
 export * from './shared/utils/common-types'

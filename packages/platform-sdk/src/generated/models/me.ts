@@ -1077,7 +1077,7 @@ export interface MyTransactionDraft {
    */
   readonly interactionId?: string
   /**
-   *	Custom Fields of the Transaction.
+   *	Custom Fields for the Transaction.
    *
    *
    */
@@ -1467,7 +1467,7 @@ export interface MyCartAddDiscountCodeAction extends IMyCartUpdateAction {
   readonly code: string
 }
 /**
- *	Adds an address to a Cart when shipping to multiple addresses is desired.
+ *	Adds an address to the `itemShippingAddresses` of a Cart. Use this action when shipping is defined per item. For example, when shipping items to multiple addresses or when using different Shipping Methods, even if all items share the same address.
  *
  */
 export interface MyCartAddItemShippingAddressAction

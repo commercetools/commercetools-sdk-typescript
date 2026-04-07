@@ -112,6 +112,7 @@ export interface DiscountCode extends BaseResource {
   /**
    *	Number of times the DiscountCode can be applied.
    *	DiscountCode application is counted at the time of Order creation or edit. However, Order cancellation or deletion does not decrement the count.
+   *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
    */
@@ -119,6 +120,7 @@ export interface DiscountCode extends BaseResource {
   /**
    *	Number of times the DiscountCode can be applied per Customer (anonymous Carts are not supported).
    *	DiscountCode application is counted at the time of Order creation or edit. However, Order cancellation or deletion does not decrement the count.
+   *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
    */
@@ -204,6 +206,7 @@ export interface DiscountCodeDraft {
    *	Number of times the DiscountCode can be applied.
    *
    *	If not set, the DiscountCode can be applied any number of times.
+   *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
    */
@@ -212,6 +215,7 @@ export interface DiscountCodeDraft {
    *	Number of times the DiscountCode can be applied per Customer.
    *
    *	If not set, the DiscountCode can be applied any number of times.
+   *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
    */
@@ -459,6 +463,7 @@ export interface DiscountCodeSetMaxApplicationsAction
    *	Value to set.
    *
    *	If empty, any existing value will be removed and the DiscountCode can be applied any number of times.
+   *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
    */
@@ -471,6 +476,7 @@ export interface DiscountCodeSetMaxApplicationsPerCustomerAction
    *	Value to set.
    *
    *	If empty, any existing value will be removed and the DiscountCode can be applied any number of times.
+   *	This field does not limit discount applications for Orders created from a [Recurring Order](ctp:api:type:RecurringOrder).
    *
    *
    */
