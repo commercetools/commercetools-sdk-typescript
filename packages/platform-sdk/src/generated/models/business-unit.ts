@@ -199,7 +199,7 @@ export interface IBusinessUnit {
    */
   readonly contactEmail?: string
   /**
-   *	Custom Fields for the Business Unit.
+   *	Custom Fields of the Business Unit.
    *
    *
    */
@@ -722,7 +722,7 @@ export interface Company extends IBusinessUnit {
    */
   readonly contactEmail?: string
   /**
-   *	Custom Fields for the Business Unit.
+   *	Custom Fields of the Business Unit.
    *
    *
    */
@@ -1008,7 +1008,7 @@ export interface Division extends IBusinessUnit {
    */
   readonly contactEmail?: string
   /**
-   *	Custom Fields for the Business Unit.
+   *	Custom Fields of the Business Unit.
    *
    *
    */

@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 4.9.1
+
+### Patch Changes
+
+- [#1239](https://github.com/commercetools/commercetools-sdk-typescript/pull/1239) [`4d930a0`](https://github.com/commercetools/commercetools-sdk-typescript/commit/4d930a0c084ae6a4404cee8c893442aeb258c484) Thanks [@ShipilA](https://github.com/ShipilA)! - Monthly release
+
 ## 4.9.0
 
 ### Minor Changes

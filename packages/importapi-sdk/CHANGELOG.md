@@ -1,5 +1,21 @@
 # @commercetools/importapi-sdk
 
+## 6.15.0
+
+### Minor Changes
+
+- [#1245](https://github.com/commercetools/commercetools-sdk-typescript/pull/1245) [`ac43d9a`](https://github.com/commercetools/commercetools-sdk-typescript/commit/ac43d9a4b59f4ffc4aad1b91e7a0b42ebe8cac2c) Thanks [@ct-sdks](https://github.com/apps/ct-sdks)! - **Import changes**
+
+  <details>
+  <summary>Added Enum(s)</summary>
+  - added enum `partiallyImported` to type `ProcessingState`
+  </details>
+
+  <details>
+  <summary>Added Property(s)</summary>
+  - added property `partiallyImported` to type `OperationStates`
+  </details>
+
 ## 6.14.0
 
 ### Minor Changes

@@ -1,31 +1,23 @@
-**Api changes**
+**Import changes**
 
 <details>
-<summary>Added Type(s)</summary>
+<summary>Added Enum(s)</summary>
 
-- added type `CartDiscountSetRecurringOrderScopeAction`
-- added type `AnyOrder`
-- added type `AnyOrderDraft`
-- added type `ApplicableRecurrencePolicies`
-- added type `ApplicableRecurrencePoliciesDraft`
-- added type `NonRecurringOrdersOnly`
-- added type `NonRecurringOrdersOnlyDraft`
-- added type `RecurringOrderScope`
-- added type `RecurringOrderScopeDraft`
-- added type `RecurringOrdersOnly`
-- added type `RecurringOrdersOnlyDraft`
-</details>
-
-<details>
-<summary>Required Property(s)</summary>
-
-- :warning: changed property `deleteDaysAfterLastModification` of type `CartsConfiguration` to be required
-- :warning: changed property `deleteDaysAfterLastModification` of type `ShoppingListsConfiguration` to be required
+- added enum `partiallyImported` to type `ProcessingState`
 </details>
 
 <details>
 <summary>Added Property(s)</summary>
 
-- added property `recurringOrderScope` to type `CartDiscount`
-- added property `recurringOrderScope` to type `CartDiscountDraft`
+- added property `partiallyImported` to type `OperationStates`
+</details>
+
+**Checkout changes**
+
+<details>
+<summary>Added Type(s)</summary>
+
+- added type `CountryCode`
+- added type `CurrencyCode`
+- added type `Locale`
 </details>

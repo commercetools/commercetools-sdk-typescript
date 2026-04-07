@@ -166,7 +166,7 @@ export interface InventoryEntryDraft {
    */
   readonly expectedDelivery?: string
   /**
-   *	Custom Fields of the InventoryEntry.
+   *	Custom Fields for the InventoryEntry.
    *
    *
    */

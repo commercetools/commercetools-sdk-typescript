@@ -115,7 +115,7 @@ export interface Amount {
   readonly currencyCode: string
 }
 /**
- *	JSON object where the keys are of type [Locale](ctp:api:type:Locale), and the values are the strings used for the corresponding language.
+ *	JSON object where the keys are of type [Locale](ctp:checkout:type:Locale), and the values are the strings used for the corresponding language.
  *
  */
 export interface LocalizedString {

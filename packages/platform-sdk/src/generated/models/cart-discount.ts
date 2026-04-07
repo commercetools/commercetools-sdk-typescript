@@ -276,7 +276,7 @@ export interface CartDiscountDraft {
    */
   readonly stackingMode?: StackingMode
   /**
-   *	Custom Fields of the CartDiscount.
+   *	Custom Fields for the CartDiscount.
    *
    *
    */
