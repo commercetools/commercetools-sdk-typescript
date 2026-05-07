@@ -68,7 +68,6 @@ export async function executeRequest(options: ExecuteRequestOptions) {
         ...request.headers,
         Authorization: `Basic ${basicAuth}`,
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Content-Length': byteLength(body),
       },
       httpClient,
       httpClientOptions,
