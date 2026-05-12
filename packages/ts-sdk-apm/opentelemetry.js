@@ -2,12 +2,10 @@
 require('dotenv').config()
 
 const process = require('process')
-const { v4: uuidv4 } = require('uuid')
 const opentelemetry = require('@opentelemetry/sdk-node')
 const {
   getNodeAutoInstrumentations,
 } = require('@opentelemetry/auto-instrumentations-node')
-const { Resource } = require('@opentelemetry/resources')
 const {
   SemanticResourceAttributes,
 } = require('@opentelemetry/semantic-conventions')
@@ -20,6 +18,7 @@ const {
   PeriodicExportingMetricReader,
 } = require('@opentelemetry/sdk-metrics')
 const api = require('@opentelemetry/api')
+const { generateID } = require('./src/helpers/generateID')
 
 // enable logging ONLY for developement
 // this is useful for debugging instrumentation issues
@@ -39,7 +38,7 @@ if (process.env.NODE_ENV == 'development') {
 //    service. This collection of attributes will be associated with all
 //    telemetry generated from this service (traces, metrics, logs).
 const resource = new Resource({
-  [SemanticResourceAttributes.SERVICE_INSTANCE_ID]: uuidv4(),
+  [SemanticResourceAttributes.SERVICE_INSTANCE_ID]: generateID(),
   [SemanticResourceAttributes.SERVICE_NAME]: process.env['NEW_RELIC_APP_NAME'],
 })
 
@@ -65,7 +64,7 @@ const metricExporter = new OTLPMetricExporter({
 // Configure PeriodicMetricReader
 const metricReader = new PeriodicExportingMetricReader({
   exporter: metricExporter,
-  exportIntervalMillis: 5000,
+  exportIntervalMillis: process.env.METRIC_READER_INTERVAL_MILLIS || 5000,
 })
 
 // Configure the OpenTelemetry NodeSDK
@@ -77,7 +76,7 @@ const sdk = new opentelemetry.NodeSDK({
 })
 
 // Initialize the SDK and register with the OpenTelemetry API:
-//    this enables the API to record telemetry
+// this enables the API to record telemetry
 sdk.start()
 
 // Gracefully shut down the SDK on process exit
