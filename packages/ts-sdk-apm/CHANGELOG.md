@@ -1,5 +1,11 @@
 # @commercetools/ts-sdk-apm
 
+## 4.4.2
+
+### Patch Changes
+
+- [#1274](https://github.com/commercetools/commercetools-sdk-typescript/pull/1274) [`55b82c5`](https://github.com/commercetools/commercetools-sdk-typescript/commit/55b82c5e575d6e19a55977b75b2b264b297edda8) Thanks [@ajimae](https://github.com/ajimae)! - remove uuid package
+
 ## 4.4.1
 
 ### Patch Changes
