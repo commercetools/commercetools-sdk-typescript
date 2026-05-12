@@ -186,10 +186,6 @@ export default function createHttpMiddleware(
           ? request.body
           : JSON.stringify(request.body || undefined)
 
-      if (body && (typeof body === 'string' || isBuffer(body))) {
-        requestHeader['Content-Length'] = byteLength(body)
-      }
-
       const clientOptions: HttpClientOptions = {
         enableRetry,
         retryConfig,
