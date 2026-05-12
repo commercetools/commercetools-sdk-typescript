@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 4.9.2
+
+### Patch Changes
+
+- [#1266](https://github.com/commercetools/commercetools-sdk-typescript/pull/1266) [`6814099`](https://github.com/commercetools/commercetools-sdk-typescript/commit/6814099c19abf13bf1c92b8092815db13cc45161) Thanks [@ajimae](https://github.com/ajimae)! - remove content-length headers and allow underlying client to calculate conent length
+
 ## 4.9.1
 
 ### Patch Changes
