@@ -14,7 +14,6 @@ import {
   TResponse,
 } from '../types/types'
 import {
-  byteLength,
   constants,
   createError,
   executor,
