@@ -3,12 +3,7 @@ import {
   IBuiltRequestParams,
   TokenInfo,
 } from '../../types/types'
-import {
-  byteLength,
-  calculateExpirationTime,
-  createError,
-  executor,
-} from '../../utils'
+import { calculateExpirationTime, createError, executor } from '../../utils'
 import { buildRequestForRefreshTokenFlow } from './auth-request-builder'
 
 export async function executeRequest(options: ExecuteRequestOptions) {
