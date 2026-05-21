@@ -305,6 +305,7 @@ export type IClientOptions = {
   retryConfig?: RetryOptions
   maskSensitiveHeaderData?: boolean
   httpClientOptions?: object
+  request?: MiddlewareRequest
 }
 
 export type HttpClientOptions = IClientOptions & Optional

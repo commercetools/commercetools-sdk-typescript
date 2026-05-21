@@ -57,7 +57,7 @@ export default async function executor(request: HttpClientConfig) {
           ...options,
           ...rest,
           headers: {
-            ...rest.headers,
+            ...Object.assign({}, rest.headers, rest.request?.headers ?? {}),
           },
 
           // for axios
