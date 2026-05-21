@@ -1,5 +1,11 @@
 # @commercetools/ts-client
 
+## 4.9.3
+
+### Patch Changes
+
+- [#1291](https://github.com/commercetools/commercetools-sdk-typescript/pull/1291) [`5638fa6`](https://github.com/commercetools/commercetools-sdk-typescript/commit/5638fa6717ca4326cfa3d3a60b5e3423e416f007) Thanks [@ajimae](https://github.com/ajimae)! - [Feat][DEVX-793] Allow Passing Custom Headers to Http Requests
+
 ## 4.9.2
 
 ### Patch Changes
