@@ -125,7 +125,7 @@ export interface StagedQuote extends BaseResource {
    */
   readonly purchaseOrderNumber?: string
   /**
-   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Staged Quote. Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects.
+   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Staged Quote. Only available for [B2B](/../offering/commerce-b2b)-enabled Projects.
    *
    *
    */
@@ -163,7 +163,7 @@ export interface StagedQuoteDraft {
    */
   readonly key?: string
   /**
-   *	[Custom Fields](/../api/projects/custom-fields) to be added to the StagedQuote.
+   *	[Custom Fields](ctp:api:type:CustomFields) to be added to the StagedQuote.
    *
    *	- If specified, the Custom Fields are merged with the Custom Fields on the referenced [QuoteRequest](ctp:api:type:QuoteRequest) and added to the StagedQuote.
    *	- If empty, the Custom Fields on the referenced [QuoteRequest](ctp:api:type:QuoteRequest) are added to the StagedQuote automatically.
@@ -328,14 +328,16 @@ export interface StagedQuoteSetCustomTypeAction
   extends IStagedQuoteUpdateAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the StagedQuote with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the StagedQuote with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the StagedQuote.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the StagedQuote.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the StagedQuote.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */

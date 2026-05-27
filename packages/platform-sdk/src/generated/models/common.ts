@@ -63,7 +63,11 @@ import {
   DiscountGroupReference,
   DiscountGroupResourceIdentifier,
 } from './discount-group'
-import { Extension } from './extension'
+import {
+  Extension,
+  ExtensionReference,
+  ExtensionResourceIdentifier,
+} from './extension'
 import {
   InventoryEntry,
   InventoryEntryReference,
@@ -120,6 +124,7 @@ import {
   RecurringOrderReference,
   RecurringOrderResourceIdentifier,
 } from './recurring-order'
+import { Reservation, ReservationReference } from './reservation'
 import { Review, ReviewReference, ReviewResourceIdentifier } from './review'
 import {
   ShippingMethod,
@@ -622,6 +627,7 @@ export type _BaseResource =
   | QuoteRequest
   | RecurrencePolicy
   | RecurringOrder
+  | Reservation
   | Review
   | ShippingMethod
   | ShoppingList
@@ -663,7 +669,7 @@ export interface ClientLogging {
    */
   readonly anonymousId?: string
   /**
-   *	Indicates the [Customer](ctp:api:type:Customer) who created or modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
+   *	Indicates the [Customer](ctp:api:type:Customer) who created or modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/../offering/commerce-b2b)-enabled Projects when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
    *
    *
    */
@@ -705,7 +711,7 @@ export interface CreatedBy extends ClientLogging {
    */
   readonly attributedTo?: Attribution
   /**
-   *	Indicates the [Customer](ctp:api:type:Customer) who created the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Project when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
+   *	Indicates the [Customer](ctp:api:type:Customer) who created the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/../offering/commerce-b2b)-enabled Project when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
    *
    *
    */
@@ -849,7 +855,7 @@ export interface LastModifiedBy extends ClientLogging {
    */
   readonly attributedTo?: Attribution
   /**
-   *	Indicates the [Customer](ctp:api:type:Customer) who modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
+   *	Indicates the [Customer](ctp:api:type:Customer) who modified the resource in the context of a [Business Unit](ctp:api:type:BusinessUnit). Only available for [B2B](/../offering/commerce-b2b)-enabled Projects when an Associate acts on behalf of a company using the [associate endpoints](/associates-overview#on-the-associate-endpoints).
    *
    *
    */
@@ -878,7 +884,7 @@ export interface Money {
    */
   readonly centAmount: number
   /**
-   *	Currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *	A currency code compliant with [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) or a [non-standard currency](ctp:api:type:NonStandardCurrency).
    *
    *
    */
@@ -894,6 +900,29 @@ export enum MoneyTypeValues {
 }
 
 export type MoneyType = 'centPrecision' | 'highPrecision' | (string & {})
+/**
+ *	Currencies whose fraction digits are not compliant with [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+ *
+ *	These currencies are treated separately (from their ISO equivalents); for example, a Product Discount for `HUF0` will not apply to a `HUF` price.
+ *
+ */
+export enum NonStandardCurrencyValues {
+  Czk0 = 'CZK0',
+  Huf0 = 'HUF0',
+  Ils0 = 'ILS0',
+  Kzt0 = 'KZT0',
+  Try0 = 'TRY0',
+  Twd0 = 'TWD0',
+}
+
+export type NonStandardCurrency =
+  | 'CZK0'
+  | 'HUF0'
+  | 'ILS0'
+  | 'KZT0'
+  | 'TRY0'
+  | 'TWD0'
+  | (string & {})
 /**
  *	The representation for prices embedded in [LineItems](ctp:api:type:LineItem) and in [ProductVariants](ctp:api:type:ProductVariant) when the [ProductPriceMode](ctp:api:type:ProductPriceModeEnum) is `Embedded`.
  *	For the `Standalone` ProductPriceMode refer to [StandalonePrice](ctp:api:type:StandalonePrice).
@@ -1197,6 +1226,7 @@ export type Reference =
   | DirectDiscountReference
   | DiscountCodeReference
   | DiscountGroupReference
+  | ExtensionReference
   | InventoryEntryReference
   | OrderEditReference
   | OrderReference
@@ -1211,6 +1241,7 @@ export type Reference =
   | QuoteRequestReference
   | RecurrencePolicyReference
   | RecurringOrderReference
+  | ReservationReference
   | ReviewReference
   | ShippingMethodReference
   | ShoppingListReference
@@ -1273,6 +1304,7 @@ export enum ReferenceTypeIdValues {
   QuoteRequest = 'quote-request',
   RecurrencePolicy = 'recurrence-policy',
   RecurringOrder = 'recurring-order',
+  Reservation = 'reservation',
   Review = 'review',
   ShippingMethod = 'shipping-method',
   ShoppingList = 'shopping-list',
@@ -1320,6 +1352,7 @@ export type ReferenceTypeId =
   | 'quote-request'
   | 'recurrence-policy'
   | 'recurring-order'
+  | 'reservation'
   | 'review'
   | 'shipping-method'
   | 'shopping-list'
@@ -1350,6 +1383,7 @@ export type ResourceIdentifier =
   | CustomerResourceIdentifier
   | DiscountCodeResourceIdentifier
   | DiscountGroupResourceIdentifier
+  | ExtensionResourceIdentifier
   | InventoryEntryResourceIdentifier
   | OrderEditResourceIdentifier
   | PaymentResourceIdentifier
@@ -1479,7 +1513,7 @@ export interface ITypedMoney {
    */
   readonly centAmount: number
   /**
-   *	Currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *	A currency code compliant with [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) or a [non-standard currency](ctp:api:type:NonStandardCurrency).
    *
    *
    */
@@ -1517,7 +1551,7 @@ export interface CentPrecisionMoney extends ITypedMoney {
    */
   readonly centAmount: number
   /**
-   *	Currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *	A currency code compliant with [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) or a [non-standard currency](ctp:api:type:NonStandardCurrency).
    *
    *
    */
@@ -1546,7 +1580,7 @@ export interface HighPrecisionMoney extends ITypedMoney {
    */
   readonly centAmount: number
   /**
-   *	Currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *	A currency code compliant with [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) or a [non-standard currency](ctp:api:type:NonStandardCurrency).
    *
    *
    */
@@ -1580,7 +1614,7 @@ export interface ITypedMoneyDraft {
    */
   readonly centAmount?: number
   /**
-   *	Currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *	A currency code compliant with [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) or a [non-standard currency](ctp:api:type:NonStandardCurrency).
    *
    *
    */
@@ -1611,7 +1645,7 @@ export interface CentPrecisionMoneyDraft extends ITypedMoneyDraft {
    */
   readonly centAmount?: number
   /**
-   *	Currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *	A currency code compliant with [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) or a [non-standard currency](ctp:api:type:NonStandardCurrency).
    *
    *
    */
@@ -1641,7 +1675,7 @@ export interface HighPrecisionMoneyDraft extends ITypedMoneyDraft {
    */
   readonly centAmount?: number
   /**
-   *	Currency code compliant to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
+   *	A currency code compliant with [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) or a [non-standard currency](ctp:api:type:NonStandardCurrency).
    *
    *
    */

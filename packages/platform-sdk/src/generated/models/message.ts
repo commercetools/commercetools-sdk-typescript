@@ -272,7 +272,11 @@ export type Message =
   | DiscountGroupSortOrderSetMessage
   | InventoryEntryCreatedMessage
   | InventoryEntryDeletedMessage
+  | InventoryEntryOutOfStockMessage
   | InventoryEntryQuantitySetMessage
+  | InventoryEntryReorderPointMessage
+  | InventoryEntryReservationExpirationInMinutesSetMessage
+  | InventoryEntrySafetyStockMessage
   | LineItemStateTransitionMessage
   | OrderBillingAddressSetMessage
   | OrderBusinessUnitSetMessage
@@ -9373,6 +9377,82 @@ export interface InventoryEntryDeletedMessage extends IMessage {
   readonly supplyChannel?: ChannelReference
 }
 /**
+ *	Generated after [InventoryEntry](ctp:api:type:InventoryEntry) `quantityOnStock` goes to 0.
+ *
+ */
+export interface InventoryEntryOutOfStockMessage extends IMessage {
+  readonly type: 'InventoryEntryOutOfStock'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `sku` of the [InventoryEntry](ctp:api:type:InventoryEntry) whose `quantityOnStock` went to 0.
+   *
+   *
+   */
+  readonly sku: string
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Channel](ctp:api:type:Channel) where the [InventoryEntry](ctp:api:type:InventoryEntry) quantity on stock went to 0.
+   *
+   *
+   */
+  readonly supplyChannel?: ChannelReference
+}
+/**
  *	Generated after a successful [Add Quantity](ctp:api:type:InventoryEntryAddQuantityAction), [Remove Quantity](ctp:api:type:InventoryEntryRemoveQuantityAction) or [Change Quantity](ctp:api:type:InventoryEntryChangeQuantityAction) update action.
  *	Inventory changes as a result of [Order creation](ctp:api:endpoint:/{projectKey}/orders:POST) do not trigger this message.
  *
@@ -9468,6 +9548,247 @@ export interface InventoryEntryQuantitySetMessage extends IMessage {
   readonly sku?: string
   /**
    *	[Reference](ctp:api:type:Reference) to the [Channel](ctp:api:type:Channel) where the [InventoryEntry](ctp:api:type:InventoryEntry) quantity was set.
+   *
+   *
+   */
+  readonly supplyChannel?: ChannelReference
+}
+/**
+ *	Generated after [InventoryEntry](ctp:api:type:InventoryEntry) `quantityOnStock` reaches the configured reorder point level. For more information, see [InventoryEntryStockLevels](ctp:api:type:InventoryEntryStockLevels).
+ *
+ */
+export interface InventoryEntryReorderPointMessage extends IMessage {
+  readonly type: 'InventoryEntryReorderPoint'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `sku` of the [InventoryEntry](ctp:api:type:InventoryEntry) whose `quantityOnStock` reached the configured reorder point level.
+   *
+   *
+   */
+  readonly sku: string
+  /**
+   *	The `quantityOnStock` of the [InventoryEntry](ctp:api:type:InventoryEntry) at the time the reorder point level was reached.
+   *
+   *
+   */
+  readonly quantityOnStock: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Channel](ctp:api:type:Channel) where the [InventoryEntry](ctp:api:type:InventoryEntry) `quantityOnStock` reached the configured reorder point level.
+   *
+   *
+   */
+  readonly supplyChannel?: ChannelReference
+}
+/**
+ *	Generated after a successful [Set Reservation Expiration In Minutes](ctp:api:type:InventoryEntrySetReservationExpirationInMinutesAction) update action.
+ *
+ */
+export interface InventoryEntryReservationExpirationInMinutesSetMessage
+  extends IMessage {
+  readonly type: 'InventoryEntryReservationExpirationInMinutesSet'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	`reservationExpirationInMinutes` value of the [Inventory Entry](ctp:api:type:InventoryEntry) after the [Set Reservation Expiration In Minutes](ctp:api:type:InventoryEntrySetReservationExpirationInMinutesAction) update action.
+   *
+   *
+   */
+  readonly newReservationExpirationInMinutes?: number
+  /**
+   *	`reservationExpirationInMinutes` value of the [Inventory Entry](ctp:api:type:InventoryEntry) before the [Set Reservation Expiration In Minutes](ctp:api:type:InventoryEntrySetReservationExpirationInMinutesAction) update action.
+   *
+   *
+   */
+  readonly oldReservationExpirationInMinutes?: number
+}
+/**
+ *	Generated after [InventoryEntry](ctp:api:type:InventoryEntry) `quantityOnStock` reaches the configured safety stock level. For more information, see [InventoryEntryStockLevels](ctp:api:type:InventoryEntryStockLevels).
+ *
+ */
+export interface InventoryEntrySafetyStockMessage extends IMessage {
+  readonly type: 'InventoryEntrySafetyStock'
+  /**
+   *	Unique identifier of the Message. Can be used to track which Messages have been processed.
+   *
+   */
+  readonly id: string
+  /**
+   *	Version of a resource. In case of Messages, this is always `1`.
+   *
+   */
+  readonly version: number
+  /**
+   *	Date and time (UTC) the Message was generated.
+   *
+   */
+  readonly createdAt: string
+  /**
+   *	Value of `createdAt`.
+   *
+   */
+  readonly lastModifiedAt: string
+  /**
+   *	IDs and references that last modified the Message.
+   *
+   *
+   */
+  readonly lastModifiedBy?: LastModifiedBy
+  /**
+   *	IDs and references that created the Message.
+   *
+   *
+   */
+  readonly createdBy?: CreatedBy
+  /**
+   *	Message number in relation to other Messages for a given resource. The `sequenceNumber` of the next Message for the resource is the successor of the `sequenceNumber` of the current Message. Meaning, the `sequenceNumber` of the next Message equals the `sequenceNumber` of the current Message + 1.
+   *	`sequenceNumber` can be used to ensure that Messages are processed in the correct order for a particular resource.
+   *
+   *
+   */
+  readonly sequenceNumber: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resource: Reference
+  /**
+   *	Version of the resource on which the change or action was performed.
+   *
+   *
+   */
+  readonly resourceVersion: number
+  /**
+   *	User-provided identifiers of the resource, such as `key` or `externalId`. Only present if the resource has such identifiers.
+   *
+   *
+   */
+  readonly resourceUserProvidedIdentifiers?: UserProvidedIdentifiers
+  /**
+   *	The `sku` of the [InventoryEntry](ctp:api:type:InventoryEntry) whose `quantityOnStock` reached the configured safety stock level.
+   *
+   *
+   */
+  readonly sku: string
+  /**
+   *	The `quantityOnStock` of the [InventoryEntry](ctp:api:type:InventoryEntry) at the time the safety stock level was reached.
+   *
+   *
+   */
+  readonly quantityOnStock: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Channel](ctp:api:type:Channel) where the [InventoryEntry](ctp:api:type:InventoryEntry) `quantityOnStock` reached the configured safety stock level.
    *
    *
    */
@@ -24863,7 +25184,11 @@ export type MessagePayload =
   | DiscountGroupSortOrderSetMessagePayload
   | InventoryEntryCreatedMessagePayload
   | InventoryEntryDeletedMessagePayload
+  | InventoryEntryOutOfStockMessagePayload
   | InventoryEntryQuantitySetMessagePayload
+  | InventoryEntryReorderPointMessagePayload
+  | InventoryEntryReservationExpirationInMinutesSetMessagePayload
+  | InventoryEntrySafetyStockMessagePayload
   | LineItemStateTransitionMessagePayload
   | OrderBillingAddressSetMessagePayload
   | OrderBusinessUnitSetMessagePayload
@@ -27077,6 +27402,26 @@ export interface InventoryEntryDeletedMessagePayload extends IMessagePayload {
   readonly supplyChannel?: ChannelReference
 }
 /**
+ *	Generated after [InventoryEntry](ctp:api:type:InventoryEntry) `quantityOnStock` goes to 0.
+ *
+ */
+export interface InventoryEntryOutOfStockMessagePayload
+  extends IMessagePayload {
+  readonly type: 'InventoryEntryOutOfStock'
+  /**
+   *	The `sku` of the [InventoryEntry](ctp:api:type:InventoryEntry) whose `quantityOnStock` went to 0.
+   *
+   *
+   */
+  readonly sku: string
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Channel](ctp:api:type:Channel) where the [InventoryEntry](ctp:api:type:InventoryEntry) quantity on stock went to 0.
+   *
+   *
+   */
+  readonly supplyChannel?: ChannelReference
+}
+/**
  *	Generated after a successful [Add Quantity](ctp:api:type:InventoryEntryAddQuantityAction), [Remove Quantity](ctp:api:type:InventoryEntryRemoveQuantityAction) or [Change Quantity](ctp:api:type:InventoryEntryChangeQuantityAction) update action.
  *	Inventory changes as a result of [Order creation](ctp:api:endpoint:/{projectKey}/orders:POST) do not trigger this message.
  *
@@ -27116,6 +27461,78 @@ export interface InventoryEntryQuantitySetMessagePayload
   readonly sku?: string
   /**
    *	[Reference](ctp:api:type:Reference) to the [Channel](ctp:api:type:Channel) where the [InventoryEntry](ctp:api:type:InventoryEntry) quantity was set.
+   *
+   *
+   */
+  readonly supplyChannel?: ChannelReference
+}
+/**
+ *	Generated after [InventoryEntry](ctp:api:type:InventoryEntry) `quantityOnStock` reaches the configured reorder point level. For more information, see [InventoryEntryStockLevels](ctp:api:type:InventoryEntryStockLevels).
+ *
+ */
+export interface InventoryEntryReorderPointMessagePayload
+  extends IMessagePayload {
+  readonly type: 'InventoryEntryReorderPoint'
+  /**
+   *	The `sku` of the [InventoryEntry](ctp:api:type:InventoryEntry) whose `quantityOnStock` reached the configured reorder point level.
+   *
+   *
+   */
+  readonly sku: string
+  /**
+   *	The `quantityOnStock` of the [InventoryEntry](ctp:api:type:InventoryEntry) at the time the reorder point level was reached.
+   *
+   *
+   */
+  readonly quantityOnStock: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Channel](ctp:api:type:Channel) where the [InventoryEntry](ctp:api:type:InventoryEntry) `quantityOnStock` reached the configured reorder point level.
+   *
+   *
+   */
+  readonly supplyChannel?: ChannelReference
+}
+/**
+ *	Generated after a successful [Set Reservation Expiration In Minutes](ctp:api:type:InventoryEntrySetReservationExpirationInMinutesAction) update action.
+ *
+ */
+export interface InventoryEntryReservationExpirationInMinutesSetMessagePayload
+  extends IMessagePayload {
+  readonly type: 'InventoryEntryReservationExpirationInMinutesSet'
+  /**
+   *	`reservationExpirationInMinutes` value of the [Inventory Entry](ctp:api:type:InventoryEntry) after the [Set Reservation Expiration In Minutes](ctp:api:type:InventoryEntrySetReservationExpirationInMinutesAction) update action.
+   *
+   *
+   */
+  readonly newReservationExpirationInMinutes?: number
+  /**
+   *	`reservationExpirationInMinutes` value of the [Inventory Entry](ctp:api:type:InventoryEntry) before the [Set Reservation Expiration In Minutes](ctp:api:type:InventoryEntrySetReservationExpirationInMinutesAction) update action.
+   *
+   *
+   */
+  readonly oldReservationExpirationInMinutes?: number
+}
+/**
+ *	Generated after [InventoryEntry](ctp:api:type:InventoryEntry) `quantityOnStock` reaches the configured safety stock level. For more information, see [InventoryEntryStockLevels](ctp:api:type:InventoryEntryStockLevels).
+ *
+ */
+export interface InventoryEntrySafetyStockMessagePayload
+  extends IMessagePayload {
+  readonly type: 'InventoryEntrySafetyStock'
+  /**
+   *	The `sku` of the [InventoryEntry](ctp:api:type:InventoryEntry) whose `quantityOnStock` reached the configured safety stock level.
+   *
+   *
+   */
+  readonly sku: string
+  /**
+   *	The `quantityOnStock` of the [InventoryEntry](ctp:api:type:InventoryEntry) at the time the safety stock level was reached.
+   *
+   *
+   */
+  readonly quantityOnStock: number
+  /**
+   *	[Reference](ctp:api:type:Reference) to the [Channel](ctp:api:type:Channel) where the [InventoryEntry](ctp:api:type:InventoryEntry) `quantityOnStock` reached the configured safety stock level.
    *
    *
    */

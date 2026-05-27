@@ -4,7 +4,14 @@
  * For more information about the commercetools platform APIs, visit https://docs.commercetools.com/.
  */
 
-import { BaseResource, CreatedBy, LastModifiedBy, Reference } from './common'
+import {
+  BaseResource,
+  CreatedBy,
+  IReference,
+  IResourceIdentifier,
+  LastModifiedBy,
+  Reference,
+} from './common'
 
 export interface Extension extends BaseResource {
   /**
@@ -66,11 +73,31 @@ export interface Extension extends BaseResource {
    *	If no timeout is provided, the default value is used for all [types of Extensions](ctp:api:type:ExtensionResourceTypeId).
    *
    *	The limit of 10000 ms (10 seconds) can be increased per Project after we review the performance impact.
-   *	Please contact the [Composable Commerce support team](https://support.commercetools.com) and provide the Region, Project key, and use case.
+   *	Please contact the [commercetools support team](https://support.commercetools.com) and provide the Region, Project key, and use case.
    *
    *
    */
   readonly timeoutInMs?: number
+  /**
+   *	References to other Extensions that must complete before this Extension is called. The Extension receives the resource state after all transitive ancestors' update actions have been applied. Maximum 5 entries.
+   *
+   *
+   */
+  readonly dependencies?: ExtensionReference[]
+  /**
+   *	[Expansion paths](/../api/general-concepts#expansion-paths) used for reference expansion of the payload.
+   *
+   *	Be aware of the [limits](/../api/limits#api-extensions) of this feature and its [performance impact](/../api/performance-tips#api-extensions).
+   *
+   *
+   */
+  readonly expansionPaths?: string[]
+  /**
+   *	Configures additional information included in the payload sent to the API Extension.
+   *
+   *
+   */
+  readonly additionalContext?: ExtensionAdditionalContext
 }
 /**
  *	An Extension gets called during any of the following requests of an API call, but before the result is persisted.
@@ -82,6 +109,32 @@ export enum ExtensionActionValues {
 }
 
 export type ExtensionAction = 'Create' | 'Update' | (string & {})
+/**
+ *	Configures additional information included in the payload sent to the API Extension.
+ *
+ */
+export interface ExtensionAdditionalContext {
+  /**
+   *	Set to `true`, if the payload sent to the API Extension should include an [`oldResource`](ctp:api:type:ExtensionInput) field with the state of the resource before the update.
+   *	This only applies to `Update` actions. For `Create` actions, `oldResource` is not included.
+   *
+   *
+   */
+  readonly includeOldResource: boolean
+}
+/**
+ *	Draft for [ExtensionAdditionalContext](ctp:api:type:ExtensionAdditionalContext).
+ *
+ */
+export interface ExtensionAdditionalContextDraft {
+  /**
+   *	Set to `true`, if the payload sent to the API Extension should include an [`oldResource`](ctp:api:type:ExtensionInput) field with the state of the resource before the update.
+   *	This only applies to `Update` actions. For `Create` actions, `oldResource` is not included.
+   *
+   *
+   */
+  readonly includeOldResource?: boolean
+}
 /**
  *	Generic type for destinations.
  */
@@ -145,11 +198,31 @@ export interface ExtensionDraft {
    *	We recommend keeping the timeout as low as possible to avoid performance issues.
    *
    *	The limit of 10000 ms (10 seconds) can be increased per Project after we review the performance impact.
-   *	Please contact the [Composable Commerce support team](https://support.commercetools.com) and provide the Region, Project key, and use case.
+   *	Please contact the [commercetools support team](https://support.commercetools.com) and provide the Region, Project key, and use case.
    *
    *
    */
   readonly timeoutInMs?: number
+  /**
+   *	Extensions that must complete before this Extension is called, identified by `id` or `key`. Maximum 5 entries. If omitted, the Extension has no dependencies and may run concurrently with other independent Extensions.
+   *
+   *
+   */
+  readonly dependencies?: ExtensionResourceIdentifier[]
+  /**
+   *	[Expansion paths](/../api/general-concepts#expansion-paths) used for reference expansion of the payload.
+   *
+   *	Be aware of the [limits](/../api/limits#api-extensions) of this feature and its [performance impact](/../api/performance-tips#api-extensions).
+   *
+   *
+   */
+  readonly expansionPaths?: string[]
+  /**
+   *	Configures additional information included in the payload sent to the API Extension.
+   *
+   *
+   */
+  readonly additionalContext?: ExtensionAdditionalContextDraft
 }
 export interface ExtensionInput {
   /**
@@ -164,6 +237,12 @@ export interface ExtensionInput {
    *
    */
   readonly resource: Reference
+  /**
+   *	Expanded reference to the resource as it was before the update. Only included when [`additionalContext.includeOldResource`](ctp:api:type:ExtensionAdditionalContext) is `true` on the [Extension](ctp:api:type:Extension) and the `action` is `Update`.
+   *
+   *
+   */
+  readonly oldResource?: Reference
 }
 /**
  *	[PagedQueryResult](/../api/general-concepts#pagedqueryresult) with `results` containing an array of [Extension](ctp:api:type:Extension).
@@ -204,6 +283,44 @@ export interface ExtensionPagedQueryResponse {
    *
    */
   readonly results: Extension[]
+}
+/**
+ *	[Reference](ctp:api:type:Reference) to an [Extension](ctp:api:type:Extension).
+ *
+ */
+export interface ExtensionReference extends IReference {
+  readonly typeId: 'extension'
+  /**
+   *	Unique identifier of the referenced [Extension](ctp:api:type:Extension).
+   *
+   *
+   */
+  readonly id: string
+  /**
+   *	Contains the representation of the expanded Extension. Only present in responses to requests with [Reference Expansion](/../api/general-concepts#reference-expansion) for Extensions.
+   *
+   *
+   */
+  readonly obj?: Extension
+}
+/**
+ *	[ResourceIdentifier](ctp:api:type:ResourceIdentifier) to an [Extension](ctp:api:type:Extension). Either `id` or `key` is required. If both are set, an [InvalidJsonInput](/../api/errors#invalidjsoninput) error is returned.
+ *
+ */
+export interface ExtensionResourceIdentifier extends IResourceIdentifier {
+  readonly typeId: 'extension'
+  /**
+   *	Unique identifier of the referenced [Extension](ctp:api:type:Extension). Required if `key` is absent.
+   *
+   *
+   */
+  readonly id?: string
+  /**
+   *	User-defined unique identifier of the referenced [Extension](ctp:api:type:Extension). Required if `id` is absent.
+   *
+   *
+   */
+  readonly key?: string
 }
 /**
  *	Extensions are available for:
@@ -274,6 +391,9 @@ export interface ExtensionUpdate {
 export type ExtensionUpdateAction =
   | ExtensionChangeDestinationAction
   | ExtensionChangeTriggersAction
+  | ExtensionSetAdditionalContextAction
+  | ExtensionSetDependenciesAction
+  | ExtensionSetExpansionPathsAction
   | ExtensionSetKeyAction
   | ExtensionSetTimeoutInMsAction
 export interface IExtensionUpdateAction {
@@ -375,6 +495,37 @@ export interface ExtensionChangeTriggersAction extends IExtensionUpdateAction {
    */
   readonly triggers: ExtensionTrigger[]
 }
+export interface ExtensionSetAdditionalContextAction
+  extends IExtensionUpdateAction {
+  readonly action: 'setAdditionalContext'
+  /**
+   *	New value to set.
+   *
+   *
+   */
+  readonly additionalContext: ExtensionAdditionalContextDraft
+}
+export interface ExtensionSetDependenciesAction extends IExtensionUpdateAction {
+  readonly action: 'setDependencies'
+  /**
+   *	Extensions this Extension depends on, identified by `id` or `key`. Set to an empty array to remove all dependencies. Maximum 5 entries.
+   *
+   *
+   */
+  readonly dependencies: ExtensionResourceIdentifier[]
+}
+export interface ExtensionSetExpansionPathsAction
+  extends IExtensionUpdateAction {
+  readonly action: 'setExpansionPaths'
+  /**
+   *	[Expansion paths](/../api/general-concepts#expansion-paths) used for reference expansion of the payload.
+   *
+   *	Be aware of the [limits](/../api/limits#api-extensions) of this feature and its [performance impact](/../api/performance-tips#api-extensions).
+   *
+   *
+   */
+  readonly expansionPaths: string[]
+}
 export interface ExtensionSetKeyAction extends IExtensionUpdateAction {
   readonly action: 'setKey'
   /**
@@ -392,7 +543,7 @@ export interface ExtensionSetTimeoutInMsAction extends IExtensionUpdateAction {
    *	We recommend keeping the timeout as low as possible to avoid performance issues.
    *
    *	The limit of 10000 ms (10 seconds) can be increased per Project after we review the performance impact.
-   *	Please contact the [Composable Commerce support team](https://support.commercetools.com) and provide the Region, Project key, and use case.
+   *	Please contact the [commercetools support team](https://support.commercetools.com) and provide the Region, Project key, and use case.
    *
    *
    */

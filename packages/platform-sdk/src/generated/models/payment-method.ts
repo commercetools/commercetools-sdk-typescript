@@ -59,7 +59,7 @@ export interface PaymentMethod extends BaseResource {
   /**
    *	Reference to a BusinessUnit associated with the PaymentMethod.
    *
-   *	Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects.
+   *	Only available for [B2B](/../offering/commerce-b2b)-enabled Projects.
    *
    *
    */
@@ -157,7 +157,7 @@ export interface PaymentMethodDraft {
   /**
    *	Reference to a BusinessUnit the PaymentMethod should belong to.
    *
-   *	Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects.
+   *	Only available for [B2B](/../offering/commerce-b2b)-enabled Projects.
    *
    *
    */
@@ -351,14 +351,16 @@ export interface PaymentMethodSetCustomTypeAction
   extends IPaymentMethodUpdateAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the PaymentMethod with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the PaymentMethod with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the PaymentMethod.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the PaymentMethod.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the PaymentMethod.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */

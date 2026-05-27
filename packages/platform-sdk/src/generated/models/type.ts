@@ -330,6 +330,7 @@ export enum ResourceTypeIdValues {
   ProductTailoring = 'product-tailoring',
   Quote = 'quote',
   RecurringOrder = 'recurring-order',
+  Reservation = 'reservation',
   Review = 'review',
   Shipping = 'shipping',
   ShippingMethod = 'shipping-method',
@@ -370,6 +371,7 @@ export type ResourceTypeId =
   | 'product-tailoring'
   | 'quote'
   | 'recurring-order'
+  | 'reservation'
   | 'review'
   | 'shipping'
   | 'shipping-method'

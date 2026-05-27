@@ -690,7 +690,9 @@ export interface ProductProjection extends BaseResource {
    */
   readonly reviewRatingStatistics?: ReviewRatingStatistics
   /**
-   *	Indicates whether the Prices of the Product Projection are [embedded](ctp:api:type:Price) or [standalone](ctp:api:type:StandalonePrice). [Projecting Prices](#prices) only works with `Embedded`, there is currently no support for `Standalone`.
+   *	Indicates whether the Prices of the Product Projection are [embedded](ctp:api:type:Price) or [standalone](ctp:api:type:StandalonePrice).
+   *
+   *	When [projecting Prices by Store](/../api/projects/productProjections#projection-by-store), the API supports only Embedded Prices (`Embedded`).
    *
    *
    */
@@ -914,8 +916,9 @@ export interface ProductVariant {
    */
   readonly key?: string
   /**
-   *	The Embedded Prices of the Product Variant.
-   *	Cannot contain two Prices of the same Price scope (with same currency, country, Customer Group, Channel, `validFrom` and `validUntil`).
+   *	If the Product is [projected by Store](/../api/projects/productProjections#projection-by-store), this field only contains Embedded Prices that are valid for that Store.
+   *
+   *	Cannot contain two Embedded Prices with the same scopes (currency, country, Customer Group, Channel, `validFrom` and `validUntil`).
    *
    *
    */
@@ -927,7 +930,7 @@ export interface ProductVariant {
    */
   readonly attributes?: Attribute[]
   /**
-   *	Only available when [price selection](/../api/pricing-and-discounts-overview#price-selection) is used.
+   *	Only present when [price selection](/../api/pricing-and-discounts-overview#price-selection) is applied.
    *	Cannot be used in a [Query Predicate](ctp:api:type:QueryPredicate).
    *
    *
@@ -955,13 +958,13 @@ export interface ProductVariant {
   readonly availability?: ProductVariantAvailability
   /**
    *	`true` if the Product Variant matches the search query.
-   *	Only available in response to a [Product Projection Search](ctp:api:type:ProductProjectionSearch) request.
+   *	Only available in response to a [Product Projection Search](/../api/projects/product-projection-search) request.
    *
    *
    */
   readonly isMatchingVariant?: boolean
   /**
-   *	Only available in response to a [Product Projection Search](ctp:api:type:ProductProjectionSearch) request
+   *	Only available in response to a [Product Projection Search](/../api/projects/product-projection-search) request
    *	with [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
    *	Can be used to sort, [filter](ctp:api:type:ProductProjectionSearchFilterScopedPrice), and facet.
    *
@@ -969,7 +972,7 @@ export interface ProductVariant {
    */
   readonly scopedPrice?: ScopedPrice
   /**
-   *	Only available in response to a [Product Projection Search](ctp:api:type:ProductProjectionSearchFilterScopedPrice) request
+   *	Only available in response to a [Product Projection Search](/../api/projects/product-projection-search) request
    *	with [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection).
    *
    *
@@ -1515,6 +1518,10 @@ export interface ProductChangeNameAction extends IProductUpdateAction {
    */
   readonly staged?: boolean
 }
+/**
+ *	This action produces the [ProductPriceChanged](ctp:api:type:ProductPriceChangedMessage) Message.
+ *
+ */
 export interface ProductChangePriceAction extends IProductUpdateAction {
   readonly action: 'changePrice'
   /**
@@ -1847,14 +1854,16 @@ export interface ProductSetAssetCustomTypeAction extends IProductUpdateAction {
    */
   readonly assetKey?: string
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the Asset with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the Asset with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the Asset.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Asset.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the Asset.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
@@ -2411,14 +2420,16 @@ export interface ProductSetProductPriceCustomTypeAction
    */
   readonly staged?: boolean
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the Price with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the Price with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the Embedded Price.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Embedded Price.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the Embedded Price.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */

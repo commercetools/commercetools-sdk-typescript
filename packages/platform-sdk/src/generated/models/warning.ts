@@ -7,7 +7,11 @@
 /**
  *	Represents a warning related to the returned response.
  */
-export type WarningObject = ImageProcessingOngoingWarning
+export type WarningObject =
+  | CannotChangeReservationExpiryWarning
+  | CannotCreateReservationWarning
+  | CannotUpdateReservationWarning
+  | ImageProcessingOngoingWarning
 export interface IWarningObject {
   /**
    *	Identifier for the type of warning.
@@ -21,6 +25,113 @@ export interface IWarningObject {
    *
    */
   readonly message: string
+}
+/**
+ *	Contained in responses to a [Cart](/projects/carts) update operation.
+ *	Indicates that a `ReserveOnCart` [Reservation](ctp:api:type:Reservation) was found for a Line Item but its
+ *	expiration date and time cannot be changed using the [Set Reservation Expiration In Minutes](/projects/carts#set-reservation-expiration-in-minutes) update action.
+ *
+ */
+export interface CannotChangeReservationExpiryWarning extends IWarningObject {
+  readonly code: 'CannotChangeReservationExpiry'
+  /**
+   *	`"The reservation expiration for line item $lineItemId cannot be changed."`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	The ID of the Line Item.
+   *
+   *
+   */
+  readonly lineItemId: string
+}
+/**
+ *	Contained in responses to a [Cart](/projects/carts) operation. Indicates that a reservation could not be created for the specified Product.
+ *
+ */
+export interface CannotCreateReservationWarning extends IWarningObject {
+  readonly code: 'CannotCreateReservation'
+  /**
+   *	`"Failed to create a reservation for product $productId (SKU: $sku, Supply Channel: $supplyChannel) with quantity $quantity."`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	The ID of the Product for which the reservation could not be created.
+   *
+   *
+   */
+  readonly productId: string
+  /**
+   *	The SKU of the Product Variant for which the reservation could not be created.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	The ID of the Supply Channel for which the reservation could not be created.
+   *
+   *
+   */
+  readonly supplyChannel?: string
+  /**
+   *	The quantity for which the reservation could not be created.
+   *
+   *
+   */
+  readonly quantity: number
+}
+/**
+ *	Contained in responses to a [Cart](/projects/carts) operation. Indicates that the reservation for a Line Item could not be updated to the requested quantity. The existing reserved amount remains unchanged.
+ *
+ */
+export interface CannotUpdateReservationWarning extends IWarningObject {
+  readonly code: 'CannotUpdateReservation'
+  /**
+   *	`"Failed to update the reservation for line item $lineItemId (Product ID: $productId, SKU: $sku, Supply Channel: $supplyChannel) to a quantity of $requestedQuantity. The reserved amount is still $reservedQuantity."`
+   *
+   *
+   */
+  readonly message: string
+  /**
+   *	The ID of the Line Item.
+   *
+   *
+   */
+  readonly lineItemId: string
+  /**
+   *	The quantity that was requested for the Line Item.
+   *
+   *
+   */
+  readonly requestedQuantity: number
+  /**
+   *	The quantity that remains reserved for the Line Item.
+   *
+   *
+   */
+  readonly reservedQuantity: number
+  /**
+   *	The ID of the Product associated with the Line Item.
+   *
+   *
+   */
+  readonly productId: string
+  /**
+   *	The SKU of the Product Variant associated with the Line Item.
+   *
+   *
+   */
+  readonly sku?: string
+  /**
+   *	The ID of the Supply Channel associated with the reservation.
+   *
+   *
+   */
+  readonly supplyChannel?: string
 }
 /**
  *	Contained in responses to an [Upload Product image](/projects/products#upload-product-image) or an [Upload Product Tailoring image](/projects/product-tailoring#upload-product-tailoring-image) request with response status code `202 Accepted`.

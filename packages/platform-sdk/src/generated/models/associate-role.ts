@@ -413,7 +413,9 @@ export interface AssociateRoleSetCustomTypeAction
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](ctp:api:type:CustomFields) for the AssociateRole.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the AssociateRole.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
