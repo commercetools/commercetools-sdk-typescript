@@ -134,12 +134,16 @@ export interface LocalizedUrl {
  */
 export enum RegionValues {
   AustraliaSoutheast1Gcp = 'australia-southeast1.gcp',
+  EuCentral1Aws = 'eu-central-1.aws',
   EuropeWest1Gcp = 'europe-west1.gcp',
   UsCentral1Gcp = 'us-central1.gcp',
+  UsEast2Aws = 'us-east-2.aws',
 }
 
 export type Region =
   | 'australia-southeast1.gcp'
+  | 'eu-central-1.aws'
   | 'europe-west1.gcp'
   | 'us-central1.gcp'
+  | 'us-east-2.aws'
   | (string & {})

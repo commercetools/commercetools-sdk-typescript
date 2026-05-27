@@ -15,6 +15,7 @@ import { OrderPatchImport } from './order-patches'
 import { OrderImport } from './orders'
 import { PriceImport } from './prices'
 import { ProductSelectionImport } from './product-selections'
+import { ProductTailoringImport } from './product-tailoring'
 import { ProductDraftImport } from './productdrafts'
 import { ProductImport } from './products'
 import { ProductTypeImport } from './producttypes'
@@ -38,6 +39,7 @@ export type ImportRequest =
   | ProductDraftImportRequest
   | ProductImportRequest
   | ProductSelectionImportRequest
+  | ProductTailoringImportRequest
   | ProductTypeImportRequest
   | ProductVariantImportRequest
   | ProductVariantPatchRequest
@@ -256,6 +258,19 @@ export interface ProductSelectionImportRequest extends IImportRequest {
    *
    */
   readonly resources: ProductSelectionImport[]
+}
+/**
+ *	The request body to [import Product Tailoring](ctp:import:endpoint:/{projectKey}/product-tailorings/import-containers/{importContainerKey}:POST). Contains data for [Product Tailoring](ctp:api:type:ProductTailoring) to be created or updated in a Project.
+ *
+ */
+export interface ProductTailoringImportRequest extends IImportRequest {
+  readonly type: 'product-tailoring'
+  /**
+   *	The Product Tailoring import resources of this request.
+   *
+   *
+   */
+  readonly resources: ProductTailoringImport[]
 }
 /**
  *	The request body to [import Business Units](ctp:import:endpoint:/{projectKey}/business-units/import-containers/{importContainerKey}:POST). Contains data for [Business Units](ctp:api:type:BusinessUnit) to be created or updated in a Project.

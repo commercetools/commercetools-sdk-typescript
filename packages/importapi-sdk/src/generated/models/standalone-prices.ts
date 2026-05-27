@@ -38,7 +38,7 @@ export interface StandalonePriceImport extends ImportResource {
    */
   readonly value: TypedMoney
   /**
-   *	Maps to `StandalonePrice.country`. This value cannot be updated. Attempting to update this value will result in an [InvalidFieldsUpdate](/import-export/error#invalidfieldsupdateerror) error.
+   *	Maps to `StandalonePrice.country`. This value cannot be updated. Attempting to update this value will result in an [InvalidFieldsUpdate](ctp:import:type:InvalidFieldsUpdateError) error.
    *
    *
    */
@@ -46,7 +46,7 @@ export interface StandalonePriceImport extends ImportResource {
   /**
    *	Maps to `StandalonePrice.customerGroup`. If the referenced [CustomerGroup](ctp:api:type:CustomerGroup) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced CustomerGroup is created.
    *
-   *	This value cannot be updated. Attempting to update this value will result in an [InvalidFieldsUpdate](/import-export/error#invalidfieldsupdateerror) error.
+   *	This value cannot be updated. Attempting to update this value will result in an [InvalidFieldsUpdate](ctp:import:type:InvalidFieldsUpdateError) error.
    *
    *
    */
@@ -54,7 +54,7 @@ export interface StandalonePriceImport extends ImportResource {
   /**
    *	Maps to `StandalonePrice.channel`. If the referenced [Channel](ctp:api:type:Channel) does not exist, the `state` of the [ImportOperation](ctp:import:type:ImportOperation) will be set to `unresolved` until the referenced Channel is created.
    *
-   *	This value cannot be updated. Attempting to update this value will result in an [InvalidFieldsUpdate](/import-export/error#invalidfieldsupdateerror) error.
+   *	This value cannot be updated. Attempting to update this value will result in an [InvalidFieldsUpdate](ctp:import:type:InvalidFieldsUpdateError) error.
    *
    *
    */
@@ -87,4 +87,12 @@ export interface StandalonePriceImport extends ImportResource {
    *
    */
   readonly custom?: Custom
+  /**
+   *	Maps to `StandalonePrice.active`.
+   *
+   *	To exclude the StandalonePrice from [Product price selection](/../api/pricing-and-discounts-overview#product-price-selection), set to `false`.
+   *
+   *
+   */
+  readonly active?: boolean
 }

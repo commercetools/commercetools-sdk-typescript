@@ -1,3 +1,7 @@
+---
+'@commercetools/platform-sdk': minor
+---
+
 **Api changes**
 
 <details>
@@ -74,77 +78,4 @@
 - added property `reservationExpirationInMinutes` to type `InventoryEntryDraft`
 - added property `stockLevels` to type `InventoryEntryDraft`
 - added property `inventory` to type `Project`
-</details>
-
-**Import changes**
-
-<details>
-<summary>Added Resource(s)</summary>
-
-- added resource `/{projectKey}/product-tailorings`
-- added resource `/{projectKey}/product-tailorings/import-containers`
-- added resource `/{projectKey}/product-tailorings/import-containers/{importContainerKey}`
-</details>
-
-<details>
-<summary>Added Enum(s)</summary>
-
-- added enum `product-tailoring` to type `ImportResourceType`
-</details>
-
-<details>
-<summary>Added Type(s)</summary>
-
-- added type `ProductTailoringImportRequest`
-- added type `ProductVariantTailoringImport`
-- added type `ProductTailoringImport`
-</details>
-
-<details>
-<summary>Added Method(s)</summary>
-
-- added method `apiRoot.withProjectKeyValue().productTailorings().importContainers().withImportContainerKeyValue().post()`
-</details>
-
-<details>
-<summary>Added Property(s)</summary>
-
-- added property `reservationExpirationInMinutes` to type `InventoryImport`
-- added property `active` to type `StandalonePriceImport`
-</details>
-
-**History changes**
-
-<details>
-<summary>Added Enum(s)</summary>
-
-- added enum `setReservationExpirationInMinutes` to type `UpdateType`
-</details>
-
-<details>
-<summary>Added Type(s)</summary>
-
-- added type `SetTransactionInterfaceIdChange`
-</details>
-
-<details>
-<summary>Added Property(s)</summary>
-
-- added property `catalogData` to type `ChangeLocalizedNameChange`
-- added property `catalogData` to type `SetLocalizedDescriptionChange`
-</details>
-
-**Checkout changes**
-
-<details>
-<summary>Added Enum(s)</summary>
-
-- added enum `eu-central-1.aws` to type `Region`
-- added enum `us-east-2.aws` to type `Region`
-</details>
-
-<details>
-<summary>Removed Type(s)</summary>
-
-- :warning: removed type `SetConnectorDeploymentUpdateAction`
 </details>

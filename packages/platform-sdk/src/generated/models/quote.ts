@@ -270,7 +270,7 @@ export interface Quote extends BaseResource {
    */
   readonly purchaseOrderNumber?: string
   /**
-   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Quote. Only available for [B2B](/../offering/composable-commerce#composable-commerce-for-b2b)-enabled Projects.
+   *	The [BusinessUnit](ctp:api:type:BusinessUnit) for the Quote. Only available for [B2B](/../offering/commerce-b2b)-enabled Projects.
    *
    *
    */
@@ -308,7 +308,7 @@ export interface QuoteDraft {
    */
   readonly state?: StateReference
   /**
-   *	[Custom Fields](/../api/projects/custom-fields) to be added to the Quote.
+   *	[Custom Fields](ctp:api:type:CustomFields) to be added to the Quote.
    *
    *	- If specified, the Custom Fields are merged with the Custom Fields on the referenced [StagedQuote](/../api/projects/staged-quotes#stagedquote) and added to the Quote.
    *	- If empty, the Custom Fields on the referenced [StagedQuote](/../api/projects/staged-quotes#stagedquote) are added to the Quote automatically.
@@ -501,14 +501,16 @@ export interface QuoteSetCustomFieldAction extends IQuoteUpdateAction {
 export interface QuoteSetCustomTypeAction extends IQuoteUpdateAction {
   readonly action: 'setCustomType'
   /**
-   *	Defines the [Type](ctp:api:type:Type) that extends the Quote with [Custom Fields](/../api/projects/custom-fields).
+   *	Defines the [Type](ctp:api:type:Type) that extends the Quote with [Custom Fields](ctp:api:type:CustomFields).
    *	If absent, any existing Type and Custom Fields are removed from the Quote.
    *
    *
    */
   readonly type?: TypeResourceIdentifier
   /**
-   *	Sets the [Custom Fields](/../api/projects/custom-fields) fields for the Quote.
+   *	Object containing the [Custom Fields](ctp:api:type:CustomFields) fields for the Quote.
+   *
+   *	Required if at least one Custom Field is defined as required in the `fieldDefinitions` of the referenced [Type](ctp:api:type:Type).
    *
    *
    */
