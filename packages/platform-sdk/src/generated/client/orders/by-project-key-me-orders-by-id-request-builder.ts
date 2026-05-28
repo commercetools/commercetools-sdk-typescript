@@ -25,7 +25,7 @@ export class ByProjectKeyMeOrdersByIDRequestBuilder {
    *	A [ResourceNotFound](ctp:api:type:ResourceNotFoundError) error is returned in the following scenarios:
    *
    *	- If no Order exists for the provided `id`.
-   *	- If the Order exists but does not have either a `customerId` that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope, or an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
+   *	- If the Order exists but does not have either a `customerId` that matches the [customer:{id}](/scopes#internal-oauth) scope, or an `anonymousId` that matches the [anonymous_id:{id}](/scopes#internal-oauth) scope.
    *
    */
   public get(methodArgs?: {
@@ -57,7 +57,7 @@ export class ByProjectKeyMeOrdersByIDRequestBuilder {
    *	A [Not Found](/../api/errors#404-not-found) error is returned in the following scenarios:
    *
    *	- If no Order exists for the provided `id`.
-   *	- If the Order exists but does not have either a `customerId` that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope, or an `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
+   *	- If the Order exists but does not have either a `customerId` that matches the [customer:{id}](/scopes#internal-oauth) scope, or an `anonymousId` that matches the [anonymous_id:{id}](/scopes#internal-oauth) scope.
    *
    */
   public head(methodArgs?: {

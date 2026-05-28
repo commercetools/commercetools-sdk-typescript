@@ -27,7 +27,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeOrdersByIDRequestBuilder {
    *
    *	- If no Orders exists in the Store with the provided `id`.
    *	- If an Order exists but does not have a `store` specified, or the `store` field references a different Store.
-   *	- If an Order exists but does not have a `customerId` that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope, or `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
+   *	- If an Order exists but does not have a `customerId` that matches the [customer:{id}](/scopes#internal-oauth) scope, or `anonymousId` that matches the [anonymous_id:{id}](/scopes#internal-oauth) scope.
    *
    */
   public get(methodArgs?: {
@@ -60,7 +60,7 @@ export class ByProjectKeyInStoreKeyByStoreKeyMeOrdersByIDRequestBuilder {
    *
    *	- If no Order exists in the Store with the provided `id`.
    *	- If an Order exists but does not have a `store` specified, or the `store` field references a different Store.
-   *	- If an Order exists but does not have a `customerId` that matches the [customer:{id}](/scopes#composable-commerce-oauth) scope, or `anonymousId` that matches the [anonymous_id:{id}](/scopes#composable-commerce-oauth) scope.
+   *	- If an Order exists but does not have a `customerId` that matches the [customer:{id}](/scopes#internal-oauth) scope, or `anonymousId` that matches the [anonymous_id:{id}](/scopes#internal-oauth) scope.
    *
    */
   public head(methodArgs?: {
